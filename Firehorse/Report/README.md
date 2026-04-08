@@ -1,5 +1,7 @@
 # Campaign Analytics & Reporting
 
+> **Status: SHIPPED** — TypeScript report module at `src/firehorse/report-module.ts` generates Board Pack, Annual Report, Compliance Summary, and Carbon Footprint formats from DWS IQ validated data. API routes at `/api/v1/firehorse/reports/*`. Legacy Python engine (`report_engine.py`) superseded.
+
 ## Overview
 
 Centralized reporting and analytics for all Firehorse campaigns across investors, customers, and partners.

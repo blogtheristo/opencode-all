@@ -14,31 +14,42 @@
  * All concrete agents extend this class and implement the abstract execute() method.
  */
 
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
-import { createLLMClient, LLMClient } from './llm-client.js';
-import { executeTools, BUILTIN_TOOLS } from './tools.js';
+import { createLLMClient, type LLMClient } from './llm-client.js';
+import { BUILTIN_TOOLS, executeTools } from './tools.js';
+import { telemetryService } from './telemetry.service.js';
+import { checkpointService } from './session-checkpoint.service.js';
+
 import type {
   AgentConfig,
   AgentContext,
-  AgentResponse,
   AgentExecutionLog,
-  GovernancePolicy,
-  PolicyCheckResult,
+  AgentLoopConfig,
+  AgentLoopIteration,
+  AgentResponse,
   GovernanceAuditEntry,
+  GovernancePolicy,
+  LLMResponse,
+  PolicyCheckResult,
   SandboxContext,
   ToolDefinition,
-  LLMResponse,
-  AgentLoopIteration,
-  AgentLoopConfig,
 } from './types.js';
-import { buildSDKSandboxConfig, validateNIS2Compliance, getSandboxStage } from '../sandbox/index.js';
+import {
+  buildSDKSandboxConfig,
+  getSandboxStage,
+  validateNIS2Compliance,
+} from '../sandbox/index.js';
 import type { SDKSandboxConfig } from '../sandbox/index.js';
+import { type MemoryService, memoryService } from './memory.service.js';
 
 export abstract class BaseAgent {
   protected config: AgentConfig;
   private supabase: SupabaseClient | null = null;
   private llmClient: LLMClient | null | undefined = undefined; // undefined = not yet initialized
+
+  /** Shared memory service for store/recall/forget/profile operations */
+  protected readonly memory: MemoryService = memoryService;
 
   constructor(config: AgentConfig) {
     this.config = {
@@ -64,10 +75,7 @@ export abstract class BaseAgent {
    * Existing agents: implement this directly with deterministic logic + callLLM().
    * New agents: can call runLoop() from within execute() for agentic behavior.
    */
-  abstract execute(
-    context: AgentContext,
-    input: Record<string, unknown>,
-  ): Promise<AgentResponse>;
+  abstract execute(context: AgentContext, input: Record<string, unknown>): Promise<AgentResponse>;
 
   // ============ DWS7: AGENTIC LOOP (Fix #1) ============
 
@@ -94,7 +102,15 @@ export abstract class BaseAgent {
     totalTokens: { input: number; output: number };
     model: string;
   }> {
-    const client = this.getLLMClient();
+    // Agent loops use 'agent' mode: Ollama primary, Anthropic fallback
+    const orgScopedClient = createLLMClient(this.config.model, context.orgId, 'agent');
+    if (!orgScopedClient && context.orgId) {
+      logger.debug('runLoop: no provider available', {
+        agent: this.config.name,
+        orgId: context.orgId,
+      });
+    }
+    const client = orgScopedClient ?? this.getLLMClient();
     if (!client) {
       return {
         content: JSON.stringify({
@@ -112,11 +128,13 @@ export abstract class BaseAgent {
       logIterations: true,
     };
 
-    // Merge agent-specific tools with built-in tools
+    // Merge agent-specific tools with built-in tools (including memory)
     const allTools: ToolDefinition[] = [
       ...(tools || []),
       BUILTIN_TOOLS.query_database,
       BUILTIN_TOOLS.emit_event,
+      BUILTIN_TOOLS.memory_store,
+      BUILTIN_TOOLS.memory_recall,
     ];
 
     // Only include delegation tool if allowed
@@ -129,24 +147,43 @@ export abstract class BaseAgent {
       allTools.push(BUILTIN_TOOLS.fetch_external);
     }
 
-    // Build initial conversation
-    const messages: import('./types.js').LLMMessage[] = [
-      { role: 'system', content: systemPrompt },
-      { role: 'user', content: userMessage },
-    ];
+    // ASTA Phase 1: Try to recover from a checkpoint (interruption recovery)
+    let messages: import('./types.js').LLMMessage[];
+    let startIteration = 0;
+    const recovered = await checkpointService.recover(
+      context.sessionId,
+      context.orgId,
+      this.config.name,
+    );
+
+    if (recovered && recovered.agentName === this.config.name) {
+      messages = recovered.messages;
+      startIteration = recovered.iterationIndex;
+      logger.info('Resuming from checkpoint', {
+        agent: this.config.name,
+        session: context.sessionId,
+        iteration: startIteration,
+      });
+    } else {
+      // Build fresh conversation
+      messages = [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userMessage },
+      ];
+    }
 
     const iterations: AgentLoopIteration[] = [];
     let totalInput = 0;
     let totalOutput = 0;
     let model = client.model;
 
-    for (let i = 0; i < loopConfig.maxIterations; i++) {
+    for (let i = startIteration; i < loopConfig.maxIterations; i++) {
       const iterStart = Date.now();
 
-      // OBSERVE + THINK: Send to LLM
+      // OBSERVE + THINK: Send to LLM; pass orgId so Grok consent gate can verify
       let response: LLMResponse;
       try {
-        response = await client.chat(messages, allTools);
+        response = await client.chat(messages, allTools, { orgId: context.orgId });
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : 'Unknown LLM error';
         logger.error('Agentic loop LLM call failed', {
@@ -162,7 +199,29 @@ export abstract class BaseAgent {
       model = response.model;
 
       // If no tool calls, the agent is done thinking
-      if (!response.toolCalls || response.toolCalls.length === 0 || response.stopReason === 'end_turn') {
+      if (
+        !response.toolCalls ||
+        response.toolCalls.length === 0 ||
+        response.stopReason === 'end_turn'
+      ) {
+        // ASTA: Skip detection — agent answered without using tools on first iteration
+        if (i === 0 && !recovered) {
+          telemetryService.recordInvocation({
+            agentName: this.config.name,
+            toolName: '_none',
+            orgId: context.orgId,
+            sessionId: context.sessionId,
+            outcome: 'skip',
+            durationMs: Date.now() - iterStart,
+            isRetry: false,
+            retryCount: 0,
+            chainPosition: 0,
+            chainLength: 0,
+            iterationIndex: i,
+            timestamp: new Date().toISOString(),
+          });
+        }
+
         iterations.push({
           iteration: i,
           phase: 'think',
@@ -185,8 +244,16 @@ export abstract class BaseAgent {
         toolCalls,
       });
 
-      // Execute all tool calls in parallel
-      const toolResults = await executeTools(toolCalls, context);
+      // Execute all tool calls with ASTA telemetry metadata
+      const toolResults = await executeTools(toolCalls, context, {
+        iterationIndex: i,
+        agentName: this.config.name,
+      });
+
+      // ASTA: Partial failure context injection
+      // When some tools succeed and some fail, tell the LLM what happened
+      const successes = toolResults.filter((r) => !r.isError);
+      const failures = toolResults.filter((r) => r.isError);
 
       // Add tool results to conversation
       for (const result of toolResults) {
@@ -194,6 +261,16 @@ export abstract class BaseAgent {
           role: 'tool',
           content: JSON.stringify(result.result),
           toolCallId: result.toolCallId,
+        });
+      }
+
+      if (failures.length > 0 && successes.length > 0) {
+        // Inject partial failure context so the LLM can work with available data
+        const failNames = failures.map((f) => f.name).join(', ');
+        const succNames = successes.map((s) => s.name).join(', ');
+        messages.push({
+          role: 'system',
+          content: `Note: tools ${succNames} succeeded but ${failNames} failed. Proceed with available data. Do not retry failed tools unless you have new information to provide them.`,
         });
       }
 
@@ -212,19 +289,41 @@ export abstract class BaseAgent {
         agent: this.config.name,
         iteration: i,
         toolCalls: toolCalls.map((tc) => tc.name),
+        failures: failures.length,
       });
+
+      // ASTA Phase 1: Save checkpoint after each act phase (non-blocking)
+      checkpointService
+        .checkpoint(context, {
+          messages,
+          iterationIndex: i + 1,
+          partialResults: toolResults,
+          checkpointedAt: new Date().toISOString(),
+          agentName: this.config.name,
+          systemPrompt,
+          userMessage,
+        })
+        .catch(() => {
+          /* non-blocking */
+        });
     }
 
     // Extract final content from last assistant message
     const lastAssistant = [...messages].reverse().find((m) => m.role === 'assistant');
-    const finalContent = typeof lastAssistant?.content === 'string'
-      ? lastAssistant.content
-      : JSON.stringify(lastAssistant?.content || {});
+    const finalContent =
+      typeof lastAssistant?.content === 'string'
+        ? lastAssistant.content
+        : JSON.stringify(lastAssistant?.content || {});
 
     // Log iterations to Supabase if configured
     if (loopConfig.logIterations && iterations.length > 0) {
       await this.logLoopIterations(context, iterations);
     }
+
+    // ASTA: Clear checkpoint on successful completion (non-blocking)
+    checkpointService.clear(context.sessionId, this.config.name).catch(() => {
+      /* non-blocking */
+    });
 
     return {
       content: finalContent,
@@ -258,7 +357,17 @@ export abstract class BaseAgent {
    * For new agents: prefer runLoop() which supports tool use and multi-step reasoning.
    * This method is preserved for backward compatibility with existing agents.
    */
-  protected async callLLM(prompt: string): Promise<{
+  /**
+   * Optional SOUL system prompt set by subclasses to override the generic base prompt.
+   * When set, this is used as the system message in callLLM() instead of the auto-generated one.
+   * Set via: this.soulPrompt = SOUL; in the constructor or execute() method.
+   */
+  protected soulPrompt: string | null = null;
+
+  protected async callLLM(
+    prompt: string,
+    systemPromptOverride?: string,
+  ): Promise<{
     content: string;
     model: string;
     inputTokens: number;
@@ -280,12 +389,15 @@ export abstract class BaseAgent {
       };
     }
 
+    // Priority: explicit override > soulPrompt > generic fallback
+    const systemContent =
+      systemPromptOverride ??
+      this.soulPrompt ??
+      `You are ${this.config.name}, a specialized AI agent for Climate IQ. ${this.config.description}. Always respond with valid JSON.`;
+
     try {
       const response = await client.chat([
-        {
-          role: 'system',
-          content: `You are ${this.config.name}, a specialized AI agent for DWS IQ 6. ${this.config.description}. Always respond with valid JSON.`,
-        },
+        { role: 'system', content: systemContent },
         { role: 'user', content: prompt },
       ]);
 
@@ -440,7 +552,9 @@ export abstract class BaseAgent {
         },
         confidence: 1,
         reasoning: `Execution blocked by governance: ${enforced.map((e) => e.reason).join('; ')}`,
-        recommendations: ['Contact administrator to adjust governance policies or request approval'],
+        recommendations: [
+          'Contact administrator to adjust governance policies or request approval',
+        ],
         metadata: { governance: audit },
       };
     }
@@ -463,37 +577,77 @@ export abstract class BaseAgent {
 
         if (!state || now - state.windowStart > window_ms) {
           BaseAgent.rateLimitState.set(key, { count: 1, windowStart: now });
-          return { policyId: policy.id, allowed: true, reason: 'Within rate limit', enforcement: policy.enforcement };
+          return {
+            policyId: policy.id,
+            allowed: true,
+            reason: 'Within rate limit',
+            enforcement: policy.enforcement,
+          };
         }
 
         state.count++;
         if (state.count > maxCalls) {
-          return { policyId: policy.id, allowed: false, reason: `Rate limit exceeded: ${state.count}/${maxCalls} calls in window`, enforcement: policy.enforcement };
+          return {
+            policyId: policy.id,
+            allowed: false,
+            reason: `Rate limit exceeded: ${state.count}/${maxCalls} calls in window`,
+            enforcement: policy.enforcement,
+          };
         }
-        return { policyId: policy.id, allowed: true, reason: `Rate limit OK: ${state.count}/${maxCalls}`, enforcement: policy.enforcement };
+        return {
+          policyId: policy.id,
+          allowed: true,
+          reason: `Rate limit OK: ${state.count}/${maxCalls}`,
+          enforcement: policy.enforcement,
+        };
       }
 
       case 'cost-limit': {
         const maxCost = (policy.config.max_daily_eur as number) || 50;
-        return { policyId: policy.id, allowed: true, reason: `Cost limit: EUR ${maxCost}/day (tracking active)`, enforcement: policy.enforcement };
+        return {
+          policyId: policy.id,
+          allowed: true,
+          reason: `Cost limit: EUR ${maxCost}/day (tracking active)`,
+          enforcement: policy.enforcement,
+        };
       }
 
       case 'approval-required': {
-        return { policyId: policy.id, allowed: false, reason: 'Human approval required before execution', enforcement: policy.enforcement };
+        return {
+          policyId: policy.id,
+          allowed: false,
+          reason: 'Human approval required before execution',
+          enforcement: policy.enforcement,
+        };
       }
 
       case 'data-boundary': {
         const allowedRegions = (policy.config.allowed_regions as string[]) || ['EU'];
-        return { policyId: policy.id, allowed: true, reason: `Data boundary: ${allowedRegions.join(', ')}`, enforcement: policy.enforcement };
+        return {
+          policyId: policy.id,
+          allowed: true,
+          reason: `Data boundary: ${allowedRegions.join(', ')}`,
+          enforcement: policy.enforcement,
+        };
       }
 
       case 'autonomy-tier': {
         const maxTier = (policy.config.max_tier as number) || 2;
-        return { policyId: policy.id, allowed: true, reason: `Autonomy tier ≤ ${maxTier}`, enforcement: policy.enforcement };
+        return {
+          policyId: policy.id,
+          allowed: true,
+          reason: `Autonomy tier ≤ ${maxTier}`,
+          enforcement: policy.enforcement,
+        };
       }
 
       default:
-        return { policyId: policy.id, allowed: true, reason: 'Unknown policy type - passing', enforcement: policy.enforcement };
+        return {
+          policyId: policy.id,
+          allowed: true,
+          reason: 'Unknown policy type - passing',
+          enforcement: policy.enforcement,
+        };
     }
   }
 
@@ -540,7 +694,7 @@ export abstract class BaseAgent {
     }
 
     const sandboxContext: SandboxContext = {
-      stage,
+      stage: stage === 'opensandbox' ? '1' : stage,
       tier,
       euDataResidency: true,
       allowedPaths: sandboxConfig.filesystem.allowedPaths,

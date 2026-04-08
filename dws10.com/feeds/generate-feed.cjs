@@ -122,9 +122,9 @@ function generateFeed(config) {
     let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
   <channel>
-    <title>Lifetime Firehorse Store - DWS IQ Products</title>
+    <title>Lifetime Firehorse Store — Sovereign AI Products &amp; Services</title>
     <link>${BASE_URL}/buy/</link>
-    <description>Enterprise Climate Compliance Software - DWS IQ Platform, Firehorse Automation, and Expert Services</description>
+    <description>Sovereign AI products and services for enterprises and SMEs. EU-hosted, CLOUD Act free. Climate compliance, industrial AI, and expert advisory by Lifetime Oy.</description>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
 `;
 

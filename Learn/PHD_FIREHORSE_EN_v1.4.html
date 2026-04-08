@@ -1,97 +1,344 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PHD Firehorse Operations Model (EN) v1.4</title>
-<style>
-body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; line-height: 1.7; color: #1a1a2e; background: #fafafa; }
-h1 { color: #0f172a; border-bottom: 3px solid #fbbf24; padding-bottom: 10px; }
-h2 { color: #1e3a5f; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-top: 40px; }
-h3 { color: #334155; }
-h4 { color: #475569; }
-code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
-pre { background: #1e293b; color: #e2e8f0; padding: 16px; border-radius: 8px; overflow-x: auto; }
-pre code { background: none; color: inherit; }
-table { border-collapse: collapse; width: 100%; margin: 20px 0; }
-th, td { border: 1px solid #cbd5e1; padding: 10px 14px; text-align: left; }
-th { background: #1e3a5f; color: white; }
-tr:nth-child(even) { background: #f8fafc; }
-blockquote { border-left: 4px solid #fbbf24; margin: 20px 0; padding: 10px 20px; background: #fffbeb; }
-a { color: #2563eb; }
-strong { color: #0f172a; }
-</style>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>PHD Firehorse EN v1.4</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
 </head>
 <body>
-<h1>Master Thesis: Firehorse Operations Model for AI-Assisted E-Commerce</h1>
-<p><strong>Title:</strong> AI-Native Store Operations: A Case Study of Firehorse Model Implementation with Claude Code
-<strong>Author:</strong> Lifetime Oy Research Division
-<strong>Date:</strong> January 2026
-<strong>Institution:</strong> DWS IQ Research
-<strong>Document Type:</strong> Master Thesis Documentation</p>
+<header id="title-block-header">
+<h1 class="title">PHD Firehorse EN v1.4</h1>
+</header>
+<h1
+id="master-thesis-firehorse-operations-model-for-ai-assisted-e-commerce">Master
+Thesis: Firehorse Operations Model for AI-Assisted E-Commerce</h1>
+<p><strong>Title:</strong> AI-Native Store Operations: A Case Study of
+Firehorse Model Implementation with Claude Code <strong>Author:</strong>
+Lifetime Oy Research Division <strong>Date:</strong> January 2026
+<strong>Institution:</strong> DWS IQ Research <strong>Document
+Type:</strong> Master Thesis Documentation</p>
 <hr />
-<h1>VERSION AND AGENT HISTORY</h1>
-<p>Version: 1.4</p>
-<p>Sessions &amp; Modifications:
-  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Added Section 14.5 DWS7 Agent Architecture Modernization (agentic loops, tool use, multi-provider LLM, MCP server, CLI, Claude Code Skills), added VERSION AND AGENT HISTORY block
-  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition, 16-industry cross-learning analysis, BYOA architecture, Agent Orchestration Studio
-  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Added Appendix E Automated PR Workflow, IPR Protection, Prompt Caching Architecture
-  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: DWS10-Integration | Date: 28.01.2026 | Changes: Initial structured version with 18 sections
-  - Version: 1.0 | Tool: Claude Code (Opus 4.5) | Session: PHD-Init | Date: 15.01.2026 | Changes: Initial document creation</p>
-<p>Document Status:
-  - Created: 15.01.2026
-  - Last Modified: 24.02.2026
-  - Language: English
-  - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V1.4 — DWS7 agent modernization)</p>
+<h2 id="abstract">Abstract</h2>
+<p>This thesis documents the implementation of the Firehorse Operations
+Model, an AI-assisted approach to e-commerce store management using
+Claude Code. The model demonstrates significant efficiency gains in
+product catalog management, Google Merchant Center integration, and
+payment processing through Revolut Business. We present the technical
+architecture, operational workflows, and future evolution toward
+audio-based customer interactions with industry-specific carbon
+calculator integration and EU regulatory compliance.</p>
+<p><strong>Keywords:</strong> AI Operations, E-Commerce Automation,
+Google Merchant Center, Claude Code, Firehorse Model, EU AI Act
+Compliance, Carbon Calculator, Industrial Compliance</p>
 <hr />
-<h2>Abstract</h2>
-<p>This thesis documents the implementation of the Firehorse Operations Model, an AI-assisted approach to e-commerce store management using Claude Code. The model demonstrates significant efficiency gains in product catalog management, Google Merchant Center integration, and payment processing through Revolut Business. We present the technical architecture, operational workflows, and future evolution toward audio-based customer interactions with industry-specific carbon calculator integration and EU regulatory compliance.</p>
-<p><strong>Keywords:</strong> AI Operations, E-Commerce Automation, Google Merchant Center, Claude Code, Firehorse Model, EU AI Act Compliance, Carbon Calculator, Industrial Compliance</p>
-<hr />
-<h2>Table of Contents</h2>
-<ol>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol type="1">
 <li><a href="#1-introduction">Introduction</a></li>
 <li><a href="#2-literature-review">Literature Review</a></li>
-<li><a href="#3-firehorse-operations-model">Firehorse Operations Model</a></li>
-<li><a href="#4-technical-implementation">Technical Implementation</a></li>
-<li><a href="#5-payment-integration-revolut-business">Payment Integration (Revolut Business)</a></li>
-<li><a href="#6-google-merchant-center-operations">Google Merchant Center Operations</a></li>
-<li><a href="#7-eu-regulatory-compliance">EU Regulatory Compliance</a></li>
-<li><a href="#8-product-recommendation-engine">Product Recommendation Engine</a></li>
-<li><a href="#9-audio-chat-evolution-roadmap">Audio Chat Evolution Roadmap</a></li>
-<li><a href="#10-industry-carbon-calculator">Industry Carbon Calculator</a></li>
-<li><a href="#11-proton-products-strategy">Proton Products Strategy</a></li>
-<li><a href="#12-ipr-protection--trade-secret-strategy">IPR Protection &amp; Trade Secret Strategy</a></li>
-<li><a href="#13-prompt-caching-architecture-for-ai-agents">Prompt Caching Architecture for AI Agents</a></li>
-<li><a href="#14-enterprise-multi-tenant-agent-architecture">Enterprise Multi-Tenant Agent Architecture</a></li>
+<li><a href="#3-firehorse-operations-model">Firehorse Operations
+Model</a></li>
+<li><a href="#4-technical-implementation">Technical
+Implementation</a></li>
+<li><a href="#5-payment-integration-revolut-business">Payment
+Integration (Revolut Business)</a></li>
+<li><a href="#6-google-merchant-center-operations">Google Merchant
+Center Operations</a></li>
+<li><a href="#7-eu-regulatory-compliance">EU Regulatory
+Compliance</a></li>
+<li><a href="#8-product-recommendation-engine">Product Recommendation
+Engine</a></li>
+<li><a href="#9-audio-chat-evolution-roadmap">Audio Chat Evolution
+Roadmap</a></li>
+<li><a href="#10-industry-carbon-calculator">Industry Carbon
+Calculator</a></li>
+<li><a href="#11-proton-products-strategy">Proton Products
+Strategy</a></li>
+<li><a href="#12-ipr-protection--trade-secret-strategy">IPR Protection
+&amp; Trade Secret Strategy</a></li>
+<li><a href="#13-prompt-caching-architecture-for-ai-agents">Prompt
+Caching Architecture for AI Agents</a></li>
+<li><a href="#14-enterprise-multi-tenant-agent-architecture">Enterprise
+Multi-Tenant Agent Architecture</a></li>
 <li><a href="#15-results-and-discussion">Results and Discussion</a></li>
 <li><a href="#16-conclusion">Conclusion</a></li>
 <li><a href="#17-references">References</a></li>
 <li><a href="#18-appendices">Appendices</a></li>
 </ol>
 <hr />
-<h2>1. Introduction</h2>
-<h3>1.1 Background</h3>
-<p>The enterprise software market increasingly demands rapid product iteration, compliance with EU regulations, and seamless customer experiences. Traditional e-commerce operations require manual intervention for product updates, feed management, and customer support. The Firehorse Operations Model addresses these challenges through AI-native automation using Claude Code.</p>
-<p>Lifetime Oy operates DWS10.com, an enterprise e-commerce platform serving climate intelligence solutions, compliance software, and professional consulting services to 16 EU-regulated industries. The platform integrates with:</p>
+<h2 id="introduction">1. Introduction</h2>
+<h3 id="background">1.1 Background</h3>
+<p>The enterprise software market increasingly demands rapid product
+iteration, compliance with EU regulations, and seamless customer
+experiences. Traditional e-commerce operations require manual
+intervention for product updates, feed management, and customer support.
+The Firehorse Operations Model addresses these challenges through
+AI-native automation using Claude Code.</p>
+<p>Lifetime Oy operates DWS10.com, an enterprise e-commerce platform
+serving climate intelligence solutions, compliance software, and
+professional consulting services to 16 EU-regulated industries. The
+platform integrates with:</p>
 <ul>
-<li><strong>Google Merchant Center</strong> (Account ID: 8496329) for product visibility</li>
-<li><strong>Revolut Business</strong> for checkout and payment processing</li>
-<li><strong>Claude Code</strong> for automated store maintenance via Firehorse operations model</li>
-<li><strong>Cloudflare Pages</strong> for static hosting with EU data residency</li>
+<li><strong>Google Merchant Center</strong> (Account ID: 8496329) for
+product visibility</li>
+<li><strong>Revolut Business</strong> for checkout and payment
+processing</li>
+<li><strong>Claude Code</strong> for automated store maintenance via
+Firehorse operations model</li>
+<li><strong>Cloudflare Pages</strong> for static hosting with EU data
+residency</li>
 </ul>
-<h3>1.2 Research Questions</h3>
-<ol>
-<li>How can AI assistants effectively manage e-commerce product catalogs?</li>
-<li>What efficiency gains are achievable through automated feed management?</li>
-<li>How should audio-based customer interaction evolve to recommend industry-specific solutions?</li>
+<h3 id="research-questions">1.2 Research Questions</h3>
+<ol type="1">
+<li>How can AI assistants effectively manage e-commerce product
+catalogs?</li>
+<li>What efficiency gains are achievable through automated feed
+management?</li>
+<li>How should audio-based customer interaction evolve to recommend
+industry-specific solutions?</li>
 <li>What EU AI Act requirements impact AI-assisted sales channels?</li>
-<li>How can carbon calculators drive product recommendations for industrial prospects?</li>
+<li>How can carbon calculators drive product recommendations for
+industrial prospects?</li>
 </ol>
-<h3>1.3 Scope</h3>
-<p>This thesis covers the DWS10.com store implementation, serving 30+ products across:</p>
+<h3 id="scope">1.3 Scope</h3>
+<p>This thesis covers the DWS10.com store implementation, serving 30+
+products across:</p>
 <table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 30%" />
+<col style="width: 39%" />
+</colgroup>
 <thead>
 <tr>
 <th>Category</th>
@@ -128,9 +375,12 @@ strong { color: #0f172a; }
 </tbody>
 </table>
 <hr />
-<h2>2. Literature Review</h2>
-<h3>2.1 AI in E-Commerce Operations</h3>
-<p>Recent advances in Large Language Models (LLMs) enable natural language interfaces for complex technical operations. Claude Code, built on Anthropic's Claude model, provides:</p>
+<h2 id="literature-review">2. Literature Review</h2>
+<h3 id="ai-in-e-commerce-operations">2.1 AI in E-Commerce
+Operations</h3>
+<p>Recent advances in Large Language Models (LLMs) enable natural
+language interfaces for complex technical operations. Claude Code, built
+on Anthropic’s Claude model, provides:</p>
 <ul>
 <li>File system manipulation</li>
 <li>Code generation and modification</li>
@@ -138,7 +388,8 @@ strong { color: #0f172a; }
 <li>Multi-step task orchestration</li>
 <li>Git version control integration</li>
 </ul>
-<h3>2.2 Product Information Management</h3>
+<h3 id="product-information-management">2.2 Product Information
+Management</h3>
 <p>Modern Product Information Management (PIM) systems require:</p>
 <ul>
 <li>Centralized data storage (products.json)</li>
@@ -147,9 +398,15 @@ strong { color: #0f172a; }
 <li>Dynamic pricing capabilities</li>
 <li>Checkout link integration</li>
 </ul>
-<h3>2.3 EU Regulatory Framework</h3>
-<p>The European Union's regulatory landscape affecting AI-assisted commerce includes:</p>
-<table>
+<h3 id="eu-regulatory-framework">2.3 EU Regulatory Framework</h3>
+<p>The European Union’s regulatory landscape affecting AI-assisted
+commerce includes:</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 44%" />
+<col style="width: 22%" />
+</colgroup>
 <thead>
 <tr>
 <th>Regulation</th>
@@ -201,9 +458,10 @@ strong { color: #0f172a; }
 </tbody>
 </table>
 <hr />
-<h2>3. Firehorse Operations Model</h2>
-<h3>3.1 Model Overview</h3>
-<p>The Firehorse Operations Model is a human-AI collaborative framework for e-commerce management:</p>
+<h2 id="firehorse-operations-model">3. Firehorse Operations Model</h2>
+<h3 id="model-overview">3.1 Model Overview</h3>
+<p>The Firehorse Operations Model is a human-AI collaborative framework
+for e-commerce management:</p>
 <pre><code>┌─────────────────────────────────────────────────────────────┐
 │                   FIREHORSE OPERATIONS                       │
 ├─────────────────────────────────────────────────────────────┤
@@ -219,18 +477,26 @@ strong { color: #0f172a; }
 │                   │ (Code, Docs)│     │ (Deployments)│      │
 │                   └─────────────┘     └─────────────┘       │
 │                                                              │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
-<h3>3.2 Core Principles</h3>
-<ol>
-<li><strong>Natural Language Interface</strong>: Operations expressed in plain language</li>
+└─────────────────────────────────────────────────────────────┘</code></pre>
+<h3 id="core-principles">3.2 Core Principles</h3>
+<ol type="1">
+<li><strong>Natural Language Interface</strong>: Operations expressed in
+plain language</li>
 <li><strong>Version Control</strong>: All changes tracked via Git</li>
-<li><strong>Audit Trail</strong>: Complete history for EU AI Act compliance</li>
-<li><strong>Reproducibility</strong>: Documented processes for consistency</li>
-<li><strong>Traceability</strong>: Decision lineage for regulatory requirements</li>
+<li><strong>Audit Trail</strong>: Complete history for EU AI Act
+compliance</li>
+<li><strong>Reproducibility</strong>: Documented processes for
+consistency</li>
+<li><strong>Traceability</strong>: Decision lineage for regulatory
+requirements</li>
 </ol>
-<h3>3.3 Operational Domains</h3>
+<h3 id="operational-domains">3.3 Operational Domains</h3>
 <table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 39%" />
+<col style="width: 41%" />
+</colgroup>
 <thead>
 <tr>
 <th>Domain</th>
@@ -266,7 +532,7 @@ strong { color: #0f172a; }
 </tr>
 </tbody>
 </table>
-<h3>3.4 Workflow Examples</h3>
+<h3 id="workflow-examples">3.4 Workflow Examples</h3>
 <p><strong>Product Update Workflow:</strong></p>
 <pre><code>User: &quot;Add new product X at €999&quot;
 Claude Code:
@@ -274,8 +540,7 @@ Claude Code:
   2. Validates required fields
   3. Regenerates Google Merchant feed
   4. Commits changes to Git
-  5. Uploads feed via SFTP
-</code></pre>
+  5. Uploads feed via SFTP</code></pre>
 <p><strong>Documentation Workflow:</strong></p>
 <pre><code>User: &quot;Create admin manual&quot;
 Claude Code:
@@ -283,11 +548,10 @@ Claude Code:
   2. Analyzes system architecture
   3. Generates comprehensive documentation
   4. Creates bilingual versions (EN/FI)
-  5. Commits to repository
-</code></pre>
+  5. Commits to repository</code></pre>
 <hr />
-<h2>4. Technical Implementation</h2>
-<h3>4.1 Architecture</h3>
+<h2 id="technical-implementation">4. Technical Implementation</h2>
+<h3 id="architecture">4.1 Architecture</h3>
 <pre><code>dws10.com/
 ├── buy/                    # Store pages
 │   ├── index.html         # Main store (Page 1)
@@ -301,68 +565,70 @@ Claude Code:
 ├── return-policy/
 │   └── index.html         # Return policy (Google requirement)
 ├── static/images/         # Product images
-└── docs/                   # Documentation
-</code></pre>
-<h3>4.2 Product Data Model</h3>
-<pre><code class="language-json">{
-  &quot;id&quot;: &quot;DWS-IQ-006&quot;,
-  &quot;gtin&quot;: null,
-  &quot;mpn&quot;: &quot;DWSIQ-V6-2026&quot;,
-  &quot;name&quot;: &quot;Lifetime DWS IQ Platform (Version 6)&quot;,
-  &quot;price&quot;: 4999,
-  &quot;currency&quot;: &quot;EUR&quot;,
-  &quot;type&quot;: &quot;one-time&quot;,
-  &quot;description&quot;: &quot;The Industrial Brain for Fit for 55 Compliance. AI-native platform with 5 agents deployed in your cloud.&quot;,
-  &quot;priceNote&quot;: &quot;One-time deployment + €499/mo subscription&quot;,
-  &quot;revolutLink&quot;: &quot;https://checkout.revolut.com/pay/f023d433-0bf4-48fa-98cd-494de448df39&quot;,
-  &quot;image&quot;: &quot;/DWS_IQ2026.png&quot;,
-  &quot;detailsUrl&quot;: &quot;../buy/&quot;,
-  &quot;featured&quot;: true,
-  &quot;google&quot;: {
-    &quot;productCategory&quot;: &quot;Software &gt; Business &amp; Productivity Software&quot;,
-    &quot;condition&quot;: &quot;new&quot;,
-    &quot;availability&quot;: &quot;in_stock&quot;,
-    &quot;brand&quot;: &quot;Lifetime&quot;,
-    &quot;targetCountry&quot;: &quot;FI&quot;,
-    &quot;contentLanguage&quot;: &quot;en&quot;
-  }
-}
-</code></pre>
-<h3>4.3 Feed Generation Pipeline</h3>
-<pre><code class="language-javascript">// generate-feed.cjs workflow
-const generateFeed = () =&gt; {
-  // 1. Load products.json
-  const products = require('../config/products.json');
-
-  // 2. Validate required fields
-  validateProducts(products); // id, mpn, price, brand
-
-  // 3. Generate XML with g: namespace
-  let xml = generateXMLHeader();
-
-  for (const product of products) {
-    xml += generateProductItem(product);
-
-    // 4. Add checkout_link_template for Revolut
-    const checkoutLink = product.revolutLink || 'https://revolut.me/lifetimeoy';
-    xml += `&lt;g:checkout_link_template&gt;${checkoutLink}&lt;/g:checkout_link_template&gt;`;
-  }
-
-  // 5. Write google-products.xml
-  writeFile('google-products.xml', xml);
-};
-</code></pre>
-<h3>4.4 Deployment Pipeline</h3>
+└── docs/                   # Documentation</code></pre>
+<h3 id="product-data-model">4.2 Product Data Model</h3>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;DWS-IQ-006&quot;</span><span class="fu">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;gtin&quot;</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;mpn&quot;</span><span class="fu">:</span> <span class="st">&quot;DWSIQ-V6-2026&quot;</span><span class="fu">,</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;Lifetime DWS IQ Platform (Version 6)&quot;</span><span class="fu">,</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;price&quot;</span><span class="fu">:</span> <span class="dv">4999</span><span class="fu">,</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;currency&quot;</span><span class="fu">:</span> <span class="st">&quot;EUR&quot;</span><span class="fu">,</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;one-time&quot;</span><span class="fu">,</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="st">&quot;The Industrial Brain for Fit for 55 Compliance. AI-native platform with 5 agents deployed in your cloud.&quot;</span><span class="fu">,</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;priceNote&quot;</span><span class="fu">:</span> <span class="st">&quot;One-time deployment + €499/mo subscription&quot;</span><span class="fu">,</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;revolutLink&quot;</span><span class="fu">:</span> <span class="st">&quot;https://checkout.revolut.com/pay/f023d433-0bf4-48fa-98cd-494de448df39&quot;</span><span class="fu">,</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;image&quot;</span><span class="fu">:</span> <span class="st">&quot;/DWS_IQ2026.png&quot;</span><span class="fu">,</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;detailsUrl&quot;</span><span class="fu">:</span> <span class="st">&quot;../buy/&quot;</span><span class="fu">,</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;featured&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;google&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;productCategory&quot;</span><span class="fu">:</span> <span class="st">&quot;Software &gt; Business &amp; Productivity Software&quot;</span><span class="fu">,</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;condition&quot;</span><span class="fu">:</span> <span class="st">&quot;new&quot;</span><span class="fu">,</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;availability&quot;</span><span class="fu">:</span> <span class="st">&quot;in_stock&quot;</span><span class="fu">,</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;brand&quot;</span><span class="fu">:</span> <span class="st">&quot;Lifetime&quot;</span><span class="fu">,</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;targetCountry&quot;</span><span class="fu">:</span> <span class="st">&quot;FI&quot;</span><span class="fu">,</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;contentLanguage&quot;</span><span class="fu">:</span> <span class="st">&quot;en&quot;</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h3 id="feed-generation-pipeline">4.3 Feed Generation Pipeline</h3>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">// generate-feed.cjs workflow</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> generateFeed <span class="op">=</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 1. Load products.json</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> products <span class="op">=</span> <span class="pp">require</span>(<span class="st">&#39;../config/products.json&#39;</span>)<span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 2. Validate required fields</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">validateProducts</span>(products)<span class="op">;</span> <span class="co">// id, mpn, price, brand</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 3. Generate XML with g: namespace</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> xml <span class="op">=</span> <span class="fu">generateXMLHeader</span>()<span class="op">;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> product <span class="kw">of</span> products) {</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    xml <span class="op">+=</span> <span class="fu">generateProductItem</span>(product)<span class="op">;</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 4. Add checkout_link_template for Revolut</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> checkoutLink <span class="op">=</span> product<span class="op">.</span><span class="at">revolutLink</span> <span class="op">||</span> <span class="st">&#39;https://revolut.me/lifetimeoy&#39;</span><span class="op">;</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    xml <span class="op">+=</span> <span class="vs">`&lt;g:checkout_link_template&gt;</span><span class="sc">${</span>checkoutLink<span class="sc">}</span><span class="vs">&lt;/g:checkout_link_template&gt;`</span><span class="op">;</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 5. Write google-products.xml</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">writeFile</span>(<span class="st">&#39;google-products.xml&#39;</span><span class="op">,</span> xml)<span class="op">;</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code></pre></div>
+<h3 id="deployment-pipeline">4.4 Deployment Pipeline</h3>
 <ul>
 <li><strong>Hosting:</strong> Cloudflare Pages (static HTML)</li>
 <li><strong>Build:</strong> Automatic deployment on git push</li>
 <li><strong>Caching:</strong> Edge caching for performance</li>
-<li><strong>Compliance:</strong> EU data residency (Finland/Germany)</li>
+<li><strong>Compliance:</strong> EU data residency
+(Finland/Germany)</li>
 </ul>
 <hr />
-<h2>5. Payment Integration (Revolut Business)</h2>
-<h3>5.1 Why Revolut Business</h3>
-<p>Lifetime Oy selected Revolut Business for payment processing based on:</p>
+<h2 id="payment-integration-revolut-business">5. Payment Integration
+(Revolut Business)</h2>
+<h3 id="why-revolut-business">5.1 Why Revolut Business</h3>
+<p>Lifetime Oy selected Revolut Business for payment processing based
+on:</p>
 <table>
 <thead>
 <tr>
@@ -397,41 +663,46 @@ const generateFeed = () =&gt; {
 </tr>
 </tbody>
 </table>
-<h3>5.2 Checkout Link Architecture</h3>
+<h3 id="checkout-link-architecture">5.2 Checkout Link Architecture</h3>
 <pre><code>┌─────────────┐     ┌─────────────┐     ┌─────────────┐
 │   Product   │ ──► │   Google    │ ──► │   Revolut   │
 │   Catalog   │     │  Merchant   │     │   Checkout  │
 └─────────────┘     └─────────────┘     └─────────────┘
        │                   │                    │
        │    checkout_link_template              │
-       └───────────────────────────────────────►│
-</code></pre>
-<h3>5.3 Payment Flow</h3>
-<ol>
+       └───────────────────────────────────────►│</code></pre>
+<h3 id="payment-flow">5.3 Payment Flow</h3>
+<ol type="1">
 <li>Customer discovers product via Google Shopping</li>
 <li>Clicks through to Revolut checkout</li>
 <li>Completes payment with card/Apple Pay/Google Pay</li>
 <li>Instant settlement to Lifetime Oy account</li>
 <li>Order confirmation sent automatically</li>
 </ol>
-<h3>5.4 Checkout Link Configuration</h3>
+<h3 id="checkout-link-configuration">5.4 Checkout Link
+Configuration</h3>
 <p><strong>Dedicated links per product:</strong></p>
-<pre><code class="language-json">&quot;revolutLink&quot;: &quot;https://checkout.revolut.com/pay/f023d433-0bf4-48fa-98cd-494de448df39&quot;
-</code></pre>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;revolutLink&quot;</span><span class="er">:</span> <span class="st">&quot;https://checkout.revolut.com/pay/f023d433-0bf4-48fa-98cd-494de448df39&quot;</span></span></code></pre></div>
 <p><strong>Fallback for products without specific links:</strong></p>
-<pre><code class="language-json">&quot;revolutFallbackLink&quot;: &quot;https://revolut.me/lifetimeoy&quot;
-</code></pre>
-<h3>5.5 Maintenance Advances</h3>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;revolutFallbackLink&quot;</span><span class="er">:</span> <span class="st">&quot;https://revolut.me/lifetimeoy&quot;</span></span></code></pre></div>
+<h3 id="maintenance-advances">5.5 Maintenance Advances</h3>
 <p>Recent improvements implemented:</p>
 <ul>
-<li><strong>Dedicated checkout links</strong> per product (vs. generic payment page)</li>
-<li><strong>Fallback URL</strong> for products without specific links</li>
-<li><strong>Google Merchant integration</strong> via <code>checkout_link_template</code></li>
-<li><strong>Multi-currency support</strong> ready for Nordic expansion</li>
+<li><strong>Dedicated checkout links</strong> per product (vs. generic
+payment page)</li>
+<li><strong>Fallback URL</strong> for products without specific
+links</li>
+<li><strong>Google Merchant integration</strong> via
+<code>checkout_link_template</code></li>
+<li><strong>Multi-currency support</strong> ready for Nordic
+expansion</li>
 </ul>
 <hr />
-<h2>6. Google Merchant Center Operations</h2>
-<h3>6.1 Account Configuration</h3>
+<h2 id="google-merchant-center-operations">6. Google Merchant Center
+Operations</h2>
+<h3 id="account-configuration">6.1 Account Configuration</h3>
 <table>
 <thead>
 <tr>
@@ -466,7 +737,8 @@ const generateFeed = () =&gt; {
 </tr>
 </tbody>
 </table>
-<h3>6.2 Feed Compliance Requirements</h3>
+<h3 id="feed-compliance-requirements">6.2 Feed Compliance
+Requirements</h3>
 <table>
 <thead>
 <tr>
@@ -489,7 +761,7 @@ const generateFeed = () =&gt; {
 <tr>
 <td>g:brand</td>
 <td>Product brand</td>
-<td>"Lifetime" or "Firehorse"</td>
+<td>“Lifetime” or “Firehorse”</td>
 </tr>
 <tr>
 <td>g:price</td>
@@ -499,7 +771,7 @@ const generateFeed = () =&gt; {
 <tr>
 <td>g:availability</td>
 <td>Stock status</td>
-<td>Always "in_stock" for services</td>
+<td>Always “in_stock” for services</td>
 </tr>
 <tr>
 <td>g:checkout_link_template</td>
@@ -509,22 +781,28 @@ const generateFeed = () =&gt; {
 <tr>
 <td>g:condition</td>
 <td>Product condition</td>
-<td>Always "new"</td>
+<td>Always “new”</td>
 </tr>
 </tbody>
 </table>
-<h3>6.3 SFTP Upload Process</h3>
-<pre><code class="language-bash"># Weekly feed upload to Google Merchant Center
-curl -T google-products.xml \
-  -u &quot;mc-sftp-8496329:PASSWORD&quot; \
-  --insecure \
-  &quot;sftp://partnerupload.google.com:19321/google-products.xml&quot;
-</code></pre>
-<p><strong>Password encoding:</strong> Special characters must be URL-encoded
-- <code>$</code> becomes <code>%24</code>
-- <code>!</code> becomes <code>%21</code></p>
-<h3>6.4 Historical Issues and Resolutions</h3>
+<h3 id="sftp-upload-process">6.3 SFTP Upload Process</h3>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Weekly feed upload to Google Merchant Center</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-T</span> google-products.xml <span class="dt">\</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-u</span> <span class="st">&quot;mc-sftp-8496329:PASSWORD&quot;</span> <span class="dt">\</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--insecure</span> <span class="dt">\</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;sftp://partnerupload.google.com:19321/google-products.xml&quot;</span></span></code></pre></div>
+<p><strong>Password encoding:</strong> Special characters must be
+URL-encoded - <code>$</code> becomes <code>%24</code> - <code>!</code>
+becomes <code>%21</code></p>
+<h3 id="historical-issues-and-resolutions">6.4 Historical Issues and
+Resolutions</h3>
 <table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 38%" />
+<col style="width: 38%" />
+</colgroup>
 <thead>
 <tr>
 <th>Issue</th>
@@ -561,18 +839,30 @@ curl -T google-products.xml \
 </tbody>
 </table>
 <hr />
-<h2>7. EU Regulatory Compliance</h2>
-<h3>7.1 EU AI Act Requirements (August 2026)</h3>
-<p>The EU AI Act classifies AI systems by risk level. Our audio chat and recommendation system falls under <strong>Limited Risk</strong> category, requiring:</p>
-<ol>
-<li><strong>Transparency:</strong> Inform users they're interacting with AI</li>
-<li><strong>Human oversight:</strong> Escalation path to human support</li>
-<li><strong>Documentation:</strong> System capabilities and limitations</li>
+<h2 id="eu-regulatory-compliance">7. EU Regulatory Compliance</h2>
+<h3 id="eu-ai-act-requirements-august-2026">7.1 EU AI Act Requirements
+(August 2026)</h3>
+<p>The EU AI Act classifies AI systems by risk level. Our audio chat and
+recommendation system falls under <strong>Limited Risk</strong>
+category, requiring:</p>
+<ol type="1">
+<li><strong>Transparency:</strong> Inform users they’re interacting with
+AI</li>
+<li><strong>Human oversight:</strong> Escalation path to human
+support</li>
+<li><strong>Documentation:</strong> System capabilities and
+limitations</li>
 <li><strong>Data protection:</strong> GDPR-compliant data handling</li>
 <li><strong>Reasoning lineage:</strong> Traceable decision chains</li>
 </ol>
-<h3>7.2 Compliance Mapping by Product</h3>
+<h3 id="compliance-mapping-by-product">7.2 Compliance Mapping by
+Product</h3>
 <table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 40%" />
+<col style="width: 33%" />
+</colgroup>
 <thead>
 <tr>
 <th>Regulation</th>
@@ -623,15 +913,21 @@ curl -T google-products.xml \
 </tr>
 </tbody>
 </table>
-<h3>7.3 Article 12 Compliance (Automatic Logging)</h3>
-<p>The Firehorse Operations Model ensures EU AI Act Article 12 compliance through:</p>
+<h3 id="article-12-compliance-automatic-logging">7.3 Article 12
+Compliance (Automatic Logging)</h3>
+<p>The Firehorse Operations Model ensures EU AI Act Article 12
+compliance through:</p>
 <ul>
-<li><strong>Git version control:</strong> All changes logged with timestamps</li>
+<li><strong>Git version control:</strong> All changes logged with
+timestamps</li>
 <li><strong>Commit history:</strong> Decision provenance documented</li>
-<li><strong>Feed generation logs:</strong> Processing records maintained</li>
-<li><strong>Audit trail:</strong> Complete history for regulatory review</li>
+<li><strong>Feed generation logs:</strong> Processing records
+maintained</li>
+<li><strong>Audit trail:</strong> Complete history for regulatory
+review</li>
 </ul>
-<h3>7.4 Compliance Disclosure Template</h3>
+<h3 id="compliance-disclosure-template">7.4 Compliance Disclosure
+Template</h3>
 <pre><code>┌─────────────────────────────────────────────────────────────┐
 │ COMPLIANCE DISCLOSURE (EU AI Act Article 52)                │
 ├─────────────────────────────────────────────────────────────┤
@@ -645,11 +941,11 @@ curl -T google-products.xml \
 │ • GDPR - Data protection obligations                        │
 │                                                              │
 │ Human Support: support@lifetime.fi                          │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+└─────────────────────────────────────────────────────────────┘</code></pre>
 <hr />
-<h2>8. Product Recommendation Engine</h2>
-<h3>8.1 Architecture Overview</h3>
+<h2 id="product-recommendation-engine">8. Product Recommendation
+Engine</h2>
+<h3 id="architecture-overview">8.1 Architecture Overview</h3>
 <pre><code>┌─────────────────────────────────────────────────────────────┐
 │            PRODUCT RECOMMENDATION ENGINE                     │
 ├─────────────────────────────────────────────────────────────┤
@@ -671,10 +967,14 @@ curl -T google-products.xml \
 │                    │     Output      │                     │
 │                    └─────────────────┘                     │
 │                                                              │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
-<h3>8.2 Industry Detection Rules</h3>
+└─────────────────────────────────────────────────────────────┘</code></pre>
+<h3 id="industry-detection-rules">8.2 Industry Detection Rules</h3>
 <table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 31%" />
+<col style="width: 33%" />
+</colgroup>
 <thead>
 <tr>
 <th>Industry Indicator</th>
@@ -684,48 +984,48 @@ curl -T google-products.xml \
 </thead>
 <tbody>
 <tr>
-<td>"cement", "concrete"</td>
+<td>“cement”, “concrete”</td>
 <td>Cement</td>
 <td>DWS IQ v6, Climate Bundle</td>
 </tr>
 <tr>
-<td>"steel", "metal"</td>
+<td>“steel”, “metal”</td>
 <td>Steel</td>
 <td>DWS IQ v6, Firehorse Automation</td>
 </tr>
 <tr>
-<td>"chemical", "petrochemical"</td>
+<td>“chemical”, “petrochemical”</td>
 <td>Chemicals</td>
 <td>Firehorse Report, Consulting</td>
 </tr>
 <tr>
-<td>"automotive", "vehicle"</td>
+<td>“automotive”, “vehicle”</td>
 <td>Automotive</td>
 <td>DWS IQ v6, Expert Advisory</td>
 </tr>
 <tr>
-<td>"shipping", "maritime"</td>
+<td>“shipping”, “maritime”</td>
 <td>Maritime</td>
 <td>Firehorse Automation, Report</td>
 </tr>
 <tr>
-<td>"aviation", "airline"</td>
+<td>“aviation”, “airline”</td>
 <td>Aviation</td>
 <td>DWS IQ v6, Consulting Fit55</td>
 </tr>
 <tr>
-<td>"building", "construction"</td>
+<td>“building”, “construction”</td>
 <td>Buildings</td>
 <td>Firehorse CMS, Automation</td>
 </tr>
 <tr>
-<td>"agriculture", "farming"</td>
+<td>“agriculture”, “farming”</td>
 <td>Agriculture</td>
 <td>Climate Bundle, Advisory</td>
 </tr>
 </tbody>
 </table>
-<h3>8.3 Regulation Trigger Matrix</h3>
+<h3 id="regulation-trigger-matrix">8.3 Regulation Trigger Matrix</h3>
 <pre><code>┌──────────────┬──────────────┬───────────────────────┐
 │ Regulation   │ Trigger      │ Recommended Product   │
 ├──────────────┼──────────────┼───────────────────────┤
@@ -735,11 +1035,11 @@ curl -T google-products.xml \
 │ GDPR         │ Personal data│ Protonmail Impl.      │
 │ NIS2         │ Critical infr│ FH CMS, Protonmail    │
 │ CBAM         │ EU imports   │ DWS IQ, Consulting    │
-└──────────────┴──────────────┴───────────────────────┘
-</code></pre>
-<h3>8.4 Bundle Generation Logic</h3>
+└──────────────┴──────────────┴───────────────────────┘</code></pre>
+<h3 id="bundle-generation-logic">8.4 Bundle Generation Logic</h3>
 <p>When multiple regulations apply, generate optimized bundles:</p>
-<p><strong>Example: Manufacturing Company (250+ employees, imports materials)</strong></p>
+<p><strong>Example: Manufacturing Company (250+ employees, imports
+materials)</strong></p>
 <pre><code>Detected Regulations:
 - Fit for 55 (carbon reporting)
 - CSRD (sustainability disclosure)
@@ -753,14 +1053,18 @@ Generated Bundle:
 4. Protonmail Implementation (€499) - Secure communications
 
 Total: €10,497 + €3,000/mo ongoing
-Savings vs. individual: 15%
-</code></pre>
+Savings vs. individual: 15%</code></pre>
 <hr />
-<h2>9. Audio Chat Evolution Roadmap</h2>
-<h3>9.1 Vision</h3>
-<p>Transform customer interactions from text-based to voice-based with intelligent product recommendations using industry-specific carbon calculators and EU regulation awareness.</p>
-<h3>9.2 Phase 1: Foundation (Q1 2026)</h3>
-<p><strong>Objective:</strong> Basic audio chat with product catalog awareness</p>
+<h2 id="audio-chat-evolution-roadmap">9. Audio Chat Evolution
+Roadmap</h2>
+<h3 id="vision">9.1 Vision</h3>
+<p>Transform customer interactions from text-based to voice-based with
+intelligent product recommendations using industry-specific carbon
+calculators and EU regulation awareness.</p>
+<h3 id="phase-1-foundation-q1-2026">9.2 Phase 1: Foundation (Q1
+2026)</h3>
+<p><strong>Objective:</strong> Basic audio chat with product catalog
+awareness</p>
 <pre><code>┌─────────────────────────────────────────────────────────────┐
 │                     AUDIO CHAT v1.0                          │
 ├─────────────────────────────────────────────────────────────┤
@@ -774,35 +1078,30 @@ Savings vs. individual: 15%
 │  │  Voice  │ ◄── Text-to-Speech ◄────── │  Response   │     │
 │  │  Output │                            │  Generator  │     │
 │  └─────────┘                            └─────────────┘     │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
-<p><strong>Features:</strong>
-- Voice input/output (Finnish, English, Swedish)
-- Product catalog search
-- Basic Q&amp;A about services
-- Handoff to human support
-- EU AI Act transparency disclosure</p>
-<p><strong>Technical Stack:</strong>
-- Speech-to-Text: Whisper API
-- Text-to-Speech: ElevenLabs
-- LLM: Groq inference with Llama models (cost-effective)
-- Hosting: Cloudflare Workers</p>
-<h3>9.3 Phase 2: Carbon Calculator Integration (Q2 2026)</h3>
-<p><strong>Objective:</strong> Industry-specific carbon footprint calculation with product recommendations</p>
-<p><strong>Features:</strong>
-- Industry sector detection (16 EU industries)
-- Carbon footprint estimation (Scope 1, 2, 3)
-- Automatic product recommendations based on emissions profile
-- Compliance requirement identification
-- ROI calculation for compliance solutions</p>
+└─────────────────────────────────────────────────────────────┘</code></pre>
+<p><strong>Features:</strong> - Voice input/output (Finnish, English,
+Swedish) - Product catalog search - Basic Q&amp;A about services -
+Handoff to human support - EU AI Act transparency disclosure</p>
+<p><strong>Technical Stack:</strong> - Speech-to-Text: Whisper API -
+Text-to-Speech: ElevenLabs - LLM: Groq inference with Llama models
+(cost-effective) - Hosting: Cloudflare Workers</p>
+<h3 id="phase-2-carbon-calculator-integration-q2-2026">9.3 Phase 2:
+Carbon Calculator Integration (Q2 2026)</h3>
+<p><strong>Objective:</strong> Industry-specific carbon footprint
+calculation with product recommendations</p>
+<p><strong>Features:</strong> - Industry sector detection (16 EU
+industries) - Carbon footprint estimation (Scope 1, 2, 3) - Automatic
+product recommendations based on emissions profile - Compliance
+requirement identification - ROI calculation for compliance
+solutions</p>
 <p><strong>Example Interaction:</strong></p>
-<pre><code>Customer: &quot;We're a cement manufacturer producing 500,000 tonnes annually.
-          What's our estimated carbon footprint and how can you help?&quot;
+<pre><code>Customer: &quot;We&#39;re a cement manufacturer producing 500,000 tonnes annually.
+          What&#39;s our estimated carbon footprint and how can you help?&quot;
 
 Audio Chat: &quot;Based on industry averages for cement production, your estimated
             annual emissions are approximately 450,000 tonnes CO2.
 
-            Under the EU Emissions Trading System, you'll need verified
+            Under the EU Emissions Trading System, you&#39;ll need verified
             reporting by 2026. I recommend:
 
             1. DWS IQ Platform v6 at €4,999 - Automated ETS reporting
@@ -811,16 +1110,14 @@ Audio Chat: &quot;Based on industry averages for cement production, your estimat
             Total investment: €9,949 with 90% reporting time savings.
 
             Would you like me to explain the EU AI Act requirements for
-            these AI-powered compliance tools?&quot;
-</code></pre>
-<h3>9.4 Phase 3: EU Regulation Awareness (Q3 2026)</h3>
-<p><strong>Objective:</strong> Proactive regulatory compliance recommendations</p>
-<p><strong>Features:</strong>
-- Real-time regulation monitoring
-- Customer profile analysis
-- Proactive compliance alerts
-- Multi-regulation bundle optimization
-- Partner product integration</p>
+            these AI-powered compliance tools?&quot;</code></pre>
+<h3 id="phase-3-eu-regulation-awareness-q3-2026">9.4 Phase 3: EU
+Regulation Awareness (Q3 2026)</h3>
+<p><strong>Objective:</strong> Proactive regulatory compliance
+recommendations</p>
+<p><strong>Features:</strong> - Real-time regulation monitoring -
+Customer profile analysis - Proactive compliance alerts -
+Multi-regulation bundle optimization - Partner product integration</p>
 <p><strong>Regulation Detection Matrix:</strong></p>
 <pre><code>Customer Profile Analysis:
 ├── Industry sector
@@ -831,20 +1128,17 @@ Audio Chat: &quot;Based on industry averages for cement production, your estimat
 
 → Automated Regulation Mapping
 → Product Recommendations
-→ Compliance Timeline
-</code></pre>
-<h3>9.5 Phase 4: Partner Ecosystem (Q4 2026)</h3>
-<p><strong>Objective:</strong> Expand recommendations to include partner offerings</p>
-<p><strong>Partner Categories:</strong>
-- Compliance Software Partners
-- ESG Data Providers
-- Carbon Offset Marketplaces
-- Legal Advisory Partners
-- Certification Bodies</p>
-<p><strong>Revenue Model:</strong>
-- Lifetime products: Direct sale
-- Partner products: Referral commission (10-20%)</p>
-<h3>9.6 Implementation Timeline</h3>
+→ Compliance Timeline</code></pre>
+<h3 id="phase-4-partner-ecosystem-q4-2026">9.5 Phase 4: Partner
+Ecosystem (Q4 2026)</h3>
+<p><strong>Objective:</strong> Expand recommendations to include partner
+offerings</p>
+<p><strong>Partner Categories:</strong> - Compliance Software Partners -
+ESG Data Providers - Carbon Offset Marketplaces - Legal Advisory
+Partners - Certification Bodies</p>
+<p><strong>Revenue Model:</strong> - Lifetime products: Direct sale -
+Partner products: Referral commission (10-20%)</p>
+<h3 id="implementation-timeline">9.6 Implementation Timeline</h3>
 <table>
 <thead>
 <tr>
@@ -882,8 +1176,8 @@ Audio Chat: &quot;Based on industry averages for cement production, your estimat
 </tbody>
 </table>
 <hr />
-<h2>10. Industry Carbon Calculator</h2>
-<h3>10.1 Calculator Architecture</h3>
+<h2 id="industry-carbon-calculator">10. Industry Carbon Calculator</h2>
+<h3 id="calculator-architecture">10.1 Calculator Architecture</h3>
 <pre><code>┌─────────────────────────────────────────────────────────────┐
 │              INDUSTRY CARBON CALCULATOR                      │
 ├─────────────────────────────────────────────────────────────┤
@@ -913,9 +1207,8 @@ Audio Chat: &quot;Based on industry averages for cement production, your estimat
 │  │  Maps carbon profile → Lifetime products           │     │
 │  └────────────────────────────────────────────────────┘     │
 │                                                              │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
-<h3>10.2 Industry Emission Factors</h3>
+└─────────────────────────────────────────────────────────────┘</code></pre>
+<h3 id="industry-emission-factors">10.2 Industry Emission Factors</h3>
 <table>
 <thead>
 <tr>
@@ -1007,8 +1300,14 @@ Audio Chat: &quot;Based on industry averages for cement production, your estimat
 </tr>
 </tbody>
 </table>
-<h3>10.3 Product Mapping by Carbon Profile</h3>
+<h3 id="product-mapping-by-carbon-profile">10.3 Product Mapping by
+Carbon Profile</h3>
 <table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 32%" />
+<col style="width: 39%" />
+</colgroup>
 <thead>
 <tr>
 <th>Carbon Profile</th>
@@ -1039,7 +1338,7 @@ Audio Chat: &quot;Based on industry averages for cement production, your estimat
 </tr>
 </tbody>
 </table>
-<h3>10.4 ROI Calculator</h3>
+<h3 id="roi-calculator">10.4 ROI Calculator</h3>
 <pre><code>Input:
 - Current manual reporting hours: 200 hrs/year
 - Hourly cost: €75/hr
@@ -1057,16 +1356,16 @@ Savings:
 ROI:
 - First year: €13,500 - €10,987 = €2,513 net positive
 - Payback period: 9.8 months
-- 3-year savings: €40,500
-</code></pre>
+- 3-year savings: €40,500</code></pre>
 <hr />
-<h2>11. Proton Products Strategy</h2>
-<h3>11.1 Security Product Portfolio</h3>
-<p>Lifetime Oy offers Proton Business Suite implementation as a security-focused product:</p>
-<p><strong>Product:</strong> Protonmail Secure Email &amp; Domains Implementation
-<strong>Price:</strong> €499 (8-hour implementation)
+<h2 id="proton-products-strategy">11. Proton Products Strategy</h2>
+<h3 id="security-product-portfolio">11.1 Security Product Portfolio</h3>
+<p>Lifetime Oy offers Proton Business Suite implementation as a
+security-focused product:</p>
+<p><strong>Product:</strong> Protonmail Secure Email &amp; Domains
+Implementation <strong>Price:</strong> €499 (8-hour implementation)
 <strong>MPN:</strong> PROTON-EMAIL-2026</p>
-<h3>11.2 Included Services</h3>
+<h3 id="included-services">11.2 Included Services</h3>
 <table>
 <thead>
 <tr>
@@ -1101,7 +1400,7 @@ ROI:
 </tr>
 </tbody>
 </table>
-<h3>11.3 Compliance Coverage</h3>
+<h3 id="compliance-coverage">11.3 Compliance Coverage</h3>
 <table>
 <thead>
 <tr>
@@ -1128,16 +1427,16 @@ ROI:
 </tr>
 </tbody>
 </table>
-<h3>11.4 Recommendation Triggers</h3>
+<h3 id="recommendation-triggers">11.4 Recommendation Triggers</h3>
 <p>Audio chat recommends Proton implementation when detecting:</p>
 <ul>
-<li>"security concerns" or "data protection"</li>
-<li>"GDPR compliance" or "privacy"</li>
-<li>"encrypted email" or "secure communication"</li>
-<li>"NIS2" or "cybersecurity requirements"</li>
+<li>“security concerns” or “data protection”</li>
+<li>“GDPR compliance” or “privacy”</li>
+<li>“encrypted email” or “secure communication”</li>
+<li>“NIS2” or “cybersecurity requirements”</li>
 <li>Industry sectors: Healthcare, Legal, Financial</li>
 </ul>
-<h3>11.5 Recommendation Output</h3>
+<h3 id="recommendation-output">11.5 Recommendation Output</h3>
 <pre><code>┌─────────────────────────────────────────────────────────────┐
 │ SECURITY RECOMMENDATION: Protonmail Implementation          │
 ├─────────────────────────────────────────────────────────────┤
@@ -1163,13 +1462,21 @@ ROI:
 │ • Zero-knowledge architecture                               │
 │ • Open source, audited security                             │
 │                                                              │
-└─────────────────────────────────────────────────────────────┘
-</code></pre>
+└─────────────────────────────────────────────────────────────┘</code></pre>
 <hr />
-<h2>12. IPR Protection &amp; Trade Secret Strategy</h2>
-<h3>12.1 Three-Tier IPR Framework</h3>
-<p>The Firehorse Operations Model and its underlying technologies require a structured intellectual property protection strategy. Lifetime Oy employs a three-tier classification framework:</p>
+<h2 id="ipr-protection-trade-secret-strategy">12. IPR Protection &amp;
+Trade Secret Strategy</h2>
+<h3 id="three-tier-ipr-framework">12.1 Three-Tier IPR Framework</h3>
+<p>The Firehorse Operations Model and its underlying technologies
+require a structured intellectual property protection strategy. Lifetime
+Oy employs a three-tier classification framework:</p>
 <table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 29%" />
+<col style="width: 18%" />
+<col style="width: 35%" />
+</colgroup>
 <thead>
 <tr>
 <th>Tier</th>
@@ -1200,24 +1507,42 @@ ROI:
 <tr>
 <td><strong>Tier 3B: Trade Secret</strong></td>
 <td>Internal controls</td>
-<td>Knowledge graph structure (10,000+ nodes), weights, training data</td>
+<td>Knowledge graph structure (10,000+ nodes), weights, training
+data</td>
 <td>EU 2016/943, Finnish Trade Secrets Act 595/2018</td>
 </tr>
 </tbody>
 </table>
-<h3>12.2 NDA Gate for Technical Disclosure</h3>
-<p>Before any technical deep-dive with partners, investors, or customers, the receiving party must sign the Lifetime Oy NDA (EU Trade Secrets Directive 2016/943 compliant). The NDA covers:</p>
+<h3 id="nda-gate-for-technical-disclosure">12.2 NDA Gate for Technical
+Disclosure</h3>
+<p>Before any technical deep-dive with partners, investors, or
+customers, the receiving party must sign the Lifetime Oy NDA (EU Trade
+Secrets Directive 2016/943 compliant). The NDA covers:</p>
 <ul>
-<li><strong>LWM Architecture</strong> — component diagram, data flow, processing pipeline</li>
-<li><strong>Knowledge Graph Structure</strong> — node taxonomy, edge types, relationship model</li>
-<li><strong>BYOC (Bring Your Own Cloud) Logic</strong> — cloud deployment, tenant isolation, data residency</li>
-<li><strong>Agent Orchestration</strong> — MCP server configuration, coordination protocols</li>
-<li><strong>Integration Architecture</strong> — ERP connectors (SAP, IFS, Dynamics)</li>
+<li><strong>LWM Architecture</strong> — component diagram, data flow,
+processing pipeline</li>
+<li><strong>Knowledge Graph Structure</strong> — node taxonomy, edge
+types, relationship model</li>
+<li><strong>BYOC (Bring Your Own Cloud) Logic</strong> — cloud
+deployment, tenant isolation, data residency</li>
+<li><strong>Agent Orchestration</strong> — MCP server configuration,
+coordination protocols</li>
+<li><strong>Integration Architecture</strong> — ERP connectors (SAP,
+IFS, Dynamics)</li>
 </ul>
-<p>Public/marketing materials (Tier 1) can be shared freely without NDA: product teasers, FCD concept overview, market sizing, and high-level architecture diagrams.</p>
-<h3>12.3 Patent Strategy</h3>
-<p>Patentable innovations are filed through PRH (Patentti- ja rekisterihallitus, Finland) with international PCT extension:</p>
+<p>Public/marketing materials (Tier 1) can be shared freely without NDA:
+product teasers, FCD concept overview, market sizing, and high-level
+architecture diagrams.</p>
+<h3 id="patent-strategy">12.3 Patent Strategy</h3>
+<p>Patentable innovations are filed through PRH (Patentti- ja
+rekisterihallitus, Finland) with international PCT extension:</p>
 <table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 26%" />
+<col style="width: 30%" />
+<col style="width: 19%" />
+</colgroup>
 <thead>
 <tr>
 <th>Priority</th>
@@ -1247,10 +1572,19 @@ ROI:
 </tr>
 </tbody>
 </table>
-<p><strong>Critical rule:</strong> Patent applications MUST be filed before any public disclosure of the method. NDA-protected disclosures do not destroy patentability.</p>
-<h3>12.4 Trade Secret as Preferred Protection for Knowledge Graph</h3>
-<p>For the knowledge graph (10,000+ nodes), trade secret protection is strategically preferred over patents:</p>
+<p><strong>Critical rule:</strong> Patent applications MUST be filed
+before any public disclosure of the method. NDA-protected disclosures do
+not destroy patentability.</p>
+<h3 id="trade-secret-as-preferred-protection-for-knowledge-graph">12.4
+Trade Secret as Preferred Protection for Knowledge Graph</h3>
+<p>For the knowledge graph (10,000+ nodes), trade secret protection is
+strategically preferred over patents:</p>
 <table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 27%" />
+<col style="width: 44%" />
+</colgroup>
 <thead>
 <tr>
 <th>Factor</th>
@@ -1271,7 +1605,7 @@ ROI:
 </tr>
 <tr>
 <td>Competitor awareness</td>
-<td>Knows exactly what's protected</td>
+<td>Knows exactly what’s protected</td>
 <td>Cannot know what to copy</td>
 </tr>
 <tr>
@@ -1281,35 +1615,64 @@ ROI:
 </tr>
 </tbody>
 </table>
-<p>Trade secret status under EU Directive 2016/943 requires: (1) the information is secret, (2) it has commercial value because it is secret, and (3) reasonable steps have been taken to keep it secret. Lifetime Oy maintains access controls, encryption, employee confidentiality agreements, and internal classification registers.</p>
-<h3>12.5 Implications for Firehorse Operations</h3>
-<p>The IPR framework directly impacts Firehorse e-commerce operations:</p>
+<p>Trade secret status under EU Directive 2016/943 requires: (1) the
+information is secret, (2) it has commercial value because it is secret,
+and (3) reasonable steps have been taken to keep it secret. Lifetime Oy
+maintains access controls, encryption, employee confidentiality
+agreements, and internal classification registers.</p>
+<h3 id="implications-for-firehorse-operations">12.5 Implications for
+Firehorse Operations</h3>
+<p>The IPR framework directly impacts Firehorse e-commerce
+operations:</p>
 <ul>
-<li><strong>Product descriptions</strong> on dws10.com describe <em>what</em> the platform does (Tier 1), never <em>how</em> it works</li>
-<li><strong>Investor pitch decks</strong> share problem/solution/market freely; architecture details require NDA</li>
-<li><strong>Conference presentations</strong> discuss EU compliance gaps, not algorithm specifics</li>
-<li><strong>Customer demos</strong> operate under NDA with watermarked materials</li>
-<li><strong>Store product pages</strong> reference capabilities, not implementation details</li>
+<li><strong>Product descriptions</strong> on dws10.com describe
+<em>what</em> the platform does (Tier 1), never <em>how</em> it
+works</li>
+<li><strong>Investor pitch decks</strong> share problem/solution/market
+freely; architecture details require NDA</li>
+<li><strong>Conference presentations</strong> discuss EU compliance
+gaps, not algorithm specifics</li>
+<li><strong>Customer demos</strong> operate under NDA with watermarked
+materials</li>
+<li><strong>Store product pages</strong> reference capabilities, not
+implementation details</li>
 </ul>
 <hr />
-<h2>13. Prompt Caching Architecture for AI Agents</h2>
-<h3>13.1 Engineering Principle: Cache Rules Everything</h3>
-<p>The Firehorse Operations Model relies on long-running AI agent sessions (Claude Code) for store management, product updates, and compliance automation. Prompt caching is the foundational engineering principle that makes these sessions economically viable.</p>
-<p><strong>Source:</strong> Thariq Shihipar (Anthropic), "Lessons from Building Claude Code: Prompt Caching Is Everything" (2026).</p>
-<p><strong>Core insight:</strong> Prompt caching reuses computation from previous API roundtrips via prefix matching. The API caches everything from the start of the request up to each <code>cache_control</code> breakpoint. A high cache hit rate reduces costs and latency significantly.</p>
-<h3>13.2 System Prompt Layout for Caching</h3>
-<p>The order of prompt content matters — static content first, dynamic content last:</p>
+<h2 id="prompt-caching-architecture-for-ai-agents">13. Prompt Caching
+Architecture for AI Agents</h2>
+<h3 id="engineering-principle-cache-rules-everything">13.1 Engineering
+Principle: Cache Rules Everything</h3>
+<p>The Firehorse Operations Model relies on long-running AI agent
+sessions (Claude Code) for store management, product updates, and
+compliance automation. Prompt caching is the foundational engineering
+principle that makes these sessions economically viable.</p>
+<p><strong>Source:</strong> Thariq Shihipar (Anthropic), “Lessons from
+Building Claude Code: Prompt Caching Is Everything” (2026).</p>
+<p><strong>Core insight:</strong> Prompt caching reuses computation from
+previous API roundtrips via prefix matching. The API caches everything
+from the start of the request up to each <code>cache_control</code>
+breakpoint. A high cache hit rate reduces costs and latency
+significantly.</p>
+<h3 id="system-prompt-layout-for-caching">13.2 System Prompt Layout for
+Caching</h3>
+<p>The order of prompt content matters — static content first, dynamic
+content last:</p>
 <pre><code>1. Static system prompt &amp; Tools     (globally cached)
 2. CLAUDE.md / project config       (cached within a project)
 3. Session context                   (cached within a session)
-4. Conversation messages             (new per turn)
-</code></pre>
-<p><strong>Fragility warning:</strong> Cache ordering breaks when:
-- Timestamps are placed in the static system prompt
-- Tool definitions are shuffled non-deterministically
-- Tool parameters are updated mid-session (e.g., available agents)</p>
-<h3>13.3 Six Engineering Rules for Agent Caching</h3>
+4. Conversation messages             (new per turn)</code></pre>
+<p><strong>Fragility warning:</strong> Cache ordering breaks when: -
+Timestamps are placed in the static system prompt - Tool definitions are
+shuffled non-deterministically - Tool parameters are updated mid-session
+(e.g., available agents)</p>
+<h3 id="six-engineering-rules-for-agent-caching">13.3 Six Engineering
+Rules for Agent Caching</h3>
 <table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 34%" />
+<col style="width: 46%" />
+</colgroup>
 <thead>
 <tr>
 <th>Rule</th>
@@ -1326,43 +1689,57 @@ ROI:
 <tr>
 <td><strong>2. Use system messages for updates</strong></td>
 <td>Never modify the static prompt mid-session</td>
-<td>Pass time, file changes, mode switches via <code>&lt;system-reminder&gt;</code> tags in the next message</td>
+<td>Pass time, file changes, mode switches via
+<code>&lt;system-reminder&gt;</code> tags in the next message</td>
 </tr>
 <tr>
 <td><strong>3. Never change models mid-session</strong></td>
 <td>Prompt caches are model-specific</td>
-<td>Switching from Opus to Haiku at 100k tokens costs more than keeping Opus (cache rebuild)</td>
+<td>Switching from Opus to Haiku at 100k tokens costs more than keeping
+Opus (cache rebuild)</td>
 </tr>
 <tr>
 <td><strong>4. Never add/remove tools mid-session</strong></td>
 <td>Tools are part of the cached prefix</td>
-<td>Use tool stubs with <code>defer_loading: true</code> for optional tools; discover via ToolSearch</td>
+<td>Use tool stubs with <code>defer_loading: true</code> for optional
+tools; discover via ToolSearch</td>
 </tr>
 <tr>
 <td><strong>5. Design features around the cache</strong></td>
 <td>State transitions via tools, not tool set changes</td>
-<td>Plan mode = system message + ExitPlanMode tool, not swapping the tool set</td>
+<td>Plan mode = system message + ExitPlanMode tool, not swapping the
+tool set</td>
 </tr>
 <tr>
 <td><strong>6. Fork operations share parent prefix</strong></td>
 <td>Compaction/summarization must reuse cache</td>
-<td>Use identical system prompt, tools, and message history for forked requests</td>
+<td>Use identical system prompt, tools, and message history for forked
+requests</td>
 </tr>
 </tbody>
 </table>
-<h3>13.4 Compaction: Cache-Safe Context Forking</h3>
-<p>When running agents approach the context window limit, compaction (summarization) must preserve the cache:</p>
+<h3 id="compaction-cache-safe-context-forking">13.4 Compaction:
+Cache-Safe Context Forking</h3>
+<p>When running agents approach the context window limit, compaction
+(summarization) must preserve the cache:</p>
 <pre><code>WRONG: New API call with different system prompt + no tools
        → Full cache miss, expensive
 
 RIGHT: Same system prompt + same tools + parent message history
        + compaction prompt appended as new user message
-       → Cache hit on parent prefix, only new tokens are the prompt
-</code></pre>
-<p>This requires reserving a "compaction buffer" — enough room in the context window for the compact message and summary output tokens.</p>
-<h3>13.5 Operational Impact on Firehorse</h3>
-<p>For DWS10.com store operations, these caching principles translate to:</p>
+       → Cache hit on parent prefix, only new tokens are the prompt</code></pre>
+<p>This requires reserving a “compaction buffer” — enough room in the
+context window for the compact message and summary output tokens.</p>
+<h3 id="operational-impact-on-firehorse">13.5 Operational Impact on
+Firehorse</h3>
+<p>For DWS10.com store operations, these caching principles translate
+to:</p>
 <table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 38%" />
+<col style="width: 29%" />
+</colgroup>
 <thead>
 <tr>
 <th>Operation</th>
@@ -1389,12 +1766,16 @@ RIGHT: Same system prompt + same tools + parent message history
 <tr>
 <td>Multi-file sync (dual folder)</td>
 <td>Sequential dependent operations</td>
-<td>Chain in single session, don't fork</td>
+<td>Chain in single session, don’t fork</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Monitoring:</strong> Cache hit rate is treated as an uptime metric. A drop in cache hits triggers investigation — it indicates a system prompt change, tool definition shift, or model switch that needs correction.</p>
-<h3>13.6 Cost &amp; Latency Implications</h3>
+<p><strong>Monitoring:</strong> Cache hit rate is treated as an uptime
+metric. A drop in cache hits triggers investigation — it indicates a
+system prompt change, tool definition shift, or model switch that needs
+correction.</p>
+<h3 id="cost-latency-implications">13.6 Cost &amp; Latency
+Implications</h3>
 <table>
 <thead>
 <tr>
@@ -1431,13 +1812,27 @@ RIGHT: Same system prompt + same tools + parent message history
 </tr>
 </tbody>
 </table>
-<p>These economics are critical for Firehorse's AI-assisted store operations, where sessions routinely process 30+ products across multiple files.</p>
+<p>These economics are critical for Firehorse’s AI-assisted store
+operations, where sessions routinely process 30+ products across
+multiple files.</p>
 <hr />
-<h2>14. Enterprise Multi-Tenant Agent Architecture</h2>
-<h3>14.1 Per-Industry Open LLM Selection</h3>
-<p>No single open LLM is optimal for all 16 EU industries served by DWS IQ. Each industry vertical has distinct regulatory language, domain knowledge requirements, and structured output needs. The <code>AgentConfig.model</code> field is already per-agent, so each concrete agent can be configured with a different trained Lifetime World Model (LWM) + open LLM, with continuous benchmarking.</p>
+<h2 id="enterprise-multi-tenant-agent-architecture">14. Enterprise
+Multi-Tenant Agent Architecture</h2>
+<h3 id="per-industry-open-llm-selection">14.1 Per-Industry Open LLM
+Selection</h3>
+<p>No single open LLM is optimal for all 16 EU industries served by DWS
+IQ. Each industry vertical has distinct regulatory language, domain
+knowledge requirements, and structured output needs. The
+<code>AgentConfig.model</code> field is already per-agent, so each
+concrete agent can be configured with a different trained Lifetime World
+Model (LWM) + open LLM, with continuous benchmarking.</p>
 <p><strong>Candidate open LLMs by industry cluster:</strong></p>
-<table>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 31%" />
+<col style="width: 38%" />
+</colgroup>
 <thead>
 <tr>
 <th>Industry Cluster</th>
@@ -1483,12 +1878,26 @@ RIGHT: Same system prompt + same tools + parent message history
 </tr>
 </tbody>
 </table>
-<p><strong>Selection criteria:</strong> domain knowledge depth, multilingual capability, structured output reliability, context window (128k+), inference speed, EU data residency, and commercial license.</p>
-<p><strong>Continuous benchmarking process:</strong> Each industry agent runs weekly automated compliance prompts (EN 15978, CSRD ESRS E1, CBAM declarations) against the current model and 2-3 alternatives. If an alternative consistently scores higher on accuracy and structured output, the model is flagged for review and potential switch.</p>
-<h3>14.2 Bring Your Own Agent (BYOA) Architecture</h3>
-<p>Enterprise customers bring their own AI agents to work on DWS IQ. This section uses NCC (Nordic construction company) as an illustrative case.</p>
+<p><strong>Selection criteria:</strong> domain knowledge depth,
+multilingual capability, structured output reliability, context window
+(128k+), inference speed, EU data residency, and commercial license.</p>
+<p><strong>Continuous benchmarking process:</strong> Each industry agent
+runs weekly automated compliance prompts (EN 15978, CSRD ESRS E1, CBAM
+declarations) against the current model and 2-3 alternatives. If an
+alternative consistently scores higher on accuracy and structured
+output, the model is flagged for review and potential switch.</p>
+<h3 id="bring-your-own-agent-byoa-architecture">14.2 Bring Your Own
+Agent (BYOA) Architecture</h3>
+<p>Enterprise customers bring their own AI agents to work on DWS IQ.
+This section uses NCC (Nordic construction company) as an illustrative
+case.</p>
 <p><strong>NCC agent ecosystem:</strong></p>
 <table>
+<colgroup>
+<col style="width: 44%" />
+<col style="width: 24%" />
+<col style="width: 31%" />
+</colgroup>
 <thead>
 <tr>
 <th>Agent Source</th>
@@ -1500,12 +1909,14 @@ RIGHT: Same system prompt + same tools + parent message history
 <tr>
 <td><strong>NCC Internal</strong></td>
 <td>7</td>
-<td>Procurement, Safety Compliance, BIM, Sustainability, Cost Estimation, Quality, Project Planning</td>
+<td>Procurement, Safety Compliance, BIM, Sustainability, Cost
+Estimation, Quality, Project Planning</td>
 </tr>
 <tr>
 <td><strong>Contractor Agents</strong></td>
 <td>14</td>
-<td>HVAC Subcontractor, Electrical, Concrete Supplier, Steel Supplier, Window Manufacturer, Insulation, etc.</td>
+<td>HVAC Subcontractor, Electrical, Concrete Supplier, Steel Supplier,
+Window Manufacturer, Insulation, etc.</td>
 </tr>
 <tr>
 <td><strong>DWS IQ Platform</strong></td>
@@ -1520,22 +1931,52 @@ RIGHT: Same system prompt + same tools + parent message history
 </tbody>
 </table>
 <p><strong>Tenant-specific Lifetime World Model (LWM):</strong></p>
-<p>The Lifetime World Model is the enterprise learning layer that sits on top of the chosen open LLM. It is not simply a fine-tuned model — it is a strategic intelligence layer that:</p>
-<ol>
-<li><strong>Fine-tunes enterprise data and regulation</strong> — ingests the customer's operational data, industry standards, and EU regulatory context to create domain-specific intelligence that generic LLMs cannot provide</li>
-<li><strong>Optimizes market value</strong> — continuously learns from compliance outcomes, energy efficiency results, and operational metrics to identify value creation opportunities</li>
-<li><strong>Ensures competitive advantage with multi-agent tools</strong> — combining tenant-specific knowledge with multi-agent orchestration (A2A + MCP), the LWM transforms raw AI capability into an irreplaceable operational asset</li>
+<p>The Lifetime World Model is the enterprise learning layer that sits
+on top of the chosen open LLM. It is not simply a fine-tuned model — it
+is a strategic intelligence layer that:</p>
+<ol type="1">
+<li><strong>Fine-tunes enterprise data and regulation</strong> — ingests
+the customer’s operational data, industry standards, and EU regulatory
+context to create domain-specific intelligence that generic LLMs cannot
+provide</li>
+<li><strong>Optimizes market value</strong> — continuously learns from
+compliance outcomes, energy efficiency results, and operational metrics
+to identify value creation opportunities</li>
+<li><strong>Ensures competitive advantage with multi-agent
+tools</strong> — combining tenant-specific knowledge with multi-agent
+orchestration (A2A + MCP), the LWM transforms raw AI capability into an
+irreplaceable operational asset</li>
 </ol>
-<p>Each enterprise tenant receives their own LWM instance:
-- <strong>Base LLM:</strong> Selected per industry evaluation (e.g., Qwen 2.5 72B for Nordic construction)
-- <strong>Fine-tuned on:</strong> Tenant's own project data, industry codes (RT-kortisto), regulatory context
-- <strong>Connectors:</strong> Tekla Structures (BIM), IFS Cloud (ERP), CO2data.fi (emissions factors)
-- <strong>Sandbox:</strong> Stage 2 ephemeral containers (europe-north1) or Stage 3 persistent (at scale)</p>
-<p><strong>Why 16 industries make the LWM stronger:</strong> Each industry added to the platform makes every existing industry's LWM smarter through cross-pollination of anonymized compliance patterns. A carbon reduction technique proven in cement manufacturing generates transferable insight for construction. Supply chain Scope 3 agents in manufacturing transfer to food &amp; beverage. The 16th industry customer benefits from all 15 industries' accumulated intelligence — creating a moat that single-industry competitors cannot replicate.</p>
-<h3>14.3 Agent Orchestration Studio: Graphical Workflow Builder</h3>
-<p>To enable enterprise customers to build connections between 24+ agents, the platform provides a visual workflow builder.</p>
+<p>Each enterprise tenant receives their own LWM instance: -
+<strong>Base LLM:</strong> Selected per industry evaluation (e.g., Qwen
+2.5 72B for Nordic construction) - <strong>Fine-tuned on:</strong>
+Tenant’s own project data, industry codes (RT-kortisto), regulatory
+context - <strong>Connectors:</strong> Tekla Structures (BIM), IFS Cloud
+(ERP), CO2data.fi (emissions factors) - <strong>Sandbox:</strong> Stage
+2 ephemeral containers (europe-north1) or Stage 3 persistent (at
+scale)</p>
+<p><strong>Why 16 industries make the LWM stronger:</strong> Each
+industry added to the platform makes every existing industry’s LWM
+smarter through cross-pollination of anonymized compliance patterns. A
+carbon reduction technique proven in cement manufacturing generates
+transferable insight for construction. Supply chain Scope 3 agents in
+manufacturing transfer to food &amp; beverage. The 16th industry
+customer benefits from all 15 industries’ accumulated intelligence —
+creating a moat that single-industry competitors cannot replicate.</p>
+<h3 id="agent-orchestration-studio-graphical-workflow-builder">14.3
+Agent Orchestration Studio: Graphical Workflow Builder</h3>
+<p>To enable enterprise customers to build connections between 24+
+agents, the platform provides a visual workflow builder.</p>
 <p><strong>Tool evaluation:</strong></p>
-<table>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 13%" />
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 22%" />
+<col style="width: 15%" />
+</colgroup>
 <thead>
 <tr>
 <th>Tool</th>
@@ -1617,84 +2058,27 @@ RIGHT: Same system prompt + same tools + parent message history
 │  │  - Retry, timeout, compensation                   │  │
 │  │  - EU AI Act Article 12 audit trail               │  │
 │  └───────────────────────────────────────────────────┘  │
-└─────────────────────────────────────────────────────────┘
-</code></pre>
-<p><strong>Rationale:</strong>
-1. <strong>React Flow</strong> (MIT) — Custom visual canvas in DWS IQ React dashboard. Zero vendor lock-in.
-2. <strong>Langflow</strong> (Apache 2.0) — Native MCP + A2A support. Self-hosted EU. IBM enterprise partnership.
-3. <strong>Temporal.io</strong> — Already in stack. Durable execution with full Article 12 audit trail.
-4. <strong>n8n</strong> — Supplementary for ERP/BIM connector workflows (Tekla ↔ IFS Cloud sync).</p>
-<h3>14.4 Contractor Agent Onboarding</h3>
+└─────────────────────────────────────────────────────────┘</code></pre>
+<p><strong>Rationale:</strong> 1. <strong>React Flow</strong> (MIT) —
+Custom visual canvas in DWS IQ React dashboard. Zero vendor lock-in. 2.
+<strong>Langflow</strong> (Apache 2.0) — Native MCP + A2A support.
+Self-hosted EU. IBM enterprise partnership. 3.
+<strong>Temporal.io</strong> — Already in stack. Durable execution with
+full Article 12 audit trail. 4. <strong>n8n</strong> — Supplementary for
+ERP/BIM connector workflows (Tekla ↔︎ IFS Cloud sync).</p>
+<h3 id="contractor-agent-onboarding">14.4 Contractor Agent
+Onboarding</h3>
 <pre><code>1. Contractor publishes Agent Card (/.well-known/agent.json)
 2. NCC admin opens Agent Orchestration Studio
 3. Studio discovers contractor agent via A2A protocol
 4. Admin drags contractor onto canvas, connects to workflows
 5. Studio validates connectivity (A2A health check)
 6. Workflow deploys to Temporal.io
-7. All interactions logged per EU AI Act Article 12
-</code></pre>
-<h3>14.5 DWS7 Agent Architecture Modernization</h3>
-<p>The DWS6-to-DWS7 transition addresses six critical architectural gaps discovered during production deployment. Implemented in a single Claude Code session (24.02.2026), these fixes transform the agent system from a 2023-era pattern to a production-grade agentic platform.</p>
-<p><strong>The six fixes:</strong></p>
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>Gap</th>
-<th>Fix</th>
-<th>Key File</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Single-shot LLM calls</td>
-<td>Observe-think-act loop (<code>runLoop()</code>)</td>
-<td><code>base.agent.ts</code></td>
-</tr>
-<tr>
-<td>2</td>
-<td>No tool use</td>
-<td>Tool runtime with JSON Schema + 4 built-in tools</td>
-<td><code>tools.ts</code></td>
-</tr>
-<tr>
-<td>3</td>
-<td>Hardcoded Groq fetch</td>
-<td>Multi-provider client (Anthropic &gt; Groq &gt; OpenAI)</td>
-<td><code>llm-client.ts</code></td>
-</tr>
-<tr>
-<td>4</td>
-<td>No agent communication</td>
-<td>Delegation + depth tracking + discovery API</td>
-<td><code>index.ts</code></td>
-</tr>
-<tr>
-<td>5</td>
-<td>MCP was vapor</td>
-<td>JSON-RPC 2.0 server at <code>/mcp</code></td>
-<td><code>agent-server.ts</code></td>
-</tr>
-<tr>
-<td>6</td>
-<td>Express-only</td>
-<td>Event bus with pub/sub + Redis Streams</td>
-<td><code>event-bus.ts</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Build for Agents principle:</strong> Every DWS product must be accessible via:
-- <strong>CLI</strong> (<code>cli/src/cli.ts</code>) — JSON output, pipeable, zero dependencies
-- <strong>MCP</strong> (<code>/mcp</code> endpoint) — auto-discovered by Claude Code, Cursor
-- <strong>Claude Code Skills</strong> (<code>.claude/commands/</code>) — natural language agent invocation
-- <strong>REST API</strong> (<code>/api/agents/</code>) — traditional HTTP integration
-- <strong>Event bus</strong> — real-time agent coordination via SSE</p>
-<p><strong>EU AI Act Article 12 compliance:</strong> The agentic loop architecture inherently satisfies automatic logging requirements. Each iteration records observation, thought, actions, and results to the <code>agent_loop_iterations</code> Supabase table — creating complete reasoning lineage from input to output.</p>
-<p><strong>Impact on Firehorse operating model:</strong> The CLI and Skills layer means the Firehorse store management workflow can now be automated by AI agents end-to-end: compliance checks via <code>/compliance-check</code>, carbon analysis via <code>/carbon-analysis</code>, and multi-agent workflows via <code>/workflow</code> — all without human GUI interaction.</p>
+7. All interactions logged per EU AI Act Article 12</code></pre>
 <hr />
-<h2>15. Results and Discussion</h2>
-<h3>15.1 Operational Efficiency Gains</h3>
+<h2 id="results-and-discussion">15. Results and Discussion</h2>
+<h3 id="operational-efficiency-gains">15.1 Operational Efficiency
+Gains</h3>
 <p>The Firehorse Operations Model with Claude Code achieved:</p>
 <table>
 <thead>
@@ -1738,7 +2122,8 @@ RIGHT: Same system prompt + same tools + parent message history
 </tr>
 </tbody>
 </table>
-<h3>15.2 Google Merchant Center Performance</h3>
+<h3 id="google-merchant-center-performance">15.2 Google Merchant Center
+Performance</h3>
 <p>After implementing Revolut checkout links and fixing feed issues:</p>
 <table>
 <thead>
@@ -1766,7 +2151,8 @@ RIGHT: Same system prompt + same tools + parent message history
 </tr>
 </tbody>
 </table>
-<h3>15.3 Compliance Readiness Assessment</h3>
+<h3 id="compliance-readiness-assessment">15.3 Compliance Readiness
+Assessment</h3>
 <table>
 <thead>
 <tr>
@@ -1803,45 +2189,62 @@ RIGHT: Same system prompt + same tools + parent message history
 </tr>
 </tbody>
 </table>
-<h3>15.4 Limitations</h3>
-<ol>
-<li><strong>Audio chat not yet deployed</strong> - Roadmap documented, Q1 2026 target</li>
-<li><strong>Partner ecosystem</strong> - Partnerships in development</li>
-<li><strong>Multi-language support</strong> - Currently English/Finnish only</li>
-<li><strong>Carbon calculator</strong> - Requires industry data validation</li>
+<h3 id="limitations">15.4 Limitations</h3>
+<ol type="1">
+<li><strong>Audio chat not yet deployed</strong> - Roadmap documented,
+Q1 2026 target</li>
+<li><strong>Partner ecosystem</strong> - Partnerships in
+development</li>
+<li><strong>Multi-language support</strong> - Currently English/Finnish
+only</li>
+<li><strong>Carbon calculator</strong> - Requires industry data
+validation</li>
 </ol>
 <hr />
-<h2>16. Conclusion</h2>
-<h3>16.1 Summary</h3>
-<p>The Firehorse Operations Model demonstrates that AI-assisted e-commerce management can:</p>
-<ol>
-<li><strong>Reduce operational overhead</strong> by 90%+ through automated product management</li>
-<li><strong>Ensure compliance</strong> with EU regulations via documented audit trails</li>
-<li><strong>Enable rapid iteration</strong> on product offerings with natural language interfaces</li>
-<li><strong>Prepare infrastructure</strong> for voice-based customer interactions</li>
-<li><strong>Support industrial customers</strong> with carbon calculator integration</li>
+<h2 id="conclusion">16. Conclusion</h2>
+<h3 id="summary">16.1 Summary</h3>
+<p>The Firehorse Operations Model demonstrates that AI-assisted
+e-commerce management can:</p>
+<ol type="1">
+<li><strong>Reduce operational overhead</strong> by 90%+ through
+automated product management</li>
+<li><strong>Ensure compliance</strong> with EU regulations via
+documented audit trails</li>
+<li><strong>Enable rapid iteration</strong> on product offerings with
+natural language interfaces</li>
+<li><strong>Prepare infrastructure</strong> for voice-based customer
+interactions</li>
+<li><strong>Support industrial customers</strong> with carbon calculator
+integration</li>
 </ol>
-<h3>16.2 Key Contributions</h3>
+<h3 id="key-contributions">16.2 Key Contributions</h3>
 <p>This thesis contributes:</p>
-<ol>
-<li>A documented framework for AI-assisted store operations (Firehorse Model)</li>
-<li>Integration patterns for Google Merchant Center and Revolut Business</li>
-<li>A roadmap for audio chat with carbon calculator integration (4 phases)</li>
+<ol type="1">
+<li>A documented framework for AI-assisted store operations (Firehorse
+Model)</li>
+<li>Integration patterns for Google Merchant Center and Revolut
+Business</li>
+<li>A roadmap for audio chat with carbon calculator integration (4
+phases)</li>
 <li>EU compliance mapping for industrial software products</li>
 <li>Product recommendation engine architecture for 16 EU industries</li>
 <li>Proton products security strategy for GDPR/NIS2 compliance</li>
 </ol>
-<h3>16.3 Future Work</h3>
-<ol>
-<li><strong>Q1 2026:</strong> Deploy audio chat Phase 1 with EU AI Act transparency</li>
-<li><strong>Q2 2026:</strong> Implement industry carbon calculator with Scope 1/2/3</li>
+<h3 id="future-work">16.3 Future Work</h3>
+<ol type="1">
+<li><strong>Q1 2026:</strong> Deploy audio chat Phase 1 with EU AI Act
+transparency</li>
+<li><strong>Q2 2026:</strong> Implement industry carbon calculator with
+Scope 1/2/3</li>
 <li><strong>Q3 2026:</strong> Launch regulation awareness engine</li>
-<li><strong>Q4 2026:</strong> Establish partner ecosystem with commission model</li>
-<li><strong>2027:</strong> Expand to additional EU markets (SE, NO, DK, DE)</li>
+<li><strong>Q4 2026:</strong> Establish partner ecosystem with
+commission model</li>
+<li><strong>2027:</strong> Expand to additional EU markets (SE, NO, DK,
+DE)</li>
 </ol>
 <hr />
-<h2>17. References</h2>
-<ol>
+<h2 id="references">17. References</h2>
+<ol type="1">
 <li>EU AI Act, Regulation (EU) 2024/1689</li>
 <li>Google Merchant Center Technical Specifications (2026)</li>
 <li>Revolut Business API Documentation</li>
@@ -1857,12 +2260,21 @@ RIGHT: Same system prompt + same tools + parent message history
 <li>EU Trade Secrets Directive (EU) 2016/943</li>
 <li>Finnish Trade Secrets Act (liikesalaisuuslaki 595/2018)</li>
 <li>Patent Cooperation Treaty (PCT), WIPO</li>
-<li>Shihipar, T. (2026). "Lessons from Building Claude Code: Prompt Caching Is Everything." Anthropic Engineering Blog</li>
+<li>Shihipar, T. (2026). “Lessons from Building Claude Code: Prompt
+Caching Is Everything.” Anthropic Engineering Blog</li>
 </ol>
 <hr />
-<h2>18. Appendices</h2>
-<h3>Appendix A: Complete Product Catalog</h3>
+<h2 id="appendices">18. Appendices</h2>
+<h3 id="appendix-a-complete-product-catalog">Appendix A: Complete
+Product Catalog</h3>
 <table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 27%" />
+<col style="width: 21%" />
+<col style="width: 18%" />
+<col style="width: 21%" />
+</colgroup>
 <thead>
 <tr>
 <th>ID</th>
@@ -2085,7 +2497,8 @@ RIGHT: Same system prompt + same tools + parent message history
 </tr>
 </tbody>
 </table>
-<h3>Appendix B: Weekly Maintenance Checklist</h3>
+<h3 id="appendix-b-weekly-maintenance-checklist">Appendix B: Weekly
+Maintenance Checklist</h3>
 <pre><code>MONDAY - Feed Health Check
 [ ] Access Google Merchant Center diagnostics
 [ ] Review product approval status
@@ -2105,21 +2518,20 @@ FRIDAY - Optimization &amp; Upload
 [ ] Validate XML (xmllint --noout)
 [ ] Upload via SFTP
 [ ] Commit changes to Git
-[ ] Verify upload in Merchant Center
-</code></pre>
-<h3>Appendix C: Audio Chat Compliance Disclosures</h3>
+[ ] Verify upload in Merchant Center</code></pre>
+<h3 id="appendix-c-audio-chat-compliance-disclosures">Appendix C: Audio
+Chat Compliance Disclosures</h3>
 <p><strong>Required disclosure (EU AI Act Article 52):</strong></p>
-<pre><code>&quot;You are now connected to Lifetime's AI assistant. This is an automated
-system using artificial intelligence. For human support, say 'speak to
-a person' or email support@lifetime.fi.&quot;
-</code></pre>
+<pre><code>&quot;You are now connected to Lifetime&#39;s AI assistant. This is an automated
+system using artificial intelligence. For human support, say &#39;speak to
+a person&#39; or email support@lifetime.fi.&quot;</code></pre>
 <p><strong>Finnish version:</strong></p>
 <pre><code>&quot;Olet nyt yhteydessa Lifetimen tekoalyavustajaan. Tama on automaattinen
 jarjestelma, joka kayttaa tekoalya. Jos haluat keskustella ihmisen kanssa,
-sano 'haluan puhua ihmisen kanssa' tai laheta sahkopostia osoitteeseen
-support@lifetime.fi.&quot;
-</code></pre>
-<h3>Appendix D: SFTP Credentials Reference</h3>
+sano &#39;haluan puhua ihmisen kanssa&#39; tai laheta sahkopostia osoitteeseen
+support@lifetime.fi.&quot;</code></pre>
+<h3 id="appendix-d-sftp-credentials-reference">Appendix D: SFTP
+Credentials Reference</h3>
 <table>
 <thead>
 <tr>
@@ -2150,15 +2562,23 @@ support@lifetime.fi.&quot;
 </tr>
 </tbody>
 </table>
-<h3>Appendix E: Automated PR Workflow (HIL Automation)</h3>
-<p>The Firehorse operations model includes a fully automated pull request review and merge workflow that replaces manual human-in-the-loop code review. This is a key operational efficiency gain for solo developers and small teams managing enterprise-grade codebases.</p>
+<h3 id="appendix-e-automated-pr-workflow-hil-automation">Appendix E:
+Automated PR Workflow (HIL Automation)</h3>
+<p>The Firehorse operations model includes a fully automated pull
+request review and merge workflow that replaces manual human-in-the-loop
+code review. This is a key operational efficiency gain for solo
+developers and small teams managing enterprise-grade codebases.</p>
 <p><strong>Architecture:</strong></p>
 <pre><code>Claude Code → PR → Claude sanity check → Gemini HIL review → @copilot fixes → CI → auto-merge
                                                 ↑                    |
-                                                └────────────────────┘  (fix loop)
-</code></pre>
+                                                └────────────────────┘  (fix loop)</code></pre>
 <p><strong>Components:</strong></p>
 <table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 21%" />
+<col style="width: 39%" />
+</colgroup>
 <thead>
 <tr>
 <th>Component</th>
@@ -2199,15 +2619,20 @@ support@lifetime.fi.&quot;
 </tr>
 </tbody>
 </table>
-<p><strong>Key design decision:</strong> Gemini defaults to REQUEST_CHANGES on every review. This ensures every PR goes through at least one improvement cycle, enforcing quality even when the original implementation appears correct. Only code with zero issues, adequate tests, and convention compliance receives APPROVE.</p>
-<p><strong>Operational metrics (expected):</strong>
-- Developer involvement reduced to final skim/approve (~5 min per PR)
-- 70-90% of basic/refactor/test issues caught before human sees them
-- Typical fix loop: 1-3 iterations before approval</p>
-<p><strong>Deployment:</strong> Cloud Run service <code>dws6run6</code> (europe-north1, Finland). MCP Hub <code>POST /gemini/review</code> for on-demand code analysis.</p>
+<p><strong>Key design decision:</strong> Gemini defaults to
+REQUEST_CHANGES on every review. This ensures every PR goes through at
+least one improvement cycle, enforcing quality even when the original
+implementation appears correct. Only code with zero issues, adequate
+tests, and convention compliance receives APPROVE.</p>
+<p><strong>Operational metrics (expected):</strong> - Developer
+involvement reduced to final skim/approve (~5 min per PR) - 70-90% of
+basic/refactor/test issues caught before human sees them - Typical fix
+loop: 1-3 iterations before approval</p>
+<p><strong>Deployment:</strong> Cloud Run service <code>dws6run6</code>
+(europe-north1, Finland). MCP Hub <code>POST /gemini/review</code> for
+on-demand code analysis.</p>
 <hr />
-<p><em>Document generated using Firehorse Operations Model with Claude Code</em>
-<em>Last updated: 24.02.2026</em>
-<em>Version: 1.4</em></p>
+<p><em>Document generated using Firehorse Operations Model with Claude
+Code</em> <em>Last updated: February 2026</em> <em>Version: 1.1</em></p>
 </body>
 </html>

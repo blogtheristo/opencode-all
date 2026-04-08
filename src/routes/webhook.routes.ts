@@ -20,12 +20,12 @@
  *   - Idempotency via provider_message_id UNIQUE constraint
  */
 
-import express, { Router, Request, Response } from 'express';
+import express, { type Request, type Response, type Router } from 'express';
 import logger from '../utils/logger.js';
 import {
+  isAuthorizedSender,
   parseReplyText,
   verifyResendSignature,
-  isAuthorizedSender,
 } from '../outreach/reply-parser.js';
 import type { UpdateCommand } from '../outreach/reply-parser.js';
 
@@ -129,7 +129,9 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
   // unauthenticated webhook processing (security fix for finding 1.4).
   const webhookSecret = process.env.RESEND_WEBHOOK_SECRET;
   if (!webhookSecret) {
-    logger.error('Webhook: RESEND_WEBHOOK_SECRET is not configured — rejecting all inbound webhooks');
+    logger.error(
+      'Webhook: RESEND_WEBHOOK_SECRET is not configured — rejecting all inbound webhooks',
+    );
     res.status(503).json({ error: 'Webhook signature verification not configured' });
     return;
   }
@@ -156,7 +158,17 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
   const eventType = payload.type;
   const data = payload.data || payload;
 
-  // Only process email.received events (ignore delivery notifications etc.)
+  // ─── Delivery event handler ──────────────────────────────────────
+  // Handle email.delivered, email.bounced, email.complained events.
+  // These update email_logs.status via resend_email_id.
+  const DELIVERY_EVENTS = ['email.delivered', 'email.bounced', 'email.complained'];
+  if (eventType && DELIVERY_EVENTS.includes(eventType)) {
+    await handleDeliveryEvent(eventType, payload);
+    res.status(200).json({ ok: true, event: eventType });
+    return;
+  }
+
+  // Only process email.received events for reply parsing
   if (eventType && eventType !== 'email.received') {
     res.status(200).json({ ok: true, skipped: true, reason: `Event type: ${eventType}` });
     return;
@@ -170,7 +182,7 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
   // 2. Idempotency: insert into inbound_emails. ON CONFLICT DO NOTHING.
   try {
     const existing = await supabaseFetch(
-      `inbound_emails?provider_message_id=eq.${encodeURIComponent(messageId)}&select=id&limit=1`
+      `inbound_emails?provider_message_id=eq.${encodeURIComponent(messageId)}&select=id&limit=1`,
     );
 
     if (existing.length > 0) {
@@ -203,7 +215,10 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
   // 3. Verify sender
   if (!isAuthorizedSender(fromEmail)) {
     logger.warn('Webhook: unauthorized sender', { from: fromEmail });
-    await updateInboundEmail(messageId, { parse_ok: false, error: `Unauthorized sender: ${fromEmail}` });
+    await updateInboundEmail(messageId, {
+      parse_ok: false,
+      error: `Unauthorized sender: ${fromEmail}`,
+    });
     res.status(200).json({ ok: true, rejected: true, reason: 'Unauthorized sender' });
     return;
   }
@@ -213,7 +228,10 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
 
   if (!command || parseError) {
     logger.info('Webhook: parse failed', { error: parseError, messageId });
-    await updateInboundEmail(messageId, { parse_ok: false, error: parseError || 'No command found' });
+    await updateInboundEmail(messageId, {
+      parse_ok: false,
+      error: parseError || 'No command found',
+    });
 
     // Send error reply
     const senderEmail = extractEmail(fromEmail);
@@ -221,7 +239,7 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
       await sendConfirmationEmail(
         senderEmail,
         `Re: ${subject}`,
-        `${parseError || 'No command found'}\n\n${ERROR_REPLY_BODY}`
+        `${parseError || 'No command found'}\n\n${ERROR_REPLY_BODY}`,
       );
     }
 
@@ -233,7 +251,7 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
   let thread: any;
   try {
     const threads = await supabaseFetch(
-      `outreach_threads?thread_token=eq.${encodeURIComponent(command.token)}&select=id,pipeline,status,person_id,org_id&limit=1`
+      `outreach_threads?thread_token=eq.${encodeURIComponent(command.token)}&select=id,pipeline,status,person_id,org_id&limit=1`,
     );
 
     if (threads.length === 0) {
@@ -249,7 +267,11 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
 
       const senderEmail = extractEmail(fromEmail);
       if (senderEmail) {
-        await sendConfirmationEmail(senderEmail, `Re: ${subject}`, `${errorMsg}\n\n${ERROR_REPLY_BODY}`);
+        await sendConfirmationEmail(
+          senderEmail,
+          `Re: ${subject}`,
+          `${errorMsg}\n\n${ERROR_REPLY_BODY}`,
+        );
       }
 
       res.status(200).json({ ok: true, parsed: true, applied: false, error: errorMsg });
@@ -297,7 +319,7 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
       await sendConfirmationEmail(
         senderEmail,
         `Re: ${subject}`,
-        `Updated T:${command.token} — ${summary}`
+        `Updated T:${command.token} — ${summary}`,
       );
     }
 
@@ -323,6 +345,57 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
     res.status(200).json({ ok: true, applied: false, error: errorMsg });
   }
 });
+
+// ============================================================================
+// DELIVERY EVENT HANDLER
+// Updates email_logs.status when Resend fires delivery/bounce/complaint events.
+// Keyed by resend_email_id (added in migration 037).
+// ============================================================================
+
+async function handleDeliveryEvent(eventType: string, payload: any): Promise<void> {
+  // Resend delivery event payload: { type, data: { email_id, ... } }
+  const emailId: string | undefined = payload?.data?.email_id || payload?.data?.id;
+
+  if (!emailId) {
+    logger.warn('Delivery event missing email_id', { eventType });
+    return;
+  }
+
+  const statusMap: Record<string, string> = {
+    'email.delivered': 'delivered',
+    'email.bounced': 'bounced',
+    'email.complained': 'complained',
+  };
+
+  const newStatus = statusMap[eventType];
+  if (!newStatus) return;
+
+  try {
+    await supabaseFetch(`email_logs?resend_email_id=eq.${encodeURIComponent(emailId)}`, {
+      method: 'PATCH',
+      headers: { Prefer: 'return=minimal' },
+      body: JSON.stringify({
+        status: newStatus,
+        ...(newStatus === 'delivered' ? { sent_at: new Date().toISOString() } : {}),
+        ...(newStatus !== 'delivered'
+          ? {
+              error:
+                eventType === 'email.bounced'
+                  ? payload?.data?.bounce?.message || 'Bounced'
+                  : 'Spam complaint received',
+            }
+          : {}),
+      }),
+    });
+    logger.info('email_logs updated via delivery event', { emailId, status: newStatus });
+  } catch (err) {
+    logger.error('Failed to update email_logs on delivery event', {
+      emailId,
+      event: eventType,
+      error: (err as Error).message,
+    });
+  }
+}
 
 // ============================================================================
 // HELPERS
@@ -397,10 +470,10 @@ function buildSummary(command: UpdateCommand): string {
 
 async function logActivity(
   thread: any | null,
-  command: UpdateCommand,
+  _command: UpdateCommand,
   outcome: string,
   description: string,
-  rawPayload: any
+  rawPayload: any,
 ): Promise<void> {
   try {
     await supabaseFetch('outreach_activities', {
@@ -425,19 +498,13 @@ async function logActivity(
   }
 }
 
-async function updateInboundEmail(
-  messageId: string,
-  fields: Record<string, any>
-): Promise<void> {
+async function updateInboundEmail(messageId: string, fields: Record<string, any>): Promise<void> {
   try {
-    await supabaseFetch(
-      `inbound_emails?provider_message_id=eq.${encodeURIComponent(messageId)}`,
-      {
-        method: 'PATCH',
-        headers: { Prefer: 'return=minimal' },
-        body: JSON.stringify(fields),
-      }
-    );
+    await supabaseFetch(`inbound_emails?provider_message_id=eq.${encodeURIComponent(messageId)}`, {
+      method: 'PATCH',
+      headers: { Prefer: 'return=minimal' },
+      body: JSON.stringify(fields),
+    });
   } catch (err) {
     logger.error('Failed to update inbound_emails', { error: (err as Error).message });
   }

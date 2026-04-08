@@ -12,7 +12,7 @@
  *   6. Send List (separate from main content — manual outreach queue)
  */
 
-import type { CockpitData, SendListItem, WorkflowData, ConstructionLeadsData, OutreachSummaryData } from './data-collectors.js';
+import type { CockpitData, SendListItem, WorkflowData, ConstructionLeadsData, OutreachSummaryData, LearnArtifactsData, HilTodosData, CaptainInquiriesData } from './data-collectors.js';
 
 // ============================================================================
 // HELPERS
@@ -510,6 +510,185 @@ function renderConstructionLeadsPlainText(data: ConstructionLeadsData): string {
 }
 
 // ============================================================================
+// CAPTAIN INQUIRIES SECTION
+// ============================================================================
+
+const SEAT_COLORS: Record<string, string> = {
+  platinum: '#d4a843',
+  deputy: '#60a5fa',
+};
+
+function renderCaptainInquiriesHtml(data: CaptainInquiriesData): string {
+  if (data.newCount === 0) return '';
+
+  const rows = data.inquiries
+    .map((inq) => {
+      const seatColor = SEAT_COLORS[inq.seat_level] || '#888';
+      const seatLabel = inq.seat_level.toUpperCase();
+      const time = new Date(inq.created_at).toLocaleString('en-GB', {
+        day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit',
+        timeZone: 'Europe/Helsinki',
+      });
+      const msgLine = inq.message
+        ? `<div style="font-size: 11px; color: #666; margin-top: 2px; font-style: italic;">"${esc(inq.message.length > 120 ? inq.message.slice(0, 117) + '...' : inq.message)}"</div>`
+        : '';
+
+      return `<div style="padding: 8px 0; border-bottom: 1px solid #1a1a1a;">
+        <div style="font-size: 13px; color: #e0e0e0;">
+          <span style="color: ${seatColor}; font-size: 10px; font-weight: 600;">[${seatLabel}]</span>
+          <strong>${esc(inq.name)}</strong>
+          <span style="color: #555;"> — ${esc(inq.industry)}</span>
+        </div>
+        <div style="font-size: 11px; color: #888; margin-top: 2px;">
+          <a href="mailto:${esc(inq.email)}" style="color: #60a5fa; text-decoration: none;">${esc(inq.email)}</a>
+          &nbsp;|&nbsp; ${time}
+        </div>
+        ${msgLine}
+      </div>`;
+    })
+    .join('');
+
+  return `
+    <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a;">
+      <h3 style="margin: 0 0 10px; font-size: 12px; color: #d4a843; text-transform: uppercase; letter-spacing: 1.5px;">Captain Inquiries (${data.newCount} new)</h3>
+      ${rows}
+      <p style="margin: 8px 0 0; font-size: 11px; color: #555;">Reply within 24h — send industry brief + SAFE term sheet + calendar link</p>
+    </td></tr>`;
+}
+
+// LEARN ARTIFACTS SECTION
+// ============================================================================
+
+function renderLearnArtifactsHtml(data: LearnArtifactsData): string {
+  if (data.artifacts.length === 0) return '';
+
+  const rows = data.artifacts
+    .map((a) => `<div style="padding: 5px 0; border-bottom: 1px solid #1a1a1a;">
+      <a href="${esc(a.githubUrl)}" style="color: #60a5fa; text-decoration: none; font-size: 13px; font-weight: 500;">${esc(a.title)}</a>
+      <span style="color: #444; font-size: 11px; margin-left: 8px;">${esc(a.modifiedDate)}</span>
+    </div>`)
+    .join('');
+
+  return `
+    <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a;">
+      <h3 style="margin: 0 0 10px; font-size: 12px; color: #60a5fa; text-transform: uppercase; letter-spacing: 1.5px;">Learn — Updated This Week</h3>
+      ${rows}
+      <p style="margin: 8px 0 0; font-size: 10px; color: #444;"><a href="https://github.com/blogtheristo/dws6/tree/main/Learn" style="color: #444; text-decoration: none;">All Learn artifacts &rarr;</a></p>
+    </td></tr>`;
+}
+
+function renderLearnArtifactsPlainText(data: LearnArtifactsData): string {
+  if (data.artifacts.length === 0) return '';
+
+  const lines: string[] = [];
+  lines.push('LEARN — UPDATED THIS WEEK');
+  for (const a of data.artifacts) {
+    lines.push(`  ${a.modifiedDate} — ${a.title}`);
+    lines.push(`  ${a.githubUrl}`);
+  }
+  lines.push('');
+  return lines.join('\n');
+}
+
+// ============================================================================
+// HIL TODO SECTION
+// ============================================================================
+
+const CATEGORY_COLORS: Record<string, string> = {
+  competitor_price:  '#ffaa00',
+  market_brief:      '#60a5fa',
+  config_gap:        '#c084fc',
+  manual:            '#00d4aa',
+  pending_migration: '#ff4444',
+  model_update:      '#76b900',
+};
+
+const CATEGORY_LABELS: Record<string, string> = {
+  competitor_price:  'PRICE',
+  market_brief:      'BRIEF',
+  config_gap:        'CFG',
+  manual:            'MANUAL',
+  pending_migration: 'SQL',
+  model_update:      'MODEL',
+};
+
+function renderHilTodosHtml(data: HilTodosData): string {
+  if (data.todos.length === 0) return '';
+
+  const rows = data.todos
+    .map((t) => {
+      const color = CATEGORY_COLORS[t.category] || '#888';
+      const label = CATEGORY_LABELS[t.category] || t.category.toUpperCase().slice(0, 5);
+      const doneUrl = `${data.backendUrl}/api/hil/done/${encodeURIComponent(t.done_token)}`;
+      const age = Math.floor((Date.now() - new Date(t.created_at).getTime()) / 86_400_000);
+      const ageLabel = age === 0 ? 'today' : `${age}d ago`;
+      return `
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #1e1e1e;">
+          <div style="flex: 1;">
+            <span style="color: ${color}; font-size: 10px; font-weight: 700; margin-right: 6px;">[${label}]</span>
+            <span style="font-size: 13px; color: #e0e0e0;">${esc(t.description)}</span>
+            <span style="color: #444; font-size: 10px; margin-left: 8px;">${esc(ageLabel)}</span>
+          </div>
+          <a href="${esc(doneUrl)}"
+             style="margin-left: 12px; padding: 4px 10px; background: #1a3a1a; color: #00d4aa;
+                    border: 1px solid #00d4aa; border-radius: 4px; font-size: 11px;
+                    font-weight: 600; text-decoration: none; white-space: nowrap; flex-shrink: 0;">
+            ✅ Done
+          </a>
+        </div>`;
+    })
+    .join('');
+
+  return `
+    <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a;">
+      <h3 style="margin: 0 0 10px; font-size: 12px; color: #d4a843; text-transform: uppercase; letter-spacing: 1.5px;">HIL TODO (${data.todos.length} open)</h3>
+      ${rows}
+      <p style="margin: 8px 0 0; font-size: 11px; color: #555;">Reply within 24h — send industry brief + SAFE term sheet + calendar link</p>
+    </td></tr>`;
+}
+
+function renderCaptainInquiriesPlainText(data: CaptainInquiriesData): string {
+  if (data.newCount === 0) return '';
+
+  const lines: string[] = [];
+  lines.push(`CAPTAIN INQUIRIES (${data.newCount} new)`);
+
+  for (const inq of data.inquiries) {
+    const seat = inq.seat_level.toUpperCase();
+    const time = new Date(inq.created_at).toLocaleString('en-GB', {
+      day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit',
+      timeZone: 'Europe/Helsinki',
+    });
+    lines.push(`  [${seat}] ${inq.name} — ${inq.industry}`);
+    lines.push(`    Email: ${inq.email} | ${time}`);
+    if (inq.message) {
+      const msg = inq.message.length > 100 ? inq.message.slice(0, 97) + '...' : inq.message;
+      lines.push(`    "${msg}"`);
+    }
+  }
+
+  lines.push('  → Reply within 24h: industry brief + SAFE term sheet + calendar link');
+
+  return lines.join('\n');
+}
+
+function renderHilTodosPlainText(data: HilTodosData): string {
+  if (data.todos.length === 0) return '';
+
+  const lines: string[] = [];
+  lines.push(`HIL TODO (${data.todos.length} open)`);
+  for (const t of data.todos) {
+    const label = CATEGORY_LABELS[t.category] || t.category.toUpperCase();
+    const age = Math.floor((Date.now() - new Date(t.created_at).getTime()) / 86_400_000);
+    const ageLabel = age === 0 ? 'today' : `${age}d ago`;
+    lines.push(`  [${label}] ${t.description} (${ageLabel})`);
+    lines.push(`  Done: ${data.backendUrl}/api/hil/done/${t.done_token}`);
+  }
+  lines.push('');
+  return lines.join('\n');
+}
+
+// ============================================================================
 // MAIN TEMPLATES
 // ============================================================================
 
@@ -536,6 +715,7 @@ export function buildCockpitHtml(data: CockpitData, baseUrl?: string): string {
     </tr>
 
     ${renderOutreachSummaryHtml(data.outreachSummary)}
+    ${renderCaptainInquiriesHtml(data.captainInquiries)}
     ${renderChanges(data)}
     ${renderBets(data.bets)}
     ${renderRisk(data)}
@@ -543,6 +723,8 @@ export function buildCockpitHtml(data: CockpitData, baseUrl?: string): string {
     ${renderMetrics(data)}
     ${renderWorkflow(data.workflow)}
     ${renderConstructionLeadsHtml(data.constructionLeads)}
+    ${renderLearnArtifactsHtml(data.learnArtifacts)}
+    ${renderHilTodosHtml(data.hilTodos)}
 
     <!-- Divider -->
     <tr><td style="padding: 0 20px;"><hr style="border: none; border-top: 2px solid #222; margin: 0;"></td></tr>
@@ -574,6 +756,12 @@ export function buildCockpitPlainText(data: CockpitData): string {
   const outreachText = renderOutreachSummaryPlainText(data.outreachSummary);
   if (outreachText) {
     lines.push(outreachText);
+  }
+
+  // Captain Inquiries
+  const captainText = renderCaptainInquiriesPlainText(data.captainInquiries);
+  if (captainText) {
+    lines.push(captainText);
   }
 
   // 3 Changes
@@ -637,6 +825,18 @@ export function buildCockpitPlainText(data: CockpitData): string {
   const clText = renderConstructionLeadsPlainText(data.constructionLeads);
   if (clText) {
     lines.push(clText);
+  }
+
+  // Learn Artifacts
+  const learnText = renderLearnArtifactsPlainText(data.learnArtifacts);
+  if (learnText) {
+    lines.push(learnText);
+  }
+
+  // HIL ToDo
+  const hilText = renderHilTodosPlainText(data.hilTodos);
+  if (hilText) {
+    lines.push(hilText);
   }
 
   // Send List

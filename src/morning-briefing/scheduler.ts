@@ -4,15 +4,39 @@
  * Delivery: GitHub Actions workflow (.github/workflows/morning-briefing.yml)
  * fires Mon-Sat at 06:00 Helsinki via dual UTC crons (DST-safe).
  *
- * This module provides the send logic used by both the standalone script
- * (scripts/send-morning-briefing.ts) and the Express manual-trigger endpoint.
+ * SECURITY: Resend SDK removed 2026-03-26 due to suspected account compromise.
+ * Email delivery: Amazon SES (SMTP) only. Console fallback for dev.
  *
- * Uses Resend for email delivery.
+ * risto@onelifetime.world managed by Amazon SES eu-north-1.
+ * SMTP env vars: SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_SECURE
  */
 
+import nodemailer from 'nodemailer';
 import logger from '../utils/logger.js';
 import { collectCockpitData } from './data-collectors.js';
 import { buildCockpitHtml, buildCockpitPlainText } from './briefing-template.js';
+
+// ============================================================================
+// SMTP TRANSPORT
+// ============================================================================
+
+function createSmtpTransport(): nodemailer.Transporter | null {
+  const host = process.env.SMTP_HOST;
+  if (!host) return null;
+
+  const port = parseInt(process.env.SMTP_PORT || '587', 10);
+  const secure = process.env.SMTP_SECURE === 'true';
+
+  return nodemailer.createTransport({
+    host,
+    port,
+    secure,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+  });
+}
 
 // ============================================================================
 // SEND BRIEFING
@@ -33,44 +57,28 @@ async function sendMorningBriefing(): Promise<void> {
   });
   const subject = `CEO Cockpit ${dateStr}`;
 
-  const resendKey = process.env.RESEND_API_KEY;
-
-  if (!resendKey) {
-    logger.warn('RESEND_API_KEY not configured. Printing cockpit to console.');
-    console.log('\n' + text);
-    return;
-  }
-
-  try {
-    const response = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${resendKey}`,
-      },
-      body: JSON.stringify({
+  // --- SES SMTP ---
+  const smtpTransport = createSmtpTransport();
+  if (smtpTransport) {
+    try {
+      const info = await smtpTransport.sendMail({
         from: fromAddress,
-        to: [recipient],
+        to: recipient,
         subject,
         html,
         text,
-      }),
-    });
-
-    if (response.ok) {
-      logger.info('CEO Cockpit sent via Resend', { to: recipient });
+      });
+      logger.info('CEO Cockpit sent via SES SMTP', { to: recipient, messageId: info.messageId });
       return;
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Unknown error';
+      logger.error('SES SMTP send failed', { error: msg });
     }
-
-    const errorBody = await response.text();
-    logger.error('Resend CEO Cockpit failed', {
-      status: response.status,
-      error: errorBody,
-    });
-  } catch (err) {
-    const msg = err instanceof Error ? err.message : 'Unknown error';
-    logger.error('Resend CEO Cockpit error', { error: msg });
   }
+
+  // --- Last resort: console ---
+  logger.warn('No SMTP transport configured (SMTP_HOST). Printing to console.');
+  console.log('\n' + text);
 }
 
 // ============================================================================

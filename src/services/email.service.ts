@@ -1,21 +1,23 @@
 /**
  * DWS IQ 6 - Email Service
  *
- * Production-ready email delivery service using Resend as the sole provider.
+ * SECURITY: Resend SDK removed 2026-03-26 due to suspected account compromise.
+ * All emails now use Amazon SES via SMTP only (src/utils/send-email.ts).
  *
  * Features:
- *   - Resend REST API for outbound email
+ *   - SES via SMTP as the sole transport (nodemailer)
  *   - Structured logging via project logger
  *   - Supabase email_logs persistence (when configured)
  *   - HTML templates for all transactional email types
  *
  * Environment variables:
- *   RESEND_API_KEY       - Resend API key (required)
+ *   SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_SECURE (for Amazon SES)
  *   EMAIL_FROM           - Sender address (default: risto@onelifetime.world)
  *   SUPABASE_URL         - Supabase project URL (for email logging)
  *   SUPABASE_SERVICE_KEY - Supabase service role key (for email logging)
  */
 
+import { sendEmail as sendEmailUtil } from '../utils/send-email.js';
 import logger from '../utils/logger.js';
 import {
   welcomeTemplate,
@@ -23,6 +25,8 @@ import {
   reportDeliveryTemplate,
   notificationTemplate,
   invoiceTemplate,
+  captainPreBriefingTemplate,
+  investorOutreachTemplate,
 } from './email-templates.js';
 
 // ============================================================
@@ -39,7 +43,14 @@ interface EmailOptions {
   metadata?: Record<string, unknown>;
 }
 
-type EmailStatus = 'sent' | 'failed' | 'pending';
+export interface BatchEmailItem {
+  to: string;
+  subject: string;
+  html: string;
+  templateType?: string;
+}
+
+type EmailStatus = 'sent' | 'failed' | 'pending' | 'delivered' | 'bounced' | 'complained';
 
 interface EmailLogEntry {
   to_email: string;
@@ -50,6 +61,7 @@ interface EmailLogEntry {
   sent_at: string | null;
   error: string | null;
   metadata: Record<string, unknown> | null;
+  transport?: string | null;
 }
 
 // ============================================================
@@ -58,20 +70,21 @@ interface EmailLogEntry {
 
 class EmailService {
   private readonly fromAddress: string;
-  private readonly resendApiKey: string | undefined;
   private readonly supabaseUrl: string | undefined;
   private readonly supabaseServiceKey: string | undefined;
 
   constructor() {
     this.fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
-    this.resendApiKey = process.env.RESEND_API_KEY;
     this.supabaseUrl = process.env.SUPABASE_URL;
     this.supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
 
-    if (!this.resendApiKey) {
+    const hasSmtp = !!process.env.SMTP_HOST;
+    if (!hasSmtp) {
       logger.warn(
-        'RESEND_API_KEY not configured. Emails will be logged but not delivered.'
+        'No SMTP transport configured (SMTP_HOST). Emails will be logged but not delivered.'
       );
+    } else {
+      logger.info('Email service initialized', { transport: 'SES (SMTP)' });
     }
   }
 
@@ -79,9 +92,6 @@ class EmailService {
   // PUBLIC METHODS
   // ----------------------------------------------------------
 
-  /**
-   * Send a welcome email to a newly registered user.
-   */
   async sendWelcomeEmail(to: string, name: string): Promise<void> {
     await this.sendEmail({
       to,
@@ -92,9 +102,6 @@ class EmailService {
     });
   }
 
-  /**
-   * Send a password reset email with a one-time link.
-   */
   async sendPasswordResetEmail(to: string, resetLink: string): Promise<void> {
     await this.sendEmail({
       to,
@@ -104,9 +111,6 @@ class EmailService {
     });
   }
 
-  /**
-   * Notify a user that a report is ready for download.
-   */
   async sendReportDeliveryEmail(
     to: string,
     reportName: string,
@@ -121,9 +125,6 @@ class EmailService {
     });
   }
 
-  /**
-   * Send a generic notification email with custom subject and body text.
-   */
   async sendNotificationEmail(
     to: string,
     subject: string,
@@ -137,9 +138,36 @@ class EmailService {
     });
   }
 
-  /**
-   * Send an invoice email with payment details.
-   */
+  async sendCaptainPreBriefing(
+    to: string,
+    name: string,
+    industry: string,
+    seatLevel: string
+  ): Promise<void> {
+    await this.sendEmail({
+      to,
+      subject: `Your Captain Briefing Is Confirmed — ${industry}`,
+      html: captainPreBriefingTemplate(name, industry, seatLevel),
+      templateType: 'captain_pre_briefing',
+      metadata: { name, industry, seatLevel },
+    });
+  }
+
+  async sendInvestorOutreach(
+    to: string,
+    name: string,
+    investorType: 'vc' | 'angel' | 'family_office' | 'operator',
+    industry?: string
+  ): Promise<void> {
+    await this.sendEmail({
+      to,
+      subject: 'DWS IQ 6 — AI Compliance Platform for EU Industries',
+      html: investorOutreachTemplate(name, investorType, industry),
+      templateType: 'investor_outreach',
+      metadata: { name, investorType, industry },
+    });
+  }
+
   async sendInvoiceEmail(
     to: string,
     invoiceId: string,
@@ -155,14 +183,29 @@ class EmailService {
     });
   }
 
+  /**
+   * Send a raw email with custom HTML (no template wrapping).
+   * Used by onboarding drip sequences and custom notifications.
+   */
+  async sendRawEmail(options: EmailOptions): Promise<void> {
+    await this.sendEmail(options);
+  }
+
+  /**
+   * Send multiple emails sequentially via SES SMTP.
+   * Returns empty array (batch IDs were Resend-specific, now removed).
+   */
+  async sendBatch(emails: BatchEmailItem[]): Promise<string[]> {
+    for (const e of emails) {
+      await this.sendEmail({ to: e.to, subject: e.subject, html: e.html, templateType: e.templateType });
+    }
+    return [];
+  }
+
   // ----------------------------------------------------------
   // CORE SEND LOGIC (PRIVATE)
   // ----------------------------------------------------------
 
-  /**
-   * Send an email through Resend.
-   * Logs every attempt to Supabase when configured.
-   */
   private async sendEmail(options: EmailOptions): Promise<void> {
     const { to, subject, html, templateType, metadata } = options;
 
@@ -172,27 +215,19 @@ class EmailService {
       templateType: templateType || 'custom',
     });
 
-    if (!this.resendApiKey) {
-      logger.warn('RESEND_API_KEY not configured - email not delivered', {
+    try {
+      const result = await sendEmailUtil({
+        from: this.fromAddress,
         to,
         subject,
+        html,
       });
-      await this.logEmail({
-        to_email: to,
-        from_email: this.fromAddress,
-        subject,
-        template_type: templateType || null,
-        status: 'failed',
-        sent_at: null,
-        error: 'RESEND_API_KEY not configured',
-        metadata: metadata || null,
-      });
-      return;
-    }
 
-    try {
-      await this.sendViaResend(to, subject, html);
-      logger.info('Email sent via Resend', { to, subject });
+      if (!result.ok) {
+        throw new Error(result.error || 'Email delivery failed');
+      }
+
+      logger.info('Email sent', { to, subject, transport: result.transport });
       await this.logEmail({
         to_email: to,
         from_email: this.fromAddress,
@@ -202,11 +237,12 @@ class EmailService {
         sent_at: new Date().toISOString(),
         error: null,
         metadata: metadata || null,
+        transport: result.transport || null,
       });
     } catch (err) {
       const errorMessage =
-        err instanceof Error ? err.message : 'Unknown Resend error';
-      logger.error('Resend send failed', { to, error: errorMessage });
+        err instanceof Error ? err.message : 'Unknown error';
+      logger.error('Email send failed', { to, error: errorMessage });
 
       await this.logEmail({
         to_email: to,
@@ -217,6 +253,7 @@ class EmailService {
         sent_at: null,
         error: errorMessage,
         metadata: metadata || null,
+        transport: null,
       });
 
       throw new Error(`Email delivery failed: ${errorMessage}`);
@@ -224,49 +261,9 @@ class EmailService {
   }
 
   // ----------------------------------------------------------
-  // PROVIDER IMPLEMENTATIONS
-  // ----------------------------------------------------------
-
-  /**
-   * Send email via Resend REST API.
-   * @see https://resend.com/docs/api-reference/emails/send-email
-   */
-  private async sendViaResend(
-    to: string,
-    subject: string,
-    html: string
-  ): Promise<void> {
-    const response = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.resendApiKey}`,
-      },
-      body: JSON.stringify({
-        from: this.fromAddress,
-        to: [to],
-        subject,
-        html,
-      }),
-    });
-
-    if (!response.ok) {
-      const errorBody = await response.text();
-      throw new Error(
-        `Resend API error (${response.status}): ${errorBody}`
-      );
-    }
-  }
-
-  // ----------------------------------------------------------
   // EMAIL LOGGING (SUPABASE)
   // ----------------------------------------------------------
 
-  /**
-   * Persist an email log entry to the Supabase email_logs table.
-   * Failures are logged but never propagated to the caller - email
-   * delivery should not fail because of a logging issue.
-   */
   private async logEmail(entry: EmailLogEntry): Promise<void> {
     if (!this.supabaseUrl || !this.supabaseServiceKey) {
       logger.debug('Supabase not configured - skipping email log persistence', {
@@ -306,5 +303,5 @@ class EmailService {
   }
 }
 
-// Export singleton instance (consistent with auth.service.ts pattern)
+// Export singleton instance
 export default new EmailService();

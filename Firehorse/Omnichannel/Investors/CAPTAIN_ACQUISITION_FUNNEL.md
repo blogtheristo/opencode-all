@@ -5,7 +5,7 @@
 | **Document ID** | DWS-FUNNEL-001 |
 | **Version** | 1.0 |
 | **Date** | 2026-02-15 |
-| **Owner** | Risto Paarni, CEO |
+| **Owner** | Risto Anton Päärni, CEO |
 | **Status** | Active |
 
 ---

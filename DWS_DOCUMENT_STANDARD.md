@@ -1,17 +1,21 @@
 # DWS Document Standard
 
----
+***
 # VERSION AND AGENT HISTORY
 
-Version: 1.5
+Version: 1.9
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - DWS document standard with workflow naming conventions
-  - Version: 1.1 | Tool: GitHub Copilot | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Added PDF Standard section (8.0) with conversion methods, quality checklist, and automation guidance
-  - Version: 1.2 | Tool: Claude Code | Session: claude/show-dws-version-LLEHz | Date: 21.01.2026 | Changes: Added knowledge management strategy, core artifacts, and field notes sections; integrated ontology framework
-  - Version: 1.3 | Tool: Claude Code (Opus 4.5) | Session: claude/update-docs-qwen3-coder-FFGgN | Date: 04.02.2026 | Changes: Added LLM versioning section (14), localization tracking (15), document index reference
-  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Pandoc compatibility - changed --- to *** delimiters, updated PDF section with Generate-PDFs.ps1
+  - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Registered DWS_DATA_STANDARD.md in document ecosystem — new root-level standard for data storage governance, columnar/row policy, extension registry, EU regulatory compliance
+  - Version: 1.8 | Tool: Codex (GPT-5.3) | Session: cursor/code-versioning-pr-rule | Date: 13.03.2026 | Changes: Added Code Versioning & PR Traceability Standard (§19), syntax-safe code version note templates, and .env schema versioning policy
+  - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-web-content-index-kxetP | Date: 28.02.2026 | Changes: Added Web Content Index check procedure (§17), Learn HTML generation rule (§18), content-index agent skill; updated morning briefing with Learn artifact links
+  - Version: 1.6 | Tool: Cursor AI | Session: cursor/update-sql-migration-naming | Date: 27.02.2026 | Changes: Added SQL migration file naming convention using number_ddmmyy_name.sql pattern
   - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/automate-pr-workflow-e5wXD | Date: 21.02.2026 | Changes: Added OUTDATED status and document lifecycle procedure (sections 2.4-2.5), archive folder structure, marking procedure
+  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Pandoc compatibility - changed --- to *** delimiters, updated PDF section with Generate-PDFs.ps1
+  - Version: 1.3 | Tool: Claude Code (Opus 4.5) | Session: claude/update-docs-qwen3-coder-FFGgN | Date: 04.02.2026 | Changes: Added LLM versioning section (14), localization tracking (15), document index reference
+  - Version: 1.2 | Tool: Claude Code | Session: claude/show-dws-version-LLEHz | Date: 21.01.2026 | Changes: Added knowledge management strategy, core artifacts, and field notes sections; integrated ontology framework
+  - Version: 1.1 | Tool: GitHub Copilot | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Added PDF Standard section (8.0) with conversion methods, quality checklist, and automation guidance
+  - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - DWS document standard with workflow naming conventions
 
 Session Links & References:
   - Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/commits/main
@@ -23,16 +27,16 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 21.02.2026
+  - Last Modified: 14.03.2026
   - Language: English & Finnish (bilingual)
   - Languages Available: English, Suomi
   - Publication Status: ACTIVE
 
 ***
 
-**Version:** 1.5
-**Effective Date:** 2026-02-21
-**Last Updated:** 2026-02-21
+**Version:** 1.9
+**Effective Date:** 2026-03-14
+**Last Updated:** 2026-03-14
 **Status:** Active
 
 ---
@@ -54,7 +58,10 @@ Document Status:
 13. [Enforcement](#13-enforcement)
 14. [LLM Model Versioning](#14-llm-model-versioning) ⭐ NEW
 15. [Localization & Multi-Language Management](#15-localization--multi-language-management) ⭐ NEW
-16. [Document Index](#16-document-index) ⭐ NEW
+16. [Document Index](#16-document-index)
+17. [Web Content Index Check](#17-web-content-index-check) ⭐ NEW
+18. [Learn HTML Generation](#18-learn-html-generation) ⭐ NEW
+19. [Code Versioning & PR Traceability](#19-code-versioning--pr-traceability) ⭐ NEW
 
 ---
 
@@ -338,6 +345,38 @@ backup_database_v2.sh
 deploy_production_v1.js
 ```
 
+### 4.5 SQL Migration Files (Supabase / Postgres)
+
+Used for `supabase/migrations/*.sql` and any hand-written DDL migrations.
+
+**Format:**
+```
+[number]_[DDMMYY]_[name].sql
+```
+
+- **number**: Zero-padded, 3-digit migration number matching execution order  
+  - Examples: `002`, `013`, `030`, `036`
+- **DDMMYY**: Creation date (day, month, year) in `ddmmyy` format  
+  - Examples: `270226` = 27.02.2026
+- **name**: Short, lowercase, snake_case description (`_` is allowed and encouraged)
+
+**Examples:**
+```
+002_190126_firehorse_pilot.sql
+013_190126_agent_tracking.sql
+030_220226_agent_logging_tables.sql
+031_220226_supabase_advisor_fixes.sql
+036_270226_construction_leads.sql
+```
+
+**Rules:**
+- Filenames live in the filesystem only – Postgres does **not** read them, but:
+  - The **number** communicates migration ordering to humans and tooling.
+  - The **DDMMYY** encodes creation context and helps when scanning history.
+  - The **name** must be descriptive enough to understand purpose at a glance.
+- Always use `_` (underscore) as separator; avoid spaces and mixed separators.
+- When renumbering or adding late migrations (e.g. `036_*`), keep the original date to preserve historical traceability.
+
 ### 4.4 Prohibited Naming Patterns
 
 ❌ **DO NOT USE:**
@@ -583,35 +622,158 @@ pandoc "input.md" -o "output.pdf" --pdf-engine=xelatex --toc -f markdown-yaml_me
 
 ### 8.4 HTML Styling Standard (DWS Brand)
 
-**DWS brand CSS (used by Generate-PDFs.ps1):**
+**Font loading — two modes based on document classification:**
+
+| Classification | Font Loading | Reason |
+|---------------|-------------|--------|
+| **Confidential / Sales / Internal** | Self-hosted `@font-face` from `docs/assets/fonts/` | No external network requests — document works offline and in locked-down environments |
+| **Public (landing pages, blog)** | Google Fonts CDN `<link>` tag | Performance, caching, CDN delivery |
+
+**Self-hosted font (confidential documents):**
+
+Font files: `docs/assets/fonts/Inter-{Regular,Medium,SemiBold,Bold}.ttf`
+
+```css
+/* Self-hosted Inter — no external network requests (confidential document) */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../assets/fonts/Inter-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../assets/fonts/Inter-Medium.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../assets/fonts/Inter-SemiBold.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../assets/fonts/Inter-Bold.ttf') format('truetype');
+}
+```
+
+**Google Fonts (public pages only):**
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+```
+
+**DWS brand CSS:**
 
 ```css
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    font-size: 11pt;
-    line-height: 1.6;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10pt;
+    line-height: 1.55;
     max-width: 900px;
     margin: 0 auto;
     padding: 40px;
-    color: #333;
+    color: #1a202c;
 }
-h1 { color: #0a1628; border-bottom: 3px solid #0066cc; padding-bottom: 8px; }
-h2 { color: #0a1628; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
-h3 { color: #333; }
+h1 { color: #0f172a; border-bottom: 3px solid #0066cc; padding-bottom: 8px; }
+h2 { color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; }
+h3 { color: #1e3a5f; }
 code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
 pre { background: #f4f4f4; padding: 12px; border-radius: 4px; border: 1px solid #ddd; }
 table { border-collapse: collapse; width: 100%; margin: 12px 0; }
-th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }
-th { background: #0a1628; color: white; }
-tr:nth-child(even) { background: #f9f9f9; }
+th, td { border: 1px solid #e2e8f0; padding: 8px 12px; text-align: left; }
+th { background: #0f172a; color: white; }
+tr:nth-child(even) { background: #f8fafc; }
 a { color: #0066cc; }
 blockquote { border-left: 4px solid #0066cc; padding: 8px 16px; background: #f0f7ff; }
 ```
 
 **Brand colors reference:**
-- Primary: `#0a1628` (dark navy) - headings, table headers
-- Accent: `#0066cc` (enterprise blue) - links, borders, blockquotes
-- Text: `#333` - body text
+- Primary: `#0f172a` (dark navy) - headings, table headers
+- Secondary: `#1e3a5f` (deep blue) - subheadings, accents
+- Accent: `#fbbf24` (gold) - section borders, CTAs
+- Enterprise blue: `#0066cc` - links, blockquotes
+- Text: `#1a202c` - body text
+- Muted: `#64748b` - secondary text, labels
+
+### 8.4.1 Print / A4 PDF Standard (CRITICAL)
+
+All HTML documents intended for browser print-to-PDF MUST include:
+
+**1. Force background printing:**
+```css
+@media print {
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+    }
+}
+```
+
+**2. Explicit A4 page structure** (browser @page CSS is unreliable for headers/footers):
+```css
+.page {
+    width: 210mm;
+    min-height: 297mm;
+    background: white;
+    margin: 10px auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    counter-increment: page-counter;
+}
+
+@media print {
+    .page {
+        margin: 0;
+        page-break-after: always;
+        overflow: visible;  /* NEVER overflow: hidden — clips content silently */
+    }
+    .page:last-child { page-break-after: avoid; }
+}
+```
+
+**NEVER use `overflow: hidden` on `.page` or `.page-content` in print mode.** Different browser print engines, font fallback, and user scaling can push content slightly beyond expected bounds. Hidden overflow silently truncates text without visual warning. Use `overflow: visible` and rely on page breaks.
+
+**NEVER use fixed `height: 297mm` on `.page` in print mode.** Use `min-height` only. Fixed height + flex children = content truncation when rendering varies across browsers/DPI.
+
+**3. Visible page headers and footers with CSS counters** (NOT @page CSS — browsers ignore those):
+
+```css
+body { counter-reset: page-counter; }
+.page { counter-increment: page-counter; }
+.page-number::after { content: counter(page-counter); }
+```
+
+```html
+<div class="page">
+    <div class="page-header">
+        <span>Lifetime Oy | Document Title</span>
+        <span>Confidential | Page <span class="page-number"></span></span>
+    </div>
+    <div class="page-content"><!-- content --></div>
+    <div class="page-footer">
+        <span>© Lifetime Oy 2026</span>
+        <span>Confidential</span>
+    </div>
+</div>
+```
+
+**NEVER hard-code page numbers** (e.g., "Page 3 of 5"). Use CSS counters so numbers stay accurate when content changes.
+
+**Why:** Browser print-to-PDF ignores CSS `@page` rules for headers, footers, and page counters. Explicit page divs with visible header/footer elements render reliably in Chrome, Edge, and Firefox print-to-PDF.
+
+**Reference implementation:** `docs/briefs/construction-compliance-brief-pia.html`
 
 ### 8.5 Conversion Scripts
 
@@ -637,15 +799,23 @@ blockquote { border-left: 4px solid #0066cc; padding: 8px 16px; background: #f0f
 Before finalizing any PDF document, verify:
 
 - [ ] File size < 10 MB (preferably 1-5 MB)
+- [ ] Inter font loads (self-hosted `@font-face` for confidential docs, Google Fonts CDN for public)
+- [ ] No external network requests in confidential documents (no Google Fonts `<link>`)
+- [ ] `print-color-adjust: exact` in `@media print` block
+- [ ] All backgrounds render in print preview (cover pages, table headers)
+- [ ] Explicit `<div class="page">` structure with visible headers/footers (NOT @page CSS)
+- [ ] No `overflow: hidden` on `.page` or `.page-content` (clips content silently in print)
+- [ ] No fixed `height: 297mm` in print — use `min-height` only
+- [ ] Page numbers use CSS counters (never hard-coded)
 - [ ] All tables render correctly
-- [ ] Page breaks are appropriate
-- [ ] Headers and footers are consistent
+- [ ] Page breaks are appropriate (one `page-break-after: always` per page div)
+- [ ] Headers and footers are consistent across all pages
 - [ ] Images are clear and properly sized
 - [ ] Code blocks are formatted and readable
 - [ ] Links are preserved (if applicable)
 - [ ] Table of contents is accurate
 - [ ] Document metadata is included
-- [ ] Professional styling applied
+- [ ] Professional styling applied (Inter font, DWS brand colors)
 
 ### 8.7 Naming Convention for PDFs
 
@@ -1602,6 +1772,287 @@ diff /tmp/md_files.txt docs/Document-index.md
 
 ---
 
+## 17. Web Content Index Check
+
+### 17.1 Purpose / Tarkoitus
+
+Every document update MUST be followed by a **web content check** — a review of which live web pages are affected by the change.
+
+Jokaisen dokumenttipäivityksen jälkeen TÄYTYY tehdä **verkkosisältötarkistus** — selvittää, mitkä live-verkkosivut muutoksesta vaikuttuvat.
+
+### 17.2 Web Content Index
+
+**Location:** `docs/WEB_CONTENT_INDEX.md`
+
+This index maps every repository document to its corresponding web domain pages (dws10.com, dws6.com, onelifetime.world). It is the authoritative source for:
+
+- Which web pages reflect which documents
+- What to review after a document update
+- Which pages are web-only (no .md counterpart)
+
+### 17.3 Post-Update Web Check Procedure
+
+**After every document update** (commit or PR), the author MUST:
+
+```
+POST-UPDATE WEB CHECK
+
+Step 1 — Look up document in docs/WEB_CONTENT_INDEX.md
+Step 2 — For each mapped web page:
+          a. Check: does page content reflect the doc change?
+          b. If YES → no action, record "reviewed, no change"
+          c. If NO  → update the HTML page (root first, then landing-pages/)
+Step 3 — Record in PR description:
+          "Web check: /page-name reviewed [no change | updated]"
+Step 4 — Run: diff <root-page> <landing-pages-copy>  → must be empty
+```
+
+**Skip condition:** If the document is internal-only (marked `—` in all web columns), no web check is needed — state "internal only" in PR description.
+
+### 17.4 Agent Skill
+
+Run `/content-index check <document-path>` to look up web impact for any document.
+
+```bash
+/content-index check DWS_BRAND_STANDARD.md
+# → Lists: dws10.com/gamma/, dws6.com/shared/
+# → Instruction: Review these pages for content currency
+```
+
+### 17.5 Content-Index Update Trigger
+
+**Update `docs/WEB_CONTENT_INDEX.md` when:**
+- A new `.md` document is created that has web counterparts
+- A new web page is launched that corresponds to a doc
+- A document is archived (remove or mark row)
+- A web page is renamed or deleted
+
+---
+
+## 18. Learn HTML Generation
+
+### 18.1 Rule / Sääntö
+
+**Every standards document update MUST produce a new versioned HTML artifact in `Learn/`.**
+
+This ensures:
+- AI agents and humans can read the latest standard in rendered HTML
+- Morning briefing email links to current standards
+- Version history is preserved (never overwrite old versions)
+
+**Jokainen standardidokumentin päivitys TÄYTYY tuottaa uuden versioidun HTML-artefaktin kansioon `Learn/`.**
+
+### 18.2 Which Documents Require Learn/ HTML
+
+| Document | Learn/ HTML Required | Pattern |
+|----------|---------------------|---------|
+| `DWS_DOCUMENT_STANDARD.md` | ✅ Yes | `Learn/DWS_DOCUMENT_STANDARD_v{VERSION}.html` |
+| `DWS_BRAND_STANDARD.md` | ✅ Yes | `Learn/DWS_BRAND_STANDARD_v{VERSION}.html` |
+| `DWS_SECURITY_STANDARD.md` | ✅ Yes | `Learn/DWS_SECURITY_STANDARD_v{VERSION}.html` |
+| `Admin/ADMIN_MANUAL.md` | ✅ Yes | `Learn/ADMIN_MANUAL_v{VERSION}.html` |
+| `Admin/SECURITY_COMPLIANCE.md` | ✅ Yes | `Learn/SECURITY_COMPLIANCE_v{VERSION}.html` |
+| `CLAUDE.md` | ✅ Yes | `Learn/CLAUDE_v{VERSION}.html` |
+| `docs/Document-index.md` | ✅ Yes | `Learn/Document-index_v{VERSION}.html` |
+| `docs/WEB_CONTENT_INDEX.md` | ✅ Yes | `Learn/WEB_CONTENT_INDEX_v{VERSION}.html` |
+| Field notes (`docs/field-notes/*.md`) | ✅ Yes | `Learn/{date}-{slug}.html` |
+| Thesis files | ✅ Yes — see Thesis Rule | `Learn/V3Thesis_EN_v{VERSION}.html` etc. |
+| `Store/*.md` product files | ❌ No | These use YAML — built by build_store.py instead |
+| Architecture docs (one-time) | ⚠️ Optional | Generate once on initial creation |
+
+### 18.3 Generation Method
+
+**Preferred: Pandoc (automated)**
+
+```bash
+pandoc DWS_DOCUMENT_STANDARD.md \
+  -f markdown -t html5 \
+  --standalone \
+  -o Learn/DWS_DOCUMENT_STANDARD_v1.7.html
+```
+
+**Alternative: Manual HTML**
+
+When pandoc is unavailable, generate minimal but valid HTML:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>[Document Title] v[VERSION]</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    pre { background: #f4f4f4; padding: 1rem; overflow-x: auto; }
+    code { background: #f4f4f4; padding: 0.2em 0.4em; }
+    h1, h2, h3 { border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+  </style>
+</head>
+<body>
+  <!-- Converted from [source.md] on [date] — DWS IQ 6 -->
+  [HTML CONTENT]
+</body>
+</html>
+```
+
+### 18.4 Versioning Rules
+
+- **NEVER overwrite** an existing versioned file (e.g., `_v1.6.html`)
+- **Always create a new file** with the new version number
+- **Also update** the unversioned copy (e.g., `Learn/DWS_DOCUMENT_STANDARD.html`) so agents always have a stable URL
+- For thesis files: follow the Thesis Update Rule (4 files together)
+
+### 18.5 Morning Briefing Integration
+
+The CEO Cockpit morning brief (06:00 Helsinki) includes a **Learn Artifacts** section showing recently updated HTML files with direct GitHub links.
+
+When you publish a new Learn/ HTML:
+- The morning briefing automatically detects files modified in the last 7 days
+- It links to: `https://github.com/blogtheristo/dws6/blob/main/Learn/{filename}`
+
+**Skill:** Run `/content-index learn` to see which Learn/ artifacts were published recently.
+
+### 18.6 Learn Artifact Naming
+
+```
+Learn/[DOCUMENT_SLUG]_v[MAJOR].[MINOR].html    ← versioned (permanent)
+Learn/[DOCUMENT_SLUG].html                      ← latest (overwrite allowed)
+```
+
+Examples:
+```
+Learn/DWS_DOCUMENT_STANDARD_v1.7.html   ← versioned
+Learn/DWS_DOCUMENT_STANDARD.html        ← latest (always current)
+Learn/WEB_CONTENT_INDEX_v1.0.html       ← versioned
+Learn/WEB_CONTENT_INDEX.html            ← latest
+```
+
+---
+
+## 19. Code Versioning & PR Traceability
+
+### 19.1 Rule / Sääntö
+
+All net-new production code files and all major rewrites MUST include a **Code Versioning Note** that ties the code to PR and commit lineage.
+
+Jokaisen uuden tuotantokooditiedoston ja merkittävän uudelleenkirjoituksen TÄYTYY sisältää **Code Versioning Note**, joka sitoo koodin PR- ja commit-historiaan.
+
+**Why:** Enables fast forensic search ("where did this come from?"), rollback targeting, and compliance-grade traceability.
+
+### 19.2 Required Fields
+
+Every Code Versioning Note MUST contain:
+
+- `Code-Version` (semantic: `MAJOR.MINOR.PATCH`)
+- `Introduced-In` (PR number, e.g. `PR-699`)
+- `Branch` (e.g. `claude/pr-699`)
+- `Commit` (short SHA at merge point when known)
+- `Date` (`YYYY-MM-DD`)
+- `Owner` (team or tool)
+- `Env-Schema` (e.g. `env-v1.0`) if runtime config is required
+
+### 19.3 Syntax-Safe Templates (CRITICAL)
+
+Use language-appropriate comment syntax. Never insert markdown prose directly into executable syntax.
+
+**TypeScript / JavaScript (`.ts`, `.tsx`, `.js`, `.jsx`):**
+```ts
+/**
+ * CODE VERSIONING NOTE
+ * Code-Version: 1.0.0
+ * Introduced-In: PR-699
+ * Branch: claude/pr-699
+ * Commit: abc1234
+ * Date: 2026-03-13
+ * Owner: DWS Platform / AI Agent
+ * Env-Schema: env-v1.0
+ */
+```
+
+**Python (`.py`):**
+```python
+"""
+CODE VERSIONING NOTE
+Code-Version: 1.0.0
+Introduced-In: PR-699
+Branch: claude/pr-699
+Commit: abc1234
+Date: 2026-03-13
+Owner: DWS Platform / AI Agent
+Env-Schema: env-v1.0
+"""
+```
+
+**SQL migrations (`.sql`):**
+```sql
+-- CODE VERSIONING NOTE
+-- Code-Version: 1.0.0
+-- Introduced-In: PR-699
+-- Branch: claude/pr-699
+-- Commit: abc1234
+-- Date: 2026-03-13
+-- Owner: DWS Platform / AI Agent
+-- Env-Schema: env-v1.0
+```
+
+**Shell / YAML / Dockerfile:**
+```text
+# CODE VERSIONING NOTE
+# Code-Version: 1.0.0
+# Introduced-In: PR-699
+# Branch: claude/pr-699
+# Commit: abc1234
+# Date: 2026-03-13
+# Owner: DWS Platform / AI Agent
+# Env-Schema: env-v1.0
+```
+
+### 19.4 Increment Rules for `Code-Version`
+
+- Patch (`x.y.Z`): bug fix, no behavior contract change
+- Minor (`x.Y.z`): additive behavior, backward compatible
+- Major (`X.y.z`): breaking behavior/API/contract change
+
+### 19.5 .env Versioning Policy
+
+Runtime secret files are not versioned in Git, but the schema is.
+
+- Never commit `.env` (secrets)
+- Always version `.env.example` structure
+- Track schema via `ENV_SCHEMA_VERSION` in `.env.example`
+- Bump rules:
+  - Major: breaking or renamed required variable
+  - Minor: new optional/required variable added
+  - Patch: comment/docs clarifications only
+- Record schema changes in standards/history and PR description
+
+### 19.6 Enforcement Checklist (Code Reviews)
+
+Before merging code PRs:
+
+- [ ] New/rewritten files include Code Versioning Note
+- [ ] `Introduced-In` references current PR number (e.g., `PR-699`)
+- [ ] `Code-Version` increment is justified by change scope
+- [ ] If config changed: `.env.example` updated and `ENV_SCHEMA_VERSION` bumped
+- [ ] No secrets/keys included in version notes
+
+### 19.7 Hunt Queries (Trace Any Code Fast)
+
+Use these repository queries to trace lineage:
+
+```bash
+# All code versioning notes
+rg "CODE VERSIONING NOTE"
+
+# All artifacts introduced in PR-699
+rg "Introduced-In:\\s*PR-699"
+
+# All files using env schema lineage
+rg "Env-Schema:\\s*env-v"
+```
+
+---
+
 ## 📋 Quick Reference
 
 ### Document Header Template
@@ -1667,9 +2118,25 @@ Document Status:
 
 ---
 
-**Version:** 1.5
-**Effective Date:** 21. February 2026
+**Version:** 1.8
+**Effective Date:** 13. March 2026
 **Next Review:** Q2 2026
+
+**Major Changes in v1.8:**
+- Added Code Versioning & PR Traceability Standard (Section 19)
+- Added syntax-safe per-language templates for code version notes
+- Added `.env` schema versioning policy (`ENV_SCHEMA_VERSION` in `.env.example`)
+- Added explicit PR-linked requirement (`Introduced-In: PR-<number>`, e.g. `PR-699`)
+
+**Major Changes in v1.7:**
+- Added Web Content Index check procedure (Section 17) — post-update web check to detect drift between docs and live pages
+- Added Learn HTML Generation rule (Section 18) — every standards update produces a versioned HTML artifact in Learn/
+- Created `docs/WEB_CONTENT_INDEX.md` — maps docs to web pages across all three domains
+- Created `.claude/commands/content-index.md` — agent skill for web content index
+- Added Learn Artifacts section to morning briefing email (06:00 Helsinki)
+
+**Major Changes in v1.6:**
+- Added SQL migration file naming convention using number_ddmmyy_name.sql pattern
 
 **Major Changes in v1.5:**
 - Added OUTDATED publication status for documents pending archive

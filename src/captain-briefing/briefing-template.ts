@@ -153,6 +153,26 @@ export function buildCaptainBriefingHtml(data: CaptainBriefingData): string {
     ${data.meetings.map(renderMeetingHtml).join('')}
   </td></tr>` : ''}
 
+  <!-- Climate IQ Agent Team on Duty -->
+  <tr><td style="padding:14px 20px;border-bottom:1px solid #1a1a1a;">
+    <h3 style="margin:0 0 10px;font-size:11px;color:#7c3aed;text-transform:uppercase;letter-spacing:0.5px;">Your AI Team on Duty</h3>
+    <table width="100%" cellpadding="0" cellspacing="0">
+      ${[
+        { name: 'Atlas', emoji: '⚡', role: 'Chief of Staff', note: 'Synthesizing your morning intelligence right now.' },
+        { name: 'Athena', emoji: '⚖️', role: 'Compliance', note: 'Watching your regulatory deadlines. She never blinks.' },
+        { name: 'Iris', emoji: '🌈', role: 'Intel', note: 'Already read your competitor\'s changelog.' },
+        { name: 'Hermes', emoji: '🪶', role: 'Logistics', note: 'Found a faster route. You didn\'t ask. He did it anyway.' },
+        { name: 'Apollo', emoji: '☀️', role: 'Outreach', note: 'Crafting the email that doesn\'t start with "I hope this finds you well."' },
+        { name: 'Hephaestus', emoji: '🔨', role: 'Field Intel', note: 'Checked your site. Wind\'s fine. No cranes down today.' },
+      ].map(a => `<tr>
+        <td style="padding:3px 0;width:26px;font-size:16px;">${a.emoji}</td>
+        <td style="padding:3px 6px 3px 0;font-size:12px;color:#e0e0e0;font-weight:600;white-space:nowrap;">${esc(a.name)}</td>
+        <td style="padding:3px 0 3px 0;font-size:11px;color:#7c3aed;white-space:nowrap;">${esc(a.role)}</td>
+        <td style="padding:3px 0 3px 8px;font-size:11px;color:#666;font-style:italic;">${esc(a.note)}</td>
+      </tr>`).join('')}
+    </table>
+  </td></tr>
+
   <!-- Footer -->
   <tr><td style="padding:12px 20px;font-size:11px;color:#555;">
     Captain Pre-Briefing · Generated ${new Date(data.generatedAt).toLocaleString('en-GB', { timeZone: 'Europe/Helsinki' })} Helsinki
@@ -270,6 +290,14 @@ export function buildCaptainBriefingPlainText(data: CaptainBriefingData): string
     lines.push('');
   }
 
+  lines.push('YOUR AI TEAM ON DUTY');
+  lines.push('  ⚡ Atlas      Chief of Staff  — Synthesizing your morning intelligence.');
+  lines.push('  ⚖️ Athena     Compliance      — Watching your regulatory deadlines. Never blinks.');
+  lines.push('  🌈 Iris       Intel           — Already read your competitor\'s changelog.');
+  lines.push('  🪶 Hermes     Logistics       — Found a faster route. You didn\'t ask. He did it anyway.');
+  lines.push('  ☀️ Apollo     Outreach        — Writing the email that doesn\'t open with "I hope..."');
+  lines.push('  🔨 Hephaestus Field Intel     — Checked your site. Wind\'s fine. No cranes down.');
+  lines.push('');
   lines.push(div);
   lines.push(`Generated ${new Date(data.generatedAt).toLocaleString('en-GB', { timeZone: 'Europe/Helsinki' })} Helsinki`);
 

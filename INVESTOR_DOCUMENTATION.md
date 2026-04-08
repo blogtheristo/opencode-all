@@ -190,13 +190,11 @@ We use **Groq LPU** for inference to reduce costs by **86%** compared to traditi
 - Real-time decision-making
 - Edge-cloud hybrid architecture
 
-### Startup Credits Secured
-- **Google for Startups**: $100,000 credits (applied)
-- **AWS for Startups**: $25,000 credits (applied)
-- **Groq for Startups**: $10,000 credits (applied)
+### Development Tools & Partnerships
+- **NVIDIA Connect Partnership**: Groq inference, Inception program
+- **Cursor.AI Pro**: AI-assisted development subscription
+- **Claude Code Max**: AI-assisted development subscription
 - **GitHub Enterprise**: Unlimited repos, 20 seats (active)
-
-**Total Credits**: $135,000
 
 ### Additional Credits Needed
 

@@ -1,6 +1,6 @@
 # One Click LCA Partnership Pitch
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
@@ -135,7 +135,7 @@ risto@onelifetime.world
 
 Panu,
 
-I'm Risto Paarni, founder of DWS IQ — an operations compliance platform for EU-regulated companies. We automate CSRD, ETS, and CBAM reporting by pulling data directly from ERP systems (SAP, IFS Cloud, Dynamics 365). We have €84k ARR, three paying customers with zero churn, and save each customer 40+ hours per month of manual compliance work.
+I'm Risto Paarni, Founder of DWS IQ — an operations compliance platform for EU-regulated companies. We automate CSRD, ETS, and CBAM reporting by pulling data directly from ERP systems (SAP, IFS Cloud, Dynamics 365). We have €84k ARR, three paying customers with zero churn, and save each customer 40+ hours per month of manual compliance work.
 
 **Here's why I'm reaching out:** We see a clean partnership opportunity between One Click LCA and DWS IQ.
 
