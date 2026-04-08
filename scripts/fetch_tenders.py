@@ -182,7 +182,7 @@ class TEDClient:
         self,
         cpv_codes: list[str],
         countries: list[str],
-        published_after: str,
+        published_after: str,  # noqa: ARG002
     ) -> dict:
         """
         Fallback: use TED search export endpoint when v3 API is unavailable.
@@ -208,8 +208,7 @@ class TEDClient:
         try:
             response = self.session.get(base_url, params=params, timeout=REQUEST_TIMEOUT)
             response.raise_for_status()
-            data = response.json()
-            return data
+            return response.json()
         except Exception as e:
             logger.warning(f"Fallback search also failed: {e}")
             return {"notices": [], "total": 0}
@@ -379,12 +378,12 @@ def save_leads_csv(leads: list[dict], output_path: Path) -> int:
 
     # Read existing leads
     if output_path.exists():
-        with open(output_path, "r", encoding="utf-8") as f:
+        with open(output_path, encoding="utf-8") as f:
             reader = csv.DictReader(f)
             for row in reader:
                 existing_ids.add(row.get("notice_id", ""))
 
-    new_leads = [l for l in leads if l["notice_id"] not in existing_ids]
+    new_leads = [lead for lead in leads if lead["notice_id"] not in existing_ids]
 
     if not new_leads:
         logger.info("No new leads to add (all duplicates).")
@@ -536,9 +535,8 @@ def send_email(subject: str, html: str, text: str) -> bool:
         result = response.json()
         logger.info(f"Email sent via Resend. ID: {result.get('id', 'unknown')}")
         return True
-    else:
-        logger.error(f"Resend failed ({response.status_code}): {response.text}")
-        return False
+    logger.error(f"Resend failed ({response.status_code}): {response.text}")
+    return False
 
 
 # ============================================================================

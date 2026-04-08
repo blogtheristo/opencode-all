@@ -16,6 +16,7 @@ jobs:
   auto-merge:
     name: Auto-Merge if Ready
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     # Only run when a PR has the ai-approved label
     if: |
       (github.event_name == 'pull_request' && github.event.label.name == 'ai-approved') ||
@@ -47,6 +48,7 @@ jobs:
               if (labels.includes('ai-changes-requested')) continue;
               if (labels.includes('do-not-merge')) continue;
               if (labels.includes('needs-human-review')) continue;
+              if (labels.includes('has-conflicts')) continue;
 
               // Check if all status checks pass
               const { data: checks } = await github.rest.checks.listForRef({

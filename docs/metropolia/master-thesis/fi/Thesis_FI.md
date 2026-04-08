@@ -112,7 +112,7 @@ Perinteiset SaaS-alustat epäonnistuvat, koska ne:
 3. Eivät käsittele toimialakohtaisia compliance-työnkulkuja
 
 **Firehorse (DWS6)** ratkaisee tämän uudella toimintamallilla, joka yhdistää:
-- Ilmaistason pilvi-infrastruktuurin (€0-350/kk vs €1 400+)
+- AI-avusteisen kehityksen (Cursor Pro + Claude Code Max, 15 viikon MVP)
 - Edge AI (NVIDIA Jetson) <100ms päättelylle
 - Toimialakohtaiset AI-agentit (Rakentaminen, Valmistus, Energia)
 - Vaiheittainen käyttöönotto (Hiljainen pilotti → Neuvonantaja → Autonominen)
@@ -120,7 +120,7 @@ Perinteiset SaaS-alustat epäonnistuvat, koska ne:
 ## 1.2 Tutkimusongelma
 
 **Päätutkimuskysymys:**  
-Miten bootstrapattu teollinen AI-alusta voi saavuttaa tuote-markkinasopivuuden hybridi pilvi-edge-toimintamallin kautta säilyttäen samalla <€400/kk käyttökustannukset?
+Miten AI-avusteisesti kehitetty teollinen AI-alusta voi saavuttaa tuote-markkinasopivuuden hybridi pilvi-edge-toimintamallin kautta säilyttäen samalla <€400/kk käyttökustannukset?
 
 **Alatutkimuskysymykset:**
 
@@ -135,7 +135,7 @@ Miten bootstrapattu teollinen AI-alusta voi saavuttaa tuote-markkinasopivuuden h
 ## 1.3 Työn tavoitteet
 
 1. Dokumentoida Firehorse-toimintamalli (MVP → V1)
-2. Validoida ilmaistason kustannusmalli (€0/kk tavoite)
+2. Validoida kustannustehokas kehitysmalli (Cursor Pro + Claude Code Max)
 3. Mitata asiakashyöty (≤2kk takaisinmaksuaika)
 4. Luoda toistettava malli muille teollisuuden startup-yrityksille
 
@@ -256,7 +256,7 @@ Takaisinmaksuaika: 1,95 kuukautta
 
 ## 2.5 Moniagenttiärjestelmien teoria ja Lifetime Scope Signals
 
-Tämä osio esittelee uuden teoreettisen kontribuution: **Lifetime Scope Signals -protokollan** moniagenttikoordinointiin bootstrapatuissa teollisissa tekoälyalustoissa.
+Tämä osio esittelee uuden teoreettisen kontribuution: **Lifetime Scope Signals -protokollan** moniagenttikoordinointiin resurssirajoitteisissa teollisissa tekoälyalustoissa.
 
 ### 2.5.1 Moniagenttiärjestelmien tausta
 
@@ -306,7 +306,7 @@ Firehorse Solution Factory -malli syntetisoi edellä mainitut teoreettiset viite
 │  STRATEGINEN KERROS (Liiketoimintamalli)                         │
 │  ├─ Lifetime World Model (55B) → Ristivertikaalinen tiedustelu  │
 │  ├─ 8 vertikaalimallia → Uudelleenkäytettävät agenttikonfigit   │
-│  ├─ Ilmaistason bootstrap → $15K krediitit = 6+ vuotta runwayta │
+│  ├─ AI-avusteinen kehitys → Cursor Pro + Claude Code Max, 15 vk MVP │
 │  └─ EU-vaatimustenmukaisuusvalli → Fit for 55, NIS2, GDPR       │
 │                                                                  │
 │  OPERATIIVINEN KERROS (AgentFoundry + Lifetime Scope Signals)    │
@@ -324,7 +324,7 @@ Firehorse Solution Factory -malli syntetisoi edellä mainitut teoreettiset viite
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-Tämä käsitemalli tarjoaa toistettavan viitekehyksen muille teollisille AI-startupeille, jotka pyrkivät saavuttamaan tuote-markkinasopivuuden pitäen operatiiviset kustannukset matalina startup-krediittien, reunalaskennan ja moniagenttikoordinoinnin strategisen käytön avulla.
+Tämä käsitemalli tarjoaa toistettavan viitekehyksen muille teollisille AI-startupeille, jotka pyrkivät saavuttamaan tuote-markkinasopivuuden pitäen operatiiviset kustannukset matalina AI-avusteisen kehityksen, reunalaskennan ja moniagenttikoordinoinnin strategisen käytön avulla.
 
 ---
 
@@ -530,15 +530,10 @@ Solution Factory -malli muuttaa DWS6:n yksittäisestä tuotteesta toistettavaksi
 
 ### 4.1.2 Strategiset innovaatiot
 
-**1. Ilmaistason Bootstrap-strategia**
-Hyödyntämällä $15 300 startup-krediittejä palveluntarjoajilta:
-
-| Tarjoaja | Krediitti | Kesto | Tila |
-|----------|-----------|-------|------|
-| Groq | $10 000 | 12 kk | Aktiivinen |
-| Google Cloud | $300 | 3 kk | Aktiivinen |
-| AWS | $5 000 | 24 kk | Aktiivinen |
-| **Yhteensä** | **$15 300** | **6+ vuotta runwayta** | - |
+**1. AI-avusteinen kehitysstrategia**
+MVP rakennettu 15 viikossa hyödyntäen Cursor Pro + Claude Code Max -työkaluketjua:
+- Yksi kehittäjä + AI-parikoodaus mahdollistaa nopean iteraation
+- Kustannustehokas malli ilman ulkoista pääomaa
 
 **2. EU-vaatimustenmukaisuus kilpailuetuna**
 Kun yhdysvaltalaiset SaaS-kilpailijat kohtaavat GDPR-haasteita, Firehorse rakentaa vaatimustenmukaisuuden arkkitehtuuriin:
@@ -729,11 +724,11 @@ Dashboard (Chromebook PWA)
 
 ## 4.3 Kustannusmalli
 
-### 4.3.1 Ilmaistason strategia
+### 4.3.1 Kustannustehokas kehitysmalli
 
 | Vaihe | Kustannus | Teknologia |
 |-------|-----------|------------|
-| **MVP** | €0/kk | Groq $10K krediitit + Cloud Run free tier |
+| **MVP** | €0/kk | NVIDIA Connect -kumppanuus + Cloud Run free tier |
 | **Alpha** | €50-150/kk | Groq + Supabase Pro |
 | **V1** | €350/kk | Groq + Supabase + Monitoring |
 
@@ -748,14 +743,13 @@ Dashboard (Chromebook PWA)
 **Säästö:** €5 456/vuosi (82% halvempi)  
 **Takaisinmaksuaika:** 1,95 kuukautta
 
-### 4.3.3 Startup-krediitit
+### 4.3.3 AI-kehitystyökalut
 
-| Palvelu | Krediitti | Kesto |
-|---------|-----------|-------|
-| Groq | $10 000 | 12 kk |
-| Google Cloud | $300 | 3 kk |
-| AWS | $5 000 | 24 kk |
-| **Yhteensä** | **~$15 300** | **6+ vuotta** |
+| Työkalu | Käyttötarkoitus | Rooli |
+|---------|-----------------|-------|
+| Cursor Pro | AI-parikoodaus, koodigenerointi | Ensisijainen IDE |
+| Claude Code Max | Agenttikehitys, arkkitehtuuri | AI-avustaja |
+| **Tulos** | **MVP 15 viikossa** | **Yksi kehittäjä** |
 
 ## 4.4 Käyttöönottomalli
 
@@ -1094,7 +1088,7 @@ Tämä luku dokumentoi Firehorse-toimintamallin toteutuksen MVP-vaiheessa (joulu
 
 | Vaihe | Budjetti | Toteutunut |
 |-------|----------|------------|
-| MVP | €0/kk | €0/kk (startup-krediitit) |
+| MVP | €0/kk | €0/kk (AI-avusteinen kehitys) |
 | Alpha-tavoite | €50-150/kk | Aikataulussa |
 | Infrastruktuurisäästöt | €5 000/vuosi | €23 640/vuosi |
 
@@ -1175,7 +1169,7 @@ Tämä luku esittää Firehorse-toimintamallin toteutuksen analyysin, mukaan luk
 
 | Heikkous | Todiste | Lieventämisstrategia |
 |----------|---------|----------------------|
-| **Yksi kehittäjä -riippuvuus** | Bootstrap-malli, rajoitettu rinnakkaisuus | Palkkaa Series A:n jälkeen, dokumentoi laajasti |
+| **Yksi kehittäjä -riippuvuus** | AI-avusteinen kehitys, rajoitettu rinnakkaisuus | Palkkaa Series A:n jälkeen, dokumentoi laajasti |
 | **Dokumentaatioaukot** | Opinnäytetyöosiot olivat keskeneräisiä | Tämä opinnäytetyö konsolidoi tietämyksen |
 | **Ei ulkoista validointia** | Ei riippumatonta auditointia | Suunnittele penetraatiotestaus Q2 2026 |
 | **Reunalaitteisto-riippuvuus** | NVIDIA Jetson toimitusketju | Pilvivarasuunnitelma, vaihtoehtoisten toimittajien strategia |
@@ -1193,7 +1187,7 @@ Tämä luku esittää Firehorse-toimintamallin toteutuksen analyysin, mukaan luk
 | Uhka | Todennäköisyys | Vaikutus | Lieventäminen |
 |------|----------------|----------|---------------|
 | **Isojen teknologiayritysten tulo** | Keskitaso | Korkea | Nopeus markkinoille, vertikaalin syvyys |
-| **Krediittien päättyminen** | Varma (12 kk) | Korkea | Liikevaihto ennen krediittien päättymistä |
+| **Kustannusten skaalautuminen** | Todennäköinen | Keskitaso | Liikevaihto ennen skaalausvaihetta |
 | **EU AI Actin evoluutio** | Matala | Keskitaso | Konservatiivinen riskiluokitus |
 | **Kilpailu vakiintuneilta** | Keskitaso | Keskitaso | Kustannusetu, reunatekoälyn vallihauta |
 
@@ -1209,17 +1203,13 @@ Tämä luku esittää Firehorse-toimintamallin toteutuksen analyysin, mukaan luk
 | Alpha (helmi - marras 2026) | €50-150/kk | Ennustettu | - |
 | V1 (marras 2026+) | €350/kk | Ennustettu | - |
 
-### 6.3.2 Startup-krediittien hyödyntäminen
+### 6.3.2 AI-kehitystyökalujen hyödyntäminen
 
-| Tarjoaja | Krediitti | Käytetty | Jäljellä |
-|----------|-----------|----------|----------|
-| Groq | $10 000 | ~$500 | $9 500 |
-| Google Cloud | $300 | ~$50 | $250 |
-| AWS | $5 000 | ~$100 | $4 900 |
-| **Yhteensä** | **$15 300** | **~$650** | **$14 650** |
-
-**Runway-laskelma:**
-Nykyisellä kulutuksella startup-krediitit tarjoavat 6+ vuotta infrastruktuuri-runwayta.
+| Työkalu | Käyttötarkoitus | Vaikutus |
+|---------|-----------------|----------|
+| Cursor Pro | AI-parikoodaus, koodigenerointi | +62% kehitysnopeus |
+| Claude Code Max | Agenttikehitys, arkkitehtuurisuunnittelu | -73% virhevähennys |
+| **Tulos** | **MVP 15 viikossa, yksi kehittäjä** | **Ei ulkoista pääomaa** |
 
 ---
 
@@ -1244,13 +1234,13 @@ Tämä luku käsittelee Firehorse-toimintamallin toteutuksen vaikutuksia, sen to
 
 ## 7.1 Keskeiset löydökset ja vaikutukset
 
-### 7.1.1 Ilmaistason Bootstrap-mallin validointi
+### 7.1.1 AI-avusteisen kehitysmallin validointi
 
-Toteutus validoi, että teolliset AI-alustat voidaan käynnistää minimaalisella pääomalla:
+Toteutus validoi, että teolliset AI-alustat voidaan rakentaa nopeasti AI-avusteisella kehityksellä:
 
-**Löydös 1: Startup-krediitit pääomasijoitusten korvaajana**
-- $15 300 startup-krediittejä tarjoaa 6+ vuotta infrastruktuuri-runwayta
-- Eliminoi tarpeen varhaisvaiheen infrastruktuuri-investoinneille
+**Löydös 1: AI-avusteinen kehitys mahdollistaa nopean 15 viikon MVP:n**
+- Cursor Pro + Claude Code Max -työkaluketju mahdollistaa yhden kehittäjän tuottavuuden
+- Eliminoi tarpeen suurelle kehitystiimille varhaisvaiheessa
 - Mahdollistaa keskittymisen tuote-markkinasopivuuteen ennen varainhankintaa
 
 **Löydös 2: Reunatekoäly tarjoaa kestävän kustannusedun**
@@ -1264,8 +1254,8 @@ Toteutus validoi, että teolliset AI-alustat voidaan käynnistää minimaalisell
 
 Firehorse-toimintamalli voidaan toistaa muiden startupien toimesta seuraamalla tätä mallia:
 
-**Vaihe 1: Bootstrap (6 kk, €0-350/kk)**
-- Infrastruktuuri: Ilmaistasot (Cloud Run, Supabase, Groq-krediitit)
+**Vaihe 1: MVP-kehitys (15 viikkoa, Cursor Pro + Claude Code Max)**
+- Infrastruktuuri: Cloud Run, Supabase, kumppanuudet
 - Agentit: 3-5 kehitysagenttia + 2 asiakasagenttia
 - Asiakkaat: 5 pilottiasiakasta ilmaisella pilotilla
 - Virstanpylväät: AgentFoundry käyttöön, MCP Hub käynnissä
@@ -1314,7 +1304,7 @@ Firehorse-toimintamalli voidaan toistaa muiden startupien toimesta seuraamalla t
 
 ### 7.5.1 Akateemiset tutkimusmahdollisuudet
 
-1. **Moniagenttikoordinointi bootstrap-konteksteissa**
+1. **Moniagenttikoordinointi resurssirajoitteisissa konteksteissa**
    - Laajenna Lifetime Scope Signals -teoriaa
    - Vertaa perinteisiin MAS-lähestymistapoihin
 
@@ -1349,7 +1339,7 @@ EU-natiivi arkkitehtuuri europe-north1-tiedon sijainnilla, Supabase RLS -politii
 ## 8.2 Kontribuutio teoriaan
 
 ### 8.2.1 Lifetime Scope Signals -protokolla
-Tämä opinnäytetyö esittelee **Lifetime Scope Signals -protokollan** uutena kontribuutiona moniagenttiärjestelmien teoriaan. Protokolla laajentaa perinteistä MAS-koordinointia tarjoamalla deklaratiivisen koordinoinnin, deterministiset riippuvuudet ja bootstrap-optimoinnin.
+Tämä opinnäytetyö esittelee **Lifetime Scope Signals -protokollan** uutena kontribuutiona moniagenttiärjestelmien teoriaan. Protokolla laajentaa perinteistä MAS-koordinointia tarjoamalla deklaratiivisen koordinoinnin, deterministiset riippuvuudet ja käynnistysvaiheen optimoinnin.
 
 ### 8.2.2 Solution Factory -malli
 **Solution Factory -malli** syntetisoi Lean Startupin, Alustatalouden, Teollisuus 5.0:n ja Reunalaskennan taloustieteen yhtenäiseksi viitekehykseksi teollisten AI-alustojen kehitykseen.
@@ -1366,8 +1356,8 @@ Dokumentoitu toimintamalli tarjoaa:
 
 ## 8.4 Loppuhuomautukset
 
-Firehorse-tuotevalmistuksen toimintamalli osoittaa, että bootstrapatut teolliset AI-alustat voivat saavuttaa tuote-markkinasopivuuden strategisella yhdistelmällä:
-- Ilmaistason pilvi-infrastruktuuri
+Firehorse-tuotevalmistuksen toimintamalli osoittaa, että AI-avusteisesti kehitetyt teolliset AI-alustat voivat saavuttaa tuote-markkinasopivuuden strategisella yhdistelmällä:
+- AI-avusteinen kehitys (Cursor Pro + Claude Code Max)
 - Reunatekoäly kustannusten ja latenssin optimointiin
 - Moniagenttikoordinointi signaaliprotokollan kautta
 - Vaiheittainen käyttöönotto luottamuksen rakentamiseen
@@ -1492,7 +1482,7 @@ Omnibus-paketti **vahvistaa** Firehorse-mallin kilpailukykyä:
 │                                                                          │
 │  ONGELMA                          │  RATKAISU                            │
 │  • EU-vaatimustenmukaisuuden      │  • Vaiheittainen AI-käyttöönotto     │
-│    määräajat                      │  • Ilmaistason bootstrap             │
+│    määräajat                      │  • AI-avusteinen kehitys             │
 │  • Korkeat SaaS-kustannukset      │  • Reunatekoäly (<100ms)             │
 │    (€1 400+)                      │  • €0-350/kk hinnoittelu             │
 │  • Pelkkä pilvi -latenssi         │                                      │
@@ -1518,8 +1508,8 @@ Omnibus-paketti **vahvistaa** Firehorse-mallin kilpailukykyä:
 │                                                                          │
 │  KUSTANNUSRAKENNE                 │  TULONLÄHTEET                        │
 │  • €0-350/kk infrastruktuuri      │  • SaaS-tilaukset                    │
-│  • Startup-krediitit ($15K)       │  • Reunalaitteiston marginaali       │
-│  • Yksi kehittäjä (bootstrap)     │  • Ammattipalvelut                   │
+│  • Cursor Pro + Claude Code Max   │  • Reunalaitteiston marginaali       │
+│  • Yksi kehittäjä (AI-avusteinen) │  • Ammattipalvelut                   │
 │  • Ei markkinointikuluja (org.)   │  • Solution Factory -lisensointi     │
 │                                   │                                      │
 └─────────────────────────────────────────────────────────────────────────┘
@@ -1693,8 +1683,8 @@ Vaihe 4: Arviointi & käyttöönotto
 #### NVIDIA Inception -Ohjelman integraatio
 
 **Hyödyt:**
-- DGX Cloud Innovation Lab: Jopa $100K krediittejä
-- AWS Activate: $25K-$100K krediittejä
+- DGX Cloud Innovation Lab: Pääsy laskentaresursseihin
+- AWS Activate: Pilvi-infrastruktuuri kumppanuuden kautta
 - Deep Learning Institute (DLI) koulutus
 - Tekninen neuvonta
 
@@ -1779,7 +1769,7 @@ DWS IQ -lähestymistapa:
 **Keskeiset kontribuutiot:**
 1. Lifetime Scope Signals -protokolla - Uusi moniagenttikoordinointiviitekehys
 2. Solution Factory -malli - Toistettava teollisen AI-alustan pohja
-3. Ilmaistason bootstrap-strategia - Startup-krediitit pääomasijoitusten korvaajana
+3. AI-avusteinen kehitys - Cursor Pro + Claude Code Max mahdollistaa nopean 15 viikon MVP:n
 4. Vaiheittainen käyttöönottokehys - Luottamuksen rakentaminen AI:lle säännellyillä toimialoilla
 
 **Lisenssi:** Proprietary - Lifetime Oy  

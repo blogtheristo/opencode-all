@@ -1,44 +1,18 @@
 {
   "mcpServers": {
-    "Supabase MCP": {
+    "GitHub Official": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@supabase/mcp-server-supabase@latest"
-      ],
+      "args": ["-y", "@modelcontextprotocol/server-github"],
       "env": {
-        "SUPABASE_URL": "https://your-project.supabase.co",
-        "SUPABASE_SERVICE_KEY": "your-service-key-here",
-        "SUPABASE_ANON_KEY": "your-anon-key-here"
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_your_personal_access_token_here"
       }
     },
-    "DWS Supabase API": {
-      "_comment": "Custom REST API wrapper running in Docker on port 8766",
-      "_type": "rest-api",
-      "_container": "dws-supabase-mcp",
-      "_endpoints": {
-        "query": "POST http://localhost:8766/tools/query",
-        "insert": "POST http://localhost:8766/tools/insert",
-        "log_activity": "POST http://localhost:8766/tools/log_agent_activity",
-        "health": "GET http://localhost:8766/health"
-      }
-    },
-    "Redis MCP": {
+    "Supabase Official": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@anthropic/redis-mcp@latest"
-      ],
+      "args": ["-y", "@anthropic/supabase-mcp@latest"],
       "env": {
-        "REDIS_URL": "redis://user:password@host:port"
-      }
-    },
-    "MCP Hub": {
-      "_comment": "MCP Coordination Hub on port 8765",
-      "_type": "coordination-hub",
-      "_port": 8765,
-      "_endpoints": {
-        "hub": "http://localhost:8765"
+        "SUPABASE_ACCESS_TOKEN": "sbp_your_personal_access_token_here",
+        "SUPABASE_PROJECT_REF": "kpucuwwfhuwurdxyjjtz"
       }
     }
   }

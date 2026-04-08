@@ -36,6 +36,7 @@ export enum EventType {
   MeetingBooked = 'MeetingBooked',
   StateChanged = 'StateChanged',
   TaskCreated = 'TaskCreated',
+  linkedin_dm_skipped = 'linkedin_dm_skipped',
 }
 
 export enum TaskType {

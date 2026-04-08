@@ -13,6 +13,7 @@ import {
   MeetingBookedPayload,
 } from './types';
 import * as actions from './actions';
+import logger from '../utils/logger.js';
 import { getEmailTemplateForCountry } from './helpers';
 
 // ============================================================================
@@ -151,6 +152,14 @@ export async function handleEmailReply(payload: EmailReplyPayload): Promise<void
     await actions.changeState({
       new_state: LeadState.Disqualified,
       lead_id,
+    });
+  } else if (intent === ReplyIntent.Unknown) {
+    // Unknown intent: create manual review task so human classifies the reply
+    await actions.createTask({
+      owner: 'Risto',
+      task_type: 'ManualReply' as any,
+      lead_id,
+      description: `Reply intent could not be classified automatically — manual review needed. Preview: "${reply_text.slice(0, 80)}"`,
     });
   }
 }
@@ -371,5 +380,13 @@ function analyzeReplyIntent(replyText: string): ReplyIntent {
     return ReplyIntent.NotRelevant;
   }
 
+  // Unknown intent — log for manual review.
+  // Phase 2: call LLM to classify ambiguous replies.
+  logger.warn({
+    action: 'reply_intent_unknown',
+    replyLength: replyText.length,
+    preview: replyText.slice(0, 100),
+    message: 'Keyword matching could not classify reply — marked Unknown for manual review',
+  });
   return ReplyIntent.Unknown;
 }

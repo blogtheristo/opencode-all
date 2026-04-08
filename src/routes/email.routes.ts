@@ -14,7 +14,7 @@
  *       except queue/info which also accepts the X-Admin-Key header.
  */
 
-import { Router, Request, Response } from 'express';
+import { type Request, type Response, Router } from 'express';
 import { body, validationResult } from 'express-validator';
 import logger from '../utils/logger.js';
 import emailService from '../services/email.service.js';
@@ -91,9 +91,10 @@ router.post('/send', sendValidation, async (req: Request, res: Response) => {
       success: true,
       messageId,
       queued: messageId !== 'direct',
-      message: messageId === 'direct'
-        ? 'Email sent directly (queue unavailable)'
-        : 'Email queued for delivery',
+      message:
+        messageId === 'direct'
+          ? 'Email sent directly (queue unavailable)'
+          : 'Email queued for delivery',
     });
   } catch (err) {
     const errorMsg = err instanceof Error ? err.message : 'Unknown error';
@@ -124,7 +125,7 @@ router.post('/send-direct', sendValidation, async (req: Request, res: Response) 
         await emailService.sendReportDeliveryEmail(
           to,
           metadata?.reportName || 'Report',
-          metadata?.downloadUrl || ''
+          metadata?.downloadUrl || '',
         );
         break;
       case 'invoice':
@@ -132,7 +133,7 @@ router.post('/send-direct', sendValidation, async (req: Request, res: Response) 
           to,
           metadata?.invoiceId || '',
           metadata?.amount || 0,
-          metadata?.currency || 'EUR'
+          metadata?.currency || 'EUR',
         );
         break;
       default:
@@ -163,6 +164,86 @@ router.get('/queue/info', async (_req: Request, res: Response) => {
   } catch (err) {
     const errorMsg = err instanceof Error ? err.message : 'Unknown error';
     res.status(500).json({ error: 'Failed to get queue info', message: errorMsg });
+  }
+});
+
+// ============================================================================
+// GET /analytics — Email delivery analytics (counts by status, template type)
+// ============================================================================
+
+router.get('/analytics', async (_req: Request, res: Response) => {
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+
+  if (!supabaseUrl || !supabaseKey) {
+    res.status(503).json({
+      error: 'Email analytics unavailable',
+      message: 'Supabase not configured',
+    });
+    return;
+  }
+
+  try {
+    // Fetch email log stats from Supabase
+    const response = await fetch(
+      `${supabaseUrl}/rest/v1/email_logs?select=status,template_type,sent_at`,
+      {
+        headers: {
+          apikey: supabaseKey,
+          Authorization: `Bearer ${supabaseKey}`,
+        },
+      },
+    );
+
+    if (!response.ok) {
+      const errorBody = await response.text();
+      logger.warn('Email analytics query failed', {
+        status: response.status,
+        error: errorBody,
+      });
+      res.status(502).json({
+        error: 'Failed to fetch email analytics',
+        message: errorBody,
+      });
+      return;
+    }
+
+    const logs = (await response.json()) as Array<{
+      status: string;
+      template_type: string | null;
+      sent_at: string | null;
+    }>;
+
+    // Aggregate by status
+    const byStatus: Record<string, number> = {};
+    for (const log of logs) {
+      byStatus[log.status] = (byStatus[log.status] || 0) + 1;
+    }
+
+    // Aggregate by template type
+    const byTemplate: Record<string, number> = {};
+    for (const log of logs) {
+      const key = log.template_type || 'unknown';
+      byTemplate[key] = (byTemplate[key] || 0) + 1;
+    }
+
+    // Last 24h count
+    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    const last24h = logs.filter((l) => l.sent_at && l.sent_at >= oneDayAgo).length;
+
+    res.json({
+      success: true,
+      analytics: {
+        total: logs.length,
+        last24h,
+        byStatus,
+        byTemplate,
+      },
+    });
+  } catch (err) {
+    const errorMsg = err instanceof Error ? err.message : 'Unknown error';
+    logger.error('Email analytics error', { error: errorMsg });
+    res.status(500).json({ error: 'Failed to get email analytics', message: errorMsg });
   }
 });
 
