@@ -1,12 +1,14 @@
 ---
 VERSION AND AGENT HISTORY
-Version: 1.0
+Version: 1.1
 Last Updated: 2026-04-08
 Author: Claude Code (Opus 4.6)
 Agent: claude/research-aspire-observability-04e8I
 Status: RESEARCH NOTE
 Change Log:
   - v1.0: Initial research comparing managedcode/dotnet-skills with Aspire observability needs
+  - v1.1: Added Appendix A with detailed Aspire observability patterns, custom instrumentation,
+    health check endpoints, and non-Aspire bootstrapping guide
 ---
 
 # Research Note: .NET Aspire Observability vs managedcode/dotnet-skills
@@ -280,3 +282,205 @@ The catalog is a well-architected skill system. DWS could study its patterns for
 | **Catalog value**         | 83 skills, community-maintained | N/A                          | DWS could adopt the skill pattern     |
 
 **Bottom line:** The `dotnet-skills` Aspire skill is excellent for .NET projects -- it eliminates AI agents generating outdated patterns. For DWS IQ 6, the primary takeaways are: (1) use Aspire Dashboard as a standalone OTLP receiver even for TypeScript services, (2) mirror the ServiceDefaults one-call pattern, and (3) build the AI-agent-specific tracing layer that neither Aspire nor dotnet-skills currently covers.
+
+---
+
+## Appendix A: Detailed Aspire Observability Patterns
+
+### A.1 OpenTelemetry Concept Mapping (.NET to OTel)
+
+| .NET Concept          | OpenTelemetry Concept | Purpose                          |
+| --------------------- | --------------------- | -------------------------------- |
+| `ActivitySource`      | Tracer                | Creates spans                    |
+| `Activity`            | Span                  | Unit of work with timing         |
+| `Activity.TraceId`    | Trace ID (16 bytes)   | Globally unique trace identifier |
+| `Activity.SpanId`     | Span ID (8 bytes)     | Unique within trace              |
+| `ActivityKind.Server` | Server span           | Incoming request                 |
+| `ActivityKind.Client` | Client span           | Outgoing call                    |
+| `Meter`               | Meter                 | Creates metric instruments       |
+| `Counter<T>`          | Counter               | Monotonically increasing values  |
+| `Histogram<T>`        | Histogram             | Distribution (P50/P90/P99)       |
+| `UpDownCounter<T>`    | UpDownCounter         | Bidirectional values             |
+| `Gauge<T>`            | Gauge                 | Point-in-time snapshot           |
+
+Context propagation uses W3C `traceparent` header automatically across service boundaries.
+
+### A.2 Custom Tracing Pattern
+
+```csharp
+private static readonly ActivitySource s_activitySource = new("MyApp.OrderProcessing");
+
+public async Task ProcessOrderAsync(Order order)
+{
+    using var activity = s_activitySource.StartActivity("ProcessOrder");
+    activity?.SetTag("order.id", order.Id);
+    activity?.SetTag("order.total", order.Total);
+
+    // ... business logic, calls to other services create child spans
+
+    activity?.SetStatus(ActivityStatusCode.Ok);
+}
+```
+
+Registration in ServiceDefaults:
+
+```csharp
+.WithTracing(tracing => tracing.AddSource("MyApp.OrderProcessing"))
+```
+
+### A.3 Custom Metrics Pattern
+
+```csharp
+private static readonly Meter s_meter = new("MyApp.Orders");
+private static readonly Counter<long> s_ordersProcessed =
+    s_meter.CreateCounter<long>("orders.processed");
+private static readonly Histogram<double> s_orderDuration =
+    s_meter.CreateHistogram<double>("orders.duration", "ms");
+
+public async Task ProcessOrderAsync(Order order)
+{
+    var sw = Stopwatch.StartNew();
+    // ... process
+    s_ordersProcessed.Add(1,
+        new KeyValuePair<string, object?>("order.type", order.Type));
+    s_orderDuration.Record(sw.Elapsed.TotalMilliseconds);
+}
+```
+
+Registration:
+
+```csharp
+.WithMetrics(metrics => metrics.AddMeter("MyApp.Orders"))
+```
+
+Dashboard displays: Counters as running total/rate, Histograms as P50/P90/P99 charts.
+
+### A.4 Health Check Endpoints
+
+| Endpoint  | Probe Type | What Must Pass                   |
+| --------- | ---------- | -------------------------------- |
+| `/health` | Readiness  | All registered health checks     |
+| `/alive`  | Liveness   | Only checks tagged with `"live"` |
+
+```csharp
+builder.Services.AddHealthChecks()
+    .AddCheck("self", () => HealthCheckResult.Healthy(), tags: ["live"]);
+
+// Aspire integration packages auto-register their own checks:
+// Redis: AddRedis(), PostgreSQL: AddNpgSql(), RabbitMQ: AddRabbitMQ()
+
+app.MapHealthChecks("/health");
+app.MapHealthChecks("/alive", new() {
+    Predicate = check => check.Tags.Contains("live")
+});
+```
+
+Returns HTTP 200 `Healthy` or HTTP 503 when degraded/unhealthy.
+
+### A.5 Full ConfigureOpenTelemetry Implementation
+
+```csharp
+public static IHostApplicationBuilder ConfigureOpenTelemetry(
+    this IHostApplicationBuilder builder)
+{
+    builder.Logging.AddOpenTelemetry(logging =>
+    {
+        logging.IncludeFormattedMessage = true;
+        logging.IncludeScopes = true;
+    });
+
+    builder.Services.AddOpenTelemetry()
+        .WithMetrics(metrics =>
+        {
+            metrics.AddAspNetCoreInstrumentation();
+            metrics.AddHttpClientInstrumentation();
+            metrics.AddRuntimeInstrumentation();
+        })
+        .WithTracing(tracing =>
+        {
+            tracing.AddAspNetCoreInstrumentation();
+            tracing.AddHttpClientInstrumentation();
+        });
+
+    builder.AddOpenTelemetryExporters();
+    return builder;
+}
+```
+
+### A.6 Non-Aspire Bootstrap (~30-50 lines replaces AddServiceDefaults)
+
+```csharp
+// Program.cs -- equivalent of AddServiceDefaults() for a standalone app
+
+builder.Logging.AddOpenTelemetry(logging =>
+{
+    logging.IncludeFormattedMessage = true;
+    logging.IncludeScopes = true;
+});
+
+builder.Services.AddOpenTelemetry()
+    .ConfigureResource(r => r.AddService("my-service"))
+    .WithMetrics(metrics =>
+    {
+        metrics.AddAspNetCoreInstrumentation();
+        metrics.AddHttpClientInstrumentation();
+        metrics.AddRuntimeInstrumentation();
+        metrics.AddMeter("MyApp.*"); // custom meters
+    })
+    .WithTracing(tracing =>
+    {
+        tracing.AddAspNetCoreInstrumentation();
+        tracing.AddHttpClientInstrumentation();
+        tracing.AddSource("MyApp.*"); // custom ActivitySources
+    })
+    .UseOtlpExporter(); // reads OTEL_EXPORTER_OTLP_ENDPOINT env var
+
+builder.Services.AddHealthChecks()
+    .AddCheck("self", () => HealthCheckResult.Healthy(), tags: ["live"]);
+
+// After build:
+app.MapHealthChecks("/health");
+app.MapHealthChecks("/alive", new() {
+    Predicate = check => check.Tags.Contains("live")
+});
+```
+
+### A.7 Standalone Dashboard for Any Language
+
+```bash
+docker run --rm -it -p 18888:18888 -p 4317:18889 \
+    -e DASHBOARD__FRONTEND__AUTHMODE=Unsecured \
+    mcr.microsoft.com/dotnet/aspire-dashboard:latest
+```
+
+- UI at `http://localhost:18888`
+- OTLP gRPC endpoint at `http://localhost:4317` (mapped from container port 18889)
+- Set `OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317` on any app
+
+### A.8 Production Backend Swap
+
+The Aspire Dashboard is a dev tool. For production, change only the exporter -- instrumentation code stays identical:
+
+| Backend                       | Type                |
+| ----------------------------- | ------------------- |
+| Grafana + Prometheus + Tempo  | Open source         |
+| Azure Monitor / App Insights  | Azure native        |
+| Datadog, New Relic, Honeycomb | Commercial          |
+| Sentry                        | Error + performance |
+
+### A.9 Additional Instrumentation Packages
+
+| Package                                             | Adds Tracing For  |
+| --------------------------------------------------- | ----------------- |
+| `OpenTelemetry.Instrumentation.GrpcNetClient`       | gRPC client calls |
+| `OpenTelemetry.Instrumentation.SqlClient`           | SQL queries       |
+| `OpenTelemetry.Instrumentation.EntityFrameworkCore` | EF Core queries   |
+| `OpenTelemetry.Instrumentation.StackExchangeRedis`  | Redis operations  |
+
+## Sources
+
+- Microsoft Learn: Aspire Telemetry, Service Defaults, Health Checks, Dashboard
+- dotnet/aspire GitHub repository
+- managedcode/dotnet-skills GitHub repository (skills/dotnet-aspire)
+- DWS IQ 6 Observability Assessment (internal, January 2026)
+- DWS Aspire Sensor Management Plan (internal, March 2026)
