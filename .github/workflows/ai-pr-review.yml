@@ -35,6 +35,113 @@ jobs:
         with:
           fetch-depth: 0
 
+      # ──────────────────────────────────────────────
+      # CONFLICT CHECK: Detect merge conflicts before review.
+      # If the PR branch cannot merge cleanly into the base,
+      # name the conflicting files, post a comment, and skip
+      # all AI review steps until conflicts are resolved.
+      # ──────────────────────────────────────────────
+      - name: Check for merge conflicts
+        id: conflict-check
+        run: |
+          git fetch origin '${{ github.base_ref }}' --depth=50
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+
+          # Attempt a dry-run merge to detect conflicts
+          if git merge --no-commit --no-ff "origin/${{ github.base_ref }}" 2>/dev/null; then
+            # Clean merge — abort (we only wanted to test)
+            git merge --abort 2>/dev/null || true
+            echo "has_conflicts=false" >> $GITHUB_OUTPUT
+          else
+            # Conflicts found — capture the file list before aborting.
+            # Use both --diff-filter=U and git ls-files -u for comprehensive detection
+            # (covers standard text conflicts and unmerged paths like submodule conflicts).
+            CONFLICT_FILES=$(
+              { git diff --name-only --diff-filter=U 2>/dev/null; git ls-files -u 2>/dev/null | awk '{print $4}'; } \
+              | sort -u
+            )
+            git merge --abort 2>/dev/null || true
+            if [ -n "$CONFLICT_FILES" ]; then
+              echo "has_conflicts=true" >> $GITHUB_OUTPUT
+              {
+                echo "conflict_files<<EOF"
+                echo "$CONFLICT_FILES"
+                echo "EOF"
+              } >> $GITHUB_OUTPUT
+            else
+              # Merge failed for a reason other than file conflicts
+              echo "has_conflicts=false" >> $GITHUB_OUTPUT
+            fi
+          fi
+
+      - name: Post merge conflict comment
+        if: steps.conflict-check.outputs.has_conflicts == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const raw = `${{ steps.conflict-check.outputs.conflict_files }}`;
+            const files = raw.trim().split('\n').filter(f => f.trim());
+
+            // Defensive guard — should not happen, but skip if no files were captured
+            if (files.length === 0) {
+              core.warning('has_conflicts=true but no conflicting files were captured — skipping comment');
+              return;
+            }
+
+            const fileList = files.map(f => `- \`${f.trim()}\``).join('\n');
+
+            const base = '${{ github.base_ref }}';
+            const body = [
+              '## ⚠️ Merge Conflicts Detected',
+              '',
+              `This PR cannot merge cleanly into \`${base}\`. The following file(s) have conflicts that must be resolved before the AI review will run:`,
+              '',
+              fileList,
+              '',
+              '**To fix:**',
+              '```bash',
+              `git fetch origin ${base}`,
+              `git rebase origin/${base}`,
+              '# Resolve conflicts in each file listed above, then:',
+              'git push --force-with-lease',
+              '```',
+              '',
+              '*AI code review is paused until conflicts are resolved.*',
+              '',
+              '*Automated by ai-pr-review.yml*'
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            });
+
+            // Ensure has-conflicts label exists and apply it
+            try {
+              await github.rest.issues.getLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: 'has-conflicts'
+              });
+            } catch {
+              await github.rest.issues.createLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: 'has-conflicts',
+                color: 'e11d48',
+                description: 'PR has merge conflicts — resolve before review'
+              });
+            }
+            await github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['has-conflicts']
+            });
+
       - name: Get PR diff and context
         id: diff
         run: |
@@ -64,7 +171,7 @@ jobs:
       # ──────────────────────────────────────────────
       - name: Claude Review
         id: claude-review
-        if: ${{ secrets.ANTHROPIC_API_KEY != '' }}
+        if: steps.conflict-check.outputs.has_conflicts != 'true' && secrets.ANTHROPIC_API_KEY != ''
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
@@ -123,7 +230,7 @@ jobs:
       # ──────────────────────────────────────────────
       - name: Gemini HIL Review
         id: gemini-review
-        if: ${{ secrets.GOOGLE_AI_API_KEY != '' || secrets.GOOGLE_API_KEY != '' }}
+        if: steps.conflict-check.outputs.has_conflicts != 'true' && (secrets.GOOGLE_AI_API_KEY != '' || secrets.GOOGLE_API_KEY != '')
         env:
           # Prefer GOOGLE_AI_API_KEY (backwards-compatible name used across the repo);
           # fall back to GOOGLE_API_KEY for environments that only have the shorter name.
@@ -264,7 +371,7 @@ IMPORTANT RULES:
       # ──────────────────────────────────────────────
       - name: Grok Fast Review
         id: grok-review
-        if: ${{ secrets.XAI_API_KEY != '' }}
+        if: steps.conflict-check.outputs.has_conflicts != 'true' && secrets.XAI_API_KEY != ''
         env:
           XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
           PR_TITLE: ${{ github.event.pull_request.title }}
@@ -331,6 +438,7 @@ FORMAT EXACTLY AS:
       # ──────────────────────────────────────────────
       - name: Determine combined verdict
         id: combined
+        if: steps.conflict-check.outputs.has_conflicts != 'true'
         run: |
           CLAUDE="${{ steps.claude-review.outputs.verdict }}"
           GEMINI="${{ steps.gemini-review.outputs.verdict }}"
@@ -362,6 +470,7 @@ FORMAT EXACTLY AS:
           fi
 
       - name: Post combined review comment
+        if: steps.conflict-check.outputs.has_conflicts != 'true'
         uses: actions/github-script@v7
         with:
           script: |
@@ -714,6 +823,7 @@ FORMAT EXACTLY AS:
       # STEP 6: Apply labels based on verdict
       # ──────────────────────────────────────────────
       - name: Apply review labels
+        if: steps.conflict-check.outputs.has_conflicts != 'true'
         uses: actions/github-script@v7
         with:
           script: |
