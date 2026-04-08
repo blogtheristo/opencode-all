@@ -13,7 +13,8 @@
 #
 # Requirements: node, npm, jq
 
-set -euo pipefail
+set -uo pipefail
+# Note: no -e (errexit) — npm audit returns exit 1 when vulns exist, which is expected
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
@@ -61,14 +62,25 @@ for dir in "${PACKAGE_DIRS[@]}"; do
 
   echo "  Auditing $dir..."
 
-  audit_json=$(cd "$full_path" && npm audit --json 2>/dev/null || echo '{"error": true}')
+  # npm audit exits 1 when vulns found — capture stdout regardless of exit code
+  audit_json=$(cd "$full_path" && timeout 30 npm audit --json 2>/dev/null) || true
+  if [[ -z "$audit_json" ]]; then
+    audit_json='{"error": true}'
+  fi
 
-  # Extract vulnerability counts
-  critical=$(echo "$audit_json" | jq '.metadata.vulnerabilities.critical // 0' 2>/dev/null || echo "0")
-  high=$(echo "$audit_json" | jq '.metadata.vulnerabilities.high // 0' 2>/dev/null || echo "0")
-  moderate=$(echo "$audit_json" | jq '.metadata.vulnerabilities.moderate // 0' 2>/dev/null || echo "0")
-  low=$(echo "$audit_json" | jq '.metadata.vulnerabilities.low // 0' 2>/dev/null || echo "0")
-  total=$(echo "$audit_json" | jq '.metadata.vulnerabilities.total // 0' 2>/dev/null || echo "0")
+  # Extract vulnerability counts (jq -r for raw output, default 0)
+  critical=$(echo "$audit_json" | jq -r '.metadata.vulnerabilities.critical // 0' 2>/dev/null) || critical=0
+  high=$(echo "$audit_json" | jq -r '.metadata.vulnerabilities.high // 0' 2>/dev/null) || high=0
+  moderate=$(echo "$audit_json" | jq -r '.metadata.vulnerabilities.moderate // 0' 2>/dev/null) || moderate=0
+  low=$(echo "$audit_json" | jq -r '.metadata.vulnerabilities.low // 0' 2>/dev/null) || low=0
+  total=$(echo "$audit_json" | jq -r '.metadata.vulnerabilities.total // 0' 2>/dev/null) || total=0
+
+  # Sanitize: ensure integer (strip non-digits)
+  critical="${critical//[!0-9]/}"; critical=${critical:-0}
+  high="${high//[!0-9]/}"; high=${high:-0}
+  moderate="${moderate//[!0-9]/}"; moderate=${moderate:-0}
+  low="${low//[!0-9]/}"; low=${low:-0}
+  total="${total//[!0-9]/}"; total=${total:-0}
 
   total_critical=$((total_critical + critical))
   total_high=$((total_high + high))
@@ -83,11 +95,11 @@ for dir in "${PACKAGE_DIRS[@]}"; do
   # Auto-fix non-breaking vulnerabilities if critical or high found
   if [[ "$critical" -gt 0 || "$high" -gt 0 ]]; then
     echo "    Found $critical critical, $high high — attempting npm audit fix..."
-    fix_output=$(cd "$full_path" && npm audit fix --dry-run 2>&1 || echo "fix_failed")
+    fix_output=$(cd "$full_path" && timeout 60 npm audit fix --dry-run 2>&1 || echo "fix_failed")
 
     # Only apply fix if dry-run shows changes and no breaking changes
     if echo "$fix_output" | grep -q "would change"; then
-      cd "$full_path" && npm audit fix 2>&1 | tail -5 || true
+      cd "$full_path" && timeout 60 npm audit fix 2>&1 | tail -5 || true
       fix_applied+=("$dir")
       echo "    Fix applied to $dir"
     else
