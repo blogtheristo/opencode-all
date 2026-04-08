@@ -140,16 +140,16 @@ For DWS IQ customers using KYA verification, a credit-based model:
 
 ### Decision Matrix
 
-| Criterion             | Shufti Score | Sumsub Score     |
-| --------------------- | ------------ | ---------------- |
-| Cost efficiency       | 9/10         | 6/10             |
-| EU sovereignty        | 10/10        | 5/10 (unknown)   |
-| Legal readiness       | 10/10        | 2/10 (no DPA)    |
-| Integration readiness | 9/10         | 2/10 (new build) |
-| AML depth             | 7/10         | 9/10             |
-| Regulatory reporting  | 6/10         | 8/10             |
-| Variable volume fit   | 10/10        | 5/10             |
-| **Total**             | **61/70**    | **37/70**        |
+| Criterion             | Shufti Score                     | Sumsub Score     |
+| --------------------- | -------------------------------- | ---------------- |
+| Cost efficiency       | 9/10                             | 6/10             |
+| EU sovereignty        | 6/10 (CLOUD Act — see Section 6) | 5/10 (unknown)   |
+| Legal readiness       | 10/10                            | 2/10 (no DPA)    |
+| Integration readiness | 9/10                             | 2/10 (new build) |
+| AML depth             | 7/10                             | 9/10             |
+| Regulatory reporting  | 6/10                             | 8/10             |
+| Variable volume fit   | 10/10                            | 5/10             |
+| **Total**             | **57/70**                        | **37/70**        |
 
 ---
 
@@ -162,7 +162,7 @@ Rationale:
 1. **26–46% cost savings** across all volume scenarios
 2. **Zero switching cost** — DPA signed, EU addendum ready, integration architecture designed
 3. **No monthly minimum** — critical for SaaS with variable verification volume
-4. **EU sovereignty confirmed** — non-EU sub-processors removed, GCP EEA-locked
+4. **EU sovereignty: partial** — non-EU sub-processors removed, GCP EEA-locked, but CLOUD Act risk remains (see Section 6)
 5. **KYA Layer 1 ready** — Shufti webhook integration already designed for real-time risk scoring
 
 Sumsub would cost $1,750–$35,000 more per year depending on volume, plus require new DPA negotiation (~4–8 weeks), new integration build (~2–4 weeks), and uncertain EU-only capability.
@@ -173,6 +173,69 @@ Sumsub would cost $1,750–$35,000 more per year depending on volume, plus requi
 2. Negotiate Enterprise rate for 10k+ volume ($0.80–$0.90/check target)
 3. Implement DWS Credit Program pricing in `dws10.com/config/products.json`
 4. Build Shufti integration in `src/integrations/idv/shufti.ts`
+
+---
+
+## 6. CLOUD Act Risk — Red Flag
+
+### The Problem
+
+Shufti Pro uses **Google Cloud Platform (GCP)** as infrastructure. Google (Alphabet Inc.) is a US corporation subject to the **CLOUD Act (18 U.S.C. § 2713)**, which compels US companies to produce data regardless of where it is physically stored.
+
+| What Shufti promises           | What is actually true                                                 |
+| ------------------------------ | --------------------------------------------------------------------- |
+| EU-only processing and storage | Data physically in EEA — **juridically accessible by US authorities** |
+| GCP locked to EEA regions      | GCP operator is a US company → CLOUD Act applies globally             |
+| Programmers Force removed      | Good, but does not mitigate CLOUD Act exposure via GCP                |
+
+### Legal Basis
+
+- **CLOUD Act (2018):** US law enforcement can compel any US-headquartered provider to disclose data, even if stored outside the US
+- **GDPR Article 48:** Third-country court orders are not a lawful basis for data transfer — direct conflict with CLOUD Act
+- **Schrems II (C-311/18):** EU-US data transfers require supplementary measures beyond SCCs when US surveillance law applies
+
+### Practical Assessment
+
+**Shufti will give us the DPA clauses we ask for.** They have confirmed all 5 points. The standard DPA from Haris is a template — they can and will customize it.
+
+**Shufti will not change their infrastructure.** Migrating off GCP for one customer is not commercially viable. This is a structural limitation, not a negotiation failure.
+
+### Risk Rating
+
+| Factor                         | Rating                                                                              |
+| ------------------------------ | ----------------------------------------------------------------------------------- |
+| Probability of US data request | LOW (Lifetime Oy is a Finnish SME, not a high-value target)                         |
+| Impact if it happens           | HIGH (biometric data, identity documents — GDPR Art. 9 special category)            |
+| Contractual mitigation         | MEDIUM (DPA addendum provides legal basis to challenge, but cannot override US law) |
+| **Overall risk**               | **MEDIUM — accepted with documentation**                                            |
+
+### Mitigation
+
+1. **DPA addendum signed** — EU-only clause, 30-day sub-processor notice, Programmers Force removed
+2. **CLOUD Act resistance clause** — request Shufti to add: "Processor shall challenge any third-country authority request and notify Controller within 72 hours"
+3. **Minimize data exposure** — only send minimum required data to Shufti (document image + selfie), delete after verification
+4. **Document the trade-off** — this is an accepted risk, not an unknown risk
+5. **Long-term: evaluate EU-sovereign IDV providers** — if one emerges on non-US cloud (OVHcloud, Hetzner), reassess
+
+### EU Regulation as Structural Moat
+
+EU data protection law is not just compliance — it is a **deliberate market barrier** designed to prevent non-EU actors like Shufti from operating freely in EU markets. And it works:
+
+- **GDPR (2018):** Forced global vendors to localize or exit. Many US SMB SaaS tools never entered EU.
+- **Schrems II (2020):** Invalidated Privacy Shield. Every US-cloud-dependent vendor now operates in legal grey zone.
+- **EU AI Act (2024/2025):** Art. 10 (data governance) + Art. 15 (transparency) add new requirements for biometric AI — Shufti's "no model training on EU data" mode is a direct consequence.
+- **NIS2 (2024):** Critical infrastructure supply chain requirements will hit IDV vendors serving EU banks/infra.
+- **DORA (2025):** Financial sector ICT risk management — IDV providers to EU financial institutions face direct scrutiny.
+
+**Each new regulation tightens the noose on non-EU-sovereign vendors.** Shufti can customize DPA clauses, but they cannot change the structural reality: UK company, US cloud, non-EU jurisdiction.
+
+**DWS/Aegis strategic position:** We document this gap transparently. Our customers know that KYA Layer 1 uses Shufti with CLOUD Act exposure documented. This is honest sovereign positioning — not fake "EU-only" marketing. When a true EU-sovereign IDV provider emerges (EU company, EU cloud, no CLOUD Act exposure), we switch. Until then, Shufti + transparency is the best available option.
+
+### Conclusion
+
+**Proceed with Shufti, eyes open.** The CLOUD Act risk exists with virtually every major IDV vendor (Sumsub also uses AWS/GCP). True EU sovereignty in IDV requires a provider on EU-sovereign infrastructure, which does not exist at competitive quality today. The DPA addendum provides the best contractual protection available.
+
+EU regulation is a **compounding moat** — it gets harder to comply with every year. Vendors who cannot demonstrate true EU sovereignty will be progressively excluded. DWS documents this openly and is positioned to switch when the market matures.
 
 ---
 
