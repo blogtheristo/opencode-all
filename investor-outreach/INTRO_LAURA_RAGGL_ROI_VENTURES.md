@@ -1,15 +1,16 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Laura Raggl, ROI Ventures
-Version: 1.0
+Version: 1.1
 Date: 2026-04-08
 Author: Claude Opus 4.6 + Human Review
 Branch: claude/investor-outreach-contacts-5oVbz
-Status: Draft
+Status: CONTACTED — LinkedIn DM sent 2026-04-08 with one-pager attached
 Story Lock: B2B SaaS + EU Early-Stage + Carbon Compliance
-Intro Type: TBD (check LinkedIn connection degree)
+Intro Type: Direct (1st degree LinkedIn connection)
 
 AGENT HISTORY:
 - v1.0 (2026-04-08): Initial draft. Managing Partner at ROI Ventures (Vienna), former MD of Austrian Angel Investors Association. Active B2B SaaS investor, pre-seed/early-stage, up to EUR 100K tickets. 27 portfolio investments including deep tech, defence (Shield Space, GATE Space). Strong fit: B2B SaaS thesis matches DWS IQ, ticket size fits Captain seat, EU-based, deep Austrian/European angel network.
+- v1.1 (2026-04-08): CONTACTED. LinkedIn DM sent with one-pager attached. 1st degree connection confirmed. Waiting for response.
 -->
 
 # Investor Intro Note — Laura Raggl, ROI Ventures
