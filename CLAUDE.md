@@ -165,6 +165,7 @@ You are the hands; the human is the architect. Move fast, but never faster than 
 | Folder                        | Runs                                    | Auto-discovered by                  |
 | ----------------------------- | --------------------------------------- | ----------------------------------- |
 | `scripts/daily/*.{ts,sh}`     | Once per day (03:00–06:00 UTC)          | DGX Spark `day-runner.sh`           |
+| `scripts/weekly/*.{ts,sh}`    | Once per week (Sunday 04:00 UTC)        | DGX Spark `day-runner.sh`           |
 | `scripts/hourly/*.{ts,sh}`    | Once per hour                           | DGX Spark `day-runner.sh`           |
 | `scripts/on-deploy/*.{ts,sh}` | After every `git pull` with new commits | DGX Spark `day-runner.sh`           |
 | `scripts/*.ps1`               | Via Windows Task Scheduler              | `Install-DailyTasks.ps1` (run once) |

@@ -3727,6 +3727,93 @@ echo '{"tool_name":"Bash","tool_input":{"command":"psql -c \"CREATE TABLE foo (i
 
 ---
 
+## Section 31: External Repositories & Dependency Registry
+
+_Added: v3.3 (08.04.2026) — Branch: claude/document-repos-weekly-sync-hHRMR_
+
+### 31.1 Overview
+
+DWS6 depends on external repositories for skills, tools, sandboxing, and research. This section is the **single source of truth** for all imported external repos, their security status, update cadence, and breach exposure analysis.
+
+**Weekly sync:** `scripts/weekly/sync-external-repos.sh` runs every Sunday at 04:00 UTC via `day-runner.sh`.
+
+### 31.2 External Repository Registry
+
+| #   | Repository                      | License     | Version (pinned)                  | Category              | Integration Type                               | Status                   |
+| --- | ------------------------------- | ----------- | --------------------------------- | --------------------- | ---------------------------------------------- | ------------------------ |
+| 1   | `garrytan/gstack`               | MIT         | v0.15.16.0                        | Skills/Workflow       | Global install (`~/.claude/skills/gstack/`)    | ADOPT — 8 skills active  |
+| 2   | `karpathy/autoresearch`         | MIT         | Fork: `blogtheristo/autoresearch` | Research/Optimization | Forked, `src/autoresearch/` adapts pattern     | ADOPT — KYA tuner        |
+| 3   | `alibaba/OpenSandbox`           | Apache-2.0  | ^0.1.0                            | Sandboxing            | SDK integration (`src/sandbox/opensandbox.ts`) | TRIAL — Stage 1.5        |
+| 4   | `vercel-labs/agent-browser`     | MIT         | Latest                            | Browser Automation    | CLI tool + `/browse` skill                     | ADOPT — QA/testing       |
+| 5   | `googleworkspace/cli`           | Apache-2.0  | Latest                            | Workspace Integration | Optional global CLI add-on                     | ASSESS — not required    |
+| 6   | `mvanhorn/last30days-skill`     | Unknown     | Vendored (in-repo)                | Prompt Research       | Vendored in `last30days-skill/`                | ADOPT — vendored copy    |
+| 7   | `agentsmd/agents.md`            | Open spec   | v1.0                              | Specification         | AGENTS.md format standard                      | ADOPT — spec only        |
+| 8   | `clawdbot/clawdbot`             | Unknown     | **BANNED**                        | Agent Framework       | Research reference ONLY                        | **BANNED** — C2 incident |
+| 9   | `Shubhamsaboo/awesome-llm-apps` | Open source | N/A                               | Research              | Read-only extraction guide                     | ASSESS — research only   |
+
+### 31.3 Security Exposure Analysis
+
+#### 31.3.1 Resolved Incidents
+
+| Incident           | Date       | External Dep                     | Impact                                                                             | Resolution                                                                            | Status        |
+| ------------------ | ---------- | -------------------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------- |
+| Clawdbot/Resend C2 | 2026-03-26 | `clawdbot/clawdbot` + Resend SDK | Suspected environment hijack via Cursor MCP; email exfiltration through Resend API | Resend permanently banned; Docker MCP retired; Cursor removed; CLI-first architecture | **RESOLVED**  |
+| OpenClaw MCP Hub   | 2026-02-21 | OpenClaw/Moltworker ecosystem    | 3 critical + 5 high findings: SSRF via callback_url, zero auth, Redis injection    | MCP Hub isolated; auth required; never deployed to prod                               | **MITIGATED** |
+
+#### 31.3.2 Current Risk Assessment
+
+| Repository                  | Risk Level | Attack Surface                                                                       | Mitigation                                                                                        |
+| --------------------------- | ---------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
+| `garrytan/gstack`           | **MEDIUM** | Rapid releases (multiple/day); skill code executes with full Claude Code permissions | Pin to tested version; review changelogs before updating; weekly sync checks for breaking changes |
+| `alibaba/OpenSandbox`       | **MEDIUM** | Low maturity (v0.1.0); sparse documentation; Docker-based (container escape risk)    | Network egress controls; Acer Veriton only (air-gapped); never expose to internet                 |
+| `vercel-labs/agent-browser` | **LOW**    | Rust binary; CDP access to Chrome; AES-256-GCM encrypted sessions                    | Headless mode only; no persistent sessions in prod; scoped to QA                                  |
+| `mvanhorn/last30days-skill` | **LOW**    | Requires OpenAI + XAI API keys; vendored (no auto-update)                            | Keys in `~/.config/last30days/.env` (not in repo); vendored copy is frozen                        |
+| `googleworkspace/cli`       | **LOW**    | Optional; OAuth scoped; not officially supported by Google                           | Only install when needed; service account for CI                                                  |
+| `karpathy/autoresearch`     | **LOW**    | Single GPU, no network, no tools; forked and governed by KYA v1.4                    | Local-only; 11% efficiency cap; human gate on parameter changes                                   |
+
+#### 31.3.3 Supply Chain Rules
+
+1. **Never auto-install** external skills or tools from community registries (CLAUDE.md rule)
+2. **Pin versions** — every external dep must have a pinned version in this registry
+3. **Weekly audit** — `scripts/weekly/sync-external-repos.sh` checks for new releases, security advisories, and breaking changes
+4. **Vendor when possible** — prefer vendored copies (like `last30days-skill/`) over global installs
+5. **BANNED list** — `clawdbot/clawdbot` and `resend` package are permanently banned (see incident report: `docs/field-notes/2026-03-26-post-incident-cli-first-migration.md`)
+
+### 31.4 Update Procedures
+
+| Frequency                 | What                                                 | Script                                               | Human Approval               |
+| ------------------------- | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------- |
+| Weekly (Sunday 04:00 UTC) | Check all repos for new releases, CVEs, deprecations | `scripts/weekly/sync-external-repos.sh`              | Report only — no auto-update |
+| Monthly                   | Review gstack changelog, update pinned version       | Manual                                               | Required                     |
+| On incident               | Emergency audit of all external deps                 | `scripts/weekly/sync-external-repos.sh --full-audit` | Required                     |
+
+### 31.5 Autoresearch Status
+
+**Upstream:** `karpathy/autoresearch` (MIT, 30k+ stars)
+**Fork:** `blogtheristo/autoresearch`
+**DWS integration:** `src/autoresearch/runner.ts` + `src/autoresearch/kya-tuner.ts` + `src/autoresearch/synthetic-kya.ts`
+
+The DWS autoresearch implementation adapts Karpathy's pattern for KYA (Know Your Architecture) parameter tuning:
+
+- Overnight batch optimization of agent trust score parameters
+- Governed by KYA v1.4 Pillar 4 (11% efficiency cap, 72h human gate)
+- Methodology documented: `docs/field-notes/2026-03-14-openclaw-autoresearch-dws-feature-plan.md`
+
+**Weekly sync updates the fork** from upstream (`karpathy/autoresearch`) and reports divergence.
+
+### 31.6 Related Documents
+
+| Document                                                                         | Purpose                          |
+| -------------------------------------------------------------------------------- | -------------------------------- |
+| `docs/field-notes/2026-03-26-post-incident-cli-first-migration.md`               | Clawdbot/Resend incident report  |
+| `docs/field-notes/2026-02-21-security-vulnerability-assessment-openclaw-dws6.md` | OpenClaw security assessment     |
+| `docs/field-notes/2026-03-14-openclaw-autoresearch-dws-feature-plan.md`          | Autoresearch + OpenClaw strategy |
+| `docs/TECH_RADAR.md`                                                             | Technology adoption rings        |
+| `AGENTS.md` Section 16                                                           | Rise of CLIs & External Add-ons  |
+| `DWS_SECURITY_STANDARD.md`                                                       | AI safety framework              |
+
+---
+
 **License:** Proprietary - Lifetime Oy
 **Maintained by:** Lifetime Oy Development Team
 **Storage:** GitHub (private repo) + ProtonDrive sync - /2026/Repos2026/dws6/Admin
