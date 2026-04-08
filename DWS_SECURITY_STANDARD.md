@@ -19,10 +19,11 @@ toc-depth: 3
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.0
+Version: 2.1
 
 Sessions & Modifications:
 
+- Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/audit-shufti-dpa-artifacts-HFEGx | Date: 08.04.2026 | Changes: Updated Section 18.5 with Shufti Pro sub-processor risk assessment (TeleSign noyb complaint, Twilio security incidents, Cloudflare/IPStack risks) from PR #768 DPA clause audit; added ML training prohibition control to IDV partner controls table
 - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/dws-iq-synthetic-nervous-9TtAB | Date: 06.04.2026 | Changes: Added Section 19 (Synthetic Data & Model Fine-Tuning Security) — synthetic data generation controls, model provenance, inference isolation, drift monitoring, adversarial integrity, NIS2 compliance statement for NVIDIA NeMo DataDesigner integration
 - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/shufti-dws-integration-G73xs | Date: 09.03.2026 | Changes: Added Section 18 (Know Your Agent (KYA) & Bring Your Own (BYO) Agent Security) — 5-layer KYA trust framework, BYO agent registration gates, Shufti IDV integration architecture, dynamic sandbox permission triggers, partner access controls for IDV providers
 - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Section 17 (Database Disaster Recovery Security) — dual-database architecture, recovery scripts, RTO < 5 min schema / < 15 min full restore, backup encryption (GPG), Aiven auth stubs for RLS compatibility, backup test drive validation
@@ -1514,15 +1515,27 @@ Hard kill: ATS = 0.0 if manifest is unsigned or TTL expired
 
 IDV providers (e.g., Shufti Pro) are treated as NIS2 sub-processors (Section 7.4) with additional controls:
 
-| Control                 | Requirement                                                                             |
-| ----------------------- | --------------------------------------------------------------------------------------- |
-| API authentication      | OAuth 2.0 or API key with rotation policy (90 days max)                                 |
-| Data minimization       | Only verification result + risk score transmitted — no raw biometric data stored in DWS |
-| Webhook verification    | All IDV webhooks signed and verified before processing                                  |
-| Fallback                | If IDV provider is unreachable, new agent deployments blocked (fail-closed)             |
-| Audit logging           | All IDV API calls logged with correlation ID to agent session                           |
-| Data residency          | IDV provider must process EU citizen data within EU (GDPR Art. 44–49)                   |
-| Sub-processor agreement | DPA (Data Processing Agreement) required before production use                          |
+| Control                 | Requirement                                                                                  |
+| ----------------------- | -------------------------------------------------------------------------------------------- |
+| API authentication      | OAuth 2.0 or API key with rotation policy (90 days max)                                      |
+| Data minimization       | Only verification result + risk score transmitted — no raw biometric data stored in DWS      |
+| Webhook verification    | All IDV webhooks signed and verified before processing                                       |
+| Fallback                | If IDV provider is unreachable, new agent deployments blocked (fail-closed)                  |
+| Audit logging           | All IDV API calls logged with correlation ID to agent session                                |
+| Data residency          | IDV provider must process EU citizen data within EU (GDPR Art. 44–49)                        |
+| Sub-processor agreement | DPA (Data Processing Agreement) required before production use                               |
+| ML training prohibition | IDV provider must not use customer biometric data for model training (DPA addendum Clause 6) |
+
+**Shufti Pro sub-processor risk assessment (PR #768, 2026-04-02):**
+
+Shufti Pro's own sub-processors (per DPA Annex II) include providers with elevated risk profiles. Under the EU-only addendum, these risks are mitigated but must be monitored:
+
+| Shufti Sub-processor  | Risk          | Detail                                                                                                                                                                               | Mitigation                                                                                                         |
+| --------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| TeleSign Corp (USA)   | HIGH          | noyb GDPR complaint (June 2023) with Belgian DPA — alleges secret profiling of mobile users via BICS. Potential fine up to 236M EUR. Case pending.                                   | Confirm TeleSign is either not used or EU-only routed under Lifetime Oy account. Monitor Belgian DPA ruling.       |
+| Twilio/SendGrid (USA) | MODERATE-HIGH | Multiple incidents: Authy 33M phone numbers leaked (July 2024), 12K call records exposed (Sep 2024), 848K SendGrid records for sale (Apr 2025). Handles OTP + video recording (KYC). | EU-only addendum requires all processing in EEA. Twilio video KYC must route EU-only. Monitor class action status. |
+| Cloudflare Inc. (USA) | MEDIUM        | Data Privacy Framework valid but fragile (Schrems III risk).                                                                                                                         | CDN/DDoS only — no biometric data. Acceptable risk.                                                                |
+| IPStack/Idera (USA)   | LOW           | Privacy policy still references invalidated EU-US Privacy Shield. IP geolocation only.                                                                                               | Non-biometric. Confirm DPF replaces Privacy Shield.                                                                |
 
 ### 18.6 NIS2 Compliance Statement
 
