@@ -47,12 +47,25 @@ Enterprise Navigator pilots at €4,950 convert to €8,950 annual contracts. 25
 
 ## Current Fundraising Round
 
+### Sovereign Ownership Rule
+
+**Lifetime Oy (Business ID 0772407-9) is 100% Finnish-owned.** This is not incidental — it is a structural competitive advantage and a product requirement.
+
+Every competitor that took US private equity lost their sovereignty:
+
+- **IDnow** (Germany) → 96% Corsair Capital (New York) → CLOUD Act exposed
+- **Digidentity** (Netherlands) → 100% Solera/Vista Equity (US) → CLOUD Act exposed
+- **Onfido** (UK) → Acquired by Entrust (US) → CLOUD Act exposed
+
+Lifetime Oy will not repeat this pattern. **The lead investor (Fleet Admiral) must be EU/EEA-domiciled.** A US majority owner would collapse the sovereignty thesis that is Aegis's core selling point. EU sovereignty is not just a product feature — it starts with the cap table.
+
 ### Round Structure — €650K Total
 
 - **Instrument:** SAFE (Simple Agreement for Future Equity)
 - **Valuation Cap:** €3.8M
 - **Investment Type:** Equity-style, high-risk investment (not a loan)
 - **Total Round:** €650,000
+- **Lead Investor Requirement:** EU/EEA-domiciled (sovereignty protection)
 
 ### Seat Tiers
 

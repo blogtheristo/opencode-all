@@ -274,20 +274,22 @@ Find an EU-sovereign IDV provider or build one.
 
 ### Full Market Scan — All Major IDV Vendors
 
-| Vendor          | Country         | Cloud infra               | US ownership/investment                                | CLOUD Act       | Aegis verdict   |
-| --------------- | --------------- | ------------------------- | ------------------------------------------------------ | --------------- | --------------- |
-| Shufti Pro      | UK              | GCP (US)                  | No                                                     | YES             | REJECTED        |
-| Sumsub          | UK              | AWS/GCP (US)              | No                                                     | YES             | REJECTED        |
-| Veriff          | Estonia         | AWS (US)                  | No                                                     | YES             | REJECTED        |
-| IDnow           | Germany         | Unknown                   | **96% Corsair Capital (New York)** — $295M acquisition | YES (US owner)  | REJECTED        |
-| Ondato          | Lithuania/UK    | Global distributed        | No                                                     | Unclear (UK HQ) | REJECTED        |
-| Onfido          | UK              | AWS (US)                  | Acquired by Entrust (US)                               | YES             | REJECTED        |
-| Jumio           | US              | AWS (US)                  | US company                                             | YES             | REJECTED        |
-| **iDenfy**      | **Lithuania**   | **Unknown — must verify** | **No (LT/PL investors)**                               | **TBD**         | **INVESTIGATE** |
-| **Sproof**      | **Austria**     | **EU servers, no US**     | **No**                                                 | **NO**          | **INVESTIGATE** |
-| **Digidentity** | **Netherlands** | **Unknown — must verify** | **No**                                                 | **TBD**         | **INVESTIGATE** |
+| Vendor          | Country         | Cloud infra               | US ownership/investment                                | CLOUD Act          | Aegis verdict   |
+| --------------- | --------------- | ------------------------- | ------------------------------------------------------ | ------------------ | --------------- |
+| Shufti Pro      | UK              | GCP (US)                  | No                                                     | YES                | REJECTED        |
+| Sumsub          | UK              | AWS/GCP (US)              | No                                                     | YES                | REJECTED        |
+| Veriff          | Estonia         | AWS (US)                  | No                                                     | YES                | REJECTED        |
+| IDnow           | Germany         | Unknown                   | **96% Corsair Capital (New York)** — $295M acquisition | YES (US owner)     | REJECTED        |
+| Ondato          | Lithuania/UK    | Global distributed        | No                                                     | Unclear (UK HQ)    | REJECTED        |
+| Onfido          | UK              | AWS (US)                  | Acquired by Entrust (US)                               | YES                | REJECTED        |
+| Jumio           | US              | AWS (US)                  | US company                                             | YES                | REJECTED        |
+| **iDenfy**      | **Lithuania**   | **Unknown — must verify** | **No (LT/PL investors)**                               | **TBD**            | **INVESTIGATE** |
+| **Sproof**      | **Austria**     | **EU servers, no US**     | **No**                                                 | **NO**             | **INVESTIGATE** |
+| **Digidentity** | **Netherlands** | **Unknown**               | **100% Solera Holdings / Vista Equity Partners (US)**  | **YES (US owner)** | **REJECTED**    |
 
-### Three Candidates to Investigate
+**Pattern:** Every major European IDV vendor has been acquired by US private equity. IDnow (Corsair), Digidentity (Solera/Vista), Onfido (Entrust). EU-sovereign IDV = unsolved market gap.
+
+### Two Candidates to Investigate
 
 **1. iDenfy (Kaunas, Lithuania)**
 
@@ -307,7 +309,7 @@ Find an EU-sovereign IDV provider or build one.
 - **MUST VERIFY:** Specific cloud provider (OVHcloud? Hetzner? Own infra?)
 - **Contact:** Request DPA and sub-processor list
 
-**3. eIDAS 2.0 / EUDI Wallet + Digital Euro — THE ENDGAME**
+**3. eIDAS 2.0 / EUDI Wallet + Digital Euro — THE ENDGAME (12/2026)**
 
 The EU is building its own sovereign identity and payment infrastructure. This eliminates the need for third-party IDV vendors and reduces dependency on US payment networks.
 
