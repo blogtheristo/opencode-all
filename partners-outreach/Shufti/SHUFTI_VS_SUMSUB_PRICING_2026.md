@@ -311,26 +311,28 @@ Find an EU-sovereign IDV provider or build one.
 
 The EU is building its own sovereign identity and payment infrastructure. This eliminates the need for third-party IDV vendors and reduces dependency on US payment networks.
 
-| EU Infrastructure         | Timeline                        | What it replaces                                                    |
-| ------------------------- | ------------------------------- | ------------------------------------------------------------------- |
-| **EUDI Wallet**           | 12/2026 live, 07/2027 mandatory | All third-party IDV vendors (Shufti, Veriff, Sumsub, Onfido, Jumio) |
-| **Digital Euro (e-euro)** | Pilots 2025–2026, rollout ~2028 | Visa/Mastercard dependency for EU payments                          |
+| EU Infrastructure         | Timeline                                             | What it replaces                                                    |
+| ------------------------- | ---------------------------------------------------- | ------------------------------------------------------------------- |
+| **EUDI Wallet**           | 12/2026 live, ~12/2027 mandatory for relying parties | All third-party IDV vendors (Shufti, Veriff, Sumsub, Onfido, Jumio) |
+| **Digital Euro (e-euro)** | Regulation ~2026, pilot H2/2027, issuance ~2029      | Visa/Mastercard dependency for EU payments                          |
 
-**EUDI Wallet for KYA Layer 1:**
+**EUDI Wallet for KYA Layer 1 (ENACTED LAW — Regulation 2024/1183):**
 
-- All 27 EU member states provide EUDI wallets by 12/2026
-- All regulated businesses must accept by 07/2027
+- All 27 EU member states provide EUDI wallets by 12/2026 (24 months from implementing acts 12/2024)
+- Regulated relying parties + VLOPs must accept ~12/2027 (12 months after wallet availability)
 - Government-issued, cryptographically verifiable identity
 - No third-party IDV vendor needed — the state IS the identity provider
 - Zero CLOUD Act exposure — EU sovereign by definition
 - Eliminates Shufti/Sumsub/Veriff dependency entirely
 
-**Digital Euro for Aegis payments:**
+**Digital Euro for Aegis payments (ECB TARGET — conditional on regulation adoption):**
 
 - ECB digital currency, EU-sovereign payment rail
+- Regulation expected adopted 2026 (EP ECON vote 05.05.2026)
+- 12-month pilot from H2/2027, first potential issuance ~2029
+- Development budget: €1.3 billion committed (ECB closing report 10/2025)
 - No Visa/Mastercard intermediary for EU-to-EU transactions
 - Programmable money — compliance rules embedded in payment logic
-- Combined with EUDI Wallet: identity-verified sovereign payments
 
 **Together:** EUDI Wallet + Digital Euro = EU-sovereign identity + payment stack. No US vendor in the chain. This is what Aegis should build toward.
 
@@ -340,9 +342,10 @@ The EU is building its own sovereign identity and payment infrastructure. This e
 NOW (Q2 2026):     Build EUDI Wallet integration into KYA architecture
                    Contact iDenfy + Sproof → infrastructure due diligence (bridge only)
 Q3 2026:           EUDI Wallet pilot integration (test with early member state wallets)
-Q4 2026:           EUDI Wallet live (eIDAS 2.0 goes live December 2026)
-H1 2027:           EUDI Wallet as primary KYA L1 — no third-party IDV vendor
-2028:              Digital Euro integration for Aegis payments
+Q4 2026:           EUDI Wallet live (eIDAS 2.0 — enacted law, Regulation 2024/1183)
+H2 2027:           EUDI Wallet mandatory for relying parties — no third-party IDV vendor
+H2 2027:           Digital Euro pilot begins (12 months, conditional on regulation adoption 2026)
+2029:              Digital Euro first potential issuance (ECB target)
 ```
 
 **Aegis strategic position:** We are not looking for a "better Shufti." We are building on EU-sovereign infrastructure (EUDI Wallet, Digital Euro) that makes the entire IDV vendor market irrelevant. iDenfy/Sproof serve only as a short-term bridge if needed before EUDI goes live.
@@ -357,13 +360,13 @@ H1 2027:           EUDI Wallet as primary KYA L1 — no third-party IDV vendor
 
 Source: Boardy feedback (2026-04-08)
 
-> "DWS IQ rakentuu EU:n valtion infrastruktuurin päälle, EUDI Wallet (12/2026) + digitaalinen euro (~2028). Identity + payment stack on EU-sovereign by design, ei kolmannen osapuolen varassa."
+> "DWS IQ rakentuu EU:n valtion infrastruktuurin päälle, EUDI Wallet (12/2026) + digitaalinen euro (~2029). Identity + payment stack on EU-sovereign by design, ei kolmannen osapuolen varassa."
 
 This single sentence communicates three things to investors:
 
 1. **Burning platform** — US-cloud-dependent vendors (Shufti, Veriff, Stripe, Jumio) are structurally non-compliant with EU law. EU regulation progressively excludes them. Every competitor using these vendors is exposed.
 2. **Moat** — EU state infrastructure (EUDI Wallet + Digital Euro) is a competitive advantage that US competitors cannot replicate. You cannot build EUDI integration from outside the EU regulatory framework.
-3. **Timing** — 12/2026 (EUDI live) and ~2028 (Digital Euro) are concrete regulatory deadlines, not aspirational roadmap items. The market is being created by law.
+3. **Timing** — 12/2026 EUDI Wallet (enacted law, Regulation 2024/1183) and ~2029 Digital Euro (ECB target, €1.3B committed). EUDI is law, not a proposal.
 
 **For Investor Memo v5.2:** Use verbatim. This is the sovereignty thesis in one sentence.
 
