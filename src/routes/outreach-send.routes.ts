@@ -13,7 +13,9 @@
  * Logs an outreach_activity for audit trail.
  */
 
+import crypto from 'crypto';
 import express, { Router, Request, Response } from 'express';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
 import { generateProspectEmail } from '../outreach/prospect-email-templates.js';
 import type { EmailType, ProspectContext } from '../outreach/prospect-email-templates.js';
@@ -21,10 +23,14 @@ import type { EmailType, ProspectContext } from '../outreach/prospect-email-temp
 const router: Router = express.Router();
 
 // ============================================================================
-// SUPABASE HELPER
+// SUPABASE CLIENT (SDK — replaces raw fetch)
 // ============================================================================
 
-async function supabaseFetch<T>(path: string, options: RequestInit = {}): Promise<T> {
+let supabase: SupabaseClient | null = null;
+
+function getSupabase(): SupabaseClient {
+  if (supabase) return supabase;
+
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_KEY;
 
@@ -32,23 +38,8 @@ async function supabaseFetch<T>(path: string, options: RequestInit = {}): Promis
     throw new Error('SUPABASE_URL and SUPABASE_SERVICE_KEY required');
   }
 
-  const response = await fetch(`${url}/rest/v1/${path}`, {
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      apikey: key,
-      Authorization: `Bearer ${key}`,
-      Prefer: 'return=representation',
-      ...options.headers,
-    },
-  });
-
-  if (!response.ok) {
-    const body = await response.text();
-    throw new Error(`Supabase ${response.status}: ${body}`);
-  }
-
-  return response.json() as Promise<T>;
+  supabase = createClient(url, key);
+  return supabase;
 }
 
 // ============================================================================
@@ -64,7 +55,10 @@ function requireAdminKey(req: Request, res: Response): boolean {
     return false;
   }
 
-  if (!provided || provided !== adminKey) {
+  // SECURITY: Timing-safe comparison to prevent timing attacks
+  const providedBuf = Buffer.from(String(provided).padEnd(256, '\0'));
+  const expectedBuf = Buffer.from(adminKey.padEnd(256, '\0'));
+  if (!crypto.timingSafeEqual(providedBuf, expectedBuf)) {
     res.status(401).json({ error: 'Unauthorized' });
     return false;
   }
@@ -99,10 +93,19 @@ interface ThreadData {
 }
 
 async function lookupThread(token: string): Promise<ThreadData | null> {
-  const threads = await supabaseFetch<ThreadData[]>(
-    `v_outreach_enriched?thread_token=eq.${encodeURIComponent(token)}&limit=1&select=id,pipeline,thread_token,our_angle,their_angle,investor_type,check_size,partnership_type,customer_segment,first_name,last_name,person_title,org_name,primary_email,person_phone,person_id,org_id`
-  );
-  return threads.length > 0 ? threads[0] : null;
+  const db = getSupabase();
+  const { data, error } = await db
+    .from('v_outreach_enriched')
+    .select('id,pipeline,thread_token,our_angle,their_angle,investor_type,check_size,partnership_type,customer_segment,first_name,last_name,person_title,org_name,primary_email,person_phone,person_id,org_id')
+    .eq('thread_token', token)
+    .limit(1)
+    .single();
+
+  if (error && error.code !== 'PGRST116') {
+    throw new Error(`Thread lookup failed: ${error.message}`);
+  }
+
+  return data as ThreadData | null;
 }
 
 async function sendProspectEmail(
@@ -154,11 +157,12 @@ async function sendProspectEmail(
     return { success: false, error: `Resend error: ${response.status}` };
   }
 
-  // Log the outreach activity
+  // Log the outreach activity via SDK
   try {
-    await supabaseFetch('outreach_activities', {
-      method: 'POST',
-      body: JSON.stringify({
+    const db = getSupabase();
+    const { error: activityErr } = await db
+      .from('outreach_activities')
+      .insert({
         thread_id: thread.id,
         person_id: thread.person_id,
         org_id: thread.org_id,
@@ -170,8 +174,11 @@ async function sendProspectEmail(
         outcome: 'neutral',
         source: 'manual',
         created_by: 'quick_send_api',
-      }),
-    });
+      });
+
+    if (activityErr) {
+      logger.warn('Failed to log outreach activity', { error: activityErr.message });
+    }
   } catch (err) {
     // Non-blocking — email already sent
     const msg = err instanceof Error ? err.message : 'Unknown';
@@ -189,7 +196,14 @@ router.get('/send-email', async (req: Request, res: Response) => {
   const adminKey = process.env.ADMIN_API_KEY;
   const provided = req.query.key as string;
 
-  if (!adminKey || !provided || provided !== adminKey) {
+  // SECURITY: Timing-safe comparison to prevent timing attacks
+  if (!adminKey || !provided) {
+    res.status(401).send('<html><body style="background:#0a0a0a;color:#ff4444;font-family:sans-serif;padding:40px;"><h2>Unauthorized</h2></body></html>');
+    return;
+  }
+  const providedBuf2 = Buffer.from(String(provided).padEnd(256, '\0'));
+  const expectedBuf2 = Buffer.from(adminKey.padEnd(256, '\0'));
+  if (!crypto.timingSafeEqual(providedBuf2, expectedBuf2)) {
     res.status(401).send('<html><body style="background:#0a0a0a;color:#ff4444;font-family:sans-serif;padding:40px;"><h2>Unauthorized</h2></body></html>');
     return;
   }

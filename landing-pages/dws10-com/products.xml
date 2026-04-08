@@ -409,6 +409,19 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
+      <g:id>edge-node-gn100</g:id>
+      <g:title>Acer Veriton GN100 — EU Sovereign Edge AI Node</g:title>
+      <g:description>&lt;p&gt;Run DWS IQ 6 entirely on your premises — zero cloud dependency, zero CLOUD Act exposure. The Acer Veriton GN100 is the reference hardware for Lifetime's EU sovereign edge AI stack: 20 cores, 120 GiB RAM, runs Qwen 2.5 72B (QLoRA) locally with OpenSandbox agent isolation. Minimum order 2 units for control room + situation room redundancy.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;EU air-gapped sovereign AI inference&lt;/li&gt;&lt;li&gt;20 cores / 120 GiB RAM per node&lt;/li&gt;&lt;li&gt;Minimum 2 units — €7,998 total&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:link>https://dws10.com/products/edge-node-gn100.html</g:link>
+      <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>3999 EUR</g:price>
+      <g:brand>Acer</g:brand>
+      <g:google_product_category>Electronics &gt; Computers &gt; Desktop Computers</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
       <g:id>sovereignty-cloud-consulting</g:id>
       <g:title>Sovereignty Cloud Consulting – European Cloud Migration</g:title>
       <g:description>&lt;p&gt;Your US-hosted data is exposed to the CLOUD Act — and your EU clients know it. We migrate you to sovereign European infrastructure (OVHcloud, Hetzner, Supabase EU) with DPA creation, NIS2 compliance, and EU AI Act alignment. 78% of EU companies plan to reduce US cloud dependency.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;European sovereign cloud migration&lt;/li&gt;&lt;li&gt;CLOUD Act free infrastructure&lt;/li&gt;&lt;li&gt;NIS2, GDPR &amp; EU AI Act aligned&lt;/li&gt;&lt;/ul&gt;</g:description>

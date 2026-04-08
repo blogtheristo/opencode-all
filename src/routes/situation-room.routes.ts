@@ -9,8 +9,8 @@
  *   Dashboard polling       → GET  /api/situation-room/reports
  */
 
-import express, { Router, Request, Response } from 'express';
-import { body, query, param, validationResult } from 'express-validator';
+import express, { type Request, type Response, type Router } from 'express';
+import { body, param, query, validationResult } from 'express-validator';
 import { createClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
 import { authenticateToken } from '../middleware/auth.middleware.js';
@@ -22,7 +22,7 @@ const router: Router = express.Router();
 // ---------------------------------------------------------------------------
 const supabaseUrl = process.env.SUPABASE_URL || '';
 const supabaseKey = process.env.SUPABASE_SERVICE_KEY || '';
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase = supabaseUrl ? createClient(supabaseUrl, supabaseKey) : null;
 
 // ---------------------------------------------------------------------------
 // Authorization helper
@@ -32,11 +32,11 @@ const supabase = createClient(supabaseUrl, supabaseKey);
  * Verify that the authenticated user is an active member of the given org.
  * Returns true if authorized; writes a 403 response and returns false otherwise.
  */
-async function assertOrgMember(
-  userId: string,
-  orgId: string,
-  res: Response
-): Promise<boolean> {
+async function assertOrgMember(userId: string, orgId: string, res: Response): Promise<boolean> {
+  if (!supabase) {
+    res.status(503).json({ error: 'Database not configured' });
+    return false;
+  }
   const { data, error } = await supabase
     .from('organization_members')
     .select('user_id')
@@ -59,6 +59,17 @@ async function assertOrgMember(
 
   return true;
 }
+
+// ---------------------------------------------------------------------------
+// Guard: reject all requests when Supabase is not configured
+// ---------------------------------------------------------------------------
+router.use((_req: Request, res: Response, next) => {
+  if (!supabase) {
+    res.status(503).json({ error: 'Database not configured' });
+    return;
+  }
+  next();
+});
 
 // ---------------------------------------------------------------------------
 // Validation helpers
@@ -87,9 +98,9 @@ router.post(
   [
     body('org_id').isUUID(),
     body('project_id').isString().trim().isLength({ min: 1, max: 100 }),
-    body('report_type').isString().isIn([
-      'bim-carbon', 'safety', 'schedule', 'quality', 'compliance',
-    ]),
+    body('report_type')
+      .isString()
+      .isIn(['bim-carbon', 'safety', 'schedule', 'quality', 'compliance']),
     body('title').optional().isString().trim().isLength({ max: 300 }),
     body('payload').isObject(),
     body('total_kg_co2e').optional().isFloat({ min: 0 }),
@@ -103,14 +114,21 @@ router.post(
 
     try {
       const {
-        org_id, project_id, report_type, title, payload,
-        total_kg_co2e, fit55_score, compliance_rag, country,
+        org_id,
+        project_id,
+        report_type,
+        title,
+        payload,
+        total_kg_co2e,
+        fit55_score,
+        compliance_rag,
+        country,
         pipeline_workflow_id,
       } = req.body;
 
-      if (!await assertOrgMember(req.userId!, org_id, res)) return;
+      if (!(await assertOrgMember(req.userId!, org_id, res))) return;
 
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('situation_room_reports')
         .insert({
           org_id,
@@ -163,9 +181,9 @@ router.get(
     try {
       const orgId = req.query.org_id as string;
 
-      if (!await assertOrgMember(req.userId!, orgId, res)) return;
+      if (!(await assertOrgMember(req.userId!, orgId, res))) return;
 
-      let qb = supabase
+      let qb = supabase!
         .from('situation_room_reports')
         .select('*')
         .eq('org_id', orgId)
@@ -211,7 +229,7 @@ router.get(
     if (!validateRequest(req, res)) return;
 
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('situation_room_reports')
         .select('*')
         .eq('id', req.params.id)
@@ -222,7 +240,7 @@ router.get(
         return;
       }
 
-      if (!await assertOrgMember(req.userId!, data.org_id, res)) return;
+      if (!(await assertOrgMember(req.userId!, data.org_id, res))) return;
 
       res.json(data);
     } catch (err) {
@@ -262,7 +280,7 @@ router.patch(
       }
 
       // Fetch first to get org_id for membership check
-      const { data: existing } = await supabase
+      const { data: existing } = await supabase!
         .from('situation_room_reports')
         .select('org_id')
         .eq('id', req.params.id)
@@ -273,9 +291,9 @@ router.patch(
         return;
       }
 
-      if (!await assertOrgMember(req.userId!, existing.org_id, res)) return;
+      if (!(await assertOrgMember(req.userId!, existing.org_id, res))) return;
 
-      const { data, error } = await supabase
+      const { data, error } = await supabase!
         .from('situation_room_reports')
         .update(updates)
         .eq('id', req.params.id)

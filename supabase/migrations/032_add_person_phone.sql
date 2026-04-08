@@ -19,7 +19,9 @@ CREATE INDEX IF NOT EXISTS idx_persons_phone ON persons(phone) WHERE phone IS NO
 -- 2. UPDATE ENRICHED VIEW — include phone
 -- ============================================================================
 
-CREATE OR REPLACE VIEW v_outreach_enriched
+DROP VIEW IF EXISTS v_outreach_due_today;
+DROP VIEW IF EXISTS v_outreach_enriched;
+CREATE VIEW v_outreach_enriched
   WITH (security_invoker = true)
 AS
 SELECT
@@ -62,7 +64,7 @@ LEFT JOIN outreach_orgs o ON o.id = t.org_id
 LEFT JOIN person_emails pe ON pe.person_id = p.id AND pe.is_primary = true;
 
 -- Recreate dependent view
-CREATE OR REPLACE VIEW v_outreach_due_today
+CREATE VIEW v_outreach_due_today
   WITH (security_invoker = true)
 AS
 SELECT ve.*,

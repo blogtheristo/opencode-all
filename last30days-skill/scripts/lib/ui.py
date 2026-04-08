@@ -205,7 +205,7 @@ class ProgressDisplay:
         sys.stderr.flush()
 
     def start_reddit(self):
-        msg = random.choice(REDDIT_MESSAGES)
+        msg = random.choice(REDDIT_MESSAGES)  # noqa: S311
         self.spinner = Spinner(
             f"{Colors.YELLOW}Reddit{Colors.RESET} {msg}", Colors.YELLOW
         )
@@ -220,7 +220,7 @@ class ProgressDisplay:
     def start_reddit_enrich(self, current: int, total: int):
         if self.spinner:
             self.spinner.stop()
-        msg = random.choice(ENRICHING_MESSAGES)
+        msg = random.choice(ENRICHING_MESSAGES)  # noqa: S311
         self.spinner = Spinner(
             f"{Colors.YELLOW}Reddit{Colors.RESET} [{current}/{total}] {msg}",
             Colors.YELLOW,
@@ -229,7 +229,7 @@ class ProgressDisplay:
 
     def update_reddit_enrich(self, current: int, total: int):
         if self.spinner:
-            msg = random.choice(ENRICHING_MESSAGES)
+            msg = random.choice(ENRICHING_MESSAGES)  # noqa: S311
             self.spinner.update(
                 f"{Colors.YELLOW}Reddit{Colors.RESET} [{current}/{total}] {msg}"
             )
@@ -241,7 +241,7 @@ class ProgressDisplay:
             )
 
     def start_x(self):
-        msg = random.choice(X_MESSAGES)
+        msg = random.choice(X_MESSAGES)  # noqa: S311
         self.spinner = Spinner(f"{Colors.CYAN}X{Colors.RESET} {msg}", Colors.CYAN)
         self.spinner.start()
 
@@ -250,7 +250,7 @@ class ProgressDisplay:
             self.spinner.stop(f"{Colors.CYAN}X{Colors.RESET} Found {count} posts")
 
     def start_processing(self):
-        msg = random.choice(PROCESSING_MESSAGES)
+        msg = random.choice(PROCESSING_MESSAGES)  # noqa: S311
         self.spinner = Spinner(
             f"{Colors.PURPLE}Processing{Colors.RESET} {msg}", Colors.PURPLE
         )
@@ -278,10 +278,7 @@ class ProgressDisplay:
         sys.stderr.flush()
 
     def show_cached(self, age_hours: float = None):
-        if age_hours is not None:
-            age_str = f" ({age_hours:.1f}h old)"
-        else:
-            age_str = ""
+        age_str = f" ({age_hours:.1f}h old)" if age_hours is not None else ""
         sys.stderr.write(
             f"{Colors.GREEN}⚡{Colors.RESET} {Colors.DIM}Using cached results{age_str} - use --refresh for fresh data{Colors.RESET}\n\n"
         )
@@ -293,7 +290,7 @@ class ProgressDisplay:
 
     def start_web_only(self):
         """Show web-only mode indicator."""
-        msg = random.choice(WEB_ONLY_MESSAGES)
+        msg = random.choice(WEB_ONLY_MESSAGES)  # noqa: S311
         self.spinner = Spinner(f"{Colors.GREEN}Web{Colors.RESET} {msg}", Colors.GREEN)
         self.spinner.start()
 

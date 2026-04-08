@@ -14,67 +14,67 @@ from lib import schema, score
 class TestLog1pSafe(unittest.TestCase):
     def test_positive_value(self):
         result = score.log1p_safe(100)
-        self.assertGreater(result, 0)
+        assert result > 0
 
     def test_zero(self):
         result = score.log1p_safe(0)
-        self.assertEqual(result, 0)
+        assert result == 0
 
     def test_none(self):
         result = score.log1p_safe(None)
-        self.assertEqual(result, 0)
+        assert result == 0
 
     def test_negative(self):
         result = score.log1p_safe(-5)
-        self.assertEqual(result, 0)
+        assert result == 0
 
 
 class TestComputeRedditEngagementRaw(unittest.TestCase):
     def test_with_engagement(self):
         eng = schema.Engagement(score=100, num_comments=50, upvote_ratio=0.9)
         result = score.compute_reddit_engagement_raw(eng)
-        self.assertIsNotNone(result)
-        self.assertGreater(result, 0)
+        assert result is not None
+        assert result > 0
 
     def test_without_engagement(self):
         result = score.compute_reddit_engagement_raw(None)
-        self.assertIsNone(result)
+        assert result is None
 
     def test_empty_engagement(self):
         eng = schema.Engagement()
         result = score.compute_reddit_engagement_raw(eng)
-        self.assertIsNone(result)
+        assert result is None
 
 
 class TestComputeXEngagementRaw(unittest.TestCase):
     def test_with_engagement(self):
         eng = schema.Engagement(likes=100, reposts=25, replies=15, quotes=5)
         result = score.compute_x_engagement_raw(eng)
-        self.assertIsNotNone(result)
-        self.assertGreater(result, 0)
+        assert result is not None
+        assert result > 0
 
     def test_without_engagement(self):
         result = score.compute_x_engagement_raw(None)
-        self.assertIsNone(result)
+        assert result is None
 
 
 class TestNormalizeTo100(unittest.TestCase):
     def test_normalizes_values(self):
         values = [0, 50, 100]
         result = score.normalize_to_100(values)
-        self.assertEqual(result[0], 0)
-        self.assertEqual(result[1], 50)
-        self.assertEqual(result[2], 100)
+        assert result[0] == 0
+        assert result[1] == 50
+        assert result[2] == 100
 
     def test_handles_none(self):
         values = [0, None, 100]
         result = score.normalize_to_100(values)
-        self.assertIsNone(result[1])
+        assert result[1] is None
 
     def test_single_value(self):
         values = [50]
         result = score.normalize_to_100(values)
-        self.assertEqual(result[0], 50)
+        assert result[0] == 50
 
 
 class TestScoreRedditItems(unittest.TestCase):
@@ -109,15 +109,15 @@ class TestScoreRedditItems(unittest.TestCase):
 
         result = score.score_reddit_items(items)
 
-        self.assertEqual(len(result), 2)
-        self.assertGreater(result[0].score, 0)
-        self.assertGreater(result[1].score, 0)
+        assert len(result) == 2
+        assert result[0].score > 0
+        assert result[1].score > 0
         # Higher relevance and engagement should score higher
-        self.assertGreater(result[0].score, result[1].score)
+        assert result[0].score > result[1].score
 
     def test_empty_list(self):
         result = score.score_reddit_items([])
-        self.assertEqual(result, [])
+        assert result == []
 
 
 class TestScoreXItems(unittest.TestCase):
@@ -140,8 +140,8 @@ class TestScoreXItems(unittest.TestCase):
 
         result = score.score_x_items(items)
 
-        self.assertEqual(len(result), 1)
-        self.assertGreater(result[0].score, 0)
+        assert len(result) == 1
+        assert result[0].score > 0
 
 
 class TestSortItems(unittest.TestCase):
@@ -154,9 +154,9 @@ class TestSortItems(unittest.TestCase):
 
         result = score.sort_items(items)
 
-        self.assertEqual(result[0].id, "R2")
-        self.assertEqual(result[1].id, "R3")
-        self.assertEqual(result[2].id, "R1")
+        assert result[0].id == "R2"
+        assert result[1].id == "R3"
+        assert result[2].id == "R1"
 
     def test_stable_sort(self):
         items = [
@@ -167,7 +167,7 @@ class TestSortItems(unittest.TestCase):
         result = score.sort_items(items)
 
         # Both have same score, should maintain order by title
-        self.assertEqual(len(result), 2)
+        assert len(result) == 2
 
 
 if __name__ == "__main__":

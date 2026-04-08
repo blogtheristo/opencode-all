@@ -4,18 +4,18 @@
  */
 
 import {
-  Lead,
-  LeadState,
+  type ChangeStateAction,
+  type CreateTaskAction,
   EventType,
-  TaskType,
-  ReplyIntent,
-  SendEmailAction,
-  ChangeStateAction,
-  LogEventAction,
-  CreateTaskAction,
+  type Lead,
+  type LogEventAction,
+  type ReplyIntent,
+  type SendEmailAction,
+  type SendLinkedInDMAction,
 } from './types';
 import { db } from './database';
 import { emailService } from './email-service';
+import logger from '../utils/logger.js';
 
 // ============================================================================
 // LEAD QUERIES
@@ -134,14 +134,21 @@ export async function sendLinkedInDM(action: SendLinkedInDMAction): Promise<void
     message = message.replace(new RegExp(placeholder, 'g'), value);
   });
 
-  // Send LinkedIn DM via LinkedIn service
-  await linkedInService.send({
-    to: linkedin_url,
-    message,
+  // LinkedIn DM integration not yet implemented.
+  // When ready: replace with PhantomBuster or LinkedIn Marketing API call.
+  // For now: log the intent and skip sending.
+  logger.warn({
+    action: 'linkedin_dm_skipped',
     lead_id,
+    linkedin_url,
+    template_id,
+    reason: 'LinkedIn API client not implemented — message prepared but not sent',
   });
-
-  console.log(`LinkedIn DM sent to ${linkedin_url} using template ${template_id}`);
+  await logEvent({
+    event_type: EventType.linkedin_dm_skipped,
+    lead_id,
+    metadata: { template_id, linkedin_url, message_length: message.length },
+  });
 }
 
 /**
@@ -207,40 +214,28 @@ export async function createTask(action: CreateTaskAction): Promise<void> {
 /**
  * Update last engagement timestamp
  */
-export async function updateLastEngagement(
-  leadId: string,
-  timestamp: Date
-): Promise<void> {
+export async function updateLastEngagement(leadId: string, timestamp: Date): Promise<void> {
   await db.updateLastEngagement(leadId, timestamp);
 }
 
 /**
  * Update Cold 1 sent timestamp
  */
-export async function updateCold1SentAt(
-  leadId: string,
-  timestamp: Date
-): Promise<void> {
+export async function updateCold1SentAt(leadId: string, timestamp: Date): Promise<void> {
   await db.updateCold1SentAt(leadId, timestamp);
 }
 
 /**
  * Update Cold 2 sent timestamp
  */
-export async function updateCold2SentAt(
-  leadId: string,
-  timestamp: Date
-): Promise<void> {
+export async function updateCold2SentAt(leadId: string, timestamp: Date): Promise<void> {
   await db.updateCold2SentAt(leadId, timestamp);
 }
 
 /**
  * Update Cold 3 sent timestamp
  */
-export async function updateCold3SentAt(
-  leadId: string,
-  timestamp: Date
-): Promise<void> {
+export async function updateCold3SentAt(leadId: string, timestamp: Date): Promise<void> {
   await db.updateCold3SentAt(leadId, timestamp);
 }
 
@@ -251,7 +246,7 @@ export async function storeReply(
   leadId: string,
   replyText: string,
   intent: ReplyIntent,
-  confidence?: number
+  confidence?: number,
 ): Promise<void> {
   await db.createReply({
     lead_id: leadId,

@@ -10,10 +10,12 @@
 #   - https://www.geeky-gadgets.com/how-to-use-git-worktrees-with-claude-code-for-seamless-multitasking/
 #
 # Usage:
-#   ./new-claude-worktree.sh <branch-name> [base-branch] [--no-venv-symlink] [--launch-claude]
+#   ./new-claude-worktree.sh <branch-name> [base-branch] [--pr <number>] [--worktree-name <name>] [--no-venv-symlink] [--launch-claude]
+#   ./new-claude-worktree.sh --pr <number> [base-branch] [--no-venv-symlink] [--launch-claude]
 #
 # Examples:
 #   ./new-claude-worktree.sh feature-auth-improvements
+#   ./new-claude-worktree.sh --pr 769 --launch-claude
 #   ./new-claude-worktree.sh fix-api-bug develop --launch-claude
 #
 
@@ -23,22 +25,62 @@ set -e
 # CONFIGURATION
 # ============================================================================
 
-BRANCH_NAME="${1:-}"
-BASE_BRANCH="${2:-main}"
+BRANCH_NAME=""
+BASE_BRANCH="main"
+PR_NUMBER=""
+WORKTREE_NAME=""
 NO_VENV_SYMLINK=false
 LAUNCH_CLAUDE=false
 
-# Parse optional flags
-for arg in "$@"; do
-    case $arg in
+# Parse positional args + optional flags
+POSITIONALS=()
+while [[ $# -gt 0 ]]; do
+    case "$1" in
         --no-venv-symlink)
             NO_VENV_SYMLINK=true
+            shift
             ;;
         --launch-claude)
             LAUNCH_CLAUDE=true
+            shift
+            ;;
+        --pr)
+            if [[ -z "${2:-}" ]]; then
+                echo "Error: --pr requires a value"
+                exit 1
+            fi
+            PR_NUMBER="${2:-}"
+            shift 2
+            ;;
+        --pr=*)
+            PR_NUMBER="${1#*=}"
+            shift
+            ;;
+        --worktree-name)
+            WORKTREE_NAME="${2:-}"
+            shift 2
+            ;;
+        --worktree-name=*)
+            WORKTREE_NAME="${1#*=}"
+            shift
+            ;;
+        -*)
+            log_error "Unknown flag: $1"
+            exit 1
+            ;;
+        *)
+            POSITIONALS+=("$1")
+            shift
             ;;
     esac
 done
+
+if [[ ${#POSITIONALS[@]} -ge 1 ]]; then
+    BRANCH_NAME="${POSITIONALS[0]}"
+fi
+if [[ ${#POSITIONALS[@]} -ge 2 ]]; then
+    BASE_BRANCH="${POSITIONALS[1]}"
+fi
 
 # Colors for output
 RED='\033[0;31m'
@@ -110,18 +152,43 @@ get_worktree_root() {
 # MAIN SCRIPT
 # ============================================================================
 
-# Validate branch name
+# Derive naming from PR number if requested
+if [[ -z "$BRANCH_NAME" && -n "$PR_NUMBER" ]]; then
+    BRANCH_NAME="claude/pr-$PR_NUMBER"
+fi
+
+if [[ -z "$WORKTREE_NAME" ]]; then
+    if [[ -n "$PR_NUMBER" ]]; then
+        WORKTREE_NAME="pr-$PR_NUMBER"
+    elif [[ -n "$BRANCH_NAME" ]]; then
+        WORKTREE_NAME="$(echo "$BRANCH_NAME" | tr '/.' '--' | sed 's/[^a-zA-Z0-9_-]/-/g' | sed 's/^-*//;s/-*$//')"
+    fi
+fi
+
+# Validate branch / worktree naming
 if [[ -z "$BRANCH_NAME" ]]; then
-    echo "Usage: $0 <branch-name> [base-branch] [--no-venv-symlink] [--launch-claude]"
+    echo "Usage: $0 <branch-name> [base-branch] [--pr <number>] [--worktree-name <name>] [--no-venv-symlink] [--launch-claude]"
     echo ""
     echo "Examples:"
     echo "  $0 feature-auth-improvements"
+    echo "  $0 --pr 769 --launch-claude"
     echo "  $0 fix-api-bug develop --launch-claude"
     exit 1
 fi
 
-if [[ ! "$BRANCH_NAME" =~ ^[a-zA-Z0-9_-]+$ ]]; then
+if [[ ! "$BRANCH_NAME" =~ ^[a-zA-Z0-9._/-]+$ ]]; then
     log_error "Invalid branch name: $BRANCH_NAME"
+    log_error "Use only letters, numbers, slash, dot, hyphens, and underscores."
+    exit 1
+fi
+
+if [[ -n "$PR_NUMBER" && ! "$PR_NUMBER" =~ ^[0-9]+$ ]]; then
+    log_error "Invalid PR number: $PR_NUMBER"
+    exit 1
+fi
+
+if [[ ! "$WORKTREE_NAME" =~ ^[a-zA-Z0-9_-]+$ ]]; then
+    log_error "Invalid worktree name: $WORKTREE_NAME"
     log_error "Use only letters, numbers, hyphens, and underscores."
     exit 1
 fi
@@ -146,7 +213,7 @@ log_info "Worktree root: $WORKTREE_ROOT"
 mkdir -p "$WORKTREE_ROOT"
 
 # Define new worktree path
-NEW_WORKTREE="$WORKTREE_ROOT/$BRANCH_NAME"
+NEW_WORKTREE="$WORKTREE_ROOT/$WORKTREE_NAME"
 
 if [[ -d "$NEW_WORKTREE" ]]; then
     log_error "Worktree path already exists: $NEW_WORKTREE"
@@ -157,7 +224,7 @@ fi
 # STEP 1: Create Git Worktree
 # ============================================================================
 
-log_info "[1/5] Creating git worktree..."
+log_info "[1/7] Creating git worktree..."
 
 cd "$MAIN_REPO"
 
@@ -184,7 +251,7 @@ log_info "  Worktree created at: $NEW_WORKTREE"
 # STEP 2: Verify .gitignore
 # ============================================================================
 
-log_info "[2/5] Verifying .gitignore inheritance..."
+log_info "[2/7] Verifying .gitignore inheritance..."
 
 MAIN_GITIGNORE="$MAIN_REPO/.gitignore"
 if [[ -f "$MAIN_GITIGNORE" ]]; then
@@ -213,7 +280,7 @@ fi
 # STEP 3: Symlink Python Virtual Environment
 # ============================================================================
 
-log_info "[3/5] Setting up Python virtual environment..."
+log_info "[3/7] Setting up Python virtual environment..."
 
 MAIN_VENV="$MAIN_REPO/.venv"
 WORKTREE_VENV="$NEW_WORKTREE/.venv"
@@ -235,9 +302,20 @@ fi
 # STEP 4: Copy Configuration Files
 # ============================================================================
 
-log_info "[4/5] Copying configuration files..."
+log_info "[4/7] Copying configuration files..."
 
-CONFIG_FILES=(".env" ".env.mcp" ".env.local")
+# Files Claude Code needs to work properly:
+# - .mcp.json        : MCP server connections (Supabase, Redis, etc.) — CRITICAL
+# - .env             : Environment variables (API keys, DB URLs)
+# - .env.mcp         : MCP Hub environment config
+# - .env.local       : Local overrides
+# - .env.mcp.minimal : Minimal MCP config for hosted endpoints
+# - .env.mcp.txt     : MCP reference/notes
+# - .cursorrules     : Cursor IDE rules
+
+CONFIG_FILES=(".mcp.json" ".env" ".env.mcp" ".env.local" ".env.mcp.minimal" ".env.mcp.txt" ".cursorrules")
+CRITICAL_FILES=(".mcp.json" ".env")
+CRITICAL_MISSING=()
 
 for config in "${CONFIG_FILES[@]}"; do
     SOURCE_PATH="$MAIN_REPO/$config"
@@ -247,24 +325,178 @@ for config in "${CONFIG_FILES[@]}"; do
         cp "$SOURCE_PATH" "$DEST_PATH"
         log_info "  Copied: $config"
     else
-        echo "  Skipped (not found): $config"
+        # Check if it's a critical file
+        is_critical=false
+        for crit in "${CRITICAL_FILES[@]}"; do
+            if [[ "$config" == "$crit" ]]; then
+                is_critical=true
+                break
+            fi
+        done
+
+        if [[ "$is_critical" == true ]]; then
+            log_warn "  MISSING (required): $config"
+            CRITICAL_MISSING+=("$config")
+        else
+            echo "  Skipped (not found): $config"
+        fi
     fi
 done
 
-# Copy .claude folder if exists
+# Copy .claude folder if exists (contains settings.local.json with permissions)
 MAIN_CLAUDE_DIR="$MAIN_REPO/.claude"
 WORKTREE_CLAUDE_DIR="$NEW_WORKTREE/.claude"
 
 if [[ -d "$MAIN_CLAUDE_DIR" ]]; then
     cp -r "$MAIN_CLAUDE_DIR" "$WORKTREE_CLAUDE_DIR"
     log_info "  Copied: .claude/ folder"
+else
+    log_warn "  MISSING: .claude/ folder — Claude Code permissions won't be pre-configured"
 fi
 
 # ============================================================================
-# STEP 5: Summary and Launch
+# STEP 5: Validate Environment (CRITICAL — do not skip)
 # ============================================================================
 
-log_info "[5/5] Worktree setup complete!"
+log_info "[5/7] Validating worktree environment..."
+
+VALIDATION_ERRORS=()
+
+# Check 1: .mcp.json exists and has MCP servers defined
+WORKTREE_MCP="$NEW_WORKTREE/.mcp.json"
+if [[ -f "$WORKTREE_MCP" ]]; then
+    if grep -q '"mcpServers"' "$WORKTREE_MCP" 2>/dev/null; then
+        log_info "  .mcp.json: MCP servers configured"
+    else
+        VALIDATION_ERRORS+=(".mcp.json exists but has no mcpServers defined")
+    fi
+else
+    VALIDATION_ERRORS+=(".mcp.json missing — Claude Code will have NO MCP tool access (no Supabase, no Redis)")
+fi
+
+# Check 2: .env exists and has key variables
+WORKTREE_ENV="$NEW_WORKTREE/.env"
+if [[ -f "$WORKTREE_ENV" ]]; then
+    for var in SUPABASE_URL SUPABASE_SERVICE_KEY ANTHROPIC_API_KEY; do
+        if grep -v '^\s*#' "$WORKTREE_ENV" | grep -qE "^${var}="; then
+            log_info "  .env: $var present"
+        else
+            echo "  .env: $var not found"
+        fi
+    done
+else
+    VALIDATION_ERRORS+=(".env missing — backend services will not connect")
+fi
+
+# Check 3: .claude/settings.local.json exists
+WORKTREE_CLAUDE_SETTINGS="$NEW_WORKTREE/.claude/settings.local.json"
+if [[ -f "$WORKTREE_CLAUDE_SETTINGS" ]]; then
+    log_info "  .claude/settings.local.json: permissions configured"
+else
+    echo "  .claude/settings.local.json: not found (Claude will ask for each permission)"
+fi
+
+# Report validation results
+if [[ ${#VALIDATION_ERRORS[@]} -gt 0 ]]; then
+    echo ""
+    log_warn "VALIDATION WARNINGS:"
+    for err in "${VALIDATION_ERRORS[@]}"; do
+        log_warn "  ! $err"
+    done
+    echo ""
+    log_warn "Claude Code sessions in this worktree may not work correctly!"
+    log_warn "Fix: Copy missing files from main repo: $MAIN_REPO"
+else
+    log_info "  All checks passed — worktree is ready for Claude Code"
+fi
+
+# ============================================================================
+# STEP 6: Ping Docker & MCP Services
+# ============================================================================
+
+log_info "[6/7] Checking Docker & MCP services..."
+
+# Check if Docker is running
+DOCKER_RUNNING=false
+if command -v docker &>/dev/null; then
+    if docker info &>/dev/null; then
+        log_info "  Docker: running"
+        DOCKER_RUNNING=true
+    else
+        log_error "  Docker: NOT running — MCP containers unavailable"
+        VALIDATION_ERRORS+=("Docker is not running — start Docker first")
+    fi
+else
+    log_error "  Docker: NOT installed or not in PATH"
+fi
+
+if [[ "$DOCKER_RUNNING" == true ]]; then
+    # List all running containers
+    CONTAINER_COUNT=$(docker ps --format "{{.Names}}" 2>/dev/null | wc -l)
+    log_info "  Docker containers running: $CONTAINER_COUNT"
+
+    docker ps --format "{{.Names}}|{{.Ports}}|{{.Status}}" 2>/dev/null | while IFS='|' read -r name ports status; do
+        if [[ -n "$name" ]]; then
+            if [[ "$status" == *"healthy"* ]]; then
+                echo -e "    ${GREEN}[OK]${NC} $name ($ports)"
+            elif [[ "$status" == *"unhealthy"* ]]; then
+                echo -e "    ${RED}[!!]${NC} $name ($ports)"
+            else
+                echo -e "    ${YELLOW}[--]${NC} $name ($ports)"
+            fi
+        fi
+    done
+
+    if [[ $CONTAINER_COUNT -eq 0 ]]; then
+        log_warn "  No Docker containers running"
+        echo "  Start with: docker-compose -f docker-compose.hybrid.yml up -d"
+    fi
+
+    # Ping known MCP endpoints from .mcp.json
+    WORKTREE_MCP="$NEW_WORKTREE/.mcp.json"
+    if [[ -f "$WORKTREE_MCP" ]] && command -v curl &>/dev/null; then
+        echo ""
+        echo -e "  ${CYAN}MCP server connectivity:${NC}"
+
+        # Extract health endpoints and URLs from .mcp.json
+        # Check REST API endpoints (Docker-based MCPs)
+        while IFS= read -r url; do
+            url=$(echo "$url" | tr -d '",' | xargs)
+            if [[ "$url" == http* ]]; then
+                server_name=$(echo "$url" | sed 's|http://localhost:[0-9]*/||')
+                if curl -s --max-time 3 "$url" &>/dev/null; then
+                    echo -e "    ${GREEN}reachable${NC}: $url"
+                else
+                    echo -e "    ${RED}UNREACHABLE${NC}: $url"
+                fi
+            fi
+        done < <(grep -o '"http://[^"]*health[^"]*"' "$WORKTREE_MCP" 2>/dev/null)
+
+        # Check npx-based MCP servers (just report configured)
+        while IFS= read -r server; do
+            server=$(echo "$server" | tr -d '":,' | xargs)
+            if [[ -n "$server" && "$server" != "mcpServers" ]]; then
+                # Check if it has a "command" key (npx-based)
+                echo -e "    ${GREEN}configured${NC}: $server (spawns on session start)"
+            fi
+        done < <(python3 -c "
+import json, sys
+try:
+    with open('$WORKTREE_MCP') as f:
+        data = json.load(f)
+    for name, conf in data.get('mcpServers', {}).items():
+        if 'command' in conf:
+            print(name)
+except: pass
+" 2>/dev/null)
+    fi
+fi
+
+# ============================================================================
+# STEP 7: Summary and Launch
+# ============================================================================
+
+log_info "[7/7] Worktree setup complete!"
 
 echo ""
 echo -e "${CYAN}----------------------------------------${NC}"
@@ -272,6 +504,9 @@ echo -e "${CYAN}  WORKTREE CREATED SUCCESSFULLY${NC}"
 echo -e "${CYAN}----------------------------------------${NC}"
 echo -e "  Path:   $NEW_WORKTREE"
 echo -e "  Branch: $BRANCH_NAME"
+if [[ -n "$PR_NUMBER" ]]; then
+    echo -e "  PR:     #$PR_NUMBER"
+fi
 echo -e "${CYAN}----------------------------------------${NC}"
 echo ""
 

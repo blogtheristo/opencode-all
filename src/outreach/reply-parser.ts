@@ -4,7 +4,10 @@
  * STRICT: first non-quoted line only. One reply = one update.
  * Multiple updates = multiple replies to the digest email.
  *
- * Token T:XXXXXXXX = 8-char alphanumeric stored in outreach_threads.thread_token.
+ * Type 2: Delegates to src/signals/ for token generation and status resolution.
+ * Backward compatible — all T:XXXXXXXX commands still work.
+ *
+ * Token T:XXXXXXXX = 10-char alphanumeric (Type 2 universal signal token).
  * Generated once at creation, stable forever. Looked up via exact match.
  *
  * Examples:
@@ -22,6 +25,7 @@
 
 import crypto from 'crypto';
 import type { OutreachStatus } from './types.js';
+import { generateSignalToken } from '../signals/signal-token.js';
 
 // ============================================================================
 // TYPES
@@ -49,18 +53,12 @@ export interface ApplyResult {
 }
 
 // ============================================================================
-// TOKEN GENERATION — matches PG function generate_thread_token()
+// TOKEN GENERATION — delegates to Type 2 signal token system
 // ============================================================================
 
-/** Safe alphabet: no 0/O, 1/I/L confusion. 30 chars. */
-const TOKEN_ALPHABET = '23456789ABCDEFGHJKMNPQRSTUVWXYZ';
-
-/** Generate a 10-char random token (matches the PG generate_thread_token function) */
+/** Generate a 10-char random token (delegates to universal signal token) */
 export function generateThreadToken(len = 10): string {
-  const bytes = crypto.randomBytes(len);
-  return Array.from(bytes)
-    .map((b) => TOKEN_ALPHABET[b % TOKEN_ALPHABET.length])
-    .join('');
+  return generateSignalToken(len);
 }
 
 // ============================================================================
@@ -240,7 +238,8 @@ export function parseReplyText(text: string): ParseResult {
   if (count > 1) {
     return {
       command: null,
-      error: 'Multiple lines found — only ONE command per reply. Send separate replies for each update.',
+      error:
+        'Multiple lines found — only ONE command per reply. Send separate replies for each update.',
     };
   }
 
@@ -265,7 +264,7 @@ export function verifyResendSignature(
   rawBody: string,
   svixId: string,
   svixTimestamp: string,
-  svixSignature: string
+  svixSignature: string,
 ): boolean {
   const secret = process.env.RESEND_WEBHOOK_SECRET;
   if (!secret) return false;
@@ -273,10 +272,7 @@ export function verifyResendSignature(
   // Svix secret format: whsec_<base64>
   const secretBytes = Buffer.from(secret.replace('whsec_', ''), 'base64');
   const signedContent = `${svixId}.${svixTimestamp}.${rawBody}`;
-  const computed = crypto
-    .createHmac('sha256', secretBytes)
-    .update(signedContent)
-    .digest('base64');
+  const computed = crypto.createHmac('sha256', secretBytes).update(signedContent).digest('base64');
 
   const expectedSig = `v1,${computed}`;
 

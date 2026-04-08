@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prometheus — The Fire Bringer | DWS Pantheon</title>
+    <meta name="description" content="Hydrogen & Energy Transition. Titan who stole fire from the gods. RFNBO classification, RED III hydrogen, additionality assessment, green H2 certification.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: linear-gradient(180deg, #1a0a1e 0%, #0f172a 40%, #0a1628 100%); }
+        .marble-glow { text-shadow: 0 0 60px rgba(139, 92, 246, 0.3); }
+        .glass { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(139, 92, 246, 0.15); }
+        @keyframes flicker {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+            75% { opacity: 0.9; transform: scale(0.98); }
+        }
+        .fire-flicker { animation: flicker 2s ease-in-out infinite; display: inline-block; }
+        .h2-card { border: 1px solid rgba(139, 92, 246, 0.12); background: rgba(15, 23, 42, 0.8); }
+        .rfnbo-check { color: #22c55e; }
+        .rfnbo-fail { color: #ef4444; }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-dvh text-slate-100">
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+
+    <!-- HERO -->
+    <header class="py-20 md:py-32 px-4 text-center">
+        <div class="max-w-4xl mx-auto">
+            <p class="text-xs uppercase tracking-[0.4em] text-violet-400 mb-6">The Hydrogen Frontier</p>
+            <div class="text-8xl md:text-9xl mb-6 fire-flicker">&#x1F525;</div>
+            <h1 class="text-5xl md:text-7xl font-black marble-glow mb-4">PROMETHEUS</h1>
+            <p class="text-xl md:text-2xl text-violet-300 font-light mb-2">Titan Who Stole Fire from the Gods</p>
+            <p class="text-slate-400 text-lg max-w-2xl mx-auto mb-8">Stole fire from the gods, gave humanity hydrogen, and now spends eternity making sure people classify it correctly as RFNBO. Patient about complexity. Uncompromising about rules.</p>
+
+            <div class="inline-flex items-center gap-3 glass rounded-full px-6 py-3">
+                <span class="w-3 h-3 bg-violet-400 rounded-full animate-pulse"></span>
+                <span class="text-violet-300 font-bold text-lg">RFNBO / RED III / Additionality</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 pb-20">
+
+        <!-- RFNBO Checklist -->
+        <section class="mb-16">
+            <div class="glass rounded-2xl p-1 max-w-4xl mx-auto">
+                <div class="bg-gray-950 rounded-xl p-6 md:p-8">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-sm font-bold text-violet-400 uppercase tracking-wider">RFNBO Certification Checklist</h3>
+                        <span class="text-xs text-slate-500 font-mono">Delegated Act (EU) 2023/1184</span>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="h2-card rounded-lg p-4 flex items-center gap-4">
+                            <span class="text-xl rfnbo-check">&#x2705;</span>
+                            <div>
+                                <p class="text-sm text-slate-200 font-bold">Temporal Correlation</p>
+                                <p class="text-xs text-slate-500">Monthly matching until 2030, then hourly &middot; PPA timestamps verified</p>
+                            </div>
+                        </div>
+                        <div class="h2-card rounded-lg p-4 flex items-center gap-4">
+                            <span class="text-xl rfnbo-check">&#x2705;</span>
+                            <div>
+                                <p class="text-sm text-slate-200 font-bold">Geographical Correlation</p>
+                                <p class="text-xs text-slate-500">Same bidding zone as electrolyser &middot; Cross-border allowed if interconnected</p>
+                            </div>
+                        </div>
+                        <div class="h2-card rounded-lg p-4 flex items-center gap-4">
+                            <span class="text-xl rfnbo-fail">&#x274C;</span>
+                            <div>
+                                <p class="text-sm text-slate-200 font-bold">Additionality</p>
+                                <p class="text-xs text-red-400">FAILS &mdash; Solar farm commissioned 2019 (must be within 36 months of electrolyser)</p>
+                                <p class="text-xs text-slate-500 mt-1">Fix: New 12 MW solar PPA or wind + battery storage</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 p-4 rounded-lg" style="background: rgba(139, 92, 246, 0.08); border: 1px solid rgba(139, 92, 246, 0.2);">
+                        <p class="text-sm text-violet-300 font-bold mb-1">Prometheus Assessment:</p>
+                        <p class="text-sm text-slate-400">Your setup meets 2 of 3 RFNBO criteria. Without additionality, this qualifies only as "low-carbon hydrogen" &mdash; not RFNBO. Tax incentive difference: &euro;3.50/kg vs. &euro;0.80/kg. Fix the PPA.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mythology & Voice -->
+        <section class="mb-16 max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold text-violet-400 mb-6">The Myth</h2>
+            <div class="glass rounded-2xl p-8">
+                <p class="text-lg text-slate-300 mb-4"><strong class="text-violet-300">Prometheus</strong> was the Titan who stole fire from the gods and gave it to humanity, enabling civilization. For this act of rebellion, Zeus chained him to a rock where an eagle ate his liver daily &mdash; and it regrew each night. Punished eternally for giving humanity its most transformative energy source.</p>
+                <p class="text-lg text-slate-300 mb-6">In DWS IQ 6, Prometheus governs hydrogen &mdash; the new fire. He classifies hydrogen by EU Delegated Act requirements (RFNBO under RED III), assesses additionality, and flags when grid-connected electrolysis claims fail without proper PPAs or REGOs. Patient about complexity. Uncompromising about rules.</p>
+                <blockquote class="border-l-4 border-violet-500 pl-6 py-4 my-6 bg-violet-950/30 rounded-r-lg">
+                    <p class="text-xl text-violet-200 italic">"Hydrogen is the new fire. Grid electricity claims fail without PPAs and REGOs. I explain why."</p>
+                    <cite class="text-sm text-violet-500 mt-2 block">&mdash; Prometheus, eyebrows still singed from the coffee machine incident</cite>
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- Capabilities -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-violet-400 mb-8 text-center">The Fire Toolkit</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="h2-card rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-violet-300 mb-2">RFNBO Compliance</h3>
+                    <p class="text-sm text-slate-400">Renewable Fuels of Non-Biological Origin. Full Delegated Act checklist. Temporal, geographical, additionality criteria.</p>
+                </div>
+                <div class="h2-card rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-violet-300 mb-2">Green H&sub2; Certification</h3>
+                    <p class="text-sm text-slate-400">CertifHy, TUV SUD, ISCC PLUS pathways. Which certification applies to your production method and target market.</p>
+                </div>
+                <div class="h2-card rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-violet-300 mb-2">RED III Hydrogen</h3>
+                    <p class="text-sm text-slate-400">Renewable Energy Directive III hydrogen sub-targets. Transport sector mandates. 1% by 2030 for RFNBO in transport.</p>
+                </div>
+                <div class="h2-card rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-violet-300 mb-2">Additionality Assessment</h3>
+                    <p class="text-sm text-slate-400">Is your renewable source truly additional? 36-month commissioning window. Prometheus flags every gap and models alternatives.</p>
+                </div>
+                <div class="h2-card rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-violet-300 mb-2">Energy Transition Modelling</h3>
+                    <p class="text-sm text-slate-400">H&sub2; production cost curves. Electrolyser sizing. PPA structures. Option A vs B vs C with full financial modelling.</p>
+                </div>
+                <div class="h2-card rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-violet-300 mb-2">The Helios Debate</h3>
+                    <p class="text-sm text-slate-400">"Hydrogen is the future!" &mdash; "It's an energy CARRIER!" This argument has been running since 06:00 UTC. Both are right. Neither will admit it.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="text-center mb-16">
+            <a href="/assistant/" class="inline-flex items-center gap-3 bg-gradient-to-r from-violet-600 to-purple-600 text-white font-bold text-lg px-10 py-4 rounded-xl hover:shadow-lg hover:shadow-violet-500/20 transition-all hover:-translate-y-1">
+                &#x1F525; Summon Prometheus
+            </a>
+            <p class="text-slate-500 text-sm mt-4">Opens the DWS IQ Assistant with hydrogen &amp; energy transition capabilities</p>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-12 text-slate-500 text-sm border-t border-slate-800">
+        <p class="mb-2"><a href="/pantheon/" class="text-violet-400 hover:underline">&larr; Back to The DWS Pantheon</a></p>
+        <p>DWS IQ 6 &middot; Hydrogen &amp; Energy Transition &middot; Lifetime Oy &middot; Helsinki, Finland &middot; 2026</p>
+    </footer>
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+</body>
+</html>

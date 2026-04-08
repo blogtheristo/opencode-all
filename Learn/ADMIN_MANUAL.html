@@ -115,8 +115,8 @@ Widget</a></li>
 Instructions</a></li>
 <li><a href="#session-security-fixes-january-2026" id="toc-session-security-fixes-january-2026">Session Security Fixes
 (January 2026)</a></li>
-<li><a href="#google-cloud-run-optionalbackup" id="toc-google-cloud-run-optionalbackup">Google Cloud Run
-(Optional/Backup)</a></li>
+<li><a href="#google-cloud-run" id="toc-google-cloud-run">Google Cloud
+Run</a></li>
 <li><a href="#ai-agent-operational-guidelines" id="toc-ai-agent-operational-guidelines">AI Agent Operational
 Guidelines</a></li>
 <li><a href="#security-glossary-owasp" id="toc-security-glossary-owasp">Security Glossary &amp; OWASP</a></li>
@@ -140,6 +140,7 @@ Maintenance</a></li>
 Model Configuration</a></li>
 <li><a href="#code-review-process" id="toc-code-review-process">Code
 Review Process</a></li>
+<li><a href="#tools" id="toc-tools">Tools</a></li>
 <li><a href="#maintenance-tasks" id="toc-maintenance-tasks">Maintenance
 Tasks</a></li>
 <li><a href="#git-workflow-1" id="toc-git-workflow-1">Git
@@ -155,8 +156,12 @@ Framework</a></li>
 <li><a href="#training" id="toc-training">Training</a></li>
 <li><a href="#appendix-a-ceo-cockpit-morning-briefing" id="toc-appendix-a-ceo-cockpit-morning-briefing">Appendix A: CEO Cockpit
 Morning Briefing</a></li>
+<li><a href="#automated-pr-workflow-hil-automation" id="toc-automated-pr-workflow-hil-automation">Automated PR Workflow (HIL
+Automation)</a></li>
 <li><a href="#document-changelog" id="toc-document-changelog">Document
 Changelog</a></li>
+<li><a href="#claude-code-project-engineering-structure" id="toc-claude-code-project-engineering-structure">Claude Code Project
+Engineering Structure</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -171,25 +176,49 @@ Manual</h1>
 <td># VERSION AND AGENT HISTORY</td>
 </tr>
 <tr>
-<td>Version: 2.1</td>
+<td>Version: 2.7</td>
 </tr>
 <tr>
-<td>Sessions &amp; Modifications: - Version: 1.0 | Tool: Claude Code |
-Session: Nov 2025 | Date: 23.11.2025 | Changes: Initial creation,
-session history - Version: 1.1 | Tool: Claude Code | Session: Dec 2025 |
-Date: 11.12.2025 | Changes: Sensitive Data Protection section - Version:
-1.2 | Tool: Claude Code | Session: Dec 2025 | Date: 19.12.2025 |
-Changes: Bug Tracking &amp; Security Maintenance - Version: 1.3 | Tool:
-Claude Code | Session: PxSux | Date: 23.12.2025 | Changes: AI Agent
-Policy from 2,500+ agent analysis - Version: 1.4 | Tool: Claude Code |
-Session: Jan 2026 | Date: 03.01.2026 | Changes: Code Review Process,
-removed Argus PR Review - Version: 1.5 | Tool: Claude Code | Session:
-Jan 2026 | Date: 04.01.2026 | Changes: AI Model Configuration, Security
-Framework - Version: 1.6 | Tool: Claude Code | Session: r6bU3 | Date:
-24.01.2026 | Changes: Training section with LWM/Firehorse workflows -
-Version: 1.7 | Tool: Claude Code | Session: krDzD | Date: 29.01.2026 |
-Changes: Climate Assistant Chat Widget, Copilot instructions, security
-fixes - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session:
+<td>Sessions &amp; Modifications: - Version: 2.7 | Tool: GPT-5.4 |
+Session: 2026-03-11 | Date: 11.03.2026 | Changes: Added Client Veriton
+offer documentation and Veriton Edge Stack runbook to the admin manual
+index - Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session:
+claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added
+Section 27 (Claude Code Project Engineering Structure: CLAUDE.md as
+project memory, Skills as reusable workflows, Hooks for automated
+quality enforcement, Subagents, MCP integrations); repository gap
+analysis documented; added to ToC; updated footer - Version: 2.6 | Tool:
+Claude Code (Sonnet 4.6) | Session:
+claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes:
+Added Climate IQ Pantheon subsection to Multi-Agent Orchestration (13
+agents: 6 Pantheon orchestrators + 7 industry specialists, registry,
+SOUL.md pattern) - Version: 2.5 | Tool: Claude Code (Opus 4.6) |
+Session: claude/create-handover-documentation-kJunm | Date: 24.02.2026 |
+Changes: Added Client Handover document (DWS_HANDOVER.md) to Related
+Documentation index - Version: 2.4 | Tool: Claude Code (Opus 4.6) |
+Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 |
+Changes: Enhanced LWM definition as enterprise learning layer
+(fine-tunes data/regulation, optimizes market value, ensures competitive
+advantage with multi-agent tools) - Version: 2.3 | Tool: Claude Code
+(Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date:
+21.02.2026 | Changes: Sandbox Isolation (Agent Foundry) section,
+Per-Industry Open LLM Selection matrix for 16 EU industries - Version:
+1.0 | Tool: Claude Code | Session: Nov 2025 | Date: 23.11.2025 |
+Changes: Initial creation, session history - Version: 1.1 | Tool: Claude
+Code | Session: Dec 2025 | Date: 11.12.2025 | Changes: Sensitive Data
+Protection section - Version: 1.2 | Tool: Claude Code | Session: Dec
+2025 | Date: 19.12.2025 | Changes: Bug Tracking &amp; Security
+Maintenance - Version: 1.3 | Tool: Claude Code | Session: PxSux | Date:
+23.12.2025 | Changes: AI Agent Policy from 2,500+ agent analysis -
+Version: 1.4 | Tool: Claude Code | Session: Jan 2026 | Date: 03.01.2026
+| Changes: Code Review Process, removed Argus PR Review - Version: 1.5 |
+Tool: Claude Code | Session: Jan 2026 | Date: 04.01.2026 | Changes: AI
+Model Configuration, Security Framework - Version: 1.6 | Tool: Claude
+Code | Session: r6bU3 | Date: 24.01.2026 | Changes: Training section
+with LWM/Firehorse workflows - Version: 1.7 | Tool: Claude Code |
+Session: krDzD | Date: 29.01.2026 | Changes: Climate Assistant Chat
+Widget, Copilot instructions, security fixes - Version: 1.8 | Tool:
+Claude Code (Opus 4.6) | Session:
 claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes:
 Admin Manuals Index, Revolut payments, MCP config, Karpathy guidelines,
 security glossary, DPA, backup infrastructure, multi-agent orchestration
@@ -213,7 +242,7 @@ https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-
 https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL.md</td>
 </tr>
 <tr>
-<td>Document Status: - Created: 23.11.2025 - Last Modified: 17.02.2026 -
+<td>Document Status: - Created: 23.11.2025 - Last Modified: 11.03.2026 -
 Language: English - Languages Available: English - Publication Status:
 ✅ ACTIVE</td>
 </tr>
@@ -265,6 +294,8 @@ Security Maintenance</a></li>
 Protection</a></li>
 <li><a href="#emergency-procedures">Emergency Procedures</a></li>
 <li><a href="#training">Training</a></li>
+<li><a href="#claude-code-project-engineering-structure">Claude Code
+Project Engineering Structure</a> ⭐ <strong>NEW in v2.6</strong></li>
 </ol>
 <p><strong>Appendices</strong> - <a href="#appendix-a-ceo-cockpit-morning-briefing">Appendix A: CEO Cockpit
 Morning Briefing</a></p>
@@ -318,6 +349,14 @@ domain.</p>
 <td><a href="ADMIN_MANUAL_GAPS_ANALYSIS.md"><code>ADMIN_MANUAL_GAPS_ANALYSIS.md</code></a></td>
 <td>EN</td>
 <td>Missing features and remediation plan</td>
+</tr>
+<tr>
+<td><strong>DWS IQ 6 User Manual</strong></td>
+<td><a href="../Situation/DWS_IQ6_USER_MANUAL.md"><code>../Situation/DWS_IQ6_USER_MANUAL.md</code></a></td>
+<td>EN</td>
+<td>End-user workflow from <code>dws10.com</code> to
+<code>dws6.com</code>, Dashboard V10, Situation Room, and local
+Veriton-backed Control Room</td>
 </tr>
 </tbody>
 </table>
@@ -449,6 +488,34 @@ domain.</p>
 </thead>
 <tbody>
 <tr>
+<td><strong>Client Veriton Offers</strong></td>
+<td><a href="Acer-Veriton-GN100/CLIENT_VERITON_OFFERS_EN_v1.md"><code>Acer-Veriton-GN100/CLIENT_VERITON_OFFERS_EN_v1.md</code></a></td>
+<td>EN</td>
+<td>Product definition for Control Room Acer Veriton and Situation Room
+Acer Veriton-backed</td>
+</tr>
+<tr>
+<td><strong>Veriton Edge Stack Runbook</strong></td>
+<td><a href="Acer-Veriton-GN100/VERITON_EDGE_STACK_RUNBOOK.md"><code>Acer-Veriton-GN100/VERITON_EDGE_STACK_RUNBOOK.md</code></a></td>
+<td>EN</td>
+<td>Docker, Ollama, OpenSandbox, MCP, tunnel, and health-check
+runbook</td>
+</tr>
+<tr>
+<td><strong>User Storyboard</strong></td>
+<td><a href="../Situation/user-storyboard.md"><code>../Situation/user-storyboard.md</code></a></td>
+<td>EN</td>
+<td>End-user path from public entry to Dashboard V10 and local Control
+Room</td>
+</tr>
+<tr>
+<td><strong>Admin Storyboard</strong></td>
+<td><a href="../Situation/admin-storyboard.md"><code>../Situation/admin-storyboard.md</code></a></td>
+<td>EN</td>
+<td>Admin path for Dashboard V10 oversight, local admin app, and Veriton
+operations</td>
+</tr>
+<tr>
 <td><strong>Firehorse Omnichannel</strong></td>
 <td><a href="Firehorse_Omnichannel_Next_Admin_Manual.md"><code>Admin/Firehorse_Omnichannel_Next_Admin_Manual.md</code></a></td>
 <td>EN</td>
@@ -501,6 +568,11 @@ domain.</p>
 <td><strong>Security Glossary</strong></td>
 <td><a href="../docs/SECURITY_GLOSSARY.md"><code>docs/SECURITY_GLOSSARY.md</code></a></td>
 <td>Security terms and OWASP references</td>
+</tr>
+<tr>
+<td><strong>Client Handover</strong></td>
+<td><a href="../docs/DWS_HANDOVER.md"><code>docs/DWS_HANDOVER.md</code></a></td>
+<td>Client handover — delivery scope, gaps, SLA, training, sign-off</td>
 </tr>
 </tbody>
 </table>
@@ -1500,11 +1572,10 @@ Fixed</h3>
 </tbody>
 </table>
 <hr />
-<h2 id="google-cloud-run-optionalbackup">Google Cloud Run
-(Optional/Backup)</h2>
-<p><strong>Status:</strong> ⏸️ <strong>PENDING</strong> - Requires
-billing setup</p>
-<h3 id="project-dws6run">Project: dws6run</h3>
+<h2 id="google-cloud-run">Google Cloud Run</h2>
+<p><strong>Status:</strong> ✅ <strong>ACTIVE</strong> - Billing enabled
+on <code>admin@dws6.com</code></p>
+<h3 id="project-dws6run6">Project: dws6run6</h3>
 <table>
 <colgroup>
 <col style="width: 58%" />
@@ -1519,7 +1590,7 @@ billing setup</p>
 <tbody>
 <tr>
 <td><strong>Project ID</strong></td>
-<td><code>dws6run</code></td>
+<td><code>dws6run6</code></td>
 </tr>
 <tr>
 <td><strong>Project Number</strong></td>
@@ -1531,11 +1602,45 @@ billing setup</p>
 </tr>
 <tr>
 <td><strong>Artifact Registry</strong></td>
-<td><code>europe-north1-docker.pkg.dev/dws6run/dws-iq-repo</code></td>
+<td><code>europe-north1-docker.pkg.dev/dws6run6/dws-iq-repo</code></td>
 </tr>
 <tr>
 <td><strong>Admin Account</strong></td>
 <td><code>admin@dws6.com</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="gemini-for-google-cloud-api">Gemini for Google Cloud API</h3>
+<table>
+<colgroup>
+<col style="width: 58%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Status</strong></td>
+<td>❌ <strong>DISABLED</strong> (17.02.2026)</td>
+</tr>
+<tr>
+<td><strong>Reason</strong></td>
+<td>€62/month not needed — using free Gemini Code Assist in VS Code
+instead</td>
+</tr>
+<tr>
+<td><strong>Decision</strong></td>
+<td>Use free Gemini Code Assist for individuals (VS Code extension, no
+GCP project required)</td>
+</tr>
+<tr>
+<td><strong>Re-enable if</strong></td>
+<td>Enterprise features needed (Cloud Assist, BigQuery, Security,
+Looker)</td>
 </tr>
 </tbody>
 </table>
@@ -1546,10 +1651,10 @@ billing setup</p>
 <code>roles/logging.logWriter</code> - Write build logs</p>
 <h3 id="deployment-commands">Deployment Commands</h3>
 <div class="sourceCode" id="cb19"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build and push image</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>gcloud builds submit <span class="op">--</span>tag europe-north1-docker<span class="op">.</span><span class="fu">pkg</span><span class="op">.</span><span class="fu">dev</span><span class="op">/</span>dws6run<span class="op">/</span>dws-iq-repo<span class="op">/</span>dws-iq-backend<span class="op">:</span>latest <span class="op">--</span>project<span class="op">=</span>dws6run</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>gcloud builds submit <span class="op">--</span>tag europe-north1-docker<span class="op">.</span><span class="fu">pkg</span><span class="op">.</span><span class="fu">dev</span><span class="op">/</span>dws6run6<span class="op">/</span>dws-iq-repo<span class="op">/</span>dws-iq-backend<span class="op">:</span>latest <span class="op">--</span>project<span class="op">=</span>dws6run6</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Deploy to Cloud Run</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>gcloud run deploy dws-iq-backend <span class="op">--</span>image europe-north1-docker<span class="op">.</span><span class="fu">pkg</span><span class="op">.</span><span class="fu">dev</span><span class="op">/</span>dws6run<span class="op">/</span>dws-iq-repo<span class="op">/</span>dws-iq-backend<span class="op">:</span>latest <span class="op">--</span>region europe-north1 <span class="op">--</span>project dws6run <span class="op">--</span>allow-unauthenticated <span class="op">--</span>set-env-vars<span class="op">=</span><span class="st">&quot;GROQ_API_KEY=&lt;key&gt;,NODE_ENV=production&quot;</span></span></code></pre></div>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>gcloud run deploy dws-iq-backend <span class="op">--</span>image europe-north1-docker<span class="op">.</span><span class="fu">pkg</span><span class="op">.</span><span class="fu">dev</span><span class="op">/</span>dws6run6<span class="op">/</span>dws-iq-repo<span class="op">/</span>dws-iq-backend<span class="op">:</span>latest <span class="op">--</span>region europe-north1 <span class="op">--</span>project dws6run6 <span class="op">--</span>allow-unauthenticated <span class="op">--</span>set-env-vars<span class="op">=</span><span class="st">&quot;GROQ_API_KEY=&lt;key&gt;,NODE_ENV=production&quot;</span></span></code></pre></div>
 <hr />
 <h2 id="ai-agent-operational-guidelines">AI Agent Operational
 Guidelines</h2>
@@ -2135,10 +2240,377 @@ Operations</h3>
   ├── Subagents (focused, cost-effective)
   ├── Agent Teams (parallel, collaborative)
   └── Lifetime Scope Signals (dependency DAG)</code></pre>
+<h3 id="sandbox-isolation-agent-foundry">Sandbox Isolation (Agent
+Foundry)</h3>
+<p><strong>Implementation:</strong> <code>src/sandbox/</code> — Staged
+tenant isolation for multi-tenant agent execution.</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 38%" />
+<col style="width: 31%" />
+<col style="width: 13%" />
+</colgroup>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Isolation Method</th>
+<th>LLM Provider</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 — SDK Sandbox</td>
+<td>Anthropic Agent SDK (bubblewrap/seatbelt)</td>
+<td>Groq (default)</td>
+<td>Demo / Pilot</td>
+</tr>
+<tr>
+<td>2 — Ephemeral Containers</td>
+<td>Cloud Run Jobs (europe-north1)</td>
+<td>Configurable per agent</td>
+<td>First paid multi-tenant</td>
+</tr>
+<tr>
+<td>3 — Persistent Containers</td>
+<td>gVisor / Firecracker</td>
+<td>Configurable per agent</td>
+<td>Scale (€50k+ MRR)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Environment variable:</strong> <code>SANDBOX_STAGE=1</code>
+(default), <code>2</code>, or <code>3</code></p>
+<p>See <code>DWS_SECURITY_STANDARD.md</code> Section 14 for full
+security architecture.</p>
+<h3 id="climate-iq-pantheon-agent-registry">Climate IQ Pantheon Agent
+Registry</h3>
+<p>DWS IQ runs <strong>13 named agents</strong> organized in two tiers,
+registered at startup in <code>src/agents/index.ts</code>.</p>
+<p><strong>Tier 1 — Orchestrators (6 agents)</strong></p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 21%" />
+<col style="width: 18%" />
+<col style="width: 39%" />
+</colgroup>
+<thead>
+<tr>
+<th>Agent</th>
+<th>Deity</th>
+<th>Role</th>
+<th>Capabilities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>atlas</code></td>
+<td>Titan</td>
+<td>Chief of Staff</td>
+<td>workflow-orchestration, executive-briefing, request-routing</td>
+</tr>
+<tr>
+<td><code>athena</code></td>
+<td>Greek</td>
+<td>EU Compliance</td>
+<td>eu-regulatory, ets-monitoring, cbam-assessment, csrd-reporting</td>
+</tr>
+<tr>
+<td><code>hephaestus</code></td>
+<td>Greek</td>
+<td>Field &amp; Site</td>
+<td>site-safety, materials-analysis, schedule-management</td>
+</tr>
+<tr>
+<td><code>iris</code></td>
+<td>Greek</td>
+<td>Research &amp; Intel</td>
+<td>competitor-analysis, market-research, deep-wiki-extraction</td>
+</tr>
+<tr>
+<td><code>hermes</code></td>
+<td>Greek</td>
+<td>Logistics &amp; Ops</td>
+<td>logistics-optimization, supply-chain-risk, quality-gate</td>
+</tr>
+<tr>
+<td><code>apollo</code></td>
+<td>Greek</td>
+<td>Content &amp; Outreach</td>
+<td>content-strategy, seo-optimization, sales-outreach</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Tier 2 — Industry Specialists (7 agents)</strong></p>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 25%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr>
+<th>Agent</th>
+<th>Deity</th>
+<th>Industry</th>
+<th>Key Regulation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vulcan</code></td>
+<td>Roman</td>
+<td>Steel &amp; Metals</td>
+<td>ETS Phase 4, CBAM iron/steel</td>
+</tr>
+<tr>
+<td><code>helios</code></td>
+<td>Greek</td>
+<td>Energy &amp; Renewables</td>
+<td>RED III 42.5%, REPowerEU</td>
+</tr>
+<tr>
+<td><code>neptune</code></td>
+<td>Roman</td>
+<td>Maritime &amp; Shipping</td>
+<td>FuelEU Maritime, ETS shipping</td>
+</tr>
+<tr>
+<td><code>ceres</code></td>
+<td>Roman</td>
+<td>Agriculture &amp; Fertilizers</td>
+<td>CBAM fertilizers, N2O</td>
+</tr>
+<tr>
+<td><code>prometheus</code></td>
+<td>Greek</td>
+<td>Hydrogen</td>
+<td>RFNBO additionality, RED III</td>
+</tr>
+<tr>
+<td><code>mars</code></td>
+<td>Roman</td>
+<td>Construction &amp; Buildings</td>
+<td>EPBD, EN 15978 whole-life carbon</td>
+</tr>
+<tr>
+<td><code>gaia</code></td>
+<td>Greek</td>
+<td>Cement &amp; Earth Materials</td>
+<td>CBAM clinker benchmark 766 tCO2/1000t</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Identity pattern:</strong> Each agent has
+<code>src/agents/workflow/{tier}/{name}/SOUL.md</code> injected as
+system prompt. <strong>Logging:</strong> All agents call
+<code>logExecution()</code> to <code>agent_executions</code> Supabase
+table (EU AI Act Article 12). <strong>Security:</strong> No
+<code>...input</code> spreads to sub-agents — all delegation uses
+explicit typed field extraction.</p>
+<h3 id="per-industry-open-llm-selection-important">Per-Industry Open LLM
+Selection (IMPORTANT)</h3>
+<p><strong>Do NOT default to Llama 3.3 70B for every industry.</strong>
+Each of the 16 EU industries DWS IQ serves has different domain
+characteristics. The agent system must evaluate and select the best open
+LLM per industry vertical.</p>
+<p><strong>Selection criteria per industry:</strong></p>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr>
+<th>Criteria</th>
+<th>Why It Matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domain knowledge depth</td>
+<td>Construction vs. maritime vs. healthcare have different regulatory
+language</td>
+</tr>
+<tr>
+<td>Multilingual capability</td>
+<td>Nordic industries need Finnish/Swedish, CBAM suppliers need 20+
+languages</td>
+</tr>
+<tr>
+<td>Structured output reliability</td>
+<td>Compliance reports need deterministic JSON, not creative prose</td>
+</tr>
+<tr>
+<td>Context window</td>
+<td>Supply chain analysis may need 128k+ context</td>
+</tr>
+<tr>
+<td>Inference speed</td>
+<td>Real-time compliance checks need sub-second response</td>
+</tr>
+<tr>
+<td>EU data residency</td>
+<td>Some models can only run on EU-hosted infrastructure</td>
+</tr>
+<tr>
+<td>License</td>
+<td>Commercial use restrictions vary by model</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Industry LLM evaluation matrix (to be completed per industry
+study):</strong></p>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 20%" />
+<col style="width: 38%" />
+<col style="width: 26%" />
+</colgroup>
+<thead>
+<tr>
+<th>Industry</th>
+<th>Default LLM</th>
+<th>Alternatives to Evaluate</th>
+<th>Key Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Construction</td>
+<td>Llama 3.3 70B (Groq)</td>
+<td>Mistral Large, Qwen 2.5 72B, DeepSeek-V3</td>
+<td>EN 15978 lifecycle stages, Finnish building codes</td>
+</tr>
+<tr>
+<td>Energy</td>
+<td>TBD</td>
+<td>Llama 3.3, Mistral, Command R+</td>
+<td>ETS allowance calculations, power grid terminology</td>
+</tr>
+<tr>
+<td>Manufacturing</td>
+<td>TBD</td>
+<td>Llama 3.3, Qwen 2.5, Mixtral 8x22B</td>
+<td>CBAM product classification, BOM analysis</td>
+</tr>
+<tr>
+<td>Logistics &amp; Transport</td>
+<td>TBD</td>
+<td>Llama 3.3, Mistral, Gemma 2 27B</td>
+<td>Route optimization, ESR non-ETS emissions</td>
+</tr>
+<tr>
+<td>Maritime &amp; Shipping</td>
+<td>TBD</td>
+<td>Llama 3.3, Mistral Large</td>
+<td>FuelEU Maritime, MRV regulations</td>
+</tr>
+<tr>
+<td>Aviation</td>
+<td>TBD</td>
+<td>Llama 3.3, Mistral</td>
+<td>CORSIA, SAF calculations</td>
+</tr>
+<tr>
+<td>Steel &amp; Metals</td>
+<td>TBD</td>
+<td>Llama 3.3, Qwen 2.5</td>
+<td>CBAM embedded emissions, alloy specifications</td>
+</tr>
+<tr>
+<td>Chemicals</td>
+<td>TBD</td>
+<td>Llama 3.3, DeepSeek-V3</td>
+<td>REACH, process emissions, safety data sheets</td>
+</tr>
+<tr>
+<td>Cement &amp; Concrete</td>
+<td>TBD</td>
+<td>Llama 3.3, Mistral</td>
+<td>Clinker ratios, EPD data, kiln emissions</td>
+</tr>
+<tr>
+<td>Agriculture</td>
+<td>TBD</td>
+<td>Llama 3.3, Gemma 2</td>
+<td>LULUCF, methane accounting, CAP subsidies</td>
+</tr>
+<tr>
+<td>Food &amp; Beverage</td>
+<td>TBD</td>
+<td>Llama 3.3, Mistral</td>
+<td>Scope 3 supply chain, packaging lifecycle</td>
+</tr>
+<tr>
+<td>Textiles</td>
+<td>TBD</td>
+<td>Llama 3.3, Qwen 2.5</td>
+<td>Digital product passport, CBAM for imports</td>
+</tr>
+<tr>
+<td>Real Estate</td>
+<td>TBD</td>
+<td>Llama 3.3, Mistral</td>
+<td>EPBD energy certificates, renovation passports</td>
+</tr>
+<tr>
+<td>Finance &amp; Insurance</td>
+<td>TBD</td>
+<td>Llama 3.3, Mistral Large</td>
+<td>SFDR, EU Taxonomy alignment, double materiality</td>
+</tr>
+<tr>
+<td>Public Sector</td>
+<td>TBD</td>
+<td>Llama 3.3, Mistral (EU-hosted)</td>
+<td>CSRD for state-owned enterprises, GPP criteria</td>
+</tr>
+<tr>
+<td>Healthcare</td>
+<td>TBD</td>
+<td>Llama 3.3, Gemma 2 (EU-hosted)</td>
+<td>Medical waste emissions, pharmaceutical supply chain</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Evaluation process for each industry:</strong></p>
+<ol type="1">
+<li><strong>Benchmark</strong> — Run industry-specific compliance
+prompts (EN 15978, CSRD ESRS E1, CBAM declarations) against 3-4
+candidate models</li>
+<li><strong>Score</strong> — Evaluate on accuracy, structured output
+reliability, and domain terminology</li>
+<li><strong>Cost</strong> — Compare inference cost per 1K tokens across
+providers (Groq, Together, Fireworks, self-hosted)</li>
+<li><strong>Residency</strong> — Verify EU data residency compliance for
+the provider</li>
+<li><strong>Select</strong> — Choose the best model per industry,
+document rationale</li>
+<li><strong>Configure</strong> — Set per-agent model in
+<code>AgentConfig.model</code> field
+(<code>src/agents/types.ts</code>)</li>
+</ol>
+<p><strong>Configuration example:</strong></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">// In each agent&#39;s constructor, set the industry-optimized model:</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="kw">new</span> <span class="fu">ConstructionAgent</span>({</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  name<span class="op">:</span> <span class="st">&#39;construction&#39;</span><span class="op">,</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  model<span class="op">:</span> <span class="st">&#39;llama-3.3-70b-versatile&#39;</span><span class="op">,</span>  <span class="co">// Or &#39;mistral-large-latest&#39; after evaluation</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ...</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<p><strong>Action item:</strong> Complete industry LLM benchmarks before
+first enterprise deployment. Each industry vertical should have a
+documented model selection rationale.</p>
 <h3 id="related-documentation-2">Related Documentation</h3>
 <ul>
 <li><strong>MCP Configuration:</strong> <a href="../docs/MCP_CONFIGURATION.md"><code>docs/MCP_CONFIGURATION.md</code></a></li>
 <li><strong>Agent Teams field note:</strong> <a href="../docs/field-notes/2026-02-05-claude-code-agent-teams-vs-subagents.md"><code>docs/field-notes/2026-02-05-claude-code-agent-teams-vs-subagents.md</code></a></li>
+<li><strong>Sandbox Isolation Architecture:</strong>
+<code>DWS_SECURITY_STANDARD.md</code> Section 14</li>
 </ul>
 <hr />
 <h2 id="files-and-folders-structure">Files and Folders Structure</h2>
@@ -2405,35 +2877,35 @@ tools used ✅ <strong>Six core areas</strong> - Commands, testing,
 project structure, code style, git workflow, boundaries ✅
 <strong>Version tracking</strong> - Document evolution and changes</p>
 <h3 id="required-structure">Required Structure</h3>
-<div class="sourceCode" id="cb26"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># [Agent Name] - Instructions</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>**Version:** X.Y</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>**Stack:** <span class="co">[</span><span class="ot">List technologies</span><span class="co">]</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>**Last Updated:** YYYY-MM-DD</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## Quick Start Commands</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Executable commands first</span><span class="co">]</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## Stack &amp; Technologies</span></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Explicit stack listing</span><span class="co">]</span></span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1. Commands Reference</span></span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Development, testing, deployment</span><span class="co">]</span></span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2. Testing Requirements</span></span>
-<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Mandatory tests, coverage, examples</span><span class="co">]</span></span>
-<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3. Project Structure</span></span>
-<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Directory layout, naming conventions</span><span class="co">]</span></span>
-<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4. Code Style Guidelines</span></span>
-<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">TypeScript/React patterns, examples</span><span class="co">]</span></span>
-<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## 5. Git Workflow</span></span>
-<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Branch naming, commits, pre-commit checks</span><span class="co">]</span></span>
-<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## 6. Boundaries &amp; Security</span></span>
-<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Never/Always lists with examples</span><span class="co">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># [Agent Name] - Instructions</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>**Version:** X.Y</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>**Stack:** <span class="co">[</span><span class="ot">List technologies</span><span class="co">]</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>**Last Updated:** YYYY-MM-DD</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## Quick Start Commands</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Executable commands first</span><span class="co">]</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## Stack &amp; Technologies</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Explicit stack listing</span><span class="co">]</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1. Commands Reference</span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Development, testing, deployment</span><span class="co">]</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2. Testing Requirements</span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Mandatory tests, coverage, examples</span><span class="co">]</span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3. Project Structure</span></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Directory layout, naming conventions</span><span class="co">]</span></span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4. Code Style Guidelines</span></span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">TypeScript/React patterns, examples</span><span class="co">]</span></span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## 5. Git Workflow</span></span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Branch naming, commits, pre-commit checks</span><span class="co">]</span></span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## 6. Boundaries &amp; Security</span></span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Never/Always lists with examples</span><span class="co">]</span></span></code></pre></div>
 <h3 id="key-security-boundaries">Key Security Boundaries</h3>
 <p><strong>NEVER:</strong> - ❌ Commit secrets or credentials - ❌
 Commit customer data (PII, GDPR protected) - ❌ Commit admin files
@@ -2473,24 +2945,24 @@ Session ID: [SESSION_ID]</code></pre>
 chore</p>
 <h3 id="performance-guidelines">Performance Guidelines</h3>
 <p><strong>React Components:</strong></p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">// ✅ GOOD: Memoized expensive computation</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { useMemo } <span class="im">from</span> <span class="st">&#39;react&#39;</span><span class="op">;</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">AgentList</span>({ agents }<span class="op">:</span> Props) {</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sortedAgents <span class="op">=</span> <span class="fu">useMemo</span>(</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    () <span class="kw">=&gt;</span> agents<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> a<span class="op">.</span><span class="at">score</span> <span class="op">-</span> b<span class="op">.</span><span class="at">score</span>)<span class="op">,</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    [agents]</span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="op">&lt;</span>div<span class="op">&gt;</span>{sortedAgents<span class="op">.</span><span class="fu">map</span>(renderAgent)}<span class="op">&lt;/</span>div<span class="op">&gt;;</span></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">// ✅ GOOD: Memoized expensive computation</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { useMemo } <span class="im">from</span> <span class="st">&#39;react&#39;</span><span class="op">;</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">AgentList</span>({ agents }<span class="op">:</span> Props) {</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sortedAgents <span class="op">=</span> <span class="fu">useMemo</span>(</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    () <span class="kw">=&gt;</span> agents<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> a<span class="op">.</span><span class="at">score</span> <span class="op">-</span> b<span class="op">.</span><span class="at">score</span>)<span class="op">,</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    [agents]</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="op">&lt;</span>div<span class="op">&gt;</span>{sortedAgents<span class="op">.</span><span class="fu">map</span>(renderAgent)}<span class="op">&lt;/</span>div<span class="op">&gt;;</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p><strong>Database Queries:</strong></p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">// ✅ GOOD: Batched query with indexes</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> agents <span class="op">=</span> <span class="cf">await</span> db<span class="op">.</span><span class="at">agent</span><span class="op">.</span><span class="fu">findMany</span>({</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">where</span><span class="op">:</span> { <span class="dt">userId</span><span class="op">:</span> user<span class="op">.</span><span class="at">id</span> }<span class="op">,</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">select</span><span class="op">:</span> { <span class="dt">id</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">name</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">score</span><span class="op">:</span> <span class="kw">true</span> }<span class="op">,</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">orderBy</span><span class="op">:</span> { <span class="dt">score</span><span class="op">:</span> <span class="st">&#39;desc&#39;</span> }<span class="op">,</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">take</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">// ✅ GOOD: Batched query with indexes</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> agents <span class="op">=</span> <span class="cf">await</span> db<span class="op">.</span><span class="at">agent</span><span class="op">.</span><span class="fu">findMany</span>({</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">where</span><span class="op">:</span> { <span class="dt">userId</span><span class="op">:</span> user<span class="op">.</span><span class="at">id</span> }<span class="op">,</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">select</span><span class="op">:</span> { <span class="dt">id</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">name</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">score</span><span class="op">:</span> <span class="kw">true</span> }<span class="op">,</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">orderBy</span><span class="op">:</span> { <span class="dt">score</span><span class="op">:</span> <span class="st">&#39;desc&#39;</span> }<span class="op">,</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">take</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
 <h3 id="agent-file-checklist">Agent File Checklist</h3>
 <p>Before finalizing an agent instruction file:</p>
 <ul>
@@ -3017,44 +3489,44 @@ development cadence)</p>
 Load</h3>
 <h4 id="cicd-automation-saves-5-10-bugsmonth">CI/CD Automation (Saves
 5-10 bugs/month)</h4>
-<div class="sourceCode" id="cb31"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># .github/workflows/security-checks.yml</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> Security Checks</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">push</span><span class="kw">,</span><span class="at"> pull_request</span><span class="kw">]</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">security</span><span class="kw">:</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v3</span></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co">      # TypeScript strict mode</span></span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> TypeScript Check</span></span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> npm run type-check</span></span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="co">      # Linting</span></span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> ESLint</span></span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> npm run lint</span></span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a><span class="co">      # Security scan</span></span>
-<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Snyk Code Scan</span></span>
-<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> snyk/actions/node@master</span></span>
-<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">env</span><span class="kw">:</span></span>
-<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">SNYK_TOKEN</span><span class="kw">:</span><span class="at"> ${{ secrets.SNYK_TOKEN }}</span></span>
-<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a><span class="co">      # Dependency audit</span></span>
-<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> npm audit</span></span>
-<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> npm audit --audit-level=high</span></span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># .github/workflows/security-checks.yml</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> Security Checks</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">push</span><span class="kw">,</span><span class="at"> pull_request</span><span class="kw">]</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">security</span><span class="kw">:</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v3</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="co">      # TypeScript strict mode</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> TypeScript Check</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> npm run type-check</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="co">      # Linting</span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> ESLint</span></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> npm run lint</span></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a><span class="co">      # Security scan</span></span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Snyk Code Scan</span></span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> snyk/actions/node@master</span></span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">env</span><span class="kw">:</span></span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">SNYK_TOKEN</span><span class="kw">:</span><span class="at"> ${{ secrets.SNYK_TOKEN }}</span></span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a><span class="co">      # Dependency audit</span></span>
+<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> npm audit</span></span>
+<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> npm audit --audit-level=high</span></span></code></pre></div>
 <h4 id="dependency-automation-saves-5-10-bugsmonth">Dependency
 Automation (Saves 5-10 bugs/month)</h4>
 <ol type="1">
 <li><p><strong>Enable Dependabot</strong> (auto-merge for patches):</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># .github/dependabot.yml</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">updates</span><span class="kw">:</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">package-ecosystem</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;npm&quot;</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">directory</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;/&quot;</span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">schedule</span><span class="kw">:</span></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">interval</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;weekly&quot;</span></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">open-pull-requests-limit</span><span class="kw">:</span><span class="at"> </span><span class="dv">10</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb33"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># .github/dependabot.yml</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">updates</span><span class="kw">:</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">package-ecosystem</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;npm&quot;</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">directory</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;/&quot;</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">schedule</span><span class="kw">:</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">interval</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;weekly&quot;</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">open-pull-requests-limit</span><span class="kw">:</span><span class="at"> </span><span class="dv">10</span></span></code></pre></div></li>
 <li><p><strong>Monthly Dependency Review Ritual</strong>:</p>
 <ul>
 <li>First Monday of month</li>
@@ -3528,10 +4000,10 @@ AI tools without additional API costs.</p>
 <code>Archive/workflows/argus-code-review.yml.DEPRECATED</code></p>
 <h3 id="review-workflow">Review Workflow</h3>
 <h4 id="pre-commit-review-local">1. Pre-Commit Review (Local)</h4>
-<div class="sourceCode" id="cb33"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run before committing</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\scripts\gdpr-safety-check<span class="op">.</span><span class="fu">ps1</span>    <span class="co"># Security check</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>ruff check <span class="op">.</span>                        <span class="co"># Python linting</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>npm run lint                        <span class="co"># JS/TS linting (if applicable)</span></span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run before committing</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\scripts\gdpr-safety-check<span class="op">.</span><span class="fu">ps1</span>    <span class="co"># Security check</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>ruff check <span class="op">.</span>                        <span class="co"># Python linting</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>npm run lint                        <span class="co"># JS/TS linting (if applicable)</span></span></code></pre></div>
 <h4 id="ai-assisted-review-cursor">2. AI-Assisted Review (Cursor)</h4>
 <p>Use Cursor AI for interactive code review:</p>
 <pre><code># Example prompts:
@@ -3556,7 +4028,7 @@ snyk test</code></pre>
 <h4 id="github-copilot-review-optional">4. GitHub Copilot Review
 (Optional)</h4>
 <p>Request automated review on any PR:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> pr review <span class="at">--request-review</span> copilot</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> pr review <span class="at">--request-review</span> copilot</span></code></pre></div>
 <h3 id="review-checklist">Review Checklist</h3>
 <p>Before approving/merging a PR:</p>
 <ul class="task-list">
@@ -3584,6 +4056,72 @@ hook should block sensitive files</li>
 <li><strong>Check GitHub Actions results</strong> - Automated security
 scans catch what humans miss</li>
 </ol>
+<hr />
+<h2 id="tools">Tools</h2>
+<h3 id="database-migration-db_push">Database Migration (db_push)</h3>
+<p>Push Supabase migrations to the linked project (ref:
+<code>kpucuwwfhuwurdxyjjtz</code>).</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Full run (link + push)</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>pwsh <span class="op">-</span>File scripts<span class="op">/</span>db_push<span class="op">.</span><span class="fu">ps1</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Or via npm</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>npm run db<span class="op">:</span>push</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Skip link if already linked</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>pwsh <span class="op">-</span>File scripts<span class="op">/</span>db_push<span class="op">.</span><span class="fu">ps1</span> <span class="op">-</span>SkipLink</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>npm run db<span class="op">:</span>push<span class="op">:</span>skip-link</span></code></pre></div>
+<p><strong>When to run:</strong> After adding new migrations in
+<code>supabase/migrations/</code>, or when setting up on a new
+machine.</p>
+<p><strong>Check pending migrations:</strong></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> supabase migration list</span></code></pre></div>
+<h3 id="supabase-mcp">Supabase MCP</h3>
+<p>The <strong>Supabase MCP Server</strong>
+(<code>mcp-servers/supabase/server.py</code>) provides AI-accessible
+tools for Supabase integration:</p>
+<table>
+<colgroup>
+<col style="width: 52%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr>
+<th>Endpoint</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POST /tools/query_carbon_calculations</code></td>
+<td>Query carbon calculation history</td>
+</tr>
+<tr>
+<td><code>POST /tools/log_agent_activity</code></td>
+<td>Log agent activity to database</td>
+</tr>
+<tr>
+<td><code>POST /tools/query_compliance</code></td>
+<td>Query compliance data</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Configuration:</strong> Port 8766. Set
+<code>SUPABASE_URL</code> and <code>SUPABASE_SERVICE_KEY</code> in
+<code>.env.mcp</code>.</p>
+<p><strong>Docker:</strong> Runs as <code>supabase-mcp</code> in
+<code>docker-compose.hybrid.yml</code>.</p>
+<h3 id="supabase-skills-cursor">Supabase Skills (Cursor)</h3>
+<p>For AI-assisted database operations in Cursor, configure Supabase
+skills:</p>
+<ul>
+<li><strong>MCP File System:</strong> Supabase tool descriptors in
+<code>mcps/&lt;server&gt;/tools/</code></li>
+<li><strong>Skills:</strong> Create <code>.cursor/skills/</code> or use
+Cursor’s built-in Supabase MCP integration</li>
+<li><strong>Reference:</strong>
+<code>ADMIN_MANUAL_SUPABASE_EN_v1.md</code> for full database
+administration</li>
+</ul>
 <hr />
 <h2 id="maintenance-tasks">Maintenance Tasks</h2>
 <h3 id="weekly-tasks">Weekly Tasks</h3>
@@ -3658,20 +4196,20 @@ scans catch what humans miss</li>
 <h3 id="automated-checks">Automated Checks</h3>
 <h4 id="link-checker-recommended">Link Checker (Recommended)</h4>
 <p>Add to <code>.github/workflows/check-links.yml</code>:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> Check Cross-Links</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">schedule</span><span class="kw">:</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">cron</span><span class="kw">:</span><span class="at"> </span><span class="st">&#39;0 9 * * 1&#39;</span><span class="co">  # Every Monday 9am</span></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">check</span><span class="kw">:</span></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> lycheeverse/lychee-action@v1</span></span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="fu">          args</span><span class="kw">: </span><span class="ch">&gt;</span></span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>            https://lifetime.fi</span>
-<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>            https://onelifetime.world</span>
-<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>            https://dws10.com</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> Check Cross-Links</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">schedule</span><span class="kw">:</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">cron</span><span class="kw">:</span><span class="at"> </span><span class="st">&#39;0 9 * * 1&#39;</span><span class="co">  # Every Monday 9am</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">check</span><span class="kw">:</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> lycheeverse/lychee-action@v1</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="fu">          args</span><span class="kw">: </span><span class="ch">&gt;</span></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>            https://lifetime.fi</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>            https://onelifetime.world</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>            https://dws10.com</span></code></pre></div>
 <hr />
 <h2 id="git-workflow-1">Git Workflow</h2>
 <h3 id="worktree-security-warning">Worktree Security Warning</h3>
@@ -3778,8 +4316,8 @@ repeat of Dec 23 - Jan 2 incident</p>
 Blocks commits containing infrastructure configuration files - Provides
 clear error messages with unstage instructions</p>
 <p><strong>Testing:</strong></p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test the hook manually</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\scripts\gdpr-safety-check<span class="op">.</span><span class="fu">ps1</span></span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test the hook manually</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\scripts\gdpr-safety-check<span class="op">.</span><span class="fu">ps1</span></span></code></pre></div>
 <p><strong>If deployment file is detected:</strong></p>
 <pre><code>[BLOCKED] Deployment files detected!
    These files contain infrastructure configuration and deployment procedures
@@ -3809,15 +4347,15 @@ status and any violations</p>
 <ol type="1">
 <li><p><strong>Immediate:</strong> Remove from Git tracking (file stays
 on disk)</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> rm <span class="at">--cached</span> <span class="op">&lt;</span>deployment-file<span class="op">&gt;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb43"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> rm <span class="at">--cached</span> <span class="op">&lt;</span>deployment-file<span class="op">&gt;</span></span></code></pre></div></li>
 <li><p><strong>Verify:</strong> Check <code>.gitignore</code> contains
 the pattern</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-i</span> <span class="st">&quot;deployment-file-name&quot;</span> .gitignore</span></code></pre></div></li>
+<div class="sourceCode" id="cb44"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-i</span> <span class="st">&quot;deployment-file-name&quot;</span> .gitignore</span></code></pre></div></li>
 <li><p><strong>Commit:</strong> Commit the removal</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;security: Remove deployment file from tracking&quot;</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb45"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;security: Remove deployment file from tracking&quot;</span></span></code></pre></div></li>
 <li><p><strong>Verify:</strong> Run pre-commit hook to confirm
 protection</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\scripts\gdpr-safety-check<span class="op">.</span><span class="fu">ps1</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb46"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\scripts\gdpr-safety-check<span class="op">.</span><span class="fu">ps1</span></span></code></pre></div></li>
 <li><p><strong>Document:</strong> Update
 <code>Admin/SECURITY_AUDIT_REPORT.md</code> if needed</p></li>
 </ol>
@@ -3946,22 +4484,22 @@ Categories</h4>
 tracked</li>
 </ol>
 <h4 id="verifying-protection">Verifying Protection</h4>
-<div class="sourceCode" id="cb45"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if a file would be ignored</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> check-ignore <span class="at">-v</span> <span class="op">&lt;</span>filename<span class="op">&gt;</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="co"># List all ignored files in repo</span></span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status <span class="at">--ignored</span></span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify no sensitive files are tracked</span></span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> ls-files <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-E</span> <span class="st">&quot;(confidential|secrets|credentials)&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if a file would be ignored</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> check-ignore <span class="at">-v</span> <span class="op">&lt;</span>filename<span class="op">&gt;</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="co"># List all ignored files in repo</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status <span class="at">--ignored</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify no sensitive files are tracked</span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> ls-files <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-E</span> <span class="st">&quot;(confidential|secrets|credentials)&quot;</span></span></code></pre></div>
 <h4 id="handling-accidental-commits">Handling Accidental Commits</h4>
 <p>If sensitive data was accidentally committed:</p>
 <ol type="1">
 <li><p><strong>Do NOT push</strong> if not yet pushed</p></li>
 <li><p><strong>Remove from history:</strong></p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> filter-branch <span class="at">--force</span> <span class="at">--index-filter</span> <span class="dt">\</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;git rm --cached --ignore-unmatch &lt;file&gt;&quot;</span> <span class="dt">\</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--prune-empty</span> <span class="at">--tag-name-filter</span> cat <span class="at">--</span> <span class="at">--all</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb49"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> filter-branch <span class="at">--force</span> <span class="at">--index-filter</span> <span class="dt">\</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;git rm --cached --ignore-unmatch &lt;file&gt;&quot;</span> <span class="dt">\</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--prune-empty</span> <span class="at">--tag-name-filter</span> cat <span class="at">--</span> <span class="at">--all</span></span></code></pre></div></li>
 <li><p><strong>Force push</strong> (with team coordination)</p></li>
 <li><p><strong>Rotate credentials</strong> - If API keys or passwords
 were exposed</p></li>
@@ -4316,6 +4854,23 @@ NVIDIA GPU access</li>
 <li><strong>Location:</strong>
 <code>product-catalog/LWM/training-manual.md</code></li>
 </ul>
+<p><strong>What is the Lifetime World Model (LWM)?</strong></p>
+<p>The LWM is the <strong>enterprise learning layer</strong> that adds
+intelligence on top of the chosen open LLM. It is not simply a
+fine-tuned model — it is a strategic intelligence layer that: 1.
+<strong>Fine-tunes enterprise data and regulation</strong> — ingests
+customer operational data, industry standards, and EU regulatory context
+to create domain-specific intelligence that generic LLMs cannot provide
+2. <strong>Optimizes market value</strong> — continuously learns from
+compliance outcomes, energy efficiency results, and operational metrics
+to identify value creation opportunities the enterprise would otherwise
+miss 3. <strong>Ensures competitive advantage with multi-agent
+tools</strong> — by combining tenant-specific knowledge with multi-agent
+orchestration (A2A + MCP), the LWM transforms raw AI capability into an
+irreplaceable operational asset</p>
+<p>The 16-industry architecture compounds this value: each industry
+added to the platform makes every existing industry’s LWM smarter
+through cross-pollination of anonymized compliance patterns.</p>
 <p><strong>Topics Covered:</strong> 1. Infrastructure setup (Acer
 Veriton GN-100, NVIDIA drivers, CUDA) 2. Claude API integration for
 synthetic data generation 3. QLoRA fine-tuning procedures 4.
@@ -4625,15 +5180,15 @@ threads)</td>
 <h3 id="how-to-enter-data">How to Enter Data</h3>
 <h4 id="outreach-contacts-feeds-pipeline-bets-risk-momentum-send-list">Outreach
 Contacts (feeds Pipeline, Bets, Risk, Momentum, Send List)</h4>
-<div class="sourceCode" id="cb49"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST https://your-server/api/v1/outreach/inbound <span class="dt">\</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;Content-Type: application/json&quot;</span> <span class="dt">\</span></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;X-Outreach-Key: YOUR_KEY&quot;</span> <span class="dt">\</span></span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">&#39;{</span></span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;first_name&quot;: &quot;Matti&quot;,</span></span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;org_name&quot;: &quot;Wärtsilä&quot;,</span></span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;pipeline&quot;: &quot;customer&quot;,</span></span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;source&quot;: &quot;linkedin&quot;</span></span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a><span class="st">  }&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST https://your-server/api/v1/outreach/inbound <span class="dt">\</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;Content-Type: application/json&quot;</span> <span class="dt">\</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;X-Outreach-Key: YOUR_KEY&quot;</span> <span class="dt">\</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">&#39;{</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;first_name&quot;: &quot;Matti&quot;,</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;org_name&quot;: &quot;Wärtsilä&quot;,</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;pipeline&quot;: &quot;customer&quot;,</span></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;source&quot;: &quot;linkedin&quot;</span></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a><span class="st">  }&#39;</span></span></code></pre></div>
 <p><strong>Pipeline values:</strong> <code>investor</code>,
 <code>customer</code>, <code>partner</code> <strong>Source
 values:</strong> <code>boardy</code>, <code>linkedin</code>,
@@ -4645,11 +5200,11 @@ next_action, next_action_date - <code>persons</code> — contact details -
 <code>outreach_orgs</code> — company info</p>
 <h4 id="firehorse-leads-feeds-delivery-changes">Firehorse Leads (feeds
 Delivery changes)</h4>
-<div class="sourceCode" id="cb50"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST https://your-server/api/v1/firehorse/leads <span class="dt">\</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;Content-Type: application/json&quot;</span> <span class="dt">\</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">&#39;{&quot;email&quot;: &quot;matti@wartsila.com&quot;, &quot;first_name&quot;: &quot;Matti&quot;, &quot;company&quot;: &quot;Wärtsilä&quot;, &quot;country&quot;: &quot;FI&quot;}&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST https://your-server/api/v1/firehorse/leads <span class="dt">\</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;Content-Type: application/json&quot;</span> <span class="dt">\</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">&#39;{&quot;email&quot;: &quot;matti@wartsila.com&quot;, &quot;first_name&quot;: &quot;Matti&quot;, &quot;company&quot;: &quot;Wärtsilä&quot;, &quot;country&quot;: &quot;FI&quot;}&#39;</span></span></code></pre></div>
 <p><strong>CSV bulk import:</strong></p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> tsx scripts/import-leads-csv.ts data/leads.csv</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npx</span> tsx scripts/import-leads-csv.ts data/leads.csv</span></code></pre></div>
 <h4 id="metrics-mrr-mvp-eta">Metrics (MRR, MVP ETA)</h4>
 <p>Set as <strong>GitHub repository secrets</strong> (Settings → Secrets
 and variables → Actions → Secrets):</p>
@@ -4678,8 +5233,8 @@ and variables → Actions → Secrets):</p>
 config needed.</p>
 <h3 id="manual-api-trigger">Manual API Trigger</h3>
 <p>If the Express server is running:</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST https://your-server/api/v1/morning-briefing/send <span class="dt">\</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;x-admin-key: YOUR_ADMIN_KEY&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-X</span> POST https://your-server/api/v1/morning-briefing/send <span class="dt">\</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;x-admin-key: YOUR_ADMIN_KEY&quot;</span></span></code></pre></div>
 <h3 id="configuration-github-secrets">Configuration (GitHub
 Secrets)</h3>
 <table>
@@ -4834,6 +5389,118 @@ count via GitHub API</td>
 </tbody>
 </table>
 <hr />
+<h2 id="automated-pr-workflow-hil-automation">Automated PR Workflow (HIL
+Automation)</h2>
+<h3 id="overview-12">Overview</h3>
+<p>All code changes undergo automated dual-model AI review before merge,
+replacing manual human-in-the-loop review:</p>
+<pre><code>Claude Code → PR → Claude sanity check → Gemini HIL review → @copilot fixes → CI → auto-merge
+                                                ↑                    |
+                                                └────────────────────┘  (fix loop)</code></pre>
+<h3 id="workflow-files">Workflow Files</h3>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.github/workflows/ai-pr-review.yml</code></td>
+<td>Dual AI review (Claude + Gemini HIL)</td>
+</tr>
+<tr>
+<td><code>.github/workflows/pr-auto-merge.yml</code></td>
+<td>Auto-merge when approved + CI green</td>
+</tr>
+<tr>
+<td><code>.github/copilot-setup-steps.yml</code></td>
+<td>Copilot coding agent environment setup</td>
+</tr>
+</tbody>
+</table>
+<h3 id="how-it-works">How It Works</h3>
+<ol type="1">
+<li>Claude Code generates implementation on a feature branch and opens a
+PR</li>
+<li><strong>Claude</strong> performs quick sanity check (security,
+correctness, breaking changes)</li>
+<li><strong>Gemini</strong> performs deep HIL review (edge cases, tests,
+architecture, OWASP security)</li>
+<li>Gemini defaults to <strong>REQUEST_CHANGES</strong> — only APPROVE
+when zero issues + adequate tests</li>
+<li>If changes requested: structured fix instructions sent to
+<strong><span class="citation" data-cites="copilot">@copilot</span></strong> coding agent</li>
+<li>Copilot implements fixes, pushes to branch → review re-triggers
+automatically</li>
+<li>When both approve: <code>ai-approved</code> label triggers
+auto-merge workflow</li>
+</ol>
+<h3 id="labels">Labels</h3>
+<table>
+<thead>
+<tr>
+<th>Label</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ai-reviewed</code></td>
+<td>AI review completed (dual-model)</td>
+</tr>
+<tr>
+<td><code>ai-approved</code></td>
+<td>Both Claude + Gemini approved</td>
+</tr>
+<tr>
+<td><code>ai-changes-requested</code></td>
+<td>Issues found, waiting for fixes</td>
+</tr>
+<tr>
+<td><code>do-not-merge</code></td>
+<td>Human override: block auto-merge</td>
+</tr>
+<tr>
+<td><code>needs-human-review</code></td>
+<td>Human override: pause for manual review</td>
+</tr>
+</tbody>
+</table>
+<h3 id="required-secrets">Required Secrets</h3>
+<table>
+<colgroup>
+<col style="width: 47%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr>
+<th>Secret</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ANTHROPIC_API_KEY</code></td>
+<td>Claude API review (GitHub Settings → Secrets)</td>
+</tr>
+<tr>
+<td><code>GOOGLE_AI_API_KEY</code></td>
+<td>Gemini API review (GitHub Settings + Google Secret Manager)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mcp-hub-integration">MCP Hub Integration</h3>
+<p>Gemini review available at <code>POST /gemini/review</code> on MCP
+Hub (<code>mcp-hub/server.py</code>). Model:
+<code>gemini-2.0-flash</code>. Cloud Run service: <code>dws6run6</code>
+(europe-north1).</p>
+<hr />
 <h2 id="document-changelog">Document Changelog</h2>
 <table>
 <colgroup>
@@ -4851,6 +5518,34 @@ count via GitHub API</td>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>2.6</td>
+<td>Mar 2, 2026</td>
+<td>Claude Code Project Engineering Structure (Section 27): CLAUDE.md as
+project memory, Skills, Hooks, Subagents, MCP; repository gap analysis
+from exploration</td>
+<td>F3xqn</td>
+</tr>
+<tr>
+<td>2.5</td>
+<td>Feb 24, 2026</td>
+<td>Client Handover document (DWS_HANDOVER.md) added to Related
+Documentation index</td>
+<td>kJunm</td>
+</tr>
+<tr>
+<td>2.4</td>
+<td>Feb 21, 2026</td>
+<td>Enhanced LWM definition as enterprise learning layer</td>
+<td>Q0lzp</td>
+</tr>
+<tr>
+<td>2.3</td>
+<td>Feb 20, 2026</td>
+<td>Automated PR Workflow (HIL Automation): Claude + Gemini dual review,
+Copilot fix loop, auto-merge, Cloud Run dws6run6</td>
+<td>e5wXD</td>
+</tr>
 <tr>
 <td>2.2</td>
 <td>Feb 17, 2026</td>
@@ -4927,8 +5622,247 @@ compliance)</td>
 </tbody>
 </table>
 <hr />
-<p><strong>License:</strong> Proprietary - Lifetime Oy<br />
-<strong>Maintained by:</strong> Lifetime Oy Development Team<br />
+<h2 id="claude-code-project-engineering-structure">Claude Code Project
+Engineering Structure</h2>
+<p><em>Added in v2.6 | 02.03.2026</em></p>
+<p>This section documents the DWS6 Claude Code engineering structure —
+the patterns that make AI-assisted development reliable, consistent, and
+scalable. Based on a repository audit conducted on 02.03.2026.</p>
+<h3 id="architecture-five-pillars">Architecture: Five Pillars</h3>
+<h4 id="claude.md-project-memory">1. CLAUDE.md — Project Memory</h4>
+<p><code>CLAUDE.md</code> (repo root, 2,000+ lines) is the primary
+intelligence substrate for all Claude Code sessions. It is not
+documentation — it is institutional memory. Every session inherits:</p>
+<ul>
+<li>Brand, document, security, UI, and market research standards</li>
+<li>Architecture decisions (Brain-Memory-Body-Hands, dual folder rule,
+store update checklist)</li>
+<li>Critical rules (git mv not rm, .md never published to public sites,
+email sender rules)</li>
+<li>EU compliance requirements (GDPR, Article 12, data residency)</li>
+<li>Security coding rules (execFile not exec, CORS, SRI hashes)</li>
+</ul>
+<p><strong>Impact:</strong> Zero per-session context repetition. Zero
+behavioral drift from standards.</p>
+<h4 id="skills-reusable-workflow-components-.claudecommands">2. Skills —
+Reusable Workflow Components (<code>.claude/commands/</code>)</h4>
+<p>Seven production skills replace ad-hoc prompting with callable,
+documented, testable workflow components:</p>
+<table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>Invocation</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/agent-run</code></td>
+<td><code>dws run &lt;agent&gt; --input &#39;...&#39;</code></td>
+<td>Scored JSON</td>
+</tr>
+<tr>
+<td><code>/workflow</code></td>
+<td><code>dws workflow &lt;name&gt;</code></td>
+<td>Multi-agent unified report</td>
+</tr>
+<tr>
+<td><code>/compliance-check</code></td>
+<td>Auto-triggered</td>
+<td>EU gap analysis</td>
+</tr>
+<tr>
+<td><code>/discover-agents</code></td>
+<td>Agent discovery</td>
+<td>Capability index</td>
+</tr>
+<tr>
+<td><code>/site-safety</code></td>
+<td>SiteSense agent</td>
+<td>Safety score 0-100</td>
+</tr>
+<tr>
+<td><code>/carbon-analysis</code></td>
+<td>Material Oracle</td>
+<td>kgCO2e lifecycle</td>
+</tr>
+<tr>
+<td><code>/email</code></td>
+<td>Resend integration</td>
+<td>Delivery status</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Principle:</strong> If a capability cannot be invoked as
+<code>dws &lt;command&gt;</code>, it is not shipped.</p>
+<h4 id="hooks-automated-quality-enforcement">3. Hooks — Automated
+Quality Enforcement</h4>
+<p><strong>Git hooks</strong> (<code>.githooks/</code>, installed via
+<code>git config core.hooksPath .githooks</code>):</p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 32%" />
+<col style="width: 46%" />
+</colgroup>
+<thead>
+<tr>
+<th>Hook</th>
+<th>Trigger</th>
+<th>Enforcement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pre-push</code></td>
+<td>Before git push</td>
+<td>Branch name validation, blocks destructive deletes</td>
+</tr>
+<tr>
+<td><code>post-merge</code></td>
+<td>After merge</td>
+<td>Syncs Admin/, AgentFoundry/, docs/ to backup</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Claude Code hooks</strong> (<code>.claude/hooks/</code>) —
+implemented. <code>PreToolUse</code> hook active for Bash commands.</p>
+<p><strong>Active hooks:</strong> - <code>pre-bash-safety.sh</code>:
+Warn-only safety validator for destructive shell patterns (triggered on
+every Bash tool call). Patterns checked: <code>rm -rf</code> on root
+paths, <code>git clean -fd</code>, <code>git reset --hard</code>,
+force-push to main, <code>DROP TABLE</code>, <code>truncate</code> at
+root.</p>
+<p><strong>Planned hooks:</strong> - <code>post-tool-use</code>:
+Normalize agent JSON output to standard schema -
+<code>notification</code>: Alert on task completion for long-running
+agents</p>
+<h4 id="subagents-context-isolation-and-parallel-execution">4. Subagents
+— Context Isolation and Parallel Execution</h4>
+<p>Claude Code subagent types used in DWS6:</p>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 37%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr>
+<th>Type</th>
+<th>Use Case</th>
+<th>Isolation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Explore</code></td>
+<td>Codebase search, file discovery</td>
+<td>Protects main context</td>
+</tr>
+<tr>
+<td><code>Plan</code></td>
+<td>Architecture design, trade-off analysis</td>
+<td>Read-only, no side effects</td>
+</tr>
+<tr>
+<td><code>general-purpose</code></td>
+<td>Multi-step research, document analysis</td>
+<td>Full tool access</td>
+</tr>
+<tr>
+<td>Background</td>
+<td>Parallel independent tasks</td>
+<td>Non-blocking</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rule:</strong> Run independent research in parallel
+background agents whenever possible.</p>
+<h4 id="mcp-integration-mcp-mcp.json-mcp-hub">5. MCP Integration
+(<code>/mcp</code>, <code>mcp.json</code>, <code>mcp-hub/</code>)</h4>
+<p>MCP exposes all DWS agents as auto-discoverable tools via JSON-RPC
+2.0:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List all agents</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> POST /mcp <span class="at">-d</span> <span class="st">&#39;{&quot;method&quot;: &quot;tools/list&quot;}&#39;</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Execute agent</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> POST /mcp <span class="at">-d</span> <span class="st">&#39;{&quot;method&quot;: &quot;tools/call&quot;, &quot;params&quot;: {&quot;name&quot;: &quot;compliance&quot;, &quot;arguments&quot;: {...}}}&#39;</span></span></code></pre></div>
+<p><strong>Current gap:</strong> <code>mcp.json</code> not committed to
+repo (users must copy <code>.mcp.json.example</code>). <strong>Action:
+commit safe default config.</strong></p>
+<h3 id="repository-gap-analysis-audit-02.03.2026">Repository Gap
+Analysis (Audit: 02.03.2026)</h3>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 43%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr>
+<th>Gap</th>
+<th>Priority</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.claude/hooks/</code> directory and
+<code>pre-bash-safety.sh</code></td>
+<td>High</td>
+<td><strong>Done</strong></td>
+</tr>
+<tr>
+<td><code>mcp.json</code> not committed</td>
+<td>High</td>
+<td>Planned</td>
+</tr>
+<tr>
+<td>No pre-commit lint hook</td>
+<td>Medium</td>
+<td>Planned</td>
+</tr>
+<tr>
+<td>No consolidated <code>docs/MCP_TOOLS.md</code></td>
+<td>Medium</td>
+<td>Planned</td>
+</tr>
+<tr>
+<td>Supabase MCP server is stub only</td>
+<td>Medium</td>
+<td>In progress</td>
+</tr>
+<tr>
+<td>No dev server launcher script</td>
+<td>Low</td>
+<td>Planned</td>
+</tr>
+</tbody>
+</table>
+<h3 id="operational-checklist-new-claude-code-session-setup">Operational
+Checklist: New Claude Code Session Setup</h3>
+<div class="sourceCode" id="cb59"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Verify hooks installed</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config core.hooksPath</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Expected: .githooks</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Verify skills accessible</span></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> .claude/commands/</span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Expected: 7 .md files</span></span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Verify CLAUDE.md loaded</span></span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Claude Code reads this automatically on session start</span></span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Set up MCP (if needed)</span></span>
+<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> .mcp.json.example .mcp.json</span>
+<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Edit with actual Supabase/Redis credentials</span></span>
+<span id="cb59-15"><a href="#cb59-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-16"><a href="#cb59-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Start dev server</span></span>
+<span id="cb59-17"><a href="#cb59-17" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> dws6.com/dashboard/firehorse/v9-react <span class="kw">&amp;&amp;</span> <span class="ex">npm</span> run dev  <span class="co"># Frontend</span></span>
+<span id="cb59-18"><a href="#cb59-18" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run dev  <span class="co"># Backend (root)</span></span></code></pre></div>
+<hr />
+<p><strong>License:</strong> Proprietary - Lifetime Oy
+<strong>Maintained by:</strong> Lifetime Oy Development Team
 <strong>Storage:</strong> GitHub (private repo) + ProtonDrive sync -
 /2026/Repos2026/dws6/Admin</p>
 </body>

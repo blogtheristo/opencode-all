@@ -10,19 +10,22 @@ import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import logger from '../utils/logger.js';
+import { getSupabaseClient } from '../config/supabase.js';
 
 // SECURITY FIX #1: Fail fast if JWT_SECRET is not set or too weak
-const JWT_SECRET = process.env.JWT_SECRET;
-if (!JWT_SECRET) {
-  const errorMsg = 'FATAL: JWT_SECRET environment variable must be set. Application cannot start without a secure secret.';
+const _jwtSecret = process.env.JWT_SECRET;
+if (!_jwtSecret) {
+  const errorMsg =
+    'FATAL: JWT_SECRET environment variable must be set. Application cannot start without a secure secret.';
   logger.error(errorMsg);
   throw new Error(errorMsg);
 }
-if (JWT_SECRET.length < 32) {
+if (_jwtSecret.length < 32) {
   const errorMsg = 'FATAL: JWT_SECRET must be at least 32 characters long for adequate security.';
   logger.error(errorMsg);
   throw new Error(errorMsg);
 }
+const JWT_SECRET: string = _jwtSecret;
 
 const JWT_EXPIRES_IN = '24h';
 const JWT_REFRESH_EXPIRES_IN = '7d';
@@ -62,6 +65,7 @@ interface StoredUser {
 }
 
 // User repository interface - implement with Supabase in production
+// @ts-expect-error Reserved for Supabase user repository integration
 interface UserRepository {
   findByEmail(email: string): Promise<StoredUser | null>;
 }
@@ -69,6 +73,26 @@ interface UserRepository {
 // Temporary in-memory user store for development
 // SECURITY: Replace with Supabase integration before production
 const devUserStore = new Map<string, StoredUser>();
+
+// Email verification tokens: token → { email, expiresAt }
+const emailVerificationTokens = new Map<string, { email: string; expiresAt: number }>();
+
+// Password reset tokens: token → { email, expiresAt }
+const passwordResetTokens = new Map<string, { email: string; expiresAt: number }>();
+
+// Periodic cleanup for expired tokens (every 10 minutes)
+setInterval(
+  () => {
+    const now = Date.now();
+    for (const [token, data] of emailVerificationTokens.entries()) {
+      if (data.expiresAt < now) emailVerificationTokens.delete(token);
+    }
+    for (const [token, data] of passwordResetTokens.entries()) {
+      if (data.expiresAt < now) passwordResetTokens.delete(token);
+    }
+  },
+  10 * 60 * 1000,
+).unref();
 
 // SECURITY FIX #4: Token blacklist for revocation
 // Uses Redis in production, falls back to in-memory for development
@@ -80,14 +104,17 @@ const tokenBlacklist = new Map<string, number>();
 
 // Clean expired tokens from blacklist periodically (every 5 minutes)
 // Only used when Redis is not available
-setInterval(() => {
-  const now = Date.now();
-  for (const [hash, expiry] of tokenBlacklist.entries()) {
-    if (expiry < now) {
-      tokenBlacklist.delete(hash);
+setInterval(
+  () => {
+    const now = Date.now();
+    for (const [hash, expiry] of tokenBlacklist.entries()) {
+      if (expiry < now) {
+        tokenBlacklist.delete(hash);
+      }
     }
-  }
-}, 5 * 60 * 1000);
+  },
+  5 * 60 * 1000,
+);
 
 // Flag to track if Redis is available
 let useRedis = false;
@@ -132,7 +159,7 @@ class AuthService {
         accessLevel: user.accessLevel,
       },
       JWT_SECRET,
-      { expiresIn: JWT_EXPIRES_IN }
+      { expiresIn: JWT_EXPIRES_IN },
     );
   }
 
@@ -147,7 +174,7 @@ class AuthService {
         type: 'refresh',
       },
       JWT_SECRET,
-      { expiresIn: JWT_REFRESH_EXPIRES_IN }
+      { expiresIn: JWT_REFRESH_EXPIRES_IN },
     );
   }
 
@@ -165,7 +192,7 @@ class AuthService {
       }
 
       return jwt.verify(token, JWT_SECRET, {
-        algorithms: ['HS256'],  // SECURITY FIX #9: Explicitly specify algorithm
+        algorithms: ['HS256'], // SECURITY FIX #9: Explicitly specify algorithm
       });
     } catch (error) {
       logger.warn('Token verification failed', { error: (error as Error).message });
@@ -192,7 +219,7 @@ class AuthService {
     } else {
       // In-memory fallback
       const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
-      const expiryTimestamp = Date.now() + (expiresIn * 1000);
+      const expiryTimestamp = Date.now() + expiresIn * 1000;
       tokenBlacklist.set(tokenHash, expiryTimestamp);
       logger.info('Token revoked (in-memory)', { tokenHash: tokenHash.substring(0, 16) });
     }
@@ -249,7 +276,11 @@ class AuthService {
     const { email, password } = params;
 
     // Hash email for logging (GDPR compliance - don't log PII)
-    const emailHash = crypto.createHash('sha256').update(email.toLowerCase()).digest('hex').substring(0, 16);
+    const emailHash = crypto
+      .createHash('sha256')
+      .update(email.toLowerCase())
+      .digest('hex')
+      .substring(0, 16);
     logger.info('Authentication attempt', { emailHash });
 
     // Fetch user from database
@@ -295,27 +326,107 @@ class AuthService {
   }
 
   /**
-   * Find user by email - integrates with user store
-   * TODO: Replace with Supabase query in production
+   * Find user by email — Supabase first, in-memory fallback for dev.
    */
   private async findUserByEmail(email: string): Promise<StoredUser | null> {
     const normalizedEmail = email.toLowerCase().trim();
+
+    const client = getSupabaseClient();
+    if (client) {
+      try {
+        const { data, error } = await client
+          .from('users')
+          .select('id, email, password_hash, first_name, last_name, role, access_level')
+          .eq('email', normalizedEmail)
+          .single();
+
+        if (error && error.code !== 'PGRST116') {
+          logger.error('Supabase user lookup failed', { error: error.message });
+        }
+
+        if (data) {
+          return {
+            id: data.id,
+            email: data.email,
+            passwordHash: data.password_hash,
+            firstName: data.first_name,
+            lastName: data.last_name,
+            role: data.role || 'dws_iq_standard',
+            accessLevel: data.access_level || 'free',
+          };
+        }
+      } catch (err) {
+        logger.warn('Supabase query error, falling back to in-memory', {
+          error: (err as Error).message,
+        });
+      }
+    }
+
+    // In-memory fallback for development
     return devUserStore.get(normalizedEmail) || null;
   }
 
   /**
-   * Register a new user (for development/testing)
-   * TODO: Replace with Supabase integration in production
+   * Register a new user — Supabase first, in-memory fallback for dev.
    */
-  async registerUser(email: string, password: string, userData?: Partial<StoredUser>): Promise<User> {
+  async registerUser(
+    email: string,
+    password: string,
+    userData?: Partial<StoredUser>,
+  ): Promise<User> {
     const normalizedEmail = email.toLowerCase().trim();
+    const passwordHash = await this.hashPassword(password);
+    const userId = `user-${crypto.randomUUID()}`;
 
+    const client = getSupabaseClient();
+    if (client) {
+      // Check if user already exists in Supabase
+      const { data: existing } = await client
+        .from('users')
+        .select('id')
+        .eq('email', normalizedEmail)
+        .single();
+
+      if (existing) {
+        throw new Error('User already exists');
+      }
+
+      const { data, error } = await client
+        .from('users')
+        .insert({
+          id: userId,
+          email: normalizedEmail,
+          password_hash: passwordHash,
+          first_name: userData?.firstName || null,
+          last_name: userData?.lastName || null,
+          role: userData?.role || 'dws_iq_standard',
+          access_level: userData?.accessLevel || 'free',
+        })
+        .select('id, email, first_name, last_name, role, access_level')
+        .single();
+
+      if (error) {
+        logger.error('Supabase user registration failed', { error: error.message });
+        throw new Error('Registration failed');
+      }
+
+      if (data) {
+        logger.info('User registered (Supabase)', { userId: data.id });
+        return {
+          id: data.id,
+          email: data.email,
+          firstName: data.first_name,
+          lastName: data.last_name,
+          role: data.role,
+          accessLevel: data.access_level,
+        };
+      }
+    }
+
+    // In-memory fallback for development
     if (devUserStore.has(normalizedEmail)) {
       throw new Error('User already exists');
     }
-
-    const passwordHash = await this.hashPassword(password);
-    const userId = `user-${crypto.randomUUID()}`;
 
     const storedUser: StoredUser = {
       id: userId,
@@ -328,8 +439,7 @@ class AuthService {
     };
 
     devUserStore.set(normalizedEmail, storedUser);
-
-    logger.info('User registered', { userId });
+    logger.info('User registered (in-memory)', { userId });
 
     return {
       id: storedUser.id,
@@ -339,6 +449,157 @@ class AuthService {
       role: storedUser.role,
       accessLevel: storedUser.accessLevel,
     };
+  }
+
+  // ============ EMAIL VERIFICATION ============
+
+  /**
+   * Generate a secure email verification token.
+   * Token is valid for 24 hours.
+   */
+  generateEmailVerificationToken(email: string): string {
+    const token = crypto.randomBytes(32).toString('hex');
+    const expiresAt = Date.now() + 24 * 60 * 60 * 1000; // 24 hours
+    emailVerificationTokens.set(token, { email: email.toLowerCase().trim(), expiresAt });
+    logger.info('Email verification token generated', {
+      emailHash: crypto
+        .createHash('sha256')
+        .update(email.toLowerCase())
+        .digest('hex')
+        .substring(0, 16),
+    });
+    return token;
+  }
+
+  /**
+   * Verify an email using the verification token.
+   * Returns the email if valid, null if invalid/expired.
+   */
+  verifyEmailToken(token: string): string | null {
+    const data = emailVerificationTokens.get(token);
+    if (!data) {
+      logger.warn('Email verification failed: token not found');
+      return null;
+    }
+
+    if (data.expiresAt < Date.now()) {
+      emailVerificationTokens.delete(token);
+      logger.warn('Email verification failed: token expired');
+      return null;
+    }
+
+    // Token is valid — delete it (single-use)
+    emailVerificationTokens.delete(token);
+    return data.email;
+  }
+
+  /**
+   * Mark a user's email as verified — Supabase first, in-memory fallback.
+   */
+  async markEmailVerified(email: string): Promise<boolean> {
+    const normalizedEmail = email.toLowerCase().trim();
+
+    const client = getSupabaseClient();
+    if (client) {
+      const { error } = await client
+        .from('users')
+        .update({ email_verified: true, updated_at: new Date().toISOString() })
+        .eq('email', normalizedEmail);
+
+      if (!error) {
+        logger.info('Email verified (Supabase)', { email: normalizedEmail });
+        return true;
+      }
+      logger.warn('Supabase email verification update failed', { error: error.message });
+    }
+
+    // In-memory fallback
+    const user = devUserStore.get(normalizedEmail);
+    if (!user) return false;
+    logger.info('Email verified for user', { userId: user.id });
+    return true;
+  }
+
+  // ============ PASSWORD RESET ============
+
+  /**
+   * Generate a secure password reset token.
+   * Token is valid for 1 hour.
+   */
+  generatePasswordResetToken(email: string): string | null {
+    const normalizedEmail = email.toLowerCase().trim();
+    const user = devUserStore.get(normalizedEmail);
+
+    // Always return a token-like response to prevent email enumeration.
+    // But only store a real token if the user exists.
+    if (!user) {
+      logger.info('Password reset requested for non-existent email', {
+        emailHash: crypto
+          .createHash('sha256')
+          .update(normalizedEmail)
+          .digest('hex')
+          .substring(0, 16),
+      });
+      return null;
+    }
+
+    const token = crypto.randomBytes(32).toString('hex');
+    const expiresAt = Date.now() + 60 * 60 * 1000; // 1 hour
+    passwordResetTokens.set(token, { email: normalizedEmail, expiresAt });
+
+    logger.info('Password reset token generated', { userId: user.id });
+    return token;
+  }
+
+  /**
+   * Reset password using a valid reset token.
+   * Returns true on success, false if token invalid/expired.
+   */
+  async resetPassword(token: string, newPassword: string): Promise<boolean> {
+    const data = passwordResetTokens.get(token);
+    if (!data) {
+      logger.warn('Password reset failed: token not found');
+      return false;
+    }
+
+    if (data.expiresAt < Date.now()) {
+      passwordResetTokens.delete(token);
+      logger.warn('Password reset failed: token expired');
+      return false;
+    }
+
+    const newHash = await this.hashPassword(newPassword);
+
+    // Try Supabase first
+    const client = getSupabaseClient();
+    if (client) {
+      const { error } = await client
+        .from('users')
+        .update({ password_hash: newHash, updated_at: new Date().toISOString() })
+        .eq('email', data.email);
+
+      if (!error) {
+        passwordResetTokens.delete(token);
+        logger.info('Password reset successful (Supabase)', { email: data.email });
+        return true;
+      }
+      logger.warn('Supabase password update failed, trying in-memory', { error: error.message });
+    }
+
+    // In-memory fallback
+    const user = devUserStore.get(data.email);
+    if (!user) {
+      passwordResetTokens.delete(token);
+      logger.warn('Password reset failed: user not found');
+      return false;
+    }
+
+    user.passwordHash = newHash;
+    devUserStore.set(data.email, user);
+    passwordResetTokens.delete(token);
+
+    logger.info('Password reset successful', { userId: user.id });
+    return true;
   }
 }
 

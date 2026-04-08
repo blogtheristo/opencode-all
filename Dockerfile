@@ -37,7 +37,10 @@ RUN npm ci --only=production && npm cache clean --force
 # Copy built application from builder stage
 COPY --from=builder /app/dist ./dist
 
-# Copy public assets if they exist
+# Copy required dashboard delivery status config
+COPY --chown=nodejs:nodejs config/project-delivery-status.json ./config/project-delivery-status.json
+
+# Copy public assets committed in the repo
 COPY --chown=nodejs:nodejs public/ ./public/
 
 # Set environment variables

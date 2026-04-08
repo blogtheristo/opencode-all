@@ -1,5 +1,31 @@
 # DWS IQ 6 — Enterprise Security & Compliance
 
+---
+# VERSION AND AGENT HISTORY
+
+Version: 1.9
+
+Sessions & Modifications:
+  - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Added Carbon Balance Sheet Security Controls section — append-only ledger integrity, open source connector audit requirements, cross-regulation reconciliation security, XBRL export signing; added ETS/CBAM/CSRD to Regulatory Alignment Summary; updated 16→20 industries
+  - Version: 1.0 | Tool: Claude Code | Session: initial | Date: 01.01.2026 | Changes: Initial security compliance document for CISOs and procurement teams
+  - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Added Agent Runtime Security Controls (DWS7), autonomy tiers, MCP endpoint security, CISO agent architecture, prompt caching engineering principles
+  - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block to comply with DWS Document Standard
+  - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/verify-nda-signatures-rdgOj | Date: 21.03.2026 | Changes: Added DocuSign as sub-processor in infrastructure providers table (SOC 2 Type II, ISO 27001)
+  - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/review-dws-ai-compliance-996LB | Date: 03.03.2026 | Changes: Updated EU AI Act row from ambiguous "High-risk assessment Q2 2026" to accurate limited-risk self-classification status with Article 12 active
+
+Session Links & References:
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/SECURITY_COMPLIANCE.md
+
+Document Status:
+  - Created: 01.01.2026
+  - Last Modified: 24.03.2026
+  - Language: English
+  - Languages Available: English
+  - Classification: Public (detailed versions available under NDA)
+  - Publication Status: ACTIVE
+
+***
+
 > **For CISOs, Procurement, and Security Teams**
 
 ---
@@ -124,9 +150,34 @@ Q1 2027: IEC 62443 assessment (manufacturing OT deployments)
 | **GDPR (2016/679)** | All products | ✅ Fully compliant, DPA ready |
 | **NIS2 Directive** | Construction, Manufacturing | ✅ Compliant architecture |
 | **DORA (2022/2554)** | Lifetime Fleet (financial integration) | Roadmap 2026 |
-| **EU AI Act** | All AI components | High-risk assessment Q2 2026 |
+| **EU AI Act** | All AI components | ✅ Self-classified limited-risk (Art. 6 + Annex III); Art. 12 logging active; Q2 2026 internal review |
 | **Fit for 55 / CSRD** | Core product value | ✅ We automate this compliance |
+| **EU ETS** | Carbon ledger — ETS allowance tracking | ✅ Debit-credit ledger (PR-892) |
+| **CBAM (2023/956)** | Carbon ledger — import embedded emissions | ✅ Ledger entries + certificate tracking |
+| **EU Taxonomy (2020/852)** | Carbon ledger — alignment scoring | ✅ Derived from ledger balance |
 | **ePrivacy Directive** | Fleet telematics | ✅ Compliant |
+
+### Carbon Balance Sheet Security Controls
+
+*Added: v1.9 (24.03.2026) — supports debit-credit compliance ledger (PR-892)*
+
+The Carbon Balance Sheet introduces a persistent financial-grade ledger for carbon tracking. Security controls:
+
+| Control | Implementation | Rationale |
+|---|---|---|
+| **Append-only immutability** | INSERT-only table, no UPDATE/DELETE; corrections as reverse journal entries | Audit trail integrity — same guarantees as financial ledgers |
+| **Entry signing** | Each journal entry signed with service key hash + timestamp | Tamper detection for cross-regulation reconciliation |
+| **Open source connector audit** | All connectors MIT-licensed; code review required before deployment | EU AI Act Art 12 — auditable data pipeline from source to ledger |
+| **Dual-unit validation** | Every entry must carry both EUR and tCO2e; Zod schema enforced | Prevents partial entries that break reconciliation |
+| **RLS on ledger tables** | Row-Level Security per organization; `service_role` never in client code | Multi-tenant isolation — Company A cannot see Company B's carbon position |
+| **XBRL export signing** | Exported CSRD reports digitally signed with organization certificate | Regulatory submission integrity |
+| **Cross-regulation access control** | ETS↔CBAM reconciliation requires explicit bilateral data sharing agreement | Companies opt in to share verified emissions; no automatic cross-company access |
+| **Connector credential isolation** | ERP/registry connector credentials stored in Supabase Vault, rotated quarterly | Connector compromise cannot leak ledger data |
+
+**Threat model specific to carbon ledger:**
+- **Carbon fraud:** Fake emission offsets submitted via connector → mitigated by requiring verified source + community-auditable open source code
+- **Scope 3 manipulation:** Supplier underreporting embedded emissions → mitigated by cross-regulation reconciliation (ETS data verifies CBAM claims)
+- **Regulatory arbitrage:** Different carbon factors applied across regulations for same event → mitigated by single-entry-per-event model with dual-regulation tagging
 
 ---
 
@@ -493,12 +544,13 @@ The MCP Agent Server at `/mcp` has the following security controls:
 | NVIDIA | Edge hardware | ISO 27001 | On-premise |
 | Hetzner | Video + Email hosting (V3) | ISO 27001 | Helsinki, Finland |
 | 8x8 / Jitsi | Video (Phase 1 only) | SOC 2 | EU endpoint |
+| DocuSign | eSignature (NDA/contracts) | SOC 2 Type II, ISO 27001 | US (demo), EU available |
 
 All sub-processors maintain equivalent or higher security certifications.
 
 ---
 
-**Document Version:** 1.5
-**Last Updated:** February 24, 2026
+**Document Version:** 1.8
+**Last Updated:** 2026-03-21
 **Classification:** Public (detailed versions available under NDA)
 **Contact:** risto@lifetime.fi | security@lifetime.fi
