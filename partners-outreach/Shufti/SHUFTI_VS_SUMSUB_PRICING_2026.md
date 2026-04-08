@@ -258,6 +258,101 @@ Find an EU-sovereign IDV provider or build one.
 
 ---
 
+## 7. EU-Sovereign IDV Alternatives — Market Scan (2026-04-08)
+
+### Boardy Recommendation (received 2026-04-08)
+
+> "EU-sovereign IDV-providerit joita kannattaa katsoa: Veriff (Viro, EU-pilvi, ei CLOUD Act), iDenfy (Liettua, GDPR-native), Ondato (Liettua). Kaikki EU-yhtiöitä, EU-hosting, ei US-omistusta."
+
+### Due Diligence on Boardy's Picks
+
+| Vendor                 | Boardy claim             | Reality                                                                                                                                                                             | Verdict         |
+| ---------------------- | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| **Veriff** (Estonia)   | "EU cloud, no CLOUD Act" | **Uses AWS** (Amazon SageMaker + Amazon Rekognition). Source: AWS case study. CLOUD Act exposed.                                                                                    | **REJECTED**    |
+| **iDenfy** (Lithuania) | "GDPR-native"            | Lithuanian company (Kaunas), Lithuanian/Polish investors only ($1.1M), no US ownership. Hetzner partnership (Hetzner uses iDenfy for their own KYC). Cloud infra not yet confirmed. | **INVESTIGATE** |
+| **Ondato** (Lithuania) | "Lithuania"              | Founded Lithuania but **HQ moved to London (UK)**. Globally distributed cloud, not confirmed EU-only.                                                                               | **REJECTED**    |
+
+### Full Market Scan — All Major IDV Vendors
+
+| Vendor          | Country         | Cloud infra               | US ownership/investment                                | CLOUD Act       | Aegis verdict   |
+| --------------- | --------------- | ------------------------- | ------------------------------------------------------ | --------------- | --------------- |
+| Shufti Pro      | UK              | GCP (US)                  | No                                                     | YES             | REJECTED        |
+| Sumsub          | UK              | AWS/GCP (US)              | No                                                     | YES             | REJECTED        |
+| Veriff          | Estonia         | AWS (US)                  | No                                                     | YES             | REJECTED        |
+| IDnow           | Germany         | Unknown                   | **96% Corsair Capital (New York)** — $295M acquisition | YES (US owner)  | REJECTED        |
+| Ondato          | Lithuania/UK    | Global distributed        | No                                                     | Unclear (UK HQ) | REJECTED        |
+| Onfido          | UK              | AWS (US)                  | Acquired by Entrust (US)                               | YES             | REJECTED        |
+| Jumio           | US              | AWS (US)                  | US company                                             | YES             | REJECTED        |
+| **iDenfy**      | **Lithuania**   | **Unknown — must verify** | **No (LT/PL investors)**                               | **TBD**         | **INVESTIGATE** |
+| **Sproof**      | **Austria**     | **EU servers, no US**     | **No**                                                 | **NO**          | **INVESTIGATE** |
+| **Digidentity** | **Netherlands** | **Unknown — must verify** | **No**                                                 | **TBD**         | **INVESTIGATE** |
+
+### Three Candidates to Investigate
+
+**1. iDenfy (Kaunas, Lithuania)**
+
+- EU company, no US ownership or investment
+- Hetzner uses iDenfy for their own KYC onboarding — strong signal
+- $1.1M funding (small, but Lithuanian/Polish investors only)
+- 1,000+ business customers, KYC/KYB/AML
+- **MUST VERIFY:** Which cloud infrastructure? If Hetzner/EU-only → strong candidate
+- **Contact:** Request infrastructure disclosure and sub-processor list
+
+**2. Sproof (Austria)**
+
+- 100% European company, no US subsidiaries
+- Hosted on European servers — explicitly states no CLOUD Act exposure
+- EUDI Wallet ready, eIDAS certified
+- Sproof Ident = identity aggregator, ready for eIDAS 2.0
+- **MUST VERIFY:** Specific cloud provider (OVHcloud? Hetzner? Own infra?)
+- **Contact:** Request DPA and sub-processor list
+
+**3. eIDAS 2.0 / EUDI Wallet + Digital Euro — THE ENDGAME**
+
+The EU is building its own sovereign identity and payment infrastructure. This eliminates the need for third-party IDV vendors and reduces dependency on US payment networks.
+
+| EU Infrastructure         | Timeline                        | What it replaces                                                    |
+| ------------------------- | ------------------------------- | ------------------------------------------------------------------- |
+| **EUDI Wallet**           | 12/2026 live, 07/2027 mandatory | All third-party IDV vendors (Shufti, Veriff, Sumsub, Onfido, Jumio) |
+| **Digital Euro (e-euro)** | Pilots 2025–2026, rollout ~2028 | Visa/Mastercard dependency for EU payments                          |
+
+**EUDI Wallet for KYA Layer 1:**
+
+- All 27 EU member states provide EUDI wallets by 12/2026
+- All regulated businesses must accept by 07/2027
+- Government-issued, cryptographically verifiable identity
+- No third-party IDV vendor needed — the state IS the identity provider
+- Zero CLOUD Act exposure — EU sovereign by definition
+- Eliminates Shufti/Sumsub/Veriff dependency entirely
+
+**Digital Euro for Aegis payments:**
+
+- ECB digital currency, EU-sovereign payment rail
+- No Visa/Mastercard intermediary for EU-to-EU transactions
+- Programmable money — compliance rules embedded in payment logic
+- Combined with EUDI Wallet: identity-verified sovereign payments
+
+**Together:** EUDI Wallet + Digital Euro = EU-sovereign identity + payment stack. No US vendor in the chain. This is what Aegis should build toward.
+
+### Recommended Path
+
+```
+NOW (Q2 2026):     Build EUDI Wallet integration into KYA architecture
+                   Contact iDenfy + Sproof → infrastructure due diligence (bridge only)
+Q3 2026:           EUDI Wallet pilot integration (test with early member state wallets)
+Q4 2026:           EUDI Wallet live (eIDAS 2.0 goes live December 2026)
+H1 2027:           EUDI Wallet as primary KYA L1 — no third-party IDV vendor
+2028:              Digital Euro integration for Aegis payments
+```
+
+**Aegis strategic position:** We are not looking for a "better Shufti." We are building on EU-sovereign infrastructure (EUDI Wallet, Digital Euro) that makes the entire IDV vendor market irrelevant. iDenfy/Sproof serve only as a short-term bridge if needed before EUDI goes live.
+
+### Key Lesson
+
+**Boardy's recommendation was partially wrong.** Veriff sounds EU-sovereign (Estonian company) but runs on AWS. This is exactly the "almost sovereign" trap. Every vendor must be checked at infrastructure level, not just company registration. The real answer is not finding a better vendor — it is building on EU government infrastructure.
+
+---
+
 ## References
 
 - Shufti DPA: `partners-outreach/Shufti/Shufti Data Processing Agreement 26022026.docx`
