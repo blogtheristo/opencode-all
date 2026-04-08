@@ -17,7 +17,7 @@
   'use strict';
 
   const footerCSS = `
-/* === DWS10.com Iron Clad Footer v1.1 === */
+/* === DWS10.com Iron Clad Footer v1.2 === */
 .ironclad-footer { background: #1e293b; border-top: 1px solid #334155; color: #94a3b8; font-size: 0.875rem; font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif; }
 .ironclad-footer-finland { max-width: 1200px; margin: 0 auto; padding: 16px 20px 0; display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: #8fbc8f; font-weight: 600; letter-spacing: 0.02em; }
 .ironclad-footer-finland svg { flex-shrink: 0; }
