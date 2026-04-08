@@ -155,24 +155,25 @@ For DWS IQ customers using KYA verification, a credit-based model:
 
 ## 5. Recommendation
 
-**PROCEED WITH SHUFTI PRO.**
+**SHUFTI AS TRANSITIONAL PROVIDER. NEITHER SHUFTI NOR SUMSUB IS EU-SOVEREIGN.**
 
 Rationale:
 
-1. **26–46% cost savings** across all volume scenarios
+1. **26–46% cost savings** vs Sumsub across all volume scenarios
 2. **Zero switching cost** — DPA signed, EU addendum ready, integration architecture designed
 3. **No monthly minimum** — critical for SaaS with variable verification volume
-4. **EU sovereignty: partial** — non-EU sub-processors removed, GCP EEA-locked, but CLOUD Act risk remains (see Section 6)
+4. **NOT EU-sovereign** — GCP (US CLOUD Act) undermines all DPA clauses. This is a structural limitation shared by both Shufti and Sumsub.
 5. **KYA Layer 1 ready** — Shufti webhook integration already designed for real-time risk scoring
 
-Sumsub would cost $1,750–$35,000 more per year depending on volume, plus require new DPA negotiation (~4–8 weeks), new integration build (~2–4 weeks), and uncertain EU-only capability.
+Sumsub has the same CLOUD Act problem (AWS/GCP) plus costs more and has no existing DPA. Neither vendor meets the DWS sovereignty standard.
 
 ### Next Steps
 
-1. Sign Shufti DPA EU-only addendum (`partners-outreach/Shufti/DPA_ADDENDUM_EU_ONLY_2026.md`)
+1. Sign Shufti DPA EU-only addendum (`partners-outreach/Shufti/DPA_ADDENDUM_EU_ONLY_2026.md`) — best available contractual protection
 2. Negotiate Enterprise rate for 10k+ volume ($0.80–$0.90/check target)
 3. Implement DWS Credit Program pricing in `dws10.com/config/products.json`
 4. Build Shufti integration in `src/integrations/idv/shufti.ts`
+5. **PRIORITY: Scout EU-sovereign IDV providers** — EU company + EU cloud (OVHcloud, Hetzner, Scaleway) + no CLOUD Act exposure. This is the target state for Aegis.
 
 ---
 
@@ -229,13 +230,15 @@ EU data protection law is not just compliance — it is a **deliberate market ba
 
 **Each new regulation tightens the noose on non-EU-sovereign vendors.** Shufti can customize DPA clauses, but they cannot change the structural reality: UK company, US cloud, non-EU jurisdiction.
 
-**DWS/Aegis strategic position:** We document this gap transparently. Our customers know that KYA Layer 1 uses Shufti with CLOUD Act exposure documented. This is honest sovereign positioning — not fake "EU-only" marketing. When a true EU-sovereign IDV provider emerges (EU company, EU cloud, no CLOUD Act exposure), we switch. Until then, Shufti + transparency is the best available option.
+**DWS/Aegis position:** DWS uses only services that genuinely comply with EU law. We do not accept "EU-only mode" marketing from vendors running on US-jurisdicted infrastructure and call it sovereign. If the underlying cloud is CLOUD Act-exposed, the service is not EU-sovereign — regardless of what the DPA says.
 
 ### Conclusion
 
-**Proceed with Shufti, eyes open.** The CLOUD Act risk exists with virtually every major IDV vendor (Sumsub also uses AWS/GCP). True EU sovereignty in IDV requires a provider on EU-sovereign infrastructure, which does not exist at competitive quality today. The DPA addendum provides the best contractual protection available.
+**Shufti is NOT EU-sovereign.** UK company, US cloud (GCP), CLOUD Act-exposed. The DPA addendum is the best they can offer, but it does not change the jurisdictional reality.
 
-EU regulation is a **compounding moat** — it gets harder to comply with every year. Vendors who cannot demonstrate true EU sovereignty will be progressively excluded. DWS documents this openly and is positioned to switch when the market matures.
+**For DWS/Aegis production use:** Shufti can serve as a transitional IDV provider with the DPA addendum in place, but it does **not** meet the DWS sovereignty standard. The search for a true EU-sovereign IDV provider (EU company, EU cloud, no CLOUD Act exposure) is an active priority.
+
+**For the market:** EU regulation is a **compounding moat**. Every new regulation (GDPR → Schrems II → AI Act → NIS2 → DORA) makes it harder for non-sovereign vendors to operate in EU. This is by design. Vendors who cannot demonstrate true EU sovereignty will be progressively excluded — and DWS will be on the right side of that line.
 
 ---
 
