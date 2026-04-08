@@ -12,7 +12,10 @@
  *   4. REGULATION SIGNALS — EU regulatory news (external RSS)
  *   5. MEDIA BOARD        — Published posts, drafts, autonomous post audit
  *   6. SOCIAL QUEUE       — LinkedIn drafts pending approval
- *   7. HIL CHECKLIST      — Win11 session completion checklist
+ *   7. CAMPAIGN POSTS     — 800-day campaign status, today's post
+ *   8. CONSTRUCTION LEADS — TED tender leads, upcoming deadlines
+ *   9. MARKET RESEARCH    — Weekly competitor signals (Monday only)
+ *  10. HIL CHECKLIST      — Win11 session completion checklist
  *
  * Replaces: send-morning-briefing.ts, send-outreach-digest.ts,
  *           send-captain-briefing.ts, send-regulation-digest.ts,
@@ -28,9 +31,9 @@
  *   SMTP_HOST + SMTP_USER + SMTP_PASS (Amazon SES)
  *   SUPABASE_URL + SUPABASE_SERVICE_KEY
  *
- * Code-Version: 2.0
- * Introduced-In: PR-morning-brief-v2
- * Date: 2026-04-07
+ * Code-Version: 3.0
+ * Introduced-In: PR-replace-actions-with-cron
+ * Date: 2026-04-08
  * Owner: Claude Opus 4.6
  */
 
@@ -44,6 +47,11 @@ import { buildCaptainBriefingPlainText } from '../src/captain-briefing/briefing-
 import { fetchRegulationNews } from '../src/regulation-monitor/fetcher.js';
 import { generateTodaysDraft } from '../src/social-scheduler/content-generator.js';
 import { enqueueDraft, getPendingDrafts } from '../src/social-scheduler/queue.js';
+import {
+  getLeadsSummary,
+  getNewLeads,
+  getUpcomingDeadlines,
+} from '../src/construction-leads/lead-processor.js';
 import { sendEmail } from '../src/utils/send-email.js';
 
 const FROM = process.env.EMAIL_FROM || 'risto@onelifetime.world';
@@ -615,8 +623,207 @@ async function buildSocialQueue(): Promise<string> {
   return section;
 }
 
+async function buildCampaignPosts(): Promise<string> {
+  let section = `7. CAMPAIGN POSTS (800-Day)\n`;
+  section += `${'─'.repeat(50)}\n`;
+
+  const CAMPAIGN_START = '2026-03-16';
+  const startMs = new Date(CAMPAIGN_START).getTime();
+  const todayMs = new Date(new Date().toISOString().split('T')[0]).getTime();
+  const dayNum = Math.floor((todayMs - startMs) / 86400000) + 1;
+
+  if (dayNum < 1 || dayNum > 800) {
+    section += `  Campaign not active (day ${dayNum} is outside 1-800 range).\n\n`;
+    return section;
+  }
+
+  const pillar = ((dayNum - 1) % 10) + 1;
+  const phase =
+    dayNum <= 100
+      ? 'Foundation'
+      : dayNum <= 300
+        ? 'Depth'
+        : dayNum <= 500
+          ? 'Engagement'
+          : 'Authority';
+
+  section += `  Day ${dayNum} of 800 | Pillar ${pillar}/10 | Phase: ${phase}\n`;
+  section += `  Progress: ${Math.round((dayNum / 800) * 100)}% (${'#'.repeat(Math.round((dayNum / 800) * 20))}${'·'.repeat(20 - Math.round((dayNum / 800) * 20))})\n\n`;
+
+  // Check Supabase for today's post status
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_KEY;
+
+  if (url && key) {
+    try {
+      const today = new Date().toISOString().split('T')[0];
+      const headers = {
+        'Content-Type': 'application/json',
+        apikey: key,
+        Authorization: `Bearer ${key}`,
+      };
+
+      const res = await fetch(
+        `${url}/rest/v1/content_calendar?post_date=eq.${today}&select=title,slug,status,language&order=language.asc`,
+        { headers },
+      );
+
+      if (res.ok) {
+        const posts = (await res.json()) as Array<{
+          title: string;
+          slug: string;
+          status: string;
+          language: string;
+        }>;
+
+        if (posts.length === 0) {
+          section += `  TODAY: No posts generated yet — check scripts/daily/generate-campaign-post.sh\n`;
+        } else {
+          section += `  TODAY (${posts.length} posts):\n`;
+          for (const post of posts) {
+            const icon = post.status === 'published' ? 'OK' : post.status.toUpperCase();
+            section += `    [${icon}] ${post.language.toUpperCase()} — ${post.title || post.slug}\n`;
+          }
+        }
+      }
+    } catch {
+      section += `  (Supabase query failed)\n`;
+    }
+  } else {
+    section += `  (No Supabase — cannot check post status)\n`;
+  }
+
+  section += '\n';
+  return section;
+}
+
+async function buildConstructionLeads(): Promise<string> {
+  let section = `8. CONSTRUCTION LEADS\n`;
+  section += `${'─'.repeat(50)}\n`;
+
+  // Skip weekends
+  const dow = new Date().getDay(); // 0=Sun, 6=Sat
+  if (dow === 0) {
+    section += `  Sunday — no TED tenders scraped today.\n\n`;
+    return section;
+  }
+
+  try {
+    const summary = await getLeadsSummary();
+    const newLeads = await getNewLeads(1); // last 24h
+    const deadlines = await getUpcomingDeadlines(7); // next 7 days
+
+    section += `  Total leads: ${summary.total} | New (24h): ${newLeads.length}\n`;
+    section += `  High relevance: ${summary.highRelevance} | Deadlines (7d): ${deadlines.length}\n\n`;
+
+    if (newLeads.length > 0) {
+      section += `  NEW LEADS:\n`;
+      for (const lead of newLeads.slice(0, 5)) {
+        const value = lead.estimatedValue
+          ? ` | ${(lead.estimatedValue / 1000000).toFixed(1)}M EUR`
+          : '';
+        section += `    ${lead.country} | ${lead.title.slice(0, 60)}${value}\n`;
+      }
+      if (newLeads.length > 5) {
+        section += `    ... +${newLeads.length - 5} more\n`;
+      }
+      section += '\n';
+    }
+
+    if (deadlines.length > 0) {
+      section += `  UPCOMING DEADLINES:\n`;
+      for (const dl of deadlines.slice(0, 5)) {
+        section += `    ${dl.deadline} | ${dl.country} | ${dl.title.slice(0, 50)}\n`;
+      }
+      if (deadlines.length > 5) {
+        section += `    ... +${deadlines.length - 5} more\n`;
+      }
+    }
+  } catch (err) {
+    section += `  (Construction leads query failed: ${err instanceof Error ? err.message : 'unknown'})\n`;
+  }
+
+  section += '\n';
+  return section;
+}
+
+async function buildMarketResearch(): Promise<string> {
+  // Monday only — market research runs weekly
+  const dow = new Date().getDay();
+  if (dow !== 1) return '';
+
+  let section = `9. MARKET RESEARCH (Weekly)\n`;
+  section += `${'─'.repeat(50)}\n`;
+
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_KEY;
+
+  if (!url || !key) {
+    section += `  (No Supabase — cannot query market research)\n\n`;
+    return section;
+  }
+
+  const headers = {
+    'Content-Type': 'application/json',
+    apikey: key,
+    Authorization: `Bearer ${key}`,
+  };
+
+  try {
+    // Query latest market research signals from last 7 days
+    const sevenDaysAgo = new Date(Date.now() - 7 * 86400000).toISOString().split('T')[0];
+
+    const res = await fetch(
+      `${url}/rest/v1/market_research_signals?collected_at=gte.${sevenDaysAgo}&order=collected_at.desc&limit=20`,
+      { headers },
+    );
+
+    if (res.ok) {
+      const signals = (await res.json()) as Array<{
+        competitor: string;
+        signal_type: string;
+        summary: string;
+        collected_at: string;
+        impact: string;
+      }>;
+
+      if (signals.length === 0) {
+        section += `  No signals collected this week — check scripts/weekly/market-research.sh\n`;
+      } else {
+        // Group by competitor
+        const byCompetitor = new Map<string, typeof signals>();
+        for (const s of signals) {
+          const list = byCompetitor.get(s.competitor) || [];
+          list.push(s);
+          byCompetitor.set(s.competitor, list);
+        }
+
+        section += `  ${signals.length} signals from ${byCompetitor.size} competitors:\n\n`;
+
+        for (const [competitor, sigs] of byCompetitor) {
+          section += `  ${competitor.toUpperCase()} (${sigs.length}):\n`;
+          for (const s of sigs.slice(0, 3)) {
+            const impact = s.impact ? ` [${s.impact}]` : '';
+            section += `    ${s.signal_type}${impact}: ${(s.summary || '').slice(0, 80)}\n`;
+          }
+          if (sigs.length > 3) {
+            section += `    ... +${sigs.length - 3} more\n`;
+          }
+        }
+      }
+    } else {
+      section += `  (Query failed: HTTP ${res.status})\n`;
+    }
+  } catch (err) {
+    section += `  (Market research query failed: ${err instanceof Error ? err.message : 'unknown'})\n`;
+  }
+
+  section += '\n';
+  return section;
+}
+
 function buildHilChecklist(overdueFlowCount: number): string {
-  let section = `7. HIL SESSION CHECKLIST (Win11)\n`;
+  let section = `10. HIL SESSION CHECKLIST (Win11)\n`;
   section += `${'─'.repeat(50)}\n`;
   section += `  Complete before closing your morning session:\n\n`;
 
@@ -682,6 +889,9 @@ async function main(): Promise<void> {
     regulationSignals,
     mediaBoard,
     socialQueue,
+    campaignPosts,
+    constructionLeads,
+    marketResearch,
     flowData,
   ] = await Promise.all([
     buildMetricsStrip(),
@@ -690,6 +900,9 @@ async function main(): Promise<void> {
     buildRegulationSignals(),
     buildMediaBoard(),
     buildSocialQueue(),
+    buildCampaignPosts(),
+    buildConstructionLeads(),
+    buildMarketResearch(),
     queryTodayFlowTasks(),
   ]);
 
@@ -705,6 +918,9 @@ async function main(): Promise<void> {
   text += regulationSignals;
   text += mediaBoard;
   text += socialQueue;
+  text += campaignPosts;
+  text += constructionLeads;
+  text += marketResearch;
   text += hilChecklist;
 
   text += `\n${'─'.repeat(50)}\n`;

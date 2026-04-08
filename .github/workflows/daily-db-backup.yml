@@ -1,9 +1,9 @@
 name: Daily Database Backup
 
 on:
-  schedule:
-    # 02:30 UTC daily (04:30 Helsinki time)
-    - cron: '30 2 * * *'
+  # Schedule REMOVED 2026-04-08 — DGX Spark is primary (scripts/daily/db-backup.sh)
+  # GitHub Actions was failover only, consuming ~120 min/month even on skip checks.
+  # Was: cron '30 2 * * *' (daily at 02:30 UTC)
   workflow_dispatch:
 
 permissions:
