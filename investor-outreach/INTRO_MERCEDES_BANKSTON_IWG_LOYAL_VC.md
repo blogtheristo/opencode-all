@@ -1,15 +1,16 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Mercedes Bankston, IWG / Loyal VC / Founder Institute
-Version: 1.0
+Version: 1.1
 Date: 2026-04-08
 Author: Claude Opus 4.6 + Human Review
 Branch: claude/investor-outreach-contacts-5oVbz
-Status: Draft
+Status: CONTACTED — LinkedIn DM sent 2026-04-08 with one-pager attached
 Story Lock: Accelerator Network + VC Advisory + Enterprise Real Estate Compliance
 Intro Type: Direct (1st degree LinkedIn connection)
 
 AGENT HISTORY:
 - v1.0 (2026-04-08): Initial draft. 1st degree LinkedIn connection — direct DM, no warm intro needed. Triple-hat profile: IWG (enterprise real estate), Loyal VC (VC advisory/deal flow), Founder Institute (accelerator pipeline). Led with deal-routing value — she's a connector, not a direct investor. Strategy: short LinkedIn DM → call → she routes to her VC network.
+- v1.1 (2026-04-08): CONTACTED. LinkedIn DM sent with INVESTOR_MEMO_ONE_PAGER attached. DM included friendly opener + numbers + call ask. Waiting for response.
 -->
 
 # Investor Intro Note — Mercedes Bankston, IWG / Loyal VC / Founder Institute
