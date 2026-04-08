@@ -403,6 +403,24 @@ app.post('/api/v1/morning-briefing/send', async (req: Request, res: Response) =>
   }
 });
 
+// Cron status proxy — forwards to DGX Spark cron-runner :8081/status
+app.get('/api/v1/cron/status', async (_req: Request, res: Response) => {
+  const cronUrl = process.env.CRON_RUNNER_URL || 'http://localhost:8081';
+  try {
+    const response = await fetch(`${cronUrl}/status`, { signal: AbortSignal.timeout(5000) });
+    if (!response.ok) {
+      res.status(502).json({ error: 'Cron runner returned ' + response.status });
+      return;
+    }
+    const data = await response.json();
+    res.json(data);
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    logger.warn('Cron status proxy failed', { error: msg, cronUrl });
+    res.status(503).json({ error: 'Cron runner unreachable', message: msg });
+  }
+});
+
 // Construction leads manual trigger (secured by admin key)
 app.post('/api/v1/construction-leads/fetch', async (req: Request, res: Response) => {
   const adminKey = process.env.ADMIN_API_KEY;
