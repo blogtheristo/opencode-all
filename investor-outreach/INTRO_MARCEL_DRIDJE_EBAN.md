@@ -1,15 +1,16 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Marcel Dridje, EBAN / Sophia Business Angels
-Version: 1.0
+Version: 1.1
 Date: 2026-04-08
 Author: Claude Opus 4.6 + Human Review
 Branch: claude/investor-outreach-contacts-5oVbz
-Status: Draft
+Status: CONTACTED — LinkedIn DM sent 2026-04-08, subject angle "DWS IQ Connect fits like a glove to Gulf"
 Story Lock: B2B SaaS + European Angel Network + Enterprise IT
 Intro Type: Direct (1st degree LinkedIn connection)
 
 AGENT HISTORY:
 - v1.0 (2026-04-08): Initial draft. 1st degree LinkedIn connection. EBAN board member, President Emeritus of Sophia Business Angels, 35 years Cisco/IBM, 4 startup exits, based in Doha bridging Europe-GCC. Network node: EBAN gives access to the entire European angel ecosystem. Led with enterprise IT background (Cisco/IBM) and B2B SaaS metrics.
+- v1.1 (2026-04-08): CONTACTED. LinkedIn DM sent with Gulf/GCC angle. Waiting for response.
 -->
 
 # Investor Intro Note — Marcel Dridje, EBAN / Sophia Business Angels
