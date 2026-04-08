@@ -3,10 +3,11 @@
 **Company:** DWS6 (Lifetime Oy)
 **Sector:** Climate Tech / Carbon Balance Sheet Infrastructure / EU Compliance Automation
 **Stage:** Seed / Seed-extension (bridge to Series A 2026)
-**Document Version:** 4.0
-**Last Updated:** March 24, 2026
+**Document Version:** 5.2
+**Last Updated:** April 8, 2026
 **Status:** Active Fundraising
 **Platform Status:** Public Cloud Version V1 — Production Ready (18 agents, 32 products, 5 cloud environments)
+**Sovereignty Status:** EU-sovereign by design — EUDI Wallet (12/2026) + Digital Euro (~2028)
 
 ---
 
@@ -106,6 +107,56 @@ Agent-governed decisions create personal liability exposure for directors and of
 - **Liability containment:** Capability gating ensures agents cannot exceed their authorized scope, reducing "rogue AI" exposure.
 
 **Investor relevance:** D&O insurance is a €2B+ European market. The 8–12% premium range reported by insurers for documented AI governance is a quantifiable, recurring savings driver for enterprise adoption. DWS IQ 6 is the compliance infrastructure — priced in line with SAP GRC / Microsoft Purview (€10k–€50k/year) — that produces the evidence customers need. **The fines, premiums, and legal defence remain with the customer.**
+
+---
+
+## EU Sovereign Infrastructure — Identity + Payment Stack
+
+**DWS IQ rakentuu EU:n valtion infrastruktuurin päälle, EUDI Wallet (12/2026) + digitaalinen euro (~2028). Identity + payment stack on EU-sovereign by design, ei kolmannen osapuolen varassa.**
+
+### The Sovereignty Thesis
+
+Every competitor in compliance automation relies on US-cloud-dependent vendors for identity verification and payment processing. Shufti Pro (Google Cloud), Veriff (AWS), Sumsub (AWS), IDnow (US-owned) — all exposed to the US CLOUD Act (18 U.S.C. § 2713). Their DPA clauses say "EU-only." US federal law says otherwise.
+
+DWS IQ does not accept "almost sovereign." We reject vendors that market EU compliance while running on US-jurisdicted infrastructure. This is not a risk tolerance decision — it is a disqualifying condition.
+
+### What the EU Is Building
+
+| EU Infrastructure | Timeline                        | What it replaces                           | Status                                   |
+| ----------------- | ------------------------------- | ------------------------------------------ | ---------------------------------------- |
+| **EUDI Wallet**   | 12/2026 live, 07/2027 mandatory | All third-party IDV vendors                | eIDAS 2.0 (Regulation 2024/1183) enacted |
+| **Digital Euro**  | Pilots 2025–2026, rollout ~2028 | Visa/Mastercard dependency for EU payments | ECB preparation phase                    |
+
+**EUDI Wallet** — By December 2026, all 27 EU member states must provide citizens with European Digital Identity Wallets. By July 2027, all regulated businesses must accept them. Government-issued, cryptographically verifiable identity. No third-party IDV vendor needed. Zero CLOUD Act exposure.
+
+**Digital Euro** — ECB digital currency. EU-sovereign payment rail. No Visa/Mastercard intermediary for EU-to-EU transactions. Programmable money with compliance rules embedded in payment logic.
+
+**Together:** EUDI Wallet + Digital Euro = EU-sovereign identity + payment stack. No US vendor anywhere in the chain.
+
+### DWS IQ Architecture on EU State Infrastructure
+
+```
+KYA Layer 1 (Identity):    EUDI Wallet → government-issued, sovereign
+KYA Layer 2-5 (Agent Gov):  DWS IQ KYA Standard → hardware-attested, auditable
+Payments:                   Digital Euro → EU-sovereign payment rail
+Compliance:                 DWS IQ agents → EU regulation automated
+Infrastructure:             EU cloud (Hetzner, Scaleway) → no CLOUD Act
+```
+
+### Why This Is a Moat
+
+EU regulation is a **compounding barrier**. Each new regulation raises the bar for non-sovereign vendors:
+
+- **GDPR (2018):** Forced vendor localization or exit
+- **Schrems II (2020):** Invalidated EU-US Privacy Shield
+- **EU AI Act (2024):** Biometric AI governance requirements
+- **NIS2 (2024):** Critical infrastructure supply chain scrutiny
+- **DORA (2025):** Financial sector ICT risk management
+- **eIDAS 2.0 (2026):** Government-issued digital identity mandatory
+
+Competitors who accepted "almost sovereign" vendors today will be non-compliant tomorrow. DWS IQ is already on the right side of that line.
+
+**Investor relevance:** This is burning platform + moat in one architecture decision. The burning platform is EU regulation excluding non-sovereign vendors. The moat is that DWS IQ builds on EU state infrastructure that US competitors cannot replicate. The timing is concrete: 12/2026 (EUDI) and ~2028 (Digital Euro) — regulatory deadlines, not aspirational roadmap items.
 
 ---
 
@@ -281,6 +332,8 @@ Timeframe:                 ~2 years (2024→2026)
 - **Regulatory Tailwind:** "Mandatory spend" SaaS with strong adoption drivers
 - **EU Green Deal:** Multi-year regulatory push for industrial decarbonization
 - **Pain Point:** €10k–€50k in fines per project, 40–80 hours manual work eliminated
+- **EU Sovereign Infrastructure:** EUDI Wallet (12/2026) + Digital Euro (~2028) create EU-native identity + payment rails. DWS IQ is architected to build on these from day one — competitors on US cloud are structurally locked out.
+- **Compounding Regulatory Moat:** GDPR → Schrems II → AI Act → NIS2 → DORA → eIDAS 2.0 — each regulation raises the bar. Non-sovereign vendors are progressively excluded from EU markets.
 
 ### Traction & Validation
 
@@ -311,7 +364,7 @@ Timeframe:                 ~2 years (2024→2026)
 - **Full Audit Trail:** Click any number to see source data, zero transcription errors
 - **Early Mover:** First to market with Fit for 55 compliance automation
 - **MCP-Native Platform:** Extensible architecture, not a point solution
-- **EU-Hosted:** Private cloud, GDPR/CSRD ready by design
+- **EU-Sovereign by Design:** Built on EU state infrastructure (EUDI Wallet + Digital Euro), not US-cloud-dependent vendors. No CLOUD Act exposure. Competitors using Shufti/Veriff/Sumsub on AWS/GCP are structurally non-compliant.
 - **Proven ROI:** LTV:CAC of 10:1+
 - **KYA-S Certified:** Only platform with hardware-attested agent governance — produces the Art. 12 + Art. 26 evidence D&O insurers require for AI governance coverage
 
@@ -475,9 +528,11 @@ Regulation is live. Customers have budget. Product works. We have traction. Arct
 
 **Document Control:**
 
-- Version: 3.0
-- Last Updated: March 14, 2026
+- Version: 5.2
+- Last Updated: April 8, 2026
 - Author: Risto Anton Päärni
 - Status: Active — Fundraising in Progress
 - Confidentiality: For Potential Investors Only
 - Platform Status: Public Cloud Version V1 — Production Ready (18 agents, 32 products, 5 cloud environments)
+- Sovereignty Status: EU-sovereign by design — EUDI Wallet (12/2026) + Digital Euro (~2028)
+- v5.2 Change: Added EU Sovereign Infrastructure section (EUDI Wallet + Digital Euro thesis), updated competitive advantages with sovereignty moat, rejected "almost sovereign" IDV vendors (Shufti, Veriff, Sumsub)
