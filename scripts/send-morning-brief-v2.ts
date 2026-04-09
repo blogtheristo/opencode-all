@@ -737,7 +737,7 @@ async function buildConstructionLeads(): Promise<string> {
     if (deadlines.length > 0) {
       section += `  UPCOMING DEADLINES:\n`;
       for (const dl of deadlines.slice(0, 5)) {
-        section += `    ${dl.deadline} | ${dl.country} | ${dl.title.slice(0, 50)}\n`;
+        section += `    ${dl.deadline_date} | ${dl.country_code} | ${dl.title.slice(0, 50)}\n`;
       }
       if (deadlines.length > 5) {
         section += `    ... +${deadlines.length - 5} more\n`;
