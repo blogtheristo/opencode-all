@@ -30,7 +30,7 @@ if [ -f .env ]; then set -a; source .env; set +a; fi
 log "Starting weekly market research collection..."
 
 # Install Python deps if needed
-if ! python3 -c "import httpx" 2>/dev/null; then
+if ! python3 -c "import requests" 2>/dev/null; then
   log "Installing Python dependencies..."
   pip install -r scripts/requirements-signals.txt >> "$LOG_FILE" 2>&1
 fi
