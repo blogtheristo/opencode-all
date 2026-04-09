@@ -713,8 +713,12 @@ async function buildConstructionLeads(): Promise<string> {
     const newLeads = await getNewLeads(); // Uses the lead processor's default "new" window
     const deadlines = await getUpcomingDeadlines(); // Uses the lead processor's default upcoming-deadlines window
 
-    section += `  Total leads: ${summary.total} | New (24h): ${newLeads.length}\n`;
-    section += `  High relevance: ${summary.highRelevance} | Deadlines (7d): ${deadlines.length}\n\n`;
+    if (summary) {
+      section += `  New leads (summary): ${summary.new_count} | Deadlines this week: ${summary.deadlines_this_week}\n`;
+    } else {
+      section += `  New (24h): ${newLeads.length} | Deadlines (7d): ${deadlines.length}\n`;
+    }
+    section += '\n';
 
     if (newLeads.length > 0) {
       section += `  NEW LEADS:\n`;
