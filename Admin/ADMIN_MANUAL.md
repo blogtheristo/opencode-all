@@ -3860,7 +3860,7 @@ Auto-discovered by `infrastructure/dgx-spark/day-runner.sh`. No config needed �
 | `flow-media-outreach.ts`      | Autonomous media pipeline                  | —                               |
 | `flow-investor-outreach.ts`   | Autonomous investor pipeline               | —                               |
 | `flow-partner-outreach.ts`    | Autonomous partner pipeline                | —                               |
-| `flow-customer-onboarding.ts` | Autonomous onboarding pipeline             | ���                             |
+| `flow-customer-onboarding.ts` | Autonomous onboarding pipeline             | —                               |
 | `tool-telemetry-report.ts`    | MCP tool usage analytics                   | —                               |
 | `synthetic-data-health.ts`    | Synthetic data quality checks              | —                               |
 
