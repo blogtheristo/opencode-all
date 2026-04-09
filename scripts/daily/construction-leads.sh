@@ -2,7 +2,7 @@
 # Construction Lead Scraper — DGX Spark daily cron
 #
 # Fetches EU construction tenders from TED API, stores in Supabase,
-# and makes data available for Morning Brief V2 section 9.
+# and makes data available for Morning Brief V2 section 8.
 #
 # Replaces: .github/workflows/construction-leads.yml (schedule removed 2026-04-08)
 # Requires: Python 3.12+, scripts/requirements-tenders.txt
