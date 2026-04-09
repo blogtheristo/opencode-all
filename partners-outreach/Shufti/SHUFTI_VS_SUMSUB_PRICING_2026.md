@@ -1,7 +1,7 @@
 # Shufti vs. Sumsub — IDV/KYC Pricing Comparison 2026
 
 VERSION AND AGENT HISTORY
-Version: 1.0
+Version: 1.1
 Date: 2026-04-08
 Author: Claude Code (claude/shufti-sumsub-pricing-93JeN)
 Owner: Lifetime Oy
@@ -10,6 +10,7 @@ Status: Decision Support Document
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/shufti-sumsub-pricing-93JeN | Date: 08.04.2026 | Changes: Initial pricing comparison with volume calculations and DWS use case recommendation
+- Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/shufti-eudi-integration-xmJ7L | Date: 08.04.2026 | Changes: Deep due diligence on iDenfy (infra NOT confirmed, red flag on EU data transfers) and Sproof (CONFIRMED EU-sovereign: OVHcloud, CLOUD Act immune, EUDI ready). Updated market scan verdicts.
 
 ---
 
@@ -274,40 +275,46 @@ Find an EU-sovereign IDV provider or build one.
 
 ### Full Market Scan — All Major IDV Vendors
 
-| Vendor          | Country         | Cloud infra               | US ownership/investment                                | CLOUD Act          | Aegis verdict   |
-| --------------- | --------------- | ------------------------- | ------------------------------------------------------ | ------------------ | --------------- |
-| Shufti Pro      | UK              | GCP (US)                  | No                                                     | YES                | REJECTED        |
-| Sumsub          | UK              | AWS/GCP (US)              | No                                                     | YES                | REJECTED        |
-| Veriff          | Estonia         | AWS (US)                  | No                                                     | YES                | REJECTED        |
-| IDnow           | Germany         | Unknown                   | **96% Corsair Capital (New York)** — $295M acquisition | YES (US owner)     | REJECTED        |
-| Ondato          | Lithuania/UK    | Global distributed        | No                                                     | Unclear (UK HQ)    | REJECTED        |
-| Onfido          | UK              | AWS (US)                  | Acquired by Entrust (US)                               | YES                | REJECTED        |
-| Jumio           | US              | AWS (US)                  | US company                                             | YES                | REJECTED        |
-| **iDenfy**      | **Lithuania**   | **Unknown — must verify** | **No (LT/PL investors)**                               | **TBD**            | **INVESTIGATE** |
-| **Sproof**      | **Austria**     | **EU servers, no US**     | **No**                                                 | **NO**             | **INVESTIGATE** |
-| **Digidentity** | **Netherlands** | **Unknown**               | **100% Solera Holdings / Vista Equity Partners (US)**  | **YES (US owner)** | **REJECTED**    |
+| Vendor          | Country         | Cloud infra                                               | US ownership/investment                                | CLOUD Act                 | Aegis verdict   |
+| --------------- | --------------- | --------------------------------------------------------- | ------------------------------------------------------ | ------------------------- | --------------- |
+| Shufti Pro      | UK              | GCP (US)                                                  | No                                                     | YES                       | REJECTED        |
+| Sumsub          | UK              | AWS/GCP (US)                                              | No                                                     | YES                       | REJECTED        |
+| Veriff          | Estonia         | AWS (US)                                                  | No                                                     | YES                       | REJECTED        |
+| IDnow           | Germany         | Unknown                                                   | **96% Corsair Capital (New York)** — $295M acquisition | YES (US owner)            | REJECTED        |
+| Ondato          | Lithuania/UK    | Global distributed                                        | No                                                     | Unclear (UK HQ)           | REJECTED        |
+| Onfido          | UK              | AWS (US)                                                  | Acquired by Entrust (US)                               | YES                       | REJECTED        |
+| Jumio           | US              | AWS (US)                                                  | US company                                             | YES                       | REJECTED        |
+| **iDenfy**      | **Lithuania**   | **NOT DISCLOSED (red flag: DPA allows non-EU transfers)** | **No (LT/PL investors)**                               | **TBD — infra unknown**   | **CONDITIONAL** |
+| **Sproof**      | **Austria**     | **OVHcloud (EU) — CONFIRMED**                             | **No (EU angels: Venionaire Capital)**                 | **NO — confirmed immune** | **CANDIDATE**   |
+| **Digidentity** | **Netherlands** | **Unknown**                                               | **100% Solera Holdings / Vista Equity Partners (US)**  | **YES (US owner)**        | **REJECTED**    |
 
 **Pattern:** Every major European IDV vendor has been acquired by US private equity. IDnow (Corsair), Digidentity (Solera/Vista), Onfido (Entrust). EU-sovereign IDV = unsolved market gap.
 
-### Two Candidates to Investigate
+### Deep Due Diligence Results (2026-04-08)
 
-**1. iDenfy (Kaunas, Lithuania)**
+**1. iDenfy (Kaunas, Lithuania) — CONDITIONAL (infra not confirmed)**
 
-- EU company, no US ownership or investment
-- Hetzner uses iDenfy for their own KYC onboarding — strong signal
-- $1.1M funding (small, but Lithuanian/Polish investors only)
-- 1,000+ business customers, KYC/KYB/AML
-- **MUST VERIFY:** Which cloud infrastructure? If Hetzner/EU-only → strong candidate
-- **Contact:** Request infrastructure disclosure and sub-processor list
+- UAB iDenfy, Baršausko street 59, 51423 Kaunas, Lithuania (EU)
+- Founded 2017 by Gediminas Ratkevicius (CEO) and Domantas Ciulde
+- $1.1M funding (Mar 2025), Lithuanian/Polish investors only (Kaunas Startup Awards, Startup Hub Poland) — no US ownership
+- ISO 27001 (TÜV Thüringen, cert TIC 1512120135, since 03/2020), SOC 2 (House of CPA, annual), eIDAS Trust Service Provider
+- 1,000+ business customers, KYC/KYB/AML, 99.8% accuracy rate
+- Hetzner uses iDenfy for their KYC onboarding (customer, NOT infrastructure provider)
+- Pricing: only charges for approved/completed verifications (rejected excluded)
+- **RED FLAG:** Cloud infrastructure provider NOT publicly disclosed. iDenfy's Service Agreement states "data can be sent outside the European Union" with Standard Contractual Clauses. This language is consistent with US cloud usage (AWS/GCP).
+- **VERDICT:** Cannot confirm EU-sovereign. Must request infrastructure disclosure and sub-processor list before proceeding. If infra is AWS/GCP → REJECTED (same as Veriff).
 
-**2. Sproof (Austria)**
+**2. Sproof (Salzburg/Vienna, Austria) — CONFIRMED EU-SOVEREIGN**
 
-- 100% European company, no US subsidiaries
-- Hosted on European servers — explicitly states no CLOUD Act exposure
-- EUDI Wallet ready, eIDAS certified
-- Sproof Ident = identity aggregator, ready for eIDAS 2.0
-- **MUST VERIFY:** Specific cloud provider (OVHcloud? Hetzner? Own infra?)
-- **Contact:** Request DPA and sub-processor list
+- Sproof GmbH, founded Autumn 2019, Salzburg and Vienna, Austria (EU)
+- Founders: Dr. Clemens Brunner (CEO), Dr. Fabian Knirsch (CEO), Erich Höpoldseder — security PhDs with data protection expertise
+- €3M+ funding (investment + grants), EU-only investors: Berthold Baurek-Karlic (Venionaire Capital / European Super Angels Club), Michael Repnik — no US ownership
+- **Infrastructure: OVHcloud (EU) — CONFIRMED.** Sproof explicitly states: "100% developed in Europe and hosted on European servers." OVHcloud provides the infrastructure, confirmed CLOUD Act immune.
+- **CLOUD Act position: EXPLICIT.** Sproof published a dedicated article on CLOUD Act risks, positioning their EU-only infrastructure as the solution. Not a footnote — a strategic differentiator.
+- **EUDI Wallet: READY.** sproof Ident is a European identity aggregator, eID Hub supports all EU eIDs, designed for eIDAS 2.0 / EUDI Wallet integration.
+- Products: sproof Sign, sproof Ident, sproof Fastlane, sproof Widget, sproof Validate, sproof eID Hub
+- Certifications: eIDAS compliant, GDPR compliant, EU-hosted
+- **VERDICT: Meets all 5 Aegis sovereignty requirements.** EU company, EU cloud (OVHcloud), zero CLOUD Act, GDPR Art. 28 ready, biometric processing in EU jurisdiction. Recommended as bridge IDV provider until EUDI Wallet goes live (12/2026).
 
 **3. eIDAS 2.0 / EUDI Wallet + Digital Euro — THE ENDGAME (12/2026)**
 
@@ -338,23 +345,29 @@ The EU is building its own sovereign identity and payment infrastructure. This e
 
 **Together:** EUDI Wallet + Digital Euro = EU-sovereign identity + payment stack. No US vendor in the chain. This is what Aegis should build toward.
 
-### Recommended Path
+### Recommended Path (updated after due diligence)
 
 ```
-NOW (Q2 2026):     Build EUDI Wallet integration into KYA architecture
-                   Contact iDenfy + Sproof → infrastructure due diligence (bridge only)
-Q3 2026:           EUDI Wallet pilot integration (test with early member state wallets)
+NOW (Q2 2026):     Contact Sproof → request DPA, sub-processor list, pricing
+                   Contact iDenfy → request infrastructure disclosure (cloud provider)
+                   Build EUDI Wallet integration into KYA architecture
+                   If iDenfy confirms US cloud → REJECT, Sproof becomes sole bridge candidate
+Q3 2026:           Sproof Ident bridge integration (if needed before EUDI)
+                   EUDI Wallet pilot integration (test with early member state wallets)
 Q4 2026:           EUDI Wallet live (eIDAS 2.0 — enacted law, Regulation 2024/1183)
-H2 2027:           EUDI Wallet mandatory for relying parties — no third-party IDV vendor
+H2 2027:           EUDI Wallet mandatory for relying parties — sunset bridge IDV
 H2 2027:           Digital Euro pilot begins (12 months, conditional on regulation adoption 2026)
 2029:              Digital Euro first potential issuance (ECB target)
 ```
 
-**Aegis strategic position:** We are not looking for a "better Shufti." We are building on EU-sovereign infrastructure (EUDI Wallet, Digital Euro) that makes the entire IDV vendor market irrelevant. iDenfy/Sproof serve only as a short-term bridge if needed before EUDI goes live.
+**Aegis strategic position:** Sproof is the only verified EU-sovereign IDV bridge candidate. iDenfy is conditionally viable pending infrastructure disclosure. But the endgame remains EUDI Wallet + Digital Euro — EU state infrastructure that makes the entire IDV vendor market irrelevant.
 
-### Key Lesson
+### Key Lessons
 
-**Boardy's recommendation was partially wrong.** Veriff sounds EU-sovereign (Estonian company) but runs on AWS. This is exactly the "almost sovereign" trap. Every vendor must be checked at infrastructure level, not just company registration. The real answer is not finding a better vendor — it is building on EU government infrastructure.
+1. **Boardy's recommendation was partially wrong.** Veriff sounds EU-sovereign (Estonian company) but runs on AWS. This is exactly the "almost sovereign" trap.
+2. **Infrastructure-level verification is mandatory.** iDenfy looked promising (Lithuanian company, no US ownership) but their DPA allows non-EU data transfers — the same red flag we caught with Shufti. Company registration tells you nothing; cloud provider tells you everything.
+3. **Sproof is the exception that proves the rule.** They explicitly built their sovereignty position around OVHcloud and published a CLOUD Act analysis. This is not accidental — it is a strategic choice.
+4. **The real answer is not finding a better vendor — it is building on EU government infrastructure.** EUDI Wallet (12/2026, law) eliminates the need for any third-party IDV vendor.
 
 ---
 
@@ -382,3 +395,21 @@ This single sentence communicates three things to investors:
 - Compliance Resolution: `docs/field-notes/2026-04-05-shufti-dpa-compliance-resolution.md`
 - KYA Framework: `docs/field-notes/2026-03-09-shufti-kya-byo-partner-access.md`
 - KYA Technical Reqs: `docs/field-notes/2026-03-09-shufti-kya-technical-requirements.md`
+
+### Due Diligence Sources (2026-04-08)
+
+**iDenfy:**
+
+- iDenfy Security & Compliance: https://www.idenfy.com/security/ (ISO 27001, SOC 2, eIDAS TSP)
+- iDenfy Service Agreement: https://www.idenfy.com/agreement/ (DPA, non-EU transfer clause)
+- iDenfy Privacy Policy: https://www.idenfy.com/privacy-policy/ (UAB iDenfy, Kaunas, Lithuania)
+- Hetzner + iDenfy partnership: https://thepaypers.com/fraud-and-fincrime/news/hetzner-teams-up-with-idenfy-to-optimise-identity-verification-at-onboarding (Hetzner is CLIENT, not iDenfy infra provider)
+- iDenfy Crunchbase: https://www.crunchbase.com/organization/idenfy ($1.1M, LT/PL investors)
+
+**Sproof:**
+
+- Sproof CLOUD Act analysis: https://www.sproof.com/en/what-is-the-us-cloud-act-the-underestimated-risk-to-european-company-data-and-digital-sovereignty/ (OVHcloud confirmed, CLOUD Act immune)
+- Sproof EUDI Wallet / eIDAS 2.0: https://www.sproof.com/en/ready-for-eidas-2-0-why-your-company-needs-a-european-identity-aggregator
+- Sproof Crunchbase: https://www.crunchbase.com/organization/sproof (€3M+, EU investors)
+- Sproof European Alternatives: https://european-alternatives.eu/product/sproof
+- Sproof Press: https://www.sproof.com/en/press/ (Dr. Brunner, Dr. Knirsch, Höpoldseder)
