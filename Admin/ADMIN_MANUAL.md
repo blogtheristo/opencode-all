@@ -34,6 +34,7 @@ Sessions & Modifications:
 - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Script versioning, engine choice (HTML/PDF), Supabase sync in startup pipeline, code/scripts backup
 - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/fix-morning-email-time-K3bXV | Date: 17.02.2026 | Changes: Appendix A — CEO Cockpit Morning Briefing user manual
 - Version: 2.3 | Tool: GitHub Copilot (Claude Sonnet 4.6) | Session: claude/zealous-mcclintock | Date: 23.02.2026 | Changes: MCP Server Expansion — cloudrun-mcp (8769), lwm-mcp (8770), claude-mcp (8771); Supabase migration 033_mcp_session_sync; docker-compose and mcp-hub updates
+- Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: claude/cron-status-indicator-fhkxP | Date: 08.04.2026 | Changes: Section 29.14 Cron Status Dashboard on Admin Portal; Section 29.15 Morning Brief V2; cron-runner updated to V2 script
 
 Session Links & References:
 
@@ -2990,6 +2991,7 @@ Gemini review available at `POST /gemini/review` on MCP Hub (`mcp-hub/server.py`
 
 | Version | Date         | Changes                                                                                                                                                                                                                                                                                                                               | Session ID |
 | ------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| 3.3     | Apr 8, 2026  | Section 29.14 Cron Status Dashboard on Admin Portal (green/red/gray indicators per job, last 24h); Section 29.15 Morning Brief V2 (7-section combined email replaces 5 separate scripts); cron-runner updated to V2; `/api/v1/cron/status` proxy route added                                                                          | fhkxP      |
 | 2.6     | Mar 2, 2026  | Claude Code Project Engineering Structure (Section 27): CLAUDE.md as project memory, Skills, Hooks, Subagents, MCP; repository gap analysis from exploration                                                                                                                                                                          | F3xqn      |
 | 2.5     | Feb 24, 2026 | Client Handover document (DWS_HANDOVER.md) added to Related Documentation index                                                                                                                                                                                                                                                       | kJunm      |
 | 2.4     | Feb 21, 2026 | Enhanced LWM definition as enterprise learning layer                                                                                                                                                                                                                                                                                  | Q0lzp      |
@@ -3540,6 +3542,64 @@ All 6 checks should pass. If heartbeat returns healthy but Cloudflare returns 50
 | `scripts/Install-DailyTasks.ps1`                                        | Win11 Task Scheduler installer        |
 | `docs/field-notes/2026-03-29-dgx-spark-primary-runtime-setup.md`        | Architecture field note               |
 | `docs/field-notes/2026-03-06-dgx-spark-hardened-firewall-ollama-ssh.md` | SSH/firewall hardening                |
+
+### 29.14 Cron Status Dashboard (Admin Portal)
+
+_Added: v3.3 (08.04.2026) — Branch: claude/cron-status-indicator-fhkxP_
+
+The **Admin Portal** (`dws6.com/admin/`) displays a real-time cron status indicator showing green/red/gray status for each cron job in the last 24 hours.
+
+**How it works:**
+
+1. Admin dashboard fetches `GET /api/v1/cron/status` from the Express backend
+2. Express backend proxies to DGX Spark cron-runner at `:8081/status`
+3. Each job shows: name, cron schedule, last run time, and status indicator
+
+**Status indicators:**
+
+| Color | Meaning                        |
+| ----- | ------------------------------ |
+| Green | Last run within 24h, succeeded |
+| Red   | Last run within 24h, failed    |
+| Gray  | No run in last 24h or never    |
+
+**Summary bar** shows total counts: OK / Failed / No run, plus last refresh timestamp.
+
+**Environment variables:**
+
+| Variable          | Default                 | Purpose                   |
+| ----------------- | ----------------------- | ------------------------- |
+| `CRON_RUNNER_URL` | `http://localhost:8081` | DGX Spark cron-runner URL |
+
+**Troubleshooting:**
+
+| Symptom                        | Cause                    | Fix                                                      |
+| ------------------------------ | ------------------------ | -------------------------------------------------------- |
+| "Could not reach cron service" | DGX Spark offline        | SSH to DGX Spark, `docker compose ps`, restart if needed |
+| All jobs show gray             | Cron runner just started | Wait for first scheduled run                             |
+| Proxy returns 503              | Network/firewall issue   | Check DGX Spark is reachable from backend                |
+
+### 29.15 Morning Brief V2
+
+_Added: v3.3 (08.04.2026) — Branch: claude/cron-status-indicator-fhkxP_
+
+**Morning Brief V2** (`scripts/send-morning-brief-v2.ts`) replaces the original CEO Cockpit with a single combined email containing 7 sections:
+
+| #   | Section             | Content                                        |
+| --- | ------------------- | ---------------------------------------------- |
+| 1   | Metrics Strip       | MRR, conversations, commits, MVP ETA           |
+| 2   | Pipeline Dashboard  | Outreach threads + flow tasks                  |
+| 3   | Captain & Inquiries | Seat count, new inquiries, captain calls       |
+| 4   | Regulation Signals  | EU regulatory news (RSS)                       |
+| 5   | Media Board         | Published posts, drafts, autonomous post audit |
+| 6   | Social Queue        | LinkedIn drafts pending approval               |
+| 7   | HIL Checklist       | Win11 morning session completion checklist     |
+
+**Cron schedule:** `0 4 * * 1-6` UTC (06:00 Helsinki, Mon-Sat) via DGX Spark `dws-cron` container.
+
+**Replaces:** `send-morning-briefing.ts`, `send-outreach-digest.ts`, `send-captain-briefing.ts`, `send-regulation-digest.ts`, `send-social-digest.ts`.
+
+**Does NOT replace:** `send-campaign-newsletter.ts` (Friday), `send-weekly-report-email.ts` (Monday).
 
 ---
 

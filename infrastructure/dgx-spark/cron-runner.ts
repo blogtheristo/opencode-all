@@ -32,9 +32,9 @@ const HEARTBEAT_URL = process.env.HEARTBEAT_URL || '';
 // ---------------------------------------------------------------------------
 interface CronJob {
   name: string;
-  schedule: string;           // cron expression (UTC)
-  workflow: string;           // corresponding GitHub Actions workflow
-  command: string;            // what to execute
+  schedule: string; // cron expression (UTC)
+  workflow: string; // corresponding GitHub Actions workflow
+  command: string; // what to execute
   enabled: boolean;
   lastRun?: Date;
   lastStatus?: 'success' | 'failure';
@@ -64,10 +64,10 @@ const jobs: CronJob[] = [
     enabled: true,
   },
   {
-    name: 'morning-briefing',
+    name: 'morning-brief-v2',
     schedule: '0 4 * * 1-6',
     workflow: 'morning-briefing.yml',
-    command: 'npx tsx scripts/send-morning-briefing.ts',
+    command: 'npx tsx scripts/send-morning-brief-v2.ts',
     enabled: true,
   },
   {
@@ -166,7 +166,8 @@ const jobs: CronJob[] = [
     name: 'security-scan-biweekly',
     schedule: '30 2 1 * *',
     workflow: 'security-scan-biweekly.yml',
-    command: 'python3 scripts/scan_critical_bugs.py --full --output /app/logs/critical-bugs-report.md',
+    command:
+      'python3 scripts/scan_critical_bugs.py --full --output /app/logs/critical-bugs-report.md',
     enabled: true,
   },
   // biweekly-auth-security-audit: GHA-only (no standalone script)
@@ -189,15 +190,12 @@ function logExecution(job: CronJob, status: 'success' | 'failure', output: strin
 }
 
 function saveState(): void {
-  const state = jobs.map(j => ({
+  const state = jobs.map((j) => ({
     name: j.name,
     lastRun: j.lastRun?.toISOString() || null,
     lastStatus: j.lastStatus || null,
   }));
-  fs.writeFileSync(
-    path.join(STATE_DIR, 'cron-state.json'),
-    JSON.stringify(state, null, 2)
-  );
+  fs.writeFileSync(path.join(STATE_DIR, 'cron-state.json'), JSON.stringify(state, null, 2));
 }
 
 function runJob(job: CronJob): void {
@@ -246,29 +244,33 @@ const PORT = Number(process.env.CRON_PORT || 8081);
 const server = http.createServer((req, res) => {
   if (req.url === '/health') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({
-      status: 'ok',
-      service: 'dws-cron',
-      host: 'dgx-spark',
-      activeTasks,
-      uptime: process.uptime(),
-      timestamp: new Date().toISOString(),
-    }));
+    res.end(
+      JSON.stringify({
+        status: 'ok',
+        service: 'dws-cron',
+        host: 'dgx-spark',
+        activeTasks,
+        uptime: process.uptime(),
+        timestamp: new Date().toISOString(),
+      }),
+    );
     return;
   }
 
   if (req.url === '/status') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({
-      jobs: jobs.map(j => ({
-        name: j.name,
-        schedule: j.schedule,
-        workflow: j.workflow,
-        enabled: j.enabled,
-        lastRun: j.lastRun?.toISOString() || null,
-        lastStatus: j.lastStatus || null,
-      })),
-    }));
+    res.end(
+      JSON.stringify({
+        jobs: jobs.map((j) => ({
+          name: j.name,
+          schedule: j.schedule,
+          workflow: j.workflow,
+          enabled: j.enabled,
+          lastRun: j.lastRun?.toISOString() || null,
+          lastStatus: j.lastStatus || null,
+        })),
+      }),
+    );
     return;
   }
 
@@ -295,6 +297,8 @@ if (HEARTBEAT_URL) {
         activeTasks,
         timestamp: new Date().toISOString(),
       }),
-    }).catch(() => { /* backend may be restarting */ });
+    }).catch(() => {
+      /* backend may be restarting */
+    });
   }, 60_000);
 }
