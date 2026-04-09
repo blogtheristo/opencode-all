@@ -54,14 +54,28 @@ fi
 
 # Commit leads snapshot if there are changes
 if [ -f data/leads.csv ]; then
+  SNAPSHOT_BRANCH="${CONSTRUCTION_LEADS_SNAPSHOT_BRANCH:-construction-leads-snapshots}"
+  ORIGINAL_BRANCH="$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo main)"
+
   cp data/leads.csv data/leads.txt
   cd "$PROJECT_DIR"
+
+  if git show-ref --verify --quiet "refs/heads/$SNAPSHOT_BRANCH"; then
+    git checkout "$SNAPSHOT_BRANCH" >> "$LOG_FILE" 2>&1 || log "Failed to switch to snapshot branch $SNAPSHOT_BRANCH"
+  else
+    git checkout -b "$SNAPSHOT_BRANCH" >> "$LOG_FILE" 2>&1 || log "Failed to create snapshot branch $SNAPSHOT_BRANCH"
+  fi
+
   git add data/leads.txt 2>/dev/null
   if ! git diff --quiet --cached 2>/dev/null; then
     git config user.name "DGX Spark" 2>/dev/null || true
     git config user.email "risto@onelifetime.world" 2>/dev/null || true
     git commit -m "leads: update construction leads $(TZ='Europe/Helsinki' date +'%Y-%m-%d %H:%M Helsinki')" 2>/dev/null || true
-    git push origin main 2>/dev/null || log "Push failed — will retry next run"
+    git push origin "$SNAPSHOT_BRANCH" 2>/dev/null || log "Push failed for $SNAPSHOT_BRANCH — will retry next run"
+  fi
+
+  if [ "$ORIGINAL_BRANCH" != "$SNAPSHOT_BRANCH" ]; then
+    git checkout "$ORIGINAL_BRANCH" >> "$LOG_FILE" 2>&1 || log "Failed to switch back to $ORIGINAL_BRANCH"
   fi
 fi
 
