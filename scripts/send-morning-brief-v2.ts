@@ -723,10 +723,10 @@ async function buildConstructionLeads(): Promise<string> {
     if (newLeads.length > 0) {
       section += `  NEW LEADS:\n`;
       for (const lead of newLeads.slice(0, 5)) {
-        const value = lead.estimatedValue
-          ? ` | ${(lead.estimatedValue / 1000000).toFixed(1)}M EUR`
+        const value = lead.estimated_value
+          ? ` | ${(lead.estimated_value / 1000000).toFixed(1)}M ${lead.currency || 'EUR'}`
           : '';
-        section += `    ${lead.country} | ${lead.title.slice(0, 60)}${value}\n`;
+        section += `    ${lead.country_code} | ${lead.title.slice(0, 60)}${value}\n`;
       }
       if (newLeads.length > 5) {
         section += `    ... +${newLeads.length - 5} more\n`;
