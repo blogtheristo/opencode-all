@@ -1,40 +1,47 @@
 # KYA Standard v1.2 — Know Your Agent: Identity, Isolation & Forensics
 
-***
+---
+
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.6
 
 Sessions & Modifications:
-  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Boardy review integration — Added SOC 2 Type II and ISO 42001 (AI Management Systems) to compliance alignment (§8). Dual acronym KYA retained as tiered entry strategy: "The Shield" (Know Your Agent) sells to the CISO so the CTO can use "The Sword" (Know Your Architecture)
-  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Split from combined KYA Standard v1.1 — Know Your Agent (security) separated from Know Your Architecture (financial/optimization). Added Agent Identity Watermarking (§2.4), Behavioral Guardrails (§2.5). Cross-references updated to companion standard KYA_OPTIMIZATION_v1.4.md
-  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/update-kya-standard-1.1-3sL7X | Date: 09.03.2026 | Changes: Combined KYA Standard — Subagent Registry, Capability Manifests, path-scoped access control, KYA Violation enforcement, Fault Attribution, Agent Trust Score formula (see Legal/KYA_STANDARD_v1.md — public document)
-  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/sandbox-industrial-models-GXxbN | Date: 09.03.2026 | Changes: Initial KYA Standard — Three Pillars (see Legal/KYA_STANDARD_v1.md — public document)
+
+- Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/aegis-swot-analysis-gYCYG | Date: 05.04.2026 | Changes: Article 99 citation sweep in §8.1 D&O Insurance — softened "safe harbor" positioning to "deployer evidence infrastructure (Art. 12 + Art. 26) for D&O AI-governance coverage — not a categorical safe harbor"; corrected Art. 99 citation to Art. 99(4) per PR #976 sweep pattern
+- Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Added Section 10 Memory Audit Trail — court-defensible provenance for agent memory mutations (store, supersede, forget, extract); fact extraction governance (PR-254 wiring); memory contradiction resolution requires KYA attestation before PR-255 deployment; CSRD/EU AI Act Article 12 compliance for AI-generated memory; added memory_audit_log schema; cross-referenced Admin/ADMIN_MANUAL_AGENT_MEMORY_EN_v1.md
+- Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/kya-standard-review-W3Qcg | Date: 13.03.2026 | Changes: External review integration — ATS Hard Stop (V>0 nullifies A factor, §3.1). Cold-Start Latency Penalty added to L factor (§4.1). 5ms behavioral guardrail confirmed as security containment (§2.5). U.S. Executive Order 14110 + OECD AI Principles added to compliance (§8). D&O Insurance safe harbor positioning (§8.1). KYA-S/KYA-O internal naming convention (§1). Tiered Fault Attribution fees by industry risk (§9.5)
+- Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Boardy review integration — Added SOC 2 Type II and ISO 42001 (AI Management Systems) to compliance alignment (§8). Dual acronym KYA retained as tiered entry strategy: "The Shield" (Know Your Agent) sells to the CISO so the CTO can use "The Sword" (Know Your Architecture)
+- Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Split from combined KYA Standard v1.1 — Know Your Agent (security) separated from Know Your Architecture (financial/optimization). Added Agent Identity Watermarking (§2.4), Behavioral Guardrails (§2.5). Cross-references updated to companion standard KYA_OPTIMIZATION_v1.4.md
+- Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/update-kya-standard-1.1-3sL7X | Date: 09.03.2026 | Changes: Combined KYA Standard — Subagent Registry, Capability Manifests, path-scoped access control, KYA Violation enforcement, Fault Attribution, Agent Trust Score formula (see Legal/KYA_STANDARD_v1.md — public document)
+- Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/sandbox-industrial-models-GXxbN | Date: 09.03.2026 | Changes: Initial KYA Standard — Three Pillars (see Legal/KYA_STANDARD_v1.md — public document)
 
 Document Status:
-  - Created: 09.03.2026
-  - Last Modified: 10.03.2026
-  - Language: English
-  - Languages Available: EN
-  - Publication Status: ACTIVE
-  - Classification: PARTNER
-  - Document Type: Technical Standard / Security Architecture
+
+- Created: 09.03.2026
+- Last Modified: 05.04.2026
+- Language: English
+- Languages Available: EN
+- Publication Status: ACTIVE
+- Classification: PARTNER
+- Document Type: Technical Standard / Security Architecture
 
 Related Documents:
-  - Legal/KYA_STANDARD_v1.md (Parent: Combined KYA Standard v1.0–v1.1 — public document)
-  - Legal/KYA_OPTIMIZATION_v1.4.md (Companion: Know Your Architecture v1.4 — financial layer, autoresearch, orchestrator)
-  - Legal/KYA_NIST_STANDARD_v1.md (NIST derivative: KYA-NIST-SP-001)
-  - Legal/KYA_NIST_SECURITY_v1.md (NIST derivative: KYA-NIST-SP-002 — TPM 2.0 hardware attestation)
-  - DWS_SECURITY_STANDARD.md (Section 18 — KYA & BYO Agent Security)
-  - docs/field-notes/2026-03-09-shufti-kya-byo-partner-access.md (Partnership field note)
-  - docs/field-notes/2026-03-09-shufti-kya-technical-requirements.md (Technical requirements for Shufti)
-  - src/cloudflare/tenant-sandbox.ts (Sandbox isolation implementation)
-  - src/identity/ats-engine.ts (ATS engine implementation)
 
-***
+- Legal/KYA_STANDARD_v1.md (Parent: Combined KYA Standard v1.0–v1.1 — public document)
+- Legal/KYA_OPTIMIZATION_v1.4.md (Companion: Know Your Architecture v1.4 — financial layer, autoresearch, orchestrator)
+- Legal/KYA_NIST_STANDARD_v1.md (NIST derivative: KYA-NIST-SP-001)
+- Legal/KYA_NIST_SECURITY_v1.md (NIST derivative: KYA-NIST-SP-002 — TPM 2.0 hardware attestation)
+- DWS_SECURITY_STANDARD.md (Section 18 — KYA & BYO Agent Security)
+- docs/field-notes/2026-03-09-shufti-kya-byo-partner-access.md (Partnership field note)
+- docs/field-notes/2026-03-09-shufti-kya-technical-requirements.md (Technical requirements for Shufti)
+- src/cloudflare/tenant-sandbox.ts (Sandbox isolation implementation)
+- src/identity/ats-engine.ts (ATS engine implementation)
+
+---
 
 **DWS IQ Platform | Lifetime Oy**
-**Version:** KYA Security Standard v1.3
+**Version:** KYA Security Standard v1.5 (KYA-S)
 **Status:** Implementation Ready (Q1 2026 Launch)
 **Lead Architect:** Risto Anton, Lifetime Oy
 **Date:** March 2026
@@ -71,6 +78,8 @@ As enterprises deploy autonomous AI agents — their own and third-party "BYO" (
 
 **KYA is the security foundation.** This standard defines the "No" — identity attribution, capability gating, forensic observability, and the hardware isolation that makes BYO agents safe. For the "More" — financial value, autoresearch optimization, and agent swarm governance — see the companion standard: `Legal/KYA_OPTIMIZATION_v1.4.md`.
 
+**Internal Naming Convention (v1.4):** To avoid acronym collision during audits, internal documentation uses **KYA-S** (Security — Know Your Agent) and **KYA-O** (Optimization — Know Your Architecture). External marketing retains "KYA Standard" with the tagline: _"We give you the Identity to trust the agent and the Architecture to profit from it."_
+
 KYA bridges this gap with three pillars (plus two security extensions in v1.2):
 
 1. **Identity Attribution** — Every agent session is cryptographically anchored to a KYC-verified human or entity
@@ -88,6 +97,7 @@ KYA bridges this gap with three pillars (plus two security extensions in v1.2):
 Every agent session is cryptographically anchored to a KYC-verified human or entity. This ensures legal accountability for autonomous actions within the DWS10 Control Room.
 
 **Implementation:**
+
 - Agent session tokens are bound to a verified user identity (Shufti IDV or equivalent)
 - Session-to-identity binding is immutable and stored in the KYA ledger
 - Legal chain of custody: `Agent Action → Session Token → Verified Identity → Legal Entity`
@@ -109,12 +119,12 @@ Using real-time risk telemetry (via API partners), DWS IQ dynamically adjusts an
 
 **Dynamic Permission Model:**
 
-| Risk Signal | Response Time | Action |
-|-------------|---------------|--------|
-| AML flag raised | < 5 seconds | Egress blocked, sandbox restricted |
-| Document expired | < 30 seconds | Session paused, re-verification required |
-| Anomalous behavior detected | < 1 second | Hypervisor trap, session frozen |
-| Risk score recovery | < 10 seconds | Permissions restored to previous level |
+| Risk Signal                 | Response Time | Action                                   |
+| --------------------------- | ------------- | ---------------------------------------- |
+| AML flag raised             | < 5 seconds   | Egress blocked, sandbox restricted       |
+| Document expired            | < 30 seconds  | Session paused, re-verification required |
+| Anomalous behavior detected | < 1 second    | Hypervisor trap, session frozen          |
+| Risk score recovery         | < 10 seconds  | Permissions restored to previous level   |
 
 ### 2.3 Pillar 3: Forensic Observability — The Firehorse Audit Trail
 
@@ -122,15 +132,16 @@ The Lifetime Firehorse product line serves as the ecosystem's tamper-proof "flig
 
 **What Firehorse Records:**
 
-| Layer | Data Captured | Retention |
-|-------|---------------|-----------|
-| Syscall | All file I/O, process spawns, IPC | 90 days (configurable) |
-| Network | Every egress/ingress request, DNS lookups | 90 days |
-| MCP Tool | Tool invocations, parameters, responses | 1 year |
-| Token Usage | Input/output tokens per agent per session | 1 year |
+| Layer           | Data Captured                             | Retention                      |
+| --------------- | ----------------------------------------- | ------------------------------ |
+| Syscall         | All file I/O, process spawns, IPC         | 90 days (configurable)         |
+| Network         | Every egress/ingress request, DNS lookups | 90 days                        |
+| MCP Tool        | Tool invocations, parameters, responses   | 1 year                         |
+| Token Usage     | Input/output tokens per agent per session | 1 year                         |
 | Identity Events | KYA score changes, permission adjustments | 5 years (EU AI Act Article 12) |
 
 **Audit Chain:**
+
 ```
 Agent Syscall → Firehorse Telemetry → KYA Session → Verified Identity
      │                  │                  │              │
@@ -144,38 +155,40 @@ Every output produced by a KYA-governed agent carries a **cryptographic watermar
 
 **Watermark Payload:**
 
-| Field | Content | Purpose |
-|-------|---------|---------|
-| `agent_id` | UUID of producing agent | Which agent |
-| `session_id` | KYA session token | Under whose authority |
-| `timestamp` | ISO-8601 production time | When |
-| `output_hash` | SHA-256 of output content | Tamper detection |
-| `kya_score` | ATS at time of production | Trust level at output time |
-| `hmac` | HMAC-SHA256 signed by session key | Authenticity verification |
+| Field         | Content                           | Purpose                    |
+| ------------- | --------------------------------- | -------------------------- |
+| `agent_id`    | UUID of producing agent           | Which agent                |
+| `session_id`  | KYA session token                 | Under whose authority      |
+| `timestamp`   | ISO-8601 production time          | When                       |
+| `output_hash` | SHA-256 of output content         | Tamper detection           |
+| `kya_score`   | ATS at time of production         | Trust level at output time |
+| `hmac`        | HMAC-SHA256 signed by session key | Authenticity verification  |
 
 **Properties:**
+
 - Watermarks are embedded as metadata headers in structured outputs (JSON, XML, API responses)
 - For unstructured outputs (text, reports), watermarks are stored as sidecar records in Firehorse
 - Watermarks survive agent session termination — they are part of the immutable audit trail
 - Verification: any party with the KYA public key can verify watermark authenticity
 
 **Use Cases:**
+
 - Trace a compliance report back to the exact agent, session, and identity that produced it
 - Detect if an agent output has been tampered with after production
 - Resolve disputes: "Which agent produced this calculation?" → watermark answers instantly
 
 ### 2.5 Behavioral Guardrails (v1.2)
 
-Beyond path-level access control (Pillar 2) and post-hoc forensics (Pillar 3), v1.2 introduces **pre-execution behavioral guardrails** — constraints evaluated *before* an agent action executes, not after.
+Beyond path-level access control (Pillar 2) and post-hoc forensics (Pillar 3), v1.2 introduces **pre-execution behavioral guardrails** — constraints evaluated _before_ an agent action executes, not after.
 
 **Guardrail Categories:**
 
-| Category | Enforcement Point | Example |
-|----------|-------------------|---------|
-| **Semantic Boundary** | Pre-execution intent classifier | Agent attempting financial transaction when authorized only for reporting → BLOCK |
-| **Rate Limiting** | Per-action throttle at VMM layer | Agent attempting >100 API calls/minute → THROTTLE to 10/min |
-| **Output Volume** | Pre-send output size check | Agent attempting to exfiltrate >10MB in single response → BLOCK + alert |
-| **Temporal Boundary** | Session clock enforcement | Agent operating outside authorized time window → SUSPEND |
+| Category                 | Enforcement Point                   | Example                                                                              |
+| ------------------------ | ----------------------------------- | ------------------------------------------------------------------------------------ |
+| **Semantic Boundary**    | Pre-execution intent classifier     | Agent attempting financial transaction when authorized only for reporting → BLOCK    |
+| **Rate Limiting**        | Per-action throttle at VMM layer    | Agent attempting >100 API calls/minute → THROTTLE to 10/min                          |
+| **Output Volume**        | Pre-send output size check          | Agent attempting to exfiltrate >10MB in single response → BLOCK + alert              |
+| **Temporal Boundary**    | Session clock enforcement           | Agent operating outside authorized time window → SUSPEND                             |
 | **Cross-Agent Boundary** | Inter-MicroVM communication monitor | Agent attempting to pass data to another agent outside declared dependencies → BLOCK |
 
 **Guardrail Enforcement Flow:**
@@ -206,6 +219,8 @@ Agent Intent Declared
 
 **Key Principle:** Guardrails are evaluated in < 5ms. They must never become a performance bottleneck. The intent classifier uses a lightweight policy engine (not an LLM call) for speed.
 
+**Architectural Decision (v1.4):** The 5ms behavioral guardrail lives in **KYA-S (Security)**, not KYA-O (Optimization). Even though guardrails contribute to efficiency by killing failing experiments early, their primary function is **containment**. If guardrails were classified as a "performance feature" in the optimization standard, CISOs would discount their security validity. Guardrails are "The No." They stay in the security standard to justify the "Forensic Observability" pillar.
+
 ---
 
 ## 3. Agent Trust Score (ATS)
@@ -213,25 +228,33 @@ Agent Intent Declared
 ### 3.1 Formula (Security Baseline)
 
 ```
-ATS = max(0, 1.0 - V×0.25 - L - D×0.05)
+ATS_Base = max(0, 1.0 - V×0.25 - L - D×0.05)
 
 V = KYA_VIOLATION count       (4 violations = zero trust)
-L = 0.10 if avg_latency > 500ms
+L = 0.10 if avg_latency > 500ms (+ Cold-Start Latency Penalty, see §4.1)
 D = DENIED path access attempts
 ```
 
-**Note:** The companion standard `Legal/KYA_OPTIMIZATION_v1.4.md` extends ATS with an autoresearch improvement factor (+A×0.18, capped). This security standard uses the base formula without the A factor, because security scoring should not be inflatable by optimization performance.
+**The V > 0 Hard Stop (v1.4 CRITICAL):** If `V > 0`, the autoresearch improvement factor `A` is **automatically nullified** in the companion optimization standard. You cannot optimize your way out of a security violation. This is enforced at the ATS engine level:
+
+```
+ATS_Final = ATS_Base × (1 + A)    where A = 0 if V > 0
+```
+
+An agent may be highly "optimal" (high A) but fundamentally "leaky" (moderate V). Under the previous additive formula, such an agent could maintain a high score. The multiplicative formula with the V > 0 gate eliminates this inflation vector entirely.
+
+**Note:** The companion standard `Legal/KYA_OPTIMIZATION_v1.4.md` extends ATS with the autoresearch improvement factor. The A factor is only active when `V = 0` (zero violations). A must be validated against the Industry Proxy Metric (Optimization §9) to prevent agents "marking their own homework." This security standard uses `ATS_Base` without the A factor — security scoring is never inflatable by optimization performance.
 
 **Implementation:** `src/identity/ats-engine.ts` — evaluated before external IDV calls.
 
 ### 3.2 KYA Trust Score Ranges
 
-| ATS Range | KYA Score | Permission Level | Decision |
-|-----------|-----------|-----------------|----------|
-| >= 0.80 | >= 80 | Full sandbox access | **GO** |
-| 0.50–0.79 | 50–79 | Restricted access | **GO** (limited) |
-| < 0.50 | < 50 | Suspended — human review required | **NO_GO** |
-| = 0.00 | = 0 | Frozen — agent terminated | **NO_GO** |
+| ATS Range | KYA Score | Permission Level                  | Decision         |
+| --------- | --------- | --------------------------------- | ---------------- |
+| >= 0.80   | >= 80     | Full sandbox access               | **GO**           |
+| 0.50–0.79 | 50–79     | Restricted access                 | **GO** (limited) |
+| < 0.50    | < 50      | Suspended — human review required | **NO_GO**        |
+| = 0.00    | = 0       | Frozen — agent terminated         | **NO_GO**        |
 
 ---
 
@@ -245,13 +268,21 @@ Every BYO process is encapsulated in a dedicated MicroVM.
 
 **Properties:**
 
-| Property | Value |
-|----------|-------|
-| Boot time | < 125 ms |
-| Memory overhead | < 5 MB per MicroVM |
-| Guest kernel | Isolated per sandbox |
-| Host kernel access | None (paravirtualized) |
-| Storage | Ephemeral by default, persistent opt-in |
+| Property           | Value                                   |
+| ------------------ | --------------------------------------- |
+| Boot time          | < 125 ms                                |
+| Memory overhead    | < 5 MB per MicroVM                      |
+| Guest kernel       | Isolated per sandbox                    |
+| Host kernel access | None (paravirtualized)                  |
+| Storage            | Ephemeral by default, persistent opt-in |
+
+**Cold-Start Latency Penalty (v1.4):** Excessive MicroVM cycling (boot → terminate → boot) is penalized in the L factor to discourage agents from gaming isolation by rapidly spinning up fresh sandboxes. If an agent triggers >5 cold starts within a 1-hour window, the L factor applies a cumulative penalty:
+
+```
+L_cold = 0.02 × (cold_starts - 5)    (added to base L factor)
+```
+
+This discourages patterns where an agent terminates its own sandbox to shed audit trail state and immediately re-enters with a clean session.
 
 ### 4.2 No Shared Kernel Access
 
@@ -282,13 +313,13 @@ Network traffic is gated at the VMM (Virtual Machine Monitor) layer. Agents have
 
 **Egress Policy Rules:**
 
-| Rule | Enforcement |
-|------|-------------|
-| Default deny | All outbound blocked unless KYA-whitelisted |
-| Per-session whitelist | Endpoints approved per agent per session |
-| DNS interception | All DNS queries routed through DWS resolver |
-| TLS inspection | Optional MitM for enterprise tier (with consent) |
-| Rate limiting | Per-agent bandwidth caps enforced at VMM |
+| Rule                  | Enforcement                                      |
+| --------------------- | ------------------------------------------------ |
+| Default deny          | All outbound blocked unless KYA-whitelisted      |
+| Per-session whitelist | Endpoints approved per agent per session         |
+| DNS interception      | All DNS queries routed through DWS resolver      |
+| TLS inspection        | Optional MitM for enterprise tier (with consent) |
+| Rate limiting         | Per-agent bandwidth caps enforced at VMM         |
 
 ---
 
@@ -298,12 +329,12 @@ Network traffic is gated at the VMM (Virtual Machine Monitor) layer. Agents have
 
 A Tier-1 client initiates a complex task in the Control Room. The client simultaneously deploys four heterogeneous agents:
 
-| # | Agent | Role | Provider |
-|---|-------|------|----------|
-| 1 | Microsoft CoWork | Documentation / PM | Microsoft |
-| 2 | Tencent Workbuddy | Supply-Chain APIs | Tencent |
-| 3 | Clawbot | Mechanical Optimization | OpenClaw |
-| 4 | Anthropic Cowork | Strategy / Logic | Anthropic |
+| #   | Agent             | Role                    | Provider  |
+| --- | ----------------- | ----------------------- | --------- |
+| 1   | Microsoft CoWork  | Documentation / PM      | Microsoft |
+| 2   | Tencent Workbuddy | Supply-Chain APIs       | Tencent   |
+| 3   | Clawbot           | Mechanical Optimization | OpenClaw  |
+| 4   | Anthropic Cowork  | Strategy / Logic        | Anthropic |
 
 ### The Execution
 
@@ -342,18 +373,17 @@ If the Tencent agent attempts to access a resource reserved for the Clawbot, the
 Each model runs in its own sandbox within the Control Room, serving EU-regulated and high-value industries:
 
 | Tier 1: Critical Emissions (Direct ETS + CBAM) | Tier 2: Important Emissions (ESR + Indirect ETS) |
-|-------------------------------------------------|---------------------------------------------------|
-| 1. Power & Heat Generation | 9. Agriculture & Livestock |
-| 2. Iron & Steel Production | 10. Waste Management & Recycling |
-| 3. Cement & Lime Production | 11. Aluminium Production |
-| 4. Chemicals & Petrochemicals | 12. Pulp, Paper & Printing |
-| 5. Aviation | 13. Petroleum Refining |
-| 6. Maritime Shipping | 14. Food & Beverage Processing |
-| 7. Road Transport & Logistics | 15. Glass & Ceramics Production |
-| 8. Construction & Buildings | 16. Mining & Quarrying |
+| ---------------------------------------------- | ------------------------------------------------ |
+| 1. Power & Heat Generation                     | 9. Agriculture & Livestock                       |
+| 2. Iron & Steel Production                     | 10. Waste Management & Recycling                 |
+| 3. Cement & Lime Production                    | 11. Aluminium Production                         |
+| 4. Chemicals & Petrochemicals                  | 12. Pulp, Paper & Printing                       |
+| 5. Aviation                                    | 13. Petroleum Refining                           |
+| 6. Maritime Shipping                           | 14. Food & Beverage Processing                   |
+| 7. Road Transport & Logistics                  | 15. Glass & Ceramics Production                  |
+| 8. Construction & Buildings                    | 16. Mining & Quarrying                           |
 
-**+ Tier 3: Wedge Industries** (see `Legal/KYA_OPTIMIZATION_v1.4.md` §5.3)
-17. Fintech & Trading | 18. Pharma & Biotech | 19. Cybersecurity
+**+ Tier 3: Wedge Industries** (see `Legal/KYA_OPTIMIZATION_v1.4.md` §5.3) 17. Fintech & Trading | 18. Pharma & Biotech | 19. Cybersecurity
 
 BYO agents interact with these models through gated MCP tool interfaces — never directly with the model data or weights.
 
@@ -363,12 +393,12 @@ BYO agents interact with these models through gated MCP tool interfaces — neve
 
 KYA integrates with the DWS IQ sandbox staging model:
 
-| Stage | Runtime | Isolation | KYA Gate |
-|-------|---------|-----------|----------|
-| 1 | SDK native | No network, read-only FS | L1 IDV only |
-| 1.5 | Acer Veriton GN100 (Helsinki) | Ephemeral Docker, air-gapped EU | L1 + L2 (provenance) |
-| 2 | Cloud Run ephemeral | Sandboxed by default | L1 + L2 + L3 (capability) |
-| 3 | Production (Firecracker MicroVM) | Full hardware isolation | All 5 layers active |
+| Stage | Runtime                          | Isolation                       | KYA Gate                  |
+| ----- | -------------------------------- | ------------------------------- | ------------------------- |
+| 1     | SDK native                       | No network, read-only FS        | L1 IDV only               |
+| 1.5   | Acer Veriton GN100 (Helsinki)    | Ephemeral Docker, air-gapped EU | L1 + L2 (provenance)      |
+| 2     | Cloud Run ephemeral              | Sandboxed by default            | L1 + L2 + L3 (capability) |
+| 3     | Production (Firecracker MicroVM) | Full hardware isolation         | All 5 layers active       |
 
 ---
 
@@ -413,16 +443,31 @@ Customer Request
 
 ## 8. Compliance Alignment
 
-| Regulation | KYA Coverage |
-|------------|-------------|
-| **EU AI Act** (Article 12) | Forensic logging, human oversight, traceability |
-| **EU AI Act** (Article 14) | Human-in-the-loop via KYA score thresholds |
-| **NIS2 Directive** | Supply chain security for BYO agents, incident reporting |
-| **GDPR** | Data residency (EU-only), right to erasure (agent data) |
-| **Fit for 55** | Industrial models comply with ETS/CBAM/CSRD |
-| **DORA** | ICT risk management for financial sector agents |
-| **SOC 2 Type II** | Trust services criteria (security, availability, processing integrity) — required for US enterprise sales |
-| **ISO 42001** | AI Management Systems — emerging international standard for AI governance, gaining traction faster than expected |
+| Regulation                            | KYA-S Coverage                                                                                                                                                                |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **EU AI Act** (Article 12)            | Forensic logging, human oversight, traceability                                                                                                                               |
+| **EU AI Act** (Article 14)            | Human-in-the-loop via KYA score thresholds                                                                                                                                    |
+| **NIS2 Directive**                    | Supply chain security for BYO agents, incident reporting                                                                                                                      |
+| **GDPR**                              | Data residency (EU-only), right to erasure (agent data)                                                                                                                       |
+| **Fit for 55**                        | Industrial models comply with ETS/CBAM/CSRD                                                                                                                                   |
+| **DORA**                              | ICT risk management for financial sector agents                                                                                                                               |
+| **SOC 2 Type II**                     | Trust services criteria (security, availability, processing integrity) — required for US enterprise sales                                                                     |
+| **ISO 42001**                         | AI Management Systems — emerging international standard for AI governance, gaining traction faster than expected                                                              |
+| **U.S. Executive Order 14110** (v1.4) | "Dual-Use Foundation Models with Widely Available Weights" reporting requirements — KYA audit trail satisfies provenance and safety reporting obligations for US market entry |
+| **OECD AI Principles** (v1.4)         | Essential for global Tier 1 maritime/aviation sectors — KYA maps to all 5 OECD principles (inclusive growth, human-centred values, transparency, robustness, accountability)  |
+
+### 8.1 D&O Insurance Safe Harbor (v1.4)
+
+**Directors & Officers Liability:** Position KYA-S as deployer evidence infrastructure (Art. 12 + Art. 26) for D&O AI-governance coverage — not a categorical safe harbor. Board members deploying AI agents without documented Art. 12 + Art. 26 evidence face personal liability under EU AI Act Art. 99(4) and national corporate governance codes.
+
+**KYA-S provides the defense:**
+
+- Identity attribution proves _which agent_ produced the flawed output (not "our AI")
+- Fault attribution separates LOGIC_FAULT from OPERATOR_FAULT — isolating director decisions from agent failures
+- Forensic observability provides the "reasonable measures" evidence D&O insurers require
+- Behavioral guardrails (§2.5) demonstrate pre-execution controls were in place
+
+**Target:** 8–12% D&O premium reduction for enterprises with KYA-S certification, positioned alongside cyber liability savings.
 
 ---
 
@@ -436,10 +481,10 @@ Upon initialization, each subagent signs a Capability Manifest declaring its per
 
 **Default Testing Manifest:**
 
-| Path | Access | Description |
-|------|--------|-------------|
-| `/mock-api/` | Read/Write | Mock API endpoints for testing |
-| `/temp-db/` | Read/Write | Temporary database for sandbox operations |
+| Path             | Access     | Description                                        |
+| ---------------- | ---------- | -------------------------------------------------- |
+| `/mock-api/`     | Read/Write | Mock API endpoints for testing                     |
+| `/temp-db/`      | Read/Write | Temporary database for sandbox operations          |
 | `/prod-secrets/` | **DENIED** | Production secrets — access triggers KYA Violation |
 
 **Manifest Schema v1.1:**
@@ -463,13 +508,13 @@ Upon initialization, each subagent signs a Capability Manifest declaring its per
 
 If a subagent attempts to access a denied path (e.g., `/prod-secrets/`), the following enforcement sequence executes:
 
-| Step | Action | Latency |
-|------|--------|---------|
-| 1 | Path access intercepted by sandbox monitor | < 1 ms |
-| 2 | KYA Violation logged to Firehorse audit trail | < 5 ms |
-| 3 | Subagent session terminated | < 50 ms |
-| 4 | Operator notified (webhook + dashboard alert) | < 1 s |
-| 5 | KYA Trust Score reduced by 40 points | Immediate |
+| Step | Action                                        | Latency   |
+| ---- | --------------------------------------------- | --------- |
+| 1    | Path access intercepted by sandbox monitor    | < 1 ms    |
+| 2    | KYA Violation logged to Firehorse audit trail | < 5 ms    |
+| 3    | Subagent session terminated                   | < 50 ms   |
+| 4    | Operator notified (webhook + dashboard alert) | < 1 s     |
+| 5    | KYA Trust Score reduced by 40 points          | Immediate |
 
 **Violation Log Entry:**
 
@@ -522,12 +567,12 @@ When a subagent produces an incorrect result or triggers a violation, the system
 
 **Fault Classification:**
 
-| Fault Class | Responsible Component | Example |
-|-------------|----------------------|---------|
-| `LOGIC_FAULT` | Logic Subagent | Agent produced incorrect calculation, hallucinated data, or violated business rules |
-| `INTEGRATION_FAULT` | Integration Mock/Adapter | Mock returned stale data, API timeout, schema mismatch |
-| `MANIFEST_FAULT` | Capability Manifest | Manifest too permissive or missing deny rules |
-| `OPERATOR_FAULT` | Human Operator | Misconfigured agent parameters, wrong model selected |
+| Fault Class         | Responsible Component    | Example                                                                             |
+| ------------------- | ------------------------ | ----------------------------------------------------------------------------------- |
+| `LOGIC_FAULT`       | Logic Subagent           | Agent produced incorrect calculation, hallucinated data, or violated business rules |
+| `INTEGRATION_FAULT` | Integration Mock/Adapter | Mock returned stale data, API timeout, schema mismatch                              |
+| `MANIFEST_FAULT`    | Capability Manifest      | Manifest too permissive or missing deny rules                                       |
+| `OPERATOR_FAULT`    | Human Operator           | Misconfigured agent parameters, wrong model selected                                |
 
 **Note:** The `AUTORESEARCH_FAULT` class is defined in `Legal/KYA_OPTIMIZATION_v1.4.md` §4.2 for agents running self-optimization loops.
 
@@ -585,13 +630,125 @@ Error Detected
 ```
 
 **Why Supabase (separate from Firehorse)?**
+
 - Firehorse is an **immutable audit trail** (append-only, forensic) — fault attribution needs **mutable state** (resolved/unresolved)
 - Supabase provides **RLS**, **real-time subscriptions** (dashboard alerts), and **queryable JSONB** for evidence payloads
 - Fault attribution is an **operational concern** (who fixes it?), not a **compliance concern** (what happened?)
 
+### 9.5 Tiered Fault Attribution Fees by Industry Risk (v1.4)
+
+Fault attribution investigation costs vary by industry risk tier. Higher-risk industries (Tier 1) involve regulatory exposure, physical safety, and environmental liability — justifying higher investigation fees and faster SLA.
+
+| Industry Tier                    | Fault Investigation Fee (EUR) | SLA (resolution time)      | Rationale                                                                    |
+| -------------------------------- | ----------------------------- | -------------------------- | ---------------------------------------------------------------------------- |
+| **Tier 1** (Critical Emissions)  | EUR 15.00 per fault record    | 4h (CRITICAL), 24h (HIGH)  | ETS/CBAM regulatory exposure, physical safety risk, carbon penalty liability |
+| **Tier 2** (Important Emissions) | EUR 8.00 per fault record     | 8h (CRITICAL), 48h (HIGH)  | Moderate regulatory exposure, supply chain impact                            |
+| **Tier 3** (Wedge Industries)    | EUR 5.00 per fault record     | 12h (CRITICAL), 72h (HIGH) | High agent density but lower physical safety risk                            |
+
+**Escalation:** If a fault in any tier triggers a `KYA_VIOLATION` (§9.2), the investigation fee doubles and a mandatory post-incident review is scheduled within 48h. For Tier 1 CRITICAL faults affecting physical systems (Power, Steel, Cement, Construction), a real-time incident bridge is activated.
+
 ---
 
-## 10. Conclusion
+## 10. Memory Audit Trail (v1.5)
+
+_Added: 23.03.2026 | PR-254 (agent-memory-fact-extraction)_
+
+Agent memory is a security surface. When agents store facts about customers, resolve contradictions between conflicting memories, or forget data on GDPR request, each mutation must be **attributed, timestamped, and immutably logged** — or the memory system becomes an unauditable black box that fails compliance review.
+
+### 10.1 Memory Mutations Requiring KYA Attestation
+
+| Operation     | Security Concern                                 | KYA Requirement                                                                                |
+| ------------- | ------------------------------------------------ | ---------------------------------------------------------------------------------------------- |
+| **Store**     | Agent writes arbitrary data to persistent memory | Log agent_id, source, confidence, org_id; validate against Capability Manifest                 |
+| **Supersede** | Agent replaces existing fact with new one        | Log old_memory_id, new_memory_id, reason, agent_id; **human review if confidence delta > 0.3** |
+| **Forget**    | Agent soft-deletes memory (GDPR, correction)     | Log memory_id, reason, agent_id; immutable audit entry (forget is never hard-delete)           |
+| **Extract**   | Agent extracts facts from conversation text      | Log source_text_hash (not content — privacy), facts_count, agent_id, confidence scores         |
+
+### 10.2 Contradiction Resolution Governance
+
+When a new fact contradicts an existing fact (e.g., "ACME has 250 employees" superseded by "ACME has 300 employees"), the KYA audit trail must capture:
+
+```
+MEMORY SUPERSEDE AUDIT LOG:
+  timestamp:      2026-03-23T14:30:00Z
+  agent_id:       compliance-agent-001
+  agent_ats:      0.87
+  old_memory_id:  mem-abc-123
+  old_content:    "ACME has 250 employees"
+  old_confidence: 0.9
+  new_memory_id:  mem-def-456
+  new_content:    "ACME has 300 employees"
+  new_confidence: 1.0
+  new_source:     "annual-report-2025"
+  reason:         "temporal_supersede: newer source with higher confidence"
+  kya_decision:   "auto_approved (confidence_delta < 0.3)"
+  firehorse_log:  "FH-2026-03-23-14300"
+```
+
+**Hard rule:** Contradiction resolution (PR-255) MUST NOT ship without this KYA audit trail. Resolving memory conflicts with no provenance for _why_ one fact superseded another fails CSRD audit and EU AI Act Article 12 logging requirements.
+
+### 10.3 Fact Extraction Governance
+
+The fact extraction pipeline (PR-254) converts unstructured conversation text into structured subject-predicate-value triples. KYA governs this process:
+
+| Guardrail                | Enforcement                                                                          |
+| ------------------------ | ------------------------------------------------------------------------------------ |
+| **Extraction scope**     | Agent Capability Manifest must declare `memory:extract` permission                   |
+| **Confidence floor**     | Facts below 0.7 confidence are NOT persisted (configurable per tenant)               |
+| **Source attribution**   | Every extracted fact carries `source: "fact-extraction"` + source_text_hash          |
+| **Duplicate prevention** | Cosine similarity > 0.95 triggers dedup, not double-store                            |
+| **PII filtering**        | Extraction prompt explicitly prohibits extracting personal data without consent flag |
+| **Rate limiting**        | Max 100 fact extractions per agent per hour (prevent memory flooding)                |
+
+### 10.4 Memory Audit Log Schema
+
+```sql
+-- Extends existing memory_audit_log table
+CREATE TABLE IF NOT EXISTS memory_audit_log (
+  id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  operation     text NOT NULL CHECK (operation IN ('store', 'supersede', 'forget', 'extract')),
+  agent_id      text NOT NULL,
+  agent_ats     float,
+  memory_id     uuid,
+  old_memory_id uuid,           -- For supersede operations
+  org_id        text NOT NULL,
+  customer_id   uuid,
+  reason        text,
+  metadata      jsonb DEFAULT '{}',
+  created_at    timestamptz DEFAULT now()
+) PARTITION BY RANGE (created_at);
+
+-- RLS: tenant isolation
+ALTER TABLE memory_audit_log ENABLE ROW LEVEL SECURITY;
+CREATE POLICY memory_audit_org_isolation ON memory_audit_log
+  FOR ALL USING (org_id = current_setting('app.org_id', true));
+
+-- 7-year retention per GDPR (partitioned monthly)
+```
+
+### 10.5 ATS Impact
+
+Memory violations affect the Agent Trust Score:
+
+| Violation                                                 | ATS Penalty                          |
+| --------------------------------------------------------- | ------------------------------------ |
+| Unauthorized memory store (no `memory:store` in manifest) | V += 1 (−0.25)                       |
+| Supersede without audit log entry                         | V += 1 (−0.25)                       |
+| Attempt to hard-delete (bypass soft-delete)               | V += 2 (−0.50), session frozen       |
+| Memory flooding (>100 extractions/hour)                   | D += 10 (−0.50)                      |
+| PII extraction without consent flag                       | V += 1 (−0.25), GDPR incident logged |
+
+### 10.6 Cross-References
+
+- `src/agents/memory.service.ts` — Memory store/recall/forget implementation
+- `src/agents/fact-extraction.service.ts` — Fact extraction pipeline (PR-254)
+- `Admin/ADMIN_MANUAL_AGENT_MEMORY_EN_v1.md` — Operations manual
+- `supabase/migrations/047_hybrid_memory_search.sql` — Hybrid search function
+- Thesis: V3Thesis_EN Section 10.10.7, PHD_FIREHORSE_EN Section 14.6.4
+
+---
+
+## 11. Conclusion
 
 The KYA Security Standard provides a complete governance framework for autonomous AI agents operating in industrial environments. By combining hardware-level isolation, real-time identity triggers, forensic observability, agent identity watermarking, and behavioral guardrails, Lifetime Oy delivers the infrastructure that makes BYO agents safe for regulated industries.
 
@@ -599,13 +756,13 @@ The standard is designed to be **pluggable** — any identity verification provi
 
 ### Identity Provider Integration Points
 
-| KYA Layer | Required Capability | Protocol |
-|-----------|-------------------|----------|
-| L1 — Identity Attribution | Real-time IDV (document + face match + AML) | REST API, < 30s response |
-| L2 — Agent Provenance | KYB (business/organization verification) | REST API |
-| L5 — Continuous Risk | Risk change notifications | Webhook (push), < 5s delivery |
+| KYA Layer                 | Required Capability                         | Protocol                      |
+| ------------------------- | ------------------------------------------- | ----------------------------- |
+| L1 — Identity Attribution | Real-time IDV (document + face match + AML) | REST API, < 30s response      |
+| L2 — Agent Provenance     | KYB (business/organization verification)    | REST API                      |
+| L5 — Continuous Risk      | Risk change notifications                   | Webhook (push), < 5s delivery |
 
-Every BYO agent deployed in the DWS10 ecosystem generates a verification event. With 19 industries and multi-agent sessions, this creates volume at scale — not one-off KYC checks.
+Every BYO agent deployed in the DWS10 ecosystem generates a verification event. With 20 industries and multi-agent sessions, this creates volume at scale — not one-off KYC checks.
 
 For financial value modeling, autoresearch governance, and agent swarm orchestration, see the companion standard: `Legal/KYA_OPTIMIZATION_v1.4.md`.
 

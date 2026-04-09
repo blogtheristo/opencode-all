@@ -13,6 +13,7 @@
  * Logs an outreach_activity for audit trail.
  */
 
+import crypto from 'crypto';
 import express, { Router, Request, Response } from 'express';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
@@ -54,7 +55,10 @@ function requireAdminKey(req: Request, res: Response): boolean {
     return false;
   }
 
-  if (!provided || provided !== adminKey) {
+  // SECURITY: Timing-safe comparison to prevent timing attacks
+  const providedBuf = Buffer.from(String(provided).padEnd(256, '\0'));
+  const expectedBuf = Buffer.from(adminKey.padEnd(256, '\0'));
+  if (!crypto.timingSafeEqual(providedBuf, expectedBuf)) {
     res.status(401).json({ error: 'Unauthorized' });
     return false;
   }
@@ -192,7 +196,14 @@ router.get('/send-email', async (req: Request, res: Response) => {
   const adminKey = process.env.ADMIN_API_KEY;
   const provided = req.query.key as string;
 
-  if (!adminKey || !provided || provided !== adminKey) {
+  // SECURITY: Timing-safe comparison to prevent timing attacks
+  if (!adminKey || !provided) {
+    res.status(401).send('<html><body style="background:#0a0a0a;color:#ff4444;font-family:sans-serif;padding:40px;"><h2>Unauthorized</h2></body></html>');
+    return;
+  }
+  const providedBuf2 = Buffer.from(String(provided).padEnd(256, '\0'));
+  const expectedBuf2 = Buffer.from(adminKey.padEnd(256, '\0'));
+  if (!crypto.timingSafeEqual(providedBuf2, expectedBuf2)) {
     res.status(401).send('<html><body style="background:#0a0a0a;color:#ff4444;font-family:sans-serif;padding:40px;"><h2>Unauthorized</h2></body></html>');
     return;
   }

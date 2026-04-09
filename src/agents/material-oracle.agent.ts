@@ -20,6 +20,8 @@
 import logger from '../utils/logger.js';
 import { BaseAgent } from './base.agent.js';
 import type { AgentContext, AgentResponse } from './types.js';
+import { normalizeToKg, type NormalizationResult } from './unit-normalization.js';
+import { createEC3Client, type EC3Client, type EC3CategoryStats } from '../integrations/ec3/index.js';
 
 // ============ EMISSION FACTORS DATABASE ============
 // kgCO2e per unit (based on ICE Database v3 and EPD averages)
@@ -92,6 +94,24 @@ const EMISSION_FACTORS: Record<string, EmissionFactor> = {
     a1_a3: 1.99, a4: 0.03, a5: 0.015, b: 0.005, c: 0.04, d: -0.45,
     unit: 'kg', category: 'Structural',
   },
+  // Lime products — dual-use critical raw material (steel flux, cement, decontamination)
+  // Source: EU ETS Benchmark 2021-2025 (0.954 tCO2e/t lime)
+  lime: {
+    a1_a3: 0.954, a4: 0.02, a5: 0.008, b: 0.001, c: 0.018, d: -0.04,
+    unit: 'kg', category: 'Binders',
+  },
+  quicklime: {
+    a1_a3: 1.092, a4: 0.02, a5: 0.008, b: 0.001, c: 0.02, d: -0.035,
+    unit: 'kg', category: 'Binders',
+  },
+  slaked_lime: {
+    a1_a3: 0.742, a4: 0.018, a5: 0.007, b: 0.001, c: 0.015, d: -0.03,
+    unit: 'kg', category: 'Binders',
+  },
+  limestone: {
+    a1_a3: 0.032, a4: 0.015, a5: 0.005, b: 0.001, c: 0.01, d: -0.005,
+    unit: 'kg', category: 'Aggregates',
+  },
 };
 
 /** Lower-carbon alternatives lookup */
@@ -122,6 +142,16 @@ const ALTERNATIVES: Record<string, Array<{ name: string; reduction: number; note
   glass: [
     { name: 'Recycled-content glass (50%)', reduction: 0.25, note: 'Widely available in EU market' },
   ],
+  lime: [
+    { name: 'Electric calcination lime (Litherm)', reduction: 0.90, note: 'Fully electric calcination — zero process CO2. SigmaRoc/Litherm EUR 6.5M seed (2026)' },
+    { name: 'Lime with CCS', reduction: 0.85, note: 'Carbon capture at kiln — SigmaRoc Köping pilot operational' },
+  ],
+  quicklime: [
+    { name: 'Electric calcination quicklime', reduction: 0.90, note: 'Litherm Technologies GmbH — eliminates combustion and process CO2' },
+  ],
+  limestone: [
+    { name: 'Recycled calcium carbonate', reduction: 0.40, note: 'From water treatment sludge or paper mill waste' },
+  ],
 };
 
 // ============ INPUT INTERFACE ============
@@ -140,6 +170,10 @@ interface MaterialOracleInput {
 // ============ AGENT IMPLEMENTATION ============
 
 export class MaterialOracleAgent extends BaseAgent {
+  private ec3Client: EC3Client | null;
+  /** Cache EC3 lookups per session to avoid redundant API calls */
+  private ec3Cache: Map<string, EC3CategoryStats> = new Map();
+
   constructor() {
     super({
       name: 'material-oracle',
@@ -150,9 +184,11 @@ export class MaterialOracleAgent extends BaseAgent {
         'en-15978-lifecycle-analysis',
         'low-carbon-alternatives',
         'epd-based-estimation',
+        'ec3-epd-lookup',
       ],
       model: 'llama-3.3-70b-versatile',
     });
+    this.ec3Client = createEC3Client();
   }
 
   async execute(
@@ -166,6 +202,7 @@ export class MaterialOracleAgent extends BaseAgent {
 
     logger.info('MaterialOracle agent executing', {
       materialCount: materials.length,
+      ec3Available: this.ec3Client !== null,
       projectId: context.projectId,
       userId: context.userId,
     });
@@ -184,7 +221,10 @@ export class MaterialOracleAgent extends BaseAgent {
     });
 
     try {
-      // 1. Compute carbon per material
+      // 0. Pre-fetch EC3 data for all unique materials (parallel, cached)
+      await this.prefetchEC3Data(materials);
+
+      // 1. Compute carbon per material (uses EC3 data when available)
       const materialResults = materials.map((mat) => this.analyzeMaterial(mat));
 
       // 2. Aggregate totals per lifecycle stage
@@ -247,6 +287,22 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
             name: m.name,
             quantity: m.quantity,
             unit: m.unit,
+            quantityKg: Math.round(m.unitNormalization.quantityKg * 100) / 100,
+            unitConversion: {
+              factor: m.unitNormalization.conversionFactor,
+              confidence: m.unitNormalization.confidence,
+              method: m.unitNormalization.method,
+            },
+            dataSource: m.dataSource ?? 'ICE Database v3 / EPD averages (hardcoded)',
+            ec3: m.ec3Stats ? {
+              epdCount: m.ec3Stats.epdCount,
+              confidence: m.ec3Stats.confidence,
+              gwpRange: {
+                p10: m.ec3Stats.gwpPerKg.p10,
+                median: m.ec3Stats.gwpPerKg.median,
+                p90: m.ec3Stats.gwpPerKg.p90,
+              },
+            } : undefined,
             matched: m.matched,
             category: m.category,
             totalCO2e: Math.round(m.totalCO2e * 100) / 100,
@@ -280,6 +336,11 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
             coveragePercent: materialCount > 0
               ? Math.round((matchedCount / materialCount) * 100)
               : 0,
+            unitConversions: {
+              exact: materialResults.filter((m) => m.unitNormalization.confidence === 'exact').length,
+              estimated: materialResults.filter((m) => m.unitNormalization.confidence === 'estimated').length,
+              assumed: materialResults.filter((m) => m.unitNormalization.confidence === 'assumed').length,
+            },
           },
           llmStrategy,
         },
@@ -291,7 +352,14 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
           llmModel: llmResponse.model,
           llmTokens: llmResponse.inputTokens + llmResponse.outputTokens,
           standard: 'EN 15978:2011',
-          dataSource: 'ICE Database v3 / EPD averages',
+          dataSource: this.ec3Client
+            ? 'EC3/BuildingTransparency EPDs (primary) + ICE Database v3 (fallback)'
+            : 'ICE Database v3 / EPD averages',
+          ec3Connected: this.ec3Client !== null,
+          ec3MaterialsEnriched: materialResults.filter((m) => m.ec3Stats && m.ec3Stats.confidence !== 'none').length,
+          attribution: this.ec3Client
+            ? 'EPD data provided by Building Transparency EC3 (https://buildingtransparency.org). Individual EPD links available in per-material ec3 field.'
+            : undefined,
         },
       };
 
@@ -343,15 +411,32 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
     b: number;
     c: number;
     d: number;
+    unitNormalization: NormalizationResult;
+    dataSource?: string;
+    ec3Stats?: EC3CategoryStats;
   } {
     // Normalize material name for lookup
     const normalizedName = material.name.toLowerCase().replace(/[\s_-]+/g, '_');
     const factor = this.findEmissionFactor(normalizedName);
 
+    // CRITICAL: Convert input quantity to kg before applying kgCO2e/kg factors.
+    // Without this, m³/m²/tonne inputs produce silently wrong results.
+    // e.g. 50 m³ concrete × 0.132 kgCO2e/kg = 6.6 (WRONG)
+    //      50 m³ × 2400 kg/m³ × 0.132 = 15,840 (CORRECT — 240x difference)
+    const normResult = normalizeToKg(material.name, material.quantity, material.unit);
+
+    if (normResult.confidence === 'assumed') {
+      logger.warn('MaterialOracle: unit normalization used fallback assumption', {
+        material: material.name,
+        originalUnit: material.unit,
+        method: normResult.method,
+      });
+    }
+
     if (!factor) {
       // Unknown material - use conservative average estimate (0.5 kgCO2e/kg)
       const estimatedFactor = 0.5;
-      const totalCO2e = material.quantity * estimatedFactor;
+      const totalCO2e = normResult.quantityKg * estimatedFactor;
       return {
         name: material.name,
         quantity: material.quantity,
@@ -365,18 +450,50 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
         b: totalCO2e * 0.02,
         c: totalCO2e * 0.06,
         d: totalCO2e * -0.05,
+        unitNormalization: normResult,
       };
     }
 
-    const qty = material.quantity;
-    const a1_a3 = qty * factor.a1_a3;
-    const a4 = qty * factor.a4;
-    const a5 = qty * factor.a5;
-    const b = qty * factor.b;
-    const c = qty * factor.c;
-    const d = qty * factor.d;
+    // Check EC3 cache for real EPD data (medium+ confidence overrides hardcoded)
+    const ec3Stats = this.ec3Cache.get(normalizedName);
+    const useEC3 = ec3Stats && (ec3Stats.confidence === 'high' || ec3Stats.confidence === 'medium');
+
+    // Select factor source: EC3 EPD median (when confident) or hardcoded ICE/EPD average
+    const effectiveFactor = useEC3
+      ? {
+          a1_a3: ec3Stats!.gwpPerKg.median,
+          a4: factor.a4,    // EC3 often lacks A4+ — keep hardcoded for transport/construction
+          a5: factor.a5,
+          b: factor.b,
+          c: factor.c,
+          d: factor.d,
+        }
+      : factor;
+
+    const dataSource = useEC3
+      ? `EC3 EPD median (${ec3Stats!.epdCount} EPDs, ${ec3Stats!.confidence} confidence)`
+      : `ICE Database v3 / EPD averages (hardcoded)`;
+
+    // Apply factors to normalized kg quantity
+    const qtyKg = normResult.quantityKg;
+    const a1_a3 = qtyKg * effectiveFactor.a1_a3;
+    const a4 = qtyKg * effectiveFactor.a4;
+    const a5 = qtyKg * effectiveFactor.a5;
+    const b = qtyKg * effectiveFactor.b;
+    const c = qtyKg * effectiveFactor.c;
+    const d = qtyKg * effectiveFactor.d;
     // Total excludes D (beyond boundary, reported separately per EN 15978)
     const totalCO2e = a1_a3 + a4 + a5 + b + c;
+
+    if (useEC3) {
+      logger.info('MaterialOracle: using EC3 EPD data', {
+        material: material.name,
+        epdCount: ec3Stats!.epdCount,
+        confidence: ec3Stats!.confidence,
+        gwpMedian: ec3Stats!.gwpPerKg.median,
+        hardcodedA1A3: factor.a1_a3,
+      });
+    }
 
     return {
       name: material.name,
@@ -391,7 +508,55 @@ Respond as JSON with keys: "procurementStrategy" (string), "regulatoryNotes" (st
       b,
       c,
       d,
+      unitNormalization: normResult,
+      dataSource,
+      ec3Stats: ec3Stats ?? undefined,
     };
+  }
+
+  /**
+   * Pre-fetch EC3 EPD data for all unique materials in the input.
+   * Runs lookups in parallel and caches results for use in analyzeMaterial.
+   * Gracefully degrades if EC3 is unavailable or API calls fail.
+   */
+  private async prefetchEC3Data(materials: MaterialInput[]): Promise<void> {
+    if (!this.ec3Client) return;
+
+    const uniqueNames = [...new Set(
+      materials.map((m) => m.name.toLowerCase().replace(/[\s_-]+/g, '_')),
+    )];
+
+    // Only fetch materials not already cached
+    const toFetch = uniqueNames.filter((name) => !this.ec3Cache.has(name));
+    if (toFetch.length === 0) return;
+
+    logger.info('MaterialOracle: pre-fetching EC3 EPD data', {
+      materials: toFetch,
+    });
+
+    const results = await Promise.allSettled(
+      toFetch.map((name) => this.ec3Client!.searchByMaterial(name)),
+    );
+
+    for (let i = 0; i < toFetch.length; i++) {
+      const result = results[i];
+      if (result.status === 'fulfilled') {
+        this.ec3Cache.set(toFetch[i], result.value);
+        if (result.value.epdCount > 0) {
+          logger.info('MaterialOracle: EC3 data cached', {
+            material: toFetch[i],
+            epdCount: result.value.epdCount,
+            confidence: result.value.confidence,
+            gwpMedian: result.value.gwpPerKg.median,
+          });
+        }
+      } else {
+        logger.warn('MaterialOracle: EC3 fetch failed for material', {
+          material: toFetch[i],
+          error: result.reason?.message,
+        });
+      }
+    }
   }
 
   private findEmissionFactor(name: string): EmissionFactor | null {

@@ -264,7 +264,7 @@ def is_excluded_domain(url: str) -> bool:
 
 def parse_websearch_results(
     results: list[dict[str, Any]],
-    topic: str,
+    topic: str,  # noqa: ARG001
     from_date: str = "",
     to_date: str = "",
 ) -> list[dict[str, Any]]:
@@ -356,8 +356,8 @@ def parse_websearch_results(
 
 def normalize_websearch_items(
     items: list[dict[str, Any]],
-    from_date: str,
-    to_date: str,
+    from_date: str,  # noqa: ARG001
+    to_date: str,  # noqa: ARG001
 ) -> list[schema.WebSearchItem]:
     """Convert parsed dicts to WebSearchItem objects.
 

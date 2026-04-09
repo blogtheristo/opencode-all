@@ -1,0 +1,259 @@
+/**
+ * DWS10.com Nordic Industrial Theme v1.0
+ * Introduced-In: PR-TBD
+ * Code-Version: 1.0
+ * Branch: claude/nordic-industrial-rebrand-glOfb
+ * Date: 2026-04-06
+ * Owner: Lifetime Oy
+ *
+ * Nordic Industrial palette — replaces generic enterprise blue.
+ * Rationale: Silicon Valley doesn't build for Nordic industry.
+ * Our visual identity should be unmistakably Finnish/Nordic/European.
+ *
+ * Colors inspired by:
+ * - Finnish industrial brands (Kone, Wärtsilä, Nokia)
+ * - Nordic nature (pine forests, birch bark, winter sky)
+ * - EU regulatory confidence (authority, trust, sustainability)
+ */
+
+:root {
+  /* ===========================
+     Nordic Industrial Palette
+     =========================== */
+
+  /* Primary — Authority & Trust */
+  --nordic-navy: #0a2463;
+  --nordic-navy-light: #0e3080;
+  --nordic-navy-dark: #071a4a;
+
+  /* Industrial — Machines & Infrastructure */
+  --nordic-steel: #3e3e3e;
+  --nordic-steel-light: #575757;
+  --nordic-steel-dark: #2a2a2a;
+
+  /* Sustainability — Forest & Nature */
+  --nordic-pine: #3a5a40;
+  --nordic-pine-light: #4a7a52;
+  --nordic-pine-dark: #2a4030;
+
+  /* Neutrals — Nordic Light */
+  --nordic-birch: #f5f0e8;
+  --nordic-snow: #fafbfc;
+  --nordic-slate: #64748b;
+
+  /* Accent — Innovation & Urgency */
+  --nordic-yellow: #ffd166;
+  --nordic-yellow-dark: #e6b84d;
+  --nordic-red: #d62828;
+  --nordic-red-dark: #b81e1e;
+
+  /* Atmosphere — Sky & Ice */
+  --nordic-ice: #b8d4e3;
+  --nordic-ice-light: #d4e8f2;
+  --nordic-frost: rgba(184, 212, 227, 0.15);
+
+  /* ===========================
+     Gamma Token Overrides
+     =========================== */
+  --color-primary: var(--nordic-navy);
+  --color-primary-light: var(--nordic-navy-light);
+  --color-accent: var(--nordic-pine);
+  --color-accent-dark: var(--nordic-pine-dark);
+  --color-success: var(--nordic-pine);
+  --color-warning: var(--nordic-yellow);
+  --color-danger: var(--nordic-red);
+  --color-gold: var(--nordic-yellow-dark);
+
+  /* ===========================
+     Typography — IBM Plex Sans
+     =========================== */
+  --font-heading:
+    "IBM Plex Sans Condensed", "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --font-body: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "IBM Plex Mono", "Roboto Mono", "Consolas", monospace;
+
+  /* ===========================
+     Nordic Gradients
+     =========================== */
+  --gradient-nordic-hero: linear-gradient(135deg, #0a2463 0%, #0e3080 40%, #071a4a 100%);
+  --gradient-nordic-pine: linear-gradient(135deg, #3a5a40 0%, #2a4030 100%);
+  --gradient-nordic-frost: linear-gradient(
+    135deg,
+    rgba(10, 36, 99, 0.95) 0%,
+    rgba(14, 48, 128, 0.9) 50%,
+    rgba(7, 26, 74, 0.95) 100%
+  );
+  --gradient-nordic-cta: linear-gradient(135deg, #ffd166 0%, #e6b84d 100%);
+}
+
+/* ===========================
+   Base Typography Application
+   =========================== */
+body {
+  font-family: var(--font-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+}
+
+code,
+pre,
+.monospace {
+  font-family: var(--font-mono);
+}
+
+/* ===========================
+   Nordic Badge — "Built in Finland"
+   =========================== */
+.nordic-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(58, 90, 64, 0.12);
+  border: 1px solid rgba(58, 90, 64, 0.3);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--nordic-pine);
+  letter-spacing: 0.02em;
+}
+
+.nordic-badge--dark {
+  background: rgba(58, 90, 64, 0.2);
+  border-color: rgba(58, 90, 64, 0.4);
+  color: #8fbc8f;
+}
+
+/* ===========================
+   Nordic Sovereignty Badges
+   =========================== */
+.nordic-sovereignty {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.nordic-sovereignty__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.nordic-sovereignty__badge--eu {
+  background: rgba(10, 36, 99, 0.15);
+  border: 1px solid rgba(10, 36, 99, 0.3);
+  color: var(--nordic-navy);
+}
+
+.nordic-sovereignty__badge--fi {
+  background: rgba(58, 90, 64, 0.12);
+  border: 1px solid rgba(58, 90, 64, 0.3);
+  color: var(--nordic-pine);
+}
+
+.nordic-sovereignty__badge--nvidia {
+  background: rgba(118, 185, 0, 0.1);
+  border: 1px solid rgba(118, 185, 0, 0.3);
+  color: #5a8f00;
+}
+
+/* ===========================
+   Nordic Card Style
+   =========================== */
+.nordic-card {
+  background: var(--nordic-snow);
+  border: 1px solid rgba(10, 36, 99, 0.1);
+  border-radius: 12px;
+  padding: 32px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.nordic-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(10, 36, 99, 0.1);
+}
+
+.nordic-card--dark {
+  background: rgba(10, 36, 99, 0.4);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+}
+
+.nordic-card--dark:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* ===========================
+   Nordic CTA Buttons
+   =========================== */
+.nordic-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+  text-decoration: none;
+}
+
+.nordic-btn:hover {
+  transform: translateY(-1px);
+}
+
+.nordic-btn--primary {
+  background: var(--gradient-nordic-cta);
+  color: var(--nordic-navy-dark);
+  box-shadow: 0 4px 16px rgba(255, 209, 102, 0.3);
+}
+
+.nordic-btn--primary:hover {
+  box-shadow: 0 6px 24px rgba(255, 209, 102, 0.45);
+}
+
+.nordic-btn--secondary {
+  background: transparent;
+  color: var(--nordic-snow);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.nordic-btn--secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.nordic-btn--pine {
+  background: var(--gradient-nordic-pine);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(58, 90, 64, 0.3);
+}
+
+/* ===========================
+   Responsive
+   =========================== */
+@media (max-width: 768px) {
+  .nordic-sovereignty {
+    justify-content: center;
+  }
+}

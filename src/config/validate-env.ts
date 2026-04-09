@@ -19,12 +19,12 @@ const EnvSchema = z.object({
   SUPABASE_ANON_KEY: z.string().min(1, 'SUPABASE_ANON_KEY is required'),
 
   // JWT (required for auth)
-  JWT_SECRET: z.string().min(16, 'JWT_SECRET must be at least 16 characters'),
+  JWT_SECRET: z.string().min(32, 'JWT_SECRET must be at least 32 characters'),
 
   // Optional but logged
   GROQ_API_KEY: z.string().optional(),
   ANTHROPIC_API_KEY: z.string().optional(),
-  RESEND_API_KEY: z.string().optional(),
+  // RESEND_API_KEY removed — Resend banned per security policy (2026-03-26 incident)
   ADMIN_API_KEY: z.string().optional(),
   REDIS_URL: z.string().optional(),
   CORS_ORIGIN: z.string().optional(),
@@ -53,7 +53,7 @@ export function validateEnv(): Env {
   const services = [
     { name: 'Groq LLM', available: !!env.GROQ_API_KEY },
     { name: 'Anthropic LLM', available: !!env.ANTHROPIC_API_KEY },
-    { name: 'Resend Email', available: !!env.RESEND_API_KEY },
+    // Resend removed — banned per security policy (2026-03-26 incident). Using Amazon SES.
     { name: 'Redis', available: !!env.REDIS_URL },
   ];
 

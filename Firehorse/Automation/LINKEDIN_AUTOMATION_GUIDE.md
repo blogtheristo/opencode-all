@@ -291,7 +291,7 @@ to share what we're building.
 ```
 Hi [Name],
 
-Thanks for connecting! I'm Risto, founder of DWS IQ 6.
+Thanks for connecting! I'm Risto, Founder of DWS IQ 6.
 
 We automate CSRD / Fit for 55 reporting for construction 
 portfolios – turning 40–80 hours of Excel into audit-ready 

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
 <channel>
-    <title>Lifetime Firehorse Store - DWS IQ Platform</title>
+    <title>Lifetime Firehorse Store — Sovereign AI Products &amp; Services</title>
     <link>https://dws10.com/buy/</link>
-    <description>DWS IQ Platform, Firehorse Automation, AI Consulting, and Climate Compliance solutions by Lifetime Oy.</description>
-    <lastBuildDate>2026-03-08T11:58:03.584Z</lastBuildDate>
+    <description>Sovereign AI products and services for enterprises and SMEs. EU-hosted, CLOUD Act free. Climate compliance, industrial AI, and expert advisory by Lifetime Oy.</description>
+    <lastBuildDate>2026-04-04T05:00:07.530Z</lastBuildDate>
     <item>
         <g:id>DWS-IQ-006</g:id>
         <g:title>Lifetime DWS IQ Platform (Version 6)</g:title>
-        <g:description>Stop risking fines and lost tenders. DWS IQ 6 automates Fit for 55, CSRD, and EPBD reporting across your operation — cutting 90% of manual compliance hours while producing audit-ready documentation. EU-hosted, EU-owned. Deploy in 30 days.</g:description>
+        <g:description>Stop risking fines and lost tenders. DWS IQ 6 deploys 18+ GodAgents with agentic loops (observe-think-act) to automate Fit for 55, CSRD, and EPBD compliance across 20 EU industries — cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.</g:description>
         <g:link>https://dws10.com/products/dwsiq.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
         <g:price>4999.00 EUR</g:price>
@@ -89,6 +89,23 @@
         <g:identifier_exists>false</g:identifier_exists>
         <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
         <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>FH-SIGN-001</g:id>
+        <g:title>Firehorse Signed Reports</g:title>
+        <g:description>Add legally binding eSignatures to any Firehorse report. Compliance reports, carbon assessments, and investor reports get DocuSign eSignature — court-defensible, audit-ready, with full tracking. Author, reviewer, and auditor sign in sequence. Signed PDFs auto-archived.</g:description>
+        <g:link>https://dws10.com/products/firehorse-reports.html</g:link>
+        <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+        <g:price>199.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Firehorse</g:brand>
+        <g:mpn>FH-SIGNED-REPORTS-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>add-on</g:custom_label_0>
         <g:target_country>FI</g:target_country>
         <g:content_language>en</g:content_language>
     </item>
@@ -399,23 +416,6 @@
         <g:content_language>fi</g:content_language>
     </item>
     <item>
-        <g:id>agentti-sanasto</g:id>
-        <g:title>Agentti Sanasto Englanti-Suomi</g:title>
-        <g:description>Master AI agent terminology in Finnish. Comprehensive English-to-Finnish glossary covering all key agentic AI concepts with detailed explanations. Essential reference for Finnish tech teams working with international AI tools.</g:description>
-        <g:link>https://dws10.com/buy/page4/</g:link>
-        <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-        <g:price>0.99 EUR</g:price>
-        <g:availability>in_stock</g:availability>
-        <g:condition>new</g:condition>
-        <g:brand>Lifetime</g:brand>
-        <g:mpn>AGENT-GLOSSARY-2026</g:mpn>
-        <g:identifier_exists>false</g:identifier_exists>
-        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
-        <g:custom_label_0>digital</g:custom_label_0>
-        <g:target_country>FI</g:target_country>
-        <g:content_language>fi</g:content_language>
-    </item>
-    <item>
         <g:id>devops-lead</g:id>
         <g:title>Manufacturing AI Readiness Assessment</g:title>
         <g:description>Find out if your factory floor is AI-ready in 2 weeks. Complete manufacturing intelligence assessment with workflow scoring, ROI projection, automated deployment, performance dashboard, and 30-day monitoring. Clear go/no-go for your next investment.</g:description>
@@ -520,6 +520,24 @@
         <g:content_language>en</g:content_language>
     </item>
     <item>
+        <g:id>DWS-SOVEREIGN-DB-001</g:id>
+        <g:title>Sovereign Database — EU Data Sovereignty for PostgreSQL</g:title>
+        <g:description>Your EU customer data on a US-owned cloud is a liability. Sovereign Database eliminates CLOUD Act exposure with EU-hosted, EU-owned PostgreSQL, continuous sovereignty monitoring, and automated compliance scoring. Free assessment, paid tiers from €499/mo.</g:description>
+        <g:link>https://dws10.com/products/sovereign-database.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>0.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Lifetime</g:brand>
+        <g:mpn>SOVEREIGN-DB-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:custom_label_1>featured</g:custom_label_1>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
         <g:id>sovereignty-cloud-consulting</g:id>
         <g:title>Sovereignty Cloud Consulting – European Cloud Migration</g:title>
         <g:description>Your US-hosted data is exposed to the CLOUD Act — and your EU clients know it. We migrate you to sovereign European infrastructure (OVHcloud, Hetzner, Supabase EU) with DPA creation, NIS2 compliance, and EU AI Act alignment. 78% of EU companies plan to reduce US cloud dependency.</g:description>
@@ -533,6 +551,112 @@
         <g:identifier_exists>false</g:identifier_exists>
         <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
         <g:custom_label_0>ai-cloud</g:custom_label_0>
+        <g:custom_label_1>featured</g:custom_label_1>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>DWS-US-STARTER</g:id>
+        <g:title>DWS IQ — US Cloud Starter</g:title>
+        <g:description>Get started with DWS IQ on US Cloud infrastructure (Supabase + Cloudflare). 3 AI agents, basic CSRD dashboard, 1 user seat. Fastest path to compliance — upgrade to EU Sovereign anytime.</g:description>
+        <g:link>https://dws10.com/products/cloud-pricing.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>299.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Lifetime</g:brand>
+        <g:mpn>DWS-US-STARTER-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>ai-cloud</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>DWS-US-PILOT</g:id>
+        <g:title>DWS IQ — US Cloud Pilot</g:title>
+        <g:description>4-week evaluation with real data on US Cloud. 8 AI agents, Firehorse Report, 5 seats, kickoff workshop. Prove ROI before scaling — upgrade to EU Sovereign anytime.</g:description>
+        <g:link>https://dws10.com/products/cloud-pricing.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>799.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Lifetime</g:brand>
+        <g:mpn>DWS-US-PILOT-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>ai-cloud</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>DWS-EU-STARTER</g:id>
+        <g:title>DWS IQ — EU Sovereign Starter</g:title>
+        <g:description>DWS IQ on EU sovereign infrastructure (Aiven PostgreSQL + Hetzner/Scaleway). 3 AI agents, CSRD dashboard, zero CLOUD Act exposure, sovereignty score monitoring. EU data residency from day 1.</g:description>
+        <g:link>https://dws10.com/products/cloud-pricing.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>499.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Lifetime</g:brand>
+        <g:mpn>DWS-EU-STARTER-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>ai-cloud</g:custom_label_0>
+        <g:custom_label_1>featured</g:custom_label_1>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>DWS-EU-PILOT</g:id>
+        <g:title>DWS IQ — EU Sovereign Pilot</g:title>
+        <g:description>Full EU sovereign evaluation. 8 AI agents, Firehorse Report, Aiwen EU AI Act Article 12 logging, NIS2 dashboard, 5 seats. Zero CLOUD Act. Prove compliance ROI on sovereign infrastructure.</g:description>
+        <g:link>https://dws10.com/products/cloud-pricing.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>1499.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Lifetime</g:brand>
+        <g:mpn>DWS-EU-PILOT-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>ai-cloud</g:custom_label_0>
+        <g:custom_label_1>featured</g:custom_label_1>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>DWS-CLIMATE-001</g:id>
+        <g:title>DWS IQ Climate Intelligence</g:title>
+        <g:description>Deploy 8 GodAgents that deliver audit-ready EU climate compliance outcomes — ETS allowance calculations, CBAM import obligations, CSRD disclosure reports, and continuous carbon accounting. GodAgent-delivered outcomes, not dashboards. The Agent Outcome Factory for climate compliance.</g:description>
+        <g:link>https://dws10.com/products/climate-intelligence.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>2999.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>DWS-CLIMATE-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:custom_label_1>featured</g:custom_label_1>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>DWS-AEGIS-001</g:id>
+        <g:title>DWS IQ Aegis</g:title>
+        <g:description>Single-tenant sovereign AI platform on Finnish infrastructure (UpCloud Kubernetes, Helsinki DC). 21+ industrial AI agents across 21 EU-regulated industries including dual-use critical raw materials. Cross-vertical signal propagation detects compliance cascades invisible to single-industry tools. Sovereignty monitoring, KYA agent governance, EU AI Act Article 12 compliance. CER Directive, CRM Act, KRITIS, NIS2 coverage. Zero CLOUD Act exposure. Available August 2026.</g:description>
+        <g:link>https://dws10.com/products/aegis.html</g:link>
+        <g:image_link>https://dws10.com/static/images/firehorse-aegis-head.png</g:image_link>
+        <g:price>59990.00 EUR</g:price>
+        <g:availability>preorder</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>DWS-AEGIS-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
         <g:custom_label_1>featured</g:custom_label_1>
         <g:target_country>FI</g:target_country>
         <g:content_language>en</g:content_language>
