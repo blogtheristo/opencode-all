@@ -710,8 +710,8 @@ async function buildConstructionLeads(): Promise<string> {
 
   try {
     const summary = await getLeadsSummary();
-    const newLeads = await getNewLeads(1); // last 24h
-    const deadlines = await getUpcomingDeadlines(7); // next 7 days
+    const newLeads = await getNewLeads(); // Uses the lead processor's default "new" window
+    const deadlines = await getUpcomingDeadlines(); // Uses the lead processor's default upcoming-deadlines window
 
     section += `  Total leads: ${summary.total} | New (24h): ${newLeads.length}\n`;
     section += `  High relevance: ${summary.highRelevance} | Deadlines (7d): ${deadlines.length}\n\n`;
