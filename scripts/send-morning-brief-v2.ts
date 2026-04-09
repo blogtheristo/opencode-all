@@ -754,11 +754,13 @@ async function buildConstructionLeads(): Promise<string> {
 async function buildMarketResearch(): Promise<string> {
   // Monday only — market research runs weekly
   const dow = new Date().getDay();
-  if (dow !== 1) return '';
-
   let section = `9. MARKET RESEARCH (Weekly)\n`;
   section += `${'─'.repeat(50)}\n`;
 
+  if (dow !== 1) {
+    section += `  Runs Mondays only\n\n`;
+    return section;
+  }
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_KEY;
 
