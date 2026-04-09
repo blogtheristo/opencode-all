@@ -8,7 +8,7 @@ Version: 3.3
 
 Sessions & Modifications:
 
-- Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: claude/replace-actions-with-cron-6A9Fr | Date: 08.04.2026 | Changes: Added Section 30 (GitHub Actions & Cron Job Registry) — full audit of 35 workflows and 22 cron scripts, removed cron schedules from 7 daily/weekly GitHub Actions (saving ~1,200 min/month), DGX Spark is primary runtime, GitHub Actions failover only with workflow_dispatch
+- Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: claude/replace-actions-with-cron-6A9Fr | Date: 08.04.2026 | Changes: Added Section 32 (GitHub Actions & Cron Job Registry) — full audit of 35 workflows and 22 cron scripts, removed cron schedules from 7 daily/weekly GitHub Actions (saving ~1,200 min/month), DGX Spark is primary runtime, GitHub Actions failover only with workflow_dispatch
 - Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: claude/setup-safety-hooks-vyt21 | Date: 04.04.2026 | Changes: Added Section 30 (Claude Code Safety Hooks Reference) — full documentation of 12 hooks across 4 event types, deny patterns, secret scanner patterns, SQL safety rules, file protection rules, trust boundary zones, audit logging, testing instructions; updated Section 27.3 hooks summary to reflect current state
 - Version: 3.1 | Tool: Claude Code (Opus 4.6) | Session: claude/dgx-spark-setup-UN9WR | Date: 29.03.2026 | Changes: Updated Section 29 — DGX Spark fully deployed: 4 Docker containers healthy, Cloudflare Tunnel (heartbeat.dws6.com) as systemd service, §29.11 Cloudflare Tunnel setup, §29.12 Docker container reference, §29.9 secrets updated with live values, deployment verification checklist
 - Version: 3.0 | Tool: Claude Code (Opus 4.6) | Session: claude/dgx-spark-setup-UN9WR | Date: 29.03.2026 | Changes: Added Section 29 (DGX Spark Primary 24/7 Runtime) — full admin documentation for DGX Spark setup, SSH access, day-runner, script auto-discovery, failover, troubleshooting
@@ -85,7 +85,7 @@ Document Status:
 27. [Claude Code Project Engineering Structure](#claude-code-project-engineering-structure) ⭐ **NEW in v2.6**
 28. [Carbon Balance Sheet & Compliance Ledger](#carbon-balance-sheet--compliance-ledger) ⭐ **NEW in v2.9**
 29. [Claude Code Safety Hooks Reference](#section-30-claude-code-safety-hooks-reference) ⭐ **NEW in v3.2**
-30. [GitHub Actions & Cron Job Registry](#github-actions--cron-job-registry) ⭐ **NEW in v3.3**
+30. [GitHub Actions & Cron Job Registry](#section-32-github-actions--cron-job-registry) ⭐ **NEW in v3.3**
 
 **Appendices**
 
@@ -3816,11 +3816,11 @@ The DWS autoresearch implementation adapts Karpathy's pattern for KYA (Know Your
 
 ---
 
-## GitHub Actions & Cron Job Registry
+## Section 32: GitHub Actions & Cron Job Registry
 
 > **Added v3.3 (08.04.2026)** — Full audit of 35 GitHub Actions workflows and 22+ DGX Spark cron scripts. As of 2026-04-08, **DGX Spark is the primary runtime** for all scheduled automation. GitHub Actions retains only CI/CD (PR/push-triggered) workflows and manual dispatch fallbacks.
 
-### 30.1 Architecture: DGX Spark Primary, GitHub Actions Failover
+### 32.1 Architecture: DGX Spark Primary, GitHub Actions Failover
 
 ```
 DGX Spark (24/7)                    GitHub Actions (CI/CD only)
@@ -3834,7 +3834,7 @@ DGX Spark (24/7)                    GitHub Actions (CI/CD only)
 
 **Why:** GitHub Actions free tier = 3,000 min/month. Scheduled workflows consumed ~1,200 min/month on timer checks alone. DGX Spark runs 24/7 with no minute limits.
 
-### 30.2 DGX Spark Cron Scripts (Primary)
+### 32.2 DGX Spark Cron Scripts (Primary)
 
 Auto-discovered by `infrastructure/dgx-spark/day-runner.sh`. No config needed — drop a script in the right folder.
 
@@ -3879,7 +3879,7 @@ None currently. Place scripts here for hourly execution.
 
 Run after every `git pull` that has new commits.
 
-### 30.3 GitHub Actions — Schedule REMOVED (Manual Dispatch Only)
+### 32.3 GitHub Actions — Schedule REMOVED (Manual Dispatch Only)
 
 These workflows had their `schedule` (cron) triggers removed on 2026-04-08. They remain available via `workflow_dispatch` (manual trigger from GitHub UI) as fallback.
 
@@ -3894,7 +3894,7 @@ These workflows had their `schedule` (cron) triggers removed on 2026-04-08. They
 | `market-research-weekly.yml` | `0 7 * * 1` (Monday)               | ~43 min               | `scripts/weekly/market-research.sh`                 |
 | **TOTAL SAVED**              |                                    | **~1,184 min/month**  |                                                     |
 
-### 30.4 GitHub Actions — Schedule ACTIVE (Remain in Actions)
+### 32.4 GitHub Actions — Schedule ACTIVE (Remain in Actions)
 
 These workflows keep their cron schedules because they need GitHub API access (issue creation, PR comments, security events) that DGX Spark doesn't have.
 
@@ -3914,7 +3914,7 @@ These workflows keep their cron schedules because they need GitHub API access (i
 
 **Migration note:** If `gh` CLI is installed on DGX Spark, these could also move to cron. For now they stay in Actions due to GitHub API dependency.
 
-### 30.5 GitHub Actions — PR/Push-Triggered (CI/CD)
+### 32.5 GitHub Actions — PR/Push-Triggered (CI/CD)
 
 These run only on code changes and are essential CI/CD gates. No changes needed.
 
@@ -3935,21 +3935,21 @@ These run only on code changes and are essential CI/CD gates. No changes needed.
 | `dependency-submission.yml`   | Push deps + manual         | Dependency snapshot              |
 | `no-delete-branch-guard.yml`  | Branch delete event        | Auto-restore deleted branches    |
 
-### 30.6 GitHub Actions — Deployment Workflows
+### 32.6 GitHub Actions — Deployment Workflows
 
 | Workflow               | Trigger              | Purpose                                    |
 | ---------------------- | -------------------- | ------------------------------------------ |
 | `deploy-dgx-spark.yml` | Push main (filtered) | SSH to DGX Spark, git pull, docker rebuild |
 | `deploy-scaleway.yml`  | Push main + manual   | Docker build, Scaleway deploy              |
 
-### 30.7 GitHub Actions — Manual Dispatch Only
+### 32.7 GitHub Actions — Manual Dispatch Only
 
 | Workflow            | Purpose                     |
 | ------------------- | --------------------------- |
 | `ruff-auto-fix.yml` | Ruff auto-fix + PR creation |
 | `pr-auto-merge.yml` | Auto-merge ai-approved PRs  |
 
-### 30.8 Morning Brief V2 Sections
+### 32.8 Morning Brief V2 Sections
 
 The Morning Brief V2 (`scripts/send-morning-brief-v2.ts`) sends one combined email at 06:00 Helsinki time (Mon-Sat). As of v3.0 it has 10 sections:
 
@@ -3968,7 +3968,7 @@ The Morning Brief V2 (`scripts/send-morning-brief-v2.ts`) sends one combined ema
 
 **Sections 7-9** were added 2026-04-08 to surface campaign posts and construction leads that previously only ran as GitHub Actions with no email notification. Market research signals are surfaced on Mondays after the weekly collection.
 
-### 30.9 Backup Infrastructure Audit
+### 32.9 Backup Infrastructure Audit
 
 | Backup Type             | Script/Workflow                      | Schedule             | Storage                    | Retention      |
 | ----------------------- | ------------------------------------ | -------------------- | -------------------------- | -------------- |
@@ -3980,7 +3980,7 @@ The Morning Brief V2 (`scripts/send-morning-brief-v2.ts`) sends one combined ema
 
 **Git sync verification:** The day-runner runs `git fetch origin main` every 5 minutes and `git reset --hard origin/main` when behind. This ensures DGX Spark always has the latest code, which means backup scripts always backup the latest state.
 
-### 30.10 Cost Impact Summary
+### 32.10 Cost Impact Summary
 
 | Before (March 2026)           | After (April 2026)                          |
 | ----------------------------- | ------------------------------------------- |
