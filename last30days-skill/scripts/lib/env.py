@@ -37,7 +37,7 @@ def get_config() -> dict[str, Any]:
     file_env = load_env_file(CONFIG_FILE)
 
     # Environment variables override file
-    config = {
+    return {
         "OPENAI_API_KEY": os.environ.get("OPENAI_API_KEY")
         or file_env.get("OPENAI_API_KEY"),
         "XAI_API_KEY": os.environ.get("XAI_API_KEY") or file_env.get("XAI_API_KEY"),
@@ -50,8 +50,6 @@ def get_config() -> dict[str, Any]:
         "XAI_MODEL_PIN": os.environ.get("XAI_MODEL_PIN")
         or file_env.get("XAI_MODEL_PIN"),
     }
-
-    return config
 
 
 def config_exists() -> bool:

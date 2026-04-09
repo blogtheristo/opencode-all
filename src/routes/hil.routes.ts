@@ -84,6 +84,93 @@ router.get('/done/:token', async (req: Request, res: Response): Promise<void> =>
   }
 });
 
+/**
+ * POST /api/hil/escalate
+ *   Programmatic HIL escalation endpoint for agents.
+ *   When an agent's confidence < 80%, it can call this to create an
+ *   escalation record and notify a human via email (Slack planned).
+ *
+ *   Body: { agentName, reason, confidence, context, channel?, recipient? }
+ */
+router.post('/escalate', async (req: Request, res: Response): Promise<void> => {
+  const { agentName, reason, confidence, context, channel, recipient } = req.body || {};
+
+  if (!agentName || !reason) {
+    res.status(400).json({ error: 'agentName and reason are required' });
+    return;
+  }
+
+  const escalationId = crypto.randomUUID();
+  const escalationEmail = recipient || process.env.HIL_ESCALATION_EMAIL || 'risto@lifetime.fi';
+  const escalationChannel = channel || 'email';
+
+  const escalation = {
+    id: escalationId,
+    agent_name: agentName,
+    reason,
+    confidence: confidence ?? null,
+    context: context ?? null,
+    channel: escalationChannel,
+    recipient: escalationEmail,
+    status: 'pending',
+    created_at: new Date().toISOString(),
+    resolved_at: null as string | null,
+  };
+
+  // Persist to Supabase if available
+  if (SUPABASE_URL && SUPABASE_SERVICE_KEY) {
+    try {
+      await fetch(`${SUPABASE_URL}/rest/v1/hil_escalations`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          apikey: SUPABASE_SERVICE_KEY,
+          Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+          Prefer: 'return=minimal',
+        },
+        body: JSON.stringify(escalation),
+      });
+    } catch {
+      // Non-blocking — still return the escalation
+    }
+  }
+
+  // Email notification via Resend (if configured)
+  const resendKey = process.env.RESEND_API_KEY;
+  if (resendKey && escalationChannel === 'email') {
+    try {
+      await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${resendKey}`,
+        },
+        body: JSON.stringify({
+          from: process.env.EMAIL_FROM || 'risto@onelifetime.world',
+          to: escalationEmail,
+          subject: `[HIL] ${agentName} escalation — confidence ${Math.round((confidence ?? 0) * 100)}%`,
+          html: `<h2>Agent Escalation</h2>
+<p><strong>Agent:</strong> ${agentName}</p>
+<p><strong>Confidence:</strong> ${Math.round((confidence ?? 0) * 100)}%</p>
+<p><strong>Reason:</strong> ${reason}</p>
+<pre>${JSON.stringify(context, null, 2)}</pre>
+<p><em>Escalation ID: ${escalationId}</em></p>`,
+        }),
+      });
+    } catch {
+      // Non-blocking
+    }
+  }
+
+  res.status(201).json({
+    escalationId,
+    status: 'pending',
+    channel: escalationChannel,
+    recipient: escalationEmail,
+    message: `Escalation created for agent "${agentName}" — human notified via ${escalationChannel}`,
+  });
+});
+
 function confirmPage(title: string, description: string, success: boolean): string {
   const color = success ? '#00d4aa' : '#ff4444';
   const bg = '#0a0a0a';

@@ -14,6 +14,11 @@
 .PARAMETER BranchName
     Name of the branch to create/checkout. Also used as the worktree folder name.
 
+.PARAMETER PrNumber
+    Pull request number used to derive naming:
+    - Branch defaults to: claude/pr-<number>
+    - Worktree folder defaults to: pr-<number>
+
 .PARAMETER BaseBranch
     Branch to base the new branch on (default: main).
 
@@ -35,6 +40,9 @@
     .\New-ClaudeWorktree.ps1 -BranchName "feature-auth-improvements"
 
 .EXAMPLE
+    .\New-ClaudeWorktree.ps1 -PrNumber 769 -BaseBranch "main" -LaunchClaude
+
+.EXAMPLE
     .\New-ClaudeWorktree.ps1 -BranchName "fix-api-bug" -BaseBranch "develop" -LaunchClaude
 
 .NOTES
@@ -44,15 +52,22 @@
     - https://www.geeky-gadgets.com/how-to-use-git-worktrees-with-claude-code-for-seamless-multitasking/
 #>
 param(
-    [Parameter(Mandatory = $true)]
-    [ValidatePattern('^[a-zA-Z0-9_-]+$')]
+    [Parameter(Mandatory = $false)]
+    [ValidatePattern('^[a-zA-Z0-9_./-]+$')]
     [string]$BranchName,
+
+    [Parameter(Mandatory = $false)]
+    [ValidateRange(1, 2147483647)]
+    [int]$PrNumber,
 
     [string]$BaseBranch = "main",
 
     [string]$WorktreeRoot,
 
     [string]$MainRepo,
+
+    [ValidatePattern('^[a-zA-Z0-9_-]+$')]
+    [string]$WorktreeName,
 
     [switch]$NoVenvSymlink,
 
@@ -139,6 +154,26 @@ Write-Host "`n========================================" -ForegroundColor Cyan
 Write-Host "  DWS6 Claude Worktree Creator" -ForegroundColor Cyan
 Write-Host "========================================`n" -ForegroundColor Cyan
 
+# Derive naming from PR number when provided
+if (-not $BranchName) {
+    if ($PrNumber -gt 0) {
+        $BranchName = "claude/pr-$PrNumber"
+    }
+    else {
+        Write-Error "Specify -BranchName or -PrNumber."
+        exit 1
+    }
+}
+
+if (-not $WorktreeName) {
+    if ($PrNumber -gt 0) {
+        $WorktreeName = "pr-$PrNumber"
+    }
+    else {
+        $WorktreeName = ($BranchName -replace '[^a-zA-Z0-9_-]', '-').Trim('-')
+    }
+}
+
 # Resolve main repository path
 if (-not $MainRepo) {
     $MainRepo = Get-MainRepoPath
@@ -167,7 +202,7 @@ if (-not (Test-Path -Path $WorktreeRoot)) {
 }
 
 # Define new worktree path
-$newWorktreePath = "$WorktreeRoot/$BranchName"
+$newWorktreePath = "$WorktreeRoot/$WorktreeName"
 
 if (Test-Path -Path $newWorktreePath) {
     Write-Error "Worktree path already exists: $newWorktreePath"
@@ -557,6 +592,9 @@ Write-Host "  WORKTREE CREATED SUCCESSFULLY" -ForegroundColor Cyan
 Write-Host "----------------------------------------" -ForegroundColor Cyan
 Write-Host "  Path:   $newWorktreePath" -ForegroundColor White
 Write-Host "  Branch: $BranchName" -ForegroundColor White
+if ($PrNumber -gt 0) {
+    Write-Host "  PR:     #$PrNumber" -ForegroundColor White
+}
 Write-Host "----------------------------------------`n" -ForegroundColor Cyan
 
 # List all worktrees

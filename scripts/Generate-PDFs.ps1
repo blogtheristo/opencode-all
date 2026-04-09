@@ -3,7 +3,7 @@
     Generates PDF or HTML versions of key Admin Manual, sales, and investor files.
 
 .DESCRIPTION
-    Version: 1.5
+    Version: 1.6
 
     CHANGE LOG:
       v1.0 - 06.02.2026 - Initial: pandoc + pdflatex, 16 source files

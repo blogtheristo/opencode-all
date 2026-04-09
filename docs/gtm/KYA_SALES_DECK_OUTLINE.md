@@ -122,7 +122,7 @@ ATS = 1.0 - V×0.25 - L - D×0.05 + A×0.18
 | Petroleum Refining | 9–13% | €1.2M–€6.1M |
 | Pharma & Biotech | 15–22% | €5M–€45M |
 
-**Pricing:** €0.02/agent/hour governance + 7.5% Alpha-Share of attributed gains
+**Pricing:** €499–€1,999/mo SaaS subscription + API transaction fees
 
 **ROI at scale:** 14–51x
 
@@ -187,7 +187,7 @@ ATS = 1.0 - V×0.25 - L - D×0.05 + A×0.18
 |------|----------|---------|
 | **Technical Evaluation** | 2 weeks | Helsinki Sandbox access, ATS demo, architecture review |
 | **Pilot (1 industry)** | 90 days | Production KYA deployment, measured efficiency gains |
-| **Enterprise License** | 6 months | Full 20-industry deployment, Alpha-Share model |
+| **Enterprise License** | 6 months | Full 20-industry deployment, custom SaaS pricing |
 
 **Contact:** Risto Anton, Lead Architect
 risto@onelifetime.world | Lifetime Oy, Helsinki

@@ -153,11 +153,11 @@ export function createRateLimiter(config: RateLimitConfig) {
         }
       }
 
-      next();
+      return next();
     } catch (error) {
       // If rate limiting fails, allow the request (fail-open)
       logger.error('Rate limiter error', { error: (error as Error).message });
-      next();
+      return next();
     }
   };
 }

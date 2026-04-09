@@ -13,6 +13,11 @@
 .PARAMETER FeatureName
     Short name for the feature (used in branch name). Default: morning-<date>.
 
+.PARAMETER PrNumber
+    Pull request number used to derive branch/worktree naming:
+    - Branch: claude/pr-<number>
+    - Worktree folder: pr-<number>
+
 .PARAMETER BaseBranch
     Branch to base the feature branch on (default: main).
 
@@ -33,10 +38,17 @@
 
 .EXAMPLE
     .\morning-feature-workflow.ps1 -FeatureName "v2-carbon-reporting" -RunFixAgent
+
+.EXAMPLE
+    .\morning-feature-workflow.ps1 -PrNumber 769 -UseWorktree
 #>
 param(
     [Parameter(Mandatory = $false)]
     [string]$FeatureName,
+
+    [Parameter(Mandatory = $false)]
+    [ValidateRange(1, 2147483647)]
+    [int]$PrNumber,
 
     [string]$BaseBranch = "main",
 
@@ -58,10 +70,15 @@ if (-not $repoRoot -or -not (Test-Path (Join-Path $repoRoot ".git"))) {
 }
 $repoRoot = $repoRoot -replace '\\', '/'
 
-# Branch name: claude/<feature>-<date> or feature/<feature>-<date>
+# Branch naming
 $dateStr = Get-Date -Format "yyyyMMdd"
-$name = if ($FeatureName) { $FeatureName } else { "morning-$dateStr" }
-$branchName = "claude/$name"
+if ($PrNumber -gt 0) {
+    $branchName = "claude/pr-$PrNumber"
+}
+else {
+    $name = if ($FeatureName) { $FeatureName } else { "morning-$dateStr" }
+    $branchName = "claude/$name"
+}
 
 Write-Host ""
 Write-Host "========================================" -ForegroundColor Cyan
@@ -75,8 +92,14 @@ if ($UseWorktree) {
         Write-Error "New-ClaudeWorktree.ps1 not found at $worktreeScript"
         exit 1
     }
-    Write-Host "[Worktree mode] Creating worktree for branch: $branchName" -ForegroundColor Yellow
-    & $worktreeScript -BranchName $branchName -BaseBranch $BaseBranch
+    if ($PrNumber -gt 0) {
+        Write-Host "[Worktree mode] Creating PR worktree: #$PrNumber ($branchName)" -ForegroundColor Yellow
+        & $worktreeScript -PrNumber $PrNumber -BaseBranch $BaseBranch
+    }
+    else {
+        Write-Host "[Worktree mode] Creating worktree for branch: $branchName" -ForegroundColor Yellow
+        & $worktreeScript -BranchName $branchName -BaseBranch $BaseBranch
+    }
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
     Write-Host ""
     Write-Host "Worktree created. Cd into the worktree and run build/test there, or run this script again without -UseWorktree." -ForegroundColor Green

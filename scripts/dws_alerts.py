@@ -17,7 +17,7 @@ Date: 2026-02-10
 import json
 import os
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 try:
     import httpx
@@ -60,7 +60,7 @@ def publish_alert(severity: str, title: str, message: str, details: dict,
         "title": title,
         "message": message,
         "details": details,
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
     }
 
     if dry_run:
@@ -69,7 +69,7 @@ def publish_alert(severity: str, title: str, message: str, details: dict,
         return alert
 
     if redis_lib is None:
-        print(f"  [SKIP] Redis not available")
+        print("  [SKIP] Redis not available")
         return alert
 
     try:
@@ -115,12 +115,11 @@ def get_advisor_lint() -> list[dict]:
         resp = httpx.get(url, headers=headers, timeout=15)
         if resp.status_code == 200:
             return resp.json()
-        elif resp.status_code == 401:
+        if resp.status_code == 401:
             print("[ERROR] Invalid SUPABASE_ACCESS_TOKEN. Regenerate at supabase.com/dashboard/account/tokens")
             return []
-        else:
-            print(f"[ERROR] Supabase API returned {resp.status_code}: {resp.text[:200]}")
-            return []
+        print(f"[ERROR] Supabase API returned {resp.status_code}: {resp.text[:200]}")
+        return []
     except Exception as e:
         print(f"[ERROR] Failed to reach Supabase Management API: {e}")
         return []
@@ -256,7 +255,7 @@ def run_advisor_check(channel: str = REDIS_CHANNEL, dry_run: bool = False) -> in
     elif warnings:
         print(f"  RESULT: {len(warnings)} warnings. No critical issues.")
     else:
-        print(f"  RESULT: All clear. No significant advisories.")
+        print("  RESULT: All clear. No significant advisories.")
     print(f"{'=' * 60}")
 
     return total

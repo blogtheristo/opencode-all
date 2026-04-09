@@ -334,7 +334,7 @@ The Firehorse Solution Factory model synthesizes the aforementioned theoretical 
 |  STRATEGIC LAYER (Business Model)                                   |
 |  +- Lifetime World Model (55B) -> Cross-vertical intelligence      |
 |  +- 8 vertical templates -> Reusable agent configurations          |
-|  +- Free-tier bootstrap -> $15K credits = 6+ years runway          |
+|  +- AI-Assisted Development -> Cursor Pro + Claude Code Max         |
 |  +- EU compliance moat -> Fit for 55, NIS2, GDPR                  |
 |                                                                     |
 |  OPERATIONAL LAYER (AgentFoundry + Lifetime Scope Signals)          |
@@ -352,7 +352,7 @@ The Firehorse Solution Factory model synthesizes the aforementioned theoretical 
 +-------------------------------------------------------------------+
 ```
 
-This conceptual model provides a replicable framework for other industrial AI startups seeking to achieve product-market fit while keeping operational costs low through the strategic use of startup credits, edge computing, and multi-agent coordination.
+This conceptual model provides a replicable framework for other industrial AI startups seeking to achieve product-market fit while keeping operational costs low through AI-assisted development, edge computing, and multi-agent coordination.
 
 ---
 
@@ -555,24 +555,14 @@ The Solution Factory model transforms DWS6 from a single product into a replicab
 
 ### 4.1.2 Strategic Innovations
 
-**1. Free-Tier Bootstrap Strategy**
-Leveraging $15,300 in startup credits from providers:
-
-| Provider | Credit | Duration | Status |
-|----------|--------|----------|--------|
-| Groq | $10,000 | 12 months | Active |
-| Google Cloud | $300 | 3 months | Active |
-| AWS | $5,000 | 24 months | Active |
-| **Total** | **$15,300** | **6+ years runway** | - |
-
-**2. EU Compliance as Competitive Advantage**
+**1. EU Compliance as Competitive Advantage**
 
 - Data residency: europe-north1 (Finland/Sweden)
 - EU AI Act: Low-risk classification with human oversight
 - NIS2: Security by design for critical infrastructure customers
 - Fit for 55: Native carbon tracking for 2028 deadline
 
-**3. Network Effects Across Verticals**
+**2. Network Effects Across Verticals**
 
 - Logistics route optimization data -> Construction delivery scheduling
 - Manufacturing quality data -> Real estate maintenance prediction
@@ -672,9 +662,9 @@ AgentFoundry is a multi-model, multi-tenant framework for deploying AI agents ac
 
 | Phase | Cost | Technology |
 |-------|------|------------|
-| **MVP** | EUR 0/month | Groq $10K credits + Cloud Run free tier |
-| **Alpha** | EUR 50-150/month | Groq + Supabase Pro |
-| **V1** | EUR 350/month | Groq + Supabase + Monitoring |
+| **MVP** | EUR 0/month | NVIDIA Connect partnership + Cloud Run free tier |
+| **Alpha** | EUR 50-150/month | NVIDIA Connect + Supabase Pro |
+| **V1** | EUR 350/month | NVIDIA Connect + Supabase + Monitoring |
 
 ## 4.5 Go-to-Market Strategy
 
@@ -1100,7 +1090,6 @@ The 2-month payback promise has been validated with real customer deployments:
 
 ### Threats
 - Big tech market entry
-- Credit expiration (12 months)
 - Competition from established players
 
 ---
@@ -1109,11 +1098,11 @@ The 2-month payback promise has been validated with real customer deployments:
 
 ## 9.1 Key Findings and Implications
 
-### 9.1.1 Validation of the Free-Tier Bootstrap Model
+### 9.1.1 Validation of the AI-Assisted Development Model
 
-**Finding 1: Startup credits as a substitute for venture capital**
-- $15,300 in startup credits provides 6+ years of infrastructure runway
-- Eliminates the need for early-stage infrastructure investment
+**Finding 1: AI tooling as development accelerator**
+- Cursor Pro + Claude Code Max enabled 15-week MVP development by a single developer
+- +62% development velocity compared to traditional development
 
 **Finding 2: Edge AI provides sustainable cost advantage**
 - 82% cost reduction vs. cloud-only architecture
@@ -1255,7 +1244,7 @@ The Omnibus package **strengthens** the Firehorse model's competitiveness: clima
 |                                                                          |
 |  PROBLEM                          |  SOLUTION                           |
 |  * EU compliance deadlines        |  * Phased AI deployment             |
-|  * High SaaS costs                |  * Free-tier bootstrap              |
+|  * High SaaS costs                |  * AI-assisted development          |
 |    (EUR 1,400+)                   |  * Edge AI (<100ms)                 |
 |  * Cloud-only latency             |  * EUR 0-350/month pricing          |
 |  * No SME-accessible options      |                                     |
@@ -1280,7 +1269,7 @@ The Omnibus package **strengthens** the Firehorse model's competitiveness: clima
 |                                                                          |
 |  COST STRUCTURE                   |  REVENUE STREAMS                    |
 |  * EUR 0-350/month infrastructure |  * SaaS subscriptions               |
-|  * Startup credits ($15K)         |  * Edge hardware margin             |
+|  * Cursor Pro + Claude Code Max    |  * Edge hardware margin             |
 |  * Single developer (bootstrap)   |  * Professional services            |
 |  * No marketing spend (organic)   |  * Solution Factory licensing       |
 |                                   |                                     |
@@ -1436,7 +1425,7 @@ Your code will be watched -- write accordingly."
 **Key Contributions:**
 1. Lifetime Scope Signals Protocol — Novel multi-agent coordination framework
 2. Solution Factory Model — Replicable industrial AI platform blueprint
-3. Free-Tier Bootstrap Strategy — Startup credits as substitute for venture capital
+3. AI-Assisted Development Model — Cursor Pro + Claude Code Max enabling rapid 15-week MVP
 4. Phased Deployment Framework — Building trust for AI in regulated industries
 5. DWS10.com E-Commerce Validation — Google Merchant Center + Revolut Business
 6. HIL Learning Pipeline — Daily human-AI feedback loop

@@ -36,6 +36,16 @@ import logger from '../utils/logger.js';
 import { BaseAgent } from './base.agent.js';
 import type { AgentContext, AgentResponse } from './types.js';
 
+// Lazy import to avoid circular dependency
+let _registry: { executeAgent: (name: string, context: AgentContext, input: Record<string, unknown>) => Promise<AgentResponse> } | null = null;
+async function getRegistry() {
+  if (!_registry) {
+    const mod = await import('./index.js');
+    _registry = mod.agentRegistry;
+  }
+  return _registry;
+}
+
 // ============ INPUT INTERFACES ============
 
 interface Vehicle {
@@ -216,7 +226,7 @@ export class LogisticsAgent extends BaseAgent {
           ({ result, reasoning, recommendations } = this.runSupplyChainCarbon(validated));
           break;
         case 'full-assessment':
-          ({ result, reasoning, recommendations } = this.runFullAssessment(validated));
+          ({ result, reasoning, recommendations } = await this.runFullAssessment(validated, context));
           break;
         default:
           throw new Error(`Unknown action: ${validated.action}`);
@@ -635,14 +645,15 @@ export class LogisticsAgent extends BaseAgent {
     };
   }
 
-  private runFullAssessment(input: LogisticsInput): {
+  private async runFullAssessment(input: LogisticsInput, context: AgentContext): Promise<{
     result: Record<string, unknown>;
     reasoning: string;
     recommendations: string[];
-  } {
+  }> {
     const allRecommendations: string[] = [];
     const results: Record<string, unknown> = {};
 
+    // Local sub-assessments (always available)
     if (input.fleet) {
       const fleet = this.runFleetCompliance(input);
       results.fleet = fleet.result;
@@ -673,6 +684,32 @@ export class LogisticsAgent extends BaseAgent {
       allRecommendations.push(...carbon.recommendations);
     }
 
+    // Delegate to sub-agents for deeper analysis (graceful fallback)
+    const delegatedResults: Record<string, AgentResponse | null> = {};
+    try {
+      const registry = await getRegistry();
+      if (registry && input.materials) {
+        // Emissions data analyst for Scope 3 reporting
+        await registry.executeAgent('emissions-data-analyst', context, {
+          query: 'Analyze transport emissions for CSRD Scope 3 Category 4',
+          data: input.materials,
+        }).then(r => { delegatedResults['emissions-data-analyst'] = r; }).catch(e => {
+          logger.warn('EmissionsDataAnalyst delegation failed', { error: (e as Error).message });
+        });
+      }
+    } catch (err) {
+      logger.warn('Sub-agent delegation unavailable — using local results only', {
+        error: (err as Error).message,
+      });
+    }
+
+    // Merge sub-agent recommendations
+    for (const [agentName, response] of Object.entries(delegatedResults)) {
+      if (response?.recommendations) {
+        allRecommendations.push(...response.recommendations.map(r => `[${agentName}] ${r}`));
+      }
+    }
+
     const uniqueRecs = [...new Set(allRecommendations)];
     const assessmentCount = Object.keys(results).length;
 
@@ -692,22 +729,25 @@ export class LogisticsAgent extends BaseAgent {
     }
     complianceScore = Math.max(0, Math.round(complianceScore));
 
+    const orchestrated = Object.entries(delegatedResults)
+      .filter(([, r]) => r !== null)
+      .map(([name, r]) => `${name} (confidence: ${r!.confidence})`);
+
     return {
       result: {
         assessmentType: 'full',
         sectionsAnalyzed: assessmentCount,
         overallComplianceScore: complianceScore,
         ...results,
-        agentOrchestration: [
-          'logistics (this agent)',
-          '→ sitesense (weather/site conditions for fleet)',
-          '→ material-oracle (material carbon for CBAM)',
-          '→ emissions-data-analyst (scope 3 reporting)',
-          '→ compliance-researcher (EU transport regulation)',
-        ],
+        delegatedAgents: orchestrated,
+        delegatedResults: Object.fromEntries(
+          Object.entries(delegatedResults)
+            .filter(([, r]) => r !== null)
+            .map(([name, r]) => [name, { confidence: r!.confidence, result: r!.result }])
+        ),
         recommendationCount: uniqueRecs.length,
       },
-      reasoning: `Full logistics assessment: ${assessmentCount} section(s) analyzed. Overall compliance score: ${complianceScore}/100. ${uniqueRecs.length} recommendations generated.`,
+      reasoning: `Full logistics assessment: ${assessmentCount} section(s) analyzed. Overall compliance score: ${complianceScore}/100. ${orchestrated.length} sub-agents delegated. ${uniqueRecs.length} recommendations generated.`,
       recommendations: uniqueRecs,
     };
   }

@@ -244,10 +244,10 @@ EPBD mandates embodied carbon reporting for buildings over 1,000 sqm by 2028. Cu
 |----------|-------|
 | Google for Startups | USD 100,000 |
 | AWS for Startups | USD 25,000 |
-| Groq for Startups | USD 10,000 |
+| NVIDIA Connect (Groq) | Partnership |
 | GitHub Enterprise | Advanced features, 20 seats |
 | NVIDIA hardware | EUR 54,200 |
-| **Total** | **USD 135,000+ credits + EUR 54,200 hardware** |
+| **Total** | **USD 125,000+ credits + EUR 54,200 hardware** |
 
 ### Capital efficiency
 

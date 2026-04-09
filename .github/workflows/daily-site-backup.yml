@@ -12,7 +12,24 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  failover-check:
+    runs-on: ubuntu-latest
+    outputs:
+      dgx_alive: ${{ steps.failover.outputs.dgx_alive }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/actions
+          sparse-checkout-cone-mode: true
+      - name: DGX Spark failover check
+        id: failover
+        uses: ./.github/actions/dgx-failover-check
+        with:
+          heartbeat_url: ${{ secrets.DGX_SPARK_HEARTBEAT_URL }}
+
   backup:
+    needs: failover-check
+    if: needs.failover-check.outputs.dgx_alive != 'true' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     permissions:
       contents: write

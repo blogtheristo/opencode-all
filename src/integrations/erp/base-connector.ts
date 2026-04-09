@@ -15,7 +15,7 @@ import {
   SyncError,
   EntityType,
   SyncStatus,
-  ERPApiResponse
+  ERPApiResponse,
 } from './types';
 
 export abstract class BaseERPConnector {
@@ -31,7 +31,7 @@ export abstract class BaseERPConnector {
     this.config = config;
     this.logger = pino({
       name: `erp-connector-${provider}`,
-      level: process.env.LOG_LEVEL || 'info'
+      level: process.env.LOG_LEVEL || 'info',
     });
 
     // Initialize HTTP client with base configuration
@@ -40,14 +40,14 @@ export abstract class BaseERPConnector {
       timeout: 30000,
       headers: {
         'Content-Type': 'application/json',
-        'User-Agent': 'DWS-IQ-6/1.0'
-      }
+        'User-Agent': 'DWS-IQ-6/1.0',
+      },
     });
 
     // Add request interceptor for authentication
     this.httpClient.interceptors.request.use(
       (config) => this.addAuthHeaders(config),
-      (error) => Promise.reject(error)
+      (error) => Promise.reject(error),
     );
 
     // Add response interceptor for rate limit tracking and error handling
@@ -56,7 +56,7 @@ export abstract class BaseERPConnector {
         this.updateRateLimitInfo(response);
         return response;
       },
-      (error) => this.handleApiError(error)
+      (error) => this.handleApiError(error),
     );
   }
 
@@ -131,13 +131,11 @@ export abstract class BaseERPConnector {
    */
   protected async checkRateLimit(): Promise<void> {
     if (this.rateLimitRemaining <= 0) {
-      const waitTime = this.rateLimitResetAt
-        ? this.rateLimitResetAt.getTime() - Date.now()
-        : 60000; // Default to 1 minute
+      const waitTime = this.rateLimitResetAt ? this.rateLimitResetAt.getTime() - Date.now() : 60000; // Default to 1 minute
 
       if (waitTime > 0) {
         this.logger.warn(
-          `Rate limit exceeded. Waiting ${waitTime}ms until ${this.rateLimitResetAt}`
+          `Rate limit exceeded. Waiting ${waitTime}ms until ${this.rateLimitResetAt}`,
         );
         await this.sleep(waitTime);
       }
@@ -155,7 +153,7 @@ export abstract class BaseERPConnector {
       provider: this.provider,
       status,
       message: error.message,
-      data
+      data,
     });
 
     // Handle specific error codes
@@ -199,11 +197,7 @@ export abstract class BaseERPConnector {
   /**
    * Make a POST request with retry logic
    */
-  protected async post<T>(
-    endpoint: string,
-    data?: any,
-    config?: AxiosRequestConfig
-  ): Promise<T> {
+  protected async post<T>(endpoint: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
     await this.checkRateLimit();
     const response = await this.httpClient.post<T>(endpoint, data, config);
     return response.data;
@@ -212,11 +206,7 @@ export abstract class BaseERPConnector {
   /**
    * Make a PUT request with retry logic
    */
-  protected async put<T>(
-    endpoint: string,
-    data?: any,
-    config?: AxiosRequestConfig
-  ): Promise<T> {
+  protected async put<T>(endpoint: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
     await this.checkRateLimit();
     const response = await this.httpClient.put<T>(endpoint, data, config);
     return response.data;
@@ -237,7 +227,7 @@ export abstract class BaseERPConnector {
   protected createSyncOperation(
     organizationId: string,
     entityType: EntityType,
-    direction: 'to_erp' | 'from_erp'
+    direction: 'to_erp' | 'from_erp',
   ): SyncOperation {
     return {
       id: this.generateId(),
@@ -248,7 +238,7 @@ export abstract class BaseERPConnector {
       status: SyncStatus.IN_PROGRESS,
       startedAt: new Date(),
       recordsProcessed: 0,
-      recordsFailed: 0
+      recordsFailed: 0,
     };
   }
 
@@ -259,19 +249,19 @@ export abstract class BaseERPConnector {
     operation: SyncOperation,
     success: boolean,
     errors: SyncError[] = [],
-    warnings: string[] = []
+    warnings: string[] = [],
   ): SyncResult {
     return {
       success,
       operation: {
         ...operation,
         status: success ? SyncStatus.COMPLETED : SyncStatus.FAILED,
-        completedAt: new Date()
+        completedAt: new Date(),
       },
       processedRecords: operation.recordsProcessed,
       failedRecords: operation.recordsFailed,
       errors,
-      warnings
+      warnings,
     };
   }
 
@@ -283,15 +273,16 @@ export abstract class BaseERPConnector {
     errorCode: string,
     errorMessage: string,
     recordId?: string,
-    retryable: boolean = false
+    retryable: boolean = false,
   ): SyncError {
     return {
       recordId,
       entityType,
       errorCode,
+      code: errorCode,
       errorMessage,
       timestamp: new Date(),
-      retryable
+      retryable,
     };
   }
 
@@ -301,7 +292,7 @@ export abstract class BaseERPConnector {
   protected async batchProcess<T, R>(
     records: T[],
     batchSize: number,
-    processFunction: (batch: T[]) => Promise<R[]>
+    processFunction: (batch: T[]) => Promise<R[]>,
   ): Promise<{ results: R[]; errors: Error[] }> {
     const results: R[] = [];
     const errors: Error[] = [];
@@ -312,7 +303,7 @@ export abstract class BaseERPConnector {
         const batchResults = await processFunction(batch);
         results.push(...batchResults);
         this.logger.info(
-          `Processed batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(records.length / batchSize)}`
+          `Processed batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(records.length / batchSize)}`,
         );
       } catch (error) {
         this.logger.error(`Batch processing failed for batch starting at index ${i}`, { error });
@@ -329,7 +320,7 @@ export abstract class BaseERPConnector {
   protected async retryWithBackoff<T>(
     fn: () => Promise<T>,
     maxRetries: number = 3,
-    initialDelayMs: number = 1000
+    initialDelayMs: number = 1000,
   ): Promise<T> {
     let lastError: Error | undefined;
 
@@ -367,13 +358,11 @@ export abstract class BaseERPConnector {
    * Validate required configuration
    */
   protected validateConfig(requiredFields: string[]): void {
-    const missingFields = requiredFields.filter(
-      (field) => !(this.config as any)[field]
-    );
+    const missingFields = requiredFields.filter((field) => !(this.config as any)[field]);
 
     if (missingFields.length > 0) {
       throw new Error(
-        `Missing required configuration fields for ${this.provider}: ${missingFields.join(', ')}`
+        `Missing required configuration fields for ${this.provider}: ${missingFields.join(', ')}`,
       );
     }
   }
@@ -391,7 +380,7 @@ export abstract class BaseERPConnector {
       failed: operation.recordsFailed,
       duration: operation.completedAt
         ? operation.completedAt.getTime() - operation.startedAt.getTime()
-        : undefined
+        : undefined,
     });
   }
 
@@ -408,7 +397,7 @@ export abstract class BaseERPConnector {
       provider: this.provider,
       enabled: this.config.enabled,
       rateLimitRemaining: this.rateLimitRemaining,
-      rateLimitResetAt: this.rateLimitResetAt
+      rateLimitResetAt: this.rateLimitResetAt,
     };
   }
 }
