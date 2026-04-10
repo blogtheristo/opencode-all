@@ -294,6 +294,8 @@ dws docs get DWS_DATA_STANDARD --section "Retention policy" --format markdown
 
 **Recommendation:** Do not build `dws docs` today as part of this field note. Flag it as a follow-up, evaluate it as a standalone feature after the option 1/2/3 Aspire adoption decision is made. If we adopt option 1 (Aspire dashboard on DGX Spark), `aspire docs` can be proven in our environment first, which gives us a known-good reference before we write our own.
 
+> **See dedicated gap analysis:** `docs/field-notes/2026-04-10-dws-docs-cli-gap-aspire-pattern.md` — expanded treatment of the `dws kb` vs `dws docs` distinction, the decision rule for agents picking between them, and the full Aspire CLI reference for context.
+
 ---
 
 ## 4. What We Don't Know (Honesty Register — updated)
