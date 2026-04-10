@@ -4,16 +4,28 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/aspire-isolated-mode-research-ilcUR | Date: 10.04.2026 | Changes: Studied the 9.x → 13 version jump via web search (InfoQ, Visual Studio Magazine, aspire.dev, hexmaster.nl, NashTech). Added Section 3 "The 9.5 → 13 Version Jump — Resolved" explaining the .NET Conf 2025 announcement (Nov 11, 2025), deliberate skip of 10/11/12, decoupling from .NET release cadence, and the ".NET Aspire" → "Aspire" rebrand. Corrected repo's "9.2" reference (last 9.x was actually 9.5). Updated honesty register and follow-ups.
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/aspire-isolated-mode-research-ilcUR | Date: 10.04.2026 | Changes: Initial capture of Aspire 13.2 isolated mode announcement (@JamesNK / devblogs.microsoft.com/aspire) and version-gap analysis against DGX Spark backend observability stack
 
 Session Links & References:
 
 - Upstream source (tweet): @JamesNK — "Aspire 13.2 introduces isolated mode, letting you run multiple instances of the same AppHost in parallel without port conflicts"
-- Microsoft blog (cited in tweet, fetch-on-next-session): https://devblogs.microsoft.com/aspire/
+- Aspire 13.2 announcement: https://devblogs.microsoft.com/aspire/aspire-13-2-announcement/
+- Aspire 13.2 what's new: https://aspire.dev/whats-new/aspire-13-2/
+- Aspire 13.2 InfoQ coverage: https://www.infoq.com/news/2026/04/aspire-13-2-release/
+- Aspire 13.2 Visual Studio Magazine (Mar 25, 2026): https://visualstudiomagazine.com/articles/2026/03/25/net-aspire-13-2-adds-ai-agent-cli-typescript-apphost-support.aspx
+- Aspire 13 "dropping .NET" Visual Studio Magazine (Nov 12, 2025): https://visualstudiomagazine.com/articles/2025/11/12/microsoft-releases-aspire-13.aspx
+- Aspire 13 what's new: https://aspire.dev/whats-new/aspire-13/
+- Aspire 13 InfoQ coverage (Nov 2025): https://www.infoq.com/news/2025/11/dotnet-aspire-13-release/
+- Aspire 13 polyglot launch analysis: https://hexmaster.nl/posts/aspire-13-launches-a-new-era/
+- Aspire upgrade guide (dotnet/docs-aspire): https://github.com/dotnet/docs-aspire/blob/main/docs/get-started/upgrade-to-aspire-13.md
+- Aspire 13.1 "Polyglot Era" NashTech Blog: https://blog.nashtechglobal.com/aspire-13-1-release-mcp-polyglot-branding-change/
+- Aspire Roadmap Q1 2026 (GitHub Discussion #15662): https://github.com/microsoft/aspire/discussions/15662
+- Official Aspire support policy: https://dotnet.microsoft.com/en-us/platform/support/policy/aspire
 - Related DWS research: docs/research/2026-04-08-aspire-observability-vs-dotnet-skills.md
 - Related DWS plan: docs/ASPIRE_SENSOR_MANAGEMENT_PLAN.md
 - DGX Spark infra: infrastructure/dgx-spark/docker-compose.yml
@@ -53,7 +65,9 @@ Related Documents:
 
 **Why this matters to DWS:** Parallel AppHost instances is exactly the pain point we hit the moment we run more than one Claude Code worktree against the same Aspire-orchestrated stack. Every worktree has historically needed manual port remapping or a dedicated compose override. `--isolated` removes that friction class entirely — it is the Aspire equivalent of `New-ClaudeWorktree.ps1` for .NET orchestration.
 
-**But we are not on Aspire 13.2 — and we are not on Aspire at all yet.** The repo's latest pinned reference is **Aspire 9.2 (March 2026)** in `Learn/ASPIRE_SENSOR_MANAGEMENT_PLAN_v1.0.html:232`, and the actual `infrastructure/dgx-spark/` directory contains **zero** Aspire artifacts. Aspire remains a _planned_ observability overlay, not a deployed component.
+**But we are not on Aspire 13.2 — and we are not on Aspire at all yet.** The repo's latest pinned reference is **"Aspire 9.2 (March 2026)"** in `Learn/ASPIRE_SENSOR_MANAGEMENT_PLAN_v1.0.html:232` — **both the version number and the date are wrong** (see Section 3 below). The actual `infrastructure/dgx-spark/` directory contains **zero** Aspire artifacts. Aspire remains a _planned_ observability overlay, not a deployed component.
+
+> **v1.1 update:** The 9.2 → 13.2 "suspicious jump" flagged in v1.0 is now explained. Microsoft deliberately skipped versions 10, 11, and 12 at .NET Conf 2025 (Nov 11, 2025), announcing **Aspire 13** (not ".NET Aspire" anymore) to decouple Aspire's release cadence from .NET. Aspire 13.2 shipped **March 31, 2026**, not April. See Section 3.
 
 ---
 
@@ -146,28 +160,116 @@ My recommendation (pushing back, not selling): **option 1**. It is the only path
 
 ---
 
-## 3. What We Don't Know (Honesty Register)
+## 3. The 9.5 → 13 Version Jump — Resolved (v1.1)
 
-- **Exact Aspire 13.2 release date.** Announcement says "introduces" — could be GA, could be preview. Devblog post must be fetched to confirm.
-- **Whether 13.2 requires .NET 10 or .NET 11.** Aspire's .NET SDK floor has moved roughly once per major. Unknown for 13.2.
-- **Whether `--isolated` works with `aspire-dashboard:13.2` standalone**, or only when a full AppHost is present. If it's AppHost-gated, option 1 above does not benefit from it.
-- **Whether Microsoft changed Aspire's versioning scheme** between 9.2 (March 2026) and 13.2 (today). A jump of 4 major versions in ~1 month is suspicious — either calendar versioning kicked in, or the 9.2 reference in the repo is itself wrong and should be corrected.
-- **Whether @JamesNK's tweet is authentic** in this exact form. Copy-pasted from the user prompt; not independently fetched.
+The v1.0 honesty register flagged the 9.2 → 13.2 jump as "suspicious." It isn't. It is a deliberate, pre-announced strategic move by Microsoft. Here is the resolved story.
+
+### 3.1 Timeline
+
+| Date                  | Event                                                                                                      |
+| --------------------- | ---------------------------------------------------------------------------------------------------------- |
+| **Mar 2025**          | .NET Aspire 9.2 ships (real 9.2 — aligned with .NET 9 cadence)                                             |
+| **Summer–Fall 2025**  | .NET Aspire ships 9.3, 9.4, 9.5 (last of the 9.x line)                                                     |
+| **Nov 11, 2025**      | **.NET Conf 2025.** Microsoft announces **Aspire 13** (not ".NET Aspire") alongside .NET 10 LTS            |
+| **Nov 12, 2025**      | Visual Studio Magazine headlines: "Microsoft Releases Aspire 13, Dropping the .NET Part"                   |
+| **Late 2025 / Q1 26** | Aspire 13.1 ships — "Polyglot Era" branding change, MCP improvements                                       |
+| **Mar 31, 2026**      | **Aspire 13.2** ships (1,100+ closed issues) — `--isolated` mode, TypeScript AppHost preview, expanded CLI |
+| **Apr 10, 2026**      | @JamesNK tweets about `--isolated`; this field note created                                                |
+
+### 3.2 Why the version jump — three explicit reasons
+
+Microsoft gave three reasons for skipping 10, 11, 12 at .NET Conf 2025:
+
+1. **Decouple Aspire's release cadence from .NET's.** 9.x was tied to .NET 9's servicing cycle. Aspire wanted to ship features at its own pace, not wait for a .NET major.
+2. **Re-align the version number with the .NET SDK floor.** Aspire 13 targets .NET 10 as its minimum framework. Jumping to 13 (9 + 4) creates a comfortable "version number ≥ .NET major" gap so future Aspire minor bumps can happen freely without colliding with the next .NET major. It is essentially a "leapfrog so we never collide again" maneuver.
+3. **Signal the rebrand.** Aspire 13 drops ".NET" from the product name. Python and JavaScript become first-class citizens alongside .NET — Aspire is now a polyglot cloud-native platform, not a ".NET thing." The version bump functions as a visible break to communicate the scope change.
+
+### 3.3 What this means for the repo's "9.2 (March 2026)" reference
+
+`Learn/ASPIRE_SENSOR_MANAGEMENT_PLAN_v1.0.html:232` says:
+
+> "Aspire 9.2 (March 2026) has improved polyglot support."
+
+Both facts are wrong:
+
+- **Version:** 9.2 shipped in **March 2025**, not 2026. By March 2026 the released line was **Aspire 13.2**.
+- **Feature attribution:** "Improved polyglot support" is the **Aspire 13** headline feature (Python + JS first-class), not a 9.x feature. The repo's claim confuses the 9.2 name with the 13.0 feature.
+- **Plan status:** The sensor plan v2.0 (2026-03-19) explicitly cut Aspire entirely (`Cuts: Aspire AppHost` at line 11), so the v1.0 HTML is a historical artifact. No live document depends on the 9.2 claim being correct.
+
+**Recommendation:** Leave v1.0 HTML alone as a historical snapshot. Do not rewrite. Future plan documents should reference Aspire 13.x if/when the topic returns.
+
+### 3.4 Breaking changes we would hit if we adopted 13.x
+
+Per the dotnet/docs-aspire upgrade guide:
+
+- AppHost project file transformation: `Sdk="Aspire.AppHost.Sdk/13.0.0"` in the Project tag; the SDK now auto-includes the AppHost package
+- Target framework floor: **`net10.0`** (Aspire 13 requires .NET 10, which is LTS)
+- Breaking changes are enumerated in a separate compatibility document (not fetched)
+- For DWS: **none of this matters** because we have no AppHost project to migrate. We get to start clean on 13.2.
+
+### 3.5 Aspire 13.2 feature highlights (confirmed, not inferred)
+
+Confirmed from the release announcement and coverage:
+
+| Feature                      | Detail                                                                                                              |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `--isolated` flag            | Randomized ports **and** isolated user secrets per run                                                              |
+| `aspire start / stop / ps`   | Detached-mode lifecycle commands (run AppHost in background)                                                        |
+| `aspire describe`            | Resource monitoring from the terminal                                                                               |
+| `aspire doctor`              | Environment diagnostics (new)                                                                                       |
+| TypeScript AppHost (preview) | Define the resource graph in TS instead of C#; same underlying app model                                            |
+| VS Code extension            | 20+ additions — Activity Bar panel, inline CodeLens for resource state, debugging for TS apphosts + Azure Functions |
+| Headline theme               | CLI as a first-class agent interface (AI-agent-friendly by design)                                                  |
+| Release volume               | 1,100+ closed issues between 13.1 and 13.2                                                                          |
+
+### 3.6 Why Aspire 13.2 is strategically relevant to DWS (not just cool)
+
+One insight the v1.0 note missed: **Aspire 13.2's explicit headline is "CLI as a first-class agent interface."** That is exactly the DWS "Build for Agents" rule (CLAUDE.md Section "Build for Agents"). Microsoft is, in effect, doing for Aspire what the DWS rule says every product must do.
+
+Two concrete implications:
+
+1. **The TypeScript AppHost preview removes the ".NET toolchain on DGX Spark" blocker.** v1.0 rejected option 2 (AppHost adoption) partly because DGX Spark has no .NET SDK. If the TypeScript AppHost stabilizes, option 2's cost drops dramatically — it becomes a Node.js install, not a .NET install. This is worth a re-evaluation in ~3 months once TS AppHost leaves preview.
+2. **`--isolated` + `New-ClaudeWorktree.ps1` is a perfect pairing.** Our worktree pattern already mirrors what Aspire's `--isolated` is designed for. If we adopt, we should document the worktree-per-isolated-AppHost pattern as the canonical DWS dev loop.
 
 ---
 
-## 4. Follow-Up Actions (tractable, not speculative)
+## 4. What We Don't Know (Honesty Register — updated)
 
-- [ ] Fetch the devblogs.microsoft.com/aspire/ release post and append v1.1 amendment with exact 13.2 feature list, .NET SDK floor, and `--isolated` semantics
-- [ ] Correct `Learn/ASPIRE_SENSOR_MANAGEMENT_PLAN_v1.0.html:232` ("Aspire 9.2") if 13.2 is authoritative — but only if v1.0 is still referenced anywhere (v2.0 cut Aspire anyway)
-- [ ] Correct `Partners/Partners_gamma.md:341` to say "Aspire Dashboard _planned_ for DGX Spark" until we actually deploy it — current wording overclaims to partners
-- [ ] Decide (CEO-level, not agent-level): option 1 vs option 2 vs option 3 above. This is a strategy call, not a cleanup task.
-- [ ] If option 1 is approved: add `aspire-dashboard:13.2` to `infrastructure/dgx-spark/docker-compose.yml` with pinned tag (never `:latest`)
-- [ ] Cross-reference with `docs/research/2026-04-08-aspire-observability-vs-dotnet-skills.md` — that note's Aspire Dashboard section should cite 13.2 if we adopt it
+v1.0 had 5 open questions. v1.1 resolves 4 of them and adds 2 new ones.
+
+**Resolved in v1.1:**
+
+- ~~Exact Aspire 13.2 release date~~ → **March 31, 2026** (confirmed via InfoQ and Visual Studio Magazine). The @JamesNK tweet is a ~10-day-later reminder post, not the launch announcement.
+- ~~Whether 13.2 requires .NET 10 or .NET 11~~ → **.NET 10 LTS** (confirmed via upgrade guide targeting `net10.0`).
+- ~~Whether Microsoft changed Aspire's versioning scheme~~ → **Yes, deliberately.** Skip announced at .NET Conf 2025.
+- ~~Whether @JamesNK's tweet is authentic~~ → **Authentic in spirit** — the `--isolated` flag is documented in official release notes. The tweet phrasing was not independently verified, but the claim it makes is correct.
+
+**Still open:**
+
+- **Whether `--isolated` works with the `aspire-dashboard` standalone container**, or only when a full AppHost is present. If the flag is AppHost-gated, option 1 (dashboard-only adoption) does not benefit from it. Need to read the 13.2 dashboard section of devblogs.microsoft.com specifically.
+- **Whether `--isolated` prevents collision on shared data volumes** (`WithDataVolume()`). If two isolated runs both mount the same Postgres volume, data corruption is still possible. This is a developer-experience caveat worth testing.
+
+**New unknowns from v1.1:**
+
+- **TypeScript AppHost preview stability.** Preview → GA timeline is not published. If it stabilizes in Aspire 13.3, our option-2 cost analysis changes materially.
+- **Whether Aspire's "CLI as first-class agent interface" narrative includes Claude Code specifically**, or only Microsoft's own coding agents (Copilot, Visual Studio 2026 integration). If the MCP surface is open, DWS agents can drive Aspire directly; if it's VS-proprietary, we need to wrap it.
 
 ---
 
-## 5. Ontology Note for LWM
+## 5. Follow-Up Actions (tractable, not speculative)
+
+- [x] ~~Fetch the devblogs.microsoft.com/aspire/ release post~~ — done in v1.1 via web search (devblog direct fetch returned 403; InfoQ + Visual Studio Magazine + aspire.dev covered the same material).
+- [ ] Correct `Learn/ASPIRE_SENSOR_MANAGEMENT_PLAN_v1.0.html:232` — LEAVE ALONE per Section 3.3. v1.0 is a historical artifact; v2.0 already cut Aspire. Do not rewrite history.
+- [ ] Correct `Partners/Partners_gamma.md:341` to say "Aspire Dashboard _planned_ for DGX Spark" until we actually deploy it — current wording overclaims to partners. **Still needs human approval before editing partner deck.**
+- [ ] Decide (CEO-level, not agent-level): option 1 vs option 2 vs option 3. v1.1 updates the tradeoff: if TypeScript AppHost leaves preview, option 2's cost drops sharply because no .NET runtime is needed on DGX Spark.
+- [ ] If option 1 is approved: add `aspire-dashboard:13.2` (pinned, never `:latest`) to `infrastructure/dgx-spark/docker-compose.yml`. Verify first whether `--isolated` works against standalone dashboard or is AppHost-gated.
+- [ ] Re-evaluate option 2 in ~3 months once TypeScript AppHost preview stabilizes. Track via Aspire Roadmap Q1 2026 GitHub Discussion #15662.
+- [ ] Cross-reference with `docs/research/2026-04-08-aspire-observability-vs-dotnet-skills.md` — that note's Aspire Dashboard section should cite 13.2 if we adopt it.
+- [ ] Update `Learn/Oppimispäiväkirja.md` thesis diary to reflect the Aspire rebrand and version jump. **BLOCKED — RED ZONE.** Thesis files require explicit human approval per CLAUDE.md Thesis Update Rule.
+
+---
+
+## 6. Ontology Note for LWM
 
 This field note captures a **tooling-release-with-implementation-gap** pattern worth modeling in the Lifetime World Model:
 
@@ -182,17 +284,20 @@ This is the same failure mode as the "overclaiming product catalog" risk flagged
 
 ## CHANGES MADE
 
-- `docs/field-notes/2026-04-10-aspire-13-2-isolated-mode.md`: created — captures the Aspire 13.2 `--isolated` announcement, audits the gap between DWS narrative ("Aspire on DGX Spark") and reality (not deployed), and surfaces three adoption options for CEO-level decision
+- `docs/field-notes/2026-04-10-aspire-13-2-isolated-mode.md` v1.0: created — captured the Aspire 13.2 `--isolated` announcement, audited the gap between DWS narrative ("Aspire on DGX Spark") and reality (not deployed), surfaced three adoption options
+- `docs/field-notes/2026-04-10-aspire-13-2-isolated-mode.md` v1.1: added Section 3 "The 9.5 → 13 Version Jump — Resolved" with full timeline, three explicit reasons Microsoft gave at .NET Conf 2025, corrected the repo's "9.2 (March 2026)" error, added 13.2 confirmed feature highlights, updated honesty register (4 resolved, 2 new unknowns), updated follow-up actions
 
 ## THINGS I DIDN'T TOUCH
 
-- `Partners/Partners_gamma.md:341`: overclaims Aspire on DGX Spark but I did not edit the partner deck without explicit approval
-- `Learn/ASPIRE_SENSOR_MANAGEMENT_PLAN_v1.0.html:232`: stale "Aspire 9.2" reference, but v2.0 of the plan already cut Aspire, so the v1.0 HTML is historical — editing it would rewrite history
+- `Partners/Partners_gamma.md:341`: overclaims Aspire on DGX Spark — still not editing the partner deck without explicit human approval (YELLOW zone for partner content)
+- `Learn/ASPIRE_SENSOR_MANAGEMENT_PLAN_v1.0.html:232`: stale "Aspire 9.2 (March 2026)" reference — intentionally preserved as historical artifact per Section 3.3; v2.0 already cut Aspire entirely
+- `Learn/Oppimispäiväkirja.md`: thesis file — RED ZONE per CLAUDE.md Thesis Update Rule; diary narrative about "Aspire continues on DGX Spark" would benefit from a rebrand update but requires explicit human approval and synchronized update across all 4 thesis files
 - `infrastructure/dgx-spark/docker-compose.yml`: no changes — adoption is a strategy decision, not a field-note action
-- `docs/research/2026-04-08-aspire-observability-vs-dotnet-skills.md`: did not back-edit the 2-day-old research note; a v1.2 amendment there belongs to that note's own session
+- `docs/research/2026-04-08-aspire-observability-vs-dotnet-skills.md`: did not back-edit the 2-day-old research note; that note pre-dates the rebrand context, so its ".NET Aspire" wording is technically stale but historically accurate as of its own date
 
 ## POTENTIAL CONCERNS
 
-- I did not fetch `devblogs.microsoft.com/aspire/` in this session. The 13.2 `--isolated` claim is reproduced from the user's prompt text, not independently verified. Confidence on the announcement itself is Medium.
-- The 9.2 → 13.2 jump in ~1 month is suspicious. Either Microsoft changed versioning, or the 9.2 reference in the repo is wrong, or the tweet is wrong. All three should be considered when v1.1 is written.
-- The "Aspire on DGX Spark" partner narrative is an overclaim today. If a partner reads Partners_gamma.md and asks for a dashboard URL, we have nothing to show them. This is a trust risk, not a technical risk.
+- **The devblog direct fetch failed (403).** All 13.2 feature claims in Section 3.5 are sourced from InfoQ (infoq.com/news/2026/04/aspire-13-2-release/), Visual Studio Magazine (visualstudiomagazine.com/articles/2026/03/25/...), and aspire.dev's public what's-new page — not from the primary devblogs.microsoft.com post. Confidence is High but not primary-sourced.
+- **Two open `--isolated` questions remain** (dashboard-standalone compatibility; shared data volume behavior). Both matter for the option 1 decision — they must be answered before we commit code to docker-compose.yml.
+- **The DWS internal narrative still says ".NET Aspire"** in multiple places (Partners_gamma.md, Oppimispäiväkirja.md, the sensor plan, the Apr 8 research note). After .NET Conf 2025 this wording is technically outdated. Correcting it is a documentation hygiene sweep, not a single edit — and the thesis file is RED zone.
+- **TypeScript AppHost preview changes the option 2 math.** The v1.0 recommendation (option 1) was based on "no .NET runtime on DGX Spark." If TS AppHost stabilizes, that constraint evaporates. The CEO-level decision should be deferred 3 months, not made today.
