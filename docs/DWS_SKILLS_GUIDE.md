@@ -1,18 +1,19 @@
 # DWS Skills & Commands Complete Guide
 
 VERSION AND AGENT HISTORY
-Version: 1.0
+Version: 1.1
 Created: 2026-03-21
 Author: Claude Code (Opus 4.6)
-Session: claude/research-superpowers-dws-AWAYB
+Session: claude/connect-kya-dws-cli-0MMIB
 Tool: Claude Code CLI
 Status: Published
 
+- Version: 1.1 | Agent: Claude Code (Opus 4.6) | Date: 10.04.2026 | Session: claude/connect-kya-dws-cli-0MMIB | Changes: Added /kya and /kb slash commands to sections 7.1 and 7.2 (new "Runtime Safety & Knowledge" section); renumbered following sections; updated skill count from 20 to 22; added /kya and /kb rows to Quick Reference.
 - Version: 1.0 | Agent: Claude Code (Opus 4.6) | Date: 21.03.2026 | Session: claude/research-superpowers-dws-AWAYB
 
 ## 1. Overview
 
-DWS IQ 6 provides **20 skills** for AI coding agents — 17 slash commands in `.claude/commands/` and 3 composable discipline skills in `skills/`. This guide explains every skill: what it does, when to use it, and how skills connect into workflows.
+DWS IQ 6 provides **22 skills** for AI coding agents — 19 slash commands in `.claude/commands/` and 3 composable discipline skills in `skills/`. This guide explains every skill: what it does, when to use it, and how skills connect into workflows.
 
 **Audience:** Human-in-the-loop (HIL) operators, developers using Claude Code, Cursor, or VS Code with DWS6.
 
@@ -20,10 +21,10 @@ DWS IQ 6 provides **20 skills** for AI coding agents — 17 slash commands in `.
 
 ## 2. Skill Types
 
-| Type | Location | Invocation | Purpose |
-|------|----------|------------|---------|
-| Slash commands | `.claude/commands/*.md` | `/skill-name` in Claude Code | Agent-executable workflows |
-| Discipline skills | `skills/*/SKILL.md` | Auto-loaded by context | Hard gates and process rules |
+| Type              | Location                | Invocation                   | Purpose                      |
+| ----------------- | ----------------------- | ---------------------------- | ---------------------------- |
+| Slash commands    | `.claude/commands/*.md` | `/skill-name` in Claude Code | Agent-executable workflows   |
+| Discipline skills | `skills/*/SKILL.md`     | Auto-loaded by context       | Hard gates and process rules |
 
 **Slash commands** are interactive — the user triggers them with `/command`. They produce structured output.
 
@@ -64,6 +65,7 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 **Trigger phrases:** "review my code", "code review", "check for bugs", "is this safe to ship"
 
 **Checklist:**
+
 - Correctness: logic errors, off-by-one, race conditions, null pointers
 - Security: no exec() with string interpolation, no CORS wildcards, SRI hashes on CDN deps
 - Performance: N+1 queries, memory leaks, unnecessary re-renders
@@ -126,6 +128,7 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 **What it does:** Triggers multi-agent workflows that chain or parallelize several agents. Returns a unified report.
 
 **Available workflows:**
+
 - `compliance-assessment` — Full EU regulatory compliance (ETS + CBAM + CSRD + AI Act)
 - `construction-full` — Site safety + materials + scheduling + logistics
 - `seo-pipeline` — SEO audit + competitor analysis + content recommendations
@@ -191,6 +194,7 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 **What it does:** Sends emails via Amazon SES (primary) or Resend (fallback). Supports single send, batch send, delivery status check, and outreach digest triggers.
 
 **Important rules:**
+
 - Always sends from `risto@onelifetime.world` (verified domain)
 - Never uses noreply@ addresses
 - Transport cascade: SES first, Resend fallback
@@ -205,9 +209,51 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 
 **Trigger phrases:** "remote control", "acer device", "fleet status", "control room", "situation room", "device health"
 
-## 7. Code Quality
+## 7. Runtime Safety & Knowledge
 
-### 7.1 /simplify
+### 7.1 /kya
+
+**When to use:** Checking the trust score of a running agent session, or terminating an agent chain that has lost trust (TC-4 Leash Snap).
+
+**What it does:** Runs the DWS CLI `kya` subcommand against `/api/v1/kya/*`. Supports `status` (safe, read-only trust score) and `snap` (DESTRUCTIVE, terminates the agent chain with forensic dump). Binds every session to a Shufti Pro-verified human identity.
+
+**Trigger phrases:** "kya status", "trust score", "leash snap", "terminate agent chain", "kill the agent", "kya snap", "revoke agent", "TC-4"
+
+**Safety:**
+
+- `kya snap` is listed in `Admin/SECURITY_COMPLIANCE.md` destructive-action inventory
+- ALWAYS run `--dry-run` first unless this is an active incident
+- The skill will prompt the user to retype the session ID before executing non-dry-run `snap`
+- Auth: `Bearer $DWS_API_TOKEN` or `x-admin-key: $ADMIN_API_KEY` (timing-safe compare)
+- Every run is audit-logged server-side with `source: 'cli'`
+
+**Reason codes:** `MANUAL_SNAP`, `TRUST_VIOLATION`, `POLICY_BREACH`, `IDENTITY_REVOKED`, `CONTAINMENT_BREACH`, `KILL_SWITCH`
+
+See `docs/KYA_BYO_LIFECYCLE.md` and `onelifetime.world/posts/kya-standard-v1.html`.
+
+### 7.2 /kb
+
+**When to use:** Adding raw sources to the knowledge base, compiling the wiki, asking questions against it, or running deep research.
+
+**What it does:** Drives the LLM-maintained Knowledge Base via the DWS CLI `kb` subcommand. Karpathy-style workflow: raw sources in `kb/raw/` → LLM compiles to `kb/wiki/` → auto-maintained indexes → Q&A. No vector DB. Supports `status`, `ingest`, `compile`, `ask`, `research`, `lint`.
+
+**Trigger phrases:** "kb compile", "kb ask", "kb research", "knowledge base", "compile wiki", "ingest source", "what does our wiki say about", "kb status"
+
+**Workflow rules:**
+
+- `kb/wiki/` is LLM-owned — never hand-edit; files get overwritten on next `compile`
+- `kb/raw/` is human-owned — drop sources here; compile picks them up incrementally
+- `compile` is incremental by default; use `--full` for clean rebuild
+- `kb/ephemeral/` is auto-swept by `scripts/daily/kb-cleanup.sh` after 7 days
+- Path traversal is blocked — `kb_write_article` only writes inside `kb/wiki/`
+
+**Security:** KB is NOT cleared for PII. Follow `docs/DWS_DATA_STANDARD.md` for retention and classification of `kb/raw/` and `kb/wiki/` content.
+
+See `src/agents/kb.agent.ts` for the agent implementation and tool handlers.
+
+## 8. Code Quality
+
+### 8.1 /simplify
 
 **When to use:** After completing a feature, or when code feels over-engineered.
 
@@ -216,58 +262,64 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 **Trigger phrases:** "simplify", "clean up code", "reduce complexity", "refactor", "code review"
 
 **Checks performed:**
+
 - DRY violations (duplicated logic across files)
 - Unnecessary abstractions (helpers used once)
 - Dead code (unused imports, functions, variables)
 - Security: XSS, SQL injection, command injection, CORS misconfiguration
 - Performance: N+1 queries, unnecessary re-renders, memory leaks
 
-## 8. Discipline Skills (Hard Gates)
+## 9. Discipline Skills (Hard Gates)
 
 These are not slash commands — they are process rules that agents follow automatically. Located in `skills/*/SKILL.md`.
 
-### 8.1 verification-gate
+### 9.1 verification-gate
 
 **Location:** `skills/verification-gate/SKILL.md`
 
 **Rule:** NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE.
 
 **When it applies:**
+
 - Before marking any todo item as completed
 - Before git commit
 - Before claiming a bug is fixed
 - Before saying "all tests pass"
 
 **Red flag language that triggers this gate:**
+
 - "should work" — Run the test. Show output.
 - "probably fixed" — Reproduce the bug. Show it's gone.
 - "seems correct" — Run the linter. Show zero errors.
 - "I believe this passes" — Run npm test. Paste the result.
 
-### 8.2 design-first
+### 9.2 design-first
 
 **Location:** `skills/design-first/SKILL.md`
 
 **Rule:** NO IMPLEMENTATION WITHOUT DESIGN APPROVAL (for 3+ file changes).
 
 **When it applies:**
+
 - Features touching 3 or more files
 - Architectural decisions
 - New integrations or data flow changes
 
 **Skip when:**
+
 - Bug fixes with clear root cause (1-2 files)
 - Documentation-only changes
 - Dependency updates
 - User explicitly says "just do it"
 
 **Process:**
+
 1. Surface assumptions
 2. Present 2-3 approaches with tradeoffs
 3. Recommend one with rationale
 4. Wait for user approval before writing code
 
-### 8.3 dual-folder-sync
+### 9.3 dual-folder-sync
 
 **Location:** `skills/dual-folder-sync/SKILL.md`
 
@@ -275,41 +327,43 @@ These are not slash commands — they are process rules that agents follow autom
 
 **Folder map:**
 
-| Root (source of truth) | Production copy |
-|------------------------|-----------------|
-| dws10.com/ | landing-pages/dws10-com/ |
-| onelifetime.world/ | landing-pages/onelifetime-world/ |
-| dws6.com/ | landing-pages/dws6-com/ |
-| lifetime.fi/ | landing-pages/lifetime-fi/ |
+| Root (source of truth) | Production copy                  |
+| ---------------------- | -------------------------------- |
+| dws10.com/             | landing-pages/dws10-com/         |
+| onelifetime.world/     | landing-pages/onelifetime-world/ |
+| dws6.com/              | landing-pages/dws6-com/          |
+| lifetime.fi/           | landing-pages/lifetime-fi/       |
 
 **Workflow:** Edit root > copy to landing-pages > verify with diff > commit both together.
 
-## 9. Quick Reference — When to Use What
+## 10. Quick Reference — When to Use What
 
-| Situation | Skill | Type |
-|-----------|-------|------|
-| Starting a new feature | /plan-ceo-review | gstack |
-| Designing architecture | /plan-eng-review | gstack |
-| Code is written, needs review | /review | gstack |
-| Ready to merge | /ship | gstack |
-| Need to verify UI | /browse | gstack |
-| End of week | /retro | gstack |
-| Don't know which agent to use | /discover-agents | Agent |
-| Know the agent, want to run it | /agent-run | Agent |
-| Need multi-agent analysis | /workflow | Agent |
-| EU regulatory question | /compliance-check | Compliance |
-| Carbon footprint calculation | /carbon-analysis | Compliance |
-| Database sovereignty check | /sovereignty-assess | Compliance |
-| Construction site assessment | /site-safety | Compliance |
-| Check git branch state | /flow-status | Operations |
-| Send email notification | /email | Operations |
-| Control edge devices | /remote-control | Operations |
-| Code feels bloated | /simplify | Quality |
-| About to claim "done" | verification-gate | Discipline |
-| Big feature, many files | design-first | Discipline |
-| Editing site root folders | dual-folder-sync | Discipline |
+| Situation                      | Skill               | Type       |
+| ------------------------------ | ------------------- | ---------- |
+| Starting a new feature         | /plan-ceo-review    | gstack     |
+| Designing architecture         | /plan-eng-review    | gstack     |
+| Code is written, needs review  | /review             | gstack     |
+| Ready to merge                 | /ship               | gstack     |
+| Need to verify UI              | /browse             | gstack     |
+| End of week                    | /retro              | gstack     |
+| Don't know which agent to use  | /discover-agents    | Agent      |
+| Know the agent, want to run it | /agent-run          | Agent      |
+| Need multi-agent analysis      | /workflow           | Agent      |
+| EU regulatory question         | /compliance-check   | Compliance |
+| Carbon footprint calculation   | /carbon-analysis    | Compliance |
+| Database sovereignty check     | /sovereignty-assess | Compliance |
+| Construction site assessment   | /site-safety        | Compliance |
+| Check git branch state         | /flow-status        | Operations |
+| Send email notification        | /email              | Operations |
+| Control edge devices           | /remote-control     | Operations |
+| Check agent trust / kill chain | /kya                | Safety     |
+| Compile wiki / ask KB          | /kb                 | Knowledge  |
+| Code feels bloated             | /simplify           | Quality    |
+| About to claim "done"          | verification-gate   | Discipline |
+| Big feature, many files        | design-first        | Discipline |
+| Editing site root folders      | dual-folder-sync    | Discipline |
 
-## 10. Creating New Skills
+## 11. Creating New Skills
 
 ### Slash Command (/.claude/commands/)
 
@@ -325,6 +379,7 @@ description: >
 ```
 
 **CSO (Claude Search Optimization) rules for descriptions:**
+
 - Start with "Use when..." + specific symptoms/contexts
 - Include keywords agents would search for
 - Never summarize the workflow in the description
@@ -346,7 +401,7 @@ skills/
 
 Every new agent MUST have a corresponding skill in `.claude/commands/`. Update AGENTS.md Section 16 with the new skill. Update this guide.
 
-## 11. Architecture Notes
+## 12. Architecture Notes
 
 **Skills are the human interface to DWS agents.** The relationship:
 

@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.3
+Version: 3.4
 
 Sessions & Modifications:
 
+- Version: 3.4 | Tool: Claude Code (Opus 4.6) | Session: claude/connect-kya-dws-cli-0MMIB | Date: 10.04.2026 | Changes: Added Section 33 (DWS CLI Operator Reference) — KYA CLI admin workflow (status/dry-run/snap), destructive action authorization matrix cross-reference, Knowledge Base folder ownership rules (kb/raw/ human-owned, kb/wiki/ LLM-owned, kb/ephemeral/ auto-swept), daily kb-cleanup.sh automation, slash command wrappers /kya and /kb
 - Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: claude/replace-actions-with-cron-6A9Fr | Date: 08.04.2026 | Changes: Added Section 32 (GitHub Actions & Cron Job Registry) — full audit of 35 workflows and 22 cron scripts, removed cron schedules from 7 daily/weekly GitHub Actions (saving ~1,200 min/month), DGX Spark is primary runtime, GitHub Actions failover only with workflow_dispatch
 - Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: claude/setup-safety-hooks-vyt21 | Date: 04.04.2026 | Changes: Added Section 30 (Claude Code Safety Hooks Reference) — full documentation of 12 hooks across 4 event types, deny patterns, secret scanner patterns, SQL safety rules, file protection rules, trust boundary zones, audit logging, testing instructions; updated Section 27.3 hooks summary to reflect current state
 - Version: 3.1 | Tool: Claude Code (Opus 4.6) | Session: claude/dgx-spark-setup-UN9WR | Date: 29.03.2026 | Changes: Updated Section 29 — DGX Spark fully deployed: 4 Docker containers healthy, Cloudflare Tunnel (heartbeat.dws6.com) as systemd service, §29.11 Cloudflare Tunnel setup, §29.12 Docker container reference, §29.9 secrets updated with live values, deployment verification checklist
@@ -4051,6 +4052,97 @@ The Morning Brief V2 (`scripts/send-morning-brief-v2.ts`) sends one combined ema
 | **Monthly total: ~3,400 min** | **Monthly total: ~2,200 min**               |
 
 **Savings: ~1,200 min/month (~35% reduction)**
+
+---
+
+## Section 33: DWS CLI Operator Reference
+
+_Added: 2026-04-10 | Session: claude/connect-kya-dws-cli-0MMIB_
+
+The DWS CLI (`dws`) is the operator's primary non-UI surface. Every agent, workflow, and runtime-safety control is reachable from `dws <command>`. Full CLI reference: `cli/README.md`. This section covers the two subsystems with admin-level impact: **KYA** (runtime safety) and **KB** (knowledge base).
+
+### 33.1 Install & Authenticate
+
+```bash
+cd cli
+npm install && npm run build && npm link    # makes 'dws' global
+dws init > ~/.dws.env                        # interactive setup
+source ~/.dws.env
+dws health                                    # verify connectivity
+```
+
+Environment variables the CLI reads:
+
+| Variable        | Purpose                                                        |
+| --------------- | -------------------------------------------------------------- |
+| `DWS_API_URL`   | Backend URL (default `http://localhost:8080`)                  |
+| `DWS_API_TOKEN` | JWT for operator auth (standard role-based endpoints)          |
+| `ADMIN_API_KEY` | RED-zone secret — required for destructive ops like `kya snap` |
+| `DWS_PROJECT`   | Default project ID                                             |
+| `DWS_SESSION`   | Default session ID for agent runs                              |
+
+### 33.2 KYA CLI — Runtime Safety Admin
+
+Three subcommands, one destructive. Full control surface details in `DWS_SECURITY_STANDARD.md` §18.6 and destructive-action inventory in `Admin/SECURITY_COMPLIANCE.md`.
+
+| Command                                                               | Purpose                                      | Destructive |
+| --------------------------------------------------------------------- | -------------------------------------------- | ----------- |
+| `dws kya status <session_id>`                                         | Read trust score, identity binding, policies | No          |
+| `dws kya snap <session_id> --reason <code> --dry-run`                 | Preview TC-4 Leash Snap termination payload  | No          |
+| `dws kya snap <session_id> --reason <code> [--force-cascade] [--yes]` | Execute TC-4 chain termination               | **YES**     |
+
+**Operator workflow (incident response):**
+
+1. Read trust score: `dws kya status session-abc123`
+2. If ATS < 50 and behavior is suspicious, dry-run snap: `dws kya snap session-abc123 --reason TRUST_VIOLATION --dry-run`
+3. Review the dry-run payload (session, reason, cascade flag, endpoint)
+4. If confirmed, execute: `dws kya snap session-abc123 --reason TRUST_VIOLATION --force-cascade --yes`
+5. Within 24h: file a field note at `docs/field-notes/YYYY-MM-DD-kya-snap-<short-description>.md` with the forensic dump reference
+
+**Authorization matrix:** See `Admin/SECURITY_COMPLIANCE.md` Destructive Action Inventory for role/command matrix. Developers may only run `status` and `--dry-run`.
+
+**Backend path:** CLI → `POST /api/v1/kya/snap` → `src/app.ts:283` (timing-safe admin-key compare) → `terminateChain()` in `src/identity/kya-engine.ts` → forensic dump + chain termination.
+
+### 33.3 Knowledge Base (`kb/` folder + `dws kb`)
+
+The KB is a Karpathy-style LLM-maintained wiki. No vector DB, no embeddings — raw markdown/PDF sources in `kb/raw/`, LLM-compiled output in `kb/wiki/`, ephemeral research in `kb/ephemeral/`. The human is the source of truth for raw sources; the LLM is the source of truth for compiled wiki.
+
+**Folder layout (operators MUST know which folders are LLM-owned vs. human-owned):**
+
+| Path            | Owner     | Rule                                                      |
+| --------------- | --------- | --------------------------------------------------------- |
+| `kb/raw/`       | **Human** | Drop sources here — compile picks them up incrementally   |
+| `kb/wiki/`      | **LLM**   | NEVER hand-edit — overwritten on next `dws kb compile`    |
+| `kb/ephemeral/` | LLM       | Temp research wikis — auto-swept after 7 days             |
+| `kb/kb.json`    | LLM       | Metadata: version, lastCompile, articleCount, healthScore |
+
+**Subcommand reference:**
+
+| Command                          | Purpose                                                          | Destructive           |
+| -------------------------------- | ---------------------------------------------------------------- | --------------------- |
+| `dws kb status`                  | Show raw count, article count, health, last compile/lint         | No                    |
+| `dws kb ingest <file>`           | Add raw source to `kb/raw/` (auto-routes by type)                | No                    |
+| `dws kb compile [--full]`        | Compile `kb/raw/` → `kb/wiki/` (incremental by default)          | Overwrites `kb/wiki/` |
+| `dws kb ask "question" [--save]` | Q&A against compiled wiki; `--save` writes to `kb/wiki/reports/` | No                    |
+| `dws kb research "question"`     | Deep multi-hop research, writes to `kb/ephemeral/`               | No                    |
+| `dws kb lint`                    | Health check — orphans, broken backlinks, stale summaries        | No                    |
+
+**Daily automation:** `scripts/daily/kb-cleanup.sh` (auto-discovered by `day-runner.sh`) sweeps `kb/ephemeral/` entries older than 7 days. Nothing in `kb/wiki/` or `kb/raw/` is ever auto-deleted.
+
+**Retention & classification:** See `docs/DWS_DATA_STANDARD.md` for retention policy and content classification of `kb/raw/`, `kb/wiki/`, and `kb/ephemeral/`. The KB is **NOT cleared for PII** — never ingest documents containing personal data.
+
+**Backend path:** All `dws kb` subcommands → `POST /api/agents/kb/execute` with `input.operation = compile|ask|research|lint|ingest|status`. Agent implementation: `src/agents/kb.agent.ts`. Tools: `kb_list_raw`, `kb_read_file`, `kb_write_article`, `kb_list_wiki`, `kb_update_metadata` — all path-traversal protected and confined to `kb/wiki/` for writes.
+
+### 33.4 CLI Slash Command Wrappers
+
+For interactive Claude Code sessions, prefer the slash command wrappers over raw CLI — they add additional safety gates:
+
+| Slash command | Wraps         | Extra safety                                                                        |
+| ------------- | ------------- | ----------------------------------------------------------------------------------- |
+| `/kya`        | `dws kya ...` | Forces dry-run preview before real snap; requires session-ID retype                 |
+| `/kb`         | `dws kb ...`  | Reminds operator which folders are LLM-owned; offers follow-up `lint` after compile |
+
+Full slash-command guide: `docs/DWS_SKILLS_GUIDE.md` §7.
 
 ---
 
