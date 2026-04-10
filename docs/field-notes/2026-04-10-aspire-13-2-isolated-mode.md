@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/aspire-isolated-mode-research-ilcUR | Date: 10.04.2026 | Changes: Added Section 3.7 documenting the `aspire docs` CLI command family (list/search/get with `--format Json`), introduced alongside Aspire 13.2 per the "Aspire Docs in Your Terminal (and Your AI's Brain)" devblog post. Added DWS architectural gap analysis — Aspire 13.2 implements the exact "Build for Agents" pattern our CLAUDE.md rule requires, and our own `dws` CLI is missing the equivalent `dws docs` subcommand.
 - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/aspire-isolated-mode-research-ilcUR | Date: 10.04.2026 | Changes: Studied the 9.x → 13 version jump via web search (InfoQ, Visual Studio Magazine, aspire.dev, hexmaster.nl, NashTech). Added Section 3 "The 9.5 → 13 Version Jump — Resolved" explaining the .NET Conf 2025 announcement (Nov 11, 2025), deliberate skip of 10/11/12, decoupling from .NET release cadence, and the ".NET Aspire" → "Aspire" rebrand. Corrected repo's "9.2" reference (last 9.x was actually 9.5). Updated honesty register and follow-ups.
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/aspire-isolated-mode-research-ilcUR | Date: 10.04.2026 | Changes: Initial capture of Aspire 13.2 isolated mode announcement (@JamesNK / devblogs.microsoft.com/aspire) and version-gap analysis against DGX Spark backend observability stack
 
@@ -16,6 +17,10 @@ Session Links & References:
 - Upstream source (tweet): @JamesNK — "Aspire 13.2 introduces isolated mode, letting you run multiple instances of the same AppHost in parallel without port conflicts"
 - Aspire 13.2 announcement: https://devblogs.microsoft.com/aspire/aspire-13-2-announcement/
 - Aspire 13.2 what's new: https://aspire.dev/whats-new/aspire-13-2/
+- Aspire Docs in Your Terminal (and Your AI's Brain): https://devblogs.microsoft.com/aspire/aspire-docs-in-your-terminal/
+- Aspire CLI Overview and Commands (Microsoft Learn): https://learn.microsoft.com/en-us/dotnet/aspire/cli/overview
+- Aspire CLI Part 3 — MCP for AI Coding Agents (chris-ayers.com): https://chris-ayers.com/posts/aspire-cli-part-3-mcp/
+- Aspire GitHub issue #14619 (update the aspire skill to use the CLI instead of the MCP server): https://github.com/microsoft/aspire/issues/14619
 - Aspire 13.2 InfoQ coverage: https://www.infoq.com/news/2026/04/aspire-13-2-release/
 - Aspire 13.2 Visual Studio Magazine (Mar 25, 2026): https://visualstudiomagazine.com/articles/2026/03/25/net-aspire-13-2-adds-ai-agent-cli-typescript-apphost-support.aspx
 - Aspire 13 "dropping .NET" Visual Studio Magazine (Nov 12, 2025): https://visualstudiomagazine.com/articles/2025/11/12/microsoft-releases-aspire-13.aspx
@@ -231,6 +236,64 @@ Two concrete implications:
 1. **The TypeScript AppHost preview removes the ".NET toolchain on DGX Spark" blocker.** v1.0 rejected option 2 (AppHost adoption) partly because DGX Spark has no .NET SDK. If the TypeScript AppHost stabilizes, option 2's cost drops dramatically — it becomes a Node.js install, not a .NET install. This is worth a re-evaluation in ~3 months once TS AppHost leaves preview.
 2. **`--isolated` + `New-ClaudeWorktree.ps1` is a perfect pairing.** Our worktree pattern already mirrors what Aspire's `--isolated` is designed for. If we adopt, we should document the worktree-per-isolated-AppHost pattern as the canonical DWS dev loop.
 
+### 3.7 `aspire docs` — concrete "Build for Agents" proof (v1.2)
+
+Microsoft published "Aspire Docs in Your Terminal (and Your AI's Brain)" on the Aspire devblog alongside the 13.2 release. It introduces a new CLI command family that is a textbook implementation of the DWS "Build for Agents" rule.
+
+**What the `aspire docs` family does:**
+
+| Command                          | Function                                                        |
+| -------------------------------- | --------------------------------------------------------------- |
+| `aspire docs list`               | List every available documentation page                         |
+| `aspire docs search "<keyword>"` | Keyword search across aspire.dev docs; `--limit N` caps results |
+| `aspire docs get <slug>`         | Fetch full page content or a specific section via `--section`   |
+
+Every subcommand supports `--format Json` for machine-readable output. The docs index is **live** — as soon as aspire.dev updates, the CLI reflects it, with ETag-based caching for performance. Built on the same MCP documentation tools that power Aspire's agent integration, but **does not require installing an MCP server** — the MCP layer is embedded in the CLI binary.
+
+**Example workflow from the blog:**
+
+```
+aspire docs search "redis" --limit 1
+aspire docs get redis-integration --section "Configuration"
+```
+
+#### Alignment with the DWS "Build for Agents" rule (CLAUDE.md)
+
+| DWS requirement      | `aspire docs` implementation                                                |
+| -------------------- | --------------------------------------------------------------------------- |
+| 1. CLI exists        | `aspire docs {list,search,get}`                                             |
+| 2. Output is JSON    | `--format Json` on every subcommand                                         |
+| 3. MCP tools exposed | Embedded — CLI **is** the MCP tool surface, no extra server install needed  |
+| 4. Skills exist      | Aspire agent skills (see GitHub issue microsoft/aspire#14619) call this CLI |
+| 5. Docs are markdown | aspire.dev pages are the source; CLI returns them structured                |
+
+Microsoft built exactly what our rule demands. This is the clearest external validation to date that the "Build for Agents" rule isn't DWS-internal eccentricity — it's where the industry is going, and Microsoft is already there.
+
+#### The gap in DWS's own CLI
+
+We have `.claude/commands/*.md` skills (17 of them) and `skills/*/SKILL.md` discipline skills (3). We have `dws agents`, `dws run <agent>`, `dws workflow <name>`. We **do not** have:
+
+- `dws docs list` — there is no machine-readable index of DWS standards
+- `dws docs search "<kw>"` — agents must grep through `DWS_*.md` files manually
+- `dws docs get <slug> --format json` — the standards are not queryable as structured data
+
+In other words: **DWS standards are human-readable Markdown, but they are not agent-queryable.** An AI agent that needs to check "what does DWS_SECURITY_STANDARD say about CORS?" must load the whole file into context. An Aspire agent that needs the same for Aspire's OpenTelemetry docs runs `aspire docs get otel-integration --format json` and gets exactly the relevant section.
+
+This is a DWS architectural gap. It is not a blocker for anything today, but it violates the spirit of our own "Build for Agents" rule. Aspire 13.2 just gave us the reference implementation to copy.
+
+**Sketch of what `dws docs` could look like:**
+
+```
+dws docs list --format json
+dws docs search "csrd" --limit 3 --format json
+dws docs get DWS_SECURITY_STANDARD --section "13.3 CORS" --format json
+dws docs get DWS_DATA_STANDARD --section "Retention policy" --format markdown
+```
+
+**Cost estimate (rough, not a commitment):** A minimal `dws docs` implementation that indexes the 13 standards listed in CLAUDE.md's "Required Reading" table is probably ~8–12h of work. The hard part is not the CLI wiring — it's deciding the section-slug convention so that agent calls are stable across standard revisions. This is a small-enough task to fit in a single PR but big enough to need a design sketch first.
+
+**Recommendation:** Do not build `dws docs` today as part of this field note. Flag it as a follow-up, evaluate it as a standalone feature after the option 1/2/3 Aspire adoption decision is made. If we adopt option 1 (Aspire dashboard on DGX Spark), `aspire docs` can be proven in our environment first, which gives us a known-good reference before we write our own.
+
 ---
 
 ## 4. What We Don't Know (Honesty Register — updated)
@@ -266,6 +329,8 @@ v1.0 had 5 open questions. v1.1 resolves 4 of them and adds 2 new ones.
 - [ ] Re-evaluate option 2 in ~3 months once TypeScript AppHost preview stabilizes. Track via Aspire Roadmap Q1 2026 GitHub Discussion #15662.
 - [ ] Cross-reference with `docs/research/2026-04-08-aspire-observability-vs-dotnet-skills.md` — that note's Aspire Dashboard section should cite 13.2 if we adopt it.
 - [ ] Update `Learn/Oppimispäiväkirja.md` thesis diary to reflect the Aspire rebrand and version jump. **BLOCKED — RED ZONE.** Thesis files require explicit human approval per CLAUDE.md Thesis Update Rule.
+- [ ] **(v1.2 new)** Design `dws docs {list,search,get}` CLI subcommand per Section 3.7, modeled on `aspire docs`. ~8–12h estimate. Decide after option 1/2/3 Aspire adoption decision is made — do not build today. Needs a section-slug design sketch before implementation.
+- [ ] **(v1.2 new)** Verify that `aspire docs get --format json` output schema is stable across 13.2.x patch releases before copying its contract. If Microsoft changes the JSON shape between 13.2.0 and 13.2.1, our `dws docs` can't assume it.
 
 ---
 
@@ -286,6 +351,7 @@ This is the same failure mode as the "overclaiming product catalog" risk flagged
 
 - `docs/field-notes/2026-04-10-aspire-13-2-isolated-mode.md` v1.0: created — captured the Aspire 13.2 `--isolated` announcement, audited the gap between DWS narrative ("Aspire on DGX Spark") and reality (not deployed), surfaced three adoption options
 - `docs/field-notes/2026-04-10-aspire-13-2-isolated-mode.md` v1.1: added Section 3 "The 9.5 → 13 Version Jump — Resolved" with full timeline, three explicit reasons Microsoft gave at .NET Conf 2025, corrected the repo's "9.2 (March 2026)" error, added 13.2 confirmed feature highlights, updated honesty register (4 resolved, 2 new unknowns), updated follow-up actions
+- `docs/field-notes/2026-04-10-aspire-13-2-isolated-mode.md` v1.2: added Section 3.7 "`aspire docs` — concrete 'Build for Agents' proof" — documented the `aspire docs {list,search,get} --format Json` CLI family introduced alongside 13.2, mapped it against the DWS "Build for Agents" 5-point rule (Microsoft hit all 5), flagged the missing `dws docs` equivalent in our own CLI as an architectural gap, sketched what `dws docs` could look like with an ~8–12h cost estimate. Added two new follow-up actions (design `dws docs`, verify schema stability). Added 4 new reference URLs.
 
 ## THINGS I DIDN'T TOUCH
 
