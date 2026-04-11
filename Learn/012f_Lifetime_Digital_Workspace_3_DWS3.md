@@ -49,7 +49,7 @@
 | Henkilöresurssi          | RA (founder)  | Käyttäjän vahvistus 10.04.2026      |
 | Mahdolliset alihankkijat | TARKISTETTAVA | Ostolaskut, sopimukset              |
 
-**EBAN (European Business Angels Network)** on EU-tason bisnesenkeleiden kattojärjestö, joka jakaa aikaisen vaiheen yrityksille pilvi-krediittejä kumppaniohjelmistaan. 5 000 € on tyypillinen Activate-tason krediitti AWS:n kanssa.
+> **Taustatieto (ei vielä lähdevarmennettu):** EBANista ja AWS-krediittiohjelmien tyypillisistä tasoista voidaan lisätä yleiskuvaus myöhemmin lähdeviitteiden kanssa. Tämä taustahuomio ei ole osa tämän luonnoksen käyttäjän vahvistamaa todistusaineistoa.
 
 ## 4. Tekninen sisältö (käyttäjän vahvistuksen mukaan)
 
