@@ -76,13 +76,21 @@ Oppimispäiväkirja dokumentoi DWS IQ -hankkeen etenemisen alkukonseptoinnista n
 - Käyttäjän vahvistus 10.04.2026: **Lifetime Consulting -nimi käytössä 2019–2024**, sähköposti `risto@lifetimeconsulting.eu`. Yhtiön nimi muutettiin Lifetime Oy:ksi 2024 (vahvistettu erikseen V3Thesis_FI v3.4 muutoslokissa 18.02.2026).
 - Käyttäjän vahvistus 10.04.2026: **2019–2022 Lifetime Certified Partners -konsortion rakentaminen** — ~12 kansainvälistä kumppania koottu. Vahvistettu osajoukko: Cubet Technolabs, Cloud Techno Global, Test Army, 9 Series, Nigel Frank International, Solita, HiQ.
 
-**Aineisto vielä haettavissa:**
+**Keskeinen yhteistyökanava: Slack-työtila "Lifetime Group"** (käyttäjän vahvistus 10.04.2026). Lifetime Certified Partners Consortium -yhteistyön keskeinen reaaliaikainen yhteistyökanava 2019 alkaen oli **Slack-työtila Lifetime Group**, joka on **edelleen olemassa nykyhetkessä** (verifioitavissa). Workspace-historia (paid tier) sisältää viestiketjut, jäsenlistat ja kanavat koko ajanjakson 2019 →. **Vahvistus aiemmista lähteistä:** (1) 012e DWS 3 v0.12 (30.09.2020) mainitsee eksplisiittisesti "**Slack channel: dws3 build**" yhtenä DWS 3 -projektin integraatiokanavana; (2) Konsultin käsikirja v0.22a §"Slack platform offers consultants information channels and consolidates our technology platform and choices"; (3) DD Report v0.19 mainitsee "Slack channels". **Aktivoinnin kannalta:** Slack-työtilan pelkkä olemassaolo + jäsenlistat 2019–2025 + DWS-spesifit kanavat (esim. "dws3 build") todistavat konsortion jatkuvaa operatiivista toimintaa koko aktivointijakson ajan. Slack export antaa workspace owner -tason käyttäjälle koko viestihistorian. Lisäksi asiakas-/partnerikanavien arkisto on epäsuora aktiivisuustodiste Tempo-tuntimerkintöjen rinnalle. Saatu käyttäjältä 10.04.2026.
 
-- Google Drive 2021–: kuukausittaiset projektitiedostot (runsas dokumentaatio)
-- Gmail-tili: varmuuskopiot 2020-aineistosta tarvittaessa
-- AWS Cost Explorer / kuukausilaskut 2020–2023 (todelliset käyttömäärät)
-- EBAN-sopimuskirje (krediitin tarkka myöntämispäivä)
-- Lifetime Oy:n tasekirjat 2020–2023
+**Keskeinen työkalu: Atlassian JIRA + Tempo Timesheets** (käyttäjän vahvistus 10.04.2026). Lifetime Group:n keskeisenä projektinhallinnan ja ajanseurannan työkaluna 2019 alkaen oli **Atlassian JIRA Cloud** + **Tempo Timesheets** -laajennus. Tämä on vahvistettu kolmessa erillisessä lähdeartefaktissa: (1) DD Report v0.19 (23.03.2020) liite mainitsee "**Tempo working hour reports per employee, project, pipeline**"; (2) 012e DWS 3 v0.12 (30.09.2020) §"Lifetime Digital Workspace - Technical Specs": "SAFe, **JIRA, Tempo Sheets**, Microsoft DevOps"; (3) Konsultin käsikirja v0.22a (22.02.2022) §"Lifetime Digital Workspace platform consists of": "Atlassian JIRA | Atlassian Confluence | **Tempo Timesheets for Time tracking** | **Tempo Time Planner for Time planning**"; (4) LTS 2019.09 -tiimi #7: "Agile Team — **SAFe and JIRA Planning RTEs**". **AKTIVOINNIN KANNALTA KRIITTINEN:** Tempo Timesheets on kirjanpitokelpoinen tuntien dokumentointijärjestelmä joka tallentaa per työntekijä × per projekti × per päivä × per tehtävä -tason. Tempo-export muuttaa kaikki tämän journalin "TBD"-tunnit eksakteiksi auditkelpoisiksi luvuiksi.
+
+**Aineisto vielä haettavissa (priorisoitu):**
+
+- 🔴 **KRIITTINEN: Tempo Timesheets -export** Lifetime Group:n historiallisesta JIRA Cloud -instanssista 2019–2023. Sisältää per-henkilö × per-projekti × per-päivä -tason tuntimerkinnät kaikille Lifetime Group:n työntekijöille ja kumppaneille. **Tämä on aktivoinnin yksittäin tärkein lähde.** Yksi vienti = €594k-erittelyn TBD-rivit muuttuvat eksakteiksi.
+- 🔴 **KRIITTINEN: Atlassian JIRA -projektihistoria** (DWS-projektien tikettilokit, RTE planning, sprint history)
+- 🔴 **KRIITTINEN: Slack workspace export "Lifetime Group"** — viestihistoria 2019 →, jäsenlistat, kanavat ("dws3 build" ym.). Saadaan workspace owner -tilauksesta Settings → Import/Export.
+- 🟡 Google Drive 2021–: kuukausittaiset projektitiedostot (runsas dokumentaatio)
+- 🟡 Gmail-tili: varmuuskopiot 2020-aineistosta tarvittaessa
+- 🟡 AWS Cost Explorer / kuukausilaskut 2020–2023 (todelliset käyttömäärät)
+- 🟡 EBAN-sopimuskirje (krediitin tarkka myöntämispäivä)
+- 🟡 Lifetime Oy:n tasekirjat 2020–2023
+- 🟡 GitHub @blogtheristo + @LifetimeStudios -repojen aktiivisuushistoria 2019 →
 
 Erillinen projektiasiakirja: `Learn/012f_Lifetime_Digital_Workspace_3_DWS3.md`. Erillinen DD-tiivistelmä: `Learn/019_LT_DueDiligence_CleanReport_2020_summary.md`.
 
