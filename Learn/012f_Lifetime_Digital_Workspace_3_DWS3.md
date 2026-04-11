@@ -30,13 +30,13 @@
 
 ## 2. Aikajakso
 
-| Vaihe                   | Päivämäärä                                 | Lähde                                       |
-| :---------------------- | :----------------------------------------- | :------------------------------------------ |
-| EBAN-krediitin myöntö   | TARKISTETTAVA (oletettu 2019 H2 / 2020 H1) | EBAN-sopimuskirje (Drive)                   |
-| AWS-tilien käyttöönotto | TARKISTETTAVA                              | AWS Management Console -lokit, IAM-historia |
-| DWS 3 -alustan kehitys  | ~2020 → 2023 (Q3)                          | Drive-projektitiedostot, koodirepot         |
-| DWS 3 → DWS 5 -siirtymä | 2024 Q1 (Microsoft Founders Hub aloitus)   | `Learn/Oppimispäiväkirja.md` (vahvistettu)  |
-| DWS 3 -hosting alasajo  | TARKISTETTAVA                              | Viimeinen AWS-lasku                         |
+| Vaihe                   | Päivämäärä                                                      | Lähde                                       |
+| :---------------------- | :-------------------------------------------------------------- | :------------------------------------------ |
+| EBAN-krediitin myöntö   | TARKISTETTAVA (oletettu 2019 H2 / 2020 H1)                      | EBAN-sopimuskirje (Drive)                   |
+| AWS-tilien käyttöönotto | TARKISTETTAVA                                                   | AWS Management Console -lokit, IAM-historia |
+| DWS 3 -alustan kehitys  | ~2020 → 2023 (Q3)                                               | Drive-projektitiedostot, koodirepot         |
+| DWS 3 → DWS 5 -siirtymä | 2024 Q1 (siirtymä; Microsoft Founders Hub -jäsenyys alkanut 2021, 2021–2024) | `Learn/Oppimispäiväkirja.md` (vahvistettu)  |
+| DWS 3 -hosting alasajo  | TARKISTETTAVA                                                   | Viimeinen AWS-lasku                         |
 
 > **Huom.** Tarkat päivämäärät täydennetään Drive-aineistosta. Ne on jätetty TBD-tilaan koska CLAUDE.md "Validated Mock Data Rule" kieltää keksittyjen päivämäärien kirjaamisen aktivointia tukevaan dokumenttiin.
 
