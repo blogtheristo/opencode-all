@@ -6,12 +6,13 @@
 
 - **Document:** Oppimispäiväkirja / aikataulu
 - **Languages Available:** FI
-- **Version:** 2.1
-- **Date:** 07.04.2026
+- **Version:** 2.2
+- **Date:** 10.04.2026
 - **Owner:** Risto Päärni
 - **Agent:** Claude (Opus 4.6)
-- **Branch:** claude/upgrade-agent-framework-4vPdj
+- **Branch:** claude/activate-dev-expenses-Cbb1q
 - **Sessions & Modifications:**
+  - 2.2 (10.04.2026, Claude Opus 4.6): Aikajana laajennettu taaksepäin tuotekehitysmenojen aktivointia varten. **DWS-aktivoinnin alkupäivä = vuodenvaihde 2019/2020** (käyttäjän tarkennus 10.04.2026). Microsoftin mobiilisovellustyö 2018–2019 (C# / Android Studio / .NET / HockeyApp) jätetty AKTIVOINNIN ULKOPUOLELLE — se on PRE-DWS -työtä eikä kuulu Lifetime Oy:n DWS-tuotekehitykseen. Lisätty placeholder-osio: "Joulukuu 2019 – Elokuu 2023 — DWS 2 → DWS 3 AWS-pilven päällä (EBAN-krediitit 5 000 €, IBM Business Partner 2020→, EU Invest Portal -hyväksynnät DWS 3 + DWS 5 + DWS 6)". Drive-aineistoa saatavilla 2021 alkaen (Gmail-tilillä mahdollisesti varmuuskopiot 2020-aineistosta). Vahvistettu lähdeaineisto: 012e_Lifetime™Digital Workspace 3 dws3 (30.09.2020, v0.12, RA + Manish Kumar CTO + Salla Klemetti) ja 019_LT_DueDiligence_CleanReport (23.03.2020, v0.19, RA + Manish Kumar CTO). Tarkat kuukausi- ja tuntierittelyt täydennetään Drive-aineistosta kuukausi kerrallaan.
   - 2.1 (07.04.2026, Claude Opus 4.6): Lisätty maaliskuu–huhtikuu 2026 -osio: Microsoft Agent Framework 1.0.0 -adoption, .NET Aspire -observointi DGX Sparkilla, AgentFoundry-integraatio. Korjattu DWS 5 → DWS 6 -jatkuvuusnarratiivi: .NET Aspire ei koskaan poistettu käytöstä.
   - 2.0 (26.03.2026, Claude Opus 4.6): Laajennettu aikajana 09/2023 alkaen. Lisätty Firehorse-konseptointi (syksy 2023), Microsoft Founders Hub / Oqtane / Azure (2024), Oqtane-siivoaminen (01–02/2025), ja kesä 2025 siirtymä nykyiseen teknologiapinoon.
   - 1.0 (22.02.2026): Alkuperäinen oppimispäiväkirja elokuu 2025 — helmikuu 2026.
@@ -26,6 +27,36 @@
 Oppimispäiväkirja dokumentoi DWS IQ -hankkeen etenemisen alkukonseptoinnista nykyiseen tuotantovalmiiseen EU-sääntelyn automaatioalustaan.
 
 ---
+
+> **Pre-DWS -työ (2018–2019):** Microsoftin mobiilisovelluskehitys (C# / Android Studio / .NET / HockeyApp) on **JÄTETTY POIS** Lifetime Oy:n DWS-tuotekehitysmenojen aktivoinnista. Tämä työ ei kuulu DWS-hankkeeseen eikä siten KPL 5:8 -aktivoinnin piiriin. Käyttäjän tarkennus 10.04.2026.
+
+## Joulukuu 2019 – Elokuu 2023 — DWS 2 → DWS 3 AWS-pilven päällä (EBAN-krediitit, IBM Business Partner)
+
+**Aktivoinnin alkupäivä:** Vuodenvaihde 2019/2020 (käyttäjän tarkennus 10.04.2026). Tämä on Lifetime Oy:n DWS-tuoteperheen ensimmäinen aktivoitava ajanjakso (KPL 5:8 + IAS 38).
+
+| Vko | pvm             | Tunnit | Aihe                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Hanke / projekti                | Tarkasti |
+| :-- | :-------------- | :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------ | :------- |
+| —   | 12/2019–12/2019 | TBD    | **DWS-aktivointijakson alku.** Lifetime Digital Workspace 2 -alustan kehitys (DWS 2, vahvistettu lähde: 012e dwS3 v0.12 mainitsee "0.11 lifetime digital workspace 2 (2019)"). Vuodenvaihde 2019/2020.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | DWS 2 / käynnistys              | RA       |
+| —   | 01/2020–12/2020 | TBD    | DWS 2 → DWS 3 -siirtymä. **Vahvistettuja artefakteja:** (1) DD Clean Report 23.03.2020 v0.19 (RA + Manish Kumar CTO, sopimus Global Capital DD 2.3.2020 / Rashid, sourcing partner Nigel Frank International 17.3.2020, vakuutus Lähitapiola 01/2020); (2) 012e_Lifetime™Digital Workspace 3 dws3 v0.12 30.09.2020 (RA + Manish Kumar CTO + Salla Klemetti tech writer + LCC PMO). **Tiimi:** RA (CEO), Manish Kumar (CTO), Mgmt Team (John Lovegin, Damian, Risto, Ashwin), Advisory Board (Marina, Tatiana), Core AWS Team 4 hlö. **Kumppanit:** IBM Business Partner ✓, AWS Consulting Partner ✓, Google Cloud Advantage ✓, RedHat Developer ✓, Confluent Partner ✓. **EBAN AWS-krediitit 5 000 €.** **Solution partners:** Solita, HiQ. EU Invest Portal: CIMS EIPP-20191320. | DWS 2/3 / AWS / IBM / kumppanit | RA       |
+| —   | 01/2021–12/2021 | TBD    | DWS 3 -alustan kehitystyö jatkuu AWS-pilvellä. Drive-aineistoa saatavilla 2021 alkaen → kuukausierittely täydennetään.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | DWS 3 / AWS                     | RA       |
+| —   | 01/2022–12/2022 | TBD    | DWS 3 jatkuu. Drive-aineisto käytettävissä.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | DWS 3 / AWS                     | RA       |
+| —   | 01/2023–08/2023 | TBD    | DWS 3 -loppukehitys ja siirtymä DWS 5 -suunnitteluun. Drive-aineisto käytettävissä.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | DWS 3 / siirtymäsuunnittelu     | RA       |
+
+**Lähteet (vahvistetut):**
+
+- `012e_Lifetime™Digital Workspace 3 dws3` (Drive: `/2020/`), v0.12, 30.09.2020. Author: Risto Anton Päärni (CEO). Approved by: Manish Kumar (CTO). Technical writer: Salla Klemetti. Reviewed by: Lifetime Certified Partner Consortium Board. **Saatu käyttäjältä 10.04.2026.**
+- `019_LT_DueDiligence_CleanReport` (Drive: `/2020/`), v0.19, 23.03.2020. Author: Risto Anton Päärni. Approved by: Manish Kumar (CTO). **Saatu käyttäjältä 10.04.2026.**
+- Käyttäjän vahvistus 10.04.2026: 7 vuoden DWS-tuotanto, 3 EU Invest Portal -hyväksyntää (DWS 3 + DWS 5 + DWS 6), DWS 4 ei erikseen hyväksytty, IBM Business Partner -kumppanuus voimassa 2020–.
+
+**Aineisto vielä haettavissa:**
+
+- Google Drive 2021–: kuukausittaiset projektitiedostot (runsas dokumentaatio)
+- Gmail-tili: varmuuskopiot 2020-aineistosta tarvittaessa
+- AWS Cost Explorer / kuukausilaskut 2020–2023 (todelliset käyttömäärät)
+- EBAN-sopimuskirje (krediitin tarkka myöntämispäivä)
+- Lifetime Oy:n tasekirjat 2020–2023
+
+Erillinen projektiasiakirja: `Learn/012f_Lifetime_Digital_Workspace_3_DWS3.md`. Erillinen DD-tiivistelmä: `Learn/019_LT_DueDiligence_CleanReport_2020_summary.md`.
 
 ## Syyskuu–joulukuu 2023 — Firehorse-konseptin synty ja AI-työkalujen alkuajat
 
