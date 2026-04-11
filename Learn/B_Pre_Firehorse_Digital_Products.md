@@ -49,7 +49,7 @@ Seuraavat tuotteet ovat tunnistettavissa olemassa olevista lähdeartefakteista (
 1. **Mitkä yllä olevista oikeasti kuuluvat B-kategoriaan?** Käyttäjän tarkennus tarvitaan.
 2. **Onko muita digitaalisia tuotteita** joita en huomannut lähdeartefakteista?
 3. **Tehtiinkö CIMSCoin/CIMSCash konkreettisesti** (smart contract -koodi, mobile app) vai jäikö konseptiksi/whitepaperiksi? Vaikuttaa aktivoinnin määrään.
-4. **Domain-portfolion arvonmääritys** — KPL 5:8 sallii brändien ja domainien kapitalisoinnin jos niillä on todennettava taloudellinen arvo. Tarvitsen domain-listan päivämäärineen.
+4. **Domain-portfolion arvonmääritys** — brändien ja domainien kapitalisointi voi olla mahdollista erillisen kirjanpitäjän/tilintarkastajan arvion ja soveltuvan ohjeistuksen perusteella. Tarvitsen domain-listan päivämäärineen.
 
 ## 4. Aktivointiperuste (alustava)
 
