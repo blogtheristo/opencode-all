@@ -1,8 +1,8 @@
 ---
 title: DWS Security Standard
-version: 2.0
+version: 2.2
 created: 2026-02-07
-last_modified: 2026-04-06
+last_modified: 2026-04-10
 author: Lifetime Oy Security Team
 language: en
 languages_available: [en]
@@ -19,10 +19,11 @@ toc-depth: 3
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.1
+Version: 2.2
 
 Sessions & Modifications:
 
+- Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/connect-kya-dws-cli-0MMIB | Date: 10.04.2026 | Changes: Added Section 18.6 (KYA Control Surfaces — CLI, HTTP, Webhook) documenting the `dws kya status` / `dws kya snap` CLI paths, timing-safe `ADMIN_API_KEY` auth pattern, mandatory forensic dumps, accepted reason codes, and cross-reference to `/kya` slash command; renumbered NIS2 compliance statement to 18.7 and updated it to mention operator CLI path
 - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/audit-shufti-dpa-artifacts-HFEGx | Date: 08.04.2026 | Changes: Updated Section 18.5 with Shufti Pro sub-processor risk assessment (TeleSign noyb complaint, Twilio security incidents, Cloudflare/IPStack risks) from PR #768 DPA clause audit; added ML training prohibition control to IDV partner controls table
 - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/dws-iq-synthetic-nervous-9TtAB | Date: 06.04.2026 | Changes: Added Section 19 (Synthetic Data & Model Fine-Tuning Security) — synthetic data generation controls, model provenance, inference isolation, drift monitoring, adversarial integrity, NIS2 compliance statement for NVIDIA NeMo DataDesigner integration
 - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/shufti-dws-integration-G73xs | Date: 09.03.2026 | Changes: Added Section 18 (Know Your Agent (KYA) & Bring Your Own (BYO) Agent Security) — 5-layer KYA trust framework, BYO agent registration gates, Shufti IDV integration architecture, dynamic sandbox permission triggers, partner access controls for IDV providers
@@ -1537,9 +1538,30 @@ Shufti Pro's own sub-processors (per DPA Annex II) include providers with elevat
 | Cloudflare Inc. (USA) | MEDIUM        | Data Privacy Framework valid but fragile (Schrems III risk).                                                                                                                         | CDN/DDoS only — no biometric data. Acceptable risk.                                                                |
 | IPStack/Idera (USA)   | LOW           | Privacy policy still references invalidated EU-US Privacy Shield. IP geolocation only.                                                                                               | Non-biometric. Confirm DPF replaces Privacy Shield.                                                                |
 
-### 18.6 NIS2 Compliance Statement
+### 18.6 KYA Control Surfaces (CLI, HTTP, Webhook)
 
-> "DWS IQ 6 extends identity verification beyond the human operator to the autonomous agents they deploy. The Know Your Agent (KYA) framework provides five-layer trust verification — from human KYC through agent provenance, capability review, runtime monitoring, and continuous risk assessment. All BYO agents execute in isolated sandboxes (Section 14) with permissions dynamically adjusted based on real-time IDV risk signals. This architecture ensures that no autonomous agent operates without auditable identity binding and continuous behavioral monitoring, exceeding NIS2 Article 21(2)(i) human resources and access control requirements."
+KYA is not purely a passive runtime — operators can read trust state and trigger terminations through three independently authenticated surfaces. All three converge on the same `terminateChain()` function in `src/identity/kya-engine.ts`, and all runs are audit-logged.
+
+| Surface                                  | Path                                   | Auth                                                   | Use case                                                  | Audit field         |
+| ---------------------------------------- | -------------------------------------- | ------------------------------------------------------ | --------------------------------------------------------- | ------------------- |
+| **CLI** — `dws kya status <session_id>`  | `GET /api/v1/kya/status/:sessionId`    | `Bearer $DWS_API_TOKEN` or `x-admin-key` (timing-safe) | Read current ATS, identity binding, last verification     | `source: 'cli'`     |
+| **CLI** — `dws kya snap <session_id>`    | `POST /api/v1/kya/snap`                | `Bearer $DWS_API_TOKEN` or `x-admin-key` (timing-safe) | TC-4 Leash Snap with forensic dump (DESTRUCTIVE)          | `source: 'cli'`     |
+| **HTTP** — ops dashboard / incident tool | `POST /api/v1/kya/snap`                | `Bearer $DWS_API_TOKEN` (operator role)                | Kill switch from a human operator UI                      | `source: 'api'`     |
+| **Webhook** — IDV provider → KYA bridge  | `/api/v1/kya/*` (`kya-webhook.routes`) | HMAC signature verification (Shufti Pro signing key)   | L5 continuous-risk trigger (identity revoked, new signal) | `source: 'webhook'` |
+
+**CLI surface security rules:**
+
+1. **Admin key comparison MUST be timing-safe.** `src/app.ts` uses `crypto.timingSafeEqual` on 256-byte padded buffers to prevent length/early-exit timing leaks. Any new auth path MUST do the same.
+2. **Destructive operations require confirmation.** The CLI gates `kya snap` behind a TTY confirmation prompt; non-TTY callers MUST pass `--yes` explicitly. Dry-run (`--dry-run`) returns the same JSON shape without executing.
+3. **Reason code is required** for audit traceability. Acceptable codes: `MANUAL_SNAP`, `TRUST_VIOLATION`, `POLICY_BREACH`, `IDENTITY_REVOKED`, `CONTAINMENT_BREACH`, `KILL_SWITCH`. Free-form strings are recorded but flagged for review.
+4. **Forensic dumps MUST be retained** per `docs/KYA_BYO_LIFECYCLE.md` retention schedule. Operators cannot disable forensic dumps from the CLI; `forensicDump: true` is hard-coded in `src/app.ts`.
+5. **`ADMIN_API_KEY` is a RED-zone secret.** Never commit, never log, rotate on role changes. Compromise of this key = full chain-termination authority. Treat as equivalent to DB service-role key.
+
+**Operator-facing slash command:** `/kya` in `.claude/commands/kya.md` — wraps the CLI with additional safety gates (mandatory dry-run preview, session-ID retype for destructive calls). See `docs/DWS_SKILLS_GUIDE.md` §7.1.
+
+### 18.7 NIS2 Compliance Statement
+
+> "DWS IQ 6 extends identity verification beyond the human operator to the autonomous agents they deploy. The Know Your Agent (KYA) framework provides five-layer trust verification — from human KYC through agent provenance, capability review, runtime monitoring, and continuous risk assessment. All BYO agents execute in isolated sandboxes (Section 14) with permissions dynamically adjusted based on real-time IDV risk signals. Operators can trigger immediate chain termination through an audit-logged CLI surface (`dws kya snap`) backed by timing-safe admin-key auth and mandatory forensic dumps. This architecture ensures that no autonomous agent operates without auditable identity binding and continuous behavioral monitoring, exceeding NIS2 Article 21(2)(i) human resources and access control requirements."
 
 ---
 

@@ -1136,6 +1136,32 @@ Examples:
 Examples:
   dws quickstart`,
 
+  kb: `dws kb <subcommand> — LLM-maintained Knowledge Base
+
+Subcommands:
+  compile [--full]           Compile kb/raw/ → kb/wiki/ (summaries, concepts, indexes)
+  ask "question" [--save]    Q&A against the compiled wiki
+  research "question"        Deep multi-hop research (ephemeral working wiki)
+  lint                       Health check — orphaned articles, broken backlinks
+  ingest <file>              Add a raw source to kb/raw/
+  status                     Show raw/article counts, health, last compile/lint
+
+Folder layout:
+  kb/raw/         Human dumps sources here (source of truth)
+  kb/wiki/        LLM-compiled output — do NOT edit manually
+  kb/ephemeral/   Temporary research wikis (auto-cleaned after 7 days)
+  kb/kb.json      Metadata: version, lastCompile, articleCount, healthScore
+
+Examples:
+  dws kb ingest ~/Downloads/eu-ai-act.pdf
+  dws kb compile
+  dws kb compile --full
+  dws kb ask "What does CSRD require for SMEs?"
+  dws kb ask "ETS phase-out timeline" --save
+  dws kb research "CBAM vs ETS interaction 2026-2030"
+  dws kb lint
+  dws kb status`,
+
   kya: `dws kya <subcommand> — Know Your Agent safety controls
 
 Subcommands:
@@ -1210,6 +1236,14 @@ GETTING STARTED:
 KYA (Know Your Agent):
   dws kya snap <session_id> --reason <code>  Trigger a Leash Snap (TC-4 termination)
   dws kya status <session_id>                Check KYA trust score for a session
+
+KNOWLEDGE BASE:
+  dws kb compile [--full]                 Compile kb/raw/ → kb/wiki/
+  dws kb ask "question" [--save]          Q&A against the compiled wiki
+  dws kb research "question"              Deep multi-hop research
+  dws kb ingest <file>                    Add a raw source to kb/raw/
+  dws kb lint                             Health check (orphans, backlinks)
+  dws kb status                           Show KB stats
 
 AGENTS:
   dws agents                              List all registered agents

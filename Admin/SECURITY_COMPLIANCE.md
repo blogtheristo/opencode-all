@@ -545,6 +545,39 @@ The MCP Agent Server at `/mcp` has the following security controls:
 4. **Event bus saturation:** In-memory log capped at 1,000 events. Old events evicted. Redis persistence is best-effort.
 5. **Delegation storm:** Max depth 5 + governance rate limiting. If sustained, increase `rate-limit` policy `max_calls` threshold.
 
+### Destructive Action Inventory (Operator Kill Switches)
+
+_Added: 2026-04-10 | Session: claude/connect-kya-dws-cli-0MMIB_
+
+The following operator actions can terminate live agent sessions, delete runtime state, or cut off autonomy. Each requires explicit authorization and is audit-logged. The CISO Agent may RECOMMEND these actions but NEVER executes them autonomously (see [CISO Agent](#ciso-agent--autonomous-security-monitoring)).
+
+| Action                             | Surface                                               | Auth                                                   | Confirmation                                                        | Audit field                  | Rollback                                                                |
+| ---------------------------------- | ----------------------------------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------- | ---------------------------- | ----------------------------------------------------------------------- |
+| **KYA Leash Snap (TC-4)**          | `dws kya snap <session_id>` → `POST /api/v1/kya/snap` | `Bearer $DWS_API_TOKEN` or `x-admin-key` (timing-safe) | TTY prompt + required `--reason <code>`; `--yes` to skip in non-TTY | `kya_snap` + `source: 'cli'` | None — forensic dump is retained in `src/identity/kya-engine.ts` output |
+| **Agent chain termination (HTTP)** | `POST /api/v1/kya/snap` (ops dashboard)               | `Bearer $DWS_API_TOKEN` (operator role)                | Dashboard modal + reason code                                       | `kya_snap` + `source: 'api'` | None — forensic dump only                                               |
+| **Sandbox freeze**                 | Section 14 stage downgrade                            | Operator role via Admin UI                             | Modal + reason                                                      | `sandbox_state_change`       | Re-grant by operator                                                    |
+| **API key revocation**             | Supabase Auth admin → `api_keys` table                | Service-role key                                       | Admin UI confirmation                                               | `api_key_revoked`            | Issue new key                                                           |
+| **MCP tool disable**               | `.env` `MCP_TOOL_ALLOWLIST` edit + restart            | Server deploy role                                     | PR review + deploy                                                  | Deploy audit log             | Re-enable via PR                                                        |
+| **Account freeze**                 | Supabase Auth ban                                     | Service-role key                                       | Ops ticket required                                                 | `account_frozen`             | Unban via admin UI                                                      |
+
+**KYA Leash Snap — operator safety rules:**
+
+1. **ALWAYS dry-run first** unless this is an active incident. `dws kya snap <session> --reason <code> --dry-run` returns the termination payload without executing. Skipping dry-run in non-emergency scenarios is a policy violation.
+2. **Reason code is mandatory** for audit traceability. Accepted: `MANUAL_SNAP`, `TRUST_VIOLATION`, `POLICY_BREACH`, `IDENTITY_REVOKED`, `CONTAINMENT_BREACH`, `KILL_SWITCH`. See `DWS_SECURITY_STANDARD.md` §18.6 for definitions.
+3. **`ADMIN_API_KEY` is a RED-zone secret.** Compromise = full chain-termination authority across all sessions. Rotation on every role change, never commit, never log. Treat as equivalent to Supabase service-role key.
+4. **Forensic dumps are mandatory.** `forensicDump: true` is hard-coded in `src/app.ts` — operators cannot disable from the CLI. Retention per `docs/KYA_BYO_LIFECYCLE.md`.
+5. **Slash-command wrapper** at `.claude/commands/kya.md` adds an extra session-ID retype gate before executing destructive calls. Prefer `/kya snap ...` over raw CLI for interactive sessions.
+6. **Post-incident review** required within 24h of any non-dry-run `kya snap`. File a field note at `docs/field-notes/` and cross-link the forensic dump.
+
+**Authorization matrix:**
+
+| Role              | `kya status` | `kya snap --dry-run` | `kya snap` (real)   | `kya snap --force-cascade` |
+| ----------------- | ------------ | -------------------- | ------------------- | -------------------------- |
+| Developer         | ✅           | ✅                   | ❌                  | ❌                         |
+| Ops / On-call     | ✅           | ✅                   | ✅                  | With incident ticket       |
+| CISO / Security   | ✅           | ✅                   | ✅                  | ✅                         |
+| CISO Agent (auto) | ✅           | ✅                   | ❌ (recommend only) | ❌                         |
+
 ---
 
 ## Appendix: Infrastructure Providers
