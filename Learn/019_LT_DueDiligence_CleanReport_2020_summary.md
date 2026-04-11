@@ -92,8 +92,13 @@
 | 4   | **RedHat**       | RedHat Developer                       | ✓ Aktiivinen   |
 | 5   | **Confluent**    | Confluent Partner Program              | ✓ Aktiivinen   |
 
-> **Aktivoinnin kannalta tärkeää:** IBM Business Partner -status alkoi viimeistään 03/2020 ja on käyttäjän vahvistuksen mukaan voimassa edelleen 04/2026. Tämä on **6+ vuotta katkeamatonta strategista kumppanuutta** yhden Top 5 -tier-1 -teknologiatoimittajan kanssa — olennainen näyttö KPL 5:8 "tekninen toteutettavuus" -kriteerille.
+### Analysis / activation relevance
 
+> **Source fact (03/2020 DD report):** IBM Business Partnership Agreement / IBM Business Partner -status oli aktiivinen viimeistään 03/2020.
+>
+> **Later confirmation (not part of the 23.03.2020 DD report):** käyttäjän vahvistuksen mukaan kumppanuus on ollut voimassa edelleen 04/2026.
+>
+> **Interpretation for activation:** jos tämä myöhempi vahvistus hyväksytään erilliseksi taustatiedoksi, sitä voidaan käyttää näyttönä pitkäkestoisesta strategisesta kumppanuudesta Top 5 -tier-1 -teknologiatoimittajan kanssa ja mahdollisena tukena KPL 5:8 "tekninen toteutettavuus" -arvioinnissa.
 ## 5. Asiakassopimukset ja kumppanisopimukset (vahvistettu 03/2020)
 
 | Sopimus                                  | Päivämäärä | Tyyppi                 |
