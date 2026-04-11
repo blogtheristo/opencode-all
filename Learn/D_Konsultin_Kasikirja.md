@@ -144,15 +144,15 @@ Konsultin käsikirja täyttää KAIKKI Kirjanpitolain 5:8 mukaiset aktivointikri
 
 ## 9. Aktivointiyhteenveto
 
-| Kenttä                      | Arvo                                                                    |
-| :-------------------------- | :---------------------------------------------------------------------- |
-| Aktivointiperuste           | KPL 5:8 (Kirjanpitolaki, kehittämismenot)                               |
-| IFRS-vastine                | IAS 38 (Aineettomat hyödykkeet)                                         |
-| Hallituksen päätös          | 31.12.2025 (Lifetime Oy)                                                |
-| Tuntihinta (laskennallinen) | 100 €/h (RA, Manish Kumar) · 80 €/h (Salla Klemetti, Anu S. Rosen, PMO) |
-| D-kategorian tunnit         | TBD (täydennetään Drive-aineistosta versio versiolta)                   |
-| D-kategorian arvo           | TBD                                                                     |
-| Lemonsoft-tiliöinti         | Debet 1030 Kehittämismenot · Kredit 3950 Valmistus omaan käyttöön       |
+| Kenttä                      | Arvo                                                                                                             |
+| :-------------------------- | :--------------------------------------------------------------------------------------------------------------- |
+| Aktivointiperuste           | KPL 5:8 (Kirjanpitolaki, kehittämismenot)                                                                        |
+| IFRS-vastine                | IAS 38 (Aineettomat hyödykkeet)                                                                                  |
+| Hallituksen päätös          | 31.12.2025 (Lifetime Oy)                                                                                         |
+| Tuntihinta (laskennallinen) | 100 €/h (vain RA) · 80 €/h (Salla Klemetti, Anu S. Rosen, PMO) · Manish Kumar ei kuulu aktivoitaviin tunteihin ilman dokumentoituja kuluja |
+| D-kategorian tunnit         | TBD (täydennetään Drive-aineistosta versio versiolta)                                                            |
+| D-kategorian arvo           | TBD                                                                                                              |
+| Lemonsoft-tiliöinti         | Debet 1030 Kehittämismenot · Kredit 3950 Valmistus omaan käyttöön                                                |
 
 ---
 
