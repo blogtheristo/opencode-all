@@ -78,21 +78,21 @@ Appendix A: IT&S Service Accounts (Google Workspace -hallinta)
 
 Konsultin käsikirja täyttää KAIKKI Kirjanpitolain 5:8 mukaiset aktivointikriteerit:
 
-| Kriteeri                                        | Toteutus                                                                                                                                                     |
-| :---------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **(1) Tunnistettavissa erillisenä hyödykkeenä** | ✓ Versionumeroitu (0.1 → 0.22a), ISBN-mahdollisuus, oma filename `022a_Konsultin käsikirja`                                                                  |
-| **(2) Hallinta-omistus selvä**                  | ✓ Copyright "© 2019–2022 Lifetime Group, Risto Anton Päärni"                                                                                                 |
-| **(3) Aikomus käyttää tai myydä**               | ✓ "Se on saataville verkkokaupasta hintaan **49,95 eur**. Teosta voi myös ostaa näistä verkkokaupoista: **Amazon Kindle, Suomalainen.com**"                  |
-| **(4) Tekninen toteutettavuus loppuun saattaa** | ✓ v0.22a on jo julkaisuvalmis luonnos, vain "alustava versio. Ei julkaistava versio" -merkinnällä                                                            |
-| **(5) Tulevat taloudelliset hyödyt**            | ✓ Hinnoittelu 49,95 € per kpl + sisäinen käyttö konsulttien onboardingissa (joka mahdollistaa Cloud Ready Teams 500h Certified Consultant -ohjelman myynnin) |
-| **(6) Resurssit valmiit loppuun saattaa**       | ✓ Tiimi olemassa: RA + Anu S. Rosen + Salla Klemetti + PMO + LCP Consortium Board + Manish Kumar                                                             |
-| **(7) Mitattavissa luotettavasti**              | ✓ Versiokontrolli, tekijätiimi, vuosipäivitykset → kaikki työtunnit jäljitettävissä                                                                          |
+| Kriteeri                                        | Toteutus                                                                                                                                                                                                 |
+| :---------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **(1) Tunnistettavissa erillisenä hyödykkeenä** | ✓ Versionumeroitu (0.1 → 0.22a), ISBN-mahdollisuus, oma filename `022a_Konsultin käsikirja`                                                                                                              |
+| **(2) Hallinta-omistus selvä**                  | ✓ Lähdeartefaktissa on copyright-merkintä "© 2019–2022 Lifetime Group, Risto Anton Päärni"; aktivointi Lifetime Oy:lle edellyttää, että sama lähdearkisto, tekijä-/työsuhde tai erillinen luovutus osoittaa oikeuksien ja määräysvallan kuuluvan Lifetime Oy:lle |
+| **(3) Aikomus käyttää tai myydä**               | ✓ "Se on saataville verkkokaupasta hintaan **49,95 eur**. Teosta voi myös ostaa näistä verkkokaupoista: **Amazon Kindle, Suomalainen.com**"                                                              |
+| **(4) Tekninen toteutettavuus loppuun saattaa** | ✓ v0.22a on jo julkaisuvalmis luonnos, vain "alustava versio. Ei julkaistava versio" -merkinnällä                                                                                                        |
+| **(5) Tulevat taloudelliset hyödyt**            | ✓ Hinnoittelu 49,95 € per kpl + sisäinen käyttö konsulttien onboardingissa (joka mahdollistaa Cloud Ready Teams 500h Certified Consultant -ohjelman myynnin)                                             |
+| **(6) Resurssit valmiit loppuun saattaa**       | ✓ Tiimi olemassa: RA + Anu S. Rosen + Salla Klemetti + PMO + LCP Consortium Board + Manish Kumar                                                                                                         |
+| **(7) Mitattavissa luotettavasti**              | ✓ Versiokontrolli, tekijätiimi, vuosipäivitykset → kaikki työtunnit jäljitettävissä                                                                                                                      |
 
-**KPL 5:8 -tulkinta:** Konsultin käsikirja on **Lifetime Oy:n itsessään aktivoitavissa oleva aineeton hyödyke**, jolla on:
+**KPL 5:8 -tulkinta:** Konsultin käsikirja voidaan käsitellä **Lifetime Oy:n aktivoitavissa olevana aineettomana hyödykkeenä vain siltä osin kuin Lifetime Oy:n omistus-, käyttö- tai määräysvaltaoikeus on dokumentoidusti todennettavissa**, jolloin sillä on:
 
 - Oma tunnistettava elinkaari (2019 →)
 - Itsenäinen taloudellinen arvo (€49,95 myyntihinta + onboardingin tehostuminen)
-- Selkeä omistus ja kontrolli
+- Dokumentoidusti todennettava omistus- tai käyttöoikeus ja kontrolli
 - Mitattavissa olevat tuntipanostukset
 
 ## 6. Tunnit (alustava arvio, odottaa Drive-aineistoa)
