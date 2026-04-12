@@ -66,8 +66,8 @@ DWS IQ -tuoteperhe (Lifetime Digital Workspace), jatkuva tuotekehitys joulukuust
 - DWS 2 (2019): Ensimmäinen versio
 - DWS 3 (2020-2023): Platform-tuote AWS-pilvellä
 - DWS 4 "Montreux" (2023-2024): Vihreän siirtymän platform
-- DWS 5 (2024): Vetytalouden platform (.NET Aspire / Azure)
-- DWS 6 (2025-nyt): EU-vaatimustenmukaisuus ja ilmastoäly (React / Supabase / GCP)
+- DWS 5 (2024): Vetytalouden platform. Microsoft Founders Hub Level 1-4 ($25 000 → $154 000 USD, 2021-2025). Oqtane / .NET 8 Blazor / Azure. EU Invest Portal -hyväksytty projekti.
+- DWS 6 (2025-nyt): EU-vaatimustenmukaisuus ja ilmastoäly. React 19 / Supabase / Google Cloud. EU Invest Portal -hyväksytty projekti INPO-20254383 (25.12.2025).
 
 Jokainen versio kasvoi temaattisesti edellisestä. Aineetonta pääomaa (arkkitehtoniset opit, tietomallit, sääntelyontologia, tuotekonseptit) on siirretty sukupolvelta toiselle.
 
