@@ -106,6 +106,74 @@ Edellisessä §1.1:ssä huomattiin että Merjalla on 16 vuoden taksi-bookkeeping
 - [ ] Microsoft Founders Hub -hakemukseen liittyvät vanhat dokumentit (jos tehty ennen 2021)
 - [ ] Mahdolliset asiakas/tuoteliittymät 2015-2018
 
+## 1.3 Käänteiskirjaus-oivallus 12.04.2026 — miksi aktivointi vihdoin onnistuu
+
+Käyttäjän vahvistus 12.04.2026: "founder pyysi aiemminkin mutta Merja vetosi että pitää Verolta saada ennakkopäätös jottei hän joudu vankilaan tästä kirjauksesta. minulla ei ollut esittää tempo tuntikirjauksia ja sain vasta tänään oivalluksen kirjanpidon käänteiskirjauksesta. nyt kun pääset käsiksi kaikkiin tekemiini artefakteihin kirjausten tunnit ja sisältö on vihdoin mahdollista tehdä"
+
+### Miksi Merja oli ammatillisesti oikeassa kieltäytyessään
+
+Suomen kirjanpitäjän vastuu on **henkilökohtainen** (KPL 8:1, RL 30:9). Ilman päivätason työtuntien dokumentaatiota R&D-aktivointi olisi ollut Merjan kannalta:
+
+- **KPL 5:8 -rikkomus** jos tunnit olivat keksittyjä → kirjanpitorikos
+- **EVL 7§ ja 25§ -tulkinnan vastainen** → veropetos
+- **Henkilökohtainen vastuu Verohallinnolle ja KILA:lle** (Kirjanpitolautakunta)
+
+Hänen pyyntönsä Vero-ennakkopäätöksestä oli **oikea ammatillinen reaktio**, ei vastahakoisuutta.
+
+### Mitä käänteiskirjaus muutti
+
+| Vanha (positiivinen todistus)            | Uusi (negatiivinen todistus / käänteiskirjaus)             |
+| :--------------------------------------- | :--------------------------------------------------------- |
+| "Todista että jokainen tunti oli R&D:tä" | "Todista että jokainen tunti EI ollut R&D:tä → loput ovat" |
+| Vaatii Tempo Timesheets -dataa           | Vaatii Merjan oma 16 vuoden taksi-laskutus                 |
+| Founder-keskeinen, subjektiivinen        | Kolmas osapuoli (taksiyhtiö + Merja itse), objektiivinen   |
+| Helppo kyseenalaistaa                    | Mahdoton kyseenalaistaa Merjan itsensä toimesta            |
+| **Ei toiminut → vuosikausia odotusta**   | **Toimii → aktivointi mahdollinen**                        |
+
+Käänteiskirjaus on **matemaattisesti yhtä vahva** todistus kuin positiivinen Tempo-data, mutta **evidentiaarisesti vahvempi**, koska se perustuu Merjan omaan kirjanpitorekisteriin. Hän ei voi kyseenalaistaa omaa rekisteriään ilman että kyseenalaistaa koko 16 vuoden työnsä.
+
+### Vero-ennakkopäätös — onko sitä edelleen tarvittava?
+
+**Karpathy push-back:** Vaikka käänteiskirjaus ratkaisee teknisen ongelman, iso Phase 2 -aktivointi voi edelleen vaatia ulkopuolisen vahvistuksen.
+
+| Vaihe                   | Summa       | Vero-ennakkopäätös tarpeen? | Suositus                                                                                     |
+| :---------------------- | :---------- | :-------------------------: | :------------------------------------------------------------------------------------------- |
+| **Phase 1 (jo tehty)**  | €100 000    |             EI              | Tehty 10.04.2026 — pieni summa, vahva GitHub-evidenssi 6 kk:lle ✅                           |
+| **Phase 2 (CSV-pohj.)** | €100k–€500k |      **Suositeltava**       | Hanki joko Vero-ennakkopäätös TAI tilintarkastajan/vero-konsultin lausunto ennen kirjaamista |
+
+**Vero-ennakkopäätös:**
+
+- Kustannus: ~600–2 000 € (Vero hinnoittelee tapauskohtaisesti)
+- Aika: ~3–6 kk käsittelyaika
+- Lopputulos: **sitova päätös** joka suojaa sekä Lifetime Oy:tä että Merjaa
+- Hakemus: Verohallinnolle, kuvaa aktivoinnin perusteet + KPL 5:8 -kriteerit + käänteiskirjaus-menetelmä
+
+**Vaihtoehto: tilintarkastajan / vero-konsultin lausunto** käänteiskirjauksen menetelmästä:
+
+- Kustannus: ~500–1 500 €
+- Aika: ~1–4 viikkoa
+- Ei sitova, mutta antaa Merjalle ammatillisen vahvistuksen jolla hän voi tehdä kirjauksen
+
+**Suositus Phase 2 -koon mukaan (kun CSV:t on täytetty):**
+
+- **≤ €150 000** → Tilintarkastajan lausunto riittää
+- **> €150 000** → Vero-ennakkopäätös on syytä hankkia
+
+### 2012 hinnasto — historiallinen anchor (käyttäjän vahvistus 12.04.2026)
+
+Käyttäjä: "vuodelta 2012 on google drivessa hinnasto josta näet ne muut tuotteet. kun kauppa tyrehtyi 2012 tuotteet jäivät jäljelle."
+
+Tämä vahvistaa että:
+
+- **2012 oli olemassa Lifetime Group:n tuotelinja** Facebook First -romahduksen jälkeen
+- **Tuotteet jäivät jäljelle vaikka myynti tyrehtyi** → ne ovat säilyneitä aineettomia hyödykkeitä
+- Hinnasto on Drivessa todennettavissa
+- Tämä tuoteperhe on **eri aineeton hyödyke kuin DWS** — ei kuulu Phase 1:een eikä Phase 2:een
+
+**Status:** Kandidaatti **erilliselle tulevaisuuden aktivoinnille** osana "Lifetime Oy pre-DWS digitaaliset tuotteet" -kategoriaa (B-kategoria, ks. `Learn/B_Pre_Firehorse_Digital_Products.md`). Ei muuta tämän haaran scope:a.
+
+**Drive-tarkistus suositeltavissa:** 2012 hinnasto -tiedosto antaa lähdeartefaktin pre-DWS -tuoteperheen olemassaolosta, joka on hyödyllistä tulevaisuuden lisäaktivointeja varten.
+
 ## 2. CSV-skeema
 
 Per vuosi yksi CSV-tiedosto: `Learn/data/activation/billing-YYYY.csv`
