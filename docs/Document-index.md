@@ -379,6 +379,23 @@ Metropolia master thesis documentation.
 
 ---
 
+## R&D Activation / Tuotekehitysmenojen aktivointi (Learn/)
+
+Lifetime Oy:n tuotekehitysmenojen aktivointi KPL 5:8 — dokumentaatio kirjanpitäjälle. Kaikki tiedostot `Learn/`-kansiossa. Aktivointi €594 000 (hallituksen päätös 31.12.2025, kirjattu 10.04.2026).
+
+| Document                         | Path                                                    | Language | Status   | Description                                                                  |
+| -------------------------------- | ------------------------------------------------------- | -------- | -------- | ---------------------------------------------------------------------------- |
+| Oppimispäiväkirja v2.3           | `Learn/Oppimispäiväkirja.md`                            | FI       | ACTIVE   | Pääasiakirja — aikajana 2018-2026, 30+ vahvistettu lähde, evidenssipohja     |
+| F — Toimituspaketti Merjalle     | `Learn/F_Dual_Version_Activation_Package.md`            | FI       | ACTIVE   | Virallinen 2-kirjauksen toimituspaketti kirjanpitäjälle (€100k + €494k)      |
+| E — CSV-skeema 2018-2024         | `Learn/E_Yearly_Activation_CSV_Schema.md`               | FI       | ACTIVE   | Käänteiskirjaus-metodologia, vuosittaiset CSV-templaatit, eläkerekisteridata |
+| 012f — DWS 3 projektiasiakirja   | `Learn/012f_Lifetime_Digital_Workspace_3_DWS3.md`       | FI       | DRAFT    | DWS 3 (AWS) projekti 2020-2023                                               |
+| 019 — DD Report 2020 tiivistelmä | `Learn/019_LT_DueDiligence_CleanReport_2020_summary.md` | FI       | ACTIVE   | Due Diligence Clean Report 23.03.2020 faktat                                 |
+| D — Konsultin käsikirja          | `Learn/D_Konsultin_Kasikirja.md`                        | FI       | ACTIVE   | Konsultin käsikirja v0.22a (22.02.2022) projektiasiakirja                    |
+| B — Pre-Firehorse tuotteet       | `Learn/B_Pre_Firehorse_Digital_Products.md`             | FI       | DRAFT    | Esi-Firehorse digitaaliset tuotteet kandidaattilista                         |
+| CSV-templaatit 2018-2024         | `Learn/data/activation/billing-{2018..2024}.csv`        | —        | TEMPLATE | 7 vuosittaista CSV-templaattia R&D-päivien rekonstruktioon                   |
+
+---
+
 ## Configuration
 
 Environment and setup configuration guides.
