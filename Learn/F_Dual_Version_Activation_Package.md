@@ -19,7 +19,7 @@
 Vastaanottaja: Merja [sukunimi]
 Lähettäjä: Risto Anton Päärni, CEO, Lifetime Oy
 Päivämäärä: 12.04.2026
-Asia: Tuotekehitysmenojen aktivointi KPL 5:8 — kaksi kirjausvaihtoehtoa
+Asia: Tuotekehitysmenojen aktivointi KPL 5:8 — kaksi kirjausta
 
 Hyvä Merja,
 
@@ -27,7 +27,7 @@ Toimitan ohessa Lifetime Oy:n tuotekehitysmenojen aktivointia koskevat asiakirja
 
 Olemme saaneet Kirjanpitolautakunnalta (KILA) ennakkopäätöksen, jonka mukaan 594 000 euron aktivointi on täysin oikein. KILA-ennakkopäätös on liitteenä.
 
-Toimitan kaksi kirjausvaihtoehtoa. Voit kirjata joko molemmat (suositus) tai pelkän Vaihtoehdon A konservatiivisena vaihtoehtona.
+Aktivointi toteutetaan kahtena Lemonsoft-kirjauksena päivämäärällä 10.04.2026. Molemmat kirjaukset ovat pakollisia — kyseessä ei ole vaihtoehtoja vaan yhden kokonaisuuden kaksi osaa.
 
 Ystävällisin terveisin,
 Risto Anton Päärni
@@ -234,20 +234,20 @@ Aineeton käyttöomaisuus (tili 1030) yhteensä: 594 000,00 euroa
 Aktivoinnin hyväksyntä:
 
 Risto Anton Päärni, CEO, Lifetime Oy
-Päivämäärä: ****\_\_****
-Allekirjoitus: ****\_\_****
+Päivämäärä: \***\*\_\_\*\***
+Allekirjoitus: \***\*\_\_\*\***
 
 Kirjanpitäjän hyväksyntä:
 
 Merja [sukunimi]
-Päivämäärä: ****\_\_****
-Allekirjoitus: ****\_\_****
+Päivämäärä: \***\*\_\_\*\***
+Allekirjoitus: \***\*\_\_\*\***
 
 KILA-vahvistus vastaanotettu:
 
 Mira Merikoski, Kirjanpitolautakunta
-Päivämäärä: ****\_\_****
-Viite: ****\_\_****
+Päivämäärä: \***\*\_\_\*\***
+Viite: \***\*\_\_\*\***
 
 ---
 
