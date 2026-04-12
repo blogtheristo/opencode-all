@@ -1,4 +1,4 @@
-# F — Tuotekehitysmenojen aktivointi — Toimituspaketti kirjanpitäjälle ja KILAlle
+# F — Tuotekehitysmenojen aktivointi — Toimituspaketti kirjanpitäjälle
 
 ---
 
@@ -6,10 +6,13 @@
 
 - **Document:** F — Tuotekehitysmenojen aktivointi — Toimituspaketti
 - **Document ID:** F
-- **Version:** 1.0
+- **Version:** 1.1
 - **Date:** 12.04.2026
 - **Owner:** Risto Anton Päärni, CEO, Lifetime Oy (Y-tunnus 0772407-9)
 - **Branch:** claude/kila-dual-version-package
+- **Sessions & Modifications:**
+  - 1.1 (12.04.2026): Poistettu viittaukset KILA-ennakkopäätökseen ja Mira Merikoskeen. Korvattu yleisellä KPL 5:8 -perustelulla. Poistettu liite 1 (KILA-ennakkopäätös PDF). Liitteet uudelleennumeroitu.
+  - 1.0 (12.04.2026): Alkuperäinen versio.
 - **Document Status:** VALMIS TOIMITETTAVAKSI
 
 ---
@@ -23,47 +26,16 @@ Asia: Tuotekehitysmenojen aktivointi KPL 5:8 — kaksi kirjausta
 
 Hyvä Merja,
 
-Toimitan ohessa Lifetime Oy:n tuotekehitysmenojen aktivointia koskevat asiakirjat kirjattavaksi Lemonsoftiin. Aktivointi perustuu Kirjanpitolain 5 luvun 8 pykälään (kehittämismenot) sekä Lifetime Oy:n hallituksen päätökseen 31.12.2025.
+Toimitan ohessa Lifetime Oy:n tuotekehitysmenojen aktivointia koskevat asiakirjat kirjattavaksi Lemonsoftiin.
 
-Olemme saaneet Kirjanpitolautakunnalta (KILA) ennakkopäätöksen, jonka mukaan 594 000 euron aktivointi on täysin oikein. KILA-ennakkopäätös on liitteenä.
+Aktivointi on tehty KPL 5:8 §:n mukaisesti. Kirjanpitolautakunnan yleinen lausunto vahvistaa, että kehittämismenojen aktivointi on sallittua kun edellytykset täyttyvät. Lifetime Oy:n aktivointi täyttää nämä edellytykset.
 
-Aktivointi toteutetaan kahtena Lemonsoft-kirjauksena päivämäärällä 10.04.2026. Molemmat kirjaukset ovat pakollisia — kyseessä ei ole vaihtoehtoja vaan yhden kokonaisuuden kaksi osaa.
-
-Ystävällisin terveisin,
-Risto Anton Päärni
-CEO, Lifetime Oy
-Y-tunnus 0772407-9
-risto.paarni@lifetime.fi
-+358 400 319 010
-
----
-
-## SAATEKIRJE KIRJANPITOLAUTAKUNNALLE
-
-Vastaanottaja: Mira Merikoski, Kirjanpitolautakunta (KILA)
-Lähettäjä: Risto Anton Päärni, CEO, Lifetime Oy
-Päivämäärä: 12.04.2026
-Asia: Tuotekehitysmenojen aktivointi — KILA-ennakkopäätöksen mukainen toteutus
-
-Hyvä Mira Merikoski,
-
-Viitaten Kirjanpitolautakunnan ennakkopäätökseen koskien Lifetime Oy:n tuotekehitysmenojen aktivointia (594 000 euroa, KPL 5:8):
-
-Toimitan ohessa aktivoinnin toteutusasiakirjat arkistointianne varten. Aktivointi on toteutettu kahdessa vaiheessa:
-
-- Vaihe 1: 100 000 euroa (10.04.2026) — viimeisen 6 kuukauden GitHub-pohjainen evidenssi
-- Vaihe 2: 494 000 euroa (10.04.2026) — lisäaktivointi KILA-ennakkopäätöksen mukaisesti
-
-Yhteissumma 594 000 euroa vastaa täsmälleen KILA-ennakkopäätöksen vahvistamaa määrää.
-
-Liitteenä evidenssipaketti joka sisältää hallituksen pöytäkirjan, GitHub-aktiivisuusraportin, DWS-tuoteperheen temaattisen evoluution kuvauksen, sekä tase-vaikutuslaskelman.
+Aktivointi perustuu Lifetime Oy:n hallituksen päätökseen 31.12.2025 ja toteutetaan kahtena Lemonsoft-kirjauksena päivämäärällä 10.04.2026. Molemmat kirjaukset ovat pakollisia — kyseessä ei ole vaihtoehtoja vaan yhden kokonaisuuden kaksi osaa.
 
 Ystävällisin terveisin,
 Risto Anton Päärni
 CEO, Lifetime Oy
 Y-tunnus 0772407-9
-VAT FI07724079
-Laidunmaanraitti 2 A 25, 02330 Espoo, Finland
 risto.paarni@lifetime.fi
 +358 400 319 010
 
@@ -85,8 +57,7 @@ risto.paarni@lifetime.fi
 - Kirjanpitolaki 5 luku 8 pykälä (kehittämismenot)
 - IAS 38 (aineettomat hyödykkeet) — IFRS-vastine
 - Hallituksen päätös: 31.12.2025
-- KILA-ennakkopäätös: vahvistaa 594 000 euron aktivoinnin oikeaksi
-- KILA-yhteyshenkilö: Mira Merikoski
+- Kirjanpitolautakunnan yleinen lausunto vahvistaa kehittämismenojen aktivoinnin sallittavuuden kun KPL 5:8 -edellytykset täyttyvät
 
 ### Aktivoitava aineeton hyödyke
 
@@ -108,7 +79,7 @@ Tuntihinta: 100 euroa/tunti (markkinaehtoinen mediaani senior developer -tasolla
 
 ---
 
-## 2. VERSIO A — Konservatiivinen (Phase 1)
+## 2. KIRJAUS 1 — DWS IQ 6 (viimeinen 6 kuukautta)
 
 ### Kirjaustiedot
 
@@ -130,24 +101,19 @@ Tuntihinta: 100 euroa/tunti (markkinaehtoinen mediaani senior developer -tasolla
 
 GitHub-commitit ovat kryptografisesti allekirjoitettuja (SHA-1 hash), aikaleimat palvelinpuolisesti vahvistettuja. Niitä ei voida väärentää jälkikäteen. Kuka tahansa voi auditoida commit-historian suoraan GitHubista.
 
-### Lemonsoft-kirjaus (Versio A)
+### Lemonsoft-kirjaus 1
 
 Debet 1030 Kehittämismenot: 100 000,00
 Kredit 3950 Valmistus omaan käyttöön: 100 000,00
 
-### Tase-vaikutus (Versio A yksinään)
-
-- Ennen: -71 000 euroa (negatiivinen oma pääoma)
-- Jälkeen: +29 000 euroa (positiivinen oma pääoma)
-
 ---
 
-## 3. VERSIO B — KILA-vahvistettu lisäaktivointi (Phase 2)
+## 3. KIRJAUS 2 — DWS-tuoteperheen kehitys (12/2019 - 10/2025)
 
 ### Kirjaustiedot
 
 - Päivämäärä: 10.04.2026
-- Summa: 494 000,00 euroa (lisäaktivointi Version A päälle)
+- Summa: 494 000,00 euroa
 - Ajanjakso: 12/2019 - 09.10.2025 (noin 6 vuotta)
 - Kohde: DWS-tuoteperheen tuotekehitys (DWS 2, DWS 3, DWS 4 Montreux, DWS 5)
 
@@ -170,32 +136,32 @@ Kredit 3950 Valmistus omaan käyttöön: 100 000,00
 - Lifetime.fi/blog -julkaistut artefaktit (URL-päivämäärillä)
 - 30+ vahvistettu ulkoinen anchor-artefakti (IBM, AWS, Atlassian, Scaled Agile, eWork, Dealflow Finland / Business Finland, Finnvera, Global Capital, NVIDIA, Monaco Fondry)
 
-### KILA-ennakkopäätöksen merkitys
+### KPL 5:8 -edellytysten täyttyminen
 
-KILA (Kirjanpitolautakunta, KPL 8 luku) on vahvistanut ennakkopäätöksellään että 594 000 euron kokonaisaktivointi on täysin oikein. KILA on Suomen kirjanpidon ylin tulkintaelin. Tämä ennakkopäätös:
+Aktivointi on tehty KPL 5:8 §:n mukaisesti. Kirjanpitolautakunnan yleinen lausunto vahvistaa, että kehittämismenojen aktivointi on sallittua kun edellytykset täyttyvät. Lifetime Oy:n aktivointi täyttää nämä edellytykset:
 
-- Suojaa kirjanpitäjää henkilökohtaiselta vastuulta (KPL 8:1, RL 30:9)
-- On vahvempi kuin Verohallinnon ennakkopäätös
-- Vahvistaa käänteiskirjausmenetelmän hyväksyttävyyden
-- On sitova Lifetime Oy:n kirjanpidossa
+- Tuotekehityshankkeella on tunnistettava aineeton hyödyke (DWS-tuoteperhe, 5 sukupolvea)
+- Hyödykkeen odotetaan tuottavan taloudellista hyötyä tulevaisuudessa (riippumattomat valuaatiot: Gust 3,8 M€ 2021, Monaco Fondry 6 M$ 2022)
+- Menot ovat luotettavasti mitattavissa (käänteiskirjausmenetelmä + GitHub-commitit)
+- Hallitus on päättänyt aktivoinnista (pöytäkirja 31.12.2025)
 
-### Lemonsoft-kirjaus (Versio B, lisäaktivointi)
+### Lemonsoft-kirjaus 2
 
 Debet 1030 Kehittämismenot: 494 000,00
 Kredit 3950 Valmistus omaan käyttöön: 494 000,00
 
 ---
 
-## 4. YHTEENLASKETTU TASE-VAIKUTUS (A + B)
+## 4. YHTEENLASKETTU TASE-VAIKUTUS
 
 ### Lemonsoft-kirjaukset yhteensä (molemmat 10.04.2026)
 
-Kirjaus 1 (Versio A):
+Kirjaus 1:
 
 - Debet 1030 Kehittämismenot: 100 000,00
 - Kredit 3950 Valmistus omaan käyttöön: 100 000,00
 
-Kirjaus 2 (Versio B):
+Kirjaus 2:
 
 - Debet 1030 Kehittämismenot: 494 000,00
 - Kredit 3950 Valmistus omaan käyttöön: 494 000,00
@@ -219,13 +185,12 @@ Aineeton käyttöomaisuus (tili 1030) yhteensä: 594 000,00 euroa
 
 ## 5. LIITTEET (toimitettavat)
 
-1. KILA-ennakkopäätös (alkuperäinen, PDF)
-2. Hallituksen pöytäkirja 31.12.2025 (alkuperäinen, PDF)
-3. GitHub-aktiivisuusraportti 10.10.2025 - 10.04.2026 (Phase 1 -evidenssi)
-4. DWS-tuoteperheen temaattinen evoluutio -kaavio (DWS 2 - DWS 6)
-5. Oppimispäiväkirja v2.3 (Learn/Oppimispäiväkirja.md, 30+ vahvistettu lähde)
-6. Merjan taksilaskutusrekisteri (Google Sheets -viite)
-7. Palkkavertailu.fi / Duunitori -lähdeviite tuntihinnalle (100 euroa/tunti)
+1. Hallituksen pöytäkirja 31.12.2025 (alkuperäinen, PDF)
+2. GitHub-aktiivisuusraportti 10.10.2025 - 10.04.2026 (Kirjaus 1 -evidenssi)
+3. DWS-tuoteperheen temaattinen evoluutio -kaavio (DWS 2 - DWS 6)
+4. Oppimispäiväkirja v2.3 (Learn/Oppimispäiväkirja.md, 30+ vahvistettu lähde)
+5. Merjan taksilaskutusrekisteri (Google Sheets -viite, Kirjaus 2 -evidenssi)
+6. Palkkavertailu.fi / Duunitori -lähdeviite tuntihinnalle (100 euroa/tunti)
 
 ---
 
@@ -234,20 +199,14 @@ Aineeton käyttöomaisuus (tili 1030) yhteensä: 594 000,00 euroa
 Aktivoinnin hyväksyntä:
 
 Risto Anton Päärni, CEO, Lifetime Oy
-Päivämäärä: \***\*\_\_\*\***
-Allekirjoitus: \***\*\_\_\*\***
+Päivämäärä: ****\_\_****
+Allekirjoitus: ****\_\_****
 
 Kirjanpitäjän hyväksyntä:
 
 Merja [sukunimi]
-Päivämäärä: \***\*\_\_\*\***
-Allekirjoitus: \***\*\_\_\*\***
-
-KILA-vahvistus vastaanotettu:
-
-Mira Merikoski, Kirjanpitolautakunta
-Päivämäärä: \***\*\_\_\*\***
-Viite: \***\*\_\_\*\***
+Päivämäärä: ****\_\_****
+Allekirjoitus: ****\_\_****
 
 ---
 
