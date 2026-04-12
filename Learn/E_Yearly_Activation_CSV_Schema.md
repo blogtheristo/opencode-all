@@ -61,6 +61,51 @@ Tämä on **strukturaalinen ongelma Lifetime Oy:n taseessa** joka selittää nyk
 
 **Tämän haaran scope säilyy 2018-2024** (DWS-aktivoinnin Vaihe 2). 2010-2017 -alikirjauksen tunnistaminen on **erillinen jatkohanke** seuraavissa tilikausissa.
 
+## 1.2 Lifetime Group:n todellinen aikajana 2009–2025 (käyttäjän vahvistus 12.04.2026)
+
+| Vuodet              | Mitä tapahtui                                                                   | R&D-status / aktivointi                                                                                                       |
+| :------------------ | :------------------------------------------------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------- |
+| **2009–2011**       | **Facebook First** -tuotelinja (FB HTML + FB AdSense -asiakkuudet)              | R&D olemassa, mutta **eri aineeton hyödyke** kuin DWS — pysähtyi Facebookin listautumiseen → **EI osa DWS-aktivointia**       |
+| **06/2011–08/2015** | **Pohjolan Kaupunkiliikenne** (~4 v 2 kk täysipäiväinen taksinkuljettaja)       | **Taksi oli päätoimi, ei sivutyö** → käytännössä nolla R&D:tä Lifetime Oy:lle näinä 4 vuotena → **ei aktivoitavaa**           |
+| **Kesä 2015**       | **Comeback alkaa**: Microsoft C# -opiskelu                                      | Comeback-ankkurin alku, oppimisvaihe                                                                                          |
+| **2015–2018**       | C# / "hockey app" / mobile-kehitys                                              | **Pre-DWS** — Drive-aineisto TBD, mahdollisesti vähäistä aktivoitavaa erillisenä hyödykkeenä                                  |
+| **2018–2019**       | Microsoft Mobile (HockeyApp)                                                    | **Pre-DWS, jätetty pois aktivoinnista** (käyttäjän aiempi vahvistus 10.04.2026)                                               |
+| **12/2019 →**       | **DWS 2 → DWS 3 → DWS 4 (Montreux) → DWS 5 (vetytalous) → DWS 6 (EU-sääntely)** | **DWS-aktivoinnin pääjakso** — Phase 1 (€100k 6 kk) jo päätetty, **Phase 2 (tämän haaran scope) kattaa 12/2019 → 09.10.2025** |
+
+**Karpathy-näkökulma — tämä KAVENTAA aktivointia:**
+
+Edellisessä §1.1:ssä huomattiin että Merjalla on 16 vuoden taksi-bookkeeping-data 2010 →. **Mutta** tämä historiikki paljastaa että:
+
+- **2010–2011**: R&D oli Facebook First (eri tuoteperhe) → ei DWS-aktivointia
+- **2011–2015**: Taksi oli päätyö → ei R&D:tä → ei aktivoitavaa (4 vuoden hiatus)
+- **2015–2018**: Comeback / oppimisvaihe → vähäistä, vaatii Drive-tarkistuksen
+- **12/2019 →**: Selkeä DWS-jatkumo → pääaktivointi
+
+**Lifetime Oy:n -71 000 € negatiivinen oma pääoma selittyy luonnollisesti** tällä historialla:
+
+- Yhtiön rahaliikenne tuli **taksista** (2011-2015 ja jälkeen sivutyönä)
+- DWS-tuotteita ei myyty volyymillä jolla tase olisi noussut positiiviseksi
+- Founder-R&D:tä ei kapitalisoitu, vaikka se olisi pitänyt
+- → Klassinen pitkän startup-vaiheen tuloskerroin: kassavirta tuli sivutoimesta, päätoimen R&D:tä ei kirjattu taseelle
+
+**Aktivoinnin oikeutus on siten selkeä:** R&D-työtä ON tehty 12/2019 →, sitä EI ole kapitalisoitu, ja se on KPL 5:8 -kelpoista omaa kehittämistyötä joka tukee tunnistettavaa aineetonta hyödykettä (DWS-tuoteperhe, erityisesti DWS 6 nykyinen tuotantoversio).
+
+**Ankkurit jotka tämä historiikki vahvistaa:**
+
+- 2009-2011 Facebook First — käyttäjän suullinen vahvistus 12.04.2026
+- 06/2011-08/2015 Pohjolan Kaupunkiliikenne — käyttäjän suullinen vahvistus 12.04.2026
+- Kesä 2015 C# -opiskelu / "hockey app" -comeback — käyttäjän suullinen vahvistus 12.04.2026
+- 2018-2019 Microsoft Mobile (HockeyApp) — käyttäjän vahvistus 10.04.2026 (jo journalissa)
+- 12/2019 → DWS 2 → DWS 6 — laajasti dokumentoitu (n. 30+ ankkuria)
+
+**Drive-tarkistuslista (kesä 2015 → 2018 -aineisto):**
+
+- [ ] C# -projektikoodi 2015-2017 (Visual Studio -projektit)
+- [ ] HockeyApp (Microsoft) -kehitys -aineisto 2018-2019
+- [ ] Mahdolliset blogipostit lifetime.fi 2015-2018
+- [ ] Microsoft Founders Hub -hakemukseen liittyvät vanhat dokumentit (jos tehty ennen 2021)
+- [ ] Mahdolliset asiakas/tuoteliittymät 2015-2018
+
 ## 2. CSV-skeema
 
 Per vuosi yksi CSV-tiedosto: `Learn/data/activation/billing-YYYY.csv`
