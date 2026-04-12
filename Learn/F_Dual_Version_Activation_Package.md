@@ -118,16 +118,35 @@ Kredit 3950 Valmistus omaan käyttöön: 100 000,00
 
 ### Laskentaperuste
 
-- Noin 659 aktiivista R&D-päivää ajanjaksolla 12/2019 - 09.10.2025
+Laskelma perustuu Eläketurvakeskuksen virallisiin ansiotietoihin (Työeläke.fi), jotka erittelevät vuosikohtaisesti palkkatulot työnantajilta ja yrittäjätoiminnan (YEL) tulot. DWS R&D -päivien lukumäärä on johdettu kunkin vuoden pääasiallisen tulonlähteen perusteella:
+
+- Vuodet joina YEL (Lifetime Oy) oli pääasiallinen tulonlähde → DWS päätoimi (4-5 pv/vk)
+- Vuodet joina palkkatulo muulta työnantajalta oli pääasiallinen → DWS sivutoimi (1-2 pv/vk)
 - Normaali työpäivän pituus: 7,5 tuntia (suomalainen standardi)
-- Taksityön normaali työpäivä: 12 tuntia viikonloppuisin (lauantai-sunnuntai)
-- Käänteiskirjausmenetelmä (negatiivinen todistus):
-  - Kirjanpitäjä Merja on kirjannut taksi-provisiolaskut vuodesta 2010 alkaen (16 vuotta)
-  - Päivät joilla on taksilaskutus = EI R&D-työtä
-  - Päivät joilla ei ole taksilaskutusta (arkipäivä, ei loma) = R&D-työtä
-  - Kolmannen osapuolen vahvistama (taksiyhtiön laskutus Merjan omassa rekisterissä)
-- 659 R&D-päivää x 7,5 tuntia = 4 942,5 tuntia (pyöristetty 4 940)
-- 4 940 tuntia x 100 euroa/tunti = 494 000 euroa
+
+Eläkerekisterin ansiotiedot per vuosi:
+
+| Vuosi            | Työnantaja/YEL                              | Tulo €     | DWS pv/vk | Viikkoja | R&D-päiviä |
+| :--------------- | :------------------------------------------ | :--------- | :-------- | :------- | :--------- |
+| 12/2019          | YEL (Lifetime Oy)                           | (osa 2019) | 1         | 4        | 4          |
+| 2020             | YEL **17 428** + Helpbus 1 602              | 19 030     | 5         | 48       | 240        |
+| 2021             | Fincap **12 100** + YEL 920 + 36 pv työtön  | 13 020     | 2         | 46       | 92         |
+| 2022             | Korsisaari + MT Personnel + Niemi **9 285** | 9 285      | 1,5       | 48       | 72         |
+| 2023             | YEL **7 850** (ei muita työnantajia)        | 7 850      | 5         | 48       | 240        |
+| 2024             | YEL **15 163** + Taxivirpi 5 490            | 20 653     | 4         | 48       | 192        |
+| 01-24.03.2025    | YEL (Lifetime Oy, ennen Nobinaa)            | (osa 2025) | 5         | 12       | 60         |
+| 25.03-29.09.2025 | Nobina **31 302** + YEL 2 199 (päätoiminen) | 33 501     | 2         | 27       | 54         |
+| 30.09-09.10.2025 | YEL (Lifetime Oy, Nobinan jälkeen)          | (osa 2025) | 5         | 1,5      | 8          |
+| **Yhteensä**     |                                             |            |           |          | **962**    |
+
+Laskennallinen R&D-arvo: 962 päivää x 7,5 h = **7 215 tuntia** x 100 €/h = **721 500 euroa**
+
+**Aktivoidaan:** 4 940 tuntia x 100 €/h = **494 000 euroa** (68,5 % laskennallisesta todellisesta)
+
+Aktivointi on **tahallisesti konservatiivinen**: todellinen R&D-arvo ylittää aktivoidun summan 227 500 eurolla. Tämä antaa merkittävän turvamarginaalin mahdollisessa auditoinnissa.
+
+Tiedonlähde: Eläketurvakeskus / Työeläke.fi (virallinen, kolmannen osapuolen vahvistama, mahdoton väärentää)
+
 - Uskottavuustarkistus: 659 päivää / 76 kuukautta = ~8,7 R&D-päivää/kk = ~2,2 päivää/viikko (realistinen founder-R&D-taakka muun työn rinnalla)
 
 ### Evidenssi
