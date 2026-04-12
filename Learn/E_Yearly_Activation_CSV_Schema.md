@@ -279,17 +279,17 @@ date,weekday,taxi_hours,taxi_revenue_eur,taxi_source,rd_hours,rd_artifact_url,rd
 
 ## 3. Vuosittainen aikajakso ja olettamukset
 
-| Vuosi                 | RA:n työrytmi (käyttäjän vahvistus 11.04.2026)            | Olettamus R&D-päivistä                      |
-| :-------------------- | :-------------------------------------------------------- | :------------------------------------------ |
-| 2018                  | 1 työpäivä/vk Lifetime + 6 pv/vk muu (taksi/muu)          | ~50 R&D-päivää/vuosi                        |
-| 2019                  | 1 työpäivä/vk Lifetime + viikonloppu-taksi                | ~50–80 R&D-päivää/vuosi                     |
-| 2020 (1-2/2020)       | **5 täyttä työpäivää/vk DWS** + viikonloppu-taksi         | ~40 R&D-päivää (tammi-helmi)                |
-| 2020 (Korona-tauko)   | Korona-tauko taksilla                                     | TBD (lisää R&D-aikaa, koska taksi pysähtyi) |
-| 2020 (Korona jälkeen) | Jatkuu                                                    | TBD                                         |
-| 2021                  | Founders Hub aktivointi (LEVEL 1, $25k)                   | TBD                                         |
-| 2022                  | Konsultin käsikirja v0.22a (22.02.2022) + NVIDIA outreach | TBD                                         |
-| 2023                  | DWS 3 → DWS 5 -siirtymä, 09/2023 Firehorse-konsepti       | TBD                                         |
-| 2024                  | DWS 5 (Oqtane/Azure) + DWS 6 -valmistelu                  | TBD                                         |
+| Vuosi                 | RA:n työrytmi (käyttäjän vahvistus 11.04.2026)             | Olettamus R&D-päivistä                      |
+| :-------------------- | :--------------------------------------------------------- | :------------------------------------------ |
+| 2018                  | 1 työpäivä/vk Lifetime + 6 pv/vk muu (taksi/muu)           | ~50 R&D-päivää/vuosi                        |
+| 2019                  | 1 työpäivä/vk Lifetime + viikonloppu-taksi                 | ~50–80 R&D-päivää/vuosi                     |
+| 2020 (1-2/2020)       | **5 täyttä työpäivää/vk DWS** + viikonloppu-taksi          | ~40 R&D-päivää (tammi-helmi)                |
+| 2020 (Korona-tauko)   | Korona-tauko taksilla                                      | TBD (lisää R&D-aikaa, koska taksi pysähtyi) |
+| 2020 (Korona jälkeen) | Jatkuu                                                     | TBD                                         |
+| 2021                  | Founders Hub aktivointi (LEVEL 1→4, $25k→$154k, 2021-2025) | TBD                                         |
+| 2022                  | Konsultin käsikirja v0.22a (22.02.2022) + NVIDIA outreach  | TBD                                         |
+| 2023                  | DWS 3 → DWS 5 -siirtymä, 09/2023 Firehorse-konsepti        | TBD                                         |
+| 2024                  | DWS 5 (Oqtane/Azure) + DWS 6 -valmistelu                   | TBD                                         |
 
 **Huomio:** Yllä olevat ovat **arvioita**, eivät vahvistettua dataa. CSV-tiedostot täytetään kun käyttäjä toimittaa Google Sheets -laskutusdatan ja lifetime.fi -blogi URL:t.
 
