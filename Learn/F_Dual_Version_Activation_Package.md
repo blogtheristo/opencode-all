@@ -98,7 +98,7 @@ Tuntihinta: 100 euroa/tunti (markkinaehtoinen mediaani senior developer -tasolla
 
 ### Evidenssi
 
-GitHub-commitit ovat kryptografisesti allekirjoitettuja (SHA-1 hash), aikaleimat palvelinpuolisesti vahvistettuja. Niitä ei voida väärentää jälkikäteen. Kuka tahansa voi auditoida commit-historian suoraan GitHubista.
+Evidenssi perustuu GitHub-repositorioiden commit- ja pull request -historiaan, niiden ajalliseen jatkumoon sekä tarvittaessa arkistoituihin vientitiedostoihin ja kuvakaappauksiin. Commit hash yksilöi Git-objektin, mutta ei sellaisenaan ole kryptografinen allekirjoitus. Mahdollinen lisänäyttö muodostuu niistä commit- tai tag-merkinnöistä, joille GitHub näyttää Verified-statuksen, sekä niistä repositorioista, joissa on käytössä suojatut branchit ja PR-pohjainen muutostenhallinta. Aikaleimat ovat pääosin Gitin commit-metatietoa, joten tätä aineistoa käytetään työmäärän ja kehityshistorian tukevana dokumentaationa yhdessä GitHubin lokien, PR-keskustelujen ja arkistoitujen exporttien kanssa.
 
 ### Lemonsoft-kirjaus 1
 
