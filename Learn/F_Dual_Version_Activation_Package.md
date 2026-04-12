@@ -69,7 +69,9 @@ DWS IQ -tuoteperhe (Lifetime Digital Workspace), jatkuva tuotekehitys joulukuust
 - DWS 5 (2024): Vetytalouden platform. Microsoft Founders Hub Level 1-4 ($25 000 → $154 000 USD, 2021-2025). Oqtane / .NET 8 Blazor / Azure. EU Invest Portal -hyväksytty projekti.
 - DWS 6 (2025-nyt): EU-vaatimustenmukaisuus ja ilmastoäly. React 19 / Supabase / Google Cloud. EU Invest Portal -hyväksytty projekti INPO-20254383 (25.12.2025).
 
-Jokainen versio kasvoi temaattisesti edellisestä. Aineetonta pääomaa (arkkitehtoniset opit, tietomallit, sääntelyontologia, tuotekonseptit) on siirretty sukupolvelta toiselle.
+Liitännäishanke: CIMS (Crypto Investment Management Studio), EU Invest Portal EIPP-20191320 (2019). CIMS muodostaa DWS 7:n Digital Euro -integraatiokerroksen perustan, ECB:n Digital Euro -tavoiteaikataulu ~2029.
+
+Jokainen versio kasvoi temaattisesti edellisestä. Aineetonta pääomaa (arkkitehtoniset opit, tietomallit, sääntelyontologia, tuotekonseptit) on siirretty sukupolvelta toiselle. DWS-tuoteperheen kehitys jatkuu aktiivisesti: DWS 7 -suunnittelu on käynnissä ja CIMS-hankkeen Digital Euro -integraatio kytkee tuoteperheen ECB:n tulevaisuuden maksuinfrastruktuuriin.
 
 ### Aktivoinnin tekijä
 
