@@ -1,0 +1,11 @@
+date,weekday,taxi_hours,taxi_revenue_eur,taxi_source,rd_hours,rd_artifact_url,rd_artifact_type,rd_project,notes,verified
+# Template for 2021 — to be filled from Google Sheets billing + GitHub/Drive activity
+# Per Learn/E_Yearly_Activation_CSV_Schema.md
+#
+# KNOWN ANCHORS for 2021 (from existing journal):
+# 2021-XX-XX,XXX,0.00,0.00,,8.00,,microsoft-program,DWS3,Microsoft Founders Hub LEVEL 1 ($25k) starts (3-year program 2021-2024),TRUE
+# 2021-XX-XX,XXX,0.00,0.00,,8.00,,internal-doc,DWS3,Konsultin käsikirja v0.14 (toimialat ja uudet tuotteistukset product lineup),TRUE
+# 2021-XX-XX,XXX,0.00,0.00,,8.00,,investor,DWS3,Gust valuation 3.8 M EUR (to verify),TRUE
+#
+# JIRA subscription cancelled at some point in 2021 (per user 10.04.2026)
+# Post-cancellation evidence: Drive timestamps + GitHub commits only

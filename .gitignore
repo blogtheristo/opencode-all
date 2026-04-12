@@ -115,6 +115,7 @@ claude-sessions/
 *.csv
 !landing-pages/dws10-com/products.csv
 !dws10.com/products.csv
+!Learn/data/activation/billing-*.csv
 investor-outreach/ready_to_send*/
 scripts/investor-contacts.local.json
 
