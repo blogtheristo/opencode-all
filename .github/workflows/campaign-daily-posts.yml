@@ -1,10 +1,9 @@
 name: Daily Campaign Post Generator
 
 on:
-  schedule:
-    # Run at 03:00 and 04:00 UTC to cover Helsinki DST shifts (06:00 Helsinki)
-    - cron: '0 3 * * *'
-    - cron: '0 4 * * *'
+  # Schedule REMOVED 2026-04-08 — DGX Spark is primary (scripts/daily/generate-campaign-post.sh)
+  # GitHub Actions was failover only, consuming ~480 min/month even on skip checks.
+  # Was: cron '0 3 * * *' + '0 4 * * *' (2x daily for DST coverage)
   workflow_dispatch:
     inputs:
       day_number:

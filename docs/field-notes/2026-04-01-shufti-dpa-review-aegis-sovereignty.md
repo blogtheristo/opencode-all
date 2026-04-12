@@ -23,18 +23,20 @@ This is email confirmation only. The DPA must contain this as a contractual obli
 
 ## DPA Review Checklist (Pre-Signature)
 
-| #   | Clause                     | Check                                               | Status                                                                         |
-| --- | -------------------------- | --------------------------------------------------- | ------------------------------------------------------------------------------ |
-| 1   | EU-only processing         | Explicitly stated in DPA body, not just email       | RESOLVED — Addendum Clause 4 inserts EU-only obligation into DPA body          |
-| 2   | Sub-processor list         | Full list with data locations, all EU/EEA           | RESOLVED — Programmers Force removed, GCP locked to EEA (Addendum Clauses 1+2) |
-| 3   | Biometric data handling    | GDPR Art. 9 special category — explicit basis       | PENDING — verify in base DPA                                                   |
-| 4   | Data retention/deletion    | Auto-delete post-verification, timeline stated      | RESOLVED — EU-only mode confirms no data retained for model training           |
-| 5   | Breach notification        | Timeline (must be <=48h to align with DWS standard) | PENDING — verify in base DPA                                                   |
-| 6   | Audit rights               | Right to audit or request evidence of EU processing | PENDING — verify in base DPA                                                   |
-| 7   | Data transfer exceptions   | No carve-outs for non-EU transfer                   | RESOLVED — Addendum Clause 4 prohibits all non-EEA transfers                   |
-| 8   | Termination deletion       | Verified deletion certificate upon contract end     | PENDING — verify in base DPA                                                   |
-| 9   | Third-party sub-processing | Prior notice of sub-processor changes (>=30 days)   | RESOLVED — Addendum Clause 3 sets 30-day notice period                         |
-| 10  | Liability and indemnity    | Proportional, not capped at zero                    | PENDING — verify in base DPA                                                   |
+**Update 2026-04-02:** Full clause-by-clause audit completed. See `2026-04-02-shufti-dpa-clause-audit-go-nogo.md`. Verdict: CONDITIONAL GO with 4 blocking amendments. Addendum negotiation addresses several items.
+
+| #   | Clause                     | Check                                               | Base DPA Audit (2026-04-02)                   | Addendum Status                                                                |
+| --- | -------------------------- | --------------------------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------ |
+| 1   | EU-only processing         | Explicitly stated in DPA body, not just email       | FAIL — not in DPA, amendment required         | RESOLVED — Addendum Clause 4 inserts EU-only obligation into DPA body          |
+| 2   | Sub-processor list         | Full list with data locations, all EU/EEA           | PARTIAL — 4/9 US-based, Twilio video critical | RESOLVED — Programmers Force removed, GCP locked to EEA (Addendum Clauses 1+2) |
+| 3   | Biometric data handling    | GDPR Art. 9 special category — explicit basis       | PARTIAL — acknowledged but no Art. 9 basis    | PENDING — verify Art. 9(2) legal basis in addendum                             |
+| 4   | Data retention/deletion    | Auto-delete post-verification, timeline stated      | PARTIAL — 30d post-termination only           | RESOLVED — EU-only mode confirms no data retained for model training           |
+| 5   | Breach notification        | Timeline (must be <=48h to align with DWS standard) | PASS — 48h                                    | PASS — no addendum needed                                                      |
+| 6   | Audit rights               | Right to audit or request evidence of EU processing | PASS                                          | PASS — no addendum needed                                                      |
+| 7   | Data transfer exceptions   | No carve-outs for non-EU transfer                   | FAIL — Clause 5 allows transfers              | RESOLVED — Addendum Clause 4 prohibits all non-EEA transfers                   |
+| 8   | Termination deletion       | Verified deletion certificate upon contract end     | PASS — 30d + written cert                     | PASS — no addendum needed                                                      |
+| 9   | Third-party sub-processing | Prior notice of sub-processor changes (>=30 days)   | PARTIAL — 14 days only                        | RESOLVED — Addendum Clause 3 sets 30-day notice period                         |
+| 10  | Liability and indemnity    | Proportional, not capped at zero                    | NEUTRAL — in main agreement                   | PENDING — verify in main Services Agreement                                    |
 
 ## Lifetime Oy Details (For DPA)
 

@@ -165,6 +165,7 @@ You are the hands; the human is the architect. Move fast, but never faster than 
 | Folder                        | Runs                                    | Auto-discovered by                  |
 | ----------------------------- | --------------------------------------- | ----------------------------------- |
 | `scripts/daily/*.{ts,sh}`     | Once per day (03:00–06:00 UTC)          | DGX Spark `day-runner.sh`           |
+| `scripts/weekly/*.{ts,sh}`    | Once per week (Sunday 04:00 UTC)        | DGX Spark `day-runner.sh`           |
 | `scripts/hourly/*.{ts,sh}`    | Once per hour                           | DGX Spark `day-runner.sh`           |
 | `scripts/on-deploy/*.{ts,sh}` | After every `git pull` with new commits | DGX Spark `day-runner.sh`           |
 | `scripts/*.ps1`               | Via Windows Task Scheduler              | `Install-DailyTasks.ps1` (run once) |
@@ -312,6 +313,16 @@ Always use these official identifiers for Lifetime Oy in contracts, NDAs, invoic
 - Always use `process.env.EMAIL_FROM || 'risto@onelifetime.world'` as sender fallback.
 - **Service architecture:** `src/services/email.service.ts` (templates, logging, batch) delegates to `src/utils/send-email.ts` (SES SMTP only).
 - **Audit trail:** Every outbound email logged to `logs/email-audit.jsonl` with callerStack + PID.
+
+## GitHub MCP Tools — OAuth Only (CRITICAL)
+
+- **Use OAuth — NEVER personal access tokens.** Claude Code web/desktop provides GitHub OAuth automatically. No token config needed.
+- **BANNED: `GITHUB_PERSONAL_ACCESS_TOKEN` in `.mcp.json`.** Never hardcode GitHub tokens in config files. The `secret-scan.sh` hook blocks this.
+- **BANNED: `@modelcontextprotocol/server-github` in `.mcp.json`.** The GitHub MCP server is built into Claude Code — do not add a manual server entry.
+- **48 tools available** via `mcp__github__*` prefix. Full reference: `docs/GITHUB_MCP_TOOLS.md`
+- **Scope:** Restricted to `blogtheristo/dws6` repository only. Do not target other repos.
+- **Hook:** `require-tests-for-pr.sh` enforces tests before `mcp__github__create_pull_request`.
+- **PR activity:** Use `subscribe_pr_activity` to watch PRs for CI failures and review comments in real-time.
 
 ## Tech Stack
 

@@ -1,11 +1,16 @@
 # ADDENDUM TO DATA PROCESSING AGREEMENT — EU-Only Processing
 
 VERSION AND AGENT HISTORY
-Version: 1.0
-Date: 2026-04-07
-Author: Claude Code (claude/check-dpa-status-YD0A1)
+Version: 1.1
+Date: 2026-04-08
+Author: Claude Code (claude/audit-shufti-dpa-artifacts-HFEGx)
 Owner: Lifetime Oy
 Status: Ready for Signature
+
+Sessions & Modifications:
+
+- Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/audit-shufti-dpa-artifacts-HFEGx | Date: 08.04.2026 | Changes: Added Clause 6 (ML training prohibition — binding contractual obligation per PR #768 audit finding A) and Clause 7 (GDPR Art. 9 legal basis for biometric processing per audit finding #3)
+- Version: 1.0 | Tool: Claude Code | Session: claude/check-dpa-status-YD0A1 | Date: 07.04.2026 | Changes: Initial addendum with EU-only processing, GCP EEA lock, 30-day sub-processor notification, breach notification chain
 
 ---
 
@@ -105,6 +110,32 @@ The Data Controller accepts these constraints. The absence of model training and
 - **T+20–24h (hard deadline):** Submit notification to Finnish DPA. This leaves 48h buffer before the statutory 72h GDPR Article 33 deadline expires.
 
 Automated daily monitoring (`scripts/daily/check-breach-deadlines.ts`) alerts at 24h (internal review deadline) and 48h (last call before statutory 72h). All checks are logged to Supabase `audit_log` for traceability.
+
+---
+
+## Clause 6: Prohibition on Machine Learning Training
+
+**6.1** The Data Processor shall not use any Personal Data, including biometric data (facial images, liveness data), identity document images, verification metadata, and verification results, processed on behalf of the Data Controller for the purposes of training, fine-tuning, or improving machine learning models, artificial intelligence systems, or any automated decision-making systems.
+
+**6.2** This prohibition applies to all sub-processors engaged by the Data Processor. No sub-processor shall use the Data Controller's Personal Data for model improvement purposes.
+
+**6.3** The Data Processor shall maintain technical and organizational measures to ensure separation of the Data Controller's Personal Data from any datasets used for model training or improvement.
+
+**6.4** This clause supplements the acknowledged trade-off in the EU-Only Processing section above. While the Data Processor has informally confirmed that EU-only mode excludes model training, this clause elevates that commitment to a binding contractual obligation.
+
+_Source: DPA clause-by-clause audit finding A (2026-04-02, PR #768)._
+
+---
+
+## Clause 7: GDPR Article 9 Legal Basis for Biometric Processing
+
+**7.1** The Parties acknowledge that the processing of biometric data (facial recognition, liveness detection) under this DPA constitutes processing of special categories of personal data under GDPR Article 9.
+
+**7.2** The legal basis for processing biometric data is GDPR Article 9(2)(a) — explicit consent of the data subject, obtained by the Data Controller prior to initiating each verification request.
+
+**7.3** The Data Controller is solely responsible for obtaining valid explicit consent from each data subject before submitting biometric data to the Data Processor for verification.
+
+_Source: DPA clause-by-clause audit finding #3 (2026-04-02, PR #768)._
 
 ---
 
