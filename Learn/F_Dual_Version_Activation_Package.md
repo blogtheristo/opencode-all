@@ -142,16 +142,19 @@ Kredit 3950 Valmistus omaan käyttöön: 100 000,00
 
 6 päivän työviikko 05/2018 alkaen. Normaali työpäivä 7,5 h, taksityöpäivä 12 h viikonloppuisin.
 
-| Vuosi           | Ma-Pe                         | La-Su               | DWS R&D -päiviä/vk | Huomio                                         |
-| :-------------- | :---------------------------- | :------------------ | :----------------- | :--------------------------------------------- |
-| 05/2018-12/2019 | Toimisto (DWS)                | Taksi (12 h/pv)     | 5                  | Viikot toimistolla, vkl taksissa               |
-| 01-02/2020      | Toimisto (DWS)                | Taksi (12 h/pv)     | 5                  | Sama jatkuu                                    |
-| 03-12/2020      | Toimisto (DWS)                | Toimisto (DWS)      | 6                  | Korona: taksi pysähtyi, ainoastaan toimistolla |
-| 2021            | Taksi                         | DWS                 | 2                  | Käänteinen: viikolla taksi, vkl DWS            |
-| 2022-2024       | TBD (tarkistettava laskuista) | TBD                 | TBD                | Tarkistettava Google Sheets -laskuista         |
-| 10/2025-04/2026 | Toimisto (DWS IQ 6)           | Toimisto (DWS IQ 6) | 6                  | Full-time DWS (Kirjaus 1 -jakso)               |
+| Vuosi                | Ma-Pe                         | La-Su               | DWS R&D -päiviä/vk | Huomio                                                              |
+| :------------------- | :---------------------------- | :------------------ | :----------------- | :------------------------------------------------------------------ |
+| 05/2018-12/2019      | Toimisto (DWS)                | Taksi (12 h/pv)     | 5                  | Viikot toimistolla, vkl taksissa                                    |
+| 01-02/2020           | Toimisto (DWS)                | Taksi (12 h/pv)     | 5                  | Sama jatkuu                                                         |
+| 03-12/2020           | Toimisto (DWS)                | Toimisto (DWS)      | 6                  | Korona: taksi pysähtyi, ainoastaan toimistolla                      |
+| 2021                 | Taksi                         | DWS                 | 2                  | Käänteinen: viikolla taksi, vkl DWS                                 |
+| 2022-2024            | TBD (tarkistettava laskuista) | TBD                 | TBD                | Tarkistettava Google Sheets -laskuista                              |
+| 01-24.03.2025        | Toimisto (DWS)                | Toimisto (DWS)      | 5-6                | Full-time DWS ennen Nobinaa                                         |
+| **25.03-29.09.2025** | **Nobina (päätoiminen)**      | **DWS (illat/vkl)** | **2**              | **Linja-autonkuljettaja päätoimisesti, DWS vain illat/viikonloput** |
+| 30.09-09.10.2025     | Toimisto (DWS)                | Toimisto (DWS)      | 5-6                | Nobina päättynyt, paluu DWS full-time                               |
+| 10/2025-04/2026      | Toimisto (DWS IQ 6)           | Toimisto (DWS IQ 6) | 6                  | Full-time DWS (Kirjaus 1 -jakso)                                    |
 
-> **HUOM:** Tarkat R&D-päivien lukumäärät per vuosi tulee vahvistaa Merjan Google Sheets -taksilaskuista. Yllä oleva 659 päivää on estimaatti joka vastaa €494 000 tavoitetta. Lopullinen päiväluku voi poiketa suuntaan tai toiseen kun laskut on tarkistettu.
+> **HUOM:** Tarkat R&D-päivien lukumäärät per vuosi tulee vahvistaa Merjan Google Sheets -taksilaskuista ja Nobinan työsopimuksesta/palkkakuiteista. Yllä oleva 659 päivää on estimaatti joka vastaa €494 000 tavoitetta. Lopullinen päiväluku voi poiketa suuntaan tai toiseen kun laskut on tarkistettu. Laskennallinen R&D-päivien lukumäärä perustuu toimitusjohtajan vahvistamaan työrytmiin. Tarkistettavissa Lifetime Oy:n kirjanpidosta (Lemonsoft) taksilaskutusmerkinnöistä sekä Nobinan palkkatiedoista.
 
 ### KPL 5:8 -edellytysten täyttyminen
 
