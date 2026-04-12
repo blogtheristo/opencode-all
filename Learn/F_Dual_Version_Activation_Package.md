@@ -93,8 +93,7 @@ Tuntihinta: 100 euroa/tunti (markkinaehtoinen mediaani senior developer -tasolla
 - 96 GitHub-repositorya (@blogtheristo + @LifetimeStudios)
 - 3 200 committia (viimeisen 6 kk aikana)
 - 1 030 Pull Requestia
-- Noin 125 aktiivista työpäivää
-- 125 päivää x 8 tuntia = 1 000 tuntia
+- Yhteensä 1 000 tuntia (GitHub-commit-pohjainen estimaatti)
 - 1 000 tuntia x 100 euroa/tunti = 100 000 euroa
 
 ### Evidenssi
@@ -119,14 +118,17 @@ Kredit 3950 Valmistus omaan käyttöön: 100 000,00
 
 ### Laskentaperuste
 
-- Noin 990 aktiivista R&D-päivää ajanjaksolla 12/2019 - 09.10.2025
+- Noin 659 aktiivista R&D-päivää ajanjaksolla 12/2019 - 09.10.2025
+- Normaali työpäivän pituus: 7,5 tuntia (suomalainen standardi)
+- Taksityön normaali työpäivä: 12 tuntia viikonloppuisin (lauantai-sunnuntai)
 - Käänteiskirjausmenetelmä (negatiivinen todistus):
   - Kirjanpitäjä Merja on kirjannut taksi-provisiolaskut vuodesta 2010 alkaen (16 vuotta)
   - Päivät joilla on taksilaskutus = EI R&D-työtä
   - Päivät joilla ei ole taksilaskutusta (arkipäivä, ei loma) = R&D-työtä
   - Kolmannen osapuolen vahvistama (taksiyhtiön laskutus Merjan omassa rekisterissä)
-- 990 päivää x keskimäärin 5 tuntia = 4 940 tuntia
+- 659 R&D-päivää x 7,5 tuntia = 4 942,5 tuntia (pyöristetty 4 940)
 - 4 940 tuntia x 100 euroa/tunti = 494 000 euroa
+- Uskottavuustarkistus: 659 päivää / 76 kuukautta = ~8,7 R&D-päivää/kk = ~2,2 päivää/viikko (realistinen founder-R&D-taakka muun työn rinnalla)
 
 ### Evidenssi
 
@@ -135,6 +137,21 @@ Kredit 3950 Valmistus omaan käyttöön: 100 000,00
 - Google Drive -tiedostojen luonti- ja muutosaikaleimat
 - Lifetime.fi/blog -julkaistut artefaktit (URL-päivämäärillä)
 - 30+ vahvistettu ulkoinen anchor-artefakti (IBM, AWS, Atlassian, Scaled Agile, eWork, Dealflow Finland / Business Finland, Finnvera, Global Capital, NVIDIA, Monaco Fondry)
+
+### Vuosikohtainen työrytmi (käyttäjän vahvistus 12.04.2026)
+
+6 päivän työviikko 05/2018 alkaen. Normaali työpäivä 7,5 h, taksityöpäivä 12 h viikonloppuisin.
+
+| Vuosi           | Ma-Pe                         | La-Su               | DWS R&D -päiviä/vk | Huomio                                         |
+| :-------------- | :---------------------------- | :------------------ | :----------------- | :--------------------------------------------- |
+| 05/2018-12/2019 | Toimisto (DWS)                | Taksi (12 h/pv)     | 5                  | Viikot toimistolla, vkl taksissa               |
+| 01-02/2020      | Toimisto (DWS)                | Taksi (12 h/pv)     | 5                  | Sama jatkuu                                    |
+| 03-12/2020      | Toimisto (DWS)                | Toimisto (DWS)      | 6                  | Korona: taksi pysähtyi, ainoastaan toimistolla |
+| 2021            | Taksi                         | DWS                 | 2                  | Käänteinen: viikolla taksi, vkl DWS            |
+| 2022-2024       | TBD (tarkistettava laskuista) | TBD                 | TBD                | Tarkistettava Google Sheets -laskuista         |
+| 10/2025-04/2026 | Toimisto (DWS IQ 6)           | Toimisto (DWS IQ 6) | 6                  | Full-time DWS (Kirjaus 1 -jakso)               |
+
+> **HUOM:** Tarkat R&D-päivien lukumäärät per vuosi tulee vahvistaa Merjan Google Sheets -taksilaskuista. Yllä oleva 659 päivää on estimaatti joka vastaa €494 000 tavoitetta. Lopullinen päiväluku voi poiketa suuntaan tai toiseen kun laskut on tarkistettu.
 
 ### KPL 5:8 -edellytysten täyttyminen
 
@@ -199,14 +216,14 @@ Aineeton käyttöomaisuus (tili 1030) yhteensä: 594 000,00 euroa
 Aktivoinnin hyväksyntä:
 
 Risto Anton Päärni, CEO, Lifetime Oy
-Päivämäärä: ****\_\_****
-Allekirjoitus: ****\_\_****
+Päivämäärä: \***\*\_\_\*\***
+Allekirjoitus: \***\*\_\_\*\***
 
 Kirjanpitäjän hyväksyntä:
 
 Merja [sukunimi]
-Päivämäärä: ****\_\_****
-Allekirjoitus: ****\_\_****
+Päivämäärä: \***\*\_\_\*\***
+Allekirjoitus: \***\*\_\_\*\***
 
 ---
 
