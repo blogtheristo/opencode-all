@@ -1,0 +1,198 @@
+# E — Vuosittaiset aktivointi-CSV:t 2018–2024 (skeema ja menetelmä)
+
+---
+
+**VERSION AND AGENT HISTORY**
+
+- **Document:** E — Vuosittaiset aktivointi-CSV:t 2018–2024 — Skeema ja menetelmä
+- **Document ID:** E (käyttäjän työnumerointi 12.04.2026)
+- **Languages Available:** FI
+- **Version:** 0.1 (DRAFT)
+- **Date:** 12.04.2026
+- **Owner:** Risto Päärni, Lifetime Oy (Y-tunnus 0772407-9)
+- **Agent:** Claude (Opus 4.6)
+- **Branch:** claude/extend-activation-2018-2024-csv
+- **Sessions & Modifications:**
+  - 0.1 (12.04.2026, Claude Opus 4.6): Alkuperäinen luonnos. Käyttäjän vahvistus 12.04.2026 (Risto Päärni): "I have evidence since 2018 but it has not written down. My second work has been driving taxi. For that i have been contractor and 2018-2/2020 i drove weekends and worked full weeks dws 3. Lifetime has charged on daily bases these hours based on provision billing. So every hour not there was writing dws and other Lifetime Assets like lifetime blog. Those artefacts are still at lifetime.fi". Skeema rakennettu negatiivisen todistuksen periaatteella: taksi-laskutuspäivät vähennetään, loput päivät = R&D-päiviä.
+- **Document Status:** DRAFT — odottaa käyttäjän Google Sheets -laskutusdatan + lifetime.fi -blogiartefaktien syöttöä
+- **Use Case:** Tuotekehitysmenojen aktivoinnin (KPL 5:8, IAS 38) lähdedokumentti tilikausille 2018–2024 (mahdolliseen lisäaktivointiin tilikaudelle 31.12.2026 / 10.04.2027). **Ei** osa nykyistä €100 000 / 10.04.2026 -aktivointia, joka on jo päätetty viimeisen 6 kk:n GitHub-evidenssin pohjalta.
+
+---
+
+## 1. Yleiskuvaus
+
+Tämä asiakirja määrittelee skeeman ja metodologian, jolla rekonstruoidaan Lifetime Oy:n DWS-tuotekehityksen aktivoitavissa olevat tunnit ajanjaksolle **2018–2024**, käyttäen **kolmea toisistaan riippumatonta lähdettä**:
+
+1. **Taksi-provisiolaskutus** (Google Sheets, kirjanpidon ulkopuolinen vahvistus)
+2. **lifetime.fi/blog -artefaktit** (hard-dated URLs, julkaistut tuotokset)
+3. **GitHub-commitit** 96 reposta (kryptografinen aikaleima)
+
+**Pääperiaate — negatiivinen todistus:** Käyttäjä työskenteli rinnakkain (a) Lifetime Oy:n DWS-tuotekehityksessä ja (b) taksinkuljettajana itsenäisenä urakoitsijana. Provisiolaskutus näyttää päivät jolloin laskutettiin taksiajoista. **Kaikki muut työpäivät = DWS/Lifetime R&D -päiviä.** Tämä on KPL 5:8 -auditoinnissa vahvempi todistus kuin pelkkä omavalvonta, koska taksilaskutus on kirjanpidollisesti vahvistettu kolmannen osapuolen rahaliikenteenä.
+
+## 2. CSV-skeema
+
+Per vuosi yksi CSV-tiedosto: `Learn/data/activation/billing-YYYY.csv`
+
+### Sarakkeet
+
+| Sarake             | Tyyppi  | Esimerkki                                     | Selitys                                                                                                 |
+| :----------------- | :------ | :-------------------------------------------- | :------------------------------------------------------------------------------------------------------ |
+| `date`             | DATE    | `2019-04-17`                                  | Kalenteripäivä (ISO 8601)                                                                               |
+| `weekday`          | STRING  | `Wed`                                         | Viikonpäivä (auto-laskettava)                                                                           |
+| `taxi_hours`       | DECIMAL | `0.00`                                        | Päivänä laskutettuja taksi-tunteja (lähde: provisiolasku Google Sheets)                                 |
+| `taxi_revenue_eur` | DECIMAL | `0.00`                                        | Päivän taksi-laskutusarvo €                                                                             |
+| `taxi_source`      | STRING  | `Sheet 'Taxi 2019' row 47`                    | Lähdeviite (Google Sheet -tab + rivi)                                                                   |
+| `rd_hours`         | DECIMAL | `8.00`                                        | Päivänä tehtyä R&D-tuntia (johtopäätös: jos ei taksia, oletus 8 h)                                      |
+| `rd_artifact_url`  | STRING  | `https://lifetime.fi/blog/2019/4/17/lsj-grpc` | Päivän R&D-tuotos (URL/repo/dokumentti)                                                                 |
+| `rd_artifact_type` | STRING  | `blog`                                        | `blog` / `github` / `drive` / `dws3-code` / `whitepaper` / `other`                                      |
+| `rd_project`       | STRING  | `DWS3`                                        | Projekti (`DWS2`, `DWS3`, `DWS4-Montreux`, `DWS5`, `DWS6`, `KK` (käsikirja), `BLOG`, `B-pre-firehorse`) |
+| `notes`            | STRING  | `LSJ gRPC blog post`                          | Vapaa kuvaus                                                                                            |
+| `verified`         | BOOL    | `TRUE`                                        | Onko vahvistettu lähde olemassa (`TRUE`/`FALSE`)                                                        |
+
+### Esimerkkirivit
+
+```csv
+date,weekday,taxi_hours,taxi_revenue_eur,taxi_source,rd_hours,rd_artifact_url,rd_artifact_type,rd_project,notes,verified
+2019-04-17,Wed,0.00,0.00,,8.00,https://lifetime.fi/blog/2019/4/17/lsj-grpc,blog,DWS3,LSJ gRPC blog post,TRUE
+2019-04-20,Sat,9.50,142.50,Sheet 'Taxi 2019' row 47,0.00,,taxi,,Saturday taxi shift,TRUE
+2019-04-21,Sun,8.00,120.00,Sheet 'Taxi 2019' row 48,0.00,,taxi,,Sunday taxi shift,TRUE
+2019-04-22,Mon,0.00,0.00,,8.00,,github,DWS3,Day calculated from absence of taxi billing,FALSE
+```
+
+> **Huom.** `verified=FALSE` -rivit ovat **päättelyllä saatuja** päiviä (negatiivinen todistus: ei taksia → oletetaan R&D). Auditoijalle nämä on selkeästi merkittävä erilleen `verified=TRUE`-riveistä, joilla on suora artefakti.
+
+## 3. Vuosittainen aikajakso ja olettamukset
+
+| Vuosi                 | RA:n työrytmi (käyttäjän vahvistus 11.04.2026)            | Olettamus R&D-päivistä                      |
+| :-------------------- | :-------------------------------------------------------- | :------------------------------------------ |
+| 2018                  | 1 työpäivä/vk Lifetime + 6 pv/vk muu (taksi/muu)          | ~50 R&D-päivää/vuosi                        |
+| 2019                  | 1 työpäivä/vk Lifetime + viikonloppu-taksi                | ~50–80 R&D-päivää/vuosi                     |
+| 2020 (1-2/2020)       | **5 täyttä työpäivää/vk DWS** + viikonloppu-taksi         | ~40 R&D-päivää (tammi-helmi)                |
+| 2020 (Korona-tauko)   | Korona-tauko taksilla                                     | TBD (lisää R&D-aikaa, koska taksi pysähtyi) |
+| 2020 (Korona jälkeen) | Jatkuu                                                    | TBD                                         |
+| 2021                  | Founders Hub aktivointi (LEVEL 1, $25k)                   | TBD                                         |
+| 2022                  | Konsultin käsikirja v0.22a (22.02.2022) + NVIDIA outreach | TBD                                         |
+| 2023                  | DWS 3 → DWS 5 -siirtymä, 09/2023 Firehorse-konsepti       | TBD                                         |
+| 2024                  | DWS 5 (Oqtane/Azure) + DWS 6 -valmistelu                  | TBD                                         |
+
+**Huomio:** Yllä olevat ovat **arvioita**, eivät vahvistettua dataa. CSV-tiedostot täytetään kun käyttäjä toimittaa Google Sheets -laskutusdatan ja lifetime.fi -blogi URL:t.
+
+## 4. Lähteiden vahvistustasot
+
+| Taso             | Selitys                                                        | Esimerkki                                         |
+| :--------------- | :------------------------------------------------------------- | :------------------------------------------------ |
+| **A — Kova**     | Kirjanpidollinen tosite (lasku/maksu) joka näyttää päivän      | Taksi-provisiolasku Google Sheetsissä             |
+| **A — Kova**     | Kryptografinen tai palvelinpuolen aikaleima                    | GitHub commit SHA + push-aikaleima                |
+| **A — Kova**     | URL-päivämäärä julkaistussa sisällössä                         | `lifetime.fi/blog/2019/4/17/lsj-grpc`             |
+| **A — Kova**     | Ulkoinen vahvistus (sähköposti riippumattomalta vendorilta)    | Avni Barman 09/2019, Tempo 04/2020                |
+| **B — Pehmeä**   | Drive-tiedoston luonti-/muokkausaikaleima                      | `Drive: /2020/012e_dws3.docx` modified 30.09.2020 |
+| **C — Päättely** | Negatiivinen todistus (ei taksia tällä päivänä → oletettu R&D) | 2019-04-22 = arkipäivä, ei taksilaskua → R&D      |
+
+**Aktivoinnin laskenta:** Vain `A`-tason vahvistuksilla saadut päivät kelpaavat **vahvasti dokumentoituun** aktivointiin. `C`-tason päättelypäivät voidaan sisällyttää, mutta ne dokumentoidaan erikseen ja niitä rajoitetaan konservatiivisesti.
+
+## 5. Käyttäjän tarvittavat syötteet (toimintalista)
+
+### 🔴 KRITTINEN — tarvitaan ennen CSV-täyttöä
+
+1. **Google Sheets -taksi-provisiolaskutus 2018–2020** (mahdollisesti 2021-2022 jos jatkui)
+   - Vienti: Sheets → File → Download → CSV
+   - Per päivä: päivämäärä, taksitunnit, laskutus €
+   - Kopio paikallisesti `/home/user/dws6/private/taxi-billing/` (gitignored)
+
+2. **lifetime.fi/blog -kaikkien postien URL-lista**
+   - Käyttäjä julkaisee piilotetut sivut
+   - Tai jakaa URL-listan suoraan chattiin
+   - Yksi URL/rivi muodossa `https://lifetime.fi/blog/YYYY/M/DD/slug`
+   - Optimaalisesti: title + ensimmäinen kappale per posti
+
+3. **Käyttäjän vahvistus työrytmistä per vuosi:**
+   - 2018: monta pv/vk DWS:ää? Mitä projektia?
+   - 2019: sama
+   - 2020 H1: 5 pv/vk DWS (vahvistettu) — mitä projektia (DWS 2 vai DWS 3)?
+   - 2020 H2 (Korona-tauko jälkeen): mikä työrytmi?
+   - 2021: Founders Hub Level 1 — kuinka monta tuntia/viikko sen ympärille?
+   - 2022: Konsultin käsikirja + NVIDIA — montako tuntia/viikko?
+   - 2023: DWS 3 → DWS 5 -siirtymä — montako tuntia/viikko?
+   - 2024: DWS 5 + DWS 6 -valmistelu — montako tuntia/viikko?
+
+### 🟡 SUOSITELTU — vahvistaa rekonstruktiota
+
+4. **GitHub @blogtheristo + @LifetimeStudios -repojen täysi commit-historia**
+   - 96 repon API-vienti tai MCP-laajennus
+   - Vientimuoto: per repo, per päivä, commit-määrä
+
+5. **Drive-tiedostojen kuukausittaiset luonti-aikaleimat 2018–2024**
+   - Drive Activity API -vienti tai manuaalinen kerääminen
+
+6. **Sähköpostiarkisto-haun tulokset** (4 postilaatikkoa: risto.paarni\*, risto.anton)
+   - Hakuehdot: `from:notifications@*.atlassian.net`, `from:noreply@tempo.io`
+   - Yksittäiset anchor-sähköpostit per kuukausi 2018–2024
+
+## 6. Tiedostorakenne
+
+```
+Learn/
+├── E_Yearly_Activation_CSV_Schema.md         (tämä asiakirja)
+└── data/
+    └── activation/
+        ├── billing-2018.csv                  (template, odottaa dataa)
+        ├── billing-2019.csv                  (template, odottaa dataa)
+        ├── billing-2020.csv                  (template, odottaa dataa)
+        ├── billing-2021.csv                  (template, odottaa dataa)
+        ├── billing-2022.csv                  (template, odottaa dataa)
+        ├── billing-2023.csv                  (template, odottaa dataa)
+        └── billing-2024.csv                  (template, odottaa dataa)
+
+private/                                       (gitignored — käyttäjän käytettäväksi)
+└── taxi-billing/
+    ├── google-sheets-export-2018.csv         (käyttäjän tuotos)
+    ├── google-sheets-export-2019.csv         (käyttäjän tuotos)
+    └── google-sheets-export-2020.csv         (käyttäjän tuotos)
+```
+
+## 7. Lopullinen aktivointilaskelma — kaava
+
+```
+Per vuosi YYYY:
+  total_year_days = 365 (tai 366 karkausvuodelle)
+  weekend_days = ~104 (paitsi jos taksi-laskutus näyttää viikonloppu-DWS-päiviä)
+  vacation_days = ~25 (oletettu, vahvistettava käyttäjältä)
+  taxi_days = COUNT(rows WHERE taxi_hours > 0)
+  rd_days = total_year_days - weekend_days - vacation_days - taxi_days
+        + (verified blog/github/drive days falling on weekends)
+
+  rd_hours_year = rd_days × 8 h (oletus full-time R&D päivänä)
+  activation_year_eur = rd_hours_year × 100 €/h
+
+Yhteensä 2018–2024:
+  total_activation = SUM(activation_year_eur)
+```
+
+**Konservatiivinen oletus:** 8 h/päivä on yläraja. Jos käyttäjän vahvistuksen mukaan vain 4 h/päivä, käytä 4 h.
+
+## 8. Suhde nykyiseen €100k aktivointiin (10.04.2026)
+
+| Aktivointi                  | Ajanjakso                      | Summa        | Status                                     |
+| :-------------------------- | :----------------------------- | :----------- | :----------------------------------------- |
+| **Vaihe 1 (jo päätetty)**   | 10.10.2025 – 10.04.2026 (6 kk) | **€100 000** | Päätetty, kirjattu Lemonsoftiin 10.04.2026 |
+| **Vaihe 2 (suunnitteilla)** | 2018 – 09.10.2025 (~7 vuotta)  | **TBD**      | **Tämä asiakirja** — odottaa CSV-täyttöä   |
+
+Vaihe 2:n aktivointi tehdään seuraavassa tilikaudessa (mahdollisesti 31.12.2026 tai 10.04.2027), kun tämän asiakirjan CSV:t on täytetty käyttäjän toimittamalla datalla.
+
+## 9. Avoimia kysymyksiä
+
+1. **Onko taksi-provisiolaskutuksessa viikonloppupäivien lisäksi arkipäiviä?** Jos kyllä, ne vähentävät R&D-päiviä vastaavasti.
+2. **Onko 2020 Korona-tauon tarkka päivämäärä tiedossa?** Vahvistaa milloin DWS-aika kasvoi.
+3. **Onko 2021–2024 jatkettu taksiajoa, vai loppuiko 02/2020?** Jos loppui, koko ajanjakso on potentiaalisesti R&D.
+4. **Mitä Drive-kansioita käytetään lähteenä?** (esim. `/My Drive/Lifetime/2019/`)
+5. **Onko muita rinnakkaistyökeskeytyksiä joita pitää vähentää?** (esim. asiakaskonsultointi, koulutukset, sairaslomat)
+
+---
+
+**Allekirjoitus:**
+Risto Anton Päärni, CEO, Lifetime Oy
+Päivämäärä: ****\_\_****
+
+**Hyväksyntä (kirjanpitäjä):**
+Merja ****\_\_****
+Päivämäärä: ****\_\_****
