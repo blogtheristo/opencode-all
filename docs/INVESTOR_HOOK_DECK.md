@@ -166,6 +166,40 @@ open the conversation. 8 seats. Q2 2026.
 
 ---
 
+## Slide 5 — Payment-Agnostic Infrastructure
+
+### The compliance layer works on every rail. Not just Qivalis.
+
+Nordea and OP, Finland's two largest banking groups, are outside the
+Qivalis consortium at launch. Their industrial clients need a
+payment-agnostic compliance layer. DWS IQ records every CBAM, CSRD,
+and ETS obligation regardless of whether the payment moves via Qivalis,
+SEPA, or any future rail.
+
+This is not a Qivalis-dependent product. It is infrastructure for
+European industrial payments — whatever form those payments take.
+
+| Payment rail        | DWS IQ compliance recording |
+| ------------------- | --------------------------- |
+| Qivalis (H2 2026)   | Yes                         |
+| SEPA (today)        | Yes                         |
+| ECB CBDC (2029+)    | Yes                         |
+| Any future MiCA EMT | Yes                         |
+
+**The compliance obligation exists at the transaction level —
+not at the rail level. Every industrial payment that triggers
+a CBAM, CSRD, or ETS event needs to be recorded. The rail is irrelevant.**
+
+Nordea has 10 million corporate and institutional clients across
+the Nordics. OP serves the majority of Finnish industrial companies.
+Neither is in the consortium at launch. Both represent addressable
+market that does not require Qivalis adoption to use DWS IQ.
+
+**The Qivalis window opens Q3 2026.
+The compliance obligation is already open.**
+
+---
+
 **Related documents:**
 
 - `docs/DEEP_TECH_THESIS.md` — Full three-pillar deep tech defensibility argument
