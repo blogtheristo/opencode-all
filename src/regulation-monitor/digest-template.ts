@@ -5,7 +5,7 @@
  * Matches CEO Cockpit / Outreach Digest styling.
  */
 
-import type { MonitorDigest, NewsItem, AlertSeverity } from './types.js';
+import type { AlertSeverity, MonitorDigest, NewsItem } from './types.js';
 
 // ============================================================================
 // HELPERS

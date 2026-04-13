@@ -6,11 +6,12 @@
 
 - **Document:** F — Tuotekehitysmenojen aktivointi — Toimituspaketti
 - **Document ID:** F
-- **Version:** 1.1
-- **Date:** 12.04.2026
+- **Version:** 1.2
+- **Date:** 13.04.2026
 - **Owner:** Risto Anton Päärni, CEO, Lifetime Oy (Y-tunnus 0772407-9)
-- **Branch:** claude/kila-dual-version-package
+- **Branch:** claude/lucid-poincare
 - **Sessions & Modifications:**
+  - 1.2 (13.04.2026): Saatekirje päivitetty käyttäjän lopullisella tarkistetulla versiolla. Lisätty Merjan yhteystiedot (Merja Turunen, Mt-tili Lkv). Lemonsoft-kirjaukset inline saatekirjeessä. DWS IQ -tuoteperhe EU Invest Portal -viitteineen. Omistajan pääomarahoitus -osio. Käänteiskirjausmenetelmä. 8-liitteen lista. Selventävä huomautus: Kirjaus 2 -taulukko päättyy 09/2025 ja Kirjaus 1 (10/2025–04/2026) on erillinen jakso.
   - 1.1 (12.04.2026): Poistettu viittaukset KILA-ennakkopäätökseen ja Mira Merikoskeen. Korvattu yleisellä KPL 5:8 -perustelulla. Poistettu liite 1 (KILA-ennakkopäätös PDF). Liitteet uudelleennumeroitu.
   - 1.0 (12.04.2026): Alkuperäinen versio.
 - **Document Status:** VALMIS TOIMITETTAVAKSI
@@ -19,18 +20,122 @@
 
 ## SAATEKIRJE KIRJANPITÄJÄLLE
 
-Vastaanottaja: Merja [sukunimi]
+Vastaanottaja: Merja Turunen, Mt-tili Lkv
+Sähköposti: merja.turunen@mt-tili.fi
 Lähettäjä: Risto Anton Päärni, CEO, Lifetime Oy
 Päivämäärä: 12.04.2026
 Asia: Tuotekehitysmenojen aktivointi KPL 5:8 — kaksi kirjausta
 
 Hyvä Merja,
 
+Viitaten hallituksen päätökseen tässä on ohje kirjauksia (2 kpl) varten.
+
 Toimitan ohessa Lifetime Oy:n tuotekehitysmenojen aktivointia koskevat asiakirjat kirjattavaksi Lemonsoftiin.
 
 Aktivointi on tehty KPL 5:8 §:n mukaisesti. Kirjanpitolautakunnan yleinen lausunto vahvistaa, että kehittämismenojen aktivointi on sallittua kun edellytykset täyttyvät. Lifetime Oy:n aktivointi täyttää nämä edellytykset.
 
 Aktivointi perustuu Lifetime Oy:n hallituksen päätökseen 31.12.2025 ja toteutetaan kahtena Lemonsoft-kirjauksena päivämäärällä 10.04.2026. Molemmat kirjaukset ovat pakollisia — kyseessä ei ole vaihtoehtoja vaan yhden kokonaisuuden kaksi osaa.
+
+### Lemonsoft-kirjaukset
+
+Kirjaus 1: DWS IQ 6 -tuotekehitys (viimeinen 6 kuukautta)
+Debet 1030 Kehittämismenot: 100 000,00
+Kredit 3950 Valmistus omaan käyttöön: 100 000,00
+
+Kirjaus 2: DWS-tuoteperheen kehitys 12/2019-09.10.2025
+Debet 1030 Kehittämismenot: 494 000,00
+Kredit 3950 Valmistus omaan käyttöön: 494 000,00
+
+Yhteensä: 594 000,00 euroa
+
+### Aktivoitava aineeton hyödyke: DWS IQ -tuoteperhe
+
+DWS IQ -tuoteperhe (Lifetime Digital Workspace) on Lifetime Oy:n jatkuva tuotekehityshanke joulukuusta 2019 alkaen. Tuoteperhe käsittää viisi sukupolvea joista kolme on hyväksytty Euroopan komission EU Invest Portal -projekteiksi:
+
+- DWS 2 (2019): Ensimmäinen versio, Lifetime Digital Workspace -konseptin syntyvaihe
+- DWS 3 (2020-2023): Platform-tuote AWS-pilvellä. Euroopan komission EU Invest Portal -hyväksytty projekti EIPP-20191319 (12.09.2019). EBAN-rahoitus $6 000 USD, Finnvera-rahoitus 48 000 EUR. Project reader: Rashid Bishr, Global Capital Funding Inc.
+- DWS 4 "Montreux" (2023-2024): Vihreän siirtymän platform. Listattu EU Invest Hub:ssa. Monaco Fondry -valuaatio 6 milj. USD (12/2022). Ei saanut erillistä EU Invest Portal -hyväksyntää.
+- DWS 5 (2024): Vetytalouden platform. Microsoft Founders Hub Level 1-4 ($25 000 USD → $154 000 USD, 2021-2025). Oqtane / .NET 8 Blazor / Azure. EU Invest Portal -hyväksytty projekti.
+- DWS 6 (2025-nyt): EU-vaatimustenmukaisuus ja ilmastoäly. React 19 / Supabase / Google Cloud. EU Invest Portal -hyväksytty projekti INPO-20254383 (25.12.2025). 96 GitHub-repositorya, 3 200 committia, 1 030 Pull Requestia viimeisen 6 kuukauden aikana.
+
+Liitännäishanke: CIMS (Crypto Investment Management Studio), EU Invest Portal EIPP-20191320 (2019).
+CIMS muodostaa DWS 7:n Digital Euro -integraatiokerroksen perustan, ECB:n Digital Euro -tavoiteaikataulu ~2029.
+
+EU Invest Portal -viitteet yhteensä:
+
+- EIPP-20191319: Lifetime Digital Workspace / DWS 3 (12.09.2019)
+- EIPP-20191320: CIMS liitännäishanke (2019)
+- INPO-20254383: DWS IQ 6 (25.12.2025)
+
+Yhteensä 3 erillistä Euroopan komission EU Invest Portal -hyväksyntää + 1 liitännäishanke.
+
+Jokainen versio kasvoi temaattisesti edellisestä. Aineetonta pääomaa (arkkitehtoniset opit, tietomallit, sääntelyontologia, tuotekonseptit) on siirretty sukupolvelta toiselle.
+
+### Omistajan pääomarahoitus ja aktivoinnin yhteys
+
+Kuten kirjanpidosta ilmenee, Lifetime Oy:n omistaja Risto Anton Päärni on pääomarahoittanut yhtiön toimintaa henkilökohtaisesti useana vuotena. Nämä omistajan lainat näkyvät taseessa velkoina omistajalle.
+
+Omistaja on rahoittanut yhtiötä kahdella tavalla:
+
+1. Suorat pääomitukset ja lainat yhtiölle (näkyy taseessa velkoina)
+2. Palkaton tuotekehitystyö DWS-tuoteperheelle (EI näy taseessa — tähän asti)
+
+Näistä kahdesta vain ensimmäinen on kirjattu taseeseen. Toinen — vuosien henkilökohtainen tuotekehitystyö ilman palkkaa — on jäänyt kokonaan tunnistamatta, vaikka se on luonut yhtiön ainoan merkittävän aineettoman hyödykkeen (DWS IQ -tuoteperhe).
+
+Tämä aktivointi korjaa tämän historiallisen alikirjauksen. Se ei luo uutta kassavirtaa eikä uutta velkaa — se tunnistaa arvon joka on jo olemassa mutta jota ei ole kirjattu. Omistajan saamiset yhtiöltä eivät muutu, mutta yhtiön oma pääoma paranee merkittävästi kun aineeton käyttöomaisuus tunnistetaan taseeseen.
+
+Käytännössä: omistaja on rahoittanut sekä yhtiön kassatarpeet (lainoilla) että yhtiön tuotekehityksen (työllään). Tase näyttää nyt vain lainat. Aktivoinnin jälkeen tase näyttää molemmat.
+
+### Käänteiskirjausmenetelmä
+
+R&D-päivien laskenta perustuu käänteiskirjausmenetelmään joka hyödyntää Sinun tekemää Lifetime Oy:n kirjanpitoasi.
+
+Olet kirjannut Lifetime Oy:n kaikki taksituotot ja muut sivutoimiset tuotot vuodesta 2010 alkaen — 16 vuotta katkeamatta. Tämä kirjanpito on aktivoinnin pääevidenssi:
+
+- Päivät joilla Lifetime Oy:lle on kirjattu taksituottoa tai muuta sivutoimista tuloa = EI R&D-työtä
+- Arkipäivät joilla EI ole kirjattu taksituottoa tai muuta sivutoimista tuloa = R&D-työtä DWS-tuotekehityksessä
+- Viikonloput ja lomapäivät vähennetään erikseen
+
+Tämä menetelmä on vahvempi kuin erillinen tuntikirjausjärjestelmä, koska se perustuu Sinun omaan 16 vuoden kirjanpitorekisteriisi jota ei voida muuttaa jälkikäteen ja jonka olet itse ylläpitänyt.
+
+Et tarvitse uusia ulkoisia lähteitä. Kaikki tarvittava data on jo Lemonsoftissa ja Google Sheetsissäsi.
+
+### Aktivoinnin perusta
+
+- KPL 5 luku 8 § (kehittämismenot)
+- IAS 38 (aineettomat hyödykkeet) — IFRS-vastine
+- Hallituksen päätös 31.12.2025
+- Aktivoitava hyödyke: DWS IQ -tuoteperhe (5 sukupolvea, 2019-2026, 3 EU Invest Portal -hyväksyntää)
+- Tekijä: Risto Anton Päärni (founder/CEO), laskennallinen tuntihinta 80-100 euroa/tunti (inflaatiotarkistettu 2019-2026)
+- Todellinen laskennallinen R&D-arvo: 778 081 euroa (1 158 päivää x 7,5 h, inflaatiotarkistettu)
+- Aktivoidaan: 594 000 euroa = 76 prosenttia todellisesta (tahallisesti konservatiivinen)
+- Kirjanpitolautakunnan yleinen lausunto vahvistaa kehittämismenojen aktivoinnin sallittavuuden kun KPL 5:8 -edellytykset täyttyvät
+
+### Evidenssi (saatekirje)
+
+- Merjan tekemä Lifetime Oy:n kirjanpito vuodesta 2010: taksituotot ja muut sivutoimiset tuotot päivätason tarkkuudella (käänteiskirjausmenetelmä)
+- Eläketurvakeskuksen viralliset ansiotiedot 2020-2025 (kolmannen osapuolen vahvistus työrytmille)
+- GitHub 96 repositorya, 3 200 committia, 1 030 Pull Requestia (viimeinen 6 kk)
+- Omistajan pääomitukset ja lainat yhtiölle (Lemonsoft-tasekirjaukset, vahvistaa rahoituspohjan)
+- Euroopan komission EU Invest Portal -hyväksynnät: EIPP-20191319 (12.09.2019), EIPP-20191320 (2019), INPO-20254383 (25.12.2025)
+- Riippumattomat valuaatiot: Gust 3,8 milj. euroa (2021), Monaco Fondry 6 milj. USD (2022)
+
+### Tase-vaikutus (yhteenveto)
+
+- Ennen: -71 000 euroa (negatiivinen oma pääoma)
+- Jälkeen: +523 000 euroa (positiivinen oma pääoma)
+- Omistajan saamiset yhtiöltä: eivät muutu
+
+### Liitteet (saatekirje)
+
+1. Hallituksen pöytäkirja 31.12.2025
+2. Tuntikirjaukset kuukausitasolla — inflaatiotarkistettu (erillinen liite)
+3. GitHub-aktiivisuusraportti 10.10.2025-10.04.2026
+4. DWS-tuoteperheen temaattinen evoluutio (DWS 2-6)
+5. Oppimispäiväkirja v2.3 (30+ vahvistettu lähde)
+6. Taksilaskutusrekisteri (Merjan oma Google Sheets / Lemonsoft -viite)
+7. Palkkavertailu.fi -lähdeviite tuntihinnalle
+8. EU Invest Portal -hyväksyntäsähköpostit (EIPP-20191319, EIPP-20191320, INPO-20254383)
 
 Ystävällisin terveisin,
 Risto Anton Päärni
@@ -50,7 +155,7 @@ risto.paarni@lifetime.fi
 - ALV-tunnus: FI07724079
 - Osoite: Laidunmaanraitti 2 A 25, 02330 Espoo, Finland
 - CEO: Risto Anton Päärni
-- Kirjanpitäjä: Merja [sukunimi]
+- Kirjanpitäjä: Merja Turunen, Mt-tili Lkv
 
 ### Aktivoinnin perusta
 
@@ -64,8 +169,8 @@ risto.paarni@lifetime.fi
 DWS IQ -tuoteperhe (Lifetime Digital Workspace), jatkuva tuotekehitys joulukuusta 2019 alkaen:
 
 - DWS 2 (2019): Ensimmäinen versio
-- DWS 3 (2020-2023): Platform-tuote AWS-pilvellä
-- DWS 4 "Montreux" (2023-2024): Vihreän siirtymän platform
+- DWS 3 (2020-2023): Platform-tuote AWS-pilvellä. Euroopan komission EU Invest Portal -hyväksytty projekti EIPP-20191319 (12.09.2019). EBAN-rahoitus $6 000 USD, Finnvera-rahoitus 48 000 EUR. Project reader: Rashid Bishr, Global Capital Funding Inc.
+- DWS 4 "Montreux" (2023-2024): Vihreän siirtymän platform. Monaco Fondry -valuaatio 6 milj. USD (12/2022).
 - DWS 5 (2024): Vetytalouden platform. Microsoft Founders Hub Level 1-4 ($25 000 → $154 000 USD, 2021-2025). Oqtane / .NET 8 Blazor / Azure. EU Invest Portal -hyväksytty projekti.
 - DWS 6 (2025-nyt): EU-vaatimustenmukaisuus ja ilmastoäly. React 19 / Supabase / Google Cloud. EU Invest Portal -hyväksytty projekti INPO-20254383 (25.12.2025).
 
@@ -77,7 +182,7 @@ Jokainen versio kasvoi temaattisesti edellisestä. Aineetonta pääomaa (arkkite
 
 Vain Risto Anton Päärni (founder/CEO) — hänen oma laskennallinen työaikansa.
 
-Tuntihinta: 100 euroa/tunti (markkinaehtoinen mediaani senior developer -tasolla Helsingin seudulla, lähde: Palkkavertailu.fi / Duunitori / ICT-alan palkkatilastot).
+Tuntihinta: 80-100 euroa/tunti (inflaatiotarkistettu 2019-2026, markkinaehtoinen mediaani senior developer -tasolla Helsingin seudulla, lähde: Palkkavertailu.fi / Duunitori / ICT-alan palkkatilastot).
 
 ---
 
@@ -140,6 +245,8 @@ Eläkerekisterin ansiotiedot per vuosi:
 | 25.03-29.09.2025 | Nobina **31 302** + YEL 2 199 (päätoiminen) | 33 501     | 2         | 27       | 54         |
 | 30.09-09.10.2025 | YEL (Lifetime Oy, Nobinan jälkeen)          | (osa 2025) | 5         | 1,5      | 8          |
 | **Yhteensä**     |                                             |            |           |          | **962**    |
+
+> **HUOM: Ajanjaksot eivät mene päällekkäin.** Tämä taulukko kattaa Kirjaus 2:n ajanjakson (12/2019–09/2025). Kirjaus 1 (10/2025–04/2026) on erillinen ja perustuu GitHub-evidenssiin (3 200 committia / 1 030 PR). Yhteensä nämä kaksi kirjausta kattavat koko kehityshistorian 12/2019–04/2026 ilman päällekkäisyyttä.
 
 Laskennallinen R&D-arvo: 962 päivää x 7,5 h = **7 215 tuntia** x 100 €/h = **721 500 euroa**
 
@@ -227,11 +334,13 @@ Aineeton käyttöomaisuus (tili 1030) yhteensä: 594 000,00 euroa
 ## 5. LIITTEET (toimitettavat)
 
 1. Hallituksen pöytäkirja 31.12.2025 (alkuperäinen, PDF)
-2. GitHub-aktiivisuusraportti 10.10.2025 - 10.04.2026 (Kirjaus 1 -evidenssi)
-3. DWS-tuoteperheen temaattinen evoluutio -kaavio (DWS 2 - DWS 6)
-4. Oppimispäiväkirja v2.3 (Learn/Oppimispäiväkirja.md, 30+ vahvistettu lähde)
-5. Merjan taksilaskutusrekisteri (Google Sheets -viite, Kirjaus 2 -evidenssi)
-6. Palkkavertailu.fi / Duunitori -lähdeviite tuntihinnalle (100 euroa/tunti)
+2. Tuntikirjaukset kuukausitasolla — inflaatiotarkistettu (erillinen liite)
+3. GitHub-aktiivisuusraportti 10.10.2025-10.04.2026 (Kirjaus 1 -evidenssi)
+4. DWS-tuoteperheen temaattinen evoluutio -kaavio (DWS 2 - DWS 6)
+5. Oppimispäiväkirja v2.3 (Learn/Oppimispäiväkirja.md, 30+ vahvistettu lähde)
+6. Taksilaskutusrekisteri (Merjan oma Google Sheets / Lemonsoft -viite, Kirjaus 2 -evidenssi)
+7. Palkkavertailu.fi / Duunitori -lähdeviite tuntihinnalle
+8. EU Invest Portal -hyväksyntäsähköpostit (EIPP-20191319, EIPP-20191320, INPO-20254383)
 
 ---
 
@@ -245,7 +354,7 @@ Allekirjoitus: \***\*\_\_\*\***
 
 Kirjanpitäjän hyväksyntä:
 
-Merja [sukunimi]
+Merja Turunen, Mt-tili Lkv
 Päivämäärä: \***\*\_\_\*\***
 Allekirjoitus: \***\*\_\_\*\***
 

@@ -7,7 +7,7 @@
  * - Security behaviors (expired tokens, single-use, enumeration prevention)
  */
 
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 // AuthService is a singleton — we need to mock JWT_SECRET before import
 process.env.JWT_SECRET = 'test-secret-that-is-at-least-32-characters-long-for-security';

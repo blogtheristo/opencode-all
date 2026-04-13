@@ -10,8 +10,8 @@
  */
 
 import pino from 'pino';
-import { ERPProvider } from './types';
-import { COMPANY_ERP_REGISTRY, CompanyERPEntry } from './company-erp-registry';
+import { type ERPProvider } from './types';
+import { COMPANY_ERP_REGISTRY, type CompanyERPEntry } from './company-erp-registry';
 
 const logger = pino({ name: 'company-erp-resolver' });
 

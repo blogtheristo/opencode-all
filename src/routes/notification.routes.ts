@@ -10,7 +10,7 @@
  * Introduced-In: PR-913
  */
 
-import { Router, Request, Response, NextFunction } from 'express';
+import { type NextFunction, type Request, type Response, Router } from 'express';
 import { authenticateToken } from '../middleware/auth.middleware.js';
 import { notificationService } from '../services/notification.service.js';
 

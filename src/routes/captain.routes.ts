@@ -5,7 +5,7 @@
  * No auth required (public lead form). Rate-limited. Sends notification email + inserts into captain_inquiries.
  */
 
-import { Router, Request, Response } from 'express';
+import { type Request, type Response, Router } from 'express';
 import { body, validationResult } from 'express-validator';
 import rateLimit from 'express-rate-limit';
 import logger from '../utils/logger.js';

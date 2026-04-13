@@ -8,7 +8,7 @@
  */
 
 import logger from '../utils/logger.js';
-import type { SocialPost, PostDraft, PostStatus } from './types.js';
+import type { PostDraft, PostStatus, SocialPost } from './types.js';
 
 // ============================================================================
 // SUPABASE HELPER

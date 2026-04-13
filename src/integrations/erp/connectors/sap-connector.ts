@@ -11,14 +11,14 @@
 
 import { BaseERPConnector } from '../base-connector';
 import {
-  ERPProvider,
-  SAPConfig,
-  SyncResult,
   EntityType,
+  ERPProvider,
+  type MachineData,
+  MaintenanceEvent,
+  type OEEMetrics,
   ProductionOrder,
-  MachineData,
-  OEEMetrics,
-  MaintenanceEvent
+  type SAPConfig,
+  type SyncResult
 } from '../types';
 
 export class SAPConnector extends BaseERPConnector {

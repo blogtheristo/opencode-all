@@ -10,7 +10,7 @@
  *   → GET  /api/bim/projects/:id      → dashboard polling
  */
 
-import express, { Router, Request, Response } from 'express';
+import express, { type Request, type Response, type Router } from 'express';
 import { body, param, validationResult } from 'express-validator';
 import { getSupabaseClient } from '../config/supabase.js';
 import logger from '../utils/logger.js';

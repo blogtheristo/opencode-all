@@ -7,10 +7,10 @@
  * valid-signature acceptance, and payload-from-raw-body parsing.
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { Request, Response, NextFunction } from 'express';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { NextFunction, type Request, type Response } from 'express';
 import crypto from 'crypto';
-import { WebhookMiddleware, webhookHandler } from '../middleware/webhook.middleware.js';
+import { webhookHandler, WebhookMiddleware } from '../middleware/webhook.middleware.js';
 
 // ============ HELPERS ============
 

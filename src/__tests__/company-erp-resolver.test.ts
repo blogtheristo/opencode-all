@@ -4,11 +4,11 @@
  * Verifies company → ERP provider mapping for Nordic construction companies.
  */
 
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import {
+  listRegisteredCompanies,
   resolveCompanyERP,
   resolveCompanyERPBatch,
-  listRegisteredCompanies,
 } from '../integrations/erp/company-erp-resolver';
 import { ERPProvider } from '../integrations/erp/types';
 

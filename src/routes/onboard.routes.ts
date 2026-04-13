@@ -9,10 +9,10 @@
  * POST /api/v1/onboard/erp/test  — Test ERP connection (dry-run)
  */
 
-import { Router, Request, Response, NextFunction } from 'express';
-import { validate, OnboardingSchema } from '../middleware/validate.js';
+import { type NextFunction, type Request, type Response, Router } from 'express';
+import { OnboardingSchema, validate } from '../middleware/validate.js';
 import { authenticateToken } from '../middleware/auth.middleware.js';
-import { scoreCompliance, type ComplianceScoringInput } from '../compliance/scoring-engine.js';
+import { type ComplianceScoringInput, scoreCompliance } from '../compliance/scoring-engine.js';
 import { generateReport } from '../compliance/report-generator.js';
 import { getMandatoryDisclosures } from '../compliance/esrs-registry.js';
 import { Errors } from '../middleware/error-handler.js';
