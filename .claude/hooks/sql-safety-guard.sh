@@ -1,4 +1,4 @@
- #!/bin/sh
+#!/bin/sh
 # DWS6 Claude Code Hook: SQL Safety Guard
 # Enforces SQL safety rules on Bash commands containing SQL
 # Upgraded: Supabase patterns + Aiwen Article 12 immutability
