@@ -46,6 +46,22 @@ async function auditLogEmail(entry: {
   }
 }
 
+/**
+ * Escape HTML-unsafe characters (&, <, >) in a plain-text string so it can be
+ * safely embedded inside an HTML template (e.g. `<pre>${escapeHtml(text)}</pre>`).
+ *
+ * Without this, any `<foo>` or `<id>` substring in the text is interpreted by
+ * the recipient's email client as an unknown HTML tag and silently stripped —
+ * which is why e.g. the morning-brief HIL checklist lost `<id>` from the
+ * `mark-task-done.ts <id> --snooze 1d` example.
+ *
+ * Order matters: escape `&` first, then `<` and `>`, otherwise the replaced
+ * ampersands double-escape.
+ */
+export function escapeHtml(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
 function createSmtpTransport(): nodemailer.Transporter | null {
   const host = process.env.SMTP_HOST;
   if (!host) return null;
@@ -74,14 +90,19 @@ export interface SendEmailOptions {
   headers?: Record<string, string>;
 }
 
-export async function sendEmail(options: SendEmailOptions): Promise<{ ok: boolean; transport?: string; error?: string }> {
+export async function sendEmail(
+  options: SendEmailOptions,
+): Promise<{ ok: boolean; transport?: string; error?: string }> {
   const { from, to, subject, html, text, replyTo, headers } = options;
   const callerStack = new Error().stack?.split('\n').slice(2, 5).join(' <- ') || 'unknown';
   const contentLength = (html?.length || 0) + (text?.length || 0);
 
   const smtp = createSmtpTransport();
   if (!smtp) {
-    return { ok: false, error: 'No SMTP transport configured (SMTP_HOST required). Resend removed for security.' };
+    return {
+      ok: false,
+      error: 'No SMTP transport configured (SMTP_HOST required). Resend removed for security.',
+    };
   }
 
   try {
