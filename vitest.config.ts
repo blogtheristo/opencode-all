@@ -5,6 +5,9 @@ export default defineConfig({
     environment: 'node',
     globals: true,
     setupFiles: ['./src/__tests__/setup.ts'],
+    // E2E smoke test starts a real Express server — app startup takes ~10-15s
+    // in this environment (bcrypt, module transforms, port binding).
+    hookTimeout: 30000,
     coverage: {
       provider: 'v8',
       reporter: ['text', 'text-summary', 'json-summary', 'html'],
