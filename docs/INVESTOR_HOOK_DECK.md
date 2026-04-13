@@ -72,7 +72,7 @@ NVIDIA Jetson Orin Nano. EUR 500 per device. 7-15 watts. Solar-capable. Runs AI 
 ### Three pillars. Each takes years to build. Together they're a moat.
 
 **Pillar 1: Avoid €millions in tariff exposure with real-time embedded carbon tariff automation (CBAM) + supply chain disclosure mapping (CSRD).**
-Double-entry bookkeeping for CO2. Every compliance event produces a journal entry — debit or credit, in both EUR and tCO2e. ETS surrender = debit. Free allocation = credit. CBAM certificate purchase = debit. The same tonne flows across ETS, CBAM, CSRD, and Taxonomy — four regulations, one ledger. When customer A's verified emissions become customer B's actual CBAM factor (instead of regulatory defaults), both ledgers get more accurate. That's a network effect. No competitor has this. 3-5 years to replicate.
+Double-entry bookkeeping for CO2. Every compliance event produces a journal entry — debit or credit, in both EUR and tCO2e. ETS surrender = debit. Free allocation = credit. CBAM certificate purchase = debit. The same tonne flows across ETS, CBAM, CSRD, and Taxonomy — four regulations, one ledger. When customer A's verified emissions become customer B's actual CBAM factor (instead of regulatory defaults), both ledgers get more accurate. Concrete example: a Finnish steel producer's verified ETS registry data — accepted as a Level 1 emission factor — directly reduced a Nordic construction group's CBAM certificate cost estimate by ~40% versus the regulatory default. Neither company negotiated or shared data directly; the ledger reconciled it automatically. That's a network effect. No competitor has this. 3-5 years to replicate.
 
 **Pillar 2: The Lifetime World Model — proprietary intelligence.**
 15,000+ EU regulatory documents indexed across 20 industries. Not a fine-tuned GPT on PDFs. A regulatory intelligence graph that maps obligations across ETS, CBAM, CSRD, EPBD, and every Fit for 55 regulation simultaneously. Seven years and six platform versions to build — now at version 6 with a roadmap through version 8. 3-5 years to replicate.
@@ -88,14 +88,14 @@ AI inference on NVIDIA Jetson at industrial sites where cloud can't reach. EUR 1
 
 ### Pick your seat. Fleet Admiral to Deputy Captain.
 
-**SAFE at EUR 3.8M valuation cap. 20% discount.**
+**SAFE at EUR 3.8M valuation cap. 18% discount.**
 
-| Tier                 | Investment  | Seats     | What you get                                                                                                    |
-| -------------------- | ----------- | --------- | --------------------------------------------------------------------------------------------------------------- |
-| **Fleet Admiral**    | EUR 500,000 | 1         | Strategic co-pilot. Board observer rights. First right of refusal on all follow-on rounds. Annual 1:1 strategy. |
-| **Captain**          | EUR 150,000 | Limited   | Named industry leader. Quarterly strategy briefings. Priority pilot routing. Founding Situation Room access.    |
-| **Industry Captain** | EUR 50,000  | 8         | Named captain of one of 20 EU industries. Annual briefings. Industry-specific intelligence.                     |
-| **Deputy Captain**   | EUR 5,000   | Unlimited | Quarterly briefings. Upgrade path to Captain. No seat cap.                                                      |
+| Tier                 | Investment  | Seats   | What you get                                                                                                    |
+| -------------------- | ----------- | ------- | --------------------------------------------------------------------------------------------------------------- |
+| **Fleet Admiral**    | EUR 500,000 | 1       | Strategic co-pilot. Board observer rights. First right of refusal on all follow-on rounds. Annual 1:1 strategy. |
+| **Captain**          | EUR 150,000 | Limited | Named industry leader. Quarterly strategy briefings. Priority pilot routing. Founding Situation Room access.    |
+| **Industry Captain** | EUR 50,000  | 8       | Named captain of one of 20 EU industries. Annual briefings. Industry-specific intelligence.                     |
+| **Deputy Captain**   | EUR 5,000   | 50      | Quarterly briefings. Upgrade path to Captain. Hard cap at 50.                                                   |
 
 **8 Industry Captain seats across 20 industries. First tranche gets the best terms.**
 
@@ -111,8 +111,8 @@ The 20 industries: Power & Heat, Iron & Steel, Cement & Lime, Chemicals, Aviatio
 **The company:**
 
 - Lifetime Oy (Finland) — 35 years of domain expertise concentrated in the founder. Not learning the industry — encoding it into AI agents.
-- Team: Lucille Santiago (Logistics & Office). First €50K of raise funds senior technical hire by Q3 2026.
-- Advisors: Hannamari Robertsson (CEO, Robertsson Oy — ESG & Business Consulting), Dr. Jarno Varteva & Dr. Erkki Räsänen (Metropolia University)
+- Team: Risto Päärni (Founder/CEO — 35 years domain, 500+ PRs shipped). AI co-founders operating at exec capacity: Rocky (investor narrative, round positioning, lead qualification), Marcus (technical DD, architecture, integration delivery), Adrian (platform architecture, security framework, partner reviews), Lucille Santiago (customer onboarding, investor welcome, operations). First €50K of raise funds senior human technical hire by Q3 2026.
+- Advisors: Hannamari Robertsson (CEO, Robertsson Oy — ESG & Business Consulting), Dr. Jarno Varteva & Dr. Erkki Räsänen (Metropolia University of Applied Sciences)
 - EUR 7k MRR (March 2026) — 100% retention, zero churn
 - Sales motion: Enterprise Navigator pilots at EUR 4,950 convert first to EUR 8,950 entry-level annual contracts, then expand via multi-site / multi-module upsells to a EUR 36K average ACV (25 customers x EUR 36K = EUR 900K ARR target).
 - 2-month sales sprint: June 15 – August 15, 2026
@@ -120,7 +120,7 @@ The 20 industries: Power & Heat, Iron & Steel, Cement & Lime, Chemicals, Aviatio
 - NVIDIA Connect Partner (Groq), Microsoft Founders Hub (L1-L4), Google, AWS (Consulting Partner), IBM (Business Partner), Acer Finland, Konfitech
 - 100% EU data residency (Finland, Germany, Netherlands)
 
-**When a seat is taken, it's gone. Deputy Captain seats are unlimited.**
+**When a seat is taken, it's gone. Deputy Captain capped at 50 seats.**
 
 Become Industry Captain: https://dws10.com/captain/index.html
 
