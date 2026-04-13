@@ -26,7 +26,7 @@ Every EU company filing CSRD needs a carbon balance sheet. We build the ledger i
 - MRR: **€7K live run-rate**
 - Paying Customers: 5
 - Retention: 100% (zero churn)
-- Customer LTV: €70k–€120k annual value per logo
+- Customer LTV: €70k–€120k projected annual value per logo (multi-site expansion after construction pilots)
 - Platform: 18 AI agents, 32 products, 5 cloud environments
 - Industries served: 20 EU-regulated verticals
 - Carbon balance sheet: Debit-credit ledger shipping in V1, persistent ledger in DWS 7 Phase 2 (Jul 2026)
@@ -362,7 +362,7 @@ Timeframe:                 ~2 years (2024→2026)
 
 - **Current MRR:** €7K (March 2026) with 5 paying customers
 - **Customer Retention:** 100% (zero churn demonstrates product-market fit)
-- **Customer LTV:** €70k–€120k annual value per logo
+- **Customer LTV:** €70k–€120k projected annual value per logo (multi-site expansion after construction pilots)
 - **Time Savings:** 40+ hours/month saved per customer
 - **Platform Scale:** 18 agents, 32 products, 5 cloud environments, 20 industries
 - **Target Growth:** €900k ARR by end of 2026
@@ -403,10 +403,6 @@ Timeframe:                 ~2 years (2024→2026)
   - Dr. Jarno Varteva — Metropolia University of Applied Sciences (Academic Advisor)
   - Dr. Erkki Räsänen — Metropolia University of Applied Sciences (Academic Advisor)
 - **Accelerator:** Peachscore Cohort 25 (access to Nordic VC network)
-- **Third-Party Validation:**
-  - Crunchbase Growth Score: 91
-  - Crunchbase Heat Score: 86
-  - CB Rank: 104,995
 - **Cloud Credits:** €100k+ in AWS/Google Cloud infrastructure credits secured
 - **Finland Advantage:** AAA credit rating, sovereign stability, strong IP protection, Nordic innovation ecosystem
 - **Partnerships:** NVIDIA Connect Partner (Groq), Microsoft Founders Hub (L1-L4), Google, AWS (Consulting Partner), IBM (Business Partner), Acer Finland, Konfitech
