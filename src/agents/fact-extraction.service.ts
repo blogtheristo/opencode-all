@@ -15,7 +15,7 @@
  */
 
 import logger from '../utils/logger.js';
-import { createLLMClient, LLMClient } from './llm-client.js';
+import { createLLMClient, type LLMClient } from './llm-client.js';
 import { memoryService } from './memory.service.js';
 import type {
   ExtractedFact,

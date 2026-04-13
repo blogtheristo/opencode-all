@@ -10,7 +10,7 @@
  * Owner: Lifetime Oy
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { MemoryService } from '../agents/memory.service.js';
 
 // Mock Supabase client

@@ -7,9 +7,9 @@
  * MVP Feature 2
  */
 
-import { Router, Request, Response, NextFunction } from 'express';
+import { type NextFunction, type Request, type Response, Router } from 'express';
 import { authenticateToken, requireRole } from '../middleware/auth.middleware.js';
-import { UsageMeteringService, TIERS } from '../services/usage-metering.service.js';
+import { TIERS, UsageMeteringService } from '../services/usage-metering.service.js';
 
 const router = Router();
 

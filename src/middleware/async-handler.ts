@@ -12,7 +12,7 @@
  * Date: 2026-03-21
  */
 
-import { Request, Response, NextFunction, RequestHandler } from 'express';
+import { type NextFunction, type Request, type RequestHandler, type Response } from 'express';
 
 type AsyncRequestHandler = (
   req: Request,

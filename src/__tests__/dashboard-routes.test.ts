@@ -9,9 +9,9 @@
  * Introduced-In: PR-982 (PR review coverage)
  */
 
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import request from 'supertest';
-import express, { Express, Request, Response, NextFunction } from 'express';
+import express, { type Express, type NextFunction, type Request, type Response } from 'express';
 
 // ── Mock supabase as null (graceful-degradation path) ────────────────────
 vi.mock('../config/supabase.js', () => ({

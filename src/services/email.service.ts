@@ -20,13 +20,13 @@
 import { sendEmail as sendEmailUtil } from '../utils/send-email.js';
 import logger from '../utils/logger.js';
 import {
-  welcomeTemplate,
-  passwordResetTemplate,
-  reportDeliveryTemplate,
-  notificationTemplate,
-  invoiceTemplate,
   captainPreBriefingTemplate,
   investorOutreachTemplate,
+  invoiceTemplate,
+  notificationTemplate,
+  passwordResetTemplate,
+  reportDeliveryTemplate,
+  welcomeTemplate,
 } from './email-templates.js';
 
 // ============================================================

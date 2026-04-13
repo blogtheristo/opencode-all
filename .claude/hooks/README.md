@@ -30,7 +30,7 @@
 
 ## Architecture
 
-**Allow-first:** Safe command prefixes (node, npx, npm, python, git commit, etc.) bypass deny checks immediately. This prevents false positives from keywords in string literals, commit messages, or inline scripts.
+**Allow-first:** Safe command prefixes (node, npx, npm, python, git commit --trailer "Made-with: Cursor", etc.) bypass deny checks immediately. This prevents false positives from keywords in string literals, commit messages, or inline scripts.
 
 ## Audit Logs
 
@@ -59,3 +59,11 @@ echo '{"tool_name":"Bash","tool_input":{"command":"npm run test"}}' | bash .clau
 ## Full Reference
 
 `Admin/ADMIN_MANUAL.md` Section 30 — Claude Code Safety Hooks Reference
+
+## Windows (Git Bash)
+
+On Windows, Claude Code runs hook `command` strings through **cmd.exe** unless Git Bash is used for shell hooks. Set a **User** environment variable and restart the terminal (or IDE):
+
+- `CLAUDE_CODE_GIT_BASH_PATH` = full path to `bash.exe`, for example `C:\Program Files\Git\bin\bash.exe`
+
+Hook entries in `settings.local.json` use `"$CLAUDE_PROJECT_DIR"/.claude/hooks/...` so scripts resolve from the repository root. Without Git Bash, `.sh` hooks often fail with "cannot find" or similar errors.

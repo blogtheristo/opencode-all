@@ -5,17 +5,17 @@
  * origin country carbon price credits, and CBAM sector coverage.
  */
 
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import {
   calculateCBAM,
-  estimateCBAMCost,
-  isCBAMCovered,
   CBAM_COVERED_SECTORS,
   type CBAMDeclaration,
+  estimateCBAMCost,
+  isCBAMCovered,
 } from '../compliance/cbam-calculator.js';
 import {
-  CBAM_DEFAULT_FACTORS,
   CBAM_CERTIFICATE_PRICE_EUR,
+  CBAM_DEFAULT_FACTORS,
 } from '../compliance/emission-factors.js';
 
 describe('CBAM Calculator', () => {

@@ -18,7 +18,7 @@
  */
 
 import logger from '../utils/logger.js';
-import type { ToolTelemetryEvent, ToolMetrics } from './telemetry.types.js';
+import type { ToolMetrics, ToolTelemetryEvent } from './telemetry.types.js';
 
 const FLUSH_THRESHOLD = 50;
 const FLUSH_INTERVAL_MS = 30_000;

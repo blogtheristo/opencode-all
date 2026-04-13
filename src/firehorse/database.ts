@@ -3,8 +3,8 @@
  * CustomerPilotLoop v1
  */
 
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import { Lead, LeadState, EventType, TaskType, ReplyIntent, EmailTemplate } from './types';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import { type EmailTemplate, EventType, type Lead, type LeadState, type ReplyIntent, type TaskType } from './types';
 
 // ============================================================================
 // DATABASE CLIENT

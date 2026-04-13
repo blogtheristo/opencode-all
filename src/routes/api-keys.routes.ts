@@ -9,7 +9,7 @@
  * MVP Feature 1
  */
 
-import { Router, Request, Response, NextFunction } from 'express';
+import { type NextFunction, type Request, type Response, Router } from 'express';
 import { z } from 'zod';
 import { validate } from '../middleware/validate.js';
 import { authenticateToken } from '../middleware/auth.middleware.js';
