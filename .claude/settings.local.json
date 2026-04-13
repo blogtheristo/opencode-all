@@ -16,8 +16,7 @@
       "Bash(gh issue:*)",
       "Bash(gh run:*)",
       "Read($CLAUDE_PROJECT_DIR/**)",
-      "Bash(gh pr:*)",
-      "Bash(node -e \"const lock = require\\('./package-lock.json'\\); console.log\\('nodemailer:', lock.packages['node_modules/nodemailer']?.version\\); console.log\\('lodash:', lock.packages['node_modules/lodash']?.version\\);\")"
+      "Bash(gh pr:*)"
     ]
   },
   "enabledMcpjsonServers": [
