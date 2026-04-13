@@ -11,7 +11,7 @@
 - **Owner:** Risto Anton Päärni, CEO, Lifetime Oy (Y-tunnus 0772407-9)
 - **Branch:** claude/lucid-poincare
 - **Sessions & Modifications:**
-  - 1.2 (13.04.2026): Saatekirje päivitetty käyttäjän lopullisella tarkistetulla versiolla. Lisätty Merjan yhteystiedot (Merja Turunen, Mt-tili Lkv). Lemonsoft-kirjaukset inline saatekirjeessä. DWS IQ -tuoteperhe EU Invest Portal -viitteineen. Omistajan pääomarahoitus -osio. Käänteiskirjausmenetelmä. 8-liitteen lista. Selventävä huomautus: Kirjaus 2 -taulukko päättyy 09/2025 ja Kirjaus 1 (10/2025–04/2026) on erillinen jakso.
+  - 1.2 (13.04.2026): Saatekirje päivitetty käyttäjän lopullisella tarkistetulla versiolla. Lisätty Merjan yhteystiedot (Merja Turunen, Mt-tili Lkv). Lemonsoft-kirjaukset inline saatekirjeessä. DWS IQ -tuoteperhe EU Invest Portal -viitteineen. Omistajan pääomarahoitus -osio. Käänteiskirjausmenetelmä. 8-liitteen lista. Selventävä huomautus: Kirjaus 2 -taulukko päättyy 09/2025 ja Kirjaus 1 (10/2025–04/2026) on erillinen jakso. Päivälukuero (962 vs. 1 158) selitetty: ETK-ansiotiedot antavat 962 päivää (kiinteä 100 EUR/h = 721 500 EUR), käänteiskirjausmenetelmä antaa 1 158 päivää (inflaatiotarkistettu 80-100 EUR/h = 778 081 EUR). Molemmat ylittävät aktivoitavan 594 000 EUR. Ero ei vaikuta kirjauksiin — kirjanpidon luku (ETK-pohjainen) on Merjalle toimitettava luku.
   - 1.1 (12.04.2026): Poistettu viittaukset KILA-ennakkopäätökseen ja Mira Merikoskeen. Korvattu yleisellä KPL 5:8 -perustelulla. Poistettu liite 1 (KILA-ennakkopäätös PDF). Liitteet uudelleennumeroitu.
   - 1.0 (12.04.2026): Alkuperäinen versio.
 - **Document Status:** VALMIS TOIMITETTAVAKSI
@@ -28,6 +28,8 @@ Asia: Tuotekehitysmenojen aktivointi KPL 5:8 — kaksi kirjausta
 
 Hyvä Merja,
 
+Tämä on päivitetty versio 1.2 aikaisemmasta kirjeestä. Päivityksen syy: lisätty Lemonsoft-kirjausohjeet suoraan kirjeeseen, täydennetty DWS-tuoteperheen EU Invest Portal -viitteet, sekä lisätty Liite 2 (käänteislaskutuksen kuukausijaottelu). Kirjaussummat ja tilit eivät ole muuttuneet.
+
 Viitaten hallituksen päätökseen tässä on ohje kirjauksia (2 kpl) varten.
 
 Toimitan ohessa Lifetime Oy:n tuotekehitysmenojen aktivointia koskevat asiakirjat kirjattavaksi Lemonsoftiin.
@@ -42,7 +44,7 @@ Kirjaus 1: DWS IQ 6 -tuotekehitys (viimeinen 6 kuukautta)
 Debet 1030 Kehittämismenot: 100 000,00
 Kredit 3950 Valmistus omaan käyttöön: 100 000,00
 
-Kirjaus 2: DWS-tuoteperheen kehitys 12/2019-09.10.2025
+Kirjaus 2: DWS-tuoteperheen kehitys 12/2019-30.09.2025
 Debet 1030 Kehittämismenot: 494 000,00
 Kredit 3950 Valmistus omaan käyttöön: 494 000,00
 
@@ -214,13 +216,13 @@ Kredit 3950 Valmistus omaan käyttöön: 100 000,00
 
 ---
 
-## 3. KIRJAUS 2 — DWS-tuoteperheen kehitys (12/2019 - 10/2025)
+## 3. KIRJAUS 2 — DWS-tuoteperheen kehitys (12/2019 - 09/2025)
 
 ### Kirjaustiedot
 
 - Päivämäärä: 10.04.2026
 - Summa: 494 000,00 euroa
-- Ajanjakso: 12/2019 - 09.10.2025 (noin 6 vuotta)
+- Ajanjakso: 12/2019 - 30.09.2025 (noin 6 vuotta)
 - Kohde: DWS-tuoteperheen tuotekehitys (DWS 2, DWS 3, DWS 4 Montreux, DWS 5)
 
 ### Laskentaperuste
@@ -243,10 +245,9 @@ Eläkerekisterin ansiotiedot per vuosi:
 | 2024             | YEL **15 163** + Taxivirpi 5 490            | 20 653     | 4         | 48       | 192        |
 | 01-24.03.2025    | YEL (Lifetime Oy, ennen Nobinaa)            | (osa 2025) | 5         | 12       | 60         |
 | 25.03-29.09.2025 | Nobina **31 302** + YEL 2 199 (päätoiminen) | 33 501     | 2         | 27       | 54         |
-| 30.09-09.10.2025 | YEL (Lifetime Oy, Nobinan jälkeen)          | (osa 2025) | 5         | 1,5      | 8          |
 | **Yhteensä**     |                                             |            |           |          | **962**    |
 
-> **HUOM: Ajanjaksot eivät mene päällekkäin.** Tämä taulukko kattaa Kirjaus 2:n ajanjakson (12/2019–09/2025). Kirjaus 1 (10/2025–04/2026) on erillinen ja perustuu GitHub-evidenssiin (3 200 committia / 1 030 PR). Yhteensä nämä kaksi kirjausta kattavat koko kehityshistorian 12/2019–04/2026 ilman päällekkäisyyttä.
+> **HUOM: Ajanjaksot eivät mene päällekkäin.** Tämä taulukko kattaa Kirjaus 2:n ajanjakson (12/2019–30.09.2025). Kirjaus 1 (01.10.2025–10.04.2026) on erillinen ja perustuu GitHub-evidenssiin (3 200 committia / 1 030 PR). Yhteensä nämä kaksi kirjausta kattavat koko kehityshistorian 12/2019–04/2026 ilman päällekkäisyyttä.
 
 Laskennallinen R&D-arvo: 962 päivää x 7,5 h = **7 215 tuntia** x 100 €/h = **721 500 euroa**
 
@@ -279,8 +280,7 @@ Tiedonlähde: Eläketurvakeskus / Työeläke.fi (virallinen, kolmannen osapuolen
 | 2022-2024            | TBD (tarkistettava laskuista) | TBD                 | TBD                | Tarkistettava Google Sheets -laskuista                              |
 | 01-24.03.2025        | Toimisto (DWS)                | Toimisto (DWS)      | 5-6                | Full-time DWS ennen Nobinaa                                         |
 | **25.03-29.09.2025** | **Nobina (päätoiminen)**      | **DWS (illat/vkl)** | **2**              | **Linja-autonkuljettaja päätoimisesti, DWS vain illat/viikonloput** |
-| 30.09-09.10.2025     | Toimisto (DWS)                | Toimisto (DWS)      | 5-6                | Nobina päättynyt, paluu DWS full-time                               |
-| 10/2025-04/2026      | Toimisto (DWS IQ 6)           | Toimisto (DWS IQ 6) | 6                  | Full-time DWS (Kirjaus 1 -jakso)                                    |
+| 01.10.2025-04/2026   | Toimisto (DWS IQ 6)           | Toimisto (DWS IQ 6) | 6                  | Full-time DWS (Kirjaus 1 -jakso, Nobina päättynyt 29.09)           |
 
 > **HUOM:** Tarkat R&D-päivien lukumäärät per vuosi tulee vahvistaa Merjan Google Sheets -taksilaskuista ja Nobinan työsopimuksesta/palkkakuiteista. Yllä oleva 659 päivää on estimaatti joka vastaa €494 000 tavoitetta. Lopullinen päiväluku voi poiketa suuntaan tai toiseen kun laskut on tarkistettu. Laskennallinen R&D-päivien lukumäärä perustuu toimitusjohtajan vahvistamaan työrytmiin. Tarkistettavissa Lifetime Oy:n kirjanpidosta (Lemonsoft) taksilaskutusmerkinnöistä sekä Nobinan palkkatiedoista.
 
