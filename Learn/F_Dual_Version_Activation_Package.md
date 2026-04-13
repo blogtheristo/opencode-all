@@ -23,7 +23,7 @@
 Vastaanottaja: Merja Turunen, Mt-tili Lkv
 Sähköposti: merja.turunen@mt-tili.fi
 Lähettäjä: Risto Anton Päärni, CEO, Lifetime Oy
-Päivämäärä: 12.04.2026
+Päivämäärä: 13.04.2026
 Asia: Tuotekehitysmenojen aktivointi KPL 5:8 — kaksi kirjausta
 
 Hyvä Merja,
