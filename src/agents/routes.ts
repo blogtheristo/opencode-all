@@ -67,7 +67,7 @@ const validateRequest = (req: Request, res: Response, next: express.NextFunction
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     logger.warn('Agent request validation error', {
-      errors: errors.array().map((e) => e.msg),
+      errors: errors.array().map((e: { msg: string }) => e.msg),
     });
     return res.status(400).json({
       error: 'Validation Error',

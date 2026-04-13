@@ -11,7 +11,6 @@ import express, { type Express, type NextFunction, type Request, type Response }
 import cors from 'cors';
 import crypto from 'crypto';
 import helmet from 'helmet';
-import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
@@ -60,6 +59,11 @@ import { healthCheck, livenessCheck } from './middleware/health.js';
 import { validateEnv } from './middleware/env-validation.js';
 import { requestTimeout } from './middleware/request-timeout.js';
 import { errorTrackingMiddleware, initErrorTracking } from './middleware/error-tracking.js';
+import {
+  apiRateLimiter,
+  loginRateLimiter,
+  registrationRateLimiter,
+} from './services/redis-rate-limiter.service.js';
 
 dotenv.config();
 
@@ -83,13 +87,25 @@ const __dirname = path.dirname(__filename);
 
 // ============ MIDDLEWARE ============
 
-// Security headers - configured to allow static HTML pages with inline scripts
+// Generate a per-request CSP nonce (replaces 'unsafe-inline' for scripts)
+app.use((req: Request, _res: Response, next: NextFunction) => {
+  (req as Request & { cspNonce: string }).cspNonce = crypto.randomBytes(16).toString('base64');
+  next();
+});
+
+// Security headers — nonce-based CSP (no unsafe-inline for scripts)
 app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", "'unsafe-inline'"],
+        scriptSrc: [
+          "'self'",
+          (_req, res) => {
+            const nonce = (res.req as Request & { cspNonce: string }).cspNonce;
+            return `'nonce-${nonce}'`;
+          },
+        ],
         styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
         fontSrc: ["'self'", 'https://fonts.gstatic.com'],
         imgSrc: ["'self'", 'data:', 'https:'],
@@ -163,26 +179,11 @@ app.use(apiVersionMiddleware);
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
-// Rate limiting (general)
-const limiter = rateLimit({
-  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000', 10), // 15 minutes
-  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || '100', 10),
-  message: 'Too many requests from this IP, please try again later.',
-  standardHeaders: true,
-  legacyHeaders: false,
-});
-app.use('/api/', limiter);
-
-// Strict rate limiting for auth endpoints
-const loginLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 5,
-  message: 'Too many attempts, please try again later.',
-  skipSuccessfulRequests: true,
-});
-app.use('/api/v1/auth/login', loginLimiter);
-app.use('/api/v1/auth/register', loginLimiter);
-app.use('/api/v1/auth/forgot-password', loginLimiter);
+// Rate limiting — Redis-backed for Cloud Run multi-instance, in-memory fallback
+app.use('/api/', apiRateLimiter);
+app.use('/api/v1/auth/login', loginRateLimiter);
+app.use('/api/v1/auth/register', registrationRateLimiter);
+app.use('/api/v1/auth/forgot-password', loginRateLimiter);
 
 // Request timeout — abort after 30s (configurable via REQUEST_TIMEOUT_MS)
 app.use(requestTimeout());
