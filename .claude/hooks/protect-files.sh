@@ -4,7 +4,10 @@
 # Philosophy: block the dangerous stuff silently, allow everything else
 set -euo pipefail
 
-file=$(jq -r '.tool_input.file_path // .tool_input.path // ""')
+# Capture stdin once — jq can only read it once
+INPUT=$(cat)
+
+file=$(echo "$INPUT" | jq -r '.tool_input.file_path // .tool_input.path // ""')
 [ -z "$file" ] && exit 0
 
 # Normalize to relative path
@@ -35,7 +38,7 @@ if echo "$file" | grep -qiE '\.html$'; then
   if [ -f "$file" ]; then
     linecount=$(wc -l < "$file" 2>/dev/null || echo 0)
     if [ "$linecount" -gt 100 ]; then
-      newlines=$(jq -r '.tool_input.content // ""' | wc -l 2>/dev/null || echo 999)
+      newlines=$(echo "$INPUT" | jq -r '.tool_input.content // ""' | wc -l 2>/dev/null || echo 999)
       if [ "$newlines" -lt 20 ]; then
         echo "Blocked: refusing to replace ${linecount}-line page with ${newlines}-line stub." >&2
         exit 2
