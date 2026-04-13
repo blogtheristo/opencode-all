@@ -4,19 +4,23 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-qivalis-research-ePIAY | Date: 13.04.2026 | Changes: Updated with verified consortium list (all 12 banks named), reserve structure (40% deposits + sovereign bonds), Amsterdam HQ, digital dollarization urgency angle, SEB Nordic relevance, exchange partner talks confirmed
 - Version: 1.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-qivalis-research-ePIAY | Date: 13.04.2026 | Changes: Initial — documents Qivalis euro-stablecoin consortium (BBVA, ING + 10 others), H2 2026 launch timeline, first-mover advantage over ECB digital euro 2029, MiCA regulatory posture, DWS Firehorse payment relevance
 
 Session Links & References:
 
-- Qivalis announcement: https://www.qivalis.eu
+- BBVA joins consortium: https://www.bbva.com/en/innovation/bbva-joins-banking-consortium-to-issue-european-stablecoin/
+- Yahoo Finance / H2 2026 launch: https://finance.yahoo.com/news/european-banks-qivalis-targets-h2-124715867.html
+- CoinDesk / exchange talks: https://www.coindesk.com/business/2026/03/02/eu-banks-euro-pegged-stablecoin-in-talks-with-crypto-exchanges-to-ensure-liquidity
+- CoinDesk / digital dollarization: https://www.coindesk.com/business/2026/03/31/europe-faces-digital-dollarization-without-a-euro-stablecoin-of-its-own-warns-qivalis-ceo
+- CaixaBank announcement: https://www.caixabank.com/en/headlines/news/qivalis-joint-venture-of-a-european-banking-consortium-to-launch-euro-stablecoin-in-the-second-half-of-2026
+- The Block: https://www.theblock.co/post/391770/european-bank-consortium-targets-2026-launch-for-euro-backed-stablecoin-report
 - MiCA (Markets in Crypto-Assets Regulation): https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1114
 - ECB digital euro project: https://www.ecb.europa.eu/paym/digital_euro/html/index.en.html
-- BBVA stablecoin initiative: https://www.bbva.com/en/
-- ING digital payments: https://www.ing.com/Newsroom/News/
 
 Document Status:
 
@@ -36,17 +40,36 @@ Document Status:
 ## Mikä on Qivalis?
 
 **Qivalis** on yksityisen sektorin euromääräinen stablecoin, jonka taustalla on
-**12 eurooppalaisen suurpankin konsortio** — julkisesti vahvistettuina mukana
-ainakin **BBVA (Espanja)** ja **ING (Alankomaat)**. Muita konsortiojäseniä ei
-toistaiseksi nimetty julkisesti (Q1 2026).
+**12 eurooppalaisen suurpankin konsortio**. Joint venture on rekisteröity
+**Amsterdamiin**. BBVA liittyi 12. jäsenenä helmikuussa 2026.
 
-| Ominaisuus           | Arvo                              |
-| -------------------- | --------------------------------- |
-| Perivaluutta         | EUR (1:1 sidottu)                 |
-| Konsortio            | 12 eurooppalaista suurpankkia     |
-| Suunniteltu laukaisu | H2 2026                           |
-| Regulaatiovalmius    | MiCA EMT (Electronic Money Token) |
-| Kilpaileva CBDC      | ECB:n digitaalinen euro ~2029     |
+### Kaikki 12 konsortiojäsentä (vahvistettu)
+
+| Pankki                            | Maa            | Teollisuusrelevanssi DWS:lle                                 |
+| --------------------------------- | -------------- | ------------------------------------------------------------ |
+| **BNP Paribas**                   | Ranska         | Suurin eurooppalainen yrityspankki                           |
+| **UniCredit**                     | Italia / Saksa | Laaja teollisuusasiakaskunta                                 |
+| **ING**                           | Alankomaat     | Aktiivinen regtech-sijoittaja (ING Ventures)                 |
+| **SEB**                           | Ruotsi         | **Pohjoismaat — suoraan DWS:n kotimarkkina**                 |
+| **Danske Bank**                   | Tanska         | Pohjoismainen teollisuus                                     |
+| **KBC**                           | Belgia         | Rakennusala + teollisuus                                     |
+| **Raiffeisen Bank International** | Itävalta       | Keski-Euroopan teollisuus                                    |
+| **DekaBank**                      | Saksa          | Saksalainen institutionaalinen                               |
+| **DZ BANK**                       | Saksa          | Suurin saksalainen osuuspankkikeskus                         |
+| **CaixaBank**                     | Espanja        | Iberian teollisuus                                           |
+| **Banca Sella**                   | Italia         | Fintech-fokus                                                |
+| **BBVA**                          | Espanja        | Liittyi 12. jäsenenä helmikuu 2026; BBVA Ventures aktiivinen |
+
+| Ominaisuus               | Arvo                                                        |
+| ------------------------ | ----------------------------------------------------------- |
+| Perivaluutta             | EUR (1:1 sidottu)                                           |
+| Reservirakenne           | Min. 40% pankkitalletukset + lyhytaikaiset EU-valtionlainat |
+| Konsortio HQ             | Amsterdam                                                   |
+| Suunniteltu laukaisu     | H2 2026                                                     |
+| Regulaatiovalmius        | MiCA EMT (Electronic Money Token)                           |
+| Lunastus                 | 24/7 (MiCA-vaatimus)                                        |
+| Kilpaileva CBDC          | ECB:n digitaalinen euro ~2029                               |
+| Vaihtokauppa-neuvottelut | Käynnissä kryptopörssien kanssa (maaliskuu 2026)            |
 
 ---
 
@@ -68,6 +91,23 @@ ECB:n digitaalinen euro on **preparation phase** -vaiheessa 2026 ja
 First-mover-edun kestävyys riippuu siitä, kuinka syvälle Qivalis ehtii
 integroitua ERP-järjestelmiin, verkkomaksuratkaisuihin ja B2B-maksuvirtoihin
 ennen CBDC:n tuloa.
+
+### "Digital Dollarization" — Qivalisin CEO:n keskeinen argumentti
+
+Qivalisin toimitusjohtaja varoitti maaliskuussa 2026 **"digitaalisesta
+dollarisaatiosta"**: jos Eurooppa ei saa omaa reguloitua eurostablecoinia
+markkinoille ennen kuin USD-stablecoinit (USDC, Tether) dominoivat
+eurooppalaiset B2B-maksuvirrat, euron asema teollisuusmaksuissa heikkenee
+rakenteellisesti.
+
+Tämä on **poliittinen turvallisuusargumentti**, ei pelkkä bisnesargumentti.
+Se nostaa Qivalisin prioriteetin EU-instituutioiden silmissä ja tekee
+H2 2026 -aikataulusta poliittisesti sitovan — ei pelkästään
+kaupallisen tavoitteen.
+
+**Investor-implikaatio:** Qivalis ei voi epäonnistua poliittisesti.
+Konsortio saa regulaattorituen, koska vaihtoehtona on dollarisaatio.
+Tämä vähentää "konsortio hajoaa ennen lanseerausta" -riskiä merkittävästi.
 
 ---
 
@@ -126,24 +166,33 @@ Stablecoin-transaktiot ovat MiCA:n artikkelin 76 mukaisen
 raportoinnin alaisia. DWS Compliance-agentille tarvitaan
 Qivalis-tapahtumien MiCA-raportointiprofiili, kun asiakaskanta laajenee.
 
-### 3. Asiakasriskiarvio: ERP-toimittajat
+### 3. SEB + Danske Bank — Pohjoismainen suora polku
+
+**SEB (Ruotsi)** ja **Danske Bank (Tanska)** ovat konsortiossa. Tämä on
+DWS:lle suora yhteys Pohjoismaiseen teollisuusmarkkinaan:
+
+- SEB:n teollisuusasiakaskanta: metsäteollisuus, energia, metalli — täsmälleen DWS:n ICP
+- Danske Bankin Suomi-toiminta kattaa osan DWS:n kotimarkkinasta
+- Näiden kautta kulkevat Qivalis-maksut ovat ensimmäinen konkreettinen integraatiokohde
+
+### 4. Asiakasriskiarvio: ERP-toimittajat
 
 SAP, IFS ja Dynamics 365 tulevat todennäköisesti lisäämään EMT-maksutuen
 2027–2028 (precedent: SEPA-tuki lisättiin ~2 vuotta standardin jälkeen).
-Asiakkaat, jotka toimivat BBVA:n tai ING:n kanssa, saattavat pyytää
+Asiakkaat, jotka toimivat SEB:n, BBVA:n tai ING:n kanssa, saattavat pyytää
 Qivalis-tukea ennen kuin ERP-vendor sen toimittaa.
 
 ---
 
 ## Riskit ja epävarmuudet
 
-| Riski                               | Todennäköisyys     | Vaikutus    | Huomio                                      |
-| ----------------------------------- | ------------------ | ----------- | ------------------------------------------- |
-| ECB kiristää EMT-sääntöjä           | Matala–Kohtalainen | Korkea      | ECB ei halua heikentää CBDC-asemiaan        |
-| Konsortio hajoaa ennen lanseerausta | Matala             | Korkea      | Pankkien välinen governance on kompleksinen |
-| ECB nopeuttaa CBDC-aikataulua 2027  | Hyvin matala       | Korkea      | Tekniset valmistelut eivät tue tätä         |
-| Qivalis jää niche-instrumentiksi    | Kohtalainen        | Kohtalainen | Jos B2C-adoptointi jää matalaksi            |
-| MiCA-toimilupa viivästyy            | Matala             | Korkea      | Konsortion pankeilla toimiluvat jo          |
+| Riski                               | Todennäköisyys     | Vaikutus    | Huomio                                                      |
+| ----------------------------------- | ------------------ | ----------- | ----------------------------------------------------------- |
+| ECB kiristää EMT-sääntöjä           | Matala–Kohtalainen | Korkea      | ECB ei halua heikentää CBDC-asemiaan                        |
+| Konsortio hajoaa ennen lanseerausta | **Hyvin matala**   | Korkea      | Dollarisaatio-uhka tekee aikataulusta poliittisesti sitovan |
+| ECB nopeuttaa CBDC-aikataulua 2027  | Hyvin matala       | Korkea      | Tekniset valmistelut eivät tue tätä                         |
+| Qivalis jää niche-instrumentiksi    | Kohtalainen        | Kohtalainen | Jos B2C-adoptointi jää matalaksi                            |
+| MiCA-toimilupa viivästyy            | Matala             | Korkea      | Konsortion pankeilla toimiluvat jo                          |
 
 ---
 
