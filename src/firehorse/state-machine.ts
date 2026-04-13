@@ -4,13 +4,13 @@
  */
 
 import {
-  LeadState,
+  type EmailOpenedPayload,
+  type EmailReplyPayload,
   EventType,
+  LeadState,
+  type LinkClickedPayload,
+  type MeetingBookedPayload,
   ReplyIntent,
-  EmailOpenedPayload,
-  LinkClickedPayload,
-  EmailReplyPayload,
-  MeetingBookedPayload,
 } from './types';
 import * as actions from './actions';
 import logger from '../utils/logger.js';

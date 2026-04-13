@@ -6,14 +6,14 @@
  * 2%/year degradation, EU grid emission factors.
  */
 
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import {
+  type BatterySpec,
+  type BESSComplianceInput,
   calculateBESSCompliance,
+  type DispatchEntry,
   estimateBESSComplianceCost,
   getDefaultGridFactor,
-  type BESSComplianceInput,
-  type DispatchEntry,
-  type BatterySpec,
 } from '../compliance/bess-calculator.js';
 
 // ============ TEST DATA ============

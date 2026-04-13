@@ -16,7 +16,7 @@
  * does not block the rest of the briefing.
  */
 
-import { readFile, readdir, stat } from 'fs/promises';
+import { readdir, readFile, stat } from 'fs/promises';
 import { resolve } from 'path';
 import { fileURLToPath } from 'url';
 import logger from '../utils/logger.js';
@@ -26,13 +26,13 @@ import {
   getUpcomingDeadlines,
 } from '../construction-leads/lead-processor.js';
 import {
-  getSourcesSummary,
   getSourceCounts,
+  getSourcesSummary,
 } from '../construction-leads/lead-sources.js';
 import type {
-  ConstructionLeadsSummary,
-  ConstructionLeadNew,
   ConstructionLeadDeadline,
+  ConstructionLeadNew,
+  ConstructionLeadsSummary,
 } from '../construction-leads/types.js';
 
 // ============================================================================

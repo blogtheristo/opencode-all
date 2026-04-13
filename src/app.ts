@@ -7,7 +7,7 @@
  * - Event-driven agent runtime initialized on startup (Fix #6)
  */
 
-import express, { Express, Request, Response, NextFunction } from 'express';
+import express, { type Express, type NextFunction, type Request, type Response } from 'express';
 import cors from 'cors';
 import crypto from 'crypto';
 import helmet from 'helmet';
@@ -59,7 +59,7 @@ import { errorHandler, notFoundHandler } from './middleware/error-handler.js';
 import { healthCheck, livenessCheck } from './middleware/health.js';
 import { validateEnv } from './middleware/env-validation.js';
 import { requestTimeout } from './middleware/request-timeout.js';
-import { initErrorTracking, errorTrackingMiddleware } from './middleware/error-tracking.js';
+import { errorTrackingMiddleware, initErrorTracking } from './middleware/error-tracking.js';
 
 dotenv.config();
 

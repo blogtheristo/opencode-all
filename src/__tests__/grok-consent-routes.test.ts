@@ -11,9 +11,9 @@
  *   - Grok inference blocked without consent (LLMClient.chat)
  */
 
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import request from 'supertest';
-import express, { Express, Request, Response, NextFunction } from 'express';
+import express, { type Express, type NextFunction, type Request, type Response } from 'express';
 
 // ── Mock the Grok consent service ──────────────────────────────────────────
 vi.mock('../services/grok-consent.service.js', () => ({
@@ -42,10 +42,9 @@ vi.mock('../utils/logger.js', () => ({
 // Without this, router.use(authenticateToken) would 401 every request because
 // no Authorization header is set on supertest calls.
 vi.mock('../middleware/auth.middleware.js', async () => {
-  const { Request, Response, NextFunction } = await import('express');
+  const { Request, Response } = await import('express');
   void Request;
   void Response;
-  void NextFunction;
   return {
     authenticateToken: (_req: unknown, _res: unknown, next: (err?: unknown) => void) => next(),
   };

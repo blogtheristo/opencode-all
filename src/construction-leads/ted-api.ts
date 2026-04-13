@@ -12,7 +12,7 @@
  */
 
 import logger from '../utils/logger.js';
-import type { TedSearchResponse, TedNotice, TedQueryConfig } from './types.js';
+import type { TedNotice, TedQueryConfig, TedSearchResponse } from './types.js';
 
 // ============================================================================
 // DEFAULTS

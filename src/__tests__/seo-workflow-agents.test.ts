@@ -8,7 +8,7 @@
  * Does NOT require LLM or Supabase.
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { AgentContext } from '../agents/types.js';
 
 // Mock global fetch to prevent real HTTP calls (SEO agents fetch URLs)

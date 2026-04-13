@@ -11,9 +11,9 @@
 import { BaseAgent } from '../base.agent.js';
 import type { AgentContext, AgentResponse } from '../types.js';
 import type {
+  CompetitorChange,
   CompetitorSurveillanceInput,
   CompetitorSurveillanceOutput,
-  CompetitorChange,
   ContentGap,
 } from './types.js';
 import { createHash } from 'crypto';

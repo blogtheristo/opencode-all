@@ -15,7 +15,7 @@
  */
 
 
-import { Express, Request, Response, NextFunction } from 'express';
+import { type Express, type NextFunction, type Request, type Response } from 'express';
 import logger from '../utils/logger.js';
 
 // ============ TYPES ============

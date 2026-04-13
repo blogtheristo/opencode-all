@@ -10,9 +10,9 @@
  *  - Grok inference blocked when consent not granted
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import request from 'supertest';
-import express, { Express } from 'express';
+import express, { type Express } from 'express';
 
 // ── Mock logger (suppress noise) ────────────────────────────────────────────
 vi.mock('../utils/logger.js', () => ({

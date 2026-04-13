@@ -9,7 +9,7 @@
  * Date: 2026-03-22
  */
 
-import { describe, it, expect, beforeAll } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 import request from 'supertest';
 
 // Dynamic import to handle ESM + dotenv initialization

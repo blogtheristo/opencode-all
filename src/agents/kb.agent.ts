@@ -18,8 +18,8 @@
  * Owner: Risto / Claude
  */
 
-import { readFileSync, writeFileSync, readdirSync, statSync, existsSync, mkdirSync, copyFileSync } from 'fs';
-import { join, resolve, relative, basename, extname } from 'path';
+import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'fs';
+import { basename, extname, join, relative, resolve } from 'path';
 import { BaseAgent } from './base.agent.js';
 import type { AgentContext, AgentResponse, ToolDefinition } from './types.js';
 import logger from '../utils/logger.js';

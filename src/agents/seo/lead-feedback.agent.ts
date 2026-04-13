@@ -12,7 +12,7 @@
 
 import { BaseAgent } from '../base.agent.js';
 import type { AgentContext, AgentResponse } from '../types.js';
-import type { LeadFeedbackInput, LeadFeedbackOutput, FunnelStage } from './types.js';
+import type { FunnelStage, LeadFeedbackInput, LeadFeedbackOutput } from './types.js';
 
 export class LeadFeedbackAgent extends BaseAgent {
   constructor() {

@@ -16,9 +16,9 @@
  * Introduced-In: PR-982 (PR review coverage)
  */
 
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import request from 'supertest';
-import express, { Express, Request, Response, NextFunction } from 'express';
+import express, { type Express, type NextFunction, type Request, type Response } from 'express';
 
 // ── Record what the route calls on supabase ──────────────────────────────
 // Hoisted so the vi.mock() factory below (which is itself hoisted above
@@ -30,9 +30,9 @@ const { recorder, responseQueue, fakeSupabase } = vi.hoisted(() => {
   };
   const queue: Array<{ data: unknown; count: number }> = [];
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   function chainable(response: { data: unknown; count: number }): any {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     const chain: Record<string, any> = {
       select: (..._args: unknown[]) => chain,
       eq: (..._args: unknown[]) => chain,

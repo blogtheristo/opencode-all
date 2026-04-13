@@ -12,7 +12,7 @@
  * All routes are protected by JWT authentication.
  */
 
-import express, { Router, Request, Response } from 'express';
+import express, { type Request, type Response, type Router } from 'express';
 import { body, param, validationResult } from 'express-validator';
 import rateLimit from 'express-rate-limit';
 import logger from '../utils/logger.js';
