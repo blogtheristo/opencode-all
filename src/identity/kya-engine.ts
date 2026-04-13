@@ -13,7 +13,7 @@
  * @see DWS_SECURITY_STANDARD.md §18.5 (Leash Snap Protocol)
  */
 
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
 import { eventBus } from '../agents/event-bus.js';
 

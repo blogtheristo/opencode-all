@@ -10,7 +10,7 @@
  */
 
 import logger from '../utils/logger.js';
-import { BaseAgent } from './base.agent.js';
+import { type BaseAgent } from './base.agent.js';
 import { SiteSenseAgent } from './sitesense.agent.js';
 import { ScheduleGeniusAgent } from './schedule-genius.agent.js';
 import { MaterialOracleAgent } from './material-oracle.agent.js';

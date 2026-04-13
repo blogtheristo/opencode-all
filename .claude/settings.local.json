@@ -17,7 +17,15 @@
       "Bash(gh run:*)",
       "Read($CLAUDE_PROJECT_DIR/**)",
       "Bash(gh pr:*)",
-      "Bash(xargs grep:*)"
+      "Bash(xargs grep:*)",
+      "Bash(grep -E \"\\\\.\\(png|jpg|jpeg|webp\\)$\")",
+      "Bash(file /f/2026/Repos2026/dws6/kb/raw/images/IMG_62*.*)",
+      "Bash(grep -E \"\\\\.\\(png|jpg|jpeg|webp|svg\\)$\")",
+      "Bash(sort -t/ -k6)",
+      "Bash(cp dws10.com/aegis/index.html landing-pages/dws10-com/aegis/index.html)",
+      "Bash(cp dws10.com/products/aegis.html landing-pages/dws10-com/products/aegis.html)",
+      "Bash(cp dws10.com/static/images/dws-iq-sovereignty-segmentation.jpg landing-pages/dws10-com/static/images/dws-iq-sovereignty-segmentation.jpg)",
+      "Bash(cp dws10.com/static/images/firehorse-aegis-logo.png landing-pages/dws10-com/static/images/firehorse-aegis-logo.png)"
     ]
   },
   "enabledMcpjsonServers": [

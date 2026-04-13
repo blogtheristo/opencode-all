@@ -14,8 +14,8 @@
  */
 
 import crypto from 'crypto';
-import express, { Router, Request, Response } from 'express';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import express, { type Request, type Response, type Router } from 'express';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
 import { generateProspectEmail } from '../outreach/prospect-email-templates.js';
 import type { EmailType, ProspectContext } from '../outreach/prospect-email-templates.js';

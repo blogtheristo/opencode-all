@@ -5,7 +5,7 @@
  * All errors flow through here for uniform shape and logging.
  */
 
-import { Request, Response, NextFunction } from 'express';
+import { type NextFunction, type Request, type Response } from 'express';
 import logger from '../utils/logger.js';
 
 /** Standard error response shape for all API errors */

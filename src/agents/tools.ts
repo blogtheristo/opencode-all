@@ -14,10 +14,10 @@ import logger from '../utils/logger.js';
 import { telemetryService } from './telemetry.service.js';
 import type { ToolTelemetryEvent } from './telemetry.types.js';
 import type {
-  ToolDefinition,
-  ToolCall,
-  ToolResult,
   AgentContext,
+  ToolCall,
+  ToolDefinition,
+  ToolResult,
 } from './types.js';
 
 // ============ TOOL EXECUTOR ============
@@ -550,7 +550,7 @@ export function registerBuiltinTools(): void {
 
     const contentType = response.headers.get('content-type') || '';
     if (contentType.includes('json')) {
-      return await response.json();
+      return response.json();
     }
     const text = await response.text();
     // Truncate large responses

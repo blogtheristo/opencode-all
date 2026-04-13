@@ -28,7 +28,7 @@
  *   grok_inference_log  — per-call Article 12 audit trail
  */
 
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
 import type { PermissionLevel } from '../identity/types.js';
 

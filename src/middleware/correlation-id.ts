@@ -5,7 +5,7 @@
  * If the client sends X-Correlation-ID, it's preserved. Otherwise, a new one is generated.
  */
 
-import { Request, Response, NextFunction } from 'express';
+import { type NextFunction, type Request, type Response } from 'express';
 import crypto from 'crypto';
 
 export function correlationId(req: Request, res: Response, next: NextFunction): void {

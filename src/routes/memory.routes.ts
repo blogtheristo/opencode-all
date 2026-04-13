@@ -10,7 +10,7 @@
  * Owner: Lifetime Oy
  */
 
-import { Router, Request, Response } from 'express';
+import { type Request, type Response, Router } from 'express';
 import { createClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
 

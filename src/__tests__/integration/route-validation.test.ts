@@ -9,10 +9,10 @@
  * Date: 2026-03-21
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { Request, Response, NextFunction } from 'express';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { NextFunction, type Request, type Response } from 'express';
 import { AppError } from '../../middleware/error-handler.js';
-import { validate, ComplianceCheckSchema, OnboardingSchema } from '../../middleware/validate.js';
+import { ComplianceCheckSchema, OnboardingSchema, validate } from '../../middleware/validate.js';
 
 // ============ HELPERS ============
 

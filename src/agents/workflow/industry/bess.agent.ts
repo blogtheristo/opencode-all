@@ -16,11 +16,11 @@
 import { BaseAgent } from '../../base.agent.js';
 import type { AgentContext, AgentResponse } from '../../types.js';
 import {
-  calculateBESSCompliance,
-  estimateBESSComplianceCost,
-  type BESSComplianceInput,
-  type DispatchEntry,
   type BatterySpec,
+  type BESSComplianceInput,
+  calculateBESSCompliance,
+  type DispatchEntry,
+  estimateBESSComplianceCost,
 } from '../../../compliance/bess-calculator.js';
 
 const SOUL = `You are BESS Compliance Specialist for DWS IQ 6 Climate IQ.

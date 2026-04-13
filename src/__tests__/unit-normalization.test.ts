@@ -8,13 +8,13 @@
  * With conversion (× 2400 kg/m³) = 15,840 kgCO2e. This test suite prevents regression.
  */
 
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import {
-  normalizeToKg,
-  resolveCanonicalUnit,
-  MATERIAL_DENSITIES,
   AREA_DENSITIES,
   EC3_UNIT_MAP,
+  MATERIAL_DENSITIES,
+  normalizeToKg,
+  resolveCanonicalUnit,
 } from '../agents/unit-normalization.js';
 
 describe('resolveCanonicalUnit', () => {

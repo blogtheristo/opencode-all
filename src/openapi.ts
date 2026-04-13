@@ -10,7 +10,7 @@
  * and a Swagger UI page at GET /api/docs.
  */
 
-import { Router, Request, Response } from 'express';
+import { type Request, type Response, Router } from 'express';
 import { API_VERSION } from './middleware/api-version.middleware.js';
 
 const spec = {

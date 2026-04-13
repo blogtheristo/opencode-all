@@ -10,7 +10,7 @@
  */
 
 import Redis from 'ioredis';
-import { Request, Response, NextFunction } from 'express';
+import { type NextFunction, type Request, type Response } from 'express';
 import crypto from 'crypto';
 import logger from '../utils/logger.js';
 

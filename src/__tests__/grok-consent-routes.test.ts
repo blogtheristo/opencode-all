@@ -11,9 +11,9 @@
  *   - Grok inference blocked without consent (LLMClient.chat)
  */
 
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import request from 'supertest';
-import express, { Express, Request, Response, NextFunction } from 'express';
+import express, { type Express, type NextFunction, type Request, type Response } from 'express';
 
 // ── Mock the Grok consent service ──────────────────────────────────────────
 vi.mock('../services/grok-consent.service.js', () => ({

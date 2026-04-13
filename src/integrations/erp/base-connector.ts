@@ -5,17 +5,17 @@
  * Provides common functionality for authentication, rate limiting, error handling, and logging.
  */
 
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosError } from 'axios';
+import axios, { type AxiosError, type AxiosInstance, type AxiosRequestConfig } from 'axios';
 import pino from 'pino';
 import {
-  ERPProvider,
-  ERPConnectionConfig,
-  SyncOperation,
-  SyncResult,
-  SyncError,
-  EntityType,
-  SyncStatus,
+  type EntityType,
   ERPApiResponse,
+  type ERPConnectionConfig,
+  type ERPProvider,
+  type SyncError,
+  type SyncOperation,
+  type SyncResult,
+  SyncStatus,
 } from './types';
 
 export abstract class BaseERPConnector {
