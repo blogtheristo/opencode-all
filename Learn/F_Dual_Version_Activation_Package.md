@@ -55,8 +55,7 @@ Yhteensä: 594 000,00 euroa
 DWS IQ -tuoteperhe (Lifetime Digital Workspace) on Lifetime Oy:n jatkuva tuotekehityshanke joulukuusta 2019 alkaen. Tuoteperhe käsittää viisi sukupolvea joista kolme on hyväksytty Euroopan komission EU Invest Portal -projekteiksi:
 
 - DWS 2 (2019): Ensimmäinen versio, Lifetime Digital Workspace -konseptin syntyvaihe
-- DWS 3 (2020-2023): Platform-tuote AWS-pilvellä. Euroopan komission EU Invest Portal -hyväksytty projekti EIPP-20191319 (12.09.2019). EBAN-rahoitus $6 000 USD, Finnvera-rahoitus 48 000 EUR. Project reader: Rashid Bishr, Global Capital Funding Inc.
-- DWS 4 "Montreux" (2023-2024): Vihreän siirtymän platform. Listattu EU Invest Hub:ssa. Monaco Fondry -valuaatio 6 milj. USD (12/2022). Ei saanut erillistä EU Invest Portal -hyväksyntää.
+- DWS 3 (2020-2023): Platform-tuote AWS-pilvellä. Euroopan komission EU Invest Portal -hyväksytty projekti EIPP-20191319 (12.09.2019). EBAN-rahoitus $6 000 USD, Finnvera-rahoitus 48 000 EUR.- DWS 4 "Montreux" (2023-2024): Vihreän siirtymän platform. Listattu EU Invest Hub:ssa. Monaco Fondry -valuaatio 6 milj. USD (12/2022). Ei saanut erillistä EU Invest Portal -hyväksyntää.
 - DWS 5 (2024): Vetytalouden platform. Microsoft Founders Hub Level 1-4 ($25 000 USD → $154 000 USD, 2021-2025). Oqtane / .NET 8 Blazor / Azure. EU Invest Portal -hyväksytty projekti.
 - DWS 6 (2025-nyt): EU-vaatimustenmukaisuus ja ilmastoäly. React 19 / Supabase / Google Cloud. EU Invest Portal -hyväksytty projekti INPO-20254383 (25.12.2025). 96 GitHub-repositorya, 3 200 committia, 1 030 Pull Requestia viimeisen 6 kuukauden aikana.
 
@@ -171,8 +170,7 @@ risto.paarni@lifetime.fi
 DWS IQ -tuoteperhe (Lifetime Digital Workspace), jatkuva tuotekehitys joulukuusta 2019 alkaen:
 
 - DWS 2 (2019): Ensimmäinen versio
-- DWS 3 (2020-2023): Platform-tuote AWS-pilvellä. Euroopan komission EU Invest Portal -hyväksytty projekti EIPP-20191319 (12.09.2019). EBAN-rahoitus $6 000 USD, Finnvera-rahoitus 48 000 EUR. Project reader: Rashid Bishr, Global Capital Funding Inc.
-- DWS 4 "Montreux" (2023-2024): Vihreän siirtymän platform. Monaco Fondry -valuaatio 6 milj. USD (12/2022).
+- DWS 3 (2020-2023): Platform-tuote AWS-pilvellä. Euroopan komission EU Invest Portal -hyväksytty projekti EIPP-20191319 (12.09.2019). EBAN-rahoitus $6 000 USD, Finnvera-rahoitus 48 000 EUR.- DWS 4 "Montreux" (2023-2024): Vihreän siirtymän platform. Monaco Fondry -valuaatio 6 milj. USD (12/2022).
 - DWS 5 (2024): Vetytalouden platform. Microsoft Founders Hub Level 1-4 ($25 000 → $154 000 USD, 2021-2025). Oqtane / .NET 8 Blazor / Azure. EU Invest Portal -hyväksytty projekti.
 - DWS 6 (2025-nyt): EU-vaatimustenmukaisuus ja ilmastoäly. React 19 / Supabase / Google Cloud. EU Invest Portal -hyväksytty projekti INPO-20254383 (25.12.2025).
 
