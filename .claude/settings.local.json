@@ -16,7 +16,8 @@
       "Bash(gh issue:*)",
       "Bash(gh run:*)",
       "Read($CLAUDE_PROJECT_DIR/**)",
-      "Bash(gh pr:*)"
+      "Bash(gh pr:*)",
+      "Bash(xargs grep:*)"
     ]
   },
   "enabledMcpjsonServers": [
