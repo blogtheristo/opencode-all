@@ -154,8 +154,8 @@ When a Qivalis payment clears on a steel shipment, DWS IQ writes
 three journal entries in the same second: CBAM obligation updated,
 CSRD Scope 3 booked, ETS account reconciled.
 
-**The consortium banks are looking for compliance partners now —
-before H2 launch. Not in September, when the press covers it.**
+**The consortium banks will need compliance partners before H2 launch —
+not in September, when the press covers it.**
 
 BBVA Ventures and ING Ventures are the most natural strategic
 investors in Europe for a platform at this intersection.

@@ -124,9 +124,9 @@ When a Qivalis payment clears on a steel shipment, DWS IQ automatically:
 - Books the Scope 3 emission in the CSRD ledger
 - Reconciles the ETS account
 
-The consortium banks are actively looking for compliance partners
-**before launch**. BBVA Ventures and ING Ventures are the most natural
-strategic investors in Europe for a company that sits at this intersection.
+The consortium banks will need compliance partners before H2 launch.
+BBVA Ventures and ING Ventures are the most natural strategic investors
+in Europe for a company that sits at this intersection.
 
 ### Why Your Captain Seat Is the Conversation Opener
 
