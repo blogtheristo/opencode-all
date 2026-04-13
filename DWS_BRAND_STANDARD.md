@@ -1,21 +1,22 @@
-# DWS Gamma Brand Standard v2.6
+# DWS Gamma Brand Standard v2.7
 
 ---
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.6
+Version: 2.7
 
 Sessions & Modifications:
 
+- Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/add-red-hat-partners-d8Hey | Date: 21.03.2026 | Changes: Added Red Hat Technology Partner badge to Sovereignty Badge System (§11.2) — colors, usage rules, AgentOps BYOA context, implementation checklist. Added Technology Partners section to partners page.
 - Version: 2.6 | Tool: Claude Code (Opus 4.6) | Session: claude/dws-iq-synthetic-nervous-9TtAB | Date: 06.04.2026 | Changes: Added DWS IQ Platform (Series A) and Synthetic Nervous System (Technical) pitch lines to Section 22 — Arctic 15 investor positioning, EN/FI bilingual
 - Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/nordic-industrial-rebrand-glOfb | Date: 06.04.2026 | Changes: Nordic Industrial rebrand — added Section 2.1 Nordic Industrial Palette, IBM Plex Sans typography, EU language bar, trilingual homepage (FI/SV/EN), "Built in Finland" footer badge, Mistral AI sovereign inference reference
-- Version: 1.0 | Tool: Cursor AI | Session: cursor/initial | Date: 01.01.2026 | Changes: Initial brand standard — store identity, dark tokens, product cards, category nav
-- Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Gamma edition — Iron Clad nav v3.0, footer, hero, typography, SEO meta, sovereignty badges, A2A, responsive, WCAG 2.2, shared assets registry, page template
-- Version: 2.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block to comply with DWS Document Standard
-- Version: 2.2 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-profile-menu-fFgv8 | Date: 03.03.2026 | Changes: Added Section 18 — Dashboard Profile Menu Standard v1.0 (ProfileMenu, HamburgerMenu, avatar initials, accessibility specs, layout integration)
-- Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-linkedin-social-note-QrRLH | Date: 08.03.2026 | Changes: Added NVIDIA Connect ISV Partner badge to Sovereignty Badge System (§11.1) — colors, usage rules, implementation checklist
 - Version: 2.4 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-qif39 | Date: 08.03.2026 | Changes: Added Section 19 — Onboarding Wizard Standard, Section 20 — Compliance Score Widget Standard, Section 21 — CLI Rich Output Standard
+- Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-linkedin-social-note-QrRLH | Date: 08.03.2026 | Changes: Added NVIDIA Connect ISV Partner badge to Sovereignty Badge System (§11.1) — colors, usage rules, implementation checklist
+- Version: 2.2 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-profile-menu-fFgv8 | Date: 03.03.2026 | Changes: Added Section 18 — Dashboard Profile Menu Standard v1.0 (ProfileMenu, HamburgerMenu, avatar initials, accessibility specs, layout integration)
+- Version: 2.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block to comply with DWS Document Standard
+- Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Gamma edition — Iron Clad nav v3.0, footer, hero, typography, SEO meta, sovereignty badges, A2A, responsive, WCAG 2.2, shared assets registry, page template
+- Version: 1.0 | Tool: Cursor AI | Session: cursor/initial | Date: 01.01.2026 | Changes: Initial brand standard — store identity, dark tokens, product cards, category nav
 
 Session Links & References:
 
@@ -740,6 +741,7 @@ For products and pages related to EU data sovereignty compliance.
 | EU AI Act | `#f59e0b` (amber) | `.sovereignty-badge.eu-ai-act` | EU AI Act Article 12 compliant |
 | CLOUD Act Free | `#ef4444` (red accent) | `.sovereignty-badge.cloud-act-free` | No US CLOUD Act exposure |
 | NVIDIA Connect ISV Partner | `#76b900` (NVIDIA green) | `.sovereignty-badge.nvidia-isv` | NVIDIA Connect ISV certified |
+| Red Hat Technology Partner | `#ee0000` (Red Hat red) | `.sovereignty-badge.redhat` | Red Hat AgentOps ecosystem |
 
 **Badge CSS:**
 
@@ -783,6 +785,11 @@ For products and pages related to EU data sovereignty compliance.
   color: #76b900;
   border: 1px solid rgba(118, 185, 0, 0.3);
 }
+.sovereignty-badge.redhat {
+  background: rgba(238, 0, 0, 0.15);
+  color: #ee0000;
+  border: 1px solid rgba(238, 0, 0, 0.3);
+}
 ```
 
 ### 11.1 NVIDIA Connect ISV Partner Badge
@@ -809,6 +816,30 @@ For products and pages related to EU data sovereignty compliance.
 - [x] Products dropdown: "DWS IQ Report" label, href unchanged
 - [x] NVIDIA ISV Partner page live at dws10.com/lifetime-fleet/nvidia-isv/
 - [ ] Annex III biometric one-liner in Technical Requirements section on Optimus V3 page
+
+### 11.2 Red Hat Technology Partner Badge
+
+**Status:** Active partnership (2026-03-21). Contact: Mikko Pylväs, Red Hat Finland.
+
+**Colors:** Red Hat Red `#ee0000`, White `#ffffff`.
+
+**Context:** Red Hat hosted an AI event with partners in Finland (March 2026). Their AgentOps strategy — Bring Your Own Agent (BYOA) — aligns with DWS IQ 6's multi-framework agent orchestration. Red Hat + NVIDIA joint work on secure AI infrastructure directly supports the KYA-governed agent isolation model. Red Hat's "The Adaptable Enterprise" (2025) Key Findings report validates DWS IQ 6 architecture: inference-native, MCP-native, hybrid-deployable, open-source aligned. Market data: $644B GenAI spending 2025, 80%+ accelerators for inference by 2028.
+
+**Usage rules:**
+
+- Display on partners page, technology ecosystem sections, and agent infrastructure pages
+- Never claim "Red Hat certified" — use "Red Hat Technology Partner" or "Red Hat AgentOps ecosystem"
+- Reference the BYOA (Bring Your Own Agent) framework when discussing agent compatibility
+- Highlight open-source alignment with EU digital sovereignty requirements
+
+**Implementation checklist (2026-03-21):**
+
+- [x] Red Hat added to Technology Partners section on dws10.com/partners/
+- [x] Red Hat badge added to Sovereignty Badge System (§11)
+- [x] Partners outreach pipeline updated with Mikko Pylväs contact
+- [x] Landing pages synced (dual folder rule)
+- [ ] Red Hat logo asset added to shared-assets/logos/
+- [ ] OpenShift AI integration documented in architecture docs
 
 ---
 

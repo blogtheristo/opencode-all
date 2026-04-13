@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.5
+Version: 1.6
 
 Sessions & Modifications:
 
+- Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/add-red-hat-partners-d8Hey | Date: 21.03.2026 | Changes: Added Red Hat to Strategic Partnership Registry (§8.1), added Red Hat Key Findings market intelligence (§8.1.1) — $644B GenAI market, 4-Pillar Blueprint, inference shift, DWS IQ 6 validation
 - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/dws-iq-synthetic-nervous-9TtAB | Date: 06.04.2026 | Changes: Added Synthetic Nervous System as competitive moat (§8.2), updated NVIDIA partnership row with NeMo DataDesigner integration, added Arctic 15 investor narrative reference
 - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/nordic-interceptor-drone-estimate-KCXVm | Date: 30.03.2026 | Changes: Added Nordic factory interceptor drone TAM estimate — 8,500 units across 4,400 sites, EUR 1.5–3.5B market, full analysis in docs/market-research/nordic-factory-interceptor-drone-estimate.md
 - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 20.03.2026 | Changes: Added Qantic GmbH (Berlin) as adjacent competitor for DWS IQ Platform — energy simulation company with CSRD gap, full analysis in docs/market-research/qantic-energy-analysis.md
@@ -373,6 +374,7 @@ Track confirmed technology partnerships that create competitive moats and co-sel
 | Partner     | Program                       | Status    | Confirmed  | Competitive Impact                                                                                                                                                                              |
 | ----------- | ----------------------------- | --------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | NVIDIA      | Connect ISV Partner           | Confirmed | 2026-03-08 | Certified compute layer + NeMo DataDesigner integration — eliminates integration risk for OEMs, enables co-sell with NVIDIA SI network, Synthetic Nervous System for regulatory data generation |
+| Red Hat     | Technology Partner            | Active    | 2026-03-21 | AgentOps BYOA platform — enterprise Kubernetes for agent deployment, OpenShift AI, joint NVIDIA secure AI infra. Open-source alignment with EU sovereignty.                                     |
 | Qantic GmbH | Energy Simulation Partnership | NDA Sent  | 2026-03-21 | Q-System energy simulation + DWS IQ CSRD compliance — targets CSRD-obligated energy sector clients (dena, MAN, Naturstrom)                                                                      |
 
 **Partnership integration checklist (per partner):**
@@ -386,6 +388,38 @@ Track confirmed technology partnerships that create competitive moats and co-sel
 - [ ] Co-marketing materials prepared
 
 **Rule:** Every confirmed partnership MUST appear in this registry within 24 hours of confirmation. Update `DWS_BRAND_STANDARD.md` badge system and `Admin/SECURITY_COMPLIANCE.md` infrastructure table simultaneously.
+
+### 8.1.1 Red Hat Key Findings: The Adaptable Enterprise (2025)
+
+**Source:** Red Hat "The Adaptable Enterprise" report (2025). Contact: Mikko Pylväs, Red Hat Finland (AI event, March 2026).
+
+**Core thesis:** The question is not what your AI strategy should be, but how to build an adaptable enterprise — adaptability is the prerequisite for any AI strategy to succeed.
+
+**Market data points (validated, citable):**
+
+| Data Point                                     | Value                             | Source                                     |
+| ---------------------------------------------- | --------------------------------- | ------------------------------------------ |
+| Worldwide GenAI spending 2025                  | $644 billion (76.4% YoY increase) | Red Hat Key Findings 2025 (citing IDC)     |
+| CEOs investing before understanding value      | 64%                               | Red Hat Key Findings 2025 (citing Bain)    |
+| Orgs blocked by lack of AI expertise           | 42%                               | Bain & Company quarterly AI survey         |
+| Data center accelerators for inference by 2028 | >80%                              | Red Hat Key Findings 2025 (citing Gartner) |
+
+**Red Hat 4-Pillar Blueprint for Adaptable Enterprise:**
+
+1. **Define Business Outcomes First** — avoid the "technological wilderness"; align AI to specific high-value business challenges
+2. **Build a Culture of Experimentation** — invest in people and time; 42% blocked by lack of in-house expertise
+3. **Hybrid Data + AI Architecture** — AI strategy must be hybrid cloud strategy; train, tune, and run models wherever data resides without compromising security, compliance, or data sovereignty
+4. **Modernize Before You Automate** — move from proprietary silos to open, flexible hybrid cloud (Linux, containers, Kubernetes)
+
+**Key signals for DWS IQ 6:**
+
+- **Inference > Training:** By 2028, 80%+ of accelerators deployed for inference, not training. DWS IQ 6 is already inference-native (GN-100 edge + Cloud Run).
+- **MCP as bridge:** Red Hat identifies MCP as critical for bridging legacy systems with agentic AI — matches DWS IQ 6 MCP+A2A architecture.
+- **Durability > Resiliency:** A durable enterprise doesn't just bounce back — it continuously delivers value while the world changes. This validates the KYA governed self-optimization model.
+- **Hybrid sovereignty:** Red Hat's hybrid cloud imperative maps to DWS IQ 6 deployment model (EU Cloud + Edge + Aiwen overlay).
+- **BYOA alignment:** Red Hat's Bring Your Own Agent framework validates DWS IQ 6's framework-agnostic agent orchestration.
+
+**Competitive positioning use:** Reference these data points in Ecosummit pitch, investor materials, and partner conversations. The Red Hat thesis independently validates DWS IQ 6 architecture choices: open, compliant, hybrid, agent-native infrastructure for EU industrial sovereignty.
 
 ---
 
