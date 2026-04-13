@@ -56,19 +56,20 @@ DWS IQ -tuoteperhe (Lifetime Digital Workspace) on Lifetime Oy:n jatkuva tuoteke
 
 - DWS 2 (2019): Ensimmäinen versio, Lifetime Digital Workspace -konseptin syntyvaihe
 - DWS 3 (2020-2023): Platform-tuote AWS-pilvellä. Euroopan komission EU Invest Portal -hyväksytty projekti EIPP-20191319 (12.09.2019). EBAN-rahoitus $6 000 USD, Finnvera-rahoitus 48 000 EUR.- DWS 4 "Montreux" (2023-2024): Vihreän siirtymän platform. Listattu EU Invest Hub:ssa. Monaco Fondry -valuaatio 6 milj. USD (12/2022). Ei saanut erillistä EU Invest Portal -hyväksyntää.
-- DWS 5 (2024): Vetytalouden platform. Microsoft Founders Hub Level 1-4 ($25 000 USD → $154 000 USD, 2021-2025). Oqtane / .NET 8 Blazor / Azure. EU Invest Portal -hyväksytty projekti.
-- DWS 6 (2025-nyt): EU-vaatimustenmukaisuus ja ilmastoäly. React 19 / Supabase / Google Cloud. EU Invest Portal -hyväksytty projekti INPO-20254383 (25.12.2025). 96 GitHub-repositorya, 3 200 committia, 1 030 Pull Requestia viimeisen 6 kuukauden aikana.
+- DWS 5 (2024): Vetytalouden platform. Microsoft Founders Hub Level 1-4 ($25 000 USD → $154 000 USD, 2021-2025). Oqtane / .NET 8 Blazor / Azure. EU InvestEU Portal INPO-20232955 "DWS 5 The distributed intelligence platform" (created 17.04.2023, archived 23.08.2023, 1 250 000 EUR).
+- DWS 6 (2025-nyt): EU-vaatimustenmukaisuus ja ilmastoäly. React 19 / Supabase / Google Cloud. EU InvestEU Portal INPO-20254383 "Lifetime World, DWS IQ 6, Firehorse" (created 29.05.2025, published 05.02.2026, 500 000 EUR). 96 GitHub-repositorya, 3 200 committia, 1 030 Pull Requestia viimeisen 6 kuukauden aikana.
 
 Liitännäishanke: CIMS (Crypto Investment Management Studio), EU Invest Portal EIPP-20191320 (2019).
 CIMS muodostaa DWS 7:n Digital Euro -integraatiokerroksen perustan, ECB:n Digital Euro -tavoiteaikataulu ~2029.
 
-EU Invest Portal -viitteet yhteensä:
+EU InvestEU Portal -viitteet yhteensä:
 
 - EIPP-20191319: Lifetime Digital Workspace / DWS 3 (12.09.2019)
 - EIPP-20191320: CIMS liitännäishanke (2019)
-- INPO-20254383: DWS IQ 6 (25.12.2025)
+- INPO-20232955: DWS 5 The distributed intelligence platform (17.04.2023, 1 250 000 EUR, archived)
+- INPO-20254383: Lifetime World, DWS IQ 6, Firehorse (29.05.2025, 500 000 EUR, published)
 
-Yhteensä 3 erillistä Euroopan komission EU Invest Portal -hyväksyntää + 1 liitännäishanke.
+Yhteensä 4 erillistä Euroopan komission InvestEU Portal -projektia. EC:n sähköposti 04.02.2025 (ec-no-reply-investeu@ec.europa.eu) vahvistaa portaalin aktiivisen statuksen ja pyytää "Financing Secured" -päivitystä.
 
 Jokainen versio kasvoi temaattisesti edellisestä. Aineetonta pääomaa (arkkitehtoniset opit, tietomallit, sääntelyontologia, tuotekonseptit) on siirretty sukupolvelta toiselle.
 
@@ -118,7 +119,7 @@ Et tarvitse uusia ulkoisia lähteitä. Kaikki tarvittava data on jo Lemonsoftiss
 - Eläketurvakeskuksen viralliset ansiotiedot 2020-2025 (kolmannen osapuolen vahvistus työrytmille)
 - GitHub 96 repositorya, 3 200 committia, 1 030 Pull Requestia (viimeinen 6 kk)
 - Omistajan pääomitukset ja lainat yhtiölle (Lemonsoft-tasekirjaukset, vahvistaa rahoituspohjan)
-- Euroopan komission EU Invest Portal -hyväksynnät: EIPP-20191319 (12.09.2019), EIPP-20191320 (2019), INPO-20254383 (25.12.2025)
+- Euroopan komission InvestEU Portal -projektit: EIPP-20191319 (12.09.2019), EIPP-20191320 (2019), INPO-20232955 (17.04.2023), INPO-20254383 (29.05.2025)
 - Riippumattomat valuaatiot: Gust 3,8 milj. euroa (2021), Monaco Fondry 6 milj. USD (2022)
 
 ### Tase-vaikutus (yhteenveto)
@@ -136,7 +137,7 @@ Et tarvitse uusia ulkoisia lähteitä. Kaikki tarvittava data on jo Lemonsoftiss
 5. Oppimispäiväkirja v2.3 (30+ vahvistettu lähde)
 6. Taksilaskutusrekisteri (Merjan oma Google Sheets / Lemonsoft -viite)
 7. Palkkavertailu.fi -lähdeviite tuntihinnalle
-8. EU Invest Portal -hyväksyntäsähköpostit (EIPP-20191319, EIPP-20191320, INPO-20254383)
+8. InvestEU Portal -sähköpostit ja projektiviitteet (EIPP-20191319, EIPP-20191320, INPO-20232955, INPO-20254383, EC email 04.02.2025)
 
 Ystävällisin terveisin,
 Risto Anton Päärni
@@ -170,9 +171,10 @@ risto.paarni@lifetime.fi
 DWS IQ -tuoteperhe (Lifetime Digital Workspace), jatkuva tuotekehitys joulukuusta 2019 alkaen:
 
 - DWS 2 (2019): Ensimmäinen versio
-- DWS 3 (2020-2023): Platform-tuote AWS-pilvellä. Euroopan komission EU Invest Portal -hyväksytty projekti EIPP-20191319 (12.09.2019). EBAN-rahoitus $6 000 USD, Finnvera-rahoitus 48 000 EUR.- DWS 4 "Montreux" (2023-2024): Vihreän siirtymän platform. Monaco Fondry -valuaatio 6 milj. USD (12/2022).
-- DWS 5 (2024): Vetytalouden platform. Microsoft Founders Hub Level 1-4 ($25 000 → $154 000 USD, 2021-2025). Oqtane / .NET 8 Blazor / Azure. EU Invest Portal -hyväksytty projekti.
-- DWS 6 (2025-nyt): EU-vaatimustenmukaisuus ja ilmastoäly. React 19 / Supabase / Google Cloud. EU Invest Portal -hyväksytty projekti INPO-20254383 (25.12.2025).
+- DWS 3 (2020-2023): Platform-tuote AWS-pilvellä. EU InvestEU Portal EIPP-20191319 (12.09.2019). EBAN-rahoitus $6 000 USD, Finnvera-rahoitus 48 000 EUR.
+- DWS 4 "Montreux" (2023-2024): Vihreän siirtymän platform. Monaco Fondry -valuaatio 6 milj. USD (12/2022).
+- DWS 5 (2024): Vetytalouden platform. Microsoft Founders Hub Level 1-4 ($25 000 → $154 000 USD, 2021-2025). Oqtane / .NET 8 Blazor / Azure. EU InvestEU Portal INPO-20232955 (17.04.2023, 1 250 000 EUR, archived).
+- DWS 6 (2025-nyt): EU-vaatimustenmukaisuus ja ilmastoäly. React 19 / Supabase / Google Cloud. EU InvestEU Portal INPO-20254383 (29.05.2025, 500 000 EUR, published).
 
 Liitännäishanke: CIMS (Crypto Investment Management Studio), EU Invest Portal EIPP-20191320 (2019). CIMS muodostaa DWS 7:n Digital Euro -integraatiokerroksen perustan, ECB:n Digital Euro -tavoiteaikataulu ~2029.
 
@@ -338,7 +340,7 @@ Aineeton käyttöomaisuus (tili 1030) yhteensä: 594 000,00 euroa
 5. Oppimispäiväkirja v2.3 (Learn/Oppimispäiväkirja.md, 30+ vahvistettu lähde)
 6. Taksilaskutusrekisteri (Merjan oma Google Sheets / Lemonsoft -viite, Kirjaus 2 -evidenssi)
 7. Palkkavertailu.fi / Duunitori -lähdeviite tuntihinnalle
-8. EU Invest Portal -hyväksyntäsähköpostit (EIPP-20191319, EIPP-20191320, INPO-20254383)
+8. InvestEU Portal -sähköpostit ja projektiviitteet (EIPP-20191319, EIPP-20191320, INPO-20232955, INPO-20254383, EC email 04.02.2025)
 
 ---
 
