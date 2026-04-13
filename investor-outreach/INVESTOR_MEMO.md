@@ -308,7 +308,7 @@ Timeframe:                 ~2 years (2024→2026)
 ### SAFE Key Terms
 
 - **Valuation Cap:** €3.8M
-- **Discount:** 15–20% (to be specified)
+- **Discount:** 18%
 - **Pro-Rata Rights:** Available for €50k+ investors (Captain tier and above)
 - **Information Rights:** Monthly updates for all investors
 - **MFN (Most Favored Nation):** Standard protection
