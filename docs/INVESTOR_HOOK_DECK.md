@@ -154,8 +154,7 @@ When a Qivalis payment clears on a steel shipment, DWS IQ writes
 three journal entries in the same second: CBAM obligation updated,
 CSRD Scope 3 booked, ETS account reconciled.
 
-**The consortium banks will need compliance partners before H2 launch —
-not in September, when the press covers it.**
+**The 12 consortium banks are building payment infrastructure without a compliance layer. That gap opens Q3 2026.**
 
 BBVA Ventures and ING Ventures are the most natural strategic
 investors in Europe for a platform at this intersection.

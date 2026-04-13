@@ -166,14 +166,32 @@ Stablecoin-transaktiot ovat MiCA:n artikkelin 76 mukaisen
 raportoinnin alaisia. DWS Compliance-agentille tarvitaan
 Qivalis-tapahtumien MiCA-raportointiprofiili, kun asiakaskanta laajenee.
 
-### 3. SEB + Danske Bank — Pohjoismainen suora polku
+### 3. SEB + Danske Bank mukana — mutta Nordea ja OP puuttuvat
 
-**SEB (Ruotsi)** ja **Danske Bank (Tanska)** ovat konsortiossa. Tämä on
-DWS:lle suora yhteys Pohjoismaiseen teollisuusmarkkinaan:
+**SEB (Ruotsi)** ja **Danske Bank (Tanska)** ovat konsortiossa. **Nordea**
+ja **OP** eivät ole — vahvistettu tutkimuksella (huhtikuu 2026).
 
-- SEB:n teollisuusasiakaskanta: metsäteollisuus, energia, metalli — täsmälleen DWS:n ICP
-- Danske Bankin Suomi-toiminta kattaa osan DWS:n kotimarkkinasta
-- Näiden kautta kulkevat Qivalis-maksut ovat ensimmäinen konkreettinen integraatiokohde
+| Pohjoismainen pankki | Qivalis-konsortio | Implikaatio                                            |
+| -------------------- | ----------------- | ------------------------------------------------------ |
+| SEB                  | **Kyllä**         | Ruotsalainen teollisuusasiakas saa Qivalis-maksut heti |
+| Danske Bank          | **Kyllä**         | Tanskalaiset + osin suomalaiset yrityspankkiasiakkaat  |
+| **Nordea**           | **Ei**            | Pohjoismaiden suurin pankki puuttuu — iso aukko        |
+| **OP**               | **Ei**            | Suurin suomalainen pankkiryhmä puuttuu                 |
+
+**Mikä tämä tarkoittaa DWS:lle:**
+
+Nordean ja OP:n teollisuusasiakkaat (jotka ovat iso osa Suomen ja Pohjoismaiden
+teollisuusmarkkinaa) eivät saa Qivalis-maksuja automaattisesti H2 2026
+lanseerauksessa. He odottavat joko:
+
+1. Nordean / OP:n liittymistä konsortioon (ei vahvistettu aikataulua)
+2. Erillisiä EMT-ratkaisuja omilta pankeiltaan
+
+**Muutos "Pohjoismaat suoraan DWS:n kotimarkkinaa" -argumenttiin:**
+Pitää tarkentaa — SEB:n kautta Ruotsin teollisuus on suora polku,
+mutta Suomen kotimarkkina (OP-asiakkaat) jää toistaiseksi Qivalis-ekosysteemin
+ulkopuolelle. Tämä on sekä riski (hitaampi adoptointi Suomessa) että
+mahdollisuus (Nordea/OP liittyy → lisää momentum).
 
 ### 4. Asiakasriskiarvio: ERP-toimittajat
 

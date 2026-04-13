@@ -124,7 +124,8 @@ When a Qivalis payment clears on a steel shipment, DWS IQ automatically:
 - Books the Scope 3 emission in the CSRD ledger
 - Reconciles the ETS account
 
-The consortium banks will need compliance partners before H2 launch.
+**The 12 consortium banks are building payment infrastructure without a compliance layer. That gap opens Q3 2026.**
+
 BBVA Ventures and ING Ventures are the most natural strategic investors
 in Europe for a company that sits at this intersection.
 
