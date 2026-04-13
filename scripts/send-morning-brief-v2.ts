@@ -52,7 +52,7 @@ import {
   getNewLeads,
   getUpcomingDeadlines,
 } from '../src/construction-leads/lead-processor.js';
-import { sendEmail } from '../src/utils/send-email.js';
+import { escapeHtml, sendEmail } from '../src/utils/send-email.js';
 
 const FROM = process.env.EMAIL_FROM || 'risto@onelifetime.world';
 const TO = process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi';
@@ -961,7 +961,7 @@ async function main(): Promise<void> {
     to: TO,
     subject,
     text,
-    html: `<pre style="font-family: monospace; font-size: 13px; line-height: 1.5;">${text}</pre>`,
+    html: `<pre style="font-family: monospace; font-size: 13px; line-height: 1.5;">${escapeHtml(text)}</pre>`,
     replyTo: REPLY_TO,
     headers: {
       'X-DWS-Email-Type': 'morning-brief-v2',
