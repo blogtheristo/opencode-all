@@ -39,12 +39,12 @@ Aktivointi perustuu Lifetime Oy:n hallituksen päätökseen 31.12.2025 ja toteut
 ### Lemonsoft-kirjaukset
 
 Kirjaus 1: DWS IQ 6 -tuotekehitys (viimeinen 6 kuukautta)
-Debet 1030 Kehittämismenot: 100 000,00
-Kredit 3950 Valmistus omaan käyttöön: 100 000,00
+Debet 1030 Kehittämismenot: 100 000,00 EUR
+Kredit 3950 Valmistus omaan käyttöön: 100 000,00 EUR
 
 Kirjaus 2: DWS-tuoteperheen kehitys 12/2019-09.10.2025
-Debet 1030 Kehittämismenot: 494 000,00
-Kredit 3950 Valmistus omaan käyttöön: 494 000,00
+Debet 1030 Kehittämismenot: 494 000,00 EUR
+Kredit 3950 Valmistus omaan käyttöön: 494 000,00 EUR
 
 Yhteensä: 594 000,00 euroa
 
