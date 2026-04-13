@@ -55,9 +55,10 @@ Yhteensä: 594 000,00 euroa
 DWS IQ -tuoteperhe (Lifetime Digital Workspace) on Lifetime Oy:n jatkuva tuotekehityshanke joulukuusta 2019 alkaen. Tuoteperhe käsittää viisi sukupolvea joista kolme on hyväksytty Euroopan komission EU Invest Portal -projekteiksi:
 
 - DWS 2 (2019): Ensimmäinen versio, Lifetime Digital Workspace -konseptin syntyvaihe
-- DWS 3 (2020-2023): Platform-tuote AWS-pilvellä. Euroopan komission EU Invest Portal -hyväksytty projekti EIPP-20191319 (12.09.2019). EBAN-rahoitus $6 000 USD, Finnvera-rahoitus 48 000 EUR.- DWS 4 "Montreux" (2023-2024): Vihreän siirtymän platform. Listattu EU Invest Hub:ssa. Monaco Fondry -valuaatio 6 milj. USD (12/2022). Ei saanut erillistä EU Invest Portal -hyväksyntää.
-- DWS 5 (2024): Vetytalouden platform. Microsoft Founders Hub Level 1-4 ($25 000 USD → $154 000 USD, 2021-2025). Oqtane / .NET 8 Blazor / Azure. EU InvestEU Portal INPO-20232955 "DWS 5 The distributed intelligence platform" (created 17.04.2023, archived 23.08.2023, 1 250 000 EUR).
-- DWS 6 (2025-nyt): EU-vaatimustenmukaisuus ja ilmastoäly. React 19 / Supabase / Google Cloud. EU InvestEU Portal INPO-20254383 "Lifetime World, DWS IQ 6, Firehorse" (created 29.05.2025, published 05.02.2026, 500 000 EUR). 96 GitHub-repositorya, 3 200 committia, 1 030 Pull Requestia viimeisen 6 kuukauden aikana.
+- DWS 3 (2020-2023): Platform-tuote AWS-pilvellä. Euroopan komission EU Invest Portal -hyväksytty projekti EIPP-20191319 (12.09.2019). EBAN-rahoitus $6 000 USD, Finnvera-rahoitus 48 000 EUR. Project reader: Rashid Bishr, Global Capital Funding Inc.
+- DWS 4 "Montreux" (2023-2024): Vihreän siirtymän platform. Listattu EU Invest Hub:ssa. Monaco Fondry -valuaatio 6 milj. USD (12/2022). Ei saanut erillistä EU Invest Portal -hyväksyntää.
+- DWS 5 (2024): Vetytalouden platform. Microsoft Founders Hub Level 1-4 ($25 000 USD → $154 000 USD, 2021-2025). Oqtane / .NET 8 Blazor / Azure. EU Invest Portal -hyväksytty projekti.
+- DWS 6 (2025-nyt): EU-vaatimustenmukaisuus ja ilmastoäly. React 19 / Supabase / Google Cloud. EU Invest Portal -hyväksytty projekti INPO-20254383 (25.12.2025). 96 GitHub-repositorya, 3 200 committia, 1 030 Pull Requestia viimeisen 6 kuukauden aikana.
 
 Liitännäishanke: CIMS (Crypto Investment Management Studio), EU Invest Portal EIPP-20191320 (2019).
 CIMS muodostaa DWS 7:n Digital Euro -integraatiokerroksen perustan, ECB:n Digital Euro -tavoiteaikataulu ~2029.
@@ -111,6 +112,8 @@ Et tarvitse uusia ulkoisia lähteitä. Kaikki tarvittava data on jo Lemonsoftiss
 - Tekijä: Risto Anton Päärni (founder/CEO), laskennallinen tuntihinta 80-100 euroa/tunti (inflaatiotarkistettu 2019-2026)
 - Todellinen laskennallinen R&D-arvo: 778 081 euroa (1 158 päivää x 7,5 h, inflaatiotarkistettu)
 - Aktivoidaan: 594 000 euroa = 76 prosenttia todellisesta (tahallisesti konservatiivinen)
+
+### Evidenssi
 - Kirjanpitolautakunnan yleinen lausunto vahvistaa kehittämismenojen aktivoinnin sallittavuuden kun KPL 5:8 -edellytykset täyttyvät
 
 ### Evidenssi (saatekirje)
@@ -119,6 +122,10 @@ Et tarvitse uusia ulkoisia lähteitä. Kaikki tarvittava data on jo Lemonsoftiss
 - Eläketurvakeskuksen viralliset ansiotiedot 2020-2025 (kolmannen osapuolen vahvistus työrytmille)
 - GitHub 96 repositorya, 3 200 committia, 1 030 Pull Requestia (viimeinen 6 kk)
 - Omistajan pääomitukset ja lainat yhtiölle (Lemonsoft-tasekirjaukset, vahvistaa rahoituspohjan)
+- Euroopan komission EU Invest Portal -hyväksynnät: EIPP-20191319 (12.09.2019), EIPP-20191320 (2019), INPO-20254383 (25.12.2025)
+- Riippumattomat valuaatiot: Gust 3,8 milj. euroa (2021), Monaco Fondry 6 milj. USD (2022)
+
+### Tase-vaikutus
 - Euroopan komission InvestEU Portal -projektit: EIPP-20191319 (12.09.2019), EIPP-20191320 (2019), INPO-20232955 (17.04.2023), INPO-20254383 (29.05.2025)
 - Riippumattomat valuaatiot: Gust 3,8 milj. euroa (2021), Monaco Fondry 6 milj. USD (2022)
 
