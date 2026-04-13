@@ -163,6 +163,8 @@ investors in Europe for a platform at this intersection.
 Industry Captain seats in Steel & Metals, Chemicals, and Cement
 open the conversation. 8 seats. Q2 2026.
 
+**DWS IQ is the compliance ledger for Qivalis-era industrial payments.**
+
 ---
 
 **Related documents:**
