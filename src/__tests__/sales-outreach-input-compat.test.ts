@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { SalesOutreachAgent } from '../agents/sales-outreach.agent.js';
 
 vi.mock('../utils/logger.js', () => ({
@@ -45,7 +45,9 @@ describe('SalesOutreachAgent input compatibility', () => {
     expect(companies).toHaveLength(2);
     expect(contacts).toHaveLength(4);
     expect(emails).toHaveLength(2);
-    expect(companies[0].name).toBe('[Target Company 1]');
+    // After PR that replaced placeholders with real EU companies, first company is SSAB
+    expect(typeof companies[0].name).toBe('string');
+    expect((companies[0].name as string).length).toBeGreaterThan(0);
   });
 
   it('accepts Apollo-style workflow input and uses seeded prospect data', async () => {

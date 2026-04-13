@@ -5,7 +5,7 @@
  * and emit a flag when records contain unrecognized or mixed units.
  */
 
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { EmissionsDataAnalystAgent } from '../agents/emissions-data-analyst.agent.js';
 
 // Suppress logger noise during tests

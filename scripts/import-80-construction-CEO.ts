@@ -129,7 +129,7 @@ function parseMarkdown(content: string): { contacts: ParsedContact[]; priorityMa
 
   let currentCompany = '';
   let inTable = false;
-  let tableColumns: string[] = [];
+  const tableColumns: string[] = [];
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];

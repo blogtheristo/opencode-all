@@ -148,13 +148,13 @@ Return JSON: {
 
     let synthesis = {
       contentAngle: '',
-      outreachSequence: [],
+      outreachSequence: [] as string[],
       seoOpportunity: '',
       contentBrief: '',
       apolloBriefing: '',
     };
     try {
-      synthesis = JSON.parse(llmResponse.content);
+      synthesis = { ...synthesis, ...JSON.parse(llmResponse.content) };
     } catch {
       synthesis.apolloBriefing = llmResponse.content.slice(0, 300);
     }

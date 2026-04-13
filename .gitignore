@@ -39,6 +39,10 @@ dws6.com/**/.env.local
 dws6.com/**/.env.*.local
 dws6.com/**/config/*.local.js
 
+# --- RUNTIME LOGS ---
+logs/
+*.log
+
 # --- BUILD ARTIFACTS & DEPENDENCIES ---
 **/node_modules/
 **/.next/
@@ -65,7 +69,12 @@ output-metadata.json
 Thumbs.db
 *.iml
 .idea/
-.claude/
+# Ignore .claude contents but whitelist hooks + settings for team safety nets
+.claude/*
+!.claude/hooks/
+!.claude/settings.local.json
+.claude/hooks/audit/
+.claude/command-log.txt
 claude-output.json
 review-output.json
 nul
@@ -106,7 +115,9 @@ claude-sessions/
 *.csv
 !landing-pages/dws10-com/products.csv
 !dws10.com/products.csv
+!Learn/data/activation/billing-*.csv
 investor-outreach/ready_to_send*/
+scripts/investor-contacts.local.json
 
 # --- REPO ARTIFACTS (directory listings, temp files accidentally committed) ---
 diret

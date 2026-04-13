@@ -17,11 +17,11 @@
  */
 
 import type {
-  CapabilityManifest,
-  TelemetryEntry,
-  ATSResult,
   ATSBreakdown,
+  ATSResult,
+  CapabilityManifest,
   PermissionLevel,
+  TelemetryEntry,
 } from './types.js';
 
 // ============ CONSTANTS ============

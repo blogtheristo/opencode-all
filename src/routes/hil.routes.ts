@@ -7,7 +7,7 @@
  *   No authentication needed — done_token is a UUID unguessable without the email.
  */
 
-import { Router, Request, Response } from 'express';
+import { type Request, type Response, Router } from 'express';
 
 const router = Router();
 
@@ -114,7 +114,7 @@ router.post('/escalate', async (req: Request, res: Response): Promise<void> => {
     recipient: escalationEmail,
     status: 'pending',
     created_at: new Date().toISOString(),
-    resolved_at: null,
+    resolved_at: null as string | null,
   };
 
   // Persist to Supabase if available

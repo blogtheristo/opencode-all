@@ -66,7 +66,7 @@
 
 ### 📖 Complete Strategy
 **[README.md](README.md)** - Full investor outreach strategy
-- Current workflow (cold email, investor-relations page, Supabase, automation)
+- Current workflow (cold email, Captain landing page, Supabase, automation)
 - Email templates (initial, follow-up, meeting request)
 - Campaign stages
 - **Updated targeting criteria** (institutional investors & business angels)

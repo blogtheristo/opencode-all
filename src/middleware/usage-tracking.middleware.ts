@@ -7,7 +7,7 @@
  * MVP Feature 2
  */
 
-import { Request, Response, NextFunction } from 'express';
+import { type NextFunction, type Request, type Response } from 'express';
 import { UsageMeteringService } from '../services/usage-metering.service.js';
 import logger from '../utils/logger.js';
 

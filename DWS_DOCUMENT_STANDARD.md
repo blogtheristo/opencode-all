@@ -622,35 +622,158 @@ pandoc "input.md" -o "output.pdf" --pdf-engine=xelatex --toc -f markdown-yaml_me
 
 ### 8.4 HTML Styling Standard (DWS Brand)
 
-**DWS brand CSS (used by Generate-PDFs.ps1):**
+**Font loading — two modes based on document classification:**
+
+| Classification | Font Loading | Reason |
+|---------------|-------------|--------|
+| **Confidential / Sales / Internal** | Self-hosted `@font-face` from `docs/assets/fonts/` | No external network requests — document works offline and in locked-down environments |
+| **Public (landing pages, blog)** | Google Fonts CDN `<link>` tag | Performance, caching, CDN delivery |
+
+**Self-hosted font (confidential documents):**
+
+Font files: `docs/assets/fonts/Inter-{Regular,Medium,SemiBold,Bold}.ttf`
+
+```css
+/* Self-hosted Inter — no external network requests (confidential document) */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../assets/fonts/Inter-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../assets/fonts/Inter-Medium.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../assets/fonts/Inter-SemiBold.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../assets/fonts/Inter-Bold.ttf') format('truetype');
+}
+```
+
+**Google Fonts (public pages only):**
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+```
+
+**DWS brand CSS:**
 
 ```css
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    font-size: 11pt;
-    line-height: 1.6;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10pt;
+    line-height: 1.55;
     max-width: 900px;
     margin: 0 auto;
     padding: 40px;
-    color: #333;
+    color: #1a202c;
 }
-h1 { color: #0a1628; border-bottom: 3px solid #0066cc; padding-bottom: 8px; }
-h2 { color: #0a1628; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
-h3 { color: #333; }
+h1 { color: #0f172a; border-bottom: 3px solid #0066cc; padding-bottom: 8px; }
+h2 { color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; }
+h3 { color: #1e3a5f; }
 code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
 pre { background: #f4f4f4; padding: 12px; border-radius: 4px; border: 1px solid #ddd; }
 table { border-collapse: collapse; width: 100%; margin: 12px 0; }
-th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }
-th { background: #0a1628; color: white; }
-tr:nth-child(even) { background: #f9f9f9; }
+th, td { border: 1px solid #e2e8f0; padding: 8px 12px; text-align: left; }
+th { background: #0f172a; color: white; }
+tr:nth-child(even) { background: #f8fafc; }
 a { color: #0066cc; }
 blockquote { border-left: 4px solid #0066cc; padding: 8px 16px; background: #f0f7ff; }
 ```
 
 **Brand colors reference:**
-- Primary: `#0a1628` (dark navy) - headings, table headers
-- Accent: `#0066cc` (enterprise blue) - links, borders, blockquotes
-- Text: `#333` - body text
+- Primary: `#0f172a` (dark navy) - headings, table headers
+- Secondary: `#1e3a5f` (deep blue) - subheadings, accents
+- Accent: `#fbbf24` (gold) - section borders, CTAs
+- Enterprise blue: `#0066cc` - links, blockquotes
+- Text: `#1a202c` - body text
+- Muted: `#64748b` - secondary text, labels
+
+### 8.4.1 Print / A4 PDF Standard (CRITICAL)
+
+All HTML documents intended for browser print-to-PDF MUST include:
+
+**1. Force background printing:**
+```css
+@media print {
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+    }
+}
+```
+
+**2. Explicit A4 page structure** (browser @page CSS is unreliable for headers/footers):
+```css
+.page {
+    width: 210mm;
+    min-height: 297mm;
+    background: white;
+    margin: 10px auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    counter-increment: page-counter;
+}
+
+@media print {
+    .page {
+        margin: 0;
+        page-break-after: always;
+        overflow: visible;  /* NEVER overflow: hidden — clips content silently */
+    }
+    .page:last-child { page-break-after: avoid; }
+}
+```
+
+**NEVER use `overflow: hidden` on `.page` or `.page-content` in print mode.** Different browser print engines, font fallback, and user scaling can push content slightly beyond expected bounds. Hidden overflow silently truncates text without visual warning. Use `overflow: visible` and rely on page breaks.
+
+**NEVER use fixed `height: 297mm` on `.page` in print mode.** Use `min-height` only. Fixed height + flex children = content truncation when rendering varies across browsers/DPI.
+
+**3. Visible page headers and footers with CSS counters** (NOT @page CSS — browsers ignore those):
+
+```css
+body { counter-reset: page-counter; }
+.page { counter-increment: page-counter; }
+.page-number::after { content: counter(page-counter); }
+```
+
+```html
+<div class="page">
+    <div class="page-header">
+        <span>Lifetime Oy | Document Title</span>
+        <span>Confidential | Page <span class="page-number"></span></span>
+    </div>
+    <div class="page-content"><!-- content --></div>
+    <div class="page-footer">
+        <span>© Lifetime Oy 2026</span>
+        <span>Confidential</span>
+    </div>
+</div>
+```
+
+**NEVER hard-code page numbers** (e.g., "Page 3 of 5"). Use CSS counters so numbers stay accurate when content changes.
+
+**Why:** Browser print-to-PDF ignores CSS `@page` rules for headers, footers, and page counters. Explicit page divs with visible header/footer elements render reliably in Chrome, Edge, and Firefox print-to-PDF.
+
+**Reference implementation:** `docs/briefs/construction-compliance-brief-pia.html`
 
 ### 8.5 Conversion Scripts
 
@@ -676,15 +799,23 @@ blockquote { border-left: 4px solid #0066cc; padding: 8px 16px; background: #f0f
 Before finalizing any PDF document, verify:
 
 - [ ] File size < 10 MB (preferably 1-5 MB)
+- [ ] Inter font loads (self-hosted `@font-face` for confidential docs, Google Fonts CDN for public)
+- [ ] No external network requests in confidential documents (no Google Fonts `<link>`)
+- [ ] `print-color-adjust: exact` in `@media print` block
+- [ ] All backgrounds render in print preview (cover pages, table headers)
+- [ ] Explicit `<div class="page">` structure with visible headers/footers (NOT @page CSS)
+- [ ] No `overflow: hidden` on `.page` or `.page-content` (clips content silently in print)
+- [ ] No fixed `height: 297mm` in print — use `min-height` only
+- [ ] Page numbers use CSS counters (never hard-coded)
 - [ ] All tables render correctly
-- [ ] Page breaks are appropriate
-- [ ] Headers and footers are consistent
+- [ ] Page breaks are appropriate (one `page-break-after: always` per page div)
+- [ ] Headers and footers are consistent across all pages
 - [ ] Images are clear and properly sized
 - [ ] Code blocks are formatted and readable
 - [ ] Links are preserved (if applicable)
 - [ ] Table of contents is accurate
 - [ ] Document metadata is included
-- [ ] Professional styling applied
+- [ ] Professional styling applied (Inter font, DWS brand colors)
 
 ### 8.7 Naming Convention for PDFs
 

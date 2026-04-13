@@ -45,7 +45,7 @@ Three KYA documents have been prepared for formal NIST submission as candidate S
 4. Palantir AIP competitive positioning — accepted
 5. SOC 2 Type II + ISO 42001 compliance — accepted
 6. Behavioral Guardrails confirmed as "No" mechanism in security file — accepted (already correct)
-7. Revenue share narrowed to 7.5% flat Alpha-Share — accepted
+7. Revenue model updated (v1.7): SaaS + API for Tiers 1–3; Alpha-Share reserved for Enterprise World Tier 4 only
 8. Dual acronym KYA — **REJECTED**. Both meanings retained as tiered entry strategy: "The Shield" (Know Your Agent) sells to the CISO so the CTO can use "The Sword" (Know Your Architecture)
 
 ---
@@ -89,7 +89,7 @@ SP-003 claims 35% efficiency improvement from leash-aware self-correction over s
 SP-003 projects €18–48B EU-wide impact by 2030. Questions:
 - Is the agent count projection (2M–5M by 2030) realistic?
 - Is the €1.20/verification event pricing defensible against market comparisons?
-- Does the 7.5% Alpha-Share create regulatory concerns (is it a commission, revenue share, or royalty)?
+- Alpha-Share scoped to Enterprise World Tier 4 only (v1.7) — does this resolve regulatory classification concerns?
 - Should the financial model be in the NIST submission at all, or should it be a separate business document?
 
 ### 6. Competitive Positioning
