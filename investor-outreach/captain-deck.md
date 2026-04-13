@@ -1,25 +1,30 @@
 # Captain Deck — EUR 50,000 Industry Captain Seat
 
-***
+---
+
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
-  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/add-firehorse-investor-docs-e9ozF | Date: 28.03.2026 | Changes: Expanded Top 10 to full 12 breakthroughs with detailed descriptions and investor-relevant "Why it matters" for each — KYA, Carbon Ledger, Harness Engineering, Aegis, Pantheon, Cross-Vertical, Article 12, OpenSandbox, Brain-Memory-Body-Hands, Omnichannel, Solution Factory, MCP Hub
-  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/add-firehorse-investor-docs-e9ozF | Date: 28.03.2026 | Changes: Initial creation — Captain-tier investor deck with factory vs tool hero thesis, industry seat positioning, and Firehorse Production Model forward-looking argument
+
+- Version: 1.2 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-qivalis-research-ePIAY | Date: 13.04.2026 | Changes: Added Qivalis Window section — Qivalis stablecoin (12 EU banks, H2 2026) as timing hook for Industry Captain seats. Consortium banks seeking compliance partners now. Payment rail + compliance ledger thesis. Captain seat = direct consortium access.
+- Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/add-firehorse-investor-docs-e9ozF | Date: 28.03.2026 | Changes: Expanded Top 10 to full 12 breakthroughs with detailed descriptions and investor-relevant "Why it matters" for each — KYA, Carbon Ledger, Harness Engineering, Aegis, Pantheon, Cross-Vertical, Article 12, OpenSandbox, Brain-Memory-Body-Hands, Omnichannel, Solution Factory, MCP Hub
+- Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/add-firehorse-investor-docs-e9ozF | Date: 28.03.2026 | Changes: Initial creation — Captain-tier investor deck with factory vs tool hero thesis, industry seat positioning, and Firehorse Production Model forward-looking argument
 
 Session Links & References:
-  - Claude Code (2026-03-28): https://github.com/blogtheristo/dws6/commits/claude/add-firehorse-investor-docs-e9ozF
+
+- Claude Code (2026-03-28): https://github.com/blogtheristo/dws6/commits/claude/add-firehorse-investor-docs-e9ozF
 
 Document Status:
-  - Created: 28.03.2026
-  - Last Modified: 28.03.2026
-  - Language: English
-  - Languages Available: English
-  - Publication Status: ACTIVE
 
-***
+- Created: 28.03.2026
+- Last Modified: 28.03.2026
+- Language: English
+- Languages Available: English
+- Publication Status: ACTIVE
+
+---
 
 **Company:** Lifetime Oy (Y-tunnus: 0772407-9)
 **Round:** EUR 650K SAFE at EUR 3.8M cap
@@ -30,7 +35,7 @@ Document Status:
 
 ## You're Not Investing in an AI Tool. You're Investing in the Factory.
 
-> *Anyone can buy a CNC machine. Can they run a production line?*
+> _Anyone can buy a CNC machine. Can they run a production line?_
 
 Every AI startup will tell you they use GPT, Claude, or Llama. So does everyone else. The question is not which model you use. The question is: **what happens when the next model comes out?**
 
@@ -54,39 +59,87 @@ As a **Captain**, you are the named leader of one of 20 EU-regulated industries 
 
 ### What You Get
 
-| Benefit | Detail |
-|---------|--------|
-| **Named Industry Captain** | Your name on one of 20 EU-regulated industry verticals |
-| **Quarterly Strategy Briefings** | Direct access to founder + product roadmap |
-| **Priority Pilot Routing** | First access to new enterprise pilots in your industry |
-| **Founding Situation Room Access** | Real-time platform intelligence dashboard |
+| Benefit                            | Detail                                                                |
+| ---------------------------------- | --------------------------------------------------------------------- |
+| **Named Industry Captain**         | Your name on one of 20 EU-regulated industry verticals                |
+| **Quarterly Strategy Briefings**   | Direct access to founder + product roadmap                            |
+| **Priority Pilot Routing**         | First access to new enterprise pilots in your industry                |
+| **Founding Situation Room Access** | Real-time platform intelligence dashboard                             |
 | **Industry-Specific Intelligence** | Cross-vertical insights from 20 industries flowing into your vertical |
-| **Upgrade Path** | First right of refusal if Fleet Admiral seat opens |
+| **Upgrade Path**                   | First right of refusal if Fleet Admiral seat opens                    |
 
 ### Available Industry Seats (20 EU-Regulated Verticals)
 
-| # | Industry | ETS/CBAM Exposure | Status |
-|---|----------|-------------------|--------|
-| 1 | Construction & Real Estate | High (EPBD, ETS Phase IV) | Validated — 5 customers |
-| 2 | Energy & Power Generation | Critical (ETS, RED III) | Validated — Qantic case study |
-| 3 | Steel & Metals | Critical (CBAM, ETS) | Open |
-| 4 | Cement & Building Materials | Critical (CBAM, ETS) | Open |
-| 5 | Chemicals & Petrochemicals | High (ETS, REACH) | Open |
-| 6 | Transport & Logistics | High (ETS Maritime/Aviation) | Open |
-| 7 | Automotive & Manufacturing | High (CO2 standards, CSRD) | Open |
-| 8 | Pulp, Paper & Forestry | Medium (ETS, LULUCF) | Open |
-| 9 | Food & Agriculture | Medium (CSRD, methane regulation) | Open |
-| 10 | Textiles & Fashion | Medium (CSRD, due diligence) | Open |
-| 11 | Glass & Ceramics | High (ETS, CBAM) | Open |
-| 12 | Refining & Petroleum | Critical (ETS, FuelEU Maritime) | Open |
-| 13 | Aluminium & Non-Ferrous Metals | Critical (CBAM, ETS) | Open |
-| 14 | Waste Management & Circular Economy | Medium (ETS, waste directive) | Open |
-| 15 | Aviation | Critical (ETS, CORSIA) | Open |
-| 16 | Maritime & Shipping | High (ETS, FuelEU Maritime) | Open |
-| 17 | Mining & Extraction | High (CSRD, critical raw materials) | Open |
-| 18 | Defence & Sovereign Operations | High (dual-use, EU AI Act) | Aegis launched |
-| 19 | Water & Utilities | Medium (CSRD, water framework) | Open |
-| 20 | Hydrogen & Battery Storage (BESS) | Emerging (RED III, TEN-E) | Qantic validated |
+| #   | Industry                            | ETS/CBAM Exposure                   | Status                        |
+| --- | ----------------------------------- | ----------------------------------- | ----------------------------- |
+| 1   | Construction & Real Estate          | High (EPBD, ETS Phase IV)           | Validated — 5 customers       |
+| 2   | Energy & Power Generation           | Critical (ETS, RED III)             | Validated — Qantic case study |
+| 3   | Steel & Metals                      | Critical (CBAM, ETS)                | Open                          |
+| 4   | Cement & Building Materials         | Critical (CBAM, ETS)                | Open                          |
+| 5   | Chemicals & Petrochemicals          | High (ETS, REACH)                   | Open                          |
+| 6   | Transport & Logistics               | High (ETS Maritime/Aviation)        | Open                          |
+| 7   | Automotive & Manufacturing          | High (CO2 standards, CSRD)          | Open                          |
+| 8   | Pulp, Paper & Forestry              | Medium (ETS, LULUCF)                | Open                          |
+| 9   | Food & Agriculture                  | Medium (CSRD, methane regulation)   | Open                          |
+| 10  | Textiles & Fashion                  | Medium (CSRD, due diligence)        | Open                          |
+| 11  | Glass & Ceramics                    | High (ETS, CBAM)                    | Open                          |
+| 12  | Refining & Petroleum                | Critical (ETS, FuelEU Maritime)     | Open                          |
+| 13  | Aluminium & Non-Ferrous Metals      | Critical (CBAM, ETS)                | Open                          |
+| 14  | Waste Management & Circular Economy | Medium (ETS, waste directive)       | Open                          |
+| 15  | Aviation                            | Critical (ETS, CORSIA)              | Open                          |
+| 16  | Maritime & Shipping                 | High (ETS, FuelEU Maritime)         | Open                          |
+| 17  | Mining & Extraction                 | High (CSRD, critical raw materials) | Open                          |
+| 18  | Defence & Sovereign Operations      | High (dual-use, EU AI Act)          | Aegis launched                |
+| 19  | Water & Utilities                   | Medium (CSRD, water framework)      | Open                          |
+| 20  | Hydrogen & Battery Storage (BESS)   | Emerging (RED III, TEN-E)           | Qantic validated              |
+
+---
+
+## The Qivalis Window — Why Q2 2026 Is the Moment
+
+> _"Qivalis-pankit etsivät nyt compliance-kumppaneita ennen H2 2026 -lanseerausta.
+> Industry Captain -paikkasi avaa suoran keskustelun heidän kanssaan,
+> ennen kuin kilpailijasi edes tietää Qivalisista."_
+
+**12 of Europe's largest banks** — including BBVA and ING — are launching
+**Qivalis**, a MiCA-compliant euro stablecoin, in H2 2026. It is the first
+private digital euro with genuine institutional backing, arriving 2–3 years
+before the ECB's own CBDC (~2029).
+
+### The Two-Layer Problem No One Has Solved Yet
+
+Qivalis moves euros. It does not record what those euros mean to the regulator.
+
+| Layer                 | Who builds it                 | What it does                                |
+| --------------------- | ----------------------------- | ------------------------------------------- |
+| **Payment rail**      | Qivalis consortium (12 banks) | Settles industrial payments in digital euro |
+| **Compliance ledger** | DWS IQ                        | Books each payment against CBAM, CSRD, ETS  |
+
+> _A payment without compliance recording is just a transfer.
+> Compliance without payment data is just an estimate._
+
+When a Qivalis payment clears on a steel shipment, DWS IQ automatically:
+
+- Updates the CBAM obligation for that import
+- Books the Scope 3 emission in the CSRD ledger
+- Reconciles the ETS account
+
+**The 12 consortium banks are building payment infrastructure without a compliance layer. That gap opens Q3 2026.**
+
+BBVA Ventures and ING Ventures are the most natural strategic investors
+in Europe for a company that sits at this intersection.
+
+### Why Your Captain Seat Is the Conversation Opener
+
+An Industry Captain seat in Steel & Metals, Chemicals, or Cement gives you:
+
+- Named position in the DWS IQ industry the Qivalis banks care most about
+- Quarterly briefings that include Qivalis integration roadmap
+- Priority routing if BBVA Ventures / ING Ventures warm intro materializes
+- First access to Qivalis-rail compliance pilot customers in your industry
+
+**The window is Q2 2026.** Qivalis launches H2. Your competitors will
+read about it in the press in September. You can be in the room now.
 
 ---
 
@@ -170,28 +223,28 @@ Model Context Protocol hub enabling autonomous multi-agent tool access via Cloud
 
 ## The Math
 
-| Metric | Value |
-|--------|-------|
-| **Your investment** | EUR 50,000 |
-| **Valuation cap** | EUR 3.8M |
-| **Current MRR** | EUR 7K (5 customers, 100% retention) |
-| **Target ARR (2026)** | EUR 900K (25 customers x EUR 36K avg) |
-| **Series A target** | EUR 15M+ pre-money (Q3-Q4 2026) |
-| **Implied multiple at Series A** | ~3-4x on paper |
-| **Products shipped** | 32 (across 20 industries) |
-| **AI agents operational** | 18 |
-| **Academic validation** | Metropolia thesis (2026) + LUT PhD (2027 planned) |
+| Metric                           | Value                                             |
+| -------------------------------- | ------------------------------------------------- |
+| **Your investment**              | EUR 50,000                                        |
+| **Valuation cap**                | EUR 3.8M                                          |
+| **Current MRR**                  | EUR 7K (5 customers, 100% retention)              |
+| **Target ARR (2026)**            | EUR 900K (25 customers x EUR 36K avg)             |
+| **Series A target**              | EUR 15M+ pre-money (Q3-Q4 2026)                   |
+| **Implied multiple at Series A** | ~3-4x on paper                                    |
+| **Products shipped**             | 32 (across 20 industries)                         |
+| **AI agents operational**        | 18                                                |
+| **Academic validation**          | Metropolia thesis (2026) + LUT PhD (2027 planned) |
 
 ### Timeline
 
-| Date | Milestone | Your Relevance |
-|------|-----------|---------------|
-| **Now** | Pipeline building, pilot conversions | Pre-launch entry — seed valuation |
-| **June 15, 2026** | V1 Launch at Arctic 15 (Helsinki) | Public market validation |
-| **June 15 – Aug 15** | 100% sales sprint | Your industry gets priority routing |
-| **August 15, 2026** | First sales cycle data | Hard data for Series A |
-| **August 2026** | Aegis public dual-use rollout | Defence vertical opens |
-| **Q3-Q4 2026** | Series A process | EUR 15M+ pre-money target |
+| Date                 | Milestone                            | Your Relevance                      |
+| -------------------- | ------------------------------------ | ----------------------------------- |
+| **Now**              | Pipeline building, pilot conversions | Pre-launch entry — seed valuation   |
+| **June 15, 2026**    | V1 Launch at Arctic 15 (Helsinki)    | Public market validation            |
+| **June 15 – Aug 15** | 100% sales sprint                    | Your industry gets priority routing |
+| **August 15, 2026**  | First sales cycle data               | Hard data for Series A              |
+| **August 2026**      | Aegis public dual-use rollout        | Defence vertical opens              |
+| **Q3-Q4 2026**       | Series A process                     | EUR 15M+ pre-money target           |
 
 ---
 
@@ -203,5 +256,5 @@ Lifetime Oy built the Firehorse Production Model — a codified system for conve
 
 **Next step:** Reply to risto.paarni@lifetime.fi to schedule a 30-minute call and claim your Captain seat.
 
-*Lifetime Oy | Laidunmaanraitti 2 A 25, 02330 Espoo, Finland*
-*Business Identity Code: 0772407-9 | VAT: FI07724079*
+_Lifetime Oy | Laidunmaanraitti 2 A 25, 02330 Espoo, Finland_
+_Business Identity Code: 0772407-9 | VAT: FI07724079_
