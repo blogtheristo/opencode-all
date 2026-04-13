@@ -10,7 +10,7 @@
  */
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { NextFunction, type Request, type Response } from 'express';
+import { type NextFunction, type Request, type Response } from 'express';
 import { AppError } from '../../middleware/error-handler.js';
 import { ComplianceCheckSchema, OnboardingSchema, validate } from '../../middleware/validate.js';
 

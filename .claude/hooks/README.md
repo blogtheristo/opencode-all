@@ -1,4 +1,4 @@
-﻿# DWS6 Claude Code Safety Hooks
+# DWS6 Claude Code Safety Hooks
 
 12 hooks across 4 event types. Configured in `.claude/settings.local.json`.
 

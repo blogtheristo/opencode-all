@@ -42,10 +42,9 @@ vi.mock('../utils/logger.js', () => ({
 // Without this, router.use(authenticateToken) would 401 every request because
 // no Authorization header is set on supertest calls.
 vi.mock('../middleware/auth.middleware.js', async () => {
-  const { Request, Response, NextFunction } = await import('express');
+  const { Request, Response } = await import('express');
   void Request;
   void Response;
-  void NextFunction;
   return {
     authenticateToken: (_req: unknown, _res: unknown, next: (err?: unknown) => void) => next(),
   };
