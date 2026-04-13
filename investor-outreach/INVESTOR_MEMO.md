@@ -156,6 +156,40 @@ Beyond ownership, every competitor in compliance automation relies on US-cloud-d
 
 **Together:** EUDI Wallet + Digital Euro = EU-sovereign identity + payment stack. No US vendor anywhere in the chain.
 
+### The Qivalis Bridge — Private Digital Euro H2 2026
+
+The ECB Digital Euro (~2029) is the long-term sovereign payment rail. But the
+payment transition is already happening. **Qivalis** — a joint venture of 12
+European banks including BBVA, ING, BNP Paribas, SEB, UniCredit, and CaixaBank
+— launches a MiCA-compliant euro stablecoin in H2 2026, arriving 2–3 years
+ahead of the ECB.
+
+**The compliance gap:** The 12 consortium banks are building payment
+infrastructure without a compliance layer. That gap opens Q3 2026.
+
+When a Qivalis payment clears on a steel or cement shipment, the CBAM
+obligation, CSRD Scope 3 entry, and ETS account must still be recorded —
+automatically, in the same transaction. Qivalis provides no mechanism for this.
+DWS IQ does.
+
+**Payment-agnostic by design:** Nordea (Nordic region's largest bank by assets)
+and OP (Finland's largest banking group by deposits) are outside the Qivalis
+consortium at launch. DWS IQ records every CBAM, CSRD, and ETS obligation
+regardless of whether the payment moves via Qivalis, SEPA, or any future rail.
+The compliance obligation exists at the transaction level — not the rail level.
+
+| Payment rail                         | DWS IQ compliance recording | Available   |
+| ------------------------------------ | --------------------------- | ----------- |
+| Qivalis (MiCA EMT)                   | Yes                         | H2 2026     |
+| SEPA                                 | Yes                         | Today       |
+| ECB CBDC                             | Yes                         | ~2029       |
+| Any future MiCA-compliant stablecoin | Yes                         | As launched |
+
+**DWS IQ is the compliance ledger for Qivalis-era industrial payments.**
+
+_(Source: Qivalis consortium announcement March 2026; BBVA press release
+February 2026; CaixaBank press release March 2026)_
+
 ### DWS IQ Architecture on EU State Infrastructure
 
 ```
