@@ -10,9 +10,9 @@
 
 import * as cron from 'node-cron';
 import {
-  processNewLeadsDaily,
   processCold2Candidates,
   processCold3Candidates,
+  processNewLeadsDaily,
 } from './state-machine';
 
 // ============================================================================

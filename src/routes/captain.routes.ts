@@ -2,14 +2,15 @@
  * Captain's Table — Public Application Route
  *
  * POST /api/v1/captain/apply — Receives captain seat applications from dws10.com/captain
- * No auth required (public lead form). Rate-limited. Sends notification via Resend.
+ * No auth required (public lead form). Rate-limited. Sends notification email + inserts into captain_inquiries.
  */
 
-import { Router, Request, Response } from 'express';
+import { type Request, type Response, Router } from 'express';
 import { body, validationResult } from 'express-validator';
 import rateLimit from 'express-rate-limit';
 import logger from '../utils/logger.js';
 import emailService from '../services/email.service.js';
+import { getSupabaseClient } from '../config/supabase.js';
 
 const router = Router();
 
@@ -72,6 +73,30 @@ router.post('/apply', applyLimiter, applyValidation, async (req: Request, res: R
       success: true,
       message: 'Application received. We will contact you within 48 hours.',
     });
+
+    // Fire-and-forget DB insert — never affects HTTP response
+    const supabase = getSupabaseClient();
+    if (supabase) {
+      supabase
+        .from('captain_inquiries')
+        .insert({
+          name,
+          email,
+          industry,
+          seat_level: seat_type,
+          message: message || null,
+        })
+        .then(
+          ({ error: dbError }) => {
+            if (dbError) {
+              logger.warn('Captain inquiry DB insert failed', { error: dbError.message, name, email });
+            }
+          },
+          (err: unknown) => {
+            logger.warn('Captain inquiry DB insert error', { error: err instanceof Error ? err.message : 'unknown', name, email });
+          },
+        );
+    }
   } catch (err) {
     const errorMsg = err instanceof Error ? err.message : 'Unknown error';
     logger.error('Captain application email failed', { error: errorMsg, name, email });

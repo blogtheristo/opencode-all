@@ -22,7 +22,7 @@
  */
 
 import crypto from 'crypto';
-import express, { Router, Request, Response, NextFunction } from 'express';
+import express, { type NextFunction, type Request, type Response, type Router } from 'express';
 import rateLimit from 'express-rate-limit';
 import logger from '../utils/logger.js';
 import {

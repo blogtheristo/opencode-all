@@ -36,6 +36,9 @@ jobs:
           JWT_SECRET: ci-test-secret-minimum-32-characters-long
           NODE_ENV: test
 
+      - name: npm audit (fail on high/critical)
+        run: npm audit --audit-level=high
+
       - name: Upload coverage report
         if: always()
         uses: actions/upload-artifact@v4

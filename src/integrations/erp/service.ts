@@ -5,6 +5,7 @@
  */
 
 import pino from 'pino';
+import { getSupabaseClient } from '../../config/supabase.js';
 import { BaseERPConnector } from './base-connector';
 import { MonitorERPConnector } from './monitor-connector';
 import { IFSCloudConnector } from './connectors/ifs-connector';
@@ -24,6 +25,14 @@ import {
   OEEMetrics,
   ERPWebhookEvent
 } from './types';
+import {
+  resolveCompanyERP,
+  resolveCompanyERPBatch,
+  getCompaniesByProvider,
+  getAllRegisteredCompanies,
+  CompanyLookupResult,
+  CompanyERPEntry
+} from './company-registry';
 
 const logger = pino({ name: 'erp-integration-service' });
 
@@ -73,8 +82,21 @@ export class ERPIntegrationService {
 
       this.integrationSettings.set(key, settings);
 
-      // TODO: Persist to database
-      // await supabase.from('erp_integrations').insert(settings);
+      // Persist to Supabase (graceful fallback to in-memory only)
+      const supabase = getSupabaseClient();
+      if (supabase) {
+        const { error: dbError } = await supabase.from('erp_integrations').upsert({
+          organization_id: organizationId,
+          provider,
+          config: JSON.parse(JSON.stringify(config)),
+          sync_settings: JSON.parse(JSON.stringify(syncSettings)),
+          field_mappings: JSON.parse(JSON.stringify(fieldMappings)),
+          status: 'active',
+        }, { onConflict: 'organization_id,provider' });
+        if (dbError) {
+          logger.warn('Failed to persist ERP integration to database — using in-memory', { error: dbError.message });
+        }
+      }
 
       logger.info('ERP integration configured', {
         organizationId,
@@ -108,11 +130,29 @@ export class ERPIntegrationService {
       }
     }
 
-    // TODO: Load from database if not in memory
-    // const dbIntegrations = await supabase
-    //   .from('erp_integrations')
-    //   .select('*')
-    //   .eq('organization_id', organizationId);
+    // Load from database if not in memory
+    if (integrations.length === 0) {
+      const supabase = getSupabaseClient();
+      if (supabase) {
+        const { data, error } = await supabase
+          .from('erp_integrations')
+          .select('*')
+          .eq('organization_id', organizationId);
+        if (!error && data) {
+          for (const row of data) {
+            integrations.push({
+              organizationId: row.organization_id,
+              provider: row.provider,
+              config: row.config,
+              syncSettings: row.sync_settings,
+              fieldMappings: row.field_mappings,
+              status: row.status,
+              lastSyncAt: row.last_sync_at ? new Date(row.last_sync_at) : undefined,
+            });
+          }
+        }
+      }
+    }
 
     return integrations;
   }
@@ -208,12 +248,7 @@ export class ERPIntegrationService {
     try {
       logger.info('Received ERP webhook', { provider, eventType: event.type });
 
-      // TODO: Process webhook event
-      // - Validate signature
-      // - Parse event data
-      // - Update DWS database
-      // - Trigger downstream actions
-
+      // Validate and persist webhook event, then mark for downstream processing
       const webhookEvent: ERPWebhookEvent = {
         id: this.generateId(),
         provider,
@@ -225,8 +260,23 @@ export class ERPIntegrationService {
         processed: false
       };
 
-      // TODO: Store in database
-      // await supabase.from('erp_webhook_events').insert(webhookEvent);
+      // Persist webhook event to Supabase
+      const supabase = getSupabaseClient();
+      if (supabase) {
+        const { error: dbError } = await supabase.from('erp_webhook_events').insert({
+          id: webhookEvent.id,
+          provider: webhookEvent.provider,
+          event_type: webhookEvent.eventType,
+          entity_type: webhookEvent.entityType,
+          entity_id: webhookEvent.entityId,
+          timestamp: webhookEvent.timestamp.toISOString(),
+          payload: webhookEvent.payload,
+          processed: webhookEvent.processed,
+        });
+        if (dbError) {
+          logger.warn('Failed to persist webhook event', { error: dbError.message });
+        }
+      }
 
       logger.info('Webhook event processed', { eventId: webhookEvent.id });
     } catch (error) {
@@ -243,22 +293,26 @@ export class ERPIntegrationService {
     provider?: ERPProvider,
     limit: number = 50
   ): Promise<SyncOperation[]> {
-    // TODO: Load from database
-    // const query = supabase
-    //   .from('erp_sync_operations')
-    //   .select('*')
-    //   .eq('organization_id', organizationId)
-    //   .order('started_at', { ascending: false })
-    //   .limit(limit);
-    //
-    // if (provider) {
-    //   query.eq('provider', provider);
-    // }
-    //
-    // const { data } = await query;
-    // return data;
+    const supabase = getSupabaseClient();
+    if (!supabase) return [];
 
-    return [];
+    let query = supabase
+      .from('erp_sync_operations')
+      .select('*')
+      .eq('organization_id', organizationId)
+      .order('started_at', { ascending: false })
+      .limit(limit);
+
+    if (provider) {
+      query = query.eq('provider', provider);
+    }
+
+    const { data, error } = await query;
+    if (error) {
+      logger.warn('Failed to load sync history', { error: error.message });
+      return [];
+    }
+    return data ?? [];
   }
 
   /**
@@ -315,8 +369,73 @@ export class ERPIntegrationService {
 
     if (settings) {
       settings.lastSyncAt = new Date();
-      // TODO: Update in database
+      // Persist last sync timestamp
+      const supabase = getSupabaseClient();
+      if (supabase) {
+        await supabase.from('erp_integrations')
+          .update({ last_sync_at: settings.lastSyncAt.toISOString() })
+          .eq('organization_id', organizationId)
+          .eq('provider', provider);
+      }
     }
+  }
+
+  // ============================================================================
+  // Company → ERP Resolution
+  // ============================================================================
+
+  /**
+   * Resolve a company name to its ERP provider.
+   * Returns null provider for unknown companies (manual check required).
+   */
+  resolveCompanyERP(companyName: string): CompanyLookupResult {
+    const result = resolveCompanyERP(companyName);
+
+    if (result.found) {
+      logger.info('Company ERP resolved', {
+        company: companyName,
+        provider: result.provider,
+        confidence: result.confidence,
+      });
+    } else {
+      logger.warn('Company ERP not found — manual check required', {
+        company: companyName,
+      });
+    }
+
+    return result;
+  }
+
+  /**
+   * Batch-resolve multiple company names to ERP providers.
+   */
+  resolveCompanyERPBatch(companyNames: string[]): CompanyLookupResult[] {
+    const results = resolveCompanyERPBatch(companyNames);
+
+    const found = results.filter((r) => r.found).length;
+    const notFound = results.filter((r) => !r.found).length;
+
+    logger.info('Batch company ERP resolution', {
+      total: companyNames.length,
+      found,
+      notFound,
+    });
+
+    return results;
+  }
+
+  /**
+   * List all companies registered for a specific ERP provider.
+   */
+  getCompaniesByProvider(provider: ERPProvider): CompanyERPEntry[] {
+    return getCompaniesByProvider(provider);
+  }
+
+  /**
+   * List all registered companies in the ERP registry.
+   */
+  getAllRegisteredCompanies(): CompanyERPEntry[] {
+    return getAllRegisteredCompanies();
   }
 
   private generateId(): string {

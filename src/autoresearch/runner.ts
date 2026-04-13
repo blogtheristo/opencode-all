@@ -5,9 +5,9 @@
  * Follows DWS "Build for Agents" rule: JSON output, CLI-accessible, MCP-exposed.
  */
 
-import { runKyaTuner, DEFAULT_KYA_PARAMS, SECURITY_CONSTANTS } from './kya-tuner.js';
-import type { ExperimentResult, TunerConfig } from './kya-tuner.js';
-import { getSessionStats, generateSyntheticSessions } from './synthetic-kya.js';
+import { DEFAULT_KYA_PARAMS, runKyaTuner, SECURITY_CONSTANTS } from './kya-tuner.js';
+import type { TunerConfig } from './kya-tuner.js';
+import { generateSyntheticSessions } from './synthetic-kya.js';
 
 // Derive KYA decision thresholds from shared SECURITY_CONSTANTS to avoid drift
 const {
@@ -84,12 +84,13 @@ export async function runAutoresearch(
 
   // Baseline should be independent of sorter order from runKyaTuner.
   // Use the earliest experiment (smallest experimentId) as the baseline source.
-  const baseline = results.length > 0
-    ? results.reduce(
-        (earliest, r) => (r.experimentId < earliest.experimentId ? r : earliest),
-        results[0],
-      ).auditEvent.optimization.before_value
-    : 0;
+  const baseline =
+    results.length > 0
+      ? results.reduce(
+          (earliest, r) => (r.experimentId < earliest.experimentId ? r : earliest),
+          results[0],
+        ).auditEvent.optimization.before_value
+      : 0;
 
   const best = kept.length > 0 ? kept[0].combinedScore : baseline;
   const improvement = baseline > 0 ? ((best - baseline) / baseline) * 100 : 0;
@@ -101,9 +102,7 @@ export async function runAutoresearch(
   else if (improvement > 0) kyaDecision = 'AUTO_DEPLOY';
 
   // Extract final parameters from last kept experiment
-  const finalParams = kept.length > 0
-    ? kept[0].params
-    : DEFAULT_KYA_PARAMS;
+  const finalParams = kept.length > 0 ? kept[0].params : DEFAULT_KYA_PARAMS;
 
   return {
     command: 'autoresearch',
@@ -140,7 +139,8 @@ export async function runAutoresearch(
 
 export function getAutoresearchStatus(): AutoresearchOutput {
   const sessions = generateSyntheticSessions(100);
-  const stats = getSessionStats(sessions);
+  // Stats available via getSessionStats(sessions) when needed
+  void sessions;
 
   return {
     command: 'autoresearch',

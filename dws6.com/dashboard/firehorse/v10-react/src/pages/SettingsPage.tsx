@@ -11,6 +11,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import { useSettings } from '../hooks/useSettings';
 
 type Theme = 'dark' | 'light';
 type Locale = 'en' | 'fi' | 'de' | 'sv';
@@ -104,13 +105,8 @@ export function SettingsPage() {
     role: 'User',
   });
 
-  const [notifications, setNotifications] = useState<NotificationPrefs>({
-    emailAlerts: true,
-    complianceDeadlines: true,
-    carbonThresholds: false,
-    reportReady: true,
-    weeklyDigest: true,
-  });
+  // Settings persistence (Supabase + localStorage fallback)
+  const { settings, updateTheme, updateLocale, toggleNotification, synced: settingsSynced } = useSettings();
 
   // API keys (loaded from backend)
   const [apiKeys, setApiKeys] = useState<ApiKey[]>([]);
@@ -121,16 +117,43 @@ export function SettingsPage() {
   // Usage metering
   const [usageStats, setUsageStats] = useState<UsageStats | null>(null);
 
-  const [theme, setTheme] = useState<Theme>('dark');
-  const [locale, setLocale] = useState<Locale>('en');
-
   const [saving, setSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
   const [exporting, setExporting] = useState(false);
 
-  // Load API keys and usage stats on mount
+  // Load user profile, API keys, and usage stats on mount
   useEffect(() => {
     async function loadData() {
+      // Load profile from Supabase auth + user_profiles
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          setProfile((prev) => ({
+            ...prev,
+            email: user.email || prev.email,
+            fullName: (user.user_metadata?.full_name as string) || prev.fullName,
+          }));
+
+          // Load org data from user_profiles table
+          const { data: profileData } = await supabase
+            .from('user_profiles')
+            .select('full_name, company, role')
+            .eq('user_id', user.id)
+            .single();
+
+          if (profileData) {
+            setProfile({
+              fullName: profileData.full_name || (user.user_metadata?.full_name as string) || '',
+              email: user.email || '',
+              organization: profileData.company || '',
+              role: profileData.role || 'User',
+            });
+          }
+        }
+      } catch { /* Auth not available */ }
+
+      // Notification prefs, theme, locale loaded via useSettings hook
+
       const headers = await getAuthHeaders();
 
       try {
@@ -158,8 +181,8 @@ export function SettingsPage() {
   }, []);
 
   const handleNotificationToggle = useCallback((field: keyof NotificationPrefs) => {
-    setNotifications((prev) => ({ ...prev, [field]: !prev[field] }));
-  }, []);
+    toggleNotification(field);
+  }, [toggleNotification]);
 
   const handleSaveProfile = useCallback(async () => {
     setSaving(true);
@@ -258,8 +281,8 @@ export function SettingsPage() {
         headers,
         body: JSON.stringify({
           companyName: profile.organization || 'My Company',
-          industry: 'manufacturing',
-          country: 'FI',
+          industry: localStorage.getItem('dws_onboarding_industry') || 'manufacturing',
+          country: localStorage.getItem('dws_onboarding_country') || 'FI',
           format,
         }),
       });
@@ -288,7 +311,10 @@ export function SettingsPage() {
         {/* Page Header */}
         <div>
           <h1 className="text-2xl font-bold text-white">Settings</h1>
-          <p className="text-sm text-gray-400 mt-1">Manage your account, preferences, and integrations</p>
+          <p className="text-sm text-gray-400 mt-1">
+            Manage your account, preferences, and integrations
+            {settingsSynced && <span className="ml-2 text-xs text-green-500">Synced</span>}
+          </p>
         </div>
 
         {/* Usage Metering Dashboard */}
@@ -404,15 +430,15 @@ export function SettingsPage() {
                 <button
                   onClick={() => handleNotificationToggle(key)}
                   className={`relative w-11 h-6 rounded-full transition-colors ${
-                    notifications[key] ? 'bg-primary-600' : 'bg-gray-700'
+                    settings.notifications[key] ? 'bg-primary-600' : 'bg-gray-700'
                   }`}
                   role="switch"
-                  aria-checked={notifications[key]}
+                  aria-checked={settings.notifications[key]}
                   aria-label={label}
                 >
                   <span
                     className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform ${
-                      notifications[key] ? 'translate-x-5' : 'translate-x-0'
+                      settings.notifications[key] ? 'translate-x-5' : 'translate-x-0'
                     }`}
                   />
                 </button>
@@ -495,9 +521,9 @@ export function SettingsPage() {
                 {(['dark', 'light'] as const).map((t) => (
                   <button
                     key={t}
-                    onClick={() => setTheme(t)}
+                    onClick={() => updateTheme(t)}
                     className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                      theme === t
+                      settings.theme === t
                         ? 'bg-primary-600 text-white'
                         : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
                     }`}
@@ -513,8 +539,8 @@ export function SettingsPage() {
               <label htmlFor="locale" className="block text-sm text-gray-400 mb-2">Language / Locale</label>
               <select
                 id="locale"
-                value={locale}
-                onChange={(e) => setLocale(e.target.value as Locale)}
+                value={settings.locale}
+                onChange={(e) => updateLocale(e.target.value as Locale)}
                 className="w-full px-3 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 {LOCALE_OPTIONS.map((opt) => (

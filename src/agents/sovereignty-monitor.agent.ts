@@ -21,36 +21,77 @@ import type { AgentContext, AgentResponse } from './types.js';
 
 /** Known EU-sovereign cloud providers (not subject to CLOUD Act) */
 const EU_SOVEREIGN_PROVIDERS = [
-  'hetzner', 'ovhcloud', 'scaleway', 'ionos', 'upcloud',
-  'exoscale', 'fuga', 'leaseweb', 'contabo', 'infomaniak',
-  'supabase-eu', 'neon-eu', 'aiven-eu',
+  'hetzner',
+  'ovhcloud',
+  'scaleway',
+  'ionos',
+  'upcloud',
+  'exoscale',
+  'fuga',
+  'leaseweb',
+  'contabo',
+  'infomaniak',
+  'supabase-eu',
+  'neon-eu',
+  'aiven-eu',
 ];
 
 /** US-owned providers subject to CLOUD Act */
 const CLOUD_ACT_PROVIDERS = [
-  'aws', 'amazon', 'azure', 'microsoft', 'gcp', 'google-cloud',
-  'mongodb-atlas', 'planetscale', 'supabase-us', 'neon-us',
-  'digitalocean', 'vercel', 'railway', 'render',
+  'aws',
+  'amazon',
+  'azure',
+  'microsoft',
+  'gcp',
+  'google-cloud',
+  'mongodb-atlas',
+  'planetscale',
+  'supabase-us',
+  'neon-us',
+  'digitalocean',
+  'vercel',
+  'railway',
+  'render',
 ];
 
 /** EU data residency regions */
 const EU_REGIONS = [
-  'eu-west-1', 'eu-west-2', 'eu-west-3', 'eu-central-1', 'eu-north-1',
-  'eu-south-1', 'eu-south-2', 'europe-west1', 'europe-west3',
-  'europe-west4', 'europe-north1', 'europe-central2',
-  'westeurope', 'northeurope', 'germanywestcentral', 'swedencentral',
-  'finland', 'germany', 'france', 'netherlands', 'ireland',
-  'helsinki', 'frankfurt', 'amsterdam', 'paris', 'stockholm',
+  'eu-west-1',
+  'eu-west-2',
+  'eu-west-3',
+  'eu-central-1',
+  'eu-north-1',
+  'eu-south-1',
+  'eu-south-2',
+  'europe-west1',
+  'europe-west3',
+  'europe-west4',
+  'europe-north1',
+  'europe-central2',
+  'westeurope',
+  'northeurope',
+  'germanywestcentral',
+  'swedencentral',
+  'finland',
+  'germany',
+  'france',
+  'netherlands',
+  'ireland',
+  'helsinki',
+  'frankfurt',
+  'amsterdam',
+  'paris',
+  'stockholm',
 ];
 
 /** Sovereignty check weights */
 const CHECK_WEIGHTS: Record<string, number> = {
   dataResidency: 0.25,
-  cloudActFree: 0.20,
+  cloudActFree: 0.2,
   encryptionAtRest: 0.15,
-  encryptionInTransit: 0.10,
-  accessControl: 0.10,
-  rlsCoverage: 0.10,
+  encryptionInTransit: 0.1,
+  accessControl: 0.1,
+  rlsCoverage: 0.1,
   gdprReadiness: 0.05,
   backupSovereignty: 0.05,
 };
@@ -110,7 +151,8 @@ export class SovereigntyMonitorAgent extends BaseAgent {
       tables: Array.isArray(raw.tables) ? raw.tables : undefined,
       industry: raw.industry ?? 'default',
       encryptionAtRest: raw.encryptionAtRest ?? raw.encryption_at_rest ?? undefined,
-      encryptionInTransit: raw.encryptionInTransit ?? raw.encryption_in_transit ?? raw.ssl ?? undefined,
+      encryptionInTransit:
+        raw.encryptionInTransit ?? raw.encryption_in_transit ?? raw.ssl ?? undefined,
       rlsEnabled: raw.rlsEnabled ?? raw.rls_enabled ?? raw.rls ?? undefined,
       rlsCoverage: raw.rlsCoverage ?? raw.rls_coverage ?? undefined,
       backupRegion: raw.backupRegion ?? raw.backup_region ?? undefined,
@@ -121,10 +163,7 @@ export class SovereigntyMonitorAgent extends BaseAgent {
     };
   }
 
-  async execute(
-    context: AgentContext,
-    input: Record<string, unknown>,
-  ): Promise<AgentResponse> {
+  async execute(context: AgentContext, input: Record<string, unknown>): Promise<AgentResponse> {
     const startTime = Date.now();
     const si = this.normalizeInput(input);
 
@@ -233,7 +272,7 @@ Respond as JSON with keys: "migrationStrategy" (string), "prioritizedActions" (s
       };
 
       // HIL escalation: if confidence < 80%, flag for human review
-      if (confidence < 0.80) {
+      if (confidence < 0.8) {
         (response.result as Record<string, unknown>).hilEscalation = {
           required: true,
           reason: `Agent confidence ${Math.round(confidence * 100)}% is below 80% threshold`,
@@ -283,7 +322,9 @@ Respond as JSON with keys: "migrationStrategy" (string), "prioritizedActions" (s
 
   // ============ CHECK METHODS ============
 
-  private runChecks(si: SovereigntyInput): Record<string, { score: number; status: string; detail: string }> {
+  private runChecks(
+    si: SovereigntyInput,
+  ): Record<string, { score: number; status: string; detail: string }> {
     return {
       dataResidency: this.checkDataResidency(si),
       cloudActFree: this.checkCloudActFree(si),
@@ -296,43 +337,88 @@ Respond as JSON with keys: "migrationStrategy" (string), "prioritizedActions" (s
     };
   }
 
-  private checkDataResidency(si: SovereigntyInput): { score: number; status: string; detail: string } {
-    if (!si.region) return { score: 0, status: 'unknown', detail: 'Region not specified — cannot verify EU residency' };
+  private checkDataResidency(si: SovereigntyInput): {
+    score: number;
+    status: string;
+    detail: string;
+  } {
+    if (!si.region)
+      return {
+        score: 0,
+        status: 'unknown',
+        detail: 'Region not specified — cannot verify EU residency',
+      };
     const regionLower = si.region.toLowerCase();
     const isEu = EU_REGIONS.some((r) => regionLower.includes(r));
     return isEu
       ? { score: 100, status: 'pass', detail: `Data resident in EU region: ${si.region}` }
-      : { score: 0, status: 'fail', detail: `Data NOT in EU region: ${si.region}. Migration to EU required.` };
+      : {
+          score: 0,
+          status: 'fail',
+          detail: `Data NOT in EU region: ${si.region}. Migration to EU required.`,
+        };
   }
 
-  private checkCloudActFree(si: SovereigntyInput): { score: number; status: string; detail: string } {
-    if (!si.provider) return { score: 0, status: 'unknown', detail: 'Provider not specified — cannot verify CLOUD Act status' };
+  private checkCloudActFree(si: SovereigntyInput): {
+    score: number;
+    status: string;
+    detail: string;
+  } {
+    if (!si.provider)
+      return {
+        score: 0,
+        status: 'unknown',
+        detail: 'Provider not specified — cannot verify CLOUD Act status',
+      };
     const providerLower = si.provider.toLowerCase();
     if (this.isCloudActExposed(si.provider)) {
-      return { score: 0, status: 'fail', detail: `Provider "${si.provider}" is US-owned and subject to CLOUD Act` };
+      return {
+        score: 0,
+        status: 'fail',
+        detail: `Provider "${si.provider}" is US-owned and subject to CLOUD Act`,
+      };
     }
     if (EU_SOVEREIGN_PROVIDERS.some((p) => providerLower.includes(p))) {
       return { score: 100, status: 'pass', detail: `Provider "${si.provider}" is EU-sovereign` };
     }
-    return { score: 50, status: 'partial', detail: `Provider "${si.provider}" not in known lists — manual verification needed` };
+    return {
+      score: 50,
+      status: 'partial',
+      detail: `Provider "${si.provider}" not in known lists — manual verification needed`,
+    };
   }
 
-  private checkEncryptionAtRest(si: SovereigntyInput): { score: number; status: string; detail: string } {
-    if (si.encryptionAtRest === undefined) return { score: 0, status: 'unknown', detail: 'Encryption at rest status not provided' };
+  private checkEncryptionAtRest(si: SovereigntyInput): {
+    score: number;
+    status: string;
+    detail: string;
+  } {
+    if (si.encryptionAtRest === undefined)
+      return { score: 0, status: 'unknown', detail: 'Encryption at rest status not provided' };
     return si.encryptionAtRest
       ? { score: 100, status: 'pass', detail: 'Encryption at rest is enabled' }
       : { score: 0, status: 'fail', detail: 'Encryption at rest is NOT enabled — critical gap' };
   }
 
-  private checkEncryptionInTransit(si: SovereigntyInput): { score: number; status: string; detail: string } {
-    if (si.encryptionInTransit === undefined) return { score: 0, status: 'unknown', detail: 'Encryption in transit status not provided' };
+  private checkEncryptionInTransit(si: SovereigntyInput): {
+    score: number;
+    status: string;
+    detail: string;
+  } {
+    if (si.encryptionInTransit === undefined)
+      return { score: 0, status: 'unknown', detail: 'Encryption in transit status not provided' };
     return si.encryptionInTransit
       ? { score: 100, status: 'pass', detail: 'TLS/SSL encryption in transit is enabled' }
       : { score: 0, status: 'fail', detail: 'Encryption in transit is NOT enabled — critical gap' };
   }
 
-  private checkAccessControl(si: SovereigntyInput): { score: number; status: string; detail: string } {
-    if (!si.accessControlMethod) return { score: 0, status: 'unknown', detail: 'Access control method not specified' };
+  private checkAccessControl(si: SovereigntyInput): {
+    score: number;
+    status: string;
+    detail: string;
+  } {
+    if (!si.accessControlMethod)
+      return { score: 0, status: 'unknown', detail: 'Access control method not specified' };
     const method = si.accessControlMethod.toLowerCase();
     if (method.includes('rbac') || method.includes('role')) {
       return { score: 100, status: 'pass', detail: 'Role-based access control (RBAC) in place' };
@@ -343,23 +429,47 @@ Respond as JSON with keys: "migrationStrategy" (string), "prioritizedActions" (s
     return { score: 50, status: 'partial', detail: `Access control: ${si.accessControlMethod}` };
   }
 
-  private checkRlsCoverage(si: SovereigntyInput): { score: number; status: string; detail: string } {
-    if (si.rlsEnabled === false) return { score: 0, status: 'fail', detail: 'Row Level Security is disabled' };
+  private checkRlsCoverage(si: SovereigntyInput): {
+    score: number;
+    status: string;
+    detail: string;
+  } {
+    if (si.rlsEnabled === false)
+      return { score: 0, status: 'fail', detail: 'Row Level Security is disabled' };
     if (si.rlsCoverage !== undefined) {
       const status = si.rlsCoverage >= 90 ? 'pass' : si.rlsCoverage >= 50 ? 'partial' : 'fail';
       return { score: si.rlsCoverage, status, detail: `RLS covers ${si.rlsCoverage}% of tables` };
     }
-    if (si.rlsEnabled) return { score: 70, status: 'partial', detail: 'RLS enabled but coverage percentage unknown' };
+    if (si.rlsEnabled)
+      return {
+        score: 70,
+        status: 'partial',
+        detail: 'RLS enabled but coverage percentage unknown',
+      };
     return { score: 0, status: 'unknown', detail: 'RLS status not provided' };
   }
 
-  private checkGdprReadiness(si: SovereigntyInput): { score: number; status: string; detail: string } {
+  private checkGdprReadiness(si: SovereigntyInput): {
+    score: number;
+    status: string;
+    detail: string;
+  } {
     let score = 0;
     const details: string[] = [];
-    if (si.gdprDsarProcess) { score += 34; details.push('DSAR process'); }
-    if (si.gdprDeletionProcess) { score += 33; details.push('Right to deletion'); }
-    if (si.gdprConsentManagement) { score += 33; details.push('Consent management'); }
-    if (details.length === 0) return { score: 0, status: 'unknown', detail: 'GDPR readiness not assessed' };
+    if (si.gdprDsarProcess) {
+      score += 34;
+      details.push('DSAR process');
+    }
+    if (si.gdprDeletionProcess) {
+      score += 33;
+      details.push('Right to deletion');
+    }
+    if (si.gdprConsentManagement) {
+      score += 33;
+      details.push('Consent management');
+    }
+    if (details.length === 0)
+      return { score: 0, status: 'unknown', detail: 'GDPR readiness not assessed' };
     return {
       score,
       status: score >= 90 ? 'pass' : score >= 50 ? 'partial' : 'fail',
@@ -367,8 +477,13 @@ Respond as JSON with keys: "migrationStrategy" (string), "prioritizedActions" (s
     };
   }
 
-  private checkBackupSovereignty(si: SovereigntyInput): { score: number; status: string; detail: string } {
-    if (!si.backupRegion) return { score: 0, status: 'unknown', detail: 'Backup region not specified' };
+  private checkBackupSovereignty(si: SovereigntyInput): {
+    score: number;
+    status: string;
+    detail: string;
+  } {
+    if (!si.backupRegion)
+      return { score: 0, status: 'unknown', detail: 'Backup region not specified' };
     const regionLower = si.backupRegion.toLowerCase();
     const isEu = EU_REGIONS.some((r) => regionLower.includes(r));
     return isEu
@@ -380,9 +495,10 @@ Respond as JSON with keys: "migrationStrategy" (string), "prioritizedActions" (s
 
   private identifyGaps(
     checks: Record<string, { score: number; status: string; detail: string }>,
-    si: SovereigntyInput,
+    _si: SovereigntyInput,
   ): { check: string; gap: string; severity: 'critical' | 'high' | 'medium' | 'low' }[] {
-    const gaps: { check: string; gap: string; severity: 'critical' | 'high' | 'medium' | 'low' }[] = [];
+    const gaps: { check: string; gap: string; severity: 'critical' | 'high' | 'medium' | 'low' }[] =
+      [];
 
     for (const [key, check] of Object.entries(checks)) {
       if (check.status === 'fail') {
@@ -420,15 +536,21 @@ Respond as JSON with keys: "migrationStrategy" (string), "prioritizedActions" (s
 
     const criticalGaps = gaps.filter((g) => g.severity === 'critical');
     if (criticalGaps.length > 0) {
-      recs.push(`CRITICAL: ${criticalGaps.length} sovereignty gap(s) require immediate action: ${criticalGaps.map((g) => g.gap).join('; ')}`);
+      recs.push(
+        `CRITICAL: ${criticalGaps.length} sovereignty gap(s) require immediate action: ${criticalGaps.map((g) => g.gap).join('; ')}`,
+      );
     }
 
     if (this.isCloudActExposed(si.provider)) {
-      recs.push('Migrate to EU-sovereign provider (Hetzner, OVHcloud, Scaleway, Supabase EU) to eliminate CLOUD Act exposure');
+      recs.push(
+        'Migrate to EU-sovereign provider (Hetzner, OVHcloud, Scaleway, Supabase EU) to eliminate CLOUD Act exposure',
+      );
     }
 
     if (!this.isEuResident(si.region)) {
-      recs.push('Move database to EU region (europe-north1, eu-central-1, frankfurt, helsinki) for GDPR data residency compliance');
+      recs.push(
+        'Move database to EU region (europe-north1, eu-central-1, frankfurt, helsinki) for GDPR data residency compliance',
+      );
     }
 
     if (si.encryptionAtRest === false) {
@@ -436,11 +558,15 @@ Respond as JSON with keys: "migrationStrategy" (string), "prioritizedActions" (s
     }
 
     if (si.rlsEnabled === false || (si.rlsCoverage !== undefined && si.rlsCoverage < 90)) {
-      recs.push('Enable Row Level Security on all tables with tenant data — prevents cross-tenant data leaks');
+      recs.push(
+        'Enable Row Level Security on all tables with tenant data — prevents cross-tenant data leaks',
+      );
     }
 
     if (tier === 'exposed') {
-      recs.push('Overall sovereignty is EXPOSED — develop a comprehensive migration roadmap to EU-sovereign infrastructure');
+      recs.push(
+        'Overall sovereignty is EXPOSED — develop a comprehensive migration roadmap to EU-sovereign infrastructure',
+      );
     }
 
     return recs;
@@ -460,20 +586,25 @@ Respond as JSON with keys: "migrationStrategy" (string), "prioritizedActions" (s
 
   private tierDescription(tier: string): string {
     switch (tier) {
-      case 'sovereign': return 'Fully EU-sovereign — no CLOUD Act exposure, EU-hosted, encrypted, GDPR-ready';
-      case 'compliant': return 'EU-compliant — meets minimum requirements but some improvements recommended';
-      case 'partial': return 'Partially compliant — significant gaps in sovereignty posture';
-      case 'exposed': return 'Exposed — CLOUD Act risk, non-EU hosting, or critical security gaps';
-      default: return 'Unknown tier';
+      case 'sovereign':
+        return 'Fully EU-sovereign — no CLOUD Act exposure, EU-hosted, encrypted, GDPR-ready';
+      case 'compliant':
+        return 'EU-compliant — meets minimum requirements but some improvements recommended';
+      case 'partial':
+        return 'Partially compliant — significant gaps in sovereignty posture';
+      case 'exposed':
+        return 'Exposed — CLOUD Act risk, non-EU hosting, or critical security gaps';
+      default:
+        return 'Unknown tier';
     }
   }
 
   private computeConfidence(si: SovereigntyInput): number {
-    let confidence = 0.60;
+    let confidence = 0.6;
 
     // More data = higher confidence
-    if (si.provider) confidence += 0.10;
-    if (si.region) confidence += 0.10;
+    if (si.provider) confidence += 0.1;
+    if (si.region) confidence += 0.1;
     if (si.encryptionAtRest !== undefined) confidence += 0.05;
     if (si.encryptionInTransit !== undefined) confidence += 0.05;
     if (si.rlsEnabled !== undefined || si.rlsCoverage !== undefined) confidence += 0.05;

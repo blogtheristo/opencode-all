@@ -7,9 +7,9 @@
 
 import type {
   CaptainBriefingData,
+  MeetingInfo,
   OutreachActivity,
   ProposalInfo,
-  MeetingInfo,
 } from './data-collectors.js';
 
 // ============================================================================

@@ -70,7 +70,7 @@ function generateRawKey(): string {
 }
 
 // Map Supabase row (snake_case) to ApiKeyRecord (camelCase)
-function rowToRecord(row: any): ApiKeyRecord {
+export function rowToRecord(row: any): ApiKeyRecord {
   return {
     id: row.id,
     userId: row.user_id,
@@ -151,8 +151,16 @@ export const ApiKeyService = {
       }
 
       memStore.set(id, {
-        id, userId, name, prefix, hash, scopes,
-        createdAt: now, lastUsedAt: null, expiresAt, revoked: false,
+        id,
+        userId,
+        name,
+        prefix,
+        hash,
+        scopes,
+        createdAt: now,
+        lastUsedAt: null,
+        expiresAt,
+        revoked: false,
       });
     }
 

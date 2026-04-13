@@ -3,7 +3,7 @@
  * This test verifies the security fix without mocking the auth middleware
  */
 
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import AuthService from '../services/auth.service.js';
 
 describe('JWT Token Validation Security Fix', () => {

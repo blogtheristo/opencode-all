@@ -10,7 +10,7 @@
  */
 
 import logger from '../utils/logger.js';
-import { BaseAgent } from './base.agent.js';
+import { type BaseAgent } from './base.agent.js';
 import { SiteSenseAgent } from './sitesense.agent.js';
 import { ScheduleGeniusAgent } from './schedule-genius.agent.js';
 import { MaterialOracleAgent } from './material-oracle.agent.js';
@@ -43,9 +43,12 @@ import { PrometheusAgent } from './workflow/industry/prometheus.agent.js';
 import { MarsAgent } from './workflow/industry/mars.agent.js';
 import { BESSAgent } from './workflow/industry/bess.agent.js';
 import { GaiaAgent } from './workflow/industry/gaia.agent.js';
+import { TalosAgent } from './workflow/industry/talos.agent.js';
 import { ArgusAgent } from './argus.agent.js';
 import { SovereigntyMonitorAgent } from './sovereignty-monitor.agent.js';
 import { DesignerAgent } from './designer.agent.js';
+import { KBAgent } from './kb.agent.js';
+import { SyntheticDataAgent } from './synthetic-data.agent.js';
 import { registerBuiltinTools } from './tools.js';
 import { eventBus, registerDefaultEventHandlers } from './event-bus.js';
 import type { AgentConfig, AgentContext, AgentResponse } from './types.js';
@@ -84,9 +87,7 @@ export class AgentRegistry {
    * DWS7: Enables A2A-style discovery — agents can find each other by what they can do.
    */
   discoverAgents(capability: string): AgentConfig[] {
-    return this.listAgents().filter((a) =>
-      a.capabilities.some((c) => c.includes(capability)),
-    );
+    return this.listAgents().filter((a) => a.capabilities.some((c) => c.includes(capability)));
   }
 
   /**
@@ -116,7 +117,10 @@ export class AgentRegistry {
       });
       return {
         agentName: name,
-        result: { error: 'Delegation depth limit reached', maxDepth: AgentRegistry.MAX_DELEGATION_DEPTH },
+        result: {
+          error: 'Delegation depth limit reached',
+          maxDepth: AgentRegistry.MAX_DELEGATION_DEPTH,
+        },
         confidence: 0,
         reasoning: `Agent "${name}" was not executed because the delegation depth limit (${AgentRegistry.MAX_DELEGATION_DEPTH}) was reached. This prevents infinite agent delegation loops.`,
         recommendations: ['Reduce delegation chain length or restructure agent workflow'],
@@ -197,31 +201,38 @@ export class AgentRegistry {
     this.register(new LeadFeedbackAgent());
 
     // Climate IQ Workflow Agents — Greek/Roman pantheon (orchestrators)
-    this.register(new AtlasAgent());       // Chief of Staff — synthesis & routing
-    this.register(new AthenaAgent());      // Compliance Intelligence — EU regulatory
-    this.register(new HephaestusAgent());  // Field & Site Intelligence — construction
-    this.register(new IrisAgent());        // Research & Market Intelligence
-    this.register(new HermesAgent());      // Logistics & Operations
-    this.register(new ApolloAgent());      // Content & Outreach
+    this.register(new AtlasAgent()); // Chief of Staff — synthesis & routing
+    this.register(new AthenaAgent()); // Compliance Intelligence — EU regulatory
+    this.register(new HephaestusAgent()); // Field & Site Intelligence — construction
+    this.register(new IrisAgent()); // Research & Market Intelligence
+    this.register(new HermesAgent()); // Logistics & Operations
+    this.register(new ApolloAgent()); // Content & Outreach
 
     // Climate IQ Industry Specialists — Roman/Greek gods per sector
-    this.register(new VulcanAgent());      // Steel & Metals
-    this.register(new HeliosAgent());      // Energy & Renewables
-    this.register(new NeptuneAgent());     // Maritime & Shipping
-    this.register(new CeresAgent());       // Agriculture & Fertilizers
-    this.register(new PrometheusAgent());  // Hydrogen & Energy Transition
-    this.register(new MarsAgent());        // Construction & Buildings
-    this.register(new GaiaAgent());        // Cement & Earth Materials
-    this.register(new BESSAgent());        // Battery Energy Storage — Q-System integration
+    this.register(new VulcanAgent()); // Steel & Metals
+    this.register(new HeliosAgent()); // Energy & Renewables
+    this.register(new NeptuneAgent()); // Maritime & Shipping
+    this.register(new CeresAgent()); // Agriculture & Fertilizers
+    this.register(new PrometheusAgent()); // Hydrogen & Energy Transition
+    this.register(new MarsAgent()); // Construction & Buildings
+    this.register(new GaiaAgent()); // Cement & Earth Materials
+    this.register(new BESSAgent()); // Battery Energy Storage — Q-System integration
+    this.register(new TalosAgent()); // Aluminium — CBAM indirect emissions, grid carbon
 
     // KYA Vision — Orbital Target Labeling (ICEYE SAR partnership)
-    this.register(new ArgusAgent());        // All-seeing orbital eye — 20-industry detection
+    this.register(new ArgusAgent()); // All-seeing orbital eye — 20-industry detection
 
     // Sovereignty — Database & infrastructure sovereignty assessment
-    this.register(new SovereigntyMonitorAgent());  // EU data sovereignty scoring
+    this.register(new SovereigntyMonitorAgent()); // EU data sovereignty scoring
 
     // Designer — Design-to-code bridge (Anthropic designer workflow)
-    this.register(new DesignerAgent());  // Figma-to-code, style changes, component creation
+    this.register(new DesignerAgent()); // Figma-to-code, style changes, component creation
+
+    // Knowledge Base — LLM-maintained wiki (Karpathy workflow)
+    this.register(new KBAgent()); // compile, ask, research, lint
+
+    // Synthetic Data Pipeline — CBAM stress testing (NeMo DataDesigner)
+    this.register(new SyntheticDataAgent()); // generate, validate, dd-summary
 
     logger.info('Agent registry initialized', {
       agentCount: this.agents.size,

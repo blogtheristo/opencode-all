@@ -6,17 +6,17 @@
  * All financial figures are in EUR.
  */
 
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import {
-  Shareholder,
-  InvestmentRound,
-  ShareholderSummary,
-  CapTableSummary,
-  FinancialsSnapshot,
-  ShareholderType,
+  type CapTableSummary,
+  type CreateInvestmentRoundRequest,
+  type CreateShareholderRequest,
+  type FinancialsSnapshot,
+  type InvestmentRound,
   ShareClass,
-  CreateShareholderRequest,
-  CreateInvestmentRoundRequest,
+  type Shareholder,
+  type ShareholderSummary,
+  ShareholderType,
 } from './cap-table-types.js';
 
 // ============================================================================

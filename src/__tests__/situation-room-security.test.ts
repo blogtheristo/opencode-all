@@ -3,7 +3,7 @@
  * This test verifies that users can only access reports for organizations they belong to
  */
 
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 describe('Situation Room Routes Security Fix', () => {
   describe('Organization membership verification logic', () => {

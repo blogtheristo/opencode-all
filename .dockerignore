@@ -42,7 +42,6 @@ mcp-servers/
 mcp-hub/
 
 # Other unneeded directories
-scripts/
 supabase/
 AgentFoundry/
 .github/

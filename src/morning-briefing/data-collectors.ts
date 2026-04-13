@@ -16,7 +16,7 @@
  * does not block the rest of the briefing.
  */
 
-import { readFile, readdir, stat } from 'fs/promises';
+import { readdir, readFile, stat } from 'fs/promises';
 import { resolve } from 'path';
 import { fileURLToPath } from 'url';
 import logger from '../utils/logger.js';
@@ -26,13 +26,13 @@ import {
   getUpcomingDeadlines,
 } from '../construction-leads/lead-processor.js';
 import {
-  getSourcesSummary,
   getSourceCounts,
+  getSourcesSummary,
 } from '../construction-leads/lead-sources.js';
 import type {
-  ConstructionLeadsSummary,
-  ConstructionLeadNew,
   ConstructionLeadDeadline,
+  ConstructionLeadNew,
+  ConstructionLeadsSummary,
 } from '../construction-leads/types.js';
 
 // ============================================================================
@@ -287,19 +287,21 @@ async function collectProductChange(): Promise<string> {
  * Check for recent delivery milestones.
  */
 async function collectDeliveryChange(): Promise<string> {
-  // Check Firehorse leads that moved to responded/converted yesterday
+  // Check Firehorse leads that moved to Engaged/Meeting_Booked yesterday
+  // Valid lead_state enum: New, Cold_1_Sent, Cold_1_Opened, Cold_1_Clicked,
+  // Cold_2_Sent, Cold_3_Sent, Engaged, Meeting_Booked, Disqualified, Parked
   const yesterday = new Date(Date.now() - 86_400_000).toISOString().split('T')[0];
 
   const converted = await supabaseFetch<Array<{ state: string }>>(
-    `firehorse_leads?select=state&created_at=gte.${yesterday}T00:00:00&state=in.(responded,converted)`
+    `firehorse_leads?select=state&created_at=gte.${yesterday}T00:00:00&state=in.(Engaged,Meeting_Booked)`
   );
 
   if (converted && converted.length > 0) {
-    const responded = converted.filter((l) => l.state === 'responded').length;
-    const won = converted.filter((l) => l.state === 'converted').length;
+    const engaged = converted.filter((l) => l.state === 'Engaged').length;
+    const booked = converted.filter((l) => l.state === 'Meeting_Booked').length;
     const parts: string[] = [];
-    if (responded > 0) parts.push(`${responded} responded`);
-    if (won > 0) parts.push(`${won} converted`);
+    if (engaged > 0) parts.push(`${engaged} engaged`);
+    if (booked > 0) parts.push(`${booked} meetings booked`);
     return parts.join(', ');
   }
 
@@ -683,6 +685,7 @@ async function collectConstructionLeads(): Promise<ConstructionLeadsData> {
 /**
  * Collect new captain seat inquiries (status = 'new').
  * Shows all unprocessed inquiries so the CEO can follow up same day.
+ * Note: requires migration 034_captain_inquiries.sql to be applied.
  */
 async function collectCaptainInquiries(): Promise<CaptainInquiriesData> {
   const inquiries = await supabaseFetch<CaptainInquiryItem[]>(
@@ -839,11 +842,8 @@ async function detectMissingMigrations(): Promise<Array<{ id: string; descriptio
       check: () => tableExists('construction_leads'),
       description: 'Run migration 036_construction_leads.sql — creates construction_leads (TED EU tenders) table',
     },
-    {
-      id: '037',
-      check: () => columnExists('email_logs', 'resend_email_id'),
-      description: 'Run migration 037_resend_delivery_tracking.sql — adds resend_email_id to email_logs',
-    },
+    // Migration 037 (resend_email_id) removed — Resend SDK removed 2026-03-26 for security.
+    // Email delivery tracking now uses SES message IDs via email-audit.jsonl.
   ];
 
   const missing: Array<{ id: string; description: string }> = [];
@@ -938,7 +938,53 @@ async function collectHilTodos(): Promise<HilTodosData> {
     });
   }
 
-  // 3. Fetch all open todos from the table (oldest first)
+  // 3. DGX Spark model status — check heartbeat for missing/degraded models
+  try {
+    const dgxHeartbeatUrl = process.env.DGX_SPARK_HEARTBEAT_URL || 'http://localhost:9999';
+    const statusResp = await fetch(`${dgxHeartbeatUrl}/status`, {
+      signal: AbortSignal.timeout(5000),
+    });
+    if (statusResp.ok) {
+      const status = (await statusResp.json()) as {
+        system: string;
+        services: Array<{ name: string; status: string }>;
+        models: Record<string, string>;
+      };
+      // If Ollama service is down, create a TODO
+      const ollamaService = status.services?.find((s) => s.name === 'ollama');
+      if (ollamaService && ollamaService.status === 'down') {
+        await upsertHilTodo({
+          category: 'model_update',
+          description: 'DGX Spark: Ollama service is DOWN — models unavailable. SSH in and check: systemctl status ollama',
+          context: { system: status.system, services: status.services },
+          dedup_key: `model_update:ollama_down:${new Date().toISOString().slice(0, 10)}`,
+        });
+      }
+      // If system is degraded, flag it
+      if (status.system === 'degraded') {
+        const downServices = status.services
+          ?.filter((s) => s.status === 'down')
+          .map((s) => s.name)
+          .join(', ');
+        await upsertHilTodo({
+          category: 'model_update',
+          description: `DGX Spark DEGRADED — down services: ${downServices}`,
+          context: { system: status.system, downServices },
+          dedup_key: `model_update:degraded:${new Date().toISOString().slice(0, 10)}`,
+        });
+      }
+    }
+  } catch {
+    // DGX Spark unreachable — create a TODO so HIL knows
+    await upsertHilTodo({
+      category: 'model_update',
+      description: 'DGX Spark heartbeat UNREACHABLE — check if machine is online and heartbeat container is running',
+      context: { checked_at: new Date().toISOString() },
+      dedup_key: `model_update:unreachable:${new Date().toISOString().slice(0, 10)}`,
+    });
+  }
+
+  // 4. Fetch all open todos from the table (oldest first)
   try {
     const openResp = await fetch(
       `${SUPABASE_URL}/rest/v1/hil_todos` +
@@ -998,6 +1044,9 @@ export async function collectCockpitData(): Promise<CockpitData> {
     collectHilTodos(),
   ]);
 
+  // Heartbeat upsert — prevents Supabase from pausing due to inactivity
+  await supabaseUpsertHeartbeat();
+
   return {
     date,
     dateFormatted,
@@ -1015,4 +1064,30 @@ export async function collectCockpitData(): Promise<CockpitData> {
     learnArtifacts,
     hilTodos,
   };
+}
+
+async function supabaseUpsertHeartbeat(): Promise<void> {
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_KEY;
+  if (!url || !key) return;
+
+  try {
+    await fetch(`${url}/rest/v1/system_heartbeat`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: key,
+        Authorization: `Bearer ${key}`,
+        Prefer: 'resolution=merge-duplicates',
+      },
+      body: JSON.stringify({
+        id: 'dws6',
+        last_beat: new Date().toISOString(),
+        source: 'morning-briefing',
+        version: process.env.npm_package_version || 'unknown',
+      }),
+    });
+  } catch (err) {
+    logger.warn('Heartbeat upsert failed', { error: err instanceof Error ? err.message : 'unknown' });
+  }
 }

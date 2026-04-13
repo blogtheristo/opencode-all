@@ -7,8 +7,8 @@
  * Supports CSRD readiness, ETS exposure, and CBAM risk scoring.
  */
 
-import { ESRS_REGISTRY, getMandatoryDisclosures, type ESRSDisclosure } from './esrs-registry.js';
-import { ETS_CARBON_PRICE_EUR, CBAM_CERTIFICATE_PRICE_EUR } from './emission-factors.js';
+import { ESRS_REGISTRY, getMandatoryDisclosures } from './esrs-registry.js';
+import { CBAM_CERTIFICATE_PRICE_EUR, ETS_CARBON_PRICE_EUR } from './emission-factors.js';
 
 // ============ TYPES ============
 
@@ -20,8 +20,8 @@ export interface DataPointStatus {
 export interface ComplianceScoringInput {
   industry: string;
   dataPoints: DataPointStatus[];
-  annualEmissions: number;     // tonnes CO2e
-  importValue: number;         // EUR
+  annualEmissions: number; // tonnes CO2e
+  importValue: number; // EUR
   hasTransitionPlan: boolean;
   hasEmissionsMonitoring: boolean;
   hasSupplyChainDD: boolean;
@@ -40,6 +40,7 @@ export interface ComplianceGap {
   gap: string;
   severity: 'critical' | 'high' | 'medium' | 'low';
   disclosureId?: string;
+  category?: string;
 }
 
 export interface CostBreakdown {
@@ -56,7 +57,7 @@ export interface ScoringResult {
   regulationScores: RegulationScore[];
   gaps: ComplianceGap[];
   recommendations: string[];
-  dataCompleteness: number;    // 0-100
+  dataCompleteness: number; // 0-100
   /** EUR cost breakdown — compliance cost as a line item (Option A output) */
   costBreakdown?: CostBreakdown;
 }
@@ -68,14 +69,14 @@ const ETS_EMISSIONS_THRESHOLD_TONNES = 25_000;
 
 /** Industry-specific weighting for CSRD materiality */
 const INDUSTRY_ENVIRONMENT_WEIGHT: Record<string, number> = {
-  energy: 0.50,
-  steel: 0.50,
-  cement: 0.50,
+  energy: 0.5,
+  steel: 0.5,
+  cement: 0.5,
   chemicals: 0.45,
   aluminium: 0.45,
-  manufacturing: 0.40,
-  construction: 0.40,
-  transport: 0.40,
+  manufacturing: 0.4,
+  construction: 0.4,
+  transport: 0.4,
   fertilizers: 0.45,
   hydrogen: 0.45,
   default: 0.35,
@@ -96,35 +97,37 @@ export function scoreCompliance(input: ComplianceScoringInput): ScoringResult {
 
   // Overall = weighted average (CSRD heaviest since broadest)
   const overallScore = Math.round(
-    csrdScore.score * 0.50 +
-    etsScore.score * 0.25 +
-    cbamScore.score * 0.25,
+    csrdScore.score * 0.5 + etsScore.score * 0.25 + cbamScore.score * 0.25,
   );
 
   const gaps = identifyGaps(input, regulationScores);
   const recommendations = buildRecommendations(input, overallScore, gaps);
 
   const mandatory = getMandatoryDisclosures();
-  const providedIds = new Set(input.dataPoints.filter((d) => d.provided).map((d) => d.disclosureId));
+  const providedIds = new Set(
+    input.dataPoints.filter((d) => d.provided).map((d) => d.disclosureId),
+  );
   const mandatoryProvided = mandatory.filter((d) => providedIds.has(d.id)).length;
-  const dataCompleteness = mandatory.length > 0
-    ? Math.round((mandatoryProvided / mandatory.length) * 100)
-    : 0;
+  const dataCompleteness =
+    mandatory.length > 0 ? Math.round((mandatoryProvided / mandatory.length) * 100) : 0;
 
   // Cost breakdown (EUR) — compliance cost as a line item
   // ETS: only surrender obligation is purchased (emissions above free allocation)
   // Energy sector: zero free allowances; other sectors: ~70% free allocation (Phase 4 average)
-  const envWeight = INDUSTRY_ENVIRONMENT_WEIGHT[input.industry] ?? INDUSTRY_ENVIRONMENT_WEIGHT['default'];
-  const freeAllocationPct = envWeight >= 0.50 ? 0.0 : 0.7; // Energy/steel: 0%, others: ~70%
-  const surrenderObligation = input.annualEmissions >= ETS_EMISSIONS_THRESHOLD_TONNES
-    ? input.annualEmissions * (1 - freeAllocationPct)
-    : 0;
+  const envWeight =
+    INDUSTRY_ENVIRONMENT_WEIGHT[input.industry] ?? INDUSTRY_ENVIRONMENT_WEIGHT['default'];
+  const freeAllocationPct = envWeight >= 0.5 ? 0.0 : 0.7; // Energy/steel: 0%, others: ~70%
+  const surrenderObligation =
+    input.annualEmissions >= ETS_EMISSIONS_THRESHOLD_TONNES
+      ? input.annualEmissions * (1 - freeAllocationPct)
+      : 0;
   const etsCostEur = Math.round(surrenderObligation * ETS_CARBON_PRICE_EUR * 100) / 100;
   // CBAM: import value → estimated embedded carbon using sector default factors
   // Approximation: €150k imports ≈ 100t product × sector factor. Source: CBAM Reg. 2023/956 Art. 35
-  const cbamCostEur = input.importValue >= CBAM_IMPORT_THRESHOLD_EUR
-    ? Math.round((input.importValue / 1500) * CBAM_CERTIFICATE_PRICE_EUR * 100) / 100
-    : 0;
+  const cbamCostEur =
+    input.importValue >= CBAM_IMPORT_THRESHOLD_EUR
+      ? Math.round((input.importValue / 1500) * CBAM_CERTIFICATE_PRICE_EUR * 100) / 100
+      : 0;
   const csrdReportingCostEur = 12_000; // Source: EFRAG CSRD implementation survey 2024
   const totalCostEur = Math.round((etsCostEur + cbamCostEur + csrdReportingCostEur) * 100) / 100;
 
@@ -191,9 +194,7 @@ function scoreEtsExposure(input: ComplianceScoringInput): RegulationScore {
     if (!input.hasTransitionPlan) score -= 20;
 
     // Check if E1-6 (GHG emissions) data is provided
-    const hasGhgData = input.dataPoints.some(
-      (d) => d.disclosureId === 'E1-6' && d.provided,
-    );
+    const hasGhgData = input.dataPoints.some((d) => d.disclosureId === 'E1-6' && d.provided);
     if (!hasGhgData) score -= 25;
   } else {
     // Below threshold — still good to have monitoring
@@ -206,7 +207,9 @@ function scoreEtsExposure(input: ComplianceScoringInput): RegulationScore {
     regulation: 'ets',
     score,
     status: score >= 80 ? 'compliant' : score >= 50 ? 'partial' : 'non-compliant',
-    dataPointsProvided: input.dataPoints.filter((d) => d.provided && d.disclosureId.startsWith('E1')).length,
+    dataPointsProvided: input.dataPoints.filter(
+      (d) => d.provided && d.disclosureId.startsWith('E1'),
+    ).length,
     dataPointsRequired: ESRS_REGISTRY.filter((d) => d.standard === 'E1').length,
   };
 }
@@ -228,9 +231,7 @@ function scoreCbamRisk(input: ComplianceScoringInput): RegulationScore {
     );
     if (!hasSupplyChainData) score -= 20;
 
-    const hasPollutionData = input.dataPoints.some(
-      (d) => d.disclosureId === 'E2-4' && d.provided,
-    );
+    const hasPollutionData = input.dataPoints.some((d) => d.disclosureId === 'E2-4' && d.provided);
     if (!hasPollutionData) score -= 15;
   } else {
     if (!input.hasSupplyChainDD) score -= 10;
@@ -250,10 +251,7 @@ function scoreCbamRisk(input: ComplianceScoringInput): RegulationScore {
 /**
  * Identify specific compliance gaps with severity levels.
  */
-function identifyGaps(
-  input: ComplianceScoringInput,
-  scores: RegulationScore[],
-): ComplianceGap[] {
+function identifyGaps(input: ComplianceScoringInput, _scores: RegulationScore[]): ComplianceGap[] {
   const gaps: ComplianceGap[] = [];
   const providedIds = new Set(
     input.dataPoints.filter((d) => d.provided).map((d) => d.disclosureId),
@@ -345,11 +343,15 @@ function buildRecommendations(
   const providedCount = input.dataPoints.filter((d) => d.provided).length;
   const mandatoryCount = getMandatoryDisclosures().length;
   if (providedCount < mandatoryCount * 0.5) {
-    recs.push(`Data completeness is low (${providedCount}/${mandatoryCount} mandatory points) — prioritize E1 climate disclosures first`);
+    recs.push(
+      `Data completeness is low (${providedCount}/${mandatoryCount} mandatory points) — prioritize E1 climate disclosures first`,
+    );
   }
 
   if (overallScore < 50) {
-    recs.push('Overall score below 50% — develop a comprehensive compliance roadmap with quarterly milestones');
+    recs.push(
+      'Overall score below 50% — develop a comprehensive compliance roadmap with quarterly milestones',
+    );
   }
 
   return recs;

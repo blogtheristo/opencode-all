@@ -1,113 +1,69 @@
-# DWS6 Claude Code PreToolUse Hook Guardrails
+﻿# DWS6 Claude Code Safety Hooks
 
-This directory contains hook scripts for Claude Code's auto-enable-mode feature.
-They act as guardrails that intercept tool calls before execution, enforcing the
-security rules defined in `CLAUDE.md`.
+12 hooks across 4 event types. Configured in `.claude/settings.local.json`.
 
-## How It Works
+**Design:** Zero permission prompts. Block (exit 2) or allow (exit 0), never ask.
 
-Claude Code hooks are configured in `.claude/settings.local.json`. When Claude Code
-invokes a tool (e.g., `Bash`), the hook receives JSON on stdin describing the call:
+## Hook Inventory
 
-```json
-{"tool_name": "Bash", "tool_input": {"command": "rm -rf /"}}
+| Hook                      | Event        | Matcher                          | Purpose                                                                               |
+| ------------------------- | ------------ | -------------------------------- | ------------------------------------------------------------------------------------- |
+| `session-start.sh`        | SessionStart | all                              | Trust boundary injection (GREEN/YELLOW/RED zones), branch + MCP checks                |
+| `pretooluse-guard.sh`     | PreToolUse   | Bash                             | Master deny list: rm -rf, force push, hard reset, git rm, sudo, pipe-to-shell, ollama |
+| `secret-scan.sh`          | PreToolUse   | Bash, Edit, Write                | 14 OWASP secret patterns (AWS, GitHub, Stripe, Anthropic, JWT, npm, Slack)            |
+| `log-commands.sh`         | PreToolUse   | Bash                             | Audit every Bash command with timestamp + branch                                      |
+| `sql-safety-guard.sh`     | PreToolUse   | Bash                             | 7 SQL rules: RLS, transactions, DROP approval, Aiwen immutability                     |
+| `protect-files.sh`        | PreToolUse   | Edit, Write                      | Block .env, .key, .pem, credentials, migrations, .md in public folders                |
+| `require-tests-for-pr.sh` | PreToolUse   | mcp**github**create_pull_request | Tests must pass before PR creation                                                    |
+| prettier (inline)         | PostToolUse  | Write, Edit                      | Auto-format with prettier                                                             |
+| eslint (inline)           | PostToolUse  | Write, Edit                      | Auto-fix with eslint                                                                  |
+| `session-stop.sh`         | Stop         | all                              | Governance checklist (dual folder sync, thesis, uncommitted changes)                  |
+| `auto-commit.sh`          | Stop         | all                              | Auto-commit on feature branches at session end                                        |
+| `validate-branch-name.py` | PreToolUse   | Bash (git checkout -b)           | Git Flow branch naming validation                                                     |
+
+## Exit Codes
+
+| Code | Meaning | Effect                         |
+| ---- | ------- | ------------------------------ |
+| `0`  | ALLOW   | Command proceeds               |
+| `2`  | BLOCK   | Command rejected, stderr shown |
+
+## Architecture
+
+**Allow-first:** Safe command prefixes (node, npx, npm, python, git commit --trailer "Made-with: Cursor", etc.) bypass deny checks immediately. This prevents false positives from keywords in string literals, commit messages, or inline scripts.
+
+## Audit Logs
+
+| File                                    | Content               |
+| --------------------------------------- | --------------------- |
+| `.claude/hooks/audit/bash-commands.log` | Every Bash command    |
+| `.claude/hooks/audit.log`               | Block/allow decisions |
+| `.claude/command-log.txt`               | Duplicate command log |
+
+All logs are gitignored.
+
+## Testing
+
+```bash
+# Should BLOCK (exit 2)
+echo '{"tool_name":"Bash","tool_input":{"command":"rm -rf /"}}' | bash .claude/hooks/pretooluse-guard.sh
+
+# Should ALLOW (exit 0)
+echo '{"tool_name":"Bash","tool_input":{"command":"npm run test"}}' | bash .claude/hooks/pretooluse-guard.sh
 ```
-
-| Script | Trigger | Purpose |
-|--------|---------|---------|
-| `pre-bash-safety.sh` | PreToolUse (Bash) | Warns about destructive shell patterns |
-| `session-start.sh` | SessionStart | Injects trust boundary context, checks branch/dirty state, MCP health |
-| `session-stop.sh` | Stop | Pre-exit governance checklist (uncommitted changes, dual folder sync, thesis rules) |
-
-| Exit Code | Meaning | Effect |
-|-----------|---------|--------|
-| `0` | ALLOW | Command proceeds normally |
-| `2` | BLOCK | Command is rejected; stderr message shown to agent |
-| `0` + JSON stdout | ASK | User is prompted for approval |
-
-| Event | When | Use Case |
-|-------|------|----------|
-| `SessionStart` | New session or after context compaction | Context injection, environment checks |
-| `PreToolUse` | Before any tool call | Input validation, safety checks |
-| `PostToolUse` | After tool completes | Output normalization, logging |
-| `Notification` | Agent sends notification | Alert routing, audit logging |
-| `Stop` | Agent stops | Governance checklist, cleanup, handover documentation |
-
-## Configuration
-
-Hooks are registered in `.claude/settings.local.json`:
-
-```json
-{
-  "hooks": {
-    "SessionStart": [
-      {
-        "matcher": "",
-        "hooks": [
-          { "type": "command", "command": "./.claude/hooks/session-start.sh" }
-        ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          { "type": "command", "command": "bash .claude/hooks/pre-bash-safety.sh" }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          { "type": "command", "command": "./.claude/hooks/session-stop.sh" }
-        ]
-      }
-    ]
-  }
-}
-```
-
-Both hooks run on every `Bash` tool call. The general guard runs first; if it
-allows, the SQL guard runs next (and only activates if SQL is detected).
-
-## Audit Log
-
-All decisions are logged to `.claude/hooks/audit.log` with format:
-
-```
-2026-03-07T12:00:00Z | BLOCK | rm with force/recursive on root | rm -rf /tmp/important
-2026-03-07T12:00:01Z | ALLOW | npm/npx command | npm run test
-2026-03-07T12:00:02Z | ASK | Command not in allow/deny list | some-unknown-cmd
-2026-03-07T12:00:03Z | SQL-BLOCK | Migration SQL missing BEGIN/COMMIT | psql -c "CREATE TABLE..."
-```
-
-The audit log is gitignored (`.claude/hooks/audit.log` matches `*.log` in `.gitignore`).
 
 ## Dependencies
 
-- `jq` (JSON parser) -- standard on most Linux/macOS systems
-- POSIX-compatible shell (`/bin/sh`)
+- `jq`, POSIX shell, `grep -P` (Perl regex), Python 3 (branch validator only)
 
-## Hook Events (Claude Code Reference)
+## Full Reference
 
-| Event | When | Use Case |
-|-------|------|----------|
-| `PreToolUse` | Before any tool call | Input validation, safety checks |
-| `PostToolUse` | After tool completes | Output normalization, logging |
-| `Notification` | Agent sends notification | Alert routing, audit logging |
-| `Stop` | Agent stops | Cleanup, handover documentation |
+`Admin/ADMIN_MANUAL.md` Section 30 — Claude Code Safety Hooks Reference
 
-## Adding New Rules
+## Windows (Git Bash)
 
-1. Add BLOCK patterns to the deny list section in `pretooluse-guard.sh`
-2. Add ALLOW patterns to the allow list section
-3. Test with: `echo '{"tool_name":"Bash","tool_input":{"command":"your-test-cmd"}}' | bash .claude/hooks/pretooluse-guard.sh`
-4. Check exit code: `echo $?` (0 = allow, 2 = block)
+On Windows, Claude Code runs hook `command` strings through **cmd.exe** unless Git Bash is used for shell hooks. Set a **User** environment variable and restart the terminal (or IDE):
 
-## References
+- `CLAUDE_CODE_GIT_BASH_PATH` = full path to `bash.exe`, for example `C:\Program Files\Git\bin\bash.exe`
 
-- CLAUDE.md: "Never Delete Files — Always Move (CRITICAL)"
-- CLAUDE.md: Security Coding Rules section
-- Admin/ADMIN_MANUAL.md: Section 27 — Claude Code Project Engineering Structure
-- docs/AUTO_MODE_TRUST_BOUNDARY.md: GREEN/YELLOW/RED zone definitions for auto-enable-mode
+Hook entries in `settings.local.json` use `"$CLAUDE_PROJECT_DIR"/.claude/hooks/...` so scripts resolve from the repository root. Without Git Bash, `.sh` hooks often fail with "cannot find" or similar errors.

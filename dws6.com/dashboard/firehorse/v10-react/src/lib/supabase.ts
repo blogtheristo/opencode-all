@@ -59,7 +59,10 @@ export async function fetchPortfolioMetrics() {
   const projects_amber = projects.filter(p => p.status === 'amber').length;
   const projects_red = projects.filter(p => p.status === 'red').length;
 
-  const compliance_rate = 85; // TODO: Calculate from actual compliance data
+  // Calculate compliance rate from project statuses (green = compliant)
+  const compliance_rate = total_projects > 0
+    ? Math.round((projects_green / total_projects) * 100)
+    : 0;
 
   return {
     total_projects,

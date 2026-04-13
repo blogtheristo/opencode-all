@@ -22,7 +22,7 @@
 
 import logger from '../utils/logger.js';
 import { buildSDKSandboxConfig, validateNIS2Compliance } from './sdk-sandbox.js';
-import { executeInEphemeralContainer, groqInference } from './cloudrun-ephemeral.js';
+import { executeInEphemeralContainer } from './cloudrun-ephemeral.js';
 import { buildOpenSandboxClient, runAgentInOpenSandbox } from './opensandbox.js';
 import type { SDKSandboxConfig, TenantSandboxOptions } from './sdk-sandbox.js';
 import type { CloudRunTaskConfig, CloudRunTaskResult } from './cloudrun-ephemeral.js';
@@ -88,7 +88,8 @@ export function getSandboxStage(): SandboxStage {
 export function getAgentFoundryConfig(): AgentFoundryConfig {
   return {
     stage: getSandboxStage(),
-    defaultTier: (process.env.DEFAULT_TENANT_TIER as AgentFoundryConfig['defaultTier']) || 'sandbox',
+    defaultTier:
+      (process.env.DEFAULT_TENANT_TIER as AgentFoundryConfig['defaultTier']) || 'sandbox',
     euDataResidency: process.env.EU_DATA_RESIDENCY !== 'false',
     gcpProject: process.env.GOOGLE_CLOUD_PROJECT,
     gcpRegion: process.env.GCP_REGION || 'europe-north1',
@@ -203,12 +204,7 @@ async function executeStageOpenSandbox(
     input: request.input,
     sandboxOpts: {
       networkPolicy: {
-        allowedDomains: [
-          'api.anthropic.com',
-          'api.groq.com',
-          'mcp-hub.dws10.com',
-          'api.dws10.com',
-        ],
+        allowedDomains: ['api.anthropic.com', 'api.groq.com', 'mcp-hub.dws10.com', 'api.dws10.com'],
         denyByDefault: true,
       },
     },
@@ -263,5 +259,9 @@ export { buildSDKSandboxConfig, validateNIS2Compliance } from './sdk-sandbox.js'
 export { executeInEphemeralContainer, groqInference } from './cloudrun-ephemeral.js';
 export { buildOpenSandboxClient, runAgentInOpenSandbox, OpenSandboxClient } from './opensandbox.js';
 export type { SDKSandboxConfig, TenantSandboxOptions } from './sdk-sandbox.js';
-export type { CloudRunTaskConfig, CloudRunTaskResult, EphemeralContainerStatus } from './cloudrun-ephemeral.js';
+export type {
+  CloudRunTaskConfig,
+  CloudRunTaskResult,
+  EphemeralContainerStatus,
+} from './cloudrun-ephemeral.js';
 export type { OpenSandboxConfig, AgentSandboxResult, OpenSandboxInstance } from './opensandbox.js';
