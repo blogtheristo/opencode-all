@@ -179,21 +179,23 @@ SEPA, or any future rail.
 This is not a Qivalis-dependent product. It is infrastructure for
 European industrial payments — whatever form those payments take.
 
-| Payment rail        | DWS IQ compliance recording |
-| ------------------- | --------------------------- |
-| Qivalis (H2 2026)   | Yes                         |
-| SEPA (today)        | Yes                         |
-| ECB CBDC (2029+)    | Yes                         |
-| Any future MiCA EMT | Yes                         |
+| Payment rail                               | DWS IQ compliance recording |
+| ------------------------------------------ | --------------------------- |
+| Qivalis (H2 2026)                          | Yes                         |
+| SEPA (today)                               | Yes                         |
+| ECB CBDC (2029+)                           | Yes                         |
+| Any future MiCA-compliant stablecoin (EMT) | Yes                         |
 
 **The compliance obligation exists at the transaction level —
 not at the rail level. Every industrial payment that triggers
 a CBAM, CSRD, or ETS event needs to be recorded. The rail is irrelevant.**
 
-Nordea has 10 million corporate and institutional clients across
-the Nordics. OP serves the majority of Finnish industrial companies.
-Neither is in the consortium at launch. Both represent addressable
-market that does not require Qivalis adoption to use DWS IQ.
+Nordea, the Nordic region's largest bank by assets, and OP, Finland's
+largest banking group by deposits, are outside the consortium at launch.
+Both represent addressable market that does not require Qivalis adoption
+to use DWS IQ.
+
+_(Source: Nordea Annual Report 2024; OP Group Annual Report 2024)_
 
 **The Qivalis window opens Q3 2026.
 The compliance obligation is already open.**
