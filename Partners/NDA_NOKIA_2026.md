@@ -18,7 +18,7 @@ Business Identity Code: 0772407-9
 VAT ID: FI07724079
 Registered Address: Laidunmaanraitti 2 A 25, 02330 Espoo, Finland
 Country of Incorporation: Finland
-Contact: Risto Anton Paarni, CEO
+Contact: Risto Anton Päärni, CEO
 Email: risto.paarni@lifetime.fi
 Phone: +358 400 319 010
 
@@ -337,7 +337,7 @@ IN WITNESS WHEREOF, the Parties have executed this Agreement as of the date last
 LIFETIME OY (Party A)
 
 Signature: ****************\_****************
-Name: Risto Anton Paarni
+Name: Risto Anton Päärni
 Title: CEO
 Date: April 14, 2026
 Place: Espoo, Finland
@@ -372,7 +372,7 @@ The following individuals are authorized to receive Confidential Information on 
 
 Lifetime Oy:
 
-1. Risto Anton Paarni - CEO - risto.paarni@lifetime.fi - Full
+1. Risto Anton Päärni - CEO - risto.paarni@lifetime.fi - Full
 2.
 3.
 
@@ -390,7 +390,7 @@ Classification: Confidential
 Created: April 14, 2026
 Last Modified: April 14, 2026
 Author: Lifetime Oy Legal
-Approved By: Risto Anton Paarni
+Approved By: Risto Anton Päärni
 Review Date: April 14, 2027
 
 END OF AGREEMENT
