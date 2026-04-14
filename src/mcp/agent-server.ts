@@ -655,13 +655,23 @@ export function createMCPRouter(): Router {
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Cache-Control', 'no-cache');
     res.setHeader('Connection', 'keep-alive');
+    res.setHeader('X-Accel-Buffering', 'no'); // Disable nginx buffering
+
+    // Send initial connection confirmation
+    res.write('data: {"type":"connected","message":"MCP SSE stream connected"}\n\n');
 
     // Subscribe to all agent events and forward via SSE
     const unsubscribe = eventBus.subscribe('*', async (event) => {
       res.write(`data: ${JSON.stringify(event)}\n\n`);
     });
 
+    // Heartbeat every 15s to prevent upstream proxy timeouts
+    const heartbeat = setInterval(() => {
+      res.write(': heartbeat\n\n');
+    }, 15_000);
+
     req.on('close', () => {
+      clearInterval(heartbeat);
       unsubscribe();
       res.end();
     });
