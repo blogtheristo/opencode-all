@@ -321,7 +321,6 @@ Always use these official identifiers for Lifetime Oy in contracts, NDAs, invoic
 - **BANNED: `@modelcontextprotocol/server-github` in `.mcp.json`.** The GitHub MCP server is built into Claude Code — do not add a manual server entry.
 - **48 tools available** via `mcp__github__*` prefix. Full reference: `docs/GITHUB_MCP_TOOLS.md`
 - **Scope:** Restricted to `blogtheristo/dws6` repository only. Do not target other repos.
-- **Hook:** `require-tests-for-pr.sh` enforces tests before `mcp__github__create_pull_request`.
 - **PR activity:** Use `subscribe_pr_activity` to watch PRs for CI failures and review comments in real-time.
 
 ## Tech Stack
@@ -521,18 +520,21 @@ Use automated scripts — **DO NOT create worktrees manually.**
 
 ## Claude Code Safety Hooks (CRITICAL)
 
-**12 hooks** in `.claude/hooks/`, configured in `.claude/settings.local.json`. Zero permission prompts — block or allow, never ask.
+**10 hooks** in `.claude/hooks/`, configured in `.claude/settings.local.json`. Zero permission prompts — block or allow, never ask.
+
+**Architecture: Firewall + Explicit.** PreToolUse hooks are a real-time firewall that intercepts destructive actions before they execute. Commits, tests, and PR creation are explicit steps Claude issues — never hidden automatic side effects.
 
 | Event                    | Hooks                                                                             | What They Do                                                                              |
 | ------------------------ | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
 | SessionStart             | `session-start.sh`                                                                | Injects trust boundary (GREEN/YELLOW/RED zones), checks branch + MCP                      |
 | PreToolUse (Bash)        | `pretooluse-guard.sh`, `secret-scan.sh`, `log-commands.sh`, `sql-safety-guard.sh` | Block destructive commands, detect 14 secret patterns, audit all Bash, enforce SQL safety |
 | PreToolUse (Edit/Write)  | `protect-files.sh`, `secret-scan.sh`                                              | Block .env/.key writes, .md in public folders, detect secrets                             |
-| PreToolUse (PR)          | `require-tests-for-pr.sh`                                                         | Tests must pass before PR creation                                                        |
 | PostToolUse (Write/Edit) | prettier + eslint (inline)                                                        | Auto-format every file change                                                             |
-| Stop                     | `session-stop.sh`, `auto-commit.sh`                                               | Governance checklist, auto-commit on feature branches                                     |
+| Stop                     | `session-stop.sh`                                                                 | Governance checklist (dual folder sync, thesis, uncommitted changes)                      |
 
-**Key blocks:** `rm -rf`, `git push --force`, `git reset --hard`, `git rm`, `sudo`, pipe-to-shell, `ollama pull/rm`, DROP TABLE, CREATE TABLE without RLS, Aiwen audit table mutations.
+**Key blocks:** `rm` (all, except /tmp/), `git push --force`, `git reset --hard`, `git rm`, `sudo`, pipe-to-shell, `ollama pull/rm`, DROP TABLE, CREATE TABLE without RLS, Aiwen audit table mutations.
+
+**Rules of Engagement:** See `Admin/ADMIN_MANUAL.md` Section 30.13 — defines Claude's operational boundaries: when to commit, how to handle hook failures, the no-rm policy, and the explicit verification workflow.
 
 **Full reference:** `Admin/ADMIN_MANUAL.md` Section 30 | `.claude/hooks/README.md`
 

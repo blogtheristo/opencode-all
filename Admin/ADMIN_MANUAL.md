@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.4
+Version: 3.5
 
 Sessions & Modifications:
 
+- Version: 3.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/fix-partners-stub-issue-A7eFH | Date: 14.04.2026 | Changes: Section 30 revised — removed auto-commit.sh and require-tests-for-pr.sh hooks (Firewall+Explicit architecture); updated hook count 12→10; added Section 30.13 Rules of Engagement (ROE), Section 30.14 No-RM Policy and \_OLD Convention, Section 30.15 Explicit Verification Workflow; updated CLAUDE.md hook table; hook philosophy shift from hidden automation to explicit human-visible steps
 - Version: 3.4 | Tool: Claude Code (Opus 4.6) | Session: claude/connect-kya-dws-cli-0MMIB | Date: 10.04.2026 | Changes: Added Section 33 (DWS CLI Operator Reference) — KYA CLI admin workflow (status/dry-run/snap), destructive action authorization matrix cross-reference, Knowledge Base folder ownership rules (kb/raw/ human-owned, kb/wiki/ LLM-owned, kb/ephemeral/ auto-swept), daily kb-cleanup.sh automation, slash command wrappers /kya and /kb
 - Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: claude/replace-actions-with-cron-6A9Fr | Date: 08.04.2026 | Changes: Added Section 32 (GitHub Actions & Cron Job Registry) — full audit of 35 workflows and 22 cron scripts, removed cron schedules from 7 daily/weekly GitHub Actions (saving ~1,200 min/month), DGX Spark is primary runtime, GitHub Actions failover only with workflow_dispatch
 - Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: claude/setup-safety-hooks-vyt21 | Date: 04.04.2026 | Changes: Added Section 30 (Claude Code Safety Hooks Reference) — full documentation of 12 hooks across 4 event types, deny patterns, secret scanner patterns, SQL safety rules, file protection rules, trust boundary zones, audit logging, testing instructions; updated Section 27.3 hooks summary to reflect current state
@@ -3065,16 +3066,19 @@ This section documents the DWS6 Claude Code engineering structure — the patter
 | `pre-push`   | Before git push | Branch name validation, blocks destructive deletes |
 | `post-merge` | After merge     | Syncs Admin/, AgentFoundry/, docs/ to backup       |
 
-**Claude Code hooks** (`.claude/hooks/`) — **12 hooks across 4 event types**, configured in `.claude/settings.local.json`. Full reference: [Section 30](#section-30-claude-code-safety-hooks-reference).
+**Claude Code hooks** (`.claude/hooks/`) — **10 hooks across 4 event types**, configured in `.claude/settings.local.json`. Full reference: [Section 30](#section-30-claude-code-safety-hooks-reference).
 
-| Event                    | Hooks                                                                             | Design                                                |
-| ------------------------ | --------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| SessionStart             | `session-start.sh`                                                                | Injects trust boundary (GREEN/YELLOW/RED zones)       |
-| PreToolUse (Bash)        | `pretooluse-guard.sh`, `secret-scan.sh`, `log-commands.sh`, `sql-safety-guard.sh` | Block destructive commands, detect secrets, audit     |
-| PreToolUse (Edit/Write)  | `protect-files.sh`, `secret-scan.sh`                                              | Block .env/.key writes, .md in public folders         |
-| PreToolUse (PR create)   | `require-tests-for-pr.sh`                                                         | Hard gate: tests must pass before PR                  |
-| PostToolUse (Write/Edit) | prettier, eslint (inline)                                                         | Auto-format on every file change                      |
-| Stop                     | `session-stop.sh`, `auto-commit.sh`                                               | Governance checklist, auto-commit on feature branches |
+**Architecture: Firewall + Explicit.** PreToolUse hooks are a passive safety system — they intercept destructive tool calls before they execute regardless of Claude's intent. Commits, tests, and PR creation are Claude's explicit steps. See [Section 30.13 — Rules of Engagement](#3013-rules-of-engagement-roe) for the full operational policy Claude follows.
+
+| Event                    | Hooks                                                                             | Design                                            |
+| ------------------------ | --------------------------------------------------------------------------------- | ------------------------------------------------- |
+| SessionStart             | `session-start.sh`                                                                | Injects trust boundary (GREEN/YELLOW/RED zones)   |
+| PreToolUse (Bash)        | `pretooluse-guard.sh`, `secret-scan.sh`, `log-commands.sh`, `sql-safety-guard.sh` | Block destructive commands, detect secrets, audit |
+| PreToolUse (Edit/Write)  | `protect-files.sh`, `secret-scan.sh`                                              | Block .env/.key writes, .md in public folders     |
+| PostToolUse (Write/Edit) | prettier, eslint (inline)                                                         | Auto-format on every file change                  |
+| Stop                     | `session-stop.sh`                                                                 | Advisory governance checklist                     |
+
+**Removed (2026-04-14):** `require-tests-for-pr.sh` (duplicate of CI gate) · `auto-commit.sh` (silent commits caused hook regressions — see incident 2026-04-13). Both files renamed to `_OLD` and archived.
 
 **Design principle:** Zero permission prompts. Block or allow, never ask.
 
@@ -3610,11 +3614,15 @@ _Added: v3.2 (04.04.2026) — Branch: claude/setup-safety-hooks-vyt21_
 
 ### 30.1 Overview
 
-DWS6 uses **12 Claude Code hooks** across 4 event types to enforce safety, security, and code quality automatically. All hooks are in `.claude/hooks/` and configured in `.claude/settings.local.json`.
+DWS6 uses **10 Claude Code hooks** across 4 event types. All hooks are in `.claude/hooks/` and configured in `.claude/settings.local.json`.
 
-**Design philosophy:** Zero permission prompts. Every hook either blocks (exit 2) or allows (exit 0). Never prompts the user to decide. This eliminates decision fatigue from constant approval dialogs.
+**Architecture: Firewall + Explicit** (revised 2026-04-14). PreToolUse hooks are a real-time firewall that intercepts destructive actions before they execute — these cannot be replicated by CI/CD because by the time CI runs, a file is already destroyed. Commits, test runs, and PR creation are Claude's explicit steps, issued as visible commands. No hidden automatic state changes.
 
-**Architecture:** Allow-first. Safe command prefixes (node, npx, npm, python, git commit, etc.) are allowed immediately before any deny checks run. This prevents false positives from SQL/git keywords inside string literals, commit messages, or inline scripts.
+**Design philosophy:** Zero permission prompts. Every hook either blocks (exit 2) or allows (exit 0). Never prompts the user to decide.
+
+**Allow-first:** Safe command prefixes (node, npx, npm, python, git commit, etc.) bypass deny checks immediately. This prevents false positives from SQL/git keywords inside string literals, commit messages, or inline scripts.
+
+**Rules of Engagement:** See [Section 30.13](#3013-rules-of-engagement-roe) — the authoritative policy Claude follows for commits, hook failures, file retirement, and verification.
 
 ### 30.2 Hook Inventory
 
@@ -3640,12 +3648,6 @@ DWS6 uses **12 Claude Code hooks** across 4 event types to enforce safety, secur
 | File Protector | `protect-files.sh` | Blocks writes to: `.env*`, `.git/*`, `*.pem/*.key/*.secret`, `credentials.json`, `supabase/migrations/*.sql`, lockfiles, `.md` files in public site folders |
 | Secret Scanner | `secret-scan.sh`   | Same 14-pattern scan on file content being written                                                                                                          |
 
-#### PreToolUse Hooks — PR Creation
-
-| Hook      | File                      | Purpose                                                              |
-| --------- | ------------------------- | -------------------------------------------------------------------- |
-| Test Gate | `require-tests-for-pr.sh` | Hard gate: runs `npm run test`, blocks PR creation if any test fails |
-
 #### PostToolUse Hooks — Write/Edit
 
 | Hook     | Command                         | Purpose                                             |
@@ -3655,10 +3657,11 @@ DWS6 uses **12 Claude Code hooks** across 4 event types to enforce safety, secur
 
 #### Stop Hooks
 
-| Hook         | File              | Purpose                                                                                                                                                        |
-| ------------ | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Session Stop | `session-stop.sh` | Advisory governance checklist: uncommitted changes, dual folder sync, thesis file consistency, .md in public folders, standards updates                        |
-| Auto-Commit  | `auto-commit.sh`  | Auto-commits staged changes on feature branches at session end. Skips main/master. Message format: `chore(ai): auto-commit N file(s) on session stop [branch]` |
+| Hook         | File              | Purpose                                                                                                              |
+| ------------ | ----------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Session Stop | `session-stop.sh` | Advisory governance checklist: uncommitted changes, dual folder sync, thesis file consistency, .md in public folders |
+
+**Removed (2026-04-14):** `auto-commit.sh` — silent commits caused hook regressions (committed stale hook files, reverting fixes). Commits are now explicit. `require-tests-for-pr.sh` — duplicate of CI/CD gate, removed to reduce local rigidity.
 
 #### Other
 
@@ -3787,6 +3790,212 @@ echo '{"tool_name":"Bash","tool_input":{"command":"psql -c \"CREATE TABLE foo (i
 | `CLAUDE.md`                        | Security rules that hooks enforce    |
 | `Admin/SECURITY_COMPLIANCE.md`     | Enterprise security controls         |
 | `DWS_SECURITY_STANDARD.md`         | AI safety framework                  |
+
+### 30.13 Rules of Engagement (ROE)
+
+_This section is the authoritative policy Claude reads to understand its operational boundaries. It defines what Claude does autonomously, what requires explicit human-visible steps, and how to respond when the firewall blocks an action._
+
+**Core principle:** The system maintains a real-time firewall (PreToolUse hooks) that blocks disasters before they happen. Everything else — commits, tests, PRs — is Claude's explicit responsibility, issued as visible commands the human can review.
+
+#### Rule 1: The Operational Firewall — Respect It, Don't Debug It
+
+The PreToolUse hooks block non-negotiable actions:
+
+| Blocked Action                                   | Why                                                    |
+| ------------------------------------------------ | ------------------------------------------------------ |
+| Overwriting large files with stubs               | Prevents the Partners page incident (2026-04-13)       |
+| Writing to `.env`, `.key`, `.pem`, credentials   | Secrets must never touch disk via AI tooling           |
+| `rm` on any path outside `/tmp/`                 | All file retirement is via `git mv` with `_OLD` suffix |
+| `git rm`, `git push --force`, `git reset --hard` | Destructive git operations                             |
+| `sudo`, pipe-to-shell                            | System-level escalation                                |
+| `DROP TABLE` without approval comment            | DB schema destruction                                  |
+
+**When a hook blocks you:**
+
+1. Read the BLOCKED message — it states the exact rule violated.
+2. Do not attempt to modify or bypass the hook script unless explicitly instructed by the human.
+3. Identify why the action was blocked: "I tried to overwrite a protected file" / "I used rm instead of git mv".
+4. Propose a compliant alternative. Example: blocked on `rm src/old.ts` → propose `git mv src/old.ts src/old_OLD.ts` and update `OLD-FILE-INDEX.txt`.
+
+#### Rule 2: Explicit Commit Protocol — No Silent Commits
+
+`auto-commit.sh` is permanently disabled. Claude must never assume a commit happened automatically.
+
+At the end of any task that modifies files:
+
+```bash
+git status                          # review what changed
+git diff --stat                     # confirm scope
+git add path/to/changed-file.ts     # stage specific files (not git add -A)
+git commit -m "feat: description"   # commit with clear message
+git push -u origin <branch-name>    # push explicitly
+```
+
+**Never use `git add -A` or `git add .`** without reviewing `git status` first — these can stage sensitive files or unrelated changes.
+
+#### Rule 3: Verification Before PR — Explicit, Not Hidden
+
+`require-tests-for-pr.sh` is permanently disabled. Claude runs verification explicitly so the human sees the output and can act on failures within the same session.
+
+Before creating a PR:
+
+```bash
+npm run test        # all tests must pass
+npm run lint        # zero lint errors
+```
+
+If a site file changed, also verify dual-folder sync:
+
+```bash
+diff dws10.com/buy/index.html landing-pages/dws10-com/buy/index.html
+```
+
+Only after these pass should Claude proceed to create the PR.
+
+#### Rule 4: File Retirement — Always `git mv`, Never `rm`
+
+All file deletions in this repository are banned. The only permitted retirement method:
+
+```bash
+# Retire a file
+git mv src/old-module.ts src/old-module_OLD.ts
+
+# Then manually add to .claude/archive/OLD-FILE-INDEX.txt:
+# 2026-04-14 | src/old-module_OLD.ts | src/old-module.ts | RETIRED | reason
+```
+
+After `git mv`, Claude explicitly appends the entry to `OLD-FILE-INDEX.txt` as a discrete step — not automated, not deferred.
+
+#### Rule 5: When Stuck, Surface It — Don't Workaround
+
+If the firewall blocks an action and no compliant alternative is obvious, stop and surface the conflict to the human:
+
+```
+BLOCKED: [hook message]
+I cannot [action] because [rule].
+Compliant options:
+  A) [alternative 1]
+  B) [alternative 2]
+Which should I proceed with?
+```
+
+Never silently work around a hook block by finding a different shell incantation that bypasses it.
+
+#### Rule 6: Atomic Changes — Structural and Logic Separately
+
+Never combine a structural rename (`git mv`) with a logic change in the same commit. These must be discrete operations:
+
+1. **Commit 1 — Structure:** `git mv <file> <file_OLD.ext>` + update `OLD-FILE-INDEX.txt`
+2. **Commit 2 — Logic:** The actual code change that replaces the retired file
+
+**Why:** Combining them makes `OLD-FILE-INDEX.txt` ambiguous (was this a retire or a rewrite?), breaks `git bisect`, and makes it impossible to verify that the rename preserved the original content before the logic changed it.
+
+#### Rule 7: Targeted Context Refresh Before High-Risk Operations
+
+Before any high-risk operation, re-read the specific Admin Manual section that governs it — not the full document (4,200+ lines would consume most available context):
+
+| Operation                            | Re-read before starting                            |
+| ------------------------------------ | -------------------------------------------------- |
+| Database migration                   | Section 30.6 (SQL Safety Rules)                    |
+| File retirement / folder restructure | Section 30.14 (No-RM Policy)                       |
+| PR creation                          | Section 30.15 (Explicit Verification Workflow)     |
+| Hook modification                    | Section 30.1–30.4 (Hook Inventory + Deny Patterns) |
+| Secret or credential handling        | Section 30.5 (Secret Scanner patterns)             |
+
+```bash
+# Example: before a DB migration, Claude explicitly reads:
+# Admin/ADMIN_MANUAL.md Section 30.6
+```
+
+This is a deliberate state synchronization — ensuring the session's active context reflects the current safety protocol, not a stale version from context compression.
+
+### 30.14 No-RM Policy and \_OLD Convention
+
+#### The Rule
+
+```bash
+# CORRECT — retire a file
+git mv src/old-module.ts src/old-module_OLD.ts
+
+# BLOCKED by pretooluse-guard.sh — never permitted
+rm src/old-module.ts
+git rm src/old-module.ts
+```
+
+`pretooluse-guard.sh` blocks all `rm` commands that do not target `/tmp/`. The only exception: temp/build artifact cleanup in `/tmp/`.
+
+**Why:** `rm` destroys git history. `_OLD` files remain in the repository, are diffable, and can be recovered by any team member. The `_OLD` suffix is the only permitted retirement signal.
+
+#### Updating OLD-FILE-INDEX.txt
+
+`.claude/archive/OLD-FILE-INDEX.txt` is the authoritative audit trail of all retired files. When retiring a file:
+
+1. Run `git mv <source> <source_OLD.ext>`
+2. Open `.claude/archive/OLD-FILE-INDEX.txt`
+3. Append a new entry at the bottom (under "NEW ENTRIES"):
+
+```
+YYYY-MM-DD | path/to/file_OLD.ext | path/to/original.ext | RETIRED | reason
+```
+
+Fields:
+
+| Field           | Description                                                                 |
+| --------------- | --------------------------------------------------------------------------- |
+| `_OLD_PATH`     | The archived file path (e.g. `src/old-module_OLD.ts`)                       |
+| `ORIGINAL_PATH` | The active file it replaced — `none` if fully retired                       |
+| `STATUS`        | `RETIRED` (no active counterpart) or `OK` (active counterpart still exists) |
+| `REASON`        | Brief description of why it was retired                                     |
+
+Entries are **never deleted** — this is a permanent audit trail.
+
+#### Diffing \_OLD Files
+
+```bash
+# Compare retired file to its current replacement
+diff path/to/file_OLD.ext path/to/file.ext
+
+# Git-native diff across history
+git diff HEAD -- path/to/original.ext path/to/file_OLD.ext
+```
+
+#### Anomaly Scan
+
+To verify no `_OLD` file is empty or anomalously small:
+
+```bash
+git ls-files | grep "_OLD" | while read f; do
+  echo "$(wc -l < "$f") $f"
+done | sort -n
+```
+
+Flag any file with 0 lines or unexpectedly fewer lines than its active counterpart.
+
+### 30.15 Explicit Verification Workflow
+
+This replaces the former `session-stop.sh` advisory checklist as an action pattern. Run these steps explicitly at the end of any significant task:
+
+```bash
+# 1. Check what changed
+git status
+git diff --stat
+
+# 2. Run tests (must pass before PR)
+npm run test
+
+# 3. Check dual-folder sync if site files changed
+diff dws10.com/buy/index.html landing-pages/dws10-com/buy/index.html
+# (adjust paths to whatever site was modified)
+
+# 4. Commit staged changes
+git add src/changed-file.ts
+git commit -m "feat: clear description of what changed and why"
+
+# 5. Push
+git push -u origin claude/<branch-name>
+```
+
+Claude issues each of these commands explicitly and reads the output. If a step fails, Claude fixes the failure in the same session before moving on — not deferred to CI.
 
 ---
 

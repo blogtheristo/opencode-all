@@ -73,6 +73,7 @@ Thumbs.db
 .claude/*
 !.claude/hooks/
 !.claude/settings.local.json
+!.claude/archive/
 .claude/hooks/audit/
 .claude/command-log.txt
 claude-output.json

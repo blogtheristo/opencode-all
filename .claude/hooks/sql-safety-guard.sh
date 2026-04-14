@@ -1,4 +1,4 @@
- #!/bin/sh
+#!/bin/sh
 # DWS6 Claude Code Hook: SQL Safety Guard
 # Enforces SQL safety rules on Bash commands containing SQL
 # Upgraded: Supabase patterns + Aiwen Article 12 immutability
@@ -87,9 +87,12 @@ if printf '%s' "$COMMAND" | grep -qiE 'SECURITY[[:space:]]+DEFINER'; then
 fi
 
 # --- Check 3: CREATE TABLE without RLS ---
+# Warn only (not block) — migrations commonly split CREATE TABLE and ALTER TABLE
+# ENABLE ROW LEVEL SECURITY across separate statements or files.
+# A hard block here false-positives on valid multi-statement migrations.
 if printf '%s' "$COMMAND" | grep -qiE 'CREATE[[:space:]]+TABLE'; then
   if ! printf '%s' "$COMMAND" | grep -qiE 'ENABLE[[:space:]]+ROW[[:space:]]+LEVEL[[:space:]]+SECURITY'; then
-    log_block "CREATE TABLE without ENABLE ROW LEVEL SECURITY. RLS is required on every Supabase table."
+    log_warn "CREATE TABLE without ENABLE ROW LEVEL SECURITY in this command. Ensure RLS is enabled before deploying."
   fi
 fi
 

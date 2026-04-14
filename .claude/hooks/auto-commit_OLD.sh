@@ -12,8 +12,14 @@ case "$BRANCH" in
     exit 0 ;;
 esac
 
-# Stage all and commit if there are changes
+# Stage all changes EXCEPT hook files.
+# Root cause of 2026-04-13 incident: a session worktree had an older copy of
+# protect-files.sh (pre-Partners-protection). git add -A staged it, then the
+# auto-commit on session stop committed the regression, silently removing all
+# safety rules. Hook files must always be committed intentionally by the human.
 git add -A
+git restore --staged .claude/hooks/ 2>/dev/null || true
+
 if ! git diff --cached --quiet; then
   CHANGED_COUNT=$(git diff --cached --name-only | wc -l | tr -d ' ')
   git commit -m "chore(ai): auto-commit $CHANGED_COUNT file(s) on session stop [$BRANCH]"
