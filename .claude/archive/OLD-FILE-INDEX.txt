@@ -48,3 +48,4 @@ FORMAT: YYYY-MM-DD | path/to/file_OLD.ext | path/to/original.ext | RETIRED/OK | 
 
 2026-04-14 | .claude/hooks/auto-commit_OLD.sh          | .claude/hooks/auto-commit.sh          | RETIRED | Silent auto-commit at session stop caused hook regressions (committed stale hook files, reverting fixes). Firewall+Explicit architecture 2026-04-14.
 2026-04-14 | .claude/hooks/require-tests-for-pr_OLD.sh | .claude/hooks/require-tests-for-pr.sh | RETIRED | Duplicate of CI/CD gate. Removed as part of Firewall+Explicit hook simplification 2026-04-14.
+2026-04-14 | scripts/run-morning-briefing_OLD.sh        | none                                  | RETIRED | V1 orphan superseded by run-morning-emails.sh (V2). Zero references in codebase; no daily/ wrapper; unreachable by day-runner.
