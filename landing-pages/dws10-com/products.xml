@@ -7,7 +7,7 @@
     <item>
       <g:id>DWS-IQ-006</g:id>
       <g:title>Lifetime DWS IQ Platform (Version 6)</g:title>
-      <g:description>&lt;p&gt;Stop risking fines and lost tenders. DWS IQ 6 deploys 18+ GodAgents with agentic loops (observe-think-act) to automate Fit for 55, CSRD, and EPBD compliance across 20 EU industries — cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;18+ GodAgents with MCP protocol and CLI access&lt;/li&gt;&lt;li&gt;Automate Fit for 55, CSRD &amp; EPBD reporting&lt;/li&gt;&lt;li&gt;90% reduction in manual compliance hours&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:description>&lt;p&gt;Stop risking fines and lost tenders. DWS IQ 6 automates Fit for 55, CSRD, and EPBD reporting across your operation — cutting 90% of manual compliance hours while producing audit-ready documentation. EU-hosted, EU-owned. Deploy in 30 days.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Automate Fit for 55, CSRD &amp; EPBD reporting&lt;/li&gt;&lt;li&gt;90% reduction in manual compliance hours&lt;/li&gt;&lt;li&gt;EU-hosted, deploy in 30 days&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/dws-iq-006.html</g:link>
       <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
       <g:condition>new</g:condition>
@@ -35,14 +35,14 @@
       <g:title>Climate Reporting Starter Bundle</g:title>
       <g:description>&lt;h1&gt;Climate Reporting Starter Bundle&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Price:&lt;/strong&gt; €8,800 (One-time Setup) + €1,999 / year
-&lt;strong&gt;Includes:&lt;/strong&gt; DWS IQ Base Platform, DWS IQ Report Module, and Kickoff Workshop.&lt;/p&gt;
+&lt;strong&gt;Includes:&lt;/strong&gt; DWS IQ Base Platform, Firehorse Report Module, and Kickoff Workshop.&lt;/p&gt;
 &lt;h2&gt;Description&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;The Flagship Offer for 2026.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;The fastest, safest path to &quot;Fit for 55&quot; compliance. We combine our industrial &quot;Brain&quot; (DWS IQ) with our automated &quot;Last Mile&quot; reporting tool (DWS IQ Report) to give you a complete, audit-ready climate reporting stack in 4 weeks.&lt;/p&gt;
+&lt;p&gt;The fastest, safest path to &quot;Fit for 55&quot; compliance. We combine our industrial &quot;Brain&quot; (DWS IQ) with our automated &quot;Last Mile&quot; reporting tool (Firehorse Report) to give you a complete, audit-ready climate reporting stack in 4 weeks.&lt;/p&gt;
 &lt;h2&gt;What's Inside?&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;DWS IQ Base (Value €4,999):&lt;/strong&gt; The industrial AI platform deployed in your cloud. Validates and stores your operational data.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;DWS IQ Report (Value €1,999):&lt;/strong&gt; The automation module that turns that data into your specific Board Pack / Annual Report format.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Firehorse Report (Value €1,999):&lt;/strong&gt; The automation module that turns that data into your specific Board Pack / Annual Report format.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Kickoff Package (Value €3,000):&lt;/strong&gt; Expert scoping and setup to ensure the first report is perfect.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;strong&gt;Total Value:&lt;/strong&gt; €9,998
@@ -52,7 +52,7 @@
 You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot;a consultant.&quot; You need to pass your audit. This bundle delivers the specific outcome: &lt;strong&gt;A compliant, automated Annual Report.&lt;/strong&gt;&lt;/p&gt;
 &lt;h2&gt;Usage Scenario&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Month 1:&lt;/strong&gt; We deploy DWS IQ and map your data.
-&lt;strong&gt;Month 2:&lt;/strong&gt; We configure the DWS IQ Report template.
+&lt;strong&gt;Month 2:&lt;/strong&gt; We configure the Firehorse Report template.
 &lt;strong&gt;Month 3:&lt;/strong&gt; You generate your first automated Board Pack.
 &lt;strong&gt;Month 4:&lt;/strong&gt; You pass your audit.&lt;/p&gt;
 &lt;h2&gt;Ideal For&lt;/h2&gt;
@@ -85,26 +85,13 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
     </item>
     <item>
       <g:id>FH-RPT-001</g:id>
-      <g:title>DWS IQ Report</g:title>
+      <g:title>Firehorse Report</g:title>
       <g:description>&lt;p&gt;Replace 200+ hours of manual report building with one automated template. Fit for 55 compliant dashboards with SAP integration, real-time data feeds, and 4-week validation included. Your compliance team gets their weekends back.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Automated Fit for 55 dashboards&lt;/li&gt;&lt;li&gt;SAP integration with real-time data&lt;/li&gt;&lt;li&gt;4-week validation included&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/fh-rpt-001.html</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>1999 EUR</g:price>
-      <g:brand>DWS IQ</g:brand>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
-      <g:identifier_exists>no</g:identifier_exists>
-    </item>
-    <item>
-      <g:id>FH-SIGN-001</g:id>
-      <g:title>Firehorse Signed Reports</g:title>
-      <g:description>&lt;p&gt;Add legally binding eSignatures to any Firehorse report. Compliance reports, carbon assessments, and investor reports get DocuSign eSignature — court-defensible, audit-ready, with full tracking. Author, reviewer, and auditor sign in sequence. Signed PDFs auto-archived.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;DocuSign eSignature on all Firehorse reports&lt;/li&gt;&lt;li&gt;Multi-party signing (author → reviewer → auditor)&lt;/li&gt;&lt;li&gt;Signed PDF download and audit trail&lt;/li&gt;&lt;/ul&gt;</g:description>
-      <g:link>https://dws10.com/products/fh-sign-001.html</g:link>
-      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>199 EUR</g:price>
       <g:brand>Firehorse</g:brand>
       <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
@@ -344,6 +331,19 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
+      <g:id>agentti-sanasto</g:id>
+      <g:title>Agentti Sanasto Englanti-Suomi</g:title>
+      <g:description>&lt;p&gt;Master AI agent terminology in Finnish. Comprehensive English-to-Finnish glossary covering all key agentic AI concepts with detailed explanations. Essential reference for Finnish tech teams working with international AI tools.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;English-Finnish AI terminology&lt;/li&gt;&lt;li&gt;Comprehensive agent concepts&lt;/li&gt;&lt;li&gt;Essential for Finnish tech teams&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:link>https://dws10.com/products/agentti-sanasto.html</g:link>
+      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>0.99 EUR</g:price>
+      <g:brand>Lifetime</g:brand>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
       <g:id>devops-lead</g:id>
       <g:title>Manufacturing AI Readiness Assessment</g:title>
       <g:description>&lt;p&gt;Find out if your factory floor is AI-ready in 2 weeks. Complete manufacturing intelligence assessment with workflow scoring, ROI projection, automated deployment, performance dashboard, and 30-day monitoring. Clear go/no-go for your next investment.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Complete AI readiness assessment&lt;/li&gt;&lt;li&gt;ROI projection included&lt;/li&gt;&lt;li&gt;30-day performance monitoring&lt;/li&gt;&lt;/ul&gt;</g:description>
@@ -422,19 +422,6 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
-      <g:id>DWS-SOVEREIGN-DB-001</g:id>
-      <g:title>Sovereign Database — EU Data Sovereignty for PostgreSQL</g:title>
-      <g:description>&lt;p&gt;Your EU customer data on a US-owned cloud is a liability. Sovereign Database eliminates CLOUD Act exposure with EU-hosted, EU-owned PostgreSQL, continuous sovereignty monitoring, and automated compliance scoring. Free assessment, paid tiers from €499/mo.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Zero CLOUD Act exposure&lt;/li&gt;&lt;li&gt;Continuous sovereignty monitoring agent&lt;/li&gt;&lt;li&gt;8-dimension compliance scoring&lt;/li&gt;&lt;/ul&gt;</g:description>
-      <g:link>https://dws10.com/products/dws-sovereign-db-001.html</g:link>
-      <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>0 EUR</g:price>
-      <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
-      <g:identifier_exists>no</g:identifier_exists>
-    </item>
-    <item>
       <g:id>sovereignty-cloud-consulting</g:id>
       <g:title>Sovereignty Cloud Consulting – European Cloud Migration</g:title>
       <g:description>&lt;p&gt;Your US-hosted data is exposed to the CLOUD Act — and your EU clients know it. We migrate you to sovereign European infrastructure (OVHcloud, Hetzner, Supabase EU) with DPA creation, NIS2 compliance, and EU AI Act alignment. 78% of EU companies plan to reduce US cloud dependency.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;European sovereign cloud migration&lt;/li&gt;&lt;li&gt;CLOUD Act free infrastructure&lt;/li&gt;&lt;li&gt;NIS2, GDPR &amp; EU AI Act aligned&lt;/li&gt;&lt;/ul&gt;</g:description>
@@ -445,221 +432,6 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
       <g:price>1500 EUR</g:price>
       <g:brand>Lifetime</g:brand>
       <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
-      <g:identifier_exists>no</g:identifier_exists>
-    </item>
-    <item>
-      <g:id>DWS-US-STARTER</g:id>
-      <g:title>DWS IQ — US Cloud Starter</g:title>
-      <g:description>&lt;p&gt;Get started with DWS IQ on US Cloud infrastructure (Supabase + Cloudflare). 3 AI agents, basic CSRD dashboard, 1 user seat. Fastest path to compliance — upgrade to EU Sovereign anytime.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;3 AI agents (Compliance, Report, Discovery)&lt;/li&gt;&lt;li&gt;Basic CSRD compliance dashboard&lt;/li&gt;&lt;li&gt;Supabase + Cloudflare infrastructure&lt;/li&gt;&lt;/ul&gt;</g:description>
-      <g:link>https://dws10.com/products/dws-us-starter.html</g:link>
-      <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>299 EUR</g:price>
-      <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
-      <g:identifier_exists>no</g:identifier_exists>
-    </item>
-    <item>
-      <g:id>DWS-US-PILOT</g:id>
-      <g:title>DWS IQ — US Cloud Pilot</g:title>
-      <g:description>&lt;p&gt;4-week evaluation with real data on US Cloud. 8 AI agents, Firehorse Report, 5 seats, kickoff workshop. Prove ROI before scaling — upgrade to EU Sovereign anytime.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;8 AI agents (full Firehorse suite)&lt;/li&gt;&lt;li&gt;Firehorse Report module included&lt;/li&gt;&lt;li&gt;5 user seats + kickoff workshop&lt;/li&gt;&lt;/ul&gt;</g:description>
-      <g:link>https://dws10.com/products/dws-us-pilot.html</g:link>
-      <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>799 EUR</g:price>
-      <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
-      <g:identifier_exists>no</g:identifier_exists>
-    </item>
-    <item>
-      <g:id>DWS-EU-STARTER</g:id>
-      <g:title>DWS IQ — EU Sovereign Starter</g:title>
-      <g:description>&lt;p&gt;DWS IQ on EU sovereign infrastructure (Aiven PostgreSQL + Hetzner/Scaleway). 3 AI agents, CSRD dashboard, zero CLOUD Act exposure, sovereignty score monitoring. EU data residency from day 1.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Zero CLOUD Act exposure (EU-owned providers)&lt;/li&gt;&lt;li&gt;Aiven PostgreSQL + Hetzner/Scaleway&lt;/li&gt;&lt;li&gt;Sovereignty score monitoring&lt;/li&gt;&lt;/ul&gt;</g:description>
-      <g:link>https://dws10.com/products/dws-eu-starter.html</g:link>
-      <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>499 EUR</g:price>
-      <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
-      <g:identifier_exists>no</g:identifier_exists>
-    </item>
-    <item>
-      <g:id>DWS-EU-PILOT</g:id>
-      <g:title>DWS IQ — EU Sovereign Pilot</g:title>
-      <g:description>&lt;p&gt;Full EU sovereign evaluation. 8 AI agents, Firehorse Report, Aiwen EU AI Act Article 12 logging, NIS2 dashboard, 5 seats. Zero CLOUD Act. Prove compliance ROI on sovereign infrastructure.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;8 AI agents + Aiwen Article 12 logging&lt;/li&gt;&lt;li&gt;NIS2 compliance dashboard&lt;/li&gt;&lt;li&gt;Zero CLOUD Act + EU data residency&lt;/li&gt;&lt;/ul&gt;</g:description>
-      <g:link>https://dws10.com/products/dws-eu-pilot.html</g:link>
-      <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>1499 EUR</g:price>
-      <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
-      <g:identifier_exists>no</g:identifier_exists>
-    </item>
-    <item>
-      <g:id>DWS-CLIMATE-001</g:id>
-      <g:title>DWS IQ Climate Intelligence</g:title>
-      <g:description>&lt;h1&gt;DWS IQ Climate Intelligence&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;The Agent Outcome Factory for EU Climate Compliance&lt;/strong&gt;&lt;/p&gt;
-&lt;h2&gt;Product Overview&lt;/h2&gt;
-&lt;p&gt;DWS IQ Climate Intelligence is a purpose-built AI agent platform that automates EU climate compliance for industrial companies. Instead of hiring consultants or building spreadsheets, you deploy 8 specialized GodAgents that deliver audit-ready compliance outcomes — ETS allowance calculations, CBAM import obligations, CSRD disclosure reports, and continuous carbon accounting.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Why agents, not dashboards:&lt;/strong&gt; Dashboards show you data. Agents deliver outcomes. Climate Intelligence agents observe your emissions data, think through regulatory requirements, and act by generating compliance documentation — autonomously.&lt;/p&gt;
-&lt;h2&gt;Agents Included&lt;/h2&gt;
-&lt;p&gt;| Agent | Capability | Regulation |
-|-------|-----------|------------|
-| EmissionsDataAnalyst | Natural language queries on emissions data | ETS, CSRD, CBAM |
-| ComplianceAgent | EU regulatory compliance scoring (deterministic) | Fit for 55, ETS, CBAM, CSRD, EU AI Act |
-| ComplianceResearcher | Risk classification and gap analysis | All EU climate regulations |
-| MaterialOracle | Carbon tracking &amp;amp; sustainable procurement | EN 15978, CBAM |
-| BESSAgent | Battery energy storage compliance | RED III, battery regulation |
-| HeliosAgent | Solar/renewables compliance | RED III, EPBD |
-| PrometheusAgent | Hydrogen classification (green/blue/grey) | Delegated Acts 2023/1184, 2023/1185 |
-| ViabilityAgent | Financial + carbon viability scoring | CSRD double materiality |&lt;/p&gt;
-&lt;h2&gt;Core Capabilities&lt;/h2&gt;
-&lt;h3&gt;ETS Calculator&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Installation-level compliance assessment&lt;/li&gt;
-&lt;li&gt;Free allocation formulas (Phase 4: 2021-2030)&lt;/li&gt;
-&lt;li&gt;Surrender obligation calculation&lt;/li&gt;
-&lt;li&gt;Cost projection with real carbon prices (source: EU ETS 2024 average)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3&gt;CBAM Calculator&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;6 covered sectors: cement, steel, aluminium, fertilizers, electricity, hydrogen&lt;/li&gt;
-&lt;li&gt;Import carbon obligation per shipment&lt;/li&gt;
-&lt;li&gt;CBAM certificate pricing&lt;/li&gt;
-&lt;li&gt;Quarterly declaration preparation&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3&gt;ESRS Registry&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;All 82 ESRS disclosures mapped (E1-E5, S1-S4, G1)&lt;/li&gt;
-&lt;li&gt;Mandatory vs. optional flags per company size&lt;/li&gt;
-&lt;li&gt;Gap analysis against current reporting&lt;/li&gt;
-&lt;li&gt;Disclosure-level readiness scoring&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3&gt;Carbon Ledger&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Scope 1/2/3 emissions tracking&lt;/li&gt;
-&lt;li&gt;Debit-credit carbon balance sheet&lt;/li&gt;
-&lt;li&gt;Audit trail with source citations&lt;/li&gt;
-&lt;li&gt;EN 15978 lifecycle stages (A1-D)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;Validated Data Sources&lt;/h2&gt;
-&lt;p&gt;All emission factors and benchmarks come from citable, auditable sources:&lt;/p&gt;
-&lt;p&gt;| Data Type | Source |
-|-----------|--------|
-| ETS benchmarks | EU ETS Benchmark 2021-2025 (Reg. 2021/447) |
-| CBAM defaults | Reg. 2023/1773 default emission values |
-| IPCC factors | IPCC 2006 Guidelines for National Greenhouse Gas Inventories |
-| Sector averages | EEA GHG Inventory 2024, Eurostat SBS |
-| Carbon prices | EU ETS 2024 average (ECB SDW) |&lt;/p&gt;
-&lt;h2&gt;Target Market&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Primary:&lt;/strong&gt; CSRD-obligated companies (50,000+ in EU by 2028)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Sweet spot:&lt;/strong&gt; Mid-sized industrials (50-500 employees) in steel, cement, chemicals, construction, energy&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Geography:&lt;/strong&gt; EU/EEA, with Nordic priority (Finland, Sweden, Norway, Denmark)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;Competitive Positioning&lt;/h2&gt;
-&lt;p&gt;SAP Sustainability Control Tower validates the market. DWS IQ Climate Intelligence owns the non-SAP stack:&lt;/p&gt;
-&lt;p&gt;| Competitor | Gap we fill |
-|-----------|-------------|
-| SAP Sustainability | Too expensive for mid-market. Locked to SAP ERP. |
-| Watershed / Persefoni | US-based. No EU data sovereignty. Dashboard-only, no agent outcomes. |
-| Sweep / Plan A | Manual data collection. No ERP integration. No deterministic scoring. |
-| Big 4 consultants | €200-500k engagements. One-time reports, not continuous compliance. |&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Our edge:&lt;/strong&gt; GodAgent-delivered outcomes (not dashboards), EU-sovereign hosting, deterministic scoring (auditable, reproducible), ERP integration (SAP, IFS, Dynamics), €2,999/mo vs. €200k consultant engagements.&lt;/p&gt;
-&lt;h2&gt;Scope Principle&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;We are the Agent Outcome Factory.&lt;/strong&gt; DWS IQ deploys GodAgents — industry-specific autonomous AI agents — that deliver measurable compliance outcomes. Not dashboards, not reports, not consulting hours. GodAgents observe data, think through regulations, and act by producing audit-ready deliverables. Every product ships GodAgent-delivered outcomes as the primary value unit.&lt;/p&gt;
-&lt;h2&gt;Distribution Strategy&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;Priority channels — all connected ERPs:&lt;/strong&gt;&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;IFS Cloud Marketplace&lt;/strong&gt; — Nordic industrial installed base (Saab, Volvo, Konecranes)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Visma&lt;/strong&gt; — Nordic SME/mid-market ERP footprint&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;SAP Store&lt;/strong&gt; — Firehorse product line, S/4HANA integration&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Microsoft </g:description>
-      <g:link>https://dws10.com/products/dws-climate-001.html</g:link>
-      <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>2999 EUR</g:price>
-      <g:brand>DWS IQ</g:brand>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
-      <g:identifier_exists>no</g:identifier_exists>
-    </item>
-    <item>
-      <g:id>DWS-AEGIS-001</g:id>
-      <g:title>DWS IQ Aegis</g:title>
-      <g:description>&lt;h1&gt;DWS IQ Aegis&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;Dual-Use AI Platform for Defence &amp;amp; Sovereign Operations&lt;/strong&gt;&lt;/p&gt;
-&lt;h2&gt;Product Overview&lt;/h2&gt;
-&lt;p&gt;DWS IQ Aegis is a standalone dual-use AI platform covering all 21 EU-regulated industries (including dual-use critical raw materials) for government agencies, military industry enterprises, and dual-use manufacturing supply chains. It packages sovereignty monitoring, orbital intelligence, agent governance, and EU AI Act compliance into a hardened platform — available exclusively on European cloud or enterprise private cloud.&lt;/p&gt;
-&lt;p&gt;Named after Athena's shield — Aegis provides protection through intelligence, not just walls.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Why Aegis exists:&lt;/strong&gt; Defence and dual-use supply chains face the same EU compliance obligations as civilian ones (CSRD, CBAM, NIS2, CER Directive, CRM Act) — plus export control, data sovereignty, and dual-use regulation. No platform serves this intersection across all 21 industries with cross-vertical signal propagation. Aegis does.&lt;/p&gt;
-&lt;h2&gt;Agents Included&lt;/h2&gt;
-&lt;p&gt;| Agent              | Capability                                                           | Domain                                |
-| ------------------ | -------------------------------------------------------------------- | ------------------------------------- |
-| ArgusAgent         | AI orbital target labeling via SAR satellite data                    | Intelligence, supply chain visibility |
-| SovereigntyMonitor | CLOUD Act exposure detection, EU data residency verification         | Data sovereignty                      |
-| Article12Logger    | EU AI Act audit trails for all AI decisions                          | Regulatory compliance                 |
-| KYA Engine         | Know Your Agent — identity verification, isolation, kill authority   | Agent governance                      |
-| ComplianceAgent    | Dual-use export control + EU climate compliance                      | Regulatory                            |
-| CrossVerticalIntel | Supply chain signal propagation across 21 industries                 | Intelligence                          |
-| GaiaAgent          | Cement, lime &amp;amp; earth materials — dual-use critical raw material risk | Industry                              |
-| VulcanAgent        | Steel &amp;amp; metals — ETS Phase 4, CBAM carbon declarations               | Industry                              |
-| SiteSenseAgent     | Defence construction site safety &amp;amp; logistics                         | Field operations                      |&lt;/p&gt;
-&lt;h2&gt;Core Capabilities&lt;/h2&gt;
-&lt;h3&gt;Orbital Intelligence (Argus)&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;SAR satellite data ingestion and AI labeling (compatible with providers such as ICEYE)&lt;/li&gt;
-&lt;li&gt;All-weather, day/night industrial target detection&lt;/li&gt;
-&lt;li&gt;20 DWS industry classifications from orbit&lt;/li&gt;
-&lt;li&gt;Change detection alerts for infrastructure monitoring&lt;/li&gt;
-&lt;li&gt;Pipeline: AOI → SAR Catalog API → AI labeling → KYA governance → Article 12 audit trail&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3&gt;Sovereignty Assessment&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;CLOUD Act exposure scoring (US vs. EU-sovereign providers)&lt;/li&gt;
-&lt;li&gt;Four sovereignty tiers: Sovereign / Compliant / Partial / Exposed&lt;/li&gt;
-&lt;li&gt;NIS2 alignment verification&lt;/li&gt;
-&lt;li&gt;EU AI Act compliance checks&lt;/li&gt;
-&lt;li&gt;Data residency audit trail&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3&gt;Agent Governance (KYA — Know Your Agent)&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Agent identity verification (Shufti partnership)&lt;/li&gt;
-&lt;li&gt;Firecracker MicroVM sandbox isolation&lt;/li&gt;
-&lt;li&gt;Kill authority — revoke any agent in real-time&lt;/li&gt;
-&lt;li&gt;Forensic observability — full decision audit trail&lt;/li&gt;
-&lt;li&gt;Multi-agent control room for fleet oversight&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3&gt;EU AI Act Article 12 Logging&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Every AI decision logged with risk classification&lt;/li&gt;
-&lt;li&gt;Reasoning lineage preservation&lt;/li&gt;
-&lt;li&gt;Audit-ready documentation for regulators&lt;/li&gt;
-&lt;li&gt;Aiwen environment (EU-only AI compliance layer)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;Target Market&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Primary:&lt;/strong&gt; Government agencies (EU member states, defence ministries)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Secondary:&lt;/strong&gt; Military industry enterprises (defence contractors, shipyards, aerospace)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Tertiary:&lt;/strong&gt; Dual-use manufacturing supply chains (steel, chemicals, electronics, critical infrastructure)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Critical Infrastructure (CER Directive):&lt;/strong&gt; Railway operators, power grid operators, port authorities, gas transmission operators — all EU &quot;essential entities&quot; under CER Directive 2022/2557, facing mandatory infrastructure protection plans by Q4 2026&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Geography:&lt;/strong&gt; EU only — platform available on European cloud or enterprise private cloud. Sovereign deployments: UpCloud Helsinki (Finland/Nordic) or Scaleway Paris (France/Western EU)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Industries:&lt;/strong&gt; All 21 EU-regulated industries under dual-use scope (including lime/critical raw materials)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3&gt;France Market — Critical Infrastructure Signal&lt;/h3&gt;
-&lt;p&gt;SNCF (French national railway) operates a 200-drone surveillance fleet (Delair) monit</g:description>
-      <g:link>https://dws10.com/products/dws-aegis-001.html</g:link>
-      <g:image_link>https://dws10.com/static/images/firehorse-aegis-head.png</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>preorder</g:availability>
-      <g:price>59990 EUR</g:price>
-      <g:brand>DWS IQ</g:brand>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
