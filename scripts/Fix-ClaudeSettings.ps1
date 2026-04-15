@@ -25,13 +25,75 @@ param(
 # Define the complete configuration sections
 
 $hooksTemplate = @{
+    SessionStart = @(
+        @{
+            matcher = ""
+            hooks = @(
+                @{
+                    type = "command"
+                    command = 'bash "$CLAUDE_PROJECT_DIR/.claude/hooks/session-start.sh"'
+                }
+            )
+        }
+    )
     PreToolUse = @(
         @{
             matcher = "Bash"
             hooks = @(
                 @{
                     type = "command"
-                    command = 'python "$CLAUDE_PROJECT_DIR"/.claude/hooks/validate-branch-name.py'
+                    command = 'bash "$CLAUDE_PROJECT_DIR/.claude/hooks/pretooluse-guard.sh"'
+                },
+                @{
+                    type = "command"
+                    command = 'bash "$CLAUDE_PROJECT_DIR/.claude/hooks/secret-scan.sh"'
+                },
+                @{
+                    type = "command"
+                    command = 'bash "$CLAUDE_PROJECT_DIR/.claude/hooks/log-commands.sh"'
+                },
+                @{
+                    type = "command"
+                    command = 'bash "$CLAUDE_PROJECT_DIR/.claude/hooks/sql-safety-guard.sh"'
+                }
+            )
+        },
+        @{
+            matcher = "Edit|Write"
+            hooks = @(
+                @{
+                    type = "command"
+                    command = 'bash "$CLAUDE_PROJECT_DIR/.claude/hooks/protect-files.sh"'
+                },
+                @{
+                    type = "command"
+                    command = 'bash "$CLAUDE_PROJECT_DIR/.claude/hooks/secret-scan.sh"'
+                }
+            )
+        }
+    )
+    PostToolUse = @(
+        @{
+            matcher = "Write|Edit"
+            hooks = @(
+                @{
+                    type = "command"
+                    command = "bash -lc `"jq -r '.tool_input.file_path' | xargs npx prettier --write 2>/dev/null; exit 0`""
+                },
+                @{
+                    type = "command"
+                    command = "bash -lc `"npx eslint --fix $(jq -r '.tool_input.file_path') 2>&1 | tail -10; exit 0`""
+                }
+            )
+        }
+    )
+    Stop = @(
+        @{
+            matcher = ""
+            hooks = @(
+                @{
+                    type = "command"
+                    command = 'bash "$CLAUDE_PROJECT_DIR/.claude/hooks/session-stop.sh"'
                 }
             )
         }
@@ -90,10 +152,23 @@ foreach ($line in $worktrees) {
     $hasPermissions = $null -ne $json.permissions
     $needsFix = $false
 
-    # Add missing hooks
-    if (-not $hasHooks) {
-        Write-Host "  FIXING $branch - adding hooks..." -ForegroundColor Cyan
-        $json | Add-Member -MemberType NoteProperty -Name "hooks" -Value $hooksTemplate -Force
+    # Add or repair hooks when missing or when .sh paths are not bash-prefixed
+    $needsHookRepair = -not $hasHooks
+    if ($hasHooks) {
+        $hooksJson = $json.hooks | ConvertTo-Json -Depth 20
+        $hasDirectShHook = $hooksJson -match '"command"\s*:\s*"(?:\\")?\$CLAUDE_PROJECT_DIR(?:\\")?/\.claude/hooks/[^"]+\.sh"'
+        if ($hasDirectShHook) {
+            $needsHookRepair = $true
+        }
+    }
+
+    if ($needsHookRepair) {
+        if (-not $hasHooks) {
+            Write-Host "  FIXING $branch - adding hooks..." -ForegroundColor Cyan
+        } else {
+            Write-Host "  FIXING $branch - repairing hook command execution..." -ForegroundColor Cyan
+        }
+        $json.hooks = $hooksTemplate
         $needsFix = $true
     }
 

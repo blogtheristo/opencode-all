@@ -27,7 +27,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-start.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/session-start.sh\""
           }
         ]
       }
@@ -38,19 +38,19 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/pretooluse-guard.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/pretooluse-guard.sh\""
           },
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/secret-scan.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/secret-scan.sh\""
           },
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/log-commands.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/log-commands.sh\""
           },
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/sql-safety-guard.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/sql-safety-guard.sh\""
           }
         ]
       },
@@ -59,11 +59,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/protect-files.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/protect-files.sh\""
           },
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/secret-scan.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/secret-scan.sh\""
           }
         ]
       }
@@ -74,11 +74,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "jq -r '.tool_input.file_path' | xargs npx prettier --write 2>/dev/null; exit 0"
+            "command": "bash -lc \"jq -r '.tool_input.file_path' | xargs npx prettier --write 2>/dev/null; exit 0\""
           },
           {
             "type": "command",
-            "command": "npx eslint --fix $(jq -r '.tool_input.file_path') 2>&1 | tail -10; exit 0"
+            "command": "bash -lc \"npx eslint --fix $(jq -r '.tool_input.file_path') 2>&1 | tail -10; exit 0\""
           }
         ]
       }
@@ -89,7 +89,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-stop.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/session-stop.sh\""
           }
         ]
       }
