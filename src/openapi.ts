@@ -18,7 +18,8 @@ const spec = {
   info: {
     title: 'DWS IQ 6 API',
     version: API_VERSION,
-    description: 'Enterprise industrial AI agent platform — EU compliance scoring, multi-agent orchestration, carbon accounting, and sales automation.',
+    description:
+      'Enterprise industrial AI agent platform — EU compliance scoring, multi-agent orchestration, carbon accounting, and sales automation.',
     contact: {
       name: 'Lifetime Oy',
       email: 'risto.paarni@lifetime.fi',
@@ -46,8 +47,18 @@ const spec = {
     { name: 'BIM', description: 'BIM import and carbon calculation' },
     { name: 'Memory', description: 'Agent memory and context' },
     { name: 'Situation Room', description: 'Operations dashboard' },
-    { name: 'Captain', description: 'Captain\'s Table application' },
+    { name: 'Captain', description: "Captain's Table application" },
     { name: 'Health', description: 'System health and liveness' },
+    { name: 'Status', description: 'Public platform status' },
+    { name: 'HIL', description: 'Human-in-the-Loop escalation and task completion' },
+    { name: 'BIM', description: 'BIM → EN 15978 → Carbon compliance pipeline' },
+    { name: 'Situation Room', description: 'Operational reports and pipeline intelligence' },
+    { name: 'Grok Consent', description: 'GDPR + EU AI Act Article 12 LLM consent governance' },
+    { name: 'Outreach', description: 'Inbound lead capture and outreach pipeline' },
+    { name: 'KYA', description: 'Know Your Agent — trust scoring and session termination' },
+    { name: 'Notifications', description: 'In-app notification management' },
+    { name: 'Activity', description: 'Activity feed and audit log export' },
+    { name: 'Dashboard', description: 'Dashboard aggregates and delivery metrics' },
   ],
   components: {
     securitySchemes: {
@@ -210,7 +221,14 @@ const spec = {
           dataSources: { type: 'array', items: { type: 'string' } },
           erpConnection: { type: 'string' },
         },
-        required: ['companyName', 'industry', 'country', 'employeeCount', 'regulations', 'dataSources'],
+        required: [
+          'companyName',
+          'industry',
+          'country',
+          'employeeCount',
+          'regulations',
+          'dataSources',
+        ],
       },
     },
   },
@@ -223,7 +241,9 @@ const spec = {
         responses: {
           '200': {
             description: 'System healthy',
-            content: { 'application/json': { schema: { $ref: '#/components/schemas/HealthCheck' } } },
+            content: {
+              'application/json': { schema: { $ref: '#/components/schemas/HealthCheck' } },
+            },
           },
         },
       },
@@ -245,11 +265,16 @@ const spec = {
         operationId: 'register',
         requestBody: {
           required: true,
-          content: { 'application/json': { schema: { $ref: '#/components/schemas/RegisterRequest' } } },
+          content: {
+            'application/json': { schema: { $ref: '#/components/schemas/RegisterRequest' } },
+          },
         },
         responses: {
           '201': { description: 'User created' },
-          '400': { description: 'Validation error', content: { 'application/json': { schema: { $ref: '#/components/schemas/Error' } } } },
+          '400': {
+            description: 'Validation error',
+            content: { 'application/json': { schema: { $ref: '#/components/schemas/Error' } } },
+          },
           '429': { description: 'Rate limited' },
         },
       },
@@ -261,12 +286,16 @@ const spec = {
         operationId: 'login',
         requestBody: {
           required: true,
-          content: { 'application/json': { schema: { $ref: '#/components/schemas/LoginRequest' } } },
+          content: {
+            'application/json': { schema: { $ref: '#/components/schemas/LoginRequest' } },
+          },
         },
         responses: {
           '200': {
             description: 'Authentication successful',
-            content: { 'application/json': { schema: { $ref: '#/components/schemas/LoginResponse' } } },
+            content: {
+              'application/json': { schema: { $ref: '#/components/schemas/LoginResponse' } },
+            },
           },
           '401': { description: 'Invalid credentials' },
           '429': { description: 'Rate limited' },
@@ -300,7 +329,15 @@ const spec = {
         operationId: 'forgotPassword',
         requestBody: {
           required: true,
-          content: { 'application/json': { schema: { type: 'object', properties: { email: { type: 'string', format: 'email' } }, required: ['email'] } } },
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: { email: { type: 'string', format: 'email' } },
+                required: ['email'],
+              },
+            },
+          },
         },
         responses: { '200': { description: 'Reset email sent (if account exists)' } },
       },
@@ -312,9 +349,23 @@ const spec = {
         operationId: 'resetPassword',
         requestBody: {
           required: true,
-          content: { 'application/json': { schema: { type: 'object', properties: { token: { type: 'string' }, password: { type: 'string', minLength: 12 } }, required: ['token', 'password'] } } },
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  token: { type: 'string' },
+                  password: { type: 'string', minLength: 12 },
+                },
+                required: ['token', 'password'],
+              },
+            },
+          },
         },
-        responses: { '200': { description: 'Password reset' }, '400': { description: 'Invalid or expired token' } },
+        responses: {
+          '200': { description: 'Password reset' },
+          '400': { description: 'Invalid or expired token' },
+        },
       },
     },
     '/api/v1/auth/verify-email': {
@@ -324,7 +375,15 @@ const spec = {
         operationId: 'verifyEmail',
         requestBody: {
           required: true,
-          content: { 'application/json': { schema: { type: 'object', properties: { token: { type: 'string' } }, required: ['token'] } } },
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: { token: { type: 'string' } },
+                required: ['token'],
+              },
+            },
+          },
         },
         responses: { '200': { description: 'Email verified' } },
       },
@@ -335,14 +394,20 @@ const spec = {
         summary: 'Get current user profile',
         operationId: 'getProfile',
         security: [{ bearerAuth: [] }],
-        responses: { '200': { description: 'User profile' }, '401': { description: 'Unauthorized' } },
+        responses: {
+          '200': { description: 'User profile' },
+          '401': { description: 'Unauthorized' },
+        },
       },
       put: {
         tags: ['Auth'],
         summary: 'Update user profile',
         operationId: 'updateProfile',
         security: [{ bearerAuth: [] }],
-        requestBody: { required: true, content: { 'application/json': { schema: { type: 'object' } } } },
+        requestBody: {
+          required: true,
+          content: { 'application/json': { schema: { type: 'object' } } },
+        },
         responses: { '200': { description: 'Profile updated' } },
       },
     },
@@ -354,7 +419,19 @@ const spec = {
         security: [{ bearerAuth: [] }],
         requestBody: {
           required: true,
-          content: { 'application/json': { schema: { type: 'object', properties: { name: { type: 'string', minLength: 1, maxLength: 100 }, scopes: { type: 'array', items: { type: 'string' } }, expiresInDays: { type: 'number' } }, required: ['name', 'scopes'] } } },
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  name: { type: 'string', minLength: 1, maxLength: 100 },
+                  scopes: { type: 'array', items: { type: 'string' } },
+                  expiresInDays: { type: 'number' },
+                },
+                required: ['name', 'scopes'],
+              },
+            },
+          },
         },
         responses: { '201': { description: 'API key created' } },
       },
@@ -397,7 +474,10 @@ const spec = {
         operationId: 'getAgent',
         security: [{ bearerAuth: [] }],
         parameters: [{ name: 'name', in: 'path', required: true, schema: { type: 'string' } }],
-        responses: { '200': { description: 'Agent details' }, '404': { description: 'Agent not found' } },
+        responses: {
+          '200': { description: 'Agent details' },
+          '404': { description: 'Agent not found' },
+        },
       },
     },
     '/api/agents/{name}/execute': {
@@ -409,7 +489,9 @@ const spec = {
         parameters: [{ name: 'name', in: 'path', required: true, schema: { type: 'string' } }],
         requestBody: {
           required: true,
-          content: { 'application/json': { schema: { $ref: '#/components/schemas/AgentExecuteRequest' } } },
+          content: {
+            'application/json': { schema: { $ref: '#/components/schemas/AgentExecuteRequest' } },
+          },
         },
         responses: { '200': { description: 'Agent execution result' } },
       },
@@ -422,7 +504,14 @@ const spec = {
         security: [{ bearerAuth: [] }],
         parameters: [{ name: 'name', in: 'path', required: true, schema: { type: 'string' } }],
         requestBody: {
-          content: { 'application/json': { schema: { type: 'object', properties: { input: { type: 'object' }, context: { type: 'object' } } } } },
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: { input: { type: 'object' }, context: { type: 'object' } },
+              },
+            },
+          },
         },
         responses: { '200': { description: 'Agent run result' } },
       },
@@ -436,7 +525,19 @@ const spec = {
         parameters: [{ name: 'name', in: 'path', required: true, schema: { type: 'string' } }],
         requestBody: {
           required: true,
-          content: { 'application/json': { schema: { type: 'object', properties: { message: { type: 'string' }, conversationHistory: { type: 'array' }, sessionId: { type: 'string' } }, required: ['message'] } } },
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  message: { type: 'string' },
+                  conversationHistory: { type: 'array' },
+                  sessionId: { type: 'string' },
+                },
+                required: ['message'],
+              },
+            },
+          },
         },
         responses: { '200': { description: 'Chat response' } },
       },
@@ -447,7 +548,9 @@ const spec = {
         summary: 'Discover agents by capability',
         operationId: 'discoverAgents',
         security: [{ bearerAuth: [] }],
-        parameters: [{ name: 'capability', in: 'path', required: true, schema: { type: 'string' } }],
+        parameters: [
+          { name: 'capability', in: 'path', required: true, schema: { type: 'string' } },
+        ],
         responses: { '200': { description: 'Matching agents' } },
       },
     },
@@ -468,7 +571,14 @@ const spec = {
         security: [{ bearerAuth: [] }],
         parameters: [{ name: 'name', in: 'path', required: true, schema: { type: 'string' } }],
         requestBody: {
-          content: { 'application/json': { schema: { type: 'object', properties: { context: { type: 'object' }, input: { type: 'object' } } } } },
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: { context: { type: 'object' }, input: { type: 'object' } },
+              },
+            },
+          },
         },
         responses: { '200': { description: 'Workflow result' } },
       },
@@ -480,12 +590,18 @@ const spec = {
         operationId: 'complianceAssess',
         requestBody: {
           required: true,
-          content: { 'application/json': { schema: { $ref: '#/components/schemas/ComplianceAssessRequest' } } },
+          content: {
+            'application/json': {
+              schema: { $ref: '#/components/schemas/ComplianceAssessRequest' },
+            },
+          },
         },
         responses: {
           '200': {
             description: 'Compliance scores',
-            content: { 'application/json': { schema: { $ref: '#/components/schemas/ComplianceScore' } } },
+            content: {
+              'application/json': { schema: { $ref: '#/components/schemas/ComplianceScore' } },
+            },
           },
         },
       },
@@ -506,7 +622,7 @@ const spec = {
     '/api/v1/compliance/overview': {
       get: {
         tags: ['Compliance'],
-        summary: 'Get compliance overview for user\'s industry',
+        summary: "Get compliance overview for user's industry",
         operationId: 'complianceOverview',
         security: [{ bearerAuth: [] }],
         parameters: [{ name: 'industry', in: 'query', schema: { type: 'string' } }],
@@ -529,7 +645,20 @@ const spec = {
         operationId: 'complianceCostEstimate',
         requestBody: {
           required: true,
-          content: { 'application/json': { schema: { type: 'object', properties: { annualEmissions: { type: 'number' }, importQuantity: { type: 'number' }, sector: { type: 'string' }, originCountry: { type: 'string' }, freeAllocation: { type: 'number' } } } } },
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  annualEmissions: { type: 'number' },
+                  importQuantity: { type: 'number' },
+                  sector: { type: 'string' },
+                  originCountry: { type: 'string' },
+                  freeAllocation: { type: 'number' },
+                },
+              },
+            },
+          },
         },
         responses: { '200': { description: 'Cost estimate' } },
       },
@@ -540,7 +669,10 @@ const spec = {
         summary: 'Submit compliance ledger entry (carbon balance sheet)',
         operationId: 'complianceLedger',
         security: [{ bearerAuth: [] }],
-        requestBody: { required: true, content: { 'application/json': { schema: { type: 'object' } } } },
+        requestBody: {
+          required: true,
+          content: { 'application/json': { schema: { type: 'object' } } },
+        },
         responses: { '200': { description: 'Ledger entry created' } },
       },
     },
@@ -551,7 +683,18 @@ const spec = {
         operationId: 'climateAssistantChat',
         requestBody: {
           required: true,
-          content: { 'application/json': { schema: { type: 'object', properties: { message: { type: 'string', maxLength: 4000 }, conversationHistory: { type: 'array', maxItems: 20 } }, required: ['message'] } } },
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  message: { type: 'string', maxLength: 4000 },
+                  conversationHistory: { type: 'array', maxItems: 20 },
+                },
+                required: ['message'],
+              },
+            },
+          },
         },
         responses: { '200': { description: 'AI response' } },
       },
@@ -564,7 +707,9 @@ const spec = {
         security: [{ bearerAuth: [] }],
         requestBody: {
           required: true,
-          content: { 'application/json': { schema: { $ref: '#/components/schemas/ReportExportRequest' } } },
+          content: {
+            'application/json': { schema: { $ref: '#/components/schemas/ReportExportRequest' } },
+          },
         },
         responses: { '200': { description: 'Report data' } },
       },
@@ -575,7 +720,10 @@ const spec = {
         summary: 'Schedule recurring report',
         operationId: 'scheduleReport',
         security: [{ bearerAuth: [] }],
-        requestBody: { required: true, content: { 'application/json': { schema: { type: 'object' } } } },
+        requestBody: {
+          required: true,
+          content: { 'application/json': { schema: { type: 'object' } } },
+        },
         responses: { '201': { description: 'Schedule created' } },
       },
     },
@@ -612,7 +760,9 @@ const spec = {
         operationId: 'onboard',
         requestBody: {
           required: true,
-          content: { 'application/json': { schema: { $ref: '#/components/schemas/OnboardRequest' } } },
+          content: {
+            'application/json': { schema: { $ref: '#/components/schemas/OnboardRequest' } },
+          },
         },
         responses: { '200': { description: 'Onboarding result with baseline assessment' } },
       },
@@ -633,7 +783,18 @@ const spec = {
         operationId: 'subscribe',
         requestBody: {
           required: true,
-          content: { 'application/json': { schema: { type: 'object', properties: { plan: { type: 'string', enum: ['pro', 'enterprise'] }, payment_provider: { type: 'string', enum: ['revolut', 'paypal'] } }, required: ['plan', 'payment_provider'] } } },
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  plan: { type: 'string', enum: ['pro', 'enterprise'] },
+                  payment_provider: { type: 'string', enum: ['revolut', 'paypal'] },
+                },
+                required: ['plan', 'payment_provider'],
+              },
+            },
+          },
         },
         responses: { '200': { description: 'Checkout URL' } },
       },
@@ -646,7 +807,21 @@ const spec = {
         security: [{ bearerAuth: [] }],
         requestBody: {
           required: true,
-          content: { 'application/json': { schema: { type: 'object', properties: { to: { type: 'string', format: 'email' }, subject: { type: 'string' }, templateType: { type: 'string' }, body: { type: 'string' }, html: { type: 'string' } }, required: ['to', 'subject'] } } },
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  to: { type: 'string', format: 'email' },
+                  subject: { type: 'string' },
+                  templateType: { type: 'string' },
+                  body: { type: 'string' },
+                  html: { type: 'string' },
+                },
+                required: ['to', 'subject'],
+              },
+            },
+          },
         },
         responses: { '200': { description: 'Email sent' } },
       },
@@ -654,11 +829,26 @@ const spec = {
     '/api/v1/captain/apply': {
       post: {
         tags: ['Captain'],
-        summary: 'Apply for Captain\'s Table seat',
+        summary: "Apply for Captain's Table seat",
         operationId: 'captainApply',
         requestBody: {
           required: true,
-          content: { 'application/json': { schema: { type: 'object', properties: { name: { type: 'string' }, email: { type: 'string', format: 'email' }, company: { type: 'string' }, seat_type: { type: 'string' }, industry: { type: 'string' }, message: { type: 'string' } }, required: ['name', 'email', 'seat_type', 'industry'] } } },
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  name: { type: 'string' },
+                  email: { type: 'string', format: 'email' },
+                  company: { type: 'string' },
+                  seat_type: { type: 'string' },
+                  industry: { type: 'string' },
+                  message: { type: 'string' },
+                },
+                required: ['name', 'email', 'seat_type', 'industry'],
+              },
+            },
+          },
         },
         responses: { '200': { description: 'Application received' } },
       },
@@ -671,15 +861,624 @@ const spec = {
         responses: { '200': { description: 'Memory stats' } },
       },
     },
+    // ── Memory (additional) ─────────────────────────────────────────────────
+    '/api/v1/memory/audit': {
+      get: {
+        tags: ['Memory'],
+        summary: 'Get memory audit log entries',
+        operationId: 'memoryAudit',
+        parameters: [
+          { name: 'limit', in: 'query', schema: { type: 'integer', maximum: 200, default: 50 } },
+        ],
+        responses: { '200': { description: 'Audit entries' } },
+      },
+    },
+    '/api/v1/memory/decay/dry-run': {
+      post: {
+        tags: ['Memory'],
+        summary: 'Preview memory decay without applying changes (admin)',
+        operationId: 'memoryDecayDryRun',
+        security: [{ adminKey: [] }],
+        requestBody: {
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: { halfLifeDays: { type: 'integer', default: 90 } },
+              },
+            },
+          },
+        },
+        responses: { '200': { description: 'Decay preview' } },
+      },
+    },
+
+    // ── Notifications ────────────────────────────────────────────────────────
+    '/api/v1/notifications': {
+      get: {
+        tags: ['Notifications'],
+        summary: 'List in-app notifications for the current user',
+        operationId: 'listNotifications',
+        security: [{ bearerAuth: [] }],
+        parameters: [
+          { name: 'limit', in: 'query', schema: { type: 'integer', maximum: 100, default: 20 } },
+          { name: 'offset', in: 'query', schema: { type: 'integer', default: 0 } },
+        ],
+        responses: { '200': { description: 'Notification list' } },
+      },
+    },
+    '/api/v1/notifications/unread': {
+      get: {
+        tags: ['Notifications'],
+        summary: 'Get count of unread notifications',
+        operationId: 'unreadNotifications',
+        security: [{ bearerAuth: [] }],
+        responses: { '200': { description: 'Unread count' } },
+      },
+    },
+    '/api/v1/notifications/{id}/read': {
+      patch: {
+        tags: ['Notifications'],
+        summary: 'Mark a notification as read',
+        operationId: 'markNotificationRead',
+        security: [{ bearerAuth: [] }],
+        parameters: [
+          { name: 'id', in: 'path', required: true, schema: { type: 'string', format: 'uuid' } },
+        ],
+        responses: { '200': { description: 'Notification updated' } },
+      },
+    },
+    '/api/v1/notifications/read-all': {
+      post: {
+        tags: ['Notifications'],
+        summary: 'Mark all notifications as read',
+        operationId: 'markAllNotificationsRead',
+        security: [{ bearerAuth: [] }],
+        responses: { '200': { description: 'All marked read' } },
+      },
+    },
+
+    // ── Activity Feed ────────────────────────────────────────────────────────
+    '/api/v1/activity': {
+      get: {
+        tags: ['Activity'],
+        summary: 'Get paginated activity feed',
+        operationId: 'getActivity',
+        security: [{ bearerAuth: [] }],
+        parameters: [
+          { name: 'limit', in: 'query', schema: { type: 'integer', maximum: 100, default: 20 } },
+          { name: 'offset', in: 'query', schema: { type: 'integer', default: 0 } },
+          {
+            name: 'type',
+            in: 'query',
+            schema: {
+              type: 'string',
+              enum: [
+                'agent_execution',
+                'compliance_change',
+                'report_export',
+                'user_action',
+                'system',
+              ],
+            },
+          },
+        ],
+        responses: { '200': { description: 'Activity events' } },
+      },
+    },
+    '/api/v1/activity/stream': {
+      get: {
+        tags: ['Activity'],
+        summary: 'SSE stream for real-time activity events',
+        operationId: 'activityStream',
+        security: [{ bearerAuth: [] }],
+        responses: {
+          '200': {
+            description: 'Server-Sent Events stream',
+            content: { 'text/event-stream': { schema: { type: 'string' } } },
+          },
+        },
+      },
+    },
+    '/api/v1/activity/export': {
+      get: {
+        tags: ['Activity'],
+        summary: 'SIEM audit log export (NDJSON or CSV) — admin only',
+        operationId: 'exportAuditLog',
+        security: [{ adminKey: [] }],
+        parameters: [
+          {
+            name: 'since',
+            in: 'query',
+            schema: { type: 'string', format: 'date-time' },
+            description: 'Default: 7 days ago',
+          },
+          {
+            name: 'until',
+            in: 'query',
+            schema: { type: 'string', format: 'date-time' },
+            description: 'Default: now',
+          },
+          { name: 'type', in: 'query', schema: { type: 'string' } },
+          {
+            name: 'format',
+            in: 'query',
+            schema: { type: 'string', enum: ['ndjson', 'csv'], default: 'ndjson' },
+          },
+          {
+            name: 'limit',
+            in: 'query',
+            schema: { type: 'integer', maximum: 10000, default: 1000 },
+          },
+        ],
+        responses: {
+          '200': {
+            description: 'Audit events in requested format',
+            content: {
+              'application/x-ndjson': { schema: { type: 'string' } },
+              'text/csv': { schema: { type: 'string' } },
+            },
+          },
+        },
+      },
+    },
+
+    // ── Dashboard ────────────────────────────────────────────────────────────
+    '/api/v1/dashboard/summary': {
+      get: {
+        tags: ['Dashboard'],
+        summary: 'Aggregated dashboard metrics (MetricsHeader)',
+        operationId: 'dashboardSummary',
+        security: [{ bearerAuth: [] }],
+        responses: { '200': { description: 'Dashboard summary metrics' } },
+      },
+    },
+    '/api/v1/dashboard/delivery-status': {
+      get: {
+        tags: ['Dashboard'],
+        summary: 'Project delivery status for investor view',
+        operationId: 'dashboardDeliveryStatus',
+        responses: {
+          '200': {
+            description: 'MVP / V1 / DWS7 completion percentages',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    timestamp: { type: 'string' },
+                    mvp: { type: 'integer' },
+                    v1: { type: 'integer' },
+                    dws7: { type: 'integer' },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+
+    // ── Status ───────────────────────────────────────────────────────────────
+    '/api/v1/status': {
+      get: {
+        tags: ['Status'],
+        summary: 'Public platform status (no auth required)',
+        operationId: 'platformStatus',
+        responses: {
+          '200': {
+            description: 'Platform operational status',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    service: { type: 'string', example: 'DWS IQ 6' },
+                    version: { type: 'string' },
+                    status: { type: 'string', enum: ['operational', 'degraded', 'outage'] },
+                    timestamp: { type: 'string', format: 'date-time' },
+                    uptime: { type: 'integer', description: 'Seconds since process start' },
+                    environment: { type: 'string' },
+                    region: { type: 'string' },
+                    components: {
+                      type: 'object',
+                      properties: {
+                        api: { type: 'string' },
+                        agents: { type: 'string' },
+                        compliance: { type: 'string' },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+
+    // ── HIL (Human-in-the-Loop) ──────────────────────────────────────────────
+    '/api/hil/done/{token}': {
+      get: {
+        tags: ['HIL'],
+        summary: 'One-click task completion from morning briefing email',
+        operationId: 'hilDone',
+        description: 'No authentication required — token is an unguessable UUID in the email link.',
+        parameters: [
+          { name: 'token', in: 'path', required: true, schema: { type: 'string', format: 'uuid' } },
+        ],
+        responses: {
+          '200': { description: 'HTML confirmation page' },
+          '404': { description: 'Token not found' },
+        },
+      },
+    },
+    '/api/hil/escalate': {
+      post: {
+        tags: ['HIL'],
+        summary: 'Create a human escalation from an AI agent',
+        operationId: 'hilEscalate',
+        description:
+          'Called by agents when confidence < 80%. Creates an escalation record and notifies a human.',
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  agentName: { type: 'string' },
+                  reason: { type: 'string' },
+                  confidence: { type: 'number', minimum: 0, maximum: 1 },
+                  context: { type: 'object' },
+                  channel: { type: 'string', enum: ['email', 'slack'], default: 'email' },
+                  recipient: { type: 'string', format: 'email' },
+                },
+                required: ['agentName', 'reason'],
+              },
+            },
+          },
+        },
+        responses: { '201': { description: 'Escalation created' } },
+      },
+    },
+
+    // ── BIM Pipeline ─────────────────────────────────────────────────────────
+    '/api/bim/projects': {
+      post: {
+        tags: ['BIM'],
+        summary: 'Create a BIM project for carbon calculation',
+        operationId: 'bimCreateProject',
+        security: [{ bearerAuth: [] }],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  name: { type: 'string' },
+                  org_id: { type: 'string', format: 'uuid' },
+                  building_type: { type: 'string' },
+                  location: { type: 'string' },
+                  floor_area_m2: { type: 'number' },
+                  lifecycle_stages: { type: 'array', items: { type: 'string' } },
+                },
+                required: ['name', 'org_id'],
+              },
+            },
+          },
+        },
+        responses: { '201': { description: 'Project created' } },
+      },
+      get: {
+        tags: ['BIM'],
+        summary: 'List BIM projects for the authenticated user',
+        operationId: 'bimListProjects',
+        security: [{ bearerAuth: [] }],
+        parameters: [
+          { name: 'org_id', in: 'query', schema: { type: 'string', format: 'uuid' } },
+          { name: 'limit', in: 'query', schema: { type: 'integer', default: 20 } },
+          { name: 'offset', in: 'query', schema: { type: 'integer', default: 0 } },
+        ],
+        responses: { '200': { description: 'Project list' } },
+      },
+    },
+    '/api/bim/projects/{id}': {
+      get: {
+        tags: ['BIM'],
+        summary: 'Get a BIM project with its latest carbon calculation',
+        operationId: 'bimGetProject',
+        security: [{ bearerAuth: [] }],
+        parameters: [
+          { name: 'id', in: 'path', required: true, schema: { type: 'string', format: 'uuid' } },
+        ],
+        responses: {
+          '200': { description: 'Project detail' },
+          '404': { description: 'Not found' },
+        },
+      },
+    },
+    '/api/bim/carbon/{projectId}': {
+      post: {
+        tags: ['BIM'],
+        summary: 'Run EN 15978 carbon calculation for a BIM project',
+        operationId: 'bimCalculateCarbon',
+        security: [{ bearerAuth: [] }],
+        parameters: [
+          {
+            name: 'projectId',
+            in: 'path',
+            required: true,
+            schema: { type: 'string', format: 'uuid' },
+          },
+        ],
+        requestBody: {
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  elements: { type: 'array', items: { type: 'object' } },
+                  reference_period_years: { type: 'integer', default: 50 },
+                },
+              },
+            },
+          },
+        },
+        responses: { '200': { description: 'Carbon calculation result (kgCO2e)' } },
+      },
+    },
+    '/api/bim/emission-factors': {
+      get: {
+        tags: ['BIM'],
+        summary: 'List available EN 15978 emission factors',
+        operationId: 'bimEmissionFactors',
+        parameters: [
+          { name: 'material', in: 'query', schema: { type: 'string' } },
+          {
+            name: 'stage',
+            in: 'query',
+            schema: { type: 'string', enum: ['A1-A3', 'A4', 'B1-B7', 'C1-C4', 'D'] },
+          },
+        ],
+        responses: { '200': { description: 'Emission factors catalogue' } },
+      },
+    },
+
+    // ── Situation Room ───────────────────────────────────────────────────────
+    '/api/situation-room/reports': {
+      post: {
+        tags: ['Situation Room'],
+        summary: 'Create a situation room report',
+        operationId: 'situationRoomCreateReport',
+        security: [{ bearerAuth: [] }],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  org_id: { type: 'string', format: 'uuid' },
+                  project_id: { type: 'string' },
+                  report_type: { type: 'string' },
+                  content: { type: 'object' },
+                },
+                required: ['org_id', 'project_id'],
+              },
+            },
+          },
+        },
+        responses: { '201': { description: 'Report created' } },
+      },
+      get: {
+        tags: ['Situation Room'],
+        summary: 'List situation room reports',
+        operationId: 'situationRoomListReports',
+        security: [{ bearerAuth: [] }],
+        parameters: [
+          {
+            name: 'org_id',
+            in: 'query',
+            required: true,
+            schema: { type: 'string', format: 'uuid' },
+          },
+          { name: 'report_type', in: 'query', schema: { type: 'string' } },
+        ],
+        responses: { '200': { description: 'Report list' } },
+      },
+    },
+    '/api/situation-room/reports/{id}': {
+      get: {
+        tags: ['Situation Room'],
+        summary: 'Get a single situation room report',
+        operationId: 'situationRoomGetReport',
+        security: [{ bearerAuth: [] }],
+        parameters: [
+          { name: 'id', in: 'path', required: true, schema: { type: 'string', format: 'uuid' } },
+        ],
+        responses: { '200': { description: 'Report detail' }, '404': { description: 'Not found' } },
+      },
+      patch: {
+        tags: ['Situation Room'],
+        summary: 'Update a situation room report status',
+        operationId: 'situationRoomUpdateReport',
+        security: [{ bearerAuth: [] }],
+        parameters: [
+          { name: 'id', in: 'path', required: true, schema: { type: 'string', format: 'uuid' } },
+        ],
+        requestBody: {
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: { status: { type: 'string', enum: ['active', 'archived', 'error'] } },
+              },
+            },
+          },
+        },
+        responses: { '200': { description: 'Report updated' } },
+      },
+    },
+
+    // ── Grok Consent ─────────────────────────────────────────────────────────
+    '/api/grok-consent/{orgId}': {
+      get: {
+        tags: ['Grok Consent'],
+        summary: 'Get LLM consent configuration for an organization',
+        operationId: 'grokConsentGet',
+        security: [{ bearerAuth: [] }],
+        parameters: [
+          { name: 'orgId', in: 'path', required: true, schema: { type: 'string', format: 'uuid' } },
+        ],
+        responses: { '200': { description: 'Consent configuration' } },
+      },
+    },
+    '/api/grok-consent/{orgId}/grant': {
+      post: {
+        tags: ['Grok Consent'],
+        summary: 'Grant LLM consent for an organization',
+        operationId: 'grokConsentGrant',
+        security: [{ bearerAuth: [] }],
+        parameters: [
+          { name: 'orgId', in: 'path', required: true, schema: { type: 'string', format: 'uuid' } },
+        ],
+        requestBody: {
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  allowedCategories: { type: 'array', items: { type: 'string' } },
+                  note: { type: 'string' },
+                },
+              },
+            },
+          },
+        },
+        responses: { '200': { description: 'Consent granted' } },
+      },
+    },
+    '/api/grok-consent/{orgId}/revoke': {
+      post: {
+        tags: ['Grok Consent'],
+        summary: 'Revoke LLM consent for an organization',
+        operationId: 'grokConsentRevoke',
+        security: [{ bearerAuth: [] }],
+        parameters: [
+          { name: 'orgId', in: 'path', required: true, schema: { type: 'string', format: 'uuid' } },
+        ],
+        requestBody: {
+          content: {
+            'application/json': {
+              schema: { type: 'object', properties: { reason: { type: 'string' } } },
+            },
+          },
+        },
+        responses: { '200': { description: 'Consent revoked' } },
+      },
+    },
+    '/api/grok-consent/{orgId}/audit': {
+      get: {
+        tags: ['Grok Consent'],
+        summary: 'Get consent audit trail for an organization',
+        operationId: 'grokConsentAudit',
+        security: [{ bearerAuth: [] }],
+        parameters: [
+          { name: 'orgId', in: 'path', required: true, schema: { type: 'string', format: 'uuid' } },
+          { name: 'limit', in: 'query', schema: { type: 'integer', default: 50 } },
+          { name: 'offset', in: 'query', schema: { type: 'integer', default: 0 } },
+        ],
+        responses: { '200': { description: 'Consent audit entries' } },
+      },
+    },
+
+    // ── Outreach ─────────────────────────────────────────────────────────────
+    '/api/v1/outreach/inbound': {
+      post: {
+        tags: ['Outreach'],
+        summary: 'Receive inbound lead from external form or webhook',
+        operationId: 'outreachInbound',
+        security: [{ adminKey: [] }],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  email: { type: 'string', format: 'email' },
+                  name: { type: 'string' },
+                  company: { type: 'string' },
+                  industry: { type: 'string' },
+                  message: { type: 'string' },
+                  source: { type: 'string' },
+                },
+                required: ['email'],
+              },
+            },
+          },
+        },
+        responses: { '201': { description: 'Lead created' } },
+      },
+    },
+
+    // ── KYA (Know Your Agent) ─────────────────────────────────────────────────
+    '/api/v1/kya/snap': {
+      post: {
+        tags: ['KYA'],
+        summary: 'TC-4 Leash Snap — terminate an agent session chain',
+        operationId: 'kyaSnap',
+        security: [{ adminKey: [] }],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  sessionId: { type: 'string' },
+                  reason: { type: 'string', default: 'MANUAL_SNAP' },
+                  forceCascade: { type: 'boolean' },
+                  source: { type: 'string' },
+                },
+                required: ['sessionId'],
+              },
+            },
+          },
+        },
+        responses: {
+          '200': { description: 'Session chain terminated' },
+          '400': { description: 'Missing sessionId' },
+          '401': { description: 'Unauthorized' },
+        },
+      },
+    },
+
     '/mcp': {
       post: {
         tags: ['Agents'],
         summary: 'MCP JSON-RPC 2.0 endpoint (Streamable HTTP Transport)',
         operationId: 'mcpEndpoint',
-        description: 'Model Context Protocol endpoint for agent tool discovery and execution. Supports tools/list and tools/call methods.',
+        description:
+          'Model Context Protocol endpoint for agent tool discovery and execution. Supports tools/list and tools/call methods.',
         requestBody: {
           required: true,
-          content: { 'application/json': { schema: { type: 'object', properties: { jsonrpc: { type: 'string', const: '2.0' }, method: { type: 'string', enum: ['tools/list', 'tools/call', 'initialize'] }, params: { type: 'object' }, id: { oneOf: [{ type: 'string' }, { type: 'number' }] } }, required: ['jsonrpc', 'method'] } } },
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  jsonrpc: { type: 'string', const: '2.0' },
+                  method: { type: 'string', enum: ['tools/list', 'tools/call', 'initialize'] },
+                  params: { type: 'object' },
+                  id: { oneOf: [{ type: 'string' }, { type: 'number' }] },
+                },
+                required: ['jsonrpc', 'method'],
+              },
+            },
+          },
         },
         responses: { '200': { description: 'JSON-RPC response' } },
       },

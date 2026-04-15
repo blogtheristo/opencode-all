@@ -560,6 +560,114 @@ app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Resp
   }
 });
 
+// Public platform status endpoint (no auth required — Gap #11)
+app.get('/api/v1/status', (_req: Request, res: Response) => {
+  const uptimeSeconds = Math.floor(process.uptime());
+  res.json({
+    service: 'DWS IQ 6',
+    version: process.env.npm_package_version || '1.0.0',
+    status: 'operational',
+    timestamp: new Date().toISOString(),
+    uptime: uptimeSeconds,
+    environment: process.env.NODE_ENV || 'development',
+    region: process.env.CLOUD_REGION || 'eu-north-1',
+    components: {
+      api: 'operational',
+      agents: 'operational',
+      compliance: 'operational',
+    },
+  });
+});
+
+// Audit log SIEM export — admin-only, no JWT required (Gap #13)
+app.get('/api/v1/activity/export', async (req: Request, res: Response, next: NextFunction) => {
+  const adminKey = process.env.ADMIN_API_KEY;
+  const provided = req.headers['x-admin-key'];
+
+  if (!adminKey || !provided) {
+    res.status(401).json({ error: 'Unauthorized', message: 'X-Admin-Key header required' });
+    return;
+  }
+  const providedBuf = Buffer.from(String(provided).padEnd(256, '\0'));
+  const expectedBuf = Buffer.from(adminKey.padEnd(256, '\0'));
+  if (!crypto.timingSafeEqual(providedBuf, expectedBuf)) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+
+  try {
+    const now = new Date();
+    const since = req.query.since
+      ? new Date(req.query.since as string)
+      : new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const until = req.query.until ? new Date(req.query.until as string) : now;
+    const typeFilter = req.query.type as string | undefined;
+    const format = req.query.format === 'csv' ? 'csv' : 'ndjson';
+    const limit = Math.min(parseInt(req.query.limit as string) || 1000, 10000);
+
+    if (isNaN(since.getTime()) || isNaN(until.getTime())) {
+      res.status(400).json({ error: 'Invalid since or until timestamp' });
+      return;
+    }
+
+    const { getSupabaseClient } = await import('./config/supabase.js');
+    const supabase = getSupabaseClient();
+
+    interface AuditRow {
+      id: string;
+      type: string;
+      title: string;
+      description: string;
+      severity: string;
+      metadata: Record<string, unknown>;
+      created_at: string;
+    }
+
+    let events: AuditRow[] = [];
+    if (supabase) {
+      let query = supabase
+        .from('activity_events')
+        .select('id, type, title, description, severity, metadata, created_at')
+        .gte('created_at', since.toISOString())
+        .lte('created_at', until.toISOString())
+        .order('created_at', { ascending: true })
+        .limit(limit);
+      if (typeFilter) query = query.eq('type', typeFilter);
+      const { data, error } = await query;
+      if (error) throw error;
+      events = (data || []) as AuditRow[];
+    }
+
+    const ts = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+    const filename = `dws-audit-${ts}`;
+
+    if (format === 'csv') {
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', `attachment; filename="${filename}.csv"`);
+      res.write('id,type,title,description,severity,created_at\n');
+      for (const e of events) {
+        const row = [
+          e.id,
+          e.type,
+          `"${(e.title || '').replace(/"/g, '""')}"`,
+          `"${(e.description || '').replace(/"/g, '""')}"`,
+          e.severity,
+          e.created_at,
+        ].join(',');
+        res.write(row + '\n');
+      }
+      res.end();
+    } else {
+      res.setHeader('Content-Type', 'application/x-ndjson');
+      res.setHeader('Content-Disposition', `attachment; filename="${filename}.ndjson"`);
+      for (const e of events) res.write(JSON.stringify(e) + '\n');
+      res.end();
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
 // ============ ERROR HANDLING ============
 
 // Initialize error tracking early (Sentry when SENTRY_DSN is set, console fallback otherwise).
