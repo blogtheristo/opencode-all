@@ -12,7 +12,16 @@
  *   6. Send List (separate from main content — manual outreach queue)
  */
 
-import type { CaptainInquiriesData, CockpitData, ConstructionLeadsData, HilTodosData, LearnArtifactsData, OutreachSummaryData, SendListItem, WorkflowData } from './data-collectors.js';
+import type {
+  CaptainInquiriesData,
+  CockpitData,
+  ConstructionLeadsData,
+  HilTodosData,
+  LearnArtifactsData,
+  OutreachSummaryData,
+  SendListItem,
+  WorkflowData,
+} from './data-collectors.js';
 
 // ============================================================================
 // HELPERS
@@ -63,23 +72,31 @@ function renderOutreachSummaryHtml(summary: OutreachSummaryData): string {
   // Overdue/Today badge
   const badges: string[] = [];
   if (summary.overdueCount > 0) {
-    badges.push(`<span style="color: #ff4444; font-weight: 700;">OVERDUE: ${summary.overdueCount}</span>`);
+    badges.push(
+      `<span style="color: #ff4444; font-weight: 700;">OVERDUE: ${summary.overdueCount}</span>`,
+    );
   }
   if (summary.todayCount > 0) {
-    badges.push(`<span style="color: #ffaa00; font-weight: 700;">TODAY: ${summary.todayCount}</span>`);
+    badges.push(
+      `<span style="color: #ffaa00; font-weight: 700;">TODAY: ${summary.todayCount}</span>`,
+    );
   }
   if (summary.emailsReceivedToday > 0) {
-    badges.push(`<span style="color: #60a5fa;">${summary.emailsReceivedToday} email${summary.emailsReceivedToday !== 1 ? 's' : ''} received</span>`);
+    badges.push(
+      `<span style="color: #60a5fa;">${summary.emailsReceivedToday} email${summary.emailsReceivedToday !== 1 ? 's' : ''} received</span>`,
+    );
   }
 
   // Top overdue threads (quick action)
-  const overdueRows = summary.topOverdue.length > 0
-    ? summary.topOverdue.map((t) => {
-        const tag = PIPELINE_TAG_LABELS[t.pipeline] || t.pipeline.toUpperCase().slice(0, 4);
-        const tagColor = PIPELINE_COLORS[t.pipeline] || '#888';
-        const action = t.next_action || `Follow up with ${t.name}`;
-        const org = t.org ? ` (${esc(t.org)})` : '';
-        return `<div style="padding: 6px 0; border-bottom: 1px solid #222;">
+  const overdueRows =
+    summary.topOverdue.length > 0
+      ? summary.topOverdue
+          .map((t) => {
+            const tag = PIPELINE_TAG_LABELS[t.pipeline] || t.pipeline.toUpperCase().slice(0, 4);
+            const tagColor = PIPELINE_COLORS[t.pipeline] || '#888';
+            const action = t.next_action || `Follow up with ${t.name}`;
+            const org = t.org ? ` (${esc(t.org)})` : '';
+            return `<div style="padding: 6px 0; border-bottom: 1px solid #222;">
           <div style="font-size: 13px; color: #e0e0e0;">
             <span style="color: #ff4444; font-weight: 600; font-size: 10px;">OVERDUE</span>
             <span style="color: #555; font-size: 10px; font-family: monospace;">T:${esc(t.token)}</span>
@@ -88,8 +105,9 @@ function renderOutreachSummaryHtml(summary: OutreachSummaryData): string {
           </div>
           <div style="font-size: 12px; color: #aaa; margin-top: 2px;">&rarr; ${esc(action)}</div>
         </div>`;
-      }).join('')
-    : '';
+          })
+          .join('')
+      : '';
 
   return `
     <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a;">
@@ -97,9 +115,11 @@ function renderOutreachSummaryHtml(summary: OutreachSummaryData): string {
       <div style="font-size: 12px; margin-bottom: 6px;">${pipelineParts}</div>
       ${badges.length > 0 ? `<div style="font-size: 12px; margin-bottom: 8px;">${badges.join(' &nbsp;|&nbsp; ')}</div>` : ''}
       ${overdueRows}
-      ${summary.topOverdue.length > 0 && summary.overdueCount > summary.topOverdue.length
-        ? `<p style="margin: 4px 0 0; font-size: 11px; color: #555;">+${summary.overdueCount - summary.topOverdue.length} more overdue</p>`
-        : ''}
+      ${
+        summary.topOverdue.length > 0 && summary.overdueCount > summary.topOverdue.length
+          ? `<p style="margin: 4px 0 0; font-size: 11px; color: #555;">+${summary.overdueCount - summary.topOverdue.length} more overdue</p>`
+          : ''
+      }
       <p style="margin: 8px 0 0; font-size: 10px; color: #444;">Reply to outreach digest email with T:TOKEN commands to update threads</p>
     </td></tr>`;
 }
@@ -121,7 +141,9 @@ function renderOutreachSummaryPlainText(summary: OutreachSummaryData): string {
   if (summary.overdueCount > 0) badges.push(`OVERDUE: ${summary.overdueCount}`);
   if (summary.todayCount > 0) badges.push(`TODAY: ${summary.todayCount}`);
   if (summary.emailsReceivedToday > 0) {
-    badges.push(`${summary.emailsReceivedToday} email${summary.emailsReceivedToday !== 1 ? 's' : ''} received today`);
+    badges.push(
+      `${summary.emailsReceivedToday} email${summary.emailsReceivedToday !== 1 ? 's' : ''} received today`,
+    );
   }
   if (badges.length > 0) {
     lines.push(`  ${badges.join('  |  ')}`);
@@ -174,7 +196,7 @@ function renderBets(bets: string[]): string {
       (bet, i) =>
         `<tr><td style="padding: 3px 0; font-size: 13px; color: #e0e0e0;">
           <span style="color: #00d4aa; font-weight: 700;">${i + 1}.</span> ${esc(bet)}
-        </td></tr>`
+        </td></tr>`,
     )
     .join('');
 
@@ -210,7 +232,7 @@ function renderMomentum(data: CockpitData): string {
               `<div style="padding: 4px 0; font-size: 13px; color: #ccc;">
                 ${pipelineTag(c.pipeline)} <strong>${esc(c.name)}</strong>${c.org ? ` (${esc(c.org)})` : ''}
                 <span style="color: #666;"> — ${esc(c.action)}</span>
-              </div>`
+              </div>`,
           )
           .join('')
       : '<p style="margin: 0; font-size: 13px; color: #666;">No active contacts to ping today.</p>';
@@ -226,9 +248,10 @@ function renderMomentum(data: CockpitData): string {
 function renderMetrics(data: CockpitData): string {
   const { metrics } = data;
 
-  const mrr = metrics.mrr_eur !== null
-    ? `€${new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(metrics.mrr_eur)}`
-    : '—';
+  const mrr =
+    metrics.mrr_eur !== null
+      ? `€${new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(metrics.mrr_eur)}`
+      : '—';
   const mrrColor = metrics.mrr_eur !== null && metrics.mrr_eur > 0 ? '#00d4aa' : '#888';
 
   return `
@@ -262,7 +285,7 @@ function renderSendActionButton(
   token: string,
   type: string,
   baseUrl: string,
-  adminKey: string
+  adminKey: string,
 ): string {
   const url = `${baseUrl}/api/v1/outreach/send-email?token=${encodeURIComponent(token)}&type=${encodeURIComponent(type)}&key=${encodeURIComponent(adminKey)}`;
   return `<a href="${url}" style="display:inline-block;padding:4px 10px;margin:2px 3px 2px 0;background:${color};color:#000;text-decoration:none;font-weight:600;border-radius:4px;font-size:10px;letter-spacing:0.3px;">${esc(label)}</a>`;
@@ -281,18 +304,43 @@ function renderSendList(sendList: SendListItem[], baseUrl: string, adminKey: str
     .map((item) => {
       const contactInfo: string[] = [];
       if (item.primary_email) {
-        contactInfo.push(`<span style="color: #888; font-size: 11px;">${esc(item.primary_email)}</span>`);
+        contactInfo.push(
+          `<span style="color: #888; font-size: 11px;">${esc(item.primary_email)}</span>`,
+        );
       }
       if (item.phone) {
-        contactInfo.push(`<a href="tel:${esc(item.phone)}" style="color: #60a5fa; font-size: 11px; text-decoration: none;">&#9742; ${esc(item.phone)}</a>`);
+        contactInfo.push(
+          `<a href="tel:${esc(item.phone)}" style="color: #60a5fa; font-size: 11px; text-decoration: none;">&#9742; ${esc(item.phone)}</a>`,
+        );
       }
 
       // Action buttons — show relevant types based on pipeline
       let buttons = '';
       if (item.thread_token && adminKey) {
-        const btnInvestor = renderSendActionButton('Investor', '#60a5fa', item.thread_token, 'investor', baseUrl, adminKey);
-        const btnSales = renderSendActionButton('Sales', '#00d4aa', item.thread_token, 'sales', baseUrl, adminKey);
-        const btnPartner = renderSendActionButton('Partnership', '#c084fc', item.thread_token, 'partnership', baseUrl, adminKey);
+        const btnInvestor = renderSendActionButton(
+          'Investor',
+          '#60a5fa',
+          item.thread_token,
+          'investor',
+          baseUrl,
+          adminKey,
+        );
+        const btnSales = renderSendActionButton(
+          'Sales',
+          '#00d4aa',
+          item.thread_token,
+          'sales',
+          baseUrl,
+          adminKey,
+        );
+        const btnPartner = renderSendActionButton(
+          'Partnership',
+          '#c084fc',
+          item.thread_token,
+          'partnership',
+          baseUrl,
+          adminKey,
+        );
 
         if (item.pipeline === 'investor') {
           buttons = btnInvestor + btnSales;
@@ -385,18 +433,23 @@ function renderConstructionLeadsHtml(data: ConstructionLeadsData): string {
 
   // New leads (top 5)
   const leadsToShow = newLeads.slice(0, 5);
-  const newLeadsHtml = leadsToShow.length > 0
-    ? leadsToShow.map((lead) => {
-        const value = formatEur(lead.estimated_value, lead.currency);
-        const country = lead.country_code || '';
-        const score = lead.relevance_score;
-        const scoreColor = score >= 70 ? '#00d4aa' : score >= 40 ? '#ffaa00' : '#666';
-        const deadlineStr = lead.deadline_date
-          ? new Date(lead.deadline_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })
-          : '';
-        const title = lead.title.length > 80 ? lead.title.slice(0, 77) + '...' : lead.title;
+  const newLeadsHtml =
+    leadsToShow.length > 0
+      ? leadsToShow
+          .map((lead) => {
+            const value = formatEur(lead.estimated_value, lead.currency);
+            const country = lead.country_code || '';
+            const score = lead.relevance_score;
+            const scoreColor = score >= 70 ? '#00d4aa' : score >= 40 ? '#ffaa00' : '#666';
+            const deadlineStr = lead.deadline_date
+              ? new Date(lead.deadline_date).toLocaleDateString('en-GB', {
+                  day: 'numeric',
+                  month: 'short',
+                })
+              : '';
+            const title = lead.title.length > 80 ? lead.title.slice(0, 77) + '...' : lead.title;
 
-        return `<div style="padding: 6px 0; border-bottom: 1px solid #1a1a1a;">
+            return `<div style="padding: 6px 0; border-bottom: 1px solid #1a1a1a;">
           <div style="font-size: 13px; color: #e0e0e0;">
             <span style="color: ${scoreColor}; font-size: 10px; font-weight: 600;">${score}</span>
             <span style="color: #ffaa00; font-size: 10px;">[${country}]</span>
@@ -406,38 +459,49 @@ function renderConstructionLeadsHtml(data: ConstructionLeadsData): string {
             ${lead.buyer_name ? esc(lead.buyer_name) + ' | ' : ''}${value}${deadlineStr ? ' | Due ' + deadlineStr : ''}
           </div>
         </div>`;
-      }).join('')
-    : '<p style="margin: 0; font-size: 12px; color: #555;">No new construction leads.</p>';
+          })
+          .join('')
+      : '<p style="margin: 0; font-size: 12px; color: #555;">No new construction leads.</p>';
 
   // Upcoming deadlines (top 3)
   const deadlinesToShow = deadlines.slice(0, 3);
-  const deadlinesHtml = deadlinesToShow.length > 0
-    ? `<div style="margin-top: 10px;">
+  const deadlinesHtml =
+    deadlinesToShow.length > 0
+      ? `<div style="margin-top: 10px;">
         <p style="margin: 0 0 4px; font-size: 11px; color: #ff4444; font-weight: 600;">UPCOMING DEADLINES</p>
-        ${deadlinesToShow.map((d) => {
-          const dDate = new Date(d.deadline_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
-          const daysLeft = Math.ceil((new Date(d.deadline_date).getTime() - Date.now()) / 86_400_000);
-          const urgencyColor = daysLeft <= 3 ? '#ff4444' : daysLeft <= 7 ? '#ffaa00' : '#888';
-          const title = d.title.length > 60 ? d.title.slice(0, 57) + '...' : d.title;
-          return `<div style="padding: 3px 0; font-size: 12px; color: #aaa;">
+        ${deadlinesToShow
+          .map((d) => {
+            const dDate = new Date(d.deadline_date).toLocaleDateString('en-GB', {
+              day: 'numeric',
+              month: 'short',
+            });
+            const daysLeft = Math.ceil(
+              (new Date(d.deadline_date).getTime() - Date.now()) / 86_400_000,
+            );
+            const urgencyColor = daysLeft <= 3 ? '#ff4444' : daysLeft <= 7 ? '#ffaa00' : '#888';
+            const title = d.title.length > 60 ? d.title.slice(0, 57) + '...' : d.title;
+            return `<div style="padding: 3px 0; font-size: 12px; color: #aaa;">
             <span style="color: ${urgencyColor}; font-weight: 600;">${dDate}</span> (${daysLeft}d) — ${esc(title)}
           </div>`;
-        }).join('')}
+          })
+          .join('')}
       </div>`
-    : '';
+      : '';
 
   const moreCount = newLeads.length > 5 ? newLeads.length - 5 : 0;
-  const moreHtml = moreCount > 0
-    ? `<p style="margin: 6px 0 0; font-size: 11px; color: #555;">+${moreCount} more leads</p>`
-    : '';
+  const moreHtml =
+    moreCount > 0
+      ? `<p style="margin: 6px 0 0; font-size: 11px; color: #555;">+${moreCount} more leads</p>`
+      : '';
 
   // Lead sources info
-  const sourcesHtml = data.sourceCounts.total > 0
-    ? `<div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid #222;">
+  const sourcesHtml =
+    data.sourceCounts.total > 0
+      ? `<div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid #222;">
         <p style="margin: 0 0 2px; font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 0.5px;">Lead Sources (${data.sourceCounts.active} active, ${data.sourceCounts.planned} planned, ${data.sourceCounts.reference} reference)</p>
         <p style="margin: 0; font-size: 11px; color: #666;">${esc(data.sourcesSummary)}</p>
       </div>`
-    : '';
+      : '';
 
   return `
     <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a;">
@@ -461,7 +525,9 @@ function renderConstructionLeadsPlainText(data: ConstructionLeadsData): string {
   lines.push('CONSTRUCTION LEADS');
 
   if (summary) {
-    lines.push(`  ${summary.new_count} new | ${summary.qualified_count} qualified | ${summary.outreach_count} outreach | ${summary.deadlines_this_week} deadlines this week`);
+    lines.push(
+      `  ${summary.new_count} new | ${summary.qualified_count} qualified | ${summary.outreach_count} outreach | ${summary.deadlines_this_week} deadlines this week`,
+    );
   }
 
   // New leads
@@ -477,7 +543,10 @@ function renderConstructionLeadsPlainText(data: ConstructionLeadsData): string {
       if (lead.buyer_name) details.push(lead.buyer_name);
       details.push(value);
       if (lead.deadline_date) {
-        const dDate = new Date(lead.deadline_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+        const dDate = new Date(lead.deadline_date).toLocaleDateString('en-GB', {
+          day: 'numeric',
+          month: 'short',
+        });
         details.push(`Due ${dDate}`);
       }
       lines.push(`    ${details.join(' | ')}`);
@@ -493,7 +562,10 @@ function renderConstructionLeadsPlainText(data: ConstructionLeadsData): string {
   if (deadlinesToShow.length > 0) {
     lines.push('  UPCOMING DEADLINES:');
     for (const d of deadlinesToShow) {
-      const dDate = new Date(d.deadline_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+      const dDate = new Date(d.deadline_date).toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'short',
+      });
       const daysLeft = Math.ceil((new Date(d.deadline_date).getTime() - Date.now()) / 86_400_000);
       const title = d.title.length > 55 ? d.title.slice(0, 52) + '...' : d.title;
       lines.push(`    ${dDate} (${daysLeft}d) — ${title}`);
@@ -502,7 +574,9 @@ function renderConstructionLeadsPlainText(data: ConstructionLeadsData): string {
 
   // Lead sources
   if (data.sourcesSummary) {
-    lines.push(`  Sources (${data.sourceCounts.active} active, ${data.sourceCounts.planned} planned): ${data.sourcesSummary}`);
+    lines.push(
+      `  Sources (${data.sourceCounts.active} active, ${data.sourceCounts.planned} planned): ${data.sourcesSummary}`,
+    );
   }
 
   lines.push('');
@@ -526,7 +600,10 @@ function renderCaptainInquiriesHtml(data: CaptainInquiriesData): string {
       const seatColor = SEAT_COLORS[inq.seat_level] || '#888';
       const seatLabel = inq.seat_level.toUpperCase();
       const time = new Date(inq.created_at).toLocaleString('en-GB', {
-        day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit',
+        day: 'numeric',
+        month: 'short',
+        hour: '2-digit',
+        minute: '2-digit',
         timeZone: 'Europe/Helsinki',
       });
       const msgLine = inq.message
@@ -563,10 +640,12 @@ function renderLearnArtifactsHtml(data: LearnArtifactsData): string {
   if (data.artifacts.length === 0) return '';
 
   const rows = data.artifacts
-    .map((a) => `<div style="padding: 5px 0; border-bottom: 1px solid #1a1a1a;">
+    .map(
+      (a) => `<div style="padding: 5px 0; border-bottom: 1px solid #1a1a1a;">
       <a href="${esc(a.githubUrl)}" style="color: #60a5fa; text-decoration: none; font-size: 13px; font-weight: 500;">${esc(a.title)}</a>
       <span style="color: #444; font-size: 11px; margin-left: 8px;">${esc(a.modifiedDate)}</span>
-    </div>`)
+    </div>`,
+    )
     .join('');
 
   return `
@@ -595,21 +674,21 @@ function renderLearnArtifactsPlainText(data: LearnArtifactsData): string {
 // ============================================================================
 
 const CATEGORY_COLORS: Record<string, string> = {
-  competitor_price:  '#ffaa00',
-  market_brief:      '#60a5fa',
-  config_gap:        '#c084fc',
-  manual:            '#00d4aa',
+  competitor_price: '#ffaa00',
+  market_brief: '#60a5fa',
+  config_gap: '#c084fc',
+  manual: '#00d4aa',
   pending_migration: '#ff4444',
-  model_update:      '#76b900',
+  model_update: '#76b900',
 };
 
 const CATEGORY_LABELS: Record<string, string> = {
-  competitor_price:  'PRICE',
-  market_brief:      'BRIEF',
-  config_gap:        'CFG',
-  manual:            'MANUAL',
+  competitor_price: 'PRICE',
+  market_brief: 'BRIEF',
+  config_gap: 'CFG',
+  manual: 'MANUAL',
   pending_migration: 'SQL',
-  model_update:      'MODEL',
+  model_update: 'MODEL',
 };
 
 function renderHilTodosHtml(data: HilTodosData): string {
@@ -643,7 +722,7 @@ function renderHilTodosHtml(data: HilTodosData): string {
     <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a;">
       <h3 style="margin: 0 0 10px; font-size: 12px; color: #d4a843; text-transform: uppercase; letter-spacing: 1.5px;">HIL TODO (${data.todos.length} open)</h3>
       ${rows}
-      <p style="margin: 8px 0 0; font-size: 11px; color: #555;">Reply within 24h — send industry brief + SAFE term sheet + calendar link</p>
+      <p style="margin: 8px 0 0; font-size: 10px; color: #444;">Click Done to clear a task. Tasks auto-appear from Monday market run and automated collectors.</p>
     </td></tr>`;
 }
 
@@ -656,7 +735,10 @@ function renderCaptainInquiriesPlainText(data: CaptainInquiriesData): string {
   for (const inq of data.inquiries) {
     const seat = inq.seat_level.toUpperCase();
     const time = new Date(inq.created_at).toLocaleString('en-GB', {
-      day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit',
+      day: 'numeric',
+      month: 'short',
+      hour: '2-digit',
+      minute: '2-digit',
       timeZone: 'Europe/Helsinki',
     });
     lines.push(`  [${seat}] ${inq.name} — ${inq.industry}`);
@@ -668,7 +750,7 @@ function renderCaptainInquiriesPlainText(data: CaptainInquiriesData): string {
   }
 
   lines.push('  → Reply within 24h: industry brief + SAFE term sheet + calendar link');
-
+  lines.push('');
   return lines.join('\n');
 }
 
@@ -801,7 +883,9 @@ export function buildCockpitPlainText(data: CockpitData): string {
   const m = data.metrics;
   const mrr = m.mrr_eur !== null ? `€${m.mrr_eur}` : '—';
   lines.push('METRICS');
-  lines.push(`  MRR: ${mrr} | Convos: ${m.active_conversations} | Commits: ${m.weekly_commits} | MVP ETA: ${m.mvp_eta || '—'}`);
+  lines.push(
+    `  MRR: ${mrr} | Convos: ${m.active_conversations} | Commits: ${m.weekly_commits} | MVP ETA: ${m.mvp_eta || '—'}`,
+  );
   lines.push('');
 
   // AI/DS Workflow
@@ -810,13 +894,17 @@ export function buildCockpitPlainText(data: CockpitData): string {
     const status = w.all_passed ? 'ALL PASSED' : 'FAILED';
     const mode = w.mode === 'dry_run' ? 'Dry Run' : 'Full Run';
     lines.push('AI/DS WORKFLOW');
-    lines.push(`  Status: ${status} (${mode}) | ${w.total_time_seconds.toFixed(1)}s | ${w.savings_percent}% faster than traditional`);
+    lines.push(
+      `  Status: ${status} (${mode}) | ${w.total_time_seconds.toFixed(1)}s | ${w.savings_percent}% faster than traditional`,
+    );
     for (const s of w.stages) {
       const sIcon = s.status === 'OK' ? '+' : 'X';
       lines.push(`  [${sIcon}] ${s.name}: ${s.time.toFixed(1)}s`);
     }
     if (w.best_model) {
-      lines.push(`  Best model: ${w.best_model} (F1=${w.best_f1?.toFixed(4) || '—'})${w.top_feature ? ` | Top: ${w.top_feature}` : ''}`);
+      lines.push(
+        `  Best model: ${w.best_model} (F1=${w.best_f1?.toFixed(4) || '—'})${w.top_feature ? ` | Top: ${w.top_feature}` : ''}`,
+      );
     }
     lines.push('');
   }

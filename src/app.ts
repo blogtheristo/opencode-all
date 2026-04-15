@@ -425,7 +425,7 @@ app.get('/api/v1/cron/status', async (_req: Request, res: Response) => {
 // Construction leads manual trigger (secured by admin key)
 app.post('/api/v1/construction-leads/fetch', async (req: Request, res: Response) => {
   const adminKey = process.env.ADMIN_API_KEY;
-  const provided = req.headers['x-admin-key'] as string;
+  const provided = req.headers['x-admin-key'];
 
   // SECURITY: Timing-safe comparison to prevent timing attacks (consistent with other admin endpoints)
   if (!adminKey || !provided) {
@@ -452,7 +452,7 @@ app.post('/api/v1/construction-leads/fetch', async (req: Request, res: Response)
 // Captain inquiry status update — triggers pre-briefing email on "booked"
 app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Response) => {
   const adminKey = process.env.ADMIN_API_KEY;
-  const provided = req.headers['x-admin-key'] as string;
+  const provided = req.headers['x-admin-key'];
 
   // SECURITY: Timing-safe comparison to prevent timing attacks
   if (!adminKey || !provided) {
