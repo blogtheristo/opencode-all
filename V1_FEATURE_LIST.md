@@ -581,18 +581,19 @@ Week 5 (Feb 3-7):    Email + Auth UI + Polish ██████████ 70%
 
 ### Still Open
 
-| #   | Gap                           | Priority | Status                                                           | Target   |
-| --- | ----------------------------- | -------- | ---------------------------------------------------------------- | -------- |
-| 1   | Mobile App screens            | V1.1     | Foundation only — deferred                                       | Q2 2026  |
-| 2   | OAuth/SSO (Google, Microsoft) | V1.1     | Not started                                                      | Q2 2026  |
-| 3   | Email production credentials  | High     | Service ready, needs API keys                                    | ASAP     |
-| 4   | Workflow Builder UI           | V1.1     | Backend state machine ready                                      | Q2 2026  |
-| 5   | Full agent test suite         | Medium   | Partial coverage                                                 | Q2 2026  |
-| 6   | Stripe payment                | V1.1     | PayPal + Revolut sufficient for EU                               | Q3 2026  |
-| 7   | EU-Sovereign Migration        | Low      | Plan decided (Aiven)                                             | Aug 2026 |
-| 8   | LlamaStack integration        | V1.1     | Groq fallback works                                              | Q2 2026  |
-| 9   | OpenAPI remaining 9 endpoints | Low      | 70 of 79 — investor cap-table, content DMS, outreach-send remain | Q2 2026  |
-| 11  | Customer knowledge base       | Medium   | No FAQ / help docs                                               | Q2 2026  |
+| #   | Gap                           | Priority | Status                                                                                                            | Target   |
+| --- | ----------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------- | -------- |
+| 1   | Mobile App screens            | V1.1     | Foundation only — deferred                                                                                        | Q2 2026  |
+| 2   | OAuth/SSO (Google, Microsoft) | V1.1     | Not started                                                                                                       | Q2 2026  |
+| 3   | Email production credentials  | High     | Service ready, needs API keys                                                                                     | ASAP     |
+| 4   | Workflow Builder UI           | V1.1     | Backend state machine ready                                                                                       | Q2 2026  |
+| 5   | Full agent test suite         | Medium   | Partial coverage                                                                                                  | Q2 2026  |
+| 6   | Stripe payment                | V1.1     | PayPal + Revolut sufficient for EU                                                                                | Q3 2026  |
+| 7   | EU-Sovereign Migration        | Low      | Plan decided (Aiven)                                                                                              | Aug 2026 |
+| 8   | LlamaStack integration        | V1.1     | Groq fallback works                                                                                               | Q2 2026  |
+| 9   | OpenAPI remaining 9 endpoints | Low      | 70 of 79 — investor cap-table, content DMS, outreach-send remain                                                  | Q2 2026  |
+| 11  | Customer knowledge base       | Medium   | No FAQ / help docs                                                                                                | Q2 2026  |
+| 12  | Blue-green deployment         | V1.1     | Staging/prod split done; blue-green = Cloud Run revision traffic splitting (0% → smoke test → 100%) not yet wired | Q3 2026  |
 
 ### Architecture Diagram
 
