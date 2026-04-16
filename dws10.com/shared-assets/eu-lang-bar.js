@@ -22,6 +22,19 @@
 (function () {
   'use strict';
 
+  // Idempotency: skip if another copy already rendered the bar (e.g. ironclad-nav
+  // auto-loads us AND a page still has the manual <script> tag).
+  if (window.__dwsEuLangBarLoaded) return;
+  window.__dwsEuLangBarLoaded = true;
+
+  // Pages that are not language-indexed (store, product pages, checkout) set
+  // <meta name="dws-lang-stay" content="true"> to prevent the click from
+  // redirecting to /fi/, /sv/, etc. The language+VAT still switch in-place.
+  function staysOnPage() {
+    var m = document.querySelector('meta[name="dws-lang-stay"]');
+    return !!(m && m.getAttribute('content') === 'true');
+  }
+
   // European language order — local languages first, English last
   var languages = [
     { code: 'fi', label: 'Suomi', flag: '&#x1F1EB;&#x1F1EE;' },
@@ -168,8 +181,8 @@
         // Dispatch event
         window.dispatchEvent(new CustomEvent('dws-lang-change', { detail: { lang: lang } }));
 
-        // Redirect to language subdirectory if available
-        if (langPaths[lang]) {
+        // Redirect to language subdirectory unless page opted out.
+        if (!staysOnPage() && langPaths[lang]) {
           var target = langPaths[lang];
           var current = window.location.pathname;
           if (current !== target && current !== target + 'index.html') {

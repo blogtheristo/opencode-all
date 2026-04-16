@@ -331,7 +331,7 @@
 .ironclad-header {
     background: #ffffff;
     color: #0a1628;
-    padding: 15px 0;
+    padding: 24px 0;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     position: sticky;
     top: 0;
@@ -363,7 +363,7 @@
 }
 
 .ironclad-logo {
-    height: 50px;
+    height: 64px;
     width: auto;
 }
 
@@ -726,7 +726,7 @@
 @media (max-width: 900px) {
 
     .ironclad-header {
-        padding: 10px 0;
+        padding: 18px 0;
     }
 
     .ironclad-container {
@@ -741,7 +741,7 @@
     }
 
     .ironclad-logo {
-        height: 36px;
+        height: 52px;
     }
 
     /* Show hamburger */
@@ -1155,6 +1155,17 @@
           langToggle.setAttribute('aria-expanded', 'false');
         }
       });
+    }
+
+    // Auto-load the 5-language EU bar (FI | SV | DE | FR | EN) on every
+    // ironclad page. eu-lang-bar.js is idempotent, so pages that already
+    // include it manually are safe.
+    if (!document.querySelector('script[data-dws-eu-lang]')) {
+      var langScript = document.createElement('script');
+      langScript.src = '/shared-assets/eu-lang-bar.js';
+      langScript.setAttribute('data-dws-eu-lang', 'true');
+      langScript.async = true;
+      document.head.appendChild(langScript);
     }
 
     console.log(

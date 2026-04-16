@@ -228,6 +228,18 @@ RIGHT: https://dws10.com/products/aegis.html
 
 **This applies to ALL output containing URLs, not just social media.** No exceptions.
 
+### Picture Prompt Rule (CRITICAL)
+
+**Every AI image-generation prompt produced for the user (Gemini, Midjourney, DALL·E, Nano Banana, etc.) MUST be appended to `docs/field-notes/picture-prompts.md` in the same turn it is delivered.** No exceptions.
+
+1. **Single source of truth** — `docs/field-notes/picture-prompts.md` is the append-only log of every picture prompt used across dws10.com, onelifetime.world, Firehorse Store, blog posts, and social media
+2. **Append, never replace** — new entries go above the `<!-- New entries appended above this line. -->` marker; existing entries are never rewritten or deleted (rename to archived status instead)
+3. **Required fields** — every entry must include: date, slug, target file path, model, aspect ratio, theme, status (pending/rendered/published/archived), output file path, full prompt verbatim in blockquote, notes
+4. **Same turn delivery** — if you output a picture prompt to the user in chat, you must also write it to this file in the same response. Delivering a prompt without logging it is incomplete work.
+5. **Commit with the related work** — if the prompt was generated for a specific product/page/post, commit the picture-prompts.md update in the same commit as that work (or as a follow-up commit before the turn ends)
+
+**Why:** Picture prompts are production assets. Without a log, we re-invent them for every regeneration, lose variant history, and can't audit which Gold/Firehorse/DWS theme lineage an image belongs to.
+
 ### Ollama Model Rule (CRITICAL)
 
 **Never pull, remove, or change Ollama models without human approval.** Model changes are strategic decisions affecting cost, performance, memory budget, and agent compatibility.
