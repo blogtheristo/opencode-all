@@ -718,6 +718,13 @@
       .journey-step:hover {
         background: rgba(249, 115, 22, 0.12);
       }
+      .journey-step.active {
+        background: rgba(249, 115, 22, 0.2);
+        box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.5);
+      }
+      .journey-step.active .journey-step-label {
+        color: #fb923c;
+      }
       .journey-step-label {
         font-size: 0.7rem;
         font-weight: 800;
@@ -1037,27 +1044,43 @@
       <!-- Firehorse Journey Chain -->
       <div class="journey-chain" role="navigation" aria-label="Firehorse product journey">
         <span class="journey-chain-header">Firehorse</span>
-        <a href="../products/firehorse-reports.html" class="journey-step">
+        <a
+          href="../products/firehorse-reports.html?ref=produce"
+          class="journey-step"
+          data-step="produce"
+        >
           <span class="journey-step-label">PRODUCE</span>
           <span class="journey-step-sub">Report</span>
         </a>
         <span class="journey-arrow" aria-hidden="true">&#8594;</span>
-        <a href="../products/firehorse-reports.html" class="journey-step">
+        <a href="../products/firehorse-reports.html?ref=sign" class="journey-step" data-step="sign">
           <span class="journey-step-label">SIGN</span>
           <span class="journey-step-sub">Signed Reports</span>
         </a>
         <span class="journey-arrow" aria-hidden="true">&#8594;</span>
-        <a href="../products/firehorse-content-management.html" class="journey-step">
+        <a
+          href="../products/firehorse-content-management.html?ref=store"
+          class="journey-step"
+          data-step="store"
+        >
           <span class="journey-step-label">STORE</span>
           <span class="journey-step-sub">Content Mgmt</span>
         </a>
         <span class="journey-arrow" aria-hidden="true">&#8594;</span>
-        <a href="../products/firehorse-automation.html" class="journey-step">
+        <a
+          href="../products/firehorse-automation.html?ref=automate"
+          class="journey-step"
+          data-step="automate"
+        >
           <span class="journey-step-label">AUTOMATE</span>
           <span class="journey-step-sub">Automation</span>
         </a>
         <span class="journey-arrow" aria-hidden="true">&#8594;</span>
-        <a href="../products/firehorse-omnichannel.html" class="journey-step">
+        <a
+          href="../products/firehorse-omnichannel.html?ref=market"
+          class="journey-step"
+          data-step="market"
+        >
           <span class="journey-step-label">MARKET</span>
           <span class="journey-step-sub">Omnichannel</span>
         </a>
@@ -1436,5 +1459,17 @@
     </script>
     <script src="../shared-assets/vat-locale.js"></script>
     <script src="/shared-assets/footer/ironclad-footer.js"></script>
+    <script>
+      (function () {
+        var from = new URLSearchParams(location.search).get("from");
+        if (from) {
+          var step = document.querySelector('.journey-step[data-step="' + from + '"]');
+          if (step) {
+            step.classList.add("active");
+            step.scrollIntoView({ inline: "center", block: "nearest" });
+          }
+        }
+      })();
+    </script>
   </body>
 </html>

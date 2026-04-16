@@ -78,9 +78,54 @@
       }
       .hero-image {
         width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
         border-radius: 8px;
-        margin-bottom: 28px;
+        margin: 16px 0 24px;
         border: 1px solid rgba(255, 255, 255, 0.08);
+        display: block;
+      }
+      .lang-bar {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 14px;
+      }
+      .lang-btn {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #64748b;
+        padding: 4px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        transition: all 0.15s;
+        font-family: inherit;
+      }
+      .lang-btn.active,
+      .lang-btn:hover {
+        background: rgba(249, 115, 22, 0.15);
+        border-color: rgba(249, 115, 22, 0.4);
+        color: #f97316;
+      }
+      .hero-oneliner {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #f1f5f9;
+        margin: 0 0 8px;
+        line-height: 1.4;
+      }
+      .lang-desc {
+        color: #94a3b8;
+        margin: 0 0 28px;
+        line-height: 1.7;
+      }
+      [data-lang] {
+        display: none;
+      }
+      [data-lang].lang-active {
+        display: block;
       }
       .price {
         font-size: 2rem;
@@ -238,7 +283,7 @@
   <body>
     <script src="/shared-assets/nav/ironclad-nav.js"></script>
     <div class="container">
-      <a href="../buy/" class="back-link">&larr; Back to Store</a>
+      <a href="../buy/?from=market" class="back-link">&larr; Back to Store</a>
 
       <h1>Firehorse Omnichannel V2</h1>
       <p class="subtitle">AI-managed outreach — DWS runs your campaigns. You own the results.</p>
@@ -248,6 +293,77 @@
         alt="Firehorse Omnichannel V2 — AI command room with campaign dashboards"
         class="hero-image"
       />
+      <div class="lang-bar">
+        <button class="lang-btn" data-pick="en">EN</button>
+        <button class="lang-btn" data-pick="fi">FI</button>
+        <button class="lang-btn" data-pick="sv">SV</button>
+        <button class="lang-btn" data-pick="de">DE</button>
+        <button class="lang-btn" data-pick="fr">FR</button>
+      </div>
+      <p class="hero-oneliner" data-lang="en">AI runs your campaigns. You approve the strategy.</p>
+      <p class="hero-oneliner" data-lang="fi">
+        Tekoäly pyörittää kampanjasi. Sinä hyväksyt strategian.
+      </p>
+      <p class="hero-oneliner" data-lang="sv">AI driver dina kampanjer. Du godkänner strategin.</p>
+      <p class="hero-oneliner" data-lang="de">
+        KI führt Ihre Kampagnen durch. Sie genehmigen die Strategie.
+      </p>
+      <p class="hero-oneliner" data-lang="fr">
+        L'IA gère vos campagnes. Vous approuvez la stratégie.
+      </p>
+      <p class="lang-desc" data-lang="en">
+        Firehorse Omnichannel V2 delivers AI-managed outreach across LinkedIn, email, and content
+        channels. DWS runs campaigns using proven playbooks built from 800+ days of live data across
+        EU industrial and climate-tech sectors. Platform-agnostic: no vendor lock-in.
+      </p>
+      <p class="lang-desc" data-lang="fi">
+        Firehorse Omnichannel V2 toimittaa tekoälyohjatun outreachin LinkedInissä, sähköpostissa ja
+        sisältökanavissa. DWS ajaa kampanjat 800+ päivän live-datasta rakennetuilla todennetuilla
+        playbook-malleilla EU:n teollisuus- ja ilmastoteknologiasektoreilla. Alustariippumaton: ei
+        toimittajalukitusta.
+      </p>
+      <p class="lang-desc" data-lang="sv">
+        Firehorse Omnichannel V2 levererar AI-hanterad outreach över LinkedIn, e-post och
+        innehållskanaler. DWS kör kampanjer med beprövade playbooks byggda från 800+ dagars livedata
+        inom EU:s industri- och klimattekniksektorer. Plattformsoberoende: ingen leverantörslåsning.
+      </p>
+      <p class="lang-desc" data-lang="de">
+        Firehorse Omnichannel V2 liefert KI-verwaltetes Outreach über LinkedIn, E-Mail und
+        Inhaltskanäle. DWS führt Kampagnen mit bewährten Playbooks durch, die aus 800+ Tagen
+        Live-Daten aus EU-Industrie- und Klimatechnik-Sektoren aufgebaut wurden.
+        Plattformunabhängig: keine Anbieterbindung.
+      </p>
+      <p class="lang-desc" data-lang="fr">
+        Firehorse Omnichannel V2 offre un outreach géré par IA sur LinkedIn, email et canaux de
+        contenu. DWS gère les campagnes avec des playbooks éprouvés construits à partir de 800+
+        jours de données en direct dans les secteurs industriels et climatiques de l'UE. Indépendant
+        de la plateforme: pas de dépendance fournisseur.
+      </p>
+      <script>
+        (function () {
+          var LANGS = ["en", "fi", "sv", "de", "fr"];
+          var lang = localStorage.getItem("dws-lang") || "en";
+          if (!LANGS.includes(lang)) lang = "en";
+          function applyLang(l) {
+            document.querySelectorAll("[data-lang]").forEach(function (el) {
+              el.classList.toggle("lang-active", el.getAttribute("data-lang") === l);
+            });
+            document.querySelectorAll(".lang-btn").forEach(function (btn) {
+              btn.classList.toggle("active", btn.getAttribute("data-pick") === l);
+            });
+            localStorage.setItem("dws-lang", l);
+          }
+          applyLang(lang);
+          document.querySelectorAll(".lang-btn").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+              applyLang(this.getAttribute("data-pick"));
+            });
+          });
+          window.addEventListener("dws-lang-change", function (e) {
+            applyLang(e.detail.lang);
+          });
+        })();
+      </script>
 
       <div class="badge-row">
         <span class="badge badge-managed">Managed Service — DWS executes</span>

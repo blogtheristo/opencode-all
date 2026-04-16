@@ -36,6 +36,8 @@
     { code: 'en', label: 'English' },
     { code: 'fi', label: 'Suomeksi' },
     { code: 'sv', label: 'Svenska' },
+    { code: 'de', label: 'Deutsch' },
+    { code: 'fr', label: 'Français' },
   ];
   const ironcladCurrentLang = localStorage.getItem('dws-lang') || 'en';
   const ironcladCurrentLabel = (
@@ -1126,8 +1128,8 @@
           // Dispatch custom event for page-level reactions
           window.dispatchEvent(new CustomEvent('dws-lang-change', { detail: { lang: lang } }));
 
-          // v3.2: Redirect to language subdirectory if available
-          // Only redirect for homepage-level pages (where /fi/ and /sv/ exist)
+          // v3.3: Redirect to language subdirectory only for languages with subdirectory pages
+          var LANGS_WITH_SUBDIRS = ['en', 'fi', 'sv'];
           var currentPath = window.location.pathname;
           var isHomepage =
             currentPath === '/' ||
@@ -1136,7 +1138,7 @@
             currentPath === '/fi/index.html' ||
             currentPath === '/sv/' ||
             currentPath === '/sv/index.html';
-          if (isHomepage) {
+          if (isHomepage && LANGS_WITH_SUBDIRS.includes(lang)) {
             var targetPath = lang === 'en' ? '/' : '/' + lang + '/';
             if (currentPath !== targetPath && currentPath !== targetPath + 'index.html') {
               window.location.href = targetPath;
