@@ -182,6 +182,103 @@ Tapahtuman teemat liittyvät suoraan voimaan tulleisiin EU-direktiiveihin:
 
 ---
 
+## CORE-mallin analyysi — DWS IQ 6 -kytkentä
+
+_Analysoitu kuvamateriaalista 2026-04-16. Lähde: Hybrid CoE, CORE — A Comprehensive Resilience Ecosystem._
+
+### Mikä CORE on
+
+CORE (Comprehensive Resilience Ecosystem) on systeeminen malli, joka kuvaa demokraattista yhteiskuntaa kokonaisuutena. Sen avulla analysoidaan ja torjutaan hybriduhkia, jotka pyrkivät heikentämään demokratioiden toimintakykyä, manipuloimaan päätöksentekoprosesseja ja luomaan kaskadiefektejä.
+
+**Executive Summary -ydinlause:**
+
+> _"Hybrid threats constitute a combination of different types of tools — some expected and known, some unexpected and clandestine — applied to achieve an undeclared strategic objective without officially admitting to doing so."_
+
+### CORE-mallin rakenne
+
+#### 7 demokratian perustaa (hybridivaikuttamisen kohteet)
+
+Hybriditoimijat pyrkivät heikentämään näitä:
+
+1. Political Responsibility / Accountability
+2. Feeling of Justice / Equal Treatment
+3. Civil Rights / Liberties
+4. Rule of Law
+5. Stability
+6. Reliability / Availability
+7. Foresight Capabilities
+
+#### 3 tilaa + 3 kerrosta
+
+| Tila                 | Kuvaus                                              |
+| -------------------- | --------------------------------------------------- |
+| **Civic Space**      | Kansalaisyhteiskunta, kulttuuri, sosiaaliset ryhmät |
+| **Governance Space** | Poliittinen hallinto, oikeus, diplomatia, puolustus |
+| **Services Space**   | Infra, talous, kyber, avaruus, informaatio          |
+
+| Kerros | Taso          |
+| ------ | ------------- |
+| C1     | Local         |
+| C2     | National      |
+| C3     | International |
+
+#### 13 domeenia (kilvet tai hyökkäyspisteet)
+
+```
+Civic Space:        Culture | Social/Societal | Information
+Governance Space:   Political | Public Admin | Legal | Intelligence | Diplomacy | Military Defence
+Services Space:     Infrastructure | Economy | Cyber | Space
+```
+
+Domeenit voivat toimia **suojakilpinä** tai **hyökkäyksen sisääntulokohtina** — riippuu niiden resilienssitasosta.
+
+### CORE Dart Board — uhkamallinnustyökalu
+
+Kuvaa miten hybriditoimijat käyttävät tiettyjä työkaluja tiettyihin domeeneihin ja luovat kaskadiefektejä:
+
+```
+ACTOR → TOOL → DOMAIN → ACTIVITY → TARGET
+```
+
+Esimerkkityökalut kuvista:
+
+- Exploiting legal thresholds
+- Promoting social unrest
+- Disinformation
+- Exploiting dependencies (economic pressure)
+
+### CORE strategisena suunnittelulautana
+
+CORE auttaa päätöksentekijöitä:
+
+- **Tunnistamaan varhaisia signaaleja** ja tukemaan niiden analyysiä
+- **Suunnittelemaan vastatoimia** primääristen ja ketjuvaikutusten torjumiseksi
+- **Rakentamaan whole-of-society -lähestymistavan** resilienssiin
+- **Tukemaan politiikantekoa** hybriduhkia vastaan EU-, jäsenvaltio- ja operatiivisella tasolla
+
+---
+
+### CORE → DWS IQ 6 mapping
+
+| CORE-elementti                                 | DWS IQ 6 -komponentti       | Toteutusmuoto                      |
+| ---------------------------------------------- | --------------------------- | ---------------------------------- |
+| 13 domeenia                                    | Risk Domain Registry        | `src/compliance/risk-domains.ts`   |
+| 3 tilaa × 3 kerrosta                           | Threat Space Model          | Compliance Engine -ontologia       |
+| Dart Board (Actor→Tool→Domain→Activity→Target) | Threat Scenario Agent       | Agenttipohjainen skenaarioanalyysi |
+| Kaskadiefektit domeenien välillä               | Interconnection Risk Graph  | pgvector-haku domeenilinkeistä     |
+| 7 demokratian perustaa                         | Governance Baseline Metrics | Board Reporting -moduuli           |
+| Varhainen signaali -tunnistus                  | Strategic Foresight API     | LWM + Hybrid CoE -syöte            |
+
+### Hybridivaikuttamisen kolme mekanismia (Executive Summary)
+
+1. **Haavoittuvuuksien luominen** — uusien heikkouksien etsiminen, epävarmuuden rakentaminen, kansalaisten luottamuksen heikentäminen
+2. **Päätöksenteon manipulointi** — tilannekuvan hämärtäminen, tietovirtojen aukkojen hyödyntäminen, pelkotekijöiden rakentaminen
+3. **Maksimaaliset kaskadiefektit** — räätälöidyt hyökkäykset, domeenien yhdistäminen järjestelmien ylikuormittamiseksi
+
+**DWS-relevanssi:** Nämä kolme mekanismia karttuvat suoraan CSRD S1/S5 (sosiaalinen vaikutus), NIS2 (kyberresilienssi) ja CER (fyysinen kriittinen infra) -raportointivaatimuksiin.
+
+---
+
 ## Hybrid CoE -julkaisut → DWS-moduulimapping
 
 Kuratoitu 2026-04-16. Kolme prioriteettiluokkaa dws10.com-kehitystyöhön.
