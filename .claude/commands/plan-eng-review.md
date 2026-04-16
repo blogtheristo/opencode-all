@@ -19,7 +19,7 @@ Input: $ARGUMENTS
 ### 2. Data Model
 - What tables/collections are affected?
 - Schema changes needed (with migration plan)
-- RLS policies required (Boardy rule: RLS on every table)
+- RLS policies required (Marcus rule: RLS on every table)
 
 ### 3. API Surface
 - New endpoints/routes needed

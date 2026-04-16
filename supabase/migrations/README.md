@@ -1,6 +1,6 @@
 # Supabase Migrations — DWS6
 
-> VERSION: 1.0 | Date: 2026-04-07 | Owner: Boardy (Systems Architect)
+> VERSION: 1.0 | Date: 2026-04-07 | Owner: Marcus (Systems Architect)
 
 ## Migration Strategy
 

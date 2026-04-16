@@ -1125,17 +1125,20 @@ DWS IQ runs **13 named agents** organized in two tiers, registered at startup in
 | `hermes`     | Greek | Logistics & Ops    | logistics-optimization, supply-chain-risk, quality-gate        |
 | `apollo`     | Greek | Content & Outreach | content-strategy, seo-optimization, sales-outreach             |
 
-**Tier 2 — Industry Specialists (7 agents)**
+**Tier 2 — Industry Specialists (8 agents)**
 
-| Agent        | Deity | Industry                  | Key Regulation                        |
-| ------------ | ----- | ------------------------- | ------------------------------------- |
-| `vulcan`     | Roman | Steel & Metals            | ETS Phase 4, CBAM iron/steel          |
-| `helios`     | Greek | Energy & Renewables       | RED III 42.5%, REPowerEU              |
-| `neptune`    | Roman | Maritime & Shipping       | FuelEU Maritime, ETS shipping         |
-| `ceres`      | Roman | Agriculture & Fertilizers | CBAM fertilizers, N2O                 |
-| `prometheus` | Greek | Hydrogen                  | RFNBO additionality, RED III          |
-| `mars`       | Roman | Construction & Buildings  | EPBD, EN 15978 whole-life carbon      |
-| `gaia`       | Greek | Cement & Earth Materials  | CBAM clinker benchmark 766 tCO2/1000t |
+CBAM Annex I sectors (EU 2023/956) marked ✅. Source of truth: `src/synthetic-data/cbam-schema.ts` (LD-2026-013).
+
+| Agent        | Deity | Industry                 | CBAM | CN Codes | Key Regulation                                                      |
+| ------------ | ----- | ------------------------ | ---- | -------- | ------------------------------------------------------------------- |
+| `vulcan`     | Roman | Steel & Iron             | ✅   | 42       | CBAM Annex I; zero free allowances from 2026                        |
+| `talos`      | Greek | Aluminium                | ✅   | 16       | CBAM Annex I; **only sector with indirect (electricity) emissions** |
+| `gaia`       | Greek | Cement & Earth Materials | ✅   | 3        | CBAM clinker benchmark ~0.62 tCO2e/t                                |
+| `ceres`      | Roman | Fertilizers              | ✅   | 3        | CBAM Annex I; Haber-Bosch ammonia ~1.6 tCO2e/t                      |
+| `prometheus` | Greek | Hydrogen                 | ✅   | 1        | CBAM Annex I; grey H2 ~9.2 tCO2e/t vs green ~0                      |
+| `helios`     | Greek | Electricity              | ✅   | 1        | CBAM Annex I; zero free allowances; RED III 42.5%                   |
+| `neptune`    | Roman | Maritime & Shipping      | —    | —        | FuelEU Maritime, ETS shipping (non-CBAM)                            |
+| `mars`       | Roman | Construction & Buildings | —    | —        | EPBD, EN 15978 whole-life carbon (non-CBAM)                         |
 
 **Identity pattern:** Each agent has `src/agents/workflow/{tier}/{name}/SOUL.md` injected as system prompt.
 **Logging:** All agents call `logExecution()` to `agent_executions` Supabase table (EU AI Act Article 12).
