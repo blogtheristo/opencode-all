@@ -541,7 +541,7 @@
     </item>
     <item>
         <g:id>DWS-US-STARTER</g:id>
-        <g:title>DWS IQ — US Cloud Starter</g:title>
+        <g:title>DWS IQ — US Cloud Navigator</g:title>
         <g:description>Get started with DWS IQ on US Cloud infrastructure (Supabase + Cloudflare). 3 AI agents, basic CSRD dashboard, 1 user seat. Fastest path to compliance — upgrade to EU Sovereign anytime.</g:description>
         <g:link>https://dws10.com/products/cloud-pricing.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
@@ -558,7 +558,7 @@
     </item>
     <item>
         <g:id>DWS-US-PILOT</g:id>
-        <g:title>DWS IQ — US Cloud Pilot</g:title>
+        <g:title>DWS IQ — US Cloud Premium</g:title>
         <g:description>4-week evaluation with real data on US Cloud. 8 AI agents, Firehorse Report, 5 seats, kickoff workshop. Prove ROI before scaling — upgrade to EU Sovereign anytime.</g:description>
         <g:link>https://dws10.com/products/cloud-pricing.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
@@ -575,7 +575,7 @@
     </item>
     <item>
         <g:id>DWS-EU-STARTER</g:id>
-        <g:title>DWS IQ — EU Sovereign Starter</g:title>
+        <g:title>DWS IQ — Enterprise Navigator</g:title>
         <g:description>DWS IQ on EU sovereign infrastructure (Aiven PostgreSQL + Hetzner/Scaleway). 3 AI agents, CSRD dashboard, zero CLOUD Act exposure, sovereignty score monitoring. EU data residency from day 1.</g:description>
         <g:link>https://dws10.com/products/cloud-pricing.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
@@ -593,7 +593,7 @@
     </item>
     <item>
         <g:id>DWS-EU-PILOT</g:id>
-        <g:title>DWS IQ — EU Sovereign Pilot</g:title>
+        <g:title>DWS IQ — Enterprise Premium</g:title>
         <g:description>Full EU sovereign evaluation. 8 AI agents, Firehorse Report, Aiwen EU AI Act Article 12 logging, NIS2 dashboard, 5 seats. Zero CLOUD Act. Prove compliance ROI on sovereign infrastructure.</g:description>
         <g:link>https://dws10.com/products/cloud-pricing.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
