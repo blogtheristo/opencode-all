@@ -30,6 +30,37 @@
       },
       "storeCategory": "platform"
     },
+    "FH-OMNI-001": {
+      "id": "FH-OMNI-001",
+      "gtin": null,
+      "mpn": "FH-OMNI-2026",
+      "name": "Firehorse Omnichannel V2",
+      "price": 1499,
+      "currency": "EUR",
+      "type": "monthly",
+      "description": "AI-managed outreach — DWS runs your LinkedIn, email and content campaigns. You approve. We execute. No agency markup, no platform lock-in. 90-day pipeline guarantee. Proven playbooks built from 800+ days of EU industrial campaign data.",
+      "features": [
+        "LinkedIn, email and content campaigns — fully managed by DWS",
+        "No platform lock-in — DWS absorbs the AI stack",
+        "90-day pipeline guarantee or we work free",
+        "Monthly pipeline report with qualified opportunities"
+      ],
+      "priceNote": "Monthly managed service — strategy, execution and reporting included. Cancel anytime.",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/firehorse-omnichannel-v2.png",
+      "detailsUrl": "../products/firehorse-omnichannel.html",
+      "featured": true,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Firehorse",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform"
+    },
     "FH-AUTO-001": {
       "id": "FH-AUTO-001",
       "gtin": null,
@@ -42,12 +73,13 @@
       "features": [
         "Event-driven compliance workflows",
         "Eliminate manual data entry errors",
-        "Complete audit trail for ESG data"
+        "Complete audit trail for ESG data",
+        "Next step: add Firehorse Omnichannel → tell the market"
       ],
       "priceNote": "Per project",
       "revolutLink": "https://checkout.revolut.com/pay/b0a1fc57-83e8-4ccb-86c2-64930d135869",
       "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
+      "image": "/static/images/firehorse-automation-v2.png",
       "detailsUrl": "../products/firehorse-automation.html",
       "featured": false,
       "google": {
@@ -64,21 +96,22 @@
       "id": "LIFETIME-BUNDLE-2026",
       "gtin": null,
       "mpn": "CLM-BUNDLE-2026",
-      "name": "Climate Reporting Starter Bundle",
-      "price": 6500,
+      "name": "Firehorse Starter V2",
+      "price": 9990,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Everything you need to go from zero to compliant. Includes DWS IQ Base Platform, Firehorse Report Module, and a hands-on Kickoff Workshop. Built for companies facing their first CSRD reporting deadline. Operational in 30 days.",
+      "description": "The fastest path to audit-ready CFO reporting. Firehorse Starter V2 includes DWS IQ Base Platform, Firehorse Report, Firehorse Signed Reports, and a Kickoff Workshop. Operational in 30 days. CSRD, Fit for 55 and EPBD 2028 ready from day one.",
       "features": [
-        "DWS IQ + Firehorse Report + Workshop",
-        "First CSRD reporting deadline ready",
-        "Operational in 30 days"
+        "DWS IQ Base + Firehorse Report + Signed Reports + Workshop",
+        "CSRD, Fit for 55 and EPBD reporting ready",
+        "Audit-ready in 30 days",
+        "Next step: add Firehorse Content Management → evidence vault"
       ],
-      "priceNote": "One-time + €1,999/year",
+      "priceNote": "One-time setup + €1,999/year license",
       "revolutLink": "https://checkout.revolut.com/pay/065b9efd-5fd1-43aa-bfb9-869c41c2b01f",
       "paypalPlanId": null,
-      "image": "/static/images/8_Industries.png",
-      "detailsUrl": "../products/bundle.html",
+      "image": "/static/images/firehorse-starter-v2.png",
+      "detailsUrl": "../products/firehorse-starter-v2.html",
       "featured": true,
       "google": {
         "productCategory": "Software > Business & Productivity Software",
@@ -90,41 +123,11 @@
       },
       "storeCategory": "platform"
     },
-    "FH-OMNI-001": {
-      "id": "FH-OMNI-001",
-      "gtin": null,
-      "mpn": "FH-OMNI-2026",
-      "name": "Firehorse Omnichannel Next",
-      "price": 499,
-      "currency": "EUR",
-      "type": "one-time",
-      "description": "Launch climate-tech products without greenwashing risk. AI-powered marketing engine that ensures every claim meets EU AI Act and Green Claims Directive requirements. Includes 4-week pilot campaign with measurable results.",
-      "features": [
-        "AI-powered marketing engine",
-        "EU AI Act & Green Claims compliant",
-        "4-week pilot with measurable results"
-      ],
-      "priceNote": "Per campaign cycle",
-      "revolutLink": "https://checkout.revolut.com/pay/c2eea068-dd5a-4575-88e2-cba1c3877fbf",
-      "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "../products/firehorse-omnichannel.html",
-      "featured": false,
-      "google": {
-        "productCategory": "Software > Business & Productivity Software",
-        "condition": "new",
-        "availability": "in_stock",
-        "brand": "Firehorse",
-        "targetCountry": "FI",
-        "contentLanguage": "en"
-      },
-      "storeCategory": "platform"
-    },
     "FH-RPT-001": {
       "id": "FH-RPT-001",
       "gtin": null,
       "mpn": "FH-REPORT-2026",
-      "name": "DWS IQ Report",
+      "name": "Firehorse Report",
       "price": 1999,
       "currency": "EUR",
       "type": "one-time",
@@ -132,12 +135,13 @@
       "features": [
         "Automated Fit for 55 dashboards",
         "SAP integration with real-time data",
-        "4-week validation included"
+        "4-week validation included",
+        "Next step: add Firehorse Signed Reports → legal validity"
       ],
-      "priceNote": "Per report template",
+      "priceNote": "Per report template — start here",
       "revolutLink": "https://checkout.revolut.com/pay/5997823a-553d-4eb2-82f6-668d2e884b9c",
       "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
+      "image": "/static/images/firehorse-report-v2.png",
       "detailsUrl": "../products/firehorse-reports.html",
       "featured": false,
       "google": {
@@ -162,12 +166,13 @@
       "features": [
         "DocuSign eSignature on all Firehorse reports",
         "Multi-party signing (author → reviewer → auditor)",
-        "Signed PDF download and audit trail"
+        "Signed PDF download and audit trail",
+        "Next step: add Firehorse Content Management → evidence vault"
       ],
       "priceNote": "€199/year add-on — requires Firehorse Report",
       "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
+      "image": "/static/images/firehorse-signed-reports-v2.png",
       "detailsUrl": "../products/firehorse-reports.html",
       "featured": false,
       "google": {
@@ -192,12 +197,13 @@
       "features": [
         "Auto-tagged compliance documents",
         "Certificate expiry alerts",
-        "Semantic search across evidence"
+        "Semantic search across evidence",
+        "Next step: add Firehorse Automation → eliminate manual data entry"
       ],
       "priceNote": "Setup + migration",
       "revolutLink": "https://checkout.revolut.com/pay/b0a1fc57-83e8-4ccb-86c2-64930d135869",
       "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
+      "image": "/static/images/firehorse-content-management-v2.png",
       "detailsUrl": "../products/firehorse-content-management.html",
       "featured": false,
       "google": {
@@ -214,20 +220,20 @@
       "id": "expert-services",
       "gtin": null,
       "mpn": "EXP-SVC-2026",
-      "name": "Workshop 3 Days - Expert Advisory & Implementation",
+      "name": "Expert Advisory & Implementation",
       "price": 4500,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Three days that save your team three months. Intensive hands-on workshop covering compliance report design, workflow automation, and strategic roadmap for Fit for 55, CSRD, and EU AI Act. Leave with working implementations, not just slide decks.",
+      "description": "DWS delivers any Firehorse product for you — Report, Omnichannel, Automation, Content Management, or Signed Reports. Three intensive days covering design, integration, and go-live. You define the outcome. We build and hand it over running.",
       "features": [
-        "Hands-on compliance workshop",
-        "Workflow automation training",
-        "Working implementations in 3 days"
+        "Covers all Firehorse products — Report, Omnichannel, Automation, CMS, Signed Reports",
+        "Design, integration and go-live in 3 days",
+        "Working implementation handed over — not slide decks"
       ],
-      "priceNote": "3-day workshop",
+      "priceNote": "3-day engagement — book a call to scope your Firehorse delivery",
       "revolutLink": "https://checkout.revolut.com/pay/897acfa9-630f-4e0c-be02-71058bd45e2e",
       "paypalPlanId": null,
-      "image": "/static/images/Risto_Malta.png",
+      "image": "/static/images/firehorse-expert-advisory-v2.png",
       "detailsUrl": "../products/expert-services.html",
       "featured": false,
       "google": {
@@ -599,36 +605,6 @@
         "contentLanguage": "fi"
       },
       "storeCategory": "digital"
-    },
-    "omnichannel-multimodal": {
-      "id": "omnichannel-multimodal",
-      "gtin": null,
-      "mpn": "FH-OMNI-MM-2026",
-      "name": "Firehorse Omnichannel & Multimodal AI Assistant",
-      "price": 699,
-      "currency": "EUR",
-      "type": "monthly",
-      "description": "Stop guessing which channels convert. AI-optimized campaign management across all your marketing channels with daily performance measurement and automated optimization. Know exactly where your next customer is coming from.",
-      "features": [
-        "AI-optimized campaign management",
-        "Daily performance measurement",
-        "Automated channel optimization"
-      ],
-      "priceNote": "Monthly subscription",
-      "revolutLink": null,
-      "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "mailto:sales@lifetime.fi",
-      "featured": false,
-      "google": {
-        "productCategory": "Software > Business & Productivity Software",
-        "condition": "new",
-        "availability": "in_stock",
-        "brand": "Firehorse",
-        "targetCountry": "FI",
-        "contentLanguage": "fi"
-      },
-      "storeCategory": "advisory"
     },
     "professional-web-pages": {
       "id": "professional-web-pages",
@@ -1173,16 +1149,10 @@
     "google": {
       "merchantId": null,
       "feedUrl": "https://dws10.com/feeds/google-products.xml",
-      "targetCountries": [
-        "FI",
-        "SE",
-        "NO",
-        "DK",
-        "DE"
-      ],
+      "targetCountries": ["FI", "SE", "NO", "DK", "DE"],
       "contentLanguage": "en",
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-03-22T12:00:00Z"
+  "lastUpdated": "2026-04-16T12:00:00Z"
 }
