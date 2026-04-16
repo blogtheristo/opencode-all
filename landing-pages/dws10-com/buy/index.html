@@ -127,43 +127,6 @@
         max-width: 560px;
         text-wrap: pretty;
       }
-      .hero-features {
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-        margin-bottom: 32px;
-      }
-      .hero-feature {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        font-size: 1.05rem;
-        color: #e2e8f0;
-        font-weight: 500;
-      }
-      .hero-feature-icon {
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        font-size: 0.85rem;
-        font-weight: 700;
-      }
-      .hero-feature-icon.green {
-        background: rgba(74, 222, 128, 0.15);
-        color: #4ade80;
-      }
-      .hero-feature-icon.blue {
-        background: rgba(96, 165, 250, 0.15);
-        color: #60a5fa;
-      }
-      .hero-feature-icon.amber {
-        background: rgba(251, 191, 36, 0.15);
-        color: #fbbf24;
-      }
       .hero-cta-group {
         display: flex;
         gap: 14px;
@@ -907,22 +870,6 @@
             EU-sovereign AI products, compliance automation, and expert services for enterprises and
             SMEs. From platform to advisory.
           </p>
-          <div class="hero-features">
-            <div class="hero-feature">
-              <div class="hero-feature-icon green">1</div>
-              <span>Industrial Climate OS &mdash; automate Fit for 55, CSRD & EPBD compliance</span>
-            </div>
-            <div class="hero-feature">
-              <div class="hero-feature-icon blue">2</div>
-              <span
-                >AI & Cloud Consulting &mdash; agentic development, sovereign cloud migration</span
-              >
-            </div>
-            <div class="hero-feature">
-              <div class="hero-feature-icon amber">3</div>
-              <span>Expert Advisory &mdash; workshops, training & EU AI Act literacy</span>
-            </div>
-          </div>
           <div class="hero-cta-group">
             <a href="#products" class="hero-cta hero-cta-primary">See All Products</a>
             <a href="/scenarios/" class="hero-cta hero-cta-secondary">Usage Scenarios</a>
@@ -946,6 +893,60 @@
     </section>
 
     <main class="container" id="products">
+      <!-- Firehorse Journey Chain -->
+      <div class="journey-chain" role="navigation" aria-label="Firehorse product journey">
+        <span class="journey-chain-header">Firehorse</span>
+        <a
+          href="../products/firehorse-reports.html?ref=produce"
+          class="journey-step"
+          data-step="produce"
+        >
+          <span class="journey-step-label">PRODUCE</span>
+          <span class="journey-step-sub">Report</span>
+        </a>
+        <span class="journey-arrow" aria-hidden="true">&#8594;</span>
+        <a href="../products/firehorse-reports.html?ref=sign" class="journey-step" data-step="sign">
+          <span class="journey-step-label">SIGN</span>
+          <span class="journey-step-sub">Signed Reports</span>
+        </a>
+        <span class="journey-arrow" aria-hidden="true">&#8594;</span>
+        <a
+          href="../products/firehorse-content-management.html?ref=store"
+          class="journey-step"
+          data-step="store"
+        >
+          <span class="journey-step-label">STORE</span>
+          <span class="journey-step-sub">Content Mgmt</span>
+        </a>
+        <span class="journey-arrow" aria-hidden="true">&#8594;</span>
+        <a
+          href="../products/sovereign-database.html?ref=secure"
+          class="journey-step"
+          data-step="secure"
+        >
+          <span class="journey-step-label">SECURE</span>
+          <span class="journey-step-sub">Sovereign DB</span>
+        </a>
+        <span class="journey-arrow" aria-hidden="true">&#8594;</span>
+        <a
+          href="../products/firehorse-automation.html?ref=automate"
+          class="journey-step"
+          data-step="automate"
+        >
+          <span class="journey-step-label">AUTOMATE</span>
+          <span class="journey-step-sub">Automation</span>
+        </a>
+        <span class="journey-arrow" aria-hidden="true">&#8594;</span>
+        <a
+          href="../products/firehorse-omnichannel.html?ref=market"
+          class="journey-step"
+          data-step="market"
+        >
+          <span class="journey-step-label">MARKET</span>
+          <span class="journey-step-sub">Omnichannel</span>
+        </a>
+      </div>
+
       <!-- Store Identity -->
       <div class="store-identity">
         <div class="store-identity-icon">&#127978;</div>
@@ -1039,60 +1040,6 @@
             enforcement.
           </p>
         </div>
-      </div>
-
-      <!-- Firehorse Journey Chain -->
-      <div class="journey-chain" role="navigation" aria-label="Firehorse product journey">
-        <span class="journey-chain-header">Firehorse</span>
-        <a
-          href="../products/firehorse-reports.html?ref=produce"
-          class="journey-step"
-          data-step="produce"
-        >
-          <span class="journey-step-label">PRODUCE</span>
-          <span class="journey-step-sub">Report</span>
-        </a>
-        <span class="journey-arrow" aria-hidden="true">&#8594;</span>
-        <a href="../products/firehorse-reports.html?ref=sign" class="journey-step" data-step="sign">
-          <span class="journey-step-label">SIGN</span>
-          <span class="journey-step-sub">Signed Reports</span>
-        </a>
-        <span class="journey-arrow" aria-hidden="true">&#8594;</span>
-        <a
-          href="../products/firehorse-content-management.html?ref=store"
-          class="journey-step"
-          data-step="store"
-        >
-          <span class="journey-step-label">STORE</span>
-          <span class="journey-step-sub">Content Mgmt</span>
-        </a>
-        <span class="journey-arrow" aria-hidden="true">&#8594;</span>
-        <a
-          href="../products/sovereign-database.html?ref=secure"
-          class="journey-step"
-          data-step="secure"
-        >
-          <span class="journey-step-label">SECURE</span>
-          <span class="journey-step-sub">Sovereign DB</span>
-        </a>
-        <span class="journey-arrow" aria-hidden="true">&#8594;</span>
-        <a
-          href="../products/firehorse-automation.html?ref=automate"
-          class="journey-step"
-          data-step="automate"
-        >
-          <span class="journey-step-label">AUTOMATE</span>
-          <span class="journey-step-sub">Automation</span>
-        </a>
-        <span class="journey-arrow" aria-hidden="true">&#8594;</span>
-        <a
-          href="../products/firehorse-omnichannel.html?ref=market"
-          class="journey-step"
-          data-step="market"
-        >
-          <span class="journey-step-label">MARKET</span>
-          <span class="journey-step-sub">Omnichannel</span>
-        </a>
       </div>
 
       <!-- VAT Notice -->
