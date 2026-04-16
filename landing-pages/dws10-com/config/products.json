@@ -639,22 +639,22 @@
     "secure-email-proton": {
       "id": "secure-email-proton",
       "gtin": null,
-      "mpn": "PROTON-EMAIL-2026",
-      "name": "Protonmail Secure Email & Domains Implementation",
+      "mpn": "PROTON-WORKSPACE-2026",
+      "name": "Proton Workspace Implementation — Privacy-First Business Suite",
       "price": 499,
       "currency": "EUR",
       "type": "one-time",
-      "description": "GDPR-compliant email in one business day. Full Proton Business Suite \u2014 encrypted email, cloud storage, password manager, and VPN. Meets GDPR, NIS2, and EU AI Act requirements. 8-hour implementation, fully operational by end of day.",
+      "description": "Replace Google Workspace or Microsoft 365 with a privacy-first alternative — no tracking, no ads, no data monetization. Proton Workspace bundles Mail, Calendar, Drive, Docs, Sheets, Meet (video calls + booking pages), VPN (19,836 servers, 145 countries), and Pass. GDPR, NIS2 and EU AI Act compliant. 8-hour implementation, fully operational by end of day.",
       "features": [
-        "GDPR-compliant encrypted email",
-        "NIS2 & EU AI Act compliant",
-        "Operational in 1 business day"
+        "Proton Meet: private video calls + appointment booking pages",
+        "Full suite: Mail, Calendar, Drive, Docs, Sheets, VPN, Pass",
+        "GDPR, NIS2 & EU AI Act compliant — operational in 1 business day"
       ],
-      "priceNote": "8-hour implementation",
+      "priceNote": "8-hour implementation — Proton Mail/Drive from €1 first month",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "mailto:sales@lifetime.fi",
+      "detailsUrl": "../products/secure-email-proton.html",
       "featured": false,
       "google": {
         "productCategory": "Business & Industrial > Business Services",
@@ -662,7 +662,7 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "en"
       },
       "storeCategory": "digital"
     },
