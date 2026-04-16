@@ -182,21 +182,104 @@ Tapahtuman teemat liittyvät suoraan voimaan tulleisiin EU-direktiiveihin:
 
 ---
 
+## Hybrid CoE -julkaisut → DWS-moduulimapping
+
+Kuratoitu 2026-04-16. Kolme prioriteettiluokkaa dws10.com-kehitystyöhön.
+
+### Prioriteetti A — Suoraan hyödynnettävät
+
+| Julkaisu                                            | URL                                                                                                                                | DWS-moduuli                      | Käyttötapa                                                   |
+| --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- | ------------------------------------------------------------ |
+| **Kaikki Hybrid CoE -julkaisut** (hakemisto)        | https://www.hybridcoe.fi/all-publications                                                                                          | Knowledge Base / LWM             | Jatkuva syöte Lifetime World Modeliin                        |
+| **Paper 29: AI & Foreign Information Manipulation** | https://www.hybridcoe.fi/publications/artificial-intelligence-and-foreign-information-manipulation-chinese-and-russian-approaches/ | Agent Guardrails + Trust Layer   | AI-agenttien riskimallit, narratiiviseuranta, Responsible AI |
+| **CORE-resilienssimalli**                           | https://www.hybridcoe.fi/publications/hybrid-threats-a-comprehensive-resilience-ecosystem/                                         | DWS System Model + Impactonomics | Whole-of-system ESG+regulaatio+infra-mallinnus               |
+
+### Prioriteetti B — Kriittinen infra, regulaatio, kyber
+
+| Julkaisu                                                 | URL                                                                                     | DWS-moduuli                                | Käyttötapa                               |
+| -------------------------------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------ | ---------------------------------------- |
+| **Handbook on Maritime Hybrid Threats** (15 skenaariota) | https://www.hybridcoe.fi/wp-content/uploads/2023/03/NEW_web_Hybrid_CoE_Paper-16_rgb.pdf | Risk & Compliance                          | Skenaariopohjainen uhkamallinnus         |
+| **Trend Report 10: Threat potential in the economy**     | https://www.hybridcoe.fi/publicationtype/trend-report/                                  | Supply Chain Analytics + Geopolitical Risk | Toimitusketjuriskit, geopoliittinen data |
+
+### Prioriteetti C — Informaatiovaikuttaminen & attribution
+
+| Julkaisu                                                          | URL                                                                                                                                                                                                                      | DWS-moduuli                        | Käyttötapa                                      |
+| ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------- | ----------------------------------------------- |
+| **Framework for Attribution of Information Influence Operations** | https://adacio.eu/a-framework-for-attribution-of-information-influence-operations                                                                                                                                        | OSINT-putket + Agent Orchestration | Disinformaation tunnistus, agenttiorchestrointi |
+| **DISARM-viitekehys** (StratCom CoE + Hybrid CoE)                 | https://stratcomcoe.org/publications/foreign-information-manipulation-and-interference-defence-standards-test-for-rapid-adoption-of-the-common-language-and-framework-disarm-prepared-in-cooperation-with-hybrid-coe/253 | Defensive Communications           | Puolustava viestintä, FIMI-torjunta             |
+
+---
+
+## Arkkitehtuurikytkentä dws10.com-kehitykseen
+
+```
+Hybrid CoE -lähde                    DWS-kerros
+────────────────────────────────────────────────────────
+Kaikki julkaisut (hakemisto)    →    Trust / Threat Intelligence Layer
+CORE-resilienssimalli           →    DWS System Model (Impactonomics)
+AI & FIMI -paperit              →    Agent Guardrails & Policy Engine
+Trend Reportit                  →    Strategic Foresight API
+Maritime Handbook               →    Risk Scenario Engine
+DISARM-viitekehys               →    Defensive Comms Module
+Attribution Framework           →    OSINT Agent Pipeline
+```
+
+---
+
+## dws10.com — "Hybrid Threats & Resilience" -sivun runko
+
+### Sivun tavoite
+
+Asemoida DWS IQ 6 hybriduhkien vastaisena enterprise-resilienssialustana.
+Kohderyhmä: hallitusjäsenet, CISO:t, compliance-johtajat.
+
+### Rakenne
+
+**1. Hero — Uhkakuva**
+
+> "Tietämättömyys riskeistä ei vapauta hallitusta ja johtoa vastuusta."
+> — Hybridiosaamiskeskus / Boardman-tapahtuma 8.5.2026
+
+**2. Kolme uhkatyyppiä (korteissa)**
+
+- Informaatiovaikuttaminen (AI-avusteinen FIMI)
+- Fyysinen infrastruktuuriuhka (kriittinen infra, logistiikka)
+- Taloudellinen hybridivaikuttaminen (toimitusketju, energiariippuvuudet)
+
+**3. DWS-vastaus — neljä kerrosta**
+
+- Trust Layer (AI-agenttien vastuullisuus)
+- Compliance Engine (NIS2, CER, CSRD)
+- Threat Intelligence (Hybrid CoE -syöte, Lifetime World Model)
+- Board Reporting (strukturoitu hallitusraportti)
+
+**4. Sääntelyreferenssit**
+
+NIS2 (2022/2555) / CER (2022/2557) / CSRD S1+S5 / EU AI Act Art. 9 / Huoltovarmuuslaki
+
+**5. CTA**
+
+"Tilaa turvallisuusarviointi" → demo-varaus / yhteystiedot
+
+---
+
 ## Liittyvät resurssit
 
-- Hybridiosaamiskeskus: https://hybridcoe.fi
+- Hybridiosaamiskeskus julkaisut: https://www.hybridcoe.fi/all-publications
+- Hybridiosaamiskeskus pääsivu: https://hybridcoe.fi
 - Huoltovarmuusorganisaatio: https://huoltovarmuuskeskus.fi
 - Suojelupoliisi (SUPO): https://supo.fi
 - Boardman: https://boardman.fi
+- StratCom CoE: https://stratcomcoe.org
 - NIS2 direktiivi (EUR-Lex): Direktiivi 2022/2555
 - CER direktiivi (EUR-Lex): Direktiivi 2022/2557
 
 ---
 
-**Document Status:** ✅ Käsitelty
+**Document Status:** ✅ Käsitelty — resurssimapping + sivurunko lisätty 2026-04-16
 **Seuraava katselmus:** 2026-05-15 (Q2 toimenpiteiden seuranta)
 **Omistaja:** Risto Päärni / Lifetime Oy — Strategy & Security Intelligence
 
 ---
 
-_Kenttämuistiinpano Hybridiosaamiskeskuksen ja Huoltovarmuusorganisaation yhteisestä tapahtumasta hallituksen ja johdon turvallisuusvastuista. Tapahtuma keräsi yli 60 hallitusammattilaista 8.5.2026. Teemat ovat suoraan relevantteja DWS IQ 6:n compliance- ja turvallisuusmoduuleille._
+_Kenttämuistiinpano Hybridiosaamiskeskuksen ja Huoltovarmuusorganisaation yhteisestä tapahtumasta hallituksen ja johdon turvallisuusvastuista. Tapahtuma keräsi yli 60 hallitusammattilaista 8.5.2026. Sisältää Hybrid CoE -julkaisujen mapping DWS IQ 6 -moduuleihin ja dws10.com "Hybrid Threats & Resilience" -sivun rakenteen._
