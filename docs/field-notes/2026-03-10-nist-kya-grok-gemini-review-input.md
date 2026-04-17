@@ -38,7 +38,7 @@ Three KYA documents have been prepared for formal NIST submission as candidate S
 | Doc ID              | Title                                         | Focus                                                                                                                   | Pages |
 | ------------------- | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----- |
 | **KYA-NIST-SP-001** | Know Your Agent: Hardware-Attested Governance | Combined framework — four pillars, ATS, TPM 2.0 chain, compliance mapping                                               | ~8    |
-| **KYA-NIST-SP-002** | TPM 2.0 Hardware-Attested Agent Security      | Security deep-dive — attestation flow, MicroVM isolation, 122ms Snap, guardrails, threat model, SP 800-53 mapping       | ~8    |
+| **KYA-NIST-SP-002** | TPM 2.0 Hardware-Attested Agent Security      | Security deep-dive — attestation flow, MicroVM isolation, < 125ms (Firecracker MicroVM, AWS benchmark) Snap, guardrails, threat model, SP 800-53 mapping       | ~8    |
 | **KYA-NIST-SP-003** | Green Steel, CBAM Financial Attribution       | Optimization deep-dive — 50-tonne CBAM, Rebate Pulse, 35% leash-aware uplift, Helsinki Sandbox proof, 20-industry value | ~8    |
 
 ### What Marcus Already Reviewed (7/8 Accepted)

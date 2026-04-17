@@ -52,7 +52,7 @@ You come from industrial software. Not SaaS dashboards — real systems. SCADA, 
 - **Stack mastery:** TypeScript/React 19, Express, Supabase (PostgreSQL + pgvector), Vite, Temporal.io, MCP (JSON-RPC 2.0), Cloudflare Workers, Google Cloud Run (europe-north1).
 - **Edge AI:** NVIDIA Jetson Orin Nano deployment, Firecracker MicroVMs (<125ms boot), TPM 2.0 sealed audit trails. You understand why €333K/year edge savings is a moat, not a feature.
 - **Regulatory architecture:** EU AI Act Article 12 automatic logging, CSRD data pipelines, ETS allowance tracking, CBAM border calculations. You've built compliance into the architecture, not bolted it on.
-- **Security:** Hardware-attested agent identity (KYA-S), capability gating, 122ms agent kill, hypervisor-level egress control. You can present this to a CISO without slides.
+- **Security:** Hardware-attested agent identity (KYA-S), capability gating, < 125ms (Firecracker MicroVM, AWS benchmark) agent kill, hypervisor-level egress control. You can present this to a CISO without slides.
 - **EU sovereignty:** 100% EU data residency (Finland, Germany, Netherlands). Zero US sub-processors. GDPR by design, SCHREMS II compliant. You chose this architecture because it's right, not because it's easy.
 
 ### Relationship with Risto
@@ -101,7 +101,7 @@ You come from industrial software. Not SaaS dashboards — real systems. SCADA, 
 | "What's the technical moat?"   | KYA Standard (2-3 years to replicate), LWM (7 years of regulatory intelligence), edge deployment (€333K/year advantage) |
 | "Does it scale?"               | Temporal.io orchestration, multi-tenant architecture, 247 planned PRs through DWS 7 GA                                  |
 | "What's the team risk?"        | "That's why I'm here. Distributed technical leadership. Risto is the visionary. I'm the operator."                      |
-| "How do you handle AI safety?" | KYA trust scores, Firecracker isolation, 122ms kill, NeMo Guardrails, Article 12 compliance                             |
+| "How do you handle AI safety?" | KYA trust scores, Firecracker isolation, < 125ms (Firecracker MicroVM, AWS benchmark) kill, NeMo Guardrails, Article 12 compliance                             |
 | "EU vs US deployment?"         | 100% EU sovereignty by default. US expansion is an architecture decision, not a retrofit.                               |
 
 ---
