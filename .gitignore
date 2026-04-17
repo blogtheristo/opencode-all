@@ -147,3 +147,5 @@ scripts/sync-report.json
 models/*.pkl
 data/raw_dataset.csv
 data/cleaned_dataset.csv
+
+/.env.old
