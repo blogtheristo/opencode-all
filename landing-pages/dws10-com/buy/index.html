@@ -990,7 +990,9 @@
   </head>
   <body>
     <!-- Gamma Ironclad Navigation -->
-    <script src="../shared-assets/nav/ironclad-nav.js"></script>
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+    <!-- Vertical 5-language bar — page element, not menu element -->
+    <script src="/shared-assets/vertical-lang-bar.js"></script>
 
     <!-- Hero Section with Firehorse Image -->
     <section class="hero-section">
@@ -1641,6 +1643,7 @@
           '<span style="color: #94a3b8;">|</span>' +
           '<span style="color: #003087; font-weight: 600;">PayPal Business</span>' +
           "</div>" +
+          (window.dwsVlbCardHTML ? window.dwsVlbCardHTML() : "") +
           "</div>";
 
         return card;
@@ -1649,8 +1652,8 @@
       // Initialize
       document.addEventListener("DOMContentLoaded", loadProducts);
     </script>
-    <script src="../shared-assets/vat-locale.js"></script>
-    <script src="../shared-assets/bundle-cart.js"></script>
+    <script src="/shared-assets/vat-locale.js"></script>
+    <script src="/shared-assets/bundle-cart.js"></script>
     <script src="/shared-assets/footer/ironclad-footer.js"></script>
     <script>
       (function () {

@@ -1343,13 +1343,7 @@
     "google": {
       "merchantId": null,
       "feedUrl": "https://dws10.com/feeds/google-products.xml",
-      "targetCountries": [
-        "FI",
-        "SE",
-        "NO",
-        "DK",
-        "DE"
-      ],
+      "targetCountries": ["FI", "SE", "NO", "DK", "DE"],
       "contentLanguage": "en",
       "channel": "online"
     }
