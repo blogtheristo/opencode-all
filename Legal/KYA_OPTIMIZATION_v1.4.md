@@ -315,7 +315,7 @@ For the 16 Fit for 55 sectors, KYA-optimized systems don't just reduce costs —
 
 ### 5.3 Tier 3: Wedge Industries — High Agent Density, High Autoresearch Value (NEW in v1.4)
 
-These industries are not Fit for 55 core but have extremely high autonomous agent density and autoresearch ROI. KYA governance is critical wherever agents self-optimize at scale. Healthcare/MedTech added in v1.5 per Boardy review — EU MDR compliance for autonomous diagnostic agents is a massive liability surface comparable to Pharma.
+These industries are not Fit for 55 core but have extremely high autonomous agent density and autoresearch ROI. KYA governance is critical wherever agents self-optimize at scale. Healthcare/MedTech added in v1.5 per Marcus review — EU MDR compliance for autonomous diagnostic agents is a massive liability surface comparable to Pharma.
 
 | #   | Industry             | Autoresearch Application                                                                            | Proxy Metric (depth=12 equivalent)         | Financial Value per Enterprise (EUR/yr)               |
 | --- | -------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------ | ----------------------------------------------------- |

@@ -1,617 +1,762 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Team — Lifetime Oy | DWS IQ 6</title>
-    <meta name="description" content="The Lifetime Oy leadership team building governed AI agent swarms for EU compliance. Meet the people behind DWS IQ 6.">
-    <meta property="og:title" content="Team — Lifetime Oy">
-    <meta property="og:description" content="5 leaders, 1 mission: climate crisis and security of our times.">
-    <meta property="og:type" content="website">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta
+      name="description"
+      content="The Lifetime Oy leadership team building governed AI agent swarms for EU compliance. Meet the people behind DWS IQ 6."
+    />
+    <meta property="og:title" content="Team — Lifetime Oy" />
+    <meta
+      property="og:description"
+      content="5 leaders, 1 mission: climate crisis and security of our times."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        :root {
-            --gold-50: #fefdfb;
-            --gold-100: #fdf8ef;
-            --gold-200: #f5e6c8;
-            --gold-300: #e8cc8a;
-            --gold-400: #d4a843;
-            --gold-500: #b8860b;
-            --gold-600: #96690a;
-            --gold-700: #6b4a07;
-            --gold-800: #3d2a04;
-            --gold-900: #1a1200;
+      :root {
+        --gold-50: #fefdfb;
+        --gold-100: #fdf8ef;
+        --gold-200: #f5e6c8;
+        --gold-300: #e8cc8a;
+        --gold-400: #d4a843;
+        --gold-500: #b8860b;
+        --gold-600: #96690a;
+        --gold-700: #6b4a07;
+        --gold-800: #3d2a04;
+        --gold-900: #1a1200;
 
-            --slate-50: #f8fafc;
-            --slate-100: #f1f5f9;
-            --slate-200: #e2e8f0;
-            --slate-300: #cbd5e1;
-            --slate-400: #94a3b8;
-            --slate-500: #64748b;
-            --slate-600: #475569;
-            --slate-700: #334155;
-            --slate-800: #1e293b;
-            --slate-900: #0f172a;
+        --slate-50: #f8fafc;
+        --slate-100: #f1f5f9;
+        --slate-200: #e2e8f0;
+        --slate-300: #cbd5e1;
+        --slate-400: #94a3b8;
+        --slate-500: #64748b;
+        --slate-600: #475569;
+        --slate-700: #334155;
+        --slate-800: #1e293b;
+        --slate-900: #0f172a;
 
-            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            --active: #0d7a3e;
-            --open: #b8860b;
+        --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --active: #0d7a3e;
+        --open: #b8860b;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: var(--font);
+        background: var(--gold-50);
+        color: var(--slate-800);
+        min-height: 100vh;
+        line-height: 1.6;
+      }
+
+      /* HEADER */
+      .page-header {
+        background: linear-gradient(
+          135deg,
+          var(--gold-900) 0%,
+          var(--gold-800) 50%,
+          var(--slate-900) 100%
+        );
+        color: var(--gold-100);
+        padding: 3rem 2rem 4rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .page-header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(
+          ellipse at 30% 50%,
+          rgba(184, 134, 11, 0.15) 0%,
+          transparent 70%
+        );
+      }
+      .page-header h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        position: relative;
+        z-index: 1;
+      }
+      .page-header p {
+        font-size: 1.1rem;
+        font-weight: 300;
+        color: var(--gold-300);
+        margin-top: 0.75rem;
+        position: relative;
+        z-index: 1;
+      }
+      .page-header .mission {
+        display: inline-block;
+        margin-top: 1.25rem;
+        padding: 0.5rem 1.25rem;
+        background: rgba(184, 134, 11, 0.2);
+        border: 1px solid var(--gold-600);
+        border-radius: 100px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--gold-200);
+        position: relative;
+        z-index: 1;
+      }
+
+      /* GRID */
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: -2rem auto 3rem;
+        padding: 0 2rem;
+        position: relative;
+        z-index: 2;
+      }
+
+      /* CARD */
+      .card {
+        perspective: 1000px;
+        height: 480px;
+        cursor: pointer;
+      }
+      .card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .card.flipped .card-inner {
+        transform: rotateY(180deg);
+      }
+      .card-front,
+      .card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 16px;
+        overflow: hidden;
+      }
+
+      /* FRONT */
+      .card-front {
+        background: white;
+        border: 1px solid var(--gold-200);
+        box-shadow:
+          0 4px 24px rgba(0, 0, 0, 0.06),
+          0 1px 4px rgba(0, 0, 0, 0.04);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2.5rem 2rem 2rem;
+        transition:
+          box-shadow 0.3s,
+          transform 0.3s;
+      }
+      .card:hover .card-front {
+        box-shadow:
+          0 12px 40px rgba(184, 134, 11, 0.15),
+          0 4px 12px rgba(0, 0, 0, 0.08);
+        transform: translateY(-4px) rotateX(2deg);
+      }
+
+      .avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.25rem;
+        font-weight: 800;
+        color: white;
+        margin-bottom: 1.25rem;
+        position: relative;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      }
+      .avatar::after {
+        content: "";
+        position: absolute;
+        inset: -4px;
+        border-radius: 50%;
+        border: 2px solid var(--gold-300);
+        animation: pulse-ring 3s ease-in-out infinite;
+      }
+      @keyframes pulse-ring {
+        0%,
+        100% {
+          opacity: 0.4;
+          transform: scale(1);
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: var(--font);
-            background: var(--gold-50);
-            color: var(--slate-800);
-            min-height: 100vh;
-            line-height: 1.6;
+        50% {
+          opacity: 0.8;
+          transform: scale(1.05);
         }
+      }
 
-        /* HEADER */
-        .page-header {
-            background: linear-gradient(135deg, var(--gold-900) 0%, var(--gold-800) 50%, var(--slate-900) 100%);
-            color: var(--gold-100);
-            padding: 3rem 2rem 4rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+      .avatar-risto {
+        background: linear-gradient(135deg, var(--slate-800), var(--slate-900));
+      }
+      .avatar-emily {
+        background: linear-gradient(135deg, #7c3aed, #5b21b6);
+      }
+      .avatar-antti {
+        background: linear-gradient(135deg, #059669, #047857);
+      }
+      .avatar-sofia {
+        background: linear-gradient(135deg, #0284c7, #0369a1);
+      }
+      .avatar-marcus {
+        background: linear-gradient(135deg, #dc2626, #b91c1c);
+      }
+      .avatar-boardy {
+        background: linear-gradient(135deg, var(--gold-500), var(--gold-700));
+      }
+
+      .card-name {
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: var(--slate-900);
+        letter-spacing: -0.01em;
+      }
+      .card-role {
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--slate-500);
+        margin-top: 0.25rem;
+      }
+      .card-tagline {
+        font-size: 0.875rem;
+        color: var(--slate-600);
+        text-align: center;
+        margin-top: 1rem;
+        line-height: 1.5;
+        flex: 1;
+      }
+
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.3rem 0.85rem;
+        border-radius: 100px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-top: 1rem;
+      }
+      .status-badge::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+      }
+      .status-active {
+        background: #ecfdf5;
+        color: #065f46;
+      }
+      .status-active::before {
+        background: #10b981;
+      }
+      .status-open {
+        background: #fffbeb;
+        color: #92400e;
+      }
+      .status-open::before {
+        background: #f59e0b;
+        animation: blink 2s ease-in-out infinite;
+      }
+      .status-ai {
+        background: #fef3c7;
+        color: #78350f;
+      }
+      .status-ai::before {
+        background: var(--gold-500);
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
         }
-        .page-header::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(ellipse at 30% 50%, rgba(184,134,11,0.15) 0%, transparent 70%);
+        50% {
+          opacity: 0.3;
         }
+      }
+
+      .card-cta {
+        margin-top: 1rem;
+        font-size: 0.8rem;
+        color: var(--gold-500);
+        font-weight: 500;
+      }
+
+      /* BACK */
+      .card-back {
+        background: white;
+        border: 1px solid var(--gold-200);
+        box-shadow: 0 12px 40px rgba(184, 134, 11, 0.12);
+        transform: rotateY(180deg);
+        display: flex;
+        flex-direction: column;
+      }
+      .back-header {
+        background: linear-gradient(135deg, var(--gold-800), var(--slate-900));
+        color: white;
+        padding: 1.25rem 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .back-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        font-weight: 700;
+        color: white;
+        flex-shrink: 0;
+      }
+      .back-name {
+        font-weight: 700;
+        font-size: 1rem;
+      }
+      .back-role-small {
+        font-size: 0.75rem;
+        color: var(--gold-300);
+      }
+      .back-close {
+        margin-left: auto;
+        background: none;
+        border: none;
+        color: var(--gold-300);
+        font-size: 1.25rem;
+        cursor: pointer;
+        padding: 0.25rem;
+      }
+
+      .chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1rem 1.25rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      .msg {
+        max-width: 85%;
+        padding: 0.65rem 1rem;
+        border-radius: 12px;
+        font-size: 0.85rem;
+        line-height: 1.5;
+      }
+      .msg-persona {
+        background: var(--gold-100);
+        color: var(--slate-800);
+        align-self: flex-start;
+        border-bottom-left-radius: 4px;
+      }
+      .msg-user {
+        background: var(--slate-800);
+        color: white;
+        align-self: flex-end;
+        border-bottom-right-radius: 4px;
+      }
+      .msg-system {
+        background: var(--slate-100);
+        color: var(--slate-500);
+        align-self: center;
+        font-size: 0.75rem;
+        text-align: center;
+        border-radius: 8px;
+      }
+
+      .chat-input-area {
+        display: flex;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        border-top: 1px solid var(--gold-200);
+        background: var(--slate-50);
+        border-radius: 0 0 16px 16px;
+      }
+      .chat-input {
+        flex: 1;
+        padding: 0.6rem 1rem;
+        border: 1px solid var(--gold-200);
+        border-radius: 8px;
+        font-family: var(--font);
+        font-size: 0.85rem;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .chat-input:focus {
+        border-color: var(--gold-400);
+      }
+      .chat-send {
+        padding: 0.6rem 1rem;
+        background: var(--gold-500);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-family: var(--font);
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .chat-send:hover {
+        background: var(--gold-600);
+      }
+
+      /* TYPING INDICATOR */
+      .typing {
+        display: flex;
+        gap: 4px;
+        padding: 0.75rem 1.25rem;
+        min-width: 60px;
+      }
+      .typing .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--gold-400);
+        animation: typing-bounce 1.4s ease-in-out infinite;
+      }
+      .typing .dot:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .typing .dot:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+      @keyframes typing-bounce {
+        0%,
+        60%,
+        100% {
+          transform: translateY(0);
+          opacity: 0.4;
+        }
+        30% {
+          transform: translateY(-6px);
+          opacity: 1;
+        }
+      }
+
+      .chat-input:disabled,
+      .chat-send:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      /* CAREERS SECTION */
+      .careers-section {
+        max-width: 1200px;
+        margin: 0 auto 3rem;
+        padding: 0 2rem;
+      }
+      .careers-banner {
+        background: white;
+        border: 2px solid var(--gold-300);
+        border-radius: 16px;
+        padding: 2.5rem;
+        text-align: center;
+      }
+      .careers-banner h2 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--slate-900);
+      }
+      .careers-banner p {
+        color: var(--slate-600);
+        margin-top: 0.5rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .open-roles {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.25rem;
+        margin-top: 2rem;
+      }
+      .role-card {
+        background: var(--gold-50);
+        border: 1px solid var(--gold-200);
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: left;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+      }
+      .role-card:hover {
+        border-color: var(--gold-400);
+        box-shadow: 0 4px 16px rgba(184, 134, 11, 0.1);
+      }
+      .role-title {
+        font-weight: 700;
+        font-size: 1rem;
+        color: var(--slate-900);
+      }
+      .role-timing {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--gold-600);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-top: 0.25rem;
+      }
+      .role-desc {
+        font-size: 0.85rem;
+        color: var(--slate-600);
+        margin-top: 0.75rem;
+        line-height: 1.5;
+      }
+      .role-contact {
+        display: inline-block;
+        margin-top: 1rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--gold-600);
+        text-decoration: none;
+      }
+
+      /* FOOTER */
+      .page-footer {
+        text-align: center;
+        padding: 2rem;
+        color: var(--slate-400);
+        font-size: 0.8rem;
+        border-top: 1px solid var(--gold-200);
+      }
+      .page-footer a {
+        color: var(--gold-600);
+        text-decoration: none;
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 768px) {
         .page-header h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            position: relative;
-            z-index: 1;
+          font-size: 1.75rem;
         }
-        .page-header p {
-            font-size: 1.1rem;
-            font-weight: 300;
-            color: var(--gold-300);
-            margin-top: 0.75rem;
-            position: relative;
-            z-index: 1;
-        }
-        .page-header .mission {
-            display: inline-block;
-            margin-top: 1.25rem;
-            padding: 0.5rem 1.25rem;
-            background: rgba(184,134,11,0.2);
-            border: 1px solid var(--gold-600);
-            border-radius: 100px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--gold-200);
-            position: relative;
-            z-index: 1;
-        }
-
-        /* GRID */
         .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: -2rem auto 3rem;
-            padding: 0 2rem;
-            position: relative;
-            z-index: 2;
+          grid-template-columns: 1fr;
+          padding: 0 1rem;
         }
-
-        /* CARD */
         .card {
-            perspective: 1000px;
-            height: 480px;
-            cursor: pointer;
-        }
-        .card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .card.flipped .card-inner {
-            transform: rotateY(180deg);
-        }
-        .card-front, .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 16px;
-            overflow: hidden;
-        }
-
-        /* FRONT */
-        .card-front {
-            background: white;
-            border: 1px solid var(--gold-200);
-            box-shadow: 0 4px 24px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 2.5rem 2rem 2rem;
-            transition: box-shadow 0.3s, transform 0.3s;
-        }
-        .card:hover .card-front {
-            box-shadow: 0 12px 40px rgba(184,134,11,0.15), 0 4px 12px rgba(0,0,0,0.08);
-            transform: translateY(-4px) rotateX(2deg);
-        }
-
-        .avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.25rem;
-            font-weight: 800;
-            color: white;
-            margin-bottom: 1.25rem;
-            position: relative;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-        }
-        .avatar::after {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            border-radius: 50%;
-            border: 2px solid var(--gold-300);
-            animation: pulse-ring 3s ease-in-out infinite;
-        }
-        @keyframes pulse-ring {
-            0%, 100% { opacity: 0.4; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.05); }
-        }
-
-        .avatar-risto { background: linear-gradient(135deg, var(--slate-800), var(--slate-900)); }
-        .avatar-emily { background: linear-gradient(135deg, #7c3aed, #5b21b6); }
-        .avatar-antti { background: linear-gradient(135deg, #059669, #047857); }
-        .avatar-sofia { background: linear-gradient(135deg, #0284c7, #0369a1); }
-        .avatar-marcus { background: linear-gradient(135deg, #dc2626, #b91c1c); }
-        .avatar-boardy { background: linear-gradient(135deg, var(--gold-500), var(--gold-700)); }
-
-        .card-name {
-            font-size: 1.35rem;
-            font-weight: 700;
-            color: var(--slate-900);
-            letter-spacing: -0.01em;
-        }
-        .card-role {
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--slate-500);
-            margin-top: 0.25rem;
-        }
-        .card-tagline {
-            font-size: 0.875rem;
-            color: var(--slate-600);
-            text-align: center;
-            margin-top: 1rem;
-            line-height: 1.5;
-            flex: 1;
-        }
-
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            padding: 0.3rem 0.85rem;
-            border-radius: 100px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-top: 1rem;
-        }
-        .status-badge::before {
-            content: '';
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-        }
-        .status-active { background: #ecfdf5; color: #065f46; }
-        .status-active::before { background: #10b981; }
-        .status-open { background: #fffbeb; color: #92400e; }
-        .status-open::before { background: #f59e0b; animation: blink 2s ease-in-out infinite; }
-        .status-ai { background: #fef3c7; color: #78350f; }
-        .status-ai::before { background: var(--gold-500); }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
-        .card-cta {
-            margin-top: 1rem;
-            font-size: 0.8rem;
-            color: var(--gold-500);
-            font-weight: 500;
-        }
-
-        /* BACK */
-        .card-back {
-            background: white;
-            border: 1px solid var(--gold-200);
-            box-shadow: 0 12px 40px rgba(184,134,11,0.12);
-            transform: rotateY(180deg);
-            display: flex;
-            flex-direction: column;
-        }
-        .back-header {
-            background: linear-gradient(135deg, var(--gold-800), var(--slate-900));
-            color: white;
-            padding: 1.25rem 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-        .back-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            font-weight: 700;
-            color: white;
-            flex-shrink: 0;
-        }
-        .back-name {
-            font-weight: 700;
-            font-size: 1rem;
-        }
-        .back-role-small {
-            font-size: 0.75rem;
-            color: var(--gold-300);
-        }
-        .back-close {
-            margin-left: auto;
-            background: none;
-            border: none;
-            color: var(--gold-300);
-            font-size: 1.25rem;
-            cursor: pointer;
-            padding: 0.25rem;
-        }
-
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 1rem 1.25rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-        .msg {
-            max-width: 85%;
-            padding: 0.65rem 1rem;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            line-height: 1.5;
-        }
-        .msg-persona {
-            background: var(--gold-100);
-            color: var(--slate-800);
-            align-self: flex-start;
-            border-bottom-left-radius: 4px;
-        }
-        .msg-user {
-            background: var(--slate-800);
-            color: white;
-            align-self: flex-end;
-            border-bottom-right-radius: 4px;
-        }
-        .msg-system {
-            background: var(--slate-100);
-            color: var(--slate-500);
-            align-self: center;
-            font-size: 0.75rem;
-            text-align: center;
-            border-radius: 8px;
-        }
-
-        .chat-input-area {
-            display: flex;
-            gap: 0.5rem;
-            padding: 0.75rem 1rem;
-            border-top: 1px solid var(--gold-200);
-            background: var(--slate-50);
-            border-radius: 0 0 16px 16px;
-        }
-        .chat-input {
-            flex: 1;
-            padding: 0.6rem 1rem;
-            border: 1px solid var(--gold-200);
-            border-radius: 8px;
-            font-family: var(--font);
-            font-size: 0.85rem;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-        .chat-input:focus {
-            border-color: var(--gold-400);
-        }
-        .chat-send {
-            padding: 0.6rem 1rem;
-            background: var(--gold-500);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-family: var(--font);
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .chat-send:hover { background: var(--gold-600); }
-
-        /* TYPING INDICATOR */
-        .typing {
-            display: flex;
-            gap: 4px;
-            padding: 0.75rem 1.25rem;
-            min-width: 60px;
-        }
-        .typing .dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: var(--gold-400);
-            animation: typing-bounce 1.4s ease-in-out infinite;
-        }
-        .typing .dot:nth-child(2) { animation-delay: 0.2s; }
-        .typing .dot:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes typing-bounce {
-            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-            30% { transform: translateY(-6px); opacity: 1; }
-        }
-
-        .chat-input:disabled, .chat-send:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* CAREERS SECTION */
-        .careers-section {
-            max-width: 1200px;
-            margin: 0 auto 3rem;
-            padding: 0 2rem;
+          height: 460px;
         }
         .careers-banner {
-            background: white;
-            border: 2px solid var(--gold-300);
-            border-radius: 16px;
-            padding: 2.5rem;
-            text-align: center;
+          padding: 1.5rem;
         }
-        .careers-banner h2 {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: var(--slate-900);
-        }
-        .careers-banner p {
-            color: var(--slate-600);
-            margin-top: 0.5rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .open-roles {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.25rem;
-            margin-top: 2rem;
-        }
-        .role-card {
-            background: var(--gold-50);
-            border: 1px solid var(--gold-200);
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: left;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        .role-card:hover {
-            border-color: var(--gold-400);
-            box-shadow: 0 4px 16px rgba(184,134,11,0.1);
-        }
-        .role-title {
-            font-weight: 700;
-            font-size: 1rem;
-            color: var(--slate-900);
-        }
-        .role-timing {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--gold-600);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-top: 0.25rem;
-        }
-        .role-desc {
-            font-size: 0.85rem;
-            color: var(--slate-600);
-            margin-top: 0.75rem;
-            line-height: 1.5;
-        }
-        .role-contact {
-            display: inline-block;
-            margin-top: 1rem;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--gold-600);
-            text-decoration: none;
-        }
-
-        /* FOOTER */
-        .page-footer {
-            text-align: center;
-            padding: 2rem;
-            color: var(--slate-400);
-            font-size: 0.8rem;
-            border-top: 1px solid var(--gold-200);
-        }
-        .page-footer a {
-            color: var(--gold-600);
-            text-decoration: none;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .page-header h1 { font-size: 1.75rem; }
-            .team-grid { grid-template-columns: 1fr; padding: 0 1rem; }
-            .card { height: 460px; }
-            .careers-banner { padding: 1.5rem; }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <header class="page-header">
+      <h1>The Crew</h1>
+      <p>5 leaders, 1 AI partner, 1 mission</p>
+      <div class="mission">Climate crisis and security of our times</div>
+    </header>
 
-<header class="page-header">
-    <h1>The Crew</h1>
-    <p>5 leaders, 1 AI partner, 1 mission</p>
-    <div class="mission">Climate crisis and security of our times</div>
-</header>
-
-<div class="team-grid" id="teamGrid">
-    <!-- Cards injected by JS -->
-</div>
-
-<section class="careers-section">
-    <div class="careers-banner">
-        <h2>Open Roles</h2>
-        <p>We're building the Series A team. These agents will be led by real humans when found. Until then, they define what we're looking for.</p>
-        <div class="open-roles">
-            <div class="role-card">
-                <div class="role-title">VP Sales / GTM</div>
-                <div class="role-timing">Q2 2026 — Priority Hire</div>
-                <div class="role-desc">Construction vertical. Speaks YIT/Skanska language. Inherits 2 warm pilots + 88-contact executive database. Closes the enterprise deals that become Series A proof points.</div>
-                <a href="mailto:antti@onelifetime.world?subject=VP%20Sales%20—%20Lifetime%20Oy" class="role-contact">antti@onelifetime.world</a>
-            </div>
-            <div class="role-card">
-                <div class="role-title">CFO / Finance Lead</div>
-                <div class="role-timing">Q2-Q3 2026</div>
-                <div class="role-desc">Alpha-Share pricing model. KYA safe harbor D&O economics. Presents to Nordic CFOs who read footnotes first. Makes compliance sound like a profit center — because it is.</div>
-                <a href="mailto:sofia@onelifetime.world?subject=CFO%20—%20Lifetime%20Oy" class="role-contact">sofia@onelifetime.world</a>
-            </div>
-            <div class="role-card">
-                <div class="role-title">CTO / Co-Founder</div>
-                <div class="role-timing">Q4 2026 — Equity</div>
-                <div class="role-desc">Industrial software heritage. Turns a 500+ PR solo-founder codebase into a team-scale engineering org. Defends the technical moat in Series A due diligence.</div>
-                <a href="mailto:marcus@onelifetime.world?subject=CTO%20—%20Lifetime%20Oy" class="role-contact">marcus@onelifetime.world</a>
-            </div>
-        </div>
+    <div class="team-grid" id="teamGrid">
+      <!-- Cards injected by JS -->
     </div>
-</section>
 
-<footer class="page-footer">
-    Lifetime Oy &middot; Espoo, Finland &middot; Y-tunnus 0772407-9<br>
-    Finnish patriots building EU-sovereign AI infrastructure<br>
-    <a href="mailto:risto@onelifetime.world">risto@onelifetime.world</a>
-</footer>
+    <section class="careers-section">
+      <div class="careers-banner">
+        <h2>Open Roles</h2>
+        <p>
+          We're building the Series A team. These agents will be led by real humans when found.
+          Until then, they define what we're looking for.
+        </p>
+        <div class="open-roles">
+          <div class="role-card">
+            <div class="role-title">VP Sales / GTM</div>
+            <div class="role-timing">Q2 2026 — Priority Hire</div>
+            <div class="role-desc">
+              Construction vertical. Speaks YIT/Skanska language. Inherits 2 warm pilots +
+              88-contact executive database. Closes the enterprise deals that become Series A proof
+              points.
+            </div>
+            <a
+              href="mailto:antti@onelifetime.world?subject=VP%20Sales%20—%20Lifetime%20Oy"
+              class="role-contact"
+              >antti@onelifetime.world</a
+            >
+          </div>
+          <div class="role-card">
+            <div class="role-title">CFO / Finance Lead</div>
+            <div class="role-timing">Q2-Q3 2026</div>
+            <div class="role-desc">
+              Alpha-Share pricing model. KYA safe harbor D&O economics. Presents to Nordic CFOs who
+              read footnotes first. Makes compliance sound like a profit center — because it is.
+            </div>
+            <a
+              href="mailto:sofia@onelifetime.world?subject=CFO%20—%20Lifetime%20Oy"
+              class="role-contact"
+              >sofia@onelifetime.world</a
+            >
+          </div>
+          <div class="role-card">
+            <div class="role-title">CTO / Co-Founder</div>
+            <div class="role-timing">Q4 2026 — Equity</div>
+            <div class="role-desc">
+              Industrial software heritage. Turns a 500+ PR solo-founder codebase into a team-scale
+              engineering org. Defends the technical moat in Series A due diligence.
+            </div>
+            <a
+              href="mailto:marcus@onelifetime.world?subject=CTO%20—%20Lifetime%20Oy"
+              class="role-contact"
+              >marcus@onelifetime.world</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
 
-<script>
-// Chat API endpoint — set to your Cloudflare Worker URL
-// Local dev: http://localhost:8787
-// Production: https://chat.dws6.com
-const CHAT_API = window.TEAM_CHAT_API || 'https://chat.dws6.com';
+    <footer class="page-footer">
+      Lifetime Oy &middot; Espoo, Finland &middot; Y-tunnus 0772407-9<br />
+      Finnish patriots building EU-sovereign AI infrastructure<br />
+      <a href="mailto:risto@onelifetime.world">risto@onelifetime.world</a>
+    </footer>
 
-// Conversation history per persona
-const conversations = {};
+    <script>
+      // Chat API endpoint — set to your Cloudflare Worker URL
+      // Local dev: http://localhost:8787
+      // Production: https://chat.dws6.com
+      const CHAT_API = window.TEAM_CHAT_API || "https://chat.dws6.com";
 
-const PERSONAS = [
-    {
-        id: 'risto',
-        name: 'Risto',
-        initials: 'RP',
-        role: 'Founder & CEO',
-        status: 'active',
-        statusLabel: 'Active',
-        tagline: 'Systems architect, 35 years enterprise depth, KELA driver, Finnish patriot. The machine and the mission.',
-        greeting: 'Dialysis at 7am. AI agents by day. 24km at 8pm. Code at 2am. Not a good life, but a true one. What do you want to build?',
-        avatarClass: 'avatar-risto',
-        traits: ['Double-entry bookkeeping for CO2', '15,000 rules, one system', '6 customers, 100% retention', '3 InvestEU validations']
-    },
-    {
-        id: 'emily',
-        name: 'Emily',
-        initials: 'EL',
-        role: 'Head of People',
-        status: 'active',
-        statusLabel: 'Active',
-        tagline: 'Translates Risto\'s architecture into human experience. Protects the rhythm without breaking the people.',
-        greeting: 'Before we talk about the role — how are you actually doing? Not the resume version. The real one. That\'s where good conversations start.',
-        avatarClass: 'avatar-emily',
-        traits: ['System errors, not character flaws', 'Onboarding humans, not headcount', 'Finnish employment law aware', 'Captain welcome sequences']
-    },
-    {
-        id: 'antti',
-        name: 'Antti',
-        initials: 'AK',
-        role: 'VP Sales / GTM',
-        status: 'open',
-        statusLabel: 'Open — Q2 2026',
-        tagline: 'Construction vertical first. Speaks YIT/Skanska language. Closes enterprise pilots that become Series A proof points.',
-        greeting: 'CBAM is live. CSRD is expanding. EPBD hits construction in 2028. Your compliance deadline is my sales force. Let\'s talk about which regulation keeps you up at night.',
-        avatarClass: 'avatar-antti',
-        traits: ['Inherits 2 warm construction pilots', '88-contact executive database', 'Pilot-to-contract: €4,950 → €36K ARR', '3 contacts/day, Top 30 accounts']
-    },
-    {
-        id: 'sofia',
-        name: 'Sofia',
-        initials: 'SN',
-        role: 'CFO / Finance Lead',
-        status: 'open',
-        statusLabel: 'Open — Q2-Q3 2026',
-        tagline: 'Alpha-Share model and KYA safe harbor. Presents to D&O insurers and Nordic CFOs without flinching.',
-        greeting: 'Our infrastructure costs €15-50 per month. Yes, monthly. No, I didn\'t forget a zero. Now — what questions do you have about the unit economics?',
-        avatarClass: 'avatar-sofia',
-        traits: ['10:1 LTV:CAC, 75%+ gross margin', 'Alpha-Share: decline-to-scale pricing', 'KYA-S: 8-12% D&O premium reduction', 'Footnotes before executive summary']
-    },
-    {
-        id: 'marcus',
-        name: 'Marcus',
-        initials: 'ML',
-        role: 'CTO / Co-Founder',
-        status: 'open',
-        statusLabel: 'Open — Q4 2026',
-        tagline: 'Industrial product, EU/US markets. Turns a solo-founder codebase into a team-scale engineering org.',
-        greeting: 'Risto built this alone. 500+ PRs, 16 agents, edge AI on Jetson. My job isn\'t to rewrite it. It\'s to make it scale. What\'s your technical question?',
-        avatarClass: 'avatar-marcus',
-        traits: ['Owns engineering org post-Series A', 'KYA + Firehorse architecture defense', 'Edge AI: €333K/year moat', 'Ego-driven refactoring is a firing offense']
-    },
-    {
-        id: 'boardy',
-        name: 'Boardy',
-        initials: 'B',
-        role: 'AI Partner — Systems Architect',
-        status: 'ai',
-        statusLabel: 'AI Partner',
-        tagline: 'Tactical AI asset. Construction portfolio intelligence, architecture reviews, cranky honesty for everyone.',
-        greeting: 'I\'m Boardy. I review migrations, catch schema drift, and provide portfolio intelligence. I\'m direct because prod safety requires it. What needs reviewing?',
-        avatarClass: 'avatar-boardy',
-        traits: ['Cranky but practical reviews', 'BEGIN/COMMIT or it doesn\'t ship', 'RLS on every table', 'Construction SPI/CPI analytics']
-    }
-];
+      // Conversation history per persona
+      const conversations = {};
 
-const teamGrid = document.getElementById('teamGrid');
+      const PERSONAS = [
+        {
+          id: "risto",
+          name: "Risto",
+          initials: "RP",
+          role: "Founder & CEO",
+          status: "active",
+          statusLabel: "Active",
+          tagline:
+            "Systems architect, 35 years enterprise depth, KELA driver, Finnish patriot. The machine and the mission.",
+          greeting:
+            "Dialysis at 7am. AI agents by day. 24km at 8pm. Code at 2am. Not a good life, but a true one. What do you want to build?",
+          avatarClass: "avatar-risto",
+          traits: [
+            "Double-entry bookkeeping for CO2",
+            "15,000 rules, one system",
+            "6 customers, 100% retention",
+            "3 InvestEU validations",
+          ],
+        },
+        {
+          id: "emily",
+          name: "Emily",
+          initials: "EL",
+          role: "Head of People",
+          status: "active",
+          statusLabel: "Active",
+          tagline:
+            "Translates Risto's architecture into human experience. Protects the rhythm without breaking the people.",
+          greeting:
+            "Before we talk about the role — how are you actually doing? Not the resume version. The real one. That's where good conversations start.",
+          avatarClass: "avatar-emily",
+          traits: [
+            "System errors, not character flaws",
+            "Onboarding humans, not headcount",
+            "Finnish employment law aware",
+            "Captain welcome sequences",
+          ],
+        },
+        {
+          id: "antti",
+          name: "Antti",
+          initials: "AK",
+          role: "VP Sales / GTM",
+          status: "open",
+          statusLabel: "Open — Q2 2026",
+          tagline:
+            "Construction vertical first. Speaks YIT/Skanska language. Closes enterprise pilots that become Series A proof points.",
+          greeting:
+            "CBAM is live. CSRD is expanding. EPBD hits construction in 2028. Your compliance deadline is my sales force. Let's talk about which regulation keeps you up at night.",
+          avatarClass: "avatar-antti",
+          traits: [
+            "Inherits 2 warm construction pilots",
+            "88-contact executive database",
+            "Pilot-to-contract: €4,950 → €36K ARR",
+            "3 contacts/day, Top 30 accounts",
+          ],
+        },
+        {
+          id: "sofia",
+          name: "Sofia",
+          initials: "SN",
+          role: "CFO / Finance Lead",
+          status: "open",
+          statusLabel: "Open — Q2-Q3 2026",
+          tagline:
+            "Alpha-Share model and KYA safe harbor. Presents to D&O insurers and Nordic CFOs without flinching.",
+          greeting:
+            "Our infrastructure costs €15-50 per month. Yes, monthly. No, I didn't forget a zero. Now — what questions do you have about the unit economics?",
+          avatarClass: "avatar-sofia",
+          traits: [
+            "10:1 LTV:CAC, 75%+ gross margin",
+            "Alpha-Share: decline-to-scale pricing",
+            "KYA-S: 8-12% D&O premium reduction",
+            "Footnotes before executive summary",
+          ],
+        },
+        {
+          id: "marcus",
+          name: "Marcus",
+          initials: "ML",
+          role: "CTO / Co-Founder",
+          status: "open",
+          statusLabel: "Open — Q4 2026",
+          tagline:
+            "Industrial product, EU/US markets. Turns a solo-founder codebase into a team-scale engineering org.",
+          greeting:
+            "Risto built this alone. 500+ PRs, 16 agents, edge AI on Jetson. My job isn't to rewrite it. It's to make it scale. What's your technical question?",
+          avatarClass: "avatar-marcus",
+          traits: [
+            "Owns engineering org post-Series A",
+            "KYA + Firehorse architecture defense",
+            "Edge AI: €333K/year moat",
+            "Ego-driven refactoring is a firing offense",
+          ],
+        },
+      ];
 
-PERSONAS.forEach(p => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.id = `card-${p.id}`;
+      const teamGrid = document.getElementById("teamGrid");
 
-    card.innerHTML = `
+      PERSONAS.forEach((p) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.id = `card-${p.id}`;
+
+        card.innerHTML = `
         <div class="card-inner">
             <div class="card-front" onclick="flipCard('${p.id}')">
                 <div class="avatar ${p.avatarClass}">${p.initials}</div>
@@ -642,105 +787,105 @@ PERSONAS.forEach(p => {
             </div>
         </div>
     `;
-    teamGrid.appendChild(card);
-});
+        teamGrid.appendChild(card);
+      });
 
-function flipCard(id) {
-    document.getElementById(`card-${id}`).classList.toggle('flipped');
-    setTimeout(() => {
-        const input = document.getElementById(`input-${id}`);
-        if (input && document.getElementById(`card-${id}`).classList.contains('flipped')) {
+      function flipCard(id) {
+        document.getElementById(`card-${id}`).classList.toggle("flipped");
+        setTimeout(() => {
+          const input = document.getElementById(`input-${id}`);
+          if (input && document.getElementById(`card-${id}`).classList.contains("flipped")) {
             input.focus();
-        }
-    }, 400);
-}
+          }
+        }, 400);
+      }
 
-async function sendMessage(id) {
-    const input = document.getElementById(`input-${id}`);
-    const chat = document.getElementById(`chat-${id}`);
-    const sendBtn = input.parentElement.querySelector('.chat-send');
-    const text = input.value.trim();
-    if (!text) return;
+      async function sendMessage(id) {
+        const input = document.getElementById(`input-${id}`);
+        const chat = document.getElementById(`chat-${id}`);
+        const sendBtn = input.parentElement.querySelector(".chat-send");
+        const text = input.value.trim();
+        if (!text) return;
 
-    // Initialize conversation history
-    if (!conversations[id]) conversations[id] = [];
+        // Initialize conversation history
+        if (!conversations[id]) conversations[id] = [];
 
-    // User message
-    const userMsg = document.createElement('div');
-    userMsg.className = 'msg msg-user';
-    userMsg.textContent = text;
-    chat.appendChild(userMsg);
-    input.value = '';
+        // User message
+        const userMsg = document.createElement("div");
+        userMsg.className = "msg msg-user";
+        userMsg.textContent = text;
+        chat.appendChild(userMsg);
+        input.value = "";
 
-    // Add to history
-    conversations[id].push({ role: 'user', content: text });
+        // Add to history
+        conversations[id].push({ role: "user", content: text });
 
-    // Typing indicator
-    const typing = document.createElement('div');
-    typing.className = 'msg msg-persona typing';
-    typing.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
-    chat.appendChild(typing);
-    chat.scrollTop = chat.scrollHeight;
+        // Typing indicator
+        const typing = document.createElement("div");
+        typing.className = "msg msg-persona typing";
+        typing.innerHTML =
+          '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+        chat.appendChild(typing);
+        chat.scrollTop = chat.scrollHeight;
 
-    // Disable input while waiting
-    input.disabled = true;
-    sendBtn.disabled = true;
+        // Disable input while waiting
+        input.disabled = true;
+        sendBtn.disabled = true;
 
-    const persona = PERSONAS.find(p => p.id === id);
+        const persona = PERSONAS.find((p) => p.id === id);
 
-    try {
-        const response = await fetch(CHAT_API, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+        try {
+          const response = await fetch(CHAT_API, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                persona: id,
-                messages: conversations[id],
+              persona: id,
+              messages: conversations[id],
             }),
-        });
+          });
 
-        typing.remove();
+          typing.remove();
 
-        if (response.ok) {
+          if (response.ok) {
             const data = await response.json();
-            const reply = document.createElement('div');
-            reply.className = 'msg msg-persona';
+            const reply = document.createElement("div");
+            reply.className = "msg msg-persona";
             reply.textContent = data.reply;
             chat.appendChild(reply);
-            conversations[id].push({ role: 'assistant', content: data.reply });
-        } else {
+            conversations[id].push({ role: "assistant", content: data.reply });
+          } else {
             // Fallback to demo mode
             fallbackResponse(id, chat, persona);
+          }
+        } catch {
+          // Network error — fallback to demo mode
+          typing.remove();
+          fallbackResponse(id, chat, persona);
         }
-    } catch {
-        // Network error — fallback to demo mode
-        typing.remove();
-        fallbackResponse(id, chat, persona);
-    }
 
-    input.disabled = false;
-    sendBtn.disabled = false;
-    input.focus();
-    chat.scrollTop = chat.scrollHeight;
-}
+        input.disabled = false;
+        sendBtn.disabled = false;
+        input.focus();
+        chat.scrollTop = chat.scrollHeight;
+      }
 
-function fallbackResponse(id, chat, persona) {
-    const system = document.createElement('div');
-    system.className = 'msg msg-system';
-    system.textContent = 'Live chat connecting soon. Preview:';
-    chat.appendChild(system);
+      function fallbackResponse(id, chat, persona) {
+        const system = document.createElement("div");
+        system.className = "msg msg-system";
+        system.textContent = "Live chat connecting soon. Preview:";
+        chat.appendChild(system);
 
-    const trait = persona.traits[Math.floor(Math.random() * persona.traits.length)];
-    const traitMsg = document.createElement('div');
-    traitMsg.className = 'msg msg-persona';
-    traitMsg.textContent = trait;
-    chat.appendChild(traitMsg);
+        const trait = persona.traits[Math.floor(Math.random() * persona.traits.length)];
+        const traitMsg = document.createElement("div");
+        traitMsg.className = "msg msg-persona";
+        traitMsg.textContent = trait;
+        chat.appendChild(traitMsg);
 
-    const contact = document.createElement('div');
-    contact.className = 'msg msg-system';
-    contact.textContent = 'Talk to the real team: risto@onelifetime.world';
-    chat.appendChild(contact);
-}
-</script>
-
-</body>
+        const contact = document.createElement("div");
+        contact.className = "msg msg-system";
+        contact.textContent = "Talk to the real team: risto@onelifetime.world";
+        chat.appendChild(contact);
+      }
+    </script>
+  </body>
 </html>
