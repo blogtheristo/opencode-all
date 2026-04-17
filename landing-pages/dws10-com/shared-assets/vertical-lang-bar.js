@@ -95,7 +95,12 @@
   window.__dwsVlbLoaded = true;
 
   var stays = !!document.querySelector('meta[name="dws-lang-stay"]');
-  var currentLang = localStorage.getItem('dws-lang') || 'en';
+  var storedLang = localStorage.getItem('dws-lang');
+  var currentLang = LANGS.some(function (l) {
+    return l.code === storedLang;
+  })
+    ? storedLang
+    : 'en';
 
   // Detect page type from path
   var path = window.location.pathname;
@@ -260,6 +265,12 @@
           window.dispatchEvent(new CustomEvent('dws-lang-change', { detail: { lang: lang } }));
           var navCode = document.querySelector('.ironclad-lang-code');
           if (navCode) navCode.textContent = lang.toUpperCase();
+        });
+        row.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            row.click();
+          }
         });
       });
     }

@@ -41,7 +41,13 @@
     },
   ];
 
-  var currentLang = localStorage.getItem('dws-lang') || 'en';
+  var storedLang = localStorage.getItem('dws-lang');
+  var currentLang = LANGS.some(function (l) {
+    return l.code === storedLang;
+  })
+    ? storedLang
+    : 'en';
+  if (storedLang !== currentLang) localStorage.setItem('dws-lang', currentLang);
 
   if (!document.getElementById('olw-vlb-style')) {
     var css = [
@@ -159,6 +165,12 @@
         var alt = document.querySelector('link[hreflang="' + lang + '"]');
         if (alt && alt.href && alt.href !== window.location.href) {
           window.location.href = alt.href;
+        }
+      });
+      row.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          row.click();
         }
       });
     });
