@@ -448,7 +448,7 @@ How KYA generates revenue for Lifetime Oy:
 
 | Dimension                | Palantir AIP                                | KYA (DWS IQ)                                                    | Advantage                      |
 | ------------------------ | ------------------------------------------- | --------------------------------------------------------------- | ------------------------------ |
-| **Agent isolation**      | Software-layer guardrails (container-based) | Hardware-level kill (Firecracker MicroVM, 122ms)                | **KYA** — hardware > software  |
+| **Agent isolation**      | Software-layer guardrails (container-based) | Hardware-level kill (Firecracker MicroVM, < 125ms (Firecracker MicroVM, AWS benchmark))                | **KYA** — hardware > software  |
 | **Identity attribution** | Enterprise SSO / Foundry permissions        | KYC/KYB-verified identity → agent session binding               | **KYA** — legally attributable |
 | **Autoresearch**         | Not offered (manual model tuning)           | Governed self-optimization with financial attribution           | **KYA** — unique capability    |
 | **EU compliance**        | Generic (GDPR, some SOC 2)                  | Native EU AI Act Art. 12/14, NIS2, DORA, Fit for 55             | **KYA** — EU-first             |
@@ -456,7 +456,7 @@ How KYA generates revenue for Lifetime Oy:
 | **Industry depth**       | Defense, healthcare, energy (3–5 deep)      | 20 industries with per-industry proxy metrics                   | **KYA** — wider + deeper       |
 | **Data residency**       | US-primary (FedRAMP)                        | EU-primary (Finland/Germany, GDPR-native)                       | Context-dependent              |
 
-**Key differentiator:** Palantir's guardrails are software-level permission checks. KYA kills at the hypervisor — sub-5ms behavioral enforcement, 122ms hardware termination. In regulated industries, hardware kill > software kill.
+**Key differentiator:** Palantir's guardrails are software-level permission checks. KYA kills at the hypervisor — sub-5ms behavioral enforcement, < 125ms (Firecracker MicroVM, AWS benchmark) hardware termination. In regulated industries, hardware kill > software kill.
 
 ---
 

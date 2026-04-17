@@ -80,7 +80,7 @@ Every Agentforce agent handoff is a regulated event under the EU AI Act. Article
 | Agent spawned            | KYC-verified human identity bound to session | Art. 13 — transparency    |
 | Tool call issued         | Capability Manifest checked at VMM layer     | Art. 9 — risk management  |
 | Regulated record written | TPM 2.0 sealed audit entry created           | Art. 12 — event logging   |
-| Trust score drops < 0.50 | Firehorse Snap: terminated in 122ms          | Art. 14 — human oversight |
+| Trust score drops < 0.50 | Firehorse Snap: terminated in < 125ms (Firecracker MicroVM, AWS benchmark)          | Art. 14 — human oversight |
 
 The audit trail is TPM-sealed, tamper-evident, and court-defensible. Agentforce's application logs are not.
 
