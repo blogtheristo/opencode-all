@@ -1,9 +1,9 @@
 /**
- * DWS10.com European Language Bar v1.0
- * Introduced-In: PR-TBD
- * Code-Version: 1.0
- * Branch: claude/nordic-industrial-rebrand-glOfb
- * Date: 2026-04-06
+ * DWS10.com European Language Bar v1.1
+ * Introduced-In: PR-TBD (propagate VAT locale)
+ * Code-Version: 1.1
+ * Branch: claude/propagate-vat-locale-rPfdD
+ * Date: 2026-04-16
  * Owner: Lifetime Oy
  *
  * European-first language selector with EU flag.
@@ -17,6 +17,8 @@
  * Auto-injects a thin language bar below the ironclad header
  *
  * v1.0 — Initial release: FI | SV | DE | FR | EN + EU flag
+ * v1.1 — Fix silent render failure when ironclad-nav.js injects this script
+ *        after DOMContentLoaded. Now runs immediately if parsing is done.
  */
 
 (function () {
@@ -120,7 +122,7 @@
   style.textContent = barCSS;
   document.head.appendChild(style);
 
-  document.addEventListener('DOMContentLoaded', function () {
+  function setup() {
     // Build language buttons
     var btns = languages
       .map(function (l) {
@@ -193,5 +195,16 @@
         // All 5 languages now have pages — no "coming soon" toast needed
       });
     });
-  });
+  }
+
+  // Run on DOMContentLoaded if parsing still in progress; otherwise fire
+  // immediately. ironclad-nav.js injects this script in its own DOMContentLoaded
+  // callback, so by the time we arrive here the event has usually already
+  // fired — guarding with readyState prevents the bar from silently failing
+  // to render on dynamically-injected load paths.
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setup);
+  } else {
+    setup();
+  }
 })();

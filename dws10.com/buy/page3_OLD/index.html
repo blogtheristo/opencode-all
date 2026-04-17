@@ -6,30 +6,35 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-    <title>Lifetime Firehorse Store | Digital Services</title>
+    <title>Lifetime Firehorse Store | Page 3 - Consulting & Training</title>
     <meta
       name="description"
       content="Lifetime Firehorse Store — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy."
     />
-    <meta name="keywords" content="digital services, web development, email setup, data services" />
+    <meta name="keywords" content="expert advisory, AI training, consulting, enterprise training" />
     <meta name="author" content="Lifetime Oy" />
     <meta name="robots" content="index, follow" />
-    <meta property="og:title" content="Lifetime Firehorse Store | Digital Services" />
+    <meta name="dws-lang-stay" content="true" />
+    <meta name="dws-default-locale" content="eu" />
+    <meta property="og:title" content="Lifetime Firehorse Store | Page 3 - Consulting & Training" />
     <meta
       property="og:description"
       content="Lifetime Firehorse Store — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://dws10.com/buy/page4/index.html" />
+    <meta property="og:url" content="https://dws10.com/buy/page3/index.html" />
     <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
     <meta property="og:site_name" content="DWS IQ Platform" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Lifetime Firehorse Store | Digital Services" />
+    <meta
+      name="twitter:title"
+      content="Lifetime Firehorse Store | Page 3 - Consulting & Training"
+    />
     <meta
       name="twitter:description"
       content="Lifetime Firehorse Store — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy."
     />
-    <link rel="canonical" href="https://dws10.com/buy/page4/index.html" />
+    <link rel="canonical" href="https://dws10.com/buy/page3/index.html" />
     <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
     <style>
       * {
@@ -376,6 +381,61 @@
         color: #94a3b8;
         margin-bottom: 24px;
       }
+      .locale-bar {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        margin: 0 auto 12px;
+        font-size: 0.85rem;
+        color: #94a3b8;
+      }
+      .vat-id-wrap {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        max-width: 560px;
+        margin: 0 auto 16px;
+        padding: 12px 14px;
+        background: rgba(37, 99, 235, 0.05);
+        border: 1px dashed rgba(96, 165, 250, 0.35);
+        border-radius: 6px;
+        font-size: 0.85rem;
+        color: #cbd5e1;
+      }
+      .vat-id-wrap label {
+        font-weight: 600;
+        color: #e2e8f0;
+      }
+      .vat-id-wrap input {
+        flex: 1 1 180px;
+        min-width: 160px;
+        background: rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        padding: 6px 10px;
+        color: #e2e8f0;
+        font-family: inherit;
+        font-size: 0.85rem;
+        letter-spacing: 0.04em;
+      }
+      .vat-id-wrap input:focus {
+        outline: none;
+        border-color: #60a5fa;
+      }
+      .vat-id-status {
+        flex-basis: 100%;
+        font-size: 0.78rem;
+        color: #94a3b8;
+      }
+      .fx-as-of {
+        font-size: 0.75rem;
+        color: #64748b;
+        margin: -12px auto 16px;
+        text-align: center;
+      }
 
       @media (max-width: 768px) {
         h1 {
@@ -426,10 +486,10 @@
     <script src="../../shared-assets/nav/ironclad-nav.js"></script>
 
     <main class="container">
-      <h1>Digital Services</h1>
+      <h1>Consulting & Training</h1>
       <p class="subtitle">
-        Production-ready tools and implementations. From sovereign email to marketing dashboards
-        &mdash; operational in days, not months.
+        Direct access to the practitioners who built DWS IQ 6. Workshops, mentoring, and advisory
+        for teams navigating EU compliance and AI transformation.
         <a href="mailto:risto@lifetime.fi" style="color: #60a5fa">risto@lifetime.fi</a>
       </p>
 
@@ -437,49 +497,73 @@
       <nav class="category-nav" aria-label="Product categories">
         <a href="../" class="category-btn">Platform &amp; Products</a>
         <a href="../page2/" class="category-btn">AI &amp; Cloud Consulting</a>
-        <a href="../page3/" class="category-btn">Expert Advisory &amp; Training</a>
-        <a href="./" class="category-btn active" aria-current="page">Digital Services</a>
+        <a href="./" class="category-btn active" aria-current="page"
+          >Expert Advisory &amp; Training</a
+        >
+        <a href="../page4/" class="category-btn">Digital Services</a>
       </nav>
 
       <!-- VAT Notice -->
+      <!-- Locale & VAT Selector -->
+      <div class="locale-bar" role="group" aria-label="Currency and VAT">
+        <span>Price view:</span>
+        <button type="button" class="locale-btn" data-locale="fi">🇫🇮 FI · 25,5 %</button>
+        <button type="button" class="locale-btn" data-locale="eu">🇪🇺 EU B2B · 0 %</button>
+        <button type="button" class="locale-btn" data-locale="us">🇺🇸 US · $</button>
+      </div>
       <div class="vat-notice" id="vatNotice">All prices excl. VAT &middot; EU Business (B2B)</div>
+      <div class="vat-id-wrap" id="vatIdWrap" style="display: none">
+        <label for="vatIdInput">EU VAT ID:</label>
+        <input
+          id="vatIdInput"
+          type="text"
+          placeholder="e.g. DE123456789"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <span class="vat-id-status" id="vatIdStatus"
+          >Enter a non-FI EU VAT number. Final VIES validation happens at checkout.</span
+        >
+      </div>
+      <div class="fx-as-of" id="fxAsOf" style="display: none">
+        USD rate from ECB daily reference
+      </div>
 
-      <!-- Products Grid - Page 4 products -->
+      <!-- Products Grid - Page 3 products -->
       <div class="product-grid">
-        <!-- Lifetime World - Digital Design Gold -->
+        <!-- AI Consultant Day -->
         <div class="product-card">
           <img
-            src="../../static/images/Firehorse_Store.jpg"
-            alt="Lifetime World - Digital Design Gold"
+            src="../../static/images/Risto_Malta.png"
+            alt="AI Consultant Day"
             class="product-image"
           />
           <div class="product-content">
-            <h2 class="product-title">Digital Design Gold</h2>
-            <div class="product-price">&euro;2,499</div>
-            <div class="product-price-note">One-time setup</div>
+            <h2 class="product-title">AI Consultant Day</h2>
+            <div class="product-price">€699</div>
+            <div class="product-price-note">Per day, VAT excl.</div>
             <p class="product-excerpt">
-              Your brand deserves more than templates. Complete digital content repository &mdash;
-              brand assets, marketing collateral, campaign visuals, and analytics dashboards &mdash;
-              all governed by your brand standard. From identity system to live campaign
-              intelligence in one engagement.
+              One day to unblock your AI strategy. Senior consultant on-site or remote for strategy,
+              prototyping, and hands-on implementation. Covers Claude, GPT, Gemini Pro, Copilot, and
+              Azure AI Studio. Most clients book 2&ndash;3 days for a full sprint.
             </p>
             <div class="btn-group">
               <a
-                href="https://revolut.me/lifetimeoy/2499EUR"
+                href="https://revolut.me/lifetimeoy/699EUR"
                 class="btn btn-revolut"
                 target="_blank"
                 rel="noopener"
                 >Pay &ndash; Revolut</a
               >
               <a
-                href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Lifetime%20World%20%E2%80%93%20Digital%20Design%20Gold&amount=2499&currency_code=EUR"
+                href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=AI%20Consultant%20Day&amount=699&currency_code=EUR"
                 class="btn btn-paypal"
                 target="_blank"
                 rel="noopener"
                 >Pay &ndash; PayPal</a
               >
             </div>
-            <a href="../" class="btn-details">Details</a>
+            <a href="../../products/ai-consultant-day.html" class="btn-details">Details</a>
             <div class="payment-badge">
               <span>Secure payment via</span>
               <span style="color: #0075eb; font-weight: 600">Revolut Business</span>
@@ -489,39 +573,39 @@
           </div>
         </div>
 
-        <!-- Microsoft 365 Consultancy -->
+        <!-- Business Mentor 30 Hours -->
         <div class="product-card">
           <img
-            src="../../static/images/Firehorse_Store.jpg"
-            alt="Microsoft 365 Consultancy"
+            src="../../static/images/Risto_Malta.png"
+            alt="Business Mentor 30 Hours"
             class="product-image"
           />
           <div class="product-content">
-            <h2 class="product-title">Microsoft Consultancy</h2>
-            <div class="product-price">&euro;1,120</div>
-            <div class="product-price-note">8 hours</div>
+            <h2 class="product-title">Business Mentor - AI Strategy 30 Hours</h2>
+            <div class="product-price">€4,960</div>
+            <div class="product-price-note">30 hours, valid 12 months</div>
             <p class="product-excerpt">
-              Get 188% ROI from the Microsoft licenses you already pay for. 8 hours of expert
-              consultancy to automate business processes with Power Apps and cut development costs
-              by 74%. Most clients launch their first app within the engagement.
+              30 hours of strategic AI mentoring, scheduled on your terms. Cover AI strategy,
+              business process redesign with agents, and Copilot adoption in flexible 4&ndash;8 hour
+              sessions over 12 months. Ideal for leadership teams navigating AI transformation.
             </p>
             <div class="btn-group">
               <a
-                href="https://revolut.me/lifetimeoy/1120EUR"
+                href="https://revolut.me/lifetimeoy/4960EUR"
                 class="btn btn-revolut"
                 target="_blank"
                 rel="noopener"
                 >Pay &ndash; Revolut</a
               >
               <a
-                href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Microsoft%20365%20Consultancy&amount=1120&currency_code=EUR"
+                href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Business%20Mentor%20-%20AI%20Strategy%2030%20Hours&amount=4960&currency_code=EUR"
                 class="btn btn-paypal"
                 target="_blank"
                 rel="noopener"
                 >Pay &ndash; PayPal</a
               >
             </div>
-            <a href="../" class="btn-details">Details</a>
+            <a href="../../products/business-mentor-30.html" class="btn-details">Details</a>
             <div class="payment-badge">
               <span>Secure payment via</span>
               <span style="color: #0075eb; font-weight: 600">Revolut Business</span>
@@ -531,123 +615,39 @@
           </div>
         </div>
 
-        <!-- Solution Ready Team - Do it Right -->
+        <!-- Firehorse Coach -->
         <div class="product-card">
           <img
             src="../../static/images/Firehorse_Store.jpg"
-            alt="Solution Ready Team - Do it Right"
+            alt="Firehorse Coach"
             class="product-image"
           />
           <div class="product-content">
-            <h2 class="product-title">On-Demand AI &amp; Cloud Engineers</h2>
-            <div class="product-price">&euro;950</div>
-            <div class="product-price-note">Team setup</div>
+            <h2 class="product-title">EU AI Act Literacy Training</h2>
+            <div class="product-price">€499</div>
+            <div class="product-price-note">Workshop + coaching</div>
             <p class="product-excerpt">
-              Need expert developers this week, not next quarter? Pre-vetted cloud and AI
-              professionals ready for immediate deployment. Skip the 3-month recruitment cycle and
-              start building today.
+              Your leadership team needs AI fluency &mdash; not just your engineers. EU AI Act
+              Article 4 now requires AI literacy across your organization. In-house coaching with a
+              free 3-hour workshop to assess readiness. Personal, team, or remote.
             </p>
             <div class="btn-group">
               <a
-                href="https://revolut.me/lifetimeoy/950EUR"
+                href="https://revolut.me/lifetimeoy/499EUR"
                 class="btn btn-revolut"
                 target="_blank"
                 rel="noopener"
                 >Pay &ndash; Revolut</a
               >
               <a
-                href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Solution%20Ready%20Team%20%E2%80%93%20Do%20it%20Right&amount=950&currency_code=EUR"
+                href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Firehorse%20Coach%20-%20In-House%20AI%20Training&amount=499&currency_code=EUR"
                 class="btn btn-paypal"
                 target="_blank"
                 rel="noopener"
                 >Pay &ndash; PayPal</a
               >
             </div>
-            <a href="../" class="btn-details">Details</a>
-            <div class="payment-badge">
-              <span>Secure payment via</span>
-              <span style="color: #0075eb; font-weight: 600">Revolut Business</span>
-              <span style="color: #94a3b8">|</span>
-              <span style="color: #003087; font-weight: 600">PayPal Business</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Firehorse Data Services -->
-        <div class="product-card">
-          <img
-            src="../../static/images/Firehorse_Store.jpg"
-            alt="Firehorse Data Services"
-            class="product-image"
-          />
-          <div class="product-content">
-            <h2 class="product-title">Firehorse Data Services</h2>
-            <div class="product-price">&euro;899</div>
-            <div class="product-price-note">Consultancy engagement</div>
-            <p class="product-excerpt">
-              Your data is worth more than you think. API-driven data products, brokerage strategy,
-              and enrichment services that turn raw operational data into revenue and compliance
-              insights.
-            </p>
-            <div class="btn-group">
-              <a
-                href="https://revolut.me/lifetimeoy/899EUR"
-                class="btn btn-revolut"
-                target="_blank"
-                rel="noopener"
-                >Pay &ndash; Revolut</a
-              >
-              <a
-                href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Firehorse%20Data%20Services&amount=899&currency_code=EUR"
-                class="btn btn-paypal"
-                target="_blank"
-                rel="noopener"
-                >Pay &ndash; PayPal</a
-              >
-            </div>
-            <a href="../" class="btn-details">Details</a>
-            <div class="payment-badge">
-              <span>Secure payment via</span>
-              <span style="color: #0075eb; font-weight: 600">Revolut Business</span>
-              <span style="color: #94a3b8">|</span>
-              <span style="color: #003087; font-weight: 600">PayPal Business</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Professional Web Pages -->
-        <div class="product-card">
-          <img
-            src="../../static/images/Firehorse_Store.jpg"
-            alt="Professional Web Pages"
-            class="product-image"
-          />
-          <div class="product-content">
-            <h2 class="product-title">Professional Web Pages</h2>
-            <div class="product-price">&euro;799</div>
-            <div class="product-price-note">Starting price</div>
-            <p class="product-excerpt">
-              A professional web presence in days, not months. Responsive pages built with React,
-              Blazor, WordPress, or Squarespace &mdash; your choice. AI chatbot and e-commerce
-              add-ons available when you are ready to scale.
-            </p>
-            <div class="btn-group">
-              <a
-                href="https://revolut.me/lifetimeoy/799EUR"
-                class="btn btn-revolut"
-                target="_blank"
-                rel="noopener"
-                >Pay &ndash; Revolut</a
-              >
-              <a
-                href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Professional%20Web%20Pages&amount=799&currency_code=EUR"
-                class="btn btn-paypal"
-                target="_blank"
-                rel="noopener"
-                >Pay &ndash; PayPal</a
-              >
-            </div>
-            <a href="../" class="btn-details">Details</a>
+            <a href="../../products/firehorse-coach.html" class="btn-details">Details</a>
             <div class="payment-badge">
               <span>Secure payment via</span>
               <span style="color: #0075eb; font-weight: 600">Revolut Business</span>
@@ -666,7 +666,7 @@
           />
           <div class="product-content">
             <h2 class="product-title">AI Customer Agent</h2>
-            <div class="product-price">&euro;499</div>
+            <div class="product-price">€499</div>
             <div class="product-price-note">Setup + implementation</div>
             <p class="product-excerpt">
               Turn every customer interaction into a conversion opportunity. AI-powered prompt flow
@@ -689,7 +689,7 @@
                 >Pay &ndash; PayPal</a
               >
             </div>
-            <a href="../" class="btn-details">Details</a>
+            <a href="../../products/firehorse-flow.html" class="btn-details">Details</a>
             <div class="payment-badge">
               <span>Secure payment via</span>
               <span style="color: #0075eb; font-weight: 600">Revolut Business</span>
@@ -699,39 +699,165 @@
           </div>
         </div>
 
-        <!-- Protonmail Secure Email & Domains Implementation -->
+        <!-- Omnichannel Multimodal -->
         <div class="product-card">
           <img
             src="../../static/images/Firehorse_Store.jpg"
-            alt="Protonmail Secure Email &amp; Domains Implementation"
+            alt="Omnichannel Multimodal"
             class="product-image"
           />
           <div class="product-content">
-            <h2 class="product-title">Protonmail Secure Email &amp; Domains Implementation</h2>
-            <div class="product-price">&euro;499</div>
-            <div class="product-price-note">8-hour implementation</div>
+            <h2 class="product-title">Firehorse Omnichannel & Multimodal AI Assistant</h2>
+            <div class="product-price">€699/mo</div>
+            <div class="product-price-note">Monthly subscription</div>
             <p class="product-excerpt">
-              GDPR-compliant email in one business day. Full Proton Business Suite &mdash; encrypted
-              email, cloud storage, password manager, and VPN. Meets GDPR, NIS2, and EU AI Act
-              requirements. Fully operational by end of day.
+              Stop guessing which channels convert. AI-optimized campaign management across all your
+              marketing channels with daily performance measurement and automated optimization. Know
+              exactly where your next customer is coming from.
             </p>
             <div class="btn-group">
               <a
-                href="https://revolut.me/lifetimeoy/499EUR"
+                href="https://revolut.me/lifetimeoy/699EUR"
                 class="btn btn-revolut"
                 target="_blank"
                 rel="noopener"
                 >Pay &ndash; Revolut</a
               >
               <a
-                href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Protonmail%20Secure%20Email%20%26%20Domains%20Implementation&amount=499&currency_code=EUR"
+                href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Firehorse%20Omnichannel%20%26%20Multimodal%20AI%20Assistant&amount=699&currency_code=EUR"
                 class="btn btn-paypal"
                 target="_blank"
                 rel="noopener"
                 >Pay &ndash; PayPal</a
               >
             </div>
-            <a href="../" class="btn-details">Details</a>
+            <a href="../../products/omnichannel-multimodal.html" class="btn-details">Details</a>
+            <div class="payment-badge">
+              <span>Secure payment via</span>
+              <span style="color: #0075eb; font-weight: 600">Revolut Business</span>
+              <span style="color: #94a3b8">|</span>
+              <span style="color: #003087; font-weight: 600">PayPal Business</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Firehorse Lean Project -->
+        <div class="product-card">
+          <img
+            src="../../static/images/Firehorse_Store.jpg"
+            alt="Firehorse Lean Project"
+            class="product-image"
+          />
+          <div class="product-content">
+            <h2 class="product-title">AI Project Accelerator</h2>
+            <div class="product-price">€4,960</div>
+            <div class="product-price-note">Project setup</div>
+            <p class="product-excerpt">
+              Ship your next project in half the time. Lean methodology powered by AI tools &mdash;
+              includes planning workshop, backlog setup, Kanban workflows, and roadmap. Teams using
+              this approach see 2x delivery speed within the first sprint.
+            </p>
+            <div class="btn-group">
+              <a
+                href="https://revolut.me/lifetimeoy/4960EUR"
+                class="btn btn-revolut"
+                target="_blank"
+                rel="noopener"
+                >Pay &ndash; Revolut</a
+              >
+              <a
+                href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Firehorse%20Lean%20Project&amount=4960&currency_code=EUR"
+                class="btn btn-paypal"
+                target="_blank"
+                rel="noopener"
+                >Pay &ndash; PayPal</a
+              >
+            </div>
+            <a href="../../products/lean-project.html" class="btn-details">Details</a>
+            <div class="payment-badge">
+              <span>Secure payment via</span>
+              <span style="color: #0075eb; font-weight: 600">Revolut Business</span>
+              <span style="color: #94a3b8">|</span>
+              <span style="color: #003087; font-weight: 600">PayPal Business</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI & Agent Engineering -->
+        <div class="product-card">
+          <img
+            src="../../static/images/Risto_Malta.png"
+            alt="AI & Agent Engineering"
+            class="product-image"
+          />
+          <div class="product-content">
+            <h2 class="product-title">AI & Agent Engineering</h2>
+            <div class="product-price">€99/hr</div>
+            <div class="product-price-note">Per hour</div>
+            <p class="product-excerpt">
+              Hire a senior AI engineer by the hour &mdash; no recruitment overhead. Available as AI
+              Product Manager, Solutions Architect, or ML Engineer for Azure AI Foundry, Google AI
+              Studio, or custom agentic AI projects. Skip the 3-month hiring cycle.
+            </p>
+            <div class="btn-group">
+              <a
+                href="https://revolut.me/lifetimeoy/99EUR"
+                class="btn btn-revolut"
+                target="_blank"
+                rel="noopener"
+                >Pay &ndash; Revolut</a
+              >
+              <a
+                href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=AI%20%26%20Agent%20Engineering&amount=99&currency_code=EUR"
+                class="btn btn-paypal"
+                target="_blank"
+                rel="noopener"
+                >Pay &ndash; PayPal</a
+              >
+            </div>
+            <a href="../../products/ai-agent-engineering.html" class="btn-details">Details</a>
+            <div class="payment-badge">
+              <span>Secure payment via</span>
+              <span style="color: #0075eb; font-weight: 600">Revolut Business</span>
+              <span style="color: #94a3b8">|</span>
+              <span style="color: #003087; font-weight: 600">PayPal Business</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- M365 Consultancy -->
+        <div class="product-card">
+          <img
+            src="../../static/images/Firehorse_Store.jpg"
+            alt="M365 Consultancy"
+            class="product-image"
+          />
+          <div class="product-content">
+            <h2 class="product-title">Microsoft Consultancy</h2>
+            <div class="product-price">€1,120</div>
+            <div class="product-price-note">8 hours</div>
+            <p class="product-excerpt">
+              Get 188% ROI from the Microsoft licenses you already pay for. 8 hours of expert
+              consultancy to automate business processes with Power Apps and cut development costs
+              by 74%. Most clients launch their first app within the engagement.
+            </p>
+            <div class="btn-group">
+              <a
+                href="https://revolut.me/lifetimeoy/1120EUR"
+                class="btn btn-revolut"
+                target="_blank"
+                rel="noopener"
+                >Pay &ndash; Revolut</a
+              >
+              <a
+                href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=risto.anton%40lifetime.fi&item_name=Microsoft%20365%20Consultancy&amount=1120&currency_code=EUR"
+                class="btn btn-paypal"
+                target="_blank"
+                rel="noopener"
+                >Pay &ndash; PayPal</a
+              >
+            </div>
+            <a href="../../products/m365-consultancy.html" class="btn-details">Details</a>
             <div class="payment-badge">
               <span>Secure payment via</span>
               <span style="color: #0075eb; font-weight: 600">Revolut Business</span>
@@ -746,8 +872,10 @@
       <nav class="category-nav" aria-label="Product categories">
         <a href="../" class="category-btn">Platform &amp; Products</a>
         <a href="../page2/" class="category-btn">AI &amp; Cloud Consulting</a>
-        <a href="../page3/" class="category-btn">Expert Advisory &amp; Training</a>
-        <a href="./" class="category-btn active" aria-current="page">Digital Services</a>
+        <a href="./" class="category-btn active" aria-current="page"
+          >Expert Advisory &amp; Training</a
+        >
+        <a href="../page4/" class="category-btn">Digital Services</a>
       </nav>
     </main>
     <script src="../../shared-assets/vat-locale.js"></script>

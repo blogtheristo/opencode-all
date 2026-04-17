@@ -26,11 +26,15 @@
  * page, plus .locale-btn buttons (data-locale="fi|eu|us"), an #vatNotice bar,
  * and .product-price elements. Optional: #vatIdInput for EU-business VAT ID.
  *
- * Code-Version: 2.0.0
+ * Code-Version: 2.1.0
  * Introduced-In: PR- (TBD)
- * Branch: claude/extend-navbar-height-G9h4N
+ * Branch: claude/propagate-vat-locale-rPfdD
  * Date: 2026-04-16
  * Owner: DWS Team
+ *
+ * v2.1.0 — Support <meta name="dws-default-locale" content="eu|us|fi"> per
+ *          page for B2B stores that should default to EU 0 % reverse charge
+ *          instead of the Finnish consumer default.
  */
 (function () {
   'use strict';
@@ -61,15 +65,32 @@
   var fxRates = Object.assign({}, FX_FALLBACK);
   var fxFetched = false;
 
+  function getDefaultLocale() {
+    // Per-page override via <meta name="dws-default-locale" content="eu|us|fi">.
+    // B2B store pages use "eu" (0 % reverse charge) so that Finnish business
+    // buyers don't see 25.5 % VAT pre-applied to products that are always
+    // invoiced excl. VAT. Individual product pages can stay on "fi" to satisfy
+    // Finnish B2C consumer protection.
+    var meta = document.querySelector('meta[name="dws-default-locale"]');
+    var val = meta ? meta.getAttribute('content') : null;
+    return LOCALES[val] ? val : 'fi';
+  }
+
   function getLocale() {
     var stored = localStorage.getItem('dws-locale');
-    return LOCALES[stored] ? stored : 'fi';
+    return LOCALES[stored] ? stored : getDefaultLocale();
   }
 
   function setLocale(locale) {
     if (!LOCALES[locale]) return;
     localStorage.setItem('dws-locale', locale);
     applyLocale(locale);
+    // Notify in-page listeners (bundle-cart, custom widgets) on same-tab change.
+    try {
+      window.dispatchEvent(new CustomEvent('dws-locale-change', { detail: { locale: locale } }));
+    } catch (e) {
+      /* CustomEvent unsupported in legacy IE — ignore */
+    }
   }
 
   /** Parse numeric price from text like "€2,500", "24 990 €", "€0.99", "€699/mo" */
@@ -245,6 +266,12 @@
       .then(function (data) {
         if (data && data.rates && data.rates.USD) {
           fxRates = data.rates;
+          // Cache for cross-script access (bundle-cart reads from localStorage).
+          try {
+            localStorage.setItem('dws-fx-rates', JSON.stringify(data.rates));
+          } catch (e) {
+            /* quota or disabled */
+          }
           var stamp = document.getElementById('fxAsOf');
           if (stamp && data.ratesAsOf) {
             stamp.textContent =
