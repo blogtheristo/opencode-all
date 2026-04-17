@@ -1005,7 +1005,13 @@ Cross-sandbox access? --> TRAP --> SESSION FROZEN</pre
             </tr>
             <tr>
               <td>Trust score drops &lt; 0.50</td>
-              <td>Firehorse Snap: terminated in < 125ms (Firecracker MicroVM, AWS benchmark)</td>
+              <td>
+                Firehorse Snap triggered.<br />
+                <strong>Software kill chain: 0.006ms</strong> (measured, Helsinki Veriton GN100)<br />
+                <span style="color: var(--color-gray-500); font-size: 0.875rem"
+                  >VMM hardware kill: &lt;125ms (Firecracker production target)</span
+                >
+              </td>
               <td>Art. 14 &mdash; human oversight</td>
             </tr>
           </tbody>
