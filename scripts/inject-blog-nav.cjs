@@ -191,6 +191,10 @@ for (let i = 0; i < posts.length; i++) {
     /\n\s*<!-- Post Navigation \+ Products \(auto-injected.*?\) -->[\s\S]*?<\/section>\n\n/g,
     '\n',
   );
+  html = html.replace(
+    /\n\s*<!-- Post Navigation \+ Products \(auto-injected.*?\) -->\s*\n*/g,
+    '\n',
+  );
 
   // Insert before footer (supports both <!-- Footer --> comment and direct <footer> tag)
   const marker1 = '    <!-- Footer -->';
