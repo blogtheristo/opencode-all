@@ -1157,16 +1157,8 @@
       });
     }
 
-    // Auto-load the 5-language EU bar (FI | SV | DE | FR | EN) on every
-    // ironclad page. eu-lang-bar.js is idempotent, so pages that already
-    // include it manually are safe.
-    if (!document.querySelector('script[data-dws-eu-lang]')) {
-      var langScript = document.createElement('script');
-      langScript.src = '/shared-assets/eu-lang-bar.js';
-      langScript.setAttribute('data-dws-eu-lang', 'true');
-      langScript.async = true;
-      document.head.appendChild(langScript);
-    }
+    // Language bar is a PAGE ELEMENT, not a nav/menu element.
+    // Include /shared-assets/vertical-lang-bar.js directly on each page that needs it.
 
     console.log(
       'Iron Clad / Gamma Navigation v3.2 loaded (Nordic rebrand + language redirect + mobile hamburger)',

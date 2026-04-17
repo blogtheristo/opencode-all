@@ -849,7 +849,7 @@
       "id": "digital-design-gold",
       "gtin": null,
       "mpn": "DESIGN-GOLD-2026",
-      "name": "Digital Design Gold V2",
+      "name": "Digital Design Gold",
       "price": 24990,
       "currency": "EUR",
       "type": "one-time",
@@ -1343,13 +1343,7 @@
     "google": {
       "merchantId": null,
       "feedUrl": "https://dws10.com/feeds/google-products.xml",
-      "targetCountries": [
-        "FI",
-        "SE",
-        "NO",
-        "DK",
-        "DE"
-      ],
+      "targetCountries": ["FI", "SE", "NO", "DK", "DE"],
       "contentLanguage": "en",
       "channel": "online"
     }
