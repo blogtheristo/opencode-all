@@ -158,6 +158,29 @@ You are the hands; the human is the architect. Move fast, but never faster than 
 
 10. **Never Publish .md Files to Public Sites (CRITICAL)** — Never place `.md` files in: `dws10.com/`, `landing-pages/dws10-com/`, `onelifetime.world/`, `landing-pages/onelifetime-world/`, `dws6.com/`, `landing-pages/dws6-com/`. Convert to HTML for public sites. `.md` files belong in: `docs/`, `Admin/`, `Learn/`, `docs/metropolia/master-thesis/`, repo root.
 
+### Skill Proposal Rule (CRITICAL)
+
+**Always propose creating a new skill when you encounter a capability worth offering to more agents.**
+
+After implementing anything that is:
+
+- A reusable workflow (more than one page or agent will benefit)
+- An offering strength worth marketing (like multilingual, sovereignty, carbon analysis)
+- A hard gate that prevents known failure modes
+
+Immediately say: **"SKILL OPPORTUNITY: this could be `/skill-name` — want me to create it?"**
+
+Then, if approved, create `.claude/commands/<name>.md` following the format:
+
+1. YAML frontmatter: `name`, `version`, `date`, `description` (140-char CSO trigger phrases)
+2. One-liner: what it does
+3. `Usage: /name <args>` + `Input: $ARGUMENTS`
+4. `## Steps` — numbered, executable
+5. `## When NOT to use` — with alternatives
+
+Update `docs/DWS_SKILLS_GUIDE.md` to register the new skill in the same commit.
+The skill is an agent-accessible product — if it can't be invoked via `/name`, it's not shipped.
+
 ### Script Automation Rule (CRITICAL)
 
 **Never create a script that requires a human to remember to run it.** Every script must be auto-discovered by the day-runner or registered in a scheduler. No exceptions.
