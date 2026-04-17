@@ -78,11 +78,11 @@ $hooksTemplate = @{
             hooks = @(
                 @{
                     type = "command"
-                    command = "bash -lc `"jq -r '.tool_input.file_path' | xargs npx prettier --write 2>/dev/null; exit 0`""
+                    command = "bash -lc `"file_path=$(jq -r '.tool_input.file_path'); npx prettier --write `"$file_path`" 2>/dev/null; exit 0`""
                 },
                 @{
                     type = "command"
-                    command = "bash -lc `"npx eslint --fix $(jq -r '.tool_input.file_path') 2>&1 | tail -10; exit 0`""
+                    command = "bash -lc `"file_path=$(jq -r '.tool_input.file_path'); npx eslint --fix `"$file_path`" 2>&1 | tail -10; exit 0`""
                 }
             )
         }
