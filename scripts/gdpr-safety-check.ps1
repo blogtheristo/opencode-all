@@ -62,8 +62,8 @@ foreach ($file in $stagedNames) {
 $contentRegexes = @(
     'gh[pousr]_[A-Za-z0-9]{36,}',                            # GitHub tokens
     'github_pat_[A-Za-z0-9_]{20,}',                          # GitHub fine-grained PAT
-    'AKIA[0-9A-Z]{16}',                                      # AWS access key
-    'ASIA[0-9A-Z]{16}',                                      # AWS temporary access key
+    '(?-i:AKIA[0-9A-Z]{16})',                               # AWS access key (case-sensitive)
+    '(?-i:ASIA[0-9A-Z]{16})',                               # AWS temporary access key (case-sensitive)
     'AIza[0-9A-Za-z\-_]{35}',                                # Google API key
     'xox[baprs]-[A-Za-z0-9-]{10,}',                          # Slack tokens
     'sk-[A-Za-z0-9]{20,}',                                   # OpenAI-style API keys
