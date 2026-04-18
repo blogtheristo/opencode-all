@@ -104,9 +104,10 @@ function processFile(filename) {
         critical_file.write_text(critical_cmd)
 
         high_file = tmp_path / "high.js"
-        # Split the readFile identifier to avoid scanner false positives on this test file's source
+        # Split readFile and path concat tokens to avoid scanner false positives (#522).
         read_fn = "read" + "File"
-        path_traversal_pattern = f"fs.{read_fn}(userPath + filename);"
+        path_concat = "userPath " + "+" + " filename"
+        path_traversal_pattern = f"fs.{read_fn}({path_concat});"
         high_file.write_text(path_traversal_pattern)
 
         scanner = CriticalBugScanner(tmp_path)
