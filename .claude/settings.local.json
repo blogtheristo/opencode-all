@@ -26,9 +26,10 @@
     ]
   },
   "enabledMcpjsonServers": [
-    "Supabase MCP",
-    "Upstash Redis",
-    "MCP Hub"
+    "dws-agents-local",
+    "dws-gateway-local",
+    "dws-gateway",
+    "dws-agents"
   ],
   "hooks": {
     "SessionStart": [
