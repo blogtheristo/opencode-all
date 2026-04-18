@@ -9,59 +9,79 @@ Practical setup guide for Model Context Protocol (MCP) servers used in `dws6`.
 
 ## 1. Overview
 
-This repository now uses a **two-tier MCP model**:
+This repository uses a **split MCP model by use case**, not one universal default.
 
-1. **Official Docker catalog MCPs**: the default layer for day-to-day development.
-2. **DWS-local services**: optional repo-specific integrations that run on localhost or inside the project Docker stack.
+| Use case | Where it runs | What belongs there | Config surface |
+|--------|---------|----------------|----------------|
+| **Win11 developer MCP** | Developer workstation | Local backend `/mcp`, local Python gateway for developer tools, no Docker | `.mcp.json.example`, `mcp.dws-local.example.json` |
+| **DWS Hub orchestration** | DGX Spark | Coordination hub, scheduled flows, long-running automation, session persistence | `env.mcp.example` / `.env.mcp` |
+| **Remote/mobile MCP** | Hosted HTTP endpoint | Cloud/mobile access when no local process can run | `mcp-servers/cloud-run-gateway/mcp-config.example.json` |
 
-This split matters because the official Docker catalog servers are standard MCP servers, while some DWS-local integrations are local wrappers or internal services. They should not be documented as if they were the same thing.
+**Rule:** Docker-backed MCP no longer belongs on Win11. DGX hosts the hub/orchestration layer. Win11 keeps developer-local MCP only.
 
-### Recommended default MCPs
+### Supabase placement
 
-The default `dws6` stack is based on the three official Docker catalog servers already identified in Docker MCP Search:
+Supabase is needed in **both** environments, but for different reasons:
 
-| Server | Tools | Best use in `dws6` |
-|--------|-------|--------------------|
-| `GitHub Official` | 40 | PRs, issues, workflow status, code search, repository automation |
-| `Docker Hub` | 13 | Image discovery, repository/tag inspection, Docker Hardened Images |
-| `Cloud Run` | 8 | GCP/Cloud Run deployment and debugging workflows |
-
-### Optional DWS-local services
-
-These are still useful, but they are **not** the default public MCP layer:
-
-| Service | Type | Purpose |
-|---------|------|---------|
-| `DWS Carbon API` | local REST wrapper | Carbon/compliance query, insert, and activity logging via local container |
-| `Supabase Official (Docker)` | dockerized stdio MCP | Official Supabase MCP tools via Docker image |
-| `Redis MCP` | external/local MCP | Cache and session inspection |
-| `MCP Hub` | local DWS service | Multi-agent coordination and orchestration |
+| Environment | Supabase use |
+|------------|--------------|
+| **Win11 developer** | Local gateway tools, local backend development, direct testing against real project data |
+| **DGX hub** | Session persistence, daily orchestration flows, automation state, shared runtime memory |
+| **Remote/mobile gateway** | Hosted Supabase MCP tools for mobile/web sessions |
 
 ---
 
 ## 2. Quick Start
 
-### 2.1 Copy the template
+### 2.1 Pick the right profile
+
+#### Win11 developer profile
+
+This is the default for local development on Windows:
 
 ```bash
 # From repo root
 cp .mcp.json.example .mcp.json
 ```
 
-If you want the repo-specific local services instead of the default Docker catalog set, start from:
+#### DGX hub profile
+
+This is not a Claude `.mcp.json` profile. It is the orchestration environment:
 
 ```bash
-cp mcp.dws-local.example.json .mcp.json
+cp env.mcp.example .env.mcp
+```
+
+#### Remote/mobile profile
+
+Use the hosted gateway example when the client cannot run local processes:
+
+```bash
+# Use as reference
+type mcp-servers\cloud-run-gateway\mcp-config.example.json
 ```
 
 ### 2.2 Fill in credentials
 
-Edit `.mcp.json` and replace the placeholder values:
+For **Win11 developer MCP**:
 
-- `GITHUB_PERSONAL_ACCESS_TOKEN`
-- `HUB_PAT_TOKEN`
-- Docker Hub username
-- Google Cloud application default credentials path
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_KEY`
+- `GITHUB_TOKEN`
+
+For **DGX hub**:
+
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_KEY`
+- `DATABASE_URL`
+- `MCP_HUB_API_KEY`
+
+For **remote/mobile MCP**:
+
+- `MCP_GATEWAY_URL`
+- `MCP_GATEWAY_API_KEY`
+- `DWS_MCP_AGENT_URL`
+- `DWS_API_TOKEN`
 
 ### 2.3 Verify `.mcp.json` is local-only
 
@@ -73,11 +93,63 @@ Expected result: `.mcp.json` should be ignored by Git.
 
 ---
 
-## 3. Tier 1: Official Docker Catalog MCPs
+## 3. Win11 Developer MCP Configuration
 
-These are the MCP servers we recommend enabling by default in `dws6`.
+These are the MCP servers we recommend enabling by default on Win11.
 
-### 3.1 GitHub Official
+```json
+{
+  "mcpServers": {
+    "dws-agents-local": {
+      "type": "url",
+      "url": "http://localhost:8080/mcp"
+    },
+    "dws-gateway-local": {
+      "type": "command",
+      "command": "python",
+      "args": [
+        "mcp-servers/cloud-run-gateway/server.py",
+        "--transport",
+        "stdio"
+      ],
+      "env": {
+        "SUPABASE_URL": "${SUPABASE_URL}",
+        "SUPABASE_SERVICE_KEY": "${SUPABASE_SERVICE_KEY}",
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+      }
+    }
+  }
+}
+```
+
+### 3.1 Win11 developer health check
+
+```bash
+npm run diag:mcp
+```
+
+### 3.2 DGX hub environment
+
+The DGX hub is configured via environment, not `.mcp.json`:
+
+```bash
+cp env.mcp.example .env.mcp
+```
+
+Use the DGX hub for:
+
+- scheduled flows in `scripts/daily/`
+- orchestration/session persistence
+- long-running coordination services
+
+### 3.3 Remote/mobile MCP environment
+
+Use `mcp-servers/cloud-run-gateway/mcp-config.example.json` for hosted HTTP access from mobile/web or when no local process can run.
+
+## 4. Legacy Reference: Older Catalog and Local Options
+
+These sections are kept for historical context and narrow dev workflows. They are not the default setup anymore.
+### 4.1 GitHub
 
 **Why it matters here**
 
@@ -88,36 +160,15 @@ This repo already relies heavily on GitHub-centric automation:
 - weekly reporting via issues and PR queries
 - CI and workflow monitoring
 
-Use `GitHub Official` when you want the agent to work directly with GitHub objects instead of relying on browser/manual review steps.
+Use the built-in GitHub MCP in Claude Code when you want the agent to work directly with GitHub objects instead of relying on browser/manual review steps.
 
-**Template entry**
+**Current guidance**
 
-```json
-{
-  "mcpServers": {
-    "GitHub Official": {
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "-e",
-        "GITHUB_PERSONAL_ACCESS_TOKEN",
-        "ghcr.io/github/github-mcp-server"
-      ],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_your_personal_access_token_here"
-      }
-    }
-  }
-}
-```
+- In Claude Code, GitHub MCP is built in — do **not** add a manual `.mcp.json` package entry.
+- Use GitHub OAuth, not personal access tokens in `.mcp.json`.
+- If a non-Claude client needs GitHub MCP, use that client's current official GitHub MCP integration instructions rather than old package snippets from this repo.
 
-**Credential**
-
-- Personal access token with the scopes required for the GitHub operations you intend to run
-
-### 3.2 Docker Hub
+### 4.2 Docker Hub
 
 **Why it matters here**
 
@@ -130,72 +181,25 @@ Use `Docker Hub` when you need:
 
 This is useful for supply-chain work, but it is **not** currently the primary deployment path for `dws6`.
 
-**Template entry**
+**Current guidance**
 
-```json
-{
-  "mcpServers": {
-    "Docker Hub": {
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "-e",
-        "HUB_PAT_TOKEN",
-        "mcp/dockerhub",
-        "--transport=stdio",
-        "--username=your-dockerhub-username"
-      ],
-      "env": {
-        "HUB_PAT_TOKEN": "your_docker_hub_pat_here"
-      }
-    }
-  }
-}
-```
+- Treat Docker Hub MCP as an external catalog integration.
+- Use the provider's current Docker Desktop MCP catalog entry or official setup docs.
+- Do not rely on the old `mcp/dockerhub` package string in repository docs.
 
-**Credentials**
-
-- Docker Hub username
-- Docker Hub personal access token
-
-### 3.3 Cloud Run
+### 4.3 Cloud Run
 
 **Why it matters here**
 
 Use `Cloud Run` when you are actively deploying or debugging GCP-hosted services. This is useful for DWS cloud experimentation and future hosted MCP work, even though the repo’s main deployment workflow currently targets Scaleway.
 
-**Template entry**
+**Current guidance**
 
-```json
-{
-  "mcpServers": {
-    "Cloud Run": {
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "-e",
-        "GOOGLE_APPLICATION_CREDENTIALS",
-        "-v",
-        "C:/Users/you/.config/gcloud:/gcloud",
-        "mcp/cloud-run-mcp"
-      ],
-      "env": {
-        "GOOGLE_APPLICATION_CREDENTIALS": "/gcloud/application_default_credentials.json"
-      }
-    }
-  }
-}
-```
+- Use Google Cloud CLI plus the provider's current Cloud Run MCP integration instructions.
+- Do not rely on the old `mcp/cloud-run-mcp` package name in repository docs.
+- In this repo, Cloud Run is mostly relevant for hosted MCP gateway deployment and legacy transition work.
 
-**Credential**
-
-- Local Google Cloud application default credentials file mounted into the container
-
-### 3.4 Docker Desktop note
+### 4.4 Docker Desktop note
 
 If you are on Docker Desktop `4.43+`, the easiest path is to add these servers through the MCP Toolkit / catalog UI and then let Docker Desktop generate the config for you.
 
@@ -207,13 +211,13 @@ Use the committed `.mcp.json.example` as:
 
 ---
 
-## 4. Tier 2: Optional DWS-Local Services
+## 5. Optional DWS-Local and DGX Services
 
 These services are repo-specific and should be documented separately from the official Docker catalog MCPs.
 
 Use the committed example file `mcp.dws-local.example.json` when you want this local stack as your starting point.
 
-### 4.1 DWS Carbon API
+### 5.1 DWS Carbon API
 
 This is a **local DWS wrapper** running on `localhost:8766`. It is useful for local carbon/compliance and table operations, but it is not the same thing as the official Supabase MCP.
 
@@ -276,51 +280,42 @@ For schema migrations such as `supabase/migrations/042_projects_dashboard.sql`, 
 
 Use the local API for verification, reads, inserts, and logging after the schema exists.
 
-Start it with:
+**Placement**
 
-```bash
-docker-compose -f docker-compose.hybrid.yml up -d carbon-api
-```
+- DGX / containerized environments only
+- Not a Win11 developer default after the Clawdbot Docker removal
 
-### 4.2 Supabase Official (Docker)
+### 5.2 Supabase Official
 
-Use this when you want the **real Supabase MCP** in Docker via stdio transport.
-
-Build the local image:
-
-```bash
-docker build -t dws6-supabase-official-mcp:latest ./mcp-servers/supabase-official
-```
+Use this when you want the **real Supabase MCP** outside the built-in DWS local gateway.
 
 Example MCP config:
 
 ```json
 {
   "mcpServers": {
-    "Supabase Official (Docker)": {
-      "command": "docker",
+    "Supabase Official": {
+      "command": "npx",
       "args": [
-        "run",
-        "-i",
-        "--rm",
-        "-e",
-        "SUPABASE_ACCESS_TOKEN",
-        "-e",
-        "SUPABASE_PROJECT_REF",
-        "dws6-supabase-official-mcp:latest"
+        "-y",
+        "@supabase/mcp-server-supabase@latest"
       ],
       "env": {
-        "SUPABASE_ACCESS_TOKEN": "sbp_your_personal_access_token_here",
-        "SUPABASE_PROJECT_REF": "kpucuwwfhuwurdxyjjtz"
+        "SUPABASE_URL": "${SUPABASE_URL}",
+        "SUPABASE_SERVICE_KEY": "${SUPABASE_SERVICE_KEY}"
       }
     }
   }
 }
 ```
 
-Use `SUPABASE_ACCESS_TOKEN` (personal access token) and `SUPABASE_PROJECT_REF` for the official server.
+**Placement**
 
-### 4.3 Redis MCP
+- Win11 developer: local gateway usually enough
+- DGX hub: direct Supabase env access for orchestration/session persistence
+- External MCP client: use `@supabase/mcp-server-supabase` when you need a standalone Supabase MCP
+
+### 5.3 Redis MCP
 
 Use this for cache/session inspection when Redis access is relevant to the task:
 
@@ -331,7 +326,7 @@ Use this for cache/session inspection when Redis access is relevant to the task:
       "command": "npx",
       "args": [
         "-y",
-        "@anthropic/redis-mcp@latest"
+        "@upstash/redis-mcp@latest"
       ],
       "env": {
         "REDIS_URL": "redis://user:password@host:port"
@@ -341,9 +336,9 @@ Use this for cache/session inspection when Redis access is relevant to the task:
 }
 ```
 
-### 4.3 MCP Hub
+### 5.4 MCP Hub
 
-The DWS MCP Hub is the internal coordination layer for multi-agent workflows:
+The DWS MCP Hub is the internal coordination layer for multi-agent workflows and should live on DGX, not on Win11 developer Docker:
 
 ```json
 {
@@ -359,17 +354,17 @@ The DWS MCP Hub is the internal coordination layer for multi-agent workflows:
 }
 ```
 
-Use it when you are testing repo-specific orchestration flows, not as a replacement for the official Docker catalog servers.
+Use it for DGX-hosted orchestration flows, scheduled automation, and shared runtime coordination. It is not the default Win11 developer MCP profile.
 
 If you need both layers, merge the entries from `.mcp.json.example` and `mcp.dws-local.example.json` into your local `.mcp.json`.
 
 ---
 
-## 5. Workflow Mapping
+## 6. Workflow Mapping
 
 The current GitHub Actions setup explains which MCPs matter most.
 
-### 5.1 Highest-value MCP: GitHub Official
+### 6.1 Highest-value GitHub integration
 
 These workflows are the clearest match:
 
@@ -379,9 +374,9 @@ These workflows are the clearest match:
 - `security-check-pr.yml`
 - `dependency_review.yml`
 
-If you are choosing only one MCP to enable first, enable `GitHub Official`.
+If you are choosing only one GitHub integration in Claude Code, use the built-in GitHub MCP via OAuth.
 
-### 5.2 Useful but secondary: Docker Hub
+### 6.2 Useful but secondary: Docker Hub
 
 Best fit for:
 
@@ -390,7 +385,7 @@ Best fit for:
 - hardened image checks
 - container supply-chain exploration
 
-### 5.3 Useful but situational: Cloud Run
+### 6.3 Useful but situational: Cloud Run
 
 Best fit for:
 
@@ -402,7 +397,7 @@ Current note: the tracked deployment workflow in this repo is `deploy-scaleway.y
 
 ---
 
-## 6. Security Rules
+## 7. Security Rules
 
 ### 6.1 Keep secrets out of Git
 
@@ -440,7 +435,7 @@ These scripts are responsible for copying `.mcp.json` into the new worktree when
 
 ---
 
-## 7. Troubleshooting
+## 8. Troubleshooting
 
 ### 7.1 Claude Code does not see MCP servers
 

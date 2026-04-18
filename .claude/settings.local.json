@@ -19,7 +19,7 @@
       "Bash(gh pr:*)"
     ]
   },
-  "enabledMcpjsonServers": ["Supabase MCP", "Upstash Redis", "MCP Hub"],
+  "enabledMcpjsonServers": ["dws-agents-local", "dws-gateway-local", "dws-gateway", "dws-agents"],
   "hooks": {
     "SessionStart": [
       {

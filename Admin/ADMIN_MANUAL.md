@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.5
+Version: 3.6
 
 Sessions & Modifications:
 
+- Version: 3.6 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: current | Date: 18.04.2026 | Changes: Added MCP CLI Index link to Related Documentation to point operators at the current MCP/CLI package and placement reference
 - Version: 3.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/fix-partners-stub-issue-A7eFH | Date: 14.04.2026 | Changes: Section 30 revised — removed auto-commit.sh and require-tests-for-pr.sh hooks (Firewall+Explicit architecture); updated hook count 12→10; added Section 30.13 Rules of Engagement (ROE), Section 30.14 No-RM Policy and \_OLD Convention, Section 30.15 Explicit Verification Workflow; updated CLAUDE.md hook table; hook philosophy shift from hidden automation to explicit human-visible steps
 - Version: 3.4 | Tool: Claude Code (Opus 4.6) | Session: claude/connect-kya-dws-cli-0MMIB | Date: 10.04.2026 | Changes: Added Section 33 (DWS CLI Operator Reference) — KYA CLI admin workflow (status/dry-run/snap), destructive action authorization matrix cross-reference, Knowledge Base folder ownership rules (kb/raw/ human-owned, kb/wiki/ LLM-owned, kb/ephemeral/ auto-swept), daily kb-cleanup.sh automation, slash command wrappers /kya and /kb
 - Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: claude/replace-actions-with-cron-6A9Fr | Date: 08.04.2026 | Changes: Added Section 32 (GitHub Actions & Cron Job Registry) — full audit of 35 workflows and 22 cron scripts, removed cron schedules from 7 daily/weekly GitHub Actions (saving ~1,200 min/month), DGX Spark is primary runtime, GitHub Actions failover only with workflow_dispatch
@@ -46,7 +47,7 @@ Session Links & References:
 Document Status:
 
 - Created: 23.11.2025
-- Last Modified: 08.04.2026
+- Last Modified: 18.04.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ✅ ACTIVE
@@ -159,6 +160,7 @@ All admin manuals across the DWS6 repository, organized by domain.
 | **CLAUDE.md**           | [`CLAUDE.md`](../CLAUDE.md)                                                         | AI agent behavior guidelines (Karpathy principles) |
 | **DPA Agreement**       | [`docs/DPA_DATA_PROCESSING_AGREEMENT.md`](../docs/DPA_DATA_PROCESSING_AGREEMENT.md) | GDPR data processing agreement                     |
 | **MCP Configuration**   | [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md)                         | Model Context Protocol server setup                |
+| **MCP CLI Index**       | [`docs/field-notes/mcp-cli-index.md`](../docs/field-notes/mcp-cli-index.md)         | Current MCP/CLI package and placement index        |
 | **Security Compliance** | [`SECURITY_COMPLIANCE.md`](SECURITY_COMPLIANCE.md)                                  | Security framework and compliance status           |
 | **Security Glossary**   | [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md)                         | Security terms and OWASP references                |
 
