@@ -283,16 +283,24 @@ app.use('/api/v1/kya', kyaWebhookRoutes);
 // KYA CLI Snap endpoint (simulation trigger for demo)
 app.post('/api/v1/kya/snap', async (req: Request, res: Response) => {
   const adminKey = process.env.ADMIN_API_KEY;
-  const provided =
-    req.headers['authorization']?.replace('Bearer ', '') || req.headers['x-admin-key'];
+  const authorizationHeader = req.headers['authorization'];
+  const bearerToken =
+    typeof authorizationHeader === 'string'
+      ? authorizationHeader.replace(/^Bearer\s+/i, '')
+      : undefined;
+  const adminHeader =
+    typeof req.headers['x-admin-key'] === 'string' ? req.headers['x-admin-key'] : undefined;
+  const provided = bearerToken || adminHeader;
 
-  if (adminKey && provided) {
-    const providedBuf = Buffer.from(String(provided).padEnd(256, '\0'));
-    const expectedBuf = Buffer.from(adminKey.padEnd(256, '\0'));
-    if (!crypto.timingSafeEqual(providedBuf, expectedBuf)) {
-      res.status(401).json({ error: 'Unauthorized' });
-      return;
-    }
+  if (!adminKey || !provided) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+  const providedBuf = Buffer.from(provided.padEnd(256, '\0'));
+  const expectedBuf = Buffer.from(adminKey.padEnd(256, '\0'));
+  if (!crypto.timingSafeEqual(providedBuf, expectedBuf)) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
   }
 
   const { sessionId, reason, forceCascade, source } = req.body;
