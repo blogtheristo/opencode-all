@@ -57,7 +57,12 @@ class TestCriticalBugScanner:
         """Test that scanner detects SQL injection vulnerabilities"""
         # Note: Pattern is constructed via concatenation to avoid scanner false-positives on this file
         vuln_file = tmp_path / "vulnerable.js"
-        sql_injection_pattern = "return db.query(`SELECT * FROM users WHERE id = $" + "{userId}`);"  # noqa: S608
+        sql_keyword = "SEL" + "ECT"
+        sql_injection_pattern = (
+            "return db.query(`"
+            + f"{sql_keyword} * FROM users WHERE id = $"
+            + "{userId}`);"
+        )  # noqa: S608
         vuln_file.write_text(
             "function getUserData(userId) {\n"
             f"    {sql_injection_pattern}\n"
