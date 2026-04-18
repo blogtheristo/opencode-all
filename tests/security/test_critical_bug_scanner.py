@@ -34,12 +34,12 @@ class TestCriticalBugScanner:
     def test_scanner_detects_command_injection(self, tmp_path):
         """Test that scanner detects command injection vulnerabilities"""
         # Create a file with command injection vulnerability
-        # Split command tokens to avoid scanner self-detection regressions (#520).
+        # Split command tokens to avoid scanner self-detection regressions (#520, #547).
         vuln_file = tmp_path / "vulnerable.js"
         exec_fn = "exec" + "Sync"
         cmd_injection_pattern = f"{exec_fn}(`git add $" + "{filename}`);"
         vuln_file.write_text(
-            "const { execSync } = require('child_process');\n\n"
+            f"const {{ {exec_fn} }} = require('child_process');\n\n"
             "function processFile(filename) {\n"
             f"    {cmd_injection_pattern}\n"
             "}\n"
