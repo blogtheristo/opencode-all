@@ -27,7 +27,6 @@
     ]
   },
   "enabledMcpjsonServers": [
-    "dws-agents-local",
     "dws-gateway-local"
   ],
   "hooks": {
