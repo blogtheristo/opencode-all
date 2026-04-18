@@ -46,7 +46,7 @@ This document proposes a governance framework — Know Your Agent (KYA) — for 
 
 The framework addresses a governance gap: existing Know Your Customer (KYC) and Know Your Business (KYB) standards verify humans and organizations, but no standard governs the autonomous actions that AI agents take on their behalf. KYA bridges this gap with four pillars anchored to hardware root of trust, providing court-defensible audit trails compliant with the EU AI Act (Articles 12, 14), NIS2, DORA, GDPR, and the EU Emissions Trading System (Fit for 55).
 
-Reference implementation: DWS IQ Platform — a platform to train and run enterprise industrial agent swarms safely — deployed across 20 industries with Firecracker MicroVM isolation, 122ms hardware kill capability, and TPM 2.0 attestation chain.
+Reference implementation: DWS IQ Platform — a platform to train and run enterprise industrial agent swarms safely — deployed across 20 industries with Firecracker MicroVM isolation, < 125ms (Firecracker MicroVM, AWS benchmark) hardware kill capability, and TPM 2.0 attestation chain.
 
 ---
 
@@ -91,7 +91,7 @@ This standard applies to:
 | **BYO Agent** | A third-party agent not developed by the platform operator, brought into the environment by a customer |
 | **Capability Manifest** | A signed, immutable declaration of an agent's permitted resources, tools, and optimization scope for a session |
 | **Firehorse** | A tamper-proof forensic telemetry system capturing sub-second agent activity for audit and liability |
-| **Hardware Kill** | Termination of an agent at the hypervisor/VMM layer (< 122ms), not dependent on agent cooperation |
+| **Hardware Kill** | Termination of an agent at the hypervisor/VMM layer (< 125ms (Firecracker MicroVM, AWS benchmark)), not dependent on agent cooperation |
 | **KYA Violation** | An agent action that exceeds its signed capability manifest, triggering enforcement and ATS reduction |
 | **Leash** | Dynamic capability gating that adjusts agent permissions based on real-time risk signals |
 | **MicroVM** | A lightweight virtual machine (Firecracker) providing hardware-level isolation per agent |
@@ -135,7 +135,7 @@ Agent permissions MUST be dynamically adjusted based on real-time risk telemetry
 | Autoresearch budget exceeded | < 1 second | Optimization halted, results preserved |
 | Risk recovery | < 10 seconds | Permissions restored to previous level |
 
-- Hardware kill MUST be available within 122ms for any agent session
+- Hardware kill MUST be available within < 125ms (Firecracker MicroVM, AWS benchmark) for any agent session
 - Software-layer guardrails (< 5ms pre-execution evaluation) MUST NOT be bypassable by the agent
 
 ### 3.3 Pillar 3: Forensic Observability — The Audit Trail
@@ -249,7 +249,7 @@ A = validated autoresearch improvement factor (capped at 0.18)
 | Memory overhead | < 5 MB per MicroVM | Lower than container overhead |
 | Kernel isolation | Separate guest kernel per agent | Exceeds container shared-kernel model |
 | Host kernel access | None (paravirtualized) | Eliminates kernel breakout attacks |
-| Hardware kill time | < 122 ms | No equivalent in container model |
+| Hardware kill time | < < 125ms (Firecracker MicroVM, AWS benchmark) | No equivalent in container model |
 | Storage | Ephemeral by default | Reduces persistent attack surface |
 
 ### 5.3 Behavioral Guardrails (Pre-Execution)
@@ -338,7 +338,7 @@ The Helsinki Sandbox (Acer Veriton GN100, air-gapped EU) provides a physical pro
 
 | Dimension | Software-Layer Approaches | KYA (Hardware-Attested) |
 |-----------|--------------------------|------------------------|
-| Agent isolation | Container/permission-based | Firecracker MicroVM (hardware kill 122ms) |
+| Agent isolation | Container/permission-based | Firecracker MicroVM (hardware kill < 125ms (Firecracker MicroVM, AWS benchmark)) |
 | Identity binding | Enterprise SSO | KYC/KYB-verified, TPM 2.0 attested |
 | Kill mechanism | Software signal (agent must cooperate) | Hypervisor trap (agent cannot resist) |
 | Guardrail bypass risk | Agent can potentially circumvent software checks | Hardware-enforced, agent has no access to enforcement layer |

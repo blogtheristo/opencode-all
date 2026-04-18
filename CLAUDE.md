@@ -158,6 +158,29 @@ You are the hands; the human is the architect. Move fast, but never faster than 
 
 10. **Never Publish .md Files to Public Sites (CRITICAL)** — Never place `.md` files in: `dws10.com/`, `landing-pages/dws10-com/`, `onelifetime.world/`, `landing-pages/onelifetime-world/`, `dws6.com/`, `landing-pages/dws6-com/`. Convert to HTML for public sites. `.md` files belong in: `docs/`, `Admin/`, `Learn/`, `docs/metropolia/master-thesis/`, repo root.
 
+### Skill Proposal Rule (CRITICAL)
+
+**Always propose creating a new skill when you encounter a capability worth offering to more agents.**
+
+After implementing anything that is:
+
+- A reusable workflow (more than one page or agent will benefit)
+- An offering strength worth marketing (like multilingual, sovereignty, carbon analysis)
+- A hard gate that prevents known failure modes
+
+Immediately say: **"SKILL OPPORTUNITY: this could be `/skill-name` — want me to create it?"**
+
+Then, if approved, create `.claude/commands/<name>.md` following the format:
+
+1. YAML frontmatter: `name`, `version`, `date`, `description` (140-char CSO trigger phrases)
+2. One-liner: what it does
+3. `Usage: /name <args>` + `Input: $ARGUMENTS`
+4. `## Steps` — numbered, executable
+5. `## When NOT to use` — with alternatives
+
+Update `docs/DWS_SKILLS_GUIDE.md` to register the new skill in the same commit.
+The skill is an agent-accessible product — if it can't be invoked via `/name`, it's not shipped.
+
 ### Script Automation Rule (CRITICAL)
 
 **Never create a script that requires a human to remember to run it.** Every script must be auto-discovered by the day-runner or registered in a scheduler. No exceptions.
@@ -227,6 +250,18 @@ WRONG: `[link](https://dws10.com)` (markdown)
 RIGHT: https://dws10.com/products/aegis.html
 
 **This applies to ALL output containing URLs, not just social media.** No exceptions.
+
+### Picture Prompt Rule (CRITICAL)
+
+**Every AI image-generation prompt produced for the user (Gemini, Midjourney, DALL·E, Nano Banana, etc.) MUST be appended to `docs/field-notes/picture-prompts.md` in the same turn it is delivered.** No exceptions.
+
+1. **Single source of truth** — `docs/field-notes/picture-prompts.md` is the append-only log of every picture prompt used across dws10.com, onelifetime.world, Firehorse Store, blog posts, and social media
+2. **Append, never replace** — new entries go above the `<!-- New entries appended above this line. -->` marker; existing entries are never rewritten or deleted (rename to archived status instead)
+3. **Required fields** — every entry must include: date, slug, target file path, model, aspect ratio, theme, status (pending/rendered/published/archived), output file path, full prompt verbatim in blockquote, notes
+4. **Same turn delivery** — if you output a picture prompt to the user in chat, you must also write it to this file in the same response. Delivering a prompt without logging it is incomplete work.
+5. **Commit with the related work** — if the prompt was generated for a specific product/page/post, commit the picture-prompts.md update in the same commit as that work (or as a follow-up commit before the turn ends)
+
+**Why:** Picture prompts are production assets. Without a log, we re-invent them for every regeneration, lose variant history, and can't audit which Gold/Firehorse/DWS theme lineage an image belongs to.
 
 ### Ollama Model Rule (CRITICAL)
 

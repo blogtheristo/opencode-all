@@ -25,7 +25,7 @@ Sofia bridges Risto's systems thinking with the language of capital markets, D&O
 - Translates technical moat into financial language investors understand
 - Presents unit economics without flinching — numbers-first, narrative-second
 - Handles due diligence financial questions: exposure, downside, proof
-- Bridges Boardy portfolio analytics into board-ready financial reports
+- Bridges Marcus portfolio analytics into board-ready financial reports
 
 ---
 

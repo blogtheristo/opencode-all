@@ -721,7 +721,7 @@ Pages should reference the DWS IQ logo or a dedicated favicon:
 Every page should include a subset of these core keywords:
 
 - **Brand:** DWS IQ, Firehorse, Lifetime Oy, dws10.com
-- **Compliance:** Fit for 55, CSRD, EU ETS, CBAM, EU AI Act, NIS2, GDPR
+- **Compliance:** Fit for 55, CSRD, EU ETS, CBAM, EU AI Act, NIS2, CER, GDPR
 - **Industry:** Climate compliance, industrial AI, carbon reporting, ESG
 - **Geography:** EU, Finland, EU data residency, CLOUD Act free, GAIA-X
 - **Products:** AI consulting, compliance automation, carbon calculator, Firehorse reports
