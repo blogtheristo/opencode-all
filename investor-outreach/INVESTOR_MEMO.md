@@ -3,8 +3,8 @@
 **Company:** DWS6 (Lifetime Oy)
 **Sector:** Climate Tech / Carbon Balance Sheet Infrastructure / EU Compliance Automation
 **Stage:** Seed / Seed-extension (bridge to Series A 2026)
-**Document Version:** 5.2
-**Last Updated:** April 8, 2026
+**Document Version:** 3.1
+**Last Updated:** March 21, 2026
 **Status:** Active Fundraising
 **Platform Status:** Public Cloud Version V1 — Production Ready (18 agents, 32 products, 5 cloud environments)
 **Sovereignty Status:** EU-sovereign by design — EUDI Wallet (12/2026, law) + Digital Euro (~2029, ECB target)
@@ -35,8 +35,7 @@ Every EU company filing CSRD needs a carbon balance sheet. We build the ledger i
 Enterprise Navigator pilots at €4,950 convert to €8,950 annual contracts. 25 customers at average €36K ARR = €900K. The math: 5 current customers (€7K MRR) + 20 new logos from sales sprint and pipeline conversion.
 
 **Sales Timeline:**
-
-- March–June 14, 2026: Pipeline building, pilot conversions
+- March–June 14, 2026: Pipeline building, Navigator → Premium conversions
 - **June 15, 2026: V1 Launch at Arctic 15** (Helsinki — sales kickoff event)
 - June 15 – August 15, 2026: 100% sales sprint (2-month dedicated push)
 - **August 15, 2026: First sales cycle data available** (investor decision point)
@@ -87,13 +86,13 @@ Lifetime Oy will not repeat this pattern. **The lead investor (Fleet Admiral) mu
 
 Arctic 15 (Helsinki) is the V1 public launch event and the anchor date for the investor timeline:
 
-| Date                 | Milestone                            | Investor Relevance                       |
-| -------------------- | ------------------------------------ | ---------------------------------------- |
-| **Now – June 14**    | Pipeline building, pilot conversions | Pre-launch entry window                  |
-| **June 15, 2026**    | V1 Launch at Arctic 15               | Sales kickoff — public market validation |
-| **June 15 – Aug 15** | 100% sales sprint                    | 2-month dedicated customer acquisition   |
-| **August 15, 2026**  | First sales cycle data               | Hard data for Series A narrative         |
-| **Q3–Q4 2026**       | Series A process                     | €15M+ pre-money target                   |
+| Date | Milestone | Investor Relevance |
+|------|-----------|-------------------|
+| **Now – June 14** | Pipeline building, Navigator → Premium conversions | Pre-launch entry window |
+| **June 15, 2026** | V1 Launch at Arctic 15 | Sales kickoff — public market validation |
+| **June 15 – Aug 15** | 100% sales sprint | 2-month dedicated customer acquisition |
+| **August 15, 2026** | First sales cycle data | Hard data for Series A narrative |
+| **Q3–Q4 2026** | Series A process | €15M+ pre-money target |
 
 Investors who commit before Arctic 15 enter at seed valuation (€3.8M cap) ahead of the first public sales data.
 
@@ -403,13 +402,13 @@ Timeframe:                 ~2 years (2024→2026)
 
 ### Current Customer Base
 
-| Customer             | Vertical     | Status | Annual Value        |
-| -------------------- | ------------ | ------ | ------------------- |
-| Logistics Operator 1 | Logistics    | Paid   | €70,000             |
-| Logistics Operator 2 | Logistics    | Paid   | €60,000             |
-| Logistics Operator 3 | Healthcare   | Paid   | €90,000             |
-| Construction Co. A   | Construction | Pilot  | €80,000 (projected) |
-| Construction Co. B   | Construction | Pilot  | €80,000 (projected) |
+| Customer | Vertical | Status | Annual Value |
+|----------|----------|--------|--------------|
+| Logistics Operator 1 | Logistics | Paid | €70,000 |
+| Logistics Operator 2 | Logistics | Paid | €60,000 |
+| Logistics Operator 3 | Healthcare | Paid | €90,000 |
+| Construction Co. A | Construction | Navigator | €80,000 (projected) |
+| Construction Co. B | Construction | Navigator | €80,000 (projected) |
 
 ### Competitive Advantages
 
@@ -470,7 +469,7 @@ Timeframe:                 ~2 years (2024→2026)
 
 1. **3–5 Flagship Construction/Infrastructure Portfolios Onboarded**
    - Target: €15k–€25k MRR added
-   - Convert 2 current pilots to live deployments
+   - Convert 2 current Navigator pilots to Premium subscriptions
    - Onboard 3 additional construction portfolio owners
 
 2. **Productized Fit for 55 Reporting Module**
@@ -498,7 +497,7 @@ Timeframe:                 ~2 years (2024→2026)
 
 - **Sales & Marketing:** 35% (€227.5k)
   - Construction vertical sales team
-  - Pilot-to-customer conversion
+  - Navigator-to-Premium conversion
   - Arctic 15 launch event
   - Customer success and onboarding
 
@@ -580,9 +579,8 @@ Regulation is live. Customers have budget. Product works. We have traction. Arct
 ---
 
 **Document Control:**
-
-- Version: 5.2
-- Last Updated: April 8, 2026
+- Version: 3.1
+- Last Updated: March 21, 2026
 - Author: Risto Anton Päärni
 - Status: Active — Fundraising in Progress
 - Confidentiality: For Potential Investors Only
