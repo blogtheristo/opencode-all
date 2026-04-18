@@ -16,10 +16,21 @@
       "Bash(gh issue:*)",
       "Bash(gh run:*)",
       "Read($CLAUDE_PROJECT_DIR/**)",
-      "Bash(gh pr:*)"
+      "Bash(gh pr:*)",
+      "Bash(python3 -c \"import json,sys; p=json.load\\(sys.stdin\\); [print\\(x.get\\('sku',''\\),x.get\\('title',''\\),x.get\\('status',''\\)\\) for x in p.get\\('products',[]\\)]\")",
+      "Bash(python3 -c:*)",
+      "Bash(export PATH=\"$PATH:/mingw64/bin:/usr/bin:/c/Program Files/Git/bin:/c/Program Files/Git/cmd\")",
+      "Bash(export PATH=\"$PATH:/mingw64/bin:/usr/bin:/c/Program Files/Git/bin:/c/Program Files/Git/cmd:/c/Windows/System32\")",
+      "Bash(export PATH=\"$PATH:/mingw64/bin:/usr/bin:/c/Program Files/Git/bin:/c/Program Files/Git/cmd:/c/Windows/System32:/c/Windows/System32/WindowsPowerShell/v1.0\")",
+      "Bash(dir \"F:\\\\2026\\\\Repos2026\\\\dws6\\\\investor-outreach\\\\\" 2>/dev/null)"
     ]
   },
-  "enabledMcpjsonServers": ["dws-agents-local", "dws-gateway-local", "dws-gateway", "dws-agents"],
+  "enabledMcpjsonServers": [
+    "dws-agents-local",
+    "dws-gateway-local",
+    "dws-gateway",
+    "dws-agents"
+  ],
   "hooks": {
     "SessionStart": [
       {
@@ -27,7 +38,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-start.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/session-start.sh\""
           }
         ]
       }
@@ -38,19 +49,19 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/pretooluse-guard.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/pretooluse-guard.sh\""
           },
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/secret-scan.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/secret-scan.sh\""
           },
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/log-commands.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/log-commands.sh\""
           },
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/sql-safety-guard.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/sql-safety-guard.sh\""
           }
         ]
       },
@@ -59,11 +70,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/protect-files.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/protect-files.sh\""
           },
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/secret-scan.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/secret-scan.sh\""
           }
         ]
       }
@@ -74,11 +85,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "jq -r '.tool_input.file_path' | xargs npx prettier --write 2>/dev/null; exit 0"
+            "command": "bash -lc \"file_path=\\$(jq -r '.tool_input.file_path // empty'); [ -n \\\"\\$file_path\\\" ] || exit 0; npx prettier --write -- \\\"\\$file_path\\\" 2>/dev/null || true; exit 0\""
           },
           {
             "type": "command",
-            "command": "npx eslint --fix $(jq -r '.tool_input.file_path') 2>&1 | tail -10; exit 0"
+            "command": "bash -lc \"file_path=\\$(jq -r '.tool_input.file_path // empty'); [ -n \\\"\\$file_path\\\" ] || exit 0; npx eslint --fix -- \\\"\\$file_path\\\" 2>&1 | tail -10; exit 0\""
           }
         ]
       }
@@ -89,7 +100,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-stop.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/session-stop.sh\""
           }
         ]
       }

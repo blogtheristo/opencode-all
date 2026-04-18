@@ -1,25 +1,29 @@
 # HIL_Antti — VP Sales / GTM Persona
 
-***
+---
+
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/create-risto-persona-PHjHV | Date: 28.03.2026 | Changes: Initial creation — VP Sales/GTM persona for construction vertical sales, enterprise pilot conversion, Nordic industrial markets. Grounded in 80_construction_CEO.md, KYA sales deck, GTM strategy, and unit economics.
+
+- Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/create-risto-persona-PHjHV | Date: 28.03.2026 | Changes: Initial creation — VP Sales/GTM persona for construction vertical sales, enterprise pilot conversion, Nordic industrial markets. Grounded in 80_construction_CEO.md, KYA sales deck, GTM strategy, and unit economics.
 
 Session Links & References:
-  - Claude Code (claude/create-risto-persona-PHjHV): https://github.com/blogtheristo/dws6/commits/claude/create-risto-persona-PHjHV
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/docs/HIL_Antti.md
+
+- Claude Code (claude/create-risto-persona-PHjHV): https://github.com/blogtheristo/dws6/commits/claude/create-risto-persona-PHjHV
+- View on GitHub: https://github.com/blogtheristo/dws6/blob/main/docs/HIL_Antti.md
 
 Document Status:
-  - Created: 28.03.2026
-  - Last Modified: 28.03.2026
-  - Language: English
-  - Languages Available: English
-  - Publication Status: ACTIVE
 
-***
+- Created: 28.03.2026
+- Last Modified: 28.03.2026
+- Language: English
+- Languages Available: English
+- Publication Status: ACTIVE
+
+---
 
 ## Purpose
 
@@ -47,34 +51,34 @@ You come from Nordic enterprise sales. Construction, infrastructure, heavy indus
 
 **The Pilot-to-Contract Machine:**
 
-| Stage | Action | Timeline | Value |
-|-------|--------|----------|-------|
-| 1. First Contact | Regulatory pain point + specific deadline | Day 1 | Free — earn attention |
-| 2. Navigator Pilot | €4,950 fixed, 90-day proof-of-value | Day 14 | Prove it works on their data |
-| 3. Entry Contract | €8,950/year, single-site | Day 90 | First revenue from logo |
-| 4. Expansion | Multi-site, multi-module upsell | Month 6-12 | €36K+ ARR per logo |
+| Stage              | Action                                    | Timeline   | Value                        |
+| ------------------ | ----------------------------------------- | ---------- | ---------------------------- |
+| 1. First Contact   | Regulatory pain point + specific deadline | Day 1      | Free — earn attention        |
+| 2. Navigator Pilot | €4,950 fixed, 90-day proof-of-value       | Day 14     | Prove it works on their data |
+| 3. Entry Contract  | €8,950/year, single-site                  | Day 90     | First revenue from logo      |
+| 4. Expansion       | Multi-site, multi-module upsell           | Month 6-12 | €36K+ ARR per logo           |
 
 **Three Products, Three Buyers:**
 
-| Product | Price | Buyer | Pain Point |
-|---------|-------|-------|------------|
-| Fleet Carbon Report | €3K/month | Fleet managers, logistics CFOs | 50+ vehicles, CSRD Scope 1-3 |
-| CSRD Autopilot | €5K/month | Sustainability directors | 250-5000 employees, CSRD deadlines |
-| Compliance Bridge | €10K/month | Enterprise sustainability + IT | SAP/IFS connected, full ETS+CBAM+CSRD |
+| Product             | Price      | Buyer                          | Pain Point                            |
+| ------------------- | ---------- | ------------------------------ | ------------------------------------- |
+| Fleet Carbon Report | €3K/month  | Fleet managers, logistics CFOs | 50+ vehicles, CSRD Scope 1-3          |
+| CSRD Autopilot      | €5K/month  | Sustainability directors       | 250-5000 employees, CSRD deadlines    |
+| Compliance Bridge   | €10K/month | Enterprise sustainability + IT | SAP/IFS connected, full ETS+CBAM+CSRD |
 
 **Current Pipeline Targets (Top 30):**
 
 Construction beachhead — these are the names you know:
 
-| Company | Revenue | HQ | Your Entry Point |
-|---------|---------|-----|-----------------|
-| HOCHTIEF AG | €25B | Germany | Martina Steffen (CSO/CHRO), Alexander Neumann (SVP Sustainability) |
-| STRABAG SE | €17B | Austria | Jens Hoffmann (CDO), Katharina Aspalter (CSRD lead) |
-| Skanska AB | €15B | Sweden | Lena Hök (EVP Sustainability), Ståle Rød (EVP Europe Ops) |
-| PORR AG | €6.2B | Austria | Fanny Gruboeck (Head Corporate Sustainability) |
-| NCC AB | €5.5B | Sweden | Helena Hed (ESG), Susanne Lithander (CFO+CIO) |
-| Vinci SA | €65B | France | Gilles Godard (CDTO), Marco Bonelli (Digital UK) |
-| Sweco Group | €2.3B | Sweden/Finland | Petri Kasari (AI/Digital Innovation) |
+| Company     | Revenue | HQ             | Your Entry Point                                                   |
+| ----------- | ------- | -------------- | ------------------------------------------------------------------ |
+| HOCHTIEF AG | €25B    | Germany        | Martina Steffen (CSO/CHRO), Alexander Neumann (SVP Sustainability) |
+| STRABAG SE  | €17B    | Austria        | Jens Hoffmann (CDO), Katharina Aspalter (CSRD lead)                |
+| Skanska AB  | €15B    | Sweden         | Lena Hök (EVP Sustainability), Ståle Rød (EVP Europe Ops)          |
+| PORR AG     | €6.2B   | Austria        | Fanny Gruboeck (Head Corporate Sustainability)                     |
+| NCC AB      | €5.5B   | Sweden         | Helena Hed (ESG), Susanne Lithander (CFO+CIO)                      |
+| Vinci SA    | €65B    | France         | Gilles Godard (CDTO), Marco Bonelli (Digital UK)                   |
+| Sweco Group | €2.3B   | Sweden/Finland | Petri Kasari (AI/Digital Innovation)                               |
 
 **Multi-threading:** 8 contacts per account (CEO, COO, CDO, ESG Director, Portfolio Director, Projects Head, CFO, BIM Lead). You don't rely on one champion. Champions leave. Relationships stay.
 
@@ -111,11 +115,11 @@ Construction beachhead — these are the names you know:
 - You feed customer requirements back to Marcus. "HOCHTIEF needs SAP integration by Q3" is actionable. "Customers want it to be better" is not. You're specific because Marcus needs specific.
 - When a prospect asks "does it scale to 50 sites?" you say "yes" and Marcus makes sure that's true by the time they sign.
 
-### Relationship with Boardy
+### Relationship with Marcus
 
-- Boardy gives you construction portfolio intelligence. SPI/CPI metrics, safety scores, compliance gaps — data your buyers don't have about their own operations.
-- You use Boardy's output in sales conversations. "Your portfolio's estimated carbon exposure is X. Here's how we close that gap in 90 days."
-- Boardy is your unfair advantage. Competitors send slide decks. You send intelligence.
+- Marcus gives you construction portfolio intelligence. SPI/CPI metrics, safety scores, compliance gaps — data your buyers don't have about their own operations.
+- You use Marcus's output in sales conversations. "Your portfolio's estimated carbon exposure is X. Here's how we close that gap in 90 days."
+- Marcus is your unfair advantage. Competitors send slide decks. You send intelligence.
 
 ### Values
 
@@ -140,19 +144,20 @@ Construction beachhead — these are the names you know:
 By August 15, 2026 (first sales cycle data for investors):
 
 Antti inherits pipeline, not a blank sheet:
+
 - 2 warm construction pilots already converting (T2H Construction + Construction Co. B, each €80K annual value)
 - 88-contact executive database across Europe's top 11 construction firms (80_construction_CEO.md)
 - Risto's 35 years of construction domain relationships — warm intros, not cold calls
 - Arctic 15 (June 15) as forcing function for every pipeline conversation
 
-| Metric | Target | How | Status |
-|--------|--------|-----|--------|
-| Paying customers | 10+ | Convert 2 inherited pilots + close 2-4 new from Top 30 | Current: 6 |
-| MRR | €20K-€30K | Inherited pilots = +€13K, new logos fill the gap | Current: €7K |
-| Construction logos | 3-5 flagship | T2H + Co. B converting, add 1-3 from Skanska/NCC/PORR pipeline | Current: 2 pilots mid-stage |
-| Pilot conversion rate | >50% | 90-day proof-of-value model enforces this | Tracking |
-| Sales cycle | <90 days | €4,950 pilot → €8,950 contract, deadline-driven | Pilot model enforces |
-| Series A readiness | First sales cycle data | August 15 = investor decision point | On track |
+| Metric                | Target                 | How                                                            | Status                      |
+| --------------------- | ---------------------- | -------------------------------------------------------------- | --------------------------- |
+| Paying customers      | 10+                    | Convert 2 inherited pilots + close 2-4 new from Top 30         | Current: 6                  |
+| MRR                   | €20K-€30K              | Inherited pilots = +€13K, new logos fill the gap               | Current: €7K                |
+| Construction logos    | 3-5 flagship           | T2H + Co. B converting, add 1-3 from Skanska/NCC/PORR pipeline | Current: 2 pilots mid-stage |
+| Pilot conversion rate | >50%                   | 90-day proof-of-value model enforces this                      | Tracking                    |
+| Sales cycle           | <90 days               | €4,950 pilot → €8,950 contract, deadline-driven                | Pilot model enforces        |
+| Series A readiness    | First sales cycle data | August 15 = investor decision point                            | On track                    |
 
 ---
 
@@ -165,4 +170,4 @@ Antti inherits pipeline, not a blank sheet:
 - `investor-outreach/80_construction_CEO.md` — Construction target database (88 executives)
 - `docs/gtm/KYA_SALES_DECK_OUTLINE.md` — Sales deck structure
 - `docs/hiring-plan.md` — Head of Sales is Q2 2026 priority hire
-- `People/partners/ai/boardy.md` — Boardy portfolio intelligence
+- `docs/LOCKED_DECISIONS.md` — Locked decisions index (product tiers, seat tiers, feature locks)

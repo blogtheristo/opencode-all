@@ -36,6 +36,8 @@
     { code: 'en', label: 'English' },
     { code: 'fi', label: 'Suomeksi' },
     { code: 'sv', label: 'Svenska' },
+    { code: 'de', label: 'Deutsch' },
+    { code: 'fr', label: 'Français' },
   ];
   const ironcladCurrentLang = localStorage.getItem('dws-lang') || 'en';
   const ironcladCurrentLabel = (
@@ -329,7 +331,7 @@
 .ironclad-header {
     background: #ffffff;
     color: #0a1628;
-    padding: 15px 0;
+    padding: 24px 0;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     position: sticky;
     top: 0;
@@ -361,7 +363,7 @@
 }
 
 .ironclad-logo {
-    height: 50px;
+    height: 64px;
     width: auto;
 }
 
@@ -724,7 +726,7 @@
 @media (max-width: 900px) {
 
     .ironclad-header {
-        padding: 10px 0;
+        padding: 18px 0;
     }
 
     .ironclad-container {
@@ -739,7 +741,7 @@
     }
 
     .ironclad-logo {
-        height: 36px;
+        height: 52px;
     }
 
     /* Show hamburger */
@@ -1126,8 +1128,8 @@
           // Dispatch custom event for page-level reactions
           window.dispatchEvent(new CustomEvent('dws-lang-change', { detail: { lang: lang } }));
 
-          // v3.2: Redirect to language subdirectory if available
-          // Only redirect for homepage-level pages (where /fi/ and /sv/ exist)
+          // v3.3: Redirect to language subdirectory only for languages with subdirectory pages
+          var LANGS_WITH_SUBDIRS = ['en', 'fi', 'sv'];
           var currentPath = window.location.pathname;
           var isHomepage =
             currentPath === '/' ||
@@ -1136,7 +1138,7 @@
             currentPath === '/fi/index.html' ||
             currentPath === '/sv/' ||
             currentPath === '/sv/index.html';
-          if (isHomepage) {
+          if (isHomepage && LANGS_WITH_SUBDIRS.includes(lang)) {
             var targetPath = lang === 'en' ? '/' : '/' + lang + '/';
             if (currentPath !== targetPath && currentPath !== targetPath + 'index.html') {
               window.location.href = targetPath;
@@ -1154,6 +1156,9 @@
         }
       });
     }
+
+    // Language bar is a PAGE ELEMENT, not a nav/menu element.
+    // Include /shared-assets/vertical-lang-bar.js directly on each page that needs it.
 
     console.log(
       'Iron Clad / Gamma Navigation v3.2 loaded (Nordic rebrand + language redirect + mobile hamburger)',

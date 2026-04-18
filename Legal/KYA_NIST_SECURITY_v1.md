@@ -6,7 +6,7 @@
 Version: 1.0
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Initial NIST security submission — TPM 2.0 attestation, Firecracker MicroVM isolation, 122ms hardware kill, behavioral guardrails, agent identity watermarking. Derived from KYA_SECURITY_v1.2.md (v1.3)
+  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-kya-standard-M25rz | Date: 10.03.2026 | Changes: Initial NIST security submission — TPM 2.0 attestation, Firecracker MicroVM isolation, < 125ms (Firecracker MicroVM, AWS benchmark) hardware kill, behavioral guardrails, agent identity watermarking. Derived from KYA_SECURITY_v1.2.md (v1.3)
 
 Document Status:
   - Created: 10.03.2026
@@ -40,7 +40,7 @@ Related Documents:
 
 This companion standard defines the security architecture for KYA (Know Your Agent) governance, focusing on hardware-rooted trust mechanisms. DWS IQ is a platform to train and run enterprise industrial agent swarms safely — this document specifies how TPM 2.0 attestation, Firecracker MicroVM isolation, and sub-5ms behavioral guardrails create the defense-in-depth model that makes safe swarm execution possible.
 
-The key differentiator from software-layer agent security: KYA's enforcement mechanisms cannot be circumvented by the agent. The hypervisor kills in 122ms. The agent has no say.
+The key differentiator from software-layer agent security: KYA's enforcement mechanisms cannot be circumvented by the agent. The hypervisor kills in < 125ms (Firecracker MicroVM, AWS benchmark). The agent has no say.
 
 ---
 
@@ -142,7 +142,7 @@ NIST SP 800-190 documents container security risks, including shared kernel vuln
 | Storage | Ephemeral by default | No persistent attack artifacts |
 | Network | Default deny, per-session whitelist | Agent cannot reach any endpoint not in KYA manifest |
 
-### 2.3 Hardware Kill Mechanism (122ms Firehorse Snap)
+### 2.3 Hardware Kill Mechanism (< 125ms (Firecracker MicroVM, AWS benchmark) Firehorse Snap)
 
 The **Firehorse Snap** is a hardware-level kill mechanism that terminates an agent session at the hypervisor layer:
 
@@ -156,7 +156,7 @@ Trigger Event (KYA violation, anomaly, operator command)
 │  1. Freeze vCPUs                         │   t < 1ms
 │  2. Capture memory snapshot (forensic)   │   t < 50ms
 │  3. Sever all network connections        │   t < 5ms
-│  4. Destroy MicroVM                      │   t < 122ms
+│  4. Destroy MicroVM                      │   t < 125ms (Firecracker MicroVM, AWS benchmark)
 │  5. Seal forensic capture with TPM       │   t < 200ms
 │  6. Notify operator (webhook + dashboard)│   t < 1s
 └──────────────────────────────────────────┘
@@ -170,7 +170,7 @@ Trigger Event (KYA violation, anomaly, operator command)
 |-----------|-----------|-------------------|----------------|
 | Software signal (SIGTERM) | Variable | Yes (signal handler) | Yes (unflushed buffers) |
 | Container stop | 1–10s | Partially (entrypoint handler) | Moderate |
-| **Firehorse Snap (MicroVM)** | **< 122ms** | **No** | **No (memory snapshot captured)** |
+| **Firehorse Snap (MicroVM)** | **< 125ms (Firecracker MicroVM, AWS benchmark)** | **No** | **No (memory snapshot captured)** |
 
 ---
 
@@ -205,7 +205,7 @@ Agent Declares Intent
         Execute        BLOCK action
         Action         Log to Firehorse
                        ATS impact (-0.25)
-                       If critical: Snap (122ms)
+                       If critical: Snap (< 125ms (Firecracker MicroVM, AWS benchmark))
 ```
 
 ### 3.2 Guardrail Categories

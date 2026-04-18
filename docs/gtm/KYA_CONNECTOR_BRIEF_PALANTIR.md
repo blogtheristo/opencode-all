@@ -50,7 +50,7 @@ Palantir AIP orchestrates enterprise agent workflows at scale. DWS IQ governs th
 | Ontology data model | TPM 2.0 hardware attestation chain |
 | Proven scale infrastructure ($2.6B ARR) | EU regulatory depth (CBAM, ETS, CSRD, NIS2, DORA) |
 | US market access | 20 EU industry models (ready to activate) |
-| Agent workflows | 122ms hardware kill + court-defensible forensics |
+| Agent workflows | < 125ms (Firecracker MicroVM, AWS benchmark) hardware kill + court-defensible forensics |
 
 ### How It Works
 
@@ -59,7 +59,7 @@ Palantir AIP Workflow → Runs inside KYA-governed Firecracker MicroVM
                         → TPM 2.0 attested (tamper-proof runtime)
                         → Firehorse audit trail (every action logged)
                         → Capability Manifest enforced at VMM layer
-                        → 122ms kill if boundary violated
+                        → < 125ms (Firecracker MicroVM, AWS benchmark) kill if boundary violated
                         → Output: EU-compliant, court-defensible
 ```
 
@@ -82,7 +82,7 @@ AIP doesn't change. AIP agents run inside governance. Zero modification to exist
 | Metric | Value |
 |--------|-------|
 | MicroVM boot time | < 125ms |
-| Agent kill time | 122ms (Firehorse Snap) |
+| Agent kill time | < 125ms (Firecracker MicroVM, AWS benchmark) (Firehorse Snap) |
 | Memory overhead | < 5MB per MicroVM |
 | Leash-aware autoresearch uplift | 35% vs standard optimization |
 | ATS (Agent Trust Score) | Real-time, 0.00–1.00, per-agent |
