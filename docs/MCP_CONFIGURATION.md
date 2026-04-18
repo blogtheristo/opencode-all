@@ -101,11 +101,11 @@ These are the MCP servers we recommend enabling by default on Win11.
 {
   "mcpServers": {
     "dws-agents-local": {
-      "type": "url",
+      "type": "http",
       "url": "http://localhost:8080/mcp"
     },
     "dws-gateway-local": {
-      "type": "command",
+      "type": "stdio",
       "command": "python",
       "args": [
         "mcp-servers/cloud-run-gateway/server.py",
