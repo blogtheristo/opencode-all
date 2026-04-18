@@ -11,37 +11,35 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.3
+Version: 2.7
 
 Sessions & Modifications:
-
-- Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-red-hat-partners-d8Hey | Date: 21.03.2026 | Changes: Added Red Hat to Strategic Partnerships (§14.8) — AgentOps BYOA platform, $644B market data, hybrid cloud alignment, 42% expertise gap validation
-- Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 03.04.2026 | Changes: Added Section 14.15 (Master Thesis Dual-Version Architecture: v3.30.50 Metropolia freeze); confirmed PHD Firehorse as canonical home for detailed research sections moved from master thesis restructuring (10.6-10.18 → Sections 14.1-14.14); added Key Contribution #18; updated footer
-- Version: 3.1 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 31.03.2026 | Changes: Updated Appendix F (Claude Code Engineering Structure) with expanded skills inventory (6→21 skills, 4 subagents, secret-scan hook); added Section 14.14 (Competitive Analysis: Domain-Specific vs Generic AI Harness); added Key Contribution #20
-- Version: 3.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-leworldmodel-r3VRA | Date: 25.03.2026 | Changes: Added Section 14.13 (LWM Sequencing Strategy — From Regulatory Intelligence to Physical AI): three-phase sequencing, LeWorldModel validation (arXiv:2603.19312), Phase 2 technical gap analysis, compliance-first world model thesis; added Key Contribution #19
-- Version: 2.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Added Section 1.4 (Motivating Thesis: The Carbon Balance Sheet) as starting clause — carbon compliance as ledger problem, double-entry bookkeeping for CO2, cross-regulation reconciliation, cross-vertical intelligence as PhD research question; this frames the entire Firehorse operations research; added Key Contribution #18
-- Version: 2.8 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Added Section 14.6.4 Agent Memory Fact Extraction Pipeline (PR-254): LLM-based fact extraction to subject-predicate-value triples, dual memory architecture (LWM + client memory), three execution layers (Firehorse state machine, ERP connectors, KYA governance); KYA-first PR ordering for court-defensible memory audit trail; added Key Contribution #17
-- Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Added Section 14.2.1 LWM Product-Market Validation (Qantic GmbH energy case study — first external market validation, €21,693/year BESS compliance output, Firehorse model transferability to energy sector confirmed); added Key Contribution #16; updated 16→20 industries in LWM sections
-- Version: 2.6 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 16.03.2026 | Changes: Updated section 15 Results and Discussion with v2.1–2.5 evidence: harness engineering metrics (52.8%→66.5%), 13-agent Pantheon, customer MVP features, PostgreSQL HTAP, A/B testing integration, compliance readiness updates, SWOT refresh; added section 15.5 A/B Testing Results
-- Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/add-harness-engineering-thesis-2zvZt | Date: 14.03.2026 | Changes: Added Section 14.12 (Harness Engineering and Forensic Telemetry): harness-forensics connection, court-defensible harness via VERSION AND AGENT HISTORY, KYA Standard as hardware-attested harness beyond software-level scaffolding, EU regulatory divergence from OpenAI's speed-optimized approach; added Key Contribution #15
-- Version: 2.4 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Added Appendix G Glossary with 21 terms across Platform (5), Data Architecture (8), and Security/Compliance (8) categories
-- Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Updated Section 14.11 with 2026 Aiven-first mandate: Hydra→Supabase Warehouse (Feb 2026), pg_mooncake→Databricks (Oct 2025), TimescaleDB 2.25.x Hypercore as approved standard, Aiven whitelist (pg_duckdb BLOCKED), two-tier HTAP (Aiven + GN100 edge), edge deployment on Acer Veriton GN100; added Key Contribution #14; updated footer
-- Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Added Section 14.11 (PostgreSQL Columnar HTAP Architecture — DWS Data Standard): pg_duckdb + TimescaleDB on Aiven EU, single-database HTAP for Firehorse operations, 4-phase rollout, DWS_DATA_STANDARD.md creation, EU regulatory compliance; added Key Contribution #13; updated footer
-- Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Added Section 14.10 (Agent System Hardening — Production Reliability): 6 TypeScript compilation errors fixed, 3 test failures resolved, SandboxContext type alignment, MCP/HIL route wiring, locale-deterministic number formatting, dependency hygiene; updated footer
-- Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Key Contribution #12 (Customer-Facing MVP Features — API Key Management, Usage Metering, Report Export); demonstrates Firehorse Operations Model transition from internal tooling to customer-deliverable SaaS; documents 3-tier billing architecture as product monetization pattern
-- Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Added DWS platform standards to References §17 with Oxford notation — DWS Security Standard, ESRS Registry, Compliance Scoring Engine, Site Quality Standards, AGENTS.md, Admin Manual, Security Compliance; explanatory annotations for each standard
-- Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/pedantic-easley | Date: 07.03.2026 | Changes: Added Section 14.6.3 (Lifetime Scope Signals for LWM Training Coordination — Training Agent Fleet T-01 through T-10, quality gate signals, resource arbitration, Fan-Out parallelism); added Key Contribution #11; updated footer
-- Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Added Section 14.9 (Climate IQ Pantheon — Greek/Roman God Multi-Agent System: 6 orchestrators + 7 industry specialists, SOUL.md pattern, prompt injection fix, EU AI Act Article 12 logging, marketing wedge personas); updated footer
-- Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Appendix F (Claude Code Engineering Structure: CLAUDE.md as project memory, Skills as reusable workflow components, Hooks for automated quality enforcement, Subagents for parallel execution); updated footer and Publication Status
-- Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: CONSOLIDATED — resolves version drift. Added Section 14.7 (CEO Automation Agent Suite); Section 14.8 (Strategic Partnerships: NVIDIA, Siemens, ABB, xAI, Mistral + Multi-LLM Router); Key Contributions 9-10; references 15-16; footer updated
-- Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Added Section 14.6 (Agent Foundry Stage 1.5 — OpenSandbox on Acer Veriton GN100); added EMPO² agent memory section (arXiv:2602.23008); added references 13-14; updated Key Contributions
-- Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Added Section 14.5 DWS7 Agent Architecture Modernization (agentic loops, tool use, multi-provider LLM, MCP server, CLI, Claude Code Skills), added VERSION AND AGENT HISTORY block
-- Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition, 16-industry cross-learning analysis, BYOA architecture, Agent Orchestration Studio
-- Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Added Appendix E Automated PR Workflow, IPR Protection, Prompt Caching Architecture
-- Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: DWS10-Integration | Date: 28.01.2026 | Changes: Initial structured version with 18 sections
-- Version: 1.0 | Tool: Claude Code (Opus 4.5) | Session: PHD-Init | Date: 15.01.2026 | Changes: Initial document creation
+  - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 18.03.2026 | Changes: Added Appendix H (KYA Partner Ecosystem): 5-layer partner mapping, Shufti IDV integration (L1/L5), Palantir AIP connector model, BYO Agent Policy, strategic ecosystem partners (NVIDIA, Siemens, ABB, xAI, Mistral), partnership distribution hypothesis validation; added Key Contribution #16
+  - Version: 2.6 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 16.03.2026 | Changes: Updated section 15 Results and Discussion with v2.1–2.5 evidence: harness engineering metrics (52.8%→66.5%), 13-agent Pantheon, customer MVP features, PostgreSQL HTAP, A/B testing integration, compliance readiness updates, SWOT refresh; added section 15.5 A/B Testing Results
+  - Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/add-harness-engineering-thesis-2zvZt | Date: 14.03.2026 | Changes: Added Section 14.12 (Harness Engineering and Forensic Telemetry): harness-forensics connection, court-defensible harness via VERSION AND AGENT HISTORY, KYA Standard as hardware-attested harness beyond software-level scaffolding, EU regulatory divergence from OpenAI's speed-optimized approach; added Key Contribution #15
+  - Version: 2.4 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Added Appendix G Glossary with 21 terms across Platform (5), Data Architecture (8), and Security/Compliance (8) categories
+  - Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Updated Section 14.11 with 2026 Aiven-first mandate: Hydra→Supabase Warehouse (Feb 2026), pg_mooncake→Databricks (Oct 2025), TimescaleDB 2.25.x Hypercore as approved standard, Aiven whitelist (pg_duckdb BLOCKED), two-tier HTAP (Aiven + GN100 edge), edge deployment on Acer Veriton GN100; added Key Contribution #14; updated footer
+  - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Added Section 14.11 (PostgreSQL Columnar HTAP Architecture — DWS Data Standard): pg_duckdb + TimescaleDB on Aiven EU, single-database HTAP for Firehorse operations, 4-phase rollout, DWS_DATA_STANDARD.md creation, EU regulatory compliance; added Key Contribution #13; updated footer
+  - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Added Section 14.10 (Agent System Hardening — Production Reliability): 6 TypeScript compilation errors fixed, 3 test failures resolved, SandboxContext type alignment, MCP/HIL route wiring, locale-deterministic number formatting, dependency hygiene; updated footer
+  - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Key Contribution #12 (Customer-Facing MVP Features — API Key Management, Usage Metering, Report Export); demonstrates Firehorse Operations Model transition from internal tooling to customer-deliverable SaaS; documents 3-tier billing architecture as product monetization pattern
+  - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Added DWS platform standards to References §17 with Oxford notation — DWS Security Standard, ESRS Registry, Compliance Scoring Engine, Site Quality Standards, AGENTS.md, Admin Manual, Security Compliance; explanatory annotations for each standard
+  - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/pedantic-easley | Date: 07.03.2026 | Changes: Added Section 14.6.3 (Lifetime Scope Signals for LWM Training Coordination — Training Agent Fleet T-01 through T-10, quality gate signals, resource arbitration, Fan-Out parallelism); added Key Contribution #11; updated footer
+  - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Added Section 14.9 (Climate IQ Pantheon — Greek/Roman God Multi-Agent System: 6 orchestrators + 7 industry specialists, SOUL.md pattern, prompt injection fix, EU AI Act Article 12 logging, marketing wedge personas); updated footer
+  - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Appendix F (Claude Code Engineering Structure: CLAUDE.md as project memory, Skills as reusable workflow components, Hooks for automated quality enforcement, Subagents for parallel execution); updated footer and Publication Status
+  - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: CONSOLIDATED — resolves version drift. Added Section 14.7 (CEO Automation Agent Suite); Section 14.8 (Strategic Partnerships: NVIDIA, Siemens, ABB, xAI, Mistral + Multi-LLM Router); Key Contributions 9-10; references 15-16; footer updated
+  - Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Added Section 14.6 (Agent Foundry Stage 1.5 — OpenSandbox on Acer Veriton GN100); added EMPO² agent memory section (arXiv:2602.23008); added references 13-14; updated Key Contributions
+  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Added Section 14.5 DWS7 Agent Architecture Modernization (agentic loops, tool use, multi-provider LLM, MCP server, CLI, Claude Code Skills), added VERSION AND AGENT HISTORY block
+  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition, 16-industry cross-learning analysis, BYOA architecture, Agent Orchestration Studio
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Added Appendix E Automated PR Workflow, IPR Protection, Prompt Caching Architecture
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: DWS10-Integration | Date: 28.01.2026 | Changes: Initial structured version with 18 sections
+  - Version: 1.0 | Tool: Claude Code (Opus 4.5) | Session: PHD-Init | Date: 15.01.2026 | Changes: Initial document creation
 
 Document Status:
+  - Created: 15.01.2026
+  - Last Modified: 14.03.2026
+  - Language: English
+  - Languages Available: English, Suomi
+  - Publication Status: DRAFT (V2.7 — KYA Partner Ecosystem: Shufti IDV, Palantir AIP connector, BYO Agent Policy, 5-partner strategic ecosystem)
 
 - Created: 15.01.2026
 - Last Modified: 24.03.2026
@@ -1879,9 +1877,126 @@ The master thesis (V3Thesis) grew to 82 pages and 26,000+ words during the AI-as
 
 ---
 
-**Key Contributions:**
-1-14. (See VERSION AND AGENT HISTORY) 15. Harness Engineering and Forensic Telemetry — Connects OpenAI's harness engineering framework to Firehorse forensic operations; demonstrates that EU-regulated industries require court-defensible harness (VERSION AND AGENT HISTORY, KYA hardware attestation) vs Silicon Valley speed optimization; empirical validation that harness improvements alone yield 52.8%→66.5% gains (model unchanged); KYA Standard as hardware-attested harness beyond software scaffolding 16. LWM Sequencing Strategy — Three-phase sequencing (compliance→fleet→Series A); LeWorldModel (arXiv:2603.19312) external validation of JEPA world models; Phase 2 technical gap analysis (input modality, scale, regulatory-physical integration); compliance-first world model thesis as novel architectural contribution for PhD research programme 17. Domain-Specific vs Generic AI Harness — Competitive analysis against ECC (120k stars, 136 skills); six differentiators documented (domain specificity, six-layer architecture, hard gates, trust zones, gstack workflow, agent-first rule); token budget analysis showing depth outperforms breadth for regulated domains; validates harness engineering thesis 18. Dual-Version Thesis Architecture — v3.30.50 frozen 50-page Metropolia outgoing + 82-page living document continues; PHD Firehorse confirmed as canonical home for detailed sections (14.1-14.14); demonstrates methodology for AI-assisted academic writing where research velocity exceeds format constraints
+## Appendix H: KYA Partner Ecosystem
 
-_Document generated using Firehorse Operations Model with Claude Code_
-_Last updated: 03.04.2026_
-_Version: 3.2_
+*Added: 18.03.2026 | Source: docs/field-notes/2026-03-09-shufti-kya-byo-partner-access.md, docs/field-notes/2026-03-10-palantir-aip-partner-outreach.md, docs/gtm/KYA_CONNECTOR_BRIEF_PALANTIR.md*
+
+The KYA (Know Your Agent) Standard requires a partner ecosystem to deliver its 5-layer trust framework. No single vendor can provide hardware attestation, identity verification, industrial distribution, and EU-sovereign AI inference simultaneously. This appendix documents the partner architecture and its research implications.
+
+### H.1 KYA 5-Layer Partner Mapping
+
+The KYA Standard defines five trust layers. Each layer maps to a specific partner capability:
+
+| KYA Layer | Function | Partner | Integration Status |
+|-----------|----------|---------|-------------------|
+| **L1 — Human Identity** | KYC/AML/IDV verification | Shufti Pro | PoC in progress (Q1 2026) |
+| **L2 — Agent Provenance** | Agent origin and registry verification | DWS Agent Registry (internal) | Production |
+| **L3 — Agent Capability** | Tool/API access gating via MCP manifest | DWS MCP Hub (internal) | Production |
+| **L4 — Runtime Behavior** | Court-defensible telemetry (egress, file I/O, tokens) — OpenSandbox governance layer wrapping Docker containers; VMM-level monitoring below agent OS; TPM 2.0 attested logs for EU AI Act Art. 12 compliance | DWS OpenSandbox (internal) | From MVP |
+| **L5 — Continuous Risk** | Dynamic risk profile monitoring | Shufti Pro webhooks | PoC planned |
+
+**L4 architecture decision (March 2026):** Application workloads run in Docker containers, but L4 telemetry requires OpenSandbox (Firecracker MicroVM) as a governance layer *around* the Docker runtime. Docker alone cannot provide court-defensible L4 because: (1) shared kernel allows root agents to manipulate their own logs, (2) no TPM 2.0 attestation of telemetry integrity, (3) EU AI Act Art. 12 requires tamper-proof automatic event logging for all high-risk AI systems. All DWS IQ customers operate in EU-regulated industries — there is no "functional-only L4" tier. Every agent interaction must produce a court-defensible audit trail.
+
+**Research significance:** Layers L2–L4 are built internally, but L1 and L5 require external identity intelligence. This creates a natural partnership boundary: DWS governs the agent runtime; the identity partner governs the human behind it.
+
+### H.2 Shufti Pro — Identity Verification Partner (L1/L5)
+
+**Problem:** Traditional KYC verifies the human at the door. In agent-native architectures, the human is just the entry point. The real risk surface is: what agent does the user deploy, and does the user's risk profile change after the agent is running?
+
+**Integration architecture:**
+
+```
+User Onboarding: DWS Auth (Supabase) → Shufti IDV API → KYA L1 Score
+Agent Deployment: Agent Manifest → KYA L2-L3 Review → Sandbox Policy
+Runtime:          Shufti Webhooks (L5) → DWS Event Bus → Sandbox Restrict/Expand
+```
+
+**KYA Trust Score formula:**
+
+```
+KYA_TRUST = f(shufti_risk_score, agent_provenance, capability_scope, runtime_behavior)
+```
+
+| Score | Tier | Sandbox Action |
+|-------|------|----------------|
+| >= 80 | Full | All MCP tools, egress, filesystem |
+| 50–79 | Restricted | No egress, read-only, curated tools |
+| < 50 | Suspended | Human review required |
+| 0 | Frozen | Agent terminated (122ms Firehorse Snap) |
+
+**Partnership terms:** Technical PoC pilot (not seat-license). Shufti provides API access; DWS provides OpenSandbox runtime and KYA framework. Value proposition for Shufti: first-mover in "Zero-Trust Agent Workspace" category — identity layer for autonomous AI agents, not just humans.
+
+**Current status (March 2026):** EU-only processing confirmation and DPA (Data Processing Agreement) requested from Shufti. GDPR Art. 44-49 compliance required for enterprise customers. HMAC-SHA256 webhook signing confirmed.
+
+### H.3 Palantir AIP — Connector Partner Model
+
+**Strategic thesis:** Palantir AIP is a platform partner opportunity, not a competitor. Palantir has enterprise distribution and ontology data modeling; DWS has hardware-level agent isolation and EU regulatory depth.
+
+| Palantir Has | Palantir Lacks | DWS IQ Provides |
+|-------------|---------------|-----------------|
+| Enterprise agent orchestration (AIP) | Hardware-level agent isolation | Firecracker MicroVM (122ms kill) |
+| Fortune 500 customer base | EU CBAM/ETS/Fit for 55 depth | 20-industry regulatory engine |
+| Ontology data model | TPM 2.0 hardware attestation | Court-defensible audit trail |
+| $2.6B ARR, proven scale | Sub-5ms VMM-layer guardrails | Hardware-enforced behavioral enforcement |
+
+**Connector architecture:** AIP agent workflows run inside KYA-governed Firecracker MicroVMs. Zero modification to existing Palantir workflows. The governance layer sits *below* the agent's operating system.
+
+**Revenue models proposed:**
+
+| Model | Structure |
+|-------|-----------|
+| Connector License | Per-MicroVM governance fee (€0.02/agent/hour) |
+| Co-sell | Joint enterprise deals in EU regulated industries |
+| OEM | Palantir bundles KYA governance into AIP EU offering |
+
+### H.4 BYO (Bring Your Own) Agent Policy
+
+BYO defines how external agents — from any partner or customer — enter the DWS IQ ecosystem:
+
+| BYO Stage | Gate | Enforcement |
+|-----------|------|-------------|
+| Registration | Agent manifest (name, version, tool requirements, source) | DWS Agent Registry API |
+| Identity Binding | Agent bound to verified human identity | KYA L1 (Shufti) |
+| Capability Review | MCP tools reviewed against organization policy | MCP Tool Approval |
+| Sandbox Entry | Isolated sandbox (Stage 1–3 based on tenant tier) | OpenSandbox Architecture |
+| Runtime Monitoring | Continuous telemetry: egress, file writes, token consumption | KYA L4 |
+| Dynamic Restriction | Risk profile change → sandbox permissions adjust in real-time | KYA L5 (Shufti webhooks) |
+
+**Significance for Firehorse:** BYO enables the platform-as-a-service model. Customers bring their own agents; DWS governs them. This is the monetization layer for the Firehorse operating model.
+
+### H.5 Strategic Ecosystem Partners (Brain-Memory-Body-Hands)
+
+The 5-partner ecosystem maps to the DWS architecture layers:
+
+| Partner | Architecture Layer | KYA Role | Status |
+|---------|--------------------|----------|--------|
+| NVIDIA | Brain (compute) + Hands (Jetson edge) + Body (Omniverse) | Compute substrate for KYA-governed agents | Inception target Q2 2026 |
+| Siemens | Hands (MindSphere IoT) + Body (digital twin) | Industrial IoT data for KYA runtime monitoring | Xcelerator Q2 2026 |
+| ABB | Hands (automation, robotics, power grid) | Physical execution layer under KYA governance | Q3 2026 |
+| xAI | Brain (Grok real-time market intelligence) | Real-time signals for multi-LLM router | Active production |
+| Mistral | Brain/Memory (EU-sovereign AI inference) | EU-sovereign model for compliance workloads | Planned Q3 2026 |
+| Shufti Pro | L1/L5 (Human Identity + Continuous Risk) | Identity verification for KYA trust framework | PoC Q1 2026 |
+| Palantir (proposed) | Brain (AIP orchestration) | Enterprise distribution via connector model | Outreach initiated |
+
+**Distribution hypothesis validation:** Access to 10,000+ industrial customers (NVIDIA Inception, Siemens Xcelerator) without building a direct sales organization. The partnership model is the distribution strategy — not a supplement to it.
+
+### H.6 Research Contribution
+
+The KYA partner ecosystem demonstrates three research findings:
+
+1. **Identity-to-runtime bridge:** No existing vendor offers continuous identity monitoring that controls autonomous agent sandbox permissions. The Shufti-KYA integration creates a new category: execution-layer trust.
+
+2. **Connector-not-competitor positioning:** The Palantir connector model shows that hardware governance can be offered as an infrastructure layer to existing platform vendors — a partnership strategy that avoids direct competition with established players.
+
+3. **Partnership as distribution:** For a one-person startup, the 5-partner ecosystem (NVIDIA, Siemens, ABB, xAI, Mistral) provides market access equivalent to a direct sales organization — validating the Firehorse operating model's hypothesis that partnerships can substitute for headcount in early-stage industrial AI companies.
+
+---
+
+**Key Contributions:**
+1-14. (See VERSION AND AGENT HISTORY)
+15. Harness Engineering and Forensic Telemetry — Connects OpenAI's harness engineering framework to Firehorse forensic operations; demonstrates that EU-regulated industries require court-defensible harness (VERSION AND AGENT HISTORY, KYA hardware attestation) vs Silicon Valley speed optimization; empirical validation that harness improvements alone yield 52.8%→66.5% gains (model unchanged); KYA Standard as hardware-attested harness beyond software scaffolding
+16. KYA Partner Ecosystem — 5-layer partner mapping (Shufti IDV for L1/L5, Palantir AIP connector model, BYO Agent Policy); demonstrates identity-to-runtime bridge as new category, connector-not-competitor positioning for enterprise distribution, and partnership-as-distribution hypothesis for one-person startup scaling
+
+*Document generated using Firehorse Operations Model with Claude Code*
+*Last updated: 18.03.2026*
+*Version: 2.7*

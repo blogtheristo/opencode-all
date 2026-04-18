@@ -11,44 +11,35 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.3
+Version: 2.7
 
 Sessions & Modifications:
-
-- Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-red-hat-partners-d8Hey | Date: 21.03.2026 | Changes: Lisätty Red Hat strategisiin kumppanuuksiin (§14.8) — AgentOps BYOA -alusta, $644B markkinadata, hybridipilvi-yhteensopivuus, 42 % osaamisvajevalidointi
-- Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 03.04.2026 | Changes: Lisätty osio 14.15 (Pro gradun kaksoisversioarkkitehtuuri: v3.30.50 Metropolia-jäädytys); vahvistettu PHD Firehorse kanoniseksi kodiksi yksityiskohtaisille tutkimusosioille, jotka siirretty pro gradun uudelleenrakenteessa (10.6-10.18 → osiot 14.1-14.14); lisätty avainpanos #18; päivitetty alatunniste
-- Version: 3.1 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 31.03.2026 | Changes: Päivitetty Liite F (Claude Code -suunnittelurakenne) laajennetulla taitoinventaariolla (6→21 taitoa, 4 aliagenttia, salaisuuksien skannaushook); lisätty osio 14.14 (Kilpailija-analyysi: Toimialakohtainen vs geneerinen AI-harness); lisätty avainpanos #20
-- Version: 3.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-leworldmodel-r3VRA | Date: 25.03.2026 | Changes: Lisätty osio 14.13 (LWM-sekvensointistrategia — Sääntely-älykkyydestä fyysiseen tekoälyyn): kolmivaiheinen sekvensointi, LeWorldModel-validointi (arXiv:2603.19312), vaiheen 2 teknisen aukon analyysi, vaatimustenmukaisuus ensin -maailmamalliteesi; lisätty avainpanos #19
-- Version: 2.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Lisätty osio 1.4 (Motivoiva teesi: Hiilitase) aloituslauseena — hiilivaatimustenmukaisuus kirjanpito-ongelmana, kahdenkertainen kirjanpito CO2:lle, poikkisääntelyinen täsmäytys, poikkitoimialainen älykkyys tohtoritutkimuskysymyksenä; kehystää koko Firehorse-toimintatutkimuksen; lisätty avainpanos #18
-- Version: 2.8 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Lisätty osio 14.6.4 Agenttimuistin faktojen poimintaputki (PR-254): LLM-pohjainen faktojen poiminta subjekti-predikaatti-arvo -kolmikoihin, kaksoismuistiarkkitehtuuri (LWM + asiakasmuisti), kolme suorituskerrosta (Firehorse-tilakonemasiina, ERP-liittimet, KYA-hallinta); KYA-ensisijainen PR-järjestys oikeudellisesti pätevään muistin auditointipolkuun; lisätty avainpanos #17
-- Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Lisätty osio 14.2.1 LWM:n tuotemarkkinavalidointi (Qantic GmbH energiatapaustutkimus — ensimmäinen ulkoinen markkinavalidointi, 21 693 €/vuosi BESS-vaatimustenmukaisuustuotos, Firehorse-mallin siirrettävyys energiasektorille vahvistettu); lisätty avainpanos #16; päivitetty 16→20 toimialaa LWM-osioissa
-- Version: 2.6 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 16.03.2026 | Changes: Päivitetty osio 15 Tulokset ja pohdinta v2.1–2.5 todisteilla: harness engineering -mittarit (52,8%→66,5%), 13 agentin Pantheon, asiakkaiden MVP-ominaisuudet, PostgreSQL HTAP, A/B-testaus, vaatimustenmukaisuuspäivitykset, SWOT-päivitys; lisätty osio 15.5 A/B-testauksen tulokset; lisätty LUT-yliopiston tekoälytyökalujen käytänteet viitteisiin
-- Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/add-harness-engineering-thesis-2zvZt | Date: 14.03.2026 | Changes: Lisätty osio 14.12 (Harness Engineering ja forensiikkatelemetria): harness-forensiikka-yhteys, oikeudellisesti pätevä harness VERSION AND AGENT HISTORY -lohkon kautta, KYA-standardi laitteistotason harness-todennuksena ohjelmistotason scaffoldingin yli, EU-regulaation eroavaisuus OpenAI:n nopeusoptimoidusta lähestymistavasta; lisätty avainpanos #15
-- Version: 2.4 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Lisätty Liite G Sanasto: 21 termiä — Alusta (5), Tietoarkkitehtuuri (8), Turvallisuus (8)
-- Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Päivitetty osio 14.11 Aiven-first mandaatilla: Hydra→Supabase Warehouse, pg_mooncake→Databricks, TimescaleDB 2.25.x Hypercore hyväksyttynä standardina, Aiven-sallittujen listalla pg_duckdb ESTETTY, kaksitasoinen HTAP, reunatietokanta GN100:lle; lisätty Keskeiset löydökset #14; päivitetty alatunniste
-- Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Lisätty osio 14.11 (PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — DWS-tietostandardi): pg_duckdb + TimescaleDB Aiven EU:ssa, yksitietokantainen HTAP Firehorse-toiminnoille, 4-vaiheinen käyttöönotto, DWS_DATA_STANDARD.md luotu, EU-sääntelynmukaisuus; lisätty avainpanos #13; alatunniste päivitetty
-- Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Lisätty osio 14.10 (Agenttijärjestelmän koventaminen — tuotantoluotettavuus): 6 TypeScript-kääntövirhettä korjattu, 3 testivikaa ratkaistu, SandboxContext-tyyppilinjaus, MCP/HIL-reittien kytkentä, lokaalivarma numeromuotoilu, riippuvuushygienia; alatunniste päivitetty
-- Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Lisätty avainpanos #12 (Asiakaskeskeiset MVP-ominaisuudet — API-avainten hallinta, käyttömittarointi, raporttien vienti); osoittaa Firehorse-toimintamallin siirtymän sisäisistä työkaluista asiakastoimitettavaksi SaaS-palveluksi; dokumentoi 3-tasoisen laskutusarkkitehtuurin tuotteen monetisointimallina
-- Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Lisätty DWS-alustan standardit Lähteisiin §17 Oxford-viittausmerkinnällä — DWS Security Standard, ESRS Registry, Compliance Scoring Engine, Site Quality Standards, AGENTS.md, Admin Manual, Security Compliance; selittävät huomautukset jokaisesta standardista
-- Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/pedantic-easley | Date: 07.03.2026 | Changes: Lisätty osio 14.6.3 (Lifetime Scope Signals LWM-koulutuksen koordinointiin — koulutusagenttilaivasto T-01 – T-10, laatuporttisignaalit, resurssien välimiesosoitus, Fan-Out-rinnakkaisuus); lisätty avainpanos #11; päivitetty alatunniste
-- Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Lisätty osio 14.9 (Climate IQ Pantheon — kreikkalais-roomalainen moniagenttijärjestelmä: 6 orkestraattoria + 7 toimialaerityistä agenttia, SOUL.md-malli, prompt injection -korjaus, EU AI Act artikla 12, markkinointikiilapersoonat); alatunniste päivitetty
-- Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Lisätty Liite F (Claude Code -suunnittelurakenne: CLAUDE.md projektimuistina, taidot uudelleenkäytettävinä työnkulkukomponentteina, koukut automaattisena laadunvalvontana, aliagentit rinnakkaissuoritukseen); päivitetty alatunniste ja Publication Status
-- Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: KONSOLIDOITU — ratkaisee versioajautuminen. Lisätty osio 14.7 (Toimitusjohtajan automaatioagenttiryhmä); osio 14.8 (Strategiset kumppanuudet + Monituottaja-LLM-reititin); avainpanokset 9-10; viitteet 15-16; alatunniste päivitetty
-- Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Lisätty osio 14.6 (Agent Foundry Vaihe 1.5 — OpenSandbox Acer Veriton GN100 -laitteella); lisätty EMPO²-osio (arXiv:2602.23008); lisätty viitteet 13-14; päivitetty avainpanokset
-- Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Lisätty osio 14.5 DWS7 agenttiarkkitehtuurin modernisointi (agenttisilmukat, työkalujen käyttö, monituottaja-LLM, MCP-palvelin, CLI, Claude Code Skills), lisätty VERSION AND AGENT HISTORY -lohko
-- Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Parannettu LWM-määritelmä, 20 toimialan ristioppimisanalyysi, BYOA-arkkitehtuuri, Agent Orchestration Studio
-- Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Lisätty Liite E Automatisoitu PR-työnkulku, IPR-suojaus, Prompt Caching -arkkitehtuuri
-- Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: DWS10-Integration | Date: 28.01.2026 | Changes: Ensimmäinen jäsennelty versio 18 osiolla
-- Version: 1.0 | Tool: Claude Code (Opus 4.5) | Session: PHD-Init | Date: 15.01.2026 | Changes: Dokumentin luominen
+  - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 18.03.2026 | Changes: Lisätty Liite H (KYA-kumppaniekosysteemi): 5-tasoinen kumppanikartoitus, Shufti IDV -integraatio (L1/L5), Palantir AIP -liitinmalli, BYO-agenttipolitiikka, strategiset ekosysteemikumppanit (NVIDIA, Siemens, ABB, xAI, Mistral), kumppanuusjakelustrategian hypoteesin validointi; lisätty avainpanos #16
+  - Version: 2.6 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 16.03.2026 | Changes: Päivitetty osio 15 Tulokset ja pohdinta v2.1–2.5 todisteilla: harness engineering -mittarit (52,8%→66,5%), 13 agentin Pantheon, asiakkaiden MVP-ominaisuudet, PostgreSQL HTAP, A/B-testaus, vaatimustenmukaisuuspäivitykset, SWOT-päivitys; lisätty osio 15.5 A/B-testauksen tulokset; lisätty LUT-yliopiston tekoälytyökalujen käytänteet viitteisiin
+  - Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/add-harness-engineering-thesis-2zvZt | Date: 14.03.2026 | Changes: Lisätty osio 14.12 (Harness Engineering ja forensiikkatelemetria): harness-forensiikka-yhteys, oikeudellisesti pätevä harness VERSION AND AGENT HISTORY -lohkon kautta, KYA-standardi laitteistotason harness-todennuksena ohjelmistotason scaffoldingin yli, EU-regulaation eroavaisuus OpenAI:n nopeusoptimoidusta lähestymistavasta; lisätty avainpanos #15
+  - Version: 2.4 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Lisätty Liite G Sanasto: 21 termiä — Alusta (5), Tietoarkkitehtuuri (8), Turvallisuus (8)
+  - Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Päivitetty osio 14.11 Aiven-first mandaatilla: Hydra→Supabase Warehouse, pg_mooncake→Databricks, TimescaleDB 2.25.x Hypercore hyväksyttynä standardina, Aiven-sallittujen listalla pg_duckdb ESTETTY, kaksitasoinen HTAP, reunatietokanta GN100:lle; lisätty Keskeiset löydökset #14; päivitetty alatunniste
+  - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Lisätty osio 14.11 (PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — DWS-tietostandardi): pg_duckdb + TimescaleDB Aiven EU:ssa, yksitietokantainen HTAP Firehorse-toiminnoille, 4-vaiheinen käyttöönotto, DWS_DATA_STANDARD.md luotu, EU-sääntelynmukaisuus; lisätty avainpanos #13; alatunniste päivitetty
+  - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Lisätty osio 14.10 (Agenttijärjestelmän koventaminen — tuotantoluotettavuus): 6 TypeScript-kääntövirhettä korjattu, 3 testivikaa ratkaistu, SandboxContext-tyyppilinjaus, MCP/HIL-reittien kytkentä, lokaalivarma numeromuotoilu, riippuvuushygienia; alatunniste päivitetty
+  - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Lisätty avainpanos #12 (Asiakaskeskeiset MVP-ominaisuudet — API-avainten hallinta, käyttömittarointi, raporttien vienti); osoittaa Firehorse-toimintamallin siirtymän sisäisistä työkaluista asiakastoimitettavaksi SaaS-palveluksi; dokumentoi 3-tasoisen laskutusarkkitehtuurin tuotteen monetisointimallina
+  - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Lisätty DWS-alustan standardit Lähteisiin §17 Oxford-viittausmerkinnällä — DWS Security Standard, ESRS Registry, Compliance Scoring Engine, Site Quality Standards, AGENTS.md, Admin Manual, Security Compliance; selittävät huomautukset jokaisesta standardista
+  - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/pedantic-easley | Date: 07.03.2026 | Changes: Lisätty osio 14.6.3 (Lifetime Scope Signals LWM-koulutuksen koordinointiin — koulutusagenttilaivasto T-01 – T-10, laatuporttisignaalit, resurssien välimiesosoitus, Fan-Out-rinnakkaisuus); lisätty avainpanos #11; päivitetty alatunniste
+  - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Lisätty osio 14.9 (Climate IQ Pantheon — kreikkalais-roomalainen moniagenttijärjestelmä: 6 orkestraattoria + 7 toimialaerityistä agenttia, SOUL.md-malli, prompt injection -korjaus, EU AI Act artikla 12, markkinointikiilapersoonat); alatunniste päivitetty
+  - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Lisätty Liite F (Claude Code -suunnittelurakenne: CLAUDE.md projektimuistina, taidot uudelleenkäytettävinä työnkulkukomponentteina, koukut automaattisena laadunvalvontana, aliagentit rinnakkaissuoritukseen); päivitetty alatunniste ja Publication Status
+  - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: KONSOLIDOITU — ratkaisee versioajautuminen. Lisätty osio 14.7 (Toimitusjohtajan automaatioagenttiryhmä); osio 14.8 (Strategiset kumppanuudet + Monituottaja-LLM-reititin); avainpanokset 9-10; viitteet 15-16; alatunniste päivitetty
+  - Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Lisätty osio 14.6 (Agent Foundry Vaihe 1.5 — OpenSandbox Acer Veriton GN100 -laitteella); lisätty EMPO²-osio (arXiv:2602.23008); lisätty viitteet 13-14; päivitetty avainpanokset
+  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Lisätty osio 14.5 DWS7 agenttiarkkitehtuurin modernisointi (agenttisilmukat, työkalujen käyttö, monituottaja-LLM, MCP-palvelin, CLI, Claude Code Skills), lisätty VERSION AND AGENT HISTORY -lohko
+  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Parannettu LWM-määritelmä, 16 toimialan ristioppimisanalyysi, BYOA-arkkitehtuuri, Agent Orchestration Studio
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Lisätty Liite E Automatisoitu PR-työnkulku, IPR-suojaus, Prompt Caching -arkkitehtuuri
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: DWS10-Integration | Date: 28.01.2026 | Changes: Ensimmäinen jäsennelty versio 18 osiolla
+  - Version: 1.0 | Tool: Claude Code (Opus 4.5) | Session: PHD-Init | Date: 15.01.2026 | Changes: Dokumentin luominen
 
 Document Status:
-
-- Created: 15.01.2026
-- Last Modified: 24.03.2026
-- Language: Finnish
-- Languages Available: English, Suomi
-- Publication Status: DRAFT (V3.0 — LWM-sekvensointistrategia: vaatimustenmukaisuus→laivasto→Series A, LeWorldModel-validointi, vaiheen 2 tekninen aukko)
-
+  - Created: 15.01.2026
+  - Last Modified: 14.03.2026
+  - Language: Finnish
+  - Languages Available: English, Suomi
+  - Publication Status: DRAFT (V2.7 — KYA-kumppaniekosysteemi: Shufti IDV, Palantir AIP -liitin, BYO-agenttipolitiikka, 5 strategista kumppania)
 ---
 
 ## Tiivistelmä
@@ -1869,9 +1860,126 @@ Pro gradu (V3Thesis) kasvoi 82 sivuun ja yli 26 000 sanaan tekoälyavusteisen tu
 
 ---
 
-**Keskeiset kontribuutiot:**
-1-14. (Katso VERSION AND AGENT HISTORY) 15. Harness Engineering ja forensiikkatelemetria — Yhdistää OpenAI:n harness engineering -kehyksen Firehorse-forensiikkaoperaatioihin; osoittaa, että EU-reguloidut toimialat vaativat oikeudellisesti pätevää harnessia (VERSION AND AGENT HISTORY, KYA-laitteistotodennus) vs Silicon Valleyn nopeusoptimointi; empiirinen validointi: pelkkä harness-parannus tuottaa 52,8%→66,5% tuloksen (malli muuttumaton); KYA-standardi laitteistotason harness-todennuksena ohjelmistotason scaffoldingin yli 16. LWM-sekvensointistrategia — Kolmivaiheinen sekvensointi (vaatimustenmukaisuus→laivasto→Series A); LeWorldModel (arXiv:2603.19312) JEPA-maailmamallien ulkoinen validointi; vaiheen 2 teknisen aukon analyysi; vaatimustenmukaisuus ensin -maailmamalliteesi tohtoritutkimusohjelmana 17. Toimialakohtainen vs geneerinen AI-harness — Kilpailija-analyysi ECC:tä (120k tähteä, 136 taitoa) vastaan; kuusi kilpailuetua dokumentoitu (toimialaspesifisyys, kuusikerroksinen arkkitehtuuri, kovat portit, luottamusvyöhykkeet, gstack-työnkulku, agentti-ensin -sääntö); token-budjettianalyysi osoittaa syvyyden ylittävän laajuuden säännellyillä toimialoilla; validoi harness engineering -teesin 18. Kaksoisversioarkkitehtuuri — v3.30.50 jäädytetty 50-sivuinen Metropolia-palautusversio + 82-sivuinen elävä dokumentti jatkuu; PHD Firehorse vahvistettu kanoniseksi kodiksi yksityiskohtaisille osioille (14.1-14.14); osoittaa menetelmän tekoälyavusteiseen akateemiseen kirjoittamiseen, jossa tutkimuksen nopeus ylittää formaattirajoitukset
+## Liite H: KYA-kumppaniekosysteemi
 
-_Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla_
-_Viimeksi päivitetty: 03.04.2026_
-_Versio: 3.2_
+*Lisätty: 18.03.2026 | Lähde: docs/field-notes/2026-03-09-shufti-kya-byo-partner-access.md, docs/field-notes/2026-03-10-palantir-aip-partner-outreach.md, docs/gtm/KYA_CONNECTOR_BRIEF_PALANTIR.md*
+
+KYA-standardi (Know Your Agent) edellyttää kumppaniekosysteemiä 5-tasoisen luottamuskehyksensä toteuttamiseksi. Yksikään yksittäinen toimittaja ei voi tarjota samanaikaisesti laitteistotodennusta, identiteettiverifiointia, teollista jakelua ja EU-suvereenista tekoälypäättelyä. Tämä liite dokumentoi kumppaniarkkitehtuurin ja sen tutkimukselliset vaikutukset.
+
+### H.1 KYA:n 5-tasoinen kumppanikartoitus
+
+KYA-standardi määrittelee viisi luottamustasoa. Kukin taso yhdistyy tiettyyn kumppanin kyvykkyyteen:
+
+| KYA-taso | Toiminto | Kumppani | Integraation tila |
+|----------|----------|----------|-------------------|
+| **L1 — Henkilöidentiteetti** | KYC/AML/IDV-verifiointi | Shufti Pro | PoC käynnissä (Q1 2026) |
+| **L2 — Agentin alkuperä** | Agentin alkuperän ja rekisterin todentaminen | DWS Agent Registry (sisäinen) | Tuotannossa |
+| **L3 — Agentin kyvykkyys** | Työkalu-/API-pääsyn porttaus MCP-manifestilla | DWS MCP Hub (sisäinen) | Tuotannossa |
+| **L4 — Suoritusaikainen käyttäytyminen** | Oikeudellisesti pätevä telemetria (egress, tiedosto-I/O, tokenit) — OpenSandbox-hallintakerros Docker-kontainerien ympärillä; VMM-tason monitorointi agentin käyttöjärjestelmän alapuolella; TPM 2.0 -todennetut logit EU AI Act Art. 12 -vaatimustenmukaisuuteen | DWS OpenSandbox (sisäinen) | MVP:stä alkaen |
+| **L5 — Jatkuva riski** | Dynaaminen riskiprofiilin seuranta | Shufti Pro -webhookit | PoC suunniteltu |
+
+**L4-arkkitehtuuripäätös (maaliskuu 2026):** Sovellustyökuormat suoritetaan Docker-kontainereissa, mutta L4-telemetria edellyttää OpenSandboxia (Firecracker MicroVM) hallintakerroksena Docker-suoritusympäristön *ympärillä* MVP:stä alkaen. Docker yksin ei voi tuottaa oikeudellisesti pätevää L4:ää koska: (1) jaettu kernel sallii root-agenttien manipuloida omia logejaan, (2) ei TPM 2.0 -todennusta telemetrian eheydelle, (3) EU AI Act Art. 12 vaatii väärentämätöntä automaattista tapahtumien kirjaamista kaikille korkean riskin tekoälyjärjestelmille. Kaikki DWS IQ:n asiakkaat toimivat EU-reguloiduilla toimialoilla — "vain funktionaalista L4:ää" -tasoa ei ole. Jokaisen agenttiinteraktion on tuotettava oikeudellisesti pätevä auditointipolku.
+
+**Tutkimuksellinen merkitys:** Tasot L2–L4 rakennetaan sisäisesti, mutta L1 ja L5 vaativat ulkoista identiteetti-intelligenssiä. Tämä luo luonnollisen kumppanuusrajan: DWS hallinnoi agentin suoritusympäristöä; identiteettikumppani hallinnoi sen takana olevaa ihmistä.
+
+### H.2 Shufti Pro — Identiteettiverifiointikumppani (L1/L5)
+
+**Ongelma:** Perinteinen KYC verifioi ihmisen ovella. Agenttinatiiveissa arkkitehtuureissa ihminen on vain sisääntulopiste. Todellinen riskipinta on: minkä agentin käyttäjä ottaa käyttöön, ja muuttuuko käyttäjän riskiprofiili agentin ollessa käynnissä?
+
+**Integraatioarkkitehtuuri:**
+
+```
+Käyttäjän perehdytys: DWS Auth (Supabase) → Shufti IDV API → KYA L1 -pisteet
+Agentin käyttöönotto: Agentin manifesti → KYA L2-L3 -katselmointi → Sandbox-käytäntö
+Suoritusaika:         Shufti-webhookit (L5) → DWS-tapahtumaväylä → Sandboxin rajoitus/laajennus
+```
+
+**KYA Trust Score -kaava:**
+
+```
+KYA_TRUST = f(shufti_riskipisteet, agentin_alkuperä, kyvykkyyslaajuus, suoritusaikainen_käyttäytyminen)
+```
+
+| Pisteet | Taso | Sandbox-toiminta |
+|---------|------|------------------|
+| >= 80 | Täysi | Kaikki MCP-työkalut, egress, tiedostojärjestelmä |
+| 50–79 | Rajoitettu | Ei gressiä, vain luku, kuratoidut työkalut |
+| < 50 | Keskeytetty | Ihmiskatselmointi vaaditaan |
+| 0 | Jäädytetty | Agentti terminoitu (122ms Firehorse Snap) |
+
+**Kumppanuusehdot:** Tekninen PoC-pilotti (ei istuntolisenssiä). Shufti tarjoaa API-pääsyn; DWS tarjoaa OpenSandbox-suoritusympäristön ja KYA-kehyksen. Arvolupaus Shuftille: ensimmäinen toimija "Zero-Trust Agent Workspace" -kategoriassa — identiteettikerros autonomisille tekoälyagenteille, ei vain ihmisille.
+
+**Nykytilanne (maaliskuu 2026):** EU-rajoitteinen prosessoinnin vahvistus ja DPA (tietojenkäsittelysopimus) pyydetty Shuftilta. GDPR Art. 44-49 -vaatimustenmukaisuus vaaditaan yritysasiakkaille. HMAC-SHA256 webhook-allekirjoitus vahvistettu.
+
+### H.3 Palantir AIP — Liitinkumppanimalli
+
+**Strateginen teesi:** Palantir AIP on alustakumppanuusmahdollisuus, ei kilpailija. Palantirilla on yritysjakelu ja ontologiadatamalli; DWS:llä on laitteistotason agentti-isolaatio ja EU-sääntelyn syvyys.
+
+| Palantirilla on | Palantiriltä puuttuu | DWS IQ tarjoaa |
+|-----------------|---------------------|----------------|
+| Yritysagenttien orkestrointi (AIP) | Laitteistotason agentti-isolaatio | Firecracker MicroVM (122ms terminointi) |
+| Fortune 500 -asiakaskunta | EU CBAM/ETS/Fit for 55 -syvyys | 20 toimialan sääntelymoottori |
+| Ontologiadatamalli | TPM 2.0 -laitteistotodennus | Oikeudellisesti pätevä auditointipolku |
+| $2,6 mrd ARR, todistettu skaalautuvuus | Alle 5ms VMM-tason suojakiskot | Laitteistopakotteinen käyttäytymisen valvonta |
+
+**Liitinarkkitehtuuri:** AIP-agentin työnkulut suoritetaan KYA-hallituissa Firecracker MicroVM:issä. Nollamuutosta olemassa oleviin Palantir-työnkulkuihin. Hallintakerros sijaitsee *agentin käyttöjärjestelmän alapuolella*.
+
+**Ehdotetut tulomallit:**
+
+| Malli | Rakenne |
+|-------|---------|
+| Liitinlisenssi | Per-MicroVM-hallintamaksu (€0,02/agentti/tunti) |
+| Yhteismyynti | Yhteiset yrityskaupat EU:n reguloiduilla toimialoilla |
+| OEM | Palantir niputtaa KYA-hallinnan AIP EU -tarjontaan |
+
+### H.4 BYO (Bring Your Own) -agenttipolitiikka
+
+BYO määrittelee, miten ulkoiset agentit — miltä tahansa kumppanilta tai asiakkaalta — tulevat DWS IQ -ekosysteemiin:
+
+| BYO-vaihe | Portti | Toimeenpano |
+|-----------|-------|-------------|
+| Rekisteröinti | Agentin manifesti (nimi, versio, työkaluvaatimukset, lähde) | DWS Agent Registry API |
+| Identiteettisidonta | Agentti sidottu verifioituun henkilöidentiteettiin | KYA L1 (Shufti) |
+| Kyvykkyyskatselmointi | MCP-työkalut katselmoidaan organisaation käytännön mukaan | MCP Tool Approval |
+| Sandbox-sisääntulo | Eristetty sandbox (vaihe 1–3 vuokralaistason mukaan) | OpenSandbox-arkkitehtuuri |
+| Suoritusaikainen valvonta | Jatkuva telemetria: egress, tiedostokirjoitukset, tokenien kulutus | KYA L4 |
+| Dynaaminen rajoitus | Riskiprofiilin muutos → sandbox-oikeudet mukautuvat reaaliaikaisesti | KYA L5 (Shufti-webhookit) |
+
+**Merkitys Firehorselle:** BYO mahdollistaa platform-as-a-service -mallin. Asiakkaat tuovat omat agenttinsa; DWS hallinnoi niitä. Tämä on Firehorse-toimintamallin monetisointikerros.
+
+### H.5 Strategiset ekosysteemikumppanit (Aivot-Muisti-Keho-Kädet)
+
+5 kumppanin ekosysteemi karttuu DWS-arkkitehtuurin tasoille:
+
+| Kumppani | Arkkitehtuuritaso | KYA-rooli | Tila |
+|----------|-------------------|-----------|------|
+| NVIDIA | Aivot (laskenta) + Kädet (Jetson-reuna) + Keho (Omniverse) | Laskentasubstraatti KYA-hallituille agenteille | Inception-tavoite Q2 2026 |
+| Siemens | Kädet (MindSphere IoT) + Keho (digitaalinen kaksonen) | Teollinen IoT-data KYA:n suoritusaikavalvontaan | Xcelerator Q2 2026 |
+| ABB | Kädet (automaatio, robotiikka, sähköverkko) | Fyysinen toteutuskerros KYA-hallinnan alla | Q3 2026 |
+| xAI | Aivot (Grok-reaaliaikatiedustelu) | Reaaliaikaiset signaalit multi-LLM-reitittimelle | Tuotannossa |
+| Mistral | Aivot/Muisti (EU-suvereeni tekoälypäättely) | EU-suvereeni malli vaatimustenmukaisuustyökuormille | Suunniteltu Q3 2026 |
+| Shufti Pro | L1/L5 (henkilöidentiteetti + jatkuva riski) | Identiteettiverifiointi KYA-luottamuskehykselle | PoC Q1 2026 |
+| Palantir (ehdotettu) | Aivot (AIP-orkestrointi) | Yritysjakelu liitinmallin kautta | Yhteydenotto aloitettu |
+
+**Jakeluhypoteesin validointi:** Pääsy 10 000+ teollisuusasiakkaaseen (NVIDIA Inception, Siemens Xcelerator) ilman oman myyntiorganisaation rakentamista. Kumppanuusmalli on jakelustrategia — ei täydennys siihen.
+
+### H.6 Tutkimuskontribuutio
+
+KYA-kumppaniekosysteemi osoittaa kolme tutkimuslöydöstä:
+
+1. **Identiteetistä suoritusaikaan -silta:** Mikään nykyinen toimittaja ei tarjoa jatkuvaa identiteettivalvontaa, joka ohjaa autonomisten agenttien sandbox-oikeuksia. Shufti-KYA-integraatio luo uuden kategorian: suorituskerroksen luottamus.
+
+2. **Liitin-ei-kilpailija -positiointi:** Palantir-liitinmalli osoittaa, että laitteistotason hallinta voidaan tarjota infrastruktuurikerroksena olemassa oleville alustatoimittajille — kumppanuusstrategia, joka välttää suoran kilpailun vakiintuneiden toimijoiden kanssa.
+
+3. **Kumppanuus jakelukanavana:** Yhden henkilön startup-yritykselle 5 kumppanin ekosysteemi (NVIDIA, Siemens, ABB, xAI, Mistral) tarjoaa markkinapääsyn, joka vastaa suoraa myyntiorganisaatiota — validoiden Firehorse-toimintamallin hypoteesin, että kumppanuudet voivat korvata henkilöstörekrytoinnin teollisten tekoälyyritysten alkuvaiheessa.
+
+---
+
+**Keskeiset kontribuutiot:**
+1-14. (Katso VERSION AND AGENT HISTORY)
+15. Harness Engineering ja forensiikkatelemetria — Yhdistää OpenAI:n harness engineering -kehyksen Firehorse-forensiikkaoperaatioihin; osoittaa, että EU-reguloidut toimialat vaativat oikeudellisesti pätevää harnessia (VERSION AND AGENT HISTORY, KYA-laitteistotodennus) vs Silicon Valleyn nopeusoptimointi; empiirinen validointi: pelkkä harness-parannus tuottaa 52,8%→66,5% tuloksen (malli muuttumaton); KYA-standardi laitteistotason harness-todennuksena ohjelmistotason scaffoldingin yli
+16. KYA-kumppaniekosysteemi — 5-tasoinen kumppanikartoitus (Shufti IDV L1/L5, Palantir AIP -liitinmalli, BYO-agenttipolitiikka); osoittaa identiteetistä-suoritusaikaan-sillan uutena kategoriana, liitin-ei-kilpailija -positioinnin yritysjakelussa ja kumppanuus-jakelukanavana -hypoteesin yhden henkilön startup-skaalauksessa
+
+*Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
+*Viimeksi päivitetty: 18.03.2026*
+*Versio: 2.7*
