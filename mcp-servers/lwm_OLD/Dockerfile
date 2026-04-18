@@ -9,6 +9,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY server.py .
 
+# Non-root user
+RUN adduser --disabled-password --gecos "" appuser
+USER appuser
+
 EXPOSE 8770
 
 HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
