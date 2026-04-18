@@ -63,6 +63,9 @@ export interface AgentResponse {
 
 // ============ AGENT CONFIG ============
 
+/** Model tier for task-aware model selection (see model-selector.ts) */
+export type ModelTier = 'lite' | 'standard' | 'heavy';
+
 /** Registration metadata for an agent */
 export interface AgentConfig {
   /** Unique machine-readable name (kebab-case) */
@@ -71,9 +74,19 @@ export interface AgentConfig {
   description: string;
   /** List of capability tags for discovery */
   capabilities: string[];
-  /** LLM model identifier used by this agent */
+  /** LLM model identifier used by this agent (legacy — prefer modelTier) */
   model: string;
-  /** JSON Schema for the agent's expected input — used by MCP tool builder for client autocomplete */
+  /**
+   * Model tier for dynamic model selection.
+   * When set, the model selector picks the leanest available model for this tier.
+   * Overrides the static `model` field. See model-selector.ts for tier definitions.
+   *
+   * - lite: classification, scoring, alerts (Gemini Flash-Lite, Qwen 7B, Llama 8B)
+   * - standard: compliance, synthesis, domain analysis (Haiku 4.5, Llama 70B, Gemini Flash)
+   * - heavy: orchestration, novel reasoning, board reports (Sonnet 4, Qwen 32B, Gemini 3 Pro)
+   */
+  modelTier?: ModelTier;
+  /** JSON Schema for the agent's expected input (used by MCP tooling and validation) */
   inputSchema?: {
     type: 'object';
     properties: Record<string, unknown>;

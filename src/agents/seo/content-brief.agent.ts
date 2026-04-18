@@ -26,6 +26,7 @@ export class ContentBriefAgent extends BaseAgent {
         'schema-markup',
       ],
       model: 'llama-3.3-70b-versatile',
+      modelTier: 'standard',
     });
   }
 

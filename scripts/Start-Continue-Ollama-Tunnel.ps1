@@ -14,7 +14,10 @@ param(
     [string]$RemoteSsh = "admin100@gn100-cb5d",
     [int]$LocalPort = 11435,
     [int]$RemotePort = 11434,
-    [int]$MaxWaitSeconds = 15
+    [int]$MaxWaitSeconds = 15,
+    [string]$OllamaModel = "qwen2.5-coder:32b",
+    [switch]$SkipDiagnostics,
+    [switch]$SkipCursor
 )
 
 Set-StrictMode -Version Latest
@@ -22,7 +25,10 @@ $ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $watchdogScript = Join-Path $PSScriptRoot "Start-OllamaTunnel-Watchdog.ps1"
+$testTunnelScript = Join-Path $PSScriptRoot "Test-Continue-OllamaTunnel.ps1"
+$continueTemplate = Join-Path $repoRoot "docs\continue-ollama-tunnel.yaml"
 $tagsUrl = "http://localhost:$LocalPort/api/tags"
+$baseUrl = "http://127.0.0.1:$LocalPort"
 
 if (-not (Test-Path $watchdogScript)) {
     throw "Missing watchdog script: $watchdogScript"
@@ -83,6 +89,28 @@ if ($ready) {
 }
 else {
     Write-Host "[WARN] Tunnel did not respond in $MaxWaitSeconds seconds. Opening Cursor anyway." -ForegroundColor Yellow
+}
+
+if (-not $SkipDiagnostics -and (Test-Path $testTunnelScript)) {
+    try {
+        & $testTunnelScript -BaseUrl $baseUrl -Model $OllamaModel
+    }
+    catch {
+        Write-Host "[WARN] Diagnostics failed (tunnel or model). Fix errors above; config template: $continueTemplate" -ForegroundColor Yellow
+    }
+}
+elseif (-not $SkipDiagnostics) {
+    Write-Host "[WARN] Missing $testTunnelScript — run Test-Continue-OllamaTunnel.ps1 manually." -ForegroundColor Yellow
+}
+
+$cfgPath = Join-Path $env:USERPROFILE ".continue\config.yaml"
+Write-Host "`nContinue config: $cfgPath" -ForegroundColor DarkGray
+Write-Host "YAML template:  $continueTemplate" -ForegroundColor DarkGray
+Write-Host "Use apiBase: $baseUrl (127.0.0.1 avoids some Windows localhost issues)." -ForegroundColor DarkGray
+
+if ($SkipCursor) {
+    Write-Host "[INFO] -SkipCursor: not launching Cursor." -ForegroundColor Cyan
+    return
 }
 
 $cursorExe = Join-Path $env:LOCALAPPDATA "Programs\cursor\Cursor.exe"

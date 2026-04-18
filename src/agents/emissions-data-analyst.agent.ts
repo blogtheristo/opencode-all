@@ -95,6 +95,7 @@ export class EmissionsDataAnalystAgent extends BaseAgent {
         'cbam-assessment',
       ],
       model: 'llama-3.1-70b-versatile',
+      modelTier: 'standard',
     });
   }
 

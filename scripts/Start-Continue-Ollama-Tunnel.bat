@@ -4,9 +4,12 @@ setlocal EnableExtensions
 REM =============================================================================
 REM Start Continue + Ollama SSH Tunnel (Windows)
 REM Opens SSH tunnel in a dedicated PowerShell window, then launches Cursor.
+REM Repo root = parent of this script's directory (no hardcoded drive/path).
 REM =============================================================================
 
-set "REPO_PATH=F:\2026\Repos2026\dws6"
+pushd "%~dp0.."
+set "REPO_PATH=%CD%"
+popd
 set "REMOTE_SSH=admin100@gn100-cb5d"
 set "LOCAL_PORT=11435"
 set "REMOTE_PORT=11434"
@@ -28,6 +31,8 @@ goto wait_for_tunnel
 
 :tunnel_ready
 echo [OK] Tunnel is reachable at %TAGS_URL%.
+echo [INFO] Full Continue checks: pwsh -NoProfile -File "%REPO_PATH%\scripts\Test-Continue-OllamaTunnel.ps1"
+echo [INFO] Config template: %REPO_PATH%\docs\continue-ollama-tunnel.yaml
 goto launch_cursor
 
 :tunnel_timeout
@@ -49,7 +54,7 @@ if %errorlevel%==0 (
 )
 
 echo [WARN] Could not find Cursor executable automatically.
-echo [INFO] Open Cursor manually and use Continue with base URL: http://localhost:%LOCAL_PORT%/v1
+echo [INFO] Open Cursor manually. Continue Ollama apiBase: http://127.0.0.1:%LOCAL_PORT%  ^(see docs\continue-ollama-tunnel.yaml^)
 start "" "%REPO_PATH%"
 
 :end

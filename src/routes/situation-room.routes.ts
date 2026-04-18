@@ -14,6 +14,7 @@ import { body, param, query, validationResult } from 'express-validator';
 import { createClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
 import { authenticateToken } from '../middleware/auth.middleware.js';
+import { getModelSelectionSummary, estimateLocalModelDiskUsage, AGENT_TIER_MAP, ACER_GN100_BUDGET } from '../agents/model-selector.js';
 
 const router: Router = express.Router();
 
@@ -310,6 +311,63 @@ router.patch(
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Unknown error';
       logger.error('Situation Room report update error', { error: msg });
+      res.status(500).json({ error: msg });
+    }
+  },
+);
+
+// ============================================================================
+// GET /api/situation-room/model-usage — Model selection summary for board view
+// ============================================================================
+router.get(
+  '/model-usage',
+  authenticateToken,
+  async (_req: Request, res: Response) => {
+    try {
+      const summary = getModelSelectionSummary();
+
+      res.json({
+        ...summary,
+        acerBudget: ACER_GN100_BUDGET,
+        agentTierMap: AGENT_TIER_MAP,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Unknown error';
+      logger.error('Model usage summary error', { error: msg });
+      res.status(500).json({ error: msg });
+    }
+  },
+);
+
+// ============================================================================
+// POST /api/situation-room/model-usage/estimate — Estimate disk/RAM for agent set
+// ============================================================================
+router.post(
+  '/model-usage/estimate',
+  authenticateToken,
+  [body('agents').isArray({ min: 1, max: 50 })],
+  async (req: Request, res: Response) => {
+    if (!validateRequest(req, res)) return;
+
+    try {
+      const agents: string[] = req.body.agents;
+      const estimate = estimateLocalModelDiskUsage(agents);
+
+      res.json({
+        ...estimate,
+        acerBudget: ACER_GN100_BUDGET,
+        diskUtilizationPct: Math.round(
+          (estimate.totalDiskGb / ACER_GN100_BUDGET.availableModelDiskGb) * 10000,
+        ) / 100,
+        ramUtilizationPct: Math.round(
+          (estimate.totalRamGb / ACER_GN100_BUDGET.availableModelRamGb) * 10000,
+        ) / 100,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Unknown error';
+      logger.error('Model usage estimate error', { error: msg });
       res.status(500).json({ error: msg });
     }
   },
