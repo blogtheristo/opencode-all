@@ -37,11 +37,11 @@ For Win11 developer work, use local MCP entries:
 {
   "mcpServers": {
     "dws-agents-local": {
-      "type": "url",
+      "type": "http",
       "url": "http://localhost:8080/mcp"
     },
     "dws-gateway-local": {
-      "type": "command",
+      "type": "stdio",
       "command": "python",
       "args": [
         "mcp-servers/cloud-run-gateway/server.py",
@@ -66,11 +66,11 @@ If you need remote/mobile access instead, use hosted URLs in your editor's MCP s
 {
   "mcp.servers": {
     "dws-gateway": {
-      "type": "url",
+      "type": "http",
       "url": "${MCP_GATEWAY_URL}"
     },
     "dws-agents": {
-      "type": "url",
+      "type": "http",
       "url": "${DWS_MCP_AGENT_URL}"
     }
   }
@@ -189,7 +189,7 @@ For Win11 backend development, start the Express app and use the local agent end
 {
   "mcpServers": {
     "dws-agents-local": {
-      "type": "url",
+      "type": "http",
       "url": "http://localhost:8080/mcp"
     }
   }
