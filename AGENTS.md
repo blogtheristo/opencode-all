@@ -479,7 +479,7 @@ dws mcp call <tool> --args '{...}'     # Call MCP tool via Cloud Run
 | Agent types           | `src/agents/types.ts`                              |
 | Signal registry       | `.workflows/agents/AGENT_SIGNAL_REGISTRY.json`     |
 | Signal coordinator    | `.workflows/agents/coordinator.cjs`                |
-| MCP Hub               | `mcp-hub/server.py`                                |
+| MCP Hub               | `mcp-servers/cloud-run-gateway/server.py`          |
 | AgentFoundry configs  | `AgentFoundry/configs/`                            |
 | Workflow agents       | `.workflows/agents/audit-agent.js`, `fix-agent.js` |
 | Tests                 | `src/__tests__/`                                   |
@@ -1106,6 +1106,6 @@ dws edge sync                           # Sync edge ↔ cloud state (planned)
 ---
 
 **Document Version:** 2.4
-**Last Updated:** April 13, 2026
+**Last Updated:** April 19, 2026
 **Standard:** [agents.md](https://github.com/agentsmd/agents.md) v1.0
-**Next Review:** April 4, 2026
+**Next Review:** May 3, 2026
