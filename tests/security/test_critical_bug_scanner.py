@@ -34,7 +34,7 @@ class TestCriticalBugScanner:
     def test_scanner_detects_command_injection(self, tmp_path):
         """Test that scanner detects command injection vulnerabilities"""
         # Create a file with command injection vulnerability
-        # Note: Pattern is constructed via concatenation to avoid scanner false-positives on this file
+        # Keep SQL keyword split to avoid scanner self-detection regressions (#536, #596)
         vuln_file = tmp_path / "vulnerable.js"
         cmd_injection_pattern = "execSync(`git add $" + "{filename}`);"
         vuln_file.write_text(
