@@ -111,9 +111,9 @@ while ($true) {
             Write-Log "Tunnel healthy (pid(s)=$($existing.ProcessId -join ','))."
             if ($existing.Count -gt 1) {
                 $duplicatePids = $existing | Select-Object -Skip 1 -ExpandProperty ProcessId
-                foreach ($pid in $duplicatePids) {
-                    Write-Log "Stopping duplicate ssh tunnel pid=$pid."
-                    Stop-Process -Id $pid -Force -ErrorAction SilentlyContinue
+                foreach ($dupTunnelPid in $duplicatePids) {
+                    Write-Log "Stopping duplicate ssh tunnel pid=$dupTunnelPid."
+                    Stop-Process -Id $dupTunnelPid -Force -ErrorAction SilentlyContinue
                 }
             }
         }

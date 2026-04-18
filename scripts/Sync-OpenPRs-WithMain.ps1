@@ -61,8 +61,7 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 function Test-GhAvailable {
-    $null = Get-Command gh -ErrorAction SilentlyContinue
-    if (-not $?) {
+    if (-not (Get-Command gh -ErrorAction SilentlyContinue)) {
         throw "GitHub CLI (gh) not found. Install: https://cli.github.com/"
     }
 }
@@ -188,7 +187,7 @@ try {
                 continue
             }
 
-            git -C $repoRoot merge "origin/$BaseBranch" --no-edit -m "chore: merge $BaseBranch into $branch [sync script]"
+            git -C $repoRoot merge "origin/$BaseBranch" -m "chore: merge $BaseBranch into $branch [sync script]"
             if ($LASTEXITCODE -ne 0) {
                 Write-Warning "[CONFLICT] $branch — merge aborted. Resolve manually, then push and re-run."
                 git -C $repoRoot merge --abort 2>$null
@@ -240,7 +239,7 @@ try {
 }
 finally {
     Pop-Location
-    if ($stashId) {
-        Write-Host "Pop stash with: git stash pop  (in repo root)" -ForegroundColor Yellow
+    if ($stashNotice) {
+        Write-Host "`nLocal changes were stashed. Restore: cd `"$repoRoot`" ; git stash pop" -ForegroundColor Yellow
     }
 }
