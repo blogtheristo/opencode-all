@@ -10,6 +10,7 @@ name: Deploy to Staging (Cloud Run)
 #   GCP_SA_KEY           — GCP service account JSON with Cloud Run + Artifact Registry roles
 #   STAGING_SUPABASE_URL — Supabase URL for staging project
 #   STAGING_SUPABASE_ANON_KEY
+#   STAGING_SUPABASE_SERVICE_KEY
 #   STAGING_JWT_SECRET   — min 32 chars, separate from prod
 #   STAGING_ANTHROPIC_API_KEY
 #   STAGING_GROQ_API_KEY
@@ -25,11 +26,6 @@ on:
       - "Dockerfile"
       - "tsconfig.json"
   workflow_dispatch:
-    inputs:
-      branch:
-        description: "Branch to deploy to staging"
-        required: false
-        default: ""
 
 env:
   REGION: europe-north1
@@ -138,6 +134,7 @@ jobs:
           secrets: |
             SUPABASE_URL=STAGING_SUPABASE_URL:latest
             SUPABASE_ANON_KEY=STAGING_SUPABASE_ANON_KEY:latest
+            SUPABASE_SERVICE_KEY=STAGING_SUPABASE_SERVICE_KEY:latest
             JWT_SECRET=STAGING_JWT_SECRET:latest
             ANTHROPIC_API_KEY=STAGING_ANTHROPIC_API_KEY:latest
             GROQ_API_KEY=STAGING_GROQ_API_KEY:latest
@@ -147,15 +144,20 @@ jobs:
           URL="https://dws6run6-staging-${{ env.REGION }}.a.run.app/health"
           echo "Checking $URL"
           for i in {1..10}; do
-            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$URL" || echo "000")
-            if [ "$STATUS" = "200" ]; then
-              echo "Staging health check passed (HTTP 200)"
+            RESPONSE=$(curl -fsS "$URL" || true)
+            if [ -z "$RESPONSE" ]; then
+              echo "Attempt $i: no response body — waiting 10s..."
+              sleep 10
+              continue
+            fi
+            if echo "$RESPONSE" | node -e "const fs=require('node:fs'); const body=JSON.parse(fs.readFileSync(0,'utf8')); const supabase=body?.dependencies?.supabase?.status; const llm=body?.dependencies?.llmProviders?.status; const overall=body?.status; const invalid = overall === 'down' || supabase === 'down' || llm !== 'ok'; if (invalid) { process.exit(1); }"; then
+              echo "Staging health check passed (dependencies healthy enough)"
               exit 0
             fi
-            echo "Attempt $i: HTTP $STATUS — waiting 10s..."
+            echo "Attempt $i: health response is degraded or invalid — waiting 10s..."
             sleep 10
           done
-          echo "ERROR: staging health check failed after 10 attempts"
+          echo "ERROR: staging health check failed after 10 attempts (overall down, Supabase down, or LLM provider unavailable)"
           exit 1
 
       - name: Smoke test — /api/v1/status (no-auth public endpoint)

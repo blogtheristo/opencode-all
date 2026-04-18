@@ -61,7 +61,7 @@ differences from production `.env.example`:
 | `NODE_ENV`             | `staging`                  | First-class env tier                      |
 | `SCW_MODEL`            | `llama-3.1-8b-instruct`    | Smaller/cheaper than 70B prod model       |
 | `REDIS_URL`            | `redis://localhost:6379/1` | DB index 1, isolated from prod DB 0       |
-| `EMAIL_INTERCEPT`      | `risto@lifetime.fi`        | Redirect all outbound email to test inbox |
+| `SMTP_HOST`            | `email-smtp.eu-north-1.amazonaws.com` | Matches runtime SMTP env contract in code |
 | `AIWEN_AUDIT_ENABLED`  | `false`                    | Article 12 audit is production-only       |
 | `ENABLE_CRON_JOBS`     | `false`                    | No cron noise from staging                |
 | `ENABLE_*_INTEGRATION` | `false`                    | All ERP integrations mocked               |
@@ -135,7 +135,7 @@ These are human/infrastructure steps — code is ready:
 | 1   | Provision `dws6run6-staging` Cloud Run service in GCP (europe-north1)                                                                                            | Human |
 | 2   | Create separate Supabase project `dws6-staging`                                                                                                                  | Human |
 | 3   | Run migrations against staging Supabase (`supabase db push --linked`)                                                                                            | Human |
-| 4   | Add GitHub secrets: `GCP_SA_KEY`, `STAGING_SUPABASE_URL`, `STAGING_SUPABASE_ANON_KEY`, `STAGING_JWT_SECRET`, `STAGING_ANTHROPIC_API_KEY`, `STAGING_GROQ_API_KEY` | Human |
+| 4   | Add GitHub secrets: `GCP_SA_KEY`, `STAGING_SUPABASE_URL`, `STAGING_SUPABASE_ANON_KEY`, `STAGING_SUPABASE_SERVICE_KEY`, `STAGING_JWT_SECRET`, `STAGING_ANTHROPIC_API_KEY`, `STAGING_GROQ_API_KEY` | Human |
 | 5   | Verify GCP service account has `roles/run.admin` + `roles/artifactregistry.writer`                                                                               | Human |
 
 Until steps 1–5 are complete, the workflow will fail at the deploy step (GCP
