@@ -288,8 +288,9 @@ app.post('/api/v1/kya/snap', async (req: Request, res: Response) => {
     typeof authorizationHeader === 'string'
       ? authorizationHeader.replace(/^Bearer\s+/i, '')
       : undefined;
-  const adminHeader =
-    typeof req.headers['x-admin-key'] === 'string' ? req.headers['x-admin-key'] : undefined;
+  const rawAdminHeader = req.headers['x-admin-key'];
+  const adminHeaderValue = Array.isArray(rawAdminHeader) ? rawAdminHeader[0] : rawAdminHeader;
+  const adminHeader = typeof adminHeaderValue === 'string' ? adminHeaderValue : undefined;
   const provided = bearerToken || adminHeader;
 
   if (!adminKey || !provided) {
