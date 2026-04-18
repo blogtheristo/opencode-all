@@ -34,9 +34,10 @@ class TestCriticalBugScanner:
     def test_scanner_detects_command_injection(self, tmp_path):
         """Test that scanner detects command injection vulnerabilities"""
         # Create a file with command injection vulnerability
-        # Keep SQL keyword split to avoid scanner self-detection regressions (#536, #596)
+        # Split command tokens to avoid scanner self-detection regressions (#520).
         vuln_file = tmp_path / "vulnerable.js"
-        cmd_injection_pattern = "execSync(`git add $" + "{filename}`);"
+        exec_fn = "exec" + "Sync"
+        cmd_injection_pattern = f"{exec_fn}(`git add $" + "{filename}`);"
         vuln_file.write_text(
             "const { execSync } = require('child_process');\n\n"
             "function processFile(filename) {\n"
@@ -100,7 +101,8 @@ function processFile(filename) {
         # Create files with different severity issues
         # Note: Test patterns are constructed to avoid triggering scanners on this test file
         critical_file = tmp_path / "critical.js"
-        critical_cmd = "execSync(`rm -rf $" + "{path}`);"
+        exec_fn = "exec" + "Sync"
+        critical_cmd = f"{exec_fn}(`rm -rf $" + "{path}`);"
         critical_file.write_text(critical_cmd)
 
         high_file = tmp_path / "high.js"
@@ -123,7 +125,8 @@ function processFile(filename) {
         """Test that scanner generates reports correctly"""
         vuln_file = tmp_path / "vuln.js"
         # Construct test pattern to avoid scanner false positives on test file
-        cmd_injection_pattern = "execSync(`rm $" + "{file}`);"
+        exec_fn = "exec" + "Sync"
+        cmd_injection_pattern = f"{exec_fn}(`rm $" + "{file}`);"
         vuln_file.write_text(cmd_injection_pattern)
 
         scanner = CriticalBugScanner(tmp_path)
