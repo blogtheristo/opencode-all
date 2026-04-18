@@ -38,7 +38,7 @@ describe('JWT Token Validation Security Fix', () => {
     });
 
     it('should reject a malformed token', async () => {
-      // Keep this as a non-JWT sentinel to avoid secret/token scanner false positives.
+      // Keep this as a non-JWT sentinel to avoid secret/token scanner false positives (#523).
       const malformedToken = 'malformed-token-without-jwt-shape';
       const decoded = await AuthService.verifyAccessToken(malformedToken);
 
