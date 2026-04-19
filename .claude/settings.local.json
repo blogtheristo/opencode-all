@@ -17,13 +17,7 @@
       "Bash(gh issue:*)",
       "Bash(gh run:*)",
       "Read($CLAUDE_PROJECT_DIR/**)",
-      "Bash(gh pr:*)",
-      "Bash(python3 -c \"import json,sys; p=json.load\\(sys.stdin\\); [print\\(x.get\\('sku',''\\),x.get\\('title',''\\),x.get\\('status',''\\)\\) for x in p.get\\('products',[]\\)]\")",
-      "Bash(python3 -c ':*)",
-      "Bash(export PATH=\"$PATH:/mingw64/bin:/usr/bin:/c/Program Files/Git/bin:/c/Program Files/Git/cmd\")",
-      "Bash(export PATH=\"$PATH:/mingw64/bin:/usr/bin:/c/Program Files/Git/bin:/c/Program Files/Git/cmd:/c/Windows/System32\")",
-      "Bash(export PATH=\"$PATH:/mingw64/bin:/usr/bin:/c/Program Files/Git/bin:/c/Program Files/Git/cmd:/c/Windows/System32:/c/Windows/System32/WindowsPowerShell/v1.0\")",
-      "Bash(dir \"F:\\\\2026\\\\Repos2026\\\\dws6\\\\investor-outreach\\\\\" 2>/dev/null)"
+      "Bash(gh pr:*)"
     ]
   },
   "enabledMcpjsonServers": [

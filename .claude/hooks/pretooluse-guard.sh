@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+seems tr#!/bin/sh
 # DWS6 Claude Code Hook: PreToolUse Guardrail
 # Reads tool call JSON from stdin, decides: ALLOW (exit 0) or BLOCK (exit 2)
 # Philosophy: block dangerous commands, allow everything else. Never prompt.
