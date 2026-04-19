@@ -240,6 +240,16 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 
 **Trigger phrases:** "add investor", "new investor match", "pull investor", "draft investor intro", "triage investor list", "who's ready to send", "investor follow-up", "which INTRO next"
 
+### 6.5 /lsj-publish
+
+**When to use:** Drafting the next issue of Lifetime Scope Monthly — the LinkedIn newsletter layer of Lifetime Scope Journal (LSJ) at onelifetime.world/blog. Run monthly (or when the Editor in Chief asks for "the next issue").
+
+**What it does:** Inventories the month's LSJ posts, ranks them (time-on-page, lead attribution, share velocity, editorial judgement), picks **one Best Entry + three Runners-Up**, drafts the 150-word Editor's Note and exactly-80-word Agentic Lens, generates an HTML post at `onelifetime.world/posts/lifetime-scope-monthly-<yyyy-mm>.html` (+ landing-pages mirror), and emits a LinkedIn-ready copy-paste block (plain text, no markdown, no angle-brackets around URLs, subscribe CTA included). Never auto-posts to LinkedIn — the Editor sends manually.
+
+**Hard rules:** Agentic Lens never fabricates outcomes (CLAUDE.md Validated Mock Data Rule); if no real aggregate is available, states _"No verified outcomes this month"_. Needs ≥ 4 published posts in the month (1 best + 3 runners-up) or it stops.
+
+**Trigger phrases:** "lsj publish", "draft scope monthly", "best blog of the month", "lifetime scope monthly", "linkedin newsletter draft", "prepare LSJ issue"
+
 ## 7. Runtime Safety & Knowledge
 
 ### 7.1 /kya
