@@ -6,6 +6,7 @@
 Version: 1.6
 
 Sessions & Modifications:
+  - Version: 1.6 | Tool: GPT-5.4 | Date: 11.03.2026 | Changes: Added Veriton Edge Stack Runbook and client endpoint templates for Control Room / Situation Room delivery
   - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Add Edge PostgreSQL section — TimescaleDB + pg_duckdb + pgvector Docker setup, SSH deployment script, GN100-tuned configuration
   - Version: 1.5 | Tool: Claude Code | Date: 11.03.2026 | Changes: Add successful NVIDIA PyTorch ARM64 container validation, record GB10 support warning, and promote NVIDIA NGC PyTorch as validated GN100 baseline
   - Version: 1.4 | Tool: Claude Code | Date: 11.03.2026 | Changes: Document GN100 Docker/CUDA validation, confirm ARM64 host environment, record NVIDIA GB10 runtime status, and set ARM64-first PyTorch container decision
@@ -327,6 +328,12 @@ http://127.0.0.1:11434
 
 | Document | Location |
 |----------|----------|
+| Veriton Edge Stack Runbook | `Admin/Acer-Veriton-GN100/VERITON_EDGE_STACK_RUNBOOK.md` |
+| Client endpoint templates | `Admin/Acer-Veriton-GN100/templates/CLIENT_ENDPOINT_TEMPLATES.md` |
+| Continue tunnel template | `Admin/Acer-Veriton-GN100/templates/continue-ollama-tunnel.yaml` |
+| Continue direct template | `Admin/Acer-Veriton-GN100/templates/continue-ollama-direct.yaml` |
+| Client Veriton offers | `Admin/Acer-Veriton-GN100/CLIENT_VERITON_OFFERS_EN_v1.md` |
+| Veriton config template | `Admin/Acer-Veriton-GN100/templates/veriton-edge-config.example` |
 | Edge PostgreSQL setup (2026-03-13) | `docs/field-notes/2026-03-13-acer-gn100-edge-postgres-setup.md` |
 | Docker + CUDA validation (2026-03-11) | `docs/field-notes/2026-03-11-veriton-gn100-docker-cuda-validation.md` |
 | Ollama + dev environment (Cursor, Cline, Claude Code) | `docs/field-notes/2026-03-01-veriton-gn100-ollama-dev-environment.md` |

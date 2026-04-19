@@ -14,7 +14,7 @@
  *       except queue/info which also accepts the X-Admin-Key header.
  */
 
-import { Router, Request, Response } from 'express';
+import { type Request, type Response, Router } from 'express';
 import { body, validationResult } from 'express-validator';
 import logger from '../utils/logger.js';
 import emailService from '../services/email.service.js';
@@ -91,9 +91,10 @@ router.post('/send', sendValidation, async (req: Request, res: Response) => {
       success: true,
       messageId,
       queued: messageId !== 'direct',
-      message: messageId === 'direct'
-        ? 'Email sent directly (queue unavailable)'
-        : 'Email queued for delivery',
+      message:
+        messageId === 'direct'
+          ? 'Email sent directly (queue unavailable)'
+          : 'Email queued for delivery',
     });
   } catch (err) {
     const errorMsg = err instanceof Error ? err.message : 'Unknown error';
@@ -124,7 +125,7 @@ router.post('/send-direct', sendValidation, async (req: Request, res: Response) 
         await emailService.sendReportDeliveryEmail(
           to,
           metadata?.reportName || 'Report',
-          metadata?.downloadUrl || ''
+          metadata?.downloadUrl || '',
         );
         break;
       case 'invoice':
@@ -132,7 +133,7 @@ router.post('/send-direct', sendValidation, async (req: Request, res: Response) 
           to,
           metadata?.invoiceId || '',
           metadata?.amount || 0,
-          metadata?.currency || 'EUR'
+          metadata?.currency || 'EUR',
         );
         break;
       default:
@@ -170,7 +171,7 @@ router.get('/queue/info', async (_req: Request, res: Response) => {
 // GET /analytics — Email delivery analytics (counts by status, template type)
 // ============================================================================
 
-router.get('/analytics', async (req: Request, res: Response) => {
+router.get('/analytics', async (_req: Request, res: Response) => {
   const supabaseUrl = process.env.SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
 

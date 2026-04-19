@@ -19,7 +19,7 @@ import type { AgentContext, AgentResponse } from './types.js';
 // ============ QUALITY THRESHOLDS ============
 
 /** Minimum test coverage to pass the gate */
-const MIN_COVERAGE_PERCENT = 60;
+// const MIN_COVERAGE_PERCENT = 60;
 
 /** Warning threshold for test coverage */
 const WARN_COVERAGE_PERCENT = 80;
@@ -36,13 +36,16 @@ const MAX_FAILURE_RATIO = 0.05;
 /** Scoring weights for quality dimensions */
 const QUALITY_WEIGHTS = {
   tests: 0.35,
-  security: 0.30,
-  build: 0.20,
+  security: 0.3,
+  build: 0.2,
   coverage: 0.15,
 };
 
 /** Deploy target specific requirements */
-const TARGET_REQUIREMENTS: Record<string, { minCoverage: number; requiresSecurityScan: boolean; description: string }> = {
+const TARGET_REQUIREMENTS: Record<
+  string,
+  { minCoverage: number; requiresSecurityScan: boolean; description: string }
+> = {
   gcp: {
     minCoverage: 70,
     requiresSecurityScan: true,
@@ -95,6 +98,7 @@ export class QualityGateAgent extends BaseAgent {
         'quality-scoring',
       ],
       model: 'llama-3.3-70b-versatile',
+      modelTier: 'lite',
     });
   }
 
@@ -122,13 +126,11 @@ export class QualityGateAgent extends BaseAgent {
     };
   }
 
-  async execute(
-    context: AgentContext,
-    input: Record<string, unknown>,
-  ): Promise<AgentResponse> {
+  async execute(context: AgentContext, input: Record<string, unknown>): Promise<AgentResponse> {
     const startTime = Date.now();
 
-    const { projectId, deployTarget, testResults, securityScan, buildStatus } = this.normalizeInput(input);
+    const { projectId, deployTarget, testResults, securityScan, buildStatus } =
+      this.normalizeInput(input);
 
     logger.info('QualityGate agent executing', {
       projectId,
@@ -162,9 +164,9 @@ export class QualityGateAgent extends BaseAgent {
       // 2. Compute weighted quality score
       const qualityScore = Math.round(
         testScore * QUALITY_WEIGHTS.tests +
-        securityScore * QUALITY_WEIGHTS.security +
-        buildScore * QUALITY_WEIGHTS.build +
-        coverageScore * QUALITY_WEIGHTS.coverage,
+          securityScore * QUALITY_WEIGHTS.security +
+          buildScore * QUALITY_WEIGHTS.build +
+          coverageScore * QUALITY_WEIGHTS.coverage,
       );
 
       // 3. Identify blocking issues
@@ -240,7 +242,8 @@ Respond as JSON with keys: "deploymentAdvice" (string), "improvementAreas" (stri
             coverage: testResults.coverage,
           },
           securitySummary: {
-            total: securityScan.critical + securityScan.high + securityScan.medium + securityScan.low,
+            total:
+              securityScan.critical + securityScan.high + securityScan.medium + securityScan.low,
             critical: securityScan.critical,
             high: securityScan.high,
             medium: securityScan.medium,
@@ -311,8 +314,8 @@ Respond as JSON with keys: "deploymentAdvice" (string), "improvementAreas" (stri
     if (tests.failed === 0) return 100;
     if (passRatio >= 0.98) return 90;
     if (passRatio >= 0.95) return 75;
-    if (passRatio >= 0.90) return 55;
-    if (passRatio >= 0.80) return 35;
+    if (passRatio >= 0.9) return 55;
+    if (passRatio >= 0.8) return 35;
     return 10;
   }
 
@@ -345,7 +348,8 @@ Respond as JSON with keys: "deploymentAdvice" (string), "improvementAreas" (stri
   /** Score test coverage on 0-100 scale, relative to target minimum */
   private scoreCoverage(coverage: number, minRequired: number): number {
     if (coverage >= WARN_COVERAGE_PERCENT) return 100;
-    if (coverage >= minRequired) return 70 + ((coverage - minRequired) / (WARN_COVERAGE_PERCENT - minRequired)) * 30;
+    if (coverage >= minRequired)
+      return 70 + ((coverage - minRequired) / (WARN_COVERAGE_PERCENT - minRequired)) * 30;
     if (coverage >= minRequired * 0.5) return 30;
     return 5;
   }
@@ -366,12 +370,16 @@ Respond as JSON with keys: "deploymentAdvice" (string), "improvementAreas" (stri
 
     // Critical vulnerabilities always block
     if (scan.critical > MAX_CRITICAL_VULNS) {
-      blockers.push(`${scan.critical} critical security vulnerability(ies) found (max allowed: ${MAX_CRITICAL_VULNS})`);
+      blockers.push(
+        `${scan.critical} critical security vulnerability(ies) found (max allowed: ${MAX_CRITICAL_VULNS})`,
+      );
     }
 
     // Too many high vulnerabilities block
     if (scan.high > MAX_HIGH_VULNS) {
-      blockers.push(`${scan.high} high security vulnerabilities exceed threshold (max allowed: ${MAX_HIGH_VULNS})`);
+      blockers.push(
+        `${scan.high} high security vulnerabilities exceed threshold (max allowed: ${MAX_HIGH_VULNS})`,
+      );
     }
 
     // Test failure ratio exceeds limit
@@ -393,7 +401,7 @@ Respond as JSON with keys: "deploymentAdvice" (string), "improvementAreas" (stri
     }
 
     // Security scan required but has critical issues
-    if (targetConfig.requiresSecurityScan && (scan.critical + scan.high) > 0) {
+    if (targetConfig.requiresSecurityScan && scan.critical + scan.high > 0) {
       // Already covered by individual checks above
     }
 
@@ -401,10 +409,7 @@ Respond as JSON with keys: "deploymentAdvice" (string), "improvementAreas" (stri
   }
 
   /** Determine the gate decision based on blockers and quality score */
-  private computeGateDecision(
-    blockers: string[],
-    qualityScore: number,
-  ): 'pass' | 'warn' | 'fail' {
+  private computeGateDecision(blockers: string[], qualityScore: number): 'pass' | 'warn' | 'fail' {
     if (blockers.length > 0) return 'fail';
     if (qualityScore >= 80) return 'pass';
     if (qualityScore >= 60) return 'warn';
@@ -426,11 +431,15 @@ Respond as JSON with keys: "deploymentAdvice" (string), "improvementAreas" (stri
     }
 
     if (scan.critical > 0) {
-      recs.push(`Remediate ${scan.critical} critical security finding(s) immediately - these are deployment blockers`);
+      recs.push(
+        `Remediate ${scan.critical} critical security finding(s) immediately - these are deployment blockers`,
+      );
     }
 
     if (scan.high > MAX_HIGH_VULNS) {
-      recs.push(`Reduce high-severity findings from ${scan.high} to ${MAX_HIGH_VULNS} or fewer before deploying`);
+      recs.push(
+        `Reduce high-severity findings from ${scan.high} to ${MAX_HIGH_VULNS} or fewer before deploying`,
+      );
     }
 
     if (tests.failed > 0) {
@@ -438,7 +447,9 @@ Respond as JSON with keys: "deploymentAdvice" (string), "improvementAreas" (stri
     }
 
     if (tests.skipped > 5) {
-      recs.push(`${tests.skipped} tests are skipped - review and re-enable or remove obsolete tests`);
+      recs.push(
+        `${tests.skipped} tests are skipped - review and re-enable or remove obsolete tests`,
+      );
     }
 
     if (coverage < targetConfig.minCoverage) {
@@ -446,7 +457,9 @@ Respond as JSON with keys: "deploymentAdvice" (string), "improvementAreas" (stri
         `Increase test coverage from ${coverage}% to at least ${targetConfig.minCoverage}% for ${targetConfig.description}`,
       );
     } else if (coverage < WARN_COVERAGE_PERCENT) {
-      recs.push(`Test coverage ${coverage}% meets minimum but consider increasing toward ${WARN_COVERAGE_PERCENT}%`);
+      recs.push(
+        `Test coverage ${coverage}% meets minimum but consider increasing toward ${WARN_COVERAGE_PERCENT}%`,
+      );
     }
 
     if (decision === 'pass') {
@@ -460,16 +473,13 @@ Respond as JSON with keys: "deploymentAdvice" (string), "improvementAreas" (stri
     return recs;
   }
 
-  private computeConfidence(
-    tests: QualityGateInput['testResults'],
-    buildStatus: string,
-  ): number {
-    let confidence = 0.90;
+  private computeConfidence(tests: QualityGateInput['testResults'], buildStatus: string): number {
+    let confidence = 0.9;
 
     const total = tests.passed + tests.failed + tests.skipped;
     if (total === 0) confidence -= 0.25;
-    if (total < 10) confidence -= 0.10;
-    if (buildStatus.toLowerCase() === 'pending') confidence -= 0.10;
+    if (total < 10) confidence -= 0.1;
+    if (buildStatus.toLowerCase() === 'pending') confidence -= 0.1;
     if (tests.coverage === 0) confidence -= 0.15;
 
     return Math.max(0.3, Math.min(1.0, confidence));

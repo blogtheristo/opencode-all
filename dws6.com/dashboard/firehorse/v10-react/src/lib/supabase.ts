@@ -5,8 +5,12 @@
 
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://sdebezbsygcldklwlvmj.supabase.co';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkZWJlemJzeWdjbGRrbHdsdm1qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU2NzA5MzIsImV4cCI6MjA1MTI0NjkzMn0.mP4Z1vGbNBrZHYYyqR5j_Gp4yD_oVz5nYHcZz4_vZ_Q';
+// Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in .env (see repo .env.example).
+// Non-secret fallbacks only so the app builds; replace via env for any real project.
+const supabaseUrl =
+  import.meta.env.VITE_SUPABASE_URL || 'https://placeholder.supabase.co';
+const supabaseAnonKey =
+  import.meta.env.VITE_SUPABASE_ANON_KEY || 'configure-vite-supabase-anon-key';
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
@@ -55,7 +59,10 @@ export async function fetchPortfolioMetrics() {
   const projects_amber = projects.filter(p => p.status === 'amber').length;
   const projects_red = projects.filter(p => p.status === 'red').length;
 
-  const compliance_rate = 85; // TODO: Calculate from actual compliance data
+  // Calculate compliance rate from project statuses (green = compliant)
+  const compliance_rate = total_projects > 0
+    ? Math.round((projects_green / total_projects) * 100)
+    : 0;
 
   return {
     total_projects,

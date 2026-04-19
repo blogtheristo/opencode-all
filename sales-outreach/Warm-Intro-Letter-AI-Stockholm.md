@@ -17,7 +17,7 @@ Looking for warm intros to:
 ├─ Family offices: Ek Family Office (Spotify), H&M Conscious Foundation
 └─ Swedish angels: AI/industrial tech exits (Tobii, Mapillary, Volta Trucks alumni)
 
-Investment memo: https://dws10.com/investor-relations 
+Captain page: https://dws10.com/captain/
 Sweden expansion plan: [1-pager on Swedish market entry strategy]
 
 Anyone willing to make an intro or interested in co-investing, DM me or comment here.

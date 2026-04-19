@@ -9,7 +9,7 @@ Sessions & Modifications:
   - Version: 1.0 | Tool: GPT-5.4 | Session: 2026-03-11 | Date: 11.03.2026 | Changes: Initial DWS-standard user manual covering dws10.com entry, dws6.com login, Dashboard V10, Control Room local app, Situation Room, and local admin/app workflow
 
 Session Links & References:
-  - Related architecture document: `Admin/CLIENT_VERITON_OFFERS_EN_v1.md`
+  - Related architecture document: `Admin/Acer-Veriton-GN100/CLIENT_VERITON_OFFERS_EN_v1.md`
 
 Document Status:
   - Created: 11.03.2026
@@ -214,7 +214,7 @@ It is admin-only and reserved for:
 
 ## 10. Related Documents
 
-- `Admin/CLIENT_VERITON_OFFERS_EN_v1.md`
+- `Admin/Acer-Veriton-GN100/CLIENT_VERITON_OFFERS_EN_v1.md`
 - `Admin/Acer-Veriton-GN100/VERITON_EDGE_STACK_RUNBOOK.md`
 - `Admin/Acer-Veriton-GN100/templates/CLIENT_ENDPOINT_TEMPLATES.md`
 - `Situation/user-storyboard.md`

@@ -76,6 +76,6 @@ mypy>=1.8.0  # Type checking
 # ============================================================================
 # Security
 # ============================================================================
-cryptography>=42.0.0  # Encryption
+cryptography>=46.0.6  # Encryption (align with requirements-security.txt)
 python-jose[cryptography]>=3.3.0  # JWT handling
 PyJWT>=2.12.0  # CVE fix: crit header validation

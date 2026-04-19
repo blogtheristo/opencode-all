@@ -12,19 +12,19 @@ import logger from '../utils/logger.js';
 const EnvSchema = z.object({
   // Server
   PORT: z.string().default('8080'),
-  NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
+  NODE_ENV: z.enum(['development', 'staging', 'production', 'test']).default('development'),
 
   // Supabase (required for auth + data)
   SUPABASE_URL: z.string().url('SUPABASE_URL must be a valid URL'),
   SUPABASE_ANON_KEY: z.string().min(1, 'SUPABASE_ANON_KEY is required'),
 
   // JWT (required for auth)
-  JWT_SECRET: z.string().min(16, 'JWT_SECRET must be at least 16 characters'),
+  JWT_SECRET: z.string().min(32, 'JWT_SECRET must be at least 32 characters'),
 
   // Optional but logged
   GROQ_API_KEY: z.string().optional(),
   ANTHROPIC_API_KEY: z.string().optional(),
-  RESEND_API_KEY: z.string().optional(),
+  // RESEND_API_KEY removed — Resend banned per security policy (2026-03-26 incident)
   ADMIN_API_KEY: z.string().optional(),
   REDIS_URL: z.string().optional(),
   CORS_ORIGIN: z.string().optional(),
@@ -40,9 +40,7 @@ export function validateEnv(): Env {
   const result = EnvSchema.safeParse(process.env);
 
   if (!result.success) {
-    const issues = result.error.issues.map(
-      (i) => `  - ${i.path.join('.')}: ${i.message}`,
-    );
+    const issues = result.error.issues.map((i) => `  - ${i.path.join('.')}: ${i.message}`);
     const msg = `Environment validation failed:\n${issues.join('\n')}`;
     logger.error(msg);
     throw new Error(msg);
@@ -53,7 +51,7 @@ export function validateEnv(): Env {
   const services = [
     { name: 'Groq LLM', available: !!env.GROQ_API_KEY },
     { name: 'Anthropic LLM', available: !!env.ANTHROPIC_API_KEY },
-    { name: 'Resend Email', available: !!env.RESEND_API_KEY },
+    // Resend removed — banned per security policy (2026-03-26 incident). Using Amazon SES.
     { name: 'Redis', available: !!env.REDIS_URL },
   ];
 

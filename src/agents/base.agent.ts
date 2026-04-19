@@ -16,7 +16,7 @@
 
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
-import { createLLMClient, LLMClient } from './llm-client.js';
+import { createLLMClient, createLLMClientForAgent, LLMClient } from './llm-client.js';
 import { executeTools, BUILTIN_TOOLS } from './tools.js';
 import type {
   AgentConfig,
@@ -94,17 +94,7 @@ export abstract class BaseAgent {
     totalTokens: { input: number; output: number };
     model: string;
   }> {
-    // Use an org-scoped client so Grok can be selected when orgId is available.
-    // Falls back to getLLMClient() (which skips Grok) when context.orgId is absent.
-    const orgScopedClient = createLLMClient(this.config.model, context.orgId);
-    if (!orgScopedClient && context.orgId) {
-      // orgId was provided but no provider was resolved — log for debugging
-      logger.debug('runLoop: org-scoped client unavailable, falling back to default client', {
-        agent: this.config.name,
-        orgId: context.orgId,
-      });
-    }
-    const client = orgScopedClient ?? this.getLLMClient();
+    const client = this.getLLMClient();
     if (!client) {
       return {
         content: JSON.stringify({
@@ -153,10 +143,10 @@ export abstract class BaseAgent {
     for (let i = 0; i < loopConfig.maxIterations; i++) {
       const iterStart = Date.now();
 
-      // OBSERVE + THINK: Send to LLM; pass orgId so Grok consent gate can verify
+      // OBSERVE + THINK: Send to LLM
       let response: LLMResponse;
       try {
-        response = await client.chat(messages, allTools, { orgId: context.orgId });
+        response = await client.chat(messages, allTools);
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : 'Unknown LLM error';
         logger.error('Agentic loop LLM call failed', {
@@ -247,12 +237,26 @@ export abstract class BaseAgent {
   // ============ DWS7: MULTI-PROVIDER LLM CLIENT (Fix #3) ============
 
   /**
-   * Get or create the LLM client. Supports Anthropic, Groq, and OpenAI-compatible.
-   * Returns null if no provider is configured.
+   * Get or create the LLM client.
+   *
+   * When modelTier is set on the agent config, uses task-aware model selection
+   * to pick the leanest model (prefers local Ollama/vLLM on Acer when available).
+   * Otherwise falls back to legacy environment-based provider resolution.
+   *
+   * Supports: Anthropic, Groq, Google Gemini, Ollama, vLLM, OpenAI-compatible.
    */
   protected getLLMClient(): LLMClient | null {
     if (this.llmClient === undefined) {
-      this.llmClient = createLLMClient(this.config.model);
+      if (this.config.modelTier) {
+        // Task-aware path: select leanest model for this agent's tier
+        this.llmClient = createLLMClientForAgent(this.config.name, {
+          tierOverride: this.config.modelTier,
+          requiresTools: !!(this.config.tools && this.config.tools.length > 0),
+        });
+      } else {
+        // Legacy path: environment-based provider resolution
+        this.llmClient = createLLMClient(this.config.model);
+      }
     }
     return this.llmClient;
   }

@@ -73,7 +73,7 @@ function investorEmail(ctx: ProspectContext): EmailContent {
 
   const text = `Hi ${name},
 
-I'm Risto, founder of DWS IQ — an enterprise climate compliance platform for EU-regulated industries (Fit for 55, ETS, CBAM, CSRD).
+I'm Risto, Founder of DWS IQ — an enterprise climate compliance platform for EU-regulated industries (Fit for 55, ETS, CBAM, CSRD).
 
 ${angle}
 
@@ -96,7 +96,7 @@ risto@onelifetime.world`;
 
   const html = wrapHtml(`
     <p style="${TEXT_STYLE}">Hi ${name},</p>
-    <p style="${TEXT_STYLE}">I'm Risto, founder of <strong style="color: #00d4aa;">DWS IQ</strong> — an enterprise climate compliance platform for EU-regulated industries (Fit for 55, ETS, CBAM, CSRD).</p>
+    <p style="${TEXT_STYLE}">I'm Risto, Founder of <strong style="color: #00d4aa;">DWS IQ</strong> — an enterprise climate compliance platform for EU-regulated industries (Fit for 55, ETS, CBAM, CSRD).</p>
     <p style="${TEXT_STYLE}">${escHtml(angle)}</p>
     <p style="${TEXT_STYLE}">We're raising a pre-seed round to scale across 16 EU industries. Our platform automates compliance reporting that currently takes weeks of manual work.</p>
     <table role="presentation" cellpadding="0" cellspacing="0" style="margin: 16px 0; font-size: 13px; color: #ccc;">
@@ -122,6 +122,7 @@ function salesEmail(ctx: ProspectContext): EmailContent {
   const org = ctx.orgName || 'your company';
   const segment = ctx.customerSegment || 'EU-regulated industry';
   const angle = ctx.ourAngle || `automate CSRD compliance reporting for ${segment} companies`;
+  void angle; // Reserved for personalised email body in v2
 
   const subject = `${org} — Automate CSRD Compliance with DWS IQ`;
 

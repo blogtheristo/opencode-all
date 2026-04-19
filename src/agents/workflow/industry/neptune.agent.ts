@@ -29,6 +29,7 @@ export class NeptuneAgent extends BaseAgent {
       description: 'Maritime & Shipping Industry Specialist — EU ETS shipping inclusion, FuelEU Maritime, MRV reporting obligations for Climate IQ',
       capabilities: ['maritime-ets-compliance', 'fueleu-maritime', 'mrv-shipping', 'maritime-decarbonization'],
       model: 'claude-haiku-4-5-20251001',
+      modelTier: 'standard',
     });
   }
 
@@ -77,7 +78,7 @@ Return JSON: { "etsPhaseInExposure", "fuelEuStatus", "mrvObligations", "prioriti
     );
 
     let synthesis = { etsPhaseInExposure: '', fuelEuStatus: '', mrvObligations: '', prioritizedActions: [] as string[], riskSummary: '' };
-    try { synthesis = JSON.parse(llmResult.content); } catch { synthesis.riskSummary = llmResult.content.slice(0, 200); }
+    try { synthesis = { ...synthesis, ...JSON.parse(llmResult.content) }; } catch { synthesis.riskSummary = llmResult.content.slice(0, 200); }
 
     const durationMs = Date.now() - startTime;
     const response: AgentResponse = {

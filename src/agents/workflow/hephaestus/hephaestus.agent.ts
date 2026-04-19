@@ -27,6 +27,7 @@ export class HephaestusAgent extends BaseAgent {
         'en-13001-crane-safety',
       ],
       model: 'claude-haiku-4-5-20251001',
+      modelTier: 'heavy',
     });
   }
 
@@ -108,9 +109,9 @@ Return JSON: {
 }`,
     );
 
-    let synthesis = { overallFieldRisk: 50, immediateActions: [], safetyStatus: 'caution', fieldNarrative: '' };
+    let synthesis = { overallFieldRisk: 50, immediateActions: [] as string[], safetyStatus: 'caution', fieldNarrative: '' };
     try {
-      synthesis = JSON.parse(llmResponse.content);
+      synthesis = { ...synthesis, ...JSON.parse(llmResponse.content) };
     } catch {
       synthesis.fieldNarrative = llmResponse.content.slice(0, 300);
     }

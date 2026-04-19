@@ -11,7 +11,7 @@
  *   const score = scoreCompliance(extracted);
  */
 
-import { ESRS_REGISTRY, getMandatoryDisclosures, type ESRSDisclosure } from './esrs-registry.js';
+import { type ESRSDisclosure, getMandatoryDisclosures } from './esrs-registry.js';
 import type { ComplianceScoringInput, DataPointStatus } from './scoring-engine.js';
 import { getBenchmark } from './eu-benchmarks.js';
 import logger from '../utils/logger.js';
@@ -25,7 +25,7 @@ export interface ExtractionResult {
   reportingYear: number;
   scoringInput: ComplianceScoringInput;
   extractedValues: ExtractedValue[];
-  confidence: number;           // 0-1 overall extraction confidence
+  confidence: number; // 0-1 overall extraction confidence
   warnings: string[];
   source: 'esg-report' | 'manual' | 'api';
 }
@@ -35,8 +35,8 @@ export interface ExtractedValue {
   fieldName: string;
   value: string | number | boolean;
   unit?: string;
-  confidence: number;          // 0-1 per-field confidence
-  pageRef?: string;            // Page reference in source document
+  confidence: number; // 0-1 per-field confidence
+  pageRef?: string; // Page reference in source document
 }
 
 // ============ EXTRACTION PROMPT ============
@@ -89,10 +89,13 @@ export function extractWithPatterns(text: string): Partial<ExtractionResult> {
   const warnings: string[] = [];
 
   // Emissions patterns
+  // Allow flexible filler between the keyword and the number so phrasings
+  // like "Our total Scope 1 and 2 GHG emissions were 185,000 tonnes CO2e"
+  // match the same code path as "Scope 1+2: 185,000 tCO2e".
   const emissionsPatterns = [
-    /(?:scope\s*1\s*(?:and|&|\+)\s*2|total\s+(?:direct\s+)?(?:ghg\s+)?emissions)[:\s]+(?:approximately\s+)?([0-9,.]+)\s*(?:thousand\s+)?(?:t(?:onnes?)?\s*CO2(?:e|eq)?|kt\s*CO2)/i,
-    /(?:ghg|greenhouse\s+gas)\s+emissions[:\s]+([0-9,.]+)\s*(?:thousand\s+)?(?:t(?:onnes?)?\s*CO2(?:e|eq)?)/i,
-    /([0-9,.]+)\s*(?:thousand\s+)?(?:t(?:onnes?)?\s*CO2(?:e|eq)?)\s*(?:scope\s*1\s*(?:and|&)\s*2|total)/i,
+    /(?:scope\s*1\s*(?:and|&|\+)\s*2\s+(?:ghg\s+)?emissions|total\s+(?:scope\s*1\s*(?:and|&)\s*2\s+)?(?:direct\s+)?(?:ghg\s+)?emissions)[^\d]*?([0-9][0-9,.]*)\s*(?:thousand\s+)?(?:t(?:onnes?)?\s*CO2(?:e|eq)?|kt\s*CO2)/i,
+    /(?:ghg|greenhouse\s+gas)\s+emissions[^\d]*?([0-9][0-9,.]*)\s*(?:thousand\s+)?(?:t(?:onnes?)?\s*CO2(?:e|eq)?)/i,
+    /([0-9][0-9,.]*)\s*(?:thousand\s+)?(?:t(?:onnes?)?\s*CO2(?:e|eq)?)\s*(?:scope\s*1\s*(?:and|&)\s*2|total)/i,
   ];
 
   let annualEmissions = 0;
@@ -114,7 +117,9 @@ export function extractWithPatterns(text: string): Partial<ExtractionResult> {
   }
 
   // Scope 1 specific
-  const scope1Match = text.match(/scope\s*1[:\s]+(?:approximately\s+)?([0-9,.]+)\s*(?:thousand\s+)?(?:t(?:onnes?)?\s*CO2(?:e|eq)?)/i);
+  const scope1Match = text.match(
+    /scope\s*1[:\s]+(?:approximately\s+)?([0-9,.]+)\s*(?:thousand\s+)?(?:t(?:onnes?)?\s*CO2(?:e|eq)?)/i,
+  );
   if (scope1Match) {
     let value = parseFloat(scope1Match[1].replace(/,/g, ''));
     if (/thousand/i.test(scope1Match[0])) value *= 1000;
@@ -128,7 +133,9 @@ export function extractWithPatterns(text: string): Partial<ExtractionResult> {
   }
 
   // Scope 2 specific
-  const scope2Match = text.match(/scope\s*2[:\s]+(?:approximately\s+)?([0-9,.]+)\s*(?:thousand\s+)?(?:t(?:onnes?)?\s*CO2(?:e|eq)?)/i);
+  const scope2Match = text.match(
+    /scope\s*2[:\s]+(?:approximately\s+)?([0-9,.]+)\s*(?:thousand\s+)?(?:t(?:onnes?)?\s*CO2(?:e|eq)?)/i,
+  );
   if (scope2Match) {
     let value = parseFloat(scope2Match[1].replace(/,/g, ''));
     if (/thousand/i.test(scope2Match[0])) value *= 1000;
@@ -142,11 +149,15 @@ export function extractWithPatterns(text: string): Partial<ExtractionResult> {
   }
 
   // Employee count
-  const employeeMatch = text.match(/(?:employees?|workforce|headcount|FTE)[:\s]+(?:approximately\s+)?([0-9,.]+)/i);
-  const employeeCount = employeeMatch ? parseInt(employeeMatch[1].replace(/,/g, ''), 10) : 0;
+  const employeeMatch = text.match(
+    /(?:employees?|workforce|headcount|FTE)[:\s]+(?:approximately\s+)?([0-9,.]+)/i,
+  );
+  void (employeeMatch ? parseInt(employeeMatch[1].replace(/,/g, ''), 10) : 0);
 
   // Revenue
-  const revenueMatch = text.match(/(?:revenue|turnover|net\s+sales)[:\s]+(?:EUR|€)\s*([0-9,.]+)\s*(million|billion|M|B)?/i);
+  const revenueMatch = text.match(
+    /(?:revenue|turnover|net\s+sales)[:\s]+(?:EUR|€)\s*([0-9,.]+)\s*(million|billion|M|B)?/i,
+  );
   let revenue = 0;
   if (revenueMatch) {
     revenue = parseFloat(revenueMatch[1].replace(/,/g, ''));
@@ -156,9 +167,18 @@ export function extractWithPatterns(text: string): Partial<ExtractionResult> {
   }
 
   // Boolean measures
-  const hasTransitionPlan = /transition\s+plan|decarboni[sz]ation\s+(?:road\s*map|pathway|strategy)|net[\s-]zero\s+(?:pathway|target|commitment)/i.test(text);
-  const hasEmissionsMonitoring = /(?:continuous|real[\s-]time|automated)\s+(?:emissions?\s+)?monitoring|MRV\s+(?:system|plan)|emissions?\s+(?:measurement|tracking)\s+system/i.test(text);
-  const hasSupplyChainDD = /supply\s+chain\s+due\s+diligence|CSDD|supplier\s+(?:assessment|audit|screening)|value\s+chain\s+(?:assessment|due\s+diligence)/i.test(text);
+  const hasTransitionPlan =
+    /transition\s+plan|decarboni[sz]ation\s+(?:road\s*map|pathway|strategy)|net[\s-]zero\s+(?:pathway|target|commitment)/i.test(
+      text,
+    );
+  const hasEmissionsMonitoring =
+    /(?:continuous|real[\s-]time|automated)\s+(?:emissions?\s+)?monitoring|MRV\s+(?:system|plan)|emissions?\s+(?:measurement|tracking)\s+system/i.test(
+      text,
+    );
+  const hasSupplyChainDD =
+    /supply\s+chain\s+due\s+diligence|CSDD|supplier\s+(?:assessment|audit|screening)|value\s+chain\s+(?:assessment|due\s+diligence)/i.test(
+      text,
+    );
 
   // ESRS disclosure detection
   const mandatory = getMandatoryDisclosures();
@@ -208,7 +228,10 @@ function detectDisclosure(text: string, disclosure: ESRSDisclosure): boolean {
   if (lowerText.includes(disclosure.id.toLowerCase())) return true;
 
   // Check key phrases from disclosure name
-  const keywords = disclosure.name.toLowerCase().split(/\s+/).filter((w) => w.length > 3);
+  const keywords = disclosure.name
+    .toLowerCase()
+    .split(/\s+/)
+    .filter((w) => w.length > 3);
   const matchCount = keywords.filter((kw) => lowerText.includes(kw)).length;
 
   // Require at least 60% of significant keywords to match
@@ -243,7 +266,9 @@ export async function extractComplianceData(
   }
 
   // Build company name from text
-  const companyNameMatch = reportText.match(/(?:^|\n)\s*([A-Z][A-Za-z\s&.]+(?:Ltd|Inc|Corp|Oy|AB|GmbH|S\.A\.|plc|SE))\b/);
+  const companyNameMatch = reportText.match(
+    /(?:^|\n)\s*([A-Z][A-Za-z\s&.]+(?:Ltd|Inc|Corp|Oy|AB|GmbH|S\.A\.|plc|SE))\b/,
+  );
   const companyName = companyNameMatch ? companyNameMatch[1].trim() : 'Unknown Company';
 
   // Detect country
@@ -266,9 +291,12 @@ export async function extractComplianceData(
   }
 
   // Detect reporting year
-  const yearMatch = reportText.match(/(?:fiscal|reporting|financial)\s+year\s+(\d{4})/i)
-    || reportText.match(/(?:20[2-3]\d)\s+(?:sustainability|ESG|annual)\s+report/i);
-  const reportingYear = yearMatch ? parseInt(yearMatch[1] || yearMatch[0].match(/20[2-3]\d/)![0], 10) : 2025;
+  const yearMatch =
+    reportText.match(/(?:fiscal|reporting|financial)\s+year\s+(\d{4})/i) ||
+    reportText.match(/(?:20[2-3]\d)\s+(?:sustainability|ESG|annual)\s+report/i);
+  const reportingYear = yearMatch
+    ? parseInt(yearMatch[1] || yearMatch[0].match(/20[2-3]\d/)![0], 10)
+    : 2025;
 
   const result: ExtractionResult = {
     companyName,
@@ -287,7 +315,7 @@ export async function extractComplianceData(
     const benchmark = getBenchmark(industry);
     result.warnings.push(
       `No emissions data extracted. Sector median for ${benchmark.sector}: ${benchmark.medianEmissions.toLocaleString()} tCO2e/year. ` +
-      `Consider entering actual emissions for accurate scoring.`
+        `Consider entering actual emissions for accurate scoring.`,
     );
   }
 

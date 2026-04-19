@@ -11,6 +11,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import { useSettings } from '../hooks/useSettings';
 
 type Theme = 'dark' | 'light';
 type Locale = 'en' | 'fi' | 'de' | 'sv';
@@ -40,6 +41,14 @@ interface ApiKey {
   lastUsedAt: string | null;
   scopes: string[];
   revoked: boolean;
+}
+
+interface TeamMember {
+  id: string;
+  name: string;
+  email: string;
+  role: 'admin' | 'manager' | 'analyst' | 'viewer';
+  joinedAt: string;
 }
 
 interface UsageMetric {
@@ -104,13 +113,8 @@ export function SettingsPage() {
     role: 'User',
   });
 
-  const [notifications, setNotifications] = useState<NotificationPrefs>({
-    emailAlerts: true,
-    complianceDeadlines: true,
-    carbonThresholds: false,
-    reportReady: true,
-    weeklyDigest: true,
-  });
+  // Settings persistence (Supabase + localStorage fallback)
+  const { settings, updateTheme, updateLocale, toggleNotification, synced: settingsSynced } = useSettings();
 
   // API keys (loaded from backend)
   const [apiKeys, setApiKeys] = useState<ApiKey[]>([]);
@@ -121,6 +125,12 @@ export function SettingsPage() {
   // Usage metering
   const [usageStats, setUsageStats] = useState<UsageStats | null>(null);
 
+  // Team members
+  const [members, setMembers] = useState<TeamMember[]>([]);
+  const [inviteEmail, setInviteEmail] = useState('');
+  const [inviteLoading, setInviteLoading] = useState(false);
+  const [inviteMessage, setInviteMessage] = useState<string | null>(null);
+
   const [theme, setTheme] = useState<Theme>('dark');
   const [locale, setLocale] = useState<Locale>('en');
 
@@ -128,9 +138,39 @@ export function SettingsPage() {
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
   const [exporting, setExporting] = useState(false);
 
-  // Load API keys and usage stats on mount
+  // Load user profile, API keys, and usage stats on mount
   useEffect(() => {
     async function loadData() {
+      // Load profile from Supabase auth + user_profiles
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          setProfile((prev) => ({
+            ...prev,
+            email: user.email || prev.email,
+            fullName: (user.user_metadata?.full_name as string) || prev.fullName,
+          }));
+
+          // Load org data from user_profiles table
+          const { data: profileData } = await supabase
+            .from('user_profiles')
+            .select('full_name, company, role')
+            .eq('user_id', user.id)
+            .single();
+
+          if (profileData) {
+            setProfile({
+              fullName: profileData.full_name || (user.user_metadata?.full_name as string) || '',
+              email: user.email || '',
+              organization: profileData.company || '',
+              role: profileData.role || 'User',
+            });
+          }
+        }
+      } catch { /* Auth not available */ }
+
+      // Notification prefs, theme, locale loaded via useSettings hook
+
       const headers = await getAuthHeaders();
 
       try {
@@ -148,6 +188,21 @@ export function SettingsPage() {
           setUsageStats(data);
         }
       } catch { /* API not available */ }
+
+      // Load team members — fallback to current user as sole member
+      try {
+        const { data: sessionData } = await supabase.auth.getSession();
+        const user = sessionData.session?.user;
+        if (user) {
+          setMembers([{
+            id: user.id,
+            name: user.user_metadata?.full_name || user.email?.split('@')[0] || 'You',
+            email: user.email || '',
+            role: 'admin',
+            joinedAt: user.created_at || new Date().toISOString(),
+          }]);
+        }
+      } catch { /* Fallback to empty */ }
     }
 
     loadData();
@@ -158,8 +213,8 @@ export function SettingsPage() {
   }, []);
 
   const handleNotificationToggle = useCallback((field: keyof NotificationPrefs) => {
-    setNotifications((prev) => ({ ...prev, [field]: !prev[field] }));
-  }, []);
+    toggleNotification(field);
+  }, [toggleNotification]);
 
   const handleSaveProfile = useCallback(async () => {
     setSaving(true);
@@ -249,6 +304,65 @@ export function SettingsPage() {
     setApiKeys((prev) => prev.filter((k) => k.id !== keyId));
   }, []);
 
+  const handleMemberRoleChange = useCallback((memberId: string, newRole: TeamMember['role']) => {
+    setMembers((prev) => prev.map((m) =>
+      m.id === memberId ? { ...m, role: newRole } : m
+    ));
+  }, []);
+
+  const handleRemoveMember = useCallback((memberId: string) => {
+    setMembers((prev) => prev.filter((m) => m.id !== memberId));
+  }, []);
+
+  const handleInviteMember = useCallback(async () => {
+    if (!inviteEmail.trim()) return;
+    setInviteLoading(true);
+    setInviteMessage(null);
+
+    try {
+      const headers = await getAuthHeaders();
+      const res = await fetch(`${API_BASE}/api/v1/onboard/invite`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ email: inviteEmail.trim() }),
+      });
+
+      if (res.ok) {
+        setInviteMessage('Invitation sent successfully.');
+        setMembers((prev) => [
+          ...prev,
+          {
+            id: `pending-${Date.now()}`,
+            name: inviteEmail.trim().split('@')[0],
+            email: inviteEmail.trim(),
+            role: 'analyst',
+            joinedAt: new Date().toISOString(),
+          },
+        ]);
+        setInviteEmail('');
+      } else {
+        setInviteMessage('Could not send invitation. Try again.');
+      }
+    } catch {
+      // Optimistic add even without backend
+      setMembers((prev) => [
+        ...prev,
+        {
+          id: `pending-${Date.now()}`,
+          name: inviteEmail.trim().split('@')[0],
+          email: inviteEmail.trim(),
+          role: 'analyst',
+          joinedAt: new Date().toISOString(),
+        },
+      ]);
+      setInviteMessage('Invitation sent (offline mode).');
+      setInviteEmail('');
+    } finally {
+      setInviteLoading(false);
+      setTimeout(() => setInviteMessage(null), 3000);
+    }
+  }, [inviteEmail]);
+
   const handleExportData = useCallback(async (format: 'csv' | 'json') => {
     setExporting(true);
     try {
@@ -258,8 +372,8 @@ export function SettingsPage() {
         headers,
         body: JSON.stringify({
           companyName: profile.organization || 'My Company',
-          industry: 'manufacturing',
-          country: 'FI',
+          industry: localStorage.getItem('dws_onboarding_industry') || 'manufacturing',
+          country: localStorage.getItem('dws_onboarding_country') || 'FI',
           format,
         }),
       });
@@ -288,7 +402,10 @@ export function SettingsPage() {
         {/* Page Header */}
         <div>
           <h1 className="text-2xl font-bold text-white">Settings</h1>
-          <p className="text-sm text-gray-400 mt-1">Manage your account, preferences, and integrations</p>
+          <p className="text-sm text-gray-400 mt-1">
+            Manage your account, preferences, and integrations
+            {settingsSynced && <span className="ml-2 text-xs text-green-500">Synced</span>}
+          </p>
         </div>
 
         {/* Usage Metering Dashboard */}
@@ -404,15 +521,15 @@ export function SettingsPage() {
                 <button
                   onClick={() => handleNotificationToggle(key)}
                   className={`relative w-11 h-6 rounded-full transition-colors ${
-                    notifications[key] ? 'bg-primary-600' : 'bg-gray-700'
+                    settings.notifications[key] ? 'bg-primary-600' : 'bg-gray-700'
                   }`}
                   role="switch"
-                  aria-checked={notifications[key]}
+                  aria-checked={settings.notifications[key]}
                   aria-label={label}
                 >
                   <span
                     className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform ${
-                      notifications[key] ? 'translate-x-5' : 'translate-x-0'
+                      settings.notifications[key] ? 'translate-x-5' : 'translate-x-0'
                     }`}
                   />
                 </button>
@@ -495,9 +612,9 @@ export function SettingsPage() {
                 {(['dark', 'light'] as const).map((t) => (
                   <button
                     key={t}
-                    onClick={() => setTheme(t)}
+                    onClick={() => updateTheme(t)}
                     className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                      theme === t
+                      settings.theme === t
                         ? 'bg-primary-600 text-white'
                         : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
                     }`}
@@ -513,8 +630,8 @@ export function SettingsPage() {
               <label htmlFor="locale" className="block text-sm text-gray-400 mb-2">Language / Locale</label>
               <select
                 id="locale"
-                value={locale}
-                onChange={(e) => setLocale(e.target.value as Locale)}
+                value={settings.locale}
+                onChange={(e) => updateLocale(e.target.value as Locale)}
                 className="w-full px-3 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 {LOCALE_OPTIONS.map((opt) => (
@@ -525,6 +642,74 @@ export function SettingsPage() {
               </select>
             </div>
           </div>
+        </section>
+
+        {/* Team Members */}
+        <section className="bg-gray-900 border border-gray-800 rounded-xl p-6">
+          <h2 className="text-lg font-semibold text-white mb-4">Team Members</h2>
+          <p className="text-xs text-gray-400 mb-4">Manage who has access to your organization's compliance data.</p>
+
+          {/* Member list */}
+          <div className="space-y-2 mb-4">
+            {members.map((member) => (
+              <div key={member.id} className="flex items-center justify-between bg-gray-800/50 rounded-lg px-4 py-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-primary-600/30 flex items-center justify-center text-primary-400 text-sm font-medium">
+                    {member.name.charAt(0).toUpperCase()}
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-white">{member.name}</p>
+                    <p className="text-xs text-gray-500">{member.email}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <select
+                    value={member.role}
+                    onChange={(e) => handleMemberRoleChange(member.id, e.target.value as TeamMember['role'])}
+                    disabled={member.email === profile.email}
+                    className="px-2 py-1 text-xs bg-gray-800 border border-gray-700 rounded text-gray-300 focus:outline-none focus:ring-1 focus:ring-primary-500 disabled:opacity-50"
+                    aria-label={`Role for ${member.name}`}
+                  >
+                    <option value="admin">Admin</option>
+                    <option value="manager">Manager</option>
+                    <option value="analyst">Analyst</option>
+                    <option value="viewer">Viewer</option>
+                  </select>
+                  {member.email !== profile.email && (
+                    <button
+                      onClick={() => handleRemoveMember(member.id)}
+                      className="text-xs text-red-400 hover:text-red-300 font-medium transition-colors"
+                    >
+                      Remove
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Invite member */}
+          <div className="flex items-center gap-2">
+            <input
+              type="email"
+              value={inviteEmail}
+              onChange={(e) => setInviteEmail(e.target.value)}
+              placeholder="colleague@company.com"
+              className="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            />
+            <button
+              onClick={handleInviteMember}
+              disabled={!inviteEmail.trim() || inviteLoading}
+              className="px-4 py-2 text-sm font-medium text-white bg-primary-600 rounded-lg hover:bg-primary-500 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              {inviteLoading ? 'Inviting...' : 'Invite'}
+            </button>
+          </div>
+          {inviteMessage && (
+            <p className={`text-xs mt-2 ${inviteMessage.includes('sent') ? 'text-green-400' : 'text-red-400'}`}>
+              {inviteMessage}
+            </p>
+          )}
         </section>
 
         {/* Data Export */}

@@ -102,6 +102,7 @@ export class DeepWikiExtractorAgent extends BaseAgent {
         'deepwiki-integration',
       ],
       model: 'llama-3.1-70b-versatile',
+      modelTier: 'standard',
     });
   }
 

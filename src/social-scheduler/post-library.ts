@@ -10,7 +10,7 @@
  * Used by scripts/seed-post-queue.ts to populate the queue.
  */
 
-import type { PostDraft, PostCategory } from './types.js';
+import type { PostCategory, PostDraft } from './types.js';
 import { DateTime } from 'luxon';
 
 // ============================================================================
@@ -35,7 +35,7 @@ function scheduledAt(daysFromNow: number): string {
     millisecond: 0,
   });
 
-  return helsinkiTime.toUTC().toISO();
+  return helsinkiTime.toUTC().toISO()!;
 }
 
 // ============================================================================

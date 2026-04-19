@@ -12,6 +12,7 @@ import * as cron from 'node-cron';
 import { reportService } from './report-service';
 import { metricsService } from './metrics-calculation';
 import { createClient } from '@supabase/supabase-js';
+import emailService from '../services/email.service.js';
 
 // ============================================================================
 // SCHEDULER
@@ -262,8 +263,12 @@ export class InvestorReportsScheduler {
     if (cashMetrics.runway_months < thresholdMonths) {
       console.warn(`⚠️  RUNWAY ALERT: ${cashMetrics.runway_months.toFixed(1)} months remaining (threshold: ${thresholdMonths})`);
 
-      // TODO: Send alert email to founders/board
-      // For now, just log
+      const alertRecipient = process.env.ALERT_EMAIL_RECIPIENT || 'risto@lifetime.fi';
+      await emailService.sendNotificationEmail(
+        alertRecipient,
+        `RUNWAY ALERT: ${cashMetrics.runway_months.toFixed(1)} months remaining`,
+        `Cash runway is below the ${thresholdMonths}-month threshold. Current runway: ${cashMetrics.runway_months.toFixed(1)} months. Immediate attention required.`
+      );
     }
   }
 
@@ -278,8 +283,12 @@ export class InvestorReportsScheduler {
     if (customerMetrics.monthly_churn_rate > thresholdPct) {
       console.warn(`⚠️  CHURN ALERT: ${customerMetrics.monthly_churn_rate.toFixed(1)}% churn rate (threshold: ${thresholdPct}%)`);
 
-      // TODO: Send alert email to founders/team
-      // For now, just log
+      const alertRecipient = process.env.ALERT_EMAIL_RECIPIENT || 'risto@lifetime.fi';
+      await emailService.sendNotificationEmail(
+        alertRecipient,
+        `CHURN ALERT: ${customerMetrics.monthly_churn_rate.toFixed(1)}% monthly churn`,
+        `Monthly churn rate has exceeded the ${thresholdPct}% threshold. Current rate: ${customerMetrics.monthly_churn_rate.toFixed(1)}%. Review customer retention strategy.`
+      );
     }
   }
 }

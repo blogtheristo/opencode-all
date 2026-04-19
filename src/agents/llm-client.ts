@@ -1,25 +1,30 @@
 /**
  * Provider-Agnostic LLM Client for DWS IQ 6/7
  *
- * Replaces the hardcoded Groq fetch() in base.agent.ts with a multi-provider
- * client that supports:
- *   - Groq (OpenAI-compatible) — existing default
- *   - Anthropic (Claude) — via @anthropic-ai/claude-agent-sdk
- *   - Grok (xAI) — OpenAI-compatible, sovereign consent required
- *   - Generic OpenAI-compatible endpoints (Ollama, vLLM, Together, etc.)
+ * Multi-provider client supporting:
+ *   - Groq (OpenAI-compatible) — cloud, fast inference
+ *   - Anthropic (Claude) — cloud, highest quality
+ *   - Google (Gemini) — cloud, large context
+ *   - Ollama (local on Acer Veriton GN100) — €0/hour, low latency
+ *   - vLLM (local on Acer Veriton GN100) — production-grade local serving
+ *   - Generic OpenAI-compatible endpoints (Together, etc.)
  *
  * Key capability: Tool use / function calling across all providers.
+ * Integrates with model-selector.ts for task-aware model routing.
  *
  * Fix #2 (tool use) and Fix #3 (replace hardcoded Groq) from DWS7 modernization.
- * Grok: GDPR + EU AI Act Article 12 consent gate added 2026-02-26.
+ * Fix #5: Multi-agent model selection — leanest model per task tier.
  */
 
 import logger from '../utils/logger.js';
-import type { ToolDefinition, ToolCall, LLMMessage, LLMResponse } from './types.js';
+import type { ToolDefinition, ToolCall, LLMMessage, LLMResponse, ModelTier } from './types.js';
+import { selectModel } from './model-selector.js';
+import type { ModelSelection } from './model-selector.js';
 
 // ============ PROVIDER CONFIGURATION ============
 
-export type LLMProvider = 'groq' | 'anthropic' | 'grok' | 'openai-compatible';
+export type LLMProvider = 'groq' | 'anthropic' | 'google' | 'ollama-local' | 'vllm-local' | 'openai-compatible';
+export type LLMMode = 'agent' | 'hil';
 
 export interface LLMClientConfig {
   provider: LLMProvider;
@@ -28,15 +33,16 @@ export interface LLMClientConfig {
   model: string;
   maxTokens?: number;
   temperature?: number;
+  /** Model selection metadata (when created via createLLMClientForAgent) */
+  selection?: ModelSelection;
 }
 
-/** Resolve provider config from environment + agent config */
+/**
+ * Resolve provider config from environment + agent config (legacy path).
+ * Kept for backward compatibility — new agents should use createLLMClientForAgent.
+ */
 export function resolveProvider(agentModel: string): LLMClientConfig | null {
-  // Priority: ANTHROPIC_API_KEY > GROQ_API_KEY > GROK_API_KEY > OPENAI_API_KEY
-  // NOTE: Grok is intentionally lower priority than Groq.  Grok requires an
-  // explicit per-org consent check on every call (GDPR + EU AI Act Art. 12),
-  // so routing existing agents through Grok without orgId would throw.  Groq
-  // is the safe default for general-purpose agents that don't carry orgId.
+  // Priority: ANTHROPIC_API_KEY > GROQ_API_KEY > OLLAMA > VLLM > OPENAI_API_KEY
   if (process.env.ANTHROPIC_API_KEY) {
     return {
       provider: 'anthropic',
@@ -59,16 +65,25 @@ export function resolveProvider(agentModel: string): LLMClientConfig | null {
     };
   }
 
-  // Grok (xAI) — requires explicit per-org consent (GDPR + EU AI Act).
-  // Only selected when orgId is provided so that call sites without org context
-  // (e.g. callLLM() backward-compat path) fall through to the next provider
-  // rather than throwing a consent-gate error at runtime.
-  if (process.env.GROK_API_KEY && opts?.orgId) {
+  // Ollama on Acer Veriton GN100 (OpenAI-compatible API)
+  if (process.env.OLLAMA_BASE_URL) {
     return {
-      provider: 'grok',
-      apiKey: process.env.GROK_API_KEY,
-      baseUrl: 'https://api.x.ai/v1',
-      model: process.env.GROK_MODEL || 'grok-3',
+      provider: 'ollama-local',
+      apiKey: 'ollama',  // Ollama doesn't require auth
+      baseUrl: process.env.OLLAMA_BASE_URL,  // e.g. http://localhost:11434/v1
+      model: agentModel || 'qwen2.5:32b',
+      maxTokens: 4096,
+      temperature: 0.3,
+    };
+  }
+
+  // vLLM on Acer Veriton GN100 (OpenAI-compatible API)
+  if (process.env.VLLM_BASE_URL) {
+    return {
+      provider: 'vllm-local',
+      apiKey: process.env.VLLM_API_KEY || 'vllm',  // vLLM optional auth
+      baseUrl: process.env.VLLM_BASE_URL,  // e.g. http://localhost:8000/v1
+      model: agentModel || 'qwen2.5-32b',
       maxTokens: 4096,
       temperature: 0.3,
     };
@@ -88,6 +103,125 @@ export function resolveProvider(agentModel: string): LLMClientConfig | null {
   return null;
 }
 
+/**
+ * Resolve provider config using the model selector (task-aware path).
+ * Uses the agent name to determine optimal model tier and provider.
+ */
+export function resolveProviderForAgent(
+  agentName: string,
+  options?: { tierOverride?: ModelTier; requiresTools?: boolean },
+): LLMClientConfig | null {
+  const selection = selectModel(agentName, {
+    tierOverride: options?.tierOverride,
+    requiresTools: options?.requiresTools,
+  });
+
+  if (selection.modelId === 'placeholder') {
+    return null;
+  }
+
+  // Map model-selector provider to LLMProvider + resolve config
+  const config = mapSelectionToConfig(selection);
+  if (!config) {
+    logger.warn('Model selected but provider config unavailable', {
+      agent: agentName,
+      selection,
+    });
+    return null;
+  }
+
+  logger.debug('Model selected for agent', {
+    agent: agentName,
+    tier: selection.tier,
+    model: selection.modelId,
+    provider: selection.provider,
+    isLocal: selection.isLocal,
+    reason: selection.reason,
+  });
+
+  return config;
+}
+
+/** Map a ModelSelection to a concrete LLMClientConfig */
+function mapSelectionToConfig(selection: ModelSelection): LLMClientConfig | null {
+  switch (selection.provider) {
+    case 'anthropic':
+      return {
+        provider: 'anthropic',
+        apiKey: process.env.ANTHROPIC_API_KEY || '',
+        baseUrl: 'https://api.anthropic.com/v1',
+        model: selection.modelId,
+        maxTokens: selection.maxTokens,
+        temperature: selection.temperature,
+        selection,
+      };
+
+    case 'groq':
+      return {
+        provider: 'groq',
+        apiKey: process.env.GROQ_API_KEY || '',
+        baseUrl: 'https://api.groq.com/openai/v1',
+        model: selection.modelId,
+        maxTokens: selection.maxTokens,
+        temperature: selection.temperature,
+        selection,
+      };
+
+    case 'google':
+      return {
+        provider: 'google',
+        apiKey: process.env.GOOGLE_AI_API_KEY || process.env.GEMINI_API_KEY || '',
+        baseUrl: process.env.GOOGLE_AI_BASE_URL || 'https://generativelanguage.googleapis.com/v1beta',
+        model: selection.modelId,
+        maxTokens: selection.maxTokens,
+        temperature: selection.temperature,
+        selection,
+      };
+
+    case 'ollama-local': {
+      const ollamaUrl = process.env.OLLAMA_BASE_URL;
+      if (!ollamaUrl) return null;
+      return {
+        provider: 'ollama-local',
+        apiKey: 'ollama',
+        baseUrl: ollamaUrl,
+        model: selection.modelId,
+        maxTokens: selection.maxTokens,
+        temperature: selection.temperature,
+        selection,
+      };
+    }
+
+    case 'vllm-local': {
+      const vllmUrl = process.env.VLLM_BASE_URL;
+      if (!vllmUrl) return null;
+      return {
+        provider: 'vllm-local',
+        apiKey: process.env.VLLM_API_KEY || 'vllm',
+        baseUrl: vllmUrl,
+        model: selection.modelId,
+        maxTokens: selection.maxTokens,
+        temperature: selection.temperature,
+        selection,
+      };
+    }
+
+    case 'openai-compatible':
+      return {
+        provider: 'openai-compatible',
+        apiKey: process.env.OPENAI_API_KEY || '',
+        baseUrl: process.env.OPENAI_BASE_URL || 'https://api.openai.com/v1',
+        model: selection.modelId,
+        maxTokens: selection.maxTokens,
+        temperature: selection.temperature,
+        selection,
+      };
+
+    default:
+      return null;
+  }
+}
+
 // ============ LLM CLIENT ============
 
 export class LLMClient {
@@ -105,25 +239,26 @@ export class LLMClient {
     return this.config.model;
   }
 
+  /** Get the model selection metadata (available when created via createLLMClientForAgent) */
+  get selection(): ModelSelection | undefined {
+    return this.config.selection;
+  }
+
   /**
    * Send a multi-turn conversation with optional tool definitions.
    * Returns the assistant's response, which may include tool calls.
-   *
-   * For Grok: consent MUST be granted via GrokConsentService before calling.
-   * orgId is required when provider === 'grok'; omitting it throws.
    */
   async chat(
     messages: LLMMessage[],
     tools?: ToolDefinition[],
-    opts?: { orgId?: string },
   ): Promise<LLMResponse> {
     if (this.config.provider === 'anthropic') {
       return this.chatAnthropic(messages, tools);
     }
-    if (this.config.provider === 'grok') {
-      return this.chatGrok(messages, tools, opts?.orgId);
+    if (this.config.provider === 'google') {
+      return this.chatGoogle(messages, tools);
     }
-    // Groq and OpenAI-compatible share the same API shape
+    // Groq, Ollama, vLLM, and OpenAI-compatible all share the same API shape
     return this.chatOpenAICompatible(messages, tools);
   }
 
@@ -239,73 +374,103 @@ export class LLMClient {
     };
   }
 
-  // ============ GROK PROVIDER (xAI — sovereign consent required) ============
+  // ============ GOOGLE GEMINI PROVIDER ============
 
-  /**
-   * Chat with xAI Grok.
-   *
-   * Grok uses the OpenAI-compatible API but data leaves EU infrastructure.
-   * Before every call we verify consent via GrokConsentService and emit
-   * an Article 12 audit event regardless of outcome.
-   *
-   * Privacy-first: if consent is not granted (or Supabase is unavailable),
-   * the call is blocked and an error is thrown — never silently bypassed.
-   */
-  private async chatGrok(
+  private async chatGoogle(
     messages: LLMMessage[],
     tools?: ToolDefinition[],
-    orgId?: string,
   ): Promise<LLMResponse> {
-    // Lazy import to avoid circular deps and keep the consent module optional
-    const { grokConsentService } = await import('../services/grok-consent.service.js');
+    // Convert to Gemini generateContent format
+    const systemMsg = messages.find((m) => m.role === 'system');
+    const nonSystemMsgs = messages.filter((m) => m.role !== 'system');
 
-    if (!orgId) {
-      throw new Error(
-        'Grok provider requires orgId for consent verification (GDPR Art. 6 / EU AI Act Annex IV)',
-      );
-    }
-
-    const consentStatus = await grokConsentService.checkConsent(orgId);
-    if (!consentStatus.granted) {
-      await grokConsentService.logInferenceBlocked(orgId, consentStatus.reason);
-      throw new Error(
-        `Grok inference blocked for org ${orgId}: ${consentStatus.reason}. ` +
-        'Grant consent via POST /api/grok-consent/:orgId/grant',
-      );
-    }
-
-    const startMs = Date.now();
-    let response: LLMResponse;
-
-    try {
-      response = await this.chatOpenAICompatible(messages, tools);
-    } catch (err) {
-      await grokConsentService.logInferenceEvent({
-        orgId,
-        model: this.config.model,
-        inputTokens: 0,
-        outputTokens: 0,
-        durationMs: Date.now() - startMs,
-        status: 'error',
-        error: String(err),
-      });
-      throw err;
-    }
-
-    // Article 12: log every successful inference (anonymised — no prompt content)
-    await grokConsentService.logInferenceEvent({
-      orgId,
-      model: response.model,
-      inputTokens: response.inputTokens,
-      outputTokens: response.outputTokens,
-      durationMs: Date.now() - startMs,
-      status: 'ok',
+    const geminiContents = nonSystemMsgs.map((m) => {
+      const role = m.role === 'assistant' ? 'model' : 'user';
+      const text = typeof m.content === 'string' ? m.content : JSON.stringify(m.content);
+      return { role, parts: [{ text }] };
     });
 
-    return response;
+    const body: Record<string, unknown> = {
+      contents: geminiContents,
+      generationConfig: {
+        maxOutputTokens: this.config.maxTokens || 2048,
+        temperature: this.config.temperature || 0.3,
+      },
+    };
+
+    if (systemMsg) {
+      body.systemInstruction = {
+        parts: [{
+          text: typeof systemMsg.content === 'string'
+            ? systemMsg.content
+            : JSON.stringify(systemMsg.content),
+        }],
+      };
+    }
+
+    if (tools && tools.length > 0) {
+      body.tools = [{
+        functionDeclarations: tools.map((t) => ({
+          name: t.name,
+          description: t.description,
+          parameters: t.parameters,
+        })),
+      }];
+    }
+
+    const url = `${this.config.baseUrl}/models/${this.config.model}:generateContent`;
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-goog-api-key': this.config.apiKey,
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({})) as Record<string, unknown>;
+      throw new Error(
+        `Google AI API error (${response.status}): ${JSON.stringify(errorData)}`,
+      );
+    }
+
+    const data = await response.json() as {
+      candidates?: Array<{
+        content?: {
+          parts?: Array<{
+            text?: string;
+            functionCall?: { name: string; args: Record<string, unknown> };
+          }>;
+        };
+        finishReason?: string;
+      }>;
+      usageMetadata?: { promptTokenCount?: number; candidatesTokenCount?: number };
+    };
+
+    const candidate = data.candidates?.[0];
+    const parts = candidate?.content?.parts || [];
+
+    const textParts = parts.filter((p) => p.text).map((p) => p.text || '');
+    const fnCalls = parts.filter((p) => p.functionCall);
+
+    const toolCalls: ToolCall[] = fnCalls.map((p, idx) => ({
+      id: `call_gemini_${Date.now()}_${idx}`,
+      name: p.functionCall!.name,
+      arguments: p.functionCall!.args || {},
+    }));
+
+    return {
+      content: textParts.join('\n'),
+      model: this.config.model,
+      inputTokens: data.usageMetadata?.promptTokenCount || 0,
+      outputTokens: data.usageMetadata?.candidatesTokenCount || 0,
+      toolCalls: toolCalls.length > 0 ? toolCalls : undefined,
+      stopReason: fnCalls.length > 0 ? 'tool_use' : 'end_turn',
+    };
   }
 
-  // ============ OPENAI-COMPATIBLE PROVIDER (Groq, OpenAI, Ollama, etc.) ============
+  // ============ OPENAI-COMPATIBLE PROVIDER (Groq, OpenAI, Ollama, vLLM) ============
 
   private async chatOpenAICompatible(
     messages: LLMMessage[],
@@ -361,16 +526,24 @@ export class LLMClient {
     }
 
     // If no tools, request JSON mode (backward compat with existing agents)
-    if (!tools || tools.length === 0) {
+    // Skip for Ollama/vLLM which may not support response_format
+    const isLocal = this.config.provider === 'ollama-local' || this.config.provider === 'vllm-local';
+    if ((!tools || tools.length === 0) && !isLocal) {
       body.response_format = { type: 'json_object' };
+    }
+
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    };
+
+    // Ollama doesn't require auth; vLLM has optional auth
+    if (this.config.apiKey && this.config.apiKey !== 'ollama') {
+      headers.Authorization = `Bearer ${this.config.apiKey}`;
     }
 
     const response = await fetch(`${this.config.baseUrl}/chat/completions`, {
       method: 'POST',
-      headers: {
-        Authorization: `Bearer ${this.config.apiKey}`,
-        'Content-Type': 'application/json',
-      },
+      headers,
       body: JSON.stringify(body),
     });
 
@@ -417,19 +590,46 @@ export class LLMClient {
 }
 
 /**
- * Create an LLM client from environment, falling back gracefully.
+ * Create an LLM client from environment, falling back gracefully (legacy path).
  * Returns null if no API key is configured.
- *
- * Pass `orgId` to enable Grok (xAI) when GROK_API_KEY is configured.
- * Without `orgId`, Grok is skipped and the next available provider is used,
- * so backward-compat call sites (callLLM, system-level loops) are unaffected.
  */
-export function createLLMClient(agentModel: string, orgId?: string): LLMClient | null {
-  const config = resolveProvider(agentModel, { orgId });
+export function createLLMClient(
+  agentModel: string,
+  _orgId?: string,
+  _mode: LLMMode = 'agent',
+): LLMClient | null {
+  const config = resolveProvider(agentModel);
   if (!config) {
     logger.debug('No LLM provider configured (no API key found)');
     return null;
   }
   logger.debug('LLM client created', { provider: config.provider, model: config.model });
+  return new LLMClient(config);
+}
+
+/**
+ * Create an LLM client using task-aware model selection.
+ * Picks the leanest model that can handle the agent's tier.
+ *
+ * Prefers local models (Ollama/vLLM on Acer) when available to minimize cost.
+ * Falls back to cloud providers (Groq → Anthropic → Google → OpenAI) as needed.
+ */
+export function createLLMClientForAgent(
+  agentName: string,
+  options?: { tierOverride?: ModelTier; requiresTools?: boolean },
+): LLMClient | null {
+  const config = resolveProviderForAgent(agentName, options);
+  if (!config) {
+    logger.debug('No LLM provider available for agent', { agent: agentName });
+    return null;
+  }
+  logger.info('Task-aware LLM client created', {
+    agent: agentName,
+    provider: config.provider,
+    model: config.model,
+    tier: config.selection?.tier,
+    isLocal: config.selection?.isLocal,
+    reason: config.selection?.reason,
+  });
   return new LLMClient(config);
 }

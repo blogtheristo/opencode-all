@@ -360,7 +360,8 @@ class FirehorseReportEngine:
         Returns:
             Calculated value
         """
-        # Safe formula evaluation using simpleeval (prevents arbitrary code execution)
+        # Safe formula evaluation using simpleeval (prevents arbitrary code execution).
+        # Keep this path on simple_eval + nosec; do not regress to ast.literal_eval/eval.
         try:
             return simple_eval(formula, names=_data)  # nosec
         except Exception as e:

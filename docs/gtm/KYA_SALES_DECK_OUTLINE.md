@@ -68,7 +68,7 @@ March 2026
 | Identity Attribution | Cryptographic session binding | Shufti IDV / KYC-verified |
 | Capability Gating | VMM-layer manifest enforcement | Sub-5ms guardrails |
 | Forensic Observability | TPM 2.0 sealed audit trail | Court-defensible (EU AI Act Art. 12) |
-| Agent Kill | Firehorse Snap | 122ms |
+| Agent Kill | Firehorse Snap | < 125ms (Firecracker MicroVM, AWS benchmark) |
 | Isolation | Firecracker MicroVM | < 5MB, < 125ms boot |
 
 **Key message:** This is hardware, not software. The governance layer sits *below* the agent's operating system.
@@ -88,7 +88,7 @@ ATS = 1.0 - V×0.25 - L - D×0.05 + A×0.18
 | 0.85–1.00 | Green | Full access |
 | 0.70–0.84 | Amber | Restricted |
 | 0.50–0.69 | Red | Read-only |
-| < 0.50 | Quarantine | Terminated (122ms) |
+| < 0.50 | Quarantine | Terminated (< 125ms (Firecracker MicroVM, AWS benchmark)) |
 
 **Visual:** Live ATS dashboard mockup showing 16 industry agents with real-time scores
 
@@ -122,7 +122,7 @@ ATS = 1.0 - V×0.25 - L - D×0.05 + A×0.18
 | Petroleum Refining | 9–13% | €1.2M–€6.1M |
 | Pharma & Biotech | 15–22% | €5M–€45M |
 
-**Pricing:** €0.02/agent/hour governance + 7.5% Alpha-Share of attributed gains
+**Pricing:** €499–€1,999/mo SaaS subscription + API transaction fees
 
 **ROI at scale:** 14–51x
 
@@ -187,7 +187,7 @@ ATS = 1.0 - V×0.25 - L - D×0.05 + A×0.18
 |------|----------|---------|
 | **Technical Evaluation** | 2 weeks | Helsinki Sandbox access, ATS demo, architecture review |
 | **Pilot (1 industry)** | 90 days | Production KYA deployment, measured efficiency gains |
-| **Enterprise License** | 6 months | Full 20-industry deployment, Alpha-Share model |
+| **Enterprise License** | 6 months | Full 20-industry deployment, custom SaaS pricing |
 
 **Contact:** Risto Anton, Lead Architect
 risto@onelifetime.world | Lifetime Oy, Helsinki
@@ -200,7 +200,7 @@ risto@onelifetime.world | Lifetime Oy, Helsinki
 - **CTO/CFO only?** Start at slide 2, skip to slide 5, deep dive on 6–7
 - **Technical audience?** Spend time on slide 4 (ATS formula) and slide 7 (Green Steel flow)
 - **Partner/BD meeting?** Use connector brief instead, reference slides 8–9 for proof points
-- **Objection "we have guardrails":** Slide 3 — hardware vs software comparison. 122ms kill vs graceful shutdown
+- **Objection "we have guardrails":** Slide 3 — hardware vs software comparison. < 125ms (Firecracker MicroVM, AWS benchmark) kill vs graceful shutdown
 - **Objection "too early":** Slide 8 — Helsinki Sandbox is running. NIST submissions filed. This isn't a whitepaper
 
 ---

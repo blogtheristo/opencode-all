@@ -10,7 +10,7 @@
 
 import { BaseAgent } from '../base.agent.js';
 import type { AgentContext, AgentResponse } from '../types.js';
-import type { SeoAuditInput, SeoAuditOutput, SeoIssueType, IssueSeverity } from './types.js';
+import type { SeoAuditInput, SeoAuditOutput } from './types.js';
 
 interface PageAuditResult {
   url: string;
@@ -39,13 +39,11 @@ export class SeoAuditAgent extends BaseAgent {
         'change-detection',
       ],
       model: 'llama-3.3-70b-versatile',
+      modelTier: 'standard',
     });
   }
 
-  async execute(
-    context: AgentContext,
-    input: Record<string, unknown>,
-  ): Promise<AgentResponse> {
+  async execute(context: AgentContext, input: Record<string, unknown>): Promise<AgentResponse> {
     const startTime = Date.now();
     const typedInput = input as unknown as SeoAuditInput;
 
@@ -70,7 +68,8 @@ export class SeoAuditAgent extends BaseAgent {
         agentName: this.config.name,
         result: output as unknown as Record<string, unknown>,
         confidence: 0.85,
-        reasoning: `Audited ${typedInput.site.pages.length || 'all'} pages on ${typedInput.site.baseUrl}. ` +
+        reasoning:
+          `Audited ${typedInput.site.pages.length || 'all'} pages on ${typedInput.site.baseUrl}. ` +
           `Health score: ${output.healthScore}/100. ` +
           `Found ${output.issues.length} issues (${output.issues.filter((i) => i.severity === 'critical').length} critical). ` +
           `Deploy gate: ${output.deployGate.pass ? 'PASS' : 'BLOCKED'}.`,
@@ -120,9 +119,10 @@ export class SeoAuditAgent extends BaseAgent {
   }
 
   private async runAudit(input: SeoAuditInput): Promise<SeoAuditOutput> {
-    const pages = input.site.pages.length > 0
-      ? input.site.pages
-      : await this.discoverPages(input.site.baseUrl, input.site.sitemapUrl);
+    const pages =
+      input.site.pages.length > 0
+        ? input.site.pages
+        : await this.discoverPages(input.site.baseUrl, input.site.sitemapUrl);
 
     const issues: SeoAuditOutput['issues'] = [];
     const schemaMarkup: SeoAuditOutput['schemaMarkup'] = [];
@@ -130,9 +130,7 @@ export class SeoAuditAgent extends BaseAgent {
     const seenTitles = new Map<string, string>();
 
     for (const pageUrl of pages) {
-      const fullUrl = pageUrl.startsWith('http')
-        ? pageUrl
-        : `${input.site.baseUrl}${pageUrl}`;
+      const fullUrl = pageUrl.startsWith('http') ? pageUrl : `${input.site.baseUrl}${pageUrl}`;
 
       // Audit the page content
       const pageResult = await this.auditPage(fullUrl);
@@ -282,9 +280,7 @@ export class SeoAuditAgent extends BaseAgent {
         newIssues,
         resolvedIssues,
         regressions: issues
-          .filter(
-            (i) => i.severity === 'critical' && !prevIssueUrls.has(`${i.type}:${i.url}`),
-          )
+          .filter((i) => i.severity === 'critical' && !prevIssueUrls.has(`${i.type}:${i.url}`))
           .map((i) => `NEW: ${i.type} at ${i.url}`),
       };
     }
@@ -292,7 +288,7 @@ export class SeoAuditAgent extends BaseAgent {
     return { healthScore, coreWebVitals, issues, schemaMarkup, deployGate, delta };
   }
 
-  private async discoverPages(baseUrl: string, sitemapUrl?: string): Promise<string[]> {
+  private async discoverPages(_baseUrl: string, sitemapUrl?: string): Promise<string[]> {
     // Try to fetch sitemap first
     if (sitemapUrl) {
       try {
@@ -313,14 +309,7 @@ export class SeoAuditAgent extends BaseAgent {
     }
 
     // Default pages to audit
-    return [
-      '/',
-      '/buy/',
-      '/buy/page2/',
-      '/buy/page3/',
-      '/buy/page4/',
-      '/construction/',
-    ];
+    return ['/', '/buy/', '/buy/page2/', '/buy/page3/', '/buy/page4/', '/construction/'];
   }
 
   private async auditPage(url: string): Promise<PageAuditResult | null> {
@@ -450,7 +439,9 @@ export class SeoAuditAgent extends BaseAgent {
 
     const missingCanonicals = output.issues.filter((i) => i.type === 'missing-canonical');
     if (missingCanonicals.length > 0) {
-      recs.push(`Add canonical tags to ${missingCanonicals.length} pages to prevent duplicate content.`);
+      recs.push(
+        `Add canonical tags to ${missingCanonicals.length} pages to prevent duplicate content.`,
+      );
     }
 
     const missingSchemas = output.issues.filter((i) => i.type === 'missing-schema');
@@ -460,7 +451,9 @@ export class SeoAuditAgent extends BaseAgent {
 
     const slowPages = output.coreWebVitals.filter((v) => v.status === 'poor');
     if (slowPages.length > 0) {
-      recs.push(`${slowPages.length} pages have poor Core Web Vitals. Prioritize LCP optimization.`);
+      recs.push(
+        `${slowPages.length} pages have poor Core Web Vitals. Prioritize LCP optimization.`,
+      );
     }
 
     return recs;

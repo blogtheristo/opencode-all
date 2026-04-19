@@ -1,0 +1,43 @@
+---
+description: Mirrors Claude Code session hooks — trust zones, session start checks, session exit checklist (DWS6)
+alwaysApply: true
+---
+
+# DWS6 — Cursor parity with Claude Code pipeline
+
+Source of truth for hook logic: `.claude/hooks/session-start.sh` and `.claude/hooks/session-stop.sh`. This rule does not run automatically like bash hooks; **apply it explicitly** when the user starts or ends a session (or when they say "session checklist").
+
+## Trust boundaries (Auto-Mode)
+
+- **GREEN (full auto):** Read, Edit, Write, lint, test, build, git on feature branches.
+- **YELLOW (auto + caution):** MCP tools, agent skills, Docker, `gh` CLI, `git push`. Log or note high-impact actions.
+- **RED (human required):** DB migrations, deploys, emails, thesis files, Store sync, standards-only updates driven by product work, secrets.
+
+Budget: `CLAUDE_AUTO_MODE_BUDGET` env var (optional). Audit: prefer logging YELLOW actions under `.claude/hooks/audit/` when using full auto.
+
+## Session start (run when a chat begins or after compaction)
+
+Ask the terminal/agent to report:
+
+1. **MCP:** If `.mcp.json` exists, note how many servers are configured (do not print secrets).
+2. **Dirty tree:** `git status --porcelain` — if non-empty, warn and suggest commit/stash before large refactors.
+3. **Branch:** `git branch --show-current` — if `main` or `master`, warn: create a feature branch before feature work.
+
+## Session exit / before PR (advisory — mirror session-stop.sh)
+
+When the user wraps up or asks for "session stop checklist", evaluate **staged or last-commit scope** using `git diff --name-only` against `main` (or `git diff --name-only HEAD` for uncommitted). Flag issues:
+
+1. **Uncommitted changes** — list count; recommend commit or intentional stash.
+2. **Dual-folder sync:** If `dws10.com/` changed, `landing-pages/dws10-com/` should change in the same effort. Same for `dws6.com/` landing surfaces (`index`, `buy`, `config`) ↔ `landing-pages/dws6-com/`, and `onelifetime.world/` ↔ `landing-pages/onelifetime-world/`.
+3. **Thesis:** If any of `V3Thesis_EN`, `V3Thesis_FI`, `PHD_FIREHORSE_EN`, `PHD_FIREHORSE_FI` appear in changed paths, all **four** thesis tracks must be updated together per `CLAUDE.md`.
+4. **Public `.md`:** No new/changed `.md` under `landing-pages/`, `dws6.com/`, `dws10.com/`, `onelifetime.world/` for public site content (HTML is the public format).
+5. **Standards reminder:** If `src/` changed, consider whether `*STANDARD*`, `*COMPLIANCE*`, or `*BRAND*` docs need updates.
+
+These checks are **advisory** (do not block the editor). Full governance remains in `CLAUDE.md` and team review.
+
+## PR and merge
+
+- Open PR with `gh pr create` when available; otherwise provide compare URL per `CLAUDE.md`.
+- Merge on GitHub remains a human or policy decision for protected branches.
+- After merge, GitHub normally deletes the **remote** branch when that option is enabled; local clones still need worktree removal and local branch cleanup.
+- After merge, optional cleanup: `scripts/Merge-CleanupWorktree.ps1` (local worktree + local `refs/heads/*` — not remote deletion).

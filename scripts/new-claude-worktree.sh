@@ -10,10 +10,12 @@
 #   - https://www.geeky-gadgets.com/how-to-use-git-worktrees-with-claude-code-for-seamless-multitasking/
 #
 # Usage:
-#   ./new-claude-worktree.sh <branch-name> [base-branch] [--no-venv-symlink] [--launch-claude]
+#   ./new-claude-worktree.sh <branch-name> [base-branch] [--pr <number>] [--worktree-name <name>] [--no-venv-symlink] [--launch-claude]
+#   ./new-claude-worktree.sh --pr <number> [base-branch] [--no-venv-symlink] [--launch-claude]
 #
 # Examples:
 #   ./new-claude-worktree.sh feature-auth-improvements
+#   ./new-claude-worktree.sh --pr 769 --launch-claude
 #   ./new-claude-worktree.sh fix-api-bug develop --launch-claude
 #
 
@@ -23,22 +25,62 @@ set -e
 # CONFIGURATION
 # ============================================================================
 
-BRANCH_NAME="${1:-}"
-BASE_BRANCH="${2:-main}"
+BRANCH_NAME=""
+BASE_BRANCH="main"
+PR_NUMBER=""
+WORKTREE_NAME=""
 NO_VENV_SYMLINK=false
 LAUNCH_CLAUDE=false
 
-# Parse optional flags
-for arg in "$@"; do
-    case $arg in
+# Parse positional args + optional flags
+POSITIONALS=()
+while [[ $# -gt 0 ]]; do
+    case "$1" in
         --no-venv-symlink)
             NO_VENV_SYMLINK=true
+            shift
             ;;
         --launch-claude)
             LAUNCH_CLAUDE=true
+            shift
+            ;;
+        --pr)
+            if [[ -z "${2:-}" ]]; then
+                echo "Error: --pr requires a value"
+                exit 1
+            fi
+            PR_NUMBER="${2:-}"
+            shift 2
+            ;;
+        --pr=*)
+            PR_NUMBER="${1#*=}"
+            shift
+            ;;
+        --worktree-name)
+            WORKTREE_NAME="${2:-}"
+            shift 2
+            ;;
+        --worktree-name=*)
+            WORKTREE_NAME="${1#*=}"
+            shift
+            ;;
+        -*)
+            log_error "Unknown flag: $1"
+            exit 1
+            ;;
+        *)
+            POSITIONALS+=("$1")
+            shift
             ;;
     esac
 done
+
+if [[ ${#POSITIONALS[@]} -ge 1 ]]; then
+    BRANCH_NAME="${POSITIONALS[0]}"
+fi
+if [[ ${#POSITIONALS[@]} -ge 2 ]]; then
+    BASE_BRANCH="${POSITIONALS[1]}"
+fi
 
 # Colors for output
 RED='\033[0;31m'
@@ -110,18 +152,43 @@ get_worktree_root() {
 # MAIN SCRIPT
 # ============================================================================
 
-# Validate branch name
+# Derive naming from PR number if requested
+if [[ -z "$BRANCH_NAME" && -n "$PR_NUMBER" ]]; then
+    BRANCH_NAME="claude/pr-$PR_NUMBER"
+fi
+
+if [[ -z "$WORKTREE_NAME" ]]; then
+    if [[ -n "$PR_NUMBER" ]]; then
+        WORKTREE_NAME="pr-$PR_NUMBER"
+    elif [[ -n "$BRANCH_NAME" ]]; then
+        WORKTREE_NAME="$(echo "$BRANCH_NAME" | tr '/.' '--' | sed 's/[^a-zA-Z0-9_-]/-/g' | sed 's/^-*//;s/-*$//')"
+    fi
+fi
+
+# Validate branch / worktree naming
 if [[ -z "$BRANCH_NAME" ]]; then
-    echo "Usage: $0 <branch-name> [base-branch] [--no-venv-symlink] [--launch-claude]"
+    echo "Usage: $0 <branch-name> [base-branch] [--pr <number>] [--worktree-name <name>] [--no-venv-symlink] [--launch-claude]"
     echo ""
     echo "Examples:"
     echo "  $0 feature-auth-improvements"
+    echo "  $0 --pr 769 --launch-claude"
     echo "  $0 fix-api-bug develop --launch-claude"
     exit 1
 fi
 
-if [[ ! "$BRANCH_NAME" =~ ^[a-zA-Z0-9_-]+$ ]]; then
+if [[ ! "$BRANCH_NAME" =~ ^[a-zA-Z0-9._/-]+$ ]]; then
     log_error "Invalid branch name: $BRANCH_NAME"
+    log_error "Use only letters, numbers, slash, dot, hyphens, and underscores."
+    exit 1
+fi
+
+if [[ -n "$PR_NUMBER" && ! "$PR_NUMBER" =~ ^[0-9]+$ ]]; then
+    log_error "Invalid PR number: $PR_NUMBER"
+    exit 1
+fi
+
+if [[ ! "$WORKTREE_NAME" =~ ^[a-zA-Z0-9_-]+$ ]]; then
+    log_error "Invalid worktree name: $WORKTREE_NAME"
     log_error "Use only letters, numbers, hyphens, and underscores."
     exit 1
 fi
@@ -146,7 +213,7 @@ log_info "Worktree root: $WORKTREE_ROOT"
 mkdir -p "$WORKTREE_ROOT"
 
 # Define new worktree path
-NEW_WORKTREE="$WORKTREE_ROOT/$BRANCH_NAME"
+NEW_WORKTREE="$WORKTREE_ROOT/$WORKTREE_NAME"
 
 if [[ -d "$NEW_WORKTREE" ]]; then
     log_error "Worktree path already exists: $NEW_WORKTREE"
@@ -347,7 +414,7 @@ fi
 # STEP 6: Ping Docker & MCP Services
 # ============================================================================
 
-log_info "[6/7] Checking Docker & MCP services..."
+log_info "[6/7] Checking Docker & MCP configuration..."
 
 # Check if Docker is running
 DOCKER_RUNNING=false
@@ -356,11 +423,10 @@ if command -v docker &>/dev/null; then
         log_info "  Docker: running"
         DOCKER_RUNNING=true
     else
-        log_error "  Docker: NOT running — MCP containers unavailable"
-        VALIDATION_ERRORS+=("Docker is not running — start Docker first")
+        log_warn "  Docker: NOT running — local container checks skipped"
     fi
 else
-    log_error "  Docker: NOT installed or not in PATH"
+    log_warn "  Docker: NOT installed or not in PATH (OK for remote MCP)"
 fi
 
 if [[ "$DOCKER_RUNNING" == true ]]; then
@@ -382,46 +448,45 @@ if [[ "$DOCKER_RUNNING" == true ]]; then
 
     if [[ $CONTAINER_COUNT -eq 0 ]]; then
         log_warn "  No Docker containers running"
-        echo "  Start with: docker-compose -f docker-compose.hybrid.yml up -d"
+        echo "  Win11 developer MCP should stay local and non-Docker; DGX hosts the orchestration hub"
     fi
 
-    # Ping known MCP endpoints from .mcp.json
+    # Check configured MCP endpoints from .mcp.json
     WORKTREE_MCP="$NEW_WORKTREE/.mcp.json"
     if [[ -f "$WORKTREE_MCP" ]] && command -v curl &>/dev/null; then
         echo ""
         echo -e "  ${CYAN}MCP server connectivity:${NC}"
 
-        # Extract health endpoints and URLs from .mcp.json
-        # Check REST API endpoints (Docker-based MCPs)
-        while IFS= read -r url; do
-            url=$(echo "$url" | tr -d '",' | xargs)
-            if [[ "$url" == http* ]]; then
-                server_name=$(echo "$url" | sed 's|http://localhost:[0-9]*/||')
-                if curl -s --max-time 3 "$url" &>/dev/null; then
-                    echo -e "    ${GREEN}reachable${NC}: $url"
-                else
-                    echo -e "    ${RED}UNREACHABLE${NC}: $url"
-                fi
-            fi
-        done < <(grep -o '"http://[^"]*health[^"]*"' "$WORKTREE_MCP" 2>/dev/null)
-
-        # Check npx-based MCP servers (just report configured)
-        while IFS= read -r server; do
-            server=$(echo "$server" | tr -d '":,' | xargs)
-            if [[ -n "$server" && "$server" != "mcpServers" ]]; then
-                # Check if it has a "command" key (npx-based)
-                echo -e "    ${GREEN}configured${NC}: $server (spawns on session start)"
-            fi
-        done < <(python3 -c "
+        python3 -c "
 import json, sys
 try:
     with open('$WORKTREE_MCP') as f:
         data = json.load(f)
     for name, conf in data.get('mcpServers', {}).items():
-        if 'command' in conf:
-            print(name)
+        url = conf.get('url')
+        command = conf.get('command')
+        if url:
+            if '\${' in url:
+                print(f'ENV|{name}|{url}')
+            else:
+                health = f'{url}/health' if url.endswith('/mcp') else url
+                print(f'URL|{name}|{health}')
+        elif command:
+            print(f'CMD|{name}|{command}')
 except: pass
-" 2>/dev/null)
+" 2>/dev/null | while IFS='|' read -r kind name value; do
+            if [[ "$kind" == "URL" ]]; then
+                if curl -s --max-time 3 "$value" &>/dev/null; then
+                    echo -e "    ${GREEN}$name${NC}: reachable ($value)"
+                else
+                    echo -e "    ${RED}$name${NC}: UNREACHABLE ($value)"
+                fi
+            elif [[ "$kind" == "ENV" ]]; then
+                echo -e "    ${YELLOW}$name${NC}: needs environment variables ($value)"
+            elif [[ "$kind" == "CMD" ]]; then
+                echo -e "    ${GREEN}$name${NC}: configured (local command: $value)"
+            fi
+        done
     fi
 fi
 
@@ -437,6 +502,9 @@ echo -e "${CYAN}  WORKTREE CREATED SUCCESSFULLY${NC}"
 echo -e "${CYAN}----------------------------------------${NC}"
 echo -e "  Path:   $NEW_WORKTREE"
 echo -e "  Branch: $BRANCH_NAME"
+if [[ -n "$PR_NUMBER" ]]; then
+    echo -e "  PR:     #$PR_NUMBER"
+fi
 echo -e "${CYAN}----------------------------------------${NC}"
 echo ""
 

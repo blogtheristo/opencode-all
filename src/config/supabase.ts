@@ -7,7 +7,7 @@
  * in route middleware (authenticateToken, requireRole).
  */
 
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
 
 let _client: SupabaseClient | null = null;

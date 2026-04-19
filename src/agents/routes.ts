@@ -12,7 +12,7 @@
  * All routes are protected by JWT authentication.
  */
 
-import express, { Router, Request, Response } from 'express';
+import express, { type Request, type Response, type Router } from 'express';
 import { body, param, validationResult } from 'express-validator';
 import rateLimit from 'express-rate-limit';
 import logger from '../utils/logger.js';
@@ -28,7 +28,7 @@ const router: Router = express.Router();
 
 const agentRateLimiter = rateLimit({
   windowMs: 60 * 1000, // 1 minute
-  max: 30,             // 30 agent executions per minute per IP
+  max: 30, // 30 agent executions per minute per IP
   message: {
     error: 'Rate limit exceeded',
     message: 'Too many agent requests. Please wait before trying again.',
@@ -45,9 +45,7 @@ const executeValidation = [
     .trim()
     .isLength({ min: 1, max: 50 })
     .withMessage('Agent name is required (max 50 chars)'),
-  body('context')
-    .isObject()
-    .withMessage('context must be an object'),
+  body('context').isObject().withMessage('context must be an object'),
   body('context.projectId')
     .isString()
     .trim()
@@ -58,23 +56,21 @@ const executeValidation = [
     .trim()
     .notEmpty()
     .withMessage('context.sessionId is required'),
-  body('input')
-    .isObject()
-    .withMessage('input must be an object'),
+  body('input').isObject().withMessage('input must be an object'),
 ];
 
 const validateRequest = (req: Request, res: Response, next: express.NextFunction) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     logger.warn('Agent request validation error', {
-      errors: errors.array().map((e) => e.msg),
+      errors: errors.array().map((e: { msg: string }) => e.msg),
     });
     return res.status(400).json({
       error: 'Validation Error',
       details: errors.array(),
     });
   }
-  next();
+  return next();
 };
 
 // ============ ROUTES ============
@@ -87,120 +83,23 @@ router.get('/', authenticateToken, (_req: Request, res: Response) => {
   try {
     const agents = agentRegistry.listAgents();
 
-    res.status(200).json({
+    return res.status(200).json({
       agents,
       count: agents.length,
       timestamp: new Date().toISOString(),
     });
   } catch (err: any) {
     logger.error('Failed to list agents', { error: err.message });
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Internal Server Error',
       message: 'Failed to list agents',
     });
   }
 });
 
-/**
- * GET /api/agents/:name
- * Get details for a specific agent
- */
-router.get('/:name', authenticateToken, (req: Request, res: Response) => {
-  try {
-    const { name } = req.params;
-    const agent = agentRegistry.getAgent(name);
-
-    if (!agent) {
-      const available = agentRegistry.listAgents().map((a) => a.name);
-      return res.status(404).json({
-        error: 'Not Found',
-        message: `Agent "${name}" not found`,
-        availableAgents: available,
-      });
-    }
-
-    res.status(200).json({
-      agent: agent.getConfig(),
-      timestamp: new Date().toISOString(),
-    });
-  } catch (err: any) {
-    logger.error('Failed to get agent details', { error: err.message, agent: req.params.name });
-    res.status(500).json({
-      error: 'Internal Server Error',
-      message: 'Failed to get agent details',
-    });
-  }
-});
-
-/**
- * POST /api/agents/:name/execute
- * Execute an agent with the provided context and input
- *
- * Body:
- * {
- *   "context": { "projectId": "...", "sessionId": "..." },
- *   "input": { ... agent-specific payload ... }
- * }
- *
- * The userId and orgId are injected from the authenticated JWT,
- * not from the request body (prevents spoofing).
- */
-router.post(
-  '/:name/execute',
-  authenticateToken,
-  agentRateLimiter,
-  executeValidation,
-  validateRequest,
-  async (req: Request, res: Response) => {
-    const { name } = req.params;
-    const { context: bodyContext, input } = req.body;
-
-    // Build context with auth-injected user identity
-    const context: AgentContext = {
-      projectId: bodyContext.projectId,
-      userId: req.userId || 'unknown',
-      orgId: req.organizationId || bodyContext.orgId || 'default',
-      sessionId: bodyContext.sessionId,
-    };
-
-    logger.info('Agent execution request', {
-      agent: name,
-      projectId: context.projectId,
-      userId: context.userId,
-    });
-
-    try {
-      const result = await agentRegistry.executeAgent(name, context, input);
-
-      res.status(200).json({
-        success: true,
-        result,
-        timestamp: new Date().toISOString(),
-      });
-    } catch (err: any) {
-      logger.error('Agent execution failed', {
-        agent: name,
-        error: err.message,
-        userId: context.userId,
-      });
-
-      // Distinguish "not found" from execution errors
-      if (err.message.includes('not found')) {
-        return res.status(404).json({
-          error: 'Not Found',
-          message: err.message,
-        });
-      }
-
-      res.status(500).json({
-        error: 'Agent Execution Error',
-        message: err.message || 'An unexpected error occurred during agent execution',
-      });
-    }
-  },
-);
-
 // ============ DWS7: DISCOVERY, WORKFLOWS, EVENTS ============
+// NOTE: These specific routes MUST be defined before the generic /:name route,
+// otherwise Express matches /discover, /workflows, /events as agent names.
 
 /**
  * GET /api/agents/discover/:capability
@@ -255,6 +154,33 @@ router.get('/workflows', authenticateToken, (_req: Request, res: Response) => {
 });
 
 /**
+ * GET /api/agents/events
+ * Get recent events from the event bus (DWS7)
+ * Query params: ?pattern=compliance.*&limit=20
+ */
+router.get('/events', authenticateToken, (req: Request, res: Response) => {
+  try {
+    const pattern = req.query.pattern as string | undefined;
+    const limit = parseInt(req.query.limit as string) || 50;
+
+    const events = eventBus.getRecentEvents(pattern, limit);
+
+    res.status(200).json({
+      events,
+      count: events.length,
+      pattern: pattern || '*',
+      timestamp: new Date().toISOString(),
+    });
+  } catch (err: any) {
+    logger.error('Failed to get events', { error: err.message });
+    res.status(500).json({
+      error: 'Internal Server Error',
+      message: 'Failed to get events',
+    });
+  }
+});
+
+/**
  * POST /api/agents/workflow/:name
  * Trigger a multi-agent workflow (DWS7)
  *
@@ -300,7 +226,7 @@ router.post(
         stepResults[key] = value;
       }
 
-      res.status(200).json({
+      return res.status(200).json({
         success: execution.status === 'completed',
         execution: {
           ...execution,
@@ -315,7 +241,7 @@ router.post(
         userId: context.userId,
       });
 
-      res.status(500).json({
+      return res.status(500).json({
         error: 'Workflow Execution Error',
         message: err.message || 'An unexpected error occurred during workflow execution',
       });
@@ -323,31 +249,234 @@ router.post(
   },
 );
 
+// ============ GENERIC AGENT ROUTES ============
+
 /**
- * GET /api/agents/events
- * Get recent events from the event bus (DWS7)
- * Query params: ?pattern=compliance.*&limit=20
+ * GET /api/agents/:name
+ * Get details for a specific agent
  */
-router.get('/events', authenticateToken, (req: Request, res: Response) => {
+router.get('/:name', authenticateToken, (req: Request, res: Response) => {
   try {
-    const pattern = req.query.pattern as string | undefined;
-    const limit = parseInt(req.query.limit as string) || 50;
+    const { name } = req.params;
+    const agent = agentRegistry.getAgent(name);
 
-    const events = eventBus.getRecentEvents(pattern, limit);
+    if (!agent) {
+      const available = agentRegistry.listAgents().map((a) => a.name);
+      return res.status(404).json({
+        error: 'Not Found',
+        message: `Agent "${name}" not found`,
+        availableAgents: available,
+      });
+    }
 
-    res.status(200).json({
-      events,
-      count: events.length,
-      pattern: pattern || '*',
+    return res.status(200).json({
+      agent: agent.getConfig(),
       timestamp: new Date().toISOString(),
     });
   } catch (err: any) {
-    logger.error('Failed to get events', { error: err.message });
-    res.status(500).json({
+    logger.error('Failed to get agent details', { error: err.message, agent: req.params.name });
+    return res.status(500).json({
       error: 'Internal Server Error',
-      message: 'Failed to get events',
+      message: 'Failed to get agent details',
     });
   }
 });
+
+/**
+ * POST /api/agents/:name/execute
+ * Execute an agent with the provided context and input
+ *
+ * Body:
+ * {
+ *   "context": { "projectId": "...", "sessionId": "..." },
+ *   "input": { ... agent-specific payload ... }
+ * }
+ *
+ * The userId and orgId are injected from the authenticated JWT,
+ * not from the request body (prevents spoofing).
+ */
+router.post(
+  '/:name/execute',
+  authenticateToken,
+  agentRateLimiter,
+  executeValidation,
+  validateRequest,
+  async (req: Request, res: Response) => {
+    const { name } = req.params;
+    const { context: bodyContext, input } = req.body;
+
+    // Build context with auth-injected user identity
+    const context: AgentContext = {
+      projectId: bodyContext.projectId,
+      userId: req.userId || 'unknown',
+      orgId: req.organizationId || bodyContext.orgId || 'default',
+      sessionId: bodyContext.sessionId,
+    };
+
+    logger.info('Agent execution request', {
+      agent: name,
+      projectId: context.projectId,
+      userId: context.userId,
+    });
+
+    try {
+      const result = await agentRegistry.executeAgent(name, context, input);
+
+      return res.status(200).json({
+        success: true,
+        result,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      logger.error('Agent execution failed', {
+        agent: name,
+        error: err.message,
+        userId: context.userId,
+      });
+
+      // Distinguish "not found" from execution errors
+      if (err.message.includes('not found')) {
+        return res.status(404).json({
+          error: 'Not Found',
+          message: err.message,
+        });
+      }
+
+      return res.status(500).json({
+        error: 'Agent Execution Error',
+        message: err.message || 'An unexpected error occurred during agent execution',
+      });
+    }
+  },
+);
+
+// ============ DASHBOARD COMPATIBILITY: /run alias ============
+
+/**
+ * POST /api/agents/:name/run
+ * Alias for /execute — the V10 dashboard calls /run instead of /execute.
+ * Accepts a simplified body: { input: { ... } }
+ * Automatically generates context from auth token.
+ */
+router.post(
+  '/:name/run',
+  authenticateToken,
+  agentRateLimiter,
+  async (req: Request, res: Response) => {
+    const { name } = req.params;
+    const { input = {} } = req.body;
+
+    // Build context from auth token — dashboard doesn't send full context
+    const context: AgentContext = {
+      projectId: req.body.context?.projectId || `dashboard-${Date.now()}`,
+      userId: req.userId || 'unknown',
+      orgId: req.organizationId || req.body.context?.orgId || 'default',
+      sessionId: req.body.context?.sessionId || `run-${Date.now()}`,
+    };
+
+    logger.info('Agent run request (dashboard)', {
+      agent: name,
+      userId: context.userId,
+    });
+
+    try {
+      const startTime = Date.now();
+      const result = await agentRegistry.executeAgent(name, context, input);
+
+      return res.status(200).json({
+        success: true,
+        agentName: result.agentName,
+        status: 'success',
+        confidence: result.confidence,
+        reasoning: result.reasoning,
+        recommendations: result.recommendations,
+        result: result.result,
+        durationMs: Date.now() - startTime,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      if (err.message.includes('not found')) {
+        return res.status(404).json({
+          error: 'Not Found',
+          message: err.message,
+        });
+      }
+
+      return res.status(500).json({
+        error: 'Agent Execution Error',
+        message: err.message || 'An unexpected error occurred during agent execution',
+      });
+    }
+  },
+);
+
+// ============ AGENT CHAT ENDPOINT ============
+
+/**
+ * POST /api/agents/:name/chat
+ * Conversational interface for agents — used by AgentChat component.
+ * Accepts: { message: string, conversationHistory?: Array }
+ * Returns: { reply: string, confidence: number, agentName: string }
+ */
+router.post(
+  '/:name/chat',
+  authenticateToken,
+  agentRateLimiter,
+  async (req: Request, res: Response) => {
+    const { name } = req.params;
+    const { message, conversationHistory = [] } = req.body;
+
+    if (!message || typeof message !== 'string') {
+      return res.status(400).json({
+        error: 'Validation Error',
+        message: 'message field is required and must be a string',
+      });
+    }
+
+    const context: AgentContext = {
+      projectId: `chat-${Date.now()}`,
+      userId: req.userId || 'unknown',
+      orgId: req.organizationId || 'default',
+      sessionId: req.body.sessionId || `chat-${Date.now()}`,
+    };
+
+    logger.info('Agent chat request', {
+      agent: name,
+      userId: context.userId,
+      messageLength: message.length,
+    });
+
+    try {
+      const startTime = Date.now();
+      const result = await agentRegistry.executeAgent(name, context, {
+        message,
+        conversationHistory,
+        mode: 'chat',
+      });
+
+      return res.status(200).json({
+        reply: result.reasoning || 'Analysis complete. See result for details.',
+        confidence: result.confidence,
+        agentName: result.agentName,
+        result: result.result,
+        recommendations: result.recommendations,
+        durationMs: Date.now() - startTime,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      if (err.message.includes('not found')) {
+        return res.status(404).json({
+          error: 'Not Found',
+          message: err.message,
+        });
+      }
+
+      return res.status(500).json({
+        error: 'Agent Chat Error',
+        message: err.message || 'An unexpected error occurred',
+      });
+    }
+  },
+);
 
 export default router;

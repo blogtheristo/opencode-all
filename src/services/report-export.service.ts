@@ -12,7 +12,7 @@
 
 import logger from '../utils/logger.js';
 import { getSupabaseClient } from '../config/supabase.js';
-import { scoreCompliance, type ComplianceScoringInput } from '../compliance/scoring-engine.js';
+import { type ComplianceScoringInput, scoreCompliance } from '../compliance/scoring-engine.js';
 import { generateReport } from '../compliance/report-generator.js';
 
 export interface ExportRequest {

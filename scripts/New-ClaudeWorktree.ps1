@@ -14,6 +14,11 @@
 .PARAMETER BranchName
     Name of the branch to create/checkout. Also used as the worktree folder name.
 
+.PARAMETER PrNumber
+    Pull request number used to derive naming:
+    - Branch defaults to: claude/pr-<number>
+    - Worktree folder defaults to: pr-<number>
+
 .PARAMETER BaseBranch
     Branch to base the new branch on (default: main).
 
@@ -35,6 +40,9 @@
     .\New-ClaudeWorktree.ps1 -BranchName "feature-auth-improvements"
 
 .EXAMPLE
+    .\New-ClaudeWorktree.ps1 -PrNumber 769 -BaseBranch "main" -LaunchClaude
+
+.EXAMPLE
     .\New-ClaudeWorktree.ps1 -BranchName "fix-api-bug" -BaseBranch "develop" -LaunchClaude
 
 .NOTES
@@ -44,15 +52,22 @@
     - https://www.geeky-gadgets.com/how-to-use-git-worktrees-with-claude-code-for-seamless-multitasking/
 #>
 param(
-    [Parameter(Mandatory = $true)]
-    [ValidatePattern('^[a-zA-Z0-9_-]+$')]
+    [Parameter(Mandatory = $false)]
+    [ValidatePattern('^[a-zA-Z0-9_./-]+$')]
     [string]$BranchName,
+
+    [Parameter(Mandatory = $false)]
+    [ValidateRange(1, 2147483647)]
+    [int]$PrNumber,
 
     [string]$BaseBranch = "main",
 
     [string]$WorktreeRoot,
 
     [string]$MainRepo,
+
+    [ValidatePattern('^[a-zA-Z0-9_-]+$')]
+    [string]$WorktreeName,
 
     [switch]$NoVenvSymlink,
 
@@ -139,6 +154,26 @@ Write-Host "`n========================================" -ForegroundColor Cyan
 Write-Host "  DWS6 Claude Worktree Creator" -ForegroundColor Cyan
 Write-Host "========================================`n" -ForegroundColor Cyan
 
+# Derive naming from PR number when provided
+if (-not $BranchName) {
+    if ($PrNumber -gt 0) {
+        $BranchName = "claude/pr-$PrNumber"
+    }
+    else {
+        Write-Error "Specify -BranchName or -PrNumber."
+        exit 1
+    }
+}
+
+if (-not $WorktreeName) {
+    if ($PrNumber -gt 0) {
+        $WorktreeName = "pr-$PrNumber"
+    }
+    else {
+        $WorktreeName = ($BranchName -replace '[^a-zA-Z0-9_-]', '-').Trim('-')
+    }
+}
+
 # Resolve main repository path
 if (-not $MainRepo) {
     $MainRepo = Get-MainRepoPath
@@ -167,7 +202,7 @@ if (-not (Test-Path -Path $WorktreeRoot)) {
 }
 
 # Define new worktree path
-$newWorktreePath = "$WorktreeRoot/$BranchName"
+$newWorktreePath = "$WorktreeRoot/$WorktreeName"
 
 if (Test-Path -Path $newWorktreePath) {
     Write-Error "Worktree path already exists: $newWorktreePath"
@@ -438,7 +473,7 @@ else {
 # STEP 6: Ping Docker & MCP Services
 # ============================================================================
 
-Write-Host "`n[6/7] Checking Docker & MCP services..." -ForegroundColor Green
+Write-Host "`n[6/7] Checking Docker & MCP configuration..." -ForegroundColor Green
 
 # Check if Docker is running
 $dockerRunning = $false
@@ -449,12 +484,11 @@ try {
         $dockerRunning = $true
     }
     else {
-        Write-Host "  Docker: NOT running — MCP containers unavailable" -ForegroundColor Red
-        $validationErrors += "Docker is not running — start Docker Desktop first"
+        Write-Host "  Docker: NOT running — local container checks skipped" -ForegroundColor Yellow
     }
 }
 catch {
-    Write-Host "  Docker: NOT installed or not in PATH" -ForegroundColor Red
+    Write-Host "  Docker: NOT installed or not in PATH (OK for remote MCP)" -ForegroundColor Yellow
 }
 
 if ($dockerRunning) {
@@ -488,58 +522,33 @@ if ($dockerRunning) {
     }
     else {
         Write-Host "  No Docker containers running" -ForegroundColor Yellow
-        Write-Host "  Start with: docker-compose -f docker-compose.hybrid.yml up -d" -ForegroundColor DarkGray
+        Write-Host "  Win11 developer MCP should stay local and non-Docker; DGX hosts the orchestration hub" -ForegroundColor DarkGray
     }
 
-    # Ping known MCP endpoints from .mcp.json
+    # Check configured MCP endpoints from .mcp.json
     if (Test-Path -Path $worktreeMcpJson) {
         $mcpContent = Get-Content -Path $worktreeMcpJson -Raw | ConvertFrom-Json -ErrorAction SilentlyContinue
         if ($mcpContent -and $mcpContent.mcpServers) {
             Write-Host "`n  MCP server connectivity:" -ForegroundColor Cyan
             foreach ($serverName in $mcpContent.mcpServers.PSObject.Properties.Name) {
                 $server = $mcpContent.mcpServers.$serverName
-
-                # Check for Docker-based REST API endpoints
-                $endpoints = $server.'_endpoints'
-                if ($endpoints) {
-                    $healthUrl = $endpoints.'health'
-                    if ($healthUrl) {
+                if ($server.url) {
+                    if ($server.url -match '\$\{.+\}') {
+                        Write-Host "    $serverName : needs environment variables ($($server.url))" -ForegroundColor Yellow
+                    }
+                    else {
                         try {
+                            $healthUrl = if ($server.url.EndsWith('/mcp')) { "$($server.url)/health" } else { $server.url }
                             $response = Invoke-WebRequest -Uri $healthUrl -TimeoutSec 3 -ErrorAction Stop
                             Write-Host "    $serverName : reachable ($healthUrl)" -ForegroundColor Green
                         }
                         catch {
-                            Write-Host "    $serverName : UNREACHABLE ($healthUrl)" -ForegroundColor Red
-                        }
-                    }
-                    else {
-                        # Try first endpoint as health check
-                        $firstEndpoint = ($endpoints.PSObject.Properties | Select-Object -First 1).Value
-                        if ($firstEndpoint -match 'http') {
-                            $baseUrl = $firstEndpoint -replace '/tools/.*', '/health'
-                            try {
-                                $response = Invoke-WebRequest -Uri $baseUrl -TimeoutSec 3 -ErrorAction Stop
-                                Write-Host "    $serverName : reachable ($baseUrl)" -ForegroundColor Green
-                            }
-                            catch {
-                                Write-Host "    $serverName : no health endpoint ($serverName)" -ForegroundColor Yellow
-                            }
+                            Write-Host "    $serverName : UNREACHABLE ($($server.url))" -ForegroundColor Red
                         }
                     }
                 }
-                # Check for npx-based MCP servers (just report config)
                 elseif ($server.command) {
-                    Write-Host "    $serverName : configured (spawns via $($server.command))" -ForegroundColor Green
-                }
-                # Check for URL-based MCP servers (SSE/HTTP)
-                elseif ($server.url) {
-                    try {
-                        $response = Invoke-WebRequest -Uri $server.url -TimeoutSec 3 -ErrorAction Stop
-                        Write-Host "    $serverName : reachable ($($server.url))" -ForegroundColor Green
-                    }
-                    catch {
-                        Write-Host "    $serverName : UNREACHABLE ($($server.url))" -ForegroundColor Red
-                    }
+                    Write-Host "    $serverName : configured (local command: $($server.command))" -ForegroundColor Green
                 }
             }
         }
@@ -557,6 +566,9 @@ Write-Host "  WORKTREE CREATED SUCCESSFULLY" -ForegroundColor Cyan
 Write-Host "----------------------------------------" -ForegroundColor Cyan
 Write-Host "  Path:   $newWorktreePath" -ForegroundColor White
 Write-Host "  Branch: $BranchName" -ForegroundColor White
+if ($PrNumber -gt 0) {
+    Write-Host "  PR:     #$PrNumber" -ForegroundColor White
+}
 Write-Host "----------------------------------------`n" -ForegroundColor Cyan
 
 # List all worktrees

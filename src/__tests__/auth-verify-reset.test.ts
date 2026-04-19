@@ -7,7 +7,7 @@
  * - Security behaviors (expired tokens, single-use, enumeration prevention)
  */
 
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 // AuthService is a singleton — we need to mock JWT_SECRET before import
 process.env.JWT_SECRET = 'test-secret-that-is-at-least-32-characters-long-for-security';
@@ -20,11 +20,10 @@ describe('Email Verification', () => {
   beforeEach(async () => {
     // Register a fresh user for each test
     try {
-      await AuthService.registerUser(
-        `verify-${Date.now()}@example.com`,
-        'TestPassword123!',
-        { firstName: 'Test', lastName: 'User' },
-      );
+      await AuthService.registerUser(`verify-${Date.now()}@example.com`, 'TestPassword123!', {
+        firstName: 'Test',
+        lastName: 'User',
+      });
     } catch {
       // Ignore if already exists
     }
@@ -62,15 +61,15 @@ describe('Email Verification', () => {
     expect(second).toBeNull();
   });
 
-  it('markEmailVerified returns false for non-existent user', () => {
-    const result = AuthService.markEmailVerified('nonexistent@example.com');
+  it('markEmailVerified returns false for non-existent user', async () => {
+    const result = await AuthService.markEmailVerified('nonexistent@example.com');
     expect(result).toBe(false);
   });
 
   it('markEmailVerified returns true for registered user', async () => {
     const email = `mark-verified-${Date.now()}@example.com`;
     await AuthService.registerUser(email, 'TestPassword123!');
-    const result = AuthService.markEmailVerified(email);
+    const result = await AuthService.markEmailVerified(email);
     expect(result).toBe(true);
   });
 });
@@ -103,9 +102,9 @@ describe('Password Reset', () => {
     expect(success).toBe(true);
 
     // Old password should no longer work
-    await expect(
-      AuthService.authenticate({ email, password: oldPassword }),
-    ).rejects.toThrow('Invalid credentials');
+    await expect(AuthService.authenticate({ email, password: oldPassword })).rejects.toThrow(
+      'Invalid credentials',
+    );
 
     // New password should work
     const auth = await AuthService.authenticate({ email, password: newPassword });

@@ -19,8 +19,8 @@
  */
 
 import Anthropic from '@anthropic-ai/sdk';
-import { execSync } from 'node:child_process';
-import { readFileSync, writeFileSync, mkdirSync, existsSync, copyFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, copyFileSync, readdirSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import dotenv from 'dotenv';
 
@@ -79,11 +79,18 @@ function padDay(day: number): string {
 function mineGitCommits(keywords: string, limit = 15): string {
   if (process.env.SKIP_GIT_MINE === 'true') return '(git mining skipped)';
   try {
-    const result = execSync(
-      `git log --oneline --all --since="2024-01-01" | grep -iE "${keywords}" | head -${limit}`,
-      { encoding: 'utf-8', timeout: 10000 }
-    ).trim();
-    return result || '(no matching commits found)';
+    const log = execFileSync('git', ['log', '--oneline', '--all', '--since=2024-01-01'], {
+      encoding: 'utf-8',
+      timeout: 10000,
+    });
+    const keywordRegex = new RegExp(keywords, 'i');
+    const matches = log
+      .split('\n')
+      .map(line => line.trim())
+      .filter(Boolean)
+      .filter(line => keywordRegex.test(line))
+      .slice(0, limit);
+    return matches.join('\n') || '(no matching commits found)';
   } catch {
     return '(git mining unavailable)';
   }
@@ -92,11 +99,18 @@ function mineGitCommits(keywords: string, limit = 15): string {
 function minePRs(keywords: string, limit = 10): string {
   if (process.env.SKIP_GIT_MINE === 'true') return '(PR mining skipped)';
   try {
-    const result = execSync(
-      `git log --merges --oneline --all --since="2024-01-01" | grep -iE "${keywords}" | head -${limit}`,
-      { encoding: 'utf-8', timeout: 10000 }
-    ).trim();
-    return result || '(no matching PRs found)';
+    const log = execFileSync('git', ['log', '--merges', '--oneline', '--all', '--since=2024-01-01'], {
+      encoding: 'utf-8',
+      timeout: 10000,
+    });
+    const keywordRegex = new RegExp(keywords, 'i');
+    const matches = log
+      .split('\n')
+      .map(line => line.trim())
+      .filter(Boolean)
+      .filter(line => keywordRegex.test(line))
+      .slice(0, limit);
+    return matches.join('\n') || '(no matching PRs found)';
   } catch {
     return '(PR mining unavailable)';
   }
@@ -106,7 +120,9 @@ function listExistingPosts(lang: 'en' | 'fi'): string[] {
   const dir = resolve(process.cwd(), `onelifetime.world/posts/${lang}`);
   if (!existsSync(dir)) return [];
   try {
-    return execSync(`ls "${dir}"`, { encoding: 'utf-8' }).trim().split('\n').filter(Boolean);
+    return readdirSync(dir, { withFileTypes: true })
+      .filter(entry => entry.isFile())
+      .map(entry => entry.name);
   } catch {
     return [];
   }
