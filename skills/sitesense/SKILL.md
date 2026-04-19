@@ -74,10 +74,14 @@ Score bands: 90–100 EXCELLENT | 70–89 GOOD | 50–69 FAIR | 30–49 POOR | 0
 ```json
 {
   "safetyScore": 0-100,
-  "weatherRiskLevel": "low|medium|high|critical",
-  "craneOperationStatus": "safe|caution|stop",
-  "recommendations": ["string"],
-  "alerts": ["string"]
+  "weatherRisk": {
+    "level": "low|medium|high|critical",
+    "factors": ["string"]
+  },
+  "workerCapacity": 0-100,
+  "incidentRate": number,
+  "conditions": ["string"],
+  "recommendations": ["string"]
 }
 ```
 
