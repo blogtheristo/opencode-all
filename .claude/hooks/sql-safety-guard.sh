@@ -1,4 +1,4 @@
- #!/bin/sh
+#!/usr/bin/env bash
 # DWS6 Claude Code Hook: SQL Safety Guard
 # Enforces SQL safety rules on Bash commands containing SQL
 # Upgraded: Supabase patterns + Aiwen Article 12 immutability
@@ -15,7 +15,7 @@
 # Requires: jq or Python (fallback parser)
 # See: CLAUDE.md "Safety Rules for SQL"
 
-set -e
+set -euo pipefail
 
 HOOK_DIR="$(cd "$(dirname "$0")" && pwd)"
 AUDIT_LOG="${HOOK_DIR}/audit.log"
