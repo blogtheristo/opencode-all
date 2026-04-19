@@ -18,11 +18,13 @@
       "Bash(gh run:*)",
       "Read($CLAUDE_PROJECT_DIR/**)",
       "Bash(gh pr:*)",
-      "mcp__bfd36074-df5a-47c5-87dd-eff8a6436aaa__list_recent_files"
+      "WebSearch"
     ]
   },
   "enabledMcpjsonServers": [
-    "dws-gateway-local"
+    "Supabase MCP",
+    "Upstash Redis",
+    "MCP Hub"
   ],
   "hooks": {
     "SessionStart": [
@@ -31,7 +33,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/session-start.sh\""
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-start.sh"
           }
         ]
       }
@@ -42,19 +44,19 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/pretooluse-guard.sh\""
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/pretooluse-guard.sh"
           },
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/secret-scan.sh\""
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/secret-scan.sh"
           },
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/log-commands.sh\""
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/log-commands.sh"
           },
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/sql-safety-guard.sh\""
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/sql-safety-guard.sh"
           }
         ]
       },
@@ -63,11 +65,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/protect-files.sh\""
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/protect-files.sh"
           },
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/secret-scan.sh\""
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/secret-scan.sh"
           }
         ]
       }
@@ -78,11 +80,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -lc \"file_path=\\$(jq -r '.tool_input.file_path // empty'); [ -n \\\"\\$file_path\\\" ] || exit 0; npx prettier --write -- \\\"\\$file_path\\\" 2>/dev/null || true; exit 0\""
+            "command": "jq -r '.tool_input.file_path' | xargs npx prettier --write 2>/dev/null; exit 0"
           },
           {
             "type": "command",
-            "command": "bash -lc \"file_path=\\$(jq -r '.tool_input.file_path // empty'); [ -n \\\"\\$file_path\\\" ] || exit 0; npx eslint --fix -- \\\"\\$file_path\\\" 2>&1 | tail -10; exit 0\""
+            "command": "npx eslint --fix $(jq -r '.tool_input.file_path') 2>&1 | tail -10; exit 0"
           }
         ]
       }
@@ -93,15 +95,12 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/session-stop.sh\""
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-stop.sh"
           }
         ]
       }
     ]
-  },
-  "disabledMcpjsonServers": [
-    "dws-agents-local"
-  ]
+  }
 }
 =======
 {
