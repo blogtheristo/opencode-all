@@ -1,7 +1,6 @@
 # Risto Anton Päärni
 
-Syntymävuosi: 1966 | Espoo, Finland
-+358 400 319010 | risto.paarni@lifetime.fi | linkedin.com/in/ristopaarni
+Espoo, Finland | Yhteystiedot saatavilla pyynnöstä
 
 ---
 
