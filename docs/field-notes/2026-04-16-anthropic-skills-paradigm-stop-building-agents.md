@@ -87,18 +87,20 @@ skills/
 
 ---
 
-## DWS6 Current State vs. Anthropic Model
+## DWS6 Current State vs. Anthropic Model (Pre-PR Baseline)
+
+**Note:** The table below captures the repository state before the skills introduced in this PR. It is included as a baseline gap analysis, not as a claim about the post-change repository contents.
 
 | Component               | Anthropic Model                     | DWS6 Current State                                                          | Gap                        |
 | ----------------------- | ----------------------------------- | --------------------------------------------------------------------------- | -------------------------- |
 | Slash commands          | `.claude/commands/*.md`             | 18 commands ✅                                                              | None — fully aligned       |
 | Discipline gates        | `skills/*/SKILL.md`                 | 4 skills (design-first, dual-folder-sync, verification-gate, last30days) ✅ | None                       |
-| Agent skills            | `skills/<agent>/SKILL.md` per agent | **0 agent SKILL.md files** ❌                                               | 16+ agents missing Skills  |
+| Agent skills            | `skills/<agent>/SKILL.md` per agent | **0 agent SKILL.md files (pre-PR baseline)** ❌                            | 16+ agents missing Skills  |
 | Progressive disclosure  | Name → SKILL.md → references        | Partial (commands have descriptions)                                        | No reference file layer    |
-| Firehorse report skills | Skills per report type              | **0 report SKILL.md files** ❌                                              | 4 report types need Skills |
+| Firehorse report skills | Skills per report type              | **0 report SKILL.md files (pre-PR baseline)** ❌                           | 4 report types need Skills |
 | Marketing               | "Skills-powered" framing            | "GodAgents / agentic loops"                                                 | Positioning gap            |
 
-**Conclusion:** DWS6 has the infrastructure (skills/ directory, .claude/commands/) but has not applied the pattern to its 16+ platform agents. The gap is execution, not architecture.
+**Conclusion:** This baseline shows that DWS6 had the infrastructure (skills/ directory, .claude/commands/) but had not yet broadly applied the pattern to its 16+ platform agents. This PR begins closing that execution gap by adding agent/report skills, while the broader architectural direction remains the same.
 
 ---
 
