@@ -22,9 +22,14 @@ import { outreachScheduler } from './outreach/index.js';
 import { morningBriefingScheduler } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
 
-const envPath = path.join(path.dirname(fileURLToPath(import.meta.url)), '../../.env');
-console.log('Loading .env from:', envPath);
-dotenv.config({ path: envPath });
+if (process.env.NODE_ENV !== 'production') {
+  // In non-production environments, load .env from the repository root for local development
+  const envPath = path.join(path.dirname(fileURLToPath(import.meta.url)), '../../.env');
+  dotenv.config({ path: envPath });
+} else {
+  // In production, rely on runtime environment variables and default dotenv behavior (if any)
+  dotenv.config();
+}
 
 const app: Express = express();
 const PORT = process.env.PORT || 8080; // Cloud Run default
