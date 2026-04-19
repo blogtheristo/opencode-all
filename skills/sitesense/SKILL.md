@@ -28,14 +28,15 @@ allowed-tools: [Bash, WebSearch, WebFetch]
 
 ### Temperature thresholds (°C)
 
-| Range    | Status                           |
-| -------- | -------------------------------- |
-| < -15    | CRITICAL — Stop work             |
-| -15 to 0 | WARNING — Cold weather protocols |
-| 0 to 10  | CAUTION — Monitor workers        |
-| 10 to 30 | OPTIMAL                          |
-| 30 to 35 | CAUTION — Heat stress risk       |
-| > 40     | CRITICAL — Stop work             |
+| Range     | Status                                |
+| --------- | ------------------------------------- |
+| < -15     | CRITICAL — Stop work                  |
+| -15 to 0  | WARNING — Cold weather protocols      |
+| 0 to 10   | CAUTION — Monitor workers             |
+| 10 to 30  | OPTIMAL                               |
+| 30 to 35  | CAUTION — Heat stress risk            |
+| 35 to 40  | WARNING — High heat stress risk       |
+| ≥ 40      | CRITICAL — Stop work                  |
 
 ### Wind speed thresholds (m/s) — EN 13001
 
