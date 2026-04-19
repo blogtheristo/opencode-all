@@ -67,7 +67,7 @@ For **Win11 developer MCP**:
 
 - `SUPABASE_URL`
 - `SUPABASE_SERVICE_KEY`
-- `GITHUB_TOKEN`
+- `GITHUB_TOKEN` (optional, only needed for GitHub tool calls from local gateway)
 
 For **DGX hub**:
 
@@ -114,8 +114,7 @@ These are the MCP servers we recommend enabling by default on Win11.
       ],
       "env": {
         "SUPABASE_URL": "${SUPABASE_URL}",
-        "SUPABASE_SERVICE_KEY": "${SUPABASE_SERVICE_KEY}",
-        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+        "SUPABASE_SERVICE_KEY": "${SUPABASE_SERVICE_KEY}"
       }
     }
   }

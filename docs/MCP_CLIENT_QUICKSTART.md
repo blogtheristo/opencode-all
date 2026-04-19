@@ -50,8 +50,7 @@ For Win11 developer work, use local MCP entries:
       ],
       "env": {
         "SUPABASE_URL": "${SUPABASE_URL}",
-        "SUPABASE_SERVICE_KEY": "${SUPABASE_SERVICE_KEY}",
-        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+        "SUPABASE_SERVICE_KEY": "${SUPABASE_SERVICE_KEY}"
       }
     }
   }
@@ -83,7 +82,7 @@ If you need remote/mobile access instead, use hosted URLs in your editor's MCP s
 
 - `SUPABASE_URL`
 - `SUPABASE_SERVICE_KEY`
-- `GITHUB_TOKEN`
+- `GITHUB_TOKEN` (optional, only needed for GitHub tool calls from local gateway)
 
 #### DGX hub
 
