@@ -1,6 +1,6 @@
 # International AI Safety Report 2026 — DWS Field Note
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.3

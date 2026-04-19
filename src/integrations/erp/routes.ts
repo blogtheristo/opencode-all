@@ -410,6 +410,125 @@ router.get(
 );
 
 // ============================================================================
+// Company → ERP Resolution
+// ============================================================================
+
+/**
+ * GET /api/v1/erp/resolve/:companyName
+ * Resolve a single company name to its ERP provider
+ */
+router.get(
+  '/resolve/:companyName',
+  [param('companyName').notEmpty()],
+  validateRequest,
+  async (req: Request, res: Response) => {
+    try {
+      const { companyName } = req.params;
+      const result = erpService.resolveCompanyERP(decodeURIComponent(companyName));
+
+      res.json({
+        success: true,
+        data: result
+      });
+    } catch (error: any) {
+      res.status(500).json({
+        success: false,
+        error: error.message
+      });
+    }
+  }
+);
+
+/**
+ * POST /api/v1/erp/resolve/batch
+ * Batch-resolve multiple company names to ERP providers
+ */
+router.post(
+  '/resolve/batch',
+  [body('companies').isArray({ min: 1, max: 100 })],
+  validateRequest,
+  async (req: Request, res: Response) => {
+    try {
+      const { companies } = req.body;
+      const results = erpService.resolveCompanyERPBatch(companies);
+
+      res.json({
+        success: true,
+        data: {
+          results,
+          summary: {
+            total: results.length,
+            found: results.filter((r: any) => r.found).length,
+            notFound: results.filter((r: any) => !r.found).length,
+          }
+        }
+      });
+    } catch (error: any) {
+      res.status(500).json({
+        success: false,
+        error: error.message
+      });
+    }
+  }
+);
+
+/**
+ * GET /api/v1/erp/registry
+ * List all registered companies in the ERP registry
+ */
+router.get(
+  '/registry',
+  async (_req: Request, res: Response) => {
+    try {
+      const companies = erpService.getAllRegisteredCompanies();
+
+      res.json({
+        success: true,
+        data: {
+          companies,
+          totalRegistered: companies.length,
+        }
+      });
+    } catch (error: any) {
+      res.status(500).json({
+        success: false,
+        error: error.message
+      });
+    }
+  }
+);
+
+/**
+ * GET /api/v1/erp/registry/:provider
+ * List companies by ERP provider
+ */
+router.get(
+  '/registry/:provider',
+  [param('provider').isIn(Object.values(ERPProvider))],
+  validateRequest,
+  async (req: Request, res: Response) => {
+    try {
+      const { provider } = req.params;
+      const companies = erpService.getCompaniesByProvider(provider as ERPProvider);
+
+      res.json({
+        success: true,
+        data: {
+          provider,
+          companies,
+          count: companies.length,
+        }
+      });
+    } catch (error: any) {
+      res.status(500).json({
+        success: false,
+        error: error.message
+      });
+    }
+  }
+);
+
+// ============================================================================
 // Sync History & Status
 // ============================================================================
 

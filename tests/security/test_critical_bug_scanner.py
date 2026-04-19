@@ -26,20 +26,24 @@ class TestCriticalBugScanner:
         findings = scanner.scan_directory()
 
         # Check that scanner file was not scanned
-        scanner_paths = [f["file"] for f in findings if "scan_critical_bugs.py" in f["file"]]
+        scanner_paths = [
+            f["file"] for f in findings if "scan_critical_bugs.py" in f["file"]
+        ]
         assert len(scanner_paths) == 0, "Scanner should exclude itself from scans"
 
     def test_scanner_detects_command_injection(self, tmp_path):
         """Test that scanner detects command injection vulnerabilities"""
         # Create a file with command injection vulnerability
+        # Split command tokens to avoid scanner self-detection regressions (#520, #547).
         vuln_file = tmp_path / "vulnerable.js"
-        vuln_file.write_text("""
-const { execSync } = require('child_process');
-
-function processFile(filename) {
-    execSync(`git add ${filename}`);
-}
-""")
+        exec_fn = "exec" + "Sync"
+        cmd_injection_pattern = f"{exec_fn}(`git add $" + "{filename}`);"
+        vuln_file.write_text(
+            f"const {{ {exec_fn} }} = require('child_process');\n\n"
+            "function processFile(filename) {\n"
+            f"    {cmd_injection_pattern}\n"
+            "}\n"
+        )
 
         scanner = CriticalBugScanner(tmp_path)
         findings = scanner.scan_file(vuln_file)
@@ -52,12 +56,19 @@ function processFile(filename) {
 
     def test_scanner_detects_sql_injection(self, tmp_path):
         """Test that scanner detects SQL injection vulnerabilities"""
+        # Note: Pattern is constructed via concatenation to avoid scanner false-positives on this file
         vuln_file = tmp_path / "vulnerable.js"
-        vuln_file.write_text("""
-function getUserData(userId) {
-    return db.query(`SELECT * FROM users WHERE id = ${userId}`);
-}
-""")
+        sql_keyword = "SEL" + "ECT"
+        sql_injection_pattern = (
+            "return db.query(`"
+            + f"{sql_keyword} * FROM users WHERE id = $"
+            + "{userId}`);"
+        )  # noqa: S608
+        vuln_file.write_text(
+            "function getUserData(userId) {\n"
+            f"    {sql_injection_pattern}\n"
+            "}\n"
+        )
 
         scanner = CriticalBugScanner(tmp_path)
         findings = scanner.scan_file(vuln_file)
@@ -90,12 +101,15 @@ function processFile(filename) {
         # Create files with different severity issues
         # Note: Test patterns are constructed to avoid triggering scanners on this test file
         critical_file = tmp_path / "critical.js"
-        critical_cmd = "execSync(`rm -rf $" + "{path}`);"
+        exec_fn = "exec" + "Sync"
+        critical_cmd = f"{exec_fn}(`rm -rf $" + "{path}`);"
         critical_file.write_text(critical_cmd)
 
         high_file = tmp_path / "high.js"
-        # Construct path traversal test pattern to avoid scanner false positives on test file
-        path_traversal_pattern = "fs.readFile(userPath " + "+ filename);"
+        # Split readFile and path concat tokens to avoid scanner false positives (#522).
+        read_fn = "read" + "File"
+        path_concat = "userPath " + "+" + " filename"
+        path_traversal_pattern = f"fs.{read_fn}({path_concat});"
         high_file.write_text(path_traversal_pattern)
 
         scanner = CriticalBugScanner(tmp_path)
@@ -111,7 +125,8 @@ function processFile(filename) {
         """Test that scanner generates reports correctly"""
         vuln_file = tmp_path / "vuln.js"
         # Construct test pattern to avoid scanner false positives on test file
-        cmd_injection_pattern = "execSync(`rm $" + "{file}`);"
+        exec_fn = "exec" + "Sync"
+        cmd_injection_pattern = f"{exec_fn}(`rm $" + "{file}`);"
         vuln_file.write_text(cmd_injection_pattern)
 
         scanner = CriticalBugScanner(tmp_path)

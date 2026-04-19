@@ -7,18 +7,18 @@ Loads environment variables and defines subscription plan configurations.
 import os
 from dataclasses import dataclass
 from decimal import Decimal
-from enum import Enum
+from enum import StrEnum
 from functools import lru_cache
 
 
-class PaymentProvider(str, Enum):
+class PaymentProvider(StrEnum):
     """Supported payment providers"""
 
     REVOLUT = "revolut"
     PAYPAL = "paypal"
 
 
-class PlanTier(str, Enum):
+class PlanTier(StrEnum):
     """Subscription plan tiers"""
 
     FREE = "free"

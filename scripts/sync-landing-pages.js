@@ -30,11 +30,17 @@ const hasIndexFile = async (dirPath) => {
   }
 };
 
+// Rule 9: Never publish .md files to public deployment paths
+const EXCLUDED_EXTENSIONS = ['.md'];
+
 const sync = async () => {
   const entries = await readdir(canonicalRoot);
   const folders = [];
 
   for (const entry of entries) {
+    // Exclude .md files from sync — Rule 9: no markdown in public paths
+    if (EXCLUDED_EXTENSIONS.some(ext => entry.endsWith(ext))) continue;
+
     const entryPath = path.join(canonicalRoot, entry);
     if (await isDirectory(entryPath) && (await hasIndexFile(entryPath))) {
       folders.push(entry);

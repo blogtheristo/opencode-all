@@ -8,8 +8,11 @@ export * from './types';
 export * from './base-connector';
 export * from './monitor-connector';
 export * from './service';
+export * from './company-registry';
 export * from './scheduler';
 export * from './approval-gate';
+export * from './company-erp-registry';
+export * from './company-erp-resolver';
 
 export { default as erpRoutes } from './routes';
 

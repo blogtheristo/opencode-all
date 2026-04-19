@@ -355,7 +355,7 @@ class EmailQueueService {
         subject: msg.subject,
         html: msg.html,
         templateType: msg.templateType,
-        metadata: JSON.parse(msg.metadata || '{}'),
+        metadata: (() => { try { return JSON.parse(msg.metadata || '{}'); } catch { return {}; } })(),
         source: msg.source,
       });
 

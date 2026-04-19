@@ -1,9 +1,11 @@
 import csv
+import json
 import os
+import re
+from xml.etree.ElementTree import Element, SubElement, tostring
 
 import markdown
 import yaml
-from defusedxml.ElementTree import Element, SubElement, tostring
 
 # Use defusedxml to prevent XXE attacks
 try:
@@ -11,15 +13,17 @@ try:
 except ImportError:
     # Fallback to standard minidom (less secure - install defusedxml for production)
     import warnings
-
-    from defusedxml import minidom
+    from xml.dom import minidom
 
     warnings.warn(
-        "Using standard minidom - install 'defusedxml' for XXE protection", UserWarning, stacklevel=2
+        "Using standard minidom - install 'defusedxml' for XXE protection",
+        UserWarning,
+        stacklevel=2,
     )
 
 # Configuration
 STORE_DIR = "Store"
+PRODUCTS_JSON = "dws10.com/config/products.json"
 OUTPUT_HTML_DIR = "landing-pages/dws10-com/products"
 OUTPUT_FEED_FILE = "landing-pages/dws10-com/products.xml"
 BASE_URL = "https://dws10.com"
@@ -63,6 +67,56 @@ def get_footer():
     </footer>"""
 
 
+def load_products_json():
+    """Load products from dws10.com/config/products.json (primary source)."""
+    if not os.path.exists(PRODUCTS_JSON):
+        print(f"Warning: {PRODUCTS_JSON} not found, skipping JSON products.")
+        return []
+
+    with open(PRODUCTS_JSON, encoding="utf-8") as f:
+        data = json.load(f)
+
+    products = []
+    for pid, p in data.get("products", {}).items():
+        slug = pid.lower().replace("_", "-")
+        google = p.get("google", {})
+        # Build description HTML from features list
+        features_html = ""
+        if p.get("features"):
+            features_html = (
+                "<ul>" + "".join(f"<li>{f}</li>" for f in p["features"]) + "</ul>"
+            )
+        html_content = f"<p>{p.get('description', '')}</p>{features_html}"
+
+        product = {
+            "title": p.get("name", ""),
+            "price": str(p.get("price", "0")),
+            "currency": p.get("currency", "EUR"),
+            "sku": p.get("id", pid),
+            "availability": google.get("availability", "in_stock"),
+            "condition": google.get("condition", "new"),
+            "google_product_category": google.get(
+                "productCategory", "Software > Business & Productivity Software"
+            ),
+            "image_link": p.get(
+                "image", f"{BASE_URL}/static/images/Firehorse_Store.jpg"
+            ),
+            "brand": google.get("brand", "Lifetime"),
+            "slug": slug,
+            "html_content": html_content,
+            "priceNote": p.get("priceNote", ""),
+            "storeCategory": p.get("storeCategory", ""),
+        }
+        # Fix relative image paths to absolute
+        if product["image_link"].startswith("/"):
+            product["image_link"] = BASE_URL + product["image_link"]
+
+        products.append(product)
+
+    print(f"Loaded {len(products)} products from {PRODUCTS_JSON}")
+    return products
+
+
 def parse_product(filename):
     with open(os.path.join(STORE_DIR, filename), encoding="utf-8") as f:
         content = f.read()
@@ -73,7 +127,22 @@ def parse_product(filename):
         print(f"Skipping {filename}: No valid YAML frontmatter found.")
         return None
 
-    metadata = yaml.safe_load(parts[1])
+    try:
+        metadata = yaml.safe_load(parts[1])
+    except yaml.YAMLError as e:
+        print(f"Skipping {filename}: YAML parse error: {e}")
+        return None
+
+    if (
+        not isinstance(metadata, dict)
+        or "title" not in metadata
+        or "price" not in metadata
+    ):
+        print(
+            f"Skipping {filename}: missing required 'title' or 'price' in frontmatter."
+        )
+        return None
+
     md_content = parts[2].strip()
     html_content = markdown.markdown(md_content)
 
@@ -140,7 +209,11 @@ def generate_html(product):
 
 
 def generate_policy(filename, output_subdir, title_override=None):
-    with open(os.path.join(STORE_DIR, filename), encoding="utf-8") as f:
+    filepath = os.path.join(STORE_DIR, filename)
+    if not os.path.exists(filepath):
+        print(f"Skipping policy '{filename}': file not found at {filepath}")
+        return
+    with open(filepath, encoding="utf-8") as f:
         content = f.read()
 
     # Split frontmatter if exists
@@ -336,8 +409,6 @@ def generate_store_page(products):
     for p in products:
         # Extract a short excerpt (first paragraph or first 150 chars)
         description = p.get("html_content", "")
-        import re
-
         clean_text = re.sub("<[^<]+?>", "", description)
         excerpt = clean_text[:150] + "..." if len(clean_text) > 150 else clean_text
 
@@ -400,7 +471,7 @@ def generate_feed(products):
         SubElement(item, "g:identifier_exists").text = "no"
 
     # Format XML
-    xml_str = minidom.parseString(tostring(rss)).toprettyxml(indent="  ")
+    xml_str = minidom.parseString(tostring(rss)).toprettyxml(indent="  ")  # noqa: S318
 
     with open(OUTPUT_FEED_FILE, "w", encoding="utf-8") as f:
         f.write(xml_str)
@@ -455,24 +526,50 @@ def main():
 
     generate_policy("RETURN_POLICY.md", "return-policy", "Return Policy")
 
-    # Generate Products
-    products = []
-    for filename in os.listdir(STORE_DIR):
-        if (
-            filename.endswith(".md")
-            and filename
-            not in ["RETURN_POLICY.md", "GOOGLE_MERCHANT_SETUP.md", "PRIVACY_POLICY.md"]
-            and "GoogleLegal" not in filename
-        ):
-            print(f"Processing {filename}...")
-            product = parse_product(filename)
-            if product:
-                generate_html(product)
-                products.append(product)
+    # Load products from products.json (primary source, ~30 products)
+    products = load_products_json()
+    seen_skus = {p["sku"] for p in products}
 
+    # Load Store/*.md files — merge extended descriptions or add new products
+    skip_files = {"RETURN_POLICY.md", "GOOGLE_MERCHANT_SETUP.md", "PRIVACY_POLICY.md"}
+    if os.path.isdir(STORE_DIR):
+        for filename in os.listdir(STORE_DIR):
+            if (
+                filename.endswith(".md")
+                and filename not in skip_files
+                and "GoogleLegal" not in filename
+            ):
+                print(f"Processing {filename}...")
+                md_product = parse_product(filename)
+                if not md_product:
+                    continue
+                sku = md_product.get("sku", "")
+                if sku in seen_skus:
+                    # Merge: replace html_content with richer Store/*.md version
+                    for p in products:
+                        if p["sku"] == sku:
+                            p["html_content"] = md_product["html_content"]
+                            print(f"  Merged extended description for {sku}")
+                            break
+                else:
+                    # New product only in Store/*.md
+                    products.append(md_product)
+                    seen_skus.add(sku)
+                    print(f"  Added new product {sku} from {filename}")
+
+    print(f"\nTotal products: {len(products)}")
+
+    # Generate outputs
+    for p in products:
+        generate_html(p)
     generate_feed(products)
     generate_csv(products)
-    generate_store_page(products)
+    # NOTE: Do NOT call generate_store_page() here.
+    # The store page (landing-pages/dws10-com/buy/index.html) is maintained
+    # manually in dws10.com/buy/index.html and synced by the
+    # sync-dws6-landing-pages workflow. Running generate_store_page() would
+    # overwrite the hand-crafted page with hero section, 4-category nav,
+    # and Revolut/PayPal payment integration.
 
 
 if __name__ == "__main__":
