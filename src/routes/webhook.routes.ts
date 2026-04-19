@@ -92,7 +92,10 @@ async function sendConfirmationEmail(to: string, subject: string, body: string):
     });
 
     if (response.ok) {
-      console.log(`📧 CONFIRMATION EMAIL SENT: From: ${fromAddress} | To: ${to} | Subject: ${subject}`);
+      logger.info('Confirmation email sent', {
+        from: fromAddress,
+        recipientCount: 1,
+      });
     } else {
       logger.warn('Confirmation email failed', { status: response.status });
     }
