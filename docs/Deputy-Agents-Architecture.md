@@ -621,32 +621,36 @@ Aiven PostgreSQL ajetaan lokaalisti Docker-kontissa Stage 1.5:ssa. Tuotannossa (
 
 ```sql
 -- Aiven PostgreSQL schema: godagent isolation & audit
+-- Source of truth for CURRENT agent_executions schema:
+-- supabase/migrations/030_agent_logging_tables.sql
 
--- Agent execution log (Article 12 compliance)
--- Boardy #3: Hash chain for tamper-evident audit trail
+-- Agent execution log (Article 12 compliance) - CURRENT
+-- Note: current repo migration uses uuid-ossp uuid_generate_v4(), not gen_random_uuid().
 CREATE TABLE IF NOT EXISTS agent_executions (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     agent_name TEXT NOT NULL,
-    user_id TEXT,
-    org_id TEXT,
-    session_id TEXT,
-    project_id TEXT,
-    input JSONB,
+    user_id UUID NOT NULL,
+    org_id UUID NOT NULL,
+    session_id TEXT NOT NULL,
+    project_id TEXT NOT NULL,
+    input JSONB DEFAULT '{}'::jsonb,
     output JSONB,
     status TEXT NOT NULL CHECK (status IN ('started', 'completed', 'error')),
     error_message TEXT,
-    duration_ms INTEGER,
-    container_id TEXT,              -- Docker container ID
-    sandbox_stage TEXT,             -- '1', 'docker', '2', '3'
-    llm_model TEXT,                 -- Which LLM was used
-    llm_tokens_in INTEGER,
-    llm_tokens_out INTEGER,
-    tenant_isolated BOOLEAN DEFAULT true,
-    -- Hash chain (Boardy #3: tamper-evident Article 12)
-    previous_hash TEXT,             -- SHA-256 of previous row
-    row_hash TEXT,                  -- SHA-256(previous_hash + id + agent_name + created_at)
+    duration_ms INTEGER DEFAULT 0,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+-- Planned extensions (NOT in migration 030; add via a dedicated future migration)
+-- Boardy #3 tamper-evident trail + sandbox metadata:
+--   container_id TEXT
+--   sandbox_stage TEXT
+--   llm_model TEXT
+--   llm_tokens_in INTEGER
+--   llm_tokens_out INTEGER
+--   tenant_isolated BOOLEAN DEFAULT true
+--   previous_hash TEXT
+--   row_hash TEXT
 
 -- Boardy #5: Zombie container tracking (GDPR compliance)
 CREATE TABLE IF NOT EXISTS zombie_containers (
