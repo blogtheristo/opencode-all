@@ -210,6 +210,21 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 
 **Trigger phrases:** "remote control", "acer device", "fleet status", "control room", "situation room", "device health"
 
+### 6.4 /investor-outreach
+
+**When to use:** Drafting, triaging, or tracking investor intro notes for the DWS IQ 6 SAFE round. Works from matches the user provides (name, firm, LinkedIn, thesis, drawbacks).
+
+**What it does:** Generates `INTRO_<NAME>_<FIRM>.md` files in `investor-outreach/` following the house template. Supports `add`, `list`, `triage`, `ready`, `followup`, `status`. Enforces exclusion rules (defense/climate/solo-founder blockers), bans Aegis language for funds that exclude defense, and locks the current focus doctrine (sell V1 to investors at PE meetings + Messe Germany, not entrepreneur networking).
+
+**Focus doctrine (2026-04-19):**
+
+- Target: PE meeting investors + German Messe buyers (industrial CFOs, EUR 25K+ contracts)
+- V1 launch: Arctic 15, Helsinki, June 15, 2026
+- Round: EUR 650K SAFE at EUR 3.8M cap, Captain seats EUR 50K
+- Messe hook: pre-Messe commits enter ahead of August 15 German sales data drop
+
+**Trigger phrases:** "add investor", "new investor match", "pull investor", "draft investor intro", "triage investor list", "who's ready to send", "investor follow-up", "which INTRO next"
+
 ## 7. Runtime Safety & Knowledge
 
 ### 7.1 /kya
@@ -373,6 +388,7 @@ These are not slash commands — they are process rules that agents follow autom
 | Check git branch state         | /flow-status        | Operations |
 | Send email notification        | /email              | Operations |
 | Control edge devices           | /remote-control     | Operations |
+| Add/triage investor intro      | /investor-outreach  | Operations |
 | Check agent trust / kill chain | /kya                | Safety     |
 | Compile wiki / ask KB          | /kb                 | Knowledge  |
 | Code feels bloated             | /simplify           | Quality    |
