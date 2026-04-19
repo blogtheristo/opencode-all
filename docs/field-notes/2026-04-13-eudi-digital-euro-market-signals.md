@@ -35,7 +35,7 @@ Document Status:
 
 ## 1. Executive Summary
 
-Kaksi EU:n digitaalisen infrastruktuurin hanketta — **EUDI Lompakko** ja **Digitaalinen Euro** — etenee samanaikaisesti kohti kriittistä toteutusvaihetta. DWS IQ 6:lle nämä eivät ole taustakohinaa: ne ovat **suoran integraatiomahdollisuuden lähteitä** KYA-standardille, agenttimaksujen infrastruktuurille ja EU-suvereniteettipositioinnille.
+Kaksi EU:n digitaalisen infrastruktuurin hanketta — **EUDI Lompakko** ja **Digitaalinen Euro** — etenevät samanaikaisesti kohti kriittistä toteutusvaihetta. DWS IQ 6:lle nämä eivät ole taustakohinaa: ne ovat **suoran integraatiomahdollisuuden lähteitä** KYA-standardille, agenttimaksujen infrastruktuurille ja EU-suvereniteettipositioinnille.
 
 **Kolme välitöntä vaikutusta DWS:lle:**
 
