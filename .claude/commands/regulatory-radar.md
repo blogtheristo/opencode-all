@@ -90,10 +90,10 @@ Input: $ARGUMENTS (customer profile as JSON — or describe in natural language 
 
 ## Data freshness
 
-- EUR-Lex snapshot: refreshed daily via `scripts/daily/eur-lex-sync.ts` (auto-discovered by DGX Spark day-runner)
-- DG consultation pages: weekly refresh via `scripts/weekly/dg-consultations-sync.ts`
-- EFRAG / CINEA: event-driven refresh on Commission press releases
-- Cache TTL: 24 h for EUR-Lex; 7 d for consultation pages; invalidated on any new CELEX entry in watched regulation families
+- EUR-Lex snapshot: **planned** daily refresh via `scripts/daily/eur-lex-sync.ts` once the regulatory-radar ingestion jobs are implemented
+- DG consultation pages: **planned** weekly refresh via `scripts/weekly/dg-consultations-sync.ts` once the consultation crawler is implemented
+- EFRAG / CINEA: **planned** event-driven refresh on Commission press releases
+- Planned cache policy: 24 h TTL for EUR-Lex; 7 d TTL for consultation pages; invalidate on any new CELEX entry in watched regulation families
 
 ## Agent lineage
 
