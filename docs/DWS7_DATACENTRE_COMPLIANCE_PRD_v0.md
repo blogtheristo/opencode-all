@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 0.1
+Version: 0.2
 
 Sessions & Modifications:
 
+- Version: 0.2 | Tool: Claude Code (Opus 4.7) | Session: claude/green-energy-roadmap-pEPPK | Date: 18.04.2026 | Changes: Confirmed GTM after buyer audit — Operations Manager as v0 ICP (budget owner, pain owner); added consultant channel as partner tier; added verbatim validation question to design-partner call script; rejected energy-intelligence positioning flip for v0 (kept for v1 upmarket).
 - Version: 0.1 | Tool: Claude Code (Opus 4.7) | Session: claude/green-energy-roadmap-pEPPK | Date: 18.04.2026 | Changes: Initial 1-page product hypothesis per /plan-ceo-review RESHAPE verdict — frames datacentre EED 2024/1364 compliance as IQ 7 first vertical; defines ICP, wedge, MVP, pricing, open questions. Not a build commitment.
 
 Session Links & References:
@@ -35,6 +36,22 @@ Document Status:
 ## Customer (ICP for v0)
 
 Nordic **colocation** operator, **500 kW – 5 MW** IT load, 1–3 sites, no dedicated DCIM vendor, reporting manually via spreadsheet. Target geographies: FI, SE. Why: Nordic grid already green → they want to prove it, not just report it. Secondary: enterprise datacentres of Finnish industrials (Kesko, UPM, Metso) with private IT.
+
+## Buyer & Sales Motion
+
+**Primary buyer = Operations / Facility Manager.** At the ICP size (500 kW – 5 MW, 1–3 sites) no dedicated Sustainability/ESG role exists. The Ops Manager owns power, cooling, PUE, **and** the EED 2024/1364 reporting obligation because it sits in the facility-data job. They own the Ops budget line that currently pays for the spreadsheet work. €1,500/month/site is trivial against the consultant/spreadsheet hours they already spend.
+
+**Pitch framing to Ops:** "Stop rebuilding the 15 May report. Signed, auditable output your board and Energimyndigheten accept. Next Delegated Act scored automatically so you're not surprised."
+
+**Channel = external compliance consultants.** Boutique firms that currently run the 24-KPI spreadsheet as a service for 10–20 operators each. They are not buyers — they are a scaling channel. A "Partner Tier" with white-label output reaches 10–20 operators per relationship, faster than cold outreach. Priority partner-recruit after v0 validates.
+
+**CRM segmentation:**
+
+- **Primary v0:** `role=Operations Manager OR Facility Manager`, `company_type=colocation`, `geo=FI/SE`, `site_count≤3`, `IT_MW=0.5–5`
+- **Partner tier:** `partner_type=compliance_consultant`, `served_operators≥5`
+- **Parked (v1+):** `role=Head of Sustainability`, `company_type=enterprise_private_dc OR multi_site_colo`, `IT_MW>5` — different motion, different ACV (€30–60K/year), separate segment
+
+**Positioning flip — rejected for v0.** Leading with "datacentre energy intelligence" widens the tent to CFO + Sustainability Director, but that audience does not exist at the v0 ICP. Flip is reserved for v1 when we move upmarket. v0 stays compliance-first because the 15 May deadline is the urgency driver.
 
 ## Problem
 
@@ -95,6 +112,21 @@ Nordic **colocation** operator, **500 kW – 5 MW** IT load, 1–3 sites, no ded
 4. Is signed Article-12 reasoning a _valued_ feature for datacentre buyers, or nice-to-have? (Validation calls.)
 5. Build vs. partner: does Nlyte/RiT have an integration seam, or is this head-to-head?
 
+## Design-Partner Call Script (Verbatim)
+
+Every one of the 3 design-partner calls **must** ask this question, word-for-word, and log the answer in the CRM:
+
+> **"Who in your org currently owns the 15 May EED submission — and do they have a separate budget line for it, or does it come out of Ops?"**
+
+The answer decides whether €1,500/month/site is a trivial Ops line-item (1-call close, Ops-Manager-authorised) or a procurement cycle (multi-stakeholder, longer sales motion, possibly re-priced). If 3/3 answer "Ops budget", confirm the wedge. If 2+ answer "separate compliance budget" or "no budget — consultant eats it", re-examine the motion before Gate 1.
+
+Additional call questions (lower priority, optional):
+
+- What tool / spreadsheet / consultant do you use today for the 24 KPIs?
+- Have you submitted for the 15 May 2025 and 15 May 2026 cycles? Any pain points?
+- Would a signed PDF + European-database-ready JSON change the submission effort for you?
+- Would you sign a design-partner letter for the 15 May 2027 cycle in exchange for free v0 usage and a reference-customer role?
+
 ## Strategic Fit (Brain-Memory-Body-Hands)
 
 - **Brain:** new agent `datacentre-compliance` — extends the 16-agent TS suite
@@ -117,4 +149,4 @@ Nordic **colocation** operator, **500 kW – 5 MW** IT load, 1–3 sites, no ded
 
 ---
 
-_End of PRD v0.1 — no build authorised until Gate 1 passes._
+_End of PRD v0.2 — no build authorised until Gate 1 passes._
