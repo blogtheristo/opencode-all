@@ -14,6 +14,7 @@ import { scheduler } from './scheduler';
 import { db } from './database';
 import { LeadCountry } from './types';
 import { FirehorseReportModule } from './report-module';
+import { reportScheduler } from './report-scheduler';
 import { FirehorseWorkflowEngine } from './workflow-engine';
 
 const router = Router();
@@ -524,6 +525,20 @@ router.post('/reports/markdown', async (req: Request, res: Response) => {
   } catch (error: any) {
     console.error('Error generating markdown report:', error);
     return res.status(500).json({ error: 'Report generation failed', message: error.message });
+  }
+});
+
+/**
+ * Manually trigger scheduled report processing (runs all due schedules immediately)
+ * POST /firehorse/jobs/reports-run
+ */
+router.post('/jobs/reports-run', async (_req: Request, res: Response) => {
+  try {
+    await reportScheduler.runNow();
+    return res.json({ success: true, message: 'Scheduled report processing completed' });
+  } catch (error: any) {
+    console.error('Error running scheduled reports:', error);
+    return res.status(500).json({ error: 'Scheduled report run failed', message: error.message });
   }
 });
 
