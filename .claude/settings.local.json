@@ -17,7 +17,16 @@
       "Bash(gh issue:*)",
       "Bash(gh run:*)",
       "Read($CLAUDE_PROJECT_DIR/**)",
-      "Bash(gh pr:*)"
+      "Bash(gh pr:*)",
+      "Bash(cp \"C:/Users/risto/OneDrive/Kuvat/Näyttökuvat/DWS-IQ-Aegis-Clean.png\" \"F:/2026/Repos2026/dws6/.claude/worktrees/cool-goldberg/kb/raw/images/products/firehorse-aegis-clean.png\")",
+      "Bash(cp \"C:/Users/risto/OneDrive/Kuvat/Näyttökuvat/Aegis-Armed.png\" \"F:/2026/Repos2026/dws6/.claude/worktrees/cool-goldberg/kb/raw/images/products/firehorse-aegis-armed.png\")",
+      "Bash(cp \"C:/Users/risto/OneDrive/Kuvat/DWS IQ Aegis/Sovereignty.jpg\" \"F:/2026/Repos2026/dws6/.claude/worktrees/cool-goldberg/kb/raw/images/products/firehorse-aegis-sovereignty.jpg\")",
+      "Bash(cp \"C:/Users/risto/OneDrive/Kuvat/DWS IQ Aegis/EU_Sovereign.png\" \"F:/2026/Repos2026/dws6/.claude/worktrees/cool-goldberg/kb/raw/images/products/firehorse-aegis-eu-sovereign.png\")",
+      "Bash(grep -E \"\\\\.\\(js|html|jsx|tsx\\)$\")",
+      "Bash(grep -l \"ironclad\" /f/2026/Repos2026/dws6/.claude/worktrees/cool-goldberg/dws10.com/index.html /f/2026/Repos2026/dws6/.claude/worktrees/cool-goldberg/dws10.com/*/index.html)",
+      "Bash(cp onelifetime.world/shared-assets/footer/ironclad-footer.js landing-pages/onelifetime-world/shared-assets/footer/ironclad-footer.js)",
+      "Bash(cp dws10.com/shared-assets/footer/ironclad-footer.js landing-pages/dws10-com/shared-assets/footer/ironclad-footer.js)",
+      "Bash(cp dws6.com/shared-assets/footer/ironclad-footer.js landing-pages/dws6-com/shared-assets/footer/ironclad-footer.js)"
     ]
   },
   "enabledMcpjsonServers": [
