@@ -1,15 +1,16 @@
 <!-- VERSION AND AGENT HISTORY
 Document: CTO Co-Builder + Angel Intro Note — Anthony Maurin, Paris
-Version: 1.0
+Version: 1.1
 Date: 2026-04-19
 Author: Claude Opus 4.7 + Human Review
 Branch: claude/investor-outreach-strategy-iwJxq
 Status: WARM — Warm intro available; pitch is "co-builder + angel," not "hire"
-Story Lock: Technical co-builder + angel check — stacks on SAFE round, not in place of it
+Story Lock: Technical co-builder + angel check — stacks on SAFE round, not in place of it. Angel first, co-builder equity only after shipped contribution.
 Intro Type: Warm (third party intro available)
 
 AGENT HISTORY:
 - v1.0 (2026-04-19): Initial draft. Repeat technical founder, just exited Volted.ai (acquired by Backbone late 2025). Built a node-based AI platform in 10 days to beta. Currently building open-source MCP server tooling — exact DWS IQ stack language. Full-stack: Solidity, Node.js, Python, C++. Paris-based. Currently deploying angel capital, not CTO-hunting. Pitch must be "co-builder + angel" not "hire." Fits as Track 3 of the CTO search alongside Mikko (Track 1, direct) and LinkedIn public pool (Track 2). If Anthony says yes as co-builder, the Mikko conversation reframes to advisory. If Mikko says yes first, Anthony becomes angel + technical advisor with first right on future CTO expansion. No double-promising the CTO seat.
+- v1.1 (2026-04-19): Tightened equity sequencing. Two tracks must NOT blur: (1) SAFE angel ticket closes FIRST — standard SAFE equity, no special terms. (2) Co-builder equity (2-3% contribution-milestone) only begins vesting AFTER code ships — no upfront grant, no signing bonus. Email and DM redrafted to reflect "angel first, build second" framing. Prevents the failure mode where Anthony commits capital but never ships code and still holds co-builder equity.
 -->
 
 # CTO Co-Builder + Angel Intro Note — Anthony Maurin, Paris
@@ -53,10 +54,14 @@ AGENT HISTORY:
 
 - **Lead with the mutual stack** — Open on his open-source MCP tooling and DWS IQ 6's 18-agent MCP-exposed architecture. Founder-to-founder, stack-to-stack. No pitch-deck introductions — send the architecture diagram and ask what he thinks.
 - **Offer the stack, not the job** — "I'm not asking you to be a CTO — I know you're deploying capital. I'm asking you to look at an 18-agent MCP product that's already live, put in a check if it interests you, and build alongside if the architecture excites you."
-- **Angel check is the low-commitment entry** — Even a €25K-€50K angel ticket into the SAFE is a meaningful signal. It's the door-opener.
-- **Equity for technical co-build comes separate from the angel equity** — Keep the two stacks clean: SAFE equity = for the check, builder equity = for the code/commits/reviews. Don't conflate them.
-- **Co-builder equity structure proposal** — 2-3% equity vested 2 years, triggered on defined contribution milestones (architecture review + X commits + Aegis module co-build). Below CTO seat (7.5%) but above standard advisor (0.5%). Reflects "more than advisor, less than co-founder."
-- **CTO conversion is optional, not implied** — Only activated if Mikko (Track 1) declines AND Anthony expresses interest. Written as an option in the advisor agreement, not a promise.
+- **Angel check closes FIRST, co-builder structure SECOND** — Do not bundle the two conversations. SAFE ticket is standard SAFE paperwork, closes on normal timeline. Co-builder equity is a separate agreement that only triggers AFTER code is shipped. No "we're doing both at once."
+- **Equity sequencing discipline (non-negotiable):**
+  1. **Angel ticket (step 1):** standard SAFE at EUR 3.8M cap, no special terms, no co-builder equity attached. This is the first close.
+  2. **Architecture review + co-build decision (step 2):** 1-2 week window post-SAFE. Anthony reviews the stack, decides if he wants to commit to contribution milestones. NO EQUITY GRANTED AT THIS STEP.
+  3. **Co-builder equity vesting (step 3):** 2-3% equity, 2-year vest, ONLY begins vesting on first shipped contribution (defined PR merged into main + architecture review delivered). No upfront cliff bypass, no signing grant. If code never ships, equity never vests.
+  4. **Milestones (illustrative):** architecture review document (M1) + Aegis module co-build or equivalent (M2) + sustained commit cadence Q3 2026 (M3). Equity unlocks in thirds.
+- **Why sequencing matters:** Failure mode to avoid is Anthony writes the check, never ships code, still holds co-builder equity. The vest-on-delivery structure protects against that. Angel equity stays clean (earned via capital), co-builder equity stays clean (earned via code). Two stacks, never blurred.
+- **CTO conversion is optional, not implied** — Only activated if Mikko (Track 1) declines AND Anthony expresses interest. Written as an option in the co-builder agreement, not a promise.
 - **Story A primary** (B2B SaaS carbon compliance), Story B (Aegis dual-use) mentioned if defense/sovereignty angle resonates
 - Use INVESTOR_MEMO.md v5.2 + architecture diagram + MCP tool list on first touch — he reads architecture, not marketing
 - Do NOT mention Boardy in external communication
@@ -68,7 +73,7 @@ Hi Anthony — saw your open-source MCP work, congrats on the Volted exit.
 
 I'm Risto, founder of Lifetime Oy (Finland). We're shipping DWS IQ 6 — an 18-agent MCP-exposed B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports, Aiwen audit trail. EUR 7K MRR, 5 customers, 100% retention. V1 launches at Arctic 15 on June 15.
 
-Not pitching you a CTO role — I know you're in angel mode. Asking instead: would you look at the architecture? If it interests you, two conversations open up — an angel ticket into our SAFE (open now) and a co-builder structure if the stack is something you want to put hands on. Warm intro mutual, happy to route that way. Send the memo + architecture diagram?
+Not pitching you a CTO role — I know you're in angel mode. First ask is simple: would you take an angel ticket into our SAFE (EUR 3.8M cap, standard terms)? If yes and the architecture also pulls you in, we can open a separate conversation later about a contribution-milestone co-builder structure — but angel first, build second, no bundling. Warm intro mutual, happy to route that way. Send the memo + architecture diagram?
 
 ## Draft Email (cold, if no warm intro yet)
 
@@ -80,12 +85,14 @@ Risto Päärni, Lifetime Oy (Espoo, Finland). Reaching out because your open-sou
 
 DWS IQ 6 is an 18-agent B2B SaaS for EU industrial compliance. MCP-exposed (JSON-RPC 2.0), ERP connectors (SAP S/4HANA, IFS Cloud, Dynamics 365), Aiwen reasoning lineage, EU AI Act compliant from v0. EUR 7K MRR, 5 paying customers, 100% retention. V1 launches June 15 at Arctic 15, German Messe commercial push follows.
 
-**Why I'm writing:** I'm not recruiting you as CTO. You're deploying capital, you're in builder-mode, you just exited. The ask is two-layered and you pick what works:
+**Why I'm writing:** I'm not recruiting you as CTO. You're deploying capital, you're in builder-mode, you just exited. The ask is sequenced — angel first, build second, no bundling:
 
-1. **Angel ticket into our SAFE** — EUR 650K at EUR 3.8M cap. Minimum ticket flexible. Gives you cap-table position at an architecturally aligned company without a day-job commitment.
-2. **Co-builder structure (optional)** — If the MCP architecture interests you enough to put hands on, a 2-3% equity structure on defined contribution milestones. Not CTO, not advisor — "technical co-builder." Equity unlocks on code commits + architecture reviews + optional Aegis module co-build.
+1. **Step 1 — Angel ticket into our SAFE.** EUR 650K round at EUR 3.8M cap. Standard SAFE, no special terms, no co-builder equity attached to this. Clean cap-table position at an architecturally aligned company. This is the first close and the first ask.
+2. **Step 2 (optional, post-SAFE) — Architecture review.** If the stack pulls you in after you've written the check, we open a separate conversation about a contribution-milestone co-builder structure. 2-3% equity, 2-year vest, starts vesting ONLY after first shipped contribution (PR merged + architecture review delivered). No upfront grant, no signing bonus. Code ships, equity vests. No code, no equity.
 
-Either path is independent. Both together if the stack clicks. Neither if the timing is wrong and it's a clean "let me know when you raise Series A."
+Why I'm laying it out this way: the two stacks have to stay clean. Angel equity is earned via capital. Co-builder equity is earned via code. If I bundled them upfront, the incentive to ship quietly erodes — and that defeats the whole point of asking a technical founder to co-build.
+
+So: angel ticket first if it interests you, build conversation second if the stack wants your hands on it, or a clean "not now, circle back at Series A" if the timing is wrong.
 
 Full memo + architecture diagram + MCP tool list attached. 30-min architecture call? I'll send my calendar if you want the fastest path.
 
@@ -110,10 +117,11 @@ Business ID: 0772407-9 (Finland)
 - [ ] Confirm warm intro path with mutual contact (who is it?) — log here when confirmed
 - [ ] Send opener via warm intro channel — 48-hour window before competing signal from Plug and Play Paris outreach
 - [ ] First call: 30-min architecture review (not a pitch — a technical walkthrough)
-- [ ] If interested in angel ticket: send SAFE paperwork within 5 days
-- [ ] If interested in co-builder: draft contribution-milestone equity agreement, 2-week review cycle
+- [ ] **STEP 1** If angel ticket interest: send SAFE paperwork within 5 days. Close SAFE before opening co-builder conversation.
+- [ ] **STEP 2** (post-SAFE close, only if Anthony signals building interest): draft contribution-milestone equity agreement. NO equity granted at agreement signing — only on first delivered milestone (PR merged + architecture review document).
 - [ ] If he declines both: ask for (a) technical founder intros in Paris, (b) MCP community sponsor/adopter intros for DWS IQ 6
-- [ ] Update SOLO_FOUNDER_STATEMENT.md if Anthony accepts co-builder — adds second named technical co-builder alongside Mikko-or-LinkedIn CTO track
+- [ ] Update SOLO_FOUNDER_STATEMENT.md if Anthony accepts co-builder AND ships first milestone — adds second named technical co-builder alongside Mikko-or-LinkedIn CTO track. Do NOT update before first milestone delivered (investors should see shipped code, not paper commitments).
+- [ ] **Perissich trigger:** If Anthony closes SAFE angel ticket AND signs co-builder agreement, notify the Perissich HOLD file — reactivation window is 48 hours, do not let it go cold.
 
 ## Sequencing Discipline (IMPORTANT)
 
