@@ -32,7 +32,7 @@ That media layer is **Lifetime Scope Journal (LSJ)** — already branded on `one
 | ------------------------------------ | ------------------------------------------------------------ | ---------------------- |
 | `onelifetime.world/blog/` (LSJ home) | Source of truth. Daily/weekly posts, 800-day campaign index. | Daily during campaign. |
 | LinkedIn newsletter (`entityUrn=7191306524177154048`) | **Lifetime Scope Monthly — Best Entry of the Fortnight + 3 Runners-Up.** Name retained; cadence is biweekly. | Every 2 weeks (fortnightly). |
-| YouTube channel (video companion)    | Short-form talk-throughs of each issue's Best Entry.         | Biweekly, aligned with LinkedIn issue. |
+| YouTube (video companion — current reference video: https://youtu.be/CQiREsDfsuA) | Short-form talk-throughs of each issue's Best Entry. **TODO: produce new videos — one per biweekly issue, starting issue #9.** | Biweekly, aligned with LinkedIn issue. |
 | Individual posts at `/posts/en/*.html`, `/posts/fi/*.html` | Long-form articles (EN + FI). | Per publishing plan.   |
 | `onelifetime.world` homepage         | Top-of-funnel capture; visible LinkedIn subscribe CTA.       | Permanent.             |
 

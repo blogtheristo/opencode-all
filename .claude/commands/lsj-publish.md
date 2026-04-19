@@ -32,7 +32,7 @@ Every issue contains these blocks, in order:
 4. **The Best Entry** — full republish of the single best LSJ post of the fortnight. Title, canonical URL, date, tags, lede paragraph, then the full body (or the first ~800 words with a "continue reading" link if the original is longer).
 5. **The Runners-Up** — 3 cards (title / one-line takeaway / link to the post on onelifetime.world/blog/).
 6. **Agentic Lens** — exactly one 80-word paragraph: _"If you used DWS IQ 6 agents this fortnight, here is what they found."_ Ties editorial to Alpha-Share outcomes (anonymised aggregates). Never a product pitch.
-7. **Links block** — three URLs: Journal (https://onelifetime.world/blog), YouTube (video companion), Subscribe on LinkedIn (https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7191306524177154048).
+7. **Links block** — three URLs: Journal (https://onelifetime.world/blog), YouTube video companion (current: https://youtu.be/CQiREsDfsuA — refresh per issue as new videos ship), Subscribe on LinkedIn (https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7191306524177154048). Always strip tracking params (`?si=`, `?feature=`) from YouTube URLs.
 8. **Sign-off** — "Risto Anton Paarni — Editor in Chief, Lifetime Scope Journal — Lifetime Oy, Helsinki".
 
 ## Steps
