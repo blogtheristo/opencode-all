@@ -15,7 +15,7 @@ allowed-tools: [Bash, Read]
 **Report type:** EU Compliance Summary (ETS + CBAM + CSRD + EU AI Act)
 **Agent:** `src/firehorse/report-module.ts` (format: `compliance-summary`)
 **Feeds from:** `src/agents/compliance.agent.ts` (deterministic scoring)
-**CLI:** `dws run firehorse-report --format compliance --input '{"company":"...","regulations":["ETS","CBAM","CSRD"]}'`
+**API:** `POST /firehorse/reports/generate` with body `{"format":"compliance-summary","input":{"company":"...","regulations":["ETS","CBAM","CSRD"]}}`
 **Signature:** DocuSign eSignature for audit submission
 
 ## What This Skill Knows
