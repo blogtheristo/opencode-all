@@ -228,6 +228,12 @@ const SOURCES = [
     outPrefix: 'Learn/Claude-memo_v',
     lang:      'en',
   },
+  {
+    src:       'Learn/HIL_INVESTOR_OUTREACH_HOWTO.md',
+    titleBase: 'HIL Investor Outreach — How-To',
+    outPrefix: 'Learn/HIL_INVESTOR_OUTREACH_HOWTO_v',
+    lang:      'en',
+  },
 ];
 
 SOURCES.forEach(f => {
