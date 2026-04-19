@@ -1,46 +1,10 @@
 # Risto Anton Päärni
 
-Syntymävuosi: 1966 | Espoo, Finland
-+358 400 319010 | risto.paarni@lifetime.fi | linkedin.com/in/ristopaarni
+Tämä tiedosto viittaa CV:n kanoniseen versioon, jotta sisältö ei pääse erkanemaan eri hakemistojen välillä.
 
----
+**Käytä ja päivitä ensisijaisesti tätä tiedostoa:** [../CV/CV_Risto_Paarni_155.md](../CV/CV_Risto_Paarni_155.md)
 
-## Yhteenveto
-
-Tekoäly- ja tietoturva-arkkitehti, jolla on yli 35 vuoden kokemus teollisuuden IT-järjestelmistä. Rakennut DWS IQ 6 -alustan — 16+ tekoälyagentin järjestelmän EU-sääntelyautomaatioon — toimitusjohtajana ja pää-arkkitehtina. Käytännön osaaminen NIS2-, GDPR-, EU AI Act- ja DORA/EBA-vaatimusten toteutuksesta tietoturva-arkkitehtuurin tasolla. Power Platform -kokemus prosessiautomaatiosta ja ERP-integraatioista. Kirjoittaa koodia päivittäin.
-
----
-
-## Tietoturva- ja compliance-osaaminen
-
-NIS2-direktiivi: kriittisten toimijoiden vaatimukset, SOC-prosessit, auditointivalmius, henkilökohtainen hallitusvastuu
-GDPR: tietojenkäsittelysopimukset, DPIA, tietosuoja-arkkitehtuuri, DPA-prosessit
-EU AI Act: Article 12 lokivaatimukset, Article 9 riskienhallinta, korkean riskin AI-järjestelmien hallinta
-DORA / EBA: ICT-riskinhallinta finanssisektorilla, operationaalinen resilienssi
-ISO 27001: ISMS-suunnittelu, sertifiointivalmistelu (käynnissä Q3/2026)
-CER-direktiivi: kriittisen infrastruktuurin fyysinen suojaaminen, hybriduhkat
-Tietoturva-arkkitehtuuri: Zero Trust, AES-256-GCM, TLS 1.3, BYOK/CMEK, immutable audit logging, SIEM-integraatiot
-Tietoturvatestaus: penetraatiotestauksen suunnittelu, haavoittuvuusarvioinnit, security-by-design
-
----
-
-## Tekoälyosaaminen
-
-Moniagentti-orkestrointi: 16+ TypeScript-agentin DWS IQ 6 -alusta, deterministinen pisteytys, Model Context Protocol (MCP)
-LLM-integraatiot: Claude (Anthropic), Google Gemini, Groq LPU, LlamaStack, Ollama (paikalliset mallit)
-Agenttiorchestrointi: Temporal.io, MCP-palvelimet, tool calling, streaming, context management
-Edge AI: NVIDIA Jetson Orin Nano — off-grid inference, alle 100ms latenssi, 7–15W, AWS IoT Greengrass
-Lifetime World Model: 15 000+ EU-sääntelydokumentin tietokanta, pgvector-haku, 16 toimialaontologiaa
-EU AI Act -compliance: Article 12 -lokitus tuotannossa, reasoning lineage, Aiwen-kirjanpitokehys
-RAG-arkkitehtuuri: vektorihaun ja LLM-generoinnin yhdistäminen sääntelydokumentaatioon
-Prompt engineering: deterministic scoring, structured output, Zod-validointi
-
----
-
-## Power Platform ja Microsoft-ekosysteemi
-
-Power Apps: liiketoimintasovellusten kehitys ja käyttöönotto
-Power Automate: prosessiautomaatio, integraatiot SAP S/4HANA-, IFS Cloud- ja Dynamics 365 -ympäristöihin
+Jos tarvitset tämän CV:n sales-outreach-kontekstissa, avaa yllä oleva kanoninen versio suoraan.
 Microsoft 365 / Azure: ekosysteemiosaaminen, Azure AI Foundry, .NET Aspire, .NET MAUI
 Microsoft Founders Hub: tasot L1–L4 (Microsoft-validoitu teknologiaosaaminen)
 ERP-integraatiot: SAP S/4HANA, IFS Cloud, Microsoft Dynamics 365, Visma, Monitor ERP, Jeeves
