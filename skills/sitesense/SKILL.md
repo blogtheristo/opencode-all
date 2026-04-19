@@ -40,12 +40,12 @@ allowed-tools: [Bash, WebSearch, WebFetch]
 
 ### Wind speed thresholds (m/s) — EN 13001
 
-| Speed | Crane status                     |
-| ----- | -------------------------------- |
-| ≤ 9   | Safe — normal operations         |
-| 9–14  | Caution — reduce load            |
-| > 14  | STOP — cease crane operations    |
-| > 20  | Emergency — secure all equipment |
+| Speed       | Crane status                     |
+| ----------- | -------------------------------- |
+| ≤ 9         | Safe — normal operations         |
+| 9–14        | Caution — reduce load            |
+| > 14 to 20  | STOP — cease crane operations    |
+| > 20        | Emergency — secure all equipment |
 
 ### Score formula
 
