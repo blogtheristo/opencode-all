@@ -12,16 +12,7 @@
  *   6. Send List (separate from main content — manual outreach queue)
  */
 
-import type {
-  CaptainInquiriesData,
-  CockpitData,
-  ConstructionLeadsData,
-  HilTodosData,
-  LearnArtifactsData,
-  OutreachSummaryData,
-  SendListItem,
-  WorkflowData,
-} from './data-collectors.js';
+import type { CaptainInquiriesData, CockpitData, ConstructionLeadsData, HilTodosData, LearnArtifactsData, OutreachSummaryData, SendListItem, WorkflowData } from './data-collectors.js';
 
 // ============================================================================
 // HELPERS

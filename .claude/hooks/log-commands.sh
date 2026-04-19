@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+se#!/usr/bin/env bash
+# Log every Bash command Claude runs — timestamped audit trail
 # Log every Bash command Claude runs — timestamped audit trail
 # Log every Bash command Claude runs — timestamped audit trail
 # PreToolUse hook — always exits 0 (logging only, never blocks)

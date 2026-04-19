@@ -38,8 +38,9 @@ describe('JWT Token Validation Security Fix', () => {
     });
 
     it('should reject a malformed token', async () => {
-      // Keep this as a non-JWT sentinel to avoid secret/token scanner false positives (#523).
-      const malformedToken = 'malformed-token-without-jwt-shape';
+      // Construct a JWT-like string with a valid header structure but invalid payload/signature
+      const fakeHeader = Buffer.from(JSON.stringify({ alg: 'HS256', typ: 'JWT' })).toString('base64url');
+      const malformedToken = `Bearer ${fakeHeader}.invalid`;
       const decoded = await AuthService.verifyAccessToken(malformedToken);
 
       expect(decoded).toBeNull();

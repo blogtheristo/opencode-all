@@ -11,6 +11,7 @@ import express, { type Express, type NextFunction, type Request, type Response }
 import cors from 'cors';
 import crypto from 'crypto';
 import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
@@ -59,11 +60,6 @@ import { healthCheck, livenessCheck } from './middleware/health.js';
 import { validateEnv } from './middleware/env-validation.js';
 import { requestTimeout } from './middleware/request-timeout.js';
 import { errorTrackingMiddleware, initErrorTracking } from './middleware/error-tracking.js';
-import {
-  apiRateLimiter,
-  loginRateLimiter,
-  registrationRateLimiter,
-} from './services/redis-rate-limiter.service.js';
 
 dotenv.config();
 
@@ -87,25 +83,13 @@ const __dirname = path.dirname(__filename);
 
 // ============ MIDDLEWARE ============
 
-// Generate a per-request CSP nonce (replaces 'unsafe-inline' for scripts)
-app.use((req: Request, _res: Response, next: NextFunction) => {
-  (req as Request & { cspNonce: string }).cspNonce = crypto.randomBytes(16).toString('base64');
-  next();
-});
-
-// Security headers — nonce-based CSP (no unsafe-inline for scripts)
+// Security headers - configured to allow static HTML pages with inline scripts
 app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        scriptSrc: [
-          "'self'",
-          (_req, res) => {
-            const nonce = (res.req as Request & { cspNonce: string }).cspNonce;
-            return `'nonce-${nonce}'`;
-          },
-        ],
+        scriptSrc: ["'self'", "'unsafe-inline'"],
         styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
         fontSrc: ["'self'", 'https://fonts.gstatic.com'],
         imgSrc: ["'self'", 'data:', 'https:'],
@@ -179,11 +163,26 @@ app.use(apiVersionMiddleware);
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
-// Rate limiting — Redis-backed for Cloud Run multi-instance, in-memory fallback
-app.use('/api/', apiRateLimiter);
-app.use('/api/v1/auth/login', loginRateLimiter);
-app.use('/api/v1/auth/register', registrationRateLimiter);
-app.use('/api/v1/auth/forgot-password', loginRateLimiter);
+// Rate limiting (general)
+const limiter = rateLimit({
+  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000', 10), // 15 minutes
+  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || '100', 10),
+  message: 'Too many requests from this IP, please try again later.',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use('/api/', limiter);
+
+// Strict rate limiting for auth endpoints
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  message: 'Too many attempts, please try again later.',
+  skipSuccessfulRequests: true,
+});
+app.use('/api/v1/auth/login', loginLimiter);
+app.use('/api/v1/auth/register', loginLimiter);
+app.use('/api/v1/auth/forgot-password', loginLimiter);
 
 // Request timeout — abort after 30s (configurable via REQUEST_TIMEOUT_MS)
 app.use(requestTimeout());
@@ -283,25 +282,16 @@ app.use('/api/v1/kya', kyaWebhookRoutes);
 // KYA CLI Snap endpoint (simulation trigger for demo)
 app.post('/api/v1/kya/snap', async (req: Request, res: Response) => {
   const adminKey = process.env.ADMIN_API_KEY;
-  const authorizationHeader = req.headers['authorization'];
-  const bearerToken =
-    typeof authorizationHeader === 'string'
-      ? authorizationHeader.replace(/^Bearer\s+/i, '')
-      : undefined;
-  const rawAdminHeader = req.headers['x-admin-key'];
-  const adminHeaderValue = Array.isArray(rawAdminHeader) ? rawAdminHeader[0] : rawAdminHeader;
-  const adminHeader = typeof adminHeaderValue === 'string' ? adminHeaderValue : undefined;
-  const provided = bearerToken || adminHeader;
+  const provided =
+    req.headers['authorization']?.replace('Bearer ', '') || req.headers['x-admin-key'];
 
-  if (!adminKey || !provided) {
-    res.status(401).json({ error: 'Unauthorized' });
-    return;
-  }
-  const providedBuf = Buffer.from(provided.padEnd(256, '\0'));
-  const expectedBuf = Buffer.from(adminKey.padEnd(256, '\0'));
-  if (!crypto.timingSafeEqual(providedBuf, expectedBuf)) {
-    res.status(401).json({ error: 'Unauthorized' });
-    return;
+  if (adminKey && provided) {
+    const providedBuf = Buffer.from(String(provided).padEnd(256, '\0'));
+    const expectedBuf = Buffer.from(adminKey.padEnd(256, '\0'));
+    if (!crypto.timingSafeEqual(providedBuf, expectedBuf)) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
   }
 
   const { sessionId, reason, forceCascade, source } = req.body;
@@ -434,7 +424,7 @@ app.get('/api/v1/cron/status', async (_req: Request, res: Response) => {
 // Construction leads manual trigger (secured by admin key)
 app.post('/api/v1/construction-leads/fetch', async (req: Request, res: Response) => {
   const adminKey = process.env.ADMIN_API_KEY;
-  const provided = req.headers['x-admin-key'];
+  const provided = req.headers['x-admin-key'] as string;
 
   // SECURITY: Timing-safe comparison to prevent timing attacks (consistent with other admin endpoints)
   if (!adminKey || !provided) {
@@ -461,7 +451,7 @@ app.post('/api/v1/construction-leads/fetch', async (req: Request, res: Response)
 // Captain inquiry status update — triggers pre-briefing email on "booked"
 app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Response) => {
   const adminKey = process.env.ADMIN_API_KEY;
-  const provided = req.headers['x-admin-key'];
+  const provided = req.headers['x-admin-key'] as string;
 
   // SECURITY: Timing-safe comparison to prevent timing attacks
   if (!adminKey || !provided) {
@@ -566,114 +556,6 @@ app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Resp
     const msg = err instanceof Error ? err.message : 'Unknown error';
     logger.error('Captain inquiry status update failed', { error: msg, id });
     res.status(500).json({ error: 'Update failed', message: msg });
-  }
-});
-
-// Public platform status endpoint (no auth required — Gap #11)
-app.get('/api/v1/status', (_req: Request, res: Response) => {
-  const uptimeSeconds = Math.floor(process.uptime());
-  res.json({
-    service: 'DWS IQ 6',
-    version: process.env.npm_package_version || '1.0.0',
-    status: 'operational',
-    timestamp: new Date().toISOString(),
-    uptime: uptimeSeconds,
-    environment: process.env.NODE_ENV || 'development',
-    region: process.env.CLOUD_REGION || 'eu-north-1',
-    components: {
-      api: 'operational',
-      agents: 'operational',
-      compliance: 'operational',
-    },
-  });
-});
-
-// Audit log SIEM export — admin-only, no JWT required (Gap #13)
-app.get('/api/v1/activity/export', async (req: Request, res: Response, next: NextFunction) => {
-  const adminKey = process.env.ADMIN_API_KEY;
-  const provided = req.headers['x-admin-key'];
-
-  if (!adminKey || !provided) {
-    res.status(401).json({ error: 'Unauthorized', message: 'X-Admin-Key header required' });
-    return;
-  }
-  const providedBuf = Buffer.from(String(provided).padEnd(256, '\0'));
-  const expectedBuf = Buffer.from(adminKey.padEnd(256, '\0'));
-  if (!crypto.timingSafeEqual(providedBuf, expectedBuf)) {
-    res.status(401).json({ error: 'Unauthorized' });
-    return;
-  }
-
-  try {
-    const now = new Date();
-    const since = req.query.since
-      ? new Date(req.query.since as string)
-      : new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-    const until = req.query.until ? new Date(req.query.until as string) : now;
-    const typeFilter = req.query.type as string | undefined;
-    const format = req.query.format === 'csv' ? 'csv' : 'ndjson';
-    const limit = Math.min(parseInt(req.query.limit as string) || 1000, 10000);
-
-    if (isNaN(since.getTime()) || isNaN(until.getTime())) {
-      res.status(400).json({ error: 'Invalid since or until timestamp' });
-      return;
-    }
-
-    const { getSupabaseClient } = await import('./config/supabase.js');
-    const supabase = getSupabaseClient();
-
-    interface AuditRow {
-      id: string;
-      type: string;
-      title: string;
-      description: string;
-      severity: string;
-      metadata: Record<string, unknown>;
-      created_at: string;
-    }
-
-    let events: AuditRow[] = [];
-    if (supabase) {
-      let query = supabase
-        .from('activity_events')
-        .select('id, type, title, description, severity, metadata, created_at')
-        .gte('created_at', since.toISOString())
-        .lte('created_at', until.toISOString())
-        .order('created_at', { ascending: true })
-        .limit(limit);
-      if (typeFilter) query = query.eq('type', typeFilter);
-      const { data, error } = await query;
-      if (error) throw error;
-      events = (data || []) as AuditRow[];
-    }
-
-    const ts = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
-    const filename = `dws-audit-${ts}`;
-
-    if (format === 'csv') {
-      res.setHeader('Content-Type', 'text/csv');
-      res.setHeader('Content-Disposition', `attachment; filename="${filename}.csv"`);
-      res.write('id,type,title,description,severity,created_at\n');
-      for (const e of events) {
-        const row = [
-          e.id,
-          e.type,
-          `"${(e.title || '').replace(/"/g, '""')}"`,
-          `"${(e.description || '').replace(/"/g, '""')}"`,
-          e.severity,
-          e.created_at,
-        ].join(',');
-        res.write(row + '\n');
-      }
-      res.end();
-    } else {
-      res.setHeader('Content-Type', 'application/x-ndjson');
-      res.setHeader('Content-Disposition', `attachment; filename="${filename}.ndjson"`);
-      for (const e of events) res.write(JSON.stringify(e) + '\n');
-      res.end();
-    }
-  } catch (err) {
-    next(err);
   }
 });
 

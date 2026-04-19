@@ -265,19 +265,7 @@ export { BaseAgent } from './base.agent.js';
 // Re-export DWS7 modules
 export { eventBus } from './event-bus.js';
 export { BUILTIN_TOOLS, registerToolHandler } from './tools.js';
-export { createLLMClient, createLLMClientForAgent, LLMClient } from './llm-client.js';
-
-// Re-export model selector
-export {
-  selectModel,
-  getModelSelectionSummary,
-  estimateLocalModelDiskUsage,
-  AGENT_TIER_MAP,
-  MODEL_CATALOG,
-  ACER_GN100_BUDGET,
-} from './model-selector.js';
-export type { ModelOption, ModelSelection, EdgeResourceBudget } from './model-selector.js';
-export type { ModelTier } from './types.js';
+export { createLLMClient, LLMClient } from './llm-client.js';
 
 // Re-export sandbox isolation module
 export { executeIsolatedAgent, getAgentFoundryConfig, getSandboxStage } from '../sandbox/index.js';
