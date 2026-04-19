@@ -11,22 +11,23 @@ Input: $ARGUMENTS (customer profile as JSON — or describe in natural language 
 
 ## Steps
 
-1. Parse the input — if natural language, convert to the Regulatory Radar expected format
-2. Run: `cd cli && npx tsx src/cli.ts run regulatory-radar --input '<json>'`
-3. The agent scans these sources (in priority order):
+1. Parse the input — if natural language, convert to the Regulatory Radar expected format.
+2. **Execution status:** the dedicated `regulatory-radar` CLI agent is **not yet available**, so do **not** run `dws run regulatory-radar` or `cd cli && npx tsx src/cli.ts run regulatory-radar --input '<json>'` yet.
+3. **Current workaround:** use `/compliance-check` with the same customer profile and ask for an upcoming-regulations / regulatory-pipeline review. This provides the currently available alternative until the `regulatory-radar` agent is wired into the CLI.
+4. **Expected behavior once implemented:** the agent will scan these sources (in priority order):
    - **EUR-Lex** — pending Delegated Acts, Implementing Regulations, Directives (CELEX search filtered by customer's active regulation frameworks)
    - **DG ENER / DG CLIMA / DG GROW** — consultation pages, work programme entries, feedback periods
    - **Commission work programme** — annual published schedule of upcoming Acts
    - **EFRAG** — ESRS exposure drafts and sector standards
    - **CINEA** — Innovation Fund auction schedules (hydrogen, industrial decarbonisation)
    - **National scheme registries** — Energimyndigheten (SE), SEAI (IE), Germanwatch (DE) for member-state overlays
-4. Score each pipeline item per the customer profile:
+5. The review should score each pipeline item per the customer profile:
    - **Applicability:** does it hit this customer? (industry, size threshold, jurisdiction)
    - **Urgency:** months until in-force / first reporting deadline
    - **Effort:** estimated gap-to-compliance (low/medium/high)
    - **Risk:** penalty exposure + reputational exposure if missed
-5. Emit a signed, Article-12-auditable radar report: sorted by urgency × risk, with citation to the regulatory source (EUR-Lex CELEX, DG URL, Commission work-programme entry)
-6. If any item scores urgency ≤6 months AND risk = high, flag as ALERT
+6. The expected output is a signed, Article-12-auditable radar report sorted by urgency × risk, with citation to the regulatory source (EUR-Lex CELEX, DG URL, Commission work-programme entry).
+7. If any item scores urgency ≤6 months AND risk = high, flag it as ALERT.
 
 ## Expected input format
 
