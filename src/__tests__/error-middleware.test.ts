@@ -6,7 +6,7 @@
  */
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { type Request, type Response } from 'express';
+import { NextFunction, type Request, type Response } from 'express';
 import { asyncHandler } from '../middleware/async-handler.js';
 import { requestTimeout } from '../middleware/request-timeout.js';
 import { AppError, errorHandler, Errors } from '../middleware/error-handler.js';

@@ -3,14 +3,15 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: current | Date: 18.04.2026 | Changes: Updated quickstart to reflect Win11 developer MCP, DGX hub orchestration, and remote/mobile MCP split
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-dws6-ux-1RWJg | Date: 07.03.2026 | Changes: Initial creation — client quickstart for MCP Hub integration
 
 Document Status:
   - Created: 07.03.2026
-  - Last Modified: 07.03.2026
+  - Last Modified: 18.04.2026
   - Language: English
   - Publication Status: ACTIVE
 
@@ -18,20 +19,39 @@ Document Status:
 
 ## Overview
 
-The DWS IQ MCP Hub exposes all 16 AI agents as MCP tools. Any MCP-compatible client (Claude Code, Cursor, VS Code, Codex) can connect and use them.
+DWS MCP is split by use case:
+
+1. **Win11 developer MCP** — local backend + local Python gateway, no Docker
+2. **DGX hub** — orchestration and scheduled automation
+3. **Remote/mobile MCP** — hosted HTTP endpoints when local processes are not available
+
+Supabase is shared across the split: local dev needs it, and DGX orchestration needs it too.
 
 ## Quick Connection
 
 ### 1. Claude Code (`.mcp.json`)
 
-Add to your project root `.mcp.json`:
+For Win11 developer work, use local MCP entries:
 
 ```json
 {
   "mcpServers": {
-    "dws-iq": {
-      "url": "http://localhost:8080/mcp",
-      "transport": "streamable-http"
+    "dws-agents-local": {
+      "type": "http",
+      "url": "http://localhost:8080/mcp"
+    },
+    "dws-gateway-local": {
+      "type": "stdio",
+      "command": "python",
+      "args": [
+        "mcp-servers/cloud-run-gateway/server.py",
+        "--transport",
+        "stdio"
+      ],
+      "env": {
+        "SUPABASE_URL": "${SUPABASE_URL}",
+        "SUPABASE_SERVICE_KEY": "${SUPABASE_SERVICE_KEY}"
+      }
     }
   }
 }
@@ -39,32 +59,58 @@ Add to your project root `.mcp.json`:
 
 ### 2. Cursor / VS Code
 
-Add to your editor's MCP settings:
+If you need remote/mobile access instead, use hosted URLs in your editor's MCP settings:
 
 ```json
 {
   "mcp.servers": {
-    "dws-iq": {
-      "url": "http://localhost:8080/mcp",
-      "transport": "streamable-http"
+    "dws-gateway": {
+      "type": "http",
+      "url": "${MCP_GATEWAY_URL}"
+    },
+    "dws-agents": {
+      "type": "http",
+      "url": "${DWS_MCP_AGENT_URL}"
     }
   }
 }
 ```
 
-### 3. Python Client
+### 3. Environment split
+
+#### Win11 developer
+
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_KEY`
+- `GITHUB_TOKEN` (optional, only needed for GitHub tool calls from local gateway)
+
+#### DGX hub
+
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_KEY`
+- `DATABASE_URL`
+- `MCP_HUB_URL` or `MCP_HUB_HEALTH_URL`
+
+#### Remote/mobile
+
+- `MCP_GATEWAY_URL`
+- `MCP_GATEWAY_API_KEY`
+- `DWS_MCP_AGENT_URL`
+- `DWS_API_TOKEN`
+
+### 4. Python Client
 
 ```python
 import httpx
 
 def mcp_call(method: str, params: dict = None) -> dict:
     """Call DWS IQ MCP server."""
-    resp = httpx.post("http://localhost:8080/mcp", json={
+    resp = httpx.post("https://your-dws-agent-endpoint/mcp", json={
         "jsonrpc": "2.0",
         "id": 1,
         "method": method,
         "params": params or {},
-    })
+    }, headers={"Authorization": "Bearer YOUR_DWS_API_TOKEN"})
     return resp.json().get("result", {})
 
 # List all available tools
@@ -85,7 +131,7 @@ result = mcp_call("tools/call", {
 print(result)
 ```
 
-### 4. DWS CLI
+### 5. DWS CLI
 
 ```bash
 # List available MCP tools
@@ -134,6 +180,27 @@ dws workflow construction-full --input '{"temperature":28,"humidity":75,"windSpe
 dws workflow seo-pipeline --input '{"domain":"example.com","targetKeywords":["eu compliance"]}'
 ```
 
+## Local Development
+
+For Win11 backend development, start the Express app and use the local agent endpoint:
+
+```json
+{
+  "mcpServers": {
+    "dws-agents-local": {
+      "type": "http",
+      "url": "http://localhost:8080/mcp"
+    }
+  }
+}
+```
+
+```bash
+npm run dev
+```
+
+For DGX orchestration, use `.env.mcp` and the DGX day-runner / hub processes rather than local Win11 Docker containers.
+
 ## Server-Sent Events (Streaming)
 
 Subscribe to real-time agent events:
@@ -169,8 +236,8 @@ Response:
 
 | Issue | Fix |
 |-------|-----|
-| Connection refused | Start backend: `npm run dev` |
-| 401 Unauthorized | Set `DWS_API_TOKEN` in `.env` |
+| Connection refused | Confirm the configured MCP URL is reachable or start `npm run dev` for local agent testing |
+| 401 Unauthorized | Set `MCP_GATEWAY_API_KEY` or `DWS_API_TOKEN` to a valid bearer token |
 | Tool not found | Run `dws mcp tools` to list available tools |
 | Timeout | Check if backend is healthy: `dws health` |
 

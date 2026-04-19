@@ -28,6 +28,7 @@ export class LeadFeedbackAgent extends BaseAgent {
         'industry-correlation',
       ],
       model: 'llama-3.3-70b-versatile',
+      modelTier: 'lite',
     });
   }
 

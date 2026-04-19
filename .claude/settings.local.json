@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 {
   "permissions": {
     "allow": [
@@ -17,18 +18,116 @@
       "Bash(gh run:*)",
       "Read($CLAUDE_PROJECT_DIR/**)",
       "Bash(gh pr:*)",
-      "Bash(python3 -c \"import json,sys; p=json.load\\(sys.stdin\\); [print\\(x.get\\('sku',''\\),x.get\\('title',''\\),x.get\\('status',''\\)\\) for x in p.get\\('products',[]\\)]\")",
-      "Bash(python3 -c:*)",
-      "Bash(export PATH=\"$PATH:/mingw64/bin:/usr/bin:/c/Program Files/Git/bin:/c/Program Files/Git/cmd\")",
-      "Bash(export PATH=\"$PATH:/mingw64/bin:/usr/bin:/c/Program Files/Git/bin:/c/Program Files/Git/cmd:/c/Windows/System32\")",
-      "Bash(export PATH=\"$PATH:/mingw64/bin:/usr/bin:/c/Program Files/Git/bin:/c/Program Files/Git/cmd:/c/Windows/System32:/c/Windows/System32/WindowsPowerShell/v1.0\")",
-      "Bash(dir \"F:\\\\2026\\\\Repos2026\\\\dws6\\\\investor-outreach\\\\\" 2>/dev/null)"
+      "Bash(cp \"C:/Users/risto/OneDrive/Kuvat/Näyttökuvat/DWS-IQ-Aegis-Clean.png\" \"F:/2026/Repos2026/dws6/.claude/worktrees/cool-goldberg/kb/raw/images/products/firehorse-aegis-clean.png\")",
+      "Bash(cp \"C:/Users/risto/OneDrive/Kuvat/Näyttökuvat/Aegis-Armed.png\" \"F:/2026/Repos2026/dws6/.claude/worktrees/cool-goldberg/kb/raw/images/products/firehorse-aegis-armed.png\")",
+      "Bash(cp \"C:/Users/risto/OneDrive/Kuvat/DWS IQ Aegis/Sovereignty.jpg\" \"F:/2026/Repos2026/dws6/.claude/worktrees/cool-goldberg/kb/raw/images/products/firehorse-aegis-sovereignty.jpg\")",
+      "Bash(cp \"C:/Users/risto/OneDrive/Kuvat/DWS IQ Aegis/EU_Sovereign.png\" \"F:/2026/Repos2026/dws6/.claude/worktrees/cool-goldberg/kb/raw/images/products/firehorse-aegis-eu-sovereign.png\")",
+      "Bash(grep -E \"\\\\.\\(js|html|jsx|tsx\\)$\")",
+      "Bash(grep -l \"ironclad\" /f/2026/Repos2026/dws6/.claude/worktrees/cool-goldberg/dws10.com/index.html /f/2026/Repos2026/dws6/.claude/worktrees/cool-goldberg/dws10.com/*/index.html)",
+      "Bash(cp onelifetime.world/shared-assets/footer/ironclad-footer.js landing-pages/onelifetime-world/shared-assets/footer/ironclad-footer.js)",
+      "Bash(cp dws10.com/shared-assets/footer/ironclad-footer.js landing-pages/dws10-com/shared-assets/footer/ironclad-footer.js)",
+      "Bash(cp dws6.com/shared-assets/footer/ironclad-footer.js landing-pages/dws6-com/shared-assets/footer/ironclad-footer.js)"
     ]
   },
   "enabledMcpjsonServers": [
     "Supabase MCP",
     "Upstash Redis",
     "MCP Hub"
+  ],
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-start.sh"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/pretooluse-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/secret-scan.sh"
+          },
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/log-commands.sh"
+          },
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/sql-safety-guard.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/protect-files.sh"
+          },
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/secret-scan.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path' | xargs npx prettier --write 2>/dev/null; exit 0"
+          },
+          {
+            "type": "command",
+            "command": "npx eslint --fix $(jq -r '.tool_input.file_path') 2>&1 | tail -10; exit 0"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-stop.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+=======
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command:*)",
+      "Bash(powershell -NoProfile -Command:*)",
+      "Bash(pandoc:*)",
+      "Bash(pip install:*)",
+      "Bash(python -c:*)",
+      "Bash(python -X utf8 -c:*)",
+      "Bash(ls:*)",
+      "Bash(python:*)",
+      "Bash(git:*)",
+      "Bash(start:*)"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "dws-gateway-local"
   ],
   "hooks": {
     "SessionStart": [
@@ -106,3 +205,4 @@
     ]
   }
 }
+>>>>>>> Stashed changes

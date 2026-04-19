@@ -45,7 +45,7 @@ Every AI startup will tell you they use GPT, Claude, or Llama. So does everyone 
 - **Claude Opus 4.6** arrived → We shipped DWS IQ Aegis (dual-use defence platform), the carbon debit-credit ledger, and Article 12 compliance logging
 - **Claude Opus 4.7** will arrive → The factory is ready. You have no idea what breakthrough ships next — but we have the production line waiting to receive it.
 
-**The competitor who starts prompting ChatGPT today is where we were 15 months ago.** They have a blank prompt and a subscription. We have a factory that has already produced 32 products, 12 verified breakthroughs, and 5 paying customers with 100% retention.
+**The competitor who starts prompting ChatGPT today is where we were 15 months ago.** They have a blank prompt and a subscription. We have a factory that has already produced 32 products, 12 verified breakthroughs, and 6 paying customers with 100% retention.
 
 Each model generation makes us faster. Each competitor generation starts from zero.
 

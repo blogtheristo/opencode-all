@@ -1,12 +1,18 @@
 /**
  * Send Email — Amazon SES (SMTP) ONLY
  *
- * SECURITY: Resend SDK removed 2026-03-26 due to suspected account compromise.
- * All DWS emails use Amazon SES via SMTP only.
+ * All DWS emails use risto@onelifetime.world (verified in SES and Resend.com).
+ * Priority: SMTP (SES) → Resend. If both transports fail, the email is persisted
+ * locally in Supabase email_queue with status='failed' for manual retry.
+ *
+ * EVERY outgoing email is logged to Supabase email_queue regardless of
+ * delivery outcome — provides a local audit trail and enables failover
+ * replay if SES becomes unavailable.
  *
  * Env vars:
  *   SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_SECURE (Amazon SES eu-north-1)
  *   EMAIL_FROM (default: risto@onelifetime.world)
+ *   SUPABASE_URL, SUPABASE_SERVICE_KEY (for local audit logging)
  */
 
 import nodemailer from 'nodemailer';
@@ -88,37 +94,140 @@ export interface SendEmailOptions {
   text?: string;
   replyTo?: string;
   headers?: Record<string, string>;
+  /** Source system for audit trail (default: 'platform') */
+  source?: 'platform' | 'firehorse' | 'outreach' | 'admin';
+  /** Template type identifier for tracking */
+  templateType?: string;
+  /** Arbitrary metadata stored with the audit log */
+  metadata?: Record<string, unknown>;
 }
 
-export async function sendEmail(
+export interface SendEmailResult {
+  ok: boolean;
+  transport?: string;
+  error?: string;
+  /** Supabase email_queue row ID — proof of local persistence */
+  auditId?: string;
+}
+
+/**
+ * Persist email to Supabase email_queue for audit trail.
+ * Never throws — failures are logged silently so email delivery isn't blocked.
+ */
+async function persistToAuditLog(
   options: SendEmailOptions,
-): Promise<{ ok: boolean; transport?: string; error?: string }> {
+  status: 'queued' | 'sent' | 'failed',
+  transport?: string,
+  error?: string,
+): Promise<string | undefined> {
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+  if (!supabaseUrl || !supabaseKey) return undefined;
+
+  try {
+    const response = await fetch(`${supabaseUrl}/rest/v1/email_queue`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: supabaseKey,
+        Authorization: `Bearer ${supabaseKey}`,
+        Prefer: 'return=representation',
+      },
+      body: JSON.stringify({
+        to_email: options.to,
+        subject: options.subject,
+        template_type: options.templateType || null,
+        source: options.source || 'platform',
+        status,
+        attempts: status === 'failed' ? 1 : (status === 'sent' ? 1 : 0),
+        sent_at: status === 'sent' ? new Date().toISOString() : null,
+        error: error || null,
+        metadata: {
+          ...options.metadata,
+          from: options.from,
+          transport: transport || null,
+          html_length: options.html.length,
+        },
+      }),
+    });
+
+    if (response.ok) {
+      const rows = await response.json() as Array<{ id: string }>;
+      return rows?.[0]?.id;
+    }
+  } catch {
+    // Silent — audit logging must never block email delivery
+  }
+
+  return undefined;
+}
+
+export async function sendEmail(options: SendEmailOptions): Promise<SendEmailResult> {
   const { from, to, subject, html, text, replyTo, headers } = options;
   const callerStack = new Error().stack?.split('\n').slice(2, 5).join(' <- ') || 'unknown';
   const contentLength = (html?.length || 0) + (text?.length || 0);
 
   const smtp = createSmtpTransport();
-  if (!smtp) {
-    return {
-      ok: false,
-      error: 'No SMTP transport configured (SMTP_HOST required). Resend removed for security.',
-    };
+  if (smtp) {
+    try {
+      await smtp.sendMail({
+        from,
+        to,
+        subject,
+        html,
+        text: text ?? undefined,
+        replyTo: replyTo ?? undefined,
+        headers: headers as Record<string, string> | undefined,
+      });
+      const auditId = await persistToAuditLog(options, 'sent', 'ses');
+      return { ok: true, transport: 'ses', auditId };
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      console.error('SES SMTP send failed, falling back to Resend:', msg);
+      // Log the SES failure attempt but continue to Resend
+    }
   }
 
-  try {
-    await smtp.sendMail({
-      from,
-      to,
-      subject,
-      html,
-      text: text ?? undefined,
-      replyTo: replyTo ?? undefined,
-      headers: headers as Record<string, string> | undefined,
-    });
-    await auditLogEmail({ from, to, subject, transport: 'ses-smtp', contentLength, callerStack });
-    return { ok: true, transport: 'ses-smtp' };
-  } catch (err) {
-    const msg = err instanceof Error ? err.message : String(err);
-    return { ok: false, error: `SES SMTP failed: ${msg}` };
+  // 2. Try Resend (failover)
+  const resendKey = process.env.RESEND_API_KEY;
+  if (resendKey) {
+    try {
+      const resBody: Record<string, unknown> = {
+        from,
+        to: [to],
+        subject,
+        html,
+        text: text ?? undefined,
+        reply_to: replyTo ?? undefined,
+      };
+      if (headers && Object.keys(headers).length > 0) {
+        resBody.headers = headers;
+      }
+      const response = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${resendKey}`,
+        },
+        body: JSON.stringify(resBody),
+      });
+      if (response.ok) {
+        const auditId = await persistToAuditLog(options, 'sent', 'resend');
+        return { ok: true, transport: 'resend', auditId };
+      }
+      const errBody = await response.text();
+      const error = `Resend ${response.status}: ${errBody}`;
+      const auditId = await persistToAuditLog(options, 'failed', 'resend', error);
+      return { ok: false, error, auditId };
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      const auditId = await persistToAuditLog(options, 'failed', 'resend', msg);
+      return { ok: false, error: msg, auditId };
+    }
   }
+
+  // 3. Both transports unavailable — persist locally for manual replay
+  const error = 'No email transport available (SMTP_HOST and RESEND_API_KEY both missing)';
+  const auditId = await persistToAuditLog(options, 'queued', undefined, error);
+  return { ok: false, error, auditId };
 }

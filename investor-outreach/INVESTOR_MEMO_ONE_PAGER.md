@@ -30,7 +30,7 @@ AGENT HISTORY:
 | Metric           | Value                                 |
 | ---------------- | ------------------------------------- |
 | MRR              | €7K (March 2026)                      |
-| Paying Customers | 5                                     |
+| Paying Customers | 6                                     |
 | Retention        | 100% (zero churn)                     |
 | Customer LTV     | €70K–€120K/year                       |
 | Time Saved       | 40+ hours/month per customer          |

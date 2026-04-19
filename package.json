@@ -15,6 +15,7 @@
     "diag:dws-api": "tsx scripts/test-dws-api.ts",
     "diag:mcp": "tsx scripts/test-mcp-http.ts",
     "diag:ollama": "tsx scripts/test-veriton-ollama.ts",
+    "diag:continue:tunnel": "pwsh -NoProfile -File scripts/Test-Continue-OllamaTunnel.ps1",
     "diag:supabase-rest": "tsx scripts/test-supabase-rest.ts",
     "db:push": "bash scripts/db_push.sh",
     "db:push:skip-link": "bash scripts/db_push.sh --skip-link",

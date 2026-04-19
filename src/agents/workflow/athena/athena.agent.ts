@@ -42,6 +42,7 @@ export class AthenaAgent extends BaseAgent {
         'eu-ai-act-article-12',
       ],
       model: 'claude-haiku-4-5-20251001',
+      modelTier: 'heavy',
     });
   }
 

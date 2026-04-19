@@ -68,9 +68,26 @@ Every post gets:
 | Production copy      | `landing-pages/onelifetime-world/posts/<slug>.html` |
 | EN template          | `onelifetime.world/posts/_template-en.html`         |
 | FI template          | `onelifetime.world/posts/_template-fi.html`         |
-| EN series posts      | `onelifetime.world/posts/en/day-NNN-<slug>.html`    |
-| FI series posts      | `onelifetime.world/posts/fi/day-NNN-<slug>.html`    |
+| EN posts             | `onelifetime.world/posts/en/<slug>.html`            |
+| FI posts             | `onelifetime.world/posts/fi/<slug>.html`            |
+| SV posts             | `onelifetime.world/posts/sv/<slug>.html`            |
+| DE posts             | `onelifetime.world/posts/de/<slug>.html`            |
+| FR posts             | `onelifetime.world/posts/fr/<slug>.html`            |
 | Nav injection script | `scripts/inject-blog-nav.cjs`                       |
+
+### Language Standard (5 Languages)
+
+Blog posts support **5 languages** matching the `dws10.com` language standard defined in `shared-assets/nav/ironclad-nav.js`:
+
+| Code | Language | Label    | Post Subfolder |
+| ---- | -------- | -------- | -------------- |
+| `en` | English  | English  | `posts/en/`    |
+| `fi` | Finnish  | Suomeksi | `posts/fi/`    |
+| `sv` | Swedish  | Svenska  | `posts/sv/`    |
+| `de` | German   | Deutsch  | `posts/de/`    |
+| `fr` | French   | Français | `posts/fr/`    |
+
+The language bar (`shared-assets/lang-bar.js`, v1.1+) auto-injects all 5 buttons and navigates via `hreflang` tags. Every multilingual post MUST declare all 5 `<link rel="alternate" hreflang="...">` tags in `<head>` pointing to its counterpart versions. If a translation is not yet published, point the `hreflang` to the English version as fallback and mark the status in the post registry.
 
 ---
 
