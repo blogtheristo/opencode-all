@@ -70,11 +70,15 @@ allowed-tools: [Bash, WebSearch]
 
 ```json
 {
-  "complianceScore": 0-100,
-  "gapList": [{"regulation": "", "gap": "", "severity": "critical|high|medium"}],
-  "costEstimate": { "ets": number, "cbam": number, "total": number },
-  "deadlineUrgency": [{"regulation": "", "deadline": "date", "daysRemaining": number}],
-  "auditReport": "markdown",
+  "overallScore": 0-100,
+  "complianceStatus": "compliant|partially_compliant|non_compliant",
+  "regulationScores": [
+    { "regulation": "ETS|CBAM|CSRD|EU_AI_ACT", "score": 0-100 }
+  ],
+  "gaps": [{"regulation": "", "gap": "", "severity": "critical|high|medium"}],
+  "deadlines": [{"regulation": "", "deadline": "date", "daysRemaining": number}],
+  "costEstimates": { "ets": number, "cbam": number, "total": number },
+  "report": "markdown",
   "recommendations": ["string"]
 }
 ```
