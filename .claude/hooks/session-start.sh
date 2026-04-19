@@ -24,7 +24,35 @@ fi
 
 # Check MCP server health
 if [ -f ".mcp.json" ]; then
-  MCP_COUNT=$(cat .mcp.json | jq '.mcpServers | length' 2>/dev/null || echo "0")
+  if command -v jq >/dev/null 2>&1; then
+    MCP_COUNT=$(jq '.mcpServers | length' .mcp.json 2>/dev/null || echo "0")
+  elif command -v python3 >/dev/null 2>&1; then
+    MCP_COUNT=$(python3 - <<'PY'
+import json
+from pathlib import Path
+
+try:
+    data = json.loads(Path(".mcp.json").read_text(encoding="utf-8"))
+    print(len(data.get("mcpServers", {})))
+except Exception:
+    print(0)
+PY
+)
+  elif command -v python >/dev/null 2>&1; then
+    MCP_COUNT=$(python - <<'PY'
+import json
+from pathlib import Path
+
+try:
+    data = json.loads(Path(".mcp.json").read_text(encoding="utf-8"))
+    print(len(data.get("mcpServers", {})))
+except Exception:
+    print(0)
+PY
+)
+  else
+    MCP_COUNT="0"
+  fi
   echo "MCP servers configured: $MCP_COUNT"
 fi
 
