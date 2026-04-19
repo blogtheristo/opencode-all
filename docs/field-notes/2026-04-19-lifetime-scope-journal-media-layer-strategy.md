@@ -31,9 +31,12 @@ That media layer is **Lifetime Scope Journal (LSJ)** — already branded on `one
 | Surface                              | Role                                                         | Cadence                |
 | ------------------------------------ | ------------------------------------------------------------ | ---------------------- |
 | `onelifetime.world/blog/` (LSJ home) | Source of truth. Daily/weekly posts, 800-day campaign index. | Daily during campaign. |
-| LinkedIn newsletter (`entityUrn=7191306524177154048`) | **Lifetime Scope Monthly — Best Blog Entry of the Month.** | Monthly. |
+| LinkedIn newsletter (`entityUrn=7191306524177154048`) | **Lifetime Scope Monthly — Best Entry of the Fortnight + 3 Runners-Up.** Name retained; cadence is biweekly. | Every 2 weeks (fortnightly). |
+| YouTube channel (video companion)    | Short-form talk-throughs of each issue's Best Entry.         | Biweekly, aligned with LinkedIn issue. |
 | Individual posts at `/posts/en/*.html`, `/posts/fi/*.html` | Long-form articles (EN + FI). | Per publishing plan.   |
 | `onelifetime.world` homepage         | Top-of-funnel capture; visible LinkedIn subscribe CTA.       | Permanent.             |
+
+**Automation:** `scripts/weekly/lsj-publish-draft.sh` runs on DGX Spark every Sunday via `day-runner.sh`, with an ISO-week parity guard so it only fires on even weeks (fortnightly). It inventories posts from the last 14 days and, when ≥ 4 posts exist, writes a draft trigger to `drafts/lsj/<yyyy-mm-dd>-lsj-biweekly-draft.md` that points the Editor at `/lsj-publish` in Claude Code. Never auto-posts to LinkedIn. Issue numbering is monotonic (current: #8 is the first biweekly issue after 7 monthly ones).
 
 **Editor in Chief:** Risto Anton Päärni (Lifetime Oy).
 **Why LinkedIn and not Substack/email-only:** the buying audience (CIO/CTO/sustainability leads at enterprise industrials) lives on LinkedIn. Newsletter follow cost = one click; no address leakage; amplified by LinkedIn's graph. Substack/email stays optional (second rail) once the LinkedIn list crosses ~2k subscribers.

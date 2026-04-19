@@ -1,13 +1,17 @@
 ---
 name: lsj-publish
-version: 1.0
+version: 1.1
 date: 2026-04-19
-description: Drafts the next issue of Lifetime Scope Monthly (the LinkedIn newsletter of Lifetime Scope Journal). Picks the best blog entry of the month from onelifetime.world/blog, builds 3 runner-up cards, drafts the Editor's Note and Agentic Lens block, and produces a LinkedIn-ready copy-paste. Use when user says "lsj publish", "draft scope monthly", "best blog of the month", "lifetime scope monthly", "linkedin newsletter draft", or "prepare LSJ issue".
+description: Drafts the next issue of Lifetime Scope Monthly (the LinkedIn newsletter of Lifetime Scope Journal). Biweekly cadence — every 2 weeks (fortnightly). Picks the best blog entry of the fortnight from onelifetime.world/blog, builds 3 runner-up cards, drafts the Editor's Note and Agentic Lens block, produces a LinkedIn-ready copy-paste, and includes the About-LSJ intro with blog + YouTube links. Use when user says "lsj publish", "draft scope monthly", "best blog of the fortnight", "lifetime scope monthly", "linkedin newsletter draft", or "prepare LSJ issue".
 ---
 
-Draft the next issue of **Lifetime Scope Monthly** — the LinkedIn newsletter layer of Lifetime Scope Journal (LSJ).
+Draft the next issue of **Lifetime Scope Monthly** — the biweekly LinkedIn newsletter layer of Lifetime Scope Journal (LSJ).
 
-Usage: `/lsj-publish <month>` — e.g. `/lsj-publish 2026-04` (defaults to current month).
+**Cadence:** every 2 weeks (fortnightly). Auto-triggered on even ISO weeks by `scripts/weekly/lsj-publish-draft.sh` on DGX Spark; may also be run manually.
+
+**Issue numbering is monotonic across all issues** regardless of cadence change (e.g. #7 was the last monthly; #8 is the first biweekly).
+
+Usage: `/lsj-publish <issue-number> [yyyy-mm-dd]` — e.g. `/lsj-publish 8 2026-04-19` (defaults: next unused issue number, today's date).
 
 Input: $ARGUMENTS
 
@@ -18,14 +22,18 @@ Two artefacts per run:
 1. **HTML blog post** at `onelifetime.world/posts/lifetime-scope-monthly-<yyyy-mm>.html` (+ synced mirror in `landing-pages/onelifetime-world/posts/`). Uses the existing post template + prev/next nav + share block + store cards.
 2. **LinkedIn copy-paste block** — single fenced code block, no markdown, no `<>` around URLs, ready to paste into the LinkedIn newsletter composer. Follows the CLAUDE.md Copy-Paste Output Rule and Social Media Output Rule.
 
-## Four-block format (fixed)
+## Block format (fixed)
 
-Every issue contains exactly these four blocks, in order:
+Every issue contains these blocks, in order:
 
-1. **Editor's Note** — ~150 words from Risto. Thesis of the month. Why this entry matters _now_.
-2. **The Best Entry** — full republish of the single best LSJ post of the month. Title, canonical URL, date, tags, lede paragraph, then the full body (or the first ~800 words with a "continue reading" link if the original is longer).
-3. **The Runners-Up** — 3 cards (title / one-line takeaway / link to the post on onelifetime.world/blog/).
-4. **Agentic Lens** — exactly one 80-word paragraph: _"If you used DWS IQ 6 agents this month, here is what they found."_ Ties editorial to Alpha-Share outcomes (anonymised aggregates). Never a product pitch.
+1. **Issue header** — "Lifetime Scope Monthly #N — <subtitle>". Issue number is monotonic, never resets.
+2. **About Lifetime Scope Journal** — 3–4 sentence intro: daily long-form at onelifetime.world/blog, EN + FI, biweekly best-of newsletter, video companion on YouTube. First paragraph of every issue (helps new subscribers).
+3. **Editor's Note** — ~150 words from Risto. Thesis of the fortnight. Why this entry matters _now_.
+4. **The Best Entry** — full republish of the single best LSJ post of the fortnight. Title, canonical URL, date, tags, lede paragraph, then the full body (or the first ~800 words with a "continue reading" link if the original is longer).
+5. **The Runners-Up** — 3 cards (title / one-line takeaway / link to the post on onelifetime.world/blog/).
+6. **Agentic Lens** — exactly one 80-word paragraph: _"If you used DWS IQ 6 agents this fortnight, here is what they found."_ Ties editorial to Alpha-Share outcomes (anonymised aggregates). Never a product pitch.
+7. **Links block** — three URLs: Journal (https://onelifetime.world/blog), YouTube (video companion), Subscribe on LinkedIn (https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7191306524177154048).
+8. **Sign-off** — "Risto Anton Paarni — Editor in Chief, Lifetime Scope Journal — Lifetime Oy, Helsinki".
 
 ## Steps
 
