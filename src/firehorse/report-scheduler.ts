@@ -17,10 +17,13 @@
 
 import cron from 'node-cron';
 import { getSupabaseClient } from '../config/supabase.js';
-import { exportReport } from '../services/report-export.service.js';
+import ReportExportService from '../services/report-export.service.js';
 import { sendEmail, escapeHtml } from '../utils/send-email.js';
 import logger from '../utils/logger.js';
 
+const exportReport = (
+  ...args: Parameters<typeof ReportExportService.generateExport>
+) => ReportExportService.generateExport(...args);
 // ============================================================================
 // Types (mirrors report_schedules table schema from migration 043)
 // ============================================================================
