@@ -166,6 +166,12 @@ const SOURCES = [
     outPrefix: 'Learn/PHD_FIREHORSE_FI_v',
     lang:      'fi',
   },
+  {
+    src:       'docs/ASPIRE_SENSOR_MANAGEMENT_PLAN.md',
+    titleBase: 'Aspire Sensor Management Plan',
+    outPrefix: 'Learn/ASPIRE_SENSOR_MANAGEMENT_PLAN_v',
+    lang:      'en',
+  },
 ];
 
 SOURCES.forEach(f => {

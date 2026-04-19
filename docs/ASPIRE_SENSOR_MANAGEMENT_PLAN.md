@@ -1,16 +1,22 @@
----
-VERSION AND AGENT HISTORY
-Version: 1.1
-Last Updated: 2026-03-21
-Author: Claude Code (Opus 4.6)
-Agent: claude/sensor-management-research-TgY2t
-Status: DRAFT — Pending CEO review
-Changes:
-  v1.1 (2026-03-21): Updated with davidfowl/aspire-docker-ssh-template findings — single-file AppHost, SSH deploy to GN100, YARP reverse proxy, Aspire MCP endpoint
-  v1.0 (2026-03-19): Initial plan
----
-
 # Sensor Management with .NET Aspire for DWS IQ 6
+
+***
+# VERSION AND AGENT HISTORY
+
+Version: 1.1
+
+Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/sensor-management-research-TgY2t | Date: 21.03.2026 | Changes: Updated with davidfowl/aspire-docker-ssh-template findings — single-file AppHost, SSH deploy to GN100, YARP reverse proxy, Aspire MCP endpoint
+  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/sensor-management-research-TgY2t | Date: 19.03.2026 | Changes: Initial plan
+
+Document Status:
+  - Created: 19.03.2026
+  - Last Modified: 21.03.2026
+  - Language: English
+  - Languages Available: English
+  - Publication Status: DRAFT — Pending CEO review
+
+***
 
 ## Context
 
