@@ -1,14 +1,16 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Solo-Founder Statement — DWS IQ 6 / Lifetime Oy
-Version: 1.0
+Version: 1.2
 Date: 2026-04-19
 Author: Claude Opus 4.7 + Human Review
 Branch: claude/investor-outreach-strategy-iwJxq
-Status: DRAFT — awaiting Mikko Honganmäki one-line background + outreach date confirmation
+Status: NEAR-READY — Mikko one-liner pending the week-of-April-28 conversation; all other fields locked
 Purpose: Single source of truth on the solo-founder question. Referenced verbatim from all INTRO_*.md files so every investor conversation at firm level tells the same story.
 
 AGENT HISTORY:
 - v1.0 (2026-04-19): Initial draft. Honest positioning — acknowledges solo-founder, names real advisors (Robertsson commercial/ESG, Varteva + Räsänen academic), identifies named CTO candidate (Mikko Honganmäki, background TBD), states offer structure and timeline, explicitly acknowledges Messe scale-up production risk until CTO in seat. No invented redundancy. No fractional pretense (unpaid-only constraint). Designed to survive operator-grade due diligence from Wilke (42CAP), Zawadzinski (Hard2beat), Perissich (Plug and Play).
+- v1.1 (2026-04-19): Added public LinkedIn CTO search launched same day. Dual-track search (Mikko direct + public LinkedIn inbound). See docs/field-notes/2026-04-19-cto-linkedin-search-launched.md for post text and rationale.
+- v1.2 (2026-04-19): Revised equity to market-rate (advisor 0.5% not 1.0%; CTO 7.5% not 8%). Outreach timing locked: soft DM week of April 21-25, formal ask week of April 28. Two-step outreach preserves first-pick signal to Mikko before public post saturates his feed.
 -->
 
 # Solo-Founder Statement — DWS IQ 6 / Lifetime Oy
@@ -38,18 +40,26 @@ DWS IQ 6 is raised as a solo-founder round. We know this is a flag for several f
 
 **Robertsson and Metropolia advisors do not cover the technical CTO role.** We don't claim they do. Investors flagging solo-founder are flagging technical depth — who fixes production, who owns the 18-agent architecture at scale. That is a separate hire.
 
-### CTO Hire Plan
+### CTO Search — Dual Track (Live 2026-04-19)
+
+**Track 1: Direct outreach — priority warm lead**
 
 | Field                   | Value                                                                              |
 | ----------------------- | ---------------------------------------------------------------------------------- |
 | **Candidate**           | Mikko Honganmäki                                                                   |
 | **Background**          | [TO FILL — one line: role, company, SaaS/engineering depth, why he fits DWS IQ 6]  |
-| **Status**              | Named candidate, outreach pending in [TO FILL — week of ]                          |
-| **Offer structure**     | Advisor-first (unpaid, equity 0.5-1.0% vesting 2 yrs) → CTO on SAFE close          |
+| **Status**              | Named candidate, direct outreach scheduled week of 2026-04-28                      |
+| **Offer structure**     | Advisor-first (unpaid, 0.5% equity vesting 2 yrs) → CTO on SAFE close              |
 | **Target in-seat date** | August-September 2026 (before Messe Germany scale-up window)                       |
-| **Equity range**        | 5-10% vested over 4 years, 1-year cliff, post-SAFE option pool                     |
+| **CTO equity**          | 7.5% vested over 4 years, 1-year cliff, post-SAFE option pool                      |
 
 The advisor-first structure lowers the ask: Mikko evaluates the company without quitting his current role. If the advisor relationship works, it converts to CTO on SAFE close. This gives us technical review depth immediately, and a committed co-leader by Messe ramp.
+
+**Track 2: Public LinkedIn search — inbound pool**
+
+Public CTO search posted on LinkedIn 2026-04-19. Stack requirements: MCP/A2A architecture, EU compliance tech, Nordic/EU-based. Inbound route: risto@onelifetime.world with GitHub link + 10-line letter + CV. See `docs/field-notes/2026-04-19-cto-linkedin-search-launched.md` for post text and rationale.
+
+Both tracks run in parallel — the one that closes first wins. If Mikko accepts the advisor-first structure within 2 weeks, the public search continues as a second-chair / senior engineer funnel rather than a CTO funnel.
 
 ## What We Are NOT Claiming
 
@@ -59,11 +69,13 @@ We do NOT have 24/7 on-call technical redundancy today. Production incidents rou
 
 ## The Path From Here
 
-1. **This week:** Mikko outreach — advisor-first framing
-2. **Week 2-3 from outreach:** Advisor agreement signed (or candidate replaced)
-3. **Concurrent with SAFE close:** CTO offer letter signed, deferred start
-4. **August-September:** CTO in seat before Messe commercial scale-up
-5. **Ongoing:** Post-round priority hires — second senior engineer, customer success lead — from SAFE proceeds
+1. **2026-04-19:** LinkedIn public CTO search live (Track 2 open)
+2. **This week (April 21-25):** Short soft DM to Mikko — "I posted a CTO search, you were the first person I thought of, comp structure locks next week, mind if I send you full details then?" Preserves first-pick signal before he sees the public post from his feed.
+3. **Week of April 28:** Full comp structure + advisor-first offer to Mikko (formal ask)
+4. **Week 2-3 from Mikko formal ask:** Mikko advisor agreement signed OR declines — if declines, LinkedIn inbound pool becomes primary CTO funnel
+5. **Concurrent with SAFE close:** CTO offer letter signed, deferred start
+6. **August-September 2026:** CTO in seat before Messe commercial scale-up
+7. **Ongoing:** Post-round priority hires — second senior engineer, customer success lead — from SAFE proceeds
 
 ## For Investors Who Weigh Solo-Founder As A Hard Filter
 
@@ -79,9 +91,10 @@ Do not restate the position in each file — link it. Consistency at firm level 
 
 ## Placeholders To Fill Before External Use
 
-- [ ] Mikko Honganmäki — one-line background (role, company, SaaS/engineering depth)
-- [ ] Mikko outreach date (week of ___)
-- [ ] Advisor equity % confirmed (0.5% or 1.0% — pick one, remove range)
-- [ ] CTO equity % confirmed (pick point, remove range)
+- [ ] Mikko Honganmäki — one-line background (role, company, SaaS/engineering depth). Fills naturally from the week of April 28 conversation; until then, the statement can reference him as "named candidate, background disclosed post-conversation" without fabricating.
+- [x] Advisor equity: **0.5%** vesting 2 years (confirmed 2026-04-19, market rate for named advisor with specific unlock function — not co-founder territory)
+- [x] CTO equity: **7.5%** vested 4 years, 1-year cliff, post-SAFE option pool (confirmed 2026-04-19, middle of 5-10% range — co-founder-intent signal without Series A cap-table drag)
+- [x] Outreach timeline: soft DM this week (April 21-25), formal ask week of April 28 (confirmed 2026-04-19)
+- [x] Public CTO search launched on LinkedIn 2026-04-19 (see docs/field-notes/)
 
-Once these four fields are filled, this document is ready to ship behind investor NDAs or attach as an appendix.
+Remaining blocker: Mikko one-line background. Can ship the statement to investors as-is with a neutral reference ("named candidate, background confirmed post-outreach"), then swap in the full bio once the April 28 conversation happens.
