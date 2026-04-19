@@ -228,7 +228,6 @@ services:
     restart: unless-stopped
     ports:
       - "18888:18888" # Dashboard UI
-      - "18889:18889" # OTLP gRPC ingest
     environment:
       DASHBOARD__UNSECUREDALLOWANONYMOUS: "true"
       DASHBOARD__OTLP__AUTHMODE: Unsecured
