@@ -45,22 +45,34 @@ interface ScheduleRow {
 // Next-run date calculator
 // ============================================================================
 
-function advanceNextRun(current: Date, frequency: ScheduleRow['frequency']): Date {
+function advanceSingleNormalizedPeriod(current: Date, frequency: ScheduleRow['frequency']): Date {
   const next = new Date(current);
+
   switch (frequency) {
     case 'monthly':
-      next.setMonth(next.getMonth() + 1);
+      next.setMonth(next.getMonth() + 1, 1);
       break;
     case 'quarterly':
-      next.setMonth(next.getMonth() + 3);
+      next.setMonth(next.getMonth() + 3, 1);
       break;
     case 'annually':
-      next.setFullYear(next.getFullYear() + 1);
+      next.setFullYear(next.getFullYear() + 1, 0, 1);
       break;
   }
+
   return next;
 }
 
+function advanceNextRun(current: Date, frequency: ScheduleRow['frequency']): Date {
+  const now = new Date();
+  let next = advanceSingleNormalizedPeriod(current, frequency);
+
+  while (next <= now) {
+    next = advanceSingleNormalizedPeriod(next, frequency);
+  }
+
+  return next;
+}
 // ============================================================================
 // Process a single due schedule
 // ============================================================================
