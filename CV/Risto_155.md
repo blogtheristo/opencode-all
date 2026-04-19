@@ -7,7 +7,7 @@ Syntymävuosi: 1966 | Espoo, Finland
 
 ## Yhteenveto
 
-Tekoäly- ja tietoturva-arkkitehti, jolla on yli 35 vuoden kokemus teollisuuden IT-järjestelmistä. Rakennut DWS IQ 6 -alustan — 16+ tekoälyagentin järjestelmän EU-sääntelyautomaatioon — toimitusjohtajana ja pää-arkkitehtina. Käytännön osaaminen NIS2-, GDPR-, EU AI Act- ja DORA/EBA-vaatimusten toteutuksesta tietoturva-arkkitehtuurin tasolla. Power Platform -kokemus prosessiautomaatiosta ja ERP-integraatioista. Kirjoittaa koodia päivittäin.
+Tekoäly- ja tietoturva-arkkitehti, jolla on yli 35 vuoden kokemus teollisuuden IT-järjestelmistä. Rakentanut DWS IQ 6 -alustan — 16+ tekoälyagentin järjestelmän EU-sääntelyautomaatioon — toimitusjohtajana ja pää-arkkitehtina. Käytännön osaaminen NIS2-, GDPR-, EU AI Act- ja DORA/EBA-vaatimusten toteutuksesta tietoturva-arkkitehtuurin tasolla. Power Platform -kokemus prosessiautomaatiosta ja ERP-integraatioista. Kirjoittaa koodia päivittäin.
 
 ---
 
