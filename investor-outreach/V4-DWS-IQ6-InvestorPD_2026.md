@@ -1270,7 +1270,7 @@ Even in "everything goes wrong" scenario:
 **Let's build the operating system for Europe's intelligent industries together.**
 
 The 21-moat fortress is not just defensible—it's a **strategic asset** that creates pricing power at every funding stage. Early investors who join now participate in:
-- 4.8× return at €15M Series A (187% IRR over 18 months)
+- 4.8× return at €15M Series A (~184% IRR over 18 months)
 - €1-2.5M EU non-dilutive funding multiplier (reduces dilution risk)
 - Nordic exit optionality (8-15× revenue multiples in M&A market)
 - Participation rights in future rounds (MFN clause protects against down rounds)
@@ -1471,7 +1471,7 @@ The 21-moat fortress is not just defensible—it's a **strategic asset** that cr
 - **Exit** (2028+): 8-15× revenue multiples (Nordic M&A premium for defensible assets)
 
 **Your investment today participates in:**
-- ~4.8× return at €15M Series A (187% IRR over 18 months)
+- ~4.8× return at €15M Series A (~184% IRR over 18 months)
 - €1-2.5M EU non-dilutive funding multiplier
 - Downside protection through fortress defensibility (strategic value even without growth)
 - Series A participation rights (MFN clause protects against down rounds)
