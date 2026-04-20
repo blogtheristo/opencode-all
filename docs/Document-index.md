@@ -239,6 +239,7 @@ LWM knowledge capture from real-world events - raw sensory input for the Lifetim
 | SharpSync CAD-ERP BOM              | `/docs/field-notes/2026-03-26-sharpsync-cad-erp-bom-integration.md`               | 2026-03-26 | CAD-to-ERP BOM synchronization                               | SharpSync, CAD, ERP, BOM                 |
 | DGX Spark Primary Runtime Setup    | `/docs/field-notes/2026-03-29-dgx-spark-primary-runtime-setup.md`                 | 2026-03-29 | DGX Spark 24/7 runtime architecture, failover, model routing | GN100, DGX Spark, Infrastructure, Ollama |
 | Shufti DPA Haris Escalation        | `/docs/field-notes/2026-04-01-shufti-dpa-haris-escalation.md`                     | 2026-04-01 | Haris escalated DPA to Shufti Legal/Compliance               | Shufti, DPA, GDPR, Partnership           |
+| Siemens Synthetic-Data Wedge       | `/docs/field-notes/2026-04-20-siemens-synthetic-data-partnership-wedge.md`        | 2026-04-20 | SI Building Nordics (Frida Ahlberg) + TechSeed pilot; NeMo DataDesigner Xcelerator wedge | Siemens, TechSeed, NVIDIA, NeMo, CSRD, EPBD, Taxonomy |
 | Field Notes README                 | `/docs/field-notes/README.md`                                                     | -          | Guidelines                                                   | -                                        |
 
 ---

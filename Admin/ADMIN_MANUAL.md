@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.6
+Version: 3.7
 
 Sessions & Modifications:
 
+- Version: 3.7 | Tool: Claude Code (Opus 4.7) | Session: claude/add-siemens-integration-jQDhC | Date: 20.04.2026 | Changes: Added Section 34 (Enterprise Integrations & Partner Ecosystem IA) — documents new `/enterprise-integrations/`, `/enterprise-integrations/siemens/`, `/products/synthetic-data/`, `/aegis-partners/`, `/sovereign-infra-partners/`, `/connect-partners/` pages on dws10.com; new Integrations top-level dropdown in ironclad-nav; text-only "Compatible with" / "Integrates with" convention (no unlicensed partner logos); Siemens SI Building Nordics design-partner scoping (Frida Ahlberg 2026-04-20); NVIDIA NeMo DataDesigner synthetic-data wedge; AspenTech → Emerson brand update flagged
 - Version: 3.6 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: current | Date: 18.04.2026 | Changes: Added MCP CLI Index link to Related Documentation to point operators at the current MCP/CLI package and placement reference
 - Version: 3.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/fix-partners-stub-issue-A7eFH | Date: 14.04.2026 | Changes: Section 30 revised — removed auto-commit.sh and require-tests-for-pr.sh hooks (Firewall+Explicit architecture); updated hook count 12→10; added Section 30.13 Rules of Engagement (ROE), Section 30.14 No-RM Policy and \_OLD Convention, Section 30.15 Explicit Verification Workflow; updated CLAUDE.md hook table; hook philosophy shift from hidden automation to explicit human-visible steps
 - Version: 3.4 | Tool: Claude Code (Opus 4.6) | Session: claude/connect-kya-dws-cli-0MMIB | Date: 10.04.2026 | Changes: Added Section 33 (DWS CLI Operator Reference) — KYA CLI admin workflow (status/dry-run/snap), destructive action authorization matrix cross-reference, Knowledge Base folder ownership rules (kb/raw/ human-owned, kb/wiki/ LLM-owned, kb/ephemeral/ auto-swept), daily kb-cleanup.sh automation, slash command wrappers /kya and /kb
@@ -8721,7 +8722,88 @@ Full slash-command guide: `docs/DWS_SKILLS_GUIDE.md` §7.
 
 ---
 
+## 34. Enterprise Integrations & Partner Ecosystem IA
+
+**Added:** 20.04.2026 (Admin Manual v3.7, branch `claude/add-siemens-integration-jQDhC`).
+**Purpose:** Document the dws10.com marketing-surface IA for connectors and the 3-tier partner programme, so operators know what exists, where to edit, and how to add new partners.
+
+### 34.1 Page map
+
+| Page (source of truth) | Purpose |
+|---|---|
+| `dws10.com/enterprise-integrations/index.html` | Catalog of all connectors, grouped by category (ERP, Building Automation, Industrial Control, ESG Platform). Action-from-data framing. |
+| `dws10.com/enterprise-integrations/siemens/index.html` | Siemens deep-dive (Building X, Desigo CC, Navigator + Xcelerator wedge). Linked from outreach to Frida Ahlberg / SI Building Nordics. |
+| `dws10.com/products/synthetic-data/index.html` | DWS IQ Synthetic Data Solutions product page (NVIDIA NeMo DataDesigner). The Siemens partnership wedge. |
+| `dws10.com/partners/index.html` | Main partner programme & application page. Paying-partner application flow. |
+| `dws10.com/aegis-partners/index.html` | Tier 1 (€25K/yr). Defence / critical infrastructure. Nokia Defence as target partner. |
+| `dws10.com/sovereign-infra-partners/index.html` | Tier 2 (€5K/yr). EU-sovereign platforms. Siemens featured as design partner. |
+| `dws10.com/connect-partners/index.html` | Tier 3 (€600/yr) summary page on dws10.com. Full programme lives on onelifetime.world. |
+| `onelifetime.world/connect-partners/index.html` | Tier 3 full programme page with application form. |
+| `dws6.com/index.html` (Integrations section) | Short teaser only &mdash; detail lives on dws10.com. Login portal MUST NOT carry marketing weight. |
+
+All files are mirrored to `landing-pages/` per the dual-folder sync rule in CLAUDE.md.
+
+### 34.2 Ironclad nav entry
+
+Navigation file: `dws10.com/shared-assets/nav/ironclad-nav.js`. "Integrations" is now a top-level dropdown (between Products and About). Dropdown items:
+
+- All Enterprise Integrations → `/enterprise-integrations/`
+- Siemens (deep dive) → `/enterprise-integrations/siemens/`
+- ERP / Industrial / ESG category anchors → `/enterprise-integrations/#erp`, `#industrial`, `#esg`
+- Synthetic Data Solutions → `/products/synthetic-data/`
+- Partner Program, Aegis / Sovereign / Connect partner pages
+
+When adding a new connector deep-dive page, add a matching dropdown entry here and mirror to `landing-pages/dws10-com/shared-assets/nav/`.
+
+### 34.3 Logo-licensing convention (CRITICAL)
+
+**No unlicensed partner logos anywhere on dws10.com, dws6.com, or onelifetime.world.** This is SaaS industry convention and protects us from trademark claims.
+
+- **Default treatment:** text-only "Compatible with X", "Integrates with X" labels, optionally in a tinted pill/button.
+- **Logos allowed only when:** we have explicit written licence from the partner (e.g. NVIDIA Connect ISV partner badge) **and** legal has signed off on placement.
+- **Action item 2026-04-20:** check NVIDIA Connect ISV portal for licensed partner badges we can display on the Synthetic Data product page and Aegis Partners page. Until confirmed, keep all NVIDIA references text-only.
+- **Never:** copy a logo from a partner website or a press kit without written licence. Recalled from IBM-partner-era convention: partner logo usage is per-deal, per-placement.
+
+### 34.4 AspenTech → Emerson rebrand (flagged 2026-04-20)
+
+Aspen Technology is a wholly-owned Emerson subsidiary (acquisition completed 2025). Current references on dws10.com say "AspenTech" &mdash; update to "AspenTech, part of Emerson" or "Emerson Automation Solutions" where appropriate. Nordic relevance for buildings / construction is near zero; de-feature from the main catalog, keep as a specialist note for chemicals / refining customers.
+
+**Files to update in a follow-up pass:**
+- `dws10.com/enterprise-integrations/index.html`
+- `dws10.com/sovereign-infra-partners/index.html`
+- `dws10.com/index.html` (connector strip)
+- `dws6.com/index.html` (teaser line)
+- Landing-pages mirrors.
+
+### 34.5 Adding a new connector (operator checklist)
+
+1. **Content:** Create `dws10.com/enterprise-integrations/<vendor>/index.html` using the Siemens page as a template. Reuse the `.integration`, `.featured`, `.data-flow`, `.mapping` CSS from `/enterprise-integrations/index.html`.
+2. **Catalog entry:** Add a card to `dws10.com/enterprise-integrations/index.html` under the right category section (`#erp`, `#industrial`, `#esg`, `#building`).
+3. **Nav entry:** Add an entry to the Integrations dropdown in `dws10.com/shared-assets/nav/ironclad-nav.js` if the connector warrants top-level visibility (tier-1 partnership or featured pilot).
+4. **Homepage pill:** Add a text-only pill to the connector strip in `dws10.com/index.html` if the connector is a priority for Nordic outreach.
+5. **Mirror:** `cp` every touched file into `landing-pages/dws10-com/...` &mdash; verify `diff` is empty before commit.
+6. **Admin note:** Log the new connector in `sales-outreach/` if outreach is active and in `docs/field-notes/` for strategic context.
+7. **No logos:** unless written licence is on file and filed in `Admin/Contracts/` or equivalent.
+
+### 34.6 Partner programme tiers (pricing & scope)
+
+| Tier | Page | Price | Target |
+|---|---|---|---|
+| Aegis (Tier 1) | `/aegis-partners/` | €25,000 / year | Defence, critical infrastructure, air-gapped customers |
+| Sovereign Infra (Tier 2) | `/sovereign-infra-partners/` | €5,000 / year | EU-regulated enterprises, system integrators, industrial platforms |
+| Connect (Tier 3) | `/connect-partners/` + `onelifetime.world/connect-partners/` | €600 / year | Global ISVs, startups, SMEs on AWS / Azure / NVIDIA Connect |
+
+Full partner requirements matrix, contract terms, and onboarding flow: `dws10.com/partners/index.html` (sections 2, 5, 10).
+
+### 34.7 Related files (quick reference)
+
+- **Sales thread log:** `sales-outreach/INTRO_FRIDA_AHLBERG_SIEMENS.md`
+- **Strategy field note:** `docs/field-notes/2026-04-20-siemens-synthetic-data-partnership-wedge.md`
+- **Synthetic-data implementation:** `src/agents/synthetic-data.agent.ts`, `src/synthetic-data/*`
+- **NeMo DataDesigner field note:** `docs/field-notes/2026-04-06-nemo-datadesigner-eu-compliance-implementation.md`
+
+---
+
 **License:** Proprietary - Lifetime Oy
 **Maintained by:** Lifetime Oy Development Team
 **Storage:** GitHub (private repo) + ProtonDrive sync - /2026/Repos2026/dws6/Admin
->>>>>>> origin/main
