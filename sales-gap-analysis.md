@@ -918,7 +918,7 @@ Build implementation copilot:
 **Today (Dec 31):** Email all 18 angel investors from Slush 2024 meetings:
 - Subject: "DWS IQ 6 Update: €7k MRR Live, €500k Campaign Launching Q1"
 - Body: 2-paragraph update + link to this analysis + 30-min call request
-- CTA: "€150k SAFE closing Jan 15 – first 10 investors get 20% discount"
+- CTA: "€150k SAFE closing Jan 15 – first 10 investors get 18% discount"
 
 **Tomorrow (Jan 1):** Schedule calls with top 5 investor leads:
 - Prioritize: Investors with construction/climate tech portfolio companies

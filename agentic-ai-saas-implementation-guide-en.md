@@ -1868,7 +1868,7 @@ This isn't just faster - it's **25x faster than cloud-only solutions** and **86%
 
 **Investment Structure:** €150,000 SAFE
 - Valuation cap: €3.8M
-- Discount: 20%
+- Discount: 18%
 - No interest, no maturity date
 
 **Use of Funds:**
