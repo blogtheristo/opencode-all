@@ -14,7 +14,7 @@ graph TB
         direction TB
         CLI["DWS CLI<br/>dws agents / run / workflow"]
         MCP["MCP Hub<br/>JSON-RPC 2.0 · /mcp"]
-        AGENTS["Agent Swarm<br/>18 agents · Groq LLM"]
+        AGENTS["Agent Swarm<br/>21 agents · Groq LLM"]
         SKILLS["Claude Code Skills<br/>.claude/commands/"]
     end
 

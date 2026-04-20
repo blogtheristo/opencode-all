@@ -110,7 +110,7 @@
 **Current State (December 2025)**
 
 - **€7k MRR** – Live recurring revenue
-- **5 paying customers** + 2 pilot customers
+- **6 paying customers** + 2 pilot customers
 - **100% retention** – Zero churn on paying customers
 - **€70k–€120k annual value per logo** (logistics sector)
 - **40+ hours/month saved** per customer (manual work eliminated)

@@ -41,7 +41,7 @@ Every AI startup will tell you they use GPT, Claude, or Llama. So does everyone 
 
 **Lifetime Oy built the Firehorse Production Model** — a codified, academically validated production system that converts each frontier AI model generation into shipped enterprise products.
 
-- **Claude Opus 4.5** arrived → We shipped the 18-agent orchestration layer and KYA governance standard
+- **Claude Opus 4.5** arrived → We shipped the 21-agent orchestration layer and KYA governance standard
 - **Claude Opus 4.6** arrived → We shipped DWS IQ Aegis (dual-use defence platform), the carbon debit-credit ledger, and Article 12 compliance logging
 - **Claude Opus 4.7** will arrive → The factory is ready. You have no idea what breakthrough ships next — but we have the production line waiting to receive it.
 
@@ -197,7 +197,7 @@ Zero-cloud-egress agent execution on Acer Veriton GN100 (NVIDIA-powered) with Do
 
 ### 9. Brain-Memory-Body-Hands Architecture — v2.2, March 20, 2026
 
-Four-pillar distributed system: Brain (18-agent orchestration via DWS IQ 6), Memory (Lifetime World Model — EU regulations + 20 industry models), Body (Firehorse sales/report/automation/content suite), Hands (Lifetime Fleet robots/IoT, specification phase).
+Four-pillar distributed system: Brain (21-agent orchestration via DWS IQ 6), Memory (Lifetime World Model — EU regulations + 20 industry models), Body (Firehorse sales/report/automation/content suite), Hands (Lifetime Fleet robots/IoT, specification phase).
 
 **Why it matters:** Clean separation of concerns enables independent scaling. Brain gets smarter, Body ships faster, Memory deepens — each pillar improves without breaking the others. This is the architecture that scales from 5 to 500 customers.
 

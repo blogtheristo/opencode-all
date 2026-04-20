@@ -48,7 +48,7 @@ This document describes the end-to-end investor outreach workflow, connecting co
 ## Current Status (March 2026)
 
 ### Traction Metrics
-- **MRR**: EUR 7-14k with 5 paying customers
+- **MRR**: EUR 7-14k with 6 paying customers
 - **Retention**: 100% (zero churn, 12+ months)
 - **Customer LTV**: EUR 70k-120k per logo
 - **Gross margin**: >90%
@@ -151,7 +151,7 @@ risto@onelifetime.world
 
 4. **Traction Section**
    - EUR 7-14k MRR live (March 2026)
-   - 5 paying customers
+   - 6 paying customers
    - 100% retention (12+ months)
    - Customer table with annual values
    - 2 construction pilots at EUR 59,900 level

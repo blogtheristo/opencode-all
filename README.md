@@ -399,7 +399,7 @@ Legal Terms: [MCP Hub Terms of Service](privacy-policy/TermsofServiceforMCPHub.m
 ## Timeline
 
 - **Feb 23, 2026**: V1.0 Launch (completed)
-- **Q1 2026**: Customer onboarding wizard, compliance scoring, 18-agent swarm
+- **Q1 2026**: Customer onboarding wizard, compliance scoring, 21-agent swarm
 - **Q2 2026**: Pilot validation with European construction/manufacturing partner, EU AI Act Aiwen layer
 - **Q3 2026**: ISO 27001 certification, production scaling
 - **Q4 2026**: SOC 2 Type II, profitability target

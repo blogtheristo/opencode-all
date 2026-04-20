@@ -214,7 +214,7 @@ Construction companies waste **35 hours per month** on manual reporting. We auto
 
 ### Milestones
 - **Month 3**: 10 paying customers (€60k MRR)
-- **Month 6**: 25 paying customers (€150k MRR)
+- **Month 6**: 26 paying customers (€150k MRR)
 - **Month 12**: 50 paying customers (€300k MRR)
 - **Month 18**: Break-even
 - **Month 24**: Series A ready (€6M ARR)

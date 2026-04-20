@@ -39,7 +39,7 @@ Most solo founders iterate by instinct. We codified it. The Firehorse Production
 - Published as a Master's Thesis at Metropolia University of Applied Sciences (2026)
 - Planned continuation as a PhD-level scientific paper at LUT University (2027)
 - Powers the product evolution from a single CSRD report product to the DWS IQ Aegis dual-use platform
-- 32 products shipped, 18 AI agents operational, 5 cloud environments deployed
+- 32 products shipped, 21 AI agents operational, 5 cloud environments deployed
 
 ---
 
@@ -124,7 +124,7 @@ The Firehorse Production Model produced a clear evolution arc, each stage buildi
 
 ### Stage 2: Platform Emergence (Q1 2026)
 **DWS IQ 6 Platform** — EUR 4,999 + EUR 499/month
-- 18 AI agents orchestrated via Brain-Memory-Body-Hands architecture
+- 21 AI agents orchestrated via Brain-Memory-Body-Hands architecture
 - Automated compliance scoring across CSRD, CBAM, ETS, EU AI Act
 - Solution Factory model validated — same agents serve 20 industries
 - Carbon balance sheet (debit-credit ledger for CO2)
@@ -240,7 +240,7 @@ Every model generation brings a step-change in capability. When Opus 4.5 arrived
 
 **The competitor who starts prompting ChatGPT today is where we were 15 months ago.** They don't have:
 - The harness (500+ lines of codified production rules in CLAUDE.md)
-- The agent ecosystem (18 agents with KYA governance)
+- The agent ecosystem (21 agents with KYA governance)
 - The regulatory data (validated EU ETS/CBAM/CSRD sources, not hallucinated numbers)
 - The cross-vertical intelligence (20 industries feeding one world model)
 - The academic validation (thesis + planned PhD)
@@ -279,7 +279,7 @@ Everything below is live in production code with TypeScript implementations, dat
 | **6** | **Cross-Vertical Intelligence Engine** | Signal propagation across 20 EU-regulated industries. BESS dispatch data improves grid emission calculations, which improve steel ETS exposure, which improves construction embodied carbon, which improves CSRD gap analysis. | Network effect for compliance intelligence. Each new industry customer makes the platform smarter for all other industries. Competitors serve one vertical — we serve twenty from one world model. |
 | **7** | **EU AI Act Article 12 Logging** | Append-only audit trail for every AI agent decision. Pre-flight (proof of data scrubbing before cloud egress) and post-flight (output reasoning lineage). 7-year tamper-evident retention. | Legal requirement for all high-risk AI systems in the EU from August 2026. We shipped it in March 2026 — five months ahead of enforcement. First-mover compliance advantage. |
 | **8** | **Agent Foundry / OpenSandbox** (Edge AI) | Zero-cloud-egress agent execution on Acer Veriton GN100 (NVIDIA-powered) with Docker isolation. Agents run on-premise — no data leaves the building. | Defence and sovereign customers require on-premise AI. OpenSandbox makes DWS IQ deployable inside air-gapped environments — a hard requirement for Aegis customers. |
-| **9** | **Brain-Memory-Body-Hands Architecture** | Four-pillar distributed system: Brain (18-agent orchestration), Memory (Lifetime World Model — EU regulations + industry models), Body (Firehorse sales/report/automation suite), Hands (Fleet robots/IoT, specification phase). | Clean separation of concerns enables independent scaling. Brain gets smarter, Body ships faster, Memory deepens — each pillar improves without breaking the others. |
+| **9** | **Brain-Memory-Body-Hands Architecture** | Four-pillar distributed system: Brain (21-agent orchestration), Memory (Lifetime World Model — EU regulations + industry models), Body (Firehorse sales/report/automation suite), Hands (Fleet robots/IoT, specification phase). | Clean separation of concerns enables independent scaling. Brain gets smarter, Body ships faster, Memory deepens — each pillar improves without breaking the others. |
 | **10** | **Firehorse Omnichannel** (Sales Automation) | Event-driven sales automation with deterministic lead state machine. Email, LinkedIn, phone channels orchestrated through 13-state pipeline (Cold_1_Sent → Engaged → MeetingBooked). | The production model produces products — Omnichannel sells them. Closed-loop: build product → sell product → customer feedback → improve product. Solo founder selling at enterprise scale. |
 
 ### Honorable Mentions
@@ -292,7 +292,7 @@ Everything below is live in production code with TypeScript implementations, dat
 
 ## 8. Summary
 
-The Firehorse Production Model is not a methodology slide in a pitch deck. It is a **working production system** that has shipped 32 products, 10 verified breakthroughs, serves 5 paying customers with 100% retention, and is academically validated through a master's thesis at Metropolia University.
+The Firehorse Production Model is not a methodology slide in a pitch deck. It is a **working production system** that has shipped 32 products, 10 verified breakthroughs, serves 6 paying customers with 100% retention, and is academically validated through a master's thesis at Metropolia University.
 
 Most AI startups talk about what their AI can do. We codified **how** we use AI to build products — and that system is the real asset.
 

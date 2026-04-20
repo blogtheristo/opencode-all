@@ -24,7 +24,7 @@ AGENT HISTORY:
 
 ## The Solution
 
-**DWS IQ 6** — 18 AI agents that connect to SAP/IFS/Dynamics, import building assessments, and auto-generate audit-ready compliance reports every quarter. One carbon ledger, four regulatory touchpoints, full audit trail. EU AI Act compliant (KYA Standard: hardware-attested agent governance).
+**DWS IQ 6** — 21 AI agents that connect to SAP/IFS/Dynamics, import building assessments, and auto-generate audit-ready compliance reports every quarter. One carbon ledger, four regulatory touchpoints, full audit trail. EU AI Act compliant (KYA Standard: hardware-attested agent governance).
 
 ## Traction
 
@@ -35,7 +35,7 @@ AGENT HISTORY:
 | Retention        | 100% (zero churn)                     |
 | Customer LTV     | €70K–€120K/year                       |
 | Time Saved       | 40+ hours/month per customer          |
-| Platform         | 18 agents, 32 products, 20 industries |
+| Platform         | 21 agents, 32 products, 20 industries |
 | CBAM Coverage    | ✅ All 6 Annex I sectors, 66 CN codes |
 | Fortress         | 21 moats across 4 tiers               |
 

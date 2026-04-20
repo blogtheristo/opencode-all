@@ -151,6 +151,6 @@ Nordic CFOs are different from US CFOs. Sofia knows the difference:
 - `docs/HIL_Emily.md` — People ops persona (team, culture, comp)
 - `docs/HIL_Marcus.md` — CTO persona (architecture, technical moat)
 - `investor-outreach/INVESTOR_MEMO.md` — Full fundraising narrative
-- `investor-outreach/V3-DWS-IQ6-InvestorPD_2026.md` — 20-moat analysis
+- `investor-outreach/V3-DWS-IQ6-InvestorPD_2026.md` — 21-moat analysis
 - `docs/INVESTOR_ROADMAP_2026.md` — Q1-Q4 financial milestones
 - `docs/hiring-plan.md` — 5-role hiring roadmap with budget

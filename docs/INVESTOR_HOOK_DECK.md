@@ -40,8 +40,8 @@ A steel mill's ETS surrender (debit) flows through to a construction company's C
 
 50,000+ EU companies need this by 2028. We're shipping it now.
 
-- EUR 7K MRR live. 100% retention. 5 paying customers.
-- 20 EU-regulated industries. 18 AI agents. 13 open data sources baked in.
+- EUR 7K MRR live. 100% retention. 6 paying customers.
+- 20 EU-regulated industries. 21 AI agents. 13 open data sources baked in.
 - DWS 7 ships persistent carbon balance sheet July 2026.
 - EUR 650K SAFE at EUR 3.8M cap. Bridge to Series A 2026.
 

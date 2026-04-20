@@ -990,7 +990,7 @@ Build implementation copilot:
 ✅ **No self-service onboarding** → Solved with customer portal + Intercom (€888 investment)  
 ✅ **SOC 2 audit incomplete** → Scheduled Q4 2025 (not blocking current sales)  
 ✅ **Edge hardware procurement unclear** → Solved with pre-orders + plug-and-play kit  
-✅ **No competitive battle cards** → Solved with 20-moat fortress documentation (already complete in pitch deck)  
+✅ **No competitive battle cards** → Solved with 21-moat fortress documentation (already complete in pitch deck)  
 ✅ **Multi-country expansion undefined** → Solved with Nordic sequencing (Sweden Q3, Norway Q3)
 
 ### Financial Summary

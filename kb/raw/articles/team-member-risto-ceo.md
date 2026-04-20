@@ -8,7 +8,7 @@
 
 ## Context
 
-Finnish industrial AI founder with 35+ years of enterprise software and ICT infrastructure experience. M.Sc. in Industrial Management. Built DWS IQ 6 solo — 1,030+ PRs, 18+ agents, edge AI on NVIDIA Jetson, three InvestEU validations. Thinks in systems, not features.
+Finnish industrial AI founder with 35+ years of enterprise software and ICT infrastructure experience. M.Sc. in Industrial Management. Built DWS IQ 6 solo — 1,030+ PRs, 21+ agents, edge AI on NVIDIA Jetson, three InvestEU validations. Thinks in systems, not features.
 
 ## Skills
 

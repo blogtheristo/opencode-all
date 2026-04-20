@@ -218,7 +218,7 @@ Enterprise World (neuvoteltava)  ← Oma instanssi, white-label, DGX Spark Situa
 1. **Enterprise Navigator** — Ainoa kilpailija joka tarjoaa low-risk entry pointin ilman jatkositoumusta. Persefoni/Watershed vaativat enterprise-sopimuksen heti
 2. **Nordic ERP Connectors** — Visma, Monitor, Jeeves, IFS. 0 kilpailijalla
 3. **EU-hosted (Finland)** — Datasuvereniteetti vs. US-pohjainen Persefoni/Watershed
-4. **18 AI agents** — Automaatio vs. manuaalinen consultant-malli
+4. **21 AI agents** — Automaatio vs. manuaalinen consultant-malli
 5. **Hinnoittelu kattaa kaiken** — Ei piilokustannuksia, ERP-integraatio sisältyy pilot-hintaan
 
 ### 4.4 Pricing Gaps (Resolved & Remaining)
@@ -259,7 +259,7 @@ Navigator → Premium → Nordic → World -malli ratkaisee aiemmat aukot:
 | EU data sovereignty (Finland) | HIGH (regulatory) | Sweep/Normative also EU-native |
 | KYA Standard (agent governance) | VERY HIGH (unique IP) | No competitor has equivalent |
 | Price advantage vs. enterprise | MEDIUM (easy to match) | Race to bottom risk |
-| 18 AI agents with MCP | HIGH (architectural moat) | Persefoni AI Copilot is early competitor |
+| 21 AI agents with MCP | HIGH (architectural moat) | Persefoni AI Copilot is early competitor |
 
 ---
 

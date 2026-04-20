@@ -237,7 +237,7 @@ python   # File: /home/claude/investor-email-agent.py
        DWS IQ 6 Quick Facts:
        - €7k MRR (Uber Finland, Kela, Bolt), 100% retention
        - €500k Construction Heroes campaign launching Q1 2025
-       - 20-moat competitive fortress (€3-6M entry barrier)
+       - 21-moat competitive fortress (€3-6M entry barrier)
        - €150k SAFE @ €3.8M cap, 18% discount, closing Jan 24
        
        Email requirements:
@@ -407,7 +407,7 @@ TALKING POINTS (AI Recommended):
 
 OBJECTION PREP:
 ├─ "Too early stage" → Counter: €7k MRR, 100% retention, government customer (Kela)
-├─ "Competitive market" → Counter: 20-moat fortress, €3-6M entry barrier, Boardy.ai cannot compete
+├─ "Competitive market" → Counter: 21-moat fortress, €3-6M entry barrier, Boardy.ai cannot compete
 └─ "Valuation too high" → Counter: €3.8M cap justified by fortress premium, 4.8× return at €15M Series A
 
 CLOSING STRATEGY:
