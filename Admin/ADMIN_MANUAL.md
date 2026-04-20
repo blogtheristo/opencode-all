@@ -8801,11 +8801,9 @@ Full partner requirements matrix, contract terms, and onboarding flow: `dws10.co
 - **Strategy field note:** `docs/field-notes/2026-04-20-siemens-synthetic-data-partnership-wedge.md`
 - **Synthetic-data implementation:** `src/agents/synthetic-data.agent.ts`, `src/synthetic-data/*`
 - **NeMo DataDesigner field note:** `docs/field-notes/2026-04-06-nemo-datadesigner-eu-compliance-implementation.md`
-- **Plan file (session artefact):** `/root/.claude/plans/hazy-squishing-pinwheel.md`
 
 ---
 
 **License:** Proprietary - Lifetime Oy
 **Maintained by:** Lifetime Oy Development Team
 **Storage:** GitHub (private repo) + ProtonDrive sync - /2026/Repos2026/dws6/Admin
->>>>>>> origin/main
