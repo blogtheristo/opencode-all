@@ -60,7 +60,7 @@ Every issue contains these blocks, in order:
 - [ ] `diff onelifetime.world/posts/lifetime-scope-issue-<NNN>-<slug>.html landing-pages/onelifetime-world/posts/lifetime-scope-issue-<NNN>-<slug>.html` is empty.
 - [ ] No existing file at the target path (the `<NNN>` was truly unused — collision-safe under biweekly cadence).
 - [ ] Editor's Note between 120–180 words.
-- [ ] Agentic Lens is exactly 80 words ±5.
+- [ ] Agentic Lens is exactly 80 words.
 - [ ] LinkedIn block has zero `<`, `>`, backticks, or `[text](url)` markdown.
 - [ ] All URLs in LinkedIn block start with `https://`.
 - [ ] No fabricated metrics in Agentic Lens.
