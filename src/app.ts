@@ -7,7 +7,7 @@
  * - Event-driven agent runtime initialized on startup (Fix #6)
  */
 
-import express, { Express, Request, Response, NextFunction } from 'express';
+import express, { type Express, type NextFunction, type Request, type Response } from 'express';
 import cors from 'cors';
 import crypto from 'crypto';
 import helmet from 'helmet';
@@ -53,13 +53,18 @@ import { emailQueue } from './services/email-queue.service.js';
 import { constructionLeadsScheduler, fetchAndProcessLeads } from './construction-leads/index.js';
 import { contentRoutes } from './contentms/index.js';
 import { firehorseRoutes, initFirehorsePilot, shutdownFirehorsePilot } from './firehorse/index.js';
+import {
+  erpRoutes,
+  initializeERPIntegrations,
+  shutdownERPIntegrations,
+} from './integrations/erp/index.js';
 import { apiVersionMiddleware } from './middleware/api-version.middleware.js';
 import { correlationId } from './middleware/correlation-id.js';
 import { errorHandler, notFoundHandler } from './middleware/error-handler.js';
 import { healthCheck, livenessCheck } from './middleware/health.js';
 import { validateEnv } from './middleware/env-validation.js';
 import { requestTimeout } from './middleware/request-timeout.js';
-import { initErrorTracking, errorTrackingMiddleware } from './middleware/error-tracking.js';
+import { errorTrackingMiddleware, initErrorTracking } from './middleware/error-tracking.js';
 
 dotenv.config();
 
@@ -253,6 +258,9 @@ app.use('/api/v1/onboard', onboardRoutes);
 
 // Compliance assessment API (scoring, registry, cost estimate)
 app.use('/api/v1/compliance', complianceRoutes);
+
+// ERP integrations (connection management, sync, approvals, webhook bridge)
+app.use('/api/v1/erp', erpRoutes);
 
 // Report export & scheduling (MVP Feature 3)
 app.use('/api/v1/reports', reportExportRoutes);
@@ -606,6 +614,10 @@ const server = app.listen(PORT, () => {
   initFirehorsePilot();
   logger.info('Firehorse Omnichannel Pilot started');
 
+  // ERP integrations (connector orchestration + optional scheduler)
+  initializeERPIntegrations();
+  logger.info('ERP integration module initialized');
+
   // Notification service: listens to event bus, delivers notifications
   notificationService.start();
   logger.info('Notification delivery service started');
@@ -658,6 +670,7 @@ process.on('SIGTERM', () => {
   constructionLeadsScheduler.stop();
   outreachScheduler.stop();
   shutdownFirehorsePilot();
+  shutdownERPIntegrations();
   notificationService.stop();
   emailQueue.shutdown().finally(() => {
     server.close(() => {
@@ -672,6 +685,7 @@ process.on('SIGINT', () => {
   constructionLeadsScheduler.stop();
   outreachScheduler.stop();
   shutdownFirehorsePilot();
+  shutdownERPIntegrations();
   notificationService.stop();
   emailQueue.shutdown().finally(() => {
     server.close(() => {

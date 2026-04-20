@@ -22,6 +22,12 @@ COPY scripts/ ./scripts/
 COPY tsconfig.json ./
 COPY infrastructure/dgx-spark/cron-runner.ts ./cron-runner.ts
 
+# Root-level docs that scheduled jobs read at runtime:
+#   - agents-md-freshness reads AGENTS.md
+#   - golden-principle-scan reads CLAUDE.md and other root .md files
+COPY AGENTS.md ./
+COPY CLAUDE.md ./
+
 # Create state/log dirs
 RUN mkdir -p /app/logs /app/state /app/backups && \
     chown -R dws:dws /app

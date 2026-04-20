@@ -20,13 +20,13 @@
 import { sendEmail as sendEmailUtil } from '../utils/send-email.js';
 import logger from '../utils/logger.js';
 import {
-  welcomeTemplate,
-  passwordResetTemplate,
-  reportDeliveryTemplate,
-  notificationTemplate,
-  invoiceTemplate,
   captainPreBriefingTemplate,
   investorOutreachTemplate,
+  invoiceTemplate,
+  notificationTemplate,
+  passwordResetTemplate,
+  reportDeliveryTemplate,
+  welcomeTemplate,
 } from './email-templates.js';
 
 // ============================================================
@@ -196,8 +196,33 @@ class EmailService {
    * Returns empty array (batch IDs were Resend-specific, now removed).
    */
   async sendBatch(emails: BatchEmailItem[]): Promise<string[]> {
-    for (const e of emails) {
-      await this.sendEmail({ to: e.to, subject: e.subject, html: e.html, templateType: e.templateType });
+    if (!this.resend) {
+      logger.warn('RESEND_API_KEY not configured — batch email not delivered', {
+        count: emails.length,
+      });
+      return [];
+    }
+
+    const payload = emails.map((e) => ({
+      from: this.fromAddress,
+      to: [e.to],
+      subject: e.subject,
+      html: e.html,
+    }));
+
+    try {
+      const { data, error } = await this.resend.batch.send(payload);
+      if (error) {
+        throw new Error(`Resend batch error: ${error.message}`);
+      }
+      const results = data ?? [];
+      const ids = (Array.isArray(results) ? results : [results]).map((r: { id: string }) => r.id);
+      logger.info('Batch emails sent via Resend', { count: ids.length });
+      return ids;
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Unknown error';
+      logger.error('Resend batch send failed', { error: msg, count: emails.length });
+      throw new Error(`Batch email delivery failed: ${msg}`);
     }
     return [];
   }

@@ -8,12 +8,14 @@ Session: claude/connect-kya-dws-cli-0MMIB
 Tool: Claude Code CLI
 Status: Published
 
+- Version: 1.3 | Agent: Claude Code (Opus 4.7) | Date: 18.04.2026 | Session: claude/green-energy-roadmap-pEPPK | Changes: Added /regulatory-radar skill (section 5.2a) — EU regulatory pipeline scanner scoring upcoming instruments per customer; updated skill count from 23 to 24; added Quick Reference row. Skill spec only — agent implementation deferred until datacentre-compliance PRD Gate 1.
+- Version: 1.2 | Agent: Claude Code (Sonnet 4.6) | Date: 17.04.2026 | Session: claude/restore-language-bar-xH99X | Changes: Added /multilingual skill (section 8.2); updated skill count from 22 to 23; added row to Quick Reference; renamed section 8 to "Code Quality & Internationalisation".
 - Version: 1.1 | Agent: Claude Code (Opus 4.6) | Date: 10.04.2026 | Session: claude/connect-kya-dws-cli-0MMIB | Changes: Added /kya and /kb slash commands to sections 7.1 and 7.2 (new "Runtime Safety & Knowledge" section); renumbered following sections; updated skill count from 20 to 22; added /kya and /kb rows to Quick Reference.
 - Version: 1.0 | Agent: Claude Code (Opus 4.6) | Date: 21.03.2026 | Session: claude/research-superpowers-dws-AWAYB
 
 ## 1. Overview
 
-DWS IQ 6 provides **22 skills** for AI coding agents — 19 slash commands in `.claude/commands/` and 3 composable discipline skills in `skills/`. This guide explains every skill: what it does, when to use it, and how skills connect into workflows.
+DWS IQ 6 provides **24 skills** for AI coding agents — 21 slash commands in `.claude/commands/` and 3 composable discipline skills in `skills/`. This guide explains every skill: what it does, when to use it, and how skills connect into workflows.
 
 **Audience:** Human-in-the-loop (HIL) operators, developers using Claude Code, Cursor, or VS Code with DWS6.
 
@@ -157,6 +159,20 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 
 **Trigger phrases:** "embodied carbon", "carbon footprint", "kgCO2e", "lifecycle assessment", "LCA", "A1-A3 emissions"
 
+### 5.2a /regulatory-radar
+
+**When to use:** Looking ahead — scoring upcoming EU regulations against a specific customer profile.
+
+**What it does:** Scans EUR-Lex, DG ENER / DG CLIMA / DG GROW consultations, Commission work programme, EFRAG exposure drafts, and CINEA auction schedules. Scores each pending instrument per customer by applicability, urgency (months to in-force), effort, and risk. Emits a signed, Article-12-auditable radar report.
+
+**Trigger phrases:** "regulatory radar", "what's coming from EU", "regulation pipeline", "Delegated Act tracking", "score customer against next regulation", "what should we warn [customer] about"
+
+**Output:** Radar JSON + signed PDF sorted by urgency × risk, with EUR-Lex CELEX citations. Alerts flagged when urgency ≤6 months AND risk = high.
+
+**Composes with:** `/compliance-check` (point-in-time) → `/regulatory-radar` (forward-looking). Called internally by the `datacentre-compliance` agent to feed the "scored against next regulation" feature in PRD v0.2.
+
+**Status:** Skill spec shipped. Agent implementation deferred until `datacentre-compliance` PRD Gate 1 passes (1 Oct 2026).
+
 ### 5.3 /sovereignty-assess
 
 **When to use:** Evaluating database sovereignty for EU compliance.
@@ -209,6 +225,21 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 
 **Trigger phrases:** "remote control", "acer device", "fleet status", "control room", "situation room", "device health"
 
+### 6.4 /investor-outreach
+
+**When to use:** Drafting, triaging, or tracking investor intro notes for the DWS IQ 6 SAFE round. Works from matches the user provides (name, firm, LinkedIn, thesis, drawbacks).
+
+**What it does:** Generates `INTRO_<NAME>_<FIRM>.md` files in `investor-outreach/` following the house template. Supports `add`, `list`, `triage`, `ready`, `followup`, `status`. Enforces exclusion rules (defense/climate/solo-founder blockers), bans Aegis language for funds that exclude defense, and locks the current focus doctrine (sell V1 to investors at PE meetings + Messe Germany, not entrepreneur networking).
+
+**Focus doctrine (2026-04-19):**
+
+- Target: PE meeting investors + German Messe buyers (industrial CFOs, EUR 25K+ contracts)
+- V1 launch: Arctic 15, Helsinki, June 15, 2026
+- Round: EUR 650K SAFE at EUR 3.8M cap, Captain seats EUR 50K
+- Messe hook: pre-Messe commits enter ahead of August 15 German sales data drop
+
+**Trigger phrases:** "add investor", "new investor match", "pull investor", "draft investor intro", "triage investor list", "who's ready to send", "investor follow-up", "which INTRO next"
+
 ## 7. Runtime Safety & Knowledge
 
 ### 7.1 /kya
@@ -251,7 +282,7 @@ See `docs/KYA_BYO_LIFECYCLE.md` and `onelifetime.world/posts/kya-standard-v1.htm
 
 See `src/agents/kb.agent.ts` for the agent implementation and tool handlers.
 
-## 8. Code Quality
+## 8. Code Quality & Internationalisation
 
 ### 8.1 /simplify
 
@@ -268,6 +299,22 @@ See `src/agents/kb.agent.ts` for the agent implementation and tool handlers.
 - Dead code (unused imports, functions, variables)
 - Security: XSS, SQL injection, command injection, CORS misconfiguration
 - Performance: N+1 queries, unnecessary re-renders, memory leaks
+
+### 8.2 /multilingual
+
+**When to use:** Any time a page needs a language bar, hero text needs translating into EU languages, or you're auditing whether language page H1s match the vertical bar texts.
+
+**What it does:** Adds or audits the EU vertical language bar (5-language for dws10.com, 3-language for onelifetime.world). Shows language name + native hero text + country flag on the right. PAGE ELEMENT — never inside the nav.
+
+**Trigger phrases:** "add language bar", "translate hero text", "speak 5 languages", "multilingual", "vertical language bar", "European languages", FI/SV/DE/FR content
+
+**Key files:**
+
+- `dws10.com/shared-assets/vertical-lang-bar.js` — 5-language bar (FI · SV · DE · FR · EN)
+- `onelifetime.world/shared-assets/olw-vertical-lang-bar.js` — 3-language bar (FI · SV · EN)
+- `window.dwsVlbCardHTML()` — compact card strip for product cards in buy/index.html
+
+**Offering strength:** DWS speaks 5 EU languages natively. No Nordic SaaS competitor matches this breadth. The bar is always a page section, never a dropdown, never inside ironclad-nav.
 
 ## 9. Discipline Skills (Hard Gates)
 
@@ -350,15 +397,18 @@ These are not slash commands — they are process rules that agents follow autom
 | Know the agent, want to run it | /agent-run          | Agent      |
 | Need multi-agent analysis      | /workflow           | Agent      |
 | EU regulatory question         | /compliance-check   | Compliance |
+| Upcoming EU regulation scoring | /regulatory-radar   | Compliance |
 | Carbon footprint calculation   | /carbon-analysis    | Compliance |
 | Database sovereignty check     | /sovereignty-assess | Compliance |
 | Construction site assessment   | /site-safety        | Compliance |
 | Check git branch state         | /flow-status        | Operations |
 | Send email notification        | /email              | Operations |
 | Control edge devices           | /remote-control     | Operations |
+| Add/triage investor intro      | /investor-outreach  | Operations |
 | Check agent trust / kill chain | /kya                | Safety     |
 | Compile wiki / ask KB          | /kb                 | Knowledge  |
 | Code feels bloated             | /simplify           | Quality    |
+| Add/audit language bar         | /multilingual       | i18n       |
 | About to claim "done"          | verification-gate   | Discipline |
 | Big feature, many files        | design-first        | Discipline |
 | Editing site root folders      | dual-folder-sync    | Discipline |

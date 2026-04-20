@@ -52,7 +52,7 @@ import {
   getNewLeads,
   getUpcomingDeadlines,
 } from '../src/construction-leads/lead-processor.js';
-import { sendEmail } from '../src/utils/send-email.js';
+import { escapeHtml, sendEmail } from '../src/utils/send-email.js';
 
 const FROM = process.env.EMAIL_FROM || 'risto@onelifetime.world';
 const TO = process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi';
@@ -63,24 +63,27 @@ const REPLY_TO = process.env.OUTREACH_REPLY_TO_EMAIL || FROM;
 // ---------------------------------------------------------------------------
 
 function checkHelsinkiTime(): boolean {
+  const utcNow = new Date().toISOString();
   if (process.env.SKIP_TIME_CHECK === 'true') {
-    console.log('SKIP_TIME_CHECK=true, bypassing Helsinki time guard');
+    console.log(`[time-guard] SKIP_TIME_CHECK=true, bypassing Helsinki time guard (utc=${utcNow})`);
     return true;
   }
-  const helsinkiHour = parseInt(
-    new Date().toLocaleString('en-US', {
-      timeZone: 'Europe/Helsinki',
-      hour: 'numeric',
-      hour12: false,
-    }),
-    10,
+  const helsinkiString = new Date().toLocaleString('en-US', {
+    timeZone: 'Europe/Helsinki',
+    hour: 'numeric',
+    hour12: false,
+  });
+  const helsinkiHour = parseInt(helsinkiString, 10);
+  console.log(
+    `[time-guard] utc=${utcNow} helsinkiHourRaw="${helsinkiString}" helsinkiHour=${helsinkiHour} window=05-07`,
   );
-  if (helsinkiHour < 5 || helsinkiHour > 7) {
+  if (Number.isNaN(helsinkiHour) || helsinkiHour < 5 || helsinkiHour > 7) {
     console.log(
-      `Skipping: Helsinki hour is ${helsinkiHour}, expected 5-7. Set SKIP_TIME_CHECK=true to override.`,
+      `[time-guard] SKIPPING: Helsinki hour is ${helsinkiHour}, expected 5-7. Set SKIP_TIME_CHECK=true to override.`,
     );
     return false;
   }
+  console.log('[time-guard] PASS');
   return true;
 }
 
@@ -870,6 +873,15 @@ function buildHilChecklist(overdueFlowCount: number): string {
 // ---------------------------------------------------------------------------
 
 async function main(): Promise<void> {
+  console.log(
+    `[morning-brief] start pid=${process.pid} node=${process.version} utc=${new Date().toISOString()}`,
+  );
+  console.log(
+    `[morning-brief] env: SMTP_HOST=${process.env.SMTP_HOST ? 'set' : 'MISSING'} ` +
+      `SUPABASE_URL=${process.env.SUPABASE_URL ? 'set' : 'MISSING'} ` +
+      `EMAIL_FROM=${FROM} TO=${TO}`,
+  );
+
   if (!checkHelsinkiTime()) {
     process.exit(0);
   }
@@ -949,7 +961,7 @@ async function main(): Promise<void> {
     to: TO,
     subject,
     text,
-    html: `<pre style="font-family: monospace; font-size: 13px; line-height: 1.5;">${text}</pre>`,
+    html: `<pre style="font-family: monospace; font-size: 13px; line-height: 1.5;">${escapeHtml(text)}</pre>`,
     replyTo: REPLY_TO,
     headers: {
       'X-DWS-Email-Type': 'morning-brief-v2',

@@ -5,7 +5,7 @@
  * CBAM/ETS calculators, and report generator. Does NOT require LLM or Supabase.
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { ComplianceAgent } from '../agents/compliance.agent.js';
 import type { AgentContext } from '../agents/types.js';
 

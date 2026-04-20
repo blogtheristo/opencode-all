@@ -1,4 +1,4 @@
-#!/bin/sh
+ #!/bin/sh
 # DWS6 Claude Code Hook: SQL Safety Guard
 # Enforces SQL safety rules on Bash commands containing SQL
 # Upgraded: Supabase patterns + Aiwen Article 12 immutability
@@ -12,10 +12,10 @@
 # 6. ON DELETE CASCADE without soft-delete pattern
 # 7. pg_cron jobs that mutate data
 #
-# Requires: jq
+# Requires: jq or Python (fallback parser)
 # See: CLAUDE.md "Safety Rules for SQL"
 
-set -e
+set -euo pipefail
 
 HOOK_DIR="$(cd "$(dirname "$0")" && pwd)"
 AUDIT_LOG="${HOOK_DIR}/audit.log"
@@ -24,8 +24,72 @@ TIMESTAMP="$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
 # Read JSON from stdin
 INPUT="$(cat)"
 
-TOOL_NAME="$(printf '%s' "$INPUT" | jq -r '.tool_name // empty')"
-COMMAND="$(printf '%s' "$INPUT" | jq -r '.tool_input.command // empty')"
+json_get() {
+  key_paths="$1"
+  default_value="${2:-}"
+
+  if command -v jq >/dev/null 2>&1; then
+    expr=""
+    IFS='|' read -r -a keys <<< "$key_paths"
+    for k in "${keys[@]}"; do
+      [ -n "$expr" ] && expr="$expr // "
+      expr="${expr}.${k}"
+    done
+    printf '%s' "$INPUT" | jq -r "$expr // \"$default_value\"" 2>/dev/null
+    return 0
+  fi
+
+  if command -v python3 >/dev/null 2>&1; then
+    py_bin="python3"
+  elif command -v python >/dev/null 2>&1; then
+    py_bin="python"
+  else
+    printf '%s' "$default_value"
+    return 0
+  fi
+
+  printf '%s' "$INPUT" | "$py_bin" - "$key_paths" "$default_value" <<'PY'
+import json
+import sys
+
+raw = sys.stdin.read()
+key_paths = sys.argv[1].split("|")
+default = sys.argv[2]
+
+try:
+    data = json.loads(raw) if raw else {}
+except Exception:
+    print(default)
+    raise SystemExit(0)
+
+def get_path(obj, path):
+    cur = obj
+    for part in path.split("."):
+        if not part:
+            continue
+        if isinstance(cur, dict) and part in cur:
+            cur = cur[part]
+        else:
+            return None
+    return cur
+
+value = None
+for p in key_paths:
+    value = get_path(data, p)
+    if value is not None:
+        break
+
+if value is None:
+    print(default)
+elif isinstance(value, (dict, list)):
+    print(json.dumps(value, separators=(",", ":")))
+else:
+    print(str(value))
+PY
+}
+
+TOOL_NAME="$(json_get "tool_name" "")"
+COMMAND="$(json_get "tool_input.command" "")"
 
 # Only process Bash tool calls that contain SQL
 if [ "$TOOL_NAME" != "Bash" ] || [ -z "$COMMAND" ]; then
@@ -87,9 +151,12 @@ if printf '%s' "$COMMAND" | grep -qiE 'SECURITY[[:space:]]+DEFINER'; then
 fi
 
 # --- Check 3: CREATE TABLE without RLS ---
+# Warn only (not block) — migrations commonly split CREATE TABLE and ALTER TABLE
+# ENABLE ROW LEVEL SECURITY across separate statements or files.
+# A hard block here false-positives on valid multi-statement migrations.
 if printf '%s' "$COMMAND" | grep -qiE 'CREATE[[:space:]]+TABLE'; then
   if ! printf '%s' "$COMMAND" | grep -qiE 'ENABLE[[:space:]]+ROW[[:space:]]+LEVEL[[:space:]]+SECURITY'; then
-    log_block "CREATE TABLE without ENABLE ROW LEVEL SECURITY. RLS is required on every Supabase table."
+    log_warn "CREATE TABLE without ENABLE ROW LEVEL SECURITY in this command. Ensure RLS is enabled before deploying."
   fi
 fi
 

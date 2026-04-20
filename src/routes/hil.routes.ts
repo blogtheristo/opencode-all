@@ -7,7 +7,7 @@
  *   No authentication needed — done_token is a UUID unguessable without the email.
  */
 
-import { Router, Request, Response } from 'express';
+import { type Request, type Response, Router } from 'express';
 
 const router = Router();
 

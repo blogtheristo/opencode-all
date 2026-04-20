@@ -23,6 +23,11 @@ dist
 # Documentation
 *.md
 !README.md
+# Required at runtime by cron jobs in dws-cron container:
+#   - AGENTS.md read by scripts/verify-agents-md.mjs (agents-md-freshness)
+#   - CLAUDE.md read by scripts/golden-principle-check.mjs (golden-principle-scan)
+!AGENTS.md
+!CLAUDE.md
 docs/
 
 # Tests

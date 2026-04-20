@@ -12,7 +12,7 @@
 
 import { BaseAgent } from '../base.agent.js';
 import type { AgentContext, AgentResponse } from '../types.js';
-import type { LeadFeedbackInput, LeadFeedbackOutput, FunnelStage } from './types.js';
+import type { FunnelStage, LeadFeedbackInput, LeadFeedbackOutput } from './types.js';
 
 export class LeadFeedbackAgent extends BaseAgent {
   constructor() {
@@ -28,6 +28,7 @@ export class LeadFeedbackAgent extends BaseAgent {
         'industry-correlation',
       ],
       model: 'llama-3.3-70b-versatile',
+      modelTier: 'lite',
     });
   }
 

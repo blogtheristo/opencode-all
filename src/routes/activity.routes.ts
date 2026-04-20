@@ -11,7 +11,7 @@
  * Introduced-In: PR-913
  */
 
-import { Router, Request, Response, NextFunction } from 'express';
+import { type NextFunction, type Request, type Response, Router } from 'express';
 import { authenticateToken } from '../middleware/auth.middleware.js';
 import logger from '../utils/logger.js';
 import { getSupabaseClient } from '../config/supabase.js';
@@ -202,10 +202,11 @@ router.get('/stream', async (req: Request, res: Response) => {
     res.write(`data: ${JSON.stringify(sseData)}\n\n`);
   });
 
-  // Heartbeat every 30s to keep connection alive
+  // Heartbeat every 15s to keep connection alive.
+  // Shorter than any upstream proxy timeout (nginx default: 60s).
   const heartbeat = setInterval(() => {
     res.write(': heartbeat\n\n');
-  }, 30_000);
+  }, 15_000);
 
   // Cleanup on disconnect
   req.on('close', () => {

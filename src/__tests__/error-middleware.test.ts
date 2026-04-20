@@ -5,11 +5,11 @@
  * Covers the P0-RC2 backend error hardening changes.
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { Request, Response, NextFunction } from 'express';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { NextFunction, type Request, type Response } from 'express';
 import { asyncHandler } from '../middleware/async-handler.js';
 import { requestTimeout } from '../middleware/request-timeout.js';
-import { AppError, Errors, errorHandler } from '../middleware/error-handler.js';
+import { AppError, errorHandler, Errors } from '../middleware/error-handler.js';
 
 // ============ HELPERS ============
 

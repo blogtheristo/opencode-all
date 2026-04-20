@@ -1,19 +1,90 @@
-#!/bin/sh
+seems tr#!/bin/sh
 # DWS6 Claude Code Hook: PreToolUse Guardrail
 # Reads tool call JSON from stdin, decides: ALLOW (exit 0) or BLOCK (exit 2)
 # Philosophy: block dangerous commands, allow everything else. Never prompt.
 #
-# Requires: jq
+# Code-Version: 2.0
+# Date: 2026-04-13
+# Branch: claude/fix-partners-stub-issue-A7eFH
+# Introduced-In: PR fix-partners-stub-issue-A7eFH
+# Owner: Lifetime Oy
+#
+# Requires: jq or Python (fallback parser)
 
-set -e
+set -euo pipefail
 
 HOOK_DIR="$(cd "$(dirname "$0")" && pwd)"
 AUDIT_LOG="${HOOK_DIR}/audit.log"
 TIMESTAMP="$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
 
 INPUT="$(cat)"
-TOOL_NAME="$(printf '%s' "$INPUT" | jq -r '.tool_name // empty')"
-COMMAND="$(printf '%s' "$INPUT" | jq -r '.tool_input.command // empty')"
+
+json_get() {
+  key_paths="$1"
+  default_value="${2:-}"
+
+  if command -v jq >/dev/null 2>&1; then
+    expr=""
+    IFS='|' read -r -a keys <<< "$key_paths"
+    for k in "${keys[@]}"; do
+      [ -n "$expr" ] && expr="$expr // "
+      expr="${expr}.${k}"
+    done
+    printf '%s' "$INPUT" | jq -r "$expr // \"$default_value\"" 2>/dev/null
+    return 0
+  fi
+
+  if command -v python3 >/dev/null 2>&1; then
+    py_bin="python3"
+  elif command -v python >/dev/null 2>&1; then
+    py_bin="python"
+  else
+    printf '%s' "$default_value"
+    return 0
+  fi
+
+  printf '%s' "$INPUT" | "$py_bin" - "$key_paths" "$default_value" <<'PY'
+import json
+import sys
+
+raw = sys.stdin.read()
+key_paths = sys.argv[1].split("|")
+default = sys.argv[2]
+
+try:
+    data = json.loads(raw) if raw else {}
+except Exception:
+    print(default)
+    raise SystemExit(0)
+
+def get_path(obj, path):
+    cur = obj
+    for part in path.split("."):
+        if not part:
+            continue
+        if isinstance(cur, dict) and part in cur:
+            cur = cur[part]
+        else:
+            return None
+    return cur
+
+value = None
+for p in key_paths:
+    value = get_path(data, p)
+    if value is not None:
+        break
+
+if value is None:
+    print(default)
+elif isinstance(value, (dict, list)):
+    print(json.dumps(value, separators=(",", ":")))
+else:
+    print(str(value))
+PY
+}
+
+TOOL_NAME="$(json_get "tool_name" "")"
+COMMAND="$(json_get "tool_input.command" "")"
 
 if [ "$TOOL_NAME" != "Bash" ] || [ -z "$COMMAND" ]; then
   exit 0
@@ -29,19 +100,68 @@ block() {
   exit 2
 }
 
-# --- SAFE COMMANDS: allow immediately, skip all deny checks ---
-# These commands may contain arbitrary string content (commit messages,
-# inline scripts) that would false-positive on deny patterns.
-# Extract the actual shell command (first token before space/pipe/&&)
+# Extract first token (the actual shell command)
 FIRST_TOKEN=$(printf '%s' "$COMMAND" | sed 's/^[[:space:]]*//' | cut -d' ' -f1)
 
+# ── PRE-CHECK: Protected path writes via Bash file-write commands ─────────────
+# cp, mv, curl -o, wget -O bypass protect-files.sh entirely.
+# Apply the same destination-path rules here before the safe list exits early.
+#
+# Protected destinations:
+#   *artners/index.html  — Partners page (2026-04-13 incident)
+#   *_OLD.*              — archived files must not be overwritten
+#   .env / .env.*        — secrets
+#   supabase/migrations/ — DB migrations
+
+_is_protected_dest() {
+  p="$1"
+  printf '%s' "$p" | grep -qiE '[Pp]artners/index\.html'   && return 0
+  printf '%s' "$p" | grep -qE   '_OLD\.[a-zA-Z0-9]+$'      && return 0
+  printf '%s' "$p" | grep -qE   '(^|/)\.env(\.|$|$)'       && return 0
+  printf '%s' "$p" | grep -qE   'supabase/migrations/.*\.sql$' && return 0
+  return 1
+}
+
+# Pipe-to-shell — must run BEFORE the safe list (curl/wget are fast-allowed there)
+if printf '%s' "$COMMAND" | grep -qiE '\|[[:space:]]*(sh|bash)(\s|$)'; then
+  block "Pipe-to-shell attack"
+fi
+
+case "$FIRST_TOKEN" in
+  cp|mv)
+    # Destination is the last whitespace-delimited token
+    DEST=$(printf '%s' "$COMMAND" | awk '{print $NF}')
+    if _is_protected_dest "$DEST"; then
+      block "$FIRST_TOKEN to protected path blocked: $DEST"
+    fi
+    ;;
+  curl)
+    # -o <file> or --output <file>
+    DEST=$(printf '%s' "$COMMAND" | grep -oE '\-o[[:space:]]+[^[:space:]]+' | awk '{print $2}' | head -1)
+    if [ -n "$DEST" ] && _is_protected_dest "$DEST"; then
+      block "curl -o to protected path blocked: $DEST"
+    fi
+    ;;
+  wget)
+    # -O <file> or --output-document=<file>
+    DEST=$(printf '%s' "$COMMAND" | grep -oE '(\-O[[:space:]]+[^[:space:]]+|--output-document=[^[:space:]]+)' | \
+           sed 's/--output-document=//' | awk '{print $NF}' | head -1)
+    if [ -n "$DEST" ] && _is_protected_dest "$DEST"; then
+      block "wget -O to protected path blocked: $DEST"
+    fi
+    ;;
+esac
+
+# ── SAFE COMMANDS: allow immediately, skip all deny checks ────────────────────
+# These commands may contain arbitrary string content (commit messages,
+# inline scripts) that would false-positive on deny patterns.
 case "$FIRST_TOKEN" in
   node|npx|npm|tsx|vitest|jest|prettier|eslint) exit 0 ;;  # JS tooling
   python|python3|pip|pip3|ruff|black|bandit) exit 0 ;;     # Python tooling
   make|cargo|go|rustc) exit 0 ;;                            # Build tools
   ls|pwd|echo|cat|head|tail|wc|file|which|type) exit 0 ;;  # Read-only
   find|grep|rg|diff|tree|du|df|date|env|printenv) exit 0 ;; # Inspect
-  mkdir|touch|cp|mv|chmod|tar|zip|unzip) exit 0 ;;          # File ops
+  mkdir|touch|cp|mv|chmod|tar|zip|unzip) exit 0 ;;          # File ops (safe after pre-check above)
   docker|docker-compose|gh|jq|curl|wget) exit 0 ;;          # Tools
   SKIP_TIME_CHECK=*|CLAUDE_*|NODE_ENV=*) exit 0 ;;          # Env-prefixed
 esac
@@ -51,14 +171,40 @@ if printf '%s' "$COMMAND" | grep -qE '^[A-Z_]+=[^ ]+ (node|npx|npm|tsx|python)';
   exit 0
 fi
 
-# --- DENY LIST: destructive patterns (exit 2) ---
-# Only reached for shell commands (git, rm, psql, etc.)
+# ── DENY LIST: destructive patterns ──────────────────────────────────────────
 
-# rm with force/recursive on broad paths
-printf '%s' "$COMMAND" | grep -qiE '^rm[[:space:]]+-[a-z]*r[a-z]*f[[:space:]]+/' && block "rm -rf on broad path"
-printf '%s' "$COMMAND" | grep -qiE '^rm[[:space:]]+-[a-z]*f[a-z]*r[[:space:]]+/' && block "rm -fr on broad path"
+# ── Delete / destroy operations ──────────────────────────────────────────────
+# rm -rf and rm -fr: block on ALL paths (absolute and relative).
+# Exception: /tmp/ paths are safe.
+case "$FIRST_TOKEN" in
+  rm)
+    # ALL rm is blocked — no file deletions allowed.
+    # The only permitted removal method is renaming to _OLD (git mv <file> <file_OLD.ext>).
+    # Exception: /tmp/ paths (build artifacts, temp files).
+    if ! printf '%s' "$COMMAND" | grep -qE '/tmp/'; then
+      block "rm is not allowed. Rename to _OLD instead: git mv <file> <file>_OLD.<ext>"
+    fi
+    ;;
+esac
 
-# Git destructive operations — only check commands starting with git
+# truncate -s 0 empties files — block on protected paths
+case "$FIRST_TOKEN" in
+  truncate)
+    TRUNC_TARGET=$(printf '%s' "$COMMAND" | awk '{print $NF}')
+    if _is_protected_dest "$TRUNC_TARGET"; then
+      block "truncate of protected path: $TRUNC_TARGET"
+    fi
+    ;;
+esac
+
+# shred permanently destroys file data — always block
+case "$FIRST_TOKEN" in
+  shred)
+    block "shred is a permanent destructive operation. Use git mv with _OLD suffix instead."
+    ;;
+esac
+
+# Git destructive operations
 case "$FIRST_TOKEN" in
   git)
     printf '%s' "$COMMAND" | grep -qiE 'git[[:space:]]+push[[:space:]]+--force' && block "git push --force"
@@ -69,7 +215,7 @@ case "$FIRST_TOKEN" in
     ;;
 esac
 
-# SQL destructive operations — only check actual SQL commands
+# SQL destructive operations
 case "$FIRST_TOKEN" in
   psql|supabase)
     printf '%s' "$COMMAND" | grep -qiE 'DROP[[:space:]]+TABLE' && block "DROP TABLE — requires explicit approval"
@@ -80,15 +226,8 @@ case "$FIRST_TOKEN" in
     ;;
 esac
 
-# sudo — always block regardless of context
+# sudo — always block
 printf '%s' "$COMMAND" | grep -qiE '^sudo[[:space:]]' && block "sudo command"
-
-# Pipe-to-shell — only when curl/wget is the actual command
-case "$FIRST_TOKEN" in
-  curl|wget)
-    printf '%s' "$COMMAND" | grep -qiE '\|[[:space:]]*(sh|bash)' && block "Pipe-to-shell attack"
-    ;;
-esac
 
 # Ollama model changes
 case "$FIRST_TOKEN" in
@@ -97,5 +236,5 @@ case "$FIRST_TOKEN" in
     ;;
 esac
 
-# --- DEFAULT: ALLOW ---
+# ── DEFAULT: ALLOW ────────────────────────────────────────────────────────────
 exit 0

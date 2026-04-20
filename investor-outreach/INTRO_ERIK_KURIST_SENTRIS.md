@@ -71,10 +71,12 @@ The numbers: EUR 7K MRR, 100% retention, 5 paying customers, EUR 650K SAFE at EU
 Full investor memo attached. Happy to jump on a 20-minute call to walk through the platform and the defence/resilience positioning in detail. What does your calendar look like this week or next?
 
 Best regards,
-Risto Anton Paarni
+Risto Anton Paarni (Päärni)
 Founder & CEO, Lifetime Oy
 +358 400 319 010
-risto@onelifetime.world
+risto@onelifetime.world (public)
+investor discussions (risto.paarni2024@lifetime.fi) GMeet
+our Jitsi meet is at https://dws10.com/meet
 https://dws10.com
 
 ## Attachments to Send

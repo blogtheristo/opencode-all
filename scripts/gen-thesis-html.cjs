@@ -205,27 +205,9 @@ const SOURCES = [
     lang:      'fi',
   },
   {
-    src:       'Learn/V3Thesis_EN_v3.30.50.md',
-    titleBase: 'Firehorse Product Manufacturing Operating Model — Metropolia v3.30.50 (EN, FROZEN)',
-    outPrefix: 'Learn/V3Thesis_EN_v',
-    lang:      'en',
-  },
-  {
-    src:       'Learn/V3Thesis_FI_v3.30.50.md',
-    titleBase: 'Firehorse-tuotevalmistuksen toimintamalli — Metropolia v3.30.50 (FI, JÄÄDYTETTY)',
-    outPrefix: 'Learn/V3Thesis_FI_v',
-    lang:      'fi',
-  },
-  {
-    src:       'Learn/DWS7_ROADMAP.md',
-    titleBase: 'DWS7 Roadmap — From Pilot to 16 Paying Industrial Customers',
-    outPrefix: 'Learn/DWS7_ROADMAP_v',
-    lang:      'en',
-  },
-  {
-    src:       'Learn/Claude-memo.md',
-    titleBase: 'Claude Skills Implementation Memo — Decisions & Competitive Edge',
-    outPrefix: 'Learn/Claude-memo_v',
+    src:       'docs/ASPIRE_SENSOR_MANAGEMENT_PLAN.md',
+    titleBase: 'Aspire Sensor Management Plan',
+    outPrefix: 'Learn/ASPIRE_SENSOR_MANAGEMENT_PLAN_v',
     lang:      'en',
   },
 ];

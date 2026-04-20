@@ -3,11 +3,12 @@
 **Company:** DWS6 (Lifetime Oy)
 **Sector:** Climate Tech / Carbon Balance Sheet Infrastructure / EU Compliance Automation
 **Stage:** Seed / Seed-extension (bridge to Series A 2026)
-**Document Version:** 5.2
-**Last Updated:** April 8, 2026
+**Document Version:** 4.3
+**Last Updated:** April 20, 2026
 **Status:** Active Fundraising
-**Platform Status:** Public Cloud Version V1 — Production Ready (18 agents, 32 products, 5 cloud environments)
+**Platform Status:** Public Cloud V1 — Production Ready (18 agents, 32 products, 5 cloud environments) | Private Cloud V1 — Production Ready (UpCloud Helsinki, Finnish sovereign K8s) | CBAM Annex I Coverage ✅ Complete (all 6 sectors, 66 CN codes, LD-2026-013)
 **Sovereignty Status:** EU-sovereign by design — EUDI Wallet (12/2026, law) + Digital Euro (~2029, ECB target)
+**Pricing Model:** Alpha-Share — 7.5% of verified efficiency gains (agent-native, outcome-based; aligned with Salesforce Headless 360 / Agentforce thesis)
 
 ---
 
@@ -21,22 +22,24 @@ Every EU company filing CSRD needs a carbon balance sheet. We build the ledger i
 
 ## Investment Opportunity Overview
 
-**Current Metrics (March 2026):**
+**Current Metrics (April 2026):**
 
 - MRR: **€7K live run-rate**
-- Paying Customers: 5
+- Paying Customers: 6
 - Retention: 100% (zero churn)
-- Customer LTV: €70k–€120k annual value per logo
+- Customer LTV: €70k–€120k projected annual value per logo (multi-site expansion after construction pilots)
 - Platform: 18 AI agents, 32 products, 5 cloud environments
 - Industries served: 20 EU-regulated verticals
+- CBAM Annex I coverage: ✅ All 6 sectors (Steel, Aluminium, Cement, Fertilizers, Hydrogen, Electricity), 66 CN codes, one dedicated agent per sector (LD-2026-013, April 16, 2026)
 - Carbon balance sheet: Debit-credit ledger shipping in V1, persistent ledger in DWS 7 Phase 2 (Jul 2026)
+- Competitive Fortress: **21 moats across 4 tiers** (T1 Impossible / T2 Very Hard / T3 Moderate / T4 Operational) — €3-6M / 24-36 month entry barrier for competitors. Full breakdown in V4.3 Pitch Deck.
+- DWS IQ 7 jurisdictions: EU + US live, UAE via G42 planned Q3 2027, ASEA placeholder
 
 **Sales Motion:**
 Enterprise Navigator pilots at €4,950 convert to €8,950 annual contracts. 25 customers at average €36K ARR = €900K. The math: 5 current customers (€7K MRR) + 20 new logos from sales sprint and pipeline conversion.
 
 **Sales Timeline:**
-
-- March–June 14, 2026: Pipeline building, pilot conversions
+- March–June 14, 2026: Pipeline building, Navigator → Premium conversions
 - **June 15, 2026: V1 Launch at Arctic 15** (Helsinki — sales kickoff event)
 - June 15 – August 15, 2026: 100% sales sprint (2-month dedicated push)
 - **August 15, 2026: First sales cycle data available** (investor decision point)
@@ -87,13 +90,13 @@ Lifetime Oy will not repeat this pattern. **The lead investor (Fleet Admiral) mu
 
 Arctic 15 (Helsinki) is the V1 public launch event and the anchor date for the investor timeline:
 
-| Date                 | Milestone                            | Investor Relevance                       |
-| -------------------- | ------------------------------------ | ---------------------------------------- |
-| **Now – June 14**    | Pipeline building, pilot conversions | Pre-launch entry window                  |
-| **June 15, 2026**    | V1 Launch at Arctic 15               | Sales kickoff — public market validation |
-| **June 15 – Aug 15** | 100% sales sprint                    | 2-month dedicated customer acquisition   |
-| **August 15, 2026**  | First sales cycle data               | Hard data for Series A narrative         |
-| **Q3–Q4 2026**       | Series A process                     | €15M+ pre-money target                   |
+| Date | Milestone | Investor Relevance |
+|------|-----------|-------------------|
+| **Now – June 14** | Pipeline building, Navigator → Premium conversions | Pre-launch entry window |
+| **June 15, 2026** | V1 Launch at Arctic 15 | Sales kickoff — public market validation |
+| **June 15 – Aug 15** | 100% sales sprint | 2-month dedicated customer acquisition |
+| **August 15, 2026** | First sales cycle data | Hard data for Series A narrative |
+| **Q3–Q4 2026** | Series A process | €15M+ pre-money target |
 
 Investors who commit before Arctic 15 enter at seed valuation (€3.8M cap) ahead of the first public sales data.
 
@@ -155,6 +158,40 @@ Beyond ownership, every competitor in compliance automation relies on US-cloud-d
 **Digital Euro** — ECB digital currency, EU-sovereign payment rail. Regulation expected to be adopted in 2026 (EP ECON vote 05.05.2026). 12-month pilot from H2/2027. First potential issuance ~2029, conditional on regulation adoption. Development budget: €1.3 billion (ECB closing report, 10/2025). **This is an ECB target timeline, not enacted law — but with €1.3B committed and active legislative process, it is a credible trajectory.**
 
 **Together:** EUDI Wallet + Digital Euro = EU-sovereign identity + payment stack. No US vendor anywhere in the chain.
+
+### The Qivalis Bridge — Private Digital Euro H2 2026
+
+The ECB Digital Euro (~2029) is the long-term sovereign payment rail. But the
+payment transition is already happening. **Qivalis** — a joint venture of 12
+European banks including BBVA, ING, BNP Paribas, SEB, UniCredit, and CaixaBank
+— launches a MiCA-compliant euro stablecoin in H2 2026, arriving 2–3 years
+ahead of the ECB.
+
+**The compliance gap:** The 12 consortium banks are building payment
+infrastructure without a compliance layer. That gap opens Q3 2026.
+
+When a Qivalis payment clears on a steel or cement shipment, the CBAM
+obligation, CSRD Scope 3 entry, and ETS account must still be recorded —
+automatically, in the same transaction. Qivalis provides no mechanism for this.
+DWS IQ does.
+
+**Payment-agnostic by design:** Nordea (Nordic region's largest bank by assets)
+and OP (Finland's largest banking group by deposits) are outside the Qivalis
+consortium at launch. DWS IQ records every CBAM, CSRD, and ETS obligation
+regardless of whether the payment moves via Qivalis, SEPA, or any future rail.
+The compliance obligation exists at the transaction level — not the rail level.
+
+| Payment rail                         | DWS IQ compliance recording | Available   |
+| ------------------------------------ | --------------------------- | ----------- |
+| Qivalis (MiCA EMT)                   | Yes                         | H2 2026     |
+| SEPA                                 | Yes                         | Today       |
+| ECB CBDC                             | Yes                         | ~2029       |
+| Any future MiCA-compliant stablecoin | Yes                         | As launched |
+
+**DWS IQ is the compliance ledger for Qivalis-era industrial payments.**
+
+_(Source: Qivalis consortium announcement March 2026; BBVA press release
+February 2026; CaixaBank press release March 2026)_
 
 ### DWS IQ Architecture on EU State Infrastructure
 
@@ -360,22 +397,22 @@ Timeframe:                 ~2 years (2024→2026)
 
 ### Traction & Validation
 
-- **Current MRR:** €7K (March 2026) with 5 paying customers
+- **Current MRR:** €7K (April 2026) with 6 paying customers
 - **Customer Retention:** 100% (zero churn demonstrates product-market fit)
-- **Customer LTV:** €70k–€120k annual value per logo
+- **Customer LTV:** €70k–€120k projected annual value per logo (multi-site expansion after construction pilots)
 - **Time Savings:** 40+ hours/month saved per customer
 - **Platform Scale:** 18 agents, 32 products, 5 cloud environments, 20 industries
 - **Target Growth:** €900k ARR by end of 2026
 
 ### Current Customer Base
 
-| Customer             | Vertical     | Status | Annual Value        |
-| -------------------- | ------------ | ------ | ------------------- |
-| Logistics Operator 1 | Logistics    | Paid   | €70,000             |
-| Logistics Operator 2 | Logistics    | Paid   | €60,000             |
-| Logistics Operator 3 | Healthcare   | Paid   | €90,000             |
-| Construction Co. A   | Construction | Pilot  | €80,000 (projected) |
-| Construction Co. B   | Construction | Pilot  | €80,000 (projected) |
+| Customer | Vertical | Status | Annual Value |
+|----------|----------|--------|--------------|
+| Logistics Operator 1 | Logistics | Paid | €70,000 |
+| Logistics Operator 2 | Logistics | Paid | €60,000 |
+| Logistics Operator 3 | Healthcare | Paid | €90,000 |
+| Construction Co. A | Construction | Navigator | €80,000 (projected) |
+| Construction Co. B | Construction | Navigator | €80,000 (projected) |
 
 ### Competitive Advantages
 
@@ -403,10 +440,6 @@ Timeframe:                 ~2 years (2024→2026)
   - Dr. Jarno Varteva — Metropolia University of Applied Sciences (Academic Advisor)
   - Dr. Erkki Räsänen — Metropolia University of Applied Sciences (Academic Advisor)
 - **Accelerator:** Peachscore Cohort 25 (access to Nordic VC network)
-- **Third-Party Validation:**
-  - Crunchbase Growth Score: 91
-  - Crunchbase Heat Score: 86
-  - CB Rank: 104,995
 - **Cloud Credits:** €100k+ in AWS/Google Cloud infrastructure credits secured
 - **Finland Advantage:** AAA credit rating, sovereign stability, strong IP protection, Nordic innovation ecosystem
 - **Partnerships:** NVIDIA Connect Partner (Groq), Microsoft Founders Hub (L1-L4), Google, AWS (Consulting Partner), IBM (Business Partner), Acer Finland, Konfitech
@@ -440,7 +473,7 @@ Timeframe:                 ~2 years (2024→2026)
 
 1. **3–5 Flagship Construction/Infrastructure Portfolios Onboarded**
    - Target: €15k–€25k MRR added
-   - Convert 2 current pilots to live deployments
+   - Convert 2 current Navigator pilots to Premium subscriptions
    - Onboard 3 additional construction portfolio owners
 
 2. **Productized Fit for 55 Reporting Module**
@@ -468,7 +501,7 @@ Timeframe:                 ~2 years (2024→2026)
 
 - **Sales & Marketing:** 35% (€227.5k)
   - Construction vertical sales team
-  - Pilot-to-customer conversion
+  - Navigator-to-Premium conversion
   - Arctic 15 launch event
   - Customer success and onboarding
 
@@ -550,12 +583,16 @@ Regulation is live. Customers have budget. Product works. We have traction. Arct
 ---
 
 **Document Control:**
-
-- Version: 5.2
-- Last Updated: April 8, 2026
+- Version: 4.3
+- Last Updated: April 20, 2026
 - Author: Risto Anton Päärni
 - Status: Active — Fundraising in Progress
 - Confidentiality: For Potential Investors Only
-- Platform Status: Public Cloud Version V1 — Production Ready (18 agents, 32 products, 5 cloud environments)
+- Platform Status: Public Cloud V1 + Private Cloud V1 — Production Ready (18 agents, 32 products, 5 cloud environments); CBAM Annex I ✅ Complete (6 sectors, 66 CN codes)
 - Sovereignty Status: EU-sovereign by design — EUDI Wallet (12/2026, law) + Digital Euro (~2029, ECB target)
-- v5.2 Change: Added EU Sovereign Infrastructure section (EUDI Wallet + Digital Euro thesis), updated competitive advantages with sovereignty moat, rejected "almost sovereign" IDV vendors (Shufti, Veriff, Sumsub)
+- Pricing Model: Alpha-Share (7.5% of verified efficiency gains, agent-native, outcome-based)
+- Paired Documents: V4.3 Pitch Deck (investor-outreach/V4.3-DWS-IQ6-InvestorPD_2026.md) — full 21-moat fortress breakdown
+
+**Revision History:**
+- v3.1 (March 21, 2026): EU Sovereign Infrastructure section (EUDI Wallet + Digital Euro thesis), rejected "almost sovereign" IDV vendors (Shufti, Veriff, Sumsub)
+- v4.3 (April 20, 2026): Aligned with V4.3 Pitch Deck — customer count 5→6, CBAM Annex I full coverage, Alpha-Share pricing model, DWS IQ 7 4-jurisdiction roadmap (G42 UAE), 21-moat/4-tier fortress reference, traction month refresh to April 2026

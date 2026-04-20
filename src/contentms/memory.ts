@@ -12,9 +12,9 @@
  * Owner: Claude Code (Opus 4.6)
  */
 
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
-import { ContentItem, ContentItemSchema } from './types.js';
+import { type ContentItem, ContentItemSchema } from './types.js';
 
 // ============================================================================
 // CONTENT STORE — Supabase + in-memory fallback

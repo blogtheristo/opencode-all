@@ -10,7 +10,7 @@
  * Used by scripts/seed-post-queue.ts to populate the queue.
  */
 
-import type { PostDraft, PostCategory } from './types.js';
+import type { PostCategory, PostDraft } from './types.js';
 import { DateTime } from 'luxon';
 
 // ============================================================================

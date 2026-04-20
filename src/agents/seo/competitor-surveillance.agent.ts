@@ -11,9 +11,9 @@
 import { BaseAgent } from '../base.agent.js';
 import type { AgentContext, AgentResponse } from '../types.js';
 import type {
+  CompetitorChange,
   CompetitorSurveillanceInput,
   CompetitorSurveillanceOutput,
-  CompetitorChange,
   ContentGap,
 } from './types.js';
 import { createHash } from 'crypto';
@@ -32,6 +32,7 @@ export class CompetitorSurveillanceAgent extends BaseAgent {
         'change-detection',
       ],
       model: 'llama-3.3-70b-versatile',
+      modelTier: 'standard',
     });
   }
 

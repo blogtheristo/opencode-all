@@ -9,7 +9,7 @@
  * Introduced-In: PR-982 (PR review coverage)
  */
 
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 // ── Suppress logger noise ────────────────────────────────────────────────
 vi.mock('../utils/logger.js', () => ({

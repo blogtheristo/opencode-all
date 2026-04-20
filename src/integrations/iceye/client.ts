@@ -11,12 +11,12 @@
 
 import logger from '../../utils/logger.js';
 import type {
+  BoundingBox,
+  GeoJsonPolygon,
+  IceyeCatalogItem,
+  IceyeCatalogRequest,
   IceyeTaskingRequest,
   IceyeTaskingResponse,
-  IceyeCatalogRequest,
-  IceyeCatalogItem,
-  GeoJsonPolygon,
-  BoundingBox,
 } from './types.js';
 
 const ICEYE_API_BASE = process.env.ICEYE_API_BASE || 'https://api.iceye.com/v1';

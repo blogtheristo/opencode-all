@@ -20,13 +20,13 @@
  * data, attribute Building Transparency and EC3 in documentation.
  */
 
-import axios, { AxiosInstance, AxiosError } from 'axios';
+import axios, { type AxiosError, type AxiosInstance } from 'axios';
 import pino from 'pino';
 import { normalizeToKg, resolveCanonicalUnit } from '../../agents/unit-normalization.js';
 import type {
+  EC3CategoryStats,
   EC3Epd,
   EC3SearchResponse,
-  EC3CategoryStats,
   NormalizedEpd,
 } from './types.js';
 

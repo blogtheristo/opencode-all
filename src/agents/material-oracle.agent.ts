@@ -20,8 +20,8 @@
 import logger from '../utils/logger.js';
 import { BaseAgent } from './base.agent.js';
 import type { AgentContext, AgentResponse } from './types.js';
-import { normalizeToKg, type NormalizationResult } from './unit-normalization.js';
-import { createEC3Client, type EC3Client, type EC3CategoryStats } from '../integrations/ec3/index.js';
+import { type NormalizationResult, normalizeToKg } from './unit-normalization.js';
+import { createEC3Client, type EC3CategoryStats, type EC3Client } from '../integrations/ec3/index.js';
 
 // ============ EMISSION FACTORS DATABASE ============
 // kgCO2e per unit (based on ICE Database v3 and EPD averages)
@@ -187,6 +187,7 @@ export class MaterialOracleAgent extends BaseAgent {
         'ec3-epd-lookup',
       ],
       model: 'llama-3.3-70b-versatile',
+      modelTier: 'standard',
     });
     this.ec3Client = createEC3Client();
   }

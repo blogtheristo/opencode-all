@@ -72,12 +72,12 @@ export {
 // ============ PIPELINE RUNNER ============
 
 import { buildCBAMStressTestSchema } from './cbam-schema.js';
-import { SEED_FILINGS, getSeedEmissionAverages } from './seed-dataset.js';
+import { getSeedEmissionAverages, SEED_FILINGS } from './seed-dataset.js';
 import {
-  runValidationBatch,
   computeSimulationMatrix,
-  validateAgainstCalculator,
   type PipelineConfig,
+  runValidationBatch,
+  validateAgainstCalculator,
   type ValidationBatchResult,
 } from './llm-judge.js';
 import { COMPUTE_STRATEGY, getInfrastructureSummary } from './compute-strategy.js';

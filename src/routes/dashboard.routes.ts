@@ -11,7 +11,7 @@
  * Introduced-In: PR-913
  */
 
-import { Router, Request, Response, NextFunction } from 'express';
+import { type NextFunction, type Request, type Response, Router } from 'express';
 import { authenticateToken, requireRole } from '../middleware/auth.middleware.js';
 import logger from '../utils/logger.js';
 import { getSupabaseClient } from '../config/supabase.js';

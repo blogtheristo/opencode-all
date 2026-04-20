@@ -4,7 +4,7 @@
     <title>Lifetime Firehorse Store — Sovereign AI Products &amp; Services</title>
     <link>https://dws10.com/buy/</link>
     <description>Sovereign AI products and services for enterprises and SMEs. EU-hosted, CLOUD Act free. Climate compliance, industrial AI, and expert advisory by Lifetime Oy.</description>
-    <lastBuildDate>2026-04-04T05:00:07.530Z</lastBuildDate>
+    <lastBuildDate>2026-04-16T03:36:55.847Z</lastBuildDate>
     <item>
         <g:id>DWS-IQ-006</g:id>
         <g:title>Lifetime DWS IQ Platform (Version 6)</g:title>
@@ -24,11 +24,29 @@
         <g:content_language>en</g:content_language>
     </item>
     <item>
+        <g:id>FH-OMNI-001</g:id>
+        <g:title>Firehorse Omnichannel V2</g:title>
+        <g:description>AI-managed outreach — DWS runs your LinkedIn, email and content campaigns. You approve. We execute. No agency markup, no platform lock-in. 90-day pipeline guarantee. Proven playbooks built from 800+ days of EU industrial campaign data.</g:description>
+        <g:link>https://dws10.com/products/firehorse-omnichannel.html</g:link>
+        <g:image_link>https://dws10.com/static/images/firehorse-omnichannel-v2.png</g:image_link>
+        <g:price>1499.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Firehorse</g:brand>
+        <g:mpn>FH-OMNI-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:custom_label_1>featured</g:custom_label_1>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
         <g:id>FH-AUTO-001</g:id>
         <g:title>Firehorse Automation</g:title>
         <g:description>Manual data entry is where compliance fines start. Firehorse Automation eliminates human error with event-driven workflows for Fit for 55, CSRD, and EPBD 2028 — capturing ESG data directly from your systems with a complete audit trail.</g:description>
         <g:link>https://dws10.com/products/firehorse-automation.html</g:link>
-        <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+        <g:image_link>https://dws10.com/static/images/firehorse-automation-v2.png</g:image_link>
         <g:price>4950.00 EUR</g:price>
         <g:availability>in_stock</g:availability>
         <g:condition>new</g:condition>
@@ -42,11 +60,11 @@
     </item>
     <item>
         <g:id>LIFETIME-BUNDLE-2026</g:id>
-        <g:title>Climate Reporting Starter Bundle</g:title>
-        <g:description>Everything you need to go from zero to compliant. Includes DWS IQ Base Platform, Firehorse Report Module, and a hands-on Kickoff Workshop. Built for companies facing their first CSRD reporting deadline. Operational in 30 days.</g:description>
-        <g:link>https://dws10.com/products/bundle.html</g:link>
-        <g:image_link>https://dws10.com/static/images/8_Industries.png</g:image_link>
-        <g:price>6500.00 EUR</g:price>
+        <g:title>Firehorse Starter V2</g:title>
+        <g:description>The fastest path to audit-ready CFO reporting. Firehorse Starter V2 includes DWS IQ Base Platform, Firehorse Report, Firehorse Signed Reports, and a Kickoff Workshop. Operational in 30 days. CSRD, Fit for 55 and EPBD 2028 ready from day one.</g:description>
+        <g:link>https://dws10.com/products/firehorse-starter-v2.html</g:link>
+        <g:image_link>https://dws10.com/static/images/firehorse-starter-v2.png</g:image_link>
+        <g:price>9990.00 EUR</g:price>
         <g:availability>in_stock</g:availability>
         <g:condition>new</g:condition>
         <g:brand>Lifetime</g:brand>
@@ -59,28 +77,11 @@
         <g:content_language>en</g:content_language>
     </item>
     <item>
-        <g:id>FH-OMNI-001</g:id>
-        <g:title>Firehorse Omnichannel Next</g:title>
-        <g:description>Launch climate-tech products without greenwashing risk. AI-powered marketing engine that ensures every claim meets EU AI Act and Green Claims Directive requirements. Includes 4-week pilot campaign with measurable results.</g:description>
-        <g:link>https://dws10.com/products/firehorse-omnichannel.html</g:link>
-        <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-        <g:price>499.00 EUR</g:price>
-        <g:availability>in_stock</g:availability>
-        <g:condition>new</g:condition>
-        <g:brand>Firehorse</g:brand>
-        <g:mpn>FH-OMNI-2026</g:mpn>
-        <g:identifier_exists>false</g:identifier_exists>
-        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
-        <g:custom_label_0>platform</g:custom_label_0>
-        <g:target_country>FI</g:target_country>
-        <g:content_language>en</g:content_language>
-    </item>
-    <item>
         <g:id>FH-RPT-001</g:id>
-        <g:title>DWS IQ Report</g:title>
+        <g:title>Firehorse Report</g:title>
         <g:description>Replace 200+ hours of manual report building with one automated template. Fit for 55 compliant dashboards with SAP integration, real-time data feeds, and 4-week validation included. Your compliance team gets their weekends back.</g:description>
         <g:link>https://dws10.com/products/firehorse-reports.html</g:link>
-        <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+        <g:image_link>https://dws10.com/static/images/firehorse-report-v2.png</g:image_link>
         <g:price>1999.00 EUR</g:price>
         <g:availability>in_stock</g:availability>
         <g:condition>new</g:condition>
@@ -97,7 +98,7 @@
         <g:title>Firehorse Signed Reports</g:title>
         <g:description>Add legally binding eSignatures to any Firehorse report. Compliance reports, carbon assessments, and investor reports get DocuSign eSignature — court-defensible, audit-ready, with full tracking. Author, reviewer, and auditor sign in sequence. Signed PDFs auto-archived.</g:description>
         <g:link>https://dws10.com/products/firehorse-reports.html</g:link>
-        <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+        <g:image_link>https://dws10.com/static/images/firehorse-signed-reports-v2.png</g:image_link>
         <g:price>199.00 EUR</g:price>
         <g:availability>in_stock</g:availability>
         <g:condition>new</g:condition>
@@ -114,7 +115,7 @@
         <g:title>Firehorse Content Management</g:title>
         <g:description>When auditors ask for proof, find it in seconds — not days. Evidence Vault auto-tags compliance documents, alerts before certificates expire, and provides semantic search across all your audit-ready documentation.</g:description>
         <g:link>https://dws10.com/products/firehorse-content-management.html</g:link>
-        <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+        <g:image_link>https://dws10.com/static/images/firehorse-content-management-v2.png</g:image_link>
         <g:price>2999.00 EUR</g:price>
         <g:availability>in_stock</g:availability>
         <g:condition>new</g:condition>
@@ -128,10 +129,10 @@
     </item>
     <item>
         <g:id>expert-services</g:id>
-        <g:title>Workshop 3 Days - Expert Advisory &amp; Implementation</g:title>
-        <g:description>Three days that save your team three months. Intensive hands-on workshop covering compliance report design, workflow automation, and strategic roadmap for Fit for 55, CSRD, and EU AI Act. Leave with working implementations, not just slide decks.</g:description>
+        <g:title>Expert Advisory &amp; Implementation</g:title>
+        <g:description>DWS delivers any Firehorse product for you — Report, Omnichannel, Automation, Content Management, or Signed Reports. Three intensive days covering design, integration, and go-live. You define the outcome. We build and hand it over running.</g:description>
         <g:link>https://dws10.com/products/expert-services.html</g:link>
-        <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
+        <g:image_link>https://dws10.com/static/images/firehorse-expert-advisory-v2.png</g:image_link>
         <g:price>4500.00 EUR</g:price>
         <g:availability>in_stock</g:availability>
         <g:condition>new</g:condition>
@@ -348,23 +349,6 @@
         <g:content_language>fi</g:content_language>
     </item>
     <item>
-        <g:id>omnichannel-multimodal</g:id>
-        <g:title>Firehorse Omnichannel &amp; Multimodal AI Assistant</g:title>
-        <g:description>Stop guessing which channels convert. AI-optimized campaign management across all your marketing channels with daily performance measurement and automated optimization. Know exactly where your next customer is coming from.</g:description>
-        <g:link>https://dws10.com/buy/page3/</g:link>
-        <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-        <g:price>699.00 EUR</g:price>
-        <g:availability>in_stock</g:availability>
-        <g:condition>new</g:condition>
-        <g:brand>Firehorse</g:brand>
-        <g:mpn>FH-OMNI-MM-2026</g:mpn>
-        <g:identifier_exists>false</g:identifier_exists>
-        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
-        <g:custom_label_0>advisory</g:custom_label_0>
-        <g:target_country>FI</g:target_country>
-        <g:content_language>fi</g:content_language>
-    </item>
-    <item>
         <g:id>professional-web-pages</g:id>
         <g:title>Professional Web Pages</g:title>
         <g:description>A professional web presence in days, not months. Responsive pages built with React, Blazor, WordPress, or Squarespace — your choice. AI chatbot and e-commerce add-ons available when you are ready to scale.</g:description>
@@ -557,7 +541,7 @@
     </item>
     <item>
         <g:id>DWS-US-STARTER</g:id>
-        <g:title>DWS IQ — US Cloud Starter</g:title>
+        <g:title>DWS IQ — US Cloud Navigator</g:title>
         <g:description>Get started with DWS IQ on US Cloud infrastructure (Supabase + Cloudflare). 3 AI agents, basic CSRD dashboard, 1 user seat. Fastest path to compliance — upgrade to EU Sovereign anytime.</g:description>
         <g:link>https://dws10.com/products/cloud-pricing.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
@@ -574,7 +558,7 @@
     </item>
     <item>
         <g:id>DWS-US-PILOT</g:id>
-        <g:title>DWS IQ — US Cloud Pilot</g:title>
+        <g:title>DWS IQ — US Cloud Premium</g:title>
         <g:description>4-week evaluation with real data on US Cloud. 8 AI agents, Firehorse Report, 5 seats, kickoff workshop. Prove ROI before scaling — upgrade to EU Sovereign anytime.</g:description>
         <g:link>https://dws10.com/products/cloud-pricing.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
@@ -591,7 +575,7 @@
     </item>
     <item>
         <g:id>DWS-EU-STARTER</g:id>
-        <g:title>DWS IQ — EU Sovereign Starter</g:title>
+        <g:title>DWS IQ — Enterprise Navigator</g:title>
         <g:description>DWS IQ on EU sovereign infrastructure (Aiven PostgreSQL + Hetzner/Scaleway). 3 AI agents, CSRD dashboard, zero CLOUD Act exposure, sovereignty score monitoring. EU data residency from day 1.</g:description>
         <g:link>https://dws10.com/products/cloud-pricing.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
@@ -609,7 +593,7 @@
     </item>
     <item>
         <g:id>DWS-EU-PILOT</g:id>
-        <g:title>DWS IQ — EU Sovereign Pilot</g:title>
+        <g:title>DWS IQ — Enterprise Premium</g:title>
         <g:description>Full EU sovereign evaluation. 8 AI agents, Firehorse Report, Aiwen EU AI Act Article 12 logging, NIS2 dashboard, 5 seats. Zero CLOUD Act. Prove compliance ROI on sovereign infrastructure.</g:description>
         <g:link>https://dws10.com/products/cloud-pricing.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>

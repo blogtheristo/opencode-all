@@ -14,12 +14,13 @@ import {
   prepareWithSegments,
   layoutNextLine,
   walkLineRanges,
-} from 'https://esm.sh/@chenglou/pretext@0.0.2';
+} from 'https://esm.sh/@chenglou/pretext@0.0.5';
 
 // ── Constants ──────────────────────────────────────────────
 const BODY_FONT = '18px "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif';
 const BODY_LINE_HEIGHT = 28;
-const HEADLINE_FONT_FAMILY = '"Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif';
+const HEADLINE_FONT_FAMILY =
+  '"Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif';
 
 const EDITORIAL_TEXT = `Design is the silent ambassador of your brand. At DWS, every pixel serves a purpose — from the sovereign dark navy of our enterprise dashboards to the golden accents that whisper trust and precision. Our design systems — Gamma, Ultra, and Industrial Preview — each tell a story of EU-first engineering, where compliance meets craft and data meets delight. The Ironclad navigation, the Ultra design tokens, the responsive grids — all flow from a single conviction: industrial AI deserves industrial-grade beauty. We build for the humans who build the future. Every interaction, every animation, every carefully chosen typeface is a small act of respect for the operator staring at a screen at 3 AM, making decisions that shape cities, supply chains, and the carbon footprint of nations. This is design with weight. This is DWS.`;
 
@@ -55,14 +56,16 @@ function getPrepared(text, font) {
 
 function getSingleLineWidth(prepared) {
   let w = 0;
-  walkLineRanges(prepared, 100000, line => { w = line.width; });
+  walkLineRanges(prepared, 100000, (line) => {
+    w = line.width;
+  });
   return w;
 }
 
 // ── Headline font size fitting ─────────────────────────────
 function headlineBreaks(prepared, maxWidth) {
   let breaks = false;
-  walkLineRanges(prepared, maxWidth, line => {
+  walkLineRanges(prepared, maxWidth, (line) => {
     if (line.end.graphemeIndex !== 0) breaks = true;
   });
   return breaks;
@@ -209,17 +212,21 @@ stage.addEventListener('mousedown', (e) => {
   }
 });
 
-stage.addEventListener('touchstart', (e) => {
-  const rect = stage.getBoundingClientRect();
-  const pos = getPointerPos(e, rect);
-  const hit = hitTestOrb(pos.x, pos.y);
-  if (hit >= 0) {
-    dragIndex = hit;
-    dragOffsetX = orbs[hit].x - pos.x;
-    dragOffsetY = orbs[hit].y - pos.y;
-    e.preventDefault();
-  }
-}, { passive: false });
+stage.addEventListener(
+  'touchstart',
+  (e) => {
+    const rect = stage.getBoundingClientRect();
+    const pos = getPointerPos(e, rect);
+    const hit = hitTestOrb(pos.x, pos.y);
+    if (hit >= 0) {
+      dragIndex = hit;
+      dragOffsetX = orbs[hit].x - pos.x;
+      dragOffsetY = orbs[hit].y - pos.y;
+      e.preventDefault();
+    }
+  },
+  { passive: false },
+);
 
 function onPointerMove(e) {
   if (dragIndex < 0) {
@@ -269,7 +276,7 @@ function render(now) {
     if (i === dragIndex) continue;
     const orb = orbs[i];
     orb.x = W * 0.5 + Math.cos(now * orb.speed + orb.phase) * W * 0.12;
-    orb.y = H * 0.45 + Math.sin(now * orb.speed * 1.1 + orb.phase) * H * 0.10;
+    orb.y = H * 0.45 + Math.sin(now * orb.speed * 1.1 + orb.phase) * H * 0.1;
   }
 
   renderOrbs(orbs);
@@ -293,7 +300,7 @@ function render(now) {
     { segmentIndex: 0, graphemeIndex: 0 },
     headlineRegion,
     headlineLineHeight,
-    orbs
+    orbs,
   );
 
   syncPool(headlinePool, headlineResult.lines.length, 'editorial-headline-line', stage);
@@ -308,16 +315,15 @@ function render(now) {
   }
 
   // ── Body text ───
-  const headlineBottom = headlineResult.lines.length > 0
-    ? Math.max(...headlineResult.lines.map(l => l.y + headlineLineHeight))
-    : headlineRegion.y + headlineLineHeight;
+  const headlineBottom =
+    headlineResult.lines.length > 0
+      ? Math.max(...headlineResult.lines.map((l) => l.y + headlineLineHeight))
+      : headlineRegion.y + headlineLineHeight;
 
   const bodyTop = headlineBottom + Math.round(H * 0.04);
   const columnGap = Math.round(W * 0.04);
   const isTwoCol = W > 640;
-  const colWidth = isTwoCol
-    ? Math.round((W - gutter * 2 - columnGap) / 2)
-    : W - gutter * 2;
+  const colWidth = isTwoCol ? Math.round((W - gutter * 2 - columnGap) / 2) : W - gutter * 2;
 
   const bodyPrepared = getPrepared(EDITORIAL_TEXT, BODY_FONT);
   const bodyRegion1 = {
@@ -332,7 +338,7 @@ function render(now) {
     { segmentIndex: 0, graphemeIndex: 0 },
     bodyRegion1,
     BODY_LINE_HEIGHT,
-    orbs
+    orbs,
   );
 
   let rightLines = [];
@@ -348,7 +354,7 @@ function render(now) {
       leftResult.cursor,
       bodyRegion2,
       BODY_LINE_HEIGHT,
-      orbs
+      orbs,
     );
     rightLines = rightResult.lines;
   }
@@ -415,8 +421,8 @@ if (asciiCanvas) {
       const ty = closer ? ay1 : ay2;
       const d = closer ? d1 : d2;
 
-      p.vx += (tx - p.x) / d * 0.12 + (Math.random() - 0.5) * 0.08;
-      p.vy += (ty - p.y) / d * 0.12 + (Math.random() - 0.5) * 0.08;
+      p.vx += ((tx - p.x) / d) * 0.12 + (Math.random() - 0.5) * 0.08;
+      p.vy += ((ty - p.y) / d) * 0.12 + (Math.random() - 0.5) * 0.08;
       p.vx *= 0.96;
       p.vy *= 0.96;
       p.x += p.vx;

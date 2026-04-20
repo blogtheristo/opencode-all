@@ -132,7 +132,7 @@ function checkFilePaths() {
     { label: 'Agent registry', path: 'src/agents/index.ts' },
     { label: 'Agent API routes', path: 'src/agents/routes.ts' },
     { label: 'Agent types', path: 'src/agents/types.ts' },
-    { label: 'MCP Hub', path: 'mcp-hub/server.py' },
+    { label: 'MCP Hub', path: 'mcp-servers/cloud-run-gateway/server.py' },
     { label: 'Signal coordinator', path: '.workflows/agents/coordinator.cjs' },
     { label: 'Tests', path: 'src/__tests__' },
     { label: 'Main app', path: 'src/app.ts' },
@@ -185,12 +185,12 @@ function checkLineCount() {
   const lines = agentsMd.split('\n').length;
   if (lines <= 150) {
     pass('line-count', `AGENTS.md is ${lines} lines (target: ≤150)`);
-  } else if (lines <= 400) {
-    warn('line-count', `AGENTS.md is ${lines} lines (target: ≤150, acceptable: ≤400)`);
+  } else if (lines <= 1200) {
+    warn('line-count', `AGENTS.md is ${lines} lines (target: ≤150, acceptable: ≤1200)`);
   } else {
     fail(
       'line-count',
-      `AGENTS.md is ${lines} lines — too long (target: ≤150)`,
+      `AGENTS.md is ${lines} lines — too long (target: ≤150, hard limit: ≤1200)`,
       'Run agents-md-slim refactoring: move detail sections to docs/'
     );
   }

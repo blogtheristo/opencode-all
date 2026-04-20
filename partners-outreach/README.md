@@ -15,6 +15,7 @@ Tracked in Supabase `outreach_contacts` table (pipeline = 'partner').
 | 5 | **Soldera** (Oliver Bonallack) | Advisory | Oliver Bonallack (Founders Associate) | Renewable cert compliance. Same DNA. Boardy intro. | **Stalled — escalate** | [BOARDY_ESCALATION_COLBRIDGE_SOLDERA.md](BOARDY_ESCALATION_COLBRIDGE_SOLDERA.md) | Escalate with Boardy TODAY |
 | 6 | **Rakennustieto** | Data | Laura Apilo (MD) | Finnish construction standards. CO2data.fi. | **Pitch ready** | [RAKENNUSTIETO_PARTNERSHIP_PITCH.md](RAKENNUSTIETO_PARTNERSHIP_PITCH.md) | Email Laura this week |
 | 7 | **Big 4 (EY/KPMG/Deloitte/PwC)** | Reseller | — | CSRD advisory practices need tools. | Backlog | — | Find Nordic sustainability lead |
+| 8 | **Red Hat** | Technology | Mikko Pylväs (Red Hat Finland) | AgentOps BYOA platform. OpenShift AI for agent deployment. Joint NVIDIA work on secure AI infra. Hosted AI event in Finland Mar 2026. | **Active — event contact** | — | Follow up Mikko's AI event themes, propose DWS IQ integration |
 
 ## Investor Pipeline (Stalled)
 

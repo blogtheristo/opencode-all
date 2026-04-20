@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.0
+Version: 3.1
 
 Sessions & Modifications:
 
+- Version: 3.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-qivalis-research-ePIAY | Date: 13.04.2026 | Changes: Added Slide 4 — Qivalis payment rail + DWS IQ compliance ledger. Two-layer thesis. Scarcity + timing + strategic insight hook for Captain seats.
 - Version: 3.0 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Added carbon balance sheet thesis as fundraising one-liner. Slide 1 now leads with "carbon balance sheet" framing. Added Slide 0 (one-liner). Updated moat to include debit-credit ledger and cross-vertical intelligence.
 - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/kya-standard-review-W3Qcg | Date: 15.03.2026 | Changes: Updated seat tiers (Fleet Admiral EUR 500K, Captain EUR 150K, Industry Captain EUR 50K x 8, Deputy unlimited). 20 industries (was 16). Sales sprint June 15 – August 15.
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: New 3-slide investor hook deck. Leads with EUR 333k cost advantage, explains deep tech moat (LWM + edge + orchestration), closes with Captain seats CTA.
@@ -125,6 +126,79 @@ The 20 industries: Power & Heat, Iron & Steel, Cement & Lime, Chemicals, Aviatio
 Become Industry Captain: https://dws10.com/captain/index.html
 
 Contact: risto@lifetime.fi | linkedin.com/in/ristopaarni
+
+---
+
+## Slide 4 — The Qivalis Window
+
+### Rail. Ledger. Neither alone is enough.
+
+12 of Europe's largest banks — BBVA, ING, and 10 others — are launching
+**Qivalis**, a MiCA-compliant euro stablecoin, in H2 2026.
+The ECB's own digital euro arrives no earlier than 2029.
+
+That is a 2–3 year window in which private digital euro infrastructure
+becomes the default for industrial B2B payments in Europe.
+
+**Qivalis moves euros. It does not record what those euros mean to the regulator.**
+
+|             |                                                      |
+| ----------- | ---------------------------------------------------- |
+| **Qivalis** | Settles the payment                                  |
+| **DWS IQ**  | Books it against CBAM, CSRD, and ETS — automatically |
+
+> _A payment without compliance recording is just a transfer._
+> _Compliance without payment data is just an estimate._
+
+When a Qivalis payment clears on a steel shipment, DWS IQ writes
+three journal entries in the same second: CBAM obligation updated,
+CSRD Scope 3 booked, ETS account reconciled.
+
+**The 12 consortium banks are building payment infrastructure without a compliance layer. That gap opens Q3 2026.**
+
+BBVA Ventures and ING Ventures are the most natural strategic
+investors in Europe for a platform at this intersection.
+
+Industry Captain seats in Steel & Metals, Chemicals, and Cement
+open the conversation. 8 seats. Q2 2026.
+
+**DWS IQ is the compliance ledger for Qivalis-era industrial payments.**
+
+---
+
+## Slide 5 — Payment-Agnostic Infrastructure
+
+### The compliance layer works on every rail. Not just Qivalis.
+
+Nordea and OP, Finland's two largest banking groups, are outside the
+Qivalis consortium at launch. Their industrial clients need a
+payment-agnostic compliance layer. DWS IQ records every CBAM, CSRD,
+and ETS obligation regardless of whether the payment moves via Qivalis,
+SEPA, or any future rail.
+
+This is not a Qivalis-dependent product. It is infrastructure for
+European industrial payments — whatever form those payments take.
+
+| Payment rail                               | DWS IQ compliance recording |
+| ------------------------------------------ | --------------------------- |
+| Qivalis (H2 2026)                          | Yes                         |
+| SEPA (today)                               | Yes                         |
+| ECB CBDC (2029+)                           | Yes                         |
+| Any future MiCA-compliant stablecoin (EMT) | Yes                         |
+
+**The compliance obligation exists at the transaction level —
+not at the rail level. Every industrial payment that triggers
+a CBAM, CSRD, or ETS event needs to be recorded. The rail is irrelevant.**
+
+Nordea, the Nordic region's largest bank by assets, and OP, Finland's
+largest banking group by deposits, are outside the consortium at launch.
+Both represent addressable market that does not require Qivalis adoption
+to use DWS IQ.
+
+_(Source: Nordea Annual Report 2024; OP Group Annual Report 2024)_
+
+**The Qivalis window opens Q3 2026.
+The compliance obligation is already open.**
 
 ---
 

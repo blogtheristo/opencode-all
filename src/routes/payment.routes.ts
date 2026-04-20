@@ -4,7 +4,7 @@
  * Requires: PAYMENT_API_URL (e.g. http://payment-service:8000)
  */
 
-import express, { Router, Request, Response, NextFunction } from 'express';
+import express, { type NextFunction, type Request, type Response, type Router } from 'express';
 import { body, validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
 import logger from '../utils/logger.js';

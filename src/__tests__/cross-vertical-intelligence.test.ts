@@ -8,17 +8,17 @@
  * CSRD disclosure gaps from the same supply chain.
  */
 
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import {
-  runCrossVerticalSimulation,
-  extractQanticCase,
+  buildDataSourceMatrix,
   buildIndustryProfile,
   calculateCorrelations,
-  buildDataSourceMatrix,
-  SUPPLY_CHAIN_GRAPH,
   CROSS_VERTICAL_SIGNALS,
-  LWM_INDUSTRIES,
   type CrossVerticalSimResult,
+  extractQanticCase,
+  LWM_INDUSTRIES,
+  runCrossVerticalSimulation,
+  SUPPLY_CHAIN_GRAPH,
 } from '../compliance/cross-vertical-intelligence.js';
 import { EU_SECTOR_BENCHMARKS } from '../compliance/eu-benchmarks.js';
 import { DATA_SOURCES } from '../compliance/data-source-registry.js';

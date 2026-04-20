@@ -8,7 +8,7 @@
  */
 
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import { sendEmail } from '../../src/utils/send-email.js';
+import { escapeHtml, sendEmail } from '../../src/utils/send-email.js';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -242,7 +242,7 @@ export async function sendFlowDigest(
     to: recipient,
     subject: `[${flowName.toUpperCase()}] ${tasks.length} tasks — ${today}`,
     text,
-    html: `<pre style="font-family: monospace; font-size: 13px; line-height: 1.5;">${text}</pre>`,
+    html: `<pre style="font-family: monospace; font-size: 13px; line-height: 1.5;">${escapeHtml(text)}</pre>`,
   });
 
   if (!result.ok) {

@@ -259,7 +259,8 @@ See `VERSION_AND_AGENT_HISTORY_TEMPLATE.md` for complete examples.
 - **Output sanitization**: Never include raw user input in LLM prompts without sanitization.
 - **Rate limiting**: API-exposed agents must use rate limiting (see `src/agents/routes.ts`, 30 req/min default).
 - **JWT injection**: `userId` and `orgId` come from authenticated JWT, never from request body.
-- **Execution logging**: All agent executions are logged to Supabase `agent_executions` table for EU AI Act Article 12 compliance.
+- **Execution logging**: All agent executions are logged to Supabase `agent_executions` table for EU AI Act Article 12 compliance. Treat `supabase/migrations/030_agent_logging_tables.sql` as schema source of truth (`id` uses `uuid_generate_v4()` from `uuid-ossp`).
+- **Schema clarity rule**: Do not document `container_id`, `sandbox_stage`, `prompt_tokens`, `completion_tokens`, or `total_tokens` as current `agent_executions` columns unless a migration explicitly adds them; label them as planned extensions.
 
 ### Prompt Injection Defense
 
