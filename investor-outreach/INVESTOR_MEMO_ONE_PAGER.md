@@ -81,7 +81,7 @@ Product Development 40% | Sales & Marketing 35% | Operations 15% | Buffer 10%
 - **T1 Impossible (24–36 months):** EU/Nordic Ops + Single Market access (450M consumers), Government Validation (4.2M citizens served), NCC Reference, InvestEU Portal (INPO-20254383), Tech Stack (NVIDIA/Google/AWS/Groq)
 - **T2 Very Hard (12–24 months):** NIS2 Article 21 expertise (114 requirements), Edge Computing deployed (NVIDIA Jetson live), CIDM Patent (filed Dec 2024), Multi-Tenant Architecture, B2B2G switching costs
 - **T3 Moderate (6–12 months):** Nordic languages, construction domain depth, dual products, offline capability, regulatory DNA
-- **T4 Operational:** €3.50/mo infrastructure, sub-100ms latency, cross-vertical data benchmarking, €135k cloud credits, authentic founder narrative, AI-native dev system (KYA-audited)
+- **T4 Operational:** €3.50/mo infrastructure, sub-100ms latency, cross-vertical data benchmarking, skilled agents with KYA governance (hardware-attested, leash-snap), authentic founder narrative, AI-native dev system (KYA-audited)
 
 **Headline proofs:** 100% EU-sovereign (Finnish-owned 0772407-9, no CLOUD Act exposure) · 7 years IP (Lifetime World Model, 6 platform versions, not a GPT wrapper) · KYA-S Certified (hardware-attested agent governance, Art. 12 + Art. 26 evidence) · Built on EU state infra (EUDI Wallet 12/2026 + Digital Euro ~2029) · CBAM Annex I ✅ full coverage (6 sectors, 66 CN codes)
 
