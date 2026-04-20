@@ -44,7 +44,7 @@ AGENT HISTORY:
 ## Drawbacks / Mitigations
 
 - **Fintech / Insurtech primary mandate** — This is the biggest filter. We are industrial compliance, not fintech. **Mitigation:** bridge the gap on the compliance angle. CSRD, EU AI Act, ETS, CBAM are regulatory frameworks that apply to ALL large EU enterprises, including banks and insurers. Frame: "we're a horizontal EU compliance platform — industrial is our launch vertical, financial services is a natural adjacent." Make the fintech mandate our Year 2 story.
-- **Tier 1 school pedigree preference** — Risto is Metropolia + operator track record, not INSEAD / HEC. **Mitigation:** lead with operator experience (13 years regulated industry, SAP/IFS/Dynamics domain expertise), paying customers (5, 100% retention), technical moat (18 agents, EU AI Act compliance stack). Don't try to win on pedigree — win on outcomes already delivered.
+- **Tier 1 school pedigree preference** — Risto is Metropolia + operator track record, not INSEAD / HEC. **Mitigation:** lead with operator experience (13 years regulated industry, SAP/IFS/Dynamics domain expertise), paying customers (5, 100% retention), technical moat (21 agents, EU AI Act compliance stack). Don't try to win on pedigree — win on outcomes already delivered.
 - **Balanced co-founder teams preference** — Solo-founder flag. **Mitigation:** same playbook as Maciej and Thomas — address directly, lead with operator model + customers + advisors + CTO hire plan.
 - **Sovereign / dual-use / Aegis angle will NOT land here** — He's Fintech-oriented and Paris-based. Sovereignty is not his filter. **Mitigation: DO NOT mention Aegis, defense, dual-use, military, sovereign AI in this conversation.** Position exclusively as horizontal compliance SaaS with enterprise ROI.
 
@@ -82,7 +82,7 @@ Replace with:
 
 Hi Salim — hope things are good. Quick update on what we're building:
 
-Lifetime Oy (Finland) — horizontal AI for EU compliance. 18 agents across 20 regulated industries, SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports. Replaces EUR 50K-100K/year consultant cost with EUR 8,950/year software. EUR 7K MRR, 5 customers, 100% retention.
+Lifetime Oy (Finland) — horizontal AI for EU compliance. 21 agents across 20 regulated industries, SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports. Replaces EUR 50K-100K/year consultant cost with EUR 8,950/year software. EUR 7K MRR, 5 customers, 100% retention.
 
 Raising EUR 650K SAFE at EUR 3.8M cap. V1 launches at Arctic 15 June 15, Messe Germany commercial push right after. Real prize for Plug and Play: pilot intros from the 500+ corporate network — a DACH industrial pilot would accelerate us materially. Memo + 20 min call?
 
@@ -96,7 +96,7 @@ Risto Päärni, Lifetime Oy. Following up on our network connection. Plug and Pl
 
 **The product — horizontal AI for EU compliance:**
 
-- 18 AI agents across 20 EU-regulated industries
+- 21 AI agents across 20 EU-regulated industries
 - ERP connectors live for SAP S/4HANA, IFS Cloud, Dynamics 365
 - Auto-generates audit-ready ETS, CBAM, CSRD, EU Taxonomy reports
 - EU AI Act compliant from v0
@@ -108,11 +108,11 @@ Risto Päärni, Lifetime Oy. Following up on our network connection. Plug and Pl
 
 **Traction:**
 
-- EUR 7K MRR, 5 paying customers, 100% retention
+- EUR 7K MRR, 6 paying customers, 100% retention
 - LTV: EUR 70K-120K/year per customer
 - Target: EUR 900K ARR end 2026
 
-**Solo-founder upfront:** I know the preference is for balanced teams. My counter: 13 years regulated-industry operator, 5 paying customers at 100% retention, advisors in place, CTO spec ready post-round.
+**Solo-founder upfront:** I know the preference is for balanced teams. My counter: 13 years regulated-industry operator, 6 paying customers at 100% retention, advisors in place, CTO spec ready post-round.
 
 **The ask — two channels:**
 

@@ -35,7 +35,7 @@ AGENT HISTORY:
 1. **Exact thesis match** — Cybersecurity + defense tech + integrated hardware-software IS the DWS IQ 6 + Aegis story. This is not a stretch, it's his core mandate.
 2. **Check size fits the round** — €300K-€1M. Our €650K SAFE can be anchored by a single Apeiron check. He could lead.
 3. **€20M+ dry powder** — Not "raising a new fund, come back later." He has capital, he's deploying now.
-4. **Aggressively looking for traction-stage teams** — We have traction: EUR 7K MRR, 5 paying customers, 100% retention, V1 launching June 15.
+4. **Aggressively looking for traction-stage teams** — We have traction: EUR 7K MRR, 6 paying customers, 100% retention, V1 launching June 15.
 5. **Hardware-software integration** — Future Fleet Admiral / Jetson / edge compute roadmap aligns, but the current V1 pitch is pure software. Hardware-software story is a latent upside, not a need.
 6. **Warm channel** — Recent conversation. No cold-open friction. Can go direct with follow-up.
 
@@ -58,7 +58,7 @@ AGENT HISTORY:
 
 Hi Aris — good talking recently. Quick update: V1 launches at Arctic 15 in 6 weeks (June 15), Messe Germany commercial push right after.
 
-Lifetime Oy — sovereign AI compliance for EU industrial/defense. 18 agents, ETS/CBAM/CSRD auto-reports, plus Aegis dual-use module. EUR 7K MRR, 5 customers, 100% retention, 20 EU-regulated industries.
+Lifetime Oy — sovereign AI compliance for EU industrial/defense. 21 agents, ETS/CBAM/CSRD auto-reports, plus Aegis dual-use module. EUR 7K MRR, 5 customers, 100% retention, 20 EU-regulated industries.
 
 Raising EUR 650K SAFE at EUR 3.8M cap — sized for a single anchor check in your €300K-€1M range. Fits your sovereign AI + dual-use + hardware-software thesis. Send the Aegis memo?
 
@@ -70,15 +70,15 @@ Hi Aris,
 
 Thanks for the recent conversation. Following up with what we discussed.
 
-DWS IQ 6 is the sovereign AI compliance platform for EU industrial and defense companies — 18 AI agents connecting to SAP, IFS Cloud, Dynamics 365, auto-generating audit-ready ETS / CBAM / CSRD / EU Taxonomy reports. Aegis module layers dual-use defense/sovereignty controls on the same infrastructure. Full EU data residency (Finland/Germany), no CLOUD Act exposure, EU AI Act compliant.
+DWS IQ 6 is the sovereign AI compliance platform for EU industrial and defense companies — 21 AI agents connecting to SAP, IFS Cloud, Dynamics 365, auto-generating audit-ready ETS / CBAM / CSRD / EU Taxonomy reports. Aegis module layers dual-use defense/sovereignty controls on the same infrastructure. Full EU data residency (Finland/Germany), no CLOUD Act exposure, EU AI Act compliant.
 
 Traction:
 
-- EUR 7K MRR, 5 paying customers, 100% retention
+- EUR 7K MRR, 6 paying customers, 100% retention
 - LTV: EUR 70K-120K/year per customer
 - Pilot EUR 4,950 converts to EUR 8,950/year
 - Target: EUR 900K ARR by end 2026
-- 18 AI agents, 32 products, 20 EU-regulated industries
+- 21 AI agents, 32 products, 20 EU-regulated industries
 - V1 launches at Arctic 15 (Helsinki, June 15)
 
 Raising EUR 650K SAFE at EUR 3.8M cap. Your €300K-€1M ticket range anchors the round. Apeiron's sovereign AI + dual-use + integrated hardware-software thesis is the tightest fit I've seen for what we're building.

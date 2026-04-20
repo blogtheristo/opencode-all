@@ -226,7 +226,7 @@ Lifetime Oy is not pre-revenue. The numbers:
 
 - Monthly infrastructure burn: EUR 15-50
 - Bootstrapped to revenue before raising external capital
-- Current raise: EUR 500,000 via SAFE notes (EUR 3.8M cap, 20% discount)
+- Current raise: EUR 500,000 via SAFE notes (EUR 3.8M cap, 18% discount)
 - Structure: 8 Platinum Industry Captain seats (EUR 50k) in first tranche + Deputy seats (EUR 25k)
 - Second tranche: remaining 8 Platinum seats at higher valuation
 
@@ -286,7 +286,7 @@ DWS IQ 6 covers 16 EU industries. Paarni is raising EUR 500,000 by offering 8 Pl
 |------|-----------|-----------------|------|
 | **Platinum Industry Captain** | EUR 50,000 SAFE | 8 of 16 | THE captain of the vertical. Status, visibility, bragging rights. |
 | **Deputy Captain** | EUR 25,000 SAFE | Available alongside | Rising star. Learns the ropes, builds toward Platinum. |
-| **Valuation cap** | EUR 3.8M | | 20% discount |
+| **Valuation cap** | EUR 3.8M | | 18% discount |
 | **Round target** | **EUR 500,000** | | Best terms — before second tranche at higher valuation |
 
 **Second tranche (opens after first tranche closes):**
@@ -414,7 +414,7 @@ The compliance wave is not approaching. It arrived. The companies that automate 
 | **Data residency** | 100% EU (Finland, Germany, Netherlands) |
 | **Security roadmap** | ISO 27001 (Q3), SOC 2 (Q4), IEC 62443 (Q4) |
 | **Current raise** | EUR 500k SAFE — 8 Platinum Industry Captains (EUR 50k) + Deputy Captains (EUR 25k). Second tranche at higher valuation. |
-| **Valuation cap** | EUR 3.8M (20% discount) |
+| **Valuation cap** | EUR 3.8M (18% discount) |
 | **Programs** | Microsoft Founders Hub (L1–L4), NVIDIA Inception, GitHub Developer, Peachscore Cohort 25 |
 | **InvestEU** | Project INPO-20254383 (DWS 3, 4, and 6 listed) |
 | **Languages** | Finnish, English, Swedish |

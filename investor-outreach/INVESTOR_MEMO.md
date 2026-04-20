@@ -6,7 +6,7 @@
 **Document Version:** 4.3
 **Last Updated:** April 20, 2026
 **Status:** Active Fundraising
-**Platform Status:** Public Cloud V1 — Production Ready (18 agents, 32 products, 5 cloud environments) | Private Cloud V1 — Production Ready (UpCloud Helsinki, Finnish sovereign K8s) | CBAM Annex I Coverage ✅ Complete (all 6 sectors, 66 CN codes, LD-2026-013)
+**Platform Status:** Public Cloud V1 — Production Ready (21 agents, 32 products, 5 cloud environments) | Private Cloud V1 — Production Ready (UpCloud Helsinki, Finnish sovereign K8s) | CBAM Annex I Coverage ✅ Complete (all 6 sectors, 66 CN codes, LD-2026-013)
 **Sovereignty Status:** EU-sovereign by design — EUDI Wallet (12/2026, law) + Digital Euro (~2029, ECB target)
 **Pricing Model:** Alpha-Share — 7.5% of verified efficiency gains (agent-native, outcome-based; aligned with Salesforce Headless 360 / Agentforce thesis)
 
@@ -28,7 +28,7 @@ Every EU company filing CSRD needs a carbon balance sheet. We build the ledger i
 - Paying Customers: 6
 - Retention: 100% (zero churn)
 - Customer LTV: €70k–€120k projected annual value per logo (multi-site expansion after construction pilots)
-- Platform: 18 AI agents, 32 products, 5 cloud environments
+- Platform: 21 AI agents, 32 products, 5 cloud environments
 - Industries served: 20 EU-regulated verticals
 - CBAM Annex I coverage: ✅ All 6 sectors (Steel, Aluminium, Cement, Fertilizers, Hydrogen, Electricity), 66 CN codes, one dedicated agent per sector (LD-2026-013, April 16, 2026)
 - Carbon balance sheet: Debit-credit ledger shipping in V1, persistent ledger in DWS 7 Phase 2 (Jul 2026)
@@ -345,7 +345,7 @@ Timeframe:                 ~2 years (2024→2026)
 ### SAFE Key Terms
 
 - **Valuation Cap:** €3.8M
-- **Discount:** 15–20% (to be specified)
+- **Discount:** 18%
 - **Pro-Rata Rights:** Available for €50k+ investors (Captain tier and above)
 - **Information Rights:** Monthly updates for all investors
 - **MFN (Most Favored Nation):** Standard protection
@@ -401,7 +401,7 @@ Timeframe:                 ~2 years (2024→2026)
 - **Customer Retention:** 100% (zero churn demonstrates product-market fit)
 - **Customer LTV:** €70k–€120k projected annual value per logo (multi-site expansion after construction pilots)
 - **Time Savings:** 40+ hours/month saved per customer
-- **Platform Scale:** 18 agents, 32 products, 5 cloud environments, 20 industries
+- **Platform Scale:** 21 agents, 32 products, 5 cloud environments, 20 industries
 - **Target Growth:** €900k ARR by end of 2026
 
 ### Current Customer Base
@@ -588,7 +588,7 @@ Regulation is live. Customers have budget. Product works. We have traction. Arct
 - Author: Risto Anton Päärni
 - Status: Active — Fundraising in Progress
 - Confidentiality: For Potential Investors Only
-- Platform Status: Public Cloud V1 + Private Cloud V1 — Production Ready (18 agents, 32 products, 5 cloud environments); CBAM Annex I ✅ Complete (6 sectors, 66 CN codes)
+- Platform Status: Public Cloud V1 + Private Cloud V1 — Production Ready (21 agents, 32 products, 5 cloud environments); CBAM Annex I ✅ Complete (6 sectors, 66 CN codes)
 - Sovereignty Status: EU-sovereign by design — EUDI Wallet (12/2026, law) + Digital Euro (~2029, ECB target)
 - Pricing Model: Alpha-Share (7.5% of verified efficiency gains, agent-native, outcome-based)
 - Paired Documents: V4.3 Pitch Deck (investor-outreach/V4.3-DWS-IQ6-InvestorPD_2026.md) — full 21-moat fortress breakdown

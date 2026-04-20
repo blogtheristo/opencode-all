@@ -169,7 +169,7 @@ Technical architecture blueprints for DWS IQ 6 multi-agent system.
 | Base Agent                | `/src/agents/base.agent.ts`                           | ACTIVE | Abstract agent with agentic loop, multi-provider LLM, governance      |
 | Agent Types               | `/src/agents/types.ts`                                | ACTIVE | AgentContext, AgentResponse, ToolDefinition types                     |
 | LLM Client                | `/src/agents/llm-client.ts`                           | ACTIVE | Multi-provider (Anthropic, Groq, OpenAI-compatible)                   |
-| Agent Routes              | `/src/agents/routes.ts`                               | ACTIVE | Discovery + execution HTTP routes for 18 agents                       |
+| Agent Routes              | `/src/agents/routes.ts`                               | ACTIVE | Discovery + execution HTTP routes for 21 agents                       |
 | Agent Tools               | `/src/agents/tools.ts`                                | ACTIVE | Built-in tool library (query_database, emit_event, delegate_to_agent) |
 | Gated Auth Tests          | `/src/__tests__/climate-assistant-gated-auth.test.ts` | ACTIVE | 10 authentication tests                                               |
 

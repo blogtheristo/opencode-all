@@ -56,7 +56,7 @@ Hi Anant,
 
 Risto Päärni, Lifetime Oy (Espoo, Finland). I've been following what you're building at Augmented Sense — edge AI sensors for industrial and defence environments is exactly the layer we need upstream.
 
-We built DWS IQ Aegis: a sovereign AI platform that turns operational data into compliance intelligence across 20 EU-regulated industries. 18 AI agents governed by hardware-attested identity (KYA Standard), court-defensible audit trails, EU AI Act compliant. Single-tenant deployment — on-premise, air-gapped capable, zero CLOUD Act exposure.
+We built DWS IQ Aegis: a sovereign AI platform that turns operational data into compliance intelligence across 20 EU-regulated industries. 21 AI agents governed by hardware-attested identity (KYA Standard), court-defensible audit trails, EU AI Act compliant. Single-tenant deployment — on-premise, air-gapped capable, zero CLOUD Act exposure.
 
 The dual-use angle is where I think we connect:
 
@@ -64,7 +64,7 @@ The dual-use angle is where I think we connect:
 - **Same dual-use pattern.** Your hardware serves industrial and defence customers. Our software does the same — civilian compliance (Fit for 55) and defence supply chain resilience (KRITIS, NIS2) from one platform. The regulatory stack is converging.
 - **Defence procurement insight.** You've been through Starburst and have an active defence pilot. We're positioning Aegis for EU/NATO defence procurement and could use the perspective of someone who's navigated that cycle.
 
-Current numbers: €7K MRR, 5 paying customers, 100% retention. Raising €650K SAFE at €3.8M cap. V1 launches at Arctic 15 in Helsinki on June 15.
+Current numbers: €7K MRR, 6 paying customers, 100% retention. Raising €650K SAFE at €3.8M cap. V1 launches at Arctic 15 in Helsinki on June 15.
 
 I'd value a conversation about whether there's a partnership play (sensor-to-compliance pipeline), a go-to-market angle (dual-use positioning for EU defence), or simply comparing notes on defence procurement. Open to any of the above.
 

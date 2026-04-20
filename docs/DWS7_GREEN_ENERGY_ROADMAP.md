@@ -54,7 +54,7 @@ Our answer is **yes — by 2027** — and we are opening the investor door **Jun
 2. **EU AI Act** Article 12 logging becomes mandatory for high-risk systems — _every inference must be auditable_. Generic US hyperscalers cannot serve this natively.
 3. **Hydrogen Bank** IF25 / second auction advanced in March 2026, but final premium results were still pending (source: European Commission Innovation Fund announcements) — green H₂ support visibility is emerging through 2030.
 4. **Datacentre power** in Finland / Sweden / Norway: CO₂ intensity **18–41 gCO₂/kWh** (source: European Environment Agency — Nordic grid factors 2024), vs. EU average ~230 gCO₂/kWh. Nordic compute is already ~85% cleaner than continental average.
-5. **DWS IQ 6 is live** (€7K MRR, 100% retention, 3–5 paying customers — source: INVESTOR_MEMO_v1.md). The pilot de-risks the platform; the raise funds the _energy_ layer beneath it.
+5. **DWS IQ 6 is live** (€7K MRR, 100% retention, 3–6 paying customers — source: INVESTOR_MEMO_v1.md). The pilot de-risks the platform; the raise funds the _energy_ layer beneath it.
 
 **If we do not onboard green capital by 06/2026, the 2027 operational window closes.** Grid connection queues in ENTSO-E zones are currently 24–36 months.
 

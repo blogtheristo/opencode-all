@@ -35,12 +35,12 @@ AGENT HISTORY:
 **Strong thesis + velocity fit — warm intro on the table.** Key alignment:
 
 1. **Nordic focus match** — Vesna explicitly targets Nordic founders. We are Finland-based. No geographic friction.
-2. **AI-DD builder** — He's building his own AI-driven due diligence engine. Our 18-agent architecture, ERP integration, agent scoring, Aiwen audit layer — he will grasp it in one call. No need to explain what "AI agent" means.
+2. **AI-DD builder** — He's building his own AI-driven due diligence engine. Our 21-agent architecture, ERP integration, agent scoring, Aiwen audit layer — he will grasp it in one call. No need to explain what "AI agent" means.
 3. **High velocity** — 3-week commit timeline fits our pre-Arctic 15 closing window. We need speed, he delivers speed.
 4. **Ticket range works** — $100K-$500K. Even the low end is 2x a Captain seat. The high end could anchor the round.
 5. **Pre-seed / seed stage** — We're at EUR 7K MRR with V1 launching June 15. His exact entry point.
 6. **Warm channel** — Recent conversation with Risto. No cold-open friction.
-7. **Technical moat evaluator** — AI-DD builders look at the architecture, not just the pitch. DWS IQ 6's 18-agent + MCP + EU AI Act compliance stack is a real moat. He will see it.
+7. **Technical moat evaluator** — AI-DD builders look at the architecture, not just the pitch. DWS IQ 6's 21-agent + MCP + EU AI Act compliance stack is a real moat. He will see it.
 
 ## Drawbacks / Mitigations
 
@@ -49,7 +49,7 @@ AGENT HISTORY:
 
 ## Strategy
 
-- **Lead with the architecture** — He's building an AI-DD engine. Open with DWS IQ 6's agent architecture (18 agents, MCP, ERP connectors, scoring). His filter is technical moat — satisfy it up front.
+- **Lead with the architecture** — He's building an AI-DD engine. Open with DWS IQ 6's agent architecture (21 agents, MCP, ERP connectors, scoring). His filter is technical moat — satisfy it up front.
 - **Match his velocity** — 3-week timeline. Propose a concrete path: intro call this week, technical deep-dive next week, term sheet / SAFE signature by week 3. Align the round close to his cadence, not the other way around.
 - **Frame as anchor participation, not lead** — $200K-$300K as a decisive chunk. Leaves room for others, gives him conviction without over-committing.
 - **Ask for CEE + Nordic co-investor intros** — Even if he passes, his Nordic deal flow network is valuable.
@@ -62,23 +62,23 @@ AGENT HISTORY:
 
 Hi Ross — good talking recently. Quick follow-up on Vesna timing.
 
-Lifetime Oy (Finland) — 18-agent B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports. EUR 7K MRR, 5 customers, 100% retention. V1 launches at Arctic 15 (June 15), Messe Germany commercial push right after.
+Lifetime Oy (Finland) — 21-agent B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports. EUR 7K MRR, 5 customers, 100% retention. V1 launches at Arctic 15 (June 15), Messe Germany commercial push right after.
 
 Raising EUR 650K SAFE at EUR 3.8M cap. Your $100K-$500K range works cleanly — looking for 2-3 anchor commits pre-Arctic. Your 3-week cycle fits. Send the memo?
 
 ## Draft Email (if email channel preferred)
 
-**Subject:** Follow-up — DWS IQ 6, 18-agent architecture, 3-week close window
+**Subject:** Follow-up — DWS IQ 6, 21-agent architecture, 3-week close window
 
 Hi Ross,
 
 Thanks for the recent conversation. Sending the follow-up we discussed.
 
-DWS IQ 6 is the carbon compliance platform for EU industrial companies. 18 AI agents connect to SAP, IFS Cloud, Dynamics 365, pull operational data, and auto-generate audit-ready ETS / CBAM / CSRD / EU Taxonomy reports. Architecture: MCP-exposed agents, deterministic scoring, full audit trail, EU AI Act compliant, Aiwen reasoning lineage.
+DWS IQ 6 is the carbon compliance platform for EU industrial companies. 21 AI agents connect to SAP, IFS Cloud, Dynamics 365, pull operational data, and auto-generate audit-ready ETS / CBAM / CSRD / EU Taxonomy reports. Architecture: MCP-exposed agents, deterministic scoring, full audit trail, EU AI Act compliant, Aiwen reasoning lineage.
 
 Given your AI-DD engine work, the architecture is the fastest way in:
 
-- 18 agents, MCP-exposed, JSON-RPC 2.0
+- 21 agents, MCP-exposed, JSON-RPC 2.0
 - 32 products across 20 EU-regulated industries
 - ERP connectors: SAP S/4HANA, IFS Cloud, Dynamics 365
 - Sovereign deployment: EU data residency (Finland/Germany), no CLOUD Act
@@ -86,7 +86,7 @@ Given your AI-DD engine work, the architecture is the fastest way in:
 
 Traction:
 
-- EUR 7K MRR, 5 paying customers, 100% retention
+- EUR 7K MRR, 6 paying customers, 100% retention
 - LTV: EUR 70K-120K/year per customer
 - Pilot EUR 4,950 converts to EUR 8,950/year
 - Target: EUR 900K ARR end 2026

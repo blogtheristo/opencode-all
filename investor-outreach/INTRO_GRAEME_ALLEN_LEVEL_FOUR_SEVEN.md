@@ -35,7 +35,7 @@ AGENT HISTORY:
 **Strong fit. TRL 4-7 thesis is a direct match.**
 
 **What aligns:**
-- **TRL 4-7 specialization** — DWS IQ sits exactly in this range: validated technology (18 agents in production) transitioning to market deployment (V1 launch June 15, 2026)
+- **TRL 4-7 specialization** — DWS IQ sits exactly in this range: validated technology (21 agents in production) transitioning to market deployment (V1 launch June 15, 2026)
 - **Climate tech focus** — Carbon balance sheet, CSRD/CBAM/ETS compliance automation is core DWS value prop
 - **Industrial engineering** — 20 EU-regulated industrial verticals, ERP integrations (SAP, IFS, Dynamics)
 - **Pre-seed to Series A** — €650K SAFE at €3.8M cap fits his stage range
@@ -51,7 +51,7 @@ AGENT HISTORY:
 ## Positioning Notes
 
 Lead with:
-1. **TRL positioning** — "We're TRL 6-7: 18 AI agents in production, 5 paying customers, V1 launching at Arctic 15 in June"
+1. **TRL positioning** — "We're TRL 6-7: 21 AI agents in production, 6 paying customers, V1 launching at Arctic 15 in June"
 2. **Hard tech angle** — Deterministic scoring engines, not wrapper AI. Industrial-grade compliance infrastructure
 3. **Climate + industrial** — Carbon balance sheet as double-entry bookkeeping for CO2 across 20 industries
 4. **EU regulatory moat** — CSRD, CBAM, ETS, EU AI Act create mandatory compliance demand
@@ -72,9 +72,9 @@ Hi Graeme,
 
 Great speaking with you recently. Following up as discussed.
 
-We're building the carbon balance sheet — double-entry bookkeeping for CO2, so every tonne is tracked like every euro. 18 AI agents in production across 20 EU-regulated industries, with CSRD/CBAM/ETS compliance automation.
+We're building the carbon balance sheet — double-entry bookkeeping for CO2, so every tonne is tracked like every euro. 21 AI agents in production across 20 EU-regulated industries, with CSRD/CBAM/ETS compliance automation.
 
-We're at TRL 6-7: validated technology with 5 paying customers (€7K MRR, zero churn), launching V1 publicly at Arctic 15 in Helsinki on June 15. Currently raising €650K on a SAFE at €3.8M cap to fund a 2-month sales sprint post-launch.
+We're at TRL 6-7: validated technology with 6 paying customers (€7K MRR, zero churn), launching V1 publicly at Arctic 15 in Helsinki on June 15. Currently raising €650K on a SAFE at €3.8M cap to fund a 2-month sales sprint post-launch.
 
 This sits squarely in your TRL 4-7 thesis — hard climate tech infrastructure, not wrapper AI. Would love to explore whether this is a fit for LvlUp Ventures or Flashpoint, or anyone in your network who's writing checks into EU regulatory infrastructure.
 

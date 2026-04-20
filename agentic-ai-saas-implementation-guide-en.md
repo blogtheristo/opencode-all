@@ -65,7 +65,7 @@ The DWS IQ Platform combines:
 - **12-Month Revenue**: €140,000 (pilots + early customers)
 - **12-Month Edge Savings**: €333,000 (cloud cost avoidance)
 - **Month 12 Profit**: +€281,370
-- **Investment Ask**: €150,000 SAFE @ €3.8M cap, 20% discount
+- **Investment Ask**: €150,000 SAFE @ €3.8M cap, 18% discount
 - **Hardware ROI**: 515% annually
 
 ---
@@ -989,7 +989,7 @@ class SyncManager {
 
 #### Startup Capital Efficiency
 
-**Investment Ask: €150,000 SAFE @ €3.8M cap, 20% discount**
+**Investment Ask: €150,000 SAFE @ €3.8M cap, 18% discount**
 
 **Runway Analysis:**
 - Total Year 1 costs: €322,200
@@ -1727,7 +1727,7 @@ The Firehorse system also supports parallel fundraising efforts with dedicated e
 3. **Warm Intros** - Leveraging mutual connections
 4. **Cold LinkedIn DMs** - Ultra-short (300 char) investor outreach
 
-**Target:** €150,000 SAFE @ €3.8M cap, 20% discount
+**Target:** €150,000 SAFE @ €3.8M cap, 18% discount
 
 **Investor Pitch Alignment:**
 - Pilot revenue (€59,900) demonstrates product-market fit
@@ -1809,7 +1809,7 @@ This isn't just faster - it's **25x faster than cloud-only solutions** and **86%
 - AI development tools: Cursor Pro + Claude Code Max (15-week MVP)
 - NVIDIA Connect partnership + Edge hardware: €54,200 (pays for itself in 2.5 months)
 - Total capital needed: €191,630 for 12 months
-- Your investment: €150,000 at €3.8M cap, 20% discount
+- Your investment: €150,000 at €3.8M cap, 18% discount
 
 **Financial Projections:**
 - Year 1 Revenue: €140,000
@@ -1868,7 +1868,7 @@ This isn't just faster - it's **25x faster than cloud-only solutions** and **86%
 
 **Investment Structure:** €150,000 SAFE
 - Valuation cap: €3.8M
-- Discount: 20%
+- Discount: 18%
 - No interest, no maturity date
 
 **Use of Funds:**

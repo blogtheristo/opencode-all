@@ -219,7 +219,7 @@ The jump from 8% AI attribution in layoffs (2025) to 47.9% (Q1 2026) is the vers
 
 ## 7. DWS Strategic Implications
 
-DWS IQ 6 is designed for the 13.2 world. Its 18 agents replace human analysts for:
+DWS IQ 6 is designed for the 13.2 world. Its 21 agents replace human analysts for:
 
 - EU ETS / CBAM compliance scoring
 - Site safety assessment (SiteSense)

@@ -36,7 +36,7 @@ AGENT HISTORY:
 
 **Highest-leverage match in the pipeline. Warm intro on the table.** Key alignment:
 
-1. **Thesis is textbook** — "Vertically integrated AI with defensible data moats." DWS IQ 6 IS this: 18 agents vertically integrated into EU industrial verticals (construction, manufacturing, energy), with a defensible moat from ERP data + regulatory ontology + Aiwen audit lineage. This is not a stretch — this is his exact box.
+1. **Thesis is textbook** — "Vertically integrated AI with defensible data moats." DWS IQ 6 IS this: 21 agents vertically integrated into EU industrial verticals (construction, manufacturing, energy), with a defensible moat from ERP data + regulatory ontology + Aiwen audit lineage. This is not a stretch — this is his exact box.
 2. **DACH geography aligns with Messe Germany pipe** — Our commercial engine after V1 launch IS the German Messe. We will have DACH buyers before we have DACH investors otherwise. Thomas is DACH-native, which makes him the right investor for a DACH-native commercial plan.
 3. **Ticket size covers the whole round** — €1M-€3M lead check. Our €650K SAFE is 22%-65% of his minimum check. If he leads, he likely wants to expand the round. Conversation becomes: "do we upsize from €650K SAFE to €1M+ priced seed with Thomas as lead."
 4. **90%+ follow-on rate** — He doesn't just fund, he commits across rounds. Getting Thomas in at the SAFE stage = signal + follow-on capital through seed and Series A.
@@ -67,7 +67,7 @@ AGENT HISTORY:
 
 Hi Thomas — good talking recently. Quick follow-up on 42CAP timing.
 
-Lifetime Oy (Finland) — vertically integrated AI for EU industrial compliance. 18 agents, SAP/IFS/Dynamics data moat, 20 regulated-industry ontology, EU AI Act compliant, Aiwen audit lineage. EUR 7K MRR, 5 customers, 100% retention. V1 launches at Arctic 15 June 15; DACH Messe commercial push right after.
+Lifetime Oy (Finland) — vertically integrated AI for EU industrial compliance. 21 agents, SAP/IFS/Dynamics data moat, 20 regulated-industry ontology, EU AI Act compliant, Aiwen audit lineage. EUR 7K MRR, 5 customers, 100% retention. V1 launches at Arctic 15 June 15; DACH Messe commercial push right after.
 
 Raising EUR 650K SAFE at EUR 3.8M cap — open to upsizing to a priced seed if 42CAP leads. Your €1M-€3M ticket + DACH focus + 2-3 week process all align. Memo + architecture deck?
 
@@ -79,11 +79,11 @@ Hi Thomas,
 
 Thanks for the recent conversation. Sending the follow-up we discussed.
 
-**Solo-founder upfront:** I know it's a flag. My counter: operator-founder model, 13 years in regulated industries, 5 paying customers at 100% retention, advisors in place, CTO spec ready to execute post-round. Same pattern eCircle started with — domain operator, revenue-first, scale team on signal. Happy to discuss whether that clears the bar.
+**Solo-founder upfront:** I know it's a flag. My counter: operator-founder model, 13 years in regulated industries, 6 paying customers at 100% retention, advisors in place, CTO spec ready to execute post-round. Same pattern eCircle started with — domain operator, revenue-first, scale team on signal. Happy to discuss whether that clears the bar.
 
 **The moat — vertically integrated AI:**
 
-- 18 AI agents, MCP-exposed, deterministic scoring
+- 21 AI agents, MCP-exposed, deterministic scoring
 - ERP data moat: SAP S/4HANA, IFS Cloud, Dynamics 365 connectors (live)
 - 20 EU-regulated industries with encoded domain ontology
 - EU AI Act compliant from v0 — not retrofitted
@@ -92,7 +92,7 @@ Thanks for the recent conversation. Sending the follow-up we discussed.
 
 **The traction:**
 
-- EUR 7K MRR, 5 paying customers, 100% retention
+- EUR 7K MRR, 6 paying customers, 100% retention
 - LTV: EUR 70K-120K/year per customer
 - Pilot EUR 4,950 converts to EUR 8,950/year
 - Target: EUR 900K ARR end 2026

@@ -39,7 +39,7 @@ AGENT HISTORY:
 **High-potential but needs qualification. StepStone's scale and data-driven approach could be a strong fit.**
 
 **What aligns:**
-- **StepStone's data-driven thesis** — StepStone is known for proprietary data and analytics in PE. DWS IQ's deterministic scoring engine (18 AI agents, auditable scores) speaks their language — they value quantitative, repeatable analysis over subjective ESG ratings
+- **StepStone's data-driven thesis** — StepStone is known for proprietary data and analytics in PE. DWS IQ's deterministic scoring engine (21 AI agents, auditable scores) speaks their language — they value quantitative, repeatable analysis over subjective ESG ratings
 - **Massive portfolio exposure** — $170B+ AUM means thousands of underlying portfolio companies. Even a small adoption rate across StepStone's advisory clients would be transformative for DWS IQ's distribution
 - **Publicly traded** — StepStone (NASDAQ: STEP) has public reporting obligations. ESG reporting for their own portfolio is a real operational need, not just a nice-to-have
 - **CFA + CAIA credentials** — Analytically rigorous. Will appreciate deterministic scoring over black-box AI. Lead with methodology
@@ -56,7 +56,7 @@ AGENT HISTORY:
 ## Positioning Notes
 
 Lead with:
-1. **Data-driven compliance scoring** — "We've built deterministic carbon compliance scoring — 18 AI agents, auditable methodology, no black-box ESG ratings. Similar philosophy to how StepStone uses proprietary data for PE analysis"
+1. **Data-driven compliance scoring** — "We've built deterministic carbon compliance scoring — 21 AI agents, auditable methodology, no black-box ESG ratings. Similar philosophy to how StepStone uses proprietary data for PE analysis"
 2. **Portfolio-wide screening** — "What if you could screen every asset in a secondary portfolio for ETS/CBAM/CSRD exposure in minutes instead of weeks? That's what our carbon balance sheet does"
 3. **Public company ESG reporting** — "As a public company, StepStone's own ESG disclosures benefit from having auditable, automated data across your portfolio companies"
 

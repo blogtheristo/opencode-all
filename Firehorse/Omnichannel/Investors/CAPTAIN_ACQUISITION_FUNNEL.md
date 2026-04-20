@@ -148,7 +148,7 @@ DM/Teaser → Webinar → Call → Whitepaper → Contract Proposal
 - Send formal SAFE note terms:
   - EUR 50,000 investment
   - EUR 3.8M valuation cap
-  - 20% discount
+  - 18% discount
   - Captain engagement duties (quarterly briefings, introductions, product feedback)
   - Named vertical lead acknowledgement
 - Include YC SAFE template reference
@@ -219,7 +219,7 @@ DM/Teaser → Webinar → Call → Whitepaper → Contract Proposal
 3. What you shape (product roadmap influence)
 4. What you get (quarterly briefings, strategy sessions, priority routing)
 5. What we expect (engagement duties)
-6. The terms (EUR 50k SAFE, EUR 3.8M cap, 20% discount)
+6. The terms (EUR 50k SAFE, EUR 3.8M cap, 18% discount)
 
 **Success metric:** 70%+ express intent to proceed after showcase
 

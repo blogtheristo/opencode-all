@@ -193,7 +193,7 @@
 **Status**: LAUNCHING Q1 2025 (€500k Construction Heroes campaign)
 
 **Deliverables** (annual contract):
-✓ All 18 AI agents, ERP integrations, priority support
+✓ All 21 AI agents, ERP integrations, priority support
 ✓ Sub-100ms real-time energy optimization
 ✓ Predictive maintenance (15,000-40,000 tCO₂e avoided annually)
 ✓ Fit for 55 compliance automation
@@ -336,7 +336,7 @@ Competitor sees DWS IQ 6 market opportunity
                     ↓
         Does competitive analysis
                     ↓
-        Discovers 20-moat fortress
+        Discovers 21-moat fortress
                     ↓
         Calculates entry cost: €3-8M + 24-36 months
                     ↓
@@ -362,7 +362,7 @@ Competitor sees DWS IQ 6 market opportunity
 3. Cloud-only architecture = Cannot achieve sub-100ms edge latency
 4. **Strategic Decision**: They focused on US market (easier entry, weaker regulation)
 
-**Key Insight**: Funding size ≠ competitive advantage. We built 20 moats with <€500k. They raised 22× more and still avoid our market.
+**Key Insight**: Funding size ≠ competitive advantage. We built 21 moats with <€500k. They raised 22× more and still avoid our market.
 
 **Investor Implication**: The fortress creates **pricing power** at Series A. Competitors must either pay premium to acquire us or invest €8-15M to build competing fortress (most choose neither).
 
@@ -452,7 +452,7 @@ DWS IQ 6 qualifies as **dual-use technology** (civilian + defence applications):
 | **Current** (€7k MRR) | €3.8M | Fortress-justified + Arctic 15 launch + KYA-S certification |
 | **Post-EIB SESI** (Q3-Q4 2026) | €8-12M | EU institutional validation + €880k-1.52M non-dilutive |
 | **Post-Horizon Europe** (2027) | €12-18M | €2.5M grant + multi-country expansion validation |
-| **Series A Ready** (Q4 2026) | €15M+ | €900k ARR + 20-moat fortress + EU funding track record |
+| **Series A Ready** (Q4 2026) | €15M+ | €900k ARR + 21-moat fortress + EU funding track record |
 
 **Valuation Multiplier**: 4-6× through strategic EU funding alignment (€3.8M → €15M+ in 18 months)
 
@@ -675,7 +675,7 @@ Competitive Advantage:
 #### **Enterprise Premium** 🚀 ANNUAL SUBSCRIPTION
 
 **Annual Subscription**: from €8,950/year (€746/month)
-- All 18 AI agents, ERP integrations, priority support
+- All 21 AI agents, ERP integrations, priority support
 - Sub-100ms real-time decisioning (energy optimization, predictive maintenance)
 - Multi-site orchestration
 - Priority support (4-hour SLA, dedicated customer success manager)
@@ -823,9 +823,9 @@ Competitive Advantage:
 
 **Demonstrated Execution Capability**:
 - **€45k consulting revenue (2023-2024)** self-funded platform development
-- **100% customer retention** demonstrates product-market fit execution (5 paying customers)
+- **100% customer retention** demonstrates product-market fit execution (6 paying customers)
 - **Arctic 15 launch** (June 15, 2026) demonstrates go-to-market sophistication
-- **20-moat fortress** built with <€500k investment vs competitors spending €3-8M
+- **21-moat fortress** built with <€500k investment vs competitors spending €3-8M
 
 **Technical Credentials**:
 - Early adopter of Model Context Protocol (MCP) - Anthropic partnership discussions
@@ -883,7 +883,7 @@ Competitive Advantage:
 **Sovereign Stability**:
 - AAA credit rating (S&P, Moody's, Fitch) = investor protection
 - Transparent governance: Finnish Company Act strictly enforced
-- Founder-friendly SAFE terms: Standard 20% discount, 4× liquidation preference
+- Founder-friendly SAFE terms: Standard 18% discount, 4× liquidation preference
 
 **Banking Infrastructure**:
 - Nordea, OP Financial integrate with EU funding programs
@@ -936,7 +936,7 @@ Competitive Advantage:
 **SAFE Terms**:
 - **Total Round**: €650,000
 - **Valuation Cap**: €3,800,000
-- **Discount**: 15-20% on next priced round (to be specified)
+- **Discount**: 18% on next priced round
 - **Conversion**: Automatically converts at Series A (target Q4 2026, €15M+ valuation)
 - **Instrument**: Y Combinator standard SAFE (post-money, MFN clause)
 - **Pro-Rata Rights**: Available for €50k+ investors (Captain tier and above)
@@ -956,7 +956,7 @@ Competitive Advantage:
 - **Speed**: 2-4 weeks to close (vs. 3-6 months for priced equity)
 - **Founder-friendly**: No board seats, no immediate dilution, no participation rights
 - **Bridge instrument**: Designed specifically for pre-Series A momentum building
-- **Investor protection**: 15-20% discount + €3.8M cap provides downside protection even if Series A valuation disappoints
+- **Investor protection**: 18% discount + €3.8M cap provides downside protection even if Series A valuation disappoints
 
 ### Valuation Justification: Fortress Premium
 
@@ -966,24 +966,24 @@ Competitive Advantage:
 |---------|-----|-----------|------------------|-------------------|
 | Competitor A (2019) | €5k | €2.5M | 42× | Carbon accounting SaaS |
 | Competitor B (2021) | €12k | €6M | 42× | Energy optimization platform |
-| **DWS IQ 6 (2026)** | **€7k** | **€3.8M** | **45x** | **20-moat fortress + KYA-S certification + Arctic 15 launch** |
+| **DWS IQ 6 (2026)** | **€7k** | **€3.8M** | **45x** | **21-moat fortress + KYA-S certification + Arctic 15 launch** |
 
 **Valuation Components**:
 
 | Component | Value | Justification |
 |-----------|-------|---------------|
 | **Base (MRR Multiple)** | €2.9M | €7k MRR × 42× = €2.94M (industry standard) |
-| **Fortress Premium** | +€600k | 20-moat barrier = €3-6M competitor entry cost |
+| **Fortress Premium** | +€600k | 21-moat barrier = €3-6M competitor entry cost |
 | **Launch Optionality** | +€300k | Arctic 15 launch June 15, 2026 + sales sprint |
 | **Total Valuation** | **€3.8M** | **Justified by defensibility + growth catalysts** |
 
 **Series A Conversion Math (Full Round)**:
 
 Scenario: Series A at €15M post-money (Q4 2026)
-- €650K SAFE converts at €3.04M-€3.23M (€3.8M cap with 15-20% discount)
-- **Full round ownership**: €650k / €3.04M = **~21.4% fully diluted**
-- **Value at Series A**: 21.4% x €15M = **€3.2M**
-- **Return**: ~4.9x in 18 months
+- €650K SAFE converts at €3.116M (€3.8M cap with 18% discount)
+- **Full round ownership**: €650k / €3.116M = **~20.9% fully diluted**
+- **Value at Series A**: 20.9% x €15M = **€3.135M ≈ €3.1M**
+- **Return**: ~4.8× in 18 months
 
 **Captain Seat Example (€50K)**:
 
@@ -993,7 +993,7 @@ Scenario: Series A at €15M post-money (Q4 2026)
 | **€15M (base case)** | **1.6%** | **€240k** | **4.8x** | **50%** |
 | €20M (optimistic) | 1.6% | €320k | 6.4x | 20% |
 
-**Key Insight**: Even in conservative scenario (€10M Series A), a Captain seat achieves 3.2x return in 18 months. The 20-moat fortress creates **pricing power** that protects downside.
+**Key Insight**: Even in conservative scenario (€10M Series A), a Captain seat achieves 3.2x return in 18 months. The 21-moat fortress creates **pricing power** that protects downside.
 
 ---
 
@@ -1025,7 +1025,7 @@ Scenario: Series A at €15M post-money (Q4 2026)
 ✅ **Multi-country expansion** (Finland 60%, Sweden 25%, Norway 15%)  
 ✅ **MCP platform ecosystem** (3rd-party agent integrations live - marketplace rev)  
 ✅ **EU funding validation** (EIB SESI approval €880k-1.52M + Horizon Europe €2-4M pipeline)  
-✅ **20-moat fortress** (competitor entry remains irrational at €3-6M + 24-36 months)
+✅ **21-moat fortress** (competitor entry remains irrational at €3-6M + 24-36 months)
 
 ### Series A Valuation Comparables (Nordic B2B SaaS)
 
@@ -1034,17 +1034,17 @@ Scenario: Series A at €15M post-money (Q4 2026)
 | **ARR** | €900k | 15-25× | €13.5M-22.5M |
 | **Customers** | 30 | €400k-600k per logo | €12M-18M |
 | **MRR Growth** | 8.6× (€7k → €60k in 12mo) | 1× per month of growth | €10M-20M |
-| **Fortress Moats** | 20 moats (€3-6M entry barrier) | 20-40% premium | +€3M-6M |
+| **Fortress Moats** | 21 moats (€3-6M entry barrier) | 20-40% premium | +€3M-6M |
 | **Target Valuation** | - | - | **€15M-20M (conservative)** |
 
 **Conservative Series A Target: €15M** (vs. €20M+ if all metrics exceeded)
 
 **SAFE Conversion at €15M Series A (Full €650K Round)**:
-- €650K total at €3.8M cap with 15-20% discount
-- Converts at €3.04M-€3.23M
-- **Full round ownership**: ~21.4% fully diluted
-- **Full round value**: ~€3.2M
-- **Return**: ~4.9x in 18 months
+- €650K total at €3.8M cap with 18% discount
+- Converts at €3.116M
+- **Full round ownership**: ~20.9% fully diluted
+- **Full round value**: ~€3.135M ≈ €3.1M
+- **Return**: ~4.8× in 18 months
 
 ---
 
@@ -1075,7 +1075,7 @@ Scenario: Series A at €15M post-money (Q4 2026)
 *Scenario*: Well-funded competitor (€10M+ raised) attempts market entry
 
 **Mitigation**:
-- 20-moat fortress requires competitor to spend €3-6M + 24-36 months
+- 21-moat fortress requires competitor to spend €3-6M + 24-36 months
 - By the time competitor launches, DWS IQ 6 has 50-75 customers with switching costs
 - EU funding validation (EIB SESI) creates regulatory moat (government preference for local champions)
 - **Outcome**: Competitor focuses on easier markets or becomes acquisition target
@@ -1085,8 +1085,8 @@ Scenario: Series A at €15M post-money (Q4 2026)
 Even in "everything goes wrong" scenario:
 - Tier 1 revenue (€7k MRR) + EU funding (€1M+) = 24+ month runway
 - Finland HQ (AAA credit rating) + Nordic acquisition market = exit liquidity
-- 20-moat fortress = strategic value even without revenue growth
-- **Minimum investor outcome**: 2-3× return via acquisition (vs 4.9× base case Series A)
+- 21-moat fortress = strategic value even without revenue growth
+- **Minimum investor outcome**: 2-3× return via acquisition (vs 4.8× base case Series A)
 
 ---
 
@@ -1097,7 +1097,7 @@ Even in "everything goes wrong" scenario:
 **We are raising €650K now to bridge 12-18 months to €15M+ Series A by:**
 
 **1. Leveraging Validated Traction**
-- €7k MRR live revenue (5 paying customers, 100% retention)
+- €7k MRR live revenue (6 paying customers, 100% retention)
 - Customer testimonials: 75-85% time savings, 4 weeks vs 6 months audit readiness
 - Unit economics: 15:1 LTV:CAC (top decile for enterprise SaaS)
 - KYA-S Certified: hardware-attested agent governance with D&O safe harbor proof
@@ -1172,7 +1172,7 @@ Even in "everything goes wrong" scenario:
 ✓ €900k ARR milestone in 18 months (€60k MRR + implementation fees)  
 ✓ 25-30 customers across 3 verticals (construction, logistics, healthcare)  
 ✓ Multi-country expansion (Finland, Sweden, Norway = €24.5B TAM)  
-✓ 20-moat fortress creates pricing power (competitors cannot disrupt)  
+✓ 21-moat fortress creates pricing power (competitors cannot disrupt)  
 
 **Why this matters**: €650K round at €3.8M cap. €15M Series A = significant return for early investors (187% IRR).
 
@@ -1184,7 +1184,7 @@ Even in "everything goes wrong" scenario:
 - Total Round: **€650,000**
 - Valuation Cap: **€3,800,000**
 - Seat Tiers: Fleet Admiral €200K (1 seat) | Captain €50K (9 seats) | Deputy Captain €5K (unlimited)
-- Discount: **15-20%** (to be specified)
+- Discount: **18%**
 - Pro-Rata Rights: Available for €50k+ investors (Captain tier and above)
 
 **Expected Returns by Series A Outcome (€50K Captain Seat Example)**:
@@ -1200,7 +1200,7 @@ Even in "everything goes wrong" scenario:
 - €650K at €3.8M cap with fortress-justified valuation premium
 - Finland AAA credit rating = strong acquirer market (Basware €477M, Aiven €3B precedents)
 - EU funding validation reduces risk of Series A failure (€1-2.5M non-dilutive extends runway indefinitely)
-- 20-moat fortress = strategic value even without revenue growth (IP acquisition target)
+- 21-moat fortress = strategic value even without revenue growth (IP acquisition target)
 
 **Timeline to Liquidity**:
 - **Series A exit** (18 months): 3.3-6.5× return
@@ -1269,8 +1269,8 @@ Even in "everything goes wrong" scenario:
 
 **Let's build the operating system for Europe's intelligent industries together.**
 
-The 20-moat fortress is not just defensible—it's a **strategic asset** that creates pricing power at every funding stage. Early investors who join now participate in:
-- 4.9× return at €15M Series A (187% IRR over 18 months)
+The 21-moat fortress is not just defensible—it's a **strategic asset** that creates pricing power at every funding stage. Early investors who join now participate in:
+- 4.8× return at €15M Series A (~184% IRR over 18 months)
 - €1-2.5M EU non-dilutive funding multiplier (reduces dilution risk)
 - Nordic exit optionality (8-15× revenue multiples in M&A market)
 - Participation rights in future rounds (MFN clause protects against down rounds)
@@ -1414,7 +1414,7 @@ The 20-moat fortress is not just defensible—it's a **strategic asset** that cr
 | Boardy.ai | 2021 | €11M | €3M | 25 | €120k | Carbon accounting | US-based (€2.8M-6.25M EU compliance barrier) |
 | Competitor B | 2018 | €15M | €12M | 85 | €141k | CSRD compliance | Cloud-only (cannot achieve sub-100ms latency) |
 | Competitor C | 2015 | €40M | €25M | 180 | €139k | Energy optimization | Generic AI (no construction domain expertise) |
-| **DWS IQ 6** | **2024** | **€0** | **€84k** | **5** | **€90k** | **Industrial decisioning** | **20-moat fortress (€3-6M entry barrier)** |
+| **DWS IQ 6** | **2024** | **€0** | **€84k** | **5** | **€90k** | **Industrial decisioning** | **21-moat fortress (€3-6M entry barrier)** |
 
 **Key Differentiators (Impossible to Replicate Quickly)**:
 ✓ **Only** sub-100ms decisioning platform (120-300× faster than competitors)  
@@ -1459,7 +1459,7 @@ The 20-moat fortress is not just defensible—it's a **strategic asset** that cr
 - Paying customers (but weak retention, high churn)
 - EU market opportunity (but no regulatory moat)
 
-**DWS IQ 6 built a different foundation.** We invested 18 months constructing a **20-moat competitive fortress** that creates:
+**DWS IQ 6 built a different foundation.** We invested 18 months constructing a **21-moat competitive fortress** that creates:
 - €3-6M entry barrier for competitors
 - 24-36 month timeline to achieve parity
 - 97% probability competitors abandon market entry
@@ -1471,7 +1471,7 @@ The 20-moat fortress is not just defensible—it's a **strategic asset** that cr
 - **Exit** (2028+): 8-15× revenue multiples (Nordic M&A premium for defensible assets)
 
 **Your investment today participates in:**
-- ~4.9x return at €15M Series A (187% IRR over 18 months)
+- ~4.8× return at €15M Series A (~184% IRR over 18 months)
 - €1-2.5M EU non-dilutive funding multiplier
 - Downside protection through fortress defensibility (strategic value even without growth)
 - Series A participation rights (MFN clause protects against down rounds)
