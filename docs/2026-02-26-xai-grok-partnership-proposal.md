@@ -186,7 +186,7 @@ This matches DWS10's "100% EU data residency — no US CLOUD Act exposure by des
 
 Dear Risto and xAI Enterprise Team,
 
-I am claiming a Platinum Industry Captain seat (€50k SAFE, €3.8M cap, 20% discount – first tranche) and simultaneously proposing a strategic partnership between Lifetime Oy / DWS10 and xAI to make Grok the official AI Captain's Brain in the new DWS IQ 6 physical Control Room + Situation Room.
+I am claiming a Platinum Industry Captain seat (€50k SAFE, €3.8M cap, 18% discount – first tranche) and simultaneously proposing a strategic partnership between Lifetime Oy / DWS10 and xAI to make Grok the official AI Captain's Brain in the new DWS IQ 6 physical Control Room + Situation Room.
 
 **Project Overview – "Captain's Bridge"**
 

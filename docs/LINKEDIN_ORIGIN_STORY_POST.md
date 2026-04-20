@@ -136,7 +136,7 @@ This post uses the **Captain** language track (for BAs). Do not mix with the **V
 **Body:**
 > Quick version: DWS IQ 6 automates Fit for 55 compliance for EU industrial companies. We run edge AI on NVIDIA Jetson — EUR 333k/year cheaper than cloud competitors. Fleet division does EUR 7-14k MRR today. Two pilots signed for Q1.
 >
-> I'm raising EUR 150k via SAFE (EUR 3.8M cap, 20% discount) and keeping it to 6 founding Captains at EUR 50k+. Each Captain gets founding World Model access, quarterly briefings, and priority pilot introductions.
+> I'm raising EUR 150k via SAFE (EUR 3.8M cap, 18% discount) and keeping it to 6 founding Captains at EUR 50k+. Each Captain gets founding World Model access, quarterly briefings, and priority pilot introductions.
 >
 > Happy to send the one-pager or jump on a 15-min call. What works?
 

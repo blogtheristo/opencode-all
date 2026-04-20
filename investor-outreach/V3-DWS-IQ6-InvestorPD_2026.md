@@ -976,7 +976,7 @@ Competitive Advantage:
 
 - **Amount**: €150,000
 - **Valuation Cap**: €3,800,000
-- **Discount**: 20% on next priced round
+- **Discount**: 18% on next priced round
 - **Conversion**: Automatically converts at Series A (target Q4 2026, €15M+ valuation)
 - **Instrument**: Y Combinator standard SAFE (post-money, MFN clause)
 
@@ -1012,19 +1012,19 @@ Scenario: Series A at €15M post-money (Q4 2026)
 
 - SAFE converts at €3.116M (€3.8M × 82% discount)
 - **Ownership**: €150k ÷ €3.116M = **4.8% fully diluted**
-- **Value at Series A**: 4.9% × €15M = **€735k**
-- **Return**: 4.9× in 18 months (**187% IRR**)
+- **Value at Series A**: 4.8% × €15M = **€720k**
+- **Return**: 4.8× in 18 months (**182% IRR**)
 
 **Downside Protection**:
 
 | Series A Outcome     | Your Ownership | Your Value | Multiple | Probability |
 | -------------------- | -------------- | ---------- | -------- | ----------- |
-| €10M (conservative)  | 4.9%           | €490k      | 3.3×     | 30%         |
-| **€15M (base case)** | **4.9%**       | **€735k**  | **4.9×** | **50%**     |
-| €20M (optimistic)    | 4.9%           | €980k      | 6.5×     | 20%         |
-| **Expected Value**   | **4.9%**       | **€711k**  | **4.7×** | -           |
+| €10M (conservative)  | 4.8%           | €480k      | 3.2×     | 30%         |
+| **€15M (base case)** | **4.8%**       | **€720k**  | **4.8×** | **50%**     |
+| €20M (optimistic)    | 4.8%           | €960k      | 6.4×     | 20%         |
+| **Expected Value**   | **4.8%**       | **€696k**  | **4.6×** | -           |
 
-**Key Insight**: Even in conservative scenario (€10M Series A), investor achieves 3.3× return in 18 months (106% IRR). The 20-moat fortress creates **pricing power** that protects downside.
+**Key Insight**: Even in conservative scenario (€10M Series A), investor achieves 3.2× return in 18 months. The 20-moat fortress creates **pricing power** that protects downside.
 
 ---
 
@@ -1076,7 +1076,7 @@ Scenario: Series A at €15M post-money (Q4 2026)
 - Converts at €3.116M (€3.8M × 0.82)
 - **Ownership**: €150k ÷ €3.116M = **4.8% fully diluted**
 - **Value**: 4.8% × €15M = **€720k**
-- **Return**: 4.9× in 18 months (**187% IRR**)
+- **Return**: 4.8× in 18 months (**182% IRR**)
 
 ---
 
@@ -1122,7 +1122,7 @@ Even in "everything goes wrong" scenario:
 - Tier 1 revenue (€7k MRR) + EU funding (€1M+) = 24+ month runway
 - Finland HQ (AAA credit rating) + Nordic acquisition market = exit liquidity
 - 20-moat fortress = strategic value even without revenue growth
-- **Minimum investor outcome**: 2-3× return via acquisition (vs 4.9× base case Series A)
+- **Minimum investor outcome**: 2-3× return via acquisition (vs 4.8× base case Series A)
 
 ---
 
@@ -1232,10 +1232,10 @@ Even in "everything goes wrong" scenario:
 
 | Series A Valuation   | Your Ownership | Your Value | Multiple | IRR      | Probability |
 | -------------------- | -------------- | ---------- | -------- | -------- | ----------- |
-| €10M (conservative)  | 4.9%           | €490k      | 3.3×     | 106%     | 30%         |
-| **€15M (base case)** | **4.9%**       | **€735k**  | **4.9×** | **187%** | **50%**     |
-| €20M (optimistic)    | 4.9%           | €980k      | 6.5×     | 247%     | 20%         |
-| **Expected Value**   | **4.9%**       | **€711k**  | **4.7×** | **181%** | **100%**    |
+| €10M (conservative)  | 4.8%           | €480k      | 3.2×     | 106%     | 30%         |
+| **€15M (base case)** | **4.8%**       | **€720k**  | **4.8×** | **182%** | **50%**     |
+| €20M (optimistic)    | 4.8%           | €960k      | 6.4×     | 245%     | 20%         |
+| **Expected Value**   | **4.8%**       | **€696k**  | **4.6×** | **172%** | **100%**    |
 
 **Downside Protection**:
 
@@ -1309,7 +1309,7 @@ Even in "everything goes wrong" scenario:
 
 The 20-moat fortress is not just defensible—it's a **strategic asset** that creates pricing power at every funding stage. Early investors who join now participate in:
 
-- 4.9× return at €15M Series A (187% IRR over 18 months)
+- 4.8× return at €15M Series A (182% IRR over 18 months)
 - €1-2.5M EU non-dilutive funding multiplier (reduces dilution risk)
 - Nordic exit optionality (8-15× revenue multiples in M&A market)
 - Participation rights in future rounds (MFN clause protects against down rounds)
@@ -1509,7 +1509,7 @@ The 20-moat fortress is not just defensible—it's a **strategic asset** that cr
 - **Exit** (2028+): 8-15× revenue multiples (Nordic M&A premium for defensible assets)
 
 **Your €150,000 investment today participates in:**
-✓ 4.9× return at €15M Series A (187% IRR over 18 months)  
+✓ 4.8× return at €15M Series A (182% IRR over 18 months)  
 ✓ €1-2.5M EU non-dilutive funding multiplier (€6.67-16.67 per €1 invested)  
 ✓ Downside protection through fortress defensibility (strategic value even without growth)  
 ✓ Series A participation rights (MFN clause protects against down rounds)

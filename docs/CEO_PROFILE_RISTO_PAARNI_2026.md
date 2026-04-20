@@ -226,7 +226,7 @@ Lifetime Oy is not pre-revenue. The numbers:
 
 - Monthly infrastructure burn: EUR 15-50
 - Bootstrapped to revenue before raising external capital
-- Current raise: EUR 500,000 via SAFE notes (EUR 3.8M cap, 20% discount)
+- Current raise: EUR 500,000 via SAFE notes (EUR 3.8M cap, 18% discount)
 - Structure: 8 Platinum Industry Captain seats (EUR 50k) in first tranche + Deputy seats (EUR 25k)
 - Second tranche: remaining 8 Platinum seats at higher valuation
 

@@ -133,7 +133,7 @@ risto@onelifetime.world
 **Page Content:**
 1. **Hero Section**
    - Headline: "Own an Industry Vertical — Platinum Captain Seats"
-   - Subtitle: "EUR 50k SAFE at EUR 3.8M cap, 20% discount"
+   - Subtitle: "EUR 50k SAFE at EUR 3.8M cap, 18% discount"
    - Key metrics: EUR 7k+ MRR, 100% retention, mandatory market
    - CTA: "Request full deck / intro call"
 
@@ -160,7 +160,7 @@ risto@onelifetime.world
    - Fleet Admiral: EUR 500K SAFE (1 seat — strategic co-pilot, board observer)
    - Captain: EUR 50K SAFE x 8 (one per industry — own a vertical)
    - Deputy Captain: TBD (unlimited, quarterly briefings, upgrade path)
-   - Total round: EUR 650K at EUR 3.8M cap, 20% discount
+   - Total round: EUR 650K at EUR 3.8M cap, 18% discount
    - Target close: Q2 2026 (Arctic 15 deadline: 15.6.2026)
    - What EUR 650K buys:
      - 3-5 flagship portfolios onboarded

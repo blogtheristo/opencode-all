@@ -371,7 +371,7 @@ Legal Terms: [MCP Hub Terms of Service](privacy-policy/TermsofServiceforMCPHub.m
 - **Current MRR**: €7-14k (Lifetime Fleet) - **Secures Runway**
 - **12-Month Edge Savings**: €333,000 (cloud cost avoidance)
 - **Result**: +€281,370 PROFIT in Month 12
-- **Investment Ask**: €150,000 SAFE @ €3.8M cap, 20% discount
+- **Investment Ask**: €150,000 SAFE @ €3.8M cap, 18% discount
 - **Hardware ROI**: 515% annually (NVIDIA Jetson investment)
 
 ---

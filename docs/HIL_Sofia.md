@@ -81,7 +81,7 @@ You come from Nordic corporate finance. You've sat across the table from D&O ins
 
 **Capital Structure:**
 
-- Current: €650K SAFE at €3.8M cap, 20% discount
+- Current: €650K SAFE at €3.8M cap, 18% discount
 - Use of funds: 40% product (€260K), 35% sales (€228K), 15% ops (€98K), 10% buffer (€65K)
 - Runway: 18-24 months to Series A
 - Series A target: €2M-€4M at €15M+ pre-money, Q3-Q4 2026
