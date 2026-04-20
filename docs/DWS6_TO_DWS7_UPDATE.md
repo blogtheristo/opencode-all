@@ -446,15 +446,36 @@ User Query → Agent Selection → Model Inference → Tool Calls → Output →
 | Key rotation (90-day cycle) | Phase 3 | ISO 27001 A.10 |
 | SOC 2 Type II controls | Phase 6 | AICPA TSC |
 | ISO 27001 certification | Phase 6 | ISO/IEC 27001:2022 |
+| ASPICE gap analysis (Lifetime Fleet) | Phase 3 | Automotive SPICE v4.0 / ISO/IEC 33000 |
+| SQuaRE quality metrics (agents + KYA) | Phase 3 | ISO/IEC 25010:2023 |
+| ASPICE Level 2 readiness (Fleet) | Phase 5 | Automotive SPICE v4.0 |
+| ASPICE Level 3 assessment (Fleet) | Phase 6 | Automotive SPICE v4.0 |
 
 ### Certification Timeline
 
 ```
 Phase 1 (Feb-Apr 2026)    → Security hardening + vulnerability fixes
 Phase 3 (Aug-Oct 2026)    → ISO 27001 gap analysis + control implementation
+                          → ASPICE gap analysis for Lifetime Fleet (advisor-led)
+                          → SQuaRE quality metrics framework for agents + KYA
 Phase 5 (Feb-May 2027)    → ISO 27001 Stage 1 audit
+                          → ASPICE Level 2 readiness for Fleet (SWE.1–SWE.6 + SUP.1, SUP.8, SUP.9, SUP.10)
 Phase 6 (Jun-Dec 2027)    → ISO 27001 Stage 2 audit + SOC 2 Type II engagement
+                          → ASPICE Level 3 external assessment for Fleet (Tier-1 automotive OEM requirement)
 ```
+
+### Lifetime Fleet ASPICE Roadmap (DWS IQ 7)
+
+Lifetime Fleet targets Tier-1 industrial/automotive OEMs (Bosch, Continental, Volvo, Scania) for which **Automotive SPICE Level 2–3 is a hard procurement gate**. Without ASPICE maturity, Fleet cannot enter the automotive supply chain regardless of technical capability.
+
+| Phase | Deliverable | ASPICE Processes | Owner |
+|-------|------------|------------------|-------|
+| Phase 3 (Aug-Oct 2026) | Gap analysis against ASPICE v4.0 | Full VDA Scope (SYS.1–SYS.5, SWE.1–SWE.6, SUP, MAN, ACQ.4) | Standards & Compliance Advisor (Teemu Vesala candidate) |
+| Phase 3 | Process asset library (templates, checklists, work products) | SUP.8 Configuration Management, SUP.9 Problem Resolution, SUP.10 Change Request Management | Advisor + Engineering |
+| Phase 5 (Feb-May 2027) | Internal ASPICE Level 2 assessment | SWE.1 Software Requirements Analysis → SWE.6 Software Testing | Engineering |
+| Phase 6 (Jun-Dec 2027) | External Level 3 assessment (intacsᵀᴹ competent assessor) | All Level 3 Capability Indicators | Certified assessor |
+
+**Rationale:** ASPICE complements existing EU regulatory stack (EU AI Act Article 12, CBAM, NIS2) by adding **process-maturity evidence** automotive OEMs require in addition to regulatory compliance. Roadmap entry-point for this work is the Teemu Vesala advisor engagement (see `docs/field-notes/2026-04-19-vesala-teemu-standards-enthusiast.md`).
 
 ---
 
