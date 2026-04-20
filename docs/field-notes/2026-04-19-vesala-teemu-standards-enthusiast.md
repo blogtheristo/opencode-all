@@ -95,10 +95,11 @@ Ehdotus: **Standards & Compliance Advisor**, osa-aikainen/projektiluonteinen:
 ## Toimenpiteet
 
 1. ☐ Lähetä Teemulle ystävällinen neuvonantajakutsu (valmis copy-paste alla)
-2. ☐ Luo `DWS_STANDARDS_LIBRARY.md` indeksi (SPICE, SQuaRE, ISO 27001, ISO 9001 stubit)
-3. ☐ Harkitse `/standards-lookup` skillin luomista (CSO-trigger: "what standard applies to X")
-4. ☐ Jos Teemu liittyy: aloita ASPICE-gap-analyysilla Lifetime Fleetille
-5. ☐ Lisää Teemun profiili `Admin/ADVISORS.md`-hakemistoon (jos hyväksyy)
+2. ✅ **Tehty 2026-04-19:** Luotu `DWS_STANDARDS_LIBRARY.md` (SPICE, SQuaRE, ISO 27001, ISO 9001, protokollat, raportointistandardit) + rekisteröity `CLAUDE.md`:hen
+3. ✅ **Tehty 2026-04-19:** Luotu asiakassivu `dws10.com/enterprise-integrations/` joka näyttää kaikki integraatiot + niihin liittyvät standardit (ERP / ESG / Edge / Identity / Data / KYA)
+4. ☐ Harkitse `/standards-lookup` skillin luomista (CSO-trigger: "what standard applies to X")
+5. ☐ Jos Teemu liittyy: aloita ASPICE-gap-analyysilla Lifetime Fleetille (roadmap: DWS IQ 7 Phase 3 / Aug-Oct 2026)
+6. ☐ Lisää Teemun profiili `Admin/ADVISORS.md`-hakemistoon (jos hyväksyy)
 
 ---
 
