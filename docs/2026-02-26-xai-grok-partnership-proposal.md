@@ -46,7 +46,7 @@ Document Status:
 
 **Who:** Lifetime Oy / DWS10 — EU climate intelligence platform serving Fit for 55, ETS, CBAM, and CSRD compliance across 16 industries.
 
-**Vehicle:** Platinum Industry Captain seat (€50k SAFE @ €3.8M cap, 20% product discount — first tranche, Feb 26 2026 data) combined with an xAI Enterprise on-prem MoU.
+**Vehicle:** Platinum Industry Captain seat (€50k SAFE @ €3.8M cap, 18% product discount — first tranche, Feb 26 2026 data) combined with an xAI Enterprise on-prem MoU.
 
 **Key differentiator:** All Grok inference runs locally on the GN100 cluster. Raw site data never leaves the customer's private fabric. Consented anonymized reasoning traces are the only optional data sharing — explicit opt-in, instantly revocable, fully auditable.
 
@@ -58,7 +58,7 @@ The DWS10 Captain Program offers industry leaders early access to sovereign AI i
 
 | Tier | Investment | Cap | Discount | Seats |
 | ---- | ---------- | --- | -------- | ----- |
-| Platinum | €50,000 SAFE | €3.8M | 20% | Limited |
+| Platinum | €50,000 SAFE | €3.8M | 18% | Limited |
 | Gold | €25,000 SAFE | €3.8M | 15% | Limited |
 | Silver | €10,000 SAFE | €3.8M | 10% | Open |
 

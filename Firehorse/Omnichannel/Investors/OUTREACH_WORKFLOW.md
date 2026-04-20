@@ -387,7 +387,7 @@ Current traction:
 - >90% gross margin, EUR 15-50/mo infra cost
 
 We're filling 8 Platinum Captain seats — EUR 50K SAFE at EUR 3.8M
-cap, 20% discount. Each Captain owns one of 20 EU industry verticals.
+cap, 18% discount. Each Captain owns one of 20 EU industry verticals.
 Construction is available.
 
 Full details: https://dws10.com/captain/?campaign={{campaign_id}}&investor={{investor_id}}
@@ -452,7 +452,7 @@ We're automating CSRD compliance for construction portfolios:
 - Mandatory market (Fit for 55 live 2025-2028)
 
 I'm filling 8 Platinum Captain seats — EUR 50K SAFE at EUR 3.8M cap,
-20% discount. Each Captain owns one of 20 EU industry verticals.
+18% discount. Each Captain owns one of 20 EU industry verticals.
 Also seeking one Fleet Admiral (EUR 500K, board observer rights).
 
 Full deck: https://dws10.com/captain/deck/?campaign={{campaign_id}}&investor={{investor_id}}

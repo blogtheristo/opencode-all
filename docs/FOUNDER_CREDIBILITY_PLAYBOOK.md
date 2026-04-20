@@ -321,7 +321,7 @@ This flips the value prop: the Captain isn't just investing — they're shaping 
 |------|-----------|-----------------|------|
 | **Platinum Industry Captain** | EUR 50,000 SAFE | 8 of 16 | THE captain of the vertical. Status, visibility, bragging rights. |
 | **Deputy Captain** | EUR 25,000 SAFE | Available alongside | Rising star. Learns the ropes, builds toward Platinum. |
-| **Valuation cap** | EUR 3.8M | | 20% discount |
+| **Valuation cap** | EUR 3.8M | | 18% discount |
 | **Round target** | **EUR 500,000** | | Best terms — before second tranche at higher valuation |
 
 **Second tranche (opens after first tranche closes):**
