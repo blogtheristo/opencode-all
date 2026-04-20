@@ -11,9 +11,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.7
+Version: 2.8
 
 Sessions & Modifications:
+  - Version: 2.8 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-work-EoyoF | Date: 20.04.2026 | Changes: Added Section 14.16 (April 2026 Evolution) — five subsections: Firehorse Report Engine production scheduler (PR #1064, cron-driven compliance report dispatch, module-scoped tests, manual trigger route), Firehorse Product Line V2 consolidation (omnichannel/report/automation/content as unified DWS IQ product family), Firehorse Snap benchmark (measured <125ms kill latency on Firecracker MicroVM replaces 122ms Arctic 15 spec), Skills paradigm applied to operations (Anthropic's "Stop Building Agents" validates §14.14; +3 skills: /regulatory-radar, /investor-outreach, /multilingual), Ops Manager V0 buyer lock (PRD v0.2 with ICP validation script), Founder→Team transition (SOLO_FOUNDER_STATEMENT v1.2 + Anthony Maurin CTO + /investor-outreach reproducible workflow with 10+ INTRO notes); added Key Contributions #17–#19
   - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 18.03.2026 | Changes: Added Appendix H (KYA Partner Ecosystem): 5-layer partner mapping, Shufti IDV integration (L1/L5), Palantir AIP connector model, BYO Agent Policy, strategic ecosystem partners (NVIDIA, Siemens, ABB, xAI, Mistral), partnership distribution hypothesis validation; added Key Contribution #16
   - Version: 2.6 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 16.03.2026 | Changes: Updated section 15 Results and Discussion with v2.1–2.5 evidence: harness engineering metrics (52.8%→66.5%), 13-agent Pantheon, customer MVP features, PostgreSQL HTAP, A/B testing integration, compliance readiness updates, SWOT refresh; added section 15.5 A/B Testing Results
   - Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/add-harness-engineering-thesis-2zvZt | Date: 14.03.2026 | Changes: Added Section 14.12 (Harness Engineering and Forensic Telemetry): harness-forensics connection, court-defensible harness via VERSION AND AGENT HISTORY, KYA Standard as hardware-attested harness beyond software-level scaffolding, EU regulatory divergence from OpenAI's speed-optimized approach; added Key Contribution #15
@@ -36,10 +37,10 @@ Sessions & Modifications:
 
 Document Status:
   - Created: 15.01.2026
-  - Last Modified: 14.03.2026
+  - Last Modified: 20.04.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V2.7 — KYA Partner Ecosystem: Shufti IDV, Palantir AIP connector, BYO Agent Policy, 5-partner strategic ecosystem)
+  - Publication Status: DRAFT (V2.8 — April 2026 Evolution: Firehorse Report Engine scheduler, Product Line V2, <125ms Snap benchmark, Skills paradigm validated, Ops Manager V0 buyer, Founder→Team transition)
 
 - Created: 15.01.2026
 - Last Modified: 24.03.2026
@@ -1875,6 +1876,66 @@ The master thesis (V3Thesis) grew to 82 pages and 26,000+ words during the AI-as
 
 **Key Contribution #18:** Dual-version thesis architecture as methodological contribution to AI-assisted academic writing.
 
+### 14.16 April 2026 Evolution: Report Engine in Production, Product Line V2, Snap Benchmark, and Founder→Team Transition
+
+*Added: 20.04.2026 | Source: PRs #1064, #1109, #1110; field notes 2026-04-06 through 2026-04-19; Firehorse Snap benchmark (Firecracker MicroVM); SOLO_FOUNDER_STATEMENT v1.2.*
+
+Between v2.7 (18.03.2026) and v2.8 (20.04.2026) Firehorse progressed from a documented operating model to a measurable production system. Five operational milestones define this window.
+
+#### 14.16.1 Firehorse Report Engine — Production Scheduler (PR #1064)
+
+The Firehorse Report module graduated from specification to scheduled production. PR #1064 merged the report scheduler (`src/firehorse/report-scheduler.ts`), module-scoped tests (`src/__tests__/firehorse-report-module.test.ts`), and a manual trigger route. This is the first Firehorse module to ship a cron-driven customer deliverable, closing the loop between the Operations Model (§14.1–14.4) and customer-facing value:
+
+| Capability              | Implementation                                                      |
+| ----------------------- | ------------------------------------------------------------------- |
+| Scheduled dispatch      | Node-cron expressions per tenant; timezone-aware                    |
+| Manual trigger          | REST route for ad-hoc report generation                             |
+| Test coverage           | Module-scoped tests (no cross-module leakage)                       |
+| Compliance output       | CSV/JSON export consumable by CSRD/CBAM/ETS reporting pipelines     |
+
+**Operations-model significance:** The scheduler is the first Firehorse component where the 3-tier billing contract (§2.0 v2.0, Version 2.0) produces recurring compliance artefacts without human intervention. The hypothesis that an AI-assisted one-person team can operate a multi-tenant compliance product is now testable against real scheduled dispatch.
+
+#### 14.16.2 Firehorse Product Line V2 — Unified DWS IQ Product Family
+
+In April 2026 the four Firehorse modules (Omnichannel, Signed Report, Automation, Content Management) were consolidated into a single V2 product line under the DWS IQ product family. Each module received a V2 naming, dedicated imagery, and a store presence. Merged commits include `Firehorse Product Line V2`, `Firehorse Automation V2`, `Firehorse Starter V2 bundle`, `Firehorse Content Management V2`, `Firehorse Signed Report V2`, `Firehorse ReportV2`, and `firehorse-omnichannel-v2.png`. The Firehorse Starter V2 bundle exists as an entry-level SKU.
+
+**Operations-model significance:** V2 crystallises the Solution Factory output into a catalogue-first product family that can be purchased, bundled, and versioned independently — a pre-condition for the Ops Manager ICP (see §14.16.5).
+
+#### 14.16.3 Firehorse Snap Benchmark — <125 ms Measured Kill Latency
+
+Earlier versions of this thesis cited 122 ms as the Firehorse Snap kill latency specification from Arctic 15 planning documents. In April 2026, the measured kill latency on Firecracker MicroVM infrastructure was captured and published on the KYA Standard page (`dws10.com/kya-standard`). The public claim has been updated from the 122 ms spec to **<125 ms measured** (Firecracker MicroVM benchmark). The KYA page now displays both measured and Firecracker spec figures so readers can distinguish specification from measurement.
+
+**Operations-model significance:** Court-defensible harness claims (§14.12 Harness Engineering and Forensic Telemetry) require measurement, not specification. Updating the public figure from spec to measured is the first time a Firehorse harness guarantee is backed by a reproducible benchmark. This is a precondition for EU AI Act Article 12 log admissibility in enforcement proceedings.
+
+#### 14.16.4 Skills Paradigm Applied to Operations — Anthropic's 2026-04-16 Validation
+
+Anthropic's 2026-04-16 essay "Stop Building Agents, Start Building Skills" (field note `docs/field-notes/2026-04-16-anthropic-skills-paradigm-stop-building-agents.md`) externally validates the skill-first architecture documented in §14.14 (Domain-Specific vs Generic AI Harness). The Firehorse operating model is not "an agent framework with skills" — it is a skill library that happens to invoke agents. Three new production skills shipped in this window:
+
+| Skill                   | Purpose                                                                | Ops-model function                                 |
+| ----------------------- | ---------------------------------------------------------------------- | --------------------------------------------------- |
+| `/regulatory-radar`     | Scan EUR-Lex / DG ENER / EFRAG / CINEA for upcoming regulation        | Anticipates compliance product roadmap             |
+| `/investor-outreach`    | Draft, triage, and track investor INTRO notes                         | Makes fundraising a reproducible workflow (§14.16.5) |
+| `/multilingual`         | Generate / audit EU multilingual content (FI/SV/DE/FR)                 | Localises Firehorse store + onelifetime.world      |
+
+Total skill inventory: 24+ production skills with 4 blocking discipline gates. The hypothesis that skills are the product interface (Section 14.14 Research Significance) is now externally confirmed as the emerging industry pattern.
+
+#### 14.16.5 Ops Manager V0 Buyer Lock + Founder→Team Transition
+
+Two coupled milestones answer the "who buys" and "who builds" questions of the operations model:
+
+- **Ops Manager V0 Buyer Lock (PRD v0.2, commit `4e64a089`):** The first-dollar customer is locked to the Ops Manager persona at Finnish datacentre operators (hyperscaler + colocation). A validation script accompanies the PRD to prevent unvalidated ICP drift. This tightens the loop between Section 14.4 (Contractor Agent Onboarding) and the Datacentre Compliance Agent PRD v0.1 (`docs/DWS_IQ_7_DATACENTRE_COMPLIANCE_AGENT_PRD_v0.1.md`).
+- **Founder→Team Transition:** `SOLO_FOUNDER_STATEMENT.md` v1.2 locks the solo-founder-with-AI-team narrative as single source of truth for Series A / SAFE investor conversations. Anthony Maurin enters as CTO co-builder with tightened equity sequencing against the Perissich reactivation catalyst. The `/investor-outreach` skill produces 10+ named INTRO notes in the 2-week window (42CAP Wilke, Plug and Play Paris Laouiti, Ingrisano, Perissich, Kefalogiannis, von Euen, Yomutbayev, Zawadzinski) — investor outreach is now a DWS IQ workflow, not tacit founder knowledge.
+
+**Operations-model significance:** The Firehorse Operations Model survives the founder-to-team transition only if every previously tacit founder activity (fundraising, buyer validation, partner outreach) becomes a skill. PRD v0.2 (buyer validation) + `/investor-outreach` (investor pipeline) are two of three legs; partner outreach (Aiven, Shufti, Kosti Salmi / Salesforce) remains to be codified as a skill in the next window.
+
+#### 14.16.6 Research Contribution
+
+**Key Contribution #19 — Report Engine in Production:** The Firehorse Report scheduler (PR #1064) is the first Firehorse module to ship cron-driven customer deliverables with module-scoped tests and a manual trigger route. This closes the loop between the Operations Model's 3-tier billing contract (Version 2.0) and recurring compliance artefacts without human intervention, providing the first end-to-end test of the one-person-team multi-tenant compliance hypothesis.
+
+**Key Contribution #20 — Measured Harness Guarantee (<125 ms Snap):** The Firehorse Snap kill latency is now backed by a reproducible Firecracker MicroVM benchmark rather than an Arctic 15 specification. This is the first time a court-defensible harness claim in the Firehorse operating model has a published measurement replacing a specification, a precondition for EU AI Act Article 12 log admissibility in enforcement contexts (§14.12).
+
+**Key Contribution #21 — Founder→Team Transition as Skills:** The Ops Manager V0 buyer lock (PRD v0.2 with validation script) and the `/investor-outreach` skill (10+ INTRO notes drafted) together demonstrate that previously tacit founder activities (ICP validation, investor pipeline) can be codified as reproducible DWS IQ skills. This extends the Firehorse Operations Model from internal tooling to a founder-to-team transition mechanism — a necessary property if the operating model is to survive beyond the solo-founder phase.
+
 ---
 
 ## Appendix H: KYA Partner Ecosystem
@@ -1996,7 +2057,12 @@ The KYA partner ecosystem demonstrates three research findings:
 1-14. (See VERSION AND AGENT HISTORY)
 15. Harness Engineering and Forensic Telemetry — Connects OpenAI's harness engineering framework to Firehorse forensic operations; demonstrates that EU-regulated industries require court-defensible harness (VERSION AND AGENT HISTORY, KYA hardware attestation) vs Silicon Valley speed optimization; empirical validation that harness improvements alone yield 52.8%→66.5% gains (model unchanged); KYA Standard as hardware-attested harness beyond software scaffolding
 16. KYA Partner Ecosystem — 5-layer partner mapping (Shufti IDV for L1/L5, Palantir AIP connector model, BYO Agent Policy); demonstrates identity-to-runtime bridge as new category, connector-not-competitor positioning for enterprise distribution, and partnership-as-distribution hypothesis for one-person startup scaling
+17. Competitive Analysis: Domain-Specific vs Generic AI Harness — 6-differentiator comparison against 136-skill generic frameworks; token-budget argument for domain specificity in regulated industries
+18. Master Thesis Dual-Version Architecture — v3.30.50 frozen 50-page Metropolia outgoing + 82-page living document; pattern for AI-assisted academic writing where research velocity exceeds institutional format constraints
+19. Report Engine in Production — Firehorse Report scheduler (PR #1064) as first cron-driven customer deliverable; closes 3-tier billing contract loop with recurring compliance artefacts; first end-to-end test of one-person-team multi-tenant compliance hypothesis
+20. Measured Harness Guarantee (<125 ms Snap) — Firehorse Snap kill latency backed by Firecracker MicroVM benchmark replacing Arctic 15 specification; first court-defensible harness claim with published measurement replacing spec; precondition for EU AI Act Article 12 log admissibility
+21. Founder→Team Transition as Skills — Ops Manager V0 buyer lock (PRD v0.2 + validation script) + `/investor-outreach` skill (10+ INTRO notes) codify previously tacit founder activities as reproducible DWS IQ workflows; extends Firehorse Operations Model from internal tooling to founder-to-team transition mechanism
 
 *Document generated using Firehorse Operations Model with Claude Code*
-*Last updated: 18.03.2026*
-*Version: 2.7*
+*Last updated: 20.04.2026*
+*Version: 2.8*

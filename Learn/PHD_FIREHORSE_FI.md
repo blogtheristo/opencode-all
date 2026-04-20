@@ -11,9 +11,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.7
+Version: 2.8
 
 Sessions & Modifications:
+  - Version: 2.8 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-work-EoyoF | Date: 20.04.2026 | Changes: Lisätty osio 14.16 (Huhtikuun 2026 kehitys) — viisi alaosiota: Firehorse Report Engine -tuotantoajastin (PR #1064, cron-pohjainen vaatimustenmukaisuusraporttien lähetys, moduulitason testit, manuaalireitti), Firehorse Product Line V2 -konsolidointi (omnichannel/report/automation/content yhtenäisenä DWS IQ -tuoteperheenä), Firehorse Snap -mittaustulos (mitattu <125 ms tappoviive Firecracker MicroVM:llä korvaa aiemman 122 ms Arctic 15 -spesifikaation), Skills-paradigman soveltaminen operaatioihin (Anthropicin 16.4.2026 essee validoi §14.14; +3 taitoa: /regulatory-radar, /investor-outreach, /multilingual), Ops Manager V0 -ostajalukitus (PRD v0.2 + ICP-validointiskripti) ja perustajan→tiimin siirtymä (SOLO_FOUNDER_STATEMENT v1.2 + Anthony Maurin CTO + /investor-outreach -työnkulku 10+ INTRO-muistiolla); lisätty avainpanokset #19–#21
   - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 18.03.2026 | Changes: Lisätty Liite H (KYA-kumppaniekosysteemi): 5-tasoinen kumppanikartoitus, Shufti IDV -integraatio (L1/L5), Palantir AIP -liitinmalli, BYO-agenttipolitiikka, strategiset ekosysteemikumppanit (NVIDIA, Siemens, ABB, xAI, Mistral), kumppanuusjakelustrategian hypoteesin validointi; lisätty avainpanos #16
   - Version: 2.6 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 16.03.2026 | Changes: Päivitetty osio 15 Tulokset ja pohdinta v2.1–2.5 todisteilla: harness engineering -mittarit (52,8%→66,5%), 13 agentin Pantheon, asiakkaiden MVP-ominaisuudet, PostgreSQL HTAP, A/B-testaus, vaatimustenmukaisuuspäivitykset, SWOT-päivitys; lisätty osio 15.5 A/B-testauksen tulokset; lisätty LUT-yliopiston tekoälytyökalujen käytänteet viitteisiin
   - Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/add-harness-engineering-thesis-2zvZt | Date: 14.03.2026 | Changes: Lisätty osio 14.12 (Harness Engineering ja forensiikkatelemetria): harness-forensiikka-yhteys, oikeudellisesti pätevä harness VERSION AND AGENT HISTORY -lohkon kautta, KYA-standardi laitteistotason harness-todennuksena ohjelmistotason scaffoldingin yli, EU-regulaation eroavaisuus OpenAI:n nopeusoptimoidusta lähestymistavasta; lisätty avainpanos #15
@@ -36,10 +37,10 @@ Sessions & Modifications:
 
 Document Status:
   - Created: 15.01.2026
-  - Last Modified: 14.03.2026
+  - Last Modified: 20.04.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V2.7 — KYA-kumppaniekosysteemi: Shufti IDV, Palantir AIP -liitin, BYO-agenttipolitiikka, 5 strategista kumppania)
+  - Publication Status: DRAFT (V2.8 — Huhtikuun 2026 kehitys: Firehorse Report Engine -ajastin, Product Line V2, <125 ms Snap-mittaustulos, Skills-paradigma validoitu, Ops Manager V0 -ostaja, perustajan→tiimin siirtymä)
 ---
 
 ## Tiivistelmä
@@ -1858,6 +1859,66 @@ Pro gradu (V3Thesis) kasvoi 82 sivuun ja yli 26 000 sanaan tekoälyavusteisen tu
 
 **Avainpanos #18:** Kaksoisversioarkkitehtuuri menetelmällisenä kontribuutiona tekoälyavusteiseen akateemiseen kirjoittamiseen.
 
+### 14.16 Huhtikuun 2026 kehitys: Report Engine tuotannossa, Product Line V2, Snap-mittaustulos ja perustajan→tiimin siirtymä
+
+*Lisätty: 20.04.2026 | Lähde: PR #1064, #1109, #1110; kenttämuistiinpanot 2026-04-06–2026-04-19; Firehorse Snap -mittaustulos (Firecracker MicroVM); SOLO_FOUNDER_STATEMENT v1.2.*
+
+Versioiden 2.7 (18.03.2026) ja 2.8 (20.04.2026) välissä Firehorse eteni dokumentoidusta toimintamallista mitattavaksi tuotantojärjestelmäksi. Viisi operatiivista virstanpylvästä määrittää tämän ikkunan.
+
+#### 14.16.1 Firehorse Report Engine — Tuotantoajastin (PR #1064)
+
+Firehorse Report -moduuli siirtyi spesifikaatiosta ajastettuun tuotantoon. PR #1064 yhdisti raporttiajastimen (`src/firehorse/report-scheduler.ts`), moduulitason testit (`src/__tests__/firehorse-report-module.test.ts`) ja manuaalisen laukaisureitin. Tämä on ensimmäinen Firehorse-moduuli, joka toimittaa cron-pohjaisen asiakastoimituksen, sulkien silmukan toimintamallin (§14.1–14.4) ja asiakasarvon välillä:
+
+| Kyvykkyys             | Toteutus                                                        |
+| --------------------- | --------------------------------------------------------------- |
+| Ajastettu lähetys     | Node-cron -lausekkeet vuokralaista kohti; aikavyöhyketietoinen  |
+| Manuaalinen laukaisu  | REST-reitti ad hoc -raporttigenerointiin                        |
+| Testikattavuus        | Moduulitason testit (ei ylimoduulista vuotoa)                   |
+| Vaatimustenmukaisuus  | CSV/JSON-vienti CSRD/CBAM/ETS-raportointiputkiin                |
+
+**Toimintamallille merkittävyys:** Ajastin on ensimmäinen Firehorse-komponentti, jossa 3-tasoinen laskutussopimus (§2.0 v2.0, Version 2.0) tuottaa toistuvia vaatimustenmukaisuusartefakteja ilman ihmisen väliintuloa. Hypoteesi, että tekoälyavusteinen yhden hengen tiimi voi käyttää monivuokralaista vaatimustenmukaisuustuotetta, on nyt testattavissa todellista ajastettua lähetystä vasten.
+
+#### 14.16.2 Firehorse Product Line V2 — Yhtenäinen DWS IQ -tuoteperhe
+
+Huhtikuussa 2026 neljä Firehorse-moduulia (Omnichannel, Signed Report, Automation, Content Management) konsolidoitiin yhdeksi V2-tuotelinjaksi DWS IQ -tuoteperheen alla. Jokainen moduuli sai V2-nimityksen, oman kuvamateriaalin ja kaupan näkyvyyden. Yhdistetyt committit sisältävät `Firehorse Product Line V2`, `Firehorse Automation V2`, `Firehorse Starter V2 bundle`, `Firehorse Content Management V2`, `Firehorse Signed Report V2`, `Firehorse ReportV2` ja `firehorse-omnichannel-v2.png`. Firehorse Starter V2 -paketti on olemassa sisääntulotason SKU:na.
+
+**Toimintamallille merkittävyys:** V2 kiteyttää Solution Factoryn tuotoksen katalogi-ensin -tuoteperheeksi, jota voidaan ostaa, paketoida ja versioida itsenäisesti — edellytys Ops Manager ICP:lle (ks. §14.16.5).
+
+#### 14.16.3 Firehorse Snap -mittaustulos — <125 ms mitattu tappoviive
+
+Tämän opinnäytetyön aiemmat versiot viittasivat 122 ms:iin Firehorse Snap -tappoviiveen spesifikaationa Arctic 15 -suunnitteludokumenteista. Huhtikuussa 2026 mitattu tappoviive Firecracker MicroVM -infrastruktuurilla kerättiin ja julkaistiin KYA Standard -sivulla (`dws10.com/kya-standard`). Julkinen väite on päivitetty 122 ms:n spesifikaatiosta **<125 ms:ksi mitattu** (Firecracker MicroVM -mittaustulos). KYA-sivu näyttää nyt sekä mitatut että Firecracker-spesifikaatiolukemat, jotta lukijat voivat erottaa spesifikaation mittauksesta.
+
+**Toimintamallille merkittävyys:** Oikeudellisesti pätevät harness-väitteet (§14.12 Harness Engineering ja forensiikkatelemetria) edellyttävät mittausta, eivät spesifikaatiota. Julkisen lukeman päivittäminen spesifikaatiosta mitattuun on ensimmäinen kerta, kun Firehorse-harness-takaus on tuettu toistettavalla mittaustuloksella. Tämä on EU AI Act -artikla 12 -lokien tutkintakelpoisuuden edellytys täytäntöönpanomenettelyissä.
+
+#### 14.16.4 Skills-paradigma sovellettuna operaatioihin — Anthropicin 16.4.2026 validointi
+
+Anthropicin 16.4.2026 essee "Stop Building Agents, Start Building Skills" (kenttämuistiinpano `docs/field-notes/2026-04-16-anthropic-skills-paradigm-stop-building-agents.md`) validoi ulkoisesti §14.14:ssä (Toimialakohtainen vs geneerinen AI-harness) dokumentoidun taito-ensin -arkkitehtuurin. Firehorse-toimintamalli ei ole "agenttikehys, jossa on taitoja" — se on taitokirjasto, joka sattuu kutsumaan agentteja. Kolme uutta tuotantotaitoa julkaistiin tässä ikkunassa:
+
+| Taito                 | Tarkoitus                                                              | Toimintamallirooli                                  |
+| --------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------- |
+| `/regulatory-radar`   | Skannaa EUR-Lex / DG ENER / EFRAG / CINEA tulevan sääntelyn varalta   | Ennakoi vaatimustenmukaisuustuotteiden tiekartan    |
+| `/investor-outreach`  | Luonnostele, triaageaa ja seuraa sijoittajien INTRO-muistioita        | Tekee varainkeruusta toistettavan työnkulun (§14.16.5) |
+| `/multilingual`       | Tuota / auditoi EU-monikielistä sisältöä (FI/SV/DE/FR)                 | Lokalisoi Firehorse-kaupan + onelifetime.worldin    |
+
+Taitoinventaario yhteensä: 24+ tuotantotaitoa 4 estävällä kurinpitoportilla. Hypoteesi, että taidot ovat tuoterajapinta (§14.14 Tutkimusmerkitys), on nyt ulkoisesti vahvistettu nousevaksi toimialan malliksi.
+
+#### 14.16.5 Ops Manager V0 -ostajalukitus + perustajan→tiimin siirtymä
+
+Kaksi toisiinsa liittyvää virstanpylvästä vastaavat toimintamallin "kuka ostaa" ja "kuka rakentaa" -kysymyksiin:
+
+- **Ops Manager V0 -ostajalukitus (PRD v0.2, commit `4e64a089`):** Ensimmäisen dollarin asiakas on lukittu Ops Manager -persoonaan suomalaisten datakeskusoperaattoreiden parissa (hyperskaalaajat + kolokaatio). Validointiskripti on PRD:n liitteenä estääkseen validoimatonta ICP-ajautumista. Tämä tiukentaa silmukkaa osion 14.4 (Urakoitsija-agentin perehdytys) ja Datakeskusten vaatimustenmukaisuusagentin PRD v0.1:n (`docs/DWS_IQ_7_DATACENTRE_COMPLIANCE_AGENT_PRD_v0.1.md`) välillä.
+- **Perustajan→tiimin siirtymä:** `SOLO_FOUNDER_STATEMENT.md` v1.2 lukitsee yksinperustaja-tekoälytiimin kanssa -narratiivin yhden totuuden lähteeksi Series A / SAFE -sijoittajakeskusteluihin. Anthony Maurin astuu CTO-yhteisrakentajaksi tiukennetulla osuussekvensoinnilla Perissichin uudelleenaktivointikatalyytin suhteen. `/investor-outreach` -taito tuottaa 10+ nimettyä INTRO-muistiota 2 viikon ikkunassa (42CAP Wilke, Plug and Play Paris Laouiti, Ingrisano, Perissich, Kefalogiannis, von Euen, Yomutbayev, Zawadzinski) — sijoittajayhteydenpito on nyt DWS IQ -työnkulku, ei hiljaista perustajatietoa.
+
+**Toimintamallille merkittävyys:** Firehorse-toimintamalli selviää perustajasta-tiimiksi-siirtymästä vain, jos jokainen aiemmin hiljainen perustajatoiminta (varainkeruu, ostajavalidointi, kumppanuusyhteydenpito) muuttuu taidoksi. PRD v0.2 (ostajavalidointi) + `/investor-outreach` (sijoittajaputki) ovat kaksi kolmesta jalasta; kumppanuusyhteydenpito (Aiven, Shufti, Kosti Salmi / Salesforce) on vielä koodattava taidoksi seuraavassa ikkunassa.
+
+#### 14.16.6 Tutkimuspanos
+
+**Avainpanos #19 — Report Engine tuotannossa:** Firehorse Report -ajastin (PR #1064) on ensimmäinen Firehorse-moduuli, joka toimittaa cron-pohjaisia asiakastoimituksia moduulitason testeillä ja manuaalisella laukaisureitillä. Tämä sulkee silmukan toimintamallin 3-tasoisen laskutussopimuksen (Versio 2.0) ja toistuvien vaatimustenmukaisuusartefaktien välillä ilman ihmisen väliintuloa, tarjoten ensimmäisen päästä päähän -testin yhden-henkilön-tiimin monivuokralaisen vaatimustenmukaisuushypoteesille.
+
+**Avainpanos #20 — Mitattu harness-takaus (<125 ms Snap):** Firehorse Snap -tappoviive on nyt tuettu toistettavalla Firecracker MicroVM -mittaustuloksella Arctic 15 -spesifikaation sijaan. Tämä on ensimmäinen kerta, kun oikeudellisesti pätevä harness-väite Firehorse-toimintamallissa on mitattu julkaistusti spesifikaation sijaan, ja edellytys EU AI Act -artikla 12 -lokien tutkintakelpoisuudelle täytäntöönpanotilanteissa (§14.12).
+
+**Avainpanos #21 — Perustajan→tiimin siirtymä taitoina:** Ops Manager V0 -ostajalukitus (PRD v0.2 + validointiskripti) ja `/investor-outreach` -taito (10+ INTRO-muistiota luonnosteltu) osoittavat yhdessä, että aiemmin hiljaiset perustajatoiminnat (ICP-validointi, sijoittajaputki) voidaan koodata toistettaviksi DWS IQ -taidoiksi. Tämä laajentaa Firehorse-toimintamallin sisäisestä työkalusta perustajasta-tiimiksi-siirtymämekanismiksi — välttämätön ominaisuus, jos toimintamallin on määrä selvitä yksinperustajavaiheen yli.
+
 ---
 
 ## Liite H: KYA-kumppaniekosysteemi
@@ -1979,7 +2040,12 @@ KYA-kumppaniekosysteemi osoittaa kolme tutkimuslöydöstä:
 1-14. (Katso VERSION AND AGENT HISTORY)
 15. Harness Engineering ja forensiikkatelemetria — Yhdistää OpenAI:n harness engineering -kehyksen Firehorse-forensiikkaoperaatioihin; osoittaa, että EU-reguloidut toimialat vaativat oikeudellisesti pätevää harnessia (VERSION AND AGENT HISTORY, KYA-laitteistotodennus) vs Silicon Valleyn nopeusoptimointi; empiirinen validointi: pelkkä harness-parannus tuottaa 52,8%→66,5% tuloksen (malli muuttumaton); KYA-standardi laitteistotason harness-todennuksena ohjelmistotason scaffoldingin yli
 16. KYA-kumppaniekosysteemi — 5-tasoinen kumppanikartoitus (Shufti IDV L1/L5, Palantir AIP -liitinmalli, BYO-agenttipolitiikka); osoittaa identiteetistä-suoritusaikaan-sillan uutena kategoriana, liitin-ei-kilpailija -positioinnin yritysjakelussa ja kumppanuus-jakelukanavana -hypoteesin yhden henkilön startup-skaalauksessa
+17. Kilpailija-analyysi: Toimialakohtainen vs geneerinen AI-harness — 6-kohtainen erottautumisanalyysi 136-taidon geneerisiin kehyksiin verrattuna; token-budjettiargumentti toimialaspesifisyydelle säännellyillä toimialoilla
+18. Pro gradun kaksoisversioarkkitehtuuri — v3.30.50 jäädytetty 50-sivuinen Metropolia-palautusversio + 82-sivuinen elävä dokumentti; malli tekoälyavusteiseen akateemiseen kirjoittamiseen, jossa tutkimuksen nopeus ylittää oppilaitoksen formaattirajoitukset
+19. Report Engine tuotannossa — Firehorse Report -ajastin (PR #1064) ensimmäisenä cron-pohjaisena asiakastoimituksena; sulkee 3-tasoisen laskutussopimuksen silmukan toistuvilla vaatimustenmukaisuusartefakteilla; ensimmäinen päästä päähän -testi yhden-henkilön-tiimin monivuokralaisesta vaatimustenmukaisuushypoteesista
+20. Mitattu harness-takaus (<125 ms Snap) — Firehorse Snap -tappoviive tuettu Firecracker MicroVM -mittaustuloksella korvaten Arctic 15 -spesifikaation; ensimmäinen oikeudellisesti pätevä harness-väite julkaistulla mittaustuloksella spesifikaation sijaan; edellytys EU AI Act -artikla 12 -lokien tutkintakelpoisuudelle
+21. Perustajan→tiimin siirtymä taitoina — Ops Manager V0 -ostajalukitus (PRD v0.2 + validointiskripti) + `/investor-outreach` -taito (10+ INTRO-muistiota) koodaavat aiemmin hiljaiset perustajatoiminnat toistettaviksi DWS IQ -työnkuluiksi; laajentaa Firehorse-toimintamallin sisäisestä työkalusta perustajasta-tiimiksi-siirtymämekanismiksi
 
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
-*Viimeksi päivitetty: 18.03.2026*
-*Versio: 2.7*
+*Viimeksi päivitetty: 20.04.2026*
+*Versio: 2.8*
