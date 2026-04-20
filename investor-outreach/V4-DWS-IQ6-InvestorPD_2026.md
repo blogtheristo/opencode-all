@@ -981,8 +981,8 @@ Competitive Advantage:
 
 Scenario: Series A at €15M post-money (Q4 2026)
 - €650K SAFE converts at €3.116M (€3.8M cap with 18% discount)
-- **Full round ownership**: €650k / €3.04M = **~21.4% fully diluted**
-- **Value at Series A**: 21.4% x €15M = **€3.2M**
+- **Full round ownership**: €650k / €3.116M = **~20.9% fully diluted**
+- **Value at Series A**: 20.9% x €15M = **€3.135M ≈ €3.1M**
 - **Return**: ~4.8× in 18 months
 
 **Captain Seat Example (€50K)**:
@@ -1042,8 +1042,8 @@ Scenario: Series A at €15M post-money (Q4 2026)
 **SAFE Conversion at €15M Series A (Full €650K Round)**:
 - €650K total at €3.8M cap with 18% discount
 - Converts at €3.116M
-- **Full round ownership**: ~21.4% fully diluted
-- **Full round value**: ~€3.2M
+- **Full round ownership**: ~20.9% fully diluted
+- **Full round value**: ~€3.135M ≈ €3.1M
 - **Return**: ~4.8× in 18 months
 
 ---
@@ -1184,7 +1184,7 @@ Even in "everything goes wrong" scenario:
 - Total Round: **€650,000**
 - Valuation Cap: **€3,800,000**
 - Seat Tiers: Fleet Admiral €200K (1 seat) | Captain €50K (9 seats) | Deputy Captain €5K (unlimited)
-- Discount: ****18%**
+- Discount: **18%**
 - Pro-Rata Rights: Available for €50k+ investors (Captain tier and above)
 
 **Expected Returns by Series A Outcome (€50K Captain Seat Example)**:
