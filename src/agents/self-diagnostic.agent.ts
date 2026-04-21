@@ -479,7 +479,7 @@ Respond as JSON with keys: "summary" (string), "actionPlan" (string[])`,
       info: 4,
     };
 
-    return findings
+    return [...findings]
       .sort((a, b) => severityOrder[a.severity] - severityOrder[b.severity])
       .filter((f) => f.severity !== 'info')
       .slice(0, 10)

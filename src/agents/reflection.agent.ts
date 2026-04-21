@@ -315,21 +315,25 @@ Respond as JSON with keys: "feedback" (string), "specificFixes" (string[])`,
     // Check agent name is set
     if (output.agentName && output.agentName.length > 0) score += 0.1;
 
-    // Check for non-empty result values
+    // Check for non-empty result values (only award bonus when result is non-empty)
     const nonEmptyValues = resultKeys.filter((k) => {
       const v = output.result[k];
       return v !== null && v !== undefined && v !== '';
     }).length;
 
-    if (nonEmptyValues === resultKeys.length) score += 0.1;
+    if (resultKeys.length > 0 && nonEmptyValues === resultKeys.length) {
+      score += 0.1;
+    }
 
     return {
       name: 'result-completeness',
       score: Math.min(1.0, score),
       feedback:
-        score >= 0.7
-          ? `Result contains ${resultKeys.length} fields, all populated`
-          : `Result incomplete - ${resultKeys.length} fields, some may be empty`,
+        resultKeys.length === 0
+          ? 'Result object is empty - agent produced no output data'
+          : score >= 0.7
+            ? `Result contains ${resultKeys.length} fields, all populated`
+            : `Result incomplete - ${resultKeys.length} fields, some may be empty`,
     };
   }
 
