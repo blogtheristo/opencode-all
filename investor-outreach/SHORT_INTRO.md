@@ -15,7 +15,7 @@ I'm Risto Anton, Founder of Lifetime Oy. We build the carbon balance sheet — d
 
 ## Traction + Ask (Paragraph 2)
 
-We're at €7K/month MRR with 100% retention on 5 paying customers. DWS IQ 7 ships the persistent carbon ledger in July 2026. Raising €650K SAFE at €3.8M cap (bridge to Series A). Looking for climate tech investors who understand that carbon compliance is a ledger problem, not a reporting problem.
+We're at €7K/month MRR with 100% retention on 6 paying customers. DWS IQ 7 ships the persistent carbon ledger in July 2026. Raising €650K SAFE at €3.8M cap (bridge to Series A). Looking for climate tech investors who understand that carbon compliance is a ledger problem, not a reporting problem.
 
 ---
 
@@ -33,12 +33,12 @@ We're at €7K/month MRR with 100% retention on 5 paying customers. DWS IQ 7 shi
 **For Angel Investors:**
 > I'm Risto Anton, Founder of Lifetime Oy. We build the carbon balance sheet — double-entry bookkeeping for CO2 across 20 EU-regulated industries. Every tonne tracked like every euro, from ETS surrender through CBAM import to CSRD disclosure.
 >
-> €7K/month MRR, 100% retention, 5 paying customers. Raising €650K SAFE at €3.8M cap (bridge to Series A 2026). The carbon balance sheet ships July 2026. Would love to share our traction if you're interested in climate tech infrastructure.
+> €7K/month MRR, 100% retention, 6 paying customers. Raising €650K SAFE at €3.8M cap (bridge to Series A 2026). The carbon balance sheet ships July 2026. Would love to share our traction if you're interested in climate tech infrastructure.
 
 **For VC Firms:**
 > I'm Risto Anton, Founder of Lifetime Oy. We build carbon balance sheet infrastructure for industrial Europe — double-entry bookkeeping for CO2 across 20 EU-regulated industries. 50,000+ EU companies need a carbon ledger by 2028.
 >
-> €7K MRR, 100% retention, 5 paying customers, 18 AI agents. Raising €650K SAFE at €3.8M cap (bridge to Series A). The persistent carbon ledger ships July 2026. Happy to share our deck and the cross-vertical data thesis if this fits your portfolio.
+> €7K MRR, 100% retention, 6 paying customers, 21 AI agents. Raising €650K SAFE at €3.8M cap (bridge to Series A). The persistent carbon ledger ships July 2026. Happy to share our deck and the cross-vertical data thesis if this fits your portfolio.
 
 **For ESG/CSRD Consulting Partners:**
 > I'm Risto Anton, Founder of Lifetime Oy. We build the carbon balance sheet — automated double-entry bookkeeping that unifies ETS, CBAM, and CSRD into one auditable ledger. Debits and credits, not spreadsheets.
@@ -69,7 +69,7 @@ After initial interest, share:
 Construction and infrastructure portfolios face 40-80 hours of manual Excel work per project for CSRD/Fit for 55 compliance. We automate it – plug into existing SAP/ERP, generate audit-ready reports in 4 weeks.
 
 ### "What's your traction?"
-€7k MRR, 5 paying customers (€70k-€120k annual value each), 100% retention, 2 construction pilots converting in Q1 2026. Target: €900k ARR by end of 2026.
+€7k MRR, 6 paying customers (€70k-€120k annual value each), 100% retention, 2 construction pilots converting in Q1 2026. Target: €900k ARR by end of 2026.
 
 ### "What's the market opportunity?"
 CSRD affects 50,000+ EU companies starting 2025. Fit for 55 and EPBD hit construction hard 2025-2028. 3.5M EU construction firms = forced purchases. This is "mandatory spend" SaaS.
@@ -137,7 +137,7 @@ Regulation is live. Customers have budget. Product works. We have traction. This
 ```
 I'm Risto Anton, Founder of Lifetime Oy. We build the carbon balance sheet — double-entry bookkeeping for CO2 across 20 EU-regulated industries. Every tonne tracked like every euro, from ETS surrender through CBAM import to CSRD disclosure.
 
-EUR 7K/month MRR with 100% retention on 5 paying customers. DWS IQ 7 ships the persistent carbon ledger July 2026. Raising EUR 650K SAFE at EUR 3.8M cap (bridge to Series A). 50,000+ EU companies need a carbon balance sheet by 2028. We're building the infrastructure.
+EUR 7K/month MRR with 100% retention on 6 paying customers. DWS IQ 7 ships the persistent carbon ledger July 2026. Raising EUR 650K SAFE at EUR 3.8M cap (bridge to Series A). 50,000+ EU companies need a carbon balance sheet by 2028. We're building the infrastructure.
 ```
 
 ---

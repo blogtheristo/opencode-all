@@ -38,7 +38,7 @@ AGENT HISTORY:
 
 1. **B2B SaaS thesis match** — ROI Ventures invests specifically in B2B SaaS. DWS IQ is B2B SaaS for EU compliance automation. This is her core thesis, not an adjacent play.
 2. **Ticket size fits** — Up to €100K. Maps directly to Captain seat (€50K) or double Captain. No negotiation on check size needed.
-3. **Pre-seed/early-stage** — She invests without initial revenue requirements. We have €7K MRR and 5 paying customers — we're ahead of her typical entry point. This is a strength.
+3. **Pre-seed/early-stage** — She invests without initial revenue requirements. We have €7K MRR and 6 paying customers — we're ahead of her typical entry point. This is a strength.
 4. **Defence/aerospace in portfolio** — Shield Space and GATE Space are in her portfolio. The Aegis dual-use angle resonates — she already backs companies in this space.
 5. **Austrian Angel Investors Association network** — As former MD of aaia (2020–2023), she has the Austrian angel ecosystem in her rolodex. One investment from Laura can cascade to co-investor intros across the DACH region.
 6. **EU-based, EU-focused** — Vienna. No CLOUD Act concerns. Aligns with our sovereign ownership rule (EU/EEA-domiciled investors).
@@ -60,7 +60,7 @@ AGENT HISTORY:
 
 Hi Laura — I've been following ROI Ventures' B2B SaaS portfolio, strong thesis.
 
-I'm building Lifetime Oy (Finland) — carbon balance sheet for EU companies. 18 AI agents pulling from SAP/IFS/Dynamics, auto-generating compliance reports. EUR 7K MRR, 5 customers, 100% retention. Raising EUR 650K SAFE at EUR 3.8M cap, Captain seats at EUR 50K. V1 launches at Arctic 15 in Helsinki on June 15.
+I'm building Lifetime Oy (Finland) — carbon balance sheet for EU companies. 21 AI agents pulling from SAP/IFS/Dynamics, auto-generating compliance reports. EUR 7K MRR, 5 customers, 100% retention. Raising EUR 650K SAFE at EUR 3.8M cap, Captain seats at EUR 50K. V1 launches at Arctic 15 in Helsinki on June 15.
 
 Happy to send our one-pager if this fits your thesis.
 
@@ -72,15 +72,15 @@ Hi Laura,
 
 Risto Päärni, Lifetime Oy (Espoo, Finland). I'm reaching out because ROI Ventures' B2B SaaS thesis aligns directly with what we're building.
 
-DWS IQ 6 is the carbon balance sheet for EU companies — 18 AI agents that connect to SAP, IFS Cloud, and Dynamics 365, pull operational data, and auto-generate audit-ready compliance reports every quarter. One ledger covering ETS, CBAM, CSRD, and EU Taxonomy. Full audit trail, EU AI Act compliant.
+DWS IQ 6 is the carbon balance sheet for EU companies — 21 AI agents that connect to SAP, IFS Cloud, and Dynamics 365, pull operational data, and auto-generate audit-ready compliance reports every quarter. One ledger covering ETS, CBAM, CSRD, and EU Taxonomy. Full audit trail, EU AI Act compliant.
 
 The numbers:
 
-- EUR 7K MRR, 5 paying customers, 100% retention
+- EUR 7K MRR, 6 paying customers, 100% retention
 - Customer LTV: EUR 70K–120K/year
 - Enterprise pilots at EUR 4,950 convert to EUR 8,950/year
 - Target: EUR 900K ARR by end 2026
-- Platform: 18 AI agents, 32 products, 20 EU-regulated industries
+- Platform: 21 AI agents, 32 products, 20 EU-regulated industries
 
 Raising EUR 650K SAFE at EUR 3.8M cap. Captain seats at EUR 50K — fits your ticket range. The market is 49,000+ EU companies facing mandatory CSRD reporting. This is compliance infrastructure, not optional software.
 

@@ -81,7 +81,7 @@ You come from Nordic corporate finance. You've sat across the table from D&O ins
 
 **Capital Structure:**
 
-- Current: €650K SAFE at €3.8M cap, 20% discount
+- Current: €650K SAFE at €3.8M cap, 18% discount
 - Use of funds: 40% product (€260K), 35% sales (€228K), 15% ops (€98K), 10% buffer (€65K)
 - Runway: 18-24 months to Series A
 - Series A target: €2M-€4M at €15M+ pre-money, Q3-Q4 2026
@@ -151,6 +151,6 @@ Nordic CFOs are different from US CFOs. Sofia knows the difference:
 - `docs/HIL_Emily.md` — People ops persona (team, culture, comp)
 - `docs/HIL_Marcus.md` — CTO persona (architecture, technical moat)
 - `investor-outreach/INVESTOR_MEMO.md` — Full fundraising narrative
-- `investor-outreach/V3-DWS-IQ6-InvestorPD_2026.md` — 20-moat analysis
+- `investor-outreach/V3-DWS-IQ6-InvestorPD_2026.md` — 21-moat analysis
 - `docs/INVESTOR_ROADMAP_2026.md` — Q1-Q4 financial milestones
 - `docs/hiring-plan.md` — 5-role hiring roadmap with budget

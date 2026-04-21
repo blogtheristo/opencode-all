@@ -3,596 +3,564 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise Integrations & Standards | DWS IQ</title>
-    <meta name="description" content="DWS IQ enterprise integrations with SAP, IFS, Dynamics 365, Monitor ERP, Visma, Jeeves, Worldfavor, PositionGreen — and every standard we comply with: EU AI Act, CSRD, CBAM, ISO 27001, SQuaRE, ASPICE.">
-    <meta name="keywords" content="SAP S/4HANA, IFS Cloud, Microsoft Dynamics 365, Monitor ERP, Visma, Jeeves, Worldfavor, PositionGreen, ISO 27001, ASPICE, SQuaRE, OData, MCP, enterprise integration standards">
+    <title>Enterprise Integrations | DWS IQ 6 | Lifetime Oy</title>
+    <meta name="description" content="DWS IQ Enterprise Integrations. Connect Siemens Building X, SAP, IFS, Microsoft Dynamics, ABB Robotics, Aspentech, Worldfavor and PositionGreen to CSRD, EPBD, CBAM, and EU Taxonomy compliance pipelines.">
+    <meta name="keywords" content="enterprise integrations, Siemens Building X, SAP, IFS, Dynamics 365, ABB Robotics, Aspentech, CSRD, EPBD, EU Taxonomy">
     <meta name="author" content="Lifetime Oy">
     <meta name="robots" content="index, follow">
-    <meta property="og:title" content="Enterprise Integrations & Standards | DWS IQ">
-    <meta property="og:description" content="Every integration, every standard, one page. From SAP OData to ASPICE Level 3 — the standards that govern DWS IQ's enterprise connectivity.">
+    <meta property="og:title" content="Enterprise Integrations | DWS IQ 6">
+    <meta property="og:description" content="Seamlessly connect industry-leading platforms to EU compliance pipelines. Siemens Building X, SAP, IFS, ABB, Aspentech, Worldfavor.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://dws10.com/enterprise-integrations/">
     <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png">
     <meta property="og:site_name" content="DWS IQ Platform">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Enterprise Integrations & Standards | DWS IQ">
-    <meta name="twitter:description" content="Every integration, every standard, one page.">
+    <meta name="twitter:title" content="Enterprise Integrations | DWS IQ 6">
+    <meta name="twitter:description" content="Seamlessly connect industry-leading platforms to EU compliance pipelines.">
     <link rel="canonical" href="https://dws10.com/enterprise-integrations/">
     <link rel="icon" type="image/png" href="/DWS_IQ2026.png">
 
-    <!--
-    VERSION AND AGENT HISTORY
-
-    Version: 1.0
-
-    Sessions & Modifications:
-      - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/expand-standards-knowledge-oAULz | Date: 19.04.2026 | Changes: Initial creation — enterprise-integrations page with standards catalogue; triggered by Teemu Vesala advisor engagement; exposes SPICE + SQuaRE + full standards map for customer RFPs
-
-    Document Status:
-      - Created: 19.04.2026
-      - Last Modified: 19.04.2026
-      - Publication Status: Production
-
-    Compliance:
-      - Applicable Regulations: EU AI Act, CSRD, CBAM, ETS, NIS2, GDPR
-      - Standards Referenced: ISO 27001, ISO/IEC 25010 (SQuaRE), Automotive SPICE v4.0, OData v2/v4, MCP, OAuth 2.1, MQTT, OPC-UA
-    -->
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../gamma/ultra-styles.css?v=12">
 
     <style>
-        :root {
-            --primary: #0f172a;
-            --primary-light: #1e3a5f;
-            --secondary: #334155;
-            --accent: #3b82f6;
-            --accent-gold: #fbbf24;
-            --success: #22c55e;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --light: #f8fafc;
-            --dark: #0f172a;
-            --gradient: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1e40af 100%);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', sans-serif;
             line-height: 1.6;
-            color: var(--secondary);
-            background: var(--light);
+            color: #1e293b;
+            background-color: #f8fafc;
+            margin: 0;
+            padding: 0;
         }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-
-        .hero {
-            background: var(--gradient);
+        .page-hero {
+            background: linear-gradient(135deg, #0a1628 0%, #1e3a5f 100%);
             color: white;
-            padding: 160px 0 100px;
+            padding: 80px 20px 60px;
             text-align: center;
         }
 
-        .hero h1 {
-            font-size: clamp(2rem, 5vw, 3.2rem);
+        .page-hero h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
             font-weight: 800;
-            line-height: 1.15;
             margin-bottom: 20px;
+            color: white;
         }
 
-        .hero p.lead {
-            font-size: 1.15rem;
+        .page-hero .subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.85);
             max-width: 820px;
-            margin: 0 auto 30px;
-            color: rgba(255,255,255,0.88);
+            margin: 0 auto 12px;
         }
 
-        .hero .version-badge {
-            display: inline-block;
-            background: var(--accent-gold);
-            color: var(--dark);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
+        .page-hero .meta {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 14px;
+        }
+
+        main.content {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 40px 20px 60px;
+        }
+
+        .section {
+            background: white;
+            padding: 36px 32px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            margin-bottom: 28px;
+        }
+
+        .section h2 {
+            color: #0a1628;
+            font-size: 1.75rem;
             font-weight: 700;
-            margin-bottom: 24px;
-            letter-spacing: 0.04em;
+            margin: 0 0 16px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
         }
 
-        section {
-            padding: 80px 0;
-        }
-
-        section h2 {
-            font-size: clamp(1.6rem, 3.4vw, 2.2rem);
-            color: var(--primary);
-            margin-bottom: 14px;
+        .section h3 {
+            color: #1e3a5f;
+            font-size: 1.25rem;
             font-weight: 700;
+            margin: 24px 0 10px;
         }
 
-        .section-subtitle {
+        .lead {
             font-size: 1.05rem;
-            color: #64748b;
-            margin-bottom: 40px;
-            max-width: 760px;
+            color: #334155;
         }
 
         .integration-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 20px;
+            margin-top: 24px;
         }
 
-        .integration-card {
-            background: white;
+        .integration {
+            background: #f8fafc;
             border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 24px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .integration-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(15,23,42,0.08);
-        }
-
-        .integration-card h3 {
-            color: var(--primary);
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .integration-card .category-tag {
-            display: inline-block;
-            font-size: 0.72rem;
-            font-weight: 600;
-            padding: 3px 10px;
+            border-left: 4px solid #0066cc;
             border-radius: 10px;
-            margin-bottom: 14px;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
+            padding: 22px;
         }
 
-        .tag-erp { background: #dbeafe; color: #1e40af; }
-        .tag-esg { background: #dcfce7; color: #166534; }
-        .tag-edge { background: #fef3c7; color: #92400e; }
-        .tag-identity { background: #f3e8ff; color: #6b21a8; }
-        .tag-data { background: #ffe4e6; color: #9f1239; }
-
-        .integration-card p {
-            font-size: 0.95rem;
-            color: #475569;
-            margin-bottom: 14px;
+        .integration h4 {
+            margin: 0 0 8px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #0a1628;
         }
 
-        .standards-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 14px;
-            padding-top: 14px;
-            border-top: 1px solid #e2e8f0;
-        }
-
-        .standard-chip {
-            background: #f1f5f9;
-            color: #0f172a;
+        .integration .category {
+            display: inline-block;
             font-size: 0.75rem;
             font-weight: 600;
-            padding: 4px 10px;
-            border-radius: 6px;
-            border: 1px solid #cbd5e1;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #0066cc;
+            margin-bottom: 10px;
         }
 
-        .standard-chip.active { background: #dcfce7; color: #166534; border-color: #86efac; }
-        .standard-chip.target { background: #fef3c7; color: #92400e; border-color: #fcd34d; }
-        .standard-chip.ref { background: #e0e7ff; color: #3730a3; border-color: #a5b4fc; }
+        .integration p {
+            color: #475569;
+            font-size: 0.95rem;
+            margin: 0 0 12px;
+        }
 
-        .standards-table-wrap {
-            overflow-x: auto;
-            background: white;
+        .integration ul {
+            margin: 10px 0 0;
+            padding-left: 18px;
+            color: #475569;
+            font-size: 0.9rem;
+        }
+
+        .integration ul li {
+            margin: 4px 0;
+        }
+
+        .integration .status {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 3px 10px;
             border-radius: 12px;
-            border: 1px solid #e2e8f0;
+            font-size: 0.75rem;
+            font-weight: 600;
         }
 
-        table.standards-table {
+        .status.live {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status.design {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status.pilot {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .featured {
+            border-left: 4px solid #009999;
+            background: linear-gradient(135deg, #f0fdfa 0%, #ffffff 100%);
+        }
+
+        .featured .category {
+            color: #009999;
+        }
+
+        .data-flow {
+            background: #0a1628;
+            color: #e2e8f0;
+            padding: 18px 22px;
+            border-radius: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88rem;
+            overflow-x: auto;
+            margin: 18px 0;
+        }
+
+        .data-flow .arrow {
+            color: #fbbf24;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table.mapping {
             width: 100%;
             border-collapse: collapse;
+            margin: 18px 0;
             font-size: 0.92rem;
         }
 
-        table.standards-table caption {
-            caption-side: top;
+        table.mapping th,
+        table.mapping td {
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
             text-align: left;
-            padding: 16px 20px 8px;
-            color: #64748b;
-            font-size: 0.85rem;
+            vertical-align: top;
         }
 
-        table.standards-table th,
-        table.standards-table td {
-            padding: 12px 16px;
-            text-align: left;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        table.standards-table th {
-            background: #f8fafc;
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        table.standards-table tr:last-child td { border-bottom: none; }
-
-        table.standards-table td.status {
-            font-weight: 600;
-            font-size: 0.85rem;
-        }
-
-        .status-active { color: #166534; }
-        .status-target { color: #92400e; }
-        .status-ref { color: #3730a3; }
-
-        .grey-block {
+        table.mapping th {
             background: #f1f5f9;
-        }
-
-        .expertise-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-        }
-
-        .expertise-card {
-            background: white;
-            border-left: 4px solid var(--accent);
-            padding: 20px;
-            border-radius: 0 10px 10px 0;
-        }
-
-        .expertise-card h4 {
-            color: var(--primary);
-            font-size: 1.05rem;
-            margin-bottom: 8px;
-        }
-
-        .expertise-card p {
-            color: #475569;
-            font-size: 0.92rem;
-        }
-
-        .cta-section {
-            background: var(--gradient);
-            color: white;
-            text-align: center;
-            padding: 80px 0;
-        }
-
-        .cta-section h2 { color: white; margin-bottom: 18px; }
-        .cta-section p { color: rgba(255,255,255,0.88); margin-bottom: 28px; max-width: 700px; margin-left: auto; margin-right: auto; }
-
-        .btn {
-            display: inline-block;
-            padding: 14px 28px;
-            border-radius: 8px;
+            color: #0a1628;
             font-weight: 600;
-            text-decoration: none;
-            transition: background 0.15s, transform 0.15s;
-            margin: 6px;
         }
 
-        .btn-primary { background: var(--accent-gold); color: var(--dark); }
-        .btn-primary:hover { background: #f59e0b; transform: translateY(-1px); }
-        .btn-outline { border: 2px solid white; color: white; }
-        .btn-outline:hover { background: white; color: var(--dark); }
+        table.mapping tr:nth-child(even) td {
+            background: #fafbfc;
+        }
+
+        .cta {
+            background: linear-gradient(135deg, #0066cc 0%, #004d99 100%);
+            color: white;
+            padding: 36px 28px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 28px;
+        }
+
+        .cta h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 0 12px;
+        }
+
+        .cta p {
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0 0 18px;
+        }
+
+        .cta a {
+            background: white;
+            color: #0066cc;
+            padding: 12px 26px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .footnote {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-top: 30px;
+            padding: 20px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-
-<section class="hero">
-    <div class="container">
-        <span class="version-badge">v1.0 · 2026-04-19</span>
-        <h1>Enterprise Integrations &amp; Standards</h1>
-        <p class="lead">Every connector. Every standard. One source of truth. DWS IQ is built on published specifications — not black-box proprietary glue — so your audit team can trace every byte of data from the source system to the regulator.</p>
+    <div class="page-hero">
+        <h1>Enterprise Integrations</h1>
+        <p class="subtitle">Seamlessly connect industry-leading platforms. Every integration maps to an EU compliance pipeline &mdash; CSRD, EPBD, CBAM, Taxonomy &mdash; with audit-ready evidence.</p>
+        <p class="meta">Last updated: 20 April 2026 &middot; Version 1.0</p>
     </div>
-</section>
 
-<section>
-    <div class="container">
-        <h2>Integration Catalogue</h2>
-        <p class="section-subtitle">DWS IQ connects to the ERPs, ESG platforms, and edge systems that EU industrial companies already use. Each integration is governed by published protocols, transport standards, and security controls — listed on the card.</p>
-
-        <h3 style="color: var(--primary); margin: 30px 0 18px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.05em;">ERP Connectors</h3>
-
-        <div class="integration-grid">
-
-            <div class="integration-card">
-                <span class="category-tag tag-erp">ERP</span>
-                <h3>SAP S/4HANA</h3>
-                <p>Production order sync, machine data, OEE metrics, maintenance events. 26 integration tests validate authentication and data paths end-to-end.</p>
-                <div class="standards-row">
-                    <span class="standard-chip active">OData v2</span>
-                    <span class="standard-chip active">OData v4</span>
-                    <span class="standard-chip active">OAuth 2.1</span>
-                    <span class="standard-chip target">ISO 27001</span>
-                    <span class="standard-chip active">GDPR</span>
-                    <span class="standard-chip active">NIS2</span>
-                </div>
-            </div>
-
-            <div class="integration-card">
-                <span class="category-tag tag-erp">ERP</span>
-                <h3>IFS Cloud</h3>
-                <p>Finnish and Swedish industrial manufacturers. Asset management, maintenance, and production data aligned to EN 15978 lifecycle stages.</p>
-                <div class="standards-row">
-                    <span class="standard-chip active">REST / OData</span>
-                    <span class="standard-chip active">OAuth 2.1</span>
-                    <span class="standard-chip active">GDPR</span>
-                    <span class="standard-chip active">NIS2</span>
-                    <span class="standard-chip ref">IFS Certified</span>
-                </div>
-            </div>
-
-            <div class="integration-card">
-                <span class="category-tag tag-erp">ERP</span>
-                <h3>Microsoft Dynamics 365</h3>
-                <p>Finance &amp; Operations, Supply Chain, Customer Service. Standard OData v4 with Dataverse for custom entities.</p>
-                <div class="standards-row">
-                    <span class="standard-chip active">OData v4</span>
-                    <span class="standard-chip active">OAuth 2.1</span>
-                    <span class="standard-chip active">GDPR</span>
-                    <span class="standard-chip active">NIS2</span>
-                    <span class="standard-chip ref">Microsoft Partner</span>
-                </div>
-            </div>
-
-            <div class="integration-card">
-                <span class="category-tag tag-erp">ERP</span>
-                <h3>Monitor ERP</h3>
-                <p>Nordic manufacturing mid-market. Custom REST API connector with field mapping for production and inventory data.</p>
-                <div class="standards-row">
-                    <span class="standard-chip active">REST</span>
-                    <span class="standard-chip active">GDPR</span>
-                </div>
-            </div>
-
-            <div class="integration-card">
-                <span class="category-tag tag-erp">ERP</span>
-                <h3>Visma</h3>
-                <p>Common across Nordics and Baltics for SMEs. Financial data and invoice-level emissions tracking.</p>
-                <div class="standards-row">
-                    <span class="standard-chip active">REST</span>
-                    <span class="standard-chip active">OAuth 2.0</span>
-                    <span class="standard-chip active">GDPR</span>
-                </div>
-            </div>
-
-            <div class="integration-card">
-                <span class="category-tag tag-erp">ERP</span>
-                <h3>Jeeves</h3>
-                <p>Swedish manufacturing and distribution. Custom REST connector for production orders and purchase data.</p>
-                <div class="standards-row">
-                    <span class="standard-chip active">REST</span>
-                    <span class="standard-chip active">GDPR</span>
-                </div>
-            </div>
-
+    <main class="content">
+        <div class="section">
+            <h2>Read-and-act, not read-only</h2>
+            <p class="lead">Dashboards tell you what happened. DWS IQ takes the next step: every integration is bidirectional. We ingest telemetry, reason on it with the Lifetime World Model, then write actions back to the source system &mdash; setpoint changes, work orders, purchase requisitions, supplier flags, regulator filings.</p>
+            <p>Integration lifecycle:</p>
+            <ul>
+                <li><strong>Ingest</strong> &mdash; stream or batch pull from the source (Building X API, SAP S/4HANA, Siemens Desigo CC, IFS, Dynamics, MES, IoT).</li>
+                <li><strong>Reason</strong> &mdash; Lifetime World Model evaluates against live EU regulation set (CSRD, EPBD, CBAM, Taxonomy, Fit for 55). DWS IQ agents plan interventions.</li>
+                <li><strong>Act</strong> &mdash; writeback to the source: HVAC setpoint adjustments, maintenance work orders, CBAM supplier questionnaires, automated ESRS datapoint submission, Taxonomy CapEx tagging, renovation-passport triggers.</li>
+                <li><strong>Audit</strong> &mdash; every action recorded with reasoning lineage to Aiwen audit tables (Article 12) and signed with the Aegis provenance chain.</li>
+            </ul>
+            <p>Every integration ships with:</p>
+            <ul>
+                <li><strong>EU-sovereign data path</strong> &mdash; payloads processed in Helsinki (Aiven), Hamina (Google Cloud europe-north1), or Paris/Amsterdam (Scaleway). No US routing in Aegis tier.</li>
+                <li><strong>KYA-gated writeback</strong> &mdash; every action is attested to a verified human operator (Know Your Agent). Leash Snap (TC-4) lets the customer revoke agent write authority instantly.</li>
+                <li><strong>DWS IQ Aegis provenance chain</strong> &mdash; signed report and action output suitable for ESRS assurance providers and regulator audits.</li>
+            </ul>
         </div>
 
-        <h3 style="color: var(--primary); margin: 50px 0 18px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.05em;">ESG &amp; Sustainability Platforms</h3>
+        <div class="section">
+            <h2>Featured: Siemens &mdash; Building Automation to EU Compliance</h2>
+            <p class="lead">Siemens Smart Infrastructure delivers the building operational data. DWS IQ 6 turns it into <strong>action</strong> &mdash; signed, submission-ready CSRD, EPBD, and EU Taxonomy output. One command, 90 seconds. Purpose-built for Nordic real-estate owners, REITs, construction groups, and facility managers navigating CSRD Wave 2 (FY2025 reporting) and the EPBD 2024 recast.</p>
+            <p>We don't ship another dashboard. The data already exists in Building X and Desigo CC. What's missing is the layer that reads it, reasons against live EU regulation, and writes back: the signed CSRD narrative, the EPBD certificate update, the Taxonomy CapEx tag, the renovation-passport work order. That layer is DWS IQ.</p>
 
-        <div class="integration-grid">
-
-            <div class="integration-card">
-                <span class="category-tag tag-esg">ESG</span>
-                <h3>Worldfavor</h3>
-                <p>Supply-chain ESG data aggregation. DWS IQ consumes Worldfavor disclosures and re-maps them to ESRS 82-disclosure registry.</p>
-                <div class="standards-row">
-                    <span class="standard-chip active">ESRS 2023</span>
-                    <span class="standard-chip active">CSRD</span>
-                    <span class="standard-chip active">GDPR</span>
-                    <span class="standard-chip active">REST</span>
-                </div>
+            <div class="integration featured">
+                <span class="category">Featured Partner &middot; Building Automation</span>
+                <h4>Siemens Building X / Desigo CC / Navigator</h4>
+                <p>Ingest live telemetry from Siemens building management platforms. Real energy consumption, HVAC load, indoor air quality, and occupancy data become the source-of-truth layer for CSRD E1 disclosures, EPBD energy performance certificates, and EU Taxonomy alignment percentages.</p>
+                <ul>
+                    <li><strong>Data sources:</strong> Siemens Building X cloud API, Desigo CC BACnet/REST, Navigator energy dashboard exports, Enlighted IoT sensor feeds.</li>
+                    <li><strong>Frequency:</strong> real-time streaming (Building X) or daily batch (Desigo CC on-prem).</li>
+                    <li><strong>Deployment:</strong> edge on NVIDIA Jetson / DGX Spark for air-gapped sites, or EU-sovereign cloud for multi-site portfolios.</li>
+                    <li><strong>Target customer:</strong> Nordic real estate owners (Fabege, Atrium Ljungberg, Castellum, Citycon tier), construction groups (YIT, SRV, NCC), and facility service providers under CSRD Wave 2.</li>
+                </ul>
+                <span class="status design">Design Partner &middot; Q2 2026 pilot</span>
             </div>
 
-            <div class="integration-card">
-                <span class="category-tag tag-esg">ESG</span>
-                <h3>PositionGreen</h3>
-                <p>Nordic ESG management platform. Bidirectional sync — DWS IQ calculations feed back into customer ESG dashboards.</p>
-                <div class="standards-row">
-                    <span class="standard-chip active">ESRS 2023</span>
-                    <span class="standard-chip active">CSRD</span>
-                    <span class="standard-chip active">GDPR</span>
-                    <span class="standard-chip active">REST</span>
-                </div>
+            <h3>Data flow</h3>
+            <div class="data-flow">
+Siemens Building X API <span class="arrow">&rarr;</span> DWS IQ ingest adapter (EU edge)
+<span class="arrow">&rarr;</span> Lifetime World Model (EU regulatory engine)
+<span class="arrow">&rarr;</span> Firehorse ESG Report (CSRD E1 + EPBD + Taxonomy)
+<span class="arrow">&rarr;</span> Aegis signed output + Aiwen audit log
             </div>
 
-            <div class="integration-card">
-                <span class="category-tag tag-esg">Carbon</span>
-                <h3>EC3 (Building Transparency)</h3>
-                <p>Embodied carbon library for construction. EN 15978 stage A1–A3 emission factors for 60,000+ products.</p>
-                <div class="standards-row">
-                    <span class="standard-chip active">EN 15978</span>
-                    <span class="standard-chip active">GHG Protocol</span>
-                    <span class="standard-chip active">REST</span>
-                </div>
-            </div>
-
-        </div>
-
-        <h3 style="color: var(--primary); margin: 50px 0 18px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.05em;">Edge, Identity &amp; Data</h3>
-
-        <div class="integration-grid">
-
-            <div class="integration-card">
-                <span class="category-tag tag-edge">Edge</span>
-                <h3>Lifetime Fleet (Jetson + Acer)</h3>
-                <p>Industrial IoT: PLCs, sensors, edge AI. Roadmap targets ASPICE Level 2 by Phase 5 (2027) and Level 3 by Phase 6 for Tier-1 OEM supply chain entry.</p>
-                <div class="standards-row">
-                    <span class="standard-chip active">MQTT v5</span>
-                    <span class="standard-chip active">OPC-UA (IEC 62541)</span>
-                    <span class="standard-chip active">Modbus TCP</span>
-                    <span class="standard-chip target">ASPICE v4.0</span>
-                    <span class="standard-chip target">ISO 27001</span>
-                </div>
-            </div>
-
-            <div class="integration-card">
-                <span class="category-tag tag-edge">Edge</span>
-                <h3>Aegis (Surveillance)</h3>
-                <p>Infrastructure surveillance with on-device AI. EU AI Act Article 10 (data governance) and NIS2 operational controls.</p>
-                <div class="standards-row">
-                    <span class="standard-chip active">MQTT v5</span>
-                    <span class="standard-chip active">REST</span>
-                    <span class="standard-chip active">NIS2</span>
-                    <span class="standard-chip active">EU AI Act Art. 10</span>
-                    <span class="standard-chip active">GDPR</span>
-                </div>
-            </div>
-
-            <div class="integration-card">
-                <span class="category-tag tag-identity">Identity</span>
-                <h3>DocuSign eSignature</h3>
-                <p>NDA, contract, and partner agreement workflows. eIDAS-compliant qualified electronic signatures.</p>
-                <div class="standards-row">
-                    <span class="standard-chip active">REST</span>
-                    <span class="standard-chip active">OAuth 2.0</span>
-                    <span class="standard-chip active">eIDAS (Reg. 910/2014)</span>
-                    <span class="standard-chip active">GDPR</span>
-                </div>
-            </div>
-
-            <div class="integration-card">
-                <span class="category-tag tag-data">Space Data</span>
-                <h3>ICEYE</h3>
-                <p>Finnish satellite SAR imagery for infrastructure monitoring and disaster response. Pairs with Aegis for ground-truth validation.</p>
-                <div class="standards-row">
-                    <span class="standard-chip active">REST</span>
-                    <span class="standard-chip active">GDPR</span>
-                    <span class="standard-chip ref">EU Space Data Policy</span>
-                </div>
-            </div>
-
-            <div class="integration-card">
-                <span class="category-tag tag-identity">Trust</span>
-                <h3>KYA (Know Your Agent)</h3>
-                <p>Runtime trust scoring for agentic AI. SQuaRE (ISO/IEC 25010) quality model applied to agent behaviour. EU AI Act Article 12 reasoning-lineage logging enforced.</p>
-                <div class="standards-row">
-                    <span class="standard-chip active">MCP (JSON-RPC 2.0)</span>
-                    <span class="standard-chip target">ISO/IEC 25010 SQuaRE</span>
-                    <span class="standard-chip active">EU AI Act Art. 12</span>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<section class="grey-block">
-    <div class="container">
-        <h2>Standards We Comply With</h2>
-        <p class="section-subtitle">A complete registry of the specifications, regulations, and protocols that govern every DWS IQ integration. <strong>Active</strong> = production-ready and auditable today. <strong>Target</strong> = on roadmap with scheduled assessment. <strong>Reference</strong> = informing design, not claimed conformance.</p>
-
-        <div class="standards-table-wrap">
-            <table class="standards-table">
-                <caption>Source: DWS_STANDARDS_LIBRARY.md (repository source of truth). Standards map reviewed quarterly.</caption>
+            <h3>Compliance mapping</h3>
+            <div class="table-wrap">
+            <table class="mapping">
                 <thead>
                     <tr>
-                        <th scope="col">Category</th>
-                        <th scope="col">Standard</th>
-                        <th scope="col">Version</th>
-                        <th scope="col">Applied To</th>
-                        <th scope="col">Status</th>
+                        <th>Siemens data</th>
+                        <th>Regulatory output</th>
+                        <th>Evidence type</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td rowspan="6">Regulatory (EU)</td><td>EU AI Act</td><td>Reg. 2024/1689</td><td>Agent platform, KYA, Article 12 logging</td><td class="status status-active">Active</td></tr>
-                    <tr><td>CBAM</td><td>Reg. 2023/956</td><td>Import compliance calculator</td><td class="status status-active">Active</td></tr>
-                    <tr><td>EU ETS</td><td>Dir. 2003/87/EC (amend. 2023/959)</td><td>Emissions cost projection</td><td class="status status-active">Active</td></tr>
-                    <tr><td>CSRD</td><td>Dir. 2022/2464</td><td>ESG report extraction + scoring</td><td class="status status-active">Active</td></tr>
-                    <tr><td>NIS2</td><td>Dir. 2022/2555</td><td>Sovereign Database, incident response</td><td class="status status-active">Active</td></tr>
-                    <tr><td>GDPR</td><td>Reg. 2016/679</td><td>All data handling, DPA template</td><td class="status status-active">Active</td></tr>
-
-                    <tr><td rowspan="4">Process &amp; Quality</td><td>Automotive SPICE</td><td>v4.0 (2023)</td><td>Lifetime Fleet roadmap — OEM procurement gate</td><td class="status status-target">Target 2027</td></tr>
-                    <tr><td>ISO/IEC 33000 series</td><td>33002:2015</td><td>Process capability assessment framework</td><td class="status status-ref">Reference</td></tr>
-                    <tr><td>ISO/IEC 25010 (SQuaRE)</td><td>25010:2023</td><td>Agent trust scoring, KYA metrics, audit reports</td><td class="status status-target">Target 2026 Q4</td></tr>
-                    <tr><td>ISO 9001</td><td>9001:2015</td><td>Operational quality management (DWS IQ 7)</td><td class="status status-ref">Considered</td></tr>
-
-                    <tr><td rowspan="3">Security &amp; Governance</td><td>ISO/IEC 27001</td><td>27001:2022</td><td>Platform-wide ISMS — Phase 6 certification</td><td class="status status-target">Target 2027</td></tr>
-                    <tr><td>SOC 2 Type II</td><td>AICPA TSC 2017</td><td>Platform attestation</td><td class="status status-target">Target 2027 Q4</td></tr>
-                    <tr><td>NIST CSF</td><td>CSF 2.0 (2024)</td><td>Control framework mapping</td><td class="status status-ref">Reference</td></tr>
-
-                    <tr><td rowspan="7">Protocol &amp; Interop</td><td>OData</td><td>v2 + v4</td><td>SAP, IFS, Dynamics connectors</td><td class="status status-active">Active</td></tr>
-                    <tr><td>MCP (Model Context Protocol)</td><td>2024-11-05 spec</td><td>Agent discovery, `/mcp` endpoint</td><td class="status status-active">Active</td></tr>
-                    <tr><td>JSON-RPC</td><td>2.0</td><td>MCP transport</td><td class="status status-active">Active</td></tr>
-                    <tr><td>OPC-UA</td><td>IEC 62541</td><td>Industrial equipment ingestion</td><td class="status status-active">Active</td></tr>
-                    <tr><td>MQTT</td><td>v5.0</td><td>Sensor data on Jetson edge</td><td class="status status-active">Active</td></tr>
-                    <tr><td>OAuth 2.1</td><td>draft-ietf-oauth-v2-1</td><td>Authentication across all integrations</td><td class="status status-active">Active</td></tr>
-                    <tr><td>eIDAS</td><td>Reg. 910/2014</td><td>DocuSign qualified signatures</td><td class="status status-active">Active</td></tr>
-
-                    <tr><td rowspan="3">Reporting &amp; Disclosure</td><td>ESRS (EFRAG)</td><td>2023 final set</td><td>82 disclosures mapped; ESG reports</td><td class="status status-active">Active</td></tr>
-                    <tr><td>GHG Protocol</td><td>Corporate Standard (revised)</td><td>Scope 1/2/3 accounting for Firehorse</td><td class="status status-active">Active</td></tr>
-                    <tr><td>IPCC 2006 + 2019 Refinement</td><td>2019</td><td>Emission-factor fallback source</td><td class="status status-active">Active</td></tr>
-
+                    <tr>
+                        <td>Metered electricity, district heat, gas consumption (per asset)</td>
+                        <td>CSRD ESRS E1-5 (energy consumption), E1-6 (GHG Scope 1 &amp; 2)</td>
+                        <td>Metered kWh with timestamp + EU ETS-grade emission factor</td>
+                    </tr>
+                    <tr>
+                        <td>Building performance indicators, HVAC runtime, envelope losses</td>
+                        <td>EPBD 2024 recast &mdash; energy class, renovation passport</td>
+                        <td>Annual primary energy kWh/m<sup>2</sup>, compared to national reference</td>
+                    </tr>
+                    <tr>
+                        <td>Asset register, certifications (BREEAM, LEED, DGNB), renovation history</td>
+                        <td>EU Taxonomy &mdash; Substantial Contribution &amp; DNSH criteria (construction &amp; real estate activities 7.1&ndash;7.7)</td>
+                        <td>Per-asset Taxonomy-aligned revenue / CapEx / OpEx percentages</td>
+                    </tr>
+                    <tr>
+                        <td>Occupancy sensors, indoor CO<sub>2</sub>, PM2.5, thermal comfort</td>
+                        <td>ESRS S1 (own workforce) + EPBD indoor environmental quality</td>
+                        <td>IEQ compliance evidence for office portfolios</td>
+                    </tr>
                 </tbody>
             </table>
+            </div>
+
+            <p style="font-size: 0.88rem; color: #64748b;"><em>Partnership status: design partner conversations in progress with SI Building Nordics (Siemens Smart Infrastructure, Nordic unit). Pilot scope: 3&ndash;5 Nordic building portfolios, FY2025 CSRD cycle.</em></p>
         </div>
-    </div>
-</section>
 
-<section>
-    <div class="container">
-        <h2>Expertise Behind the Standards</h2>
-        <p class="section-subtitle">Standards only matter if the team behind them has delivered against them in production. DWS IQ is built by engineers with a track record of protocol implementations, standard-conformance testing, and regulatory audits.</p>
+        <div class="section">
+            <h2>All integrations</h2>
+            <p>DWS IQ's integration layer is modular: each adapter is a typed connector in <code>src/integrations/</code> with its own CSRD / CBAM / Taxonomy mapping module.</p>
 
-        <div class="expertise-grid">
-
-            <div class="expertise-card">
-                <h4>Protocol Implementation</h4>
-                <p>Standard-conformant implementations of OData, MCP, OPC-UA, MQTT. Every connector has an integration test suite proving wire-level conformance.</p>
+            <h3 id="erp">ERP &amp; Financial Systems</h3>
+            <div class="integration-grid">
+                <div class="integration">
+                    <span class="category">ERP Integration</span>
+                    <h4>SAP S/4HANA</h4>
+                    <p>Material master, procurement, emissions accounting, Scope 3 purchased goods. Bidirectional sync via SAP Green Ledger APIs.</p>
+                    <span class="status live">Live</span>
+                </div>
+                <div class="integration">
+                    <span class="category">ERP Integration</span>
+                    <h4>IFS Cloud</h4>
+                    <p>Industrial asset management, work orders, spare parts, maintenance emissions. Nordic industrial customers.</p>
+                    <span class="status live">Live</span>
+                </div>
+                <div class="integration">
+                    <span class="category">ERP Integration</span>
+                    <h4>Microsoft Dynamics 365</h4>
+                    <p>Finance &amp; Operations, Business Central, Supply Chain. Sustainability Manager bidirectional sync.</p>
+                    <span class="status live">Live</span>
+                </div>
+                <div class="integration">
+                    <span class="category">ERP Integration</span>
+                    <h4>Monitor ERP</h4>
+                    <p>Nordic manufacturing ERP. Production order emissions, material flows, scrap accounting.</p>
+                    <span class="status live">Live</span>
+                </div>
+                <div class="integration">
+                    <span class="category">ERP Integration</span>
+                    <h4>Visma</h4>
+                    <p>Nordic SMB financial data, purchase ledger, supplier spend &rarr; Scope 3 spend-based emissions.</p>
+                    <span class="status live">Live</span>
+                </div>
+                <div class="integration">
+                    <span class="category">ERP Integration</span>
+                    <h4>Jeeves ERP</h4>
+                    <p>Nordic discrete manufacturing, BOM-level embodied carbon aggregation.</p>
+                    <span class="status pilot">Pilot</span>
+                </div>
             </div>
 
-            <div class="expertise-card">
-                <h4>Standard-Conformance Testing</h4>
-                <p>SAP S/4HANA connector validated with 26 integration tests covering OData v2/v4, authentication, production orders, machine data, OEE, and maintenance events.</p>
+            <h3 id="industrial">Building Automation &amp; Industrial Control</h3>
+            <div class="integration-grid">
+                <div class="integration featured">
+                    <span class="category">Building Automation</span>
+                    <h4>Siemens Building X / Desigo CC</h4>
+                    <p>Building management &amp; energy telemetry &rarr; CSRD E1, EPBD, Taxonomy. See featured section above.</p>
+                    <span class="status design">Design Partner</span>
+                </div>
+                <div class="integration">
+                    <span class="category">Robotics &amp; Automation</span>
+                    <h4>ABB Robotics</h4>
+                    <p>Industrial robotics control &amp; manufacturing execution data. Scope 1 &amp; 2 emissions per cell.</p>
+                    <span class="status pilot">Pilot</span>
+                </div>
+                <div class="integration">
+                    <span class="category">Process Engineering</span>
+                    <h4>AspenTech</h4>
+                    <p>Process optimization &amp; asset performance. Refinery, petrochemicals, chemicals emission intensity.</p>
+                    <span class="status pilot">Pilot</span>
+                </div>
             </div>
 
-            <div class="expertise-card">
-                <h4>Security &amp; Regulatory Audit</h4>
-                <p>Security controls aligned to ISO 27001 Annex A. Regulatory obligations mapped to EU AI Act Art. 12, CSRD, CBAM, ETS, NIS2, and GDPR — with audit-ready reasoning-lineage evidence.</p>
+            <h3 id="esg">ESG Reporting &amp; Disclosure</h3>
+            <div class="integration-grid">
+                <div class="integration">
+                    <span class="category">ESG Platform</span>
+                    <h4>Worldfavor</h4>
+                    <p>Supplier sustainability data exchange. DWS IQ pulls supplier Scope 3 disclosures into ESRS E1-7 upstream reporting.</p>
+                    <span class="status live">Live</span>
+                </div>
+                <div class="integration">
+                    <span class="category">ESG Platform</span>
+                    <h4>Position Green</h4>
+                    <p>Nordic ESG data collection. Bidirectional sync of CSRD datapoints across EFRAG ESRS 2023 final set.</p>
+                    <span class="status live">Live</span>
+                </div>
             </div>
 
-            <div class="expertise-card">
-                <h4>Documentation Discipline</h4>
-                <p>DWS Document Standard enforces versioning, session traceability, and Introduced-In PR linkage on every substantive file. Auditors get a reproducible chain of custody.</p>
-            </div>
-
-            <div class="expertise-card">
-                <h4>Process Maturity Roadmap</h4>
-                <p>Automotive SPICE v4.0 gap analysis scheduled for Phase 3 (2026). Level 2 readiness by Phase 5. Level 3 external assessment Phase 6 — positioning Lifetime Fleet for Tier-1 OEM supply chains.</p>
-            </div>
-
-            <div class="expertise-card">
-                <h4>Quality Model (SQuaRE)</h4>
-                <p>ISO/IEC 25010:2023 quality model applied to agent behaviour through KYA trust scoring. Functional suitability, reliability, security, maintainability — measured, not asserted.</p>
-            </div>
-
+            <p style="font-size: 0.88rem; color: #64748b; margin-top: 18px;">
+                <strong>Status legend:</strong>
+                <span class="status live" style="margin: 0 6px;">Live</span> production deployment &middot;
+                <span class="status pilot" style="margin: 0 6px;">Pilot</span> paying pilot customers &middot;
+                <span class="status design" style="margin: 0 6px;">Design Partner</span> architecture &amp; scope agreed, pilot Q2&ndash;Q3 2026
+            </p>
         </div>
-    </div>
-</section>
 
-<section class="cta-section">
-    <div class="container">
-        <h2>Need evidence for your RFP?</h2>
-        <p>If your procurement team needs a specific standard or integration documented for an RFP response, audit, or internal risk review — we ship evidence packs, not slide decks.</p>
-        <a href="mailto:sales@lifetime.fi?subject=Enterprise%20Integrations%20%26%20Standards%20Evidence%20Request" class="btn btn-primary">Request Evidence Pack</a>
-        <a href="/products/dwsiq.html" class="btn btn-outline">DWS IQ Platform</a>
-    </div>
-</section>
+        <div class="section" id="standards">
+            <h2>Standards we comply with</h2>
+            <p class="lead">Every integration is governed by published specifications &mdash; not black-box proprietary glue. Your audit team can trace every byte from the source system to the regulator.</p>
+            <p style="font-size: 0.92rem; color: #64748b; margin: 12px 0 18px;">Legend: <strong style="color: #166534;">Active</strong> = production-ready and auditable today &middot; <strong style="color: #92400e;">Target</strong> = on roadmap with scheduled assessment &middot; <strong style="color: #3730a3;">Reference</strong> = informing design, not claimed conformance. Source of truth: <code>DWS_STANDARDS_LIBRARY.md</code>.</p>
 
-<script src="/shared-assets/nav/ironclad-nav.js"></script>
+            <div class="table-wrap">
+            <table class="mapping">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Standard</th>
+                        <th>Version</th>
+                        <th>Applied to</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td rowspan="6"><strong>Regulatory (EU)</strong></td><td>EU AI Act</td><td>Reg. 2024/1689</td><td>Agent platform, KYA, Article 12 reasoning lineage</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                    <tr><td>CBAM</td><td>Reg. 2023/956</td><td>Import compliance calculator</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                    <tr><td>EU ETS</td><td>Dir. 2003/87/EC (amend. 2023/959)</td><td>Emissions cost projection, benchmark factors 2021&ndash;2025</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                    <tr><td>CSRD / ESRS</td><td>Dir. 2022/2464 &middot; ESRS 2023</td><td>82 disclosures mapped, ESG report extraction</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                    <tr><td>NIS2</td><td>Dir. 2022/2555</td><td>Sovereign Database, incident response</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                    <tr><td>GDPR</td><td>Reg. 2016/679</td><td>All data handling, DPA (Art. 28), EU residency</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+
+                    <tr><td rowspan="4"><strong>Process &amp; Quality</strong></td><td>Automotive SPICE (ASPICE)</td><td>v4.0 (2023)</td><td>Lifetime Fleet &mdash; Tier-1 OEM procurement gate</td><td style="color: #92400e; font-weight: 600;">Target 2027</td></tr>
+                    <tr><td>ISO/IEC 33000 series (SPICE)</td><td>33002:2015</td><td>Process capability assessment framework</td><td style="color: #3730a3; font-weight: 600;">Reference</td></tr>
+                    <tr><td>ISO/IEC 25010 (SQuaRE)</td><td>25010:2023</td><td>Agent trust scoring, KYA metrics, audit reports</td><td style="color: #92400e; font-weight: 600;">Target 2026 Q4</td></tr>
+                    <tr><td>ISO 9001</td><td>9001:2015</td><td>Operational quality management (DWS IQ 7)</td><td style="color: #3730a3; font-weight: 600;">Considered</td></tr>
+
+                    <tr><td rowspan="3"><strong>Security &amp; Governance</strong></td><td>ISO/IEC 27001</td><td>27001:2022</td><td>Platform-wide ISMS &mdash; Phase 6 certification</td><td style="color: #92400e; font-weight: 600;">Target 2027</td></tr>
+                    <tr><td>SOC 2 Type II</td><td>AICPA TSC 2017</td><td>Platform attestation</td><td style="color: #92400e; font-weight: 600;">Target 2027 Q4</td></tr>
+                    <tr><td>NIST CSF</td><td>CSF 2.0 (2024)</td><td>Control framework mapping</td><td style="color: #3730a3; font-weight: 600;">Reference</td></tr>
+
+                    <tr><td rowspan="7"><strong>Protocol &amp; Interop</strong></td><td>OData</td><td>v2 + v4</td><td>SAP, IFS, Dynamics connectors</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                    <tr><td>MCP (Model Context Protocol)</td><td>2024-11-05 spec</td><td>Agent discovery, <code>/mcp</code> endpoint</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                    <tr><td>JSON-RPC</td><td>2.0</td><td>MCP transport</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                    <tr><td>OPC-UA</td><td>IEC 62541</td><td>Industrial equipment ingestion (PLC, SCADA)</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                    <tr><td>MQTT</td><td>v5.0 (OASIS)</td><td>Sensor data on Jetson / DGX Spark edge</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                    <tr><td>OAuth 2.1</td><td>draft-ietf-oauth-v2-1</td><td>Authentication across all integrations</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                    <tr><td>eIDAS</td><td>Reg. 910/2014</td><td>DocuSign qualified electronic signatures</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+
+                    <tr><td rowspan="3"><strong>Reporting &amp; Disclosure</strong></td><td>ESRS (EFRAG)</td><td>2023 final set</td><td>82 disclosures mapped; ESG reports</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                    <tr><td>GHG Protocol</td><td>Corporate Standard (revised)</td><td>Scope 1/2/3 accounting for Firehorse</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                    <tr><td>IPCC 2006 + 2019 Refinement</td><td>2019</td><td>Emission-factor fallback source</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+
+        <div class="section" id="expertise">
+            <h2>Expertise behind the standards</h2>
+            <p class="lead">Standards only matter if the team behind them has delivered against them in production. DWS IQ is built by engineers with a track record of protocol implementations, standard-conformance testing, and regulatory audits.</p>
+
+            <div class="integration-grid">
+                <div class="integration">
+                    <span class="category">Protocol</span>
+                    <h4>Protocol implementation</h4>
+                    <p>Standard-conformant implementations of OData v2/v4, MCP, OPC-UA, MQTT v5. Each connector has an integration test suite proving wire-level conformance &mdash; 26 tests validate the SAP S/4HANA OData paths alone.</p>
+                </div>
+                <div class="integration">
+                    <span class="category">Testing</span>
+                    <h4>Standard-conformance testing</h4>
+                    <p>Connectors validated end-to-end: authentication, production orders, machine data, OEE, maintenance events. Concurrent load testing enforces p95 &lt;2s, error rate &lt;5%.</p>
+                </div>
+                <div class="integration">
+                    <span class="category">Audit</span>
+                    <h4>Security &amp; regulatory audit</h4>
+                    <p>Controls aligned to ISO 27001 Annex A. Regulatory obligations mapped to EU AI Act Art. 12, CSRD, CBAM, ETS, NIS2, GDPR &mdash; with audit-ready reasoning-lineage evidence signed through the Aegis provenance chain.</p>
+                </div>
+                <div class="integration">
+                    <span class="category">Documentation</span>
+                    <h4>Documentation discipline</h4>
+                    <p>DWS Document Standard enforces versioning, session traceability, and <code>Introduced-In: PR</code> linkage on every substantive file. Auditors get a reproducible chain of custody, not a pile of PDFs.</p>
+                </div>
+                <div class="integration">
+                    <span class="category">Process Maturity</span>
+                    <h4>ASPICE roadmap (Fleet)</h4>
+                    <p>Automotive SPICE v4.0 gap analysis scheduled Phase 3 (Aug&ndash;Oct 2026). Level 2 readiness Phase 5. Level 3 external assessment Phase 6 &mdash; positioning Lifetime Fleet for Tier-1 OEM supply chain entry (Bosch, Continental, Volvo, Scania).</p>
+                </div>
+                <div class="integration">
+                    <span class="category">Quality Model</span>
+                    <h4>SQuaRE quality metrics</h4>
+                    <p>ISO/IEC 25010:2023 quality model applied to agent behaviour through KYA trust scoring &mdash; functional suitability, reliability, security, maintainability. Measured, not asserted.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Custom integrations</h2>
+            <p>If your system isn't listed, we build typed adapters in ~4&ndash;6 weeks for:</p>
+            <ul>
+                <li>MES / SCADA (Wonderware, Ignition, PI System, GE Proficy)</li>
+                <li>IoT platforms (AWS IoT Core, Azure IoT Hub, ThingsBoard)</li>
+                <li>Metering and submetering systems (Siemens Sentron, ABB Ability, Schneider PowerLogic)</li>
+                <li>BIM / Digital twin (Autodesk Construction Cloud, Bentley iTwin, Trimble Connect)</li>
+                <li>Accounting / financial (NetSuite, Oracle Fusion, Xero, Procountor)</li>
+                <li>Custom REST / GraphQL / OPC UA / MQTT / Modbus endpoints</li>
+            </ul>
+            <p>Connector contract:</p>
+            <ul>
+                <li><strong>Data residency:</strong> EU-only processing, customer chooses Helsinki / Hamina / Paris / Amsterdam.</li>
+                <li><strong>Security baseline:</strong> ISO 27001-aligned controls, DPA (GDPR Art. 28), optional customer-managed keys.</li>
+                <li><strong>Delivery:</strong> adapter code in customer repo (work-for-hire) or hosted on DWS IQ Sovereign Infra.</li>
+            </ul>
+        </div>
+
+        <div class="cta">
+            <h3>Ready to connect your enterprise stack?</h3>
+            <p>Book a 30-minute integration discovery call. We'll scope the connector, data flow, and compliance mapping in under an hour.</p>
+            <a href="https://calendar.app.google/5Kh3k9uhJtt6F3Mu9">Schedule Discovery Call</a>
+        </div>
+
+        <p class="footnote">
+            See also: <a href="/partners/">Partner Ecosystem</a> &middot; <a href="/compliance/">Compliance</a> &middot; <a href="/architecture/">Architecture</a> &middot; Contact: <a href="mailto:risto@onelifetime.world">risto@onelifetime.world</a>
+        </p>
+    </main>
+
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
 </body>
 </html>

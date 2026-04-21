@@ -56,7 +56,7 @@ AGENT HISTORY:
 
 Hi Marcel — your EBAN and Sophia Business Angels work caught my eye. 35 years of enterprise IT is exactly the lens I'd value on this.
 
-Lifetime Oy (Finland) — carbon balance sheet for EU companies. 18 AI agents connecting to SAP/IFS/Dynamics, auto-generating compliance reports. EUR 7K MRR, 5 customers, 100% retention. Raising EUR 650K SAFE at EUR 3.8M cap. V1 launches at Arctic 15 in Helsinki on June 15.
+Lifetime Oy (Finland) — carbon balance sheet for EU companies. 21 AI agents connecting to SAP/IFS/Dynamics, auto-generating compliance reports. EUR 7K MRR, 5 customers, 100% retention. Raising EUR 650K SAFE at EUR 3.8M cap. V1 launches at Arctic 15 in Helsinki on June 15.
 
 I think your EBAN network would know exactly who should see this. One-pager attached.
 

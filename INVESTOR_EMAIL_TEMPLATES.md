@@ -182,7 +182,7 @@ Lifetime Oy
 | **Deputy Captain**   | EUR 5,000   | Unlimited | Quarterly briefings, upgrade path                      |
 
 - **Valuation cap:** EUR 3.8M
-- **Instrument:** SAFE with 20% discount
+- **Instrument:** SAFE with 18% discount
 
 ### Team
 

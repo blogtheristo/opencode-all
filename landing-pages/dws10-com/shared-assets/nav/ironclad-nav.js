@@ -236,6 +236,26 @@
                     </ul>
                 </li>
 
+                <!-- Integrations ▾ -->
+                <li class="ironclad-menu-item">
+                    <a href="#" class="ironclad-link">Integrations ▾</a>
+                    <ul class="ironclad-dropdown">
+                        <li><a href="${basePath}enterprise-integrations/" class="ironclad-primary">All Enterprise Integrations</a></li>
+                        <li class="ironclad-separator"></li>
+                        <li><a href="${basePath}enterprise-integrations/siemens/" class="ironclad-primary">Siemens — Building Automation</a></li>
+                        <li><a href="${basePath}enterprise-integrations/#erp">ERP (SAP, IFS, Dynamics, Monitor, Visma, Jeeves)</a></li>
+                        <li><a href="${basePath}enterprise-integrations/#industrial">Industrial Control (ABB, AspenTech)</a></li>
+                        <li><a href="${basePath}enterprise-integrations/#esg">ESG Platforms (Worldfavor, Position Green)</a></li>
+                        <li class="ironclad-separator"></li>
+                        <li><a href="${basePath}products/synthetic-data/" class="ironclad-primary">Synthetic Data Solutions</a></li>
+                        <li class="ironclad-separator"></li>
+                        <li><a href="${basePath}partners/">Partner Program</a></li>
+                        <li><a href="${basePath}aegis-partners/">Aegis Partners (Tier 1)</a></li>
+                        <li><a href="${basePath}sovereign-infra-partners/">Sovereign Infra Partners (Tier 2)</a></li>
+                        <li><a href="${basePath}connect-partners/">Connect Partners (Tier 3)</a></li>
+                    </ul>
+                </li>
+
                 <!-- About ▾ -->
                 <li class="ironclad-menu-item">
                     <a href="#" class="ironclad-link">About ▾</a>

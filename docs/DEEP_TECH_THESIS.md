@@ -117,7 +117,7 @@ A well-funded competitor could eventually replicate any *one* of these pillars. 
 - EUR 15-50/month infrastructure cost — capital efficiency that deep tech investors rarely see
 - NVIDIA Inception, Microsoft Founders Hub (L1-L4), Google, AWS, and Groq backing the infrastructure
 
-**The ask:** EUR 500,000 SAFE at EUR 3.8M cap (20% discount). Eight Platinum Industry Captain seats at EUR 50,000. First tranche. Best terms before second tranche at higher valuation.
+**The ask:** EUR 500,000 SAFE at EUR 3.8M cap (18% discount). Eight Platinum Industry Captain seats at EUR 50,000. First tranche. Best terms before second tranche at higher valuation.
 
 **The bet:** The LWM is what makes it defensible. The edge deployment is what makes it hard to copy. Everything else is execution — and the founder still writes code daily.
 

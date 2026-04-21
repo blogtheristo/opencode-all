@@ -9,7 +9,7 @@ Story Lock: B2B DeepTech + Defensible IP + Technical Moat (operator-to-operator)
 Intro Type: Cold (to be initiated)
 
 AGENT HISTORY:
-- v1.0 (2026-04-19): Initial draft. Partner at Hard2beat VC, €250K-€750K pre-seed/seed DeepTech across Europe. 3x exited founder (Piwik PRO to €12M ARR) — evaluates technical moats himself, operator-to-operator conversation. B2B enterprise software with defensible IP is his exact mandate, DWS IQ 6 fits. Drawback 1: Poland-focused fund (invests across Europe). Drawback 2: solo founder is a flag for him. Mitigation: lead with defensible IP (18-agent architecture, EU AI Act moat, Aiwen audit lineage, ERP connectors), acknowledge solo-founder directly with operator track record + named advisors + paying customers.
+- v1.0 (2026-04-19): Initial draft. Partner at Hard2beat VC, €250K-€750K pre-seed/seed DeepTech across Europe. 3x exited founder (Piwik PRO to €12M ARR) — evaluates technical moats himself, operator-to-operator conversation. B2B enterprise software with defensible IP is his exact mandate, DWS IQ 6 fits. Drawback 1: Poland-focused fund (invests across Europe). Drawback 2: solo founder is a flag for him. Mitigation: lead with defensible IP (21-agent architecture, EU AI Act moat, Aiwen audit lineage, ERP connectors), acknowledge solo-founder directly with operator track record + named advisors + paying customers.
 -->
 
 # Investor Intro Note — Maciej Zawadzinski, Hard2beat VC
@@ -34,21 +34,21 @@ AGENT HISTORY:
 
 **Strong mandate fit — operator-to-operator conversation if we land the technical moat story.** Key alignment:
 
-1. **Exact mandate match** — B2B enterprise software with defensible IP. DWS IQ 6 is B2B enterprise software (industrial ERP integration, compliance automation) with a real moat (18-agent architecture, EU AI Act compliance stack, Aiwen reasoning lineage, regulated-industry domain knowledge).
+1. **Exact mandate match** — B2B enterprise software with defensible IP. DWS IQ 6 is B2B enterprise software (industrial ERP integration, compliance automation) with a real moat (21-agent architecture, EU AI Act compliance stack, Aiwen reasoning lineage, regulated-industry domain knowledge).
 2. **Ticket range anchors the round** — €250K-€750K. Our €650K SAFE fits entirely inside his range. He could lead with a single anchor check.
 3. **Operator filter** — He's a 3x exited founder who scaled Piwik PRO to €12M ARR. He will evaluate the technical moat himself, and he will evaluate the GTM plan himself. This is operator-to-operator, not fund-analyst-to-founder.
 4. **Pan-European** — Poland-focused but invests across Europe. Finnish base is not a friction point.
-5. **DeepTech filter** — 18-agent AI architecture with deterministic scoring + ERP connectors + EU AI Act compliance is DeepTech, not marketing software. Meets his mandate.
+5. **DeepTech filter** — 21-agent AI architecture with deterministic scoring + ERP connectors + EU AI Act compliance is DeepTech, not marketing software. Meets his mandate.
 6. **Scaling ARR experience** — €12M ARR Piwik PRO exit is exactly the scale arc we are on. His pattern-matching is an asset, not a drag.
 
 ## Drawbacks / Mitigations
 
-- **Solo-founder flag** — He explicitly prefers complementary co-founder teams. **Mitigation:** do not hide it. Lead email acknowledges it directly: operator track record (13 years regulated industry, SAP/IFS/Dynamics domain expertise), named advisors, 5 paying customers at 100% retention. Frame: "the moat is the domain knowledge and the agent architecture, and I have both; the hiring plan post-round adds a CTO."
+- **Solo-founder flag** — He explicitly prefers complementary co-founder teams. **Mitigation:** do not hide it. Lead email acknowledges it directly: operator track record (13 years regulated industry, SAP/IFS/Dynamics domain expertise), named advisors, 6 paying customers at 100% retention. Frame: "the moat is the domain knowledge and the agent architecture, and I have both; the hiring plan post-round adds a CTO."
 - **Poland focus** — Mitigation: he invests across Europe, Poland is home base not mandate boundary. No special framing needed. If asked, acknowledge directly.
 
 ## Strategy
 
-- **Lead with defensible IP / technical moat** — His filter is the moat. Open with 18 agents + MCP + EU AI Act compliance + Aiwen audit lineage + 20 regulated industries of domain ontology. These are not commodities.
+- **Lead with defensible IP / technical moat** — His filter is the moat. Open with 21 agents + MCP + EU AI Act compliance + Aiwen audit lineage + 20 regulated industries of domain ontology. These are not commodities.
 - **Operator-to-operator tone** — No fund-pitch language. No "massive TAM" throat-clearing. Numbers, architecture, next 6 months. He scaled Piwik PRO, he knows the difference between a slide and a product.
 - **Anchor check framing** — His €250K-€750K range means he can lead. Explicitly offer that seat.
 - **Address solo-founder in the opening** — Don't hide from his stated preference. Make it one line in paragraph 1, with the operator-track-record counter in the same paragraph. Move on.
@@ -62,7 +62,7 @@ AGENT HISTORY:
 
 Hi Maciej — respect what you built at Piwik PRO. Reaching out because Hard2beat's B2B DeepTech + defensible IP mandate is an exact match for what we're building.
 
-Lifetime Oy (Finland) — 18-agent B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports, EU AI Act compliant. EUR 7K MRR, 5 customers, 100% retention.
+Lifetime Oy (Finland) — 21-agent B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports, EU AI Act compliant. EUR 7K MRR, 5 customers, 100% retention.
 
 Raising EUR 650K SAFE at EUR 3.8M cap — fits your €250K-€750K range cleanly, open to you anchoring. V1 launches June 15. Solo founder (I know this is a flag for you) — 13 years regulated-industry operator, paying customers, advisors in place, CTO hire post-round. Send the memo?
 
@@ -74,11 +74,11 @@ Hi Maciej,
 
 Risto Päärni, Lifetime Oy (Espoo, Finland). Reaching out because Hard2beat's B2B enterprise software + defensible IP mandate is the tightest fit I've seen for what we're building — and because someone who scaled Piwik PRO to €12M ARR is the right operator to evaluate it.
 
-**Upfront on the flag:** I'm a solo founder. I know that's a preference gap for Hard2beat. My counter: 13 years operating in regulated industries, deep SAP/IFS/Dynamics domain expertise, 5 paying customers at 100% retention, named advisors, CTO hire planned post-round. The moat is the agent architecture and the regulatory-ontology work, both of which are in. Happy to be told the flag is still too big.
+**Upfront on the flag:** I'm a solo founder. I know that's a preference gap for Hard2beat. My counter: 13 years operating in regulated industries, deep SAP/IFS/Dynamics domain expertise, 6 paying customers at 100% retention, named advisors, CTO hire planned post-round. The moat is the agent architecture and the regulatory-ontology work, both of which are in. Happy to be told the flag is still too big.
 
 **The moat:**
 
-- 18 AI agents, MCP-exposed (JSON-RPC 2.0), deterministic scoring
+- 21 AI agents, MCP-exposed (JSON-RPC 2.0), deterministic scoring
 - ERP connectors: SAP S/4HANA, IFS Cloud, Dynamics 365 (live)
 - EU AI Act compliant from v0 — not retrofitted
 - Aiwen reasoning lineage layer — full audit trail for regulators
@@ -87,7 +87,7 @@ Risto Päärni, Lifetime Oy (Espoo, Finland). Reaching out because Hard2beat's B
 
 **The numbers:**
 
-- EUR 7K MRR, 5 paying customers, 100% retention
+- EUR 7K MRR, 6 paying customers, 100% retention
 - LTV: EUR 70K-120K/year per customer
 - Pilot EUR 4,950 converts to EUR 8,950/year
 - Target: EUR 900K ARR end 2026

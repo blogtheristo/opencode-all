@@ -56,7 +56,7 @@ Hi Christiaan,
 
 Risto Päärni, Lifetime Oy (Espoo, Finland). Good to reconnect after our recent conversation — it's clear we're building towards the same thesis from complementary angles.
 
-You're building the sovereign inference layer that sits next to control systems. We're building the sovereign intelligence layer that sits on top — compliance automation for EU-regulated industries. 18 AI agents tracking carbon across ETS, CBAM, CSRD, and Taxonomy. Every agent governed by our KYA Standard: hardware-attested identity, court-defensible audit trails, EU AI Act Article 12 compliant. 100% EU-hosted (Finland, Germany), zero US cloud dependency.
+You're building the sovereign inference layer that sits next to control systems. We're building the sovereign intelligence layer that sits on top — compliance automation for EU-regulated industries. 21 AI agents tracking carbon across ETS, CBAM, CSRD, and Taxonomy. Every agent governed by our KYA Standard: hardware-attested identity, court-defensible audit trails, EU AI Act Article 12 compliant. 100% EU-hosted (Finland, Germany), zero US cloud dependency.
 
 Why I think there's something here beyond a good conversation:
 
@@ -64,7 +64,7 @@ Why I think there's something here beyond a good conversation:
 - **Same customers.** Your utilities and TSOs face the same Fit for 55 compliance wave as our construction and manufacturing customers. The carbon balance sheet is horizontal infrastructure across all regulated verticals.
 - **Same investors.** Sovereignty-focused VCs looking at your €5-6M round are the same ones who should see our €650K SAFE at €3.8M cap. Cross-referral is natural.
 
-Current numbers: €7K MRR, 5 paying customers, 100% retention. V1 launches at Arctic 15 in Helsinki on June 15.
+Current numbers: €7K MRR, 6 paying customers, 100% retention. V1 launches at Arctic 15 in Helsinki on June 15.
 
 I'd like to explore whether there's a partnership angle (our agents on your infrastructure), a co-go-to-market play (joint offering for regulated industries), or simply mutual investor introductions. All three have value.
 

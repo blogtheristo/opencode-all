@@ -31,11 +31,11 @@ AGENT HISTORY:
 
 ## Fit Assessment
 
-**Exceptional technical fit — the only question is framing. He's building open-source MCP tooling while we're shipping an 18-agent MCP product. Same planet, same language.** Key alignment:
+**Exceptional technical fit — the only question is framing. He's building open-source MCP tooling while we're shipping an 21-agent MCP product. Same planet, same language.** Key alignment:
 
 1. **MCP stack native** — He's currently building open-source MCP server tooling. He doesn't need to be taught what DWS IQ 6 is architecturally — he's already inside the abstraction. Translation cost: zero.
 2. **Proven velocity** — 10 days from idea to beta on Volted.ai. That is the exact tempo DWS IQ 6 needs between V1 launch (June 15) and Messe Germany commercial push (August).
-3. **Full-stack execution** — Solidity, Node.js, Python, C++. He can evaluate AND ship the 18-agent architecture himself. Not a fractional advisor — a real hands-on builder.
+3. **Full-stack execution** — Solidity, Node.js, Python, C++. He can evaluate AND ship the 21-agent architecture himself. Not a fractional advisor — a real hands-on builder.
 4. **Fresh exit = cash, not salary-seeking** — Volted.ai exit to Backbone means he doesn't need a CTO salary. This unlocks structures that a salary-dependent CTO hire cannot entertain (equity-heavy, capital-contribution hybrid).
 5. **Paris geography bonus** — Plug and Play Paris (Laouiti, Perissich) is already in outreach. A Paris-based technical co-builder signals EU-cross-border execution capability to French investors who index on that.
 6. **Angel-investor mode RIGHT NOW** — He's actively deploying capital. The SAFE round is live. A meaningful angel check from a technical operator at our stack is a signal amplifier for Wilke / Zawadzinski / Raggl conversations.
@@ -52,8 +52,8 @@ AGENT HISTORY:
 
 ## Strategy
 
-- **Lead with the mutual stack** — Open on his open-source MCP tooling and DWS IQ 6's 18-agent MCP-exposed architecture. Founder-to-founder, stack-to-stack. No pitch-deck introductions — send the architecture diagram and ask what he thinks.
-- **Offer the stack, not the job** — "I'm not asking you to be a CTO — I know you're deploying capital. I'm asking you to look at an 18-agent MCP product that's already live, put in a check if it interests you, and build alongside if the architecture excites you."
+- **Lead with the mutual stack** — Open on his open-source MCP tooling and DWS IQ 6's 21-agent MCP-exposed architecture. Founder-to-founder, stack-to-stack. No pitch-deck introductions — send the architecture diagram and ask what he thinks.
+- **Offer the stack, not the job** — "I'm not asking you to be a CTO — I know you're deploying capital. I'm asking you to look at an 21-agent MCP product that's already live, put in a check if it interests you, and build alongside if the architecture excites you."
 - **Angel check closes FIRST, co-builder structure SECOND** — Do not bundle the two conversations. SAFE ticket is standard SAFE paperwork, closes on normal timeline. Co-builder equity is a separate agreement that only triggers AFTER code is shipped. No "we're doing both at once."
 - **Equity sequencing discipline (non-negotiable):**
   1. **Angel ticket (step 1):** standard SAFE at EUR 3.8M cap, no special terms, no co-builder equity attached. This is the first close.
@@ -71,19 +71,19 @@ AGENT HISTORY:
 
 Hi Anthony — saw your open-source MCP work, congrats on the Volted exit.
 
-I'm Risto, founder of Lifetime Oy (Finland). We're shipping DWS IQ 6 — an 18-agent MCP-exposed B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports, Aiwen audit trail. EUR 7K MRR, 5 customers, 100% retention. V1 launches at Arctic 15 on June 15.
+I'm Risto, founder of Lifetime Oy (Finland). We're shipping DWS IQ 6 — an 21-agent MCP-exposed B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports, Aiwen audit trail. EUR 7K MRR, 5 customers, 100% retention. V1 launches at Arctic 15 on June 15.
 
 Not pitching you a CTO role — I know you're in angel mode. First ask is simple: would you take an angel ticket into our SAFE (EUR 3.8M cap, standard terms)? If yes and the architecture also pulls you in, we can open a separate conversation later about a contribution-milestone co-builder structure — but angel first, build second, no bundling. Warm intro mutual, happy to route that way. Send the memo + architecture diagram?
 
 ## Draft Email (cold, if no warm intro yet)
 
-**Subject:** MCP architecture review — 18 agents, EU compliance stack, Volted-alumni angle
+**Subject:** MCP architecture review — 21 agents, EU compliance stack, Volted-alumni angle
 
 Hi Anthony,
 
 Risto Päärni, Lifetime Oy (Espoo, Finland). Reaching out because your open-source MCP work and the Volted exit put you in rare territory — a repeat technical founder, fluent in the exact stack we're shipping, and currently deploying angel capital.
 
-DWS IQ 6 is an 18-agent B2B SaaS for EU industrial compliance. MCP-exposed (JSON-RPC 2.0), ERP connectors (SAP S/4HANA, IFS Cloud, Dynamics 365), Aiwen reasoning lineage, EU AI Act compliant from v0. EUR 7K MRR, 5 paying customers, 100% retention. V1 launches June 15 at Arctic 15, German Messe commercial push follows.
+DWS IQ 6 is an 21-agent B2B SaaS for EU industrial compliance. MCP-exposed (JSON-RPC 2.0), ERP connectors (SAP S/4HANA, IFS Cloud, Dynamics 365), Aiwen reasoning lineage, EU AI Act compliant from v0. EUR 7K MRR, 6 paying customers, 100% retention. V1 launches June 15 at Arctic 15, German Messe commercial push follows.
 
 **Why I'm writing:** I'm not recruiting you as CTO. You're deploying capital, you're in builder-mode, you just exited. The ask is sequenced — angel first, build second, no bundling:
 
