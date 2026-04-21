@@ -18,6 +18,9 @@ Document Status:
   - Language: English
   - Languages Available: English
   - Publication Status: ACTIVE
+  - Indexed In: /docs/Document-index.md
+  - Category: Admin Manuals
+  - Search Tags: self-improving agents, agent system, reflection agent, self-diagnostic agent, CI/CD, DevOps, platform administration
 
 ***
 
