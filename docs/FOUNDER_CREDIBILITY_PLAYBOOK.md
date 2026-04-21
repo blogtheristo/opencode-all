@@ -253,7 +253,7 @@ EPBD mandates embodied carbon reporting for buildings over 1,000 sqm by 2028. Cu
 
 - **Monthly infrastructure burn:** EUR 15-50
 - **Funding raised to date:** Bootstrapped + credits
-- **Current raise:** EUR 500,000 via SAFE notes (EUR 3.8M cap, 20% discount)
+- **Current raise:** EUR 500,000 via SAFE notes (EUR 3.8M cap, 18% discount)
 - **Structure:** 8 Platinum Industry Captains at EUR 50,000 + Deputy Captains at EUR 25,000 (see Page 8)
 - **Second tranche:** Remaining 8 Platinum seats at higher valuation
 
@@ -321,7 +321,7 @@ This flips the value prop: the Captain isn't just investing — they're shaping 
 |------|-----------|-----------------|------|
 | **Platinum Industry Captain** | EUR 50,000 SAFE | 8 of 16 | THE captain of the vertical. Status, visibility, bragging rights. |
 | **Deputy Captain** | EUR 25,000 SAFE | Available alongside | Rising star. Learns the ropes, builds toward Platinum. |
-| **Valuation cap** | EUR 3.8M | | 20% discount |
+| **Valuation cap** | EUR 3.8M | | 18% discount |
 | **Round target** | **EUR 500,000** | | Best terms — before second tranche at higher valuation |
 
 **Second tranche (opens after first tranche closes):**
@@ -462,7 +462,7 @@ DM me or comment below. 16 verticals. Platinum or Deputy. When a seat is taken, 
 >
 > Quick version: DWS IQ 6 automates Fit for 55 compliance. Edge AI on NVIDIA Jetson — EUR 333k/year cheaper than cloud. Already generating EUR 7-14k MRR.
 >
-> Deputy Captain is EUR 25k SAFE (EUR 3.8M cap, 20% discount). You get full World Model access, quarterly briefings, and priority pilot intros in [INDUSTRY]. Real duties: one industry intro per quarter, product feedback, briefing attendance. And first right to upgrade to Platinum in the next round.
+> Deputy Captain is EUR 25k SAFE (EUR 3.8M cap, 18% discount). You get full World Model access, quarterly briefings, and priority pilot intros in [INDUSTRY]. Real duties: one industry intro per quarter, product feedback, briefing attendance. And first right to upgrade to Platinum in the next round.
 >
 > Interested? Happy to walk through it on a 15-min call.
 
@@ -567,7 +567,7 @@ Dark-themed, one fact per slide, DWS brand.
 | **Infrastructure cost** | EUR 15-50/month |
 | **Regulations covered** | ETS, CBAM, CSRD, EPBD, ESR, ReFuelEU, NIS2, EU AI Act |
 | **Data residency** | 100% EU (Finland, Germany, Netherlands) |
-| **Raise** | EUR 500k SAFE (EUR 3.8M cap, 20% discount) |
+| **Raise** | EUR 500k SAFE (EUR 3.8M cap, 18% discount) |
 | **Structure** | 8 Platinum Industry Captains (EUR 50k) + Deputy Captains (EUR 25k) — first tranche |
 | **Second tranche** | Remaining 8 Platinum seats at higher valuation |
 | **Languages** | Finnish, English, Swedish |

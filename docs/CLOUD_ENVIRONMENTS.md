@@ -729,7 +729,7 @@ External ADE (Claude Code, Cursor, Codex)
 Express Backend (/mcp endpoint)
   ↓
 MCP Agent Server (src/mcp/agent-server.ts)
-  ├─ tools/list → 22+ tools (18 agents + 4 meta-tools)
+  ├─ tools/list → 22+ tools (21 agents + 4 meta-tools)
   ├─ tools/call → AgentRegistry.executeAgent()
   └─ SSE stream → EventBus subscription
 ```

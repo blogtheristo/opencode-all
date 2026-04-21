@@ -83,7 +83,7 @@ async function main() {
     case 'send': {
       const filePath = process.argv[3] || 'Partners/NDA_Qantic.md';
       const fs = await import('fs');
-      const { execSync } = await import('child_process');
+      const { execFileSync } = await import('child_process');
       if (!fs.existsSync(filePath)) {
         console.error(`File not found: ${filePath}`);
         process.exit(1);
@@ -100,9 +100,19 @@ async function main() {
 
         // Try pandoc first (best quality, supports headers/footers)
         try {
-          execSync('pandoc --version', { stdio: 'ignore' });
-          execSync(
-            `pandoc "${filePath}" -o "${pdfPath}" --pdf-engine=xelatex -V geometry:margin=2.5cm -V fontsize=11pt`,
+          execFileSync('pandoc', ['--version'], { stdio: 'ignore' });
+          execFileSync(
+            'pandoc',
+            [
+              filePath,
+              '-o',
+              pdfPath,
+              '--pdf-engine=xelatex',
+              '-V',
+              'geometry:margin=2.5cm',
+              '-V',
+              'fontsize=11pt',
+            ],
             { stdio: 'inherit' },
           );
           converted = fs.existsSync(pdfPath);
@@ -114,7 +124,9 @@ async function main() {
         // Fallback: markdown-pdf (npm)
         if (!converted) {
           try {
-            execSync(`npx --yes markdown-pdf "${filePath}" -o "${pdfPath}"`, { stdio: 'inherit' });
+            execFileSync('npx', ['--yes', 'markdown-pdf', filePath, '-o', pdfPath], {
+              stdio: 'inherit',
+            });
             converted = fs.existsSync(pdfPath);
             if (converted) console.log('  Converted with markdown-pdf.');
           } catch {

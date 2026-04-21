@@ -12,8 +12,13 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY server.py .
 
+# Non-root user
+RUN adduser --disabled-password --gecos "" appuser
+
 # Mount the repo so the server can read git state and write .claude/handoff.md
 VOLUME ["/repo"]
+
+USER appuser
 
 EXPOSE 8771
 

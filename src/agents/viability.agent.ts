@@ -64,6 +64,7 @@ export class ViabilityAgent extends BaseAgent {
         'viability-scoring',
       ],
       model: 'llama-3.3-70b-versatile',
+      modelTier: 'standard',
     });
   }
 

@@ -54,7 +54,7 @@ Hi Giuseppe,
 
 Risto Päärni, CEO of Lifetime Oy (Finland). [Human Name] suggested we connect — your work building a strategic technologies fund for European security maps directly to what we're shipping.
 
-The short version: EU industrial companies face four overlapping carbon regulations (ETS, CBAM, CSRD, Taxonomy) and have no unified infrastructure to manage them. We built the carbon balance sheet — double-entry bookkeeping for CO2, so every tonne is tracked like every euro. 18 AI agents, 20 regulated verticals, EU-sovereign architecture with zero US cloud dependency.
+The short version: EU industrial companies face four overlapping carbon regulations (ETS, CBAM, CSRD, Taxonomy) and have no unified infrastructure to manage them. We built the carbon balance sheet — double-entry bookkeeping for CO2, so every tonne is tracked like every euro. 21 AI agents, 20 regulated verticals, EU-sovereign architecture with zero US cloud dependency.
 
 Why this is a dual-use story:
 
@@ -62,7 +62,7 @@ Why this is a dual-use story:
 - **Carbon data is sovereign data.** The ability to independently audit industrial emissions without relying on US-hosted platforms is a strategic capability, not just a compliance exercise.
 - **EU AI Act compliant from day one.** We built our AI agent framework (Aegis) with Article 12 logging and reasoning lineage — the same transparency requirements that will apply to defence AI systems.
 
-5 paying customers today (€7K MRR, 100% retention). Launching V1 at Arctic 15 in Helsinki on June 15. Raising €650K on a €3.8M SAFE cap.
+6 paying customers today (€7K MRR, 100% retention). Launching V1 at Arctic 15 in Helsinki on June 15. Raising €650K on a €3.8M SAFE cap.
 
 I'd welcome 30 minutes to walk through the architecture and dual-use thesis. Your NATO DIANA perspective would sharpen our defence positioning.
 

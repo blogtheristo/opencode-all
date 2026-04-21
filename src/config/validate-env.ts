@@ -12,7 +12,7 @@ import logger from '../utils/logger.js';
 const EnvSchema = z.object({
   // Server
   PORT: z.string().default('8080'),
-  NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
+  NODE_ENV: z.enum(['development', 'staging', 'production', 'test']).default('development'),
 
   // Supabase (required for auth + data)
   SUPABASE_URL: z.string().url('SUPABASE_URL must be a valid URL'),
@@ -40,9 +40,7 @@ export function validateEnv(): Env {
   const result = EnvSchema.safeParse(process.env);
 
   if (!result.success) {
-    const issues = result.error.issues.map(
-      (i) => `  - ${i.path.join('.')}: ${i.message}`,
-    );
+    const issues = result.error.issues.map((i) => `  - ${i.path.join('.')}: ${i.message}`);
     const msg = `Environment validation failed:\n${issues.join('\n')}`;
     logger.error(msg);
     throw new Error(msg);

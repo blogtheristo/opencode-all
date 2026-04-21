@@ -118,6 +118,7 @@ export class SalesOutreachAgent extends BaseAgent {
         'climate-sales',
       ],
       model: 'llama-3.3-70b-versatile',
+      modelTier: 'standard',
     });
   }
 

@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.5
+Version: 1.6
 
 Sessions & Modifications:
 
+- Version: 1.6 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: current | Date: 18.04.2026 | Changes: Added MCP CLI Index field note entry, refreshed field note count, and linked current MCP/CLI package split into the repository index
 - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/connect-kya-dws-cli-0MMIB | Date: 10.04.2026 | Changes: Catch-up index refresh covering ~127 merge commits from 2026-03-11 through 2026-04-10. Added DWS CLI (`cli/`), LLM Knowledge Base (`kb/` + `src/agents/kb.agent.ts`), `/kya` and `/kb` slash commands, DWS Skills Guide (`docs/DWS_SKILLS_GUIDE.md`), ADMIN*MANUAL Sections 28–33 (Carbon Balance Sheet, DGX Spark, Safety Hooks, External Repos, GitHub Actions & Cron Registry, DWS CLI Operator Reference), Shufti Pro DPA artifacts and IDV integration, PHD Firehorse thesis track (EN/FI), Aspire observability research, Legal/KYA*\* contracts, 2026-03/04 field notes, OneLifetime blog posts (KYA Standard v1, harness engineering investor note, EU sovereignty, validated mock data principle). Updated DWS_SECURITY_STANDARD §18.6 (KYA Control Surfaces), DWS_DATA_STANDARD §4.3 (kb/ classification), Admin/SECURITY_COMPLIANCE (Destructive Action Inventory).
 - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/dsaas-cli-first-strategy-ePRaw | Date: 13.03.2026 | Changes: Added DSaaS CLI-First Strategy document to Standards & Guidelines section
 - Version: 1.2 | Tool: Claude Code | Date: 11.03.2026 | Changes: Added Acer Veriton GN100 admin manual and three GN100 field notes to the document index
@@ -29,7 +30,7 @@ Session Links & References:
 Document Status:
 
 - Created: 04.02.2026
-- Last Modified: 10.04.2026
+- Last Modified: 18.04.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE
@@ -53,7 +54,7 @@ Centralized index of all documentation in the DWS6 repository for faster search 
 | --------------------------------------------------------------- | ----- | ---------------------------------------------------------------- |
 | [Admin Manuals](#admin-manuals)                                 | 8     | System administration and deployment guides                      |
 | [Architecture](#architecture-docs)                              | 12    | Technical architecture blueprints                                |
-| [Field Notes](#field-notes)                                     | 50+   | LWM knowledge capture (Shufti DPA, KYA, DGX Spark, autoresearch) |
+| [Field Notes](#field-notes)                                     | 51+   | LWM knowledge capture (Shufti DPA, KYA, DGX Spark, autoresearch) |
 | [Firehorse Product](#firehorse-product)                         | 35+   | Product suite documentation                                      |
 | [Standards & Guidelines](#standards--guidelines)                | 13+   | Coding and documentation standards (+CLI, Skills Guide, Data)    |
 | [Security](#security)                                           | 8+    | Security policies, compliance, KYA control surfaces              |
@@ -168,7 +169,7 @@ Technical architecture blueprints for DWS IQ 6 multi-agent system.
 | Base Agent                | `/src/agents/base.agent.ts`                           | ACTIVE | Abstract agent with agentic loop, multi-provider LLM, governance      |
 | Agent Types               | `/src/agents/types.ts`                                | ACTIVE | AgentContext, AgentResponse, ToolDefinition types                     |
 | LLM Client                | `/src/agents/llm-client.ts`                           | ACTIVE | Multi-provider (Anthropic, Groq, OpenAI-compatible)                   |
-| Agent Routes              | `/src/agents/routes.ts`                               | ACTIVE | Discovery + execution HTTP routes for 18 agents                       |
+| Agent Routes              | `/src/agents/routes.ts`                               | ACTIVE | Discovery + execution HTTP routes for 21 agents                       |
 | Agent Tools               | `/src/agents/tools.ts`                                | ACTIVE | Built-in tool library (query_database, emit_event, delegate_to_agent) |
 | Gated Auth Tests          | `/src/__tests__/climate-assistant-gated-auth.test.ts` | ACTIVE | 10 authentication tests                                               |
 
@@ -192,6 +193,7 @@ LWM knowledge capture from real-world events - raw sensory input for the Lifetim
 | Brockman Agentic Dev               | `/docs/field-notes/2026-02-06-brockman-agentic-software-development.md`           | 2026-02-06 | Retooling teams for agentic software                         | Agentic, Teams, Strategy                 |
 | EU Alden Biesen Single Market      | `/docs/field-notes/2026-02-11-eu-alden-biesen-single-market-info-note.md`         | 2026-02-11 | EU single market as superpower                               | EU, Single Market, Policy                |
 | Unsloth MoE Fine-Tuning            | `/docs/field-notes/2026-02-13-unsloth-moe-fine-tuning-split-lora.md`              | 2026-02-13 | 12x faster MoE fine-tuning with Split LoRA                   | LLM, Fine-Tuning, MoE                    |
+| MCP CLI Index                      | `/docs/field-notes/mcp-cli-index.md`                                              | 2026-04-18 | Current MCP/CLI split across Win11, DGX, and remote surfaces | MCP, CLI, DGX, Win11, Supabase           |
 | Moltworker OpenClaw Assistant      | `/docs/field-notes/2026-02-15-moltworker-openclaw-dws-assistant.md`               | 2026-02-15 | Self-hosted AI agent for DWS                                 | OpenClaw, Agent, Self-Hosted             |
 | Tech Backlog PyJWT Conflict        | `/docs/field-notes/2026-02-15-tech-backlog-pyjwt-redis-conflict.md`               | 2026-02-15 | PyJWT dependency conflict                                    | Python, Dependencies, Backlog            |
 | NVIDIA Blackwell Ultra             | `/docs/field-notes/2026-02-16-nvidia-blackwell-ultra-agentic-ai-inference.md`     | 2026-02-16 | 50x agentic AI inference                                     | NVIDIA, Blackwell, Inference             |
@@ -237,6 +239,7 @@ LWM knowledge capture from real-world events - raw sensory input for the Lifetim
 | SharpSync CAD-ERP BOM              | `/docs/field-notes/2026-03-26-sharpsync-cad-erp-bom-integration.md`               | 2026-03-26 | CAD-to-ERP BOM synchronization                               | SharpSync, CAD, ERP, BOM                 |
 | DGX Spark Primary Runtime Setup    | `/docs/field-notes/2026-03-29-dgx-spark-primary-runtime-setup.md`                 | 2026-03-29 | DGX Spark 24/7 runtime architecture, failover, model routing | GN100, DGX Spark, Infrastructure, Ollama |
 | Shufti DPA Haris Escalation        | `/docs/field-notes/2026-04-01-shufti-dpa-haris-escalation.md`                     | 2026-04-01 | Haris escalated DPA to Shufti Legal/Compliance               | Shufti, DPA, GDPR, Partnership           |
+| Siemens Synthetic-Data Wedge       | `/docs/field-notes/2026-04-20-siemens-synthetic-data-partnership-wedge.md`        | 2026-04-20 | SI Building Nordics (Frida Ahlberg) + TechSeed pilot; NeMo DataDesigner Xcelerator wedge | Siemens, TechSeed, NVIDIA, NeMo, CSRD, EPBD, Taxonomy |
 | Field Notes README                 | `/docs/field-notes/README.md`                                                     | -          | Guidelines                                                   | -                                        |
 
 ---

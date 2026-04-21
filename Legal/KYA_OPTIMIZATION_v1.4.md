@@ -315,7 +315,7 @@ For the 16 Fit for 55 sectors, KYA-optimized systems don't just reduce costs —
 
 ### 5.3 Tier 3: Wedge Industries — High Agent Density, High Autoresearch Value (NEW in v1.4)
 
-These industries are not Fit for 55 core but have extremely high autonomous agent density and autoresearch ROI. KYA governance is critical wherever agents self-optimize at scale. Healthcare/MedTech added in v1.5 per Boardy review — EU MDR compliance for autonomous diagnostic agents is a massive liability surface comparable to Pharma.
+These industries are not Fit for 55 core but have extremely high autonomous agent density and autoresearch ROI. KYA governance is critical wherever agents self-optimize at scale. Healthcare/MedTech added in v1.5 per Marcus review — EU MDR compliance for autonomous diagnostic agents is a massive liability surface comparable to Pharma.
 
 | #   | Industry             | Autoresearch Application                                                                            | Proxy Metric (depth=12 equivalent)         | Financial Value per Enterprise (EUR/yr)               |
 | --- | -------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------ | ----------------------------------------------------- |
@@ -448,7 +448,7 @@ How KYA generates revenue for Lifetime Oy:
 
 | Dimension                | Palantir AIP                                | KYA (DWS IQ)                                                    | Advantage                      |
 | ------------------------ | ------------------------------------------- | --------------------------------------------------------------- | ------------------------------ |
-| **Agent isolation**      | Software-layer guardrails (container-based) | Hardware-level kill (Firecracker MicroVM, 122ms)                | **KYA** — hardware > software  |
+| **Agent isolation**      | Software-layer guardrails (container-based) | Hardware-level kill (Firecracker MicroVM, < 125ms (Firecracker MicroVM, AWS benchmark))                | **KYA** — hardware > software  |
 | **Identity attribution** | Enterprise SSO / Foundry permissions        | KYC/KYB-verified identity → agent session binding               | **KYA** — legally attributable |
 | **Autoresearch**         | Not offered (manual model tuning)           | Governed self-optimization with financial attribution           | **KYA** — unique capability    |
 | **EU compliance**        | Generic (GDPR, some SOC 2)                  | Native EU AI Act Art. 12/14, NIS2, DORA, Fit for 55             | **KYA** — EU-first             |
@@ -456,7 +456,7 @@ How KYA generates revenue for Lifetime Oy:
 | **Industry depth**       | Defense, healthcare, energy (3–5 deep)      | 20 industries with per-industry proxy metrics                   | **KYA** — wider + deeper       |
 | **Data residency**       | US-primary (FedRAMP)                        | EU-primary (Finland/Germany, GDPR-native)                       | Context-dependent              |
 
-**Key differentiator:** Palantir's guardrails are software-level permission checks. KYA kills at the hypervisor — sub-5ms behavioral enforcement, 122ms hardware termination. In regulated industries, hardware kill > software kill.
+**Key differentiator:** Palantir's guardrails are software-level permission checks. KYA kills at the hypervisor — sub-5ms behavioral enforcement, < 125ms (Firecracker MicroVM, AWS benchmark) hardware termination. In regulated industries, hardware kill > software kill.
 
 ---
 

@@ -28,6 +28,7 @@ export class HermesAgent extends BaseAgent {
         'delivery-milestone-tracking',
       ],
       model: 'claude-haiku-4-5-20251001',
+      modelTier: 'heavy',
     });
   }
 

@@ -24,7 +24,35 @@ fi
 
 # Check MCP server health
 if [ -f ".mcp.json" ]; then
-  MCP_COUNT=$(cat .mcp.json | jq '.mcpServers | length' 2>/dev/null || echo "0")
+  if command -v jq >/dev/null 2>&1; then
+    MCP_COUNT=$(jq '.mcpServers | length' .mcp.json 2>/dev/null || echo "0")
+  elif command -v python3 >/dev/null 2>&1; then
+    MCP_COUNT=$(python3 - <<'PY'
+import json
+from pathlib import Path
+
+try:
+    data = json.loads(Path(".mcp.json").read_text(encoding="utf-8"))
+    print(len(data.get("mcpServers", {})))
+except Exception:
+    print(0)
+PY
+)
+  elif command -v python >/dev/null 2>&1; then
+    MCP_COUNT=$(python - <<'PY'
+import json
+from pathlib import Path
+
+try:
+    data = json.loads(Path(".mcp.json").read_text(encoding="utf-8"))
+    print(len(data.get("mcpServers", {})))
+except Exception:
+    print(0)
+PY
+)
+  else
+    MCP_COUNT="0"
+  fi
   echo "MCP servers configured: $MCP_COUNT"
 fi
 
@@ -44,6 +72,35 @@ echo "Current branch: $BRANCH"
 # Warn if on main
 if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
   echo "WARNING: On main branch. Create a feature branch before making changes."
+fi
+
+# Auto-discover and index all skills (Anthropic Skills paradigm)
+SKILLS_DIR="skills"
+if [ -d "$SKILLS_DIR" ]; then
+  echo ""
+  echo "## Skills Index (auto-discovered from skills/)"
+  echo ""
+
+  # Slash commands (.claude/commands/)
+  COMMANDS=$(ls .claude/commands/*.md 2>/dev/null | xargs -I{} basename {} .md | tr '\n' ', ' | sed 's/,$//')
+  if [ -n "$COMMANDS" ]; then
+    echo "Slash commands: $COMMANDS"
+  fi
+
+  # Discipline gates (skills/*/SKILL.md without agent prefix)
+  DISCIPLINE_SKILLS=$(ls "$SKILLS_DIR"/design-first/SKILL.md "$SKILLS_DIR"/dual-folder-sync/SKILL.md "$SKILLS_DIR"/verification-gate/SKILL.md 2>/dev/null | xargs -I{} dirname {} | xargs -I{} basename {} | tr '\n' ', ' | sed 's/,$//')
+  if [ -n "$DISCIPLINE_SKILLS" ]; then
+    echo "Discipline gates: $DISCIPLINE_SKILLS"
+  fi
+
+  # Agent skills (all skills/ subdirs except known discipline gates)
+  AGENT_SKILLS=$(find "$SKILLS_DIR" -name "SKILL.md" -not -path "*/design-first/*" -not -path "*/dual-folder-sync/*" -not -path "*/verification-gate/*" -not -path "*/last30days-skill/*" 2>/dev/null | xargs -I{} dirname {} | xargs -I{} basename {} | sort | tr '\n' ', ' | sed 's/,$//')
+  if [ -n "$AGENT_SKILLS" ]; then
+    echo "Agent & report skills: $AGENT_SKILLS"
+  fi
+
+  echo ""
+  echo "Load any skill: read skills/<name>/SKILL.md for full expertise + input/output contract."
 fi
 
 exit 0

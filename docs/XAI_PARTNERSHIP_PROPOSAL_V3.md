@@ -294,7 +294,7 @@ All high-value command titles are **strictly human — never AI.** Grok and Opti
 | Role | Description | Investment |
 |------|-------------|-----------|
 | **Fleet Admiral** | Lead investor — strategic sector oversight across the entire Lifetime Fleet | €500k SAFE (first tranche of 10 seats) |
-| **Platinum Industry Captain** | Owner of the 8-seat hardware bundle + Lifetime World Model | €50k SAFE (€3.8M cap, 20% discount) |
+| **Platinum Industry Captain** | Owner of the 8-seat hardware bundle + Lifetime World Model | €50k SAFE (€3.8M cap, 18% discount) |
 | **Navigator** | Domain expert using Grok interface to chart the site's course | Per-seat license |
 
 **Design principle:** Grok and Optimus never touch these titles. They only amplify human power and productivity. Every human holder becomes worth 10× their pre-DWS-IQ output.
@@ -378,7 +378,7 @@ Being Optimus in the DWS IQ ecosystem means being the **default recommendation**
 | Tranche | Seats | Price/Seat | Total | Terms |
 |---------|-------|-----------|-------|-------|
 | Fleet Admiral (first tranche) | 10 seats | €50 000 | €500 000 | Lead investor role, strategic sector oversight |
-| Platinum Industry Captain | 8 seats | €50 000 | €400 000 | €3.8M cap, 20% discount |
+| Platinum Industry Captain | 8 seats | €50 000 | €400 000 | €3.8M cap, 18% discount |
 | Navigator | Per-seat license | Negotiated | — | Domain expert access |
 
 **Hardware cost (prototype):** €0 out-of-pocket. Runs on free GN-100 from Acer Finland.

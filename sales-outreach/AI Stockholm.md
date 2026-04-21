@@ -427,11 +427,11 @@ Strategy: Oversubscribe by 2× to account for probability-weighted outcomes. Tar
 
 Part 3: Outreach Playbook
 Email Template 1: Micro VCs (Voima, Gorilla, 2150, Pale Blue Dot)
-Subject: DWS IQ 6: €7k MRR → €500k Campaign Launching Q1 (20-moat fortress)
+Subject: DWS IQ 6: €7k MRR → €500k Campaign Launching Q1 (21-moat fortress)
 Body:
 Hi [First Name],
 
-Risto Päärni, CEO of DWS IQ 6 (Lifetime Oy). We're raising a €150k SAFE (€3.8M cap, 20% discount) to bridge 12-18 months to Series A.
+Risto Päärni, CEO of DWS IQ 6 (Lifetime Oy). We're raising a €150k SAFE (€3.8M cap, 18% discount) to bridge 12-18 months to Series A.
 
 Three reasons this fits [VC Firm]'s thesis:
 
@@ -475,17 +475,17 @@ I'd like to apply for the January 16 FIBAN Matching Event. DWS IQ 6 (Lifetime Oy
 **Market Opportunity:**
 ├─ €150B EU Fit for 55 compliance costs (mandatory spend)
 ├─ Finland implements 6-12 months faster (forced purchase cycle)
-├─ 20-moat competitive fortress (€3-6M entry barrier)
+├─ 21-moat competitive fortress (€3-6M entry barrier)
 └─ €500k Construction Heroes campaign launching Q1 2025
 
 **Investment Terms:**
 ├─ Amount: €150k SAFE
 ├─ Valuation Cap: €3.8M (fortress premium)
-├─ Discount: 20% on next priced round
+├─ Discount: 18% on next priced round
 └─ Target Close: January 24, 2025
 
 **Why FIBAN Angels Should Care:**
-Nordic industrial champion with government validation (Kela), dual-use technology (Defence Equity Facility eligible), and clear path to €15M+ Series A in 18 months (4.9× return at €3.8M cap).
+Nordic industrial champion with government validation (Kela), dual-use technology (Defence Equity Facility eligible), and clear path to €15M+ Series A in 18 months (4.8× return at €3.8M cap).
 
 Attaching pitch deck + customer case studies. Happy to do pre-event briefing call if helpful.
 
@@ -553,7 +553,7 @@ Risto Päärni from DWS IQ 6. We're closing a €150k SAFE this month, and I bel
 
 **Financial Structuring:**
 ├─ €50k-150k ticket (flexible based on [Family Office] allocation)
-├─ €3.8M cap SAFE (4.9× return at €15M Series A in 18 months)
+├─ €3.8M cap SAFE (4.8× return at €15M Series A in 18 months)
 ├─ Co-investment with [Voima Ventures / Gorilla Ventures] (pending)
 └─ Participation rights in Series A (pro-rata + 20% additional allocation)
 
@@ -856,7 +856,7 @@ Hi [Name],
 Pitch deck attached. Key highlights:
 ├─ €7k MRR live (Uber, Bolt, Kela), 100% retention
 ├─ €500k campaign launching Q1 → 59 construction enterprises
-├─ 20-moat fortress (€3-6M competitor entry barrier)
+├─ 21-moat fortress (€3-6M competitor entry barrier)
 └─ €150k SAFE @ €3.8M cap, closing Jan 24
 
 Available for 30-min call this week? Calendly: [link]
@@ -882,7 +882,7 @@ Three reasons to invest now (not later):
 
 1. **Regulatory Forcing Function:** Finland CSRD deadline March 31, 2025 (6 months ahead of EU) = forced purchase cycle. Companies must buy *something* or face fines. We're positioned to capture Nordic market before US competitors (IBM, SAP) retrofit (24-36 months away).
 
-2. **€150k SAFE = 4.9× Return in 18 Months:** At €3.8M cap with 20% discount, converts to 4.9% ownership at €15M Series A (Q4 2026 target). Conservative Series A = 3.3× return, base case = 4.9×, optimistic = 6.5×.
+2. **€150k SAFE = 4.8× Return in 18 Months:** At €3.8M cap with 18% discount, converts to 4.8% ownership at €15M Series A (Q4 2026 target). Conservative Series A = 3.2× return, base case = 4.8×, optimistic = 6.4×.
 
 3. **First-Mover on 20-Moat Fortress:** Competitors need €3-6M + 24-36 months to replicate our moats (EU operations, government validation, edge computing, MCP platform). Boardy.ai raised €11M (16× our ask) but cannot compete in our market. Early investors participate in fortress appreciation.
 
@@ -993,7 +993,7 @@ Within 1 Month:
  Host virtual investor kickoff (Zoom, 1 hour):
 
 Introduce team (Risto + AI Director once hired)
-Review fortress strategy (20-moat competitive analysis)
+Review fortress strategy (21-moat competitive analysis)
 Q&A session (answer investor questions)
 Series A prep timeline (Q3-Q4 2026, warm introductions to institutional VCs)
 

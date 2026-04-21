@@ -420,7 +420,7 @@ These roles exist exclusively for premium wallet-openers from any of the 27 EU c
 
 | Role | Price | Notes |
 |------|-------|-------|
-| Platinum Industry Captain | €50 000 SAFE | €3.8 M cap, 20% discount, first tranche of 8 seats |
+| Platinum Industry Captain | €50 000 SAFE | €3.8 M cap, 18% discount, first tranche of 8 seats |
 | Full 8–16 unit Captain's Bridge | Funded by incoming role purchases + VCs | After first seats fill |
 | 16 open-source LLMs | €0 licensing | Sovereign stack, runs locally |
 | Grok Enterprise license | Negotiated with xAI | Per-cluster or revenue share |

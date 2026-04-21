@@ -98,6 +98,7 @@ export class QualityGateAgent extends BaseAgent {
         'quality-scoring',
       ],
       model: 'llama-3.3-70b-versatile',
+      modelTier: 'lite',
     });
   }
 
