@@ -1,32 +1,31 @@
 /**
  * DWS IQ 6 - Email Service
  *
- * SECURITY: Resend SDK removed 2026-03-26 due to suspected account compromise.
- * All emails now use Amazon SES via SMTP only (src/utils/send-email.ts).
+ * Production-ready email delivery service with dual-provider support:
+ *   - Primary: Resend API
+ *   - Fallback: SendGrid API
  *
  * Features:
- *   - SES via SMTP as the sole transport (nodemailer)
+ *   - Automatic failover from Resend to SendGrid
  *   - Structured logging via project logger
  *   - Supabase email_logs persistence (when configured)
  *   - HTML templates for all transactional email types
  *
  * Environment variables:
- *   SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_SECURE (for Amazon SES)
- *   EMAIL_FROM           - Sender address (default: risto@onelifetime.world)
- *   SUPABASE_URL         - Supabase project URL (for email logging)
+ *   RESEND_API_KEY   - Resend API key (primary provider)
+ *   SENDGRID_API_KEY - SendGrid API key (fallback provider)
+ *   EMAIL_FROM       - Sender address (default: risto@onelifetime.world)
+ *   SUPABASE_URL     - Supabase project URL (for email logging)
  *   SUPABASE_SERVICE_KEY - Supabase service role key (for email logging)
  */
 
-import { sendEmail as sendEmailUtil } from '../utils/send-email.js';
 import logger from '../utils/logger.js';
 import {
-  captainPreBriefingTemplate,
-  investorOutreachTemplate,
-  invoiceTemplate,
-  notificationTemplate,
+  welcomeTemplate,
   passwordResetTemplate,
   reportDeliveryTemplate,
-  welcomeTemplate,
+  notificationTemplate,
+  invoiceTemplate,
 } from './email-templates.js';
 
 // ============================================================
@@ -43,14 +42,7 @@ interface EmailOptions {
   metadata?: Record<string, unknown>;
 }
 
-export interface BatchEmailItem {
-  to: string;
-  subject: string;
-  html: string;
-  templateType?: string;
-}
-
-type EmailStatus = 'sent' | 'failed' | 'pending' | 'delivered' | 'bounced' | 'complained';
+type EmailStatus = 'sent' | 'failed' | 'pending';
 
 interface EmailLogEntry {
   to_email: string;
@@ -61,8 +53,9 @@ interface EmailLogEntry {
   sent_at: string | null;
   error: string | null;
   metadata: Record<string, unknown> | null;
-  transport?: string | null;
 }
+
+type ProviderName = 'resend' | 'sendgrid';
 
 // ============================================================
 // EMAIL SERVICE
@@ -70,21 +63,22 @@ interface EmailLogEntry {
 
 class EmailService {
   private readonly fromAddress: string;
+  private readonly resendApiKey: string | undefined;
+  private readonly sendgridApiKey: string | undefined;
   private readonly supabaseUrl: string | undefined;
   private readonly supabaseServiceKey: string | undefined;
 
   constructor() {
     this.fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
+    this.resendApiKey = process.env.RESEND_API_KEY;
+    this.sendgridApiKey = process.env.SENDGRID_API_KEY;
     this.supabaseUrl = process.env.SUPABASE_URL;
     this.supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
 
-    const hasSmtp = !!process.env.SMTP_HOST;
-    if (!hasSmtp) {
+    if (!this.resendApiKey && !this.sendgridApiKey) {
       logger.warn(
-        'No SMTP transport configured (SMTP_HOST). Emails will be logged but not delivered.'
+        'No email provider configured. Set RESEND_API_KEY or SENDGRID_API_KEY. Emails will be logged but not delivered.'
       );
-    } else {
-      logger.info('Email service initialized', { transport: 'SES (SMTP)' });
     }
   }
 
@@ -92,6 +86,9 @@ class EmailService {
   // PUBLIC METHODS
   // ----------------------------------------------------------
 
+  /**
+   * Send a welcome email to a newly registered user.
+   */
   async sendWelcomeEmail(to: string, name: string): Promise<void> {
     await this.sendEmail({
       to,
@@ -102,6 +99,9 @@ class EmailService {
     });
   }
 
+  /**
+   * Send a password reset email with a one-time link.
+   */
   async sendPasswordResetEmail(to: string, resetLink: string): Promise<void> {
     await this.sendEmail({
       to,
@@ -111,6 +111,9 @@ class EmailService {
     });
   }
 
+  /**
+   * Notify a user that a report is ready for download.
+   */
   async sendReportDeliveryEmail(
     to: string,
     reportName: string,
@@ -125,6 +128,9 @@ class EmailService {
     });
   }
 
+  /**
+   * Send a generic notification email with custom subject and body text.
+   */
   async sendNotificationEmail(
     to: string,
     subject: string,
@@ -138,36 +144,9 @@ class EmailService {
     });
   }
 
-  async sendCaptainPreBriefing(
-    to: string,
-    name: string,
-    industry: string,
-    seatLevel: string
-  ): Promise<void> {
-    await this.sendEmail({
-      to,
-      subject: `Your Captain Briefing Is Confirmed — ${industry}`,
-      html: captainPreBriefingTemplate(name, industry, seatLevel),
-      templateType: 'captain_pre_briefing',
-      metadata: { name, industry, seatLevel },
-    });
-  }
-
-  async sendInvestorOutreach(
-    to: string,
-    name: string,
-    investorType: 'vc' | 'angel' | 'family_office' | 'operator',
-    industry?: string
-  ): Promise<void> {
-    await this.sendEmail({
-      to,
-      subject: 'DWS IQ 6 — AI Compliance Platform for EU Industries',
-      html: investorOutreachTemplate(name, investorType, industry),
-      templateType: 'investor_outreach',
-      metadata: { name, investorType, industry },
-    });
-  }
-
+  /**
+   * Send an invoice email with payment details.
+   */
   async sendInvoiceEmail(
     to: string,
     invoiceId: string,
@@ -183,92 +162,97 @@ class EmailService {
     });
   }
 
-  /**
-   * Send a raw email with custom HTML (no template wrapping).
-   * Used by onboarding drip sequences and custom notifications.
-   */
-  async sendRawEmail(options: EmailOptions): Promise<void> {
-    await this.sendEmail(options);
-  }
-
-  /**
-   * Send multiple emails sequentially via SES SMTP.
-   * Returns empty array (batch IDs were Resend-specific, now removed).
-   */
-  async sendBatch(emails: BatchEmailItem[]): Promise<string[]> {
-    if (!this.resend) {
-      logger.warn('RESEND_API_KEY not configured — batch email not delivered', {
-        count: emails.length,
-      });
-      return [];
-    }
-
-    const payload = emails.map((e) => ({
-      from: this.fromAddress,
-      to: [e.to],
-      subject: e.subject,
-      html: e.html,
-    }));
-
-    try {
-      const { data, error } = await this.resend.batch.send(payload);
-      if (error) {
-        throw new Error(`Resend batch error: ${error.message}`);
-      }
-      const results = data ?? [];
-      const ids = (Array.isArray(results) ? results : [results]).map((r: { id: string }) => r.id);
-      logger.info('Batch emails sent via Resend', { count: ids.length });
-      return ids;
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : 'Unknown error';
-      logger.error('Resend batch send failed', { error: msg, count: emails.length });
-      throw new Error(`Batch email delivery failed: ${msg}`);
-    }
-    return [];
-  }
-
   // ----------------------------------------------------------
   // CORE SEND LOGIC (PRIVATE)
   // ----------------------------------------------------------
 
+  /**
+   * Send an email through Resend (primary) with SendGrid fallback.
+   * Logs every attempt to Supabase when configured.
+   */
   private async sendEmail(options: EmailOptions): Promise<void> {
     const { to, subject, html, templateType, metadata } = options;
 
     logger.info('Sending email', {
-      to,
-      subject,
       templateType: templateType || 'custom',
     });
 
-    try {
-      const result = await sendEmailUtil({
-        from: this.fromAddress,
+    // Attempt primary provider (Resend)
+    if (this.resendApiKey) {
+      try {
+        await this.sendViaResend(to, subject, html);
+        logger.info('Email sent via Resend', {
+          templateType: templateType || 'custom',
+          transport: 'resend',
+        });
+        await this.logEmail({
+          to_email: to,
+          from_email: this.fromAddress,
+          subject,
+          template_type: templateType || null,
+          status: 'sent',
+          sent_at: new Date().toISOString(),
+          error: null,
+          metadata: metadata || null,
+        });
+        return;
+      } catch (err) {
+        const errorMessage =
+          err instanceof Error ? err.message : 'Unknown Resend error';
+        logger.warn('Resend send failed, attempting SendGrid fallback', {
+          error: errorMessage,
+        });
+      }
+    }
+
+    // Attempt fallback provider (SendGrid)
+    if (this.sendgridApiKey) {
+      try {
+        await this.sendViaSendGrid(to, subject, html);
+        logger.info('Email sent via SendGrid (fallback)', {
+          templateType: templateType || 'custom',
+          transport: 'sendgrid',
+        });
+        await this.logEmail({
+          to_email: to,
+          from_email: this.fromAddress,
+          subject,
+          template_type: templateType || null,
+          status: 'sent',
+          sent_at: new Date().toISOString(),
+          error: null,
+          metadata: metadata || null,
+        });
+        return;
+      } catch (err) {
+        const errorMessage =
+          err instanceof Error ? err.message : 'Unknown SendGrid error';
+        logger.error('SendGrid send failed', { error: errorMessage });
+
+        // Log the failure
+        await this.logEmail({
+          to_email: to,
+          from_email: this.fromAddress,
+          subject,
+          template_type: templateType || null,
+          status: 'failed',
+          sent_at: null,
+          error: errorMessage,
+          metadata: metadata || null,
+        });
+
+        throw new Error(
+          `Email delivery failed through all providers: ${errorMessage}`
+        );
+      }
+    }
+
+    // No provider available - log only
+    if (!this.resendApiKey && !this.sendgridApiKey) {
+      logger.warn('No email provider configured - email not delivered', {
         to,
         subject,
-        html,
       });
-
-      if (!result.ok) {
-        throw new Error(result.error || 'Email delivery failed');
-      }
-
-      logger.info('Email sent', { to, subject, transport: result.transport });
-      await this.logEmail({
-        to_email: to,
-        from_email: this.fromAddress,
-        subject,
-        template_type: templateType || null,
-        status: 'sent',
-        sent_at: new Date().toISOString(),
-        error: null,
-        metadata: metadata || null,
-        transport: result.transport || null,
-      });
-    } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : 'Unknown error';
-      logger.error('Email send failed', { to, error: errorMessage });
-
       await this.logEmail({
         to_email: to,
         from_email: this.fromAddress,
@@ -276,12 +260,96 @@ class EmailService {
         template_type: templateType || null,
         status: 'failed',
         sent_at: null,
-        error: errorMessage,
+        error: 'No email provider configured',
         metadata: metadata || null,
-        transport: null,
       });
+      return;
+    }
 
-      throw new Error(`Email delivery failed: ${errorMessage}`);
+    // Resend was configured but failed and SendGrid is not configured
+    logger.error('Primary provider failed and no fallback configured', {
+      to,
+      subject,
+    });
+    await this.logEmail({
+      to_email: to,
+      from_email: this.fromAddress,
+      subject,
+      template_type: templateType || null,
+      status: 'failed',
+      sent_at: null,
+      error: 'Primary provider failed; no fallback configured',
+      metadata: metadata || null,
+    });
+    throw new Error(
+      'Email delivery failed: primary provider failed and no fallback configured'
+    );
+  }
+
+  // ----------------------------------------------------------
+  // PROVIDER IMPLEMENTATIONS
+  // ----------------------------------------------------------
+
+  /**
+   * Send email via Resend REST API.
+   * @see https://resend.com/docs/api-reference/emails/send-email
+   */
+  private async sendViaResend(
+    to: string,
+    subject: string,
+    html: string
+  ): Promise<void> {
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.resendApiKey}`,
+      },
+      body: JSON.stringify({
+        from: this.fromAddress,
+        to: [to],
+        subject,
+        html,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorBody = await response.text();
+      throw new Error(
+        `Resend API error (${response.status}): ${errorBody}`
+      );
+    }
+  }
+
+  /**
+   * Send email via SendGrid v3 Mail Send API.
+   * @see https://docs.sendgrid.com/api-reference/mail-send/mail-send
+   */
+  private async sendViaSendGrid(
+    to: string,
+    subject: string,
+    html: string
+  ): Promise<void> {
+    const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.sendgridApiKey}`,
+      },
+      body: JSON.stringify({
+        personalizations: [{ to: [{ email: to }] }],
+        from: { email: this.fromAddress },
+        subject,
+        content: [{ type: 'text/html', value: html }],
+      }),
+    });
+
+    // SendGrid returns 202 on success
+    if (!response.ok && response.status !== 202) {
+      const errorBody = await response.text();
+      throw new Error(
+        `SendGrid API error (${response.status}): ${errorBody}`
+      );
     }
   }
 
@@ -289,6 +357,11 @@ class EmailService {
   // EMAIL LOGGING (SUPABASE)
   // ----------------------------------------------------------
 
+  /**
+   * Persist an email log entry to the Supabase email_logs table.
+   * Failures are logged but never propagated to the caller - email
+   * delivery should not fail because of a logging issue.
+   */
   private async logEmail(entry: EmailLogEntry): Promise<void> {
     if (!this.supabaseUrl || !this.supabaseServiceKey) {
       logger.debug('Supabase not configured - skipping email log persistence', {
@@ -328,5 +401,5 @@ class EmailService {
   }
 }
 
-// Export singleton instance
+// Export singleton instance (consistent with auth.service.ts pattern)
 export default new EmailService();
