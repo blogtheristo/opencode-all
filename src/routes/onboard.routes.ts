@@ -10,7 +10,12 @@
  */
 
 import { type NextFunction, type Request, type Response, Router } from 'express';
-import { OnboardingSchema, validate } from '../middleware/validate.js';
+import {
+  OnboardingAssessSchema,
+  OnboardingErpTestSchema,
+  OnboardingSchema,
+  validate,
+} from '../middleware/validate.js';
 import { authenticateToken } from '../middleware/auth.middleware.js';
 import { type ComplianceScoringInput, scoreCompliance } from '../compliance/scoring-engine.js';
 import { generateReport } from '../compliance/report-generator.js';
@@ -235,6 +240,7 @@ router.get(
 router.post(
   '/assess',
   authenticateToken,
+  validate({ body: OnboardingAssessSchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId = (req as any).user?.id || 'anonymous';
@@ -273,6 +279,56 @@ router.post(
         country: onboarding.country,
       });
 
+      // Persist follow-up assessment to compliance_assessments when profile linkage is available
+      if (supabase) {
+        try {
+          const { data: membership } = await supabase
+            .from('organization_members')
+            .select('organization_id')
+            .eq('user_id', userId)
+            .limit(1)
+            .maybeSingle();
+
+          const organizationId = membership?.organization_id;
+          if (organizationId) {
+            const { data: profile } = await supabase
+              .from('compliance_profiles')
+              .select('id')
+              .eq('organization_id', organizationId)
+              .limit(1)
+              .maybeSingle();
+
+            if (profile?.id) {
+              const { error } = await supabase
+                .from('compliance_assessments')
+                .insert({
+                  profile_id: profile.id,
+                  assessment_type: 'onboarding_followup',
+                  overall_score: result.overallScore,
+                  compliance_status: result.complianceStatus,
+                  regulation_scores: result.regulationScores,
+                  gaps: result.gaps,
+                  recommendations: result.recommendations,
+                  assessed_by: userId,
+                });
+
+              if (error) {
+                logger.warn('Failed to persist onboarding follow-up assessment', {
+                  userId,
+                  profileId: profile.id,
+                  error: error.message,
+                });
+              }
+            }
+          }
+        } catch (persistErr) {
+          logger.warn('Onboarding assessment persistence failed', {
+            userId,
+            error: persistErr instanceof Error ? persistErr.message : String(persistErr),
+          });
+        }
+      }
+
       res.json({
         status: 'assessment_complete',
         report,
@@ -294,6 +350,7 @@ router.post(
 router.post(
   '/erp/test',
   authenticateToken,
+  validate({ body: OnboardingErpTestSchema }),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { type, host, authMethod } = req.body;

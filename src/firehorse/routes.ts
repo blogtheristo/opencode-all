@@ -3,7 +3,8 @@
  * CustomerPilotLoop v1
  */
 
-import { type Request, type Response, Router } from 'express';
+import crypto from 'node:crypto';
+import { type NextFunction, type Request, type Response, Router } from 'express';
 import {
   handleEmailOpened,
   handleEmailReply,
@@ -16,8 +17,34 @@ import { LeadCountry } from './types';
 import { FirehorseReportModule } from './report-module';
 import { reportScheduler } from './report-scheduler';
 import { FirehorseWorkflowEngine } from './workflow-engine';
+import logger from '../utils/logger.js';
 
 const router = Router();
+
+function requireAdminJobsKey(req: Request, res: Response, next: NextFunction): void {
+  const adminKey = process.env.ADMIN_API_KEY;
+  const provided = req.headers['x-admin-key'];
+
+  if (!adminKey) {
+    res.status(503).json({ error: 'Report jobs trigger not configured' });
+    return;
+  }
+  if (!provided || typeof provided !== 'string') {
+    logger.warn('Firehorse jobs trigger: missing admin key', { ip: req.ip });
+    res.status(401).json({ error: 'Invalid or missing X-Admin-Key header' });
+    return;
+  }
+
+  const providedBuffer = Buffer.from(provided.padEnd(256, '\0'));
+  const expectedBuffer = Buffer.from(adminKey.padEnd(256, '\0'));
+  if (!crypto.timingSafeEqual(providedBuffer, expectedBuffer)) {
+    logger.warn('Firehorse jobs trigger: invalid admin key', { ip: req.ip });
+    res.status(401).json({ error: 'Invalid or missing X-Admin-Key header' });
+    return;
+  }
+
+  next();
+}
 
 // ============================================================================
 // WEBHOOK ENDPOINTS (for email service integrations)
@@ -532,13 +559,15 @@ router.post('/reports/markdown', async (req: Request, res: Response) => {
  * Manually trigger scheduled report processing (runs all due schedules immediately)
  * POST /firehorse/jobs/reports-run
  */
-router.post('/jobs/reports-run', async (_req: Request, res: Response) => {
+router.post('/jobs/reports-run', requireAdminJobsKey, async (_req: Request, res: Response) => {
   try {
     await reportScheduler.runNow();
     return res.json({ success: true, message: 'Scheduled report processing completed' });
-  } catch (error: any) {
-    console.error('Error running scheduled reports:', error);
-    return res.status(500).json({ error: 'Scheduled report run failed', message: error.message });
+  } catch (error: unknown) {
+    logger.error('Error running scheduled reports', {
+      error: error instanceof Error ? error.message : 'Unknown error',
+    });
+    return res.status(500).json({ error: 'Scheduled report run failed' });
   }
 });
 

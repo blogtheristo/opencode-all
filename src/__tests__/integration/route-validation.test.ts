@@ -12,7 +12,13 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { NextFunction, type Request, type Response } from 'express';
 import { AppError } from '../../middleware/error-handler.js';
-import { ComplianceCheckSchema, OnboardingSchema, validate } from '../../middleware/validate.js';
+import {
+  ComplianceCheckSchema,
+  OnboardingAssessSchema,
+  OnboardingErpTestSchema,
+  OnboardingSchema,
+  validate,
+} from '../../middleware/validate.js';
 
 // ============ HELPERS ============
 
@@ -195,6 +201,45 @@ describe('Onboarding Schema Validation', () => {
       erpConnection: {
         type: 'unknown_erp',
       },
+    });
+    expect(result.success).toBe(false);
+  });
+});
+
+describe('Onboarding Assess Schema Validation', () => {
+  it('accepts valid assessment payload', () => {
+    const result = OnboardingAssessSchema.safeParse({
+      dataPoints: [{ disclosureId: 'E1-1', provided: true }],
+      annualEmissions: 12345,
+      importValue: 5000,
+      hasTransitionPlan: true,
+      hasEmissionsMonitoring: true,
+      hasSupplyChainDD: false,
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it('rejects negative emissions', () => {
+    const result = OnboardingAssessSchema.safeParse({
+      annualEmissions: -1,
+    });
+    expect(result.success).toBe(false);
+  });
+});
+
+describe('Onboarding ERP Test Schema Validation', () => {
+  it('accepts manual ERP test payload without host', () => {
+    const result = OnboardingErpTestSchema.safeParse({
+      type: 'manual',
+      authMethod: 'none',
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it('requires host for ERP systems', () => {
+    const result = OnboardingErpTestSchema.safeParse({
+      type: 'sap',
+      authMethod: 'oauth2',
     });
     expect(result.success).toBe(false);
   });

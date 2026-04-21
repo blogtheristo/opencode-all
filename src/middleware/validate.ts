@@ -111,3 +111,37 @@ export const OnboardingSchema = z.object({
   dataSources: z.array(z.string()).default([]),
   erpConnection: ErpConnectionSchema.optional(),
 });
+
+/** Follow-up onboarding assessment payload */
+export const OnboardingAssessSchema = z.object({
+  dataPoints: z
+    .array(
+      z.object({
+        disclosureId: z.string().min(1),
+        provided: z.boolean(),
+      }),
+    )
+    .default([]),
+  annualEmissions: z.number().min(0).default(0),
+  importValue: z.number().min(0).default(0),
+  hasTransitionPlan: z.boolean().default(false),
+  hasEmissionsMonitoring: z.boolean().default(false),
+  hasSupplyChainDD: z.boolean().default(false),
+});
+
+/** ERP test endpoint payload */
+export const OnboardingErpTestSchema = z
+  .object({
+    type: z.enum(['sap', 'ifs', 'dynamics', 'monitor', 'visma', 'jeeves', 'manual', 'api']),
+    host: z.string().url().optional(),
+    authMethod: z.enum(['api-key', 'oauth2', 'basic', 'none']).optional(),
+  })
+  .superRefine((val, ctx) => {
+    if (val.type !== 'manual' && val.type !== 'api' && !val.host) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['host'],
+        message: 'Host URL is required for ERP connections',
+      });
+    }
+  });
