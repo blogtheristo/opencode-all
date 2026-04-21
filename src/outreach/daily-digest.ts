@@ -610,8 +610,10 @@ export async function sendDailyDigestEmail(): Promise<void> {
     });
 
     if (response.ok) {
-      logger.info('Daily digest sent via Resend', { to: recipient, replyTo: replyToAddress });
-      console.log(`📧 DAILY DIGEST SENT: From: ${fromAddress} | To: ${recipient} | Subject: ${subject}`);
+      logger.info('Daily digest sent via Resend', {
+        transport: 'resend',
+        recipientCount: 1,
+      });
       return;
     }
     logger.warn('Resend failed, trying SendGrid fallback');
@@ -637,8 +639,10 @@ export async function sendDailyDigestEmail(): Promise<void> {
     });
 
     if (response.ok || response.status === 202) {
-      logger.info('Daily digest sent via SendGrid', { to: recipient, replyTo: replyToAddress });
-      console.log(`📧 DAILY DIGEST SENT (SendGrid): From: ${fromAddress} | To: ${recipient} | Subject: ${subject}`);
+      logger.info('Daily digest sent via SendGrid', {
+        transport: 'sendgrid',
+        recipientCount: 1,
+      });
       return;
     }
   }

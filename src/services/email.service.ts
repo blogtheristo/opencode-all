@@ -174,8 +174,6 @@ class EmailService {
     const { to, subject, html, templateType, metadata } = options;
 
     logger.info('Sending email', {
-      to,
-      subject,
       templateType: templateType || 'custom',
     });
 
@@ -183,8 +181,10 @@ class EmailService {
     if (this.resendApiKey) {
       try {
         await this.sendViaResend(to, subject, html);
-        logger.info('Email sent via Resend', { to, subject });
-        console.log(`📧 EMAIL SENT: From: ${this.fromAddress} | To: ${to} | Subject: ${subject} | Template: ${templateType || 'custom'}`);
+        logger.info('Email sent via Resend', {
+          templateType: templateType || 'custom',
+          transport: 'resend',
+        });
         await this.logEmail({
           to_email: to,
           from_email: this.fromAddress,
@@ -200,7 +200,6 @@ class EmailService {
         const errorMessage =
           err instanceof Error ? err.message : 'Unknown Resend error';
         logger.warn('Resend send failed, attempting SendGrid fallback', {
-          to,
           error: errorMessage,
         });
       }
@@ -210,8 +209,10 @@ class EmailService {
     if (this.sendgridApiKey) {
       try {
         await this.sendViaSendGrid(to, subject, html);
-        logger.info('Email sent via SendGrid (fallback)', { to, subject });
-        console.log(`📧 EMAIL SENT (SendGrid): From: ${this.fromAddress} | To: ${to} | Subject: ${subject} | Template: ${templateType || 'custom'}`);
+        logger.info('Email sent via SendGrid (fallback)', {
+          templateType: templateType || 'custom',
+          transport: 'sendgrid',
+        });
         await this.logEmail({
           to_email: to,
           from_email: this.fromAddress,
@@ -226,7 +227,7 @@ class EmailService {
       } catch (err) {
         const errorMessage =
           err instanceof Error ? err.message : 'Unknown SendGrid error';
-        logger.error('SendGrid send failed', { to, error: errorMessage });
+        logger.error('SendGrid send failed', { error: errorMessage });
 
         // Log the failure
         await this.logEmail({

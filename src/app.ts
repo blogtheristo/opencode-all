@@ -24,7 +24,7 @@ import { emailQueue } from './services/email-queue.service.js';
 
 if (process.env.NODE_ENV !== 'production') {
   // In non-production environments, load .env from the repository root for local development
-  const envPath = path.join(path.dirname(fileURLToPath(import.meta.url)), '../../.env');
+  const envPath = path.join(path.dirname(fileURLToPath(import.meta.url)), '../.env');
   dotenv.config({ path: envPath });
 } else {
   // In production, rely on runtime environment variables and default dotenv behavior (if any)

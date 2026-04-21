@@ -327,7 +327,7 @@ class EmailQueueService {
         const streams = results as [string, [string, string[]][]][];
         for (const [, messages] of streams) {
           for (const [id, fields] of messages) {
-            await this.processMessage(id, this.parseFields(fields));
+            await this.processMessage(id, this.parseStreamMessage(this.parseFields(fields)));
           }
         }
       }
@@ -442,7 +442,7 @@ class EmailQueueService {
           });
           for (const [id, fields] of messages) {
             if (fields) {
-              await this.processMessage(id, this.parseFields(fields));
+              await this.processMessage(id, this.parseStreamMessage(this.parseFields(fields)));
             }
           }
         }
@@ -674,6 +674,30 @@ class EmailQueueService {
           attempts,
           error: errorMsg,
         });
+
+        try {
+          await this.redis!.xadd(
+            INBOX_STREAM_KEY,
+            '*',
+            'from', email.from,
+            'to', email.to,
+            'subject', email.subject,
+            'text', email.text,
+            'html', email.html || '',
+            'messageId', email.messageId,
+            'source', email.source,
+            'rawPayload', email.rawPayload || '',
+            'attempts', String(attempts),
+            'receivedAt', new Date().toISOString(),
+          );
+          await this.redis!.xack(INBOX_STREAM_KEY, INBOX_GROUP_NAME, id);
+        } catch (requeueErr) {
+          const requeueError = requeueErr instanceof Error ? requeueErr.message : 'Unknown error';
+          logger.error('Failed to requeue inbound email for retry', {
+            messageId: id,
+            error: requeueError,
+          });
+        }
       }
     }
   }
@@ -866,12 +890,26 @@ class EmailQueueService {
   // HELPERS
   // ----------------------------------------------------------
 
-  private parseFields(fields: string[]): StreamMessage {
+  private parseFields(fields: string[]): Record<string, string> {
     const obj: Record<string, string> = {};
     for (let i = 0; i < fields.length; i += 2) {
       obj[fields[i]] = fields[i + 1];
     }
-    return obj as unknown as StreamMessage;
+    return obj;
+  }
+
+  private parseStreamMessage(fields: Record<string, string>): StreamMessage {
+    return {
+      id: fields.id || '',
+      to: fields.to || '',
+      subject: fields.subject || '',
+      html: fields.html || '',
+      templateType: fields.templateType || 'custom',
+      metadata: fields.metadata || '{}',
+      source: fields.source || 'platform',
+      attempts: fields.attempts || '0',
+      enqueuedAt: fields.enqueuedAt || new Date().toISOString(),
+    };
   }
 }
 

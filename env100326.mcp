@@ -13,8 +13,8 @@ MCP_LOG_LEVEL=info
 # SUPABASE MCP SERVER (Port 8766)
 # ============================================================================
 SUPABASE_MCP_PORT=8766
-SUPABASE_URL=https://kpucuwwfhuwurdxyjjtz.supabase.co
-SUPABASE_SERVICE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtwdWN1d3dmaHV3dXJkeHlqanR6Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2NjcyNDczNywiZXhwIjoyMDgyMzAwNzM3fQ.dc8z33cpRUlIBo1t-XVqloMd8lgB9sgtxr9xs0hJ2rY
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_SERVICE_KEY=your-supabase-service-key
 SUPABASE_ANON_KEY=your-supabase-anon-key-here
 
 # Database Connection (for direct PostgreSQL access)
@@ -35,7 +35,7 @@ TEMPORAL_UI_PORT=8088
 CURSOR_API_KEY=your-cursor-api-key-here
 
 # Claude Code (Anthropic)
-ANTHROPIC_API_KEY=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
+ANTHROPIC_API_KEY=your-anthropic-api-key
 
 # Gemini Pro (Google)
 GOOGLE_API_KEY=your-google-api-key-here
@@ -168,4 +168,3 @@ MCP_DB_PASSWORD=mcp_password_dev
 # MONITORING (Optional)
 # ============================================================================
 GRAFANA_PASSWORD=admin
-
