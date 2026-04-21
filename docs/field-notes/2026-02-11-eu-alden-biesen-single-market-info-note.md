@@ -77,7 +77,7 @@ The Alden Biesen retreat validates DWS IQ 6's core positioning:
 
 The Alden Biesen retreat provides fresh, high-level political validation:
 
-> "We built our 20-moat fortress around EU compliance. Now EU leaders are explicitly stating that the Single Market — 450 million consumers — is Europe's superpower. Our compliance moats are not just defensive barriers; they are access keys to the world's most valuable regulated market."
+> "We built our 21-moat fortress around EU compliance. Now EU leaders are explicitly stating that the Single Market — 450 million consumers — is Europe's superpower. Our compliance moats are not just defensive barriers; they are access keys to the world's most valuable regulated market."
 
 ## Connection to Existing EU Regulatory Framework
 

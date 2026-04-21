@@ -45,13 +45,13 @@ This index provides access to all Administrator and User Manuals for the DWS IQ 
 
 ---
 
-### 2. DWS IQ 6 User Manual
+### 2. DWS IQ 6 User Manual ✅
 **File:** `DWS_IQ6_USER_MANUAL.md`  
 **Audience:** All Platform Users (Board, CxO, Managers, Site Staff)  
-**Size:** 80+ pages  
-**Status:** To be created
+**Size:** Core rollout guide  
+**Status:** Active
 
-**Planned Contents:**
+**Contents:**
 - Getting Started
 - User Interface Overview
 - Situation Room (Board, CxO, Managers Views)
@@ -63,6 +63,12 @@ This index provides access to all Administrator and User Manuals for the DWS IQ 
 - Collaboration Features
 - Personal Settings
 - Troubleshooting for Users
+- Browser-to-local Veriton workflow
+- Local Control Room and local admin app model
+
+**New related files:**
+- `user-storyboard.md`
+- `admin-storyboard.md`
 
 ---
 
@@ -293,7 +299,7 @@ Each manual is available in two formats:
 | Manual | Status | Pages | Last Updated |
 |--------|--------|-------|--------------|
 | DWS IQ 6 Administrator | ✅ Complete | 90+ | 2025-12-31 |
-| DWS IQ 6 User | 📝 Planned | 80+ | TBD |
+| DWS IQ 6 User | ✅ Active | Core rollout guide | 2026-03-11 |
 | Firehorse Administrator | 📝 Planned | 60+ | TBD |
 | Firehorse Reports User | 📝 Planned | 50+ | TBD |
 | Firehorse ContentMS User | 📝 Planned | 40+ | TBD |

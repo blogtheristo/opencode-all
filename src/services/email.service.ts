@@ -14,7 +14,7 @@
  * Environment variables:
  *   RESEND_API_KEY   - Resend API key (primary provider)
  *   SENDGRID_API_KEY - SendGrid API key (fallback provider)
- *   EMAIL_FROM       - Sender address (default: noreply@dws6.com)
+ *   EMAIL_FROM       - Sender address (default: risto@onelifetime.world)
  *   SUPABASE_URL     - Supabase project URL (for email logging)
  *   SUPABASE_SERVICE_KEY - Supabase service role key (for email logging)
  */
@@ -69,7 +69,7 @@ class EmailService {
   private readonly supabaseServiceKey: string | undefined;
 
   constructor() {
-    this.fromAddress = process.env.EMAIL_FROM || 'noreply@dws6.com';
+    this.fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
     this.resendApiKey = process.env.RESEND_API_KEY;
     this.sendgridApiKey = process.env.SENDGRID_API_KEY;
     this.supabaseUrl = process.env.SUPABASE_URL;
@@ -174,8 +174,6 @@ class EmailService {
     const { to, subject, html, templateType, metadata } = options;
 
     logger.info('Sending email', {
-      to,
-      subject,
       templateType: templateType || 'custom',
     });
 
@@ -183,7 +181,10 @@ class EmailService {
     if (this.resendApiKey) {
       try {
         await this.sendViaResend(to, subject, html);
-        logger.info('Email sent via Resend', { to, subject });
+        logger.info('Email sent via Resend', {
+          templateType: templateType || 'custom',
+          transport: 'resend',
+        });
         await this.logEmail({
           to_email: to,
           from_email: this.fromAddress,
@@ -199,7 +200,6 @@ class EmailService {
         const errorMessage =
           err instanceof Error ? err.message : 'Unknown Resend error';
         logger.warn('Resend send failed, attempting SendGrid fallback', {
-          to,
           error: errorMessage,
         });
       }
@@ -209,7 +209,10 @@ class EmailService {
     if (this.sendgridApiKey) {
       try {
         await this.sendViaSendGrid(to, subject, html);
-        logger.info('Email sent via SendGrid (fallback)', { to, subject });
+        logger.info('Email sent via SendGrid (fallback)', {
+          templateType: templateType || 'custom',
+          transport: 'sendgrid',
+        });
         await this.logEmail({
           to_email: to,
           from_email: this.fromAddress,
@@ -224,7 +227,7 @@ class EmailService {
       } catch (err) {
         const errorMessage =
           err instanceof Error ? err.message : 'Unknown SendGrid error';
-        logger.error('SendGrid send failed', { to, error: errorMessage });
+        logger.error('SendGrid send failed', { error: errorMessage });
 
         // Log the failure
         await this.logEmail({

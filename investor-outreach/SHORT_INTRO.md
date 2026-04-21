@@ -1,21 +1,21 @@
 # DWS6 Investor Introduction - Short Format
 
 **Document Type:** Quick Intro for DMs / First Contact  
-**Version:** 1.0  
-**Last Updated:** December 28, 2025  
+**Version:** 2.0
+**Last Updated:** March 24, 2026
 **Use Case:** LinkedIn DMs, Email Intros, Networking Events
 
 ---
 
 ## First Lines (Paragraph 1)
 
-I'm Risto Anton, founder of Lifetime / DWS IQ 6 & Firehorse. We build climate‑intelligent automation for infrastructure and construction portfolios – Brain + Memory for 8 heavy industries.
+I'm Risto Anton, Founder of Lifetime Oy. We build the carbon balance sheet — double-entry bookkeeping for CO2 across 20 EU-regulated industries. Every tonne tracked like every euro, from ETS surrender through CBAM import to CSRD disclosure.
 
 ---
 
 ## Traction + Ask (Paragraph 2)
 
-We're at ~7k€/month MRR with 100% retention, now expanding from energy/industry into construction and infrastructure. I'm currently raising a 150k€ BA + 500k€ VC SAFE round and looking for ESG/CSRD consulting teams as early design partners to test where Fit for 55 / CSRD reporting workflows can be automated on real client cases.
+We're at €7K/month MRR with 100% retention on 6 paying customers. DWS IQ 7 ships the persistent carbon ledger in July 2026. Raising €650K SAFE at €3.8M cap (bridge to Series A). Looking for climate tech investors who understand that carbon compliance is a ledger problem, not a reporting problem.
 
 ---
 
@@ -31,24 +31,24 @@ We're at ~7k€/month MRR with 100% retention, now expanding from energy/industr
 ### Customization Tips:
 
 **For Angel Investors:**
-> I'm Risto Anton, founder of Lifetime / DWS IQ 6 & Firehorse. We build climate‑intelligent automation for infrastructure and construction portfolios – Brain + Memory for 8 heavy industries.
+> I'm Risto Anton, Founder of Lifetime Oy. We build the carbon balance sheet — double-entry bookkeeping for CO2 across 20 EU-regulated industries. Every tonne tracked like every euro, from ETS surrender through CBAM import to CSRD disclosure.
 >
-> We're at ~7k€/month MRR with 100% retention, now expanding from energy/industry into construction and infrastructure. I'm currently raising a 150k€ BA + 500k€ VC SAFE round (€3.8M cap). Would love to share our traction and Series A roadmap if you're interested in climate tech / B2B SaaS.
+> €7K/month MRR, 100% retention, 6 paying customers. Raising €650K SAFE at €3.8M cap (bridge to Series A 2026). The carbon balance sheet ships July 2026. Would love to share our traction if you're interested in climate tech infrastructure.
 
 **For VC Firms:**
-> I'm Risto Anton, founder of Lifetime / DWS IQ 6 & Firehorse. We build climate‑intelligent automation for infrastructure and construction portfolios – Brain + Memory for 8 heavy industries.
+> I'm Risto Anton, Founder of Lifetime Oy. We build carbon balance sheet infrastructure for industrial Europe — double-entry bookkeeping for CO2 across 20 EU-regulated industries. 50,000+ EU companies need a carbon ledger by 2028.
 >
-> We're at ~7k€/month MRR with 100% retention, now expanding from energy/industry into construction and infrastructure. I'm currently raising a 500k€ VC SAFE round (€3.8M cap, bridge to Series A 2026). Happy to share our deck and customer case studies if this fits your thesis.
+> €7K MRR, 100% retention, 6 paying customers, 21 AI agents. Raising €650K SAFE at €3.8M cap (bridge to Series A). The persistent carbon ledger ships July 2026. Happy to share our deck and the cross-vertical data thesis if this fits your portfolio.
 
 **For ESG/CSRD Consulting Partners:**
-> I'm Risto Anton, founder of Lifetime / DWS IQ 6 & Firehorse. We build climate‑intelligent automation for infrastructure and construction portfolios – Brain + Memory for 8 heavy industries.
+> I'm Risto Anton, Founder of Lifetime Oy. We build the carbon balance sheet — automated double-entry bookkeeping that unifies ETS, CBAM, and CSRD into one auditable ledger. Debits and credits, not spreadsheets.
 >
-> We're at ~7k€/month MRR with 100% retention, now expanding from energy/industry into construction and infrastructure. I'm looking for ESG/CSRD consulting teams as early design partners to test where Fit for 55 / CSRD reporting workflows can be automated on real client cases. Would this be interesting for your team?
+> €7K MRR, 100% retention. Looking for ESG/CSRD consulting teams as early design partners to test the carbon balance sheet on real client cases. Your consultants get a ledger-backed compliance engine instead of Excel. Would this be interesting?
 
 **For Construction/Infrastructure Prospects:**
-> I'm Risto Anton, founder of Lifetime / DWS IQ 6 & Firehorse. We build climate‑intelligent automation for infrastructure and construction portfolios – Brain + Memory for 8 heavy industries.
+> I'm Risto Anton, Founder of Lifetime Oy. We build the carbon balance sheet for construction — every tonne of embodied carbon tracked as a debit or credit across your supply chain, from steel CBAM import through to CSRD disclosure.
 >
-> We're at ~7k€/month MRR with 100% retention, now expanding from energy/industry into construction and infrastructure. We help portfolio owners automate Fit for 55 / CSRD reporting – from 40-80 hours of manual Excel work to audit-ready reports in 4 weeks. Would love to show you how it works.
+> €7K MRR, 100% retention. We replace 40-80 hours of manual Excel work with an auditable carbon ledger that connects to your ERP. Audit-ready reports in 4 weeks. Would love to show you how it works.
 
 ---
 
@@ -69,7 +69,7 @@ After initial interest, share:
 Construction and infrastructure portfolios face 40-80 hours of manual Excel work per project for CSRD/Fit for 55 compliance. We automate it – plug into existing SAP/ERP, generate audit-ready reports in 4 weeks.
 
 ### "What's your traction?"
-€7k MRR, 5 paying customers (€70k-€120k annual value each), 100% retention, 2 construction pilots converting in Q1 2026. Target: €900k ARR by end of 2026.
+€7k MRR, 6 paying customers (€70k-€120k annual value each), 100% retention, 2 construction pilots converting in Q1 2026. Target: €900k ARR by end of 2026.
 
 ### "What's the market opportunity?"
 CSRD affects 50,000+ EU companies starting 2025. Fit for 55 and EPBD hit construction hard 2025-2028. 3.5M EU construction firms = forced purchases. This is "mandatory spend" SaaS.
@@ -135,9 +135,9 @@ Regulation is live. Customers have budget. Product works. We have traction. This
 ## Quick Copy-Paste (Plain Text)
 
 ```
-I'm Risto Anton, founder of Lifetime / DWS IQ 6 & Firehorse. We build climate‑intelligent automation for infrastructure and construction portfolios – Brain + Memory for 8 heavy industries.
+I'm Risto Anton, Founder of Lifetime Oy. We build the carbon balance sheet — double-entry bookkeeping for CO2 across 20 EU-regulated industries. Every tonne tracked like every euro, from ETS surrender through CBAM import to CSRD disclosure.
 
-We're at ~7k€/month MRR with 100% retention, now expanding from energy/industry into construction and infrastructure. I'm currently raising a 150k€ BA + 500k€ VC SAFE round and looking for ESG/CSRD consulting teams as early design partners to test where Fit for 55 / CSRD reporting workflows can be automated on real client cases.
+EUR 7K/month MRR with 100% retention on 6 paying customers. DWS IQ 7 ships the persistent carbon ledger July 2026. Raising EUR 650K SAFE at EUR 3.8M cap (bridge to Series A). 50,000+ EU companies need a carbon balance sheet by 2028. We're building the infrastructure.
 ```
 
 ---

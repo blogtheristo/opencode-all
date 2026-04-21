@@ -65,6 +65,7 @@ export interface Person {
   last_name: string | null;
   title: string | null;
   location: string | null;
+  phone: string | null;
   org_id: string | null;
   source: OutreachSource;
   created_by: string;
@@ -179,6 +180,7 @@ export interface EnrichedThread {
   last_name: string | null;
   person_title: string | null;
   linkedin_url: string;
+  person_phone: string | null;
   org_name: string | null;
   org_domain: string | null;
   primary_email: string | null;

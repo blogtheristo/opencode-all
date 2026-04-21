@@ -1,6 +1,6 @@
 # Opinnäytetyön luku: V8-kojelauta Supabase-integraatiolla
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.3

@@ -90,9 +90,16 @@ export class IFSCloudConnector extends BaseERPConnector {
 
     try {
       // IFS uses ShopOrderHandling projection
-      const filter = since ? `&$filter=DateModified gt datetime'${since.toISOString()}'` : '';
+      // SECURITY FIX: Use params object instead of string interpolation to prevent OData injection
+      const params: Record<string, string> = {
+        $expand: 'ShopOrderOperations',
+      };
+      if (since) {
+        params.$filter = `DateModified gt datetime'${since.toISOString()}'`;
+      }
       const response = await this.get<{ value: any[] }>(
-        `/main/ifsapplications/projection/v1/ShopOrderHandling.svc/ShopOrders?$expand=ShopOrderOperations${filter}`
+        '/main/ifsapplications/projection/v1/ShopOrderHandling.svc/ShopOrders',
+        { params }
       );
 
       operation.recordsProcessed = response.value.length;

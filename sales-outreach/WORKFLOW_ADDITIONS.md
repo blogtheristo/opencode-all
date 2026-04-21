@@ -1,6 +1,6 @@
 # Signaalimyynti Workflow Additions – Implementation Guide
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
