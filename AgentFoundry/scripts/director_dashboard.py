@@ -35,16 +35,17 @@ from supabase import Client, create_client
 
 # Logging
 logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
 
 # Environment variables
-SUPABASE_URL = os.getenv('SUPABASE_URL')
-SUPABASE_KEY = os.getenv('SUPABASE_KEY')
-DASHBOARD_USERNAME = os.getenv('DASHBOARD_USERNAME', 'director')
-DASHBOARD_PASSWORD = os.getenv('DASHBOARD_PASSWORD', 'changeme123')  # TODO: Use Secret Manager
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+DASHBOARD_USERNAME = os.getenv("DASHBOARD_USERNAME", "director")
+DASHBOARD_PASSWORD = os.getenv(
+    "DASHBOARD_PASSWORD", "changeme123"
+)  # TODO: Use Secret Manager
 
 # Initialize Supabase client
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
@@ -56,13 +57,14 @@ supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 app = FastAPI(
     title="DWS Sales AI - Director Dashboard",
     description="Mobile-friendly control panel for Sales HIL Director",
-    version="1.0.0"
+    version="1.0.0",
 )
 
 # HTTP Basic Auth
 security = HTTPBasic()
 
 _security_dep = Depends(security)
+
 
 def verify_credentials(credentials: HTTPBasicCredentials = _security_dep) -> str:
     """Verify username and password."""
@@ -78,48 +80,56 @@ def verify_credentials(credentials: HTTPBasicCredentials = _security_dep) -> str
 
     return credentials.username
 
+
 # ============================================================================
 # Dashboard Endpoints
 # ============================================================================
+
 
 @app.get("/", response_class=HTMLResponse)
 async def dashboard_home(username: str = Depends(verify_credentials)):
     """Main dashboard - overview of all agents."""
 
     # Get agent metrics (last 7 days)
-    supabase.table('agent_metrics') \
-        .select('*') \
-        .gte('metric_date', (datetime.now() - timedelta(days=7)).date().isoformat()) \
-        .order('metric_date', desc=True) \
-        .execute()
+    supabase.table("agent_metrics").select("*").gte(
+        "metric_date", (datetime.now() - timedelta(days=7)).date().isoformat()
+    ).order("metric_date", desc=True).execute()
 
     # Get pending approvals count
-    pending_approvals = supabase.table('agent_approvals') \
-        .select('*', count='exact') \
-        .eq('status', 'pending') \
+    pending_approvals = (
+        supabase.table("agent_approvals")
+        .select("*", count="exact")
+        .eq("status", "pending")
         .execute()
+    )
 
     # Get high-priority leads count
-    high_priority_leads = supabase.table('firehorse_leads') \
-        .select('*', count='exact') \
-        .eq('priority', 'High') \
-        .is_('enriched_at', 'not.null') \
+    high_priority_leads = (
+        supabase.table("firehorse_leads")
+        .select("*", count="exact")
+        .eq("priority", "High")
+        .is_("enriched_at", "not.null")
         .execute()
+    )
 
     # Get today's costs
-    today_costs = supabase.table('agent_costs') \
-        .select('agent_id, total_cost_eur') \
-        .eq('cost_date', datetime.now().date().isoformat()) \
+    today_costs = (
+        supabase.table("agent_costs")
+        .select("agent_id, total_cost_eur")
+        .eq("cost_date", datetime.now().date().isoformat())
         .execute()
+    )
 
-    total_cost_today = sum([c['total_cost_eur'] or 0 for c in today_costs.data])
+    total_cost_today = sum([c["total_cost_eur"] or 0 for c in today_costs.data])
 
     # Get recent signals (last 10)
-    recent_signals = supabase.table('agent_signals') \
-        .select('*') \
-        .order('emitted_at', desc=True) \
-        .limit(10) \
+    recent_signals = (
+        supabase.table("agent_signals")
+        .select("*")
+        .order("emitted_at", desc=True)
+        .limit(10)
         .execute()
+    )
 
     # Build HTML response (mobile-friendly)
     html = f"""
@@ -377,13 +387,19 @@ async def dashboard_home(username: str = Depends(verify_credentials)):
         <div class="container">
             <div class="header">
                 <h1>🤖 DWS Sales AI Dashboard</h1>
-                <div class="subtitle">Welcome, {username} | {datetime.now().strftime('%Y-%m-%d %H:%M CET')}</div>
+                <div class="subtitle">Welcome, {username} | {
+        datetime.now().strftime("%Y-%m-%d %H:%M CET")
+    }</div>
             </div>
 
             <div class="nav-tabs">
                 <a href="/" class="nav-tab active">Overview</a>
-                <a href="/approvals" class="nav-tab">Approvals ({pending_approvals.count or 0})</a>
-                <a href="/leads" class="nav-tab">Leads ({high_priority_leads.count or 0})</a>
+                <a href="/approvals" class="nav-tab">Approvals ({
+        pending_approvals.count or 0
+    })</a>
+                <a href="/leads" class="nav-tab">Leads ({
+        high_priority_leads.count or 0
+    })</a>
                 <a href="/costs" class="nav-tab">Costs</a>
                 <a href="/agents" class="nav-tab">Agents</a>
             </div>
@@ -421,8 +437,11 @@ async def dashboard_home(username: str = Depends(verify_credentials)):
             <div class="section">
                 <h2>⚡ Recent Activity</h2>
                 {
-                    '<div class="empty-state">No recent activity</div>' if not recent_signals.data else
-                    ''.join([f'''
+        '<div class="empty-state">No recent activity</div>'
+        if not recent_signals.data
+        else "".join(
+            [
+                f'''
                     <div class="signal-item">
                         <div class="signal-dot {signal['signal_type'].lower()}"></div>
                         <div class="signal-content">
@@ -431,8 +450,11 @@ async def dashboard_home(username: str = Depends(verify_credentials)):
                         </div>
                         <div class="signal-time">{datetime.fromisoformat(signal['emitted_at'].replace('Z', '+00:00')).strftime('%H:%M')}</div>
                     </div>
-                    ''' for signal in recent_signals.data])
-                }
+                    '''
+                for signal in recent_signals.data
+            ]
+        )
+    }
             </div>
         </div>
 
@@ -452,11 +474,11 @@ async def approvals_page(_username: str = Depends(verify_credentials)):
     """Email approval workflow - Advisor mode."""
 
     # Get pending approvals with lead details
-    approvals = supabase.rpc('get_pending_approvals_with_details').execute()
+    approvals = supabase.rpc("get_pending_approvals_with_details").execute()
 
     # Fallback: manual join if RPC doesn't exist
-    if not hasattr(approvals, 'data') or not approvals.data:
-        approvals_raw = supabase.from_('v_pending_approvals').select('*').execute()
+    if not hasattr(approvals, "data") or not approvals.data:
+        approvals_raw = supabase.from_("v_pending_approvals").select("*").execute()
         approvals_data = approvals_raw.data if approvals_raw.data else []
     else:
         approvals_data = approvals.data
@@ -511,8 +533,11 @@ async def approvals_page(_username: str = Depends(verify_credentials)):
 
             <div class="section">
                 {
-                    '<div class="empty-state">🎉 No pending approvals!<br><small>All emails have been reviewed.</small></div>' if not approvals_data else
-                    ''.join([f'''
+        '<div class="empty-state">🎉 No pending approvals!<br><small>All emails have been reviewed.</small></div>'
+        if not approvals_data
+        else "".join(
+            [
+                f'''
                     <div class="approval-item">
                         <div class="company">{approval.get('company', 'Unknown Company')}</div>
                         <div class="contact">{approval.get('first_name', '')} {approval.get('last_name', '')} - {approval.get('email', '')}</div>
@@ -527,8 +552,11 @@ async def approvals_page(_username: str = Depends(verify_credentials)):
                             <button class="btn btn-reject" onclick="reject('{approval.get('approval_id', '')}')">❌ Reject</button>
                         </div>
                     </div>
-                    ''' for approval in approvals_data])
-                }
+                    '''
+                for approval in approvals_data
+            ]
+        )
+    }
             </div>
         </div>
 
@@ -561,17 +589,25 @@ async def approve_email(approval_id: str, username: str = Depends(verify_credent
     """Approve an email for sending."""
     try:
         # Update approval status
-        supabase.table('agent_approvals').update({
-            'status': 'approved',
-            'decision_at': datetime.now(UTC).isoformat(),
-            'approved_by': username
-        }).eq('id', approval_id).execute()
+        supabase.table("agent_approvals").update(
+            {
+                "status": "approved",
+                "decision_at": datetime.now(UTC).isoformat(),
+                "approved_by": username,
+            }
+        ).eq("id", approval_id).execute()
 
         # Update event status to 'scheduled'
-        approval = supabase.table('agent_approvals').select('event_id').eq('id', approval_id).single().execute()
-        supabase.table('firehorse_events').update({
-            'status': 'scheduled'
-        }).eq('id', approval.data['event_id']).execute()
+        approval = (
+            supabase.table("agent_approvals")
+            .select("event_id")
+            .eq("id", approval_id)
+            .single()
+            .execute()
+        )
+        supabase.table("firehorse_events").update({"status": "scheduled"}).eq(
+            "id", approval.data["event_id"]
+        ).execute()
 
         logger.info(f"Email approved by {username}: {approval_id}")
 
@@ -588,10 +624,9 @@ async def reject_email(approval_id: str, username: str = Depends(verify_credenti
     try:
         # TODO: Parse rejection reason from request body
 
-        supabase.table('agent_approvals').update({
-            'status': 'rejected',
-            'decision_at': datetime.now(UTC).isoformat()
-        }).eq('id', approval_id).execute()
+        supabase.table("agent_approvals").update(
+            {"status": "rejected", "decision_at": datetime.now(UTC).isoformat()}
+        ).eq("id", approval_id).execute()
 
         logger.info(f"Email rejected by {username}: {approval_id}")
 
@@ -612,16 +647,12 @@ async def health_check():
 # Main Entrypoint
 # ============================================================================
 
+
 def main():
     """Run dashboard server."""
-    port = int(os.getenv('PORT', '8080'))
+    port = int(os.getenv("PORT", "8080"))
 
-    uvicorn.run(
-        app,
-        host="0.0.0.0",
-        port=port,
-        log_level="info"
-    )
+    uvicorn.run(app, host="0.0.0.0", port=port, log_level="info")
 
 
 if __name__ == "__main__":

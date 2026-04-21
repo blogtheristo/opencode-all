@@ -13,17 +13,19 @@ Outputs:
 Must complete in <90 seconds.
 """
 
-import os
 import sys
 import time
 import warnings
+
+import matplotlib
 import numpy as np
 import pandas as pd
-import matplotlib
+
 matplotlib.use("Agg")  # Non-interactive backend
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 import seaborn as sns
-from pathlib import Path
 from sklearn.feature_selection import mutual_info_classif
 
 warnings.filterwarnings("ignore", category=FutureWarning)
@@ -33,8 +35,13 @@ DATA_DIR = PROJECT_ROOT / "data"
 FIGURES_DIR = PROJECT_ROOT / "reports" / "figures"
 FIGURES_DIR.mkdir(parents=True, exist_ok=True)
 
-NUMERIC_COLS = ["delivery_time_min", "fuel_cost_eur", "weather_delay_min",
-                "route_efficiency_pct", "co2_kg"]
+NUMERIC_COLS = [
+    "delivery_time_min",
+    "fuel_cost_eur",
+    "weather_delay_min",
+    "route_efficiency_pct",
+    "co2_kg",
+]
 TARGET_COL = "on_time"
 
 
@@ -64,13 +71,14 @@ def fix_outliers(df: pd.DataFrame) -> pd.DataFrame:
         iqr = q3 - q1
         lower = q1 - 1.5 * iqr
         upper = q3 + 1.5 * iqr
-        before = df[col].isna().sum()
         outlier_mask = (df[col] < lower) | (df[col] > upper)
         n_outliers = outlier_mask.sum()
         if n_outliers > 0:
             df.loc[df[col] > upper, col] = upper
             df.loc[df[col] < lower, col] = lower
-            print(f"  Fixed {n_outliers} outliers in {col} (capped to [{lower:.1f}, {upper:.1f}])")
+            print(
+                f"  Fixed {n_outliers} outliers in {col} (capped to [{lower:.1f}, {upper:.1f}])"
+            )
     return df
 
 
@@ -92,18 +100,18 @@ def eda_summary(df: pd.DataFrame) -> None:
     print("EDA SUMMARY")
     print("=" * 60)
     print(f"Shape: {df.shape}")
-    print(f"\nDtypes:")
+    print("\nDtypes:")
     for col in df.columns:
         print(f"  {col}: {df[col].dtype}")
-    print(f"\nNull counts (after cleaning):")
+    print("\nNull counts (after cleaning):")
     for col in df.columns:
         print(f"  {col}: {df[col].isna().sum()}")
     print(f"\nTarget distribution ({TARGET_COL}):")
     counts = df[TARGET_COL].value_counts()
     for val, count in counts.items():
-        print(f"  {val}: {count} ({count/len(df)*100:.1f}%)")
+        print(f"  {val}: {count} ({count / len(df) * 100:.1f}%)")
 
-    print(f"\nTop 5 correlations with target (point-biserial):")
+    print("\nTop 5 correlations with target (point-biserial):")
     target_numeric = df[TARGET_COL].astype(int)
     corrs = {}
     for col in NUMERIC_COLS:
@@ -120,8 +128,16 @@ def plot_correlation_heatmap(df: pd.DataFrame) -> None:
     corr_df = df[NUMERIC_COLS + [TARGET_COL]].copy()
     corr_df[TARGET_COL] = corr_df[TARGET_COL].astype(int)
     corr_matrix = corr_df.corr()
-    sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap="RdBu_r",
-                center=0, vmin=-1, vmax=1, ax=ax)
+    sns.heatmap(
+        corr_matrix,
+        annot=True,
+        fmt=".2f",
+        cmap="RdBu_r",
+        center=0,
+        vmin=-1,
+        vmax=1,
+        ax=ax,
+    )
     ax.set_title("Feature Correlation Heatmap", fontsize=14, fontweight="bold")
     plt.tight_layout()
     path = FIGURES_DIR / "correlation_heatmap.png"
@@ -137,16 +153,25 @@ def plot_target_distribution(df: pd.DataFrame) -> None:
     # Bar chart of on_time
     counts = df[TARGET_COL].value_counts()
     colors = ["#2ecc71", "#e74c3c"]
-    axes[0].bar(["On Time", "Late"], [counts.get(True, 0), counts.get(False, 0)],
-                color=colors)
+    axes[0].bar(
+        ["On Time", "Late"], [counts.get(True, 0), counts.get(False, 0)], color=colors
+    )
     axes[0].set_title("Delivery Status Distribution", fontsize=12, fontweight="bold")
     axes[0].set_ylabel("Count")
-    for i, (label, val) in enumerate(zip(["On Time", "Late"],
-                                          [counts.get(True, 0), counts.get(False, 0)])):
+    for i, (_label, val) in enumerate(
+        zip(
+            ["On Time", "Late"],
+            [counts.get(True, 0), counts.get(False, 0)],
+            strict=True,
+        )
+    ):
         axes[0].text(i, val + 5, str(val), ha="center", fontweight="bold")
 
     # Distribution of delivery_time by on_time status
-    for status, color, label in [(True, "#2ecc71", "On Time"), (False, "#e74c3c", "Late")]:
+    for status, color, label in [
+        (True, "#2ecc71", "On Time"),
+        (False, "#e74c3c", "Late"),
+    ]:
         subset = df[df[TARGET_COL] == status]["delivery_time_min"]
         axes[1].hist(subset, bins=25, alpha=0.6, color=color, label=label)
     axes[1].set_title("Delivery Time by Status", fontsize=12, fontweight="bold")
@@ -172,7 +197,9 @@ def plot_feature_importance(df: pd.DataFrame) -> None:
     fig, ax = plt.subplots(figsize=(8, 5))
     colors = plt.cm.viridis(np.linspace(0.3, 0.9, len(importance)))
     importance.plot(kind="barh", ax=ax, color=colors)
-    ax.set_title("Feature Importance (Mutual Information)", fontsize=14, fontweight="bold")
+    ax.set_title(
+        "Feature Importance (Mutual Information)", fontsize=14, fontweight="bold"
+    )
     ax.set_xlabel("Mutual Information Score")
     plt.tight_layout()
     path = FIGURES_DIR / "feature_importance_preview.png"

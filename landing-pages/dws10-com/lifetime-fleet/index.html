@@ -1,439 +1,559 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lifetime World | Lifetime Fleet</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta
+      name="description"
+      content="Lifetime World — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy."
+    />
+    <meta
+      name="keywords"
+      content="lifetime fleet, IoT, robotics, edge AI, NVIDIA Jetson, physical execution"
+    />
+    <meta name="author" content="Lifetime Oy" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Lifetime World | Lifetime Fleet" />
+    <meta
+      property="og:description"
+      content="Lifetime World — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://dws10.com/lifetime-fleet/index.html" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="og:site_name" content="DWS IQ Platform" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lifetime World | Lifetime Fleet" />
+    <meta
+      name="twitter:description"
+      content="Lifetime World — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy."
+    />
+    <link rel="canonical" href="https://dws10.com/lifetime-fleet/index.html" />
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
     <style>
-        :root {
-            --primary: #1a365d;
-            --secondary: #2d5a87;
-            --accent: #e53e3e;
-            --light: #f7fafc;
-            --dark: #1a202c;
-        }
+      :root {
+        --primary: #1a365d;
+        --secondary: #2d5a87;
+        --accent: #e53e3e;
+        --light: #f7fafc;
+        --dark: #1a202c;
+      }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            line-height: 1.6;
-            color: #f1f5f9;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-            min-height: 100vh;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        h1 {
-            font-size: 2.5rem;
-            color: #e2e8f0;
-            margin-bottom: 30px;
-            text-align: center;
-        }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+        line-height: 1.6;
+        color: #f1f5f9;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+        min-height: 100vh;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      h1 {
+        font-size: 2.5rem;
+        color: #e2e8f0;
+        margin-bottom: 30px;
+        text-align: center;
+      }
 
-        /* Header */
-        header {
-            background: var(--primary);
-            color: white;
-            padding: 20px 0;
-        }
+      nav .dropdown {
+        background: rgba(30, 41, 59, 0.95) !important;
+      }
 
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
+      nav .dropdown a {
+        color: #cbd5e1 !important;
+      }
 
-        .logo-section img {
-            height: 80px;
-        }
+      nav .dropdown a:hover {
+        color: #60a5fa !important;
+      }
 
-        .logo-section h1 {
-            font-size: 1.8rem;
-        }
-
-        nav li:hover .dropdown {
-            display: block !important;
-        }
-
-        nav .dropdown li:hover {
-            background: rgba(15, 23, 42, 0.8);
-        }
-
-        nav .dropdown {
-            background: rgba(30, 41, 59, 0.95) !important;
-        }
-
-        nav .dropdown a {
-            color: #cbd5e1 !important;
-        }
-
-        nav .dropdown a:hover {
-            color: #60a5fa !important;
-        }
-
-        /* Carousel */
-        .carousel-container {
-            width: 100%;
-            max-width: 1000px;
-            margin: 40px auto;
-            position: relative;
-            background: rgba(30, 41, 59, 0.4) !important;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
+      /* Carousel */
+      .carousel-container {
+        width: 100%;
+        max-width: 1000px;
+        margin: 40px auto;
+        position: relative;
+        background: rgba(30, 41, 59, 0.4) !important;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+      #fleetCarousel {
+        min-height: 550px; /* Adjusted height */
+        max-width: 100%;
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+        padding: 20px;
+        position: relative;
+        display: block;
+      }
+      @media (max-width: 768px) {
         #fleetCarousel {
-            min-height: 550px; /* Adjusted height */
-            max-width: 100%;
-            background: transparent !important;
-            box-shadow: none !important;
-            border: none !important;
-            padding: 20px;
-            position: relative;
-            display: block;
+          min-height: 500px;
+          padding: 15px;
         }
-        @media (max-width: 768px) {
-            #fleetCarousel {
-                min-height: 500px;
-                padding: 15px;
-            }
+      }
+      @media (max-width: 480px) {
+        #fleetCarousel {
+          min-height: 450px;
+          padding: 10px;
         }
-        @media (max-width: 480px) {
-            #fleetCarousel {
-                min-height: 450px;
-                padding: 10px;
-            }
-        }
-        .carousel-slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0s linear 4s; /* Wait 4s before hiding (stays visible behind new slide) */
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-        .carousel-slide.active {
-            opacity: 1;
-            z-index: 1;
-            transition: opacity 4s ease-in-out; /* 4s cross-fade */
-            transition-delay: 0s; /* Start immediately */
-            pointer-events: auto;
-        }
-        .carousel-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Ensure full image is visible */
-            display: block;
-        }
-        .carousel-controls button {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: white;
-            padding: 10px 15px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 1.2rem;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 2;
-            transition: background 0.3s;
-        }
-        .carousel-controls button:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        .carousel-controls .prev {
-            left: 10px;
-        }
-        .carousel-controls .next {
-            right: 10px;
-        }
-        .slide-number-indicator {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            z-index: 10;
-        }
+      }
+      .carousel-slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 0s linear 4s; /* Wait 4s before hiding (stays visible behind new slide) */
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      .carousel-slide.active {
+        opacity: 1;
+        z-index: 1;
+        transition: opacity 4s ease-in-out; /* 4s cross-fade */
+        transition-delay: 0s; /* Start immediately */
+        pointer-events: auto;
+      }
+      .carousel-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain; /* Ensure full image is visible */
+        display: block;
+      }
+      .carousel-controls button {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+        transition: background 0.3s;
+      }
+      .carousel-controls button:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+      .carousel-controls .prev {
+        left: 10px;
+      }
+      .carousel-controls .next {
+        right: 10px;
+      }
+      .slide-number-indicator {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        z-index: 10;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-    <header>
-        <div class="container">
-            <div class="logo-section" style="display: flex; align-items: center; gap: 30px; width: 100%; flex-wrap: wrap;">
-                <div style="display: flex; align-items: center; gap: 20px; flex-shrink: 0;">
-                    <a href="https://www.crunchbase.com/organization/lifetime-oy">
-                        <img src="DWS_IQ2026.png" alt="DWS IQ Platform">
-                    </a>
-                    <h1 style="font-size: clamp(1.2rem, 3vw, 1.8rem);">DWS IQ Platform Version 6</h1>
-                </div>
-                <nav style="flex-grow: 0;">
-                    <ul style="display: flex; list-style: none; gap: 15px; align-items: center; flex-wrap: wrap; margin: 0; padding: 0;">
-                        <li style="position: relative;">
-                            <a href="../index.html" style="color: white; text-decoration: none; white-space: nowrap;">Home ▾</a>
-                            <ul style="position: absolute; top: 100%; left: 0; background: rgba(30, 41, 59, 0.95); min-width: 200px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); border-radius: 5px; padding: 10px 0; display: none; z-index: 100;"
-                                class="dropdown">
-                                <li><a href="../investor-relations/"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Investors</a>
-                                </li>
-                                <li><a href="index.html"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Lifetime Fleet</a>
-                                </li>
-                                <li><a href="https://onelifetime.world"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Lifetime World</a>
-                                </li>
-                                <li><a href="../careers/"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Careers</a>
-                                </li>
-                                <li><a href="../progress-report/"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Investor Progress Report</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="../investor-relations/" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 8px 18px; border-radius: 6px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; transition: all 0.3s;" title="Investor Relations">
-                                💼 Investors
-                            </a>
-                        </li>
-                        <li style="position: relative;">
-                            <a href="#" style="color: white; text-decoration: none; white-space: nowrap;">Products ▾</a>
-                            <ul style="position: absolute; top: 100%; left: 0; background: rgba(30, 41, 59, 0.95); min-width: 200px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); border-radius: 5px; padding: 10px 0; display: none; z-index: 100;"
-                                class="dropdown">
-                                <li><a href="../world-model/"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">World Model</a>
-                                </li>
-                                <li><a href="index.html"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Lifetime Fleet</a>
-                                </li>
-                                <li style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 5px; padding-top: 5px;"><a href="#"
-                                        style="display: block; padding: 8px 20px; color: #94a3b8; text-decoration: none; font-size: 0.9rem; font-weight: bold;">Industries:</a>
-                                </li>
-                                <li><a href="../construction/"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Construction</a>
-                                </li>
-                                <li><a href="../manufacturing/"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Manufacturing</a>
-                                </li>
-                                <li><a href="../logistics/"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Logistics
-                                        & Supply Chain</a></li>
-                                <li><a href="../energy/"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Energy
-                                        & Utilities</a></li>
-                                <li><a href="../real-estate/"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Real
-                                        Estate Development</a></li>
-                                <li><a href="../architecture/"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Architecture
-                                        & Engineering</a></li>
-                                <li><a href="../waste/"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Waste
-                                        Management</a></li>
-                                <li><a href="../mining/"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">Mining/Heavy
-                                        Industry</a></li>
-                            </ul>
-                        </li>
-                        <li style="position: relative;">
-                            <a href="#" style="color: white; text-decoration: none; white-space: nowrap;">Legal ▾</a>
-                            <ul style="position: absolute; top: 100%; left: 0; background: rgba(30, 41, 59, 0.95); min-width: 250px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); border-radius: 5px; padding: 10px 0; display: none; z-index: 100;"
-                                class="dropdown">
-                                <li><a href="../legal/"
-                                        style="display: block; padding: 8px 20px; color: #10b981; text-decoration: none; font-weight: 600;">⭐ Legal Hub (Start Here)</a>
-                                </li>
-                                <li style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 5px; padding-top: 5px;"><a href="../investment-safety/"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">⭐ Investment Security</a>
-                                </li>
-                                <li><a href="../privacy-policy/"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">⭐ Privacy Policy</a>
-                                </li>
-                                <li><a href="../terms/"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">⭐ Professional Services Terms</a>
-                                </li>
-                                <li><a href="../terms-dws-iq/"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">⭐ DWS IQ Terms</a>
-                                </li>
-                                <li><a href="../terms-firehorse/"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">⭐ Firehorse Terms</a>
-                                </li>
-                                <li><a href="../terms-lifetime-fleet/"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">⭐ Fleet Terms</a>
-                                </li>
-                                <li><a href="../terms-professional/"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">⭐ Professional Services</a>
-                                </li>
-                                <li><a href="../return-policy/"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">⭐ Return Policy</a>
-                                </li>
-                                <li><a href="../regulatory-notice/"
-                                        style="display: block; padding: 8px 20px; color: #cbd5e1; text-decoration: none;">⭐ Regulatory Notice</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a href="https://onelifetime.world/blog/"
-                                style="color: white; text-decoration: none;">Blog (LSJ)</a></li>
-                        <li>
-                            <a href="https://dws6.com/login" style="background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%); color: white; padding: 8px 18px; border-radius: 6px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; transition: all 0.3s;" title="Login to Dashboard">
-                                🔐 Login
-                            </a>
-                        </li>
-                        <li style="display: flex; align-items: center;">
-                            <a href="https://onelifetime.world" style="text-decoration: none; display: flex; align-items: center;">
-                                <img src="static/images/OneLifetime_Logo_Final.png" alt="OneLifetime.World" style="height: 30px; margin-right: 5px;">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://dws10.com/buy" target="_blank" style="color: white; text-decoration: none; display: flex; align-items: center;" title="Visit Store">
-                                <img src="static/images/Firehorse_Store.jpg" alt="Store" style="height: 24px; margin-right: 8px; border-radius: 4px;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+  <body>
+    <div class="container">
+      <h1>Lifetime Fleet: Integrated with DWS IQ Platform</h1>
+      <p style="text-align: center; font-size: 1.2rem; margin-bottom: 20px">
+        Robots, drones, and vehicles moving atoms in the real world. The physical "hands" of
+        Lifetime World, seamlessly integrated with DWS IQ Platform.
+      </p>
+      <p style="text-align: center; margin-bottom: 40px">
+        <a href="optimus-v3/" style="color: #60a5fa; text-decoration: none; font-weight: 600"
+          >Optimus V3 — EU-Sovereign Physical AI Partnership →</a
+        >
+      </p>
+
+      <div class="carousel-container" id="fleetCarousel">
+        <div id="fleetSlideNumber" class="slide-number-indicator"></div>
+        <div class="carousel-slide active">
+          <img src="../static/images/lifetime-fleet/LifetimeFleetCare.png" alt="Lifetime Fleet" />
         </div>
-    </header>
+        <div class="carousel-slide">
+          <img src="../static/images/lifetime-fleet/LastMeterOfCare.png" alt="Last Meter of Care" />
+        </div>
+        <div class="carousel-slide">
+          <img src="../static/images/lifetime-fleet/SocietyCare.png" alt="Society 5.0" />
+        </div>
+        <div class="carousel-slide">
+          <img src="../static/images/lifetime-fleet/QualityCare.png" alt="Execution and Quality" />
+        </div>
+        <div class="carousel-slide">
+          <img src="../static/images/lifetime-fleet/LiveTraction.png" alt="Traction" />
+        </div>
+        <div class="carousel-slide">
+          <img src="../static/images/lifetime-fleet/CareRentalBusiness.png" alt="Recovery Rental" />
+        </div>
 
-        <div class="container">
-        <h1>Lifetime Fleet: Integrated with DWS IQ Platform</h1>
-        <p style="text-align:center; font-size:1.2rem; margin-bottom:20px;">Robots, drones, and vehicles moving atoms in the real world. The physical "hands" of Lifetime World, seamlessly integrated with DWS IQ Platform.</p>
-        <p style="text-align:center; margin-bottom:40px;">
-            <a href="index.html" style="color: #60a5fa; text-decoration: none; font-weight: 600;">Learn more about Lifetime Fleet integration →</a>
+        <div class="carousel-controls">
+          <button class="prev" onclick="fleetPrevSlide()">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="next" onclick="fleetNextSlide()">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Robot Ecosystem -->
+    <div style="max-width: 1000px; margin: 0 auto 16px">
+      <p
+        style="
+          color: #76b900;
+          font-size: 0.8rem;
+          font-weight: 700;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          margin-bottom: 6px;
+        "
+      >
+        Robot Ecosystem
+      </p>
+      <h2 style="color: #e2e8f0; font-size: 1.6rem; margin-bottom: 8px">Open Robot Partnerships</h2>
+      <p style="color: #94a3b8; font-size: 0.95rem">
+        DWS IQ provides the sovereign compliance layer. Partners provide the physical execution.
+      </p>
+    </div>
+    <div
+      style="
+        max-width: 1000px;
+        margin: 0 auto 48px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 24px;
+      "
+    >
+      <a
+        href="optimus-v3/"
+        style="
+          text-decoration: none;
+          display: block;
+          background: rgba(30, 41, 59, 0.6);
+          border: 1px solid rgba(118, 185, 0, 0.3);
+          border-radius: 12px;
+          padding: 28px;
+          transition:
+            border-color 0.3s,
+            transform 0.2s;
+        "
+      >
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px">
+          <span style="font-size: 1.8rem">🤖</span>
+          <h3 style="color: #e2e8f0; font-size: 1.3rem; margin: 0">Optimus V3</h3>
+        </div>
+        <p style="color: #94a3b8; font-size: 0.95rem; margin-bottom: 16px">
+          Tesla Optimus + DWS IQ — EU-sovereign physical AI for industrial compliance. The Hands
+          layer of the Captain's Bridge.
         </p>
-        
-        <div class="carousel-container" id="fleetCarousel">
-            <div id="fleetSlideNumber" class="slide-number-indicator"></div>
-            <div class="carousel-slide active">
-                <img src="../static/images/lifetime-fleet/LifetimeFleetCare.png" alt="Lifetime Fleet">
-            </div>
-            <div class="carousel-slide">
-                <img src="../static/images/lifetime-fleet/LastMeterOfCare.png" alt="Last Meter of Care">
-            </div>
-            <div class="carousel-slide">
-                <img src="../static/images/lifetime-fleet/SocietyCare.png" alt="Society 5.0">
-            </div>
-            <div class="carousel-slide">
-                <img src="../static/images/lifetime-fleet/QualityCare.png" alt="Execution and Quality">
-            </div>
-            <div class="carousel-slide">
-                <img src="../static/images/lifetime-fleet/LiveTraction.png" alt="Traction">
-                </div>
-            <div class="carousel-slide">
-                <img src="../static/images/lifetime-fleet/CareRentalBusiness.png" alt="Recovery Rental">
-                </div>
-
-            <div class="carousel-controls">
-                <button class="prev" onclick="fleetPrevSlide()"><i class="fas fa-chevron-left"></i></button>
-                <button class="next" onclick="fleetNextSlide()"><i class="fas fa-chevron-right"></i></button>
-                </div>
-            </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px">
+          <span
+            style="
+              color: #76b900;
+              border: 1px solid rgba(118, 185, 0, 0.3);
+              border-radius: 20px;
+              padding: 3px 10px;
+              font-size: 0.75rem;
+            "
+            >NVIDIA Connect ISV</span
+          >
+          <span
+            style="
+              color: #10b981;
+              border: 1px solid rgba(16, 185, 129, 0.3);
+              border-radius: 20px;
+              padding: 3px 10px;
+              font-size: 0.75rem;
+            "
+            >EU AI Act Art. 12</span
+          >
+          <span
+            style="
+              color: #f59e0b;
+              border: 1px solid rgba(245, 158, 11, 0.3);
+              border-radius: 20px;
+              padding: 3px 10px;
+              font-size: 0.75rem;
+            "
+            >Open Partnership</span
+          >
         </div>
+        <p style="color: #60a5fa; font-size: 0.9rem; margin-top: 16px">
+          View full spec & partnership details →
+        </p>
+      </a>
+    </div>
 
-    <footer>
-        <div class="container">
-            <div class="legal-notice">
-                <p><strong>LEGAL NOTICE</strong></p>
-                <p><strong>Data Controller:</strong> Lifetime Oy (Laidunmaanraitti 2 A 25, 02330 Espoo, Finland).</p>
-                <p><strong>Regulatory Framework:</strong> As of December 2025, our operations strictly adhere to the EU General Data Protection Regulation (GDPR), the Digital Services Act (DSA), the NIS2 Directive, and the EU AI Act.</p>
-                </div>
-            <div class="copyright" style="margin-top:20px;">
-                Copyright © 2025-2026 Lifetime Oy. All Rights Reserved.
-                </div>
-            </div>
-    </footer>
+    <!-- 4-Partner Hardware Stack -->
+    <div style="max-width: 1000px; margin: 0 auto 16px">
+      <p
+        style="
+          color: #76b900;
+          font-size: 0.8rem;
+          font-weight: 700;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          margin-bottom: 6px;
+        "
+      >
+        Certified Infrastructure
+      </p>
+      <h2 style="color: #e2e8f0; font-size: 1.6rem; margin-bottom: 8px">
+        The 4-Partner Hardware Stack
+      </h2>
+      <p style="color: #94a3b8; font-size: 0.95rem">
+        Every partner is certified, operational, and EU-sovereign. No custom hardware, no
+        compatibility risk.
+      </p>
+    </div>
+    <div
+      style="
+        max-width: 1000px;
+        margin: 0 auto 48px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+      "
+    >
+      <a
+        href="nvidia-isv/"
+        style="
+          text-decoration: none;
+          display: block;
+          background: rgba(30, 41, 59, 0.6);
+          border: 1px solid rgba(118, 185, 0, 0.3);
+          border-radius: 12px;
+          padding: 24px;
+          transition: border-color 0.3s;
+        "
+      >
+        <div style="font-size: 1.6rem; margin-bottom: 10px">⚡</div>
+        <h3 style="color: #e2e8f0; font-size: 1.1rem; margin: 0 0 8px">NVIDIA</h3>
+        <p style="color: #76b900; font-size: 0.75rem; font-weight: 600; margin-bottom: 8px">
+          Connect ISV Partner
+        </p>
+        <p style="color: #94a3b8; font-size: 0.85rem; margin-bottom: 12px">
+          Jetson Orin &middot; Grace Blackwell. Raw AI power at the edge. All inference stays local.
+        </p>
+        <p style="color: #60a5fa; font-size: 0.85rem">View compute backbone →</p>
+      </a>
+      <div
+        style="
+          background: rgba(30, 41, 59, 0.6);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 12px;
+          padding: 24px;
+        "
+      >
+        <div style="font-size: 1.6rem; margin-bottom: 10px">💀</div>
+        <h3 style="color: #e2e8f0; font-size: 1.1rem; margin: 0 0 8px">Acer</h3>
+        <p style="color: #10b981; font-size: 0.75rem; font-weight: 600; margin-bottom: 8px">
+          Hardware Partner
+        </p>
+        <p style="color: #94a3b8; font-size: 0.85rem">
+          GN-100 AI Mini Workstations. NVIDIA GB10, 128 GB unified memory, DGX Ubuntu. One unit
+          operational in Finland.
+        </p>
+      </div>
+      <div
+        style="
+          background: rgba(30, 41, 59, 0.6);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 12px;
+          padding: 24px;
+        "
+      >
+        <div style="font-size: 1.6rem; margin-bottom: 10px">🔌</div>
+        <h3 style="color: #e2e8f0; font-size: 1.1rem; margin: 0 0 8px">Siemens</h3>
+        <p style="color: #60a5fa; font-size: 0.75rem; font-weight: 600; margin-bottom: 8px">
+          Data Partner
+        </p>
+        <p style="color: #94a3b8; font-size: 0.85rem">
+          Xcelerator integration. Direct PLC telemetry into the Lifetime World Model. Real-time
+          industrial data streams.
+        </p>
+      </div>
+      <div
+        style="
+          background: rgba(30, 41, 59, 0.6);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 12px;
+          padding: 24px;
+        "
+      >
+        <div style="font-size: 1.6rem; margin-bottom: 10px">🔋</div>
+        <h3 style="color: #e2e8f0; font-size: 1.1rem; margin: 0 0 8px">ABB</h3>
+        <p style="color: #f59e0b; font-size: 0.75rem; font-weight: 600; margin-bottom: 8px">
+          Energy Partner
+        </p>
+        <p style="color: #94a3b8; font-size: 0.85rem">
+          ABB Ability energy API. Real-time power grid monitoring for Fit for 55 reporting and
+          carbon-credit harvesting.
+        </p>
+      </div>
+    </div>
+
+    <!-- Platform CTA -->
+    <div
+      style="
+        max-width: 1000px;
+        margin: 0 auto 40px;
+        text-align: center;
+        padding: 32px 24px;
+        background: rgba(30, 41, 59, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+      "
+    >
+      <p
+        style="
+          color: #94a3b8;
+          font-size: 0.85rem;
+          font-weight: 600;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          margin-bottom: 8px;
+        "
+      >
+        Brain → Memory → Body → Hands
+      </p>
+      <h2 style="color: #e2e8f0; font-size: 1.4rem; margin-bottom: 12px">
+        Lifetime Fleet is the Hands Layer of DWS IQ
+      </h2>
+      <p style="color: #94a3b8; font-size: 0.95rem; margin-bottom: 20px">
+        Robots execute. The Brain orchestrates. See how the full stack connects.
+      </p>
+      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap">
+        <a
+          href="/captain/"
+          style="
+            display: inline-block;
+            padding: 10px 24px;
+            background: #60a5fa;
+            color: #0f172a;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+          "
+          >Explore DWS IQ Platform →</a
+        >
+        <a
+          href="/investor-relations/"
+          style="
+            display: inline-block;
+            padding: 10px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #e2e8f0;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+          "
+          >Investor Relations</a
+        >
+      </div>
+    </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            initCarousel('fleetCarousel', 4000);
-        });
+      document.addEventListener("DOMContentLoaded", () => {
+        initCarousel("fleetCarousel", 8000);
+      });
 
-        function initCarousel(containerId, interval) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
-            const slides = container.querySelectorAll('.carousel-slide');
-            if (slides.length === 0) return;
-            
-            let slideIndex = 0;
-            let autoplayInterval = null;
-            let isAutoplay = true;
-            
-            const slideNumberIndicator = document.getElementById('fleetSlideNumber');
-            
-            function updateSlideNumber() {
-                if (slideNumberIndicator) {
-                    slideNumberIndicator.textContent = `${slideIndex + 1} / ${slides.length}`;
-                }
-            }
+      function initCarousel(containerId, interval) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        const slides = container.querySelectorAll(".carousel-slide");
+        if (slides.length === 0) return;
 
-            function showSlides(index) {
-                for (let i = 0; i < slides.length; i++) {
-                    slides[i].classList.remove('active');
-                }
-                if (index < 0) slideIndex = slides.length - 1;
-                else if (index >= slides.length) slideIndex = 0;
-                else slideIndex = index;
-                slides[slideIndex].classList.add('active');
-                updateSlideNumber();
-            }
+        let slideIndex = 0;
+        let autoplayInterval = null;
+        let isAutoplay = true;
 
-            function startAutoplay() {
-                autoplayInterval = setInterval(() => {
-                    showSlides(slideIndex + 1);
-                }, interval);
-            }
+        const slideNumberIndicator = document.getElementById("fleetSlideNumber");
 
-            function stopAutoplay() {
-                clearInterval(autoplayInterval);
-            }
-
-            function fleetNextSlide() {
-                stopAutoplay();
-                showSlides(slideIndex + 1);
-                if (isAutoplay) startAutoplay();
-            }
-
-            function fleetPrevSlide() {
-                stopAutoplay();
-                showSlides(slideIndex - 1);
-                if (isAutoplay) startAutoplay();
-            }
-
-            // Expose functions globally for HTML buttons
-            window.fleetNextSlide = fleetNextSlide;
-            window.fleetPrevSlide = fleetPrevSlide;
-
-            showSlides(slideIndex);
-            startAutoplay();
-
-            // Optional: Pause autoplay on hover
-            container.addEventListener('mouseenter', stopAutoplay);
-            container.addEventListener('mouseleave', () => {
-                if (isAutoplay) startAutoplay();
-            });
+        function updateSlideNumber() {
+          if (slideNumberIndicator) {
+            slideNumberIndicator.textContent = `${slideIndex + 1} / ${slides.length}`;
+          }
         }
-    </script>
-</body>
 
+        function showSlides(index) {
+          for (let i = 0; i < slides.length; i++) {
+            slides[i].classList.remove("active");
+          }
+          if (index < 0) slideIndex = slides.length - 1;
+          else if (index >= slides.length) slideIndex = 0;
+          else slideIndex = index;
+          slides[slideIndex].classList.add("active");
+          updateSlideNumber();
+        }
+
+        function startAutoplay() {
+          autoplayInterval = setInterval(() => {
+            showSlides(slideIndex + 1);
+          }, interval);
+        }
+
+        function stopAutoplay() {
+          clearInterval(autoplayInterval);
+        }
+
+        function fleetNextSlide() {
+          stopAutoplay();
+          showSlides(slideIndex + 1);
+          if (isAutoplay) startAutoplay();
+        }
+
+        function fleetPrevSlide() {
+          stopAutoplay();
+          showSlides(slideIndex - 1);
+          if (isAutoplay) startAutoplay();
+        }
+
+        // Expose functions globally for HTML buttons
+        window.fleetNextSlide = fleetNextSlide;
+        window.fleetPrevSlide = fleetPrevSlide;
+
+        showSlides(slideIndex);
+        startAutoplay();
+
+        // Optional: Pause autoplay on hover
+        container.addEventListener("mouseenter", stopAutoplay);
+        container.addEventListener("mouseleave", () => {
+          if (isAutoplay) startAutoplay();
+        });
+      }
+    </script>
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+  </body>
 </html>

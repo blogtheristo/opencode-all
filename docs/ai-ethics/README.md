@@ -57,7 +57,7 @@ non-trivial AI session.
 
 ## Related standards
 
-- [AI Ethics Playbook 2.0 — Thesis Appendix H](../metropolia/master-thesis/en/V3Thesis_EN.md#appendix-h-ai-ethics-playbook-20--terminology-and-application)
+- AI Ethics Playbook 2.0 (RTS & A-Insinöörit, KIRA RESP-AI project): https://www.rts.fi/verkkojulkaisut/tekoalyn-pelikirja/
 - [DWS Document Standard](../../DWS_DOCUMENT_STANDARD.md)
 - [DWS Security Standard](../../DWS_SECURITY_STANDARD.md)
 - [CLAUDE.md — 2026 EU AI Act Compliance](../../CLAUDE.md)

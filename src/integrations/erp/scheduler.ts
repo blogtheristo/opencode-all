@@ -8,6 +8,7 @@ import cron from 'node-cron';
 import pino from 'pino';
 import { ERPIntegrationService } from './service';
 import { ERPProvider, EntityType } from './types';
+import { getSupabaseClient } from '../../config/supabase.js';
 
 const logger = pino({ name: 'erp-scheduler' });
 
@@ -144,14 +145,41 @@ export class ERPScheduler {
   }
 
   /**
+   * Fetch active ERP integrations from Supabase.
+   */
+  private async getActiveIntegrations(): Promise<Array<{ organizationId: string; provider: ERPProvider }>> {
+    const client = getSupabaseClient();
+    if (!client) {
+      logger.debug('Supabase not configured, no active integrations');
+      return [];
+    }
+
+    try {
+      const { data, error } = await client
+        .from('erp_integrations')
+        .select('organization_id, provider')
+        .eq('status', 'active');
+
+      if (error) {
+        logger.error('Failed to fetch active integrations', { error: error.message });
+        return [];
+      }
+
+      return (data || []).map((row: { organization_id: string; provider: string }) => ({
+        organizationId: row.organization_id,
+        provider: row.provider as ERPProvider,
+      }));
+    } catch (err) {
+      logger.error('Error querying integrations', { error: (err as Error).message });
+      return [];
+    }
+  }
+
+  /**
    * Sync production orders for all active integrations
    */
   private async syncProductionOrdersForAll(): Promise<void> {
-    // TODO: Get all active integrations from database
-    // const integrations = await this.getActiveIntegrations();
-
-    // For now, use a placeholder
-    const integrations: Array<{ organizationId: string; provider: ERPProvider }> = [];
+    const integrations = await this.getActiveIntegrations();
 
     for (const integration of integrations) {
       try {
@@ -184,26 +212,70 @@ export class ERPScheduler {
    * Sync machine data for all active integrations
    */
   private async syncMachineDataForAll(): Promise<void> {
-    // TODO: Get machine data from DWS database that needs to be synced
-    // const machineData = await this.getPendingMachineData();
+    const client = getSupabaseClient();
+    if (!client) {
+      logger.debug('No Supabase client, skipping machine data sync');
+      return;
+    }
 
-    const machineData: any[] = [];
+    // Fetch pending machine data from DWS database
+    const { data: machineData, error } = await client
+      .from('machine_telemetry')
+      .select('*')
+      .eq('sync_status', 'pending')
+      .limit(100);
 
-    if (machineData.length === 0) {
+    if (error) {
+      logger.error('Failed to fetch pending machine data', { error: error.message });
+      return;
+    }
+
+    if (!machineData || machineData.length === 0) {
       logger.debug('No pending machine data to sync');
       return;
     }
 
-    // TODO: Get active integrations and sync
     logger.info(`Syncing ${machineData.length} machine data records`);
+
+    const integrations = await this.getActiveIntegrations();
+    for (const integration of integrations) {
+      try {
+        await this.service.syncMachineData(
+          integration.organizationId,
+          integration.provider,
+        );
+      } catch (err) {
+        logger.error('Machine data sync failed', {
+          organizationId: integration.organizationId,
+          error: (err as Error).message,
+        });
+      }
+    }
   }
 
   /**
    * Sync OEE metrics for all active integrations
    */
   private async syncOEEMetricsForAll(): Promise<void> {
-    // TODO: Get OEE metrics from DWS database
-    // Calculate OEE for the last period and sync to ERP
+    const integrations = await this.getActiveIntegrations();
+
+    for (const integration of integrations) {
+      try {
+        await this.service.syncOEEMetrics(
+          integration.organizationId,
+          integration.provider,
+        );
+        logger.info('OEE metrics synced', {
+          organizationId: integration.organizationId,
+          provider: integration.provider,
+        });
+      } catch (err) {
+        logger.error('OEE metrics sync failed', {
+          organizationId: integration.organizationId,
+          error: (err as Error).message,
+        });
+      }
+    }
 
     logger.info('OEE metrics sync completed');
   }
@@ -212,8 +284,7 @@ export class ERPScheduler {
    * Sync maintenance events for all active integrations
    */
   private async syncMaintenanceForAll(): Promise<void> {
-    // TODO: Get active integrations
-    const integrations: Array<{ organizationId: string; provider: ERPProvider }> = [];
+    const integrations = await this.getActiveIntegrations();
 
     for (const integration of integrations) {
       try {

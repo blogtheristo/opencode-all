@@ -130,9 +130,8 @@ Status: 🟢 ON TRACK
         server.send_message(msg)
         server.quit()
 
-        print(f"✅ Weekly report sent to {recipient_email}")
+        print(f"📧 WEEKLY REPORT SENT: From: {sender_email} | To: {recipient_email} | Subject: {msg['Subject']}")
         print("📎 Attached: DWS6_Weekly_Report_EN.pdf, DWS6_Weekly_Report_FI.pdf")
-        print(f"📧 Email sent successfully from {sender_email} via {smtp_server}.")
         return True
 
     except Exception as e:

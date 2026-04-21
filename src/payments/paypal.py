@@ -28,7 +28,12 @@ logger = logging.getLogger(__name__)
 class PayPalError(Exception):
     """PayPal API error"""
 
-    def __init__(self, message: str, status_code: int | None = None, error_code: str | None = None):
+    def __init__(
+        self,
+        message: str,
+        status_code: int | None = None,
+        error_code: str | None = None,
+    ):
         super().__init__(message)
         self.status_code = status_code
         self.error_code = error_code
@@ -75,7 +80,11 @@ class PayPalClient:
         Caches the token until it expires.
         """
         # Check if we have a valid cached token
-        if self._access_token and self._token_expires_at and datetime.now() < self._token_expires_at:
+        if (
+            self._access_token
+            and self._token_expires_at
+            and datetime.now() < self._token_expires_at
+        ):
             return self._access_token
 
         client = await self._get_client()
@@ -171,13 +180,17 @@ class PayPalClient:
         if subscriber_name:
             payload["subscriber"]["name"] = {
                 "given_name": subscriber_name.split()[0] if subscriber_name else "",
-                "surname": " ".join(subscriber_name.split()[1:]) if len(subscriber_name.split()) > 1 else "",
+                "surname": " ".join(subscriber_name.split()[1:])
+                if len(subscriber_name.split()) > 1
+                else "",
             }
 
         if custom_id:
             payload["custom_id"] = custom_id
 
-        logger.info(f"Creating PayPal subscription for {subscriber_email} - {plan_tier}")
+        logger.info(
+            f"Creating PayPal subscription for {subscriber_email} - {plan_tier}"
+        )
 
         try:
             response = await client.post(
@@ -280,7 +293,9 @@ class PayPalClient:
                 status_code=e.response.status_code,
             ) from e
 
-    async def suspend_subscription(self, subscription_id: str, reason: str = "Suspended") -> bool:
+    async def suspend_subscription(
+        self, subscription_id: str, reason: str = "Suspended"
+    ) -> bool:
         """
         Suspend a PayPal subscription (can be reactivated later).
 
@@ -338,7 +353,16 @@ class PayPalClient:
         try:
             import json
 
-            webhook_event = json.loads(payload)
+            # SECURITY FIX: Validate JSON before processing (CWE-502)
+            try:
+                webhook_event = json.loads(payload)
+            except (json.JSONDecodeError, TypeError) as parse_err:
+                logger.error(f"Invalid PayPal webhook JSON payload: {parse_err}")
+                return False
+
+            if not isinstance(webhook_event, dict):
+                logger.error("PayPal webhook payload is not a JSON object")
+                return False
 
             verification_payload = {
                 "transmission_id": headers.get("paypal-transmission-id", ""),
@@ -386,7 +410,9 @@ class PayPalClient:
             "subscriber_email": resource.get("subscriber", {}).get("email_address"),
             "custom_id": resource.get("custom_id"),
             "start_time": resource.get("start_time"),
-            "next_billing_time": resource.get("billing_info", {}).get("next_billing_time"),
+            "next_billing_time": resource.get("billing_info", {}).get(
+                "next_billing_time"
+            ),
             "last_payment": resource.get("billing_info", {}).get("last_payment"),
         }
 

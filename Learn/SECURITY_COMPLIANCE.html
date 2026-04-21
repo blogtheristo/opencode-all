@@ -45,6 +45,8 @@ Vendor Risk Response</a></li>
 Process</a></li>
 <li><a href="#security-contact" id="toc-security-contact">📞 Security
 Contact</a></li>
+<li><a href="#communication-security-firehorse-v3" id="toc-communication-security-firehorse-v3">Communication Security
+(Firehorse V3)</a></li>
 <li><a href="#appendix-infrastructure-providers" id="toc-appendix-infrastructure-providers">Appendix: Infrastructure
 Providers</a></li>
 </ul></li>
@@ -535,6 +537,165 @@ request our security documentation package:</p>
 business days - Vendor risk questionnaires: 5 business days - Security
 incidents: 24 hours</p>
 <hr />
+<h2 id="communication-security-firehorse-v3">Communication Security
+(Firehorse V3)</h2>
+<h3 id="video-conferencing-jitsi-meet">Video Conferencing (Jitsi
+Meet)</h3>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 46%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Control</th>
+<th>Implementation</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Media Encryption</strong></td>
+<td>SRTP (Secure Real-time Transport Protocol)</td>
+<td>✅ Implemented</td>
+</tr>
+<tr>
+<td><strong>Signaling Encryption</strong></td>
+<td>TLS 1.3 for all WebSocket/XMPP signaling</td>
+<td>✅ Implemented</td>
+</tr>
+<tr>
+<td><strong>End-to-End Encryption</strong></td>
+<td>Insertable Streams E2EE (browser-native)</td>
+<td>✅ Available</td>
+</tr>
+<tr>
+<td><strong>Authentication</strong></td>
+<td>Supabase Auth (JWT) for room creation</td>
+<td>✅ Implemented</td>
+</tr>
+<tr>
+<td><strong>Room Isolation</strong></td>
+<td>Namespace-prefixed rooms (<code>dws6-*</code>)</td>
+<td>✅ Implemented</td>
+</tr>
+<tr>
+<td><strong>Recording Storage</strong></td>
+<td>AES-256-GCM encrypted, EU-only storage (Hetzner)</td>
+<td>🔄 Phase 2</td>
+</tr>
+<tr>
+<td><strong>Data Retention</strong></td>
+<td>No meeting data stored post-session (unless recording enabled)</td>
+<td>✅ Implemented</td>
+</tr>
+<tr>
+<td><strong>Hosting</strong></td>
+<td>Hetzner Helsinki (Phase 2 self-hosted)</td>
+<td>🔄 Phase 2</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Phase 1 Note:</strong> During Phase 1 (meet.jit.si), video
+traffic routes through 8x8’s infrastructure. Phase 2 self-hosting on
+Hetzner Helsinki eliminates all third-party data processing for
+video.</p>
+<h3 id="email-security">Email Security</h3>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 46%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Control</th>
+<th>Implementation</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Transport Encryption</strong></td>
+<td>TLS 1.3 (mandatory for all connections)</td>
+<td>🔄 Phase 2</td>
+</tr>
+<tr>
+<td><strong>Storage Encryption</strong></td>
+<td>AES-256 at rest (Hetzner encrypted volumes)</td>
+<td>🔄 Phase 2</td>
+</tr>
+<tr>
+<td><strong>Authentication</strong></td>
+<td>SPF + DKIM + DMARC (strict policy)</td>
+<td>🔄 Phase 2</td>
+</tr>
+<tr>
+<td><strong>Spam Protection</strong></td>
+<td>rspamd with EU threat intelligence feeds</td>
+<td>🔄 Phase 2</td>
+</tr>
+<tr>
+<td><strong>Hosting</strong></td>
+<td>Hetzner Helsinki / Falkenstein (EU-only)</td>
+<td>🔄 Phase 2</td>
+</tr>
+<tr>
+<td><strong>Protocols</strong></td>
+<td>IMAPS (993), SMTPS (465/587), no plaintext</td>
+<td>🔄 Phase 2</td>
+</tr>
+<tr>
+<td><strong>Data Retention</strong></td>
+<td>Configurable per customer, GDPR Article 17 compliant</td>
+<td>🔄 Phase 2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="communication-compliance">Communication Compliance</h3>
+<table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 40%" />
+<col style="width: 27%" />
+</colgroup>
+<thead>
+<tr>
+<th>Regulation</th>
+<th>Applicability</th>
+<th>Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GDPR</strong></td>
+<td>All video/email</td>
+<td>EU hosting, no US transfer, DPA ready</td>
+</tr>
+<tr>
+<td><strong>NIS2</strong></td>
+<td>Video + email infrastructure</td>
+<td>Encrypted comms, incident reporting</td>
+</tr>
+<tr>
+<td><strong>ePrivacy</strong></td>
+<td>Email metadata, meeting metadata</td>
+<td>No tracking, no metadata harvesting</td>
+</tr>
+<tr>
+<td><strong>EU AI Act</strong></td>
+<td>AI transcription features</td>
+<td>Article 12 logging when AI processes meetings</td>
+</tr>
+<tr>
+<td><strong>CLOUD Act</strong></td>
+<td>Video + email hosting</td>
+<td>Zero exposure (no US providers in stack)</td>
+</tr>
+</tbody>
+</table>
+<hr />
 <h2 id="appendix-infrastructure-providers">Appendix: Infrastructure
 Providers</h2>
 <table>
@@ -577,13 +738,25 @@ Providers</h2>
 <td>ISO 27001</td>
 <td>On-premise</td>
 </tr>
+<tr>
+<td>Hetzner</td>
+<td>Video + Email hosting (V3)</td>
+<td>ISO 27001</td>
+<td>Helsinki, Finland</td>
+</tr>
+<tr>
+<td>8x8 / Jitsi</td>
+<td>Video (Phase 1 only)</td>
+<td>SOC 2</td>
+<td>EU endpoint</td>
+</tr>
 </tbody>
 </table>
 <p>All sub-processors maintain equivalent or higher security
 certifications.</p>
 <hr />
-<p><strong>Document Version:</strong> 1.1 <strong>Last Updated:</strong>
-January 3, 2026 <strong>Classification:</strong> Public (detailed
+<p><strong>Document Version:</strong> 1.2 <strong>Last Updated:</strong>
+February 14, 2026 <strong>Classification:</strong> Public (detailed
 versions available under NDA) <strong>Contact:</strong>
 risto@lifetime.fi | security@lifetime.fi</p>
 </body>

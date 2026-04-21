@@ -171,9 +171,7 @@ def _table_insert(client: Client, table: str, record: dict) -> dict:
 
 
 def _table_update(client: Client, table: str, record_id: str, updates: dict) -> dict:
-    response = (
-        client.table(table).update(updates).eq("id", record_id).execute()
-    )
+    response = client.table(table).update(updates).eq("id", record_id).execute()
     if not response.data:
         raise HTTPException(status_code=500, detail="Failed to update record")
     return response.data[0]
@@ -233,9 +231,7 @@ async def upload_document(
     if not contents:
         raise HTTPException(status_code=400, detail="Empty file upload")
 
-    storage_path = _generate_storage_path(
-        organization_id, project_id, file.filename
-    )
+    storage_path = _generate_storage_path(organization_id, project_id, file.filename)
 
     try:
         client.storage.from_(SUPABASE_BUCKET).upload(
@@ -245,7 +241,9 @@ async def upload_document(
         )
     except Exception as exc:
         logger.error("Upload failed: %s", exc)
-        raise HTTPException(status_code=500, detail="Failed to upload document") from exc
+        raise HTTPException(
+            status_code=500, detail="Failed to upload document"
+        ) from exc
 
     document_id = uuid.uuid4()
     version_id = uuid.uuid4()
@@ -361,7 +359,9 @@ async def list_documents(
 @app.get("/v1/documents/{document_id}", response_model=DocumentResponse)
 async def get_document(document_id: str):
     client = _ensure_supabase()
-    response = client.table("documents").select("*").eq("id", document_id).single().execute()
+    response = (
+        client.table("documents").select("*").eq("id", document_id).single().execute()
+    )
     record = response.data
     if not record:
         raise HTTPException(status_code=404, detail="Document not found")
@@ -382,7 +382,11 @@ async def get_preview(document_id: str):
     """
     client = _ensure_supabase()
     response = (
-        client.table("documents").select("id, storage_path, file_type").eq("id", document_id).single().execute()
+        client.table("documents")
+        .select("id, storage_path, file_type")
+        .eq("id", document_id)
+        .single()
+        .execute()
     )
     record = response.data
     if not record:

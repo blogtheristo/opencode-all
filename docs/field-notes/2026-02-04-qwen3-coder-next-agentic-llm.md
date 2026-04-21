@@ -1,6 +1,6 @@
 # Field Note: Introducing Qwen3-Coder-Next - Open-Weight Agentic LLM for Coding
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0

@@ -202,7 +202,7 @@ retrieval to internal schema recommendations:
 
 ## 7. Related Documents
 
-- [AI Ethics Playbook 2.0 — Appendix H (Thesis EN)](../../metropolia/master-thesis/en/V3Thesis_EN.md#appendix-h-ai-ethics-playbook-20--terminology-and-application)
+- AI Ethics Playbook 2.0 (RTS & A-Insinöörit, KIRA RESP-AI project): https://www.rts.fi/verkkojulkaisut/tekoalyn-pelikirja/
 - [EU AI Act Compliance (CLAUDE.md §2026 EU AI Act)](../../../CLAUDE.md)
 - [Supabase Migrations (Agent Logging)](../../../supabase/migrations/030_agent_logging_tables.sql)
 - [DWS Document Standard](../../../DWS_DOCUMENT_STANDARD.md)

@@ -1,6 +1,6 @@
 # DWS Brand Standard
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.1
@@ -19,11 +19,11 @@ Document Status:
   - Language: English
   - Publication Status: ✅ ACTIVE
 
-Associated Skills & Agents:
-  - Agent: `.claude/agents/ui-ux-designer.md` — Research-backed UI/UX design critic (Nielsen Norman Group studies)
-  - Skill: `.claude/skills/ux-researcher-designer/SKILL.md` — UX research toolkit with persona generator
-  - Skill: `.claude/skills/senior-frontend/SKILL.md` — Senior frontend development toolkit
-  - Related: `UI_SKILLS_GAMMA.md` — Technical UI constraints (Tailwind, React, animations)
+Associated Skills & Agents (Claude assets roadmap):
+  - **Planned Agent** (not yet in repo): `.claude/agents/ui-ux-designer.md` — Research-backed UI/UX design critic (Nielsen Norman Group studies) — *Target: create before v1.2 release*
+  - **Planned Skill** (not yet in repo): `.claude/skills/ux-researcher-designer/SKILL.md` — UX research toolkit with persona generator — *Target: create before v1.2 release*
+  - **Planned Skill** (not yet in repo): `.claude/skills/senior-frontend/SKILL.md` — Senior frontend development toolkit — *Target: create before v1.2 release*
+  - **Related** (existing doc): `UI_SKILLS_GAMMA.md` — Technical UI constraints (Tailwind, React, animations)
 
 ---
 

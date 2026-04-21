@@ -8,6 +8,7 @@
 ## ✅ Valmiit Hero-Dokumentit
 
 ### 1. ⭐ EN 15978 Hiilijalanjälkiraportti ✅ VALMIS
+
 **Tiedosto**: `pan-european/environmental/en15978-finnish-hero.json`  
 **Kenttiä**: 50+  
 **Osiot**: 7  
@@ -18,6 +19,7 @@
 **Frekvenssi**: Kuukausittain / vaiheittain
 
 **5 Hero-Ominaisuutta:**
+
 1. ⚡ Reaaliaikainen päästöseuranta
 2. 🚨 Automaattiset hälytykset (90%)
 3. 🇪🇺 Fit for 55 / CSRD -tagit
@@ -27,6 +29,7 @@
 ---
 
 ### 2. 📋 Työmaapäiväkirja (RT 16-10660) ✅ VALMIS
+
 **Tiedosto**: `nordic/finland/rt-16-10660-worksite-diary-hero.json`  
 **Kenttiä**: 60+  
 **Osiot**: 10  
@@ -37,6 +40,7 @@
 **Frekvenssi**: Päivittäin
 
 **5 Hero-Ominaisuutta:**
+
 1. 🌡️ Automaattinen sää & lämpötila (edge nodes)
 2. 👷 Automaattinen työntekijämäärä (RFID)
 3. 📸 Kuvat & videot suoraan (mobile)
@@ -48,6 +52,7 @@
 ---
 
 ### 3. 🏗️ Vastaanottotarkastus 📝 SEURAAVAKSI
+
 **Tiedosto**: `nordic/finland/rt-16-10660-acceptance-inspection-hero.json` (tulossa)  
 **Arvioitu**: 40+ kenttää, 8 osiota
 
@@ -56,6 +61,7 @@
 **Frekvenssi**: Projektin lopussa
 
 **5 Suunniteltua Hero-Ominaisuutta:**
+
 1. 📐 IFC-linkitys BIM-malliin
 2. 📸 360° panoraamakuvat
 3. 🎥 Video-dokumentointi
@@ -66,18 +72,18 @@
 
 ## 📊 Vertailu: Firehorse vs. Kilpailijat
 
-| Ominaisuus | Firehorse | Kilpailija A | Kilpailija B |
-|------------|-----------|--------------|--------------|
-| **Automaatio-aste** | 70% | 10% | 20% |
-| **Edge nodes -integraatio** | ✅ Kyllä | ❌ Ei | ❌ Ei |
-| **Reaaliaikainen data** | ✅ Kyllä | ❌ Ei | ⚠️ Osittain |
-| **Mobiilivalmis** | ✅ Kyllä | ⚠️ Osittain | ✅ Kyllä |
-| **Digitaalinen allekirjoitus** | ✅ Kyllä | ⚠️ Osittain | ❌ Ei |
-| **Audit trail** | ✅ Täydellinen | ❌ Ei | ⚠️ Osittain |
-| **Fit for 55 compliance** | ✅ Automaattinen | ❌ Manuaalinen | ❌ Ei |
-| **BIM-integraatio** | ✅ IFC/BCF | ⚠️ Osittain | ❌ Ei |
-| **Kuvat GPS-tageilla** | ✅ Automaattinen | ❌ Ei | ⚠️ Manuaalinen |
-| **Blockchain-valmius** | ✅ Kyllä | ❌ Ei | ❌ Ei |
+| Ominaisuus                     | Firehorse        | Kilpailija A   | Kilpailija B   |
+| ------------------------------ | ---------------- | -------------- | -------------- |
+| **Automaatio-aste**            | 70%              | 10%            | 20%            |
+| **Edge nodes -integraatio**    | ✅ Kyllä         | ❌ Ei          | ❌ Ei          |
+| **Reaaliaikainen data**        | ✅ Kyllä         | ❌ Ei          | ⚠️ Osittain    |
+| **Mobiilivalmis**              | ✅ Kyllä         | ⚠️ Osittain    | ✅ Kyllä       |
+| **Digitaalinen allekirjoitus** | ✅ Kyllä         | ⚠️ Osittain    | ❌ Ei          |
+| **Audit trail**                | ✅ Täydellinen   | ❌ Ei          | ⚠️ Osittain    |
+| **Fit for 55 compliance**      | ✅ Automaattinen | ❌ Manuaalinen | ❌ Ei          |
+| **BIM-integraatio**            | ✅ IFC/BCF       | ⚠️ Osittain    | ❌ Ei          |
+| **Kuvat GPS-tageilla**         | ✅ Automaattinen | ❌ Ei          | ⚠️ Manuaalinen |
+| **Blockchain-valmius**         | ✅ Kyllä         | ❌ Ei          | ❌ Ei          |
 
 **Firehorse voittaa**: 9/10 kategoriassa! 🏆
 
@@ -86,6 +92,7 @@
 ## 🎯 Demo-Sivun Rakenne
 
 ### Hero Section
+
 ```
 FIREHORSE REPORTS
 ═════════════════
@@ -195,6 +202,7 @@ engine.export_report(diary, 'PDF', './daily')
 ## 📊 Tilastot
 
 ### Dokumentti 1: EN 15978
+
 - **Kenttiä**: 50+
 - **Osioita**: 7
 - **Hero-ominaisuuksia**: 5
@@ -202,6 +210,7 @@ engine.export_report(diary, 'PDF', './daily')
 - **Koodirivejä**: 600+
 
 ### Dokumentti 2: RT 16-10660
+
 - **Kenttiä**: 60+
 - **Osioita**: 10
 - **Hero-ominaisuuksia**: 5
@@ -209,6 +218,7 @@ engine.export_report(diary, 'PDF', './daily')
 - **Koodirivejä**: 800+
 
 ### Yhteensä
+
 - **Kenttiä**: 110+
 - **Osioita**: 17
 - **Hero-ominaisuuksia**: 10
@@ -220,15 +230,18 @@ engine.export_report(diary, 'PDF', './daily')
 ## 🚀 Seuraavat Askeleet
 
 ### Tänään ✅
+
 - [x] EN 15978 Hiilijalanjälki
 - [x] RT 16-10660 Työmaapäiväkirja
 
 ### Huomenna
+
 - [ ] Vastaanottotarkastus
 - [ ] Demo-sivu HTML/CSS
 - [ ] Live demo -ympäristö
 
 ### Viikko
+
 - [ ] Asiakastestit
 - [ ] Palaute ja iteraatio
 - [ ] Tuotantoon
@@ -238,22 +251,27 @@ engine.export_report(diary, 'PDF', './daily')
 ## 🎯 Kilpailuedut
 
 ### 1. Automaatio (70%)
+
 **Firehorse**: Edge nodes → automaattinen täyttö  
 **Kilpailijat**: Manuaalinen kirjaus
 
 ### 2. Reaaliaikainen Data
+
 **Firehorse**: Live data DWS IQ 6:sta  
 **Kilpailijat**: Viive 1-4 viikkoa
 
 ### 3. Mobiilivalmius
+
 **Firehorse**: Täysi toiminnallisuus mobiilissa  
 **Kilpailijat**: Rajattu mobiilikäyttö
 
 ### 4. Compliance
+
 **Firehorse**: Automaattinen Fit for 55  
 **Kilpailijat**: Manuaalinen tarkistus
 
 ### 5. Jäljitettävyys
+
 **Firehorse**: Täydellinen audit trail  
 **Kilpailijat**: Ei jäljitettävyyttä
 
@@ -262,16 +280,19 @@ engine.export_report(diary, 'PDF', './daily')
 ## 💰 Liiketoiminta-arvo
 
 ### Aikasäästö
+
 - **EN 15978**: 40h/kk → 4h/kk (90% säästö)
 - **Päiväkirja**: 30min/pv → 5min/pv (83% säästö)
 - **Yhteensä**: ~35h/kk per projekti
 
 ### Kustannussäästö
+
 - **Työaika**: 35h × €80/h = €2,800/kk
 - **Compliance**: €50,000/projekti (sakot vältetty)
 - **Yhteensä**: ~€53,000/projekti
 
 ### ROI
+
 - **Investointi**: €500/kk (Firehorse)
 - **Säästö**: €2,800/kk
 - **ROI**: 460% 🚀
@@ -280,7 +301,7 @@ engine.export_report(diary, 'PDF', './daily')
 
 ## 📞 Seuraava Toimenpide
 
-**Boardy**: Mihin keskitytään seuraavaksi?
+**Marcus**: Mihin keskitytään seuraavaksi?
 
 1. **Vastaanottotarkastus** (kolmas Hero-dokumentti)
 2. **Demo-sivun HTML/CSS** (verkkosivulle)

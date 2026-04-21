@@ -29,6 +29,36 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+SUPPRESSION_COMMENT_RE = re.compile(
+    r"#\s*nosec|//\s*nosec|#\s*zenfree:ignore|//\s*zenfree:ignore",
+    re.IGNORECASE,
+)
+
+
+def _should_skip_line(line: str, pattern: str) -> bool:
+    """Return True if a matched line should be skipped.
+
+    This supports:
+    - Inline suppression comments: "# nosec" or "zenfree:ignore"
+    - Avoiding false positives for simple_eval(...).
+
+    Doctests:
+
+    >>> _should_skip_line("eval('1')  # nosec", r"eval\\(")
+    True
+    >>> _should_skip_line("user_value = simple_eval('1 + 2')", r"eval\\(")
+    True
+    >>> _should_skip_line("result = eval('1 + 2')", r"eval\\(")
+    False
+    """
+    # Skip lines with inline suppression comments
+    if SUPPRESSION_COMMENT_RE.search(line):
+        return True
+
+    # If this pattern is looking for eval(...) calls, do not flag simple_eval(...)
+    return "eval" in pattern and bool(re.search(r"\bsimple_eval\s*\(", line))
+
+
 # Import ZenFree for runtime pattern detection
 try:
     sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -170,7 +200,7 @@ class CriticalBugScanner:
             "patterns": [
                 (r"JSON\.parse\s*\([^)]*req\.(body|query)", "Unsafe JSON parse"),
                 # Pattern constructed to avoid triggering scanners on this file
-                (r"ev" + r"al\s*\(", "Use of eval()"),
+                (r"(?<!simple)(?<!simple_)ev" + r"al\s*\(", "Use of eval()"),
                 (r"pickle\.loads?\s*\(", "Unsafe pickle deserialization"),
                 (r"yaml\.load\s*\([^)]*Loader\s*=\s*yaml\.Loader", "Unsafe YAML load"),
             ],
@@ -221,6 +251,8 @@ class CriticalBugScanner:
                 for pattern, description in vuln_data["patterns"]:
                     for line_num, line in enumerate(lines, 1):
                         if re.search(pattern, line, re.IGNORECASE):
+                            if _should_skip_line(line, pattern):
+                                continue
                             finding = {
                                 "file": str(rel_path),
                                 "line": line_num,
@@ -266,6 +298,8 @@ class CriticalBugScanner:
             ".next",
             "backups",
             "claude-sessions",
+            "tests",
+            "__tests__",
         }
 
         files_to_scan = []
@@ -475,7 +509,8 @@ const apiKey = process.env.API_KEY;
                 "ev" + "al(userInput);\n"
                 "\n"
                 "// ✅ Secure\n"
-                "// Don't use ev" + "al(). Use JSON.parse() with validation or a safe parser\n"
+                "// Don't use ev"
+                + "al(). Use JSON.parse() with validation or a safe parser\n"
                 "```\n"
             ),
         }

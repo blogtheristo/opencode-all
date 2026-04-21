@@ -1,5 +1,7 @@
 # Campaign Automation
 
+> **Status: SHIPPED** — TypeScript workflow engine at `src/firehorse/workflow-engine.ts` with 4 built-in templates, Supabase persistence, and API routes. Legacy Python stub (`main.py`) superseded.
+
 ## Overview
 
 Automation scripts, workflows, and integrations for running omnichannel campaigns at scale.

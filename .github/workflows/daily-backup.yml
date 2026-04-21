@@ -1,30 +1,30 @@
 name: Daily Intellectual Assets Backup
 
 on:
-  schedule:
-    # Run at 23:55 UTC every day
-    - cron: '55 23 * * *'
+  # Schedule REMOVED 2026-04-08 — this workflow backs up git-tracked files INTO git (redundant).
+  # All assets are already version-controlled. Consumed ~90 min/month for no incremental value.
+  # Was: cron '55 23 * * *' (daily at 23:55 UTC)
   workflow_dispatch: # Allow manual trigger
 
 jobs:
   backup:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Full history for comprehensive backup
-      
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
-      
+          python-version: "3.11"
+
       - name: Create backup timestamp
         id: timestamp
         run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-      
+
       - name: Generate backup report
         run: |
           cat > "backups/DAILY_BACKUP_${{ steps.timestamp.outputs.date }}.md" << 'EOF'
@@ -77,35 +77,35 @@ jobs:
 
           ### Marketing Pages
           EOF
-          
+
           # List key marketing files
           find dws10.com -name "index.html" -type f | while read file; do
             size=$(stat -f%z "$file" 2>/dev/null || stat -c%s "$file" 2>/dev/null || echo "0")
             echo "- \`$file\` (${size} bytes)" >> "backups/DAILY_BACKUP_${{ steps.timestamp.outputs.date }}.md"
           done
-          
+
           cat >> "backups/DAILY_BACKUP_${{ steps.timestamp.outputs.date }}.md" << 'EOF'
 
           ### CSS Assets
           EOF
-          
+
           # List CSS files
           find dws10.com -name "*.css" -type f | head -10 | while read file; do
             size=$(stat -f%z "$file" 2>/dev/null || stat -c%s "$file" 2>/dev/null || echo "0")
             echo "- \`$file\` (${size} bytes)" >> "backups/DAILY_BACKUP_${{ steps.timestamp.outputs.date }}.md"
           done
-          
+
           cat >> "backups/DAILY_BACKUP_${{ steps.timestamp.outputs.date }}.md" << 'EOF'
 
           ### JavaScript Assets
           EOF
-          
+
           # List JS files
           find dws10.com -name "*.js" -type f | head -10 | while read file; do
             size=$(stat -f%z "$file" 2>/dev/null || stat -c%s "$file" 2>/dev/null || echo "0")
             echo "- \`$file\` (${size} bytes)" >> "backups/DAILY_BACKUP_${{ steps.timestamp.outputs.date }}.md"
           done
-          
+
           cat >> "backups/DAILY_BACKUP_${{ steps.timestamp.outputs.date }}.md" << 'EOF'
 
           ---
@@ -114,25 +114,25 @@ jobs:
 
           ### Hero Campaign Check
           EOF
-          
+
           # Verify Hero Campaign
           if grep -q "€500k Construction Heroes Campaign" dws10.com/index.html; then
             echo "✅ Hero Campaign: PRESENT" >> "backups/DAILY_BACKUP_${{ steps.timestamp.outputs.date }}.md"
           else
             echo "⚠️ Hero Campaign: MISSING" >> "backups/DAILY_BACKUP_${{ steps.timestamp.outputs.date }}.md"
           fi
-          
+
           if grep -q "Making you one of the heroes of construction" dws10.com/index.html; then
             echo "✅ Main Headline: PRESENT" >> "backups/DAILY_BACKUP_${{ steps.timestamp.outputs.date }}.md"
           else
             echo "⚠️ Main Headline: MISSING" >> "backups/DAILY_BACKUP_${{ steps.timestamp.outputs.date }}.md"
           fi
-          
+
           cat >> "backups/DAILY_BACKUP_${{ steps.timestamp.outputs.date }}.md" << 'EOF'
 
           ### Lifetime Fleet Check
           EOF
-          
+
           # Verify Lifetime Fleet
           if [ -f "dws10.com/lifetime-fleet/index.html" ]; then
             echo "✅ Lifetime Fleet Page: EXISTS" >> "backups/DAILY_BACKUP_${{ steps.timestamp.outputs.date }}.md"
@@ -141,19 +141,19 @@ jobs:
           else
             echo "⚠️ Lifetime Fleet Page: MISSING" >> "backups/DAILY_BACKUP_${{ steps.timestamp.outputs.date }}.md"
           fi
-          
+
           cat >> "backups/DAILY_BACKUP_${{ steps.timestamp.outputs.date }}.md" << 'EOF'
 
           ### Ultra Template Check
           EOF
-          
+
           # Verify Ultra Template
           if [ -f "dws10.com/ultra/index.html" ]; then
             echo "✅ Ultra Template: EXISTS" >> "backups/DAILY_BACKUP_${{ steps.timestamp.outputs.date }}.md"
           else
             echo "⚠️ Ultra Template: MISSING" >> "backups/DAILY_BACKUP_${{ steps.timestamp.outputs.date }}.md"
           fi
-          
+
           cat >> "backups/DAILY_BACKUP_${{ steps.timestamp.outputs.date }}.md" << 'EOF'
 
           ---
@@ -233,7 +233,7 @@ jobs:
           **Verification:** ✅ PASSED  
           **Next Backup:** $(date -d tomorrow +'%Y-%m-%d') 23:55 UTC
           EOF
-      
+
       - name: Create compressed archive
         run: |
           # Create tar.gz archive of critical assets
@@ -249,24 +249,24 @@ jobs:
             --exclude='node_modules' \
             --exclude='.git' \
             2>/dev/null || echo "Some files may not exist, continuing..."
-          
+
           # Calculate archive size
           if [ -f "backups/assets-backup-${{ steps.timestamp.outputs.date }}.tar.gz" ]; then
             size=$(stat -f%z "backups/assets-backup-${{ steps.timestamp.outputs.date }}.tar.gz" 2>/dev/null || stat -c%s "backups/assets-backup-${{ steps.timestamp.outputs.date }}.tar.gz" 2>/dev/null)
             echo "Archive created: ${size} bytes"
           fi
-      
+
       - name: Commit backup
         run: |
           git config user.name "DWS6 Backup Bot"
           git config user.email "backup@dws6.com"
           git add backups/
           git commit -m "🔄 Daily Backup: ${{ steps.timestamp.outputs.date }} - Automated intellectual assets backup" || echo "No changes to commit"
-      
+
       - name: Push backup
         run: |
           git push origin HEAD:main || echo "Push failed, will retry on next run"
-      
+
       - name: Clean old backups (keep last 30 days)
         run: |
           # Keep only last 30 daily backups
@@ -274,13 +274,13 @@ jobs:
           ls -t DAILY_BACKUP_*.md | tail -n +31 | xargs -r rm --
           ls -t assets-backup-*.tar.gz | tail -n +31 | xargs -r rm --
           cd ..
-          
+
           if [ -n "$(git status --porcelain backups/)" ]; then
             git add backups/
             git commit -m "🧹 Cleanup: Removed backups older than 30 days"
             git push origin HEAD:main || echo "Cleanup push failed"
           fi
-      
+
       - name: Create backup summary
         run: |
           echo "## 📊 Backup Summary" >> $GITHUB_STEP_SUMMARY
@@ -296,7 +296,7 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### Next Backup:" >> $GITHUB_STEP_SUMMARY
           echo "Tomorrow at 23:55 UTC" >> $GITHUB_STEP_SUMMARY
-      
+
       - name: Notify on failure
         if: failure()
         run: |

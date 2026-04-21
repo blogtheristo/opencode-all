@@ -1,73 +1,112 @@
-# Investor Outreach Templates - DWS IQ 6 (150k€ SAFE)
+# Investor Outreach Templates — DWS IQ 6
 
-## Template 1: Climate/Infra VC or Family Office
+---
 
-**Subject:** DWS IQ 6 – Nordic construction climate-intelligent SPI/CPI platform (150k€ SAFE)
+# VERSION AND AGENT HISTORY
+
+Version: 2.0
+
+Sessions & Modifications:
+
+- Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/kya-standard-review-W3Qcg | Date: 15.03.2026 | Changes: Full rewrite. Updated seat tiers (Fleet Admiral EUR 500K, Captain EUR 150K, Industry Captain EUR 50K x 8, Deputy unlimited). 20 industries. KYA governance story. Removed stale demo link, old EUR 150K round, construction-only framing.
+- Version: 1.0 | Tool: Unknown | Date: Jan 2026 | Changes: Initial 4 email templates. EUR 150K SAFE, construction-only, 8 industries.
+
+Document Status:
+
+- Created: January 2026
+- Last Modified: 15.03.2026 (v2.0)
+- Language: English
+- Languages Available: EN
+- Publication Status: ACTIVE
+- Classification: CONFIDENTIAL — Investor Outreach
+
+Related Documents:
+
+- investor-outreach/INVESTOR_MEMO.md (v2.0 — primary investor document)
+- docs/INVESTOR_HOOK_DECK.md (v2.0 — 3-slide teaser)
+- Legal/KYA_OPTIMIZATION_v1.4.md (KYA-O — Alpha-Share, Performance Guarantee, D&O)
+- docs/field-notes/2026-03-15-investor-materials-audit.md (audit — conflicts resolved)
+
+---
+
+---
+
+## Template 1: Climate/Industrial VC or Family Office
+
+**Subject:** DWS IQ 6 — AI agent governance for 20 EU industries (SAFE at EUR 3.8M cap)
 
 **Body:**
 
 Hi [First name],
 
-I'm the founder & CEO of Lifetime (Espoo, Finland). We're building **DWS IQ 6** – a climate-intelligent SPI/CPI + safety/quality dashboard for construction and infrastructure portfolios, designed to be fully aligned with Fit for 55, EPBD 2028 and CSRD.
+I'm the founder & CEO of Lifetime (Espoo, Finland). We're building **DWS IQ 6** — a platform that trains and runs enterprise AI agent swarms safely across 20 EU-regulated industries. Think: autonomous compliance agents for steel mills, construction sites, and chemical plants — governed by our KYA (Know Your Agent) standard with hardware-attested isolation and court-defensible audit trails.
 
-We're already live with paying customers **(7–14k€/month MRR, 5+ paying/pilot accounts incl. Uber, Bolt, Kela)** and operate as partners with Microsoft, Google, AWS and IBM. Here's a short NCC-style mobile portfolio demo that shows what DWS IQ 6 looks like in practice:
-**https://j6prmljgpvnia.ok.kimi.link/**
+We're live with paying customers **(EUR 7k/month MRR, 100% retention, zero churn)** and partnered with NVIDIA Connect Partner (Groq), Microsoft, Google, AWS, IBM, Acer Finland, and Konfitech. The platform runs on edge hardware (NVIDIA Jetson) where cloud can't reach — factory floors, construction sites, vessels at sea.
 
-Right now I'm raising a **150k€ SAFE (3.8M€ cap)** to scale DWS IQ 6 into 2–3 flagship Nordic construction portfolios (NCC/Skanska/PORR-profile) and turn current pilots into V1 production contracts (10,950€/month list price). The round is focused on investors who understand **construction/infra or climate execution**, not just generic SaaS.
+The moat: our **Lifetime World Model** — 15,000+ EU regulatory documents indexed across 20 industries, 7 years and 6 platform versions to build. Not a fine-tuned GPT. A proprietary regulatory intelligence graph.
 
-If this fits your focus, would you be open to a **20–25 minute call in the coming days** to walk through the product, current MRR and the plan to get to **360–500k€ ARR by the end of 2026**?
+I'm offering seats in a **SAFE round at EUR 3.8M cap**:
+
+- **Fleet Admiral** — EUR 500K (1 seat, board observer, first refusal on follow-on)
+- **Captain** — EUR 150K (strategy briefings, priority pilot routing)
+- **Industry Captain** — EUR 50K (named captain of 1 of 20 EU industries)
+- **Deputy Captain** — EUR 5,000, unlimited seats
+
+If this fits your thesis, would you be open to a **20-minute call** to walk through the KYA governance framework and our path to **EUR 900K ARR by end of 2026**?
 
 Best regards,
 **Risto Anton Päärni**
-Founder & CEO, Lifetime Oy (Lifetime Group)
+Founder & CEO, Lifetime Oy
 +358 400 319 010
 https://dws10.com/
 
 ---
 
-## Template 2: Operator Angel (ex-Skanska/NCC/PORR Executive)
+## Template 2: Operator Angel (Industry Executive)
 
-**Subject:** DWS IQ 6 – Real-time SPI/CPI dashboard for construction portfolios (150k€ angel round)
+**Subject:** DWS IQ 6 — Become Industry Captain for [industry] (EUR 50K seat)
 
 **Body:**
 
 Hi [First name],
 
-I saw you spent [X years] at [Skanska/NCC/PORR] leading [role]. You know the pain of managing SPI/CPI across 10+ simultaneous projects, especially when half the data is still Excel hell and Fit for 55 reporting is a nightmare.
+I saw you spent [X years] at [Company] leading [role] in [industry]. You know the pain: EU regulations (CSRD, ETS, CBAM, Fit for 55) are forcing massive compliance spend, and AI agents are coming whether companies are ready or not.
 
-I'm building **DWS IQ 6** – a mobile-first portfolio control room that gives you real-time SPI/CPI, safety/quality and Fit for 55 compliance in one dashboard. Here's what it looks like (NCC-style demo):
-**https://j6prmljgpvnia.ok.kimi.link/**
+I'm building **DWS IQ 6** — a platform that governs AI agent swarms across 20 EU-regulated industries. Our **KYA (Know Your Agent)** standard gives enterprises hardware-attested agent isolation, court-defensible audit trails, and D&O insurance-grade governance. Directors using KYA-certified agents see **8-12% D&O premium reductions** because liability is traceable and bounded.
 
-We're live with **5+ paying accounts (7–14k€/month MRR)** and closing 2–3 Nordic pilots in Q1 (NCC/Skanska-profile). I'm raising **150k€ SAFE (3.8M€ cap)** from operators who've lived this problem and want to back the solution.
+We're live with **EUR 7K/month MRR, 100% retention**, and I'm offering 8 Industry Captain seats — one per industry tranche:
 
-If you're open to angels in construction tech, would you be up for a **15–20 min call** to walk through the product and the path to **360–500k€ ARR in 2026**?
+- **Industry Captain** — EUR 50K: Named captain of [industry]. Annual briefings, industry-specific regulatory intelligence, priority pilot routing.
+- **Deputy Captain** — EUR 5,000, unlimited: Quarterly briefings, upgrade path.
+
+As someone who's lived the [industry] compliance problem, you'd be the ideal captain for that vertical.
+
+**15-minute call** to walk through the product and the Industry Captain structure?
 
 Best,
 **Risto Päärni**
 Founder, Lifetime Oy
 +358 400 319 010
-Demo: https://j6prmljgpvnia.ok.kimi.link/
 
 ---
 
 ## Template 3: Warm Intro (Mutual Connection)
 
-**Subject:** [Mutual friend] suggested I reach out – DWS IQ 6 construction portfolio platform
+**Subject:** [Mutual friend] suggested I reach out — DWS IQ 6 AI agent governance
 
 **Body:**
 
 Hi [First name],
 
-[Mutual friend] mentioned you're investing in [climate tech / construction tech / Nordic B2B SaaS] and suggested I reach out.
+[Mutual friend] mentioned you're investing in [climate tech / industrial AI / EU regulatory tech] and suggested I reach out.
 
-I'm building **DWS IQ 6** – a real-time SPI/CPI + Fit for 55 compliance dashboard for construction portfolios. Think "Salesforce for construction project controls, but climate-intelligent." We're live with **5+ paying customers (7–14k€/month MRR)** and closing 2–3 Nordic flagship pilots in Q1.
+I'm building **DWS IQ 6** — a platform that trains and runs enterprise AI agent swarms safely across 20 EU-regulated industries. The governance layer (KYA — Know Your Agent) provides hardware-attested isolation and court-defensible audit trails that reduce D&O insurance premiums by 8-12%.
 
-Here's a short demo (NCC-style portfolio view):
-**https://j6prmljgpvnia.ok.kimi.link/**
+We're live with **EUR 7K/month MRR, 100% retention, zero churn**. Partnered with NVIDIA Connect Partner (Groq), Microsoft Founders Hub, Google, AWS (Consulting Partner), IBM (Business Partner), Acer Finland, and Konfitech. 100% EU data residency (Finland, Germany).
 
-I'm raising **150k€ SAFE (3.8M€ cap)** to scale into production contracts with NCC/Skanska-type portfolios. Target: **360–500k€ ARR by end of 2026**.
+I'm offering seats in a **SAFE at EUR 3.8M cap** — from EUR 50K Industry Captain seats (8 available, one per industry) to a single EUR 500K Fleet Admiral seat with board observer rights.
 
-Would you be open to a **20 min intro call** if this fits your thesis?
+Would you be open to a **20-minute intro call** if this fits your thesis?
 
 Best,
 **Risto Päärni**
@@ -83,13 +122,11 @@ https://dws10.com/
 
 Hi [First name],
 
-I see you invest in [construction tech / climate tech / Nordic B2B]. We're building DWS IQ 6 – real-time SPI/CPI + Fit for 55 dashboard for construction portfolios.
+I see you invest in [industrial AI / climate tech / EU regulatory]. We're building DWS IQ 6 — governs AI agent swarms across 20 EU industries with KYA (Know Your Agent) standard.
 
-**5+ paying customers, 7–14k€/month MRR**, raising 150k€ SAFE (3.8M€ cap) to scale Nordic flagships (NCC/Skanska-profile).
+**EUR 7K MRR, 100% retention**, SAFE at EUR 3.8M cap. Industry Captain seats (EUR 50K) — 8 available. Fleet Admiral (EUR 500K) — 1 seat.
 
-Demo: https://j6prmljgpvnia.ok.kimi.link/
-
-Open for a 20 min call?
+20 min call?
 
 Best,
 Risto Päärni
@@ -100,112 +137,133 @@ Lifetime Oy
 
 ## Key Talking Points (For Calls)
 
-### Traction
-- **5+ paying/pilot accounts** (Uber, Bolt, Kela, others)
-- **7–14k€/month MRR** (current run-rate)
-- **2–3 Nordic construction pilots closing Q1** (NCC/Skanska/PORR-profile)
+### Traction & Sales Motion
 
-### Product
-- **DWS IQ 6 platform** – mobile-first portfolio control room
-- **Real-time SPI/CPI** + safety/quality + Fit for 55 compliance
-- **Climate-intelligent** – EPBD 2028, CSRD, Scope 1-3 tracking
-- **Live demo:** https://j6prmljgpvnia.ok.kimi.link/
+- **EUR 7K/month MRR** (March 2026, 100% retention, zero churn)
+- **5+ paying/pilot accounts**
+- **Sales motion:** Enterprise Navigator pilots at EUR 4,950 convert to EUR 8,950 annual contracts. 25 customers at average EUR 36K ARR = EUR 900K.
+- **Sales sprint:** June 15 – August 15, 2026 (2 months, 100% sales focus)
+
+### Product — KYA Governance
+
+- **DWS IQ 6** — train and run enterprise AI agent swarms safely
+- **KYA (Know Your Agent)** — hardware-attested isolation, court-defensible audit trails
+- **Dual revenue model** — SaaS subscription + API fees (Tiers 1–3); Alpha-Share Decline-to-Scale reserved for Enterprise World Tier 4 only
+- **Performance Guarantee** — 30-day service credit on verified fault (replaces "clawback")
+- **D&O Insurance angle** — 8-12% premium reduction for KYA-certified agents
+- **Edge AI** — NVIDIA Jetson Orin Nano, works offline, solar-capable, 7-15W
 
 ### Market
-- **Nordic construction/infra** – €150B+ market
-- **Pain:** SPI/CPI still Excel, Fit for 55 reporting manual nightmare
-- **ICP:** 10+ project portfolios, €500M+ revenue, Fit for 55 pressure
+
+- **20 EU-regulated industries** — from construction to pharma
+- **EU AI Act** — mandatory compliance starting 2025-2027
+- **50,000+ EU companies** forced into CSRD reporting
+- **Fit for 55 / EPBD** — hard mandates hitting 2025-2028
+
+### Moat (Three Pillars)
+
+- **Lifetime World Model** — 15,000+ EU regulatory docs, 7 years and 6 versions to build, roadmap through v8 (3-5 years to replicate)
+- **Edge deployment** — NVIDIA Jetson at industrial sites (2-3 years to replicate)
+- **Model-agnostic orchestration** — swap any LLM, intelligence lives in the World Model (1-2 years to replicate)
 
 ### Business Model
-- **Pilot:** 5,990€/month × 5 months = 29,950€
-- **V1 Production:** 10,950€/month (ongoing)
-- **Target customers:** 50-100 Nordic/CEE construction groups
 
-### Round
-- **Amount:** 150k€ SAFE
-- **Cap:** 3.8M€ post-money
-- **Use of funds:**
-  - Scale 2–3 pilots → V1 production (6 months)
-  - Hire 1 sales engineer (accelerate demos)
-  - Expand to TOP 50 accounts (Q2)
+- **Per-industry value:** EUR 180K–EUR 50M annually per enterprise
+- **Dual model:** SaaS (Tiers 1–3) + Alpha-Share (Enterprise World Tier 4) — broad market + value-aligned enterprise
+- **Target:** EUR 900K ARR by end of 2026 (25 customers x EUR 36K avg)
 
-### Path to ARR
-- **Q1/26:** 2 pilots signed (60k€ total contract value)
-- **Q2/26:** 2 pilots → V1 (22k€/month MRR)
-- **H2/26:** 4–8 more pilots + 2–4 V1 conversions
-- **End 2026:** **360–500k€ ARR** (30–40k€/month MRR)
+### Seat Structure
+
+| Tier                 | Investment  | Seats     | Key Benefits                                           |
+| -------------------- | ----------- | --------- | ------------------------------------------------------ |
+| **Fleet Admiral**    | EUR 500,000 | 1         | Board observer, first refusal on follow-on, annual 1:1 |
+| **Captain**          | EUR 150,000 | Limited   | Strategy briefings, priority pilots, Situation Room    |
+| **Industry Captain** | EUR 50,000  | 8         | Named captain of 1 of 20 industries                    |
+| **Deputy Captain**   | EUR 5,000   | Unlimited | Quarterly briefings, upgrade path                      |
+
+- **Valuation cap:** EUR 3.8M
+- **Instrument:** SAFE with 18% discount
 
 ### Team
-- **Risto Anton Päärni** – Founder & CEO
-  - 20+ years construction/infra/digitalization
+
+- **Risto Anton Päärni** — Founder & CEO
+  - 35 years of domain expertise in industrial IT, construction, and infrastructure — the moat is the founder. Not a first-time founder learning the industry; a career operator encoding decades of compliance knowledge into AI agents.
+  - EU regulation expertise (Fit for 55, EPBD, AI Act)
   - Board roles: Lifetime Group companies
-  - Deep EU regulation expertise (Fit for 55, EPBD, AI Act)
+- **Lucille Santiago** — Logistics & Office
+- **Hire Plan:** First €50K of the raise funds a senior technical hire (full-stack / AI engineer) by Q3 2026
+- **Advisors:**
+  - Hannamari Robertsson — CEO, Robertsson Oy (ESG & Business Consulting, PhD research, keynote speaker: Alma Talent, Rastor, Professio)
+  - Dr. Jarno Varteva — Metropolia University of Applied Sciences (Academic Advisor)
+  - Dr. Erkki Räsänen — Metropolia University of Applied Sciences (Academic Advisor)
 
 ### Partnerships
-- **Microsoft, Google, AWS, IBM** – technology partners
-- **Nordic construction ecosystem** – existing relationships (NCC, Skanska, YIT, PORR)
 
-### Competitive Edge
-- **Climate-intelligent by design** (not retrofitted Fit for 55)
-- **Mobile-first** (not desktop legacy)
-- **Real-time SPI/CPI** (not weekly Excel reports)
-- **Founder-market fit** – construction/infra veteran, not generic SaaS
+- **NVIDIA Connect Partner (Groq)**, Microsoft Founders Hub (L1-L4), Google, AWS (Consulting Partner), IBM (Business Partner), Acer Finland, Konfitech
+- Three **InvestEU Portal** listings (INPO-20254383)
+- 100% EU data residency (Finland, Germany, Netherlands)
 
 ---
 
 ## Target Investor Profiles
 
-### Tier 1: Climate/Infra Focused VCs
-- **Focus:** Climate tech, construction tech, industrial digitalization
-- **Check size:** 50–500k€
-- **Examples:** Nordic climate funds, infrastructure VCs
+### Tier 1: Industrial/Climate VCs
 
-### Tier 2: Operator Angels (Ex-Construction Executives)
-- **Profile:** Former CEO/COO/CDO at Skanska, NCC, PORR, YIT, Peab
-- **Check size:** 25–100k€
-- **Value-add:** Industry connections, sales intros, product feedback
+- **Focus:** Industrial AI, climate tech, EU regulatory tech
+- **Check size:** EUR 150K–500K (Captain or Fleet Admiral)
+- **Examples:** Nordic deep tech funds, climate-focused VCs
 
-### Tier 3: Family Offices (Nordic/CEE)
-- **Focus:** B2B SaaS, climate, Nordic scale-ups
-- **Check size:** 50–200k€
-- **Sweet spot:** Construction/real estate background
+### Tier 2: Operator Angels (Industry Executives)
 
-### Tier 4: Corporate VCs (Construction Groups)
-- **Profile:** Innovation arms of large construction groups
-- **Check size:** 50–150k€
-- **Value-add:** Pilot access, reference customers
+- **Profile:** Former CEO/COO/CDO in heavy industry, construction, energy
+- **Check size:** EUR 50K–150K (Industry Captain or Captain)
+- **Value-add:** Industry connections, pilot intros, regulatory insight
+
+### Tier 3: Family Offices (Nordic/EU)
+
+- **Focus:** B2B SaaS, industrial AI, EU compliance
+- **Check size:** EUR 50K–500K
+- **Sweet spot:** Industrial/energy/construction background
+
+### Tier 4: Corporate VCs (Industry Groups)
+
+- **Profile:** Innovation arms of large industrial groups
+- **Check size:** EUR 50K–150K
+- **Value-add:** Pilot access, reference customers, industry data
 
 ---
 
 ## Follow-Up Sequence
 
 ### Email 1: Initial Outreach (Day 0)
-Use template above based on investor profile
+
+Use template above based on investor profile.
 
 ### Email 2: Follow-Up (Day 5, if no response)
-**Subject:** Re: DWS IQ 6 – Nordic construction platform
+
+**Subject:** Re: DWS IQ 6 — AI agent governance
 
 Hi [First name],
 
-Quick follow-up on my email about DWS IQ 6. I know you're busy, but wanted to make sure this didn't get lost.
+Quick follow-up on DWS IQ 6. Two things since my last email:
 
-We're closing 2–3 Nordic construction pilots in Q1 (NCC/Skanska-profile) and I'm finalizing the 150k€ SAFE round (3.8M€ cap) this month.
+1. We're preparing our **2-month sales sprint** (June 15 – August 15) to convert pipeline to production contracts.
+2. **8 Industry Captain seats** (EUR 50K each) are filling — first tranche gets best terms.
 
-If timing works, would love to grab 20 min to walk through the product and traction.
-
-Demo: https://j6prmljgpvnia.ok.kimi.link/
+20 minutes for a walkthrough of the KYA governance framework?
 
 Best,
 Risto
 
 ### Email 3: Final Follow-Up (Day 10, if no response)
-**Subject:** Last call – DWS IQ 6 round closing
+
+**Subject:** Last note — DWS IQ 6 seats filling
 
 Hi [First name],
 
-This is my final follow-up on the DWS IQ 6 SAFE round. We're closing the 150k€ (3.8M€ cap) by end of January, so if you're interested, now's the time.
+Final follow-up on the DWS IQ 6 SAFE round (EUR 3.8M cap). Industry Captain seats are limited to 8 across 20 EU industries.
 
-If timing doesn't work, no worries – happy to keep you posted on progress.
+If timing doesn't work now, happy to keep you on the quarterly update list. We'll have post-sprint metrics (August 2026) worth reviewing.
 
 Best,
 Risto
@@ -216,22 +274,41 @@ Risto
 ## Objection Handling
 
 ### "Too early for us"
-→ "Totally fair. We're at 7–14k€/month MRR with 5+ paying accounts. Would you be open to a check-in at 30k€/month MRR? That's our Q2 target."
+
+> "Fair. We're at EUR 7K/month MRR with zero churn. Our sales sprint runs June 15 – August 15. Would you be open to a check-in in September with post-sprint metrics?"
 
 ### "What's the exit potential?"
-→ "Nordic construction tech exits: Trimble bought Viewpoint for $1.2B, Oracle bought Aconex for $1.6B, Autodesk bought PlanGrid for $875M. We're building for acquisition by construction ERP (Procore, Trimble) or climate platform (Measurabl, Carbon Direct)."
+
+> "Two paths: (1) Acquisition by enterprise AI governance platform (ServiceNow, Palantir, IBM) — KYA standard + 20-industry data is the asset. (2) Standalone scale via Alpha-Share revenue on growing agent populations. Construction tech exits: Trimble/Viewpoint EUR 1.2B, Oracle/Aconex EUR 1.6B, Autodesk/PlanGrid EUR 875M."
 
 ### "How defensible is this?"
-→ "Network effects: every pilot generates proprietary SPI/CPI benchmarks. After 10–20 portfolios, we have the best baseline data in Nordic construction. Plus: founder-market fit (20+ years infra/construction), existing relationships (NCC, Skanska, PORR pipeline)."
 
-### "What if NCC builds this internally?"
-→ "They've tried. SPI/CPI tools are notoriously hard to standardize (every portfolio is different). They want a vendor solution that integrates with their existing stack (BIM, ERP, LEAN). We're the climate-intelligent layer on top."
+> "Three moats: (1) Lifetime World Model — 15,000+ regulatory docs, 7 years to build. (2) Edge AI deployment on NVIDIA Jetson — hardware+software integration. (3) KYA governance standard — court-defensible audit trails that reduce D&O premiums. Each takes 2-5 years to replicate. Together they compound."
+
+### "Why should boards care about KYA?"
+
+> "EU AI Act Art. 99(4) imposes €15M/3%-turnover fines for high-risk deployer non-compliance; national corporate governance codes extend that to personal director liability. KYA produces the Art. 12 + Art. 26 evidence D&O insurers require for AI-governance coverage, targeting 8-12% premium reduction."
 
 ### "Cap too high for this stage"
-→ "3.8M€ cap reflects: (1) 5+ paying customers, (2) partnerships with Microsoft/Google/AWS/IBM, (3) founder equity (already at 2–3M€ fair value based on IP + relationships). Happy to discuss but this is the round structure."
+
+> "EUR 3.8M cap reflects: (1) EUR 7K MRR with 100% retention, (2) proprietary Lifetime World Model (7 years IP), (3) KYA governance standard (first-mover in EU AI Act compliance), (4) partnerships (NVIDIA, Microsoft, Google, AWS). Happy to discuss but this is the structure."
 
 ---
 
-**Files:**
-- `INVESTOR_EMAIL_TEMPLATES.md` (this file)
-- Next: `INVESTOR_MANIFESTO_Q1_2026.md` (if needed)
+## Sender Configuration
+
+- **Primary sender:** risto@onelifetime.world (verified in Amazon SES + Resend)
+- **Fallback:** process.env.EMAIL_FROM || 'risto@onelifetime.world'
+- **Reply-to:** risto@lifetime.fi
+- **Never use:** noreply@ addresses
+- **Programmatic sending:** src/services/email.service.ts (Resend SDK)
+- **Contact page:** https://dws10.com/captain/index.html
+
+---
+
+**Related files:**
+
+- `investor-outreach/INVESTOR_MEMO.md` (v2.0) — Full investment case
+- `docs/INVESTOR_HOOK_DECK.md` (v2.0) — 3-slide hook deck
+- `src/services/email.service.ts` — Resend SDK (production ready)
+- `src/services/email-templates.ts` — Add investorOutreachTemplate() for programmatic sending
