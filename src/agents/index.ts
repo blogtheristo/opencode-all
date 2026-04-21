@@ -6,7 +6,7 @@
  * - listAgents()   - list all registered agent configs
  * - executeAgent() - execute an agent by name with context and input
  *
- * All seven production agents are registered on module load (including self-improving agents).
+ * All five production agents are registered on module load.
  */
 
 import logger from '../utils/logger.js';
@@ -16,8 +16,6 @@ import { ScheduleGeniusAgent } from './schedule-genius.agent.js';
 import { MaterialOracleAgent } from './material-oracle.agent.js';
 import { CustomerSatAgent } from './customer-sat.agent.js';
 import { ViabilityAgent } from './viability.agent.js';
-import { SelfDiagnosticAgent } from './self-diagnostic.agent.js';
-import { ReflectionAgent } from './reflection.agent.js';
 import type { AgentConfig, AgentContext, AgentResponse } from './types.js';
 
 export class AgentRegistry {
@@ -75,8 +73,6 @@ export class AgentRegistry {
     this.register(new MaterialOracleAgent());
     this.register(new CustomerSatAgent());
     this.register(new ViabilityAgent());
-    this.register(new SelfDiagnosticAgent());
-    this.register(new ReflectionAgent());
 
     logger.info('Agent registry initialized', {
       agentCount: this.agents.size,

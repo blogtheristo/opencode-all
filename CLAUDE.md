@@ -25,32 +25,17 @@ Before making any UI changes, agents MUST consult these files:
 - **Body**: Firehorse Suite (Reports, Automation, Content DMS, Omnichannel)
 - **Hands**: Lifetime Fleet (IoT/Robots for physical execution)
 
-## Self-Improving Agent Protocol
+## Development Quality Tools
 
-DWS6 implements a self-improving development loop where AI agents diagnose, test, and improve the codebase they live in. This is similar to how frontier models are used to debug their own training and deployment.
+DWS6 uses a lightweight feedback loop: a health-check script surfaces priorities, CI prevents regressions, and the MCP Hub provides reflection workflows for agent output quality.
 
-### The Self-Improving Loop
-
-```
-1. Self-Diagnostic Agent scans codebase → health_report.json
-2. AI coding session reads report → fixes top issues
-3. Reflection Agent evaluates fix quality → feedback
-4. Next diagnostic scan shows improvement → cycle continues
-```
-
-### Available Self-Improving Agents
-
-| Agent | File | Purpose |
-|-------|------|---------|
-| **self-diagnostic** | `src/agents/self-diagnostic.agent.ts` | Scans codebase for quality gaps, missing tests, security patterns |
-| **reflection** | `src/agents/reflection.agent.ts` | Evaluates other agents' output quality, enables iterative refinement |
-
-### Self-Improvement Tools
+### Tools
 
 | Tool | File | Purpose |
 |------|------|---------|
-| **Codebase Health** | `scripts/codebase_health.py` | Generates health_report.json with metrics and recommendations |
-| **Test on PR** | `.github/workflows/test-on-pr.yml` | Runs tests automatically on every PR |
+| **Codebase Health** | `scripts/codebase_health.py` | Prints health report with metrics and recommendations |
+| **Test on PR** | `.github/workflows/test-on-pr.yml` | Runs tests and security checks on every PR |
+| **MCP Hub Reflection** | `mcp-hub/server.py` `/workflow/reflection` | Iterative refinement workflow for agent outputs |
 
 ### How to Use
 
@@ -60,7 +45,7 @@ At the start of a coding session, run the health check to understand priorities:
 # Print report to stdout (default — no files written)
 python scripts/codebase_health.py
 
-# Persist the JSON report for agent consumption
+# Persist the JSON report for later reference
 python scripts/codebase_health.py --output json --output-file health_report.json
 ```
 

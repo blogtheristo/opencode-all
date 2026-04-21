@@ -4,9 +4,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.3
+Version: 3.4
 
 Sessions & Modifications:
+  - Version: 3.4 | Tool: Claude Code (Opus 4.6) | Session: claude/self-improving-parallel-agents-p4X6m | Date: 21.04.2026 | Changes: Revised Appendix F - replaced overclaimed self-improving agents with honest description of actual tooling (codebase health script, CI/CD workflow, MCP Hub reflection)
   - Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: claude/self-improving-parallel-agents-p4X6m | Date: 11.02.2026 | Changes: Added Appendix F - Self-Improving Agent Protocol (self-diagnostic agent, reflection agent, codebase health automation, CI/CD test workflow)
   - Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-Pipeline | Date: 07.02.2026 | Changes: Added Section 6.7 - Human-in-the-Loop Learning Pipeline (daily automation, three-layer backup, Learn/ folder output)
   - Version: 3.1 | Tool: Claude Code (Opus 4.5) | Session: Karpathy-Principles | Date: 04.02.2026 | Changes: Added Appendix E - AI Agent Operational Guidelines (Karpathy Principles), EU AI Act compliance mapping, implementation results metrics
@@ -22,10 +23,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 11.02.2026
+  - Last Modified: 21.04.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.3 with Self-Improving Agents)
+  - Publication Status: DRAFT (V3.4)
 
 ---
 
@@ -70,11 +71,7 @@ Tama opinnaytetyo tutkii Firehorse-tuotevalmistuksen toimintamallia, joka yhdist
 10. [Conclusions](#10-conclusions)
 11. [References](#11-references)
 12. [Appendices](#12-appendices)
-    - [Appendix F: Self-Improving Agent Protocol](#appendix-f-self-improving-agent-protocol)
-      - [F.1 Concept: AI That Improves Itself](#f1-concept-ai-that-improves-itself)
-      - [F.2 The Self-Improving Loop](#f2-the-self-improving-loop)
-      - [F.3 Self-Diagnostic Agent](#f3-self-diagnostic-agent)
-      - [F.4 Reflection Agent](#f4-reflection-agent)
+    - [Appendix F: Development Quality Tooling](#appendix-f-development-quality-tooling)
       - [F.5 Implementation Results](#f5-implementation-results)
       - [F.6 EU AI Act Compliance Contribution](#f6-eu-ai-act-compliance-contribution)
       - [F.7 Academic Significance](#f7-academic-significance)
@@ -716,83 +713,54 @@ The adoption of Karpathy principles in DWS6 development achieved:
 - **Implementation:** `/CLAUDE.md` in repository root
 - **Applicable tools:** Claude Code, Cursor AI, GitHub Copilot, and similar agentic coding assistants
 
-## Appendix F: Self-Improving Agent Protocol
+## Appendix F: Development Quality Tooling
 
-### F.1 Concept: AI That Improves Itself
+### F.1 Motivation
 
-Similar to how OpenAI's GPT-5.3-Codex was instrumental in creating itself — used by its team to debug training, manage deployment, and diagnose test results — DWS6 implements a self-improving development loop where AI agents diagnose, test, and improve the codebase they live in.
+AI-assisted development sessions (Claude Code, Cursor) benefit from knowing what needs fixing before the developer starts work. DWS6 addresses this with three lightweight tools that create a feedback loop: a health-check script surfaces priorities, a CI workflow prevents regressions, and the MCP Hub's existing reflection endpoint enables iterative quality evaluation of agent outputs.
 
-This represents a fundamental shift in software development: the platform's own AI agents are responsible for maintaining and improving the platform's quality.
-
-### F.2 The Self-Improving Loop
-
-```
-Self-Diagnostic Agent → scans codebase → health_report.json
-     ↓
-AI Coding Session → reads report → fixes top issues
-     ↓
-Reflection Agent → evaluates fix quality → feedback
-     ↓
-Next Diagnostic Scan → shows improvement → cycle continues
-```
-
-### F.3 Self-Diagnostic Agent
-
-The `self-diagnostic` agent (`src/agents/self-diagnostic.agent.ts`) performs automated codebase analysis across four dimensions:
-
-| Dimension | Checks | Severity Range |
-|-----------|--------|---------------|
-| Agent Health | Error handling, execution logging, LLM usage, registry completeness | info - high |
-| Test Coverage | Test file count, module coverage gaps, integration test presence | critical - medium |
-| Security Patterns | .gitignore completeness, CI/CD test workflows, secret patterns | critical - high |
-| Type Strictness | TypeScript strict mode, noImplicitAny, exclude list size | medium - low |
-
-Health score computation: starts at 100, deducts 15 per critical, 8 per high, 4 per medium, 1 per low finding.
-
-### F.4 Reflection Agent
-
-The `reflection` agent (`src/agents/reflection.agent.ts`) evaluates other agents' output quality across five dimensions:
-
-| Dimension | Weight | What It Measures |
-|-----------|--------|-----------------|
-| Confidence Calibration | Equal | Penalizes overconfidence (1.0) and zero confidence |
-| Reasoning Quality | Equal | Length, quantitative evidence, causal language |
-| Recommendation Actionability | Equal | Action verbs, specificity, count balance |
-| Result Completeness | Equal | Field count, non-empty values, agent name |
-| Observability Metadata | Equal | durationMs, model info, token usage (EU AI Act) |
-
-Quality gate: outputs scoring below the threshold (default 0.7) are flagged for re-execution.
-
-### F.5 Implementation Results
-
-The self-improving agent protocol was implemented on 11.02.2026:
+### F.2 Components
 
 | Component | File | Purpose |
 |-----------|------|---------|
-| Self-Diagnostic Agent | `src/agents/self-diagnostic.agent.ts` | Codebase quality scanning |
-| Reflection Agent | `src/agents/reflection.agent.ts` | Output quality evaluation |
-| Codebase Health Script | `scripts/codebase_health.py` | Python-based metrics reporter |
-| CI/CD Test Workflow | `.github/workflows/test-on-pr.yml` | Automated testing on PRs |
-| Agent Test Suite | `src/__tests__/agents.test.ts` | Agent system verification |
-| CLAUDE.md Protocol | `CLAUDE.md` | Self-improvement instructions for AI sessions |
+| Codebase Health Script | `scripts/codebase_health.py` | Prints health report with metrics, agent-to-test linkage, and prioritized recommendations |
+| CI/CD Test Workflow | `.github/workflows/test-on-pr.yml` | Runs TypeScript type checks, Vitest tests, and secret-pattern scans on every PR |
+| MCP Hub Reflection | `mcp-hub/server.py` (`/workflow/reflection`) | Iterative refinement workflow for agent output quality evaluation |
 
-Agent registry expanded from 5 to 7 agents.
+### F.3 Codebase Health Script
+
+The Python script (`scripts/codebase_health.py`) analyzes agent files, test files, and CI/CD workflows to produce a health score (0-100). It writes nothing to disk by default — output goes to stdout. An optional `--output-file` flag persists JSON for tooling consumption.
+
+Key metrics: test file count, test case count, agent error-handling and logging coverage, CI/CD workflow presence. The script also computes `tested_in` linkage — for each agent file, it searches test files for the agent's class name or registered name, producing an honest coverage map rather than a boolean flag.
+
+### F.4 CI/CD Test Workflow
+
+The workflow (`.github/workflows/test-on-pr.yml`) runs on PRs targeting `main` and pushes to `main`. It performs:
+
+1. TypeScript type checking (`tsc --noEmit`)
+2. Vitest test suite execution
+3. Security pattern scanning for hardcoded API keys
+
+This prevents regressions from being merged and serves as the automated quality gate.
+
+### F.5 MCP Hub Reflection Workflow
+
+The MCP Hub (`mcp-hub/server.py`) already provided a `/workflow/reflection` endpoint before this work. It accepts agent output and returns quality evaluation across configurable dimensions. This lives at the orchestration layer — the correct architectural location for cross-agent quality evaluation, rather than as a peer agent in the registry.
 
 ### F.6 EU AI Act Compliance Contribution
 
-The self-improving protocol supports EU AI Act requirements:
+These tools support EU AI Act Article 12 (Automatic Logging) requirements:
 
-1. **Article 12 (Automatic Logging)**: All agent executions logged to Supabase with timing, input/output, and status
-2. **Reasoning Lineage**: Reflection agent evaluates and documents reasoning quality of all agent outputs
-3. **Continuous Monitoring**: Self-diagnostic agent provides automated quality monitoring
-4. **Traceability**: Health reports create timestamped audit trail of codebase evolution
+1. **Automatic Logging**: All agent executions logged to Supabase via `logExecution()` with timing, input/output, and status
+2. **Traceability**: Health reports and CI artifacts create a timestamped audit trail of codebase quality evolution
+3. **Reasoning Lineage**: The `AgentResponse.reasoning` field documents every agent decision; the MCP Hub reflection workflow can evaluate reasoning quality
 
-### F.7 Academic Significance
+### F.7 Lessons Learned
 
-This implementation demonstrates that small-scale AI platforms can adopt the self-improving patterns previously seen only in frontier model development. The key insight: the feedback loop doesn't require training new models — it works at the application layer through structured evaluation and prioritized improvement.
+An initial implementation included dedicated self-diagnostic and reflection agents registered alongside the five domain agents. These were removed after audit because they duplicated functionality already present in `codebase_health.py` and the MCP Hub, and placed development tooling concerns inside the production agent registry. The lesson: feedback loops work best when they use appropriate tools at the right architectural layer, not when every capability is forced into the agent abstraction.
 
 ---
 
 *Document generated using Firehorse Operations Model with Claude Code*
-*Last updated: February 2026*
-*Version: 3.3*
+*Last updated: April 2026*
+*Version: 3.4*

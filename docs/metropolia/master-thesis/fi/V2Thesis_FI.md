@@ -4,9 +4,10 @@
 ---
 # VERSION AND AGENT HISTORY
 
-Version: 3.3
+Version: 3.4
 
 Sessions & Modifications:
+  - Version: 3.4 | Tool: Claude Code (Opus 4.6) | Session: claude/self-improving-parallel-agents-p4X6m | Date: 21.04.2026 | Changes: Paivitetty Liite F - korvattu itseparantavat agentit rehellisella kuvauksella todellisista tyokaluista (koodikannan terveysraportti, CI/CD-putki, MCP Hub -reflektio)
   - Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: claude/self-improving-parallel-agents-p4X6m | Date: 11.02.2026 | Changes: Lisatty Liite F - Itseparantava agenttiprosessi (itsediagnostiikka-agentti, reflektioagentti, koodikannan terveysautomaatio, CI/CD-testiputki)
   - Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-Pipeline | Date: 07.02.2026 | Changes: Lisatty osio 6.7 - Ihminen-silmukassa-oppimisputki (paivittainen automaatio, kolmikerroksinen varmuuskopiointi, Learn/-kansion tuloste)
   - Version: 3.1 | Tool: Claude Code (Opus 4.5) | Session: Karpathy-Principles | Date: 04.02.2026 | Changes: Lisatty Liite E - Tekoalyagenttien toimintaohjeet (Karpathyn periaatteet), EU:n tekoalysaadoksen vaatimustenmukaisuuskartoitus, toteutuksen tulosmittarit
@@ -23,10 +24,10 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 11.02.2026
+  - Last Modified: 21.04.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.3 itseparantavilla agenteilla)
+  - Publication Status: DRAFT (V3.4)
 
 ---
 
@@ -744,83 +745,54 @@ Karpathyn periaatteiden kayttoonotto DWS6-kehityksessa saavutti:
 - **Toteutus:** `/CLAUDE.md` repositorion juuressa
 - **Soveltuvat tyokalut:** Claude Code, Cursor AI, GitHub Copilot ja vastaavat agenttipohjaiset koodausavustajat
 
-## Liite F: Itseparantava agenttiprosessi
+## Liite F: Kehityksen laatutyokalut
 
-### F.1 Konsepti: Tekoaly joka parantaa itsean
+### F.1 Motivaatio
 
-Samalla tavoin kuin OpenAI:n GPT-5.3-Codex oli keskeinen oman itsensa luomisessa — tiimi kaytti varhaisia versioita koulutuksen virheenkorjaukseen, kayttoonoton hallintaan ja testitulosten diagnosointiin — DWS6 toteuttaa itseparantavan kehityssilmukan, jossa tekoalyagentit diagnosoivat, testaavat ja parantavat koodikantaa jossa ne elavat.
+Tekoalyavusteiset kehityssessiot (Claude Code, Cursor) hyotyvat siita, etta ne tietavat korjaustarpeet ennen tyon aloitusta. DWS6 ratkaisee taman kolmella kevyella tyokalulla, jotka muodostavat palautesilmukan: terveystarkistusskripti nostaa prioriteetit esiin, CI-putki estaa regressiot, ja MCP Hubin olemassa oleva reflektiopaatepisteesta mahdollistaa agenttitulosteen iteratiivisen laadunarvioinnin.
 
-Tama edustaa perustavanlaatuista muutosta ohjelmistokehityksessa: alustan omat tekoalyagentit vastaavat alustan laadun yllapidosta ja parantamisesta.
-
-### F.2 Itseparantava silmukka
-
-```
-Itsediagnostiikka-agentti → skannaa koodikannan → health_report.json
-     ↓
-Tekoalykoodaussessio → lukee raportin → korjaa prioriteettiongelmia
-     ↓
-Reflektioagentti → arvioi korjauksen laadun → palaute
-     ↓
-Seuraava diagnostiikkaskannaus → nayttaa parannuksen → sykli jatkuu
-```
-
-### F.3 Itsediagnostiikka-agentti
-
-`self-diagnostic`-agentti (`src/agents/self-diagnostic.agent.ts`) suorittaa automaattisen koodikanta-analyysin nelja ulottuvuutta pitkin:
-
-| Ulottuvuus | Tarkistukset | Vakavuustaso |
-|------------|-------------|--------------|
-| Agentin terveys | Virheenkasittely, suorituksen kirjaus, LLM-kaytto, rekisterin kattavuus | tieto - korkea |
-| Testikattavuus | Testitiedostojen maara, moduulikattavuuden aukot, integraatiotestien olemassaolo | kriittinen - keskitaso |
-| Turvallisuusmallit | .gitignore-kattavuus, CI/CD-testiputket, salaisuusmallit | kriittinen - korkea |
-| Tyyppitarkkuus | TypeScript strict-tila, noImplicitAny, exclude-listan koko | keskitaso - matala |
-
-Terveyspistemaaraen laskenta: alkaa 100:sta, vahentaa 15 kriittisesta, 8 korkeasta, 4 keskitasosta, 1 matalasta havainnosta.
-
-### F.4 Reflektioagentti
-
-`reflection`-agentti (`src/agents/reflection.agent.ts`) arvioi muiden agenttien tulosteen laatua viiden ulottuvuuden kautta:
-
-| Ulottuvuus | Paino | Mita mittaa |
-|------------|-------|------------|
-| Luottamuksen kalibrointi | Tasainen | Rankaisee yliluottamusta (1.0) ja nollaluottamusta |
-| Paattelyn laatu | Tasainen | Pituus, maarallinen naytto, kausaalinen kieli |
-| Suositusten toteutettavuus | Tasainen | Toimintaverbit, tarkkuus, maarabalanssi |
-| Tuloksen kattavuus | Tasainen | Kenttien maara, ei-tyhjat arvot, agentin nimi |
-| Havaittavuusmetadata | Tasainen | durationMs, mallitiedot, tokenien kaytto (EU:n tekoalysaados) |
-
-Laatuportti: kynnysarvon (oletuksena 0,7) alittavat tulosteet merkataan uudelleensuoritettaviksi.
-
-### F.5 Toteutuksen tulokset
-
-Itseparantava agenttiprosessi toteutettiin 11.02.2026:
+### F.2 Komponentit
 
 | Komponentti | Tiedosto | Tarkoitus |
 |-------------|----------|-----------|
-| Itsediagnostiikka-agentti | `src/agents/self-diagnostic.agent.ts` | Koodikannan laadun skannaus |
-| Reflektioagentti | `src/agents/reflection.agent.ts` | Tulosteen laadun arviointi |
-| Koodikannan terveysraportti | `scripts/codebase_health.py` | Python-pohjainen mittariraportoija |
-| CI/CD-testiputki | `.github/workflows/test-on-pr.yml` | Automaattinen testaus PR:issa |
-| Agenttitestisarja | `src/__tests__/agents.test.ts` | Agenttijärjestelman varmennus |
-| CLAUDE.md-prosessi | `CLAUDE.md` | Itseparannusohjeet tekoalysessioille |
+| Koodikannan terveysraportti | `scripts/codebase_health.py` | Tulostaa terveysraportin mittareineen, agentti-testi-linkityksineen ja priorisoiduin suosituksin |
+| CI/CD-testiputki | `.github/workflows/test-on-pr.yml` | Suorittaa TypeScript-tyyppitarkistuksen, Vitest-testit ja salaisuusmallihaun jokaisessa PR:ssa |
+| MCP Hub -reflektio | `mcp-hub/server.py` (`/workflow/reflection`) | Iteratiivinen jalostusputki agenttitulosteen laadun arviointiin |
 
-Agenttirekisteri laajeni 5:sta 7 agenttiin.
+### F.3 Koodikannan terveysraportti
+
+Python-skripti (`scripts/codebase_health.py`) analysoi agenttitiedostot, testitiedostot ja CI/CD-putket tuottaen terveyspistemaaraen (0-100). Oletuksena se ei kirjoita tiedostoja levylle — tuloste menee stdouttiin. Valinnainen `--output-file`-lippu tallentaa JSON-muotoisen raportin.
+
+Keskeisimmat mittarit: testitiedostojen maara, testitapausten maara, agenttien virheenkasittely- ja kirjauskattavuus, CI/CD-putkien olemassaolo. Skripti laskee myos `tested_in`-linkityksen — jokaiselle agenttitiedostolle se etsii testitiedostoista agentin luokkanimen tai rekisteroitynaen nimen, tuottaen rehellisen kattavuuskartan pelkan boolean-lipun sijaan.
+
+### F.4 CI/CD-testiputki
+
+Tyonkulku (`.github/workflows/test-on-pr.yml`) suoritetaan PR:issa jotka kohdistuvat `main`-haaraan seka `main`-haaran pusheissa. Se suorittaa:
+
+1. TypeScript-tyyppitarkistuksen (`tsc --noEmit`)
+2. Vitest-testisarjan suorituksen
+3. Turvallisuusmallihaun kovakoodatuille API-avaimille
+
+Tama estaa regressioiden paaasemisen paahaaraan ja toimii automaattisena laatuporttina.
+
+### F.5 MCP Hub -reflektioputki
+
+MCP Hub (`mcp-hub/server.py`) tarjosi jo valmiiksi `/workflow/reflection`-paatepisteen ennen tata tyota. Se vastaanottaa agenttitulosteen ja palauttaa laadunarvioinnin konfiguroitavien ulottuvuuksien kautta. Tama sijaitsee orkestrointikerroksessa — arkkitehtonisesti oikeassa paikassa agenttienvaliselle laadunarvioinnille, sen sijaan etta se olisi vertaisagentti rekisterissa.
 
 ### F.6 EU:n tekoalysaadoksen vaatimustenmukaisuuspanos
 
-Itseparantava prosessi tukee EU:n tekoalysaadoksen vaatimuksia:
+Nama tyokalut tukevat EU:n tekoalysaadoksen artikla 12:n (automaattinen kirjaaminen) vaatimuksia:
 
-1. **Artikla 12 (Automaattinen kirjaaminen)**: Kaikki agenttisuoritukset kirjataan Supabaseen ajoituksineen, syotteineen/tulosteeineen ja tiloineen
-2. **Paattelyketju**: Reflektioagentti arvioi ja dokumentoi kaikkien agenttien paattelyn laadun
-3. **Jatkuva seuranta**: Itsediagnostiikka-agentti tarjoaa automaattisen laadunvalvonnan
-4. **Jaljitettavyys**: Terveysraportit luovat aikaleimatun auditointipolun koodikannan kehityksesta
+1. **Automaattinen kirjaaminen**: Kaikki agenttisuoritukset kirjataan Supabaseen `logExecution()`-funktion kautta ajoituksineen, syotteineen/tulosteeineen ja tiloineen
+2. **Jaljitettavyys**: Terveysraportit ja CI-artefaktit luovat aikaleimatun auditointipolun koodikannan laadun kehityksesta
+3. **Paattelyketju**: `AgentResponse.reasoning`-kentta dokumentoi jokaisen agenttipaaatoksen; MCP Hubin reflektioputki voi arvioida paattelyn laatua
 
-### F.7 Akateeminen merkitys
+### F.7 Opitut asiat
 
-Tama toteutus osoittaa, etta pienimuotoiset tekoalyalustat voivat omaksua itseparantavia malleja, joita on aiemmin nahty vain eturinta-mallien kehityksessa. Keskeinen oivallus: palautesilmukka ei vaadi uusien mallien koulutusta — se toimii sovellustasolla rakenteisen arvioinnin ja priorisoidun parannuksen kautta.
+Alkuperainen toteutus sisalsi erilliset itsediagnostiikka- ja reflektioagentit, jotka rekisteroitiin viiden toimialueagentin rinnalle. Nama poistettiin auditoinnin jalkeen, koska ne kahdensivat `codebase_health.py`:n ja MCP Hubin jo tarjoaman toiminnallisuuden, ja sijoittivat kehitystyokalutarpeet tuotantoagenttirekisteriin. Oppi: palautesilmukat toimivat parhaiten kun ne kayttavat sopivia tyokaluja oikealla arkkitehtuuritasolla, eivat silloin kun jokainen kyvykkyys pakotetaan agenttiabstraktioon.
 
 ---
 
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
-*Viimeksi paivitetty: Helmikuu 2026*
-*Versio: 3.3*
+*Viimeksi paivitetty: Huhtikuu 2026*
+*Versio: 3.4*

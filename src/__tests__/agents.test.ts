@@ -1,16 +1,10 @@
 /**
- * Agent System Tests - Self-Improving Test Suite
- *
- * Tests the agent infrastructure that the platform relies on.
- * Part of the self-improving loop: these tests verify that agents
- * (including the self-diagnostic and reflection agents) work correctly.
+ * Agent System Tests
  *
  * Coverage:
  * - Agent registry (registration, discovery, execution)
- * - BaseAgent lifecycle (logExecution, callLLM graceful degradation)
- * - SelfDiagnostic agent (codebase scanning)
- * - Reflection agent (quality evaluation)
  * - SiteSense agent (deterministic safety scoring)
+ * - Agent response contract validation
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
@@ -38,7 +32,7 @@ process.env.SUPABASE_URL = 'https://test.supabase.co';
 process.env.SUPABASE_SERVICE_KEY = 'test-key';
 
 import { AgentRegistry } from '../agents/index.js';
-import type { AgentContext, AgentResponse } from '../agents/types.js';
+import type { AgentContext } from '../agents/types.js';
 
 // ============ TEST CONTEXT ============
 
@@ -72,14 +66,6 @@ describe('AgentRegistry', () => {
     expect(names).toContain('material-oracle');
     expect(names).toContain('customer-sat');
     expect(names).toContain('viability');
-  });
-
-  it('should include self-improving agents', () => {
-    const agents = registry.listAgents();
-    const names = agents.map((a) => a.name);
-
-    expect(names).toContain('self-diagnostic');
-    expect(names).toContain('reflection');
   });
 
   it('should retrieve agent by name', () => {
@@ -197,127 +183,6 @@ describe('SiteSense Agent - Deterministic Safety Scoring', () => {
 
     expect(result.metadata).toBeDefined();
     expect(result.metadata.durationMs).toBeGreaterThanOrEqual(0);
-  });
-});
-
-// ============ REFLECTION AGENT TESTS ============
-
-describe('Reflection Agent - Quality Evaluation', () => {
-  let registry: AgentRegistry;
-
-  beforeEach(() => {
-    registry = new AgentRegistry();
-  });
-
-  it('should evaluate a high-quality agent output as passing', async () => {
-    const mockOutput: AgentResponse = {
-      agentName: 'test-agent',
-      result: { score: 85, category: 'safe', details: 'full analysis' },
-      confidence: 0.85,
-      reasoning:
-        'Safety score 85/100 computed from temperature (20C) because conditions are optimal',
-      recommendations: [
-        'Maintain standard safety protocols',
-        'Schedule next review in 7 days',
-      ],
-      metadata: { durationMs: 150, llmModel: 'llama-3.3-70b', llmTokens: 500 },
-    };
-
-    const result = await registry.executeAgent('reflection', testContext, {
-      agentOutput: mockOutput,
-      qualityThreshold: 0.7,
-    });
-
-    expect(result.agentName).toBe('reflection');
-    expect((result.result as any).passesThreshold).toBe(true);
-    expect((result.result as any).overallScore).toBeGreaterThanOrEqual(0.7);
-  });
-
-  it('should evaluate a low-quality output as failing', async () => {
-    const mockOutput: AgentResponse = {
-      agentName: 'poor-agent',
-      result: {},
-      confidence: 1.0, // Overconfident
-      reasoning: '', // No reasoning
-      recommendations: [], // No recommendations
-      metadata: {}, // No observability
-    };
-
-    const result = await registry.executeAgent('reflection', testContext, {
-      agentOutput: mockOutput,
-      qualityThreshold: 0.7,
-    });
-
-    expect((result.result as any).passesThreshold).toBe(false);
-    expect((result.result as any).overallScore).toBeLessThan(0.7);
-    expect(result.recommendations.length).toBeGreaterThan(0);
-  });
-
-  it('should penalize overconfident outputs (confidence = 1.0)', async () => {
-    const mockOutput: AgentResponse = {
-      agentName: 'overconfident-agent',
-      result: { data: 'something' },
-      confidence: 1.0,
-      reasoning: 'Computed based on data analysis',
-      recommendations: ['Do something'],
-      metadata: { durationMs: 100 },
-    };
-
-    const result = await registry.executeAgent('reflection', testContext, {
-      agentOutput: mockOutput,
-    });
-
-    const dimensions = (result.result as any).dimensions;
-    const confidenceDim = dimensions.find(
-      (d: any) => d.name === 'confidence-calibration',
-    );
-
-    expect(confidenceDim.score).toBeLessThanOrEqual(0.5);
-  });
-});
-
-// ============ INPUT VALIDATION TESTS ============
-
-describe('Self-Diagnostic Agent - Input Validation', () => {
-  let registry: AgentRegistry;
-
-  beforeEach(() => {
-    registry = new AgentRegistry();
-  });
-
-  it('should reject invalid scope values', async () => {
-    await expect(
-      registry.executeAgent('self-diagnostic', testContext, {
-        scope: 'foo',
-      }),
-    ).rejects.toThrow(/Invalid scope/);
-  });
-
-  it('should accept undefined scope and default to full', async () => {
-    const result = await registry.executeAgent('self-diagnostic', testContext, {});
-    expect((result.result as any).scope).toBe('full');
-  });
-});
-
-describe('Reflection Agent - Input Validation', () => {
-  let registry: AgentRegistry;
-
-  beforeEach(() => {
-    registry = new AgentRegistry();
-  });
-
-  it('should reject missing agentOutput', async () => {
-    await expect(
-      registry.executeAgent('reflection', testContext, {}),
-    ).rejects.toThrow(/requires "agentOutput"/);
-  });
-
-  it('should reject malformed agentOutput (missing fields)', async () => {
-    await expect(
-      registry.executeAgent('reflection', testContext, {
-        agentOutput: { agentName: 'x' },
-      }),
-    ).rejects.toThrow(/missing or malformed fields/);
   });
 });
 
