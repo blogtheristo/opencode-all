@@ -220,7 +220,7 @@ Q1 2026: €14k (+2 construction) | Q2 2026: €30k (+3 healthcare) | Q3 2026: �
 ## 💵 Slide 9: Fundraise – €150k SAFE @ €3.8M Cap
 
 ### SAFE Terms
-- Amount: €150k | Cap: €3.8M | Discount: 20% | Conversion: Series A (Q4 2026, €15M+ target)
+- Amount: €150k | Cap: €3.8M | Discount: 18% | Conversion: Series A (Q4 2026, €15M+ target)
 
 ### Valuation Justification
 
@@ -232,7 +232,7 @@ Q1 2026: €14k (+2 construction) | Q2 2026: €30k (+3 healthcare) | Q3 2026: �
 | **Total** | **€3.8M** | Defensibility + catalysts |
 
 **Series A Math (€15M post-money):**
-- Converts at €3.04M (80% discount) → 4.9% ownership → €735k value → **4.9× in 18mo (187% IRR)**
+- Converts at €3.116M (82% of cap, 18% discount) → 4.8% ownership → €720k value → **4.8× in 18mo (184% IRR)**
 
 ### Use of Funds (12-18mo runway → €900k ARR)
 
@@ -246,7 +246,7 @@ Campaign underperforms 50%? → Still €30-40k MRR, Series A €10-12M
 Series A market deteriorates? → Break-even €35k MRR = profitable without raise  
 Competitor enters? → 20-moat fortress = 24-36mo delay minimum
 
-**Downside:** Even "everything wrong" = 2-3× return via acquisition (vs 4.9× Series A)
+**Downside:** Even "everything wrong" = 2-3× return via acquisition (vs 4.8× Series A)
 
 ---
 
@@ -264,10 +264,10 @@ Competitor enters? → 20-moat fortress = 24-36mo delay minimum
 
 | Outcome | Value | Multiple | IRR | Probability |
 |---------|-------|----------|-----|-------------|
-| Conservative (€10M) | €490k | 3.3× | 106% | 30% |
-| **Base (€15M)** | **€735k** | **4.9×** | **187%** | **50%** |
-| Optimistic (€20M) | €980k | 6.5× | 247% | 20% |
-| **Expected** | **€711k** | **4.7×** | **181%** | - |
+| Conservative (€10M) | €480k | 3.2× | 117% | 30% |
+| **Base (€15M)** | **€720k** | **4.8×** | **184%** | **50%** |
+| Optimistic (€20M) | €960k | 6.4× | 245% | 20% |
+| **Expected** | **€696k** | **4.6×** | **176%** | - |
 
 ### Next Steps
 

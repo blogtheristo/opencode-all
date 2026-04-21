@@ -64,7 +64,7 @@ She's a 1st degree connection. This is the simplest outreach in the pipeline —
 
 ## Draft LinkedIn DM
 
-Hi Mercedes — I'm building DWS IQ 6, an EU compliance automation platform (18 AI agents, carbon balance sheet across ETS/CBAM/CSRD). €7K MRR, 5 customers, 100% retention, raising €650K SAFE at €3.8M cap. V1 launches at Arctic 15 in Helsinki on June 15.
+Hi Mercedes — I'm building DWS IQ 6, an EU compliance automation platform (21 AI agents, carbon balance sheet across ETS/CBAM/CSRD). €7K MRR, 5 customers, 100% retention, raising €650K SAFE at €3.8M cap. V1 launches at Arctic 15 in Helsinki on June 15.
 
 With your Loyal VC and Founder Institute hats, I think you'd know exactly which investors should see this. Would you be open to a 15-minute call this week or next?
 

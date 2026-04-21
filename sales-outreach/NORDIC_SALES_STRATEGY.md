@@ -55,7 +55,7 @@ This document defines the Nordic sales strategy for DWS IQ 6, built on three int
 | **The Vineyard** | Investors (angels, VCs, institutional) | Patient cultivation yields extraordinary vintage. | Growth, patience, terroir |
 | **The Buffet at 13.70** | Equality-minded stakeholders (Nordic public sector, ESG, HR) | Everyone gets the same table. Same price. Same dignity. | Belonging, fairness, calm |
 
-**Current position:** €7k MRR, 5 paying customers, 100% retention, 0% churn.
+**Current position:** €7k MRR, 6 paying customers, 100% retention, 0% churn.
 **Target:** €60k MRR by Q4 2026.
 **This strategy addresses:** How we speak to the Nordic market in a way that resonates with its psychology, not just its procurement process.
 
@@ -170,7 +170,7 @@ That is terroir. The untranslatable advantage of place, time, and accumulated kn
 DWS IQ 6 has terroir:
 
 - **The soil:** 16 EU industries under Fit for 55 regulation. Not a trend. A mandate.
-- **The vines:** 5 paying customers, 100% retention, €7k MRR. Roots, not projections.
+- **The vines:** 6 paying customers, 100% retention, €7k MRR. Roots, not projections.
 - **The hillside:** Finland. EU data sovereignty. GAIA-X. The world's happiest country, because it builds systems that work.
 - **The winemaker:** A founder who spent years in industrial construction before writing a single line of code.
 - **The climate:** CSRD mandatory from 2025. EPBD deadlines in 2027/2030. Carbon border adjustment in force. The climate for this vineyard is *now.*

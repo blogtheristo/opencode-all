@@ -36,7 +36,7 @@ This field note scopes the **Phase 1 → Phase 2 bridge** — the technical gap 
 
 | Component | Status | Location |
 |-----------|--------|----------|
-| Regulatory intelligence graph | Shipping | 15,000+ EU docs, 18 agents, 20 industries |
+| Regulatory intelligence graph | Shipping | 15,000+ EU docs, 21 agents, 20 industries |
 | Carbon balance sheet (in-memory) | V1 | `src/compliance/debit-credit-ledger.ts` |
 | Carbon balance sheet (persistent) | DWS 7, July 2026 | 8 PRs (093A-093H) |
 | QLoRA fine-tuned models | Training manual ready | Llama/Mistral/Qwen on GN-100 |

@@ -59,13 +59,13 @@ Risto Päärni, Lifetime Oy (Espoo). I think there's a natural connection betwee
 
 You built the governance layer for enterprise data — helping companies like AXA, Allianz, and Siemens know what data they have, where it lives, and whether it's compliant. We built the governance layer for enterprise carbon — the same question, different regulatory axis. What's your carbon exposure? Where does it sit across ETS, CBAM, CSRD, and Taxonomy? Is it audit-ready?
 
-The product is DWS IQ 6: 18 AI agents that pull operational data from ERP systems (SAP S/4HANA, IFS Cloud, Dynamics 365), integrate with LCA tools, and auto-generate compliance reports every quarter. Every agent governed by hardware-attested identity (KYA Standard), court-defensible audit trails, EU AI Act compliant. 100% EU-hosted.
+The product is DWS IQ 6: 21 AI agents that pull operational data from ERP systems (SAP S/4HANA, IFS Cloud, Dynamics 365), integrate with LCA tools, and auto-generate compliance reports every quarter. Every agent governed by hardware-attested identity (KYA Standard), court-defensible audit trails, EU AI Act compliant. 100% EU-hosted.
 
 Why I think you'll find this interesting:
 
 - **Same enterprise buyers.** The companies buying Ellie.ai for data governance are the same companies that need carbon governance under CSRD. AXA, Allianz, Siemens — they all face mandatory sustainability reporting. Compliance teams buying data governance tools today will buy carbon governance tools tomorrow.
 - **SAP ecosystem.** Your SAP VP background will appreciate this — we integrate directly with S/4HANA to pull operational data. The goal is the same as Ellie.ai's: make compliance automatic, not manual.
-- **True Global Ventures angle.** I know you're also looking at AI opportunities as GP in Residence. We're raising €650K SAFE at €3.8M cap. 18 AI agents, €7K MRR, 5 paying customers, 100% retention. V1 launches at Arctic 15 in Helsinki on June 15.
+- **True Global Ventures angle.** I know you're also looking at AI opportunities as GP in Residence. We're raising €650K SAFE at €3.8M cap. 21 AI agents, €7K MRR, 6 paying customers, 100% retention. V1 launches at Arctic 15 in Helsinki on June 15.
 
 I'd love to meet face-to-face — Helsinki or Tampere, whichever works for you. Whether this becomes an investment conversation, an enterprise partnership discussion, or both, I think the overlap is worth 45 minutes over coffee.
 

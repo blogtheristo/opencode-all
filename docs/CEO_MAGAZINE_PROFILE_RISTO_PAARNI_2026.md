@@ -159,7 +159,7 @@ Lifetime Oy is not a pre-revenue startup running on promises. The company has es
 - GitHub Enterprise: Advanced features, 20 seats
 - Total credits value: over USD 135,000 plus EUR 54,200 in NVIDIA hardware
 
-**Funding Strategy:** Lifetime is raising EUR 150,000 via SAFE notes at a EUR 3.8 million valuation with a 20% discount — a structure that reflects Paarni's preference for capital efficiency over dilutive funding rounds.
+**Funding Strategy:** Lifetime is raising EUR 150,000 via SAFE notes at a EUR 3.8 million valuation with an 18% discount — a structure that reflects Paarni's preference for capital efficiency over dilutive funding rounds.
 
 **Monthly Infrastructure Burn:** EUR 15-50. This is not a typo. The edge-first architecture and aggressive cost optimization mean the platform's infrastructure costs are measured in tens of euros, not thousands.
 

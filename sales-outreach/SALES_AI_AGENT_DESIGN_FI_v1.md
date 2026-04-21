@@ -512,7 +512,7 @@ sales_hil_director:
 - Competitive: Legacy campus management systems
 
 **Investor Vertical:**
-- Emphasize: €720k ARR roadmap, 20-moat competitive fortress, Nordic market leadership
+- Emphasize: €720k ARR roadmap, 21-moat competitive fortress, Nordic market leadership
 - Case studies: Kela (B2B2G validation), Uber Finland (logistics)
 - Competitive: Other climate tech startups (Normative, Plan A)
 
@@ -897,14 +897,14 @@ agent:
 
     Pitch Deck Customization:
     - Seed ($1-2M): Emphasize market urgency (EPBD 2027, CSRD), team, traction
-    - Series A ($5-10M): Emphasize €720k ARR roadmap, 20-moat, unit economics
+    - Series A ($5-10M): Emphasize €720k ARR roadmap, 21-moat, unit economics
     - Strategic: Emphasize partnership opportunities (channel, integration)
 
     Investor FAQs:
     - Market size: €127B TAM (EU smart building market)
     - Traction: €7k → €60k MRR roadmap, Kela/Uber Finland customers
     - Competition: Siemens/Schneider = €3-6M entry barrier, we're €29,950 pilot
-    - Defensibility: 20-moat framework (NVIDIA Jetson, EU data sovereignty, edge AI)
+    - Defensibility: 21-moat framework (NVIDIA Jetson, EU data sovereignty, edge AI)
     - Exit: Strategic acquirer (Siemens, Schneider, Honeywell) or IPO (2030+)
 
     Output: Investor CRM updates, meeting prep docs, pitch deck versions.

@@ -85,7 +85,7 @@ Same as `CAPTAIN_LINKEDIN_DM_GENERIC.md`. Replace `[REGULATION]`, `[PAIN POINT]`
 >
 > **What I'm doing differently with this raise:**
 >
-> Instead of a generic angel round, I'm opening 8 **Platinum Industry Captain** seats at EUR 50,000 SAFE (EUR 3.8M cap, 20% discount). Each Captain owns one of 16 EU industry verticals — founding login to the World Model, quarterly briefings, 1:1 strategy sessions, and direct influence over how the platform serves their industry.
+> Instead of a generic angel round, I'm opening 8 **Platinum Industry Captain** seats at EUR 50,000 SAFE (EUR 3.8M cap, 18% discount). Each Captain owns one of 16 EU industry verticals — founding login to the World Model, quarterly briefings, 1:1 strategy sessions, and direct influence over how the platform serves their industry.
 >
 > [INDUSTRY] is available.
 >
@@ -120,7 +120,7 @@ Same as `CAPTAIN_LINKEDIN_DM_GENERIC.md`. Replace `[REGULATION]`, `[PAIN POINT]`
 >
 > We built DWS IQ 6 to fix that — automated compliance intelligence for Fit for 55 mandates. Live in production. EUR 7–14k MRR, 100% retention.
 >
-> I'm raising differently: 8 Platinum Industry Captain seats at EUR 50,000 SAFE (EUR 3.8M cap, 20% discount). Each Captain owns one industry vertical on the platform.
+> I'm raising differently: 8 Platinum Industry Captain seats at EUR 50,000 SAFE (EUR 3.8M cap, 18% discount). Each Captain owns one industry vertical on the platform.
 >
 > [INDUSTRY] is available. Seven more verticals open.
 >
@@ -153,7 +153,7 @@ Same as `CAPTAIN_LINKEDIN_DM_GENERIC.md`. Replace `[REGULATION]`, `[PAIN POINT]`
 >
 > I run DWS IQ 6 — an EU climate compliance platform automating Fit for 55 (ETS, CBAM, CSRD) for 16 regulated industries. EUR 7k+ MRR, 100% retention, EUR 15–50/mo infrastructure cost. Capital efficient by design.
 >
-> Instead of a generic angel round, I'm filling 8 Platinum Captain seats — EUR 50k SAFE at EUR 3.8M cap with 20% discount. Each Captain owns an industry vertical and shapes how the platform serves that sector.
+> Instead of a generic angel round, I'm filling 8 Platinum Captain seats — EUR 50k SAFE at EUR 3.8M cap with 18% discount. Each Captain owns an industry vertical and shapes how the platform serves that sector.
 >
 > One seat per industry. Seven still open.
 >

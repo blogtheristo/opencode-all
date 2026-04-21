@@ -53,6 +53,22 @@
       color: var(--dws-gold);
       border: 1px solid rgba(212, 168, 67, 0.25);
     }
+    /* LinkedIn Newsletter Subscribe Button — Lifetime Scope Monthly */
+    .libutton {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 7px;
+      text-align: center;
+      outline: none;
+      text-decoration: none !important;
+      color: #ffffff !important;
+      width: 200px;
+      height: 32px;
+      border-radius: 16px;
+      background-color: #0A66C2;
+      font-family: "SF Pro Text", Helvetica, sans-serif;
+    }
   </style>
 </head>
 <body class="font-sans antialiased flex flex-col min-h-screen" style="background: var(--bg-primary); color: var(--text-primary);">
@@ -124,9 +140,34 @@
       <p class="mt-2 max-w-2xl mx-auto text-sm" style="color: #64748b;">
         Daily insights on EU compliance, AI agents, ERP transition, and industrial transformation. Published in English and Finnish.
       </p>
+      <!-- Lifetime Scope Monthly — LinkedIn Newsletter CTA -->
+      <div class="flex flex-col items-center gap-2 mt-8">
+        <a class="libutton" href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7191306524177154048" target="_blank" rel="noopener">Subscribe on LinkedIn</a>
+        <p class="text-xs" style="color: var(--text-secondary);">Lifetime Scope Monthly — Best Blog Entry of the Month</p>
+      </div>
     </div>
 
     <div class="mt-8 grid gap-6 max-w-lg mx-auto lg:grid-cols-2 lg:max-w-none">
+
+      <!-- Issue 8: Monthly Highlights — biweekly best-of (TOP) -->
+      <a href="/posts/lifetime-scope-issue-008-agent-native-window.html" class="post-card flex flex-col rounded-lg overflow-hidden" style="border-color: rgba(212, 168, 67, 0.4);">
+        <div class="flex-1 p-6 flex flex-col justify-between">
+          <div class="flex-1">
+            <div class="flex flex-wrap gap-2 mb-3">
+              <span class="tag-badge">Monthly #8</span>
+              <span class="tag-badge">Best-Of</span>
+              <span class="tag-badge">Agent-Native</span>
+            </div>
+            <p class="text-xl font-semibold" style="color: var(--text-primary);">Lifetime Scope Monthly #8 — The Agent-Native Window Opens</p>
+            <p class="mt-3 text-sm" style="color: var(--text-secondary);">
+              Benioff unveiled Salesforce Headless 360. Isenberg read the move plainly. DWS IQ 6 has been running on the same thesis since 2024 — with Alpha-Share outcome pricing already live.
+            </p>
+          </div>
+          <div class="mt-6">
+            <time datetime="2026-04-19" class="text-xs" style="color: var(--text-secondary);">April 19, 2026</time>
+          </div>
+        </div>
+      </a>
 
       <!-- Post 0: CLOUD Act / Sovereignty (NEW) -->
       <a href="/posts/en/eu-sovereign-ai-cloud-act-disqualifies-us-platforms.html" class="post-card flex flex-col rounded-lg overflow-hidden" style="border-color: rgba(245, 158, 11, 0.3);">

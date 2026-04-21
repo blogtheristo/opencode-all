@@ -58,7 +58,7 @@ AGENT HISTORY:
 
 Hi Alex — good to speak recently. Quick follow-up: we are now 6 weeks from V1 launch at Arctic 15 (June 15) and the Messe Germany commercial push.
 
-Lifetime Oy — industrial AI compliance for EU construction/manufacturing. 18 agents pulling from SAP/IFS/Dynamics, auto-generating ETS/CBAM/CSRD reports. EUR 7K MRR, 5 customers, 100% retention. Dual-use Aegis layer for defense/sovereignty.
+Lifetime Oy — industrial AI compliance for EU construction/manufacturing. 21 agents pulling from SAP/IFS/Dynamics, auto-generating ETS/CBAM/CSRD reports. EUR 7K MRR, 5 customers, 100% retention. Dual-use Aegis layer for defense/sovereignty.
 
 Raising EUR 650K SAFE at EUR 3.8M cap, Captain seats at EUR 50K. Matches your industrial + dual-use mandate. One-pager?
 
@@ -70,15 +70,15 @@ Hi Alex,
 
 Thanks for the recent conversation. Sending the follow-up we discussed.
 
-DWS IQ 6 is the carbon balance sheet for EU industrial companies — 18 AI agents connecting to SAP, IFS Cloud, and Dynamics 365, pulling operational data, auto-generating audit-ready ETS / CBAM / CSRD / EU Taxonomy reports. Aegis module adds dual-use defense/sovereignty controls on the same platform.
+DWS IQ 6 is the carbon balance sheet for EU industrial companies — 21 AI agents connecting to SAP, IFS Cloud, and Dynamics 365, pulling operational data, auto-generating audit-ready ETS / CBAM / CSRD / EU Taxonomy reports. Aegis module adds dual-use defense/sovereignty controls on the same platform.
 
 The numbers:
 
-- EUR 7K MRR, 5 paying customers, 100% retention
+- EUR 7K MRR, 6 paying customers, 100% retention
 - LTV: EUR 70K-120K/year per customer
 - Pilot EUR 4,950 converts to EUR 8,950/year
 - Target: EUR 900K ARR by end 2026
-- 18 AI agents, 32 products, 20 EU-regulated industries
+- 21 AI agents, 32 products, 20 EU-regulated industries
 
 Raising EUR 650K SAFE at EUR 3.8M cap. Captain seats at EUR 50K — sized for syndication if you want to bring co-investors. V1 launches at Arctic 15 (Helsinki, June 15). The real commercial push is the German Messe after launch — where construction and manufacturing CFOs sign EUR 25K+ contracts.
 

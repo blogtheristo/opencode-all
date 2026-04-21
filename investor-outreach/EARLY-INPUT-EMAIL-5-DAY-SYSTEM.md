@@ -114,7 +114,7 @@ Hi [First Name],
 
 DWS IQ 6: Real-time SPI/CPI + carbon compliance for Nordic construction.
 
-€7K MRR, 5 paying customers. Raising €150K SAFE.
+€7K MRR, 6 paying customers. Raising €150K SAFE.
 
 Call? [Calendly]
 

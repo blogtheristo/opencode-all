@@ -35,7 +35,7 @@ AGENT HISTORY:
 
 1. **Nordics mandate** — We are Finland-based. Direct geographic fit, no mitigation needed.
 2. **Ticket size fits Captain seat** — €50K Captain = his floor, €150K = triple Captain. Clean match.
-3. **Data-driven software** — DWS IQ 6 is 18 AI agents pulling data from SAP/IFS/Dynamics. "Data-driven software" IS what we are.
+3. **Data-driven software** — DWS IQ 6 is 21 AI agents pulling data from SAP/IFS/Dynamics. "Data-driven software" IS what we are.
 4. **Fast decision cycle** — 4-14 days. If the thesis lands in the first email, this could close in 2 weeks. Rare and valuable in pre-seed.
 5. **3-partner committee, no long process** — Operator discipline, not fund bureaucracy.
 6. **AI mandate aligns** — his stated AI mandate plus our AI-agent architecture is a direct line.
@@ -49,8 +49,8 @@ AGENT HISTORY:
 ## Strategy
 
 - **Reframe as B2B SaaS compliance infrastructure** — NOT climate, NOT defense. "Regulatory compliance automation for EU industrial companies."
-- **Lead with data + AI agents + ERP integration** — his "data-driven software" box. 18 agents, SAP/IFS/Dynamics connectors, auto-generated reports.
-- **Traction carries the conversation** — EUR 7K MRR, 5 paying customers, 100% retention. Fast-decision funds reward traction.
+- **Lead with data + AI agents + ERP integration** — his "data-driven software" box. 21 agents, SAP/IFS/Dynamics connectors, auto-generated reports.
+- **Traction carries the conversation** — EUR 7K MRR, 6 paying customers, 100% retention. Fast-decision funds reward traction.
 - **Use the 4-14 day cycle** — explicitly reference that we are 6 weeks from V1 launch at Arctic 15 and closing the round pre-Messe Germany. His speed matches our timeline.
 - **Captain seat = €50K, or lead at €150K** — frame the ticket options clearly.
 - **DO NOT send:** INVESTOR_MEMO_AEGIS.md, DEFENSE_SOVEREIGNTY_INVESTORS_2026.md, any dual-use language
@@ -63,7 +63,7 @@ AGENT HISTORY:
 
 Hi Malte — saw Venista Ventures' Nordics + data-driven software mandate. Direct fit for what we're building.
 
-Lifetime Oy (Finland) — regulatory compliance automation for EU industrial companies. 18 AI agents pulling from SAP/IFS/Dynamics, auto-generating ETS/CBAM/CSRD reports. EUR 7K MRR, 5 customers, 100% retention. Raising EUR 650K SAFE at EUR 3.8M cap, Captain seats at EUR 50K. V1 launches at Arctic 15 (June 15).
+Lifetime Oy (Finland) — regulatory compliance automation for EU industrial companies. 21 AI agents pulling from SAP/IFS/Dynamics, auto-generating ETS/CBAM/CSRD reports. EUR 7K MRR, 5 customers, 100% retention. Raising EUR 650K SAFE at EUR 3.8M cap, Captain seats at EUR 50K. V1 launches at Arctic 15 (June 15).
 
 Given your 4-14 day decision cycle, timing works — we're closing the round before Arctic 15. One-pager?
 
@@ -75,15 +75,15 @@ Hi Malte,
 
 Risto Päärni, Lifetime Oy (Espoo, Finland). Reaching out because Venista Ventures' Nordics + data-driven software mandate is a direct fit.
 
-DWS IQ 6 is regulatory compliance automation for EU industrial companies. 18 AI agents connect to SAP, IFS Cloud, and Dynamics 365, pull operational data, and auto-generate audit-ready ETS, CBAM, CSRD, and EU Taxonomy reports every quarter. Full audit trail. EU AI Act compliant.
+DWS IQ 6 is regulatory compliance automation for EU industrial companies. 21 AI agents connect to SAP, IFS Cloud, and Dynamics 365, pull operational data, and auto-generate audit-ready ETS, CBAM, CSRD, and EU Taxonomy reports every quarter. Full audit trail. EU AI Act compliant.
 
 The numbers:
 
-- EUR 7K MRR, 5 paying customers, 100% retention
+- EUR 7K MRR, 6 paying customers, 100% retention
 - Customer LTV: EUR 70K-120K/year
 - Pilot EUR 4,950 converts to EUR 8,950/year
 - Target: EUR 900K ARR by end 2026
-- 18 AI agents, 32 products, 20 EU-regulated industries
+- 21 AI agents, 32 products, 20 EU-regulated industries
 - Nordics + DACH commercial pipe, German Messe push post-launch
 
 Market: 49,000+ EU companies facing mandatory CSRD reporting from 2026. This is compliance infrastructure, not optional software — customers have a legal deadline.

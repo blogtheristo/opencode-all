@@ -33,7 +33,7 @@ DWS IQ 6 is a platform to train and run enterprise industrial agent swarms safel
 | Milestone | Status |
 |-----------|--------|
 | V1.0 platform launch | Done |
-| 18 AI agents operational | Done |
+| 21 AI agents operational | Done |
 | 32 products in DWS Store | Done |
 | 5 cloud environments deployed (US, EU, Aiwen, Hetzner, Edge) | Done |
 | EU AI Act compliant architecture | Done |

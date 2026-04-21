@@ -3,11 +3,12 @@
 **Company:** DWS6 (Lifetime Oy)
 **Sector:** Climate Tech / Carbon Balance Sheet Infrastructure / EU Compliance Automation
 **Stage:** Seed / Seed-extension (bridge to Series A 2026)
-**Document Version:** 3.1
-**Last Updated:** March 21, 2026
+**Document Version:** 4.3
+**Last Updated:** April 20, 2026
 **Status:** Active Fundraising
-**Platform Status:** Public Cloud Version V1 — Production Ready (18 agents, 32 products, 5 cloud environments)
+**Platform Status:** Public Cloud V1 — Production Ready (21 agents, 32 products, 5 cloud environments) | Private Cloud V1 — Production Ready (UpCloud Helsinki, Finnish sovereign K8s) | CBAM Annex I Coverage ✅ Complete (all 6 sectors, 66 CN codes, LD-2026-013)
 **Sovereignty Status:** EU-sovereign by design — EUDI Wallet (12/2026, law) + Digital Euro (~2029, ECB target)
+**Pricing Model:** Alpha-Share — 7.5% of verified efficiency gains (agent-native, outcome-based; aligned with Salesforce Headless 360 / Agentforce thesis)
 
 ---
 
@@ -21,15 +22,18 @@ Every EU company filing CSRD needs a carbon balance sheet. We build the ledger i
 
 ## Investment Opportunity Overview
 
-**Current Metrics (March 2026):**
+**Current Metrics (April 2026):**
 
 - MRR: **€7K live run-rate**
-- Paying Customers: 5
+- Paying Customers: 6
 - Retention: 100% (zero churn)
 - Customer LTV: €70k–€120k projected annual value per logo (multi-site expansion after construction pilots)
-- Platform: 18 AI agents, 32 products, 5 cloud environments
+- Platform: 21 AI agents, 32 products, 5 cloud environments
 - Industries served: 20 EU-regulated verticals
+- CBAM Annex I coverage: ✅ All 6 sectors (Steel, Aluminium, Cement, Fertilizers, Hydrogen, Electricity), 66 CN codes, one dedicated agent per sector (LD-2026-013, April 16, 2026)
 - Carbon balance sheet: Debit-credit ledger shipping in V1, persistent ledger in DWS 7 Phase 2 (Jul 2026)
+- Competitive Fortress: **21 moats across 4 tiers** (T1 Impossible / T2 Very Hard / T3 Moderate / T4 Operational) — €3-6M / 24-36 month entry barrier for competitors. Full breakdown in V4.3 Pitch Deck.
+- DWS IQ 7 jurisdictions: EU + US live, UAE via G42 planned Q3 2027, ASEA placeholder
 
 **Sales Motion:**
 Enterprise Navigator pilots at €4,950 convert to €8,950 annual contracts. 25 customers at average €36K ARR = €900K. The math: 5 current customers (€7K MRR) + 20 new logos from sales sprint and pipeline conversion.
@@ -341,7 +345,7 @@ Timeframe:                 ~2 years (2024→2026)
 ### SAFE Key Terms
 
 - **Valuation Cap:** €3.8M
-- **Discount:** 15–20% (to be specified)
+- **Discount:** 18%
 - **Pro-Rata Rights:** Available for €50k+ investors (Captain tier and above)
 - **Information Rights:** Monthly updates for all investors
 - **MFN (Most Favored Nation):** Standard protection
@@ -393,11 +397,11 @@ Timeframe:                 ~2 years (2024→2026)
 
 ### Traction & Validation
 
-- **Current MRR:** €7K (March 2026) with 5 paying customers
+- **Current MRR:** €7K (April 2026) with 6 paying customers
 - **Customer Retention:** 100% (zero churn demonstrates product-market fit)
 - **Customer LTV:** €70k–€120k projected annual value per logo (multi-site expansion after construction pilots)
 - **Time Savings:** 40+ hours/month saved per customer
-- **Platform Scale:** 18 agents, 32 products, 5 cloud environments, 20 industries
+- **Platform Scale:** 21 agents, 32 products, 5 cloud environments, 20 industries
 - **Target Growth:** €900k ARR by end of 2026
 
 ### Current Customer Base
@@ -579,11 +583,16 @@ Regulation is live. Customers have budget. Product works. We have traction. Arct
 ---
 
 **Document Control:**
-- Version: 3.1
-- Last Updated: March 21, 2026
+- Version: 4.3
+- Last Updated: April 20, 2026
 - Author: Risto Anton Päärni
 - Status: Active — Fundraising in Progress
 - Confidentiality: For Potential Investors Only
-- Platform Status: Public Cloud Version V1 — Production Ready (18 agents, 32 products, 5 cloud environments)
+- Platform Status: Public Cloud V1 + Private Cloud V1 — Production Ready (21 agents, 32 products, 5 cloud environments); CBAM Annex I ✅ Complete (6 sectors, 66 CN codes)
 - Sovereignty Status: EU-sovereign by design — EUDI Wallet (12/2026, law) + Digital Euro (~2029, ECB target)
-- v5.2 Change: Added EU Sovereign Infrastructure section (EUDI Wallet + Digital Euro thesis), updated competitive advantages with sovereignty moat, rejected "almost sovereign" IDV vendors (Shufti, Veriff, Sumsub)
+- Pricing Model: Alpha-Share (7.5% of verified efficiency gains, agent-native, outcome-based)
+- Paired Documents: V4.3 Pitch Deck (investor-outreach/V4.3-DWS-IQ6-InvestorPD_2026.md) — full 21-moat fortress breakdown
+
+**Revision History:**
+- v3.1 (March 21, 2026): EU Sovereign Infrastructure section (EUDI Wallet + Digital Euro thesis), rejected "almost sovereign" IDV vendors (Shufti, Veriff, Sumsub)
+- v4.3 (April 20, 2026): Aligned with V4.3 Pitch Deck — customer count 5→6, CBAM Annex I full coverage, Alpha-Share pricing model, DWS IQ 7 4-jurisdiction roadmap (G42 UAE), 21-moat/4-tier fortress reference, traction month refresh to April 2026
