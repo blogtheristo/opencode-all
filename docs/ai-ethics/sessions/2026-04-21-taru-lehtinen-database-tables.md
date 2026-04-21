@@ -79,33 +79,31 @@ päivitä tämän session input ja output
 
 ## 3. Session Outputs (AI-Generated Content)
 
-### 3.1 Output 1 — Profile identification (from web search)
+### 3.1 Output 1 — Anonymized profile identification summary
 
-**Person identified:** Taru Lehtinen — Architect, Sustainability Specialist, Product Manager
+**Profile summary:** An anonymized built-environment professional with sustainability and product/domain expertise.
 
-| Field | Value | Source |
-|-------|-------|--------|
-| **Current role** | ESG Product Manager (ESG-tuotepäällikkö) | rakennustieto.fi |
-| **Employer** | Rakennustieto Oy | rakennustieto.fi |
-| **Secondary role** | Project researcher, KIVA project | rts.fi |
-| **Secondary employer** | Rakennustietosäätiö RTS sr | rts.fi |
-| **Education** | Architect; doctoral candidate, Tampere University | rts.fi |
-| **Research topic** | Holistic sustainability — environmental + human wellbeing | rts.fi |
-| **Prior experience** | Architecture office (sustainable construction), Tampere University (teacher), construction contractor | rts.fi |
+| Field | Value | Source type |
+|-------|-------|-------------|
+| **Primary domain** | ESG / sustainability in the built environment | Public organizational pages |
+| **Functional role** | Product or program responsibility related to sustainability topics | Public organizational pages |
+| **Secondary activity** | Applied research / project participation | Public organizational pages |
+| **Education category** | Architecture / built-environment background | Public organizational pages |
+| **Topic focus** | Holistic sustainability, including environmental and human wellbeing aspects | Public organizational pages |
+| **Prior experience category** | Mix of practice, research/teaching, and construction-sector work | Public organizational pages |
 
-**Sources cited:**
-- https://fi.linkedin.com/in/taru-lehtinen-96b717115
-- https://www.rts.fi/henkilo/taru-lehtinen/
-- https://www.rakennustieto.fi/post/esittelyssa-esg-tuotepaallikko-taru-lehtinen
-- https://www.rts.fi/vahvistusta-kiva-hankkeeseen-tervetuloa-taru-lehtinen/
+**Redaction note:** Direct person-identifying details, exact employers, exact education history,
+and profile URLs have been intentionally omitted to comply with the repository policy
+prohibiting committed third-party personal data.
 
 ### 3.2 Output 2 — Industry relevance assessment
 
-**Assessment:** Taru Lehtinen's expertise (ESG, sustainable construction, property-level
-responsibility criteria) is highly relevant to the DWS IQ 6 platform, particularly for
-CSRD reporting and EU sustainability regulation.
+**Assessment:** The identified expertise area (ESG, sustainable construction, and
+property-/asset-level responsibility criteria) is highly relevant to the DWS IQ 6 platform,
+particularly for CSRD reporting and EU sustainability regulation.
 
-**Verification note:** The web search returned 10+ profiles matching "Taru Lehtinen".
+**Verification note:** Web results indicated multiple potentially matching public profiles,
+so only non-identifying, cross-source thematic insights were retained in this log.
 Disambiguation was performed by matching the LinkedIn URL suffix (`96b717115`) and
 the LinkedIn title ("Architect, Sustainability Specialist, Product Manager") to the
 RTS biographical page. This is the correct person — not the Helsinki city employee,
