@@ -75,10 +75,46 @@ def analyze_tests(base_path: str) -> dict:
     }
 
 
+def _load_test_file_contents(base_path: str) -> dict[str, str]:
+    """Return a mapping of test filename -> file contents for src/__tests__."""
+    tests_dir = os.path.join(base_path, "src", "__tests__")
+    result: dict[str, str] = {}
+    if not os.path.isdir(tests_dir):
+        return result
+    for f in os.listdir(tests_dir):
+        if f.endswith(".test.ts"):
+            try:
+                with open(os.path.join(tests_dir, f), encoding="utf-8", errors="ignore") as fh:
+                    result[f] = fh.read()
+            except OSError:
+                continue
+    return result
+
+
+def _agent_class_name(agent_file: str) -> str:
+    """Derive the expected class name for an agent file.
+
+    E.g. 'self-diagnostic.agent.ts' -> 'SelfDiagnosticAgent'.
+    """
+    stem = agent_file.replace(".agent.ts", "")
+    parts = stem.split("-")
+    return "".join(p.capitalize() for p in parts) + "Agent"
+
+
+def _agent_registered_name(agent_file: str) -> str:
+    """Derive the registry name for an agent file.
+
+    Based on the naming convention, filenames use kebab-case matching the
+    registered name (e.g. 'self-diagnostic.agent.ts' -> 'self-diagnostic').
+    """
+    return agent_file.replace(".agent.ts", "")
+
+
 def analyze_agents(base_path: str) -> dict:
     """Analyze agent system health."""
     agents_dir = os.path.join(base_path, "src", "agents")
     agents = []
+    test_contents = _load_test_file_contents(base_path)
 
     if os.path.isdir(agents_dir):
         for f in os.listdir(agents_dir):
@@ -87,12 +123,24 @@ def analyze_agents(base_path: str) -> dict:
                 with open(filepath, encoding="utf-8", errors="ignore") as fh:
                     content = fh.read()
 
+                # Link agent to test files by searching for its class name or
+                # registered name as a whole token. This is a conservative
+                # heuristic, not a coverage metric.
+                class_name = _agent_class_name(f)
+                registry_name = _agent_registered_name(f)
+                tested_in = sorted(
+                    name
+                    for name, body in test_contents.items()
+                    if class_name in body or f"'{registry_name}'" in body
+                )
+
                 agents.append({
                     "file": f,
                     "lines": count_lines(filepath),
                     "has_error_handling": "try {" in content and "catch" in content,
                     "has_logging": "logExecution" in content,
                     "has_llm": "callLLM" in content,
+                    "tested_in": tested_in,
                 })
 
     return {
@@ -202,6 +250,12 @@ def generate_report(base_path: str) -> dict:
                 "priority": "high",
                 "action": f"Add error handling to {agent['file']}",
             })
+        if not agent["tested_in"]:
+            report["recommendations"].append({
+                "priority": "medium",
+                "action": f"Add test coverage referencing {agent['file']} "
+                f"(no test file imports its class or registered name)",
+            })
 
     return report
 
@@ -225,15 +279,18 @@ def format_markdown(report: dict) -> str:
         "",
         "## Agents",
         "",
-        "| Agent | Lines | Error Handling | Logging | LLM |",
-        "|-------|-------|---------------|---------|-----|",
+        "| Agent | Lines | Error Handling | Logging | LLM | Tested In |",
+        "|-------|-------|---------------|---------|-----|-----------|",
     ]
 
     for agent in report["agents"]["agents"]:
         eh = "yes" if agent["has_error_handling"] else "NO"
         log = "yes" if agent["has_logging"] else "NO"
         llm = "yes" if agent["has_llm"] else "no"
-        lines.append(f"| {agent['file']} | {agent['lines']} | {eh} | {log} | {llm} |")
+        tested = ", ".join(agent["tested_in"]) if agent["tested_in"] else "none"
+        lines.append(
+            f"| {agent['file']} | {agent['lines']} | {eh} | {log} | {llm} | {tested} |"
+        )
 
     lines.extend([
         "",
