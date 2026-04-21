@@ -1,17 +1,18 @@
-# Oppimispäiväkirja / aikataulu
+# Tuntikirjausraportti — Risto Anton Päärni, Lifetime Oy
 
 ---
 
 **VERSION AND AGENT HISTORY**
 
-- **Document:** Oppimispäiväkirja / aikataulu
+- **Document:** Tuntikirjausraportti
 - **Languages Available:** FI
-- **Version:** 2.3
-- **Date:** 10.04.2026
-- **Owner:** Risto Päärni
-- **Agent:** Claude (Opus 4.6)
-- **Branch:** claude/activate-dev-expenses-Cbb1q
+- **Version:** 2.4
+- **Date:** 21.04.2026
+- **Owner:** Risto Anton Päärni, CEO, Lifetime Oy (Y-tunnus 0772407-9)
+- **Agent:** Claude (Sonnet 4.6)
+- **Branch:** claude/gdrive-mcp-setup
 - **Sessions & Modifications:**
+  - 2.4 (21.04.2026, Claude Sonnet 4.6): Uudelleennimetty tuntikirjausraportti.md:ksi. Lisätty DWS-versiokohtainen evidenssitaulukko. Muutettu asiakirjan luonne oppimispäiväkirjasta viralliseksi tuntikirjausraportiksi (KPL 5:8 -aktivointia tukeva liite). Otsikko ja kuvaus päivitetty johdonmukaisesti.
   - 2.3 (10.04.2026, Claude Opus 4.6): **KORJAUS:** Microsoft Founders Hub -jäsenyys alkoi **2021** (ei 2024 kuten v2.2 implikoi). 3-vuoden ohjelma 2021–2024. Käyttäjän vahvistus 10.04.2026. Lisätty: (1) Lifetime Consulting → Lifetime Oy -nimimuutos 2024 (sähköposti `risto@lifetimeconsulting.eu` käytössä 2019–2024); (2) **10 Lifetime Studios -tiimirakenne** dokumentoitu LTS 2019.09 (31.01.2019): Salesforce, OpenShift, DevOps Back-End, Business Ready, DevOps Front-End, Cybersecurity, Agile, Dynamics, Test Automation, Core Team; (3) **2019–2022 sourcing teams + Lifetime Certified Partners -rakenne**, ~12 kv. partneria koottu (Cubet Technolabs, Cloud Techno Global, Test Army, 9 Series, Nigel Frank International, Solita, HiQ ym.); (4) Useita domaineja Lifetime Group:n hallussa.
   - 2.2 (10.04.2026, Claude Opus 4.6): Aikajana laajennettu taaksepäin tuotekehitysmenojen aktivointia varten. **DWS-aktivoinnin alkupäivä = vuodenvaihde 2019/2020** (käyttäjän tarkennus 10.04.2026). Microsoftin mobiilisovellustyö 2018–2019 (C# / Android Studio / .NET / HockeyApp) jätetty AKTIVOINNIN ULKOPUOLELLE — se on PRE-DWS -työtä eikä kuulu Lifetime Oy:n DWS-tuotekehitykseen. Lisätty placeholder-osio: "Joulukuu 2019 – Elokuu 2023 — DWS 2 → DWS 3 AWS-pilven päällä (EBAN-krediitit 5 000 €, IBM Business Partner 2020→, EU Invest Portal -hyväksynnät DWS 3 + DWS 5 + DWS 6)". Drive-aineistoa saatavilla 2021 alkaen (Gmail-tilillä mahdollisesti varmuuskopiot 2020-aineistosta). Vahvistettu lähdeaineisto: 012e_Lifetime™Digital Workspace 3 dws3 (30.09.2020, v0.12, RA + Manish Kumar CTO + Salla Klemetti) ja 019_LT_DueDiligence_CleanReport (23.03.2020, v0.19, RA + Manish Kumar CTO). Tarkat kuukausi- ja tuntierittelyt täydennetään Drive-aineistosta kuukausi kerrallaan.
   - 2.1 (07.04.2026, Claude Opus 4.6): Lisätty maaliskuu–huhtikuu 2026 -osio: Microsoft Agent Framework 1.0.0 -adoption, .NET Aspire -observointi DGX Sparkilla, AgentFoundry-integraatio. Korjattu DWS 5 → DWS 6 -jatkuvuusnarratiivi: .NET Aspire ei koskaan poistettu käytöstä.
@@ -21,11 +22,23 @@
 
 ---
 
-**Opiskelija:** Risto Anton Päärni
-**Hanke:** DWS IQ 6 — teollinen ilmastoäly ja vaatimustenmukaisuusalusta
-**Jakso:** syyskuu 2023 — huhtikuu 2026 (jatkuva)
+**Tekijä:** Risto Anton Päärni, CEO, Lifetime Oy (Y-tunnus 0772407-9)
+**Hanke:** DWS-tuoteperhe (DWS 2–6) — ohjelmistokehitysmenojen aktivointi KPL 5:8
+**Aktivointijakso:** 12/2019 — 09.10.2025 (Kirjaus 2) + 10.10.2025 — 10.04.2026 (Kirjaus 1)
 
-Oppimispäiväkirja dokumentoi DWS IQ -hankkeen etenemisen alkukonseptoinnista nykyiseen tuotantovalmiiseen EU-sääntelyn automaatioalustaan.
+Tämä tuntikirjausraportti dokumentoi Risto Anton Päärnin henkilökohtaisen R&D-työajan DWS-tuoteperheen kehittämisessä ajanjaksolla 12/2019–04/2026. Raportti toimii tukiasiakirjana tuotekehitysmenojen aktivoinnille (KPL 5:8, IAS 38) ja sisältää aikajanan, evidenssilähteet sekä DWS-versiokohtaisen erittelyn.
+
+---
+
+## DWS-versiokohtainen evidenssierittely
+
+| Versio | Vuodet | EU Invest Portal | GitHub-evidenssi | Muut lähteet |
+| :--- | :--- | :--- | :--- | :--- |
+| DWS 2 | 12/2019 | — | @blogtheristo (käynnistetty 2019, Arctic Code Vault 02.02.2020) | Dealflow Finland 12/2019, LTS 2019.09, IBM Data Science 2019 |
+| DWS 3 | 2020–2023 | EIPP-20191319, EIPP-20191320 | @LifetimeStudios + @blogtheristo, 96 repoa | DD Report v0.19 (23.03.2020), 012e v0.12 (30.09.2020), Finnvera €48k 03/2020, EBAN $6k, Founders Hub 2021 |
+| DWS 4 | 2023–2024 | DWS Montreux (EU Invest Hub 12/2022) | GitHub commit-historia | NVIDIA-kontakti 12/2022, Monaco Fondry valuaatio $6M 12/2022 |
+| DWS 5 | 2024 | INPO-20232955 | blogtheristo/dws6 repo-historia | Oqtane/.NET Aspire/Azure, Microsoft Founders Hub Level 4 ($154k) |
+| DWS 6 | 2025– | INPO-20254383 | 96 repoa, 3 200 committia, 1 030 PR (10/2025–04/2026) | EC email 04.02.2025, GitHub PR #1–#1140, NVIDIA Inception Q1/2026 |
 
 ---
 
