@@ -11,9 +11,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.8
+Version: 2.10
 
 Sessions & Modifications:
+  - Version: 2.10 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Incorporated Boardy-driven refinements: KYA open-source standardization path via Agentic AI Foundation / Linux Foundation, explicit NIST submission status (not sent), publication phasing (2026-2029), court-defensible compliance framing, and tighter supervisor letter structure
+  - Version: 2.9 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Refined research-question targeting: positioned KYA as an Agentic AI Foundation standard candidate, added DWS 7 objectives, added hydrogen-economy continuity note (DWS 5), refocused third research stream to dual-use industries (including Nokia Defence discussions), added Aegis/Sovereign Infra/Connect sovereignty segmentation with core figure, added Siemens and NVIDIA Connect collaboration notes; added supervisor response letter draft
   - Version: 2.8 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-work-EoyoF | Date: 20.04.2026 | Changes: Added Section 14.16 (April 2026 Evolution) — five subsections: Firehorse Report Engine production scheduler (PR #1064, cron-driven compliance report dispatch, module-scoped tests, manual trigger route), Firehorse Product Line V2 consolidation (omnichannel/report/automation/content as unified DWS IQ product family), Firehorse Snap benchmark (measured <125ms kill latency on Firecracker MicroVM replaces 122ms Arctic 15 spec), Skills paradigm applied to operations (Anthropic's "Stop Building Agents" validates §14.14; +3 skills: /regulatory-radar, /investor-outreach, /multilingual), Ops Manager V0 buyer lock (PRD v0.2 with ICP validation script), Founder→Team transition (SOLO_FOUNDER_STATEMENT v1.2 + Anthony Maurin CTO + /investor-outreach reproducible workflow with 10+ INTRO notes); added Key Contributions #17–#19
   - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 18.03.2026 | Changes: Added Appendix H (KYA Partner Ecosystem): 5-layer partner mapping, Shufti IDV integration (L1/L5), Palantir AIP connector model, BYO Agent Policy, strategic ecosystem partners (NVIDIA, Siemens, ABB, xAI, Mistral), partnership distribution hypothesis validation; added Key Contribution #16
   - Version: 2.6 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 16.03.2026 | Changes: Updated section 15 Results and Discussion with v2.1–2.5 evidence: harness engineering metrics (52.8%→66.5%), 13-agent Pantheon, customer MVP features, PostgreSQL HTAP, A/B testing integration, compliance readiness updates, SWOT refresh; added section 15.5 A/B Testing Results
@@ -37,10 +39,10 @@ Sessions & Modifications:
 
 Document Status:
   - Created: 15.01.2026
-  - Last Modified: 20.04.2026
+  - Last Modified: 21.04.2026
   - Language: English
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V2.8 — April 2026 Evolution: Firehorse Report Engine scheduler, Product Line V2, <125ms Snap benchmark, Skills paradigm validated, Ops Manager V0 buyer, Founder→Team transition)
+  - Publication Status: DRAFT (V2.10 — KYA open-source standard path, NIST status, publication phasing, supervisor letter refined)
 
 - Created: 15.01.2026
 - Last Modified: 24.03.2026
@@ -136,6 +138,56 @@ The Firehorse Operations Model (Sections 3–13) documents the engineering infra
 A carbon balance sheet requires verified data from heterogeneous industrial systems — ERP platforms (SAP, IFS, Dynamics, Visma, Jeeves), EU registries (EUTL, CBAM Transitional Registry), emission factor databases (EEA, IPCC), IoT sensors, and ESG platforms (Worldfavor, PositionGreen). This thesis argues that these connectors must be **open source** (MIT-licensed) for three reasons: (1) auditability — auditors must inspect the data path from source system to ledger entry, not trust a vendor's black box; (2) network effect acceleration — open source lowers adoption barriers, enabling the cross-vertical intelligence to emerge faster; (3) regulatory defensibility — EU AI Act Article 12 requires auditable AI pipelines, which open source satisfies by design. The connector architecture extends the ERP integration patterns already implemented in DWS (`src/integrations/erp/`), treating each connector as a standardized adapter (input schema → journal entry) that plugs into the ledger's append-only ingestion API.
 
 These questions extend beyond the Firehorse e-commerce operations into the domain of **compliance infrastructure design** — the transition from "tools that generate reports" to "infrastructure that maintains a system of record for carbon." The DWS 7 implementation (Phase 2.6, PRs 093A–093H) provides the empirical test bed.
+
+### 1.5 Research Focus Refinement (v2.10)
+
+The refined research focus is organized into three streams:
+
+1. **KYA as an Agentic AI Foundation standard:** KYA (Know Your Agent) is elevated from an internal governance wrapper toward a generalizable foundation standard for identity binding, runtime control, auditability, and sovereignty guarantees in agentic systems.
+2. **DWS 7 objectives as empirical testbed:** DWS 7 is treated as the operational environment to validate carbon-ledger infrastructure, KYA governance, multi-partner integration (Siemens, NVIDIA Connect), and sovereignty-aware product segmentation.
+3. **Dual-use industries as the third research stream:** The third stream is explicitly focused on dual-use industries (industrial + defence), including ongoing Nokia Defence discussions as part of the funding and pilot pathway.
+
+A continuity note is added from DWS 5 to DWS 7: hydrogen economy compliance (RFNBO additionality and verification) is treated as a longitudinal thread in the platform's research program.
+
+**Product-tier and sovereignty segmentation (core figure):**
+
+<img src="../artifacts/Sovereignty.jpg" alt="Aegis, Sovereign Infra and Connect segmentation" />
+
+The figure anchors three product layers in the research framing:
+- **Aegis** = security and critical-infrastructure governance product
+- **Sovereign Infra** = EU-sovereign infrastructure layer for regulated operators
+- **Connect** = global integration and distribution layer
+
+**Open-source standardization path (new refinement):**
+
+- KYA standard proposal to **Agentic AI Foundation / Linux Foundation** is currently in draft state (not yet submitted).
+- NIST track is also not yet submitted and is modeled as a parallel validation path (US validation vs open-source adoption).
+- Research principle: a standard that remains private cannot scale to ecosystem adoption; therefore, standardization work must include both open specification and reference implementation evidence.
+
+### 1.6 Response Letter Draft to Prof. Kari Smolander
+
+Dear Kari,
+
+thank you for your message and for the clear guidance. I especially value your point that doctoral work is an endurance process where socialization into the research community and peer-reviewed publication are central.
+
+I will prepare the short research idea description you requested with the following structure:
+
+- **Research problem:** how to build an agentic AI architecture that produces court-defensible compliance data in EU-regulated industrial settings (CBAM, CSRD, NIS2, AI Act).
+- **Research objectives:** (1) develop and validate a KYA-certified governance model for industrial AI agents, (2) study scalability of multi-agent systems (MCP + A2A) across 20+ regulatory verticals, (3) evaluate impact of agentic compliance automation on D&O insurability and legal accountability.
+- **Preliminary methods:** Design Science Research (DSR), artifact construction (DWS IQ 6/7), empirical validation with paying-customer environments, and case-study analysis.
+- **Publication phasing:** 2026 Article 1 (KYA open-source standard), 2027 Article 2 (MCP architecture), 2028 Articles 3-4 (empirical findings), 2028-2029 synthesis + dissertation.
+
+Article 1 is framed as: **"KYA Standard: An Open Source Governance Framework for Agentic AI in EU-Regulated Industries"**, proposed toward Agentic AI Foundation / Linux Foundation pathways and targeted for an international conference.
+
+Current status is made explicit:
+- KYA open-source proposal is drafted but not sent.
+- NIST submission has not been sent.
+- The two paths are complementary, but open-source adoption is prioritized first in this round.
+
+I would be glad to discuss this draft with you online or in person. I can send a concise 2-3 page version in advance.
+
+Kind regards,  
+Risto Anton Päärni
 
 ---
 
@@ -2062,7 +2114,9 @@ The KYA partner ecosystem demonstrates three research findings:
 19. Report Engine in Production — Firehorse Report scheduler (PR #1064) as first cron-driven customer deliverable; closes 3-tier billing contract loop with recurring compliance artefacts; first end-to-end test of one-person-team multi-tenant compliance hypothesis
 20. Measured Harness Guarantee (<125 ms Snap) — Firehorse Snap kill latency backed by Firecracker MicroVM benchmark replacing Arctic 15 specification; first court-defensible harness claim with published measurement replacing spec; precondition for EU AI Act Article 12 log admissibility
 21. Founder→Team Transition as Skills — Ops Manager V0 buyer lock (PRD v0.2 + validation script) + `/investor-outreach` skill (10+ INTRO notes) codify previously tacit founder activities as reproducible DWS IQ workflows; extends Firehorse Operations Model from internal tooling to founder-to-team transition mechanism
+22. KYA Agentic AI Foundation Targeting with Dual-Use Extension — KYA positioned as a general trust/governance standard candidate for agentic systems; DWS 7 designated as empirical testbed for hydrogen-economy continuity, sovereignty segmentation (Aegis/Sovereign Infra/Connect), and dual-use validation (Nokia Defence discussions), with Siemens and NVIDIA Connect collaboration pathways
+23. KYA Open-Source Standardization Path — explicit standardization route added (Agentic AI Foundation / Linux Foundation) with declared status (proposal and NIST track not yet submitted), moving Article 1 from conceptual framing to an open-spec + reference-implementation publication agenda
 
 *Document generated using Firehorse Operations Model with Claude Code*
-*Last updated: 20.04.2026*
-*Version: 2.8*
+*Last updated: 21.04.2026*
+*Version: 2.10*

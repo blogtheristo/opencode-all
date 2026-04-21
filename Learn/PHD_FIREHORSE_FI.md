@@ -11,9 +11,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.8
+Version: 2.10
 
 Sessions & Modifications:
+  - Version: 2.10 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Täsmennetty tutkimusidean runko Boardy-palautteella: KYA open source -standardipolku Agentic AI Foundation / Linux Foundation -reitille, NIST-hakemuksen tila (ei lähetetty), artikkeleiden vaiheistus (2026-2029), compliance-ongelman oikeudellinen fokus (court-defensible), sekä EIC Step 1 -deliverablejen yhteys tutkimusohjelman tuotteistukseen; päivitetty vastauskirje Karille
+  - Version: 2.9 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Päivitetty tutkimuskysymysten kohdennus: KYA-standardin positiointi Agentic AI Foundation -standardiksi, DWS 7 -tavoitteet, vetytalousviittaus (DWS 5), kolmas tutkimuskohde dual-use-toimialoihin (Nokia Defence -keskustelut), Aegis/Sovereign Infra/Connect -suvereniteettisegmentointi kuvalla, Siemens- ja NVIDIA Connect -yhteistyömaininnat; lisätty Kari Smolanderille kohdistettu vastauskirjeluonnos
   - Version: 2.8 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-work-EoyoF | Date: 20.04.2026 | Changes: Lisätty osio 14.16 (Huhtikuun 2026 kehitys) — viisi alaosiota: Firehorse Report Engine -tuotantoajastin (PR #1064, cron-pohjainen vaatimustenmukaisuusraporttien lähetys, moduulitason testit, manuaalireitti), Firehorse Product Line V2 -konsolidointi (omnichannel/report/automation/content yhtenäisenä DWS IQ -tuoteperheenä), Firehorse Snap -mittaustulos (mitattu <125 ms tappoviive Firecracker MicroVM:llä korvaa aiemman 122 ms Arctic 15 -spesifikaation), Skills-paradigman soveltaminen operaatioihin (Anthropicin 16.4.2026 essee validoi §14.14; +3 taitoa: /regulatory-radar, /investor-outreach, /multilingual), Ops Manager V0 -ostajalukitus (PRD v0.2 + ICP-validointiskripti) ja perustajan→tiimin siirtymä (SOLO_FOUNDER_STATEMENT v1.2 + Anthony Maurin CTO + /investor-outreach -työnkulku 10+ INTRO-muistiolla); lisätty avainpanokset #19–#21
   - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 18.03.2026 | Changes: Lisätty Liite H (KYA-kumppaniekosysteemi): 5-tasoinen kumppanikartoitus, Shufti IDV -integraatio (L1/L5), Palantir AIP -liitinmalli, BYO-agenttipolitiikka, strategiset ekosysteemikumppanit (NVIDIA, Siemens, ABB, xAI, Mistral), kumppanuusjakelustrategian hypoteesin validointi; lisätty avainpanos #16
   - Version: 2.6 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 16.03.2026 | Changes: Päivitetty osio 15 Tulokset ja pohdinta v2.1–2.5 todisteilla: harness engineering -mittarit (52,8%→66,5%), 13 agentin Pantheon, asiakkaiden MVP-ominaisuudet, PostgreSQL HTAP, A/B-testaus, vaatimustenmukaisuuspäivitykset, SWOT-päivitys; lisätty osio 15.5 A/B-testauksen tulokset; lisätty LUT-yliopiston tekoälytyökalujen käytänteet viitteisiin
@@ -37,10 +39,10 @@ Sessions & Modifications:
 
 Document Status:
   - Created: 15.01.2026
-  - Last Modified: 20.04.2026
+  - Last Modified: 21.04.2026
   - Language: Finnish
   - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V2.8 — Huhtikuun 2026 kehitys: Firehorse Report Engine -ajastin, Product Line V2, <125 ms Snap-mittaustulos, Skills-paradigma validoitu, Ops Manager V0 -ostaja, perustajan→tiimin siirtymä)
+  - Publication Status: DRAFT (V2.10 — KYA open source -standardipolku, NIST-tilanne, artikkelivaiheistus, ohjaajakirje tarkennettu)
 ---
 
 ## Tiivistelmä
@@ -129,6 +131,56 @@ Firehorse-toimintamalli (osiot 3–13) dokumentoi insinööri-infrastruktuurin �
 Hiilitase vaatii varmennettua dataa heterogeenisistä teollisuusjärjestelmistä — ERP-alustoista (SAP, IFS, Dynamics, Visma, Jeeves), EU-rekistereistä (EUTL, CBAM-siirtymärekisteri), päästökerroindatakannoista (EEA, IPCC), IoT-antureista ja ESG-alustoista (Worldfavor, PositionGreen). Tämä tutkielma esittää, että näiden konnektorien tulee olla **avointa lähdekoodia** (MIT-lisensoituja) kolmesta syystä: (1) auditoitavuus — tilintarkastajien on pystyttävä tarkastamaan tietopolku lähdejärjestelmästä kirjanpitokirjaukseen, ei luottamaan toimittajan mustaan laatikkoon; (2) verkostovaikutuksen kiihdytys — avoin lähdekoodi laskee käyttöönoton kynnystä, mahdollistaen poikkitoimialaisen älykkyyden syntymisen nopeammin; (3) sääntelypuolustettavuus — EU:n tekoälysäädöksen artikla 12 vaatii auditoitavia AI-putkia, ja avoin lähdekoodi täyttää tämän vaatimuksen suunnittelultaan. Konnektoriarkkitehtuuri laajentaa DWS:ssä jo toteutettuja ERP-integraatiomalleja (`src/integrations/erp/`), käsitellen jokaista konnektoria standardoituna adapterina (syöttöskeema → kirjanpitokirjaus), joka liittyy kirjanpidon append-only-syöttörajapintaan.
 
 Nämä kysymykset ulottuvat Firehorse-verkkokauppatoimintojen yli **vaatimustenmukaisuusinfrastruktuurin suunnittelun** alueelle — siirtymä "työkaluista jotka tuottavat raportteja" "infrastruktuuriin joka ylläpitää tietojärjestelmää hiilelle." DWS 7 -toteutus (Phase 2.6, PR:t 093A–093H) tarjoaa empiirisen testialustan.
+
+### 1.5 Tutkimusidean kohdennus (päivitys v2.10)
+
+Tutkimusidean kohdennus tarkennetaan kolmeen runkoon:
+
+1. **KYA-standardi Agentic AI Foundation -standardiksi:** KYA (Know Your Agent) nostetaan sisäisestä hallintakehyksestä yleiseksi standardiehdokkaaksi agenttien identiteetin, suoritusaikaisen valvonnan, auditoinnin ja suvereniteetin hallintaan.
+2. **DWS 7 -tavoitteet tutkimuksen testialustana:** DWS 7 toimii empiirisenä ympäristönä, jossa validoidaan hiilitase, KYA-hallinta, monikumppaninen integraatio (Siemens, NVIDIA Connect) ja toimialakohtainen suvereniteettiohjaus.
+3. **Dual-use-toimialat kolmantena tutkimuskohteena:** Kolmas tutkimuskysymys kohdistetaan dual-use-toimialoihin (teollisuus + puolustus), mukaan lukien käynnissä olevat keskustelut Nokia Defencen kanssa rahoitus- ja pilotointipolusta.
+
+Lisäksi DWS 5 -version vetytalouslinja (vihreän vedyn lisäisyys, RFNBO-kriteerit) kirjataan osaksi pitkää tutkimusjatkumoa kohti DWS 7:n datakeskus- ja energiaregulaatiokerrosta.
+
+**Tuotetaso- ja suvereniteettisegmentointi (keskeinen kuva):**
+
+<img src="../artifacts/Sovereignty.jpg" alt="Aegis, Sovereign Infra ja Connect -segmentointi" />
+
+Kuvan tarkoitus on ankkuroita kolme tuotetasoa tutkimusasetelmaan:
+- **Aegis** = turvallisuus- ja kriittisen infrastruktuurin hallintatuote
+- **Sovereign Infra** = EU-suvereeni infrastruktuuritaso säännellyille toimijoille
+- **Connect** = kansainvälinen integraatio- ja jakelutaso
+
+**Open source -standardireitti (uusi täsmennys):**
+
+- KYA-standardin ehdotus **Agentic AI Foundation / Linux Foundation** -reitille on luonnosvaiheessa (ei vielä lähetetty).
+- NIST-hakemus ei ole vielä lähtenyt; tutkimusasetelmassa tämä kirjataan rinnakkaiseksi validointipoluksi (US-validaatio vs open source -adoptio).
+- Periaate: "standardi joka on takataskussa ei ole standardi" -> tutkimuskontribuution tulee sisältää avoin spesifikaatio + referenssitoteutus.
+
+### 1.6 Vastauskirjeluonnos prof. Kari Smolanderille
+
+Hei Kari,
+
+kiitos viestistäsi ja suorasta palautteesta. Arvostan erityisesti huomiotasi siitä, että väitöskirja on kestävyyslaji ja että tiedeyhteisöön sosiaalistuminen sekä vertaisarvioitu julkaiseminen ovat työn ydin.
+
+Laadin pyytämäsi lyhyen tutkimusidean kuvauksen seuraavalla rakenteella:
+
+- **Tutkimusongelma:** miten agenttipohjainen tekoälyarkkitehtuuri rakennetaan tuottamaan oikeudellisesti puolustettavaa (court-defensible) compliance-dataa EU:n teollisessa sääntelyssä (CBAM, CSRD, NIS2, AI Act).
+- **Tutkimuksen tavoitteet:** (1) kehittää ja validoida KYA-sertifioitu hallintamalli teollisille AI-agenteille, (2) tutkia moniagenttiarkkitehtuurin (MCP + A2A) skaalautuvuus 20+ sääntelyvertikaaliin, (3) arvioida compliance-automaation vaikutus D&O-vakuutuskelpoisuuteen ja oikeudelliseen vastuuseen.
+- **Alustavat tutkimusmenetelmät:** Design Science Research (DSR), artefaktin rakentaminen (DWS IQ 6/7), tapaustutkimus + empiirinen validointi maksavilla asiakkailla.
+- **Vaiheistus:** 2026 Artikkeli 1 (KYA open source -standardi), 2027 Artikkeli 2 (MCP-arkkitehtuuri), 2028 Artikkelit 3-4 (empiiriset tulokset), 2028-2029 koontiosa + väitös.
+
+Artikkeli 1 muotoillaan seuraavasti: **"KYA Standard: An Open Source Governance Framework for Agentic AI in EU-Regulated Industries"** ja se kohdistetaan Agentic AI Foundation / Linux Foundation -standardipolulle sekä kansainväliseen konferenssiesitykseen.
+
+Lisäksi kirjaan selkeästi nykytilan:
+- KYA open source -ehdotus on luonnosvaiheessa (ei lähetetty).
+- NIST-hakemusta ei ole lähetetty.
+- Nämä kaksi polkua eivät sulje toisiaan pois, mutta open source -adoptio priorisoidaan ensin.
+
+Sopii hyvin, että tapaamme tämän luonnoksen pohjalta joko online tai kasvotusten. Voin lähettää tiiviin 2–3 sivun version ennakkoon.
+
+Ystävällisin terveisin,  
+Risto Anton Päärni
 
 ---
 
@@ -2045,7 +2097,9 @@ KYA-kumppaniekosysteemi osoittaa kolme tutkimuslöydöstä:
 19. Report Engine tuotannossa — Firehorse Report -ajastin (PR #1064) ensimmäisenä cron-pohjaisena asiakastoimituksena; sulkee 3-tasoisen laskutussopimuksen silmukan toistuvilla vaatimustenmukaisuusartefakteilla; ensimmäinen päästä päähän -testi yhden-henkilön-tiimin monivuokralaisesta vaatimustenmukaisuushypoteesista
 20. Mitattu harness-takaus (<125 ms Snap) — Firehorse Snap -tappoviive tuettu Firecracker MicroVM -mittaustuloksella korvaten Arctic 15 -spesifikaation; ensimmäinen oikeudellisesti pätevä harness-väite julkaistulla mittaustuloksella spesifikaation sijaan; edellytys EU AI Act -artikla 12 -lokien tutkintakelpoisuudelle
 21. Perustajan→tiimin siirtymä taitoina — Ops Manager V0 -ostajalukitus (PRD v0.2 + validointiskripti) + `/investor-outreach` -taito (10+ INTRO-muistiota) koodaavat aiemmin hiljaiset perustajatoiminnat toistettaviksi DWS IQ -työnkuluiksi; laajentaa Firehorse-toimintamallin sisäisestä työkalusta perustajasta-tiimiksi-siirtymämekanismiksi
+22. KYA Agentic AI Foundation -kohdennus ja dual-use-laajennus — KYA-standardi nostettu yleiseksi agenttien luottamus- ja hallintastandardiehdokkaaksi; DWS 7 määritelty empiiriseksi testialustaksi vetytalouden, suvereniteettisegmentoinnin (Aegis/Sovereign Infra/Connect) ja dual-use-toimialojen (Nokia Defence -keskustelut) validointiin yhdessä Siemens- ja NVIDIA Connect -kumppanuuskanavien kanssa
+23. KYA open source -standardipolku — tutkimusohjelmaan lisätty eksplisiittinen standardointireitti (Agentic AI Foundation / Linux Foundation) sekä tila-arvio (ehdotus ja NIST-hakemus vielä lähettämättä), jolloin Artikkeli 1 siirtyy teoreettisesta viitekehyksestä avoimen spesifikaation ja referenssitoteutuksen julkaisutavoitteeksi
 
 *Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla*
-*Viimeksi päivitetty: 20.04.2026*
-*Versio: 2.8*
+*Viimeksi päivitetty: 21.04.2026*
+*Versio: 2.10*

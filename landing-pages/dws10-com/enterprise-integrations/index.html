@@ -446,7 +446,7 @@ Siemens Building X API <span class="arrow">&rarr;</span> DWS IQ ingest adapter (
         <div class="section" id="standards">
             <h2>Standards we comply with</h2>
             <p class="lead">Every integration is governed by published specifications &mdash; not black-box proprietary glue. Your audit team can trace every byte from the source system to the regulator.</p>
-            <p style="font-size: 0.92rem; color: #64748b; margin: 12px 0 18px;">Legend: <strong style="color: #166534;">Active</strong> = production-ready and auditable today &middot; <strong style="color: #92400e;">Target</strong> = on roadmap with scheduled assessment &middot; <strong style="color: #3730a3;">Reference</strong> = informing design, not claimed conformance. Source of truth: <code>DWS_STANDARDS_LIBRARY.md</code>.</p>
+            <p style="font-size: 0.92rem; color: #64748b; margin: 12px 0 18px;">Legend: <strong style="color: #166534;">Active</strong> = production-ready and auditable today &middot; <strong style="color: #92400e;">Target</strong> = on roadmap with scheduled assessment &middot; <strong style="color: #3730a3;">Reference</strong> = informing design, not claimed conformance &middot; <strong style="color: #7c2d12;">Considered</strong> = under evaluation, not on committed roadmap. Source of truth: <code>DWS_STANDARDS_LIBRARY.md</code>.</p>
 
             <div class="table-wrap">
             <table class="mapping">
@@ -470,7 +470,7 @@ Siemens Building X API <span class="arrow">&rarr;</span> DWS IQ ingest adapter (
                     <tr><td rowspan="4"><strong>Process &amp; Quality</strong></td><td>Automotive SPICE (ASPICE)</td><td>v4.0 (2023)</td><td>Lifetime Fleet &mdash; Tier-1 OEM procurement gate</td><td style="color: #92400e; font-weight: 600;">Target 2027</td></tr>
                     <tr><td>ISO/IEC 33000 series (SPICE)</td><td>33002:2015</td><td>Process capability assessment framework</td><td style="color: #3730a3; font-weight: 600;">Reference</td></tr>
                     <tr><td>ISO/IEC 25010 (SQuaRE)</td><td>25010:2023</td><td>Agent trust scoring, KYA metrics, audit reports</td><td style="color: #92400e; font-weight: 600;">Target 2026 Q3</td></tr>
-                    <tr><td>ISO 9001</td><td>9001:2015</td><td>Operational quality management (DWS IQ 7)</td><td style="color: #3730a3; font-weight: 600;">Considered</td></tr>
+                    <tr><td>ISO 9001</td><td>9001:2015</td><td>Operational quality management (DWS IQ 7)</td><td style="color: #7c2d12; font-weight: 600;">Considered</td></tr>
 
                     <tr><td rowspan="3"><strong>Security &amp; Governance</strong></td><td>ISO/IEC 27001</td><td>27001:2022</td><td>Platform-wide ISMS &mdash; Phase 6 certification</td><td style="color: #92400e; font-weight: 600;">Target 2027</td></tr>
                     <tr><td>SOC 2 Type II</td><td>AICPA TSC 2017</td><td>Platform attestation</td><td style="color: #92400e; font-weight: 600;">Target 2027 Q4</td></tr>
@@ -500,7 +500,7 @@ Siemens Building X API <span class="arrow">&rarr;</span> DWS IQ ingest adapter (
                 <div class="integration">
                     <span class="category">Protocol</span>
                     <h4>Protocol implementation</h4>
-                    <p>Standard-conformant implementations of OData v2/v4, MCP, and MQTT v5. Each connector has an integration test suite proving wire-level conformance &mdash; 26 tests validate the SAP S/4HANA OData paths alone. OPC-UA (IEC 62541) connector is in active development for Lifetime Fleet edge integration.</p>
+                    <p>Standard-conformant implementations of OData v2/v4, MCP, and MQTT v5. Each connector has an integration test suite proving wire-level conformance, including dedicated SAP S/4HANA OData path coverage. OPC-UA (IEC 62541) connector is in active development for Lifetime Fleet edge integration.</p>
                 </div>
                 <div class="integration">
                     <span class="category">Testing</span>

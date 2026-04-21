@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.6
+Version: 1.7
 
 Sessions & Modifications:
 
+- Version: 1.7 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: current | Date: 21.04.2026 | Changes: Added DWS Standards Library and Vesala standards field note entries; synced index metadata for standards/web-content governance updates
 - Version: 1.6 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: current | Date: 18.04.2026 | Changes: Added MCP CLI Index field note entry, refreshed field note count, and linked current MCP/CLI package split into the repository index
 - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/connect-kya-dws-cli-0MMIB | Date: 10.04.2026 | Changes: Catch-up index refresh covering ~127 merge commits from 2026-03-11 through 2026-04-10. Added DWS CLI (`cli/`), LLM Knowledge Base (`kb/` + `src/agents/kb.agent.ts`), `/kya` and `/kb` slash commands, DWS Skills Guide (`docs/DWS_SKILLS_GUIDE.md`), ADMIN*MANUAL Sections 28–33 (Carbon Balance Sheet, DGX Spark, Safety Hooks, External Repos, GitHub Actions & Cron Registry, DWS CLI Operator Reference), Shufti Pro DPA artifacts and IDV integration, PHD Firehorse thesis track (EN/FI), Aspire observability research, Legal/KYA*\* contracts, 2026-03/04 field notes, OneLifetime blog posts (KYA Standard v1, harness engineering investor note, EU sovereignty, validated mock data principle). Updated DWS_SECURITY_STANDARD §18.6 (KYA Control Surfaces), DWS_DATA_STANDARD §4.3 (kb/ classification), Admin/SECURITY_COMPLIANCE (Destructive Action Inventory).
 - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/dsaas-cli-first-strategy-ePRaw | Date: 13.03.2026 | Changes: Added DSaaS CLI-First Strategy document to Standards & Guidelines section
@@ -30,7 +31,7 @@ Session Links & References:
 Document Status:
 
 - Created: 04.02.2026
-- Last Modified: 18.04.2026
+- Last Modified: 21.04.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE
@@ -54,7 +55,7 @@ Centralized index of all documentation in the DWS6 repository for faster search 
 | --------------------------------------------------------------- | ----- | ---------------------------------------------------------------- |
 | [Admin Manuals](#admin-manuals)                                 | 8     | System administration and deployment guides                      |
 | [Architecture](#architecture-docs)                              | 12    | Technical architecture blueprints                                |
-| [Field Notes](#field-notes)                                     | 51+   | LWM knowledge capture (Shufti DPA, KYA, DGX Spark, autoresearch) |
+| [Field Notes](#field-notes)                                     | 52+   | LWM knowledge capture (Shufti DPA, KYA, DGX Spark, autoresearch) |
 | [Firehorse Product](#firehorse-product)                         | 35+   | Product suite documentation                                      |
 | [Standards & Guidelines](#standards--guidelines)                | 13+   | Coding and documentation standards (+CLI, Skills Guide, Data)    |
 | [Security](#security)                                           | 8+    | Security policies, compliance, KYA control surfaces              |
@@ -240,6 +241,7 @@ LWM knowledge capture from real-world events - raw sensory input for the Lifetim
 | DGX Spark Primary Runtime Setup    | `/docs/field-notes/2026-03-29-dgx-spark-primary-runtime-setup.md`                 | 2026-03-29 | DGX Spark 24/7 runtime architecture, failover, model routing | GN100, DGX Spark, Infrastructure, Ollama |
 | Shufti DPA Haris Escalation        | `/docs/field-notes/2026-04-01-shufti-dpa-haris-escalation.md`                     | 2026-04-01 | Haris escalated DPA to Shufti Legal/Compliance               | Shufti, DPA, GDPR, Partnership           |
 | Siemens Synthetic-Data Wedge       | `/docs/field-notes/2026-04-20-siemens-synthetic-data-partnership-wedge.md`        | 2026-04-20 | SI Building Nordics (Frida Ahlberg) + TechSeed pilot; NeMo DataDesigner Xcelerator wedge | Siemens, TechSeed, NVIDIA, NeMo, CSRD, EPBD, Taxonomy |
+| Teemu Vesala Standards Enthusiast  | `/docs/field-notes/2026-04-19-vesala-teemu-standards-enthusiast.md`                | 2026-04-19 | Standards gap mapping for advisor pipeline and ASPICE/SQuaRE expansion | Standards, Advisor, ASPICE, SQuaRE, Compliance |
 | Field Notes README                 | `/docs/field-notes/README.md`                                                     | -          | Guidelines                                                   | -                                        |
 
 ---
@@ -308,6 +310,7 @@ Coding, documentation, and process standards.
 | ------------------------- | ------------------------------------------------- | ------ | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | DWS Document Standard     | `/DWS_DOCUMENT_STANDARD.md`                       | ACTIVE | 2026-02-07    | Master document standard (v1.4)                                                                                                                  |
 | DWS Data Standard         | `/DWS_DATA_STANDARD.md`                           | ACTIVE | 2026-04-10    | Data storage governance, columnar/row policy, extension registry, Aiven-first mandate, §4.3 filesystem content stores (kb/) (v2.1)               |
+| DWS Standards Library     | `/DWS_STANDARDS_LIBRARY.md`                       | ACTIVE | 2026-04-21    | Registry of regulatory, process, security, interoperability, and reporting standards with ownership and status                                      |
 | DWS Skills Guide          | `/docs/DWS_SKILLS_GUIDE.md`                       | ACTIVE | 2026-04-10    | Complete guide to all 22 skills (19 slash commands + 3 discipline skills), gstack workflow, /kya and /kb (v1.1)                                  |
 | DWS CLI README            | `/cli/README.md`                                  | ACTIVE | 2026-04-10    | Full `dws` CLI reference: agents, workflows, MCP, KYA, Knowledge Base, scenarios, piping, zero-dependency                                        |
 | DSaaS CLI-First Strategy  | `/docs/DSaaS_CLI_FIRST_STRATEGY.md`               | ACTIVE | 2026-03-13    | Database Sovereignty as a Service — CLI-first mandatory gateway, 30-day build plan, enterprise pricing, Aiven ECE + TimescaleDB Hypercore (v1.0) |

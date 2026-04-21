@@ -6,10 +6,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.34
+Version: 3.36
 
 Sessions & Modifications:
 
+- Version: 3.36 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Täydennetty osio 10.21 Boardy-huomioilla: KYA open source -standardipolku Agentic AI Foundation / Linux Foundation -reitille, NIST-hakemuksen tila (ei lähetetty), Artikkeli 1 tarkka otsikointi, 2026-2029 julkaisuvaiheistus, EIC Step 1 -deliverable-kytkentä tutkimusohjelmaan; lisätty avainpanos #30
+- Version: 3.35 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Lisätty osio 10.21 (tohtoripolun kohdennus): KYA Agentic AI Foundation -linjaus, DWS 7 -tavoitteet, DWS 5 -> vetytalousjatkumo, dual-use-toimialat ja Nokia Defence -keskustelut, Aegis/Sovereign Infra/Connect -suvereniteettisegmentointi (kuva), Siemens- ja NVIDIA Connect -yhteistyöankkurit sekä Kari Smolanderille kohdistettu vastauskirjeen runko; lisätty avainpanos #29
 - Version: 3.34 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-work-EoyoF | Date: 20.04.2026 | Changes: Lisätty osio 10.20 (Huhtikuun 2026 kehitys) — neljä alaosiota: Anthropicin Skills-paradigman ulkoinen validointi (vahvistaa §10.13 taito-ensin -arkkitehtuurin), Lifetime Fleet -tiekartan kiteytyminen (Suomen dronestrategia 2030 + Baltia-ensin 12–16 vk MVP, "Kädet"-kerros siirtyy spesifikaatiosta aikatauluun), DWS IQ 7 Datakeskusten vaatimustenmukaisuusagentti (22. toimiala, RFNBO-delegoitu asetus 2023/1184 vihreän vedyn lisäisyysvaatimus), sääntelypinon laajennus NIS2:een ja CER:iin (Hybridiosaamiskeskus 8.5.2026, CORE-resilienssimalli) sekä perustajan→tiimin siirtymä (SOLO_FOUNDER_STATEMENT v1.2, CTO-yhteisrakentaja, /investor-outreach -taito, 10+ INTRO-muistiota); lisätty avainpanokset #25–#28
 - Version: 3.33 | Tool: Claude Code (Opus 4.6) | Session: claude/add-red-hat-partners-d8Hey | Date: 21.03.2026 | Changes: Lisätty Red Hat -avainlöydösten markkinadata alustatalouteen (§2.2), inferenssimuutoksen validointi reunalaskentaan (§2.4), Red Hat AgentOps -kumppanuus strategisiin kumppanuuksiin (§10.12.2), päivitetty SWOT-mahdollisuudet $644B markkinalla ja inferenssimuutosdatalla
 - Version: 3.32 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 03.04.2026 | Changes: Lisätty osio 10.19 (Opinnäytetyön versiointistrategia: v3.30.50 Metropolia-jäädytys); lisätty avainpanos #23; luotu jäädytetty V3Thesis_EN_v3.30.50.md (50-sivuinen Metropolia-versio) säilyttäen 82-sivuinen elävä dokumentti; päivitetty alatunniste kaksoisversioarkkitehtuurilla
@@ -62,10 +64,10 @@ Session Links & References:
 Document Status:
 
 - Created: 30.12.2025
-- Last Modified: 20.04.2026
+- Last Modified: 21.04.2026
 - Language: Finnish
 - Languages Available: English, Suomi
-- Publication Status: DRAFT (V3.34 — Huhtikuun 2026 kehitys: Skills-paradigma validoitu, Lifetime Fleet -tiekartta kiteytynyt, 22. toimiala lisätty, NIS2+CER sääntelypinossa, perustajan→tiimin siirtymä)
+- Publication Status: DRAFT (V3.36 — KYA open source -standardipolku, NIST-tilanne, Artikkeli 1 tarkennus, julkaisuvaiheistus)
 
 ---
 
@@ -2905,6 +2907,69 @@ Osiot 10.7 (BYOA) ja 10.11 (Toimitusjohtajan automaatioagenttiryhmä) kehystivä
 
 **Avainpanos #28 — Perustajan→tiimin siirtymä alustan ominaisuutena:** Yksinperustaja-tekoälytiimin kanssa -teesi vaiheistetaan, ei julisteta. `/investor-outreach` -taito ja SOLO_FOUNDER_STATEMENT -yksi-totuuden-lähde -malli tekevät sijoittajayhteydenpidosta DWS IQ -työnkulun, ei hiljaista perustajatietoa. Tämä validoi alustan oman teesinsä: jos alusta ei voi ajaa omaa varainkeruutaan toistettavana taitona, se ei voi väittää replikoivansa ratkaisutehdas-työtä asiakkaille.
 
+### 10.21 Tohtoripolun kohdennus: KYA-perusta, DWS 7 tavoitteet ja dual-use-laajennus
+
+#### 10.21.1 KYA Agentic AI Foundation -standardina
+
+KYA (Know Your Agent) nostetaan tässä päivityksessä eksplisiittisesti kohti **Agentic AI Foundation** -standardia. Tavoitteena on, että KYA määrittää minimivaatimukset agenttien identiteettisidonnalle, suoritusaikaiselle valvonnalle, auditointipolulle, kill-switch-hallinnalle ja suvereniteettivalvonnalle eri toimialoilla.
+
+#### 10.21.2 DWS 7 -tavoitteet tutkimuksen empiiriseksi rungoksi
+
+DWS 7 toimii tutkimuksen käytännön validointialustana:
+
+1. hiilitaseen pysyvä kirjanpitokerros,
+2. KYA-hallinnan tuotantotason todistusketju,
+3. suvereniteettisegmentointi tuotetasoille (Aegis / Sovereign Infra / Connect),
+4. kumppanikanavaintegraatio Siemens- ja NVIDIA Connect -ekosysteemeihin.
+
+#### 10.21.3 Vetytalouden jatkumo (DWS 5 -> DWS 7)
+
+Vetytalous kirjataan tutkimuksen läpileikkaavaksi teemaksi: DWS 5 -vaiheessa tunnistettu vety- ja energiasääntelyn merkitys jatkuu DWS 7 -toteutuksessa RFNBO-lisäisyyslogiikan, ajallisen korrelaation ja maantieteellisen korrelaation todentamisena.
+
+#### 10.21.4 Kolmas tutkimuskohde: dual-use-toimialat
+
+Kolmas tutkimuskohde kohdennetaan dual-use-toimialoihin (teollisuus + puolustus). Tätä varten kirjataan erikseen käynnissä oleva keskustelupolku **Nokia Defencen** kanssa osana rahoitus- ja pilotointivalmistelua.
+
+#### 10.21.5 Tuotetasojen suvereniteettisegmentointi (keskeinen kuva)
+
+<img src="../../../../artifacts/Sovereignty.jpg" alt="Aegis, Sovereign Infra ja Connect -suvereniteettisegmentointi" />
+
+Segmentoinnin tutkimuksellinen rooli:
+- **Aegis:** kriittisen infrastruktuurin turvallisuushallinta
+- **Sovereign Infra:** EU-suvereeni tuotantotaso säännellyille asiakkaille
+- **Connect:** globaali integraatio- ja jakelutaso
+
+#### 10.21.6 Yhteistyöankkurit
+
+Siemens-yhteistyö ankkuroidaan digitaalisen kaksosen ja teollisen IoT-datan yhteyteen. NVIDIA Connect -yhteistyö ankkuroidaan agentti-inferenssin, reunalaskennan ja kumppanijakelun tekniseksi ja kaupalliseksi vipuvarreksi.
+
+#### 10.21.7 Ohjaajapalaute ja vastauskirjeen runko
+
+Kari Smolanderin ohjaajapalaute (2 vuoden sitoutumisraja, tiedeyhteisöön sosiaalistuminen, 3-5 vertaisarvioitua julkaisua + laaja johdanto) on huomioitu. Vastauskirjeen runko kohdistetaan pyydettyihin kohtiin:
+
+- tutkimusongelma,
+- tutkimuksen tavoitteet,
+- alustava tutkimusmenetelmä,
+- läpiviennin vaiheistus ja julkaisupolku.
+
+Tämä luo konkreettisen seuraavan vaiheen tapaamiselle ja tutkimussuunnitelman täsmentämiselle.
+
+#### 10.21.8 Open source -standardireitti ja julkaisuvaiheistus
+
+Boardy-keskustelun perusteella tutkimusasetelmaan kirjataan eksplisiittinen standardointistrategia:
+
+1. **Artikkeli 1 (2026):** "KYA Standard: An Open Source Governance Framework for Agentic AI in EU-Regulated Industries" — ehdotus Agentic AI Foundation / Linux Foundation -standardireitille + konferenssiesitys.
+2. **Artikkeli 2 (2027):** MCP + A2A -arkkitehtuurin skaalautuvuus säännellyissä vertikaaleissa (journal-kohdennus).
+3. **Artikkelit 3-4 (2028):** empiiriset tulokset asiakkaiden tuotantoaineistolla.
+4. **Koontiosa (2028-2029):** johdanto + väitöskokonaisuus.
+
+Tilapäivitys (21.04.2026):
+- KYA open source -ehdotusta ei ole vielä lähetetty.
+- NIST-hakemusta ei ole lähetetty.
+- Polut ovat rinnakkaisia; tämän kierroksen prioriteetti on open source -adoptio.
+
+Lisäksi EIC Step 1 -ikkuna (5-sivuinen proposal, 10-slide deck, 3 min video script) kirjataan tutkimusohjelman tuotteistuskanavaksi, joka tukee Artikkeli 1:n argumentaatiota ilman että korvaa tieteellistä julkaisupolkua.
+
 ---
 
 **Dokumentin tiedot:**
@@ -2915,9 +2980,9 @@ Osiot 10.7 (BYOA) ja 10.11 (Toimitusjohtajan automaatioagenttiryhmä) kehystivä
 **Koulutusohjelma:** Smart Factory, YAMK
 **Ohjaaja:** Jarno Varteva (mukana Erkki Räsänen)
 **Yritys:** Lifetime Oy (Firehorse-brändi)
-**Tila:** DRAFT - V3.34 — Huhtikuun 2026 kehitys (Skills-paradigma, Lifetime Fleet -tiekartta, 22. toimiala, NIS2+CER, perustajan→tiimin siirtymä)
-**Versio:** 3.34
-**Viimeisin päivitys:** 20.04.2026
+**Tila:** DRAFT - V3.36 — Open source -standardireitti (KYA), NIST-tilanne, Artikkeli 1 tarkennettu
+**Versio:** 3.36
+**Viimeisin päivitys:** 21.04.2026
 **V1.0 Julkaisutavoite:** 23. helmikuuta 2026
 
 **Kielet:** English, Suomi
@@ -2958,6 +3023,8 @@ Osiot 10.7 (BYOA) ja 10.11 (Toimitusjohtajan automaatioagenttiryhmä) kehystivä
 25. Lifetime Fleet -kiteytyminen — Brain-Memory-Body-Hands -pino on testattavissa päästä päähän: Suomen dronestrategia 2030 -kohdistus + Baltia-ensin 12–16 viikon MVP siirtävät "Kädet"-kerroksen spesifikaatiosta konkreettiseksi laitteistoaikatauluksi KYA/Aegis/Firehorse-hallinnan täydellä uudelleenkäytöllä; vaatimustenmukaisuus-ensin -maailmamalliteesi (§10.18) muuttuu lähitulevaisuuden insinöörivirstanpylvääksi
 26. 22. toimiala vihreän vedyn lisäisyyden kautta — DWS IQ 7 Datakeskusten vaatimustenmukaisuusagentti soveltaa RFNBO-delegoitua asetusta 2023/1184 (lisäisyys, ajallinen korrelaatio, maantieteellinen korrelaatio) suomalaisiin datakeskuksiin; laajentaa kaksinkertaisen hiilikirjanpidon (§10.17) data-intensiivisiin palveluihin ja lisää NIS2 + CER -kattavuuden ilmastosääntelyn rinnalle — alustan sääntelyalueen ensimmäinen poikkialueellinen laajennus
 27. Perustajan→tiimin siirtymä alustan ominaisuutena — SOLO_FOUNDER_STATEMENT v1.2 + Anthony Maurin CTO-yhteisrakentajasekvensointi + `/investor-outreach` -taito (10+ INTRO-muistiota luonnosteltu) tekevät sijoittajayhteydenpidosta toistettavan DWS IQ -työnkulun hiljaisen perustajatiedon sijaan; validoi alustan oman ratkaisutehdas-väitteen
+28. KYA Agentic AI Foundation -kohdennus ja dual-use-laajennus — KYA nostettu yleiseksi agenttien perusstandardiehdokkaaksi; DWS 7 asetettu empiiriseksi rungoksi, jossa vetytalousjatkumo (DWS 5 -> DWS 7), suvereniteettisegmentointi (Aegis/Sovereign Infra/Connect), Nokia Defence -keskustelupolku sekä Siemens- ja NVIDIA Connect -yhteistyö ankkuroidaan yhdeksi tutkimusohjelmaksi
+29. KYA open source -standardipolku ja Artikkeli 1:n täsmennys — tutkimukseen lisätty eksplisiittinen standardointikanava Agentic AI Foundation / Linux Foundation -reitille, NIST-polun tila kirjattu (ei lähetetty), sekä 2026-2029 julkaisuvaiheistus ja EIC Step 1 -deliverablejen rooli tutkimusviestinnässä
 
 **Lisenssi:** Proprietary - Lifetime Oy
 **Yhteystieto:** risto@lifetime.fi

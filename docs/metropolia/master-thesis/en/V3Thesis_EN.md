@@ -6,10 +6,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.34
+Version: 3.36
 
 Sessions & Modifications:
 
+- Version: 3.36 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Expanded Section 10.21 with Boardy-sourced refinements: KYA open-source standard path via Agentic AI Foundation / Linux Foundation, explicit NIST status (not submitted), Article 1 title lock, 2026-2029 publication phasing, and EIC Step 1 deliverable linkage; added Key Contribution #30
+- Version: 3.35 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Added Section 10.21 (doctoral-track targeting): KYA positioned toward Agentic AI Foundation standardization, DWS 7 objectives as empirical frame, DWS 5 -> hydrogen-economy continuity, dual-use stream with Nokia Defence discussions, Aegis/Sovereign Infra/Connect sovereignty segmentation (core figure), Siemens and NVIDIA Connect collaboration anchors, and supervisor-response structure; added Key Contribution #29
 - Version: 3.34 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-work-EoyoF | Date: 20.04.2026 | Changes: Added Section 10.20 (April 2026 Evolution) — four subsections covering Anthropic Skills Paradigm validation (external confirmation of DWS skill-first architecture from §10.13.3), Lifetime Fleet roadmap crystallization (Finland Drone Strategy 2030 + Baltic-first 12–16wk MVP graduating "Hands" layer from spec to timeline), DWS IQ 7 Datacentre Compliance Agent (22nd industry, RFNBO Delegated Regulation 2023/1184 green-hydrogen additionality), Regulatory Stack Expansion to NIS2+CER (Hybridiosaamiskeskus 8.5.2026, CORE resilience model), and Founder→Team Transition (SOLO_FOUNDER_STATEMENT v1.2, CTO co-builder, /investor-outreach skill, 10+ INTRO notes); added Key Contributions #25–#28
 - Version: 3.33 | Tool: Claude Code (Opus 4.6) | Session: claude/add-red-hat-partners-d8Hey | Date: 21.03.2026 | Changes: Added Red Hat Key Findings market data to Platform Economics (§2.2), inference shift validation to Edge Computing (§2.4), Red Hat AgentOps partnership to Strategic Partnerships (§10.12.4), updated SWOT Opportunities with $644B market and inference shift data
 - Version: 3.32 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 03.04.2026 | Changes: Added Section 10.19 (Thesis Versioning Strategy: v3.30.50 Metropolia Freeze); added Key Contribution #23; created frozen V3Thesis_EN_v3.30.50.md (50-page restructured Metropolia outgoing) while preserving 82-page living document; updated footer with dual-version architecture
@@ -62,10 +64,10 @@ Session Links & References:
 Document Status:
 
 - Created: 30.12.2025
-- Last Modified: 20.04.2026
+- Last Modified: 21.04.2026
 - Language: English
 - Languages Available: English, Suomi
-- Publication Status: DRAFT (V3.34 — April 2026 Evolution: Skills paradigm validated, Lifetime Fleet roadmap crystallized, 22nd industry added, NIS2+CER regulatory stack, founder→team transition)
+- Publication Status: DRAFT (V3.36 — KYA open-source standard path, NIST status, Article 1 refinement, publication phasing)
 
 ---
 
@@ -3029,6 +3031,69 @@ Sections 10.7 (BYOA) and 10.11 (CEO Automation Agent Suite) framed DWS IQ 6 as a
 
 **Key Contribution #28 — Founder→Team Transition as Platform Feature:** The solo-founder-with-AI-team thesis is staged rather than asserted. The `/investor-outreach` skill and the SOLO_FOUNDER_STATEMENT single-source-of-truth pattern make investor outreach a DWS IQ workflow itself. This validates the platform's own thesis: if the platform cannot run its own fundraising as a reproducible skill, it cannot claim to replicate solution-factory work for customers.
 
+### 10.21 Doctoral Track Targeting: KYA Foundation, DWS 7 Objectives, and Dual-Use Expansion
+
+#### 10.21.1 KYA toward an Agentic AI Foundation Standard
+
+In this update, KYA (Know Your Agent) is explicitly positioned beyond internal governance toward an **Agentic AI Foundation** standard candidate. The target scope includes identity binding, runtime control, audit traceability, kill-switch governance, and sovereignty controls for regulated agentic systems.
+
+#### 10.21.2 DWS 7 Objectives as Empirical Research Frame
+
+DWS 7 is defined as the operational validation frame for:
+
+1. persistent carbon-ledger infrastructure,
+2. production-grade KYA governance evidence chains,
+3. sovereignty segmentation across product layers (Aegis / Sovereign Infra / Connect),
+4. partner-channel integration with Siemens and NVIDIA Connect ecosystems.
+
+#### 10.21.3 Hydrogen-Economy Continuity (DWS 5 -> DWS 7)
+
+Hydrogen economy requirements are formalized as a continuity thread from DWS 5 into DWS 7. RFNBO additionality logic, temporal correlation, and geographical correlation are treated as long-horizon regulatory constraints feeding platform architecture decisions.
+
+#### 10.21.4 Third Research Stream: Dual-Use Industries
+
+The third stream is explicitly focused on dual-use industries (industrial + defence). Ongoing Nokia Defence discussions are recorded as part of the funding-and-pilot path for this stream.
+
+#### 10.21.5 Sovereignty Segmentation of Product Tiers (Core Figure)
+
+<img src="../../../../artifacts/Sovereignty.jpg" alt="Aegis, Sovereign Infra, and Connect sovereignty segmentation" />
+
+Analytical role of the segmentation:
+- **Aegis:** critical-infrastructure security governance
+- **Sovereign Infra:** EU-sovereign deployment layer for regulated operators
+- **Connect:** global integration and distribution layer
+
+#### 10.21.6 Collaboration Anchors
+
+Siemens collaboration is anchored to digital-twin and industrial IoT data pathways. NVIDIA Connect collaboration is anchored to inference architecture, edge acceleration, and partner-led go-to-market channels.
+
+#### 10.21.7 Supervisor Feedback and Response Structure
+
+Kari Smolander's guidance (2-year commitment limit, research-community socialization, 3-5 peer-reviewed papers plus synthesis thesis) is integrated into the plan. The response structure is aligned to four requested elements:
+
+- research problem,
+- research objectives,
+- preliminary methods,
+- execution staging and publication path.
+
+This creates a concrete basis for the next supervisory meeting.
+
+#### 10.21.8 Open-Source Standard Path and Publication Phasing
+
+Based on the Boardy exchange, the research program now records an explicit standardization strategy:
+
+1. **Article 1 (2026):** "KYA Standard: An Open Source Governance Framework for Agentic AI in EU-Regulated Industries" — proposal track toward Agentic AI Foundation / Linux Foundation + conference submission.
+2. **Article 2 (2027):** scalability of MCP + A2A architecture across regulated verticals (journal-targeted).
+3. **Articles 3-4 (2028):** empirical findings from production/customer environments.
+4. **Synthesis phase (2028-2029):** introductory thesis volume + dissertation compilation.
+
+Status clarification (21.04.2026):
+- KYA open-source proposal has not been sent yet.
+- NIST submission has not been sent yet.
+- Paths are complementary; this cycle prioritizes open-source adoption first.
+
+Additionally, the EIC Step 1 package (5-page proposal, 10-slide deck, 3-minute video script) is documented as a commercialization-facing narrative layer that supports Article 1 positioning, without replacing the peer-reviewed publication pathway.
+
 ---
 
 **Document Information:**
@@ -3039,9 +3104,9 @@ Sections 10.7 (BYOA) and 10.11 (CEO Automation Agent Suite) framed DWS IQ 6 as a
 **Program:** Smart Factory, Master's Degree (YAMK)
 **Supervisor:** Jarno Varteva (with Erkki Räsänen)
 **Company:** Lifetime Oy (Firehorse brand)
-**Status:** DRAFT - V3.34
-**Version:** 3.34
-**Last Modified:** 20.04.2026
+**Status:** DRAFT - V3.36 (Open-source standard path for KYA, NIST status, Article 1 refined)
+**Version:** 3.36
+**Last Modified:** 21.04.2026
 **V1.0 Release Target:** 23 February 2026
 
 **Languages:** English, Suomi
@@ -3083,6 +3148,8 @@ Sections 10.7 (BYOA) and 10.11 (CEO Automation Agent Suite) framed DWS IQ 6 as a
 26. Lifetime Fleet Crystallization — Brain-Memory-Body-Hands stack is testable end-to-end: Finland Drone Strategy 2030 alignment + Baltic-first 12–16 week MVP graduate the "Hands" layer from specification to concrete hardware timeline with full reuse of KYA/Aegis/Firehorse governance; compliance-first world-model thesis (§10.18) becomes a near-term engineering milestone
 27. 22nd Industry via Green Hydrogen Additionality — DWS IQ 7 Datacentre Compliance Agent applies RFNBO Delegated Regulation 2023/1184 (additionality, temporal correlation, geographical correlation) to Finnish datacentres; extends double-entry carbon ledger (§10.17) to data-intensive services and adds NIS2 + CER coverage alongside climate regulation — the first cross-domain extension of platform regulatory scope
 28. Founder→Team Transition as Platform Feature — SOLO_FOUNDER_STATEMENT v1.2 + Anthony Maurin CTO co-builder sequencing + `/investor-outreach` skill (10+ INTRO notes drafted) make investor outreach a reproducible DWS IQ workflow rather than tacit founder knowledge; validates the platform's own solution-factory claim
+29. KYA Agentic AI Foundation Targeting with Dual-Use Expansion — KYA is elevated toward a general foundational standard for agent trust/governance; DWS 7 is framed as the empirical environment unifying hydrogen-economy continuity (DWS 5 -> DWS 7), sovereignty segmentation (Aegis/Sovereign Infra/Connect), Nokia Defence dual-use track, and Siemens/NVIDIA Connect collaboration anchors
+30. KYA Open-Source Standard Path with Article 1 Lock — explicit standardization route added (Agentic AI Foundation / Linux Foundation), NIST path status recorded (not submitted), and 2026-2029 publication phasing integrated with EIC Step 1 communication assets
 
 **License:** Proprietary - Lifetime Oy
 **Contact:** risto@lifetime.fi

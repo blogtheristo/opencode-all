@@ -11,7 +11,7 @@ Sessions & Modifications:
 Session Links & References:
   - Claude Code (claude/expand-standards-knowledge-oAULz): https://github.com/blogtheristo/dws6/commits/claude/expand-standards-knowledge-oAULz
   - Field note: docs/field-notes/2026-04-19-vesala-teemu-standards-enthusiast.md
-  - Related: DWS_STANDARDS_ROADMAP.md (gap analysis), DWS6_TO_DWS7_UPDATE.md (ASPICE roadmap)
+  - Related: docs/DWS_STANDARDS_ROADMAP.md (gap analysis), docs/DWS6_TO_DWS7_UPDATE.md (ASPICE roadmap)
 
 Document Status:
   - Created: 19.04.2026
@@ -92,7 +92,7 @@ Standards fall into five categories:
 
 | Standard | Version | Reference | DWS Application | Owner | Status |
 |----------|---------|-----------|-----------------|-------|--------|
-| **OData** | v2 + v4 | OASIS | SAP S/4HANA connector data paths (26 integration tests) | Integrations | ✅ Active |
+| **OData** | v2 + v4 | OASIS | SAP S/4HANA connector data paths (covered by dedicated integration test suite) | Integrations | ✅ Active |
 | **MCP (Model Context Protocol)** | 2024-11-05 spec | Anthropic | `/mcp` endpoint, 18 agents auto-discoverable via JSON-RPC 2.0 | AI team | ✅ Active |
 | **JSON-RPC** | 2.0 | IETF | Transport protocol for MCP and DWS agent API | AI team | ✅ Active |
 | **OPC-UA** | IEC 62541 | IEC / OPC Foundation | Industrial equipment ingestion (PLCs, SCADA) via Jetson edge | Hands / Fleet | 🔧 Implementing |
@@ -160,10 +160,10 @@ When an agent (or human) needs to determine which standards apply to a given pro
 
 ## 7. Related Documents
 
-- `DWS_STANDARDS_ROADMAP.md` — Gap analysis + Q1-Q4 2026 roadmap
+- `docs/DWS_STANDARDS_ROADMAP.md` — Gap analysis + Q1-Q4 2026 roadmap
 - `DWS_DOCUMENT_STANDARD.md` — How to write/version this document
 - `DWS_SECURITY_STANDARD.md` — Security control implementation
 - `DWS_DATA_STANDARD.md` — Data storage governance (GDPR implementation)
-- `DWS6_TO_DWS7_UPDATE.md` Section 8 — Certification path
+- `docs/DWS6_TO_DWS7_UPDATE.md` Section 8 — Certification path
 - `docs/field-notes/2026-04-19-vesala-teemu-standards-enthusiast.md` — Advisor engagement for ASPICE + SQuaRE
 - `dws10.com/enterprise-integrations/` — Customer-facing integration catalogue with standards shown

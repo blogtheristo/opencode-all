@@ -7,6 +7,30 @@
 
 ---
 
+## Location
+
+LinkedIn (remote), Finland market context.
+
+## Context
+
+Advisor-pipeline screening for standards coverage expansion in DWS IQ 6 and Lifetime Fleet.
+
+## The Story
+
+Teemu Vesala publicly described deep hands-on work across standards-driven protocol implementation, conformance testing, and security assessment. That signal matched an existing DWS gap: strong EU regulatory coverage, but weaker documented process/quality standards (ASPICE, SQuaRE).
+
+## The Insight
+
+Standards competence is a commercial gate, not just a documentation detail. Elevating ASPICE and SQuaRE in the standards registry improves enterprise RFP readiness and aligns product quality metrics with audit language buyers already trust.
+
+## Next Steps
+
+1. Execute advisor outreach and evaluate fit for a part-time Standards & Compliance Advisor role.
+2. Continue with ASPICE/SQuaRE roadmap actions listed in `docs/DWS6_TO_DWS7_UPDATE.md`.
+3. Validate new standards and status labels on customer-facing catalogue pages during each standards-library update.
+
+---
+
 ## Ontology Tags
 
 - **Geography:** Europe > Finland > Nordic
