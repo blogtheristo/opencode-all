@@ -31,8 +31,8 @@ Legal:
 **Version:** 1.0
 **Effective Date:** 2026-02-10
 **Status:** Draft
-**Document Type:** Architecture Specification
-**Architecture Phase:** 09
+**Document Type:** Architecture Specification (Cross-Cutting)
+**Scope:** Spans all delivery phases — planning, execution, integration, operations
 
 ---
 
