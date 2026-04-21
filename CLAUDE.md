@@ -222,98 +222,14 @@ POTENTIAL CONCERNS:
 - [any risks]
 ```
 
-### Copy-Paste Output Rule (CRITICAL)
+### Output and Execution Guardrails (CRITICAL)
 
-When the human says **"copy paste"**, **"copypaste"**, or **"copy-paste window"**, deliver content as:
-
-1. **One single fenced code block** — the user will triple-click or Ctrl+A inside it to copy
-2. **No tables** — tables break on mobile paste and require reformatting
-3. **No markdown formatting inside** — plain text, bullet dashes, or numbered lists only
-4. **No split windows** — everything in ONE block, not multiple blocks
-5. **No START COPY / END COPY markers** — just the content, nothing else
-6. **No angle brackets, backticks, or markdown around URLs** — plain text URLs only
-
-**Why:** Mobile users paste into Gmail, LinkedIn, WhatsApp, or notes apps. Tables and markdown render as garbage. One clean block copies clean. Markers like `--- START COPY ---` get pasted into the final output and look unprofessional.
-
-### Social Media Output Rule (CRITICAL)
-
-When writing tweets, LinkedIn posts, or any social media copy:
-
-1. **Never wrap content in START COPY / END COPY markers** — just output the text
-2. **Never wrap URLs in angle brackets `<>`, backticks, square brackets, or markdown** — plain text only
-3. **Never add code fences around the post** — output it as normal text
-4. **URLs MUST include the protocol** (`https://`) — bare domains like `dws10.com/page` get auto-wrapped in `<>` by renderers. Always write `https://dws10.com/page`
-5. **The characters `<` and `>` are BANNED from all output** — they corrupt copy-paste on every platform
-
-WRONG: `dws10.com/products/aegis.html` (renderer adds `<>`)
-WRONG: `<https://dws10.com>` (angle brackets)
-WRONG: `[link](https://dws10.com)` (markdown)
-RIGHT: https://dws10.com/products/aegis.html
-
-**This applies to ALL output containing URLs, not just social media.** No exceptions.
-
-### Picture Prompt Rule (CRITICAL)
-
-**Every AI image-generation prompt produced for the user (Gemini, Midjourney, DALL·E, Nano Banana, etc.) MUST be appended to `docs/field-notes/picture-prompts.md` in the same turn it is delivered.** No exceptions.
-
-1. **Single source of truth** — `docs/field-notes/picture-prompts.md` is the append-only log of every picture prompt used across dws10.com, onelifetime.world, Firehorse Store, blog posts, and social media
-2. **Append, never replace** — new entries go above the `<!-- New entries appended above this line. -->` marker; existing entries are never rewritten or deleted (rename to archived status instead)
-3. **Required fields** — every entry must include: date, slug, target file path, model, aspect ratio, theme, status (pending/rendered/published/archived), output file path, full prompt verbatim in blockquote, notes
-4. **Same turn delivery** — if you output a picture prompt to the user in chat, you must also write it to this file in the same response. Delivering a prompt without logging it is incomplete work.
-5. **Commit with the related work** — if the prompt was generated for a specific product/page/post, commit the picture-prompts.md update in the same commit as that work (or as a follow-up commit before the turn ends)
-
-**Why:** Picture prompts are production assets. Without a log, we re-invent them for every regeneration, lose variant history, and can't audit which Gold/Firehorse/DWS theme lineage an image belongs to.
-
-### Ollama Model Rule (CRITICAL)
-
-**Never pull, remove, or change Ollama models without human approval.** Model changes are strategic decisions affecting cost, performance, memory budget, and agent compatibility.
-
-1. **Always run `ollama list` first** — report what's installed before suggesting changes
-2. **Never auto-pull models** in scripts, first-boot, or day-runner
-3. **Never auto-remove models** — even if they look unused, the human may be testing them
-4. **Report missing models** — warn and show the manual command, don't execute it
-5. **Memory budget matters** — 128GB is finite. Every model competes for inference RAM.
-
-Scripts may only: list models, check if required models exist, warn if missing.
-
-### Git Branch Awareness Rule (CRITICAL)
-
-**Before telling the user to run ANY file or command, verify which branch contains that file.**
-
-| Situation                                  | Correct instruction                                           |
-| ------------------------------------------ | ------------------------------------------------------------- |
-| File is on a feature branch, PR not merged | `git fetch origin <branch> && git checkout <branch>` THEN run |
-| File is on main, user is on main           | `git pull origin main` THEN run                               |
-| File is on main, user is on feature branch | Merge main first or cherry-pick                               |
-| File was just created in this session      | Tell user which branch has it and how to get there            |
-
-**Forbidden:** Telling the user to run a file without confirming it exists on their current branch. `git pull origin main` does NOT give you files from unmerged PRs.
-
-**Checklist before giving run instructions:**
-
-1. Which branch is the file on?
-2. Is the PR merged?
-3. Which branch is the user currently on?
-4. Do they need to checkout/fetch first?
-
-### Failure Modes to Avoid
-
-1. Making wrong assumptions without checking
-2. Not managing confusion
-3. Not seeking clarifications
-4. Not surfacing inconsistencies
-5. Not presenting tradeoffs
-6. Not pushing back when warranted
-7. Sycophancy
-8. Overcomplicating code/APIs
-9. Bloating abstractions
-10. Not cleaning up dead code
-11. Modifying code orthogonal to the task
-12. Removing things you don't fully understand
-13. Not using DWS document standard
-14. Deleting files without explicit approval
-15. Using new environment without verifying .gitignore and .env
-16. Telling user to run files that don't exist on their current branch
+1. For "copy paste" requests, return exactly one fenced code block, no tables, no START/END markers.
+2. For social/URL output, use plain text URLs with protocol (`https://`) and never markdown links or angle brackets.
+3. Every generated image prompt must be logged in `docs/field-notes/picture-prompts.md` in the same turn/commit.
+4. Never change Ollama models without human approval; run `ollama list` first and only report missing models.
+5. Before run instructions, verify branch/file availability; never imply `main` contains unmerged PR files.
+6. Avoid silent assumptions, overengineering, and unrelated edits; ask on ambiguity and surface tradeoffs.
 
 ## Lifetime Oy Legal Identity Rule (CRITICAL)
 
@@ -377,24 +293,7 @@ Always use these official identifiers for Lifetime Oy in contracts, NDAs, invoic
 
 ## Repository Structure
 
-```
-dws6/
-├── src/                     # Backend/shared logic
-│   ├── app.ts              # Main Express app
-│   ├── firehorse/          # Firehorse product integration
-│   ├── integrations/       # ERP (SAP, IFS, Dynamics) & ESG integrations
-│   ├── mcp/                # Model Context Protocol implementation
-│   └── __tests__/          # Test suite
-├── dws6.com/               # Web applications
-│   └── dashboard/firehorse/v9-react/  # Main React dashboard
-├── Firehorse/              # Product suite (Omnichannel, Report, Automation, ContentMS)
-├── landing-pages/          # Cloudflare Pages (production)
-├── mcp-hub/                # MCP Orchestration Platform
-├── mcp-servers/            # Individual MCP servers
-├── scripts/                # Dev & deployment scripts
-├── supabase/migrations/    # Database migrations
-└── .github/workflows/      # CI/CD pipelines (15 workflows)
-```
+Key areas: `src/` backend, `dws6.com/` and `landing-pages/` websites, `Firehorse/` Python suite, `mcp-hub/` + `mcp-servers/`, `supabase/migrations/`, `.github/workflows/`.
 
 ### Dual Folder Structure Rule (IMPORTANT)
 
@@ -522,37 +421,11 @@ Use automated scripts — **DO NOT create worktrees manually.**
 ./scripts/new-claude-worktree.sh feature-auth --launch-claude
 ```
 
-**Worktree locations:**
-
-- Windows: `F:\2026\Repos2026\.claude-worktrees\dws6\` (MUST be F: drive, NOT C:\Users\)
-- macOS/iOS: `~/.claude-worktrees/dws6/`
-- Linux/Chromebook: `../.claude-worktrees/dws6/`
-
-1. **Creates git worktree** in standardized location
-2. **Verifies .gitignore** inheritance (critical security patterns)
-3. **Symlinks .venv** from main repo (saves disk space, consistent dependencies)
-4. **Copies config files** (.mcp.json, .env, .env.mcp, .env.local, .env.mcp.minimal, .cursorrules, .claude/)
-5. **Validates environment** — checks .mcp.json has mcpServers, .env has required keys, .claude/ has permissions
-6. **Pings Docker & MCP services** — verifies Docker is running, lists containers with health status, tests MCP endpoint reachability
-7. **Optionally launches Claude Code** in the new worktree
-
-**Broken worktree fix:** If `.git` is a folder (not a file), it's broken. Remove it, run `git worktree prune`, recreate with the script.
-
-**Windows Managed Settings:** Effective March 12, 2026, use `C:\Program Files\ClaudeCode\managed-settings.json` (old: `C:\ProgramData\ClaudeCode\`). Legacy path stops being read on March 12. Supported since Claude Code 2.0.58. Template: `ClaudeCode/managed-settings.json.example`. Verify: `.\scripts\Test-ClaudeManagedSettings.ps1`.
+The scripts enforce standard location, config copy, `.venv` symlink, and environment validation. If a worktree is broken (`.git` is a folder), prune and recreate with the scripts.
 
 ## 2026 EU AI Act Compliance
 
-| File/Folder     | Behavior               | Reason                                                |
-| --------------- | ---------------------- | ----------------------------------------------------- |
-| `.gitignore`    | **Shared** (inherited) | All worktrees use same ignore rules                   |
-| `.venv/`        | **Symlinked**          | Saves space, consistent packages                      |
-| `.mcp.json`     | **Copied**             | MCP server connections — **CRITICAL** for tool access |
-| `.env`          | **Copied**             | May need worktree-specific values                     |
-| `.env.mcp`      | **Copied**             | MCP Hub environment config                            |
-| `.env.local`    | **Copied**             | Local environment overrides                           |
-| `.cursorrules`  | **Copied**             | Cursor IDE rules                                      |
-| `.claude/`      | **Copied**             | Session-specific Claude settings + permissions        |
-| `node_modules/` | **Not shared**         | Run `npm install` per worktree                        |
+Worktree policy: shared `.gitignore`, symlinked `.venv`, copied `.env/.env.mcp/.env.local/.mcp.json/.claude/.cursorrules`, and local `node_modules` per worktree.
 
 ## Claude Code Safety Hooks (CRITICAL)
 
@@ -608,32 +481,7 @@ dws workflow compliance-assessment
 
 ## Integrations & Deployment
 
-**ERP:** SAP S/4HANA, IFS Cloud, Microsoft Dynamics 365, Monitor ERP, Visma, Jeeves → `src/integrations/erp/`
-**ESG:** Worldfavor, PositionGreen → `src/integrations/esg/`
-
-- [ ] `.gitignore` contains: `.env`, `.venv/`, `*.secret`, `*.key`, `.mcp.json`
-- [ ] `.mcp.json` copied from main repo (gitignored files are NOT shared between worktrees)
-- [ ] `.env` files are copied (not symlinked) to allow worktree-specific values
-- [ ] `.claude/` folder copied (contains permissions in `settings.local.json`)
-- [ ] Run `git status` before first commit to verify no sensitive files staged
-- [ ] `.venv` symlink points to main repo's virtual environment
-- [ ] Docker is running and MCP containers are healthy
-      **Cloud accounts:**
-      | Account | Scope |
-      |---------|-------|
-      | `risto.paarni2024@lifetime.fi` | GCP, backend, AI agents, development |
-      | `blogtheristo` (GitHub SSO) | Supabase (login via GitHub — Google login removed by Supabase) |
-      | dws6.com (Cloudflare) | Public sites, CDN, edge workers, DNS |
-
-**Environments:**
-| Environment | Provider | Purpose |
-|-------------|----------|---------|
-| US Cloud | Cloudflare Pages/Workers (Global) | Landing pages, dashboard SPA, edge API |
-| EU Cloud | Google Cloud Run + Supabase (europe-north1) | Backend API, AI agents, database, auth |
-| Aiwen | EU Cloud overlay (EU-only) | Article 12 logging, reasoning lineage |
-| Hetzner (V3) | Hetzner Helsinki | Jitsi Meet, email (Firehorse V3) |
-
-**Other targets:** Temporal.io (orchestration), Scaleway (backup), NVIDIA Jetson Orin Nano (edge AI).
+ERP integrations live in `src/integrations/erp/` and ESG integrations in `src/integrations/esg/`. Keep worktree hygiene strict: copied `.env/.mcp.json/.claude`, shared `.gitignore`, symlinked `.venv`, and clean `git status` before commit.
 
 ## Git Workflow
 
@@ -677,28 +525,7 @@ git push -u origin claude/<feature>-<id> --force
 
 ### Worktree Best Practices
 
-Use `New-ClaudeWorktree.ps1` / `new-claude-worktree.sh`. Never create manually. Scripts verify .gitignore, copy .env files, symlink .venv, standardize locations.
-
-**Git worktree is now the RECOMMENDED workflow** for parallel Claude Code sessions.
-
-The January 2026 security incident was caused by manual worktree creation without proper config file handling. The new automated scripts (`New-ClaudeWorktree.ps1` / `new-claude-worktree.sh`) prevent these issues by:
-
-1. **Verifying .gitignore** - Checks for critical security patterns before creating worktree
-2. **Copying .env files** - Each worktree gets its own copy (not shared/symlinked)
-3. **Symlinking .venv** - Safe because venv is already gitignored
-4. **Standardized locations** - Worktrees go to `~/.claude-worktrees/dws6/` (not random folders)
-
-**DO NOT create worktrees manually.** Always use the provided scripts:
-
-```bash
-# Windows
-.\scripts\New-ClaudeWorktree.ps1 -BranchName "your-branch"
-
-# Linux/macOS/Chromebook
-./scripts/new-claude-worktree.sh your-branch
-```
-
-See [Section 4: Claude Code Worktree Workflow](#4-claude-code-worktree-workflow-recommended) for full documentation.
+Use `New-ClaudeWorktree.ps1` / `new-claude-worktree.sh` only; this is mandatory and replaces manual worktree setup.
 
 ## Database Safety Rules (SQL)
 
