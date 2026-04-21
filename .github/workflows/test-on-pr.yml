@@ -41,7 +41,6 @@ jobs:
 
       - name: Run TypeScript type check
         run: npx tsc --noEmit --pretty
-        continue-on-error: true
 
       - name: Run tests
         run: npm test -- --run --reporter=verbose
