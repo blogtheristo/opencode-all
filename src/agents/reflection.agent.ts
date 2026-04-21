@@ -59,6 +59,37 @@ export class ReflectionAgent extends BaseAgent {
     const reflectionInput = input as unknown as ReflectionInput;
     const { agentOutput, qualityThreshold = 0.7 } = reflectionInput;
 
+    // Validate input — reflection requires a well-formed AgentResponse to evaluate
+    if (!agentOutput || typeof agentOutput !== 'object') {
+      throw new Error(
+        'Reflection agent requires "agentOutput" field containing an AgentResponse object',
+      );
+    }
+    const missing: string[] = [];
+    if (typeof agentOutput.agentName !== 'string' || agentOutput.agentName.length === 0) {
+      missing.push('agentName (string)');
+    }
+    if (typeof agentOutput.confidence !== 'number') {
+      missing.push('confidence (number)');
+    }
+    if (typeof agentOutput.reasoning !== 'string') {
+      missing.push('reasoning (string)');
+    }
+    if (!Array.isArray(agentOutput.recommendations)) {
+      missing.push('recommendations (array)');
+    }
+    if (!agentOutput.result || typeof agentOutput.result !== 'object') {
+      missing.push('result (object)');
+    }
+    if (!agentOutput.metadata || typeof agentOutput.metadata !== 'object') {
+      missing.push('metadata (object)');
+    }
+    if (missing.length > 0) {
+      throw new Error(
+        `Reflection agent input invalid — agentOutput missing or malformed fields: ${missing.join(', ')}`,
+      );
+    }
+
     logger.info('Reflection agent evaluating output', {
       targetAgent: agentOutput.agentName,
       projectId: context.projectId,

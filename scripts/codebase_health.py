@@ -87,7 +87,6 @@ def analyze_agents(base_path: str) -> dict:
                     "has_error_handling": "try {" in content and "catch" in content,
                     "has_logging": "logExecution" in content,
                     "has_llm": "callLLM" in content,
-                    "has_tests": False,  # Updated below
                 })
 
     return {

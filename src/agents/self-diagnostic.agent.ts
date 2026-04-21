@@ -33,6 +33,14 @@ interface DiagnosticFinding {
 
 type DiagnosticScope = 'full' | 'agents' | 'tests' | 'security' | 'types';
 
+const VALID_SCOPES: ReadonlyArray<DiagnosticScope> = [
+  'full',
+  'agents',
+  'tests',
+  'security',
+  'types',
+];
+
 interface SelfDiagnosticInput {
   scope: DiagnosticScope;
   basePath?: string;
@@ -63,8 +71,19 @@ export class SelfDiagnosticAgent extends BaseAgent {
   ): Promise<AgentResponse> {
     const startTime = Date.now();
     const diagnosticInput = input as unknown as SelfDiagnosticInput;
-    const scope = diagnosticInput.scope || 'full';
+    const requestedScope = diagnosticInput.scope;
     const basePath = diagnosticInput.basePath || process.cwd();
+
+    // Validate scope — reject unknown values rather than silently running no checks
+    if (
+      requestedScope !== undefined &&
+      !VALID_SCOPES.includes(requestedScope as DiagnosticScope)
+    ) {
+      throw new Error(
+        `Invalid scope "${requestedScope}". Must be one of: ${VALID_SCOPES.join(', ')}`,
+      );
+    }
+    const scope: DiagnosticScope = requestedScope || 'full';
 
     logger.info('Self-diagnostic agent executing', {
       scope,

@@ -276,6 +276,51 @@ describe('Reflection Agent - Quality Evaluation', () => {
   });
 });
 
+// ============ INPUT VALIDATION TESTS ============
+
+describe('Self-Diagnostic Agent - Input Validation', () => {
+  let registry: AgentRegistry;
+
+  beforeEach(() => {
+    registry = new AgentRegistry();
+  });
+
+  it('should reject invalid scope values', async () => {
+    await expect(
+      registry.executeAgent('self-diagnostic', testContext, {
+        scope: 'foo',
+      }),
+    ).rejects.toThrow(/Invalid scope/);
+  });
+
+  it('should accept undefined scope and default to full', async () => {
+    const result = await registry.executeAgent('self-diagnostic', testContext, {});
+    expect((result.result as any).scope).toBe('full');
+  });
+});
+
+describe('Reflection Agent - Input Validation', () => {
+  let registry: AgentRegistry;
+
+  beforeEach(() => {
+    registry = new AgentRegistry();
+  });
+
+  it('should reject missing agentOutput', async () => {
+    await expect(
+      registry.executeAgent('reflection', testContext, {}),
+    ).rejects.toThrow(/requires "agentOutput"/);
+  });
+
+  it('should reject malformed agentOutput (missing fields)', async () => {
+    await expect(
+      registry.executeAgent('reflection', testContext, {
+        agentOutput: { agentName: 'x' },
+      }),
+    ).rejects.toThrow(/missing or malformed fields/);
+  });
+});
+
 // ============ AGENT RESPONSE CONTRACT TESTS ============
 
 describe('Agent Response Contract', () => {
