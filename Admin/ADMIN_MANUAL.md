@@ -109,6 +109,7 @@ All admin manuals across the DWS6 repository, organized by domain.
 |--------|----------|----------|-------------|
 | **Firehorse Omnichannel** | [`Admin/Firehorse_Omnichannel_Next_Admin_Manual.md`](Firehorse_Omnichannel_Next_Admin_Manual.md) | EN | Omnichannel product operations |
 | **Files & Folders** | [`ADMIN_MANUAL_FILES_AND_FOLDERS.md`](ADMIN_MANUAL_FILES_AND_FOLDERS.md) | EN | Repository structure, backup infrastructure |
+| **Port Mapping** | [`PORT_MAPPING.md`](PORT_MAPPING.md) | EN | Docker/host port allocation, conflict prevention |
 
 ### Related Documentation
 

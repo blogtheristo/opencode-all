@@ -16,10 +16,20 @@ import userRoutes from './routes/user.routes.js';
 import climateAssistantRoutes from './routes/climate-assistant.routes.js';
 import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes.js';
 import outreachRoutes from './routes/outreach.routes.js';
+import emailRoutes from './routes/email.routes.js';
 import webhookRoutes from './routes/webhook.routes.js';
 import { outreachScheduler } from './outreach/index.js';
+import { morningBriefingScheduler } from './morning-briefing/index.js';
+import { emailQueue } from './services/email-queue.service.js';
 
-dotenv.config();
+if (process.env.NODE_ENV !== 'production') {
+  // In non-production environments, load .env from the repository root for local development
+  const envPath = path.join(path.dirname(fileURLToPath(import.meta.url)), '../.env');
+  dotenv.config({ path: envPath });
+} else {
+  // In production, rely on runtime environment variables and default dotenv behavior (if any)
+  dotenv.config();
+}
 
 const app: Express = express();
 const PORT = process.env.PORT || 8080; // Cloud Run default
@@ -134,6 +144,7 @@ app.get('/health', (_req: Request, res: Response) => {
     features: {
       climateAssistant: !!process.env.GROQ_API_KEY,
       gatedAccess: true,
+      emailQueue: emailQueue.isAvailable(),
     },
   });
 });
@@ -157,6 +168,9 @@ app.use('/api/v2/climate-assistant', climateAssistantGatedRoutes);
 
 // Outreach inbound intake (shared secret auth via X-Outreach-Key)
 app.use('/api/v1/outreach', outreachRoutes);
+
+// Email sending API (queued via Redis Streams)
+app.use('/api/v1/email', emailRoutes);
 
 // Webhooks (Resend inbound email for digest replies)
 app.use('/webhooks', webhookRoutes);
@@ -202,30 +216,49 @@ const server = app.listen(PORT, () => {
     logger.warn('GROQ_API_KEY not configured - Climate Assistant will not work');
   }
 
-  // Start outreach digest scheduler (06:00 Helsinki, Mon-Fri)
-  if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_KEY) {
-    outreachScheduler.start();
+  // Start morning briefing scheduler (06:00 Helsinki, Mon-Sat)
+  // Combines: outreach digest + Firehorse leads + platform status + reports
+  if (process.env.RESEND_API_KEY || process.env.SENDGRID_API_KEY) {
+    morningBriefingScheduler.start();
   } else {
-    logger.warn('Supabase not configured — outreach scheduler disabled');
+    logger.warn('No email provider configured — morning briefing scheduler disabled');
   }
+
+  // Initialize email queue (Redis Streams)
+  emailQueue.initialize().then((ready) => {
+    if (ready) {
+      emailQueue.start();
+      logger.info('Email queue worker started (Redis Streams)');
+    } else {
+      logger.info('Email queue unavailable — emails will be sent directly');
+    }
+  }).catch((err) => {
+    logger.warn('Email queue init error — emails will be sent directly', {
+      error: err.message,
+    });
+  });
 });
 
 // Graceful shutdown (Cloud Run sends SIGTERM)
 process.on('SIGTERM', () => {
   logger.info('SIGTERM signal received: closing HTTP server');
-  outreachScheduler.stop();
-  server.close(() => {
-    logger.info('HTTP server closed');
-    process.exit(0);
+  morningBriefingScheduler.stop();
+  emailQueue.shutdown().finally(() => {
+    server.close(() => {
+      logger.info('HTTP server closed');
+      process.exit(0);
+    });
   });
 });
 
 process.on('SIGINT', () => {
   logger.info('SIGINT signal received: closing HTTP server');
-  outreachScheduler.stop();
-  server.close(() => {
-    logger.info('HTTP server closed');
-    process.exit(0);
+  morningBriefingScheduler.stop();
+  emailQueue.shutdown().finally(() => {
+    server.close(() => {
+      logger.info('HTTP server closed');
+      process.exit(0);
+    });
   });
 });
 

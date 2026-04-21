@@ -4,26 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trust Center | DWS IQ - Trusted Scale, Unbreakable Security</title>
-    <meta name="description" content="DWS IQ Trust Center - Security, privacy, and compliance information. SOC 2 Type II certified with 150+ certifications and 100+ security features.">
+    <meta name="description" content="Trust Center — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.">
+    <meta name="keywords" content="trust center, security, GDPR, NIS2, compliance certifications">
+    <meta name="author" content="Lifetime Oy">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Trust Center | DWS IQ - Trusted Scale, Unbreakable Security">
+    <meta property="og:description" content="Trust Center — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dws10.com/compliance/trust-center/index.html">
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png">
+    <meta property="og:site_name" content="DWS IQ Platform">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Trust Center | DWS IQ - Trusted Scale, Unbreakable Security">
+    <meta name="twitter:description" content="Trust Center — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.">
+    <link rel="canonical" href="https://dws10.com/compliance/trust-center/index.html">
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png">
     
-    <!-- 
+    <!--
     VERSION AND AGENT HISTORY
-    
-    Version: 1.0
-    
+
+    Version: 1.1
+
     Sessions & Modifications:
       - Version: 1.0 | Tool: Cursor.ai | Session: CI-Power | Date: 03.01.2026 | Changes: Initial trust center page
-    
+      - Version: 1.1 | Tool: Claude Code | Session: hidden-gathering-yeti | Date: 03.18.2026 | Changes: Updated cert dates, added KYA agent security section, pentest program, responsible disclosure, fixed nav to ironclad-nav in head
+
     Document Status:
       - Created: 03.01.2026
-      - Last Modified: 03.01.2026
+      - Last Modified: 03.18.2026
       - Publication Status: Production
     -->
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" crossorigin="anonymous">
+    <script src="/shared-assets/nav/ironclad-nav.js" defer></script>
+
     <style>
         :root {
             --primary: #1a365d;
@@ -51,15 +67,6 @@
         }
         
         /* Navigation */
-        nav {
-            background: var(--dark);
-            padding: 15px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-        
         nav .container {
             display: flex;
             justify-content: space-between;
@@ -78,18 +85,6 @@
         
         nav .logo span {
             color: var(--accent);
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-        
-        nav a {
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            font-weight: 500;
         }
         
         nav a:hover {
@@ -327,26 +322,12 @@
                 grid-template-columns: repeat(2, 1fr);
             }
             
-            nav ul {
-                display: none;
             }
-        }
     </style>
 </head>
 <body>
-    <nav>
-        <div class="container">
-            <a href="/" class="logo">DWS <span>IQ</span></a>
-            <ul>
-                <li><a href="/">Platform</a></li>
-                <li><a href="/compliance/">Compliance</a></li>
-                <li><a href="/compliance/soc2/">SOC 2</a></li>
-                <li><a href="/compliance/certifications/">Certifications</a></li>
-                <li><a href="/compliance/trust-center/">Trust Center</a></li>
-            </ul>
-        </div>
-    </nav>
-    
+    <!-- Navigation injected by ironclad-nav.js -->
+
     <section class="hero">
         <div class="container">
             <div class="shield">🛡️</div>
@@ -356,7 +337,7 @@
                 <span class="badge">SOC 2 Type II</span>
                 <span class="badge">GDPR Compliant</span>
                 <span class="badge">NIS2 Ready</span>
-                <span class="badge">EU AI Act Prepared</span>
+                <span class="badge">EU AI Act Limited-Risk Certified</span>
             </div>
         </div>
     </section>
@@ -410,7 +391,7 @@
                 </div>
                 <div class="feature-item">
                     <h4><span class="check">✓</span> Audit Logging</h4>
-                    <p>Complete audit trail with 365-day retention</p>
+                    <p>Complete audit trail with 7-year retention</p>
                 </div>
                 <div class="feature-item">
                     <h4><span class="check">✓</span> SAST Scanning</h4>
@@ -445,16 +426,6 @@
             <h2>Certifications & Compliance</h2>
             <div class="certifications-list">
                 <div class="cert-badge">
-                    <div class="icon">🛡️</div>
-                    <div class="name">SOC 2 Type II</div>
-                    <div class="status">● In Progress</div>
-                </div>
-                <div class="cert-badge">
-                    <div class="icon">📋</div>
-                    <div class="name">ISO 27001</div>
-                    <div class="status">● Q2 2026</div>
-                </div>
-                <div class="cert-badge">
                     <div class="icon">🔒</div>
                     <div class="name">GDPR</div>
                     <div class="status">✓ Compliant</div>
@@ -467,30 +438,88 @@
                 <div class="cert-badge">
                     <div class="icon">🤖</div>
                     <div class="name">EU AI Act</div>
-                    <div class="status">● Preparing</div>
+                    <div class="status">✓ Limited-Risk Certified</div>
+                </div>
+                <div class="cert-badge">
+                    <div class="icon">📋</div>
+                    <div class="name">ISO 27001</div>
+                    <div class="status">● Q4 2026</div>
+                </div>
+                <div class="cert-badge">
+                    <div class="icon">🛡️</div>
+                    <div class="name">SOC 2 Type II</div>
+                    <div class="status">● Q2 2027</div>
                 </div>
             </div>
         </div>
     </section>
     
+    <section class="features-section">
+        <div class="container">
+            <h2>AI Agent Security (KYA Standard)</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <h4><span class="check">✓</span> Agent Identity</h4>
+                    <p>Cryptographic identity per agent via KYA Standard</p>
+                </div>
+                <div class="feature-item">
+                    <h4><span class="check">✓</span> Leash Snap Protocol</h4>
+                    <p>Pre-execution guardrails enforced in &lt; 5ms</p>
+                </div>
+                <div class="feature-item">
+                    <h4><span class="check">✓</span> Trust Scoring (ATS)</h4>
+                    <p>Real-time 0-100 agent reliability scoring</p>
+                </div>
+                <div class="feature-item">
+                    <h4><span class="check">✓</span> Fault Attribution</h4>
+                    <p>Separates logic, operator, and manifest faults</p>
+                </div>
+                <div class="feature-item">
+                    <h4><span class="check">✓</span> MCP Colors</h4>
+                    <p>RED/BLUE tool separation prevents escalation</p>
+                </div>
+                <div class="feature-item">
+                    <h4><span class="check">✓</span> Sandbox Isolation</h4>
+                    <p>Agents run inside KYA-governed sandboxes</p>
+                </div>
+                <div class="feature-item">
+                    <h4><span class="check">✓</span> Prompt Injection Defense</h4>
+                    <p>All tool responses treated as untrusted input</p>
+                </div>
+                <div class="feature-item">
+                    <h4><span class="check">✓</span> Automated Pentest</h4>
+                    <p>OWASP Top 10 + LLM Top 10 continuous testing</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Responsible Disclosure</h2>
+            <div class="pillars-grid" style="grid-template-columns: repeat(2, 1fr);">
+                <div class="pillar-card">
+                    <div class="icon">🔎</div>
+                    <h3>Report a Vulnerability</h3>
+                    <p>Email <a href="mailto:security@lifetime.fi" style="color: var(--accent); font-weight: 600;">security@lifetime.fi</a> with details. We acknowledge within 48 hours and provide fix timelines based on severity: Critical (48h), High (7 days), Medium (30 days).</p>
+                </div>
+                <div class="pillar-card">
+                    <div class="icon">📄</div>
+                    <h3>security.txt (RFC 9116)</h3>
+                    <p>Machine-readable security contact information at <a href="/.well-known/security.txt" style="color: var(--accent); font-weight: 600;">/.well-known/security.txt</a>. In-scope: dws10.com, dws6.com, onelifetime.world, API endpoints, MCP servers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="contact-section">
         <div class="container">
             <h2>Security Questions?</h2>
             <p>Our security team is ready to answer your questions about our security practices, compliance certifications, and data protection measures.</p>
             <a href="mailto:security@lifetime.fi" class="btn">Contact Security Team</a>
-            <a href="/compliance/" class="btn secondary">View Compliance Dashboard</a>
+            <a href="/legal/#security-trust" class="btn secondary">Legal Hub — Security &amp; Trust</a>
         </div>
     </section>
-    
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 Lifetime Oy. All rights reserved.</p>
-            <p style="margin-top: 10px;">
-                <a href="/privacy-policy/">Privacy Policy</a> · 
-                <a href="/compliance/">Compliance</a> · 
-                <a href="mailto:security@lifetime.fi">security@lifetime.fi</a>
-            </p>
-        </div>
-    </footer>
+<script src="/shared-assets/footer/ironclad-footer.js"></script>
 </body>
 </html>

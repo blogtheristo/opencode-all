@@ -18,7 +18,7 @@ def send_weekly_report():
     """Send weekly reports in English and Finnish"""
 
     # Email configuration
-    sender_email = os.getenv("SMTP_SENDER", "noreply@dws6.com")
+    sender_email = os.getenv("SMTP_SENDER", "risto@onelifetime.world")
     sender_password = os.getenv("SMTP_PASSWORD")
     smtp_server = os.getenv("SMTP_SERVER", "smtp.gmail.com")
     smtp_port = int(os.getenv("SMTP_PORT", "587"))
@@ -130,7 +130,7 @@ Status: 🟢 ON TRACK
         server.send_message(msg)
         server.quit()
 
-        print(f"✅ Weekly report sent to {recipient_email}")
+        print(f"📧 WEEKLY REPORT SENT: From: {sender_email} | To: {recipient_email} | Subject: {msg['Subject']}")
         print("📎 Attached: DWS6_Weekly_Report_EN.pdf, DWS6_Weekly_Report_FI.pdf")
         return True
 

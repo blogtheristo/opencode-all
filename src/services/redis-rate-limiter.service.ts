@@ -10,7 +10,7 @@
  */
 
 import Redis from 'ioredis';
-import { Request, Response, NextFunction } from 'express';
+import { type NextFunction, type Request, type Response } from 'express';
 import crypto from 'crypto';
 import logger from '../utils/logger.js';
 
@@ -63,8 +63,10 @@ async function initializeRedis(): Promise<void> {
   }
 }
 
-// Initialize on module load if Redis is configured
-if (REDIS_URL || REDIS_HOST) {
+// Initialize on module load only if Redis is explicitly configured.
+// REDIS_HOST has a 'localhost' default so we check the raw env var here
+// to avoid an unwanted connection attempt in CI / test environments.
+if (REDIS_URL || process.env.REDIS_HOST) {
   initializeRedis().catch(() => {});
 }
 
@@ -72,10 +74,10 @@ if (REDIS_URL || REDIS_HOST) {
  * Rate limiter configuration
  */
 interface RateLimitConfig {
-  windowMs: number;      // Time window in milliseconds
-  maxAttempts: number;   // Max attempts per window
-  keyPrefix: string;     // Redis key prefix
-  keyGenerator?: (req: Request) => string;  // Custom key generator
+  windowMs: number; // Time window in milliseconds
+  maxAttempts: number; // Max attempts per window
+  keyPrefix: string; // Redis key prefix
+  keyGenerator?: (req: Request) => string; // Custom key generator
 }
 
 /**
@@ -84,14 +86,17 @@ interface RateLimitConfig {
 const inMemoryStore = new Map<string, { count: number; resetTime: number }>();
 
 // Cleanup in-memory store periodically
-setInterval(() => {
-  const now = Date.now();
-  for (const [key, data] of inMemoryStore.entries()) {
-    if (now > data.resetTime) {
-      inMemoryStore.delete(key);
+setInterval(
+  () => {
+    const now = Date.now();
+    for (const [key, data] of inMemoryStore.entries()) {
+      if (now > data.resetTime) {
+        inMemoryStore.delete(key);
+      }
     }
-  }
-}, 60 * 60 * 1000); // Every hour
+  },
+  60 * 60 * 1000,
+); // Every hour
 
 /**
  * Create a rate limiter middleware
@@ -142,7 +147,11 @@ export function createRateLimiter(config: RateLimitConfig) {
             const remainingMs = data.resetTime - now;
             const remainingMinutes = Math.ceil(remainingMs / 1000 / 60);
 
-            logger.warn('Rate limit exceeded (in-memory)', { key, attempts: data.count, maxAttempts });
+            logger.warn('Rate limit exceeded (in-memory)', {
+              key,
+              attempts: data.count,
+              maxAttempts,
+            });
 
             return res.status(429).json({
               error: 'Too many requests',
@@ -153,11 +162,11 @@ export function createRateLimiter(config: RateLimitConfig) {
         }
       }
 
-      next();
+      return next();
     } catch (error) {
       // If rate limiting fails, allow the request (fail-open)
       logger.error('Rate limiter error', { error: (error as Error).message });
-      next();
+      return next();
     }
   };
 }
@@ -167,7 +176,7 @@ export function createRateLimiter(config: RateLimitConfig) {
  * 5 attempts per 15 minutes per email
  */
 export const loginRateLimiter = createRateLimiter({
-  windowMs: 15 * 60 * 1000,  // 15 minutes
+  windowMs: 15 * 60 * 1000, // 15 minutes
   maxAttempts: 5,
   keyPrefix: 'ratelimit:login',
   keyGenerator: (req: Request) => {
@@ -185,7 +194,7 @@ export const loginRateLimiter = createRateLimiter({
  * 100 requests per minute per IP
  */
 export const apiRateLimiter = createRateLimiter({
-  windowMs: 60 * 1000,  // 1 minute
+  windowMs: 60 * 1000, // 1 minute
   maxAttempts: 100,
   keyPrefix: 'ratelimit:api',
 });
@@ -195,7 +204,7 @@ export const apiRateLimiter = createRateLimiter({
  * 3 registrations per hour per IP
  */
 export const registrationRateLimiter = createRateLimiter({
-  windowMs: 60 * 60 * 1000,  // 1 hour
+  windowMs: 60 * 60 * 1000, // 1 hour
   maxAttempts: 3,
   keyPrefix: 'ratelimit:register',
 });

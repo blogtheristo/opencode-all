@@ -1,6 +1,6 @@
 # Greg Brockman on Retooling Teams for Agentic Software Development
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.0

@@ -2,16 +2,26 @@
 
 Tracked in Supabase `outreach_contacts` table (pipeline = 'partner').
 
+**Last updated:** 2026-02-24
+
 ## Priority Targets
 
-| # | Company | Type | Why | Status |
-|---|---------|------|-----|--------|
-| 1 | **One Click LCA** | Technology | Their LCA output = our input. Helsinki. | New |
-| 2 | **IFS Cloud** | Integration | Our best ERP connector. Asset-intensive industries. | New |
-| 3 | **SAP** | Integration | Largest ERP. PartnerEdge listing. | New |
-| 4 | **Soldera** (Oliver Bonallack) | Advisory | Renewable cert compliance. Same regulatory-workflow DNA. Boardy intro. | Intro requested |
-| 5 | **Rakennustieto** | Data | Finnish construction standards. CO2data.fi. | New |
-| 6 | **Big 4 (EY/KPMG/Deloitte/PwC)** | Reseller | CSRD advisory practices need tools. | Backlog |
+| # | Company | Type | Contact | Why | Status | Pitch Doc | Next Action |
+|---|---------|------|---------|-----|--------|-----------|-------------|
+| 1 | **One Click LCA** | Technology | Panu Pasanen (CEO) via Simon Sim | Their LCA output = our input. Helsinki. | **Pitch ready** | [ONECLICKLCA_PARTNERSHIP_PITCH.md](ONECLICKLCA_PARTNERSHIP_PITCH.md) | Send Simon Sim intro TODAY |
+| 2 | **IFS Cloud** | Integration | ISV Partner Program | Our best ERP connector. Asset-intensive industries. | **Pitch ready** | [IFS_CLOUD_PARTNERSHIP_PITCH.md](IFS_CLOUD_PARTNERSHIP_PITCH.md) | Submit ISV application this week |
+| 3 | **SAP** | Integration | SAP PartnerEdge Build | Largest ERP. Sustainability Control Tower gap. | **Pitch ready** | [SAP_PARTNEREDGE_PITCH.md](SAP_PARTNEREDGE_PITCH.md) | Submit Build application this week |
+| 4 | **GreeniumDC** | Strategic Alliance | Anna Gueorguieva (CSO) | Data aggregation + predictive analytics. 50+ asset managers. | **Follow-up due** | [GREENIUMDC_FOLLOWUP.md](GREENIUMDC_FOLLOWUP.md) | Day 5 follow-up Feb 25 |
+| 5 | **Soldera** (Oliver Bonallack) | Advisory | Oliver Bonallack (Founders Associate) | Renewable cert compliance. Same DNA. Boardy intro. | **Stalled — escalate** | [BOARDY_ESCALATION_COLBRIDGE_SOLDERA.md](BOARDY_ESCALATION_COLBRIDGE_SOLDERA.md) | Escalate with Boardy TODAY |
+| 6 | **Rakennustieto** | Data | Laura Apilo (MD) | Finnish construction standards. CO2data.fi. | **Pitch ready** | [RAKENNUSTIETO_PARTNERSHIP_PITCH.md](RAKENNUSTIETO_PARTNERSHIP_PITCH.md) | Email Laura this week |
+| 7 | **Big 4 (EY/KPMG/Deloitte/PwC)** | Reseller | — | CSRD advisory practices need tools. | Backlog | — | Find Nordic sustainability lead |
+| 8 | **Red Hat** | Technology | Mikko Pylväs (Red Hat Finland) | AgentOps BYOA platform. OpenShift AI for agent deployment. Joint NVIDIA work on secure AI infra. Hosted AI event in Finland Mar 2026. | **Active — event contact** | — | Follow up Mikko's AI event themes, propose DWS IQ integration |
+
+## Investor Pipeline (Stalled)
+
+| Contact | Company | Status | Next Action | Doc |
+|---------|---------|--------|-------------|-----|
+| **Nicolas Derrien** | Colbridge Ventures (€250K) | **Stalled — Boardy 2+ weeks** | Escalate TODAY, direct fallback Feb 28 | [BOARDY_ESCALATION_COLBRIDGE_SOLDERA.md](BOARDY_ESCALATION_COLBRIDGE_SOLDERA.md) |
 
 ## Positioning for Partners
 
@@ -19,4 +29,18 @@ Tracked in Supabase `outreach_contacts` table (pipeline = 'partner').
 
 ## Boardy Connections
 
-- **Oliver Bonallack** (Soldera) — Founder's Associate. Climate compliance ops for renewable certification. EU regulatory workflows. Not a check writer, but deep in regulation-to-workflow automation. Useful for playbooks, partnerships, UK/EU climate intros.
+- **Oliver Bonallack** (Soldera) — Founders Associate. Climate compliance ops for renewable certification. EU regulatory workflows. **Status: intro_requested 2+ weeks, escalating.**
+- **Nicolas Derrien** (Colbridge Ventures) — Partner. Pre-seed/seed climate tech VC. $250K checks. **Status: intro_requested 2+ weeks, escalating.**
+
+## This Week's Action Plan (Feb 24-28)
+
+| Date | Action | Target |
+|------|--------|--------|
+| **Feb 24 (Today)** | Send Simon Sim warm intro for One Click LCA | One Click LCA |
+| **Feb 24 (Today)** | Send Boardy escalation for Nicolas + Oliver | Colbridge + Soldera |
+| **Feb 25** | Send Day 5 follow-up to Anna Gueorguieva | GreeniumDC |
+| **Feb 25-26** | Submit IFS ISV Partner application | IFS Cloud |
+| **Feb 25-26** | Submit SAP PartnerEdge Build application | SAP |
+| **Feb 26-27** | Email Laura Apilo (Finnish language pitch) | Rakennustieto |
+| **Feb 28** | If no Boardy response → direct LinkedIn to Nicolas + Oliver | Colbridge + Soldera |
+| **Mar 1** | If no Simon Sim response → direct pitch to Panu Pasanen | One Click LCA |

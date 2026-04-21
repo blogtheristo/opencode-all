@@ -1,10 +1,10 @@
 # Admin Manual: Security Testing & Validation
 ## Running and Maintaining Security Test Suite
 
-**Document Version**: 1.0.0  
-**Date**: January 2, 2026  
-**Classification**: Internal - Admin Only  
-**Test Suite**: `tests/security/`  
+**Document Version**: 1.1.0
+**Date**: March 18, 2026
+**Classification**: Internal - Admin Only
+**Test Suite**: `tests/security/` (unit tests), `pentest/` (penetration tests)
 **Responsible**: Security Team & QA Team
 
 ---
@@ -541,14 +541,128 @@ python scripts/security/generate_test_report.py --month 2026-01
 
 ---
 
+## Penetration Testing Toolkit (`pentest/`)
+
+### Overview
+
+The `pentest/` directory contains 12 automated penetration testing scripts covering OWASP Top 10 (2021) and OWASP LLM Top 10 (2025). These scripts are for **authorized internal security assessment only** — see the full plan at `docs/field-notes/2026-03-16-pentesting-plan-dws6.md`.
+
+**Authorization:** Lifetime Oy (platform owner) internal assessment against own infrastructure.
+
+### Quick Start
+
+```bash
+# Run all phases (recon → vuln → exploit → ai)
+python3 pentest/run.py --phase all
+
+# Run a single phase
+python3 pentest/run.py --phase recon
+python3 pentest/run.py --phase vuln
+python3 pentest/run.py --phase exploit
+python3 pentest/run.py --phase ai
+
+# Retest Feb 2026 findings only
+python3 pentest/run.py --phase retest
+
+# List all test cases
+python3 pentest/run.py --list
+
+# Run specific test by ID
+python3 pentest/run.py --test E-22
+```
+
+Reports are saved to `pentest/reports/` (gitignored).
+
+### Script Inventory
+
+#### Phase 1: Reconnaissance (`pentest/recon/`)
+
+| Script | Purpose | Targets |
+|--------|---------|---------|
+| `endpoint-discovery.sh` | Discovers API endpoints, hidden paths, admin panels | Backend API, Cloudflare Workers |
+| `mcp-enumerate.py` | Enumerates MCP tools, agents, capabilities | MCP Hub (port 8765) |
+| `sri-audit.sh` | Audits Subresource Integrity on CDN dependencies | Public HTML pages |
+
+#### Phase 2: Vulnerability Assessment (`pentest/vuln-assess/`)
+
+| Script | Purpose | Targets |
+|--------|---------|---------|
+| `auth-audit.py` | Tests authentication flows, session management, JWT handling | Supabase Auth, backend API |
+| `cors-probe.py` | Tests CORS misconfigurations (wildcard, null origin, credential leaks) | All HTTP endpoints |
+| `dependency-scan.sh` | Scans npm/pip dependencies for known CVEs | `package.json`, `requirements.txt` |
+
+#### Phase 3: Exploitation (`pentest/exploit/`)
+
+| Script | Purpose | Targets |
+|--------|---------|---------|
+| `jwt-tester.py` | Tests JWT signature bypass, algorithm confusion, token forgery | Backend API auth |
+| `mcp-unauth-test.py` | Tests unauthenticated access to MCP tools and admin endpoints | MCP Hub |
+| `ssrf-probe.py` | Tests Server-Side Request Forgery via URL parameters | Backend API, Cloudflare Workers |
+
+#### Phase 4: AI/LLM-Specific (`pentest/ai-llm/`)
+
+| Script | Purpose | Targets |
+|--------|---------|---------|
+| `prompt-injection.py` | Tests direct/indirect prompt injection against AI agents | MCP agents, Claude integration |
+| `mcp-abuse.py` | Tests MCP tool chaining abuse, privilege escalation via tools | MCP Hub tool execution |
+| `lethal-trifecta.py` | Tests RED+BLUE tool combination bypass (Lethal Trifecta) | MCP Colors Framework |
+
+### Testing Schedule
+
+| Frequency | Scope | Command |
+|-----------|-------|---------|
+| **Pre-release** | All phases | `python3 pentest/run.py --phase all` |
+| **Weekly** | Recon + vuln assessment | `python3 pentest/run.py --phase recon && python3 pentest/run.py --phase vuln` |
+| **After remediation** | Retest specific findings | `python3 pentest/run.py --phase retest` |
+| **On dependency update** | Supply chain only | `bash pentest/vuln-assess/dependency-scan.sh` |
+
+### Interpreting Results
+
+Reports are JSON files in `pentest/reports/` with findings rated by severity:
+
+| Severity | Action |
+|----------|--------|
+| **CRITICAL** | Stop deployments. Fix immediately. Notify platform owner. |
+| **HIGH** | Fix before next release. Create tracking issue. |
+| **MEDIUM** | Schedule fix within 30 days. |
+| **LOW / INFO** | Log and review in next security review cycle. |
+
+### Environment Requirements
+
+- Python 3.11+ with `requests`, `jwt` (PyJWT)
+- `curl`, `jq` for shell scripts
+- Network access to staging endpoints (not production)
+- Test accounts configured in `.env` (`PENTEST_USER`, `PENTEST_PASSWORD`)
+
+### Claude Code Skill
+
+Run pentests directly from Claude Code:
+
+```
+/pentest              # Run all phases
+/pentest recon        # Recon phase only
+/pentest ai           # AI/LLM tests only
+```
+
+### Safety Rules
+
+1. **Never run against production** without explicit approval — staging/dev only by default
+2. **No data exfiltration** — proof-of-concept only
+3. **No persistence** — no implants, backdoors, or C2
+4. **No lateral movement** beyond defined scope
+5. **CRITICAL findings** reported immediately to platform owner
+6. **Reports are gitignored** — never commit pentest results to the repository
+
+---
+
 ## Support
 
-**Security Team**: security@dws10.com  
-**QA Team**: qa@dws10.com  
+**Security Team**: security@dws10.com
+**QA Team**: qa@dws10.com
 **Emergency**: risto@lifetime.fi
 
 ---
 
-**Last Updated**: January 2, 2026  
-**Next Review**: April 1, 2026  
+**Last Updated**: March 18, 2026
+**Next Review**: June 18, 2026
 **Document Owner**: Security Team & QA Team

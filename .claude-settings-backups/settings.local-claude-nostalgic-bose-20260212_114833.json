@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command:*)",
+      "Bash(powershell -NoProfile -Command:*)",
+      "Bash(pandoc:*)",
+      "Bash(pip install:*)",
+      "Bash(python -c:*)",
+      "Bash(python -X utf8 -c:*)",
+      "Bash(ls:*)",
+      "Bash(python:*)"
+    ]
+  }
+}

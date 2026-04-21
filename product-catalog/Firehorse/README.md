@@ -1,10 +1,10 @@
 # Firehorse - Product Catalog
-**Forensic AI Platform for Fit for 55 Compliance**
+**Forensic AI & Sovereign Communication Platform**
 
 Product Family: Firehorse
-Current Version: V2 (NVIDIA Inception Submission)
+Current Version: V3 (SME Communication & Compliance)
 Status: In Development
-Brand Color: #76B900 (NVIDIA Green)
+Brand Colors: #76B900 (NVIDIA Green / V2), #2563eb (DWS Blue / V3)
 
 ---
 
@@ -14,7 +14,8 @@ Brand Color: #76B900 (NVIDIA Green)
 |---------|------|--------|-------------|
 | **V1** | 2024-2025 | Legacy | Firehorse Report V1 (original reporting tool) |
 | **V2** | 2026-01-23 | Active | NVIDIA Aerial Omniverse + Forensic AI rewrite |
-| **V3** | TBD | Planned | Post-Inception production deployment |
+| **V3** | 2026-02-14 | Active | SME Communication & Compliance (Jitsi + Email, €9.99/mo) |
+| **V4** | TBD | Planned | Post-Inception production deployment |
 
 ---
 
@@ -268,21 +269,26 @@ LWM V1 (Persistent Memory) → Firehorse V2 (Forensic Analysis) → DWS IQ Dashb
 ### V1/ - Legacy Firehorse Report
 - (Future: Migration of original Firehorse Report V1 content)
 
-### V2/ - NVIDIA Inception Submission (Current)
+### V2/ - NVIDIA Inception Submission (Enterprise)
 - `product-specification.md` - Full technical specification (523 lines)
 - `google-merchant-product.json` - Google Merchant Center feed
-- (Future: `technical-benchmarks.md`, `customer-testimonials.md`)
+
+### V3/ - SME Communication & Compliance (Current)
+- `product-specification.md` - Jitsi Meet + Email + Compliance (€9.99/mo)
+- `google-merchant-product.json` - Google Merchant Center feed
 
 ---
 
 ## Integration Points
 
 **Website:**
-- Primary: https://dws10.com/products/firehorse-reports.html
+- V2 Enterprise: https://dws10.com/products/firehorse-reports.html
+- V3 SME: https://dws6.com/products/firehorse-v3
 - Product Listing: https://dws10.com/products/
 
 **Data Sources:**
-- Google Merchant: `product-catalog/Firehorse/V2/google-merchant-product.json`
+- V2 Google Merchant: `product-catalog/Firehorse/V2/google-merchant-product.json`
+- V3 Google Merchant: `product-catalog/Firehorse/V3/google-merchant-product.json`
 - NVIDIA Application: `product-catalog/Firehorse/V2/product-specification.md`
 - Sales Deck: Extract from this README + use cases
 
@@ -296,7 +302,7 @@ LWM V1 (Persistent Memory) → Firehorse V2 (Forensic Analysis) → DWS IQ Dashb
 **Product Owner:** Product Management
 **Technical Owner:** AI Engineering Team
 **Marketing Owner:** Marketing & Sales Enablement
-**Last Updated:** 2026-01-23
-**Session:** r6bU3
+**Last Updated:** 2026-02-14
+**Session:** 01Uyf3ZyeW3UQhotzJVEpo7s
 
-© 2026 Lifetime Oy · Firehorse V2 Forensic AI Platform
+© 2026 Lifetime Oy · Firehorse Product Family

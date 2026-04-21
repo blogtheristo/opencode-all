@@ -47,37 +47,26 @@ jobs:
           # List the report
           ls -la audit-report-*.md
 
-      # --- PHASE 2: Fetch Aikido Zen Attack Data ---
-      # Note: AIKIDO_API_TOKEN is optional - workflow will use sample data if not configured
-      - name: Fetch Aikido Zen Attack Data
+      # --- PHASE 2: Fetch ZenFree Attack Data ---
+      # ZenFree logs attacks to security-attacks.jsonl (local file, no API needed)
+      - name: Fetch ZenFree Attack Data
         id: aikido
-        env:
-          AIKIDO_API_TOKEN: ${{ secrets.AIKIDO_API_TOKEN }}
         run: |
-          # Check if Aikido API token is available
-          if [ -n "$AIKIDO_API_TOKEN" ]; then
-            echo "Fetching live data from Aikido Zen API..."
-            curl -H "Authorization: Bearer $AIKIDO_API_TOKEN" \
-              "https://api.aikido.dev/v1/attacks?since=30d" \
-              > aikido-attacks.json || echo "API call failed, using sample data"
-          fi
+          echo "Reading ZenFree attack logs..."
           
-          # Fallback to sample data if token is missing or API call failed
-          if [ ! -s aikido-attacks.json ]; then
-            echo "Using sample data (Aikido API token not configured or API failed)"
-            cat > aikido-attacks.json << 'EOF'
-          {
-            "attacks": [
-              {
-                "timestamp": "2025-12-22T10:30:00Z",
-                "attack_type": "sql_injection",
-                "endpoint": "/api/v1/customer/{id}",
-                "severity": "high",
-                "detected_by": "aikido_zen"
-              }
-            ]
-          }
-          EOF
+          # Convert JSONL log to JSON array expected by correlation script
+          if [ -f security-attacks.jsonl ] && [ -s security-attacks.jsonl ]; then
+            echo '{ "attacks":' > aikido-attacks.json
+            python3 -c "
+import json, sys
+attacks = [json.loads(l) for l in open('security-attacks.jsonl') if l.strip()]
+json.dump(attacks, sys.stdout, indent=2)
+" >> aikido-attacks.json
+            echo '}' >> aikido-attacks.json
+            echo "Loaded $(wc -l < security-attacks.jsonl) ZenFree attack records"
+          else
+            echo "No ZenFree attack log found — using empty dataset"
+            echo '{ "attacks": [] }' > aikido-attacks.json
           fi
           
           echo "aikido_attacks_fetched=true" >> "$GITHUB_OUTPUT"

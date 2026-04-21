@@ -64,7 +64,20 @@ export class ViabilityAgent extends BaseAgent {
         'viability-scoring',
       ],
       model: 'llama-3.3-70b-versatile',
+      modelTier: 'standard',
     });
+  }
+
+  /** Normalize loose input into the strict ViabilityInput shape */
+  private normalizeInput(input: Record<string, unknown>): ViabilityInput {
+    const raw = input as Record<string, any>;
+    return {
+      projectCost: raw.projectCost ?? raw.project_cost ?? raw.investment ?? raw.cost ?? 0,
+      revenue: raw.revenue ?? raw.annual_revenue ?? raw.annualRevenue ?? raw.savings ?? 0,
+      carbonSaved: raw.carbonSaved ?? raw.carbon_saved ?? raw.co2Saved ?? raw.co2 ?? 0,
+      timeline: raw.timeline ?? raw.years ?? raw.duration ?? 5,
+      market: raw.market ?? raw.industry ?? raw.sector ?? 'general',
+    };
   }
 
   async execute(
@@ -73,8 +86,7 @@ export class ViabilityAgent extends BaseAgent {
   ): Promise<AgentResponse> {
     const startTime = Date.now();
 
-    const viabInput = input as unknown as ViabilityInput;
-    const { projectCost, revenue, carbonSaved, timeline, market } = viabInput;
+    const { projectCost, revenue, carbonSaved, timeline, market } = this.normalizeInput(input);
 
     logger.info('Viability agent executing', {
       projectCost,

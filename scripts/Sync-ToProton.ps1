@@ -3,7 +3,7 @@
     Syncs DWS6 project files to Proton Drive for encrypted backup.
 
 .DESCRIPTION
-    Version: 1.7
+    Version: 2.0
 
     CHANGE LOG:
       v1.0 - 05.02.2026 - Initial: folder mappings, MD5 dedup, sensitive file sync
@@ -14,6 +14,9 @@
       v1.5 - 07.02.2026 - Added root-level standards to $SyncFiles (CLAUDE.md, DWS_DOCUMENT_STANDARD, etc.)
       v1.6 - 07.02.2026 - PDF output now goes to Learn/ folder (HIL pipeline)
       v1.7 - 08.02.2026 - Fix: sync Learn/ (generated HTML/PDF) to Proton after generation
+      v1.8 - 10.02.2026 - Added docs/ folder to folder mappings
+      v1.9 - 04.03.2026 - Added investor-outreach/ and sales-outreach/ folders to folder mappings
+      v2.0 - 07.03.2026 - Added encrypted database backup sync (.gpg files from Backup-Database.ps1)
 
     Copies business files from the git repo to Proton Drive, mapping repo
     folders to the correct Proton Drive structure:
@@ -22,6 +25,9 @@
     ----                          --------------------------------
     Admin/                    --> Repos2026\dws6\Admin\
     AgentFoundry/             --> Repos2026\dws6\AgentFoundry\
+    docs/                     --> Repos2026\dws6\docs\
+    investor-outreach/        --> Repos2026\dws6\investor-outreach\
+    sales-outreach/           --> Repos2026\dws6\sales-outreach\
     Firehorse/                --> Firehorse\
     docs/metropolia/          --> Metropolia2026\
     Metropolia2026/           --> Metropolia2026\
@@ -83,6 +89,9 @@ $ProtonRepoPath = Join-Path $ProtonRoot "Repos2026\dws6"
 $FolderMappings = @(
     @{ Src = "Admin";                        Dest = "same" }
     @{ Src = "AgentFoundry";                 Dest = "same" }
+    @{ Src = "docs";                         Dest = "same" }
+    @{ Src = "investor-outreach";            Dest = "same" }
+    @{ Src = "sales-outreach";               Dest = "same" }
     @{ Src = "Team";                         Dest = "same" }
     @{ Src = "Firehorse";                    Dest = (Join-Path $ProtonRoot "Firehorse") }
     @{ Src = "docs\metropolia";              Dest = (Join-Path $ProtonRoot "Metropolia2026") }
@@ -92,7 +101,7 @@ $FolderMappings = @(
 )
 
 # Individual doc files -> Proton repo backup (relative to $RepoPath)
-# NOTE: Files inside mapped folders (Admin/, Firehorse/, etc.) are already
+# NOTE: Files inside mapped folders (Admin/, docs/, Firehorse/, etc.) are already
 # synced by $FolderMappings above. Only list files that live OUTSIDE mapped folders.
 $SyncFiles = @(
     # Root-level standards and environment files
@@ -102,8 +111,6 @@ $SyncFiles = @(
     "ONTOLOGY.md",
     "README.md",
     "16-INDUSTRIES.md",
-    # Document index
-    "docs\Document-index.md",
     # GitHub/AI agent environment rules
     ".github\copilot-instructions.md"
 )
@@ -277,6 +284,26 @@ foreach ($fileName in $SensitiveFiles) {
 }
 if ($sensitiveCount -eq 0) {
     Write-Host "  (no sensitive files found - this is normal on cloud)" -ForegroundColor Gray
+}
+
+# --- Sync encrypted database backups to Proton Drive ---
+$dbBackupDir = $env:BACKUP_LOCAL_DIR
+if (-not $dbBackupDir) { $dbBackupDir = "F:\2026\Backups\dws6-db" }
+$protonDbDest = Join-Path $ProtonRoot "Repos2026\dws6-db-backups"
+
+if (Test-Path $dbBackupDir) {
+    Write-Host "Syncing encrypted database backups -> $protonDbDest" -ForegroundColor Magenta
+    # Only sync encrypted .gpg files, manifests, row counts, and schema SQL
+    # NEVER sync unencrypted .dump files to cloud
+    Get-ChildItem -Path $dbBackupDir -Recurse -File -ErrorAction SilentlyContinue |
+        Where-Object { $_.Extension -in @(".gpg", ".json", ".sql") } |
+        ForEach-Object {
+            $rel = $_.FullName.Substring($dbBackupDir.Length + 1)
+            $dest = Join-Path $protonDbDest $rel
+            Sync-Item -Source $_.FullName -Destination $dest
+        }
+} else {
+    Write-Host "  (no database backups found at $dbBackupDir)" -ForegroundColor Gray
 }
 
 # --- Full repo backup (when -FullRepo flag is set) ---

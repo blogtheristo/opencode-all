@@ -1,0 +1,51 @@
+OLD FILE INDEX
+==============
+Authoritative list of all retired (_OLD) files and directories in the repo.
+Every file renamed to _OLD MUST be logged here with date and reason.
+No entries may be deleted — this is a permanent audit trail.
+
+To diff an entry:  git diff HEAD -- <ORIGINAL_PATH> <_OLD_PATH>
+                   diff <_OLD_PATH> <ORIGINAL_PATH>
+
+Format: DATE | _OLD_PATH | ORIGINAL_PATH | STATUS | REASON
+  _OLD_PATH:     the archived file (e.g. foo_OLD.html)
+  ORIGINAL_PATH: the active file it replaced (e.g. foo.html) — "none" if fully retired
+
+Anomaly check run: 2026-04-14
+Result: 0 anomalies (no empty, no shrinkage, no self-comparisons)
+
+PRE-EXISTING ENTRIES (recovered 2026-04-14 from git ls-files)
+----------------------------------------------------------------------
+unknown | .claude/hooks/pre-bash-safety_OLD.sh                          | .claude/hooks/pretooluse-guard.sh             | RETIRED | Replaced by pretooluse-guard.sh
+unknown | Partners/NDA_QANTIC_2026_OLD.md                               | Partners/NDA_QANTIC_2026.md                   | RETIRED | Contract version superseded
+unknown | docker-compose.hybrid_OLD.yml                                 | docker-compose.hybrid.yml                     | RETIRED | Docker compose restructured
+unknown | landing-pages/onelifetime-world/Partners/GooglexDWSIQ_OLD.png | landing-pages/.../Partners/GooglexDWSIQ.png   | RETIRED | Partners page architecture rebuild 2026-04-13
+unknown | landing-pages/onelifetime-world/Partners/OneLifetime+Logo_OLD.png | landing-pages/.../Partners/OneLifetime+Logo.png | RETIRED | Partners page architecture rebuild 2026-04-13
+unknown | landing-pages/onelifetime-world/Partners/index_OLD.html       | landing-pages/.../Partners/index.html         | RETIRED | Partners page architecture rebuild 2026-04-13
+unknown | mcp-hub_OLD/ (directory)                                      | mcp-hub/                                      | RETIRED | Whole hub retired, no active mcp-hub/
+unknown | mcp-servers/claude_OLD/ (directory)                           | mcp-servers/claude/                           | RETIRED | Server folder retired
+unknown | mcp-servers/cloudrun_OLD/ (directory)                         | mcp-servers/cloudrun/                         | RETIRED | Server folder retired
+unknown | mcp-servers/lwm_OLD/ (directory)                              | mcp-servers/lwm/                              | RETIRED | Server folder retired
+unknown | mcp-servers/supabase_OLD/ (directory)                         | mcp-servers/supabase/ (still active)          | OK      | Archive of previous version; active supabase/ exists
+unknown | onelifetime.world/Partners/GooglexDWSIQ_OLD.png               | onelifetime.world/Partners/GooglexDWSIQ.png   | RETIRED | Partners page architecture rebuild 2026-04-13
+unknown | onelifetime.world/Partners/OneLifetime+Logo_OLD.png           | onelifetime.world/Partners/OneLifetime+Logo.png | RETIRED | Partners page architecture rebuild 2026-04-13
+unknown | onelifetime.world/Partners/index_OLD.html                     | onelifetime.world/Partners/index.html         | RETIRED | Partners page architecture rebuild 2026-04-13
+unknown | scripts/flow-orchestrator-digest_OLD.ts                       | scripts/flow-orchestrator-digest.ts           | RETIRED | Script consolidated
+unknown | scripts/investor-outreach-morning-brief_OLD.ts                | scripts/investor-outreach-morning-brief.ts    | RETIRED | Script consolidated
+unknown | scripts/send-captain-briefing_OLD.ts                          | scripts/send-captain-briefing.ts              | RETIRED | Script consolidated
+unknown | scripts/send-morning-briefing_OLD.ts                          | scripts/send-morning-briefing.ts              | RETIRED | Script consolidated
+unknown | scripts/send-outreach-digest_OLD.ts                           | scripts/send-outreach-digest.ts               | RETIRED | Script consolidated
+unknown | scripts/send-regulation-digest_OLD.ts                         | scripts/send-regulation-digest.ts             | RETIRED | Script consolidated
+unknown | scripts/send-social-digest_OLD.ts                             | scripts/send-social-digest.ts                 | RETIRED | Script consolidated
+unknown | supabase/migrations/035_grok_consent_OLD.sql                  | supabase/migrations/035_grok_consent.sql      | RETIRED | Migration superseded
+unknown | supabase/migrations/036_grok_audit_immutability_OLD.sql       | supabase/migrations/036_grok_audit_immutability.sql | RETIRED | Migration superseded
+unknown | supabase/migrations/037_resend_delivery_tracking_OLD.sql      | supabase/migrations/037_resend_delivery_tracking.sql | RETIRED | Resend removed (security incident 2026-03-26)
+unknown | supabase/migrations/040_grok_consent_OLD.sql                  | supabase/migrations/040_grok_consent.sql      | RETIRED | Migration superseded
+
+NEW ENTRIES (add below this line — newest at bottom)
+----------------------------------------------------------------------
+FORMAT: YYYY-MM-DD | path/to/file_OLD.ext | path/to/original.ext | RETIRED/OK | reason
+
+2026-04-14 | .claude/hooks/auto-commit_OLD.sh          | .claude/hooks/auto-commit.sh          | RETIRED | Silent auto-commit at session stop caused hook regressions (committed stale hook files, reverting fixes). Firewall+Explicit architecture 2026-04-14.
+2026-04-14 | .claude/hooks/require-tests-for-pr_OLD.sh | .claude/hooks/require-tests-for-pr.sh | RETIRED | Duplicate of CI/CD gate. Removed as part of Firewall+Explicit hook simplification 2026-04-14.
+2026-04-14 | scripts/run-morning-briefing_OLD.sh        | none                                  | RETIRED | V1 orphan superseded by run-morning-emails.sh (V2). Zero references in codebase; no daily/ wrapper; unreachable by day-runner.
