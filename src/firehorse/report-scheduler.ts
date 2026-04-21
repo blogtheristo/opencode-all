@@ -16,6 +16,7 @@
  */
 
 import cron from 'node-cron';
+import type { SupabaseClient } from '@supabase/supabase-js';
 import { getSupabaseClient } from '../config/supabase.js';
 import ReportExportService from '../services/report-export.service.js';
 import { sendEmail, escapeHtml } from '../utils/send-email.js';
@@ -142,20 +143,6 @@ async function processSchedule(schedule: ScheduleRow): Promise<void> {
   } else {
     logger.info('Scheduled report delivered', { scheduleId: id, recipient: recipient_email });
   }
-
-  // Advance next_run_at
-  const supabase = getSupabaseClient();
-  if (!supabase) return;
-
-  const nextRun = advanceNextRun(new Date(schedule.next_run_at), frequency);
-  const { error: updateError } = await supabase
-    .from('report_schedules')
-    .update({ next_run_at: nextRun.toISOString(), updated_at: new Date().toISOString() })
-    .eq('id', id);
-
-  if (updateError) {
-    logger.warn('Failed to advance next_run_at', { scheduleId: id, error: updateError.message });
-  }
 }
 
 // ============================================================================
@@ -163,8 +150,32 @@ async function processSchedule(schedule: ScheduleRow): Promise<void> {
 // ============================================================================
 
 let cronTask: cron.ScheduledTask | null = null;
+let activeRun: Promise<void> | null = null;
 
-async function runDueSchedules(): Promise<void> {
+async function claimSchedule(supabase: SupabaseClient, schedule: ScheduleRow): Promise<boolean> {
+  const claimedNextRun = advanceNextRun(new Date(schedule.next_run_at), schedule.frequency).toISOString();
+
+  const { data, error } = await supabase
+    .from('report_schedules')
+    .update({ next_run_at: claimedNextRun, updated_at: new Date().toISOString() })
+    .eq('id', schedule.id)
+    .eq('enabled', true)
+    .eq('next_run_at', schedule.next_run_at)
+    .select('id')
+    .maybeSingle();
+
+  if (error) {
+    logger.warn('Report scheduler: failed to claim schedule', {
+      scheduleId: schedule.id,
+      error: error.message,
+    });
+    return false;
+  }
+
+  return !!data;
+}
+
+async function runDueSchedulesInternal(): Promise<void> {
   const supabase = getSupabaseClient();
   if (!supabase) {
     logger.debug('Report scheduler: Supabase unavailable, skipping');
@@ -194,7 +205,29 @@ async function runDueSchedules(): Promise<void> {
   logger.info(`Report scheduler: processing ${data.length} due schedule(s)`);
 
   for (const schedule of data as ScheduleRow[]) {
+    const claimed = await claimSchedule(supabase, schedule);
+    if (!claimed) {
+      logger.debug('Report scheduler: schedule already claimed by another runner', {
+        scheduleId: schedule.id,
+      });
+      continue;
+    }
+
     await processSchedule(schedule);
+  }
+}
+
+async function runDueSchedules(): Promise<void> {
+  if (activeRun) {
+    logger.warn('Report scheduler: skipped overlapping run');
+    return activeRun;
+  }
+
+  activeRun = runDueSchedulesInternal();
+  try {
+    await activeRun;
+  } finally {
+    activeRun = null;
   }
 }
 
