@@ -29,10 +29,10 @@ demonstrating **AI Ethics Playbook 2.0 Part 3 (Data Traceability)** and
 | **Date** | 2026-04-21 |
 | **Agent** | Claude Code (Anthropic) |
 | **Model** | `claude-opus-4-7[1m]` (Opus 4.7, 1M context) |
-| **User** | Risto Päärni (risto@lifetime.fi) |
-| **Environment** | Mobile session (local_proxy@127.0.0.1) |
+| **User** | Project maintainer (redacted) |
+| **Environment** | Mobile session (local proxy redacted) |
 | **Repository** | dws6 (main branch: `main`) |
-| **Working Directory** | `/home/user/dws6` |
+| **Working Directory** | `repository root` |
 | **Tools Used** | WebSearch, WebFetch, Glob, Grep, Read, Bash, Write, TodoWrite |
 
 ---
