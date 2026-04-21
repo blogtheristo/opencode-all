@@ -71,7 +71,7 @@ The self-improving loop turns every AI coding session into a quality improvement
 |-----------|------|---------|
 | Self-Diagnostic Agent | `src/agents/self-diagnostic.agent.ts` | Scans codebase for quality gaps |
 | Reflection Agent | `src/agents/reflection.agent.ts` | Evaluates other agents' output quality |
-| Codebase Health Script | `scripts/codebase_health.py` | Generates `health_report.json` for AI consumption |
+| Codebase Health Script | `scripts/codebase_health.py` | Prints codebase health report; optionally writes `health_report.json` (gitignored) via `--output-file` |
 | CI/CD Test Workflow | `.github/workflows/test-on-pr.yml` | Runs tests and security checks on PRs |
 | Agent Tests | `src/__tests__/agents.test.ts` | Verifies agent infrastructure works correctly |
 | Agent Registry | `src/agents/index.ts` | Central registration for all 7 agents |
@@ -275,19 +275,24 @@ Agent X executes ──► Reflection evaluates ──► Score < 0.7?
 
 ### Purpose
 
-A Python script that generates a machine-readable `health_report.json` at the project root. This report is the bridge between the codebase state and AI coding sessions -- the AI reads the report to understand what needs fixing.
+A Python script that generates a machine-readable health report for AI coding sessions -- the AI reads the report to understand what needs fixing.
+
+By default the script writes nothing to disk; it prints to stdout so repeated runs never leave untracked files in the working tree. Use `--output-file` to persist the JSON. The repo already gitignores `health_report.json` as a safety net.
 
 ### How to Run
 
 ```bash
-# Default: markdown output + writes health_report.json
+# Default: markdown to stdout, no file written
 python scripts/codebase_health.py
 
-# JSON output to stdout + writes health_report.json
+# JSON to stdout
 python scripts/codebase_health.py --output json
 
-# Markdown output to stdout + writes health_report.json
-python scripts/codebase_health.py --output markdown
+# Persist the JSON report for agent consumption (gitignored path)
+python scripts/codebase_health.py --output json --output-file health_report.json
+
+# Explicitly disable any file write even when --output-file is set
+python scripts/codebase_health.py --output-file /tmp/report.json --no-write
 ```
 
 ### What It Analyzes

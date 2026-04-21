@@ -57,10 +57,14 @@ DWS6 implements a self-improving development loop where AI agents diagnose, test
 At the start of a coding session, run the health check to understand priorities:
 
 ```bash
+# Print report to stdout (default — no files written)
 python scripts/codebase_health.py
+
+# Persist the JSON report for agent consumption
+python scripts/codebase_health.py --output json --output-file health_report.json
 ```
 
-The report identifies the highest-priority improvements for the current session.
+The report identifies the highest-priority improvements for the current session. `health_report.json` is gitignored.
 
 ## AI Agent Behavior Guidelines (Karpathy Principles)
 

@@ -15,6 +15,12 @@ Usage:
   python scripts/codebase_health.py
   python scripts/codebase_health.py --output json
   python scripts/codebase_health.py --output markdown
+  python scripts/codebase_health.py --output-file path/to/report.json
+  python scripts/codebase_health.py --no-write    # stdout only (default)
+
+By default the script writes nothing to disk — it prints the report to stdout.
+Pass --output-file PATH to persist the JSON report. Recommended paths are
+outside the repo or gitignored (the repo already ignores health_report.json).
 """
 
 import json
@@ -241,15 +247,22 @@ def format_markdown(report: dict) -> str:
     return "\n".join(lines)
 
 
+def _get_arg(flag: str) -> str | None:
+    """Return the value following `flag` in sys.argv, or None if absent."""
+    if flag in sys.argv:
+        idx = sys.argv.index(flag)
+        if idx + 1 < len(sys.argv):
+            return sys.argv[idx + 1]
+    return None
+
+
 def main() -> None:
     """Run codebase health analysis."""
     base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    output_format = "markdown"
 
-    if "--output" in sys.argv:
-        idx = sys.argv.index("--output")
-        if idx + 1 < len(sys.argv):
-            output_format = sys.argv[idx + 1]
+    output_format = _get_arg("--output") or "markdown"
+    output_file = _get_arg("--output-file")
+    no_write = "--no-write" in sys.argv
 
     report = generate_report(base_path)
 
@@ -258,10 +271,11 @@ def main() -> None:
     else:
         print(format_markdown(report))
 
-    # Also write JSON report for agent consumption
-    report_path = os.path.join(base_path, "health_report.json")
-    with open(report_path, "w", encoding="utf-8") as f:
-        json.dump(report, f, indent=2)
+    # Only write to disk when explicitly requested. Default is stdout-only to
+    # avoid creating untracked files in the working tree.
+    if output_file and not no_write:
+        with open(output_file, "w", encoding="utf-8") as f:
+            json.dump(report, f, indent=2)
 
     sys.exit(0 if report["health_score"] >= 60 else 1)
 
