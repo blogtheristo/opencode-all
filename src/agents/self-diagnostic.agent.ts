@@ -19,7 +19,7 @@ import { BaseAgent } from './base.agent.js';
 import logger from '../utils/logger.js';
 import type { AgentContext, AgentResponse } from './types.js';
 import { readdir, stat, readFile } from 'fs/promises';
-import { join, extname } from 'path';
+import { join } from 'path';
 
 // ============ DIAGNOSTIC RULES ============
 
