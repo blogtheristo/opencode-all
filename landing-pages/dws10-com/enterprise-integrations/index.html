@@ -443,6 +443,93 @@ Siemens Building X API <span class="arrow">&rarr;</span> DWS IQ ingest adapter (
             </p>
         </div>
 
+        <div class="section" id="standards">
+            <h2>Standards we comply with</h2>
+            <p class="lead">Every integration is governed by published specifications &mdash; not black-box proprietary glue. Your audit team can trace every byte from the source system to the regulator.</p>
+            <p style="font-size: 0.92rem; color: #64748b; margin: 12px 0 18px;">Legend: <strong style="color: #166534;">Active</strong> = production-ready and auditable today &middot; <strong style="color: #92400e;">Target</strong> = on roadmap with scheduled assessment &middot; <strong style="color: #3730a3;">Reference</strong> = informing design, not claimed conformance. Source of truth: <code>DWS_STANDARDS_LIBRARY.md</code>.</p>
+
+            <div class="table-wrap">
+            <table class="mapping">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Standard</th>
+                        <th>Version</th>
+                        <th>Applied to</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td rowspan="6"><strong>Regulatory (EU)</strong></td><td>EU AI Act</td><td>Reg. 2024/1689</td><td>Agent platform, KYA, Article 12 reasoning lineage</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                    <tr><td>CBAM</td><td>Reg. 2023/956</td><td>Import compliance calculator</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                    <tr><td>EU ETS</td><td>Dir. 2003/87/EC (amend. 2023/959)</td><td>Emissions cost projection, benchmark factors 2021&ndash;2025</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                    <tr><td>CSRD / ESRS</td><td>Dir. 2022/2464 &middot; ESRS 2023</td><td>82 disclosures mapped, ESG report extraction</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                    <tr><td>NIS2</td><td>Dir. 2022/2555</td><td>Sovereign Database, incident response</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                    <tr><td>GDPR</td><td>Reg. 2016/679</td><td>All data handling, DPA (Art. 28), EU residency</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+
+                    <tr><td rowspan="4"><strong>Process &amp; Quality</strong></td><td>Automotive SPICE (ASPICE)</td><td>v4.0 (2023)</td><td>Lifetime Fleet &mdash; Tier-1 OEM procurement gate</td><td style="color: #92400e; font-weight: 600;">Target 2027</td></tr>
+                    <tr><td>ISO/IEC 33000 series (SPICE)</td><td>33002:2015</td><td>Process capability assessment framework</td><td style="color: #3730a3; font-weight: 600;">Reference</td></tr>
+                    <tr><td>ISO/IEC 25010 (SQuaRE)</td><td>25010:2023</td><td>Agent trust scoring, KYA metrics, audit reports</td><td style="color: #92400e; font-weight: 600;">Target 2026 Q3</td></tr>
+                    <tr><td>ISO 9001</td><td>9001:2015</td><td>Operational quality management (DWS IQ 7)</td><td style="color: #3730a3; font-weight: 600;">Considered</td></tr>
+
+                    <tr><td rowspan="3"><strong>Security &amp; Governance</strong></td><td>ISO/IEC 27001</td><td>27001:2022</td><td>Platform-wide ISMS &mdash; Phase 6 certification</td><td style="color: #92400e; font-weight: 600;">Target 2027</td></tr>
+                    <tr><td>SOC 2 Type II</td><td>AICPA TSC 2017</td><td>Platform attestation</td><td style="color: #92400e; font-weight: 600;">Target 2027 Q4</td></tr>
+                    <tr><td>NIST CSF</td><td>CSF 2.0 (2024)</td><td>Control framework mapping</td><td style="color: #3730a3; font-weight: 600;">Reference</td></tr>
+
+                    <tr><td rowspan="7"><strong>Protocol &amp; Interop</strong></td><td>OData</td><td>v2 + v4</td><td>SAP, IFS, Dynamics connectors</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                    <tr><td>MCP (Model Context Protocol)</td><td>2024-11-05 spec</td><td>Agent discovery, <code>/mcp</code> endpoint</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                    <tr><td>JSON-RPC</td><td>2.0</td><td>MCP transport</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                    <tr><td>OPC-UA</td><td>IEC 62541</td><td>Industrial equipment ingestion (PLC, SCADA) via Jetson / DGX Spark edge</td><td style="color: #92400e; font-weight: 600;">Implementing</td></tr>
+                    <tr><td>MQTT</td><td>v5.0 (OASIS)</td><td>Sensor data on Jetson / DGX Spark edge</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                    <tr><td>OAuth 2.1</td><td>draft-ietf-oauth-v2-1</td><td>Authentication across all integrations</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                    <tr><td>eIDAS</td><td>Reg. 910/2014</td><td>DocuSign qualified electronic signatures</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+
+                    <tr><td rowspan="3"><strong>Reporting &amp; Disclosure</strong></td><td>ESRS (EFRAG)</td><td>2023 final set</td><td>82 disclosures mapped; ESG reports</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                    <tr><td>GHG Protocol</td><td>Corporate Standard (revised)</td><td>Scope 1/2/3 accounting for Firehorse</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                    <tr><td>IPCC 2006 + 2019 Refinement</td><td>2019</td><td>Emission-factor fallback source</td><td style="color: #166534; font-weight: 600;">Active</td></tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+
+        <div class="section" id="expertise">
+            <h2>Expertise behind the standards</h2>
+            <p class="lead">Standards only matter if the team behind them has delivered against them in production. DWS IQ is built by engineers with a track record of protocol implementations, standard-conformance testing, and regulatory audits.</p>
+
+            <div class="integration-grid">
+                <div class="integration">
+                    <span class="category">Protocol</span>
+                    <h4>Protocol implementation</h4>
+                    <p>Standard-conformant implementations of OData v2/v4, MCP, and MQTT v5. Each connector has an integration test suite proving wire-level conformance &mdash; 26 tests validate the SAP S/4HANA OData paths alone. OPC-UA (IEC 62541) connector is in active development for Lifetime Fleet edge integration.</p>
+                </div>
+                <div class="integration">
+                    <span class="category">Testing</span>
+                    <h4>Standard-conformance testing</h4>
+                    <p>Connectors validated end-to-end: authentication, production orders, machine data, OEE, maintenance events. Concurrent load testing enforces p95 &lt;2s, error rate &lt;5%.</p>
+                </div>
+                <div class="integration">
+                    <span class="category">Audit</span>
+                    <h4>Security &amp; regulatory audit</h4>
+                    <p>Controls aligned to ISO 27001 Annex A. Regulatory obligations mapped to EU AI Act Art. 12, CSRD, CBAM, ETS, NIS2, GDPR &mdash; with audit-ready reasoning-lineage evidence signed through the Aegis provenance chain.</p>
+                </div>
+                <div class="integration">
+                    <span class="category">Documentation</span>
+                    <h4>Documentation discipline</h4>
+                    <p>DWS Document Standard enforces versioning, session traceability, and <code>Introduced-In: PR</code> linkage on every substantive file. Auditors get a reproducible chain of custody, not a pile of PDFs.</p>
+                </div>
+                <div class="integration">
+                    <span class="category">Process Maturity</span>
+                    <h4>ASPICE roadmap (Fleet)</h4>
+                    <p>Automotive SPICE v4.0 gap analysis scheduled Phase 3 (Aug&ndash;Oct 2026). Level 2 readiness Phase 5. Level 3 external assessment Phase 6 &mdash; positioning Lifetime Fleet for Tier-1 OEM supply chain entry (Bosch, Continental, Volvo, Scania).</p>
+                </div>
+                <div class="integration">
+                    <span class="category">Quality Model</span>
+                    <h4>SQuaRE quality metrics</h4>
+                    <p>ISO/IEC 25010:2023 quality model applied to agent behaviour through KYA trust scoring &mdash; functional suitability, reliability, security, maintainability. Measured, not asserted.</p>
+                </div>
+            </div>
+        </div>
+
         <div class="section">
             <h2>Custom integrations</h2>
             <p>If your system isn't listed, we build typed adapters in ~4&ndash;6 weeks for:</p>

@@ -105,9 +105,9 @@ Liitännäishanke CIMS: **EIPP-20191320** (2019). Muodostaa DWS 7:n Digital Euro
 
 ### DWS 5 — Vetytalouden platform (2024)
 
-**Kehitysjakso:** 2024
+**Kehitysjakso:** 2024–02/2025
 **EU InvestEU Portal:** INPO-20232955 (17.04.2023, 1 250 000 €, archived)
-**Rahoitus:** Microsoft Founders Hub Level 1–4 (25 000 USD → 154 000 USD, 2021–2025)
+**Rahoitus:** Microsoft Founders Hub (25 000 USD → 150 000 USD Azure-krediittiä yhteensä, 2021–02/2025)
 **Tekninen alusta:** Oqtane / .NET 8 Blazor / Azure
 **Temaattinen fokus:** Vetytalous ja hajautettu energia
 
