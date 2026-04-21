@@ -215,4 +215,4 @@ retrieval to internal schema recommendations:
 **Created:** 2026-04-21
 **Session Branch:** `claude/update-ai-ethics-playbook-ck26A`
 **Standard:** DWS Document Standard + AI Ethics Playbook 2.0 Part 3 (Data Traceability)
-**Retention:** Per EU AI Act Article 12 requirements (≥10 years for high-risk AI systems)
+**Retention:** Per DWS retention policy and applicable AI compliance documentation for this session's risk classification
