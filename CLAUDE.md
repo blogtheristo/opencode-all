@@ -6,21 +6,21 @@ This file provides guidance for Claude Code (AI) when working with the DWS6 code
 
 Before making any UI changes, agents MUST consult these files:
 
-| Standard                          | File                                        | Scope                                                                                                           |
-| --------------------------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| **Brand Standard**                | `DWS_BRAND_STANDARD.md`                     | Store UI, hamburger menu, product cards, category nav, dark tokens, sovereignty badges                          |
-| **Document Standard**             | `DWS_DOCUMENT_STANDARD.md`                  | Document formatting, sections, metadata                                                                         |
-| **Gamma UI Guidelines**           | `UI_SKILLS_GAMMA.md`                        | Tailwind, Radix UI, accessibility, animations                                                                   |
-| **Security Standard**             | `DWS_SECURITY_STANDARD.md`                  | AI safety, enterprise security framework                                                                        |
-| **Security Compliance**           | `Admin/SECURITY_COMPLIANCE.md`              | Deployment, controls, certifications, vendor risk                                                               |
-| **Market Research Standard**      | `DWS_MARKET_RESEARCH_STANDARD.md`           | Competitive intelligence, product improvement, data collection                                                  |
-| **Site Quality Standards**        | `SITE_QUALITY_STANDARDS.md`                 | Code quality, **code formatting**, components, nav, logos, CTA, testing                                         |
-| **Cloud Environments**            | `docs/CLOUD_ENVIRONMENTS.md`                | US/EU/Aiwen clouds, account structure, DWS 6→7 migration, data residency                                        |
-| **Product Catalog**               | `product-catalog/README.md`                 | Product catalog structure, Store Product Format, Google Merchant fields                                         |
-| **Data Standard**                 | `DWS_DATA_STANDARD.md`                      | Data storage governance, columnar/row policy, extension registry, retention, EU regulatory compliance           |
-| **Information Layering Strategy** | `docs/DWS_INFORMATION_LAYERING_STRATEGY.md` | Six-layer harness, where standards fit, progressive disclosure, 12 Factor Agents, tool result injection pattern |
-| **Skills Guide**                  | `docs/DWS_SKILLS_GUIDE.md`                  | All 20 skills: slash commands, discipline skills, gstack workflow, when to use each                             |
-| **Blog Standard**                 | `docs/BLOG_STANDARD.md`                     | Blog post structure, prev/next nav, product cards, meta tags, post registry, injection script                   |
+| Standard                          | File                                        | Scope                                                                                                                   |
+| --------------------------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| **Brand Standard**                | `DWS_BRAND_STANDARD.md`                     | Store UI, hamburger menu, product cards, category nav, dark tokens, sovereignty badges                                  |
+| **Document Standard**             | `DWS_DOCUMENT_STANDARD.md`                  | Document formatting, sections, metadata                                                                                 |
+| **Gamma UI Guidelines**           | `UI_SKILLS_GAMMA.md`                        | Tailwind, Radix UI, accessibility, animations                                                                           |
+| **Security Standard**             | `DWS_SECURITY_STANDARD.md`                  | AI safety, enterprise security framework                                                                                |
+| **Security Compliance**           | `Admin/SECURITY_COMPLIANCE.md`              | Deployment, controls, certifications, vendor risk                                                                       |
+| **Market Research Standard**      | `DWS_MARKET_RESEARCH_STANDARD.md`           | Competitive intelligence, product improvement, data collection                                                          |
+| **Site Quality Standards**        | `SITE_QUALITY_STANDARDS.md`                 | Code quality, **code formatting**, components, nav, logos, CTA, testing                                                 |
+| **Cloud Environments**            | `docs/CLOUD_ENVIRONMENTS.md`                | US/EU/Aiwen clouds, account structure, DWS 6→7 migration, data residency                                                |
+| **Product Catalog**               | `product-catalog/README.md`                 | Product catalog structure, Store Product Format, Google Merchant fields                                                 |
+| **Data Standard**                 | `DWS_DATA_STANDARD.md`                      | Data storage governance, columnar/row policy, extension registry, retention, EU regulatory compliance                   |
+| **Information Layering Strategy** | `docs/DWS_INFORMATION_LAYERING_STRATEGY.md` | Six-layer harness, where standards fit, progressive disclosure, 12 Factor Agents, tool result injection pattern         |
+| **Skills Guide**                  | `docs/DWS_SKILLS_GUIDE.md`                  | All 20 skills: slash commands, discipline skills, gstack workflow, when to use each                                     |
+| **Blog Standard**                 | `docs/BLOG_STANDARD.md`                     | Blog post structure, prev/next nav, product cards, meta tags, post registry, injection script                           |
 | **Standards Library**             | `DWS_STANDARDS_LIBRARY.md`                  | Single registry of every regulation, process, security, protocol, reporting standard — claimable vs target vs reference |
 
 **Rule:** These standards apply equally to all tools — Claude Code, Cursor, VS Code, Codex, and human developers. No exceptions.
@@ -102,6 +102,46 @@ The script (`scripts/gen-thesis-html.cjs`):
 - **Syncs Learn/ MD copies** from `docs/` before running (copy manually or the script reads Learn/ directly)
 
 **Do NOT modify the HTML output files directly.** Edit the source `.md` files, then run the script.
+
+### DWS Skilled Taxonomy Rule (CRITICAL)
+
+**The terms "GodAgent" / "Godagent" are deprecated.** Never introduce them in new writing.
+
+DWS brand, spec, and UI copy follow a single three-tier pattern that generalises across every capability axis where DWS offers depth. The pattern is:
+
+```
+Skilled <Axis>                 ← BRAND   (what we SELL)
+    └─ Industrial Specialist <Axis>    ← SPEC    (what they ARE)
+            └─ Industry <Axis>         ← UI      (how we LIST them)
+```
+
+Three axes are active today. More may be added; each new axis follows the same tiers.
+
+| Tier      | Role                                                                                   | **Agents**                       | **Workflows**                                                           | **Jurisdictions**                         | **Use in**                                                                                                                                        | **Do NOT use in**                                                 |
+| --------- | -------------------------------------------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| 1 — Brand | What we sell. Anthropic Skills paradigm pivot: capability = acquired, auditable skill. | **Skilled Agents**               | **Skilled Autonomous Workflows**                                        | **Skilled Jurisdictions** (EU, US, Aiwen) | Hero copy, `<title>`, `<meta og:title/og:description>`, investor decks, product `brand:` field, press, social cards.                              | Technical specs, nav chips, badges.                               |
+| 2 — Spec  | Documentation-grade descriptor. Precise.                                               | **Industrial Specialist Agents** | **Specialist Workflows** (long-form: _Industrial Specialist Workflows_) | **Regulatory Specialist Jurisdictions**   | First mention in a doc/spec, architecture prose, regulatory responses, SLA/contract text, glossary. Define once per doc, then shorten to UI tier. | Hero copy (too long), UI badges, tight social cards.              |
+| 3 — UI    | Category label / UI shorthand / registry column.                                       | **Industry Agents**              | **Industrial Workflows**                                                | **Jurisdictions**                         | Nav menus, filter chips, count badges (`<span class="sov-badge">18+ Industry Agents</span>`), registry column headers, tables.                    | Investor hero lines, brand tagline — loses the "skilled" promise. |
+
+Why **"Autonomous"** appears in the workflow brand tier but not agents: workflows execute on schedule/event without a human in the loop — "Autonomous" earns the brand promise. Agents have it implied.
+
+Why **"Regulatory"** appears in the jurisdiction spec tier: jurisdictions are defined by their regulatory surface (EU AI Act, GDPR, CBAM, ETS, CSRD for EU; sector rules for US; data localisation for Aiwen) — the spec register must say so.
+
+**Pattern for new axes:** When DWS adds a new capability axis (e.g., Datasets, Models, Regulations, Reports), name it `Skilled <Axis>` / `Industrial Specialist <Axis>` / `Industry <Axis>` and add a column to the table above. Do not invent parallel brand words.
+
+**Counts are dynamic.** The number of agents, workflows, or jurisdictions in each tier will shift over time. Never hardcode a fixed brand number — apply one of these three patterns:
+
+1. **Open-ended** (preferred for platform copy): `18+ Skilled Agents` — the `+` absorbs growth.
+2. **Registry-anchored** (docs/specs): "See `docs/Deputy-Agents-Architecture.md` §3 for the current Industrial Specialist Agent registry" — no count in prose.
+3. **Product-scoped** (SKU copy only): `Climate Intelligence ships with 8 Skilled Agents` — precise, but MUST be updated if the SKU's agent list changes. Treat the count as part of the SKU spec in `products.json`, not free-floating copy.
+
+**Canonical source of truth:** `docs/Deputy-Agents-Architecture.md` §1 (Terminology). Any new taxonomy-facing copy must be consistent with that glossary; any glossary change must be reflected across marketing surfaces in the same PR.
+
+**Scope exclusions — do NOT rename:**
+
+- **Docker / infra identifiers** (`dws-godagent-llm`, `dws-godagent:latest`, label `dws-godagent`, iptables rules). Renaming requires a coordinated infra change, not a doc PR.
+- **Pantheon "God Agents"** (two words, onelifetime.world Pantheon storyboard, Zeus/Athena characters). Different brand; not in scope.
+- **Historical records** (field notes, `Learn/tuntikirjausraportti*`, `Learn/Oppimispäiväkirja*`, dated folders under `docs/010825_310726/`). Point-in-time records are not retroactively edited.
 
 ## Project Overview
 

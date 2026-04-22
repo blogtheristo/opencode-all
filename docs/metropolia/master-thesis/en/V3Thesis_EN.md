@@ -6,10 +6,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.36
+Version: 3.37
 
 Sessions & Modifications:
 
+- Version: 3.37 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: Added Section 10.22 (DWS Skilled Taxonomy — Three Tiers Across Agents, Workflows, and Jurisdictions); deprecated "GodAgent"/"Godagent" branding; codified the `Skilled <Axis>` / `Industrial Specialist <Axis>` / `Industry <Axis>` three-tier pattern across three active axes (Agents, Workflows, Jurisdictions — EU/US/Aiwen); pattern designed for extensibility to future capability axes (Datasets, Models, Regulations, Reports); added count-dynamism patterns (open-ended `18+`, registry-anchored, product-scoped); codified exclusions (Docker/infra identifiers, Pantheon Greek-mythology brand, historical records); canonical source of truth is `docs/Deputy-Agents-Architecture.md` §1 Terminology; added Key Contribution #31
 - Version: 3.36 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Expanded Section 10.21 with Boardy-sourced refinements: KYA open-source standard path via Agentic AI Foundation / Linux Foundation, explicit NIST status (not submitted), Article 1 title lock, 2026-2029 publication phasing, and EIC Step 1 deliverable linkage; added Key Contribution #30
 - Version: 3.35 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Added Section 10.21 (doctoral-track targeting): KYA positioned toward Agentic AI Foundation standardization, DWS 7 objectives as empirical frame, DWS 5 -> hydrogen-economy continuity, dual-use stream with Nokia Defence discussions, Aegis/Sovereign Infra/Connect sovereignty segmentation (core figure), Siemens and NVIDIA Connect collaboration anchors, and supervisor-response structure; added Key Contribution #29
 - Version: 3.34 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-work-EoyoF | Date: 20.04.2026 | Changes: Added Section 10.20 (April 2026 Evolution) — four subsections covering Anthropic Skills Paradigm validation (external confirmation of DWS skill-first architecture from §10.13.3), Lifetime Fleet roadmap crystallization (Finland Drone Strategy 2030 + Baltic-first 12–16wk MVP graduating "Hands" layer from spec to timeline), DWS IQ 7 Datacentre Compliance Agent (22nd industry, RFNBO Delegated Regulation 2023/1184 green-hydrogen additionality), Regulatory Stack Expansion to NIS2+CER (Hybridiosaamiskeskus 8.5.2026, CORE resilience model), and Founder→Team Transition (SOLO_FOUNDER_STATEMENT v1.2, CTO co-builder, /investor-outreach skill, 10+ INTRO notes); added Key Contributions #25–#28
@@ -2961,7 +2962,7 @@ The v3.30.50 restructuring applied four transformations:
 
 ### 10.20 April 2026 Evolution: Skills Paradigm, Lifetime Fleet Roadmap, 22nd Industry, and Founder→Team Transition
 
-*Source: field notes 2026-04-06 through 2026-04-19; PRs #1064, #1109, #1110, #1111, #1112, #1113, #1115, #1116, #1128; SOLO_FOUNDER_STATEMENT v1.2.*
+_Source: field notes 2026-04-06 through 2026-04-19; PRs #1064, #1109, #1110, #1111, #1112, #1113, #1115, #1116, #1128; SOLO_FOUNDER_STATEMENT v1.2._
 
 #### 10.20.1 Anthropic Skills Paradigm — External Validation of DWS Skill-First Architecture
 
@@ -2969,12 +2970,12 @@ On 2026-04-16, Anthropic published an essay titled "Stop Building Agents, Start 
 
 This is the first major external validation of the architectural bet made in Section 10.13 (Claude Code Engineering Structure, Version 3.17, 02.03.2026) and Section 10.13.7 (Domain-Specific vs Generic AI Harness, Version 3.31, 31.03.2026). Specifically:
 
-| DWS Position (pre-April 2026) | Anthropic's 2026-04-16 argument | Status |
-| ----------------------------- | ------------------------------- | ------ |
-| Skills as reusable workflow components (§10.13.3) | Skills over agents at scale | Validated |
-| `.claude/commands/*.md` as product interface (§10.13.6) | Discrete invocables beat monoliths | Validated |
-| Agent-first product rule — every product needs a skill (CLAUDE.md §"Build for Agents") | Skills are the API surface | Validated |
-| Domain-specific depth > breadth (§10.13.7) | Generic 136-skill frameworks fail on token budget | Validated |
+| DWS Position (pre-April 2026)                                                          | Anthropic's 2026-04-16 argument                   | Status    |
+| -------------------------------------------------------------------------------------- | ------------------------------------------------- | --------- |
+| Skills as reusable workflow components (§10.13.3)                                      | Skills over agents at scale                       | Validated |
+| `.claude/commands/*.md` as product interface (§10.13.6)                                | Discrete invocables beat monoliths                | Validated |
+| Agent-first product rule — every product needs a skill (CLAUDE.md §"Build for Agents") | Skills are the API surface                        | Validated |
+| Domain-specific depth > breadth (§10.13.7)                                             | Generic 136-skill frameworks fail on token budget | Validated |
 
 **Skill library growth since v3.31 (31.03.2026):** +3 production skills — `/regulatory-radar` (EU regulation pipeline scanner), `/investor-outreach` (draft/triage/track investor INTRO notes), `/multilingual` (EU language bar generator for onelifetime.world and dws10.com). Total 24+ production skills with 4 blocking discipline gates.
 
@@ -2982,12 +2983,12 @@ This is the first major external validation of the architectural bet made in Sec
 
 #### 10.20.2 Lifetime Fleet Roadmap Crystallization — "Hands" Layer Graduates from Spec to Timeline
 
-The Brain-Memory-Body-Hands architecture (CLAUDE.md §"Project Overview") listed Lifetime Fleet ("Hands") as *"specification phase"* for the entire life of this thesis. In April 2026 this changed. Two field notes crystallize the roadmap:
+The Brain-Memory-Body-Hands architecture (CLAUDE.md §"Project Overview") listed Lifetime Fleet ("Hands") as _"specification phase"_ for the entire life of this thesis. In April 2026 this changed. Two field notes crystallize the roadmap:
 
 1. **`docs/field-notes/2026-04-15-finland-drone-strategy-lifetime-fleet.md`** — Alignment of Lifetime Fleet with Finland's Drone Strategy 2030. Positions DWS as the governance + compliance layer for Finnish industrial drones (agriculture, forestry, infrastructure, defence) using the same KYA/Aegis/Firehorse inventory already built for the platform.
 2. **`docs/field-notes/2026-04-19-drone-app-baltic-timeline-research.md`** — Baltic-first MVP timeline: 12–16 weeks to a shippable drone application, reusing existing KYA governance (L1–L5), OpenSandbox agent isolation, and the Shufti IDV integration. No new hardware R&D cycle required.
 
-**Why this matters for the thesis:** Section 10.18 (LWM Sequencing Strategy, Version 3.30) framed the Brain-Memory-Body-Hands stack as *compliance → fleet → Series A*. The April 2026 field notes convert "fleet" from a Phase 2 aspiration to a concrete Baltic MVP with reuse-first economics. The compliance-first world-model thesis is now testable on a specific hardware class in a specific geography within one calendar quarter.
+**Why this matters for the thesis:** Section 10.18 (LWM Sequencing Strategy, Version 3.30) framed the Brain-Memory-Body-Hands stack as _compliance → fleet → Series A_. The April 2026 field notes convert "fleet" from a Phase 2 aspiration to a concrete Baltic MVP with reuse-first economics. The compliance-first world-model thesis is now testable on a specific hardware class in a specific geography within one calendar quarter.
 
 #### 10.20.3 DWS IQ 7 Datacentre Compliance Agent — 22nd Industry and the Green Hydrogen Additionality Mandate
 
@@ -2996,18 +2997,18 @@ Two new field notes add a 22nd industry to the platform:
 - **`docs/field-notes/2026-04-18-eu-green-hydrogen-additionality-finland-datacentres.md`** — EU RFNBO Delegated Regulation 2023/1184 (additionality, temporal correlation, geographical correlation) applied to Finnish datacentres. Datacentres claiming renewable-hydrogen-backed operations must prove the hydrogen meets all three additionality tests.
 - **`docs/DWS_IQ_7_DATACENTRE_COMPLIANCE_AGENT_PRD_v0.1.md`** (and later v0.2 locking Ops Manager as V0 buyer) — Agent specification targeting hyperscaler + colocation operators in Finland (Microsoft, Google, Amazon, Equinix, Digita). Ops Manager ICP validated with a buyer-persona validation script.
 
-**Regulatory contribution to Section 10.17 (Carbon Balance Sheet):** Datacentres are the first industry where the ledger must reconcile *both* electricity-side accounting (ETS Scope 2) and fuel-side accounting (RFNBO hydrogen additionality). This extends the double-entry carbon ledger from the cement/steel/construction verticals originally analysed to a data-intensive service vertical — stressing the cross-regulation reconciliation claim with a qualitatively different emission profile.
+**Regulatory contribution to Section 10.17 (Carbon Balance Sheet):** Datacentres are the first industry where the ledger must reconcile _both_ electricity-side accounting (ETS Scope 2) and fuel-side accounting (RFNBO hydrogen additionality). This extends the double-entry carbon ledger from the cement/steel/construction verticals originally analysed to a data-intensive service vertical — stressing the cross-regulation reconciliation claim with a qualitatively different emission profile.
 
 #### 10.20.4 Regulatory Stack Expansion: NIS2 + CER (Hybrid Threats)
 
 The CORE Resilience Model blog post (onelifetime.world/posts/core-resilience-hybrid-threats.html, 2026-04-13) and the Hybridiosaamiskeskus hallitus turvallisuusvastuu 8.5.2026 field note expand DWS's regulatory coverage beyond climate regulation:
 
-| Regulation | Scope | Coverage status |
-| ---------- | ----- | --------------- |
-| ETS, CBAM, CSRD, Taxonomy, EED, Fit-for-55 | Climate/energy | Production (Section 10.17) |
-| EU AI Act Art 12 | AI governance/logging | Production (Section 10.13) |
-| **NIS2** (Directive 2022/2555) | Cybersecurity of essential & important entities | **Added April 2026** |
-| **CER** (Directive 2022/2557) | Critical Entities Resilience (physical + cyber) | **Added April 2026** |
+| Regulation                                 | Scope                                           | Coverage status            |
+| ------------------------------------------ | ----------------------------------------------- | -------------------------- |
+| ETS, CBAM, CSRD, Taxonomy, EED, Fit-for-55 | Climate/energy                                  | Production (Section 10.17) |
+| EU AI Act Art 12                           | AI governance/logging                           | Production (Section 10.13) |
+| **NIS2** (Directive 2022/2555)             | Cybersecurity of essential & important entities | **Added April 2026**       |
+| **CER** (Directive 2022/2557)              | Critical Entities Resilience (physical + cyber) | **Added April 2026**       |
 
 The Aegis product (`dws10.com/products/aegis.html`, hackathon demo PR #1128) is re-positioned as the NIS2/CER wedge: sovereign security governance for critical infrastructure operators (SNCF France infrastructure surveillance field note 2026-04-14 validates the vertical). This is the first time DWS IQ 6 covers non-climate EU regulation — a material extension of the platform's compliance scope.
 
@@ -3016,10 +3017,10 @@ The Aegis product (`dws10.com/products/aegis.html`, hackathon demo PR #1128) is 
 Sections 10.7 (BYOA) and 10.11 (CEO Automation Agent Suite) framed DWS IQ 6 as a one-person-operated platform where AI-assisted tooling substitutes for headcount. April 2026 marks the deliberate transition from solo founder to team:
 
 1. **`docs/investor-intros/SOLO_FOUNDER_STATEMENT.md` v1.2** — Single source of truth narrative for Series A / SAFE investor conversations. Locks the solo-founder-with-AI-team thesis that the thesis itself documents.
-2. **Anthony Maurin CTO co-builder track** (field note 2026-04-19 *CTO LinkedIn search launched*) — First named co-builder. Equity sequencing tightened against investor reactivation catalyst (Perissich).
+2. **Anthony Maurin CTO co-builder track** (field note 2026-04-19 _CTO LinkedIn search launched_) — First named co-builder. Equity sequencing tightened against investor reactivation catalyst (Perissich).
 3. **`/investor-outreach` skill** (PR #1109, `.claude/commands/investor-outreach.md`) — Reproducible workflow for drafting, triaging, and tracking investor INTRO notes. 10+ named notes drafted in the 2-week window: 42CAP (Wilke), Plug and Play Paris (Laouiti), Ingrisano, Perissich, Kefalogiannis, von Euen, Yomutbayev, Zawadzinski.
 
-**Research contribution:** The solo-founder-with-AI-team hypothesis is not abandoned — it is *staged*. The platform must be usable by one person at t=0 (this thesis's documented state) but must also absorb a small co-founding team without the platform's thesis collapsing. The `/investor-outreach` skill is a concrete mechanism: the investor pipeline itself is now a DWS IQ workflow, not tacit founder knowledge.
+**Research contribution:** The solo-founder-with-AI-team hypothesis is not abandoned — it is _staged_. The platform must be usable by one person at t=0 (this thesis's documented state) but must also absorb a small co-founding team without the platform's thesis collapsing. The `/investor-outreach` skill is a concrete mechanism: the investor pipeline itself is now a DWS IQ workflow, not tacit founder knowledge.
 
 #### 10.20.6 Research Contribution
 
@@ -3059,6 +3060,7 @@ The third stream is explicitly focused on dual-use industries (industrial + defe
 <img src="../../../../artifacts/Sovereignty.jpg" alt="Aegis, Sovereign Infra, and Connect sovereignty segmentation" />
 
 Analytical role of the segmentation:
+
 - **Aegis:** critical-infrastructure security governance
 - **Sovereign Infra:** EU-sovereign deployment layer for regulated operators
 - **Connect:** global integration and distribution layer
@@ -3088,11 +3090,74 @@ Based on the Boardy exchange, the research program now records an explicit stand
 4. **Synthesis phase (2028-2029):** introductory thesis volume + dissertation compilation.
 
 Status clarification (21.04.2026):
+
 - KYA open-source proposal has not been sent yet.
 - NIST submission has not been sent yet.
 - Paths are complementary; this cycle prioritizes open-source adoption first.
 
 Additionally, the EIC Step 1 package (5-page proposal, 10-slide deck, 3-minute video script) is documented as a commercialization-facing narrative layer that supports Article 1 positioning, without replacing the peer-reviewed publication pathway.
+
+---
+
+### 10.22 DWS Skilled Taxonomy: Three Tiers Across Agents, Workflows, and Jurisdictions
+
+_Added: 22.04.2026 | Source: CLAUDE.md "DWS Skilled Taxonomy Rule"; Anthropic 2026-04-16 Skills paradigm essay (§10.20.1); deprecation of "GodAgent" branding._
+
+#### 10.22.1 Motivation
+
+The earlier "GodAgent" branding (introduced during the V3 platform build, see §10.13 and `docs/Deputy-Agents-Architecture.md`) conflated three distinct referents — a brand promise (capability acquired through skills), a technical specification (industry-scoped AI agent extending a base compliance layer), and a user-interface category (the enumerable list shown to buyers and operators). The conflation was tolerable during early-stage development but became a positioning liability once the Anthropic Skills paradigm (§10.20.1) validated "skill-first" as the industry-consensus architecture. A naming taxonomy is therefore introduced to replace the single "GodAgent" label with register-specific terms, and — more importantly — to generalise the pattern beyond agents to workflows and jurisdictions.
+
+#### 10.22.2 Three-Tier Pattern
+
+The taxonomy defines a single three-tier pattern applied to every capability axis where DWS offers depth:
+
+```
+Skilled <Axis>                 ← BRAND   (what we SELL)
+    └─ Industrial Specialist <Axis>    ← SPEC    (what they ARE)
+            └─ Industry <Axis>         ← UI      (how we LIST them)
+```
+
+The three tiers separate marketing, documentation, and interface registers under a shared mental model. The three terms refer to the same underlying artefact at each axis; the register changes with the surface.
+
+#### 10.22.3 Three Active Axes (April 2026)
+
+| Tier    | **Agents**                   | **Workflows**                                                       | **Jurisdictions**                     |
+| ------- | ---------------------------- | ------------------------------------------------------------------- | ------------------------------------- |
+| 1 Brand | Skilled Agents               | Skilled Autonomous Workflows                                        | Skilled Jurisdictions (EU, US, Aiwen) |
+| 2 Spec  | Industrial Specialist Agents | Specialist Workflows (long-form: _Industrial Specialist Workflows_) | Regulatory Specialist Jurisdictions   |
+| 3 UI    | Industry Agents              | Industrial Workflows                                                | Jurisdictions                         |
+
+**Agents.** Industry-scoped AI agents that extend the base Athena EU-compliance layer with sector-specific knowledge (steel, cement, chemicals, construction, datacentres, and the 20+ industries documented in §10.6–10.8).
+
+**Workflows.** Deterministic compositions of agents triggered by schedule or event — the skill invocation layer from §10.13.3. "Autonomous" is added to the brand tier because workflows execute without a human in the loop, whereas agents are invoked.
+
+**Jurisdictions.** The regulatory surfaces the platform is skilled in — currently EU (AI Act, GDPR, CBAM, ETS, CSRD, ESRS, EPBD), with US and Aiwen mapped on the data-residency architecture (see `docs/CLOUD_ENVIRONMENTS.md`). The spec tier adds "Regulatory" because a jurisdiction is defined by its regulatory surface, not its geography alone.
+
+#### 10.22.4 Extensibility
+
+When DWS adds a new capability axis (e.g., Datasets, Models, Regulations, Reports), it is named `Skilled <Axis>` / `Industrial Specialist <Axis>` / `Industry <Axis>` and added as a new column to the taxonomy table. Parallel brand words are disallowed; the pattern is deliberately monotone to prevent the register-conflation problem the earlier "GodAgent" label caused.
+
+#### 10.22.5 Count Dynamism
+
+The number of entries in each axis changes over time (e.g., the 22nd industry introduced via the Datacentre Compliance Agent, §10.20.3; the skill library expanding from 6 to 21 to 24+ between v3.31 and v3.34). Hard-coded counts in brand copy are therefore an anti-pattern. Three patterns are acceptable:
+
+1. **Open-ended counts** in platform copy — `18+ Skilled Agents`, `20+ Skilled Jurisdictions`; the `+` absorbs growth.
+2. **Registry-anchored references** in documents — "see the Industrial Specialist Agent registry in `docs/Deputy-Agents-Architecture.md` §3"; no number in prose.
+3. **Product-scoped counts** in SKU copy — "Climate Intelligence ships with 8 Skilled Agents"; acceptable but treated as part of the SKU specification in `products.json`, not as free-floating copy.
+
+#### 10.22.6 Exclusions
+
+Three scopes are explicitly excluded from the rename:
+
+- **Docker and infrastructure identifiers** (`dws-godagent-llm` network, `dws-godagent:latest` image, label `dws-godagent`, iptables rules described in `docs/Deputy-Agents-Architecture.md` §2.4–2.6) remain unchanged. Renaming these would require a coordinated infra migration, not a documentation change.
+- **Pantheon "God Agents"** (two words, `onelifetime.world` Pantheon storyboard, Greek-mythology agent characters — Zeus, Athena, etc.) is a distinct brand identity (§10.13 Climate IQ Pantheon naming convention) and remains unchanged.
+- **Historical records** (field notes, `tuntikirjausraportti`, `Oppimispäiväkirja`, dated project-cost folders) are point-in-time records and are not retroactively edited.
+
+#### 10.22.7 Research Contribution
+
+The taxonomy is not merely a naming convention; it documents a design principle. Agentic product branding is multi-register, and a single label cannot serve brand, specification, and UI simultaneously without diluting each register. For EU-regulated industrial platforms — where audit-grade precision (spec register) and buyer-legible copy (brand register) must both survive compliance review, and where the nav-level category label is a buying decision made in seconds — a three-tier taxonomy decomposes a branding problem that Silicon Valley consumer platforms can evade with a single trade name. Extending the pattern across three orthogonal axes (agents, workflows, jurisdictions) demonstrates that the tiering generalises beyond the specific case of "what we call our agents" to any capability axis where DWS sells depth.
+
+**Key Contribution #31 — Three-Tier Skilled Taxonomy for Regulated-Industry AI Platforms:** A brand / specification / UI taxonomy (Skilled / Industrial Specialist / Industry) is proposed as a design pattern for agent platforms that must simultaneously address brand, documentation, and interface audiences in EU-regulated industries. The pattern generalises across capability axes (agents, workflows, jurisdictions, and future axes) under a monotone `Skilled <Axis>` pattern, avoiding the conflation that single-label conventions impose on platforms where each register is subject to different compliance constraints.
 
 ---
 
@@ -3104,9 +3169,9 @@ Additionally, the EIC Step 1 package (5-page proposal, 10-slide deck, 3-minute v
 **Program:** Smart Factory, Master's Degree (YAMK)
 **Supervisor:** Jarno Varteva (with Erkki Räsänen)
 **Company:** Lifetime Oy (Firehorse brand)
-**Status:** DRAFT - V3.36 (Open-source standard path for KYA, NIST status, Article 1 refined)
-**Version:** 3.36
-**Last Modified:** 21.04.2026
+**Status:** DRAFT - V3.37 (DWS Skilled Taxonomy across Agents, Workflows, and Jurisdictions; "GodAgent" deprecated)
+**Version:** 3.37
+**Last Modified:** 22.04.2026
 **V1.0 Release Target:** 23 February 2026
 
 **Languages:** English, Suomi
