@@ -6,15 +6,15 @@
 Version: 1.0
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Claude Code (Claude Opus 4.6) | Session: claude/obsidian-cli-integration-Agfxl | Date: 14.02.2026 | Changes: Initial creation - field note on Obsidian CLI testing with Claude Code on 16 GB research vault
+  - Version: 1.0 | Tool: Claude Code (Claude Opus 4.6) | Session: claude/obsidian-cli-integration-Agfxl | Date: 22.04.2026 | Changes: Initial creation - field note on Obsidian CLI testing with Claude Code on 16 GB research vault
 
 Session Links & References:
   - Claude Code (claude/obsidian-cli-integration-Agfxl): https://github.com/blogtheristo/dws6
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/docs/field-notes/2026-02-14-obsidian-cli-claude-code-integration.md
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/docs/field-notes/2026-04-22-obsidian-cli-claude-code-integration.md
 
 Document Status:
-  - Created: 14.02.2026
-  - Last Modified: 14.02.2026
+  - Created: 22.04.2026
+  - Last Modified: 22.04.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ACTIVE

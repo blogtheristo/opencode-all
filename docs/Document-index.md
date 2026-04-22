@@ -39,7 +39,7 @@ Centralized index of all documentation in the DWS6 repository for faster search 
 |----------|-------|-------------|
 | [Admin Manuals](#admin-manuals) | 8 | System administration and deployment guides |
 | [Architecture](#architecture-docs) | 12 | Technical architecture blueprints |
-| [Field Notes](#field-notes) | 7 | LWM knowledge capture from real-world events |
+| [Field Notes](#field-notes) | 13 | LWM knowledge capture from real-world events |
 | [Firehorse Product](#firehorse-product) | 35+ | Product suite documentation |
 | [Standards & Guidelines](#standards--guidelines) | 10+ | Coding and documentation standards |
 | [Security](#security) | 5+ | Security policies and compliance |
@@ -108,6 +108,11 @@ LWM knowledge capture from real-world events - raw sensory input for the Lifetim
 | FIGBC Working Group | `/docs/field-notes/2026-01-30-figbc-working-group-recruitment.md` | 2026-01-30 | FIGBC recruitment | Construction, Finland |
 | Qwen3-Coder LLM | `/docs/field-notes/2026-02-04-qwen3-coder-next-agentic-llm.md` | 2026-02-04 | Qwen3 coding agent | LLM, Agentic, Local Dev |
 | Agent Teams vs Subagents | `/docs/field-notes/2026-02-05-claude-code-agent-teams-vs-subagents.md` | 2026-02-05 | Claude Code parallel work | Multi-Agent, Teams, Subagents |
+| AI Safety Report 2026 | `/docs/field-notes/2026-02-06-ai-safety-report-2026-field-note.md` | 2026-02-06 | AI safety research analysis | AI Safety, Risk, Compliance |
+| Brockman Agentic Software | `/docs/field-notes/2026-02-06-brockman-agentic-software-development.md` | 2026-02-06 | Agentic dev insights | Agentic, Software Dev, Strategy |
+| EU Alden Biesen Single Market | `/docs/field-notes/2026-02-11-eu-alden-biesen-single-market-info-note.md` | 2026-02-11 | EU single market retreat | EU, Single Market, Policy |
+| Obsidian CLI + Claude Code | `/docs/field-notes/2026-04-22-obsidian-cli-claude-code-integration.md` | 2026-04-22 | CLI vault access benchmarks | Obsidian, CLI, Knowledge Mgmt |
+| Research Agent Architecture | `/docs/field-notes/2026-04-22-research-agent-architecture-lifetime-scope.md` | 2026-04-22 | 5-capability system design | Multi-Agent, Content, PhD, Research |
 | Field Notes README | `/docs/field-notes/README.md` | - | Guidelines | - |
 
 ---
