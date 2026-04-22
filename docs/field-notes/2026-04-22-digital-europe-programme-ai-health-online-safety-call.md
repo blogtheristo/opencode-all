@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
-- Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/add-digital-europe-funding-rZaXx | Date: 22.04.2026 | Changes: Initial creation — funding radar note on the seven Digital Europe Programme calls announced April 2026 (€63.2M envelope); deadline 2026-10-01; DWS7 fit assessment for online-safety + AI-in-industry tracks
+- Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/add-digital-europe-funding-rZaXx | Date: 22.04.2026 | Changes: Initial creation — funding radar note on the seven Digital Europe Programme calls announced April 2026 (€63.2M envelope); deadline 2026-10-01; DWS7 fit assessment for online-safety + AI-in-industry tracks (themes inferred from LinkedIn announcement)
+- Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/add-digital-europe-funding-rZaXx | Date: 22.04.2026 | Changes: Reality-check — portal shows only 4 of 7 calls open (not 7 as announced). Added §2.1 verified topic-ID table (AI-PILOTING-10-SCREENING, BESTUSE-MCP-10-HUB, BESTUSE-RSF-10-AWARENESS, SUPPORT-10-DISSEMINATION). Replaced §3 inferred fit assessment with per-topic verdicts grounded in actual titles. Verdict: zero primary fits in the 4 open topics; BESTUSE-RSF is partner-only. Revised §4 recommendation to NOT scope Digital Europe until topics 5–7 open.
 
 Session Links & References:
 
@@ -35,40 +36,60 @@ European Commission LinkedIn post (22.04.2026):
 
 Source: https://lnkd.in/eRAGNp_X
 
-## 2. Call Parameters (What We Know)
+## 2. Call Parameters (Verified from Portal, 2026-04-22)
 
 | Field           | Value                                                                     |
 | --------------- | ------------------------------------------------------------------------- |
 | Programme       | Digital Europe Programme (DIGITAL)                                        |
-| Envelope        | €63.2 million total across seven calls                                    |
-| Deadline        | 2026-10-01                                                                |
+| Envelope        | €63.2 million total announced across seven calls (LinkedIn, EC)           |
+| Deadline        | 2026-10-01 (single-stage)                                                 |
+| Opening date    | 2026-04-21                                                                |
 | Eligible        | Research institutions, civil society, fact-checkers, technology providers |
 | Thematic focus  | AI, digital health, digital skills, online safety                         |
 | Secondary focus | Uptake + deployment of key digital technologies across Europe             |
 
-**Unknowns to resolve before application decision:**
+### 2.1 Topic-ID Reality Check (2026-04-22)
 
-- Per-call envelope split (7 calls × average €9M, or uneven distribution?)
-- Consortium vs single-applicant rules per topic
-- Co-financing rate (DIGITAL typically 50%, but can be 100% for SME/non-profit tracks)
-- Topic IDs on the EU Funding & Tenders Portal (not yet indexed in our radar)
+**LinkedIn post said "seven calls." Portal shows only FOUR open for submission as of 22 April 2026.** The remaining three are presumably scheduled to open later but not yet visible on the Funding & Tenders Portal. Re-check weekly until all 7 are open.
 
-**Action:** Pull topic IDs from EU Funding & Tenders Portal before May 2026 scoping sprint. Owner: Risto.
+| #   | Topic ID                              | Title                                                                             | Type of Action                       | Opens      | Deadline      |
+| --- | ------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------ | ---------- | ------------- |
+| 1   | DIGITAL-2026-AI-PILOTING-10-SCREENING | Piloting AI-based image screening in medical centres                              | DIGITAL Simple Grants                | 2026-04-21 | 2026-10-01    |
+| 2   | DIGITAL-2026-BESTUSE-MCP-10-HUB       | Support to implementation of Multi-Country Projects: EDIC Support Hub             | DIGITAL Coordination & Support       | 2026-04-21 | 2026-10-01    |
+| 3   | DIGITAL-2026-BESTUSE-RSF-10-AWARENESS | Research Support Framework for Situational Awareness on information integrity     | DIGITAL Grants for Financial Support | 2026-04-21 | 2026-10-01    |
+| 4   | DIGITAL-2026-SUPPORT-10-DISSEMINATION | Support to Dissemination & Exploitation (D&E) for the Digital Europe Programme    | DIGITAL Coordination & Support       | 2026-04-21 | 2026-10-01    |
+| 5   | _(not yet opened)_                    | _(unknown — expected to be AI-innovation / digital-skills / online-safety track)_ | _?_                                  | _?_        | _2026-10-01?_ |
+| 6   | _(not yet opened)_                    | _(unknown)_                                                                       | _?_                                  | _?_        | _?_           |
+| 7   | _(not yet opened)_                    | _(unknown)_                                                                       | _?_                                  | _?_        | _?_           |
 
-## 3. DWS7 Fit Assessment
+### 2.2 Still-open unknowns
 
-| Call Track (inferred)                   | DWS7 Fit | Angle                                                                                                                       |
-| --------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------- |
-| **AI in health**                        | Low      | Not our vertical; skip unless consortium partner brings health data                                                         |
-| **AI innovation (horizontal)**          | High     | DWS IQ multi-agent compliance platform fits "AI deployment in industry" framing — align with PR 093 carbon ledger narrative |
-| **Digital skills**                      | Medium   | Only as consortium partner with Metropolia / training provider; our thesis work demonstrates skills dissemination           |
-| **Online safety (fact-checkers, tech)** | Medium   | KYA (Know Your Agent) + Clawdbot incident learnings are directly relevant — agentic safety is an online-safety topic        |
-| **Uptake + deployment of key tech**     | High     | DWS IQ 7 sovereignty scoring + CLI deployment story matches "uptake across Europe" framing                                  |
+- Per-topic envelope split (total €63.2M but per-call budget not yet captured — need to open each topic's work-programme PDF).
+- Consortium vs single-applicant rules per topic.
+- Co-financing rate per topic (DIGITAL typically 50%, 100% for CSA and non-profit tracks).
+- Launch dates for topics 5–7.
 
-**Top two candidates:**
+**Action:** Re-check portal weekly for the missing 3 topics. Owner: Risto.
 
-1. **AI innovation (horizontal industry track)** — lead application; pitch DWS IQ as the EU-sovereign multi-agent platform for ETS/CBAM/CSRD compliance.
-2. **Online safety (agentic safety)** — partner application; pitch KYA + TC-4 Leash Snap as an online-safety primitive for autonomous-agent era. Reference the Clawdbot incident and Resend ban as evidence of shipped defensive capability.
+## 3. DWS7 Fit Assessment — Per Topic (Grounded in Actual Titles)
+
+| Topic                                 | DWS7 Fit                 | Verdict                                                                                                                                                                                                                                                                                                                  |
+| ------------------------------------- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| DIGITAL-2026-AI-PILOTING-10-SCREENING | **Skip**                 | Medical imaging vertical, requires CE-marked device track and clinical partners. Not DWS's book.                                                                                                                                                                                                                         |
+| DIGITAL-2026-BESTUSE-MCP-10-HUB       | **Skip**                 | EDIC Support Hub = coordination body for member-state Multi-Country Projects. CSA goes to a policy/facilitation operator, not a tech vendor.                                                                                                                                                                             |
+| DIGITAL-2026-BESTUSE-RSF-10-AWARENESS | **Maybe — partner only** | Online safety + information integrity angle aligns with KYA and the Clawdbot incident learnings. But "Grants for Financial Support" = cascading-grant model; main grantee is usually a fact-checker / civil-society consortium that redistributes to sub-grantees. DWS eligible **only as a sub-grantee via a partner**. |
+| DIGITAL-2026-SUPPORT-10-DISSEMINATION | **Skip**                 | Communications / PR-agency work for the DIGITAL programme itself. Not a tech-vendor target.                                                                                                                                                                                                                              |
+
+**Verdict on the 4 topics currently open:** zero primary fits. BESTUSE-RSF is a partner-only play (~maybe 10% chance of a sensible application path for DWS). **The topics that would match DWS best (AI innovation / industry deployment / sovereign AI) appear to be in the unopened 3/7 — or they don't exist in this batch at all.**
+
+## 3.1 Revised Strategy
+
+Given the portal reality:
+
+1. **Don't front-load DWS7_ROADMAP Apr 2026 effort on these 4 topics.** They're a poor fit.
+2. **Watch for the remaining 3 topics to open.** The LinkedIn post explicitly mentioned "artificial intelligence" and "digital skills" as thematic areas — these likely map to topics 5–7, which are the ones we'd actually want.
+3. **If BESTUSE-RSF is worth a partner-only pursuit**, the lead partner should be a civil-society / fact-checker org (e.g. EU DisinfoLab, EDMO hubs) with DWS providing the agent-safety tooling (KYA / TC-4 Leash Snap) as a sub-grantee deliverable. Low priority for Risto-led effort; only act if a lead partner comes knocking.
+4. **Re-score once topics 5–7 open.** Replace this §3 with verdicts per actual topic, not inferred themes.
 
 ## 4. Calendar Fit
 
@@ -79,15 +100,15 @@ The 2026-10-01 deadline collides with the existing EIC Accelerator October 2026 
 | Digital Europe (this) | EU-sovereign AI deployment across industry + online safety    | 8–12 weeks        |
 | EIC Accelerator       | Deep-tech scale-up with market traction, grant + equity blend | 12–16 weeks       |
 
-**Recommendation:** Do both, but start Digital Europe scoping first (shorter lead time, lower equity dilution) and parallelise EIC drafting from June 2026.
+**Recommendation (revised):** Given the 4 open topics are poor DWS fits, **do NOT scope a Digital Europe application yet**. Focus Oct 2026 writing capacity on EIC Accelerator. Re-evaluate Digital Europe when topics 5–7 open — likely when the AI-innovation / industry-deployment / digital-skills tracks become visible on the portal.
 
 ## 5. Changes Applied in This Session
 
-CHANGES MADE:
+CHANGES MADE (v1.0, initial + v1.1 reality-check):
 
-- `DWS7_ROADMAP.md` line 714: updated Digital Europe Programme row in "Active & Upcoming Programs" table with €63.2M envelope, 2026-10-01 deadline, and specific thematic focus (AI in health, digital skills, online safety, fact-checkers).
-- `DWS7_ROADMAP.md` "Funding Application Calendar": changed Apr 2026 row to "Review the 7 open calls — shortlist fit"; added new Oct 2026 row for "Submit application (deadline 2026-10-01, AI-in-health / online-safety track)".
-- `docs/field-notes/2026-04-22-digital-europe-programme-ai-health-online-safety-call.md`: this field note.
+- `DWS7_ROADMAP.md` line 714: updated Digital Europe Programme row in "Active & Upcoming Programs" table with €63.2M envelope and 2026-10-01 deadline.
+- `DWS7_ROADMAP.md` "Funding Application Calendar": Apr 2026 row set to review open calls; added Oct 2026 row for Digital Europe deadline.
+- `docs/field-notes/2026-04-22-digital-europe-programme-ai-health-online-safety-call.md`: this field note, including §2.1 verified topic-ID table (4 of 7 open on the portal as of 2026-04-22) and §3 per-topic fit assessment.
 
 THINGS I DIDN'T TOUCH:
 
@@ -97,13 +118,14 @@ THINGS I DIDN'T TOUCH:
 
 POTENTIAL CONCERNS:
 
-- Seven call topics collapsed into one table row for brevity. If we commit to applying, expand into a per-topic sub-table with Funding & Tenders Portal topic IDs.
-- 2026-10-01 is a hard deadline; if EIC Accelerator drafting slips, Digital Europe must be the priority (lower risk, faster turnaround).
-- "Civil society + fact-checkers" language suggests at least two of the seven calls are NGO-targeted and not DWS-eligible. Confirm before scoping.
+- **LinkedIn claim ("seven calls") does not match portal reality (four open).** Either topics 5–7 open later in 2026, or the EC announcement bundled forthcoming topics with currently-open ones. Re-check weekly.
+- **None of the 4 open topics is a primary DWS fit.** BESTUSE-RSF is the only plausible angle, and only as a sub-grantee via a civil-society lead. Risk: scoping effort on these 4 is wasted.
+- 2026-10-01 is the Digital Europe deadline AND the EIC Accelerator October cut-off; if both turn out to be worth pursuing, writing capacity is the binding constraint.
 
 ## 6. Next Actions
 
-1. Pull the seven specific topic IDs from the EU Funding & Tenders Portal (owner: Risto, by 2026-05-01).
-2. Score each topic against DWS7 fit using the table in §3 and promote one primary + one secondary target.
-3. Add a `regulatory-radar` skill run output for this call once topic IDs are known.
-4. Flag the 2026-10-01 deadline in `scripts/daily/` calendar output.
+1. **Weekly portal re-check for topics 5–7** — monitor https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-search with `Programme = Digital Europe Programme` until all 7 are visible. Owner: Risto (or automated via `scripts/daily/eu-funding-poller.ts` — see Action 4).
+2. **Re-score when topics 5–7 open** — replace §3 with verdicts per actual topic text. If AI-innovation / industry-deployment / digital-skills track appears, promote to primary Oct 2026 target.
+3. **Decide on BESTUSE-RSF partner play** — only if a civil-society / fact-checker org approaches DWS wanting an agent-safety deliverable. Not actively pursuing.
+4. **Optional: wire an EU funding poller** — `scripts/daily/eu-funding-poller.ts` hitting the portal's undocumented JSON API and writing to a funding-radar JSON; triggers a notification when a new topic ID matching our programme filters appears. Worth building only if we start tracking EU calls continuously (not just this one).
+5. **Flag 2026-10-01 in calendar output** — add the deadline to the `scripts/daily/` calendar reminder so Risto sees it at T-8 weeks and T-4 weeks.
