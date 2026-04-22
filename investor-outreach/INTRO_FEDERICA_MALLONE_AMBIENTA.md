@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Investor Intro Note — Federica Mallone, Ambienta
-Version: 1.0
+Version: 1.1
 Date: 2026-04-22
 Author: Claude Opus 4.7 + Human Review
 Branch: claude/investor-outreach-draft-IM1GB
@@ -9,7 +9,8 @@ Story Lock: Story A — Carbon/compliance infrastructure (NO Aegis/defense — A
 Intro Type: Cold — LinkedIn InMail / conference outreach
 
 AGENT HISTORY:
-- v1.0 (2026-04-22): Initial draft. Federica Mallone — Partner / Head of Sustainability & Strategy at Ambienta SGR (Milan). Strong mandate fit: Ambienta's Article 9 SFDR fund invests in European industrial/mid-market companies on sustainability + resource efficiency thesis. Federica's scope covers M&A, sustainability due diligence, and fundraising — the three exact workflows DWS IQ 6 accelerates. Positioning: portfolio value-add (their PortCos are our ICP), not direct seed investment. Aegis / defense / dual-use language suppressed per Article 9 fund mandate.
+- v1.0 (2026-04-22): Initial draft. Federica Mallone positioned as Partner / Head of Sustainability & Strategy at Ambienta SGR (Milan). Strong mandate fit: Article 9 SFDR fund.
+- v1.1 (2026-04-22): TITLE CORRECTION. Federica's actual role is Manager, Sustainability & Strategy (Milan, joined 2020) — not Partner / Head. Per Ambienta team page and 2024 Lens publication. The Head role belongs to Fabio Ranghino (Partner). Repositioned Federica as the working-level entry door; Ranghino is the real decision-maker for portfolio-wide tooling adoption. Added "Path Up" section. Fit assessment, drawbacks, and strategy adjusted accordingly.
 -->
 
 # Investor Intro Note — Federica Mallone, Ambienta
@@ -19,29 +20,40 @@ AGENT HISTORY:
 | Field          | Value                                                                                         |
 | -------------- | --------------------------------------------------------------------------------------------- |
 | **Name**       | Federica Mallone                                                                              |
-| **Role**       | Partner / Head of Sustainability & Strategy, Ambienta SGR                                     |
+| **Role**       | Manager, Sustainability & Strategy — Ambienta SGR (joined 2020)                               |
+| **Reports to** | Fabio Ranghino, Partner & Head of Sustainability & Strategy                                   |
 | **Fund**       | Ambienta — pan-European PE firm focused on environmental sustainability + resource efficiency |
 | **Mandate**    | Article 9 SFDR fund (strict sustainability objective — darkest green classification)          |
 | **AUM**        | ~€3B+ AUM across private equity, public equities, credit                                      |
 | **Ticket**     | PE institutional (mid-market buyouts, growth). Not a typical seed investor                    |
 | **Stage**      | Growth + buyout (€20M–€150M equity tickets typically)                                         |
 | **Focus**      | Industrial mid-market companies with environmental value creation angle                       |
-| **Scope**      | M&A execution, sustainability due diligence, LP fundraising on Article 9 fund                 |
+| **Scope**      | Sustainability research, DD support, ESG / SFDR reporting workstreams                         |
 | **Location**   | Milan, Italy                                                                                  |
 | **Intro Type** | Cold — LinkedIn InMail / PE Insights Italy conference outreach                                |
-| **LinkedIn**   | linkedin.com/in/federica-mallone (verify exact slug before sending)                           |
+| **LinkedIn**   | linkedin.com/in/mallonefederica                                                               |
 
 ## Fit Assessment
 
-**Strong mandate fit — portfolio value-add angle, not direct seed investment.** Federica is not the buyer for a Captain seat, but she is the ideal door into Ambienta's portfolio companies, which are our ICP.
+**Working-level entry door, not the decision-maker.** Federica is a Manager in the Sustainability & Strategy team — she is the right person to start the conversation, qualify the thesis, and warm-introduce us internally. The actual buyer for portfolio-wide compliance tooling is her boss, **Fabio Ranghino** (Partner & Head of S&S). Treat this INTRO as the qualification step before the Ranghino touch.
 
-1. **Article 9 fund = must prove measurable sustainability outcomes** — SFDR Article 9 classification legally requires the fund to demonstrate a sustainability objective. DWS IQ 6 is the compliance infrastructure that turns fund-level sustainability claims into auditable, regulation-grade evidence (ETS, CBAM, CSRD, EU Taxonomy). This is mandate protection, not marketing.
+1. **Article 9 fund = must prove measurable sustainability outcomes** — SFDR Article 9 classification legally requires the fund to demonstrate a sustainability objective. DWS IQ 6 turns fund-level sustainability claims into auditable, regulation-grade evidence (ETS, CBAM, CSRD, EU Taxonomy). Mandate protection, not marketing.
 2. **Industrial mid-market = our exact ICP** — Ambienta's portfolio companies are pan-European industrial businesses in manufacturing, resource efficiency, pollution control. These are the same CFOs who sign €25K+ compliance contracts with us. One portfolio intro can cascade into 5–10 pilots.
-3. **Sustainability due diligence is her workflow** — She runs sustainability DD on targets. DWS IQ 6 automates exactly that workflow: connect to SAP/IFS/Dynamics, pull operational data, output audit-ready compliance reports. We can compress a 6-week DD into 2 weeks with a source-cited trail.
-4. **LP fundraising = CSRD pressure on LPs** — As fundraising lead, she sees LPs asking for more rigorous sustainability reporting. Article 9 fund LPs are institutional (pension funds, insurers) who themselves face CSRD. The compliance infrastructure problem is her LP's problem, not just her PortCos' problem.
-5. **M&A experience = understands data rooms** — Carbon compliance readiness is becoming a material pricing factor. An ETS/CBAM-exposed industrial target without automated compliance is underpriced risk. She sees this from both sides.
-6. **Milan / EU-domiciled** — No CLOUD Act concerns. Aligns with our sovereign ownership rule.
-7. **Partner-level scope** — Sustainability & Strategy head is the decision-maker for internal tooling adoption + portfolio-wide standards. If DWS IQ becomes Ambienta's portfolio sustainability stack, that's a multi-million-euro enterprise footprint.
+3. **DD support is her workstream** — As Manager in S&S, she supports sustainability due diligence on PE targets. DWS IQ automates that workflow: connect to SAP/IFS/Dynamics, pull operational data, output audit-ready compliance reports. Compress 6-week DD to ~2 weeks with a source-cited trail.
+4. **SFDR / Lens publication track record** — Co-authored Ambienta Lens 2024 (Greenwashing in Fashion) under Ranghino. She thinks publicly about sustainability measurement methodology — exactly what DWS IQ scoring engine produces.
+5. **Milan / EU-domiciled** — No CLOUD Act concerns. Aligns with our sovereign ownership rule.
+6. **Internal credibility = warm-intro currency** — A respected Manager who walks DWS IQ into Ranghino's office is worth more than a cold InMail to Ranghino directly.
+
+## Path Up — Escalation Map
+
+| Step | Target                                                                          | Rationale                                                                                    |
+| ---- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| 1    | **Federica Mallone** (Manager, S&S)                                             | Qualify thesis, get internal read, ask for warm intro                                        |
+| 2    | **Fabio Ranghino** (Partner, Head of S&S)                                       | Real decision-maker for portfolio sustainability tooling and SFDR methodology                |
+| 3    | **Mauro Roversi** (Founding Partner, CIO Private Equity)                        | Owns PE deal flow + portfolio operating standards                                            |
+| 4    | **Francesco Lodrini / Yann Bak / Giacomo Forti** (Partners, Small Cap Strategy) | New €500M small-cap fund — closest PortCo fit to our ICP. Run in parallel with the S&S track |
+
+If Federica passes or stalls beyond 14 days, escalate directly to Ranghino with the same one-pager and reference the Lens 2024 publication as the entry point.
 
 ## Drawbacks / Mitigations
 
@@ -51,26 +63,29 @@ AGENT HISTORY:
   - _Mitigation:_ Hard suppression — Story A only (regulatory compliance infrastructure). Do NOT send INVESTOR_MEMO_AEGIS.md. Do NOT mention dual-use, defense, or sovereign-Aegis framing.
 - **PE institutional sales cycle.** Portfolio adoption decisions take 3–6 months.
   - _Mitigation:_ Ask for ONE portfolio pilot to anchor a case study. One proof point unlocks the rest.
-- **Seniority gap on pilot buying.** Partners don't run pilot procurement; operations/value-creation teams do.
-  - _Mitigation:_ Use her as the warm introducer to Ambienta's value-creation / operations lead, then run the sales motion with them.
+- **Seniority gap on pilot buying.** Managers don't sign procurement; Partners do.
+  - _Mitigation:_ Treat Federica as the qualifier + warm introducer to Ranghino (Head of S&S) and the value-creation team. Don't ask her to commit budget.
+- **Title precision matters.** First-touch language must reflect her actual title (Manager, Sustainability & Strategy) — getting it wrong fails a 60-second LinkedIn check.
+  - _Mitigation:_ DM and email below now scope to her real role, not the inflated one in v1.0.
 
 ## Strategy
 
 - **Lead with the mandate angle** — Article 9 funds need to _prove_ sustainability outcomes. We are the audit trail. Frame DWS IQ as infrastructure that de-risks the Article 9 classification, not as another ESG tool.
-- **Translate to portfolio value** — Her PortCos are our ICP. One pilot with an Ambienta industrial PortCo is worth more than a Captain seat.
-- **Use her DD workflow as the hook** — Compress sustainability DD from 6 weeks to 2 weeks with source-cited regulatory scoring. That is a tangible time saving she can quantify.
+- **Translate to portfolio value** — Ambienta's PortCos are our ICP. One pilot with an Ambienta industrial PortCo is worth more than a Captain seat.
+- **Use the DD support workstream as the hook** — Compress sustainability DD from 6 weeks to 2 weeks with source-cited regulatory scoring. Tangible time saving she can quantify and walk to Ranghino.
+- **Reference Lens 2024** — Co-authored with Ranghino. Acknowledging the methodology work signals we read it.
 - **Banned language (replace per CLAUDE.md):** "climate tool" → "regulatory compliance infrastructure"; "ESG software" → "EU compliance automation"; never "disrupt", "revolutionary", "save the planet".
 - **Do NOT send:** INVESTOR_MEMO_AEGIS.md (Article 9 mandate blocks dual-use); Fleet Admiral / robotics / Jetson / world models content (V1-era suppression).
 - **Do NOT mention:** Boardy in any external communication.
 - **Attachment policy:** One-pager first. Full memo only after interest. Aegis memo NEVER.
 
-## Draft LinkedIn DM (user-approved baseline)
+## Draft LinkedIn DM (user-approved baseline, scoped to actual role)
 
 Hi Federica,
 
 I'm Risto Päärni, founder of Lifetime Oy. We're building DWS IQ 6, an AI and compliance automation platform for regulated industrial companies in Europe.
 
-I reached out because your work at Ambienta sits close to the space I care about, especially industrial value creation, due diligence, and the shift toward more operationally grounded compliance.
+I read your Lens piece on greenwashing in fashion — the methodology angle is exactly what we're building infrastructure for. Your work in Ambienta's Sustainability & Strategy team sits close to the space I care about: operationally grounded sustainability evidence at portfolio-company level.
 
 If useful, I'd love to share a short view on how we're approaching compliance automation in practice, and see whether there's any overlap.
 
@@ -83,7 +98,7 @@ Risto
 
 Hi Federica,
 
-Risto Päärni, founder of Lifetime Oy (Espoo, Finland). Ambienta's Article 9 positioning and your scope across M&A, sustainability due diligence, and fundraising line up closely with the problem we solve, so I wanted to reach out directly.
+Risto Päärni, founder of Lifetime Oy (Espoo, Finland). Ambienta's Article 9 positioning and the sustainability methodology work coming out of your team (the 2024 Lens piece on greenwashing was the reason I looked closer) line up with the problem we solve, so I wanted to reach out directly.
 
 DWS IQ 6 is EU compliance automation for industrial companies. 21 AI agents connect to SAP, IFS Cloud, and Dynamics 365, pull operational data, and auto-generate audit-ready reports across ETS, CBAM, CSRD, and EU Taxonomy. Every score traces back to the regulatory source (EUR-Lex, EEA data, EU ETS benchmarks). No black-box ratings.
 
