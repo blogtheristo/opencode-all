@@ -53,7 +53,7 @@ RECOMMENDATION: Approach [X] because [reason].
 
 ## Recovery Path If You Skip
 
-A skipped gate is only safe if the change goes through the **PR + CI** path. Direct commits to feature branches without a PR means our 15 CI/CD workflows never validate the change. For any skip above, the expectation is: push → open PR → wait for CI green → merge. No exceptions.
+A skipped gate is only safe if the change goes through the **PR + CI** path. Direct commits to feature branches without a PR means our CI workflows never validate the change. For any skip above, the expectation is: push → open PR → wait for CI green → merge. No exceptions.
 
 ## DWS Integration
 

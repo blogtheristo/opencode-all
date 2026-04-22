@@ -38,32 +38,32 @@ Both hit the same upstream API, so ~90% of features overlap — but there is no 
 | `gh pr create --title ... --body ...`  | `mcp__github__create_pull_request`                                                                     |
 | `gh pr list --state open --base main`  | `mcp__github__list_pull_requests`                                                                      |
 | `gh pr view <n>`                       | `mcp__github__pull_request_read` (method: `get`)                                                       |
-| `gh pr diff <n>`                       | `pull_request_read` (method: `get_diff`)                                                               |
-| `gh pr checks <n>`                     | `pull_request_read` (method: `get_status`)                                                             |
-| `gh pr view <n> --json files`          | `pull_request_read` (method: `get_files`)                                                              |
+| `gh pr diff <n>`                       | `mcp__github__pull_request_read` (method: `get_diff`)                                                  |
+| `gh pr checks <n>`                     | `mcp__github__pull_request_read` (method: `get_status`)                                                |
+| `gh pr view <n> --json files`          | `mcp__github__pull_request_read` (method: `get_files`)                                                 |
 | `gh pr review <n> --approve`           | `mcp__github__pull_request_review_write`                                                               |
-| `gh pr review <n> --comment -F file`   | `pull_request_review_write` + `add_comment_to_pending_review`                                          |
+| `gh pr review <n> --comment -F file`   | `mcp__github__pull_request_review_write` + `mcp__github__add_comment_to_pending_review`                |
 | `gh pr comment <n> --body ...`         | `mcp__github__add_issue_comment` (PRs are issues in GitHub's data model)                               |
 | _(reply to an existing review thread)_ | `mcp__github__add_reply_to_pull_request_comment` (requires existing comment ID — no direct gh command) |
 | `gh pr merge <n> --squash`             | `mcp__github__merge_pull_request`                                                                      |
 | `gh pr merge <n> --auto`               | `mcp__github__enable_pr_auto_merge`                                                                    |
 | `gh pr edit <n> --title ...`           | `mcp__github__update_pull_request`                                                                     |
 | `gh pr update-branch <n>`              | `mcp__github__update_pull_request_branch`                                                              |
-| `gh pr ready <n>`                      | `update_pull_request` (draft: false)                                                                   |
+| `gh pr ready <n>`                      | `mcp__github__update_pull_request` (draft: false)                                                      |
 | `gh search prs "is:open author:@me"`   | `mcp__github__search_pull_requests`                                                                    |
 
 ### Issues
 
-| gh command                             | MCP tool                                        |
-| -------------------------------------- | ----------------------------------------------- |
-| `gh issue create -t ... -b ...`        | `mcp__github__issue_write` (method: `create`)   |
-| `gh issue list --label bug`            | `mcp__github__list_issues`                      |
-| `gh issue view <n>`                    | `mcp__github__issue_read`                       |
-| `gh issue view <n> --comments`         | `issue_read` (method: `get_comments`)           |
-| `gh issue edit <n> --add-label ...`    | `issue_write` (method: `update`)                |
-| `gh issue close <n>`                   | `issue_write` (method: `update`, state: closed) |
-| `gh issue comment <n> -b ...`          | `mcp__github__add_issue_comment`                |
-| `gh search issues "is:open label:bug"` | `mcp__github__search_issues`                    |
+| gh command                             | MCP tool                                                     |
+| -------------------------------------- | ------------------------------------------------------------ |
+| `gh issue create -t ... -b ...`        | `mcp__github__issue_write` (method: `create`)                |
+| `gh issue list --label bug`            | `mcp__github__list_issues`                                   |
+| `gh issue view <n>`                    | `mcp__github__issue_read`                                    |
+| `gh issue view <n> --comments`         | `mcp__github__issue_read` (method: `get_comments`)           |
+| `gh issue edit <n> --add-label ...`    | `mcp__github__issue_write` (method: `update`)                |
+| `gh issue close <n>`                   | `mcp__github__issue_write` (method: `update`, state: closed) |
+| `gh issue comment <n> -b ...`          | `mcp__github__add_issue_comment`                             |
+| `gh search issues "is:open label:bug"` | `mcp__github__search_issues`                                 |
 
 ### Branches, Commits, Files
 

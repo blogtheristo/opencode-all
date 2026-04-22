@@ -33,8 +33,8 @@ Input: $ARGUMENTS
 | ---------------------------- | ------------------------------------------------------------------- |
 | `gh pr create`               | `mcp__github__create_pull_request`                                  |
 | `gh pr view <n>`             | `mcp__github__pull_request_read` (method: `get`)                    |
-| `gh pr diff <n>`             | `pull_request_read` (method: `get_diff`)                            |
-| `gh pr checks <n>`           | `pull_request_read` (method: `get_status`)                          |
+| `gh pr diff <n>`             | `mcp__github__pull_request_read` (method: `get_diff`)               |
+| `gh pr checks <n>`           | `mcp__github__pull_request_read` (method: `get_status`)             |
 | `gh pr merge <n>`            | `mcp__github__merge_pull_request`                                   |
 | `gh pr review <n>`           | `mcp__github__pull_request_review_write`                            |
 | `gh issue create`            | `mcp__github__issue_write` (method: `create`)                       |
