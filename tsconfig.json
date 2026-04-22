@@ -25,6 +25,7 @@
     "dist",
     "**/*.test.ts",
     "**/*.spec.ts",
+    "**/*_OLD.ts",
     "src/cloudflare/**/*",
     "src/__tests__/**/*",
     "src/firehorse/**/*",
