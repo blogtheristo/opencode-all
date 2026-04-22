@@ -135,7 +135,7 @@ Why **"Regulatory"** appears in the jurisdiction spec tier: jurisdictions are de
 2. **Registry-anchored** (docs/specs): "See `docs/Deputy-Agents-Architecture.md` §3 for the current Industrial Specialist Agent registry" — no count in prose.
 3. **Product-scoped** (SKU copy only): `Climate Intelligence ships with 8 Skilled Agents` — precise, but MUST be updated if the SKU's agent list changes. Treat the count as part of the SKU spec in `products.json`, not free-floating copy.
 
-**Canonical source of truth:** `docs/Deputy-Agents-Architecture.md` §1 (Terminology). Any new taxonomy-facing copy must be consistent with that glossary; any glossary change must be reflected across marketing surfaces in the same PR.
+**Canonical source of truth:** `docs/Deputy-Agents-Architecture.md` — "Terminology — DWS Skilled Taxonomy (Canonical)" section at the top of the doc. Any new taxonomy-facing copy must be consistent with that glossary; any glossary change must be reflected across marketing surfaces in the same PR.
 
 **Scope exclusions — do NOT rename:**
 
