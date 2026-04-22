@@ -1,13 +1,15 @@
 # DWS Skills & Commands Complete Guide
 
 VERSION AND AGENT HISTORY
-Version: 1.1
+Version: 1.5
 Created: 2026-03-21
 Author: Claude Code (Opus 4.6)
 Session: claude/connect-kya-dws-cli-0MMIB
 Tool: Claude Code CLI
 Status: Published
 
+- Version: 1.5 | Agent: Claude Code (Opus 4.7) | Date: 22.04.2026 | Session: claude/github-version-compatibility-uTOO7 | Changes: Post-merge reconciliation — after merging main (PRs #1152 axios, #1153 Grok removal, #1156 npm audit, #1161 ollama-spark) the true skill count is 29 (26 slash + 3 discipline). Updated count line accordingly. No new content; fixes inconsistency introduced because /gh-to-mcp (v1.4) and /ollama-spark landed in parallel.
+- Version: 1.4 | Agent: Claude Code (Opus 4.7) | Date: 22.04.2026 | Session: claude/github-version-compatibility-uTOO7 | Changes: Added /gh-to-mcp skill (section 6.1a) — translates gh CLI commands to GitHub MCP tool calls and clarifies that gh and MCP are independently versioned; updated skill count from 24 to 25; added Quick Reference row; added docs/GITHUB_CLI_VS_MCP.md reference.
 - Version: 1.3 | Agent: Claude Code (Opus 4.7) | Date: 18.04.2026 | Session: claude/green-energy-roadmap-pEPPK | Changes: Added /regulatory-radar skill (section 5.2a) — EU regulatory pipeline scanner scoring upcoming instruments per customer; updated skill count from 23 to 24; added Quick Reference row. Skill spec only — agent implementation deferred until datacentre-compliance PRD Gate 1.
 - Version: 1.2 | Agent: Claude Code (Sonnet 4.6) | Date: 17.04.2026 | Session: claude/restore-language-bar-xH99X | Changes: Added /multilingual skill (section 8.2); updated skill count from 22 to 23; added row to Quick Reference; renamed section 8 to "Code Quality & Internationalisation".
 - Version: 1.1 | Agent: Claude Code (Opus 4.6) | Date: 10.04.2026 | Session: claude/connect-kya-dws-cli-0MMIB | Changes: Added /kya and /kb slash commands to sections 7.1 and 7.2 (new "Runtime Safety & Knowledge" section); renumbered following sections; updated skill count from 20 to 22; added /kya and /kb rows to Quick Reference.
@@ -15,7 +17,7 @@ Status: Published
 
 ## 1. Overview
 
-DWS IQ 6 provides **24 skills** for AI coding agents — 21 slash commands in `.claude/commands/` and 3 composable discipline skills in `skills/`. This guide explains every skill: what it does, when to use it, and how skills connect into workflows.
+DWS IQ 6 provides **29 skills** for AI coding agents — 26 slash commands in `.claude/commands/` and 3 composable discipline skills in `skills/`. This guide explains every skill: what it does, when to use it, and how skills connect into workflows.
 
 **Audience:** Human-in-the-loop (HIL) operators, developers using Claude Code, Cursor, or VS Code with DWS6.
 
@@ -203,6 +205,16 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 
 **Trigger phrases:** "git status", "branch status", "am I synced", "flow status"
 
+### 6.1a /gh-to-mcp
+
+**When to use:** User pastes a `gh` CLI command, asks "what's the MCP equivalent", "is gh 2.X the same as MCP", or mentions gh inside a Claude Code session (where gh is not installed).
+
+**What it does:** Translates `gh <subcommand>` into the equivalent `mcp__github__*` tool call using the map in `docs/GITHUB_CLI_VS_MCP.md`. Flags capabilities that have no MCP equivalent (e.g. `gh run`, `gh workflow`, `gh codespace`, `gh gist`, raw `gh api`). Also answers version-compatibility questions: gh CLI and GitHub MCP are **independently versioned** — they share the GitHub API but not a release scheme.
+
+**Trigger phrases:** "gh to mcp", "gh equivalent", "mcp equivalent of gh", "gh vs mcp", "is gh 2.54 compatible with mcp", "how do I do X via mcp"
+
+**Reference:** `docs/GITHUB_CLI_VS_MCP.md` (full translation map) | `docs/GITHUB_MCP_TOOLS.md` (48-tool catalogue).
+
 ### 6.2 /email
 
 **When to use:** Sending transactional emails, checking delivery status, or triggering outreach digests.
@@ -249,6 +261,16 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 **What it does:** Inventories LSJ posts from the last 14 days, ranks them (time-on-page, lead attribution, share velocity, editorial judgement), picks **one Best Entry + three Runners-Up**, drafts an About-LSJ intro + 150-word Editor's Note + exactly-80-word Agentic Lens, generates an HTML post at `onelifetime.world/posts/lifetime-scope-issue-<nnn>-<yyyy-mm-dd>.html` (+ landing-pages mirror), and emits a LinkedIn-ready copy-paste block (plain text, no markdown, no angle-brackets around URLs, Links section with blog + YouTube + subscribe CTA). Never auto-posts to LinkedIn — the Editor sends manually.
 
 **Hard rules:** Agentic Lens never fabricates outcomes (CLAUDE.md Validated Mock Data Rule); if no real aggregate is available, states _"No verified outcomes this fortnight"_. Needs ≥ 4 posts in the window (1 best + 3 runners-up) or the biweekly cron skips the issue.
+
+### 6.6 /ollama-spark
+
+**When to use:** Anthropic / Claude / Groq is rate-limited or quota-exhausted, or the prompt contains EU-restricted data (PII, GDPR, EU AI Act high-risk) that must not leave DGX Spark, or you want cost-free batch inference on owned hardware. See CLAUDE.md §DGX Ollama Fallback Rule.
+
+**What it does:** Routes a one-shot prompt to Ollama running on DGX Spark via `ssh dgx-spark "curl -s http://localhost:11434/api/generate ..."`. Wrapper `scripts/ollama-spark.sh` handles JSON-escaping and the SSH transport; the skill `/ollama-spark <model> "<prompt>"` invokes it. `--list` enumerates pulled models on the Spark.
+
+**Example:** `/ollama-spark llama3.1:70b "Classify this CSRD disclosure: ..."` — full response on stdout, no per-token billing, no cloud egress.
+
+**Composes with:** Any DWS agent whose `LLMClient` catches a cloud 429 and wants a fallback; `/kya` for sovereignty-sensitive sessions; `/sovereignty-assess` for pre-flight checks on whether a prompt should go here by default.
 
 **Trigger phrases:** "lsj publish", "draft scope monthly", "best blog of the fortnight", "lifetime scope monthly", "linkedin newsletter draft", "prepare LSJ issue"
 
@@ -395,6 +417,47 @@ These are not slash commands — they are process rules that agents follow autom
 
 **Workflow:** Edit root > copy to landing-pages > verify with diff > commit both together.
 
+## 9.4 V2 Skilled Agents (AgentFoundry roster)
+
+Every V2 agent ships with a YAML config in `AgentFoundry/configs/production/` that captures deployment-only concerns (model tier, budget, rate limits, deployment phase). Execution logic and system prompts live in the corresponding `src/agents/*.ts` class. The industry pages on dws10.com list which agents apply to each vertical in the **V2 Skilled Agents** section.
+
+Badges (section pill, skill chips, KYA badge, Standards & Interop strip) are canonicalised in `kb/wiki/concepts/badges-library.md`. Propose new badges there first before placing them on a page.
+
+**Climate IQ industry agents (9)** — one per vertical, named after mythological figures:
+
+| Agent          | Industry                       | Source                                             | Config                                          |
+| -------------- | ------------------------------ | -------------------------------------------------- | ----------------------------------------------- |
+| **Mars**       | Construction & Buildings       | `src/agents/workflow/industry/mars.agent.ts`       | `AgentFoundry/configs/production/mars-001.yaml` |
+| **Helios**     | Energy & Renewables            | `src/agents/workflow/industry/helios.agent.ts`     | `helios-001.yaml`                               |
+| **Vulcan**     | Steel & Metals                 | `src/agents/workflow/industry/vulcan.agent.ts`     | `vulcan-001.yaml`                               |
+| **Talos**      | Aluminium                      | `src/agents/workflow/industry/talos.agent.ts`      | `talos-001.yaml`                                |
+| **Gaia**       | Cement & Earth Materials       | `src/agents/workflow/industry/gaia.agent.ts`       | `gaia-001.yaml`                                 |
+| **Ceres**      | Agriculture & Circular Economy | `src/agents/workflow/industry/ceres.agent.ts`      | `ceres-001.yaml`                                |
+| **Neptune**    | Maritime & Shipping            | `src/agents/workflow/industry/neptune.agent.ts`    | `neptune-001.yaml`                              |
+| **Prometheus** | Hydrogen & Energy Transition   | `src/agents/workflow/industry/prometheus.agent.ts` | `prometheus-001.yaml`                           |
+| **BESS**       | Battery Energy Storage Systems | `src/agents/workflow/industry/bess.agent.ts`       | `bess-001.yaml`                                 |
+
+**Platform agents (3)** — cross-cutting runtime gates:
+
+| Agent                   | Role                             | Source                                    | Config                         | Skill                 |
+| ----------------------- | -------------------------------- | ----------------------------------------- | ------------------------------ | --------------------- |
+| **Compliance**          | EU regulatory gap analysis       | `src/agents/compliance.agent.ts`          | `compliance-001.yaml`          | `/compliance-check`   |
+| **Quality Gate**        | Runtime schema / fact / citation | `src/agents/quality-gate.agent.ts`        | `quality-gate-001.yaml`        | runtime gate          |
+| **Sovereignty Monitor** | EU data residency + NIS2         | `src/agents/sovereignty-monitor.agent.ts` | `sovereignty-monitor-001.yaml` | `/sovereignty-assess` |
+
+**Interop standards referenced by every V2 agent:**
+
+- **A2A v1.0** — Google Agent2Agent protocol (Linux Foundation, 150+ orgs). Agent Cards at `/.well-known/agent-card.json` (endpoint on roadmap).
+- **MCP** — Anthropic Model Context Protocol. All V2 agents exposed at `/mcp` via JSON-RPC 2.0 `tools/list`.
+- **KYA** — Know Your Agent Standard v1.1, Lifetime Oy. MicroVM sandbox + identity binding + TC-4 Leash-Snap. **Open-source aim:** Agentic AI Foundation, NIST, and European standards bodies.
+
+**Reference:**
+
+- Industry pages: `dws10.com/construction/`, `dws10.com/energy/`, `dws10.com/manufacturing/`, `dws10.com/logistics/`, `dws10.com/mining/`, `dws10.com/real-estate/`, `dws10.com/shipbuilding/`, `dws10.com/waste/`, `dws10.com/healthcare/`, `dws10.com/public-sector/`, `dws10.com/financial-services/` (all mirrored to `landing-pages/dws10-com/`).
+- BYO Agent Interface v1 preview: `dws10.com/enterprise-integrations/#byo-agents`.
+- Competitive landscape (Siemens / NVIDIA / Aspire 13.2 / A2A v1.0 / Salesforce AgentExchange / SAP Joule / Oracle AI Agent Studio): `docs/field-notes/2026-04-22-agent-ecosystem-landscape-q2-2026.md`.
+- Badges library: `kb/wiki/concepts/badges-library.md`.
+
 ## 10. Quick Reference — When to Use What
 
 | Situation                      | Skill               | Type       |
@@ -414,6 +477,7 @@ These are not slash commands — they are process rules that agents follow autom
 | Database sovereignty check     | /sovereignty-assess | Compliance |
 | Construction site assessment   | /site-safety        | Compliance |
 | Check git branch state         | /flow-status        | Operations |
+| Translate gh command to MCP    | /gh-to-mcp          | Operations |
 | Send email notification        | /email              | Operations |
 | Control edge devices           | /remote-control     | Operations |
 | Add/triage investor intro      | /investor-outreach  | Operations |

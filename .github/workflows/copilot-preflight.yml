@@ -6,7 +6,7 @@ name: Copilot Pre-flight Review
 #
 # Flow:
 #   push to copilot/* or claude/* branch
-#   → Claude + Grok Fast quick review (< 60s combined)
+#   → Claude quick review (< 60s)
 #   → PASS: set green commit status → Copilot opens PR normally
 #   → FAIL: write PREFLIGHT_ISSUES.md to branch → Copilot reads, fixes, re-pushes
 #           (pre-flight re-runs automatically on the new push)
@@ -134,68 +134,16 @@ Format:
             echo "verdict=pass" >> $GITHUB_OUTPUT
           fi
 
-      # ── Step 2: Grok Fast check ──
-      - name: Grok Fast Pre-flight
-        if: steps.pr-check.outputs.has_pr == 'false' && secrets.XAI_API_KEY != ''
-        id: grok
-        env:
-          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
-          BRANCH: ${{ github.ref_name }}
-        run: |
-          PROMPT_STATIC='Quick pre-flight review before PR creation.
-Flag ONLY: security issues (API keys, injection), null/undefined crashes, auth gaps.
-Skip style comments entirely.
-
-Format:
-## Grok Pre-flight
-**Issues:** [list with file:line, or None]
-**Verdict:** PASS / FAIL'
-
-          PAYLOAD=$(jq -n \
-            --arg static "$PROMPT_STATIC" \
-            --arg branch "$BRANCH" \
-            --rawfile diff  /tmp/preflight-diff.txt \
-            --rawfile files /tmp/preflight-files.txt \
-            '{
-              model: "grok-3-fast",
-              max_tokens: 512,
-              messages: [{
-                role: "user",
-                content: (
-                  $static
-                  + "\n\nBranch: " + $branch
-                  + "\nChanged files:\n" + $files
-                  + "\nDiff:\n" + $diff
-                )
-              }]
-            }')
-
-          RESPONSE=$(curl -s --max-time 30 -X POST \
-            "https://api.x.ai/v1/chat/completions" \
-            -H "Authorization: Bearer ${XAI_API_KEY}" \
-            -H "Content-Type: application/json" \
-            -d "$PAYLOAD" \
-            | jq -r '.choices[0].message.content // "unavailable"')
-
-          echo "$RESPONSE" > /tmp/grok-preflight.txt
-
-          if echo "$RESPONSE" | grep -q "^.*Verdict.*FAIL"; then
-            echo "verdict=fail" >> $GITHUB_OUTPUT
-          else
-            echo "verdict=pass" >> $GITHUB_OUTPUT
-          fi
-
-      # ── Determine combined pre-flight verdict ──
+      # ── Determine pre-flight verdict ──
       - name: Combine pre-flight verdicts
         if: steps.pr-check.outputs.has_pr == 'false'
         id: verdict
         run: |
           CLAUDE="${{ steps.claude.outputs.verdict }}"
-          GROK="${{ steps.grok.outputs.verdict }}"
 
-          if [ "$CLAUDE" = "fail" ] || [ "$GROK" = "fail" ]; then
+          if [ "$CLAUDE" = "fail" ]; then
             echo "result=fail" >> $GITHUB_OUTPUT
-          elif [ -z "$CLAUDE" ] && [ -z "$GROK" ]; then
+          elif [ -z "$CLAUDE" ]; then
             echo "result=skip" >> $GITHUB_OUTPUT   # no API keys configured
           else
             echo "result=pass" >> $GITHUB_OUTPUT
@@ -255,13 +203,6 @@ Format:
               echo "---"
               echo ""
               cat /tmp/claude-preflight.txt
-              echo ""
-            fi
-
-            if [ -f /tmp/grok-preflight.txt ]; then
-              echo "---"
-              echo ""
-              cat /tmp/grok-preflight.txt
               echo ""
             fi
 

@@ -6,7 +6,9 @@
  * Designed for GitHub Actions cron, manual execution, or any CI/CD trigger.
  *
  * Usage:
- *   npx tsx scripts/send-morning-briefing.ts
+ *   npm run morning:briefing
+ *   node --import tsx scripts/send-morning-briefing.ts
+ *   node --import tsx scripts/send-morning-briefing.ts --force   # bypass Helsinki 06:00 guard (local test)
  *
  * Required env vars:
  *   SMTP_HOST + SMTP_USER + SMTP_PASS (Amazon SES)
@@ -18,14 +20,19 @@
  *   MRR_EUR, WEEKLY_COMMITS, MVP_ETA
  */
 
-import dotenv from 'dotenv';
+const dotenv = (await import('dotenv')).default;
 dotenv.config();
+dotenv.config({ path: '.env.local', override: true });
 
-import { collectCockpitData } from '../src/morning-briefing/data-collectors.js';
-import { buildCockpitHtml, buildCockpitPlainText } from '../src/morning-briefing/briefing-template.js';
-import { sendEmail } from '../src/utils/send-email.js';
+const { collectCockpitData } = await import('../src/morning-briefing/data-collectors.js');
+const { buildCockpitHtml, buildCockpitPlainText } = await import('../src/morning-briefing/briefing-template.js');
+const { sendEmail } = await import('../src/utils/send-email.js');
 
 async function main(): Promise<void> {
+  if (process.argv.includes('--force')) {
+    process.env.SKIP_TIME_CHECK = 'true';
+  }
+
   // Helsinki time guard: only send when Helsinki hour is 6.
   // Two GitHub Actions cron entries (03:00 and 04:00 UTC) cover both DST
   // offsets; the "wrong" one silently exits here. Manual triggers and

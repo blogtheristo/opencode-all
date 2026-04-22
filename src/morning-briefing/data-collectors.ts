@@ -698,6 +698,7 @@ async function collectCaptainInquiries(): Promise<CaptainInquiriesData> {
   };
 }
 
+// ============================================================================
 // LEARN ARTIFACTS COLLECTOR
 // ============================================================================
 
@@ -761,8 +762,13 @@ async function collectLearnArtifacts(): Promise<LearnArtifactsData> {
 // HIL (HUMAN-IN-THE-LOOP) TODO COLLECTOR
 // ============================================================================
 
-const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY;
+/** Read at call time so callers (e.g. scripts) can load .env before imports resolve. */
+function getSupabaseRestConfig(): { url: string; key: string } | null {
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_KEY;
+  if (!url || !key) return null;
+  return { url, key };
+}
 
 /**
  * Upsert a HIL todo into Supabase via PostgREST.
@@ -776,15 +782,17 @@ async function upsertHilTodo(todo: {
   context: Record<string, unknown>;
   dedup_key: string;
 }): Promise<void> {
-  if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) return;
+  const cfg = getSupabaseRestConfig();
+  if (!cfg) return;
+  const { url, key } = cfg;
 
   try {
-    await fetch(`${SUPABASE_URL}/rest/v1/hil_todos`, {
+    await fetch(`${url}/rest/v1/hil_todos`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        apikey: SUPABASE_SERVICE_KEY,
-        Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+        apikey: key,
+        Authorization: `Bearer ${key}`,
         Prefer: 'resolution=ignore-duplicates',  // don't overwrite existing open todos
       },
       body: JSON.stringify(todo),
@@ -800,23 +808,25 @@ async function upsertHilTodo(todo: {
  * Returns list of migration IDs that appear to be missing.
  */
 async function detectMissingMigrations(): Promise<Array<{ id: string; description: string }>> {
-  if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) return [];
+  const cfg = getSupabaseRestConfig();
+  if (!cfg) return [];
 
+  const { url, key } = cfg;
   const headers = {
-    apikey: SUPABASE_SERVICE_KEY,
-    Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+    apikey: key,
+    Authorization: `Bearer ${key}`,
   };
 
   async function tableExists(table: string): Promise<boolean> {
     try {
-      const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?limit=0`, { headers });
+      const r = await fetch(`${url}/rest/v1/${table}?limit=0`, { headers });
       return r.ok;
     } catch { return true; } // network error → assume exists, don't spam todos
   }
 
   async function columnExists(table: string, column: string): Promise<boolean> {
     try {
-      const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?select=${column}&limit=1`, { headers });
+      const r = await fetch(`${url}/rest/v1/${table}?select=${column}&limit=1`, { headers });
       return r.ok;
     } catch { return true; }
   }
@@ -870,9 +880,11 @@ async function detectMissingMigrations(): Promise<Array<{ id: string; descriptio
 async function collectHilTodos(): Promise<HilTodosData> {
   const backendUrl = process.env.BACKEND_URL || 'https://api.onelifetime.world';
 
-  if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
+  const cfg = getSupabaseRestConfig();
+  if (!cfg) {
     return { todos: [], backendUrl };
   }
+  const { url: supabaseUrl, key: supabaseKey } = cfg;
 
   const eightDaysAgo = new Date(Date.now() - 8 * 86_400_000).toISOString();
 
@@ -892,15 +904,15 @@ async function collectHilTodos(): Promise<HilTodosData> {
   // 1. Find competitors with null price from the last collection run
   try {
     const nullPricesResp = await fetch(
-      `${SUPABASE_URL}/rest/v1/competitor_products` +
+      `${supabaseUrl}/rest/v1/competitor_products` +
         `?select=product_name,collected_at` +
         `&price_value=is.null` +
         `&collected_at=gte.${eightDaysAgo}` +
         `&order=collected_at.desc`,
       {
         headers: {
-          apikey: SUPABASE_SERVICE_KEY,
-          Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+          apikey: supabaseKey,
+          Authorization: `Bearer ${supabaseKey}`,
         },
       }
     );
@@ -987,15 +999,15 @@ async function collectHilTodos(): Promise<HilTodosData> {
   // 4. Fetch all open todos from the table (oldest first)
   try {
     const openResp = await fetch(
-      `${SUPABASE_URL}/rest/v1/hil_todos` +
+      `${supabaseUrl}/rest/v1/hil_todos` +
         `?select=id,category,description,context,done_token,created_at` +
         `&done_at=is.null` +
         `&order=created_at.asc` +
         `&limit=20`,
       {
         headers: {
-          apikey: SUPABASE_SERVICE_KEY,
-          Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+          apikey: supabaseKey,
+          Authorization: `Bearer ${supabaseKey}`,
         },
       }
     );

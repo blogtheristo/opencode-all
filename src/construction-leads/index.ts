@@ -23,7 +23,18 @@ export {
   createBuyerOrgs,
   calculateRelevance,
   noticeToLead,
+  tedEnrichLead,
+  normalizeCompanyNameForDedup,
 } from './lead-processor.js';
+export { resolveErpForBuyer } from './company-erp-resolver.js';
+export type { ResolvedErp } from './company-erp-resolver.js';
+export { matchComplianceKeywords, passesComplianceFilter } from './compliance-keywords.js';
+export {
+  runTedOutreachInitialBatch,
+  runTedOutreachFollowUps,
+  runWeeklyTedLearning,
+  inferOutreachLang,
+} from './ted-outreach.js';
 export {
   searchConstructionTenders,
   buildExpertQuery,
