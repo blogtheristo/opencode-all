@@ -74,6 +74,18 @@ Skilled <Axis>                 ← BRAND   (what we SELL)
 - **Workflows.** Deterministic compositions of agents triggered by schedule or event. "Autonomous" appears in the brand tier because workflows execute without a human in the loop; agents have it implied.
 - **Jurisdictions.** The regulatory surfaces the platform is skilled in — currently EU (AI Act, GDPR, CBAM, ETS, CSRD, ESRS, EPBD), US, and Aiwen (see `docs/CLOUD_ENVIRONMENTS.md` for data-residency architecture). "Regulatory" appears in the spec tier because a jurisdiction is defined by its regulatory surface, not its geography alone.
 
+### Workflow Mechanism Descriptors (Spec-Tier Only)
+
+Within the **Specialist Workflows** tier, three mechanism descriptors distinguish how a workflow executes. These are adjectives for the spec register — **not** new brand-tier nouns. Brand copy always stays on _"Skilled Autonomous Workflows"_.
+
+| Descriptor       | Meaning                                                                                  | Example implementation    |
+| ---------------- | ---------------------------------------------------------------------------------------- | ------------------------- |
+| **Orchestrated** | Central coordinator, durable state, DAG or state-machine execution. **Default for DWS.** | Temporal.io + Atlas + MCP |
+| **Reactive**     | Event-driven via pub/sub on the event bus; no central coordinator.                       | Internal event bus        |
+| **Chained**      | Linear skill invocations; no durable state; fire-and-forget.                             | MCP tool chain            |
+
+Use the descriptor in architecture prose and SLA text (e.g., _"Climate Intelligence ships orchestrated Industrial Specialist Workflows durably coordinated by Temporal.io"_). Do **not** hoist "Orchestrated" to brand tier — it describes the how, not the what.
+
 ### Pattern for New Axes
 
 When DWS adds a new capability axis (e.g., Datasets, Models, Regulations, Reports), name it `Skilled <Axis>` / `Industrial Specialist <Axis>` / `Industry <Axis>` and add a column to the table above. Parallel brand words are disallowed; the pattern is deliberately monotone to prevent the register-conflation problem that the deprecated "Godagent" label caused.

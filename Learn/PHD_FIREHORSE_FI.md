@@ -11,11 +11,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.5
+Version: 3.37
 
 Sessions & Modifications:
 
-- Version: 3.5 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: Avattu PHD_FIREHORSE:n pääversiolinja v3.5:ssä merkitsemään Anthropicin Skills-paradigman käännettä; lisätty osio 14.17 (DWS Skilled -taksonomia — Brändi / Speksi / UI agenteille, työnkuluille ja jurisdiktioille); "GodAgent"/"Godagent"-brändäys poistettu käytöstä Firehorse-toimintamallin kopiossa; kodifioitu kolmitasoinen `Skilled <Akseli>` / `Industrial Specialist <Akseli>` / `Industry <Akseli>` -kaava kolmelle aktiiviselle akselille (Agentit, Työnkulut, Jurisdiktiot — EU/US/Aiwen), laajennettavissa tuleviin kyvykkyysakseleihin; SKU-kopion kuri (brändi­taso `products.json` `brand:`-kentässä), ajastinkopion kuri (työnkulkutaso autonomisille toistuville toimituksille) ja jurisdiktion pakkaus (Aegis/Sovereign Infra/Connect nimettynä Skilled Jurisdictions:iksi) johdettu toimintamallin seurauksina; lisätty avainpanos #22
+- Version: 3.37 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: **Yhdistetty opinnäytetyön versiolinja.** PHD_FIREHORSE ja Metropolia V3Thesis ovat nyt yhden yhteisen versionumeron (3.37) varassa. Tästä committasta eteenpäin kaikki 4 opinnäytetyötiedostoa (V3Thesis_EN/FI + PHD_FIREHORSE_EN/FI) päivitetään rinnakkain (3.37 → 3.38 → … → 3.99 → 4.00). Versioketjun katkoshistoria rehellisesti kirjattuna: v2.9 → v2.10 (21.04.2026, Boardy-täsmennykset) → suunnittelematon v3.10-hyppy törmäsi jo olemassa olevaan paikalliseen v3.1, v3.2 -ketjuun → remote siirrettiin v3.5:een tässä sessiossa (22.04.2026) ilman näkyvyyttä paikalliseen v3.2-työhön → yhdistetty tässä v3.37:aan kohdistamaan V3Thesisin kanssa. Paikallinen v3.2-työ taitetaan seuraavaan nostoon v3.38 (ihmisen liitettävä diff). Sisältö tässä versiossa: osio 14.17 (DWS Skilled -taksonomia — Brändi / Speksi / UI agenteille, työnkuluille ja jurisdiktioille); "GodAgent"/"Godagent"-brändäys poistettu käytöstä; kolmitasoinen `Skilled <Akseli>` / `Industrial Specialist <Akseli>` / `Industry <Akseli>` -kaava kolmelle aktiiviselle akselille; SKU-kopion, ajastinkopion ja jurisdiktion pakkauksen kurit johdettu toimintamallin seurauksina; avainpanos #22.
+- Version: 3.5 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: [Korvattu v3.37-yhdistämisellä.] Avattu PHD_FIREHORSE:n pääversiolinja v3.5:ssä (myöhemmin peruutettu). Sisältö siirretty v3.37:aan.
 - Version: 2.10 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Täsmennetty tutkimusidean runko Boardy-palautteella: KYA open source -standardipolku Agentic AI Foundation / Linux Foundation -reitille, NIST-hakemuksen tila (ei lähetetty), artikkeleiden vaiheistus (2026-2029), compliance-ongelman oikeudellinen fokus (court-defensible), sekä EIC Step 1 -deliverablejen yhteys tutkimusohjelman tuotteistukseen; päivitetty vastauskirje Karille
 - Version: 2.9 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Päivitetty tutkimuskysymysten kohdennus: KYA-standardin positiointi Agentic AI Foundation -standardiksi, DWS 7 -tavoitteet, vetytalousviittaus (DWS 5), kolmas tutkimuskohde dual-use-toimialoihin (Nokia Defence -keskustelut), Aegis/Sovereign Infra/Connect -suvereniteettisegmentointi kuvalla, Siemens- ja NVIDIA Connect -yhteistyömaininnat; lisätty Kari Smolanderille kohdistettu vastauskirjeluonnos
 - Version: 2.8 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-work-EoyoF | Date: 20.04.2026 | Changes: Lisätty osio 14.16 (Huhtikuun 2026 kehitys) — viisi alaosiota: Firehorse Report Engine -tuotantoajastin (PR #1064, cron-pohjainen vaatimustenmukaisuusraporttien lähetys, moduulitason testit, manuaalireitti), Firehorse Product Line V2 -konsolidointi (omnichannel/report/automation/content yhtenäisenä DWS IQ -tuoteperheenä), Firehorse Snap -mittaustulos (mitattu <125 ms tappoviive Firecracker MicroVM:llä korvaa aiemman 122 ms Arctic 15 -spesifikaation), Skills-paradigman soveltaminen operaatioihin (Anthropicin 16.4.2026 essee validoi §14.14; +3 taitoa: /regulatory-radar, /investor-outreach, /multilingual), Ops Manager V0 -ostajalukitus (PRD v0.2 + ICP-validointiskripti) ja perustajan→tiimin siirtymä (SOLO_FOUNDER_STATEMENT v1.2 + Anthony Maurin CTO + /investor-outreach -työnkulku 10+ INTRO-muistiolla); lisätty avainpanokset #19–#21
@@ -1981,7 +1982,7 @@ Kaksi toisiinsa liittyvää virstanpylvästä vastaavat toimintamallin "kuka ost
 
 ### 14.17 DWS Skilled -taksonomia: Brändi / Speksi / UI agenteille, työnkuluille ja jurisdiktioille
 
-_Lisätty: 22.04.2026 | Lähde: CLAUDE.md "DWS Skilled Taxonomy Rule"; Anthropicin 16.4.2026 Skills-paradigman essee (§14.16.4); "GodAgent"-brändin käytöstä poisto. PHD_FIREHORSE:n pääversiolinja avattu v3.5:ssä._
+_Lisätty: 22.04.2026 | Lähde: CLAUDE.md "DWS Skilled Taxonomy Rule"; Anthropicin 16.4.2026 Skills-paradigman essee (§14.16.4); "GodAgent"-brändin käytöstä poisto. PHD_FIREHORSE:n versiolinja yhdistetty Metropolia V3Thesisin kanssa v3.37:ssa; tästä eteenpäin kaikki 4 opinnäytetyötiedostoa päivitetään rinnakkain (3.37 → 3.38 → … → 3.99 → 4.00)._
 
 #### 14.17.1 "GodAgentista" kolmitasoiseen nimeämisjärjestelmään
 
@@ -2153,4 +2154,4 @@ KYA-kumppaniekosysteemi osoittaa kolme tutkimuslöydöstä:
 
 _Dokumentti generoitu Firehorse-toimintamallilla Claude Coden avulla_
 _Viimeksi päivitetty: 22.04.2026_
-_Versio: 3.5_
+_Versio: 3.37 (yhdistetty Metropolia V3Thesisin kanssa; rinnakkaispäivitys tästä eteenpäin)_

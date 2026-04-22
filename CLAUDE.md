@@ -77,7 +77,7 @@ When the user mentions **"thesis"**, **"master thesis"**, **"pro gradu"**, or **
 - Thesis work published ONLY to `Learn/` as versioned HTML (e.g., `Learn/V3Thesis_EN_v3.7.html`)
 - **NEVER delete old HTML versions** — they serve as version history
 - Generate versioned HTML for ALL 4 thesis files on each update
-- Metropolia EN+FI share the same version; PHD Firehorse EN+FI share the same version
+- **Unified version track (CRITICAL, from v3.37 onward):** All 4 thesis files (Metropolia V3Thesis EN/FI + PHD_FIREHORSE EN/FI) share a **single** version number. Any thesis-touching change bumps **all 4** to the same next decimal increment in lockstep — `3.37 → 3.38 → 3.39 → … → 3.99 → 4.00 → 4.01 → …`. No skips, no separate tracks. Major rollover at `.99 → next.00`. Pre-v3.37 history (Metropolia at its own v3.x, PHD_FIREHORSE at its own v1.x / v2.x / v3.1–3.5) is preserved in the VERSION AND AGENT HISTORY blocks; from v3.37 forward, the two tracks are unified.
 - **Always check the current version number** in the file header before incrementing — do NOT assume git history is latest. Ask the user if uncertain.
 - Update VERSION AND AGENT HISTORY block and document footer on each change
 

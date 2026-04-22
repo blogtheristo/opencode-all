@@ -11,11 +11,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.5
+Version: 3.37
 
 Sessions & Modifications:
 
-- Version: 3.5 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: Opened the PHD_FIREHORSE major-version line at v3.5 to mark the Anthropic Skills paradigm pivot; added Section 14.17 (DWS Skilled Taxonomy — Brand / Spec / UI Across Agents, Workflows, and Jurisdictions); deprecated "GodAgent"/"Godagent" branding across Firehorse Operations Model copy; codified three-tier `Skilled <Axis>` / `Industrial Specialist <Axis>` / `Industry <Axis>` pattern across three active axes (Agents, Workflows, Jurisdictions — EU/US/Aiwen) with explicit extensibility to future capability axes; SKU-copy discipline (brand-tier in `products.json` `brand:` field), scheduler-copy discipline (workflow tier for autonomous recurring deliverables), and jurisdiction-packaging discipline (Aegis/Sovereign Infra/Connect named as Skilled Jurisdictions) derived as operations-model implications; added Key Contribution #22
+- Version: 3.37 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: **Unified thesis version track.** PHD_FIREHORSE and Metropolia V3Thesis are now on a single shared version number (3.37). From this commit forward, all 4 thesis files (V3Thesis_EN/FI + PHD_FIREHORSE_EN/FI) bump in lockstep (3.37 → 3.38 → … → 3.99 → 4.00). Chain-break history honestly recorded: v2.9 → v2.10 (21.04.2026, Boardy refinements) → an unintended v3.10 jump collided with an already-existing local v3.1, v3.2 chain → remote was pushed to v3.5 in this session (22.04.2026) without visibility of the local v3.2 work → unified here to v3.37 to align with V3Thesis. Local v3.2 work is expected to be folded into v3.38 as the next bump (human to paste diff). Substantive content in this version: Section 14.17 (DWS Skilled Taxonomy — Brand / Spec / UI Across Agents, Workflows, and Jurisdictions); "GodAgent"/"Godagent" branding deprecated; three-tier `Skilled <Axis>` / `Industrial Specialist <Axis>` / `Industry <Axis>` pattern across three active axes (Agents, Workflows, Jurisdictions — EU/US/Aiwen); SKU-copy, scheduler-copy, and jurisdiction-packaging disciplines derived as operations-model implications; Key Contribution #22.
+- Version: 3.5 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: [Superseded by v3.37 unification.] Opened the PHD_FIREHORSE major-version line at v3.5 (later reverted). Substantive content moved to v3.37.
 - Version: 2.10 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Incorporated Boardy-driven refinements: KYA open-source standardization path via Agentic AI Foundation / Linux Foundation, explicit NIST submission status (not sent), publication phasing (2026-2029), court-defensible compliance framing, and tighter supervisor letter structure
 - Version: 2.9 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Refined research-question targeting: positioned KYA as an Agentic AI Foundation standard candidate, added DWS 7 objectives, added hydrogen-economy continuity note (DWS 5), refocused third research stream to dual-use industries (including Nokia Defence discussions), added Aegis/Sovereign Infra/Connect sovereignty segmentation with core figure, added Siemens and NVIDIA Connect collaboration notes; added supervisor response letter draft
 - Version: 2.8 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-work-EoyoF | Date: 20.04.2026 | Changes: Added Section 14.16 (April 2026 Evolution) — five subsections: Firehorse Report Engine production scheduler (PR #1064, cron-driven compliance report dispatch, module-scoped tests, manual trigger route), Firehorse Product Line V2 consolidation (omnichannel/report/automation/content as unified DWS IQ product family), Firehorse Snap benchmark (measured <125ms kill latency on Firecracker MicroVM replaces 122ms Arctic 15 spec), Skills paradigm applied to operations (Anthropic's "Stop Building Agents" validates §14.14; +3 skills: /regulatory-radar, /investor-outreach, /multilingual), Ops Manager V0 buyer lock (PRD v0.2 with ICP validation script), Founder→Team transition (SOLO_FOUNDER_STATEMENT v1.2 + Anthony Maurin CTO + /investor-outreach reproducible workflow with 10+ INTRO notes); added Key Contributions #17–#19
@@ -1997,7 +1998,7 @@ Two coupled milestones answer the "who buys" and "who builds" questions of the o
 
 ### 14.17 DWS Skilled Taxonomy: Brand / Spec / UI Across Agents, Workflows, and Jurisdictions
 
-_Added: 22.04.2026 | Source: CLAUDE.md "DWS Skilled Taxonomy Rule"; Anthropic 2026-04-16 Skills paradigm essay (§14.16.4); deprecation of "GodAgent" branding. PHD_FIREHORSE major version line opened at v3.5._
+_Added: 22.04.2026 | Source: CLAUDE.md "DWS Skilled Taxonomy Rule"; Anthropic 2026-04-16 Skills paradigm essay (§14.16.4); deprecation of "GodAgent" branding. PHD_FIREHORSE version track unified with Metropolia V3Thesis at v3.37; from v3.37 forward all 4 thesis files bump in lockstep (3.37 → 3.38 → … → 3.99 → 4.00)._
 
 #### 14.17.1 From "GodAgent" to a Three-Tier Naming System
 
@@ -2169,4 +2170,4 @@ The KYA partner ecosystem demonstrates three research findings:
 
 _Document generated using Firehorse Operations Model with Claude Code_
 _Last updated: 22.04.2026_
-_Version: 3.5_
+_Version: 3.37 (unified with Metropolia V3Thesis; lockstep from this point)_
