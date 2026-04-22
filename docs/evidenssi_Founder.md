@@ -54,8 +54,17 @@ Vaikka alkuperäinen OneDrive‑aineisto ei ole enää saatavilla, tuotekehityst
 - Microsoft Founders Hub / Microsoft for Startups ‑hyväksynnät ja ohjelmaan kuuluminen
 - Ohjelman aikaiset ehdot ja hyödyt
 
-📎 **Linkki nykyisellä OneDrivellä / dokumentaatiossa:**  
-[Lisää linkki OneDriveen tai arkistoon]
+**Dokumentoitu aineisto:**
+
+- `Founders5.docx` (Founders Hub ‑keskustelu ja ohjelman jatkohakemus, viimeisin muokkaus 30.8.2024)
+- `Microsoft_Lifetime.pptx` (DWS‑projektin lanseeraus Microsoft for Startups ‑tapahtumassa 16.6.2023)
+
+📎 **OneDrive‑linkit:**
+
+- OneDrive > Founders5.docx
+- OneDrive > Microsoft_Lifetime.pptx
+
+✅ **Kirjanpidollinen merkitys:** Osoittaa hyväksynnän, ohjelman olemassaolon ja aktiivisen kehitystyön Microsoft‑ympäristössä.
 
 ---
 
@@ -64,8 +73,15 @@ Vaikka alkuperäinen OneDrive‑aineisto ei ole enää saatavilla, tuotekehityst
 - Azure‑krediitit ja pilvipalvelujen käyttö tuotekehityksessä
 - Kehitysympäristöt, testaus ja ajot
 
-📎 **Linkki (Azure‑raportit / yhteenvedot):**  
-[Lisää linkki Azure-dokumentaatioon]
+**Dokumentoitu aineisto:**
+
+- `Azure_Sponsorship_Usage_0225.xlsx` (Azure Sponsorship ‑käyttö, kokonaiskäyttö ~82 983 USD)
+
+📎 **OneDrive‑linkki:**
+
+- OneDrive > Azure_Sponsorship_Usage_0225.xlsx
+
+✅ **Merkitys:** Yksiselitteinen, ulkopuolisen (Microsoft) tuottama evidenssi siitä, että ympäristöä on käytetty todelliseen tuotekehitykseen.
 
 ---
 
@@ -74,10 +90,20 @@ Vaikka alkuperäinen OneDrive‑aineisto ei ole enää saatavilla, tuotekehityst
 - GitHub‑ ja/tai Azure DevOps ‑repositoriot
 - Lähdekoodin commit‑historia, joka osoittaa jatkuvaa kehitystyötä
 
-📎 **Linkki repositorioihin tai vientiin:**
+**Dokumentoitu aineisto:**
 
-- GitHub: https://github.com/blogtheristo/dws6 (commit history 2020–present)
-- [Lisää linkki Azure DevOps tai muihin repositorioihin]
+- `.github` kansiorakenteet useilla kansioilla ja aikaleimilla vuodesta 2021 lähtien
+- Projektisuunnitelmat ja Azure‑dokumentaatio:
+  - `310325_DWSIQ_Azure.docx`
+  - `0910_DWSIQ_Azure.docx`
+  - `0824_DWSIQ_Azure.docx`
+
+📎 **Linkit:**
+
+- GitHub‑organisaation URL: https://github.com/blogtheristo/dws6 (commit history 2020–present)
+- OneDrive > `310325_DWSIQ_Azure.docx`
+
+✅ **Merkitys:** Commit‑historia + projektisuunnitelmat = vahva tekninen näyttö aktivointikelpoisesta T&K‑työstä.
 
 ---
 
@@ -86,8 +112,25 @@ Vaikka alkuperäinen OneDrive‑aineisto ei ole enää saatavilla, tuotekehityst
 - Työaikakirjaukset, omat kehitysmuistiinpanot ja tehtävälistaukset
 - Ajallinen kohdistuminen tilikausille 2020–2023
 
-📎 **Linkki dokumentaatioon:**  
-[Lisää linkki timesheet- tai project-dokumentaatioon]
+**Dokumentoitu aineisto:**
+
+Projektisuunnitelmat (eri versiot, aikajana 2022–2025):
+
+- `0824_DWSIQ_Azure.docx`
+- `0709_DWSIQ_Azure.docx`
+- `0309_DWSIQ_Azure.docx`
+
+Opinnäytetyöhön liittyvä kehityspäiväkirja:
+
+- `Opinnäytetyö_RistoPäärni.docx`
+- `V4Thesis_FI.docx`
+
+📎 **OneDrive‑linkit:**
+
+- OneDrive > `0824_DWSIQ_Azure.docx`
+- OneDrive > `Opinnäytetyö_RistoPäärni.docx`
+
+✅ **Merkitys:** Ajallinen jatkuvuus ja henkilökohtainen panos → hyväksyttävä työpanosevidenssi.
 
 ---
 
@@ -96,8 +139,17 @@ Vaikka alkuperäinen OneDrive‑aineisto ei ole enää saatavilla, tuotekehityst
 - Microsoftin, Founders Hubin, yhteistyökumppaneiden ja viranomaisten (esim. PRH, Business Finland) kanssa käyty sähköpostiviestintä
 - Viestit osoittavat kehitystyön etenemistä ja ohjelmaan kuulumista
 
-📎 **Linkki sähköpostiaineistoon / vientiin:**  
-[Lisää linkki Outlook-vientiin tai -arkistoon]
+**Dokumentoitu aineisto:**
+
+- Microsoft for Startups / Reactor ‑viestit (2023 →)
+- Founders Hub event‑ ja tuki‑sähköpostit
+- Viittaukset Business Finlandiin ja rahoitushakuihin
+
+📎 **Linkki:**
+
+- Outlook > Haku: "Microsoft for Startups" (vie tarvittaessa PDF‑muodossa)
+
+✅ **Merkitys:** Kolmannen osapuolen aikaleimattu vahvistus kehitystoiminnasta.
 
 ---
 
@@ -107,8 +159,19 @@ Vaikka alkuperäinen OneDrive‑aineisto ei ole enää saatavilla, tuotekehityst
 - Kehitykseen liittyvät ostot ja laskut
 - Ohjelmaan osallistumisen maksut ja sopimukset
 
-📎 **Linkki kirjanpitoaineistoon:**  
-[Lisää linkki palkkalaskelmiin ja ostolaskuihin]
+**Dokumentoitu aineisto:**
+
+- `palkkalaskelma_Paarni_Risto_Anton_27072023.pdf`
+- `palkkalaskelma_Paarni_Risto_Anton_15092023.pdf`
+- `Palkkatietoilmoitus_062023.pdf`
+- `tasekirjalifetime31072020.pdf`
+
+📎 **OneDrive‑linkit:**
+
+- OneDrive > `palkkalaskelma_Paarni_Risto_Anton_27072023.pdf`
+- OneDrive > `tasekirjalifetime31072020.pdf`
+
+✅ **Merkitys:** Mahdollistaa euromääräisen aktivoinnin perusteen.
 
 ---
 
@@ -118,8 +181,18 @@ Vaikka alkuperäinen OneDrive‑aineisto ei ole enää saatavilla, tuotekehityst
 - Tekninen ja toiminnallinen jatkuvuus
 - Markkinoille tuodut tuotteet ja palvelut
 
-📎 **Linkki nykyiseen dokumentaatioon / tuotteeseen:**  
-[Lisää linkki DWS IQ 6 Platform -dokumentaatioon tai tuotteiden kuvaukseen]
+**Dokumentoitu aineisto:**
+
+- `310325_DWSIQ_Azure.docx`
+- `0825_Lifetime™Digital Workspace DWS Montreux Vertex (Korjattu).docx`
+- `V4Thesis_FI.docx`
+
+📎 **OneDrive‑linkit:**
+
+- OneDrive > `310325_DWSIQ_Azure.docx`
+- OneDrive > `V4Thesis_FI.docx`
+
+✅ **Merkitys:** Täyttää KPL:n vaatimuksen tulevasta tulonodotuksesta.
 
 ---
 
@@ -143,7 +216,7 @@ Menojen aktivointi perustuu **kokonaisarvioon**, ei yksittäisen dokumentin olem
 
 **Yritys:** Lifetime Oy (Y-tunnus: 0772407-9)
 
-**Allekirjoitus:** ************\_\_\_************
+**Allekirjoitus:** \***\*\*\*\*\*\*\***\_\_\_\***\*\*\*\*\*\*\***
 
 ---
 
