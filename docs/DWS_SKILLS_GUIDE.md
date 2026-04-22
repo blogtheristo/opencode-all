@@ -1,13 +1,14 @@
 # DWS Skills & Commands Complete Guide
 
 VERSION AND AGENT HISTORY
-Version: 1.1
+Version: 1.4
 Created: 2026-03-21
 Author: Claude Code (Opus 4.6)
 Session: claude/connect-kya-dws-cli-0MMIB
 Tool: Claude Code CLI
 Status: Published
 
+- Version: 1.4 | Agent: Claude Code (Opus 4.7) | Date: 22.04.2026 | Session: claude/github-version-compatibility-uTOO7 | Changes: Added /gh-to-mcp skill (section 6.1a) — translates gh CLI commands to GitHub MCP tool calls and clarifies that gh and MCP are independently versioned; updated skill count from 24 to 25; added Quick Reference row; added docs/GITHUB_CLI_VS_MCP.md reference.
 - Version: 1.3 | Agent: Claude Code (Opus 4.7) | Date: 18.04.2026 | Session: claude/green-energy-roadmap-pEPPK | Changes: Added /regulatory-radar skill (section 5.2a) — EU regulatory pipeline scanner scoring upcoming instruments per customer; updated skill count from 23 to 24; added Quick Reference row. Skill spec only — agent implementation deferred until datacentre-compliance PRD Gate 1.
 - Version: 1.2 | Agent: Claude Code (Sonnet 4.6) | Date: 17.04.2026 | Session: claude/restore-language-bar-xH99X | Changes: Added /multilingual skill (section 8.2); updated skill count from 22 to 23; added row to Quick Reference; renamed section 8 to "Code Quality & Internationalisation".
 - Version: 1.1 | Agent: Claude Code (Opus 4.6) | Date: 10.04.2026 | Session: claude/connect-kya-dws-cli-0MMIB | Changes: Added /kya and /kb slash commands to sections 7.1 and 7.2 (new "Runtime Safety & Knowledge" section); renumbered following sections; updated skill count from 20 to 22; added /kya and /kb rows to Quick Reference.
@@ -15,7 +16,7 @@ Status: Published
 
 ## 1. Overview
 
-DWS IQ 6 provides **24 skills** for AI coding agents — 21 slash commands in `.claude/commands/` and 3 composable discipline skills in `skills/`. This guide explains every skill: what it does, when to use it, and how skills connect into workflows.
+DWS IQ 6 provides **25 skills** for AI coding agents — 22 slash commands in `.claude/commands/` and 3 composable discipline skills in `skills/`. This guide explains every skill: what it does, when to use it, and how skills connect into workflows.
 
 **Audience:** Human-in-the-loop (HIL) operators, developers using Claude Code, Cursor, or VS Code with DWS6.
 
@@ -202,6 +203,16 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 **What it does:** Displays comprehensive Git Flow status including branch type detection, remote sync status, staged/unstaged changes, and merge target recommendations.
 
 **Trigger phrases:** "git status", "branch status", "am I synced", "flow status"
+
+### 6.1a /gh-to-mcp
+
+**When to use:** User pastes a `gh` CLI command, asks "what's the MCP equivalent", "is gh 2.X the same as MCP", or mentions gh inside a Claude Code session (where gh is not installed).
+
+**What it does:** Translates `gh <subcommand>` into the equivalent `mcp__github__*` tool call using the map in `docs/GITHUB_CLI_VS_MCP.md`. Flags capabilities that have no MCP equivalent (e.g. `gh run`, `gh workflow`, `gh codespace`, `gh gist`, raw `gh api`). Also answers version-compatibility questions: gh CLI and GitHub MCP are **independently versioned** — they share the GitHub API but not a release scheme.
+
+**Trigger phrases:** "gh to mcp", "gh equivalent", "mcp equivalent of gh", "gh vs mcp", "is gh 2.54 compatible with mcp", "how do I do X via mcp"
+
+**Reference:** `docs/GITHUB_CLI_VS_MCP.md` (full translation map) | `docs/GITHUB_MCP_TOOLS.md` (48-tool catalogue).
 
 ### 6.2 /email
 
@@ -414,6 +425,7 @@ These are not slash commands — they are process rules that agents follow autom
 | Database sovereignty check     | /sovereignty-assess | Compliance |
 | Construction site assessment   | /site-safety        | Compliance |
 | Check git branch state         | /flow-status        | Operations |
+| Translate gh command to MCP    | /gh-to-mcp          | Operations |
 | Send email notification        | /email              | Operations |
 | Control edge devices           | /remote-control     | Operations |
 | Add/triage investor intro      | /investor-outreach  | Operations |
