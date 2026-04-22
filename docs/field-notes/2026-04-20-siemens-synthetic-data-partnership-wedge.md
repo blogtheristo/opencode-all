@@ -38,7 +38,7 @@ On 2026-04-20 Risto connected on LinkedIn with **Frida Ahlberg**, Digital Enterp
 
 Frida's presentation framing, noted from her recent public talk, is: **"We don't need dashboards, we need action from data."** That line aligns one-to-one with the DWS IQ value proposition — signed, submission-ready CSRD / EPBD / Taxonomy output plus KYA-governed writeback into the building systems.
 
-Later the same day, Siemens and **TechSeed Nordics** publicly announced a strategic partnership naming TechSeed the Nordic GTM and lifecycle-support partner for Building X (Magnus Kennedy + Frida Ahlberg from Siemens; Johan Lockne + Jacob Bentzel from TechSeed). Risto pivoted positioning from "Siemens Nordic integrator" to complementary — the EU-sovereign AI / compliance / synthetic-data layer on top of whatever TechSeed deploys — and sent an intro to Jacob Bentzel. Jacob replied the same day: *"Sure, seems interesting. Do you have time next week?"* — a 15-min slot is being booked for the week of 28 April.
+Later the same day, Siemens and **TechSeed Nordics** publicly announced a strategic partnership naming TechSeed the Nordic GTM and lifecycle-support partner for Building X (Magnus Kennedy + Frida Ahlberg from Siemens; Johan Lockne + Jacob Bentzel from TechSeed). Risto pivoted positioning from "Siemens Nordic integrator" to complementary — the EU-sovereign AI / compliance / synthetic-data layer on top of whatever TechSeed deploys — and sent an intro to Jacob Bentzel. Jacob replied the same day: _"Sure, seems interesting. Do you have time next week?"_ — a 15-min slot is being booked for the week of 28 April.
 
 Two partnership angles crystallised in parallel:
 
@@ -47,6 +47,7 @@ Two partnership angles crystallised in parallel:
 **Angle 2 — Xcelerator / Digital Industries wedge (strategic).** Counterparty: to be identified via Boardy — Siemens Xcelerator partnership team, Digital Industries (NX AM, MindSphere), Siemens Mobility, Siemens Energy JV. Wedge asset: DWS IQ **SyntheticDataAgent** (`src/agents/synthetic-data.agent.ts`) built on **NVIDIA NeMo DataDesigner**. Lifetime Oy is a confirmed NVIDIA Connect ISV Partner. Use cases: synthetic fault scenarios / tolerance deviations / process variations for AM and predictive-maintenance QC model training; synthetic edge-case building profiles for CSRD / EPBD reasoning pre-training; synthetic rolling-stock sensor data for digital-twin training under rare failure modes; synthetic grid-event datasets for ENTSO-E Fit-for-55 scenarios. Outreach URL: `https://dws10.com/products/synthetic-data/`.
 
 Assets built in the 2026-04-20 session to support both angles:
+
 - `dws10.com/enterprise-integrations/siemens/` — Siemens deep-dive with two angles
 - `dws10.com/products/synthetic-data/` — SyntheticDataAgent product page
 - `dws10.com/enterprise-integrations/` — catalog with filter bar, category anchors (`#erp`, `#industrial`, `#esg`)
@@ -63,6 +64,16 @@ Assets built in the 2026-04-20 session to support both angles:
 2. **TechSeed changes the shape of the deal, not its existence.** They own Nordic systems-integration for Building X; we do not compete with that. We sell the EU-sovereign AI + compliance + synthetic-data layer that attaches to their rollouts. Three-party motion (Siemens / TechSeed / DWS IQ) is cleaner than two-party and unlocks TechSeed as a paid reseller channel.
 3. **Synthetic data is the wedge, not compliance.** Compliance is commoditising (every ESG vendor sells it). What Siemens Xcelerator does not have is an EU-sovereign synthetic-data pipeline on NVIDIA NeMo DataDesigner with a CBAM / ESRS / EN 15978 / EPBD 2024 / EU AI Act schema binding. That is the partnership conversation that reaches beyond Frida's buildings lane.
 4. **Schema grounding + LLM-judge + EU-sovereign compute** is a defensible moat: every synthetic record is tied to a versioned EU-regulation schema and scored for statistical plausibility and regulatory relevance. Scaleway / Aiven / UpCloud / DGX Cloud Frankfurt — zero US routing available in Aegis tier.
+
+## For Siemens
+
+**DWS IQ is the missing operational layer for regulated industry.** We turn compliance from manual overhead into infrastructure that lowers risk, cuts cost, and scales across EU, ASEAN, and US jurisdictions.
+
+**For Siemens, the point is not compliance software — it is less friction across industrial workflows, auditability, and cross-entity control.** Building X generates telemetry; we operationalize the compliance and control layer that makes that telemetry auditable, reportable, and actionable within minutes instead of months.
+
+**Pilot strategy:** Start with one business unit (SI Building Nordics), one pain point (FY2025 CSRD E1 + EPBD 2024 reporting), and one measurable outcome (signed submission-ready output with zero manual spreadsheet work). If that works, distribution becomes the distribution channel — Siemens rolls the pattern to Buildings, Digital Industries AM, Energy, Mobility, and eventually the Xcelerator ecosystem.
+
+---
 
 ## Next Steps
 
