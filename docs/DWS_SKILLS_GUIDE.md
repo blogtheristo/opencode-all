@@ -395,6 +395,47 @@ These are not slash commands — they are process rules that agents follow autom
 
 **Workflow:** Edit root > copy to landing-pages > verify with diff > commit both together.
 
+## 9.4 V2 Skilled Agents (AgentFoundry roster)
+
+Every V2 agent ships with a YAML config in `AgentFoundry/configs/production/` that captures deployment-only concerns (model tier, budget, rate limits, deployment phase). Execution logic and system prompts live in the corresponding `src/agents/*.ts` class. The industry pages on dws10.com list which agents apply to each vertical in the **V2 Skilled Agents** section.
+
+Badges (section pill, skill chips, KYA badge, Standards & Interop strip) are canonicalised in `kb/wiki/concepts/badges-library.md`. Propose new badges there first before placing them on a page.
+
+**Climate IQ industry agents (9)** — one per vertical, named after mythological figures:
+
+| Agent          | Industry                       | Source                                             | Config                                          |
+| -------------- | ------------------------------ | -------------------------------------------------- | ----------------------------------------------- |
+| **Mars**       | Construction & Buildings       | `src/agents/workflow/industry/mars.agent.ts`       | `AgentFoundry/configs/production/mars-001.yaml` |
+| **Helios**     | Energy & Renewables            | `src/agents/workflow/industry/helios.agent.ts`     | `helios-001.yaml`                               |
+| **Vulcan**     | Steel & Metals                 | `src/agents/workflow/industry/vulcan.agent.ts`     | `vulcan-001.yaml`                               |
+| **Talos**      | Aluminium                      | `src/agents/workflow/industry/talos.agent.ts`      | `talos-001.yaml`                                |
+| **Gaia**       | Cement & Earth Materials       | `src/agents/workflow/industry/gaia.agent.ts`       | `gaia-001.yaml`                                 |
+| **Ceres**      | Agriculture & Circular Economy | `src/agents/workflow/industry/ceres.agent.ts`      | `ceres-001.yaml`                                |
+| **Neptune**    | Maritime & Shipping            | `src/agents/workflow/industry/neptune.agent.ts`    | `neptune-001.yaml`                              |
+| **Prometheus** | Hydrogen & Energy Transition   | `src/agents/workflow/industry/prometheus.agent.ts` | `prometheus-001.yaml`                           |
+| **BESS**       | Battery Energy Storage Systems | `src/agents/workflow/industry/bess.agent.ts`       | `bess-001.yaml`                                 |
+
+**Platform agents (3)** — cross-cutting runtime gates:
+
+| Agent                   | Role                             | Source                                    | Config                         | Skill                 |
+| ----------------------- | -------------------------------- | ----------------------------------------- | ------------------------------ | --------------------- |
+| **Compliance**          | EU regulatory gap analysis       | `src/agents/compliance.agent.ts`          | `compliance-001.yaml`          | `/compliance-check`   |
+| **Quality Gate**        | Runtime schema / fact / citation | `src/agents/quality-gate.agent.ts`        | `quality-gate-001.yaml`        | runtime gate          |
+| **Sovereignty Monitor** | EU data residency + NIS2         | `src/agents/sovereignty-monitor.agent.ts` | `sovereignty-monitor-001.yaml` | `/sovereignty-assess` |
+
+**Interop standards referenced by every V2 agent:**
+
+- **A2A v1.0** — Google Agent2Agent protocol (Linux Foundation, 150+ orgs). Agent Cards at `/.well-known/agent-card.json` (endpoint on roadmap).
+- **MCP** — Anthropic Model Context Protocol. All V2 agents exposed at `/mcp` via JSON-RPC 2.0 `tools/list`.
+- **KYA** — Know Your Agent Standard v1.1, Lifetime Oy. MicroVM sandbox + identity binding + TC-4 Leash-Snap. **Open-source aim:** Agentic AI Foundation, NIST, and European standards bodies.
+
+**Reference:**
+
+- Industry pages: `dws10.com/construction/`, `dws10.com/energy/`, `dws10.com/manufacturing/`, `dws10.com/logistics/`, `dws10.com/mining/`, `dws10.com/real-estate/`, `dws10.com/shipbuilding/`, `dws10.com/waste/`, `dws10.com/healthcare/`, `dws10.com/public-sector/`, `dws10.com/financial-services/` (all mirrored to `landing-pages/dws10-com/`).
+- BYO Agent Interface v1 preview: `dws10.com/enterprise-integrations/#byo-agents`.
+- Competitive landscape (Siemens / NVIDIA / Aspire 13.2 / A2A v1.0 / Salesforce AgentExchange / SAP Joule / Oracle AI Agent Studio): `docs/field-notes/2026-04-22-agent-ecosystem-landscape-q2-2026.md`.
+- Badges library: `kb/wiki/concepts/badges-library.md`.
+
 ## 10. Quick Reference — When to Use What
 
 | Situation                      | Skill               | Type       |
