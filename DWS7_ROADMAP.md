@@ -706,18 +706,18 @@ DWS7 is eligible for multiple EU funding instruments. These are non-dilutive and
 
 ### Active & Upcoming Programs
 
-| Program                                                    | Funding                         | Deadline Window                   | DWS7 Fit                                                        | Phase |
-| ---------------------------------------------------------- | ------------------------------- | --------------------------------- | --------------------------------------------------------------- | ----- |
-| **Horizon Europe — Cluster 4: Digital, Industry & Space**  | Up to €3M per project           | Rolling calls 2026-2027           | AI for industrial sustainability, multi-agent systems, edge AI  | 4, 5  |
-| **Horizon Europe — Cluster 5: Climate, Energy & Mobility** | Up to €5M per project           | Rolling calls 2026-2027           | Climate compliance automation, IoT monitoring, ETS optimization | 2, 4  |
-| **EIC Accelerator**                                        | Up to €2.5M grant + €15M equity | Cut-off dates: Mar, Jun, Oct 2026 | Deep-tech AI platform with market traction, <€5M revenue        | 3     |
-| **Digital Europe Programme (DIGITAL)**                     | €50K–€2M                        | Calls in 2026                     | AI deployment in industry, cybersecurity, cloud-to-edge         | 1, 4  |
-| **EIC Pathfinder**                                         | Up to €4M                       | Annual calls                      | Novel multi-agent coordination, agentic AI for compliance       | 4     |
-| **LIFE Programme — Clean Energy Transition**               | Up to €2M co-funding            | Annual calls Q1                   | Tools for industrial decarbonization, ETS compliance            | 2     |
-| **InvestEU — Sustainable Infrastructure**                  | Loan guarantees, equity         | Continuous via intermediaries     | Scale-up funding for climate-tech platforms                     | 5, 6  |
-| **EU Innovation Fund**                                     | €50K–€7.5M (small-scale)        | Annual calls                      | Technologies reducing industrial GHG emissions                  | 4     |
-| **IPCEI — Cloud Infrastructure & Services**                | National + EU co-funding        | Member state calls                | Sovereign cloud for EU compliance data                          | 6     |
-| **CEF Digital**                                            | Co-funding up to 75%            | Annual calls                      | Cross-border digital infrastructure for compliance              | 3     |
+| Program                                                    | Funding                         | Deadline Window                    | DWS7 Fit                                                                                                                                                                          | Phase |
+| ---------------------------------------------------------- | ------------------------------- | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
+| **Horizon Europe — Cluster 4: Digital, Industry & Space**  | Up to €3M per project           | Rolling calls 2026-2027            | AI for industrial sustainability, multi-agent systems, edge AI                                                                                                                    | 4, 5  |
+| **Horizon Europe — Cluster 5: Climate, Energy & Mobility** | Up to €5M per project           | Rolling calls 2026-2027            | Climate compliance automation, IoT monitoring, ETS optimization                                                                                                                   | 2, 4  |
+| **EIC Accelerator**                                        | Up to €2.5M grant + €15M equity | Cut-off dates: Mar, Jun, Oct 2026  | Deep-tech AI platform with market traction, <€5M revenue                                                                                                                          | 3     |
+| **Digital Europe Programme (DIGITAL)**                     | €50K–€2M (€63.2M envelope open) | 7 calls open — deadline 2026-10-01 | AI deployment in industry, cybersecurity, cloud-to-edge; current round targets AI in health, digital skills, online safety (fact-checkers, research institutions, tech providers) | 1, 4  |
+| **EIC Pathfinder**                                         | Up to €4M                       | Annual calls                       | Novel multi-agent coordination, agentic AI for compliance                                                                                                                         | 4     |
+| **LIFE Programme — Clean Energy Transition**               | Up to €2M co-funding            | Annual calls Q1                    | Tools for industrial decarbonization, ETS compliance                                                                                                                              | 2     |
+| **InvestEU — Sustainable Infrastructure**                  | Loan guarantees, equity         | Continuous via intermediaries      | Scale-up funding for climate-tech platforms                                                                                                                                       | 5, 6  |
+| **EU Innovation Fund**                                     | €50K–€7.5M (small-scale)        | Annual calls                       | Technologies reducing industrial GHG emissions                                                                                                                                    | 4     |
+| **IPCEI — Cloud Infrastructure & Services**                | National + EU co-funding        | Member state calls                 | Sovereign cloud for EU compliance data                                                                                                                                            | 6     |
+| **CEF Digital**                                            | Co-funding up to 75%            | Annual calls                       | Cross-border digital infrastructure for compliance                                                                                                                                | 3     |
 
 ### National Programs (Finland)
 
@@ -745,17 +745,18 @@ Phase 6 (Jun-Dec 2027): Apply for InvestEU (scale-up infrastructure)
 
 ### Funding Application Calendar
 
-| Month    | Program                          | Action                          | Estimated Value       |
-| -------- | -------------------------------- | ------------------------------- | --------------------- |
-| Mar 2026 | Business Finland Tempo           | Submit application              | €50K                  |
-| Apr 2026 | Digital Europe Programme         | Check open calls                | €200K–€500K           |
-| Jun 2026 | LIFE Programme                   | Submit consortium proposal      | €500K–€1M             |
-| Jul 2026 | Academy of Finland               | PhD funding application         | €150K (4 years)       |
-| Oct 2026 | EIC Accelerator                  | Submit full application         | €2.5M grant + equity  |
-| Nov 2026 | Horizon Europe Cluster 4         | Submit consortium proposal      | €500K–€1M (DWS share) |
-| Jan 2027 | EU Innovation Fund (small-scale) | Submit application              | €2.5M                 |
-| Mar 2027 | Business Finland Co-Innovation   | Submit with industrial partners | €1M                   |
-| Jun 2027 | Climate Fund (Ilmastorahasto)    | Growth investment discussion    | €2M–€5M               |
+| Month    | Program                          | Action                                                                                | Estimated Value       |
+| -------- | -------------------------------- | ------------------------------------------------------------------------------------- | --------------------- |
+| Mar 2026 | Business Finland Tempo           | Submit application                                                                    | €50K                  |
+| Apr 2026 | Digital Europe Programme         | Review the 7 open calls (AI in health, digital skills, online safety) — shortlist fit | €200K–€500K           |
+| Jun 2026 | LIFE Programme                   | Submit consortium proposal                                                            | €500K–€1M             |
+| Jul 2026 | Academy of Finland               | PhD funding application                                                               | €150K (4 years)       |
+| Oct 2026 | Digital Europe Programme         | Submit application (deadline 2026-10-01, AI-in-health / online-safety track)          | €200K–€500K           |
+| Oct 2026 | EIC Accelerator                  | Submit full application                                                               | €2.5M grant + equity  |
+| Nov 2026 | Horizon Europe Cluster 4         | Submit consortium proposal                                                            | €500K–€1M (DWS share) |
+| Jan 2027 | EU Innovation Fund (small-scale) | Submit application                                                                    | €2.5M                 |
+| Mar 2027 | Business Finland Co-Innovation   | Submit with industrial partners                                                       | €1M                   |
+| Jun 2027 | Climate Fund (Ilmastorahasto)    | Growth investment discussion                                                          | €2M–€5M               |
 
 ### Total Non-Dilutive Funding Potential: €7M–€12M (2026-2027)
 
