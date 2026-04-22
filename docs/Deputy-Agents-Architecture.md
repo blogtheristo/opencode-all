@@ -1,21 +1,35 @@
-# Godagent Architecture — DWS IQ 6/7
+# Industrial Specialist Agent Architecture — DWS IQ 6/7
 
-> **Godagent** (ruots. "god agent" = hyva agentti, "Goda Gent" = kiva herrasmies)
-> Toimialakohtaiset erikoisagentit, joiden nimet on lainattu kreikkalais-roomalaisesta
-> mytologiasta — kuten on yleinen kaytanto IT-palveluissa (Apollo, Mercury, Juno, Neptune...).
+> **Industrial Specialist Agent** — industry-scoped AI agent that extends the base Athena EU-compliance
+> layer with sector-specific knowledge (steel, cement, chemicals, construction, datacentres, ...).
+> Internally the code names are borrowed from Greek-Roman mythology (Apollo, Mercury, Juno, Neptune,
+> ...) — a common convention in IT services. Formerly branded "Godagent"; see § Terminology.
 
 ---
 
 VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 Created: 2026-03-15
-Updated: 2026-03-15
-Author: Claude Opus 4.6 (wonderful-gould session)
+Updated: 2026-04-22
+Author: Claude Opus 4.6 (wonderful-gould session); Claude Opus 4.7 (rename-godagents-skilled-dXqBs)
 Reviewed by: Boardy (cranky review received 2026-03-15)
-Status: REVIEWED — Boardy feedback incorporated v1.2
+Status: REVIEWED — Boardy feedback incorporated v1.2; DWS Skilled Taxonomy added v1.3
+Introduced-In: claude/rename-godagents-skilled-dXqBs (v1.3 Terminology section)
+
+Changes v1.3 (2026-04-22):
+
+- Doc title renamed: "Godagent Architecture" → "Industrial Specialist Agent Architecture"
+- Added canonical "Terminology — DWS Skilled Taxonomy" section at top (source of truth for CLAUDE.md "DWS Skilled Taxonomy Rule")
+- Three-tier pattern codified: `Skilled <Axis>` / `Industrial Specialist <Axis>` / `Industry <Axis>`
+- Three active axes: Agents, Workflows, Jurisdictions (EU / US / Aiwen)
+- Count-dynamism patterns (open-ended `18+`, registry-anchored, product-scoped)
+- Scope exclusions preserved: Docker infrastructure identifiers (`dws-godagent-llm`, `dws-godagent:latest`, label `dws-godagent`) in §§ 2.4–2.6 are NOT renamed — that is a coordinated infra change, not a doc PR
+- Body prose of §§ 1–7 is migrated incrementally; the Terminology section at top declares deprecation authoritatively
+- Cross-references: V3Thesis_EN/FI §10.22 · PHD_FIREHORSE_EN/FI §14.17
 
 Changes v1.2 (Boardy review):
+
 - Docker hardening: seccomp profile, --cap-drop ALL, read-only rootfs
 - LLM strategy: single primary (Qwen 2.5 72B) + Claude fallback, specialist Enterprise-only
 - Hash chain audit: tamper-evident Article 12 compliance
@@ -27,9 +41,85 @@ Changes v1.2 (Boardy review):
 - Flora merged into Ceres (sub-domain prompts)
 
 Changes v1.1:
+
 - Renamed "Deputy Agent" → "Godagent" (branding decision)
 - Replaced OpenSandbox → Docker + Dockerode (simplification)
 - Clarified naming: not gods, just common IT service names from classical heritage
+
+---
+
+## Terminology — DWS Skilled Taxonomy (Canonical)
+
+_This section is the canonical glossary for the DWS Skilled Taxonomy Rule (CLAUDE.md). Any agent-, workflow-, or jurisdiction-facing copy in the repository must be consistent with the tiers defined here. Body prose in §§ 1–7 is being migrated incrementally; where the old "Godagent" label still appears, treat it as deprecated and map to the appropriate tier per this section._
+
+### Three-Tier Pattern
+
+DWS brand, specification, and UI copy follow a single three-tier pattern that generalises across every capability axis where DWS offers depth. The pattern is:
+
+```
+Skilled <Axis>                 ← BRAND   (what we SELL)
+    └─ Industrial Specialist <Axis>    ← SPEC    (what they ARE)
+            └─ Industry <Axis>         ← UI      (how we LIST them)
+```
+
+### Three Active Axes (April 2026)
+
+| Tier    | **Agents**                   | **Workflows**                                                       | **Jurisdictions**                     |
+| ------- | ---------------------------- | ------------------------------------------------------------------- | ------------------------------------- |
+| 1 Brand | Skilled Agents               | Skilled Autonomous Workflows                                        | Skilled Jurisdictions (EU, US, Aiwen) |
+| 2 Spec  | Industrial Specialist Agents | Specialist Workflows (long-form: _Industrial Specialist Workflows_) | Regulatory Specialist Jurisdictions   |
+| 3 UI    | Industry Agents              | Industrial Workflows                                                | Jurisdictions                         |
+
+- **Agents.** Industry-scoped AI agents that extend the base Athena EU-compliance layer with sector-specific knowledge. The registry is § 3 of this document.
+- **Workflows.** Deterministic compositions of agents triggered by schedule or event. "Autonomous" appears in the brand tier because workflows execute without a human in the loop; agents have it implied.
+- **Jurisdictions.** The regulatory surfaces the platform is skilled in — currently EU (AI Act, GDPR, CBAM, ETS, CSRD, ESRS, EPBD), US, and Aiwen (see `docs/CLOUD_ENVIRONMENTS.md` for data-residency architecture). "Regulatory" appears in the spec tier because a jurisdiction is defined by its regulatory surface, not its geography alone.
+
+### Workflow Mechanism Descriptors (Spec-Tier Only)
+
+Within the **Specialist Workflows** tier, three mechanism descriptors distinguish how a workflow executes. These are adjectives for the spec register — **not** new brand-tier nouns. Brand copy always stays on _"Skilled Autonomous Workflows"_.
+
+| Descriptor       | Meaning                                                                                  | Example implementation    |
+| ---------------- | ---------------------------------------------------------------------------------------- | ------------------------- |
+| **Orchestrated** | Central coordinator, durable state, DAG or state-machine execution. **Default for DWS.** | Temporal.io + Atlas + MCP |
+| **Reactive**     | Event-driven via pub/sub on the event bus; no central coordinator.                       | Internal event bus        |
+| **Chained**      | Linear skill invocations; no durable state; fire-and-forget.                             | MCP tool chain            |
+
+Use the descriptor in architecture prose and SLA text (e.g., _"Climate Intelligence ships orchestrated Industrial Specialist Workflows durably coordinated by Temporal.io"_). Do **not** hoist "Orchestrated" to brand tier — it describes the how, not the what.
+
+### Pattern for New Axes
+
+When DWS adds a new capability axis (e.g., Datasets, Models, Regulations, Reports), name it `Skilled <Axis>` / `Industrial Specialist <Axis>` / `Industry <Axis>` and add a column to the table above. Parallel brand words are disallowed; the pattern is deliberately monotone to prevent the register-conflation problem that the deprecated "Godagent" label caused.
+
+### Counts Are Dynamic
+
+The number of agents, workflows, or jurisdictions in each tier shifts over time. Never hardcode a fixed brand number. Three acceptable patterns:
+
+1. **Open-ended** (preferred for platform copy): `18+ Skilled Agents`; the `+` absorbs growth.
+2. **Registry-anchored** (docs/specs): "see § 3 of this document"; no number in prose.
+3. **Product-scoped** (SKU copy only): `Climate Intelligence ships with 8 Skilled Agents`; precise but MUST be updated if the SKU's agent list changes. Treat the count as part of the SKU spec in `products.json`, not free-floating copy.
+
+### Scope Exclusions — Do NOT Rename
+
+Three scopes are explicitly excluded from the "Godagent" deprecation. These remain unchanged:
+
+- **Docker / infrastructure identifiers.** `dws-godagent-llm` (Docker network), `dws-godagent:latest` (Docker image), `dws-godagent` (Docker label), and the iptables rules described in §§ 2.4–2.6 remain unchanged. Renaming these requires a coordinated infra migration, not a documentation change.
+- **Pantheon "God Agents" brand** (two words). `onelifetime.world` Pantheon storyboard, Greek-mythology agent characters (Zeus, Athena, ...). Distinct brand identity; not in scope.
+- **Historical records.** Field notes, `Learn/tuntikirjausraportti*`, `Learn/Oppimispäiväkirja*`, dated folders under `docs/010825_310726/`. Point-in-time records are not retroactively edited.
+
+### Register Discipline — Where Each Tier Applies
+
+| Surface                                                                                                     | Correct tier                                |
+| ----------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| Hero copy, `<title>`, `<meta og:title / og:description>`, investor decks, `brand:` field in `products.json` | Brand                                       |
+| Architecture prose, regulatory responses, SLA/contract text, glossary first-mention                         | Spec (define once, then shorten to UI tier) |
+| Nav menus, filter chips, count badges (`18+ Industry Agents`), registry column headers, tables              | UI                                          |
+
+### Cross-References
+
+- CLAUDE.md "DWS Skilled Taxonomy Rule" (the enforced rule — this section is its canonical glossary)
+- V3Thesis_EN/FI § 10.22 (research framing)
+- PHD_FIREHORSE_EN/FI § 14.17 (operations-model implications)
+- `docs/field-notes/2026-04-16-anthropic-skills-paradigm-stop-building-agents.md` (motivation: Anthropic Skills paradigm validation)
 
 ---
 
@@ -77,30 +167,30 @@ DWS IQ palvelee 10 teollisuustoimialaa (shipped) + 10 roadmap 2027. Jokainen toi
 
 ### 2.2 Ydinperiaatteet
 
-| # | Periaate | Toteutus |
-|---|----------|----------|
-| 1 | **Yksi Control Room per toimiala** | Godagent = toimialan Control Room. Vain yksi per toimiala. |
-| 2 | **Yksi Situation Room** | Atlas-orchestrator kokoaa kaikkien godagenttien tulokset yhdeksi executive-raportiksi |
-| 3 | **Compliance-delegointi** | Jokainen godagent kutsuu Athenaa perus-EU-regulaatioihin; lisaa oman sektorikerroksensa |
-| 4 | **Ephemeral container** | Jokainen suoritus tapahtuu uudessa Docker-kontissa → tuhotaan → ei datajaamaa |
-| 5 | **Tenant-isolaatio** | NCC:n data EI nay SSAB:lle. Konttitason eristys. |
-| 6 | **Yksi primary LLM** | Qwen 2.5 72B kaikille, Claude fallback, specialist override vain Enterprise-tier |
-| 7 | **BYO-agentit A2A:lla** | Asiakkaan omat agentit liitetaan Agent-to-Agent -protokollalla |
-| 8 | **Tamper-evident audit** | Hash chain audit: jokainen rivi SHA-256 edellisesta → ketju katkeaa jos muokataan |
-| 9 | **Container lifecycle** | destroy() retry 3x → zombie-tila → 5min cleanup cron → GDPR alert threshold |
+| #   | Periaate                           | Toteutus                                                                                |
+| --- | ---------------------------------- | --------------------------------------------------------------------------------------- |
+| 1   | **Yksi Control Room per toimiala** | Godagent = toimialan Control Room. Vain yksi per toimiala.                              |
+| 2   | **Yksi Situation Room**            | Atlas-orchestrator kokoaa kaikkien godagenttien tulokset yhdeksi executive-raportiksi   |
+| 3   | **Compliance-delegointi**          | Jokainen godagent kutsuu Athenaa perus-EU-regulaatioihin; lisaa oman sektorikerroksensa |
+| 4   | **Ephemeral container**            | Jokainen suoritus tapahtuu uudessa Docker-kontissa → tuhotaan → ei datajaamaa           |
+| 5   | **Tenant-isolaatio**               | NCC:n data EI nay SSAB:lle. Konttitason eristys.                                        |
+| 6   | **Yksi primary LLM**               | Qwen 2.5 72B kaikille, Claude fallback, specialist override vain Enterprise-tier        |
+| 7   | **BYO-agentit A2A:lla**            | Asiakkaan omat agentit liitetaan Agent-to-Agent -protokollalla                          |
+| 8   | **Tamper-evident audit**           | Hash chain audit: jokainen rivi SHA-256 edellisesta → ketju katkeaa jos muokataan       |
+| 9   | **Container lifecycle**            | destroy() retry 3x → zombie-tila → 5min cleanup cron → GDPR alert threshold             |
 
 ### 2.3 Miksi Docker + Dockerode, ei OpenSandboxia
 
 Alkuperainen suunnitelma kaytti Alibaban OpenSandboxia (REST wrapper Dockerin paalle). Paatos korvata pelkalla Dockerilla:
 
-| Kriteeri | OpenSandbox | Docker + Dockerode |
-|----------|-------------|---------------------|
-| Community | Niche, pieni | Valtava, vakaa |
-| Yllapitoriski | Alibaba voi lopettaa | Docker Inc. ei lopeta |
-| Riippuvuudet | +1 palvelu (8080) | Docker Engine riittaa |
-| Toiminnallisuus | REST API kontteihin | Dockerode = sama REST API |
-| Turvallisuus | Vaatii Docker socket | Sama — Docker socket |
-| Monimutkaisuus | +1 kontti pyoritettava | ~200 riviä Dockerode-koodia |
+| Kriteeri        | OpenSandbox            | Docker + Dockerode          |
+| --------------- | ---------------------- | --------------------------- |
+| Community       | Niche, pieni           | Valtava, vakaa              |
+| Yllapitoriski   | Alibaba voi lopettaa   | Docker Inc. ei lopeta       |
+| Riippuvuudet    | +1 palvelu (8080)      | Docker Engine riittaa       |
+| Toiminnallisuus | REST API kontteihin    | Dockerode = sama REST API   |
+| Turvallisuus    | Vaatii Docker socket   | Sama — Docker socket        |
+| Monimutkaisuus  | +1 kontti pyoritettava | ~200 riviä Dockerode-koodia |
 
 **Paatos:** `src/sandbox/opensandbox.ts` korvataan `src/sandbox/dockerode.ts`:lla. Sama API-pinta, suora Docker-yhteys.
 
@@ -113,22 +203,22 @@ await docker.createContainer({
   Image: `dws-godagent:latest`,
   HostConfig: {
     // Boardy #1: Security hardening
-    SecurityOpt: ['no-new-privileges', 'seccomp=default'],
-    CapDrop: ['ALL'],              // Drop ALL Linux capabilities
-    ReadonlyRootfs: true,          // Immutable filesystem
+    SecurityOpt: ["no-new-privileges", "seccomp=default"],
+    CapDrop: ["ALL"], // Drop ALL Linux capabilities
+    ReadonlyRootfs: true, // Immutable filesystem
     // Resource limits (set at create, not after)
-    Memory: 512 * 1024 * 1024,     // 512Mi default
-    CpuQuota: 100000,              // 1 CPU
+    Memory: 512 * 1024 * 1024, // 512Mi default
+    CpuQuota: 100000, // 1 CPU
     // Network: custom bridge, only LLM access
-    NetworkMode: 'dws-godagent-llm',
+    NetworkMode: "dws-godagent-llm",
     // LWM model read-only
-    Binds: ['/opt/dws6/models/lwm:/models/lwm:ro'],
+    Binds: ["/opt/dws6/models/lwm:/models/lwm:ro"],
   },
   Labels: {
-    'dws-godagent': 'true',
-    'dws-tenant': tenantId,
-    'dws-agent': agentName,
-    'dws-created': new Date().toISOString(),
+    "dws-godagent": "true",
+    "dws-tenant": tenantId,
+    "dws-agent": agentName,
+    "dws-created": new Date().toISOString(),
   },
 });
 ```
@@ -199,20 +289,21 @@ Sijainti: `src/agents/workflow/industry/`
 LLM-strategia (Boardy #2): **Qwen 2.5 72B** primary kaikille. Claude Haiku 4.5 fallback.
 Specialist override (DeepSeek, Mistral, Gemma) vain Enterprise-tier asiakkaille.
 
-| # | Godagent | Toimiala | Avainregulaatio | LLM | Tiedosto | Status |
-|---|----------|----------|-----------------|-----|----------|--------|
-| 1 | **Vulcan** | Steel & Metals | ETS Phase 4, CBAM CN 72xx | Qwen 2.5 72B | `vulcan.agent.ts` | DONE |
-| 2 | **Mars** | Construction & Buildings | EPBD recast, EN 15978, CPR | Qwen 2.5 72B | `mars.agent.ts` | DONE |
-| 3 | **Helios** | Energy & Utilities | RED III, ETS, capacity mechanisms | Qwen 2.5 72B | `helios.agent.ts` | DONE |
-| 4 | **Gaia** | Automotive & Transport | CO2 fleet standards, Euro 7 | Qwen 2.5 72B | `gaia.agent.ts` | DONE |
-| 5 | **Neptune** | Maritime & Shipping | FuelEU Maritime, ETS maritime | Qwen 2.5 72B | `neptune.agent.ts` | DONE |
-| 6 | **Ceres** | Agriculture & Forestry | CAP, LULUCF, Scope 3, soil carbon | Qwen 2.5 72B | `ceres.agent.ts` | DONE |
-| 7 | **Prometheus** | Cement & Concrete | ETS (highest benchmark), CBAM | Qwen 2.5 72B | `prometheus.agent.ts` | DONE |
-| 8 | **Diana** | Healthcare & Pharma | CSRD ESRS S1, laakeketju GMP | Qwen 2.5 72B | `diana.agent.ts` | TODO P1 |
-| 9 | **Minerva** | Chemicals | REACH, CBAM CN-koodit, Seveso III | Qwen 2.5 72B | `minerva.agent.ts` | TODO P1 |
-| 10 | **Silvanus** | Pulp & Paper | ETS, kestavan metsatalouden sert., EUDR | Qwen 2.5 72B | `silvanus.agent.ts` | TODO P1 |
+| #   | Godagent       | Toimiala                 | Avainregulaatio                         | LLM          | Tiedosto              | Status  |
+| --- | -------------- | ------------------------ | --------------------------------------- | ------------ | --------------------- | ------- |
+| 1   | **Vulcan**     | Steel & Metals           | ETS Phase 4, CBAM CN 72xx               | Qwen 2.5 72B | `vulcan.agent.ts`     | DONE    |
+| 2   | **Mars**       | Construction & Buildings | EPBD recast, EN 15978, CPR              | Qwen 2.5 72B | `mars.agent.ts`       | DONE    |
+| 3   | **Helios**     | Energy & Utilities       | RED III, ETS, capacity mechanisms       | Qwen 2.5 72B | `helios.agent.ts`     | DONE    |
+| 4   | **Gaia**       | Automotive & Transport   | CO2 fleet standards, Euro 7             | Qwen 2.5 72B | `gaia.agent.ts`       | DONE    |
+| 5   | **Neptune**    | Maritime & Shipping      | FuelEU Maritime, ETS maritime           | Qwen 2.5 72B | `neptune.agent.ts`    | DONE    |
+| 6   | **Ceres**      | Agriculture & Forestry   | CAP, LULUCF, Scope 3, soil carbon       | Qwen 2.5 72B | `ceres.agent.ts`      | DONE    |
+| 7   | **Prometheus** | Cement & Concrete        | ETS (highest benchmark), CBAM           | Qwen 2.5 72B | `prometheus.agent.ts` | DONE    |
+| 8   | **Diana**      | Healthcare & Pharma      | CSRD ESRS S1, laakeketju GMP            | Qwen 2.5 72B | `diana.agent.ts`      | TODO P1 |
+| 9   | **Minerva**    | Chemicals                | REACH, CBAM CN-koodit, Seveso III       | Qwen 2.5 72B | `minerva.agent.ts`    | TODO P1 |
+| 10  | **Silvanus**   | Pulp & Paper             | ETS, kestavan metsatalouden sert., EUDR | Qwen 2.5 72B | `silvanus.agent.ts`   | TODO P1 |
 
 **Ceres** kattaa myos entisen Floran toimialueen (Boardy #8). Sub-domain promptit:
+
 - `ceres.mode = 'forestry'` — metsatalous, LULUCF, hiilinielu
 - `ceres.mode = 'crops'` — peltoviljelyt, CAP-tuet, typpipaastot
 - `ceres.mode = 'livestock'` — kotielaimet, metaani, NFR
@@ -222,18 +313,18 @@ Specialist override (DeepSeek, Mistral, Gemma) vain Enterprise-tier asiakkaille.
 
 Boardy #7: "Sijoittaja joka katsoo 13 puuttuvaa deputya nakee scope creep, ei ambition."
 
-| # | Godagent | Toimiala | Avainregulaatio | Aikataulu |
-|---|----------|----------|-----------------|-----------|
-| 11 | **Demeter** | Food & Beverage | LULUCF, packaging DPP, EUDR | Q1 2027 |
-| 12 | **Terminus** | Real Estate & Property | EPBD, EPC-luokat, EU Taxonomy Art. 8 | Q1 2027 |
-| 13 | **Arachne** | Textiles & Fashion | Digital Product Passport (DPP), ESPR | Q2 2027 |
-| 14 | **Pluto** | Mining & Minerals | ETS, CBAM raaka-aineet, CRM Act | Q2 2027 |
-| 15 | **Aqua** | Water & Wastewater | WFD, Urban Wastewater Directive | Q2 2027 |
-| 16 | **Hermes** | Logistics & Supply Chain | CSRD Scope 3, CBAM transit | Q3 2027 |
-| 17 | **Hephaestus** | Electronics & ICT | RoHS, WEEE, Ecodesign ESPR | Q3 2027 |
-| 18 | **Aeolus** | Aviation | EU ETS aviation, CORSIA, SAF mandate | Q3 2027 |
-| 19 | **Vesta** | District Heating & Cooling | EED, RED III, waste heat recovery | Q4 2027 |
-| 20 | **Flora** | ~~Agriculture (extended)~~ | ~~Merged into Ceres~~ | CANCELLED |
+| #   | Godagent       | Toimiala                   | Avainregulaatio                      | Aikataulu |
+| --- | -------------- | -------------------------- | ------------------------------------ | --------- |
+| 11  | **Demeter**    | Food & Beverage            | LULUCF, packaging DPP, EUDR          | Q1 2027   |
+| 12  | **Terminus**   | Real Estate & Property     | EPBD, EPC-luokat, EU Taxonomy Art. 8 | Q1 2027   |
+| 13  | **Arachne**    | Textiles & Fashion         | Digital Product Passport (DPP), ESPR | Q2 2027   |
+| 14  | **Pluto**      | Mining & Minerals          | ETS, CBAM raaka-aineet, CRM Act      | Q2 2027   |
+| 15  | **Aqua**       | Water & Wastewater         | WFD, Urban Wastewater Directive      | Q2 2027   |
+| 16  | **Hermes**     | Logistics & Supply Chain   | CSRD Scope 3, CBAM transit           | Q3 2027   |
+| 17  | **Hephaestus** | Electronics & ICT          | RoHS, WEEE, Ecodesign ESPR           | Q3 2027   |
+| 18  | **Aeolus**     | Aviation                   | EU ETS aviation, CORSIA, SAF mandate | Q3 2027   |
+| 19  | **Vesta**      | District Heating & Cooling | EED, RED III, waste heat recovery    | Q4 2027   |
+| 20  | **Flora**      | ~~Agriculture (extended)~~ | ~~Merged into Ceres~~                | CANCELLED |
 
 **Flora on poistettu.** Ceres kattaa kaiken maatalouden sub-domain prompteilla.
 
@@ -364,9 +455,9 @@ export class {Name}Agent extends BaseAgent {
 ```typescript
 // src/sandbox/dockerode.ts — ~200 riviä vs OpenSandbox-riippuvuus
 
-import Docker from 'dockerode';
+import Docker from "dockerode";
 
-const docker = new Docker({ socketPath: '/var/run/docker.sock' });
+const docker = new Docker({ socketPath: "/var/run/docker.sock" });
 
 export async function runGodagentInDocker(opts: {
   tenantId: string;
@@ -377,21 +468,21 @@ export async function runGodagentInDocker(opts: {
 }): Promise<GodagentResult> {
   const container = await docker.createContainer({
     Image: opts.image ?? `dws-${opts.agentName}:latest`,
-    Labels: { 'dws-godagent': 'true', tenant: opts.tenantId, agent: opts.agentName },
+    Labels: { "dws-godagent": "true", tenant: opts.tenantId, agent: opts.agentName },
     HostConfig: {
       // Use a dedicated internal Docker network that exposes only LiteLLM/Ollama,
       // so the agent can make LLM HTTP calls without general internet egress.
-      NetworkMode: 'dws-godagent-llm',
+      NetworkMode: "dws-godagent-llm",
       Memory: (opts.memoryMB ?? 512) * 1024 * 1024,
-      ReadonlyRootfs: true,          // Boardy baseline: read-only rootfs
-      CapDrop: ['ALL'],              // Godagent containers are designed to run without Linux capabilities
+      ReadonlyRootfs: true, // Boardy baseline: read-only rootfs
+      CapDrop: ["ALL"], // Godagent containers are designed to run without Linux capabilities
       SecurityOpt: [
-        'no-new-privileges',          // Prevent privilege escalation (matches --security-opt no-new-privileges)
+        "no-new-privileges", // Prevent privilege escalation (matches --security-opt no-new-privileges)
         // Seccomp profile must be installed by the platform; this is the minimal profile for agent execution.
-        'seccomp=/etc/docker/seccomp.godagent.json',
+        "seccomp=/etc/docker/seccomp.godagent.json",
       ],
       Binds: [
-        `/opt/dws6/models/lwm:/models/lwm:ro`,  // LWM read-only
+        `/opt/dws6/models/lwm:/models/lwm:ro`, // LWM read-only
       ],
     },
   });
@@ -399,7 +490,9 @@ export async function runGodagentInDocker(opts: {
   try {
     await container.start();
     // Write input, exec agent, read output...
-    const exec = await container.exec({ Cmd: ['npx', 'tsx', 'agent.ts', '--input', '/input/payload.json'] });
+    const exec = await container.exec({
+      Cmd: ["npx", "tsx", "agent.ts", "--input", "/input/payload.json"],
+    });
     // ... collect results
     return result;
   } finally {
@@ -421,13 +514,14 @@ SANDBOX_STAGE=2           # → Cloud Run (tuotanto)
 
 Boardy: "Viisi eri mallia tarkoittaa viisi eri failure modea. Yksi primary malli."
 
-| Tier | LLM | Kayttotarkoitus | VRAM |
-|------|-----|-----------------|------|
-| **Primary (kaikki)** | Qwen 2.5 72B Q4 | Kaikki godagentit, aina ladattuna | ~40GB |
-| **Fallback (pilvi)** | Claude Haiku 4.5 | Kun Qwen ei riita tai on down | 0 (API) |
-| **Enterprise override** | Asiakkaan valinta | NCC haluaa DeepSeek BIM:lle | +30-40GB |
+| Tier                    | LLM               | Kayttotarkoitus                   | VRAM     |
+| ----------------------- | ----------------- | --------------------------------- | -------- |
+| **Primary (kaikki)**    | Qwen 2.5 72B Q4   | Kaikki godagentit, aina ladattuna | ~40GB    |
+| **Fallback (pilvi)**    | Claude Haiku 4.5  | Kun Qwen ei riita tai on down     | 0 (API)  |
+| **Enterprise override** | Asiakkaan valinta | NCC haluaa DeepSeek BIM:lle       | +30-40GB |
 
 **VRAM-budjetti (Boardy #6):** GB10 = 128GB unified.
+
 - Qwen 2.5 72B Q4: ~40GB (aina ladattuna)
 - 1x tenant LWM: ~10-30GB (on-demand, LRU eviction)
 - Headroom: ~58-78GB
@@ -488,7 +582,7 @@ litellm_settings:
 # Rate limiting per tenant
 general_settings:
   master_key: "os.environ/LITELLM_MASTER_KEY"
-  max_budget: 100  # EUR per month
+  max_budget: 100 # EUR per month
   budget_duration: "30d"
 ```
 
@@ -498,7 +592,7 @@ general_settings:
 
 ```yaml
 # docker-compose.godagent.yml
-version: '3.9'
+version: "3.9"
 
 services:
   # ── Ollama — Lokaali LLM inference ────────────────────────────
@@ -508,7 +602,7 @@ services:
     ports: ["11434:11434"]
     volumes:
       - ollama-models:/root/.ollama
-      - ./models/lwm:/models/lwm:ro   # Yrityskohtaiset LWM-mallit (read-only)
+      - ./models/lwm:/models/lwm:ro # Yrityskohtaiset LWM-mallit (read-only)
     deploy:
       resources:
         reservations:
@@ -611,11 +705,11 @@ networks:
 
 Aiven PostgreSQL ajetaan lokaalisti Docker-kontissa Stage 1.5:ssa. Tuotannossa (Stage 2+) siirrytaan Aiven-hallittuun palveluun (EU-region):
 
-| Stage | Aiven-toteutus | Sijainti |
-|-------|----------------|----------|
-| 1.5 (dev) | `postgres:16-alpine` Docker-kontti | Acer Veriton GN-100 |
-| 2 (tuotanto) | Aiven for PostgreSQL (managed) | `google-europe-north1` (Helsinki) |
-| 3 (scale) | Aiven for PostgreSQL + pgvector | `google-europe-north1` |
+| Stage        | Aiven-toteutus                     | Sijainti                          |
+| ------------ | ---------------------------------- | --------------------------------- |
+| 1.5 (dev)    | `postgres:16-alpine` Docker-kontti | Acer Veriton GN-100               |
+| 2 (tuotanto) | Aiven for PostgreSQL (managed)     | `google-europe-north1` (Helsinki) |
+| 3 (scale)    | Aiven for PostgreSQL + pgvector    | `google-europe-north1`            |
 
 ### 7.2 Agent-taulut
 
@@ -794,10 +888,10 @@ SSAB Compliance Team
 
 BYO-agentit liitetaan kahdella protokollalla:
 
-| Protokolla | Kayttotarkoitus | Liitynta |
-|------------|-----------------|----------|
-| **A2A** (Agent-to-Agent) | Asiakkaan omat agentit | `/.well-known/agent.json` endpoint |
-| **MCP** (Model Context Protocol) | DWS IQ:n sisaiset agentit | `/mcp` endpoint, JSON-RPC 2.0 |
+| Protokolla                       | Kayttotarkoitus           | Liitynta                           |
+| -------------------------------- | ------------------------- | ---------------------------------- |
+| **A2A** (Agent-to-Agent)         | Asiakkaan omat agentit    | `/.well-known/agent.json` endpoint |
+| **MCP** (Model Context Protocol) | DWS IQ:n sisaiset agentit | `/mcp` endpoint, JSON-RPC 2.0      |
 
 ```typescript
 // BYO agent discovery (A2A)
@@ -807,7 +901,7 @@ interface A2AAgentCard {
   url: string;
   capabilities: string[];
   authentication: {
-    type: 'bearer' | 'api-key' | 'oauth2';
+    type: "bearer" | "api-key" | "oauth2";
   };
   input_schema: JSONSchema;
   output_schema: JSONSchema;
@@ -819,7 +913,7 @@ interface KYACheck {
   tenantId: string;
   agentName: string;
   agentUrl: string;
-  agentVersion: string;              // Boardy #4: version pinning
+  agentVersion: string; // Boardy #4: version pinning
   checks: {
     endpoint_reachable: boolean;
     tls_certificate_valid: boolean;
@@ -828,7 +922,7 @@ interface KYACheck {
     no_pii_in_logs: boolean;
     article_12_logging: boolean;
     // Boardy #4: behavioral sandbox test
-    behavioral_test_passed: boolean;  // 5 controlled inputs → verify outputs
+    behavioral_test_passed: boolean; // 5 controlled inputs → verify outputs
     behavioral_test_date: string;
   };
   approved: boolean;
@@ -876,6 +970,7 @@ interface KYACheck {
 ### 9.1 Control Room (yksi per toimiala)
 
 Jokainen Godagent **on** toimialansa Control Room. Se:
+
 - Vastaanottaa kaikki toimialan compliance-pyynnot
 - Yllapitaa toimialan regulaatiotietokantaa (ETS-kertoimet, CN-koodit, kynnysarvot)
 - Delegoi perus-compliance Athenalle
@@ -959,21 +1054,21 @@ VALUES ('ncc', 'construction', 'ncc-lwm-construction-v2.3', '/models/lwm/ncc-lwm
 
 ### 11.1 Prioriteettijarjestys
 
-| Prioriteetti | Godagent | Toimiala | Perustelu |
-|--------------|----------|----------|-----------|
-| P1 | Diana | Healthcare | CSRD ESRS S1 deadline 2026, laakeketju |
-| P1 | Demeter | Food & Bev | EUDR deadline 2025-12-30, packaging DPP |
-| P1 | Minerva | Chemicals | REACH + CBAM laajennukset 2026 |
-| P2 | Terminus | Real Estate | EPBD overlap Marsin kanssa, uudelleenkaytto |
-| P2 | Silvanus | Pulp & Paper | EUDR + ETS, Suomen avaintoimiala |
-| P2 | Arachne | Textiles | DPP pilotit 2026, EU-hosted LLM |
-| P3 | Pluto | Mining | CRM Act 2025, CBAM raaka-aineet |
-| P3 | Aqua | Water | WFD paivitykset 2026 |
-| P3 | Flora | Agriculture ext. | CAP-laajennus, Cereksen rinnalle |
-| P4 | Hermes | Logistics | Scope 3, olemassa olevien agentien tukirivisto |
-| P4 | Hephaestus | Electronics | ESPR 2027, RoHS/WEEE |
-| P4 | Aeolus | Aviation | ETS aviation + CORSIA |
-| P4 | Vesta | District Heating | EED uudistus |
+| Prioriteetti | Godagent   | Toimiala         | Perustelu                                      |
+| ------------ | ---------- | ---------------- | ---------------------------------------------- |
+| P1           | Diana      | Healthcare       | CSRD ESRS S1 deadline 2026, laakeketju         |
+| P1           | Demeter    | Food & Bev       | EUDR deadline 2025-12-30, packaging DPP        |
+| P1           | Minerva    | Chemicals        | REACH + CBAM laajennukset 2026                 |
+| P2           | Terminus   | Real Estate      | EPBD overlap Marsin kanssa, uudelleenkaytto    |
+| P2           | Silvanus   | Pulp & Paper     | EUDR + ETS, Suomen avaintoimiala               |
+| P2           | Arachne    | Textiles         | DPP pilotit 2026, EU-hosted LLM                |
+| P3           | Pluto      | Mining           | CRM Act 2025, CBAM raaka-aineet                |
+| P3           | Aqua       | Water            | WFD paivitykset 2026                           |
+| P3           | Flora      | Agriculture ext. | CAP-laajennus, Cereksen rinnalle               |
+| P4           | Hermes     | Logistics        | Scope 3, olemassa olevien agentien tukirivisto |
+| P4           | Hephaestus | Electronics      | ESPR 2027, RoHS/WEEE                           |
+| P4           | Aeolus     | Aviation         | ETS aviation + CORSIA                          |
+| P4           | Vesta      | District Heating | EED uudistus                                   |
 
 ### 11.2 Toteutus per godagent (~2h per agentti)
 
@@ -1004,6 +1099,7 @@ Boardy cranky review 2026-03-15. Kaikki 8 kohtaa kasitelty:
 - [x] **#8 Ceres/Flora**: Yhdistetty, Flora poistettu, sub-domain promptit (Section 3.1)
 
 Avoimet kysymykset (Boardy second pass):
+
 - [ ] **Secret rotation**: LiteLLM master key, Aiven PG password — rotaatiostrategia?
 - [ ] **LWM versiointi**: Miten hallitaan kun asiakas paivittaa fine-tuned malliaan?
 - [ ] **Cost tracking**: LiteLLM budget per tenant — miten toimitaan budjetin ylittyessa?

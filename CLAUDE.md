@@ -77,7 +77,7 @@ When the user mentions **"thesis"**, **"master thesis"**, **"pro gradu"**, or **
 - Thesis work published ONLY to `Learn/` as versioned HTML (e.g., `Learn/V3Thesis_EN_v3.7.html`)
 - **NEVER delete old HTML versions** — they serve as version history
 - Generate versioned HTML for ALL 4 thesis files on each update
-- Metropolia EN+FI share the same version; PHD Firehorse EN+FI share the same version
+- **Unified version track (CRITICAL, from v3.37 onward):** All 4 thesis files (Metropolia V3Thesis EN/FI + PHD_FIREHORSE EN/FI) share a **single** version number. Any thesis-touching change bumps **all 4** to the same next decimal increment in lockstep — `3.37 → 3.38 → 3.39 → … → 3.99 → 4.00 → 4.01 → …`. No skips, no separate tracks. Major rollover at `.99 → next.00`. Pre-v3.37 history (Metropolia at its own v3.x, PHD_FIREHORSE at its own v1.x / v2.x / v3.1–3.5) is preserved in the VERSION AND AGENT HISTORY blocks; from v3.37 forward, the two tracks are unified.
 - **Always check the current version number** in the file header before incrementing — do NOT assume git history is latest. Ask the user if uncertain.
 - Update VERSION AND AGENT HISTORY block and document footer on each change
 
@@ -103,6 +103,46 @@ The script (`scripts/gen-thesis-html.cjs`):
 
 **Do NOT modify the HTML output files directly.** Edit the source `.md` files, then run the script.
 
+### DWS Skilled Taxonomy Rule (CRITICAL)
+
+**The terms "GodAgent" / "Godagent" are deprecated.** Never introduce them in new writing.
+
+DWS brand, spec, and UI copy follow a single three-tier pattern that generalises across every capability axis where DWS offers depth. The pattern is:
+
+```
+Skilled <Axis>                 ← BRAND   (what we SELL)
+    └─ Industrial Specialist <Axis>    ← SPEC    (what they ARE)
+            └─ Industry <Axis>         ← UI      (how we LIST them)
+```
+
+Three axes are active today. More may be added; each new axis follows the same tiers.
+
+| Tier      | Role                                                                                   | **Agents**                       | **Workflows**                                                           | **Jurisdictions**                         | **Use in**                                                                                                                                        | **Do NOT use in**                                                 |
+| --------- | -------------------------------------------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| 1 — Brand | What we sell. Anthropic Skills paradigm pivot: capability = acquired, auditable skill. | **Skilled Agents**               | **Skilled Autonomous Workflows**                                        | **Skilled Jurisdictions** (EU, US, Aiwen) | Hero copy, `<title>`, `<meta og:title/og:description>`, investor decks, product `brand:` field, press, social cards.                              | Technical specs, nav chips, badges.                               |
+| 2 — Spec  | Documentation-grade descriptor. Precise.                                               | **Industrial Specialist Agents** | **Specialist Workflows** (long-form: _Industrial Specialist Workflows_) | **Regulatory Specialist Jurisdictions**   | First mention in a doc/spec, architecture prose, regulatory responses, SLA/contract text, glossary. Define once per doc, then shorten to UI tier. | Hero copy (too long), UI badges, tight social cards.              |
+| 3 — UI    | Category label / UI shorthand / registry column.                                       | **Industry Agents**              | **Industrial Workflows**                                                | **Jurisdictions**                         | Nav menus, filter chips, count badges (`<span class="sov-badge">18+ Industry Agents</span>`), registry column headers, tables.                    | Investor hero lines, brand tagline — loses the "skilled" promise. |
+
+Why **"Autonomous"** appears in the workflow brand tier but not agents: workflows execute on schedule/event without a human in the loop — "Autonomous" earns the brand promise. Agents have it implied.
+
+Why **"Regulatory"** appears in the jurisdiction spec tier: jurisdictions are defined by their regulatory surface (EU AI Act, GDPR, CBAM, ETS, CSRD for EU; sector rules for US; data localisation for Aiwen) — the spec register must say so.
+
+**Pattern for new axes:** When DWS adds a new capability axis (e.g., Datasets, Models, Regulations, Reports), name it `Skilled <Axis>` / `Industrial Specialist <Axis>` / `Industry <Axis>` and add a column to the table above. Do not invent parallel brand words.
+
+**Counts are dynamic.** The number of agents, workflows, or jurisdictions in each tier will shift over time. Never hardcode a fixed brand number — apply one of these three patterns:
+
+1. **Open-ended** (preferred for platform copy): `18+ Skilled Agents` — the `+` absorbs growth.
+2. **Registry-anchored** (docs/specs): "See `docs/Deputy-Agents-Architecture.md` §3 for the current Industrial Specialist Agent registry" — no count in prose.
+3. **Product-scoped** (SKU copy only): `Climate Intelligence ships with 8 Skilled Agents` — precise, but MUST be updated if the SKU's agent list changes. Treat the count as part of the SKU spec in `products.json`, not free-floating copy.
+
+**Canonical source of truth:** `docs/Deputy-Agents-Architecture.md` — "Terminology — DWS Skilled Taxonomy (Canonical)" section at the top of the doc. Any new taxonomy-facing copy must be consistent with that glossary; any glossary change must be reflected across marketing surfaces in the same PR.
+
+**Scope exclusions — do NOT rename:**
+
+- **Docker / infra identifiers** (`dws-godagent-llm`, `dws-godagent:latest`, label `dws-godagent`, iptables rules). Renaming requires a coordinated infra change, not a doc PR.
+- **Pantheon "God Agents"** (two words, onelifetime.world Pantheon storyboard, Zeus/Athena characters). Different brand; not in scope.
+- **Historical records** (field notes, `Learn/tuntikirjausraportti*`, `Learn/Oppimispäiväkirja*`, dated folders under `docs/010825_310726/`). Point-in-time records are not retroactively edited.
+
 ## Project Overview
 
 **DWS IQ 6** is a platform to **run enterprise industrial AI agents safely** following DWS standards. It provides multi-agent delegation with EU compliance scoring, ERP integration, and sales automation.
@@ -113,32 +153,6 @@ The script (`scripts/gen-thesis-html.cjs`):
 - **Memory**: Lifetime World Model (EU Regulations + Industry Models — _external dependency, not built in this repo_)
 - **Body**: Firehorse Suite (Omnichannel sales ✅ | Signed Reports ✅ | Report Engine 🔧 | Automation 🔧 | Content DMS 📋)
 - **Hands**: Lifetime Fleet (IoT/Robots — _specification phase_)
-
-## Development Quality Tools
-
-DWS6 uses a lightweight feedback loop: a health-check script surfaces priorities, CI prevents regressions, and the MCP Hub provides reflection workflows for agent output quality.
-
-### Tools
-
-| Tool                   | File                                       | Purpose                                               |
-| ---------------------- | ------------------------------------------ | ----------------------------------------------------- |
-| **Codebase Health**    | `scripts/codebase_health.py`               | Prints health report with metrics and recommendations |
-| **Test on PR**         | `.github/workflows/test-on-pr.yml`         | Runs tests and security checks on every PR            |
-| **MCP Hub Reflection** | `mcp-hub/server.py` `/workflow/reflection` | Iterative refinement workflow for agent outputs       |
-
-### How to Use
-
-At the start of a coding session, run the health check to understand priorities:
-
-```bash
-# Print report to stdout (default — no files written)
-python scripts/codebase_health.py
-
-# Persist the JSON report for later reference
-python scripts/codebase_health.py --output json --output-file health_report.json
-```
-
-The report identifies the highest-priority improvements for the current session. `health_report.json` is gitignored.
 
 ## AI Agent Behavior Guidelines (Karpathy Principles)
 
@@ -228,24 +242,6 @@ The skill is an agent-accessible product — if it can't be invoked via `/name`,
 4. GitHub Actions workflows are **failover only** — DGX Spark is primary
 
 **Forbidden pattern:** Creating a script in `scripts/` root with instructions "run this manually". That script will be forgotten within 24 hours.
-
-### DGX Ollama Fallback Rule (CRITICAL)
-
-**When Anthropic / Claude / Groq rate-limits or quota-exhausts, fall back to DGX Spark Ollama — never refuse or stall.** Use the wrapper, not raw ssh:
-
-```bash
-bash scripts/ollama-spark.sh llama3.1:70b "<prompt>"
-# or inside a Claude Code session:
-/ollama-spark llama3.1:70b "<prompt>"
-```
-
-Under the hood this runs `ssh dgx-spark "curl -s http://localhost:11434/api/generate -d '{...}' | jq -r .response"`. Applies to:
-
-1. **Rate-limit fallback** — any 429 / quota-exhausted from the cloud provider → retry on DGX Spark
-2. **EU-only prompts** — anything PII, GDPR-restricted, or EU AI Act high-risk (Art. 12 logging required) must run on DGX Spark, never on US cloud
-3. **Cost-sensitive batch** — no per-token billing when you own the hardware
-
-Default model: `llama3.1:70b`. List available: `bash scripts/ollama-spark.sh --list`. Agent LLMClients should wrap their cloud calls with try/catch → fallback to this script on 429. Failing loudly is worse than completing with a slightly weaker on-prem model.
 
 ### Leverage Patterns
 
@@ -556,19 +552,6 @@ Branch: <branch> | Commit: <hash> — <message> | PR: <url>
 Done: [summary] | Remaining: [tasks] | Files: [list]
 Start: git pull origin <branch>
 ```
-
-### Handover Prompt Freshness Rule (CRITICAL)
-
-**Always inspect the next-session prompt and verify its details are up to date with the repository's latest state BEFORE running any work.** Old handover prompts go stale fast — PRs merge, branches delete, commits move.
-
-When you receive a "JATKA EDELLISTÄ SESSIOTA / CONTINUE PREVIOUS SESSION" prompt (or any session-handover text referencing branches, commits, PR numbers, or pending tasks):
-
-1. **Verify current state first** — run `git status`, `git log -1`, `git branch --show-current`, and check `origin/main` HEAD. Do NOT trust the prompt's claims about branch/commit/PR state.
-2. **Reconcile drift** — if the prompt says "HEAD is X" and git says Y, the prompt is stale. Update the plan to match reality, not the prompt.
-3. **Rewrite the handover** — before starting work, produce a refreshed handover prompt that reflects the actual current state (branch, HEAD commit, recently merged PRs since the prompt was written, truly remaining tasks). Share it with the human if the drift is material.
-4. **Only then start the task** — never act on stale instructions. If the prompt references a PR that is already merged and a branch that is already deleted, that work is done; don't redo it.
-
-**Why:** Sessions resume hours or days later. The previous session's handover is a snapshot that decays with every merge. Acting on a stale snapshot wastes work, recreates already-shipped changes, or conflicts with current `main`.
 
 ### Branch Auto-Deletion After Merge (CRITICAL)
 
