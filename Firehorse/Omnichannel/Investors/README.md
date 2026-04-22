@@ -12,17 +12,15 @@ This directory contains all resources, strategies, and workflows for investor ou
 - **Goal**: Schedule intro calls and pitch meetings
 - **Contact**: investor@dws10.com
 
-### 2. Investor Relations Page
-- **Location**: `https://dws10.com/investor-relations/`
-- **Purpose**: Central hub for investor information
+### 2. Captain Landing Page
+- **Location**: `https://dws10.com/captain/`
+- **Deck**: `https://dws10.com/captain/deck/`
+- **Purpose**: Central hub for Captain seat programme and investor information
 - **Content**:
-  - €500k SAFE round at €3.8M cap
-  - Current traction: €7k MRR, 100% retention
-  - Customer table (5 paying + 2 pilots)
-  - €500k Campaign Launch carousel
-  - Crunchbase metrics (Growth Score 91, Heat Score 86)
-  - Full pitch deck request form
-  - Pitch video link
+  - 8 Platinum Captain seats (EUR 50k SAFE, EUR 3.8M cap, 18% discount)
+  - Current traction: EUR 7k+ MRR, 100% retention
+  - Industry vertical ownership model
+  - Full pitch deck
   - Contact information
 
 ### 3. Investor Database (Supabase)

@@ -1,7 +1,7 @@
 # AGENTS.md - Master Agent Index
 ## DWS IQ 6 - Agent Architecture & Coordination
 
-**Version:** 1.1  
+**Version:** 1.0  
 **Created:** January 3, 2026  
 **Owner:** Lifetime Oy  
 **Status:** Active
@@ -259,9 +259,9 @@ PHASE 4 (Enhancements - Optional)
 
 ## 4. Internal DWS Team Agents
 
-**Purpose:** Design, build, deploy, secure, and maintain DWS6  
-**Total:** 7 agents (5 development + 2 sales)  
-**Operating Mode:** Semi-automated → Autonomous  
+**Purpose:** Design, build, deploy, secure, and maintain DWS6
+**Total:** 8 agents (6 development + 2 sales)
+**Operating Mode:** Semi-automated → Autonomous
 **Reference:** `CloudAgents/dws-team/README.md`
 
 ### Development Agents
@@ -273,6 +273,7 @@ PHASE 4 (Enhancements - Optional)
 | **DevOps Agent** | Infrastructure automation | Cost report, uptime report, CI/CD health |
 | **Security Agent** | Security hardening, compliance | Vulnerability scans, compliance checklist |
 | **Product Agent** | Progress tracking, reporting | Weekly reports (EN/FI), roadmap updates |
+| **Design Audit Agent** | Premium UI/UX architecture, Steve Jobs/Jony Ive philosophy | Design audit plans, phased improvements |
 
 ### Sales & Market Intelligence Agents
 
@@ -375,7 +376,7 @@ agent:
 | Server | Purpose | Status |
 |--------|---------|--------|
 | **Docker MCP** | Container management, GitHub integration | Active |
-| **ZenFree** | Security scanning (replaced Snyk, Feb 2026) | Active |
+| **Snyk MCP** | Security scanning | Active |
 | **Browser MCP** | Web testing, UI verification | Active |
 
 ### Available MCP Servers (Not Configured)
@@ -417,7 +418,7 @@ docker mcp add stripe --activate
 
 All AI agents follow `AI_AGENT_GUIDELINES.md`:
 
-- **Naming:** `[Document] - [Tool] - [SessionID] - Version X.Y`
+- **Naming:** `[Document] - [Tool] - [SessionID] - Versio X.Y`
 - **Metadata:** Tool, SessionID, Version required
 - **Versioning:** 0.1 → 0.2 → ... → 1.0
 - **Git Integration:** `claude/[task]-[SessionID]` branches
@@ -462,6 +463,8 @@ cost_tracking:
 | Signal Registry | `.workflows/agents/AGENT_SIGNAL_REGISTRY.json` |
 | Coordinator Script | `.workflows/agents/coordinator.cjs` |
 | Coordinator Guide | `.workflows/agents/ULTRA_AGENT_COORDINATOR.md` |
+| Design Audit Agent | `.workflows/agents/DESIGN_AUDIT_AGENT.md` |
+| Design Audit Admin Manual | `ADMIN_MANUAL_DESIGN_AUDIT_AGENT.md` |
 | Agent Guidelines | `AI_AGENT_GUIDELINES.md` |
 | DWS Team Agents | `CloudAgents/dws-team/README.md` |
 | Customer Agent Configs | `AgentFoundry/configs/templates/` |
@@ -502,9 +505,9 @@ cd mcp-hub && python server.py
 ### Timeline
 
 - **Launch Date:** February 23, 2026
-- **Days Remaining (as of 2026-01-30):** 24
+- **Days Remaining:** 51
 - **Estimated Work:** 41-56 days
-- **Buffer:** -17 to -32 days
+- **Buffer:** -5 to 10 days
 
 ---
 
@@ -515,10 +518,11 @@ cd mcp-hub && python server.py
 - [ARCHITECTURE_SUMMARY.md](ARCHITECTURE_SUMMARY.md) - System architecture
 - [CloudAgents/dws-team/README.md](CloudAgents/dws-team/README.md) - Internal agents
 - [AgentFoundry/README.md](AgentFoundry/README.md) - Customer-facing agents
+- [ADMIN_MANUAL_DESIGN_AUDIT_AGENT.md](ADMIN_MANUAL_DESIGN_AUDIT_AGENT.md) - Design Audit Agent usage guide
 
 ---
 
-**Document Version:** 1.1  
-**Last Updated:** January 30, 2026  
+**Document Version:** 1.0  
+**Last Updated:** January 3, 2026  
 **Status:** Active  
-**Next Review:** February 6, 2026
+**Next Review:** January 10, 2026

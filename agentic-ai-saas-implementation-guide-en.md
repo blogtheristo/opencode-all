@@ -65,7 +65,7 @@ The DWS IQ Platform combines:
 - **12-Month Revenue**: €140,000 (pilots + early customers)
 - **12-Month Edge Savings**: €333,000 (cloud cost avoidance)
 - **Month 12 Profit**: +€281,370
-- **Investment Ask**: €150,000 SAFE @ €3.8M cap, 20% discount
+- **Investment Ask**: €150,000 SAFE @ €3.8M cap, 18% discount
 - **Hardware ROI**: 515% annually
 
 ---
@@ -904,7 +904,7 @@ class SyncManager {
 
 ### Infrastructure Costs
 
-#### Year 1 Costs (with Startup Credits)
+#### Year 1 Costs
 
 **Edge Infrastructure:**
 - NVIDIA Jetson Orin Nano: €37,450 (50 units × €749)
@@ -913,13 +913,14 @@ class SyncManager {
 - Networking equipment: €7,500
 - **Total Edge Hardware: €53,700**
 
-**Cloud Infrastructure (After Credits):**
-- Google Cloud Run: $0 (covered by $100K credits)
-- Groq API: $0 (covered by $10K credits)
-- AWS IoT Core: $0 (covered by $25K credits)
+**Cloud Infrastructure & Development Tools:**
+- Google Cloud Run: $500/year
+- NVIDIA Connect (Groq): Partnership
+- AWS IoT Core: $500/year
+- Cursor Pro + Claude Code Max: $600/year
 - Supabase Pro: $300/year
 - Domain & SSL: $200/year
-- **Total Cloud (Year 1): $500**
+- **Total Cloud (Year 1): $2,100**
 
 **Personnel (Year 1):**
 - CEO/CTO (Risto): €60,000
@@ -988,11 +989,11 @@ class SyncManager {
 
 #### Startup Capital Efficiency
 
-**Investment Ask: €150,000 SAFE @ €3.8M cap, 20% discount**
+**Investment Ask: €150,000 SAFE @ €3.8M cap, 18% discount**
 
 **Runway Analysis:**
 - Total Year 1 costs: €322,200
-- Startup credits value: €135,000
+- Partnership & tool savings: €10,000
 - Revenue Year 1: €140,000
 - Investment needed: €322,200 - €135,000 - €140,000 = €47,200
 
@@ -1356,12 +1357,12 @@ class SyncManager {
 
 **Status:** 🔄 Application in progress
 
-#### 4. Groq for Startups
+#### 4. NVIDIA Connect (Groq)
 
-**Partnership Type:** Early customer program
+**Partnership Type:** NVIDIA Connect program
 
 **Benefits:**
-- $10,000 in inference credits
+- Access to Groq inference via NVIDIA partnership
 - Dedicated support
 - Performance optimization assistance
 - Co-marketing opportunities
@@ -1726,7 +1727,7 @@ The Firehorse system also supports parallel fundraising efforts with dedicated e
 3. **Warm Intros** - Leveraging mutual connections
 4. **Cold LinkedIn DMs** - Ultra-short (300 char) investor outreach
 
-**Target:** €150,000 SAFE @ €3.8M cap, 20% discount
+**Target:** €150,000 SAFE @ €3.8M cap, 18% discount
 
 **Investor Pitch Alignment:**
 - Pilot revenue (€59,900) demonstrates product-market fit
@@ -1805,10 +1806,10 @@ This isn't just faster - it's **25x faster than cloud-only solutions** and **86%
 ### The Economics
 
 **Capital Efficiency:**
-- Startup credits: $135,000 (Google, AWS, Groq, GitHub)
-- Edge hardware: €54,200 (pays for itself in 2.5 months)
+- AI development tools: Cursor Pro + Claude Code Max (15-week MVP)
+- NVIDIA Connect partnership + Edge hardware: €54,200 (pays for itself in 2.5 months)
 - Total capital needed: €191,630 for 12 months
-- Your investment: €150,000 at €3.8M cap, 20% discount
+- Your investment: €150,000 at €3.8M cap, 18% discount
 
 **Financial Projections:**
 - Year 1 Revenue: €140,000
@@ -1831,11 +1832,10 @@ This isn't just faster - it's **25x faster than cloud-only solutions** and **86%
 - Expansion potential: 50+ sites
 
 **Strategic Partnerships:**
-- ✅ Google for Startups ($100K credits)
-- ✅ AWS for Startups ($25K credits)
-- ✅ Groq for Startups ($10K credits)
+- ✅ NVIDIA Connect Partnership (Groq, Inception)
+- ✅ Cursor.AI Pro (AI-assisted development)
+- ✅ Claude Code Max (AI-assisted development)
 - ✅ GitHub Enterprise (Lifetime-oy organization)
-- 🔄 NVIDIA Inception (application in progress)
 
 ### The Team
 
@@ -1868,7 +1868,7 @@ This isn't just faster - it's **25x faster than cloud-only solutions** and **86%
 
 **Investment Structure:** €150,000 SAFE
 - Valuation cap: €3.8M
-- Discount: 20%
+- Discount: 18%
 - No interest, no maturity date
 
 **Use of Funds:**

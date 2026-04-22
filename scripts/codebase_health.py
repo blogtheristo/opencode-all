@@ -25,6 +25,7 @@ outside the repo or gitignored (the repo already ignores health_report.json).
 
 import json
 import os
+import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -101,6 +102,14 @@ def _agent_class_name(agent_file: str) -> str:
     return "".join(p.capitalize() for p in parts) + "Agent"
 
 
+def _extract_agent_class_name(content: str, fallback_agent_file: str) -> str:
+    """Extract exported class name from agent source, with safe fallback."""
+    match = re.search(r"export\s+class\s+([A-Za-z_][A-Za-z0-9_]*)", content)
+    if match:
+        return match.group(1)
+    return _agent_class_name(fallback_agent_file)
+
+
 def _agent_registered_name(agent_file: str) -> str:
     """Derive the registry name for an agent file.
 
@@ -126,7 +135,7 @@ def analyze_agents(base_path: str) -> dict:
                 # Link agent to test files by searching for its class name or
                 # registered name as a whole token. This is a conservative
                 # heuristic, not a coverage metric.
-                class_name = _agent_class_name(f)
+                class_name = _extract_agent_class_name(content, f)
                 registry_name = _agent_registered_name(f)
                 tested_in = sorted(
                     name

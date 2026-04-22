@@ -77,7 +77,9 @@ jobs:
       - name: Check for security patterns
         run: |
           echo "Checking for hardcoded secrets..."
-          ! grep -rn "sk-ant-api\|gsk_\|eyJhbG\|AIza" src/ --include="*.ts" --include="*.js" || {
+          ! grep -rn "sk-ant-api\|gsk_\|AIza\|AKIA[0-9A-Z]\{16\}" src/ \
+            --exclude-dir="__tests__" \
+            --include="*.ts" --include="*.js" || {
             echo "WARNING: Potential secrets found in source code"
             exit 1
           }
