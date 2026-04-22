@@ -6,21 +6,21 @@ This file provides guidance for Claude Code (AI) when working with the DWS6 code
 
 Before making any UI changes, agents MUST consult these files:
 
-| Standard                          | File                                        | Scope                                                                                                           |
-| --------------------------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| **Brand Standard**                | `DWS_BRAND_STANDARD.md`                     | Store UI, hamburger menu, product cards, category nav, dark tokens, sovereignty badges                          |
-| **Document Standard**             | `DWS_DOCUMENT_STANDARD.md`                  | Document formatting, sections, metadata                                                                         |
-| **Gamma UI Guidelines**           | `UI_SKILLS_GAMMA.md`                        | Tailwind, Radix UI, accessibility, animations                                                                   |
-| **Security Standard**             | `DWS_SECURITY_STANDARD.md`                  | AI safety, enterprise security framework                                                                        |
-| **Security Compliance**           | `Admin/SECURITY_COMPLIANCE.md`              | Deployment, controls, certifications, vendor risk                                                               |
-| **Market Research Standard**      | `DWS_MARKET_RESEARCH_STANDARD.md`           | Competitive intelligence, product improvement, data collection                                                  |
-| **Site Quality Standards**        | `SITE_QUALITY_STANDARDS.md`                 | Code quality, **code formatting**, components, nav, logos, CTA, testing                                         |
-| **Cloud Environments**            | `docs/CLOUD_ENVIRONMENTS.md`                | US/EU/Aiwen clouds, account structure, DWS 6→7 migration, data residency                                        |
-| **Product Catalog**               | `product-catalog/README.md`                 | Product catalog structure, Store Product Format, Google Merchant fields                                         |
-| **Data Standard**                 | `DWS_DATA_STANDARD.md`                      | Data storage governance, columnar/row policy, extension registry, retention, EU regulatory compliance           |
-| **Information Layering Strategy** | `docs/DWS_INFORMATION_LAYERING_STRATEGY.md` | Six-layer harness, where standards fit, progressive disclosure, 12 Factor Agents, tool result injection pattern |
-| **Skills Guide**                  | `docs/DWS_SKILLS_GUIDE.md`                  | All 20 skills: slash commands, discipline skills, gstack workflow, when to use each                             |
-| **Blog Standard**                 | `docs/BLOG_STANDARD.md`                     | Blog post structure, prev/next nav, product cards, meta tags, post registry, injection script                   |
+| Standard                          | File                                        | Scope                                                                                                                   |
+| --------------------------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| **Brand Standard**                | `DWS_BRAND_STANDARD.md`                     | Store UI, hamburger menu, product cards, category nav, dark tokens, sovereignty badges                                  |
+| **Document Standard**             | `DWS_DOCUMENT_STANDARD.md`                  | Document formatting, sections, metadata                                                                                 |
+| **Gamma UI Guidelines**           | `UI_SKILLS_GAMMA.md`                        | Tailwind, Radix UI, accessibility, animations                                                                           |
+| **Security Standard**             | `DWS_SECURITY_STANDARD.md`                  | AI safety, enterprise security framework                                                                                |
+| **Security Compliance**           | `Admin/SECURITY_COMPLIANCE.md`              | Deployment, controls, certifications, vendor risk                                                                       |
+| **Market Research Standard**      | `DWS_MARKET_RESEARCH_STANDARD.md`           | Competitive intelligence, product improvement, data collection                                                          |
+| **Site Quality Standards**        | `SITE_QUALITY_STANDARDS.md`                 | Code quality, **code formatting**, components, nav, logos, CTA, testing                                                 |
+| **Cloud Environments**            | `docs/CLOUD_ENVIRONMENTS.md`                | US/EU/Aiwen clouds, account structure, DWS 6→7 migration, data residency                                                |
+| **Product Catalog**               | `product-catalog/README.md`                 | Product catalog structure, Store Product Format, Google Merchant fields                                                 |
+| **Data Standard**                 | `DWS_DATA_STANDARD.md`                      | Data storage governance, columnar/row policy, extension registry, retention, EU regulatory compliance                   |
+| **Information Layering Strategy** | `docs/DWS_INFORMATION_LAYERING_STRATEGY.md` | Six-layer harness, where standards fit, progressive disclosure, 12 Factor Agents, tool result injection pattern         |
+| **Skills Guide**                  | `docs/DWS_SKILLS_GUIDE.md`                  | All 20 skills: slash commands, discipline skills, gstack workflow, when to use each                                     |
+| **Blog Standard**                 | `docs/BLOG_STANDARD.md`                     | Blog post structure, prev/next nav, product cards, meta tags, post registry, injection script                           |
 | **Standards Library**             | `DWS_STANDARDS_LIBRARY.md`                  | Single registry of every regulation, process, security, protocol, reporting standard — claimable vs target vs reference |
 
 **Rule:** These standards apply equally to all tools — Claude Code, Cursor, VS Code, Codex, and human developers. No exceptions.
@@ -114,6 +114,32 @@ The script (`scripts/gen-thesis-html.cjs`):
 - **Body**: Firehorse Suite (Omnichannel sales ✅ | Signed Reports ✅ | Report Engine 🔧 | Automation 🔧 | Content DMS 📋)
 - **Hands**: Lifetime Fleet (IoT/Robots — _specification phase_)
 
+## Development Quality Tools
+
+DWS6 uses a lightweight feedback loop: a health-check script surfaces priorities, CI prevents regressions, and the MCP Hub provides reflection workflows for agent output quality.
+
+### Tools
+
+| Tool                   | File                                       | Purpose                                               |
+| ---------------------- | ------------------------------------------ | ----------------------------------------------------- |
+| **Codebase Health**    | `scripts/codebase_health.py`               | Prints health report with metrics and recommendations |
+| **Test on PR**         | `.github/workflows/test-on-pr.yml`         | Runs tests and security checks on every PR            |
+| **MCP Hub Reflection** | `mcp-hub/server.py` `/workflow/reflection` | Iterative refinement workflow for agent outputs       |
+
+### How to Use
+
+At the start of a coding session, run the health check to understand priorities:
+
+```bash
+# Print report to stdout (default — no files written)
+python scripts/codebase_health.py
+
+# Persist the JSON report for later reference
+python scripts/codebase_health.py --output json --output-file health_report.json
+```
+
+The report identifies the highest-priority improvements for the current session. `health_report.json` is gitignored.
+
 ## AI Agent Behavior Guidelines (Karpathy Principles)
 
 You are the hands; the human is the architect. Move fast, but never faster than the human can verify.
@@ -202,6 +228,24 @@ The skill is an agent-accessible product — if it can't be invoked via `/name`,
 4. GitHub Actions workflows are **failover only** — DGX Spark is primary
 
 **Forbidden pattern:** Creating a script in `scripts/` root with instructions "run this manually". That script will be forgotten within 24 hours.
+
+### DGX Ollama Fallback Rule (CRITICAL)
+
+**When Anthropic / Claude / Groq rate-limits or quota-exhausts, fall back to DGX Spark Ollama — never refuse or stall.** Use the wrapper, not raw ssh:
+
+```bash
+bash scripts/ollama-spark.sh llama3.1:70b "<prompt>"
+# or inside a Claude Code session:
+/ollama-spark llama3.1:70b "<prompt>"
+```
+
+Under the hood this runs `ssh dgx-spark "curl -s http://localhost:11434/api/generate -d '{...}' | jq -r .response"`. Applies to:
+
+1. **Rate-limit fallback** — any 429 / quota-exhausted from the cloud provider → retry on DGX Spark
+2. **EU-only prompts** — anything PII, GDPR-restricted, or EU AI Act high-risk (Art. 12 logging required) must run on DGX Spark, never on US cloud
+3. **Cost-sensitive batch** — no per-token billing when you own the hardware
+
+Default model: `llama3.1:70b`. List available: `bash scripts/ollama-spark.sh --list`. Agent LLMClients should wrap their cloud calls with try/catch → fallback to this script on 429. Failing loudly is worse than completing with a slightly weaker on-prem model.
 
 ### Leverage Patterns
 
@@ -512,6 +556,19 @@ Branch: <branch> | Commit: <hash> — <message> | PR: <url>
 Done: [summary] | Remaining: [tasks] | Files: [list]
 Start: git pull origin <branch>
 ```
+
+### Handover Prompt Freshness Rule (CRITICAL)
+
+**Always inspect the next-session prompt and verify its details are up to date with the repository's latest state BEFORE running any work.** Old handover prompts go stale fast — PRs merge, branches delete, commits move.
+
+When you receive a "JATKA EDELLISTÄ SESSIOTA / CONTINUE PREVIOUS SESSION" prompt (or any session-handover text referencing branches, commits, PR numbers, or pending tasks):
+
+1. **Verify current state first** — run `git status`, `git log -1`, `git branch --show-current`, and check `origin/main` HEAD. Do NOT trust the prompt's claims about branch/commit/PR state.
+2. **Reconcile drift** — if the prompt says "HEAD is X" and git says Y, the prompt is stale. Update the plan to match reality, not the prompt.
+3. **Rewrite the handover** — before starting work, produce a refreshed handover prompt that reflects the actual current state (branch, HEAD commit, recently merged PRs since the prompt was written, truly remaining tasks). Share it with the human if the drift is material.
+4. **Only then start the task** — never act on stale instructions. If the prompt references a PR that is already merged and a branch that is already deleted, that work is done; don't redo it.
+
+**Why:** Sessions resume hours or days later. The previous session's handover is a snapshot that decays with every merge. Acting on a stale snapshot wastes work, recreates already-shipped changes, or conflicts with current `main`.
 
 ### Branch Auto-Deletion After Merge (CRITICAL)
 

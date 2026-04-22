@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.7
+Version: 1.8
 
 Sessions & Modifications:
 
+- Version: 1.8 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: current | Date: 22.04.2026 | Changes: Added missing index entries for local-first CI audit docs (`docs/CI_AUDIT.md`), external audit manual, and CI hygiene field note; refreshed metadata
 - Version: 1.7 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: current | Date: 21.04.2026 | Changes: Added DWS Standards Library and Vesala standards field note entries; synced index metadata for standards/web-content governance updates
 - Version: 1.6 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: current | Date: 18.04.2026 | Changes: Added MCP CLI Index field note entry, refreshed field note count, and linked current MCP/CLI package split into the repository index
 - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/connect-kya-dws-cli-0MMIB | Date: 10.04.2026 | Changes: Catch-up index refresh covering ~127 merge commits from 2026-03-11 through 2026-04-10. Added DWS CLI (`cli/`), LLM Knowledge Base (`kb/` + `src/agents/kb.agent.ts`), `/kya` and `/kb` slash commands, DWS Skills Guide (`docs/DWS_SKILLS_GUIDE.md`), ADMIN*MANUAL Sections 28–33 (Carbon Balance Sheet, DGX Spark, Safety Hooks, External Repos, GitHub Actions & Cron Registry, DWS CLI Operator Reference), Shufti Pro DPA artifacts and IDV integration, PHD Firehorse thesis track (EN/FI), Aspire observability research, Legal/KYA*\* contracts, 2026-03/04 field notes, OneLifetime blog posts (KYA Standard v1, harness engineering investor note, EU sovereignty, validated mock data principle). Updated DWS_SECURITY_STANDARD §18.6 (KYA Control Surfaces), DWS_DATA_STANDARD §4.3 (kb/ classification), Admin/SECURITY_COMPLIANCE (Destructive Action Inventory).
@@ -31,7 +32,7 @@ Session Links & References:
 Document Status:
 
 - Created: 04.02.2026
-- Last Modified: 21.04.2026
+- Last Modified: 22.04.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE
@@ -71,23 +72,24 @@ Centralized index of all documentation in the DWS6 repository for faster search 
 
 System administration and deployment guides. All admin manuals are in `Admin/` folder.
 
-| Document              | Path                                                  | Status   | Last Modified | Description                                         |
-| --------------------- | ----------------------------------------------------- | -------- | ------------- | --------------------------------------------------- |
-| Admin Manual (main)   | `/Admin/ADMIN_MANUAL.md`                              | ACTIVE   | 2026-02-07    | Master admin manual (v2.1)                          |
-| Authentication Manual | `/Admin/ADMIN_MANUAL_AUTHENTICATION.md`               | ACTIVE   | 2026-02-06    | Supabase auth setup                                 |
-| Dashboard V8 Manual   | `/Admin/ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md`           | ACTIVE   | 2026-02-06    | Dashboard v8 guide                                  |
-| Supabase Manual       | `/Admin/ADMIN_MANUAL_SUPABASE_EN_v1.md`               | ACTIVE   | 2026-02-06    | Supabase configuration                              |
-| Gaps Analysis         | `/Admin/ADMIN_MANUAL_GAPS_ANALYSIS.md`                | ACTIVE   | 2026-02-06    | Documentation gap analysis                          |
-| DWS6.com Manual       | `/Admin/ADMIN_MANUAL_DWS6_COM.md`                     | ACTIVE   | 2026-02-06    | Main site deployment                                |
-| DWS10 Store Payments  | `/Admin/ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`         | ACTIVE   | 2026-02-06    | Revolut Web SDK store                               |
-| Testing Manual        | `/Admin/ADMIN_MANUAL_TESTING.md`                      | ACTIVE   | 2026-02-06    | Testing procedures                                  |
-| Files & Folders       | `/Admin/ADMIN_MANUAL_FILES_AND_FOLDERS.md`            | ACTIVE   | 2026-02-06    | Repo structure guide                                |
-| Security Compliance   | `/Admin/SECURITY_COMPLIANCE.md`                       | ACTIVE   | 2026-02-06    | Security & compliance                               |
-| Security Testing      | `/Admin/Security/ADMIN_MANUAL_SECURITY_TESTING.md`    | ACTIVE   | 2026-02-06    | Security test procedures                            |
-| Security Monitoring   | `/Admin/Security/ADMIN_MANUAL_SECURITY_MONITORING.md` | ACTIVE   | 2026-02-06    | Monitoring setup                                    |
-| Acer Veriton GN100    | `/Admin/Acer-Veriton-GN100/README.md`                 | ACTIVE   | 2026-03-11    | GN100 edge AI device admin manual and runtime notes |
-| Documentation Audit   | `/ADMIN_DOCUMENTATION_AUDIT_2026-01-11.md`            | ARCHIVED | 2026-01-11    | 2026-01 audit results                               |
-| Auth Setup Guide      | `/docs/AUTH_SETUP_GUIDE.md`                           | ACTIVE   | -             | Authentication setup                                |
+| Document              | Path                                                  | Status   | Last Modified | Description                                                            |
+| --------------------- | ----------------------------------------------------- | -------- | ------------- | ---------------------------------------------------------------------- |
+| Admin Manual (main)   | `/Admin/ADMIN_MANUAL.md`                              | ACTIVE   | 2026-02-07    | Master admin manual (v2.1)                                             |
+| Authentication Manual | `/Admin/ADMIN_MANUAL_AUTHENTICATION.md`               | ACTIVE   | 2026-02-06    | Supabase auth setup                                                    |
+| Dashboard V8 Manual   | `/Admin/ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md`           | ACTIVE   | 2026-02-06    | Dashboard v8 guide                                                     |
+| Supabase Manual       | `/Admin/ADMIN_MANUAL_SUPABASE_EN_v1.md`               | ACTIVE   | 2026-02-06    | Supabase configuration                                                 |
+| Gaps Analysis         | `/Admin/ADMIN_MANUAL_GAPS_ANALYSIS.md`                | ACTIVE   | 2026-02-06    | Documentation gap analysis                                             |
+| DWS6.com Manual       | `/Admin/ADMIN_MANUAL_DWS6_COM.md`                     | ACTIVE   | 2026-02-06    | Main site deployment                                                   |
+| DWS10 Store Payments  | `/Admin/ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`         | ACTIVE   | 2026-02-06    | Revolut Web SDK store                                                  |
+| Testing Manual        | `/Admin/ADMIN_MANUAL_TESTING.md`                      | ACTIVE   | 2026-02-06    | Testing procedures                                                     |
+| Files & Folders       | `/Admin/ADMIN_MANUAL_FILES_AND_FOLDERS.md`            | ACTIVE   | 2026-02-06    | Repo structure guide                                                   |
+| Security Compliance   | `/Admin/SECURITY_COMPLIANCE.md`                       | ACTIVE   | 2026-02-06    | Security & compliance                                                  |
+| Security Testing      | `/Admin/Security/ADMIN_MANUAL_SECURITY_TESTING.md`    | ACTIVE   | 2026-02-06    | Security test procedures                                               |
+| Security Monitoring   | `/Admin/Security/ADMIN_MANUAL_SECURITY_MONITORING.md` | ACTIVE   | 2026-02-06    | Monitoring setup                                                       |
+| Acer Veriton GN100    | `/Admin/Acer-Veriton-GN100/README.md`                 | ACTIVE   | 2026-03-11    | GN100 edge AI device admin manual and runtime notes                    |
+| Audit Manual          | `/Admin/ADMIN_MANUAL_AUDIT.md`                        | ACTIVE   | 2026-04-22    | External auditor manual for local-first CI + tamper-evident audit logs |
+| Documentation Audit   | `/ADMIN_DOCUMENTATION_AUDIT_2026-01-11.md`            | ARCHIVED | 2026-01-11    | 2026-01 audit results                                                  |
+| Auth Setup Guide      | `/docs/AUTH_SETUP_GUIDE.md`                           | ACTIVE   | -             | Authentication setup                                                   |
 
 ---
 
@@ -242,6 +244,7 @@ LWM knowledge capture from real-world events - raw sensory input for the Lifetim
 | Shufti DPA Haris Escalation        | `/docs/field-notes/2026-04-01-shufti-dpa-haris-escalation.md`                     | 2026-04-01 | Haris escalated DPA to Shufti Legal/Compliance                                           | Shufti, DPA, GDPR, Partnership                        |
 | Siemens Synthetic-Data Wedge       | `/docs/field-notes/2026-04-20-siemens-synthetic-data-partnership-wedge.md`        | 2026-04-20 | SI Building Nordics (Frida Ahlberg) + TechSeed pilot; NeMo DataDesigner Xcelerator wedge | Siemens, TechSeed, NVIDIA, NeMo, CSRD, EPBD, Taxonomy |
 | Teemu Vesala Standards Enthusiast  | `/docs/field-notes/2026-04-19-vesala-teemu-standards-enthusiast.md`               | 2026-04-19 | Standards gap mapping for advisor pipeline and ASPICE/SQuaRE expansion                   | Standards, Advisor, ASPICE, SQuaRE, Compliance        |
+| CI Hygiene Audit Baseline          | `/docs/field-notes/2026-04-22-ci-hygiene-audit.md`                                | 2026-04-22 | Baseline CI hygiene audit for local-first rollout and failure root-cause mapping         | CI, Audit, Local-First, Security                      |
 | Field Notes README                 | `/docs/field-notes/README.md`                                                     | -          | Guidelines                                                                               | -                                                     |
 
 ---
@@ -356,19 +359,20 @@ AI agent tracking and coordination documents.
 
 CI/CD, Docker, and cloud deployment guides.
 
-| Document                      | Path                                      | Status | Description        |
-| ----------------------------- | ----------------------------------------- | ------ | ------------------ |
-| Domain Deployment Guide       | `/DOMAIN_DEPLOYMENT_GUIDE.md`             | ACTIVE | Domain setup       |
-| Cloudflare Deployment         | `/CLOUDFLARE_DEPLOYMENT.md`               | ACTIVE | Cloudflare Workers |
-| Cloudflare Setup Steps        | `/CLOUDFLARE_SETUP_STEPS.md`              | ACTIVE | Step-by-step       |
-| Cloudflare Pages Verification | `/CLOUDFLARE_PAGES_VERIFICATION.md`       | ACTIVE | Pages verification |
-| Cloudflare Sandbox Pilot      | `/docs/CLOUDFLARE_SANDBOX_PILOT.md`       | ACTIVE | Sandbox testing    |
-| DWS6 Deployment Plan          | `/DWS6_DEPLOYMENT_PLAN.md`                | ACTIVE | Deployment plan    |
-| DWS6 Troubleshooting          | `/DWS6_DEPLOYMENT_TROUBLESHOOTING.md`     | ACTIVE | Troubleshooting    |
-| Google Cloud Run Setup        | `/AgentFoundry/GOOGLE_CLOUD_RUN_SETUP.md` | ACTIVE | GCR deployment     |
-| AgentFoundry Deployment       | `/AgentFoundry/DEPLOYMENT_GUIDE.md`       | ACTIVE | Agent deployment   |
-| Backup Procedures             | `/BACKUP_PROCEDURES.md`                   | ACTIVE | Backup strategy    |
-| GitHub Workflows README       | `/.github/workflows/README.md`            | ACTIVE | CI/CD workflows    |
+| Document                      | Path                                      | Status | Description                                                    |
+| ----------------------------- | ----------------------------------------- | ------ | -------------------------------------------------------------- |
+| Domain Deployment Guide       | `/DOMAIN_DEPLOYMENT_GUIDE.md`             | ACTIVE | Domain setup                                                   |
+| Cloudflare Deployment         | `/CLOUDFLARE_DEPLOYMENT.md`               | ACTIVE | Cloudflare Workers                                             |
+| Cloudflare Setup Steps        | `/CLOUDFLARE_SETUP_STEPS.md`              | ACTIVE | Step-by-step                                                   |
+| Cloudflare Pages Verification | `/CLOUDFLARE_PAGES_VERIFICATION.md`       | ACTIVE | Pages verification                                             |
+| Cloudflare Sandbox Pilot      | `/docs/CLOUDFLARE_SANDBOX_PILOT.md`       | ACTIVE | Sandbox testing                                                |
+| DWS6 Deployment Plan          | `/DWS6_DEPLOYMENT_PLAN.md`                | ACTIVE | Deployment plan                                                |
+| DWS6 Troubleshooting          | `/DWS6_DEPLOYMENT_TROUBLESHOOTING.md`     | ACTIVE | Troubleshooting                                                |
+| Google Cloud Run Setup        | `/AgentFoundry/GOOGLE_CLOUD_RUN_SETUP.md` | ACTIVE | GCR deployment                                                 |
+| AgentFoundry Deployment       | `/AgentFoundry/DEPLOYMENT_GUIDE.md`       | ACTIVE | Agent deployment                                               |
+| Backup Procedures             | `/BACKUP_PROCEDURES.md`                   | ACTIVE | Backup strategy                                                |
+| GitHub Workflows README       | `/.github/workflows/README.md`            | ACTIVE | CI/CD workflows                                                |
+| Local-First CI Audit Guide    | `/docs/CI_AUDIT.md`                       | ACTIVE | Local CI runner, hash-chain verifier, and Supabase audit model |
 
 ---
 

@@ -1,34 +1,39 @@
 # DWS IQ Platform - Admin Manual
 
 ---
+
 # VERSION AND AGENT HISTORY
 
-Version: 2.1
+Version: 2.2
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Claude Code | Session: Nov 2025 | Date: 23.11.2025 | Changes: Initial creation, session history
-  - Version: 1.1 | Tool: Claude Code | Session: Dec 2025 | Date: 11.12.2025 | Changes: Sensitive Data Protection section
-  - Version: 1.2 | Tool: Claude Code | Session: Dec 2025 | Date: 19.12.2025 | Changes: Bug Tracking & Security Maintenance
-  - Version: 1.3 | Tool: Claude Code | Session: PxSux | Date: 23.12.2025 | Changes: AI Agent Policy from 2,500+ agent analysis
-  - Version: 1.4 | Tool: Claude Code | Session: Jan 2026 | Date: 03.01.2026 | Changes: Code Review Process, removed Argus PR Review
-  - Version: 1.5 | Tool: Claude Code | Session: Jan 2026 | Date: 04.01.2026 | Changes: AI Model Configuration, Security Framework
-  - Version: 1.6 | Tool: Claude Code | Session: r6bU3 | Date: 24.01.2026 | Changes: Training section with LWM/Firehorse workflows
-  - Version: 1.7 | Tool: Claude Code | Session: krDzD | Date: 29.01.2026 | Changes: Climate Assistant Chat Widget, Copilot instructions, security fixes
-  - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Admin Manuals Index, Revolut payments, MCP config, Karpathy guidelines, security glossary, DPA, backup infrastructure, multi-agent orchestration
-  - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Windows Startup folder documentation, pandoc PDF generation workflow
-  - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Moved 9 admin manuals to Admin/ folder, PDF auto-open in Edge on login, splatting fix
-  - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Script versioning, engine choice (HTML/PDF), Supabase sync in startup pipeline, code/scripts backup
+
+- Version: 1.0 | Tool: Claude Code | Session: Nov 2025 | Date: 23.11.2025 | Changes: Initial creation, session history
+- Version: 1.1 | Tool: Claude Code | Session: Dec 2025 | Date: 11.12.2025 | Changes: Sensitive Data Protection section
+- Version: 1.2 | Tool: Claude Code | Session: Dec 2025 | Date: 19.12.2025 | Changes: Bug Tracking & Security Maintenance
+- Version: 1.3 | Tool: Claude Code | Session: PxSux | Date: 23.12.2025 | Changes: AI Agent Policy from 2,500+ agent analysis
+- Version: 1.4 | Tool: Claude Code | Session: Jan 2026 | Date: 03.01.2026 | Changes: Code Review Process, removed Argus PR Review
+- Version: 1.5 | Tool: Claude Code | Session: Jan 2026 | Date: 04.01.2026 | Changes: AI Model Configuration, Security Framework
+- Version: 1.6 | Tool: Claude Code | Session: r6bU3 | Date: 24.01.2026 | Changes: Training section with LWM/Firehorse workflows
+- Version: 1.7 | Tool: Claude Code | Session: krDzD | Date: 29.01.2026 | Changes: Climate Assistant Chat Widget, Copilot instructions, security fixes
+- Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Admin Manuals Index, Revolut payments, MCP config, Karpathy guidelines, security glossary, DPA, backup infrastructure, multi-agent orchestration
+- Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Windows Startup folder documentation, pandoc PDF generation workflow
+- Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Moved 9 admin manuals to Admin/ folder, PDF auto-open in Edge on login, splatting fix
+- Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Script versioning, engine choice (HTML/PDF), Supabase sync in startup pipeline, code/scripts backup
+- Version: 2.2 | Tool: Claude Code (Opus 4.7) | Session: claude/ci-hygiene-audit-vBYGo | Date: 22.04.2026 | Changes: Local-First CI + Audit Log section; new Audit Manual linked; Files & Folders manual indexed
 
 Session Links & References:
-  - Claude Code (Rm8Jw): https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL.md
+
+- Claude Code (Rm8Jw): https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw
+- View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL.md
 
 Document Status:
-  - Created: 23.11.2025
-  - Last Modified: 07.02.2026
-  - Language: English
-  - Languages Available: English
-  - Publication Status: ✅ ACTIVE
+
+- Created: 23.11.2025
+- Last Modified: 22.04.2026
+- Language: English
+- Languages Available: English
+- Publication Status: ✅ ACTIVE
 
 ---
 
@@ -73,53 +78,56 @@ All admin manuals across the DWS6 repository, organized by domain.
 
 ### Core Platform
 
-| Manual | Location | Language | Description |
-|--------|----------|----------|-------------|
-| **Admin Manual** (this file) | [`ADMIN_MANUAL.md`](ADMIN_MANUAL.md) | EN | Master admin manual - platform operations |
-| **Authentication Manual** | [`ADMIN_MANUAL_AUTHENTICATION.md`](ADMIN_MANUAL_AUTHENTICATION.md) | EN | JWT auth, login flows, token management |
-| **Supabase Manual** | [`ADMIN_MANUAL_SUPABASE_EN_v1.md`](ADMIN_MANUAL_SUPABASE_EN_v1.md) | EN | Database, RLS, migrations, storage |
-| **Testing Manual** | [`ADMIN_MANUAL_TESTING.md`](ADMIN_MANUAL_TESTING.md) | EN | Vitest, security tests, CI/CD testing |
-| **Gaps Analysis** | [`ADMIN_MANUAL_GAPS_ANALYSIS.md`](ADMIN_MANUAL_GAPS_ANALYSIS.md) | EN | Missing features and remediation plan |
+| Manual                               | Location                                                                 | Language | Description                                                                                                    |
+| ------------------------------------ | ------------------------------------------------------------------------ | -------- | -------------------------------------------------------------------------------------------------------------- |
+| **Admin Manual** (this file)         | [`ADMIN_MANUAL.md`](ADMIN_MANUAL.md)                                     | EN       | Master admin manual - platform operations                                                                      |
+| **Audit Manual (external auditors)** | [`ADMIN_MANUAL_AUDIT.md`](ADMIN_MANUAL_AUDIT.md)                         | EN       | Audit-trail inventory, sample SQL, integrity checks, auditor access model (EU AI Act Art. 12, GDPR, ISO 27001) |
+| **GitHub Apps Audit**                | [`GITHUB_APPS_AUDIT.md`](GITHUB_APPS_AUDIT.md)                           | EN       | Audit of 9 installed GitHub Apps; keep / review / remove verdict; Continue → Claude Code migration             |
+| **Authentication Manual**            | [`ADMIN_MANUAL_AUTHENTICATION.md`](ADMIN_MANUAL_AUTHENTICATION.md)       | EN       | JWT auth, login flows, token management                                                                        |
+| **Supabase Manual**                  | [`ADMIN_MANUAL_SUPABASE_EN_v1.md`](ADMIN_MANUAL_SUPABASE_EN_v1.md)       | EN       | Database, RLS, migrations, storage                                                                             |
+| **Testing Manual**                   | [`ADMIN_MANUAL_TESTING.md`](ADMIN_MANUAL_TESTING.md)                     | EN       | Vitest, security tests, CI/CD testing                                                                          |
+| **Files & Folders Index**            | [`ADMIN_MANUAL_FILES_AND_FOLDERS.md`](ADMIN_MANUAL_FILES_AND_FOLDERS.md) | EN       | Every script, workflow, config, doc — what it does and how it's used                                           |
+| **Gaps Analysis**                    | [`ADMIN_MANUAL_GAPS_ANALYSIS.md`](ADMIN_MANUAL_GAPS_ANALYSIS.md)         | EN       | Missing features and remediation plan                                                                          |
 
 ### Websites & Store
 
-| Manual | Location | Language | Description |
-|--------|----------|----------|-------------|
-| **DWS6.com Manual** | [`ADMIN_MANUAL_DWS6_COM.md`](ADMIN_MANUAL_DWS6_COM.md) | EN | DWS6 website operations |
-| **DWS10 Store & Payments** | [`ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`](ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md) | EN | Revolut Web SDK, Cloudflare Worker, 25 products |
-| **Store Admin (EN)** | [`dws10.com/docs/STORE_ADMIN_MANUAL_EN.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_EN.md) | EN | Store product management, feeds |
-| **Store Admin (FI)** | [`dws10.com/docs/STORE_ADMIN_MANUAL_FI.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_FI.md) | FI | Kaupan hallinta |
-| **Dashboard V8 Manual** | [`ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md`](ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md) | EN | Firehorse dashboard operations |
-| **Blog System (EN)** | [`onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_EN_v1.md`](../onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_EN_v1.md) | EN | Onelifetime.world blog CMS |
-| **Blog System (FI)** | [`onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_FI_v1.md`](../onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_FI_v1.md) | FI | Blogin hallinta |
+| Manual                     | Location                                                                                                        | Language | Description                                     |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------- | -------- | ----------------------------------------------- |
+| **DWS6.com Manual**        | [`ADMIN_MANUAL_DWS6_COM.md`](ADMIN_MANUAL_DWS6_COM.md)                                                          | EN       | DWS6 website operations                         |
+| **DWS10 Store & Payments** | [`ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`](ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md)                                  | EN       | Revolut Web SDK, Cloudflare Worker, 25 products |
+| **Store Admin (EN)**       | [`dws10.com/docs/STORE_ADMIN_MANUAL_EN.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_EN.md)                         | EN       | Store product management, feeds                 |
+| **Store Admin (FI)**       | [`dws10.com/docs/STORE_ADMIN_MANUAL_FI.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_FI.md)                         | FI       | Kaupan hallinta                                 |
+| **Dashboard V8 Manual**    | [`ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md`](ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md)                                      | EN       | Firehorse dashboard operations                  |
+| **Blog System (EN)**       | [`onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_EN_v1.md`](../onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_EN_v1.md) | EN       | Onelifetime.world blog CMS                      |
+| **Blog System (FI)**       | [`onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_FI_v1.md`](../onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_FI_v1.md) | FI       | Blogin hallinta                                 |
 
 ### Security
 
-| Manual | Location | Language | Description |
-|--------|----------|----------|-------------|
-| **Security Manuals Index** | [`Admin/Security/ADMIN_MANUALS_INDEX.md`](Security/ADMIN_MANUALS_INDEX.md) | EN | Index of all security documentation |
-| **Domain Validator** | [`Admin/Security/ADMIN_MANUAL_DOMAIN_VALIDATOR.md`](Security/ADMIN_MANUAL_DOMAIN_VALIDATOR.md) | EN | Domain validation and DNS security |
-| **Security Monitoring** | [`Admin/Security/ADMIN_MANUAL_SECURITY_MONITORING.md`](Security/ADMIN_MANUAL_SECURITY_MONITORING.md) | EN | Security monitoring and alerting |
-| **Security Testing** | [`Admin/Security/ADMIN_MANUAL_SECURITY_TESTING.md`](Security/ADMIN_MANUAL_SECURITY_TESTING.md) | EN | Penetration testing, vulnerability scanning |
-| **Security Audit Report** | [`Admin/SECURITY_AUDIT_REPORT.md`](SECURITY_AUDIT_REPORT.md) | EN | Latest security audit findings |
+| Manual                     | Location                                                                                             | Language | Description                                 |
+| -------------------------- | ---------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------- |
+| **Security Manuals Index** | [`Admin/Security/ADMIN_MANUALS_INDEX.md`](Security/ADMIN_MANUALS_INDEX.md)                           | EN       | Index of all security documentation         |
+| **Domain Validator**       | [`Admin/Security/ADMIN_MANUAL_DOMAIN_VALIDATOR.md`](Security/ADMIN_MANUAL_DOMAIN_VALIDATOR.md)       | EN       | Domain validation and DNS security          |
+| **Security Monitoring**    | [`Admin/Security/ADMIN_MANUAL_SECURITY_MONITORING.md`](Security/ADMIN_MANUAL_SECURITY_MONITORING.md) | EN       | Security monitoring and alerting            |
+| **Security Testing**       | [`Admin/Security/ADMIN_MANUAL_SECURITY_TESTING.md`](Security/ADMIN_MANUAL_SECURITY_TESTING.md)       | EN       | Penetration testing, vulnerability scanning |
+| **Security Audit Report**  | [`Admin/SECURITY_AUDIT_REPORT.md`](SECURITY_AUDIT_REPORT.md)                                         | EN       | Latest security audit findings              |
 
 ### Products & Architecture
 
-| Manual | Location | Language | Description |
-|--------|----------|----------|-------------|
-| **Firehorse Omnichannel** | [`Admin/Firehorse_Omnichannel_Next_Admin_Manual.md`](Firehorse_Omnichannel_Next_Admin_Manual.md) | EN | Omnichannel product operations |
-| **Files & Folders** | [`ADMIN_MANUAL_FILES_AND_FOLDERS.md`](ADMIN_MANUAL_FILES_AND_FOLDERS.md) | EN | Repository structure, backup infrastructure |
-| **Port Mapping** | [`PORT_MAPPING.md`](PORT_MAPPING.md) | EN | Docker/host port allocation, conflict prevention |
+| Manual                    | Location                                                                                         | Language | Description                                      |
+| ------------------------- | ------------------------------------------------------------------------------------------------ | -------- | ------------------------------------------------ |
+| **Firehorse Omnichannel** | [`Admin/Firehorse_Omnichannel_Next_Admin_Manual.md`](Firehorse_Omnichannel_Next_Admin_Manual.md) | EN       | Omnichannel product operations                   |
+| **Files & Folders**       | [`ADMIN_MANUAL_FILES_AND_FOLDERS.md`](ADMIN_MANUAL_FILES_AND_FOLDERS.md)                         | EN       | Repository structure, backup infrastructure      |
+| **Port Mapping**          | [`PORT_MAPPING.md`](PORT_MAPPING.md)                                                             | EN       | Docker/host port allocation, conflict prevention |
 
 ### Related Documentation
 
-| Document | Location | Description |
-|----------|----------|-------------|
-| **CLAUDE.md** | [`CLAUDE.md`](../CLAUDE.md) | AI agent behavior guidelines (Karpathy principles) |
-| **DPA Agreement** | [`docs/DPA_DATA_PROCESSING_AGREEMENT.md`](../docs/DPA_DATA_PROCESSING_AGREEMENT.md) | GDPR data processing agreement |
-| **MCP Configuration** | [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md) | Model Context Protocol server setup |
-| **Security Compliance** | [`SECURITY_COMPLIANCE.md`](SECURITY_COMPLIANCE.md) | Security framework and compliance status |
-| **Security Glossary** | [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md) | Security terms and OWASP references |
+| Document                | Location                                                                            | Description                                        |
+| ----------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------- |
+| **CLAUDE.md**           | [`CLAUDE.md`](../CLAUDE.md)                                                         | AI agent behavior guidelines (Karpathy principles) |
+| **DPA Agreement**       | [`docs/DPA_DATA_PROCESSING_AGREEMENT.md`](../docs/DPA_DATA_PROCESSING_AGREEMENT.md) | GDPR data processing agreement                     |
+| **MCP Configuration**   | [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md)                         | Model Context Protocol server setup                |
+| **Security Compliance** | [`SECURITY_COMPLIANCE.md`](SECURITY_COMPLIANCE.md)                                  | Security framework and compliance status           |
+| **Security Glossary**   | [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md)                         | Security terms and OWASP references                |
 
 ---
 
@@ -145,12 +153,14 @@ This section links the **full maintenance plan** in one place:
 📖 **See:** [`INSTALLATION_MANUAL.md`](INSTALLATION_MANUAL.md)
 
 **Purpose:** Comprehensive guide for installing DWS IQ on:
+
 - Private Cloud infrastructure
 - IBM Watsonx platform
 - Google Cloud Run
 - Groq Edge AI
 
 **Deployment Structures:** `Admin/Installation/`
+
 - `Admin/Installation/Private/` - Self-managed infrastructure
 - `Admin/Installation/Public/watsonx/` - IBM AI platform
 - `Admin/Installation/Public/gcr/` - Google Cloud serverless
@@ -169,6 +179,7 @@ This section links the **full maintenance plan** in one place:
 ### Overview
 
 Scaleway Serverless Containers provides EU-hosted container deployment with full GDPR compliance. Selected as primary deployment platform due to:
+
 - 🇫🇷 French company, EU data residency
 - 🔒 GDPR compliant by design
 - 💰 Pay-per-use pricing, generous free tier
@@ -176,48 +187,49 @@ Scaleway Serverless Containers provides EU-hosted container deployment with full
 
 ### Live Deployment
 
-| Property | Value |
-|----------|-------|
-| **Status** | ✅ **LIVE** |
+| Property               | Value                                                                           |
+| ---------------------- | ------------------------------------------------------------------------------- |
+| **Status**             | ✅ **LIVE**                                                                     |
 | **Container Endpoint** | `https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud` |
-| **Container ID** | `7f17b90d-a44c-4b75-ab9e-7099c5ade031` |
-| **Namespace ID** | `3639617d-3041-4051-9a28-19b4ca6a14db` |
-| **Deployed** | January 28, 2026 |
+| **Container ID**       | `7f17b90d-a44c-4b75-ab9e-7099c5ade031`                                          |
+| **Namespace ID**       | `3639617d-3041-4051-9a28-19b4ca6a14db`                                          |
+| **Deployed**           | January 28, 2026                                                                |
 
 ### Project Configuration
 
-| Property | Value |
-|----------|-------|
-| **Organization Name** | `dws6` |
-| **Organization ID** | `78e26603-c820-4617-b0d2-f8589eb7693b` |
-| **Project Name** | `dws-iq-backend` |
-| **Project ID** | `78e26603-c820-4617-b0d2-f8589eb7693b` |
-| **Region** | `fr-par` (Paris, France) |
-| **Zone** | `fr-par-1` |
-| **Container Registry** | `rg.fr-par.scw.cloud/dws-iq-backend` |
-| **Admin Account** | `admin@dws6.com` |
-| **Console URL** | https://console.scaleway.com |
+| Property               | Value                                  |
+| ---------------------- | -------------------------------------- |
+| **Organization Name**  | `dws6`                                 |
+| **Organization ID**    | `78e26603-c820-4617-b0d2-f8589eb7693b` |
+| **Project Name**       | `dws-iq-backend`                       |
+| **Project ID**         | `78e26603-c820-4617-b0d2-f8589eb7693b` |
+| **Region**             | `fr-par` (Paris, France)               |
+| **Zone**               | `fr-par-1`                             |
+| **Container Registry** | `rg.fr-par.scw.cloud/dws-iq-backend`   |
+| **Admin Account**      | `admin@dws6.com`                       |
+| **Console URL**        | https://console.scaleway.com           |
 
 ### API Credentials
 
-| Key | Value |
-|-----|-------|
-| **Access Key** | `SCW_ACCESS_KEY=<set-in-secrets>` |
-| **Secret Key** | `SCW_SECRET_KEY=<set-in-secrets>` |
-| **Application Name** | `dws-iq-chat-cli` |
-| **API Key Description** | `dws-iq-chat-cli-v1` |
-| **Expiration** | Never (Organization setting) |
+| Key                     | Value                             |
+| ----------------------- | --------------------------------- |
+| **Access Key**          | `SCW_ACCESS_KEY=<set-in-secrets>` |
+| **Secret Key**          | `SCW_SECRET_KEY=<set-in-secrets>` |
+| **Application Name**    | `dws-iq-chat-cli`                 |
+| **API Key Description** | `dws-iq-chat-cli-v1`              |
+| **Expiration**          | Never (Organization setting)      |
 
 > **Security note:** Configure `SCW_ACCESS_KEY` and `SCW_SECRET_KEY` only via your secret manager or deployment environment (e.g., CI/CD secrets, `.env` files not committed to the repo). Do **not** store live credentials in this document or in source control.
+
 ### IAM Policy Configuration
 
-| Property | Value |
-|----------|-------|
-| **Policy ID** | `ef70608b-d296-48a7-bac9-c20c909b0251` |
-| **Principal** | `dws-iq-chat-cli` |
-| **Scope** | All current Projects |
-| **Permission Set** | `AllProductsFullAccess` |
-| **Created** | January 28, 2026 |
+| Property           | Value                                  |
+| ------------------ | -------------------------------------- |
+| **Policy ID**      | `ef70608b-d296-48a7-bac9-c20c909b0251` |
+| **Principal**      | `dws-iq-chat-cli`                      |
+| **Scope**          | All current Projects                   |
+| **Permission Set** | `AllProductsFullAccess`                |
+| **Created**        | January 28, 2026                       |
 
 ### Environment Variables (PowerShell)
 
@@ -305,13 +317,13 @@ cd F:\2026\Repos2026\dws6; docker build -t rg.fr-par.scw.cloud/dws-iq/dws-iq-bac
 
 **Base URL:** `https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud`
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/health` | GET | Health check |
-| `/api/v2/climate-assistant/chat` | POST | Chat with Climate Assistant |
-| `/api/v2/climate-assistant/lead` | POST | Submit lead capture form |
-| `/api/v2/climate-assistant/topics` | GET | List allowed topics |
-| `/api/v2/climate-assistant/session/:id` | GET | Get session details |
+| Endpoint                                | Method | Description                 |
+| --------------------------------------- | ------ | --------------------------- |
+| `/health`                               | GET    | Health check                |
+| `/api/v2/climate-assistant/chat`        | POST   | Chat with Climate Assistant |
+| `/api/v2/climate-assistant/lead`        | POST   | Submit lead capture form    |
+| `/api/v2/climate-assistant/topics`      | GET    | List allowed topics         |
+| `/api/v2/climate-assistant/session/:id` | GET    | Get session details         |
 
 ### Test Commands
 
@@ -328,32 +340,35 @@ curl https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.clo
 
 ### Container Configuration
 
-| Setting | Value | Description |
-|---------|-------|-------------|
-| **Port** | `8080` | Container HTTP port |
-| **Memory** | `2048 MB` | Container memory limit |
-| **vCPU** | `1000 mVCPU` | 1 full vCPU |
-| **Min Scale** | `0` | Scale to zero when idle |
-| **Max Scale** | `5` | Maximum concurrent instances |
-| **Concurrent Executions** | `50` | Max concurrent requests per instance |
-| **Timeout** | `300s` | Request timeout |
-| **Privacy** | `Public` | Publicly accessible endpoint |
-| **HTTPS Only** | `Enabled` | Enforce HTTPS only (no plain HTTP) |
-| **HTTP Protocol** | `HTTP/1` | HTTP version |
+| Setting                   | Value        | Description                          |
+| ------------------------- | ------------ | ------------------------------------ |
+| **Port**                  | `8080`       | Container HTTP port                  |
+| **Memory**                | `2048 MB`    | Container memory limit               |
+| **vCPU**                  | `1000 mVCPU` | 1 full vCPU                          |
+| **Min Scale**             | `0`          | Scale to zero when idle              |
+| **Max Scale**             | `5`          | Maximum concurrent instances         |
+| **Concurrent Executions** | `50`         | Max concurrent requests per instance |
+| **Timeout**               | `300s`       | Request timeout                      |
+| **Privacy**               | `Public`     | Publicly accessible endpoint         |
+| **HTTPS Only**            | `Enabled`    | Enforce HTTPS only (no plain HTTP)   |
+| **HTTP Protocol**         | `HTTP/1`     | HTTP version                         |
 
 ### Troubleshooting
 
 **Error: "organization ID is required"**
+
 ```powershell
 # Use your actual organization ID from the Scaleway console
 $env:SCW_DEFAULT_ORGANIZATION_ID = "<your-organization-id>"
 ```
 
 **Error: "insufficient permissions"**
+
 - Go to IAM → Applications → dws-iq-chat-cli → Policies
 - Attach `AllProductsFullAccess` policy
 
 **Error: "namespace not found"**
+
 ```powershell
 scw registry namespace list
 # Use the correct namespace ID
@@ -389,7 +404,7 @@ scw container container update <container-id> registry-image=rg.fr-par.scw.cloud
 
 #### Workflow Triggers
 
-- **Push to main** - Auto-deploys when src/, public/, package*.json, Dockerfile, or tsconfig.json changes
+- **Push to main** - Auto-deploys when src/, public/, package\*.json, Dockerfile, or tsconfig.json changes
 - **Manual dispatch** - Can be triggered manually from GitHub Actions UI
 
 #### Required GitHub Secrets
@@ -398,17 +413,18 @@ Go to **Settings → Secrets and variables → Actions** and add:
 
 > **⚠️ SECURITY WARNING:** Use actual credentials from your Scaleway console. The values shown below are placeholders only.
 
-| Secret Name | Value | Description |
-|-------------|-------|-------------|
-| `SCW_ACCESS_KEY` | `<your-scaleway-access-key>` | Scaleway API access key (starts with SCW) |
-| `SCW_SECRET_KEY` | `<your-scaleway-secret-key>` | Scaleway API secret key (UUID format) |
-| `SCW_ORGANIZATION_ID` | `<your-org-id>` | Scaleway organization ID (UUID format) |
-| `SCW_PROJECT_ID` | `<your-project-id>` | Scaleway project ID (UUID format) |
-| `SCW_NAMESPACE_ID` | `<your-namespace-id>` | Container namespace ID (UUID format) |
+| Secret Name           | Value                        | Description                               |
+| --------------------- | ---------------------------- | ----------------------------------------- |
+| `SCW_ACCESS_KEY`      | `<your-scaleway-access-key>` | Scaleway API access key (starts with SCW) |
+| `SCW_SECRET_KEY`      | `<your-scaleway-secret-key>` | Scaleway API secret key (UUID format)     |
+| `SCW_ORGANIZATION_ID` | `<your-org-id>`              | Scaleway organization ID (UUID format)    |
+| `SCW_PROJECT_ID`      | `<your-project-id>`          | Scaleway project ID (UUID format)         |
+| `SCW_NAMESPACE_ID`    | `<your-namespace-id>`        | Container namespace ID (UUID format)      |
 
 #### Setup Instructions
 
 1. **Navigate to GitHub repository settings:**
+
    ```
    https://github.com/blogtheristo/dws6/settings/secrets/actions
    ```
@@ -460,15 +476,15 @@ Customer clicks "Buy" → Revolut Web SDK (browser) → Cloudflare Worker → Re
 
 ### Key Configuration
 
-| Component | Value |
-|-----------|-------|
-| **Worker** | `dws-revolut-checkout` at `api.dws10.com/checkout/*` |
-| **Worker Source** | `src/cloudflare/revolut-checkout-worker.ts` |
-| **Worker Config** | `src/cloudflare/wrangler.revolut.toml` |
-| **Products Config** | `dws10.com/config/products.json` |
-| **Store Page** | `dws10.com/buy/index.html` |
-| **Public Key** | Stored in `products.json` settings (pk_ prefix) |
-| **Amounts** | Minor currency units (7034 = €70.34) |
+| Component           | Value                                                |
+| ------------------- | ---------------------------------------------------- |
+| **Worker**          | `dws-revolut-checkout` at `api.dws10.com/checkout/*` |
+| **Worker Source**   | `src/cloudflare/revolut-checkout-worker.ts`          |
+| **Worker Config**   | `src/cloudflare/wrangler.revolut.toml`               |
+| **Products Config** | `dws10.com/config/products.json`                     |
+| **Store Page**      | `dws10.com/buy/index.html`                           |
+| **Public Key**      | Stored in `products.json` settings (pk\_ prefix)     |
+| **Amounts**         | Minor currency units (7034 = €70.34)                 |
 
 ### Related Manuals
 
@@ -501,12 +517,12 @@ Model Context Protocol (MCP) connects Claude Code and other AI tools to external
 
 ### Configured Servers
 
-| Server | Port | Purpose | Credentials |
-|--------|------|---------|-------------|
-| **Supabase MCP** | - | Database queries, auth, real-time | `SUPABASE_URL`, `SUPABASE_SERVICE_KEY` |
-| **Upstash Redis MCP** | - | Token blacklist, rate limiting, cache | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` |
-| **DWS Supabase API** | 8766 | Custom REST wrapper | Docker-based |
-| **MCP Hub** | 8765 | Multi-agent workflow coordination | Temporal.io integration |
+| Server                | Port | Purpose                               | Credentials                                          |
+| --------------------- | ---- | ------------------------------------- | ---------------------------------------------------- |
+| **Supabase MCP**      | -    | Database queries, auth, real-time     | `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`               |
+| **Upstash Redis MCP** | -    | Token blacklist, rate limiting, cache | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` |
+| **DWS Supabase API**  | 8766 | Custom REST wrapper                   | Docker-based                                         |
+| **MCP Hub**           | 8765 | Multi-agent workflow coordination     | Temporal.io integration                              |
 
 ### Setup
 
@@ -536,11 +552,11 @@ The Climate Assistant Chat Widget is an embeddable JavaScript widget that provid
 
 ### Live Deployments
 
-| Site | URL | Status |
-|------|-----|--------|
-| **Standalone Page** | https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud/climate-assistant.html | ✅ Live |
-| **dws10.com** | https://dws10.com | ✅ Embedded |
-| **onelifetime.world** | https://onelifetime.world | ✅ Embedded |
+| Site                  | URL                                                                                                  | Status      |
+| --------------------- | ---------------------------------------------------------------------------------------------------- | ----------- |
+| **Standalone Page**   | https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud/climate-assistant.html | ✅ Live     |
+| **dws10.com**         | https://dws10.com                                                                                    | ✅ Embedded |
+| **onelifetime.world** | https://onelifetime.world                                                                            | ✅ Embedded |
 
 ### Embed Code
 
@@ -548,21 +564,24 @@ Add the following script tag before the closing `</body>` tag on any website:
 
 ```html
 <!-- DWS Climate Assistant Chat Widget -->
-<script src="https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud/chat-widget.js" async></script>
+<script
+  src="https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud/chat-widget.js"
+  async
+></script>
 ```
 
 ### Widget Features
 
-| Feature | Description |
-|---------|-------------|
-| **Floating Button** | Blue chat button fixed at bottom-right corner |
-| **Chat Interface** | Full-featured chat window (380×520px) |
-| **Topic Buttons** | Quick access to CBAM, CSRD, Fit for 55, EU ETS, Scope 3 |
-| **Voice Input** | Web Speech API integration for voice-to-text |
-| **Session Persistence** | Maintains session ID across page reloads |
-| **Mobile Responsive** | Adapts to mobile viewport sizes |
-| **Auto Scroll** | Messages auto-scroll to latest |
-| **Typing Indicator** | Animated dots while waiting for response |
+| Feature                 | Description                                             |
+| ----------------------- | ------------------------------------------------------- |
+| **Floating Button**     | Blue chat button fixed at bottom-right corner           |
+| **Chat Interface**      | Full-featured chat window (380×520px)                   |
+| **Topic Buttons**       | Quick access to CBAM, CSRD, Fit for 55, EU ETS, Scope 3 |
+| **Voice Input**         | Web Speech API integration for voice-to-text            |
+| **Session Persistence** | Maintains session ID across page reloads                |
+| **Mobile Responsive**   | Adapts to mobile viewport sizes                         |
+| **Auto Scroll**         | Messages auto-scroll to latest                          |
+| **Typing Indicator**    | Animated dots while waiting for response                |
 
 ### Widget Configuration
 
@@ -570,29 +589,29 @@ The widget is configured in `public/chat-widget.js`:
 
 ```javascript
 const CONFIG = {
-  apiUrl: 'https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud',
-  primaryColor: '#0066FF',
-  title: 'Climate Assistant',
-  subtitle: 'EU Climate Compliance Expert',
-  placeholder: 'Ask about CBAM, CSRD, Fit for 55...',
-  welcomeMessage: 'Hello! I\'m your EU Climate Compliance Assistant...',
-  position: 'right' // 'left' or 'right'
+  apiUrl: "https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud",
+  primaryColor: "#0066FF",
+  title: "Climate Assistant",
+  subtitle: "EU Climate Compliance Expert",
+  placeholder: "Ask about CBAM, CSRD, Fit for 55...",
+  welcomeMessage: "Hello! I'm your EU Climate Compliance Assistant...",
+  position: "right", // 'left' or 'right'
 };
 ```
 
 ### API Endpoints Used
 
-| Endpoint | Method | Purpose |
-|----------|--------|---------|
-| `/api/v2/climate-assistant/chat` | POST | Send chat message |
+| Endpoint                         | Method | Purpose           |
+| -------------------------------- | ------ | ----------------- |
+| `/api/v2/climate-assistant/chat` | POST   | Send chat message |
 
 ### Source Code Location
 
-| File | Purpose |
-|------|---------|
-| `public/chat-widget.js` | Embeddable widget (530 lines, IIFE pattern) |
-| `public/climate-assistant.html` | Standalone chat page |
-| `src/app.ts` | Express server with Helmet CSP configured |
+| File                            | Purpose                                     |
+| ------------------------------- | ------------------------------------------- |
+| `public/chat-widget.js`         | Embeddable widget (530 lines, IIFE pattern) |
+| `public/climate-assistant.html` | Standalone chat page                        |
+| `src/app.ts`                    | Express server with Helmet CSP configured   |
 
 ### Security Configuration (Helmet CSP)
 
@@ -600,32 +619,40 @@ The Express server is configured to allow the chat widget and inline scripts:
 
 ```typescript
 // src/app.ts - Helmet CSP configuration
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
-      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-      fontSrc: ["'self'", "https://fonts.gstatic.com"],
-      imgSrc: ["'self'", "data:", "https:"],
-      connectSrc: ["'self'", "https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud"],
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'"],
+        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+        fontSrc: ["'self'", "https://fonts.gstatic.com"],
+        imgSrc: ["'self'", "data:", "https:"],
+        connectSrc: [
+          "'self'",
+          "https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud",
+        ],
+      },
     },
-  },
-}));
+  }),
+);
 ```
 
 ### Troubleshooting
 
 **Widget not appearing:**
+
 1. Check browser console for JavaScript errors
 2. Verify script URL is accessible
 3. Ensure no Content Security Policy blocking
 
 **403 error on chat page:**
+
 - Helmet CSP needs to allow `'unsafe-inline'` for scripts
 - Re-deploy backend after updating `src/app.ts`
 
 **Voice input not working:**
+
 - Web Speech API requires HTTPS
 - Browser must support `webkitSpeechRecognition` or `SpeechRecognition`
 
@@ -647,17 +674,17 @@ Custom instructions for GitHub Copilot that provide project-specific context, co
 
 ### Contents
 
-| Section | Purpose |
-|---------|---------|
-| **Project Overview** | DWS IQ 6 platform description |
-| **Tech Stack** | Frontend, Backend, AI/LLM, Database technologies |
-| **Code Style** | TypeScript, React, naming conventions |
-| **Development Commands** | npm scripts for dev, build, test |
-| **Security Rules** | Never/Always lists for secure coding |
-| **Git Workflow** | Branch naming, commit messages |
-| **Key Directories** | Repository structure |
-| **Deployment** | Scaleway Serverless info |
-| **Testing** | Vitest requirements |
+| Section                  | Purpose                                          |
+| ------------------------ | ------------------------------------------------ |
+| **Project Overview**     | DWS IQ 6 platform description                    |
+| **Tech Stack**           | Frontend, Backend, AI/LLM, Database technologies |
+| **Code Style**           | TypeScript, React, naming conventions            |
+| **Development Commands** | npm scripts for dev, build, test                 |
+| **Security Rules**       | Never/Always lists for secure coding             |
+| **Git Workflow**         | Branch naming, commit messages                   |
+| **Key Directories**      | Repository structure                             |
+| **Deployment**           | Scaleway Serverless info                         |
+| **Testing**              | Vitest requirements                              |
 
 ### Usage
 
@@ -673,31 +700,35 @@ GitHub Copilot automatically reads this file when working in the repository to p
 
 ### Security Vulnerabilities Fixed
 
-| Issue | Severity | File | Fix |
-|-------|----------|------|-----|
-| **Insecure CORS** | High | `src/app.ts` | Replaced wildcard `*` with explicit allowlist |
-| **Privilege Escalation** | Critical | `src/routes/climate-assistant-gated.routes.ts` | Removed client-controlled tier parameter |
-| **JWT Validation** | High | `src/routes/climate-assistant-gated.routes.ts` | Validate JWT tokens before tier upgrade |
-| **Helmet CSP** | Medium | `src/app.ts` | Configure CSP to allow static HTML pages |
+| Issue                    | Severity | File                                           | Fix                                           |
+| ------------------------ | -------- | ---------------------------------------------- | --------------------------------------------- |
+| **Insecure CORS**        | High     | `src/app.ts`                                   | Replaced wildcard `*` with explicit allowlist |
+| **Privilege Escalation** | Critical | `src/routes/climate-assistant-gated.routes.ts` | Removed client-controlled tier parameter      |
+| **JWT Validation**       | High     | `src/routes/climate-assistant-gated.routes.ts` | Validate JWT tokens before tier upgrade       |
+| **Helmet CSP**           | Medium   | `src/app.ts`                                   | Configure CSP to allow static HTML pages      |
 
 ### CORS Configuration (Fixed)
 
 Before (insecure):
+
 ```typescript
-app.use(cors({ origin: '*' }));  // Allows any origin
+app.use(cors({ origin: "*" })); // Allows any origin
 ```
 
 After (secure):
+
 ```typescript
-app.use(cors({
-  origin: [
-    'https://dws10.com',
-    'https://onelifetime.world',
-    'https://lifetime.fi',
-    'https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud'
-  ],
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: [
+      "https://dws10.com",
+      "https://onelifetime.world",
+      "https://lifetime.fi",
+      "https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud",
+    ],
+    credentials: true,
+  }),
+);
 ```
 
 ### JWT Validation (Fixed)
@@ -708,13 +739,13 @@ app.use(cors({
 
 ### Files Changed
 
-| File | Action |
-|------|--------|
-| `src/app.ts` | CORS allowlist, Helmet CSP |
-| `src/routes/climate-assistant-gated.routes.ts` | JWT validation, tier security |
-| `src/__tests__/jwt-validation-security.test.ts` | New security tests |
-| `src/__tests__/climate-assistant-gated-auth.test.ts` | New auth tests |
-| `vitest.config.ts` | Test configuration |
+| File                                                 | Action                        |
+| ---------------------------------------------------- | ----------------------------- |
+| `src/app.ts`                                         | CORS allowlist, Helmet CSP    |
+| `src/routes/climate-assistant-gated.routes.ts`       | JWT validation, tier security |
+| `src/__tests__/jwt-validation-security.test.ts`      | New security tests            |
+| `src/__tests__/climate-assistant-gated-auth.test.ts` | New auth tests                |
+| `vitest.config.ts`                                   | Test configuration            |
 
 ---
 
@@ -724,17 +755,18 @@ app.use(cors({
 
 ### Project: dws6run
 
-| Property | Value |
-|----------|-------|
-| **Project ID** | `dws6run` |
-| **Project Number** | `446442351781` |
-| **Region** | `europe-north1` (Finland) |
+| Property              | Value                                              |
+| --------------------- | -------------------------------------------------- |
+| **Project ID**        | `dws6run`                                          |
+| **Project Number**    | `446442351781`                                     |
+| **Region**            | `europe-north1` (Finland)                          |
 | **Artifact Registry** | `europe-north1-docker.pkg.dev/dws6run/dws-iq-repo` |
-| **Admin Account** | `admin@dws6.com` |
+| **Admin Account**     | `admin@dws6.com`                                   |
 
 ### Service Account Permissions
 
 Cloud Build service account (`446442351781@cloudbuild.gserviceaccount.com`) requires:
+
 - `roles/artifactregistry.writer` - Push Docker images
 - `roles/logging.logWriter` - Write build logs
 
@@ -762,22 +794,22 @@ gcloud run deploy dws-iq-backend --image europe-north1-docker.pkg.dev/dws6run/dw
 
 ### Critical Behaviors for DWS IQ Operations
 
-| # | Behavior | Operational Impact |
-|---|----------|-------------------|
-| 1 | **Assumption Surfacing** | All AI agents must state assumptions before implementing changes to production systems |
-| 2 | **Confusion Management** | STOP when encountering conflicting configs (e.g., .env vs production secrets) |
-| 3 | **Push Back When Warranted** | Agents must flag security risks even if human requests them |
-| 4 | **Simplicity Enforcement** | Prefer boring, obvious solutions over clever abstractions |
-| 5 | **Scope Discipline** | Never modify files outside the requested scope |
-| 6 | **Dead Code Hygiene** | Ask before deleting - prevents accidental data loss |
+| #   | Behavior                     | Operational Impact                                                                     |
+| --- | ---------------------------- | -------------------------------------------------------------------------------------- |
+| 1   | **Assumption Surfacing**     | All AI agents must state assumptions before implementing changes to production systems |
+| 2   | **Confusion Management**     | STOP when encountering conflicting configs (e.g., .env vs production secrets)          |
+| 3   | **Push Back When Warranted** | Agents must flag security risks even if human requests them                            |
+| 4   | **Simplicity Enforcement**   | Prefer boring, obvious solutions over clever abstractions                              |
+| 5   | **Scope Discipline**         | Never modify files outside the requested scope                                         |
+| 6   | **Dead Code Hygiene**        | Ask before deleting - prevents accidental data loss                                    |
 
 ### DWS-Specific Failure Modes
 
-| # | Failure Mode | Prevention |
-|---|-------------|-----------|
-| 13 | Not using DWS document standard | Follow `DWS_DOCUMENT_STANDARD.md` |
-| 14 | Deleting files without asking | Explicit approval required |
-| 15 | Using new environment without security check | Verify .gitignore and .env first |
+| #   | Failure Mode                                 | Prevention                        |
+| --- | -------------------------------------------- | --------------------------------- |
+| 13  | Not using DWS document standard              | Follow `DWS_DOCUMENT_STANDARD.md` |
+| 14  | Deleting files without asking                | Explicit approval required        |
+| 15  | Using new environment without security check | Verify .gitignore and .env first  |
 
 ### EU AI Act Alignment
 
@@ -791,22 +823,22 @@ These guidelines support EU AI Act Article 12 (Automatic Logging): assumption te
 
 ### Authentication Terms (Quick Reference)
 
-| Term | Definition |
-|------|------------|
-| **JWT** | JSON Web Token - stateless authentication (24h access, 7d refresh) |
-| **bcrypt** | Password hashing (12 salt rounds) |
-| **RBAC** | Role-Based Access Control (admin, member, viewer) |
-| **RLS** | Row Level Security - Supabase database-level access per user |
-| **Token Blacklist** | Redis/database of revoked tokens (checked on every request) |
+| Term                | Definition                                                         |
+| ------------------- | ------------------------------------------------------------------ |
+| **JWT**             | JSON Web Token - stateless authentication (24h access, 7d refresh) |
+| **bcrypt**          | Password hashing (12 salt rounds)                                  |
+| **RBAC**            | Role-Based Access Control (admin, member, viewer)                  |
+| **RLS**             | Row Level Security - Supabase database-level access per user       |
+| **Token Blacklist** | Redis/database of revoked tokens (checked on every request)        |
 
 ### OWASP Top 10 - DWS6 Relevance
 
-| Code | Issue | Where in DWS6 |
-|------|-------|---------------|
-| **A01:2021** | Broken Access Control | Role extraction, Admin API validation |
-| **A02:2021** | Cryptographic Failures | JWT secret validation |
-| **A03:2021** | Injection | Input validation (express-validator) |
-| **A07:2021** | Auth Failures | Password verification, Token revocation |
+| Code         | Issue                  | Where in DWS6                           |
+| ------------ | ---------------------- | --------------------------------------- |
+| **A01:2021** | Broken Access Control  | Role extraction, Admin API validation   |
+| **A02:2021** | Cryptographic Failures | JWT secret validation                   |
+| **A03:2021** | Injection              | Input validation (express-validator)    |
+| **A07:2021** | Auth Failures          | Password verification, Token revocation |
 
 ### Related Manuals
 
@@ -824,28 +856,28 @@ These guidelines support EU AI Act Article 12 (Automatic Logging): assumption te
 
 ### Key Terms for Operations
 
-| Obligation | Requirement |
-|-----------|-------------|
-| **Data Residency** | EU data centers default (Finland/Germany) |
-| **Encryption** | AES-256 at rest, TLS 1.3 in transit |
-| **Breach Notification** | Within 48 hours |
-| **AI Training on Customer Data** | NOT allowed without written consent |
-| **AI Output Ownership** | Customer retains ownership |
-| **Data Export After Termination** | 30-day window |
-| **Confidentiality** | 5 years post-contract |
+| Obligation                        | Requirement                               |
+| --------------------------------- | ----------------------------------------- |
+| **Data Residency**                | EU data centers default (Finland/Germany) |
+| **Encryption**                    | AES-256 at rest, TLS 1.3 in transit       |
+| **Breach Notification**           | Within 48 hours                           |
+| **AI Training on Customer Data**  | NOT allowed without written consent       |
+| **AI Output Ownership**           | Customer retains ownership                |
+| **Data Export After Termination** | 30-day window                             |
+| **Confidentiality**               | 5 years post-contract                     |
 
 ### Sub-Processors
 
-| Provider | Location | Purpose |
-|----------|----------|---------|
-| Supabase | EU | Database, auth, storage |
-| Google Cloud | EU | Cloud Run backend |
-| Cloudflare | EU | CDN, Workers, Pages |
-| Anthropic | USA* | Claude AI (SCC applied) |
-| Groq | USA* | LLM inference (SCC applied) |
-| Temporal | EU | Workflow orchestration |
+| Provider     | Location | Purpose                     |
+| ------------ | -------- | --------------------------- |
+| Supabase     | EU       | Database, auth, storage     |
+| Google Cloud | EU       | Cloud Run backend           |
+| Cloudflare   | EU       | CDN, Workers, Pages         |
+| Anthropic    | USA\*    | Claude AI (SCC applied)     |
+| Groq         | USA\*    | LLM inference (SCC applied) |
+| Temporal     | EU       | Workflow orchestration      |
 
-*USA processors: Standard Contractual Clauses (SCC) with data minimization/pseudonymization
+\*USA processors: Standard Contractual Clauses (SCC) with data minimization/pseudonymization
 
 ---
 
@@ -856,16 +888,17 @@ These guidelines support EU AI Act Article 12 (Automatic Logging): assumption te
 
 ### Three-Layer Backup Strategy
 
-| Layer | Tool | Location |
-|-------|------|----------|
-| 1. Git | GitHub (private repo) | All source + business docs |
-| 2. Proton Drive | `scripts/Sync-ToProton.ps1` | Business files + secrets |
-| 3. Full Backup | `scripts/Sync-ToProton.ps1 -FullRepo` | Complete repo to `F:\2026\Backups\dws6\` |
-| 4. Supabase Storage | `scripts/Sync-ToSupabase.ps1` | EU cloud `admin-vault` bucket |
+| Layer               | Tool                                  | Location                                 |
+| ------------------- | ------------------------------------- | ---------------------------------------- |
+| 1. Git              | GitHub (private repo)                 | All source + business docs               |
+| 2. Proton Drive     | `scripts/Sync-ToProton.ps1`           | Business files + secrets                 |
+| 3. Full Backup      | `scripts/Sync-ToProton.ps1 -FullRepo` | Complete repo to `F:\2026\Backups\dws6\` |
+| 4. Supabase Storage | `scripts/Sync-ToSupabase.ps1`         | EU cloud `admin-vault` bucket            |
 
 ### Critical: Claude Code Cloud Limitation
 
 Claude Code cloud sessions can ONLY reach GitHub. Supabase, Google Cloud, Proton Drive are all blocked. Files in gitignored paths are **destroyed** when sessions end. This is why:
+
 - Business docs (Admin/, AgentFoundry/, Team/) are tracked in git (private repo)
 - Only actual secrets (.env, API keys) remain gitignored
 - Local sync scripts bridge git repo to Proton Drive
@@ -874,26 +907,26 @@ Claude Code cloud sessions can ONLY reach GitHub. Supabase, Google Cloud, Proton
 
 All automation scripts include version headers and change logs.
 
-| Script | Version | Purpose |
-|--------|---------|---------|
-| `scripts/Startup-DailySync.bat` | v1.4 | Login trigger: git pull + Proton sync + docs + Supabase |
-| `scripts/Sync-ToProton.ps1` | v1.7 | Proton Drive sync (folders, secrets, docs, Learn/ HTML) |
-| `scripts/Generate-PDFs.ps1` | v1.6 | Markdown to HTML/PDF (pandoc, output to Learn/) |
-| `scripts/Install-StartupSync.ps1` | v1.1 | Creates/removes Startup shortcut |
-| `scripts/Sync-ToSupabase.ps1` | v1.2 | EU cloud backup to Supabase Storage |
+| Script                            | Version | Purpose                                                 |
+| --------------------------------- | ------- | ------------------------------------------------------- |
+| `scripts/Startup-DailySync.bat`   | v1.4    | Login trigger: git pull + Proton sync + docs + Supabase |
+| `scripts/Sync-ToProton.ps1`       | v1.7    | Proton Drive sync (folders, secrets, docs, Learn/ HTML) |
+| `scripts/Generate-PDFs.ps1`       | v1.6    | Markdown to HTML/PDF (pandoc, output to Learn/)         |
+| `scripts/Install-StartupSync.ps1` | v1.1    | Creates/removes Startup shortcut                        |
+| `scripts/Sync-ToSupabase.ps1`     | v1.2    | EU cloud backup to Supabase Storage                     |
 
 ### Daily Operations
 
-| Task | How to run |
-|------|-----------|
-| Sync to Proton | VS Code: Terminal > Run Task > "Sync to Proton Drive" |
-| Full backup | VS Code: Terminal > Run Task > "Full Repo Backup to Proton" |
-| Pull and sync | VS Code: Terminal > Run Task > "Pull and Sync" |
-| Dry run | `.\scripts\Sync-ToProton.ps1 -DryRun` |
-| Auto on login | `.\scripts\Install-StartupSync.ps1` (one-time) |
-| Generate docs (HTML) | `.\scripts\Generate-PDFs.ps1` (default: HTML engine) |
-| Generate docs (PDF) | `.\scripts\Generate-PDFs.ps1 -Engine wkhtmltopdf` |
-| Supabase backup | `.\scripts\Sync-ToSupabase.ps1` (or `-DryRun`) |
+| Task                 | How to run                                                  |
+| -------------------- | ----------------------------------------------------------- |
+| Sync to Proton       | VS Code: Terminal > Run Task > "Sync to Proton Drive"       |
+| Full backup          | VS Code: Terminal > Run Task > "Full Repo Backup to Proton" |
+| Pull and sync        | VS Code: Terminal > Run Task > "Pull and Sync"              |
+| Dry run              | `.\scripts\Sync-ToProton.ps1 -DryRun`                       |
+| Auto on login        | `.\scripts\Install-StartupSync.ps1` (one-time)              |
+| Generate docs (HTML) | `.\scripts\Generate-PDFs.ps1` (default: HTML engine)        |
+| Generate docs (PDF)  | `.\scripts\Generate-PDFs.ps1 -Engine wkhtmltopdf`           |
+| Supabase backup      | `.\scripts\Sync-ToSupabase.ps1` (or `-DryRun`)              |
 
 ### Windows Startup Auto-Sync
 
@@ -904,12 +937,14 @@ C:\Users\risto\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
 ```
 
 **Setup (one-time):**
+
 ```powershell
 .\scripts\Install-StartupSync.ps1        # Install shortcut
 .\scripts\Install-StartupSync.ps1 -Remove  # Remove shortcut
 ```
 
 **What it does on every Windows login:**
+
 1. Waits 120 seconds (for network + Proton Drive to mount)
 2. `git pull origin main` (gets latest from GitHub)
 3. Runs `Sync-ToProton.ps1 -GeneratePDFs -OpenNewPDFs` (Proton sync + doc generation)
@@ -921,6 +956,7 @@ C:\Users\risto\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
 Converts 16 key markdown files (admin manuals, sales, investor) to styled HTML or PDF.
 
 **Prerequisites (install once):**
+
 ```powershell
 winget install --id JohnMacFarlane.Pandoc          # Required
 winget install wkhtmltopdf                          # Optional (PDF engine)
@@ -933,6 +969,7 @@ winget install wkhtmltopdf                          # Optional (PDF engine)
 | `wkhtmltopdf` | `.pdf` files | pandoc + wkhtmltopdf | May have path issues |
 
 **Run manually:**
+
 ```powershell
 .\scripts\Generate-PDFs.ps1                        # HTML (default, always works)
 .\scripts\Generate-PDFs.ps1 -Engine wkhtmltopdf    # PDF output
@@ -971,33 +1008,33 @@ EU cloud backup of all code, scripts, and business documents to Supabase Storage
 
 ### Claude Code: Subagents vs Agent Teams
 
-| Aspect | Subagents | Agent Teams |
-|--------|-----------|-------------|
-| **Context** | Share caller's window | Independent per agent |
-| **Communication** | Return to caller | Direct messaging (mailbox) |
-| **Cost** | Lower (summarized results) | Higher (full context each) |
-| **Best for** | Focused research tasks | Complex parallel collaboration |
+| Aspect            | Subagents                  | Agent Teams                    |
+| ----------------- | -------------------------- | ------------------------------ |
+| **Context**       | Share caller's window      | Independent per agent          |
+| **Communication** | Return to caller           | Direct messaging (mailbox)     |
+| **Cost**          | Lower (summarized results) | Higher (full context each)     |
+| **Best for**      | Focused research tasks     | Complex parallel collaboration |
 
 ### Recommended for DWS6 Operations
 
-| Scenario | Approach |
-|----------|---------|
-| Sprint development | Agent Teams for parallel features |
-| PR review (security + performance + tests) | Agent Teams (3 reviewers) |
-| Sales automation | Subagents (cost-effective) |
-| Customer support | Subagents (predictable costs) |
-| Complex debugging | Agent Teams (competing hypotheses) |
+| Scenario                                   | Approach                           |
+| ------------------------------------------ | ---------------------------------- |
+| Sprint development                         | Agent Teams for parallel features  |
+| PR review (security + performance + tests) | Agent Teams (3 reviewers)          |
+| Sales automation                           | Subagents (cost-effective)         |
+| Customer support                           | Subagents (predictable costs)      |
+| Complex debugging                          | Agent Teams (competing hypotheses) |
 
 ### Upstash Redis (Serverless)
 
 DWS6 uses Upstash Redis for distributed operations across agents:
 
-| Use Case | Details |
-|----------|---------|
-| **Token Blacklist** | Revoked JWTs stored in Redis, checked on every API request |
-| **Rate Limiting** | Distributed rate limiting across serverless instances |
-| **Session Cache** | Agent session state persistence |
-| **API Response Cache** | Reduce LLM API calls for repeated queries |
+| Use Case               | Details                                                    |
+| ---------------------- | ---------------------------------------------------------- |
+| **Token Blacklist**    | Revoked JWTs stored in Redis, checked on every API request |
+| **Rate Limiting**      | Distributed rate limiting across serverless instances      |
+| **Session Cache**      | Agent session state persistence                            |
+| **API Response Cache** | Reduce LLM API calls for repeated queries                  |
 
 **Tier:** Free (256MB, 500K commands/month)
 **Protocol:** REST API (works in serverless, no TCP needed)
@@ -1058,44 +1095,44 @@ dws6/
 
 ### Core Planning Documents
 
-| Document | Purpose | Status | Lines | Last Updated |
-|----------|---------|--------|-------|--------------|
-| **README.md** | Platform overview, mission, quick links | ✅ Current | ~200 | Nov 23, 2025 |
-| **PLANNING_PHASE_UPDATED.md** | 90-day roadmap, code examples | ✅ v3.0 | ~1,680 | Nov 23, 2025 |
-| **ARCHITECTURE_SUMMARY.md** | Visual diagrams, traffic flows | ✅ Current | ~600 | Nov 23, 2025 |
-| **IMPLEMENTATION_SUMMARY.md** | Quick reference, next steps | ✅ v2.0 | ~575 | Nov 23, 2025 |
+| Document                      | Purpose                                 | Status     | Lines  | Last Updated |
+| ----------------------------- | --------------------------------------- | ---------- | ------ | ------------ |
+| **README.md**                 | Platform overview, mission, quick links | ✅ Current | ~200   | Nov 23, 2025 |
+| **PLANNING_PHASE_UPDATED.md** | 90-day roadmap, code examples           | ✅ v3.0    | ~1,680 | Nov 23, 2025 |
+| **ARCHITECTURE_SUMMARY.md**   | Visual diagrams, traffic flows          | ✅ Current | ~600   | Nov 23, 2025 |
+| **IMPLEMENTATION_SUMMARY.md** | Quick reference, next steps             | ✅ v2.0    | ~575   | Nov 23, 2025 |
 
 ### Infrastructure Documentation
 
-| Document | Purpose | Status | Lines | Last Updated |
-|----------|---------|--------|-------|--------------|
-| **CLOUDFLARE_DNS_SETUP.md** | Complete DNS configuration guide | ✅ Current | ~634 | Nov 16, 2025 |
-| **CLOUDFLARE_DNS_RECORDS_READY.md** | Specific DNS records to add | ✅ Current | ~477 | Nov 16, 2025 |
-| **DOMAIN_STRATEGY.md** | 4 domain options analysis | ✅ Current | ~487 | Nov 16, 2025 |
-| **SITE_ARCHITECTURE.md** | Cross-linking strategy | ✅ Current | ~334 | Nov 23, 2025 |
+| Document                            | Purpose                          | Status     | Lines | Last Updated |
+| ----------------------------------- | -------------------------------- | ---------- | ----- | ------------ |
+| **CLOUDFLARE_DNS_SETUP.md**         | Complete DNS configuration guide | ✅ Current | ~634  | Nov 16, 2025 |
+| **CLOUDFLARE_DNS_RECORDS_READY.md** | Specific DNS records to add      | ✅ Current | ~477  | Nov 16, 2025 |
+| **DOMAIN_STRATEGY.md**              | 4 domain options analysis        | ✅ Current | ~487  | Nov 16, 2025 |
+| **SITE_ARCHITECTURE.md**            | Cross-linking strategy           | ✅ Current | ~334  | Nov 23, 2025 |
 
 ### Business Documentation
 
-| Document | Purpose | Status | Lines | Last Updated |
-|----------|---------|--------|-------|--------------|
-| **PAYMENT_INTEGRATION.md** | Revolut + PayPal webhooks | ✅ Current | ~652 | Nov 16, 2025 |
-| **STRATEGIC_PARTNERSHIPS.md** | Peachscore, partnerships | ⚠️ Needs update | ~386 | Nov 16, 2025 |
-| **STARTUP_PROGRAMS_APPLICATIONS.md** | $125K credits guide | ⚠️ Needs update | ~506 | Nov 16, 2025 |
+| Document                             | Purpose                   | Status          | Lines | Last Updated |
+| ------------------------------------ | ------------------------- | --------------- | ----- | ------------ |
+| **PAYMENT_INTEGRATION.md**           | Revolut + PayPal webhooks | ✅ Current      | ~652  | Nov 16, 2025 |
+| **STRATEGIC_PARTNERSHIPS.md**        | Peachscore, partnerships  | ⚠️ Needs update | ~386  | Nov 16, 2025 |
+| **STARTUP_PROGRAMS_APPLICATIONS.md** | $125K credits guide       | ⚠️ Needs update | ~506  | Nov 16, 2025 |
 
 ### Agent Framework & Policy
 
-| Document | Purpose | Status | Lines | Last Updated |
-|----------|---------|--------|-------|--------------|
-| **lifetime-agent-foundry/AGENT_FOUNDRY.md** | Complete agent framework | ✅ Current | ~600+ | Nov 23, 2025 |
-| **AI_AGENT_POLICY.md** | Agent best practices policy | ✅ Current | ~650 | Dec 23, 2025 |
-| **AI_AGENT_GUIDELINES.md** | Comprehensive agent guidelines | ✅ Current | ~400 | Nov 2025 |
+| Document                                    | Purpose                        | Status     | Lines | Last Updated |
+| ------------------------------------------- | ------------------------------ | ---------- | ----- | ------------ |
+| **lifetime-agent-foundry/AGENT_FOUNDRY.md** | Complete agent framework       | ✅ Current | ~600+ | Nov 23, 2025 |
+| **AI_AGENT_POLICY.md**                      | Agent best practices policy    | ✅ Current | ~650  | Dec 23, 2025 |
+| **AI_AGENT_GUIDELINES.md**                  | Comprehensive agent guidelines | ✅ Current | ~400  | Nov 2025     |
 
 ### Landing Pages
 
-| File | Domain | Status | Last Updated |
-|------|--------|--------|--------------|
+| File                                           | Domain            | Status  | Last Updated |
+| ---------------------------------------------- | ----------------- | ------- | ------------ |
 | **landing-pages/onelifetime-world/index.html** | onelifetime.world | ✅ Live | Nov 22, 2025 |
-| **landing-pages/dws10-com/index.html** | dws10.com | ✅ Live | Nov 23, 2025 |
+| **landing-pages/dws10-com/index.html**         | dws10.com         | ✅ Live | Nov 23, 2025 |
 
 ---
 
@@ -1135,33 +1172,42 @@ All agent instruction files MUST include:
 **Last Updated:** YYYY-MM-DD
 
 ## Quick Start Commands
+
 [Executable commands first]
 
 ## Stack & Technologies
+
 [Explicit stack listing]
 
 ## 1. Commands Reference
+
 [Development, testing, deployment]
 
 ## 2. Testing Requirements
+
 [Mandatory tests, coverage, examples]
 
 ## 3. Project Structure
+
 [Directory layout, naming conventions]
 
 ## 4. Code Style Guidelines
+
 [TypeScript/React patterns, examples]
 
 ## 5. Git Workflow
+
 [Branch naming, commits, pre-commit checks]
 
 ## 6. Boundaries & Security
+
 [Never/Always lists with examples]
 ```
 
 ### Key Security Boundaries
 
 **NEVER:**
+
 - ❌ Commit secrets or credentials
 - ❌ Commit customer data (PII, GDPR protected)
 - ❌ Commit admin files (ProtonDrive only)
@@ -1170,6 +1216,7 @@ All agent instruction files MUST include:
 - ❌ Use any types in TypeScript
 
 **ALWAYS:**
+
 - ✅ Use environment variables for secrets
 - ✅ Validate input data
 - ✅ Write tests for new features
@@ -1235,7 +1282,7 @@ function AgentList({ agents }: Props) {
 const agents = await db.agent.findMany({
   where: { userId: user.id },
   select: { id: true, name: true, score: true },
-  orderBy: { score: 'desc' },
+  orderBy: { score: "desc" },
   take: 10,
 });
 ```
@@ -1256,12 +1303,14 @@ Before finalizing an agent instruction file:
 ### Implementation Status
 
 **Current Agent Files:**
+
 - `.claude/instructions.md` - ⚠️ Needs improvement (missing commands, stack, testing)
 - `AI_AGENT_GUIDELINES.md` - ⚠️ Needs improvement (missing quick start, code examples)
 
 **Improvement Proposal:** See `AGENT_IMPROVEMENTS_PROPOSAL.md`
 
 **Priority Actions:**
+
 1. Add quick start commands to `.claude/instructions.md`
 2. Add stack specification
 3. Create testing requirements section
@@ -1277,10 +1326,10 @@ Before finalizing an agent instruction file:
 
 #### Current Setup
 
-| Project | Domain | Source | Branch | Status |
-|---------|--------|--------|--------|--------|
-| onelifetime-world | onelifetime.world | GitHub: blogtheristo/dws6 | main | ✅ Live |
-| dws10-platform | dws10.com | GitHub: blogtheristo/dws6 | main | ✅ Live |
+| Project           | Domain            | Source                    | Branch | Status  |
+| ----------------- | ----------------- | ------------------------- | ------ | ------- |
+| onelifetime-world | onelifetime.world | GitHub: blogtheristo/dws6 | main   | ✅ Live |
+| dws10-platform    | dws10.com         | GitHub: blogtheristo/dws6 | main   | ✅ Live |
 
 #### Root Directories
 
@@ -1327,34 +1376,34 @@ Local Edit → Git Push → GitHub (main) → Cloudflare Pages Auto-Deploy
 
 #### Files Created
 
-| File | Purpose | Status |
-|------|---------|--------|
-| `.github/workflows/deploy-scaleway.yml` | CI/CD for Scaleway | ✅ Active |
-| `.github/copilot-instructions.md` | GitHub Copilot context | ✅ Active |
-| `public/chat-widget.js` | Embeddable chat widget | ✅ Active |
-| `src/__tests__/jwt-validation-security.test.ts` | Security tests | ✅ Active |
-| `src/__tests__/climate-assistant-gated-auth.test.ts` | Auth tests | ✅ Active |
+| File                                                 | Purpose                | Status    |
+| ---------------------------------------------------- | ---------------------- | --------- |
+| `.github/workflows/deploy-scaleway.yml`              | CI/CD for Scaleway     | ✅ Active |
+| `.github/copilot-instructions.md`                    | GitHub Copilot context | ✅ Active |
+| `public/chat-widget.js`                              | Embeddable chat widget | ✅ Active |
+| `src/__tests__/jwt-validation-security.test.ts`      | Security tests         | ✅ Active |
+| `src/__tests__/climate-assistant-gated-auth.test.ts` | Auth tests             | ✅ Active |
 
 #### Files Modified
 
-| File | Changes |
-|------|---------|
-| `src/app.ts` | CORS allowlist, Helmet CSP |
+| File                                           | Changes                       |
+| ---------------------------------------------- | ----------------------------- |
+| `src/app.ts`                                   | CORS allowlist, Helmet CSP    |
 | `src/routes/climate-assistant-gated.routes.ts` | JWT validation, tier security |
-| `dws10.com/index.html` | Chat widget embedded |
-| `onelifetime.world/index.html` | Chat widget embedded |
-| `landing-pages/dws10-com/index.html` | Chat widget embedded |
-| `landing-pages/onelifetime-world/index.html` | Chat widget embedded |
-| `Admin/ADMIN_MANUAL.md` | Updated to v1.7 |
+| `dws10.com/index.html`                         | Chat widget embedded          |
+| `onelifetime.world/index.html`                 | Chat widget embedded          |
+| `landing-pages/dws10-com/index.html`           | Chat widget embedded          |
+| `landing-pages/onelifetime-world/index.html`   | Chat widget embedded          |
+| `Admin/ADMIN_MANUAL.md`                        | Updated to v1.7               |
 
 #### Security Fixes
 
-| Bug | Severity | Status |
-|-----|----------|--------|
-| Insecure CORS (wildcard) | High | ✅ Fixed |
+| Bug                         | Severity | Status   |
+| --------------------------- | -------- | -------- |
+| Insecure CORS (wildcard)    | High     | ✅ Fixed |
 | Privilege escalation (tier) | Critical | ✅ Fixed |
-| JWT validation missing | High | ✅ Fixed |
-| Helmet CSP blocking | Medium | ✅ Fixed |
+| JWT validation missing      | High     | ✅ Fixed |
+| Helmet CSP blocking         | Medium   | ✅ Fixed |
 
 ---
 
@@ -1372,16 +1421,17 @@ Local Edit → Git Push → GitHub (main) → Cloudflare Pages Auto-Deploy
 
 #### Files Created/Updated
 
-| File | Action | Status |
-|------|--------|--------|
-| AI_AGENT_POLICY.md | Created | ✅ In repo |
-| AGENT_IMPROVEMENTS_PROPOSAL.md | Created | ✅ In repo |
-| .gitignore | Updated | ✅ Committed |
-| admin/ADMIN_MANUAL.md | Updated to v1.3 | 📋 ProtonDrive only |
+| File                           | Action          | Status              |
+| ------------------------------ | --------------- | ------------------- |
+| AI_AGENT_POLICY.md             | Created         | ✅ In repo          |
+| AGENT_IMPROVEMENTS_PROPOSAL.md | Created         | ✅ In repo          |
+| .gitignore                     | Updated         | ✅ Committed        |
+| admin/ADMIN_MANUAL.md          | Updated to v1.3 | 📋 ProtonDrive only |
 
 #### Key Findings
 
 From 2,500+ Agent Analysis:
+
 - Best agents start with executable commands
 - Code examples more effective than explanations
 - Clear boundaries (never/always) critical
@@ -1406,14 +1456,14 @@ From 2,500+ Agent Analysis:
 
 #### Files Created/Updated
 
-| File | Action | Status |
-|------|--------|--------|
-| lifetime-agent-foundry/AGENT_FOUNDRY.md | Created | ✅ Committed |
-| SITE_ARCHITECTURE.md | Created | ✅ Committed |
-| landing-pages/dws10-com/index.html | Updated | ✅ Committed |
-| PLANNING_PHASE_UPDATED.md | Updated to v3.0 | ✅ Committed |
-| ARCHITECTURE_SUMMARY.md | Updated | ✅ Committed |
-| IMPLEMENTATION_SUMMARY.md | Updated to v2.0 | ✅ Committed |
+| File                                    | Action          | Status       |
+| --------------------------------------- | --------------- | ------------ |
+| lifetime-agent-foundry/AGENT_FOUNDRY.md | Created         | ✅ Committed |
+| SITE_ARCHITECTURE.md                    | Created         | ✅ Committed |
+| landing-pages/dws10-com/index.html      | Updated         | ✅ Committed |
+| PLANNING_PHASE_UPDATED.md               | Updated to v3.0 | ✅ Committed |
+| ARCHITECTURE_SUMMARY.md                 | Updated         | ✅ Committed |
+| IMPLEMENTATION_SUMMARY.md               | Updated to v2.0 | ✅ Committed |
 
 #### Commits
 
@@ -1444,11 +1494,11 @@ Location: `/home/user/omat tiedostot/lataukset/`
 
 Based on comprehensive security audit covering auth layer, validation, build scripts:
 
-| Severity | Estimated Count | Areas |
-|----------|----------------|--------|
-| **Critical/High** | 5-15 | MCP servers, AgentFoundry services, frontend auth, API endpoints |
-| **Medium** | 30-60 | Error handling, validation, edge cases, script reliability |
-| **Low/Tech Debt** | 100-300+ | TODOs, deprecated code, missing tests, outdated dependencies |
+| Severity          | Estimated Count | Areas                                                            |
+| ----------------- | --------------- | ---------------------------------------------------------------- |
+| **Critical/High** | 5-15            | MCP servers, AgentFoundry services, frontend auth, API endpoints |
+| **Medium**        | 30-60           | Error handling, validation, edge cases, script reliability       |
+| **Low/Tech Debt** | 100-300+        | TODOs, deprecated code, missing tests, outdated dependencies     |
 
 #### High-Confidence Bug Locations
 
@@ -1490,29 +1540,30 @@ Areas not yet audited (likely to contain bugs):
 
 #### Proactive Maintenance (Planned)
 
-| Task | Frequency | Expected Count | Priority |
-|------|-----------|----------------|----------|
-| **Dependency updates** | Monthly | 5-10 fixes | High |
-| **Security patches** | As released | 1-5 fixes | Critical |
-| **Linting/type errors** | Monthly | 3-5 fixes | Medium |
-| **Performance optimizations** | Monthly | 1-2 fixes | Low |
-| **Tech debt cleanup** | Monthly | 2-5 fixes | Medium |
+| Task                          | Frequency   | Expected Count | Priority |
+| ----------------------------- | ----------- | -------------- | -------- |
+| **Dependency updates**        | Monthly     | 5-10 fixes     | High     |
+| **Security patches**          | As released | 1-5 fixes      | Critical |
+| **Linting/type errors**       | Monthly     | 3-5 fixes      | Medium   |
+| **Performance optimizations** | Monthly     | 1-2 fixes      | Low      |
+| **Tech debt cleanup**         | Monthly     | 2-5 fixes      | Medium   |
 
 **Monthly Total (Proactive):** 12-27 fixes
 
 #### Reactive Maintenance (Discovered)
 
-| Source | Frequency | Expected Count | Priority |
-|--------|-----------|----------------|----------|
-| **Production issues** | As reported | 1-3 fixes | Critical |
-| **User bug reports** | As reported | 2-4 fixes | High |
-| **Security vulnerabilities** | As discovered | 1-2 fixes | Critical |
-| **Integration breakage** | As occurs | 2-4 fixes | High |
-| **Monitoring alerts** | As triggered | 1-3 fixes | Medium-High |
+| Source                       | Frequency     | Expected Count | Priority    |
+| ---------------------------- | ------------- | -------------- | ----------- |
+| **Production issues**        | As reported   | 1-3 fixes      | Critical    |
+| **User bug reports**         | As reported   | 2-4 fixes      | High        |
+| **Security vulnerabilities** | As discovered | 1-2 fixes      | Critical    |
+| **Integration breakage**     | As occurs     | 2-4 fixes      | High        |
+| **Monitoring alerts**        | As triggered  | 1-3 fixes      | Medium-High |
 
 **Monthly Total (Reactive):** 7-16 fixes
 
 **Combined Monthly Range:** 15-50 fixes
+
 - **Conservative:** 15-30 fixes/month
 - **Aggressive (reducing tech debt):** 30-50 fixes/month
 
@@ -1552,6 +1603,7 @@ jobs:
 #### Dependency Automation (Saves 5-10 bugs/month)
 
 1. **Enable Dependabot** (auto-merge for patches):
+
    ```yaml
    # .github/dependabot.yml
    version: 2
@@ -1570,21 +1622,21 @@ jobs:
 
 #### Monitoring Setup (Saves 3-5 bugs/month)
 
-| Tool | Purpose | Benefit |
-|------|---------|---------|
-| **Sentry** | Error tracking | Catch production errors before users report |
-| **Log aggregation** | Centralized logs | Detect patterns, debug faster |
-| **Uptime monitoring** | Service health | Proactive alerting |
-| **Performance monitoring** | Slow queries/routes | Prevent performance degradation |
+| Tool                       | Purpose             | Benefit                                     |
+| -------------------------- | ------------------- | ------------------------------------------- |
+| **Sentry**                 | Error tracking      | Catch production errors before users report |
+| **Log aggregation**        | Centralized logs    | Detect patterns, debug faster               |
+| **Uptime monitoring**      | Service health      | Proactive alerting                          |
+| **Performance monitoring** | Slow queries/routes | Prevent performance degradation             |
 
 #### Documentation (Saves 2-3 bugs/month)
 
-| Document | Purpose | Maintenance |
-|----------|---------|-------------|
-| **Runbooks** | Common operational tasks | Update after each incident |
-| **Architecture diagrams** | System understanding | Update quarterly |
-| **Deployment checklists** | Prevent deployment errors | Update after each failure |
-| **Incident post-mortems** | Learn from failures | Create after each incident |
+| Document                  | Purpose                   | Maintenance                |
+| ------------------------- | ------------------------- | -------------------------- |
+| **Runbooks**              | Common operational tasks  | Update after each incident |
+| **Architecture diagrams** | System understanding      | Update quarterly           |
+| **Deployment checklists** | Prevent deployment errors | Update after each failure  |
+| **Incident post-mortems** | Learn from failures       | Create after each incident |
 
 ### Bug Hunting Roadmap (Priority Order)
 
@@ -1652,12 +1704,12 @@ jobs:
 
 ### Bug Severity Classification
 
-| Severity | Definition | Response Time | Examples |
-|----------|-----------|---------------|----------|
-| **Critical** | System down, data loss, security breach | < 1 hour | Auth bypass, data leak, XSS, XXE |
-| **High** | Major feature broken, significant security risk | < 24 hours | DoS vulnerability, broken payment, timing attack |
-| **Medium** | Feature partially broken, minor security issue | < 1 week | Validation missing, info disclosure, memory leak |
-| **Low** | Minor bug, cosmetic issue, tech debt | < 1 month | UI quirk, unused code, missing types |
+| Severity     | Definition                                      | Response Time | Examples                                         |
+| ------------ | ----------------------------------------------- | ------------- | ------------------------------------------------ |
+| **Critical** | System down, data loss, security breach         | < 1 hour      | Auth bypass, data leak, XSS, XXE                 |
+| **High**     | Major feature broken, significant security risk | < 24 hours    | DoS vulnerability, broken payment, timing attack |
+| **Medium**   | Feature partially broken, minor security issue  | < 1 week      | Validation missing, info disclosure, memory leak |
+| **Low**      | Minor bug, cosmetic issue, tech debt            | < 1 month     | UI quirk, unused code, missing types             |
 
 ### Security Fix History (December 2025)
 
@@ -1667,30 +1719,31 @@ jobs:
 
 **Bugs Fixed:** 20 security vulnerabilities
 
-| Bug # | Severity | Issue | Fix |
-|-------|----------|-------|-----|
-| 1 | High | Authentication performance (bcrypt per request) | Pre-computed hash |
-| 2 | Low | Duplicate middleware | Removed duplicate |
-| 3 | Medium | Broken cookie authentication | Removed broken code |
-| 4 | Critical | Missing authentication on user routes | Added authenticateToken |
-| 5 | Medium | Missing parseInt radix | Added explicit radix |
-| 6 | High | Information disclosure (12 endpoints) | Generic error messages |
-| 7 | High | Memory leak in rate limiter | Periodic cleanup |
-| 8 | Medium | Unused rate limiter (dead code) | Activated dual-layer protection |
-| 9 | High | Missing rate limiting on forgot-password | Added IP-based limiting |
-| 10 | High | Missing max password length (bcrypt DoS) | Added 128 char max |
-| 11 | High | Missing body size limits (JSON DoS) | Added 10kb limit |
-| 12 | Medium | Missing max length on name fields | Added 100 char max |
-| 13 | Critical | Logging sensitive data in validation errors | Sanitized logs |
-| 14 | Critical | Timing attack on login (email enumeration) | Constant-time response |
-| 15 | High | Logout doesn't invalidate tokens | Auth required + documented |
-| 16 | Medium | Unsafe email typing in middleware | Type validation |
-| 17 | High | Path traversal in AgentFoundry | Path validation |
-| 18 | High | Jinja2 missing autoescape (XSS) | Enabled autoescape |
-| 19 | Critical | Unsafe XML parser (XXE) | Use defusedxml |
-| 20 | Low | NameError in warning fallback | Fixed SecurityWarning → UserWarning |
+| Bug # | Severity | Issue                                           | Fix                                 |
+| ----- | -------- | ----------------------------------------------- | ----------------------------------- |
+| 1     | High     | Authentication performance (bcrypt per request) | Pre-computed hash                   |
+| 2     | Low      | Duplicate middleware                            | Removed duplicate                   |
+| 3     | Medium   | Broken cookie authentication                    | Removed broken code                 |
+| 4     | Critical | Missing authentication on user routes           | Added authenticateToken             |
+| 5     | Medium   | Missing parseInt radix                          | Added explicit radix                |
+| 6     | High     | Information disclosure (12 endpoints)           | Generic error messages              |
+| 7     | High     | Memory leak in rate limiter                     | Periodic cleanup                    |
+| 8     | Medium   | Unused rate limiter (dead code)                 | Activated dual-layer protection     |
+| 9     | High     | Missing rate limiting on forgot-password        | Added IP-based limiting             |
+| 10    | High     | Missing max password length (bcrypt DoS)        | Added 128 char max                  |
+| 11    | High     | Missing body size limits (JSON DoS)             | Added 10kb limit                    |
+| 12    | Medium   | Missing max length on name fields               | Added 100 char max                  |
+| 13    | Critical | Logging sensitive data in validation errors     | Sanitized logs                      |
+| 14    | Critical | Timing attack on login (email enumeration)      | Constant-time response              |
+| 15    | High     | Logout doesn't invalidate tokens                | Auth required + documented          |
+| 16    | Medium   | Unsafe email typing in middleware               | Type validation                     |
+| 17    | High     | Path traversal in AgentFoundry                  | Path validation                     |
+| 18    | High     | Jinja2 missing autoescape (XSS)                 | Enabled autoescape                  |
+| 19    | Critical | Unsafe XML parser (XXE)                         | Use defusedxml                      |
+| 20    | Low      | NameError in warning fallback                   | Fixed SecurityWarning → UserWarning |
 
 **Security Impact:**
+
 - ✅ Authentication bypass fixed (Bug #4, #14)
 - ✅ 4 DoS vulnerabilities patched (#7, #10, #11, #12)
 - ✅ 3 information disclosure issues resolved (#6, #13, #14)
@@ -1699,6 +1752,7 @@ jobs:
 - ✅ GDPR/PCI-DSS/OWASP compliant
 
 **Files Changed:**
+
 - `src/routes/auth.routes.ts`
 - `src/routes/user.routes.ts`
 - `src/services/auth.service.ts`
@@ -1722,11 +1776,12 @@ DWS6 uses Claude Opus 4.5 as the primary AI model for development assistance.
 
 ### AI Model Switch (Week 53)
 
-| Previous Model | New Model | Reason |
-|---------------|-----------|--------|
+| Previous Model    | New Model           | Reason                  |
+| ----------------- | ------------------- | ----------------------- |
 | Claude Sonnet 4.5 | **Claude Opus 4.5** | Knowledge cutoff issues |
 
 **Issue with Sonnet 4.5:**
+
 - Knowledge cutoff at early 2024
 - Suggested deprecated `actions/upload-artifact@v3` instead of `@v4`
 - Outdated CLI syntax for `safety` and `cyclonedx-py`
@@ -1734,6 +1789,7 @@ DWS6 uses Claude Opus 4.5 as the primary AI model for development assistance.
 
 **Resolution:**
 Switched to **Claude Opus 4.5** which has:
+
 - More recent knowledge base
 - Better understanding of 2026 tooling
 - Accurate security tool recommendations
@@ -1751,17 +1807,17 @@ DWS6 uses an integrated code review process that leverages existing AI tools wit
 
 ### Review Tools (Current Setup)
 
-| Tool | Purpose | Cost | Status |
-|------|---------|------|--------|
-| **Cursor AI (Claude Opus 4.5)** | Interactive code review | Included in Cursor subscription | ✅ Active |
-| **Snyk MCP** | Security vulnerability scanning | Free/Pro tier | ✅ Active |
-| **GitHub Copilot Review** | Automated PR review | Included in GitHub | ✅ Available |
-| **Ruff** | Python linting & security | Free | ✅ Active |
+| Tool                            | Purpose                         | Cost                            | Status       |
+| ------------------------------- | ------------------------------- | ------------------------------- | ------------ |
+| **Cursor AI (Claude Opus 4.5)** | Interactive code review         | Included in Cursor subscription | ✅ Active    |
+| **Snyk MCP**                    | Security vulnerability scanning | Free/Pro tier                   | ✅ Active    |
+| **GitHub Copilot Review**       | Automated PR review             | Included in GitHub              | ✅ Available |
+| **Ruff**                        | Python linting & security       | Free                            | ✅ Active    |
 
 ### Removed Tools
 
-| Tool | Reason | Alternative |
-|------|--------|-------------|
+| Tool                | Reason                                         | Alternative          |
+| ------------------- | ---------------------------------------------- | -------------------- |
 | **Argus PR Review** | Required separate OpenAI API key (~$20-100/mo) | Cursor AI + Snyk MCP |
 
 **Archive Location:** `Archive/workflows/argus-code-review.yml.DEPRECATED`
@@ -1790,6 +1846,7 @@ Use Cursor AI for interactive code review:
 ```
 
 **Benefits:**
+
 - ✅ Interactive - can ask follow-up questions
 - ✅ Context-aware - sees full codebase
 - ✅ No extra cost - included in Cursor subscription
@@ -1806,6 +1863,7 @@ snyk test
 ```
 
 **GitHub Actions** run on push/PR:
+
 - `security-scan-daily.yml` - Daily security scan
 - `security-check-pr.yml` - PR security review
 - `dependency_review.yml` - Dependency vulnerability check
@@ -1842,22 +1900,22 @@ Before approving/merging a PR:
 
 ### Weekly Tasks
 
-| Task | Frequency | Owner |
-|------|-----------|-------|
-| Check cross-links work | Weekly | Automated (GitHub Action) |
-| Review analytics | Weekly | Marketing |
-| Update landing page content | As needed | Marketing |
-| Review open security issues | Weekly | Dev team |
+| Task                        | Frequency | Owner                     |
+| --------------------------- | --------- | ------------------------- |
+| Check cross-links work      | Weekly    | Automated (GitHub Action) |
+| Review analytics            | Weekly    | Marketing                 |
+| Update landing page content | As needed | Marketing                 |
+| Review open security issues | Weekly    | Dev team                  |
 
 ### Monthly Tasks
 
-| Task | Frequency | Owner |
-|------|-----------|-------|
-| Update documentation | Monthly | Dev team |
-| Review DNS records | Monthly | DevOps |
-| Check SSL certificates | Monthly | Automated (Cloudflare) |
-| Security audit (npm audit) | Monthly | Dev team |
-| Review Dependabot alerts | Monthly | Dev team |
+| Task                       | Frequency | Owner                  |
+| -------------------------- | --------- | ---------------------- |
+| Update documentation       | Monthly   | Dev team               |
+| Review DNS records         | Monthly   | DevOps                 |
+| Check SSL certificates     | Monthly   | Automated (Cloudflare) |
+| Security audit (npm audit) | Monthly   | Dev team               |
+| Review Dependabot alerts   | Monthly   | Dev team               |
 
 ### Automated Checks
 
@@ -1869,7 +1927,7 @@ Add to `.github/workflows/check-links.yml`:
 name: Check Cross-Links
 on:
   schedule:
-    - cron: '0 9 * * 1'  # Every Monday 9am
+    - cron: "0 9 * * 1" # Every Monday 9am
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -1897,6 +1955,7 @@ jobs:
 **DO NOT USE `git worktree` in this repository until April 2026.**
 
 Git worktree can expose sensitive environment files and break security protections:
+
 - `.env` files may be shared across worktrees
 - `.gitignore` protections may not apply correctly
 - Sensitive data can be accidentally committed
@@ -1919,11 +1978,11 @@ Instead of worktree, use:
 
 ### Branch Strategy
 
-| Branch Type | Example | Purpose |
-|-------------|---------|---------|
-| **main** | main | Production, auto-deploys to Cloudflare Pages |
-| **claude/** | claude/plan-agentic-ai-saas-... | AI session work, merge via PR |
-| **feature/** | feature/new-agent | New feature development |
+| Branch Type  | Example                         | Purpose                                      |
+| ------------ | ------------------------------- | -------------------------------------------- |
+| **main**     | main                            | Production, auto-deploys to Cloudflare Pages |
+| **claude/**  | claude/plan-agentic-ai-saas-... | AI session work, merge via PR                |
+| **feature/** | feature/new-agent               | New feature development                      |
 
 ## Deployment File Protection System
 
@@ -1936,12 +1995,14 @@ The deployment file protection system prevents accidental commits of infrastruct
 ### Protection Evolution
 
 **Before (Pre-January 2026):**
+
 - ❌ Pre-commit hook only blocked Admin/ folder and secret files
 - ❌ No automated verification in GitHub
 - ❌ Risk of accidentally committing deployment files
 - ⚠️ **Incident:** Deployment files exposed Dec 23, 2025 - Jan 2, 2026 (10 days)
 
 **Now (Post-January 2026):**
+
 - ✅ Pre-commit hook blocks deployment files locally
 - ✅ GitHub Actions verifies protections remotely
 - ✅ Daily automated checks prevent regressions
@@ -1950,6 +2011,7 @@ The deployment file protection system prevents accidental commits of infrastruct
 ### Protected Files
 
 **Google Cloud Platform:**
+
 - `cloudbuild.yaml`
 - `cloudrun-service.yaml`
 - `deploy-gcp.sh`
@@ -1961,6 +2023,7 @@ The deployment file protection system prevents accidental commits of infrastruct
 - `*cloudrun*`
 
 **Docker:**
+
 - `docker-compose.mcp.yml`
 - `Dockerfile`
 - `.dockerignore`
@@ -1969,6 +2032,7 @@ The deployment file protection system prevents accidental commits of infrastruct
 - `*.dockerfile`
 
 **MCP Hub:**
+
 - `mcp-hub/Dockerfile`
 - `mcp-hub/DOCKER_*.md`
 - `mcp-hub/GCP_*.md`
@@ -1982,18 +2046,21 @@ The deployment file protection system prevents accidental commits of infrastruct
 **Location:** `scripts/gdpr-safety-check.ps1` (Windows) / `.git/hooks/pre-commit` (Linux/Mac)
 
 **Functionality:**
+
 - Automatically runs before every `git commit`
 - Checks for 18+ deployment file patterns
 - Blocks commits containing infrastructure configuration files
 - Provides clear error messages with unstage instructions
 
 **Testing:**
+
 ```powershell
 # Test the hook manually
 .\scripts\gdpr-safety-check.ps1
 ```
 
 **If deployment file is detected:**
+
 ```
 [BLOCKED] Deployment files detected!
    These files contain infrastructure configuration and deployment procedures
@@ -2011,18 +2078,21 @@ To unstage these files:
 **Workflow:** `.github/workflows/verify-gitignore-protections.yml`
 
 **Triggers:**
+
 - Push to `main` or `develop` branches
 - Pull requests to `main` or `develop`
 - Daily schedule (2 AM UTC)
 - Manual trigger (`workflow_dispatch`)
 
 **Checks:**
+
 1. Verifies `.gitignore` contains all 14 required patterns
 2. Checks if deployment files are tracked in Git
 3. Validates "MCP HUB DEPLOYMENT FILES" section exists
 4. Generates protection report in GitHub Actions summary
 
 **View Results:**
+
 - Go to: **Actions** tab → **Verify .gitignore Protections**
 - Check: Protection status and any violations
 
@@ -2031,21 +2101,25 @@ To unstage these files:
 **If deployment file is accidentally committed:**
 
 1. **Immediate:** Remove from Git tracking (file stays on disk)
+
    ```bash
    git rm --cached <deployment-file>
    ```
 
 2. **Verify:** Check `.gitignore` contains the pattern
+
    ```bash
    grep -i "deployment-file-name" .gitignore
    ```
 
 3. **Commit:** Commit the removal
+
    ```bash
    git commit -m "security: Remove deployment file from tracking"
    ```
 
 4. **Verify:** Run pre-commit hook to confirm protection
+
    ```powershell
    .\scripts\gdpr-safety-check.ps1
    ```
@@ -2055,11 +2129,13 @@ To unstage these files:
 ### Maintenance
 
 **Monthly:**
+
 - Review GitHub Actions workflow results
 - Verify no deployment files are tracked
 - Check `.gitignore` patterns are up-to-date
 
 **Quarterly:**
+
 - Full security audit (see `Admin/SECURITY_AUDIT_REPORT.md`)
 - Review incident history
 - Update protection patterns if needed
@@ -2097,14 +2173,14 @@ The `.gitignore` file contains patterns to prevent sensitive data from being com
 
 ### Protected Categories
 
-| Category | Patterns | Description |
-|----------|----------|-------------|
+| Category                       | Patterns                                                                                      | Description                                                      |
+| ------------------------------ | --------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
 | **Confidential Business Data** | `/confidential/`, `/secrets/`, `/investor-materials/`, `*.confidential.*`, `*-confidential.*` | Internal business documents, investor materials, strategic plans |
-| **Customer Data** | `/customer-data/`, `/pilot-data/`, `/ncc-data/`, `/t2h-data/` | GDPR-protected customer information and pilot project data |
-| **API Keys & Credentials** | `.env.local`, `.env.*.local`, `credentials.json`, `service-account-*.json` | API keys, service accounts, local environment secrets |
-| **Financial Models** | `*financial-model*.xlsx`, `*roi-calculator*.xlsx`, `*cap-table*.xlsx` | Sensitive financial projections and capitalization data |
-| **Proprietary Algorithms** | `/dws-core/proprietary/`, `/algorithms/confidential/` | DWS IQ trade secrets and confidential algorithms |
-| **Admin Documentation** | Admin/, admin/ | Admin manual, installation guides (ProtonDrive only) |
+| **Customer Data**              | `/customer-data/`, `/pilot-data/`, `/ncc-data/`, `/t2h-data/`                                 | GDPR-protected customer information and pilot project data       |
+| **API Keys & Credentials**     | `.env.local`, `.env.*.local`, `credentials.json`, `service-account-*.json`                    | API keys, service accounts, local environment secrets            |
+| **Financial Models**           | `*financial-model*.xlsx`, `*roi-calculator*.xlsx`, `*cap-table*.xlsx`                         | Sensitive financial projections and capitalization data          |
+| **Proprietary Algorithms**     | `/dws-core/proprietary/`, `/algorithms/confidential/`                                         | DWS IQ trade secrets and confidential algorithms                 |
+| **Admin Documentation**        | Admin/, admin/                                                                                | Admin manual, installation guides (ProtonDrive only)             |
 
 ### Directory Structure for Sensitive Data
 
@@ -2180,13 +2256,13 @@ If sensitive data was accidentally committed:
 
 To ensure automatic protection, use these naming conventions:
 
-| Type | Pattern | Example |
-|------|---------|---------|
-| Confidential docs | `*-confidential.*` | `roadmap-confidential.pdf` |
-| Confidential data | `*.confidential.*` | `data.confidential.xlsx` |
-| Financial models | `*financial-model*` | `2025-financial-model.xlsx` |
-| ROI calculators | `*roi-calculator*` | `customer-roi-calculator.xlsx` |
-| Cap tables | `*cap-table*` | `lifetime-cap-table.xlsx` |
+| Type              | Pattern             | Example                        |
+| ----------------- | ------------------- | ------------------------------ |
+| Confidential docs | `*-confidential.*`  | `roadmap-confidential.pdf`     |
+| Confidential data | `*.confidential.*`  | `data.confidential.xlsx`       |
+| Financial models  | `*financial-model*` | `2025-financial-model.xlsx`    |
+| ROI calculators   | `*roi-calculator*`  | `customer-roi-calculator.xlsx` |
+| Cap tables        | `*cap-table*`       | `lifetime-cap-table.xlsx`      |
 
 ---
 
@@ -2243,13 +2319,13 @@ If security vulnerability is actively exploited:
 
 ### Key URLs
 
-| Service | URL |
-|---------|-----|
-| **GitHub Repo** | https://github.com/blogtheristo/dws6 |
-| **Cloudflare Dashboard** | https://dash.cloudflare.com |
-| **onelifetime.world** | https://onelifetime.world |
-| **dws10.com** | https://dws10.com |
-| **Peachscore** | https://app.peachscore.com/company/lifetime-oy |
+| Service                  | URL                                            |
+| ------------------------ | ---------------------------------------------- |
+| **GitHub Repo**          | https://github.com/blogtheristo/dws6           |
+| **Cloudflare Dashboard** | https://dash.cloudflare.com                    |
+| **onelifetime.world**    | https://onelifetime.world                      |
+| **dws10.com**            | https://dws10.com                              |
+| **Peachscore**           | https://app.peachscore.com/company/lifetime-oy |
 
 ---
 
@@ -2284,43 +2360,43 @@ The DWS IQ 6 Security Framework is a comprehensive 5-layer security architecture
 
 ### Security Tools Stack
 
-| Tool | Purpose | Status |
-|------|---------|--------|
-| **Snyk** | Dependency scanning (SCA, SAST) | ✅ Active |
-| **Aikido** | Runtime threat detection | ✅ Active |
-| **Ruff** | Python security linting | ✅ Active (398 fixes) |
-| **CodeQL** | Code analysis (SARIF) | ✅ Active |
-| **pip-audit** | Python vulnerability scanning | ✅ Active |
-| **safety** | Python security database | ✅ Active |
-| **cyclonedx-bom** | SBOM generation | ✅ Active |
-| **pip-licenses** | License compliance | ✅ Active |
+| Tool              | Purpose                         | Status                |
+| ----------------- | ------------------------------- | --------------------- |
+| **Snyk**          | Dependency scanning (SCA, SAST) | ✅ Active             |
+| **Aikido**        | Runtime threat detection        | ✅ Active             |
+| **Ruff**          | Python security linting         | ✅ Active (398 fixes) |
+| **CodeQL**        | Code analysis (SARIF)           | ✅ Active             |
+| **pip-audit**     | Python vulnerability scanning   | ✅ Active             |
+| **safety**        | Python security database        | ✅ Active             |
+| **cyclonedx-bom** | SBOM generation                 | ✅ Active             |
+| **pip-licenses**  | License compliance              | ✅ Active             |
 
 ### Compliance Status (January 2026)
 
-| Regulation | Status | Score |
-|------------|--------|-------|
-| **GDPR** | ✅ Compliant | 95% |
-| **NIS2** | ✅ Compliant | 95% |
-| **EU Cybersecurity Act** | ✅ Compliant | 95% |
-| **OWASP Top 10** | ✅ Protected | 95% |
+| Regulation               | Status       | Score |
+| ------------------------ | ------------ | ----- |
+| **GDPR**                 | ✅ Compliant | 95%   |
+| **NIS2**                 | ✅ Compliant | 95%   |
+| **EU Cybersecurity Act** | ✅ Compliant | 95%   |
+| **OWASP Top 10**         | ✅ Protected | 95%   |
 
 ### Week 53 Security Fixes (449 → 0 issues)
 
-| Category | Count | Status |
-|----------|-------|--------|
-| **Critical** | 4 | ✅ Fixed |
-| **High** | 8 | ✅ Fixed |
-| **Medium** | 6 | ✅ Fixed |
-| **Total** | **18** | ✅ **ALL RESOLVED** |
+| Category     | Count  | Status              |
+| ------------ | ------ | ------------------- |
+| **Critical** | 4      | ✅ Fixed            |
+| **High**     | 8      | ✅ Fixed            |
+| **Medium**   | 6      | ✅ Fixed            |
+| **Total**    | **18** | ✅ **ALL RESOLVED** |
 
 ### Security Documentation
 
-| Document | Location | Purpose |
-|----------|----------|---------|
-| `MASTER_INDEX.md` | `Admin/Security/` | Security stack overview |
-| `COMPLETE_SECURITY_STACK_SUMMARY.md` | `Admin/Security/` | Executive summary |
-| `SECURITY_WORKFLOW_SNYK_AIKIDO.md` | `Admin/Security/` | Workflow documentation |
-| `JANUARY_2026_SECURITY_UPDATE.md` | `Admin/Security/` | Week 53 security updates |
+| Document                             | Location          | Purpose                  |
+| ------------------------------------ | ----------------- | ------------------------ |
+| `MASTER_INDEX.md`                    | `Admin/Security/` | Security stack overview  |
+| `COMPLETE_SECURITY_STACK_SUMMARY.md` | `Admin/Security/` | Executive summary        |
+| `SECURITY_WORKFLOW_SNYK_AIKIDO.md`   | `Admin/Security/` | Workflow documentation   |
+| `JANUARY_2026_SECURITY_UPDATE.md`    | `Admin/Security/` | Week 53 security updates |
 
 ---
 
@@ -2333,11 +2409,13 @@ DWS IQ platform provides comprehensive training resources for administrators, de
 ### Administrator Training
 
 #### Core Platform Administration
+
 - **Duration:** 2-4 hours
 - **Prerequisites:** System administration experience, basic cloud infrastructure knowledge
 - **Location:** `Admin/ADMIN_MANUAL.md` (this document)
 
 **Topics Covered:**
+
 1. Platform architecture and infrastructure setup
 2. Deployment procedures (Cloudflare Pages, Cloud Run, Watsonx)
 3. Security monitoring and compliance (GDPR, NIS2)
@@ -2345,11 +2423,13 @@ DWS IQ platform provides comprehensive training resources for administrators, de
 5. Emergency response protocols
 
 #### AI Model Training (LWM/Firehorse)
+
 - **Duration:** 8-16 hours (hands-on)
 - **Prerequisites:** Python programming, ML fundamentals, NVIDIA GPU access
 - **Location:** `product-catalog/LWM/training-manual.md`
 
 **Topics Covered:**
+
 1. Infrastructure setup (Acer Veriton GN-100, NVIDIA drivers, CUDA)
 2. Claude API integration for synthetic data generation
 3. QLoRA fine-tuning procedures
@@ -2358,6 +2438,7 @@ DWS IQ platform provides comprehensive training resources for administrators, de
 6. NVIDIA Inception Program integration
 
 **Training Pipeline:**
+
 ```
 Phase 1: Environment Setup (2 hours)
   ├── Hardware verification
@@ -2384,21 +2465,25 @@ Phase 4: Evaluation & Deployment (2 hours)
 ### Developer Training
 
 #### Frontend Development
+
 - **Duration:** 4 hours
 - **Location:** Repository `dws6/`, component documentation
 - **Framework:** React + TypeScript + Tailwind CSS
 
 **Topics:**
+
 1. Component architecture (Agent UI, Dashboard, Product pages)
 2. Styling system (Tailwind + custom utilities)
 3. State management (Vercel AI SDK, Supabase)
 4. Build and deployment workflow
 
 #### Backend Development
+
 - **Duration:** 4 hours
 - **Location:** `ADMIN_MANUAL_SUPABASE_EN_v1.md`, API documentation
 
 **Topics:**
+
 1. Supabase integration (PostgreSQL, Auth, Storage)
 2. Edge Function development
 3. API endpoint creation and testing
@@ -2407,22 +2492,26 @@ Phase 4: Evaluation & Deployment (2 hours)
 ### End-User Training
 
 #### DWS IQ Dashboard
+
 - **Duration:** 1 hour
 - **Location:** `ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md`
 - **Audience:** Construction professionals, logistics managers
 
 **Topics:**
+
 1. Dashboard navigation and key features
 2. Project creation and management
 3. Compliance tracking (Fit for 55, CSRD)
 4. Report generation
 
 #### Firehorse Forensic AI
+
 - **Duration:** 2 hours
 - **Location:** `product-catalog/Firehorse/V2/product-specification.md`
 - **Audience:** Auditors, compliance officers
 
 **Topics:**
+
 1. Creating compliance audits
 2. Site reconstruction with Digital Twin
 3. Carbon emissions tracking
@@ -2430,26 +2519,30 @@ Phase 4: Evaluation & Deployment (2 hours)
 
 ### Training Resources
 
-| Resource | Type | Location | Purpose |
-|----------|------|----------|---------|
-| **LWM Training Manual** | Technical guide | `product-catalog/LWM/training-manual.md` | Complete AI model training workflow |
-| **Admin Manual** | Reference | `Admin/ADMIN_MANUAL.md` | Platform administration |
-| **Installation Manual** | Setup guide | `Admin/INSTALLATION_MANUAL.md` | Multi-cloud deployment |
-| **Dashboard Manual** | User guide | `ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md` | End-user interface |
-| **Security Manual** | Compliance guide | `Admin/Security/MASTER_INDEX.md` | Security stack |
-| **Product Catalog** | Product docs | `product-catalog/` | LWM, Firehorse specifications |
+| Resource                | Type             | Location                                 | Purpose                             |
+| ----------------------- | ---------------- | ---------------------------------------- | ----------------------------------- |
+| **LWM Training Manual** | Technical guide  | `product-catalog/LWM/training-manual.md` | Complete AI model training workflow |
+| **Admin Manual**        | Reference        | `Admin/ADMIN_MANUAL.md`                  | Platform administration             |
+| **Installation Manual** | Setup guide      | `Admin/INSTALLATION_MANUAL.md`           | Multi-cloud deployment              |
+| **Dashboard Manual**    | User guide       | `ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md`     | End-user interface                  |
+| **Security Manual**     | Compliance guide | `Admin/Security/MASTER_INDEX.md`         | Security stack                      |
+| **Product Catalog**     | Product docs     | `product-catalog/`                       | LWM, Firehorse specifications       |
 
 ### Certification Paths
 
 #### DWS IQ Certified Administrator
+
 **Requirements:**
+
 - [ ] Complete platform administration training
 - [ ] Deploy DWS IQ on at least one cloud platform
 - [ ] Pass security compliance audit (GDPR/NIS2)
 - [ ] Document 2 successful emergency recovery procedures
 
 #### LWM Certified Trainer
+
 **Requirements:**
+
 - [ ] Complete LWM training manual course
 - [ ] Successfully train 1 industry-specific model
 - [ ] Achieve >80% pass rate on Claude-as-judge evaluation
@@ -2458,27 +2551,30 @@ Phase 4: Evaluation & Deployment (2 hours)
 ### Training Schedule
 
 **Weekly:**
+
 - Security monitoring review (1 hour)
 - Dependency updates and testing (2 hours)
 
 **Monthly:**
+
 - Platform administration refresher (2 hours)
 - New feature training (as released)
 - Compliance updates (GDPR, NIS2, EU AI Act)
 
 **Quarterly:**
+
 - Complete security audit training
 - New industry model training (LWM)
 - Customer success case study review
 
 ### External Training Partners
 
-| Partner | Program | Focus Area | Link |
-|---------|---------|------------|------|
-| **NVIDIA** | Deep Learning Institute (DLI) | GPU-accelerated AI training | https://www.nvidia.com/en-us/training/ |
-| **NVIDIA** | Inception Program | Startup support, DGX Cloud access | https://www.nvidia.com/en-us/startups/ |
-| **Anthropic** | Claude API Documentation | LLM integration | https://docs.anthropic.com/ |
-| **Hugging Face** | Transformers Course | Open-source LLM fine-tuning | https://huggingface.co/course |
+| Partner          | Program                       | Focus Area                        | Link                                   |
+| ---------------- | ----------------------------- | --------------------------------- | -------------------------------------- |
+| **NVIDIA**       | Deep Learning Institute (DLI) | GPU-accelerated AI training       | https://www.nvidia.com/en-us/training/ |
+| **NVIDIA**       | Inception Program             | Startup support, DGX Cloud access | https://www.nvidia.com/en-us/startups/ |
+| **Anthropic**    | Claude API Documentation      | LLM integration                   | https://docs.anthropic.com/            |
+| **Hugging Face** | Transformers Course           | Open-source LLM fine-tuning       | https://huggingface.co/course          |
 
 ### Support Resources
 
@@ -2489,6 +2585,7 @@ Phase 4: Evaluation & Deployment (2 hours)
 ### Training Metrics
 
 Track training effectiveness:
+
 - [ ] Administrator onboarding time: Target <8 hours
 - [ ] LWM model training success rate: Target >90%
 - [ ] Security incident response time: Target <2 hours
@@ -2496,19 +2593,96 @@ Track training effectiveness:
 
 ---
 
+## Local-First CI + Audit Log (2026-04-22)
+
+DWS6 runs CI checks **locally** (dev machines) and **on DGX Spark** (weekly
+cron), not on GitHub Actions. Every run produces a tamper-evident audit
+record mirrored to Supabase `ci_audit_log` as the legal record-of-truth.
+
+**Why:** GitHub Actions minutes are paid and slow (2–5 min queue + run) for
+checks that take <1 min locally. EU AI Act Art. 12 and CSRD ESRS G1 require
+traceable, tamper-evident audit trails with EU residency — GitHub Actions
+logs don't meet that bar; Supabase europe-north1 (Helsinki) + RLS-enforced
+INSERT-only does.
+
+### Architecture
+
+```
+Dev laptop                      DGX Spark (weekly cron)
+git push → .githooks/pre-push   scripts/weekly/security-audit.sh
+  → scripts/local-ci.sh            (same record format, runner_kind=dgx-spark)
+  ↓                                ↓
+.ci-audit/runs/<ts>_<sha>.json (hash-chained, committed to git)
+  ↓
+Supabase ci_audit_log (INSERT-only, EU, tamper-evident)
+  ↓
+GitHub: CI Audit Gate workflow (~3s) — verifies chain + HEAD coverage
+```
+
+### Files
+
+| File                                    | Purpose                                                   |
+| --------------------------------------- | --------------------------------------------------------- |
+| `scripts/local-ci.sh`                   | Runner: vitest + gitleaks + npm-audit + ruff              |
+| `scripts/ci-audit-verify.sh`            | Verifier: chain integrity + HEAD coverage                 |
+| `scripts/ci-audit-upload.ts`            | Supabase uploader (no-op if env/table missing)            |
+| `scripts/weekly/security-audit.sh`      | DGX Spark weekly replacement for GitHub security scanners |
+| `.githooks/pre-push`                    | Runs `local-ci.sh` after ZenFree on every `git push`      |
+| `.github/workflows/ci-audit-verify.yml` | 3-second GitHub gate (verify-only)                        |
+| `.ci-audit/runs/*.json`                 | Local hash-chained audit records (committed)              |
+| `.ci-audit/README.md`                   | Quick-reference for the record format                     |
+| `docs/CI_AUDIT.md`                      | Full developer spec + Supabase migration SQL              |
+| `Admin/ADMIN_MANUAL_AUDIT.md`           | External-auditor manual (evidence packs, queries)         |
+
+### What was disabled
+
+Four GitHub workflows renamed `.yml.disabled` (rename back to re-enable):
+`test.yml`, `secret-scan-gitleaks.yml`, `dependency_review.yml`, `ruff.yml`.
+
+### Setup (once per clone)
+
+```bash
+git config core.hooksPath .githooks
+export SUPABASE_URL="https://<ref>.supabase.co"        # enables legal record
+export SUPABASE_SERVICE_ROLE_KEY="eyJ..."
+```
+
+Apply the `ci_audit_log` Supabase migration (SQL block in `docs/CI_AUDIT.md`)
+— it is RED-zone per CLAUDE.md, so a human must run it in Supabase SQL
+editor. Without the table, local records still work; Supabase upload is a
+no-op with warning until the table exists.
+
+### Override paths (all audited)
+
+- Normal: `git push` — runs local-ci, writes record, gate on GitHub verifies
+- Skip CI only (keep ZenFree): `SKIP_LOCAL_CI=1 git push` — visible in shell history
+- Skip every hook: `git push --no-verify` — recorded in git reflog
+- Commits pushed without an audit record will fail the GitHub gate
+
+### External auditor reference
+
+For external auditors (EU AI Act, GDPR, ISO 27001, PiTuKri), see the
+dedicated **Audit Manual** at `Admin/ADMIN_MANUAL_AUDIT.md`. It contains:
+the four audit-trail inventory, sample SQL queries for evidence pulls,
+integrity-check procedures, retention policy, and the read-only
+auditor-access model.
+
+---
+
 ## Document Changelog
 
-| Version | Date | Changes | Session ID |
-|---------|------|---------|-----------|
-| 1.8 | Feb 6, 2026 | DWS Document Standard header; Admin Manuals Index (23 manuals); Revolut Payments & Store; MCP Configuration (Supabase, Upstash Redis, MCP Hub); AI Agent Operational Guidelines (Karpathy); Security Glossary & OWASP; DPA summary; Backup & Sync Infrastructure; Multi-Agent Orchestration (Subagents vs Agent Teams, Upstash Redis) | Rm8Jw |
-| 1.7 | Jan 29, 2026 | Added Climate Assistant Chat Widget section with embed code, features, security configuration (Helmet CSP), and troubleshooting | krDzD |
-| 1.6 | Jan 24, 2026 | Added Training section with LWM/Firehorse training workflows, certification paths, and external partner resources; Updated training manual location references | r6bU3 |
-| 1.5 | Jan 4, 2026 | Added AI Model Configuration (Sonnet → Opus 4.5 switch); Added DWS IQ 6 Security Framework section; Updated compliance scores to 95% | - |
-| 1.4 | Jan 3, 2026 | Added Code Review Process section; Removed Argus PR Review (moved to Archive); Documented Cursor AI + Snyk MCP workflow | - |
-| 1.3 | Dec 23, 2025 | Added AI Agent Policy section based on 2,500+ agent analysis; Protected admin directory in .gitignore | PxSux |
-| 1.2 | Dec 19, 2025 | Added Bug Tracking & Security Maintenance section with 20-bug fix history, monthly maintenance budget, bug hunting roadmap | - |
-| 1.1 | Dec 11, 2025 | Added Sensitive Data Protection section (GDPR/ISO 27001 compliance) | - |
-| 1.0 | Nov 23, 2025 | Initial creation, documented session history | - |
+| Version | Date         | Changes                                                                                                                                                                                                                                                                                                                               | Session ID |
+| ------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| 2.2     | Apr 22, 2026 | Added Local-First CI + Audit Log section (scripts/local-ci.sh, ci-audit-verify.sh, ci-audit-upload.ts, weekly/security-audit.sh, .ci-audit/, ci-audit-verify.yml gate); linked new Audit Manual for external auditors; indexed Files & Folders manual                                                                                 | vBYGo      |
+| 1.8     | Feb 6, 2026  | DWS Document Standard header; Admin Manuals Index (23 manuals); Revolut Payments & Store; MCP Configuration (Supabase, Upstash Redis, MCP Hub); AI Agent Operational Guidelines (Karpathy); Security Glossary & OWASP; DPA summary; Backup & Sync Infrastructure; Multi-Agent Orchestration (Subagents vs Agent Teams, Upstash Redis) | Rm8Jw      |
+| 1.7     | Jan 29, 2026 | Added Climate Assistant Chat Widget section with embed code, features, security configuration (Helmet CSP), and troubleshooting                                                                                                                                                                                                       | krDzD      |
+| 1.6     | Jan 24, 2026 | Added Training section with LWM/Firehorse training workflows, certification paths, and external partner resources; Updated training manual location references                                                                                                                                                                        | r6bU3      |
+| 1.5     | Jan 4, 2026  | Added AI Model Configuration (Sonnet → Opus 4.5 switch); Added DWS IQ 6 Security Framework section; Updated compliance scores to 95%                                                                                                                                                                                                  | -          |
+| 1.4     | Jan 3, 2026  | Added Code Review Process section; Removed Argus PR Review (moved to Archive); Documented Cursor AI + Snyk MCP workflow                                                                                                                                                                                                               | -          |
+| 1.3     | Dec 23, 2025 | Added AI Agent Policy section based on 2,500+ agent analysis; Protected admin directory in .gitignore                                                                                                                                                                                                                                 | PxSux      |
+| 1.2     | Dec 19, 2025 | Added Bug Tracking & Security Maintenance section with 20-bug fix history, monthly maintenance budget, bug hunting roadmap                                                                                                                                                                                                            | -          |
+| 1.1     | Dec 11, 2025 | Added Sensitive Data Protection section (GDPR/ISO 27001 compliance)                                                                                                                                                                                                                                                                   | -          |
+| 1.0     | Nov 23, 2025 | Initial creation, documented session history                                                                                                                                                                                                                                                                                          | -          |
 
 ---
 

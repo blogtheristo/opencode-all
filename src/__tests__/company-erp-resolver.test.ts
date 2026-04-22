@@ -11,6 +11,7 @@ import {
   resolveCompanyERPBatch,
 } from '../integrations/erp/company-erp-resolver';
 import { ERPProvider } from '../integrations/erp/types';
+import { resolveErpForBuyer } from '../construction-leads/company-erp-resolver.js';
 
 describe('Company ERP Resolver', () => {
   describe('resolveCompanyERP', () => {
@@ -116,6 +117,21 @@ describe('Company ERP Resolver', () => {
       const a = listRegisteredCompanies();
       const b = listRegisteredCompanies();
       expect(a).not.toBe(b);
+    });
+  });
+
+  describe('resolveErpForBuyer', () => {
+    it('matches known contractor patterns', () => {
+      expect(resolveErpForBuyer('STRABAG AG', 'DE')).toBe('SAP');
+      expect(resolveErpForBuyer('Skanska Sverige', 'SE')).toBe('IFS');
+    });
+
+    it('falls back to country hint', () => {
+      expect(resolveErpForBuyer('Some Municipality', 'FI')).toBe('IFS');
+    });
+
+    it('returns unknown when no signal', () => {
+      expect(resolveErpForBuyer('Obscure Buyer Ltd', 'ZZ')).toBe('unknown');
     });
   });
 });

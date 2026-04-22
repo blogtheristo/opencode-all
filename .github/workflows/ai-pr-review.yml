@@ -364,77 +364,8 @@ IMPORTANT RULES:
           fi
 
       # ──────────────────────────────────────────────
-      # STEP 2b: Grok Fast Review (xAI — alternative gate)
-      # Uses grok-3-fast via OpenAI-compatible xAI API.
-      # Acts as tiebreaker / Gemini fallback when neither GOOGLE_AI_API_KEY
-      # nor GOOGLE_API_KEY is configured. Any REQUEST_CHANGES from any reviewer blocks merge.
-      # ──────────────────────────────────────────────
-      - name: Grok Fast Review
-        id: grok-review
-        if: steps.conflict-check.outputs.has_conflicts != 'true' && secrets.XAI_API_KEY != ''
-        env:
-          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
-          PR_TITLE: ${{ github.event.pull_request.title }}
-          PR_BODY_RAW: ${{ github.event.pull_request.body }}
-        run: |
-          PR_BODY=$(printf '%s' "$PR_BODY_RAW" | head -c 1000)
-
-          PROMPT_STATIC='You are a fast senior engineer doing a focused code review. Be concise and high-signal only.
-
-Project: DWS IQ 6 — enterprise climate intelligence platform
-Stack: TypeScript 5.9, React 19, Express, Python 3.11, Supabase, TailwindCSS
-
-Check ONLY:
-1. Security (API key exposure, injection, auth gaps)
-2. Logic errors and null/undefined issues
-3. Missing tests for new logic
-
-FORMAT EXACTLY AS:
-## Grok Fast Review
-**Summary:** [1 sentence]
-**Issues:** [list with file:line, or None]
-**Verdict:** APPROVE / REQUEST_CHANGES'
-
-          PAYLOAD=$(jq -n \
-            --arg static "$PROMPT_STATIC" \
-            --arg title  "$PR_TITLE" \
-            --arg body   "$PR_BODY" \
-            --rawfile diff  /tmp/pr-diff.txt \
-            --rawfile files /tmp/changed-files.txt \
-            '{
-              model: "grok-3-fast",
-              max_tokens: 800,
-              messages: [{
-                role: "user",
-                content: (
-                  $static
-                  + "\n\nPR Title: " + $title
-                  + "\nPR Description: " + $body
-                  + "\n\nChanged files:\n" + $files
-                  + "\nDiff:\n" + $diff
-                )
-              }]
-            }')
-
-          RESPONSE=$(curl -s --max-time 60 -X POST \
-            "https://api.x.ai/v1/chat/completions" \
-            -H "Authorization: Bearer ${XAI_API_KEY}" \
-            -H "Content-Type: application/json" \
-            -d "$PAYLOAD" \
-            | jq -r '.choices[0].message.content // "Grok review unavailable"')
-
-          echo "$RESPONSE" > /tmp/grok-review.txt
-
-          if echo "$RESPONSE" | grep -q "APPROVE" && ! echo "$RESPONSE" | grep -qi "REQUEST_CHANGES"; then
-            echo "verdict=approve" >> $GITHUB_OUTPUT
-          else
-            echo "verdict=request_changes" >> $GITHUB_OUTPUT
-          fi
-
-      # ──────────────────────────────────────────────
       # STEP 3: Combine verdicts and post review
-      # Any REQUEST_CHANGES blocks. Gemini is primary gate;
-      # Grok is alternative gate when Gemini is absent.
+      # Any REQUEST_CHANGES blocks. Gemini is the HIL gate.
       # ──────────────────────────────────────────────
       - name: Determine combined verdict
         id: combined
@@ -442,31 +373,21 @@ FORMAT EXACTLY AS:
         run: |
           CLAUDE="${{ steps.claude-review.outputs.verdict }}"
           GEMINI="${{ steps.gemini-review.outputs.verdict }}"
-          GROK="${{ steps.grok-review.outputs.verdict }}"
 
-          # Gate priority: Gemini → Grok → Claude
+          # Gate priority: Gemini → Claude
           # Any single request_changes blocks merge.
-          # If Gemini absent, Grok acts as the HIL gate.
-          if [ -z "$GEMINI" ] && [ -z "$GROK" ] && [ -z "$CLAUDE" ]; then
+          if [ -z "$GEMINI" ] && [ -z "$CLAUDE" ]; then
             echo "verdict=comment" >> $GITHUB_OUTPUT
             echo "gate=none" >> $GITHUB_OUTPUT
-          elif [ -z "$GEMINI" ] && [ -z "$GROK" ]; then
+          elif [ -z "$GEMINI" ]; then
             echo "verdict=$CLAUDE" >> $GITHUB_OUTPUT
             echo "gate=claude-only" >> $GITHUB_OUTPUT
-          elif [ -z "$GEMINI" ]; then
-            # Grok is the gate (Gemini absent)
-            if [ "$GROK" = "request_changes" ] || [ "$CLAUDE" = "request_changes" ]; then
-              echo "verdict=request_changes" >> $GITHUB_OUTPUT
-            else
-              echo "verdict=approve" >> $GITHUB_OUTPUT
-            fi
-            echo "gate=grok-gate" >> $GITHUB_OUTPUT
-          elif [ "$GEMINI" = "request_changes" ] || [ "$CLAUDE" = "request_changes" ] || [ "$GROK" = "request_changes" ]; then
+          elif [ "$GEMINI" = "request_changes" ] || [ "$CLAUDE" = "request_changes" ]; then
             echo "verdict=request_changes" >> $GITHUB_OUTPUT
-            echo "gate=triple" >> $GITHUB_OUTPUT
+            echo "gate=dual" >> $GITHUB_OUTPUT
           else
             echo "verdict=approve" >> $GITHUB_OUTPUT
-            echo "gate=triple" >> $GITHUB_OUTPUT
+            echo "gate=dual" >> $GITHUB_OUTPUT
           fi
 
       - name: Post combined review comment
@@ -480,12 +401,10 @@ FORMAT EXACTLY AS:
 
             let body = '## AI Code Review (HIL Automation)\n\n';
 
-            if (gate === 'triple') {
-              body += '> Triple-model review: Claude (sanity) + Gemini (deep HIL) + Grok Fast (alternative gate)\n\n';
-            } else if (gate === 'grok-gate') {
-              body += '> Dual-model review: Claude (sanity) + Grok Fast (HIL gate — Gemini unavailable)\n\n';
+            if (gate === 'dual') {
+              body += '> Dual-model review: Claude (sanity) + Gemini (deep HIL)\n\n';
             } else if (gate === 'claude-only') {
-              body += '> Claude review only (configure `GOOGLE_AI_API_KEY` (or `GOOGLE_API_KEY`) or `XAI_API_KEY` to enable HIL gate)\n\n';
+              body += '> Claude review only (configure `GOOGLE_AI_API_KEY` or `GOOGLE_API_KEY` to enable HIL gate)\n\n';
             } else {
               body += '> No AI review available (configure API key secrets)\n\n';
             }
@@ -503,14 +422,6 @@ FORMAT EXACTLY AS:
               const gemini = fs.readFileSync('/tmp/gemini-review.txt', 'utf8');
               if (gemini && !gemini.includes('unavailable')) {
                 body += gemini + '\n\n---\n\n';
-              }
-            } catch {}
-
-            // Grok review (alternative gate)
-            try {
-              const grok = fs.readFileSync('/tmp/grok-review.txt', 'utf8');
-              if (grok && !grok.includes('unavailable')) {
-                body += grok + '\n\n---\n\n';
               }
             } catch {}
 

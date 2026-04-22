@@ -15,21 +15,23 @@
  * Owner: Lifetime Oy
  */
 
-import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
 import type {
-  MemoryCacheEntry,
-  MemoryForgetInput,
-  MemoryForgetResult,
   MemoryItem,
-  MemoryProfile,
-  MemoryRecallInput,
-  MemoryRecallResult,
   MemoryStoreInput,
   MemoryStoreResult,
+  MemoryRecallInput,
+  MemoryRecallResult,
+  MemoryForgetInput,
+  MemoryForgetResult,
   MemorySupersedeInput,
   MemorySupersedeResult,
+  MemoryProfile,
+  MemoryCacheEntry,
   ProfileFact,
+  DuplicatePair,
+  ConsolidationResult,
 } from './memory.types.js';
 
 // ============ LRU CACHE ============
@@ -99,7 +101,9 @@ export class MemoryService {
 
     // Check for near-duplicates (similarity > 0.95)
     if (embedding) {
-      const duplicate = await this.findDuplicate(client, embedding, input.orgId, input.customerId);
+      const duplicate = await this.findDuplicate(
+        client, embedding, input.orgId, input.customerId,
+      );
       if (duplicate) {
         logger.debug('Memory duplicate detected', { duplicateOf: duplicate });
         // Touch the existing memory instead of creating new
@@ -204,10 +208,7 @@ export class MemoryService {
 
         // Touch recalled memories (update access tracking)
         for (const mem of memories) {
-          client.rpc('touch_memory', { memory_id: mem.id }).then(
-            () => {},
-            () => {},
-          );
+          client.rpc('touch_memory', { memory_id: mem.id }).catch(() => {});
         }
       }
     } else {
@@ -264,7 +265,7 @@ export class MemoryService {
   async getProfile(
     entityId: string,
     entityType: 'customer' | 'organization',
-    _orgId: string,
+    orgId: string,
   ): Promise<MemoryProfile> {
     const client = this.getClient();
     const emptyProfile: MemoryProfile = {
@@ -296,15 +297,15 @@ export class MemoryService {
 
     // Extract facts from knowledge/fact type memories
     const facts: ProfileFact[] = data
-      .filter(
-        (m: Record<string, unknown>) => m.memory_type === 'fact' || m.memory_type === 'knowledge',
+      .filter((m: Record<string, unknown>) =>
+        m.memory_type === 'fact' || m.memory_type === 'knowledge'
       )
       .map((m: Record<string, unknown>) => ({
-        subject: ((m.metadata as Record<string, unknown>)?.subject as string) || entityId,
-        predicate: ((m.metadata as Record<string, unknown>)?.predicate as string) || 'knows',
+        subject: (m.metadata as Record<string, unknown>)?.subject as string || entityId,
+        predicate: (m.metadata as Record<string, unknown>)?.predicate as string || 'knows',
         value: m.content as string,
         confidence: m.confidence as number,
-        source: (m.source as string) || 'unknown',
+        source: m.source as string || 'unknown',
         lastUpdated: m.created_at as string,
       }));
 
@@ -320,7 +321,9 @@ export class MemoryService {
     const episodes = data
       .filter((m: Record<string, unknown>) => m.memory_type === 'episode')
       .slice(0, 5);
-    const recentContext = episodes.map((e: Record<string, unknown>) => e.content).join(' | ');
+    const recentContext = episodes
+      .map((e: Record<string, unknown>) => e.content)
+      .join(' | ');
 
     return {
       entityId,
@@ -467,7 +470,7 @@ export class MemoryService {
       return { decayedCount: 0, forgottenCount: 0, forgottenIds: [], dryRun };
     }
 
-    const rows = (data || []) as Array<{
+    const rows = (Array.isArray(data) ? data : []) as Array<{
       memory_id: string;
       org_id: string;
       old_confidence: number;
@@ -508,7 +511,168 @@ export class MemoryService {
     };
   }
 
+  /**
+   * Find and consolidate near-duplicate memories for a specific customer.
+   * GDPR Art 5 compliant: orgId and customerId are mandatory, non-nullable.
+   * Cross-customer comparison is structurally impossible.
+   *
+   * Auto-consolidates pairs with similarity >= 0.92 via supersede().
+   * Flags pairs in 0.80–0.92 range for human review.
+   */
+  async consolidateDuplicates(
+    orgId: string,
+    customerId: string,
+    options?: { dryRun?: boolean; autoThreshold?: number; reviewThreshold?: number; limit?: number },
+  ): Promise<ConsolidationResult> {
+    return this.runConsolidation('find_duplicate_memories', {
+      p_org_id: orgId,
+      p_customer_id: customerId,
+      p_auto_threshold: options?.autoThreshold ?? 0.92,
+      p_review_threshold: options?.reviewThreshold ?? 0.80,
+      p_limit: options?.limit ?? 500,
+    }, orgId, options?.dryRun ?? false);
+  }
+
+  /**
+   * Find and consolidate near-duplicate org-level memories (customer_id IS NULL).
+   * Separate method to make the scoping explicit — no optional customer param.
+   */
+  async consolidateOrgDuplicates(
+    orgId: string,
+    options?: { dryRun?: boolean; autoThreshold?: number; reviewThreshold?: number; limit?: number },
+  ): Promise<ConsolidationResult> {
+    return this.runConsolidation('find_duplicate_org_memories', {
+      p_org_id: orgId,
+      p_auto_threshold: options?.autoThreshold ?? 0.92,
+      p_review_threshold: options?.reviewThreshold ?? 0.80,
+      p_limit: options?.limit ?? 500,
+    }, orgId, options?.dryRun ?? false);
+  }
+
   // ============ PRIVATE HELPERS ============
+
+  /** Shared consolidation logic for customer-scoped and org-scoped dedup */
+  private async runConsolidation(
+    rpcName: string,
+    rpcParams: Record<string, unknown>,
+    orgId: string,
+    dryRun: boolean,
+  ): Promise<ConsolidationResult> {
+    const client = this.getClient();
+    if (!client) {
+      return { pairsFound: 0, autoConsolidated: 0, flaggedForReview: 0, blockedByKya: 0, pairs: [], dryRun: true };
+    }
+
+    const { data, error } = await client.rpc(rpcName, rpcParams);
+
+    if (error) {
+      logger.error('Consolidation scan failed', { error: error.message, rpcName });
+      return { pairsFound: 0, autoConsolidated: 0, flaggedForReview: 0, blockedByKya: 0, pairs: [], dryRun };
+    }
+
+    const rows = (data || []) as Array<{
+      memory_a_id: string;
+      memory_b_id: string;
+      content_a: string;
+      content_b: string;
+      confidence_a: number;
+      confidence_b: number;
+      cosine_similarity: number;
+      needs_review: boolean;
+      keep_id: string;
+      supersede_id: string;
+    }>;
+
+    const pairs: DuplicatePair[] = rows.map((r) => ({
+      memoryAId: r.memory_a_id,
+      memoryBId: r.memory_b_id,
+      contentA: r.content_a,
+      contentB: r.content_b,
+      confidenceA: r.confidence_a,
+      confidenceB: r.confidence_b,
+      cosineSimilarity: r.cosine_similarity,
+      needsReview: r.needs_review,
+      keepId: r.keep_id,
+      supersedeId: r.supersede_id,
+    }));
+
+    let autoConsolidated = 0;
+    let flaggedForReview = 0;
+    let blockedByKya = 0;
+
+    for (const pair of pairs) {
+      if (pair.needsReview) {
+        flaggedForReview++;
+        continue;
+      }
+
+      if (dryRun) {
+        autoConsolidated++;
+        continue;
+      }
+
+      // Auto-consolidate via supersede (inherits confidence_delta hard gate)
+      const keepContent = pair.keepId === pair.memoryAId ? pair.contentA : pair.contentB;
+      const result = await this.supersede({
+        oldMemoryId: pair.supersedeId,
+        newContent: keepContent,
+        orgId,
+        newConfidence: Math.max(pair.confidenceA, pair.confidenceB),
+        newSource: 'consolidation-cron',
+        reason: `duplicate_consolidation: cosine_similarity=${pair.cosineSimilarity.toFixed(3)}`,
+        agentId: 'consolidation-cron',
+      });
+
+      if (result.requiresReview) {
+        blockedByKya++;
+      } else if (result.newMemoryId) {
+        // Keep exactly one active canonical row: mark the previously kept source row
+        // as superseded by the new canonical memory returned by supersede_memory.
+        const { error: keepSupersedeError } = await client
+          .from('semantic_memories')
+          .update({ superseded_by: result.newMemoryId })
+          .eq('id', pair.keepId)
+          .eq('org_id', orgId)
+          .is('superseded_by', null);
+
+        if (keepSupersedeError) {
+          logger.warn('Consolidation keep-row supersede update failed', {
+            pairKeepId: pair.keepId,
+            newMemoryId: result.newMemoryId,
+            error: keepSupersedeError.message,
+          });
+        }
+        autoConsolidated++;
+      }
+    }
+
+    logger.info('Consolidation run complete', {
+      pairsFound: pairs.length,
+      autoConsolidated,
+      flaggedForReview,
+      blockedByKya,
+      dryRun,
+    });
+
+    // Log consolidation run to audit
+    this.logAudit('extract', 'consolidation-cron', orgId, undefined, {
+      operation: 'consolidation_run',
+      pairs_found: pairs.length,
+      auto_consolidated: autoConsolidated,
+      flagged_for_review: flaggedForReview,
+      blocked_by_kya: blockedByKya,
+      dry_run: dryRun,
+    }).catch(() => {});
+
+    return {
+      pairsFound: pairs.length,
+      autoConsolidated,
+      flaggedForReview,
+      blockedByKya,
+      pairs,
+      dryRun,
+    };
+  }
 
   /** Generate embedding using OpenAI text-embedding-3-small */
   private async generateEmbedding(text: string): Promise<number[] | null> {
@@ -521,7 +685,7 @@ export class MemoryService {
       const response = await fetch('https://api.openai.com/v1/embeddings', {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${this.embeddingApiKey}`,
+          'Authorization': `Bearer ${this.embeddingApiKey}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -535,7 +699,7 @@ export class MemoryService {
         return null;
       }
 
-      const data = (await response.json()) as {
+      const data = await response.json() as {
         data: Array<{ embedding: number[] }>;
       };
       return data.data[0].embedding;
@@ -603,7 +767,7 @@ export class MemoryService {
       orgId: row.org_id as string,
       memoryType: row.memory_type as MemoryItem['memoryType'],
       content: row.content as string,
-      similarity: undefined as number | undefined,
+      similarity: undefined,
       metadata: (row.metadata || {}) as Record<string, unknown>,
       createdAt: row.created_at as string,
       accessedAt: row.accessed_at as string | undefined,

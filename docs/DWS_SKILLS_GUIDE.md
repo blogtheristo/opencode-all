@@ -1,13 +1,14 @@
 # DWS Skills & Commands Complete Guide
 
 VERSION AND AGENT HISTORY
-Version: 1.4
+Version: 1.5
 Created: 2026-03-21
 Author: Claude Code (Opus 4.6)
 Session: claude/connect-kya-dws-cli-0MMIB
 Tool: Claude Code CLI
 Status: Published
 
+- Version: 1.5 | Agent: Claude Code (Opus 4.7) | Date: 22.04.2026 | Session: claude/github-version-compatibility-uTOO7 | Changes: Post-merge reconciliation — after merging main (PRs #1152 axios, #1153 Grok removal, #1156 npm audit, #1161 ollama-spark) the true skill count is 29 (26 slash + 3 discipline). Updated count line accordingly. No new content; fixes inconsistency introduced because /gh-to-mcp (v1.4) and /ollama-spark landed in parallel.
 - Version: 1.4 | Agent: Claude Code (Opus 4.7) | Date: 22.04.2026 | Session: claude/github-version-compatibility-uTOO7 | Changes: Added /gh-to-mcp skill (section 6.1a) — translates gh CLI commands to GitHub MCP tool calls and clarifies that gh and MCP are independently versioned; updated skill count from 24 to 25; added Quick Reference row; added docs/GITHUB_CLI_VS_MCP.md reference.
 - Version: 1.3 | Agent: Claude Code (Opus 4.7) | Date: 18.04.2026 | Session: claude/green-energy-roadmap-pEPPK | Changes: Added /regulatory-radar skill (section 5.2a) — EU regulatory pipeline scanner scoring upcoming instruments per customer; updated skill count from 23 to 24; added Quick Reference row. Skill spec only — agent implementation deferred until datacentre-compliance PRD Gate 1.
 - Version: 1.2 | Agent: Claude Code (Sonnet 4.6) | Date: 17.04.2026 | Session: claude/restore-language-bar-xH99X | Changes: Added /multilingual skill (section 8.2); updated skill count from 22 to 23; added row to Quick Reference; renamed section 8 to "Code Quality & Internationalisation".
@@ -16,7 +17,7 @@ Status: Published
 
 ## 1. Overview
 
-DWS IQ 6 provides **25 skills** for AI coding agents — 22 slash commands in `.claude/commands/` and 3 composable discipline skills in `skills/`. This guide explains every skill: what it does, when to use it, and how skills connect into workflows.
+DWS IQ 6 provides **29 skills** for AI coding agents — 26 slash commands in `.claude/commands/` and 3 composable discipline skills in `skills/`. This guide explains every skill: what it does, when to use it, and how skills connect into workflows.
 
 **Audience:** Human-in-the-loop (HIL) operators, developers using Claude Code, Cursor, or VS Code with DWS6.
 
@@ -260,6 +261,16 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 **What it does:** Inventories LSJ posts from the last 14 days, ranks them (time-on-page, lead attribution, share velocity, editorial judgement), picks **one Best Entry + three Runners-Up**, drafts an About-LSJ intro + 150-word Editor's Note + exactly-80-word Agentic Lens, generates an HTML post at `onelifetime.world/posts/lifetime-scope-issue-<nnn>-<yyyy-mm-dd>.html` (+ landing-pages mirror), and emits a LinkedIn-ready copy-paste block (plain text, no markdown, no angle-brackets around URLs, Links section with blog + YouTube + subscribe CTA). Never auto-posts to LinkedIn — the Editor sends manually.
 
 **Hard rules:** Agentic Lens never fabricates outcomes (CLAUDE.md Validated Mock Data Rule); if no real aggregate is available, states _"No verified outcomes this fortnight"_. Needs ≥ 4 posts in the window (1 best + 3 runners-up) or the biweekly cron skips the issue.
+
+### 6.6 /ollama-spark
+
+**When to use:** Anthropic / Claude / Groq is rate-limited or quota-exhausted, or the prompt contains EU-restricted data (PII, GDPR, EU AI Act high-risk) that must not leave DGX Spark, or you want cost-free batch inference on owned hardware. See CLAUDE.md §DGX Ollama Fallback Rule.
+
+**What it does:** Routes a one-shot prompt to Ollama running on DGX Spark via `ssh dgx-spark "curl -s http://localhost:11434/api/generate ..."`. Wrapper `scripts/ollama-spark.sh` handles JSON-escaping and the SSH transport; the skill `/ollama-spark <model> "<prompt>"` invokes it. `--list` enumerates pulled models on the Spark.
+
+**Example:** `/ollama-spark llama3.1:70b "Classify this CSRD disclosure: ..."` — full response on stdout, no per-token billing, no cloud egress.
+
+**Composes with:** Any DWS agent whose `LLMClient` catches a cloud 429 and wants a fallback; `/kya` for sovereignty-sensitive sessions; `/sovereignty-assess` for pre-flight checks on whether a prompt should go here by default.
 
 **Trigger phrases:** "lsj publish", "draft scope monthly", "best blog of the fortnight", "lifetime scope monthly", "linkedin newsletter draft", "prepare LSJ issue"
 
