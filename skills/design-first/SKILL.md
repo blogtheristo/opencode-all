@@ -42,9 +42,18 @@ RECOMMENDATION: Approach [X] because [reason].
 ## When to Skip This Gate
 
 - Bug fixes with clear root cause (1-2 files)
-- Documentation-only changes
+- **Docs-only changes** — markdown in `docs/`, `Admin/`, `Learn/`, `README.md`, or DWS standards at repo root. **Not** `.claude/**`, `skills/**`, `.github/**`, `scripts/**`, or any code path.
+- **Skill registration** — adding a `.claude/commands/*.md` that wraps an already-documented reference, provided ALL of:
+  - no change to `.claude/hooks/**`, `.claude/settings*.json`, or `.mcp.json`
+  - no new env vars, secrets, or permissions
+  - the skill only invokes existing tools / existing docs
+  - **PR is opened and CI is green before merge** (this is the recovery gate)
 - Dependency updates
 - User explicitly says "just do it"
+
+## Recovery Path If You Skip
+
+A skipped gate is only safe if the change goes through the **PR + CI** path. Direct commits to feature branches without a PR means our CI workflows never validate the change. For any skip above, the expectation is: push → open PR → wait for CI green → merge. No exceptions.
 
 ## DWS Integration
 
