@@ -66,6 +66,16 @@ const posts = [
     title: 'CORE: The EU Model That Maps Every Hybrid Threat',
     date: '16 Apr 2026',
   },
+  {
+    file: 'solid-layers-aiven-scaleway-kya.html',
+    title: 'Our Layers Are Solid — Aiven, Scaleway, KYA + Foundry',
+    date: '22 Apr 2026',
+  },
+  {
+    file: 'mcp-apps-identity-spine.html',
+    title: 'MCP Apps Extends the Frontier — KYA Is the Identity Spine',
+    date: '22 Apr 2026',
+  },
 ];
 
 // Three featured products

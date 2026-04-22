@@ -108,6 +108,8 @@ Chronological order. Update this table when adding/removing posts.
 | 9   | `closing-the-bom-gap-cad-erp-sync.html`   | Closing the BOM Gap: CAD-ERP Sync                     | 26 Mar 2026 |
 | 10  | `liquidity-engine-captain-seats.html`     | The Liquidity Engine: Captain Seats                   | 28 Mar 2026 |
 | 11  | `core-resilience-hybrid-threats.html`     | CORE: The EU Model That Maps Every Hybrid Threat      | 16 Apr 2026 |
+| 12  | `solid-layers-aiven-scaleway-kya.html`    | Our Layers Are Solid — Aiven, Scaleway, KYA + Foundry | 22 Apr 2026 |
+| 13  | `mcp-apps-identity-spine.html`            | MCP Apps Extends the Frontier — KYA Identity Spine    | 22 Apr 2026 |
 
 ---
 
