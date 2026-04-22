@@ -15,6 +15,7 @@
  *   SUPABASE_URL, SUPABASE_SERVICE_KEY (for local audit logging)
  */
 
+import dns from 'node:dns';
 import nodemailer from 'nodemailer';
 import { appendFile, mkdir } from 'fs/promises';
 import { join } from 'path';
@@ -68,22 +69,61 @@ export function escapeHtml(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
-function createSmtpTransport(): nodemailer.Transporter | null {
-  const host = process.env.SMTP_HOST;
+let smtpIpv4PreferenceApplied = false;
+
+function applySmtpIpv4PreferenceIfRequested(): void {
+  if (process.env.SMTP_FORCE_IPV4 !== 'true' || smtpIpv4PreferenceApplied) {
+    return;
+  }
+  smtpIpv4PreferenceApplied = true;
+  dns.setDefaultResultOrder('ipv4first');
+}
+
+/** Trim .env values — trailing spaces after copy-paste cause SES 535 Invalid login. */
+function trimEnv(value: string | undefined): string | undefined {
+  if (value === undefined) return undefined;
+  const t = value.trim();
+  return t.length > 0 ? t : undefined;
+}
+
+/**
+ * Amazon SES SMTP (STARTTLS on 587/2587, TLS on 465). Exported so diagnostics
+ * use the same options as production sends.
+ */
+export function createSmtpTransportFromEnv(): nodemailer.Transporter | null {
+  const host = trimEnv(process.env.SMTP_HOST);
   if (!host) return null;
+
+  applySmtpIpv4PreferenceIfRequested();
 
   const port = parseInt(process.env.SMTP_PORT || '587', 10);
   const secure = process.env.SMTP_SECURE === 'true';
+
+  const useStartTls = !secure && (port === 587 || port === 2587);
+
+  const smtpUser = trimEnv(process.env.SMTP_USER);
+  const smtpPass = trimEnv(process.env.SMTP_PASS);
+  if (!smtpUser || !smtpPass) return null;
 
   return nodemailer.createTransport({
     host,
     port,
     secure,
     auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
+      user: smtpUser,
+      pass: smtpPass,
     },
+    requireTLS: useStartTls,
+    tls: {
+      minVersion: 'TLSv1.2',
+    },
+    connectionTimeout: 20000,
+    greetingTimeout: 20000,
   });
+}
+
+function createSmtpTransport(): nodemailer.Transporter | null {
+  return createSmtpTransportFromEnv();
 }
 
 export interface SendEmailOptions {
