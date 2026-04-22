@@ -6,21 +6,21 @@ This file provides guidance for Claude Code (AI) when working with the DWS6 code
 
 Before making any UI changes, agents MUST consult these files:
 
-| Standard                          | File                                        | Scope                                                                                                           |
-| --------------------------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| **Brand Standard**                | `DWS_BRAND_STANDARD.md`                     | Store UI, hamburger menu, product cards, category nav, dark tokens, sovereignty badges                          |
-| **Document Standard**             | `DWS_DOCUMENT_STANDARD.md`                  | Document formatting, sections, metadata                                                                         |
-| **Gamma UI Guidelines**           | `UI_SKILLS_GAMMA.md`                        | Tailwind, Radix UI, accessibility, animations                                                                   |
-| **Security Standard**             | `DWS_SECURITY_STANDARD.md`                  | AI safety, enterprise security framework                                                                        |
-| **Security Compliance**           | `Admin/SECURITY_COMPLIANCE.md`              | Deployment, controls, certifications, vendor risk                                                               |
-| **Market Research Standard**      | `DWS_MARKET_RESEARCH_STANDARD.md`           | Competitive intelligence, product improvement, data collection                                                  |
-| **Site Quality Standards**        | `SITE_QUALITY_STANDARDS.md`                 | Code quality, **code formatting**, components, nav, logos, CTA, testing                                         |
-| **Cloud Environments**            | `docs/CLOUD_ENVIRONMENTS.md`                | US/EU/Aiwen clouds, account structure, DWS 6→7 migration, data residency                                        |
-| **Product Catalog**               | `product-catalog/README.md`                 | Product catalog structure, Store Product Format, Google Merchant fields                                         |
-| **Data Standard**                 | `DWS_DATA_STANDARD.md`                      | Data storage governance, columnar/row policy, extension registry, retention, EU regulatory compliance           |
-| **Information Layering Strategy** | `docs/DWS_INFORMATION_LAYERING_STRATEGY.md` | Six-layer harness, where standards fit, progressive disclosure, 12 Factor Agents, tool result injection pattern |
-| **Skills Guide**                  | `docs/DWS_SKILLS_GUIDE.md`                  | All 20 skills: slash commands, discipline skills, gstack workflow, when to use each                             |
-| **Blog Standard**                 | `docs/BLOG_STANDARD.md`                     | Blog post structure, prev/next nav, product cards, meta tags, post registry, injection script                   |
+| Standard                          | File                                        | Scope                                                                                                                   |
+| --------------------------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| **Brand Standard**                | `DWS_BRAND_STANDARD.md`                     | Store UI, hamburger menu, product cards, category nav, dark tokens, sovereignty badges                                  |
+| **Document Standard**             | `DWS_DOCUMENT_STANDARD.md`                  | Document formatting, sections, metadata                                                                                 |
+| **Gamma UI Guidelines**           | `UI_SKILLS_GAMMA.md`                        | Tailwind, Radix UI, accessibility, animations                                                                           |
+| **Security Standard**             | `DWS_SECURITY_STANDARD.md`                  | AI safety, enterprise security framework                                                                                |
+| **Security Compliance**           | `Admin/SECURITY_COMPLIANCE.md`              | Deployment, controls, certifications, vendor risk                                                                       |
+| **Market Research Standard**      | `DWS_MARKET_RESEARCH_STANDARD.md`           | Competitive intelligence, product improvement, data collection                                                          |
+| **Site Quality Standards**        | `SITE_QUALITY_STANDARDS.md`                 | Code quality, **code formatting**, components, nav, logos, CTA, testing                                                 |
+| **Cloud Environments**            | `docs/CLOUD_ENVIRONMENTS.md`                | US/EU/Aiwen clouds, account structure, DWS 6→7 migration, data residency                                                |
+| **Product Catalog**               | `product-catalog/README.md`                 | Product catalog structure, Store Product Format, Google Merchant fields                                                 |
+| **Data Standard**                 | `DWS_DATA_STANDARD.md`                      | Data storage governance, columnar/row policy, extension registry, retention, EU regulatory compliance                   |
+| **Information Layering Strategy** | `docs/DWS_INFORMATION_LAYERING_STRATEGY.md` | Six-layer harness, where standards fit, progressive disclosure, 12 Factor Agents, tool result injection pattern         |
+| **Skills Guide**                  | `docs/DWS_SKILLS_GUIDE.md`                  | All 20 skills: slash commands, discipline skills, gstack workflow, when to use each                                     |
+| **Blog Standard**                 | `docs/BLOG_STANDARD.md`                     | Blog post structure, prev/next nav, product cards, meta tags, post registry, injection script                           |
 | **Standards Library**             | `DWS_STANDARDS_LIBRARY.md`                  | Single registry of every regulation, process, security, protocol, reporting standard — claimable vs target vs reference |
 
 **Rule:** These standards apply equally to all tools — Claude Code, Cursor, VS Code, Codex, and human developers. No exceptions.
@@ -512,6 +512,19 @@ Branch: <branch> | Commit: <hash> — <message> | PR: <url>
 Done: [summary] | Remaining: [tasks] | Files: [list]
 Start: git pull origin <branch>
 ```
+
+### Handover Prompt Freshness Rule (CRITICAL)
+
+**Always inspect the next-session prompt and verify its details are up to date with the repository's latest state BEFORE running any work.** Old handover prompts go stale fast — PRs merge, branches delete, commits move.
+
+When you receive a "JATKA EDELLISTÄ SESSIOTA / CONTINUE PREVIOUS SESSION" prompt (or any session-handover text referencing branches, commits, PR numbers, or pending tasks):
+
+1. **Verify current state first** — run `git status`, `git log -1`, `git branch --show-current`, and check `origin/main` HEAD. Do NOT trust the prompt's claims about branch/commit/PR state.
+2. **Reconcile drift** — if the prompt says "HEAD is X" and git says Y, the prompt is stale. Update the plan to match reality, not the prompt.
+3. **Rewrite the handover** — before starting work, produce a refreshed handover prompt that reflects the actual current state (branch, HEAD commit, recently merged PRs since the prompt was written, truly remaining tasks). Share it with the human if the drift is material.
+4. **Only then start the task** — never act on stale instructions. If the prompt references a PR that is already merged and a branch that is already deleted, that work is done; don't redo it.
+
+**Why:** Sessions resume hours or days later. The previous session's handover is a snapshot that decays with every merge. Acting on a stale snapshot wastes work, recreates already-shipped changes, or conflicts with current `main`.
 
 ### Branch Auto-Deletion After Merge (CRITICAL)
 
