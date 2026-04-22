@@ -373,6 +373,7 @@ Blog posts live in `onelifetime.world/posts/` as HTML files. Checklist for every
 4. Never create blog posts as `.md` files in public site folders (CLAUDE.md rule: no .md in public sites)
 5. Include: meta tags (og:title, og:description, og:type, og:url), author, date
 6. Blog index at `onelifetime.world/blog/index.html` — update if adding featured posts
+7. **Text of the Day Rule (CRITICAL)** — the latest blog post is ALWAYS the "Text of the Day" on `/blog/`. Prepend the new post to the `latestPosts` array at the top of `onelifetime.world/blog/index.html` (position 0 = newest); the hero card and paginated Latest Posts list (5/page with Prev/Next) update automatically. Full rule: `docs/BLOG_STANDARD.md` §3.1.
 
 ## Development Commands
 

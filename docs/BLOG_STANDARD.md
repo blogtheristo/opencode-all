@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-verification-setup-QKFtu | Date: 22.04.2026 | Changes: Added §3.1 Text of the Day Rule — latest blog post is automatically the Text of the Day on /blog/ index via hero card + paginated Latest Posts list (5 per page, Prev/Next). Registered posts #12 (solid-layers-aiven-scaleway-kya) and #13 (mcp-apps-identity-spine).
 - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/liquidity-engine-guide-P6sVY | Date: 28.03.2026 | Changes: Added social share section (LinkedIn, X, Email, Copy Link), registered in CLAUDE.md standards table
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/liquidity-engine-guide-P6sVY | Date: 28.03.2026 | Changes: Initial creation — blog post standard for onelifetime.world/posts, covering structure, nav injection, product cards, dual-folder sync, and post registry
 
@@ -25,9 +26,9 @@ Document Status:
 
 ---
 
-**Version:** 1.1
+**Version:** 1.2
 **Effective Date:** 2026-03-28
-**Last Updated:** 2026-03-28
+**Last Updated:** 2026-04-22
 **Status:** Active
 
 ---
@@ -110,6 +111,32 @@ Chronological order. Update this table when adding/removing posts.
 | 11  | `core-resilience-hybrid-threats.html`     | CORE: The EU Model That Maps Every Hybrid Threat      | 16 Apr 2026 |
 | 12  | `solid-layers-aiven-scaleway-kya.html`    | Our Layers Are Solid — Aiven, Scaleway, KYA + Foundry | 22 Apr 2026 |
 | 13  | `mcp-apps-identity-spine.html`            | MCP Apps Extends the Frontier — KYA Identity Spine    | 22 Apr 2026 |
+
+---
+
+## 3.1 Text of the Day Rule (CRITICAL)
+
+**The most recent blog post is always the "Text of the Day."**
+
+This is a hard rule, enforced in code on `onelifetime.world/blog/index.html`:
+
+1. The top of the blog index renders a prominent **★ Text of the Day** hero card.
+2. The card is wired to `latestPosts[0]` in the page's JavaScript — the first entry of the chronological `latestPosts` array (newest first).
+3. The "Latest Posts" box directly below it paginates the full list 5 at a time with Prev / Next controls.
+4. When a new post is registered in the `latestPosts` array (and in `scripts/inject-blog-nav.cjs`), the Text of the Day **automatically** points to it — no additional edit needed.
+
+### When adding a new post
+
+1. Prepend the new post to the `latestPosts` array at the top of `onelifetime.world/blog/index.html` (position 0 = newest).
+2. Add the same entry at the tail of the `posts` array in `scripts/inject-blog-nav.cjs` (position last = newest, chronological-ascending there).
+3. Sync both to `landing-pages/onelifetime-world/blog/index.html` in the same commit (dual folder rule).
+4. The hero card and the top of the Latest Posts list update automatically on the next page load.
+
+### Why this rule exists
+
+The blog index previously relied on hand-curated featured cards that drifted out of date within days. The Text of the Day rule guarantees that the freshest writing is always the first thing a visitor sees — it is the homepage of Lifetime Scope Journal, and it should reflect today's thinking, not last month's.
+
+**Do not remove the ToD hero or disable the pagination script.** Both are part of the blog standard from v1.2 onward.
 
 ---
 
