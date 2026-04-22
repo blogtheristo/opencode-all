@@ -114,6 +114,32 @@ The script (`scripts/gen-thesis-html.cjs`):
 - **Body**: Firehorse Suite (Omnichannel sales ✅ | Signed Reports ✅ | Report Engine 🔧 | Automation 🔧 | Content DMS 📋)
 - **Hands**: Lifetime Fleet (IoT/Robots — _specification phase_)
 
+## Development Quality Tools
+
+DWS6 uses a lightweight feedback loop: a health-check script surfaces priorities, CI prevents regressions, and the MCP Hub provides reflection workflows for agent output quality.
+
+### Tools
+
+| Tool | File | Purpose |
+|------|------|---------|
+| **Codebase Health** | `scripts/codebase_health.py` | Prints health report with metrics and recommendations |
+| **Test on PR** | `.github/workflows/test-on-pr.yml` | Runs tests and security checks on every PR |
+| **MCP Hub Reflection** | `mcp-hub/server.py` `/workflow/reflection` | Iterative refinement workflow for agent outputs |
+
+### How to Use
+
+At the start of a coding session, run the health check to understand priorities:
+
+```bash
+# Print report to stdout (default — no files written)
+python scripts/codebase_health.py
+
+# Persist the JSON report for later reference
+python scripts/codebase_health.py --output json --output-file health_report.json
+```
+
+The report identifies the highest-priority improvements for the current session. `health_report.json` is gitignored.
+
 ## AI Agent Behavior Guidelines (Karpathy Principles)
 
 You are the hands; the human is the architect. Move fast, but never faster than the human can verify.
