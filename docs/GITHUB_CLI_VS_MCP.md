@@ -33,23 +33,24 @@ Both hit the same upstream API, so ~90% of features overlap — but there is no 
 
 ### Pull Requests
 
-| gh command                            | MCP tool                                                      |
-| ------------------------------------- | ------------------------------------------------------------- |
-| `gh pr create --title ... --body ...` | `mcp__github__create_pull_request`                            |
-| `gh pr list --state open --base main` | `mcp__github__list_pull_requests`                             |
-| `gh pr view <n>`                      | `mcp__github__pull_request_read` (method: `get`)              |
-| `gh pr diff <n>`                      | `pull_request_read` (method: `get_diff`)                      |
-| `gh pr checks <n>`                    | `pull_request_read` (method: `get_status`)                    |
-| `gh pr view <n> --json files`         | `pull_request_read` (method: `get_files`)                     |
-| `gh pr review <n> --approve`          | `mcp__github__pull_request_review_write`                      |
-| `gh pr review <n> --comment -F file`  | `pull_request_review_write` + `add_comment_to_pending_review` |
-| `gh pr comment <n> --body ...`        | `mcp__github__add_reply_to_pull_request_comment`              |
-| `gh pr merge <n> --squash`            | `mcp__github__merge_pull_request`                             |
-| `gh pr merge <n> --auto`              | `mcp__github__enable_pr_auto_merge`                           |
-| `gh pr edit <n> --title ...`          | `mcp__github__update_pull_request`                            |
-| `gh pr update-branch <n>`             | `mcp__github__update_pull_request_branch`                     |
-| `gh pr ready <n>`                     | `update_pull_request` (draft: false)                          |
-| `gh search prs "is:open author:@me"`  | `mcp__github__search_pull_requests`                           |
+| gh command                             | MCP tool                                                                                               |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `gh pr create --title ... --body ...`  | `mcp__github__create_pull_request`                                                                     |
+| `gh pr list --state open --base main`  | `mcp__github__list_pull_requests`                                                                      |
+| `gh pr view <n>`                       | `mcp__github__pull_request_read` (method: `get`)                                                       |
+| `gh pr diff <n>`                       | `pull_request_read` (method: `get_diff`)                                                               |
+| `gh pr checks <n>`                     | `pull_request_read` (method: `get_status`)                                                             |
+| `gh pr view <n> --json files`          | `pull_request_read` (method: `get_files`)                                                              |
+| `gh pr review <n> --approve`           | `mcp__github__pull_request_review_write`                                                               |
+| `gh pr review <n> --comment -F file`   | `pull_request_review_write` + `add_comment_to_pending_review`                                          |
+| `gh pr comment <n> --body ...`         | `mcp__github__add_issue_comment` (PRs are issues in GitHub's data model)                               |
+| _(reply to an existing review thread)_ | `mcp__github__add_reply_to_pull_request_comment` (requires existing comment ID — no direct gh command) |
+| `gh pr merge <n> --squash`             | `mcp__github__merge_pull_request`                                                                      |
+| `gh pr merge <n> --auto`               | `mcp__github__enable_pr_auto_merge`                                                                    |
+| `gh pr edit <n> --title ...`           | `mcp__github__update_pull_request`                                                                     |
+| `gh pr update-branch <n>`              | `mcp__github__update_pull_request_branch`                                                              |
+| `gh pr ready <n>`                      | `update_pull_request` (draft: false)                                                                   |
+| `gh search prs "is:open author:@me"`   | `mcp__github__search_pull_requests`                                                                    |
 
 ### Issues
 
