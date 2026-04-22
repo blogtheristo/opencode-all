@@ -250,6 +250,16 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 
 **Hard rules:** Agentic Lens never fabricates outcomes (CLAUDE.md Validated Mock Data Rule); if no real aggregate is available, states _"No verified outcomes this fortnight"_. Needs ≥ 4 posts in the window (1 best + 3 runners-up) or the biweekly cron skips the issue.
 
+### 6.6 /ollama-spark
+
+**When to use:** Anthropic / Claude / Groq is rate-limited or quota-exhausted, or the prompt contains EU-restricted data (PII, GDPR, EU AI Act high-risk) that must not leave DGX Spark, or you want cost-free batch inference on owned hardware. See CLAUDE.md §DGX Ollama Fallback Rule.
+
+**What it does:** Routes a one-shot prompt to Ollama running on DGX Spark via `ssh dgx-spark "curl -s http://localhost:11434/api/generate ..."`. Wrapper `scripts/ollama-spark.sh` handles JSON-escaping and the SSH transport; the skill `/ollama-spark <model> "<prompt>"` invokes it. `--list` enumerates pulled models on the Spark.
+
+**Example:** `/ollama-spark llama3.1:70b "Classify this CSRD disclosure: ..."` — full response on stdout, no per-token billing, no cloud egress.
+
+**Composes with:** Any DWS agent whose `LLMClient` catches a cloud 429 and wants a fallback; `/kya` for sovereignty-sensitive sessions; `/sovereignty-assess` for pre-flight checks on whether a prompt should go here by default.
+
 **Trigger phrases:** "lsj publish", "draft scope monthly", "best blog of the fortnight", "lifetime scope monthly", "linkedin newsletter draft", "prepare LSJ issue"
 
 ## 7. Runtime Safety & Knowledge

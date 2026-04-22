@@ -120,11 +120,11 @@ DWS6 uses a lightweight feedback loop: a health-check script surfaces priorities
 
 ### Tools
 
-| Tool | File | Purpose |
-|------|------|---------|
-| **Codebase Health** | `scripts/codebase_health.py` | Prints health report with metrics and recommendations |
-| **Test on PR** | `.github/workflows/test-on-pr.yml` | Runs tests and security checks on every PR |
-| **MCP Hub Reflection** | `mcp-hub/server.py` `/workflow/reflection` | Iterative refinement workflow for agent outputs |
+| Tool                   | File                                       | Purpose                                               |
+| ---------------------- | ------------------------------------------ | ----------------------------------------------------- |
+| **Codebase Health**    | `scripts/codebase_health.py`               | Prints health report with metrics and recommendations |
+| **Test on PR**         | `.github/workflows/test-on-pr.yml`         | Runs tests and security checks on every PR            |
+| **MCP Hub Reflection** | `mcp-hub/server.py` `/workflow/reflection` | Iterative refinement workflow for agent outputs       |
 
 ### How to Use
 
@@ -228,6 +228,24 @@ The skill is an agent-accessible product — if it can't be invoked via `/name`,
 4. GitHub Actions workflows are **failover only** — DGX Spark is primary
 
 **Forbidden pattern:** Creating a script in `scripts/` root with instructions "run this manually". That script will be forgotten within 24 hours.
+
+### DGX Ollama Fallback Rule (CRITICAL)
+
+**When Anthropic / Claude / Groq rate-limits or quota-exhausts, fall back to DGX Spark Ollama — never refuse or stall.** Use the wrapper, not raw ssh:
+
+```bash
+bash scripts/ollama-spark.sh llama3.1:70b "<prompt>"
+# or inside a Claude Code session:
+/ollama-spark llama3.1:70b "<prompt>"
+```
+
+Under the hood this runs `ssh dgx-spark "curl -s http://localhost:11434/api/generate -d '{...}' | jq -r .response"`. Applies to:
+
+1. **Rate-limit fallback** — any 429 / quota-exhausted from the cloud provider → retry on DGX Spark
+2. **EU-only prompts** — anything PII, GDPR-restricted, or EU AI Act high-risk (Art. 12 logging required) must run on DGX Spark, never on US cloud
+3. **Cost-sensitive batch** — no per-token billing when you own the hardware
+
+Default model: `llama3.1:70b`. List available: `bash scripts/ollama-spark.sh --list`. Agent LLMClients should wrap their cloud calls with try/catch → fallback to this script on 429. Failing loudly is worse than completing with a slightly weaker on-prem model.
 
 ### Leverage Patterns
 
