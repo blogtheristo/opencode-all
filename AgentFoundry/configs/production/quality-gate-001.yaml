@@ -56,7 +56,7 @@ agent:
   guardrails:
     require_citations: true
     pii_scrub: true
-    kya_wrapped: true                    # badges-library.md v1.1
+    kya_wrapped: true # badges-library.md v1.1
     max_execution_seconds: 60
     verify_facts: true
     flag_low_confidence_below: 70
@@ -94,9 +94,12 @@ agent:
     telemetry_channel: "src/agents/telemetry.service.ts"
 
   # Lifetime Scope Signals (event bus)
+  # Quality Gate sits between every upstream agent and its downstream consumers:
+  # upstream agents emit READY:execution-complete, the gate validates, then the
+  # gate emits COMPLETE:validated, which every other agent listens for.
   signals:
     emits:
-      - "[QUALITY-GATE-001]:READY:execution-complete:{session_id}"
+      - "[QUALITY-GATE-001]:COMPLETE:validated:{session_id}"
       - "[QUALITY-GATE-001]:ERROR:execution-failed:{reason}"
     listens:
-      - "[QUALITY-GATE-001]:COMPLETE:validated:{session_id}"
+      - "[*]:READY:execution-complete:{session_id}"
