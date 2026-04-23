@@ -1209,9 +1209,9 @@
       "price": 1499,
       "currency": "EUR",
       "type": "monthly",
-      "description": "Full EU sovereign evaluation. 8 AI agents, Firehorse Report, Aiwen EU AI Act Article 12 logging, NIS2 dashboard, 5 seats. Zero CLOUD Act. Prove compliance ROI on sovereign infrastructure.",
+      "description": "Full EU sovereign evaluation. 8 AI agents, Firehorse Report, Article 12 logging, NIS2 dashboard, 5 seats. Zero CLOUD Act. Prove compliance ROI on sovereign infrastructure.",
       "features": [
-        "8 AI agents + Aiwen Article 12 logging",
+        "8 AI agents + Article 12 logging",
         "NIS2 compliance dashboard",
         "Zero CLOUD Act + EU data residency"
       ],
@@ -1309,6 +1309,45 @@
       "pain": "Your AI runs on US clouds — one CLOUD Act subpoena and your audit trail walks across a border without you.",
       "proofChip": "EU sovereign · CLOUD Act free",
       "proofSource": "US CLOUD Act 2018 + EU Data Act Reg. 2023/2854"
+    },
+    "DWS-THEMIS-001": {
+      "id": "DWS-THEMIS-001",
+      "gtin": null,
+      "mpn": "DWS-THEMIS-2026",
+      "name": "DWS IQ Themis — The Aegis Control Plane",
+      "price": 14990,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "The Aegis Control Plane — DWS's proprietary implementation of the open KYA standard. Identity attribution, EU AI Act Article 12 logging pipeline, Annex III systems registry, and runtime policy gating bundled into one sovereign control plane. Bundled at no extra cost with DWS IQ Aegis (Tier 1); standalone SKU for Sovereign Infra (Tier 2) customers running Scaleway / OVH / Red Hat OpenShift / Azure AI Foundry EU. Hash-chained append-only ledger, KYA-attested events, 6-month minimum retention, auditor JSON export under 10 business days. Demo Q2 2026, GA before 2 August 2026 EU AI Act enforcement.",
+      "features": [
+        "KYA-compliant — implements the open KYA standard v1.7",
+        "Article 12 Logging Pipeline with hash-chained append-only ledger",
+        "Annex III Systems Registry + deployment approval workflow",
+        "Runtime Policy Gate with allow/deny/escalate (24h human-review SLA)",
+        "Tier-portable — Aegis-bundled, Tier 2 standalone, Tier 3 SaaS",
+        "Zero CLOUD Act exposure at Tier 1 (no US-parent vendor in data path)"
+      ],
+      "priceNote": "€14,990 one-time control-plane deployment + €499/mo subscription. Included at no extra cost in DWS IQ Aegis. Enterprise pricing on request.",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/firehorse-aegis-head.png",
+      "detailsUrl": "../products/themis.html",
+      "featured": true,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "preorder",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform",
+      "productType": "dws-iq-platform",
+      "buyPage": 1,
+      "buyPageOrder": 2,
+      "pain": "EU AI Act enforces 2 August 2026 — you need Article 12 logging, Annex III registry, and policy gates. Your existing governance tool (Credo AI, OneTrust, IBM Watsonx) has a US parent, voiding your sovereignty claim.",
+      "proofChip": "KYA-compliant · EU-built · Aegis Control Plane",
+      "proofSource": "KYA Standard v1.7 + EU AI Act Articles 9, 12, 14, 17, 26, 43, 72, 73"
     }
   },
   "priceList": {
@@ -1440,7 +1479,13 @@
     "google": {
       "merchantId": null,
       "feedUrl": "https://dws10.com/feeds/google-products.xml",
-      "targetCountries": ["FI", "SE", "NO", "DK", "DE"],
+      "targetCountries": [
+        "FI",
+        "SE",
+        "NO",
+        "DK",
+        "DE"
+      ],
       "contentLanguage": "en",
       "channel": "online"
     }

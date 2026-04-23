@@ -51,7 +51,7 @@ This file is the **immutable audit index** of all locked decisions in DWS IQ 6. 
 | LD-2026-001 | 2026-01-08 | —        | ADR-2026-001: dws6.com as Admin Portal, /login for end users                                                   | ARCHITECTURE | LOCKED | Risto | `Admin/ADMIN_MANUAL_DWS6_COM.md`                                                 |
 | LD-2026-002 | 2026-01-28 | —        | 100% EU data residency, zero US sub-processors, GDPR by design                                                 | ARCHITECTURE | LOCKED | Risto | `docs/field-notes/2026-01-28-eu-tech-stack-sovereignty-positioning.md`           |
 | LD-2026-003 | 2026-02-21 | —        | CORS: no `allow_origins=["*"]`; Shell: no `exec()` with string interpolation; SRI hashes on all CDN deps       | SECURITY     | LOCKED | Risto | `docs/field-notes/2026-02-21-security-vulnerability-assessment-openclaw-dws6.md` |
-| LD-2026-004 | 2026-03-08 | —        | EU AI Act Article 12 — Aiwen logging layer as audit-proof backbone for high-risk AI logging                    | EU-AI-ACT    | LOCKED | Risto | `docs/field-notes/2026-03-08-eu-ai-act-omnibus-optimus-v3-article-12.md`         |
+| LD-2026-004 | 2026-03-08 | —        | EU AI Act Article 12 — Aiven logging layer as audit-proof backbone for high-risk AI logging                    | EU-AI-ACT    | LOCKED | Risto | `docs/field-notes/2026-03-08-eu-ai-act-omnibus-optimus-v3-article-12.md`         |
 | LD-2026-005 | 2026-03-10 | —        | Aiven Developer ($5/mo) + Startup ($75/mo) for V1 EU-sovereign PostgreSQL migration                            | DATA         | LOCKED | Risto | `docs/field-notes/2026-03-10-v1-aiven-plan-decision.md`                          |
 | LD-2026-006 | 2026-03-13 | —        | Aiven-first mandate locked; TimescaleDB 2.25.x Hypercore approved standard; pg_duckdb BLOCKED                  | DATA         | LOCKED | Risto | `DWS_DATA_STANDARD.md`                                                           |
 | LD-2026-007 | 2026-03-15 | —        | Investor seat tiers: Fleet Admiral €500K / Captain €150K / Industry Captain €50K×8 / Deputy unlimited          | PRODUCT      | LOCKED | Risto | `docs/field-notes/2026-03-15-investor-materials-audit.md`                        |
@@ -160,7 +160,7 @@ Each locked decision has a detail record below for audit purposes.
 
 ---
 
-### LD-2026-004 — EU AI Act Article 12 Logging (Aiwen Layer)
+### LD-2026-004 — EU AI Act Article 12 Logging (Aiven Layer)
 
 | Field           | Value                                                                    |
 | --------------- | ------------------------------------------------------------------------ |
@@ -170,11 +170,11 @@ Each locked decision has a detail record below for audit purposes.
 | **Owner**       | Risto Päärni                                                             |
 | **File**        | `docs/field-notes/2026-03-08-eu-ai-act-omnibus-optimus-v3-article-12.md` |
 
-**Decision:** The Aiwen logging layer is the DWS implementation of EU AI Act Article 12 (automatic event recording for high-risk AI). Logging must cover: risk identification, substantial modifications, post-market monitoring, operation monitoring (Art 72, Art 26(5), Art 79(1)).
+**Decision:** The Aiven logging layer is the DWS implementation of EU AI Act Article 12 (automatic event recording for high-risk AI). Logging must cover: risk identification, substantial modifications, post-market monitoring, operation monitoring (Art 72, Art 26(5), Art 79(1)).
 
 **Why locked:** Notified body CE mark requirement for high-risk AI. Non-compliance = regulatory block.
 
-**Observability requirement:** All Aiwen logs retained for system lifetime + 10 years minimum per Art 12(1).
+**Observability requirement:** All Aiven logs retained for system lifetime + 10 years minimum per Art 12(1).
 
 **Change process:** Any reduction in logging scope requires EU AI Act legal review + new LD entry.
 
@@ -402,7 +402,7 @@ Per LD-2026-004 (EU AI Act Article 12) and LD-2026-010 (Email audit):
 
 | Log Target               | Retention                  | Where                      |
 | ------------------------ | -------------------------- | -------------------------- |
-| Aiwen agent decision log | System lifetime + 10 years | `aiwen/` audit tables      |
+| Aiven agent decision log | System lifetime + 10 years | `aiven/` audit tables      |
 | Email audit              | ≥90 days                   | `logs/email-audit.jsonl`   |
 | Migration audit          | Indefinite                 | `supabase/migrations/`     |
 | Pre-commit hook blocks   | ≥30 days                   | `.claude/hooks/audit/`     |

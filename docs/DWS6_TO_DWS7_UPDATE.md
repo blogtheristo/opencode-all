@@ -38,7 +38,7 @@ Document Status:
 3. [Architecture Evolution](#3-architecture-evolution)
 4. [Migration Timeline (6 Phases, 247 PRs)](#4-migration-timeline-6-phases-247-prs)
 5. [Compliance Engine — Fit for 55](#5-compliance-engine--fit-for-55)
-6. [EU AI Act Compliance (Aiwen Layer)](#6-eu-ai-act-compliance-aiwen-layer)
+6. [EU AI Act Compliance (Aiven Layer)](#6-eu-ai-act-compliance-aiven-layer)
 7. [Cloud & Infrastructure Changes](#7-cloud--infrastructure-changes)
 8. [Security & Certification Path](#8-security--certification-path)
 9. [Agentic AI & Intelligence Layer](#9-agentic-ai--intelligence-layer)
@@ -178,7 +178,7 @@ These DWS6 components carry forward unchanged or with incremental improvements:
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  Aiwen Layer (EU AI Act Compliance Overlay)                 │
+│  Aiven Layer (EU AI Act Compliance Overlay)                 │
 │  ┌──────────────┐  ┌─────────────┐  ┌────────────────────┐ │
 │  │ OpenTelemetry│  │ Reasoning   │  │ Audit Log          │ │
 │  │ Trace Collect│  │ Store       │  │ Append-only PG     │ │
@@ -349,9 +349,9 @@ DWS7 is the only platform that covers all four major EU climate regulations in a
 
 ---
 
-## 6. EU AI Act Compliance (Aiwen Layer)
+## 6. EU AI Act Compliance (Aiven Layer)
 
-DWS7 classifies as a **high-risk AI system** under the EU AI Act (industrial decision support for regulated industries). The Aiwen compliance layer, deployed as an overlay on the EU Cloud, ensures full compliance by August 2026.
+DWS7 classifies as a **high-risk AI system** under the EU AI Act (industrial decision support for regulated industries). The Article 12 Logging Pipeline, deployed as an overlay on the EU Cloud, ensures full compliance by August 2026.
 
 ### Article 12 — Automatic Logging
 
@@ -569,7 +569,7 @@ Factory Floor                    Cloud                         Regulator
 3. **Calculate**: Cloud Run computes emissions using fuel-based or mass-balance methodology
 4. **Verify**: Automated cross-checks against historical data and regulatory thresholds
 5. **Report**: MRV report generated and submitted to EU ETS registry
-6. **Audit**: Complete data lineage stored in Aiwen audit log (7-year retention)
+6. **Audit**: Complete data lineage stored in Aiven audit log (7-year retention)
 
 ---
 

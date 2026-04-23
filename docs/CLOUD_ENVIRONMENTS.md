@@ -1,4 +1,4 @@
-# DWS Cloud Environments — US, EU & Aiwen
+# DWS Cloud Environments — US, EU & Aiven
 
 ---
 
@@ -12,7 +12,7 @@ Sessions & Modifications:
 - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/silly-zhukovsky | Date: 07.03.2026 | Changes: Added Aiven PostgreSQL Sandbox as 5th environment in matrix — agent workspace + LWM training, EU Finland region, daily mirror from Supabase
 - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/mcp-google-cloud-run-BuSpY | Date: 23.02.2026 | Changes: Added MCP Gateway on Cloud Run section (Section 12) — Streamable HTTP for mobile Claude Code, secret provisioning script
 - Version: 1.1 | Tool: Claude Code | Session: claude/zealous-mcclintock | Date: 20.02.2026 | Changes: Added Google Cloud project details (dws6run6) and Secret Manager API status
-- Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/document-cloud-environments-EK7iZ | Date: 16.02.2026 | Changes: Initial cloud environments documentation — US public, EU development, Aiwen EU AI Act, DWS 6 + DWS 7 strategy
+- Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/document-cloud-environments-EK7iZ | Date: 16.02.2026 | Changes: Initial cloud environments documentation — US public, EU development, Article 12 Logging Pipeline (originally labelled "Aiwen/Aiven layer" — deprecated), DWS 6 + DWS 7 strategy
 
 Session Links & References:
 
@@ -38,7 +38,7 @@ Document Status:
 4. [DWS 6 — Cloud Environments](#4-dws-6--cloud-environments)
 5. [DWS 7 — Cloud Environments](#5-dws-7--cloud-environments)
 6. [Firehorse V3 — Multi-Cloud Strategy](#6-firehorse-v3--multi-cloud-strategy)
-7. [Aiwen — EU AI Act Compliance Cloud](#7-aiwen--eu-ai-act-compliance-cloud)
+7. [Aiven — EU AI Act Compliance Cloud](#7-aiven--eu-ai-act-compliance-cloud)
 8. [Environment Matrix](#8-environment-matrix)
 9. [Data Residency & Sovereignty](#9-data-residency--sovereignty)
 10. [Migration Path: DWS 6 → DWS 7](#10-migration-path-dws-6--dws-7)
@@ -49,15 +49,15 @@ Document Status:
 
 ## 1. Executive Summary
 
-DWS operates across three cloud environments serving different purposes, compliance requirements, and customer segments. This document clarifies the account structure, deployment topology, and evolution path from the current DWS 6 pilot through DWS 7 production to Aiwen EU AI Act compliance.
+DWS operates across three cloud environments serving different purposes, compliance requirements, and customer segments. This document clarifies the account structure, deployment topology, and evolution path from the current DWS 6 pilot through DWS 7 production to the Article 12 Logging Pipeline (EU AI Act) deployment.
 
 **Three Cloud Environments:**
 
-| Environment                | Region                    | Purpose                                                          | Account                      | Status          |
-| -------------------------- | ------------------------- | ---------------------------------------------------------------- | ---------------------------- | --------------- |
-| **US Cloud (Public)**      | US (Cloudflare global)    | Public-facing sites, store, landing pages                        | dws6.com                     | Active          |
-| **EU Cloud (Development)** | europe-north1 (Finland)   | Development, pilot customers, production backend                 | risto.paarni2024@lifetime.fi | Active          |
-| **Aiwen (EU AI Act)**      | EU-only (Finland/Germany) | EU AI Act Article 12 compliance, reasoning lineage, audit trails | Planned                      | Roadmap Q2 2026 |
+| Environment                     | Region                    | Purpose                                                          | Account                      | Status          |
+| ------------------------------- | ------------------------- | ---------------------------------------------------------------- | ---------------------------- | --------------- |
+| **US Cloud (Public)**           | US (Cloudflare global)    | Public-facing sites, store, landing pages                        | dws6.com                     | Active          |
+| **EU Cloud (Development)**      | europe-north1 (Finland)   | Development, pilot customers, production backend                 | risto.paarni2024@lifetime.fi | Active          |
+| **Article 12 Logging Pipeline** | EU-only (Finland/Germany) | EU AI Act Article 12 compliance, reasoning lineage, audit trails | Planned                      | Roadmap Q2 2026 |
 
 ---
 
@@ -134,7 +134,7 @@ Two primary accounts manage the DWS platform, each with distinct responsibilitie
 │                             │  └─────────────────────┘              │
 ├─────────────────────────────┴───────────────────────────────────────┤
 │                                                                      │
-│  AIWEN (Planned Q2 2026)                                            │
+│  AIVEN (Planned Q2 2026)                                            │
 │  EU AI Act compliance layer — sits on top of EU Cloud               │
 │  Reasoning lineage, audit trails, Article 12 logging                │
 │                                                                      │
@@ -201,11 +201,11 @@ Two primary accounts manage the DWS platform, each with distinct responsibilitie
 
 - **Secret Manager API** (`secretmanager.googleapis.com`) — Stores sensitive data such as API keys, passwords, and certificates. Provides convenience while improving security. (Google Enterprise API, Public API, Status: Enabled)
 
-### 3.3 Aiwen (EU AI Act) — Planned Q2 2026
+### 3.3 Article 12 Logging Pipeline — Planned Q2 2026
 
 **Purpose:** Dedicated compliance layer for EU AI Act Article 12, reasoning lineage, and audit trail management.
 
-See [Section 7](#7-aiwen--eu-ai-act-compliance-cloud) for full specification.
+See [Section 7](#7-aiven--eu-ai-act-compliance-cloud) for full specification.
 
 ---
 
@@ -279,7 +279,7 @@ DWS IQ 7 is the production platform (target: 16 paying customers, €72k+ MRR by
               ┌────────────────────┼────────────────────┐
               │                    │                     │
     ┌─────────▼──────────┐  ┌─────▼──────────┐  ┌──────▼─────────┐
-    │  EU Cloud Primary   │  │  EU Cloud       │  │  Aiwen         │
+    │  EU Cloud Primary   │  │  EU Cloud       │  │  Aiven         │
     │  europe-north1 (FI) │  │  Backup (DE)    │  │  Compliance    │
     │  Cloud Run + GKE    │  │  Scaleway/      │  │  Layer         │
     │                     │  │  Hetzner         │  │                │
@@ -307,20 +307,20 @@ DWS 7 operates across **four tiers** of environments:
 
 ### 5.3 DWS 7 Cloud Services
 
-| Service                 | Provider                | Region             | DWS 7 Upgrade vs DWS 6                             |
-| ----------------------- | ----------------------- | ------------------ | -------------------------------------------------- |
-| **Backend API**         | Google Cloud Run        | europe-north1      | API versioning (v1/v2), tenant-aware rate limiting |
-| **Agent Orchestration** | Cloud Run + Temporal.io | europe-north1      | Production Temporal cluster (not Docker dev)       |
-| **Database**            | Supabase                | EU                 | Connection pooling, read replicas, backup strategy |
-| **Search / Embeddings** | Supabase pgvector       | EU                 | Optimized indexes, embedding pipeline              |
-| **Secrets**             | Google Secret Manager   | europe-north1      | Automated rotation, per-tenant secrets             |
-| **Training**            | GCP A3 (H100)           | europe-north1      | On-demand burst, MLflow experiment tracking        |
-| **Edge / CDN**          | Cloudflare              | Global (EU-routed) | Durable Objects, KV, Analytics Engine              |
-| **Backup Compute**      | Scaleway Serverless     | fr-par             | Failover for Cloud Run                             |
-| **Video (V3)**          | Hetzner Helsinki        | europe-north1      | Self-hosted Jitsi Meet                             |
-| **Email (V3)**          | Hetzner Helsinki        | europe-north1      | Postfix + Dovecot / Migadu                         |
-| **Monitoring**          | Prometheus + Grafana    | europe-north1      | Production-grade (Cloud Monitoring + self-hosted)  |
-| **Compliance**          | Aiwen layer             | EU-only            | EU AI Act Article 12, reasoning lineage            |
+| Service                 | Provider                    | Region             | DWS 7 Upgrade vs DWS 6                             |
+| ----------------------- | --------------------------- | ------------------ | -------------------------------------------------- |
+| **Backend API**         | Google Cloud Run            | europe-north1      | API versioning (v1/v2), tenant-aware rate limiting |
+| **Agent Orchestration** | Cloud Run + Temporal.io     | europe-north1      | Production Temporal cluster (not Docker dev)       |
+| **Database**            | Supabase                    | EU                 | Connection pooling, read replicas, backup strategy |
+| **Search / Embeddings** | Supabase pgvector           | EU                 | Optimized indexes, embedding pipeline              |
+| **Secrets**             | Google Secret Manager       | europe-north1      | Automated rotation, per-tenant secrets             |
+| **Training**            | GCP A3 (H100)               | europe-north1      | On-demand burst, MLflow experiment tracking        |
+| **Edge / CDN**          | Cloudflare                  | Global (EU-routed) | Durable Objects, KV, Analytics Engine              |
+| **Backup Compute**      | Scaleway Serverless         | fr-par             | Failover for Cloud Run                             |
+| **Video (V3)**          | Hetzner Helsinki            | europe-north1      | Self-hosted Jitsi Meet                             |
+| **Email (V3)**          | Hetzner Helsinki            | europe-north1      | Postfix + Dovecot / Migadu                         |
+| **Monitoring**          | Prometheus + Grafana        | europe-north1      | Production-grade (Cloud Monitoring + self-hosted)  |
+| **Compliance**          | Article 12 Logging Pipeline | EU-only            | EU AI Act Article 12, reasoning lineage            |
 
 ### 5.4 DWS 7 Phased Cloud Rollout
 
@@ -329,7 +329,7 @@ Aligned with the DWS7 Roadmap (247 PRs, 6 phases):
 | Phase                    | Period            | Cloud Changes                                                                                          |
 | ------------------------ | ----------------- | ------------------------------------------------------------------------------------------------------ |
 | **1** Launch & Stabilize | Feb–Apr 2026      | Staging environment on Cloud Run (PR 034), DB migration CI (PR 035), frontend deploy pipeline (PR 036) |
-| **2** Compliance Engine  | May–Jul 2026      | Aiwen compliance layer deployment, ETS/CBAM data pipelines                                             |
+| **2** Compliance Engine  | May–Jul 2026      | Article 12 Logging Pipeline deployment, ETS/CBAM data pipelines                                        |
 | **3** Scale & Harden     | Aug–Oct 2026      | Multi-tenant isolation, ISO 27001 infrastructure controls, SOC 2 prep                                  |
 | **4** Intelligence Layer | Nov 2026–Jan 2027 | Production Temporal cluster, IoT data pipeline, agentic AI scaling                                     |
 | **5** Market Expansion   | Feb–May 2027      | Supplier portal cloud, multi-region (FI + DE), partner sandbox environments                            |
@@ -360,7 +360,7 @@ The original V3 specification targets Hetzner Helsinki for self-hosted Jitsi + E
 
 **Rethought V3 deployment across three environments:**
 
-| V3 Component             | US Cloud                                          | EU Cloud                           | Aiwen              |
+| V3 Component             | US Cloud                                          | EU Cloud                           | Aiven              |
 | ------------------------ | ------------------------------------------------- | ---------------------------------- | ------------------ |
 | **Landing page**         | Cloudflare Pages (dws6.com/products/firehorse-v3) | —                                  | —                  |
 | **Dashboard**            | Cloudflare Pages (SPA)                            | —                                  | —                  |
@@ -378,7 +378,7 @@ The original V3 specification targets Hetzner Helsinki for self-hosted Jitsi + E
 | ------------------ | -------------------------------- | ----------------------------------------------------------- |
 | **V3** (Q1 2026)   | Jitsi IFrame + meet.jit.si       | No new infra — uses public meet.jit.si                      |
 | **V3.1** (Q2 2026) | Self-hosted Jitsi + Email launch | Hetzner Helsinki CX22 instances (€16.79/mo)                 |
-| **V3.2** (Q3 2026) | Aiwen integration + recording    | Aiwen compliance logging, encrypted EU storage              |
+| **V3.2** (Q3 2026) | Aiven integration + recording    | Article 12 compliance logging, encrypted EU storage         |
 | **V3.3** (Q4 2026) | Multi-language, clustered Jitsi  | Hetzner cluster (100+ concurrent rooms), CDN for recordings |
 
 ### 6.4 V3 Cost Evolution
@@ -387,24 +387,24 @@ The original V3 specification targets Hetzner Helsinki for self-hosted Jitsi + E
 | ------- | -------------------------- | ---------------- |
 | V3      | €0 (public Jitsi)          | 0                |
 | V3.1    | €16.79 (2x CX22 + storage) | 2 users          |
-| V3.2    | €25 (+ Aiwen logging)      | 3 users          |
+| V3.2    | €25 (+ Aiven logging)      | 3 users          |
 | V3.3    | €80 (clustered)            | 9 users          |
 
 ---
 
-## 7. Aiwen — EU AI Act Compliance Cloud
+## 7. Aiven — EU AI Act Compliance Cloud
 
-**Aiwen** is the compliance layer that ensures all DWS AI systems meet EU AI Act requirements by August 2026.
+**Aiven** is the compliance layer that ensures all DWS AI systems meet EU AI Act requirements by August 2026.
 
-### 7.1 What Is Aiwen
+### 7.1 What Is Aiven
 
-Aiwen is not a separate cloud provider — it is a **compliance overlay** deployed within the EU Cloud environment. It adds Article 12 automatic logging, reasoning lineage, and audit trail capabilities to all DWS AI components.
+Aiven is not a separate cloud provider — it is a **compliance overlay** deployed within the EU Cloud environment. It adds Article 12 automatic logging, reasoning lineage, and audit trail capabilities to all DWS AI components.
 
-**Name origin:** "Aiwen" = AI + Wen (Finnish: "when") — "When AI meets compliance."
+**Name origin:** "Aiven" = AI + Wen (Finnish: "when") — "When AI meets compliance."
 
 ### 7.2 EU AI Act Requirements (August 2026 Deadline)
 
-| Article        | Requirement                               | Aiwen Implementation                        |
+| Article        | Requirement                               | Aiven Implementation                        |
 | -------------- | ----------------------------------------- | ------------------------------------------- |
 | **Article 12** | Automatic logging of all AI system events | OpenTelemetry traces with immutable storage |
 | **Article 13** | Transparency and information to users     | AI disclosure badges, model cards           |
@@ -412,11 +412,11 @@ Aiwen is not a separate cloud provider — it is a **compliance overlay** deploy
 | **Article 52** | Transparency for conversational AI        | "You are talking to an AI" disclosure       |
 | **Annex III**  | High-risk AI classification               | Risk assessment per AI component            |
 
-### 7.3 Aiwen Architecture
+### 7.3 Aiven Architecture
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│                        AIWEN LAYER                           │
+│                        AIVEN LAYER                           │
 │                                                              │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────────┐   │
 │  │ Trace         │  │ Reasoning    │  │ Audit Trail      │   │
@@ -447,7 +447,7 @@ Aiwen is not a separate cloud provider — it is a **compliance overlay** deploy
 └──────────────────────────────────────────────────────────────┘
 ```
 
-### 7.4 Aiwen Technology Stack
+### 7.4 Aiven Technology Stack
 
 | Component            | Technology                         | Purpose                                 |
 | -------------------- | ---------------------------------- | --------------------------------------- |
@@ -459,11 +459,11 @@ Aiwen is not a separate cloud provider — it is a **compliance overlay** deploy
 | **Identity**         | OAuth 2.0 / OIDC                   | Role-based data access                  |
 | **Dashboard**        | React (DWS IQ Dashboard module)    | Forensic debugging for compliance teams |
 
-### 7.5 Aiwen Deployment on EU Cloud
+### 7.5 Aiven Deployment on EU Cloud
 
-Aiwen runs entirely within the EU Cloud (pilot account). No data leaves EU.
+Aiven runs entirely within the EU Cloud (pilot account). No data leaves EU.
 
-| Aiwen Service   | Deployment                    | Region        |
+| Aiven Service   | Deployment                    | Region        |
 | --------------- | ----------------------------- | ------------- |
 | Trace Collector | Cloud Run sidecar             | europe-north1 |
 | Reasoning Store | Supabase (existing)           | EU            |
@@ -472,7 +472,7 @@ Aiwen runs entirely within the EU Cloud (pilot account). No data leaves EU.
 | Safety Filter   | Cloud Run (inbound/outbound)  | europe-north1 |
 | Dashboard       | Cloudflare Pages (admin-only) | EU-routed     |
 
-### 7.6 Aiwen Rollout Timeline
+### 7.6 Aiven Rollout Timeline
 
 | Phase                   | Period     | Deliverables                                                          |
 | ----------------------- | ---------- | --------------------------------------------------------------------- |
@@ -482,9 +482,9 @@ Aiwen runs entirely within the EU Cloud (pilot account). No data leaves EU.
 | **Certification Ready** | Q4 2026    | EU AI Act high-risk assessment, documentation package, external audit |
 | **Production**          | Q1 2027    | Full Article 12 compliance, customer-facing compliance reports        |
 
-### 7.7 Aiwen for DWS 6 vs DWS 7
+### 7.7 Aiven for DWS 6 vs DWS 7
 
-| Aspect            | DWS 6 + Aiwen            | DWS 7 + Aiwen                            |
+| Aspect            | DWS 6 + Aiven            | DWS 7 + Aiven                            |
 | ----------------- | ------------------------ | ---------------------------------------- |
 | **Scope**         | Climate assistant only   | All 6+ agent types                       |
 | **Logging depth** | Basic interaction traces | Full reasoning lineage (CoT/ReAct/ToT)   |
@@ -498,7 +498,7 @@ Aiwen runs entirely within the EU Cloud (pilot account). No data leaves EU.
 
 ### 8.1 Complete Service-to-Environment Mapping
 
-| Service           | US Cloud (Cloudflare) | EU Cloud (GCP/Supabase) | Aiwen (EU)       | Hetzner (V3) | Aiven (Sandbox)        |
+| Service           | US Cloud (Cloudflare) | EU Cloud (GCP/Supabase) | Aiven (EU)       | Hetzner (V3) | Aiven (Sandbox)        |
 | ----------------- | --------------------- | ----------------------- | ---------------- | ------------ | ---------------------- |
 | **Landing pages** | Cloudflare Pages      | —                       | —                | —            | —                      |
 | **Dashboard SPA** | Cloudflare Pages      | —                       | —                | —            | —                      |
@@ -512,7 +512,7 @@ Aiwen runs entirely within the EU Cloud (pilot account). No data leaves EU.
 | **Email (V3)**    | —                     | —                       | —                | Self-hosted  | —                      |
 | **Training**      | —                     | GCP A3 (burst)          | —                | —            | LWM training data      |
 | **Monitoring**    | —                     | Prometheus + Grafana    | —                | —            | —                      |
-| **Compliance**    | —                     | —                       | Full Aiwen stack | —            | —                      |
+| **Compliance**    | —                     | —                       | Full Aiven stack | —            | —                      |
 
 ### 8.2 Domain-to-Environment Mapping
 
@@ -532,7 +532,7 @@ Aiwen runs entirely within the EU Cloud (pilot account). No data leaves EU.
 
 ### 9.1 Data Classification by Cloud
 
-| Data Type                    | US Cloud     | EU Cloud      | Aiwen             | CLOUD Act Risk      |
+| Data Type                    | US Cloud     | EU Cloud      | Aiven             | CLOUD Act Risk      |
 | ---------------------------- | ------------ | ------------- | ----------------- | ------------------- |
 | Public content (pages, docs) | Yes          | —             | —                 | Low (public data)   |
 | Customer PII                 | Never        | Yes           | Audit only        | None (EU providers) |
@@ -545,7 +545,7 @@ Aiwen runs entirely within the EU Cloud (pilot account). No data leaves EU.
 
 ### 9.2 Sovereignty Levels
 
-| Deployment Option              | DWS 6 | DWS 7   | V3      | Aiwen   |
+| Deployment Option              | DWS 6 | DWS 7   | V3      | Aiven   |
 | ------------------------------ | ----- | ------- | ------- | ------- |
 | **EU Cloud (default)**         | High  | High    | High    | Maximum |
 | **Self-hosted (customer VPC)** | —     | Maximum | Maximum | Maximum |
@@ -565,7 +565,7 @@ Aiwen runs entirely within the EU Cloud (pilot account). No data leaves EU.
 | Cloudflare frontend  | Upgrade in-place              | Dashboard v10 replaces v8/v9                |
 | AI agents            | Upgrade + add new agents      | AgentFoundry evolution                      |
 | Customer accounts    | Preserve                      | Supabase Auth continuity                    |
-| `.env` configuration | Extend                        | New vars for Aiwen, multi-tenant            |
+| `.env` configuration | Extend                        | New vars for Aiven, multi-tenant            |
 
 ### 10.2 What Changes
 
@@ -574,20 +574,20 @@ Aiwen runs entirely within the EU Cloud (pilot account). No data leaves EU.
 | Single-tenant        | Multi-tenant                | Architecture change |
 | 3 test files         | 380+ test cases             | Quality enforcement |
 | Manual compliance    | Automated Fit-for-55 engine | New capability      |
-| No Aiwen             | Full EU AI Act compliance   | New layer           |
+| No Aiven             | Full EU AI Act compliance   | New layer           |
 | Single region        | Multi-region EU (FI + DE)   | Infrastructure      |
 | No ISO certification | ISO 27001 + SOC 2           | Compliance          |
 | 3 pilot customers    | 16 paying customers         | Scale               |
 
 ### 10.3 Migration Timeline
 
-| Period            | Migration Step                                                        |
-| ----------------- | --------------------------------------------------------------------- |
-| Feb–Apr 2026      | DWS 6 stabilized as "DWS 7 Phase 1" — same infra, production-hardened |
-| May–Jul 2026      | Aiwen layer added, compliance engine deployed — "DWS 7 Phase 2"       |
-| Aug–Oct 2026      | Multi-tenant, ISO 27001 infra controls — "DWS 7 Phase 3"              |
-| Nov 2026–May 2027 | Intelligence + expansion — "DWS 7 Phase 4-5"                          |
-| Jun–Dec 2027      | DWS IQ 7.0 GA release — "DWS 7 Phase 6"                               |
+| Period            | Migration Step                                                                  |
+| ----------------- | ------------------------------------------------------------------------------- |
+| Feb–Apr 2026      | DWS 6 stabilized as "DWS 7 Phase 1" — same infra, production-hardened           |
+| May–Jul 2026      | Article 12 Logging Pipeline added, compliance engine deployed — "DWS 7 Phase 2" |
+| Aug–Oct 2026      | Multi-tenant, ISO 27001 infra controls — "DWS 7 Phase 3"                        |
+| Nov 2026–May 2027 | Intelligence + expansion — "DWS 7 Phase 4-5"                                    |
+| Jun–Dec 2027      | DWS IQ 7.0 GA release — "DWS 7 Phase 6"                                         |
 
 ---
 
@@ -612,7 +612,7 @@ Aiwen runs entirely within the EU Cloud (pilot account). No data leaves EU.
 | Cloudflare Pro                      | €20–200            | Workers Unbound + Pages       |
 | Hetzner (V3 infra)                  | €17–80             | Jitsi + Email + Storage       |
 | AI APIs                             | €200–500           | Scale with customers          |
-| Aiwen (logging/storage)             | €25–50             | OpenTelemetry + audit storage |
+| Aiven (logging/storage)             | €25–50             | OpenTelemetry + audit storage |
 | Monitoring (Grafana Cloud)          | €0–50              | Free tier or Cloud Monitoring |
 | **Total**                           | **~€550–1,260/mo** | 16-customer production        |
 

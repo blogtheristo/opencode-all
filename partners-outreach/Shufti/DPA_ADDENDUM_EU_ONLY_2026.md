@@ -1,14 +1,15 @@
 # ADDENDUM TO DATA PROCESSING AGREEMENT — EU-Only Processing
 
 VERSION AND AGENT HISTORY
-Version: 1.1
-Date: 2026-04-08
-Author: Claude Code (claude/audit-shufti-dpa-artifacts-HFEGx)
+Version: 1.2
+Date: 2026-04-23
+Author: Claude Code (claude/kya-memory-binding-RuJ0G)
 Owner: Lifetime Oy
 Status: Ready for Signature
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Added Clause 8 (KYA Memory Binding alignment — tenant isolation of verification data; no cross-customer blending; memory-mutation audit trail) per public KYA Standard v1.5 §3 (Memory Binding)
 - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/audit-shufti-dpa-artifacts-HFEGx | Date: 08.04.2026 | Changes: Added Clause 6 (ML training prohibition — binding contractual obligation per PR #768 audit finding A) and Clause 7 (GDPR Art. 9 legal basis for biometric processing per audit finding #3)
 - Version: 1.0 | Tool: Claude Code | Session: claude/check-dpa-status-YD0A1 | Date: 07.04.2026 | Changes: Initial addendum with EU-only processing, GCP EEA lock, 30-day sub-processor notification, breach notification chain
 
@@ -136,6 +137,24 @@ _Source: DPA clause-by-clause audit finding A (2026-04-02, PR #768)._
 **7.3** The Data Controller is solely responsible for obtaining valid explicit consent from each data subject before submitting biometric data to the Data Processor for verification.
 
 _Source: DPA clause-by-clause audit finding #3 (2026-04-02, PR #768)._
+
+---
+
+## Clause 8: KYA Memory Binding — Tenant Isolation of Verification Data
+
+**8.1** The Parties acknowledge that Lifetime Oy operates under the Know Your Agent (KYA) Standard v1.5, whose Memory Binding principle (Section 3) requires that customer data remain tenant-isolated, provenance-logged, and not blended into shared model state.
+
+**8.2 Tenant Isolation.** The Data Processor shall ensure that Personal Data processed on behalf of Lifetime Oy — including biometric data, identity document images, verification metadata, and verification results — is stored, indexed, and retrieved in a manner that prevents co-mingling with data originating from other Shufti Pro customers. Access controls shall enforce tenant boundaries at the record level.
+
+**8.3 No Shared-Model Promotion.** The Data Processor shall not promote, aggregate, anonymize, or otherwise transfer Personal Data processed on behalf of Lifetime Oy into any shared knowledge base, shared model, or shared analytics pool used to serve other customers, except where (a) explicit written consent is obtained from the Data Controller and (b) the contribution is limited to anonymized, aggregated patterns that do not permit re-identification of individual data subjects.
+
+**8.4 Memory-Mutation Audit Trail.** The Data Processor shall maintain an immutable log of operations that create, update, supersede, or delete Personal Data records on behalf of Lifetime Oy. Each log entry shall record at minimum: operation type, timestamp, actor (system or human reviewer), affected record identifier, and reason code where applicable. The log shall be retained for the duration of the Agreement plus five (5) years, consistent with EU AI Act Article 12 logging requirements.
+
+**8.5 Availability to Controller.** Upon reasonable written request, the Data Processor shall provide Lifetime Oy with an export of the Memory-Mutation Audit Trail entries pertaining to Lifetime Oy's data, in a machine-readable format (JSON or equivalent), within ten (10) business days.
+
+**8.6** This clause complements Clause 6 (ML Training Prohibition): Clause 6 prohibits use for model improvement; Clause 8 governs how the data is held and logged regardless of downstream use.
+
+_Source: Public KYA Standard v1.5 §3 Memory Binding — https://dws10.com/kya-standard/ (published 23.04.2026)._
 
 ---
 

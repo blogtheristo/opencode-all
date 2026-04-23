@@ -1,14 +1,14 @@
  #!/bin/sh
 # DWS6 Claude Code Hook: SQL Safety Guard
 # Enforces SQL safety rules on Bash commands containing SQL
-# Upgraded: Supabase patterns + Aiwen Article 12 immutability
+# Upgraded: Supabase patterns + Article 12 immutability
 #
 # Checks:
 # 1. Missing BEGIN/COMMIT transaction wrappers in multi-statement migrations
 # 2. SECURITY DEFINER — ask (not block) for helper functions
 # 3. Missing RLS on new CREATE TABLE
 # 4. DROP TABLE without approval comment
-# 5. Aiwen: audit/Article 12 tables must be append-only
+# 5. Aiven: audit/Article 12 tables must be append-only
 # 6. ON DELETE CASCADE without soft-delete pattern
 # 7. pg_cron jobs that mutate data
 #
@@ -167,10 +167,10 @@ if printf '%s' "$COMMAND" | grep -qiE 'DROP[[:space:]]+TABLE'; then
   fi
 fi
 
-# --- Check 5: Aiwen — audit/Article 12 tables must be append-only ---
-if printf '%s' "$COMMAND" | grep -qiE '(audit|article.?12|reasoning.?lineage|aiwen.?log)'; then
-  if printf '%s' "$COMMAND" | grep -qiE '(UPDATE[[:space:]]+|DELETE[[:space:]]+FROM)[[:space:]]*(audit|article.?12|reasoning|aiwen)'; then
-    log_block "Aiwen compliance: audit/Article 12 tables are immutable. No UPDATE or DELETE allowed."
+# --- Check 5: Aiven — audit/Article 12 tables must be append-only ---
+if printf '%s' "$COMMAND" | grep -qiE '(audit|article.?12|reasoning.?lineage|aiven.?log)'; then
+  if printf '%s' "$COMMAND" | grep -qiE '(UPDATE[[:space:]]+|DELETE[[:space:]]+FROM)[[:space:]]*(audit|article.?12|reasoning|aiven)'; then
+    log_block "Article 12 compliance: audit/Article 12 tables are immutable. No UPDATE or DELETE allowed."
   fi
 fi
 

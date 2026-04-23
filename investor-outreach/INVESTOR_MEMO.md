@@ -457,7 +457,7 @@ Timeframe:                 ~2 years (2024→2026)
 | **User Login Portal**           | ✅ Live          | dws6.com/login — Customer access   |
 | **18 AI Agents**                | ✅ Operational   | Full swarm across 20 industries    |
 | **32 Products**                 | ✅ Cataloged     | dws10.com store                    |
-| **5 Cloud Environments**        | ✅ Running       | US, EU, Aiwen, Hetzner, Edge       |
+| **5 Cloud Environments**        | ✅ Running       | US, EU, Aiven, Hetzner, Edge       |
 
 **Platform URLs:**
 

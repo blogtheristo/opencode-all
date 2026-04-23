@@ -53,14 +53,14 @@ Physical and cloud infrastructure already in place entering Phase 1. These are n
 | EU Cloud backend | Google Cloud Run (`europe-north1`) | Express API, AI agents, EU data residency                  |
 | Database         | Supabase (EU)                      | PostgreSQL + Auth + Realtime + pgvector                    |
 | CDN / Edge       | Cloudflare Pages + Workers         | Landing pages, dashboard SPA, edge API                     |
-| Aiwen layer      | EU Cloud overlay                   | EU AI Act Article 12 logging, reasoning lineage (Phase 2+) |
+| Article 12 Logging Pipeline      | EU Cloud overlay                   | EU AI Act Article 12 logging, reasoning lineage (Phase 2+) |
 
 ### What GN100 enables for the roadmap
 
 - **PR 161 (Climate LLM):** Fine-tune Llama 3.3 70B locally — no cloud training cost, no data leaving premises
 - **Sovereign on-premise AI gap:** The 4th competitive gap (above) is real because this hardware already exists
 - **Groq risk mitigation:** Immediate fallback inference for Llama 3.3 70B (~40 GB VRAM) and Mistral Large (~45 GB VRAM) without cloud dependency
-- **EU AI Act Article 12:** All local inference workloads log to Aiwen layer — compliance-by-default
+- **EU AI Act Article 12:** All local inference workloads log to Article 12 Logging Pipeline — compliance-by-default
 
 ---
 
@@ -1387,7 +1387,7 @@ Complete feature inventory for DWS 7 MVP V1, based on codebase audit of 1,846 co
 
 | #   | Feature                             | Target Phase |
 | --- | ----------------------------------- | ------------ |
-| 26  | Aiwen EU AI Act compliance layer    | Phase 2      |
+| 26  | Article 12 Logging Pipeline    | Phase 2      |
 | 27  | Multi-tenancy / tenant isolation    | Phase 3      |
 | 28  | ISO 27001 / SOC 2 certification     | Phase 3      |
 | 29  | IoT pipeline (Jetson Orin Nano)     | Phase 4      |
