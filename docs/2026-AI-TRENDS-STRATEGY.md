@@ -6,7 +6,7 @@
 Version: 2.0
 
 Sessions & Modifications:
-  - Version: 2.0 | Tool: Claude Code (Sonnet 4.5) | Session: claude/2026-trends-strategy-ot9vn | Date: 15.03.2026 | Changes: Updated for DWS 7 production platform — 21 agents, 37 workflows, 32 products, 20 industries; added GN100 Blackwell, Aiven compliance layer, 5-partner ecosystem (NVIDIA/Siemens/ABB/xAI/Mistral), 6-phase roadmap (247 PRs); updated financial trajectory €7k→€72k+ MRR
+  - Version: 2.0 | Tool: Claude Code (Sonnet 4.5) | Session: claude/2026-trends-strategy-ot9vn | Date: 15.03.2026 | Changes: Updated for DWS 7 production platform — 21 agents, 37 workflows, 32 products, 20 industries; added GN100 Blackwell, Article 12 Logging Pipeline, 5-partner ecosystem (NVIDIA/Siemens/ABB/xAI/Mistral), 6-phase roadmap (247 PRs); updated financial trajectory €7k→€72k+ MRR
   - Version: 1.0 | Tool: Claude Code | Session: claude/2026-trends-strategy-ot9vn | Date: 25.01.2026 | Changes: Initial creation for DWS 7 platform
 
 Session Links & References:
@@ -33,7 +33,7 @@ This document analyzes the 10 major AI trends for 2026 (as identified by SAS ind
 
 **DWS 7** is the production evolution of the **DWS IQ 6 pilot platform**, delivered through a **247-PR roadmap across 6 phases** (February 2026 → December 2027). As of March 15, 2026: **V1.0 launched** (Feb 23), **21 agents**, **37 CI/CD workflows**, **32 products**, **20 industries** covered.
 
-**Key Finding:** DWS 7 is already implementing 8 out of 10 major trends, positioning us as a market leader in industrial AI compliance platforms, with **sovereign on-premise AI** (NVIDIA GN100 Blackwell), **Aiven EU AI Act compliance layer**, and a **5-partner ecosystem** (NVIDIA, Siemens, ABB, xAI, Mistral).
+**Key Finding:** DWS 7 is already implementing 8 out of 10 major trends, positioning us as a market leader in industrial AI compliance platforms, with **sovereign on-premise AI** (NVIDIA GN100 Blackwell), **Article 12 Logging Pipeline**, and a **5-partner ecosystem** (NVIDIA, Siemens, ABB, xAI, Mistral).
 
 ### Strategic Positioning
 
@@ -44,7 +44,7 @@ This document analyzes the 10 major AI trends for 2026 (as identified by SAS ind
 │  ✅ 8/10 Trends Already Implemented (V1.0)                      │
 │  🚀 2 Trends = Strategic Differentiation (Phases 3-4)           │
 │  🎯 Target: De Facto Platform for Fit for 55 by Q4 2027         │
-│  🇪🇺 Sovereign AI: GN100 Blackwell + Aiven Compliance Layer     │
+│  🇪🇺 Sovereign AI: GN100 Blackwell + Article 12 Logging Pipeline     │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -916,7 +916,7 @@ interface ModelRouter {
   - Mistral inference: €5k (12%)
   - Siemens integration: €4k (9%)
 
-### Aiven EU AI Act Compliance Layer
+### Article 12 Logging Pipeline
 
 **Aiven** is DWS 7's EU AI Act compliance overlay—a parallel infrastructure layer that logs, audits, and proves compliance for every AI decision.
 
@@ -927,7 +927,7 @@ interface ModelRouter {
 │                  DWS 7 Application Layer                     │
 │         (Compliance Agents, Firehorse, Workflows)            │
 ├──────────────────────────────────────────────────────────────┤
-│                    Aiven Compliance Layer                    │
+│                    Article 12 Logging Pipeline                    │
 │         (Article 12 Logging, Reasoning Lineage)              │
 │                                                               │
 │  • Immutable audit logs (write-once, 7-year retention)      │

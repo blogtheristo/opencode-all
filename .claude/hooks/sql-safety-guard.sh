@@ -1,7 +1,7 @@
  #!/bin/sh
 # DWS6 Claude Code Hook: SQL Safety Guard
 # Enforces SQL safety rules on Bash commands containing SQL
-# Upgraded: Supabase patterns + Aiven Article 12 immutability
+# Upgraded: Supabase patterns + Article 12 immutability
 #
 # Checks:
 # 1. Missing BEGIN/COMMIT transaction wrappers in multi-statement migrations
@@ -170,7 +170,7 @@ fi
 # --- Check 5: Aiven — audit/Article 12 tables must be append-only ---
 if printf '%s' "$COMMAND" | grep -qiE '(audit|article.?12|reasoning.?lineage|aiven.?log)'; then
   if printf '%s' "$COMMAND" | grep -qiE '(UPDATE[[:space:]]+|DELETE[[:space:]]+FROM)[[:space:]]*(audit|article.?12|reasoning|aiven)'; then
-    log_block "Aiven compliance: audit/Article 12 tables are immutable. No UPDATE or DELETE allowed."
+    log_block "Article 12 compliance: audit/Article 12 tables are immutable. No UPDATE or DELETE allowed."
   fi
 fi
 

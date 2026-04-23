@@ -40,7 +40,7 @@ DWS IQ 6 is not a point solution. It is a **complete industrial intelligence org
 | **ReFuelEU**     | Aviation & Maritime          | SAF mandates, fuel intensity tracking                                                  |
 | **NIS2**         | Cybersecurity Resilience     | Secure infrastructure, incident reporting, board accountability (Dir. 2022/2555)       |
 | **CER**          | Critical Entities Resilience | Physical protection of critical infrastructure against hybrid threats (Dir. 2022/2557) |
-| **EU AI Act**    | AI Governance                | Article 12 logging, reasoning lineage (Aiven layer Q2 2026)                            |
+| **EU AI Act**    | AI Governance                | Article 12 logging, reasoning lineage (Article 12 Logging Pipeline Q2 2026)                            |
 
 Full Industry Coverage: [16-INDUSTRIES.md](16-INDUSTRIES.md) | [8-industries.md](8-industries.md)
 
@@ -400,7 +400,7 @@ Legal Terms: [MCP Hub Terms of Service](privacy-policy/TermsofServiceforMCPHub.m
 
 - **Feb 23, 2026**: V1.0 Launch (completed)
 - **Q1 2026**: Customer onboarding wizard, compliance scoring, 21-agent swarm
-- **Q2 2026**: Pilot validation with European construction/manufacturing partner, EU AI Act Aiven layer
+- **Q2 2026**: Pilot validation with European construction/manufacturing partner, EU AI Act Article 12 Logging Pipeline
 - **Q3 2026**: ISO 27001 certification, production scaling
 - **Q4 2026**: SOC 2 Type II, profitability target
 

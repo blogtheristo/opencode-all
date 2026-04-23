@@ -55,7 +55,7 @@ Each tier is sold to a customer whose regulatory exposure determines what infras
 
 | Tier                         | Sovereignty Posture | Target Customer                              | Hosting                                                                                                | CLOUD Act Exposure | Pricing                                                             |
 | ---------------------------- | ------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------ | ------------------------------------------------------------------- |
-| **DWS IQ Aegis**             | Full Sovereign      | Government, defence, critical infrastructure | Hetzner Helsinki + Aiven managed PostgreSQL (FI, EU-incorporated); Aiven Article 12 compliance overlay | Zero               | EUR 59,990 one-time + EUR 999/mo                                    |
+| **DWS IQ Aegis**             | Full Sovereign      | Government, defence, critical infrastructure | Hetzner Helsinki + Aiven managed PostgreSQL (FI, EU-incorporated); Article 12 compliance overlay | Zero               | EUR 59,990 one-time + EUR 999/mo                                    |
 | **DWS IQ 6 Sovereign Infra** | EU-Sovereign        | Regulated EU/UK enterprise SaaS              | Scaleway EU cloud + EU IDV (iDenfy candidate)                                                          | None               | Enterprise Navigator / Premium / Nordic / World tiers (see pricing) |
 | **DWS IQ Connect**           | Global              | Global enterprise, no sovereignty constraint | US/global cloud (AWS, Azure, NVIDIA), APAC, MENA                                                       | Standard           | Tier-priced via partner channels                                    |
 
@@ -202,7 +202,7 @@ If a prospect spans tiers (e.g. EU HQ with US subsidiary), default to the **high
 
 ## Cross-References
 
-- `CLOUD_ENVIRONMENTS.md` — US / EU cloud infrastructure + Aiven compliance overlay (§7)
+- `CLOUD_ENVIRONMENTS.md` — US / EU cloud infrastructure + Article 12 Logging Pipeline (§7)
 - `../DWS_DATA_STANDARD.md` — Data residency rules
 - `../DWS_SECURITY_STANDARD.md` — AI safety, enterprise security framework
 - `../Admin/SECURITY_COMPLIANCE.md` — Deployment controls and certifications

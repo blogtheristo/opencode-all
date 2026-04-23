@@ -483,7 +483,7 @@ Worktree policy: shared `.gitignore`, symlinked `.venv`, copied `.env/.env.mcp/.
 | PostToolUse (Write/Edit) | prettier + eslint (inline)                                                        | Auto-format every file change                                                             |
 | Stop                     | `session-stop.sh`                                                                 | Governance checklist (dual folder sync, thesis, uncommitted changes)                      |
 
-**Key blocks:** `rm` (all, except /tmp/), `git push --force`, `git reset --hard`, `git rm`, `sudo`, pipe-to-shell, `ollama pull/rm`, DROP TABLE, CREATE TABLE without RLS, Aiven audit table mutations.
+**Key blocks:** `rm` (all, except /tmp/), `git push --force`, `git reset --hard`, `git rm`, `sudo`, pipe-to-shell, `ollama pull/rm`, DROP TABLE, CREATE TABLE without RLS, Article 12 audit table mutations.
 
 **Rules of Engagement:** See `Admin/ADMIN_MANUAL.md` Section 30.13 — defines Claude's operational boundaries: when to commit, how to handle hook failures, the no-rm policy, and the explicit verification workflow.
 

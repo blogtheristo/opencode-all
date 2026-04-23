@@ -214,7 +214,7 @@ This market research directly supports the **Lifetime Fleet** division (Hands la
 
 - **Argus Agent** (`src/agents/argus.agent.ts`) — existing perimeter security AI agent, extensible to drone fleet C2
 - **LWM (Lifetime World Model)** — factory digital twin provides the 3D map for drone navigation and patrol routes
-- **EU AI Act compliance** — DWS Aiven layer provides Article 12 logging and reasoning lineage required for high-risk drone AI
+- **EU AI Act compliance** — DWS Article 12 Logging Pipeline provides Article 12 logging and reasoning lineage required for high-risk drone AI
 - **MCP integration** — drone fleet management exposed as MCP tools for multi-agent orchestration
 
 ### 9.1 Product Opportunity

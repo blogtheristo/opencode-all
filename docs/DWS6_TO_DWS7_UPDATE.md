@@ -351,7 +351,7 @@ DWS7 is the only platform that covers all four major EU climate regulations in a
 
 ## 6. EU AI Act Compliance (Aiven Layer)
 
-DWS7 classifies as a **high-risk AI system** under the EU AI Act (industrial decision support for regulated industries). The Aiven compliance layer, deployed as an overlay on the EU Cloud, ensures full compliance by August 2026.
+DWS7 classifies as a **high-risk AI system** under the EU AI Act (industrial decision support for regulated industries). The Article 12 Logging Pipeline, deployed as an overlay on the EU Cloud, ensures full compliance by August 2026.
 
 ### Article 12 — Automatic Logging
 

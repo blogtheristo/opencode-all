@@ -162,7 +162,7 @@ _Note: AI-assisted times above are pure computation. Add 30-60 minutes for human
 - Actions are logged to `actions.json` with ownership assignments
 - All artifacts are timestamped and version-trackable via git
 
-**DWS IQ 6 advantage:** The Aiven compliance layer (see `docs/CLOUD_ENVIRONMENTS.md`) provides Article 12 automatic logging and reasoning lineage documentation on top of the base pipeline.
+**DWS IQ 6 advantage:** The Article 12 Logging Pipeline (see `docs/CLOUD_ENVIRONMENTS.md`) provides Article 12 automatic logging and reasoning lineage documentation on top of the base pipeline.
 
 ### Fit for 55: Emissions Context
 
@@ -224,7 +224,7 @@ _Note: AI-assisted times above are pure computation. Add 30-60 minutes for human
 - [ ] Set up automated pipeline runs (cron/Temporal.io)
 - [ ] Configure monitoring and alerting for model drift
 - [ ] Implement the feedback loop (human corrections → model improvement)
-- [ ] Set up EU AI Act Article 12 logging (DWS IQ 6 Aiven layer)
+- [ ] Set up EU AI Act Article 12 logging (DWS IQ 6 Article 12 Logging Pipeline)
 - [ ] Add `dws sovereignty-assess` to your CI/CD pre-deploy check — verify data residency before every release
 - [ ] Run `dws kya snap` after first production deployment to capture baseline agent trust scores
 

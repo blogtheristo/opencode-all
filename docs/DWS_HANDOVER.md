@@ -151,7 +151,7 @@ This document defines the handover package from the development team (Lifetime O
 |-------------|----------|--------|---------|--------|
 | **US Cloud (Public)** | Cloudflare | Global | Landing pages, store, CDN | Active |
 | **EU Cloud (Backend)** | Google Cloud Run + Supabase | europe-north1 (Finland) | API, AI agents, database | Active |
-| **Aiven (EU AI Act)** | EU Cloud overlay | EU-only | Article 12 compliance | Planned Q2 2026 |
+| **Article 12 Logging Pipeline** | EU Cloud overlay | EU-only | Article 12 compliance | Planned Q2 2026 |
 | **Hetzner V3** | Hetzner Helsinki | Finland | Jitsi Meet, email | Active |
 
 ### 4.2 DNS & Domains
