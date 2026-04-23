@@ -470,7 +470,55 @@
 
       <hr />
 
-      <h2>3. Technical Architecture: Hardware-Level Isolation</h2>
+      <h2>3. Memory Binding &mdash; Your Agent Writes to Your Memory</h2>
+      <p>
+        KYA solves the memory-binding problem. Agent memory is a security surface: every fact an
+        agent stores, supersedes, or forgets mutates customer state. Without binding, memory becomes
+        an unauditable black box that fails compliance review.
+      </p>
+
+      <div class="summary-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Memory Layer</th>
+              <th>Scope</th>
+              <th>Isolation</th>
+              <th>Shared?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Client Memory (relationship)</td>
+              <td>Customer-specific facts: preferences, deadlines, stated budgets</td>
+              <td>Postgres RLS by <code>org_id</code>; every mutation attested via KYA</td>
+              <td>No &mdash; tenant-isolated</td>
+            </tr>
+            <tr>
+              <td>LWM (domain)</td>
+              <td>EU regulations, emission factors, industry benchmarks</td>
+              <td>Shared domain knowledge &mdash; not customer data</td>
+              <td>Yes &mdash; shared to all tenants</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        <strong>The promise:</strong> Your agent writes to your memory &mdash; tenant-isolated,
+        provenance-logged, not ours. Nothing from your client memory reaches the shared LWM unless
+        you explicitly opt in, and only as anonymized, aggregated patterns.
+      </p>
+
+      <p>
+        Every store, supersede, forget, and fact-extract is logged in the
+        <code>memory_audit_log</code> with agent identity, timestamp, source hash, and confidence
+        &mdash; court-defensible provenance under EU AI Act Article 12 and CSRD.
+      </p>
+
+      <hr />
+
+      <h2>4. Technical Architecture: Hardware-Level Isolation</h2>
       <p>
         To meet the "Zero-Trust" requirements of industrial-grade environments, DWS IQ enforces
         physical separation for every agent deployment.
@@ -536,7 +584,7 @@ Cross-sandbox access? --> TRAP --> SESSION FROZEN</pre
 
       <hr />
 
-      <h2>4. Agent Trust Score (ATS)</h2>
+      <h2>5. Agent Trust Score (ATS)</h2>
       <div class="callout">
         <p>
           <strong>Formula:</strong>
@@ -594,7 +642,7 @@ Cross-sandbox access? --> TRAP --> SESSION FROZEN</pre
 
       <hr />
 
-      <h2>5. Use Case: The Multi-Agent Control Room</h2>
+      <h2>6. Use Case: The Multi-Agent Control Room</h2>
       <p>
         A Tier-1 client initiates a complex task in the Control Room (managing 16 proprietary
         industrial models). The client simultaneously deploys four heterogeneous agents:
@@ -675,7 +723,7 @@ Cross-sandbox access? --> TRAP --> SESSION FROZEN</pre
 
       <hr />
 
-      <h2>6. BYO Agent Registration Flow</h2>
+      <h2>7. BYO Agent Registration Flow</h2>
       <div class="summary-table">
         <table>
           <thead>
@@ -722,7 +770,7 @@ Cross-sandbox access? --> TRAP --> SESSION FROZEN</pre
 
       <hr />
 
-      <h2>7. Compliance Alignment</h2>
+      <h2>8. Compliance Alignment</h2>
       <div class="summary-table">
         <table>
           <thead>
@@ -762,7 +810,7 @@ Cross-sandbox access? --> TRAP --> SESSION FROZEN</pre
 
       <hr />
 
-      <h2>8. Subagent Registry <span class="tag tag-kya">v1.1</span></h2>
+      <h2>9. Subagent Registry <span class="tag tag-kya">v1.1</span></h2>
       <p>
         Every subagent initialized within the DWS IQ platform must register with the
         <strong>Subagent Registry</strong> and sign a local
@@ -923,7 +971,7 @@ Cross-sandbox access? --> TRAP --> SESSION FROZEN</pre
 
       <hr />
 
-      <h2>9. Identity Provider Integration</h2>
+      <h2>10. Identity Provider Integration</h2>
       <p>
         The KYA architecture is designed for pluggable identity providers. Any IDV/KYC partner that
         can deliver real-time verification scores and continuous risk webhooks can serve as the
@@ -967,7 +1015,7 @@ Cross-sandbox access? --> TRAP --> SESSION FROZEN</pre
 
       <hr />
 
-      <h2>10. Agentforce Integration &mdash; Salesforce Headless 360</h2>
+      <h2>11. Agentforce Integration &mdash; Salesforce Headless 360</h2>
       <p>
         Salesforce Headless 360 exposes the entire Salesforce, Agentforce, and Slack platform as
         APIs, MCP, and CLI. DWS IQ is built the same way. The integration is one MCP handshake.
@@ -1049,7 +1097,7 @@ Cross-sandbox access? --> TRAP --> SESSION FROZEN</pre
 
       <hr />
 
-      <h2>11. Contact</h2>
+      <h2>12. Contact</h2>
       <p>
         <strong>Lifetime Oy</strong> &middot; Helsinki, Finland<br />
         <a href="mailto:risto@onelifetime.world">risto@onelifetime.world</a><br />
