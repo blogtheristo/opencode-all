@@ -111,6 +111,7 @@ Chronological order. Update this table when adding/removing posts.
 | 11  | `core-resilience-hybrid-threats.html`     | CORE: The EU Model That Maps Every Hybrid Threat      | 16 Apr 2026 |
 | 12  | `solid-layers-aiven-scaleway-kya.html`    | Our Layers Are Solid — Aiven, Scaleway, KYA + Foundry | 22 Apr 2026 |
 | 13  | `mcp-apps-identity-spine.html`            | MCP Apps Extends the Frontier — KYA Identity Spine    | 22 Apr 2026 |
+| 14  | `redhat-sovereign-move-three-tiers.html`  | Red Hat's EU Sovereign Move — and the Three Tiers     | 23 Apr 2026 |
 
 ---
 
