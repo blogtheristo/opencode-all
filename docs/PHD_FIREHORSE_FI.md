@@ -2000,11 +2000,11 @@ Kolme akselia ovat tällä hetkellä aktiivisia Firehorse-toimintamallissa:
 
 | Taso     | **Agentit**                  | **Työnkulut (Workflows)**                                             | **Jurisdiktiot**                      |
 | -------- | ---------------------------- | --------------------------------------------------------------------- | ------------------------------------- |
-| 1 Brändi | Skilled Agents               | Skilled Autonomous Workflows                                          | Skilled Jurisdictions (EU, US, Aiwen) |
+| 1 Brändi | Skilled Agents               | Skilled Autonomous Workflows                                          | Skilled Jurisdictions (EU, US, Aiven) |
 | 2 Speksi | Industrial Specialist Agents | Specialist Workflows (pitkä muoto: _Industrial Specialist Workflows_) | Regulatory Specialist Jurisdictions   |
 | 3 UI     | Industry Agents              | Industrial Workflows                                                  | Jurisdictions                         |
 
-"Autonomous" esiintyy vain työnkulkujen brändi­tasolla, koska työnkulut suoritetaan aikataululla tai tapahtumalla ilman ihmistä silmukassa — ominaisuus, jonka toimintamallin myymäläkopion on ansaittava jokaiselle tuotteelle, joka väittää toimittavansa toistuvia compliance-artefakteja (ks. §14.16.1 Firehorse Report Engine -ajastin). "Regulatory" esiintyy jurisdiktioiden speksitasolla, koska jurisdiktio määrittyy sääntelypinnan (AI Act, GDPR, CBAM, ETS, CSRD EU:lle; sektorisäännöt US:lle; data-lokalisaatio Aiwenille) eikä pelkän maantieteen kautta.
+"Autonomous" esiintyy vain työnkulkujen brändi­tasolla, koska työnkulut suoritetaan aikataululla tai tapahtumalla ilman ihmistä silmukassa — ominaisuus, jonka toimintamallin myymäläkopion on ansaittava jokaiselle tuotteelle, joka väittää toimittavansa toistuvia compliance-artefakteja (ks. §14.16.1 Firehorse Report Engine -ajastin). "Regulatory" esiintyy jurisdiktioiden speksitasolla, koska jurisdiktio määrittyy sääntelypinnan (AI Act, GDPR, CBAM, ETS, CSRD EU:lle; sektorisäännöt US:lle; data-lokalisaatio Aivenille) eikä pelkän maantieteen kautta.
 
 #### 14.17.3 Toimintamallin merkitys
 

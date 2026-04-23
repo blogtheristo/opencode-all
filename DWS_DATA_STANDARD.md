@@ -226,7 +226,7 @@ Not all DWS data lives in Postgres. Some content stores are filesystem-backed ma
 | `kb/ephemeral/`          | LLM       | WORKING (transient)   | **NO**                | **7 days** — `scripts/daily/kb-cleanup.sh` sweeps older entries | Not backed up          |
 | `kb/kb.json`             | LLM       | INTERNAL (metadata)   | No                    | Indefinite — updated on each compile/lint                       | Git repo               |
 | `docs/field-notes/`      | Human     | INTERNAL (operations) | No                    | Indefinite — version history                                    | Git repo               |
-| `logs/email-audit.jsonl` | System    | RESTRICTED (audit)    | Yes (email addresses) | 7 years (financial record retention)                            | Aiwen + ProtonDrive    |
+| `logs/email-audit.jsonl` | System    | RESTRICTED (audit)    | Yes (email addresses) | 7 years (financial record retention)                            | Aiven + ProtonDrive    |
 
 **KB classification rules (enforced by operator discipline, not code):**
 

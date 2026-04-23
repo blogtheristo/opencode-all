@@ -8,7 +8,7 @@ Version: 1.1
 
 Sessions & Modifications:
 
-- Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/product-tiers-partners-Jbh0U | Date: 20.04.2026 | Changes: Fixed Aiwen → Aiven spelling; reframed Aiven as (a) Finnish managed PostgreSQL provider and (b) EU AI Act Article 12 compliance overlay (per CLOUD_ENVIRONMENTS.md §7). Named Hetzner Helsinki as actual Tier 1 sovereign compute provider; removed Supabase from Aegis data path because it is US-incorporated.
+- Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/product-tiers-partners-Jbh0U | Date: 20.04.2026 | Changes: Fixed Aiven → Aiven spelling; reframed Aiven as (a) Finnish managed PostgreSQL provider and (b) EU AI Act Article 12 compliance overlay (per CLOUD_ENVIRONMENTS.md §7). Named Hetzner Helsinki as actual Tier 1 sovereign compute provider; removed Supabase from Aegis data path because it is US-incorporated.
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/product-tiers-partners-Jbh0U | Date: 19.04.2026 | Changes: Initial product tier matrix (Aegis / Sovereign Infra / Connect), partner map, market segmentation, positioning statement
 
 Session Links & References:

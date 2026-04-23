@@ -417,7 +417,7 @@ Track confirmed technology partnerships that create competitive moats and co-sel
 - **Inference > Training:** By 2028, 80%+ of accelerators deployed for inference, not training. DWS IQ 6 is already inference-native (GN-100 edge + Cloud Run).
 - **MCP as bridge:** Red Hat identifies MCP as critical for bridging legacy systems with agentic AI — matches DWS IQ 6 MCP+A2A architecture.
 - **Durability > Resiliency:** A durable enterprise doesn't just bounce back — it continuously delivers value while the world changes. This validates the KYA governed self-optimization model.
-- **Hybrid sovereignty:** Red Hat's hybrid cloud imperative maps to DWS IQ 6 deployment model (EU Cloud + Edge + Aiwen overlay).
+- **Hybrid sovereignty:** Red Hat's hybrid cloud imperative maps to DWS IQ 6 deployment model (EU Cloud + Edge + Aiven overlay).
 - **BYOA alignment:** Red Hat's Bring Your Own Agent framework validates DWS IQ 6's framework-agnostic agent orchestration.
 
 **Competitive positioning use:** Reference these data points in Ecosummit pitch, investor materials, and partner conversations. The Red Hat thesis independently validates DWS IQ 6 architecture choices: open, compliant, hybrid, agent-native infrastructure for EU industrial sovereignty.
