@@ -181,7 +181,7 @@ Microsoft (Espoo/Kirkkonummi), Google (Hamina), and Nebius (Mäntsälä) have al
 - The DWS IQ 7 thesis cannot rest on "we signed a wind PPA". Hyperscalers did too, and at better terms.
 - The differentiator must be **measured, signed, Article-12-auditable inference lineage** tied to that green electricity — i.e. software, not infrastructure.
 
-This sharpens the Arctic 15 audit conclusion: the IQ 6 software story (Aiwen logging, signed reports, Article 12 compliance) is the near-term asset. The infrastructure layer, if ever built, sits on top and serves customers who already demand that level of audit — not as a primary selling point.
+This sharpens the Arctic 15 audit conclusion: the IQ 6 software story (sovereignty audit logging, signed reports, Article 12 compliance) is the near-term asset. The infrastructure layer, if ever built, sits on top and serves customers who already demand that level of audit — not as a primary selling point.
 
 ---
 

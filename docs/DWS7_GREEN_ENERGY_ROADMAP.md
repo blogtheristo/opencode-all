@@ -71,7 +71,7 @@ Our answer is **yes — by 2027** — and we are opening the investor door **Jun
 │            Fit for 55 · ETS · CBAM · CSRD · EU AI Act        │
 ├──────────────────────────────────────────────────────────────┤
 │  BODY      Firehorse Suite — Signed Reports, Omnichannel     │
-│            Aiwen Article-12 reasoning lineage                │
+│            EU AI Act Article 12 reasoning lineage            │
 ├──────────────────────────────────────────────────────────────┤
 │  HANDS     Lifetime Fleet — IoT, Robots, Edge (Jetson)       │
 ├──────────────────────────────────────────────────────────────┤
@@ -162,7 +162,7 @@ Conservative model, grounded in sourced factors:
 | Hyperscaler AI inference avg price     | $2–4 / M tokens | Industry benchmark (OpenAI, Anthropic pricing) |
 | DWS IQ 7 green-premium target          | +15–25%         | Priced vs. avoided ETS + brand value           |
 
-**The premium is not moral — it is regulatory.** Enterprises buying compute from Aiwen-logged, Article-12-compliant, CSRD-disclosable green infrastructure _save_ auditor fees and avoid CBAM exposure. We monetise their compliance, not their conscience.
+**The premium is not moral — it is regulatory.** Enterprises buying compute from Article-12-compliant, CSRD-disclosable green infrastructure under full EU sovereignty _save_ auditor fees and avoid CBAM exposure. We monetise their compliance, not their conscience.
 
 ---
 

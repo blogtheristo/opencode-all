@@ -220,7 +220,7 @@ These numbers are the single source of truth. Boardy MUST use these — do not d
 | Industries           | 20                      | EU-regulated verticals                 |
 | Agents               | 18                      | Operational                            |
 | Products             | 32                      | dws10.com catalog                      |
-| Cloud environments   | 5                       | US, EU, Aiwen, Hetzner, Edge           |
+| Cloud environments   | 4 + roadmap             | US, EU, Hetzner, Edge + Full Sovereignty (Q2 2026) |
 | V1 launch            | June 15, 2026           | Arctic 15, Helsinki                    |
 | Sales data available | August 15, 2026         | First cycle complete                   |
 | ARR target           | €900K                   | End of 2026                            |

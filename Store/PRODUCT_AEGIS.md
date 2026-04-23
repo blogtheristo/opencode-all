@@ -71,7 +71,7 @@ Named after Athena's shield — Aegis provides protection through intelligence, 
 - Every AI decision logged with risk classification
 - Reasoning lineage preservation
 - Audit-ready documentation for regulators
-- Aiwen environment (EU-only AI compliance layer)
+- Full Sovereignty environment (EU-only AI compliance layer)
 
 ## Target Market
 

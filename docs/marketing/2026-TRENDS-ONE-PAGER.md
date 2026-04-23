@@ -6,7 +6,7 @@
 Version: 2.0
 
 Sessions & Modifications:
-  - Version: 2.0 | Tool: Claude Code (Sonnet 4.5) | Session: claude/2026-trends-strategy-ot9vn | Date: 15.03.2026 | Changes: Updated for DWS 7 — 21 agents, 37 workflows, 32 products, 20 industries; added 5-partner ecosystem, GN100 Blackwell, Aiwen compliance layer; updated financial €7k→€72k+ MRR
+  - Version: 2.0 | Tool: Claude Code (Sonnet 4.5) | Session: claude/2026-trends-strategy-ot9vn | Date: 15.03.2026 | Changes: Updated for DWS 7 — 21 agents, 37 workflows, 32 products, 20 industries; added 5-partner ecosystem, GN100 Blackwell, EU AI Act compliance layer; updated financial €7k→€72k+ MRR
   - Version: 1.0 | Tool: Claude Code | Session: claude/2026-trends-strategy-ot9vn | Date: 25.01.2026 | Changes: Initial creation for DWS 7 platform
 
 Session Links & References:
@@ -66,7 +66,7 @@ Document Status:
 
 **Competitors:** 0-2 regulations covered
 **DWS 7:** 6 regulations covered (Fit for 55 complete by Q4 2026)
-**Aiwen Compliance Layer:** EU AI Act Article 12 automatic logging (2-3 year head start)
+**EU AI Act Compliance Layer:** EU AI Act Article 12 automatic logging (2-3 year head start)
 
 ### **#3: Edge AI Advantage**
 - **NVIDIA Jetson Orin Nano:** 50 sites deployed
@@ -96,7 +96,7 @@ Document Status:
 ### For C-Suite (Strategic Buyers)
 - **"De facto platform for Fit for 55 compliance across 20 industries"**
 - **"5-partner ecosystem: NVIDIA, Siemens, ABB, xAI, Mistral—not a solo startup"**
-- **"Sovereign on-premise AI: GN100 Blackwell (120 GiB RAM) + Aiwen EU AI Act compliance layer"**
+- **"Sovereign on-premise AI: GN100 Blackwell (120 GiB RAM) + EU AI Act compliance layer (Full Sovereignty tier)"**
 - **"Technology leadership: 8/10 major 2026 AI trends already implemented"**
 
 ---

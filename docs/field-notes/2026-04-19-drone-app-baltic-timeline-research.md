@@ -66,7 +66,7 @@ The word "droonisovellus" hides two very different products. The research recomm
 - **Mission:** Persistent surveillance of critical infrastructure, border segments, factory perimeters.
 - **Legal class:** EASA **Specific** category (2019/947). BVLOS via operational authorisation. **Non-lethal, civilian dual-use.**
 - **Hardware host:** Third-party airframe (Parrot Anafi USA, Skydio X10D, or Finnish **Videodrone / Riegl VUX**). DWS ships **payload software + edge inference + ground station agent**, not the airframe.
-- **Compliance surface:** GDPR (video), EU AI Act Annex III (biometric inference → keep OFF by default), Aiwen Article 12 logging.
+- **Compliance surface:** GDPR (video), EU AI Act Annex III (biometric inference → keep OFF by default), EU AI Act Article 12 logging (sovereignty audit layer).
 - **Customer:** Rajavartiolaitos, Huoltovarmuuskeskus-listed operators, Fingrid, Fortum, Nordic paper & steel, data centres.
 - **Ship date target:** **Operational pilot within 12 weeks**, first paying customer within 20 weeks.
 

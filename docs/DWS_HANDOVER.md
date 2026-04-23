@@ -62,7 +62,7 @@ This document defines the handover package from the development team (Lifetime O
 | ERP integrations | Partial | SAP, IFS, Dynamics connectors exist; customer-specific config needed |
 | Mobile app (Firehorse) | Ready for deploy | React Native, Google Play listing prepared |
 | Documentation | Delivered | 15+ admin manuals, architecture docs, security docs |
-| EU AI Act (Aiwen) | Roadmap Q2 2026 | Article 12 logging framework planned |
+| EU AI Act compliance layer | Roadmap Q2 2026 | Article 12 logging framework planned |
 
 ---
 
@@ -151,7 +151,7 @@ This document defines the handover package from the development team (Lifetime O
 |-------------|----------|--------|---------|--------|
 | **US Cloud (Public)** | Cloudflare | Global | Landing pages, store, CDN | Active |
 | **EU Cloud (Backend)** | Google Cloud Run + Supabase | europe-north1 (Finland) | API, AI agents, database | Active |
-| **Aiwen (EU AI Act)** | EU Cloud overlay | EU-only | Article 12 compliance | Planned Q2 2026 |
+| **Full Sovereignty (Aegis)** | EU Cloud overlay | EU-only | Article 12 compliance | Planned Q2 2026 |
 | **Hetzner V3** | Hetzner Helsinki | Finland | Jitsi Meet, email | Active |
 
 ### 4.2 DNS & Domains
@@ -419,7 +419,7 @@ During hypercare:
 
 | # | Limitation | Impact | Mitigation / Roadmap |
 |---|-----------|--------|---------------------|
-| L1 | EU AI Act (Aiwen) compliance not yet implemented | No Article 12 logging | Planned Q2 2026 |
+| L1 | EU AI Act compliance layer not yet implemented | No Article 12 logging | Planned Q2 2026 |
 | L2 | ERP connectors require customer-specific configuration | Not plug-and-play | Professional services engagement |
 | L3 | Mobile app not yet published on Google Play | No mobile access | Build & deploy guide ready, 2–3 weeks to publish |
 | L4 | Omnibus regulation pivot (Jan 2026) may require rule updates | Regulation changes | Lifetime World Model updated as regulations finalize |
@@ -562,7 +562,7 @@ Deploying DWS IQ 6 typically changes these operational processes:
 
 | # | Gap | Description | Priority | Est. Effort |
 |---|-----|-------------|----------|-------------|
-| G10 | **EU AI Act (Aiwen) compliance** | Article 12 automatic logging not yet implemented | Medium | Q2 2026 roadmap |
+| G10 | **EU AI Act compliance layer** | Article 12 automatic logging not yet implemented | Medium | Q2 2026 roadmap |
 | G11 | **Multi-tenant isolation** | Current architecture is single-tenant; multi-tenant requires architectural changes | Medium | 4–6 weeks |
 | G12 | **Automated smoke tests** | No automated post-deployment smoke test suite for production | Medium | 1 week |
 | G13 | **Client admin training video** | Recorded training for onboarding new admins without live session | Medium | 3 days |
