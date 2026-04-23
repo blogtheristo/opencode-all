@@ -1,15 +1,20 @@
 /**
- * OneLifetime.World Vertical Language Bar v1.0
- * Introduced-In: PR-TBD (restore-language-bar)
- * Code-Version: 1.0
- * Branch: claude/restore-language-bar-xH99X
- * Date: 2026-04-17
+ * OneLifetime.World Vertical Language Bar v1.1
+ * Introduced-In: PR-TBD (iceye-jgi-deforestation)
+ * Code-Version: 1.1
+ * Branch: claude/iceye-jgi-deforestation-PSzCd
+ * Date: 2026-04-23
  * Owner: Lifetime Oy
  *
+ * v1.1 — Matched dws10.com quality: 5 European languages (FI | SV | DE | FR | EN),
+ *        per-page-type one-liners (home | blog | press). Each string is a single
+ *        tight sentence aligned with the DWS Skilled Taxonomy brand tier.
+ * v1.0 — 2026-04-17: Initial release. 3 languages (EN | FI | SV), single text per language.
+ *
  * PAGE ELEMENT — not a menu/nav element.
- * Vertical 3-language showcase (EN | FI | SV) with hero text and flag on the right.
  * onelifetime.world does not have language subdirectories, so the bar updates
- * the localStorage preference in-place without redirecting.
+ * the localStorage preference in-place. If a hreflang alternate link exists for
+ * the current page (e.g. a translated blog post), clicking redirects to it.
  * Shares localStorage key 'dws-lang' with dws10.com ironclad-nav.js.
  *
  * Usage: <script src="/shared-assets/olw-vertical-lang-bar.js"></script>
@@ -24,20 +29,42 @@
     {
       code: 'fi',
       name: 'Suomi',
-      flag: '\uD83C\uDDEB\uD83C\uDDEE',
-      text: 'Siirry nopeammin vanhoista toiminnoista \u00e4lykk\u00e4\u00e4seen p\u00e4\u00e4t\u00f6ksentekoon.',
+      flag: '🇫🇮',
+      home: 'Suvereenit AI-agentit Euroopan teollisuudelle. Rakennettu Suomessa.',
+      blog: 'Lifetime Scope — kentältä teollisen AI:n eturintamalta, joka toinen viikko.',
+      press: 'Viralliset tiedotteet Lifetime Oy:ltä — DWS IQ, KYA ja Sovereign Stack.',
     },
     {
       code: 'sv',
       name: 'Svenska',
-      flag: '\uD83C\uDDF8\uD83C\uDDEA',
-      text: 'G\u00e5 snabbare fr\u00e5n \u00e4ldre processer till intelligent beslutsfattande.',
+      flag: '🇸🇪',
+      home: 'Suveräna AI-agenter för europeisk industri. Byggda i Finland.',
+      blog: 'Lifetime Scope — fältrapporter från industriell AI, varannan vecka.',
+      press: 'Officiella pressmeddelanden från Lifetime Oy — DWS IQ, KYA, sovereign stack.',
+    },
+    {
+      code: 'de',
+      name: 'Deutsch',
+      flag: '🇩🇪',
+      home: 'Souveräne KI-Agenten für Europas Industrie. Entwickelt in Finnland.',
+      blog: 'Lifetime Scope — Feldberichte von der industriellen KI-Front, alle zwei Wochen.',
+      press: 'Offizielle Pressemitteilungen von Lifetime Oy — DWS IQ, KYA, Sovereign Stack.',
+    },
+    {
+      code: 'fr',
+      name: 'Français',
+      flag: '🇫🇷',
+      home: 'Agents IA souverains pour l’industrie européenne. Conçus en Finlande.',
+      blog: 'Lifetime Scope — chroniques du terrain de l’IA industrielle, toutes les deux semaines.',
+      press: 'Communiqués de presse officiels de Lifetime Oy — DWS IQ, KYA, sovereign stack.',
     },
     {
       code: 'en',
       name: 'English',
-      flag: '\uD83C\uDDEC\uD83C\uDDE7',
-      text: 'Move faster from legacy operations to intelligent decisioning.',
+      flag: '🇬🇧',
+      home: 'Sovereign AI agents for European industry. Built in Finland.',
+      blog: 'Lifetime Scope — field notes from the industrial AI frontier, every other week.',
+      press: 'Official press releases from Lifetime Oy — DWS IQ, KYA, and the sovereign stack.',
     },
   ];
 
@@ -48,6 +75,12 @@
     ? storedLang
     : 'en';
   if (storedLang !== currentLang) localStorage.setItem('dws-lang', currentLang);
+
+  // Detect page type from path for one-liner selection
+  var path = window.location.pathname;
+  var pageType = 'home';
+  if (path.indexOf('/press') !== -1) pageType = 'press';
+  else if (path.indexOf('/blog') !== -1 || path.indexOf('/posts') !== -1) pageType = 'blog';
 
   if (!document.getElementById('olw-vlb-style')) {
     var css = [
@@ -126,7 +159,7 @@
     var el = document.createElement('div');
     el.className = 'olw-vlb';
     el.setAttribute('role', 'navigation');
-    el.setAttribute('aria-label', '3 languages');
+    el.setAttribute('aria-label', '5 European languages');
 
     var rows = LANGS.map(function (l) {
       var activeCls = l.code === currentLang ? ' olw-vlb-active' : '';
@@ -140,7 +173,7 @@
         l.name +
         '</span>' +
         '<span class="olw-vlb-text">' +
-        l.text +
+        (l[pageType] || l.home) +
         '</span>' +
         '<span class="olw-vlb-flag">' +
         l.flag +
@@ -149,7 +182,7 @@
       );
     }).join('');
 
-    el.innerHTML = '<div class="olw-vlb-heading">\uD83C\uDF0D 3 Languages</div>' + rows;
+    el.innerHTML = '<div class="olw-vlb-heading">🌍 5 European Languages</div>' + rows;
 
     el.querySelectorAll('.olw-vlb-row').forEach(function (row) {
       row.addEventListener('click', function () {

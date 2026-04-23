@@ -112,6 +112,7 @@
                                 <li><a href="${basePath}fleet-admiral/" style="color: #d4a843; font-weight: 600;">Fleet Admiral</a></li>
                                 <li><a href="${basePath}series-a/" style="color: #d4a843; font-weight: 600;">Series A</a></li>
                                 <li><a href="${basePath}investor-relations/">Investor Relations</a></li>
+                                <li><a href="${basePath}press-releases/">Press Releases</a></li>
                                 <li><a href="${basePath}lifetime-consulting/">Lifetime Consulting</a></li>
                                 <li><a href="${basePath}lifetime-studios/">Lifetime Studios</a></li>
                                 <li class="ironclad-has-submenu">
@@ -264,9 +265,20 @@
                         <li><a href="${basePath}team/">Team</a></li>
                         <li><a href="${basePath}careers/">Careers</a></li>
                         <li><a href="${basePath}partners/" class="ironclad-primary">Certified Partners</a></li>
-                        <li><a href="${basePath}investor-relations/">Investor Relations</a></li>
-                        <li><a href="${basePath}press-releases/">Press Releases</a></li>
                         <li><a href="${basePath}contact/">Contact</a></li>
+                        <li class="ironclad-separator"></li>
+                        <!-- Investor section (Press Releases, Investor Relations, Series A, Investment Safety) -->
+                        <li class="ironclad-has-submenu">
+                            <a href="${basePath}investor-relations/" class="ironclad-primary">Investor ▸</a>
+                            <ul class="ironclad-submenu">
+                                <li><a href="${basePath}investor-relations/" class="ironclad-primary">Investor Relations</a></li>
+                                <li><a href="${basePath}press-releases/" class="ironclad-primary">Press Releases</a></li>
+                                <li><a href="${basePath}series-a/" style="color: #d4a843; font-weight: 600;">Series A</a></li>
+                                <li><a href="${basePath}captain/" style="color: #d4a843; font-weight: 600;">Industry Captain Seats</a></li>
+                                <li><a href="${basePath}investment-safety/">Investment Safety</a></li>
+                                <li><a href="${basePath}regulatory-notice/">Regulatory Notice</a></li>
+                            </ul>
+                        </li>
                         <li class="ironclad-separator"></li>
                         <li class="ironclad-has-submenu">
                             <a href="#" class="ironclad-highlight">Lifetime Group ▸</a>

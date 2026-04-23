@@ -52,6 +52,30 @@ When the human says **"Use DWS standard"**, apply ALL relevant standards from th
 
 **This is not optional.** Delivering work without updating relevant standards is incomplete work.
 
+### VERSION AND AGENT HISTORY Delimiter Rule (CRITICAL)
+
+Per `DWS_DOCUMENT_STANDARD.md` §2.1 (Pandoc Compatibility), the `# VERSION AND AGENT HISTORY` block in every markdown document MUST be delimited with `***`, never `---`. Both render as a thematic break, but `---` is interpreted by Pandoc as YAML front matter and breaks PDF generation.
+
+**Enforced automatically.** The PostToolUse hook `.claude/hooks/md-restore-version-delimiters.sh` runs after prettier on every Edit/Write of a `.md` file. Prettier's markdown formatter normalises thematic breaks to `---` (non-configurable upstream); the hook re-restores `***` around the VERSION block only (other horizontal rules are untouched).
+
+**For humans / other tools:** when editing a markdown file manually, keep `***` around the VERSION block. If prettier rewrote it, re-run the hook: `bash .claude/hooks/md-restore-version-delimiters.sh <<< '{"tool_input":{"file_path":"/abs/path/to/file.md"}}'`.
+
+**Do NOT use `---` around the VERSION block in any new doc.** No exceptions — the rule is uniform across CLAUDE Code, Cursor, Codex, and human developers, same as every other DWS standard.
+
+### Price List Rule (CRITICAL)
+
+**Single source of truth for prices:** `dws10.com/config/products.json`. No other file may hardcode prices — all rendering (store, price-list page, Google Merchant feed, product pages) consumes products.json at runtime.
+
+- **Client-ready page:** `https://dws10.com/price-list/` — fetches products.json live, zero hardcoded prices, print-friendly.
+- **Stamped snapshots:** `dws10.com/price-list/versions/price-list-v<version>.html` — immutable per-quarter archive. Never delete old snapshots.
+- **Review cadence:** Quarterly. Stamp rolls on calendar quarter boundaries (Jan 1, Apr 1, Jul 1, Oct 1).
+- **Validity:** 90 days from stamp date. Stamp metadata lives in `priceList.version` / `stampQuarter` / `stampDate` / `validUntil` / `nextReviewDate` inside products.json.
+- **Policy:** B2B, EUR, VAT 0% (reverse charge). Country-specific VAT added at checkout — see `priceList.vatReference` (5-language table: EN/FI/SV/DE/FR).
+- **Automation:** `scripts/daily/price-list-quarterly-gate.sh` rolls the stamp on quarter-start (DGX Spark primary). `.github/workflows/quarterly-price-list.yml` is the failover and opens a PR.
+- **Email dispatch:** RED-zone. `scripts/send-price-list-email.ts` is a manual operator utility — NOT auto-triggered. Default is dry-run; requires explicit `--send` flag and a reviewed CSV recipients list.
+
+**Workflow to change a price:** edit `dws10.com/config/products.json` → sync to `landing-pages/dws10-com/config/products.json` (dual-folder rule) → append a `priceList.changeLog` entry → commit. Do NOT edit prices in any HTML, markdown, or catalog file.
+
 ### Code Versioning Rule (CRITICAL)
 
 When creating new code (or major rewrites), follow `DWS_DOCUMENT_STANDARD.md` Section 19:

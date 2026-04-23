@@ -1350,6 +1350,103 @@
       "proofSource": "KYA Standard v1.7 + EU AI Act Articles 9, 12, 14, 17, 26, 43, 72, 73"
     }
   },
+  "priceList": {
+    "version": "2026.Q2",
+    "stampQuarter": "Q2 2026",
+    "stampDate": "2026-04-01",
+    "effectiveDate": "2026-04-01",
+    "validUntil": "2026-06-30",
+    "nextReviewDate": "2026-07-01",
+    "reviewCadence": "quarterly",
+    "quarterSchedule": {
+      "Q1": { "stamp": "YYYY-01-01", "validUntil": "YYYY-03-31" },
+      "Q2": { "stamp": "YYYY-04-01", "validUntil": "YYYY-06-30" },
+      "Q3": { "stamp": "YYYY-07-01", "validUntil": "YYYY-09-30" },
+      "Q4": { "stamp": "YYYY-10-01", "validUntil": "YYYY-12-31" }
+    },
+    "policy": {
+      "currency": "EUR",
+      "vatTreatment": "B2B_VAT_0",
+      "vatNote": "List prices are B2B, EUR, VAT 0% (reverse charge for EU intra-community supplies with valid VAT ID). Country-specific VAT is added at checkout if applicable.",
+      "paymentTerms": "Net 14 days",
+      "quoteValidity": "90 days from stamp date (quarterly)",
+      "incoterms": "Digital delivery unless stated otherwise"
+    },
+    "vatReference": {
+      "note": "DWS lists B2B prices at VAT 0% (reverse charge). These are the national consumer-VAT rates that apply to local billing. Source: European Commission — VAT rates applied in the Member States of the European Union, effective 2026.",
+      "source": "EC TAXUD/TAX_UD — VAT Rates 2026 (https://taxation-customs.ec.europa.eu/vat-rates_en)",
+      "countries": [
+        {
+          "language": "en",
+          "country": "EU",
+          "label": "EU B2B (reverse charge)",
+          "standardRate": 0,
+          "displayRate": "0%",
+          "note": "Cross-border B2B with valid EU VAT number — reverse charge under Art. 196 VAT Directive 2006/112/EC."
+        },
+        {
+          "language": "fi",
+          "country": "FI",
+          "label": "Finland",
+          "standardRate": 25.5,
+          "displayRate": "25,5%",
+          "note": "Standard FI VAT (raised from 24% to 25.5% on 2024-09-01, confirmed for 2026)."
+        },
+        {
+          "language": "sv",
+          "country": "SE",
+          "label": "Sweden",
+          "standardRate": 25.0,
+          "displayRate": "25%",
+          "note": "Standard SE moms (reduced rates 12% / 6% exist for specific categories)."
+        },
+        {
+          "language": "de",
+          "country": "DE",
+          "label": "Germany",
+          "standardRate": 19.0,
+          "displayRate": "19%",
+          "note": "Standard DE Mehrwertsteuer (reduced 7% for certain categories)."
+        },
+        {
+          "language": "fr",
+          "country": "FR",
+          "label": "France",
+          "standardRate": 20.0,
+          "displayRate": "20%",
+          "note": "Standard FR TVA (reduced rates 10% / 5.5% / 2.1% exist for specific categories)."
+        }
+      ]
+    },
+    "governance": {
+      "owner": "Risto Anton Päärni",
+      "legalEntity": "Lifetime Oy",
+      "businessId": "0772407-9",
+      "vatId": "FI07724079",
+      "address": "Laidunmaanraitti 2 A 25, 02330 Espoo, Finland",
+      "salesEmail": "sales@lifetime.fi",
+      "canonicalSource": "dws10.com/config/products.json",
+      "singlePointOfTruth": true,
+      "publicPriceListUrl": "https://dws10.com/price-list/"
+    },
+    "changeLog": [
+      {
+        "version": "2026.Q2",
+        "date": "2026-04-23",
+        "change": "Initial centralized price list. Consolidated from products.json; retired stale prices in product-catalog/README.md."
+      },
+      {
+        "version": "2026.Q2",
+        "date": "2026-04-23",
+        "change": "Quote validity extended to 90 days from stamp date (was 30) to match enterprise procurement cycles; quarterSchedule + stampQuarter + validUntil added for explicit Q1/Q2/Q3/Q4 semantics."
+      },
+      {
+        "version": "2026.Q2",
+        "date": "2026-04-23",
+        "change": "Added 5-language VAT reference (EU B2B 0%, FI 25.5%, SE 25%, DE 19%, FR 20%) sourced from EC TAXUD VAT Rates 2026."
+      }
+    ]
+  },
   "settings": {
     "defaultCurrency": "EUR",
     "revolutFallbackLink": "https://revolut.me/lifetimeoy",
@@ -1393,5 +1490,5 @@
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-04-23"
+  "lastUpdated": "2026-04-23T00:00:00Z"
 }
