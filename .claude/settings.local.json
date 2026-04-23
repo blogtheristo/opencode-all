@@ -13,9 +13,7 @@
       "Bash(start:*)"
     ]
   },
-  "enabledMcpjsonServers": [
-    "dws-gateway-local"
-  ],
+  "enabledMcpjsonServers": ["dws-gateway-local"],
   "hooks": {
     "SessionStart": [
       {
@@ -71,6 +69,10 @@
           {
             "type": "command",
             "command": "bash -lc \"file_path=\\$(jq -r '.tool_input.file_path // empty'); [ -n \\\"\\$file_path\\\" ] || exit 0; npx prettier --write -- \\\"\\$file_path\\\" 2>/dev/null || true; exit 0\""
+          },
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/md-restore-version-delimiters.sh\""
           },
           {
             "type": "command",

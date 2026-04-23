@@ -1,6 +1,6 @@
 # Product Catalog - DWS IQ Platform
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -25,7 +25,7 @@ Document Status:
 - Languages Available: English
 - Publication Status: ACTIVE
 
----
+***
 
 **Structured Product Information Repository**
 
