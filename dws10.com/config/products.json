@@ -1209,9 +1209,9 @@
       "price": 1499,
       "currency": "EUR",
       "type": "monthly",
-      "description": "Full EU sovereign evaluation. 8 AI agents, Firehorse Report, Aiwen EU AI Act Article 12 logging, NIS2 dashboard, 5 seats. Zero CLOUD Act. Prove compliance ROI on sovereign infrastructure.",
+      "description": "Full EU sovereign evaluation. 8 AI agents, Firehorse Report, Aiven EU AI Act Article 12 logging, NIS2 dashboard, 5 seats. Zero CLOUD Act. Prove compliance ROI on sovereign infrastructure.",
       "features": [
-        "8 AI agents + Aiwen Article 12 logging",
+        "8 AI agents + Aiven Article 12 logging",
         "NIS2 compliance dashboard",
         "Zero CLOUD Act + EU data residency"
       ],
