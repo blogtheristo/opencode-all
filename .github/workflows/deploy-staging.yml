@@ -128,7 +128,7 @@ jobs:
             ENABLE_SAP_INTEGRATION=false
             ENABLE_IFS_INTEGRATION=false
             ENABLE_DYNAMICS_INTEGRATION=false
-            AIWEN_AUDIT_ENABLED=false
+            AIVEN_AUDIT_ENABLED=false
             LLM_PRIMARY=groq
             LLM_FALLBACK=scaleway
           secrets: |
