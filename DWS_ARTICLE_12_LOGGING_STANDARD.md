@@ -51,6 +51,8 @@ Owner: Risto Anton Päärni, Lifetime Oy
 
 ## 2. Canonical Architecture — The Article 12 Logging Pipeline
 
+> **Open standard vs. DWS product.** The Article 12 Logging Pipeline described in this document is an **open architecture**, part of the KYA open standard family. DWS's own **branded, proprietary implementation** of this architecture is named **Themis — The Aegis Control Plane**. Themis bundles the KYA Policy Proxy, Article 12 Logging Pipeline, Systems Inventory, and Reporting Portal into the managed control plane that ships inside every Aegis (Tier 1) deployment. "KYA = the protocol; Themis = DWS's implementation; Aegis = the product customers buy."
+
 The pipeline is a **software stack**, not a cloud environment. It runs alongside DWS IQ workloads on whatever tier-appropriate infrastructure the customer is deployed to.
 
 ```

@@ -53,11 +53,11 @@ Each tier is sold to a customer whose regulatory exposure determines what infras
 
 ## Tier Matrix
 
-| Tier                         | Sovereignty Posture | Target Customer                              | Hosting                                                                                                | CLOUD Act Exposure | Pricing                                                             |
-| ---------------------------- | ------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------ | ------------------------------------------------------------------- |
+| Tier                         | Sovereignty Posture | Target Customer                              | Hosting                                                                                          | CLOUD Act Exposure | Pricing                                                             |
+| ---------------------------- | ------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------ | ------------------------------------------------------------------- |
 | **DWS IQ Aegis**             | Full Sovereign      | Government, defence, critical infrastructure | Hetzner Helsinki + Aiven managed PostgreSQL (FI, EU-incorporated); Article 12 compliance overlay | Zero               | EUR 59,990 one-time + EUR 999/mo                                    |
-| **DWS IQ 6 Sovereign Infra** | EU-Sovereign        | Regulated EU/UK enterprise SaaS              | Scaleway EU cloud + EU IDV (iDenfy candidate)                                                          | None               | Enterprise Navigator / Premium / Nordic / World tiers (see pricing) |
-| **DWS IQ Connect**           | Global              | Global enterprise, no sovereignty constraint | US/global cloud (AWS, Azure, NVIDIA), APAC, MENA                                                       | Standard           | Tier-priced via partner channels                                    |
+| **DWS IQ 6 Sovereign Infra** | EU-Sovereign        | Regulated EU/UK enterprise SaaS              | Scaleway EU cloud + EU IDV (iDenfy candidate)                                                    | None               | Enterprise Navigator / Premium / Nordic / World tiers (see pricing) |
+| **DWS IQ Connect**           | Global              | Global enterprise, no sovereignty constraint | US/global cloud (AWS, Azure, NVIDIA), APAC, MENA                                                 | Standard           | Tier-priced via partner channels                                    |
 
 ---
 
@@ -65,13 +65,15 @@ Each tier is sold to a customer whose regulatory exposure determines what infras
 
 **Audience:** EU government agencies, defence contractors, dual-use manufacturing.
 
+**Control plane:** **Themis — the Aegis Control Plane.** DWS's proprietary implementation of the open KYA standard: identity attribution, Article 12 logging pipeline, Annex III systems registry, and policy gating bundled into one sovereign control plane. Ships with every Aegis deployment. Open-standard architecture documented in `DWS_ARTICLE_12_LOGGING_STANDARD.md`.
+
 **Sovereignty:**
 
 - EUDI Wallet native authentication
 - Zero CLOUD Act exposure (no US-incorporated vendor in the data path)
-- Hosting: **Hetzner Helsinki** (EU-incorporated compute, Finnish data centre)
+- Hosting: **UpCloud** / **Hetzner Helsinki** (EU-incorporated compute, Finnish data centre)
 - Database: **Aiven managed PostgreSQL** (Finnish-owned, EU region) — replaces Supabase for Aegis because Supabase is US-incorporated
-- Compliance overlay: **Aiven** Article 12 logging, reasoning lineage, immutable audit trail (per `docs/CLOUD_ENVIRONMENTS.md` §7 — Aiven is a compliance layer, not a separate cloud)
+- Control plane: **Themis** — hash-chained append-only ledger on Aiven Postgres, KYA-attested events, 6-month minimum retention, auditor JSON export under 10 business days
 - Article 26 deployer evidence on file
 
 **Use cases:**
@@ -166,14 +168,14 @@ Each tier is sold to a customer whose regulatory exposure determines what infras
 
 ### Tier 1 (Aegis) — Sovereign Stack
 
-| Function           | Partner / Provider                                 | Status                                         |
-| ------------------ | -------------------------------------------------- | ---------------------------------------------- |
-| Sovereign compute  | Hetzner Helsinki (EU-incorporated, FI data centre) | Active                                         |
-| Sovereign database | Aiven managed PostgreSQL (Finnish-owned, EU)       | Active                                         |
-| Compliance overlay | Aiven (EU AI Act Article 12 logging)               | Roadmap Q2 2026 (per CLOUD_ENVIRONMENTS.md §7) |
-| Identity           | EUDI Wallet                                        | Native (timeline per EU schedule)              |
+| Function           | Partner / Provider                                                    | Status                                                |
+| ------------------ | --------------------------------------------------------------------- | ----------------------------------------------------- |
+| Sovereign compute  | UpCloud (FI) / Hetzner Helsinki (EU-incorporated, FI data centre)     | Active                                                |
+| Sovereign database | Aiven managed PostgreSQL (Finnish-owned, EU)                          | Active                                                |
+| Control plane      | **Themis — The Aegis Control Plane** (DWS-proprietary, KYA-compliant) | Shipping with Aegis; full Article 12 pipeline Q2 2026 |
+| Identity           | EUDI Wallet                                                           | Native (timeline per EU schedule)                     |
 
-**Note:** Aiven is referenced twice above because it serves two distinct functions — (a) managed PostgreSQL hosting (the Finnish data platform company, aiven.io) and (b) the DWS compliance overlay that layers Article 12 logging on top of EU infrastructure. Supabase is **not** used in Aegis because it is US-incorporated and would void the zero-CLOUD-Act claim.
+**Note:** Aiven is a Finnish-owned managed-database SaaS (aiven.io) and is used at Aegis tier as the sovereign PostgreSQL provider and the storage backend for the Themis hash-chained event ledger. **Themis** is DWS's own proprietary control plane — not an Aiven product — implementing the open KYA standard (identity, Article 12 logging, Annex III registry, policy gating). Supabase is **not** used in Aegis because it is US-incorporated and would void the zero-CLOUD-Act claim.
 
 ---
 
