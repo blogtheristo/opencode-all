@@ -58,7 +58,7 @@ function extractVersion(md) {
   return m ? m[1] : 'unknown';
 }
 
-function mdToHtml(md, titleBase, lang, version, date) {
+function mdToHtml(md, titleBase, lang, version, date, bannerMeta) {
   let html = md;
   // Stash fenced code blocks
   const codeBlocks = [];
@@ -126,11 +126,12 @@ function mdToHtml(md, titleBase, lang, version, date) {
   const fullTitle = titleBase + ' v' + version;
 
   // Visible version badge banner — RULE: every Learn/ HTML must show this
+  const metaText = bannerMeta || 'Lifetime Oy · ' + (date || '') + ' · Learn/ (private)';
   const banner = [
     '<div class="dws-version-banner">',
     '  <span class="dws-version-title">' + escHtml(titleBase) + '</span>',
     '  <span class="dws-version-badge">v' + escHtml(version) + '</span>',
-    '  <span class="dws-version-meta">Lifetime Oy · ' + (date || '') + ' · Learn/ (private)</span>',
+    '  <span class="dws-version-meta">' + escHtml(metaText) + '</span>',
     '</div>',
   ].join('\n');
 
@@ -235,6 +236,13 @@ const SOURCES = [
     titleBase: 'DPA Addendum — Shufti Pro (EU-Only Processing)',
     outPrefix: 'Learn/DPA_ADDENDUM_SHUFTI_EU_ONLY_2026_v',
     lang: 'en',
+  },
+  {
+    src: 'partners-outreach/Shufti/DPA_ADDENDUM_EU_ONLY_2026.md',
+    titleBase: 'DPA Addendum — Shufti Pro (EU-Only Processing)',
+    outPrefix: 'partners-outreach/Shufti/DPA_ADDENDUM_EU_ONLY_2026_v',
+    lang: 'en',
+    bannerMeta: 'Lifetime Oy · For Shufti Pro Limited · Ready for Signature',
   },
 ];
 
