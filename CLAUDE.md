@@ -15,7 +15,7 @@ Before making any UI changes, agents MUST consult these files:
 | **Security Compliance**           | `Admin/SECURITY_COMPLIANCE.md`              | Deployment, controls, certifications, vendor risk                                                                       |
 | **Market Research Standard**      | `DWS_MARKET_RESEARCH_STANDARD.md`           | Competitive intelligence, product improvement, data collection                                                          |
 | **Site Quality Standards**        | `SITE_QUALITY_STANDARDS.md`                 | Code quality, **code formatting**, components, nav, logos, CTA, testing                                                 |
-| **Cloud Environments**            | `docs/CLOUD_ENVIRONMENTS.md`                | US/EU/Aiwen clouds, account structure, DWS 6→7 migration, data residency                                                |
+| **Cloud Environments**            | `docs/CLOUD_ENVIRONMENTS.md`                | US/EU/Aiven clouds, account structure, DWS 6→7 migration, data residency                                                |
 | **Product Catalog**               | `product-catalog/README.md`                 | Product catalog structure, Store Product Format, Google Merchant fields                                                 |
 | **Data Standard**                 | `DWS_DATA_STANDARD.md`                      | Data storage governance, columnar/row policy, extension registry, retention, EU regulatory compliance                   |
 | **Information Layering Strategy** | `docs/DWS_INFORMATION_LAYERING_STRATEGY.md` | Six-layer harness, where standards fit, progressive disclosure, 12 Factor Agents, tool result injection pattern         |
@@ -119,13 +119,13 @@ Three axes are active today. More may be added; each new axis follows the same t
 
 | Tier      | Role                                                                                   | **Agents**                       | **Workflows**                                                           | **Jurisdictions**                         | **Use in**                                                                                                                                        | **Do NOT use in**                                                 |
 | --------- | -------------------------------------------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
-| 1 — Brand | What we sell. Anthropic Skills paradigm pivot: capability = acquired, auditable skill. | **Skilled Agents**               | **Skilled Autonomous Workflows**                                        | **Skilled Jurisdictions** (EU, US, Aiwen) | Hero copy, `<title>`, `<meta og:title/og:description>`, investor decks, product `brand:` field, press, social cards.                              | Technical specs, nav chips, badges.                               |
+| 1 — Brand | What we sell. Anthropic Skills paradigm pivot: capability = acquired, auditable skill. | **Skilled Agents**               | **Skilled Autonomous Workflows**                                        | **Skilled Jurisdictions** (EU, US, Aiven) | Hero copy, `<title>`, `<meta og:title/og:description>`, investor decks, product `brand:` field, press, social cards.                              | Technical specs, nav chips, badges.                               |
 | 2 — Spec  | Documentation-grade descriptor. Precise.                                               | **Industrial Specialist Agents** | **Specialist Workflows** (long-form: _Industrial Specialist Workflows_) | **Regulatory Specialist Jurisdictions**   | First mention in a doc/spec, architecture prose, regulatory responses, SLA/contract text, glossary. Define once per doc, then shorten to UI tier. | Hero copy (too long), UI badges, tight social cards.              |
 | 3 — UI    | Category label / UI shorthand / registry column.                                       | **Industry Agents**              | **Industrial Workflows**                                                | **Jurisdictions**                         | Nav menus, filter chips, count badges (`<span class="sov-badge">18+ Industry Agents</span>`), registry column headers, tables.                    | Investor hero lines, brand tagline — loses the "skilled" promise. |
 
 Why **"Autonomous"** appears in the workflow brand tier but not agents: workflows execute on schedule/event without a human in the loop — "Autonomous" earns the brand promise. Agents have it implied.
 
-Why **"Regulatory"** appears in the jurisdiction spec tier: jurisdictions are defined by their regulatory surface (EU AI Act, GDPR, CBAM, ETS, CSRD for EU; sector rules for US; data localisation for Aiwen) — the spec register must say so.
+Why **"Regulatory"** appears in the jurisdiction spec tier: jurisdictions are defined by their regulatory surface (EU AI Act, GDPR, CBAM, ETS, CSRD for EU; sector rules for US; data localisation for Aiven) — the spec register must say so.
 
 **Pattern for new axes:** When DWS adds a new capability axis (e.g., Datasets, Models, Regulations, Reports), name it `Skilled <Axis>` / `Industrial Specialist <Axis>` / `Industry <Axis>` and add a column to the table above. Do not invent parallel brand words.
 
@@ -482,7 +482,7 @@ Worktree policy: shared `.gitignore`, symlinked `.venv`, copied `.env/.env.mcp/.
 | PostToolUse (Write/Edit) | prettier + eslint (inline)                                                        | Auto-format every file change                                                             |
 | Stop                     | `session-stop.sh`                                                                 | Governance checklist (dual folder sync, thesis, uncommitted changes)                      |
 
-**Key blocks:** `rm` (all, except /tmp/), `git push --force`, `git reset --hard`, `git rm`, `sudo`, pipe-to-shell, `ollama pull/rm`, DROP TABLE, CREATE TABLE without RLS, Aiwen audit table mutations.
+**Key blocks:** `rm` (all, except /tmp/), `git push --force`, `git reset --hard`, `git rm`, `sudo`, pipe-to-shell, `ollama pull/rm`, DROP TABLE, CREATE TABLE without RLS, Aiven audit table mutations.
 
 **Rules of Engagement:** See `Admin/ADMIN_MANUAL.md` Section 30.13 — defines Claude's operational boundaries: when to commit, how to handle hook failures, the no-rm policy, and the explicit verification workflow.
 
