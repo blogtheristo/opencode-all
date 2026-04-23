@@ -6,10 +6,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.38
+Version: 3.39
 
 Sessions & Modifications:
 
+- Version: 3.39 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Terminology rename — "Aiven overlay" / "Aiven layer" (deprecated infrastructure labels) → "Article 12 Logging Pipeline" per new DWS_ARTICLE_12_LOGGING_STANDARD.md v1.0 (unified 3-tier canonical term). Aiven remains the correct name for the Postgres SaaS. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule; only V3Thesis_EN had the infra-context string in content
 - Version: 3.38 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Typo correction — "Aiwen" → "Aiven" (Aiven.io is our Helsinki Postgres partner) as part of repo-wide sweep of 116 files; no content change beyond the spelling fix; unified version track preserved (all 4 thesis files bumped in lockstep per CLAUDE.md thesis rule)
 - Version: 3.37 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: Added Section 10.22 (DWS Skilled Taxonomy — Three Tiers Across Agents, Workflows, and Jurisdictions); deprecated "GodAgent"/"Godagent" branding; codified the `Skilled <Axis>` / `Industrial Specialist <Axis>` / `Industry <Axis>` three-tier pattern across three active axes (Agents, Workflows, Jurisdictions — EU/US/Aiven); pattern designed for extensibility to future capability axes (Datasets, Models, Regulations, Reports); added count-dynamism patterns (open-ended `18+`, registry-anchored, product-scoped); codified exclusions (Docker/infra identifiers, Pantheon Greek-mythology brand, historical records); canonical source of truth is `docs/Deputy-Agents-Architecture.md` §1 Terminology; added Key Contribution #31
 - Version: 3.36 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Expanded Section 10.21 with Boardy-sourced refinements: KYA open-source standard path via Agentic AI Foundation / Linux Foundation, explicit NIST status (not submitted), Article 1 title lock, 2026-2029 publication phasing, and EIC Step 1 deliverable linkage; added Key Contribution #30
@@ -2018,7 +2019,7 @@ Red Hat's AgentOps strategy — **Bring Your Own Agent (BYOA)** — provides ent
 
 **Strategic alignment with DWS IQ 6:**
 
-- **Hybrid cloud imperative:** Red Hat identifies that a successful AI strategy must be a hybrid cloud strategy — train, tune, and run models wherever data resides without compromising security, compliance, or data sovereignty. This maps directly to DWS IQ 6's deployment model (EU Cloud + GN-100 edge + Aiven overlay).
+- **Hybrid cloud imperative:** Red Hat identifies that a successful AI strategy must be a hybrid cloud strategy — train, tune, and run models wherever data resides without compromising security, compliance, or data sovereignty. This maps directly to DWS IQ 6's deployment model (EU Cloud + GN-100 edge + Article 12 Logging Pipeline).
 - **Modernize before automate:** Moving from proprietary silos to open, flexible hybrid cloud (Linux, containers, Kubernetes) aligns with DWS7's container-native architecture and NVIDIA partnership.
 - **Red Hat + NVIDIA joint work** on secure AI agent infrastructure directly supports the KYA-governed agent isolation model, providing hardware-attested security at the infrastructure layer.
 - **MCP as bridge:** Red Hat identifies MCP as critical for bridging legacy systems with agentic AI — validating DWS IQ 6's MCP Hub architecture (Section 2.5.3).

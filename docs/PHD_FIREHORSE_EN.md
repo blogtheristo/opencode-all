@@ -11,10 +11,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.38
+Version: 3.39
 
 Sessions & Modifications:
 
+- Version: 3.39 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Terminology rename — "Aiven overlay" / "Aiven layer" (deprecated infrastructure labels) → "Article 12 Logging Pipeline" per new DWS_ARTICLE_12_LOGGING_STANDARD.md v1.0 (unified 3-tier canonical term). Aiven remains the correct name for the Postgres SaaS. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule; only V3Thesis_EN had the infra-context string in content
 - Version: 3.38 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Typo correction — "Aiwen" → "Aiven" (Aiven.io is our Helsinki Postgres partner) as part of repo-wide sweep of 116 files; no content change beyond the spelling fix; unified version track preserved (all 4 thesis files bumped in lockstep per CLAUDE.md thesis rule)
 - Version: 3.37 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: **Unified thesis version track.** PHD_FIREHORSE and Metropolia V3Thesis are now on a single shared version number (3.37). From this commit forward, all 4 thesis files (V3Thesis_EN/FI + PHD_FIREHORSE_EN/FI) bump in lockstep (3.37 → 3.38 → … → 3.99 → 4.00). Chain-break history honestly recorded: v2.9 → v2.10 (21.04.2026, Boardy refinements) → an unintended v3.10 jump collided with an already-existing local v3.1, v3.2 chain → remote was pushed to v3.5 in this session (22.04.2026) without visibility of the local v3.2 work → unified here to v3.37 to align with V3Thesis. Local v3.2 work is expected to be folded into v3.38 as the next bump (human to paste diff). Substantive content in this version: Section 14.17 (DWS Skilled Taxonomy — Brand / Spec / UI Across Agents, Workflows, and Jurisdictions); "GodAgent"/"Godagent" branding deprecated; three-tier `Skilled <Axis>` / `Industrial Specialist <Axis>` / `Industry <Axis>` pattern across three active axes (Agents, Workflows, Jurisdictions — EU/US/Aiven); SKU-copy, scheduler-copy, and jurisdiction-packaging disciplines derived as operations-model implications; Key Contribution #22.
 - Version: 3.5 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: [Superseded by v3.37 unification.] Opened the PHD_FIREHORSE major-version line at v3.5 (later reverted). Substantive content moved to v3.37.

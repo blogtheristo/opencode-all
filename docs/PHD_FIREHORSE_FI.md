@@ -11,10 +11,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.38
+Version: 3.39
 
 Sessions & Modifications:
 
+- Version: 3.39 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Terminology rename — "Aiven overlay" / "Aiven layer" (deprecated infrastructure labels) → "Article 12 Logging Pipeline" per new DWS_ARTICLE_12_LOGGING_STANDARD.md v1.0 (unified 3-tier canonical term). Aiven remains the correct name for the Postgres SaaS. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule; only V3Thesis_EN had the infra-context string in content
 - Version: 3.38 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Typo correction — "Aiwen" → "Aiven" (Aiven.io is our Helsinki Postgres partner) as part of repo-wide sweep of 116 files; no content change beyond the spelling fix; unified version track preserved (all 4 thesis files bumped in lockstep per CLAUDE.md thesis rule)
 - Version: 3.37 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: **Yhdistetty opinnäytetyön versiolinja.** PHD_FIREHORSE ja Metropolia V3Thesis ovat nyt yhden yhteisen versionumeron (3.37) varassa. Tästä committasta eteenpäin kaikki 4 opinnäytetyötiedostoa (V3Thesis_EN/FI + PHD_FIREHORSE_EN/FI) päivitetään rinnakkain (3.37 → 3.38 → … → 3.99 → 4.00). Versioketjun katkoshistoria rehellisesti kirjattuna: v2.9 → v2.10 (21.04.2026, Boardy-täsmennykset) → suunnittelematon v3.10-hyppy törmäsi jo olemassa olevaan paikalliseen v3.1, v3.2 -ketjuun → remote siirrettiin v3.5:een tässä sessiossa (22.04.2026) ilman näkyvyyttä paikalliseen v3.2-työhön → yhdistetty tässä v3.37:aan kohdistamaan V3Thesisin kanssa. Paikallinen v3.2-työ taitetaan seuraavaan nostoon v3.38 (ihmisen liitettävä diff). Sisältö tässä versiossa: osio 14.17 (DWS Skilled -taksonomia — Brändi / Speksi / UI agenteille, työnkuluille ja jurisdiktioille); "GodAgent"/"Godagent"-brändäys poistettu käytöstä; kolmitasoinen `Skilled <Akseli>` / `Industrial Specialist <Akseli>` / `Industry <Akseli>` -kaava kolmelle aktiiviselle akselille; SKU-kopion, ajastinkopion ja jurisdiktion pakkauksen kurit johdettu toimintamallin seurauksina; avainpanos #22.
 - Version: 3.5 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: [Korvattu v3.37-yhdistämisellä.] Avattu PHD_FIREHORSE:n pääversiolinja v3.5:ssä (myöhemmin peruutettu). Sisältö siirretty v3.37:aan.
