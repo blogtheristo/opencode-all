@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code (Opus 4.7) | Session: claude/redhat-sovereignty-research-YGHtL | Date: 23.04.2026 | Changes: Added §12 Editor-in-Chief Voice (Seth Godin House Style) — house voice standard for all Lifetime Scope Journal posts. Codifies short paragraphs, verb-first sentences, partner-note sub-voice (gift → turn → honest limit), banned/kept words, and the pre-publish voice checklist. Reference exemplars: redhat-sovereign-move-three-tiers.html, mcp-apps-identity-spine.html, solid-layers-aiven-scaleway-kya.html, validated-mock-data-principle.html. Registered post #14 (redhat-sovereign-move-three-tiers).
 - Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-verification-setup-QKFtu | Date: 22.04.2026 | Changes: Added §3.1 Text of the Day Rule — latest blog post is automatically the Text of the Day on /blog/ index via hero card + paginated Latest Posts list (5 per page, Prev/Next). Registered posts #12 (solid-layers-aiven-scaleway-kya) and #13 (mcp-apps-identity-spine).
 - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/liquidity-engine-guide-P6sVY | Date: 28.03.2026 | Changes: Added social share section (LinkedIn, X, Email, Copy Link), registered in CLAUDE.md standards table
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/liquidity-engine-guide-P6sVY | Date: 28.03.2026 | Changes: Initial creation — blog post standard for onelifetime.world/posts, covering structure, nav injection, product cards, dual-folder sync, and post registry
@@ -46,6 +47,7 @@ Document Status:
 9. [Checklist for Every New Post](#9-checklist-for-every-new-post)
 10. [Social Share Section](#10-social-share-section)
 11. [Style Tokens](#11-style-tokens)
+12. [Editor-in-Chief Voice (Seth Godin House Style)](#12-editor-in-chief-voice-seth-godin-house-style)
 
 ---
 
@@ -327,6 +329,96 @@ Consistent across all posts (from DWS Brand Standard dark theme):
 | Card border       | `rgba(6,182,212,0.2)`         | Default state              |
 | Card border hover | `rgba(6,182,212,0.5)`         | Hover state                |
 | Nav background    | `#1e293b`                     | Sticky nav bar             |
+
+---
+
+## 12. Editor-in-Chief Voice (Seth Godin House Style)
+
+Lifetime Scope Journal has one voice. It belongs to the Editor-in-Chief (Risto Anton Päärni), and every post — partner notes, field notes, investor notes, launch commentary — is written in it. The voice is **Seth Godin friendly**: generous, direct, and short on corporate air.
+
+This section is the standard. Any agent or human drafting a post MUST apply it. The `redhat-sovereign-move-three-tiers.html` partner note (23 Apr 2026) is the reference exemplar — read it before writing a new post.
+
+### 12.1 Voice principles
+
+1. **Short paragraphs.** One to three sentences. White space is structure, not emptiness.
+2. **One idea at a time.** Each paragraph carries a single thought. If two ideas are fighting, split the paragraph.
+3. **Verb-first sentences.** "Red Hat shipped sovereign support." Not "It can be observed that Red Hat shipped sovereign support."
+4. **Respect the reader.** No throat-clearing, no "as you may know," no filler. Assume the reader is smart, busy, and curious.
+5. **Generous toward partners and competitors.** Name the thing they did well before naming the thing you would do differently. No punching down.
+6. **Honest about limits.** Never sell a promise the layer cannot deliver. If the tier is 2, the headline says 2. The fastest way to lose European enterprise trust is to over-claim.
+7. **Own the stance.** Say what we think, and why. Hedging ("it could be argued") is weaker than a declared position followed by its reasoning.
+8. **Talk like a person.** Contractions, plain words, rhythm. "We run on Red Hat" beats "DWS operates its production environment on Red Hat Enterprise Linux."
+9. **Earn every adjective.** Delete one adjective from every paragraph on final pass. Strong nouns and verbs carry the weight.
+10. **Close with a recap, not a crescendo.** A short bullet list titled "The short version" at the end, so a reader who skimmed still leaves with the thesis.
+
+### 12.2 Structural moves (the Seth Godin pattern)
+
+Not every post uses every move. Most posts use most of them, in roughly this order.
+
+| Move                            | What it is                                                                  | Example from `redhat-sovereign-move-three-tiers.html`                |
+| ------------------------------- | --------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| **The news, in one line**       | A cyan callout box. One paragraph of fact. Source cited at the end.         | "Red Hat announced Confirmed Sovereign Support for the 27 EU…"       |
+| **The opener**                  | One sentence. Often a stance. Sometimes a gift.                             | "Good news from a good partner."                                     |
+| **The turn**                    | "And because X, here is the honest part." Named pivot from warmth to rigor. | "And because cheering without thinking is not a business, here is…"  |
+| **The body**                    | H2 sections. Each is a single thought. 1–3 short paragraphs per section.    | "What 'Confirmed Sovereign Support' actually covers"                 |
+| **The gold callout**            | Warning / nuance / the thing the label does NOT promise.                    | "What the label does not promise — and why that matters"             |
+| **The tier cards / scan layer** | A structured block (cards, list, table) so skimmers still land softly.      | Tier 1 / Tier 2 / Tier 3 cards                                       |
+| **The stance**                  | Short section titled "Why we will not X" or "Why honesty wins." The spine.  | "Why we will not over-claim"                                         |
+| **The short version**           | Cyan callout, bullet list, 3–5 lines, the thesis compressed.                | "Red Hat's EU sovereignty move is real and useful. We applaud it. …" |
+| **Read next**                   | 2–4 internal links to sister posts. No external links here.                 | Solid Layers, MCP Apps, KYA v1                                       |
+| **Signature**                   | Horizontal rule + italic sign-off with title.                               | "Risto Anton Paarni — CEO, Lifetime Oy · Editor in Chief, LSJ"       |
+
+### 12.3 Words we avoid
+
+Delete these on final pass. They are fog.
+
+- "Solutions," "synergies," "leverage," "unlock," "empower," "robust," "cutting-edge," "best-in-class," "world-class," "game-changing," "revolutionary," "disruptive"
+- "In today's world," "in the modern era," "in an ever-changing landscape"
+- "It goes without saying," "needless to say," "as we all know"
+- "Very," "really," "quite," "somewhat" (almost always deletable)
+- "Utilize" (use "use")
+
+### 12.4 Words we keep
+
+Small words, real words, specific nouns.
+
+- **Verbs:** ship, run, build, pair, match, pick, read, cheer, notice, trust, earn, draw, hold
+- **Nouns:** layer, tier, stack, partner, reader, workload, engineer, buyer, auditor, chain, label
+- **Connectives:** "And because…," "So here is…," "The honest part:…," "Two things…," "One more time."
+
+### 12.5 Partner-note sub-voice
+
+When a post names a partner by name (Red Hat, Aiven, Scaleway, Microsoft, Anthropic, OpenAI, SUSE, IBM, NVIDIA), three extra rules apply on top of §12.1–12.4:
+
+1. **Open with a gift.** Name what they did well before anything else. If we cannot name it sincerely, the post is not ready.
+2. **Match their careful language.** If the partner used the word "confirmed" instead of "absolute," we use the same restraint. Never escalate a partner's claim past the line they themselves drew.
+3. **Position, do not compete.** Say where DWS sits on top of, beneath, or beside the partner's layer. Never imply we replace them unless we literally do.
+
+### 12.6 Before publishing — the voice checklist
+
+- [ ] Opener is one sentence, stance or gift
+- [ ] Every paragraph is ≤ 3 sentences
+- [ ] Every section has one idea, not two
+- [ ] No words from the §12.3 banned list
+- [ ] At least one gold callout names a limit, nuance, or honest caveat
+- [ ] A "The short version" recap appears near the end
+- [ ] Internal "Read next" links to 2–4 sister posts
+- [ ] Signature block with Editor-in-Chief title
+- [ ] Partner notes: opener names the partner's good work before anything else
+- [ ] Claims never exceed the tier the layer can deliver (see §3.6 in `DWS_STANDARDS_LIBRARY.md`)
+
+### 12.7 Reference exemplars
+
+Read these before writing. Match their rhythm.
+
+| Post                                     | Why it is an exemplar                                                           |
+| ---------------------------------------- | ------------------------------------------------------------------------------- |
+| `redhat-sovereign-move-three-tiers.html` | **Partner-note canonical.** Gift → turn → tiers → honest limit → short version. |
+| `mcp-apps-identity-spine.html`           | **Stack-note canonical.** Names what an open standard gives, what it does not.  |
+| `solid-layers-aiven-scaleway-kya.html`   | **Sovereign-stack canonical.** Three layers, three partners, honest tier map.   |
+| `validated-mock-data-principle.html`     | **Principle-note canonical.** Small, declarative, unforgettable.                |
+
+If a draft does not feel like these four when read aloud, rewrite it until it does.
 
 ---
 
