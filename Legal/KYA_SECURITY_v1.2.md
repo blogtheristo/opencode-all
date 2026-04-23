@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.6
+Version: 1.7
 
 Sessions & Modifications:
 
+- Version: 1.7 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Added §11 Systems Inventory & Policy Gate — KYA absorbs the governance/inventory responsibility for Aegis-tier customers where no EU-incorporated alternative to Credo AI / Holistic AI / OneTrust / IBM Watsonx Governance exists. Defines ai_systems_registry, governance_policies, policy_decisions, deployment_approvals tables. Renumbered §11 Conclusion → §12. Companion to `DWS_ARTICLE_12_LOGGING_STANDARD.md` and `Store/PRODUCT_THEMIS.md`. Triggered by Nokia Defence demo need
 - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/aegis-swot-analysis-gYCYG | Date: 05.04.2026 | Changes: Article 99 citation sweep in §8.1 D&O Insurance — softened "safe harbor" positioning to "deployer evidence infrastructure (Art. 12 + Art. 26) for D&O AI-governance coverage — not a categorical safe harbor"; corrected Art. 99 citation to Art. 99(4) per PR #976 sweep pattern
 - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Added Section 10 Memory Audit Trail — court-defensible provenance for agent memory mutations (store, supersede, forget, extract); fact extraction governance (PR-254 wiring); memory contradiction resolution requires KYA attestation before PR-255 deployment; CSRD/EU AI Act Article 12 compliance for AI-generated memory; added memory_audit_log schema; cross-referenced Admin/ADMIN_MANUAL_AGENT_MEMORY_EN_v1.md
 - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/kya-standard-review-W3Qcg | Date: 13.03.2026 | Changes: External review integration — ATS Hard Stop (V>0 nullifies A factor, §3.1). Cold-Start Latency Penalty added to L factor (§4.1). 5ms behavioral guardrail confirmed as security containment (§2.5). U.S. Executive Order 14110 + OECD AI Principles added to compliance (§8). D&O Insurance safe harbor positioning (§8.1). KYA-S/KYA-O internal naming convention (§1). Tiered Fault Attribution fees by industry risk (§9.5)
@@ -748,7 +749,146 @@ Memory violations affect the Agent Trust Score:
 
 ---
 
-## 11. Conclusion
+## 11. Systems Inventory & Policy Gate (v1.7)
+
+_Added: 23.04.2026 | PR: claude/kya-memory-binding-RuJ0G | Rationale: absorb Aegis-tier governance/inventory responsibility into KYA because no EU-incorporated equivalent to Credo AI / Holistic AI / OneTrust / IBM Watsonx Governance exists at April 2026. See `docs/field-notes/2026-04-23-eu-ai-act-compliance-layer-research.md` §7.1._
+
+EU AI Act Article 9 (risk management), Article 10 (data governance), Article 11 (technical documentation), Article 13 (transparency), Article 17 (quality management), and Annex III (high-risk classification) require every deployed AI system to have a **live registry entry** with classification, conformity assessment state, approval workflow history, and lineage. This section defines the KYA-native way to maintain that registry — the counterpart to §10 (Memory Audit Trail) for the systems layer.
+
+### 11.1 Scope
+
+Every AI system deployed under KYA governance must be registered **before** production deployment. The registry is the source of truth for:
+
+| Question                                                       | Answered by Registry Field  |
+| -------------------------------------------------------------- | --------------------------- |
+| Is this system high-risk (Annex III) or limited-risk?          | `risk_classification`       |
+| Has it passed conformity assessment (Art. 43)?                 | `conformity_state`          |
+| What version of training data does it use?                     | `data_lineage_hash`         |
+| Who approved its production deployment?                        | `deployment_approval_log[]` |
+| Which regulation articles apply (Art. 6, 9–15, 17, Annex III)? | `applicable_articles[]`     |
+| What's the latest Article 73 incident status?                  | `incident_state`            |
+
+### 11.2 Schema
+
+```sql
+-- AI Systems Registry (Annex III classification + lifecycle)
+CREATE TABLE IF NOT EXISTS ai_systems_registry (
+  system_id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id               text NOT NULL,                         -- tenant isolation
+  name                 text NOT NULL,
+  version              text NOT NULL,                         -- semver
+  risk_classification  text NOT NULL CHECK (risk_classification IN
+    ('prohibited', 'high_risk', 'limited_risk', 'minimal_risk', 'general_purpose')),
+  annex_iii_category   text,                                   -- e.g. "1(a) biometric ID"
+  applicable_articles  text[] NOT NULL DEFAULT '{}',           -- e.g. {'Art. 9','Art. 12','Art. 14'}
+  conformity_state     text NOT NULL CHECK (conformity_state IN
+    ('draft', 'under_assessment', 'conformant', 'non_conformant', 'expired')),
+  conformity_evidence  jsonb,                                  -- links to assessment docs
+  data_lineage_hash    text,                                   -- hash of training dataset manifest
+  model_version_hash   text,
+  owner_operator_id    uuid NOT NULL REFERENCES operators(id), -- KYC-verified
+  created_at           timestamptz NOT NULL DEFAULT now(),
+  deployed_at          timestamptz,
+  retired_at           timestamptz,
+  incident_state       text CHECK (incident_state IN
+    ('none', 'reported', 'investigating', 'resolved'))
+);
+ALTER TABLE ai_systems_registry ENABLE ROW LEVEL SECURITY;
+CREATE POLICY ai_systems_org_isolation ON ai_systems_registry
+  USING (org_id = current_setting('app.org_id'));
+
+-- Governance Policies (policy-as-code)
+CREATE TABLE IF NOT EXISTS governance_policies (
+  policy_id        uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id           text NOT NULL,
+  name             text NOT NULL,
+  policy_dsl       jsonb NOT NULL,      -- declarative rules (Rego-like)
+  applies_to       text[] NOT NULL,     -- {'high_risk','biometric', ...}
+  enforcement_mode text NOT NULL CHECK (enforcement_mode IN
+    ('advisory', 'warn', 'block')),
+  created_by       uuid NOT NULL,
+  created_at       timestamptz NOT NULL DEFAULT now(),
+  activated_at     timestamptz,
+  retired_at       timestamptz
+);
+
+-- Policy Decisions (audit trail of every policy evaluation)
+CREATE TABLE IF NOT EXISTS policy_decisions (
+  decision_id    uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  system_id      uuid NOT NULL REFERENCES ai_systems_registry(system_id),
+  policy_id      uuid NOT NULL REFERENCES governance_policies(policy_id),
+  triggered_by   text NOT NULL,       -- 'deployment', 'runtime', 'scheduled'
+  event_id       uuid,                -- link to Article 12 log entry
+  decision       text NOT NULL CHECK (decision IN
+    ('allow', 'deny', 'escalate')),
+  reason         text,
+  agent_id       uuid,                -- KYA-attested evaluator
+  evaluated_at   timestamptz NOT NULL DEFAULT now(),
+  prev_hash      text,                -- chain for tamper evidence
+  decision_hash  text                 -- = sha256(prev_hash + canonical_json)
+);
+
+-- Deployment approval log (who said yes, when, why)
+CREATE TABLE IF NOT EXISTS deployment_approvals (
+  approval_id      uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  system_id        uuid NOT NULL REFERENCES ai_systems_registry(system_id),
+  approver_id      uuid NOT NULL REFERENCES operators(id),
+  approval_type    text NOT NULL,       -- 'initial', 'major_change', 'annual_review'
+  decision         text NOT NULL CHECK (decision IN ('approved','rejected','conditional')),
+  conditions       jsonb,               -- conditions if conditional
+  evidence_refs    text[],              -- hashes/URIs to evidence
+  kya_attestation  jsonb NOT NULL,      -- KYA policy engine attestation
+  decided_at       timestamptz NOT NULL DEFAULT now()
+);
+```
+
+### 11.3 Policy Gate — Runtime Enforcement
+
+Every inference call under a high-risk classification passes through the KYA Policy Gate **before** the Article 12 Logging Pipeline records the event. The gate evaluates active policies against the request context; a `deny` decision blocks the call and emits a `policy.deny` event; `escalate` pauses the call and raises a human-review ticket through the Firehorse Report Engine.
+
+```
+Inference request  ─▶  KYA Policy Gate  ─▶  [allow]  ─▶  Model
+                            │                            │
+                            ├─ [deny]    ─▶  Blocked, logged, operator notified
+                            ├─ [escalate] ─▶ Pending, 24h SLA for human decision
+                            └─ every decision ─▶ policy_decisions log
+```
+
+### 11.4 Tier Deployment
+
+| Tier                           | Inventory & Policy Gate Provider                                    |
+| ------------------------------ | ------------------------------------------------------------------- |
+| **Tier 1 — Aegis (Sovereign)** | **Themis** (DWS-native, KYA-compliant) — no third-party vendor      |
+| **Tier 2 — Sovereign Infra**   | Themis (standalone SKU) or customer-chosen (Credo AI / Holistic AI) |
+| **Tier 3 — Connect (Global)**  | Themis / OneTrust / IBM Watsonx / Credo AI (customer choice)        |
+
+Themis is the DWS-branded productisation of §11 as the **Aegis Control Plane**. See `DWS_ARTICLE_12_LOGGING_STANDARD.md` and the Themis product page for the commercial offering.
+
+### 11.5 Impact on Trust Score
+
+Registry violations affect the Agent Trust Score:
+
+| Violation                                                     | Trust Score Impact                  |
+| ------------------------------------------------------------- | ----------------------------------- |
+| Inference call from an unregistered high-risk system          | V += 2 (−0.50)                      |
+| Deployment without recorded approval                          | V += 3 (−0.75)                      |
+| Policy `deny` decision in production (policy engine bypassed) | V += 5 (−1.00) and agent quarantine |
+| Expired conformity state held >30 days                        | V += 1 (−0.25)                      |
+
+### 11.6 Related Artefacts
+
+- `src/identity/systems-registry.service.ts` — registry API (to be built Q2 2026)
+- `src/identity/policy-engine.service.ts` — policy DSL evaluator (to be built Q2 2026)
+- `supabase/migrations/0NN_systems_inventory_and_policy.sql` — schema migration
+- `DWS_ARTICLE_12_LOGGING_STANDARD.md` — companion standard for logging pipeline
+- `Store/PRODUCT_THEMIS.md` — Themis commercial SKU
+- `docs/PRODUCT_TIERS.md` — tier mapping
+
+**Roadmap:** Themis MVP Q2 2026 (Article 12 pipeline + registry + policy gate + approval workflow); Annex III classification library + 6 industry policy packs Q3 2026; external audit Q4 2026.
+
+---
+
+## 12. Conclusion
 
 The KYA Security Standard provides a complete governance framework for autonomous AI agents operating in industrial environments. By combining hardware-level isolation, real-time identity triggers, forensic observability, agent identity watermarking, and behavioral guardrails, Lifetime Oy delivers the infrastructure that makes BYO agents safe for regulated industries.
 

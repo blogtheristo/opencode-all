@@ -121,6 +121,14 @@ Each tier is sold to a customer whose regulatory exposure determines what infras
 | **Nordic**               | Nordic region pack (FI, SE, NO, DK)         |
 | **World**                | EU-headquartered enterprise with global ops |
 
+**Add-on SKU:**
+
+| Add-on                               | Audience                                                                       | Price                          |
+| ------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------ |
+| **Themis — The Aegis Control Plane** | Tier 2 customers needing EU AI Act Article 12 compliance on their own EU cloud | **€14,990 one-time + €499/mo** |
+
+Themis is DWS's proprietary implementation of the open KYA standard — Article 12 logging pipeline, Annex III systems registry, policy gate, KYA policy proxy. Tier 2 customers buy it standalone and deploy on Scaleway / OVH / Red Hat OpenShift / Azure AI Foundry EU. Tier 1 customers (Aegis) receive it bundled at no extra cost. See `Store/PRODUCT_THEMIS.md` and `dws10.com/products/themis.html`.
+
 ---
 
 ## Tier 3 — DWS IQ Connect (Global)
