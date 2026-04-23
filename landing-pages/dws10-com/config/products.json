@@ -1311,6 +1311,38 @@
       "proofSource": "US CLOUD Act 2018 + EU Data Act Reg. 2023/2854"
     }
   },
+  "priceList": {
+    "version": "2026.Q2",
+    "effectiveDate": "2026-04-01",
+    "nextReviewDate": "2026-07-01",
+    "reviewCadence": "quarterly",
+    "policy": {
+      "currency": "EUR",
+      "vatTreatment": "B2B_VAT_0",
+      "vatNote": "All prices are B2B list prices, VAT 0% (reverse charge, EU intra-community). Finnish VAT (25.5%) added at checkout for FI-billed customers.",
+      "paymentTerms": "Net 14 days",
+      "quoteValidity": "30 days from issue",
+      "incoterms": "Digital delivery unless stated otherwise"
+    },
+    "governance": {
+      "owner": "Risto Anton Päärni",
+      "legalEntity": "Lifetime Oy",
+      "businessId": "0772407-9",
+      "vatId": "FI07724079",
+      "address": "Laidunmaanraitti 2 A 25, 02330 Espoo, Finland",
+      "salesEmail": "sales@lifetime.fi",
+      "canonicalSource": "dws10.com/config/products.json",
+      "singlePointOfTruth": true,
+      "publicPriceListUrl": "https://dws10.com/price-list/"
+    },
+    "changeLog": [
+      {
+        "version": "2026.Q2",
+        "date": "2026-04-23",
+        "change": "Initial centralized price list. Consolidated from products.json; retired stale prices in product-catalog/README.md."
+      }
+    ]
+  },
   "settings": {
     "defaultCurrency": "EUR",
     "revolutFallbackLink": "https://revolut.me/lifetimeoy",
@@ -1348,5 +1380,5 @@
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-04-16T12:00:00Z"
+  "lastUpdated": "2026-04-23T00:00:00Z"
 }
