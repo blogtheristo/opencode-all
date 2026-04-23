@@ -4,7 +4,7 @@
 
 **Document Version:** 1.0  
 **Created:** 2026-01-19  
-**Author:** Lifetime Consulting Oy  
+**Author:** Lifetime Oy  
 **Classification:** Internal / Customer-Ready
 
 ---
@@ -713,7 +713,7 @@ info:
   version: 1.0.0
   description: AI orchestration platform for EU-regulated industries
   contact:
-    name: Lifetime Consulting Oy
+    name: Lifetime Oy
     email: api-support@dws6.fi
 
 servers:
@@ -1057,7 +1057,7 @@ Q4 2026: SCALE
 
 **Milestones for Next Round:**
 1. €70K MRR (10x current)
-2. 25 paying customers
+2. 26 paying customers
 3. Successful Nordic expansion
 4. SOC 2 Type II certification
 
@@ -1068,7 +1068,7 @@ Q4 2026: SCALE
 ```
 PILOT PROGRAM AGREEMENT
 
-Between: Lifetime Consulting Oy ("Provider")
+Between: Lifetime Oy ("Provider")
 And: [Customer Name] ("Customer")
 
 1. PILOT SCOPE
@@ -1138,7 +1138,7 @@ Customer: _______________ Date: ___
 
 4. TRACTION
    - €7K MRR (100% retention)
-   - 5 paying customers
+   - 6 paying customers
    - NCC & T2H pilots (€100K pipeline)
    - Microsoft ISV Partner
 

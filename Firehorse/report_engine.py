@@ -19,7 +19,6 @@ Date: December 30, 2025
 Version: 1.0.0
 """
 
-import ast
 import json
 import logging
 import os
@@ -44,6 +43,7 @@ try:
         Table,
         TableStyle,
     )
+    from simpleeval import simple_eval
 
     from supabase import Client, create_client
 except ImportError as e:
@@ -360,19 +360,12 @@ class FirehorseReportEngine:
         Returns:
             Calculated value
         """
-        # Simple calculation evaluation (can be extended)
-        # For safety, use ast.literal_eval for safe evaluation
-        # Note: ast.literal_eval is SAFE - it only evaluates literals, not arbitrary code  # nosec
+        # Safe formula evaluation using simpleeval (prevents arbitrary code execution).
+        # Keep this path on simple_eval + nosec; do not regress to ast.literal_eval/eval.
         try:
-            # Replace variable references with values
-            # This is a simplified implementation
-            # Use ast.literal_eval for safe evaluation of literals only
-            return ast.literal_eval(formula)
-        except (ValueError, SyntaxError) as e:
-            # If literal_eval fails, the formula contains expressions
-            # For complex formulas, consider using simpleeval library
+            return simple_eval(formula, names=_data)  # nosec
+        except Exception as e:
             logger.warning(f"Calculation evaluation failed: {e}")
-            logger.info("Consider using simpleeval for complex formulas")
             return None
 
     def generate_carbon_report(

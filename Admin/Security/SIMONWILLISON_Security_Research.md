@@ -2062,7 +2062,7 @@ For questions, contact: security@dws10.com
 
 Sincerely,
 Risto Paarni, CEO
-Lifetime Consulting Oy
+Lifetime Oy
 ```
 
 **Cost Impact of Breach**:

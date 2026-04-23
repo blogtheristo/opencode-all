@@ -27,7 +27,7 @@ The Solution Factory Canvas is a strategic framework for building climate-intell
 │  ├──────────────────────────────────────┤  ├──────────────────────────────────────────────────┤ │
 │  │                                       │  │                                                  │ │
 │  │ • EU compliance deadlines 2028        │  │ • Phased AI deployment (3 phases)               │ │
-│  │ • High SaaS costs (€1,400+/month)    │  │ • Free-tier bootstrap ($15K credits)            │ │
+│  │ • High SaaS costs (€1,400+/month)    │  │ • AI-assisted development (Cursor Pro + Claude Code Max, 15-week MVP) │ │
 │  │ • Cloud-only latency (500-2000ms)    │  │ • Edge AI inference (<100ms)                    │ │
 │  │ • No SME-accessible AI options        │  │ • €0-350/month pricing                          │ │
 │  │ • Fragmented industry solutions       │  │ • Multi-vertical templates (8 industries)       │ │
@@ -71,7 +71,7 @@ The Solution Factory Canvas is a strategic framework for building climate-intell
 │  │ Infrastructure (€0-350/month):        │  │ SaaS Subscriptions:                             │ │
 │  │ • Cloud: Google Cloud Run (free tier)│  │ • Starter: €99/month (2 agents)                 │ │
 │  │ • Database: Supabase (free tier)     │  │ • Growth: €299/month (5 agents)                 │ │
-│  │ • AI: Groq ($10K credits)            │  │ • Enterprise: €999/month (unlimited)            │ │
+│  │ • AI: NVIDIA Connect (Groq)           │  │ • Enterprise: €999/month (unlimited)            │ │
 │  │ • Hosting: Cloudflare (free tier)    │  │                                                  │ │
 │  │                                       │  │ Edge Hardware:                                   │ │
 │  │ Development:                          │  │ • Jetson Orin Nano + margin                     │ │
@@ -113,8 +113,8 @@ The Solution Factory Canvas is a strategic framework for building climate-intell
 │  ├─ Manufacturing: OEE, quality, predictive maintenance         │
 │  └─ ... (5 additional verticals)                                │
 │                                                                  │
-│  Free-Tier Bootstrap Strategy                                    │
-│  ├─ $15,300 startup credits = 6+ years runway                  │
+│  AI-Assisted Development Strategy                                │
+│  ├─ Cursor Pro + Claude Code Max (15-week MVP)                  │
 │  └─ Enables €0/month MVP operations                             │
 │                                                                  │
 │  EU Compliance Moat                                              │
@@ -200,7 +200,7 @@ The Solution Factory Canvas is a strategic framework for building climate-intell
 |-----------|---------------|------|
 | Cloud infrastructure | Google Cloud Run (free tier) | €0 |
 | Database | Supabase (free tier) | €0 |
-| AI inference | Groq ($10K credits) | €0 |
+| AI inference | NVIDIA Connect (Groq) | €0 |
 | Web hosting | Cloudflare Pages (free tier) | €0 |
 | Development agents | 3-5 (Architect, Builder, DevOps) | - |
 | Customer agents | 2 (CustomerSat, Viability) | - |

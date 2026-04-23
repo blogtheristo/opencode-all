@@ -1,0 +1,64 @@
+# DGX Spark Failover Check
+# Reusable action: checks if DGX Spark is handling this job.
+# If DGX Spark heartbeat is healthy → skip (exit 0 with dgx_alive=true)
+# If DGX Spark is down → proceed (dgx_alive=false)
+#
+# Usage in workflow:
+#   - uses: ./.github/actions/dgx-failover-check
+#     id: failover
+#   - if: steps.failover.outputs.dgx_alive != 'true'
+#     run: echo "DGX Spark is down, GitHub Actions taking over"
+
+name: 'DGX Spark Failover Check'
+description: 'Check if DGX Spark is running this job. Skip if alive (failover mode).'
+
+inputs:
+  heartbeat_url:
+    description: 'DGX Spark heartbeat URL (via Cloudflare Tunnel or ngrok)'
+    required: false
+    default: ''
+  timeout_seconds:
+    description: 'Timeout for heartbeat check'
+    required: false
+    default: '10'
+
+outputs:
+  dgx_alive:
+    description: 'true if DGX Spark is handling jobs, false if down'
+    value: ${{ steps.check.outputs.dgx_alive }}
+  dgx_status:
+    description: 'Full status response from DGX Spark'
+    value: ${{ steps.check.outputs.dgx_status }}
+
+runs:
+  using: 'composite'
+  steps:
+    - id: check
+      shell: bash
+      run: |
+        HEARTBEAT_URL="${{ inputs.heartbeat_url }}"
+
+        # If no heartbeat URL configured, always run (DGX not set up yet)
+        if [ -z "$HEARTBEAT_URL" ]; then
+          echo "No DGX_SPARK_HEARTBEAT_URL configured — running as primary"
+          echo "dgx_alive=false" >> $GITHUB_OUTPUT
+          echo "dgx_status=not_configured" >> $GITHUB_OUTPUT
+          exit 0
+        fi
+
+        # Check DGX Spark heartbeat
+        echo "Checking DGX Spark heartbeat: ${HEARTBEAT_URL}"
+        HTTP_CODE=$(curl -sf -o /tmp/dgx-response.json -w "%{http_code}" \
+          --connect-timeout ${{ inputs.timeout_seconds }} \
+          "${HEARTBEAT_URL}/health" 2>/dev/null || echo "000")
+
+        if [ "$HTTP_CODE" = "200" ]; then
+          STATUS=$(cat /tmp/dgx-response.json 2>/dev/null || echo '{}')
+          echo "DGX Spark is ALIVE — this workflow is FAILOVER only"
+          echo "dgx_alive=true" >> $GITHUB_OUTPUT
+          echo "dgx_status=${STATUS}" >> $GITHUB_OUTPUT
+        else
+          echo "DGX Spark is DOWN (HTTP $HTTP_CODE) — GitHub Actions taking over"
+          echo "dgx_alive=false" >> $GITHUB_OUTPUT
+          echo "dgx_status=down_${HTTP_CODE}" >> $GITHUB_OUTPUT
+        fi

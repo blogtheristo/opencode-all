@@ -155,11 +155,65 @@ sovereignty badges</td>
 <td><code>UI_SKILLS_GAMMA.md</code></td>
 <td>Tailwind, Radix UI, accessibility, animations</td>
 </tr>
+<tr>
+<td><strong>Security Standard</strong></td>
+<td><code>DWS_SECURITY_STANDARD.md</code></td>
+<td>AI safety, enterprise security framework</td>
+</tr>
+<tr>
+<td><strong>Security Compliance</strong></td>
+<td><code>Admin/SECURITY_COMPLIANCE.md</code></td>
+<td>Deployment, controls, certifications, vendor risk</td>
+</tr>
+<tr>
+<td><strong>Market Research Standard</strong></td>
+<td><code>DWS_MARKET_RESEARCH_STANDARD.md</code></td>
+<td>Competitive intelligence, product improvement, data collection</td>
+</tr>
+<tr>
+<td><strong>Site Quality Standards</strong></td>
+<td><code>SITE_QUALITY_STANDARDS.md</code></td>
+<td>Code quality, components, nav, logos, CTA, testing</td>
+</tr>
 </tbody>
 </table>
 <p><strong>Rule:</strong> These standards apply equally to all tools —
 Claude Code, Cursor, VS Code, Codex, and human developers. No
 exceptions.</p>
+<h3 id="use-dws-standard-rule-critical">“Use DWS Standard” Rule
+(CRITICAL)</h3>
+<p>When the human says <strong>“Use DWS standard”</strong> (or any
+variation like “with DWS standards”, “follow DWS standards”), this is a
+shorthand that means:</p>
+<ol type="1">
+<li><strong>Apply ALL relevant standards from the table above</strong> —
+not just one. Evaluate which standards apply to the task and follow
+every one that is relevant.</li>
+<li><strong>Update the standards themselves</strong> if the work adds
+new products, features, security controls, or brand elements. Standards
+are living documents that must grow with the platform.</li>
+<li><strong>Ensure market-value readiness</strong> — every product
+artifact must be complete enough to sell: Google Merchant JSON, product
+specification, store listing, competitive positioning, and pricing.</li>
+<li><strong>Ensure security coverage</strong> — every new feature must
+have security controls documented in the relevant security
+standard.</li>
+<li><strong>Nurture, don’t just comply</strong> — proactively improve
+standards when gaps are found. If a standard is missing coverage for
+what you’re building, add it.</li>
+</ol>
+<p><strong>Example:</strong> “Create a new product with DWS standard”
+means: - <code>DWS_DOCUMENT_STANDARD.md</code> → Use correct metadata
+header, versioning - <code>DWS_BRAND_STANDARD.md</code> → Add to store
+category, product card, correct badges -
+<code>DWS_MARKET_RESEARCH_STANDARD.md</code> → Define competitor set,
+create competitive analysis - <code>Admin/SECURITY_COMPLIANCE.md</code>
+→ Document security controls for the product -
+<code>product-catalog/</code> → Create product-specification.md +
+google-merchant-product.json - <code>config/products.json</code> → Add
+store entry with storeCategory and payment link</p>
+<p><strong>This is not optional.</strong> Delivering work without
+updating relevant standards is incomplete work.</p>
 <h2 id="project-overview">Project Overview</h2>
 <p><strong>DWS IQ 6</strong> is an enterprise-grade industrial climate
 intelligence and compliance platform for EU-regulated industries. It
@@ -699,6 +753,44 @@ vs. Copied</h4>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Emergency: Force remove stuck worktree</span></span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> worktree remove <span class="at">--force</span> /path/to/worktree</span></code></pre></div>
+<h4 id="claude-session-data-backup-critical">Claude Session Data Backup
+(CRITICAL)</h4>
+<p><strong>NEVER delete worktrees without backing up Claude session data
+first!</strong></p>
+<p>Claude Code sessions contain valuable trained agents, commands,
+skills, and settings that are NOT committed to Git. Each worktree has
+its own <code>.claude/</code> directory with session-specific data.</p>
+<h5 id="daily-automated-backup">Daily Automated Backup</h5>
+<ul>
+<li><strong>GitHub Actions</strong>: Runs daily at 6:00 AM UTC</li>
+<li><strong>Location</strong>:
+<code>.github/workflows/daily-claude-backup.yml</code></li>
+<li><strong>Storage</strong>: Creates <code>sessions-backup</code>
+branch with timestamped archives</li>
+</ul>
+<h5 id="manual-backup">Manual Backup</h5>
+<div class="sourceCode" id="cb11"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run backup script</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\scripts\Backup-ClaudeSessions<span class="op">.</span><span class="fu">ps1</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Or manually backup specific worktree</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="op">-</span>r <span class="op">/</span>path<span class="op">/</span>to<span class="op">/</span>worktree<span class="op">/.</span><span class="fu">claude</span> <span class="op">/</span>safe<span class="op">/</span>backup<span class="op">/</span>location<span class="op">/</span></span></code></pre></div>
+<h5 id="what-gets-backed-up">What Gets Backed Up</h5>
+<ul>
+<li><code>agents/</code> - Custom Claude agents</li>
+<li><code>commands/</code> - Custom commands and macros</li>
+<li><code>hooks/</code> - Automation hooks</li>
+<li><code>skills/</code> - Trained Claude capabilities</li>
+<li><code>settings.local.json</code> - Session preferences</li>
+</ul>
+<h5 id="before-deleting-worktrees">Before Deleting Worktrees</h5>
+<ol type="1">
+<li><strong>Backup session data</strong> using the script above</li>
+<li><strong>Verify no active Claude sessions</strong> are running in the
+worktree</li>
+<li><strong>Document what the worktree contained</strong> for future
+reference</li>
+<li><strong>Only then</strong> safely remove the worktree</li>
+</ol>
 <h4 id="security-checklist-automated-by-scripts">Security Checklist
 (Automated by Scripts)</h4>
 <p>The scripts verify these automatically, but for manual worktrees:</p>
@@ -716,23 +808,23 @@ main repo’s virtual environment</label></li>
 <h4 id="activating-python-environment-in-worktrees">Activating Python
 Environment in Worktrees</h4>
 <p><strong>Windows:</strong></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If symlink works:</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="op">.</span> <span class="op">.</span><span class="fu">venv</span>\Scripts\Activate<span class="op">.</span><span class="fu">ps1</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># If symlink failed (no admin/Developer Mode):</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="op">.</span> F<span class="op">:</span>\<span class="dv">2026</span>\Repos2026\dws6\<span class="op">.</span><span class="fu">venv</span>\Scripts\Activate<span class="op">.</span><span class="fu">ps1</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If symlink works:</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="op">.</span> <span class="op">.</span><span class="fu">venv</span>\Scripts\Activate<span class="op">.</span><span class="fu">ps1</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># If symlink failed (no admin/Developer Mode):</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="op">.</span> F<span class="op">:</span>\<span class="dv">2026</span>\Repos2026\dws6\<span class="op">.</span><span class="fu">venv</span>\Scripts\Activate<span class="op">.</span><span class="fu">ps1</span></span></code></pre></div>
 <p><strong>Linux/macOS:</strong></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> .venv/bin/activate</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> .venv/bin/activate</span></code></pre></div>
 <h4 id="using-worktrees-with-vs-code-and-cursor">Using Worktrees with VS
 Code and Cursor</h4>
 <p><strong>Opening a worktree in VS Code:</strong></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Navigate to worktree and open in VS Code</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> F<span class="op">:</span>\<span class="dv">2026</span>\Repos2026\<span class="op">.</span><span class="fu">claude</span><span class="op">-</span>worktrees\dws6\your-branch</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>code <span class="op">.</span></span></code></pre></div>
-<p><strong>Opening a worktree in Cursor:</strong></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Navigate to worktree and open in Cursor</span></span>
+<div class="sourceCode" id="cb14"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Navigate to worktree and open in VS Code</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> F<span class="op">:</span>\<span class="dv">2026</span>\Repos2026\<span class="op">.</span><span class="fu">claude</span><span class="op">-</span>worktrees\dws6\your-branch</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>cursor <span class="op">.</span></span></code></pre></div>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>code <span class="op">.</span></span></code></pre></div>
+<p><strong>Opening a worktree in Cursor:</strong></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Navigate to worktree and open in Cursor</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> F<span class="op">:</span>\<span class="dv">2026</span>\Repos2026\<span class="op">.</span><span class="fu">claude</span><span class="op">-</span>worktrees\dws6\your-branch</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>cursor <span class="op">.</span></span></code></pre></div>
 <p><strong>VS Code/Cursor Workspace Settings:</strong> Each worktree can
 have its own <code>.vscode/settings.json</code> for workspace-specific
 settings.</p>
@@ -744,18 +836,18 @@ the main repo’s git configuration.</p>
 Worktrees</h4>
 <p>If a worktree shows unexpected files (like user home directory files)
 in <code>git status</code>:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Check if it&#39;s a proper worktree</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">.</span><span class="fu">git</span>  <span class="co"># Should show: gitdir: F:/2026/Repos2026/dws6/.git/worktrees/&lt;name&gt;</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. If it shows a folder (.git/) instead of file, it&#39;s broken - remove it:</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">Remove-Item</span> <span class="op">-</span>Recurse <span class="op">-</span>Force <span class="st">&quot;path/to/broken/worktree&quot;</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Prune orphaned references</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> F<span class="op">:</span>\<span class="dv">2026</span>\Repos2026\dws6</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>git worktree prune</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Recreate properly using the script</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\scripts\New-ClaudeWorktree<span class="op">.</span><span class="fu">ps1</span> <span class="op">-</span>BranchName <span class="st">&quot;your-branch&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Check if it&#39;s a proper worktree</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">.</span><span class="fu">git</span>  <span class="co"># Should show: gitdir: F:/2026/Repos2026/dws6/.git/worktrees/&lt;name&gt;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. If it shows a folder (.git/) instead of file, it&#39;s broken - remove it:</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">Remove-Item</span> <span class="op">-</span>Recurse <span class="op">-</span>Force <span class="st">&quot;path/to/broken/worktree&quot;</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Prune orphaned references</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> F<span class="op">:</span>\<span class="dv">2026</span>\Repos2026\dws6</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>git worktree prune</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Recreate properly using the script</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>\scripts\New-ClaudeWorktree<span class="op">.</span><span class="fu">ps1</span> <span class="op">-</span>BranchName <span class="st">&quot;your-branch&quot;</span></span></code></pre></div>
 <p><strong>CRITICAL: Windows Worktree Location</strong> On Windows,
 worktrees MUST be created on F: drive (or the same drive as main repo),
 NEVER in <code>C:\Users\</code>. The script enforces this automatically,
@@ -763,6 +855,37 @@ but if creating manually, always use: - ✅
 <code>F:\2026\Repos2026\.claude-worktrees\dws6\</code> - ❌
 <code>C:\Users\risto\.claude-worktrees\dws6\</code> (AVOID - causes
 security issues)</p>
+<h4 id="windows-managed-settings-path-change">Windows Managed Settings
+Path Change</h4>
+<p><strong>Effective March 11, 2026</strong>, Claude Code on Windows
+will no longer read managed settings from the legacy path. Update any
+deployment scripts or documentation that reference the old path.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th></th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Old (deprecated)</strong></td>
+<td><code>C:\ProgramData\ClaudeCode\managed-settings.json</code></td>
+</tr>
+<tr>
+<td><strong>New</strong></td>
+<td><code>C:\Program Files\ClaudeCode\managed-settings.json</code></td>
+</tr>
+</tbody>
+</table>
+<p>The new path is already supported as of <strong>Claude Code
+2.0.58</strong>. If you are running 2.0.58 or later, you can migrate
+immediately. After March 11, 2026, the old path will be ignored
+entirely.</p>
 <h4 id="references">References</h4>
 <ul>
 <li><a href="https://x.com/dani_avila7">Daniel San’s Ghostty + Worktrees
@@ -878,12 +1001,43 @@ gitignored</li>
 </ol>
 <p><strong>DO NOT create worktrees manually.</strong> Always use the
 provided scripts:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Windows</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">.</span><span class="dt">\s</span>cripts<span class="dt">\N</span>ew-ClaudeWorktree.ps1 <span class="at">-BranchName</span> <span class="st">&quot;your-branch&quot;</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Linux/macOS/Chromebook</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="ex">./scripts/new-claude-worktree.sh</span> your-branch</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Windows</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">.</span><span class="dt">\s</span>cripts<span class="dt">\N</span>ew-ClaudeWorktree.ps1 <span class="at">-BranchName</span> <span class="st">&quot;your-branch&quot;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Linux/macOS/Chromebook</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="ex">./scripts/new-claude-worktree.sh</span> your-branch</span></code></pre></div>
 <p>See <a href="#4-claude-code-worktree-workflow-recommended">Section 4:
 Claude Code Worktree Workflow</a> for full documentation.</p>
+<h3 id="mobile-session-rules-critical">Mobile Session Rules
+(CRITICAL)</h3>
+<p><strong>How to detect:</strong> The session is mobile/web when the
+git remote URL contains <code>local_proxy@127.0.0.1</code> (e.g.,
+<code>http://local_proxy@127.0.0.1:30643/git/...</code>).</p>
+<p><strong>What is NOT available on mobile sessions:</strong> -
+<code>gh</code> CLI — <strong>never installed, never will be. Do NOT
+attempt to use it.</strong> - GitHub API tokens
+(<code>GITHUB_TOKEN</code>, <code>GH_TOKEN</code>) — not available in
+environment - <code>conda</code>, system package managers — cannot
+install <code>gh</code> as a workaround - Interactive tools
+(<code>vim</code>, <code>nano</code>, <code>less</code>)</p>
+<p><strong>What WORKS on mobile sessions:</strong> -
+<code>git push</code>, <code>git pull</code>, <code>git fetch</code> —
+via the local proxy - All file read/write/edit tools - <code>npm</code>,
+<code>node</code>, <code>python3</code>, <code>curl</code> - Standard
+bash commands</p>
+<p><strong>When the user asks to create a PR from a mobile
+session:</strong> 1. <strong>Do NOT</strong> try
+<code>gh pr create</code> — it will fail 2. <strong>Do NOT</strong> try
+to install <code>gh</code> — it will fail 3. <strong>Do NOT</strong> try
+GitHub API calls with Python/curl — no token available 4.
+<strong>DO</strong> push the branch with
+<code>git push -u origin &lt;branch&gt;</code> 5. <strong>DO</strong>
+provide the GitHub compare URL immediately:
+<code>https://github.com/blogtheristo/dws6/compare/main...&lt;branch-name&gt;</code>
+6. <strong>DO</strong> provide the PR title and body as copyable
+text</p>
+<p><strong>Rule:</strong> Go straight to the compare link. Zero attempts
+at <code>gh</code> or API calls. Every failed attempt wastes the user’s
+time.</p>
 </body>
 </html>

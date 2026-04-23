@@ -1,7 +1,7 @@
 # Firehorse Product Manufacturing Operating Model
 ## Hybrid AI-Edge Architecture for Climate-Intelligent Industrial Platforms
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 2.0
@@ -334,7 +334,7 @@ The Firehorse Solution Factory model synthesizes the above theoretical framework
 │  STRATEGIC LAYER (Business Model)                                │
 │  ├─ Lifetime World Model (55B) → Cross-vertical intelligence    │
 │  ├─ 8 Vertical Templates → Reusable agent configurations        │
-│  ├─ Free-tier Bootstrap → $15K credits = 6+ years runway        │
+│  ├─ AI-Assisted Development → Cursor Pro + Claude Code Max       │
 │  └─ EU Compliance Moat → Fit for 55, NIS2, GDPR built-in        │
 │                                                                  │
 │  OPERATIVE LAYER (AgentFoundry + Lifetime Scope Signals)         │
@@ -344,7 +344,7 @@ The Firehorse Solution Factory model synthesizes the above theoretical framework
 │  └─ Phased Deployment → Silent Pilot→Advisor→Autonomous         │
 │                                                                  │
 │  EXECUTION LAYER (Brain-Memory-Body-Hands)                       │
-│  ├─ Brain: DWS IQ 6 Platform (Groq + Claude + Gemini)           │
+│  ├─ Brain: DWS IQ 6 Platform (NVIDIA Connect + Claude + Gemini) │
 │  ├─ Memory: Lifetime World Model (climate knowledge base)       │
 │  ├─ Body: 8 Industry Applications (vertical-specific agents)    │
 │  └─ Hands: Edge AI (Jetson), Drones, Robots, IoT sensors        │
@@ -359,7 +359,7 @@ The Firehorse Solution Factory model synthesizes the above theoretical framework
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-This conceptual model provides a replicable framework for other industrial AI startups seeking to achieve product-market fit while maintaining low operational costs through strategic use of startup credits, edge computing, and multi-agent coordination.
+This conceptual model provides a replicable framework for other industrial AI startups seeking to achieve product-market fit while maintaining low operational costs through AI-assisted development, edge computing, and multi-agent coordination.
 
 ---
 
@@ -444,24 +444,14 @@ Each vertical receives 4 standardized agents plus vertical-specific agents, tota
 
 ### 4.1.3 Strategic Innovations
 
-**1. Free-Tier Bootstrap Strategy**
-Leveraging $15,300 in startup credits across providers:
-
-| Provider | Credit | Duration | Status |
-|----------|--------|----------|--------|
-| Groq | $10,000 | 12 months | Active |
-| Google Cloud | $300 | 3 months | Active |
-| AWS | $5,000 | 24 months | Active |
-| **Total** | **$15,300** | **6+ years runway** | - |
-
-**2. EU Compliance as Competitive Moat**
+**1. EU Compliance as Competitive Moat**
 While US SaaS competitors face GDPR challenges, Firehorse builds compliance into the architecture:
 - Data residency: europe-north1 (Finland/Sweden)
 - EU AI Act: Low-risk classification with human oversight
 - NIS2: Security-by-design for critical infrastructure customers
 - Fit for 55: Native carbon tracking for 2028 deadline
 
-**3. Network Effects Across Verticals**
+**2. Network Effects Across Verticals**
 Cross-vertical intelligence creates compounding value:
 - Logistics route optimization → Construction delivery scheduling
 - Manufacturing quality data → Real Estate maintenance prediction
@@ -784,9 +774,9 @@ Dashboard (Chromebook PWA)
 
 | Phase | Cost | Technology |
 |-------|------|------------|
-| **MVP** | €0/month | Groq $10K credits + Cloud Run free tier |
-| **Alpha** | €50-150/month | Groq + Supabase Pro |
-| **V1** | €350/month | Groq + Supabase + Monitoring |
+| **MVP** | €0/month | NVIDIA Connect partnership + Cloud Run free tier |
+| **Alpha** | €50-150/month | NVIDIA Connect + Supabase Pro |
+| **V1** | €350/month | NVIDIA Connect + Supabase + Monitoring |
 
 ### 4.3.2 Edge AI ROI
 
@@ -799,14 +789,15 @@ Dashboard (Chromebook PWA)
 **Savings:** €5,456/year (82% cheaper)  
 **Payback Period:** 1.95 months
 
-### 4.3.3 Startup Credits
+### 4.3.3 AI-Assisted Development Tooling
 
-| Service | Credit | Duration |
-|---------|--------|----------|
-| Groq | $10,000 | 12 months |
-| Google Cloud | $300 | 3 months |
-| AWS | $5,000 | 24 months |
-| **Total** | **~$15,300** | **6+ years** |
+The MVP was built in 15 weeks using AI-assisted development:
+
+| Tool | Role | Impact |
+|------|------|--------|
+| Cursor Pro | AI-powered IDE | +62% development velocity |
+| Claude Code Max | AI coding assistant | Multi-agent coordination, code generation |
+| NVIDIA Connect | Edge AI partnership | Hardware-accelerated inference |
 
 ## 4.4 Deployment Model
 
@@ -1191,7 +1182,7 @@ The 10-agent development fleet is coordinated using the Lifetime Scope Signals p
 
 | Phase | Budget | Actual |
 |-------|--------|--------|
-| MVP | €0/month | €0/month (startup credits) |
+| MVP | €0/month | €0/month (AI subscriptions) |
 | Alpha target | €50-150/month | On track |
 | Infrastructure savings | €5,000/year | €23,640/year |
 
@@ -1337,17 +1328,15 @@ EU-built architecture provides differentiation against US SaaS competitors facin
 | Alpha (Feb - Nov 2026) | €50-150/month | Projected | - |
 | V1 (Nov 2026+) | €350/month | Projected | - |
 
-### 6.3.2 Startup Credits Utilization
+### 6.3.2 AI Development Tooling Costs
 
-| Provider | Credit | Used | Remaining |
-|----------|--------|------|-----------|
-| Groq | $10,000 | ~$500 | $9,500 |
-| Google Cloud | $300 | ~$50 | $250 |
-| AWS | $5,000 | ~$100 | $4,900 |
-| **Total** | **$15,300** | **~$650** | **$14,650** |
+| Tool | Monthly Cost | Annual Cost |
+|------|-------------|-------------|
+| Cursor Pro | ~$20/month | ~$240/year |
+| Claude Code Max | ~$100/month | ~$1,200/year |
+| **Total AI tooling** | **~$120/month** | **~$1,440/year** |
 
-**Runway Calculation:**
-At current burn rate, startup credits provide 6+ years of infrastructure runway.
+**Impact:** AI-assisted development enabled a single developer to build an enterprise-grade platform in 15 weeks, achieving +62% development velocity compared to traditional development.
 
 ### 6.3.3 Edge AI Cost Savings
 
@@ -1397,7 +1386,7 @@ At current burn rate, startup credits provide 6+ years of infrastructure runway.
 
 ### 6.5.2 Sustainable Competitive Advantages
 
-1. **Cost Moat:** 82% cheaper through edge AI and startup credits
+1. **Cost Moat:** 82% cheaper through edge AI and AI-assisted development
 2. **Compliance Moat:** EU-native architecture vs US SaaS GDPR challenges
 3. **Speed Moat:** AgentFoundry templates enable 3-day vertical deployment
 4. **Network Moat:** Cross-vertical intelligence creates compounding value
@@ -1410,16 +1399,16 @@ This chapter discusses the implications of the Firehorse operating model impleme
 
 ## 7.1 Key Findings and Implications
 
-### 7.1.1 Validation of the Free-Tier Bootstrap Model
+### 7.1.1 Validation of the AI-Assisted Development Model
 
-The implementation validates that industrial AI platforms can be bootstrapped with minimal capital:
+The implementation validates that industrial AI platforms can be built rapidly with AI-assisted development:
 
-**Finding 1: Startup Credits as Venture Capital Substitute**
-- $15,300 in startup credits provides 6+ years infrastructure runway
-- Eliminates need for early-stage infrastructure investment
-- Allows focus on product-market fit before fundraising
+**Finding 1: AI Tooling as Development Accelerator**
+- Cursor Pro + Claude Code Max enabled 15-week MVP development by a single developer
+- +62% development velocity compared to traditional development
+- Allows focus on product-market fit with minimal team size
 
-**Implication:** Bootstrapped startups can compete with well-funded competitors through strategic credit utilization.
+**Implication:** AI-assisted development enables bootstrapped startups to compete with well-funded competitors through development speed and quality.
 
 **Finding 2: Edge AI Provides Sustainable Cost Advantage**
 - 82% cost reduction vs cloud-only architecture
@@ -1466,7 +1455,7 @@ bootstrap_phase:
   infrastructure:
     cloud: Google Cloud Run (free tier)
     database: Supabase (free tier)
-    inference: Groq ($10K credits)
+    inference: NVIDIA Connect (Groq partnership)
     hosting: Cloudflare Pages (free)
   
   agents:
@@ -1542,7 +1531,7 @@ scale_phase:
 | AgentFoundry YAML templates | `AgentFoundry/configs/` | Agent configuration blueprints |
 | Signal Registry schema | `.workflows/agents/AGENT_SIGNAL_REGISTRY.json` | Coordination protocol structure |
 | MCP Hub server | `mcp-hub/server.py` | Orchestration reference implementation |
-| Cost calculator | `docs/` (to be created) | Startup credits planning tool |
+| Cost calculator | `docs/` (to be created) | Infrastructure cost planning tool |
 
 ### 7.2.3 Transferability Assessment
 
@@ -1574,7 +1563,7 @@ scale_phase:
 | Single developer dependency | Scalability constraint | Documented extensively for knowledge transfer |
 | Edge hardware supply chain | Deployment risk | Cloud fallback, multi-vendor strategy |
 | LLM provider dependency | Vendor lock-in risk | Multi-model architecture (Groq + Claude + Gemini) |
-| Startup credit expiration | Cost increase inevitable | Revenue targets aligned with credit expiration |
+| AI tooling subscription costs | Ongoing operational cost | Revenue targets cover tooling investment |
 
 ### 7.3.3 External Threats
 
@@ -1713,8 +1702,8 @@ This thesis introduces the **Lifetime Scope Signals Protocol** as a novel contri
 ### 8.2.2 Solution Factory Model
 The **Solution Factory Model** synthesizes Lean Startup, Platform Economics, Industry 5.0, and Edge Computing Economics into a unified framework for industrial AI platform development. The three-layer architecture (Strategic, Operative, Execution) provides a conceptual model for academic study and practical application.
 
-### 8.2.3 Free-Tier AI Economics
-This thesis provides empirical validation of **startup credits as venture capital substitute**, demonstrating 6+ years infrastructure runway from $15,300 in credits. This extends Lean Startup theory to capital-intensive industrial AI contexts.
+### 8.2.3 AI-Assisted Development Economics
+This thesis provides empirical validation of **AI-assisted development as a development accelerator**, demonstrating that Cursor Pro + Claude Code Max subscriptions enable a single developer to build an enterprise-grade industrial AI platform in 15 weeks. This extends Lean Startup theory to capital-intensive industrial AI contexts by showing that AI tooling, not headcount, is the critical development multiplier.
 
 ## 8.3 Contribution to Practice
 
@@ -1740,7 +1729,7 @@ This thesis represents the synthesis of entrepreneurial practice and academic an
 
 **Key Learnings:**
 
-1. **Constraints Drive Innovation:** The €0 budget constraint led to the free-tier bootstrap model and edge AI cost optimization that now form competitive advantages.
+1. **Constraints Drive Innovation:** The lean budget constraint led to the AI-assisted development model and edge AI cost optimization that now form competitive advantages.
 
 2. **Documentation as Development:** The process of thesis writing forced systematic documentation, which revealed patterns (Lifetime Scope Signals) that were previously implicit.
 
@@ -1751,7 +1740,7 @@ This thesis represents the synthesis of entrepreneurial practice and academic an
 ## 8.5 Final Remarks
 
 The Firehorse Product Manufacturing Operating Model demonstrates that bootstrapped industrial AI platforms can achieve product-market fit through strategic combination of:
-- Free-tier cloud infrastructure
+- AI-assisted development (Cursor Pro + Claude Code Max)
 - Edge AI for cost and latency optimization
 - Multi-agent coordination via signal protocols
 - Phased deployment for trust building
@@ -1849,7 +1838,7 @@ The Solution Factory framework transforms this single implementation into a repl
 │                                                                          │
 │  PROBLEM                          │  SOLUTION                            │
 │  • EU compliance deadlines        │  • Phased AI deployment              │
-│  • High SaaS costs (€1,400+)      │  • Free-tier bootstrap               │
+│  • High SaaS costs (€1,400+)      │  • AI-assisted development            │
 │  • Cloud-only latency             │  • Edge AI (<100ms)                  │
 │  • No SME-accessible options      │  • €0-350/month pricing              │
 │                                   │                                      │
@@ -1873,7 +1862,7 @@ The Solution Factory framework transforms this single implementation into a repl
 │                                                                          │
 │  COST STRUCTURE                   │  REVENUE STREAMS                     │
 │  • €0-350/month infrastructure    │  • SaaS subscriptions                │
-│  • Startup credits ($15K)         │  • Edge hardware markup              │
+│  • Cursor Pro + Claude Code Max    │  • Edge hardware markup              │
 │  • Single developer (bootstrap)   │  • Professional services             │
 │  • No marketing spend (organic)   │  • Solution Factory licensing        │
 │                                   │                                      │
@@ -2008,35 +1997,34 @@ agent:
 
 ## Appendix D: Cost Calculator Methodology
 
-### Startup Credits Strategy
+### AI Development Tooling
 
-| Provider | Program | Credit | Duration | Application |
-|----------|---------|--------|----------|-------------|
-| Groq | Groq for Startups | $10,000 | 12 months | [groq.com/startups](https://groq.com) |
-| Google Cloud | Google for Startups | $100,000 | 24 months | [cloud.google.com/startup](https://cloud.google.com) |
-| AWS | AWS Activate | $5,000-100,000 | 24 months | [aws.amazon.com/activate](https://aws.amazon.com) |
-| Supabase | Startup Program | Pro tier free | 12 months | Apply via email |
+| Tool | Subscription | Monthly Cost | Purpose |
+|------|-------------|-------------|---------|
+| Cursor Pro | Pro plan | ~$20/month | AI-powered IDE with code generation |
+| Claude Code Max | Max plan | ~$100/month | AI coding assistant, multi-agent coordination |
+| NVIDIA Connect | Partnership | $0 | Edge AI inference, hardware ecosystem |
 
 ### Monthly Cost Projection
 
 ```
 Phase 1: MVP (Months 1-3)
 ├─ Cloud Run: $0 (free tier)
-├─ Groq API: $0 (credits)
+├─ NVIDIA Connect (Groq): $0 (partnership)
 ├─ Supabase: $0 (free tier)
 ├─ Cloudflare: $0 (free tier)
 └─ Total: €0/month
 
 Phase 2: Alpha (Months 4-9)
 ├─ Cloud Run: $50 (low traffic)
-├─ Groq API: $0 (credits)
+├─ NVIDIA Connect (Groq): $0 (partnership)
 ├─ Supabase: $25 (Pro tier)
 ├─ Cloudflare: $0 (free tier)
 └─ Total: €75/month
 
 Phase 3: V1 (Months 10+)
 ├─ Cloud Run: $150 (scaled)
-├─ Groq API: $50 (post-credits)
+├─ NVIDIA Connect (Groq): $50 (post-partnership)
 ├─ Supabase: $100 (Team tier)
 ├─ Cloudflare: $0 (free tier)
 ├─ Monitoring: $50
@@ -2276,7 +2264,7 @@ DWS IQ approach:
 **Key Contributions:**
 1. Lifetime Scope Signals Protocol - Novel multi-agent coordination framework
 2. Solution Factory Model - Replicable industrial AI platform blueprint
-3. Free-tier Bootstrap Strategy - Startup credits as venture capital substitute
+3. AI-Assisted Development Model - Cursor Pro + Claude Code Max enabling rapid 15-week MVP
 4. Phased Deployment Framework - Trust building for AI in regulated industries
 
 **License:** Proprietary - Lifetime Oy  

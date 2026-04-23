@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { type NextFunction, type Request, type Response } from 'express';
 import logger from '../utils/logger.js';
 import AuthService from '../services/auth.service.js';
 
@@ -51,15 +51,15 @@ export const authenticateToken = async (req: Request, res: Response, next: NextF
     // SECURITY FIX #6: Extract role from JWT for RBAC
     req.userId = decoded.userId;
     req.userEmail = decoded.email;
-    req.userRole = decoded.role as UserRole;  // Extract role for requireRole middleware
+    req.userRole = decoded.role as UserRole; // Extract role for requireRole middleware
     req.token = token;
 
     logger.debug('Token verified successfully', { userId: decoded.userId, role: decoded.role });
 
-    next();
+    return next();
   } catch (error) {
     logger.error('Token verification failed', { error });
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Server error',
       message: 'Failed to verify token',
     });
@@ -71,7 +71,11 @@ export const authenticateToken = async (req: Request, res: Response, next: NextF
  * NOTE: Currently not functional - requires cookie-parser middleware
  * @deprecated Use authenticateToken (Authorization header) instead
  */
-export const authenticateTokenFromCookie = (req: Request, res: Response, next: NextFunction) => {
+export const authenticateTokenFromCookie = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     // Note: req.cookies not available without cookie-parser middleware
     // This middleware is currently non-functional
@@ -86,7 +90,7 @@ export const authenticateTokenFromCookie = (req: Request, res: Response, next: N
     }
 
     // Verify token
-    const decoded = AuthService.verifyAccessToken(token);
+    const decoded = await AuthService.verifyAccessToken(token);
 
     if (!decoded) {
       logger.warn('Invalid or expired cookie token');
@@ -103,10 +107,10 @@ export const authenticateTokenFromCookie = (req: Request, res: Response, next: N
 
     logger.debug('Cookie token verified successfully', { userId: decoded.userId });
 
-    next();
+    return next();
   } catch (error) {
     logger.error('Cookie token verification failed', { error });
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Server error',
       message: 'Failed to verify token',
     });
@@ -117,14 +121,14 @@ export const authenticateTokenFromCookie = (req: Request, res: Response, next: N
  * Middleware for optional authentication
  * Doesn't fail if no token, but attaches user info if token is valid
  */
-export const optionalAuth = (req: Request, res: Response, next: NextFunction) => {
+export const optionalAuth = async (req: Request, _res: Response, next: NextFunction) => {
   try {
     // Try to get token from Authorization header
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
 
     if (token) {
-      const decoded = AuthService.verifyAccessToken(token);
+      const decoded = await AuthService.verifyAccessToken(token);
 
       if (decoded) {
         req.userId = decoded.userId;
@@ -155,10 +159,10 @@ export const requireAuth = (req: Request, res: Response, next: NextFunction) => 
       });
     }
 
-    next();
+    return next();
   } catch (error) {
     logger.error('Auth check failed', { error });
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Server error',
       message: 'Failed to check authentication',
     });
@@ -168,14 +172,14 @@ export const requireAuth = (req: Request, res: Response, next: NextFunction) => 
 /**
  * Middleware factory to require specific role(s)
  * Must be used after authenticateToken middleware
- * 
+ *
  * @param allowedRoles - Array of roles that are allowed to access the route
  * @returns Express middleware function
- * 
+ *
  * @example
  * // Allow only admins and owners
  * router.get('/admin/users', authenticateToken, requireRole(['admin', 'owner']), handler);
- * 
+ *
  * @example
  * // Allow any authenticated member
  * router.get('/projects', authenticateToken, requireRole(['owner', 'admin', 'member']), handler);
@@ -223,10 +227,10 @@ export const requireRole = (allowedRoles: UserRole[]) => {
         requiredRoles: allowedRoles,
       });
 
-      next();
+      return next();
     } catch (error) {
       logger.error('Role check failed', { error });
-      res.status(500).json({
+      return res.status(500).json({
         error: 'Server error',
         message: 'Failed to verify user role',
       });
@@ -237,7 +241,7 @@ export const requireRole = (allowedRoles: UserRole[]) => {
 /**
  * Middleware to require organization ownership or admin role
  * Checks if user has admin/owner role in the specified organization
- * 
+ *
  * @example
  * router.put('/organizations/:orgId', authenticateToken, requireOrgAdmin, handler);
  */
@@ -277,10 +281,10 @@ export const requireOrgAdmin = async (req: Request, res: Response, next: NextFun
     }
 
     req.organizationId = orgId;
-    next();
+    return next();
   } catch (error) {
     logger.error('Org admin check failed', { error });
-    res.status(500).json({
+    return res.status(500).json({
       error: 'Server error',
       message: 'Failed to verify organization access',
     });
@@ -309,7 +313,10 @@ export const loginRateLimit = () => {
     }
 
     if (cleaned > 0) {
-      logger.debug('Rate limiter cleanup', { entriesRemoved: cleaned, remainingEntries: attempts.size });
+      logger.debug('Rate limiter cleanup', {
+        entriesRemoved: cleaned,
+        remainingEntries: attempts.size,
+      });
     }
   }, CLEANUP_INTERVAL_MS);
 
@@ -386,4 +393,3 @@ export default {
   loginRateLimit,
   authLogger,
 };
-

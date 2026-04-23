@@ -224,7 +224,7 @@ from email.mime.base import MIMEBase
 from email import encoders
 
 # Email configuration
-sender_email = os.getenv("SMTP_SENDER", "noreply@dws6.com")
+sender_email = os.getenv("SMTP_SENDER", "risto@onelifetime.world")
 sender_password = os.getenv("SMTP_PASSWORD")
 smtp_server = os.getenv("SMTP_SERVER", "smtp.gmail.com")
 smtp_port = int(os.getenv("SMTP_PORT", "587"))
@@ -265,7 +265,7 @@ try:
     text = msg.as_string()
     server.sendmail(sender_email, recipients, text)
     server.quit()
-    print("✓ Email sent successfully")
+    print(f"📧 INVESTOR REPORT SENT: From: {sender_email} | To: {', '.join(recipients)} | Subject: {msg['Subject']}")
 except Exception as e:
     print(f"❌ Failed to send email: {e}")
     exit(1)

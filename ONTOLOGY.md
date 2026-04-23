@@ -1,12 +1,12 @@
 # DWS Ontology & Lifetime World Model (LWM)
 
----
+***
 # VERSION AND AGENT HISTORY
 
 Version: 1.1
 
 Sessions & Modifications:
-  - Version: 1.1 | Tool: Claude Code (Claude Opus 4.6) | Session: claude/add-eu-info-note-8XYey | Date: 11.02.2026 | Changes: Added DWS6 Enterprise Ontology — EU institutions (Commission, Council, Parliament, EIB), EU Single Market (450M consumers), EU regulatory framework (Fit for 55, ETS, CBAM, CSRD, AI Act, GDPR, NIS2), DWS IQ 6 platform entities, 20-moat fortress taxonomy, 16 EU industries, key geographic entities, Alden Biesen retreat context
+  - Version: 1.1 | Tool: Claude Code (Claude Opus 4.6) | Session: claude/add-eu-info-note-8XYey | Date: 11.02.2026 | Changes: Added DWS6 Enterprise Ontology — EU institutions (Commission, Council, Parliament, EIB), EU Single Market (450M consumers), EU regulatory framework (Fit for 55, ETS, CBAM, CSRD, AI Act, GDPR, NIS2), DWS IQ 6 platform entities, 21-moat fortress taxonomy, 16 EU industries, key geographic entities, Alden Biesen retreat context
   - Version: 1.0 | Tool: Claude Code | Session: claude/show-dws-version-LLEHz | Date: 21.01.2026 | Changes: Initial creation - Enterprise ontology framework with LWM integration
 
 Session Links & References:
@@ -1333,6 +1333,112 @@ dws6/
    - Track compliance improvements
    - Monitor customer satisfaction
    - Calculate ROI
+
+---
+
+## Appendix D: CCP Seed Source (Machine Readable)
+
+This section is the machine-readable source for `concept_context_policy` seed generation.
+
+Flow: `ONTOLOGY.md` -> `scripts/parse-ontology.ts` -> `supabase/seeds/059_seed.sql`.
+
+<!-- CCP_SEED_START -->
+```json
+{
+  "source_version": "lwm_2026_04",
+  "defaults": {
+    "platform_version": null,
+    "product_edition": null,
+    "legal_profile": null,
+    "cloud_profile": null
+  },
+  "records": [
+    {
+      "concept_id": "carbon_balance",
+      "scope_type": "global",
+      "scope_ref": null,
+      "locale": "en",
+      "policy_level": "preferred",
+      "preferred_term": "carbon balance sheet",
+      "definition_override": null
+    },
+    {
+      "concept_id": "compliance_agent",
+      "scope_type": "global",
+      "scope_ref": null,
+      "locale": "en",
+      "policy_level": "preferred",
+      "preferred_term": "compliance agent",
+      "definition_override": null
+    },
+    {
+      "concept_id": "sovereignty",
+      "scope_type": "global",
+      "scope_ref": null,
+      "locale": "en",
+      "policy_level": "preferred",
+      "preferred_term": "EU sovereignty",
+      "definition_override": null
+    },
+    {
+      "concept_id": "carbon_balance",
+      "scope_type": "global",
+      "scope_ref": null,
+      "locale": "fi",
+      "policy_level": "preferred",
+      "preferred_term": "hiilitase",
+      "definition_override": null
+    },
+    {
+      "concept_id": "carbon_balance",
+      "scope_type": "industry",
+      "scope_ref": "construction",
+      "locale": "en",
+      "policy_level": "preferred",
+      "preferred_term": "embodied carbon ledger",
+      "definition_override": "EN 15978 lifecycle carbon tracking for construction assets"
+    },
+    {
+      "concept_id": "compliance_agent",
+      "scope_type": "industry",
+      "scope_ref": "construction",
+      "locale": "en",
+      "policy_level": "preferred",
+      "preferred_term": "CSRD site agent",
+      "definition_override": "Handles EPBD + Fit for 55 + Taxonomy simultaneously"
+    },
+    {
+      "concept_id": "carbon_balance",
+      "scope_type": "customer",
+      "scope_ref": "kela",
+      "locale": "fi",
+      "policy_level": "preferred",
+      "preferred_term": "kuljetuksen päästötase",
+      "definition_override": "KELA-kuljetusten CO2-seuranta per matka"
+    },
+    {
+      "concept_id": "sovereignty",
+      "scope_type": "customer",
+      "scope_ref": "kela",
+      "locale": "fi",
+      "policy_level": "required",
+      "preferred_term": "EU-suvereniteetti",
+      "definition_override": "KELA vaatii EU-sovereign hosting, ei US-infra"
+    }
+  ],
+  "forbidden_rules": [
+    {
+      "concept_id": "physical_ai",
+      "scope_type": "customer",
+      "forbidden_in": ["kela", "defense_context"],
+      "locales": ["en"],
+      "preferred_term": "Physical AI",
+      "definition_override": "Forbidden in this context; use regulatory intelligence engine"
+    }
+  ]
+}
+```
+<!-- CCP_SEED_END -->
 
 ---
 

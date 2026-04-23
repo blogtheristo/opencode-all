@@ -10,7 +10,7 @@
 - **Sector**: Climate tech / Construction & Infrastructure SaaS / ESG/CSRD compliance automation
 - **Fundraising**: €500k SAFE at €3.8M cap
 - **Contact**: investor@dws10.com
-- **Investor Page**: https://dws10.com/investor-relations/
+- **Captain Page**: https://dws10.com/captain/
 
 ---
 

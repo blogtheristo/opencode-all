@@ -1,10 +1,10 @@
 name: Daily Site Backup
 
 on:
-  schedule:
-    # Runs at 02:00 UTC daily
-    - cron: '0 2 * * *'
-  workflow_dispatch:  # Allow manual trigger
+  # Schedule REMOVED 2026-04-08 — DGX Spark is primary (scripts/daily/backup-sites.sh)
+  # GitHub Actions was failover only, consuming ~150 min/month even on skip checks.
+  # Was: cron '0 2 * * *' (daily at 02:00 UTC)
+  workflow_dispatch: # Allow manual trigger
 
 # Concurrency: prevent multiple backup jobs running simultaneously
 concurrency:
@@ -12,7 +12,24 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  failover-check:
+    runs-on: ubuntu-latest
+    outputs:
+      dgx_alive: ${{ steps.failover.outputs.dgx_alive }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/actions
+          sparse-checkout-cone-mode: true
+      - name: DGX Spark failover check
+        id: failover
+        uses: ./.github/actions/dgx-failover-check
+        with:
+          heartbeat_url: ${{ secrets.DGX_SPARK_HEARTBEAT_URL }}
+
   backup:
+    needs: failover-check
+    if: needs.failover-check.outputs.dgx_alive != 'true' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     permissions:
       contents: write
