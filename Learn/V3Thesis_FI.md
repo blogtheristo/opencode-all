@@ -6,11 +6,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.37
+Version: 3.38
 
 Sessions & Modifications:
 
-- Version: 3.37 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: Lisätty osio 10.22 (DWS Skilled -taksonomia — kolme tasoa agenteille, työnkuluille ja jurisdiktioille); "GodAgent"/"Godagent"-brändäys poistettu käytöstä; kodifioitu `Skilled <Akseli>` / `Industrial Specialist <Akseli>` / `Industry <Akseli>` -kolmitasomalli kolmelle aktiiviselle akselille (Agentit, Työnkulut, Jurisdiktiot — EU/US/Aiwen); malli suunniteltu laajennettavuuden tähden tuleville kyvykkyysakseleille (Datasets, Models, Regulations, Reports); lisätty lukumäärien dynamiikkakaavat (avoin `18+`, rekisteriankkuroitu, tuotekohtainen); kodifioidut poikkeukset (Docker/infra-tunnisteet, Pantheon kreikkalaismyyttinen brändi, historialliset tietueet); kanoninen lähde `docs/Deputy-Agents-Architecture.md` §1 Terminologia; lisätty avainpanos #31
+- Version: 3.38 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Typo correction — "Aiwen" → "Aiven" (Aiven.io is our Helsinki Postgres partner) as part of repo-wide sweep of 116 files; no content change beyond the spelling fix; unified version track preserved (all 4 thesis files bumped in lockstep per CLAUDE.md thesis rule)
+- Version: 3.37 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: Lisätty osio 10.22 (DWS Skilled -taksonomia — kolme tasoa agenteille, työnkuluille ja jurisdiktioille); "GodAgent"/"Godagent"-brändäys poistettu käytöstä; kodifioitu `Skilled <Akseli>` / `Industrial Specialist <Akseli>` / `Industry <Akseli>` -kolmitasomalli kolmelle aktiiviselle akselille (Agentit, Työnkulut, Jurisdiktiot — EU/US/Aiven); malli suunniteltu laajennettavuuden tähden tuleville kyvykkyysakseleille (Datasets, Models, Regulations, Reports); lisätty lukumäärien dynamiikkakaavat (avoin `18+`, rekisteriankkuroitu, tuotekohtainen); kodifioidut poikkeukset (Docker/infra-tunnisteet, Pantheon kreikkalaismyyttinen brändi, historialliset tietueet); kanoninen lähde `docs/Deputy-Agents-Architecture.md` §1 Terminologia; lisätty avainpanos #31
 - Version: 3.36 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Täydennetty osio 10.21 Boardy-huomioilla: KYA open source -standardipolku Agentic AI Foundation / Linux Foundation -reitille, NIST-hakemuksen tila (ei lähetetty), Artikkeli 1 tarkka otsikointi, 2026-2029 julkaisuvaiheistus, EIC Step 1 -deliverable-kytkentä tutkimusohjelmaan; lisätty avainpanos #30
 - Version: 3.35 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Lisätty osio 10.21 (tohtoripolun kohdennus): KYA Agentic AI Foundation -linjaus, DWS 7 -tavoitteet, DWS 5 -> vetytalousjatkumo, dual-use-toimialat ja Nokia Defence -keskustelut, Aegis/Sovereign Infra/Connect -suvereniteettisegmentointi (kuva), Siemens- ja NVIDIA Connect -yhteistyöankkurit sekä Kari Smolanderille kohdistettu vastauskirjeen runko; lisätty avainpanos #29
 - Version: 3.34 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-work-EoyoF | Date: 20.04.2026 | Changes: Lisätty osio 10.20 (Huhtikuun 2026 kehitys) — neljä alaosiota: Anthropicin Skills-paradigman ulkoinen validointi (vahvistaa §10.13 taito-ensin -arkkitehtuurin), Lifetime Fleet -tiekartan kiteytyminen (Suomen dronestrategia 2030 + Baltia-ensin 12–16 vk MVP, "Kädet"-kerros siirtyy spesifikaatiosta aikatauluun), DWS IQ 7 Datakeskusten vaatimustenmukaisuusagentti (22. toimiala, RFNBO-delegoitu asetus 2023/1184 vihreän vedyn lisäisyysvaatimus), sääntelypinon laajennus NIS2:een ja CER:iin (Hybridiosaamiskeskus 8.5.2026, CORE-resilienssimalli) sekä perustajan→tiimin siirtymä (SOLO_FOUNDER_STATEMENT v1.2, CTO-yhteisrakentaja, /investor-outreach -taito, 10+ INTRO-muistiota); lisätty avainpanokset #25–#28
@@ -1965,7 +1966,7 @@ Red Hatin AgentOps-strategia — **Bring Your Own Agent (BYOA)** — tarjoaa yri
 
 **Strateginen yhteensopivuus DWS IQ 6:n kanssa:**
 
-- **Hybridipilvi-imperatiivi:** Red Hat tunnistaa, että onnistunut tekoälystrategia on oltava hybridipilvistrategia — kouluta, viritä ja aja malleja missä tahansa data sijaitsee vaarantamatta turvallisuutta, vaatimustenmukaisuutta tai datasuvereniteettia. Tämä kartoittuu suoraan DWS IQ 6:n käyttöönottomalliin (EU-pilvi + GN-100-reuna + Aiwen-overlay).
+- **Hybridipilvi-imperatiivi:** Red Hat tunnistaa, että onnistunut tekoälystrategia on oltava hybridipilvistrategia — kouluta, viritä ja aja malleja missä tahansa data sijaitsee vaarantamatta turvallisuutta, vaatimustenmukaisuutta tai datasuvereniteettia. Tämä kartoittuu suoraan DWS IQ 6:n käyttöönottomalliin (EU-pilvi + GN-100-reuna + Aiven-overlay).
 - **Modernisoi ennen automatisointia:** Avoin, joustava hybridipilvi (Linux, kontit, Kubernetes) linjautuu DWS7:n konttinatiiviin arkkitehtuuriin.
 - **Red Hat + NVIDIA yhteistyö** turvallisessa tekoälyagenttiinfrastruktuurissa tukee suoraan KYA-hallittua agenttien eristysmallia.
 - **MCP siltana:** Red Hat tunnistaa MCP:n kriittiseksi vanhojen järjestelmien ja agenttitekoälyn yhdistämisessä — validoiden DWS IQ 6:n MCP Hub -arkkitehtuurin (osio 2.5.3).
@@ -2999,7 +3000,7 @@ Kolme tasoa erottavat markkinoinnin, dokumentaation ja käyttöliittymän rekist
 
 | Taso     | **Agentit**                  | **Työnkulut (Workflows)**                                             | **Jurisdiktiot**                      |
 | -------- | ---------------------------- | --------------------------------------------------------------------- | ------------------------------------- |
-| 1 Brändi | Skilled Agents               | Skilled Autonomous Workflows                                          | Skilled Jurisdictions (EU, US, Aiwen) |
+| 1 Brändi | Skilled Agents               | Skilled Autonomous Workflows                                          | Skilled Jurisdictions (EU, US, Aiven) |
 | 2 Speksi | Industrial Specialist Agents | Specialist Workflows (pitkä muoto: _Industrial Specialist Workflows_) | Regulatory Specialist Jurisdictions   |
 | 3 UI     | Industry Agents              | Industrial Workflows                                                  | Jurisdictions                         |
 
@@ -3007,7 +3008,7 @@ Kolme tasoa erottavat markkinoinnin, dokumentaation ja käyttöliittymän rekist
 
 **Työnkulut.** Agenttien deterministiset kompositiot, joita käynnistetään aikataululla tai tapahtumalla — §10.13.3:n taitojenkäynnistyskerros. "Autonomous" lisätään brändi­tasolle, koska työnkulut suoritetaan ilman ihmistä silmukassa, kun taas agentteja kutsutaan.
 
-**Jurisdiktiot.** Sääntelypinnat, joissa alusta on taitava — tällä hetkellä EU (AI Act, GDPR, CBAM, ETS, CSRD, ESRS, EPBD), US ja Aiwen kartoitettuina tietoresidenssi-arkkitehtuurissa (ks. `docs/CLOUD_ENVIRONMENTS.md`). Speksi­tasolle lisätään "Regulatory", koska jurisdiktio määrittyy sääntelypinnan, ei pelkän maantieteen kautta.
+**Jurisdiktiot.** Sääntelypinnat, joissa alusta on taitava — tällä hetkellä EU (AI Act, GDPR, CBAM, ETS, CSRD, ESRS, EPBD), US ja Aiven kartoitettuina tietoresidenssi-arkkitehtuurissa (ks. `docs/CLOUD_ENVIRONMENTS.md`). Speksi­tasolle lisätään "Regulatory", koska jurisdiktio määrittyy sääntelypinnan, ei pelkän maantieteen kautta.
 
 #### 10.22.4 Laajennettavuus
 

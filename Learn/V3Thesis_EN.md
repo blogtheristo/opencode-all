@@ -6,11 +6,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.37
+Version: 3.38
 
 Sessions & Modifications:
 
-- Version: 3.37 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: Added Section 10.22 (DWS Skilled Taxonomy — Three Tiers Across Agents, Workflows, and Jurisdictions); deprecated "GodAgent"/"Godagent" branding; codified the `Skilled <Axis>` / `Industrial Specialist <Axis>` / `Industry <Axis>` three-tier pattern across three active axes (Agents, Workflows, Jurisdictions — EU/US/Aiwen); pattern designed for extensibility to future capability axes (Datasets, Models, Regulations, Reports); added count-dynamism patterns (open-ended `18+`, registry-anchored, product-scoped); codified exclusions (Docker/infra identifiers, Pantheon Greek-mythology brand, historical records); canonical source of truth is `docs/Deputy-Agents-Architecture.md` §1 Terminology; added Key Contribution #31
+- Version: 3.38 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Typo correction — "Aiwen" → "Aiven" (Aiven.io is our Helsinki Postgres partner) as part of repo-wide sweep of 116 files; no content change beyond the spelling fix; unified version track preserved (all 4 thesis files bumped in lockstep per CLAUDE.md thesis rule)
+- Version: 3.37 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: Added Section 10.22 (DWS Skilled Taxonomy — Three Tiers Across Agents, Workflows, and Jurisdictions); deprecated "GodAgent"/"Godagent" branding; codified the `Skilled <Axis>` / `Industrial Specialist <Axis>` / `Industry <Axis>` three-tier pattern across three active axes (Agents, Workflows, Jurisdictions — EU/US/Aiven); pattern designed for extensibility to future capability axes (Datasets, Models, Regulations, Reports); added count-dynamism patterns (open-ended `18+`, registry-anchored, product-scoped); codified exclusions (Docker/infra identifiers, Pantheon Greek-mythology brand, historical records); canonical source of truth is `docs/Deputy-Agents-Architecture.md` §1 Terminology; added Key Contribution #31
 - Version: 3.36 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Expanded Section 10.21 with Boardy-sourced refinements: KYA open-source standard path via Agentic AI Foundation / Linux Foundation, explicit NIST status (not submitted), Article 1 title lock, 2026-2029 publication phasing, and EIC Step 1 deliverable linkage; added Key Contribution #30
 - Version: 3.35 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Added Section 10.21 (doctoral-track targeting): KYA positioned toward Agentic AI Foundation standardization, DWS 7 objectives as empirical frame, DWS 5 -> hydrogen-economy continuity, dual-use stream with Nokia Defence discussions, Aegis/Sovereign Infra/Connect sovereignty segmentation (core figure), Siemens and NVIDIA Connect collaboration anchors, and supervisor-response structure; added Key Contribution #29
 - Version: 3.34 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-work-EoyoF | Date: 20.04.2026 | Changes: Added Section 10.20 (April 2026 Evolution) — four subsections covering Anthropic Skills Paradigm validation (external confirmation of DWS skill-first architecture from §10.13.3), Lifetime Fleet roadmap crystallization (Finland Drone Strategy 2030 + Baltic-first 12–16wk MVP graduating "Hands" layer from spec to timeline), DWS IQ 7 Datacentre Compliance Agent (22nd industry, RFNBO Delegated Regulation 2023/1184 green-hydrogen additionality), Regulatory Stack Expansion to NIS2+CER (Hybridiosaamiskeskus 8.5.2026, CORE resilience model), and Founder→Team Transition (SOLO_FOUNDER_STATEMENT v1.2, CTO co-builder, /investor-outreach skill, 10+ INTRO notes); added Key Contributions #25–#28
@@ -2017,7 +2018,7 @@ Red Hat's AgentOps strategy — **Bring Your Own Agent (BYOA)** — provides ent
 
 **Strategic alignment with DWS IQ 6:**
 
-- **Hybrid cloud imperative:** Red Hat identifies that a successful AI strategy must be a hybrid cloud strategy — train, tune, and run models wherever data resides without compromising security, compliance, or data sovereignty. This maps directly to DWS IQ 6's deployment model (EU Cloud + GN-100 edge + Aiwen overlay).
+- **Hybrid cloud imperative:** Red Hat identifies that a successful AI strategy must be a hybrid cloud strategy — train, tune, and run models wherever data resides without compromising security, compliance, or data sovereignty. This maps directly to DWS IQ 6's deployment model (EU Cloud + GN-100 edge + Aiven overlay).
 - **Modernize before automate:** Moving from proprietary silos to open, flexible hybrid cloud (Linux, containers, Kubernetes) aligns with DWS7's container-native architecture and NVIDIA partnership.
 - **Red Hat + NVIDIA joint work** on secure AI agent infrastructure directly supports the KYA-governed agent isolation model, providing hardware-attested security at the infrastructure layer.
 - **MCP as bridge:** Red Hat identifies MCP as critical for bridging legacy systems with agentic AI — validating DWS IQ 6's MCP Hub architecture (Section 2.5.3).
@@ -3123,7 +3124,7 @@ The three tiers separate marketing, documentation, and interface registers under
 
 | Tier    | **Agents**                   | **Workflows**                                                       | **Jurisdictions**                     |
 | ------- | ---------------------------- | ------------------------------------------------------------------- | ------------------------------------- |
-| 1 Brand | Skilled Agents               | Skilled Autonomous Workflows                                        | Skilled Jurisdictions (EU, US, Aiwen) |
+| 1 Brand | Skilled Agents               | Skilled Autonomous Workflows                                        | Skilled Jurisdictions (EU, US, Aiven) |
 | 2 Spec  | Industrial Specialist Agents | Specialist Workflows (long-form: _Industrial Specialist Workflows_) | Regulatory Specialist Jurisdictions   |
 | 3 UI    | Industry Agents              | Industrial Workflows                                                | Jurisdictions                         |
 
@@ -3131,7 +3132,7 @@ The three tiers separate marketing, documentation, and interface registers under
 
 **Workflows.** Deterministic compositions of agents triggered by schedule or event — the skill invocation layer from §10.13.3. "Autonomous" is added to the brand tier because workflows execute without a human in the loop, whereas agents are invoked.
 
-**Jurisdictions.** The regulatory surfaces the platform is skilled in — currently EU (AI Act, GDPR, CBAM, ETS, CSRD, ESRS, EPBD), with US and Aiwen mapped on the data-residency architecture (see `docs/CLOUD_ENVIRONMENTS.md`). The spec tier adds "Regulatory" because a jurisdiction is defined by its regulatory surface, not its geography alone.
+**Jurisdictions.** The regulatory surfaces the platform is skilled in — currently EU (AI Act, GDPR, CBAM, ETS, CSRD, ESRS, EPBD), with US and Aiven mapped on the data-residency architecture (see `docs/CLOUD_ENVIRONMENTS.md`). The spec tier adds "Regulatory" because a jurisdiction is defined by its regulatory surface, not its geography alone.
 
 #### 10.22.4 Extensibility
 

@@ -11,10 +11,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.37
+Version: 3.38
 
 Sessions & Modifications:
 
+- Version: 3.38 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Typo correction — "Aiwen" → "Aiven" (Aiven.io is our Helsinki Postgres partner) as part of repo-wide sweep of 116 files; no content change beyond the spelling fix; unified version track preserved (all 4 thesis files bumped in lockstep per CLAUDE.md thesis rule)
 - Version: 3.37 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: **Yhdistetty opinnäytetyön versiolinja.** PHD_FIREHORSE ja Metropolia V3Thesis ovat nyt yhden yhteisen versionumeron (3.37) varassa. Tästä committasta eteenpäin kaikki 4 opinnäytetyötiedostoa (V3Thesis_EN/FI + PHD_FIREHORSE_EN/FI) päivitetään rinnakkain (3.37 → 3.38 → … → 3.99 → 4.00). Versioketjun katkoshistoria rehellisesti kirjattuna: v2.9 → v2.10 (21.04.2026, Boardy-täsmennykset) → suunnittelematon v3.10-hyppy törmäsi jo olemassa olevaan paikalliseen v3.1, v3.2 -ketjuun → remote siirrettiin v3.5:een tässä sessiossa (22.04.2026) ilman näkyvyyttä paikalliseen v3.2-työhön → yhdistetty tässä v3.37:aan kohdistamaan V3Thesisin kanssa. Paikallinen v3.2-työ taitetaan seuraavaan nostoon v3.38 (ihmisen liitettävä diff). Sisältö tässä versiossa: osio 14.17 (DWS Skilled -taksonomia — Brändi / Speksi / UI agenteille, työnkuluille ja jurisdiktioille); "GodAgent"/"Godagent"-brändäys poistettu käytöstä; kolmitasoinen `Skilled <Akseli>` / `Industrial Specialist <Akseli>` / `Industry <Akseli>` -kaava kolmelle aktiiviselle akselille; SKU-kopion, ajastinkopion ja jurisdiktion pakkauksen kurit johdettu toimintamallin seurauksina; avainpanos #22.
 - Version: 3.5 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: [Korvattu v3.37-yhdistämisellä.] Avattu PHD_FIREHORSE:n pääversiolinja v3.5:ssä (myöhemmin peruutettu). Sisältö siirretty v3.37:aan.
 - Version: 2.10 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Täsmennetty tutkimusidean runko Boardy-palautteella: KYA open source -standardipolku Agentic AI Foundation / Linux Foundation -reitille, NIST-hakemuksen tila (ei lähetetty), artikkeleiden vaiheistus (2026-2029), compliance-ongelman oikeudellinen fokus (court-defensible), sekä EIC Step 1 -deliverablejen yhteys tutkimusohjelman tuotteistukseen; päivitetty vastauskirje Karille
@@ -2000,11 +2001,11 @@ Kolme akselia ovat tällä hetkellä aktiivisia Firehorse-toimintamallissa:
 
 | Taso     | **Agentit**                  | **Työnkulut (Workflows)**                                             | **Jurisdiktiot**                      |
 | -------- | ---------------------------- | --------------------------------------------------------------------- | ------------------------------------- |
-| 1 Brändi | Skilled Agents               | Skilled Autonomous Workflows                                          | Skilled Jurisdictions (EU, US, Aiwen) |
+| 1 Brändi | Skilled Agents               | Skilled Autonomous Workflows                                          | Skilled Jurisdictions (EU, US, Aiven) |
 | 2 Speksi | Industrial Specialist Agents | Specialist Workflows (pitkä muoto: _Industrial Specialist Workflows_) | Regulatory Specialist Jurisdictions   |
 | 3 UI     | Industry Agents              | Industrial Workflows                                                  | Jurisdictions                         |
 
-"Autonomous" esiintyy vain työnkulkujen brändi­tasolla, koska työnkulut suoritetaan aikataululla tai tapahtumalla ilman ihmistä silmukassa — ominaisuus, jonka toimintamallin myymäläkopion on ansaittava jokaiselle tuotteelle, joka väittää toimittavansa toistuvia compliance-artefakteja (ks. §14.16.1 Firehorse Report Engine -ajastin). "Regulatory" esiintyy jurisdiktioiden speksitasolla, koska jurisdiktio määrittyy sääntelypinnan (AI Act, GDPR, CBAM, ETS, CSRD EU:lle; sektorisäännöt US:lle; data-lokalisaatio Aiwenille) eikä pelkän maantieteen kautta.
+"Autonomous" esiintyy vain työnkulkujen brändi­tasolla, koska työnkulut suoritetaan aikataululla tai tapahtumalla ilman ihmistä silmukassa — ominaisuus, jonka toimintamallin myymäläkopion on ansaittava jokaiselle tuotteelle, joka väittää toimittavansa toistuvia compliance-artefakteja (ks. §14.16.1 Firehorse Report Engine -ajastin). "Regulatory" esiintyy jurisdiktioiden speksitasolla, koska jurisdiktio määrittyy sääntelypinnan (AI Act, GDPR, CBAM, ETS, CSRD EU:lle; sektorisäännöt US:lle; data-lokalisaatio Aivenille) eikä pelkän maantieteen kautta.
 
 #### 14.17.3 Toimintamallin merkitys
 
