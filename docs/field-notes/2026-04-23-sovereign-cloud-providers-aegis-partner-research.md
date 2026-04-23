@@ -2,10 +2,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Added §2.1 — Mapping to DWS 3-Tier Product Line. Red Hat OpenShift Sovereign Cloud and Microsoft Azure AI Foundry added as explicit Tier 2 matches (per user direction). Documented the tier-continuity pattern: the same Aegis/Sovereign Infra/Connect 3-tier mapping applies to observability, identity, data platforms, and inference — not just cloud infrastructure
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Initial field note — sovereign cloud provider landscape research triggered by the Aiwen→Aiven typo sweep discovering that 81 references were actually describing sovereign-cloud infrastructure (not the Aiven Postgres SaaS). User clarified sovereign cloud partner is UpCloud; this note surveys the broader non-US-owned cloud landscape for Aegis-level partnerships and proposes disambiguation for the repo
 
 Document Status:
@@ -59,6 +60,24 @@ Providers that meet these tests as of April 2026:
 | **Aruba.it**                       | Italy       | ISO 27001; AgID-qualified                                  | ✅ Medium — Italian sovereign cloud; strong in IT government contracts                                                                                                     |
 
 **Franco-German doctrine (March 2026):** ANSSI (FR) and BSI (DE) published a joint statement harmonising sovereignty criteria. SecNumCloud + C5 are converging; a provider qualified under one will have a faster path to the other. This reduces the "which certification to pursue" question for DWS.
+
+---
+
+## 2.1 Mapping to the DWS 3-Tier Product Line
+
+`docs/PRODUCT_TIERS.md` defines three product tiers segmented by sovereignty posture: **Aegis** (Tier 1, full sovereign, zero CLOUD Act), **Sovereign Infra** (Tier 2, EU-sovereign, US-parent SaaS tolerated if contractually EU-hosted), **Connect** (Tier 3, global). The cloud/platform partners survey above maps onto those tiers as follows:
+
+| DWS Tier                                    | Sovereignty Posture                                                  | Eligible Cloud / Platform Partners                                                                                                                                                                                                                                                                   |
+| ------------------------------------------- | -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Tier 1 — Aegis** (Full Sovereign)         | EU-incorporated vendor; no US parent in the data path; defence-grade | **UpCloud** (FI), **OVHcloud** (FR), **Scaleway** (FR), **3DS Outscale** (FR), **Cloud Temple** (FR), **Exoscale** (CH), **IONOS** (DE), **T-Systems / Open Telekom Cloud** (DE), **Cleura** (SE)                                                                                                    |
+| **Tier 2 — Sovereign Infra** (EU-Sovereign) | EU-resident hosting; US-parent permitted if GDPR-covered + EU region | All Tier 1 providers (cheaper on Tier 2), **STACKIT** (DE), **Hetzner** (DE), **Elastx** (SE), **Infomaniak** (CH), **Aruba.it** (IT); **Red Hat OpenShift Sovereign Cloud** (US-parent, EU-operated); **Microsoft Azure AI Foundry** (US-parent, EU data boundary); **S3NS** (FR, Thales+Google JV) |
+| **Tier 3 — Connect** (Global)               | No sovereignty constraint                                            | AWS, Azure, GCP, NVIDIA DGX Cloud, Alibaba Cloud, G42 — plus any Tier 1/Tier 2 provider serving a customer with no EU residency need                                                                                                                                                                 |
+
+**Red Hat OpenShift Sovereign Cloud — Tier 2 match.** Red Hat is IBM-owned (US parent), so it is **not Aegis-eligible**. On Tier 2, Red Hat offers OpenShift + OpenShift AI deployed on sovereign EU infrastructure, with Red Hat operating as an EU-contracted service provider. This fits customers who want OpenShift's governance/policy layer on top of Tier 1 sovereign hosts (UpCloud, OVH, Scaleway). Already referenced in `docs/PHD_FIREHORSE_EN.md` (Red Hat AgentOps partnership, hybrid cloud imperative).
+
+**Microsoft Azure AI Foundry — Tier 2 match.** Foundry provides agent orchestration with built-in content safety, evaluation, and tracing. EU-hosted deployments (Azure EU data boundary, Microsoft-announced EU sovereignty package) are Tier 2-eligible. **Not Aegis-eligible** because Microsoft is a US parent and the platform is built on Azure. Complements `docs/PRODUCT_TIERS.md` Connect-tier Microsoft Founders Hub relationship.
+
+**Tier continuity pattern.** This table exists so we don't invent new terminology for each partner category. The same Aegis/Sovereign Infra/Connect tiers apply to observability (see companion field note `2026-04-23-eu-ai-act-compliance-layer-research.md` §5), identity verification (Shufti vs. iDenfy vs. EUDI Wallet), data platforms (Aiven vs. Supabase), and LLM inference (NVIDIA GN-100 edge vs. Groq vs. Mistral vs. Anthropic). Every partner category has a natural 3-tier mapping.
 
 ---
 
