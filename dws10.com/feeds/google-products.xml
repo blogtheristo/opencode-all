@@ -4,7 +4,7 @@
     <title>Lifetime Firehorse Store — Sovereign AI Products &amp; Services</title>
     <link>https://dws10.com/buy/</link>
     <description>Sovereign AI products and services for enterprises and SMEs. EU-hosted, CLOUD Act free. Climate compliance, industrial AI, and expert advisory by Lifetime Oy.</description>
-    <lastBuildDate>Fri, 24 Apr 2026 03:55:22 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 24 Apr 2026 04:14:48 GMT</lastBuildDate>
 
     <item>
       <g:id>DWS-IQ-006</g:id>
@@ -165,7 +165,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>EXP-SVC-2026</g:mpn>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>Professional Services</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://checkout.revolut.com/pay/897acfa9-630f-4e0c-be02-71058bd45e2e</g:checkout_link_template>
       <g:shipping>
@@ -185,7 +185,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>CONSULT-HR-2026</g:mpn>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>Professional Services</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://checkout.revolut.com/pay/106a84fe-2956-4619-ac66-b4e89b5d59f3</g:checkout_link_template>
       <g:shipping>
@@ -205,7 +205,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>EXP-ADV-2026</g:mpn>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>Professional Services</g:google_product_category>
       <g:custom_label_1>subscription</g:custom_label_1>
       <g:subscription_cost>
         <g:period>month</g:period>
@@ -230,7 +230,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>CONSULT-FIT55-2026</g:mpn>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>Professional Services</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
@@ -250,7 +250,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>AWS-CONSULT-2026</g:mpn>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
       <g:shipping>
@@ -290,7 +290,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>M365-CONSULT-2026</g:mpn>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
       <g:shipping>
@@ -310,7 +310,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>AI-AGENT-2026</g:mpn>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>Professional Services</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
       <g:shipping>
@@ -330,7 +330,7 @@
       <g:condition>new</g:condition>
       <g:brand>Firehorse</g:brand>
       <g:mpn>FH-LEAN-2026</g:mpn>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
       <g:shipping>
@@ -350,7 +350,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>AI-DAY-2026</g:mpn>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
       <g:shipping>
@@ -370,7 +370,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>MENTOR-30-2026</g:mpn>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
       <g:shipping>
@@ -390,7 +390,7 @@
       <g:condition>new</g:condition>
       <g:brand>Firehorse</g:brand>
       <g:mpn>FH-COACH-2026</g:mpn>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>Professional Services</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
       <g:shipping>
@@ -430,7 +430,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>WEB-PAGES-2026</g:mpn>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
       <g:shipping>
@@ -450,7 +450,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>PROTON-WORKSPACE-2026</g:mpn>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
       <g:shipping>
@@ -470,7 +470,7 @@
       <g:condition>new</g:condition>
       <g:brand>Firehorse</g:brand>
       <g:mpn>FH-DATA-2026</g:mpn>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
       <g:shipping>
@@ -490,7 +490,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>DEVOPS-LEAD-2026</g:mpn>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
       <g:shipping>
@@ -510,7 +510,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>DESIGN-GOLD-2026</g:mpn>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
       <g:shipping>
@@ -530,7 +530,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>CRT-2026</g:mpn>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
       <g:shipping>
@@ -550,7 +550,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>AI-KOULUTUS-3D-2026</g:mpn>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
       <g:shipping>
@@ -570,7 +570,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>AI-CONSULT-2026</g:mpn>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>Professional Services</g:google_product_category>
       <g:custom_label_0>featured</g:custom_label_0>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
@@ -591,7 +591,7 @@
       <g:condition>new</g:condition>
       <g:brand>Acer</g:brand>
       <g:mpn>LF-EDGE-GN100-2026</g:mpn>
-      <g:google_product_category>Electronics &gt; Computers &gt; Desktop Computers</g:google_product_category>
+      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
       <g:custom_label_0>featured</g:custom_label_0>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
@@ -633,7 +633,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>SOVEREIGN-CLOUD-2026</g:mpn>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>Professional Services</g:google_product_category>
       <g:custom_label_0>featured</g:custom_label_0>
       <g:custom_label_1>subscription</g:custom_label_1>
       <g:subscription_cost>
