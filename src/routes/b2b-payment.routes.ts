@@ -133,74 +133,69 @@ router.get(
  * POST /api/v1/b2b/orders
  * Create order after Revolut deposit confirmation
  */
-router.post(
-  '/orders',
-  validateAuth,
-  validateRequest(CreateOrderSchema),
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const userId = req.user?.id;
-      if (!userId) return res.status(401).json({ error: 'Unauthorized' });
+router.post('/orders', validateAuth, async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const userId = req.user?.id;
+    if (!userId) return res.status(401).json({ error: 'Unauthorized' });
 
-      const { product_id, company_billing_profile_id, deposit_amount_cents } = req.body;
+    const { product_id, company_billing_profile_id, deposit_amount_cents } = req.body;
 
-      // Verify billing profile belongs to user
-      const { data: profile, error: profileError } = await supabase
-        .from('company_billing_profiles')
-        .select('*')
-        .eq('id', company_billing_profile_id)
-        .eq('user_id', userId)
-        .single();
+    // Verify billing profile belongs to user
+    const { data: profile, error: profileError } = await supabase
+      .from('company_billing_profiles')
+      .select('*')
+      .eq('id', company_billing_profile_id)
+      .eq('user_id', userId)
+      .single();
 
-      if (profileError || !profile) {
-        return res.status(404).json({ error: 'Billing profile not found' });
-      }
-
-      // Get product price from products.json (fetch from config)
-      const { data: productsData, error: configError } = await supabase.storage
-        .from('dws10-config')
-        .download('products.json');
-
-      if (configError) {
-        logger.error('Failed to fetch products.json', { error: configError });
-        return res.status(500).json({ error: 'Failed to fetch product pricing' });
-      }
-
-      const products = JSON.parse(await productsData.text());
-      const product = products.find((p: any) => p.id === product_id);
-
-      if (!product) {
-        return res.status(404).json({ error: 'Product not found' });
-      }
-
-      const productPriceCents = Math.round(product.price * 100);
-
-      // Validate deposit doesn't exceed product price
-      if (deposit_amount_cents > productPriceCents) {
-        return res.status(400).json({ error: 'Deposit exceeds product price' });
-      }
-
-      // Create order via Supabase function
-      const { data: order, error: orderError } = await supabase.rpc('create_b2b_order', {
-        p_user_id: userId,
-        p_product_id: product_id,
-        p_company_billing_profile_id: company_billing_profile_id,
-        p_product_price_cents: productPriceCents,
-        p_deposit_amount_cents: deposit_amount_cents,
-      });
-
-      if (orderError) {
-        logger.error('Failed to create order', { error: orderError, userId });
-        return res.status(500).json({ error: 'Failed to create order' });
-      }
-
-      logger.info('Order created', { orderId: order.id, userId, deposit: deposit_amount_cents });
-      return res.status(201).json(order);
-    } catch (err) {
-      next(err);
+    if (profileError || !profile) {
+      return res.status(404).json({ error: 'Billing profile not found' });
     }
-  },
-);
+
+    // Get product price from products.json (fetch from config)
+    const { data: productsData, error: configError } = await supabase.storage
+      .from('dws10-config')
+      .download('products.json');
+
+    if (configError) {
+      logger.error('Failed to fetch products.json', { error: configError });
+      return res.status(500).json({ error: 'Failed to fetch product pricing' });
+    }
+
+    const products = JSON.parse(await productsData.text());
+    const product = products.find((p: any) => p.id === product_id);
+
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    const productPriceCents = Math.round(product.price * 100);
+
+    // Validate deposit doesn't exceed product price
+    if (deposit_amount_cents > productPriceCents) {
+      return res.status(400).json({ error: 'Deposit exceeds product price' });
+    }
+
+    // Create order via Supabase function
+    const { data: order, error: orderError } = await supabase.rpc('create_b2b_order', {
+      p_user_id: userId,
+      p_product_id: product_id,
+      p_company_billing_profile_id: company_billing_profile_id,
+      p_product_price_cents: productPriceCents,
+      p_deposit_amount_cents: deposit_amount_cents,
+    });
+
+    if (orderError) {
+      logger.error('Failed to create order', { error: orderError, userId });
+      return res.status(500).json({ error: 'Failed to create order' });
+    }
+
+    logger.info('Order created', { orderId: order.id, userId, deposit: deposit_amount_cents });
+    return res.status(201).json(order);
+  } catch (err) {
+    next(err);
+  }
+});
 
 /**
  * GET /api/v1/b2b/orders/:id
@@ -251,7 +246,6 @@ router.get('/orders/:id', validateAuth, async (req: Request, res: Response, next
 router.post(
   '/orders/:id/confirm-deposit',
   validateAuth,
-  validateRequest(ConfirmDepositSchema),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId = req.user?.id;
@@ -360,66 +354,62 @@ router.post(
  * POST /api/v1/payments/webhook
  * Handle Revolut + Stripe webhooks
  */
-router.post(
-  '/webhook',
-  validateRequest(WebhookSchema),
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { type, payment_id, invoice_id, timestamp } = req.body;
+router.post('/webhook', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { type, payment_id, invoice_id, timestamp } = req.body;
 
-      logger.info('Payment webhook received', { type, payment_id, invoice_id });
+    logger.info('Payment webhook received', { type, payment_id, invoice_id });
 
-      if (type === 'payment.success' && payment_id) {
-        // Handle Revolut payment success (already handled in confirm-deposit endpoint)
-        logger.info('Revolut payment success acknowledged', { payment_id });
-      } else if (type === 'invoice.payment_succeeded' && invoice_id) {
-        // Handle Stripe invoice payment
-        const { data: order, error: orderError } = await supabase
-          .from('orders')
-          .select('*')
-          .eq('stripe_invoice_id', invoice_id)
-          .single();
+    if (type === 'payment.success' && payment_id) {
+      // Handle Revolut payment success (already handled in confirm-deposit endpoint)
+      logger.info('Revolut payment success acknowledged', { payment_id });
+    } else if (type === 'invoice.payment_succeeded' && invoice_id) {
+      // Handle Stripe invoice payment
+      const { data: order, error: orderError } = await supabase
+        .from('orders')
+        .select('*')
+        .eq('stripe_invoice_id', invoice_id)
+        .single();
 
-        if (orderError) {
-          logger.warn('Order not found for Stripe invoice', { invoice_id });
-          return res.status(404).json({ error: 'Order not found' });
-        }
-
-        // Mark order as paid
-        const { error: updateError } = await supabase.rpc('mark_order_paid', {
-          p_order_id: order.id,
-        });
-
-        if (updateError) {
-          logger.error('Failed to mark order paid', { error: updateError, orderId: order.id });
-          return res.status(500).json({ error: 'Failed to mark order paid' });
-        }
-
-        logger.info('Order marked as paid', { orderId: order.id, invoiceId: invoice_id });
-
-        // TODO: Send confirmation email to customer
-      } else if (type === 'invoice.marked_uncollectible' && invoice_id) {
-        // Handle Stripe invoice failure
-        const { data: order } = await supabase
-          .from('orders')
-          .select('*')
-          .eq('stripe_invoice_id', invoice_id)
-          .single();
-
-        if (order) {
-          logger.warn('Stripe invoice marked uncollectible', {
-            orderId: order.id,
-            invoiceId: invoice_id,
-          });
-          // TODO: Notify admin, send customer reminder email
-        }
+      if (orderError) {
+        logger.warn('Order not found for Stripe invoice', { invoice_id });
+        return res.status(404).json({ error: 'Order not found' });
       }
 
-      res.json({ success: true });
-    } catch (err) {
-      next(err);
+      // Mark order as paid
+      const { error: updateError } = await supabase.rpc('mark_order_paid', {
+        p_order_id: order.id,
+      });
+
+      if (updateError) {
+        logger.error('Failed to mark order paid', { error: updateError, orderId: order.id });
+        return res.status(500).json({ error: 'Failed to mark order paid' });
+      }
+
+      logger.info('Order marked as paid', { orderId: order.id, invoiceId: invoice_id });
+
+      // TODO: Send confirmation email to customer
+    } else if (type === 'invoice.marked_uncollectible' && invoice_id) {
+      // Handle Stripe invoice failure
+      const { data: order } = await supabase
+        .from('orders')
+        .select('*')
+        .eq('stripe_invoice_id', invoice_id)
+        .single();
+
+      if (order) {
+        logger.warn('Stripe invoice marked uncollectible', {
+          orderId: order.id,
+          invoiceId: invoice_id,
+        });
+        // TODO: Notify admin, send customer reminder email
+      }
     }
-  },
-);
+
+    res.json({ success: true });
+  } catch (err) {
+    next(err);
+  }
+});
 
 export default router;

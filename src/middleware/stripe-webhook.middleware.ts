@@ -99,7 +99,7 @@ export function verifyStripeWebhook(req: VerifiedRequest, res: Response, next: N
       event_id: req.stripeEvent.id,
     });
 
-    next();
+    return next();
   } catch (error) {
     logger.error('Webhook verification error', { error });
     return res.status(400).json({ error: 'Invalid webhook' });
@@ -180,7 +180,7 @@ export function stripeRateLimit(req: VerifiedRequest, res: Response, next: NextF
   times.push(now);
   eventRates.set(eventType, times);
 
-  next();
+  return next();
 }
 
 /**
