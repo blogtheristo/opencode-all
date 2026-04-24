@@ -1,20 +1,47 @@
 # Deploy to Google Cloud Run
-# Usage: .\scripts\Deploy-CloudRun.ps1 -StripeSecretKey "sk_live_..." -StripeWebhookSecret "whsec_..."
+# Usage: .\scripts\Deploy-CloudRun.ps1
+# (reads secrets from .env file automatically)
 
 param(
-    [Parameter(Mandatory=$true)]
-    [string]$StripeSecretKey,
-
-    [Parameter(Mandatory=$true)]
-    [string]$StripeWebhookSecret,
-
-    [string]$SupabaseUrl = $env:SUPABASE_URL,
-    [string]$SupabaseServiceKey = $env:SUPABASE_SERVICE_KEY,
     [string]$ProjectId = "dws6run6",
     [string]$Region = "europe-north1",
     [string]$ServiceName = "dws-iq-backend",
     [string]$ImageName = "dws-iq-backend"
 )
+
+# Load .env file
+$envFile = Join-Path $PSScriptRoot ".." ".env"
+if (-not (Test-Path $envFile)) {
+    throw "❌ .env file not found at $envFile"
+}
+
+Write-Host "📂 Loading secrets from .env file..." -ForegroundColor Gray
+
+# Parse .env file
+$envVars = @{}
+Get-Content $envFile | ForEach-Object {
+    $line = $_.Trim()
+    if ($line -and -not $line.StartsWith("#")) {
+        $parts = $line -split "=", 2
+        if ($parts.Length -eq 2) {
+            $envVars[$parts[0].Trim()] = $parts[1].Trim()
+        }
+    }
+}
+
+# Extract required secrets
+$StripeSecretKey = $envVars["STRIPE_SECRET_KEY"]
+$StripeWebhookSecret = $envVars["STRIPE_WEBHOOK_SECRET"]
+$SupabaseUrl = $envVars["SUPABASE_URL"]
+$SupabaseServiceKey = $envVars["SUPABASE_SERVICE_KEY"]
+
+# Validate secrets
+if (-not $StripeSecretKey) { throw "❌ STRIPE_SECRET_KEY not found in .env" }
+if (-not $StripeWebhookSecret) { throw "❌ STRIPE_WEBHOOK_SECRET not found in .env" }
+if (-not $SupabaseUrl) { throw "⚠️  SUPABASE_URL not found in .env (optional)" }
+if (-not $SupabaseServiceKey) { throw "⚠️  SUPABASE_SERVICE_KEY not found in .env (optional)" }
+
+Write-Host "✅ Secrets loaded successfully" -ForegroundColor Green
 
 Write-Host "🚀 Deploying to Google Cloud Run" -ForegroundColor Cyan
 Write-Host "Project: $ProjectId" -ForegroundColor Gray
