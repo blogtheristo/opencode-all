@@ -59,61 +59,10 @@ interface RevolutPaymentResponse {
   expires_at?: string;
 }
 
-async function createPaymentLink(
-  amount: number,
-  currency: string,
-  description: string,
-  productId: string,
-): Promise<string | null> {
-  if (!REVOLUT_API_KEY) {
-    console.error('❌ REVOLUT_API_KEY not set in environment variables');
-    process.exit(1);
-  }
-
-  // Use generic email for store products (not customer-specific)
-  const recipientEmail = 'store@dws10.com';
-
-  try {
-    const url = `${REVOLUT_API_URL}/payment-links`;
-    const headers = {
-      Authorization: `Bearer ${REVOLUT_API_KEY}`,
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      'Revolut-Api-Version': '2024-09-01',
-    };
-    const payload = {
-      amount: Math.round(amount * 100),
-      currency: currency.toUpperCase(),
-      recipient: {
-        email: recipientEmail,
-      },
-      description: description,
-      reference: productId,
-      expiry: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
-    };
-
-    console.log(`[DEBUG] Sending to: ${url}`);
-    console.log(`[DEBUG] Headers:`, JSON.stringify(headers, null, 2));
-    console.log(`[DEBUG] Payload:`, JSON.stringify(payload, null, 2));
-
-    const response = await fetch(url, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify(payload),
-    });
-
-    if (!response.ok) {
-      const error = await response.text();
-      console.error(`  API error (${response.status}): ${error}`);
-      return null;
-    }
-
-    const data = (await response.json()) as RevolutPaymentResponse;
-    return data.checkout_url || data.payment_link;
-  } catch (error) {
-    console.error(`  Network error: ${error}`);
-    return null;
-  }
+async function getPaymentLink(): Promise<string> {
+  // Use generic payment link for all products
+  // Customer can set the amount during checkout
+  return 'https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672';
 }
 
 async function main() {
@@ -193,24 +142,10 @@ async function main() {
       continue;
     }
 
-    // Add small delay between API calls (100ms)
-    await new Promise((resolve) => setTimeout(resolve, 100));
-
-    const link = await createPaymentLink(
-      product.price,
-      prod.currency,
-      prod.description,
-      product.id,
-    );
-
-    if (link) {
-      prod.revolutLink = link;
-      console.log('✅');
-      generated++;
-    } else {
-      console.log('❌');
-      failed++;
-    }
+    const link = await getPaymentLink();
+    prod.revolutLink = link;
+    console.log('✅');
+    generated++;
   }
 
   console.log(`\n📈 Results:`);
