@@ -26,7 +26,7 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "platform",
       "productType": "dws-iq-platform",
@@ -63,7 +63,7 @@
         "availability": "in_stock",
         "brand": "Firehorse",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "platform",
       "productType": "firehorse-saas",
@@ -100,7 +100,7 @@
         "availability": "in_stock",
         "brand": "Firehorse",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "platform",
       "productType": "firehorse-saas",
@@ -137,7 +137,7 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "platform",
       "productType": "firehorse-saas",
@@ -174,7 +174,7 @@
         "availability": "in_stock",
         "brand": "DWS IQ",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "platform",
       "productType": "firehorse-saas",
@@ -211,7 +211,7 @@
         "availability": "in_stock",
         "brand": "Firehorse",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "add-on",
       "productType": "firehorse-saas",
@@ -248,7 +248,7 @@
         "availability": "in_stock",
         "brand": "Firehorse",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "platform",
       "productType": "firehorse-saas",
@@ -284,7 +284,7 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "advisory",
       "productType": "consulting-substance",
@@ -320,7 +320,7 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "advisory",
       "productType": "hourly-remote",
@@ -356,7 +356,7 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "advisory",
       "productType": "archived"
@@ -387,7 +387,7 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "advisory",
       "productType": "consulting-substance",
@@ -423,7 +423,7 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "digital",
       "productType": "us-stack",
@@ -459,7 +459,7 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "ai-cloud",
       "productType": "archived"
@@ -490,7 +490,7 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "digital",
       "productType": "us-stack",
@@ -526,7 +526,7 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "ai-cloud",
       "productType": "hourly-remote",
@@ -562,7 +562,7 @@
         "availability": "in_stock",
         "brand": "Firehorse",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "advisory",
       "productType": "archived"
@@ -768,7 +768,7 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "digital",
       "productType": "delivery-service",
@@ -840,7 +840,7 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "ai-cloud",
       "productType": "archived"
@@ -872,7 +872,7 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "digital",
       "productType": "delivery-service",
@@ -908,7 +908,7 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "digital",
       "productType": "delivery-service",
@@ -975,7 +975,7 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "ai-cloud",
       "productType": "consulting-substance",
@@ -1011,7 +1011,7 @@
         "availability": "in_stock",
         "brand": "Acer",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "hardware",
       "productType": "sovereign-infra",
@@ -1047,7 +1047,7 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "platform",
       "productType": "sovereign-infra",
@@ -1083,7 +1083,7 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "ai-cloud",
       "productType": "consulting-substance",
@@ -1119,7 +1119,7 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "ai-cloud",
       "productType": "us-stack",
@@ -1155,7 +1155,7 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "ai-cloud",
       "productType": "us-stack",
@@ -1191,7 +1191,7 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "ai-cloud",
       "productType": "sovereign-infra",
@@ -1227,7 +1227,7 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "ai-cloud",
       "productType": "sovereign-infra",
@@ -1263,7 +1263,7 @@
         "availability": "in_stock",
         "brand": "DWS IQ",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "fi"
       },
       "storeCategory": "platform",
       "productType": "dws-iq-platform",
@@ -1300,7 +1300,7 @@
         "availability": "preorder",
         "brand": "DWS IQ",
         "targetCountry": "FI",
-        "contentLanguage": "en",
+        "contentLanguage": "fi",
         "availabilityDate": "2026-08-01"
       },
       "storeCategory": "platform",
@@ -1340,7 +1340,7 @@
         "availability": "preorder",
         "brand": "DWS IQ",
         "targetCountry": "FI",
-        "contentLanguage": "en",
+        "contentLanguage": "fi",
         "availabilityDate": "2026-08-01"
       },
       "storeCategory": "platform",
