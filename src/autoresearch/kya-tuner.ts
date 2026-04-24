@@ -13,11 +13,24 @@
  * Audit: Firehorse JSONL (EU AI Act Article 12)
  */
 
-// @ts-ignore — firehorse and synthetic-kya modules exist at runtime
+// @ts-ignore — firehorse module exists at runtime
 import { createOptimizationEvent, evaluateOptimization } from '../firehorse/audit-schema';
-import type { OptimizationDecisionEvent } from '../firehorse/audit-schema';
+// @ts-ignore
 import { generateSyntheticSessions, type SyntheticKyaSession } from './synthetic-kya';
 import logger from '../utils/logger.js';
+
+// Local type definition (imported from unresolvable firehorse module)
+interface OptimizationDecisionEvent {
+  agentId: string;
+  microvmId: string;
+  attestationHash: string;
+  scope: string;
+  metricName: string;
+  beforeValue: number;
+  afterValue: number;
+  decision: 'KEEP' | 'ROLLBACK';
+  timestamp: string;
+}
 
 // ============================================================================
 // TUNABLE PARAMETERS (autoresearch target — agent modifies these)
