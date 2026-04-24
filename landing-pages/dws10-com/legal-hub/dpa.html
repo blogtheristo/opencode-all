@@ -786,7 +786,7 @@
             <tr>
               <td><strong>Shufti Pro Limited</strong></td>
               <td>Identity verification (KYC/IDV)</td>
-              <td>EU only**</td>
+              <td>EU only** (Tier 1 / Tier 2) &middot; Global&dagger; (Tier 3)</td>
               <td>Biometric data, identity documents</td>
             </tr>
           </tbody>
@@ -797,8 +797,19 @@
           minimization and pseudonymization applied before cross-border transfer.
         </p>
         <p style="font-size: 0.8rem">
-          ** Shufti Pro processes biometric data (GDPR Article 9) exclusively within EU/EEA. EU-only
-          processing confirmed March 2026.
+          ** <strong>Tier 1 (Aegis)</strong> and <strong>Tier 2 (Sovereign Infra)</strong>: Shufti
+          Pro processes biometric data (GDPR Article 9) exclusively within EU/EEA under the Lifetime
+          Oy &harr; Shufti Pro DPA (v1.1, 24 April 2026), with EU-Only Mode enabled at the account
+          level (Programmers Force sub-processor excluded; Google Cloud region-locked to EEA).
+          EU-only processing confirmed in writing by Shufti Compliance on 2 April 2026.
+        </p>
+        <p style="font-size: 0.8rem">
+          &dagger; <strong>Tier 3 (Connect)</strong>: for verification requests tagged as Tier 3
+          Connect traffic (jurisdiction outside the EU), Shufti Pro&rsquo;s standard Data Processing
+          Agreement dated 26 February 2026 applies in lieu of the Lifetime Oy &harr; Shufti Pro DPA.
+          EU-Only Mode does not apply to Tier 3 traffic. The Customer is responsible for tagging
+          each verification request with the applicable tier; the sub-processor applies the
+          corresponding data processing regime.
         </p>
 
         <!-- ANNEX B summary -->
