@@ -61,6 +61,9 @@
         "productCategory": "1426",
         "condition": "new",
         "availability": "in_stock",
+        "subscriptionCost": "1499 EUR",
+        "subscriptionPeriod": "month",
+        "subscriptionPeriodLength": 1,
         "brand": "Firehorse",
         "targetCountry": "FI",
         "contentLanguage": "fi"
@@ -209,6 +212,9 @@
         "productCategory": "1505",
         "condition": "new",
         "availability": "in_stock",
+        "subscriptionCost": "199 EUR",
+        "subscriptionPeriod": "year",
+        "subscriptionPeriodLength": 1,
         "brand": "Firehorse",
         "targetCountry": "FI",
         "contentLanguage": "fi"
@@ -354,6 +360,9 @@
         "productCategory": "1426",
         "condition": "new",
         "availability": "in_stock",
+        "subscriptionCost": "4000 EUR",
+        "subscriptionPeriod": "month",
+        "subscriptionPeriodLength": 1,
         "brand": "Lifetime",
         "targetCountry": "FI",
         "contentLanguage": "fi"
@@ -1081,6 +1090,9 @@
         "productCategory": "1426",
         "condition": "new",
         "availability": "in_stock",
+        "subscriptionCost": "1500 EUR",
+        "subscriptionPeriod": "month",
+        "subscriptionPeriodLength": 1,
         "brand": "Lifetime",
         "targetCountry": "FI",
         "contentLanguage": "fi"
@@ -1117,6 +1129,9 @@
         "productCategory": "1505",
         "condition": "new",
         "availability": "in_stock",
+        "subscriptionCost": "299 EUR",
+        "subscriptionPeriod": "month",
+        "subscriptionPeriodLength": 1,
         "brand": "Lifetime",
         "targetCountry": "FI",
         "contentLanguage": "fi"
@@ -1153,6 +1168,9 @@
         "productCategory": "1505",
         "condition": "new",
         "availability": "in_stock",
+        "subscriptionCost": "799 EUR",
+        "subscriptionPeriod": "month",
+        "subscriptionPeriodLength": 1,
         "brand": "Lifetime",
         "targetCountry": "FI",
         "contentLanguage": "fi"
@@ -1189,6 +1207,9 @@
         "productCategory": "1505",
         "condition": "new",
         "availability": "in_stock",
+        "subscriptionCost": "499 EUR",
+        "subscriptionPeriod": "month",
+        "subscriptionPeriodLength": 1,
         "brand": "Lifetime",
         "targetCountry": "FI",
         "contentLanguage": "fi"
@@ -1225,6 +1246,9 @@
         "productCategory": "1505",
         "condition": "new",
         "availability": "in_stock",
+        "subscriptionCost": "1499 EUR",
+        "subscriptionPeriod": "month",
+        "subscriptionPeriodLength": 1,
         "brand": "Lifetime",
         "targetCountry": "FI",
         "contentLanguage": "fi"
@@ -1261,6 +1285,9 @@
         "productCategory": "1505",
         "condition": "new",
         "availability": "in_stock",
+        "subscriptionCost": "2999 EUR",
+        "subscriptionPeriod": "month",
+        "subscriptionPeriodLength": 1,
         "brand": "DWS IQ",
         "targetCountry": "FI",
         "contentLanguage": "fi"
@@ -1298,10 +1325,10 @@
         "productCategory": "1505",
         "condition": "new",
         "availability": "preorder",
+        "availabilityDate": "2026-08-02",
         "brand": "DWS IQ",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "availabilityDate": "2026-05-24"
+        "contentLanguage": "fi"
       },
       "storeCategory": "platform",
       "productType": "dws-iq-platform",
@@ -1338,10 +1365,10 @@
         "productCategory": "1505",
         "condition": "new",
         "availability": "preorder",
+        "availabilityDate": "2026-08-02",
         "brand": "DWS IQ",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "availabilityDate": "2026-05-24"
+        "contentLanguage": "fi"
       },
       "storeCategory": "platform",
       "productType": "dws-iq-platform",
@@ -1493,13 +1520,7 @@
     "google": {
       "merchantId": null,
       "feedUrl": "https://dws10.com/feeds/google-products.xml",
-      "targetCountries": [
-        "FI",
-        "SE",
-        "NO",
-        "DK",
-        "DE"
-      ],
+      "targetCountries": ["FI", "SE", "NO", "DK", "DE"],
       "contentLanguage": "en",
       "channel": "online"
     }
