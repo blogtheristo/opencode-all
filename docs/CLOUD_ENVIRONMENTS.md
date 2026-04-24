@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.6
+Version: 1.7
 
 Sessions & Modifications:
 
+- Version: 1.7 | Tool: Claude Code (Opus 4.7) | Session: claude/b2b-payment-stack-DNdkW | Date: 24.04.2026 | Changes: Section 4.4 — added Step 3 (repo-scoped `roles/artifactregistry.repoAdmin` on `dws-iq-repo` for Cloud Build SA) as the least-privilege replacement for Step 2's project-level admin; added corresponding row to IAM table with Scope column; staged Step 4 removal command for the project-level `artifactregistry.admin` binding once a successful build confirms Step 3 is sufficient
 - Version: 1.6 | Tool: Claude Code (Opus 4.7) | Session: claude/b2b-payment-stack-DNdkW | Date: 24.04.2026 | Changes: Section 4.4 — added Artifact Registry repo-creation step (prior push error was "or it may not exist", repo `dws-iq-repo` did not yet exist in `europe-north1`); logged auto-provisioned Artifact Registry service agent `service-1074393862472@gcp-sa-artifactregistry.iam...` that appeared when the API activated on first repo; split the resolution narrative into two explicit gcloud steps
 - Version: 1.5 | Tool: Claude Code (Opus 4.7) | Session: claude/b2b-payment-stack-DNdkW | Date: 24.04.2026 | Changes: Added Section 4.4 (DWS 6 Cloud IAM Bindings) — project-level IAM table for `dws6run6`, documented `roles/artifactregistry.admin` grant to Cloud Build SA `1074393862472@cloudbuild.gserviceaccount.com` to unblock Artifact Registry push; renumbered prior 4.4 → 4.5 (Limitations); flagged least-privilege follow-up
 - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Section 13.8 (Database Disaster Recovery Architecture) — dual-database (Supabase dws6-production + Aiven dws-test), Linux recovery scripts, RTO < 5 min schema / < 15 min full, 4-destination backup redundancy
@@ -261,20 +262,21 @@ Project-level IAM bindings required for the `dws-iq-backend` image to build, pus
 **Project:** `dws6run6` · **Project number:** `1074393862472`
 **Artifact Registry repo:** `europe-north1-docker.pkg.dev/dws6run6/dws-iq-repo`
 
-| Principal                                              | Role                                   | Scope   | Purpose                                                                                    | Granted    |
-| ------------------------------------------------------ | -------------------------------------- | ------- | ------------------------------------------------------------------------------------------ | ---------- |
-| `1074393862472@cloudbuild.gserviceaccount.com`         | `roles/cloudbuild.builds.builder`      | Project | Execute Cloud Build jobs (baseline).                                                       | Default    |
-| `1074393862472@cloudbuild.gserviceaccount.com`         | `roles/artifactregistry.admin`         | Project | Push `dws-iq-backend` image to `dws-iq-repo`.                                              | 24.04.2026 |
-| `1074393862472-compute@developer.gserviceaccount.com`  | `roles/cloudbuild.builds.editor`       | Project | Compute SA used by triggers.                                                               | Default    |
-| `1074393862472-compute@developer.gserviceaccount.com`  | `roles/logging.logWriter`              | Project | Write build/runtime logs.                                                                  | Default    |
-| `1074393862472-compute@developer.gserviceaccount.com`  | `roles/storage.admin`                  | Project | Source tarball + build artifacts in GCS.                                                   | Default    |
-| `service-1074393862472@gcp-sa-cloudbuild.iam...`       | `roles/cloudbuild.serviceAgent`        | Project | Cloud Build service agent (Google-managed).                                                | Default    |
-| `service-1074393862472@serverless-robot-prod.iam...`   | `roles/run.serviceAgent`               | Project | Cloud Run service agent (Google-managed).                                                  | Default    |
-| `service-1074393862472@containerregistry.iam...`       | `roles/containerregistry.ServiceAgent` | Project | Legacy GCR service agent.                                                                  | Default    |
-| `service-1074393862472@gcp-sa-artifactregistry.iam...` | `roles/artifactregistry.serviceAgent`  | Project | Artifact Registry service agent (auto-created 24.04.2026 when first repo was provisioned). | 24.04.2026 |
-| `admin@dws6.com`                                       | `roles/owner`                          | Project | Human owner.                                                                               | Default    |
+| Principal                                              | Role                                   | Scope              | Purpose                                                                                                | Granted    |
+| ------------------------------------------------------ | -------------------------------------- | ------------------ | ------------------------------------------------------------------------------------------------------ | ---------- |
+| `1074393862472@cloudbuild.gserviceaccount.com`         | `roles/cloudbuild.builds.builder`      | Project            | Execute Cloud Build jobs (baseline).                                                                   | Default    |
+| `1074393862472@cloudbuild.gserviceaccount.com`         | `roles/artifactregistry.admin`         | Project            | Push `dws-iq-backend` image to `dws-iq-repo` (initial grant; targeted for removal — see Step 3 below). | 24.04.2026 |
+| `1074393862472@cloudbuild.gserviceaccount.com`         | `roles/artifactregistry.repoAdmin`     | Repo `dws-iq-repo` | Least-privilege replacement: push + pull + repo IAM on this repo only.                                 | 24.04.2026 |
+| `1074393862472-compute@developer.gserviceaccount.com`  | `roles/cloudbuild.builds.editor`       | Project            | Compute SA used by triggers.                                                                           | Default    |
+| `1074393862472-compute@developer.gserviceaccount.com`  | `roles/logging.logWriter`              | Project            | Write build/runtime logs.                                                                              | Default    |
+| `1074393862472-compute@developer.gserviceaccount.com`  | `roles/storage.admin`                  | Project            | Source tarball + build artifacts in GCS.                                                               | Default    |
+| `service-1074393862472@gcp-sa-cloudbuild.iam...`       | `roles/cloudbuild.serviceAgent`        | Project            | Cloud Build service agent (Google-managed).                                                            | Default    |
+| `service-1074393862472@serverless-robot-prod.iam...`   | `roles/run.serviceAgent`               | Project            | Cloud Run service agent (Google-managed).                                                              | Default    |
+| `service-1074393862472@containerregistry.iam...`       | `roles/containerregistry.ServiceAgent` | Project            | Legacy GCR service agent.                                                                              | Default    |
+| `service-1074393862472@gcp-sa-artifactregistry.iam...` | `roles/artifactregistry.serviceAgent`  | Project            | Artifact Registry service agent (auto-created 24.04.2026 when first repo was provisioned).             | 24.04.2026 |
+| `admin@dws6.com`                                       | `roles/owner`                          | Project            | Human owner.                                                                                           | Default    |
 
-**Push failure resolved 24.04.2026.** Cloud Build push to Artifact Registry failed with `denied: Permission 'artifactregistry.repositories.uploadArtifacts' denied on resource (or it may not exist).` Root cause was twofold — the repository did not exist and the Cloud Build SA lacked write permission. Both resolved in sequence:
+**Push failure resolved 24.04.2026.** Cloud Build push to Artifact Registry failed with `denied: Permission 'artifactregistry.repositories.uploadArtifacts' denied on resource (or it may not exist).` Root cause was twofold — the repository did not exist and the Cloud Build SA lacked write permission. Resolution in three steps (Step 3 is the hardening pass):
 
 **Step 1 — Create the Docker repository in `europe-north1`:**
 
@@ -287,7 +289,7 @@ gcloud artifacts repositories create dws-iq-repo ^
 
 Side effect: Google auto-provisioned the Artifact Registry service agent `service-1074393862472@gcp-sa-artifactregistry.iam.gserviceaccount.com` with `roles/artifactregistry.serviceAgent` on first use of the API (recorded in table above).
 
-**Step 2 — Grant the Cloud Build SA push rights:**
+**Step 2 — Unblock the push (broad, project-level grant):**
 
 ```cmd
 gcloud projects add-iam-policy-binding dws6run6 ^
@@ -295,7 +297,24 @@ gcloud projects add-iam-policy-binding dws6run6 ^
     --role="roles/artifactregistry.admin"
 ```
 
-**Least-privilege follow-up (open):** `roles/artifactregistry.admin` at project level is broader than needed. A future tightening should either (a) swap to `roles/artifactregistry.writer` at repo scope on `dws-iq-repo`, or (b) keep admin but scope it to the single repo. Tracked as a hardening item; non-blocking.
+**Step 3 — Tighten to repo scope (least-privilege):**
+
+```cmd
+gcloud artifacts repositories add-iam-policy-binding dws-iq-repo ^
+    --location=europe-north1 ^
+    --member="serviceAccount:1074393862472@cloudbuild.gserviceaccount.com" ^
+    --role="roles/artifactregistry.repoAdmin"
+```
+
+**Least-privilege follow-up (half done — 1 of 2).** The repo-scoped `roles/artifactregistry.repoAdmin` from Step 3 is now sufficient for Cloud Build to push `dws-iq-backend` images. Step 3 is half the job — the final hardening pass is to **remove the Step 2 project-level `roles/artifactregistry.admin` binding** once a successful build confirms Step 3 alone is enough:
+
+```cmd
+gcloud projects remove-iam-policy-binding dws6run6 ^
+    --member="serviceAccount:1074393862472@cloudbuild.gserviceaccount.com" ^
+    --role="roles/artifactregistry.admin"
+```
+
+Do **not** remove Step 2 until at least one `gcloud builds submit` push succeeds with Step 3 in place; that confirms the repo-scoped binding is effective before we drop the project-wide fallback.
 
 ### 4.5 DWS 6 Limitations (Why DWS 7 Is Needed)
 
