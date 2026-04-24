@@ -302,14 +302,29 @@ router.post(
 
       // Create Stripe invoice for remainder
       try {
+        // Step 1: Create invoice item (Stripe will bundle it into the invoice)
+        await stripe.invoiceItems.create({
+          customer: userId,
+          amount: order.remainder_amount_cents,
+          currency: 'eur',
+          description: `Remainder for order ${id} - ${profile.company_name}`,
+          metadata: {
+            order_id: id,
+          },
+        });
+
+        // Step 2: Create the invoice (it automatically includes the pending invoice item above)
         const invoice = await stripe.invoices.create({
-          customer: userId, // Use Stripe customer ID in production
+          customer: userId,
+          collection_method: 'send_invoice',
+          days_until_due: Math.ceil(
+            (new Date(order.payment_due_at).getTime() - Date.now()) / (1000 * 60 * 60 * 24),
+          ),
           metadata: {
             order_id: id,
             dws_company: profile.company_name,
           },
-          description: `Invoice for order ${id} - ${profile.company_name}`,
-          due_date: Math.floor(new Date(order.payment_due_at).getTime() / 1000),
+          expand: ['charge'],
         });
 
         // Update order with Stripe invoice ID
@@ -329,7 +344,7 @@ router.post(
           amount: order.remainder_amount_cents,
         });
 
-        res.json({
+        return res.json({
           order: finalOrder,
           stripe_invoice_url: invoice.hosted_invoice_url || invoice.invoice_pdf,
         });
