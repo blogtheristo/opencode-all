@@ -73,13 +73,14 @@ $ErrorActionPreference = 'Stop'
 
 # Map ENV var names in the source file -> Secret Manager secret names.
 $SecretMap = [ordered]@{
-    'STRIPE_SECRET_KEY'    = 'stripe-secret-key'
-    'SUPABASE_URL'         = 'supabase-url'
-    'SUPABASE_ANON_KEY'    = 'supabase-anon-key'
-    'SUPABASE_SERVICE_KEY' = 'supabase-service-key'
-    'JWT_SECRET'           = 'jwt-secret'
-    'SMTP_USER'            = 'smtp-user'
-    'SMTP_PASS'            = 'smtp-pass'
+    'STRIPE_SECRET_KEY'     = 'stripe-secret-key'
+    'STRIPE_WEBHOOK_SECRET' = 'stripe-webhook-secret'
+    'SUPABASE_URL'          = 'supabase-url'
+    'SUPABASE_ANON_KEY'     = 'supabase-anon-key'
+    'SUPABASE_SERVICE_KEY'  = 'supabase-service-key'
+    'JWT_SECRET'            = 'jwt-secret'
+    'SMTP_USER'             = 'smtp-user'
+    'SMTP_PASS'             = 'smtp-pass'
 }
 
 function Write-Info  { param($m) Write-Host "[INFO]  $m" -ForegroundColor Cyan }

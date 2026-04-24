@@ -73,7 +73,7 @@ steps:
       - "--min-instances=0"
       - "--max-instances=10"
       - "--set-env-vars=NODE_ENV=production,EMAIL_FROM=risto@onelifetime.world,SMTP_HOST=email-smtp.eu-north-1.amazonaws.com,SMTP_PORT=587,SMTP_SECURE=false"
-      - "--set-secrets=STRIPE_SECRET_KEY=stripe-secret-key:latest,SUPABASE_URL=supabase-url:latest,SUPABASE_ANON_KEY=supabase-anon-key:latest,SUPABASE_SERVICE_KEY=supabase-service-key:latest,SUPABASE_SERVICE_ROLE_KEY=supabase-service-key:latest,JWT_SECRET=jwt-secret:latest,SMTP_USER=smtp-user:latest,SMTP_PASS=smtp-pass:latest"
+      - "--set-secrets=STRIPE_SECRET_KEY=stripe-secret-key:latest,STRIPE_WEBHOOK_SECRET=stripe-webhook-secret:latest,SUPABASE_URL=supabase-url:latest,SUPABASE_ANON_KEY=supabase-anon-key:latest,SUPABASE_SERVICE_KEY=supabase-service-key:latest,SUPABASE_SERVICE_ROLE_KEY=supabase-service-key:latest,JWT_SECRET=jwt-secret:latest,SMTP_USER=smtp-user:latest,SMTP_PASS=smtp-pass:latest"
     waitFor: ["push-sha"]
 
 images:
