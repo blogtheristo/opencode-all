@@ -249,4 +249,4 @@ foreach ($envName in $SecretMap.Keys) {
 Write-Host ""
 Write-Ok  "Provisioned $($provisioned.Count) secret(s): $($provisioned -join ', ')"
 Write-Info "Verify with: gcloud secrets list --project=$ProjectId"
-Write-Info "Next: run the Cloud Run deploy command (see Section 4.4)."
+Write-Info "Next: run the Cloud Run deploy command (see docs/CLOUD_ENVIRONMENTS.md Section 4.5)."
