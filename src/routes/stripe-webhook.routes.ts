@@ -1,11 +1,10 @@
-import { Router, Request, Response, NextFunction } from 'express';
+import { Router, Request, Response } from 'express';
 import {
   verifyStripeWebhook,
   idempotencyCheck,
   stripeRateLimit,
   preserveRawBody,
 } from '../middleware/stripe-webhook.middleware';
-import { billingService } from '../services/billing.service';
 import { logger } from '../services/logger.service';
 import { supabase } from '../services/supabase.service';
 
