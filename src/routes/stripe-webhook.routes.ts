@@ -144,6 +144,59 @@ router.post(
       }
 
       // =====================================================================
+      // INVOICE PAYMENT ATTEMPT REQUIRED
+      // =====================================================================
+      if (event.type === 'invoice.payment_attempt_required') {
+        const invoice = event.data.object;
+
+        logger.warn('Invoice payment attempt required', {
+          invoice_id: invoice.id,
+          amount_due: invoice.amount_due,
+        });
+
+        // TODO: Send notification to customer about unsupported payment method
+        // TODO: Offer alternative payment options
+        const result = { success: true, message: 'Payment attempt required notification sent' };
+        storeResult(result);
+        return res.status(200).json(result);
+      }
+
+      // =====================================================================
+      // INVOICE PAYMENT FAILED
+      // =====================================================================
+      if (event.type === 'invoice.payment_failed') {
+        const invoice = event.data.object;
+
+        logger.warn('Invoice payment failed', {
+          invoice_id: invoice.id,
+          amount_due: invoice.amount_due,
+          failure_reason: invoice.last_finalization_error?.message,
+        });
+
+        // Find order by Stripe invoice ID
+        const { data: order } = await supabase
+          .from('orders')
+          .select('*')
+          .eq('stripe_invoice_id', invoice.id)
+          .single();
+
+        if (order) {
+          logger.warn('Order payment failed', {
+            order_id: order.id,
+            invoice_id: invoice.id,
+          });
+
+          // TODO: Send payment failure notification to customer
+          // TODO: Send admin alert for failed payment
+          // TODO: Suggest retry with different payment method
+        }
+
+        const result = { success: true, message: 'Payment failure processed' };
+        storeResult(result);
+        return res.status(200).json(result);
+      }
+
+      // =====================================================================
       // CHARGE REFUNDED
       // =====================================================================
       if (event.type === 'charge.refunded') {
