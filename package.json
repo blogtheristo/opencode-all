@@ -22,6 +22,7 @@
     "ted:followup": "node --import tsx scripts/ted-followup.ts",
     "ted:learning": "node --import tsx scripts/ted-learning-weekly.ts",
     "ted:daily": "node --import tsx scripts/ted-daily-pipeline.ts",
+    "revolut:generate-links": "tsx scripts/generate-revolut-links.ts",
     "diag:supabase-rest": "tsx scripts/test-supabase-rest.ts",
     "db:push": "bash scripts/db_push.sh",
     "db:push:skip-link": "bash scripts/db_push.sh --skip-link",
