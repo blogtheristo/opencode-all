@@ -1,11 +1,33 @@
-import os
+"""
+SFTP Feed Upload Script (Failover Deployment)
 
+Usage:
+  python scripts/upload_feed_sftp.py
+
+Purpose:
+  Uploads google-products.xml to remote SFTP server when GitHub Actions deployment fails.
+
+Requirements:
+  - SFTP_SECRETS.py in same directory with SFTP_HOST, SFTP_USER, SFTP_PASS, SFTP_PORT
+  - feed file generated: landing-pages/dws10-com/feeds/google-products.xml
+
+Deployment Priority:
+  1. GitHub Actions (automatic on merge to main) ← PRIMARY
+  2. This SFTP script (manual failover) ← SECONDARY
+
+Related Files:
+  - .github/workflows/sync-dws6-landing-pages.yml (primary deployment)
+  - dws10.com/feeds/generate-feed.cjs (feed generator)
+  - dws10.com/config/products.json (product source)
+"""
+
+import os
 import paramiko
 import SFTP_SECRETS as secrets
 
 # Configuration
-LOCAL_FILE = "landing-pages/dws10-com/products.xml"
-REMOTE_FILE = "products.xml"
+LOCAL_FILE = "landing-pages/dws10-com/feeds/google-products.xml"
+REMOTE_FILE = "feeds/google-products.xml"
 
 
 def upload_feed():
