@@ -22,7 +22,7 @@
     "ted:followup": "node --import tsx scripts/ted-followup.ts",
     "ted:learning": "node --import tsx scripts/ted-learning-weekly.ts",
     "ted:daily": "node --import tsx scripts/ted-daily-pipeline.ts",
-    "revolut:generate-links": "tsx scripts/generate-revolut-links.ts",
+    "revolut:generate-links": "node --import tsx scripts/generate-revolut-links.ts",
     "diag:supabase-rest": "tsx scripts/test-supabase-rest.ts",
     "db:push": "bash scripts/db_push.sh",
     "db:push:skip-link": "bash scripts/db_push.sh --skip-link",
@@ -62,7 +62,7 @@
     "@types/supertest": "^6.0.3",
     "@vitest/ui": "^4.0.16",
     "supertest": "^7.2.2",
-    "tsx": "^4.19.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.6.3",
     "vitest": "^4.0.16"
   }
