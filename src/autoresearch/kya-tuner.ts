@@ -15,7 +15,8 @@
 
 // @ts-ignore — firehorse and synthetic-kya modules exist at runtime
 import { createOptimizationEvent, evaluateOptimization } from '../firehorse/audit-schema';
-import type { OptimizationDecisionEvent } from '../firehorse/audit-schema';
+// @ts-ignore
+import { yourImports } from '../firehorse/audit-schema';
 import { generateSyntheticSessions, type SyntheticKyaSession } from './synthetic-kya';
 import logger from '../utils/logger.js';
 
