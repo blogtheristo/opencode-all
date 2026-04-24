@@ -169,8 +169,21 @@ app.use(correlationId);
 app.use(apiVersionMiddleware);
 
 // Body parsers with size limits
-app.use(express.json({ limit: '10kb' }));
-app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+//
+// IMPORTANT: stripe-webhook routes are mounted BEFORE express.json() (further
+// down in this file's STRIPE WEBHOOK MOUNT block) so that preserveRawBody can
+// read the raw HTTP stream. If express.json() processes the request first,
+// the stream is consumed and `req.on('data')` / `req.on('end')` never fire,
+// causing the webhook handler to hang until Cloud Run kills the request at
+// the 60s timeout.
+app.use((req, res, next) => {
+  if (req.path.startsWith('/webhooks/stripe')) return next();
+  return express.json({ limit: '10kb' })(req, res, next);
+});
+app.use((req, res, next) => {
+  if (req.path.startsWith('/webhooks/stripe')) return next();
+  return express.urlencoded({ extended: true, limit: '10kb' })(req, res, next);
+});
 
 // Rate limiting (general)
 const limiter = rateLimit({
