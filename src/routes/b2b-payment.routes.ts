@@ -1,7 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
 import { supabase } from '../services/supabase.service';
-import validateAuth from '../middleware/auth.middleware';
+import { requireAuth } from '../middleware/auth.middleware';
 import { logger } from '../services/logger.service';
 import Stripe from 'stripe';
 
@@ -53,7 +53,7 @@ const WebhookSchema = z.object({
  */
 router.post(
   '/billing-profiles',
-  validateAuth,
+  requireAuth,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId = req.user?.id;
@@ -104,7 +104,7 @@ router.post(
  */
 router.get(
   '/billing-profiles',
-  validateAuth,
+  requireAuth,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId = req.user?.id;
@@ -133,7 +133,7 @@ router.get(
  * POST /api/v1/b2b/orders
  * Create order after Revolut deposit confirmation
  */
-router.post('/orders', validateAuth, async (req: Request, res: Response, next: NextFunction) => {
+router.post('/orders', requireAuth, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const userId = req.user?.id;
     if (!userId) return res.status(401).json({ error: 'Unauthorized' });
@@ -201,7 +201,7 @@ router.post('/orders', validateAuth, async (req: Request, res: Response, next: N
  * GET /api/v1/b2b/orders/:id
  * Get order status and payment details
  */
-router.get('/orders/:id', validateAuth, async (req: Request, res: Response, next: NextFunction) => {
+router.get('/orders/:id', requireAuth, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const userId = req.user?.id;
     if (!userId) return res.status(401).json({ error: 'Unauthorized' });
@@ -245,7 +245,7 @@ router.get('/orders/:id', validateAuth, async (req: Request, res: Response, next
  */
 router.post(
   '/orders/:id/confirm-deposit',
-  validateAuth,
+  requireAuth,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId = req.user?.id;
