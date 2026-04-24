@@ -1300,7 +1300,8 @@
         "availability": "preorder",
         "brand": "DWS IQ",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "en",
+        "availabilityDate": "2026-08-01"
       },
       "storeCategory": "platform",
       "productType": "dws-iq-platform",
