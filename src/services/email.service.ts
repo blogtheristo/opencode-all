@@ -55,8 +55,6 @@ interface EmailLogEntry {
   metadata: Record<string, unknown> | null;
 }
 
-type ProviderName = 'resend' | 'sendgrid';
-
 // ============================================================
 // EMAIL SERVICE
 // ============================================================
@@ -77,7 +75,7 @@ class EmailService {
 
     if (!this.resendApiKey && !this.sendgridApiKey) {
       logger.warn(
-        'No email provider configured. Set RESEND_API_KEY or SENDGRID_API_KEY. Emails will be logged but not delivered.'
+        'No email provider configured. Set RESEND_API_KEY or SENDGRID_API_KEY. Emails will be logged but not delivered.',
       );
     }
   }
@@ -117,7 +115,7 @@ class EmailService {
   async sendReportDeliveryEmail(
     to: string,
     reportName: string,
-    downloadUrl: string
+    downloadUrl: string,
   ): Promise<void> {
     await this.sendEmail({
       to,
@@ -131,11 +129,7 @@ class EmailService {
   /**
    * Send a generic notification email with custom subject and body text.
    */
-  async sendNotificationEmail(
-    to: string,
-    subject: string,
-    body: string
-  ): Promise<void> {
+  async sendNotificationEmail(to: string, subject: string, body: string): Promise<void> {
     await this.sendEmail({
       to,
       subject,
@@ -151,7 +145,7 @@ class EmailService {
     to: string,
     invoiceId: string,
     amount: number,
-    currency: string
+    currency: string,
   ): Promise<void> {
     await this.sendEmail({
       to,
@@ -197,8 +191,7 @@ class EmailService {
         });
         return;
       } catch (err) {
-        const errorMessage =
-          err instanceof Error ? err.message : 'Unknown Resend error';
+        const errorMessage = err instanceof Error ? err.message : 'Unknown Resend error';
         logger.warn('Resend send failed, attempting SendGrid fallback', {
           error: errorMessage,
         });
@@ -225,8 +218,7 @@ class EmailService {
         });
         return;
       } catch (err) {
-        const errorMessage =
-          err instanceof Error ? err.message : 'Unknown SendGrid error';
+        const errorMessage = err instanceof Error ? err.message : 'Unknown SendGrid error';
         logger.error('SendGrid send failed', { error: errorMessage });
 
         // Log the failure
@@ -241,9 +233,7 @@ class EmailService {
           metadata: metadata || null,
         });
 
-        throw new Error(
-          `Email delivery failed through all providers: ${errorMessage}`
-        );
+        throw new Error(`Email delivery failed through all providers: ${errorMessage}`);
       }
     }
 
@@ -281,9 +271,7 @@ class EmailService {
       error: 'Primary provider failed; no fallback configured',
       metadata: metadata || null,
     });
-    throw new Error(
-      'Email delivery failed: primary provider failed and no fallback configured'
-    );
+    throw new Error('Email delivery failed: primary provider failed and no fallback configured');
   }
 
   // ----------------------------------------------------------
@@ -294,11 +282,7 @@ class EmailService {
    * Send email via Resend REST API.
    * @see https://resend.com/docs/api-reference/emails/send-email
    */
-  private async sendViaResend(
-    to: string,
-    subject: string,
-    html: string
-  ): Promise<void> {
+  private async sendViaResend(to: string, subject: string, html: string): Promise<void> {
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -315,9 +299,7 @@ class EmailService {
 
     if (!response.ok) {
       const errorBody = await response.text();
-      throw new Error(
-        `Resend API error (${response.status}): ${errorBody}`
-      );
+      throw new Error(`Resend API error (${response.status}): ${errorBody}`);
     }
   }
 
@@ -325,11 +307,7 @@ class EmailService {
    * Send email via SendGrid v3 Mail Send API.
    * @see https://docs.sendgrid.com/api-reference/mail-send/mail-send
    */
-  private async sendViaSendGrid(
-    to: string,
-    subject: string,
-    html: string
-  ): Promise<void> {
+  private async sendViaSendGrid(to: string, subject: string, html: string): Promise<void> {
     const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
       method: 'POST',
       headers: {
@@ -347,9 +325,7 @@ class EmailService {
     // SendGrid returns 202 on success
     if (!response.ok && response.status !== 202) {
       const errorBody = await response.text();
-      throw new Error(
-        `SendGrid API error (${response.status}): ${errorBody}`
-      );
+      throw new Error(`SendGrid API error (${response.status}): ${errorBody}`);
     }
   }
 
@@ -372,19 +348,16 @@ class EmailService {
     }
 
     try {
-      const response = await fetch(
-        `${this.supabaseUrl}/rest/v1/email_logs`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            apikey: this.supabaseServiceKey,
-            Authorization: `Bearer ${this.supabaseServiceKey}`,
-            Prefer: 'return=minimal',
-          },
-          body: JSON.stringify(entry),
-        }
-      );
+      const response = await fetch(`${this.supabaseUrl}/rest/v1/email_logs`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          apikey: this.supabaseServiceKey,
+          Authorization: `Bearer ${this.supabaseServiceKey}`,
+          Prefer: 'return=minimal',
+        },
+        body: JSON.stringify(entry),
+      });
 
       if (!response.ok) {
         const errorBody = await response.text();
@@ -394,10 +367,23 @@ class EmailService {
         });
       }
     } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : 'Unknown error';
+      const errorMessage = err instanceof Error ? err.message : 'Unknown error';
       logger.warn('Email log persistence error', { error: errorMessage });
     }
+  }
+
+  /**
+   * Send captain pre-briefing email (stub)
+   */
+  async sendCaptainPreBriefing(data: any): Promise<void> {
+    logger.debug('Stub: sendCaptainPreBriefing', data);
+  }
+
+  /**
+   * Send raw email with custom options (stub)
+   */
+  async sendRawEmail(options: any): Promise<void> {
+    logger.debug('Stub: sendRawEmail', options);
   }
 }
 

@@ -17,8 +17,6 @@
 
 import dns from 'node:dns';
 import nodemailer from 'nodemailer';
-import { appendFile, mkdir } from 'fs/promises';
-import { join } from 'path';
 
 // ============================================================================
 // EMAIL AUDIT LOGGER — Local JSONL log of every outbound email
@@ -26,32 +24,33 @@ import { join } from 'path';
 // Async I/O to avoid blocking the event loop under bursty volume.
 // ============================================================================
 
-const auditLogPath = join(process.cwd(), 'logs', 'email-audit.jsonl');
-let logDirReady = false;
+// const auditLogPath = join(process.cwd(), 'logs', 'email-audit.jsonl');
+// let logDirReady = false;
 
-async function auditLogEmail(entry: {
-  from: string;
-  to: string;
-  subject: string;
-  transport: string;
-  contentLength: number;
-  callerStack: string;
-}): Promise<void> {
-  try {
-    if (!logDirReady) {
-      await mkdir(join(process.cwd(), 'logs'), { recursive: true });
-      logDirReady = true;
-    }
-    const record = {
-      timestamp: new Date().toISOString(),
-      pid: process.pid,
-      ...entry,
-    };
-    await appendFile(auditLogPath, JSON.stringify(record) + '\n');
-  } catch {
-    // Audit logging must never break email delivery
-  }
-}
+// Unused stub for audit logging - audit trail now handled by sendEmail
+// async function auditLogEmail(entry: {
+//   from: string;
+//   to: string;
+//   subject: string;
+//   transport: string;
+//   contentLength: number;
+//   callerStack: string;
+// }): Promise<void> {
+//   try {
+//     if (!logDirReady) {
+//       await mkdir(join(process.cwd(), 'logs'), { recursive: true });
+//       logDirReady = true;
+//     }
+//     const record = {
+//       timestamp: new Date().toISOString(),
+//       pid: process.pid,
+//       ...entry,
+//     };
+//     await appendFile(auditLogPath, JSON.stringify(record) + '\n');
+//   } catch {
+//     // Audit logging must never break email delivery
+//   }
+// }
 
 /**
  * Escape HTML-unsafe characters (&, <, >) in a plain-text string so it can be
@@ -179,7 +178,7 @@ async function persistToAuditLog(
         template_type: options.templateType || null,
         source: options.source || 'platform',
         status,
-        attempts: status === 'failed' ? 1 : (status === 'sent' ? 1 : 0),
+        attempts: status === 'failed' ? 1 : status === 'sent' ? 1 : 0,
         sent_at: status === 'sent' ? new Date().toISOString() : null,
         error: error || null,
         metadata: {
@@ -192,7 +191,7 @@ async function persistToAuditLog(
     });
 
     if (response.ok) {
-      const rows = await response.json() as Array<{ id: string }>;
+      const rows = (await response.json()) as Array<{ id: string }>;
       return rows?.[0]?.id;
     }
   } catch {
@@ -204,8 +203,6 @@ async function persistToAuditLog(
 
 export async function sendEmail(options: SendEmailOptions): Promise<SendEmailResult> {
   const { from, to, subject, html, text, replyTo, headers } = options;
-  const callerStack = new Error().stack?.split('\n').slice(2, 5).join(' <- ') || 'unknown';
-  const contentLength = (html?.length || 0) + (text?.length || 0);
 
   const smtp = createSmtpTransport();
   if (smtp) {

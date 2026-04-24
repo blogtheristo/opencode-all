@@ -188,7 +188,7 @@ export function stripeRateLimit(req: VerifiedRequest, res: Response, next: NextF
  * Must be used BEFORE express.json() to preserve raw request body for signature verification
  */
 
-export function preserveRawBody(req: VerifiedRequest, res: Response, next: NextFunction) {
+export function preserveRawBody(req: VerifiedRequest, _res: Response, next: NextFunction) {
   let data = '';
 
   req.on('data', (chunk) => {

@@ -24,7 +24,6 @@ interface VATValidationResult {
 export async function validateVATNumber(vat_number: string): Promise<VATValidationResult> {
   try {
     const country_code = vat_number.substring(0, 2).toUpperCase();
-    const vat_code = vat_number.substring(2);
 
     // VIES API endpoint
     const response = await axios.post(
@@ -89,7 +88,6 @@ export async function createStripeInvoice(params: InvoiceParams): Promise<Stripe
     city,
     postal_code,
     country,
-    contact_email,
     product_id,
     remainder_amount_cents,
     product_price_cents,
@@ -160,7 +158,7 @@ export async function createStripeInvoice(params: InvoiceParams): Promise<Stripe
       },
     ],
     due_date: Math.floor(params.payment_due_date.getTime() / 1000),
-    default_payment_method: null, // Customer must choose payment method
+    default_payment_method: undefined, // Customer must choose payment method
   });
 
   logger.info('Stripe invoice created', {
@@ -196,7 +194,7 @@ export async function sendInvoiceEmail(
   customer_email: string,
 ): Promise<boolean> {
   try {
-    const invoice = await stripe.invoices.sendInvoice(invoice_id);
+    await stripe.invoices.sendInvoice(invoice_id);
     logger.info('Invoice sent via email', { invoice_id, customer_email });
     return true;
   } catch (error) {
@@ -329,13 +327,13 @@ export async function refundPayment(
   try {
     const invoice = await stripe.invoices.retrieve(invoice_id);
 
-    if (!invoice.charge) {
+    if (!(invoice as any).charge) {
       logger.warn('No charge found for invoice', { invoice_id });
       return null;
     }
 
     const refund = await stripe.refunds.create({
-      charge: invoice.charge as string,
+      charge: (invoice as any).charge as string,
       metadata: {
         invoice_id,
         reason,

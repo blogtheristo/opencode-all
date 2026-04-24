@@ -1,4 +1,4 @@
-import { Router, Request, Response, NextFunction } from 'express';
+import { Router, Request, Response } from 'express';
 import {
   verifyStripeWebhook,
   idempotencyCheck,
@@ -29,7 +29,7 @@ router.post(
   verifyStripeWebhook,
   idempotencyCheck,
   stripeRateLimit,
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request, res: Response) => {
     try {
       const event = (req as any).stripeEvent;
       const storeResult = (req as any).storeWebhookResult;

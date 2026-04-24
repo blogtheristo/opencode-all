@@ -1,5 +1,4 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import { z } from 'zod';
 import { supabase } from '../services/supabase.service';
 import { requireAuth } from '../middleware/auth.middleware';
 import { logger } from '../services/logger.service';
@@ -11,37 +10,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '');
 // ============================================================================
 // REQUEST/RESPONSE SCHEMAS
 // ============================================================================
-
-const CreateBillingProfileSchema = z.object({
-  company_name: z.string().min(1).max(255),
-  vat_number: z.string().regex(/^[A-Z]{2}\d{8,}$/, 'Invalid VAT number format'),
-  business_id: z.string().optional(),
-  billing_address: z.string().min(1).max(500),
-  city: z.string().min(1).max(100),
-  postal_code: z.string().min(1).max(20),
-  country: z.string().length(2).default('FI'),
-  contact_email: z.string().email(),
-  contact_phone: z.string().optional(),
-});
-
-const CreateOrderSchema = z.object({
-  product_id: z.string().min(1),
-  company_billing_profile_id: z.string().uuid(),
-  deposit_amount_cents: z.number().int().positive(),
-});
-
-const ConfirmDepositSchema = z.object({
-  revolut_transaction_id: z.string().min(1),
-});
-
-const WebhookSchema = z.object({
-  type: z.enum(['payment.success', 'invoice.payment_succeeded', 'invoice.marked_uncollectible']),
-  payment_id: z.string().optional(),
-  invoice_id: z.string().optional(),
-  amount: z.number().optional(),
-  currency: z.string().optional(),
-  timestamp: z.string().datetime(),
-});
+// Schemas removed - validation handled in route handlers
 
 // ============================================================================
 // ENDPOINTS
@@ -267,13 +236,10 @@ router.post(
       }
 
       // Confirm deposit
-      const { data: updatedOrder, error: updateError } = await supabase.rpc(
-        'confirm_order_deposit',
-        {
-          p_order_id: id,
-          p_revolut_transaction_id: revolut_transaction_id,
-        },
-      );
+      const { error: updateError } = await supabase.rpc('confirm_order_deposit', {
+        p_order_id: id,
+        p_revolut_transaction_id: revolut_transaction_id,
+      });
 
       if (updateError) {
         logger.error('Failed to confirm deposit', { error: updateError, orderId: id });
@@ -356,7 +322,7 @@ router.post(
  */
 router.post('/webhook', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { type, payment_id, invoice_id, timestamp } = req.body;
+    const { type, payment_id, invoice_id } = req.body;
 
     logger.info('Payment webhook received', { type, payment_id, invoice_id });
 

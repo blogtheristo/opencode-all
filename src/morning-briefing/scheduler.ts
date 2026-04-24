@@ -146,7 +146,7 @@ export class MorningBriefingScheduler {
       },
       {
         timezone: 'Europe/Helsinki',
-      }
+      },
     );
 
     logger.info('CEO Cockpit Scheduler started — 06:00 Helsinki, Mon-Sat', {
@@ -174,3 +174,8 @@ export class MorningBriefingScheduler {
 }
 
 export const morningBriefingScheduler = new MorningBriefingScheduler();
+
+// Convenience export for manual trigger
+export async function sendBriefingNow(): Promise<void> {
+  return morningBriefingScheduler.runManually();
+}
