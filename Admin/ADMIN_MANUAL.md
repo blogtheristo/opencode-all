@@ -749,36 +749,114 @@ app.use(
 
 ---
 
-## Google Cloud Run (Optional/Backup)
+## Google Cloud Run (Active - B2B Payment Stack)
 
-**Status:** ⏸️ **PENDING** - Requires billing setup
+**Status:** ✅ **ACTIVE** - Deployed for B2B payment webhooks
 
-### Project: dws6run
+### Project: dws6run6
 
-| Property              | Value                                              |
-| --------------------- | -------------------------------------------------- |
-| **Project ID**        | `dws6run`                                          |
-| **Project Number**    | `446442351781`                                     |
-| **Region**            | `europe-north1` (Finland)                          |
-| **Artifact Registry** | `europe-north1-docker.pkg.dev/dws6run/dws-iq-repo` |
-| **Admin Account**     | `admin@dws6.com`                                   |
+| Property              | Value                                               |
+| --------------------- | --------------------------------------------------- |
+| **Project ID**        | `dws6run6`                                          |
+| **Project Number**    | `1074393862472`                                     |
+| **Region**            | `europe-north1` (Finland)                           |
+| **Artifact Registry** | `europe-north1-docker.pkg.dev/dws6run6/dws-iq-repo` |
+| **Admin Account**     | `admin@dws6.com`                                    |
+| **Service**           | `dws-iq-backend` (Stripe webhook endpoint)          |
+| **Endpoint**          | `https://dws-iq-backend-[hash]-uc.a.run.app`        |
 
-### Service Account Permissions
+### ⚠️ CRITICAL: Cloud Build Service Account IAM Roles
 
-Cloud Build service account (`446442351781@cloudbuild.gserviceaccount.com`) requires:
+**Service Account:** `1074393862472-compute@developer.gserviceaccount.com`
 
-- `roles/artifactregistry.writer` - Push Docker images
-- `roles/logging.logWriter` - Write build logs
+**Required Roles** (grant ALL of these or build will fail):
 
-### Deployment Commands
+| Role                             | Permission                | Why Needed                         |
+| -------------------------------- | ------------------------- | ---------------------------------- |
+| `roles/cloudbuild.builds.editor` | Cloud Build operations    | Build and push Docker images       |
+| `roles/storage.admin`            | Cloud Storage access      | Upload source code tarball + cache |
+| `roles/logging.logWriter`        | Write build logs          | Display build output and errors    |
+| `roles/artifactregistry.writer`  | Push to Artifact Registry | Store Docker images                |
+| `roles/run.developer`            | Deploy to Cloud Run       | Create/update Cloud Run services   |
 
-```powershell
-# Build and push image
-gcloud builds submit --tag europe-north1-docker.pkg.dev/dws6run/dws-iq-repo/dws-iq-backend:latest --project=dws6run
+**Setup Commands** (run once per project):
 
-# Deploy to Cloud Run
-gcloud run deploy dws-iq-backend --image europe-north1-docker.pkg.dev/dws6run/dws-iq-repo/dws-iq-backend:latest --region europe-north1 --project dws6run --allow-unauthenticated --set-env-vars="GROQ_API_KEY=<key>,NODE_ENV=production"
+```bash
+# Grant Cloud Build permissions
+gcloud projects add-iam-policy-binding dws6run6 \
+  --member=serviceAccount:1074393862472-compute@developer.gserviceaccount.com \
+  --role=roles/cloudbuild.builds.editor
+
+# Grant Storage access
+gcloud projects add-iam-policy-binding dws6run6 \
+  --member=serviceAccount:1074393862472-compute@developer.gserviceaccount.com \
+  --role=roles/storage.admin
+
+# Grant Logging access
+gcloud projects add-iam-policy-binding dws6run6 \
+  --member=serviceAccount:1074393862472-compute@developer.gserviceaccount.com \
+  --role=roles/logging.logWriter
+
+# Grant Artifact Registry access
+gcloud projects add-iam-policy-binding dws6run6 \
+  --member=serviceAccount:1074393862472-compute@developer.gserviceaccount.com \
+  --role=roles/artifactregistry.writer
+
+# Grant Cloud Run access
+gcloud projects add-iam-policy-binding dws6run6 \
+  --member=serviceAccount:1074393862472-compute@developer.gserviceaccount.com \
+  --role=roles/run.developer
 ```
+
+### Deployment Commands (from repo root in CMD)
+
+```bash
+# Authenticate with Google Cloud
+gcloud auth login --project=dws6run6
+
+# Set active project
+gcloud config set project dws6run6
+
+# Build and push Docker image
+gcloud builds submit --tag europe-north1-docker.pkg.dev/dws6run6/dws-iq-repo/dws-iq-backend:latest
+
+# Deploy to Cloud Run with environment variables
+gcloud run deploy dws-iq-backend ^
+  --image europe-north1-docker.pkg.dev/dws6run6/dws-iq-repo/dws-iq-backend:latest ^
+  --region europe-north1 ^
+  --allow-unauthenticated ^
+  --memory 512Mi ^
+  --cpu 1 ^
+  --timeout 300 ^
+  --set-env-vars="STRIPE_SECRET_KEY=sk_live_...,STRIPE_WEBHOOK_SECRET=whsec_...,NODE_ENV=production"
+
+# View deployment logs
+gcloud run logs read dws-iq-backend --region europe-north1 --limit 50
+```
+
+### Troubleshooting
+
+| Error                                                    | Cause                             | Fix                                 |
+| -------------------------------------------------------- | --------------------------------- | ----------------------------------- |
+| `PERMISSION_DENIED: does not have permission`            | Missing IAM role                  | Run one of the setup commands above |
+| `does not have storage.objects.get access`               | Missing `roles/storage.admin`     | Grant storage.admin role            |
+| `does not have permission to write logs`                 | Missing `roles/logging.logWriter` | Grant logging.logWriter role        |
+| `Build step failure: gcr.io/cloud-builders/gcb-internal` | Multiple permission issues        | Run ALL setup commands              |
+
+### Webhook Configuration
+
+**Stripe Workbench Setup:**
+
+- Endpoint URL: `https://dws-iq-backend-[hash]-uc.a.run.app/webhooks/stripe`
+- Events: `invoice.payment_succeeded`, `invoice.payment_failed`, `invoice.payment_attempt_required`, `invoice.payment_action_required`, `charge.refunded`, `customer.deleted`
+- Signing Secret: `whsec_...` (from Stripe Workbench → Destination)
+
+**Environment Variables Required:**
+
+- `STRIPE_SECRET_KEY` (sk*live*...)
+- `STRIPE_WEBHOOK_SECRET` (whsec\_...)
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_KEY`
 
 ---
 
