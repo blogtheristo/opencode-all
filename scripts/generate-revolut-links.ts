@@ -80,6 +80,7 @@ async function createPaymentLink(
         Authorization: `Bearer ${REVOLUT_API_KEY}`,
         'Content-Type': 'application/json',
         Accept: 'application/json',
+        'Revolut-Api-Version': '2023-09-01',
       },
       body: JSON.stringify({
         amount: Math.round(amount * 100), // Convert to cents
