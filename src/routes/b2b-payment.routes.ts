@@ -1,5 +1,4 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import { z } from 'zod';
 import { supabase } from '../services/supabase.service';
 import { requireAuth } from '../middleware/auth.middleware';
 import { logger } from '../services/logger.service';
