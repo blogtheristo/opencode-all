@@ -45,7 +45,7 @@ const PRODUCTS_FILE = path.join(
 );
 
 const REVOLUT_API_URL = process.env.REVOLUT_API_URL || 'https://api.revolut.com/api/1.0';
-const REVOLUT_API_KEY = process.env.REVOLUT_API_KEY;
+const REVOLUT_API_KEY = process.env.REVOLUT_SECRET_KEY || process.env.REVOLUT_API_KEY;
 
 const args = process.argv.slice(2);
 const dryRun = args.includes('--dry-run');
