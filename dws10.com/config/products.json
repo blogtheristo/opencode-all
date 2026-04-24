@@ -226,7 +226,7 @@
       "gtin": null,
       "mpn": "FH-CMS-2026",
       "name": "Firehorse Content Management",
-      "price": 2999,
+      "price": 99,
       "currency": "EUR",
       "type": "one-time",
       "description": "When auditors ask for proof, find it in seconds — not days. Evidence Vault auto-tags compliance documents, alerts before certificates expire, and provides semantic search across all your audit-ready documentation.",
@@ -279,7 +279,7 @@
       "detailsUrl": "../products/expert-services.html",
       "featured": false,
       "google": {
-        "productCategory": "Business & Industrial > Business Services",
+        "productCategory": "Professional Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -315,7 +315,7 @@
       "detailsUrl": "../products/consulting.html",
       "featured": false,
       "google": {
-        "productCategory": "Business & Industrial > Business Services",
+        "productCategory": "Professional Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -351,7 +351,7 @@
       "detailsUrl": "../products/expert-advisory.html",
       "featured": false,
       "google": {
-        "productCategory": "Business & Industrial > Business Services",
+        "productCategory": "Professional Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -382,7 +382,7 @@
       "detailsUrl": "../products/consulting-fit55.html",
       "featured": false,
       "google": {
-        "productCategory": "Business & Industrial > Business Services",
+        "productCategory": "Professional Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -418,7 +418,7 @@
       "detailsUrl": "../products/aws-consultancy.html",
       "featured": false,
       "google": {
-        "productCategory": "Business & Industrial > Business Services",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -485,7 +485,7 @@
       "detailsUrl": "../products/m365-consultancy.html",
       "featured": false,
       "google": {
-        "productCategory": "Business & Industrial > Business Services",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -521,7 +521,7 @@
       "detailsUrl": "../products/ai-agent-engineering.html",
       "featured": false,
       "google": {
-        "productCategory": "Business & Industrial > Business Services",
+        "productCategory": "Professional Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -557,7 +557,7 @@
       "detailsUrl": "../products/lean-project.html",
       "featured": false,
       "google": {
-        "productCategory": "Business & Industrial > Business Services",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Firehorse",
@@ -588,7 +588,7 @@
       "detailsUrl": "../products/ai-consultant-day.html",
       "featured": false,
       "google": {
-        "productCategory": "Business & Industrial > Business Services",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -624,7 +624,7 @@
       "detailsUrl": "../products/business-mentor-30.html",
       "featured": false,
       "google": {
-        "productCategory": "Business & Industrial > Business Services",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -660,7 +660,7 @@
       "detailsUrl": "../products/firehorse-coach.html",
       "featured": false,
       "google": {
-        "productCategory": "Business & Industrial > Business Services",
+        "productCategory": "Professional Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Firehorse",
@@ -727,7 +727,7 @@
       "detailsUrl": "../products/professional-web-pages.html",
       "featured": false,
       "google": {
-        "productCategory": "Business & Industrial > Business Services",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -763,7 +763,7 @@
       "detailsUrl": "../products/secure-email-proton.html",
       "featured": false,
       "google": {
-        "productCategory": "Business & Industrial > Business Services",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -799,7 +799,7 @@
       "detailsUrl": "../products/firehorse-data-services.html",
       "featured": false,
       "google": {
-        "productCategory": "Business & Industrial > Business Services",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Firehorse",
@@ -835,7 +835,7 @@
       "detailsUrl": "../products/devops-lead.html",
       "featured": false,
       "google": {
-        "productCategory": "Business & Industrial > Business Services",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -867,7 +867,7 @@
       "detailsUrl": "../products/digital-design-gold.html",
       "featured": false,
       "google": {
-        "productCategory": "Business & Industrial > Business Services",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -903,7 +903,7 @@
       "detailsUrl": "../products/cloud-ready-teams.html",
       "featured": false,
       "google": {
-        "productCategory": "Business & Industrial > Business Services",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -939,7 +939,7 @@
       "detailsUrl": "../products/ai-koulutus-3d.html",
       "featured": false,
       "google": {
-        "productCategory": "Business & Industrial > Business Services",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -970,7 +970,7 @@
       "detailsUrl": "../products/ai-consulting.html",
       "featured": true,
       "google": {
-        "productCategory": "Business & Industrial > Business Services",
+        "productCategory": "Professional Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -1006,7 +1006,7 @@
       "detailsUrl": "../products/edge-node-gn100.html",
       "featured": true,
       "google": {
-        "productCategory": "Electronics > Computers > Desktop Computers",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Acer",
@@ -1026,7 +1026,7 @@
       "gtin": null,
       "mpn": "SOVEREIGN-DB-2026",
       "name": "Sovereign Database — EU Data Sovereignty for PostgreSQL",
-      "price": 0,
+      "price": 99,
       "currency": "EUR",
       "type": "one-time",
       "description": "Your EU customer data on a US-owned cloud is a liability. Sovereign Database eliminates CLOUD Act exposure with EU-hosted, EU-owned PostgreSQL, continuous sovereignty monitoring, and automated compliance scoring. Free assessment, paid tiers from €499/mo.",
@@ -1078,7 +1078,7 @@
       "detailsUrl": "../products/sovereignty-cloud-consulting.html",
       "featured": true,
       "google": {
-        "productCategory": "Business & Industrial > Business Services",
+        "productCategory": "Professional Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -1300,7 +1300,8 @@
         "availability": "preorder",
         "brand": "DWS IQ",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "en",
+        "availabilityDate": "2026-08-01"
       },
       "storeCategory": "platform",
       "productType": "dws-iq-platform",
@@ -1339,7 +1340,8 @@
         "availability": "preorder",
         "brand": "DWS IQ",
         "targetCountry": "FI",
-        "contentLanguage": "en"
+        "contentLanguage": "en",
+        "availabilityDate": "2026-08-01"
       },
       "storeCategory": "platform",
       "productType": "dws-iq-platform",
@@ -1359,10 +1361,22 @@
     "nextReviewDate": "2026-07-01",
     "reviewCadence": "quarterly",
     "quarterSchedule": {
-      "Q1": { "stamp": "YYYY-01-01", "validUntil": "YYYY-03-31" },
-      "Q2": { "stamp": "YYYY-04-01", "validUntil": "YYYY-06-30" },
-      "Q3": { "stamp": "YYYY-07-01", "validUntil": "YYYY-09-30" },
-      "Q4": { "stamp": "YYYY-10-01", "validUntil": "YYYY-12-31" }
+      "Q1": {
+        "stamp": "YYYY-01-01",
+        "validUntil": "YYYY-03-31"
+      },
+      "Q2": {
+        "stamp": "YYYY-04-01",
+        "validUntil": "YYYY-06-30"
+      },
+      "Q3": {
+        "stamp": "YYYY-07-01",
+        "validUntil": "YYYY-09-30"
+      },
+      "Q4": {
+        "stamp": "YYYY-10-01",
+        "validUntil": "YYYY-12-31"
+      }
     },
     "policy": {
       "currency": "EUR",
@@ -1396,7 +1410,7 @@
           "language": "sv",
           "country": "SE",
           "label": "Sweden",
-          "standardRate": 25.0,
+          "standardRate": 25,
           "displayRate": "25%",
           "note": "Standard SE moms (reduced rates 12% / 6% exist for specific categories)."
         },
@@ -1404,7 +1418,7 @@
           "language": "de",
           "country": "DE",
           "label": "Germany",
-          "standardRate": 19.0,
+          "standardRate": 19,
           "displayRate": "19%",
           "note": "Standard DE Mehrwertsteuer (reduced 7% for certain categories)."
         },
@@ -1412,7 +1426,7 @@
           "language": "fr",
           "country": "FR",
           "label": "France",
-          "standardRate": 20.0,
+          "standardRate": 20,
           "displayRate": "20%",
           "note": "Standard FR TVA (reduced rates 10% / 5.5% / 2.1% exist for specific categories)."
         }

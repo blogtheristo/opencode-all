@@ -90,4 +90,32 @@ if [ -n "$ts_files" ]; then
   fi
 fi
 
+# ============ Auto-regenerate feeds when products.json changes ============
+
+products_json="dws10.com/config/products.json"
+if echo "$staged" | grep -q "^$products_json$"; then
+  echo "[pre-commit] Detected changes to $products_json — regenerating feeds..."
+
+  # Regenerate Google Merchant feed
+  if command -v node >/dev/null 2>&1 && [ -f "dws10.com/feeds/generate-feed.cjs" ]; then
+    echo "[pre-commit] Generating google-products.xml..."
+    if node dws10.com/feeds/generate-feed.cjs; then
+      echo "[pre-commit] ✓ Feed generated successfully"
+
+      # Sync to production (landing-pages)
+      if [ -f "dws10.com/feeds/google-products.xml" ] && [ -d "landing-pages/dws10-com/feeds" ]; then
+        cp dws10.com/feeds/google-products.xml landing-pages/dws10-com/feeds/google-products.xml
+        echo "[pre-commit] ✓ Feed synced to landing-pages"
+      fi
+
+      # Stage both feed files
+      git add dws10.com/feeds/google-products.xml landing-pages/dws10-com/feeds/google-products.xml
+      echo "[pre-commit] ✓ Feed files staged automatically"
+    else
+      echo "BLOCKED: Feed generation failed"
+      exit 1
+    fi
+  fi
+fi
+
 exit 0
