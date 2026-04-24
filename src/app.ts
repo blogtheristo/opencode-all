@@ -33,6 +33,7 @@ import grokConsentRoutes from './routes/grok-consent.routes.js';
 import capTableRouter from './investor-reports/cap-table-routes.js';
 import paymentRoutes from './routes/payment.routes.js';
 import b2bPaymentRoutes from './routes/b2b-payment.routes.js';
+import stripeWebhookRoutes from './routes/stripe-webhook.routes.js';
 import { createMCPRouter } from './mcp/agent-server.js';
 import captainRoutes from './routes/captain.routes.js';
 import usageRoutes from './routes/usage.routes.js';
@@ -252,6 +253,9 @@ app.use('/api/v1/payments', paymentRoutes);
 
 // B2B Payment Flow (Revolut deposit + Stripe invoice)
 app.use('/api/v1/b2b', b2bPaymentRoutes);
+
+// Stripe webhook (invoice payments, refunds, customer events)
+app.use('/webhooks/stripe', stripeWebhookRoutes);
 
 // MCP Agent Server (DWS7: Fix #5 — exposes agents as MCP tools)
 app.use('/mcp', createMCPRouter());
