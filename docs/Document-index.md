@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.8
+Version: 1.9
 
 Sessions & Modifications:
 
+- Version: 1.9 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: current | Date: 24.04.2026 | Changes: Updated admin payment documentation index for Revolut + Stripe + Google Merchant payment process refresh
 - Version: 1.8 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: current | Date: 22.04.2026 | Changes: Added missing index entries for local-first CI audit docs (`docs/CI_AUDIT.md`), external audit manual, and CI hygiene field note; refreshed metadata
 - Version: 1.7 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: current | Date: 21.04.2026 | Changes: Added DWS Standards Library and Vesala standards field note entries; synced index metadata for standards/web-content governance updates
 - Version: 1.6 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: current | Date: 18.04.2026 | Changes: Added MCP CLI Index field note entry, refreshed field note count, and linked current MCP/CLI package split into the repository index
@@ -32,7 +33,7 @@ Session Links & References:
 Document Status:
 
 - Created: 04.02.2026
-- Last Modified: 22.04.2026
+- Last Modified: 24.04.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE
@@ -79,7 +80,7 @@ System administration and deployment guides. All admin manuals are in `Admin/` f
 | Supabase Manual       | `/Admin/ADMIN_MANUAL_SUPABASE_EN_v1.md`               | ACTIVE   | 2026-02-06    | Supabase configuration                                                 |
 | Gaps Analysis         | `/Admin/ADMIN_MANUAL_GAPS_ANALYSIS.md`                | ACTIVE   | 2026-02-06    | Documentation gap analysis                                             |
 | DWS6.com Manual       | `/Admin/ADMIN_MANUAL_DWS6_COM.md`                     | ACTIVE   | 2026-02-06    | Main site deployment                                                   |
-| DWS10 Store Payments  | `/Admin/ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`         | ACTIVE   | 2026-02-06    | Revolut Web SDK store                                                  |
+| DWS10 Store Payments  | `/Admin/ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`         | ACTIVE   | 2026-04-24    | Revolut + Stripe hybrid process, Google Merchant feed/payment ops      |
 | Testing Manual        | `/Admin/ADMIN_MANUAL_TESTING.md`                      | ACTIVE   | 2026-02-06    | Testing procedures                                                     |
 | Files & Folders       | `/Admin/ADMIN_MANUAL_FILES_AND_FOLDERS.md`            | ACTIVE   | 2026-02-06    | Repo structure guide                                                   |
 | Security Compliance   | `/Admin/SECURITY_COMPLIANCE.md`                       | ACTIVE   | 2026-02-06    | Security & compliance                                                  |
