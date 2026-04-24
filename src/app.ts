@@ -32,6 +32,7 @@ import situationRoomRoutes from './routes/situation-room.routes.js';
 import grokConsentRoutes from './routes/grok-consent.routes.js';
 import capTableRouter from './investor-reports/cap-table-routes.js';
 import paymentRoutes from './routes/payment.routes.js';
+import b2bPaymentRoutes from './routes/b2b-payment.routes.js';
 import { createMCPRouter } from './mcp/agent-server.js';
 import captainRoutes from './routes/captain.routes.js';
 import usageRoutes from './routes/usage.routes.js';
@@ -76,18 +77,23 @@ const __dirname = path.dirname(__filename);
 // ============ MIDDLEWARE ============
 
 // Security headers - configured to allow static HTML pages with inline scripts
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
-      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-      fontSrc: ["'self'", "https://fonts.gstatic.com"],
-      imgSrc: ["'self'", "data:", "https:"],
-      connectSrc: ["'self'", "https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud"],
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'"],
+        styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+        fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+        imgSrc: ["'self'", 'data:', 'https:'],
+        connectSrc: [
+          "'self'",
+          'https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud',
+        ],
+      },
     },
-  },
-}));
+  }),
+);
 
 // CORS configuration with explicit allowlist
 // Default allowed origins for development and production
@@ -101,7 +107,7 @@ const defaultOrigins = [
 ];
 
 const allowedOrigins = process.env.CORS_ORIGIN
-  ? process.env.CORS_ORIGIN.split(',').map(origin => origin.trim())
+  ? process.env.CORS_ORIGIN.split(',').map((origin) => origin.trim())
   : defaultOrigins;
 
 const corsOptions = {
@@ -130,7 +136,13 @@ const corsOptions = {
   credentials: true,
   optionsSuccessStatus: 200,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Session-Id', 'X-Admin-Key', 'X-Correlation-ID'],
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'X-Session-Id',
+    'X-Admin-Key',
+    'X-Correlation-ID',
+  ],
 };
 app.use(cors(corsOptions));
 
@@ -238,6 +250,9 @@ app.use('/api/v1/user/api-keys', apiKeyRoutes);
 // Payment proxy (PayPal, Revolut subscription checkout)
 app.use('/api/v1/payments', paymentRoutes);
 
+// B2B Payment Flow (Revolut deposit + Stripe invoice)
+app.use('/api/v1/b2b', b2bPaymentRoutes);
+
 // MCP Agent Server (DWS7: Fix #5 — exposes agents as MCP tools)
 app.use('/mcp', createMCPRouter());
 
@@ -335,7 +350,12 @@ app.get('/api/v1/dashboard/delivery-status', (_req: Request, res: Response) => {
   const fallback = { timestamp: '2026-03-02', mvp: 72, v1: 46, dws7: 58 };
   try {
     const raw = fs.readFileSync(configPath, 'utf-8');
-    const data = JSON.parse(raw) as { timestamp?: string; mvp?: number; v1?: number; dws7?: number };
+    const data = JSON.parse(raw) as {
+      timestamp?: string;
+      mvp?: number;
+      v1?: number;
+      dws7?: number;
+    };
     res.json({
       timestamp: data.timestamp ?? fallback.timestamp,
       mvp: data.mvp ?? fallback.mvp,
@@ -436,11 +456,17 @@ app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Resp
           apikey: supabaseKey,
           Authorization: `Bearer ${supabaseKey}`,
         },
-      }
+      },
     );
 
     if (!fetchRes.ok) throw new Error(`Fetch failed: ${fetchRes.status}`);
-    const rows = await fetchRes.json() as Array<{ name: string; email: string; industry: string; seat_level: string; status: string }>;
+    const rows = (await fetchRes.json()) as Array<{
+      name: string;
+      email: string;
+      industry: string;
+      seat_level: string;
+      status: string;
+    }>;
     if (rows.length === 0) {
       res.status(404).json({ error: 'Inquiry not found' });
       return;
@@ -449,19 +475,16 @@ app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Resp
     const inquiry = rows[0];
 
     // Update status
-    const updateRes = await fetch(
-      `${supabaseUrl}/rest/v1/captain_inquiries?id=eq.${id}`,
-      {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          apikey: supabaseKey,
-          Authorization: `Bearer ${supabaseKey}`,
-          Prefer: 'return=minimal',
-        },
-        body: JSON.stringify({ status }),
-      }
-    );
+    const updateRes = await fetch(`${supabaseUrl}/rest/v1/captain_inquiries?id=eq.${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: supabaseKey,
+        Authorization: `Bearer ${supabaseKey}`,
+        Prefer: 'return=minimal',
+      },
+      body: JSON.stringify({ status }),
+    });
 
     if (!updateRes.ok) throw new Error(`Update failed: ${updateRes.status}`);
 
@@ -474,7 +497,7 @@ app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Resp
           inquiry.email,
           inquiry.name,
           inquiry.industry,
-          inquiry.seat_level
+          inquiry.seat_level,
         );
         emailSent = true;
         logger.info('Captain pre-briefing email sent', {
@@ -577,18 +600,21 @@ const server = app.listen(PORT, () => {
   memoryScheduler.start();
 
   // Initialize email queue (Redis Streams)
-  emailQueue.initialize().then((ready) => {
-    if (ready) {
-      emailQueue.start();
-      logger.info('Email queue worker started (Redis Streams)');
-    } else {
-      logger.info('Email queue unavailable — emails will be sent directly');
-    }
-  }).catch((err) => {
-    logger.warn('Email queue init error — emails will be sent directly', {
-      error: err.message,
+  emailQueue
+    .initialize()
+    .then((ready) => {
+      if (ready) {
+        emailQueue.start();
+        logger.info('Email queue worker started (Redis Streams)');
+      } else {
+        logger.info('Email queue unavailable — emails will be sent directly');
+      }
+    })
+    .catch((err) => {
+      logger.warn('Email queue init error — emails will be sent directly', {
+        error: err.message,
+      });
     });
-  });
 });
 
 // ============ PROCESS ERROR HANDLERS ============
