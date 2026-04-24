@@ -158,7 +158,7 @@ router.post(
         onboardingEmailService
           .sendWelcomeSequenceEmail({
             email: userEmail,
-            firstName: body.firstName || 'there',
+            firstName: '',
             companyName: body.companyName,
             industry: body.industry,
           })

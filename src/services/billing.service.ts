@@ -88,7 +88,6 @@ export async function createStripeInvoice(params: InvoiceParams): Promise<Stripe
     city,
     postal_code,
     country,
-    product_id,
     remainder_amount_cents,
     product_price_cents,
     deposit_amount_cents,
