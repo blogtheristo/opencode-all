@@ -92,14 +92,10 @@ function generateProductXml(product) {
   xml += `
       <g:custom_label_1>${product.type === 'monthly' ? 'subscription' : 'one-time'}</g:custom_label_1>`;
 
-  // Subscription info for monthly products
-  if (product.type === 'monthly') {
+  // Availability date for preorder products
+  if (google.availability === 'preorder' && google.availabilityDate) {
     xml += `
-      <g:subscription_cost>
-        <g:period>month</g:period>
-        <g:period_length>1</g:period_length>
-        <g:amount>${price}</g:amount>
-      </g:subscription_cost>`;
+      <g:availability_date>${escapeXml(google.availabilityDate)}</g:availability_date>`;
   }
 
   // Checkout link template (Revolut Business)
@@ -107,9 +103,8 @@ function generateProductXml(product) {
   xml += `
       <g:checkout_link_template>${escapeXml(checkoutLink)}</g:checkout_link_template>`;
 
-  // Shipping (digital products = free)
-  // Subscription products must be limited to single country (FI) per Google requirements
-  const shippingCountry = product.type === 'monthly' ? 'FI' : google.targetCountry || 'FI';
+  // Shipping (digital products = free) — single country per Google requirements
+  const shippingCountry = google.targetCountry || 'FI';
   xml += `
       <g:shipping>
         <g:country>${shippingCountry}</g:country>
@@ -122,7 +117,12 @@ function generateProductXml(product) {
 }
 
 function generateFeed(config) {
-  const products = Object.values(config.products);
+  const allProducts = Object.values(config.products);
+  // Filter: Google Merchant doesn't support subscription products without special agreement
+  // These should be handled separately via Sales/Admin integration or Stripe
+  const products = allProducts.filter((p) => p.type !== 'monthly' && p.type !== 'subscription');
+
+  const excluded = allProducts.filter((p) => p.type === 'monthly' || p.type === 'subscription');
 
   // All feed links must use the same domain registered in Google Merchant Center
   // Domain: dws10.com | Language: en | Channel: online
@@ -144,6 +144,14 @@ function generateFeed(config) {
   </channel>
 </rss>`;
 
+  // Log excluded products
+  if (excluded.length > 0) {
+    console.log(
+      `⚠ Excluded ${excluded.length} subscription products (require special Google Merchant approval):`,
+    );
+    excluded.forEach((p) => console.log(`  - ${p.name} (${p.type})`));
+  }
+
   return xml;
 }
 
@@ -151,17 +159,22 @@ function generateFeed(config) {
 try {
   console.log('Loading product configuration...');
   const config = loadConfig();
+  const allCount = Object.keys(config.products).length;
 
-  console.log(`Found ${Object.keys(config.products).length} products`);
+  console.log(`Found ${allCount} products`);
 
   console.log('Generating Google Merchant feed...');
   const feed = generateFeed(config);
+
+  const includedCount = feed.match(/<item>/g)?.length || 0;
 
   console.log(`Writing feed to ${OUTPUT_PATH}`);
   fs.writeFileSync(OUTPUT_PATH, feed, 'utf8');
 
   console.log('✓ Feed generated successfully!');
-  console.log(`  Products: ${Object.keys(config.products).length}`);
+  console.log(`  Total products: ${allCount}`);
+  console.log(`  Included in feed: ${includedCount}`);
+  console.log(`  Excluded (subscriptions): ${allCount - includedCount}`);
   console.log(`  Output: ${OUTPUT_PATH}`);
   console.log(`  Feed URL: ${BASE_URL}/feeds/google-products.xml`);
 } catch (error) {
