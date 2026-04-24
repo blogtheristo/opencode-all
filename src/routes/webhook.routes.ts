@@ -170,24 +170,26 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
   // (MCP agents, analytics, audit trail). This is fire-and-forget — the
   // webhook still processes synchronously below.
   if (emailQueue.isAvailable()) {
-    emailQueue.enqueueInbound({
-      from: fromEmail,
-      to: Array.isArray(data.to) ? data.to.join(', ') : (data.to || ''),
-      subject,
-      text: textBody,
-      html: data.html || '',
-      messageId,
-      source: 'resend-webhook',
-      rawPayload: rawBody,
-    }).catch((err: Error) => {
-      logger.debug('Failed to enqueue inbound to Redis (non-blocking)', { error: err.message });
-    });
+    emailQueue
+      .enqueueInbound({
+        from: fromEmail,
+        to: Array.isArray(data.to) ? data.to.join(', ') : data.to || '',
+        subject,
+        text: textBody,
+        html: data.html || '',
+        messageId,
+        source: 'resend-webhook',
+        rawPayload: rawBody,
+      })
+      .catch((err: Error) => {
+        logger.debug('Failed to enqueue inbound to Redis (non-blocking)', { error: err.message });
+      });
   }
 
   // 2. Idempotency: insert into inbound_emails. ON CONFLICT DO NOTHING.
   try {
     const existing = await supabaseFetch(
-      `inbound_emails?provider_message_id=eq.${encodeURIComponent(messageId)}&select=id&limit=1`
+      `inbound_emails?provider_message_id=eq.${encodeURIComponent(messageId)}&select=id&limit=1`,
     );
 
     if (existing.length > 0) {
@@ -220,7 +222,10 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
   // 3. Verify sender
   if (!isAuthorizedSender(fromEmail)) {
     logger.warn('Webhook: unauthorized sender', { from: fromEmail });
-    await updateInboundEmail(messageId, { parse_ok: false, error: `Unauthorized sender: ${fromEmail}` });
+    await updateInboundEmail(messageId, {
+      parse_ok: false,
+      error: `Unauthorized sender: ${fromEmail}`,
+    });
     res.status(200).json({ ok: true, rejected: true, reason: 'Unauthorized sender' });
     return;
   }
@@ -230,7 +235,10 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
 
   if (!command || parseError) {
     logger.info('Webhook: parse failed', { error: parseError, messageId });
-    await updateInboundEmail(messageId, { parse_ok: false, error: parseError || 'No command found' });
+    await updateInboundEmail(messageId, {
+      parse_ok: false,
+      error: parseError || 'No command found',
+    });
 
     // Send error reply
     const senderEmail = extractEmail(fromEmail);
@@ -238,7 +246,7 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
       await sendConfirmationEmail(
         senderEmail,
         `Re: ${subject}`,
-        `${parseError || 'No command found'}\n\n${ERROR_REPLY_BODY}`
+        `${parseError || 'No command found'}\n\n${ERROR_REPLY_BODY}`,
       );
     }
 
@@ -250,7 +258,7 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
   let thread: any;
   try {
     const threads = await supabaseFetch(
-      `outreach_threads?thread_token=eq.${encodeURIComponent(command.token)}&select=id,pipeline,status,person_id,org_id&limit=1`
+      `outreach_threads?thread_token=eq.${encodeURIComponent(command.token)}&select=id,pipeline,status,person_id,org_id&limit=1`,
     );
 
     if (threads.length === 0) {
@@ -266,7 +274,11 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
 
       const senderEmail = extractEmail(fromEmail);
       if (senderEmail) {
-        await sendConfirmationEmail(senderEmail, `Re: ${subject}`, `${errorMsg}\n\n${ERROR_REPLY_BODY}`);
+        await sendConfirmationEmail(
+          senderEmail,
+          `Re: ${subject}`,
+          `${errorMsg}\n\n${ERROR_REPLY_BODY}`,
+        );
       }
 
       res.status(200).json({ ok: true, parsed: true, applied: false, error: errorMsg });
@@ -314,7 +326,7 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
       await sendConfirmationEmail(
         senderEmail,
         `Re: ${subject}`,
-        `Updated T:${command.token} — ${summary}`
+        `Updated T:${command.token} — ${summary}`,
       );
     }
 
@@ -414,10 +426,9 @@ function buildSummary(command: UpdateCommand): string {
 
 async function logActivity(
   thread: any | null,
-  command: UpdateCommand,
   outcome: string,
   description: string,
-  rawPayload: any
+  rawPayload: any,
 ): Promise<void> {
   try {
     await supabaseFetch('outreach_activities', {
@@ -442,19 +453,13 @@ async function logActivity(
   }
 }
 
-async function updateInboundEmail(
-  messageId: string,
-  fields: Record<string, any>
-): Promise<void> {
+async function updateInboundEmail(messageId: string, fields: Record<string, any>): Promise<void> {
   try {
-    await supabaseFetch(
-      `inbound_emails?provider_message_id=eq.${encodeURIComponent(messageId)}`,
-      {
-        method: 'PATCH',
-        headers: { Prefer: 'return=minimal' },
-        body: JSON.stringify(fields),
-      }
-    );
+    await supabaseFetch(`inbound_emails?provider_message_id=eq.${encodeURIComponent(messageId)}`, {
+      method: 'PATCH',
+      headers: { Prefer: 'return=minimal' },
+      body: JSON.stringify(fields),
+    });
   } catch (err) {
     logger.error('Failed to update inbound_emails', { error: (err as Error).message });
   }
