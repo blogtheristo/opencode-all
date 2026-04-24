@@ -22,6 +22,16 @@
 - **Multi-factor:** Enabled (if applicable)
 - **Access Level:** Owner / Administrator
 
+## Scaleway CLI Version
+
+| Property     | Value           |
+| ------------ | --------------- |
+| **Version**  | 2.33.0          |
+| **Build**    | 2024-09-03      |
+| **Go**       | 1.22.6          |
+| **Platform** | Windows (amd64) |
+| **Git SHA**  | e60b4150        |
+
 ## Live Deployment
 
 | Property          | Value                                                                           |
