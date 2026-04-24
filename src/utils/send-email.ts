@@ -17,8 +17,6 @@
 
 import dns from 'node:dns';
 import nodemailer from 'nodemailer';
-import { appendFile, mkdir } from 'fs/promises';
-import { join } from 'path';
 
 // ============================================================================
 // EMAIL AUDIT LOGGER — Local JSONL log of every outbound email
@@ -26,8 +24,8 @@ import { join } from 'path';
 // Async I/O to avoid blocking the event loop under bursty volume.
 // ============================================================================
 
-const auditLogPath = join(process.cwd(), 'logs', 'email-audit.jsonl');
-let logDirReady = false;
+// const auditLogPath = join(process.cwd(), 'logs', 'email-audit.jsonl');
+// let logDirReady = false;
 
 // Unused stub for audit logging - audit trail now handled by sendEmail
 // async function auditLogEmail(entry: {
