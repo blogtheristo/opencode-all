@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.8
+Version: 1.9
 
 Sessions & Modifications:
 
+- Version: 1.9 | Tool: Claude Code (Opus 4.7) | Session: claude/b2b-payment-stack-DNdkW | Date: 24.04.2026 | Changes: Added Section 4.5 "DWS 6 Cloud Run Deployment Pattern (Standard)" — principles (secrets in Secret Manager not env-vars, user-managed replication pinned to europe-north1, least-privilege secretAccessor per secret, never-paste rule); provisioning workflow via `scripts/Provision-DwsIqSecrets.ps1`; required backend secret inventory (STRIPE_SECRET_KEY, SUPABASE_URL/ANON/SERVICE/SERVICE_ROLE, JWT_SECRET, SMTP_USER/PASS); canonical deploy command separating `--set-env-vars` (non-secret config) from `--set-secrets` (Secret Manager refs); rotation playbook with `:latest` + nonce env-var; security-benefits comparison table. Renumbered prior 4.5 Limitations → 4.6
 - Version: 1.8 | Tool: Claude Code (Opus 4.7) | Session: claude/b2b-payment-stack-DNdkW | Date: 24.04.2026 | Changes: Section 4.4 — BUILD FIX CONFIRMED. Root cause was the 2024+ Google default change: `dws6run6` runs Cloud Build as the Compute SA (`1074393862472-compute@developer.gserviceaccount.com`), not the legacy Cloud Build SA. Added Step 4 (repo-scoped `roles/artifactregistry.writer` on `dws-iq-repo` for Compute SA) — the only grant that actually worked; build id `5fcd7368-cc55-4ebf-b4bb-473c9c2ff54a` pushed image `sha256:e1ecbd6c…`. Flagged Step 2 and Step 3 grants as OBSOLETE in the IAM table; added "Gotcha" subsection documenting the Compute-SA default + `gcloud builds list` verification command; added cleanup commands to drop the two dead bindings
 - Version: 1.7 | Tool: Claude Code (Opus 4.7) | Session: claude/b2b-payment-stack-DNdkW | Date: 24.04.2026 | Changes: Section 4.4 — added Step 3 (repo-scoped `roles/artifactregistry.repoAdmin` on `dws-iq-repo` for Cloud Build SA) as the least-privilege replacement for Step 2's project-level admin; added corresponding row to IAM table with Scope column; staged Step 4 removal command for the project-level `artifactregistry.admin` binding once a successful build confirms Step 3 is sufficient
 - Version: 1.6 | Tool: Claude Code (Opus 4.7) | Session: claude/b2b-payment-stack-DNdkW | Date: 24.04.2026 | Changes: Section 4.4 — added Artifact Registry repo-creation step (prior push error was "or it may not exist", repo `dws-iq-repo` did not yet exist in `europe-north1`); logged auto-provisioned Artifact Registry service agent `service-1074393862472@gcp-sa-artifactregistry.iam...` that appeared when the API activated on first repo; split the resolution narrative into two explicit gcloud steps
@@ -348,7 +349,106 @@ gcloud artifacts repositories remove-iam-policy-binding dws-iq-repo ^
     --role="roles/artifactregistry.repoAdmin"
 ```
 
-### 4.5 DWS 6 Limitations (Why DWS 7 Is Needed)
+### 4.5 DWS 6 Cloud Run Deployment Pattern (Standard)
+
+Operational standard for deploying the `dws-iq-backend` container to Cloud Run. Enforces EU residency, Secret Manager for sensitive values, and separation of concerns between runtime config and secret material. Applies to any future Cloud Run service in this project; new services should follow the same pattern.
+
+#### Principles
+
+1. **Secrets live in Secret Manager, not env-vars.** Values passed via `--set-env-vars` land in the Cloud Run service spec in plaintext and are visible to anyone with `run.services.get`. Values passed via `--set-secrets` are resolved from Secret Manager at revision-start time and are never persisted into the spec.
+2. **User-managed replication pinned to `europe-north1`.** Guarantees the encrypted material never leaves EU region, satisfying DWS EU data-residency commitments.
+3. **Runtime SA has least privilege per secret.** The Cloud Run worker SA (the Compute Engine default SA in `dws6run6`; see §4.4 Gotcha) is granted `roles/secretmanager.secretAccessor` on each secret individually, not project-wide.
+4. **Env vars are for non-secret config only.** `NODE_ENV`, `EMAIL_FROM`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `PORT` — values you'd commit to source control and can log without consequence.
+5. **Never paste secrets into chat, terminal scrollback, or `--data` flags.** Use `--data-file=<path>` referencing a temp file that is zero-filled and deleted after upload. The provisioning script does this automatically.
+6. **One secret per logical credential, not per service.** A single `stripe-secret-key` is referenced by multiple services (checkout, webhook, billing); rotating it once rotates everywhere.
+
+#### Provisioning workflow (one-time per secret, or on rotation)
+
+Use `scripts/Provision-DwsIqSecrets.ps1` — PowerShell-first per DWS standard, reads a local `.env`-style or gcloud-command-style file, uploads only recognised backend secrets, grants runtime access:
+
+```powershell
+# Preview what would be uploaded (no changes)
+.\scripts\Provision-DwsIqSecrets.ps1 `
+  -SecretsFile "<path to local secrets file>" `
+  -DryRun
+
+# Apply
+.\scripts\Provision-DwsIqSecrets.ps1 `
+  -SecretsFile "<path to local secrets file>"
+```
+
+The script:
+
+- Accepts any text file containing `KEY=value` pairs (regex-based, word-bounded, quoted or unquoted, handles `--set-env-vars="K=v,K=v"` command snippets too).
+- Maps each recognised env name to a kebab-case secret name (`SUPABASE_SERVICE_KEY` → `supabase-service-key`).
+- Supports aliases so source files written to canonical naming (`SUPABASE_SERVICE_ROLE_KEY`) resolve to the backend's lookup name without duplication.
+- Per-secret temp file at `%TEMP%`, overwritten with zeros before delete — never passes values on a command line or via stdin pipe.
+- Creates secret with `--replication-policy="user-managed" --locations=europe-north1` on first run; adds a new version on subsequent runs (rotation-friendly, no downtime).
+- Grants `roles/secretmanager.secretAccessor` to the runtime SA on each secret.
+
+After provisioning, delete the local source file or move it to encrypted storage. Plaintext credentials on disk are the last mile of exposure.
+
+#### Required backend secrets (current inventory)
+
+| Env var (in code)                                    | Secret Manager name    | Source                                                                        |
+| ---------------------------------------------------- | ---------------------- | ----------------------------------------------------------------------------- |
+| `STRIPE_SECRET_KEY`                                  | `stripe-secret-key`    | Stripe dashboard → Developers → API keys (live mode)                          |
+| `SUPABASE_URL`                                       | `supabase-url`         | Supabase project → Settings → API                                             |
+| `SUPABASE_ANON_KEY`                                  | `supabase-anon-key`    | Supabase project → Settings → API → `anon/public`                             |
+| `SUPABASE_SERVICE_KEY` / `SUPABASE_SERVICE_ROLE_KEY` | `supabase-service-key` | Supabase project → Settings → API → `service_role`                            |
+| `JWT_SECRET`                                         | `jwt-secret`           | Generated: 64-char hex via `(1..64).ForEach{'{0:x}' -f (Get-Random -Max 16)}` |
+| `SMTP_USER`                                          | `smtp-user`            | AWS SES → SMTP credentials (20-char `AKIA…` IAM key)                          |
+| `SMTP_PASS`                                          | `smtp-pass`            | AWS SES → SMTP credentials (44-char derived password)                         |
+
+#### Deploy command (canonical)
+
+```cmd
+gcloud run deploy dws-iq-backend ^
+  --image=europe-north1-docker.pkg.dev/dws6run6/dws-iq-repo/dws-iq-backend:latest ^
+  --region=europe-north1 ^
+  --platform=managed ^
+  --port=8080 ^
+  --memory=512Mi ^
+  --concurrency=80 ^
+  --timeout=60 ^
+  --set-env-vars="NODE_ENV=production,EMAIL_FROM=risto@onelifetime.world,SMTP_HOST=email-smtp.eu-north-1.amazonaws.com,SMTP_PORT=587,SMTP_SECURE=false" ^
+  --set-secrets="STRIPE_SECRET_KEY=stripe-secret-key:latest,SUPABASE_URL=supabase-url:latest,SUPABASE_ANON_KEY=supabase-anon-key:latest,SUPABASE_SERVICE_KEY=supabase-service-key:latest,SUPABASE_SERVICE_ROLE_KEY=supabase-service-key:latest,JWT_SECRET=jwt-secret:latest,SMTP_USER=smtp-user:latest,SMTP_PASS=smtp-pass:latest"
+```
+
+Notes:
+
+- `SUPABASE_SERVICE_KEY` and `SUPABASE_SERVICE_ROLE_KEY` both point to the same secret. Current code reads both names across different modules (Article 12 logger uses the canonical, everything else uses the short form). Until the code is unified to one name, both env-var names must be set.
+- `--set-secrets` references `:latest` — so a new secret version via `gcloud secrets versions add` is picked up on the next revision without editing the deploy command.
+- Memory/concurrency/timeout tuned for current load; revise upward if P95 startup exceeds 10 s or container hits OOM.
+- `--allow-unauthenticated` is **not** included in the baseline. Public ingress requires a separate `gcloud run services add-iam-policy-binding ... --member=allUsers --role=roles/run.invoker` step and may be blocked by org policy; apply only to services that must accept anonymous traffic (webhooks, buyer endpoints).
+
+#### Rotation playbook
+
+Rotating a secret does not require a redeploy if the deploy used `:latest`:
+
+```powershell
+# 1. Push new version to Secret Manager
+.\scripts\Provision-DwsIqSecrets.ps1 -SecretsFile "<new-value-file>"
+
+# 2. Force Cloud Run to pick up the new version on next revision
+gcloud run services update dws-iq-backend --region=europe-north1 --project=dws6run6 --update-env-vars="SECRET_ROTATION_NONCE=$(Get-Date -Format 'yyyyMMddHHmmss')"
+
+# 3. After verifying new revision healthy, destroy the old version
+gcloud secrets versions destroy <old-version> --secret=<secret-name> --project=dws6run6
+```
+
+#### Security benefits vs. naïve `--set-env-vars`
+
+| Risk                                                | `--set-env-vars`        | `--set-secrets` (this pattern)   |
+| --------------------------------------------------- | ----------------------- | -------------------------------- |
+| Secret visible in service spec (`run.services.get`) | Yes                     | No (only reference visible)      |
+| Secret rotation requires redeploy                   | Yes                     | No (bump version, nonce env)     |
+| Per-secret audit trail                              | No                      | Yes (Secret Manager access logs) |
+| Per-secret IAM scope                                | No (all env vars equal) | Yes (secretAccessor per secret)  |
+| EU residency guarantee                              | Inherits service region | Explicit `user-managed` lock     |
+| Rotation without running a deploy pipeline          | No                      | Yes                              |
+
+### 4.6 DWS 6 Limitations (Why DWS 7 Is Needed)
 
 | Limitation                         | Impact                        | DWS 7 Solution                     |
 | ---------------------------------- | ----------------------------- | ---------------------------------- |
