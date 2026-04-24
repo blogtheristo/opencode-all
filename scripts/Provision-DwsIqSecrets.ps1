@@ -106,18 +106,31 @@ function Get-SecretsFromFile {
     $raw = Get-Content -LiteralPath $Path -Raw
 
     $found = [ordered]@{}
+    # Aliases: alternate env-var names that map to the same secret. Lets a source
+    # file written with canonical Supabase naming (SUPABASE_SERVICE_ROLE_KEY) also
+    # satisfy the backend's SUPABASE_SERVICE_KEY lookup without duplication.
+    $Aliases = @{
+        'SUPABASE_SERVICE_KEY' = @('SUPABASE_SERVICE_ROLE_KEY')
+    }
+
     foreach ($envName in $SecretMap.Keys) {
         # Match KEY=value in any of: .env, export KEY=, gcloud --set-env-vars="KEY=v,KEY=v"
         # Uses \b so both whitespace and quote/comma separators before the key work.
-        $pattern = '\b' + [regex]::Escape($envName) + '\s*=\s*(?:"([^"]*)"|''([^'']*)''|([^\s,"''\r\n]+))'
-        $regex = [regex]::new($pattern, [System.Text.RegularExpressions.RegexOptions]::Multiline)
-        $match = $regex.Match($raw)
-        if ($match.Success) {
-            $value = $match.Groups[1].Value
-            if (-not $value) { $value = $match.Groups[2].Value }
-            if (-not $value) { $value = $match.Groups[3].Value }
-            if ($value) {
-                $found[$envName] = $value
+        $candidates = @($envName)
+        if ($Aliases.ContainsKey($envName)) { $candidates += $Aliases[$envName] }
+
+        foreach ($candidate in $candidates) {
+            $pattern = '\b' + [regex]::Escape($candidate) + '\s*=\s*(?:"([^"]*)"|''([^'']*)''|([^\s,"''\r\n]+))'
+            $regex = [regex]::new($pattern, [System.Text.RegularExpressions.RegexOptions]::Multiline)
+            $match = $regex.Match($raw)
+            if ($match.Success) {
+                $value = $match.Groups[1].Value
+                if (-not $value) { $value = $match.Groups[2].Value }
+                if (-not $value) { $value = $match.Groups[3].Value }
+                if ($value) {
+                    $found[$envName] = $value
+                    break
+                }
             }
         }
     }
