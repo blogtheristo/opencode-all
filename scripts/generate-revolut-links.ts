@@ -13,6 +13,7 @@
  *   --force    Regenerate ALL product links (not just missing ones)
  */
 
+import 'dotenv/config';
 import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
