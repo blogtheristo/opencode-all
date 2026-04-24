@@ -66,7 +66,7 @@ const initFirehorsePilot = (): void => {
 const shutdownFirehorsePilot = (): void => {
   /* no-op */
 };
-const createMCPRouter = (): express.Router => express.Router();
+const createMCPRouter = () => express.Router();
 const capTableRouter = express.Router();
 // ================================================================
 
