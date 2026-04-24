@@ -93,7 +93,7 @@ router.post(
       logger.info('Billing profile created', { profileId: data.id, userId });
       return res.status(201).json(data);
     } catch (err) {
-      next(err);
+      return next(err);
     }
   },
 );
@@ -124,7 +124,7 @@ router.get(
 
       return res.json(data);
     } catch (err) {
-      next(err);
+      return next(err);
     }
   },
 );
@@ -193,7 +193,7 @@ router.post('/orders', validateAuth, async (req: Request, res: Response, next: N
     logger.info('Order created', { orderId: order.id, userId, deposit: deposit_amount_cents });
     return res.status(201).json(order);
   } catch (err) {
-    next(err);
+    return next(err);
   }
 });
 
@@ -235,7 +235,7 @@ router.get('/orders/:id', validateAuth, async (req: Request, res: Response, next
       audit_trail: auditLog || [],
     });
   } catch (err) {
-    next(err);
+    return next(err);
   }
 });
 
@@ -345,7 +345,7 @@ router.post(
         return res.status(500).json({ error: 'Failed to create Stripe invoice' });
       }
     } catch (err) {
-      next(err);
+      return next(err);
     }
   },
 );
@@ -406,9 +406,9 @@ router.post('/webhook', async (req: Request, res: Response, next: NextFunction) 
       }
     }
 
-    res.json({ success: true });
+    return res.json({ success: true });
   } catch (err) {
-    next(err);
+    return next(err);
   }
 });
 
