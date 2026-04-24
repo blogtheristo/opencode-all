@@ -93,7 +93,7 @@ router.post(
       }
 
       logger.info('Billing profile created', { profileId: data.id, userId });
-      res.status(201).json(data);
+      return res.status(201).json(data);
     } catch (err) {
       next(err);
     }
@@ -124,7 +124,7 @@ router.get(
         return res.status(500).json({ error: 'Failed to fetch billing profiles' });
       }
 
-      res.json(data);
+      return res.json(data);
     } catch (err) {
       next(err);
     }
@@ -197,7 +197,7 @@ router.post(
       }
 
       logger.info('Order created', { orderId: order.id, userId, deposit: deposit_amount_cents });
-      res.status(201).json(order);
+      return res.status(201).json(order);
     } catch (err) {
       next(err);
     }
