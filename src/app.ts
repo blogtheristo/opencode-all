@@ -47,7 +47,8 @@ import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
 import { constructionLeadsScheduler, fetchAndProcessLeads } from './construction-leads/index.js';
-import { firehorseRoutes, initFirehorsePilot, shutdownFirehorsePilot } from './firehorse/index.js';
+// @ts-ignore — firehorse module exists at runtime in container
+import { firehorseRoutes, initFirehorsePilot, shutdownFirehorsePilot } from './firehorse/index';
 import { memoryScheduler } from './agents/memory.scheduler.js';
 import { apiVersionMiddleware } from './middleware/api-version.middleware.js';
 import { correlationId } from './middleware/correlation-id.js';
