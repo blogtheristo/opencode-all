@@ -31,6 +31,9 @@ ADD_TOKEN_TO_GITHUB.md
 *.secret
 *.jks
 *.keystore
+# SSH/private key files (e.g., id_ed25519, id_rsa, id_xx + optional .pub)
+id_*
+id_*.pub
 nul
 supabase/.env
 supabase/.env.local
