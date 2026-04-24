@@ -26,7 +26,8 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "platform",
       "productType": "dws-iq-platform",
@@ -66,7 +67,8 @@
         "subscriptionPeriodLength": 1,
         "brand": "Firehorse",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "platform",
       "productType": "firehorse-saas",
@@ -103,7 +105,8 @@
         "availability": "in_stock",
         "brand": "Firehorse",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "platform",
       "productType": "firehorse-saas",
@@ -140,7 +143,8 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "platform",
       "productType": "firehorse-saas",
@@ -177,7 +181,8 @@
         "availability": "in_stock",
         "brand": "DWS IQ",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "platform",
       "productType": "firehorse-saas",
@@ -217,7 +222,8 @@
         "subscriptionPeriodLength": 1,
         "brand": "Firehorse",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "add-on",
       "productType": "firehorse-saas",
@@ -254,7 +260,8 @@
         "availability": "in_stock",
         "brand": "Firehorse",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "platform",
       "productType": "firehorse-saas",
@@ -290,7 +297,8 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "advisory",
       "productType": "consulting-substance",
@@ -326,7 +334,8 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "advisory",
       "productType": "hourly-remote",
@@ -365,7 +374,8 @@
         "subscriptionPeriodLength": 1,
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "advisory",
       "productType": "archived"
@@ -396,7 +406,8 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "advisory",
       "productType": "consulting-substance",
@@ -432,7 +443,8 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "digital",
       "productType": "us-stack",
@@ -468,7 +480,8 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "ai-cloud",
       "productType": "archived"
@@ -499,7 +512,8 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "digital",
       "productType": "us-stack",
@@ -535,7 +549,8 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "ai-cloud",
       "productType": "hourly-remote",
@@ -571,7 +586,8 @@
         "availability": "in_stock",
         "brand": "Firehorse",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "advisory",
       "productType": "archived"
@@ -602,7 +618,8 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "ai-cloud",
       "productType": "hourly-remote",
@@ -638,7 +655,8 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "advisory",
       "productType": "advisory-training",
@@ -674,7 +692,8 @@
         "availability": "in_stock",
         "brand": "Firehorse",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "advisory",
       "productType": "advisory-training",
@@ -710,7 +729,8 @@
         "availability": "in_stock",
         "brand": "Firehorse",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "digital",
       "productType": "archived"
@@ -741,7 +761,8 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "digital",
       "productType": "delivery-service",
@@ -777,7 +798,8 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "digital",
       "productType": "delivery-service",
@@ -813,7 +835,8 @@
         "availability": "in_stock",
         "brand": "Firehorse",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "digital",
       "productType": "delivery-service",
@@ -849,7 +872,8 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "ai-cloud",
       "productType": "archived"
@@ -881,7 +905,8 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "digital",
       "productType": "delivery-service",
@@ -917,7 +942,8 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "digital",
       "productType": "delivery-service",
@@ -953,7 +979,8 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "advisory",
       "productType": "archived"
@@ -984,7 +1011,8 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "ai-cloud",
       "productType": "consulting-substance",
@@ -1020,7 +1048,8 @@
         "availability": "in_stock",
         "brand": "Acer",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "hardware",
       "productType": "sovereign-infra",
@@ -1056,7 +1085,8 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "platform",
       "productType": "sovereign-infra",
@@ -1095,7 +1125,8 @@
         "subscriptionPeriodLength": 1,
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "ai-cloud",
       "productType": "consulting-substance",
@@ -1134,7 +1165,8 @@
         "subscriptionPeriodLength": 1,
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "ai-cloud",
       "productType": "us-stack",
@@ -1173,7 +1205,8 @@
         "subscriptionPeriodLength": 1,
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "ai-cloud",
       "productType": "us-stack",
@@ -1212,7 +1245,8 @@
         "subscriptionPeriodLength": 1,
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "ai-cloud",
       "productType": "sovereign-infra",
@@ -1251,7 +1285,8 @@
         "subscriptionPeriodLength": 1,
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "ai-cloud",
       "productType": "sovereign-infra",
@@ -1290,7 +1325,8 @@
         "subscriptionPeriodLength": 1,
         "brand": "DWS IQ",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "platform",
       "productType": "dws-iq-platform",
@@ -1328,7 +1364,8 @@
         "availabilityDate": "2026-08-02",
         "brand": "DWS IQ",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "platform",
       "productType": "dws-iq-platform",
@@ -1368,7 +1405,8 @@
         "availabilityDate": "2026-08-02",
         "brand": "DWS IQ",
         "targetCountry": "FI",
-        "contentLanguage": "fi"
+        "contentLanguage": "fi",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "platform",
       "productType": "dws-iq-platform",
