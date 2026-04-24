@@ -31,15 +31,26 @@ Get-Content $envFile | ForEach-Object {
 
 # Extract required secrets
 $StripeSecretKey = $envVars["STRIPE_SECRET_KEY"]
+$StripeKey = $envVars["STRIPE_KEY"]
 $StripeWebhookSecret = $envVars["STRIPE_WEBHOOK_SECRET"]
 $SupabaseUrl = $envVars["SUPABASE_URL"]
 $SupabaseServiceKey = $envVars["SUPABASE_SERVICE_KEY"]
 
+# If STRIPE_SECRET_KEY not found, try STRIPE_KEY (which may contain label + secret)
+if (-not $StripeSecretKey -and $StripeKey) {
+    # Parse format: "label sk_live_..." → extract just "sk_live_..."
+    $parts = $StripeKey -split '\s+' | Where-Object { $_ -match '^sk_live_' }
+    if ($parts) {
+        $StripeSecretKey = $parts[0]
+        Write-Host "ℹ️  Extracted secret key from STRIPE_KEY" -ForegroundColor Gray
+    }
+}
+
 # Validate secrets
-if (-not $StripeSecretKey) { throw "❌ STRIPE_SECRET_KEY not found in .env" }
+if (-not $StripeSecretKey) { throw "❌ STRIPE_SECRET_KEY or STRIPE_KEY not found in .env" }
 if (-not $StripeWebhookSecret) { throw "❌ STRIPE_WEBHOOK_SECRET not found in .env" }
-if (-not $SupabaseUrl) { throw "⚠️  SUPABASE_URL not found in .env (optional)" }
-if (-not $SupabaseServiceKey) { throw "⚠️  SUPABASE_SERVICE_KEY not found in .env (optional)" }
+if (-not $SupabaseUrl) { Write-Host "⚠️  SUPABASE_URL not found in .env (optional)" -ForegroundColor Yellow }
+if (-not $SupabaseServiceKey) { Write-Host "⚠️  SUPABASE_SERVICE_KEY not found in .env (optional)" -ForegroundColor Yellow }
 
 Write-Host "✅ Secrets loaded successfully" -ForegroundColor Green
 
