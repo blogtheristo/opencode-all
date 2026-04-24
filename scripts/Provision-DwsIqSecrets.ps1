@@ -75,7 +75,9 @@ $ErrorActionPreference = 'Stop'
 $SecretMap = [ordered]@{
     'STRIPE_SECRET_KEY'    = 'stripe-secret-key'
     'SUPABASE_URL'         = 'supabase-url'
+    'SUPABASE_ANON_KEY'    = 'supabase-anon-key'
     'SUPABASE_SERVICE_KEY' = 'supabase-service-key'
+    'JWT_SECRET'           = 'jwt-secret'
     'SMTP_USER'            = 'smtp-user'
     'SMTP_PASS'            = 'smtp-pass'
 }
