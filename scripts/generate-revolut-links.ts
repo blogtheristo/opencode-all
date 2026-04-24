@@ -44,7 +44,7 @@ const PRODUCTS_FILE = path.join(
   'products.json',
 );
 
-const REVOLUT_API_URL = process.env.REVOLUT_API_URL || 'https://api.revolut.com/api/1.0';
+const REVOLUT_API_URL = process.env.REVOLUT_API_URL || 'https://merchant.revolut.com/api';
 const REVOLUT_API_KEY = process.env.REVOLUT_SECRET_KEY || process.env.REVOLUT_API_KEY;
 
 const args = process.argv.slice(2);
@@ -74,7 +74,7 @@ async function createPaymentLink(
   const recipientEmail = 'store@dws10.com';
 
   try {
-    const response = await fetch(`${REVOLUT_API_URL}/orders`, {
+    const response = await fetch(`${REVOLUT_API_URL}/payment-links`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${REVOLUT_API_KEY}`,
