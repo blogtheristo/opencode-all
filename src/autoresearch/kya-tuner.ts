@@ -19,18 +19,8 @@ import { createOptimizationEvent, evaluateOptimization } from '../firehorse/audi
 import { generateSyntheticSessions, type SyntheticKyaSession } from './synthetic-kya';
 import logger from '../utils/logger.js';
 
-// Local type definition (imported from unresolvable firehorse module)
-interface OptimizationDecisionEvent {
-  agentId: string;
-  microvmId: string;
-  attestationHash: string;
-  scope: string;
-  metricName: string;
-  beforeValue: number;
-  afterValue: number;
-  decision: 'KEEP' | 'ROLLBACK';
-  timestamp: string;
-}
+// Type placeholder while firehorse module is excluded from build
+type OptimizationDecisionEvent = any;
 
 // ============================================================================
 // TUNABLE PARAMETERS (autoresearch target — agent modifies these)
