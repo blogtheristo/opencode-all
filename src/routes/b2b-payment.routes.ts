@@ -308,21 +308,6 @@ router.post(
             order_id: id,
             dws_company: profile.company_name,
           },
-          line_items: [
-            {
-              price_data: {
-                currency: 'eur',
-                product_data: {
-                  name: order.product_id,
-                  metadata: {
-                    order_id: id,
-                  },
-                },
-                unit_amount: order.remainder_amount_cents,
-              },
-              quantity: 1,
-            },
-          ],
           description: `Invoice for order ${id} - ${profile.company_name}`,
           due_date: Math.floor(new Date(order.payment_due_at).getTime() / 1000),
         });
