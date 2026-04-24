@@ -45,8 +45,11 @@ function generateProductXml(product) {
     imageUrl = `${BASE_URL}/${imageUrl}`;
   }
 
-  // All products link to the main store page
-  const productUrl = `${BASE_URL}/buy/`;
+  // Products link to their detail page or main store
+  let productUrl = `${BASE_URL}/buy/`;
+  if (product.detailsUrl) {
+    productUrl = `${BASE_URL}/${product.detailsUrl.replace('../', '')}`;
+  }
 
   let xml = `
     <item>
@@ -105,9 +108,11 @@ function generateProductXml(product) {
       <g:checkout_link_template>${escapeXml(checkoutLink)}</g:checkout_link_template>`;
 
   // Shipping (digital products = free)
+  // Subscription products must be limited to single country (FI) per Google requirements
+  const shippingCountry = product.type === 'monthly' ? 'FI' : google.targetCountry || 'FI';
   xml += `
       <g:shipping>
-        <g:country>${google.targetCountry || 'FI'}</g:country>
+        <g:country>${shippingCountry}</g:country>
         <g:service>Digital Delivery</g:service>
         <g:price>0.00 EUR</g:price>
       </g:shipping>
