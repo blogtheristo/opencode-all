@@ -53,9 +53,10 @@ const forceRegen = args.includes('--force');
 
 interface RevolutPaymentResponse {
   id: string;
-  payment_link: string;
+  checkout_url?: string;
+  payment_link?: string;
   state: string;
-  expires_at: string;
+  expires_at?: string;
 }
 
 async function createPaymentLink(
@@ -73,7 +74,7 @@ async function createPaymentLink(
   const recipientEmail = 'store@dws10.com';
 
   try {
-    const response = await fetch(`${REVOLUT_API_URL}/payment-requests`, {
+    const response = await fetch(`${REVOLUT_API_URL}/orders`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${REVOLUT_API_KEY}`,
@@ -100,7 +101,7 @@ async function createPaymentLink(
     }
 
     const data = (await response.json()) as RevolutPaymentResponse;
-    return data.payment_link;
+    return data.checkout_url || data.payment_link;
   } catch (error) {
     console.error(`  Network error: ${error}`);
     return null;
