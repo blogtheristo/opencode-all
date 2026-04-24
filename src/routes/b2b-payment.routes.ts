@@ -1,8 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
 import { supabase } from '../services/supabase.service';
-import { validateAuth } from '../middleware/auth.middleware';
-import { validateRequest } from '../middleware/validate-request.middleware';
+import validateAuth from '../middleware/auth.middleware';
 import { logger } from '../services/logger.service';
 import Stripe from 'stripe';
 
@@ -55,7 +54,6 @@ const WebhookSchema = z.object({
 router.post(
   '/billing-profiles',
   validateAuth,
-  validateRequest(CreateBillingProfileSchema),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId = req.user?.id;
