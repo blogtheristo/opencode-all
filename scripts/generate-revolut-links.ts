@@ -74,25 +74,32 @@ async function createPaymentLink(
   const recipientEmail = 'store@dws10.com';
 
   try {
-    const response = await fetch(`${REVOLUT_API_URL}/payment-links`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${REVOLUT_API_KEY}`,
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        'Revolut-Api-Version': '2023-09-01',
+    const url = `${REVOLUT_API_URL}/payment-links`;
+    const headers = {
+      Authorization: `Bearer ${REVOLUT_API_KEY}`,
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      'Revolut-Api-Version': '2024-09-01',
+    };
+    const payload = {
+      amount: Math.round(amount * 100),
+      currency: currency.toUpperCase(),
+      recipient: {
+        email: recipientEmail,
       },
-      body: JSON.stringify({
-        amount: Math.round(amount * 100), // Convert to cents
-        currency: currency.toUpperCase(),
-        recipient: {
-          email: recipientEmail,
-        },
-        description: description,
-        reference: productId,
-        // Link expires in 365 days (max)
-        expiry: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
-      }),
+      description: description,
+      reference: productId,
+      expiry: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
+    };
+
+    console.log(`[DEBUG] Sending to: ${url}`);
+    console.log(`[DEBUG] Headers:`, JSON.stringify(headers, null, 2));
+    console.log(`[DEBUG] Payload:`, JSON.stringify(payload, null, 2));
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(payload),
     });
 
     if (!response.ok) {
