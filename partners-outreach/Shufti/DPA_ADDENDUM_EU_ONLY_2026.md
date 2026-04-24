@@ -1,14 +1,18 @@
 # ADDENDUM TO DATA PROCESSING AGREEMENT — EU-Only Processing
 
 VERSION AND AGENT HISTORY
-Version: 1.2
-Date: 2026-04-23
-Author: Claude Code (claude/kya-memory-binding-RuJ0G)
+Version: 1.5
+Date: 2026-04-24
+Author: Claude Code (claude/fix-dpa-addendum-SzFLQ)
 Owner: Lifetime Oy
-Status: Ready for Signature
+Status: Non-Binding Partner Alignment Reference (forward-looking)
+Signature target: NONE — original Shufti DPA (26.02.2026) is the binding instrument
 
 Sessions & Modifications:
 
+- Version: 1.5 | Tool: Claude Code (Opus 4.7) | Session: claude/fix-dpa-addendum-SzFLQ | Date: 24.04.2026 | Changes: Reclassified the document from "Addendum to DPA — Ready for Signature" to "Partner Alignment Memorandum — Non-Binding Reference" per Risto direction (24.04.2026). Rationale: the document references Lifetime Oy's public KYA Standard v1.5 (Clause 8) which is a mutable Lifetime-owned standard; making the document binding would tie Shufti's contractual obligations to a unilaterally-mutable external reference, which is not appropriate for a third-party data processing contract. Signature target reverts to Shufti's original DPA dated 26 February 2026 (`partners-outreach/Shufti/Shufti Data Processing Agreement 26022026.docx`), which is signed as-is. The four EU-compliance commitments confirmed by Shufti Compliance on 2 April 2026 (EU-only processing, GCP EEA lock, 30-day sub-processor notice, EU-only clause insertion) remain captured in writing via the compliance@shufti.com email of 2 April 2026 and are referenced in this memo as shared partner intent. Added prominent NON-BINDING banner; added "Partnership Vision" preamble framing KYA Memory Binding (Clause 8) as Lifetime's invitation for Shufti to align with the broader Aegis sovereignty roadmap. Clause text unchanged from v1.4 — only framing, banner, status, and changelog updated. v1.4 file retained as version history.
+- Version: 1.4 | Tool: Claude Code (Opus 4.7) | Session: claude/fix-dpa-addendum-SzFLQ | Date: 24.04.2026 | Changes: Re-emit partner-facing HTML (Learn/ + partners-outreach/Shufti/) as a single well-formed DOCTYPE; v1.3 artifact contained two concatenated HTML documents which broke browser rendering for Haris R. (Shufti). Wrapped orphan `<li>` items in `<ul>`, replaced leaked markdown italics (`_Source: ..._`) with `<em>` tags, wrapped clause body text in `<p>` blocks. No clause text changes; rendering fix only. Scope confirmed by Risto: addendum only — base Shufti DPA (26.02.2026) is NOT being modified or signed in this round.
+- Version: 1.3 | Tool: Codex 5.3 | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Replaced markdown `~~strike~~` syntax with semantic HTML `<del>` tags for the removed sub-processor row (Programmers Force) so legal strike-through renders in browsers. NOTE: artifact was published with a duplicated DOCTYPE prefix (v1.2 document concatenated above v1.3 document) — superseded by v1.4 rendering fix.
 - Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Added Clause 8 (KYA Memory Binding alignment — tenant isolation of verification data; no cross-customer blending; memory-mutation audit trail) per public KYA Standard v1.5 §3 (Memory Binding)
 - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/audit-shufti-dpa-artifacts-HFEGx | Date: 08.04.2026 | Changes: Added Clause 6 (ML training prohibition — binding contractual obligation per PR #768 audit finding A) and Clause 7 (GDPR Art. 9 legal basis for biometric processing per audit finding #3)
 - Version: 1.0 | Tool: Claude Code | Session: claude/check-dpa-status-YD0A1 | Date: 07.04.2026 | Changes: Initial addendum with EU-only processing, GCP EEA lock, 30-day sub-processor notification, breach notification chain
