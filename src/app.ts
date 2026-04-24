@@ -30,11 +30,9 @@ import bimRoutes from './routes/bim.routes.js';
 import hilRoutes from './routes/hil.routes.js';
 import situationRoomRoutes from './routes/situation-room.routes.js';
 // import grokConsentRoutes from './routes/grok-consent.routes.js'; // TODO: restore when grok-consent is available
-import capTableRouter from './investor-reports/cap-table-routes.js';
 import paymentRoutes from './routes/payment.routes.js';
 import b2bPaymentRoutes from './routes/b2b-payment.routes.js';
 import stripeWebhookRoutes from './routes/stripe-webhook.routes.js';
-import { createMCPRouter } from './mcp/agent-server.js';
 import captainRoutes from './routes/captain.routes.js';
 import usageRoutes from './routes/usage.routes.js';
 import onboardRoutes from './routes/onboard.routes.js';
@@ -47,14 +45,30 @@ import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
 import { constructionLeadsScheduler, fetchAndProcessLeads } from './construction-leads/index.js';
-// @ts-ignore — firehorse module exists at runtime in container
-import { firehorseRoutes, initFirehorsePilot, shutdownFirehorsePilot } from './firehorse/index';
 import { memoryScheduler } from './agents/memory.scheduler.js';
 import { apiVersionMiddleware } from './middleware/api-version.middleware.js';
 import { correlationId } from './middleware/correlation-id.js';
 import { errorHandler, notFoundHandler } from './middleware/error-handler.js';
 import { healthCheck, livenessCheck } from './middleware/health.js';
 import { validateEnv } from './middleware/env-validation.js';
+
+// ============ STUBS FOR MODULES EXCLUDED FROM BUILD ============
+// tsconfig.json excludes src/firehorse/**, src/mcp/**, and src/investor-reports/**
+// from compilation, so they are not present in dist/ at runtime. Static imports
+// from these paths would crash the container with ERR_MODULE_NOT_FOUND before
+// app.listen() — breaking Cloud Run health checks. Instead we expose no-op
+// stubs; affected routes will 404 and scheduled hooks are no-ops. Unstub by
+// restoring the modules in tsconfig `include` and reverting this block.
+const firehorseRoutes = express.Router();
+const initFirehorsePilot = (): void => {
+  logger.warn('firehorse stubbed — module excluded from build');
+};
+const shutdownFirehorsePilot = (): void => {
+  /* no-op */
+};
+const createMCPRouter = (): express.Router => express.Router();
+const capTableRouter = express.Router();
+// ================================================================
 
 dotenv.config();
 
