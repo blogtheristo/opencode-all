@@ -270,7 +270,7 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
         command_line: command.raw,
         error: errorMsg,
       });
-      await logActivity(null, command, 'manual_update_failed', errorMsg, payload);
+      await logActivity(null, 'manual_update_failed', errorMsg, payload);
 
       const senderEmail = extractEmail(fromEmail);
       if (senderEmail) {
@@ -304,7 +304,7 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
 
     // 7. Append outreach_activity
     const summary = buildSummary(command);
-    await logActivity(thread, command, 'manual_update', summary, payload);
+    await logActivity(thread, 'manual_update', summary, payload);
 
     // 8. Update inbound_emails record
     await updateInboundEmail(messageId, {
@@ -341,7 +341,7 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
     const errorMsg = (err as Error).message;
     logger.error('Webhook: update failed', { error: errorMsg, token: command.token });
 
-    await logActivity(thread, command, 'manual_update_failed', errorMsg, payload);
+    await logActivity(thread, 'manual_update_failed', errorMsg, payload);
     await updateInboundEmail(messageId, {
       parse_ok: false,
       thread_token: command.token,

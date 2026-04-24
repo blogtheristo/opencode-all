@@ -155,9 +155,16 @@ router.post(
       // Fire-and-forget: send Day 0 welcome email
       const userEmail = (req as any).user?.email;
       if (userEmail) {
-        onboardingEmailService.sendWelcome(userEmail, body.companyName, body.industry).catch(() => {
-          /* logged internally, never blocks onboarding */
-        });
+        onboardingEmailService
+          .sendWelcomeSequenceEmail({
+            email: userEmail,
+            firstName: body.firstName || 'there',
+            companyName: body.companyName,
+            industry: body.industry,
+          })
+          .catch(() => {
+            /* logged internally, never blocks onboarding */
+          });
       }
 
       res.status(201).json({

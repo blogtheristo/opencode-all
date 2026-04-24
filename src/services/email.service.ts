@@ -375,8 +375,13 @@ class EmailService {
   /**
    * Send captain pre-briefing email (stub)
    */
-  async sendCaptainPreBriefing(data: any): Promise<void> {
-    logger.debug('Stub: sendCaptainPreBriefing', data);
+  async sendCaptainPreBriefing(
+    email: string,
+    name: string,
+    industry: string,
+    seatLevel: string,
+  ): Promise<void> {
+    logger.debug('Stub: sendCaptainPreBriefing', { email, name, industry, seatLevel });
   }
 
   /**

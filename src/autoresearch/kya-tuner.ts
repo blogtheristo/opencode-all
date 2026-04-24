@@ -13,9 +13,9 @@
  * Audit: Firehorse JSONL (EU AI Act Article 12)
  */
 
-import { createOptimizationEvent, evaluateOptimization } from '../firehorse/audit-schema';
-import type { OptimizationDecisionEvent } from '../firehorse/audit-schema';
-import { generateSyntheticSessions, type SyntheticKyaSession } from './synthetic-kya';
+import { createOptimizationEvent, evaluateOptimization } from '../firehorse/audit-schema.js';
+import type { OptimizationDecisionEvent } from '../firehorse/audit-schema.js';
+import { generateSyntheticSessions, type SyntheticKyaSession } from './synthetic-kya.js';
 import logger from '../utils/logger.js';
 
 // ============================================================================

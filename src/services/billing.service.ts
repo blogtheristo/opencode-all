@@ -112,6 +112,24 @@ export async function createStripeInvoice(params: InvoiceParams): Promise<Stripe
     logger.error('Failed to fetch user Stripe customer ID', { error, user_id });
   }
 
+  // Step 1: Create invoice items
+  await stripe.invoiceItems.create({
+    customer: customer_id,
+    amount: product_price_cents,
+    currency: 'eur',
+    description: `DWS Platform Deployment - Order #${order_id}`,
+    metadata: { order_id },
+  });
+
+  await stripe.invoiceItems.create({
+    customer: customer_id,
+    amount: -deposit_amount_cents,
+    currency: 'eur',
+    description: 'Deposit Credit - Payment received via Revolut',
+    metadata: { order_id },
+  });
+
+  // Step 2: Create invoice (automatically includes pending invoice items)
   const invoice = await stripe.invoices.create({
     customer: customer_id,
     metadata: {
@@ -131,30 +149,6 @@ export async function createStripeInvoice(params: InvoiceParams): Promise<Stripe
       {
         name: 'Billing Address',
         value: `${billing_address}, ${postal_code} ${city}, ${country}`,
-      },
-    ],
-    line_items: [
-      {
-        price_data: {
-          currency: 'eur',
-          product_data: {
-            name: product_id,
-            description: `DWS Platform Deployment - Order #${order_id}`,
-          },
-          unit_amount: product_price_cents,
-        },
-        quantity: 1,
-      },
-      {
-        price_data: {
-          currency: 'eur',
-          product_data: {
-            name: 'Deposit Credit',
-            description: 'Payment received via Revolut',
-          },
-          unit_amount: -deposit_amount_cents,
-        },
-        quantity: 1,
       },
     ],
     due_date: Math.floor(params.payment_due_date.getTime() / 1000),
