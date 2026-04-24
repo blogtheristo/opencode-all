@@ -1,10 +1,11 @@
 /**
- * DWS10.com Iron Clad / Gamma Navigation v3.2
+ * DWS10.com Iron Clad / Gamma Navigation v3.3
  * Unified navigation bar for all pages (Gamma-aligned with mobile hamburger menu)
  *
  * Usage: Add this script to any page:
  * <script src="/shared-assets/nav/ironclad-nav.js"></script>
  *
+ * v3.3 — Products menu rendered at runtime from config/products.json (single source of truth shared with /price-list/); categories mirror CATEGORY_ORDER from scripts/gen-price-list-html.cjs
  * v3.2 — Nordic Industrial rebrand + duplicate-include guard: inject nordic-theme.css + IBM Plex Sans fonts + language subdirectory redirect
  * v3.1 — Language selector (EN | FI | SV) with localStorage persistence
  * v3.0 — Mobile hamburger menu (slide-out panel, tap-to-expand submenus)
@@ -212,28 +213,11 @@
                     </ul>
                 </li>
 
-                <!-- Products ▾ -->
+                <!-- Products ▾ (categories + items populated at runtime from config/products.json — same source as /price-list/) -->
                 <li class="ironclad-menu-item">
                     <a href="#" class="ironclad-link">Products ▾</a>
-                    <ul class="ironclad-dropdown ironclad-dropdown-wide">
-                        <li><a href="${basePath}products/dwsiq.html" class="ironclad-primary">DWS IQ Platform v6</a></li>
-                        <li><a href="${basePath}products/climate-intelligence.html" style="color: #4ade80; font-weight: 600;">DWS IQ Climate Intelligence</a></li>
-                        <li><a href="${basePath}dual-use/" style="color: #d4a843; font-weight: 600;">DWS IQ Aegis — Dual-Use</a></li>
-                        <li class="ironclad-separator"></li>
-                        <li><a href="${basePath}products/bundle.html">Climate Reporting Bundle</a></li>
-                        <li><a href="${basePath}products/firehorse-automation.html">Firehorse Automation</a></li>
-                        <li><a href="${basePath}products/firehorse-omnichannel.html">Firehorse Omnichannel Next</a></li>
-                        <li><a href="${basePath}products/firehorse-reports.html">DWS IQ Report</a></li>
-                        <li class="ironclad-separator"></li>
-                        <li><a href="${basePath}products/expert-services.html">Workshop 3 Days</a></li>
-                        <li><a href="${basePath}products/expert-advisory.html">Expert Advisory (Monthly)</a></li>
-                        <li><a href="${basePath}products/consulting-fit55.html">Consulting Fit for 55</a></li>
-                        <li><a href="${basePath}products/consulting.html">Consulting – Hourly</a></li>
-                        <li class="ironclad-separator"></li>
-                        <li><a href="${basePath}products/ai-consulting.html" class="ironclad-primary">AI Consulting – Agentic</a></li>
-                        <li><a href="${basePath}products/sovereignty-cloud-consulting.html" class="ironclad-primary">Sovereignty Cloud Consulting</a></li>
-                        <li class="ironclad-separator"></li>
-                        <li><a href="${basePath}world-model/" class="ironclad-primary">Lifetime World Model</a></li>
+                    <ul class="ironclad-dropdown ironclad-dropdown-wide" id="ironclad-products-menu" data-products-menu="pending">
+                        <li class="ironclad-products-loading" style="padding:10px 20px;color:#64748b;font-style:italic;">Loading products…</li>
                     </ul>
                 </li>
 
@@ -1088,25 +1072,145 @@
     // ---- Mobile tap-to-expand dropdowns and submenus ----
     const mobileQuery = window.matchMedia('(max-width: 900px)');
 
-    // Find all links that have a dropdown or submenu as next sibling
-    document.querySelectorAll('.ironclad-link, .ironclad-has-submenu > a').forEach(function (link) {
-      const sibling = link.nextElementSibling;
-      if (!sibling) return;
-      const isDropdown = sibling.classList.contains('ironclad-dropdown');
-      const isSubmenu = sibling.classList.contains('ironclad-submenu');
-      if (!isDropdown && !isSubmenu) return;
+    function attachMobileToggles(root) {
+      (root || document)
+        .querySelectorAll('.ironclad-link, .ironclad-has-submenu > a')
+        .forEach(function (link) {
+          if (link.dataset.ironcladToggle === '1') return;
+          const sibling = link.nextElementSibling;
+          if (!sibling) return;
+          const isDropdown = sibling.classList.contains('ironclad-dropdown');
+          const isSubmenu = sibling.classList.contains('ironclad-submenu');
+          if (!isDropdown && !isSubmenu) return;
 
-      link.addEventListener('click', function (e) {
-        if (mobileQuery.matches) {
-          e.preventDefault();
-          e.stopPropagation();
-          sibling.classList.toggle('expanded');
-        } else if (link.getAttribute('href') === '#') {
-          // Prevent hash jump on desktop for # links
-          e.preventDefault();
-        }
-      });
-    });
+          link.dataset.ironcladToggle = '1';
+          link.addEventListener('click', function (e) {
+            if (mobileQuery.matches) {
+              e.preventDefault();
+              e.stopPropagation();
+              sibling.classList.toggle('expanded');
+            } else if (link.getAttribute('href') === '#') {
+              // Prevent hash jump on desktop for # links
+              e.preventDefault();
+            }
+          });
+        });
+    }
+    attachMobileToggles(document);
+
+    // ---- Products menu — single source of truth: dws10.com/config/products.json ----
+    // Same JSON the /price-list/ page consumes. Keeps nav + price list in lockstep
+    // so there is exactly one product record, shared across both surfaces.
+    populateProductsMenu();
+
+    function populateProductsMenu() {
+      const menu = document.getElementById('ironclad-products-menu');
+      if (!menu || menu.dataset.productsMenu !== 'pending') return;
+
+      const CATEGORY_ORDER = ['platform', 'ai-cloud', 'advisory', 'digital', 'hardware', 'add-on'];
+      const CATEGORY_LABELS = {
+        platform: 'Platform & Products',
+        'ai-cloud': 'AI & Cloud',
+        advisory: 'Expert Advisory & Training',
+        digital: 'Digital Services',
+        hardware: 'Sovereign Hardware',
+        'add-on': 'Add-ons',
+      };
+
+      function escHtml(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+      function normalizeUrl(u) {
+        if (!u) return '';
+        return basePath + String(u).replace(/^(?:\.\.\/)+/, '');
+      }
+      function renderFailure() {
+        menu.innerHTML =
+          '<li><a href="' +
+          basePath +
+          'buy/" class="ironclad-primary">Buy / Store</a></li>' +
+          '<li><a href="' +
+          basePath +
+          'price-list/" class="ironclad-primary">View full Price List →</a></li>';
+        menu.dataset.productsMenu = 'fallback';
+        attachMobileToggles(menu);
+      }
+
+      fetch(basePath + 'config/products.json', { cache: 'no-store' })
+        .then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.json();
+        })
+        .then(function (data) {
+          const buckets = {};
+          Object.values(data.products || {}).forEach(function (p) {
+            if (!p || p.productType === 'archived') return;
+            const c = p.storeCategory || 'other';
+            (buckets[c] = buckets[c] || []).push(p);
+          });
+          const orderedCats = CATEGORY_ORDER.filter(function (c) {
+            return buckets[c] && buckets[c].length;
+          }).concat(
+            Object.keys(buckets).filter(function (c) {
+              return CATEGORY_ORDER.indexOf(c) === -1;
+            }),
+          );
+
+          const html = orderedCats
+            .map(function (cat) {
+              const label = CATEGORY_LABELS[cat] || cat;
+              const items = buckets[cat]
+                .slice()
+                .sort(function (a, b) {
+                  return (
+                    (a.buyPageOrder == null ? 999 : a.buyPageOrder) -
+                      (b.buyPageOrder == null ? 999 : b.buyPageOrder) ||
+                    (a.name || '').localeCompare(b.name || '')
+                  );
+                })
+                .map(function (p) {
+                  const href = normalizeUrl(p.detailsUrl) || basePath + 'buy/';
+                  return (
+                    '<li><a href="' + escHtml(href) + '">' + escHtml(p.name || p.id) + '</a></li>'
+                  );
+                })
+                .join('');
+              return (
+                '<li class="ironclad-has-submenu">' +
+                '<a href="#" class="ironclad-primary">' +
+                escHtml(label) +
+                ' <small style="color:#64748b;font-weight:400;">(' +
+                buckets[cat].length +
+                ')</small> ▸</a>' +
+                '<ul class="ironclad-submenu">' +
+                items +
+                '</ul>' +
+                '</li>'
+              );
+            })
+            .join('');
+
+          menu.innerHTML =
+            html +
+            '<li class="ironclad-separator"></li>' +
+            '<li><a href="' +
+            basePath +
+            'price-list/" class="ironclad-primary">View full Price List →</a></li>' +
+            '<li><a href="' +
+            basePath +
+            'buy/">Buy / Store</a></li>';
+          menu.dataset.productsMenu = 'loaded';
+          attachMobileToggles(menu);
+        })
+        .catch(function (e) {
+          console.warn('[ironclad-nav] products.json load failed:', e && e.message);
+          renderFailure();
+        });
+    }
 
     // Reset mobile state on resize to desktop
     mobileQuery.addEventListener('change', function (e) {
