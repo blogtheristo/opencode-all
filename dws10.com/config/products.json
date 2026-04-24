@@ -21,7 +21,7 @@
       "detailsUrl": "../products/dwsiq.html",
       "featured": true,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1505",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -58,7 +58,7 @@
       "detailsUrl": "../products/firehorse-omnichannel.html",
       "featured": true,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1426",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Firehorse",
@@ -95,7 +95,7 @@
       "detailsUrl": "../products/firehorse-automation.html",
       "featured": false,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1505",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Firehorse",
@@ -132,7 +132,7 @@
       "detailsUrl": "../products/firehorse-starter-v2.html",
       "featured": true,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1505",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -169,7 +169,7 @@
       "detailsUrl": "../products/firehorse-reports.html",
       "featured": false,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1505",
         "condition": "new",
         "availability": "in_stock",
         "brand": "DWS IQ",
@@ -206,7 +206,7 @@
       "detailsUrl": "../products/firehorse-signed-reports.html",
       "featured": false,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1505",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Firehorse",
@@ -243,7 +243,7 @@
       "detailsUrl": "../products/firehorse-content-management.html",
       "featured": false,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1505",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Firehorse",
@@ -279,7 +279,7 @@
       "detailsUrl": "../products/expert-services.html",
       "featured": false,
       "google": {
-        "productCategory": "Professional Services",
+        "productCategory": "1426",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -315,7 +315,7 @@
       "detailsUrl": "../products/consulting.html",
       "featured": false,
       "google": {
-        "productCategory": "Professional Services",
+        "productCategory": "1426",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -351,7 +351,7 @@
       "detailsUrl": "../products/expert-advisory.html",
       "featured": false,
       "google": {
-        "productCategory": "Professional Services",
+        "productCategory": "1426",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -382,7 +382,7 @@
       "detailsUrl": "../products/consulting-fit55.html",
       "featured": false,
       "google": {
-        "productCategory": "Professional Services",
+        "productCategory": "1426",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -418,7 +418,7 @@
       "detailsUrl": "../products/aws-consultancy.html",
       "featured": false,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1426",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -454,7 +454,7 @@
       "detailsUrl": "../products/conversational-agent.html",
       "featured": false,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1505",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -485,7 +485,7 @@
       "detailsUrl": "../products/m365-consultancy.html",
       "featured": false,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1426",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -521,7 +521,7 @@
       "detailsUrl": "../products/ai-agent-engineering.html",
       "featured": false,
       "google": {
-        "productCategory": "Professional Services",
+        "productCategory": "1426",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -557,7 +557,7 @@
       "detailsUrl": "../products/lean-project.html",
       "featured": false,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1505",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Firehorse",
@@ -588,7 +588,7 @@
       "detailsUrl": "../products/ai-consultant-day.html",
       "featured": false,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1426",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -624,7 +624,7 @@
       "detailsUrl": "../products/business-mentor-30.html",
       "featured": false,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1426",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -660,7 +660,7 @@
       "detailsUrl": "../products/firehorse-coach.html",
       "featured": false,
       "google": {
-        "productCategory": "Professional Services",
+        "productCategory": "1426",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Firehorse",
@@ -696,7 +696,7 @@
       "detailsUrl": "../products/firehorse-flow.html",
       "featured": false,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1505",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Firehorse",
@@ -727,7 +727,7 @@
       "detailsUrl": "../products/professional-web-pages.html",
       "featured": false,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1426",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -763,7 +763,7 @@
       "detailsUrl": "../products/secure-email-proton.html",
       "featured": false,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1426",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -799,7 +799,7 @@
       "detailsUrl": "../products/firehorse-data-services.html",
       "featured": false,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1426",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Firehorse",
@@ -835,7 +835,7 @@
       "detailsUrl": "../products/devops-lead.html",
       "featured": false,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1505",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -867,7 +867,7 @@
       "detailsUrl": "../products/digital-design-gold.html",
       "featured": false,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1426",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -903,7 +903,7 @@
       "detailsUrl": "../products/cloud-ready-teams.html",
       "featured": false,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1426",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -939,7 +939,7 @@
       "detailsUrl": "../products/ai-koulutus-3d.html",
       "featured": false,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1426",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -970,7 +970,7 @@
       "detailsUrl": "../products/ai-consulting.html",
       "featured": true,
       "google": {
-        "productCategory": "Professional Services",
+        "productCategory": "1426",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -1006,7 +1006,7 @@
       "detailsUrl": "../products/edge-node-gn100.html",
       "featured": true,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "2682",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Acer",
@@ -1042,7 +1042,7 @@
       "detailsUrl": "../products/sovereign-database.html",
       "featured": true,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1505",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -1078,7 +1078,7 @@
       "detailsUrl": "../products/sovereignty-cloud-consulting.html",
       "featured": true,
       "google": {
-        "productCategory": "Professional Services",
+        "productCategory": "1426",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -1114,7 +1114,7 @@
       "detailsUrl": "../products/cloud-pricing.html",
       "featured": false,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1505",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -1150,7 +1150,7 @@
       "detailsUrl": "../products/cloud-pricing.html",
       "featured": false,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1505",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -1186,7 +1186,7 @@
       "detailsUrl": "../products/cloud-pricing.html",
       "featured": true,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1505",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -1222,7 +1222,7 @@
       "detailsUrl": "../products/cloud-pricing.html",
       "featured": true,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1505",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
@@ -1258,7 +1258,7 @@
       "detailsUrl": "../products/climate-intelligence.html",
       "featured": true,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1505",
         "condition": "new",
         "availability": "in_stock",
         "brand": "DWS IQ",
@@ -1295,7 +1295,7 @@
       "detailsUrl": "../products/aegis.html",
       "featured": true,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1505",
         "condition": "new",
         "availability": "preorder",
         "brand": "DWS IQ",
@@ -1335,7 +1335,7 @@
       "detailsUrl": "../products/themis.html",
       "featured": true,
       "google": {
-        "productCategory": "Software > Business & Productivity Software",
+        "productCategory": "1505",
         "condition": "new",
         "availability": "preorder",
         "brand": "DWS IQ",

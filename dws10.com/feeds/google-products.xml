@@ -4,7 +4,8 @@
     <title>Lifetime Firehorse Store — Sovereign AI Products &amp; Services</title>
     <link>https://dws10.com/buy/</link>
     <description>Sovereign AI products and services for enterprises and SMEs. EU-hosted, CLOUD Act free. Climate compliance, industrial AI, and expert advisory by Lifetime Oy.</description>
-    <lastBuildDate>Fri, 24 Apr 2026 04:30:25 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 24 Apr 2026 06:12:25 GMT</lastBuildDate>
+    <g:feedVersion>2.0</g:feedVersion>
 
     <item>
       <g:id>DWS-IQ-006</g:id>
@@ -17,7 +18,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>DWSIQ-V6-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:custom_label_0>featured</g:custom_label_0>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://checkout.revolut.com/pay/f023d433-0bf4-48fa-98cd-494de448df39</g:checkout_link_template>
@@ -38,7 +39,7 @@
       <g:condition>new</g:condition>
       <g:brand>Firehorse</g:brand>
       <g:mpn>FH-OMNI-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:custom_label_0>featured</g:custom_label_0>
       <g:custom_label_1>subscription</g:custom_label_1>
       <g:subscription_cost>
@@ -46,7 +47,7 @@
         <g:period_length>1</g:period_length>
         <g:amount>1499.00 EUR</g:amount>
       </g:subscription_cost>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -64,7 +65,7 @@
       <g:condition>new</g:condition>
       <g:brand>Firehorse</g:brand>
       <g:mpn>FH-AUTO-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://checkout.revolut.com/pay/b0a1fc57-83e8-4ccb-86c2-64930d135869</g:checkout_link_template>
       <g:shipping>
@@ -84,7 +85,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>CLM-BUNDLE-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:custom_label_0>featured</g:custom_label_0>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://checkout.revolut.com/pay/065b9efd-5fd1-43aa-bfb9-869c41c2b01f</g:checkout_link_template>
@@ -105,7 +106,7 @@
       <g:condition>new</g:condition>
       <g:brand>DWS IQ</g:brand>
       <g:mpn>FH-REPORT-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://checkout.revolut.com/pay/5997823a-553d-4eb2-82f6-668d2e884b9c</g:checkout_link_template>
       <g:shipping>
@@ -125,9 +126,9 @@
       <g:condition>new</g:condition>
       <g:brand>Firehorse</g:brand>
       <g:mpn>FH-SIGNED-REPORTS-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -145,7 +146,7 @@
       <g:condition>new</g:condition>
       <g:brand>Firehorse</g:brand>
       <g:mpn>FH-CMS-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://checkout.revolut.com/pay/b0a1fc57-83e8-4ccb-86c2-64930d135869</g:checkout_link_template>
       <g:shipping>
@@ -165,7 +166,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>EXP-SVC-2026</g:mpn>
-      <g:google_product_category>Professional Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://checkout.revolut.com/pay/897acfa9-630f-4e0c-be02-71058bd45e2e</g:checkout_link_template>
       <g:shipping>
@@ -185,7 +186,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>CONSULT-HR-2026</g:mpn>
-      <g:google_product_category>Professional Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://checkout.revolut.com/pay/106a84fe-2956-4619-ac66-b4e89b5d59f3</g:checkout_link_template>
       <g:shipping>
@@ -205,7 +206,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>EXP-ADV-2026</g:mpn>
-      <g:google_product_category>Professional Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:custom_label_1>subscription</g:custom_label_1>
       <g:subscription_cost>
         <g:period>month</g:period>
@@ -230,7 +231,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>CONSULT-FIT55-2026</g:mpn>
-      <g:google_product_category>Professional Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
@@ -250,9 +251,9 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>AWS-CONSULT-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -270,9 +271,9 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>CONV-AGENT-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -290,9 +291,9 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>M365-CONSULT-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -310,9 +311,9 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>AI-AGENT-2026</g:mpn>
-      <g:google_product_category>Professional Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -330,9 +331,9 @@
       <g:condition>new</g:condition>
       <g:brand>Firehorse</g:brand>
       <g:mpn>FH-LEAN-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -350,9 +351,9 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>AI-DAY-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -370,9 +371,9 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>MENTOR-30-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -390,9 +391,9 @@
       <g:condition>new</g:condition>
       <g:brand>Firehorse</g:brand>
       <g:mpn>FH-COACH-2026</g:mpn>
-      <g:google_product_category>Professional Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -410,9 +411,9 @@
       <g:condition>new</g:condition>
       <g:brand>Firehorse</g:brand>
       <g:mpn>FH-FLOW-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -430,9 +431,9 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>WEB-PAGES-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -450,9 +451,9 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>PROTON-WORKSPACE-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -470,9 +471,9 @@
       <g:condition>new</g:condition>
       <g:brand>Firehorse</g:brand>
       <g:mpn>FH-DATA-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -490,9 +491,9 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>DEVOPS-LEAD-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -510,9 +511,9 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>DESIGN-GOLD-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -530,9 +531,9 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>CRT-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -550,9 +551,9 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>AI-KOULUTUS-3D-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -570,10 +571,10 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>AI-CONSULT-2026</g:mpn>
-      <g:google_product_category>Professional Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:custom_label_0>featured</g:custom_label_0>
       <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -591,10 +592,10 @@
       <g:condition>new</g:condition>
       <g:brand>Acer</g:brand>
       <g:mpn>LF-EDGE-GN100-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>2682</g:google_product_category>
       <g:custom_label_0>featured</g:custom_label_0>
       <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -612,7 +613,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>SOVEREIGN-DB-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:custom_label_0>featured</g:custom_label_0>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
@@ -633,7 +634,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>SOVEREIGN-CLOUD-2026</g:mpn>
-      <g:google_product_category>Professional Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:custom_label_0>featured</g:custom_label_0>
       <g:custom_label_1>subscription</g:custom_label_1>
       <g:subscription_cost>
@@ -641,7 +642,7 @@
         <g:period_length>1</g:period_length>
         <g:amount>1500.00 EUR</g:amount>
       </g:subscription_cost>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -659,14 +660,14 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>DWS-US-STARTER-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:custom_label_1>subscription</g:custom_label_1>
       <g:subscription_cost>
         <g:period>month</g:period>
         <g:period_length>1</g:period_length>
         <g:amount>299.00 EUR</g:amount>
       </g:subscription_cost>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -684,14 +685,14 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>DWS-US-PILOT-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:custom_label_1>subscription</g:custom_label_1>
       <g:subscription_cost>
         <g:period>month</g:period>
         <g:period_length>1</g:period_length>
         <g:amount>799.00 EUR</g:amount>
       </g:subscription_cost>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -709,7 +710,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>DWS-EU-STARTER-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:custom_label_0>featured</g:custom_label_0>
       <g:custom_label_1>subscription</g:custom_label_1>
       <g:subscription_cost>
@@ -717,7 +718,7 @@
         <g:period_length>1</g:period_length>
         <g:amount>499.00 EUR</g:amount>
       </g:subscription_cost>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -735,7 +736,7 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>DWS-EU-PILOT-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:custom_label_0>featured</g:custom_label_0>
       <g:custom_label_1>subscription</g:custom_label_1>
       <g:subscription_cost>
@@ -743,7 +744,7 @@
         <g:period_length>1</g:period_length>
         <g:amount>1499.00 EUR</g:amount>
       </g:subscription_cost>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -761,7 +762,7 @@
       <g:condition>new</g:condition>
       <g:brand>DWS IQ</g:brand>
       <g:mpn>DWS-CLIMATE-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:custom_label_0>featured</g:custom_label_0>
       <g:custom_label_1>subscription</g:custom_label_1>
       <g:subscription_cost>
@@ -769,7 +770,7 @@
         <g:period_length>1</g:period_length>
         <g:amount>2999.00 EUR</g:amount>
       </g:subscription_cost>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -787,10 +788,10 @@
       <g:condition>new</g:condition>
       <g:brand>DWS IQ</g:brand>
       <g:mpn>DWS-AEGIS-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:custom_label_0>featured</g:custom_label_0>
       <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
@@ -808,10 +809,10 @@
       <g:condition>new</g:condition>
       <g:brand>DWS IQ</g:brand>
       <g:mpn>DWS-THEMIS-2026</g:mpn>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:custom_label_0>featured</g:custom_label_0>
       <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
         <g:service>Digital Delivery</g:service>
