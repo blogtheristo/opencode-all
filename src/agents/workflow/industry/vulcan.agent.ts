@@ -129,6 +129,7 @@ export class VulcanAgent extends BaseAgent {
         'steel-decarbonization-pathways',
       ],
       model: 'claude-haiku-4-5-20251001',
+      modelTier: 'standard',
     });
   }
 

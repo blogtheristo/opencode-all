@@ -6,10 +6,16 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.33
+Version: 3.39
 
 Sessions & Modifications:
 
+- Version: 3.39 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Terminology rename — "Aiven overlay" / "Aiven layer" (deprecated infrastructure labels) → "Article 12 Logging Pipeline" per new DWS_ARTICLE_12_LOGGING_STANDARD.md v1.0 (unified 3-tier canonical term). Aiven remains the correct name for the Postgres SaaS. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule; only V3Thesis_EN had the infra-context string in content
+- Version: 3.38 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Typo correction — "Aiwen" → "Aiven" (Aiven.io is our Helsinki Postgres partner) as part of repo-wide sweep of 116 files; no content change beyond the spelling fix; unified version track preserved (all 4 thesis files bumped in lockstep per CLAUDE.md thesis rule)
+- Version: 3.37 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: Lisätty osio 10.22 (DWS Skilled -taksonomia — kolme tasoa agenteille, työnkuluille ja jurisdiktioille); "GodAgent"/"Godagent"-brändäys poistettu käytöstä; kodifioitu `Skilled <Akseli>` / `Industrial Specialist <Akseli>` / `Industry <Akseli>` -kolmitasomalli kolmelle aktiiviselle akselille (Agentit, Työnkulut, Jurisdiktiot — EU/US/Aiven); malli suunniteltu laajennettavuuden tähden tuleville kyvykkyysakseleille (Datasets, Models, Regulations, Reports); lisätty lukumäärien dynamiikkakaavat (avoin `18+`, rekisteriankkuroitu, tuotekohtainen); kodifioidut poikkeukset (Docker/infra-tunnisteet, Pantheon kreikkalaismyyttinen brändi, historialliset tietueet); kanoninen lähde `docs/Deputy-Agents-Architecture.md` §1 Terminologia; lisätty avainpanos #31
+- Version: 3.36 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Täydennetty osio 10.21 Boardy-huomioilla: KYA open source -standardipolku Agentic AI Foundation / Linux Foundation -reitille, NIST-hakemuksen tila (ei lähetetty), Artikkeli 1 tarkka otsikointi, 2026-2029 julkaisuvaiheistus, EIC Step 1 -deliverable-kytkentä tutkimusohjelmaan; lisätty avainpanos #30
+- Version: 3.35 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Lisätty osio 10.21 (tohtoripolun kohdennus): KYA Agentic AI Foundation -linjaus, DWS 7 -tavoitteet, DWS 5 -> vetytalousjatkumo, dual-use-toimialat ja Nokia Defence -keskustelut, Aegis/Sovereign Infra/Connect -suvereniteettisegmentointi (kuva), Siemens- ja NVIDIA Connect -yhteistyöankkurit sekä Kari Smolanderille kohdistettu vastauskirjeen runko; lisätty avainpanos #29
+- Version: 3.34 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-work-EoyoF | Date: 20.04.2026 | Changes: Lisätty osio 10.20 (Huhtikuun 2026 kehitys) — neljä alaosiota: Anthropicin Skills-paradigman ulkoinen validointi (vahvistaa §10.13 taito-ensin -arkkitehtuurin), Lifetime Fleet -tiekartan kiteytyminen (Suomen dronestrategia 2030 + Baltia-ensin 12–16 vk MVP, "Kädet"-kerros siirtyy spesifikaatiosta aikatauluun), DWS IQ 7 Datakeskusten vaatimustenmukaisuusagentti (22. toimiala, RFNBO-delegoitu asetus 2023/1184 vihreän vedyn lisäisyysvaatimus), sääntelypinon laajennus NIS2:een ja CER:iin (Hybridiosaamiskeskus 8.5.2026, CORE-resilienssimalli) sekä perustajan→tiimin siirtymä (SOLO_FOUNDER_STATEMENT v1.2, CTO-yhteisrakentaja, /investor-outreach -taito, 10+ INTRO-muistiota); lisätty avainpanokset #25–#28
 - Version: 3.33 | Tool: Claude Code (Opus 4.6) | Session: claude/add-red-hat-partners-d8Hey | Date: 21.03.2026 | Changes: Lisätty Red Hat -avainlöydösten markkinadata alustatalouteen (§2.2), inferenssimuutoksen validointi reunalaskentaan (§2.4), Red Hat AgentOps -kumppanuus strategisiin kumppanuuksiin (§10.12.2), päivitetty SWOT-mahdollisuudet $644B markkinalla ja inferenssimuutosdatalla
 - Version: 3.32 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 03.04.2026 | Changes: Lisätty osio 10.19 (Opinnäytetyön versiointistrategia: v3.30.50 Metropolia-jäädytys); lisätty avainpanos #23; luotu jäädytetty V3Thesis_EN_v3.30.50.md (50-sivuinen Metropolia-versio) säilyttäen 82-sivuinen elävä dokumentti; päivitetty alatunniste kaksoisversioarkkitehtuurilla
 - Version: 3.31 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 31.03.2026 | Changes: Päivitetty osio 10.13.3 (Taitojen inventaario 6→21 taitoa, 4 aliagenttia, 4 kurinpitotaitoa); lisätty osio 10.13.7 (Kilpailija-analyysi: Toimialakohtainen vs geneerinen AI-harness — vertailu ECC 136-taidon kehykseen, kuusi kilpailuetua dokumentoitu); lisätty avainpanos #22
@@ -61,10 +67,10 @@ Session Links & References:
 Document Status:
 
 - Created: 30.12.2025
-- Last Modified: 03.04.2026
+- Last Modified: 21.04.2026
 - Language: Finnish
 - Languages Available: English, Suomi
-- Publication Status: DRAFT (V3.32 — Opinnäytetyön versiointistrategia: v3.30.50 jäädytetty Metropolia-versio + 82-sivuinen elävä dokumentti jatkuu)
+- Publication Status: DRAFT (V3.36 — KYA open source -standardipolku, NIST-tilanne, Artikkeli 1 tarkennus, julkaisuvaiheistus)
 
 ---
 
@@ -1961,7 +1967,7 @@ Red Hatin AgentOps-strategia — **Bring Your Own Agent (BYOA)** — tarjoaa yri
 
 **Strateginen yhteensopivuus DWS IQ 6:n kanssa:**
 
-- **Hybridipilvi-imperatiivi:** Red Hat tunnistaa, että onnistunut tekoälystrategia on oltava hybridipilvistrategia — kouluta, viritä ja aja malleja missä tahansa data sijaitsee vaarantamatta turvallisuutta, vaatimustenmukaisuutta tai datasuvereniteettia. Tämä kartoittuu suoraan DWS IQ 6:n käyttöönottomalliin (EU-pilvi + GN-100-reuna + Aiwen-overlay).
+- **Hybridipilvi-imperatiivi:** Red Hat tunnistaa, että onnistunut tekoälystrategia on oltava hybridipilvistrategia — kouluta, viritä ja aja malleja missä tahansa data sijaitsee vaarantamatta turvallisuutta, vaatimustenmukaisuutta tai datasuvereniteettia. Tämä kartoittuu suoraan DWS IQ 6:n käyttöönottomalliin (EU-pilvi + GN-100-reuna + Aiven-overlay).
 - **Modernisoi ennen automatisointia:** Avoin, joustava hybridipilvi (Linux, kontit, Kubernetes) linjautuu DWS7:n konttinatiiviin arkkitehtuuriin.
 - **Red Hat + NVIDIA yhteistyö** turvallisessa tekoälyagenttiinfrastruktuurissa tukee suoraan KYA-hallittua agenttien eristysmallia.
 - **MCP siltana:** Red Hat tunnistaa MCP:n kriittiseksi vanhojen järjestelmien ja agenttitekoälyn yhdistämisessä — validoiden DWS IQ 6:n MCP Hub -arkkitehtuurin (osio 2.5.3).
@@ -2832,6 +2838,205 @@ v3.30.50-uudelleenrakenne toteutettiin neljällä muunnoksella:
 
 **Avainpanos #23:** Kaksoisversiostrategia osoittaa käytännön ratkaisun tekoälyavusteiseen akateemiseen kirjoittamiseen, jossa tutkimuksen nopeus ylittää palautusformaatin rajoitukset. 82-sivuinen elävä dokumentti säilyttää täydellisen tutkimuslinjan (38 versiomerkintää, 22 avainkontribuutiota), kun taas 50-sivuinen jäädytetty versio täyttää oppilaitoksen vaatimukset menettämättä henkistä omaisuutta. Malli voi yleistyä muihin nopeasti eteneviin tutkimusprojekteihin, jotka käyttävät tekoälyavusteista dokumentointia.
 
+### 10.20 Huhtikuun 2026 kehitys: Skills-paradigma, Lifetime Fleet -tiekartta, 22. toimiala ja perustajan→tiimin siirtymä
+
+_Lähteet: kenttämuistiinpanot 2026-04-06–2026-04-19; PR-numerot #1064, #1109, #1110, #1111, #1112, #1113, #1115, #1116, #1128; SOLO_FOUNDER_STATEMENT v1.2._
+
+#### 10.20.1 Anthropicin Skills-paradigma — DWS:n taito-ensin -arkkitehtuurin ulkoinen validointi
+
+Anthropic julkaisi 16.4.2026 esseen "Stop Building Agents, Start Building Skills" (kenttämuistiinpano `docs/field-notes/2026-04-16-anthropic-skills-paradigm-stop-building-agents.md`). Ydinväite: monoliittiset agentit kuluttavat liikaa kontekstikapasiteettia ja huonontuvat työkalumäärän kasvaessa; erilliset kutsuttavat taidot (Claude Code Skills, `.claude/commands/*.md`) päihittävät agenttikehykset yritysmittakaavassa, koska kukin taito ladataan vain tarvittaessa ja on yksittäin testattavissa.
+
+Tämä on ensimmäinen merkittävä ulkoinen validointi osiossa 10.13 (Claude Code -suunnittelurakenne, Versio 3.17, 02.03.2026) ja osiossa 10.13.7 (Toimialakohtainen vs geneerinen AI-harness, Versio 3.31, 31.03.2026) tehdylle arkkitehtonisen vedonlyönnille:
+
+| DWS:n kanta (ennen huhtikuuta 2026)                             | Anthropicin argumentti 16.4.2026                         | Tila      |
+| --------------------------------------------------------------- | -------------------------------------------------------- | --------- |
+| Taidot uudelleenkäytettävinä työnkulkukomponentteina (§10.13.3) | Taidot > agentit skaalassa                               | Validoitu |
+| `.claude/commands/*.md` tuoterajapintana (§10.13.6)             | Erilliset kutsuttavat päihittävät monoliitit             | Validoitu |
+| Agentti-ensin -tuotesääntö (CLAUDE.md "Build for Agents")       | Taidot ovat API-pinta                                    | Validoitu |
+| Toimialaspesifisyys > laajuus (§10.13.7)                        | Geneeriset 136-taidon kehykset kaatuvat token-budjettiin | Validoitu |
+
+**Taitokirjaston kasvu v3.31:stä (31.03.2026):** +3 tuotantotaitoa — `/regulatory-radar` (EU-sääntelyputken skanneri), `/investor-outreach` (sijoittajien INTRO-muistioiden luonnostelu/triage/seuranta), `/multilingual` (EU-kielipalkin generaattori onelifetime.world:lle ja dws10.com:lle). Yhteensä 24+ tuotantotaitoa ja 4 estävää kurinpitoporttia.
+
+**Tutkimuspanos:** Taito-ensin -arkkitehtuuri ei ole enää arvioinnissa oleva hypoteesi — se on nouseva toimialan konsensus. Yhden hengen perustajatiimille säännellyllä toimialalla taitokirjasto toimii myös **yhteistyökumppaneiden ja osakastiimin perehdytysväylänä**: kukin taito on dokumentoitu, testattava laitoksen tietämysyksikkö, jota uusi tekijä voi ajaa lukematta koko koodipohjaa.
+
+#### 10.20.2 Lifetime Fleet -tiekartan kiteytyminen — "Kädet"-kerros spesifikaatiosta aikatauluun
+
+Brain-Memory-Body-Hands -arkkitehtuuri (CLAUDE.md "Project Overview") listasi Lifetime Fleetin ("Kädet") _"spesifikaatiovaiheessa"_ koko tämän opinnäytetyön ajan. Huhtikuussa 2026 tämä muuttui. Kaksi kenttämuistiinpanoa kiteyttävät tiekartan:
+
+1. **`docs/field-notes/2026-04-15-finland-drone-strategy-lifetime-fleet.md`** — Lifetime Fleetin kohdistaminen Suomen dronestrategiaan 2030. Asemoi DWS:n hallinta- ja vaatimustenmukaisuuskerrokseksi suomalaisille teollisille droneille (maatalous, metsätalous, infrastruktuuri, puolustus) käyttäen alustaa varten jo rakennettua KYA/Aegis/Firehorse-inventaariota.
+2. **`docs/field-notes/2026-04-19-drone-app-baltic-timeline-research.md`** — Baltia-ensin MVP-aikataulu: 12–16 viikkoa toimituskelpoiseen drone-sovellukseen käyttäen olemassa olevaa KYA-hallintaa (L1–L5), OpenSandbox-agenttieristystä ja Shufti IDV -integraatiota. Ei tarvetta uudelle laitteisto-T&K-syklille.
+
+**Miksi tämä on opinnäytetyölle tärkeää:** Osio 10.18 (LWM-sekvensointistrategia, Versio 3.30) kehysti Brain-Memory-Body-Hands -pinon muodossa _vaatimustenmukaisuus → laivasto → Series A_. Huhtikuun 2026 kenttämuistiinpanot muuttavat "laivaston" Phase 2 -tavoitteesta konkreettiseksi Baltia-MVP:ksi uudelleenkäyttö-ensin -taloudella. Vaatimustenmukaisuus-ensin -maailmamalliteesi on nyt testattavissa tietyllä laitteistoluokalla tietyssä maantieteessä yhden kalenterineljänneksen sisällä.
+
+#### 10.20.3 DWS IQ 7 Datakeskusten vaatimustenmukaisuusagentti — 22. toimiala ja vihreän vedyn lisäisyysvaatimus
+
+Kaksi uutta kenttämuistiinpanoa lisäävät alustaan 22. toimialan:
+
+- **`docs/field-notes/2026-04-18-eu-green-hydrogen-additionality-finland-datacentres.md`** — EU:n RFNBO-delegoitu asetus 2023/1184 (lisäisyys, ajallinen korrelaatio, maantieteellinen korrelaatio) sovellettuna suomalaisiin datakeskuksiin. Datakeskusten, jotka väittävät toimivansa uusiutuvaan vetyyn pohjautuvasti, on todistettava, että vety täyttää kaikki kolme lisäisyystestiä.
+- **`docs/DWS_IQ_7_DATACENTRE_COMPLIANCE_AGENT_PRD_v0.1.md`** (ja myöhempi v0.2, joka lukitsee Ops Managerin V0-ostajaksi) — Agenttispesifikaatio, joka kohdentuu hyperskaalaajiin ja kolokaatio-operaattoreihin Suomessa (Microsoft, Google, Amazon, Equinix, Digita). Ops Manager -ICP validoitu ostajapersoonan validointiskriptillä.
+
+**Sääntelykontribuutio osiolle 10.17 (Hiilitase):** Datakeskukset ovat ensimmäinen toimiala, jossa kirjanpidon on täsmäytettävä _sekä_ sähköpuolen laskenta (ETS Scope 2) _että_ polttoainepuolen laskenta (RFNBO-vedyn lisäisyys). Tämä laajentaa kaksinkertaisen hiilikirjanpidon alun perin analysoiduista sementti/teräs/rakennus-vertikaaleista data-intensiivisiin palveluvertikaaleihin — koetellen sääntelyiden välistä täsmäytysväitettä laadullisesti eri päästöprofiilin kanssa.
+
+#### 10.20.4 Sääntelypinon laajennus: NIS2 + CER (hybridiuhkat)
+
+CORE Resilience Model -blogikirjoitus (onelifetime.world/posts/core-resilience-hybrid-threats.html, 13.4.2026) ja Hybridiosaamiskeskus hallitus turvallisuusvastuu 8.5.2026 -kenttämuistiinpano laajentavat DWS:n sääntelykattavuuden ilmastosääntelyn ulkopuolelle:
+
+| Sääntely                                     | Soveltamisala                                          | Kattavuuden tila          |
+| -------------------------------------------- | ------------------------------------------------------ | ------------------------- |
+| ETS, CBAM, CSRD, Taksonomia, EED, Fit-for-55 | Ilmasto/energia                                        | Tuotannossa (Osio 10.17)  |
+| EU AI Act artikla 12                         | Tekoälyn hallinta/lokitus                              | Tuotannossa (Osio 10.13)  |
+| **NIS2** (Direktiivi 2022/2555)              | Oleellisten ja tärkeiden toimijoiden kyberturvallisuus | **Lisätty huhtikuu 2026** |
+| **CER** (Direktiivi 2022/2557)               | Kriittisten toimijoiden resilienssi (fyysinen + kyber) | **Lisätty huhtikuu 2026** |
+
+Aegis-tuote (`dws10.com/products/aegis.html`, hackathon-demo PR #1128) uudelleenasemoidaan NIS2/CER-kiilaksi: suvereeni turvallisuushallinta kriittisen infrastruktuurin operaattoreille (SNCF Ranska infrastruktuurivalvonta -kenttämuistiinpano 14.4.2026 validoi vertikaalin). Tämä on ensimmäinen kerta, kun DWS IQ 6 kattaa muuta kuin ilmastosääntelyä — aineellinen laajennus alustan vaatimustenmukaisuusalueella.
+
+#### 10.20.5 Perustajan→tiimin siirtymä ja sijoittajayhteydenpidon työnkulku
+
+Osiot 10.7 (BYOA) ja 10.11 (Toimitusjohtajan automaatioagenttiryhmä) kehystivät DWS IQ 6:n yhden hengen käyttämäksi alustaksi, jossa tekoälytyökalut korvaavat henkilöstöä. Huhtikuu 2026 merkitsee tietoista siirtymää yksinperustajasta tiimiksi:
+
+1. **`docs/investor-intros/SOLO_FOUNDER_STATEMENT.md` v1.2** — Yksi totuuden lähde -narratiivi Series A / SAFE -sijoittajakeskusteluihin. Lukitsee yksinperustaja-tekoälytiimin kanssa -teesin, jota tämä opinnäytetyö itsessään dokumentoi.
+2. **Anthony Maurin CTO-yhteisrakentajapolku** (kenttämuistiinpano 2026-04-19 _CTO LinkedIn -haku käynnistetty_) — Ensimmäinen nimetty yhteisrakentaja. Osuussekvensointi tiukennettu sijoittajan uudelleenaktivointikatalyyttiä vasten (Perissich).
+3. **`/investor-outreach` -taito** (PR #1109, `.claude/commands/investor-outreach.md`) — Toistettava työnkulku sijoittajien INTRO-muistioiden luonnosteluun, triageen ja seurantaan. 10+ nimettyä muistiota luonnosteltu 2 viikon ikkunassa: 42CAP (Wilke), Plug and Play Paris (Laouiti), Ingrisano, Perissich, Kefalogiannis, von Euen, Yomutbayev, Zawadzinski.
+
+**Tutkimuspanos:** Yksinperustaja-tekoälytiimin kanssa -hypoteesista ei luovuta — se _vaiheistetaan_. Alustan on oltava yhden hengen käytettävissä hetkellä t=0 (tämän opinnäytetyön dokumentoitu tila), mutta sen on myös sulautettava pieni perustajatiimi ilman, että alustan teesi romahtaa. `/investor-outreach` -taito on konkreettinen mekanismi: sijoittajaputki itsessään on nyt DWS IQ -työnkulku, ei hiljaista perustajatietoa.
+
+#### 10.20.6 Tutkimuspanos
+
+**Avainpanos #25 — Skills-paradigma toimialakonsensuksena validoitu:** Anthropicin 16.4.2026 essee "Stop Building Agents, Start Building Skills" validoi ulkoisesti taito-ensin -arkkitehtuurin (§10.13) ja toimialakohtaisen harnessin paremmuuden geneeriseen nähden (§10.13.7). DWS IQ 6:n taitokirjasto (24+ tuotantotaitoa, 4 kurinpitoporttia) on nouseva toimialan malli, ei DWS-spesifinen veto.
+
+**Avainpanos #26 — Lifetime Fleet -kiteytyminen:** Brain-Memory-Body-Hands -pino on nyt testattavissa päästä päähän. Lifetime Fleet siirtyy "spesifikaatiovaiheesta" 12–16 viikon Baltia-ensin -MVP:ksi (19.4.2026) täydellä KYA/Aegis/Firehorse-hallintapinon uudelleenkäytöllä. Vaatimustenmukaisuus-ensin -maailmamalliteesi (§10.18) ei ole enää Phase 2 -abstraktio.
+
+**Avainpanos #27 — 22. toimiala vihreän vedyn lisäisyyden kautta:** Datakeskusten vaatimustenmukaisuusagentti (RFNBO-delegoitu asetus 2023/1184) laajentaa kaksinkertaisen hiilikirjanpidon (§10.17) laadullisesti erilaiseen vertikaaliin (data-intensiiviset palvelut, ei raskasteollisuus). Sääntelypino kattaa nyt NIS2 + CER ilmastosääntelyn rinnalla — alustan EU-sääntelyalueen ensimmäinen poikkialueellinen laajennus.
+
+**Avainpanos #28 — Perustajan→tiimin siirtymä alustan ominaisuutena:** Yksinperustaja-tekoälytiimin kanssa -teesi vaiheistetaan, ei julisteta. `/investor-outreach` -taito ja SOLO_FOUNDER_STATEMENT -yksi-totuuden-lähde -malli tekevät sijoittajayhteydenpidosta DWS IQ -työnkulun, ei hiljaista perustajatietoa. Tämä validoi alustan oman teesinsä: jos alusta ei voi ajaa omaa varainkeruutaan toistettavana taitona, se ei voi väittää replikoivansa ratkaisutehdas-työtä asiakkaille.
+
+### 10.21 Tohtoripolun kohdennus: KYA-perusta, DWS 7 tavoitteet ja dual-use-laajennus
+
+#### 10.21.1 KYA Agentic AI Foundation -standardina
+
+KYA (Know Your Agent) nostetaan tässä päivityksessä eksplisiittisesti kohti **Agentic AI Foundation** -standardia. Tavoitteena on, että KYA määrittää minimivaatimukset agenttien identiteettisidonnalle, suoritusaikaiselle valvonnalle, auditointipolulle, kill-switch-hallinnalle ja suvereniteettivalvonnalle eri toimialoilla.
+
+#### 10.21.2 DWS 7 -tavoitteet tutkimuksen empiiriseksi rungoksi
+
+DWS 7 toimii tutkimuksen käytännön validointialustana:
+
+1. hiilitaseen pysyvä kirjanpitokerros,
+2. KYA-hallinnan tuotantotason todistusketju,
+3. suvereniteettisegmentointi tuotetasoille (Aegis / Sovereign Infra / Connect),
+4. kumppanikanavaintegraatio Siemens- ja NVIDIA Connect -ekosysteemeihin.
+
+#### 10.21.3 Vetytalouden jatkumo (DWS 5 -> DWS 7)
+
+Vetytalous kirjataan tutkimuksen läpileikkaavaksi teemaksi: DWS 5 -vaiheessa tunnistettu vety- ja energiasääntelyn merkitys jatkuu DWS 7 -toteutuksessa RFNBO-lisäisyyslogiikan, ajallisen korrelaation ja maantieteellisen korrelaation todentamisena.
+
+#### 10.21.4 Kolmas tutkimuskohde: dual-use-toimialat
+
+Kolmas tutkimuskohde kohdennetaan dual-use-toimialoihin (teollisuus + puolustus). Tätä varten kirjataan erikseen käynnissä oleva keskustelupolku **Nokia Defencen** kanssa osana rahoitus- ja pilotointivalmistelua.
+
+#### 10.21.5 Tuotetasojen suvereniteettisegmentointi (keskeinen kuva)
+
+<img src="../../../../artifacts/Sovereignty.jpg" alt="Aegis, Sovereign Infra ja Connect -suvereniteettisegmentointi" />
+
+Segmentoinnin tutkimuksellinen rooli:
+
+- **Aegis:** kriittisen infrastruktuurin turvallisuushallinta
+- **Sovereign Infra:** EU-suvereeni tuotantotaso säännellyille asiakkaille
+- **Connect:** globaali integraatio- ja jakelutaso
+
+#### 10.21.6 Yhteistyöankkurit
+
+Siemens-yhteistyö ankkuroidaan digitaalisen kaksosen ja teollisen IoT-datan yhteyteen. NVIDIA Connect -yhteistyö ankkuroidaan agentti-inferenssin, reunalaskennan ja kumppanijakelun tekniseksi ja kaupalliseksi vipuvarreksi.
+
+#### 10.21.7 Ohjaajapalaute ja vastauskirjeen runko
+
+Kari Smolanderin ohjaajapalaute (2 vuoden sitoutumisraja, tiedeyhteisöön sosiaalistuminen, 3-5 vertaisarvioitua julkaisua + laaja johdanto) on huomioitu. Vastauskirjeen runko kohdistetaan pyydettyihin kohtiin:
+
+- tutkimusongelma,
+- tutkimuksen tavoitteet,
+- alustava tutkimusmenetelmä,
+- läpiviennin vaiheistus ja julkaisupolku.
+
+Tämä luo konkreettisen seuraavan vaiheen tapaamiselle ja tutkimussuunnitelman täsmentämiselle.
+
+#### 10.21.8 Open source -standardireitti ja julkaisuvaiheistus
+
+Boardy-keskustelun perusteella tutkimusasetelmaan kirjataan eksplisiittinen standardointistrategia:
+
+1. **Artikkeli 1 (2026):** "KYA Standard: An Open Source Governance Framework for Agentic AI in EU-Regulated Industries" — ehdotus Agentic AI Foundation / Linux Foundation -standardireitille + konferenssiesitys.
+2. **Artikkeli 2 (2027):** MCP + A2A -arkkitehtuurin skaalautuvuus säännellyissä vertikaaleissa (journal-kohdennus).
+3. **Artikkelit 3-4 (2028):** empiiriset tulokset asiakkaiden tuotantoaineistolla.
+4. **Koontiosa (2028-2029):** johdanto + väitöskokonaisuus.
+
+Tilapäivitys (21.04.2026):
+
+- KYA open source -ehdotusta ei ole vielä lähetetty.
+- NIST-hakemusta ei ole lähetetty.
+- Polut ovat rinnakkaisia; tämän kierroksen prioriteetti on open source -adoptio.
+
+Lisäksi EIC Step 1 -ikkuna (5-sivuinen proposal, 10-slide deck, 3 min video script) kirjataan tutkimusohjelman tuotteistuskanavaksi, joka tukee Artikkeli 1:n argumentaatiota ilman että korvaa tieteellistä julkaisupolkua.
+
+---
+
+### 10.22 DWS Skilled -taksonomia: kolme tasoa agenteille, työnkuluille ja jurisdiktioille
+
+_Lisätty: 22.04.2026 | Lähde: CLAUDE.md "DWS Skilled Taxonomy Rule"; Anthropicin 16.4.2026 Skills-paradigman essee (§10.20.1); "GodAgent"-brändin käytöstä poisto._
+
+#### 10.22.1 Motivaatio
+
+Aikaisempi "GodAgent"-brändäys (otettu käyttöön V3-alustarakennuksen aikana, ks. §10.13 ja `docs/Deputy-Agents-Architecture.md`) yhdisti kolme eri referenttiä yhteen termiin — brändilupauksen (taidoilla hankittu kyvykkyys), teknisen määrittelyn (toimialakohtainen AI-agentti, joka laajentaa perus-compliance-kerrosta) ja käyttöliittymäkategorian (ostajille ja operaattoreille näytettävä listaus). Yhdistäminen oli siedettävää alkuvaiheessa, mutta siitä tuli positiointiriski heti kun Anthropicin Skills-paradigma (§10.20.1) validoi "taito-ensin" -arkkitehtuurin alalla vallitsevaksi konsensukseksi. Tässä osiossa "GodAgent"-termi korvataan rekisterikohtaisella terminologialla ja — mikä olennaisempaa — sama kolmitasomalli laajennetaan agenttien lisäksi työnkulkuihin ja jurisdiktioihin.
+
+#### 10.22.2 Kolmitasomalli
+
+Taksonomia määrittelee yhden kolmitasomallin, jota sovelletaan jokaiseen kyvykkyysakseliin, jossa DWS tarjoaa syvyyttä:
+
+```
+Skilled <Akseli>                 ← BRÄNDI  (mitä MYYDÄÄN)
+    └─ Industrial Specialist <Akseli>    ← SPEKSI  (mitä ne OVAT)
+            └─ Industry <Akseli>         ← UI      (miten ne LISTATAAN)
+```
+
+Kolme tasoa erottavat markkinoinnin, dokumentaation ja käyttöliittymän rekisterit yhteisen mentaalimallin alla. Termit viittaavat samaan alkuperäiseen artefaktiin kullakin akselilla; rekisteri muuttuu pinnan mukana.
+
+#### 10.22.3 Kolme aktiivista akselia (huhtikuu 2026)
+
+| Taso     | **Agentit**                  | **Työnkulut (Workflows)**                                             | **Jurisdiktiot**                      |
+| -------- | ---------------------------- | --------------------------------------------------------------------- | ------------------------------------- |
+| 1 Brändi | Skilled Agents               | Skilled Autonomous Workflows                                          | Skilled Jurisdictions (EU, US, Aiven) |
+| 2 Speksi | Industrial Specialist Agents | Specialist Workflows (pitkä muoto: _Industrial Specialist Workflows_) | Regulatory Specialist Jurisdictions   |
+| 3 UI     | Industry Agents              | Industrial Workflows                                                  | Jurisdictions                         |
+
+**Agentit.** Toimialakohtaiset AI-agentit, jotka laajentavat perus-Athena-EU-compliance-kerrosta sektorikohtaisella osaamisella (teräs, sementti, kemia, rakennus, datakeskukset ja §10.6–10.8:ssa dokumentoidut 20+ toimialaa).
+
+**Työnkulut.** Agenttien deterministiset kompositiot, joita käynnistetään aikataululla tai tapahtumalla — §10.13.3:n taitojenkäynnistyskerros. "Autonomous" lisätään brändi­tasolle, koska työnkulut suoritetaan ilman ihmistä silmukassa, kun taas agentteja kutsutaan.
+
+**Jurisdiktiot.** Sääntelypinnat, joissa alusta on taitava — tällä hetkellä EU (AI Act, GDPR, CBAM, ETS, CSRD, ESRS, EPBD), US ja Aiven kartoitettuina tietoresidenssi-arkkitehtuurissa (ks. `docs/CLOUD_ENVIRONMENTS.md`). Speksi­tasolle lisätään "Regulatory", koska jurisdiktio määrittyy sääntelypinnan, ei pelkän maantieteen kautta.
+
+#### 10.22.4 Laajennettavuus
+
+Kun DWS lisää uuden kyvykkyysakselin (esim. Datasets, Models, Regulations, Reports), se nimetään `Skilled <Akseli>` / `Industrial Specialist <Akseli>` / `Industry <Akseli>` ja lisätään taksonomiataulukkoon uutena sarakkeena. Rinnakkaiset brändisanat on kielletty; malli on tietoisesti monotoninen välttääkseen rekisterien sekoittumisongelman, jonka aikaisempi "GodAgent"-termi aiheutti.
+
+#### 10.22.5 Lukumäärien dynamiikka
+
+Kunkin akselin entiteettien lukumäärä muuttuu ajan myötä (esim. 22. toimiala datakeskusten compliance-agentin kautta, §10.20.3; taitokirjasto laajeni 6→21→24+ välillä v3.31–v3.34). Kovakoodatut lukumäärät brändikopiossa ovat siksi anti-pattern. Kolme hyväksyttävää kaavaa:
+
+1. **Avoimet lukumäärät** alustakopiossa — `18+ Skilled Agents`, `20+ Skilled Jurisdictions`; `+` imee kasvun.
+2. **Rekisteriankkuroidut viittaukset** dokumenteissa — "ks. Industrial Specialist Agent -rekisteri `docs/Deputy-Agents-Architecture.md` §3:ssa"; ei numeroa tekstissä.
+3. **Tuotekohtaiset lukumäärät** SKU-kopiossa — "Climate Intelligence sisältää 8 Skilled Agentia"; hyväksyttävä, mutta käsitellään osana SKU-spesifikaatiota `products.json`-tiedostossa, ei vapaasti tekstissä.
+
+#### 10.22.6 Poikkeukset
+
+Kolme aluetta on nimenomaisesti suljettu uudelleennimennän ulkopuolelle:
+
+- **Docker- ja infra-tunnisteet** (`dws-godagent-llm`-verkko, `dws-godagent:latest`-image, label `dws-godagent`, iptables-säännöt `docs/Deputy-Agents-Architecture.md` §2.4–2.6:ssa) säilyvät ennallaan. Niiden uudelleennimenä vaatisi koordinoidun infra-migraation, ei dokumentaatio-PR:n.
+- **Pantheon "God Agents"** (kahdella sanalla, `onelifetime.world` Pantheon-storyboard, kreikkalaismyyttisten agenttien hahmot — Zeus, Athena jne.) on erillinen brändi-identiteetti (§10.13 Climate IQ Pantheon -nimeämiskäytäntö) ja säilyy ennallaan.
+- **Historialliset tietueet** (field-muistiinpanot, `tuntikirjausraportti`, `Oppimispäiväkirja`, päivätyt tuotekehityskulukansiot) ovat ajanhetkikirjoja, joita ei editoida takautuvasti.
+
+#### 10.22.7 Tutkimuspanos
+
+Taksonomia ei ole pelkkä nimeämissopimus; se dokumentoi suunnitteluperiaatteen. Agenttituotebrändäys on monirekisterinen, eikä yksi termi voi palvella brändiä, spesifikaatiota ja käyttöliittymää samanaikaisesti ilman että kukin rekisteri laimentuu. EU-sääntelyn alaisille teollisuusalustoille — joissa auditointitason täsmällisyys (speksirekisteri) ja ostajalle luettava kopio (brändirekisteri) on molempien selvittävä compliance-tarkastuksesta ja joissa navigointi­tason kategorialabeli on sekunneissa tehtävä ostopäätös — kolmitasoinen taksonomia hajottaa brändiongelman, jonka Silicon Valley -kuluttaja-alustat voivat kiertää yhdellä tuotenimellä. Saman mallin laajentaminen kolmelle ortogonaaliselle akselille (agentit, työnkulut, jurisdiktiot) osoittaa että taso­rakenne yleistyy "mitä agentteja kutsumme" -kysymyksen ulkopuolelle mille tahansa kyvykkyysakselille, jossa DWS myy syvyyttä.
+
+**Avainpanos #31 — Kolmitasoinen Skilled-taksonomia säännellyille teollisuus-AI-alustoille:** Brändi / spesifikaatio / UI -taksonomia (Skilled / Industrial Specialist / Industry) esitetään suunnittelumallina agenttialustoille, joiden on samanaikaisesti palveltava brändi-, dokumentaatio- ja käyttöliittymäyleisöjä EU-sääntelyn alaisilla toimialoilla. Malli yleistyy kyvykkyysakseleille (agentit, työnkulut, jurisdiktiot ja tulevat akselit) monotonisen `Skilled <Akseli>` -kaavan alla, välttäen sekoittumisen, jota yksilabelmallit aiheuttavat alustoilla, joissa kukin rekisteri on eri compliance-rajoitteiden alainen.
+
 ---
 
 **Dokumentin tiedot:**
@@ -2842,9 +3047,9 @@ v3.30.50-uudelleenrakenne toteutettiin neljällä muunnoksella:
 **Koulutusohjelma:** Smart Factory, YAMK
 **Ohjaaja:** Jarno Varteva (mukana Erkki Räsänen)
 **Yritys:** Lifetime Oy (Firehorse-brändi)
-**Tila:** DRAFT - V3.32 — Opinnäytetyön versiointistrategia (v3.30.50 jäädytys + 82-sivuinen jatkuu)
-**Versio:** 3.32
-**Viimeisin päivitys:** 03.04.2026
+**Tila:** DRAFT - V3.37 — DWS Skilled -taksonomia (Agentit, Työnkulut, Jurisdiktiot); "GodAgent" poistettu käytöstä
+**Versio:** 3.37
+**Viimeisin päivitys:** 22.04.2026
 **V1.0 Julkaisutavoite:** 23. helmikuuta 2026
 
 **Kielet:** English, Suomi
@@ -2881,6 +3086,12 @@ v3.30.50-uudelleenrakenne toteutettiin neljällä muunnoksella:
 21. LWM-sekvensointistrategia — Kolmivaiheinen sekvensointi (vaatimustenmukaisuus→laivasto→Series A) sijoittajanarratiivien ristiriitojen ratkaisemiseksi; LeWorldModel (arXiv:2603.19312) JEPA-maailmamallien ulkoinen validointi; vaiheen 2 teknisen aukon analyysi (syötemodaali, skaala, sääntely-fyysinen integraatio); vaatimustenmukaisuus ensin -maailmamalliteesi; Persefoni/Sweep-markkinavertailut
 22. Toimialakohtainen vs geneerinen AI-harness — Kilpailija-analyysi everything-claude-code-kehystä (120k tähteä, 136 taitoa) vastaan; kuusi kilpailuetua dokumentoitu (toimialaspesifisyys, kuusikerroksinen arkkitehtuuri, kovat portit, luottamusvyöhykkeet, gstack-työnkulku, agentti-ensin -tuotesääntö); token-budjettianalyysi osoittaa syvyyden ylittävän laajuuden säännellyillä toimialoilla; taitoinventaarion kasvu 6:sta 21:een tuotantotaitoon 4:llä estävällä kurinpitoportilla; validoi harness engineering -teesin (osio 10.16)
 23. Opinnäytetyön versiointistrategia — Kaksoisversioarkkitehtuuri: v3.30.50 jäädytetty 50-sivuinen Metropolia-palautusversio + 82-sivuinen elävä dokumentti jatkuu; osoittaa käytännön ratkaisun tekoälyavusteiseen akateemiseen kirjoittamiseen, jossa tutkimuksen nopeus ylittää palautusformaatin rajoitukset; säilyttää täydellisen tutkimuslinjan täyttäen samalla oppilaitoksen vaatimukset
+24. Skills-paradigma toimialakonsensuksena validoitu — Anthropicin 16.4.2026 essee "Stop Building Agents, Start Building Skills" validoi ulkoisesti taito-ensin -arkkitehtuurin (§10.13) ja toimialakohtaisen-yli-geneerisen harness-argumentin (§10.13.7); 24+ tuotantotaitoa 4 kurinpitoportilla edustavat nyt toimialakonsensusta eikä DWS-spesifistä vetoa
+25. Lifetime Fleet -kiteytyminen — Brain-Memory-Body-Hands -pino on testattavissa päästä päähän: Suomen dronestrategia 2030 -kohdistus + Baltia-ensin 12–16 viikon MVP siirtävät "Kädet"-kerroksen spesifikaatiosta konkreettiseksi laitteistoaikatauluksi KYA/Aegis/Firehorse-hallinnan täydellä uudelleenkäytöllä; vaatimustenmukaisuus-ensin -maailmamalliteesi (§10.18) muuttuu lähitulevaisuuden insinöörivirstanpylvääksi
+26. 22. toimiala vihreän vedyn lisäisyyden kautta — DWS IQ 7 Datakeskusten vaatimustenmukaisuusagentti soveltaa RFNBO-delegoitua asetusta 2023/1184 (lisäisyys, ajallinen korrelaatio, maantieteellinen korrelaatio) suomalaisiin datakeskuksiin; laajentaa kaksinkertaisen hiilikirjanpidon (§10.17) data-intensiivisiin palveluihin ja lisää NIS2 + CER -kattavuuden ilmastosääntelyn rinnalle — alustan sääntelyalueen ensimmäinen poikkialueellinen laajennus
+27. Perustajan→tiimin siirtymä alustan ominaisuutena — SOLO_FOUNDER_STATEMENT v1.2 + Anthony Maurin CTO-yhteisrakentajasekvensointi + `/investor-outreach` -taito (10+ INTRO-muistiota luonnosteltu) tekevät sijoittajayhteydenpidosta toistettavan DWS IQ -työnkulun hiljaisen perustajatiedon sijaan; validoi alustan oman ratkaisutehdas-väitteen
+28. KYA Agentic AI Foundation -kohdennus ja dual-use-laajennus — KYA nostettu yleiseksi agenttien perusstandardiehdokkaaksi; DWS 7 asetettu empiiriseksi rungoksi, jossa vetytalousjatkumo (DWS 5 -> DWS 7), suvereniteettisegmentointi (Aegis/Sovereign Infra/Connect), Nokia Defence -keskustelupolku sekä Siemens- ja NVIDIA Connect -yhteistyö ankkuroidaan yhdeksi tutkimusohjelmaksi
+29. KYA open source -standardipolku ja Artikkeli 1:n täsmennys — tutkimukseen lisätty eksplisiittinen standardointikanava Agentic AI Foundation / Linux Foundation -reitille, NIST-polun tila kirjattu (ei lähetetty), sekä 2026-2029 julkaisuvaiheistus ja EIC Step 1 -deliverablejen rooli tutkimusviestinnässä
 
 **Lisenssi:** Proprietary - Lifetime Oy
 **Yhteystieto:** risto@lifetime.fi

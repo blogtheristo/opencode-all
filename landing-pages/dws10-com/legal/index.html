@@ -565,7 +565,7 @@
             </tr>
             <tr>
               <td>
-                <a href="../dpa/"><strong>Data Processing Agreement (DPA)</strong></a>
+                <a href="dpa.html"><strong>Data Processing Agreement (DPA)</strong></a>
               </td>
               <td>All customers processing Personal Data via DWS IQ</td>
               <td>05 Feb 2026</td>
@@ -573,7 +573,7 @@
             </tr>
             <tr>
               <td>
-                <a href="../kya-standard/"><strong>KYA Standard v1.1 — Know Your Agent</strong></a>
+                <a href="../kya-standard/"><strong>KYA Standard v1.5 — Know Your Agent</strong></a>
               </td>
               <td>BYO agent governance, sandbox isolation, DWS IQ</td>
               <td>09 Mar 2026</td>
@@ -721,6 +721,42 @@
         in the product from day one.
       </div>
 
+      <h3>Regulatory Timeline</h3>
+      <div class="summary-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Milestone</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Aug 2025</strong></td>
+              <td>EU AI Act — prohibited practices provisions enter force (Article 5)</td>
+            </tr>
+            <tr>
+              <td><strong>Aug 2026</strong></td>
+              <td>
+                EU AI Act full enforcement — Article 99 penalty regime active (up to €15M or 3% of
+                global turnover for deployer violations under Art. 99(4); €35M or 7% for prohibited
+                practices under Art. 5)
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Q4 2026</strong></td>
+              <td>First D&amp;O insurance claims on AI governance expected</td>
+            </tr>
+            <tr>
+              <td><strong>Q1 2027</strong></td>
+              <td>
+                Insurers begin pricing &ldquo;AI governance deficit&rdquo; into D&amp;O premiums
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <hr />
 
       <h2>2. Digital Sovereignty (New)</h2>
@@ -855,7 +891,7 @@
         </li>
         <li>
           <strong>Data Processing Agreement & SCCs:</strong> Our modular DPA aligns with IT2022 EHK
-          terms. <a href="../dpa/">View the full DPA</a> or request a signed copy via
+          terms. <a href="dpa.html">View the full DPA</a> or request a signed copy via
           <a href="mailto:legal@lifetime.fi">legal@lifetime.fi</a>.
         </li>
         <li>
@@ -1151,6 +1187,32 @@
         </table>
       </div>
 
+      <h3>Three Evidence Layers for D&amp;O Safe Harbor</h3>
+      <p>
+        D&amp;O insurers require documented governance that proves &ldquo;reasonable measures&rdquo;
+        were in place before an AI agent acted. The KYA Standard produces three independent layers
+        of evidence, each mapped to a distinct liability question:
+      </p>
+      <ol>
+        <li>
+          <strong>Identity Attribution.</strong> Proves <em>which agent</em> produced the output —
+          not &ldquo;our AI.&rdquo; Every agent carries a cryptographic identity bound to its
+          deployment context, which isolates director decisions from agent failures.
+        </li>
+        <li>
+          <strong>Fault Attribution.</strong> Separates <code>LOGIC_FAULT</code> (agent error) from
+          <code>OPERATOR_FAULT</code> (human misconfiguration) from
+          <code>MANIFEST_FAULT</code> (deployment issue). Demonstrates that the board&rsquo;s
+          governance framework was adequate even when an individual agent fails.
+        </li>
+        <li>
+          <strong>Behavioral Guardrails.</strong> Pre-execution controls were active before the
+          agent acted, enforced by the Leash Snap Protocol in &lt; 5 ms per decision. This is the
+          &ldquo;reasonable measures&rdquo; standard recognised across EU member-state corporate
+          governance codes for personal-liability safe harbour.
+        </li>
+      </ol>
+
       <h3>Continuous Security Testing</h3>
       <ul>
         <li>
@@ -1219,7 +1281,7 @@
               <td>Article 12 active; full enforcement Aug 2026</td>
             </tr>
             <tr>
-              <td><strong>KYA Standard v1.6</strong></td>
+              <td><strong>KYA Standard v1.5</strong></td>
               <td>Production-Ready</td>
               <td>Q2 2026 launch</td>
             </tr>
@@ -1268,7 +1330,7 @@
         certification status, visit the
         <a href="../compliance/trust-center/">DWS IQ Trust Center</a>. For KYA governance framework
         details (agent identity, D&amp;O safe harbor, performance guarantees), see the
-        <a href="../legal-hub/">Legal &amp; Governance Hub</a>.
+        <a href="#governance">Board Governance &amp; D&amp;O Safe Harbor</a> below.
       </div>
 
       <hr />
@@ -1377,6 +1439,132 @@
             Subsidiary of Lifetime Oy
           </p>
         </div>
+      </div>
+
+      <hr />
+
+      <h2 id="governance">13. Board Governance &amp; D&amp;O Safe Harbor</h2>
+      <p>
+        KYA (Know Your Agent) is the governance framework that makes autonomous AI agents
+        court-defensible, insurable, and EU AI Act compliant. It is designed for boards and
+        directors who approve agentic AI deployments in EU-regulated industries.
+      </p>
+
+      <div class="callout" style="border-color: #b45309; background: rgba(180, 83, 9, 0.06)">
+        <p>
+          <strong>Board-level exposure.</strong> EU AI Act Article 99(4) carries fines up to
+          <strong>&euro;15M or 3% of annual global turnover</strong> for deployer violations of
+          Articles 8&ndash;15 and 26. Prohibited-practice violations under Article 5 reach
+          <strong>&euro;35M or 7%</strong>. National corporate governance codes add personal
+          exposure for directors who approved AI deployments without documented controls. First
+          enforcement actions are expected Q3&ndash;Q4 2026.
+        </p>
+      </div>
+
+      <h3>KYA Framework: Two Standards</h3>
+      <ul>
+        <li>
+          <strong>KYA-S (Security Standard).</strong> Agent identity, behavioural guardrails,
+          pre-execution controls. Proves which agent did what and that controls were active before
+          it acted. Enforcement latency &lt; 5 ms per decision.
+        </li>
+        <li>
+          <strong>KYA-O (Optimisation Standard).</strong> Agent Trust Score (ATS 0&ndash;100),
+          autoresearch governance, reliability metrics across production deployments.
+        </li>
+      </ul>
+      <p>Full specification: <a href="../kya-standard/">KYA Standard v1.5</a>.</p>
+
+      <h3>D&amp;O Insurance Impact</h3>
+      <div class="summary-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>Value</th>
+              <th>Basis</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Indicative D&amp;O Premium Reduction</strong></td>
+              <td>8&ndash;12%</td>
+              <td>
+                Insurer feedback on documented AI-governance frameworks; comparable range to SOC 2
+                (5&ndash;15% cyber-premium reduction). Actual reduction depends on insurer, sector,
+                and coverage limits.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Addressable Enterprises</strong></td>
+              <td>Every KYA-certified deployer</td>
+              <td>EU AI Act applies to all deployers, not just providers (Art. 26)</td>
+            </tr>
+            <tr>
+              <td><strong>Commercial Model</strong></td>
+              <td>Included in platform fee</td>
+              <td>D&amp;O savings are a sales accelerator, not a separate SKU</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="table-note">
+          Fines, premiums, and legal defence remain with the customer. KYA produces the Article 12
+          logging and Article 26 deployer evidence insurers require; it does not underwrite
+          liability.
+        </p>
+      </div>
+
+      <hr />
+
+      <h2 id="industries">14. EU-Regulated Industries Coverage</h2>
+      <p>
+        DWS IQ 6 is designed for autonomous-agent governance across the industries most exposed to
+        <strong>Fit for 55</strong>, <strong>CBAM</strong>, <strong>ETS</strong>,
+        <strong>CSRD</strong>, and the <strong>EU AI Act</strong>. Coverage is organised in three
+        regulatory-exposure tiers:
+      </p>
+
+      <div class="summary-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Tier</th>
+              <th>Industries</th>
+              <th>Primary Exposure</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Tier 1 &mdash; Critical Emissions</strong></td>
+              <td>
+                Power &amp; Heat, Iron &amp; Steel, Cement &amp; Lime, Chemicals, Aviation,
+                Maritime, Road Transport, Construction
+              </td>
+              <td>EU ETS, CBAM, Fit for 55</td>
+            </tr>
+            <tr>
+              <td><strong>Tier 2 &mdash; Important Emissions</strong></td>
+              <td>
+                Agriculture, Waste Management, Aluminium, Pulp &amp; Paper, Petroleum Refining, Food
+                &amp; Beverage, Glass &amp; Ceramics, Mining
+              </td>
+              <td>CSRD, sector emission benchmarks, EU ETS extension</td>
+            </tr>
+            <tr>
+              <td><strong>Tier 3 &mdash; Wedge Industries</strong></td>
+              <td>
+                Fintech &amp; Trading, Pharma &amp; Biotech, Cybersecurity, Healthcare &amp; MedTech
+              </td>
+              <td>DORA, NIS2, EU AI Act high-risk categories (Annex III)</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="table-note">
+          Industry list maintained in sync with the EU ETS Phase 4 scope, CBAM Regulation 2023/956
+          Annex I, and CSRD sector-specific ESRS. Contact
+          <a href="mailto:compliance@lifetime.fi">compliance@lifetime.fi</a> for the current
+          industry-specific controls matrix.
+        </p>
       </div>
     </div>
 

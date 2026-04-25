@@ -121,7 +121,7 @@ EU energy companies face 8+ overlapping regulatory frameworks with different rep
 
 | Package | Contents | Price | Target |
 |---------|----------|-------|--------|
-| **DWS IQ Platform** | Full 18+ agents, all regulations | EUR 4,999 + EUR 499/mo | Large utilities, grid operators |
+| **DWS IQ Platform** | Full 21+ agents, all regulations | EUR 4,999 + EUR 499/mo | Large utilities, grid operators |
 | **Climate Reporting Starter Bundle** | DWS IQ + Firehorse Report + Workshop | EUR 6,500 + EUR 1,999/yr | Mid-size energy companies facing first CSRD deadline |
 | **Firehorse Automation** | Event-driven compliance workflows | EUR 4,950 | Companies with ERP integration needs |
 

@@ -23,7 +23,8 @@
     - Acer Helsinki:  -RemoteBackup flag sends via SCP
     - GitHub Actions: daily-db-backup.yml (separate CI/CD workflow)
 
-    Requires: pg_dump (PostgreSQL client) OR Docker with pgvector/pgvector:pg16
+    Requires: pg_dump/psql from PostgreSQL 17+ (match hosted Supabase; see supabase/config.toml db.major_version)
+               OR Docker image with pg_dump 17+ (e.g. postgres:17)
 
 .PARAMETER BackupDir
     Local backup directory. Default: F:\2026\Backups\dws6-db

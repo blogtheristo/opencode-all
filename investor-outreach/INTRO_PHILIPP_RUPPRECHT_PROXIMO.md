@@ -52,7 +52,7 @@ AGENT HISTORY:
 Lead with:
 1. **Dual thesis** — "We sit at the intersection of decarbonization and defense: carbon balance sheet infrastructure that's also EU-sovereign AI for regulated industries"
 2. **Academic depth** — Metropolia thesis on industrial AI + LUT PhD track on compliance automation. This isn't a pivot-from-consulting story — it's deep domain research commercialized
-3. **TRL maturity** — 18 agents in production, 5 customers, zero churn. Past the "does the tech work" phase
+3. **TRL maturity** — 21 agents in production, 5 customers, zero churn. Past the "does the tech work" phase
 4. **Captain Seat** — €50K entry, named captain of an industry vertical. Quarterly briefings, priority routing, Situation Room access
 
 For Aegis angle specifically:
@@ -80,7 +80,7 @@ Great speaking with you recently. Following up as discussed.
 
 We're building the carbon balance sheet — double-entry bookkeeping for CO2 across 20 EU-regulated industries. What makes us different: the same infrastructure serves both decarbonization compliance (CSRD, CBAM, ETS) and EU sovereign AI for critical infrastructure (our Aegis framework).
 
-Current state: 18 AI agents in production, 5 paying customers (€7K MRR, zero churn), V1 launching at Arctic 15 in Helsinki on June 15. Raising €650K on a SAFE at €3.8M cap.
+Current state: 21 AI agents in production, 6 paying customers (€7K MRR, zero churn), V1 launching at Arctic 15 in Helsinki on June 15. Raising €650K on a SAFE at €3.8M cap.
 
 My background bridges academia to commercialization — Metropolia master thesis on industrial AI, currently in the LUT PhD program on compliance automation. The product is the research, productized.
 

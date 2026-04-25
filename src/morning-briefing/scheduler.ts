@@ -1,42 +1,22 @@
 /**
- * Morning Briefing — CEO Cockpit
+ * Morning Briefing Scheduler — CEO Cockpit
  *
- * Delivery: GitHub Actions workflow (.github/workflows/morning-briefing.yml)
- * fires Mon-Sat at 06:00 Helsinki via dual UTC crons (DST-safe).
+ * Runs Mon-Sat at 06:00 Helsinki time (Europe/Helsinki).
+ * Sends a focused 5-minute CEO cockpit briefing:
+ *   1. 3 Changes (pipeline, product, delivery)
+ *   2. Today's 3 Bets
+ *   3. Top Risk + next action
+ *   4. Captain Momentum (who to ping + artifact)
+ *   5. Metrics Strip (MRR, active convos, commits, MVP ETA)
+ *   6. Send List (3-5 contacts for manual outreach)
  *
- * SECURITY: Resend SDK removed 2026-03-26 due to suspected account compromise.
- * Email delivery: Amazon SES (SMTP) only. Console fallback for dev.
- *
- * risto@onelifetime.world managed by Amazon SES eu-north-1.
- * SMTP env vars: SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_SECURE
+ * Uses Resend (primary) with SendGrid fallback.
  */
 
-import nodemailer from 'nodemailer';
+import * as cron from 'node-cron';
 import logger from '../utils/logger.js';
 import { collectCockpitData } from './data-collectors.js';
 import { buildCockpitHtml, buildCockpitPlainText } from './briefing-template.js';
-
-// ============================================================================
-// SMTP TRANSPORT
-// ============================================================================
-
-function createSmtpTransport(): nodemailer.Transporter | null {
-  const host = process.env.SMTP_HOST;
-  if (!host) return null;
-
-  const port = parseInt(process.env.SMTP_PORT || '587', 10);
-  const secure = process.env.SMTP_SECURE === 'true';
-
-  return nodemailer.createTransport({
-    host,
-    port,
-    secure,
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-  });
-}
 
 // ============================================================================
 // SEND BRIEFING
@@ -57,39 +37,145 @@ async function sendMorningBriefing(): Promise<void> {
   });
   const subject = `CEO Cockpit ${dateStr}`;
 
-  // --- SES SMTP ---
-  const smtpTransport = createSmtpTransport();
-  if (smtpTransport) {
+  // Send via Resend (primary) or SendGrid (fallback)
+  const resendKey = process.env.RESEND_API_KEY;
+  const sendgridKey = process.env.SENDGRID_API_KEY;
+
+  if (resendKey) {
     try {
-      const info = await smtpTransport.sendMail({
-        from: fromAddress,
-        to: recipient,
-        subject,
-        html,
-        text,
+      const response = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${resendKey}`,
+        },
+        body: JSON.stringify({
+          from: fromAddress,
+          to: [recipient],
+          subject,
+          html,
+          text,
+        }),
       });
-      logger.info('CEO Cockpit sent via SES SMTP', { to: recipient, messageId: info.messageId });
-      return;
+
+      if (response.ok) {
+        logger.info('CEO Cockpit sent via Resend', {
+          transport: 'resend',
+          recipientCount: 1,
+        });
+        return;
+      }
+
+      const errorBody = await response.text();
+      logger.warn('Resend CEO Cockpit failed, trying SendGrid', {
+        status: response.status,
+        error: errorBody,
+      });
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Unknown error';
-      logger.error('SES SMTP send failed', { error: msg });
+      logger.warn('Resend CEO Cockpit error, trying SendGrid', { error: msg });
     }
   }
 
-  // --- Last resort: console ---
-  logger.warn('No SMTP transport configured (SMTP_HOST). Printing to console.');
+  if (sendgridKey) {
+    try {
+      const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${sendgridKey}`,
+        },
+        body: JSON.stringify({
+          personalizations: [{ to: [{ email: recipient }] }],
+          from: { email: fromAddress },
+          subject,
+          content: [
+            { type: 'text/plain', value: text },
+            { type: 'text/html', value: html },
+          ],
+        }),
+      });
+
+      if (response.ok || response.status === 202) {
+        logger.info('CEO Cockpit sent via SendGrid', {
+          transport: 'sendgrid',
+          recipientCount: 1,
+        });
+        return;
+      }
+
+      const errorBody = await response.text();
+      logger.warn('SendGrid CEO Cockpit also failed', {
+        status: response.status,
+        error: errorBody,
+      });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Unknown error';
+      logger.error('SendGrid CEO Cockpit error', { error: msg });
+    }
+  }
+
+  // No provider — print to console
+  logger.warn('No email provider configured. Printing cockpit to console.');
   console.log('\n' + text);
 }
 
 // ============================================================================
-// PUBLIC API (used by Express manual-trigger endpoint)
+// SCHEDULER CLASS
 // ============================================================================
 
-/**
- * Send the CEO Cockpit briefing immediately.
- * Called from the POST /api/v1/morning-briefing/send endpoint.
- */
+export class MorningBriefingScheduler {
+  private job: cron.ScheduledTask | null = null;
+
+  /**
+   * Start the scheduler.
+   * Cron: 0 6 * * 1-6 = 06:00, Mon-Sat (Helsinki timezone)
+   */
+  start(): void {
+    logger.info('Starting CEO Cockpit Scheduler');
+
+    this.job = cron.schedule(
+      '0 6 * * 1-6',
+      async () => {
+        logger.info('Running CEO Cockpit briefing');
+        try {
+          await sendMorningBriefing();
+        } catch (error) {
+          logger.error('CEO Cockpit briefing failed', { error });
+        }
+      },
+      {
+        timezone: 'Europe/Helsinki',
+      },
+    );
+
+    logger.info('CEO Cockpit Scheduler started — 06:00 Helsinki, Mon-Sat', {
+      recipient: process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi',
+    });
+  }
+
+  /**
+   * Stop the scheduler.
+   */
+  stop(): void {
+    if (this.job) {
+      this.job.stop();
+    }
+    logger.info('CEO Cockpit Scheduler stopped');
+  }
+
+  /**
+   * Run manually (for testing or immediate trigger).
+   */
+  async runManually(): Promise<void> {
+    logger.info('Running CEO Cockpit manually');
+    await sendMorningBriefing();
+  }
+}
+
+export const morningBriefingScheduler = new MorningBriefingScheduler();
+
+// Convenience export for manual trigger
 export async function sendBriefingNow(): Promise<void> {
-  logger.info('Running CEO Cockpit manually');
-  await sendMorningBriefing();
+  return morningBriefingScheduler.runManually();
 }

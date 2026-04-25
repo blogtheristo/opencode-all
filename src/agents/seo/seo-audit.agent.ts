@@ -39,6 +39,7 @@ export class SeoAuditAgent extends BaseAgent {
         'change-detection',
       ],
       model: 'llama-3.3-70b-versatile',
+      modelTier: 'standard',
     });
   }
 

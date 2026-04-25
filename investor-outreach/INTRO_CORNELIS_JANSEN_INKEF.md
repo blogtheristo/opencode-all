@@ -38,7 +38,7 @@ Human assessment: Cornelis has a hard preference against climate/ESG deals. Our 
 
 **What aligns:**
 - European sovereignty in compute — maps to our EU-sovereign architecture
-- Frontier AI — 18 AI agents with deterministic scoring
+- Frontier AI — 21 AI agents with deterministic scoring
 - Defence/resilience — Aegis framework, EU AI Act compliance
 - Check size (€0.5M–€7M) — could anchor or fill the entire €650K round
 

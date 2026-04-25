@@ -12,19 +12,19 @@
  * Auto-injects nav at the start of <body>.
  */
 
-(function() {
-    'use strict';
+(function () {
+  'use strict';
 
-    const getBasePath = () => {
-        const path = window.location.pathname;
-        const depth = (path.match(/\//g) || []).length - 1;
-        if (depth === 0 || path === '/' || path === '/index.html') return '';
-        return '../'.repeat(depth);
-    };
+  const getBasePath = () => {
+    const path = window.location.pathname;
+    const depth = (path.match(/\//g) || []).length - 1;
+    if (depth === 0 || path === '/' || path === '/index.html') return '';
+    return '../'.repeat(depth);
+  };
 
-    const basePath = getBasePath();
+  const basePath = getBasePath();
 
-    const navHTML = `
+  const navHTML = `
 <!-- OneLifetime.World Iron Clad Navigation v1.0 (Dark Theme) -->
 <header class="olw-header">
     <div class="olw-container">
@@ -89,6 +89,20 @@
                     </ul>
                 </li>
 
+                <!-- Investor ▾ -->
+                <li class="olw-menu-item">
+                    <a href="#" class="olw-link">Investor ▾</a>
+                    <ul class="olw-dropdown">
+                        <li><a href="${basePath}press/" class="olw-primary">Press Releases</a></li>
+                        <li><a href="https://dws10.com/investor-relations/" class="olw-primary">Investor Relations</a></li>
+                        <li><a href="https://dws10.com/series-a/" class="olw-highlight">Series A Round</a></li>
+                        <li><a href="https://dws10.com/captain/" class="olw-highlight">Industry Captain Seats</a></li>
+                        <li class="olw-separator"></li>
+                        <li><a href="${basePath}investment-safety/">Investment Safety</a></li>
+                        <li><a href="${basePath}regulatory-notice/">Regulatory Notice</a></li>
+                    </ul>
+                </li>
+
                 <!-- Products ▾ -->
                 <li class="olw-menu-item">
                     <a href="#" class="olw-link">Products ▾</a>
@@ -130,7 +144,7 @@
 </header>
 `;
 
-    const navCSS = `
+  const navCSS = `
 /* ============================================
    ONELIFETIME.WORLD IRON CLAD NAV v1.0
    Dark theme — matches site gradient
@@ -438,79 +452,79 @@
 }
 `;
 
-    // JavaScript for hamburger toggle
-    function initNav() {
-        // Inject CSS
-        var style = document.createElement('style');
-        style.textContent = navCSS;
-        document.head.appendChild(style);
+  // JavaScript for hamburger toggle
+  function initNav() {
+    // Inject CSS
+    var style = document.createElement('style');
+    style.textContent = navCSS;
+    document.head.appendChild(style);
 
-        // Inject nav HTML at start of body
-        var wrapper = document.createElement('div');
-        wrapper.innerHTML = navHTML.trim();
-        var headerEl = wrapper.firstElementChild;
-        document.body.insertBefore(headerEl, document.body.firstChild);
+    // Inject nav HTML at start of body
+    var wrapper = document.createElement('div');
+    wrapper.innerHTML = navHTML.trim();
+    var headerEl = wrapper.firstElementChild;
+    document.body.insertBefore(headerEl, document.body.firstChild);
 
-        // Create backdrop
-        var backdrop = document.createElement('div');
-        backdrop.className = 'olw-backdrop';
-        document.body.appendChild(backdrop);
+    // Create backdrop
+    var backdrop = document.createElement('div');
+    backdrop.className = 'olw-backdrop';
+    document.body.appendChild(backdrop);
 
-        var hamburger = document.querySelector('.olw-hamburger');
-        var nav = document.querySelector('.olw-nav');
-        var closeBtn = document.querySelector('.olw-close');
+    var hamburger = document.querySelector('.olw-hamburger');
+    var nav = document.querySelector('.olw-nav');
+    var closeBtn = document.querySelector('.olw-close');
 
-        function openMenu() {
-            nav.classList.add('open');
-            hamburger.classList.add('active');
-            hamburger.setAttribute('aria-expanded', 'true');
-            backdrop.classList.add('active');
-            document.body.style.overflow = 'hidden';
+    function openMenu() {
+      nav.classList.add('open');
+      hamburger.classList.add('active');
+      hamburger.setAttribute('aria-expanded', 'true');
+      backdrop.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      nav.classList.remove('open');
+      hamburger.classList.remove('active');
+      hamburger.setAttribute('aria-expanded', 'false');
+      backdrop.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    if (hamburger) {
+      hamburger.addEventListener('click', function () {
+        if (nav.classList.contains('open')) {
+          closeMenu();
+        } else {
+          openMenu();
         }
+      });
+    }
 
-        function closeMenu() {
-            nav.classList.remove('open');
-            hamburger.classList.remove('active');
-            hamburger.setAttribute('aria-expanded', 'false');
-            backdrop.classList.remove('active');
-            document.body.style.overflow = '';
-        }
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeMenu);
+    }
 
-        if (hamburger) {
-            hamburger.addEventListener('click', function() {
-                if (nav.classList.contains('open')) {
-                    closeMenu();
-                } else {
-                    openMenu();
-                }
-            });
-        }
+    backdrop.addEventListener('click', closeMenu);
 
-        if (closeBtn) {
-            closeBtn.addEventListener('click', closeMenu);
-        }
-
-        backdrop.addEventListener('click', closeMenu);
-
-        // Mobile: tap to toggle dropdowns
-        var menuItems = document.querySelectorAll('.olw-menu-item');
-        menuItems.forEach(function(item) {
-            var link = item.querySelector('.olw-link');
-            var dropdown = item.querySelector('.olw-dropdown');
-            if (link && dropdown) {
-                link.addEventListener('click', function(e) {
-                    if (window.innerWidth <= 768) {
-                        e.preventDefault();
-                        item.classList.toggle('open');
-                    }
-                });
-            }
+    // Mobile: tap to toggle dropdowns
+    var menuItems = document.querySelectorAll('.olw-menu-item');
+    menuItems.forEach(function (item) {
+      var link = item.querySelector('.olw-link');
+      var dropdown = item.querySelector('.olw-dropdown');
+      if (link && dropdown) {
+        link.addEventListener('click', function (e) {
+          if (window.innerWidth <= 768) {
+            e.preventDefault();
+            item.classList.toggle('open');
+          }
         });
-    }
+      }
+    });
+  }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initNav);
-    } else {
-        initNav();
-    }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNav);
+  } else {
+    initNav();
+  }
 })();

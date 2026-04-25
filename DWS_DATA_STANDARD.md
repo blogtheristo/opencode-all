@@ -226,7 +226,7 @@ Not all DWS data lives in Postgres. Some content stores are filesystem-backed ma
 | `kb/ephemeral/`          | LLM       | WORKING (transient)   | **NO**                | **7 days** — `scripts/daily/kb-cleanup.sh` sweeps older entries | Not backed up          |
 | `kb/kb.json`             | LLM       | INTERNAL (metadata)   | No                    | Indefinite — updated on each compile/lint                       | Git repo               |
 | `docs/field-notes/`      | Human     | INTERNAL (operations) | No                    | Indefinite — version history                                    | Git repo               |
-| `logs/email-audit.jsonl` | System    | RESTRICTED (audit)    | Yes (email addresses) | 7 years (financial record retention)                            | Aiwen + ProtonDrive    |
+| `logs/email-audit.jsonl` | System    | RESTRICTED (audit)    | Yes (email addresses) | 7 years (financial record retention)                            | Aiven + ProtonDrive    |
 
 **KB classification rules (enforced by operator discipline, not code):**
 
@@ -426,9 +426,9 @@ Run quarterly compliance checks:
 
 ## 10. Migration & Schema Change Policy
 
-### 10.1 Boardy Safety Rules
+### 10.1 Marcus Safety Rules
 
-Every database migration MUST follow Boardy's safety rules (from CLAUDE.md):
+Every database migration MUST follow Marcus's safety rules (from CLAUDE.md):
 
 | Rule                                        | Enforcement                   |
 | ------------------------------------------- | ----------------------------- |
@@ -453,7 +453,7 @@ Example: `044_120326_table_partitioning.sql`
 1. Draft migration SQL with `BEGIN`/`COMMIT` wrapper
 2. Test on Aiven Developer plan ($5/mo sandbox)
 3. Run `scripts/db-drift-check.py` to verify repo matches live schema
-4. PR review (Boardy cranky review)
+4. PR review (Marcus review)
 5. Apply to Aiven Startup production
 6. Verify with `db-drift-check.py --verify`
 

@@ -141,7 +141,7 @@
             <a href="/regulatory-notice/">Regulatory Notice</a>
         </div>
         <div class="ironclad-footer-copyright">
-            &copy; 2025&ndash;2026 Lifetime Oy &middot; VAT FI07724079 &middot; Laidunmaanraitti 2 A 25, 02330 Espoo, Finland &middot; GDPR &middot; DSA &middot; NIS2 &middot; EU AI Act
+            DWS IQ Aegis &mdash; Sovereign AI for EU defence supply chains &middot; Lifetime Oy (Y-tunnus 0772407-9) &middot; 100&nbsp;% Finnish owned limited company<br>&copy; 2026 Lifetime Oy &middot; VAT FI07724079 &middot; GDPR &middot; DSA &middot; NIS2 &middot; EU AI Act
         </div>
     </div>
 </footer>

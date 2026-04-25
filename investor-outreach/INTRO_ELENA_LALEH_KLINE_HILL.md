@@ -60,7 +60,7 @@ Lead with:
 
 **Do NOT lead with:**
 - Investment ask (she's a fund manager, not an angel)
-- Technical details (18 agents, MCP, etc.)
+- Technical details (21 agents, MCP, etc.)
 - Seed-stage metrics in isolation
 
 ## Conference Approach Plan

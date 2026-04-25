@@ -14,7 +14,7 @@
 | `pretooluse-guard.sh`     | PreToolUse   | Bash                   | Master deny list: rm -rf, force push, hard reset, git rm, sudo, pipe-to-shell, ollama |
 | `secret-scan.sh`          | PreToolUse   | Bash, Edit, Write      | 14 OWASP secret patterns (AWS, GitHub, Stripe, Anthropic, JWT, npm, Slack)            |
 | `log-commands.sh`         | PreToolUse   | Bash                   | Audit every Bash command with timestamp + branch                                      |
-| `sql-safety-guard.sh`     | PreToolUse   | Bash                   | 7 SQL rules: RLS, transactions, DROP approval, Aiwen immutability                     |
+| `sql-safety-guard.sh`     | PreToolUse   | Bash                   | 7 SQL rules: RLS, transactions, DROP approval, Aiven immutability                     |
 | `protect-files.sh`        | PreToolUse   | Edit, Write            | Block .env, .key, .pem, credentials, migrations, .md in public folders                |
 | prettier (inline)         | PostToolUse  | Write, Edit            | Auto-format with prettier                                                             |
 | eslint (inline)           | PostToolUse  | Write, Edit            | Auto-fix with eslint                                                                  |

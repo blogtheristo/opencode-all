@@ -352,7 +352,7 @@ Supabase (production) → pg_dump (daily) → 4 destinations:
 | DR-3 | Backup encryption             | GPG symmetric AES-256 encryption before any cloud/remote transfer. Unencrypted dumps deleted after encryption. Passphrase in `.env` (never hardcoded).        | `gpg --symmetric --cipher-algo AES256`                        | Active |
 | DR-4 | Restore verification          | Row count snapshot (`row_counts.json`) taken during backup, compared after Aiven restore. Delta > 5% triggers warning.                                        | `Backup-Database.ps1`, `Mirror-ToAiven.ps1`                   | Active |
 | DR-5 | Sandbox mirror (Aiven)        | Daily mirror to Aiven PostgreSQL (EU Finland) for agent work and LWM training. Also serves as warm standby. Auth stubs for RLS compatibility.                 | `Mirror-ToAiven.ps1`, `aiven-init.sql`                        | Active |
-| DR-6 | Human gate on destructive ops | No `DROP DATABASE`, `terraform destroy`, or schema-breaking migrations without human approval. AI agents generate plans; humans execute destructive commands. | PR review gate, Boardy review                                 | Active |
+| DR-6 | Human gate on destructive ops | No `DROP DATABASE`, `terraform destroy`, or schema-breaking migrations without human approval. AI agents generate plans; humans execute destructive commands. | PR review gate, Marcus review                                 | Active |
 | DR-7 | Deletion protection           | Supabase project-level deletion protection enabled in dashboard. Aiven service termination protection enabled.                                                | Provider dashboard settings                                   | Active |
 
 **RTO/RPO Targets:**

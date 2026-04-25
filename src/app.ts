@@ -7,10 +7,11 @@
  * - Event-driven agent runtime initialized on startup (Fix #6)
  */
 
-import express, { type Express, type NextFunction, type Request, type Response } from 'express';
+import express, { Express, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import crypto from 'crypto';
 import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
@@ -28,10 +29,10 @@ import agentRoutes from './agents/routes.js';
 import bimRoutes from './routes/bim.routes.js';
 import hilRoutes from './routes/hil.routes.js';
 import situationRoomRoutes from './routes/situation-room.routes.js';
-import grokConsentRoutes from './routes/grok-consent.routes.js';
-import capTableRouter from './investor-reports/cap-table-routes.js';
+// import grokConsentRoutes from './routes/grok-consent.routes.js'; // TODO: restore when grok-consent is available
 import paymentRoutes from './routes/payment.routes.js';
-import { createMCPRouter } from './mcp/agent-server.js';
+import b2bPaymentRoutes from './routes/b2b-payment.routes.js';
+import stripeWebhookRoutes from './routes/stripe-webhook.routes.js';
 import captainRoutes from './routes/captain.routes.js';
 import usageRoutes from './routes/usage.routes.js';
 import onboardRoutes from './routes/onboard.routes.js';
@@ -39,31 +40,35 @@ import complianceRoutes from './routes/compliance.routes.js';
 import reportExportRoutes from './routes/report-export.routes.js';
 import apiKeyRoutes from './routes/api-keys.routes.js';
 import kyaWebhookRoutes from './routes/kya-webhook.routes.js';
-import memoryRoutes from './routes/memory.routes.js';
-import activityRoutes from './routes/activity.routes.js';
-import dashboardRoutes from './routes/dashboard.routes.js';
-import notificationRoutes from './routes/notification.routes.js';
-import { openApiRouter } from './openapi.js';
 import { terminateChain } from './identity/kya-engine.js';
-import { notificationService } from './services/notification.service.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
 import { constructionLeadsScheduler, fetchAndProcessLeads } from './construction-leads/index.js';
-import { contentRoutes } from './contentms/index.js';
-import { firehorseRoutes, initFirehorsePilot, shutdownFirehorsePilot } from './firehorse/index.js';
+import { memoryScheduler } from './agents/memory.scheduler.js';
 import { apiVersionMiddleware } from './middleware/api-version.middleware.js';
 import { correlationId } from './middleware/correlation-id.js';
 import { errorHandler, notFoundHandler } from './middleware/error-handler.js';
 import { healthCheck, livenessCheck } from './middleware/health.js';
 import { validateEnv } from './middleware/env-validation.js';
-import { requestTimeout } from './middleware/request-timeout.js';
-import { errorTrackingMiddleware, initErrorTracking } from './middleware/error-tracking.js';
-import {
-  apiRateLimiter,
-  loginRateLimiter,
-  registrationRateLimiter,
-} from './services/redis-rate-limiter.service.js';
+
+// ============ STUBS FOR MODULES EXCLUDED FROM BUILD ============
+// tsconfig.json excludes src/firehorse/**, src/mcp/**, and src/investor-reports/**
+// from compilation, so they are not present in dist/ at runtime. Static imports
+// from these paths would crash the container with ERR_MODULE_NOT_FOUND before
+// app.listen() — breaking Cloud Run health checks. Instead we expose no-op
+// stubs; affected routes will 404 and scheduled hooks are no-ops. Unstub by
+// restoring the modules in tsconfig `include` and reverting this block.
+const firehorseRoutes = express.Router();
+const initFirehorsePilot = (): void => {
+  logger.warn('firehorse stubbed — module excluded from build');
+};
+const shutdownFirehorsePilot = (): void => {
+  /* no-op */
+};
+const createMCPRouter = () => express.Router();
+const capTableRouter = express.Router();
+// ================================================================
 
 dotenv.config();
 
@@ -87,25 +92,13 @@ const __dirname = path.dirname(__filename);
 
 // ============ MIDDLEWARE ============
 
-// Generate a per-request CSP nonce (replaces 'unsafe-inline' for scripts)
-app.use((req: Request, _res: Response, next: NextFunction) => {
-  (req as Request & { cspNonce: string }).cspNonce = crypto.randomBytes(16).toString('base64');
-  next();
-});
-
-// Security headers — nonce-based CSP (no unsafe-inline for scripts)
+// Security headers - configured to allow static HTML pages with inline scripts
 app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        scriptSrc: [
-          "'self'",
-          (_req, res) => {
-            const nonce = (res.req as Request & { cspNonce: string }).cspNonce;
-            return `'nonce-${nonce}'`;
-          },
-        ],
+        scriptSrc: ["'self'", "'unsafe-inline'"],
         styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
         fontSrc: ["'self'", 'https://fonts.gstatic.com'],
         imgSrc: ["'self'", 'data:', 'https:'],
@@ -176,17 +169,42 @@ app.use(correlationId);
 app.use(apiVersionMiddleware);
 
 // Body parsers with size limits
-app.use(express.json({ limit: '10kb' }));
-app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+//
+// IMPORTANT: stripe-webhook routes are mounted BEFORE express.json() (further
+// down in this file's STRIPE WEBHOOK MOUNT block) so that preserveRawBody can
+// read the raw HTTP stream. If express.json() processes the request first,
+// the stream is consumed and `req.on('data')` / `req.on('end')` never fire,
+// causing the webhook handler to hang until Cloud Run kills the request at
+// the 60s timeout.
+app.use((req, res, next) => {
+  if (req.path.startsWith('/webhooks/stripe')) return next();
+  return express.json({ limit: '10kb' })(req, res, next);
+});
+app.use((req, res, next) => {
+  if (req.path.startsWith('/webhooks/stripe')) return next();
+  return express.urlencoded({ extended: true, limit: '10kb' })(req, res, next);
+});
 
-// Rate limiting — Redis-backed for Cloud Run multi-instance, in-memory fallback
-app.use('/api/', apiRateLimiter);
-app.use('/api/v1/auth/login', loginRateLimiter);
-app.use('/api/v1/auth/register', registrationRateLimiter);
-app.use('/api/v1/auth/forgot-password', loginRateLimiter);
+// Rate limiting (general)
+const limiter = rateLimit({
+  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000', 10), // 15 minutes
+  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || '100', 10),
+  message: 'Too many requests from this IP, please try again later.',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use('/api/', limiter);
 
-// Request timeout — abort after 30s (configurable via REQUEST_TIMEOUT_MS)
-app.use(requestTimeout());
+// Strict rate limiting for auth endpoints
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  message: 'Too many attempts, please try again later.',
+  skipSuccessfulRequests: true,
+});
+app.use('/api/v1/auth/login', loginLimiter);
+app.use('/api/v1/auth/register', loginLimiter);
+app.use('/api/v1/auth/forgot-password', loginLimiter);
 
 // Request logging middleware (includes correlation ID for tracing)
 app.use((req: Request, _res: Response, next: NextFunction) => {
@@ -243,9 +261,6 @@ app.use('/api/v1/firehorse', firehorseRoutes);
 // AI Agent routes (18 agents + DWS7 workflows, discovery, events)
 app.use('/api/agents', agentRoutes);
 
-// V10 Dashboard agent routes — alias at /api/v1/agents for dashboard compatibility
-app.use('/api/v1/agents', agentRoutes);
-
 // Usage metering (MVP Feature 2)
 app.use('/api/v1/usage', usageRoutes);
 
@@ -264,6 +279,12 @@ app.use('/api/v1/user/api-keys', apiKeyRoutes);
 // Payment proxy (PayPal, Revolut subscription checkout)
 app.use('/api/v1/payments', paymentRoutes);
 
+// B2B Payment Flow (Revolut deposit + Stripe invoice)
+app.use('/api/v1/b2b', b2bPaymentRoutes);
+
+// Stripe webhook (invoice payments, refunds, customer events)
+app.use('/webhooks/stripe', stripeWebhookRoutes);
+
 // MCP Agent Server (DWS7: Fix #5 — exposes agents as MCP tools)
 app.use('/mcp', createMCPRouter());
 
@@ -271,28 +292,45 @@ app.use('/mcp', createMCPRouter());
 app.use('/api/v1/email', emailRoutes);
 app.use('/api/v1/captain', captainRoutes);
 
-// Firehorse ContentMS (content pipeline: blog, email, social, digest)
-app.use('/api/v1/content', contentRoutes);
-
 // Webhooks (Resend inbound email for digest replies)
 app.use('/webhooks', webhookRoutes);
 
 // KYA Webhook Bridge (Shufti Pro → Policy Engine)
 app.use('/api/v1/kya', kyaWebhookRoutes);
 
+const getHeaderValue = (value: string | string[] | undefined): string | undefined =>
+  Array.isArray(value) ? value[0] : value;
+
+const extractBearerToken = (authorization: string | undefined): string | undefined => {
+  if (!authorization) return undefined;
+  return authorization.toLowerCase().startsWith('bearer ')
+    ? authorization.slice(7).trim()
+    : authorization.trim();
+};
+
+const isAuthorizedAdminKey = (
+  provided: string | undefined,
+  expected: string | undefined,
+): boolean => {
+  if (!provided || !expected) return false;
+  const providedHash = crypto.createHash('sha256').update(provided, 'utf8').digest();
+  const expectedHash = crypto.createHash('sha256').update(expected, 'utf8').digest();
+  return crypto.timingSafeEqual(providedHash, expectedHash);
+};
+
 // KYA CLI Snap endpoint (simulation trigger for demo)
 app.post('/api/v1/kya/snap', async (req: Request, res: Response) => {
   const adminKey = process.env.ADMIN_API_KEY;
-  const provided =
-    req.headers['authorization']?.replace('Bearer ', '') || req.headers['x-admin-key'];
-
-  if (adminKey && provided) {
-    const providedBuf = Buffer.from(String(provided).padEnd(256, '\0'));
-    const expectedBuf = Buffer.from(adminKey.padEnd(256, '\0'));
-    if (!crypto.timingSafeEqual(providedBuf, expectedBuf)) {
-      res.status(401).json({ error: 'Unauthorized' });
-      return;
-    }
+  const authHeader = getHeaderValue(req.headers.authorization);
+  const adminHeader = getHeaderValue(req.headers['x-admin-key']);
+  const provided = extractBearerToken(authHeader) || adminHeader;
+  if (!adminKey) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+  if (!isAuthorizedAdminKey(provided, adminKey)) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
   }
 
   const { sessionId, reason, forceCascade, source } = req.body;
@@ -333,22 +371,10 @@ app.use('/api/hil', hilRoutes);
 app.use('/api/situation-room', situationRoomRoutes);
 
 // Grok Consent — GDPR + EU AI Act Article 12 sovereignty dashboard
-app.use('/api/grok-consent', grokConsentRoutes);
+// app.use('/api/grok-consent', grokConsentRoutes); // TODO: restore when grok-consent is available
 
 // Peachscore Accelerator — Cap Table & Financials
 app.use('/api/investor-reports/cap-table', capTableRouter);
-
-// Memory dashboard (stats, audit, decay dry-run)
-app.use('/api/v1/memory', memoryRoutes);
-
-// Activity feed (real-time events, SSE stream)
-app.use('/api/v1/activity', activityRoutes);
-
-// Dashboard summary (aggregated metrics for MetricsHeader)
-app.use('/api/v1/dashboard', dashboardRoutes);
-
-// Notifications (in-app notifications with read/unread)
-app.use('/api/v1/notifications', notificationRoutes);
 
 // Project delivery status (investor view) — dashboard fetches latest on admin login
 app.get('/api/v1/dashboard/delivery-status', (_req: Request, res: Response) => {
@@ -376,20 +402,14 @@ app.get('/api/v1/dashboard/delivery-status', (_req: Request, res: Response) => {
 // Morning briefing manual trigger (secured by admin key)
 app.post('/api/v1/morning-briefing/send', async (req: Request, res: Response) => {
   const adminKey = process.env.ADMIN_API_KEY;
-  const provided = req.headers['x-admin-key'];
+  const provided = getHeaderValue(req.headers['x-admin-key']);
 
   // SECURITY: Use constant-time comparison to prevent timing attacks
   if (!adminKey) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
   }
-  if (!provided || typeof provided !== 'string') {
-    res.status(401).json({ error: 'Unauthorized' });
-    return;
-  }
-  const providedBuffer = Buffer.from(provided.padEnd(256, '\0'));
-  const expectedBuffer = Buffer.from(adminKey.padEnd(256, '\0'));
-  if (!crypto.timingSafeEqual(providedBuffer, expectedBuffer)) {
+  if (!isAuthorizedAdminKey(provided, adminKey)) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
   }
@@ -404,37 +424,16 @@ app.post('/api/v1/morning-briefing/send', async (req: Request, res: Response) =>
   }
 });
 
-// Cron status proxy — forwards to DGX Spark cron-runner :8081/status
-app.get('/api/v1/cron/status', async (_req: Request, res: Response) => {
-  const cronUrl = process.env.CRON_RUNNER_URL || 'http://localhost:8081';
-  try {
-    const response = await fetch(`${cronUrl}/status`, { signal: AbortSignal.timeout(5000) });
-    if (!response.ok) {
-      res.status(502).json({ error: 'Cron runner returned ' + response.status });
-      return;
-    }
-    const data = await response.json();
-    res.json(data);
-  } catch (err) {
-    const msg = err instanceof Error ? err.message : 'Unknown error';
-    logger.warn('Cron status proxy failed', { error: msg, cronUrl });
-    res.status(503).json({ error: 'Cron runner unreachable', message: msg });
-  }
-});
-
 // Construction leads manual trigger (secured by admin key)
 app.post('/api/v1/construction-leads/fetch', async (req: Request, res: Response) => {
   const adminKey = process.env.ADMIN_API_KEY;
-  const provided = req.headers['x-admin-key'];
+  const provided = getHeaderValue(req.headers['x-admin-key']);
 
-  // SECURITY: Timing-safe comparison to prevent timing attacks (consistent with other admin endpoints)
-  if (!adminKey || !provided) {
+  if (!adminKey) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
   }
-  const providedBuffer = Buffer.from(String(provided).padEnd(256, '\0'));
-  const expectedBuffer = Buffer.from(adminKey.padEnd(256, '\0'));
-  if (!crypto.timingSafeEqual(providedBuffer, expectedBuffer)) {
+  if (!isAuthorizedAdminKey(provided, adminKey)) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
   }
@@ -452,16 +451,13 @@ app.post('/api/v1/construction-leads/fetch', async (req: Request, res: Response)
 // Captain inquiry status update — triggers pre-briefing email on "booked"
 app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Response) => {
   const adminKey = process.env.ADMIN_API_KEY;
-  const provided = req.headers['x-admin-key'];
+  const provided = getHeaderValue(req.headers['x-admin-key']);
 
-  // SECURITY: Timing-safe comparison to prevent timing attacks
-  if (!adminKey || !provided) {
+  if (!adminKey) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
   }
-  const providedBuf = Buffer.from(String(provided).padEnd(256, '\0'));
-  const expectedBuf = Buffer.from(adminKey.padEnd(256, '\0'));
-  if (!crypto.timingSafeEqual(providedBuf, expectedBuf)) {
+  if (!isAuthorizedAdminKey(provided, adminKey)) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
   }
@@ -560,128 +556,39 @@ app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Resp
   }
 });
 
-// Public platform status endpoint (no auth required — Gap #11)
-app.get('/api/v1/status', (_req: Request, res: Response) => {
-  const uptimeSeconds = Math.floor(process.uptime());
-  res.json({
-    service: 'DWS IQ 6',
-    version: process.env.npm_package_version || '1.0.0',
-    status: 'operational',
-    timestamp: new Date().toISOString(),
-    uptime: uptimeSeconds,
-    environment: process.env.NODE_ENV || 'development',
-    region: process.env.CLOUD_REGION || 'eu-north-1',
-    components: {
-      api: 'operational',
-      agents: 'operational',
-      compliance: 'operational',
-    },
-  });
-});
-
-// Audit log SIEM export — admin-only, no JWT required (Gap #13)
-app.get('/api/v1/activity/export', async (req: Request, res: Response, next: NextFunction) => {
+// Memory maintenance manual trigger (secured by admin key)
+// Used for Helsinki sandbox pilot demo — run decay/consolidation on demand
+app.post('/api/v1/admin/memory/maintenance', async (req: Request, res: Response) => {
   const adminKey = process.env.ADMIN_API_KEY;
-  const provided = req.headers['x-admin-key'];
+  const provided = getHeaderValue(req.headers['x-admin-key']);
 
-  if (!adminKey || !provided) {
-    res.status(401).json({ error: 'Unauthorized', message: 'X-Admin-Key header required' });
+  if (!adminKey) {
+    res.status(401).json({ error: 'Unauthorized' });
     return;
   }
-  const providedBuf = Buffer.from(String(provided).padEnd(256, '\0'));
-  const expectedBuf = Buffer.from(adminKey.padEnd(256, '\0'));
-  if (!crypto.timingSafeEqual(providedBuf, expectedBuf)) {
+  if (!isAuthorizedAdminKey(provided, adminKey)) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
   }
 
+  const job = (req.body?.job as string) || 'all';
+  const validJobs = ['decay', 'consolidation', 'all'];
+  if (!validJobs.includes(job)) {
+    res.status(400).json({ error: 'Invalid job', valid: validJobs });
+    return;
+  }
+
   try {
-    const now = new Date();
-    const since = req.query.since
-      ? new Date(req.query.since as string)
-      : new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-    const until = req.query.until ? new Date(req.query.until as string) : now;
-    const typeFilter = req.query.type as string | undefined;
-    const format = req.query.format === 'csv' ? 'csv' : 'ndjson';
-    const limit = Math.min(parseInt(req.query.limit as string) || 1000, 10000);
-
-    if (isNaN(since.getTime()) || isNaN(until.getTime())) {
-      res.status(400).json({ error: 'Invalid since or until timestamp' });
-      return;
-    }
-
-    const { getSupabaseClient } = await import('./config/supabase.js');
-    const supabase = getSupabaseClient();
-
-    interface AuditRow {
-      id: string;
-      type: string;
-      title: string;
-      description: string;
-      severity: string;
-      metadata: Record<string, unknown>;
-      created_at: string;
-    }
-
-    let events: AuditRow[] = [];
-    if (supabase) {
-      let query = supabase
-        .from('activity_events')
-        .select('id, type, title, description, severity, metadata, created_at')
-        .gte('created_at', since.toISOString())
-        .lte('created_at', until.toISOString())
-        .order('created_at', { ascending: true })
-        .limit(limit);
-      if (typeFilter) query = query.eq('type', typeFilter);
-      const { data, error } = await query;
-      if (error) throw error;
-      events = (data || []) as AuditRow[];
-    }
-
-    const ts = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
-    const filename = `dws-audit-${ts}`;
-
-    if (format === 'csv') {
-      res.setHeader('Content-Type', 'text/csv');
-      res.setHeader('Content-Disposition', `attachment; filename="${filename}.csv"`);
-      res.write('id,type,title,description,severity,created_at\n');
-      for (const e of events) {
-        const row = [
-          e.id,
-          e.type,
-          `"${(e.title || '').replace(/"/g, '""')}"`,
-          `"${(e.description || '').replace(/"/g, '""')}"`,
-          e.severity,
-          e.created_at,
-        ].join(',');
-        res.write(row + '\n');
-      }
-      res.end();
-    } else {
-      res.setHeader('Content-Type', 'application/x-ndjson');
-      res.setHeader('Content-Disposition', `attachment; filename="${filename}.ndjson"`);
-      for (const e of events) res.write(JSON.stringify(e) + '\n');
-      res.end();
-    }
+    await memoryScheduler.runManually(job as 'decay' | 'consolidation' | 'all');
+    res.json({ status: 'complete', job, timestamp: new Date().toISOString() });
   } catch (err) {
-    next(err);
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    logger.error('Manual memory maintenance failed', { error: msg, job });
+    res.status(500).json({ error: 'Maintenance failed', message: msg });
   }
 });
 
 // ============ ERROR HANDLING ============
-
-// Initialize error tracking early (Sentry when SENTRY_DSN is set, console fallback otherwise).
-// Called without app arg — we use errorTrackingMiddleware() below instead of
-// Sentry's own Express handler, so ordering is explicit and predictable.
-initErrorTracking().catch(() => {
-  /* logged internally */
-});
-
-// Error tracking middleware — captures exceptions before error handler formats response
-app.use(errorTrackingMiddleware());
-
-// OpenAPI documentation (GET /api/docs, GET /api/docs/openapi.json)
-app.use(openApiRouter);
 
 // 404 handler — must be after all routes
 app.use(notFoundHandler);
@@ -715,14 +622,14 @@ const server = app.listen(PORT, () => {
   initFirehorsePilot();
   logger.info('Firehorse Omnichannel Pilot started');
 
-  // Notification service: listens to event bus, delivers notifications
-  notificationService.start();
-  logger.info('Notification delivery service started');
-
   // Start outreach digest scheduler (backup — primary is GitHub Actions).
   // On Cloud Run this may not fire reliably due to scale-to-zero,
   // but covers local dev and always-on deployments.
   outreachScheduler.start();
+
+  // Memory maintenance: decay at 03:00 Helsinki, consolidation at 03:30 Helsinki
+  // Manual trigger available via POST /api/v1/admin/memory/maintenance
+  memoryScheduler.start();
 
   // Initialize email queue (Redis Streams)
   emailQueue
@@ -766,8 +673,8 @@ process.on('SIGTERM', () => {
   logger.info('SIGTERM signal received: closing HTTP server');
   constructionLeadsScheduler.stop();
   outreachScheduler.stop();
+  memoryScheduler.stop();
   shutdownFirehorsePilot();
-  notificationService.stop();
   emailQueue.shutdown().finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');
@@ -780,8 +687,8 @@ process.on('SIGINT', () => {
   logger.info('SIGINT signal received: closing HTTP server');
   constructionLeadsScheduler.stop();
   outreachScheduler.stop();
+  memoryScheduler.stop();
   shutdownFirehorsePilot();
-  notificationService.stop();
   emailQueue.shutdown().finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');

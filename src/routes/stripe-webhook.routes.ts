@@ -1,0 +1,253 @@
+import { Router, Request, Response } from 'express';
+import {
+  verifyStripeWebhook,
+  idempotencyCheck,
+  stripeRateLimit,
+  preserveRawBody,
+} from '../middleware/stripe-webhook.middleware.js';
+import logger from '../utils/logger.js';
+import { supabase } from '../services/supabase.service.js';
+
+const router = Router();
+
+/**
+ * Webhook endpoint for Stripe events
+ *
+ * Security layers:
+ * 1. Raw body preservation (before JSON parsing)
+ * 2. Stripe signature verification (HMAC-SHA256)
+ * 3. Timestamp validation (prevent replay attacks)
+ * 4. Idempotency check (prevent duplicate processing)
+ * 5. Rate limiting (100 events/sec per type)
+ */
+
+// Apply middleware BEFORE express.json()
+// Order matters: preserveRawBody → verifyStripeWebhook → idempotencyCheck → stripeRateLimit
+router.post(
+  '/',
+  preserveRawBody,
+  verifyStripeWebhook,
+  idempotencyCheck,
+  stripeRateLimit,
+  async (req: Request, res: Response) => {
+    try {
+      const event = (req as any).stripeEvent;
+      const storeResult = (req as any).storeWebhookResult;
+
+      logger.info('Processing Stripe webhook', {
+        event_type: event.type,
+        event_id: event.id,
+        created: new Date(event.created * 1000).toISOString(),
+      });
+
+      // =====================================================================
+      // INVOICE PAYMENT SUCCEEDED
+      // =====================================================================
+      if (event.type === 'invoice.payment_succeeded') {
+        const invoice = event.data.object;
+        const invoiceId = invoice.id;
+
+        logger.info('Invoice payment succeeded', {
+          invoice_id: invoiceId,
+          amount: invoice.amount_paid,
+        });
+
+        // Find order by Stripe invoice ID
+        const { data: order, error } = await supabase
+          .from('orders')
+          .select('*')
+          .eq('stripe_invoice_id', invoiceId)
+          .single();
+
+        if (error || !order) {
+          logger.warn('Order not found for Stripe invoice', { invoice_id: invoiceId });
+          const result = { success: true, message: 'Invoice processed (order not found)' };
+          storeResult(result);
+          return res.status(200).json(result);
+        }
+
+        // Mark order as paid
+        const { error: updateError } = await supabase.rpc('mark_order_paid', {
+          p_order_id: order.id,
+        });
+
+        if (updateError) {
+          logger.error('Failed to mark order paid', { error: updateError, order_id: order.id });
+          return res.status(500).json({ error: 'Failed to process payment' });
+        }
+
+        logger.info('Order marked as paid', {
+          order_id: order.id,
+          invoice_id: invoiceId,
+          amount: invoice.amount_paid,
+        });
+
+        // TODO: Send payment confirmation email to customer
+        // TODO: Activate service/product access
+        // TODO: Trigger downstream workflows (provisioning, onboarding, etc.)
+
+        const result = { success: true, order_id: order.id, status: 'payment_completed' };
+        storeResult(result);
+        return res.status(200).json(result);
+      }
+
+      // =====================================================================
+      // INVOICE MARKED UNCOLLECTIBLE
+      // =====================================================================
+      if (event.type === 'invoice.marked_uncollectible') {
+        const invoice = event.data.object;
+        const invoiceId = invoice.id;
+
+        logger.warn('Invoice marked uncollectible', {
+          invoice_id: invoiceId,
+          amount_due: invoice.amount_due,
+        });
+
+        const { data: order } = await supabase
+          .from('orders')
+          .select('*')
+          .eq('stripe_invoice_id', invoiceId)
+          .single();
+
+        if (order) {
+          logger.warn('Order payment failed', {
+            order_id: order.id,
+            invoice_id: invoiceId,
+          });
+
+          // TODO: Send payment failure notification to customer
+          // TODO: Send admin alert for payment collection
+          // TODO: Schedule auto-cancel if unpaid after 30 days
+        }
+
+        const result = { success: true, message: 'Uncollectible invoice processed' };
+        storeResult(result);
+        return res.status(200).json(result);
+      }
+
+      // =====================================================================
+      // INVOICE PAYMENT FAILED
+      // =====================================================================
+      if (event.type === 'invoice.payment_action_required') {
+        const invoice = event.data.object;
+
+        logger.warn('Invoice payment action required', {
+          invoice_id: invoice.id,
+          amount_due: invoice.amount_due,
+        });
+
+        // TODO: Send payment retry notification to customer
+        const result = { success: true, message: 'Payment action required notification sent' };
+        storeResult(result);
+        return res.status(200).json(result);
+      }
+
+      // =====================================================================
+      // INVOICE PAYMENT ATTEMPT REQUIRED
+      // =====================================================================
+      if (event.type === 'invoice.payment_attempt_required') {
+        const invoice = event.data.object;
+
+        logger.warn('Invoice payment attempt required', {
+          invoice_id: invoice.id,
+          amount_due: invoice.amount_due,
+        });
+
+        // TODO: Send notification to customer about unsupported payment method
+        // TODO: Offer alternative payment options
+        const result = { success: true, message: 'Payment attempt required notification sent' };
+        storeResult(result);
+        return res.status(200).json(result);
+      }
+
+      // =====================================================================
+      // INVOICE PAYMENT FAILED
+      // =====================================================================
+      if (event.type === 'invoice.payment_failed') {
+        const invoice = event.data.object;
+
+        logger.warn('Invoice payment failed', {
+          invoice_id: invoice.id,
+          amount_due: invoice.amount_due,
+          failure_reason: invoice.last_finalization_error?.message,
+        });
+
+        // Find order by Stripe invoice ID
+        const { data: order } = await supabase
+          .from('orders')
+          .select('*')
+          .eq('stripe_invoice_id', invoice.id)
+          .single();
+
+        if (order) {
+          logger.warn('Order payment failed', {
+            order_id: order.id,
+            invoice_id: invoice.id,
+          });
+
+          // TODO: Send payment failure notification to customer
+          // TODO: Send admin alert for failed payment
+          // TODO: Suggest retry with different payment method
+        }
+
+        const result = { success: true, message: 'Payment failure processed' };
+        storeResult(result);
+        return res.status(200).json(result);
+      }
+
+      // =====================================================================
+      // CHARGE REFUNDED
+      // =====================================================================
+      if (event.type === 'charge.refunded') {
+        const charge = event.data.object;
+
+        logger.info('Charge refunded', {
+          charge_id: charge.id,
+          refund_amount: charge.amount_refunded,
+        });
+
+        // TODO: Update order status if refund is initiated
+        const result = { success: true, charge_id: charge.id, status: 'refunded' };
+        storeResult(result);
+        return res.status(200).json(result);
+      }
+
+      // =====================================================================
+      // CUSTOMER DELETED
+      // =====================================================================
+      if (event.type === 'customer.deleted') {
+        const customer = event.data.object;
+
+        logger.info('Customer deleted', {
+          customer_id: customer.id,
+        });
+
+        // TODO: Handle customer deletion (anonymize records, etc.)
+        const result = { success: true, customer_id: customer.id };
+        storeResult(result);
+        return res.status(200).json(result);
+      }
+
+      // =====================================================================
+      // UNHANDLED EVENT TYPE
+      // =====================================================================
+      logger.info('Unhandled Stripe event type', { event_type: event.type });
+      const result = { success: true, message: 'Event received and logged' };
+      storeResult(result);
+      return res.status(200).json(result);
+    } catch (error) {
+      logger.error('Webhook processing error', { error });
+      return res.status(500).json({ error: 'Failed to process webhook' });
+    }
+  },
+);
+
+/**
+ * Health check endpoint for Stripe
+ * Returns 200 if webhook endpoint is ready
+ */
+router.get('/health', (_req: Request, res: Response) => {
+  res.json({ status: 'ok', service: 'stripe-webhook' });
+});
+
+export default router;

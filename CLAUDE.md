@@ -6,21 +6,23 @@ This file provides guidance for Claude Code (AI) when working with the DWS6 code
 
 Before making any UI changes, agents MUST consult these files:
 
-| Standard                          | File                                        | Scope                                                                                                           |
-| --------------------------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| **Brand Standard**                | `DWS_BRAND_STANDARD.md`                     | Store UI, hamburger menu, product cards, category nav, dark tokens, sovereignty badges                          |
-| **Document Standard**             | `DWS_DOCUMENT_STANDARD.md`                  | Document formatting, sections, metadata                                                                         |
-| **Gamma UI Guidelines**           | `UI_SKILLS_GAMMA.md`                        | Tailwind, Radix UI, accessibility, animations                                                                   |
-| **Security Standard**             | `DWS_SECURITY_STANDARD.md`                  | AI safety, enterprise security framework                                                                        |
-| **Security Compliance**           | `Admin/SECURITY_COMPLIANCE.md`              | Deployment, controls, certifications, vendor risk                                                               |
-| **Market Research Standard**      | `DWS_MARKET_RESEARCH_STANDARD.md`           | Competitive intelligence, product improvement, data collection                                                  |
-| **Site Quality Standards**        | `SITE_QUALITY_STANDARDS.md`                 | Code quality, **code formatting**, components, nav, logos, CTA, testing                                         |
-| **Cloud Environments**            | `docs/CLOUD_ENVIRONMENTS.md`                | US/EU/Aiwen clouds, account structure, DWS 6→7 migration, data residency                                        |
-| **Product Catalog**               | `product-catalog/README.md`                 | Product catalog structure, Store Product Format, Google Merchant fields                                         |
-| **Data Standard**                 | `DWS_DATA_STANDARD.md`                      | Data storage governance, columnar/row policy, extension registry, retention, EU regulatory compliance           |
-| **Information Layering Strategy** | `docs/DWS_INFORMATION_LAYERING_STRATEGY.md` | Six-layer harness, where standards fit, progressive disclosure, 12 Factor Agents, tool result injection pattern |
-| **Skills Guide**                  | `docs/DWS_SKILLS_GUIDE.md`                  | All 20 skills: slash commands, discipline skills, gstack workflow, when to use each                             |
-| **Blog Standard**                 | `docs/BLOG_STANDARD.md`                     | Blog post structure, prev/next nav, product cards, meta tags, post registry, injection script                   |
+| Standard                          | File                                        | Scope                                                                                                                                            |
+| --------------------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Brand Standard**                | `DWS_BRAND_STANDARD.md`                     | Store UI, hamburger menu, product cards, category nav, dark tokens, sovereignty badges                                                           |
+| **Document Standard**             | `DWS_DOCUMENT_STANDARD.md`                  | Document formatting, sections, metadata                                                                                                          |
+| **Gamma UI Guidelines**           | `UI_SKILLS_GAMMA.md`                        | Tailwind, Radix UI, accessibility, animations                                                                                                    |
+| **Security Standard**             | `DWS_SECURITY_STANDARD.md`                  | AI safety, enterprise security framework                                                                                                         |
+| **Security Compliance**           | `Admin/SECURITY_COMPLIANCE.md`              | Deployment, controls, certifications, vendor risk                                                                                                |
+| **Market Research Standard**      | `DWS_MARKET_RESEARCH_STANDARD.md`           | Competitive intelligence, product improvement, data collection                                                                                   |
+| **Site Quality Standards**        | `SITE_QUALITY_STANDARDS.md`                 | Code quality, **code formatting**, components, nav, logos, CTA, testing                                                                          |
+| **Cloud Environments**            | `docs/CLOUD_ENVIRONMENTS.md`                | US/EU/Aiven clouds, account structure, DWS 6→7 migration, data residency                                                                         |
+| **Product Catalog**               | `product-catalog/README.md`                 | Product catalog structure, Store Product Format, Google Merchant fields                                                                          |
+| **Data Standard**                 | `DWS_DATA_STANDARD.md`                      | Data storage governance, columnar/row policy, extension registry, retention, EU regulatory compliance                                            |
+| **Information Layering Strategy** | `docs/DWS_INFORMATION_LAYERING_STRATEGY.md` | Six-layer harness, where standards fit, progressive disclosure, 12 Factor Agents, tool result injection pattern                                  |
+| **Skills Guide**                  | `docs/DWS_SKILLS_GUIDE.md`                  | All 20 skills: slash commands, discipline skills, gstack workflow, when to use each                                                              |
+| **Blog Standard**                 | `docs/BLOG_STANDARD.md`                     | Blog post structure, prev/next nav, product cards, meta tags, post registry, injection script                                                    |
+| **Standards Library**             | `DWS_STANDARDS_LIBRARY.md`                  | Single registry of every regulation, process, security, protocol, reporting standard — claimable vs target vs reference                          |
+| **Article 12 Logging Standard**   | `DWS_ARTICLE_12_LOGGING_STANDARD.md`        | EU AI Act Article 12 record-keeping pipeline; OpenTelemetry + hash-chained ledger + KYA policy proxy; tier-aware (Aegis/Sovereign Infra/Connect) |
 
 **Rule:** These standards apply equally to all tools — Claude Code, Cursor, VS Code, Codex, and human developers. No exceptions.
 
@@ -50,6 +52,30 @@ When the human says **"Use DWS standard"**, apply ALL relevant standards from th
 
 **This is not optional.** Delivering work without updating relevant standards is incomplete work.
 
+### VERSION AND AGENT HISTORY Delimiter Rule (CRITICAL)
+
+Per `DWS_DOCUMENT_STANDARD.md` §2.1 (Pandoc Compatibility), the `# VERSION AND AGENT HISTORY` block in every markdown document MUST be delimited with `***`, never `---`. Both render as a thematic break, but `---` is interpreted by Pandoc as YAML front matter and breaks PDF generation.
+
+**Enforced automatically.** The PostToolUse hook `.claude/hooks/md-restore-version-delimiters.sh` runs after prettier on every Edit/Write of a `.md` file. Prettier's markdown formatter normalises thematic breaks to `---` (non-configurable upstream); the hook re-restores `***` around the VERSION block only (other horizontal rules are untouched).
+
+**For humans / other tools:** when editing a markdown file manually, keep `***` around the VERSION block. If prettier rewrote it, re-run the hook: `bash .claude/hooks/md-restore-version-delimiters.sh <<< '{"tool_input":{"file_path":"/abs/path/to/file.md"}}'`.
+
+**Do NOT use `---` around the VERSION block in any new doc.** No exceptions — the rule is uniform across CLAUDE Code, Cursor, Codex, and human developers, same as every other DWS standard.
+
+### Price List Rule (CRITICAL)
+
+**Single source of truth for prices:** `dws10.com/config/products.json`. No other file may hardcode prices — all rendering (store, price-list page, Google Merchant feed, product pages) consumes products.json at runtime.
+
+- **Client-ready page:** `https://dws10.com/price-list/` — fetches products.json live, zero hardcoded prices, print-friendly.
+- **Stamped snapshots:** `dws10.com/price-list/versions/price-list-v<version>.html` — immutable per-quarter archive. Never delete old snapshots.
+- **Review cadence:** Quarterly. Stamp rolls on calendar quarter boundaries (Jan 1, Apr 1, Jul 1, Oct 1).
+- **Validity:** 90 days from stamp date. Stamp metadata lives in `priceList.version` / `stampQuarter` / `stampDate` / `validUntil` / `nextReviewDate` inside products.json.
+- **Policy:** B2B, EUR, VAT 0% (reverse charge). Country-specific VAT added at checkout — see `priceList.vatReference` (5-language table: EN/FI/SV/DE/FR).
+- **Automation:** `scripts/daily/price-list-quarterly-gate.sh` rolls the stamp on quarter-start (DGX Spark primary). `.github/workflows/quarterly-price-list.yml` is the failover and opens a PR.
+- **Email dispatch:** RED-zone. `scripts/send-price-list-email.ts` is a manual operator utility — NOT auto-triggered. Default is dry-run; requires explicit `--send` flag and a reviewed CSV recipients list.
+
+**Workflow to change a price:** edit `dws10.com/config/products.json` → sync to `landing-pages/dws10-com/config/products.json` (dual-folder rule) → append a `priceList.changeLog` entry → commit. Do NOT edit prices in any HTML, markdown, or catalog file.
+
 ### Code Versioning Rule (CRITICAL)
 
 When creating new code (or major rewrites), follow `DWS_DOCUMENT_STANDARD.md` Section 19:
@@ -76,7 +102,7 @@ When the user mentions **"thesis"**, **"master thesis"**, **"pro gradu"**, or **
 - Thesis work published ONLY to `Learn/` as versioned HTML (e.g., `Learn/V3Thesis_EN_v3.7.html`)
 - **NEVER delete old HTML versions** — they serve as version history
 - Generate versioned HTML for ALL 4 thesis files on each update
-- Metropolia EN+FI share the same version; PHD Firehorse EN+FI share the same version
+- **Unified version track (CRITICAL, from v3.37 onward):** All 4 thesis files (Metropolia V3Thesis EN/FI + PHD_FIREHORSE EN/FI) share a **single** version number. Any thesis-touching change bumps **all 4** to the same next decimal increment in lockstep — `3.37 → 3.38 → 3.39 → … → 3.99 → 4.00 → 4.01 → …`. No skips, no separate tracks. Major rollover at `.99 → next.00`. Pre-v3.37 history (Metropolia at its own v3.x, PHD_FIREHORSE at its own v1.x / v2.x / v3.1–3.5) is preserved in the VERSION AND AGENT HISTORY blocks; from v3.37 forward, the two tracks are unified.
 - **Always check the current version number** in the file header before incrementing — do NOT assume git history is latest. Ask the user if uncertain.
 - Update VERSION AND AGENT HISTORY block and document footer on each change
 
@@ -101,6 +127,46 @@ The script (`scripts/gen-thesis-html.cjs`):
 - **Syncs Learn/ MD copies** from `docs/` before running (copy manually or the script reads Learn/ directly)
 
 **Do NOT modify the HTML output files directly.** Edit the source `.md` files, then run the script.
+
+### DWS Skilled Taxonomy Rule (CRITICAL)
+
+**The terms "GodAgent" / "Godagent" are deprecated.** Never introduce them in new writing.
+
+DWS brand, spec, and UI copy follow a single three-tier pattern that generalises across every capability axis where DWS offers depth. The pattern is:
+
+```
+Skilled <Axis>                 ← BRAND   (what we SELL)
+    └─ Industrial Specialist <Axis>    ← SPEC    (what they ARE)
+            └─ Industry <Axis>         ← UI      (how we LIST them)
+```
+
+Three axes are active today. More may be added; each new axis follows the same tiers.
+
+| Tier      | Role                                                                                   | **Agents**                       | **Workflows**                                                           | **Jurisdictions**                         | **Use in**                                                                                                                                        | **Do NOT use in**                                                 |
+| --------- | -------------------------------------------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| 1 — Brand | What we sell. Anthropic Skills paradigm pivot: capability = acquired, auditable skill. | **Skilled Agents**               | **Skilled Autonomous Workflows**                                        | **Skilled Jurisdictions** (EU, US, Aiven) | Hero copy, `<title>`, `<meta og:title/og:description>`, investor decks, product `brand:` field, press, social cards.                              | Technical specs, nav chips, badges.                               |
+| 2 — Spec  | Documentation-grade descriptor. Precise.                                               | **Industrial Specialist Agents** | **Specialist Workflows** (long-form: _Industrial Specialist Workflows_) | **Regulatory Specialist Jurisdictions**   | First mention in a doc/spec, architecture prose, regulatory responses, SLA/contract text, glossary. Define once per doc, then shorten to UI tier. | Hero copy (too long), UI badges, tight social cards.              |
+| 3 — UI    | Category label / UI shorthand / registry column.                                       | **Industry Agents**              | **Industrial Workflows**                                                | **Jurisdictions**                         | Nav menus, filter chips, count badges (`<span class="sov-badge">18+ Industry Agents</span>`), registry column headers, tables.                    | Investor hero lines, brand tagline — loses the "skilled" promise. |
+
+Why **"Autonomous"** appears in the workflow brand tier but not agents: workflows execute on schedule/event without a human in the loop — "Autonomous" earns the brand promise. Agents have it implied.
+
+Why **"Regulatory"** appears in the jurisdiction spec tier: jurisdictions are defined by their regulatory surface (EU AI Act, GDPR, CBAM, ETS, CSRD for EU; sector rules for US; data localisation for Aiven) — the spec register must say so.
+
+**Pattern for new axes:** When DWS adds a new capability axis (e.g., Datasets, Models, Regulations, Reports), name it `Skilled <Axis>` / `Industrial Specialist <Axis>` / `Industry <Axis>` and add a column to the table above. Do not invent parallel brand words.
+
+**Counts are dynamic.** The number of agents, workflows, or jurisdictions in each tier will shift over time. Never hardcode a fixed brand number — apply one of these three patterns:
+
+1. **Open-ended** (preferred for platform copy): `18+ Skilled Agents` — the `+` absorbs growth.
+2. **Registry-anchored** (docs/specs): "See `docs/Deputy-Agents-Architecture.md` §3 for the current Industrial Specialist Agent registry" — no count in prose.
+3. **Product-scoped** (SKU copy only): `Climate Intelligence ships with 8 Skilled Agents` — precise, but MUST be updated if the SKU's agent list changes. Treat the count as part of the SKU spec in `products.json`, not free-floating copy.
+
+**Canonical source of truth:** `docs/Deputy-Agents-Architecture.md` — "Terminology — DWS Skilled Taxonomy (Canonical)" section at the top of the doc. Any new taxonomy-facing copy must be consistent with that glossary; any glossary change must be reflected across marketing surfaces in the same PR.
+
+**Scope exclusions — do NOT rename:**
+
+- **Docker / infra identifiers** (`dws-godagent-llm`, `dws-godagent:latest`, label `dws-godagent`, iptables rules). Renaming requires a coordinated infra change, not a doc PR.
+- **Pantheon "God Agents"** (two words, onelifetime.world Pantheon storyboard, Zeus/Athena characters). Different brand; not in scope.
+- **Historical records** (field notes, `Learn/tuntikirjausraportti*`, `Learn/Oppimispäiväkirja*`, dated folders under `docs/010825_310726/`). Point-in-time records are not retroactively edited.
 
 ## Project Overview
 
@@ -158,6 +224,29 @@ You are the hands; the human is the architect. Move fast, but never faster than 
 
 10. **Never Publish .md Files to Public Sites (CRITICAL)** — Never place `.md` files in: `dws10.com/`, `landing-pages/dws10-com/`, `onelifetime.world/`, `landing-pages/onelifetime-world/`, `dws6.com/`, `landing-pages/dws6-com/`. Convert to HTML for public sites. `.md` files belong in: `docs/`, `Admin/`, `Learn/`, `docs/metropolia/master-thesis/`, repo root.
 
+### Skill Proposal Rule (CRITICAL)
+
+**Always propose creating a new skill when you encounter a capability worth offering to more agents.**
+
+After implementing anything that is:
+
+- A reusable workflow (more than one page or agent will benefit)
+- An offering strength worth marketing (like multilingual, sovereignty, carbon analysis)
+- A hard gate that prevents known failure modes
+
+Immediately say: **"SKILL OPPORTUNITY: this could be `/skill-name` — want me to create it?"**
+
+Then, if approved, create `.claude/commands/<name>.md` following the format:
+
+1. YAML frontmatter: `name`, `version`, `date`, `description` (140-char CSO trigger phrases)
+2. One-liner: what it does
+3. `Usage: /name <args>` + `Input: $ARGUMENTS`
+4. `## Steps` — numbered, executable
+5. `## When NOT to use` — with alternatives
+
+Update `docs/DWS_SKILLS_GUIDE.md` to register the new skill in the same commit.
+The skill is an agent-accessible product — if it can't be invoked via `/name`, it's not shipped.
+
 ### Script Automation Rule (CRITICAL)
 
 **Never create a script that requires a human to remember to run it.** Every script must be auto-discovered by the day-runner or registered in a scheduler. No exceptions.
@@ -198,86 +287,14 @@ POTENTIAL CONCERNS:
 - [any risks]
 ```
 
-### Copy-Paste Output Rule (CRITICAL)
+### Output and Execution Guardrails (CRITICAL)
 
-When the human says **"copy paste"**, **"copypaste"**, or **"copy-paste window"**, deliver content as:
-
-1. **One single fenced code block** — the user will triple-click or Ctrl+A inside it to copy
-2. **No tables** — tables break on mobile paste and require reformatting
-3. **No markdown formatting inside** — plain text, bullet dashes, or numbered lists only
-4. **No split windows** — everything in ONE block, not multiple blocks
-5. **No START COPY / END COPY markers** — just the content, nothing else
-6. **No angle brackets, backticks, or markdown around URLs** — plain text URLs only
-
-**Why:** Mobile users paste into Gmail, LinkedIn, WhatsApp, or notes apps. Tables and markdown render as garbage. One clean block copies clean. Markers like `--- START COPY ---` get pasted into the final output and look unprofessional.
-
-### Social Media Output Rule (CRITICAL)
-
-When writing tweets, LinkedIn posts, or any social media copy:
-
-1. **Never wrap content in START COPY / END COPY markers** — just output the text
-2. **Never wrap URLs in angle brackets `<>`, backticks, square brackets, or markdown** — plain text only
-3. **Never add code fences around the post** — output it as normal text
-4. **URLs MUST include the protocol** (`https://`) — bare domains like `dws10.com/page` get auto-wrapped in `<>` by renderers. Always write `https://dws10.com/page`
-5. **The characters `<` and `>` are BANNED from all output** — they corrupt copy-paste on every platform
-
-WRONG: `dws10.com/products/aegis.html` (renderer adds `<>`)
-WRONG: `<https://dws10.com>` (angle brackets)
-WRONG: `[link](https://dws10.com)` (markdown)
-RIGHT: https://dws10.com/products/aegis.html
-
-**This applies to ALL output containing URLs, not just social media.** No exceptions.
-
-### Ollama Model Rule (CRITICAL)
-
-**Never pull, remove, or change Ollama models without human approval.** Model changes are strategic decisions affecting cost, performance, memory budget, and agent compatibility.
-
-1. **Always run `ollama list` first** — report what's installed before suggesting changes
-2. **Never auto-pull models** in scripts, first-boot, or day-runner
-3. **Never auto-remove models** — even if they look unused, the human may be testing them
-4. **Report missing models** — warn and show the manual command, don't execute it
-5. **Memory budget matters** — 128GB is finite. Every model competes for inference RAM.
-
-Scripts may only: list models, check if required models exist, warn if missing.
-
-### Git Branch Awareness Rule (CRITICAL)
-
-**Before telling the user to run ANY file or command, verify which branch contains that file.**
-
-| Situation                                  | Correct instruction                                           |
-| ------------------------------------------ | ------------------------------------------------------------- |
-| File is on a feature branch, PR not merged | `git fetch origin <branch> && git checkout <branch>` THEN run |
-| File is on main, user is on main           | `git pull origin main` THEN run                               |
-| File is on main, user is on feature branch | Merge main first or cherry-pick                               |
-| File was just created in this session      | Tell user which branch has it and how to get there            |
-
-**Forbidden:** Telling the user to run a file without confirming it exists on their current branch. `git pull origin main` does NOT give you files from unmerged PRs.
-
-**Checklist before giving run instructions:**
-
-1. Which branch is the file on?
-2. Is the PR merged?
-3. Which branch is the user currently on?
-4. Do they need to checkout/fetch first?
-
-### Failure Modes to Avoid
-
-1. Making wrong assumptions without checking
-2. Not managing confusion
-3. Not seeking clarifications
-4. Not surfacing inconsistencies
-5. Not presenting tradeoffs
-6. Not pushing back when warranted
-7. Sycophancy
-8. Overcomplicating code/APIs
-9. Bloating abstractions
-10. Not cleaning up dead code
-11. Modifying code orthogonal to the task
-12. Removing things you don't fully understand
-13. Not using DWS document standard
-14. Deleting files without explicit approval
-15. Using new environment without verifying .gitignore and .env
-16. Telling user to run files that don't exist on their current branch
+1. For "copy paste" requests, return exactly one fenced code block, no tables, no START/END markers.
+2. For social/URL output, use plain text URLs with protocol (`https://`) and never markdown links or angle brackets.
+3. Every generated image prompt must be logged in `docs/field-notes/picture-prompts.md` in the same turn/commit.
+4. Never change Ollama models without human approval; run `ollama list` first and only report missing models.
+5. Before run instructions, verify branch/file availability; never imply `main` contains unmerged PR files.
+6. Avoid silent assumptions, overengineering, and unrelated edits; ask on ambiguity and surface tradeoffs.
 
 ## Lifetime Oy Legal Identity Rule (CRITICAL)
 
@@ -341,24 +358,7 @@ Always use these official identifiers for Lifetime Oy in contracts, NDAs, invoic
 
 ## Repository Structure
 
-```
-dws6/
-├── src/                     # Backend/shared logic
-│   ├── app.ts              # Main Express app
-│   ├── firehorse/          # Firehorse product integration
-│   ├── integrations/       # ERP (SAP, IFS, Dynamics) & ESG integrations
-│   ├── mcp/                # Model Context Protocol implementation
-│   └── __tests__/          # Test suite
-├── dws6.com/               # Web applications
-│   └── dashboard/firehorse/v9-react/  # Main React dashboard
-├── Firehorse/              # Product suite (Omnichannel, Report, Automation, ContentMS)
-├── landing-pages/          # Cloudflare Pages (production)
-├── mcp-hub/                # MCP Orchestration Platform
-├── mcp-servers/            # Individual MCP servers
-├── scripts/                # Dev & deployment scripts
-├── supabase/migrations/    # Database migrations
-└── .github/workflows/      # CI/CD pipelines (15 workflows)
-```
+Key areas: `src/` backend, `dws6.com/` and `landing-pages/` websites, `Firehorse/` Python suite, `mcp-hub/` + `mcp-servers/`, `supabase/migrations/`, `.github/workflows/`.
 
 ### Dual Folder Structure Rule (IMPORTANT)
 
@@ -398,6 +398,7 @@ Blog posts live in `onelifetime.world/posts/` as HTML files. Checklist for every
 4. Never create blog posts as `.md` files in public site folders (CLAUDE.md rule: no .md in public sites)
 5. Include: meta tags (og:title, og:description, og:type, og:url), author, date
 6. Blog index at `onelifetime.world/blog/index.html` — update if adding featured posts
+7. **Text of the Day Rule (CRITICAL)** — the latest blog post is ALWAYS the "Text of the Day" on `/blog/`. Prepend the new post to the `latestPosts` array at the top of `onelifetime.world/blog/index.html` (position 0 = newest); the hero card and paginated Latest Posts list (5/page with Prev/Next) update automatically. Full rule: `docs/BLOG_STANDARD.md` §3.1.
 
 ## Development Commands
 
@@ -486,37 +487,11 @@ Use automated scripts — **DO NOT create worktrees manually.**
 ./scripts/new-claude-worktree.sh feature-auth --launch-claude
 ```
 
-**Worktree locations:**
-
-- Windows: `F:\2026\Repos2026\.claude-worktrees\dws6\` (MUST be F: drive, NOT C:\Users\)
-- macOS/iOS: `~/.claude-worktrees/dws6/`
-- Linux/Chromebook: `../.claude-worktrees/dws6/`
-
-1. **Creates git worktree** in standardized location
-2. **Verifies .gitignore** inheritance (critical security patterns)
-3. **Symlinks .venv** from main repo (saves disk space, consistent dependencies)
-4. **Copies config files** (.mcp.json, .env, .env.mcp, .env.local, .env.mcp.minimal, .cursorrules, .claude/)
-5. **Validates environment** — checks .mcp.json has mcpServers, .env has required keys, .claude/ has permissions
-6. **Pings Docker & MCP services** — verifies Docker is running, lists containers with health status, tests MCP endpoint reachability
-7. **Optionally launches Claude Code** in the new worktree
-
-**Broken worktree fix:** If `.git` is a folder (not a file), it's broken. Remove it, run `git worktree prune`, recreate with the script.
-
-**Windows Managed Settings:** Effective March 12, 2026, use `C:\Program Files\ClaudeCode\managed-settings.json` (old: `C:\ProgramData\ClaudeCode\`). Legacy path stops being read on March 12. Supported since Claude Code 2.0.58. Template: `ClaudeCode/managed-settings.json.example`. Verify: `.\scripts\Test-ClaudeManagedSettings.ps1`.
+The scripts enforce standard location, config copy, `.venv` symlink, and environment validation. If a worktree is broken (`.git` is a folder), prune and recreate with the scripts.
 
 ## 2026 EU AI Act Compliance
 
-| File/Folder     | Behavior               | Reason                                                |
-| --------------- | ---------------------- | ----------------------------------------------------- |
-| `.gitignore`    | **Shared** (inherited) | All worktrees use same ignore rules                   |
-| `.venv/`        | **Symlinked**          | Saves space, consistent packages                      |
-| `.mcp.json`     | **Copied**             | MCP server connections — **CRITICAL** for tool access |
-| `.env`          | **Copied**             | May need worktree-specific values                     |
-| `.env.mcp`      | **Copied**             | MCP Hub environment config                            |
-| `.env.local`    | **Copied**             | Local environment overrides                           |
-| `.cursorrules`  | **Copied**             | Cursor IDE rules                                      |
-| `.claude/`      | **Copied**             | Session-specific Claude settings + permissions        |
-| `node_modules/` | **Not shared**         | Run `npm install` per worktree                        |
+Worktree policy: shared `.gitignore`, symlinked `.venv`, copied `.env/.env.mcp/.env.local/.mcp.json/.claude/.cursorrules`, and local `node_modules` per worktree.
 
 ## Claude Code Safety Hooks (CRITICAL)
 
@@ -532,7 +507,7 @@ Use automated scripts — **DO NOT create worktrees manually.**
 | PostToolUse (Write/Edit) | prettier + eslint (inline)                                                        | Auto-format every file change                                                             |
 | Stop                     | `session-stop.sh`                                                                 | Governance checklist (dual folder sync, thesis, uncommitted changes)                      |
 
-**Key blocks:** `rm` (all, except /tmp/), `git push --force`, `git reset --hard`, `git rm`, `sudo`, pipe-to-shell, `ollama pull/rm`, DROP TABLE, CREATE TABLE without RLS, Aiwen audit table mutations.
+**Key blocks:** `rm` (all, except /tmp/), `git push --force`, `git reset --hard`, `git rm`, `sudo`, pipe-to-shell, `ollama pull/rm`, DROP TABLE, CREATE TABLE without RLS, Article 12 audit table mutations.
 
 **Rules of Engagement:** See `Admin/ADMIN_MANUAL.md` Section 30.13 — defines Claude's operational boundaries: when to commit, how to handle hook failures, the no-rm policy, and the explicit verification workflow.
 
@@ -572,32 +547,7 @@ dws workflow compliance-assessment
 
 ## Integrations & Deployment
 
-**ERP:** SAP S/4HANA, IFS Cloud, Microsoft Dynamics 365, Monitor ERP, Visma, Jeeves → `src/integrations/erp/`
-**ESG:** Worldfavor, PositionGreen → `src/integrations/esg/`
-
-- [ ] `.gitignore` contains: `.env`, `.venv/`, `*.secret`, `*.key`, `.mcp.json`
-- [ ] `.mcp.json` copied from main repo (gitignored files are NOT shared between worktrees)
-- [ ] `.env` files are copied (not symlinked) to allow worktree-specific values
-- [ ] `.claude/` folder copied (contains permissions in `settings.local.json`)
-- [ ] Run `git status` before first commit to verify no sensitive files staged
-- [ ] `.venv` symlink points to main repo's virtual environment
-- [ ] Docker is running and MCP containers are healthy
-      **Cloud accounts:**
-      | Account | Scope |
-      |---------|-------|
-      | `risto.paarni2024@lifetime.fi` | GCP, backend, AI agents, development |
-      | `blogtheristo` (GitHub SSO) | Supabase (login via GitHub — Google login removed by Supabase) |
-      | dws6.com (Cloudflare) | Public sites, CDN, edge workers, DNS |
-
-**Environments:**
-| Environment | Provider | Purpose |
-|-------------|----------|---------|
-| US Cloud | Cloudflare Pages/Workers (Global) | Landing pages, dashboard SPA, edge API |
-| EU Cloud | Google Cloud Run + Supabase (europe-north1) | Backend API, AI agents, database, auth |
-| Aiwen | EU Cloud overlay (EU-only) | Article 12 logging, reasoning lineage |
-| Hetzner (V3) | Hetzner Helsinki | Jitsi Meet, email (Firehorse V3) |
-
-**Other targets:** Temporal.io (orchestration), Scaleway (backup), NVIDIA Jetson Orin Nano (edge AI).
+ERP integrations live in `src/integrations/erp/` and ESG integrations in `src/integrations/esg/`. Keep worktree hygiene strict: copied `.env/.mcp.json/.claude`, shared `.gitignore`, symlinked `.venv`, and clean `git status` before commit.
 
 ## Git Workflow
 
@@ -641,28 +591,7 @@ git push -u origin claude/<feature>-<id> --force
 
 ### Worktree Best Practices
 
-Use `New-ClaudeWorktree.ps1` / `new-claude-worktree.sh`. Never create manually. Scripts verify .gitignore, copy .env files, symlink .venv, standardize locations.
-
-**Git worktree is now the RECOMMENDED workflow** for parallel Claude Code sessions.
-
-The January 2026 security incident was caused by manual worktree creation without proper config file handling. The new automated scripts (`New-ClaudeWorktree.ps1` / `new-claude-worktree.sh`) prevent these issues by:
-
-1. **Verifying .gitignore** - Checks for critical security patterns before creating worktree
-2. **Copying .env files** - Each worktree gets its own copy (not shared/symlinked)
-3. **Symlinking .venv** - Safe because venv is already gitignored
-4. **Standardized locations** - Worktrees go to `~/.claude-worktrees/dws6/` (not random folders)
-
-**DO NOT create worktrees manually.** Always use the provided scripts:
-
-```bash
-# Windows
-.\scripts\New-ClaudeWorktree.ps1 -BranchName "your-branch"
-
-# Linux/macOS/Chromebook
-./scripts/new-claude-worktree.sh your-branch
-```
-
-See [Section 4: Claude Code Worktree Workflow](#4-claude-code-worktree-workflow-recommended) for full documentation.
+Use `New-ClaudeWorktree.ps1` / `new-claude-worktree.sh` only; this is mandatory and replaces manual worktree setup.
 
 ## Database Safety Rules (SQL)
 

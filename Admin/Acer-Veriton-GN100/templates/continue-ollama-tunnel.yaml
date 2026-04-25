@@ -6,7 +6,8 @@ models:
   - name: Qwen 2.5 Coder 32B (Veriton Tunnel)
     provider: ollama
     model: qwen2.5-coder:32b
-    apiBase: http://localhost:11435
+    # Prefer 127.0.0.1 on Windows (see docs/continue-ollama-tunnel.yaml in repo root).
+    apiBase: http://127.0.0.1:11435
     roles:
       - chat
       - edit

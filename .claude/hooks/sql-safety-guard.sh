@@ -1,21 +1,21 @@
-#!/bin/sh
+ #!/bin/sh
 # DWS6 Claude Code Hook: SQL Safety Guard
 # Enforces SQL safety rules on Bash commands containing SQL
-# Upgraded: Supabase patterns + Aiwen Article 12 immutability
+# Upgraded: Supabase patterns + Article 12 immutability
 #
 # Checks:
 # 1. Missing BEGIN/COMMIT transaction wrappers in multi-statement migrations
 # 2. SECURITY DEFINER — ask (not block) for helper functions
 # 3. Missing RLS on new CREATE TABLE
 # 4. DROP TABLE without approval comment
-# 5. Aiwen: audit/Article 12 tables must be append-only
+# 5. Aiven: audit/Article 12 tables must be append-only
 # 6. ON DELETE CASCADE without soft-delete pattern
 # 7. pg_cron jobs that mutate data
 #
-# Requires: jq
+# Requires: jq or Python (fallback parser)
 # See: CLAUDE.md "Safety Rules for SQL"
 
-set -e
+set -euo pipefail
 
 HOOK_DIR="$(cd "$(dirname "$0")" && pwd)"
 AUDIT_LOG="${HOOK_DIR}/audit.log"
@@ -24,8 +24,72 @@ TIMESTAMP="$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
 # Read JSON from stdin
 INPUT="$(cat)"
 
-TOOL_NAME="$(printf '%s' "$INPUT" | jq -r '.tool_name // empty')"
-COMMAND="$(printf '%s' "$INPUT" | jq -r '.tool_input.command // empty')"
+json_get() {
+  key_paths="$1"
+  default_value="${2:-}"
+
+  if command -v jq >/dev/null 2>&1; then
+    expr=""
+    IFS='|' read -r -a keys <<< "$key_paths"
+    for k in "${keys[@]}"; do
+      [ -n "$expr" ] && expr="$expr // "
+      expr="${expr}.${k}"
+    done
+    printf '%s' "$INPUT" | jq -r "$expr // \"$default_value\"" 2>/dev/null
+    return 0
+  fi
+
+  if command -v python3 >/dev/null 2>&1; then
+    py_bin="python3"
+  elif command -v python >/dev/null 2>&1; then
+    py_bin="python"
+  else
+    printf '%s' "$default_value"
+    return 0
+  fi
+
+  printf '%s' "$INPUT" | "$py_bin" - "$key_paths" "$default_value" <<'PY'
+import json
+import sys
+
+raw = sys.stdin.read()
+key_paths = sys.argv[1].split("|")
+default = sys.argv[2]
+
+try:
+    data = json.loads(raw) if raw else {}
+except Exception:
+    print(default)
+    raise SystemExit(0)
+
+def get_path(obj, path):
+    cur = obj
+    for part in path.split("."):
+        if not part:
+            continue
+        if isinstance(cur, dict) and part in cur:
+            cur = cur[part]
+        else:
+            return None
+    return cur
+
+value = None
+for p in key_paths:
+    value = get_path(data, p)
+    if value is not None:
+        break
+
+if value is None:
+    print(default)
+elif isinstance(value, (dict, list)):
+    print(json.dumps(value, separators=(",", ":")))
+else:
+    print(str(value))
+PY
+}
+
+TOOL_NAME="$(json_get "tool_name" "")"
+COMMAND="$(json_get "tool_input.command" "")"
 
 # Only process Bash tool calls that contain SQL
 if [ "$TOOL_NAME" != "Bash" ] || [ -z "$COMMAND" ]; then
@@ -103,10 +167,10 @@ if printf '%s' "$COMMAND" | grep -qiE 'DROP[[:space:]]+TABLE'; then
   fi
 fi
 
-# --- Check 5: Aiwen — audit/Article 12 tables must be append-only ---
-if printf '%s' "$COMMAND" | grep -qiE '(audit|article.?12|reasoning.?lineage|aiwen.?log)'; then
-  if printf '%s' "$COMMAND" | grep -qiE '(UPDATE[[:space:]]+|DELETE[[:space:]]+FROM)[[:space:]]*(audit|article.?12|reasoning|aiwen)'; then
-    log_block "Aiwen compliance: audit/Article 12 tables are immutable. No UPDATE or DELETE allowed."
+# --- Check 5: Aiven — audit/Article 12 tables must be append-only ---
+if printf '%s' "$COMMAND" | grep -qiE '(audit|article.?12|reasoning.?lineage|aiven.?log)'; then
+  if printf '%s' "$COMMAND" | grep -qiE '(UPDATE[[:space:]]+|DELETE[[:space:]]+FROM)[[:space:]]*(audit|article.?12|reasoning|aiven)'; then
+    log_block "Article 12 compliance: audit/Article 12 tables are immutable. No UPDATE or DELETE allowed."
   fi
 fi
 

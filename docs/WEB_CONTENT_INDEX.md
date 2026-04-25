@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: current | Date: 21.04.2026 | Changes: Added standards-to-web mapping for DWS_STANDARDS_LIBRARY.md and enterprise-integrations page; refreshed metadata
   - Version: 1.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-web-content-index-kxetP | Date: 28.02.2026 | Changes: Initial creation — maps repo documents to web domain pages; post-update web check procedure; Learn HTML artifact links
 
 Session Links & References:
@@ -14,7 +15,7 @@ Session Links & References:
 
 Document Status:
   - Created: 28.02.2026
-  - Last Modified: 28.02.2026
+  - Last Modified: 21.04.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ACTIVE
@@ -50,6 +51,7 @@ When a document is updated, check this index to identify which web pages need to
 | `DWS_BRAND_STANDARD.md` | `/gamma/` (design system) | `/shared/` (brand assets) | — | Brand tokens affect all sites |
 | `DWS_DOCUMENT_STANDARD.md` | — | — | — | Internal standard only |
 | `DWS_SECURITY_STANDARD.md` | `/data-security-policy/` | `/sovereignty/` | `/regulatory-notice/` | Security posture pages |
+| `DWS_STANDARDS_LIBRARY.md` | `/enterprise-integrations/` | — | — | Standards catalogue source of truth for enterprise integration claims |
 | `DWS_SOVEREIGNTY_STANDARD.md` | `/dual-use/` | `/sovereignty/` | — | Sovereignty positioning |
 | `DWS_MARKET_RESEARCH_STANDARD.md` | — | — | — | Internal only |
 | `SITE_QUALITY_STANDARDS.md` | ALL pages | ALL pages | ALL pages | Applies globally |
@@ -186,4 +188,4 @@ This section lists the most recent HTML exports in `Learn/` for quick reference.
 
 ---
 
-*Maintained by: DWS IQ 6 team | Last verified: 28.02.2026*
+*Maintained by: DWS IQ 6 team | Last verified: 21.04.2026*

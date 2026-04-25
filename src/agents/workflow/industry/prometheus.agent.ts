@@ -44,6 +44,7 @@ export class PrometheusAgent extends BaseAgent {
         'energy-transition',
       ],
       model: 'claude-haiku-4-5-20251001',
+      modelTier: 'standard',
     });
   }
 

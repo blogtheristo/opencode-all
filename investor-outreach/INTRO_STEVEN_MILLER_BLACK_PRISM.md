@@ -57,7 +57,7 @@ AGENT HISTORY:
 Lead with:
 1. **EU-sovereign alternative** — "We're building the EU's answer to defense-grade AI compliance — ITAR-free, CLOUD Act-free, built on EU-sovereign infrastructure"
 2. **NATO interoperability** — "EU pillar of NATO AI standards. Your US defense experience is exactly why we need strategic counsel — you understand what interoperability actually requires"
-3. **Dual-use economics** — "Same 18 AI agents serve civilian compliance (CSRD, CBAM) and defense supply chain monitoring (Aegis). Revenue from civilian side de-risks the defense bet"
+3. **Dual-use economics** — "Same 21 AI agents serve civilian compliance (CSRD, CBAM) and defense supply chain monitoring (Aegis). Revenue from civilian side de-risks the defense bet"
 4. **Operator-to-operator** — Risto's industrial engineering background + Steven's defense operations background = complementary domain expertise
 
 **Do NOT lead with:**
@@ -72,7 +72,7 @@ Lead with:
 If asked "how do you stay EU-sovereign with US investors?":
 - SAFE gives economic rights, not operational control
 - Architecture: Supabase (EU), GCP europe-north1, Hetzner Helsinki — zero US data transit
-- EU AI Act Article 12 logging (Aiwen overlay) — all reasoning stays in EU
+- EU AI Act Article 12 logging (Article 12 Logging Pipeline) — all reasoning stays in EU
 - No ITAR components, no US export control exposure
 - Finnish company (Lifetime Oy, Y-tunnus 0772407-9), EU jurisdiction
 
@@ -84,9 +84,9 @@ Hi Steven,
 
 [Human's name] suggested we connect. I'm building something that sits at the intersection of your two worlds — defense-grade AI infrastructure and EU regulatory compliance.
 
-DWS IQ is a platform of 18 AI agents that serve two markets from one codebase: civilian compliance (carbon balance sheet for CSRD/CBAM/ETS across 20 industries) and EU-sovereign defense supply chain monitoring (our Aegis framework). Think of it as the ITAR-free EU alternative to US defense AI — NATO-interoperable, CLOUD Act-free, built entirely on EU infrastructure.
+DWS IQ is a platform of 21 AI agents that serve two markets from one codebase: civilian compliance (carbon balance sheet for CSRD/CBAM/ETS across 20 industries) and EU-sovereign defense supply chain monitoring (our Aegis framework). Think of it as the ITAR-free EU alternative to US defense AI — NATO-interoperable, CLOUD Act-free, built entirely on EU infrastructure.
 
-Current state: 5 paying customers, €7K MRR, zero churn. V1 launching at Arctic 15 (Helsinki) on June 15. Raising €650K on a SAFE at €3.8M cap.
+Current state: 6 paying customers, €7K MRR, zero churn. V1 launching at Arctic 15 (Helsinki) on June 15. Raising €650K on a SAFE at €3.8M cap.
 
 Your background scaling defense intelligence to $80M ARR is exactly the kind of operator perspective we need as we position Aegis for EU defense procurement. Would welcome 15 minutes to walk you through the dual-use architecture and how the civilian revenue stream de-risks the defense bet.
 

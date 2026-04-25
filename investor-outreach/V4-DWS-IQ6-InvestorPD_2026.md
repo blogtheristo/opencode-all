@@ -1,12 +1,11 @@
 # Lifetime Oy – DWS IQ 6 Investor Pitch Deck
 ## Sub-100ms AI Decisioning for Europe's Industrial Decarbonization
 
-**Document ID:** DWS-IQ6-IPD-2026-001
-**Version:** 4.0
-**Date:** March 30, 2026
-**Classification:** Confidential - Investor Use Only
-**Prepared For:** Angel & Seed Investors
-**Platform Status:** Public Cloud Version V1 — Production Ready (18 agents, 32 products, 5 cloud environments)
+**Document ID:** DWS-IQ6-IPD-2025-001  
+**Version:** 3.1
+**Date:** March 21, 2026  
+**Classification:** Confidential - Investor Use Only  
+**Prepared For:** Angel & Seed Investors  
 
 ---
 
@@ -14,16 +13,12 @@
 
 ### We Built a 20-Moat Competitive Fortress
 
-**The One-Liner:** Lifetime builds the carbon balance sheet -- double-entry bookkeeping for CO2, so every tonne is tracked like every euro.
-
-**Current Traction (Validated, March 2026):**
-- **€7k MRR live revenue** (5 paying customers - 100% retention, zero churn)
-- **18 AI agents, 32 products, 5 cloud environments** across 20 EU-regulated verticals
-- **Sales sprint: June 15 - August 15, 2026** (Arctic 15 launch anchor event)
-- **20 competitive moats across 4 tiers** (€3-6M / 24-36 month entry barrier for competitors)
-- **€6.7B EU funding-eligible** (EIB SESI, Horizon Europe, Defence Equity Facility - dual-use qualified)
-- **KYA-S Certified:** Hardware-attested agent governance with D&O safe harbor proof (8-12% insurance premium reduction)
-- **55B parameter Lifetime World Model** deployed at edge (sub-100ms latency achieved)
+**Current Traction (Validated):**
+- ✅ **€7k MRR live revenue** (Uber Finland, Bolt, Kela - 100% retention, zero churn)
+- ✅ **€500k Construction Heroes campaign** launching Q1 2025 (Enterprise Navigator → Premium conversion funnel)
+- ✅ **20 competitive moats across 4 tiers** (€3-6M / 24-36 month entry barrier for competitors)
+- ✅ **€6.7B EU funding-eligible** (EIB SESI, Horizon Europe, Defence Equity Facility - dual-use qualified)
+- ✅ **55B parameter Lifetime World Model** deployed at edge (sub-100ms latency achieved)
 
 **The Fortress Structure:**
 
@@ -105,7 +100,7 @@
 | **Decision Latency** | 2-5 minutes | <100ms | 120-300× faster |
 | **Architecture** | Cloud-only or on-premise | Hybrid edge-cloud | EU data sovereignty |
 | **Model Capacity** | Rules-based or <10B params | 55B parameters | Complex reasoning |
-| **Annual Cost** | €50k-200k + €150k implementation | €102k (€8,500/mo × 12) | 73-90% cheaper |
+| **Annual Cost** | €50k-200k + €150k implementation | €8,950-25,950/year | 73-95% cheaper |
 
 **Why Legacy Systems Cannot Compete:**
 1. **Architecture locked-in**: Cloud latency physically impossible to improve without complete redesign (18-36 month product cycle)
@@ -162,27 +157,27 @@
       ┌──────────▼──────────┐
       │ THE HANDS (Agents)  │
       ├─────────────────────┤
-      │ • Firehorse Report  │ ← Tier 1: €6,500 + €1,999/year
+      │ • Firehorse Report  │ ← Enterprise Navigator: €4,950 (3-month pilot)
       │   (Compliance)      │
-      │ • Energy Agent      │ ← Tier 2: €8,500/month
+      │ • Energy Agent      │ ← Enterprise Premium: €8,950/year
       │   (Optimization)    │
       │ • Predictive Maint. │
       │ • Custom Verticals  │
       └─────────────────────┘
 ```
 
-### Two-Tier Product Strategy: Wedge + Expansion
+### Four-Tier Product Strategy: Navigator → Premium → Nordic → World
 
-#### **Tier 1: Climate Reporting Starter Bundle** (Current Revenue Stream)
+#### **Enterprise Navigator** (Entry Wedge — 3-Month Pilot)
 
-**Price**: €6,500 setup + €1,999/year  
-**Status**: VALIDATED (€7k MRR from 5 paying customers)
+**Price**: €4,950 one-time (3-month pilot, no commitment to annual subscription)
+**Status**: VALIDATED (€7k MRR from Uber, Bolt, Kela)
 
-**Deliverables** (4-week implementation):
-✓ Audit-ready CSRD/Fit for 55 reports  
-✓ Scope 1/2/3 emissions calculations  
-✓ Continuous monitoring dashboard  
-✓ Regulatory compliance documentation  
+**Deliverables** (3-month pilot):
+✓ Onboarding + 1 ERP integration + audit-ready CSRD report
+✓ Scope 1/2/3 emissions calculations + Fit for 55 assessment
+✓ Training sessions + Captain introduction
+✓ No lock-in — customer can walk away after pilot  
 
 **Validated Unit Economics**:
 - CAC: €6,000 (pilot-driven sales)
@@ -192,32 +187,43 @@
 - Payback period: 8 months
 - Churn rate: **0%** (9 months validated)
 
-#### **Tier 2: Industrial Decisioning Platform** (New Target Market)
+#### **Enterprise Premium** (Annual Subscription — Growth Engine)
 
-**Price**: €8,500/month + €25,000 implementation  
-**Status**: LAUNCHING (sales sprint June 15 - August 15, 2026)
+**Price**: from €8,950/year (€746/month)
+**Status**: LAUNCHING Q1 2025 (€500k Construction Heroes campaign)
 
-**Deliverables** (16-month average contract):
-✓ Sub-100ms real-time energy optimization  
-✓ Predictive maintenance (15,000-40,000 tCO₂e avoided annually)  
-✓ Fit for 55 compliance automation (integrated with Tier 1)  
-✓ €1.2-2.8M annual efficiency gains per site  
+**Deliverables** (annual contract):
+✓ All 21 AI agents, ERP integrations, priority support
+✓ Sub-100ms real-time energy optimization
+✓ Predictive maintenance (15,000-40,000 tCO₂e avoided annually)
+✓ Fit for 55 compliance automation
+✓ €1.2-2.8M annual efficiency gains per site
 
-**Projected Unit Economics**:
-- CAC: €18,500 (sales sprint target ÷ expected customers)
-- LTV: €161,200 (€8,500/mo x 16 + €25k implementation + €15k add-ons)
-- LTV:CAC: **8.7:1** (strong for enterprise SaaS)
-- Gross margin: **70%+** (edge hardware 15-20% COGS)
-- Payback period: 12 months
-- Target churn: <8%
+#### **Enterprise Nordic** (Custom Enterprise)
+
+**Price**: from €25,950/year
+**Deliverables**: Custom integrations, SLA, dedicated support, multi-site orchestration
+
+#### **Enterprise World** (Strategic — DGX Spark Situation Room)
+
+**Price**: Negotiable
+**Deliverables**: Own instance, white-label, DGX Spark Situation Room, private cloud, dedicated NVIDIA DGX compute + real-time AI command center  
+
+**Projected Unit Economics (multi-site)**:
+- CAC: €18,500 (€500k campaign ÷ 27 expected customers)
+- LTV: €139,200 (Premium 5 sites × 3 years + Navigator + add-ons)
+- LTV:CAC: **7.5:1** (strong for enterprise SaaS)
+- Gross margin: **75%+** (SaaS-only, no hardware COGS in base tier)
+- Payback period: 10 months
+- Target churn: <6%
 
 ### Why This Strategy Works: Fortress Reinforcement
 
 **Strategic Sequencing**:
-1. **Tier 1 validates product-market fit** → €7k MRR proof, 100% retention
-2. **Tier 1 funds Tier 2 development** → Bootstrap edge computing R&D
-3. **Tier 2 qualifies for €6.7B EU funding** → Dual-use applications (civilian + defence)
-4. **Each Tier 2 customer reinforces fortress moats** → Data accumulation, regulatory knowledge, reference selling
+1. **Navigator validates product-market fit** → €4,950 pilot proves value in 3 months, CFO approval easy (under €5K)
+2. **Navigator → Premium conversion** → Proven ROI drives annual subscription at €8,950/year (1.8× Navigator price)
+3. **Premium revenue funds Nordic/World expansion** → Enterprise tiers qualify for €6.7B EU funding
+4. **Each customer reinforces fortress moats** → Data accumulation, regulatory knowledge, reference selling
 
 **Competitive Insight**: Legacy BMS vendors (Siemens, Honeywell) operate at 2-5 minute latency. Our sub-100ms edge platform creates **120-300× performance moat** they cannot replicate without complete architecture redesign (18-36 months + €50-100M R&D investment).
 
@@ -330,7 +336,7 @@ Competitor sees DWS IQ 6 market opportunity
                     ↓
         Does competitive analysis
                     ↓
-        Discovers 20-moat fortress
+        Discovers 21-moat fortress
                     ↓
         Calculates entry cost: €3-8M + 24-36 months
                     ↓
@@ -356,7 +362,7 @@ Competitor sees DWS IQ 6 market opportunity
 3. Cloud-only architecture = Cannot achieve sub-100ms edge latency
 4. **Strategic Decision**: They focused on US market (easier entry, weaker regulation)
 
-**Key Insight**: Funding size ≠ competitive advantage. We built 20 moats with <€500k. They raised 22× more and still avoid our market.
+**Key Insight**: Funding size ≠ competitive advantage. We built 21 moats with <€500k. They raised 22× more and still avoid our market.
 
 **Investor Implication**: The fortress creates **pricing power** at Series A. Competitors must either pay premium to acquire us or invest €8-15M to build competing fortress (most choose neither).
 
@@ -368,7 +374,7 @@ Competitor sees DWS IQ 6 market opportunity
 
 **Finland Focus (2025-2026)**:
 - 150,000 companies affected by CSRD/Fit for 55/EPBD
-- Average contract: €6,500 setup + €2,000/year = €2,500/year blended
+- Average contract: €4,950 Navigator + €8,950/year Premium = €6,950/year blended
 - **Finland TAM**: €375M annual recurring
 - With multi-vertical expansion: **€2.68B over 10 years**
 
@@ -446,7 +452,7 @@ DWS IQ 6 qualifies as **dual-use technology** (civilian + defence applications):
 | **Current** (€7k MRR) | €3.8M | Fortress-justified + Arctic 15 launch + KYA-S certification |
 | **Post-EIB SESI** (Q3-Q4 2026) | €8-12M | EU institutional validation + €880k-1.52M non-dilutive |
 | **Post-Horizon Europe** (2027) | €12-18M | €2.5M grant + multi-country expansion validation |
-| **Series A Ready** (Q4 2026) | €15M+ | €900k ARR + 20-moat fortress + EU funding track record |
+| **Series A Ready** (Q4 2026) | €15M+ | €900k ARR + 21-moat fortress + EU funding track record |
 
 **Valuation Multiplier**: 4-6× through strategic EU funding alignment (€3.8M → €15M+ in 18 months)
 
@@ -454,7 +460,7 @@ DWS IQ 6 qualifies as **dual-use technology** (civilian + defence applications):
 
 | # | Vertical | Status | Avg Annual Value | Priority | TAM |
 |---|----------|--------|------------------|----------|-----|
-| **1** | **Construction & Real Estate** | **Pilot (2 customers)** | **€102,000** | **P0** | **€8B** |
+| **1** | **Construction & Real Estate** | **Navigator (2 customers)** | **€102,000** | **P0** | **€8B** |
 | **2** | **Logistics & Transportation** | **Live (€5k MRR)** | **€70,000** | **P0** | **€5B** |
 | **3** | **Renewable Energy Infrastructure** | Target Q2 2026 | €150,000 | **P1** | €12B |
 | **4** | **Industrial Manufacturing** | Target Q3 2026 | €130,000 | **P1** | €10B |
@@ -530,10 +536,10 @@ Competitive Advantage:
 Technical Specifications:
 - **MCP Standard**: Open protocol for AI agent interoperability (Anthropic-developed)
 - **Current Agents**:
-  - Firehorse Report (climate compliance) – Tier 1 product
-  - Firehorse Flow (workflow automation) – Tier 1 add-on
-  - Energy Optimization Agent – Tier 2 product (launching via sales sprint June 2026)
-  - Predictive Maintenance Agent – Tier 2 add-on
+  - Firehorse Report (climate compliance) – Navigator/Premium
+  - Firehorse Flow (workflow automation) – Premium add-on
+  - Energy Optimization Agent – Premium/Nordic (launching Q1 2025)
+  - Predictive Maintenance Agent – Nordic/World add-on
 - **3rd-Party Integration**: Customers can plug proprietary agents via MCP hub
 - **Network Effects**: Platform value increases exponentially with agent ecosystem size
 
@@ -625,30 +631,28 @@ Competitive Advantage:
 
 ## Slide 7: Business Model & Validated Unit Economics
 
-### Two-Tier Pricing Strategy: Compliance Wedge + Operational Value
+### Four-Tier Pricing Strategy: Navigator Wedge → Premium Expansion → Nordic/World Scale
 
-#### **Tier 1: Climate Reporting Starter Bundle** ✅ VALIDATED
+#### **Enterprise Navigator** ✅ VALIDATED (3-Month Entry Wedge)
 
-**Setup Fee**: €6,500 (one-time)
-- Private cloud instance deployment (Google Cloud EU)
-- DWS IQ Base configuration (MCP hub + agent framework)
-- Firehorse Report agent setup (compliance automation)
-- 8-hour workshop + onboarding (on-site or remote)
-- First audit-ready CSRD/Fit for 55 report
+**One-Time Fee**: €4,950 (3-month pilot, no annual commitment)
+- Onboarding + 1 ERP integration + audit-ready CSRD report
+- Training sessions + Captain introduction + Fit for 55 assessment
+- No lock-in — customer can walk away after 3 months
+- CFO-friendly: under €5K threshold (often no board approval needed)
 
-**Annual Subscription**: €1,999/year
-- Continuous monitoring & quarterly reporting
-- Regulatory updates (24-hour SLA for EU directive changes)
-- Support & maintenance (email + Slack, 48-hour response)
-- Additional reports on-demand (€500 per ad-hoc report)
+**Navigator → Premium Conversion Logic**:
+- Navigator proves value in 3 months → Premium is natural next step
+- Premium at €8,950/year is only 1.8× Navigator price — clear ROI
+- Zero-risk entry eliminates procurement friction
 
 **Typical 3-Year Contract Value by Vertical**:
 
-| Vertical | Setup | Annual | Multi-Site Multiplier | 3-Year LTV |
-|----------|-------|--------|----------------------|------------|
-| **Logistics** | €6,500 | €1,999 | 5-10 sites | **€70k-120k** |
-| **Healthcare** | €6,500 | €2,999 | 3-5 hospitals | **€60k-100k** |
-| **Construction** | €6,500 | €2,499 | 10-20 projects | **€80k-150k** |
+| Vertical | Navigator | Annual Tier | Multi-Site Multiplier | 3-Year LTV |
+|----------|-----------|------------|----------------------|------------|
+| **Logistics** | €4,950 | Premium €8,950/yr | 5-10 sites | **€70k-120k** |
+| **Healthcare** | €4,950 | Nordic €25,950/yr | 3-5 hospitals | **€60k-100k** |
+| **Construction** | €4,950 | Premium €8,950/yr | 10-20 projects | **€80k-150k** |
 
 **Validated Unit Economics (9 months of data)**:
 
@@ -668,85 +672,62 @@ Competitive Advantage:
 
 ---
 
-#### **Tier 2: Industrial Decisioning Platform** -- LAUNCHING (Sales Sprint June 15 - August 15, 2026)
+#### **Enterprise Premium** 🚀 ANNUAL SUBSCRIPTION
 
-**Monthly License**: €8,500/month
+**Annual Subscription**: from €8,950/year (€746/month)
+- All 21 AI agents, ERP integrations, priority support
 - Sub-100ms real-time decisioning (energy optimization, predictive maintenance)
-- Full agent library access (compliance + operations)
-- Multi-site orchestration (up to 10 sites included)
+- Multi-site orchestration
 - Priority support (4-hour SLA, dedicated customer success manager)
 
-**Implementation Fee**: €25,000 (one-time)
-- Edge hardware procurement (NVIDIA Jetson Orin NX)
-- On-site installation + network integration
-- 3-day intensive training (site managers + operations team)
-- Custom agent development (up to 40 hours included)
+#### **Enterprise Nordic** 🏢 CUSTOM ENTERPRISE
 
-**Typical 16-Month Contract Value**:
+**Annual Subscription**: from €25,950/year
+- Custom integrations, SLA, dedicated support
+- Multi-site orchestration with custom agent development
 
-| Component | Amount | Details |
-|-----------|--------|---------|
-| Implementation | €25,000 | One-time (Month 0) |
-| Monthly licenses | €136,000 | €8,500 × 16 months |
-| Custom agents | €15,000 | Average add-on (2-3 custom agents) |
-| **Total LTV** | **€176,000** | **Avg 16-month contract** |
+#### **Enterprise World** 🌍 STRATEGIC (DGX Spark)
 
-**Projected Unit Economics (based on sales sprint)**:
+**Price**: Negotiable
+- Own instance, white-label, DGX Spark Situation Room
+- Private cloud + dedicated NVIDIA DGX compute + real-time AI command center
+- Completely separate category from other tiers
+
+**Typical 3-Year Contract Value (Multi-Site — Revenue Driver)**:
+
+| Component | Premium (5 sites) | Nordic (3 sites) |
+|-----------|-------------------|------------------|
+| Navigator pilot | €4,950 | €4,950 |
+| Annual subscription (3 years) | €134,250 (€8,950 × 5 × 3) | €233,550 (€25,950 × 3 × 3) |
+| Custom agents / add-ons | €15,000 | €25,000 |
+| **Total 3-Year LTV** | **€154,200** | **€263,500** |
+| **Monthly MRR contribution** | **€3,729** | **€6,488** |
+
+> **Key insight:** Single-site Premium LTV is €31,800 (3 years). Multi-site deployments (the norm for construction/logistics/healthcare) multiply this 3-5×, producing LTV comparable to legacy BMS contracts at a fraction of the per-site cost.
+
+**Projected Unit Economics (Premium/Nordic multi-site, based on €500k campaign)**:
 
 | Metric | Conservative | Base Case | Optimistic |
 |--------|--------------|-----------|------------|
 | **CAC** | €22,000 | €18,500 | €15,000 |
-| **LTV** | €145,000 | €161,000 | €180,000 |
-| **LTV:CAC** | 6.6:1 | **8.7:1** | 12:1 |
-| **Gross Margin** | 65% | **70%** | 75% |
-| **Payback Period** | 14 months | **12 months** | 9 months |
-| **Churn Rate** | 12% | **8%** | 5% |
+| **LTV (3-year, multi-site)** | €85,500 (3 sites) | €139,200 (5 sites) | €238,500 (Nordic 3 sites) |
+| **LTV:CAC** | 3.9:1 | **7.5:1** | 15.9:1 |
+| **Gross Margin** | 72% | **75%** | 78% |
+| **Payback Period** | 14 months | **10 months** | 7 months |
+| **Churn Rate** | 10% | **6%** | 3% |
+
+> **Note:** LTV assumes multi-site deployments (3-5 sites per customer), which is the norm for construction portfolios, logistics fleets, and healthcare systems. Single-site LTV is lower (€31,800 Premium / €82,800 Nordic) but multi-site is the revenue driver. Gross margins improve vs. old model because annual subscriptions eliminate monthly billing overhead.
 
 **Sales Sprint Economics (June 15 - August 15, 2026)**:
 
-| Scenario | Customers | Revenue (ARR) | Probability | Expected Value |
-|----------|-----------|---------------|-------------|----------------|
-| Conservative | 10 | €360K | 30% | €108k |
-| **Base Case** | **25** | **€900K** | **50%** | **€450k** |
-| Optimistic | 40 | €1.44M | 20% | €288k |
-| **Weighted EV** | **25** | **€846K** | **100%** | **€846K** |
+| Scenario | Customers | 3-Year Revenue | Probability | Expected Value |
+|----------|-----------|----------------|-------------|----------------|
+| Conservative | 15 | €1.28M | 40% | €513k |
+| **Base Case** | **27** | **€3.76M** | **35%** | **€1.32M** |
+| Optimistic | 40 | €9.54M | 25% | €2.39M |
+| **Weighted EV** | **25** | **€4.22M** | **100%** | **€4.22M** |
 
----
-
-### Dual Revenue Model -- SaaS + Enterprise World Alpha-Share
-
-DWS IQ 6 uses a **dual revenue model** optimized for market segment:
-
-**Standard SaaS (Tiers 1-3):**
-- Fixed monthly fee: €499-€1,999/mo (Enterprise: custom)
-- API transactions: per-call pricing for agent operations (usage-based)
-- Performance Guarantee: service credit issued on verified production fault within 30 days
-
-**Enterprise World (Tier 4 -- Alpha-Share):**
-- Base SaaS: platform subscription (MRR)
-- Alpha-Share Decline-to-Scale: 12% (first €1M), 8% (€1M-€10M), 5% (above €10M) of verified efficiency gains
-- Performance Guarantee: forward-looking credit on verified production fault within 30 days
-
-**Why dual model:** SaaS captures the broad mid-market (CFOs want a line item, not a variable percentage). Alpha-Share captures outsized value from Enterprise World deployments where sophisticated buyers see revenue sharing as proof that DWS has skin in the game. Projected **8-22x ROI** within 18 months in heavy-industry deployments.
-
-### KYA Standard -- Know Your Agent / Know Your Architecture
-
-DWS IQ 6 is governed by the **KYA Standard** (v1.6), a dual-purpose framework unique in the market:
-
-- **KYA-S (Know Your Agent):** Hardware-attested agent identity, capability gating, and forensic audit trails. Every AI agent carries a cryptographic identity, operates within explicit capability bounds, and produces court-defensible logs.
-- **KYA-O (Know Your Architecture):** Financial optimization and agent self-optimization governance. Agents iteratively improve under safety bounds, delivering **11-30% efficiency gains** benchmarked from real autoresearch runs.
-
-**D&O Safe Harbor -- EU AI Act Article 99:**
-- EU AI Act imposes fines up to €35M or 7% of global revenue for non-compliant high-risk AI systems
-- KYA-S certification provides evidentiary basis for D&O safe harbor claims
-- Estimated **8-12% insurance premium reduction** for organizations deploying KYA-S-certified agent swarms
-- D&O insurance is a €2B+ European market -- quantifiable, recurring savings drives enterprise adoption
-
-**Defence/Dual-Use Positioning:**
-- Aegis/sovereignty angle: 100% EU-hosted (Finland, Germany), zero US cloud dependency
-- EU AI Act Article 99 D&O liability creates forced purchase cycle for governance infrastructure
-- Dual-use qualified: civilian (industrial decarbonization) + defence (critical infrastructure resilience)
-- €6.7B EU funding-eligible (EIB SESI, Horizon Europe, Defence Equity Facility)
+**Expected Campaign ROI**: (€4.22M - €500k) / €500k = **744%**
 
 ---
 
@@ -754,32 +735,38 @@ DWS IQ 6 is governed by the **KYA Standard** (v1.6), a dual-purpose framework un
 
 **PHASE 1**: Validated Compliance Business (Current)
 - MRR: €7,000
-- Customers: 5 paying (2 logistics, 1 healthcare, 2 pilots converting)
-- Product: Tier 1 (Climate Reporting Starter Bundle)
+- Customers: 5 paying (Uber, Bolt, Kela, 2 pilots converting)
+- Product: Enterprise Navigator (3-month pilot)
 - Gross Margin: 75%+
 - Churn: 0%
 
 **PHASE 2**: Construction Vertical Expansion + Arctic 15 Preparation (Q1-Q2 2026)
 - Target MRR: **€14,000** (+100%)
 - New Customers: +2 construction pilots convert to paid
-- Product Mix: 60% Tier 1, 40% Tier 2 (early adopters)
-- Milestone: Arctic 15 launch preparation (June 15, 2026)
+- Product Mix: 60% Navigator, 40% Premium (early adopters converting)
+- Campaign: €500k Construction Heroes launching
 
 **PHASE 3**: Healthcare Vertical Scale (Q2-Q3 2026)
 - Target MRR: **€30,000** (+114%)
 - New Customers: +3 healthcare systems (Stockholm, Oslo, Copenhagen)
-- Product Mix: 40% Tier 1, 60% Tier 2
+- Product Mix: 40% Navigator, 60% Premium/Nordic
 - EU Funding: EIB SESI approval unlocks credibility
 
 **PHASE 4**: Multi-Vertical + Nordic Expansion (Q3-Q4 2026)
 - Target MRR: **€60,000** (+100%)
 - New Customers: +8-10 across construction, logistics, renewable energy
-- Product Mix: 30% Tier 1, 70% Tier 2 (mature product)
+- Product Mix: 30% Navigator, 50% Premium, 20% Nordic (mature product)
 - Geography: Finland (60%), Sweden (25%), Norway (15%)
+
+**MRR Build-Up Math (Q4 2026 = €60k MRR)**:
+- 12 Premium multi-site customers (avg 5 sites × €746/mo) = €44,760/mo
+- 3 Nordic customers (avg 3 sites × €2,163/mo) = €19,467/mo
+- Navigator pipeline revenue (ongoing pilots) = ~€3,000/mo amortized
+- **Total**: ~€67k MRR (exceeds €60k target)
 
 **Series A Readiness Milestone (Q4 2026)**:
 - **MRR**: €60,000
-- **ARR Run Rate**: €900,000 (€60k × 12 + €180k implementation fees)
+- **ARR Run Rate**: €900,000 (€60k × 12 + €180k Navigator fees)
 - **Paying Customers**: 25-30
 - **Verticals**: 3 validated (construction, logistics, healthcare)
 - **Countries**: 3 operational (Finland, Sweden, Norway)
@@ -815,7 +802,7 @@ DWS IQ 6 is governed by the **KYA Standard** (v1.6), a dual-purpose framework un
 
 | Variable | -20% Impact | Base Case | +20% Impact |
 |----------|------------|-----------|-------------|
-| **LTV:CAC ratio** | 7:1 (still acceptable) | 8.7:1 | 10.4:1 (exceptional) |
+| **LTV:CAC ratio** | 6:1 (still acceptable) | 7.5:1 | 12.7:1 (exceptional) |
 | **Churn rate** | 10% (extends payback to 15mo) | 8% | 6% (reduces payback to 10mo) |
 | **CAC** | €22,200 (need 50 customers vs 59) | €18,500 | €14,800 (can reach 70 customers) |
 | **Break-even MRR** | €42k (Q3-Q4 2026) | €35k | €28k (Q2 2026) |
@@ -836,9 +823,9 @@ DWS IQ 6 is governed by the **KYA Standard** (v1.6), a dual-purpose framework un
 
 **Demonstrated Execution Capability**:
 - **€45k consulting revenue (2023-2024)** self-funded platform development
-- **100% customer retention** demonstrates product-market fit execution (5 paying customers)
+- **100% customer retention** demonstrates product-market fit execution (6 paying customers)
 - **Arctic 15 launch** (June 15, 2026) demonstrates go-to-market sophistication
-- **20-moat fortress** built with <€500k investment vs competitors spending €3-8M
+- **21-moat fortress** built with <€500k investment vs competitors spending €3-8M
 
 **Technical Credentials**:
 - Early adopter of Model Context Protocol (MCP) - Anthropic partnership discussions
@@ -896,7 +883,7 @@ DWS IQ 6 is governed by the **KYA Standard** (v1.6), a dual-purpose framework un
 **Sovereign Stability**:
 - AAA credit rating (S&P, Moody's, Fitch) = investor protection
 - Transparent governance: Finnish Company Act strictly enforced
-- Founder-friendly SAFE terms: Standard 20% discount, 4× liquidation preference
+- Founder-friendly SAFE terms: Standard 18% discount, 4× liquidation preference
 
 **Banking Infrastructure**:
 - Nordea, OP Financial integrate with EU funding programs
@@ -949,7 +936,7 @@ DWS IQ 6 is governed by the **KYA Standard** (v1.6), a dual-purpose framework un
 **SAFE Terms**:
 - **Total Round**: €650,000
 - **Valuation Cap**: €3,800,000
-- **Discount**: 15-20% on next priced round (to be specified)
+- **Discount**: 18% on next priced round
 - **Conversion**: Automatically converts at Series A (target Q4 2026, €15M+ valuation)
 - **Instrument**: Y Combinator standard SAFE (post-money, MFN clause)
 - **Pro-Rata Rights**: Available for €50k+ investors (Captain tier and above)
@@ -969,7 +956,7 @@ DWS IQ 6 is governed by the **KYA Standard** (v1.6), a dual-purpose framework un
 - **Speed**: 2-4 weeks to close (vs. 3-6 months for priced equity)
 - **Founder-friendly**: No board seats, no immediate dilution, no participation rights
 - **Bridge instrument**: Designed specifically for pre-Series A momentum building
-- **Investor protection**: 15-20% discount + €3.8M cap provides downside protection even if Series A valuation disappoints
+- **Investor protection**: 18% discount + €3.8M cap provides downside protection even if Series A valuation disappoints
 
 ### Valuation Justification: Fortress Premium
 
@@ -979,24 +966,24 @@ DWS IQ 6 is governed by the **KYA Standard** (v1.6), a dual-purpose framework un
 |---------|-----|-----------|------------------|-------------------|
 | Competitor A (2019) | €5k | €2.5M | 42× | Carbon accounting SaaS |
 | Competitor B (2021) | €12k | €6M | 42× | Energy optimization platform |
-| **DWS IQ 6 (2026)** | **€7k** | **€3.8M** | **45x** | **20-moat fortress + KYA-S certification + Arctic 15 launch** |
+| **DWS IQ 6 (2026)** | **€7k** | **€3.8M** | **45x** | **21-moat fortress + KYA-S certification + Arctic 15 launch** |
 
 **Valuation Components**:
 
 | Component | Value | Justification |
 |-----------|-------|---------------|
 | **Base (MRR Multiple)** | €2.9M | €7k MRR × 42× = €2.94M (industry standard) |
-| **Fortress Premium** | +€600k | 20-moat barrier = €3-6M competitor entry cost |
+| **Fortress Premium** | +€600k | 21-moat barrier = €3-6M competitor entry cost |
 | **Launch Optionality** | +€300k | Arctic 15 launch June 15, 2026 + sales sprint |
 | **Total Valuation** | **€3.8M** | **Justified by defensibility + growth catalysts** |
 
 **Series A Conversion Math (Full Round)**:
 
 Scenario: Series A at €15M post-money (Q4 2026)
-- €650K SAFE converts at €3.04M-€3.23M (€3.8M cap with 15-20% discount)
-- **Full round ownership**: €650k / €3.04M = **~21.4% fully diluted**
-- **Value at Series A**: 21.4% x €15M = **€3.2M**
-- **Return**: ~4.9x in 18 months
+- €650K SAFE converts at €3.116M (€3.8M cap with 18% discount)
+- **Full round ownership**: €650k / €3.116M = **~20.9% fully diluted**
+- **Value at Series A**: 20.9% x €15M = **€3.135M ≈ €3.1M**
+- **Return**: ~4.8× in 18 months
 
 **Captain Seat Example (€50K)**:
 
@@ -1006,7 +993,7 @@ Scenario: Series A at €15M post-money (Q4 2026)
 | **€15M (base case)** | **1.6%** | **€240k** | **4.8x** | **50%** |
 | €20M (optimistic) | 1.6% | €320k | 6.4x | 20% |
 
-**Key Insight**: Even in conservative scenario (€10M Series A), a Captain seat achieves 3.2x return in 18 months. The 20-moat fortress creates **pricing power** that protects downside.
+**Key Insight**: Even in conservative scenario (€10M Series A), a Captain seat achieves 3.2x return in 18 months. The 21-moat fortress creates **pricing power** that protects downside.
 
 ---
 
@@ -1038,7 +1025,7 @@ Scenario: Series A at €15M post-money (Q4 2026)
 ✅ **Multi-country expansion** (Finland 60%, Sweden 25%, Norway 15%)  
 ✅ **MCP platform ecosystem** (3rd-party agent integrations live - marketplace rev)  
 ✅ **EU funding validation** (EIB SESI approval €880k-1.52M + Horizon Europe €2-4M pipeline)  
-✅ **20-moat fortress** (competitor entry remains irrational at €3-6M + 24-36 months)
+✅ **21-moat fortress** (competitor entry remains irrational at €3-6M + 24-36 months)
 
 ### Series A Valuation Comparables (Nordic B2B SaaS)
 
@@ -1047,17 +1034,17 @@ Scenario: Series A at €15M post-money (Q4 2026)
 | **ARR** | €900k | 15-25× | €13.5M-22.5M |
 | **Customers** | 30 | €400k-600k per logo | €12M-18M |
 | **MRR Growth** | 8.6× (€7k → €60k in 12mo) | 1× per month of growth | €10M-20M |
-| **Fortress Moats** | 20 moats (€3-6M entry barrier) | 20-40% premium | +€3M-6M |
+| **Fortress Moats** | 21 moats (€3-6M entry barrier) | 20-40% premium | +€3M-6M |
 | **Target Valuation** | - | - | **€15M-20M (conservative)** |
 
 **Conservative Series A Target: €15M** (vs. €20M+ if all metrics exceeded)
 
 **SAFE Conversion at €15M Series A (Full €650K Round)**:
-- €650K total at €3.8M cap with 15-20% discount
-- Converts at €3.04M-€3.23M
-- **Full round ownership**: ~21.4% fully diluted
-- **Full round value**: ~€3.2M
-- **Return**: ~4.9x in 18 months
+- €650K total at €3.8M cap with 18% discount
+- Converts at €3.116M
+- **Full round ownership**: ~20.9% fully diluted
+- **Full round value**: ~€3.135M ≈ €3.1M
+- **Return**: ~4.8× in 18 months
 
 ---
 
@@ -1088,7 +1075,7 @@ Scenario: Series A at €15M post-money (Q4 2026)
 *Scenario*: Well-funded competitor (€10M+ raised) attempts market entry
 
 **Mitigation**:
-- 20-moat fortress requires competitor to spend €3-6M + 24-36 months
+- 21-moat fortress requires competitor to spend €3-6M + 24-36 months
 - By the time competitor launches, DWS IQ 6 has 50-75 customers with switching costs
 - EU funding validation (EIB SESI) creates regulatory moat (government preference for local champions)
 - **Outcome**: Competitor focuses on easier markets or becomes acquisition target
@@ -1098,8 +1085,8 @@ Scenario: Series A at €15M post-money (Q4 2026)
 Even in "everything goes wrong" scenario:
 - Tier 1 revenue (€7k MRR) + EU funding (€1M+) = 24+ month runway
 - Finland HQ (AAA credit rating) + Nordic acquisition market = exit liquidity
-- 20-moat fortress = strategic value even without revenue growth
-- **Minimum investor outcome**: 2-3× return via acquisition (vs 4.9× base case Series A)
+- 21-moat fortress = strategic value even without revenue growth
+- **Minimum investor outcome**: 2-3× return via acquisition (vs 4.8× base case Series A)
 
 ---
 
@@ -1110,16 +1097,16 @@ Even in "everything goes wrong" scenario:
 **We are raising €650K now to bridge 12-18 months to €15M+ Series A by:**
 
 **1. Leveraging Validated Traction**
-- €7k MRR live revenue (5 paying customers, 100% retention)
+- €7k MRR live revenue (6 paying customers, 100% retention)
 - Customer testimonials: 75-85% time savings, 4 weeks vs 6 months audit readiness
 - Unit economics: 15:1 LTV:CAC (top decile for enterprise SaaS)
 - KYA-S Certified: hardware-attested agent governance with D&O safe harbor proof
 
-**2. Launching at Arctic 15 (June 15, 2026)**
-- V1 public launch at Arctic 15 (Helsinki) -- sales kickoff event
-- Sales sprint: June 15 - August 15, 2026 (2-month dedicated push)
-- August 15, 2026: First sales cycle data available (investor decision point)
-- Target: 25 customers at average €36K ARR = €900K ARR
+**✅ 2. Launching €500k Construction Heroes Campaign**
+- Target: Navigator pilots converting to Premium/Nordic subscribers
+- Expected value: €5.3M (probability-weighted across 3 scenarios)
+- Campaign ROI: 960% (€5.3M - €500k) / €500k
+- Break-even: 4 customers (€644k revenue covers campaign cost)
 
 **3. Qualifying for €6.7B EU Strategic Funding**
 - Phase 1: EIB SESI (€880k-1.52M, 60% probability)
@@ -1185,7 +1172,7 @@ Even in "everything goes wrong" scenario:
 ✓ €900k ARR milestone in 18 months (€60k MRR + implementation fees)  
 ✓ 25-30 customers across 3 verticals (construction, logistics, healthcare)  
 ✓ Multi-country expansion (Finland, Sweden, Norway = €24.5B TAM)  
-✓ 20-moat fortress creates pricing power (competitors cannot disrupt)  
+✓ 21-moat fortress creates pricing power (competitors cannot disrupt)  
 
 **Why this matters**: €650K round at €3.8M cap. €15M Series A = significant return for early investors (187% IRR).
 
@@ -1197,7 +1184,7 @@ Even in "everything goes wrong" scenario:
 - Total Round: **€650,000**
 - Valuation Cap: **€3,800,000**
 - Seat Tiers: Fleet Admiral €200K (1 seat) | Captain €50K (9 seats) | Deputy Captain €5K (unlimited)
-- Discount: **15-20%** (to be specified)
+- Discount: **18%**
 - Pro-Rata Rights: Available for €50k+ investors (Captain tier and above)
 
 **Expected Returns by Series A Outcome (€50K Captain Seat Example)**:
@@ -1213,7 +1200,7 @@ Even in "everything goes wrong" scenario:
 - €650K at €3.8M cap with fortress-justified valuation premium
 - Finland AAA credit rating = strong acquirer market (Basware €477M, Aiven €3B precedents)
 - EU funding validation reduces risk of Series A failure (€1-2.5M non-dilutive extends runway indefinitely)
-- 20-moat fortress = strategic value even without revenue growth (IP acquisition target)
+- 21-moat fortress = strategic value even without revenue growth (IP acquisition target)
 
 **Timeline to Liquidity**:
 - **Series A exit** (18 months): 3.3-6.5× return
@@ -1282,8 +1269,8 @@ Even in "everything goes wrong" scenario:
 
 **Let's build the operating system for Europe's intelligent industries together.**
 
-The 20-moat fortress is not just defensible—it's a **strategic asset** that creates pricing power at every funding stage. Early investors who join now participate in:
-- 4.9× return at €15M Series A (187% IRR over 18 months)
+The 21-moat fortress is not just defensible—it's a **strategic asset** that creates pricing power at every funding stage. Early investors who join now participate in:
+- 4.8× return at €15M Series A (~184% IRR over 18 months)
 - €1-2.5M EU non-dilutive funding multiplier (reduces dilution risk)
 - Nordic exit optionality (8-15× revenue multiples in M&A market)
 - Participation rights in future rounds (MFN clause protects against down rounds)
@@ -1323,10 +1310,10 @@ The 20-moat fortress is not just defensible—it's a **strategic asset** that cr
    - 9 months of execution history (April 2024 - December 2024)
    - Customer acquisition timeline, feature development, regulatory updates
 
-6. **Sales Sprint Strategy** (/investor-outreach/)
-   - Arctic 15 launch plan (June 15, 2026)
-   - Sales sprint playbook (June 15 - August 15, 2026)
-   - Target: 25 customers at average €36K ARR = €900K
+6. **Construction Heroes Campaign Plan** (/investor-outreach/campaign/)
+   - €500k investment allocation breakdown
+   - Target customer profile (Navigator → Premium conversion funnel)
+   - Expected ROI calculation (960% probability-weighted)
 
 **FINANCIAL DOCUMENTATION**:
 7. **Audited Financial Statements**
@@ -1340,8 +1327,8 @@ The 20-moat fortress is not just defensible—it's a **strategic asset** that cr
    - Series A readiness metrics (€900k ARR by Q4 2026)
 
 9. **Unit Economics Dashboard** (Live access provided to investors)
-   - Tier 1: CAC €6k, LTV €90k, LTV:CAC 15:1, 0% churn (validated)
-   - Tier 2: CAC €18.5k, LTV €161k, LTV:CAC 8.7:1, <8% churn (projected)
+   - Navigator/Premium: CAC €6k, LTV €90k, LTV:CAC 15:1, 0% churn (validated)
+   - Nordic/World: CAC €18.5k, LTV €161k, LTV:CAC 8.7:1, <8% churn (projected)
 
 **COMPETITIVE ANALYSIS**:
 10. **20-Moat Fortress Analysis** (/investor-outreach/fortress-strategy/)
@@ -1371,8 +1358,8 @@ The 20-moat fortress is not just defensible—it's a **strategic asset** that cr
     - Full patent application roadmap (18-24 month timeline)
 
 15. **Customer Contracts & NDAs** (/legal/contracts/)
-    - Redacted customer agreements (anonymized -- names provided under NDA)
-    - Master Service Agreement template (Tier 1 & Tier 2)
+    - Redacted customer agreements (Uber, Bolt, Kela)
+    - Master Service Agreement template (Navigator, Premium, Nordic, World)
     - Data Processing Agreement (GDPR Article 28 compliant)
 
 ---
@@ -1384,15 +1371,15 @@ The 20-moat fortress is not just defensible—it's a **strategic asset** that cr
 | **MRR** | €7,000 | €14,000 | €60,000 | - |
 | **ARR** | €84,000 | €168,000 | €900,000 | - |
 | **Paying Customers** | 5 | 8 | 25-30 | - |
-| **Pilot Customers** | 2 | 0 (converted) | 5 (new verticals) | - |
+| **Navigator Customers** | 2 | 0 (converted to Premium) | 5 (new verticals) | - |
 | **Churn Rate** | 0% | <5% | <5% | 5-10% annual |
-| **CAC (Tier 1)** | €6,000 | €6,000 | €6,000 | €8k-12k |
-| **CAC (Tier 2)** | - | €18,500 | €15,000 | €20k-30k |
-| **LTV (Tier 1)** | €90,000 | €90,000 | €90,000 | €60k-80k |
-| **LTV (Tier 2)** | - | €161,000 | €176,000 | €120k-150k |
-| **LTV:CAC (Tier 1)** | 15:1 | 15:1 | 15:1 | 3:1 min, 8:1 excellent |
-| **LTV:CAC (Tier 2)** | - | 8.7:1 | 11.7:1 | 3:1 min, 8:1 excellent |
-| **Gross Margin** | 75% | 72% | 70% | 70-75% mature SaaS |
+| **CAC (Navigator)** | €6,000 | €6,000 | €6,000 | €8k-12k |
+| **CAC (Premium/Nordic)** | - | €18,500 | €15,000 | €20k-30k |
+| **LTV (Navigator)** | €90,000 | €90,000 | €90,000 | €60k-80k |
+| **LTV (Premium/Nordic multi-site)** | - | €139,200 | €154,200 | €120k-150k |
+| **LTV:CAC (Navigator)** | 15:1 | 15:1 | 15:1 | 3:1 min, 8:1 excellent |
+| **LTV:CAC (Premium/Nordic)** | - | 7.5:1 | 10.3:1 | 3:1 min, 8:1 excellent |
+| **Gross Margin** | 75% | 75% | 75% | 70-75% mature SaaS |
 | **Monthly Burn** | -€18,100 | -€13,200 | -€2,000 | - |
 | **Runway (months)** | 3 | 9-10 | Break-even | - |
 
@@ -1427,7 +1414,7 @@ The 20-moat fortress is not just defensible—it's a **strategic asset** that cr
 | Boardy.ai | 2021 | €11M | €3M | 25 | €120k | Carbon accounting | US-based (€2.8M-6.25M EU compliance barrier) |
 | Competitor B | 2018 | €15M | €12M | 85 | €141k | CSRD compliance | Cloud-only (cannot achieve sub-100ms latency) |
 | Competitor C | 2015 | €40M | €25M | 180 | €139k | Energy optimization | Generic AI (no construction domain expertise) |
-| **DWS IQ 6** | **2024** | **€0** | **€84k** | **5** | **€90k** | **Industrial decisioning** | **20-moat fortress (€3-6M entry barrier)** |
+| **DWS IQ 6** | **2024** | **€0** | **€84k** | **5** | **€90k** | **Industrial decisioning** | **21-moat fortress (€3-6M entry barrier)** |
 
 **Key Differentiators (Impossible to Replicate Quickly)**:
 ✓ **Only** sub-100ms decisioning platform (120-300× faster than competitors)  
@@ -1472,7 +1459,7 @@ The 20-moat fortress is not just defensible—it's a **strategic asset** that cr
 - Paying customers (but weak retention, high churn)
 - EU market opportunity (but no regulatory moat)
 
-**DWS IQ 6 built a different foundation.** We invested 18 months constructing a **20-moat competitive fortress** that creates:
+**DWS IQ 6 built a different foundation.** We invested 18 months constructing a **21-moat competitive fortress** that creates:
 - €3-6M entry barrier for competitors
 - 24-36 month timeline to achieve parity
 - 97% probability competitors abandon market entry
@@ -1484,7 +1471,7 @@ The 20-moat fortress is not just defensible—it's a **strategic asset** that cr
 - **Exit** (2028+): 8-15× revenue multiples (Nordic M&A premium for defensible assets)
 
 **Your investment today participates in:**
-- ~4.9x return at €15M Series A (187% IRR over 18 months)
+- ~4.8× return at €15M Series A (~184% IRR over 18 months)
 - €1-2.5M EU non-dilutive funding multiplier
 - Downside protection through fortress defensibility (strategic value even without growth)
 - Series A participation rights (MFN clause protects against down rounds)
@@ -1517,8 +1504,8 @@ This document and all associated materials are proprietary and confidential info
 **Revision History:**
 - Version 1.0 (December 10, 2024): Initial investor pitch deck
 - Version 2.0 (December 30, 2024): Strategic pivot to sub-100ms industrial decisioning
-- Version 3.0 (December 30, 2025): Integration of 20-moat fortress strategy
-- Version 4.0 (March 30, 2026): Aligned with Investor Memo v4.0 -- €650K round, KYA-S certification, Arctic 15 launch, customer anonymization, dual revenue model, team/advisor updates
+- Version 3.1 (March 21, 2026): Updated pricing tiers from 2-tier (Tier 1/Tier 2) to 4-tier model (Enterprise Navigator/Premium/Nordic/World) aligned with competitor-pricing-analysis-2026-Q1
+- Version 3.0 (December 30, 2025): Integration of 20-moat fortress strategy + Construction Heroes campaign
 
 **Prepared by:** Risto Anton Päärni, Founder & CEO
 **Reviewed by:** [Legal Counsel Name], [Firm Name]

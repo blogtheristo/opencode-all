@@ -258,6 +258,41 @@ export interface MemoryAuditEntry {
   createdAt: string;
 }
 
+// ============ CONSOLIDATION (NEAR-DUPLICATE DETECTION) ============
+
+/** A pair of near-duplicate memories found by consolidation scan */
+export interface DuplicatePair {
+  memoryAId: string;
+  memoryBId: string;
+  contentA: string;
+  contentB: string;
+  confidenceA: number;
+  confidenceB: number;
+  cosineSimilarity: number;
+  /** true if similarity is in grey zone (0.80–0.92) and needs human review */
+  needsReview: boolean;
+  /** ID of the memory to keep (higher confidence, tie-break by newer) */
+  keepId: string;
+  /** ID of the memory to supersede */
+  supersedeId: string;
+}
+
+/** Result of a consolidation scan */
+export interface ConsolidationResult {
+  /** Total duplicate pairs found */
+  pairsFound: number;
+  /** Pairs auto-consolidated via supersede (similarity >= 0.92) */
+  autoConsolidated: number;
+  /** Pairs flagged for review (similarity 0.80–0.92) */
+  flaggedForReview: number;
+  /** Pairs where supersede was blocked by confidence_delta > 0.3 hard gate */
+  blockedByKya: number;
+  /** Details of each pair processed */
+  pairs: DuplicatePair[];
+  /** Whether this was a dry run */
+  dryRun: boolean;
+}
+
 // ============ CACHE ============
 
 /** LRU cache entry for recall results */

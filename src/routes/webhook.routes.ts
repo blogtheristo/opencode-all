@@ -20,14 +20,15 @@
  *   - Idempotency via provider_message_id UNIQUE constraint
  */
 
-import express, { type Request, type Response, type Router } from 'express';
+import express, { Router, Request, Response } from 'express';
 import logger from '../utils/logger.js';
 import {
-  isAuthorizedSender,
   parseReplyText,
   verifyResendSignature,
+  isAuthorizedSender,
 } from '../outreach/reply-parser.js';
 import type { UpdateCommand } from '../outreach/reply-parser.js';
+import { emailQueue } from '../services/email-queue.service.js';
 
 const router: Router = express.Router();
 
@@ -76,7 +77,7 @@ async function sendConfirmationEmail(to: string, subject: string, body: string):
   }
 
   try {
-    await fetch('https://api.resend.com/emails', {
+    const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -89,10 +90,15 @@ async function sendConfirmationEmail(to: string, subject: string, body: string):
         text: body,
       }),
     });
-    logger.info('Sent confirmation email', {
-      to,
-      from: fromAddress,
-    });
+
+    if (response.ok) {
+      logger.info('Confirmation email sent', {
+        from: fromAddress,
+        recipientCount: 1,
+      });
+    } else {
+      logger.warn('Confirmation email failed', { status: response.status });
+    }
   } catch (err) {
     logger.warn('Failed to send confirmation email', { error: (err as Error).message });
   }
@@ -124,32 +130,23 @@ Rules:
 router.post('/resend/inbound', async (req: Request, res: Response) => {
   const rawBody = JSON.stringify(req.body);
 
-  // 1. Verify Resend webhook signature — MANDATORY
-  // If RESEND_WEBHOOK_SECRET is not set, reject all requests to prevent
-  // unauthenticated webhook processing (security fix for finding 1.4).
-  const webhookSecret = process.env.RESEND_WEBHOOK_SECRET;
-  if (!webhookSecret) {
-    logger.error(
-      'Webhook: RESEND_WEBHOOK_SECRET is not configured — rejecting all inbound webhooks',
-    );
-    res.status(503).json({ error: 'Webhook signature verification not configured' });
-    return;
-  }
-
+  // 1. Verify Resend webhook signature
   const svixId = req.headers['svix-id'] as string;
   const svixTimestamp = req.headers['svix-timestamp'] as string;
   const svixSignature = req.headers['svix-signature'] as string;
 
-  if (!svixId || !svixTimestamp || !svixSignature) {
-    logger.warn('Webhook: missing svix headers');
-    res.status(401).json({ error: 'Missing signature headers' });
-    return;
-  }
+  if (process.env.RESEND_WEBHOOK_SECRET) {
+    if (!svixId || !svixTimestamp || !svixSignature) {
+      logger.warn('Webhook: missing svix headers');
+      res.status(401).json({ error: 'Missing signature headers' });
+      return;
+    }
 
-  if (!verifyResendSignature(rawBody, svixId, svixTimestamp, svixSignature)) {
-    logger.warn('Webhook: invalid signature');
-    res.status(401).json({ error: 'Invalid signature' });
-    return;
+    if (!verifyResendSignature(rawBody, svixId, svixTimestamp, svixSignature)) {
+      logger.warn('Webhook: invalid signature');
+      res.status(401).json({ error: 'Invalid signature' });
+      return;
+    }
   }
 
   // Extract email fields from Resend webhook payload
@@ -158,17 +155,7 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
   const eventType = payload.type;
   const data = payload.data || payload;
 
-  // ─── Delivery event handler ──────────────────────────────────────
-  // Handle email.delivered, email.bounced, email.complained events.
-  // These update email_logs.status via resend_email_id.
-  const DELIVERY_EVENTS = ['email.delivered', 'email.bounced', 'email.complained'];
-  if (eventType && DELIVERY_EVENTS.includes(eventType)) {
-    await handleDeliveryEvent(eventType, payload);
-    res.status(200).json({ ok: true, event: eventType });
-    return;
-  }
-
-  // Only process email.received events for reply parsing
+  // Only process email.received events (ignore delivery notifications etc.)
   if (eventType && eventType !== 'email.received') {
     res.status(200).json({ ok: true, skipped: true, reason: `Event type: ${eventType}` });
     return;
@@ -178,6 +165,26 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
   const subject = data.subject || '';
   const textBody = data.text || '';
   const messageId = data.message_id || data.id || svixId || `unknown-${Date.now()}`;
+
+  // Also push to Redis inbox stream for async processing by other consumers
+  // (MCP agents, analytics, audit trail). This is fire-and-forget — the
+  // webhook still processes synchronously below.
+  if (emailQueue.isAvailable()) {
+    emailQueue
+      .enqueueInbound({
+        from: fromEmail,
+        to: Array.isArray(data.to) ? data.to.join(', ') : data.to || '',
+        subject,
+        text: textBody,
+        html: data.html || '',
+        messageId,
+        source: 'resend-webhook',
+        rawPayload: rawBody,
+      })
+      .catch((err: Error) => {
+        logger.debug('Failed to enqueue inbound to Redis (non-blocking)', { error: err.message });
+      });
+  }
 
   // 2. Idempotency: insert into inbound_emails. ON CONFLICT DO NOTHING.
   try {
@@ -263,7 +270,7 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
         command_line: command.raw,
         error: errorMsg,
       });
-      await logActivity(null, command, 'manual_update_failed', errorMsg, payload);
+      await logActivity(null, 'manual_update_failed', errorMsg, payload);
 
       const senderEmail = extractEmail(fromEmail);
       if (senderEmail) {
@@ -297,7 +304,7 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
 
     // 7. Append outreach_activity
     const summary = buildSummary(command);
-    await logActivity(thread, command, 'manual_update', summary, payload);
+    await logActivity(thread, 'manual_update', summary, payload);
 
     // 8. Update inbound_emails record
     await updateInboundEmail(messageId, {
@@ -334,7 +341,7 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
     const errorMsg = (err as Error).message;
     logger.error('Webhook: update failed', { error: errorMsg, token: command.token });
 
-    await logActivity(thread, command, 'manual_update_failed', errorMsg, payload);
+    await logActivity(thread, 'manual_update_failed', errorMsg, payload);
     await updateInboundEmail(messageId, {
       parse_ok: false,
       thread_token: command.token,
@@ -345,57 +352,6 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
     res.status(200).json({ ok: true, applied: false, error: errorMsg });
   }
 });
-
-// ============================================================================
-// DELIVERY EVENT HANDLER
-// Updates email_logs.status when Resend fires delivery/bounce/complaint events.
-// Keyed by resend_email_id (added in migration 037).
-// ============================================================================
-
-async function handleDeliveryEvent(eventType: string, payload: any): Promise<void> {
-  // Resend delivery event payload: { type, data: { email_id, ... } }
-  const emailId: string | undefined = payload?.data?.email_id || payload?.data?.id;
-
-  if (!emailId) {
-    logger.warn('Delivery event missing email_id', { eventType });
-    return;
-  }
-
-  const statusMap: Record<string, string> = {
-    'email.delivered': 'delivered',
-    'email.bounced': 'bounced',
-    'email.complained': 'complained',
-  };
-
-  const newStatus = statusMap[eventType];
-  if (!newStatus) return;
-
-  try {
-    await supabaseFetch(`email_logs?resend_email_id=eq.${encodeURIComponent(emailId)}`, {
-      method: 'PATCH',
-      headers: { Prefer: 'return=minimal' },
-      body: JSON.stringify({
-        status: newStatus,
-        ...(newStatus === 'delivered' ? { sent_at: new Date().toISOString() } : {}),
-        ...(newStatus !== 'delivered'
-          ? {
-              error:
-                eventType === 'email.bounced'
-                  ? payload?.data?.bounce?.message || 'Bounced'
-                  : 'Spam complaint received',
-            }
-          : {}),
-      }),
-    });
-    logger.info('email_logs updated via delivery event', { emailId, status: newStatus });
-  } catch (err) {
-    logger.error('Failed to update email_logs on delivery event', {
-      emailId,
-      event: eventType,
-      error: (err as Error).message,
-    });
-  }
-}
 
 // ============================================================================
 // HELPERS
@@ -470,7 +426,6 @@ function buildSummary(command: UpdateCommand): string {
 
 async function logActivity(
   thread: any | null,
-  _command: UpdateCommand,
   outcome: string,
   description: string,
   rawPayload: any,

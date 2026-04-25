@@ -32,6 +32,7 @@ export class CompetitorSurveillanceAgent extends BaseAgent {
         'change-detection',
       ],
       model: 'llama-3.3-70b-versatile',
+      modelTier: 'standard',
     });
   }
 

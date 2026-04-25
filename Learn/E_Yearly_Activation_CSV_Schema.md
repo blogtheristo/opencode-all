@@ -23,7 +23,7 @@
 
 Tämä asiakirja määrittelee skeeman ja metodologian, jolla rekonstruoidaan Lifetime Oy:n DWS-tuotekehityksen aktivoitavissa olevat tunnit ajanjaksolle **2018–2024**, käyttäen **kolmea toisistaan riippumatonta lähdettä**:
 
-1. **Taksi-provisiolaskutus + alihankintasopimukset** (Google Sheets, kirjanpidon ulkopuolinen vahvistus). **🔴 KRIITTINEN HAVAINTO 12.04.2026 (käyttäjän vahvistus):** Lifetime Oy:n kirjanpitäjä **Merja on kirjannut taksi-provisiolaskut vuodesta 2010 alkaen — 16 vuotta**. Sama kirjanpitorakenne on ollut voimassa katkeamatta. Käyttäjän tarkennus 12.04.2026: **"taksilaskut ovat google sheetissä samoin kuin alihankintasopimukset"** → sekä taksilaskut **että alihankintasopimukset** ovat samassa Google Sheets -järjestelmässä, mikä tarkoittaa että kaikki Lifetime Oy:n laskutus- ja sopimusmetadata on yhdestä lähteestä haettavissa. **Yhtään Lifetime-aktivointia ei ole tehty näiden 16 vuoden aikana**, vaikka data on koko ajan ollut Merjan käytettävissä päivätasolla. Tämä on **strukturaalinen alikorjaus** Lifetime Oy:n taseessa: omaa pääomaa ja aineetonta käyttöomaisuutta on ollut alikirjattuna sukupolvet. Vahvin mahdollinen näyttö KPL 5:8 -aktivoinnin puolustamiseen: kirjanpitäjän oma päivätason rekisteri, johon ei ole koskaan tehty muutoksia jälkikäteen, näyttää negatiivisen todistuksen kaikille DWS-tuotekehityksen päiville (= ei taksilaskua ko. päivänä → muu työ). **Lisäksi alihankintasopimukset** (Cubet Technolabs, Cloud Techno Global, Test Army, 9 Series, Solita, HiQ, Nigel Frank International ym.) ovat samassa Google Sheets -järjestelmässä → vahvistaa partneriyhteistyön todellisuuden ja antaa kontekstin DWS-kehityksen ympärille.
+1. **Taksi-provisiolaskutus + alihankintasopimukset** (Google Sheets, kirjanpidon ulkopuolinen vahvistus). Lifetime Oy:n kirjanpidossa on kirjattu taksi-provisiolaskut vuodesta 2010 alkaen — 16 vuotta katkeamatta. Sekä taksilaskut että alihankintasopimukset (Cubet Technolabs, Cloud Techno Global, Test Army, 9 Series, Solita, HiQ, Nigel Frank International ym.) ovat samassa Google Sheets -järjestelmässä. Vahvin mahdollinen näyttö KPL 5:8 -aktivoinnin puolustamiseen: päivätason rekisteri, johon ei ole koskaan tehty muutoksia jälkikäteen, näyttää negatiivisen todistuksen kaikille DWS-tuotekehityksen päiville (= ei taksilaskua ko. päivänä → R&D-työtä).
 2. **lifetime.fi/blog -artefaktit** (hard-dated URLs, julkaistut tuotokset)
 3. **GitHub-commitit** 96 reposta (kryptografinen aikaleima)
 
@@ -31,7 +31,7 @@ Tämä asiakirja määrittelee skeeman ja metodologian, jolla rekonstruoidaan Li
 
 ## 1.1 Strukturaalinen havainto: 16 vuoden alikirjaus
 
-Käyttäjän vahvistus 12.04.2026: **Lifetime Oy:n kirjanpitäjä Merja on kirjannut taksi-provisiolaskut vuodesta 2010 alkaen — 16 vuotta**, sama rakenne katkeamatta. **Yhtään Lifetime R&D -aktivointia ei ole tehty 16 vuoden aikana.**
+**Yhtään Lifetime R&D -aktivointia ei ole tehty 16 vuoden aikana** vaikka taksilaskutusdata on ollut kirjanpidossa päivätasolla koko ajan.
 
 Tämä on **strukturaalinen ongelma Lifetime Oy:n taseessa** joka selittää nykyisen -71 000 € negatiivisen oman pääoman tilanteen:
 
@@ -54,7 +54,7 @@ Tämä on **strukturaalinen ongelma Lifetime Oy:n taseessa** joka selittää nyk
 - Bookkeeping-data on **kirjanpitäjän omassa Google Sheetsissä päivätasolla 2010 →**
 - Data ei ole muutettavissa jälkikäteen (kirjanpitojärjestelmä ei salli)
 - Negatiivinen todistus on **vahvin mahdollinen näyttö** auditoinnissa
-- Kirjanpitäjä Merja itse on data-omistaja → hänellä ei ole syytä kyseenalaistaa omaa rekisteriään
+- Kirjanpitäjä on data-omistaja → data on kolmannen osapuolen ylläpitämä, ei omistajan itsensä
 - Tämä on **gold standard** KPL 5:8 -aktivoinnin perusteena
 
 **Karpathy push-back:** ÄLÄ kuitenkaan laajenna scope:a 2010-2017 alueelle ilman selkeää tunnistettavaa aineetonta hyödykettä, johon R&D-päivät kohdistuvat. KPL 5:8 vaatii että aktivointi liittyy spesifiin tunnistettavaan kehittämishankkeeseen. DWS-jatkumo alkaa 12/2019. Pre-DWS R&D 2010-2018 voi olla aktivoitavissa erikseen omaksi hyödykkeeksi (esim. "Lifetime Digital Workspace dashboard" 2015-2017 per 012e v0.12 viite), mutta se vaatii oman analyysin ja päätöksen — ei tämän haaran scope:n osa.
@@ -74,7 +74,7 @@ Tämä on **strukturaalinen ongelma Lifetime Oy:n taseessa** joka selittää nyk
 
 **Karpathy-näkökulma — tämä KAVENTAA aktivointia:**
 
-Edellisessä §1.1:ssä huomattiin että Merjalla on 16 vuoden taksi-bookkeeping-data 2010 →. **Mutta** tämä historiikki paljastaa että:
+Edellisessä §1.1:ssä huomattiin että kirjanpidossa on 16 vuoden taksi-bookkeeping-data 2010 →. **Mutta** tämä historiikki paljastaa että:
 
 - **2010–2011**: R&D oli Facebook First (eri tuoteperhe) → ei DWS-aktivointia
 - **2011–2015**: Taksi oli päätyö → ei R&D:tä → ei aktivoitavaa (4 vuoden hiatus)

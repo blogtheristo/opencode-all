@@ -11,17 +11,18 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.3
+Version: 3.39
 
 Sessions & Modifications:
 
-- Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-red-hat-partners-d8Hey | Date: 21.03.2026 | Changes: Added Red Hat to Strategic Partnerships (§14.8) — AgentOps BYOA platform, $644B market data, hybrid cloud alignment, 42% expertise gap validation
-- Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 03.04.2026 | Changes: Added Section 14.15 (Master Thesis Dual-Version Architecture: v3.30.50 Metropolia freeze); confirmed PHD Firehorse as canonical home for detailed research sections moved from master thesis restructuring (10.6-10.18 → Sections 14.1-14.14); added Key Contribution #18; updated footer
-- Version: 3.1 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 31.03.2026 | Changes: Updated Appendix F (Claude Code Engineering Structure) with expanded skills inventory (6→21 skills, 4 subagents, secret-scan hook); added Section 14.14 (Competitive Analysis: Domain-Specific vs Generic AI Harness); added Key Contribution #20
-- Version: 3.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-leworldmodel-r3VRA | Date: 25.03.2026 | Changes: Added Section 14.13 (LWM Sequencing Strategy — From Regulatory Intelligence to Physical AI): three-phase sequencing, LeWorldModel validation (arXiv:2603.19312), Phase 2 technical gap analysis, compliance-first world model thesis; added Key Contribution #19
-- Version: 2.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Added Section 1.4 (Motivating Thesis: The Carbon Balance Sheet) as starting clause — carbon compliance as ledger problem, double-entry bookkeeping for CO2, cross-regulation reconciliation, cross-vertical intelligence as PhD research question; this frames the entire Firehorse operations research; added Key Contribution #18
-- Version: 2.8 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Added Section 14.6.4 Agent Memory Fact Extraction Pipeline (PR-254): LLM-based fact extraction to subject-predicate-value triples, dual memory architecture (LWM + client memory), three execution layers (Firehorse state machine, ERP connectors, KYA governance); KYA-first PR ordering for court-defensible memory audit trail; added Key Contribution #17
-- Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Added Section 14.2.1 LWM Product-Market Validation (Qantic GmbH energy case study — first external market validation, €21,693/year BESS compliance output, Firehorse model transferability to energy sector confirmed); added Key Contribution #16; updated 16→20 industries in LWM sections
+- Version: 3.39 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Terminology rename — "Aiven overlay" / "Aiven layer" (deprecated infrastructure labels) → "Article 12 Logging Pipeline" per new DWS_ARTICLE_12_LOGGING_STANDARD.md v1.0 (unified 3-tier canonical term). Aiven remains the correct name for the Postgres SaaS. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule; only V3Thesis_EN had the infra-context string in content
+- Version: 3.38 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Typo correction — "Aiwen" → "Aiven" (Aiven.io is our Helsinki Postgres partner) as part of repo-wide sweep of 116 files; no content change beyond the spelling fix; unified version track preserved (all 4 thesis files bumped in lockstep per CLAUDE.md thesis rule)
+- Version: 3.37 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: **Unified thesis version track.** PHD_FIREHORSE and Metropolia V3Thesis are now on a single shared version number (3.37). From this commit forward, all 4 thesis files (V3Thesis_EN/FI + PHD_FIREHORSE_EN/FI) bump in lockstep (3.37 → 3.38 → … → 3.99 → 4.00). Chain-break history honestly recorded: v2.9 → v2.10 (21.04.2026, Boardy refinements) → an unintended v3.10 jump collided with an already-existing local v3.1, v3.2 chain → remote was pushed to v3.5 in this session (22.04.2026) without visibility of the local v3.2 work → unified here to v3.37 to align with V3Thesis. Local v3.2 work is expected to be folded into v3.38 as the next bump (human to paste diff). Substantive content in this version: Section 14.17 (DWS Skilled Taxonomy — Brand / Spec / UI Across Agents, Workflows, and Jurisdictions); "GodAgent"/"Godagent" branding deprecated; three-tier `Skilled <Axis>` / `Industrial Specialist <Axis>` / `Industry <Axis>` pattern across three active axes (Agents, Workflows, Jurisdictions — EU/US/Aiven); SKU-copy, scheduler-copy, and jurisdiction-packaging disciplines derived as operations-model implications; Key Contribution #22.
+- Version: 3.5 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: [Superseded by v3.37 unification.] Opened the PHD_FIREHORSE major-version line at v3.5 (later reverted). Substantive content moved to v3.37.
+- Version: 2.10 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Incorporated Boardy-driven refinements: KYA open-source standardization path via Agentic AI Foundation / Linux Foundation, explicit NIST submission status (not sent), publication phasing (2026-2029), court-defensible compliance framing, and tighter supervisor letter structure
+- Version: 2.9 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Refined research-question targeting: positioned KYA as an Agentic AI Foundation standard candidate, added DWS 7 objectives, added hydrogen-economy continuity note (DWS 5), refocused third research stream to dual-use industries (including Nokia Defence discussions), added Aegis/Sovereign Infra/Connect sovereignty segmentation with core figure, added Siemens and NVIDIA Connect collaboration notes; added supervisor response letter draft
+- Version: 2.8 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-work-EoyoF | Date: 20.04.2026 | Changes: Added Section 14.16 (April 2026 Evolution) — five subsections: Firehorse Report Engine production scheduler (PR #1064, cron-driven compliance report dispatch, module-scoped tests, manual trigger route), Firehorse Product Line V2 consolidation (omnichannel/report/automation/content as unified DWS IQ product family), Firehorse Snap benchmark (measured <125ms kill latency on Firecracker MicroVM replaces 122ms Arctic 15 spec), Skills paradigm applied to operations (Anthropic's "Stop Building Agents" validates §14.14; +3 skills: /regulatory-radar, /investor-outreach, /multilingual), Ops Manager V0 buyer lock (PRD v0.2 with ICP validation script), Founder→Team transition (SOLO_FOUNDER_STATEMENT v1.2 + Anthony Maurin CTO + /investor-outreach reproducible workflow with 10+ INTRO notes); added Key Contributions #17–#19
+- Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 18.03.2026 | Changes: Added Appendix H (KYA Partner Ecosystem): 5-layer partner mapping, Shufti IDV integration (L1/L5), Palantir AIP connector model, BYO Agent Policy, strategic ecosystem partners (NVIDIA, Siemens, ABB, xAI, Mistral), partnership distribution hypothesis validation; added Key Contribution #16
 - Version: 2.6 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 16.03.2026 | Changes: Updated section 15 Results and Discussion with v2.1–2.5 evidence: harness engineering metrics (52.8%→66.5%), 13-agent Pantheon, customer MVP features, PostgreSQL HTAP, A/B testing integration, compliance readiness updates, SWOT refresh; added section 15.5 A/B Testing Results
 - Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/add-harness-engineering-thesis-2zvZt | Date: 14.03.2026 | Changes: Added Section 14.12 (Harness Engineering and Forensic Telemetry): harness-forensics connection, court-defensible harness via VERSION AND AGENT HISTORY, KYA Standard as hardware-attested harness beyond software-level scaffolding, EU regulatory divergence from OpenAI's speed-optimized approach; added Key Contribution #15
 - Version: 2.4 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Added Appendix G Glossary with 21 terms across Platform (5), Data Architecture (8), and Security/Compliance (8) categories
@@ -42,6 +43,12 @@ Sessions & Modifications:
 - Version: 1.0 | Tool: Claude Code (Opus 4.5) | Session: PHD-Init | Date: 15.01.2026 | Changes: Initial document creation
 
 Document Status:
+
+- Created: 15.01.2026
+- Last Modified: 21.04.2026
+- Language: English
+- Languages Available: English, Suomi
+- Publication Status: DRAFT (V2.10 — KYA open-source standard path, NIST status, publication phasing, supervisor letter refined)
 
 - Created: 15.01.2026
 - Last Modified: 24.03.2026
@@ -137,6 +144,58 @@ The Firehorse Operations Model (Sections 3–13) documents the engineering infra
 A carbon balance sheet requires verified data from heterogeneous industrial systems — ERP platforms (SAP, IFS, Dynamics, Visma, Jeeves), EU registries (EUTL, CBAM Transitional Registry), emission factor databases (EEA, IPCC), IoT sensors, and ESG platforms (Worldfavor, PositionGreen). This thesis argues that these connectors must be **open source** (MIT-licensed) for three reasons: (1) auditability — auditors must inspect the data path from source system to ledger entry, not trust a vendor's black box; (2) network effect acceleration — open source lowers adoption barriers, enabling the cross-vertical intelligence to emerge faster; (3) regulatory defensibility — EU AI Act Article 12 requires auditable AI pipelines, which open source satisfies by design. The connector architecture extends the ERP integration patterns already implemented in DWS (`src/integrations/erp/`), treating each connector as a standardized adapter (input schema → journal entry) that plugs into the ledger's append-only ingestion API.
 
 These questions extend beyond the Firehorse e-commerce operations into the domain of **compliance infrastructure design** — the transition from "tools that generate reports" to "infrastructure that maintains a system of record for carbon." The DWS 7 implementation (Phase 2.6, PRs 093A–093H) provides the empirical test bed.
+
+### 1.5 Research Focus Refinement (v2.10)
+
+The refined research focus is organized into three streams:
+
+1. **KYA as an Agentic AI Foundation standard:** KYA (Know Your Agent) is elevated from an internal governance wrapper toward a generalizable foundation standard for identity binding, runtime control, auditability, and sovereignty guarantees in agentic systems.
+2. **DWS 7 objectives as empirical testbed:** DWS 7 is treated as the operational environment to validate carbon-ledger infrastructure, KYA governance, multi-partner integration (Siemens, NVIDIA Connect), and sovereignty-aware product segmentation.
+3. **Dual-use industries as the third research stream:** The third stream is explicitly focused on dual-use industries (industrial + defence), including ongoing Nokia Defence discussions as part of the funding and pilot pathway.
+
+A continuity note is added from DWS 5 to DWS 7: hydrogen economy compliance (RFNBO additionality and verification) is treated as a longitudinal thread in the platform's research program.
+
+**Product-tier and sovereignty segmentation (core figure):**
+
+<img src="../artifacts/Sovereignty.jpg" alt="Aegis, Sovereign Infra and Connect segmentation" />
+
+The figure anchors three product layers in the research framing:
+
+- **Aegis** = security and critical-infrastructure governance product
+- **Sovereign Infra** = EU-sovereign infrastructure layer for regulated operators
+- **Connect** = global integration and distribution layer
+
+**Open-source standardization path (new refinement):**
+
+- KYA standard proposal to **Agentic AI Foundation / Linux Foundation** is currently in draft state (not yet submitted).
+- NIST track is also not yet submitted and is modeled as a parallel validation path (US validation vs open-source adoption).
+- Research principle: a standard that remains private cannot scale to ecosystem adoption; therefore, standardization work must include both open specification and reference implementation evidence.
+
+### 1.6 Response Letter Draft to Prof. Kari Smolander
+
+Dear Kari,
+
+thank you for your message and for the clear guidance. I especially value your point that doctoral work is an endurance process where socialization into the research community and peer-reviewed publication are central.
+
+I will prepare the short research idea description you requested with the following structure:
+
+- **Research problem:** how to build an agentic AI architecture that produces court-defensible compliance data in EU-regulated industrial settings (CBAM, CSRD, NIS2, AI Act).
+- **Research objectives:** (1) develop and validate a KYA-certified governance model for industrial AI agents, (2) study scalability of multi-agent systems (MCP + A2A) across 20+ regulatory verticals, (3) evaluate impact of agentic compliance automation on D&O insurability and legal accountability.
+- **Preliminary methods:** Design Science Research (DSR), artifact construction (DWS IQ 6/7), empirical validation with paying-customer environments, and case-study analysis.
+- **Publication phasing:** 2026 Article 1 (KYA open-source standard), 2027 Article 2 (MCP architecture), 2028 Articles 3-4 (empirical findings), 2028-2029 synthesis + dissertation.
+
+Article 1 is framed as: **"KYA Standard: An Open Source Governance Framework for Agentic AI in EU-Regulated Industries"**, proposed toward Agentic AI Foundation / Linux Foundation pathways and targeted for an international conference.
+
+Current status is made explicit:
+
+- KYA open-source proposal is drafted but not sent.
+- NIST submission has not been sent.
+- The two paths are complementary, but open-source adoption is prioritized first in this round.
+
+I would be glad to discuss this draft with you online or in person. I can send a concise 2-3 page version in advance.
+
+Kind regards,  
+Risto Anton Päärni
 
 ---
 
@@ -1877,11 +1936,240 @@ The master thesis (V3Thesis) grew to 82 pages and 26,000+ words during the AI-as
 
 **Key Contribution #18:** Dual-version thesis architecture as methodological contribution to AI-assisted academic writing.
 
+### 14.16 April 2026 Evolution: Report Engine in Production, Product Line V2, Snap Benchmark, and Founder→Team Transition
+
+_Added: 20.04.2026 | Source: PRs #1064, #1109, #1110; field notes 2026-04-06 through 2026-04-19; Firehorse Snap benchmark (Firecracker MicroVM); SOLO_FOUNDER_STATEMENT v1.2._
+
+Between v2.7 (18.03.2026) and v2.8 (20.04.2026) Firehorse progressed from a documented operating model to a measurable production system. Five operational milestones define this window.
+
+#### 14.16.1 Firehorse Report Engine — Production Scheduler (PR #1064)
+
+The Firehorse Report module graduated from specification to scheduled production. PR #1064 merged the report scheduler (`src/firehorse/report-scheduler.ts`), module-scoped tests (`src/__tests__/firehorse-report-module.test.ts`), and a manual trigger route. This is the first Firehorse module to ship a cron-driven customer deliverable, closing the loop between the Operations Model (§14.1–14.4) and customer-facing value:
+
+| Capability         | Implementation                                                  |
+| ------------------ | --------------------------------------------------------------- |
+| Scheduled dispatch | Node-cron expressions per tenant; timezone-aware                |
+| Manual trigger     | REST route for ad-hoc report generation                         |
+| Test coverage      | Module-scoped tests (no cross-module leakage)                   |
+| Compliance output  | CSV/JSON export consumable by CSRD/CBAM/ETS reporting pipelines |
+
+**Operations-model significance:** The scheduler is the first Firehorse component where the 3-tier billing contract (§2.0 v2.0, Version 2.0) produces recurring compliance artefacts without human intervention. The hypothesis that an AI-assisted one-person team can operate a multi-tenant compliance product is now testable against real scheduled dispatch.
+
+#### 14.16.2 Firehorse Product Line V2 — Unified DWS IQ Product Family
+
+In April 2026 the four Firehorse modules (Omnichannel, Signed Report, Automation, Content Management) were consolidated into a single V2 product line under the DWS IQ product family. Each module received a V2 naming, dedicated imagery, and a store presence. Merged commits include `Firehorse Product Line V2`, `Firehorse Automation V2`, `Firehorse Starter V2 bundle`, `Firehorse Content Management V2`, `Firehorse Signed Report V2`, `Firehorse ReportV2`, and `firehorse-omnichannel-v2.png`. The Firehorse Starter V2 bundle exists as an entry-level SKU.
+
+**Operations-model significance:** V2 crystallises the Solution Factory output into a catalogue-first product family that can be purchased, bundled, and versioned independently — a pre-condition for the Ops Manager ICP (see §14.16.5).
+
+#### 14.16.3 Firehorse Snap Benchmark — <125 ms Measured Kill Latency
+
+Earlier versions of this thesis cited 122 ms as the Firehorse Snap kill latency specification from Arctic 15 planning documents. In April 2026, the measured kill latency on Firecracker MicroVM infrastructure was captured and published on the KYA Standard page (`dws10.com/kya-standard`). The public claim has been updated from the 122 ms spec to **<125 ms measured** (Firecracker MicroVM benchmark). The KYA page now displays both measured and Firecracker spec figures so readers can distinguish specification from measurement.
+
+**Operations-model significance:** Court-defensible harness claims (§14.12 Harness Engineering and Forensic Telemetry) require measurement, not specification. Updating the public figure from spec to measured is the first time a Firehorse harness guarantee is backed by a reproducible benchmark. This is a precondition for EU AI Act Article 12 log admissibility in enforcement proceedings.
+
+#### 14.16.4 Skills Paradigm Applied to Operations — Anthropic's 2026-04-16 Validation
+
+Anthropic's 2026-04-16 essay "Stop Building Agents, Start Building Skills" (field note `docs/field-notes/2026-04-16-anthropic-skills-paradigm-stop-building-agents.md`) externally validates the skill-first architecture documented in §14.14 (Domain-Specific vs Generic AI Harness). The Firehorse operating model is not "an agent framework with skills" — it is a skill library that happens to invoke agents. Three new production skills shipped in this window:
+
+| Skill                | Purpose                                                        | Ops-model function                                   |
+| -------------------- | -------------------------------------------------------------- | ---------------------------------------------------- |
+| `/regulatory-radar`  | Scan EUR-Lex / DG ENER / EFRAG / CINEA for upcoming regulation | Anticipates compliance product roadmap               |
+| `/investor-outreach` | Draft, triage, and track investor INTRO notes                  | Makes fundraising a reproducible workflow (§14.16.5) |
+| `/multilingual`      | Generate / audit EU multilingual content (FI/SV/DE/FR)         | Localises Firehorse store + onelifetime.world        |
+
+Total skill inventory: 24+ production skills with 4 blocking discipline gates. The hypothesis that skills are the product interface (Section 14.14 Research Significance) is now externally confirmed as the emerging industry pattern.
+
+#### 14.16.5 Ops Manager V0 Buyer Lock + Founder→Team Transition
+
+Two coupled milestones answer the "who buys" and "who builds" questions of the operations model:
+
+- **Ops Manager V0 Buyer Lock (PRD v0.2, commit `4e64a089`):** The first-dollar customer is locked to the Ops Manager persona at Finnish datacentre operators (hyperscaler + colocation). A validation script accompanies the PRD to prevent unvalidated ICP drift. This tightens the loop between Section 14.4 (Contractor Agent Onboarding) and the Datacentre Compliance Agent PRD v0.1 (`docs/DWS_IQ_7_DATACENTRE_COMPLIANCE_AGENT_PRD_v0.1.md`).
+- **Founder→Team Transition:** `SOLO_FOUNDER_STATEMENT.md` v1.2 locks the solo-founder-with-AI-team narrative as single source of truth for Series A / SAFE investor conversations. Anthony Maurin enters as CTO co-builder with tightened equity sequencing against the Perissich reactivation catalyst. The `/investor-outreach` skill produces 10+ named INTRO notes in the 2-week window (42CAP Wilke, Plug and Play Paris Laouiti, Ingrisano, Perissich, Kefalogiannis, von Euen, Yomutbayev, Zawadzinski) — investor outreach is now a DWS IQ workflow, not tacit founder knowledge.
+
+**Operations-model significance:** The Firehorse Operations Model survives the founder-to-team transition only if every previously tacit founder activity (fundraising, buyer validation, partner outreach) becomes a skill. PRD v0.2 (buyer validation) + `/investor-outreach` (investor pipeline) are two of three legs; partner outreach (Aiven, Shufti, Kosti Salmi / Salesforce) remains to be codified as a skill in the next window.
+
+#### 14.16.6 Research Contribution
+
+**Key Contribution #19 — Report Engine in Production:** The Firehorse Report scheduler (PR #1064) is the first Firehorse module to ship cron-driven customer deliverables with module-scoped tests and a manual trigger route. This closes the loop between the Operations Model's 3-tier billing contract (Version 2.0) and recurring compliance artefacts without human intervention, providing the first end-to-end test of the one-person-team multi-tenant compliance hypothesis.
+
+**Key Contribution #20 — Measured Harness Guarantee (<125 ms Snap):** The Firehorse Snap kill latency is now backed by a reproducible Firecracker MicroVM benchmark rather than an Arctic 15 specification. This is the first time a court-defensible harness claim in the Firehorse operating model has a published measurement replacing a specification, a precondition for EU AI Act Article 12 log admissibility in enforcement contexts (§14.12).
+
+**Key Contribution #21 — Founder→Team Transition as Skills:** The Ops Manager V0 buyer lock (PRD v0.2 with validation script) and the `/investor-outreach` skill (10+ INTRO notes drafted) together demonstrate that previously tacit founder activities (ICP validation, investor pipeline) can be codified as reproducible DWS IQ skills. This extends the Firehorse Operations Model from internal tooling to a founder-to-team transition mechanism — a necessary property if the operating model is to survive beyond the solo-founder phase.
+
+---
+
+### 14.17 DWS Skilled Taxonomy: Brand / Spec / UI Across Agents, Workflows, and Jurisdictions
+
+_Added: 22.04.2026 | Source: CLAUDE.md "DWS Skilled Taxonomy Rule"; Anthropic 2026-04-16 Skills paradigm essay (§14.16.4); deprecation of "GodAgent" branding. PHD_FIREHORSE version track unified with Metropolia V3Thesis at v3.37; from v3.37 forward all 4 thesis files bump in lockstep (3.37 → 3.38 → … → 3.99 → 4.00)._
+
+#### 14.17.1 From "GodAgent" to a Three-Tier Naming System
+
+The Firehorse Operations Model earlier used "GodAgent" as a single label for industry-scoped specialist agents. Anthropic's 2026-04-16 essay "Stop Building Agents, Start Building Skills" (see §14.16.4) externally validated the skill-first architecture embedded in the operating model (§14.14 Domain-Specific vs Generic AI Harness). With that validation, the single-label convention became a positioning liability: a brand, a specification, and a UI category are three distinct registers, and no single term can serve all three without diluting each. This section introduces the three-tier naming taxonomy that replaces "GodAgent" in the Firehorse operating model.
+
+#### 14.17.2 The Pattern
+
+```
+Skilled <Axis>                 ← BRAND   (what we SELL)
+    └─ Industrial Specialist <Axis>    ← SPEC    (what they ARE)
+            └─ Industry <Axis>         ← UI      (how we LIST them)
+```
+
+Three axes are currently active in the Firehorse operating model:
+
+| Tier    | **Agents**                   | **Workflows**                                                       | **Jurisdictions**                     |
+| ------- | ---------------------------- | ------------------------------------------------------------------- | ------------------------------------- |
+| 1 Brand | Skilled Agents               | Skilled Autonomous Workflows                                        | Skilled Jurisdictions (EU, US, Aiven) |
+| 2 Spec  | Industrial Specialist Agents | Specialist Workflows (long-form: _Industrial Specialist Workflows_) | Regulatory Specialist Jurisdictions   |
+| 3 UI    | Industry Agents              | Industrial Workflows                                                | Jurisdictions                         |
+
+"Autonomous" appears only in the workflow brand tier because workflows execute on schedule or event without a human in the loop — a property the operating-model store copy must earn for every product that claims recurring compliance artefacts (see §14.16.1 Firehorse Report Engine scheduler). "Regulatory" appears in the jurisdiction spec tier because jurisdictions are defined by their regulatory surface (AI Act, GDPR, CBAM, ETS, CSRD for EU; sector rules for US; data localisation for Aiven), not by geography alone.
+
+#### 14.17.3 Operations-Model Significance
+
+Three implications follow for the Firehorse Operations Model:
+
+1. **SKU copy discipline.** The `brand:` field in `products.json` and store-page metadata must use the brand-tier term (`Skilled Agents`, `Skilled Autonomous Workflows`) to align the outward-facing positioning with the Anthropic Skills paradigm validation (§14.16.4). Spec- and UI-tier terms do not belong in hero copy.
+2. **Scheduler copy discipline.** Firehorse Report Engine (§14.16.1) and the forthcoming Firehorse Automation module produce scheduled deliverables; their product descriptions must reach for the workflow tier ("Skilled Autonomous Workflows"), not the agent tier, to avoid under-selling the autonomy property.
+3. **Jurisdiction packaging.** The Aegis / Sovereign Infra / Connect segmentation (see V3Thesis §10.21.5) is already organised by regulatory surface. The taxonomy names that structure explicitly: jurisdictions are branded ("Skilled Jurisdictions") rather than treated as deployment metadata.
+
+#### 14.17.4 Count Dynamism
+
+The number of entries in each axis will shift as industries, workflows, and jurisdictions are added. Three acceptable patterns:
+
+1. **Open-ended counts** in platform copy: `18+ Skilled Agents`, `20+ Skilled Jurisdictions` — the `+` absorbs growth.
+2. **Registry-anchored references** in specs: "see `docs/Deputy-Agents-Architecture.md` §3 for the current Industrial Specialist Agent registry".
+3. **Product-scoped counts** in SKU copy: "Climate Intelligence ships with 8 Skilled Agents" — precise but treated as part of the SKU specification in `products.json`, not as free-floating copy.
+
+#### 14.17.5 Exclusions
+
+- **Docker / infrastructure identifiers** (`dws-godagent-llm` network, `dws-godagent:latest` image, label `dws-godagent`) remain unchanged; their renaming is an infra migration, not a doc change.
+- **Pantheon "God Agents"** on `onelifetime.world` (Greek-mythology characters — see §14.9 Climate IQ Pantheon) is a distinct brand and remains unchanged.
+- **Historical records** (field notes, dated folders, time-tracking and learning journals) are not retroactively edited.
+
+#### 14.17.6 Research Contribution
+
+**Key Contribution #22 — Register-Explicit Brand Architecture for Operating Models:** The Firehorse Operations Model formalises a three-tier naming taxonomy (Skilled / Industrial Specialist / Industry) applied uniformly across three orthogonal capability axes (agents, workflows, jurisdictions). The taxonomy is a research contribution because it treats naming as part of the operations model rather than marketing overhead: each register has a different audience (buyer, auditor, user) with different compliance obligations, and the single-label convention inherited from early-stage SaaS cannot satisfy all three simultaneously in EU-regulated industries. The `Skilled <Axis>` monotone pattern is proposed as a generalisable design pattern for one-person-team industrial AI platforms that need auditable brand architecture without a dedicated marketing function.
+
+---
+
+## Appendix H: KYA Partner Ecosystem
+
+_Added: 18.03.2026 | Source: docs/field-notes/2026-03-09-shufti-kya-byo-partner-access.md, docs/field-notes/2026-03-10-palantir-aip-partner-outreach.md, docs/gtm/KYA_CONNECTOR_BRIEF_PALANTIR.md_
+
+The KYA (Know Your Agent) Standard requires a partner ecosystem to deliver its 5-layer trust framework. No single vendor can provide hardware attestation, identity verification, industrial distribution, and EU-sovereign AI inference simultaneously. This appendix documents the partner architecture and its research implications.
+
+### H.1 KYA 5-Layer Partner Mapping
+
+The KYA Standard defines five trust layers. Each layer maps to a specific partner capability:
+
+| KYA Layer                 | Function                                                                                                                                                                                                     | Partner                       | Integration Status        |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------- | ------------------------- |
+| **L1 — Human Identity**   | KYC/AML/IDV verification                                                                                                                                                                                     | Shufti Pro                    | PoC in progress (Q1 2026) |
+| **L2 — Agent Provenance** | Agent origin and registry verification                                                                                                                                                                       | DWS Agent Registry (internal) | Production                |
+| **L3 — Agent Capability** | Tool/API access gating via MCP manifest                                                                                                                                                                      | DWS MCP Hub (internal)        | Production                |
+| **L4 — Runtime Behavior** | Court-defensible telemetry (egress, file I/O, tokens) — OpenSandbox governance layer wrapping Docker containers; VMM-level monitoring below agent OS; TPM 2.0 attested logs for EU AI Act Art. 12 compliance | DWS OpenSandbox (internal)    | From MVP                  |
+| **L5 — Continuous Risk**  | Dynamic risk profile monitoring                                                                                                                                                                              | Shufti Pro webhooks           | PoC planned               |
+
+**L4 architecture decision (March 2026):** Application workloads run in Docker containers, but L4 telemetry requires OpenSandbox (Firecracker MicroVM) as a governance layer _around_ the Docker runtime. Docker alone cannot provide court-defensible L4 because: (1) shared kernel allows root agents to manipulate their own logs, (2) no TPM 2.0 attestation of telemetry integrity, (3) EU AI Act Art. 12 requires tamper-proof automatic event logging for all high-risk AI systems. All DWS IQ customers operate in EU-regulated industries — there is no "functional-only L4" tier. Every agent interaction must produce a court-defensible audit trail.
+
+**Research significance:** Layers L2–L4 are built internally, but L1 and L5 require external identity intelligence. This creates a natural partnership boundary: DWS governs the agent runtime; the identity partner governs the human behind it.
+
+### H.2 Shufti Pro — Identity Verification Partner (L1/L5)
+
+**Problem:** Traditional KYC verifies the human at the door. In agent-native architectures, the human is just the entry point. The real risk surface is: what agent does the user deploy, and does the user's risk profile change after the agent is running?
+
+**Integration architecture:**
+
+```
+User Onboarding: DWS Auth (Supabase) → Shufti IDV API → KYA L1 Score
+Agent Deployment: Agent Manifest → KYA L2-L3 Review → Sandbox Policy
+Runtime:          Shufti Webhooks (L5) → DWS Event Bus → Sandbox Restrict/Expand
+```
+
+**KYA Trust Score formula:**
+
+```
+KYA_TRUST = f(shufti_risk_score, agent_provenance, capability_scope, runtime_behavior)
+```
+
+| Score | Tier       | Sandbox Action                          |
+| ----- | ---------- | --------------------------------------- |
+| >= 80 | Full       | All MCP tools, egress, filesystem       |
+| 50–79 | Restricted | No egress, read-only, curated tools     |
+| < 50  | Suspended  | Human review required                   |
+| 0     | Frozen     | Agent terminated (122ms Firehorse Snap) |
+
+**Partnership terms:** Technical PoC pilot (not seat-license). Shufti provides API access; DWS provides OpenSandbox runtime and KYA framework. Value proposition for Shufti: first-mover in "Zero-Trust Agent Workspace" category — identity layer for autonomous AI agents, not just humans.
+
+**Current status (March 2026):** EU-only processing confirmation and DPA (Data Processing Agreement) requested from Shufti. GDPR Art. 44-49 compliance required for enterprise customers. HMAC-SHA256 webhook signing confirmed.
+
+### H.3 Palantir AIP — Connector Partner Model
+
+**Strategic thesis:** Palantir AIP is a platform partner opportunity, not a competitor. Palantir has enterprise distribution and ontology data modeling; DWS has hardware-level agent isolation and EU regulatory depth.
+
+| Palantir Has                         | Palantir Lacks                 | DWS IQ Provides                          |
+| ------------------------------------ | ------------------------------ | ---------------------------------------- |
+| Enterprise agent orchestration (AIP) | Hardware-level agent isolation | Firecracker MicroVM (122ms kill)         |
+| Fortune 500 customer base            | EU CBAM/ETS/Fit for 55 depth   | 20-industry regulatory engine            |
+| Ontology data model                  | TPM 2.0 hardware attestation   | Court-defensible audit trail             |
+| $2.6B ARR, proven scale              | Sub-5ms VMM-layer guardrails   | Hardware-enforced behavioral enforcement |
+
+**Connector architecture:** AIP agent workflows run inside KYA-governed Firecracker MicroVMs. Zero modification to existing Palantir workflows. The governance layer sits _below_ the agent's operating system.
+
+**Revenue models proposed:**
+
+| Model             | Structure                                            |
+| ----------------- | ---------------------------------------------------- |
+| Connector License | Per-MicroVM governance fee (€0.02/agent/hour)        |
+| Co-sell           | Joint enterprise deals in EU regulated industries    |
+| OEM               | Palantir bundles KYA governance into AIP EU offering |
+
+### H.4 BYO (Bring Your Own) Agent Policy
+
+BYO defines how external agents — from any partner or customer — enter the DWS IQ ecosystem:
+
+| BYO Stage           | Gate                                                          | Enforcement              |
+| ------------------- | ------------------------------------------------------------- | ------------------------ |
+| Registration        | Agent manifest (name, version, tool requirements, source)     | DWS Agent Registry API   |
+| Identity Binding    | Agent bound to verified human identity                        | KYA L1 (Shufti)          |
+| Capability Review   | MCP tools reviewed against organization policy                | MCP Tool Approval        |
+| Sandbox Entry       | Isolated sandbox (Stage 1–3 based on tenant tier)             | OpenSandbox Architecture |
+| Runtime Monitoring  | Continuous telemetry: egress, file writes, token consumption  | KYA L4                   |
+| Dynamic Restriction | Risk profile change → sandbox permissions adjust in real-time | KYA L5 (Shufti webhooks) |
+
+**Significance for Firehorse:** BYO enables the platform-as-a-service model. Customers bring their own agents; DWS governs them. This is the monetization layer for the Firehorse operating model.
+
+### H.5 Strategic Ecosystem Partners (Brain-Memory-Body-Hands)
+
+The 5-partner ecosystem maps to the DWS architecture layers:
+
+| Partner             | Architecture Layer                                       | KYA Role                                       | Status                   |
+| ------------------- | -------------------------------------------------------- | ---------------------------------------------- | ------------------------ |
+| NVIDIA              | Brain (compute) + Hands (Jetson edge) + Body (Omniverse) | Compute substrate for KYA-governed agents      | Inception target Q2 2026 |
+| Siemens             | Hands (MindSphere IoT) + Body (digital twin)             | Industrial IoT data for KYA runtime monitoring | Xcelerator Q2 2026       |
+| ABB                 | Hands (automation, robotics, power grid)                 | Physical execution layer under KYA governance  | Q3 2026                  |
+| xAI                 | Brain (Grok real-time market intelligence)               | Real-time signals for multi-LLM router         | Active production        |
+| Mistral             | Brain/Memory (EU-sovereign AI inference)                 | EU-sovereign model for compliance workloads    | Planned Q3 2026          |
+| Shufti Pro          | L1/L5 (Human Identity + Continuous Risk)                 | Identity verification for KYA trust framework  | PoC Q1 2026              |
+| Palantir (proposed) | Brain (AIP orchestration)                                | Enterprise distribution via connector model    | Outreach initiated       |
+
+**Distribution hypothesis validation:** Access to 10,000+ industrial customers (NVIDIA Inception, Siemens Xcelerator) without building a direct sales organization. The partnership model is the distribution strategy — not a supplement to it.
+
+### H.6 Research Contribution
+
+The KYA partner ecosystem demonstrates three research findings:
+
+1. **Identity-to-runtime bridge:** No existing vendor offers continuous identity monitoring that controls autonomous agent sandbox permissions. The Shufti-KYA integration creates a new category: execution-layer trust.
+
+2. **Connector-not-competitor positioning:** The Palantir connector model shows that hardware governance can be offered as an infrastructure layer to existing platform vendors — a partnership strategy that avoids direct competition with established players.
+
+3. **Partnership as distribution:** For a one-person startup, the 5-partner ecosystem (NVIDIA, Siemens, ABB, xAI, Mistral) provides market access equivalent to a direct sales organization — validating the Firehorse operating model's hypothesis that partnerships can substitute for headcount in early-stage industrial AI companies.
+
 ---
 
 **Key Contributions:**
-1-14. (See VERSION AND AGENT HISTORY) 15. Harness Engineering and Forensic Telemetry — Connects OpenAI's harness engineering framework to Firehorse forensic operations; demonstrates that EU-regulated industries require court-defensible harness (VERSION AND AGENT HISTORY, KYA hardware attestation) vs Silicon Valley speed optimization; empirical validation that harness improvements alone yield 52.8%→66.5% gains (model unchanged); KYA Standard as hardware-attested harness beyond software scaffolding 16. LWM Sequencing Strategy — Three-phase sequencing (compliance→fleet→Series A); LeWorldModel (arXiv:2603.19312) external validation of JEPA world models; Phase 2 technical gap analysis (input modality, scale, regulatory-physical integration); compliance-first world model thesis as novel architectural contribution for PhD research programme 17. Domain-Specific vs Generic AI Harness — Competitive analysis against ECC (120k stars, 136 skills); six differentiators documented (domain specificity, six-layer architecture, hard gates, trust zones, gstack workflow, agent-first rule); token budget analysis showing depth outperforms breadth for regulated domains; validates harness engineering thesis 18. Dual-Version Thesis Architecture — v3.30.50 frozen 50-page Metropolia outgoing + 82-page living document continues; PHD Firehorse confirmed as canonical home for detailed sections (14.1-14.14); demonstrates methodology for AI-assisted academic writing where research velocity exceeds format constraints
+1-14. (See VERSION AND AGENT HISTORY) 15. Harness Engineering and Forensic Telemetry — Connects OpenAI's harness engineering framework to Firehorse forensic operations; demonstrates that EU-regulated industries require court-defensible harness (VERSION AND AGENT HISTORY, KYA hardware attestation) vs Silicon Valley speed optimization; empirical validation that harness improvements alone yield 52.8%→66.5% gains (model unchanged); KYA Standard as hardware-attested harness beyond software scaffolding 16. KYA Partner Ecosystem — 5-layer partner mapping (Shufti IDV for L1/L5, Palantir AIP connector model, BYO Agent Policy); demonstrates identity-to-runtime bridge as new category, connector-not-competitor positioning for enterprise distribution, and partnership-as-distribution hypothesis for one-person startup scaling 17. Competitive Analysis: Domain-Specific vs Generic AI Harness — 6-differentiator comparison against 136-skill generic frameworks; token-budget argument for domain specificity in regulated industries 18. Master Thesis Dual-Version Architecture — v3.30.50 frozen 50-page Metropolia outgoing + 82-page living document; pattern for AI-assisted academic writing where research velocity exceeds institutional format constraints 19. Report Engine in Production — Firehorse Report scheduler (PR #1064) as first cron-driven customer deliverable; closes 3-tier billing contract loop with recurring compliance artefacts; first end-to-end test of one-person-team multi-tenant compliance hypothesis 20. Measured Harness Guarantee (<125 ms Snap) — Firehorse Snap kill latency backed by Firecracker MicroVM benchmark replacing Arctic 15 specification; first court-defensible harness claim with published measurement replacing spec; precondition for EU AI Act Article 12 log admissibility 21. Founder→Team Transition as Skills — Ops Manager V0 buyer lock (PRD v0.2 + validation script) + `/investor-outreach` skill (10+ INTRO notes) codify previously tacit founder activities as reproducible DWS IQ workflows; extends Firehorse Operations Model from internal tooling to founder-to-team transition mechanism 22. KYA Agentic AI Foundation Targeting with Dual-Use Extension — KYA positioned as a general trust/governance standard candidate for agentic systems; DWS 7 designated as empirical testbed for hydrogen-economy continuity, sovereignty segmentation (Aegis/Sovereign Infra/Connect), and dual-use validation (Nokia Defence discussions), with Siemens and NVIDIA Connect collaboration pathways 23. KYA Open-Source Standardization Path — explicit standardization route added (Agentic AI Foundation / Linux Foundation) with declared status (proposal and NIST track not yet submitted), moving Article 1 from conceptual framing to an open-spec + reference-implementation publication agenda 24. DWS Skilled Taxonomy (Register-Explicit Brand Architecture for Operating Models) — three-tier `Skilled / Industrial Specialist / Industry` naming pattern applied uniformly across three orthogonal axes (Agents, Workflows, Jurisdictions) with explicit extensibility pattern for future axes; operations-model implications derived (SKU-copy discipline, scheduler-copy discipline, jurisdiction packaging); "GodAgent" branding deprecated in favour of register-specific terms aligned with Anthropic Skills paradigm validation (§14.16.4)
 
 _Document generated using Firehorse Operations Model with Claude Code_
-_Last updated: 03.04.2026_
-_Version: 3.2_
+_Last updated: 22.04.2026_
+_Version: 3.37 (unified with Metropolia V3Thesis; lockstep from this point)_

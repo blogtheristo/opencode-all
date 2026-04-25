@@ -53,7 +53,6 @@ const spec = {
     { name: 'HIL', description: 'Human-in-the-Loop escalation and task completion' },
     { name: 'BIM', description: 'BIM → EN 15978 → Carbon compliance pipeline' },
     { name: 'Situation Room', description: 'Operational reports and pipeline intelligence' },
-    { name: 'Grok Consent', description: 'GDPR + EU AI Act Article 12 LLM consent governance' },
     { name: 'Outreach', description: 'Inbound lead capture and outreach pipeline' },
     { name: 'KYA', description: 'Know Your Agent — trust scoring and session termination' },
     { name: 'Notifications', description: 'In-app notification management' },
@@ -1319,78 +1318,6 @@ const spec = {
           },
         },
         responses: { '200': { description: 'Report updated' } },
-      },
-    },
-
-    // ── Grok Consent ─────────────────────────────────────────────────────────
-    '/api/grok-consent/{orgId}': {
-      get: {
-        tags: ['Grok Consent'],
-        summary: 'Get LLM consent configuration for an organization',
-        operationId: 'grokConsentGet',
-        security: [{ bearerAuth: [] }],
-        parameters: [
-          { name: 'orgId', in: 'path', required: true, schema: { type: 'string', format: 'uuid' } },
-        ],
-        responses: { '200': { description: 'Consent configuration' } },
-      },
-    },
-    '/api/grok-consent/{orgId}/grant': {
-      post: {
-        tags: ['Grok Consent'],
-        summary: 'Grant LLM consent for an organization',
-        operationId: 'grokConsentGrant',
-        security: [{ bearerAuth: [] }],
-        parameters: [
-          { name: 'orgId', in: 'path', required: true, schema: { type: 'string', format: 'uuid' } },
-        ],
-        requestBody: {
-          content: {
-            'application/json': {
-              schema: {
-                type: 'object',
-                properties: {
-                  allowedCategories: { type: 'array', items: { type: 'string' } },
-                  note: { type: 'string' },
-                },
-              },
-            },
-          },
-        },
-        responses: { '200': { description: 'Consent granted' } },
-      },
-    },
-    '/api/grok-consent/{orgId}/revoke': {
-      post: {
-        tags: ['Grok Consent'],
-        summary: 'Revoke LLM consent for an organization',
-        operationId: 'grokConsentRevoke',
-        security: [{ bearerAuth: [] }],
-        parameters: [
-          { name: 'orgId', in: 'path', required: true, schema: { type: 'string', format: 'uuid' } },
-        ],
-        requestBody: {
-          content: {
-            'application/json': {
-              schema: { type: 'object', properties: { reason: { type: 'string' } } },
-            },
-          },
-        },
-        responses: { '200': { description: 'Consent revoked' } },
-      },
-    },
-    '/api/grok-consent/{orgId}/audit': {
-      get: {
-        tags: ['Grok Consent'],
-        summary: 'Get consent audit trail for an organization',
-        operationId: 'grokConsentAudit',
-        security: [{ bearerAuth: [] }],
-        parameters: [
-          { name: 'orgId', in: 'path', required: true, schema: { type: 'string', format: 'uuid' } },
-          { name: 'limit', in: 'query', schema: { type: 'integer', default: 50 } },
-          { name: 'offset', in: 'query', schema: { type: 'integer', default: 0 } },
-        ],
-        responses: { '200': { description: 'Consent audit entries' } },
       },
     },
 

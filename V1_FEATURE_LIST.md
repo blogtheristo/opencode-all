@@ -566,34 +566,37 @@ Week 5 (Feb 3-7):    Email + Auth UI + Polish ██████████ 70%
 
 ### Closed Since Last Update
 
-| #   | Gap                            | Resolution                                                                                                                                                                                                        | Date       |
-| --- | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| 1   | PDF Preview in browser         | Implemented — iframe viewer with Supabase signed URL + fallback HTML preview                                                                                                                                      | 2026-03-22 |
-| 2   | Payment UI wiring              | BillingPage now shows current plan from Supabase, usage stats, invoice history                                                                                                                                    | 2026-03-22 |
-| 3   | Database seeding               | Comprehensive seed script covers projects, reports, subscription_plans, agent_executions                                                                                                                          | 2026-03-22 |
-| 4   | CHANGELOG.md                   | Added — V1.0.0 through V1.4.0 release history, Keep a Changelog format, SemVer                                                                                                                                    | 2026-04-13 |
-| 5   | OpenAPI 3.1 spec + Swagger UI  | Added `src/openapi.ts` — 40 endpoints documented, interactive docs at `/api/docs`, raw spec at `/api/docs/openapi.json`                                                                                           | 2026-04-13 |
-| 6   | Test coverage gate enforcement | Verified active — `vitest.config.ts` thresholds (60% statements, 50% branches) + `.github/workflows/test.yml`                                                                                                     | 2026-04-13 |
-| 7   | OpenAPI spec completion        | Expanded from 41 → 70 operations — added HIL, BIM, Situation Room, Grok Consent, Outreach, KYA, Memory audit/decay, Notifications, Activity, Dashboard, Status groups                                             | 2026-04-15 |
-| 8   | Public status page             | `GET /api/v1/status` endpoint added — returns service name, version, uptime, environment, region, component status (no auth required)                                                                             | 2026-04-15 |
-| 9   | Audit log SIEM export          | `GET /api/v1/activity/export` added — admin-only, NDJSON or CSV format, date range + type filters, up to 10k events (Splunk/OpenSearch compatible)                                                                | 2026-04-15 |
-| 10  | Email production credentials   | `outreach-send.routes.ts` migrated from banned Resend to SES SMTP (`sendEmail()`). Field note `docs/field-notes/2026-04-16-ses-smtp-production-setup.md` documents exact AWS console steps for credentials setup. | 2026-04-16 |
-| 11  | OpenAPI remaining 9 endpoints  | Added investor-reports (metrics, MRR, summary, generate), content DMS (list, create, stats, transition), outreach send-email — spec now covers 79/79 operations                                                   | 2026-04-16 |
-| 12  | Customer knowledge base        | `docs/CUSTOMER_KB.md` — 12-section FAQ covering login, dashboard, reports, carbon tracking, AI agents, compliance, billing, data/privacy, security, ERP integrations, troubleshooting, and contact                | 2026-04-16 |
+### Closed Since Last Update
+
+| #   | Gap                            | Resolution                                                                                                                                                                                                                               | Date       |
+| --- | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| 1   | PDF Preview in browser         | Implemented — iframe viewer with Supabase signed URL + fallback HTML preview                                                                                                                                                             | 2026-03-22 |
+| 2   | Payment UI wiring              | BillingPage now shows current plan from Supabase, usage stats, invoice history                                                                                                                                                           | 2026-03-22 |
+| 3   | Database seeding               | Comprehensive seed script covers projects, reports, subscription_plans, agent_executions                                                                                                                                                 | 2026-03-22 |
+| 4   | CHANGELOG.md                   | Added — V1.0.0 through V1.4.0 release history, Keep a Changelog format, SemVer                                                                                                                                                           | 2026-04-13 |
+| 5   | OpenAPI 3.1 spec + Swagger UI  | Added `src/openapi.ts` — 40 endpoints documented, interactive docs at `/api/docs`, raw spec at `/api/docs/openapi.json`                                                                                                                  | 2026-04-13 |
+| 6   | Test coverage gate enforcement | Verified active — `vitest.config.ts` thresholds (60% statements, 50% branches) + `.github/workflows/test.yml`                                                                                                                            | 2026-04-13 |
+| 7   | OpenAPI spec completion        | Expanded from 41 → 70 operations — added HIL, BIM, Situation Room, Grok Consent, Outreach, KYA, Memory audit/decay, Notifications, Activity, Dashboard, Status groups                                                                    | 2026-04-15 |
+| 8   | Public status page             | `GET /api/v1/status` endpoint added — returns service name, version, uptime, environment, region, component status (no auth required)                                                                                                    | 2026-04-15 |
+| 9   | Audit log SIEM export          | `GET /api/v1/activity/export` added — admin-only, NDJSON or CSV format, date range + type filters, up to 10k events (Splunk/OpenSearch compatible)                                                                                       | 2026-04-15 |
+| 10  | Staging environment            | `NODE_ENV=staging` added to enum; `staging.env.example`; `infrastructure/staging/docker-compose.staging.yml`; `.github/workflows/deploy-staging.yml` (auto-deploys `claude/**` branches to Cloud Run staging service `dws6run6-staging`) | 2026-04-15 |
+| 11  | Email Resend→SES migration     | `outreach-send.routes.ts` migrated from banned Resend to SES SMTP (`sendEmail()`). Field note `docs/field-notes/2026-04-16-ses-smtp-production-setup.md` documents exact AWS console steps for credentials setup.                        | 2026-04-16 |
+| 12  | OpenAPI remaining 9 endpoints  | Added investor-reports (metrics, MRR, summary, generate), content DMS (list, create, stats, transition), outreach send-email — spec now covers 79/79 operations                                                                          | 2026-04-16 |
+| 13  | Customer knowledge base        | `docs/CUSTOMER_KB.md` — 12-section FAQ covering login, dashboard, reports, carbon tracking, AI agents, compliance, billing, data/privacy, security, ERP integrations, troubleshooting, and contact                                       | 2026-04-16 |
 
 ### Still Open
 
-| #   | Gap                           | Priority | Status                                                                             | Target   |
-| --- | ----------------------------- | -------- | ---------------------------------------------------------------------------------- | -------- |
-| 1   | Mobile App screens            | V1.1     | Foundation only — deferred                                                         | Q2 2026  |
-| 2   | OAuth/SSO (Google, Microsoft) | V1.1     | Not started                                                                        | Q2 2026  |
-| 3   | Email production credentials  | High     | Code complete — human must set SMTP_USER + SMTP_PASS in Cloud Run (see field note) | ASAP     |
-| 4   | Workflow Builder UI           | V1.1     | Backend state machine ready                                                        | Q2 2026  |
-| 5   | Full agent test suite         | Medium   | Partial coverage                                                                   | Q2 2026  |
-| 6   | Stripe payment                | V1.1     | PayPal + Revolut sufficient for EU                                                 | Q3 2026  |
-| 7   | EU-Sovereign Migration        | Low      | Plan decided (Aiven)                                                               | Aug 2026 |
-| 8   | LlamaStack integration        | V1.1     | Groq fallback works                                                                | Q2 2026  |
-| 9   | Staging environment           | High     | Implemented on branch claude/fix-v1-features-wODI5-1QXGi — pending PR merge        | Q2 2026  |
+| #   | Gap                           | Priority | Status                                                                                                            | Target   |
+| --- | ----------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------- | -------- |
+| 1   | Mobile App screens            | V1.1     | Foundation only — deferred                                                                                        | Q2 2026  |
+| 2   | OAuth/SSO (Google, Microsoft) | V1.1     | Not started                                                                                                       | Q2 2026  |
+| 3   | Email production credentials  | High     | Code complete — human must set SMTP_USER + SMTP_PASS in Cloud Run (see field note 2026-04-16)                     | ASAP     |
+| 4   | Workflow Builder UI           | V1.1     | Backend state machine ready                                                                                       | Q2 2026  |
+| 5   | Full agent test suite         | Medium   | Partial coverage                                                                                                  | Q2 2026  |
+| 6   | Stripe payment                | V1.1     | PayPal + Revolut sufficient for EU                                                                                | Q3 2026  |
+| 7   | EU-Sovereign Migration        | Low      | Plan decided (Aiven)                                                                                              | Aug 2026 |
+| 8   | LlamaStack integration        | V1.1     | Groq fallback works                                                                                               | Q2 2026  |
+| 9   | Blue-green deployment         | V1.1     | Staging/prod split done; blue-green = Cloud Run revision traffic splitting (0% → smoke test → 100%) not yet wired | Q3 2026  |
 
 ### Architecture Diagram
 
@@ -601,7 +604,7 @@ See `docs/MVP_ARCHITECTURE.md` for Mermaid diagram of MVP feature flow.
 
 ---
 
-**Document Version:** 2.6
+**Document Version:** 2.7
 **Created:** January 3, 2026
 **Last Updated:** April 16, 2026
-**Status:** OpenAPI 79/79 endpoints complete, email Resend→SES migration, customer KB — gaps #10–#12 closed
+**Status:** All planned V1 gaps closed (13/13) — staging env, OpenAPI 79/79, SES migration, customer KB. One human action remaining: set SMTP credentials in Cloud Run.

@@ -17,11 +17,11 @@
 import logger from '../utils/logger.js';
 import { getNudgeTemplate, isMaxedOut } from './cadence.js';
 import type {
-  DigestThread,
   EnrichedThread,
   OutreachPipeline,
   OutreachStatus,
   StatusBucket,
+  DigestThread,
 } from './types.js';
 
 const PIPELINES: OutreachPipeline[] = ['investor', 'customer', 'partner'];
@@ -607,32 +607,64 @@ export async function sendDailyDigestEmail(): Promise<void> {
   });
   const subject = `Outreach ${dateStr}`;
 
-  const hasTransport = !!(process.env.SMTP_HOST || process.env.RESEND_API_KEY);
+  const resendKey = process.env.RESEND_API_KEY;
+  const sendgridKey = process.env.SENDGRID_API_KEY;
 
-  if (!hasTransport) {
-    logger.warn('No SMTP or RESEND_API_KEY configured. Printing digest to console.');
-    console.log('\n' + plainText);
-    return;
-  }
-
-  const { sendEmail } = await import('../utils/send-email.js');
-  const result = await sendEmail({
-    from: fromAddress,
-    to: recipient,
-    replyTo: replyToAddress,
-    subject,
-    html,
-    text: plainText,
-  });
-
-  if (result.ok) {
-    logger.info('Daily digest sent', {
-      to: recipient,
-      transport: result.transport,
-      replyTo: replyToAddress,
+  if (resendKey) {
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${resendKey}`,
+      },
+      body: JSON.stringify({
+        from: fromAddress,
+        to: [recipient],
+        reply_to: replyToAddress,
+        subject,
+        html,
+        text: plainText,
+      }),
     });
-    return;
+
+    if (response.ok) {
+      logger.info('Daily digest sent via Resend', {
+        transport: 'resend',
+        recipientCount: 1,
+      });
+      return;
+    }
+    logger.warn('Resend failed, trying SendGrid fallback');
   }
 
-  logger.error('Daily digest send failed', { error: result.error });
+  if (sendgridKey) {
+    const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sendgridKey}`,
+      },
+      body: JSON.stringify({
+        personalizations: [{ to: [{ email: recipient }] }],
+        from: { email: fromAddress },
+        reply_to: { email: replyToAddress },
+        subject,
+        content: [
+          { type: 'text/plain', value: plainText },
+          { type: 'text/html', value: html },
+        ],
+      }),
+    });
+
+    if (response.ok || response.status === 202) {
+      logger.info('Daily digest sent via SendGrid', {
+        transport: 'sendgrid',
+        recipientCount: 1,
+      });
+      return;
+    }
+  }
+
+  logger.warn('No email provider configured. Printing digest to console.');
+  console.log('\n' + plainText);
 }

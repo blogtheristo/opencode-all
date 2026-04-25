@@ -95,6 +95,7 @@ export class KeywordIntentAgent extends BaseAgent {
         'keyword-clustering',
       ],
       model: 'llama-3.3-70b-versatile',
+      modelTier: 'lite',
     });
   }
 
