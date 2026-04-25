@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.9
+Version: 2.0
 
 Sessions & Modifications:
 
+- Version: 2.0 | Tool: Claude Code (Opus 4.7) | Session: claude/b2b-payment-stack-DNdkW | Date: 25.04.2026 | Changes: Section 4.5 — added STRIPE_WEBHOOK_SECRET to required secrets table and canonical deploy command; new "Public ingress" subsection covering the two-layer block (Workspace org policy `iam.allowedPolicyMemberDomains` + Cloud Run private-by-default IAM) with the exact override + binding commands; new "Stripe webhook wiring" table pinning service URL, mounted route, signing secret, Stripe destination name (`charming-serenity`), 7 subscribed event types; new "Smoke-test recipes" with three single-curl tests proving liveness, raw-body chain, and full HMAC chain; new "Pitfalls discovered & captured" subsection logging six lessons learned: express.json consumes raw stream, Compute-SA default since 2024, tsconfig excludes vs runtime stubs, Node 22 ESM `.js` requirement, `/webhooks/stripe` path, `timingSafeEqual` length-mismatch behaviour. Major version bump to 2.0 reflects that 4.5 is now a complete deployment standard, not a partial pattern note
 - Version: 1.9 | Tool: Claude Code (Opus 4.7) | Session: claude/b2b-payment-stack-DNdkW | Date: 24.04.2026 | Changes: Added Section 4.5 "DWS 6 Cloud Run Deployment Pattern (Standard)" — principles (secrets in Secret Manager not env-vars, user-managed replication pinned to europe-north1, least-privilege secretAccessor per secret, never-paste rule); provisioning workflow via `scripts/Provision-DwsIqSecrets.ps1`; required backend secret inventory (STRIPE_SECRET_KEY, SUPABASE_URL/ANON/SERVICE/SERVICE_ROLE, JWT_SECRET, SMTP_USER/PASS); canonical deploy command separating `--set-env-vars` (non-secret config) from `--set-secrets` (Secret Manager refs); rotation playbook with `:latest` + nonce env-var; security-benefits comparison table. Renumbered prior 4.5 Limitations → 4.6
 - Version: 1.8 | Tool: Claude Code (Opus 4.7) | Session: claude/b2b-payment-stack-DNdkW | Date: 24.04.2026 | Changes: Section 4.4 — BUILD FIX CONFIRMED. Root cause was the 2024+ Google default change: `dws6run6` runs Cloud Build as the Compute SA (`1074393862472-compute@developer.gserviceaccount.com`), not the legacy Cloud Build SA. Added Step 4 (repo-scoped `roles/artifactregistry.writer` on `dws-iq-repo` for Compute SA) — the only grant that actually worked; build id `5fcd7368-cc55-4ebf-b4bb-473c9c2ff54a` pushed image `sha256:e1ecbd6c…`. Flagged Step 2 and Step 3 grants as OBSOLETE in the IAM table; added "Gotcha" subsection documenting the Compute-SA default + `gcloud builds list` verification command; added cleanup commands to drop the two dead bindings
 - Version: 1.7 | Tool: Claude Code (Opus 4.7) | Session: claude/b2b-payment-stack-DNdkW | Date: 24.04.2026 | Changes: Section 4.4 — added Step 3 (repo-scoped `roles/artifactregistry.repoAdmin` on `dws-iq-repo` for Cloud Build SA) as the least-privilege replacement for Step 2's project-level admin; added corresponding row to IAM table with Scope column; staged Step 4 removal command for the project-level `artifactregistry.admin` binding once a successful build confirms Step 3 is sufficient
@@ -392,15 +393,16 @@ After provisioning, delete the local source file or move it to encrypted storage
 
 #### Required backend secrets (current inventory)
 
-| Env var (in code)                                    | Secret Manager name    | Source                                                                        |
-| ---------------------------------------------------- | ---------------------- | ----------------------------------------------------------------------------- |
-| `STRIPE_SECRET_KEY`                                  | `stripe-secret-key`    | Stripe dashboard → Developers → API keys (live mode)                          |
-| `SUPABASE_URL`                                       | `supabase-url`         | Supabase project → Settings → API                                             |
-| `SUPABASE_ANON_KEY`                                  | `supabase-anon-key`    | Supabase project → Settings → API → `anon/public`                             |
-| `SUPABASE_SERVICE_KEY` / `SUPABASE_SERVICE_ROLE_KEY` | `supabase-service-key` | Supabase project → Settings → API → `service_role`                            |
-| `JWT_SECRET`                                         | `jwt-secret`           | Generated: 64-char hex via `(1..64).ForEach{'{0:x}' -f (Get-Random -Max 16)}` |
-| `SMTP_USER`                                          | `smtp-user`            | AWS SES → SMTP credentials (20-char `AKIA…` IAM key)                          |
-| `SMTP_PASS`                                          | `smtp-pass`            | AWS SES → SMTP credentials (44-char derived password)                         |
+| Env var (in code)                                    | Secret Manager name     | Source                                                                        |
+| ---------------------------------------------------- | ----------------------- | ----------------------------------------------------------------------------- |
+| `STRIPE_SECRET_KEY`                                  | `stripe-secret-key`     | Stripe dashboard → Developers → API keys (live mode)                          |
+| `STRIPE_WEBHOOK_SECRET`                              | `stripe-webhook-secret` | Stripe dashboard → Webhooks → endpoint detail → Signing secret (`whsec_…`)    |
+| `SUPABASE_URL`                                       | `supabase-url`          | Supabase project → Settings → API                                             |
+| `SUPABASE_ANON_KEY`                                  | `supabase-anon-key`     | Supabase project → Settings → API → `anon/public`                             |
+| `SUPABASE_SERVICE_KEY` / `SUPABASE_SERVICE_ROLE_KEY` | `supabase-service-key`  | Supabase project → Settings → API → `service_role`                            |
+| `JWT_SECRET`                                         | `jwt-secret`            | Generated: 64-char hex via `(1..64).ForEach{'{0:x}' -f (Get-Random -Max 16)}` |
+| `SMTP_USER`                                          | `smtp-user`             | AWS SES → SMTP credentials (20-char `AKIA…` IAM key)                          |
+| `SMTP_PASS`                                          | `smtp-pass`             | AWS SES → SMTP credentials (44-char derived password)                         |
 
 #### Deploy command (canonical)
 
@@ -414,7 +416,7 @@ gcloud run deploy dws-iq-backend ^
   --concurrency=80 ^
   --timeout=60 ^
   --set-env-vars="NODE_ENV=production,EMAIL_FROM=risto@onelifetime.world,SMTP_HOST=email-smtp.eu-north-1.amazonaws.com,SMTP_PORT=587,SMTP_SECURE=false" ^
-  --set-secrets="STRIPE_SECRET_KEY=stripe-secret-key:latest,SUPABASE_URL=supabase-url:latest,SUPABASE_ANON_KEY=supabase-anon-key:latest,SUPABASE_SERVICE_KEY=supabase-service-key:latest,SUPABASE_SERVICE_ROLE_KEY=supabase-service-key:latest,JWT_SECRET=jwt-secret:latest,SMTP_USER=smtp-user:latest,SMTP_PASS=smtp-pass:latest"
+  --set-secrets="STRIPE_SECRET_KEY=stripe-secret-key:latest,STRIPE_WEBHOOK_SECRET=stripe-webhook-secret:latest,SUPABASE_URL=supabase-url:latest,SUPABASE_ANON_KEY=supabase-anon-key:latest,SUPABASE_SERVICE_KEY=supabase-service-key:latest,SUPABASE_SERVICE_ROLE_KEY=supabase-service-key:latest,JWT_SECRET=jwt-secret:latest,SMTP_USER=smtp-user:latest,SMTP_PASS=smtp-pass:latest"
 ```
 
 Notes:
@@ -449,6 +451,116 @@ gcloud secrets versions destroy <old-version> --secret=<secret-name> --project=d
 | Per-secret IAM scope                                | No (all env vars equal) | Yes (secretAccessor per secret)  |
 | EU residency guarantee                              | Inherits service region | Explicit `user-managed` lock     |
 | Rotation without running a deploy pipeline          | No                      | Yes                              |
+
+#### Public ingress (required for Stripe webhooks + buyer redirects)
+
+Cloud Run services are private by default — `403 Forbidden` to anonymous clients. The B2B payment stack must accept anonymous traffic for two reasons:
+
+- **Stripe webhooks** originate from Stripe's network and cannot authenticate to your Workspace domain.
+- **Buyer redirect pages** (Stripe Checkout return URLs) are browser-origin GETs.
+
+In a Workspace org with default settings, two layers will block public access. Both must be addressed:
+
+**Layer 1 — Org policy `iam.allowedPolicyMemberDomains`** (domain-restricted sharing). Default-on for Workspace orgs. Treats `allUsers` as a non-domain principal and rejects any IAM binding that includes it. Diagnostic symptom on `gcloud run services add-iam-policy-binding ... --member=allUsers`:
+
+```text
+ERROR: (gcloud.run.services.add-iam-policy-binding) FAILED_PRECONDITION:
+One or more users named in the policy do not belong to a permitted customer,
+perhaps due to an organization policy.
+```
+
+Override at the **project level** (requires `roles/orgpolicy.policyAdmin`; project owner usually has it):
+
+```powershell
+# Enable the API once per project
+gcloud services enable orgpolicy.googleapis.com --project=dws6run6
+
+# Write the override
+@"
+name: projects/dws6run6/policies/iam.allowedPolicyMemberDomains
+spec:
+  rules:
+  - allowAll: true
+"@ | Out-File -FilePath "$env:TEMP\policy.yaml" -Encoding utf8 -NoNewline
+
+gcloud org-policies set-policy "$env:TEMP\policy.yaml"
+Remove-Item "$env:TEMP\policy.yaml"
+```
+
+**Layer 2 — Cloud Run IAM** — bind `allUsers` to `roles/run.invoker` on the service:
+
+```cmd
+gcloud run services add-iam-policy-binding dws-iq-backend ^
+    --region=europe-north1 ^
+    --member="allUsers" ^
+    --role="roles/run.invoker" ^
+    --project=dws6run6
+```
+
+If you lack `policyAdmin`, the alternative is an HTTPS Load Balancer + serverless NEG fronting a Cloud Run service set to `--ingress=internal-and-cloud-load-balancing`. The LB authenticates to Cloud Run as itself (no `allUsers` binding needed), satisfying the org policy.
+
+#### Stripe webhook wiring
+
+| Item                 | Value                                                                                                                                                                                                                                                         |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Cloud Run service    | `dws-iq-backend` (europe-north1)                                                                                                                                                                                                                              |
+| Mounted route        | `POST /webhooks/stripe` (in `src/app.ts`; route file `src/routes/stripe-webhook.routes.ts`)                                                                                                                                                                   |
+| **Full webhook URL** | `https://dws-iq-backend-1074393862472.europe-north1.run.app/webhooks/stripe`                                                                                                                                                                                  |
+| Signing secret env   | `STRIPE_WEBHOOK_SECRET` → Secret Manager `stripe-webhook-secret`                                                                                                                                                                                              |
+| Stripe destination   | `charming-serenity` (live mode, account `acct_1GH00mAK2DZTbwRF`)                                                                                                                                                                                              |
+| Subscribed events    | 7 (see handler in `src/routes/stripe-webhook.routes.ts`): `invoice.payment_succeeded`, `invoice.payment_failed`, `invoice.payment_action_required`, `invoice.payment_attempt_required`, `invoice.marked_uncollectible`, `charge.refunded`, `customer.deleted` |
+
+The path is **`/webhooks/stripe`** — not `/api/...` or `/api/stripe/webhook`. Mount comes from `app.use('/webhooks/stripe', stripeWebhookRoutes)`.
+
+#### Smoke-test recipes (no Stripe involvement, no signed events)
+
+Three single-curl tests prove each stage of the chain in turn. Run from PowerShell on Win11:
+
+**Test 1 — Liveness (proves service is reachable + public):**
+
+```powershell
+curl https://dws-iq-backend-1074393862472.europe-north1.run.app/livez
+```
+
+Expected: `HTTP 200` body `{"status":"alive","timestamp":"…"}`.
+
+**Test 2 — Webhook reachability + raw-body chain (timestamp window):**
+
+```powershell
+curl -X POST "https://dws-iq-backend-1074393862472.europe-north1.run.app/webhooks/stripe" `
+  -H "Content-Type: application/json" `
+  -H "Stripe-Signature: t=123,v1=fake" `
+  -d "{}"
+```
+
+Expected: `HTTP 400` body `{"error":"Request too old"}`. Proves: route mounted, `preserveRawBody` consumed the stream (no hang), timestamp validation ran, t=123 (epoch 1970) correctly rejected as outside the ±300s window.
+
+**Test 3 — Full HMAC chain (current timestamp + 64-char fake signature):**
+
+```powershell
+curl -X POST "https://dws-iq-backend-1074393862472.europe-north1.run.app/webhooks/stripe" `
+  -H "Content-Type: application/json" `
+  -H "Stripe-Signature: t=$([DateTimeOffset]::UtcNow.ToUnixTimeSeconds()),v1=0000000000000000000000000000000000000000000000000000000000000000" `
+  -d "{}"
+```
+
+Expected: `HTTP 403` body `{"error":"Invalid signature"}`. Proves: timestamp inside window, HMAC computed against `STRIPE_WEBHOOK_SECRET` from Secret Manager, mismatch detected and rejected.
+
+If Test 3 returns `{"error":"Invalid webhook"}` instead, the v1 string passed wasn't 64 hex chars — `crypto.timingSafeEqual()` throws on length mismatch and the catch block returns the generic 400. Real Stripe events always ship 64-char hex signatures, so production traffic gets the proper 403/200 responses.
+
+#### Pitfalls discovered & captured (do not repeat)
+
+1. **Express `json()` consumes the raw stream.** `stripe-webhook.middleware.ts:preserveRawBody` reads via `req.on('data') / req.on('end')`. If `app.use(express.json(...))` is mounted globally before the webhook route, the stream is consumed and the data/end events never fire — the request hangs until Cloud Run kills it at the 60s timeout, returning `upstream request timeout`. Fix: skip `express.json` and `express.urlencoded` for any path under `/webhooks/stripe`. See `src/app.ts` body-parsers block.
+
+2. **Cloud Build runs as the Compute SA, not the Cloud Build SA.** Per-project default since 2024 (see §4.4 Gotcha). All push and runtime IAM bindings must target `<project-number>-compute@developer.gserviceaccount.com`, not the legacy `<project-number>@cloudbuild.gserviceaccount.com`. Verify via `gcloud builds list --limit=1 --format="value(serviceAccount)"`.
+
+3. **`tsconfig.json` excludes ≠ runtime stubs.** Folders like `src/firehorse`, `src/mcp`, `src/investor-reports` are excluded from the compiled tree, but if `app.ts` imports from them, the runtime crashes with `ERR_MODULE_NOT_FOUND` because dist/ has no corresponding `.js`. `@ts-ignore` only silences the compiler — it does not provide a runtime fallback. Fix: define `let` stubs (`express.Router()`, no-op functions) at module scope so the imports compile and the routes still mount as 404 routers.
+
+4. **Node 22 ESM requires explicit `.js` extensions on relative imports.** `import { x } from '../foo/bar'` compiles fine but fails at runtime. Always end relative imports with `.js`.
+
+5. **Webhook URL path is `/webhooks/stripe`** — not `/api/stripe/webhook`. Defined by `app.use('/webhooks/stripe', stripeWebhookRoutes)` in `src/app.ts`. Match it in the Stripe dashboard endpoint config.
+
+6. **`crypto.timingSafeEqual` throws on length mismatch.** The catch block in the webhook middleware then returns generic 400 `{"error":"Invalid webhook"}`. Real Stripe signatures are always 64 hex chars; the only time you see this generic error is during smoke testing with truncated fake signatures.
 
 ### 4.6 DWS 6 Limitations (Why DWS 7 Is Needed)
 
