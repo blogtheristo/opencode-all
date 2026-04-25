@@ -4,9 +4,9 @@ import {
   idempotencyCheck,
   stripeRateLimit,
   preserveRawBody,
-} from '../middleware/stripe-webhook.middleware';
-import { logger } from '../services/logger.service';
-import { supabase } from '../services/supabase.service';
+} from '../middleware/stripe-webhook.middleware.js';
+import logger from '../utils/logger.js';
+import { supabase } from '../services/supabase.service.js';
 
 const router = Router();
 
