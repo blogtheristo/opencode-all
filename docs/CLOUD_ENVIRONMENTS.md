@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.0
+Version: 2.1
 
 Sessions & Modifications:
 
+- Version: 2.1 | Tool: Claude Code (Opus 4.7) | Session: claude/b2b-payment-stack-DNdkW | Date: 25.04.2026 | Changes: Section 4.5 — added "Scaling note" subsection. Records that the current single-tenant deployment pattern (one Cloud Run service, one trigger, one Stripe endpoint, one shared secret inventory) is correct for the internal Lifetime Oy billing use case shipped today, and lists the re-evaluation triggers (>100 tenants, first per-tenant Stripe account, first non-EU residency, first non-CLOUD-Act jurisdiction) that would force a rework. Includes a single-tenant→multi-tenant dimension table for future reference; explicit instruction to fork the section rather than mutate it when re-evaluating, so historical pattern is preserved. Note, not a task
 - Version: 2.0 | Tool: Claude Code (Opus 4.7) | Session: claude/b2b-payment-stack-DNdkW | Date: 25.04.2026 | Changes: Section 4.5 — added STRIPE_WEBHOOK_SECRET to required secrets table and canonical deploy command; new "Public ingress" subsection covering the two-layer block (Workspace org policy `iam.allowedPolicyMemberDomains` + Cloud Run private-by-default IAM) with the exact override + binding commands; new "Stripe webhook wiring" table pinning service URL, mounted route, signing secret, Stripe destination name (`charming-serenity`), 7 subscribed event types; new "Smoke-test recipes" with three single-curl tests proving liveness, raw-body chain, and full HMAC chain; new "Pitfalls discovered & captured" subsection logging six lessons learned: express.json consumes raw stream, Compute-SA default since 2024, tsconfig excludes vs runtime stubs, Node 22 ESM `.js` requirement, `/webhooks/stripe` path, `timingSafeEqual` length-mismatch behaviour. Major version bump to 2.0 reflects that 4.5 is now a complete deployment standard, not a partial pattern note
 - Version: 1.9 | Tool: Claude Code (Opus 4.7) | Session: claude/b2b-payment-stack-DNdkW | Date: 24.04.2026 | Changes: Added Section 4.5 "DWS 6 Cloud Run Deployment Pattern (Standard)" — principles (secrets in Secret Manager not env-vars, user-managed replication pinned to europe-north1, least-privilege secretAccessor per secret, never-paste rule); provisioning workflow via `scripts/Provision-DwsIqSecrets.ps1`; required backend secret inventory (STRIPE_SECRET_KEY, SUPABASE_URL/ANON/SERVICE/SERVICE_ROLE, JWT_SECRET, SMTP_USER/PASS); canonical deploy command separating `--set-env-vars` (non-secret config) from `--set-secrets` (Secret Manager refs); rotation playbook with `:latest` + nonce env-var; security-benefits comparison table. Renumbered prior 4.5 Limitations → 4.6
 - Version: 1.8 | Tool: Claude Code (Opus 4.7) | Session: claude/b2b-payment-stack-DNdkW | Date: 24.04.2026 | Changes: Section 4.4 — BUILD FIX CONFIRMED. Root cause was the 2024+ Google default change: `dws6run6` runs Cloud Build as the Compute SA (`1074393862472-compute@developer.gserviceaccount.com`), not the legacy Cloud Build SA. Added Step 4 (repo-scoped `roles/artifactregistry.writer` on `dws-iq-repo` for Compute SA) — the only grant that actually worked; build id `5fcd7368-cc55-4ebf-b4bb-473c9c2ff54a` pushed image `sha256:e1ecbd6c…`. Flagged Step 2 and Step 3 grants as OBSOLETE in the IAM table; added "Gotcha" subsection documenting the Compute-SA default + `gcloud builds list` verification command; added cleanup commands to drop the two dead bindings
@@ -561,6 +562,31 @@ If Test 3 returns `{"error":"Invalid webhook"}` instead, the v1 string passed wa
 5. **Webhook URL path is `/webhooks/stripe`** — not `/api/stripe/webhook`. Defined by `app.use('/webhooks/stripe', stripeWebhookRoutes)` in `src/app.ts`. Match it in the Stripe dashboard endpoint config.
 
 6. **`crypto.timingSafeEqual` throws on length mismatch.** The catch block in the webhook middleware then returns generic 400 `{"error":"Invalid webhook"}`. Real Stripe signatures are always 64 hex chars; the only time you see this generic error is during smoke testing with truncated fake signatures.
+
+#### Scaling note — single-tenant today, multi-tenant when 100+ customers onboard
+
+This deployment standard is intentionally **single-tenant**: one Cloud Build trigger, one Cloud Run service (`dws-iq-backend`), one Stripe webhook endpoint, one shared secret inventory. That fit is correct for the **internal Lifetime Oy billing use case** the stack ships today (one merchant, one set of payment credentials, audit boundary = the project).
+
+When customer onboarding crosses ~100 active tenants — or earlier if any tenant brings their own Stripe account, their own Supabase project, their own data residency requirement — this pattern will need a rework. Re-evaluation triggers (any one is sufficient):
+
+- **>100 tenants** with shared Stripe/Supabase: revisit per-tenant config, queue isolation, fair-use rate limits, log partitioning.
+- **First customer demanding their own Stripe account**: per-tenant `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` — current single-secret pattern ends here.
+- **First customer outside EU residency**: separate Cloud Run service in their region, separate Secret Manager replica, separate trigger.
+- **First customer requesting non-CLOUD-Act jurisdiction**: migrate that tenant's plane to Aiven / Scaleway (per §6/§7), keep the rest on GCP.
+
+Rework dimensions to consider when the time comes (do **not** preemptively build):
+
+| Dimension           | Single-tenant today            | Multi-tenant target                                                                                                                  |
+| ------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| Cloud Run service   | one (`dws-iq-backend`)         | per-tenant or per-region cluster, behind Cloud Load Balancer with tenant-aware routing                                               |
+| Cloud Build trigger | one (`dws-iq-backend-main`)    | per-region templated triggers; tenant-id substitution via `_TENANT` substitution variable                                            |
+| Secrets             | one shared set                 | per-tenant prefix (`stripe-secret-key-tenant-<id>`); script becomes `Provision-Tenant-Secrets.ps1`                                   |
+| Stripe webhook      | one endpoint                   | one per merchant Stripe account; signed-secret per endpoint; `STRIPE_WEBHOOK_SECRET` becomes a lookup keyed by Stripe-Account header |
+| Supabase            | one project (service-role)     | shared project with RLS by tenant_id, **or** Supabase-managed branching, **or** per-tenant project for highest-isolation tier        |
+| Audit logs          | shared GCP audit               | per-tenant log sink for SOC2 / customer audit access                                                                                 |
+| Org policy override | project-level `allowAll: true` | re-evaluate; possibly tag-based exceptions per service                                                                               |
+
+This is a **note, not a task** — the standard above stays in effect verbatim until a re-evaluation trigger fires. When it does, fork this section into a new "DWS 6 Multi-Tenant Deployment Standard" subsection rather than mutating the current single-tenant guidance, so the historical pattern is preserved for existing services.
 
 ### 4.6 DWS 6 Limitations (Why DWS 7 Is Needed)
 
