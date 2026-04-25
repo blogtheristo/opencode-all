@@ -1,6 +1,6 @@
 # Field Note: MCP Debugger — Giving LLM Agents Step-Through Debugging
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -30,7 +30,7 @@ Related Documents:
 - docs/GITHUB_MCP_TOOLS.md
 - Admin/ADMIN_MANUAL.md (Section 30 — Safety Hooks)
 
----
+***
 
 ## Ontology Tags
 
