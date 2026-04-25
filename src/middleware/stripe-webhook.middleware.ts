@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import crypto from 'crypto';
-import { logger } from '../services/logger.service.js';
+import logger from '../utils/logger.js';
 
 /**
  * Stripe webhook signature verification middleware

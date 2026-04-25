@@ -3,15 +3,19 @@
     Provisions DWS IQ backend secrets to Google Secret Manager (europe-north1).
 
 .DESCRIPTION
-    Uploads five known DWS IQ backend secrets to Google Secret Manager in the
-    dws6run6 project, user-managed replication pinned to europe-north1 for EU
-    residency:
+    Uploads the DWS IQ backend's runtime secrets to Google Secret Manager in
+    the dws6run6 project, user-managed replication pinned to europe-north1 for
+    EU residency. The exact inventory is the $SecretMap at the top of this
+    script — keep that as the source of truth. As of 2026-04-25 it covers:
 
-      STRIPE_SECRET_KEY    -> stripe-secret-key
-      SUPABASE_URL         -> supabase-url
-      SUPABASE_SERVICE_KEY -> supabase-service-key
-      SMTP_USER            -> smtp-user
-      SMTP_PASS            -> smtp-pass
+      STRIPE_SECRET_KEY     -> stripe-secret-key
+      STRIPE_WEBHOOK_SECRET -> stripe-webhook-secret
+      SUPABASE_URL          -> supabase-url
+      SUPABASE_ANON_KEY     -> supabase-anon-key
+      SUPABASE_SERVICE_KEY  -> supabase-service-key   (alias accepted: SUPABASE_SERVICE_ROLE_KEY)
+      JWT_SECRET            -> jwt-secret
+      SMTP_USER             -> smtp-user
+      SMTP_PASS             -> smtp-pass
 
     Then grants roles/secretmanager.secretAccessor on each secret to the
     Cloud Run runtime service account (Compute Engine default SA; this is the
@@ -50,9 +54,10 @@
     .\scripts\Provision-DwsIqSecrets.ps1 -SecretsFile "F:\Proton\My files\2026\Lifetime_fi\secrets.txt"
 
 .NOTES
-    This script handles only the DWS IQ backend's five runtime secrets. For
-    broader .env provisioning (MCP gateway, sales agents, etc.), use the
-    sibling bash script scripts/provision-secrets.sh on Linux/WSL.
+    This script handles only the DWS IQ backend's runtime secrets (see the
+    $SecretMap inventory at the top of this script). For broader .env
+    provisioning (MCP gateway, sales agents, etc.), use the sibling bash
+    script scripts/provision-secrets.sh on Linux/WSL.
 #>
 
 [CmdletBinding()]

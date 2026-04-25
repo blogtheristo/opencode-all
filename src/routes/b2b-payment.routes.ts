@@ -1,7 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { supabase } from '../services/supabase.service.js';
 import { requireAuth } from '../middleware/auth.middleware.js';
-import { logger } from '../services/logger.service.js';
+import logger from '../utils/logger.js';
 import Stripe from 'stripe';
 
 const router = Router();
