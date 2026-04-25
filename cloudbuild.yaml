@@ -8,13 +8,33 @@
 # Mirrors the manual deploy documented in docs/CLOUD_ENVIRONMENTS.md §4.5.
 # Every config change here should be reflected in that section (and vice versa).
 #
-# Required IAM on the Cloud Build worker SA (Compute Engine default SA for
-# this project — see §4.4 Gotcha):
-#   - roles/artifactregistry.writer  on dws-iq-repo
-#   - roles/run.admin                on dws6run6 (to deploy Cloud Run revisions)
-#   - roles/iam.serviceAccountUser   on the Cloud Run runtime SA
-#   - roles/secretmanager.secretAccessor on each secret (already granted by
-#                                                       Provision-DwsIqSecrets.ps1)
+# ============================================================================
+# CRITICAL: Cloud Build runs as the Compute SA, NOT the legacy Cloud Build SA
+# ============================================================================
+# Per §4.4 Gotcha — for projects created or migrated since mid-2024 (incl.
+# dws6run6), Cloud Build executes builds as:
+#
+#     1074393862472-compute@developer.gserviceaccount.com   <- USE THIS
+#
+# NOT the legacy default that AI assistants (and old GCP docs) keep suggesting:
+#
+#     1074393862472@cloudbuild.gserviceaccount.com          <- IGNORE THIS
+#
+# Verify which SA your project uses with:
+#     gcloud builds list --limit=1 --format="value(serviceAccount)"
+#
+# Granting roles to the legacy SA is silently ineffective — the build will
+# run, then the deploy step will fail with "Permission denied" on Cloud Run
+# or Artifact Registry, exactly the trap that cost us hours on 2026-04-24.
+#
+# Required IAM on the Cloud Build worker SA (the Compute SA above):
+#   - roles/artifactregistry.writer    on dws-iq-repo (already granted)
+#   - roles/run.admin                  on dws6run6 (to deploy Cloud Run revisions)
+#   - roles/iam.serviceAccountUser     on dws6run6 (to act as the runtime SA)
+#   - roles/secretmanager.secretAccessor — DO NOT grant project-wide; the
+#     runtime SA already has per-secret accessor via Provision-DwsIqSecrets.ps1
+#     (least-privilege per §4.5 Principle 3)
+# ============================================================================
 
 steps:
   # ------------------------------------------------------------------
