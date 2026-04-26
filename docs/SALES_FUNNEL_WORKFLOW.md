@@ -1,4 +1,5 @@
 # DWS IQ 6 — Sales Funnel Workflow
+
 **Document ID:** DWS-SF-WORKFLOW-2026-001
 **Version:** 1.0 | **Date:** 2026-04-25
 **Owner:** Risto Anton Päämi, Lifetime Oy
@@ -12,6 +13,7 @@
 This workflow is the operational engine behind the €900k ARR target. The model is designed around one core insight: **EU compliance is a mandatory purchase, not a discretionary one.** The sales funnel does not need to convince — it needs to remove friction and guide the buyer from "I have a CSRD deadline" to "I have a signed invoice and a live system."
 
 The **€1 activation model** is the key architectural decision. It:
+
 - Verifies the buyer's payment method before any provisioning work begins
 - Creates a signed commercial relationship (offer + acceptance + consideration) at minimum cost
 - Gates the enterprise details form behind a financial commitment — eliminating non-serious inquiries
@@ -19,11 +21,11 @@ The **€1 activation model** is the key architectural decision. It:
 
 **Path to €900k ARR via this funnel:**
 
-| Scenario | Customers | Avg ARR/Customer | Total ARR |
-|---|---|---|---|
-| Conservative (Tier 1 only) | 45 | €20,000 | €900k |
-| Base case (Tier 1 + Tier 2 mix) | 25 enterprise + 15 SME | €24,000 avg | €975k |
-| Optimistic (Tier 2 dominant) | 20 enterprise | €45,000 | €900k |
+| Scenario                        | Customers              | Avg ARR/Customer | Total ARR |
+| ------------------------------- | ---------------------- | ---------------- | --------- |
+| Conservative (Tier 1 only)      | 45                     | €20,000          | €900k     |
+| Base case (Tier 1 + Tier 2 mix) | 25 enterprise + 15 SME | €24,000 avg      | €975k     |
+| Optimistic (Tier 2 dominant)    | 20 enterprise          | €45,000          | €900k     |
 
 Each complete funnel pass (Steps 1–13) produces one activated customer. **Target: 3–4 funnel completions per month from June 2026.**
 
@@ -32,9 +34,11 @@ Each complete funnel pass (Steps 1–13) produces one activated customer. **Targ
 ## Part 1 — Google Merchant Product Conversion
 
 ### The Problem
+
 Google Merchant Centre does not accept `monthly` or `subscription` product types. **8 of 32 active products** fail validation. Without Google Merchant acceptance, these products cannot run paid search, Shopping ads, or appear in Google's product discovery surfaces.
 
 ### The Solution: Split-Price Architecture
+
 Every product in `products.json` carries a **one-time price** (the only price Google Merchant sees) and a **separate recurring element** (handled by Stripe subscription, created post-purchase via the React form).
 
 ### Conversion Table — All 38 Products
@@ -43,55 +47,57 @@ Every product in `products.json` carries a **one-time price** (the only price Go
 The monthly subscription is created in Stripe at Step 7 using `stripe.subscriptions.create()` with the appropriate price ID.
 
 #### Products Already Compliant (one-time)
+
 No change needed to type. Subscription portion (where applicable) moves to Stripe post-purchase.
 
-| Product ID | Google Merchant Price | Post-Purchase Stripe Subscription |
-|---|---|---|
-| DWS-IQ-006 | €4,999 (deployment) | €499/month — auto-created at Step 7 |
-| FH-AUTO-001 | €4,950 (project) | None |
-| LIFETIME-BUNDLE-2026 | €9,990 (setup) | €1,999/year — auto-created at Step 7 |
-| FH-RPT-001 | €1,999 (template) | None |
-| FH-CMS-001 | €99 (setup) | None |
-| expert-services | €4,500 (3-day engagement) | None — upsell to LIFETIME-EXP-001 retainer |
-| aws-consultancy | €1,500 (day) | None |
-| m365-consultancy | €1,500 (day) | None |
-| ai-consultant-day | €1,500 (day) | None |
-| business-mentor-30 | €4,960 (30 hours) | None |
-| firehorse-coach | €499 (workshop) | None |
-| professional-web-pages | €1,099 (day) | None |
-| secure-email-proton | €499 (implementation) | None — Proton licence direct with Proton |
-| firehorse-data-services | €1,500 (day) | None |
-| digital-design-gold | €24,990 (setup) | None |
-| cloud-ready-teams | €1,500 (day) | None |
-| ai-consulting-agentic | €2,500 (assessment) | €5,000/month retainer — upsell on React form |
-| edge-node-gn100 | €3,999/node (hardware) | None |
-| DWS-SOVEREIGN-DB-001 | €99 (assessment) | €499/month Standard — auto-created at Step 7 |
-| DWS-AEGIS-001 | €59,990 (deployment) | €999/month — auto-created at Step 7 |
-| DWS-THEMIS-001 | €14,990 (deployment) | €499/month — auto-created at Step 7 |
+| Product ID              | Google Merchant Price     | Post-Purchase Stripe Subscription            |
+| ----------------------- | ------------------------- | -------------------------------------------- |
+| DWS-IQ-006              | €4,999 (deployment)       | €499/month — auto-created at Step 7          |
+| FH-AUTO-001             | €4,950 (project)          | None                                         |
+| LIFETIME-BUNDLE-2026    | €9,990 (setup)            | €1,999/year — auto-created at Step 7         |
+| FH-RPT-001              | €1,999 (template)         | None                                         |
+| FH-CMS-001              | €99 (setup)               | None                                         |
+| expert-services         | €4,500 (3-day engagement) | None — upsell to LIFETIME-EXP-001 retainer   |
+| aws-consultancy         | €1,500 (day)              | None                                         |
+| m365-consultancy        | €1,500 (day)              | None                                         |
+| ai-consultant-day       | €1,500 (day)              | None                                         |
+| business-mentor-30      | €4,960 (30 hours)         | None                                         |
+| firehorse-coach         | €499 (workshop)           | None                                         |
+| professional-web-pages  | €1,099 (day)              | None                                         |
+| secure-email-proton     | €499 (implementation)     | None — Proton licence direct with Proton     |
+| firehorse-data-services | €1,500 (day)              | None                                         |
+| digital-design-gold     | €24,990 (setup)           | None                                         |
+| cloud-ready-teams       | €1,500 (day)              | None                                         |
+| ai-consulting-agentic   | €2,500 (assessment)       | €5,000/month retainer — upsell on React form |
+| edge-node-gn100         | €3,999/node (hardware)    | None                                         |
+| DWS-SOVEREIGN-DB-001    | €99 (assessment)          | €499/month Standard — auto-created at Step 7 |
+| DWS-AEGIS-001           | €59,990 (deployment)      | €999/month — auto-created at Step 7          |
+| DWS-THEMIS-001          | €14,990 (deployment)      | €499/month — auto-created at Step 7          |
 
 #### Products Requiring Conversion (monthly → one-time setup + Stripe subscription)
 
-| Product ID | Old Type | New GM Price | New GM Label | Stripe Subscription |
-|---|---|---|---|---|
-| FH-OMNI-001 | monthly €1,499 | **€1,499** | "Campaign setup + first month" | €1,499/month from month 2 |
-| FH-SIGN-001 | subscription €199 | **€199** | "Annual licence activation" | €199/year auto-renew |
-| sovereignty-cloud-consulting | monthly €1,500 | **€1,500** | "Migration onboarding" | €1,500/month Standard retainer |
-| DWS-US-STARTER | monthly €299 + €990 setup | **€990** | "US Cloud setup + first month" | €299/month from month 2 |
-| DWS-US-PILOT | monthly €799 + €2,490 setup | **€2,490** | "US Cloud pilot setup" | €799/month |
-| DWS-EU-STARTER | monthly €499 + €1,490 setup | **€1,490** | "EU Sovereign setup + first month" | €499/month from month 2 |
-| DWS-EU-PILOT | monthly €1,499 + €3,990 setup | **€3,990** | "EU Sovereign pilot setup" | €1,499/month |
-| DWS-CLIMATE-001 | monthly €2,999 + €4,990 setup | **€4,990** | "Climate Intelligence deployment" | €2,999/month |
+| Product ID                   | Old Type                      | New GM Price | New GM Label                       | Stripe Subscription            |
+| ---------------------------- | ----------------------------- | ------------ | ---------------------------------- | ------------------------------ |
+| FH-OMNI-001                  | monthly €1,499                | **€1,499**   | "Campaign setup + first month"     | €1,499/month from month 2      |
+| FH-SIGN-001                  | subscription €199             | **€199**     | "Annual licence activation"        | €199/year auto-renew           |
+| sovereignty-cloud-consulting | monthly €1,500                | **€1,500**   | "Migration onboarding"             | €1,500/month Standard retainer |
+| DWS-US-STARTER               | monthly €299 + €990 setup     | **€990**     | "US Cloud setup + first month"     | €299/month from month 2        |
+| DWS-US-PILOT                 | monthly €799 + €2,490 setup   | **€2,490**   | "US Cloud pilot setup"             | €799/month                     |
+| DWS-EU-STARTER               | monthly €499 + €1,490 setup   | **€1,490**   | "EU Sovereign setup + first month" | €499/month from month 2        |
+| DWS-EU-PILOT                 | monthly €1,499 + €3,990 setup | **€3,990**   | "EU Sovereign pilot setup"         | €1,499/month                   |
+| DWS-CLIMATE-001              | monthly €2,999 + €4,990 setup | **€4,990**   | "Climate Intelligence deployment"  | €2,999/month                   |
 
 #### Advisory Products — React Form Only (not Google Merchant)
+
 These do not appear as standalone Google Merchant listings. They surface on the React upsell form (Step 5) as recommended add-ons.
 
-| Product ID | Form Presentation | Conversion Target |
-|---|---|---|
-| consulting-hourly | "Book 2 hours with Risto — €400" | Single-session to retainer |
-| consulting-fit55 | "Fit for 55 specialist day — €1,500" | Day to LIFETIME-EXP-001 retainer |
-| ai-agent-engineering | "AI engineer by the hour — €200/hr" | Hours to ai-consulting-agentic assessment |
-| LIFETIME-EXP-001 | "Monthly compliance strategist — €4,000/month" | Primary advisory upsell for platform buyers |
-| ai-koulutus-3d | "3-day AI training programme — €6,250" | Compliance for EU AI Act Article 4 |
+| Product ID           | Form Presentation                              | Conversion Target                           |
+| -------------------- | ---------------------------------------------- | ------------------------------------------- |
+| consulting-hourly    | "Book 2 hours with Risto — €400"               | Single-session to retainer                  |
+| consulting-fit55     | "Fit for 55 specialist day — €1,500"           | Day to LIFETIME-EXP-001 retainer            |
+| ai-agent-engineering | "AI engineer by the hour — €200/hr"            | Hours to ai-consulting-agentic assessment   |
+| LIFETIME-EXP-001     | "Monthly compliance strategist — €4,000/month" | Primary advisory upsell for platform buyers |
+| ai-koulutus-3d       | "3-day AI training programme — €6,250"         | Compliance for EU AI Act Article 4          |
 
 ---
 
@@ -112,33 +118,34 @@ ENTRY → [1] Bundle → [2] Discount → [3] €1 Pay → [4] Enterprise Form
 
 **Cart Rules:**
 
-| Items Selected | Discount | Label |
-|---|---|---|
-| 1 product | 0% | — |
-| 2 products | 5% | "Bundle Saver" |
-| 3 products | 10% | "Smart Bundle" |
-| 4–6 products | 15% | "Enterprise Bundle" |
-| 7+ products | 20% | "Full Stack" |
-| Pre-defined named bundle | 12–18% | e.g. "Compliance Starter" |
+| Items Selected           | Discount | Label                     |
+| ------------------------ | -------- | ------------------------- |
+| 1 product                | 0%       | —                         |
+| 2 products               | 5%       | "Bundle Saver"            |
+| 3 products               | 10%      | "Smart Bundle"            |
+| 4–6 products             | 15%      | "Enterprise Bundle"       |
+| 7+ products              | 20%      | "Full Stack"              |
+| Pre-defined named bundle | 12–18%   | e.g. "Compliance Starter" |
 
 **Pre-defined Named Bundles (pre-configured in `products.json → bundles[]`):**
 
-| Bundle Name | Products Included | Bundle Price | Saving |
-|---|---|---|---|
-| Compliance Starter | FH-RPT-001 + FH-SIGN-001 + FH-CMS-001 | €2,100 | €197 (9%) |
-| CSRD Ready | LIFETIME-BUNDLE-2026 + DWS-CLIMATE-001 setup | €13,990 | €990 (7%) |
-| Sovereignty Stack | DWS-EU-STARTER + DWS-SOVEREIGN-DB-001 + edge-node-gn100×2 | €11,469 | €1,010 (8%) |
-| Enterprise Compliance | DWS-AEGIS-001 + DWS-THEMIS-001 + expert-services | €74,990 | €4,490 (6%) |
+| Bundle Name           | Products Included                                         | Bundle Price | Saving      |
+| --------------------- | --------------------------------------------------------- | ------------ | ----------- |
+| Compliance Starter    | FH-RPT-001 + FH-SIGN-001 + FH-CMS-001                     | €2,100       | €197 (9%)   |
+| CSRD Ready            | LIFETIME-BUNDLE-2026 + DWS-CLIMATE-001 setup              | €13,990      | €990 (7%)   |
+| Sovereignty Stack     | DWS-EU-STARTER + DWS-SOVEREIGN-DB-001 + edge-node-gn100×2 | €11,469      | €1,010 (8%) |
+| Enterprise Compliance | DWS-AEGIS-001 + DWS-THEMIS-001 + expert-services          | €74,990      | €4,490 (6%) |
 
 **Cart State (React context):**
+
 ```typescript
 interface CartState {
-  items: CartItem[];          // [{productId, qty, unitPrice}]
-  bundleDiscount: number;     // percentage
-  namedBundle?: string;       // bundle key if pre-configured
-  subtotal: number;           // sum of items
-  discountAmount: number;     // subtotal × bundleDiscount
-  total: number;              // subtotal − discountAmount
+  items: CartItem[]; // [{productId, qty, unitPrice}]
+  bundleDiscount: number; // percentage
+  namedBundle?: string; // bundle key if pre-configured
+  subtotal: number; // sum of items
+  discountAmount: number; // subtotal × bundleDiscount
+  total: number; // subtotal − discountAmount
   currency: "EUR";
   vatTreatment: "B2B_VAT_0" | "B2B_VAT_FI"; // set after Step 4 VAT ID check
 }
@@ -149,6 +156,7 @@ interface CartState {
 ### Step 2 — Discount Calculation
 
 **Engine rules (client-side, verified server-side):**
+
 1. Apply named bundle discount first — overrides item count discount
 2. Item count discount applies if no named bundle
 3. Hardware (`edge-node-gn100`) counts as 1 item regardless of quantity; quantity is a separate `qty` multiplier
@@ -156,8 +164,9 @@ interface CartState {
 5. Annual subscription option (+2 months free) is calculated as: `monthlyPrice × 10` billed as one-time annual; label: "Annual (2 months free)"
 
 **Price display rules:**
+
 - Always show: original price, discount amount, final price
-- For products with Stripe subscription: show "€X setup + €Y/month from [Month+1]" 
+- For products with Stripe subscription: show "€X setup + €Y/month from [Month+1]"
 - VAT treatment shown as: "Prices excl. VAT (B2B reverse charge)" until VAT ID confirmed at Step 4
 
 ---
@@ -172,24 +181,28 @@ interface CartState {
 **Description:** `"DWS IQ 6 order activation — [Cart ID]"`
 
 **On success:**
+
 - Stripe returns `payment_intent.id` → stored as `cart.activationPaymentId`
 - Cart locked (no more item changes)
 - User routed to Step 4 (React form)
 - Session timer starts: 30 minutes to complete Steps 4–6 or cart expires
 
 **On failure:**
+
 - Error shown inline: "Payment method not accepted. Please try a different card."
 - Cart remains open
 - No provisioning triggered
 
 **Reconciliation:** The €1 is a deposit. It appears as a deduction on the Stripe invoice at Step 7:
+
 ```
 LINE ITEM: "Activation deposit (paid)"    -€1.00
 ```
 
 **Edge case — €1 paid but Steps 4–6 abandoned:**
+
 - After 30-minute timeout, send one recovery email: "Your DWS order is waiting — complete your details in 24 hours to keep your bundle pricing"
-- After 24 hours: cancel Stripe PaymentIntent, issue €1 refund, release cart
+- After 24 hours: issue €1 refund via `stripe.refunds.create({ payment_intent: cart.activationPaymentId })`, release cart. Do NOT attempt to cancel the PaymentIntent — cancellation is only possible before confirmation; a successful charge requires a Refund on the PaymentIntent/Charge.
 - Log abandoned cart to `analytics.abandonedCarts[]` for retargeting
 
 ---
@@ -237,9 +250,10 @@ INVOICE PREFERENCES
 ```
 
 **VAT logic:**
+
 - FI VAT ID confirmed → `vatTreatment = "B2B_VAT_FI"` → add 25.5% VAT to total
 - Valid non-FI EU VAT ID → `vatTreatment = "B2B_VAT_0"` → reverse charge, no VAT
-- No VAT ID entered → `vatTreatment = "B2B_VAT_0"` → show warning: "Please provide your EU VAT number to apply reverse charge. Without it, Finnish VAT (25.5%) will apply."
+- No VAT ID entered → `vatTreatment = "B2B_VAT_FI"` → add 25.5% FI VAT + show warning: "Please provide your EU VAT number to apply reverse charge. Without a valid VAT ID, Finnish VAT (25.5%) applies."
 
 **On submit:** Form data stored in `order.enterpriseDetails`. Route to Step 5.
 
@@ -283,6 +297,7 @@ IF cart subtotal > €15,000
 ```
 
 **UX Design:**
+
 - Each recommendation shown as a card: product name, hero text (from `heroText` field), price, toggle switch
 - Toggle ON by default for FH-SIGN-001 (high value, low price)
 - Toggle OFF by default for all others (respect buyer autonomy)
@@ -290,6 +305,7 @@ IF cart subtotal > €15,000
 - Running total updates in real-time as toggles change
 
 **Advisory upsell format (hourly/daily products):**
+
 - Presented as "Book a session" with calendar link, not added to invoice
 - Clicking "Book" opens Calendly/Jitsi booking link in modal
 - Booking confirmation creates a separate advisory invoice (not bundled into main order)
@@ -301,6 +317,7 @@ IF cart subtotal > €15,000
 **Route:** `/checkout/review`
 
 **Page shows:**
+
 ```
 ORDER SUMMARY
 ─────────────────────────────────────────────────────
@@ -335,6 +352,7 @@ RECURRING SUBSCRIPTIONS (auto-activated on delivery):
 ```
 
 **Acceptance checkboxes (all required):**
+
 - `[ ]` I confirm the company details above are correct and I am authorised to enter commercial agreements on behalf of [Company Name]
 - `[ ]` I have read and accept the [DWS IQ Terms of Service] and [Data Processing Agreement (DPA)]
 - `[ ]` I understand that recurring subscriptions listed above will be billed automatically and can be cancelled with 30 days notice
@@ -342,6 +360,7 @@ RECURRING SUBSCRIPTIONS (auto-activated on delivery):
 **Submit button:** "Confirm Order and Pay Balance"
 
 **On submit:**
+
 - Disable button, show spinner
 - POST to `/api/checkout/confirm`
 - Trigger Steps 7 → 9 in sequence (async, with retry)
@@ -360,7 +379,7 @@ const customer = await stripe.customers.create({
   email: order.enterpriseDetails.invoiceEmail,
   tax_id_data: [{ type: "eu_vat", value: order.enterpriseDetails.vatId }],
   address: { ...order.enterpriseDetails.billingAddress },
-  metadata: { orderId: order.id, cartId: cart.id }
+  metadata: { orderId: order.id, cartId: cart.id },
 });
 
 // 2. Create Invoice (not auto-charge — sends PDF for Net 14 payment)
@@ -371,7 +390,7 @@ const invoice = await stripe.invoices.create({
   auto_advance: true,
   description: `DWS IQ 6 Order ${order.id}`,
   metadata: { orderId: order.id },
-  footer: "Lifetime Oy | Business ID: 0772407-9 | VAT: FI07724079 | Payment: IBAN FI[ACCOUNT]"
+  footer: "Lifetime Oy | Business ID: 0772407-9 | VAT: FI07724079 | Payment: IBAN FI[ACCOUNT]",
 });
 
 // 3. Add line items
@@ -384,7 +403,7 @@ for (const item of cart.items) {
     quantity: item.qty,
     currency: "eur",
     tax_rates: vatApplicable ? [FI_VAT_RATE_ID] : [],
-    metadata: { productId: item.productId }
+    metadata: { productId: item.productId },
   });
 }
 
@@ -396,7 +415,7 @@ if (cart.discountAmount > 0) {
     description: `Bundle discount (${cart.bundleDiscount}%)`,
     unit_amount: -Math.round(cart.discountAmount * 100),
     quantity: 1,
-    currency: "eur"
+    currency: "eur",
   });
 }
 
@@ -407,7 +426,7 @@ await stripe.invoiceItems.create({
   description: "Activation deposit (paid by card)",
   unit_amount: -100,
   quantity: 1,
-  currency: "eur"
+  currency: "eur",
 });
 
 // 6. Finalize and send invoice
@@ -420,7 +439,7 @@ for (const sub of order.subscriptions) {
     customer: customer.id,
     items: [{ price: sub.stripePriceId }],
     trial_end: sub.trialEndUnix, // delivery date + 30 days
-    metadata: { orderId: order.id, productId: sub.productId }
+    metadata: { orderId: order.id, productId: sub.productId },
   });
 }
 ```
@@ -430,6 +449,7 @@ for (const sub of order.subscriptions) {
 **Payment methods on invoice:** IBAN bank transfer (primary), Stripe payment link (secondary)
 
 **Stripe webhook events to handle:**
+
 - `invoice.payment_succeeded` → trigger license key generation, send to CFO
 - `invoice.payment_failed` → send payment reminder email, notify Risto
 - `customer.subscription.deleted` → suspend tenant, send suspension warning
@@ -444,6 +464,7 @@ for (const sub of order.subscriptions) {
 **Subject:** `🟢 NEW ORDER — [Company Name] — €[Total] — Deliver by [Date]`
 
 **Email body:**
+
 ```
 NEW DWS IQ ORDER
 
@@ -486,6 +507,7 @@ Data Room entry: [order JSON link]
 **Trigger:** Same webhook as Step 8 — `invoice.finalized`
 
 **Email to accounting:**
+
 - **To:** `oma@elasku.fi`
 - **CC:** `risto@onelifetime.world`
 - **Subject:** `Finvoice [LTY-YYYY-NNNNN] — [Company Name] — €[total]`
@@ -493,6 +515,7 @@ Data Room entry: [order JSON link]
 - **Attachment 2:** `invoice_[LTY-YYYY-NNNNN].xml` (Finvoice 3.0 XML, generated server-side)
 
 **Finvoice XML required fields:**
+
 ```xml
 <Finvoice>
   <MessageTransmissionDetails>
@@ -519,6 +542,7 @@ Data Room entry: [order JSON link]
 ```
 
 **VAT handling in Finvoice:**
+
 - FI VAT (25.5%): `<VatRatePercent>25.50</VatRatePercent>`
 - Reverse charge: `<VatRatePercent>0</VatRatePercent>` + `<VatExemptionReasonText>EU VAT reverse charge — Art. 196 Directive 2006/112/EC</VatExemptionReasonText>`
 
@@ -531,38 +555,45 @@ Data Room entry: [order JSON link]
 The following scenarios are not covered by the happy path and require explicit handling:
 
 **GAP A: Payment method fails at Step 3 (€1)**
+
 - Show inline error. Offer 3 alternative methods (Apple Pay, Google Pay, card).
 - If all fail: "Unable to process payment — contact sales@dws10.com or call +358 400 319 010"
 - Do NOT abandon the cart. Log the failed attempt.
 
 **GAP B: VAT ID validation fails at Step 4**
+
 - VIES API timeout: allow manual override with warning "VAT ID could not be validated automatically — please verify and continue"
 - Invalid format: inline error with format hint (e.g. "Finnish VAT ID format: FI12345678")
 - Unregistered VAT ID: treat as no-VAT-ID (apply FI VAT) with warning
 
 **GAP C: Stripe invoice creation fails at Step 7**
+
 - Retry up to 3 times with exponential backoff (2s, 4s, 8s)
 - If all retries fail: save order state to database with status `PAYMENT_PENDING`
 - Send manual processing alert to Risto
 - Show customer: "Your order has been received — you will receive your invoice by email within 1 business hour"
 
 **GAP D: Duplicate order (same company, same cart within 24h)**
+
 - Detect by: matching company VAT ID + overlapping product IDs
 - Show: "We found a recent order from [Company Name]. Is this a new order or a continuation?"
 - Options: "New order" | "Check existing order status"
 
 **GAP E: Hardware order (edge-node-gn100) — shipping details**
+
 - If hardware is in cart: add Step 4.5 — Shipping address form (separate from billing)
 - Capture: delivery address, contact name, phone, delivery instructions
 - Hardware SLA: Acer Finland ship within 5 business days → customer within 7 business days
 - Trigger separate Acer fulfillment notification to `risto@onelifetime.world`
 
 **GAP F: Advisory products booked at Step 5 — calendar integration**
+
 - When advisory product toggled ON: capture preferred date/time slot (3 options)
 - On order confirmation: send Calendly/Jitsi booking link to technical contact
 - Advisory engagement is confirmed separately from main invoice
 
 **GAP G: Subscription cancellation**
+
 - Stripe webhook `customer.subscription.deleted` triggers:
   1. Tenant status → `SUSPENDED` (not deleted — data retained 90 days)
   2. Email to customer: "Your DWS IQ subscription has ended — your data is retained for 90 days"
@@ -570,6 +601,7 @@ The following scenarios are not covered by the happy path and require explicit h
   4. Churn record added to `analytics.churnEvents[]`
 
 **GAP H: PO number / procurement delay**
+
 - Some enterprise buyers cannot pay Net 14 — they have 30–60 day procurement cycles
 - If buyer requests extended terms: form field "Request extended payment terms (30/60 days)" → email to Risto for manual approval
 - Approved extended terms recorded in Stripe invoice `due_date` override
@@ -613,6 +645,7 @@ The following scenarios are not covered by the happy path and require explicit h
 ```
 
 **SLA for provisioning:**
+
 - Automated (software-only orders): within 5 minutes of `invoice.finalized`
 - Manual review required (Aegis, Themis, hardware): within 5 business days
 - Advisory/consulting: calendar booking link sent within 1 business day
@@ -655,6 +688,7 @@ DAY 30 — Success check-in
 ```
 
 **Admin user management:**
+
 ```
 CFO/Admin can:
 ├── Create additional user accounts (roles: Admin, User, ReadOnly, Auditor)
@@ -670,23 +704,24 @@ CFO/Admin can:
 
 **Available connectors (standard, no custom development):**
 
-| System | Connector | Auth Method | Data Synced |
-|---|---|---|---|
-| SAP S/4HANA | REST API / OData V4 | OAuth 2.0 client credentials | Invoices, purchase orders, energy meters, cost centers |
-| SAP Business One | Service Layer API | HTTP Basic + session | Invoices, items, business partners |
-| Microsoft Dynamics 365 | Power Platform connector | Azure AD OAuth | Finance, operations, sustainability module |
-| IFS Cloud | IFS REST API | OAuth 2.0 | Work orders, asset management, energy data |
-| Monitor G5 | SOAP/REST hybrid | API key | Production orders, energy consumption |
-| Procountor | Procountor API | OAuth 2.0 | Invoices, purchase ledger, VAT reports |
-| Netvisor | Netvisor API | HMAC-signed requests | Accounting data, VAT, payroll |
-| Severa PSA | Visma API | OAuth 2.0 | Project data, time tracking |
-| Google Workspace | Google Workspace API | Service account | Documents, Drive compliance evidence |
-| Microsoft 365 | Microsoft Graph API | Azure AD | SharePoint, Teams, compliance content |
-| Proton Drive | Proton API | API token | Encrypted document storage |
-| Custom REST API | Generic REST adapter | API key / OAuth | Any JSON endpoint |
-| CSV/Excel upload | File parser | Upload | Historical data, bulk imports |
+| System                 | Connector                | Auth Method                  | Data Synced                                            |
+| ---------------------- | ------------------------ | ---------------------------- | ------------------------------------------------------ |
+| SAP S/4HANA            | REST API / OData V4      | OAuth 2.0 client credentials | Invoices, purchase orders, energy meters, cost centers |
+| SAP Business One       | Service Layer API        | HTTP Basic + session         | Invoices, items, business partners                     |
+| Microsoft Dynamics 365 | Power Platform connector | Azure AD OAuth               | Finance, operations, sustainability module             |
+| IFS Cloud              | IFS REST API             | OAuth 2.0                    | Work orders, asset management, energy data             |
+| Monitor G5             | SOAP/REST hybrid         | API key                      | Production orders, energy consumption                  |
+| Procountor             | Procountor API           | OAuth 2.0                    | Invoices, purchase ledger, VAT reports                 |
+| Netvisor               | Netvisor API             | HMAC-signed requests         | Accounting data, VAT, payroll                          |
+| Severa PSA             | Visma API                | OAuth 2.0                    | Project data, time tracking                            |
+| Google Workspace       | Google Workspace API     | Service account              | Documents, Drive compliance evidence                   |
+| Microsoft 365          | Microsoft Graph API      | Azure AD                     | SharePoint, Teams, compliance content                  |
+| Proton Drive           | Proton API               | API token                    | Encrypted document storage                             |
+| Custom REST API        | Generic REST adapter     | API key / OAuth              | Any JSON endpoint                                      |
+| CSV/Excel upload       | File parser              | Upload                       | Historical data, bulk imports                          |
 
 **Connection setup flow (admin UI):**
+
 ```
 Admin → Settings → Integrations → Add Connection
   1. Select system from list
@@ -699,6 +734,7 @@ Admin → Settings → Integrations → Add Connection
 ```
 
 **ERP data in DWS IQ context:**
+
 - SAP invoice data → Scope 3 emissions calculation for CSRD
 - Dynamics 365 energy data → Fit for 55 optimization agent input
 - IFS work orders → Predictive maintenance agent triggers
@@ -714,12 +750,12 @@ Admin → Settings → Integrations → Add Connection
 
 **Average order value (AOV) targets by customer segment:**
 
-| Segment | Typical Bundle | One-Time | Annual Recurring | Total Year-1 |
-|---|---|---|---|---|
-| SME Compliance (50–150 employees) | FH-RPT + FH-SIGN + firehorse-coach | €2,697 | €199/yr | ~€2,900 |
-| SME Platform (150–500 employees) | LIFETIME-BUNDLE-2026 + DWS-EU-STARTER | €11,480 | €5,988/yr | ~€17,500 |
-| Mid-Market (500–2,000 employees) | DWS-IQ-006 + DWS-CLIMATE-001 + LIFETIME-EXP-001 | €9,989 | €47,988/yr | ~€58,000 |
-| Enterprise (>2,000 employees) | DWS-AEGIS-001 + DWS-THEMIS-001 + expert-services | €79,480 | €17,988/yr | ~€97,500 |
+| Segment                           | Typical Bundle                                   | One-Time | Annual Recurring | Total Year-1 |
+| --------------------------------- | ------------------------------------------------ | -------- | ---------------- | ------------ |
+| SME Compliance (50–150 employees) | FH-RPT + FH-SIGN + firehorse-coach               | €2,697   | €199/yr          | ~€2,900      |
+| SME Platform (150–500 employees)  | LIFETIME-BUNDLE-2026 + DWS-EU-STARTER            | €11,480  | €5,988/yr        | ~€17,500     |
+| Mid-Market (500–2,000 employees)  | DWS-IQ-006 + DWS-CLIMATE-001 + LIFETIME-EXP-001  | €9,989   | €47,988/yr       | ~€58,000     |
+| Enterprise (>2,000 employees)     | DWS-AEGIS-001 + DWS-THEMIS-001 + expert-services | €79,480  | €17,988/yr       | ~€97,500     |
 
 ### €900k ARR Target — Customer Mix Required
 
@@ -794,6 +830,6 @@ Monthly steady-state (Q4 2026+):
 
 ---
 
-*Document ID: DWS-SF-WORKFLOW-2026-001 | Version: 1.0 | 2026-04-25*
-*Owner: Risto Anton Päämi | Lifetime Oy | laidunmaanraitti 2 A 25, 02330 Espoo*
-*Classification: Internal Engineering Standard — do not distribute*
+_Document ID: DWS-SF-WORKFLOW-2026-001 | Version: 1.0 | 2026-04-25_
+_Owner: Risto Anton Päämi | Lifetime Oy | laidunmaanraitti 2 A 25, 02330 Espoo_
+_Classification: Internal Engineering Standard — do not distribute_
