@@ -744,6 +744,88 @@ Admin → Settings → Integrations → Add Connection
 
 ---
 
+### Step 14 — Tenant Admin Named and Permission Model Established
+
+**Trigger:** Order activated (Step 11 provisioning complete) + first login by technical contact
+
+**Context:** Step 11 creates one account (technical contact = provisional admin). Step 14 formalises the two-role split that governs the tenant for its lifetime.
+
+**Two-role split:**
+
+| Role              | Who holds it                                                      | What they can do                                                                                                      | What they cannot do                                                              |
+| ----------------- | ----------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| **Billing Owner** | CFO (the person who approved the purchase and signed the invoice) | Pay invoices, update payment method, view all billing history, cancel subscription, sign order expansions             | Cannot manage users, cannot configure integrations, cannot approve agent actions |
+| **Tenant Admin**  | Named by CFO (or CFO auto-promoted if no separate admin is named) | Create/remove users, assign roles, configure ERP connections (Step 13), approve agent actions, own RBAC configuration | Cannot pay invoices, cannot change subscription tier                             |
+
+**How the admin is named:**
+
+```
+OPTION A — CFO designates a separate admin (preferred for mid-market/enterprise)
+  1. CFO logs in → Settings → Roles → "Designate Tenant Admin"
+  2. Enter email of technical contact (or IT manager)
+  3. System sends invitation email: "You have been designated Tenant Admin for [Company]"
+  4. Admin accepts → gets elevated login (separate session/token from CFO billing session)
+  5. CFO billing-owner role is locked to the original CFO email (cannot be self-delegated)
+
+OPTION B — CFO auto-promoted (default for SME, no separate IT admin)
+  1. If no admin is designated within 48h of first login: CFO is auto-promoted to hold both roles
+  2. System notification: "You currently hold both Billing Owner and Admin roles.
+     Consider designating a separate Admin for security separation."
+  3. Auto-promotion is reversible — CFO can designate a separate admin at any time
+```
+
+**RBAC model (4 built-in roles):**
+
+| Role          | Users       | Reports     | Integrations | Billing   | Agent Approvals | User MGMT |
+| ------------- | ----------- | ----------- | ------------ | --------- | --------------- | --------- |
+| Admin         | Full        | Full        | Full         | Read-only | Yes             | Full      |
+| Billing Owner | Read-only   | Read-only   | None         | Full      | No              | None      |
+| User          | Own account | Own reports | None         | None      | No              | None      |
+| Auditor       | None        | Full (read) | None         | None      | No              | None      |
+| ReadOnly      | None        | Read-only   | None         | None      | No              | None      |
+
+**KYA logging (Article 12):**
+
+```
+Every role assignment logged:
+{
+  "event": "role_assigned",
+  "tenant_id": "[tenantId]",
+  "assigned_by": "[CFO email]",
+  "assigned_to": "[admin email]",
+  "role": "admin",
+  "timestamp": "[ISO 8601]",
+  "ip": "[IP address]",
+  "session_id": "[KYA session ID]"
+}
+```
+
+**Agent action approvals (Admin-only gate):**
+
+When any DWS Industrial Specialist Agent requests an action above confidence threshold:
+
+```
+Agent → HIL queue → Admin receives: "Agent [ID] requests: [action summary]"
+Admin: Approve / Reject / Modify
+→ Agent proceeds / halts / adjusts
+→ All decisions logged to Article 12 audit trail
+```
+
+**Completion criteria for Step 14:**
+
+- [ ] Billing Owner role confirmed (CFO email locked)
+- [ ] Tenant Admin named (separate email or CFO auto-promoted)
+- [ ] Admin has completed first login with admin session
+- [ ] At least 1 non-admin user invited (or skip acknowledged for sole-trader)
+- [ ] RBAC configuration saved
+- [ ] KYA agent identity linked to Admin account
+
+**Next step:** Step 13 (ERP connections) — Admin now has the credentials and role to configure ERP integrations.
+
+> **Note on ordering:** Step 14 is numbered after ERP connections in the document but is operationally executed before Step 13. Admin role formalisation must precede ERP configuration because ERP connector credentials are tied to the Admin role, not the Billing Owner.
+
+---
+
 ## Part 3 — ARR Bridge: How This Funnel Reaches €900k
 
 ### Revenue Model per Completed Funnel Pass
