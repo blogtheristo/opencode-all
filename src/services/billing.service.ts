@@ -1,7 +1,7 @@
 import Stripe from 'stripe';
 import axios from 'axios';
-import { logger } from './logger.service';
-import { supabase } from './supabase.service';
+import logger from '../utils/logger.js';
+import { supabase } from './supabase.service.js';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '');
 

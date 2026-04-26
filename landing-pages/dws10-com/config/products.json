@@ -425,7 +425,7 @@
       "price": 1500,
       "currency": "EUR",
       "type": "one-time",
-      "description": "One full day (€200/hour senior rate) with a certified AWS Solutions Architect. Assess your cloud posture, design the next migration step, and leave with a concrete architecture diagram plus a prioritised backlog. Covers AWS, Azure, and GCP — multi-cloud by default. Most clients identify a 30–60% infra cost saving in the first session.",
+      "description": "Industrial cloud architecture for manufacturing, logistics, construction, and energy. Cut your AWS bill by finding what is running and what to kill. Migrate from AWS or Azure to Finnish sovereign cloud. One day, one certified Solutions Architect, fixed price.",
       "features": [
         "AWS Solutions Architect day",
         "Multi-cloud AWS / Azure / GCP",
@@ -450,9 +450,21 @@
       "productType": "us-stack",
       "buyPage": 3,
       "buyPageOrder": 5,
-      "pain": "Your AWS bill grew 40 % this year — and your engineers cannot say what is actually running.",
+      "pain": "Industrial cloud only. Cut the AWS bill. Kill the waste. Map the migration to sovereign cloud.",
       "proofChip": "30-60 % infra savings typical",
-      "proofSource": "AWS Well-Architected Review cohort benchmarks 2024"
+      "proofSource": "AWS Well-Architected Review cohort benchmarks 2024",
+      "heroText": "Your industrial workloads are running on AWS, the bill is growing, and CLOUD Act exposure is invisible — one day to find what to kill, cut the waste, and map the migration to Finnish sovereign cloud.",
+      "focus": "Industrial cloud business cases only — factory floor AI, IoT data pipelines, SCADA integration, edge-to-cloud architectures.",
+      "painPoints": [
+        "AWS or Azure bill growing without clear ROI on industrial workloads",
+        "CLOUD Act exposure on manufacturing and operational data",
+        "No clear migration path to EU sovereign infrastructure"
+      ],
+      "outcomes": [
+        "Full inventory of running workloads and monthly costs",
+        "Kill list — resources to terminate immediately",
+        "Sovereign migration roadmap with phased cost model"
+      ]
     },
     "conversational-agent": {
       "id": "conversational-agent",
@@ -494,7 +506,7 @@
       "price": 1500,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Get 188% ROI from the Microsoft licenses you already pay for. One full day (€200/hour senior rate) of expert consultancy to automate business processes with Power Apps and cut development costs by 74%. Most clients launch their first app within the engagement.",
+      "description": "Microsoft Power Platform and Dynamics 365 for industrial operations. Connect plant floor processes to Power Automate and Dynamics 365 — production orders, maintenance work orders, HSE reporting, logistics dispatch, field service. One day, 74% development cost reduction on industrial workflows.",
       "features": [
         "Power Apps process automation",
         "188% ROI on M365 licenses",
@@ -519,9 +531,23 @@
       "productType": "us-stack",
       "buyPage": 3,
       "buyPageOrder": 4,
-      "pain": "You pay for Microsoft 365 licenses — your team uses 12 % of what is bundled.",
+      "pain": "Industrial operations on Power Automate + Dynamics 365. Plant floor to board report in one day.",
       "proofChip": "188 % ROI · Power Apps live in 1 day",
-      "proofSource": "Forrester TEI Microsoft Power Platform 2023"
+      "proofSource": "Forrester TEI Microsoft Power Platform 2023",
+      "heroText": "Your plant floor still runs on email approvals and Excel handoffs — one day to connect industrial operations to Power Automate and Dynamics 365 and cut manual process costs by 74%.",
+      "focus": "Industrial business cases only — manufacturing, logistics, construction, energy.",
+      "productLinks": [
+        "https://www.microsoft.com/fi-fi/power-platform/products/power-automate",
+        "https://dynamics.microsoft.com/fi-fi/supply-chain-management/overview/",
+        "https://dynamics.microsoft.com/fi-fi/field-service/overview/"
+      ],
+      "useCases": [
+        "Production order approvals via Power Automate",
+        "Maintenance work orders connected to Dynamics 365 Field Service",
+        "HSE incident reporting automated and logged",
+        "Energy consumption tracking via Power BI + Dynamics",
+        "Logistics dispatch integrated with Dynamics 365 Supply Chain Management"
+      ]
     },
     "ai-agent-engineering": {
       "id": "ai-agent-engineering",
@@ -817,7 +843,7 @@
       "price": 1500,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Your data is worth more than you think. ERP connections (SAP, IFS, Dynamics, Monitor), LLM model integration (Claude, GPT, Gemini, Groq), and RAG pipelines that turn raw operational data into revenue and compliance insights. One-day senior consultancy at €200/hour — remote or on-site.",
+      "description": "Connect your ERP, Salesforce, compliance systems, and operational data so every AI agent and sales rep works from the same live picture. ERP connections, RAG pipelines, Salesforce Agent data feeds, and LLM integration in days, not quarters.",
       "features": [
         "ERP connections (SAP, IFS, Dynamics, Monitor)",
         "LLM models (Claude, GPT, Gemini, Groq)",
@@ -842,9 +868,27 @@
       "productType": "delivery-service",
       "buyPage": 2,
       "buyPageOrder": 7,
-      "pain": "Your data sits in 7 systems — no single sales view, no marketing segments, no ops measurement.",
+      "pain": "Connect your ERP, Salesforce Agents, and compliance systems. One data layer. Days, not quarters.",
       "proofChip": "Unified pipeline · audit-grade",
-      "proofSource": "Lifetime Oy customer pipeline benchmark 2025"
+      "proofSource": "Lifetime Oy customer pipeline benchmark 2025",
+      "heroText": "Your Salesforce Agents can't close deals they can't see — connect your ERP, compliance data, and operational systems so every AI agent and sales rep works from the same live picture.",
+      "connectors": [
+        "SAP S/4HANA (OData V4)",
+        "Dynamics 365",
+        "IFS Cloud",
+        "Monitor G5",
+        "Procountor",
+        "Netvisor",
+        "Salesforce (Agentforce data feeds)",
+        "Microsoft Graph API"
+      ],
+      "dataFlows": [
+        "Compliance pipelines — CSRD Scope 1-3 from ERP to disclosure",
+        "Sales intelligence — deal history and contract data to Salesforce Agents",
+        "AI/LLM — RAG pipelines from structured operational data",
+        "Operational dashboards — real-time ERP feeds"
+      ],
+      "salesforceNote": "Salesforce Agentforce integration: feeds live ERP, contract, and compliance context to Salesforce Agents so they can act on complete data. Order-to-cash reconciliation flows back from Salesforce to ERP."
     },
     "devops-lead": {
       "id": "devops-lead",
@@ -1523,6 +1567,11 @@
         "version": "2026.Q2",
         "date": "2026-04-23",
         "change": "Added 5-language VAT reference (EU B2B 0%, FI 25.5%, SE 25%, DE 19%, FR 20%) sourced from EC TAXUD VAT Rates 2026."
+      },
+      {
+        "version": "2026.Q2",
+        "date": "2026-04-25",
+        "change": "DWS-WEB-UPDATE-2026-001: Industrial focus realignment for aws-consultancy, m365-consultancy, firehorse-data-services — updated descriptions, heroText, focus/useCases/connectors/dataFlows/salesforceNote, and price-list card taglines."
       }
     ]
   },
@@ -1563,5 +1612,5 @@
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-04-23T00:00:00Z"
+  "lastUpdated": "2026-04-25T00:00:00Z"
 }
