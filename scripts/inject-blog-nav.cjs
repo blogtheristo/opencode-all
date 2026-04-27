@@ -76,6 +76,11 @@ const posts = [
     title: 'MCP Apps Extends the Frontier — KYA Is the Identity Spine',
     date: '22 Apr 2026',
   },
+  {
+    file: 'fpe-dark-mode-construction-wedge.html',
+    title: 'FPE · The Construction Wedge — €14,999 to Reduce Weakest-Link Failure',
+    date: '27 Apr 2026',
+  },
 ];
 
 // Three featured products

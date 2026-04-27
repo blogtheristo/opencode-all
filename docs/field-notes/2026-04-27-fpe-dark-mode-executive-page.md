@@ -7,6 +7,7 @@
 | Version | Date       | Agent       | Change                                                                                |
 | ------- | ---------- | ----------- | ------------------------------------------------------------------------------------- |
 | 1.0     | 2026-04-27 | Claude Code | Initial field note for `lifetime.fi/firehorse-production-engine/` dark-mode exec page |
+| 1.1     | 2026-04-27 | Claude Code | Construction wedge follow-up: blog post + nav injection + dual-folder sync            |
 
 ---
 
@@ -152,3 +153,45 @@ darker tokens, single-page brief) is reusable for other narratives — KYA,
 Article 12, sovereignty. Could become **`/exec-brief <topic>`** that scaffolds
 this same structure with a topic-specific hero + quotes. **Worth proposing
 to Risto as a follow-up if a second executive-tone page is requested.**
+
+## 8. Construction wedge follow-up
+
+Branch: `claude/fpe-blog-field-notes-iAhno` (off `main` after PR #1200 merged
+and the previous session's branch was auto-deleted).
+
+- Authored `onelifetime.world/posts/fpe-dark-mode-construction-wedge.html`
+  modeled on `redhat-sovereign-move-three-tiers.html` (Tailwind CDN, dark
+  gradient, version-chip, callout / callout-gold / tier-card classes).
+  Lead block carries Risto's verbatim pricing line; the offer block repeats
+  it for canonical reinforcement.
+- Four layoff signal cards cite Lehto Group (Helsinki District Court / HS /
+  Reuters, March 2024), YIT Oyj and SRV Group (Nasdaq Helsinki releases
+  2023–2024), and Statistics Finland (Tilastokeskus Labour Force Survey
+  2023–2024). All public sources, no telemetry.
+- Cost-model section uses three conservative sliders sourced to SHRM / CAP
+  (replacement-cost band 90–200%), Gallup (~50% productivity for six months
+  after a 12-week vacancy), Gartner 2024 AI value-capture statistics, and
+  EU AI Act Reg. (EU) 2024/1689 Art. 99 — probability-weighted, NOT the
+  headline cap. Section explicitly states the model does not claim full €1M
+  recovery; it estimates partial-restart cost avoidance plus
+  probability-weighted compliance exposure.
+- The wedge section names the eight construction domains (BIM, cost
+  estimation, schedule, CSRD, CBAM, EN 15978 carbon, site safety,
+  procurement); customer picks the five most critical first, the other
+  four follow inside the same 30-day pack.
+- "Early Learning" cohort framing on the offer block; CFO-direct mailto
+  under the €15k procurement threshold preserved verbatim. Mailto target
+  is `risto@onelifetime.world` with subject "FPE Continuity Pack —
+  Construction Edition".
+- Prepended to `latestPosts[]` index 0 in `onelifetime.world/blog/index.html`
+  (Text-of-the-Day per `BLOG_STANDARD.md` §3.1) and appended to the tail of
+  the `posts` array in `scripts/inject-blog-nav.cjs`. Ran
+  `node scripts/inject-blog-nav.cjs` to refresh prev/next nav across all
+  root-level posts; the new post itself uses the dark-mode template (no
+  footer marker), so the injector skips it — matching how
+  `redhat-sovereign-move-three-tiers.html` is treated. The previous post
+  (`mcp-apps-identity-spine.html`) now points "next" to the new post.
+- Mirrored every change to `landing-pages/onelifetime-world/` (post HTML +
+  blog index + the two injector-touched posts). PR not auto-opened — Risto
+  opens compare URL manually:
+  `https://github.com/blogtheristo/dws6/compare/main...claude/fpe-blog-field-notes-iAhno`.
