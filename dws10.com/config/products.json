@@ -421,22 +421,23 @@
       "id": "aws-consultancy",
       "gtin": null,
       "mpn": "AWS-CONSULT-2026",
-      "name": "AWS Cloud Architect Consultancy",
+      "name": "AWS Cloud & Claude Code Architect Consultancy",
       "price": 1500,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Industrial cloud architecture for manufacturing, logistics, construction, and energy. Cut your AWS bill by finding what is running and what to kill. Migrate from AWS or Azure to Finnish sovereign cloud. One day, one certified Solutions Architect, fixed price.",
+      "description": "Industrial cloud architecture for manufacturing, logistics, construction, and energy. AWS just launched Claude Platform native on AWS — no Bedrock required. One day with a certified AWS Solutions Architect + Claude Code expert to evaluate your workloads, architect Claude Platform migrations (faster, cheaper, simpler than Lambda/container stacks), cut your AWS bill, and map your AI stack modernization. Fixed price.",
       "features": [
-        "AWS Solutions Architect day",
-        "Multi-cloud AWS / Azure / GCP",
-        "Architecture diagram + backlog deliverable"
+        "AWS Solutions Architect + Claude Code expert",
+        "Claude Platform on AWS evaluation & architecture",
+        "Cost optimization (Lambda → Claude Platform migrations)",
+        "Infra savings roadmap + AI modernization plan"
       ],
       "priceNote": "Per day, VAT excl.",
       "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
       "detailsUrl": "../products/aws-consultancy.html",
-      "featured": false,
+      "featured": true,
       "google": {
         "productCategory": "1426",
         "condition": "new",
@@ -450,20 +451,22 @@
       "productType": "us-stack",
       "buyPage": 3,
       "buyPageOrder": 5,
-      "pain": "Industrial cloud only. Cut the AWS bill. Kill the waste. Map the migration to sovereign cloud.",
-      "proofChip": "30-60 % infra savings typical",
-      "proofSource": "AWS Well-Architected Review cohort benchmarks 2024",
-      "heroText": "Your industrial workloads are running on AWS, the bill is growing, and CLOUD Act exposure is invisible — one day to find what to kill, cut the waste, and map the migration to Finnish sovereign cloud.",
-      "focus": "Industrial cloud business cases only — factory floor AI, IoT data pipelines, SCADA integration, edge-to-cloud architectures.",
+      "pain": "Your Lambda functions cost €80k/year to do what Claude Platform can do for €8k. Your team builds brittle container orchestration when they should be shipping agents. AWS just made Claude Platform native — but your architecture is stuck in 2023.",
+      "proofChip": "Claude Platform GA 2026 · 10× cost reduction typical",
+      "proofSource": "AWS Platform on AWS launch April 2026 + DWS consulting cost models 2026",
+      "heroText": "Your industrial workloads are running on AWS Lambda/container stacks — the bill is growing and the code is getting more fragile. AWS just launched Claude Platform native on AWS. One day to find what you're overspending, map your Lambda → Claude Platform migration, and reset your AI cost model.",
+      "focus": "Industrial cloud business cases only — factory floor AI agents, IoT data pipelines, SCADA integration, edge-to-cloud architectures, production agent deployments.",
       "painPoints": [
-        "AWS or Azure bill growing without clear ROI on industrial workloads",
-        "CLOUD Act exposure on manufacturing and operational data",
-        "No clear migration path to EU sovereign infrastructure"
+        "Lambda / container orchestration cost and complexity spiraling (€60k-€300k+/year)",
+        "Team shipping agents in scripts when they should use Claude Code + MCP",
+        "No clear path to native cloud-based agentic AI on AWS",
+        "CLOUD Act exposure on manufacturing and operational data"
       ],
       "outcomes": [
-        "Full inventory of running workloads and monthly costs",
-        "Kill list — resources to terminate immediately",
-        "Sovereign migration roadmap with phased cost model"
+        "Full cost inventory — running vs. kill-list resources + monthly spend baseline",
+        "Claude Platform on AWS evaluation & migration roadmap (phased cost model)",
+        "AI modernization plan — Lambda/container → Claude Platform agents",
+        "Sovereign infrastructure options if CLOUD Act exposure is a concern"
       ]
     },
     "conversational-agent": {
