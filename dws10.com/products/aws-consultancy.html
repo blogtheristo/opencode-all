@@ -20,30 +20,65 @@
       .container {
         max-width: 800px;
         margin: 40px auto;
-        background: rgba(30, 41, 59, 0.5);
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(59, 48, 30, 0.3));
         padding: 40px;
         border-radius: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(245, 158, 11, 0.25);
         flex-grow: 1;
       }
+      .featured-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        color: #1f2937;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        margin-bottom: 16px;
+        text-transform: uppercase;
+      }
       h1 {
-        color: #60a5fa;
+        color: #f59e0b;
+        margin-top: 0;
       }
       .price {
         font-size: 2rem;
-        color: #4ade80;
+        color: #fbbf24;
         font-weight: bold;
         margin-bottom: 20px;
       }
       a.buy-btn {
         display: inline-block;
-        background: #2563eb;
-        color: white;
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        color: #1f2937;
         padding: 15px 30px;
-        border-radius: 5px;
+        border-radius: 8px;
         text-decoration: none;
         font-weight: bold;
         margin-top: 20px;
+        margin-right: 12px;
+        transition: all 0.2s;
+      }
+      a.buy-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(245, 158, 11, 0.3);
+      }
+      a.buy-btn-secondary {
+        display: inline-block;
+        background: transparent;
+        color: #fbbf24;
+        border: 2px solid #f59e0b;
+        padding: 13px 28px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        margin-top: 20px;
+        transition: all 0.2s;
+      }
+      a.buy-btn-secondary:hover {
+        background: rgba(245, 158, 11, 0.1);
+        transform: translateY(-2px);
       }
       a.back-link {
         color: #94a3b8;
@@ -94,8 +129,9 @@
     </div>
     <div class="container">
       <a href="../" class="back-link">← Back to Store</a>
+      <div class="featured-badge">⭐ Most Popular</div>
       <h1>AWS Cloud & Claude Code Architect Consultancy</h1>
-      <div class="price">€1500</div>
+      <div class="price">€1500 / day</div>
       <div class="content">
         <p>
           One day with an AWS Solutions Architect + Claude Code expert. AWS just launched Claude
@@ -115,11 +151,20 @@
           phased migration roadmap. No slide decks — working implementation guidance.
         </p>
       </div>
-      <a
-        href="mailto:risto@lifetime.fi?subject=Book AWS Cloud & Claude Code Consultancy (aws-consultancy)"
-        class="buy-btn"
-        >Book Consultation</a
-      >
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px">
+        <a
+          href="https://calendar.google.com/calendar/u/0/r/eventedit?text=AWS%20Cloud%20%26%20Claude%20Code%20Consultancy%20with%20Risto&details=AWS%20Solutions%20Architect%20%2B%20Claude%20Code%20expert%20consultation.%20One%20full%20day%20engagement.%0A%0AContact:%20risto@lifetime.fi%0APhone:%20%2B358%20400%20319%20010&location=Virtual%20or%20On-site"
+          class="buy-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+          >📅 Schedule on Google Calendar</a
+        >
+        <a
+          href="mailto:risto@lifetime.fi?subject=Book AWS Cloud & Claude Code Consultancy (aws-consultancy)&body=I%20am%20interested%20in%20booking%20an%20AWS%20Cloud%20%26%20Claude%20Code%20Architect%20Consultancy%20session.%0A%0APreferred%20dates:%0AIndustry:%0ACurrent%20AWS%20spend:%0A%0APlease%20confirm%20availability."
+          class="buy-btn-secondary"
+          >✉️ Email Risto</a
+        >
+      </div>
     </div>
     <footer style="text-align: center; padding: 40px; color: #64748b; font-size: 0.9rem">
       <p><strong>LEGAL NOTICE</strong></p>
