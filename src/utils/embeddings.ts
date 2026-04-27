@@ -19,10 +19,10 @@
  * Date: 2026-04-25
  * Owner: DWS IQ Platform
  */
+import { execFile } from 'node:child_process';
+import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import logger from './logger.js';
-
-const execFileP = promisify(execFile);
 
 const MAX_INPUT_CHARS = 8000;
 const DGX_EMBED_SCRIPT = resolve(
