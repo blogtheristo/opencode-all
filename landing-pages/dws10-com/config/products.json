@@ -1459,6 +1459,47 @@
       "pain": "EU AI Act enforces 2 August 2026 — you need Article 12 logging, Annex III registry, and policy gates. Your existing governance tool (Credo AI, OneTrust, IBM Watsonx) has a US parent, voiding your sovereignty claim.",
       "proofChip": "KYA-compliant · EU-built · Aegis Control Plane",
       "proofSource": "KYA Standard v1.7 + EU AI Act Articles 9, 12, 14, 17, 26, 43, 72, 73"
+    },
+    "FH-FPE-001": {
+      "id": "FH-FPE-001",
+      "gtin": null,
+      "mpn": "FH-FPE-CONSTRUCTION-2026",
+      "name": "Firehorse FPE Continuity Pack — Construction Edition",
+      "price": 14999,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "You invested in AI. One bad layoff can wipe out that value. FPE costs €14,999 to reduce weakest-link failure in 5 critical workflows — pick the most critical first; the other four follow inside the same 30 days. Each becomes operator-independent — KYA-signed, EU AI Act Article 12 logged, with a named owner and a named successor. Built for EU construction firms exposed to the 2024–2025 layoff wave.",
+      "features": [
+        "5 critical operator-bound workflows mapped, owned, made operator-independent",
+        "Pick the most critical first — the other four follow inside the same 30-day pack",
+        "KYA agent governance signature on every action",
+        "EU AI Act Article 12 audit log",
+        "30-day signed continuity audit (CFO + board readable)",
+        "Bolts onto Firehorse Starter V2 engine and existing AI investment",
+        "Construction scope: BIM, cost estimation, schedule, CSRD, CBAM, EN 15978 carbon, site safety, procurement"
+      ],
+      "priceNote": "One-time, 30-day delivery. CFO sign-off direct (under €15k procurement threshold).",
+      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "paypalPlanId": null,
+      "image": "/static/images/firehorse-starter-v2.png",
+      "detailsUrl": "https://lifetime.fi/firehorse-production-engine/",
+      "featured": true,
+      "google": {
+        "productCategory": "1505",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Firehorse",
+        "targetCountry": "FI",
+        "contentLanguage": "en",
+        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+      },
+      "storeCategory": "platform",
+      "productType": "firehorse-saas",
+      "buyPage": 1,
+      "buyPageOrder": 3,
+      "pain": "EU construction is mid-correction. Finnish construction employment dropped sharply in 2023–2024 (Statistics Finland). Lehto Group filed for bankruptcy March 2024; YIT and SRV announced co-determination rounds 2023–2024. When the operator who built your AI workflow is the one let go, the workflow stops.",
+      "proofChip": "Reduces weakest-link failure in one critical workflow",
+      "proofSource": "Statistics Finland construction employment release 2024; YIT Oyj and SRV Group stock-exchange notices 2023–2024; Lehto Group bankruptcy filing March 2024 (public press)"
     }
   },
   "priceList": {
@@ -1572,6 +1613,11 @@
         "version": "2026.Q2",
         "date": "2026-04-25",
         "change": "DWS-WEB-UPDATE-2026-001: Industrial focus realignment for aws-consultancy, m365-consultancy, firehorse-data-services — updated descriptions, heroText, focus/useCases/connectors/dataFlows/salesforceNote, and price-list card taglines."
+      },
+      {
+        "version": "2026.Q2",
+        "date": "2026-04-27",
+        "change": "FH-FPE-001 added — Firehorse FPE Continuity Pack — Construction Edition (€14,999). Wedge: reduce weakest-link failure in one critical workflow. CFO-direct sign-off (under €15k threshold). Public-source pain trail: Statistics Finland 2023–2024 construction employment, Lehto Group bankruptcy March 2024, YIT/SRV co-determination rounds. Detail page: lifetime.fi/firehorse-production-engine/."
       }
     ]
   },
