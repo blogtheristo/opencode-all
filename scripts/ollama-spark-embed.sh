@@ -64,4 +64,6 @@ TEXT="${TEXT:0:8000}"
 PAYLOAD=$(jq -cn --arg m "$MODEL" --arg p "$TEXT" \
   '{model:$m, prompt:$p}')
 
-ssh "$DGX_SSH_HOST" "curl -sS $DGX_OLLAMA_URL/api/embeddings -d '$PAYLOAD'"
+REMOTE_URL=$(printf '%s' "$DGX_OLLAMA_URL/api/embeddings" | jq -sRr @sh)
+
+printf '%s' "$PAYLOAD" | ssh "$DGX_SSH_HOST" "curl -sS $REMOTE_URL --data-binary @-"
