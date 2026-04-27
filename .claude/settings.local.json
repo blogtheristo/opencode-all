@@ -10,10 +10,13 @@
       "Bash(ls:*)",
       "Bash(python:*)",
       "Bash(git:*)",
-      "Bash(start:*)"
+      "Bash(start:*)",
+      "Bash(node dws10.com/feeds/generate-local-inventory.cjs)"
     ]
   },
-  "enabledMcpjsonServers": ["dws-gateway-local"],
+  "enabledMcpjsonServers": [
+    "dws-gateway-local"
+  ],
   "hooks": {
     "SessionStart": [
       {
