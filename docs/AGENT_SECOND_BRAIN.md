@@ -2,7 +2,7 @@
 
 # VERSION AND AGENT HISTORY
 
-***
+---
 
 | Version | Date       | Agent       | Change                                                    |
 | ------- | ---------- | ----------- | --------------------------------------------------------- |
@@ -111,12 +111,12 @@ Returns the raw Ollama JSON: `{"embedding": [0.012, -0.043, …], "model": "..."
 
 `scripts/daily/kb-watch-inbox.sh` is auto-discovered by the DGX Spark `day-runner.sh` per the **Script Automation Rule** (`CLAUDE.md`). On each daily pass:
 
-1. Reads the `.last-watch-run` sentinel inside `kb/`.
-2. Finds all `*.md` / `*.txt` / `*.pdf` in `kb/raw/articles/` newer than the sentinel.
-3. Pipes each through `npx tsx cli/src/cli.ts kb ingest <file>`.
-4. Advances the sentinel only if every file ingested cleanly (failed files retry tomorrow).
+1. **First run** (no `.last-watch-run` sentinel): backfill the existing inbox, oldest-first, capped at `KB_WATCH_MAX_PER_RUN` (default `25`). Anything beyond the cap is picked up on subsequent passes — no manual sentinel deletion required.
+2. **Subsequent runs**: only files newer than the sentinel.
+3. Each selected file is piped through `npx tsx cli/src/cli.ts kb ingest <file>`.
+4. The sentinel only advances when (a) every selected file ingested cleanly **and** (b) the cap was not hit. Failed or capped files are retried on the next pass.
 
-First run is a no-op (it just stamps the sentinel) so deploying the script doesn't trigger a stampede on existing inbox content.
+The cap bounds blast radius if a large historical inbox is dropped onto a fresh deployment; raise `KB_WATCH_MAX_PER_RUN` if you want a faster initial drain.
 
 ## 8. Build for Agents checklist (per CLAUDE.md)
 

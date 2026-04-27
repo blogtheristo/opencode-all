@@ -33,7 +33,7 @@ const newPage = vi.fn(async () => ({
   accessibility: { snapshot: accessibilitySnapshot },
   setDefaultNavigationTimeout,
 }));
-const close = vi.fn();
+const close = vi.fn(async () => {});
 const newContext = vi.fn(async () => ({ newPage, close }));
 const launch = vi.fn(async () => ({ newContext, close }));
 
