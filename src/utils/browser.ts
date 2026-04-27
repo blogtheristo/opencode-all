@@ -9,7 +9,7 @@
  * Consumers: regulatory-radar, competitor-surveillance, seo-audit,
  * `/browse` skill, MCP tools (dws_browse_*), CLI (`dws browse`).
  *
- * Code-Version: 1.0.0
+ * Code-Version: 1.1.0
  * Introduced-In: PR-claude/add-playwright-implementation-Rg5Jy
  * Branch: claude/add-playwright-implementation-Rg5Jy
  * Date: 2026-04-25
@@ -17,12 +17,16 @@
  *
  * Security:
  *   - Only http(s) URLs are accepted (validated at the boundary).
+ *   - SSRF defense: assertPublicUrl() blocks private / loopback / link-local /
+ *     cloud-metadata IP ranges, BOTH for the user-supplied URL AND for any
+ *     redirect / sub-resource Chromium tries to load (via page.route).
  *   - Browser launched with no shared state per call (fresh context).
  *   - Hard navigation timeout (30s) prevents hanging agents.
  *   - Returned HTML is NOT executed — agents parse it as untrusted input.
  */
 
-import type { Browser, BrowserContext, Page } from 'playwright';
+import type { Browser, BrowserContext, Page, Route } from 'playwright';
+import { assertPublicUrl, SsrfBlockedError } from './url-guard.js';
 
 const NAV_TIMEOUT_MS = 30_000;
 const DEFAULT_VIEWPORT = { width: 1280, height: 800 };
@@ -60,18 +64,6 @@ export interface BrowseSnapshotResult {
   durationMs: number;
 }
 
-function assertHttpUrl(url: string): void {
-  let parsed: URL;
-  try {
-    parsed = new URL(url);
-  } catch {
-    throw new Error(`Invalid URL: ${url}`);
-  }
-  if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
-    throw new Error(`Only http(s) URLs are allowed, got: ${parsed.protocol}`);
-  }
-}
-
 async function withPage<T>(
   fn: (page: Page) => Promise<T>,
   opts: { viewport?: { width: number; height: number } } = {},
@@ -89,6 +81,25 @@ async function withPage<T>(
     });
     const page = await context.newPage();
     page.setDefaultNavigationTimeout(NAV_TIMEOUT_MS);
+
+    // SSRF defense layer 2: re-check every request Chromium makes,
+    // including redirects, iframes, and sub-resources. The pre-goto
+    // assertPublicUrl() check covers the user-supplied URL; this
+    // catches anything Chromium tries to fetch afterwards.
+    await page.route('**/*', async (route: Route) => {
+      const requestUrl = route.request().url();
+      try {
+        await assertPublicUrl(requestUrl);
+        await route.continue();
+      } catch (err) {
+        if (err instanceof SsrfBlockedError) {
+          await route.abort('blockedbyclient');
+        } else {
+          await route.abort('failed');
+        }
+      }
+    });
+
     return await fn(page);
   } finally {
     if (context) await context.close().catch(() => {});
@@ -97,7 +108,7 @@ async function withPage<T>(
 }
 
 export async function browseFetch(url: string): Promise<BrowseFetchResult> {
-  assertHttpUrl(url);
+  await assertPublicUrl(url);
   const start = Date.now();
   return withPage(async (page) => {
     const response = await page.goto(url, { waitUntil: 'domcontentloaded' });
@@ -118,7 +129,7 @@ export async function browseScreenshot(
   url: string,
   viewport: { width: number; height: number } = DEFAULT_VIEWPORT,
 ): Promise<BrowseScreenshotResult> {
-  assertHttpUrl(url);
+  await assertPublicUrl(url);
   const start = Date.now();
   return withPage(
     async (page) => {
@@ -138,7 +149,7 @@ export async function browseScreenshot(
 }
 
 export async function browseSnapshot(url: string): Promise<BrowseSnapshotResult> {
-  assertHttpUrl(url);
+  await assertPublicUrl(url);
   const start = Date.now();
   return withPage(async (page) => {
     await page.goto(url, { waitUntil: 'domcontentloaded' });

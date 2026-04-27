@@ -2,7 +2,7 @@
 
 # VERSION AND AGENT HISTORY
 
-***
+---
 
 | Version | Date       | Agent       | Change                                           |
 | ------- | ---------- | ----------- | ------------------------------------------------ |
@@ -76,19 +76,26 @@ Discoverable via `dws mcp tools`:
 
 ## 5. One-time setup
 
-The Playwright npm package is a dev dependency (`package.json`). The Chromium binary is downloaded separately:
+The Playwright npm package is a **runtime** dependency (`dependencies` in `package.json`) because the backend invokes it from `src/utils/browser.ts` whenever an MCP `dws_browse_*` tool is called. Production deploys that run `npm ci --omit=dev` (e.g., the DGX Spark workflow) therefore still install it. The Chromium binary itself is downloaded separately and is **not** committed:
 
 ```bash
 npx playwright install chromium
 ```
 
-Run this once on a fresh checkout, on DGX Spark, and in any CI runner that uses the `/browse` skill or runs E2E tests. The browser binary is **not** committed.
+Run this once on a fresh checkout, on DGX Spark, and in any CI runner that uses the `/browse` skill or runs E2E tests.
 
 ## 6. Security
 
 `browser.ts` enforces:
 
 - `http://` and `https://` only — `file://`, `javascript:`, `ftp://`, `data:` etc. are rejected at the boundary.
+- **SSRF guard (`src/utils/url-guard.ts`):** every URL — both the user-supplied one and every redirect / sub-resource Chromium tries to fetch — is checked against a default-deny list of private ranges:
+  - IPv4: loopback `127/8`, RFC1918 (`10/8`, `172.16/12`, `192.168/16`), link-local `169.254/16` (incl. cloud-metadata `169.254.169.254`), CGNAT `100.64/10`, unspecified `0/8`, multicast `224/4`, reserved `240/4`.
+  - IPv6: loopback `::1`, unspecified `::`, link-local `fe80::/10`, unique-local `fc00::/7`, multicast `ff00::/8`, IPv4-mapped equivalents.
+  - Hostnames: `localhost`, `*.local`, `*.internal`, `*.intranet`, `*.localhost` are blocked without a DNS lookup. All other hostnames are resolved and rejected if **any** answer is private.
+  - Two-layer enforcement: pre-`goto` `assertPublicUrl()` + `page.route('**/*')` so a public URL that 302-redirects to `http://10.0.0.5/` still gets aborted.
+  - Override (dev only): `BROWSE_ALLOW_PRIVATE=1` disables the IP check (scheme check still runs). Do **not** set this in production.
+  - Residual risk: DNS rebinding (TTL=0 attacker flips a hostname public→private between Node's lookup and Chromium's). Pre-resolve + route-intercept narrow the window; full mitigation needs per-request IP pinning and is out of scope for v1.
 - Hard 30 s navigation timeout.
 - Fresh `BrowserContext` per call (no cookie carry-over between requests).
 - `Browser` and `Context` are always closed in `finally`, even on error.

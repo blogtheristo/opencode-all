@@ -24,6 +24,7 @@ const accessibilitySnapshot = vi.fn(async () => ({
   ],
 }));
 const setDefaultNavigationTimeout = vi.fn();
+const route = vi.fn(async () => {});
 const newPage = vi.fn(async () => ({
   goto,
   content,
@@ -32,6 +33,7 @@ const newPage = vi.fn(async () => ({
   screenshot,
   accessibility: { snapshot: accessibilitySnapshot },
   setDefaultNavigationTimeout,
+  route,
 }));
 const close = vi.fn(async () => {});
 const newContext = vi.fn(async () => ({ newPage, close }));
@@ -41,7 +43,13 @@ vi.mock('playwright', () => ({
   chromium: { launch },
 }));
 
-// Import AFTER the mock is registered.
+// SSRF guard resolves DNS — mock it to a known public address so tests
+// don't need network access.
+vi.mock('node:dns/promises', () => ({
+  lookup: vi.fn(async () => [{ address: '93.184.216.34', family: 4 }]),
+}));
+
+// Import AFTER the mocks are registered.
 import { browseFetch, browseScreenshot, browseSnapshot } from '../utils/browser.js';
 
 beforeEach(() => {
@@ -54,19 +62,39 @@ beforeEach(() => {
   newContext.mockClear();
   launch.mockClear();
   close.mockClear();
+  route.mockClear();
 });
 
-describe('browser util — URL validation', () => {
+describe('browser util — URL validation (SSRF guard wired)', () => {
   it('rejects non-http(s) URLs', async () => {
-    await expect(browseFetch('file:///etc/passwd')).rejects.toThrow(/Only http\(s\)/);
-    await expect(browseFetch('javascript:alert(1)')).rejects.toThrow(/Only http\(s\)/);
-    await expect(browseScreenshot('ftp://example.com')).rejects.toThrow(/Only http\(s\)/);
+    await expect(browseFetch('file:///etc/passwd')).rejects.toThrow(/scheme/);
+    await expect(browseFetch('javascript:alert(1)')).rejects.toThrow(/scheme/);
+    await expect(browseScreenshot('ftp://example.com')).rejects.toThrow(/scheme/);
     await expect(browseSnapshot('not a url')).rejects.toThrow(/Invalid URL/);
   });
 
-  it('accepts http and https URLs', async () => {
+  it('rejects private IP literals (SSRF)', async () => {
+    await expect(browseFetch('http://127.0.0.1/admin')).rejects.toThrow(/private-ip-literal/);
+    await expect(browseFetch('http://169.254.169.254/latest/meta-data/')).rejects.toThrow(
+      /private-ip-literal/,
+    );
+    await expect(browseFetch('http://10.0.0.5/')).rejects.toThrow(/private-ip-literal/);
+  });
+
+  it('rejects local hostnames (SSRF)', async () => {
+    await expect(browseFetch('http://localhost:3000/')).rejects.toThrow(/local-hostname/);
+    await expect(browseFetch('http://internal.local/')).rejects.toThrow(/local-hostname/);
+  });
+
+  it('accepts http and https URLs that resolve publicly', async () => {
     await expect(browseFetch('https://example.com')).resolves.toBeDefined();
     await expect(browseFetch('http://example.com')).resolves.toBeDefined();
+  });
+
+  it('installs a route handler so redirects are re-checked', async () => {
+    await browseFetch('https://example.com');
+    expect(route).toHaveBeenCalled();
+    expect(route.mock.calls[0]?.[0]).toBe('**/*');
   });
 });
 

@@ -14,7 +14,9 @@ Parse the URL from $ARGUMENTS. If $ARGUMENTS contains a URL, use it directly. If
 
 ## How this works
 
-The skill is backed by **Playwright (Chromium, headless)** through the `dws browse` CLI command, which routes to the backend MCP tool `dws_browse_fetch` / `dws_browse_screenshot` / `dws_browse_snapshot`. No external Rust binary is required — Playwright is a project dev dependency.
+The skill is backed by **Playwright (Chromium, headless)** through the `dws browse` CLI command, which routes to the backend MCP tool `dws_browse_fetch` / `dws_browse_screenshot` / `dws_browse_snapshot`. No external Rust binary is required — Playwright is a project runtime dependency.
+
+**SSRF guard:** any URL pointing at a private / loopback / link-local / cloud-metadata address is rejected before the browser navigates (see `src/utils/url-guard.ts`). Both the user-supplied URL and any redirect target are checked. To browse `http://localhost` during local development, set `BROWSE_ALLOW_PRIVATE=1` in your env — never set this in production.
 
 ## Capabilities
 
