@@ -8,7 +8,7 @@
 | ------- | ---------- | ----------- | --------------------------------------------------------- |
 | 1.0.0   | 2026-04-25 | Claude Code | Initial: DGX Spark embeddings + inbox watcher capability. |
 
----
+***
 
 ## 1. What this is
 
