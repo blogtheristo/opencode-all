@@ -27,6 +27,7 @@ import { memoryService } from '../agents/memory.service.js';
 import { factExtractionService } from '../agents/fact-extraction.service.js';
 import { telemetryService } from '../agents/telemetry.service.js';
 import { checkpointService } from '../agents/session-checkpoint.service.js';
+import { browseFetch, browseScreenshot, browseSnapshot } from '../utils/browser.js';
 import type { AgentContext } from '../agents/types.js';
 import type { MemoryType } from '../agents/memory.types.js';
 
@@ -269,6 +270,50 @@ function buildToolList(): MCPToolDefinition[] {
         },
       },
       required: ['text'],
+    },
+  });
+
+  // Browser tools — generic Playwright-backed capability for any agent that
+  // needs to fetch JS-rendered HTML, screenshot a page, or read its
+  // accessibility tree. Backs the `/browse` skill and the `dws browse` CLI.
+  tools.push({
+    name: 'dws_browse_fetch',
+    description:
+      'Fetch a URL with a real browser (Playwright Chromium) and return rendered HTML, final URL, status, and page title. Use when the page renders content with JavaScript and a plain HTTP fetch would miss it.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        url: { type: 'string', description: 'http(s) URL to fetch' },
+      },
+      required: ['url'],
+    },
+  });
+
+  tools.push({
+    name: 'dws_browse_screenshot',
+    description:
+      'Take a full-page PNG screenshot of a URL (Playwright Chromium). Returns base64-encoded PNG bytes. Use for visual QA, layout verification, or as evidence in reports.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        url: { type: 'string', description: 'http(s) URL to screenshot' },
+        width: { type: 'number', description: 'Viewport width (default: 1280)' },
+        height: { type: 'number', description: 'Viewport height (default: 800)' },
+      },
+      required: ['url'],
+    },
+  });
+
+  tools.push({
+    name: 'dws_browse_snapshot',
+    description:
+      "Return the page's accessibility tree (role + name for each interesting node). Use this instead of raw HTML when the agent only needs to find headings, links, buttons, or form fields.",
+    inputSchema: {
+      type: 'object',
+      properties: {
+        url: { type: 'string', description: 'http(s) URL to snapshot' },
+      },
+      required: ['url'],
     },
   });
 
@@ -518,6 +563,21 @@ async function executeToolCall(
       persist: args.persist !== false,
       minConfidence: (args.min_confidence as number) || 0.7,
     });
+  }
+
+  // Browser tools (must come before the dws_ agent catch-all)
+  if (toolName === 'dws_browse_fetch') {
+    return browseFetch(args.url as string);
+  }
+
+  if (toolName === 'dws_browse_screenshot') {
+    const width = (args.width as number) || 1280;
+    const height = (args.height as number) || 800;
+    return browseScreenshot(args.url as string, { width, height });
+  }
+
+  if (toolName === 'dws_browse_snapshot') {
+    return browseSnapshot(args.url as string);
   }
 
   // Agent tools — strip "dws_" prefix and convert underscores back to hyphens

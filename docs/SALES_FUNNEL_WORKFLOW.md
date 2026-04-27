@@ -203,7 +203,7 @@ LINE ITEM: "Activation deposit (paid)"    -€1.00
 **Edge case — €1 paid but Steps 4–6 abandoned:**
 
 - After 30-minute timeout, send one recovery email: "Your DWS order is waiting — complete your details in 24 hours to keep your bundle pricing"
-- After 24 hours: cancel Stripe PaymentIntent, issue €1 refund, release cart
+- After 24 hours: issue €1 refund via `stripe.refunds.create({ payment_intent: cart.activationPaymentId })`, release cart. Do NOT attempt to cancel the PaymentIntent — cancellation is only possible before confirmation; a successful charge requires a Refund on the PaymentIntent/Charge.
 - Log abandoned cart to `analytics.abandonedCarts[]` for retargeting
 
 ---
@@ -254,7 +254,7 @@ INVOICE PREFERENCES
 
 - FI VAT ID confirmed → `vatTreatment = "B2B_VAT_FI"` → add 25.5% VAT to total
 - Valid non-FI EU VAT ID → `vatTreatment = "B2B_VAT_0"` → reverse charge, no VAT
-- No VAT ID entered → `vatTreatment = "B2B_VAT_0"` → show warning: "Please provide your EU VAT number to apply reverse charge. Without it, Finnish VAT (25.5%) will apply."
+- No VAT ID entered → `vatTreatment = "B2B_VAT_FI"` → add 25.5% FI VAT + show warning: "Please provide your EU VAT number to apply reverse charge. Without a valid VAT ID, Finnish VAT (25.5%) applies."
 
 **On submit:** Form data stored in `order.enterpriseDetails`. Route to Step 5.
 
