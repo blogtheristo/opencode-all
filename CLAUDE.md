@@ -364,12 +364,12 @@ Key areas: `src/` backend, `dws6.com/` and `landing-pages/` websites, `Firehorse
 
 Landing pages exist in TWO locations and MUST be updated in BOTH:
 
-| Site              | Root Folder (source of truth) | Landing Pages Folder (production)       |
-| ----------------- | ----------------------------- | --------------------------------------- |
-| dws6.com          | `dws6.com/`                   | `landing-pages/dws6-com/`               |
-| dws10.com         | `dws10.com/`                  | `landing-pages/dws10-com/`              |
-| onelifetime.world | `onelifetime.world/`          | `landing-pages/onelifetime-world/`      |
-| lifetime.fi       | `lifetime.fi/`                | `landing-pages/lifetime-fi/` _(coming)_ |
+| Site              | Root Folder (source of truth) | Landing Pages Folder (production)  |
+| ----------------- | ----------------------------- | ---------------------------------- |
+| dws6.com          | `dws6.com/`                   | `landing-pages/dws6-com/`          |
+| dws10.com         | `dws10.com/`                  | `landing-pages/dws10-com/`         |
+| onelifetime.world | `onelifetime.world/`          | `landing-pages/onelifetime-world/` |
+| lifetime.fi       | `lifetime.fi/`                | `landing-pages/lifetime-fi/`       |
 
 **Workflow:** Update root folder FIRST → Test on Cloudflare Workers → THEN copy to landing-pages. Never update landing-pages first.
 
