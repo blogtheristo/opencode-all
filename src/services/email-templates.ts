@@ -609,6 +609,190 @@ export function investorOutreachTemplate(
 }
 
 // ============================================================
+// BOOKING CONFIRMATION
+// ============================================================
+
+export function bookingConfirmationTemplate(variables: {
+  customerName: string;
+  serviceName: string;
+  dateTime: string;
+  durationMinutes: number;
+  company: string;
+  notes: string;
+  cancelLink: string;
+}): string {
+  const body = `
+    <h1 style="margin: 0 0 24px 0; font-size: 28px; font-weight: 700; color: #f9fafb; line-height: 32px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+      Varaus vahvistettu ✓
+    </h1>
+
+    <p style="margin: 0 0 24px 0; font-size: 16px; color: #d1d5db; line-height: 24px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+      Hei ${escapeHtml(variables.customerName)},
+    </p>
+
+    <p style="margin: 0 0 24px 0; font-size: 15px; color: #d1d5db; line-height: 24px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+      Kiitos, varaus on vahvistettu!
+    </p>
+
+    <!-- Booking Details Card -->
+    <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 24px; background-color: #1f2937; border-radius: 8px; border: 1px solid #374151;">
+      <tr>
+        <td style="padding: 20px;">
+          <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+              <td style="font-size: 12px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; padding-bottom: 8px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">Palvelu</td>
+              <td align="right" style="font-size: 12px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; padding-bottom: 8px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">Kesto</td>
+            </tr>
+            <tr>
+              <td style="font-size: 18px; font-weight: 600; color: #f9fafb; padding-bottom: 16px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">${escapeHtml(variables.serviceName)}</td>
+              <td align="right" style="font-size: 18px; font-weight: 600; color: #f9fafb; padding-bottom: 16px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">${variables.durationMinutes} min</td>
+            </tr>
+            <tr>
+              <td colspan="2" style="border-top: 1px solid #374151; padding-top: 16px;"></td>
+            </tr>
+            <tr>
+              <td style="font-size: 12px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; padding-top: 16px; padding-bottom: 8px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">📅 Aika</td>
+            </tr>
+            <tr>
+              <td style="font-size: 16px; color: #60a5fa; font-weight: 500; padding-bottom: 16px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">${escapeHtml(variables.dateTime)}</td>
+            </tr>
+            <tr>
+              <td style="font-size: 12px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; padding-bottom: 8px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">💼 Yritys</td>
+            </tr>
+            <tr>
+              <td style="font-size: 14px; color: #d1d5db; padding-bottom: 16px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">${escapeHtml(variables.company)}</td>
+            </tr>
+            <tr>
+              <td style="font-size: 12px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; padding-bottom: 8px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">📝 Lisätiedot</td>
+            </tr>
+            <tr>
+              <td style="font-size: 14px; color: #d1d5db; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">${escapeHtml(variables.notes)}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <!-- CTA -->
+    <table role="presentation" cellpadding="0" cellspacing="0" style="margin-bottom: 24px;">
+      <tr>
+        <td align="center" style="background-color: #2563eb; border-radius: 8px;">
+          <a href="${variables.cancelLink}" target="_blank" class="btn" style="display: inline-block; padding: 12px 24px; font-size: 14px; font-weight: 500; color: #ffffff; text-decoration: none; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+            Peruuta varaus
+          </a>
+        </td>
+      </tr>
+    </table>
+
+    <p style="margin: 0; font-size: 13px; color: #6b7280; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+      Risto Anton Päärni · Lifetime Oy · Helsinki<br>
+      <a href="https://dws10.com" style="color: #60a5fa; text-decoration: none;">dws10.com</a>
+    </p>
+  `;
+  return baseLayout('Varaus vahvistettu — Risto Anton Päärni', body);
+}
+
+// ============================================================
+// BOOKING ADMIN NOTIFICATION
+// ============================================================
+
+export function bookingAdminNotificationTemplate(variables: {
+  customerName: string;
+  customerEmail: string;
+  customerPhone: string;
+  serviceName: string;
+  dateTime: string;
+  durationMinutes: number;
+  company: string;
+  notes: string;
+  adminLink: string;
+}): string {
+  const body = `
+    <h1 style="margin: 0 0 24px 0; font-size: 28px; font-weight: 700; color: #f9fafb; line-height: 32px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+      Uusi varaus 🎉
+    </h1>
+
+    <p style="margin: 0 0 24px 0; font-size: 15px; color: #d1d5db; line-height: 24px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+      Sinulle on tullut uusi varaus.
+    </p>
+
+    <!-- Booking Details Card -->
+    <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 24px; background-color: #1f2937; border-radius: 8px; border: 1px solid #374151;">
+      <tr>
+        <td style="padding: 20px;">
+          <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+              <td style="font-size: 12px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; padding-bottom: 8px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">Asiakas</td>
+            </tr>
+            <tr>
+              <td style="font-size: 16px; font-weight: 600; color: #f9fafb; padding-bottom: 16px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">${escapeHtml(variables.customerName)}</td>
+            </tr>
+            <tr>
+              <td style="font-size: 12px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; padding-bottom: 8px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">Sähköposti</td>
+            </tr>
+            <tr>
+              <td style="font-size: 14px; color: #60a5fa; padding-bottom: 16px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+                <a href="mailto:${variables.customerEmail}" style="color: #60a5fa; text-decoration: none;">${escapeHtml(variables.customerEmail)}</a>
+              </td>
+            </tr>
+            <tr>
+              <td style="font-size: 12px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; padding-bottom: 8px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">Puhelin</td>
+            </tr>
+            <tr>
+              <td style="font-size: 14px; color: #d1d5db; padding-bottom: 16px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">${escapeHtml(variables.customerPhone)}</td>
+            </tr>
+            <tr>
+              <td style="border-top: 1px solid #374151; padding-top: 16px;"></td>
+            </tr>
+            <tr>
+              <td style="font-size: 12px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; padding-top: 16px; padding-bottom: 8px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">Palvelu</td>
+            </tr>
+            <tr>
+              <td style="font-size: 16px; font-weight: 600; color: #f9fafb; padding-bottom: 16px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">${escapeHtml(variables.serviceName)}</td>
+            </tr>
+            <tr>
+              <td style="font-size: 12px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; padding-bottom: 8px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">📅 Aika</td>
+            </tr>
+            <tr>
+              <td style="font-size: 16px; color: #60a5fa; font-weight: 500; padding-bottom: 16px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">${escapeHtml(variables.dateTime)}</td>
+            </tr>
+            <tr>
+              <td style="font-size: 12px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; padding-bottom: 8px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">💼 Yritys</td>
+            </tr>
+            <tr>
+              <td style="font-size: 14px; color: #d1d5db; padding-bottom: 16px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">${escapeHtml(variables.company)}</td>
+            </tr>
+            <tr>
+              <td style="font-size: 12px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; padding-bottom: 8px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">📝 Lisätiedot</td>
+            </tr>
+            <tr>
+              <td style="font-size: 14px; color: #d1d5db; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">${escapeHtml(variables.notes)}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <!-- CTA -->
+    <table role="presentation" cellpadding="0" cellspacing="0" style="margin-bottom: 24px;">
+      <tr>
+        <td align="center" style="background-color: #2563eb; border-radius: 8px;">
+          <a href="${variables.adminLink}" target="_blank" class="btn" style="display: inline-block; padding: 12px 24px; font-size: 14px; font-weight: 500; color: #ffffff; text-decoration: none; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+            Avaa varaus
+          </a>
+        </td>
+      </tr>
+    </table>
+
+    <p style="margin: 0; font-size: 13px; color: #6b7280; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+      Risto Anton Päärni · Lifetime Oy · Helsinki<br>
+      <a href="https://dws10.com" style="color: #60a5fa; text-decoration: none;">dws10.com</a>
+    </p>
+  `;
+  return baseLayout('Uusi varaus — DWS IQ', body);
+}
+
+// ============================================================
 // UTILITIES
 // ============================================================
 
