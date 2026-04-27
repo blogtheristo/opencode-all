@@ -21,12 +21,8 @@
  */
 
 import { execFile } from 'node:child_process';
-import { promisify } from 'node:util';
 import { resolve } from 'node:path';
 import logger from './logger.js';
-
-const execFileP = promisify(execFile);
-
 const MAX_INPUT_CHARS = 8000;
 const DGX_EMBED_SCRIPT = resolve(
   new URL('../../scripts/ollama-spark-embed.sh', import.meta.url).pathname,
