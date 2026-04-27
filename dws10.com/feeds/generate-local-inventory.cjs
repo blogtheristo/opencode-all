@@ -29,11 +29,17 @@ function resolveAvailability(product) {
   return 'on_display_to_order';
 }
 
+function shouldIncludeInLocalInventory(product) {
+  if (product.productType === 'archived') return false;
+  if (product.type === 'monthly' || product.type === 'subscription') return false;
+  return true;
+}
+
 function generateFeed(config) {
   const header = ['store_code', 'id', 'availability'].join('\t');
 
   const rows = Object.values(config.products)
-    .filter((p) => p.productType !== 'archived')
+    .filter((p) => shouldIncludeInLocalInventory(p))
     .map((p) => [STORE_CODE, p.id, resolveAvailability(p)].join('\t'));
 
   return [header, ...rows].join('\n') + '\n';
