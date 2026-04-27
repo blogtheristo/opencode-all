@@ -8,7 +8,7 @@
 | ------- | ---------- | ----------- | ------------------------------------------------ |
 | 1.0.0   | 2026-04-25 | Claude Code | Initial Playwright wiring (utility + MCP + CLI). |
 
----
+***
 
 ## 1. Why Playwright
 
