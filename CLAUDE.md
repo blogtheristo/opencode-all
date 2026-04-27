@@ -400,6 +400,36 @@ Blog posts live in `onelifetime.world/posts/` as HTML files. Checklist for every
 6. Blog index at `onelifetime.world/blog/index.html` — update if adding featured posts
 7. **Text of the Day Rule (CRITICAL)** — the latest blog post is ALWAYS the "Text of the Day" on `/blog/`. Prepend the new post to the `latestPosts` array at the top of `onelifetime.world/blog/index.html` (position 0 = newest); the hero card and paginated Latest Posts list (5/page with Prev/Next) update automatically. Full rule: `docs/BLOG_STANDARD.md` §3.1.
 
+### Downloadable HTML Documents Rule (CRITICAL)
+
+**All downloadable/self-contained HTML documents MUST embed images as Base64 data URLs** — never relative paths. This ensures documents work offline and when downloaded.
+
+**When to apply:**
+
+- CVs, profiles, and professional documents (e.g., `Learn/*.html`)
+- Any HTML meant to be downloaded and opened standalone
+- Documents that may be emailed or printed
+
+**How to embed:**
+
+```bash
+base64 -w 0 /path/to/image.png > /tmp/image_b64.txt
+```
+
+Then replace relative paths with data URLs:
+
+```html
+<!-- Before (breaks when downloaded) -->
+<img src="../static/images/photo.png" alt="..." />
+
+<!-- After (works everywhere) -->
+<img src="data:image/png;base64,iVBORw0KGgoAAAANS..." alt="..." />
+```
+
+**Tools:** Node.js `sharp` library can batch-convert images (installed in `node_modules/`).
+
+**Files affected:** All professional profiles in `Learn/`, consultant CVs, downloadable reports — update on every new image addition.
+
 ## Development Commands
 
 ### PowerShell-First Rule (CRITICAL)
