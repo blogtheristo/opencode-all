@@ -1,7 +1,7 @@
 # DWS IQ 6 — Sales Funnel Workflow
 
 **Document ID:** DWS-SF-WORKFLOW-2026-001
-**Version:** 1.0 | **Date:** 2026-04-25
+**Version:** 1.1 | **Date:** 2026-04-26
 **Owner:** Risto Anton Päämi, Lifetime Oy
 **Classification:** Internal — Engineering Standard
 **ARR Target:** €900k by Q4 2026
@@ -27,7 +27,7 @@ The **€1 activation model** is the key architectural decision. It:
 | Base case (Tier 1 + Tier 2 mix) | 25 enterprise + 15 SME | €24,000 avg      | €975k     |
 | Optimistic (Tier 2 dominant)    | 20 enterprise          | €45,000          | €900k     |
 
-Each complete funnel pass (Steps 1–13) produces one activated customer. **Target: 3–4 funnel completions per month from June 2026.**
+Each complete funnel pass (Steps 1–14) produces one activated customer. **Target: 3–4 funnel completions per month from June 2026.**
 
 ---
 
@@ -101,13 +101,14 @@ These do not appear as standalone Google Merchant listings. They surface on the 
 
 ---
 
-## Part 2 — The 13-Step Funnel
+## Part 2 — The 14-Step Funnel
 
 ```
 ENTRY → [1] Bundle → [2] Discount → [3] €1 Pay → [4] Enterprise Form
       → [5] Upsell → [6] Accept → [7] Stripe → [8] Risto Alert
       → [9] Accounting → [10] Gaps handled → [11] Onboarding
       → [12] Welcome + Portal → [13] ERP Connect
+      → [14] Admin Role Designation
 ```
 
 ---
@@ -744,85 +745,73 @@ Admin → Settings → Integrations → Add Connection
 
 ---
 
-### Step 14 — Tenant Admin Named and Permission Model Established
+### Step 14 — Admin Role Designation and Permission Model
 
-**Trigger:** Order activated (Step 11 provisioning complete) + first login by technical contact
+**Trigger:** First successful login after Step 11 provisioning, OR explicit CFO designation via the admin portal during onboarding (Day 0–7 window).
 
-**Context:** Step 11 creates one account (technical contact = provisional admin). Step 14 formalises the two-role split that governs the tenant for its lifetime.
+**Why this step exists:** The CFO who paid the €1 activation and signed the Net 14 invoice is the **billing owner** — but is rarely the right person to manage users, configure ERP connectors, or approve autonomous agent actions in production. Conflating these roles produces two failure modes:
 
-**Two-role split:**
+1. **Operational paralysis** — every ERP connection, user invite, or agent approval blocks on the CFO
+2. **Audit / compliance risk** — the same person who approves spend also approves the autonomous actions being spent on (separation-of-duties violation under EU AI Act Article 14 human oversight requirements)
 
-| Role              | Who holds it                                                      | What they can do                                                                                                      | What they cannot do                                                              |
-| ----------------- | ----------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| **Billing Owner** | CFO (the person who approved the purchase and signed the invoice) | Pay invoices, update payment method, view all billing history, cancel subscription, sign order expansions             | Cannot manage users, cannot configure integrations, cannot approve agent actions |
-| **Tenant Admin**  | Named by CFO (or CFO auto-promoted if no separate admin is named) | Create/remove users, assign roles, configure ERP connections (Step 13), approve agent actions, own RBAC configuration | Cannot pay invoices, cannot change subscription tier                             |
+Step 14 separates these into two distinct roles, each backed by a distinct login.
 
-**How the admin is named:**
+**Roles defined:**
 
-```
-OPTION A — CFO designates a separate admin (preferred for mid-market/enterprise)
-  1. CFO logs in → Settings → Roles → "Designate Tenant Admin"
-  2. Enter email of technical contact (or IT manager)
-  3. System sends invitation email: "You have been designated Tenant Admin for [Company]"
-  4. Admin accepts → gets elevated login (separate session/token from CFO billing session)
-  5. CFO billing-owner role is locked to the original CFO email (cannot be self-delegated)
+| Role                    | Login Identity                                                                       | Can Do                                                                                                                                                                                | Cannot Do                                                                   |
+| ----------------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| **Billing Owner (CFO)** | Email used at Step 4 (invoice recipient)                                             | View invoices, update payment method, approve subscription upgrades / downgrades, cancel subscriptions, download VAT receipts, request extended payment terms (Step 10 GAP H)         | Manage users, configure ERPs, approve agent actions, change tenant settings |
+| **Tenant Admin**        | Email distinct from CFO — designated by CFO, or auto-promoted from technical contact | Manage users (create / disable / role-assign), configure ERPs (Step 13), approve autonomous agent actions, view audit / KYA logs, set per-user product access, manage tenant settings | View invoices, change payment method, approve billing changes               |
 
-OPTION B — CFO auto-promoted (default for SME, no separate IT admin)
-  1. If no admin is designated within 48h of first login: CFO is auto-promoted to hold both roles
-  2. System notification: "You currently hold both Billing Owner and Admin roles.
-     Consider designating a separate Admin for security separation."
-  3. Auto-promotion is reversible — CFO can designate a separate admin at any time
-```
-
-**RBAC model (4 built-in roles):**
-
-| Role          | Users       | Reports     | Integrations | Billing   | Agent Approvals | User MGMT |
-| ------------- | ----------- | ----------- | ------------ | --------- | --------------- | --------- |
-| Admin         | Full        | Full        | Full         | Read-only | Yes             | Full      |
-| Billing Owner | Read-only   | Read-only   | None         | Full      | No              | None      |
-| User          | Own account | Own reports | None         | None      | No              | None      |
-| Auditor       | None        | Full (read) | None         | None      | No              | None      |
-| ReadOnly      | None        | Read-only   | None         | None      | No              | None      |
-
-**KYA logging (Article 12):**
+**Designation flow (two paths):**
 
 ```
-Every role assignment logged:
-{
-  "event": "role_assigned",
-  "tenant_id": "[tenantId]",
-  "assigned_by": "[CFO email]",
-  "assigned_to": "[admin email]",
-  "role": "admin",
-  "timestamp": "[ISO 8601]",
-  "ip": "[IP address]",
-  "session_id": "[KYA session ID]"
-}
+PATH A — CFO designates (preferred):
+1. CFO logs in at /admin (using invoice email from Step 4)
+2. Admin portal shows: "You are the Billing Owner for [Company].
+   Designate a Tenant Admin to manage users and integrations."
+3. CFO enters: admin name + admin email + role (Tenant Admin)
+4. System sends admin invitation email with separate temporary password
+5. Admin completes first login → password change → MFA enrolment
+6. KYA logs: "tenantAdmin designated by [cfoEmail] → [adminEmail] at [timestamp]"
+
+PATH B — Auto-promotion (fallback, fires at Day 7 if Path A not used):
+1. If technical_contact_email != invoice_email at Step 4:
+   → Technical contact is auto-promoted to Tenant Admin role at Step 11
+   → CFO login (invoice email) retains Billing Owner role only
+2. If technical_contact_email == invoice_email:
+   → Day 7 reminder email to CFO: "Designate a Tenant Admin or
+     reply to confirm you will hold both roles"
+   → CFO can dual-hold both roles by replying — KYA flags this as a
+     separation-of-duties exception in the audit log (quarterly review)
+3. KYA logs: "tenantAdmin auto-promoted by system rule at [timestamp]"
 ```
 
-**Agent action approvals (Admin-only gate):**
+**Permission matrix (enforced server-side via Supabase RLS):**
 
-When any DWS Industrial Specialist Agent requests an action above confidence threshold:
+| Capability               | Billing Owner | Tenant Admin | User | ReadOnly | Auditor |
+| ------------------------ | :-----------: | :----------: | :--: | :------: | :-----: |
+| View invoices            |       ✓       |      ✗       |  ✗   |    ✗     |    ✓    |
+| Update payment method    |       ✓       |      ✗       |  ✗   |    ✗     |    ✗    |
+| Cancel subscription      |       ✓       |      ✗       |  ✗   |    ✗     |    ✗    |
+| Manage users             |       ✗       |      ✓       |  ✗   |    ✗     |    ✗    |
+| Configure ERPs           |       ✗       |      ✓       |  ✗   |    ✗     |    ✗    |
+| Approve agent actions    |       ✗       |      ✓       |  ✗   |    ✗     |    ✗    |
+| Run agents (read-only)   |       ✗       |      ✓       |  ✓   |    ✓     |    ✓    |
+| Download audit / KYA log |       ✗       |      ✓       |  ✗   |    ✗     |    ✓    |
+| Change tenant settings   |       ✗       |      ✓       |  ✗   |    ✗     |    ✗    |
+| View product data        |       ✗       |      ✓       |  ✓   |    ✓     |    ✓    |
+| Edit product data        |       ✗       |      ✓       |  ✓   |    ✗     |    ✗    |
 
-```
-Agent → HIL queue → Admin receives: "Agent [ID] requests: [action summary]"
-Admin: Approve / Reject / Modify
-→ Agent proceeds / halts / adjusts
-→ All decisions logged to Article 12 audit trail
-```
+**KYA / EU AI Act Article 12 considerations:**
 
-**Completion criteria for Step 14:**
+- Every Tenant Admin action affecting agent behaviour (approve, override, suspend) is appended to the Article 12 hash-chained ledger with `actorRole: tenantAdmin`, `actorEmail`, `tenantId`, `policyId`.
+- Billing Owner actions affecting commercial terms are logged separately under `actorRole: billingOwner` — never co-mingled with operational events.
+- Dual-role exception (CFO holds both) records `kyaPolicy: separation_of_duties_waived`, surfacing to the quarterly KYA review queue.
 
-- [ ] Billing Owner role confirmed (CFO email locked)
-- [ ] Tenant Admin named (separate email or CFO auto-promoted)
-- [ ] Admin has completed first login with admin session
-- [ ] At least 1 non-admin user invited (or skip acknowledged for sole-trader)
-- [ ] RBAC configuration saved
-- [ ] KYA agent identity linked to Admin account
+**Hand-off back to Step 13:** Once the Tenant Admin is named, ownership of the ERP integration flow at Step 13 transfers from the technical contact to the Admin role. The CFO never sees the integrations panel.
 
-**Next step:** Step 13 (ERP connections) — Admin now has the credentials and role to configure ERP integrations.
-
-> **Note on ordering:** Step 14 is numbered after ERP connections in the document but is operationally executed before Step 13. Admin role formalisation must precede ERP configuration because ERP connector credentials are tied to the Admin role, not the Billing Owner.
+**SLA:** Tenant Admin must be designated within 14 days of `invoice.finalized`. If not designated by Day 14, KYA blocks new agent action approvals until role separation is resolved (Billing Owner can still view invoices and pay).
 
 ---
 
@@ -903,6 +892,7 @@ Monthly steady-state (Q4 2026+):
 
 - [ ] DWS Academy — self-paced onboarding content for each product
 - [ ] Admin UI — user management, role assignment, subscription management
+- [ ] Step 14 — Billing Owner / Tenant Admin role split, designation flow (Path A + Path B), Supabase RLS permission matrix, Article 12 logging of role events
 - [ ] ERP connector library — SAP, Dynamics 365, IFS as first three
 - [ ] NPS survey integration (Day 30 touchpoint)
 - [ ] Abandoned cart recovery email sequence
@@ -912,6 +902,6 @@ Monthly steady-state (Q4 2026+):
 
 ---
 
-_Document ID: DWS-SF-WORKFLOW-2026-001 | Version: 1.0 | 2026-04-25_
+_Document ID: DWS-SF-WORKFLOW-2026-001 | Version: 1.1 | 2026-04-26_
 _Owner: Risto Anton Päämi | Lifetime Oy | laidunmaanraitti 2 A 25, 02330 Espoo_
 _Classification: Internal Engineering Standard — do not distribute_
