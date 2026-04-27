@@ -55,6 +55,7 @@
     "nodemailer": "^8.0.6",
     "pino": "^9.3.2",
     "pino-pretty": "^11.2.2",
+    "playwright": "^1.49.0",
     "stripe": "^22.1.0",
     "zod": "^4.3.6"
   },
