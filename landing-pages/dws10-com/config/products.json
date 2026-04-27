@@ -327,7 +327,7 @@
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
       "detailsUrl": "../products/consulting.html",
-      "featured": false,
+      "featured": true,
       "google": {
         "productCategory": "1426",
         "condition": "new",
@@ -339,8 +339,8 @@
       },
       "storeCategory": "advisory",
       "productType": "hourly-remote",
-      "buyPage": 3,
-      "buyPageOrder": 1,
+      "buyPage": 1,
+      "buyPageOrder": 20,
       "pain": "You need a 2-hour answer, not a 6-month engagement — procurement keeps blocking small POs.",
       "proofChip": "€200/h · senior only · invoice in 24h",
       "proofSource": "Lifetime Oy hourly rate card 2025"
@@ -399,7 +399,7 @@
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
       "detailsUrl": "../products/consulting-fit55.html",
-      "featured": false,
+      "featured": true,
       "google": {
         "productCategory": "1426",
         "condition": "new",
@@ -411,8 +411,8 @@
       },
       "storeCategory": "advisory",
       "productType": "consulting-substance",
-      "buyPage": 2,
-      "buyPageOrder": 1,
+      "buyPage": 1,
+      "buyPageOrder": 18,
       "pain": "55 % emissions cut by 2030 is law — your decarb plan is still a PDF nobody reads.",
       "proofChip": "Fit for 55 · 14 EU regulations",
       "proofSource": "Fit for 55 COM/2021/550 + 14 implementing regulations"
@@ -449,8 +449,8 @@
       },
       "storeCategory": "digital",
       "productType": "us-stack",
-      "buyPage": 3,
-      "buyPageOrder": 5,
+      "buyPage": 1,
+      "buyPageOrder": 17,
       "pain": "Your Lambda functions cost €80k/year to do what Claude Platform can do for €8k. Your team builds brittle container orchestration when they should be shipping agents. AWS just made Claude Platform native — but your architecture is stuck in 2023.",
       "proofChip": "Claude Platform GA 2026 · 10× cost reduction typical",
       "proofSource": "AWS Platform on AWS launch April 2026 + DWS consulting cost models 2026",
@@ -571,7 +571,7 @@
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
       "detailsUrl": "../products/ai-agent-engineering.html",
-      "featured": false,
+      "featured": true,
       "google": {
         "productCategory": "1426",
         "condition": "new",
@@ -583,8 +583,8 @@
       },
       "storeCategory": "ai-cloud",
       "productType": "hourly-remote",
-      "buyPage": 3,
-      "buyPageOrder": 2,
+      "buyPage": 1,
+      "buyPageOrder": 19,
       "pain": "Your AI proof-of-concept ships brittle — one model swap and the whole agent breaks.",
       "proofChip": "Karpathy harness · MCP-native",
       "proofSource": "Karpathy 2024 + Anthropic MCP spec 2024"
@@ -1656,7 +1656,13 @@
     "google": {
       "merchantId": null,
       "feedUrl": "https://dws10.com/feeds/google-products.xml",
-      "targetCountries": ["FI", "SE", "NO", "DK", "DE"],
+      "targetCountries": [
+        "FI",
+        "SE",
+        "NO",
+        "DK",
+        "DE"
+      ],
       "contentLanguage": "en",
       "channel": "online"
     }
