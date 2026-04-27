@@ -131,6 +131,160 @@ async function embedDgxSpark(text: string): Promise<EmbeddingResult | null> {
   }
 }
 
+// ============ Preflight ============
+
+export interface PreflightResult {
+  provider: EmbeddingProvider;
+  ok: boolean;
+  /** What was checked (for human readers). */
+  checks: Array<{ name: string; ok: boolean; detail?: string }>;
+  /** Actionable next step if `ok` is false. */
+  hint?: string;
+  /** Live dimension count returned by the provider, if probed successfully. */
+  dimensions?: number;
+}
+
+/**
+ * Probe the configured provider to confirm it's reachable + the model is
+ * loaded. Use BEFORE flipping `EMBEDDING_PROVIDER` in production, or as
+ * a CI smoke check.
+ *
+ * Never throws. Returns a structured report with an actionable `hint`.
+ */
+export async function preflightEmbeddings(): Promise<PreflightResult> {
+  const provider = getConfiguredProvider();
+  const checks: PreflightResult['checks'] = [];
+
+  if (provider === 'openai') {
+    const hasKey = !!process.env.OPENAI_API_KEY;
+    checks.push({ name: 'OPENAI_API_KEY set', ok: hasKey });
+    if (!hasKey) {
+      return {
+        provider,
+        ok: false,
+        checks,
+        hint: 'Set OPENAI_API_KEY in .env (see Admin/SECURITY_COMPLIANCE.md), or switch EMBEDDING_PROVIDER=dgx-spark.',
+      };
+    }
+    const probe = await embedOpenAI('preflight');
+    checks.push({
+      name: 'OpenAI /v1/embeddings reachable',
+      ok: probe !== null,
+      detail: probe ? `${probe.dimensions}-dim` : 'no response',
+    });
+    return {
+      provider,
+      ok: probe !== null,
+      checks,
+      ...(probe ? { dimensions: probe.dimensions } : {}),
+      ...(probe
+        ? {}
+        : { hint: 'OpenAI returned no embedding — check API key validity and quota.' }),
+    };
+  }
+
+  // dgx-spark — we run three checks so the hint is precise.
+  const sshHost = process.env.DGX_SSH_HOST || 'dgx-spark';
+  const ollamaUrl = process.env.DGX_OLLAMA_URL || 'http://localhost:11434';
+  const model = process.env.EMBEDDING_MODEL_DGX || 'nomic-embed-text';
+
+  const ssh = await runShell('ssh', [
+    '-o',
+    'BatchMode=yes',
+    '-o',
+    'ConnectTimeout=5',
+    sshHost,
+    'true',
+  ]);
+  checks.push({
+    name: `ssh ${sshHost} reachable`,
+    ok: ssh.code === 0,
+    detail: ssh.code === 0 ? undefined : ssh.stderr.slice(0, 200),
+  });
+  if (ssh.code !== 0) {
+    return {
+      provider,
+      ok: false,
+      checks,
+      hint: `Cannot SSH to '${sshHost}'. Verify alias in ~/.ssh/config (or set DGX_SSH_HOST), and that key auth works non-interactively. Run: ssh ${sshHost} true`,
+    };
+  }
+
+  const tags = await runShell('ssh', [sshHost, `curl -fsS --max-time 5 ${ollamaUrl}/api/tags`]);
+  checks.push({
+    name: `Ollama tags endpoint (${ollamaUrl})`,
+    ok: tags.code === 0,
+    detail: tags.code === 0 ? undefined : tags.stderr.slice(0, 200),
+  });
+  if (tags.code !== 0) {
+    return {
+      provider,
+      ok: false,
+      checks,
+      hint: `Ollama not reachable at ${ollamaUrl} on ${sshHost}. Verify Ollama is running on the Spark: ssh ${sshHost} systemctl status ollama`,
+    };
+  }
+
+  const hasModel = tags.stdout.includes(`"name":"${model}`);
+  checks.push({
+    name: `model '${model}' loaded`,
+    ok: hasModel,
+    detail: hasModel ? undefined : 'not in /api/tags response',
+  });
+  if (!hasModel) {
+    return {
+      provider,
+      ok: false,
+      checks,
+      hint: `Model '${model}' is not pulled on ${sshHost}. Run: ssh ${sshHost} ollama pull ${model}`,
+    };
+  }
+
+  const probe = await embedDgxSpark('preflight');
+  checks.push({
+    name: 'embedding round-trip',
+    ok: probe !== null,
+    detail: probe ? `${probe.dimensions}-dim` : 'no vector returned',
+  });
+  return {
+    provider,
+    ok: probe !== null,
+    checks,
+    ...(probe ? { dimensions: probe.dimensions } : {}),
+    ...(probe
+      ? {}
+      : {
+          hint: `Round-trip embedding failed even though model is loaded. Check ${ollamaUrl}/api/embeddings on ${sshHost} directly.`,
+        }),
+  };
+}
+
+interface ShellResult {
+  code: number;
+  stdout: string;
+  stderr: string;
+}
+
+async function runShell(cmd: string, args: string[]): Promise<ShellResult> {
+  return new Promise((resolve) => {
+    const child = execFile(cmd, args, { maxBuffer: 4 * 1024 * 1024 });
+    const out: Buffer[] = [];
+    const err: Buffer[] = [];
+    child.stdout?.on('data', (c: Buffer) => out.push(c));
+    child.stderr?.on('data', (c: Buffer) => err.push(c));
+    child.on('close', (code) => {
+      resolve({
+        code: code ?? -1,
+        stdout: Buffer.concat(out).toString('utf8'),
+        stderr: Buffer.concat(err).toString('utf8'),
+      });
+    });
+    child.on('error', (e) => {
+      resolve({ code: -1, stdout: '', stderr: e.message });
+    });
+  });
+}
+
 // ============ Helpers ============
 
 /** Cosine similarity between two vectors of the same dimension. Returns 0 on dim mismatch. */

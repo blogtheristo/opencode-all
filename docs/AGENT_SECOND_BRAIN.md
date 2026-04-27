@@ -98,6 +98,11 @@ if (a && b && a.dimensions === b.dimensions) {
 ## 6. Shell use (DGX Spark)
 
 ```bash
+# Verify the Spark is reachable + the model is loaded BEFORE flipping the env var
+scripts/ollama-spark-embed.sh --preflight
+# or, equivalently, via the CLI:
+dws kb preflight
+
 # Single-shot embedding
 scripts/ollama-spark-embed.sh nomic-embed-text "CBAM importer threshold"
 
@@ -106,6 +111,15 @@ cat kb/raw/articles/cbam-2026-update.md | scripts/ollama-spark-embed.sh nomic-em
 ```
 
 Returns the raw Ollama JSON: `{"embedding": [0.012, -0.043, …], "model": "..."}`.
+
+`dws kb preflight` runs three checks and emits an actionable hint on failure:
+
+1. SSH alias is reachable non-interactively (`ssh $DGX_SSH_HOST true`).
+2. Ollama `/api/tags` responds.
+3. The `EMBEDDING_MODEL_DGX` model is in the tag list.
+4. A round-trip embedding succeeds and reports its dimension count.
+
+Exits non-zero on any failure so it composes with shell pipelines (`dws kb preflight && export EMBEDDING_PROVIDER=dgx-spark`).
 
 ## 7. Inbox watcher
 

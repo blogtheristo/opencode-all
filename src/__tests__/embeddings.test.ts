@@ -13,7 +13,12 @@ vi.mock('../utils/logger.js', () => ({
   default: { info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn() },
 }));
 
-import { cosineSimilarity, generateEmbedding, getConfiguredProvider } from '../utils/embeddings.js';
+import {
+  cosineSimilarity,
+  generateEmbedding,
+  getConfiguredProvider,
+  preflightEmbeddings,
+} from '../utils/embeddings.js';
 
 const originalEnv = { ...process.env };
 const originalFetch = globalThis.fetch;
@@ -106,5 +111,29 @@ describe('cosineSimilarity', () => {
   });
   it('returns 0 when one magnitude is zero', () => {
     expect(cosineSimilarity([0, 0, 0], [1, 1, 1])).toBe(0);
+  });
+});
+
+describe('preflightEmbeddings (openai)', () => {
+  it('flags missing API key with an actionable hint', async () => {
+    // No OPENAI_API_KEY, default provider
+    const result = await preflightEmbeddings();
+    expect(result.provider).toBe('openai');
+    expect(result.ok).toBe(false);
+    expect(result.checks[0]?.name).toMatch(/OPENAI_API_KEY/);
+    expect(result.checks[0]?.ok).toBe(false);
+    expect(result.hint).toMatch(/OPENAI_API_KEY|EMBEDDING_PROVIDER/);
+  });
+
+  it('reports ok with dimensions on a successful probe', async () => {
+    process.env.OPENAI_API_KEY = 'sk-test';
+    const fakeVec = new Array(1536).fill(0.1);
+    globalThis.fetch = vi.fn(
+      async () => new Response(JSON.stringify({ data: [{ embedding: fakeVec }] }), { status: 200 }),
+    ) as unknown as typeof fetch;
+    const result = await preflightEmbeddings();
+    expect(result.ok).toBe(true);
+    expect(result.dimensions).toBe(1536);
+    expect(result.hint).toBeUndefined();
   });
 });

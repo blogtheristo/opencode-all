@@ -1397,6 +1397,7 @@ KNOWLEDGE BASE:
   dws kb ingest <file>                    Add a raw source to kb/raw/
   dws kb lint                             Health check (orphans, backlinks)
   dws kb status                           Show KB stats
+  dws kb preflight                        Verify embedding provider (openai|dgx-spark)
 
 AGENTS:
   dws agents                              List all registered agents
@@ -1831,6 +1832,36 @@ async function cmdKB(
       break;
     }
 
+    case 'preflight': {
+      // Verify the configured embedding provider is actually usable.
+      // Done client-side (no API hop) so it works even when the backend is down.
+      const { preflightEmbeddings } =
+        (await import('../../src/utils/embeddings.js')) as typeof import('../../src/utils/embeddings.js');
+      const result = await preflightEmbeddings();
+      if (JSON_MODE) {
+        output(result);
+      } else {
+        const mark = (ok: boolean): string => (ok ? fmt.green('✓') : fmt.red('✗'));
+        console.log(fmt.bold(`Embeddings preflight — provider: ${result.provider}`));
+        console.log('');
+        for (const c of result.checks) {
+          const detail = c.detail ? fmt.dim(`  (${c.detail})`) : '';
+          console.log(`  ${mark(c.ok)}  ${c.name}${detail}`);
+        }
+        console.log('');
+        if (result.ok) {
+          console.log(
+            fmt.green(`OK — ${result.dimensions ?? '?'}-dim vectors from ${result.provider}.`),
+          );
+        } else {
+          console.log(fmt.red('NOT READY'));
+          if (result.hint) console.log(`  ${result.hint}`);
+        }
+      }
+      if (!result.ok) process.exit(1);
+      break;
+    }
+
     default:
       error(
         `Unknown kb subcommand '${subcommand}'.`,
@@ -1839,7 +1870,8 @@ async function cmdKB(
           '  dws kb research "question"      Deep research\n' +
           '  dws kb lint                     Health check\n' +
           '  dws kb status                   Show stats\n' +
-          '  dws kb ingest <file>            Add raw source',
+          '  dws kb ingest <file>            Add raw source\n' +
+          '  dws kb preflight                Verify embedding provider',
       );
   }
 }
