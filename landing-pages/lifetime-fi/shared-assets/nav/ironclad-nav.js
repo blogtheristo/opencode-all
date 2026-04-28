@@ -1,10 +1,15 @@
 /**
- * DWS10.com Iron Clad / Gamma Navigation v3.3
+ * DWS10.com Iron Clad / Gamma Navigation v3.4
  * Unified navigation bar for all pages (Gamma-aligned with mobile hamburger menu)
+ * Single source of truth: dws10.com/shared-assets/nav/ironclad-nav.js
+ * Synced to lifetime.fi and onelifetime.world via scripts/on-deploy/sync-ironclad-nav.sh
  *
  * Usage: Add this script to any page:
  * <script src="/shared-assets/nav/ironclad-nav.js"></script>
  *
+ * v3.4 — Domain-aware logo (LifetimeOy.png on lifetime.fi, OLW logo on onelifetime.world);
+ *         Legal Hub simplified to direct link (no flyout); investment-safety removed from Legal submenu;
+ *         Agentic Commerce added to enterprise-integrations; booking CTA uses /book/
  * v3.3 — Products menu rendered at runtime from config/products.json (single source of truth shared with /price-list/); categories mirror CATEGORY_ORDER from scripts/gen-price-list-html.cjs
  * v3.2 — Nordic Industrial rebrand + duplicate-include guard: inject nordic-theme.css + IBM Plex Sans fonts + language subdirectory redirect
  * v3.1 — Language selector (EN | FI | SV) with localStorage persistence
@@ -45,16 +50,37 @@
     ironcladLanguages.find((l) => l.code === ironcladCurrentLang) || ironcladLanguages[0]
   ).label;
 
+  // Domain-aware site configuration (v3.4)
+  const hostname = window.location.hostname;
+  const siteConfig =
+    hostname === 'lifetime.fi' || hostname === 'www.lifetime.fi'
+      ? {
+          logo: 'static/images/LifetimeOy.png',
+          logoAlt: 'Lifetime Oy',
+          title: 'Lifetime Oy',
+        }
+      : hostname === 'onelifetime.world' || hostname === 'www.onelifetime.world'
+        ? {
+            logo: 'static/images/OneLifetime_Logo_Final.png',
+            logoAlt: 'OneLifetime.World',
+            title: 'OneLifetime.World',
+          }
+        : {
+            logo: 'DWS_IQ2026.png',
+            logoAlt: 'DWS IQ Platform',
+            title: 'DWS IQ Platform Version 6',
+          };
+
   // Navigation HTML (Gamma-aligned with hamburger support)
   const navHTML = `
-<!-- DWS10.com Iron Clad / Gamma Navigation v3.0 (Mobile Hamburger) -->
+<!-- DWS10.com Iron Clad / Gamma Navigation v3.4 (Mobile Hamburger) -->
 <header class="ironclad-header">
     <div class="ironclad-container">
         <div class="ironclad-logo-section">
             <a href="${basePath || '/'}" class="ironclad-logo-link">
-                <img src="${basePath}DWS_IQ2026.png" alt="DWS IQ Platform" class="ironclad-logo">
+                <img src="${basePath}${siteConfig.logo}" alt="${siteConfig.logoAlt}" class="ironclad-logo">
             </a>
-            <span class="ironclad-title">DWS IQ Platform Version 6</span>
+            <span class="ironclad-title">${siteConfig.title}</span>
         </div>
         <button class="ironclad-hamburger" aria-label="Open menu" aria-expanded="false">
             <span></span><span></span><span></span>
@@ -136,25 +162,8 @@
                                 <li><a href="${basePath}industrial-preview/" class="ironclad-secondary">Ultra II - Industrial</a></li>
                             </ul>
                         </li>
-                        <!-- Legal & Compliance flyout -->
-                        <li class="ironclad-has-submenu">
-                            <a href="${basePath}legal/" class="ironclad-legal">Legal ▸</a>
-                            <ul class="ironclad-submenu">
-                                <li><a href="${basePath}legal/" class="ironclad-legal">Legal Hub</a></li>
-                                <li><a href="${basePath}terms/">Terms of Service</a></li>
-                                <li><a href="${basePath}terms-dws-iq/">DWS IQ Terms</a></li>
-                                <li><a href="${basePath}terms-firehorse/">Firehorse Terms</a></li>
-                                <li><a href="${basePath}terms-lifetime-fleet/">Fleet Terms</a></li>
-                                <li><a href="${basePath}terms-professional/">Professional Services</a></li>
-                                <li class="ironclad-separator"></li>
-                                <li><a href="${basePath}privacy-policy/">Privacy Policy</a></li>
-                                <li><a href="${basePath}return-policy/">Return Policy</a></li>
-                                <li><a href="${basePath}investment-safety/">Investment Security</a></li>
-                                <li><a href="${basePath}regulatory-notice/">Regulatory Notice</a></li>
-                                <li><a href="${basePath}data-handling-policy/">Data Handling Policy</a></li>
-                                <li><a href="${basePath}data-security-policy/">Data Security Policy</a></li>
-                            </ul>
-                        </li>
+                        <!-- Legal Hub — direct link (v3.4: simplified, no flyout) -->
+                        <li><a href="${basePath}legal/" class="ironclad-legal">Legal Hub</a></li>
                         <!-- Compliance flyout -->
                         <li class="ironclad-has-submenu">
                             <a href="${basePath}compliance/" class="ironclad-primary">Compliance ▸</a>
@@ -210,6 +219,25 @@
                                 <li><a href="${basePath}public-sector/?solution=csrd">Public Sector</a></li>
                             </ul>
                         </li>
+                        <li class="ironclad-separator"></li>
+                        <li class="ironclad-has-submenu">
+                            <a href="${basePath}enterprise-integrations/" class="ironclad-primary">Integrations ▸</a>
+                            <ul class="ironclad-submenu">
+                                <li><a href="${basePath}enterprise-integrations/" class="ironclad-primary">All Enterprise Integrations</a></li>
+                                <li class="ironclad-separator"></li>
+                                <li><a href="${basePath}enterprise-integrations/siemens/" class="ironclad-primary">Siemens — Building Automation</a></li>
+                                <li><a href="${basePath}enterprise-integrations/#erp">ERP (SAP, IFS, Dynamics, Monitor, Visma, Jeeves)</a></li>
+                                <li><a href="${basePath}enterprise-integrations/#industrial">Industrial Control (ABB, AspenTech)</a></li>
+                                <li><a href="${basePath}enterprise-integrations/#esg">ESG Platforms (Worldfavor, Position Green)</a></li>
+                                <li class="ironclad-separator"></li>
+                                <li><a href="${basePath}products/synthetic-data/" class="ironclad-primary">Synthetic Data Solutions</a></li>
+                                <li class="ironclad-separator"></li>
+                                <li><a href="${basePath}partners/">Partner Program</a></li>
+                                <li><a href="${basePath}aegis-partners/">Aegis Partners (Tier 1)</a></li>
+                                <li><a href="${basePath}sovereign-infra-partners/">Sovereign Infra Partners (Tier 2)</a></li>
+                                <li><a href="${basePath}connect-partners/">Connect Partners (Tier 3)</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
 
@@ -221,26 +249,6 @@
                     </ul>
                 </li>
 
-                <!-- Integrations ▾ -->
-                <li class="ironclad-menu-item">
-                    <a href="#" class="ironclad-link">Integrations ▾</a>
-                    <ul class="ironclad-dropdown">
-                        <li><a href="${basePath}enterprise-integrations/" class="ironclad-primary">All Enterprise Integrations</a></li>
-                        <li class="ironclad-separator"></li>
-                        <li><a href="${basePath}enterprise-integrations/siemens/" class="ironclad-primary">Siemens — Building Automation</a></li>
-                        <li><a href="${basePath}enterprise-integrations/#erp">ERP (SAP, IFS, Dynamics, Monitor, Visma, Jeeves)</a></li>
-                        <li><a href="${basePath}enterprise-integrations/#industrial">Industrial Control (ABB, AspenTech)</a></li>
-                        <li><a href="${basePath}enterprise-integrations/#esg">ESG Platforms (Worldfavor, Position Green)</a></li>
-                        <li class="ironclad-separator"></li>
-                        <li><a href="${basePath}products/synthetic-data/" class="ironclad-primary">Synthetic Data Solutions</a></li>
-                        <li class="ironclad-separator"></li>
-                        <li><a href="${basePath}partners/">Partner Program</a></li>
-                        <li><a href="${basePath}aegis-partners/">Aegis Partners (Tier 1)</a></li>
-                        <li><a href="${basePath}sovereign-infra-partners/">Sovereign Infra Partners (Tier 2)</a></li>
-                        <li><a href="${basePath}connect-partners/">Connect Partners (Tier 3)</a></li>
-                    </ul>
-                </li>
-
                 <!-- About ▾ -->
                 <li class="ironclad-menu-item">
                     <a href="#" class="ironclad-link">About ▾</a>
@@ -249,7 +257,7 @@
                         <li><a href="${basePath}team/">Team</a></li>
                         <li><a href="${basePath}careers/">Careers</a></li>
                         <li><a href="${basePath}partners/" class="ironclad-primary">Certified Partners</a></li>
-                        <li><a href="${basePath}contact/">Contact</a></li>
+                        <li><a href="${basePath}book/" class="ironclad-highlight">📅 Book Meeting</a></li>
                         <li class="ironclad-separator"></li>
                         <!-- Investor section (Press Releases, Investor Relations, Series A, Investment Safety) -->
                         <li class="ironclad-has-submenu">
@@ -280,23 +288,8 @@
                                 <li><a href="${basePath}ultra/" class="ironclad-secondary">Ultra</a></li>
                             </ul>
                         </li>
-                        <li class="ironclad-has-submenu">
-                            <a href="${basePath}legal/" class="ironclad-legal">Legal ▸</a>
-                            <ul class="ironclad-submenu">
-                                <li><a href="${basePath}legal/" class="ironclad-legal">Legal Hub</a></li>
-                                <li><a href="${basePath}investment-safety/">Investment Security</a></li>
-                                <li><a href="${basePath}regulatory-notice/">Regulatory Notice</a></li>
-                                <li class="ironclad-separator"></li>
-                                <li><a href="${basePath}terms/">Terms of Service</a></li>
-                                <li><a href="${basePath}terms-dws-iq/">DWS IQ Terms</a></li>
-                                <li><a href="${basePath}terms-firehorse/">Firehorse Terms</a></li>
-                                <li><a href="${basePath}terms-lifetime-fleet/">Fleet Terms</a></li>
-                                <li><a href="${basePath}terms-professional/">Professional Services</a></li>
-                                <li class="ironclad-separator"></li>
-                                <li><a href="${basePath}privacy-policy/">Privacy Policy</a></li>
-                                <li><a href="${basePath}return-policy/">Return Policy</a></li>
-                            </ul>
-                        </li>
+                        <!-- Legal Hub — direct link (v3.4: simplified, no flyout) -->
+                        <li><a href="${basePath}legal/" class="ironclad-legal">Legal Hub</a></li>
                     </ul>
                 </li>
 
@@ -1324,7 +1317,7 @@
     // Include /shared-assets/vertical-lang-bar.js directly on each page that needs it.
 
     console.log(
-      'Iron Clad / Gamma Navigation v3.2 loaded (Nordic rebrand + language redirect + mobile hamburger)',
+      'Iron Clad / Gamma Navigation v3.4 loaded (domain-aware logo + Legal Hub simplified + Agentic Commerce)',
     );
   });
 })();

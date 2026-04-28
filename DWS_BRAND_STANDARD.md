@@ -1,13 +1,14 @@
-# DWS Gamma Brand Standard v2.7
+# DWS Gamma Brand Standard v2.8
 
 ---
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.7
+Version: 2.8
 
 Sessions & Modifications:
 
+- Version: 2.8 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-booking-multilingual-hMx7m | Date: 28.04.2026 | Changes: Added §5.1 Ironclad Sync Rule — dws10.com is single source of truth for ironclad-nav.js + ironclad-footer.js across all sites; sync script scripts/on-deploy/sync-ironclad-nav.sh; domain-aware logo (LifetimeOy.png on lifetime.fi, OLW logo on onelifetime.world); Legal Hub simplified to direct link (no flyout); Agentic Commerce added; booking CTA /book/; investment-safety rewritten to gold standard.
 - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/add-red-hat-partners-d8Hey | Date: 21.03.2026 | Changes: Added Red Hat Technology Partner badge to Sovereignty Badge System (§11.2) — colors, usage rules, AgentOps BYOA context, implementation checklist. Added Technology Partners section to partners page.
 - Version: 2.6 | Tool: Claude Code (Opus 4.6) | Session: claude/dws-iq-synthetic-nervous-9TtAB | Date: 06.04.2026 | Changes: Added DWS IQ Platform (Series A) and Synthetic Nervous System (Technical) pitch lines to Section 22 — Arctic 15 investor positioning, EN/FI bilingual
 - Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/nordic-industrial-rebrand-glOfb | Date: 06.04.2026 | Changes: Nordic Industrial rebrand — added Section 2.1 Nordic Industrial Palette, IBM Plex Sans typography, EU language bar, trilingual homepage (FI/SV/EN), "Built in Finland" footer badge, Mistral AI sovereign inference reference
@@ -349,12 +350,38 @@ Products in `config/products.json` MUST have a `storeCategory` field.
 
 ---
 
-## 5. Iron Clad Navigation v3.0 (Single Source of Truth)
+## 5. Iron Clad Navigation v3.4 (Single Source of Truth)
 
-**CRITICAL: Only ONE navigation exists for all dws10.com pages.**
+**CRITICAL: Only ONE navigation exists for ALL sites (dws10.com, lifetime.fi, onelifetime.world).**
 
-**File:** `shared-assets/nav/ironclad-nav.js`
-**Version:** v3.0 (with mobile hamburger menu)
+**File:** `dws10.com/shared-assets/nav/ironclad-nav.js` — canonical source
+**Version:** v3.4 (domain-aware logo + Legal Hub simplified + Agentic Commerce)
+
+### 5.1 Ironclad Sync Rule (CRITICAL — added v2.8)
+
+**`dws10.com/shared-assets/nav/ironclad-nav.js` is the single source of truth for ALL sites.**
+
+| Site              | Nav file                                              | Footer file                                                 |
+| ----------------- | ----------------------------------------------------- | ----------------------------------------------------------- |
+| dws10.com         | `dws10.com/shared-assets/nav/ironclad-nav.js`         | `dws10.com/shared-assets/footer/ironclad-footer.js`         |
+| lifetime.fi       | `lifetime.fi/shared-assets/nav/ironclad-nav.js`       | `lifetime.fi/shared-assets/footer/ironclad-footer.js`       |
+| onelifetime.world | `onelifetime.world/shared-assets/nav/ironclad-nav.js` | `onelifetime.world/shared-assets/footer/ironclad-footer.js` |
+
+**Rule:** NEVER edit nav or footer files in lifetime.fi or onelifetime.world directly. Always edit `dws10.com/shared-assets/nav/ironclad-nav.js`, then sync:
+
+```bash
+bash scripts/on-deploy/sync-ironclad-nav.sh
+```
+
+The sync script (`scripts/on-deploy/sync-ironclad-nav.sh`) runs automatically after every `git pull` with new commits (on-deploy convention) and syncs all 8 target files (4 sites × root + landing-pages mirror).
+
+**Domain-aware logo (v3.4):** The nav auto-detects `window.location.hostname` and shows:
+
+- `dws10.com` → `DWS_IQ2026.png` (DWS IQ Platform)
+- `lifetime.fi` → `static/images/LifetimeOy.png` (Lifetime Oy)
+- `onelifetime.world` → `static/images/OneLifetime_Logo_Final.png` (OneLifetime.World)
+
+**Legal Hub simplification (v3.4):** The Legal menu is a single direct link `<a href="/legal/">Legal Hub</a>` — no flyout submenu. All legal sub-pages are listed on the Legal Hub page itself (`/legal/index.html`).
 
 **Usage:** Add to any page:
 
