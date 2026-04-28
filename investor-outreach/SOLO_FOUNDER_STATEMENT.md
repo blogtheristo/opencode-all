@@ -25,11 +25,7 @@ DWS IQ 6 is raised as a solo-founder round. We know this is a flag for several f
 
 **Founder:** Risto Anton Päärni — 13 years in EU-regulated industries (construction, manufacturing, ESG), deep SAP / IFS Cloud / Dynamics 365 domain expertise, CEO Lifetime Oy.
 
-<<<<<<< HEAD
 **Product:** DWS IQ 6 live in production. 21 AI agents, ERP connectors, MCP tool exposure, EU AI Act compliant, sovereignty audit layer.
-=======
-**Product:** DWS IQ 6 live in production. 21 AI agents, ERP connectors, MCP tool exposure, EU AI Act compliant, Aiven audit layer.
->>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 
 **Traction:** 6 paying customers, 100% retention, EUR 7K MRR, EUR 4,950 pilot converting to EUR 8,950/year.
 

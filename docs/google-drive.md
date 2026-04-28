@@ -244,11 +244,7 @@ The repo has many DWS 6–related documents. Migration options:
 | Document | Purpose |
 |----------|---------|
 | [docs/Google/Google-Services.md](Google/Google-Services.md) | GCP, Cloud Run, Gemini, account structure |
-<<<<<<< HEAD
 | [docs/CLOUD_ENVIRONMENTS.md](CLOUD_ENVIRONMENTS.md) | US/EU clouds, sovereignty tiers, account separation |
-=======
-| [docs/CLOUD_ENVIRONMENTS.md](CLOUD_ENVIRONMENTS.md) | US/EU/Aiven clouds, account separation |
->>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 | [AGENTS.md](../AGENTS.md) §16 | Google Workspace CLI (`gws`) usage |
 | [DWS_DOCUMENT_STANDARD.md](../DWS_DOCUMENT_STANDARD.md) | Document header, versioning, metadata |
 

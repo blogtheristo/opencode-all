@@ -214,11 +214,7 @@ This market research directly supports the **Lifetime Fleet** division (Hands la
 
 - **Argus Agent** (`src/agents/argus.agent.ts`) — existing perimeter security AI agent, extensible to drone fleet C2
 - **LWM (Lifetime World Model)** — factory digital twin provides the 3D map for drone navigation and patrol routes
-<<<<<<< HEAD
 - **EU AI Act compliance** — DWS sovereignty audit layer provides Article 12 logging and reasoning lineage required for high-risk drone AI
-=======
-- **EU AI Act compliance** — DWS Article 12 Logging Pipeline provides Article 12 logging and reasoning lineage required for high-risk drone AI
->>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 - **MCP integration** — drone fleet management exposed as MCP tools for multi-agent orchestration
 
 ### 9.1 Product Opportunity
@@ -244,11 +240,7 @@ This market research directly supports the **Lifetime Fleet** division (Hands la
 | Key differentiator | Arctic-rated (-35 C), EU AI Act native, BVLOS-ready, EU-sovereign |
 | Market gap | No Nordic-origin, Arctic-grade, EU-compliant interceptor drone provider |
 
-<<<<<<< HEAD
 **Recommendation:** Evaluate partnership or OEM strategy for Arctic-rated interceptor drone hardware. Software layer (Fleet Commander + Compliance) is buildable within DWS stack using existing Argus Agent + LWM + sovereignty audit infrastructure. Hardware requires industrial drone manufacturing partner (candidates: Nordic Unmanned NO, UMS Skeldar SE, or EU drone OEM).
-=======
-**Recommendation:** Evaluate partnership or OEM strategy for Arctic-rated interceptor drone hardware. Software layer (Fleet Commander + Compliance) is buildable within DWS stack using existing Argus Agent + LWM + Aiven infrastructure. Hardware requires industrial drone manufacturing partner (candidates: Nordic Unmanned NO, UMS Skeldar SE, or EU drone OEM).
->>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 
 ---
 

@@ -312,6 +312,10 @@
                     </ul>
                 </li>
 
+                <!-- Book Meeting CTA -->
+                <li class="ironclad-menu-item">
+                    <a href="https://dws10.com/book/?service=demo" class="ironclad-cta-book" title="Book a meeting — Demo or Consultation">📅 Book Meeting</a>
+                </li>
                 <!-- IQ Login Button - Gamma Style -->
                 <li class="ironclad-menu-item">
                     <a href="https://dws6.com/login" class="ironclad-cta" title="DWS IQ Login">IQ Login</a>
@@ -559,6 +563,28 @@
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
     background: linear-gradient(135deg, #152238 0%, #1e3a5f 100%);
+}
+
+/* Book Meeting CTA - Green (matches Schedule Demo buttons) */
+.ironclad-cta-book {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff !important;
+    padding: 6px 14px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    height: 32px;
+    border: 1px solid #059669;
+    transition: all 0.3s;
+}
+
+.ironclad-cta-book:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
 }
 
 .ironclad-icon-link,
@@ -920,7 +946,8 @@
     }
 
     /* CTA in mobile menu */
-    .ironclad-cta {
+    .ironclad-cta,
+    .ironclad-cta-book {
         margin: 12px 20px;
         justify-content: center;
         height: 40px;

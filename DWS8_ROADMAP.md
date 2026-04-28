@@ -193,11 +193,7 @@ This phase runs in parallel with DWS 7 Phase 6 (GA release).
 | 8-031 | Dual-unit entries (EUR + tCO2e) | P0 | Every entry carries both financial (EUR) and physical (tCO2e) amounts. 1.852 tCO2e/t is the universal unit. Carbon price at time of entry preserved for audit trail |
 | 8-032 | XBRL/iXBRL export | P0 | Export ledger to ESRS-compliant XBRL for regulatory filing. Consumes EFRAG XBRL taxonomy (auto-synced). Machine-readable CSRD reports |
 | 8-033 | Multi-entity consolidation | P1 | Group-level carbon balance sheet. Parent company consolidates subsidiaries. Eliminates intercompany carbon double-counting |
-<<<<<<< HEAD
 | 8-034 | Audit trail with sovereignty signing | P0 | Every ledger entry signed via Full Sovereignty layer (EU AI Act Article 12). Tamper-proof. Auditor can verify chain from entry → agent → data source → regulation |
-=======
-| 8-034 | Audit trail with Aiven signing | P0 | Every ledger entry signed via Article 12 Logging Pipeline (EU AI Act Article 12). Tamper-proof. Auditor can verify chain from entry → agent → data source → regulation |
->>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 | 8-035 | Chart of carbon accounts | P1 | Standardized account structure: Scope 1 Direct, Scope 2 Indirect, Scope 3 Upstream, Scope 3 Downstream, Offsets, Free Allocation. Maps to ESRS E1 disclosures |
 | 8-036 | ERP GL integration | P1 | Sync carbon ledger entries to financial GL in SAP/IFS/Dynamics. Carbon costs appear as line items in the financial P&L. Bi-directional: ERP purchase orders → CBAM debit entries |
 | 8-037 | Variance analysis engine | P2 | Predicted vs actual compliance costs per quarter. Budget vs actual carbon balance. Alerts when ledger diverges from forecast by >10% |

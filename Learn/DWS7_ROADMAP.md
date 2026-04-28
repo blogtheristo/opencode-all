@@ -58,22 +58,14 @@ Physical and cloud infrastructure already in place entering Phase 1. These are n
 | EU Cloud backend | Google Cloud Run (`europe-north1`) | Express API, AI agents, EU data residency |
 | Database | Supabase (EU) | PostgreSQL + Auth + Realtime + pgvector |
 | CDN / Edge | Cloudflare Pages + Workers | Landing pages, dashboard SPA, edge API |
-<<<<<<< HEAD
 | Sovereignty audit layer | EU Cloud overlay | EU AI Act Article 12 logging, reasoning lineage (Phase 2+) |
-=======
-| Aiven layer | EU Cloud overlay | EU AI Act Article 12 logging, reasoning lineage (Phase 2+) |
->>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 
 ### What GN100 enables for the roadmap
 
 - **PR 161 (Climate LLM):** Fine-tune Llama 3.3 70B locally — no cloud training cost, no data leaving premises
 - **Sovereign on-premise AI gap:** The 4th competitive gap (above) is real because this hardware already exists
 - **Groq risk mitigation:** Immediate fallback inference for Llama 3.3 70B (~40 GB VRAM) and Mistral Large (~45 GB VRAM) without cloud dependency
-<<<<<<< HEAD
 - **EU AI Act Article 12:** All local inference workloads log to sovereignty audit layer — compliance-by-default
-=======
-- **EU AI Act Article 12:** All local inference workloads log to Aiven layer — compliance-by-default
->>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 
 ---
 

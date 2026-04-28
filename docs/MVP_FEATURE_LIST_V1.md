@@ -190,11 +190,7 @@ These are real features on the roadmap but **not required to ship V1:**
 
 | Feature                                     | Why Not MVP                                                                                                      | When       |
 | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------- |
-<<<<<<< HEAD
 | EU AI Act compliance layer (Full Sovereignty) | Regulatory deadline is later; ship compliance engine first                                                     | Phase 2    |
-=======
-| EU AI Act / Article 12 Logging Pipeline                     | Regulatory deadline is later; ship compliance engine first                                                       | Phase 2    |
->>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 | Multi-tenancy / tenant isolation            | First 3 customers can share infrastructure safely with RLS                                                       | Phase 3    |
 | ISO 27001 / SOC 2 certification             | Certification process takes 6+ months; start after MVP revenue                                                   | Phase 3    |
 | ERP integrations (SAP, IFS)                 | Customers can manually upload data for MVP; API integration comes after                                          | Phase 2    |

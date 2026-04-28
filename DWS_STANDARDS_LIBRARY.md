@@ -68,11 +68,7 @@ Standards fall into five categories:
 
 | Standard         | Version                              | Reference  | DWS Application                                                                    | Owner           | Status    |
 | ---------------- | ------------------------------------ | ---------- | ---------------------------------------------------------------------------------- | --------------- | --------- |
-<<<<<<< HEAD
 | **EU AI Act**    | Reg. 2024/1689                       | EUR-Lex    | Article 12 reasoning-lineage logging (Full Sovereignty layer), high-risk agent classification | Compliance team | ✅ Active |
-=======
-| **EU AI Act**    | Reg. 2024/1689                       | EUR-Lex    | Article 12 reasoning-lineage logging (Article 12 Logging Pipeline), high-risk agent classification | Compliance team | ✅ Active |
->>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 | **CBAM**         | Reg. 2023/956 + Impl. Reg. 2023/1773 | EUR-Lex    | `src/compliance/cbam-calculator.ts`, default emission factors                      | Compliance team | ✅ Active |
 | **EU ETS**       | Dir. 2003/87/EC + Reg. 2023/959      | EUR-Lex    | `src/compliance/ets-calculator.ts`, benchmark factors 2021–2025                    | Compliance team | ✅ Active |
 | **CSRD**         | Dir. 2022/2464                       | EUR-Lex    | `src/compliance/esg-report-extractor.ts`                                           | Compliance team | ✅ Active |

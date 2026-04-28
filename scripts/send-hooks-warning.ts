@@ -30,11 +30,7 @@ const html = `
     <li>.md files in public site folders blocked</li>
     <li>DB migrations require human authoring</li>
     <li>14 secret patterns detected and blocked</li>
-<<<<<<< HEAD
     <li>EU AI Act Article 12 audit tables: immutable</li>
-=======
-    <li>Article 12 audit tables: immutable</li>
->>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
   </ul>
 
   <h3 style="color:#22c55e;font-size:14px">Auto-Actions</h3>
@@ -59,11 +55,7 @@ const html = `
 const text = `WARNING: SAFETY HOOKS DEPLOYED
 ${now} UTC | Branch: ${branch}
 
-<<<<<<< HEAD
 HARD BLOCKS: rm -rf, force push, hard reset, git rm, ollama, sudo, secrets, .env writes, .md in public folders, DB migrations, sovereignty audit immutability.
-=======
-HARD BLOCKS: rm -rf, force push, hard reset, git rm, ollama, sudo, secrets, .env writes, .md in public folders, DB migrations, Article 12 immutability.
->>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 
 AUTO: prettier+eslint, governance checklist, auto-commit, test gate.
 

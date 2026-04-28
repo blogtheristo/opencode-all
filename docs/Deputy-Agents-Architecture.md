@@ -22,11 +22,7 @@ Changes v1.3 (2026-04-22):
 - Doc title renamed: "Godagent Architecture" → "Industrial Specialist Agent Architecture"
 - Added canonical "Terminology — DWS Skilled Taxonomy" section at top (source of truth for CLAUDE.md "DWS Skilled Taxonomy Rule")
 - Three-tier pattern codified: `Skilled <Axis>` / `Industrial Specialist <Axis>` / `Industry <Axis>`
-<<<<<<< HEAD
 - Three active axes: Agents, Workflows, Jurisdictions (EU / US / ASEAN)
-=======
-- Three active axes: Agents, Workflows, Jurisdictions (EU / US / Aiven)
->>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 - Count-dynamism patterns (open-ended `18+`, registry-anchored, product-scoped)
 - Scope exclusions preserved: Docker infrastructure identifiers (`dws-godagent-llm`, `dws-godagent:latest`, label `dws-godagent`) in §§ 2.4–2.6 are NOT renamed — that is a coordinated infra change, not a doc PR
 - Body prose of §§ 1–7 is migrated incrementally; the Terminology section at top declares deprecation authoritatively
@@ -70,21 +66,13 @@ Skilled <Axis>                 ← BRAND   (what we SELL)
 
 | Tier    | **Agents**                   | **Workflows**                                                       | **Jurisdictions**                     |
 | ------- | ---------------------------- | ------------------------------------------------------------------- | ------------------------------------- |
-<<<<<<< HEAD
 | 1 Brand | Skilled Agents               | Skilled Autonomous Workflows                                        | Skilled Jurisdictions (EU, US, ASEAN) |
-=======
-| 1 Brand | Skilled Agents               | Skilled Autonomous Workflows                                        | Skilled Jurisdictions (EU, US, Aiven) |
->>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 | 2 Spec  | Industrial Specialist Agents | Specialist Workflows (long-form: _Industrial Specialist Workflows_) | Regulatory Specialist Jurisdictions   |
 | 3 UI    | Industry Agents              | Industrial Workflows                                                | Jurisdictions                         |
 
 - **Agents.** Industry-scoped AI agents that extend the base Athena EU-compliance layer with sector-specific knowledge. The registry is § 3 of this document.
 - **Workflows.** Deterministic compositions of agents triggered by schedule or event. "Autonomous" appears in the brand tier because workflows execute without a human in the loop; agents have it implied.
-<<<<<<< HEAD
 - **Jurisdictions.** The regulatory surfaces the platform is skilled in — currently EU (AI Act, GDPR, CBAM, ETS, CSRD, ESRS, EPBD) and US, with ASEAN data-residency architecture planned (see `docs/CLOUD_ENVIRONMENTS.md`). "Regulatory" appears in the spec tier because a jurisdiction is defined by its regulatory surface, not its geography alone.
-=======
-- **Jurisdictions.** The regulatory surfaces the platform is skilled in — currently EU (AI Act, GDPR, CBAM, ETS, CSRD, ESRS, EPBD), US, and Aiven (see `docs/CLOUD_ENVIRONMENTS.md` for data-residency architecture). "Regulatory" appears in the spec tier because a jurisdiction is defined by its regulatory surface, not its geography alone.
->>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 
 ### Workflow Mechanism Descriptors (Spec-Tier Only)
 
@@ -1207,9 +1195,5 @@ docker-compose.godagent.yml                                  TODO
 - `src/agents/base.agent.ts` — BaseAgent abstract class with sandbox support
 - `src/sandbox/index.ts` — Sandbox isolation factory (Stage 1/docker/2/3)
 - `docs/FLEET_ECONOMIC_ENGINE.md` — Fleet economic model
-<<<<<<< HEAD
 - `docs/CLOUD_ENVIRONMENTS.md` — US/EU cloud accounts and sovereignty tiers
-=======
-- `docs/CLOUD_ENVIRONMENTS.md` — US/EU/Aiven cloud accounts
->>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 - `DWS_SECURITY_STANDARD.md` — Security framework including NIS2

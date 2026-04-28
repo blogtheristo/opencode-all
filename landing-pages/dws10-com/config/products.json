@@ -1311,15 +1311,9 @@
       "price": 1499,
       "currency": "EUR",
       "type": "monthly",
-<<<<<<< HEAD
       "description": "Full EU sovereign evaluation. 8 AI agents, Firehorse Report, EU AI Act Article 12 logging, NIS2 dashboard, 5 seats. Zero CLOUD Act. Prove compliance ROI on sovereign infrastructure.",
       "features": [
         "8 AI agents + EU AI Act Article 12 logging",
-=======
-      "description": "Full EU sovereign evaluation. 8 AI agents, Firehorse Report, Article 12 logging, NIS2 dashboard, 5 seats. Zero CLOUD Act. Prove compliance ROI on sovereign infrastructure.",
-      "features": [
-        "8 AI agents + Article 12 logging",
->>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
         "NIS2 compliance dashboard",
         "Zero CLOUD Act + EU data residency"
       ],
@@ -1662,13 +1656,7 @@
     "google": {
       "merchantId": null,
       "feedUrl": "https://dws10.com/feeds/google-products.xml",
-      "targetCountries": [
-        "FI",
-        "SE",
-        "NO",
-        "DK",
-        "DE"
-      ],
+      "targetCountries": ["FI", "SE", "NO", "DK", "DE"],
       "contentLanguage": "en",
       "channel": "online"
     }
