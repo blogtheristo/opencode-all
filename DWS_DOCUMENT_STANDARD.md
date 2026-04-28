@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.9
+Version: 2.0
 
 Sessions & Modifications:
 
+- Version: 2.0 | Tool: Claude Code (Haiku 4.5) | Session: claude/sync-version-numbering-adEeB | Date: 28.04.2026 | Changes: Added Section 5.4 (Thesis Version Numbering Format — CRITICAL): documented decimal 0.01 increment rule for all 4 thesis files (V3Thesis_EN/FI + PHD_FIREHORSE_EN/FI), unified version track requirement, rationale for preventing version fork confusion, and implementation guidance; version bump to 2.0 reflects addition of new critical standard for thesis artifact governance
 - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Registered DWS_DATA_STANDARD.md in document ecosystem — new root-level standard for data storage governance, columnar/row policy, extension registry, EU regulatory compliance
 - Version: 1.8 | Tool: Codex (GPT-5.3) | Session: cursor/code-versioning-pr-rule | Date: 13.03.2026 | Changes: Added Code Versioning & PR Traceability Standard (§19), syntax-safe code version note templates, and .env schema versioning policy
 - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-web-content-index-kxetP | Date: 28.02.2026 | Changes: Added Web Content Index check procedure (§17), Learn HTML generation rule (§18), content-index agent skill; updated morning briefing with Learn artifact links
@@ -31,7 +32,7 @@ Session Links & References:
 Document Status:
 
 - Created: 30.12.2025
-- Last Modified: 14.03.2026
+- Last Modified: 28.04.2026
 - Language: English & Finnish (bilingual)
 - Languages Available: English, Suomi
 - Publication Status: ACTIVE
@@ -1199,12 +1200,14 @@ Based on the insight that **"off-the-shelf LLMs don't work for enterprise AI"** 
    Saved to: `/docs/field-notes/2026-01-21-karp-enterprise-ai.md`
 
 3. **Refinement:** Core Artifact
+
    ```markdown
    # Artifact: Enterprise AI Implementation Strategy
 
    ART-2026-001
    [Extracted principles for DWS implementation]
    ```
+
    Saved to: `/artifacts/STRATEGY/ART-2026-001-enterprise-ai-ontology.md`
 
 ### 10.5 Directory Structure
