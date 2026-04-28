@@ -44,6 +44,7 @@ import kyaWebhookRoutes from './routes/kya-webhook.routes.js';
 import gtmEventsRoutes from './routes/gtm-events.routes.js';
 import emailWebhookRoutes from './routes/email-webhook.routes.js';
 import analyticsRoutes from './routes/analytics.routes.js';
+import erpTrackingRoutes from './routes/erp-tracking.routes.js';
 import { terminateChain } from './identity/kya-engine.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
@@ -311,6 +312,7 @@ app.use('/webhooks/email', emailWebhookRoutes);
 
 // Analytics API (Funnel dashboard + drop-off analysis — Phase 2b)
 app.use('/api/v1/analytics', analyticsRoutes);
+app.use('/api/erp/track', erpTrackingRoutes);
 
 const getHeaderValue = (value: string | string[] | undefined): string | undefined =>
   Array.isArray(value) ? value[0] : value;
