@@ -382,7 +382,7 @@ router.post('/reserve', reserveValidation, async (req: Request, res: Response) =
           durationMinutes,
           company: customerCompany || 'Ei ilmoitettu',
           notes: customerNotes || 'Ei lisätietoja',
-          cancelLink: `${process.env.FRONTEND_URL || 'https://dws10.com'}/varaa/cancel?id=${reservationId}`,
+          cancelLink: `${process.env.FRONTEND_URL || 'https://dws10.com'}/book/cancel?id=${reservationId}`,
         },
       });
 
