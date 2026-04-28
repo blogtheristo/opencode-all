@@ -226,6 +226,12 @@ const SOURCES = [
     lang: 'fi',
   },
   {
+    src: 'Learn/Tutkimussuunnitelma_3.51.md',
+    titleBase: 'Tutkimussuunnitelma 3.51 — AI-Native Compliance Infrastructure',
+    outPrefix: 'Learn/Tutkimussuunnitelma_3.51_v',
+    lang: 'en',
+  },
+  {
     src: 'docs/ASPIRE_SENSOR_MANAGEMENT_PLAN.md',
     titleBase: 'Aspire Sensor Management Plan',
     outPrefix: 'Learn/ASPIRE_SENSOR_MANAGEMENT_PLAN_v',
