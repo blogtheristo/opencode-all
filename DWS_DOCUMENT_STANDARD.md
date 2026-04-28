@@ -1,38 +1,42 @@
 # DWS Document Standard
 
-***
+---
+
 # VERSION AND AGENT HISTORY
 
 Version: 1.9
 
 Sessions & Modifications:
-  - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Registered DWS_DATA_STANDARD.md in document ecosystem — new root-level standard for data storage governance, columnar/row policy, extension registry, EU regulatory compliance
-  - Version: 1.8 | Tool: Codex (GPT-5.3) | Session: cursor/code-versioning-pr-rule | Date: 13.03.2026 | Changes: Added Code Versioning & PR Traceability Standard (§19), syntax-safe code version note templates, and .env schema versioning policy
-  - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-web-content-index-kxetP | Date: 28.02.2026 | Changes: Added Web Content Index check procedure (§17), Learn HTML generation rule (§18), content-index agent skill; updated morning briefing with Learn artifact links
-  - Version: 1.6 | Tool: Cursor AI | Session: cursor/update-sql-migration-naming | Date: 27.02.2026 | Changes: Added SQL migration file naming convention using number_ddmmyy_name.sql pattern
-  - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/automate-pr-workflow-e5wXD | Date: 21.02.2026 | Changes: Added OUTDATED status and document lifecycle procedure (sections 2.4-2.5), archive folder structure, marking procedure
-  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Pandoc compatibility - changed --- to *** delimiters, updated PDF section with Generate-PDFs.ps1
-  - Version: 1.3 | Tool: Claude Code (Opus 4.5) | Session: claude/update-docs-qwen3-coder-FFGgN | Date: 04.02.2026 | Changes: Added LLM versioning section (14), localization tracking (15), document index reference
-  - Version: 1.2 | Tool: Claude Code | Session: claude/show-dws-version-LLEHz | Date: 21.01.2026 | Changes: Added knowledge management strategy, core artifacts, and field notes sections; integrated ontology framework
-  - Version: 1.1 | Tool: GitHub Copilot | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Added PDF Standard section (8.0) with conversion methods, quality checklist, and automation guidance
-  - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - DWS document standard with workflow naming conventions
+
+- Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Registered DWS_DATA_STANDARD.md in document ecosystem — new root-level standard for data storage governance, columnar/row policy, extension registry, EU regulatory compliance
+- Version: 1.8 | Tool: Codex (GPT-5.3) | Session: cursor/code-versioning-pr-rule | Date: 13.03.2026 | Changes: Added Code Versioning & PR Traceability Standard (§19), syntax-safe code version note templates, and .env schema versioning policy
+- Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-web-content-index-kxetP | Date: 28.02.2026 | Changes: Added Web Content Index check procedure (§17), Learn HTML generation rule (§18), content-index agent skill; updated morning briefing with Learn artifact links
+- Version: 1.6 | Tool: Cursor AI | Session: cursor/update-sql-migration-naming | Date: 27.02.2026 | Changes: Added SQL migration file naming convention using number_ddmmyy_name.sql pattern
+- Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/automate-pr-workflow-e5wXD | Date: 21.02.2026 | Changes: Added OUTDATED status and document lifecycle procedure (sections 2.4-2.5), archive folder structure, marking procedure
+- Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Pandoc compatibility - changed --- to \*\*\* delimiters, updated PDF section with Generate-PDFs.ps1
+- Version: 1.3 | Tool: Claude Code (Opus 4.5) | Session: claude/update-docs-qwen3-coder-FFGgN | Date: 04.02.2026 | Changes: Added LLM versioning section (14), localization tracking (15), document index reference
+- Version: 1.2 | Tool: Claude Code | Session: claude/show-dws-version-LLEHz | Date: 21.01.2026 | Changes: Added knowledge management strategy, core artifacts, and field notes sections; integrated ontology framework
+- Version: 1.1 | Tool: GitHub Copilot | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Added PDF Standard section (8.0) with conversion methods, quality checklist, and automation guidance
+- Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation - DWS document standard with workflow naming conventions
 
 Session Links & References:
-  - Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/commits/main
-  - Claude Code (claude/show-dws-version-LLEHz): https://github.com/blogtheristo/dws6
-  - Claude Code (claude/update-docs-qwen3-coder-FFGgN): https://github.com/blogtheristo/dws6
-  - Claude Code (claude/research-dws-brand-standard-Rm8Jw): https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw
-  - Claude Code (claude/automate-pr-workflow-e5wXD): https://claude.ai/code/session_01G3jtczbnAPw3ofYVBFYoow
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/DWS_DOCUMENT_STANDARD.md
+
+- Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/commits/main
+- Claude Code (claude/show-dws-version-LLEHz): https://github.com/blogtheristo/dws6
+- Claude Code (claude/update-docs-qwen3-coder-FFGgN): https://github.com/blogtheristo/dws6
+- Claude Code (claude/research-dws-brand-standard-Rm8Jw): https://github.com/blogtheristo/dws6/commits/claude/research-dws-brand-standard-Rm8Jw
+- Claude Code (claude/automate-pr-workflow-e5wXD): https://claude.ai/code/session_01G3jtczbnAPw3ofYVBFYoow
+- View on GitHub: https://github.com/blogtheristo/dws6/blob/main/DWS_DOCUMENT_STANDARD.md
 
 Document Status:
-  - Created: 30.12.2025
-  - Last Modified: 14.03.2026
-  - Language: English & Finnish (bilingual)
-  - Languages Available: English, Suomi
-  - Publication Status: ACTIVE
 
-***
+- Created: 30.12.2025
+- Last Modified: 14.03.2026
+- Language: English & Finnish (bilingual)
+- Languages Available: English, Suomi
+- Publication Status: ACTIVE
+
+---
 
 **Version:** 1.9
 **Effective Date:** 2026-03-14
@@ -76,6 +80,7 @@ Tämä dokumentti määrittää standardoidut nimeämiskäytännöt, metatietova
 ### Scope / Soveltamisala
 
 Applies to:
+
 - All markdown documents (`.md`)
 - GitHub Actions workflows (`.yml`, `.yaml`)
 - Configuration files
@@ -86,6 +91,7 @@ Applies to:
 - PDF documents (`.pdf`)
 
 **Does NOT apply to:**
+
 - `Store/*.md` product files — these use **Store Product Format** (YAML frontmatter with `title`, `price`, `sku`). See `product-catalog/README.md` § "Store Product Format".
 - `product-catalog/*/google-merchant-product.json` — these use Google Merchant JSON schema.
 
@@ -114,56 +120,60 @@ Applies to:
 ```markdown
 # [Document Title]
 
-***
+---
+
 # VERSION AND AGENT HISTORY
 
 Version: X.Y
 
 Sessions & Modifications:
-  - Version: X.Y | Tool: [Tool Name] | Session: [Session ID] | Date: DD.MM.YYYY | Changes: [Description]
+
+- Version: X.Y | Tool: [Tool Name] | Session: [Session ID] | Date: DD.MM.YYYY | Changes: [Description]
 
 Session Links & References:
-  - [Tool Name] ([Session ID]): [GitHub commit link]
-  - View on GitHub: [Document link]
+
+- [Tool Name] ([Session ID]): [GitHub commit link]
+- View on GitHub: [Document link]
 
 Document Status:
-  - Created: DD.MM.YYYY
-  - Last Modified: DD.MM.YYYY
-  - Language: [Primary Language]
-  - Languages Available: [List]
-  - Publication Status: [ACTIVE / DRAFT / OUTDATED / ARCHIVED / DEPRECATED]
 
-***
+- Created: DD.MM.YYYY
+- Last Modified: DD.MM.YYYY
+- Language: [Primary Language]
+- Languages Available: [List]
+- Publication Status: [ACTIVE / DRAFT / OUTDATED / ARCHIVED / DEPRECATED]
+
+---
 ```
 
 ### 2.2 Header Components
 
-| Component | Required | Description | Example |
-|-----------|----------|-------------|---------|
-| **Version** | ✅ Yes | Semantic version (X.Y) | `1.0`, `1.1`, `2.0` |
-| **Tool** | ✅ Yes | AI tool or author | `Cursor AI`, `Claude Code`, `Manual` |
-| **Session** | ✅ Yes | Unique session identifier | `2025-12-30`, `QVvDX`, `IjtD0` |
-| **Date** | ✅ Yes | Date of modification | `30.12.2025` |
-| **Changes** | ✅ Yes | Brief description | `Initial creation`, `Added workflow naming` |
-| **Session Links** | ⚠️ Recommended | GitHub commit links | URL to commits |
-| **Created** | ✅ Yes | Document creation date | `30.12.2025` |
-| **Last Modified** | ✅ Yes | Last modification date | `30.12.2025` |
-| **Language** | ✅ Yes | Primary language | `English`, `Finnish`, `Bilingual` |
-| **Languages Available** | ✅ Yes | All available languages | `English, Suomi` |
-| **Publication Status** | ✅ Yes | Document status | `ACTIVE`, `DRAFT`, `OUTDATED`, `ARCHIVED` |
+| Component               | Required       | Description               | Example                                     |
+| ----------------------- | -------------- | ------------------------- | ------------------------------------------- |
+| **Version**             | ✅ Yes         | Semantic version (X.Y)    | `1.0`, `1.1`, `2.0`                         |
+| **Tool**                | ✅ Yes         | AI tool or author         | `Cursor AI`, `Claude Code`, `Manual`        |
+| **Session**             | ✅ Yes         | Unique session identifier | `2025-12-30`, `QVvDX`, `IjtD0`              |
+| **Date**                | ✅ Yes         | Date of modification      | `30.12.2025`                                |
+| **Changes**             | ✅ Yes         | Brief description         | `Initial creation`, `Added workflow naming` |
+| **Session Links**       | ⚠️ Recommended | GitHub commit links       | URL to commits                              |
+| **Created**             | ✅ Yes         | Document creation date    | `30.12.2025`                                |
+| **Last Modified**       | ✅ Yes         | Last modification date    | `30.12.2025`                                |
+| **Language**            | ✅ Yes         | Primary language          | `English`, `Finnish`, `Bilingual`           |
+| **Languages Available** | ✅ Yes         | All available languages   | `English, Suomi`                            |
+| **Publication Status**  | ✅ Yes         | Document status           | `ACTIVE`, `DRAFT`, `OUTDATED`, `ARCHIVED`   |
 
 ### 2.3 Publication Status Values
 
 Use plain text status labels. Emoji icons are optional (display only).
 
-| Status | Meaning |
-|--------|---------|
-| **ACTIVE** | Document is current and in use |
-| **DRAFT** | Document is work in progress |
-| **OUTDATED** | Document is superseded, no longer maintained — pending archive |
-| **ARCHIVED** | Document is in `docs/archive/`, kept for historical reference |
-| **DEPRECATED** | Document is outdated and should not be used |
-| **UNDER REVIEW** | Document is being reviewed |
+| Status           | Meaning                                                        |
+| ---------------- | -------------------------------------------------------------- |
+| **ACTIVE**       | Document is current and in use                                 |
+| **DRAFT**        | Document is work in progress                                   |
+| **OUTDATED**     | Document is superseded, no longer maintained — pending archive |
+| **ARCHIVED**     | Document is in `docs/archive/`, kept for historical reference  |
+| **DEPRECATED**   | Document is outdated and should not be used                    |
+| **UNDER REVIEW** | Document is being reviewed                                     |
 
 > **Pandoc note:** Avoid emoji in publication status if generating PDF via LaTeX.
 > HTML engine handles emoji fine. Use text labels (`ACTIVE`, `DRAFT`, etc.) as the
@@ -177,11 +187,11 @@ Documents follow this lifecycle:
 DRAFT → ACTIVE → OUTDATED → ARCHIVED
 ```
 
-| Transition | When | Who | Action |
-|-----------|------|-----|--------|
-| DRAFT → ACTIVE | Document complete and approved | Author | Set `Publication Status: ACTIVE` |
-| ACTIVE → OUTDATED | Superseded by newer document | Author or reviewer | Add OUTDATED header block (see below) |
-| OUTDATED → ARCHIVED | Moved to `docs/archive/` | Maintainer | Move file, update Document Index |
+| Transition          | When                           | Who                | Action                                |
+| ------------------- | ------------------------------ | ------------------ | ------------------------------------- |
+| DRAFT → ACTIVE      | Document complete and approved | Author             | Set `Publication Status: ACTIVE`      |
+| ACTIVE → OUTDATED   | Superseded by newer document   | Author or reviewer | Add OUTDATED header block (see below) |
+| OUTDATED → ARCHIVED | Moved to `docs/archive/`       | Maintainer         | Move file, update Document Index      |
 
 ### 2.5 Marking a Document as OUTDATED (Procedure)
 
@@ -199,7 +209,8 @@ When a document is superseded or no longer maintained, mark it as OUTDATED **bef
 
 ```markdown
 Document Status:
-  - Publication Status: OUTDATED
+
+- Publication Status: OUTDATED
 ```
 
 **Step 3:** Move the file to the appropriate `docs/archive/` subfolder:
@@ -218,6 +229,7 @@ docs/archive/
 **Step 4:** Update the Document Index (`docs/Document-index.md`) to reflect the new location and ARCHIVED status.
 
 **Rules:**
+
 - **Never delete** — always move to `docs/archive/` (CLAUDE.md Rule 8)
 - Keep `_lp` suffix copies if they exist (preserve git rename history)
 - Add a session entry to the version history recording the archive action
@@ -229,23 +241,25 @@ docs/archive/
 ### 3.1 GitHub Actions Workflow Naming
 
 **Format:**
+
 ```
 [category]-[action]-[frequency]-v[version]-YYYY-MM-DD.yml
 ```
 
 **Components:**
 
-| Component | Required | Description | Examples |
-|-----------|----------|-------------|----------|
-| **category** | ✅ Yes | Workflow category | `security`, `backup`, `deploy`, `test`, `audit` |
-| **action** | ✅ Yes | Primary action | `scan`, `backup`, `deploy`, `test`, `audit` |
-| **frequency** | ⚠️ Optional | Execution frequency | `daily`, `weekly`, `monthly`, `on-demand` |
-| **version** | ✅ Yes | Workflow version | `v1`, `v2`, `v3` |
-| **date** | ✅ Yes | Creation/update date | `2025-12-30` |
+| Component     | Required    | Description          | Examples                                        |
+| ------------- | ----------- | -------------------- | ----------------------------------------------- |
+| **category**  | ✅ Yes      | Workflow category    | `security`, `backup`, `deploy`, `test`, `audit` |
+| **action**    | ✅ Yes      | Primary action       | `scan`, `backup`, `deploy`, `test`, `audit`     |
+| **frequency** | ⚠️ Optional | Execution frequency  | `daily`, `weekly`, `monthly`, `on-demand`       |
+| **version**   | ✅ Yes      | Workflow version     | `v1`, `v2`, `v3`                                |
+| **date**      | ✅ Yes      | Creation/update date | `2025-12-30`                                    |
 
 ### 3.2 Workflow Naming Examples
 
 ✅ **CORRECT:**
+
 ```
 security-scan-daily-v1-2025-12-30.yml
 backup-site-daily-v2-2025-12-26.yml
@@ -255,6 +269,7 @@ test-integration-weekly-v1-2025-12-20.yml
 ```
 
 ❌ **INCORRECT:**
+
 ```
 security-scan.yml                    ← Missing version and date
 daily-backup.yml                     ← Wrong order, missing version/date
@@ -281,7 +296,7 @@ name: [Workflow Display Name]
 
 on:
   schedule:
-    - cron: '[cron expression]'
+    - cron: "[cron expression]"
   workflow_dispatch:
 
 jobs:
@@ -306,11 +321,13 @@ jobs:
 ### 4.1 Document Files
 
 **Format:**
+
 ```
 [CATEGORY]_[NAME]_[LANGUAGE]_v[VERSION].md
 ```
 
 **Examples:**
+
 ```
 ADMIN_MANUAL_AUTHENTICATION_EN_v1.md
 ADMIN_MANUAL_DWS6_COM_EN_v1.md
@@ -321,11 +338,13 @@ THESIS_OUTLINE_EN_v1.md
 ### 4.2 Configuration Files
 
 **Format:**
+
 ```
 [service]-[environment]-config-v[version].yml
 ```
 
 **Examples:**
+
 ```
 docker-compose-dev-config-v1.yml
 cloudflare-production-config-v2.yml
@@ -334,11 +353,13 @@ cloudflare-production-config-v2.yml
 ### 4.3 Script Files
 
 **Format:**
+
 ```
 [action]_[target]_v[version].[ext]
 ```
 
 **Examples:**
+
 ```
 security_audit_v1.py
 backup_database_v2.sh
@@ -350,17 +371,19 @@ deploy_production_v1.js
 Used for `supabase/migrations/*.sql` and any hand-written DDL migrations.
 
 **Format:**
+
 ```
 [number]_[DDMMYY]_[name].sql
 ```
 
-- **number**: Zero-padded, 3-digit migration number matching execution order  
+- **number**: Zero-padded, 3-digit migration number matching execution order
   - Examples: `002`, `013`, `030`, `036`
-- **DDMMYY**: Creation date (day, month, year) in `ddmmyy` format  
+- **DDMMYY**: Creation date (day, month, year) in `ddmmyy` format
   - Examples: `270226` = 27.02.2026
-- **name**: Short, lowercase, snake_case description (`_` is allowed and encouraged)
+- **name**: Short, lowercase, snake*case description (`*` is allowed and encouraged)
 
 **Examples:**
+
 ```
 002_190126_firehorse_pilot.sql
 013_190126_agent_tracking.sql
@@ -370,6 +393,7 @@ Used for `supabase/migrations/*.sql` and any hand-written DDL migrations.
 ```
 
 **Rules:**
+
 - Filenames live in the filesystem only – Postgres does **not** read them, but:
   - The **number** communicates migration ordering to humans and tooling.
   - The **DDMMYY** encodes creation context and helps when scanning history.
@@ -380,6 +404,7 @@ Used for `supabase/migrations/*.sql` and any hand-written DDL migrations.
 ### 4.4 Prohibited Naming Patterns
 
 ❌ **DO NOT USE:**
+
 - Spaces in filenames: `my document.md`
 - Special characters: `file@#$.md`
 - Inconsistent casing: `MyFile.MD`, `myfile.Md`
@@ -394,23 +419,25 @@ Used for `supabase/migrations/*.sql` and any hand-written DDL migrations.
 
 **Format:** `MAJOR.MINOR`
 
-| Version | When to Use | Example |
-|---------|-------------|---------|
-| **0.1** | Initial draft | First version of document |
-| **0.2, 0.3...** | Minor updates | Small changes, corrections |
-| **1.0** | First release | Document is complete and approved |
-| **1.1, 1.2...** | Minor updates | Updates to released document |
-| **2.0** | Major revision | Significant restructuring or rewrite |
+| Version         | When to Use    | Example                              |
+| --------------- | -------------- | ------------------------------------ |
+| **0.1**         | Initial draft  | First version of document            |
+| **0.2, 0.3...** | Minor updates  | Small changes, corrections           |
+| **1.0**         | First release  | Document is complete and approved    |
+| **1.1, 1.2...** | Minor updates  | Updates to released document         |
+| **2.0**         | Major revision | Significant restructuring or rewrite |
 
 ### 5.2 Version Increment Rules
 
 **Increment MINOR version (0.1 → 0.2) when:**
+
 - Adding new sections
 - Updating existing content
 - Fixing errors or typos
 - Adding examples or clarifications
 
 **Increment MAJOR version (1.0 → 2.0) when:**
+
 - Complete document restructuring
 - Changing document purpose or scope
 - Breaking changes to standards
@@ -421,12 +448,38 @@ Used for `supabase/migrations/*.sql` and any hand-written DDL migrations.
 ```markdown
 ## Version History
 
-| Version | Date | Author/Tool | Changes |
-|---------|------|-------------|---------|
-| 1.0 | 2025-12-30 | Cursor AI | Initial creation |
-| 1.1 | 2026-01-15 | Claude Code | Added workflow section |
-| 2.0 | 2026-02-01 | Manual | Complete restructure |
+| Version | Date       | Author/Tool | Changes                |
+| ------- | ---------- | ----------- | ---------------------- |
+| 1.0     | 2025-12-30 | Cursor AI   | Initial creation       |
+| 1.1     | 2026-01-15 | Claude Code | Added workflow section |
+| 2.0     | 2026-02-01 | Manual      | Complete restructure   |
 ```
+
+### 5.4 Thesis Version Numbering Format (CRITICAL)
+
+**Applies to all 4 thesis files (unified track):**
+
+- `docs/metropolia/master-thesis/en/V3Thesis_EN.md`
+- `docs/metropolia/master-thesis/fi/V3Thesis_FI.md`
+- `docs/PHD_FIREHORSE_EN.md`
+- `docs/PHD_FIREHORSE_FI.md`
+
+**Format:** Decimal increment of `0.01` per version bump.
+
+**Sequence:**
+
+- After `.09` comes `.10` (example: `3.09 → 3.10`, `3.19 → 3.20`)
+- After `.99` comes major rollover (example: `3.99 → 4.00`, `4.99 → 5.00`)
+
+**Rule:** All 4 thesis files MUST bump in lockstep (unified version track):
+
+- `3.37 → 3.38 → 3.39 → … → 3.99 → 4.00 → 4.01 → …`
+- **Never** separate versioning for individual files
+- **Never** skip versions (no jumps like `3.39 → 3.51` within the files themselves; version bumps are sequential)
+
+**Rationale:** Unified versioning ensures that when a supervisor, reviewer, or stakeholder references "version 3.51," all four documents are in sync. This prevents the confusion that arises from forked version tracks (Metropolia at 3.39, PHD at 2.10, etc.).
+
+**Implementation:** When bumping thesis versions, update the `Version: X.YZ` header in all 4 files simultaneously. Add a single entry in the VERSION AND AGENT HISTORY block (per file) documenting the change. The VERSION AND AGENT HISTORY entry may consolidate multiple intermediate steps (e.g., "Bumped 3.39 → 3.51" in one entry) with a note: "12 steps × 0.01 → unified thesis track maintained."
 
 ---
 
@@ -434,15 +487,16 @@ Used for `supabase/migrations/*.sql` and any hand-written DDL migrations.
 
 ### 6.1 Supported Languages
 
-| Language | Code | Usage |
-|----------|------|-------|
-| **English** | `EN` | Primary language for technical documentation |
-| **Finnish** | `FI` | Primary language for thesis and local documentation |
-| **Bilingual** | `EN_FI` | Documents with both languages |
+| Language      | Code    | Usage                                               |
+| ------------- | ------- | --------------------------------------------------- |
+| **English**   | `EN`    | Primary language for technical documentation        |
+| **Finnish**   | `FI`    | Primary language for thesis and local documentation |
+| **Bilingual** | `EN_FI` | Documents with both languages                       |
 
 ### 6.2 Language Indicators
 
 **In filename:**
+
 ```
 DOCUMENT_NAME_EN.md          # English only
 DOCUMENT_NAME_FI.md          # Finnish only
@@ -450,10 +504,12 @@ DOCUMENT_NAME_EN_FI.md       # Bilingual
 ```
 
 **In document header:**
+
 ```markdown
 Document Status:
-  - Language: English
-  - Languages Available: English, Suomi
+
+- Language: English
+- Languages Available: English, Suomi
 ```
 
 ### 6.3 Bilingual Document Structure
@@ -551,11 +607,13 @@ Määrittää standardoidut menettelyt ammattimaisten PDF-dokumenttien luomiseks
 ### 8.2 File Size Requirements
 
 **MANDATORY:**
+
 - Maximum file size: **10 MB**
 - Target file size: **1-5 MB**
 - Optimization: Enabled for images and fonts
 
 **RATIONALE:**
+
 - Email compatibility (most servers limit attachments to 10-25 MB)
 - Fast download/upload speeds
 - Professional distribution
@@ -589,6 +647,7 @@ winget install wkhtmltopdf
 ```
 
 **Key pandoc flags for DWS documents:**
+
 ```
 -f markdown-yaml_metadata_block+smart   # Disable YAML parsing (DWS headers aren't YAML)
 --standalone --embed-resources           # Self-contained HTML with embedded CSS
@@ -624,10 +683,10 @@ pandoc "input.md" -o "output.pdf" --pdf-engine=xelatex --toc -f markdown-yaml_me
 
 **Font loading — two modes based on document classification:**
 
-| Classification | Font Loading | Reason |
-|---------------|-------------|--------|
+| Classification                      | Font Loading                                       | Reason                                                                                |
+| ----------------------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------- |
 | **Confidential / Sales / Internal** | Self-hosted `@font-face` from `docs/assets/fonts/` | No external network requests — document works offline and in locked-down environments |
-| **Public (landing pages, blog)** | Google Fonts CDN `<link>` tag | Performance, caching, CDN delivery |
+| **Public (landing pages, blog)**    | Google Fonts CDN `<link>` tag                      | Performance, caching, CDN delivery                                                    |
 
 **Self-hosted font (confidential documents):**
 
@@ -636,68 +695,119 @@ Font files: `docs/assets/fonts/Inter-{Regular,Medium,SemiBold,Bold}.ttf`
 ```css
 /* Self-hosted Inter — no external network requests (confidential document) */
 @font-face {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url('../assets/fonts/Inter-Regular.ttf') format('truetype');
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/Inter-Regular.ttf") format("truetype");
 }
 @font-face {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-display: swap;
-    src: url('../assets/fonts/Inter-Medium.ttf') format('truetype');
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../assets/fonts/Inter-Medium.ttf") format("truetype");
 }
 @font-face {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 600;
-    font-display: swap;
-    src: url('../assets/fonts/Inter-SemiBold.ttf') format('truetype');
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../assets/fonts/Inter-SemiBold.ttf") format("truetype");
 }
 @font-face {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url('../assets/fonts/Inter-Bold.ttf') format('truetype');
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/Inter-Bold.ttf") format("truetype");
 }
 ```
 
 **Google Fonts (public pages only):**
+
 ```html
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+  rel="stylesheet"
+/>
 ```
 
 **DWS brand CSS:**
 
 ```css
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-    font-size: 10pt;
-    line-height: 1.55;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 40px;
-    color: #1a202c;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  font-size: 10pt;
+  line-height: 1.55;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px;
+  color: #1a202c;
 }
-h1 { color: #0f172a; border-bottom: 3px solid #0066cc; padding-bottom: 8px; }
-h2 { color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; }
-h3 { color: #1e3a5f; }
-code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
-pre { background: #f4f4f4; padding: 12px; border-radius: 4px; border: 1px solid #ddd; }
-table { border-collapse: collapse; width: 100%; margin: 12px 0; }
-th, td { border: 1px solid #e2e8f0; padding: 8px 12px; text-align: left; }
-th { background: #0f172a; color: white; }
-tr:nth-child(even) { background: #f8fafc; }
-a { color: #0066cc; }
-blockquote { border-left: 4px solid #0066cc; padding: 8px 16px; background: #f0f7ff; }
+h1 {
+  color: #0f172a;
+  border-bottom: 3px solid #0066cc;
+  padding-bottom: 8px;
+}
+h2 {
+  color: #0f172a;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 4px;
+}
+h3 {
+  color: #1e3a5f;
+}
+code {
+  background: #f4f4f4;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+pre {
+  background: #f4f4f4;
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 12px 0;
+}
+th,
+td {
+  border: 1px solid #e2e8f0;
+  padding: 8px 12px;
+  text-align: left;
+}
+th {
+  background: #0f172a;
+  color: white;
+}
+tr:nth-child(even) {
+  background: #f8fafc;
+}
+a {
+  color: #0066cc;
+}
+blockquote {
+  border-left: 4px solid #0066cc;
+  padding: 8px 16px;
+  background: #f0f7ff;
+}
 ```
 
 **Brand colors reference:**
+
 - Primary: `#0f172a` (dark navy) - headings, table headers
 - Secondary: `#1e3a5f` (deep blue) - subheadings, accents
 - Accent: `#fbbf24` (gold) - section borders, CTAs
@@ -710,36 +820,40 @@ blockquote { border-left: 4px solid #0066cc; padding: 8px 16px; background: #f0f
 All HTML documents intended for browser print-to-PDF MUST include:
 
 **1. Force background printing:**
+
 ```css
 @media print {
-    * {
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-        color-adjust: exact !important;
-    }
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
 }
 ```
 
 **2. Explicit A4 page structure** (browser @page CSS is unreliable for headers/footers):
+
 ```css
 .page {
-    width: 210mm;
-    min-height: 297mm;
-    background: white;
-    margin: 10px auto;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    counter-increment: page-counter;
+  width: 210mm;
+  min-height: 297mm;
+  background: white;
+  margin: 10px auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  counter-increment: page-counter;
 }
 
 @media print {
-    .page {
-        margin: 0;
-        page-break-after: always;
-        overflow: visible;  /* NEVER overflow: hidden — clips content silently */
-    }
-    .page:last-child { page-break-after: avoid; }
+  .page {
+    margin: 0;
+    page-break-after: always;
+    overflow: visible; /* NEVER overflow: hidden — clips content silently */
+  }
+  .page:last-child {
+    page-break-after: avoid;
+  }
 }
 ```
 
@@ -750,22 +864,28 @@ All HTML documents intended for browser print-to-PDF MUST include:
 **3. Visible page headers and footers with CSS counters** (NOT @page CSS — browsers ignore those):
 
 ```css
-body { counter-reset: page-counter; }
-.page { counter-increment: page-counter; }
-.page-number::after { content: counter(page-counter); }
+body {
+  counter-reset: page-counter;
+}
+.page {
+  counter-increment: page-counter;
+}
+.page-number::after {
+  content: counter(page-counter);
+}
 ```
 
 ```html
 <div class="page">
-    <div class="page-header">
-        <span>Lifetime Oy | Document Title</span>
-        <span>Confidential | Page <span class="page-number"></span></span>
-    </div>
-    <div class="page-content"><!-- content --></div>
-    <div class="page-footer">
-        <span>© Lifetime Oy 2026</span>
-        <span>Confidential</span>
-    </div>
+  <div class="page-header">
+    <span>Lifetime Oy | Document Title</span>
+    <span>Confidential | Page <span class="page-number"></span></span>
+  </div>
+  <div class="page-content"><!-- content --></div>
+  <div class="page-footer">
+    <span>© Lifetime Oy 2026</span>
+    <span>Confidential</span>
+  </div>
 </div>
 ```
 
@@ -779,17 +899,18 @@ body { counter-reset: page-counter; }
 
 **Standard script:** `scripts/Generate-PDFs.ps1` (PowerShell, v1.5)
 
-| Feature | Detail |
-|---------|--------|
-| Engine choice | `-Engine html` (default) or `-Engine wkhtmltopdf` |
-| Source files | 16 markdown files (admin manuals, sales, investor) |
-| Output location | `F:\Proton\Proton\My files\2026\generated-pdfs\` |
-| Skip unchanged | Compares source vs output timestamps |
-| Auto-open | `-OpenNew` opens changed files in Edge |
-| DWS branding | Inline CSS with brand colors |
-| Pandoc flags | Disables YAML parsing, enables TOC, smart typography |
+| Feature         | Detail                                               |
+| --------------- | ---------------------------------------------------- |
+| Engine choice   | `-Engine html` (default) or `-Engine wkhtmltopdf`    |
+| Source files    | 16 markdown files (admin manuals, sales, investor)   |
+| Output location | `F:\Proton\Proton\My files\2026\generated-pdfs\`     |
+| Skip unchanged  | Compares source vs output timestamps                 |
+| Auto-open       | `-OpenNew` opens changed files in Edge               |
+| DWS branding    | Inline CSS with brand colors                         |
+| Pandoc flags    | Disables YAML parsing, enables TOC, smart typography |
 
 **Integration:**
+
 - Called by `Sync-ToProton.ps1 -GeneratePDFs`
 - Runs automatically on Windows login via `Startup-DailySync.bat`
 - VS Code task: "Generate PDFs (pandoc)" or "Sync + Generate PDFs"
@@ -822,11 +943,13 @@ Before finalizing any PDF document, verify:
 **Format:** `[CATEGORY]-[Project]-[Type]-[Year]-[Version].pdf`
 
 **Examples:**
+
 - `DWS-IQ6-Investor-Pitch-Deck-2025-OPTIMIZED.pdf`
 - `ADMIN-MANUAL-DWS6-COM-2025-v1.pdf`
 - `THESIS-OUTLINE-EN-2025-FINAL.pdf`
 
 **Rules:**
+
 - Use hyphens between words
 - Include year for version tracking
 - Add descriptive suffixes: OPTIMIZED, FINAL, DRAFT
@@ -857,8 +980,8 @@ name: Generate PDF Documents
 on:
   push:
     paths:
-      - 'docs/**/*.md'
-      - 'investor-outreach/**/*.md'
+      - "docs/**/*.md"
+      - "investor-outreach/**/*.md"
   workflow_dispatch:
 
 jobs:
@@ -869,7 +992,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
       - name: Install dependencies
         run: pip install markdown weasyprint
       - name: Generate PDFs
@@ -886,6 +1009,7 @@ jobs:
 ### 8.10 Distribution
 
 **For investor and client documents:**
+
 - Store PDFs in appropriate folders (e.g., `investor-outreach/`)
 - Keep file sizes optimized for email distribution
 - Version control PDFs for audit trail
@@ -900,26 +1024,30 @@ jobs:
 ```markdown
 # Admin Manual: DWS6.com Deployment
 
-***
+---
+
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation
+
+- Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation
 
 Session Links & References:
-  - Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/commits/main
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL_DWS6_COM.md
+
+- Cursor AI (2025-12-30): https://github.com/blogtheristo/dws6/commits/main
+- View on GitHub: https://github.com/blogtheristo/dws6/blob/main/Admin/ADMIN_MANUAL_DWS6_COM.md
 
 Document Status:
-  - Created: 30.12.2025
-  - Last Modified: 30.12.2025
-  - Language: English & Finnish (bilingual)
-  - Languages Available: English, Suomi
-  - Publication Status: ACTIVE
 
-***
+- Created: 30.12.2025
+- Last Modified: 30.12.2025
+- Language: English & Finnish (bilingual)
+- Languages Available: English, Suomi
+- Publication Status: ACTIVE
+
+---
 
 **Version:** 1.0  
 **Purpose:** Admin and deployment guide for dws6.com  
@@ -950,7 +1078,7 @@ name: Security Scan - Daily v1
 
 on:
   schedule:
-    - cron: '0 2 * * *'  # Daily at 02:00 UTC
+    - cron: "0 2 * * *" # Daily at 02:00 UTC
   workflow_dispatch:
 
 jobs:
@@ -959,10 +1087,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      
+
       - name: Run security scan
         run: npm audit
-      
+
       - name: Report results
         run: echo "Security scan completed"
 ```
@@ -1012,14 +1140,14 @@ Based on the insight that **"off-the-shelf LLMs don't work for enterprise AI"** 
 
 **Decision Criteria:**
 
-| Use Case | Storage Location | Reasoning |
-|----------|-----------------|-----------|
-| **Structured Intelligence** | Database (Supabase) | Queryable, linkable to objects, searchable in dashboards |
-| **Narrative Context** | Docs Files (.md) | Flow of argument, white papers, briefings |
-| **Core Artifacts** | Database with Docs Reference | Metadata in DB, full content in versioned .md |
-| **Regulatory Documents** | Docs Files with DB Index | Audit trail, version control, PDF generation |
-| **Training Data** | Database (Vector Store) | Embedding-ready, RAG-optimized |
-| **Field Notes** | Hybrid (DB → Docs → Artifact) | Captured in DB, processed to .md, refined to artifact |
+| Use Case                    | Storage Location              | Reasoning                                                |
+| --------------------------- | ----------------------------- | -------------------------------------------------------- |
+| **Structured Intelligence** | Database (Supabase)           | Queryable, linkable to objects, searchable in dashboards |
+| **Narrative Context**       | Docs Files (.md)              | Flow of argument, white papers, briefings                |
+| **Core Artifacts**          | Database with Docs Reference  | Metadata in DB, full content in versioned .md            |
+| **Regulatory Documents**    | Docs Files with DB Index      | Audit trail, version control, PDF generation             |
+| **Training Data**           | Database (Vector Store)       | Embedding-ready, RAG-optimized                           |
+| **Field Notes**             | Hybrid (DB → Docs → Artifact) | Captured in DB, processed to .md, refined to artifact    |
 
 ### 10.3 The Hybrid Approach (Recommended)
 
@@ -1054,21 +1182,26 @@ Based on the insight that **"off-the-shelf LLMs don't work for enterprise AI"** 
 **Decision Path:**
 
 1. **Initial Capture:** Database
+
    ```sql
    INSERT INTO field_notes (author, content, tags, sector)
    VALUES ('you@dws.com', 'Karp quote about...', ARRAY['AI', 'Ontology', 'Enterprise'], 'Strategy');
    ```
 
 2. **Processing:** Markdown Document
+
    ```markdown
    # Field Note: Palantir CEO on Enterprise AI
+
    [Full analysis as shown in your message]
    ```
+
    Saved to: `/docs/field-notes/2026-01-21-karp-enterprise-ai.md`
 
 3. **Refinement:** Core Artifact
    ```markdown
    # Artifact: Enterprise AI Implementation Strategy
+
    ART-2026-001
    [Extracted principles for DWS implementation]
    ```
@@ -1099,6 +1232,7 @@ dws6/
 ### 10.6 When to Use Database vs. Docs
 
 **Use Database when:**
+
 - Need real-time capture (mobile field notes)
 - Require structured queries
 - Building dashboards/reports
@@ -1106,6 +1240,7 @@ dws6/
 - Training AI/LLM models (vector embeddings)
 
 **Use Docs Files when:**
+
 - Writing narrative content
 - Creating white papers, briefings
 - Need version control history
@@ -1113,6 +1248,7 @@ dws6/
 - Long-form documentation
 
 **Use Both (Hybrid) when:**
+
 - Capturing enterprise knowledge (field notes → artifacts)
 - Building an ontology (metadata in DB, content in .md)
 - Regulatory documentation (index in DB, files as .md)
@@ -1130,6 +1266,7 @@ Core Artifacts ovat **validoituja yritystiedon palasia**, jotka muodostavat Life
 ### 11.2 What is a Core Artifact?
 
 A Core Artifact is:
+
 - **Validated knowledge** from field experience
 - **Enterprise-specific** (not generic AI knowledge)
 - **Actionable** (contains orchestration rules)
@@ -1139,20 +1276,22 @@ A Core Artifact is:
 ### 11.3 Artifact Naming Convention
 
 **Format:**
+
 ```
 ART-[YYYY]-[NNN]-[descriptive-name].md
 ```
 
 **Components:**
 
-| Component | Required | Description | Examples |
-|-----------|----------|-------------|----------|
-| **ART** | ✅ Yes | Prefix for all artifacts | `ART` |
-| **YYYY** | ✅ Yes | Year created | `2026` |
-| **NNN** | ✅ Yes | Sequential number (zero-padded) | `001`, `042`, `123` |
-| **descriptive-name** | ⚠️ Recommended | Brief topic description | `uk-cross-border-rules` |
+| Component            | Required       | Description                     | Examples                |
+| -------------------- | -------------- | ------------------------------- | ----------------------- |
+| **ART**              | ✅ Yes         | Prefix for all artifacts        | `ART`                   |
+| **YYYY**             | ✅ Yes         | Year created                    | `2026`                  |
+| **NNN**              | ✅ Yes         | Sequential number (zero-padded) | `001`, `042`, `123`     |
+| **descriptive-name** | ⚠️ Recommended | Brief topic description         | `uk-cross-border-rules` |
 
 **Examples:**
+
 ```
 ART-2026-001-enterprise-ai-ontology.md
 ART-2026-002-uk-cross-border-underwriting.md
@@ -1163,16 +1302,16 @@ ART-2026-003-eu-gdpr-updates.md
 
 **Location:** `/artifacts/[CATEGORY]/`
 
-| Category | Purpose | Examples |
-|----------|---------|----------|
-| **FINANCIAL_SERVICES** | Banking, insurance, underwriting | Cross-border rules, compliance |
-| **MANUFACTURING** | Production, quality, supply chain | Process optimization, safety |
-| **HEALTHCARE** | Medical, diagnostics, patient care | Regulatory compliance, protocols |
-| **COMPLIANCE** | Legal, regulatory, audit | GDPR, FCA rules, SOX |
-| **STRATEGY** | Business strategy, competitive intel | Market analysis, partnerships |
-| **TECHNOLOGY** | Architecture, security, infrastructure | API design, security protocols |
-| **SALES** | Customer insights, competitive wins | Objection handling, pricing |
-| **GENERAL** | Cross-functional knowledge | Best practices, templates |
+| Category               | Purpose                                | Examples                         |
+| ---------------------- | -------------------------------------- | -------------------------------- |
+| **FINANCIAL_SERVICES** | Banking, insurance, underwriting       | Cross-border rules, compliance   |
+| **MANUFACTURING**      | Production, quality, supply chain      | Process optimization, safety     |
+| **HEALTHCARE**         | Medical, diagnostics, patient care     | Regulatory compliance, protocols |
+| **COMPLIANCE**         | Legal, regulatory, audit               | GDPR, FCA rules, SOX             |
+| **STRATEGY**           | Business strategy, competitive intel   | Market analysis, partnerships    |
+| **TECHNOLOGY**         | Architecture, security, infrastructure | API design, security protocols   |
+| **SALES**              | Customer insights, competitive wins    | Objection handling, pricing      |
+| **GENERAL**            | Cross-functional knowledge             | Best practices, templates        |
 
 ### 11.5 Artifact File Structure
 
@@ -1182,6 +1321,7 @@ ART-2026-003-eu-gdpr-updates.md
 # Artifact: [Descriptive Title]
 
 ---
+
 ## METADATA (The "Coordinates")
 
 - **Artifact ID:** ART-YYYY-NNN
@@ -1196,32 +1336,41 @@ ART-2026-003-eu-gdpr-updates.md
 - **Source:** [Field Note reference]
 
 ---
+
 ## NARRATIVE (The "Divine Story")
 
 ### The Observation
+
 [What was learned from the field]
 
 ### Why It Failed
+
 [If applicable: why generic AI/process failed]
 
 ### The Ground Truth
+
 [Reality that contradicts generic assumptions]
 
 ---
+
 ## LOGIC (The "Orchestration Rule")
 
 ### Proposed Rule
+
 [If-then logic, code, or decision tree]
 
 ### LWM Update Instruction
+
 [How this updates the world model]
 
 ---
+
 ## VALIDATION & FEEDBACK
 
 [Usage history, success rate, confidence updates]
 
 ---
+
 ## RELATED ARTIFACTS
 
 - **Supersedes:** [Previous artifact IDs]
@@ -1229,6 +1378,7 @@ ART-2026-003-eu-gdpr-updates.md
 - **References:** [External documents]
 
 ---
+
 ## VERSION HISTORY
 
 - **v1.0** (YYYY-MM-DD): [Changes]
@@ -1259,6 +1409,7 @@ ART-2026-003-eu-gdpr-updates.md
 - [ ] Stored in correct category folder
 
 **Artifact Review Cycle:**
+
 - **Every 90 days:** Review all artifacts
 - **Flag for update:** If used but confidence < 0.7
 - **Flag for deprecation:** If unused for 180 days
@@ -1277,6 +1428,7 @@ Field Notes ovat **raakaa sensoriinputia** Lifetime World Model -järjestelmäll
 ### 12.2 When to Create a Field Note
 
 **Create a field note when:**
+
 - Customer says something unexpected
 - LLM/AI fails to handle a situation correctly
 - Production incident reveals a knowledge gap
@@ -1289,11 +1441,13 @@ Field Notes ovat **raakaa sensoriinputia** Lifetime World Model -järjestelmäll
 ### 12.3 Field Note Naming Convention
 
 **Format:**
+
 ```
 YYYY-MM-DD-[brief-topic].md
 ```
 
 **Examples:**
+
 ```
 2026-01-21-karp-enterprise-ai.md
 2026-01-22-london-customer-cross-border.md
@@ -1318,7 +1472,7 @@ YYYY-MM-DD-[brief-topic].md
    - For new laws, compliance updates, policy changes
    - Focus: Summary, impact, required actions
 
-*Full templates available in ONTOLOGY.md Section 10*
+_Full templates available in ONTOLOGY.md Section 10_
 
 ### 12.5 Required Elements
 
@@ -1350,6 +1504,7 @@ YYYY-MM-DD-[brief-topic].md
 ```
 
 **Example:**
+
 ```markdown
 ## Ontology Tags
 
@@ -1365,6 +1520,7 @@ YYYY-MM-DD-[brief-topic].md
 **Elevation Criteria:**
 
 A field note should be elevated to a Core Artifact when:
+
 - ✅ Used 3+ times in decision-making
 - ✅ Validated by 2+ team members
 - ✅ Contains reusable business logic
@@ -1389,6 +1545,7 @@ Field Note → Team Review → Draft Artifact → Validate → Publish
 ### 10.1 Automated Checks
 
 **Pre-commit hooks:**
+
 ```bash
 # Check document header
 if ! grep -q "VERSION AND AGENT HISTORY" "$file"; then
@@ -1436,6 +1593,7 @@ fi
 4. **Binary files** - Images, PDFs, etc. (use descriptive names)
 
 **To request an exception:**
+
 1. Document the reason
 2. Get approval from project lead
 3. Add exception to `.gitignore` or document in README
@@ -1464,29 +1622,32 @@ Määrittää standardit LLM-mallien seurantaan dokumenttien luomisessa ja muokk
 
 ```markdown
 Sessions & Modifications:
-  - Version: X.Y | Tool: [Tool Name] ([LLM Model]) | Session: [ID] | Date: DD.MM.YYYY | Changes: [Description]
+
+- Version: X.Y | Tool: [Tool Name] ([LLM Model]) | Session: [ID] | Date: DD.MM.YYYY | Changes: [Description]
 ```
 
 **Example:**
+
 ```markdown
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Claude Code (Claude Opus 4.5) | Session: claude/feature-xyz | Date: 04.02.2026 | Changes: Initial creation
-  - Version: 1.1 | Tool: Cursor AI (Claude Sonnet 3.5) | Session: 2026-02-05 | Date: 05.02.2026 | Changes: Added examples
-  - Version: 1.2 | Tool: Manual | Session: N/A | Date: 06.02.2026 | Changes: Human review
+
+- Version: 1.0 | Tool: Claude Code (Claude Opus 4.5) | Session: claude/feature-xyz | Date: 04.02.2026 | Changes: Initial creation
+- Version: 1.1 | Tool: Cursor AI (Claude Sonnet 3.5) | Session: 2026-02-05 | Date: 05.02.2026 | Changes: Added examples
+- Version: 1.2 | Tool: Manual | Session: N/A | Date: 06.02.2026 | Changes: Human review
 ```
 
 ### 14.4 Supported LLM Models Registry
 
 **Active Models (as of Q1 2026):**
 
-| Model Family | Model ID | Status | Use Case |
-|-------------|----------|--------|----------|
-| **Claude (Anthropic)** | claude-opus-4-5-20251101 | ✅ Primary | Complex reasoning, documentation |
-| **Claude (Anthropic)** | claude-sonnet-3-5 | ✅ Active | Code generation, fast tasks |
-| **Gemini (Google)** | gemini-2.0-flash | ✅ Active | Multimodal, fast inference |
-| **Groq** | llama-3.3-70b | ✅ Active | High-speed inference |
-| **Qwen (Alibaba)** | qwen3-coder-480b | 🧪 Evaluation | Agentic coding, local dev |
-| **Local LLM** | Various | ⚠️ Experimental | Edge deployment, privacy |
+| Model Family           | Model ID                 | Status          | Use Case                         |
+| ---------------------- | ------------------------ | --------------- | -------------------------------- |
+| **Claude (Anthropic)** | claude-opus-4-5-20251101 | ✅ Primary      | Complex reasoning, documentation |
+| **Claude (Anthropic)** | claude-sonnet-3-5        | ✅ Active       | Code generation, fast tasks      |
+| **Gemini (Google)**    | gemini-2.0-flash         | ✅ Active       | Multimodal, fast inference       |
+| **Groq**               | llama-3.3-70b            | ✅ Active       | High-speed inference             |
+| **Qwen (Alibaba)**     | qwen3-coder-480b         | 🧪 Evaluation   | Agentic coding, local dev        |
+| **Local LLM**          | Various                  | ⚠️ Experimental | Edge deployment, privacy         |
 
 ### 14.5 LLM Version Update Workflow
 
@@ -1503,6 +1664,7 @@ Sessions & Modifications:
 ```
 
 **Database Query for Version Tracking:**
+
 ```sql
 -- Find documents created with specific LLM model
 SELECT filename, version, created_date, llm_model
@@ -1516,13 +1678,13 @@ ORDER BY priority DESC;
 
 **When a model is deprecated:**
 
-| Action | Timeline | Responsibility |
-|--------|----------|----------------|
-| Announce deprecation | Immediately | Documentation team |
-| Identify affected docs | Within 1 week | Automated scan |
-| Review critical docs | Within 2 weeks | Human review |
-| Update document registry | Within 1 month | Database admin |
-| Archive old model info | Within 3 months | Archive team |
+| Action                   | Timeline        | Responsibility     |
+| ------------------------ | --------------- | ------------------ |
+| Announce deprecation     | Immediately     | Documentation team |
+| Identify affected docs   | Within 1 week   | Automated scan     |
+| Review critical docs     | Within 2 weeks  | Human review       |
+| Update document registry | Within 1 month  | Database admin     |
+| Archive old model info   | Within 3 months | Archive team       |
 
 ### 14.7 Product Version Change Workflow
 
@@ -1550,41 +1712,43 @@ Määrittää standardit dokumentaation hallintaan 27 EU-kielellä.
 
 ### 15.2 Supported Languages (EU27 + English)
 
-| Code | Language | Region | Priority |
-|------|----------|--------|----------|
-| `EN` | English | International | ⭐ Primary |
-| `FI` | Finnish (Suomi) | Finland | ⭐ Primary |
-| `SV` | Swedish (Svenska) | Sweden, Finland | 🔵 High |
-| `DE` | German (Deutsch) | Germany, Austria | 🔵 High |
-| `FR` | French (Français) | France, Belgium | 🔵 High |
-| `NL` | Dutch (Nederlands) | Netherlands, Belgium | 🔵 High |
-| `ES` | Spanish (Español) | Spain | 🟢 Medium |
-| `IT` | Italian (Italiano) | Italy | 🟢 Medium |
-| `PL` | Polish (Polski) | Poland | 🟢 Medium |
-| `PT` | Portuguese (Português) | Portugal | 🟢 Medium |
-| `CS` | Czech (Čeština) | Czech Republic | 🟡 Standard |
-| `DA` | Danish (Dansk) | Denmark | 🟡 Standard |
-| `EL` | Greek (Ελληνικά) | Greece, Cyprus | 🟡 Standard |
-| `ET` | Estonian (Eesti) | Estonia | 🟡 Standard |
-| `HU` | Hungarian (Magyar) | Hungary | 🟡 Standard |
-| `LT` | Lithuanian (Lietuvių) | Lithuania | 🟡 Standard |
-| `LV` | Latvian (Latviešu) | Latvia | 🟡 Standard |
-| `RO` | Romanian (Română) | Romania | 🟡 Standard |
-| `SK` | Slovak (Slovenčina) | Slovakia | 🟡 Standard |
-| `SL` | Slovenian (Slovenščina) | Slovenia | 🟡 Standard |
-| `BG` | Bulgarian (Български) | Bulgaria | ⚪ On-demand |
-| `HR` | Croatian (Hrvatski) | Croatia | ⚪ On-demand |
-| `GA` | Irish (Gaeilge) | Ireland | ⚪ On-demand |
-| `MT` | Maltese (Malti) | Malta | ⚪ On-demand |
+| Code | Language                | Region               | Priority     |
+| ---- | ----------------------- | -------------------- | ------------ |
+| `EN` | English                 | International        | ⭐ Primary   |
+| `FI` | Finnish (Suomi)         | Finland              | ⭐ Primary   |
+| `SV` | Swedish (Svenska)       | Sweden, Finland      | 🔵 High      |
+| `DE` | German (Deutsch)        | Germany, Austria     | 🔵 High      |
+| `FR` | French (Français)       | France, Belgium      | 🔵 High      |
+| `NL` | Dutch (Nederlands)      | Netherlands, Belgium | 🔵 High      |
+| `ES` | Spanish (Español)       | Spain                | 🟢 Medium    |
+| `IT` | Italian (Italiano)      | Italy                | 🟢 Medium    |
+| `PL` | Polish (Polski)         | Poland               | 🟢 Medium    |
+| `PT` | Portuguese (Português)  | Portugal             | 🟢 Medium    |
+| `CS` | Czech (Čeština)         | Czech Republic       | 🟡 Standard  |
+| `DA` | Danish (Dansk)          | Denmark              | 🟡 Standard  |
+| `EL` | Greek (Ελληνικά)        | Greece, Cyprus       | 🟡 Standard  |
+| `ET` | Estonian (Eesti)        | Estonia              | 🟡 Standard  |
+| `HU` | Hungarian (Magyar)      | Hungary              | 🟡 Standard  |
+| `LT` | Lithuanian (Lietuvių)   | Lithuania            | 🟡 Standard  |
+| `LV` | Latvian (Latviešu)      | Latvia               | 🟡 Standard  |
+| `RO` | Romanian (Română)       | Romania              | 🟡 Standard  |
+| `SK` | Slovak (Slovenčina)     | Slovakia             | 🟡 Standard  |
+| `SL` | Slovenian (Slovenščina) | Slovenia             | 🟡 Standard  |
+| `BG` | Bulgarian (Български)   | Bulgaria             | ⚪ On-demand |
+| `HR` | Croatian (Hrvatski)     | Croatia              | ⚪ On-demand |
+| `GA` | Irish (Gaeilge)         | Ireland              | ⚪ On-demand |
+| `MT` | Maltese (Malti)         | Malta                | ⚪ On-demand |
 
 ### 15.3 File Naming for Localized Documents
 
 **Format:**
+
 ```
 [CATEGORY]_[NAME]_[LANG]_v[VERSION].md
 ```
 
 **Examples:**
+
 ```
 ADMIN_MANUAL_AUTHENTICATION_EN_v1.md     # English (source)
 ADMIN_MANUAL_AUTHENTICATION_FI_v1.md     # Finnish
@@ -1621,15 +1785,15 @@ CREATE INDEX idx_source_doc ON document_translations(source_doc_id);
 
 ### 15.5 Translation Status Tracking
 
-| Status | Icon | Description |
-|--------|------|-------------|
-| `PENDING` | ⏳ | Translation not started |
-| `IN_PROGRESS` | 🔄 | Translation in progress |
-| `TRANSLATED` | ✅ | LLM/human translation complete |
-| `REVIEWED` | 👁️ | Human review completed |
-| `PUBLISHED` | 🚀 | Ready for production |
-| `OUT_OF_SYNC` | ⚠️ | Source updated, translation needs update |
-| `DEPRECATED` | ❌ | No longer maintained |
+| Status        | Icon | Description                              |
+| ------------- | ---- | ---------------------------------------- |
+| `PENDING`     | ⏳   | Translation not started                  |
+| `IN_PROGRESS` | 🔄   | Translation in progress                  |
+| `TRANSLATED`  | ✅   | LLM/human translation complete           |
+| `REVIEWED`    | 👁️   | Human review completed                   |
+| `PUBLISHED`   | 🚀   | Ready for production                     |
+| `OUT_OF_SYNC` | ⚠️   | Source updated, translation needs update |
+| `DEPRECATED`  | ❌   | No longer maintained                     |
 
 ### 15.6 Localization Dashboard Query
 
@@ -1701,6 +1865,7 @@ docs/
 **Master glossary location:** `/docs/localization/GLOSSARY_MASTER.json`
 
 **Format:**
+
 ```json
 {
   "terms": [
@@ -1725,6 +1890,7 @@ docs/
 ### 15.10 Quality Assurance for Translations
 
 **Review checklist:**
+
 - [ ] Technical terms match glossary
 - [ ] Product names unchanged (DWS IQ 6, Firehorse)
 - [ ] Date formats localized (DD.MM.YYYY for EU)
@@ -1748,6 +1914,7 @@ Keskitetty hakemisto kaikista dokumenteista nopeampaa hakua varten.
 **Location:** `/docs/Document-index.md`
 
 This index is auto-generated and manually curated to provide:
+
 - Complete inventory of all markdown files
 - Category classification
 - Status tracking
@@ -1758,6 +1925,7 @@ This index is auto-generated and manually curated to provide:
 ### 16.3 Index Update Workflow
 
 **Automated (weekly):**
+
 ```bash
 # Generate document inventory
 find . -name "*.md" -type f | sort > /tmp/md_files.txt
@@ -1766,6 +1934,7 @@ diff /tmp/md_files.txt docs/Document-index.md
 ```
 
 **Manual triggers:**
+
 - New document created → Add to index
 - Document deprecated → Update status in index
 - Major restructuring → Full index regeneration
@@ -1822,6 +1991,7 @@ Run `/content-index check <document-path>` to look up web impact for any documen
 ### 17.5 Content-Index Update Trigger
 
 **Update `docs/WEB_CONTENT_INDEX.md` when:**
+
 - A new `.md` document is created that has web counterparts
 - A new web page is launched that corresponds to a doc
 - A document is archived (remove or mark row)
@@ -1836,6 +2006,7 @@ Run `/content-index check <document-path>` to look up web impact for any documen
 **Every standards document update MUST produce a new versioned HTML artifact in `Learn/`.**
 
 This ensures:
+
 - AI agents and humans can read the latest standard in rendered HTML
 - Morning briefing email links to current standards
 - Version history is preserved (never overwrite old versions)
@@ -1844,20 +2015,20 @@ This ensures:
 
 ### 18.2 Which Documents Require Learn/ HTML
 
-| Document | Learn/ HTML Required | Pattern |
-|----------|---------------------|---------|
-| `DWS_DOCUMENT_STANDARD.md` | ✅ Yes | `Learn/DWS_DOCUMENT_STANDARD_v{VERSION}.html` |
-| `DWS_BRAND_STANDARD.md` | ✅ Yes | `Learn/DWS_BRAND_STANDARD_v{VERSION}.html` |
-| `DWS_SECURITY_STANDARD.md` | ✅ Yes | `Learn/DWS_SECURITY_STANDARD_v{VERSION}.html` |
-| `Admin/ADMIN_MANUAL.md` | ✅ Yes | `Learn/ADMIN_MANUAL_v{VERSION}.html` |
-| `Admin/SECURITY_COMPLIANCE.md` | ✅ Yes | `Learn/SECURITY_COMPLIANCE_v{VERSION}.html` |
-| `CLAUDE.md` | ✅ Yes | `Learn/CLAUDE_v{VERSION}.html` |
-| `docs/Document-index.md` | ✅ Yes | `Learn/Document-index_v{VERSION}.html` |
-| `docs/WEB_CONTENT_INDEX.md` | ✅ Yes | `Learn/WEB_CONTENT_INDEX_v{VERSION}.html` |
-| Field notes (`docs/field-notes/*.md`) | ✅ Yes | `Learn/{date}-{slug}.html` |
-| Thesis files | ✅ Yes — see Thesis Rule | `Learn/V3Thesis_EN_v{VERSION}.html` etc. |
-| `Store/*.md` product files | ❌ No | These use YAML — built by build_store.py instead |
-| Architecture docs (one-time) | ⚠️ Optional | Generate once on initial creation |
+| Document                              | Learn/ HTML Required     | Pattern                                          |
+| ------------------------------------- | ------------------------ | ------------------------------------------------ |
+| `DWS_DOCUMENT_STANDARD.md`            | ✅ Yes                   | `Learn/DWS_DOCUMENT_STANDARD_v{VERSION}.html`    |
+| `DWS_BRAND_STANDARD.md`               | ✅ Yes                   | `Learn/DWS_BRAND_STANDARD_v{VERSION}.html`       |
+| `DWS_SECURITY_STANDARD.md`            | ✅ Yes                   | `Learn/DWS_SECURITY_STANDARD_v{VERSION}.html`    |
+| `Admin/ADMIN_MANUAL.md`               | ✅ Yes                   | `Learn/ADMIN_MANUAL_v{VERSION}.html`             |
+| `Admin/SECURITY_COMPLIANCE.md`        | ✅ Yes                   | `Learn/SECURITY_COMPLIANCE_v{VERSION}.html`      |
+| `CLAUDE.md`                           | ✅ Yes                   | `Learn/CLAUDE_v{VERSION}.html`                   |
+| `docs/Document-index.md`              | ✅ Yes                   | `Learn/Document-index_v{VERSION}.html`           |
+| `docs/WEB_CONTENT_INDEX.md`           | ✅ Yes                   | `Learn/WEB_CONTENT_INDEX_v{VERSION}.html`        |
+| Field notes (`docs/field-notes/*.md`) | ✅ Yes                   | `Learn/{date}-{slug}.html`                       |
+| Thesis files                          | ✅ Yes — see Thesis Rule | `Learn/V3Thesis_EN_v{VERSION}.html` etc.         |
+| `Store/*.md` product files            | ❌ No                    | These use YAML — built by build_store.py instead |
+| Architecture docs (one-time)          | ⚠️ Optional              | Generate once on initial creation                |
 
 ### 18.3 Generation Method
 
@@ -1877,21 +2048,38 @@ When pandoc is unavailable, generate minimal but valid HTML:
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>[Document Title] v[VERSION]</title>
-  <style>
-    body { font-family: system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
-    pre { background: #f4f4f4; padding: 1rem; overflow-x: auto; }
-    code { background: #f4f4f4; padding: 0.2em 0.4em; }
-    h1, h2, h3 { border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
-  </style>
-</head>
-<body>
-  <!-- Converted from [source.md] on [date] — DWS IQ 6 -->
-  [HTML CONTENT]
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>[Document Title] v[VERSION]</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+      pre {
+        background: #f4f4f4;
+        padding: 1rem;
+        overflow-x: auto;
+      }
+      code {
+        background: #f4f4f4;
+        padding: 0.2em 0.4em;
+      }
+      h1,
+      h2,
+      h3 {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 0.3em;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Converted from [source.md] on [date] — DWS IQ 6 -->
+    [HTML CONTENT]
+  </body>
 </html>
 ```
 
@@ -1907,6 +2095,7 @@ When pandoc is unavailable, generate minimal but valid HTML:
 The CEO Cockpit morning brief (06:00 Helsinki) includes a **Learn Artifacts** section showing recently updated HTML files with direct GitHub links.
 
 When you publish a new Learn/ HTML:
+
 - The morning briefing automatically detects files modified in the last 7 days
 - It links to: `https://github.com/blogtheristo/dws6/blob/main/Learn/{filename}`
 
@@ -1920,6 +2109,7 @@ Learn/[DOCUMENT_SLUG].html                      ← latest (overwrite allowed)
 ```
 
 Examples:
+
 ```
 Learn/DWS_DOCUMENT_STANDARD_v1.7.html   ← versioned
 Learn/DWS_DOCUMENT_STANDARD.html        ← latest (always current)
@@ -1956,6 +2146,7 @@ Every Code Versioning Note MUST contain:
 Use language-appropriate comment syntax. Never insert markdown prose directly into executable syntax.
 
 **TypeScript / JavaScript (`.ts`, `.tsx`, `.js`, `.jsx`):**
+
 ```ts
 /**
  * CODE VERSIONING NOTE
@@ -1970,6 +2161,7 @@ Use language-appropriate comment syntax. Never insert markdown prose directly in
 ```
 
 **Python (`.py`):**
+
 ```python
 """
 CODE VERSIONING NOTE
@@ -1984,6 +2176,7 @@ Env-Schema: env-v1.0
 ```
 
 **SQL migrations (`.sql`):**
+
 ```sql
 -- CODE VERSIONING NOTE
 -- Code-Version: 1.0.0
@@ -1996,6 +2189,7 @@ Env-Schema: env-v1.0
 ```
 
 **Shell / YAML / Dockerfile:**
+
 ```text
 # CODE VERSIONING NOTE
 # Code-Version: 1.0.0
@@ -2060,26 +2254,30 @@ rg "Env-Schema:\\s*env-v"
 ```markdown
 # [Document Title]
 
-***
+---
+
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: [Tool] | Session: [ID] | Date: DD.MM.YYYY | Changes: [Description]
+
+- Version: 1.0 | Tool: [Tool] | Session: [ID] | Date: DD.MM.YYYY | Changes: [Description]
 
 Session Links & References:
-  - [Tool] ([ID]): [Link]
-  - View on GitHub: [Link]
+
+- [Tool] ([ID]): [Link]
+- View on GitHub: [Link]
 
 Document Status:
-  - Created: DD.MM.YYYY
-  - Last Modified: DD.MM.YYYY
-  - Language: [Language]
-  - Languages Available: [List]
-  - Publication Status: [ACTIVE / DRAFT / OUTDATED / ARCHIVED]
 
-***
+- Created: DD.MM.YYYY
+- Last Modified: DD.MM.YYYY
+- Language: [Language]
+- Languages Available: [List]
+- Publication Status: [ACTIVE / DRAFT / OUTDATED / ARCHIVED]
+
+---
 ```
 
 > **Remember:** Use `***` not `---` for pandoc compatibility.
@@ -2123,12 +2321,14 @@ Document Status:
 **Next Review:** Q2 2026
 
 **Major Changes in v1.8:**
+
 - Added Code Versioning & PR Traceability Standard (Section 19)
 - Added syntax-safe per-language templates for code version notes
 - Added `.env` schema versioning policy (`ENV_SCHEMA_VERSION` in `.env.example`)
 - Added explicit PR-linked requirement (`Introduced-In: PR-<number>`, e.g. `PR-699`)
 
 **Major Changes in v1.7:**
+
 - Added Web Content Index check procedure (Section 17) — post-update web check to detect drift between docs and live pages
 - Added Learn HTML Generation rule (Section 18) — every standards update produces a versioned HTML artifact in Learn/
 - Created `docs/WEB_CONTENT_INDEX.md` — maps docs to web pages across all three domains
@@ -2136,15 +2336,18 @@ Document Status:
 - Added Learn Artifacts section to morning briefing email (06:00 Helsinki)
 
 **Major Changes in v1.6:**
+
 - Added SQL migration file naming convention using number_ddmmyy_name.sql pattern
 
 **Major Changes in v1.5:**
+
 - Added OUTDATED publication status for documents pending archive
 - Added document lifecycle (DRAFT → ACTIVE → OUTDATED → ARCHIVED)
 - Added marking procedure (sections 2.4-2.5) with step-by-step instructions
 - Added `docs/archive/` folder structure reference
 
 **Major Changes in v1.4:**
+
 - Pandoc compatibility: changed `---` to `***` delimiters in document headers
 - Updated PDF section (8) with actual Generate-PDFs.ps1 script reference
 - DWS brand CSS colors replace generic blue palette
@@ -2152,6 +2355,7 @@ Document Status:
 - Added pandoc CLI flags reference and warnings about YAML/Unicode issues
 
 **Major Changes in v1.3:**
+
 - Added LLM Model Versioning section (14) - track which AI models create documents
 - Added Localization & Multi-Language Management (15) - support for 27 EU languages
 - Added Document Index reference (16) - centralized document discovery
@@ -2160,6 +2364,7 @@ Document Status:
 - Workflows for LLM version updates and product version changes
 
 **Major Changes in v1.2:**
+
 - Added knowledge management strategy (database vs. docs decision matrix)
 - Introduced Core Artifacts framework with naming conventions
 - Added Field Notes standards and templates
@@ -2172,36 +2377,36 @@ Document Status:
 
 ### Workflow Categories
 
-| Category | Purpose | Examples |
-|----------|---------|----------|
-| `security` | Security-related workflows | `security-scan-daily` |
-| `backup` | Backup workflows | `backup-site-daily` |
-| `deploy` | Deployment workflows | `deploy-production` |
-| `test` | Testing workflows | `test-integration-weekly` |
-| `audit` | Audit workflows | `audit-security-monthly` |
-| `build` | Build workflows | `build-docker-image` |
-| `monitor` | Monitoring workflows | `monitor-uptime-hourly` |
+| Category   | Purpose                    | Examples                  |
+| ---------- | -------------------------- | ------------------------- |
+| `security` | Security-related workflows | `security-scan-daily`     |
+| `backup`   | Backup workflows           | `backup-site-daily`       |
+| `deploy`   | Deployment workflows       | `deploy-production`       |
+| `test`     | Testing workflows          | `test-integration-weekly` |
+| `audit`    | Audit workflows            | `audit-security-monthly`  |
+| `build`    | Build workflows            | `build-docker-image`      |
+| `monitor`  | Monitoring workflows       | `monitor-uptime-hourly`   |
 
 ### Document Categories
 
-| Category | Purpose | Examples |
-|----------|---------|----------|
-| `ADMIN_MANUAL` | Administration guides | `ADMIN_MANUAL_DWS6_COM` |
-| `THESIS` | Thesis documents | `THESIS_OUTLINE_EN` |
-| `TECHNICAL` | Technical specifications | `TECHNICAL_ARCHITECTURE` |
-| `WORKFLOW` | Workflow documentation | `WORKFLOW_SECURITY_AUDIT` |
-| `GUIDE` | User guides | `GUIDE_DEPLOYMENT` |
-| `STANDARD` | Standards documents | `STANDARD_DOCUMENT_NAMING` |
+| Category       | Purpose                  | Examples                   |
+| -------------- | ------------------------ | -------------------------- |
+| `ADMIN_MANUAL` | Administration guides    | `ADMIN_MANUAL_DWS6_COM`    |
+| `THESIS`       | Thesis documents         | `THESIS_OUTLINE_EN`        |
+| `TECHNICAL`    | Technical specifications | `TECHNICAL_ARCHITECTURE`   |
+| `WORKFLOW`     | Workflow documentation   | `WORKFLOW_SECURITY_AUDIT`  |
+| `GUIDE`        | User guides              | `GUIDE_DEPLOYMENT`         |
+| `STANDARD`     | Standards documents      | `STANDARD_DOCUMENT_NAMING` |
 
 ### Frequency Values
 
-| Frequency | Cron Expression | Description |
-|-----------|----------------|-------------|
-| `hourly` | `0 * * * *` | Every hour |
-| `daily` | `0 2 * * *` | Daily at 02:00 UTC |
-| `weekly` | `0 2 * * 0` | Weekly on Sunday at 02:00 UTC |
-| `monthly` | `0 2 1 * *` | Monthly on 1st at 02:00 UTC |
-| `on-demand` | `workflow_dispatch` | Manual trigger only |
+| Frequency   | Cron Expression     | Description                   |
+| ----------- | ------------------- | ----------------------------- |
+| `hourly`    | `0 * * * *`         | Every hour                    |
+| `daily`     | `0 2 * * *`         | Daily at 02:00 UTC            |
+| `weekly`    | `0 2 * * 0`         | Weekly on Sunday at 02:00 UTC |
+| `monthly`   | `0 2 1 * *`         | Monthly on 1st at 02:00 UTC   |
+| `on-demand` | `workflow_dispatch` | Manual trigger only           |
 
 ## Appendix B: Version History Format
 
@@ -2209,8 +2414,9 @@ Document Status:
 
 ```markdown
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation
-  - Version: 1.1 | Tool: Claude Code | Session: QVvDX | Date: 15.01.2026 | Changes: Added examples
+
+- Version: 1.0 | Tool: Cursor AI | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Initial creation
+- Version: 1.1 | Tool: Claude Code | Session: QVvDX | Date: 15.01.2026 | Changes: Added examples
 ```
 
 ### Table Format (for detailed history)
@@ -2218,10 +2424,9 @@ Sessions & Modifications:
 ```markdown
 ## Version History
 
-| Version | Date | Tool/Author | Session | Changes |
-|---------|------|-------------|---------|---------|
-| 1.0 | 30.12.2025 | Cursor AI | 2025-12-30 | Initial creation |
-| 1.1 | 15.01.2026 | Claude Code | QVvDX | Added examples |
-| 2.0 | 01.02.2026 | Manual | N/A | Complete restructure |
+| Version | Date       | Tool/Author | Session    | Changes              |
+| ------- | ---------- | ----------- | ---------- | -------------------- |
+| 1.0     | 30.12.2025 | Cursor AI   | 2025-12-30 | Initial creation     |
+| 1.1     | 15.01.2026 | Claude Code | QVvDX      | Added examples       |
+| 2.0     | 01.02.2026 | Manual      | N/A        | Complete restructure |
 ```
-

@@ -6,10 +6,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.39
+Version: 3.51
 
 Sessions & Modifications:
 
+- Version: 3.51 | Tool: Claude Code (Haiku 4.5) | Session: claude/sync-version-numbering-adEeB | Date: 28.04.2026 | Changes: Bumped from 3.39 to 3.51 (12 steps × 0.01). Unified thesis version track maintained. Created new Tutkimussuunnitelma_3.51.md (Research Plan) with three research streams (KYA standardization, DWS 7 empirical testbed, dual-use industries), eight research questions, "Human in Command ja Human in Loop" governance framework; versioning format rule (.X9 → .X+1,0) documented for DWS_DOCUMENT_STANDARD.md §5
 - Version: 3.39 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Terminology rename — "Aiven overlay" / "Aiven layer" (deprecated infrastructure labels) → "Article 12 Logging Pipeline" per new DWS_ARTICLE_12_LOGGING_STANDARD.md v1.0 (unified 3-tier canonical term). Aiven remains the correct name for the Postgres SaaS. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule; only V3Thesis_EN had the infra-context string in content
 - Version: 3.38 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Typo correction — "Aiwen" → "Aiven" (Aiven.io is our Helsinki Postgres partner) as part of repo-wide sweep of 116 files; no content change beyond the spelling fix; unified version track preserved (all 4 thesis files bumped in lockstep per CLAUDE.md thesis rule)
 - Version: 3.37 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: Lisätty osio 10.22 (DWS Skilled -taksonomia — kolme tasoa agenteille, työnkuluille ja jurisdiktioille); "GodAgent"/"Godagent"-brändäys poistettu käytöstä; kodifioitu `Skilled <Akseli>` / `Industrial Specialist <Akseli>` / `Industry <Akseli>` -kolmitasomalli kolmelle aktiiviselle akselille (Agentit, Työnkulut, Jurisdiktiot — EU/US/Aiven); malli suunniteltu laajennettavuuden tähden tuleville kyvykkyysakseleille (Datasets, Models, Regulations, Reports); lisätty lukumäärien dynamiikkakaavat (avoin `18+`, rekisteriankkuroitu, tuotekohtainen); kodifioidut poikkeukset (Docker/infra-tunnisteet, Pantheon kreikkalaismyyttinen brändi, historialliset tietueet); kanoninen lähde `docs/Deputy-Agents-Architecture.md` §1 Terminologia; lisätty avainpanos #31
