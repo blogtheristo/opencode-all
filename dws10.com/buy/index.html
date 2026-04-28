@@ -55,6 +55,21 @@
       }
     </script>
     <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
+    <meta name="gtm-container-id" content="GTM-5Q43B4J" />
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-5Q43B4J");
+    </script>
+    <!-- End Google Tag Manager -->
     <style>
       * {
         margin: 0;
@@ -1008,6 +1023,17 @@
     <!-- Google Merchant Center: feed-only integration (widget removed — injected duplicate mobile store UI in Brave/Chrome) -->
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-5Q43B4J"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <!-- Gamma Ironclad Navigation -->
     <script src="/shared-assets/nav/ironclad-nav.js"></script>
     <!-- Vertical 5-language bar — page element, not menu element -->
@@ -1816,8 +1842,241 @@
     <script src="/shared-assets/vat-locale.js"></script>
     <script src="/shared-assets/bundle-cart.js"></script>
     <script src="/shared-assets/footer/ironclad-footer.js"></script>
+    <!-- GTM Tracking for Store Page -->
     <script>
       (function () {
+        // Generate or retrieve session ID
+        var sessionId = sessionStorage.getItem("dws_session_id");
+        if (!sessionId) {
+          sessionId = "sess_" + Math.random().toString(36).substr(2, 9);
+          sessionStorage.setItem("dws_session_id", sessionId);
+        }
+
+        // Initialize GTM data layer and fire page view event
+        window.dataLayer = window.dataLayer || [];
+
+        // Helper: Send event to backend API
+        function sendToBackend(eventData) {
+          try {
+            navigator.sendBeacon("/api/gtm/events", JSON.stringify(eventData));
+          } catch (err) {
+            console.warn("Failed to send GTM event to backend", err);
+          }
+        }
+
+        // Fire page view event
+        var pageViewEvent = {
+          event: "page_view",
+          page_type: "store",
+          page_title: document.title,
+          user_segment: "anonymous",
+          timestamp: new Date().toISOString(),
+        };
+        window.dataLayer.push(pageViewEvent);
+        sendToBackend(pageViewEvent);
+
+        // Track product views when cards are visible
+        document.addEventListener("DOMContentLoaded", function () {
+          const productCards = document.querySelectorAll("[data-product-id]");
+          productCards.forEach(function (card) {
+            card.addEventListener("click", function () {
+              const productId = card.getAttribute("data-product-id");
+              const productName =
+                card.querySelector("[data-product-name]")?.textContent || "Unknown";
+              const priceText = card.querySelector("[data-price]")?.textContent || "0";
+              const priceEur = parseFloat(priceText.replace(/[^\d.,]/g, "").replace(",", "."));
+
+              var evt = {
+                event: "product_view",
+                product_id: productId,
+                product_name: productName,
+                price_eur: isNaN(priceEur) ? 0 : priceEur,
+                category: "sovereign-ai",
+                currency: "EUR",
+                timestamp: new Date().toISOString(),
+              };
+              window.dataLayer.push(evt);
+              sendToBackend(evt);
+            });
+          });
+
+          // Track add to cart button clicks
+          const addToCartButtons = document.querySelectorAll('[data-action="add-to-cart"]');
+          addToCartButtons.forEach(function (btn) {
+            btn.addEventListener("click", function (e) {
+              const productId = btn.getAttribute("data-product-id");
+              const productName = btn.getAttribute("data-product-name") || "Unknown";
+              const priceText = btn.getAttribute("data-price") || "0";
+              const priceEur = parseFloat(priceText.replace(/[^\d.,]/g, "").replace(",", "."));
+
+              var evt = {
+                event: "add_to_cart",
+                product_id: productId,
+                product_name: productName,
+                quantity: 1,
+                price_eur: isNaN(priceEur) ? 0 : priceEur,
+                currency: "EUR",
+                timestamp: new Date().toISOString(),
+              };
+              window.dataLayer.push(evt);
+              sendToBackend(evt);
+            });
+          });
+
+          // Track checkout button clicks
+          const checkoutBtn = document.querySelector('[data-action="begin-checkout"]');
+          if (checkoutBtn) {
+            checkoutBtn.addEventListener("click", function () {
+              const cartTotal = document.querySelector("[data-cart-total]")?.textContent || "0";
+              const cartTotalEur = parseFloat(cartTotal.replace(/[^\d.,]/g, "").replace(",", "."));
+              const itemCount = document.querySelectorAll("[data-cart-item]").length || 0;
+
+              var evt = {
+                event: "begin_checkout",
+                cart_value_eur: isNaN(cartTotalEur) ? 0 : cartTotalEur,
+                item_count: itemCount,
+                currency: "EUR",
+                timestamp: new Date().toISOString(),
+              };
+              window.dataLayer.push(evt);
+              sendToBackend(evt);
+            });
+          }
+        });
+
+        // Phase 2c: Advanced Tracking (Form Validation + VAT + Upsell)
+        // Track form field validation errors
+        document.addEventListener("DOMContentLoaded", function () {
+          // Track form validation errors
+          const formInputs = document.querySelectorAll("input[data-field], select[data-field]");
+          formInputs.forEach(function (input) {
+            input.addEventListener("blur", function () {
+              // Validate field (simple example)
+              if (!input.value.trim()) {
+                var evt = {
+                  event: "form_validation_error",
+                  step: 4,
+                  field_name: input.getAttribute("data-field") || "unknown",
+                  error_type: "required",
+                  timestamp: new Date().toISOString(),
+                };
+                window.dataLayer.push(evt);
+                sendToBackend(evt);
+              }
+            });
+          });
+
+          // Track form submission (form_submitted event)
+          const enterpriseForm = document.querySelector('[data-form="enterprise-details"]');
+          if (enterpriseForm) {
+            enterpriseForm.addEventListener("submit", function (e) {
+              var evt = {
+                event: "form_submitted",
+                step: 4,
+                form_id: "enterprise_details",
+                timestamp: new Date().toISOString(),
+              };
+              window.dataLayer.push(evt);
+              sendToBackend(evt);
+            });
+          }
+
+          // Track VAT ID validation attempts
+          const vatIdInput = document.querySelector('input[name="vat_id"]');
+          if (vatIdInput) {
+            vatIdInput.addEventListener("change", function () {
+              const vatId = this.value.trim();
+              if (vatId) {
+                var evt = {
+                  event: "vat_check_requested",
+                  step: 4,
+                  vat_id_prefix: vatId.substring(0, 2).toUpperCase(),
+                  vat_length: vatId.length,
+                  timestamp: new Date().toISOString(),
+                };
+                window.dataLayer.push(evt);
+                sendToBackend(evt);
+
+                // Simulate VAT check response (in production, would be async)
+                setTimeout(function () {
+                  const isValid = /^[A-Z]{2}\d{8,}$/.test(vatId);
+                  var response = {
+                    event: "vat_check_result",
+                    step: 4,
+                    vat_id_prefix: vatId.substring(0, 2).toUpperCase(),
+                    result: isValid ? "success" : "invalid",
+                    response_time_ms: Math.random() * 500,
+                    timestamp: new Date().toISOString(),
+                  };
+                  window.dataLayer.push(response);
+                  sendToBackend(response);
+                }, 500);
+              }
+            });
+          }
+
+          // Track upsell recommendations (Step 5)
+          const upsellToggles = document.querySelectorAll("[data-upsell-toggle]");
+          upsellToggles.forEach(function (toggle) {
+            toggle.addEventListener("change", function () {
+              const productId = toggle.getAttribute("data-product-id");
+              const productName = toggle.getAttribute("data-product-name");
+              const price = parseFloat(toggle.getAttribute("data-price") || "0");
+              const rule = toggle.getAttribute("data-rule") || "unknown";
+
+              var evt = {
+                event: "upsell_toggled_" + (toggle.checked ? "on" : "off"),
+                step: 5,
+                product_id: productId,
+                product_name: productName,
+                price_eur: price,
+                recommendation_rule: rule,
+                is_selected: toggle.checked,
+                timestamp: new Date().toISOString(),
+              };
+              window.dataLayer.push(evt);
+              sendToBackend(evt);
+            });
+
+            // Track initial upsell recommendation show
+            var showEvt = {
+              event: "upsell_recommendation_shown",
+              step: 5,
+              product_id: toggle.getAttribute("data-product-id"),
+              recommendation_rule: toggle.getAttribute("data-rule") || "unknown",
+              timestamp: new Date().toISOString(),
+            };
+            window.dataLayer.push(showEvt);
+            sendToBackend(showEvt);
+          });
+
+          // Track form abandonment (Step 4)
+          const formElement = document.querySelector('[data-form="enterprise-details"]');
+          if (formElement) {
+            window.addEventListener("beforeunload", function () {
+              // Check if form is partially filled (not submitted)
+              const inputs = formElement.querySelectorAll("input, select, textarea");
+              let filledCount = 0;
+              inputs.forEach(function (input) {
+                if (input.value.trim()) filledCount++;
+              });
+
+              if (filledCount > 0 && filledCount < inputs.length) {
+                var evt = {
+                  event: "form_abandoned",
+                  step: 4,
+                  form_id: "enterprise_details",
+                  fields_filled: filledCount,
+                  fields_total: inputs.length,
+                  timestamp: new Date().toISOString(),
+                };
+                navigator.sendBeacon("/api/gtm/events", JSON.stringify(evt));
+              }
+            });
+          }
+        });
+
+        // Step navigation tracking
         var from = new URLSearchParams(location.search).get("from");
         if (from) {
           var step = document.querySelector('.journey-step[data-step="' + from + '"]');

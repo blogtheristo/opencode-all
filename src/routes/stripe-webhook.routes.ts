@@ -7,6 +7,8 @@ import {
 } from '../middleware/stripe-webhook.middleware.js';
 import logger from '../utils/logger.js';
 import { supabase } from '../services/supabase.service.js';
+import { gtmEventLogger } from '../services/gtm-event-logger.js';
+import { eventBus } from '../agents/event-bus.js';
 
 const router = Router();
 
@@ -80,6 +82,39 @@ router.post(
           order_id: order.id,
           invoice_id: invoiceId,
           amount: invoice.amount_paid,
+        });
+
+        // Log GTM purchase event
+        gtmEventLogger.logEvent({
+          event_type: 'purchase',
+          source: 'stripe_webhook',
+          properties: {
+            transaction_id: invoiceId,
+            revenue_eur: invoice.amount_paid / 100, // Stripe stores in cents
+            currency: invoice.currency?.toUpperCase() || 'EUR',
+            order_id: order.id,
+            customer_id: invoice.customer,
+            invoice_number: invoice.number,
+          },
+          user_id: order.user_id || undefined,
+          session_id: order.session_id || undefined,
+          timestamp: new Date(event.created * 1000).toISOString(),
+        });
+
+        // Emit to event bus for downstream handlers
+        await eventBus.emit({
+          type: 'sales.purchase',
+          source: 'stripe_webhook',
+          payload: {
+            transaction_id: invoiceId,
+            order_id: order.id,
+            amount_eur: invoice.amount_paid / 100,
+            customer_id: invoice.customer,
+          },
+          priority: 'normal',
+          timestamp: new Date(event.created * 1000).toISOString(),
+          orgId: order.org_id || 'unknown',
+          sessionId: order.session_id || 'unknown',
         });
 
         // TODO: Send payment confirmation email to customer
