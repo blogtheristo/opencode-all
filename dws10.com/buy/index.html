@@ -1944,6 +1944,138 @@
           }
         });
 
+        // Phase 2c: Advanced Tracking (Form Validation + VAT + Upsell)
+        // Track form field validation errors
+        document.addEventListener("DOMContentLoaded", function () {
+          // Track form validation errors
+          const formInputs = document.querySelectorAll("input[data-field], select[data-field]");
+          formInputs.forEach(function (input) {
+            input.addEventListener("blur", function () {
+              // Validate field (simple example)
+              if (!input.value.trim()) {
+                var evt = {
+                  event: "form_validation_error",
+                  step: 4,
+                  field_name: input.getAttribute("data-field") || "unknown",
+                  error_type: "required",
+                  timestamp: new Date().toISOString(),
+                };
+                window.dataLayer.push(evt);
+                sendToBackend(evt);
+              }
+            });
+          });
+
+          // Track form submission (form_submitted event)
+          const enterpriseForm = document.querySelector('[data-form="enterprise-details"]');
+          if (enterpriseForm) {
+            enterpriseForm.addEventListener("submit", function (e) {
+              var evt = {
+                event: "form_submitted",
+                step: 4,
+                form_id: "enterprise_details",
+                timestamp: new Date().toISOString(),
+              };
+              window.dataLayer.push(evt);
+              sendToBackend(evt);
+            });
+          }
+
+          // Track VAT ID validation attempts
+          const vatIdInput = document.querySelector('input[name="vat_id"]');
+          if (vatIdInput) {
+            vatIdInput.addEventListener("change", function () {
+              const vatId = this.value.trim();
+              if (vatId) {
+                var evt = {
+                  event: "vat_check_requested",
+                  step: 4,
+                  vat_id_prefix: vatId.substring(0, 2).toUpperCase(),
+                  vat_length: vatId.length,
+                  timestamp: new Date().toISOString(),
+                };
+                window.dataLayer.push(evt);
+                sendToBackend(evt);
+
+                // Simulate VAT check response (in production, would be async)
+                setTimeout(function () {
+                  const isValid = /^[A-Z]{2}\d{8,}$/.test(vatId);
+                  var response = {
+                    event: "vat_check_result",
+                    step: 4,
+                    vat_id_prefix: vatId.substring(0, 2).toUpperCase(),
+                    result: isValid ? "success" : "invalid",
+                    response_time_ms: Math.random() * 500,
+                    timestamp: new Date().toISOString(),
+                  };
+                  window.dataLayer.push(response);
+                  sendToBackend(response);
+                }, 500);
+              }
+            });
+          }
+
+          // Track upsell recommendations (Step 5)
+          const upsellToggles = document.querySelectorAll("[data-upsell-toggle]");
+          upsellToggles.forEach(function (toggle) {
+            toggle.addEventListener("change", function () {
+              const productId = toggle.getAttribute("data-product-id");
+              const productName = toggle.getAttribute("data-product-name");
+              const price = parseFloat(toggle.getAttribute("data-price") || "0");
+              const rule = toggle.getAttribute("data-rule") || "unknown";
+
+              var evt = {
+                event: "upsell_toggled_" + (toggle.checked ? "on" : "off"),
+                step: 5,
+                product_id: productId,
+                product_name: productName,
+                price_eur: price,
+                recommendation_rule: rule,
+                is_selected: toggle.checked,
+                timestamp: new Date().toISOString(),
+              };
+              window.dataLayer.push(evt);
+              sendToBackend(evt);
+            });
+
+            // Track initial upsell recommendation show
+            var showEvt = {
+              event: "upsell_recommendation_shown",
+              step: 5,
+              product_id: toggle.getAttribute("data-product-id"),
+              recommendation_rule: toggle.getAttribute("data-rule") || "unknown",
+              timestamp: new Date().toISOString(),
+            };
+            window.dataLayer.push(showEvt);
+            sendToBackend(showEvt);
+          });
+
+          // Track form abandonment (Step 4)
+          const formElement = document.querySelector('[data-form="enterprise-details"]');
+          if (formElement) {
+            window.addEventListener("beforeunload", function () {
+              // Check if form is partially filled (not submitted)
+              const inputs = formElement.querySelectorAll("input, select, textarea");
+              let filledCount = 0;
+              inputs.forEach(function (input) {
+                if (input.value.trim()) filledCount++;
+              });
+
+              if (filledCount > 0 && filledCount < inputs.length) {
+                var evt = {
+                  event: "form_abandoned",
+                  step: 4,
+                  form_id: "enterprise_details",
+                  fields_filled: filledCount,
+                  fields_total: inputs.length,
+                  timestamp: new Date().toISOString(),
+                };
+                navigator.sendBeacon("/api/gtm/events", JSON.stringify(evt));
+              }
+            });
+          }
+        });
+
         // Step navigation tracking
         var from = new URLSearchParams(location.search).get("from");
         if (from) {
