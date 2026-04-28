@@ -114,7 +114,7 @@ Applies to:
 ```markdown
 # [Document Title]
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
