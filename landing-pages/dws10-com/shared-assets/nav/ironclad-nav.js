@@ -1,5 +1,5 @@
 /**
- * DWS10.com Iron Clad / Gamma Navigation v3.4
+ * DWS10.com Iron Clad / Gamma Navigation v3.7
  * Unified navigation bar for all pages (Gamma-aligned with mobile hamburger menu)
  * Single source of truth: dws10.com/shared-assets/nav/ironclad-nav.js
  * Synced to lifetime.fi and onelifetime.world via scripts/on-deploy/sync-ironclad-nav.sh
@@ -7,6 +7,13 @@
  * Usage: Add this script to any page:
  * <script src="/shared-assets/nav/ironclad-nav.js"></script>
  *
+ * v3.7 — Lifetime Studios + Lifetime Consulting moved to Lifetime Group submenu (About ▾);
+ *         Other ▸ flyout removed from Home ▾; Designs removed from nav
+ * v3.6 — Industries flyout → direct link to /industries/ hub; Tools flyout removed;
+ *         Lifetime World Model V1 added to Solutions menu; Fleet Admiral added above Captain in Investor submenu
+ * v3.5 — Removed checkout/success from Other menu (payment callback only, not user-facing);
+ *         Lifetime Oy added to Lifetime Group submenu → lifetime.fi;
+ *         "Dual Use Industries" renamed to "Industries"; checkout/cancel removed from Other menu
  * v3.4 — Domain-aware logo (LifetimeOy.png on lifetime.fi, OLW logo on onelifetime.world);
  *         Legal Hub simplified to direct link (no flyout); investment-safety removed from Legal submenu;
  *         Agentic Commerce added to enterprise-integrations; booking CTA uses /book/
@@ -73,7 +80,7 @@
 
   // Navigation HTML (Gamma-aligned with hamburger support)
   const navHTML = `
-<!-- DWS10.com Iron Clad / Gamma Navigation v3.4 (Mobile Hamburger) -->
+<!-- DWS10.com Iron Clad / Gamma Navigation v3.7 (Mobile Hamburger) -->
 <header class="ironclad-header">
     <div class="ironclad-container">
         <div class="ironclad-logo-section">
@@ -99,36 +106,8 @@
                         <li class="ironclad-separator"></li>
                         <li><a href="${basePath}fit-for-55/" class="ironclad-primary">Fit for 55</a></li>
                         <li><a href="${basePath}csrd/" class="ironclad-primary">CSRD & ESG</a></li>
-                        <!-- Industries flyout -->
-                        <li class="ironclad-has-submenu">
-                            <a href="#" class="ironclad-primary">Dual Use Industries ▸</a>
-                            <ul class="ironclad-submenu">
-                                <li><a href="${basePath}dual-use-industries/" style="color: #d4a843; font-weight: 600;">All Dual Use Industries</a></li>
-                                <li class="ironclad-separator"></li>
-                                <li><a href="${basePath}construction/">Construction</a></li>
-                                <li><a href="${basePath}logistics/">Logistics</a></li>
-                                <li><a href="${basePath}manufacturing/">Manufacturing</a></li>
-                                <li><a href="${basePath}energy/">Energy</a></li>
-                                <li><a href="${basePath}healthcare/">Healthcare</a></li>
-                                <li><a href="${basePath}real-estate/">Real Estate</a></li>
-                                <li><a href="${basePath}financial-services/">Financial Services</a></li>
-                                <li><a href="${basePath}public-sector/">Public Sector</a></li>
-                                <li><a href="${basePath}mining/">Mining</a></li>
-                                <li><a href="${basePath}shipbuilding/">Shipbuilding</a></li>
-                                <li><a href="${basePath}waste/">Waste Management</a></li>
-                            </ul>
-                        </li>
-                        <!-- Products/Tools flyout -->
-                        <li class="ironclad-has-submenu">
-                            <a href="#" class="ironclad-primary">Tools ▸</a>
-                            <ul class="ironclad-submenu">
-                                <li><a href="${basePath}calculator/">Calculator</a></li>
-                                <li><a href="${basePath}dashboard/">Dashboard</a></li>
-                                <li><a href="${basePath}buy/">Buy/Store</a></li>
-                                <li><a href="${basePath}checkout/">Checkout</a></li>
-                                <li><a href="${basePath}world-model/">World Model</a></li>
-                            </ul>
-                        </li>
+                        <!-- Industries Hub — direct link (v3.6: hub page replaces flyout) -->
+                        <li><a href="${basePath}industries/" class="ironclad-primary">Industries Hub</a></li>
                         <!-- Company flyout -->
                         <li class="ironclad-has-submenu">
                             <a href="#" class="ironclad-primary">Company ▸</a>
@@ -140,8 +119,6 @@
                                 <li><a href="${basePath}series-a/" style="color: #d4a843; font-weight: 600;">Series A</a></li>
                                 <li><a href="${basePath}investor-relations/">Investor Relations</a></li>
                                 <li><a href="${basePath}press-releases/">Press Releases</a></li>
-                                <li><a href="${basePath}lifetime-consulting/">Lifetime Consulting</a></li>
-                                <li><a href="${basePath}lifetime-studios/">Lifetime Studios</a></li>
                                 <li class="ironclad-has-submenu">
                                     <a href="${basePath}lifetime-fleet/" class="ironclad-primary">Lifetime Fleet ▸</a>
                                     <ul class="ironclad-submenu">
@@ -163,19 +140,7 @@
                                 <li><a href="${basePath}dual-use/" style="color: #d4a843;">Dual-Use &amp; Defence (Aegis)</a></li>
                             </ul>
                         </li>
-                        <!-- Other Pages flyout -->
-                        <li class="ironclad-has-submenu">
-                            <a href="#" style="color: #64748b;">Other ▸</a>
-                            <ul class="ironclad-submenu">
-                                <li><a href="${basePath}architecture/">Architecture</a></li>
-                                <li><a href="${basePath}progress-report/">Progress Report</a></li>
-                                <li><a href="${basePath}week-50/">Week 50 Update</a></li>
-                                <li><a href="${basePath}week-51/">Week 51 Update</a></li>
-                                <li><a href="${basePath}dashboard/login/">Dashboard Login</a></li>
-                                <li><a href="${basePath}checkout/success/">Checkout Success</a></li>
-                                <li><a href="${basePath}checkout/cancel/">Checkout Cancel</a></li>
-                            </ul>
-                        </li>
+
                     </ul>
                 </li>
 
@@ -209,6 +174,8 @@
                                 <li><a href="${basePath}public-sector/?solution=csrd">Public Sector</a></li>
                             </ul>
                         </li>
+                        <li class="ironclad-separator"></li>
+                        <li><a href="${basePath}world-model/" style="color:#8b5cf6;font-weight:700;">🧠 Lifetime World Model V1</a></li>
                         <li class="ironclad-separator"></li>
                         <li class="ironclad-has-submenu">
                             <a href="${basePath}enterprise-integrations/" class="ironclad-primary">Integrations ▸</a>
@@ -256,6 +223,7 @@
                                 <li><a href="${basePath}investor-relations/" class="ironclad-primary">Investor Relations</a></li>
                                 <li><a href="${basePath}press-releases/" class="ironclad-primary">Press Releases</a></li>
                                 <li><a href="${basePath}series-a/" style="color: #d4a843; font-weight: 600;">Series A</a></li>
+                                <li><a href="${basePath}fleet-admiral/" style="color: #ffd700; font-weight: 700;">⚓ Fleet Admiral</a></li>
                                 <li><a href="${basePath}captain/" style="color: #d4a843; font-weight: 600;">Industry Captain Seats</a></li>
                                 <li><a href="${basePath}regulatory-notice/">Regulatory Notice</a></li>
                             </ul>
@@ -264,7 +232,8 @@
                         <li class="ironclad-has-submenu">
                             <a href="#" class="ironclad-highlight">Lifetime Group ▸</a>
                             <ul class="ironclad-submenu">
-                                <li><a href="${basePath}lifetime-consulting/" class="ironclad-highlight">DWS Product Family Vision</a></li>
+                                <li><a href="https://lifetime.fi/" class="ironclad-highlight">Lifetime Oy</a></li>
+                                <li><a href="${basePath}lifetime-consulting/" class="ironclad-highlight">Lifetime Consulting</a></li>
                                 <li><a href="${basePath}lifetime-studios/">Lifetime Studios</a></li>
                                 <li><a href="${basePath}roadmap/">DWS Roadmap</a></li>
                             </ul>
@@ -1298,7 +1267,7 @@
     // Include /shared-assets/vertical-lang-bar.js directly on each page that needs it.
 
     console.log(
-      'Iron Clad / Gamma Navigation v3.4 loaded (domain-aware logo + Legal Hub simplified + Agentic Commerce)',
+      'Iron Clad / Gamma Navigation v3.6 loaded (Industries Hub + LWM V1 in Solutions + Fleet Admiral in Investor + Tools removed)',
     );
   });
 })();

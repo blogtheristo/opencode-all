@@ -1,5 +1,5 @@
 /**
- * DWS10.com Iron Clad / Gamma Navigation v3.5
+ * DWS10.com Iron Clad / Gamma Navigation v3.7
  * Unified navigation bar for all pages (Gamma-aligned with mobile hamburger menu)
  * Single source of truth: dws10.com/shared-assets/nav/ironclad-nav.js
  * Synced to lifetime.fi and onelifetime.world via scripts/on-deploy/sync-ironclad-nav.sh
@@ -7,6 +7,8 @@
  * Usage: Add this script to any page:
  * <script src="/shared-assets/nav/ironclad-nav.js"></script>
  *
+ * v3.7 — Lifetime Studios + Lifetime Consulting moved to Lifetime Group submenu (About ▾);
+ *         Other ▸ flyout removed from Home ▾; Designs removed from nav
  * v3.6 — Industries flyout → direct link to /industries/ hub; Tools flyout removed;
  *         Lifetime World Model V1 added to Solutions menu; Fleet Admiral added above Captain in Investor submenu
  * v3.5 — Removed checkout/success from Other menu (payment callback only, not user-facing);
@@ -78,7 +80,7 @@
 
   // Navigation HTML (Gamma-aligned with hamburger support)
   const navHTML = `
-<!-- DWS10.com Iron Clad / Gamma Navigation v3.6 (Mobile Hamburger) -->
+<!-- DWS10.com Iron Clad / Gamma Navigation v3.7 (Mobile Hamburger) -->
 <header class="ironclad-header">
     <div class="ironclad-container">
         <div class="ironclad-logo-section">
@@ -117,8 +119,6 @@
                                 <li><a href="${basePath}series-a/" style="color: #d4a843; font-weight: 600;">Series A</a></li>
                                 <li><a href="${basePath}investor-relations/">Investor Relations</a></li>
                                 <li><a href="${basePath}press-releases/">Press Releases</a></li>
-                                <li><a href="${basePath}lifetime-consulting/">Lifetime Consulting</a></li>
-                                <li><a href="${basePath}lifetime-studios/">Lifetime Studios</a></li>
                                 <li class="ironclad-has-submenu">
                                     <a href="${basePath}lifetime-fleet/" class="ironclad-primary">Lifetime Fleet ▸</a>
                                     <ul class="ironclad-submenu">
@@ -140,17 +140,7 @@
                                 <li><a href="${basePath}dual-use/" style="color: #d4a843;">Dual-Use &amp; Defence (Aegis)</a></li>
                             </ul>
                         </li>
-                        <!-- Other Pages flyout -->
-                        <li class="ironclad-has-submenu">
-                            <a href="#" style="color: #64748b;">Other ▸</a>
-                            <ul class="ironclad-submenu">
-                                <li><a href="${basePath}architecture/">Architecture</a></li>
-                                <li><a href="${basePath}progress-report/">Progress Report</a></li>
-                                <li><a href="${basePath}week-50/">Week 50 Update</a></li>
-                                <li><a href="${basePath}week-51/">Week 51 Update</a></li>
-                                <li><a href="${basePath}dashboard/login/">Dashboard Login</a></li>
-                            </ul>
-                        </li>
+
                     </ul>
                 </li>
 
@@ -243,7 +233,7 @@
                             <a href="#" class="ironclad-highlight">Lifetime Group ▸</a>
                             <ul class="ironclad-submenu">
                                 <li><a href="https://lifetime.fi/" class="ironclad-highlight">Lifetime Oy</a></li>
-                                <li><a href="${basePath}lifetime-consulting/" class="ironclad-highlight">DWS Product Family Vision</a></li>
+                                <li><a href="${basePath}lifetime-consulting/" class="ironclad-highlight">Lifetime Consulting</a></li>
                                 <li><a href="${basePath}lifetime-studios/">Lifetime Studios</a></li>
                                 <li><a href="${basePath}roadmap/">DWS Roadmap</a></li>
                             </ul>
