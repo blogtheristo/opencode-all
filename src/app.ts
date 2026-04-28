@@ -46,6 +46,7 @@ import emailWebhookRoutes from './routes/email-webhook.routes.js';
 import analyticsRoutes from './routes/analytics.routes.js';
 import erpTrackingRoutes from './routes/erp-tracking.routes.js';
 import roleTrackingRoutes from './routes/role-tracking.routes.js';
+import gapsRoutes from './routes/gaps.routes.js';
 import { terminateChain } from './identity/kya-engine.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
@@ -315,6 +316,7 @@ app.use('/webhooks/email', emailWebhookRoutes);
 app.use('/api/v1/analytics', analyticsRoutes);
 app.use('/api/erp/track', erpTrackingRoutes);
 app.use('/api/roles/track', roleTrackingRoutes);
+app.use('/api/v1/gaps', gapsRoutes);
 
 const getHeaderValue = (value: string | string[] | undefined): string | undefined =>
   Array.isArray(value) ? value[0] : value;

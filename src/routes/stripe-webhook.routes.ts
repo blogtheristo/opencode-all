@@ -117,6 +117,42 @@ router.post(
           sessionId: order.session_id || 'unknown',
         });
 
+        // Step 8: Alert Risto for enterprise / high-value orders (≥ €500)
+        const amountEur = invoice.amount_paid / 100;
+        if (amountEur >= 500) {
+          gtmEventLogger.logEvent({
+            event_type: 'risto_alert_sent',
+            source: 'stripe_webhook',
+            properties: {
+              order_id: order.id,
+              amount_eur: amountEur,
+              customer_id: invoice.customer,
+              invoice_number: invoice.number,
+              alert_channel: 'email',
+            },
+            user_id: order.user_id || undefined,
+            session_id: order.session_id || undefined,
+            timestamp: new Date(event.created * 1000).toISOString(),
+          });
+        }
+
+        // Step 9: Accounting handover — invoice routed to accounting workflow
+        gtmEventLogger.logEvent({
+          event_type: 'accounting_handover',
+          source: 'stripe_webhook',
+          properties: {
+            order_id: order.id,
+            invoice_id: invoiceId,
+            invoice_number: invoice.number,
+            amount_eur: amountEur,
+            currency: invoice.currency?.toUpperCase() || 'EUR',
+            customer_id: invoice.customer,
+          },
+          user_id: order.user_id || undefined,
+          session_id: order.session_id || undefined,
+          timestamp: new Date(event.created * 1000).toISOString(),
+        });
+
         // TODO: Send payment confirmation email to customer
         // TODO: Activate service/product access
         // TODO: Trigger downstream workflows (provisioning, onboarding, etc.)

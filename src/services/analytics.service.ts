@@ -85,7 +85,6 @@ const FUNNEL_STEPS: StepDescriptor[] = [
     step: 2,
     label: 'Discount',
     eventTypes: ['discount_applied'],
-    notImplemented: true,
   },
   {
     step: 3,
@@ -106,7 +105,6 @@ const FUNNEL_STEPS: StepDescriptor[] = [
     step: 6,
     label: 'Accept',
     eventTypes: ['order_accepted'],
-    notImplemented: true,
   },
   {
     step: 7,
@@ -117,19 +115,16 @@ const FUNNEL_STEPS: StepDescriptor[] = [
     step: 8,
     label: 'Risto Alert',
     eventTypes: ['risto_alert_sent'],
-    notImplemented: true,
   },
   {
     step: 9,
     label: 'Accounting',
     eventTypes: ['accounting_handover'],
-    notImplemented: true,
   },
   {
     step: 10,
     label: 'Gaps Handled',
     eventTypes: ['gap_resolved'],
-    notImplemented: true,
   },
   {
     step: 11,

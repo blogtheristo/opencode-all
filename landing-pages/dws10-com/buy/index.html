@@ -2050,6 +2050,42 @@
             sendToBackend(showEvt);
           });
 
+          // Step 2: Track discount/coupon application
+          const couponInput = document.querySelector("[data-coupon-input]");
+          const couponBtn = document.querySelector("[data-coupon-apply]");
+          if (couponInput && couponBtn) {
+            function applyCoupon() {
+              const code = couponInput.value.trim().toUpperCase();
+              if (!code) return;
+              var evt = {
+                event: "discount_applied",
+                step: 2,
+                coupon_code: code,
+                timestamp: new Date().toISOString(),
+              };
+              window.dataLayer.push(evt);
+              sendToBackend(evt);
+            }
+            couponBtn.addEventListener("click", applyCoupon);
+            couponInput.addEventListener("keydown", function (e) {
+              if (e.key === "Enter") applyCoupon();
+            });
+          }
+
+          // Step 6: Track order acceptance (confirm-and-pay click, before Stripe redirect)
+          const confirmOrderBtn = document.querySelector('[data-action="confirm-order"]');
+          if (confirmOrderBtn) {
+            confirmOrderBtn.addEventListener("click", function () {
+              var evt = {
+                event: "order_accepted",
+                step: 6,
+                timestamp: new Date().toISOString(),
+              };
+              window.dataLayer.push(evt);
+              sendToBackend(evt);
+            });
+          }
+
           // Track form abandonment (Step 4)
           const formElement = document.querySelector('[data-form="enterprise-details"]');
           if (formElement) {
