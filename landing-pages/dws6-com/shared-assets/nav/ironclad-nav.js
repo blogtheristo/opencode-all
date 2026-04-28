@@ -1,5 +1,5 @@
 /**
- * DWS10.com Iron Clad / Gamma Navigation v3.7
+ * DWS10.com Iron Clad / Gamma Navigation v3.8
  * Unified navigation bar for all pages (Gamma-aligned with mobile hamburger menu)
  * Single source of truth: dws10.com/shared-assets/nav/ironclad-nav.js
  * Synced to lifetime.fi and onelifetime.world via scripts/on-deploy/sync-ironclad-nav.sh
@@ -7,6 +7,7 @@
  * Usage: Add this script to any page:
  * <script src="/shared-assets/nav/ironclad-nav.js"></script>
  *
+ * v3.8 — Compliance renamed to "Compliance Hub"; moved from Home ▾ to Solutions ▾ (after CSRD, above Integrations)
  * v3.7 — Lifetime Studios + Lifetime Consulting moved to Lifetime Group submenu (About ▾);
  *         Other ▸ flyout removed from Home ▾; Designs removed from nav
  * v3.6 — Industries flyout → direct link to /industries/ hub; Tools flyout removed;
@@ -80,7 +81,7 @@
 
   // Navigation HTML (Gamma-aligned with hamburger support)
   const navHTML = `
-<!-- DWS10.com Iron Clad / Gamma Navigation v3.7 (Mobile Hamburger) -->
+<!-- DWS10.com Iron Clad / Gamma Navigation v3.8 (Mobile Hamburger) -->
 <header class="ironclad-header">
     <div class="ironclad-container">
         <div class="ironclad-logo-section">
@@ -131,16 +132,6 @@
                         </li>
                         <!-- Legal Hub — direct link (v3.4: simplified, no flyout) -->
                         <li><a href="${basePath}legal/" class="ironclad-legal">Legal Hub</a></li>
-                        <!-- Compliance flyout -->
-                        <li class="ironclad-has-submenu">
-                            <a href="${basePath}compliance/" class="ironclad-primary">Compliance ▸</a>
-                            <ul class="ironclad-submenu">
-                                <li><a href="${basePath}compliance/">Compliance Hub</a></li>
-                                <li><a href="${basePath}compliance/trust-center/">Trust Center</a></li>
-                                <li><a href="${basePath}dual-use/" style="color: #d4a843;">Dual-Use &amp; Defence (Aegis)</a></li>
-                            </ul>
-                        </li>
-
                     </ul>
                 </li>
 
@@ -172,6 +163,15 @@
                                 <li><a href="${basePath}real-estate/?solution=csrd">Real Estate</a></li>
                                 <li><a href="${basePath}lifetime-fleet/?solution=csrd">Fleet Management</a></li>
                                 <li><a href="${basePath}public-sector/?solution=csrd">Public Sector</a></li>
+                            </ul>
+                        </li>
+                        <!-- Compliance Hub (v3.8: moved from Home ▾) -->
+                        <li class="ironclad-has-submenu">
+                            <a href="${basePath}compliance/" class="ironclad-primary">Compliance Hub ▸</a>
+                            <ul class="ironclad-submenu">
+                                <li><a href="${basePath}compliance/">Compliance Hub</a></li>
+                                <li><a href="${basePath}compliance/trust-center/">Trust Center</a></li>
+                                <li><a href="${basePath}dual-use/" style="color: #d4a843;">Dual-Use &amp; Defence (Aegis)</a></li>
                             </ul>
                         </li>
                         <li class="ironclad-separator"></li>
@@ -1267,7 +1267,7 @@
     // Include /shared-assets/vertical-lang-bar.js directly on each page that needs it.
 
     console.log(
-      'Iron Clad / Gamma Navigation v3.6 loaded (Industries Hub + LWM V1 in Solutions + Fleet Admiral in Investor + Tools removed)',
+      'Iron Clad / Gamma Navigation v3.8 loaded (Compliance Hub in Solutions + Lifetime Group cleanup)',
     );
   });
 })();
