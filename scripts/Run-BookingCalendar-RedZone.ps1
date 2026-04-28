@@ -74,6 +74,21 @@ function Assert-EnvVar([string]$Name) {
     }
 }
 
+function Set-EnvFallback([string]$Target, [string[]]$Candidates) {
+    if (-not [string]::IsNullOrWhiteSpace([Environment]::GetEnvironmentVariable($Target))) {
+        return
+    }
+
+    foreach ($candidate in $Candidates) {
+        $value = [Environment]::GetEnvironmentVariable($candidate)
+        if (-not [string]::IsNullOrWhiteSpace($value)) {
+            [Environment]::SetEnvironmentVariable($Target, $value, "Process")
+            Write-Host "  Using $candidate as fallback for $Target" -ForegroundColor DarkGray
+            return
+        }
+    }
+}
+
 function Invoke-SmokeGet([string]$Path) {
     $url = "$ApiBaseUrl$Path"
     Write-Host "GET $url" -ForegroundColor DarkGray
@@ -87,9 +102,13 @@ Write-Host ""
 
 Write-Host "[1/4] Preflight checks..." -ForegroundColor Yellow
 Import-DotEnvFile ".\.env"
+Import-DotEnvFile ".\.env.local"
+Import-DotEnvFile ".\.env.mcp"
 if (-not (Test-Path ".\package.json")) { throw "package.json not found in repo root." }
 if (-not (Test-Path ".\supabase\migrations\063_token_usage_optimization.sql")) { throw "Missing migration file 063." }
 if (-not (Test-Path ".\supabase\migrations\064_booking_system.sql")) { throw "Missing migration file 064." }
+
+Set-EnvFallback "SUPABASE_ACCESS_TOKEN" @("SUPABASE_TOKEN", "SUPABASE_PAT", "SUPABASE_PERSONAL_ACCESS_TOKEN")
 
 Assert-EnvVar "SUPABASE_ACCESS_TOKEN"
 Assert-EnvVar "SUPABASE_URL"

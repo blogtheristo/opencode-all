@@ -580,7 +580,10 @@
         const service = services.find((s) => s.id === elements.serviceSelect.value);
         const dateStr = elements.dateInput.value;
         const timeStr = elements.timeSelect.value;
-        const dateTimeStr = `${dateStr}T${timeStr}:00Z`;
+        const [year, month, day] = dateStr.split("-").map(Number);
+        const [hours, minutes] = timeStr.split(":").map(Number);
+        const localDateTime = new Date(year, month - 1, day, hours, minutes, 0, 0);
+        const dateTimeStr = localDateTime.toISOString();
 
         const payload = {
           serviceId: elements.serviceSelect.value,

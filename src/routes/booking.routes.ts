@@ -117,11 +117,18 @@ async function getAvailableSlotsForDate(
     endTime = availability[0].end_time;
   }
 
-  // Get all booked slots for this service on this date
+  // Get booked slots for this service on the requested date only
+  const dayStartIso = `${dateStr}T00:00:00.000Z`;
+  const nextDay = new Date(`${dateStr}T00:00:00.000Z`);
+  nextDay.setUTCDate(nextDay.getUTCDate() + 1);
+  const dayEndIso = nextDay.toISOString();
+
   const { data: bookedSlots, error: bookedError } = await supabase
     .from('v_booked_slots')
     .select('slot_start, slot_end')
-    .eq('service_id', serviceId);
+    .eq('service_id', serviceId)
+    .gte('slot_start', dayStartIso)
+    .lt('slot_start', dayEndIso);
 
   if (bookedError) {
     logger.error('Error fetching booked slots', { bookedError });
@@ -130,16 +137,25 @@ async function getAvailableSlotsForDate(
 
   // Generate 30-minute slots and filter out booked ones
   const slots: string[] = [];
-  const [startHour, startMin] = startTime.split(':').map(Number);
-  const [endHour, endMin] = endTime.split(':').map(Number);
+  const toMinutes = (time: string) => {
+    const [hours, minutes] = time.split(':').map(Number);
+    return hours * 60 + minutes;
+  };
+  const toTimeString = (minutes: number) => {
+    const hh = Math.floor(minutes / 60)
+      .toString()
+      .padStart(2, '0');
+    const mm = (minutes % 60).toString().padStart(2, '0');
+    return `${hh}:${mm}`;
+  };
 
-  let current = new Date(`${dateStr}T${startTime}Z`);
-  const dayEnd = new Date(`${dateStr}T${endTime}Z`);
+  let currentMinutes = toMinutes(startTime);
+  const dayEndMinutes = toMinutes(endTime);
 
-  while (current.getTime() + durationMinutes * 60 * 1000 <= dayEnd.getTime()) {
-    const slotStart = new Date(current);
-    const slotEnd = new Date(current.getTime() + durationMinutes * 60 * 1000);
-    const timeStr = current.toISOString().slice(11, 16); // HH:MM
+  while (currentMinutes + durationMinutes <= dayEndMinutes) {
+    const timeStr = toTimeString(currentMinutes);
+    const slotStart = new Date(`${dateStr}T${timeStr}:00.000Z`);
+    const slotEnd = new Date(slotStart.getTime() + durationMinutes * 60 * 1000);
 
     // Check if slot conflicts with any booking
     const hasConflict = bookedSlots?.some((booked) => {
@@ -152,7 +168,7 @@ async function getAvailableSlotsForDate(
       slots.push(timeStr);
     }
 
-    current = new Date(current.getTime() + 30 * 60 * 1000); // Next 30-min slot
+    currentMinutes += 30; // Next 30-min slot
   }
 
   return slots;
