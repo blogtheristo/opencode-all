@@ -1,12 +1,23 @@
 /**
- * Analytics Service — DWS IQ 6/7 (GTM Machine Phase 2b)
+ * Analytics Service — DWS IQ 6/7 (GTM Machine Phase 2b + 3 extension)
  *
  * Funnel analysis, conversion tracking, and cohort aggregation.
  * Queries gtm_event_log table for funnel visualization + drop-off analysis.
  *
- * Code-Version: 1.0
- * Introduced-In: PR-TBD (GTM Machine Phase 2b)
- * Branch: claude/implement-gtm-machine-Avz67
+ * Funnel surface: 14 steps
+ *   ENTRY → [1] Bundle → [2] Discount → [3] €1 Pay → [4] Enterprise Form
+ *         → [5] Upsell → [6] Accept → [7] Stripe → [8] Risto Alert
+ *         → [9] Accounting → [10] Gaps Handled → [11] Onboarding
+ *         → [12] Welcome + Portal → [13] ERP Connect
+ *         → [14] Admin Role Designation
+ *
+ * Steps 2, 6, 8, 9, 10 are wired but their event emitters do not yet exist
+ * in the codebase — they will return `completes: 0` until the corresponding
+ * frontend / pipeline events are emitted. See PR description for the TODO list.
+ *
+ * Code-Version: 1.1
+ * Introduced-In: PR-TBD (GTM Machine Phase 3 — funnel completion to 14 steps)
+ * Branch: claude/charming-brown-6cd96f
  * Date: 2026-04-28
  * Owner: Lifetime Oy
  */
@@ -41,95 +52,170 @@ export interface FunnelMetrics {
 }
 
 export interface CohortFilter {
-  vertical?: string; // construction, manufacturing, logistics, energy, etc.
-  company_size?: string; // sme, mid_market, enterprise
-  region?: string; // eu, dach, nordic, uk, other
-  days?: number; // default 30
+  vertical?: string;
+  company_size?: string;
+  region?: string;
+  days?: number;
 }
+
+/**
+ * Step descriptor — drives the supabase query for each funnel stage.
+ *
+ * `eventTypes` matches gtm_event_log.event_type via .in() (one or more event names).
+ * `propertyMatch` is an optional JSON-path LIKE filter applied to the `properties` column.
+ *   shape: { path: 'template', op: 'like', value: 'license%' }
+ * `notImplemented` flags steps whose emitter does not exist yet — they return 0.
+ */
+interface StepDescriptor {
+  step: number;
+  label: string;
+  eventTypes?: string[];
+  propertyMatch?: { path: string; op: 'eq' | 'like'; value: string };
+  notImplemented?: boolean;
+}
+
+const FUNNEL_STEPS: StepDescriptor[] = [
+  {
+    step: 1,
+    label: 'Bundle',
+    eventTypes: ['page_view'],
+    propertyMatch: { path: 'page_type', op: 'eq', value: 'store' },
+  },
+  {
+    step: 2,
+    label: 'Discount',
+    eventTypes: ['discount_applied'],
+    notImplemented: true,
+  },
+  {
+    step: 3,
+    label: '€1 Pay',
+    eventTypes: ['begin_checkout'],
+  },
+  {
+    step: 4,
+    label: 'Enterprise Form',
+    eventTypes: ['form_submitted'],
+  },
+  {
+    step: 5,
+    label: 'Upsell',
+    eventTypes: ['upsell_recommendation_shown'],
+  },
+  {
+    step: 6,
+    label: 'Accept',
+    eventTypes: ['order_accepted'],
+    notImplemented: true,
+  },
+  {
+    step: 7,
+    label: 'Stripe',
+    eventTypes: ['purchase'],
+  },
+  {
+    step: 8,
+    label: 'Risto Alert',
+    eventTypes: ['risto_alert_sent'],
+    notImplemented: true,
+  },
+  {
+    step: 9,
+    label: 'Accounting',
+    eventTypes: ['accounting_handover'],
+    notImplemented: true,
+  },
+  {
+    step: 10,
+    label: 'Gaps Handled',
+    eventTypes: ['gap_resolved'],
+    notImplemented: true,
+  },
+  {
+    step: 11,
+    label: 'Onboarding',
+    eventTypes: ['email_sent', 'sent'],
+    propertyMatch: { path: 'template', op: 'like', value: 'license%' },
+  },
+  {
+    step: 12,
+    label: 'Welcome + Portal',
+    eventTypes: ['email_opened', 'opened'],
+    propertyMatch: { path: 'template', op: 'like', value: 'welcome%' },
+  },
+  {
+    step: 13,
+    label: 'ERP Connect',
+    eventTypes: ['erp_sync_activated'],
+  },
+  {
+    step: 14,
+    label: 'Admin Role Designation',
+    eventTypes: ['admin_role_admin_designated', 'admin_role_admin_auto_promoted'],
+  },
+];
 
 class AnalyticsService {
   /**
-   * Get funnel visualization with conversion rates
+   * Count gtm_event_log rows matching a step descriptor since `since`.
+   * Returns 0 for `notImplemented` steps so the funnel surface stays complete.
+   */
+  private async countStep(step: StepDescriptor, since: string): Promise<number> {
+    if (step.notImplemented) return 0;
+    if (!step.eventTypes || step.eventTypes.length === 0) return 0;
+
+    let query = supabase
+      .from('gtm_event_log')
+      .select('id', { count: 'exact', head: true })
+      .gte('timestamp', since)
+      .in('event_type', step.eventTypes);
+
+    if (step.propertyMatch) {
+      const jsonPath = `properties->>${step.propertyMatch.path}`;
+      if (step.propertyMatch.op === 'eq') {
+        query = query.eq(jsonPath, step.propertyMatch.value);
+      } else {
+        query = query.like(jsonPath, step.propertyMatch.value);
+      }
+    }
+
+    const { count, error } = await query;
+    if (error) {
+      logger.warn('Funnel count error', { step: step.step, error: error.message });
+      return 0;
+    }
+    return count ?? 0;
+  }
+
+  /**
+   * Get full 14-step funnel with conversion rates.
+   *
+   * `enters` = previous step's `completes` (or this step's count for step 1).
+   * `conversion_rate` = completes / enters.
    */
   async getFunnel(filter: CohortFilter = {}): Promise<FunnelMetrics> {
     try {
       const daysBack = filter.days || 30;
       const since = new Date(Date.now() - daysBack * 24 * 60 * 60 * 1000).toISOString();
 
-      // Define funnel steps
-      const funnelSteps = [
-        {
-          step: 1,
-          label: 'Entry',
-          event: 'page_view',
-          filter: "properties->>'page_type' = 'store'",
-        },
-        {
-          step: 3,
-          label: '€1 Payment',
-          event: 'begin_checkout',
-          filter: "event_type = 'begin_checkout'",
-        },
-        {
-          step: 4,
-          label: 'Enterprise Form',
-          event: 'form_submitted',
-          filter: "event_type = 'form_submitted'",
-        },
-        {
-          step: 6,
-          label: 'Order Review',
-          event: 'begin_checkout',
-          filter: "event_type = 'begin_checkout'",
-        },
-        { step: 7, label: 'Stripe Invoice', event: 'purchase', filter: "event_type = 'purchase'" },
-        {
-          step: 11,
-          label: 'License Provision',
-          event: 'email_sent',
-          filter: "properties->>'template' LIKE 'license%'",
-        },
-        {
-          step: 12,
-          label: 'Onboarding',
-          event: 'email_opened',
-          filter: "properties->>'template' LIKE 'welcome%'",
-        },
-      ];
+      const counts = await Promise.all(FUNNEL_STEPS.map((s) => this.countStep(s, since)));
 
-      // Query for each step
-      const funnel: FunnelStep[] = [];
-      let prevCount = 0;
-
-      for (const stepDef of funnelSteps) {
-        const { data, error } = await supabase
-          .from('gtm_event_log')
-          .select('id')
-          .gte('timestamp', since)
-          .filter(stepDef.filter);
-
-        if (error) {
-          logger.warn('Funnel query error', { step: stepDef.step, error: error.message });
-          continue;
-        }
-
-        const count = data?.length || 0;
-        const dropOff = prevCount > 0 ? prevCount - count : 0;
-        const conversionRate = prevCount > 0 ? count / prevCount : count > 0 ? 1 : 0;
-
-        funnel.push({
+      const funnel: FunnelStep[] = FUNNEL_STEPS.map((stepDef, idx) => {
+        const completes = counts[idx];
+        const enters = idx === 0 ? completes : counts[idx - 1];
+        const dropOff = Math.max(0, enters - completes);
+        const conversionRate = enters > 0 ? completes / enters : 0;
+        return {
           step: stepDef.step,
           label: stepDef.label,
-          enters: prevCount || count,
-          completes: count,
+          enters,
+          completes,
           drop_off: dropOff,
           conversion_rate: conversionRate,
-        });
+        };
+      });
 
-        prevCount = count;
-      }
-
-      // Get revenue metrics
+      // Revenue metrics — sum of `revenue_eur` property on `purchase` events
       const { data: purchases } = await supabase
         .from('gtm_event_log')
         .select('properties')
@@ -137,31 +223,33 @@ class AnalyticsService {
         .gte('timestamp', since);
 
       const totalRevenue = (purchases || []).reduce((sum, p) => {
-        const revenue = (p.properties as any)?.revenue_eur || 0;
+        const revenue = (p.properties as { revenue_eur?: number } | null)?.revenue_eur || 0;
         return sum + revenue;
       }, 0);
 
       const aov = purchases && purchases.length > 0 ? totalRevenue / purchases.length : 0;
       const totalEntries = funnel[0]?.enters || 0;
-      const completionRate =
-        totalEntries > 0 ? (funnel[funnel.length - 1]?.completes || 0) / totalEntries : 0;
+      const lastStep = funnel[funnel.length - 1];
+      const completionRate = totalEntries > 0 ? (lastStep?.completes || 0) / totalEntries : 0;
 
-      // Get email engagement (Step 4 focus)
-      const { data: emailOpens } = await supabase
-        .from('gtm_event_log')
-        .select('id')
-        .eq('event_type', 'email_opened')
-        .gte('timestamp', since);
-
-      const { data: emailClicks } = await supabase
-        .from('gtm_event_log')
-        .select('id')
-        .eq('event_type', 'email_clicked')
-        .gte('timestamp', since);
+      // Email engagement (Step 4 focus)
+      const [opensRes, clicksRes] = await Promise.all([
+        supabase
+          .from('gtm_event_log')
+          .select('id', { count: 'exact', head: true })
+          .in('event_type', ['email_opened', 'opened'])
+          .gte('timestamp', since),
+        supabase
+          .from('gtm_event_log')
+          .select('id', { count: 'exact', head: true })
+          .in('event_type', ['email_clicked', 'clicked'])
+          .gte('timestamp', since),
+      ]);
 
       const step4 = funnel.find((f) => f.step === 4);
-      const step4Opens = step4 && emailOpens ? emailOpens.length / step4.enters : 0;
-      const step4Clicks = step4 && emailClicks ? emailClicks.length / step4.enters : 0;
+      const step4Enters = step4?.enters || 0;
+      const step4Opens = step4Enters > 0 ? (opensRes.count ?? 0) / step4Enters : 0;
+      const step4Clicks = step4Enters > 0 ? (clicksRes.count ?? 0) / step4Enters : 0;
 
       return {
         funnel,
@@ -175,7 +263,7 @@ class AnalyticsService {
         email_engagement: {
           step_4_opens: step4Opens,
           step_4_clicks: step4Clicks,
-          form_starts: step4?.completes ? step4.completes / step4.enters : 0,
+          form_starts: step4Enters > 0 ? (step4?.completes || 0) / step4Enters : 0,
           form_completes: step4?.conversion_rate || 0,
         },
       };
@@ -186,13 +274,12 @@ class AnalyticsService {
   }
 
   /**
-   * Get drop-off analysis for a specific funnel step
+   * Get drop-off analysis for a specific funnel step (Step 4 form errors today).
    */
-  async getDropoff(step: number, days: number = 30): Promise<any> {
+  async getDropoff(step: number, days: number = 30): Promise<unknown> {
     try {
       const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
 
-      // Get form validation errors for Step 4
       if (step === 4) {
         const { data: errors } = await supabase
           .from('gtm_event_log')
@@ -202,7 +289,7 @@ class AnalyticsService {
 
         const errorsByField: Record<string, number> = {};
         (errors || []).forEach((e) => {
-          const field = (e.properties as any)?.field_name || 'unknown';
+          const field = (e.properties as { field_name?: string } | null)?.field_name || 'unknown';
           errorsByField[field] = (errorsByField[field] || 0) + 1;
         });
 
@@ -220,7 +307,7 @@ class AnalyticsService {
           enters: step4?.enters || 0,
           completes: step4?.completes || 0,
           drop_off: step4?.drop_off || 0,
-          drop_off_pct: step4 ? step4.drop_off / step4.enters : 0,
+          drop_off_pct: step4 && step4.enters > 0 ? step4.drop_off / step4.enters : 0,
           reasons,
         };
       }
@@ -233,12 +320,11 @@ class AnalyticsService {
   }
 
   /**
-   * Get cohort metrics (vertical, company size, region)
+   * Get cohort metrics (vertical, company size, region).
    */
-  async getCohortMetrics(cohort: CohortFilter = {}): Promise<any> {
+  async getCohortMetrics(cohort: CohortFilter = {}): Promise<unknown> {
     try {
       const funnel = await this.getFunnel(cohort);
-
       return {
         cohort,
         ...funnel.metrics,
