@@ -1,10 +1,26 @@
 /**
- * DWS10.com Iron Clad / Gamma Navigation v3.0
+ * DWS10.com Iron Clad / Gamma Navigation v3.8
  * Unified navigation bar for all pages (Gamma-aligned with mobile hamburger menu)
+ * Single source of truth: dws10.com/shared-assets/nav/ironclad-nav.js
+ * Synced to lifetime.fi and onelifetime.world via scripts/on-deploy/sync-ironclad-nav.sh
  *
  * Usage: Add this script to any page:
  * <script src="/shared-assets/nav/ironclad-nav.js"></script>
  *
+ * v3.8 — Compliance renamed to "Compliance Hub"; moved from Home ▾ to Solutions ▾ (after CSRD, above Integrations)
+ * v3.7 — Lifetime Studios + Lifetime Consulting moved to Lifetime Group submenu (About ▾);
+ *         Other ▸ flyout removed from Home ▾; Designs removed from nav
+ * v3.6 — Industries flyout → direct link to /industries/ hub; Tools flyout removed;
+ *         Lifetime World Model V1 added to Solutions menu; Fleet Admiral added above Captain in Investor submenu
+ * v3.5 — Removed checkout/success from Other menu (payment callback only, not user-facing);
+ *         Lifetime Oy added to Lifetime Group submenu → lifetime.fi;
+ *         "Dual Use Industries" renamed to "Industries"; checkout/cancel removed from Other menu
+ * v3.4 — Domain-aware logo (LifetimeOy.png on lifetime.fi, OLW logo on onelifetime.world);
+ *         Legal Hub simplified to direct link (no flyout); investment-safety removed from Legal submenu;
+ *         Agentic Commerce added to enterprise-integrations; booking CTA uses /book/
+ * v3.3 — Products menu rendered at runtime from config/products.json (single source of truth shared with /price-list/); categories mirror CATEGORY_ORDER from scripts/gen-price-list-html.cjs
+ * v3.2 — Nordic Industrial rebrand + duplicate-include guard: inject nordic-theme.css + IBM Plex Sans fonts + language subdirectory redirect
+ * v3.1 — Language selector (EN | FI | SV) with localStorage persistence
  * v3.0 — Mobile hamburger menu (slide-out panel, tap-to-expand submenus)
  * v2.0 — Comprehensive Home menu with flyouts
  * v1.1 — Initial Gamma-aligned release
@@ -14,6 +30,10 @@
 
 (function () {
   'use strict';
+
+  // Duplicate-include guard: prevent double injection of nav, theme, and font links
+  if (window.__ironcladNavLoaded) return;
+  window.__ironcladNavLoaded = true;
 
   // Determine base path based on current location
   const getBasePath = () => {
@@ -25,16 +45,50 @@
 
   const basePath = getBasePath();
 
+  // Language configuration (expandable — add new languages here)
+  const ironcladLanguages = [
+    { code: 'en', label: 'English' },
+    { code: 'fi', label: 'Suomeksi' },
+    { code: 'sv', label: 'Svenska' },
+    { code: 'de', label: 'Deutsch' },
+    { code: 'fr', label: 'Français' },
+  ];
+  const ironcladCurrentLang = localStorage.getItem('dws-lang') || 'en';
+  const ironcladCurrentLabel = (
+    ironcladLanguages.find((l) => l.code === ironcladCurrentLang) || ironcladLanguages[0]
+  ).label;
+
+  // Domain-aware site configuration (v3.4)
+  const hostname = window.location.hostname;
+  const siteConfig =
+    hostname === 'lifetime.fi' || hostname === 'www.lifetime.fi'
+      ? {
+          logo: 'static/images/LifetimeOy.png',
+          logoAlt: 'Lifetime Oy',
+          title: 'Lifetime Oy',
+        }
+      : hostname === 'onelifetime.world' || hostname === 'www.onelifetime.world'
+        ? {
+            logo: 'static/images/OneLifetime_Logo_Final.png',
+            logoAlt: 'OneLifetime.World',
+            title: 'OneLifetime.World',
+          }
+        : {
+            logo: 'DWS_IQ2026.png',
+            logoAlt: 'DWS IQ Platform',
+            title: 'DWS IQ Platform Version 6',
+          };
+
   // Navigation HTML (Gamma-aligned with hamburger support)
   const navHTML = `
-<!-- DWS10.com Iron Clad / Gamma Navigation v3.0 (Mobile Hamburger) -->
+<!-- DWS10.com Iron Clad / Gamma Navigation v3.8 (Mobile Hamburger) -->
 <header class="ironclad-header">
     <div class="ironclad-container">
         <div class="ironclad-logo-section">
             <a href="${basePath || '/'}" class="ironclad-logo-link">
-                <img src="${basePath}DWS_IQ2026.png" alt="DWS IQ Platform" class="ironclad-logo">
+                <img src="${basePath}${siteConfig.logo}" alt="${siteConfig.logoAlt}" class="ironclad-logo">
             </a>
-            <span class="ironclad-title">DWS IQ Platform Version 6</span>
+            <span class="ironclad-title">${siteConfig.title}</span>
         </div>
         <button class="ironclad-hamburger" aria-label="Open menu" aria-expanded="false">
             <span></span><span></span><span></span>
@@ -53,97 +107,31 @@
                         <li class="ironclad-separator"></li>
                         <li><a href="${basePath}fit-for-55/" class="ironclad-primary">Fit for 55</a></li>
                         <li><a href="${basePath}csrd/" class="ironclad-primary">CSRD & ESG</a></li>
-                        <!-- Industries flyout -->
-                        <li class="ironclad-has-submenu">
-                            <a href="#" class="ironclad-primary">Industries ▸</a>
-                            <ul class="ironclad-submenu">
-                                <li><a href="${basePath}construction/">Construction</a></li>
-                                <li><a href="${basePath}logistics/">Logistics</a></li>
-                                <li><a href="${basePath}manufacturing/">Manufacturing</a></li>
-                                <li><a href="${basePath}energy/">Energy</a></li>
-                                <li><a href="${basePath}healthcare/">Healthcare</a></li>
-                                <li><a href="${basePath}real-estate/">Real Estate</a></li>
-                                <li><a href="${basePath}financial-services/">Financial Services</a></li>
-                                <li><a href="${basePath}public-sector/">Public Sector</a></li>
-                                <li><a href="${basePath}mining/">Mining</a></li>
-                                <li><a href="${basePath}shipbuilding/">Shipbuilding</a></li>
-                                <li><a href="${basePath}waste/">Waste Management</a></li>
-                            </ul>
-                        </li>
-                        <!-- Products/Tools flyout -->
-                        <li class="ironclad-has-submenu">
-                            <a href="#" class="ironclad-primary">Tools ▸</a>
-                            <ul class="ironclad-submenu">
-                                <li><a href="${basePath}calculator/">Calculator</a></li>
-                                <li><a href="${basePath}dashboard/">Dashboard</a></li>
-                                <li><a href="${basePath}buy/">Buy/Store</a></li>
-                                <li><a href="${basePath}checkout/">Checkout</a></li>
-                                <li><a href="${basePath}world-model/">World Model</a></li>
-                            </ul>
-                        </li>
+                        <!-- Industries Hub — direct link (v3.6: hub page replaces flyout) -->
+                        <li><a href="${basePath}industries/" class="ironclad-primary">Industries Hub</a></li>
                         <!-- Company flyout -->
                         <li class="ironclad-has-submenu">
                             <a href="#" class="ironclad-primary">Company ▸</a>
                             <ul class="ironclad-submenu">
                                 <li><a href="${basePath}careers/">Careers</a></li>
                                 <li><a href="${basePath}partners/">Partners</a></li>
+                                <li><a href="${basePath}captain/" style="color: #d4a843; font-weight: 600;">Industry Captains</a></li>
+                                <li><a href="${basePath}fleet-admiral/" style="color: #d4a843; font-weight: 600;">Fleet Admiral</a></li>
+                                <li><a href="${basePath}series-a/" style="color: #d4a843; font-weight: 600;">Series A</a></li>
                                 <li><a href="${basePath}investor-relations/">Investor Relations</a></li>
-                                <li><a href="${basePath}lifetime-consulting/">Lifetime Consulting</a></li>
-                                <li><a href="${basePath}lifetime-studios/">Lifetime Studios</a></li>
-                                <li><a href="${basePath}lifetime-fleet/">Lifetime Fleet</a></li>
+                                <li><a href="${basePath}press-releases/">Press Releases</a></li>
+                                <li class="ironclad-has-submenu">
+                                    <a href="${basePath}lifetime-fleet/" class="ironclad-primary">Lifetime Fleet ▸</a>
+                                    <ul class="ironclad-submenu">
+                                        <li><a href="${basePath}lifetime-fleet/">Fleet Overview</a></li>
+                                        <li><a href="${basePath}lifetime-fleet/optimus-v3/">Optimus V3</a></li>
+                                        <li><a href="${basePath}lifetime-fleet/nvidia-isv/" class="ironclad-highlight">NVIDIA ISV Partner</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
-                        <!-- Designs flyout -->
-                        <li class="ironclad-has-submenu">
-                            <a href="#" class="ironclad-secondary">Designs ▸</a>
-                            <ul class="ironclad-submenu">
-                                <li><a href="${basePath}gamma/" class="ironclad-primary">Gamma (Current)</a></li>
-                                <li><a href="${basePath}theta/">Theta</a></li>
-                                <li><a href="${basePath}ultra/" class="ironclad-secondary">Ultra</a></li>
-                                <li><a href="${basePath}industrial-preview/" class="ironclad-secondary">Ultra II - Industrial</a></li>
-                            </ul>
-                        </li>
-                        <!-- Legal & Compliance flyout -->
-                        <li class="ironclad-has-submenu">
-                            <a href="${basePath}legal/" class="ironclad-legal">Legal ▸</a>
-                            <ul class="ironclad-submenu">
-                                <li><a href="${basePath}legal/" class="ironclad-legal">Legal Hub</a></li>
-                                <li><a href="${basePath}terms/">Terms of Service</a></li>
-                                <li><a href="${basePath}terms-dws-iq/">DWS IQ Terms</a></li>
-                                <li><a href="${basePath}terms-firehorse/">Firehorse Terms</a></li>
-                                <li><a href="${basePath}terms-lifetime-fleet/">Fleet Terms</a></li>
-                                <li><a href="${basePath}terms-professional/">Professional Services</a></li>
-                                <li class="ironclad-separator"></li>
-                                <li><a href="${basePath}privacy-policy/">Privacy Policy</a></li>
-                                <li><a href="${basePath}return-policy/">Return Policy</a></li>
-                                <li><a href="${basePath}investment-safety/">Investment Security</a></li>
-                                <li><a href="${basePath}regulatory-notice/">Regulatory Notice</a></li>
-                                <li><a href="${basePath}data-handling-policy/">Data Handling Policy</a></li>
-                                <li><a href="${basePath}data-security-policy/">Data Security Policy</a></li>
-                            </ul>
-                        </li>
-                        <!-- Compliance flyout -->
-                        <li class="ironclad-has-submenu">
-                            <a href="${basePath}compliance/" class="ironclad-primary">Compliance ▸</a>
-                            <ul class="ironclad-submenu">
-                                <li><a href="${basePath}compliance/">Compliance Hub</a></li>
-                                <li><a href="${basePath}compliance/trust-center/">Trust Center</a></li>
-                                <li><a href="${basePath}dual-use/">Dual-Use Policy</a></li>
-                            </ul>
-                        </li>
-                        <!-- Other Pages flyout -->
-                        <li class="ironclad-has-submenu">
-                            <a href="#" style="color: #64748b;">Other ▸</a>
-                            <ul class="ironclad-submenu">
-                                <li><a href="${basePath}architecture/">Architecture</a></li>
-                                <li><a href="${basePath}progress-report/">Progress Report</a></li>
-                                <li><a href="${basePath}week-50/">Week 50 Update</a></li>
-                                <li><a href="${basePath}week-51/">Week 51 Update</a></li>
-                                <li><a href="${basePath}dashboard/login/">Dashboard Login</a></li>
-                                <li><a href="${basePath}checkout/success/">Checkout Success</a></li>
-                                <li><a href="${basePath}checkout/cancel/">Checkout Cancel</a></li>
-                            </ul>
-                        </li>
+                        <!-- Legal Hub — direct link (v3.4: simplified, no flyout) -->
+                        <li><a href="${basePath}legal/" class="ironclad-legal">Legal Hub</a></li>
                     </ul>
                 </li>
 
@@ -177,27 +165,44 @@
                                 <li><a href="${basePath}public-sector/?solution=csrd">Public Sector</a></li>
                             </ul>
                         </li>
+                        <!-- Compliance Hub (v3.8: moved from Home ▾) -->
+                        <li class="ironclad-has-submenu">
+                            <a href="${basePath}compliance/" class="ironclad-primary">Compliance Hub ▸</a>
+                            <ul class="ironclad-submenu">
+                                <li><a href="${basePath}compliance/">Compliance Hub</a></li>
+                                <li><a href="${basePath}compliance/trust-center/">Trust Center</a></li>
+                                <li><a href="${basePath}dual-use/" style="color: #d4a843;">Dual-Use &amp; Defence (Aegis)</a></li>
+                            </ul>
+                        </li>
+                        <li class="ironclad-separator"></li>
+                        <li><a href="${basePath}world-model/" style="color:#8b5cf6;font-weight:700;">🧠 Lifetime World Model V1</a></li>
+                        <li class="ironclad-separator"></li>
+                        <li class="ironclad-has-submenu">
+                            <a href="${basePath}enterprise-integrations/" class="ironclad-primary">Integrations ▸</a>
+                            <ul class="ironclad-submenu">
+                                <li><a href="${basePath}enterprise-integrations/" class="ironclad-primary">All Enterprise Integrations</a></li>
+                                <li class="ironclad-separator"></li>
+                                <li><a href="${basePath}enterprise-integrations/siemens/" class="ironclad-primary">Siemens — Building Automation</a></li>
+                                <li><a href="${basePath}enterprise-integrations/#erp">ERP (SAP, IFS, Dynamics, Monitor, Visma, Jeeves)</a></li>
+                                <li><a href="${basePath}enterprise-integrations/#industrial">Industrial Control (ABB, AspenTech)</a></li>
+                                <li><a href="${basePath}enterprise-integrations/#esg">ESG Platforms (Worldfavor, Position Green)</a></li>
+                                <li class="ironclad-separator"></li>
+                                <li><a href="${basePath}products/synthetic-data/" class="ironclad-primary">Synthetic Data Solutions</a></li>
+                                <li class="ironclad-separator"></li>
+                                <li><a href="${basePath}partners/">Partner Program</a></li>
+                                <li><a href="${basePath}aegis-partners/">Aegis Partners (Tier 1)</a></li>
+                                <li><a href="${basePath}sovereign-infra-partners/">Sovereign Infra Partners (Tier 2)</a></li>
+                                <li><a href="${basePath}connect-partners/">Connect Partners (Tier 3)</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
 
-                <!-- Products ▾ -->
+                <!-- Products ▾ (categories + items populated at runtime from config/products.json — same source as /price-list/) -->
                 <li class="ironclad-menu-item">
                     <a href="#" class="ironclad-link">Products ▾</a>
-                    <ul class="ironclad-dropdown ironclad-dropdown-wide">
-                        <li><a href="${basePath}products/dwsiq.html" class="ironclad-primary">DWS IQ Platform v6</a></li>
-                        <li><a href="${basePath}products/bundle.html">Climate Reporting Bundle</a></li>
-                        <li><a href="${basePath}products/firehorse-automation.html">Firehorse Automation</a></li>
-                        <li><a href="${basePath}products/firehorse-omnichannel.html">Firehorse Omnichannel Next</a></li>
-                        <li><a href="${basePath}products/expert-services.html">Workshop 3 Days</a></li>
-                        <li><a href="${basePath}products/expert-advisory.html">Expert Advisory (Monthly)</a></li>
-                        <li><a href="${basePath}products/consulting-fit55.html">Consulting Fit for 55</a></li>
-                        <li><a href="${basePath}products/firehorse-reports.html">Firehorse Report</a></li>
-                        <li><a href="${basePath}products/consulting.html">Consulting – Hourly</a></li>
-                        <li class="ironclad-separator"></li>
-                        <li><a href="${basePath}products/ai-consulting.html" class="ironclad-primary">AI Consulting – Agentic</a></li>
-                        <li><a href="${basePath}products/sovereignty-cloud-consulting.html" class="ironclad-primary">Sovereignty Cloud Consulting</a></li>
-                        <li class="ironclad-separator"></li>
-                        <li><a href="${basePath}world-model/" class="ironclad-primary">Lifetime World Model</a></li>
+                    <ul class="ironclad-dropdown ironclad-dropdown-wide" id="ironclad-products-menu" data-products-menu="pending">
+                        <li class="ironclad-products-loading" style="padding:10px 20px;color:#64748b;font-style:italic;">Loading products…</li>
                     </ul>
                 </li>
 
@@ -209,43 +214,44 @@
                         <li><a href="${basePath}team/">Team</a></li>
                         <li><a href="${basePath}careers/">Careers</a></li>
                         <li><a href="${basePath}partners/" class="ironclad-primary">Certified Partners</a></li>
-                        <li><a href="${basePath}investor-relations/">Investor Relations</a></li>
-                        <li><a href="${basePath}press-releases/">Press Releases</a></li>
-                        <li><a href="${basePath}contact/">Contact</a></li>
+                        <li><a href="${basePath}book/" class="ironclad-highlight">📅 Book Meeting</a></li>
+                        <li class="ironclad-separator"></li>
+                        <!-- Investor section (Press Releases, Investor Relations, Series A, Investment Safety) -->
+                        <li class="ironclad-has-submenu">
+                            <a href="${basePath}investor-relations/" class="ironclad-primary">Investor ▸</a>
+                            <ul class="ironclad-submenu">
+                                <li><a href="${basePath}investor-relations/" class="ironclad-primary">Investor Relations</a></li>
+                                <li><a href="${basePath}press-releases/" class="ironclad-primary">Press Releases</a></li>
+                                <li><a href="${basePath}series-a/" style="color: #d4a843; font-weight: 600;">Series A</a></li>
+                                <li><a href="${basePath}fleet-admiral/" style="color: #ffd700; font-weight: 700;">⚓ Fleet Admiral</a></li>
+                                <li><a href="${basePath}captain/" style="color: #d4a843; font-weight: 600;">Industry Captain Seats</a></li>
+                                <li><a href="${basePath}regulatory-notice/">Regulatory Notice</a></li>
+                            </ul>
+                        </li>
                         <li class="ironclad-separator"></li>
                         <li class="ironclad-has-submenu">
                             <a href="#" class="ironclad-highlight">Lifetime Group ▸</a>
                             <ul class="ironclad-submenu">
-                                <li><a href="${basePath}lifetime-consulting/" class="ironclad-highlight">DWS Product Family Vision</a></li>
+                                <li><a href="https://lifetime.fi/" class="ironclad-highlight">Lifetime Oy</a></li>
+                                <li><a href="${basePath}lifetime-consulting/" class="ironclad-highlight">Lifetime Consulting</a></li>
                                 <li><a href="${basePath}lifetime-studios/">Lifetime Studios</a></li>
                                 <li><a href="${basePath}roadmap/">DWS Roadmap</a></li>
                             </ul>
                         </li>
-                        <li class="ironclad-has-submenu">
-                            <a href="#" class="ironclad-secondary">Designs ▸</a>
-                            <ul class="ironclad-submenu">
-                                <li><a href="${basePath}theta/" class="ironclad-secondary">Theta</a></li>
-                                <li><a href="${basePath}gamma/" class="ironclad-primary">Gamma</a></li>
-                                <li><a href="${basePath}ultra/" class="ironclad-secondary">Ultra</a></li>
-                            </ul>
-                        </li>
-                        <li class="ironclad-has-submenu">
-                            <a href="${basePath}legal/" class="ironclad-legal">Legal ▸</a>
-                            <ul class="ironclad-submenu">
-                                <li><a href="${basePath}legal/" class="ironclad-legal">Legal Hub</a></li>
-                                <li><a href="${basePath}investment-safety/">Investment Security</a></li>
-                                <li><a href="${basePath}regulatory-notice/">Regulatory Notice</a></li>
-                                <li class="ironclad-separator"></li>
-                                <li><a href="${basePath}terms/">Terms of Service</a></li>
-                                <li><a href="${basePath}terms-dws-iq/">DWS IQ Terms</a></li>
-                                <li><a href="${basePath}terms-firehorse/">Firehorse Terms</a></li>
-                                <li><a href="${basePath}terms-lifetime-fleet/">Fleet Terms</a></li>
-                                <li><a href="${basePath}terms-professional/">Professional Services</a></li>
-                                <li class="ironclad-separator"></li>
-                                <li><a href="${basePath}privacy-policy/">Privacy Policy</a></li>
-                                <li><a href="${basePath}return-policy/">Return Policy</a></li>
-                            </ul>
-                        </li>
+                        <!-- Legal Hub — direct link (v3.4: simplified, no flyout) -->
+                        <li><a href="${basePath}legal/" class="ironclad-legal">Legal Hub</a></li>
+                    </ul>
+                </li>
+
+                <!-- Language Selector -->
+                <li class="ironclad-menu-item ironclad-lang-item">
+                    <button class="ironclad-lang-toggle" aria-label="Select language" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                        <span class="ironclad-lang-code">${ironcladCurrentLang.toUpperCase()}</span>
+                        <span class="ironclad-lang-arrow">&#9662;</span>
+                    </button>
+                    <ul class="ironclad-lang-dropdown">
+                        ${ironcladLanguages.map((l) => '<li><button class="ironclad-lang-option' + (l.code === ironcladCurrentLang ? ' ironclad-lang-active' : '') + '" data-lang="' + l.code + '">' + l.label + '</button></li>').join('\n                        ')}
                     </ul>
                 </li>
 
@@ -288,7 +294,7 @@
 .ironclad-header {
     background: #ffffff;
     color: #0a1628;
-    padding: 15px 0;
+    padding: 24px 0;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     position: sticky;
     top: 0;
@@ -320,7 +326,7 @@
 }
 
 .ironclad-logo {
-    height: 50px;
+    height: 64px;
     width: auto;
 }
 
@@ -555,6 +561,90 @@
 }
 
 /* ============================================
+   LANGUAGE SELECTOR
+   ============================================ */
+.ironclad-lang-item {
+    position: relative;
+}
+.ironclad-lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+    color: #334155;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+.ironclad-lang-toggle:hover {
+    background: #f1f5f9;
+    border-color: #0066cc;
+    color: #0066cc;
+}
+.ironclad-lang-toggle svg {
+    flex-shrink: 0;
+}
+.ironclad-lang-code {
+    font-weight: 600;
+}
+.ironclad-lang-arrow {
+    font-size: 0.65rem;
+    opacity: 0.6;
+}
+.ironclad-lang-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #ffffff;
+    min-width: 140px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    border-radius: 8px;
+    padding: 6px 0;
+    display: none;
+    z-index: 102;
+    border: 1px solid #e2e8f0;
+    list-style: none;
+    margin: 4px 0 0 0;
+}
+.ironclad-lang-item:hover > .ironclad-lang-dropdown,
+.ironclad-lang-dropdown.open {
+    display: block;
+}
+.ironclad-lang-dropdown li {
+    padding: 0;
+}
+.ironclad-lang-dropdown li::before {
+    display: none;
+}
+.ironclad-lang-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 8px 16px;
+    background: none;
+    border: none;
+    color: #475569;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+.ironclad-lang-option:hover {
+    background: #f8fafc;
+    color: #0066cc;
+}
+.ironclad-lang-active {
+    color: #0066cc;
+    font-weight: 600;
+    background: #eff6ff;
+}
+
+/* ============================================
    HAMBURGER BUTTON — hidden on desktop
    ============================================ */
 .ironclad-hamburger {
@@ -621,7 +711,7 @@
 @media (max-width: 900px) {
 
     .ironclad-header {
-        padding: 10px 0;
+        padding: 18px 0;
     }
 
     .ironclad-container {
@@ -636,7 +726,7 @@
     }
 
     .ironclad-logo {
-        height: 36px;
+        height: 52px;
     }
 
     /* Show hamburger */
@@ -824,8 +914,53 @@
     .ironclad-store-image {
         height: 28px;
     }
+
+    /* Language selector — mobile */
+    .ironclad-lang-item {
+        border-bottom: 1px solid #f1f5f9;
+        width: 100%;
+    }
+    .ironclad-lang-toggle {
+        width: 100%;
+        padding: 14px 20px;
+        border: none;
+        border-radius: 0;
+        justify-content: flex-start;
+    }
+    .ironclad-lang-dropdown {
+        position: static;
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+        min-width: 0;
+        width: 100%;
+        background: #f8fafc;
+        border-top: 1px solid #e2e8f0;
+        margin: 0;
+    }
+    .ironclad-lang-item:hover > .ironclad-lang-dropdown {
+        display: none;
+    }
+    .ironclad-lang-dropdown.open {
+        display: block !important;
+    }
+    .ironclad-lang-option {
+        padding: 11px 20px 11px 36px;
+    }
 }
 `;
+
+  // Inject Nordic theme CSS + IBM Plex Sans fonts (v3.2)
+  const nordicThemeLink = document.createElement('link');
+  nordicThemeLink.rel = 'stylesheet';
+  nordicThemeLink.href = (getBasePath() || '/') + 'shared-assets/nordic-theme.css';
+  document.head.appendChild(nordicThemeLink);
+
+  const fontsLink = document.createElement('link');
+  fontsLink.rel = 'stylesheet';
+  fontsLink.href =
+    'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Mono&display=swap';
+  document.head.appendChild(fontsLink);
 
   // Inject CSS
   const styleElement = document.createElement('style');
@@ -907,25 +1042,145 @@
     // ---- Mobile tap-to-expand dropdowns and submenus ----
     const mobileQuery = window.matchMedia('(max-width: 900px)');
 
-    // Find all links that have a dropdown or submenu as next sibling
-    document.querySelectorAll('.ironclad-link, .ironclad-has-submenu > a').forEach(function (link) {
-      const sibling = link.nextElementSibling;
-      if (!sibling) return;
-      const isDropdown = sibling.classList.contains('ironclad-dropdown');
-      const isSubmenu = sibling.classList.contains('ironclad-submenu');
-      if (!isDropdown && !isSubmenu) return;
+    function attachMobileToggles(root) {
+      (root || document)
+        .querySelectorAll('.ironclad-link, .ironclad-has-submenu > a')
+        .forEach(function (link) {
+          if (link.dataset.ironcladToggle === '1') return;
+          const sibling = link.nextElementSibling;
+          if (!sibling) return;
+          const isDropdown = sibling.classList.contains('ironclad-dropdown');
+          const isSubmenu = sibling.classList.contains('ironclad-submenu');
+          if (!isDropdown && !isSubmenu) return;
 
-      link.addEventListener('click', function (e) {
-        if (mobileQuery.matches) {
-          e.preventDefault();
-          e.stopPropagation();
-          sibling.classList.toggle('expanded');
-        } else if (link.getAttribute('href') === '#') {
-          // Prevent hash jump on desktop for # links
-          e.preventDefault();
-        }
-      });
-    });
+          link.dataset.ironcladToggle = '1';
+          link.addEventListener('click', function (e) {
+            if (mobileQuery.matches) {
+              e.preventDefault();
+              e.stopPropagation();
+              sibling.classList.toggle('expanded');
+            } else if (link.getAttribute('href') === '#') {
+              // Prevent hash jump on desktop for # links
+              e.preventDefault();
+            }
+          });
+        });
+    }
+    attachMobileToggles(document);
+
+    // ---- Products menu — single source of truth: dws10.com/config/products.json ----
+    // Same JSON the /price-list/ page consumes. Keeps nav + price list in lockstep
+    // so there is exactly one product record, shared across both surfaces.
+    populateProductsMenu();
+
+    function populateProductsMenu() {
+      const menu = document.getElementById('ironclad-products-menu');
+      if (!menu || menu.dataset.productsMenu !== 'pending') return;
+
+      const CATEGORY_ORDER = ['platform', 'ai-cloud', 'advisory', 'digital', 'hardware', 'add-on'];
+      const CATEGORY_LABELS = {
+        platform: 'Platform & Products',
+        'ai-cloud': 'AI & Cloud',
+        advisory: 'Expert Advisory & Training',
+        digital: 'Digital Services',
+        hardware: 'Sovereign Hardware',
+        'add-on': 'Add-ons',
+      };
+
+      function escHtml(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+      function normalizeUrl(u) {
+        if (!u) return '';
+        return basePath + String(u).replace(/^(?:\.\.\/)+/, '');
+      }
+      function renderFailure() {
+        menu.innerHTML =
+          '<li><a href="' +
+          basePath +
+          'buy/" class="ironclad-primary">Buy / Store</a></li>' +
+          '<li><a href="' +
+          basePath +
+          'price-list/" class="ironclad-primary">View full Price List →</a></li>';
+        menu.dataset.productsMenu = 'fallback';
+        attachMobileToggles(menu);
+      }
+
+      fetch(basePath + 'config/products.json', { cache: 'no-store' })
+        .then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.json();
+        })
+        .then(function (data) {
+          const buckets = {};
+          Object.values(data.products || {}).forEach(function (p) {
+            if (!p || p.productType === 'archived') return;
+            const c = p.storeCategory || 'other';
+            (buckets[c] = buckets[c] || []).push(p);
+          });
+          const orderedCats = CATEGORY_ORDER.filter(function (c) {
+            return buckets[c] && buckets[c].length;
+          }).concat(
+            Object.keys(buckets).filter(function (c) {
+              return CATEGORY_ORDER.indexOf(c) === -1;
+            }),
+          );
+
+          const html = orderedCats
+            .map(function (cat) {
+              const label = CATEGORY_LABELS[cat] || cat;
+              const items = buckets[cat]
+                .slice()
+                .sort(function (a, b) {
+                  return (
+                    (a.buyPageOrder == null ? 999 : a.buyPageOrder) -
+                      (b.buyPageOrder == null ? 999 : b.buyPageOrder) ||
+                    (a.name || '').localeCompare(b.name || '')
+                  );
+                })
+                .map(function (p) {
+                  const href = normalizeUrl(p.detailsUrl) || basePath + 'buy/';
+                  return (
+                    '<li><a href="' + escHtml(href) + '">' + escHtml(p.name || p.id) + '</a></li>'
+                  );
+                })
+                .join('');
+              return (
+                '<li class="ironclad-has-submenu">' +
+                '<a href="#" class="ironclad-primary">' +
+                escHtml(label) +
+                ' <small style="color:#64748b;font-weight:400;">(' +
+                buckets[cat].length +
+                ')</small> ▸</a>' +
+                '<ul class="ironclad-submenu">' +
+                items +
+                '</ul>' +
+                '</li>'
+              );
+            })
+            .join('');
+
+          menu.innerHTML =
+            html +
+            '<li class="ironclad-separator"></li>' +
+            '<li><a href="' +
+            basePath +
+            'price-list/" class="ironclad-primary">View full Price List →</a></li>' +
+            '<li><a href="' +
+            basePath +
+            'buy/">Buy / Store</a></li>';
+          menu.dataset.productsMenu = 'loaded';
+          attachMobileToggles(menu);
+        })
+        .catch(function (e) {
+          console.warn('[ironclad-nav] products.json load failed:', e && e.message);
+          renderFailure();
+        });
+    }
 
     // Reset mobile state on resize to desktop
     mobileQuery.addEventListener('change', function (e) {
@@ -940,6 +1195,79 @@
       }
     });
 
-    console.log('Iron Clad / Gamma Navigation v3.0 loaded (mobile hamburger ready)');
+    // ---- Language Selector Logic ----
+    const langToggle = document.querySelector('.ironclad-lang-toggle');
+    const langDropdown = document.querySelector('.ironclad-lang-dropdown');
+
+    if (langToggle && langDropdown) {
+      // Toggle dropdown on click (mobile-friendly)
+      langToggle.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const isOpen = langDropdown.classList.contains('open');
+        langDropdown.classList.toggle('open');
+        langToggle.setAttribute('aria-expanded', !isOpen);
+      });
+
+      // Handle language selection
+      document.querySelectorAll('.ironclad-lang-option').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const lang = btn.getAttribute('data-lang');
+          localStorage.setItem('dws-lang', lang);
+
+          // Update toggle display
+          var codeEl = langToggle.querySelector('.ironclad-lang-code');
+          if (codeEl) codeEl.textContent = lang.toUpperCase();
+
+          // Update active state
+          document.querySelectorAll('.ironclad-lang-option').forEach(function (b) {
+            b.classList.remove('ironclad-lang-active');
+          });
+          btn.classList.add('ironclad-lang-active');
+
+          // Close dropdown
+          langDropdown.classList.remove('open');
+          langToggle.setAttribute('aria-expanded', 'false');
+
+          // Dispatch custom event for page-level reactions
+          window.dispatchEvent(new CustomEvent('dws-lang-change', { detail: { lang: lang } }));
+
+          // v3.3: Redirect to language subdirectory only for languages with subdirectory pages
+          var LANGS_WITH_SUBDIRS = ['en', 'fi', 'sv'];
+          var currentPath = window.location.pathname;
+          var isHomepage =
+            currentPath === '/' ||
+            currentPath === '/index.html' ||
+            currentPath === '/fi/' ||
+            currentPath === '/fi/index.html' ||
+            currentPath === '/sv/' ||
+            currentPath === '/sv/index.html';
+          if (isHomepage && LANGS_WITH_SUBDIRS.includes(lang)) {
+            var targetPath = lang === 'en' ? '/' : '/' + lang + '/';
+            if (currentPath !== targetPath && currentPath !== targetPath + 'index.html') {
+              window.location.href = targetPath;
+              return;
+            }
+          }
+        });
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', function (e) {
+        if (!langToggle.contains(e.target) && !langDropdown.contains(e.target)) {
+          langDropdown.classList.remove('open');
+          langToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    // Language bar is a PAGE ELEMENT, not a nav/menu element.
+    // Include /shared-assets/vertical-lang-bar.js directly on each page that needs it.
+
+    console.log(
+      'Iron Clad / Gamma Navigation v3.8 loaded (Compliance Hub in Solutions + Lifetime Group cleanup)',
+    );
   });
 })();
