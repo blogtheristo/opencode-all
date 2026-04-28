@@ -257,7 +257,6 @@
                                 <li><a href="${basePath}press-releases/" class="ironclad-primary">Press Releases</a></li>
                                 <li><a href="${basePath}series-a/" style="color: #d4a843; font-weight: 600;">Series A</a></li>
                                 <li><a href="${basePath}captain/" style="color: #d4a843; font-weight: 600;">Industry Captain Seats</a></li>
-                                <li><a href="${basePath}investment-safety/">Investment Safety</a></li>
                                 <li><a href="${basePath}regulatory-notice/">Regulatory Notice</a></li>
                             </ul>
                         </li>

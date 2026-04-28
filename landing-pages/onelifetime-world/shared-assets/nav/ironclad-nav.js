@@ -1,5 +1,5 @@
 /**
- * DWS10.com Iron Clad / Gamma Navigation v3.4
+ * DWS10.com Iron Clad / Gamma Navigation v3.5
  * Unified navigation bar for all pages (Gamma-aligned with mobile hamburger menu)
  * Single source of truth: dws10.com/shared-assets/nav/ironclad-nav.js
  * Synced to lifetime.fi and onelifetime.world via scripts/on-deploy/sync-ironclad-nav.sh
@@ -7,6 +7,9 @@
  * Usage: Add this script to any page:
  * <script src="/shared-assets/nav/ironclad-nav.js"></script>
  *
+ * v3.5 — Removed checkout/success from Other menu (payment callback only, not user-facing);
+ *         Lifetime Oy added to Lifetime Group submenu → lifetime.fi;
+ *         "Dual Use Industries" renamed to "Industries"; checkout/cancel removed from Other menu
  * v3.4 — Domain-aware logo (LifetimeOy.png on lifetime.fi, OLW logo on onelifetime.world);
  *         Legal Hub simplified to direct link (no flyout); investment-safety removed from Legal submenu;
  *         Agentic Commerce added to enterprise-integrations; booking CTA uses /book/
@@ -73,7 +76,7 @@
 
   // Navigation HTML (Gamma-aligned with hamburger support)
   const navHTML = `
-<!-- DWS10.com Iron Clad / Gamma Navigation v3.4 (Mobile Hamburger) -->
+<!-- DWS10.com Iron Clad / Gamma Navigation v3.5 (Mobile Hamburger) -->
 <header class="ironclad-header">
     <div class="ironclad-container">
         <div class="ironclad-logo-section">
@@ -101,9 +104,9 @@
                         <li><a href="${basePath}csrd/" class="ironclad-primary">CSRD & ESG</a></li>
                         <!-- Industries flyout -->
                         <li class="ironclad-has-submenu">
-                            <a href="#" class="ironclad-primary">Dual Use Industries ▸</a>
+                            <a href="#" class="ironclad-primary">Industries ▸</a>
                             <ul class="ironclad-submenu">
-                                <li><a href="${basePath}dual-use-industries/" style="color: #d4a843; font-weight: 600;">All Dual Use Industries</a></li>
+                                <li><a href="${basePath}dual-use-industries/" style="color: #d4a843; font-weight: 600;">All Industries</a></li>
                                 <li class="ironclad-separator"></li>
                                 <li><a href="${basePath}construction/">Construction</a></li>
                                 <li><a href="${basePath}logistics/">Logistics</a></li>
@@ -152,16 +155,6 @@
                                 </li>
                             </ul>
                         </li>
-                        <!-- Designs flyout -->
-                        <li class="ironclad-has-submenu">
-                            <a href="#" class="ironclad-secondary">Designs ▸</a>
-                            <ul class="ironclad-submenu">
-                                <li><a href="${basePath}gamma/" class="ironclad-primary">Gamma (Current)</a></li>
-                                <li><a href="${basePath}theta/">Theta</a></li>
-                                <li><a href="${basePath}ultra/" class="ironclad-secondary">Ultra</a></li>
-                                <li><a href="${basePath}industrial-preview/" class="ironclad-secondary">Ultra II - Industrial</a></li>
-                            </ul>
-                        </li>
                         <!-- Legal Hub — direct link (v3.4: simplified, no flyout) -->
                         <li><a href="${basePath}legal/" class="ironclad-legal">Legal Hub</a></li>
                         <!-- Compliance flyout -->
@@ -182,8 +175,6 @@
                                 <li><a href="${basePath}week-50/">Week 50 Update</a></li>
                                 <li><a href="${basePath}week-51/">Week 51 Update</a></li>
                                 <li><a href="${basePath}dashboard/login/">Dashboard Login</a></li>
-                                <li><a href="${basePath}checkout/success/">Checkout Success</a></li>
-                                <li><a href="${basePath}checkout/cancel/">Checkout Cancel</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -267,7 +258,6 @@
                                 <li><a href="${basePath}press-releases/" class="ironclad-primary">Press Releases</a></li>
                                 <li><a href="${basePath}series-a/" style="color: #d4a843; font-weight: 600;">Series A</a></li>
                                 <li><a href="${basePath}captain/" style="color: #d4a843; font-weight: 600;">Industry Captain Seats</a></li>
-                                <li><a href="${basePath}investment-safety/">Investment Safety</a></li>
                                 <li><a href="${basePath}regulatory-notice/">Regulatory Notice</a></li>
                             </ul>
                         </li>
@@ -275,17 +265,10 @@
                         <li class="ironclad-has-submenu">
                             <a href="#" class="ironclad-highlight">Lifetime Group ▸</a>
                             <ul class="ironclad-submenu">
+                                <li><a href="https://lifetime.fi/" class="ironclad-highlight">Lifetime Oy</a></li>
                                 <li><a href="${basePath}lifetime-consulting/" class="ironclad-highlight">DWS Product Family Vision</a></li>
                                 <li><a href="${basePath}lifetime-studios/">Lifetime Studios</a></li>
                                 <li><a href="${basePath}roadmap/">DWS Roadmap</a></li>
-                            </ul>
-                        </li>
-                        <li class="ironclad-has-submenu">
-                            <a href="#" class="ironclad-secondary">Designs ▸</a>
-                            <ul class="ironclad-submenu">
-                                <li><a href="${basePath}theta/" class="ironclad-secondary">Theta</a></li>
-                                <li><a href="${basePath}gamma/" class="ironclad-primary">Gamma</a></li>
-                                <li><a href="${basePath}ultra/" class="ironclad-secondary">Ultra</a></li>
                             </ul>
                         </li>
                         <!-- Legal Hub — direct link (v3.4: simplified, no flyout) -->
@@ -1317,7 +1300,7 @@
     // Include /shared-assets/vertical-lang-bar.js directly on each page that needs it.
 
     console.log(
-      'Iron Clad / Gamma Navigation v3.4 loaded (domain-aware logo + Legal Hub simplified + Agentic Commerce)',
+      'Iron Clad / Gamma Navigation v3.5 loaded (Industries renamed + Lifetime Oy in Lifetime Group + checkout/success removed)',
     );
   });
 })();
