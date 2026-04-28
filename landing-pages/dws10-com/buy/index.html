@@ -2050,41 +2050,48 @@
             sendToBackend(showEvt);
           });
 
-          // Step 2: Track discount/coupon application
-          const couponInput = document.querySelector("[data-coupon-input]");
-          const couponBtn = document.querySelector("[data-coupon-apply]");
-          if (couponInput && couponBtn) {
-            function applyCoupon() {
-              const code = couponInput.value.trim().toUpperCase();
+          // Steps 2 + 6: event delegation — handles bundle-cart elements injected after DOMContentLoaded
+          document.addEventListener("click", function (e) {
+            // Step 2: coupon Apply button
+            if (e.target.closest("[data-coupon-apply]")) {
+              var couponInputEl = document.querySelector("[data-coupon-input]");
+              var code = couponInputEl ? couponInputEl.value.trim().toUpperCase() : "";
               if (!code) return;
-              var evt = {
+              var couponEvt = {
                 event: "discount_applied",
                 step: 2,
                 coupon_code: code,
                 timestamp: new Date().toISOString(),
               };
-              window.dataLayer.push(evt);
-              sendToBackend(evt);
+              window.dataLayer.push(couponEvt);
+              sendToBackend(couponEvt);
             }
-            couponBtn.addEventListener("click", applyCoupon);
-            couponInput.addEventListener("keydown", function (e) {
-              if (e.key === "Enter") applyCoupon();
-            });
-          }
-
-          // Step 6: Track order acceptance (confirm-and-pay click, before Stripe redirect)
-          const confirmOrderBtn = document.querySelector('[data-action="confirm-order"]');
-          if (confirmOrderBtn) {
-            confirmOrderBtn.addEventListener("click", function () {
-              var evt = {
+            // Step 6: confirm-order (bundle "Order bundle" link)
+            if (e.target.closest('[data-action="confirm-order"]')) {
+              var confirmEvt = {
                 event: "order_accepted",
                 step: 6,
                 timestamp: new Date().toISOString(),
               };
-              window.dataLayer.push(evt);
-              sendToBackend(evt);
-            });
-          }
+              window.dataLayer.push(confirmEvt);
+              sendToBackend(confirmEvt);
+            }
+          });
+          // Step 2: Enter key in coupon input
+          document.addEventListener("keydown", function (e) {
+            if (e.key === "Enter" && e.target.closest("[data-coupon-input]")) {
+              var code = e.target.value.trim().toUpperCase();
+              if (!code) return;
+              var couponEvt = {
+                event: "discount_applied",
+                step: 2,
+                coupon_code: code,
+                timestamp: new Date().toISOString(),
+              };
+              window.dataLayer.push(couponEvt);
+              sendToBackend(couponEvt);
+            }
+          });
 
           // Track form abandonment (Step 4)
           const formElement = document.querySelector('[data-form="enterprise-details"]');
