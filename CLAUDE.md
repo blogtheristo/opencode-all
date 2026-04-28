@@ -6,6 +6,7 @@ This file provides guidance for Claude Code (AI) when working with the DWS6 code
 
 Before making any UI changes, agents MUST consult these files:
 
+<<<<<<< HEAD
 | Standard                          | File                                        | Scope                                                                                                                   |
 | --------------------------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | **Brand Standard**                | `DWS_BRAND_STANDARD.md`                     | Store UI, hamburger menu, product cards, category nav, dark tokens, sovereignty badges                                  |
@@ -22,6 +23,25 @@ Before making any UI changes, agents MUST consult these files:
 | **Skills Guide**                  | `docs/DWS_SKILLS_GUIDE.md`                  | All 20 skills: slash commands, discipline skills, gstack workflow, when to use each                                     |
 | **Blog Standard**                 | `docs/BLOG_STANDARD.md`                     | Blog post structure, prev/next nav, product cards, meta tags, post registry, injection script                           |
 | **Standards Library**             | `DWS_STANDARDS_LIBRARY.md`                  | Single registry of every regulation, process, security, protocol, reporting standard — claimable vs target vs reference |
+=======
+| Standard                          | File                                        | Scope                                                                                                                                            |
+| --------------------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Brand Standard**                | `DWS_BRAND_STANDARD.md`                     | Store UI, hamburger menu, product cards, category nav, dark tokens, sovereignty badges                                                           |
+| **Document Standard**             | `DWS_DOCUMENT_STANDARD.md`                  | Document formatting, sections, metadata                                                                                                          |
+| **Gamma UI Guidelines**           | `UI_SKILLS_GAMMA.md`                        | Tailwind, Radix UI, accessibility, animations                                                                                                    |
+| **Security Standard**             | `DWS_SECURITY_STANDARD.md`                  | AI safety, enterprise security framework                                                                                                         |
+| **Security Compliance**           | `Admin/SECURITY_COMPLIANCE.md`              | Deployment, controls, certifications, vendor risk                                                                                                |
+| **Market Research Standard**      | `DWS_MARKET_RESEARCH_STANDARD.md`           | Competitive intelligence, product improvement, data collection                                                                                   |
+| **Site Quality Standards**        | `SITE_QUALITY_STANDARDS.md`                 | Code quality, **code formatting**, components, nav, logos, CTA, testing                                                                          |
+| **Cloud Environments**            | `docs/CLOUD_ENVIRONMENTS.md`                | US/EU/Aiven clouds, account structure, DWS 6→7 migration, data residency                                                                         |
+| **Product Catalog**               | `product-catalog/README.md`                 | Product catalog structure, Store Product Format, Google Merchant fields                                                                          |
+| **Data Standard**                 | `DWS_DATA_STANDARD.md`                      | Data storage governance, columnar/row policy, extension registry, retention, EU regulatory compliance                                            |
+| **Information Layering Strategy** | `docs/DWS_INFORMATION_LAYERING_STRATEGY.md` | Six-layer harness, where standards fit, progressive disclosure, 12 Factor Agents, tool result injection pattern                                  |
+| **Skills Guide**                  | `docs/DWS_SKILLS_GUIDE.md`                  | All 20 skills: slash commands, discipline skills, gstack workflow, when to use each                                                              |
+| **Blog Standard**                 | `docs/BLOG_STANDARD.md`                     | Blog post structure, prev/next nav, product cards, meta tags, post registry, injection script                                                    |
+| **Standards Library**             | `DWS_STANDARDS_LIBRARY.md`                  | Single registry of every regulation, process, security, protocol, reporting standard — claimable vs target vs reference                          |
+| **Article 12 Logging Standard**   | `DWS_ARTICLE_12_LOGGING_STANDARD.md`        | EU AI Act Article 12 record-keeping pipeline; OpenTelemetry + hash-chained ledger + KYA policy proxy; tier-aware (Aegis/Sovereign Infra/Connect) |
+>>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 
 **Rule:** These standards apply equally to all tools — Claude Code, Cursor, VS Code, Codex, and human developers. No exceptions.
 
@@ -50,6 +70,30 @@ When the human says **"Use DWS standard"**, apply ALL relevant standards from th
 **Example:** "Create a new product with DWS standard" means updating: `products.json`, `Store/*.md`, `DWS_BRAND_STANDARD.md`, `DWS_MARKET_RESEARCH_STANDARD.md`, `Admin/SECURITY_COMPLIANCE.md`, `product-catalog/`.
 
 **This is not optional.** Delivering work without updating relevant standards is incomplete work.
+
+### VERSION AND AGENT HISTORY Delimiter Rule (CRITICAL)
+
+Per `DWS_DOCUMENT_STANDARD.md` §2.1 (Pandoc Compatibility), the `# VERSION AND AGENT HISTORY` block in every markdown document MUST be delimited with `***`, never `---`. Both render as a thematic break, but `---` is interpreted by Pandoc as YAML front matter and breaks PDF generation.
+
+**Enforced automatically.** The PostToolUse hook `.claude/hooks/md-restore-version-delimiters.sh` runs after prettier on every Edit/Write of a `.md` file. Prettier's markdown formatter normalises thematic breaks to `---` (non-configurable upstream); the hook re-restores `***` around the VERSION block only (other horizontal rules are untouched).
+
+**For humans / other tools:** when editing a markdown file manually, keep `***` around the VERSION block. If prettier rewrote it, re-run the hook: `bash .claude/hooks/md-restore-version-delimiters.sh <<< '{"tool_input":{"file_path":"/abs/path/to/file.md"}}'`.
+
+**Do NOT use `---` around the VERSION block in any new doc.** No exceptions — the rule is uniform across CLAUDE Code, Cursor, Codex, and human developers, same as every other DWS standard.
+
+### Price List Rule (CRITICAL)
+
+**Single source of truth for prices:** `dws10.com/config/products.json`. No other file may hardcode prices — all rendering (store, price-list page, Google Merchant feed, product pages) consumes products.json at runtime.
+
+- **Client-ready page:** `https://dws10.com/price-list/` — fetches products.json live, zero hardcoded prices, print-friendly.
+- **Stamped snapshots:** `dws10.com/price-list/versions/price-list-v<version>.html` — immutable per-quarter archive. Never delete old snapshots.
+- **Review cadence:** Quarterly. Stamp rolls on calendar quarter boundaries (Jan 1, Apr 1, Jul 1, Oct 1).
+- **Validity:** 90 days from stamp date. Stamp metadata lives in `priceList.version` / `stampQuarter` / `stampDate` / `validUntil` / `nextReviewDate` inside products.json.
+- **Policy:** B2B, EUR, VAT 0% (reverse charge). Country-specific VAT added at checkout — see `priceList.vatReference` (5-language table: EN/FI/SV/DE/FR).
+- **Automation:** `scripts/daily/price-list-quarterly-gate.sh` rolls the stamp on quarter-start (DGX Spark primary). `.github/workflows/quarterly-price-list.yml` is the failover and opens a PR.
+- **Email dispatch:** RED-zone. `scripts/send-price-list-email.ts` is a manual operator utility — NOT auto-triggered. Default is dry-run; requires explicit `--send` flag and a reviewed CSV recipients list.
+
+**Workflow to change a price:** edit `dws10.com/config/products.json` → sync to `landing-pages/dws10-com/config/products.json` (dual-folder rule) → append a `priceList.changeLog` entry → commit. Do NOT edit prices in any HTML, markdown, or catalog file.
 
 ### Code Versioning Rule (CRITICAL)
 
@@ -119,13 +163,21 @@ Three axes are active today. More may be added; each new axis follows the same t
 
 | Tier      | Role                                                                                   | **Agents**                       | **Workflows**                                                           | **Jurisdictions**                         | **Use in**                                                                                                                                        | **Do NOT use in**                                                 |
 | --------- | -------------------------------------------------------------------------------------- | -------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+<<<<<<< HEAD
 | 1 — Brand | What we sell. Anthropic Skills paradigm pivot: capability = acquired, auditable skill. | **Skilled Agents**               | **Skilled Autonomous Workflows**                                        | **Skilled Jurisdictions** (EU, US, ASEAN) | Hero copy, `<title>`, `<meta og:title/og:description>`, investor decks, product `brand:` field, press, social cards.                              | Technical specs, nav chips, badges.                               |
+=======
+| 1 — Brand | What we sell. Anthropic Skills paradigm pivot: capability = acquired, auditable skill. | **Skilled Agents**               | **Skilled Autonomous Workflows**                                        | **Skilled Jurisdictions** (EU, US, Aiven) | Hero copy, `<title>`, `<meta og:title/og:description>`, investor decks, product `brand:` field, press, social cards.                              | Technical specs, nav chips, badges.                               |
+>>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 | 2 — Spec  | Documentation-grade descriptor. Precise.                                               | **Industrial Specialist Agents** | **Specialist Workflows** (long-form: _Industrial Specialist Workflows_) | **Regulatory Specialist Jurisdictions**   | First mention in a doc/spec, architecture prose, regulatory responses, SLA/contract text, glossary. Define once per doc, then shorten to UI tier. | Hero copy (too long), UI badges, tight social cards.              |
 | 3 — UI    | Category label / UI shorthand / registry column.                                       | **Industry Agents**              | **Industrial Workflows**                                                | **Jurisdictions**                         | Nav menus, filter chips, count badges (`<span class="sov-badge">18+ Industry Agents</span>`), registry column headers, tables.                    | Investor hero lines, brand tagline — loses the "skilled" promise. |
 
 Why **"Autonomous"** appears in the workflow brand tier but not agents: workflows execute on schedule/event without a human in the loop — "Autonomous" earns the brand promise. Agents have it implied.
 
+<<<<<<< HEAD
 Why **"Regulatory"** appears in the jurisdiction spec tier: jurisdictions are defined by their regulatory surface (EU AI Act, GDPR, CBAM, ETS, CSRD for EU; sector rules for US; data localisation for ASEAN) — the spec register must say so.
+=======
+Why **"Regulatory"** appears in the jurisdiction spec tier: jurisdictions are defined by their regulatory surface (EU AI Act, GDPR, CBAM, ETS, CSRD for EU; sector rules for US; data localisation for Aiven) — the spec register must say so.
+>>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 
 **Pattern for new axes:** When DWS adds a new capability axis (e.g., Datasets, Models, Regulations, Reports), name it `Skilled <Axis>` / `Industrial Specialist <Axis>` / `Industry <Axis>` and add a column to the table above. Do not invent parallel brand words.
 
@@ -339,12 +391,12 @@ Key areas: `src/` backend, `dws6.com/` and `landing-pages/` websites, `Firehorse
 
 Landing pages exist in TWO locations and MUST be updated in BOTH:
 
-| Site              | Root Folder (source of truth) | Landing Pages Folder (production)       |
-| ----------------- | ----------------------------- | --------------------------------------- |
-| dws6.com          | `dws6.com/`                   | `landing-pages/dws6-com/`               |
-| dws10.com         | `dws10.com/`                  | `landing-pages/dws10-com/`              |
-| onelifetime.world | `onelifetime.world/`          | `landing-pages/onelifetime-world/`      |
-| lifetime.fi       | `lifetime.fi/`                | `landing-pages/lifetime-fi/` _(coming)_ |
+| Site              | Root Folder (source of truth) | Landing Pages Folder (production)  |
+| ----------------- | ----------------------------- | ---------------------------------- |
+| dws6.com          | `dws6.com/`                   | `landing-pages/dws6-com/`          |
+| dws10.com         | `dws10.com/`                  | `landing-pages/dws10-com/`         |
+| onelifetime.world | `onelifetime.world/`          | `landing-pages/onelifetime-world/` |
+| lifetime.fi       | `lifetime.fi/`                | `landing-pages/lifetime-fi/`       |
 
 **Workflow:** Update root folder FIRST → Test on Cloudflare Workers → THEN copy to landing-pages. Never update landing-pages first.
 
@@ -374,6 +426,36 @@ Blog posts live in `onelifetime.world/posts/` as HTML files. Checklist for every
 5. Include: meta tags (og:title, og:description, og:type, og:url), author, date
 6. Blog index at `onelifetime.world/blog/index.html` — update if adding featured posts
 7. **Text of the Day Rule (CRITICAL)** — the latest blog post is ALWAYS the "Text of the Day" on `/blog/`. Prepend the new post to the `latestPosts` array at the top of `onelifetime.world/blog/index.html` (position 0 = newest); the hero card and paginated Latest Posts list (5/page with Prev/Next) update automatically. Full rule: `docs/BLOG_STANDARD.md` §3.1.
+
+### Downloadable HTML Documents Rule (CRITICAL)
+
+**All downloadable/self-contained HTML documents MUST embed images as Base64 data URLs** — never relative paths. This ensures documents work offline and when downloaded.
+
+**When to apply:**
+
+- CVs, profiles, and professional documents (e.g., `Learn/*.html`)
+- Any HTML meant to be downloaded and opened standalone
+- Documents that may be emailed or printed
+
+**How to embed:**
+
+```bash
+base64 -w 0 /path/to/image.png > /tmp/image_b64.txt
+```
+
+Then replace relative paths with data URLs:
+
+```html
+<!-- Before (breaks when downloaded) -->
+<img src="../static/images/photo.png" alt="..." />
+
+<!-- After (works everywhere) -->
+<img src="data:image/png;base64,iVBORw0KGgoAAAANS..." alt="..." />
+```
+
+**Tools:** Node.js `sharp` library can batch-convert images (installed in `node_modules/`).
+
+**Files affected:** All professional profiles in `Learn/`, consultant CVs, downloadable reports — update on every new image addition.
 
 ## Development Commands
 
@@ -482,7 +564,11 @@ Worktree policy: shared `.gitignore`, symlinked `.venv`, copied `.env/.env.mcp/.
 | PostToolUse (Write/Edit) | prettier + eslint (inline)                                                        | Auto-format every file change                                                             |
 | Stop                     | `session-stop.sh`                                                                 | Governance checklist (dual folder sync, thesis, uncommitted changes)                      |
 
+<<<<<<< HEAD
 **Key blocks:** `rm` (all, except /tmp/), `git push --force`, `git reset --hard`, `git rm`, `sudo`, pipe-to-shell, `ollama pull/rm`, DROP TABLE, CREATE TABLE without RLS, sovereignty audit table mutations.
+=======
+**Key blocks:** `rm` (all, except /tmp/), `git push --force`, `git reset --hard`, `git rm`, `sudo`, pipe-to-shell, `ollama pull/rm`, DROP TABLE, CREATE TABLE without RLS, Article 12 audit table mutations.
+>>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 
 **Rules of Engagement:** See `Admin/ADMIN_MANUAL.md` Section 30.13 — defines Claude's operational boundaries: when to commit, how to handle hook failures, the no-rm policy, and the explicit verification workflow.
 

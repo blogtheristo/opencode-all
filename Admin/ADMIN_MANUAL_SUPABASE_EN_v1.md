@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 1.5
 
 Sessions & Modifications:
+  - Version: 1.5 | Tool: GitHub Copilot CLI | Session: claude/jsonld-dws10-pages-20260426 | Date: 26.04.2026 | Changes: Added §7.4 migration parity repair runbook (Supabase CLI compatibility, duplicate-prefix archive, db push include-all handling) and migration 063 note
   - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Added §15 PostgreSQL Columnar Extensions Roadmap — HTAP architecture plan, extension availability matrix (Supabase vs Aiven), TimescaleDB + pg_duckdb phased rollout, reference to DWS_DATA_STANDARD.md
   - Version: 1.3 | Tool: Claude Code | Session: 2026-03-11 | Date: 11.03.2026 | Changes: Add direct Postgres vs MCP troubleshooting (§11.2), VPN/DoH behavior, migration 043 notes, and `db:test` script reference
   - Version: 1.2 | Tool: Claude Code | Session: 2026-03-04 | Date: 04.03.2026 | Changes: Add migration audit documentation (§7.3) - comprehensive audit of 29 migration scripts, fixes for 10 missing tables, EU compliance verification
@@ -18,17 +19,17 @@ Session Links & References:
 
 Document Status:
   - Created: 30.12.2025
-  - Last Modified: 14.03.2026
+  - Last Modified: 26.04.2026
   - Language: English
   - Languages Available: English
   - Publication Status: ACTIVE
 
 ***
 
-**Version:** 1.4
+**Version:** 1.5
 **Purpose:** Supabase database administration guide for DWS6 project
 **Audience:** Database Administrators, DevOps Engineers
-**Updated:** 14.03.2026
+**Updated:** 26.04.2026
 
 ---
 
@@ -44,6 +45,7 @@ Document Status:
    - [7.1 Common Queries](#71-common-queries)
    - [7.2 Data Maintenance](#72-data-maintenance)
    - [7.3 Migration Management and Audit](#73-migration-management-and-audit)
+   - [7.4 Migration Parity Repair (April 2026)](#74-migration-parity-repair-april-2026)
 8. [Monitoring and Logs](#8-monitoring-and-logs)
 9. [Backup and Recovery](#9-backup-and-recovery)
 10. [Performance Tuning](#10-performance-tuning)
@@ -833,6 +835,43 @@ WHERE deleted_at IS NULL;
 - **Database Issues**: Check Supabase dashboard logs first
 - **Migration Failures**: Review `041_fix_partial_runs.sql` for reference
 - **Security Incidents**: Follow DWS Security Standard procedures
+
+### 7.4 Migration Parity Repair (April 2026)
+
+**Context**: `supabase db push` listed many pending files due to duplicate version prefixes already represented in remote history.
+
+**Root causes fixed**:
+1. Local CLI compatibility drift (`db.health_timeout` unsupported in older CLI)  
+2. Duplicate-prefix migration files in `supabase/migrations/` causing out-of-order push prompts  
+3. Mixed history where remote had only one migration entry per prefix
+
+**Operator procedure (Windows/PowerShell)**:
+
+```powershell
+# Use latest CLI for config compatibility
+npx -y supabase@latest migration list
+
+# If a single urgent migration must run immediately:
+npx -y supabase@latest db query --linked -f supabase/migrations/063_token_usage_optimization.sql
+
+# If db push still reports duplicate out-of-order files, archive duplicates:
+New-Item -ItemType Directory -Force -Path supabase/migrations_archived_duplicates | Out-Null
+# Move duplicate-prefix files out of supabase/migrations/ into the archive folder
+
+# Verify parity
+npx -y supabase@latest migration list
+npx -y supabase@latest db push --yes
+```
+
+**Current state**:
+- Migration `063_token_usage_optimization.sql` applied
+- Duplicate-prefix files archived to `supabase/migrations_archived_duplicates/`
+- `supabase db push --yes` reports: `Remote database is up to date.`
+
+**Policy**:
+- Keep only one active migration file per numeric prefix in `supabase/migrations/`
+- Archive historical duplicate-prefix variants instead of leaving them in active push path
+- Prefer `npx -y supabase@latest` in CI/operator workflows unless pinned version is verified
 
 ---
 

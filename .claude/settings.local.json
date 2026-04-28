@@ -10,12 +10,12 @@
       "Bash(ls:*)",
       "Bash(python:*)",
       "Bash(git:*)",
-      "Bash(start:*)"
+      "Bash(start:*)",
+      "Bash(xargs grep *)",
+      "Bash(node dws10.com/feeds/generate-local-inventory.cjs)"
     ]
   },
-  "enabledMcpjsonServers": [
-    "dws-gateway-local"
-  ],
+  "enabledMcpjsonServers": ["dws-gateway-local"],
   "hooks": {
     "SessionStart": [
       {
@@ -70,11 +70,15 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -lc \"file_path=\\$(jq -r '.tool_input.file_path // empty'); [ -n \\\"\\$file_path\\\" ] || exit 0; npx prettier --write -- \\\"\\$file_path\\\" 2>/dev/null || true; exit 0\""
+            "command": "bash -c \"file_path=\\$(jq -r '.tool_input.file_path // empty' 2>/dev/null); [ -n \\\"\\$file_path\\\" ] || exit 0; node_modules/.bin/prettier --write -- \\\"\\$file_path\\\" 2>/dev/null || npx prettier --write -- \\\"\\$file_path\\\" 2>/dev/null || true; exit 0\""
           },
           {
             "type": "command",
-            "command": "bash -lc \"file_path=\\$(jq -r '.tool_input.file_path // empty'); [ -n \\\"\\$file_path\\\" ] || exit 0; npx eslint --fix -- \\\"\\$file_path\\\" 2>&1 | tail -10; exit 0\""
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/md-restore-version-delimiters.sh\""
+          },
+          {
+            "type": "command",
+            "command": "bash -c \"file_path=\\$(jq -r '.tool_input.file_path // empty' 2>/dev/null); [ -n \\\"\\$file_path\\\" ] || exit 0; node_modules/.bin/eslint --fix -- \\\"\\$file_path\\\" 2>/dev/null || npx eslint --fix -- \\\"\\$file_path\\\" 2>/dev/null || true; exit 0\""
           }
         ]
       }

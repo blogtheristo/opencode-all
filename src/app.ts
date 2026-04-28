@@ -29,10 +29,10 @@ import agentRoutes from './agents/routes.js';
 import bimRoutes from './routes/bim.routes.js';
 import hilRoutes from './routes/hil.routes.js';
 import situationRoomRoutes from './routes/situation-room.routes.js';
-import grokConsentRoutes from './routes/grok-consent.routes.js';
-import capTableRouter from './investor-reports/cap-table-routes.js';
+// import grokConsentRoutes from './routes/grok-consent.routes.js'; // TODO: restore when grok-consent is available
 import paymentRoutes from './routes/payment.routes.js';
-import { createMCPRouter } from './mcp/agent-server.js';
+import b2bPaymentRoutes from './routes/b2b-payment.routes.js';
+import stripeWebhookRoutes from './routes/stripe-webhook.routes.js';
 import captainRoutes from './routes/captain.routes.js';
 import usageRoutes from './routes/usage.routes.js';
 import onboardRoutes from './routes/onboard.routes.js';
@@ -45,13 +45,30 @@ import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
 import { constructionLeadsScheduler, fetchAndProcessLeads } from './construction-leads/index.js';
-import { firehorseRoutes, initFirehorsePilot, shutdownFirehorsePilot } from './firehorse/index.js';
 import { memoryScheduler } from './agents/memory.scheduler.js';
 import { apiVersionMiddleware } from './middleware/api-version.middleware.js';
 import { correlationId } from './middleware/correlation-id.js';
 import { errorHandler, notFoundHandler } from './middleware/error-handler.js';
 import { healthCheck, livenessCheck } from './middleware/health.js';
 import { validateEnv } from './middleware/env-validation.js';
+
+// ============ STUBS FOR MODULES EXCLUDED FROM BUILD ============
+// tsconfig.json excludes src/firehorse/**, src/mcp/**, and src/investor-reports/**
+// from compilation, so they are not present in dist/ at runtime. Static imports
+// from these paths would crash the container with ERR_MODULE_NOT_FOUND before
+// app.listen() — breaking Cloud Run health checks. Instead we expose no-op
+// stubs; affected routes will 404 and scheduled hooks are no-ops. Unstub by
+// restoring the modules in tsconfig `include` and reverting this block.
+const firehorseRoutes = express.Router();
+const initFirehorsePilot = (): void => {
+  logger.warn('firehorse stubbed — module excluded from build');
+};
+const shutdownFirehorsePilot = (): void => {
+  /* no-op */
+};
+const createMCPRouter = () => express.Router();
+const capTableRouter = express.Router();
+// ================================================================
 
 dotenv.config();
 
@@ -76,18 +93,23 @@ const __dirname = path.dirname(__filename);
 // ============ MIDDLEWARE ============
 
 // Security headers - configured to allow static HTML pages with inline scripts
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
-      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-      fontSrc: ["'self'", "https://fonts.gstatic.com"],
-      imgSrc: ["'self'", "data:", "https:"],
-      connectSrc: ["'self'", "https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud"],
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'"],
+        styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+        fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+        imgSrc: ["'self'", 'data:', 'https:'],
+        connectSrc: [
+          "'self'",
+          'https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud',
+        ],
+      },
     },
-  },
-}));
+  }),
+);
 
 // CORS configuration with explicit allowlist
 // Default allowed origins for development and production
@@ -101,7 +123,7 @@ const defaultOrigins = [
 ];
 
 const allowedOrigins = process.env.CORS_ORIGIN
-  ? process.env.CORS_ORIGIN.split(',').map(origin => origin.trim())
+  ? process.env.CORS_ORIGIN.split(',').map((origin) => origin.trim())
   : defaultOrigins;
 
 const corsOptions = {
@@ -130,7 +152,13 @@ const corsOptions = {
   credentials: true,
   optionsSuccessStatus: 200,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Session-Id', 'X-Admin-Key', 'X-Correlation-ID'],
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'X-Session-Id',
+    'X-Admin-Key',
+    'X-Correlation-ID',
+  ],
 };
 app.use(cors(corsOptions));
 
@@ -141,8 +169,21 @@ app.use(correlationId);
 app.use(apiVersionMiddleware);
 
 // Body parsers with size limits
-app.use(express.json({ limit: '10kb' }));
-app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+//
+// IMPORTANT: stripe-webhook routes are mounted BEFORE express.json() (further
+// down in this file's STRIPE WEBHOOK MOUNT block) so that preserveRawBody can
+// read the raw HTTP stream. If express.json() processes the request first,
+// the stream is consumed and `req.on('data')` / `req.on('end')` never fire,
+// causing the webhook handler to hang until Cloud Run kills the request at
+// the 60s timeout.
+app.use((req, res, next) => {
+  if (req.path.startsWith('/webhooks/stripe')) return next();
+  return express.json({ limit: '10kb' })(req, res, next);
+});
+app.use((req, res, next) => {
+  if (req.path.startsWith('/webhooks/stripe')) return next();
+  return express.urlencoded({ extended: true, limit: '10kb' })(req, res, next);
+});
 
 // Rate limiting (general)
 const limiter = rateLimit({
@@ -238,6 +279,12 @@ app.use('/api/v1/user/api-keys', apiKeyRoutes);
 // Payment proxy (PayPal, Revolut subscription checkout)
 app.use('/api/v1/payments', paymentRoutes);
 
+// B2B Payment Flow (Revolut deposit + Stripe invoice)
+app.use('/api/v1/b2b', b2bPaymentRoutes);
+
+// Stripe webhook (invoice payments, refunds, customer events)
+app.use('/webhooks/stripe', stripeWebhookRoutes);
+
 // MCP Agent Server (DWS7: Fix #5 — exposes agents as MCP tools)
 app.use('/mcp', createMCPRouter());
 
@@ -324,7 +371,7 @@ app.use('/api/hil', hilRoutes);
 app.use('/api/situation-room', situationRoomRoutes);
 
 // Grok Consent — GDPR + EU AI Act Article 12 sovereignty dashboard
-app.use('/api/grok-consent', grokConsentRoutes);
+// app.use('/api/grok-consent', grokConsentRoutes); // TODO: restore when grok-consent is available
 
 // Peachscore Accelerator — Cap Table & Financials
 app.use('/api/investor-reports/cap-table', capTableRouter);
@@ -335,7 +382,12 @@ app.get('/api/v1/dashboard/delivery-status', (_req: Request, res: Response) => {
   const fallback = { timestamp: '2026-03-02', mvp: 72, v1: 46, dws7: 58 };
   try {
     const raw = fs.readFileSync(configPath, 'utf-8');
-    const data = JSON.parse(raw) as { timestamp?: string; mvp?: number; v1?: number; dws7?: number };
+    const data = JSON.parse(raw) as {
+      timestamp?: string;
+      mvp?: number;
+      v1?: number;
+      dws7?: number;
+    };
     res.json({
       timestamp: data.timestamp ?? fallback.timestamp,
       mvp: data.mvp ?? fallback.mvp,
@@ -436,11 +488,17 @@ app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Resp
           apikey: supabaseKey,
           Authorization: `Bearer ${supabaseKey}`,
         },
-      }
+      },
     );
 
     if (!fetchRes.ok) throw new Error(`Fetch failed: ${fetchRes.status}`);
-    const rows = await fetchRes.json() as Array<{ name: string; email: string; industry: string; seat_level: string; status: string }>;
+    const rows = (await fetchRes.json()) as Array<{
+      name: string;
+      email: string;
+      industry: string;
+      seat_level: string;
+      status: string;
+    }>;
     if (rows.length === 0) {
       res.status(404).json({ error: 'Inquiry not found' });
       return;
@@ -449,19 +507,16 @@ app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Resp
     const inquiry = rows[0];
 
     // Update status
-    const updateRes = await fetch(
-      `${supabaseUrl}/rest/v1/captain_inquiries?id=eq.${id}`,
-      {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          apikey: supabaseKey,
-          Authorization: `Bearer ${supabaseKey}`,
-          Prefer: 'return=minimal',
-        },
-        body: JSON.stringify({ status }),
-      }
-    );
+    const updateRes = await fetch(`${supabaseUrl}/rest/v1/captain_inquiries?id=eq.${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: supabaseKey,
+        Authorization: `Bearer ${supabaseKey}`,
+        Prefer: 'return=minimal',
+      },
+      body: JSON.stringify({ status }),
+    });
 
     if (!updateRes.ok) throw new Error(`Update failed: ${updateRes.status}`);
 
@@ -474,7 +529,7 @@ app.patch('/api/v1/captain-inquiries/:id/status', async (req: Request, res: Resp
           inquiry.email,
           inquiry.name,
           inquiry.industry,
-          inquiry.seat_level
+          inquiry.seat_level,
         );
         emailSent = true;
         logger.info('Captain pre-briefing email sent', {
@@ -577,18 +632,21 @@ const server = app.listen(PORT, () => {
   memoryScheduler.start();
 
   // Initialize email queue (Redis Streams)
-  emailQueue.initialize().then((ready) => {
-    if (ready) {
-      emailQueue.start();
-      logger.info('Email queue worker started (Redis Streams)');
-    } else {
-      logger.info('Email queue unavailable — emails will be sent directly');
-    }
-  }).catch((err) => {
-    logger.warn('Email queue init error — emails will be sent directly', {
-      error: err.message,
+  emailQueue
+    .initialize()
+    .then((ready) => {
+      if (ready) {
+        emailQueue.start();
+        logger.info('Email queue worker started (Redis Streams)');
+      } else {
+        logger.info('Email queue unavailable — emails will be sent directly');
+      }
+    })
+    .catch((err) => {
+      logger.warn('Email queue init error — emails will be sent directly', {
+        error: err.message,
+      });
     });
-  });
 });
 
 // ============ PROCESS ERROR HANDLERS ============

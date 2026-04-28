@@ -91,15 +91,15 @@ All admin manuals across the DWS6 repository, organized by domain.
 
 ### Websites & Store
 
-| Manual                     | Location                                                                                                        | Language | Description                                     |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------- | -------- | ----------------------------------------------- |
-| **DWS6.com Manual**        | [`ADMIN_MANUAL_DWS6_COM.md`](ADMIN_MANUAL_DWS6_COM.md)                                                          | EN       | DWS6 website operations                         |
-| **DWS10 Store & Payments** | [`ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`](ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md)                                  | EN       | Revolut Web SDK, Cloudflare Worker, 25 products |
-| **Store Admin (EN)**       | [`dws10.com/docs/STORE_ADMIN_MANUAL_EN.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_EN.md)                         | EN       | Store product management, feeds                 |
-| **Store Admin (FI)**       | [`dws10.com/docs/STORE_ADMIN_MANUAL_FI.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_FI.md)                         | FI       | Kaupan hallinta                                 |
-| **Dashboard V8 Manual**    | [`ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md`](ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md)                                      | EN       | Firehorse dashboard operations                  |
-| **Blog System (EN)**       | [`onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_EN_v1.md`](../onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_EN_v1.md) | EN       | Onelifetime.world blog CMS                      |
-| **Blog System (FI)**       | [`onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_FI_v1.md`](../onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_FI_v1.md) | FI       | Blogin hallinta                                 |
+| Manual                     | Location                                                                                                        | Language | Description                                                    |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------- | -------- | -------------------------------------------------------------- |
+| **DWS6.com Manual**        | [`ADMIN_MANUAL_DWS6_COM.md`](ADMIN_MANUAL_DWS6_COM.md)                                                          | EN       | DWS6 website operations                                        |
+| **DWS10 Store & Payments** | [`ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`](ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md)                                  | EN       | Revolut + Stripe hybrid flow, Google Merchant ops, 38 products |
+| **Store Admin (EN)**       | [`dws10.com/docs/STORE_ADMIN_MANUAL_EN.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_EN.md)                         | EN       | Store product management, feeds                                |
+| **Store Admin (FI)**       | [`dws10.com/docs/STORE_ADMIN_MANUAL_FI.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_FI.md)                         | FI       | Kaupan hallinta                                                |
+| **Dashboard V8 Manual**    | [`ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md`](ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md)                                      | EN       | Firehorse dashboard operations                                 |
+| **Blog System (EN)**       | [`onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_EN_v1.md`](../onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_EN_v1.md) | EN       | Onelifetime.world blog CMS                                     |
+| **Blog System (FI)**       | [`onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_FI_v1.md`](../onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_FI_v1.md) | FI       | Blogin hallinta                                                |
 
 ### Security
 
@@ -121,13 +121,15 @@ All admin manuals across the DWS6 repository, organized by domain.
 
 ### Related Documentation
 
-| Document                | Location                                                                            | Description                                        |
-| ----------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------- |
-| **CLAUDE.md**           | [`CLAUDE.md`](../CLAUDE.md)                                                         | AI agent behavior guidelines (Karpathy principles) |
-| **DPA Agreement**       | [`docs/DPA_DATA_PROCESSING_AGREEMENT.md`](../docs/DPA_DATA_PROCESSING_AGREEMENT.md) | GDPR data processing agreement                     |
-| **MCP Configuration**   | [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md)                         | Model Context Protocol server setup                |
-| **Security Compliance** | [`SECURITY_COMPLIANCE.md`](SECURITY_COMPLIANCE.md)                                  | Security framework and compliance status           |
-| **Security Glossary**   | [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md)                         | Security terms and OWASP references                |
+| Document                  | Location                                                                            | Description                                                                 |
+| ------------------------- | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| **CLAUDE.md**             | [`CLAUDE.md`](../CLAUDE.md)                                                         | AI agent behavior guidelines (Karpathy principles)                          |
+| **DPA Agreement**         | [`docs/DPA_DATA_PROCESSING_AGREEMENT.md`](../docs/DPA_DATA_PROCESSING_AGREEMENT.md) | GDPR data processing agreement                                              |
+| **MCP Configuration**     | [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md)                         | Model Context Protocol server setup                                         |
+| **Security Compliance**   | [`SECURITY_COMPLIANCE.md`](SECURITY_COMPLIANCE.md)                                  | Security framework and compliance status                                    |
+| **Security Glossary**     | [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md)                         | Security terms and OWASP references                                         |
+| **Playwright Capability** | [`docs/PLAYWRIGHT.md`](../docs/PLAYWRIGHT.md)                                       | `dws browse` + MCP `dws_browse_*` — JS-rendered fetch, screenshot, snapshot |
+| **Agent Second Brain**    | [`docs/AGENT_SECOND_BRAIN.md`](../docs/AGENT_SECOND_BRAIN.md)                       | DGX Spark embeddings, KB inbox watcher, `dws kb preflight`                  |
 
 ---
 
@@ -749,36 +751,114 @@ app.use(
 
 ---
 
-## Google Cloud Run (Optional/Backup)
+## Google Cloud Run (Active - B2B Payment Stack)
 
-**Status:** ⏸️ **PENDING** - Requires billing setup
+**Status:** ✅ **ACTIVE** - Deployed for B2B payment webhooks
 
-### Project: dws6run
+### Project: dws6run6
 
-| Property              | Value                                              |
-| --------------------- | -------------------------------------------------- |
-| **Project ID**        | `dws6run`                                          |
-| **Project Number**    | `446442351781`                                     |
-| **Region**            | `europe-north1` (Finland)                          |
-| **Artifact Registry** | `europe-north1-docker.pkg.dev/dws6run/dws-iq-repo` |
-| **Admin Account**     | `admin@dws6.com`                                   |
+| Property              | Value                                               |
+| --------------------- | --------------------------------------------------- |
+| **Project ID**        | `dws6run6`                                          |
+| **Project Number**    | `1074393862472`                                     |
+| **Region**            | `europe-north1` (Finland)                           |
+| **Artifact Registry** | `europe-north1-docker.pkg.dev/dws6run6/dws-iq-repo` |
+| **Admin Account**     | `admin@dws6.com`                                    |
+| **Service**           | `dws-iq-backend` (Stripe webhook endpoint)          |
+| **Endpoint**          | `https://dws-iq-backend-[hash]-uc.a.run.app`        |
 
-### Service Account Permissions
+### ⚠️ CRITICAL: Cloud Build Service Account IAM Roles
 
-Cloud Build service account (`446442351781@cloudbuild.gserviceaccount.com`) requires:
+**Service Account:** `1074393862472-compute@developer.gserviceaccount.com`
 
-- `roles/artifactregistry.writer` - Push Docker images
-- `roles/logging.logWriter` - Write build logs
+**Required Roles** (grant ALL of these or build will fail):
 
-### Deployment Commands
+| Role                             | Permission                | Why Needed                         |
+| -------------------------------- | ------------------------- | ---------------------------------- |
+| `roles/cloudbuild.builds.editor` | Cloud Build operations    | Build and push Docker images       |
+| `roles/storage.admin`            | Cloud Storage access      | Upload source code tarball + cache |
+| `roles/logging.logWriter`        | Write build logs          | Display build output and errors    |
+| `roles/artifactregistry.writer`  | Push to Artifact Registry | Store Docker images                |
+| `roles/run.developer`            | Deploy to Cloud Run       | Create/update Cloud Run services   |
 
-```powershell
-# Build and push image
-gcloud builds submit --tag europe-north1-docker.pkg.dev/dws6run/dws-iq-repo/dws-iq-backend:latest --project=dws6run
+**Setup Commands** (run once per project):
 
-# Deploy to Cloud Run
-gcloud run deploy dws-iq-backend --image europe-north1-docker.pkg.dev/dws6run/dws-iq-repo/dws-iq-backend:latest --region europe-north1 --project dws6run --allow-unauthenticated --set-env-vars="GROQ_API_KEY=<key>,NODE_ENV=production"
+```bash
+# Grant Cloud Build permissions
+gcloud projects add-iam-policy-binding dws6run6 \
+  --member=serviceAccount:1074393862472-compute@developer.gserviceaccount.com \
+  --role=roles/cloudbuild.builds.editor
+
+# Grant Storage access
+gcloud projects add-iam-policy-binding dws6run6 \
+  --member=serviceAccount:1074393862472-compute@developer.gserviceaccount.com \
+  --role=roles/storage.admin
+
+# Grant Logging access
+gcloud projects add-iam-policy-binding dws6run6 \
+  --member=serviceAccount:1074393862472-compute@developer.gserviceaccount.com \
+  --role=roles/logging.logWriter
+
+# Grant Artifact Registry access
+gcloud projects add-iam-policy-binding dws6run6 \
+  --member=serviceAccount:1074393862472-compute@developer.gserviceaccount.com \
+  --role=roles/artifactregistry.writer
+
+# Grant Cloud Run access
+gcloud projects add-iam-policy-binding dws6run6 \
+  --member=serviceAccount:1074393862472-compute@developer.gserviceaccount.com \
+  --role=roles/run.developer
 ```
+
+### Deployment Commands (from repo root in CMD)
+
+```bash
+# Authenticate with Google Cloud
+gcloud auth login --project=dws6run6
+
+# Set active project
+gcloud config set project dws6run6
+
+# Build and push Docker image
+gcloud builds submit --tag europe-north1-docker.pkg.dev/dws6run6/dws-iq-repo/dws-iq-backend:latest
+
+# Deploy to Cloud Run with environment variables
+gcloud run deploy dws-iq-backend ^
+  --image europe-north1-docker.pkg.dev/dws6run6/dws-iq-repo/dws-iq-backend:latest ^
+  --region europe-north1 ^
+  --allow-unauthenticated ^
+  --memory 512Mi ^
+  --cpu 1 ^
+  --timeout 300 ^
+  --set-env-vars="STRIPE_SECRET_KEY=sk_live_...,STRIPE_WEBHOOK_SECRET=whsec_...,NODE_ENV=production"
+
+# View deployment logs
+gcloud run logs read dws-iq-backend --region europe-north1 --limit 50
+```
+
+### Troubleshooting
+
+| Error                                                    | Cause                             | Fix                                 |
+| -------------------------------------------------------- | --------------------------------- | ----------------------------------- |
+| `PERMISSION_DENIED: does not have permission`            | Missing IAM role                  | Run one of the setup commands above |
+| `does not have storage.objects.get access`               | Missing `roles/storage.admin`     | Grant storage.admin role            |
+| `does not have permission to write logs`                 | Missing `roles/logging.logWriter` | Grant logging.logWriter role        |
+| `Build step failure: gcr.io/cloud-builders/gcb-internal` | Multiple permission issues        | Run ALL setup commands              |
+
+### Webhook Configuration
+
+**Stripe Workbench Setup:**
+
+- Endpoint URL: `https://dws-iq-backend-[hash]-uc.a.run.app/webhooks/stripe`
+- Events: `invoice.payment_succeeded`, `invoice.payment_failed`, `invoice.payment_attempt_required`, `invoice.payment_action_required`, `charge.refunded`, `customer.deleted`
+- Signing Secret: `whsec_...` (from Stripe Workbench → Destination)
+
+**Environment Variables Required:**
+
+- `STRIPE_SECRET_KEY` (sk*live*...)
+- `STRIPE_WEBHOOK_SECRET` (whsec\_...)
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_KEY`
 
 ---
 
@@ -1797,6 +1877,53 @@ Switched to **Claude Opus 4.5** which has:
 
 ---
 
+## Agent Capabilities — Browse + Second Brain (2026-04-25)
+
+Two agent-facing capabilities ship in branch `claude/add-playwright-implementation-Rg5Jy`. Full design in [`docs/PLAYWRIGHT.md`](../docs/PLAYWRIGHT.md) and [`docs/AGENT_SECOND_BRAIN.md`](../docs/AGENT_SECOND_BRAIN.md).
+
+### Browse (Playwright)
+
+| Surface        | Command / endpoint                                                               |
+| -------------- | -------------------------------------------------------------------------------- |
+| CLI            | `dws browse fetch <url>` / `screenshot <url>` / `snapshot <url>`                 |
+| MCP tools      | `dws_browse_fetch`, `dws_browse_screenshot`, `dws_browse_snapshot`               |
+| Skill          | `/browse`                                                                        |
+| Runtime dep    | `playwright` is in `dependencies` (so `npm ci --omit=dev` keeps it on the Spark) |
+| One-time setup | `npx playwright install chromium` per machine (browser binary not in git)        |
+
+**SSRF guard (`src/utils/url-guard.ts`):** every URL — both the user-supplied one AND any redirect / sub-resource Chromium tries to load via `page.route('**/*')` — is checked against a default-deny list of IPv4/IPv6 private, loopback, link-local, cloud-metadata (`169.254.169.254`), CGNAT, and unique-local ranges. Hostnames `localhost`, `*.local`, `*.internal`, `*.intranet` are blocked without a DNS lookup; all other hostnames are resolved and rejected if **any** answer is private. Override for local dev only: `BROWSE_ALLOW_PRIVATE=1`. Residual risk: DNS rebinding (documented; not fully mitigated).
+
+URL guard also accepts `http://` and `https://` only; 30 s navigation timeout; fresh `BrowserContext` per call. Results return rendered HTML / base64 PNG / accessibility-tree JSON.
+
+### Agent Second Brain (DGX Spark embeddings + KB watcher)
+
+| Surface                 | Command / file                                                      |
+| ----------------------- | ------------------------------------------------------------------- |
+| Embeddings provider     | `src/utils/embeddings.ts` — `EMBEDDING_PROVIDER=openai\|dgx-spark`  |
+| DGX Spark probe (shell) | `scripts/ollama-spark-embed.sh --preflight`                         |
+| Preflight (CLI)         | `dws kb preflight` (exits non-zero on failure with actionable hint) |
+| Inbox watcher           | `scripts/daily/kb-watch-inbox.sh` (auto-discovered by day-runner)   |
+| Cap (operator-tunable)  | `KB_WATCH_MAX_PER_RUN` (default `25`)                               |
+
+`memoryService` (`semantic_memories` pgvector) keeps OpenAI 1536-dim by default. Switching it to DGX Spark's 768-dim `nomic-embed-text` requires a schema migration (RED zone) and is documented as a follow-up.
+
+### Operator runbook (DGX Spark embeddings)
+
+```bash
+# 1. Probe — verify SSH alias + Ollama + model in one call
+dws kb preflight
+
+# 2. If model missing, pull it on the Spark
+ssh dgx-spark ollama pull nomic-embed-text
+
+# 3. Flip the env var only after preflight is green
+export EMBEDDING_PROVIDER=dgx-spark
+```
+
+The watcher's first run backfills the existing inbox up to the cap and rolls remaining files into the next day. No manual sentinel deletion is needed.
+
+---
+
 ## Code Review Process
 
 ### Overview
@@ -2671,18 +2798,20 @@ auditor-access model.
 
 ## Document Changelog
 
-| Version | Date         | Changes                                                                                                                                                                                                                                                                                                                               | Session ID |
-| ------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| 2.2     | Apr 22, 2026 | Added Local-First CI + Audit Log section (scripts/local-ci.sh, ci-audit-verify.sh, ci-audit-upload.ts, weekly/security-audit.sh, .ci-audit/, ci-audit-verify.yml gate); linked new Audit Manual for external auditors; indexed Files & Folders manual                                                                                 | vBYGo      |
-| 1.8     | Feb 6, 2026  | DWS Document Standard header; Admin Manuals Index (23 manuals); Revolut Payments & Store; MCP Configuration (Supabase, Upstash Redis, MCP Hub); AI Agent Operational Guidelines (Karpathy); Security Glossary & OWASP; DPA summary; Backup & Sync Infrastructure; Multi-Agent Orchestration (Subagents vs Agent Teams, Upstash Redis) | Rm8Jw      |
-| 1.7     | Jan 29, 2026 | Added Climate Assistant Chat Widget section with embed code, features, security configuration (Helmet CSP), and troubleshooting                                                                                                                                                                                                       | krDzD      |
-| 1.6     | Jan 24, 2026 | Added Training section with LWM/Firehorse training workflows, certification paths, and external partner resources; Updated training manual location references                                                                                                                                                                        | r6bU3      |
-| 1.5     | Jan 4, 2026  | Added AI Model Configuration (Sonnet → Opus 4.5 switch); Added DWS IQ 6 Security Framework section; Updated compliance scores to 95%                                                                                                                                                                                                  | -          |
-| 1.4     | Jan 3, 2026  | Added Code Review Process section; Removed Argus PR Review (moved to Archive); Documented Cursor AI + Snyk MCP workflow                                                                                                                                                                                                               | -          |
-| 1.3     | Dec 23, 2025 | Added AI Agent Policy section based on 2,500+ agent analysis; Protected admin directory in .gitignore                                                                                                                                                                                                                                 | PxSux      |
-| 1.2     | Dec 19, 2025 | Added Bug Tracking & Security Maintenance section with 20-bug fix history, monthly maintenance budget, bug hunting roadmap                                                                                                                                                                                                            | -          |
-| 1.1     | Dec 11, 2025 | Added Sensitive Data Protection section (GDPR/ISO 27001 compliance)                                                                                                                                                                                                                                                                   | -          |
-| 1.0     | Nov 23, 2025 | Initial creation, documented session history                                                                                                                                                                                                                                                                                          | -          |
+| Version | Date         | Changes                                                                                                                                                                                                                                                                                                                                                        | Session ID |
+| ------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| 2.4     | Apr 25, 2026 | Browse SSRF hardening (`src/utils/url-guard.ts`): default-deny IPv4/IPv6 private/loopback/link-local/cloud-metadata ranges, two-layer enforcement (pre-`goto` + `page.route` for redirects), `BROWSE_ALLOW_PRIVATE=1` dev override; moved `playwright` from devDependencies to dependencies so DGX Spark `npm ci --omit=dev` keeps it. 75 tests pass.          | Rg5Jy      |
+| 2.3     | Apr 25, 2026 | Added Agent Capabilities section (Browse + Second Brain): `dws browse` (Playwright Chromium, MCP `dws_browse_*`), DGX Spark embeddings provider (`EMBEDDING_PROVIDER=dgx-spark`), `dws kb preflight`, `scripts/daily/kb-watch-inbox.sh` (auto-backfill with `KB_WATCH_MAX_PER_RUN` cap); linked PLAYWRIGHT.md + AGENT_SECOND_BRAIN.md in Related Documentation | Rg5Jy      |
+| 2.2     | Apr 22, 2026 | Added Local-First CI + Audit Log section (scripts/local-ci.sh, ci-audit-verify.sh, ci-audit-upload.ts, weekly/security-audit.sh, .ci-audit/, ci-audit-verify.yml gate); linked new Audit Manual for external auditors; indexed Files & Folders manual                                                                                                          | vBYGo      |
+| 1.8     | Feb 6, 2026  | DWS Document Standard header; Admin Manuals Index (23 manuals); Revolut Payments & Store; MCP Configuration (Supabase, Upstash Redis, MCP Hub); AI Agent Operational Guidelines (Karpathy); Security Glossary & OWASP; DPA summary; Backup & Sync Infrastructure; Multi-Agent Orchestration (Subagents vs Agent Teams, Upstash Redis)                          | Rm8Jw      |
+| 1.7     | Jan 29, 2026 | Added Climate Assistant Chat Widget section with embed code, features, security configuration (Helmet CSP), and troubleshooting                                                                                                                                                                                                                                | krDzD      |
+| 1.6     | Jan 24, 2026 | Added Training section with LWM/Firehorse training workflows, certification paths, and external partner resources; Updated training manual location references                                                                                                                                                                                                 | r6bU3      |
+| 1.5     | Jan 4, 2026  | Added AI Model Configuration (Sonnet → Opus 4.5 switch); Added DWS IQ 6 Security Framework section; Updated compliance scores to 95%                                                                                                                                                                                                                           | -          |
+| 1.4     | Jan 3, 2026  | Added Code Review Process section; Removed Argus PR Review (moved to Archive); Documented Cursor AI + Snyk MCP workflow                                                                                                                                                                                                                                        | -          |
+| 1.3     | Dec 23, 2025 | Added AI Agent Policy section based on 2,500+ agent analysis; Protected admin directory in .gitignore                                                                                                                                                                                                                                                          | PxSux      |
+| 1.2     | Dec 19, 2025 | Added Bug Tracking & Security Maintenance section with 20-bug fix history, monthly maintenance budget, bug hunting roadmap                                                                                                                                                                                                                                     | -          |
+| 1.1     | Dec 11, 2025 | Added Sensitive Data Protection section (GDPR/ISO 27001 compliance)                                                                                                                                                                                                                                                                                            | -          |
+| 1.0     | Nov 23, 2025 | Initial creation, documented session history                                                                                                                                                                                                                                                                                                                   | -          |
 
 ---
 

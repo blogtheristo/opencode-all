@@ -72,7 +72,11 @@ Lead with:
 If asked "how do you stay EU-sovereign with US investors?":
 - SAFE gives economic rights, not operational control
 - Architecture: Supabase (EU), GCP europe-north1, Hetzner Helsinki — zero US data transit
+<<<<<<< HEAD
 - EU AI Act Article 12 logging (sovereignty compliance overlay) — all reasoning stays in EU
+=======
+- EU AI Act Article 12 logging (Article 12 Logging Pipeline) — all reasoning stays in EU
+>>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 - No ITAR components, no US export control exposure
 - Finnish company (Lifetime Oy, Y-tunnus 0772407-9), EU jurisdiction
 

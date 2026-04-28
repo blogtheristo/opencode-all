@@ -103,7 +103,11 @@ All developer integrations MUST comply with:
 
 - **Data residency:** EU only (Finland/Germany — europe-north1)
 - **GDPR:** Data processing agreements required for Standard+ tiers
+<<<<<<< HEAD
 - **EU AI Act:** Agent outputs must include reasoning lineage (sovereignty audit layer)
+=======
+- **EU AI Act:** Agent outputs must include reasoning lineage (Article 12 Logging Pipeline)
+>>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 - **No CLOUD Act exposure:** No US-jurisdiction data processing
 
 ## 6. Developer Resources

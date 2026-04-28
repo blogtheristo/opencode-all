@@ -38,7 +38,11 @@ Document Status:
 3. [Architecture Evolution](#3-architecture-evolution)
 4. [Migration Timeline (6 Phases, 247 PRs)](#4-migration-timeline-6-phases-247-prs)
 5. [Compliance Engine — Fit for 55](#5-compliance-engine--fit-for-55)
+<<<<<<< HEAD
 6. [EU AI Act Compliance (Full Sovereignty Layer)](#6-eu-ai-act-compliance-full-sovereignty-layer)
+=======
+6. [EU AI Act Compliance (Aiven Layer)](#6-eu-ai-act-compliance-aiven-layer)
+>>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 7. [Cloud & Infrastructure Changes](#7-cloud--infrastructure-changes)
 8. [Security & Certification Path](#8-security--certification-path)
 9. [Agentic AI & Intelligence Layer](#9-agentic-ai--intelligence-layer)
@@ -178,7 +182,11 @@ These DWS6 components carry forward unchanged or with incremental improvements:
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
+<<<<<<< HEAD
 │  EU AI Act Compliance Overlay (Full Sovereignty / Aegis)    │
+=======
+│  Aiven Layer (EU AI Act Compliance Overlay)                 │
+>>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 │  ┌──────────────┐  ┌─────────────┐  ┌────────────────────┐ │
 │  │ OpenTelemetry│  │ Reasoning   │  │ Audit Log          │ │
 │  │ Trace Collect│  │ Store       │  │ Append-only PG     │ │
@@ -349,9 +357,15 @@ DWS7 is the only platform that covers all four major EU climate regulations in a
 
 ---
 
+<<<<<<< HEAD
 ## 6. EU AI Act Compliance (Full Sovereignty Layer)
 
 DWS7 classifies as a **high-risk AI system** under the EU AI Act (industrial decision support for regulated industries). The Full Sovereignty (Aegis) compliance layer, deployed as an overlay on the EU Cloud, ensures full compliance by August 2026.
+=======
+## 6. EU AI Act Compliance (Aiven Layer)
+
+DWS7 classifies as a **high-risk AI system** under the EU AI Act (industrial decision support for regulated industries). The Article 12 Logging Pipeline, deployed as an overlay on the EU Cloud, ensures full compliance by August 2026.
+>>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 
 ### Article 12 — Automatic Logging
 
@@ -569,7 +583,11 @@ Factory Floor                    Cloud                         Regulator
 3. **Calculate**: Cloud Run computes emissions using fuel-based or mass-balance methodology
 4. **Verify**: Automated cross-checks against historical data and regulatory thresholds
 5. **Report**: MRV report generated and submitted to EU ETS registry
+<<<<<<< HEAD
 6. **Audit**: Complete data lineage stored in sovereignty audit log (7-year retention)
+=======
+6. **Audit**: Complete data lineage stored in Aiven audit log (7-year retention)
+>>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 
 ---
 

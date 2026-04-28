@@ -6,7 +6,11 @@
 Version: 1.0
 
 Sessions & Modifications:
+<<<<<<< HEAD
   - Version: 1.0 | Tool: Claude Code | Date: 08.03.2026 | Changes: Initial specification — maps DWS IQ sovereignty audit event log schema to EU AI Act Article 12 requirements and Annex IV technical documentation fields. Created for NDA technical-spec calls with robot OEM partners.
+=======
+  - Version: 1.0 | Tool: Claude Code | Date: 08.03.2026 | Changes: Initial specification — maps DWS Aiven event log schema to EU AI Act Article 12 requirements and Annex IV technical documentation fields. Created for NDA technical-spec calls with robot OEM partners.
+>>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 
 Document Status:
   - Created: 08.03.2026
@@ -19,7 +23,11 @@ Document Status:
 
 ## 1. Purpose
 
+<<<<<<< HEAD
 This document maps the DWS IQ sovereignty audit logging layer's event schema to the specific requirements of:
+=======
+This document maps the DWS IQ Aiven logging layer's event schema to the specific requirements of:
+>>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 
 - **EU AI Act Article 12** (Regulation (EU) 2024/1689) — Automatic event logging for high-risk AI systems
 - **EU AI Act Annex IV** — Technical documentation requirements for high-risk AI systems
@@ -29,7 +37,11 @@ This is the document to share on NDA calls with robot OEM partners (Tesla/xAI, B
 
 ---
 
+<<<<<<< HEAD
 ## 2. DWS IQ Sovereignty Audit Event Log Schema
+=======
+## 2. DWS Aiven Event Log Schema
+>>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 
 ### 2.1 Core Event Structure
 
@@ -104,7 +116,11 @@ This is the document to share on NDA calls with robot OEM partners (Tesla/xAI, B
 
 ### 3.1 Article 12(1) — Automatic Recording of Events
 
+<<<<<<< HEAD
 | Article 12 Requirement | DWS IQ Field(s) | Status |
+=======
+| Article 12 Requirement | DWS Aiven Field(s) | Status |
+>>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 |------------------------|---------------------|--------|
 | Automatic recording of events | All events auto-logged by event bus — no manual logging required | **ACTIVE** |
 | Over the lifetime of the system | `retention.minimumYears: 7` (exceeds 5-year minimum) | **ACTIVE** |
@@ -113,7 +129,11 @@ This is the document to share on NDA calls with robot OEM partners (Tesla/xAI, B
 
 ### 3.2 Article 12(2) — Traceability for Risk Identification
 
+<<<<<<< HEAD
 | Traceability Purpose (Article) | DWS IQ Coverage | Status |
+=======
+| Traceability Purpose (Article) | DWS Aiven Coverage | Status |
+>>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 |-------------------------------|---------------------|--------|
 | **Identifying risks (Art 79(1))** | `robot.safety.*` events + `ai.confidence.below_threshold` + sensor snapshots | **ACTIVE** |
 | **Substantial modifications (Art 79(1))** | `system.model.swap` + `system.update.applied` events with before/after state | **ACTIVE** |
@@ -122,7 +142,11 @@ This is the document to share on NDA calls with robot OEM partners (Tesla/xAI, B
 
 ### 3.3 Article 12(3) — Annex III Biometric Fields (Conditional)
 
+<<<<<<< HEAD
 | Annex III Minimum Field | DWS IQ Coverage | Status |
+=======
+| Annex III Minimum Field | DWS Aiven Coverage | Status |
+>>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 |-------------------------|---------------------|--------|
 | Period of each use | `timestamp` (start) + `executionResult` (end) in event pairs | **ACTIVE** |
 | Reference database against which input data has been checked | Not applicable for industrial manipulation tasks. **If camera triggers biometric classification:** reference DB field must be added | **GAP — conditional** |
@@ -133,7 +157,11 @@ This is the document to share on NDA calls with robot OEM partners (Tesla/xAI, B
 
 ### 3.4 Article 14 — Human Oversight (Cross-Referenced in Art 12)
 
+<<<<<<< HEAD
 | Article 14 Requirement | DWS IQ Coverage | Status |
+=======
+| Article 14 Requirement | DWS Aiven Coverage | Status |
+>>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 |------------------------|---------------------|--------|
 | Human ability to understand AI output | `aiDecisionChain[].reasoningLineage` — full chain from input to output | **ACTIVE** |
 | Human ability to override | `human.override.*` events + physical e-stop relay + software kill (≤1s response) | **ACTIVE** |
@@ -154,7 +182,11 @@ This is the document to share on NDA calls with robot OEM partners (Tesla/xAI, B
 | 2(d) Computational resources | Hardware requirements | GN-100 NVIDIA Grace Blackwell spec; air-gapped deployment | **ACTIVE** |
 | 2(e) Data requirements | Training/validation/testing data | Open-weight models (Qwen, Mistral, Llama); no customer data used for training | **ACTIVE** |
 | 2(f) Human oversight measures | Art 14 implementation | Captain's Bridge; e-stop; confidence thresholds; override audit trail | **ACTIVE** |
+<<<<<<< HEAD
 | **3. Monitoring, functioning, control** | How the system is monitored in production | Sovereignty audit logging layer; real-time dashboard; NDJSON export for authorities | **ACTIVE** |
+=======
+| **3. Monitoring, functioning, control** | How the system is monitored in production | Aiven logging layer; real-time dashboard; NDJSON export for authorities | **ACTIVE** |
+>>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 | **4. Risk management system** | Art 9 requirements | 6-layer security architecture; if-then commitment framework; OWASP LLM Top 10 | **ACTIVE** |
 | **5. Changes during lifecycle** | Modifications tracking | `system.model.swap` + `system.update.applied` events; git-tracked config | **ACTIVE** |
 | **6. Harmonised standards applied** | List of standards | ISO 27001 (Q3 2026), IEC 62443 (Q1 2027), Machinery Reg 2023/1230 (partner) | **IN PROGRESS** |

@@ -30,7 +30,11 @@ LLM-integraatiot: Claude (Anthropic), Google Gemini, Groq LPU, LlamaStack, Ollam
 Agenttiorkestrointi: Temporal.io, MCP-palvelimet, tool calling, streaming, context management
 Edge AI: NVIDIA Jetson Orin Nano — off-grid inference, alle 100ms latenssi, 7–15W, AWS IoT Greengrass
 Lifetime World Model: 15 000+ EU-sääntelydokumentin tietokanta, pgvector-haku, 16 toimialaontologiaa
+<<<<<<< HEAD
 EU AI Act -compliance: Article 12 -lokitus tuotannossa, reasoning lineage, sovereignty audit -kirjanpitokehys
+=======
+EU AI Act -compliance: Article 12 -lokitus tuotannossa, reasoning lineage, Aiven-kirjanpitokehys
+>>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 RAG-arkkitehtuuri: vektorihaun ja LLM-generoinnin yhdistäminen sääntelydokumentaatioon
 Prompt engineering: deterministic scoring, structured output, Zod-validointi
 

@@ -162,7 +162,11 @@ _Note: AI-assisted times above are pure computation. Add 30-60 minutes for human
 - Actions are logged to `actions.json` with ownership assignments
 - All artifacts are timestamped and version-trackable via git
 
+<<<<<<< HEAD
 **DWS IQ 6 advantage:** The EU AI Act compliance layer (see `docs/CLOUD_ENVIRONMENTS.md`) provides Article 12 automatic logging and reasoning lineage documentation on top of the base pipeline.
+=======
+**DWS IQ 6 advantage:** The Article 12 Logging Pipeline (see `docs/CLOUD_ENVIRONMENTS.md`) provides Article 12 automatic logging and reasoning lineage documentation on top of the base pipeline.
+>>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 
 ### Fit for 55: Emissions Context
 
@@ -224,7 +228,11 @@ _Note: AI-assisted times above are pure computation. Add 30-60 minutes for human
 - [ ] Set up automated pipeline runs (cron/Temporal.io)
 - [ ] Configure monitoring and alerting for model drift
 - [ ] Implement the feedback loop (human corrections → model improvement)
+<<<<<<< HEAD
 - [ ] Set up EU AI Act Article 12 logging (Full Sovereignty compliance layer)
+=======
+- [ ] Set up EU AI Act Article 12 logging (DWS IQ 6 Article 12 Logging Pipeline)
+>>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 - [ ] Add `dws sovereignty-assess` to your CI/CD pre-deploy check — verify data residency before every release
 - [ ] Run `dws kya snap` after first production deployment to capture baseline agent trust scores
 
@@ -246,7 +254,11 @@ _Note: AI-assisted times above are pure computation. Add 30-60 minutes for human
 | Visualization     | matplotlib + seaborn | Automated chart generation                                                               |
 | AI interpretation | Anthropic Claude API | Business translation, action generation                                                  |
 | Orchestration     | Python subprocess    | Pipeline coordination and timing                                                         |
+<<<<<<< HEAD
 | Compliance        | DWS IQ 6 sovereignty layer | EU AI Act Article 12 logging                                                       |
+=======
+| Compliance        | DWS IQ 6 Aiven       | EU AI Act Article 12 logging                                                             |
+>>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 | Agent CLI         | `dws` CLI (Node.js)  | Run agents, workflows, and fleet commands from terminal — JSON-native, zero dependencies |
 
 ### DWS CLI Quick Reference
