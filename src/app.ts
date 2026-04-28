@@ -41,6 +41,7 @@ import complianceRoutes from './routes/compliance.routes.js';
 import reportExportRoutes from './routes/report-export.routes.js';
 import apiKeyRoutes from './routes/api-keys.routes.js';
 import kyaWebhookRoutes from './routes/kya-webhook.routes.js';
+import gtmEventsRoutes from './routes/gtm-events.routes.js';
 import { terminateChain } from './identity/kya-engine.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
@@ -299,6 +300,9 @@ app.use('/webhooks', webhookRoutes);
 
 // KYA Webhook Bridge (Shufti Pro → Policy Engine)
 app.use('/api/v1/kya', kyaWebhookRoutes);
+
+// GTM Events API (Google Tag Manager event logging — Phase 1)
+app.use('/api/gtm/events', gtmEventsRoutes);
 
 const getHeaderValue = (value: string | string[] | undefined): string | undefined =>
   Array.isArray(value) ? value[0] : value;

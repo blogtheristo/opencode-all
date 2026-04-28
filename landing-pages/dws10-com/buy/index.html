@@ -1845,17 +1845,35 @@
     <!-- GTM Tracking for Store Page -->
     <script>
       (function () {
+        // Generate or retrieve session ID
+        var sessionId = sessionStorage.getItem("dws_session_id");
+        if (!sessionId) {
+          sessionId = "sess_" + Math.random().toString(36).substr(2, 9);
+          sessionStorage.setItem("dws_session_id", sessionId);
+        }
+
         // Initialize GTM data layer and fire page view event
         window.dataLayer = window.dataLayer || [];
 
+        // Helper: Send event to backend API
+        function sendToBackend(eventData) {
+          try {
+            navigator.sendBeacon("/api/gtm/events", JSON.stringify(eventData));
+          } catch (err) {
+            console.warn("Failed to send GTM event to backend", err);
+          }
+        }
+
         // Fire page view event
-        window.dataLayer.push({
+        var pageViewEvent = {
           event: "page_view",
           page_type: "store",
           page_title: document.title,
           user_segment: "anonymous",
           timestamp: new Date().toISOString(),
-        });
+        };
+        window.dataLayer.push(pageViewEvent);
+        sendToBackend(pageViewEvent);
 
         // Track product views when cards are visible
         document.addEventListener("DOMContentLoaded", function () {
@@ -1868,7 +1886,7 @@
               const priceText = card.querySelector("[data-price]")?.textContent || "0";
               const priceEur = parseFloat(priceText.replace(/[^\d.,]/g, "").replace(",", "."));
 
-              window.dataLayer.push({
+              var evt = {
                 event: "product_view",
                 product_id: productId,
                 product_name: productName,
@@ -1876,7 +1894,9 @@
                 category: "sovereign-ai",
                 currency: "EUR",
                 timestamp: new Date().toISOString(),
-              });
+              };
+              window.dataLayer.push(evt);
+              sendToBackend(evt);
             });
           });
 
@@ -1889,7 +1909,7 @@
               const priceText = btn.getAttribute("data-price") || "0";
               const priceEur = parseFloat(priceText.replace(/[^\d.,]/g, "").replace(",", "."));
 
-              window.dataLayer.push({
+              var evt = {
                 event: "add_to_cart",
                 product_id: productId,
                 product_name: productName,
@@ -1897,7 +1917,9 @@
                 price_eur: isNaN(priceEur) ? 0 : priceEur,
                 currency: "EUR",
                 timestamp: new Date().toISOString(),
-              });
+              };
+              window.dataLayer.push(evt);
+              sendToBackend(evt);
             });
           });
 
@@ -1909,13 +1931,15 @@
               const cartTotalEur = parseFloat(cartTotal.replace(/[^\d.,]/g, "").replace(",", "."));
               const itemCount = document.querySelectorAll("[data-cart-item]").length || 0;
 
-              window.dataLayer.push({
+              var evt = {
                 event: "begin_checkout",
                 cart_value_eur: isNaN(cartTotalEur) ? 0 : cartTotalEur,
                 item_count: itemCount,
                 currency: "EUR",
                 timestamp: new Date().toISOString(),
-              });
+              };
+              window.dataLayer.push(evt);
+              sendToBackend(evt);
             });
           }
         });
