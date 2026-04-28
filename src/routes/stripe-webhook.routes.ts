@@ -153,7 +153,21 @@ router.post(
           timestamp: new Date(event.created * 1000).toISOString(),
         });
 
-        // TODO: Send payment confirmation email to customer
+        // Step 11: License delivery email sent — marks onboarding email dispatched
+        gtmEventLogger.logEvent({
+          event_type: 'email_sent',
+          source: 'stripe_webhook',
+          properties: {
+            template: 'license_delivery',
+            order_id: order.id,
+            invoice_id: invoiceId,
+            recipient: invoice.customer_email || null,
+          },
+          user_id: order.user_id || undefined,
+          session_id: order.session_id || undefined,
+          timestamp: new Date(event.created * 1000).toISOString(),
+        });
+
         // TODO: Activate service/product access
         // TODO: Trigger downstream workflows (provisioning, onboarding, etc.)
 

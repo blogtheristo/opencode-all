@@ -63,13 +63,19 @@ class EmailTrackingService {
   /**
    * Log an email opened event (via webhook from SES or pixel tracker)
    */
-  async logEmailOpened(email_id: string, recipient: string, session_id?: string): Promise<void> {
+  async logEmailOpened(
+    email_id: string,
+    recipient: string,
+    session_id?: string,
+    template?: string,
+  ): Promise<void> {
     try {
       const event: EmailTrackingEvent = {
         email_id,
         recipient,
         event_type: 'opened',
         session_id,
+        template,
       };
 
       await this.logEmailEvent(event);
