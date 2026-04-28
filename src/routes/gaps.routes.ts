@@ -12,58 +12,77 @@
  */
 
 import { Router, Request, Response } from 'express';
-import { z } from 'zod';
+import { body, validationResult } from 'express-validator';
 import { gtmEventLogger } from '../services/gtm-event-logger.js';
 import logger from '../utils/logger.js';
 
 const router = Router();
 
-const ResolveGapBody = z.object({
-  gap_id: z.string().min(1),
-  gap_type: z.string().min(1),
-  resolution: z.string().min(1),
-  order_id: z.string().optional(),
-  user_id: z.string().optional(),
-  session_id: z.string().optional(),
-  org_id: z.string().optional(),
-  resolved_at: z.string().datetime().optional(),
-});
-
 /**
  * POST /api/v1/gaps/resolve
  * Emits gap_resolved GTM event. Called by CSM tooling or onboarding agent.
  */
-router.post('/resolve', async (req: Request, res: Response) => {
-  const parsed = ResolveGapBody.safeParse(req.body);
-  if (!parsed.success) {
-    return res.status(400).json({ error: 'Invalid request body', details: parsed.error.issues });
+router.post(
+  '/resolve',
+  body('gap_id').isString().trim().notEmpty(),
+  body('gap_type').isString().trim().notEmpty(),
+  body('resolution').isString().trim().notEmpty(),
+  body('order_id').optional().isString(),
+  body('user_id').optional().isString(),
+  body('session_id').optional().isString(),
+  body('org_id').optional().isString(),
+  body('resolved_at').optional().isISO8601(),
+  async (req: Request, res: Response) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ error: 'Invalid request body', details: errors.array() });
+    }
+
+    const {
+      gap_id,
+      gap_type,
+      resolution,
+      order_id,
+      user_id,
+      session_id,
+      org_id,
+      resolved_at,
+    } = req.body as {
+      gap_id: string;
+      gap_type: string;
+      resolution: string;
+      order_id?: string;
+      user_id?: string;
+      session_id?: string;
+      org_id?: string;
+      resolved_at?: string;
+    };
+
+    try {
+      gtmEventLogger.logEvent({
+        event_type: 'gap_resolved',
+        source: 'backend',
+        properties: {
+          gap_id,
+          gap_type,
+          resolution,
+          order_id: order_id ?? null,
+          org_id: org_id ?? null,
+        },
+        user_id: user_id ?? undefined,
+        session_id: session_id ?? undefined,
+        timestamp: resolved_at ?? new Date().toISOString(),
+      });
+
+      await gtmEventLogger.flush();
+
+      logger.info('Gap resolved event logged', { gap_id, gap_type, order_id });
+      return res.status(200).json({ success: true, gap_id });
+    } catch (err) {
+      logger.error('Failed to log gap_resolved event', { error: err, gap_id });
+      return res.status(500).json({ error: 'Failed to log event' });
+    }
   }
-
-  const { gap_id, gap_type, resolution, order_id, user_id, session_id, org_id, resolved_at } =
-    parsed.data;
-
-  try {
-    await gtmEventLogger.logEvent({
-      event_type: 'gap_resolved',
-      source: 'backend',
-      properties: {
-        gap_id,
-        gap_type,
-        resolution,
-        order_id: order_id ?? null,
-        org_id: org_id ?? null,
-      },
-      user_id: user_id ?? undefined,
-      session_id: session_id ?? undefined,
-      timestamp: resolved_at ?? new Date().toISOString(),
-    });
-
-    logger.info('Gap resolved event logged', { gap_id, gap_type, order_id });
-    return res.status(200).json({ success: true, gap_id });
-  } catch (err) {
-    logger.error('Failed to log gap_resolved event', { error: err, gap_id });
-    return res.status(500).json({ error: 'Failed to log event' });
-  }
-});
+);
 
 export default router;
