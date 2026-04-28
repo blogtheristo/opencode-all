@@ -4,7 +4,7 @@
 **Date:** April 2026
 **Issuer:** Lifetime Oy — DWS IQ 6 Platform
 **Classification:** IDV Provider Evaluation — for engineering and compliance teams
-**Purpose:** Technical and compliance requirements for IDV providers seeking KYA Certification. Providers that meet these requirements are eligible for "KYA Certified" designation and inclusion in the DWS IQ 6 identity layer across 20 EU-regulated industry verticals.
+**Purpose:** Technical and compliance requirements for IDV providers seeking KYA Certification. Providers that meet these requirements are eligible for "KYA Certified" designation and inclusion in the DWS IQ 6 identity layer across 21 EU-regulated industry verticals.
 
 **v2.0 Change:** Added eIDAS 2.0 native identity path — EUDI Wallet as L1 option, EU Business Wallet (EUBW) as L2 option. KYA is now positioned as an eIDAS 2.0-native AI agent identity standard.
 
@@ -37,7 +37,7 @@ The EU AI Act (2026) mandates identity traceability for high-risk AI systems. Tr
 
 ### DWS IQ 6 Platform
 
-DWS IQ 6 trains and runs autonomous agent swarms across **20 EU-regulated industries** — steel, cement, construction, healthcare, energy, chemicals, logistics, and more. Each industry model runs inside an isolated sandbox with hardware-attested boundaries.
+DWS IQ 6 trains and runs autonomous agent swarms across **21 EU-regulated industries** — steel, cement, construction, healthcare, energy, chemicals, logistics, and more. Each industry model runs inside an isolated sandbox with hardware-attested boundaries.
 
 ### KYA Certification
 
@@ -46,7 +46,7 @@ IDV providers that meet the requirements in this document are eligible for **KYA
 | Benefit                           | Detail                                                                                  |
 | --------------------------------- | --------------------------------------------------------------------------------------- |
 | **"KYA Certified" branding**      | Named as approved identity layer in DWS enterprise deployments                          |
-| **20 industry verticals**         | Access to healthcare, construction, energy, chemicals, steel, cement, logistics markets |
+| **21 industry verticals**         | Access to healthcare, construction, energy, chemicals, steel, cement, logistics markets |
 | **Recurring verification volume** | Onboarding + agent deployment + continuous monitoring per customer                      |
 | **EU AI Act compliance chain**    | IDV decisions logged in Firehorse audit trail — court-defensible by design              |
 | **Market category ownership**     | Agent identity is a new category. No IDV vendor serves it today.                        |
@@ -130,7 +130,7 @@ No IDV vendor today covers all three layers natively. That's the point — KYA-I
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-**Strategic implication:** Providers compete to climb the ladder. L5 is where the recurring revenue is — continuous monitoring per verified user per month. The provider that reaches Tier 3 first gets named as DWS's primary identity partner across 20 industry verticals.
+**Strategic implication:** Providers compete to climb the ladder. L5 is where the recurring revenue is — continuous monitoring per verified user per month. The provider that reaches Tier 3 first gets named as DWS's primary identity partner across 21 industry verticals.
 
 ---
 
