@@ -43,6 +43,7 @@ import apiKeyRoutes from './routes/api-keys.routes.js';
 import kyaWebhookRoutes from './routes/kya-webhook.routes.js';
 import gtmEventsRoutes from './routes/gtm-events.routes.js';
 import emailWebhookRoutes from './routes/email-webhook.routes.js';
+import analyticsRoutes from './routes/analytics.routes.js';
 import { terminateChain } from './identity/kya-engine.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
@@ -307,6 +308,9 @@ app.use('/api/gtm/events', gtmEventsRoutes);
 
 // Email Webhooks (Amazon SES bounce/delivery/open/click/complaint — Phase 2a)
 app.use('/webhooks/email', emailWebhookRoutes);
+
+// Analytics API (Funnel dashboard + drop-off analysis — Phase 2b)
+app.use('/api/v1/analytics', analyticsRoutes);
 
 const getHeaderValue = (value: string | string[] | undefined): string | undefined =>
   Array.isArray(value) ? value[0] : value;
