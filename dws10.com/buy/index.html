@@ -55,6 +55,21 @@
       }
     </script>
     <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
+    <meta name="gtm-container-id" content="GTM-5Q43B4J" />
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-5Q43B4J");
+    </script>
+    <!-- End Google Tag Manager -->
     <style>
       * {
         margin: 0;
@@ -1008,6 +1023,17 @@
     <!-- Google Merchant Center: feed-only integration (widget removed — injected duplicate mobile store UI in Brave/Chrome) -->
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-5Q43B4J"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <!-- Gamma Ironclad Navigation -->
     <script src="/shared-assets/nav/ironclad-nav.js"></script>
     <!-- Vertical 5-language bar — page element, not menu element -->
@@ -1816,8 +1842,85 @@
     <script src="/shared-assets/vat-locale.js"></script>
     <script src="/shared-assets/bundle-cart.js"></script>
     <script src="/shared-assets/footer/ironclad-footer.js"></script>
+    <!-- GTM Tracking for Store Page -->
     <script>
       (function () {
+        // Initialize GTM data layer and fire page view event
+        window.dataLayer = window.dataLayer || [];
+
+        // Fire page view event
+        window.dataLayer.push({
+          event: "page_view",
+          page_type: "store",
+          page_title: document.title,
+          user_segment: "anonymous",
+          timestamp: new Date().toISOString(),
+        });
+
+        // Track product views when cards are visible
+        document.addEventListener("DOMContentLoaded", function () {
+          const productCards = document.querySelectorAll("[data-product-id]");
+          productCards.forEach(function (card) {
+            card.addEventListener("click", function () {
+              const productId = card.getAttribute("data-product-id");
+              const productName =
+                card.querySelector("[data-product-name]")?.textContent || "Unknown";
+              const priceText = card.querySelector("[data-price]")?.textContent || "0";
+              const priceEur = parseFloat(priceText.replace(/[^\d.,]/g, "").replace(",", "."));
+
+              window.dataLayer.push({
+                event: "product_view",
+                product_id: productId,
+                product_name: productName,
+                price_eur: isNaN(priceEur) ? 0 : priceEur,
+                category: "sovereign-ai",
+                currency: "EUR",
+                timestamp: new Date().toISOString(),
+              });
+            });
+          });
+
+          // Track add to cart button clicks
+          const addToCartButtons = document.querySelectorAll('[data-action="add-to-cart"]');
+          addToCartButtons.forEach(function (btn) {
+            btn.addEventListener("click", function (e) {
+              const productId = btn.getAttribute("data-product-id");
+              const productName = btn.getAttribute("data-product-name") || "Unknown";
+              const priceText = btn.getAttribute("data-price") || "0";
+              const priceEur = parseFloat(priceText.replace(/[^\d.,]/g, "").replace(",", "."));
+
+              window.dataLayer.push({
+                event: "add_to_cart",
+                product_id: productId,
+                product_name: productName,
+                quantity: 1,
+                price_eur: isNaN(priceEur) ? 0 : priceEur,
+                currency: "EUR",
+                timestamp: new Date().toISOString(),
+              });
+            });
+          });
+
+          // Track checkout button clicks
+          const checkoutBtn = document.querySelector('[data-action="begin-checkout"]');
+          if (checkoutBtn) {
+            checkoutBtn.addEventListener("click", function () {
+              const cartTotal = document.querySelector("[data-cart-total]")?.textContent || "0";
+              const cartTotalEur = parseFloat(cartTotal.replace(/[^\d.,]/g, "").replace(",", "."));
+              const itemCount = document.querySelectorAll("[data-cart-item]").length || 0;
+
+              window.dataLayer.push({
+                event: "begin_checkout",
+                cart_value_eur: isNaN(cartTotalEur) ? 0 : cartTotalEur,
+                item_count: itemCount,
+                currency: "EUR",
+                timestamp: new Date().toISOString(),
+              });
+            });
+          }
+        });
+
+        // Step navigation tracking
         var from = new URLSearchParams(location.search).get("from");
         if (from) {
           var step = document.querySelector('.journey-step[data-step="' + from + '"]');
