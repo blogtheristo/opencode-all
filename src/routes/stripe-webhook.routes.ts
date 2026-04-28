@@ -153,6 +153,9 @@ router.post(
           timestamp: new Date(event.created * 1000).toISOString(),
         });
 
+        // Flush buffered GTM events before acknowledging the webhook so they
+        // are not lost if the process exits shortly after sending the 200 response.
+        await gtmEventLogger.flush();
         // Step 11: License delivery email sent — marks onboarding email dispatched
         gtmEventLogger.logEvent({
           event_type: 'email_sent',
