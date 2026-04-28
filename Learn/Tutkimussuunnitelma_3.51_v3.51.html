@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutkimussuunnitelma 3.51 — AI-Native Compliance Infrastructure v3.51</title>
+<style>
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;max-width:900px;margin:0 auto;padding:0 20px 40px;line-height:1.7;color:#1a1a2e;background:#fafafa}
+h1{color:#0f172a;border-bottom:3px solid #fbbf24;padding-bottom:10px}
+h2{color:#1e3a5f;border-bottom:1px solid #e2e8f0;padding-bottom:8px;margin-top:40px}
+h3{color:#334155}h4{color:#475569}
+code{background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:.9em}
+pre{background:#1e293b;color:#e2e8f0;padding:16px;border-radius:8px;overflow-x:auto}
+pre code{background:none;color:inherit}
+table{border-collapse:collapse;width:100%;margin:20px 0}
+th,td{border:1px solid #cbd5e1;padding:10px 14px;text-align:left}
+th{background:#1e3a5f;color:white}tr:nth-child(even){background:#f8fafc}
+blockquote{border-left:4px solid #fbbf24;margin:20px 0;padding:10px 20px;background:#fffbeb}
+a{color:#2563eb}strong{color:#0f172a}li{margin:4px 0}
+/* Version badge header */
+.dws-version-banner{background:#1e293b;color:#e2e8f0;padding:12px 20px;margin:-0px -20px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.85rem}
+.dws-version-badge{background:#fbbf24;color:#0f172a;font-weight:700;padding:4px 12px;border-radius:20px;font-size:.9rem;letter-spacing:.04em}
+.dws-version-meta{color:#94a3b8;font-size:.8rem}
+.dws-version-title{color:#e2e8f0;font-weight:600}
+</style>
+</head>
+<body>
+<div class="dws-version-banner">
+  <span class="dws-version-title">Tutkimussuunnitelma 3.51 — AI-Native Compliance Infrastructure</span>
+  <span class="dws-version-badge">v3.51</span>
+  <span class="dws-version-meta">Lifetime Oy · 2026-04-28 · Learn/ (private)</span>
+</div>
+<h1>Tutkimussuunnitelma 3.51 / Research Plan 3.51</h1>
+<h2>AI-Native Compliance Infrastructure: Three Research Streams</h2>
+<strong>Tekijä / Author:</strong> Lifetime Oy Research Division  
+<strong>Päivämäärä / Date:</strong> 2026-04-28  
+<strong>Versio / Version:</strong> 3.51  
+<strong>Kieli / Language:</strong> Bilingual (English / Finnish)
+<hr />
+<hr />
+<h1>VERSION AND AGENT HISTORY</h1>
+<p>Version: 3.51</p>
+<p>Sessions & Modifications:</p>
+<li>Version: 3.51 | Tool: Claude Code (Haiku 4.5) | Session: claude/sync-version-numbering-adEeB | Date: 28.04.2026 | Changes: Created new Tutkimussuunnitelma_3.51.md (Research Plan) — three research streams (KYA standardization, DWS 7 empirical testbed, dual-use industries), eight research questions, "Human in Command ja Human in Loop" governance framework, links to PhD sections 1.4–1.6; supports supervisor-guided refinement of research direction; unified version track with all 4 thesis files bumped to 3.51</li>
+<hr />
+<hr />
+<h2>1. Johdanto / Introduction</h2>
+<p>Tämä tutkimussuunnitelma kokoaa kolme toisiinsa liittyvää tutkimusaluetta, joita LUT-doktoraatissa kehitämme. Tavoitteena on selvittää, miten tekoälyagentit voidaan rakentaa siten, että ne tuottavat <strong>oikeudetaan kestäviä compliance-tietoja</strong> EU-säännellyissä teollisuusympäristöissä.</p>
+<strong>This research plan consolidates three interrelated research streams we are developing in the LUT doctoral programme. The objective is to clarify how AI agents can be built to produce legally defensible compliance data in EU-regulated industrial settings.</strong>
+<h3>Research Hypothesis</h3>
+<strong>"Carbon compliance is a ledger problem, not a reporting problem."</strong>
+<p>Double-entry bookkeeping solved the financial accounting problem centuries ago. The same architecture can solve carbon compliance across CBAM, CSRD, ETS, and EU Taxonomy — provided the agents that feed the ledger are:</p>
+<li><strong>Auditable</strong> (KYA governance ensures inspection and control)</li>
+<li><strong>Distributed</strong> (Multi-agent orchestration across verticals)</li>
+<li><strong>Sovereign</strong> (EU data residency, edge computation)</li>
+<hr />
+<h2>2. Kolme Tutkimuksellista Virta / Three Research Streams</h2>
+<h3>2.1 Stream 1: KYA Standardization</h3>
+<strong>Focus:</strong> Know Your Agent (KYA) as an open-source governance framework for agentic AI.
+<strong>Connection to PhD:</strong> Sections 1.5, 10.21 (KYA open-source path), 14.12 (Harness Engineering and Forensic Telemetry)
+<strong>Research Questions:</strong>
+<table><thead><tr><th>#</th><th>Question</th><th>Discussion Area</th></tr></thead><tbody><tr><td><strong>RQ 1.1</strong></td><td>What is the minimal viable governance model that allows auditors to inspect an AI agent's decision path without blocking deployment?</td><td>KYA Standard v1.4 – Article 12 logging</td></tr><tr><td><strong>RQ 1.2</strong></td><td>Can KYA be generalized beyond Lifetime's internal use to serve as an open-source standard for the broader agentic AI community?</td><td>Agentic AI Foundation / Linux Foundation submission</td></tr><tr><td><strong>RQ 1.3</strong></td><td>How does hardware attestation (trusted execution environments) improve the court-defensibility of AI agent decisions?</td><td>KYA Standard + Firehorse Report Engine</td></tr></tbody></table>
+<strong>Research Maturity:</strong> Draft → Scoped (Q3 2026) → Article 1 (Q1 2027)
+<hr />
+<h3>2.2 Stream 2: DWS 7 as Empirical Testbed</h3>
+<strong>Focus:</strong> Validation of carbon-ledger infrastructure, multi-agent orchestration, and sovereignty segmentation.
+<strong>Connection to PhD:</strong> Sections 1.4 (Carbon Balance Sheet thesis), 10.18 (LWM Sequencing Strategy), 14.14–14.20 (Evolution sections)
+<strong>Research Questions:</strong>
+<table><thead><tr><th>#</th><th>Question</th><th>Discussion Area</th></tr></thead><tbody><tr><td><strong>RQ 2.1</strong></td><td>Is the analogy between financial double-entry bookkeeping and carbon compliance formally sound, or merely metaphorical?</td><td>Structural isomorphism analysis</td></tr><tr><td><strong>RQ 2.2</strong></td><td>Does cross-vertical intelligence (multi-industry carbon ledger) produce accuracy improvements that single-vertical tools cannot achieve?</td><td>Case study: steel mill ETS → construction CBAM</td></tr><tr><td><strong>RQ 2.3</strong></td><td>At what scale (number of industries, entities) does the ledger become self-reinforcing?</td><td>Network effects in compliance data</td></tr><tr><td><strong>RQ 2.4</strong></td><td>How do Aegis (security), Sovereign Infra (EU), and Connect (global) product tiers operationalize the research findings?</td><td>Product-tier implementation</td></tr></tbody></table>
+<strong>Research Maturity:</strong> Prototype (DWS 6) → Validated (DWS 7 Phase 2.6) → Article 2 (Q2 2027) + Article 3 (Q2 2028)
+<hr />
+<h3>2.3 Stream 3: Dual-Use Industries & Defence</h3>
+<strong>Focus:</strong> Compliance automation in industrial + defence sectors; hydrogen economy as longitudinal thread.
+<strong>Connection to PhD:</strong> Section 1.5 (Dual-use research stream), 10.21 (Nokia Defence discussions)
+<strong>Research Questions:</strong>
+<table><thead><tr><th>#</th><th>Question</th><th>Discussion Area</th></tr></thead><tbody><tr><td><strong>RQ 3.1</strong></td><td>What are the unique compliance and governance requirements for dual-use industries (industrial + defence)?</td><td>Nokia Defence partnership, Aegis product</td></tr><tr><td><strong>RQ 3.2</strong></td><td>Can hydrogen economy compliance (RFNBO additionality, EU Delegated Regulation 2023/1184) demonstrate cross-regulatory reconciliation at scale?</td><td>DWS 7 Agent 22: Datacentre Compliance</td></tr><tr><td><strong>RQ 3.3</strong></td><td>How does sovereignty segmentation (EU-only vs. global) affect agent architecture and data flows?</td><td>Sovereign Infra tier design</td></tr></tbody></table>
+<strong>Research Maturity:</strong> Preliminary (Q2 2026) → Validation phase (Q3–Q4 2026) → Article 4 (Q4 2028)
+<hr />
+<h2>3. "Human in Command" & "Human in Loop": Governance Model</h2>
+<h3>The Central Governance Tension</h3>
+<p>AI agents can produce compliance data faster than humans can review it. This creates a dilemma:</p>
+<li><strong>Human in Command:</strong> Humans make all compliance decisions; agents only suggest. <strong>Problem:</strong> Slows decision-making, defeats automation value.</li>
+<li><strong>Human in Loop:</strong> Humans review agent outputs before commitment. <strong>Problem:</strong> May miss errors if review is cursory; fails under high-volume scenarios (1000 SKUs, 20 industry verticals, daily regulatory changes).</li>
+<li><strong>Human in Observe:</strong> Agents make decisions; humans audit retroactively. <strong>Problem:</strong> Compliance breach may already be committed.</li>
+<strong>Research Question RQ 1.1 directly addresses this:</strong> KYA provides the inspection infrastructure so that humans can remain genuinely <strong>in command</strong> (they retain veto power over any decision, even retroactively) while allowing agents to run at operational speed.
+<h3>Implementation in Firehorse Operations</h3>
+<p>Three product tiers implement different governance models:</p>
+<table><thead><tr><th>Tier</th><th>Model</th><th>Compliance Scope</th><th>Governance</th></tr></thead><tbody><tr><td><strong>Aegis</strong></td><td>Human in Command + Cryptographic Verification</td><td>High-risk (defence, critical infra)</td><td>Full KYA audit trail, signed reports</td></tr><tr><td><strong>Sovereign Infra</strong></td><td>Human in Loop (daily review)</td><td>Medium-risk (industrial, supply chain)</td><td>KYA logging + periodic audit</td></tr><tr><td><strong>Connect</strong></td><td>Human in Observe (monthly audit)</td><td>Low-risk (informational reporting)</td><td>KYA logging only</td></tr></tbody></table>
+<hr />
+<h2>4. Research Methods</h2>
+<h3>4.1 Design Science Research (DSR)</h3>
+<p>Artifact construction and validation in real-world environments:</p>
+<li><strong>Artifacts:</strong> DWS IQ 6 (current), DWS 7 (2026–2027), KYA Standard (open-source)</li>
+<li><strong>Validation:</strong> Customer deployments, regulatory audits, peer review</li>
+<h3>4.2 Empirical Case Studies</h3>
+<p>Industry-specific validation:</p>
+<li><strong>Steel/Construction:</strong> CBAM embedded emissions accuracy (target ±3% vs. industry ±40%)</li>
+<li><strong>Hydrogen:</strong> RFNBO additionality verification (first EU-scale test)</li>
+<li><strong>Defence:</strong> Sovereignty and audit requirements (Nokia partnership)</li>
+<h3>4.3 Peer-Reviewed Publication Track</h3>
+<table><thead><tr><th>Article</th><th>Topic</th><th>Target Venue</th><th>Timeline</th></tr></thead><tbody><tr><td>Article 1</td><td>KYA Standard (open-source framework)</td><td>Agentic AI Foundation + IEEE/ACM AI Ethics</td><td>Q1 2027</td></tr><tr><td>Article 2</td><td>MCP Architecture for Multi-Agent Compliance</td><td>International Conference on Data-Intensive Systems</td><td>Q2 2027</td></tr><tr><td>Article 3</td><td>Empirical Validation: Cross-Vertical Accuracy</td><td>Journal of Cleaner Production (CSRD focus)</td><td>Q2 2028</td></tr><tr><td>Article 4</td><td>Dual-Use Governance Model</td><td>Journal of Cybersecurity Policy (defence focus)</td><td>Q4 2028</td></tr></tbody></table>
+<hr />
+<h2>5. Discussion Topics for Supervisor Feedback</h2>
+<strong>For Prof. Kari Smolander:</strong>
+<li><strong>Scope Feasibility:</strong> Are four publication streams realistic within 2-3 years, or should we consolidate to two primary articles?</li>
+<li><strong>Empirical Validation:</strong> Which research stream would benefit most from an external partner (e.g., Nokia Defence, Qantic Energy, construction sector)?</li>
+<li><strong>Methodological Fit:</strong> Does Design Science Research (DSR) remain the right methodological fit, or should we add experimental design for cross-vertical accuracy claims?</li>
+<li><strong>Open-Source Path:</strong> Should KYA standardization (Article 1) prioritize Agentic AI Foundation (academic credibility) or Linux Foundation (industrial adoption)?</li>
+<li><strong>Publication Language:</strong> Should the KYA standard proposal be bilingual (EN + FI) to strengthen Nordic visibility, or English-only for international reach?</li>
+<hr />
+<h2>6. Next Steps (Q2 2026)</h2>
+<table><thead><tr><th>Deadline</th><th>Milestone</th><th>Owner</th></tr></thead><tbody><tr><td>2026-05-15</td><td>Supervisor feedback on research streams (this plan)</td><td>Prof. Smolander</td></tr><tr><td>2026-05-31</td><td>KYA Standard v1.5 finalized + regulatory mapping</td><td>Lifetime R&D</td></tr><tr><td>2026-06-15</td><td>DWS 7 Phase 2.1 design review (empirical testbed setup)</td><td>Lifetime R&D</td></tr><tr><td>2026-07-15</td><td>Draft Article 1 (KYA standard) ready for peer review</td><td>Lifetime + Collaborators</td></tr><tr><td>2026-09-30</td><td>First steel/hydrogen case study validation (RQ 2.2 evidence)</td><td>Qantic + Partners</td></tr></tbody></table>
+<hr />
+<h2>7. References to Full Thesis Documents</h2>
+<li><strong>PhD_FIREHORSE_EN.md</strong> — Sections 1.4 (Carbon Balance Sheet thesis), 1.5 (Research focus refinement)</li>
+<li><strong>V3Thesis_EN.md</strong> — Sections 10.13–10.21 (Skills, Strategic Partnerships, DWS Evolution)</li>
+<li><strong>DWS_ARTICLE_12_LOGGING_STANDARD.md</strong> — KYA logging protocol, audit trail requirements</li>
+<li><strong>DWS_DATA_STANDARD.md</strong> — Carbon ledger data architecture (Section 3)</li>
+<hr />
+<h2>Appendix A: Research Question Matrix</h2>
+<pre><code>Stream 1: KYA Standardization
+├── RQ 1.1: Minimal viable governance model (Article 12 audit trail)
+├── RQ 1.2: Open-source generalization (Agentic AI Foundation)
+└── RQ 1.3: Hardware attestation + court-defensibility (TEE integration)
+<p>Stream 2: DWS 7 Empirical Testbed ├── RQ 2.1: Financial double-entry analogy validity ├── RQ 2.2: Cross-vertical intelligence gains (accuracy) ├── RQ 2.3: Network effects in compliance data └── RQ 2.4: Product-tier operationalization (Aegis/Sovereign/Connect)</p>
+<p>Stream 3: Dual-Use &amp; Hydrogen Economy ├── RQ 3.1: Defence + industrial unique requirements ├── RQ 3.2: RFNBO additionality at scale └── RQ 3.3: Sovereignty segmentation effects on architecture </code></pre></p>
+<hr />
+<strong>Document Status:</strong>
+<li>Created: 28.04.2026</li>
+<li>Language: English & Finnish (Bilingual)</li>
+<li>Version: 3.51 (unified thesis track)</li>
+<li>Status: ACTIVE — Ready for supervisor discussion</li>
+<strong>Next Review:</strong> After supervisor feedback (Prof. Kari Smolander), refine scopes and publication targets.
+</body>
+</html>
