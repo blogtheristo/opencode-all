@@ -1,5 +1,5 @@
 /**
- * DWS10.com Iron Clad / Gamma Navigation v3.8
+ * DWS10.com Iron Clad / Gamma Navigation v3.9
  * Unified navigation bar for all pages (Gamma-aligned with mobile hamburger menu)
  * Single source of truth: dws10.com/shared-assets/nav/ironclad-nav.js
  * Synced to lifetime.fi and onelifetime.world via scripts/on-deploy/sync-ironclad-nav.sh
@@ -7,6 +7,7 @@
  * Usage: Add this script to any page:
  * <script src="/shared-assets/nav/ironclad-nav.js"></script>
  *
+ * v3.9 — About ▾: "Certified Partners" replaced with "Partner Tiers ▸" flyout (Partner Program, Aegis Tier 1, Sovereign Infra Tier 2, Connect Tier 3) — same 4 partner links as in Solutions ▾ ▸ Integrations ▸
  * v3.8 — Compliance renamed to "Compliance Hub"; moved from Home ▾ to Solutions ▾ (after CSRD, above Integrations)
  * v3.7 — Lifetime Studios + Lifetime Consulting moved to Lifetime Group submenu (About ▾);
  *         Other ▸ flyout removed from Home ▾; Designs removed from nav
@@ -81,7 +82,7 @@
 
   // Navigation HTML (Gamma-aligned with hamburger support)
   const navHTML = `
-<!-- DWS10.com Iron Clad / Gamma Navigation v3.8 (Mobile Hamburger) -->
+<!-- DWS10.com Iron Clad / Gamma Navigation v3.9 (Mobile Hamburger) -->
 <header class="ironclad-header">
     <div class="ironclad-container">
         <div class="ironclad-logo-section">
@@ -213,7 +214,15 @@
                         <li><a href="https://onelifetime.world" target="_blank">Lifetime World</a></li>
                         <li><a href="${basePath}team/">Team</a></li>
                         <li><a href="${basePath}careers/">Careers</a></li>
-                        <li><a href="${basePath}partners/" class="ironclad-primary">Certified Partners</a></li>
+                        <li class="ironclad-has-submenu">
+                            <a href="${basePath}partners/" class="ironclad-primary">Partner Tiers ▸</a>
+                            <ul class="ironclad-submenu">
+                                <li><a href="${basePath}partners/" class="ironclad-primary">Partner Program</a></li>
+                                <li><a href="${basePath}aegis-partners/">Aegis Partners (Tier 1)</a></li>
+                                <li><a href="${basePath}sovereign-infra-partners/">Sovereign Infra Partners (Tier 2)</a></li>
+                                <li><a href="${basePath}connect-partners/">Connect Partners (Tier 3)</a></li>
+                            </ul>
+                        </li>
                         <li><a href="${basePath}book/" class="ironclad-highlight">📅 Book Meeting</a></li>
                         <li class="ironclad-separator"></li>
                         <!-- Investor section (Press Releases, Investor Relations, Series A, Investment Safety) -->
@@ -1266,8 +1275,6 @@
     // Language bar is a PAGE ELEMENT, not a nav/menu element.
     // Include /shared-assets/vertical-lang-bar.js directly on each page that needs it.
 
-    console.log(
-      'Iron Clad / Gamma Navigation v3.8 loaded (Compliance Hub in Solutions + Lifetime Group cleanup)',
-    );
+    console.log('Iron Clad / Gamma Navigation v3.9 loaded (About ▾ → Partner Tiers ▸ flyout)');
   });
 })();
