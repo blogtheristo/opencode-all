@@ -15,7 +15,7 @@
 import { type Request, type Response, Router } from 'express';
 import { body, param, validationResult, query } from 'express-validator';
 import logger from '../utils/logger.js';
-import { supabase } from '../services/supabase.js';
+import { getSupabaseClient } from '../config/supabase.js';
 import emailService from '../services/email.service.js';
 
 const router = Router();
@@ -48,6 +48,7 @@ function handleValidationErrors(req: Request, res: Response): boolean {
  */
 async function isFinnishHoliday(date: Date): Promise<boolean> {
   const dateStr = date.toISOString().split('T')[0]; // YYYY-MM-DD
+  const supabase = getSupabaseClient();
   const { data, error } = await supabase
     .from('finnish_holidays')
     .select('id')
@@ -71,6 +72,7 @@ async function getAvailableSlotsForDate(
   dateStr: string, // YYYY-MM-DD
   durationMinutes: number,
 ): Promise<string[]> {
+  const supabase = getSupabaseClient();
   const date = new Date(dateStr + 'T00:00:00Z');
   const dayOfWeek = date.getUTCDay(); // 0=Sunday, 6=Saturday
 
@@ -162,6 +164,7 @@ async function getAvailableSlotsForDate(
 
 router.get('/services', async (req: Request, res: Response) => {
   try {
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from('booking_services')
       .select('*')
@@ -196,6 +199,7 @@ router.get(
   async (req: Request, res: Response) => {
     if (handleValidationErrors(req, res)) return;
 
+    const supabase = getSupabaseClient();
     const { serviceId } = req.params;
     let { startDate, endDate } = req.query;
 
@@ -277,6 +281,8 @@ const reserveValidation = [
 
 router.post('/reserve', reserveValidation, async (req: Request, res: Response) => {
   if (handleValidationErrors(req, res)) return;
+
+  const supabase = getSupabaseClient();
 
   const {
     serviceId,
@@ -431,6 +437,7 @@ const emailParamValidation = [param('email').isEmail().withMessage('Valid email 
 router.get('/reservations/:email', emailParamValidation, async (req: Request, res: Response) => {
   if (handleValidationErrors(req, res)) return;
 
+  const supabase = getSupabaseClient();
   const { email } = req.params;
 
   try {
@@ -466,6 +473,7 @@ const idParamValidation = [param('id').isUUID().withMessage('Valid reservation I
 router.delete('/reservations/:id', idParamValidation, async (req: Request, res: Response) => {
   if (handleValidationErrors(req, res)) return;
 
+  const supabase = getSupabaseClient();
   const { id } = req.params;
 
   try {
