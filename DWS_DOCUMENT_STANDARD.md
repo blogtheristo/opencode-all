@@ -380,7 +380,7 @@ Used for `supabase/migrations/*.sql` and any hand-written DDL migrations.
   - Examples: `002`, `013`, `030`, `036`
 - **DDMMYY**: Creation date (day, month, year) in `ddmmyy` format
   - Examples: `270226` = 27.02.2026
-- **name**: Short, lowercase, snake*case description (`*` is allowed and encouraged)
+- **name**: Short, lowercase, `snake_case` description
 
 **Examples:**
 
