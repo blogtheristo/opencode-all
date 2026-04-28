@@ -152,16 +152,6 @@
                                 </li>
                             </ul>
                         </li>
-                        <!-- Designs flyout -->
-                        <li class="ironclad-has-submenu">
-                            <a href="#" class="ironclad-secondary">Designs ▸</a>
-                            <ul class="ironclad-submenu">
-                                <li><a href="${basePath}gamma/" class="ironclad-primary">Gamma (Current)</a></li>
-                                <li><a href="${basePath}theta/">Theta</a></li>
-                                <li><a href="${basePath}ultra/" class="ironclad-secondary">Ultra</a></li>
-                                <li><a href="${basePath}industrial-preview/" class="ironclad-secondary">Ultra II - Industrial</a></li>
-                            </ul>
-                        </li>
                         <!-- Legal Hub — direct link (v3.4: simplified, no flyout) -->
                         <li><a href="${basePath}legal/" class="ironclad-legal">Legal Hub</a></li>
                         <!-- Compliance flyout -->
@@ -278,14 +268,6 @@
                                 <li><a href="${basePath}lifetime-consulting/" class="ironclad-highlight">DWS Product Family Vision</a></li>
                                 <li><a href="${basePath}lifetime-studios/">Lifetime Studios</a></li>
                                 <li><a href="${basePath}roadmap/">DWS Roadmap</a></li>
-                            </ul>
-                        </li>
-                        <li class="ironclad-has-submenu">
-                            <a href="#" class="ironclad-secondary">Designs ▸</a>
-                            <ul class="ironclad-submenu">
-                                <li><a href="${basePath}theta/" class="ironclad-secondary">Theta</a></li>
-                                <li><a href="${basePath}gamma/" class="ironclad-primary">Gamma</a></li>
-                                <li><a href="${basePath}ultra/" class="ironclad-secondary">Ultra</a></li>
                             </ul>
                         </li>
                         <!-- Legal Hub — direct link (v3.4: simplified, no flyout) -->
