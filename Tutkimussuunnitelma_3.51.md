@@ -25,7 +25,7 @@ Sessions & Modifications:
 
 ## 1. Johdanto / Introduction
 
-Tämä tutkimussuunnitelma kokoaa kolme toisiinsa liittyvää tutkimusaluetta, joita LUT-doktoraatissa kehitämme. Tavoitteena on selvittää, miten tekoälyagentit voidaan rakentaa siten, että ne tuottavat **oikeudetaan kestäviä compliance-tietoja** EU-säännellyissä teollisuusympäristöissä.
+Tämä tutkimussuunnitelma kokoaa kolme toisiinsa liittyvää tutkimusaluetta, joita LUT-doktoraatissa kehitämme. Tavoitteena on selvittää, miten tekoälyagentit voidaan rakentaa siten, että ne tuottavat **oikeudellisesti kestäviä compliance-tietoja** EU-säännellyissä teollisuusympäristöissä.
 
 **This research plan consolidates three interrelated research streams we are developing in the LUT doctoral programme. The objective is to clarify how AI agents can be built to produce legally defensible compliance data in EU-regulated industrial settings.**
 
