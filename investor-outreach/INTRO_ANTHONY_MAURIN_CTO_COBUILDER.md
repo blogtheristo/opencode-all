@@ -44,11 +44,7 @@ AGENT HISTORY:
 ## Drawbacks / Mitigations
 
 - **He's NOT looking for a CTO role** — He's deploying capital, not job-hunting. **Mitigation:** frame the ask as "co-builder + angel," not "hire." Structure: angel check into the SAFE + meaningful equity for technical co-build contribution + optional CTO conversion trigger if he wants it. Low-commitment entry, high-commitment option kept open.
-<<<<<<< HEAD
 - **Paris location (not Helsinki)** — Mikko (Track 1) is Finnish and time-zone co-located. Anthony would be remote-first. **Mitigation:** entire DWS IQ 6 stack is async-friendly (GitHub, MCP, sovereignty audit trail). Remote co-builder model is standard for post-Volted founder. Paris is +1h from Helsinki, not a real friction.
-=======
-- **Paris location (not Helsinki)** — Mikko (Track 1) is Finnish and time-zone co-located. Anthony would be remote-first. **Mitigation:** entire DWS IQ 6 stack is async-friendly (GitHub, MCP, Aiven audit trail). Remote co-builder model is standard for post-Volted founder. Paris is +1h from Helsinki, not a real friction.
->>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 - **Conflict with Mikko (Track 1 CTO search)** — Cannot promise the CTO seat to two people. **Mitigation:** sequencing discipline.
   - IF Anthony says yes as co-builder + angel BEFORE Mikko's formal ask (week of April 28): reframe the Mikko conversation from "CTO ask" to "strategic advisor ask" — still valuable, honest framing, preserves the relationship
   - IF Mikko says yes as CTO first: Anthony remains angel + technical advisor, with first right on any future senior technical expansion (VP Eng, second co-builder on Aegis module)
@@ -75,11 +71,7 @@ AGENT HISTORY:
 
 Hi Anthony — saw your open-source MCP work, congrats on the Volted exit.
 
-<<<<<<< HEAD
 I'm Risto, founder of Lifetime Oy (Finland). We're shipping DWS IQ 6 — an 21-agent MCP-exposed B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports, EU AI Act audit trail. EUR 7K MRR, 5 customers, 100% retention. V1 launches at Arctic 15 on June 15.
-=======
-I'm Risto, founder of Lifetime Oy (Finland). We're shipping DWS IQ 6 — an 21-agent MCP-exposed B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports, Aiven audit trail. EUR 7K MRR, 5 customers, 100% retention. V1 launches at Arctic 15 on June 15.
->>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 
 Not pitching you a CTO role — I know you're in angel mode. First ask is simple: would you take an angel ticket into our SAFE (EUR 3.8M cap, standard terms)? If yes and the architecture also pulls you in, we can open a separate conversation later about a contribution-milestone co-builder structure — but angel first, build second, no bundling. Warm intro mutual, happy to route that way. Send the memo + architecture diagram?
 
@@ -91,11 +83,7 @@ Hi Anthony,
 
 Risto Päärni, Lifetime Oy (Espoo, Finland). Reaching out because your open-source MCP work and the Volted exit put you in rare territory — a repeat technical founder, fluent in the exact stack we're shipping, and currently deploying angel capital.
 
-<<<<<<< HEAD
 DWS IQ 6 is an 21-agent B2B SaaS for EU industrial compliance. MCP-exposed (JSON-RPC 2.0), ERP connectors (SAP S/4HANA, IFS Cloud, Dynamics 365), EU AI Act reasoning lineage, EU AI Act compliant from v0. EUR 7K MRR, 6 paying customers, 100% retention. V1 launches June 15 at Arctic 15, German Messe commercial push follows.
-=======
-DWS IQ 6 is an 21-agent B2B SaaS for EU industrial compliance. MCP-exposed (JSON-RPC 2.0), ERP connectors (SAP S/4HANA, IFS Cloud, Dynamics 365), Aiven reasoning lineage, EU AI Act compliant from v0. EUR 7K MRR, 6 paying customers, 100% retention. V1 launches June 15 at Arctic 15, German Messe commercial push follows.
->>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 
 **Why I'm writing:** I'm not recruiting you as CTO. You're deploying capital, you're in builder-mode, you just exited. The ask is sequenced — angel first, build second, no bundling:
 

@@ -67,11 +67,7 @@ Automatic merge failed; fix conflicts and then commit the result.
 Open each conflicting file in your editor (VS Code, Cursor, Notepad++, etc.). You'll see conflict markers like:
 
 ```html
-<<<<<<< HEAD
 Your changes from the PR branch
-=======
-Changes from main
->>>>>>> origin/main
 ```
 
 **For each conflict:**

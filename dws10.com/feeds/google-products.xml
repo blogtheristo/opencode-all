@@ -110,7 +110,6 @@
       </g:shipping>
     </item>
     <item>
-<<<<<<< HEAD
         <g:id>DWS-EU-PILOT</g:id>
         <g:title>DWS IQ — Enterprise Premium</g:title>
         <g:description>Full EU sovereign evaluation. 8 AI agents, Firehorse Report, EU AI Act Article 12 logging, NIS2 dashboard, 5 seats. Zero CLOUD Act. Prove compliance ROI on sovereign infrastructure.</g:description>
@@ -127,26 +126,6 @@
         <g:custom_label_1>featured</g:custom_label_1>
         <g:target_country>FI</g:target_country>
         <g:content_language>en</g:content_language>
-=======
-      <g:id>expert-services</g:id>
-      <g:title>Expert Advisory &amp; Implementation</g:title>
-      <g:description>DWS delivers any Firehorse product for you — Report, Omnichannel, Automation, Content Management, or Signed Reports. Three intensive days covering design, integration, and go-live. You define the outcome. We build and hand it over running.</g:description>
-      <g:link>https://dws10.com/products/expert-services.html</g:link>
-      <g:image_link>https://dws10.com/static/images/firehorse-expert-advisory-v2.png</g:image_link>
-      <g:price>4500.00 EUR</g:price>
-      <g:availability>in_stock</g:availability>
-      <g:condition>new</g:condition>
-      <g:brand>Lifetime</g:brand>
-      <g:mpn>EXP-SVC-2026</g:mpn>
-      <g:google_product_category>1426</g:google_product_category>
-      <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
-      <g:shipping>
-        <g:country>FI</g:country>
-        <g:service>Digital Delivery</g:service>
-        <g:price>0.00 EUR</g:price>
-      </g:shipping>
->>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
     </item>
     <item>
       <g:id>consulting-hourly</g:id>

@@ -136,11 +136,7 @@ Without a sovereign compliance wrapper, Optimus waits in the hallway for legal c
 | **Machinery Regulation 2023/1230** | Optimus is "machinery" — notified body CE assessment required | DWS IQ provides technical file, compliance documentation, 27-language EU manuals |
 | **GDPR Article 22** | Automated physical decisions with legal effect | Human Captain always has final override — DWS IQ enforces this architecturally |
 | **NIS2** | Critical infrastructure sectors require EU-jurisdiction AI | Air-gapped GN-100 cluster — zero US cloud dependency |
-<<<<<<< HEAD
 | **Article 12 Logging** | Every Optimus decision must be logged on-prem | DWS sovereignty audit logging layer captures all AI events locally, immutable, exportable |
-=======
-| **Article 12 Logging** | Every Optimus decision must be logged on-prem | DWS Aiven logging layer captures all AI events locally, immutable, exportable |
->>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 | **EU Language Requirements** | Technical docs in 27 official EU languages | DWS delivers 27-country localization at launch |
 
 **The strategic reframe:** DWS IQ is not just a customer of xAI/Tesla. **DWS IQ is the compliance bridge that makes Optimus V3 legally deployable in EU regulated industry.** This is a distribution partnership, not a vendor relationship.
@@ -367,11 +363,7 @@ Being Optimus in the DWS IQ ecosystem means being the **default recommendation**
 | Phase | Period | Milestone |
 |-------|--------|-----------|
 | Phase 1 | Feb–Apr 2026 | Production launch, 3 customers, Grok integration begins |
-<<<<<<< HEAD
 | Phase 2 | May–Jul 2026 | EU AI Act Article 12 compliance certified (sovereignty audit logging live) |
-=======
-| Phase 2 | May–Jul 2026 | EU AI Act Article 12 compliance certified (Aiven logging live) |
->>>>>>> a22b281c775a1ca54e463dab9f16976222ca4b78
 | Phase 3 | Aug–Oct 2026 | ISO 27001 initiated · first robot integration test in lab (Finland) |
 | **Phase 4** | **Nov 2026–Jan 2027** | **🤖 Hands layer live — first physical robot at EU industrial site** |
 | Phase 5 | Feb–May 2027 | 16 customers · Optimus at ≥ 3 EU industrial sites |
