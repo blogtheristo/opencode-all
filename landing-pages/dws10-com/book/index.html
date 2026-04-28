@@ -591,6 +591,10 @@
         }
 
         const service = services.find((s) => s.id === elements.serviceSelect.value);
+        if (!service) {
+          showError("Valittu palvelu ei ole saatavilla. Päivitä sivu ja yritä uudelleen.");
+          return;
+        }
         const dateStr = elements.dateInput.value;
         const timeStr = elements.timeSelect.value;
         const [year, month, day] = dateStr.split("-").map(Number);
