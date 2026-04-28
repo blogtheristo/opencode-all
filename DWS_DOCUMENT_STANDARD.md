@@ -469,11 +469,11 @@ Used for `supabase/migrations/*.sql` and any hand-written DDL migrations.
 
 - `3.37 → 3.38 → 3.39 → … → 3.99 → 4.00 → 4.01 → …`
 - **Never** separate versioning for individual files
-- **Never** skip versions (no jumps like `3.39 → 3.51` within the files themselves; version bumps are sequential)
+- **Never** skip versions in the actual file headers; every underlying bump must be sequential by `0.01` (so no direct header jump like `3.39 → 3.51`)
 
 **Rationale:** Unified versioning ensures that when a supervisor, reviewer, or stakeholder references "version 3.51," all four documents are in sync. This prevents the confusion that arises from forked version tracks (Metropolia at 3.39, PHD at 2.10, etc.).
 
-**Implementation:** When bumping thesis versions, update the `Version: X.YZ` header in all 4 files simultaneously. Add a single entry in the VERSION AND AGENT HISTORY block (per file) documenting the change. The VERSION AND AGENT HISTORY entry may consolidate multiple intermediate steps (e.g., "Bumped 3.39 → 3.51" in one entry) with a note: "12 steps × 0.01 → unified thesis track maintained."
+**Implementation:** When bumping thesis versions, update the `Version: X.YZ` header in all 4 files simultaneously. Add a single entry in the VERSION AND AGENT HISTORY block (per file) documenting the change. The VERSION AND AGENT HISTORY entry may use condensed range notation only as a summary of sequential `0.01` bumps already performed (e.g., "Bumped 3.39 → 3.51" with the note: "12 steps × 0.01 → unified thesis track maintained"). This summary notation does **not** permit skipping intermediate versions in the files themselves.
 
 ---
 
