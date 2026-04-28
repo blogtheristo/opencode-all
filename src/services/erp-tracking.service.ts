@@ -172,10 +172,11 @@ class ERPTrackingService {
     const eventType = `erp_${event.event}`;
     const sessionId = `tenant_${event.tenantId}`;
 
-    await gtmEventLogger.push({
+    gtmEventLogger.logEvent({
       event_type: eventType,
-      event_source: 'erp_tracking',
+      source: 'backend',
       properties: {
+        event_source: 'erp_tracking',
         tenant_id: event.tenantId,
         erp_system: event.erpSystem,
         admin_email: event.adminEmail,
@@ -188,11 +189,14 @@ class ERPTrackingService {
   }
 
   private emitEvent(event: ERPConnectionEvent): void {
-    eventBus.emit({
+    void eventBus.emit({
       type: `erp.${event.event}`,
       source: 'erp_tracking',
+      priority: 'normal',
+      orgId: event.tenantId,
+      sessionId: `tenant_${event.tenantId}`,
       timestamp: event.timestamp,
-      data: {
+      payload: {
         tenantId: event.tenantId,
         erpSystem: event.erpSystem,
         adminEmail: event.adminEmail,

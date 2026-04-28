@@ -118,10 +118,11 @@ class RoleTrackingService {
     const eventType = `admin_role_${event.event}`;
     const sessionId = `tenant_${event.tenantId}`;
 
-    await gtmEventLogger.push({
+    gtmEventLogger.logEvent({
       event_type: eventType,
-      event_source: 'role_tracking',
+      source: 'backend',
       properties: {
+        event_source: 'role_tracking',
         tenant_id: event.tenantId,
         billing_owner_email: event.billingOwnerEmail,
         tenant_admin_email: event.tenantAdminEmail,
@@ -137,11 +138,14 @@ class RoleTrackingService {
   }
 
   private emitEvent(event: AdminRoleEvent): void {
-    eventBus.emit({
+    void eventBus.emit({
       type: `role.${event.event}`,
       source: 'role_tracking',
+      priority: 'normal',
+      orgId: event.tenantId,
+      sessionId: `tenant_${event.tenantId}`,
       timestamp: event.timestamp,
-      data: {
+      payload: {
         tenantId: event.tenantId,
         billingOwnerEmail: event.billingOwnerEmail,
         tenantAdminEmail: event.tenantAdminEmail,
