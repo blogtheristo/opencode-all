@@ -18,6 +18,7 @@
 import { Router, Request, Response } from 'express';
 import logger from '../utils/logger.js';
 import { emailTrackingService } from '../services/email-tracking.service.js';
+import { getSupabaseClient } from '../config/supabase.js';
 
 const router = Router();
 
@@ -139,7 +140,22 @@ router.post('/ses', async (req: Request, res: Response) => {
       });
 
       const emailId = ses.messageId || 'unknown';
-      await emailTrackingService.logEmailOpened(emailId, email);
+
+      // Look up the template from email_logs so the GTM funnel can match step 12 (welcome%)
+      let template: string | undefined;
+      const supabase = getSupabaseClient();
+      if (supabase) {
+        const { data } = await supabase
+          .from('email_logs')
+          .select('template_type')
+          .eq('to_email', email)
+          .order('sent_at', { ascending: false })
+          .limit(1)
+          .maybeSingle();
+        template = data?.template_type ?? undefined;
+      }
+
+      await emailTrackingService.logEmailOpened(emailId, email, undefined, template);
 
       return res.status(200).json({ success: true, message: 'Open event logged' });
     }

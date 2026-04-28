@@ -2050,6 +2050,49 @@
             sendToBackend(showEvt);
           });
 
+          // Steps 2 + 6: event delegation — handles bundle-cart elements injected after DOMContentLoaded
+          document.addEventListener("click", function (e) {
+            // Step 2: coupon Apply button
+            if (e.target.closest("[data-coupon-apply]")) {
+              var couponInputEl = document.querySelector("[data-coupon-input]");
+              var code = couponInputEl ? couponInputEl.value.trim().toUpperCase() : "";
+              if (!code) return;
+              var couponEvt = {
+                event: "discount_applied",
+                step: 2,
+                coupon_code: code,
+                timestamp: new Date().toISOString(),
+              };
+              window.dataLayer.push(couponEvt);
+              sendToBackend(couponEvt);
+            }
+            // Step 6: confirm-order (bundle "Order bundle" link)
+            if (e.target.closest('[data-action="confirm-order"]')) {
+              var confirmEvt = {
+                event: "order_accepted",
+                step: 6,
+                timestamp: new Date().toISOString(),
+              };
+              window.dataLayer.push(confirmEvt);
+              sendToBackend(confirmEvt);
+            }
+          });
+          // Step 2: Enter key in coupon input
+          document.addEventListener("keydown", function (e) {
+            if (e.key === "Enter" && e.target.closest("[data-coupon-input]")) {
+              var code = e.target.value.trim().toUpperCase();
+              if (!code) return;
+              var couponEvt = {
+                event: "discount_applied",
+                step: 2,
+                coupon_code: code,
+                timestamp: new Date().toISOString(),
+              };
+              window.dataLayer.push(couponEvt);
+              sendToBackend(couponEvt);
+            }
+          });
+
           // Track form abandonment (Step 4)
           const formElement = document.querySelector('[data-form="enterprise-details"]');
           if (formElement) {
