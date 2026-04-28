@@ -134,6 +134,10 @@
                     </ul>
                 </li>
 
+                <!-- Book Meeting CTA -->
+                <li class="olw-menu-item">
+                    <a href="https://dws10.com/book/?service=demo" class="olw-cta-book" title="Book a meeting — Demo or Consultation">📅 Book Meeting</a>
+                </li>
                 <!-- DWS IQ Login CTA -->
                 <li class="olw-menu-item">
                     <a href="https://dws6.com/login" class="olw-cta">IQ Login</a>
@@ -321,6 +325,29 @@
     filter: brightness(1.1);
 }
 
+/* Book Meeting CTA — green accent */
+.olw-cta-book {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff !important;
+    padding: 6px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    height: 32px;
+    white-space: nowrap;
+    transition: all 0.3s;
+    border: none;
+}
+
+.olw-cta-book:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+    filter: brightness(1.1);
+}
+
 /* ============================================
    HAMBURGER — hidden on desktop
    ============================================ */
@@ -443,7 +470,8 @@
 
     .olw-section-label { padding: 8px 36px 4px; }
 
-    .olw-cta {
+    .olw-cta,
+    .olw-cta-book {
         margin: 12px 20px;
         justify-content: center;
         height: 40px;
