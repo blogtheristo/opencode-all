@@ -26,6 +26,8 @@ import {
   reportDeliveryTemplate,
   notificationTemplate,
   invoiceTemplate,
+  bookingConfirmationTemplate,
+  bookingAdminNotificationTemplate,
 } from './email-templates.js';
 
 // ============================================================
@@ -153,6 +155,43 @@ class EmailService {
       html: invoiceTemplate(invoiceId, amount, currency),
       templateType: 'invoice',
       metadata: { invoiceId, amount, currency },
+    });
+  }
+
+  /**
+   * Send a custom email with template and variables.
+   * Supports 'booking_confirmation' and 'booking_admin_notification' templates.
+   */
+  async send(options: {
+    to: string;
+    template: string;
+    variables: Record<string, unknown>;
+  }): Promise<void> {
+    const { to, template, variables } = options;
+
+    let subject = '';
+    let html = '';
+
+    if (template === 'booking_confirmation') {
+      subject = 'Varaus vahvistettu — Risto Anton Päärni';
+      html = bookingConfirmationTemplate(
+        variables as Parameters<typeof bookingConfirmationTemplate>[0],
+      );
+    } else if (template === 'booking_admin_notification') {
+      subject = `Uusi varaus — ${(variables.serviceName as string) || 'Demo/Konsultaatio'}`;
+      html = bookingAdminNotificationTemplate(
+        variables as Parameters<typeof bookingAdminNotificationTemplate>[0],
+      );
+    } else {
+      throw new Error(`Unknown template: ${template}`);
+    }
+
+    await this.sendEmail({
+      to,
+      subject,
+      html,
+      templateType: template,
+      metadata: variables,
     });
   }
 
