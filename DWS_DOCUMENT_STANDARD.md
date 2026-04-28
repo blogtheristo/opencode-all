@@ -39,13 +39,6 @@ Document Status:
 
 ---
 
-**Version:** 1.9
-**Effective Date:** 2026-03-14
-**Last Updated:** 2026-03-14
-**Status:** Active
-
----
-
 ## Table of Contents
 
 1. [Overview](#1-overview)
