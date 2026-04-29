@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code (claude-sonnet-4-6) | Session: claude/add-ontology-background-s0H0S | Date: 29.04.2026 | Changes: Added §1.3 "Sanan ontologia tausta / Etymology and Philosophical Background" — kreikkalainen etymologia (ón + lógos), Aristoteles, skolastiikka 1600–1700-luvuilla, merkityksen laajeneminen filosofiasta tietojenkäsittelytieteeseen ja tekoälyyn
 - Version: 1.2 | Tool: Claude Code (Claude Opus 4.7) | Session: claude/compare-ontologies-NtJWP | Date: 29.04.2026 | Changes: Decision-centric roadmap — added §13 (Actions, Scenarios/Global Branching, per-Decision Lineage, Purpose-based + Marking-based Policies, Logic Binding, Multi-tier Agent Memory, Embedded Edge Ontology) and §14 Where DWS Leads, Where DWS Lags. Removed third-party vendor naming; positioned as European Ontology Standard.
 - Version: 1.1 | Tool: Claude Code (Claude Opus 4.6) | Session: claude/add-eu-info-note-8XYey | Date: 11.02.2026 | Changes: Added DWS6 Enterprise Ontology — EU institutions (Commission, Council, Parliament, EIB), EU Single Market (450M consumers), EU regulatory framework (Fit for 55, ETS, CBAM, CSRD, AI Act, GDPR, NIS2), DWS IQ 6 platform entities, 21-moat fortress taxonomy, 16 EU industries, key geographic entities, Alden Biesen retreat context
 - Version: 1.0 | Tool: Claude Code | Session: claude/show-dws-version-LLEHz | Date: 21.01.2026 | Changes: Initial creation - Enterprise ontology framework with LWM integration
@@ -70,6 +71,41 @@ Applies to:
 - Core business artifacts
 - Regulatory compliance documentation
 - Training data for enterprise AI models
+
+### Sanan ontologia tausta / Etymology and Philosophical Background
+
+Sanan ontologia tausta liittyy filosofiaan ja erityisesti olemassaolon peruskysymyksiin.
+
+**Etymologia**
+
+Sana _ontologia_ tulee kreikan kielen sanoista:
+
+- **ὄν (ón)** – oleva, se mikä on
+- **λόγος (lógos)** – oppi, puhe, järjellinen selitys
+
+Kirjaimellisesti ontologia tarkoittaa siis _oppia olevasta_ — eli oppia siitä, mitä on olemassa ja millä tavoin.
+
+**Filosofinen tausta**
+
+Ontologia on yksi metafysiikan keskeisistä osa-alueista. Jo antiikin Kreikassa filosofit kuten Aristoteles pohtivat olemisen luonnetta:
+
+- mitä tarkoittaa, että jokin _on_
+- millaisia olevia on olemassa (esineet, ominaisuudet, suhteet, tapahtumat)
+- mikä on olemisen perusrakenne
+
+Varsinainen termi _ontologia_ vakiintui vasta 1600–1700-luvuilla, erityisesti skolastiikan ja varhaisen modernin filosofian piirissä, kun metafysiikkaa alettiin systematisoida omiksi osa-alueikseen.
+
+**Merkityksen laajeneminen nykyaikana**
+
+Nykyään ontologiaa käytetään useissa eri yhteyksissä:
+
+- **Filosofiassa:** tutkimus olemassaolon perusluonteesta
+- **Tietojenkäsittelytieteessä ja tekoälyssä:** muodollinen malli käsitteistä ja niiden välisistä suhteista (esim. luokat, ominaisuudet, relaatiot)
+- **Tieteenfilosofiassa:** kysymys siitä, millaisiin entiteetteihin jokin teoria sitoutuu
+
+Näin sanan alkuperäinen merkitys — _olevan jäsentäminen_ — säilyy, mutta sovelluskohde muuttuu. DWS Ontology Standard rakentuu juuri tälle perustalle: EU-säännökset ja teollisuuden käsitteet jäsennetään koneluettavaan muotoon, jota sekä ihmiset että agentit voivat kyselyillä tutkia.
+
+---
 
 ### The "Bubble" vs. "Lag" Problem
 
