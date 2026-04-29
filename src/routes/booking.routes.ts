@@ -299,6 +299,74 @@ const reserveValidation = [
   body('reservedAt').isISO8601().withMessage('Reservation time must be ISO 8601 format'),
 ];
 
+const meetInviteValidation = [
+  body('requesterEmail').optional().isEmail().withMessage('Requester email must be valid'),
+  body('roomName').isString().trim().notEmpty().withMessage('Room name is required'),
+  body('directUrl').isURL().withMessage('Direct meeting URL must be valid'),
+  body('shareUrl').isURL().withMessage('Share URL must be valid'),
+  body('dateStr').optional().isString().trim(),
+];
+
+router.post('/meet-invite', meetInviteValidation, async (req: Request, res: Response) => {
+  if (handleValidationErrors(req, res)) return;
+
+  const { requesterEmail, roomName, directUrl, shareUrl, dateStr } = req.body as {
+    requesterEmail?: string;
+    roomName: string;
+    directUrl: string;
+    shareUrl: string;
+    dateStr?: string;
+  };
+
+  const subject = `Meeting request — ${roomName}`;
+  const bodyLines = [
+    'Meeting request from dws6.com/meet',
+    '',
+    requesterEmail ? `Requester email: ${requesterEmail}` : 'Requester email: Not provided',
+    dateStr ? `When: ${dateStr}` : '',
+    `Room: ${roomName}`,
+    '',
+    'Requested join link:',
+    directUrl,
+    '',
+    'Firehorse Meeting page:',
+    shareUrl,
+  ].filter(Boolean);
+  const text = bodyLines.join('\n');
+  const html = `<pre style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; white-space: pre-wrap;">${text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')}</pre>`;
+
+  const result = await sendEmail({
+    from: process.env.EMAIL_FROM || 'risto@onelifetime.world',
+    to: process.env.BOOKING_ADMIN_EMAIL || 'risto@onelifetime.world',
+    subject,
+    text,
+    html,
+    source: 'platform',
+    templateType: 'meet_invite_request',
+    metadata: {
+      requesterEmail: requesterEmail || null,
+      roomName,
+      directUrl,
+      shareUrl,
+      dateStr: dateStr || null,
+    },
+  });
+
+  if (!result.ok) {
+    logger.error('Meet invite request email failed', {
+      error: result.error,
+      roomName,
+      requesterEmail: requesterEmail || null,
+    });
+    return res.status(502).json({ error: result.error || 'Failed to send invite request' });
+  }
+
+  res.status(201).json({ success: true, message: 'Invite request sent' });
+});
+
 router.post('/reserve', reserveValidation, async (req: Request, res: Response) => {
   if (handleValidationErrors(req, res)) return;
 
@@ -374,6 +442,11 @@ router.post('/reserve', reserveValidation, async (req: Request, res: Response) =
     // Send confirmation emails
     const reservationId = reservation?.[0]?.id;
     const dateTime = new Date(reservedAt).toLocaleString('fi-FI');
+    const jitsiRoomName = `dws6-booking-${reservationId}`;
+    const encodedRoomName = encodeURIComponent(jitsiRoomName);
+    const jitsiMeetLinkTemplate =
+      process.env.JITSI_MEET_LINK_TEMPLATE || 'https://dws6.com/meet/#room={room}';
+    const jitsiMeetLink = jitsiMeetLinkTemplate.replace('{room}', encodedRoomName);
 
     try {
       const customerEmailResult = await sendEmail({
@@ -388,6 +461,7 @@ router.post('/reserve', reserveValidation, async (req: Request, res: Response) =
           company: customerCompany || 'Ei ilmoitettu',
           notes: customerNotes || 'Ei lisätietoja',
           cancelLink: `${process.env.FRONTEND_URL || 'https://dws10.com'}/book/cancel?id=${reservationId}`,
+          meetLink: jitsiMeetLink,
         }),
         source: 'platform',
         templateType: 'booking_confirmation',
@@ -396,6 +470,7 @@ router.post('/reserve', reserveValidation, async (req: Request, res: Response) =
           serviceId,
           customerEmail,
           serviceName,
+          meetLink: jitsiMeetLink,
         },
       });
       if (!customerEmailResult.ok) {
@@ -418,6 +493,7 @@ router.post('/reserve', reserveValidation, async (req: Request, res: Response) =
           company: customerCompany || 'Ei ilmoitettu',
           notes: customerNotes || 'Ei lisätietoja',
           adminLink: `${process.env.ADMIN_URL || 'https://dws10.com/admin'}/bookings/${reservationId}`,
+          meetLink: jitsiMeetLink,
         }),
         source: 'platform',
         templateType: 'booking_admin_notification',
@@ -426,6 +502,7 @@ router.post('/reserve', reserveValidation, async (req: Request, res: Response) =
           serviceId,
           customerEmail,
           serviceName,
+          meetLink: jitsiMeetLink,
         },
       });
       if (!adminEmailResult.ok) {
@@ -449,11 +526,15 @@ router.post('/reserve', reserveValidation, async (req: Request, res: Response) =
         serviceName,
       });
     } catch (emailErr) {
+      const errorMessage = emailErr instanceof Error ? emailErr.message : 'Unknown error';
       logger.error('Error sending confirmation emails', {
         reservationId,
-        error: emailErr instanceof Error ? emailErr.message : 'Unknown error',
+        error: errorMessage,
       });
-      // Don't fail the request if emails don't send
+      return res.status(502).json({
+        error: 'Reservation saved, but confirmation email delivery failed.',
+        reservationId,
+      });
     }
 
     res.status(201).json({

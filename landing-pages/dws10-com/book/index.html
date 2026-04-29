@@ -422,7 +422,6 @@
       let selectedService = null;
       let availableSlots = [];
       const disabledDates = new Set();
-      let lastReservationTransport = "backend";
 
       const elements = {
         form: document.getElementById("bookingForm"),
@@ -560,37 +559,6 @@
         }
 
         return { availability, holidays };
-      }
-
-      async function reserveWithSupabase(payload) {
-        const serviceRes = await fetch(
-          `${SUPABASE_URL}/rest/v1/booking_services?id=eq.${payload.serviceId}&select=name,duration_minutes&limit=1`,
-          { headers: SUPABASE_HEADERS },
-        );
-        if (!serviceRes.ok) throw new Error("Supabase service lookup failed");
-        const serviceRows = await serviceRes.json();
-        if (!serviceRows || serviceRows.length === 0) throw new Error("Service not found");
-        const durationMinutes = serviceRows[0].duration_minutes;
-
-        const insertRes = await fetch(`${SUPABASE_URL}/rest/v1/booking_reservations`, {
-          method: "POST",
-          headers: { ...SUPABASE_HEADERS, Prefer: "return=minimal" },
-          body: JSON.stringify([
-            {
-              service_id: payload.serviceId,
-              customer_name: payload.customerName,
-              customer_email: payload.customerEmail,
-              customer_phone: payload.customerPhone,
-              customer_company: payload.customerCompany || null,
-              customer_notes: payload.customerNotes || null,
-              reserved_at: payload.reservedAt,
-              duration_minutes: durationMinutes,
-              status: "confirmed",
-            },
-          ]),
-        });
-        if (!insertRes.ok) throw new Error("Supabase reservation insert failed");
-        return { reservationId: "inserted-via-supabase-fallback" };
       }
 
       async function loadServices() {
@@ -791,28 +759,20 @@
         elements.submitButton.disabled = true;
 
         try {
-          lastReservationTransport = "backend";
-          try {
-            const res = await fetch(`${API_BASE}/api/v1/booking/reserve`, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(payload),
-            });
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error || "Varauksen luominen epäonnistui");
-          } catch {
-            lastReservationTransport = "supabase-direct";
-            await reserveWithSupabase(payload);
-          }
+          const res = await fetch(`${API_BASE}/api/v1/booking/reserve`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || "Varauksen luominen epäonnistui");
 
           // Success
           hideError();
           elements.form.style.display = "none";
           elements.successContainer.style.display = "block";
           elements.successText.textContent =
-            lastReservationTransport === "backend"
-              ? `Varaus ${service.name}:lle on vahvistettu. Sähköposti on lähetetty osoitteeseen ${elements.emailInput.value}.`
-              : `Varaus ${service.name}:lle on vahvistettu. Tarkistusviesti toimitetaan erikseen osoitteeseen ${elements.emailInput.value}.`;
+            `Varaus ${service.name}:lle on vahvistettu. Sähköposti on lähetetty osoitteeseen ${elements.emailInput.value}.`;
         } catch (err) {
           showError(err instanceof Error ? err.message : "Tuntematon virhe");
         } finally {

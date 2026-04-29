@@ -620,6 +620,7 @@ export function bookingConfirmationTemplate(variables: {
   company: string;
   notes: string;
   cancelLink: string;
+  meetLink?: string;
 }): string {
   const body = `
     <h1 style="margin: 0 0 24px 0; font-size: 28px; font-weight: 700; color: #f9fafb; line-height: 32px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
@@ -676,6 +677,15 @@ export function bookingConfirmationTemplate(variables: {
     <!-- CTA -->
     <table role="presentation" cellpadding="0" cellspacing="0" style="margin-bottom: 24px;">
       <tr>
+        ${
+          variables.meetLink
+            ? `<td align="center" style="background-color: #0ea5e9; border-radius: 8px; padding-right: 8px;">
+          <a href="${escapeHtml(variables.meetLink)}" target="_blank" class="btn" style="display: inline-block; padding: 12px 24px; font-size: 14px; font-weight: 500; color: #ffffff; text-decoration: none; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+            Liity Jitsi-tapaamiseen
+          </a>
+        </td>`
+            : ''
+        }
         <td align="center" style="background-color: #2563eb; border-radius: 8px;">
           <a href="${variables.cancelLink}" target="_blank" class="btn" style="display: inline-block; padding: 12px 24px; font-size: 14px; font-weight: 500; color: #ffffff; text-decoration: none; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
             Peruuta varaus
@@ -683,6 +693,13 @@ export function bookingConfirmationTemplate(variables: {
         </td>
       </tr>
     </table>
+    ${
+      variables.meetLink
+        ? `<p style="margin: 0 0 20px 0; font-size: 13px; color: #9ca3af; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+      Jitsi-linkki: <a href="${escapeHtml(variables.meetLink)}" style="color: #60a5fa; text-decoration: none;">${escapeHtml(variables.meetLink)}</a>
+    </p>`
+        : ''
+    }
 
     <p style="margin: 0; font-size: 13px; color: #6b7280; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
       Risto Anton Päärni · Lifetime Oy · Helsinki<br>
@@ -706,6 +723,7 @@ export function bookingAdminNotificationTemplate(variables: {
   company: string;
   notes: string;
   adminLink: string;
+  meetLink?: string;
 }): string {
   const body = `
     <h1 style="margin: 0 0 24px 0; font-size: 28px; font-weight: 700; color: #f9fafb; line-height: 32px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
@@ -776,6 +794,15 @@ export function bookingAdminNotificationTemplate(variables: {
     <!-- CTA -->
     <table role="presentation" cellpadding="0" cellspacing="0" style="margin-bottom: 24px;">
       <tr>
+        ${
+          variables.meetLink
+            ? `<td align="center" style="background-color: #0ea5e9; border-radius: 8px; padding-right: 8px;">
+          <a href="${escapeHtml(variables.meetLink)}" target="_blank" class="btn" style="display: inline-block; padding: 12px 24px; font-size: 14px; font-weight: 500; color: #ffffff; text-decoration: none; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+            Avaa Jitsi
+          </a>
+        </td>`
+            : ''
+        }
         <td align="center" style="background-color: #2563eb; border-radius: 8px;">
           <a href="${variables.adminLink}" target="_blank" class="btn" style="display: inline-block; padding: 12px 24px; font-size: 14px; font-weight: 500; color: #ffffff; text-decoration: none; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
             Avaa varaus
@@ -783,6 +810,13 @@ export function bookingAdminNotificationTemplate(variables: {
         </td>
       </tr>
     </table>
+    ${
+      variables.meetLink
+        ? `<p style="margin: 0 0 20px 0; font-size: 13px; color: #9ca3af; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+      Jitsi-linkki: <a href="${escapeHtml(variables.meetLink)}" style="color: #60a5fa; text-decoration: none;">${escapeHtml(variables.meetLink)}</a>
+    </p>`
+        : ''
+    }
 
     <p style="margin: 0; font-size: 13px; color: #6b7280; line-height: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
       Risto Anton Päärni · Lifetime Oy · Helsinki<br>
