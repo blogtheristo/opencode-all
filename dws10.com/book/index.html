@@ -717,8 +717,10 @@
             maxDate: new Date(today.getTime() + 60 * 24 * 60 * 60 * 1000),
             disable: Array.from(disabledDates),
             disableMobile: true,
+            allowInput: true,
             onChange: onDateChange,
           });
+          elements.dateInput.removeAttribute("readonly");
         } catch (err) {
           showError("Saatavuuden lataaminen epäonnistui");
           console.error(err);
