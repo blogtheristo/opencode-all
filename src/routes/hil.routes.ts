@@ -9,6 +9,7 @@
 
 import { type Request, type Response, Router } from 'express';
 import { sendEmail } from '../utils/send-email.js';
+import logger from '../utils/logger.js';
 
 const router = Router();
 
@@ -137,7 +138,11 @@ router.post('/escalate', async (req: Request, res: Response): Promise<void> => {
   }
 
   // Email notification via SES SMTP
+  let notificationAttempted = false;
+  let notificationSent = false;
+  let notificationError: string | null = null;
   if (escalationChannel === 'email') {
+    notificationAttempted = true;
     try {
       const result = await sendEmail({
         from: process.env.EMAIL_FROM || 'risto@onelifetime.world',
@@ -154,11 +159,25 @@ router.post('/escalate', async (req: Request, res: Response): Promise<void> => {
         metadata: { agentName, escalationId, confidence: confidence ?? null },
       });
 
-      if (!result.ok) {
-        throw new Error(result.error || 'SES SMTP send failed');
+      if (result.ok) {
+        notificationSent = true;
+      } else {
+        notificationError = result.error || 'SES SMTP send failed';
+        logger.error('HIL escalation email delivery failed', {
+          escalationId,
+          agentName,
+          recipient: escalationEmail,
+          error: notificationError,
+        });
       }
-    } catch {
-      // Non-blocking
+    } catch (err) {
+      notificationError = err instanceof Error ? err.message : 'Unknown email error';
+      logger.error('HIL escalation email exception', {
+        escalationId,
+        agentName,
+        recipient: escalationEmail,
+        error: notificationError,
+      });
     }
   }
 
@@ -167,7 +186,17 @@ router.post('/escalate', async (req: Request, res: Response): Promise<void> => {
     status: 'pending',
     channel: escalationChannel,
     recipient: escalationEmail,
-    message: `Escalation created for agent "${agentName}" — human notified via ${escalationChannel}`,
+    message:
+      escalationChannel === 'email'
+        ? notificationSent
+          ? `Escalation created for agent "${agentName}" — human notified via email`
+          : `Escalation created for agent "${agentName}" — email notification failed`
+        : `Escalation created for agent "${agentName}"`,
+    notification: {
+      attempted: notificationAttempted,
+      sent: notificationSent,
+      error: notificationError,
+    },
   });
 });
 

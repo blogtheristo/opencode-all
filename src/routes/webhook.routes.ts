@@ -28,7 +28,7 @@ import {
 } from '../outreach/reply-parser.js';
 import type { UpdateCommand } from '../outreach/reply-parser.js';
 import { emailQueue } from '../services/email-queue.service.js';
-import { sendEmail } from '../utils/send-email.js';
+import { sendEmail, escapeHtml } from '../utils/send-email.js';
 
 const router: Router = express.Router();
 
@@ -76,7 +76,7 @@ async function sendConfirmationEmail(to: string, subject: string, body: string):
       to,
       subject,
       text: body,
-      html: `<pre>${body.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</pre>`,
+      html: `<pre>${escapeHtml(body)}</pre>`,
       source: 'platform',
       templateType: 'inbound_confirmation',
       metadata: { recipient: to },
@@ -116,10 +116,10 @@ Rules:
 — DWS IQ 6 Outreach`;
 
 // ============================================================================
-// POST /webhooks/inbound — inbound email webhook
+// Shared handler for inbound webhook paths
 // ============================================================================
 
-router.post('/inbound', async (req: Request, res: Response) => {
+const handleInboundWebhook = async (req: Request, res: Response): Promise<void> => {
   const rawBody = JSON.stringify(req.body);
 
   // Extract email fields from inbound webhook payload
@@ -336,14 +336,13 @@ router.post('/inbound', async (req: Request, res: Response) => {
 
     res.status(200).json({ ok: true, applied: false, error: errorMsg });
   }
-});
+};
 
-// Backward-compatible alias for old endpoint path
-router.post('/resend/inbound', async (req: Request, res: Response) => {
-  res.status(410).json({
-    error: 'Deprecated endpoint. Use /webhooks/inbound',
-  });
-});
+// Primary inbound endpoint
+router.post('/inbound', handleInboundWebhook);
+
+// Backward-compatible alias — intentionally routes to same handler
+router.post('/resend/inbound', handleInboundWebhook);
 
 // ============================================================================
 // HELPERS
