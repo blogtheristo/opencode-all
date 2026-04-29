@@ -195,13 +195,16 @@ Two primary accounts manage the DWS platform, each with distinct responsibilitie
 
 **Provider stack:**
 
-| Layer    | Provider                 | Region                  | Purpose                    |
-| -------- | ------------------------ | ----------------------- | -------------------------- | ---------- |
-| Compute  | Google Cloud Run         | europe-north1 (Finland) | Backend API, agents        |
-| Database | Supabase                 | EU (Frankfurt/Helsinki) | PostgreSQL, auth, realtime |
-| Secrets  | Google Secret Manager    | europe-north1           | API keys, credentials      | ✅ Enabled |
-| Images   | Google Artifact Registry | europe-north1           | Container registry         |
-| Training | Google Compute (A3 mega) | europe-north1           | On-demand H100 GPU         |
+| Layer    | Provider                 | Region                  | Purpose                                                       |
+| -------- | ------------------------ | ----------------------- | ------------------------------------------------------------- |
+| Compute  | Google Cloud Run         | europe-north1 (Finland) | Backend API, agents — **active (onboarding phase)**           |
+| Compute  | Scaleway Serverless      | fr-par (France)         | Customer Tier 1 & 2 deployments — **available, not yet used** |
+| Database | Supabase                 | EU (Frankfurt/Helsinki) | PostgreSQL, auth, realtime                                    |
+| Secrets  | Google Secret Manager    | europe-north1           | API keys, credentials ✅ Enabled                              |
+| Images   | Google Artifact Registry | europe-north1           | Container registry                                            |
+| Training | Google Compute (A3 mega) | europe-north1           | On-demand H100 GPU                                            |
+
+> **Phase note (2026-04-28):** Google Cloud Run is the active backend during the pre-customer / onboarding phase (no per-idle cost). Scaleway Serverless becomes the deployment target for customer Tier 1 & 2 environments once the first paying customer or investor pilot starts — its EU residency (fr-par) and sovereign positioning are the deciding factors.
 
 **Enabled Google Cloud APIs:**
 
@@ -633,12 +636,12 @@ DWS IQ 7 is the production platform (target: 16 paying customers, €72k+ MRR by
 
 DWS 7 operates across **four tiers** of environments:
 
-| Tier   | Environment   | Purpose                   | Provider                 | Region        |
-| ------ | ------------- | ------------------------- | ------------------------ | ------------- |
-| **T1** | Development   | Local + CI testing        | Docker Compose           | Local         |
-| **T2** | Staging       | Pre-production validation | Cloud Run                | europe-north1 |
-| **T3** | Production EU | Customer workloads        | Cloud Run                | europe-north1 |
-| **T4** | Edge (Global) | Static content, CDN       | Cloudflare Pages/Workers | Global        |
+| Tier   | Environment   | Purpose                   | Provider                          | Region                 |
+| ------ | ------------- | ------------------------- | --------------------------------- | ---------------------- |
+| **T1** | Development   | Local + CI testing        | Docker Compose                    | Local                  |
+| **T2** | Staging       | Pre-production validation | Cloud Run                         | europe-north1          |
+| **T3** | Production EU | Customer workloads        | Cloud Run → Scaleway (Tier 1 & 2) | europe-north1 / fr-par |
+| **T4** | Edge (Global) | Static content, CDN       | Cloudflare Pages/Workers          | Global                 |
 
 ### 5.3 DWS 7 Cloud Services
 
@@ -650,6 +653,7 @@ DWS 7 operates across **four tiers** of environments:
 | **Search / Embeddings** | Supabase pgvector       | EU                 | Optimized indexes, embedding pipeline              |
 | **Secrets**             | Google Secret Manager   | europe-north1      | Automated rotation, per-tenant secrets             |
 | **Training**            | GCP A3 (H100)           | europe-north1      | On-demand burst, MLflow experiment tracking        |
+| **Customer Compute**    | Scaleway Serverless     | fr-par (France)    | Tier 1 & 2 customer deployments (sovereign EU)     |
 | **Edge / CDN**          | Cloudflare              | Global (EU-routed) | Durable Objects, KV, Analytics Engine              |
 | **Video (V3)**          | Hetzner Helsinki        | europe-north1      | Self-hosted Jitsi Meet                             |
 | **Email (V3)**          | Hetzner Helsinki        | europe-north1      | Postfix + Dovecot / Migadu                         |
