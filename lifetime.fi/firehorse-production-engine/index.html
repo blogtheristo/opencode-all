@@ -61,70 +61,6 @@
         -webkit-font-smoothing: antialiased;
       }
 
-      /* Corporate nav (matches lifetime.fi, deeper bg) */
-      .corp-nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 100;
-        background: rgba(5, 7, 13, 0.95);
-        backdrop-filter: blur(14px);
-        border-bottom: 1px solid var(--border-subtle);
-      }
-
-      .corp-nav-inner {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 24px;
-        height: 64px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      .corp-logo {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: var(--text-primary);
-        text-decoration: none;
-        letter-spacing: -0.01em;
-      }
-
-      .corp-logo span {
-        color: var(--color-gold);
-      }
-
-      .corp-links {
-        display: flex;
-        gap: 32px;
-        list-style: none;
-      }
-
-      .corp-links a {
-        color: var(--text-secondary);
-        text-decoration: none;
-        font-size: 0.9rem;
-        font-weight: 500;
-        transition: color var(--transition-base);
-      }
-
-      .corp-links a:hover {
-        color: var(--text-primary);
-      }
-      .corp-links a.active {
-        color: var(--color-gold-light);
-      }
-
-      @media (max-width: 768px) {
-        .corp-links {
-          gap: 16px;
-        }
-        .corp-links a {
-          font-size: 0.8rem;
-        }
-      }
-
       /* Hero — deeper, quieter than lifetime.fi/ */
       .hero {
         min-height: 92vh;
@@ -745,19 +681,8 @@
     </style>
   </head>
   <body>
-    <!-- Corporate navigation -->
-    <header class="corp-nav">
-      <div class="corp-nav-inner">
-        <a href="/" class="corp-logo">Lifetime<span>.</span></a>
-        <ul class="corp-links">
-          <li><a href="/">Home</a></li>
-          <li><a href="https://dws10.com" target="_blank">Products</a></li>
-          <li><a href="https://dws10.com/fleet-admiral/" target="_blank">Investors</a></li>
-          <li><a href="/firehorse-production-engine/" class="active">FPE</a></li>
-          <li><a href="mailto:risto@onelifetime.world">Contact</a></li>
-        </ul>
-      </div>
-    </header>
+    <!-- Ironclad unified navigation (auto-injects, domain-aware) -->
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
 
     <!-- Hero -->
     <section class="hero">
@@ -774,6 +699,84 @@
         <div class="hero-actions">
           <a href="#executives" class="btn-gold">Executive Briefing</a>
           <a href="https://dws10.com/buy/" class="btn-outline">Explore Firehorse</a>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- Calculator — moved to top; 90% scale; max investment €10M -->
+    <section class="section" id="calculator" style="zoom: 0.9">
+      <div class="section-label">Exposure Calculator</div>
+      <h2 class="section-title">Your numbers. Your conservative range.</h2>
+      <div class="section-body">
+        <p>
+          Three sliders. Public-source coefficients only. The output is a
+          <strong>conservative range</strong> for one wrong-layoff event in one AI-bound workflow
+          &mdash; not a worst-case headline. We do not claim your full AI investment back; the model
+          assumes partial restart and probability-weighted compliance / breach exposure.
+        </p>
+      </div>
+
+      <div class="calc-box">
+        <div class="calc-row">
+          <label for="ai-investment">AI investment to date (per workflow)</label>
+          <input
+            type="range"
+            id="ai-investment"
+            min="50000"
+            max="10000000"
+            step="100000"
+            value="200000"
+          />
+          <span class="calc-val" id="ai-investment-val">&euro;200,000</span>
+        </div>
+        <div class="calc-row">
+          <label for="ai-salary">Operator annual salary</label>
+          <input type="range" id="ai-salary" min="60000" max="200000" step="5000" value="110000" />
+          <span class="calc-val" id="ai-salary-val">&euro;110,000</span>
+        </div>
+        <div class="calc-row">
+          <label for="ai-criticality">Workflow criticality (compliance + revenue weight)</label>
+          <input type="range" id="ai-criticality" min="1" max="5" step="1" value="3" />
+          <span class="calc-val" id="ai-criticality-val">3 / 5</span>
+        </div>
+
+        <div class="calc-out">
+          <div class="calc-out-row">
+            <span>Replacement &amp; ramp (90&ndash;200% of salary)</span>
+            <span class="calc-num" id="out-replace">&mdash;</span>
+          </div>
+          <div class="calc-out-row">
+            <span>Productivity gap (~9 months at 50%)</span>
+            <span class="calc-num" id="out-prod">&mdash;</span>
+          </div>
+          <div class="calc-out-row">
+            <span>Workflow restart cost (20&ndash;40% of investment)</span>
+            <span class="calc-num" id="out-restart">&mdash;</span>
+          </div>
+          <div class="calc-out-row">
+            <span>Compliance / audit-trail exposure (probability-weighted)</span>
+            <span class="calc-num" id="out-comp">&mdash;</span>
+          </div>
+          <div class="calc-out-row calc-out-headline">
+            <span>Conservative range &mdash; one wrong layoff, one workflow</span>
+            <span class="calc-num" id="out-total">&mdash;</span>
+          </div>
+          <div class="calc-out-row">
+            <span>FPE Continuity Pack &mdash; one critical workflow, 30 days</span>
+            <span class="calc-num">&euro;14,999</span>
+          </div>
+        </div>
+
+        <div class="calc-source">
+          Coefficients: SHRM and Center for American Progress replacement-cost benchmarks
+          (90&ndash;213% of salary, conservative band 90&ndash;200%); Gallup ramp-up data (50%
+          productivity for ~6 months after a 12-week vacancy); Gartner 2024 AI value-capture
+          statistics for partial restart bands; EU AI Act Reg. (EU) 2024/1689 Art. 99 capped at
+          probability-weighted mid-cap exposure (not the headline cap). Numbers are illustrative;
+          substitute your own salary, investment, and criticality for a defensible internal
+          estimate.
         </div>
       </div>
     </section>
@@ -952,84 +955,6 @@
           <div class="signal-source">
             Source: Tilastokeskus (Statistics Finland) Labour Force Survey, sector breakdown 2024.
           </div>
-        </div>
-      </div>
-    </section>
-
-    <hr class="section-divider" />
-
-    <!-- Calculator -->
-    <section class="section" id="calculator">
-      <div class="section-label">Exposure Calculator</div>
-      <h2 class="section-title">Your numbers. Your conservative range.</h2>
-      <div class="section-body">
-        <p>
-          Three sliders. Public-source coefficients only. The output is a
-          <strong>conservative range</strong> for one wrong-layoff event in one AI-bound workflow
-          &mdash; not a worst-case headline. We do not claim your full AI investment back; the model
-          assumes partial restart and probability-weighted compliance / breach exposure.
-        </p>
-      </div>
-
-      <div class="calc-box">
-        <div class="calc-row">
-          <label for="ai-investment">AI investment to date (per workflow)</label>
-          <input
-            type="range"
-            id="ai-investment"
-            min="50000"
-            max="1000000"
-            step="10000"
-            value="200000"
-          />
-          <span class="calc-val" id="ai-investment-val">&euro;200,000</span>
-        </div>
-        <div class="calc-row">
-          <label for="ai-salary">Operator annual salary</label>
-          <input type="range" id="ai-salary" min="60000" max="200000" step="5000" value="110000" />
-          <span class="calc-val" id="ai-salary-val">&euro;110,000</span>
-        </div>
-        <div class="calc-row">
-          <label for="ai-criticality">Workflow criticality (compliance + revenue weight)</label>
-          <input type="range" id="ai-criticality" min="1" max="5" step="1" value="3" />
-          <span class="calc-val" id="ai-criticality-val">3 / 5</span>
-        </div>
-
-        <div class="calc-out">
-          <div class="calc-out-row">
-            <span>Replacement &amp; ramp (90&ndash;200% of salary)</span>
-            <span class="calc-num" id="out-replace">&mdash;</span>
-          </div>
-          <div class="calc-out-row">
-            <span>Productivity gap (~9 months at 50%)</span>
-            <span class="calc-num" id="out-prod">&mdash;</span>
-          </div>
-          <div class="calc-out-row">
-            <span>Workflow restart cost (20&ndash;40% of investment)</span>
-            <span class="calc-num" id="out-restart">&mdash;</span>
-          </div>
-          <div class="calc-out-row">
-            <span>Compliance / audit-trail exposure (probability-weighted)</span>
-            <span class="calc-num" id="out-comp">&mdash;</span>
-          </div>
-          <div class="calc-out-row calc-out-headline">
-            <span>Conservative range &mdash; one wrong layoff, one workflow</span>
-            <span class="calc-num" id="out-total">&mdash;</span>
-          </div>
-          <div class="calc-out-row">
-            <span>FPE Continuity Pack &mdash; one critical workflow, 30 days</span>
-            <span class="calc-num">&euro;14,999</span>
-          </div>
-        </div>
-
-        <div class="calc-source">
-          Coefficients: SHRM and Center for American Progress replacement-cost benchmarks
-          (90&ndash;213% of salary, conservative band 90&ndash;200%); Gallup ramp-up data (50%
-          productivity for ~6 months after a 12-week vacancy); Gartner 2024 AI value-capture
-          statistics for partial restart bands; EU AI Act Reg. (EU) 2024/1689 Art. 99 capped at
-          probability-weighted mid-cap exposure (not the headline cap). Numbers are illustrative;
-          substitute your own salary, investment, and criticality for a defensible internal
-          estimate.
         </div>
       </div>
     </section>

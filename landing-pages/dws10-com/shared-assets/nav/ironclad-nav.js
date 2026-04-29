@@ -1,5 +1,5 @@
 /**
- * DWS10.com Iron Clad / Gamma Navigation v3.9
+ * DWS10.com Iron Clad / Gamma Navigation v4.0
  * Unified navigation bar for all pages (Gamma-aligned with mobile hamburger menu)
  * Single source of truth: dws10.com/shared-assets/nav/ironclad-nav.js
  * Synced to lifetime.fi and onelifetime.world via scripts/on-deploy/sync-ironclad-nav.sh
@@ -7,6 +7,7 @@
  * Usage: Add this script to any page:
  * <script src="/shared-assets/nav/ironclad-nav.js"></script>
  *
+ * v4.0 — Solutions ▾: Firehorse Production Engine added above Lifetime World Model V1
  * v3.9 — About ▾: "Certified Partners" replaced with "Partner Tiers ▸" flyout (Partner Program, Aegis Tier 1, Sovereign Infra Tier 2, Connect Tier 3) — same 4 partner links as in Solutions ▾ ▸ Integrations ▸
  * v3.8 — Compliance renamed to "Compliance Hub"; moved from Home ▾ to Solutions ▾ (after CSRD, above Integrations)
  * v3.7 — Lifetime Studios + Lifetime Consulting moved to Lifetime Group submenu (About ▾);
@@ -176,6 +177,7 @@
                             </ul>
                         </li>
                         <li class="ironclad-separator"></li>
+                        <li><a href="https://lifetime.fi/firehorse-production-engine/" style="color:#f97316;font-weight:700;">🔥 Firehorse Production Engine</a></li>
                         <li><a href="${basePath}world-model/" style="color:#8b5cf6;font-weight:700;">🧠 Lifetime World Model V1</a></li>
                         <li class="ironclad-separator"></li>
                         <li class="ironclad-has-submenu">
