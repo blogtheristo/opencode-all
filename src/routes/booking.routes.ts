@@ -16,7 +16,11 @@ import { type Request, type Response, Router } from 'express';
 import { body, param, validationResult, query } from 'express-validator';
 import logger from '../utils/logger.js';
 import { getSupabaseClient } from '../config/supabase.js';
-import emailService from '../services/email.service.js';
+import { sendEmail } from '../utils/send-email.js';
+import {
+  bookingAdminNotificationTemplate,
+  bookingConfirmationTemplate,
+} from '../services/email-templates.js';
 
 const router = Router();
 
@@ -372,10 +376,11 @@ router.post('/reserve', reserveValidation, async (req: Request, res: Response) =
     const dateTime = new Date(reservedAt).toLocaleString('fi-FI');
 
     try {
-      await emailService.send({
+      const customerEmailResult = await sendEmail({
+        from: process.env.EMAIL_FROM || 'risto@onelifetime.world',
         to: customerEmail,
-        template: 'booking_confirmation',
-        variables: {
+        subject: 'Varaus vahvistettu — Risto Anton Päärni',
+        html: bookingConfirmationTemplate({
           customerName,
           serviceName,
           dateTime,
@@ -383,14 +388,27 @@ router.post('/reserve', reserveValidation, async (req: Request, res: Response) =
           company: customerCompany || 'Ei ilmoitettu',
           notes: customerNotes || 'Ei lisätietoja',
           cancelLink: `${process.env.FRONTEND_URL || 'https://dws10.com'}/book/cancel?id=${reservationId}`,
+        }),
+        source: 'platform',
+        templateType: 'booking_confirmation',
+        metadata: {
+          reservationId,
+          serviceId,
+          customerEmail,
+          serviceName,
         },
       });
+      if (!customerEmailResult.ok) {
+        throw new Error(
+          `Customer booking confirmation delivery failed: ${customerEmailResult.error || 'Unknown sendEmail failure'}`,
+        );
+      }
 
-      // Notify Risto
-      await emailService.send({
-        to: 'risto.anton@proton.me',
-        template: 'booking_admin_notification',
-        variables: {
+      const adminEmailResult = await sendEmail({
+        from: process.env.EMAIL_FROM || 'risto@onelifetime.world',
+        to: process.env.BOOKING_ADMIN_EMAIL || 'risto@lifetime.fi',
+        subject: `Uusi varaus — ${serviceName || 'Demo/Konsultaatio'}`,
+        html: bookingAdminNotificationTemplate({
           customerName,
           customerEmail,
           customerPhone,
@@ -400,8 +418,21 @@ router.post('/reserve', reserveValidation, async (req: Request, res: Response) =
           company: customerCompany || 'Ei ilmoitettu',
           notes: customerNotes || 'Ei lisätietoja',
           adminLink: `${process.env.ADMIN_URL || 'https://dws10.com/admin'}/bookings/${reservationId}`,
+        }),
+        source: 'platform',
+        templateType: 'booking_admin_notification',
+        metadata: {
+          reservationId,
+          serviceId,
+          customerEmail,
+          serviceName,
         },
       });
+      if (!adminEmailResult.ok) {
+        throw new Error(
+          `Admin booking notification delivery failed: ${adminEmailResult.error || 'Unknown sendEmail failure'}`,
+        );
+      }
 
       // Update email sent timestamp
       await supabase

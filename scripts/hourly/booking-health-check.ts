@@ -21,7 +21,7 @@ import { sendEmail } from '../../src/utils/send-email.js';
 const BOOKING_PAGE_URL = 'https://dws10.com/book/?service=demo';
 const BOOKING_API_BASE =
   process.env.BOOKING_API_BASE ||
-  'https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud';
+  'https://dws-iq-backend-1074393862472.europe-north1.run.app';
 const BOOKING_SERVICES_URL = `${BOOKING_API_BASE}/api/v1/booking/services`;
 const EMAIL_FROM = process.env.EMAIL_FROM || 'risto@onelifetime.world';
 const ALERT_TO = process.env.OUTAGE_ALERT_EMAIL || process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi';
