@@ -491,7 +491,7 @@
       }
 
       async function loadAvailabilityFromSupabase(serviceId, startDate, endDate) {
-        const [serviceRes, availabilityRes, holidaysRes, reservationsRes] = await Promise.all([
+        const [serviceRes, availabilityRes, holidaysRes] = await Promise.all([
           fetch(`${SUPABASE_URL}/rest/v1/booking_services?id=eq.${serviceId}&select=duration_minutes&limit=1`, {
             headers: SUPABASE_HEADERS,
           }),
@@ -503,20 +503,15 @@
             `${SUPABASE_URL}/rest/v1/finnish_holidays?select=date&date=gte.${startDate}&date=lte.${endDate}`,
             { headers: SUPABASE_HEADERS },
           ),
-          fetch(
-            `${SUPABASE_URL}/rest/v1/booking_reservations?service_id=eq.${serviceId}&status=eq.confirmed&select=reserved_at,duration_minutes&reserved_at=gte.${startDate}T00:00:00.000Z&reserved_at=lte.${endDate}T23:59:59.999Z`,
-            { headers: SUPABASE_HEADERS },
-          ),
         ]);
 
-        if (!serviceRes.ok || !availabilityRes.ok || !holidaysRes.ok || !reservationsRes.ok) {
+        if (!serviceRes.ok || !availabilityRes.ok || !holidaysRes.ok) {
           throw new Error("Supabase availability fetch failed");
         }
 
         const serviceRows = await serviceRes.json();
         const availabilityRows = await availabilityRes.json();
         const holidayRows = await holidaysRes.json();
-        const reservationRows = await reservationsRes.json();
 
         const durationMinutes = serviceRows?.[0]?.duration_minutes || 30;
         const holidays = (holidayRows || []).map((h) => h.date);
@@ -532,12 +527,6 @@
           const list = weekly.get(row.day_of_week) || [];
           list.push(row);
           weekly.set(row.day_of_week, list);
-        });
-
-        const bookedSlots = (reservationRows || []).map((r) => {
-          const start = new Date(r.reserved_at);
-          const end = new Date(start.getTime() + (r.duration_minutes || durationMinutes) * 60 * 1000);
-          return { start, end };
         });
 
         const availability = {};
@@ -561,8 +550,7 @@
               const timeStr = toTimeString(current);
               const slotStart = new Date(`${dateStr}T${timeStr}:00.000Z`);
               const slotEnd = new Date(slotStart.getTime() + durationMinutes * 60 * 1000);
-              const hasConflict = bookedSlots.some((b) => slotStart < b.end && slotEnd > b.start);
-              if (!hasConflict) slots.push(timeStr);
+              slots.push(timeStr);
               current += 30;
             }
             if (slots.length > 0) availability[dateStr] = slots;
@@ -582,23 +570,6 @@
         const serviceRows = await serviceRes.json();
         if (!serviceRows || serviceRows.length === 0) throw new Error("Service not found");
         const durationMinutes = serviceRows[0].duration_minutes;
-
-        const conflictRes = await fetch(
-          `${SUPABASE_URL}/rest/v1/booking_reservations?service_id=eq.${payload.serviceId}&status=eq.confirmed&select=reserved_at,duration_minutes`,
-          { headers: SUPABASE_HEADERS },
-        );
-        if (!conflictRes.ok) throw new Error("Supabase conflict check failed");
-        const conflicts = await conflictRes.json();
-        const slotStart = new Date(payload.reservedAt);
-        const slotEnd = new Date(slotStart.getTime() + durationMinutes * 60 * 1000);
-        const hasConflict = (conflicts || []).some((booked) => {
-          const bookedStart = new Date(booked.reserved_at);
-          const bookedEnd = new Date(
-            bookedStart.getTime() + (booked.duration_minutes || durationMinutes) * 60 * 1000,
-          );
-          return slotStart < bookedEnd && slotEnd > bookedStart;
-        });
-        if (hasConflict) throw new Error("Slot already booked. Please choose another time.");
 
         const insertRes = await fetch(`${SUPABASE_URL}/rest/v1/booking_reservations`, {
           method: "POST",
