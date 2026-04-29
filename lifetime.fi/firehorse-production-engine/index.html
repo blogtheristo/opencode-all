@@ -705,6 +705,84 @@
 
     <hr class="section-divider" />
 
+    <!-- Calculator — moved to top; 90% scale; max investment €10M -->
+    <section class="section" id="calculator" style="zoom: 0.9">
+      <div class="section-label">Exposure Calculator</div>
+      <h2 class="section-title">Your numbers. Your conservative range.</h2>
+      <div class="section-body">
+        <p>
+          Three sliders. Public-source coefficients only. The output is a
+          <strong>conservative range</strong> for one wrong-layoff event in one AI-bound workflow
+          &mdash; not a worst-case headline. We do not claim your full AI investment back; the model
+          assumes partial restart and probability-weighted compliance / breach exposure.
+        </p>
+      </div>
+
+      <div class="calc-box">
+        <div class="calc-row">
+          <label for="ai-investment">AI investment to date (per workflow)</label>
+          <input
+            type="range"
+            id="ai-investment"
+            min="50000"
+            max="10000000"
+            step="100000"
+            value="200000"
+          />
+          <span class="calc-val" id="ai-investment-val">&euro;200,000</span>
+        </div>
+        <div class="calc-row">
+          <label for="ai-salary">Operator annual salary</label>
+          <input type="range" id="ai-salary" min="60000" max="200000" step="5000" value="110000" />
+          <span class="calc-val" id="ai-salary-val">&euro;110,000</span>
+        </div>
+        <div class="calc-row">
+          <label for="ai-criticality">Workflow criticality (compliance + revenue weight)</label>
+          <input type="range" id="ai-criticality" min="1" max="5" step="1" value="3" />
+          <span class="calc-val" id="ai-criticality-val">3 / 5</span>
+        </div>
+
+        <div class="calc-out">
+          <div class="calc-out-row">
+            <span>Replacement &amp; ramp (90&ndash;200% of salary)</span>
+            <span class="calc-num" id="out-replace">&mdash;</span>
+          </div>
+          <div class="calc-out-row">
+            <span>Productivity gap (~9 months at 50%)</span>
+            <span class="calc-num" id="out-prod">&mdash;</span>
+          </div>
+          <div class="calc-out-row">
+            <span>Workflow restart cost (20&ndash;40% of investment)</span>
+            <span class="calc-num" id="out-restart">&mdash;</span>
+          </div>
+          <div class="calc-out-row">
+            <span>Compliance / audit-trail exposure (probability-weighted)</span>
+            <span class="calc-num" id="out-comp">&mdash;</span>
+          </div>
+          <div class="calc-out-row calc-out-headline">
+            <span>Conservative range &mdash; one wrong layoff, one workflow</span>
+            <span class="calc-num" id="out-total">&mdash;</span>
+          </div>
+          <div class="calc-out-row">
+            <span>FPE Continuity Pack &mdash; one critical workflow, 30 days</span>
+            <span class="calc-num">&euro;14,999</span>
+          </div>
+        </div>
+
+        <div class="calc-source">
+          Coefficients: SHRM and Center for American Progress replacement-cost benchmarks
+          (90&ndash;213% of salary, conservative band 90&ndash;200%); Gallup ramp-up data (50%
+          productivity for ~6 months after a 12-week vacancy); Gartner 2024 AI value-capture
+          statistics for partial restart bands; EU AI Act Reg. (EU) 2024/1689 Art. 99 capped at
+          probability-weighted mid-cap exposure (not the headline cap). Numbers are illustrative;
+          substitute your own salary, investment, and criticality for a defensible internal
+          estimate.
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
     <!-- The Five Protections -->
     <section class="section">
       <div class="section-label">What FPE Protects</div>
@@ -877,84 +955,6 @@
           <div class="signal-source">
             Source: Tilastokeskus (Statistics Finland) Labour Force Survey, sector breakdown 2024.
           </div>
-        </div>
-      </div>
-    </section>
-
-    <hr class="section-divider" />
-
-    <!-- Calculator -->
-    <section class="section" id="calculator">
-      <div class="section-label">Exposure Calculator</div>
-      <h2 class="section-title">Your numbers. Your conservative range.</h2>
-      <div class="section-body">
-        <p>
-          Three sliders. Public-source coefficients only. The output is a
-          <strong>conservative range</strong> for one wrong-layoff event in one AI-bound workflow
-          &mdash; not a worst-case headline. We do not claim your full AI investment back; the model
-          assumes partial restart and probability-weighted compliance / breach exposure.
-        </p>
-      </div>
-
-      <div class="calc-box">
-        <div class="calc-row">
-          <label for="ai-investment">AI investment to date (per workflow)</label>
-          <input
-            type="range"
-            id="ai-investment"
-            min="50000"
-            max="1000000"
-            step="10000"
-            value="200000"
-          />
-          <span class="calc-val" id="ai-investment-val">&euro;200,000</span>
-        </div>
-        <div class="calc-row">
-          <label for="ai-salary">Operator annual salary</label>
-          <input type="range" id="ai-salary" min="60000" max="200000" step="5000" value="110000" />
-          <span class="calc-val" id="ai-salary-val">&euro;110,000</span>
-        </div>
-        <div class="calc-row">
-          <label for="ai-criticality">Workflow criticality (compliance + revenue weight)</label>
-          <input type="range" id="ai-criticality" min="1" max="5" step="1" value="3" />
-          <span class="calc-val" id="ai-criticality-val">3 / 5</span>
-        </div>
-
-        <div class="calc-out">
-          <div class="calc-out-row">
-            <span>Replacement &amp; ramp (90&ndash;200% of salary)</span>
-            <span class="calc-num" id="out-replace">&mdash;</span>
-          </div>
-          <div class="calc-out-row">
-            <span>Productivity gap (~9 months at 50%)</span>
-            <span class="calc-num" id="out-prod">&mdash;</span>
-          </div>
-          <div class="calc-out-row">
-            <span>Workflow restart cost (20&ndash;40% of investment)</span>
-            <span class="calc-num" id="out-restart">&mdash;</span>
-          </div>
-          <div class="calc-out-row">
-            <span>Compliance / audit-trail exposure (probability-weighted)</span>
-            <span class="calc-num" id="out-comp">&mdash;</span>
-          </div>
-          <div class="calc-out-row calc-out-headline">
-            <span>Conservative range &mdash; one wrong layoff, one workflow</span>
-            <span class="calc-num" id="out-total">&mdash;</span>
-          </div>
-          <div class="calc-out-row">
-            <span>FPE Continuity Pack &mdash; one critical workflow, 30 days</span>
-            <span class="calc-num">&euro;14,999</span>
-          </div>
-        </div>
-
-        <div class="calc-source">
-          Coefficients: SHRM and Center for American Progress replacement-cost benchmarks
-          (90&ndash;213% of salary, conservative band 90&ndash;200%); Gallup ramp-up data (50%
-          productivity for ~6 months after a 12-week vacancy); Gartner 2024 AI value-capture
-          statistics for partial restart bands; EU AI Act Reg. (EU) 2024/1689 Art. 99 capped at
-          probability-weighted mid-cap exposure (not the headline cap). Numbers are illustrative;
-          substitute your own salary, investment, and criticality for a defensible internal
-          estimate.
         </div>
       </div>
     </section>
