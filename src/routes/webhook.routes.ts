@@ -1,10 +1,10 @@
 /**
- * Webhook Routes — Resend Inbound Email
+ * Webhook Routes — Inbound Email
  *
- * POST /webhooks/resend/inbound — Receive email replies to the daily digest.
+ * POST /webhooks/inbound — Receive email replies to the daily digest.
  *
  * Flow:
- *   1. Verify Resend webhook signature (svix headers)
+ *   1. Parse inbound payload
  *   2. Insert into inbound_emails (idempotent via provider_message_id UNIQUE)
  *   3. Verify sender is the authorized digest recipient
  *   4. Parse first non-quoted line for command (T:TOKEN status/next/park/pass/note)
@@ -15,7 +15,6 @@
  *   9. Send confirmation email back
  *
  * Security:
- *   - Resend webhook signature verification (RESEND_WEBHOOK_SECRET)
  *   - Sender allowlist (OUTREACH_DIGEST_EMAIL)
  *   - Idempotency via provider_message_id UNIQUE constraint
  */
@@ -24,11 +23,12 @@ import express, { Router, Request, Response } from 'express';
 import logger from '../utils/logger.js';
 import {
   parseReplyText,
-  verifyResendSignature,
+  parseSubjectCommand,
   isAuthorizedSender,
 } from '../outreach/reply-parser.js';
 import type { UpdateCommand } from '../outreach/reply-parser.js';
 import { emailQueue } from '../services/email-queue.service.js';
+import { sendEmail } from '../utils/send-email.js';
 
 const router: Router = express.Router();
 
@@ -69,36 +69,28 @@ async function supabaseFetch(path: string, options: RequestInit = {}): Promise<a
 
 async function sendConfirmationEmail(to: string, subject: string, body: string): Promise<void> {
   const fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
-  const resendKey = process.env.RESEND_API_KEY;
-
-  if (!resendKey) {
-    logger.warn('No RESEND_API_KEY — skipping confirmation email');
-    return;
-  }
 
   try {
-    const response = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${resendKey}`,
-      },
-      body: JSON.stringify({
-        from: fromAddress,
-        to: [to],
-        subject,
-        text: body,
-      }),
+    const result = await sendEmail({
+      from: fromAddress,
+      to,
+      subject,
+      text: body,
+      html: `<pre>${body.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</pre>`,
+      source: 'platform',
+      templateType: 'inbound_confirmation',
+      metadata: { recipient: to },
     });
 
-    if (response.ok) {
-      logger.info('Confirmation email sent', {
-        from: fromAddress,
-        recipientCount: 1,
-      });
-    } else {
-      logger.warn('Confirmation email failed', { status: response.status });
+    if (!result.ok) {
+      logger.warn('Confirmation email failed', { error: result.error || 'Unknown SES SMTP failure' });
+      return;
     }
+
+    logger.info('Confirmation email sent', {
+      from: fromAddress,
+      recipientCount: 1,
+    });
   } catch (err) {
     logger.warn('Failed to send confirmation email', { error: (err as Error).message });
   }
@@ -124,33 +116,14 @@ Rules:
 — DWS IQ 6 Outreach`;
 
 // ============================================================================
-// POST /webhooks/resend/inbound — Resend inbound email webhook
+// POST /webhooks/inbound — inbound email webhook
 // ============================================================================
 
-router.post('/resend/inbound', async (req: Request, res: Response) => {
+router.post('/inbound', async (req: Request, res: Response) => {
   const rawBody = JSON.stringify(req.body);
 
-  // 1. Verify Resend webhook signature
-  const svixId = req.headers['svix-id'] as string;
-  const svixTimestamp = req.headers['svix-timestamp'] as string;
-  const svixSignature = req.headers['svix-signature'] as string;
-
-  if (process.env.RESEND_WEBHOOK_SECRET) {
-    if (!svixId || !svixTimestamp || !svixSignature) {
-      logger.warn('Webhook: missing svix headers');
-      res.status(401).json({ error: 'Missing signature headers' });
-      return;
-    }
-
-    if (!verifyResendSignature(rawBody, svixId, svixTimestamp, svixSignature)) {
-      logger.warn('Webhook: invalid signature');
-      res.status(401).json({ error: 'Invalid signature' });
-      return;
-    }
-  }
-
-  // Extract email fields from Resend webhook payload
-  // Resend format: { type: "email.received", data: { from, to, subject, text, html, ... } }
+  // Extract email fields from inbound webhook payload
+  // Expected: { type: "email.received", data: { from, to, subject, text, html, ... } }
   const payload = req.body;
   const eventType = payload.type;
   const data = payload.data || payload;
@@ -164,7 +137,7 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
   const fromEmail = data.from || '';
   const subject = data.subject || '';
   const textBody = data.text || '';
-  const messageId = data.message_id || data.id || svixId || `unknown-${Date.now()}`;
+  const messageId = data.message_id || data.id || `unknown-${Date.now()}`;
 
   // Also push to Redis inbox stream for async processing by other consumers
   // (MCP agents, analytics, audit trail). This is fire-and-forget — the
@@ -178,7 +151,7 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
         text: textBody,
         html: data.html || '',
         messageId,
-        source: 'resend-webhook',
+        source: 'inbound-webhook',
         rawPayload: rawBody,
       })
       .catch((err: Error) => {
@@ -202,7 +175,7 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
       method: 'POST',
       headers: { Prefer: 'return=minimal' },
       body: JSON.stringify({
-        provider: 'resend',
+        provider: 'inbound',
         provider_message_id: messageId,
         from_email: fromEmail,
         subject,
@@ -226,19 +199,30 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
       parse_ok: false,
       error: `Unauthorized sender: ${fromEmail}`,
     });
+    await logActivity(null, 'manual_update_failed', `Unauthorized sender: ${fromEmail}`, payload);
     res.status(200).json({ ok: true, rejected: true, reason: 'Unauthorized sender' });
     return;
   }
 
-  // 4. Parse command from first non-quoted line
-  const { command, error: parseError } = parseReplyText(textBody);
+  // 4. Parse command from first non-quoted line (fallback: subject line)
+  const bodyParse = parseReplyText(textBody);
+  const subjectParse = bodyParse.command ? { command: null, error: null } : parseSubjectCommand(subject);
+  const command = bodyParse.command || subjectParse.command;
+  const parseError = bodyParse.error || subjectParse.error;
+  const parseSource = bodyParse.command ? 'body' : subjectParse.command ? 'subject' : 'none';
 
   if (!command || parseError) {
-    logger.info('Webhook: parse failed', { error: parseError, messageId });
+    logger.info('Webhook: parse failed', { error: parseError, messageId, parseSource });
     await updateInboundEmail(messageId, {
       parse_ok: false,
       error: parseError || 'No command found',
     });
+    await logActivity(
+      null,
+      'manual_update_failed',
+      `Parse failed (${parseSource}): ${parseError || 'No command found'}`,
+      payload,
+    );
 
     // Send error reply
     const senderEmail = extractEmail(fromEmail);
@@ -318,6 +302,7 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
       threadId: thread.id,
       action: command.action,
       status: command.status,
+      parseSource,
     });
 
     // 9. Send confirmation email
@@ -351,6 +336,13 @@ router.post('/resend/inbound', async (req: Request, res: Response) => {
 
     res.status(200).json({ ok: true, applied: false, error: errorMsg });
   }
+});
+
+// Backward-compatible alias for old endpoint path
+router.post('/resend/inbound', async (req: Request, res: Response) => {
+  res.status(410).json({
+    error: 'Deprecated endpoint. Use /webhooks/inbound',
+  });
 });
 
 // ============================================================================

@@ -35,6 +35,13 @@ $StripeKey = $envVars["STRIPE_KEY"]
 $StripeWebhookSecret = $envVars["STRIPE_WEBHOOK_SECRET"]
 $SupabaseUrl = $envVars["SUPABASE_URL"]
 $SupabaseServiceKey = $envVars["SUPABASE_SERVICE_KEY"]
+$SmtpHost = $envVars["SMTP_HOST"]
+$SmtpPort = $envVars["SMTP_PORT"]
+$SmtpSecure = $envVars["SMTP_SECURE"]
+$SmtpUser = $envVars["SMTP_USER"]
+$SmtpPass = $envVars["SMTP_PASS"]
+$EmailFrom = $envVars["EMAIL_FROM"]
+$BookingAdminEmail = $envVars["BOOKING_ADMIN_EMAIL"]
 
 # If STRIPE_SECRET_KEY not found, try STRIPE_KEY (which may contain label + secret)
 if (-not $StripeSecretKey -and $StripeKey) {
@@ -51,6 +58,13 @@ if (-not $StripeSecretKey) { throw "❌ STRIPE_SECRET_KEY or STRIPE_KEY not foun
 if (-not $StripeWebhookSecret) { throw "❌ STRIPE_WEBHOOK_SECRET not found in .env" }
 if (-not $SupabaseUrl) { Write-Host "⚠️  SUPABASE_URL not found in .env (optional)" -ForegroundColor Yellow }
 if (-not $SupabaseServiceKey) { Write-Host "⚠️  SUPABASE_SERVICE_KEY not found in .env (optional)" -ForegroundColor Yellow }
+if (-not $SmtpHost) { throw "❌ SMTP_HOST not found in .env" }
+if (-not $SmtpUser) { throw "❌ SMTP_USER not found in .env" }
+if (-not $SmtpPass) { throw "❌ SMTP_PASS not found in .env" }
+if (-not $SmtpPort) { $SmtpPort = "587" }
+if (-not $SmtpSecure) { $SmtpSecure = "false" }
+if (-not $EmailFrom) { $EmailFrom = "risto@onelifetime.world" }
+if (-not $BookingAdminEmail) { $BookingAdminEmail = "risto@lifetime.fi" }
 
 Write-Host "✅ Secrets loaded successfully" -ForegroundColor Green
 
@@ -91,6 +105,13 @@ gcloud run deploy $ServiceName `
 STRIPE_WEBHOOK_SECRET=$StripeWebhookSecret,`
 SUPABASE_URL=$SupabaseUrl,`
 SUPABASE_SERVICE_KEY=$SupabaseServiceKey,`
+SMTP_HOST=$SmtpHost,`
+SMTP_PORT=$SmtpPort,`
+SMTP_SECURE=$SmtpSecure,`
+SMTP_USER=$SmtpUser,`
+SMTP_PASS=$SmtpPass,`
+EMAIL_FROM=$EmailFrom,`
+BOOKING_ADMIN_EMAIL=$BookingAdminEmail,`
 NODE_ENV=production"
 
 if ($LASTEXITCODE -ne 0) { throw "Cloud Run deployment failed" }

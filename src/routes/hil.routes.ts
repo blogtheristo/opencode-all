@@ -8,6 +8,7 @@
  */
 
 import { type Request, type Response, Router } from 'express';
+import { sendEmail } from '../utils/send-email.js';
 
 const router = Router();
 
@@ -135,28 +136,27 @@ router.post('/escalate', async (req: Request, res: Response): Promise<void> => {
     }
   }
 
-  // Email notification via Resend (if configured)
-  const resendKey = process.env.RESEND_API_KEY;
-  if (resendKey && escalationChannel === 'email') {
+  // Email notification via SES SMTP
+  if (escalationChannel === 'email') {
     try {
-      await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${resendKey}`,
-        },
-        body: JSON.stringify({
-          from: process.env.EMAIL_FROM || 'risto@onelifetime.world',
-          to: escalationEmail,
-          subject: `[HIL] ${agentName} escalation — confidence ${Math.round((confidence ?? 0) * 100)}%`,
-          html: `<h2>Agent Escalation</h2>
+      const result = await sendEmail({
+        from: process.env.EMAIL_FROM || 'risto@onelifetime.world',
+        to: escalationEmail,
+        subject: `[HIL] ${agentName} escalation — confidence ${Math.round((confidence ?? 0) * 100)}%`,
+        html: `<h2>Agent Escalation</h2>
 <p><strong>Agent:</strong> ${agentName}</p>
 <p><strong>Confidence:</strong> ${Math.round((confidence ?? 0) * 100)}%</p>
 <p><strong>Reason:</strong> ${reason}</p>
 <pre>${JSON.stringify(context, null, 2)}</pre>
 <p><em>Escalation ID: ${escalationId}</em></p>`,
-        }),
+        source: 'platform',
+        templateType: 'hil_escalation',
+        metadata: { agentName, escalationId, confidence: confidence ?? null },
       });
+
+      if (!result.ok) {
+        throw new Error(result.error || 'SES SMTP send failed');
+      }
     } catch {
       // Non-blocking
     }
