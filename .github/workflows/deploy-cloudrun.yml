@@ -57,6 +57,13 @@ jobs:
 STRIPE_WEBHOOK_SECRET=${{ secrets.STRIPE_WEBHOOK_SECRET }},\
 SUPABASE_URL=${{ secrets.SUPABASE_URL }},\
 SUPABASE_SERVICE_KEY=${{ secrets.SUPABASE_SERVICE_KEY }},\
+SMTP_HOST=${{ secrets.SMTP_HOST }},\
+SMTP_PORT=${{ secrets.SMTP_PORT || '587' }},\
+SMTP_SECURE=${{ secrets.SMTP_SECURE || 'false' }},\
+SMTP_USER=${{ secrets.SMTP_USER }},\
+SMTP_PASS=${{ secrets.SMTP_PASS }},\
+EMAIL_FROM=${{ secrets.EMAIL_FROM || 'risto@onelifetime.world' }},\
+BOOKING_ADMIN_EMAIL=${{ secrets.BOOKING_ADMIN_EMAIL || 'risto@lifetime.fi' }},\
 NODE_ENV=production"
 
       - name: Get service URL

@@ -4,7 +4,7 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.2
+Version: 2.3
 
 Sessions & Modifications:
 
@@ -21,6 +21,7 @@ Sessions & Modifications:
 - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Moved 9 admin manuals to Admin/ folder, PDF auto-open in Edge on login, splatting fix
 - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Script versioning, engine choice (HTML/PDF), Supabase sync in startup pipeline, code/scripts backup
 - Version: 2.2 | Tool: Claude Code (Opus 4.7) | Session: claude/ci-hygiene-audit-vBYGo | Date: 22.04.2026 | Changes: Local-First CI + Audit Log section; new Audit Manual linked; Files & Folders manual indexed
+- Version: 2.3 | Tool: Copilot CLI (GPT-5.3-Codex) | Session: claude/fix-booking-email-delivery-20260429 | Date: 29.04.2026 | Changes: SES SMTP runtime hardening, Supabase runtime env audit, Cloud Run env requirements updated
 
 Session Links & References:
 
@@ -30,7 +31,7 @@ Session Links & References:
 Document Status:
 
 - Created: 23.11.2025
-- Last Modified: 22.04.2026
+- Last Modified: 29.04.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ✅ ACTIVE
@@ -859,6 +860,45 @@ gcloud run logs read dws-iq-backend --region europe-north1 --limit 50
 - `STRIPE_WEBHOOK_SECRET` (whsec\_...)
 - `SUPABASE_URL`
 - `SUPABASE_SERVICE_KEY`
+
+### Runtime Environment Audit (2026-04-29)
+
+**Scope:** Verify that production runtime instances include Supabase credentials required for booking + email audit logging, and align email delivery with SES SMTP-only policy.
+
+#### Cloud Run verification result
+
+| Project | Service | SUPABASE_URL | SUPABASE_SERVICE_KEY | Status |
+| --- | --- | --- | --- | --- |
+| `dws6run6` | `dws-iq-backend` | `secret` | `secret` | ✅ OK |
+| `dws6-backend` | N/A | N/A | N/A | ⚠️ No services visible to current operator identity (or no services deployed) |
+
+#### SES SMTP-only runtime requirements
+
+For booking confirmations and admin notifications to send reliably, Cloud Run runtime must include:
+
+- `SMTP_HOST`
+- `SMTP_PORT` (default `587`)
+- `SMTP_SECURE` (default `false`)
+- `SMTP_USER`
+- `SMTP_PASS`
+- `EMAIL_FROM` (default `risto@onelifetime.world`)
+- `BOOKING_ADMIN_EMAIL` (default `risto@lifetime.fi`)
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_KEY`
+
+#### Implemented hardening changes (same remediation set)
+
+1. Cloud Run GitHub deployment now injects SMTP + Supabase envs:
+   - `.github/workflows/deploy-cloudrun.yml`
+2. Manual PowerShell Cloud Run deployment now validates and injects SMTP + Supabase envs:
+   - `scripts/Deploy-CloudRun.ps1`
+3. Core mail sender switched to SES SMTP-only behavior (Resend fallback removed):
+   - `src/utils/send-email.ts`
+4. Additional email flows switched from Resend/SendGrid fallback to SES SMTP sender:
+   - `src/morning-briefing/scheduler.ts`
+   - `src/outreach/daily-digest.ts`
+   - `src/routes/hil.routes.ts`
+   - `src/routes/webhook.routes.ts`
 
 ---
 

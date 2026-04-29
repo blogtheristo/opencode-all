@@ -105,6 +105,10 @@ const STATUS_ALIASES: Record<string, OutreachStatus> = {
   park: 'parked',
   pause: 'parked',
   hold: 'parked',
+  done: 'passed',
+  complete: 'passed',
+  completed: 'passed',
+  resolved: 'passed',
 };
 
 function resolveStatus(input: string): OutreachStatus | null {
@@ -155,7 +159,7 @@ function extractFreshLines(text: string): { first: string | null; count: number 
  * Token regex: T: followed by 4-10 alphanumeric chars (case-insensitive).
  * Standard is 8 chars but we allow a range for flexibility.
  */
-const TOKEN_REGEX = /^T:([A-Z0-9]{4,10})\s+(.+)$/i;
+const TOKEN_REGEX = /^T:([A-Z0-9]{4,12})\s+(.+)$/i;
 
 /** Parse a single command line */
 function parseLine(line: string): UpdateCommand | string {
@@ -166,17 +170,24 @@ function parseLine(line: string): UpdateCommand | string {
 
   const token = tokenMatch[1].toUpperCase();
   const rest = tokenMatch[2].trim();
+  const normalizedRest = rest.replace(/[.!]+$/g, '').trim();
 
   // Shorthand: T:XXXXXXXX park
-  if (/^park$/i.test(rest)) {
+  if (/^park$/i.test(normalizedRest)) {
     return { token, action: 'status', status: 'parked', raw: line };
   }
-  if (/^pass$/i.test(rest)) {
+  if (/^pass$/i.test(normalizedRest)) {
     return { token, action: 'status', status: 'passed', raw: line };
   }
 
+  // Generic shorthand: T:XXXXXXXX responded / done / contacted / ...
+  const shorthandStatus = resolveStatus(normalizedRest);
+  if (shorthandStatus) {
+    return { token, action: 'status', status: shorthandStatus, raw: line };
+  }
+
   // T:XXXXXXXX status <status> [, <notes>]
-  const statusMatch = rest.match(/^status\s+(.+)$/i);
+  const statusMatch = normalizedRest.match(/^status\s+(.+)$/i);
   if (statusMatch) {
     const statusRest = statusMatch[1];
     const commaIdx = statusRest.indexOf(',');
@@ -198,7 +209,7 @@ function parseLine(line: string): UpdateCommand | string {
   }
 
   // T:XXXXXXXX next <date> [type <type>]
-  const nextMatch = rest.match(/^next\s+(\d{4}-\d{2}-\d{2})(?:\s+type\s+(\w+))?$/i);
+  const nextMatch = normalizedRest.match(/^next\s+(\d{4}-\d{2}-\d{2})(?:\s+type\s+(\w+))?$/i);
   if (nextMatch) {
     return {
       token,
@@ -210,7 +221,7 @@ function parseLine(line: string): UpdateCommand | string {
   }
 
   // T:XXXXXXXX note <text>
-  const noteMatch = rest.match(/^note\s+(.+)$/i);
+  const noteMatch = normalizedRest.match(/^note\s+(.+)$/i);
   if (noteMatch) {
     return {
       token,
@@ -244,6 +255,30 @@ export function parseReplyText(text: string): ParseResult {
   }
 
   const result = parseLine(first);
+  if (typeof result === 'string') {
+    return { command: null, error: result };
+  }
+
+  return { command: result, error: null };
+}
+
+/**
+ * Parse a command from an email subject line.
+ * Supports common prefixes (Re:, Fwd:) and extracts command from first `T:...`.
+ */
+export function parseSubjectCommand(subject: string): ParseResult {
+  if (!subject.trim()) {
+    return { command: null, error: 'No command found in subject.' };
+  }
+
+  const cleaned = subject.replace(/^\s*((re|fwd?):\s*)+/i, '').trim();
+  const tokenStart = cleaned.toUpperCase().indexOf('T:');
+  if (tokenStart < 0) {
+    return { command: null, error: 'No token command found in subject.' };
+  }
+
+  const candidate = cleaned.slice(tokenStart).trim();
+  const result = parseLine(candidate);
   if (typeof result === 'string') {
     return { command: null, error: result };
   }
@@ -286,9 +321,18 @@ export function verifyResendSignature(
 
 /** Check if the email sender is the authorized digest recipient */
 export function isAuthorizedSender(from: string): boolean {
-  const authorizedEmail = process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi';
+  const primaryAuthorizedEmail = process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi';
+  const fallbackAllowed = 'risto.anton@lifetime.fi';
+  const extraAllowed = process.env.OUTREACH_DIGEST_ALLOWED_SENDERS || fallbackAllowed;
+
+  const allowed = new Set(
+    [primaryAuthorizedEmail, ...extraAllowed.split(',')]
+      .map((e) => e.trim().toLowerCase())
+      .filter((e) => e.length > 0),
+  );
+
   // Email from header can be "Name <email>" or just "email"
   const emailMatch = from.match(/<([^>]+)>/) || [null, from.trim()];
   const senderEmail = (emailMatch[1] || '').toLowerCase().trim();
-  return senderEmail === authorizedEmail.toLowerCase();
+  return allowed.has(senderEmail);
 }
