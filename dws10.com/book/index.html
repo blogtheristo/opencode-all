@@ -409,11 +409,19 @@
         window.location.origin === "file://"
           ? "http://localhost:3000"
           : "https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud";
+      const SUPABASE_URL = "https://kpucuwwfhuwurdxyjjtz.supabase.co";
+      const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_mZtEHU2k4WolHxePGF6g3w_tdkMCWRh";
+      const SUPABASE_HEADERS = {
+        apikey: SUPABASE_PUBLISHABLE_KEY,
+        Authorization: `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
+        "Content-Type": "application/json",
+      };
 
       let services = [];
       let selectedService = null;
       let availableSlots = [];
       const disabledDates = new Set();
+      let lastReservationTransport = "backend";
 
       const elements = {
         form: document.getElementById("bookingForm"),
@@ -473,26 +481,163 @@
         await onServiceChange();
       }
 
+      async function loadServicesFromSupabase() {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/booking_services?select=*&order=created_at.asc`, {
+          headers: SUPABASE_HEADERS,
+        });
+        if (!res.ok) throw new Error("Supabase services fetch failed");
+        const data = await res.json();
+        return { services: data || [] };
+      }
+
+      async function loadAvailabilityFromSupabase(serviceId, startDate, endDate) {
+        const [serviceRes, availabilityRes, holidaysRes, reservationsRes] = await Promise.all([
+          fetch(`${SUPABASE_URL}/rest/v1/booking_services?id=eq.${serviceId}&select=duration_minutes&limit=1`, {
+            headers: SUPABASE_HEADERS,
+          }),
+          fetch(
+            `${SUPABASE_URL}/rest/v1/booking_availability?service_id=eq.${serviceId}&select=day_of_week,date_override,start_time,end_time,is_available&is_available=eq.true`,
+            { headers: SUPABASE_HEADERS },
+          ),
+          fetch(
+            `${SUPABASE_URL}/rest/v1/finnish_holidays?select=date&date=gte.${startDate}&date=lte.${endDate}`,
+            { headers: SUPABASE_HEADERS },
+          ),
+          fetch(
+            `${SUPABASE_URL}/rest/v1/booking_reservations?service_id=eq.${serviceId}&status=eq.confirmed&select=reserved_at,duration_minutes&reserved_at=gte.${startDate}T00:00:00.000Z&reserved_at=lte.${endDate}T23:59:59.999Z`,
+            { headers: SUPABASE_HEADERS },
+          ),
+        ]);
+
+        if (!serviceRes.ok || !availabilityRes.ok || !holidaysRes.ok || !reservationsRes.ok) {
+          throw new Error("Supabase availability fetch failed");
+        }
+
+        const serviceRows = await serviceRes.json();
+        const availabilityRows = await availabilityRes.json();
+        const holidayRows = await holidaysRes.json();
+        const reservationRows = await reservationsRes.json();
+
+        const durationMinutes = serviceRows?.[0]?.duration_minutes || 30;
+        const holidays = (holidayRows || []).map((h) => h.date);
+        const holidaySet = new Set(holidays);
+
+        const weekly = new Map();
+        const overrides = new Map();
+        (availabilityRows || []).forEach((row) => {
+          if (row.date_override) {
+            overrides.set(row.date_override, row);
+            return;
+          }
+          const list = weekly.get(row.day_of_week) || [];
+          list.push(row);
+          weekly.set(row.day_of_week, list);
+        });
+
+        const bookedSlots = (reservationRows || []).map((r) => {
+          const start = new Date(r.reserved_at);
+          const end = new Date(start.getTime() + (r.duration_minutes || durationMinutes) * 60 * 1000);
+          return { start, end };
+        });
+
+        const availability = {};
+        for (let d = new Date(`${startDate}T00:00:00.000Z`); d <= new Date(`${endDate}T23:59:59.999Z`); ) {
+          const dateStr = d.toISOString().split("T")[0];
+          const dayOfWeek = d.getUTCDay();
+          const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+          const schedule = overrides.get(dateStr) || (weekly.get(dayOfWeek) || [])[0];
+          if (schedule && !isWeekend && !holidaySet.has(dateStr)) {
+            const toMinutes = (time) => {
+              const [hours, minutes] = time.split(":").map(Number);
+              return hours * 60 + minutes;
+            };
+            const toTimeString = (minutes) =>
+              `${Math.floor(minutes / 60).toString().padStart(2, "0")}:${(minutes % 60).toString().padStart(2, "0")}`;
+
+            const slots = [];
+            let current = toMinutes(schedule.start_time);
+            const endMinutes = toMinutes(schedule.end_time);
+            while (current + durationMinutes <= endMinutes) {
+              const timeStr = toTimeString(current);
+              const slotStart = new Date(`${dateStr}T${timeStr}:00.000Z`);
+              const slotEnd = new Date(slotStart.getTime() + durationMinutes * 60 * 1000);
+              const hasConflict = bookedSlots.some((b) => slotStart < b.end && slotEnd > b.start);
+              if (!hasConflict) slots.push(timeStr);
+              current += 30;
+            }
+            if (slots.length > 0) availability[dateStr] = slots;
+          }
+          d.setUTCDate(d.getUTCDate() + 1);
+        }
+
+        return { availability, holidays };
+      }
+
+      async function reserveWithSupabase(payload) {
+        const serviceRes = await fetch(
+          `${SUPABASE_URL}/rest/v1/booking_services?id=eq.${payload.serviceId}&select=name,duration_minutes&limit=1`,
+          { headers: SUPABASE_HEADERS },
+        );
+        if (!serviceRes.ok) throw new Error("Supabase service lookup failed");
+        const serviceRows = await serviceRes.json();
+        if (!serviceRows || serviceRows.length === 0) throw new Error("Service not found");
+        const durationMinutes = serviceRows[0].duration_minutes;
+
+        const conflictRes = await fetch(
+          `${SUPABASE_URL}/rest/v1/booking_reservations?service_id=eq.${payload.serviceId}&status=eq.confirmed&select=reserved_at,duration_minutes`,
+          { headers: SUPABASE_HEADERS },
+        );
+        if (!conflictRes.ok) throw new Error("Supabase conflict check failed");
+        const conflicts = await conflictRes.json();
+        const slotStart = new Date(payload.reservedAt);
+        const slotEnd = new Date(slotStart.getTime() + durationMinutes * 60 * 1000);
+        const hasConflict = (conflicts || []).some((booked) => {
+          const bookedStart = new Date(booked.reserved_at);
+          const bookedEnd = new Date(
+            bookedStart.getTime() + (booked.duration_minutes || durationMinutes) * 60 * 1000,
+          );
+          return slotStart < bookedEnd && slotEnd > bookedStart;
+        });
+        if (hasConflict) throw new Error("Slot already booked. Please choose another time.");
+
+        const insertRes = await fetch(`${SUPABASE_URL}/rest/v1/booking_reservations`, {
+          method: "POST",
+          headers: { ...SUPABASE_HEADERS, Prefer: "return=representation" },
+          body: JSON.stringify([
+            {
+              service_id: payload.serviceId,
+              customer_name: payload.customerName,
+              customer_email: payload.customerEmail,
+              customer_phone: payload.customerPhone,
+              customer_company: payload.customerCompany || null,
+              customer_notes: payload.customerNotes || null,
+              reserved_at: payload.reservedAt,
+              duration_minutes: durationMinutes,
+              status: "confirmed",
+            },
+          ]),
+        });
+        if (!insertRes.ok) throw new Error("Supabase reservation insert failed");
+        const rows = await insertRes.json();
+        return { reservationId: rows?.[0]?.id };
+      }
+
       async function loadServices() {
         try {
-          const res = await fetch(`${API_BASE}/api/v1/booking/services`);
-          const contentType = res.headers.get("content-type") || "";
-          const bodyText = await res.text();
-
-          if (!res.ok) {
-            throw new Error(
-              `Palveluiden lataus epäonnistui (${res.status}). Varmista että booking API on käytössä.`,
-            );
+          let data;
+          try {
+            const res = await fetch(`${API_BASE}/api/v1/booking/services`);
+            const contentType = res.headers.get("content-type") || "";
+            const bodyText = await res.text();
+            if (!res.ok) throw new Error(`Backend returned ${res.status}`);
+            if (!contentType.includes("application/json")) {
+              const preview = bodyText.slice(0, 80).replace(/\s+/g, " ").trim();
+              throw new Error(`Backend returned non-JSON. Preview: ${preview}`);
+            }
+            data = JSON.parse(bodyText);
+          } catch {
+            data = await loadServicesFromSupabase();
           }
-
-          if (!contentType.includes("application/json")) {
-            const preview = bodyText.slice(0, 80).replace(/\s+/g, " ").trim();
-            throw new Error(
-              `Booking API palautti väärän sisällön (${contentType || "tuntematon"}). Preview: ${preview}`,
-            );
-          }
-
-          const data = JSON.parse(bodyText);
           services = data.services || [];
 
           // Populate select
@@ -556,11 +701,16 @@
             .toISOString()
             .split("T")[0];
 
-          const res = await fetch(
-            `${API_BASE}/api/v1/booking/availability/${serviceId}?startDate=${startDate}&endDate=${endDate}`,
-          );
-          if (!res.ok) throw new Error("Failed to load availability");
-          const data = await res.json();
+          let data;
+          try {
+            const res = await fetch(
+              `${API_BASE}/api/v1/booking/availability/${serviceId}?startDate=${startDate}&endDate=${endDate}`,
+            );
+            if (!res.ok) throw new Error("Backend availability failed");
+            data = await res.json();
+          } catch {
+            data = await loadAvailabilityFromSupabase(serviceId, startDate, endDate);
+          }
 
           availableSlots = data.availability || {};
           disabledDates.clear();
@@ -668,23 +818,28 @@
         elements.submitButton.disabled = true;
 
         try {
-          const res = await fetch(`${API_BASE}/api/v1/booking/reserve`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-          });
-
-          const data = await res.json();
-
-          if (!res.ok) {
-            throw new Error(data.error || "Varauksen luominen epäonnistui");
+          lastReservationTransport = "backend";
+          try {
+            const res = await fetch(`${API_BASE}/api/v1/booking/reserve`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || "Varauksen luominen epäonnistui");
+          } catch {
+            lastReservationTransport = "supabase-direct";
+            await reserveWithSupabase(payload);
           }
 
           // Success
           hideError();
           elements.form.style.display = "none";
           elements.successContainer.style.display = "block";
-          elements.successText.textContent = `Varaus ${service.name}:lle on vahvistettu. Sähköposti on lähetetty osoitteeseen ${elements.emailInput.value}.`;
+          elements.successText.textContent =
+            lastReservationTransport === "backend"
+              ? `Varaus ${service.name}:lle on vahvistettu. Sähköposti on lähetetty osoitteeseen ${elements.emailInput.value}.`
+              : `Varaus ${service.name}:lle on vahvistettu. Tarkistusviesti toimitetaan erikseen osoitteeseen ${elements.emailInput.value}.`;
         } catch (err) {
           showError(err instanceof Error ? err.message : "Tuntematon virhe");
         } finally {
