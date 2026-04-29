@@ -8,7 +8,7 @@ Version: 1.2
 
 Sessions & Modifications:
 
-- Version: 1.2 | Tool: Claude Code (Claude Opus 4.7) | Session: claude/compare-ontologies-NtJWP | Date: 29.04.2026 | Changes: Palantir-gap roadmap — added §13 Decision-Centric Roadmap (Actions, Scenarios/Global Branching, per-Decision Lineage, Purpose-based + Marking-based Policies, Logic Binding, Multi-tier Agent Memory, Embedded Edge Ontology) and §14 Palantir Comparison (where DWS leads, where DWS lags)
+- Version: 1.2 | Tool: Claude Code (Claude Opus 4.7) | Session: claude/compare-ontologies-NtJWP | Date: 29.04.2026 | Changes: Decision-centric roadmap — added §13 (Actions, Scenarios/Global Branching, per-Decision Lineage, Purpose-based + Marking-based Policies, Logic Binding, Multi-tier Agent Memory, Embedded Edge Ontology) and §14 Where DWS Leads, Where DWS Lags. Removed third-party vendor naming; positioned as European Ontology Standard.
 - Version: 1.1 | Tool: Claude Code (Claude Opus 4.6) | Session: claude/add-eu-info-note-8XYey | Date: 11.02.2026 | Changes: Added DWS6 Enterprise Ontology — EU institutions (Commission, Council, Parliament, EIB), EU Single Market (450M consumers), EU regulatory framework (Fit for 55, ETS, CBAM, CSRD, AI Act, GDPR, NIS2), DWS IQ 6 platform entities, 21-moat fortress taxonomy, 16 EU industries, key geographic entities, Alden Biesen retreat context
 - Version: 1.0 | Tool: Claude Code | Session: claude/show-dws-version-LLEHz | Date: 21.01.2026 | Changes: Initial creation - Enterprise ontology framework with LWM integration
 
@@ -53,7 +53,7 @@ Document Status:
 
 ### Purpose / Tarkoitus
 
-This document establishes the ontological framework for DWS7 and beyond, defining how knowledge transitions from raw field notes to a living, breathing enterprise intelligence system. It addresses the core insight from Palantir CEO Alex Karp:
+This document establishes the ontological framework for DWS7 and beyond, defining how knowledge transitions from raw field notes to a living, breathing enterprise intelligence system. It is grounded in a now well-established industry insight:
 
 > **"If you just buy LLMs off the shelf and try to do any of this, it won't work. Once you build a software layer to orchestrate and manage the LLMs in a language your enterprise understands, you actually can create value."**
 
@@ -1259,22 +1259,22 @@ artifact.update_confidence(feedback)
 
 ---
 
-## Appendix A: Palantir Lessons Applied
+## Appendix A: Industry Lessons Applied
 
-### Alex Karp's Insights → DWS Implementation
+### Decision-Centric Insights → DWS Implementation
 
-| Karp's Point                                        | DWS Implementation                                                        |
-| --------------------------------------------------- | ------------------------------------------------------------------------- |
-| "Off-the-shelf LLMs don't work for regulated tasks" | Orchestration layer routes queries through validated artifacts first      |
-| "You need a software layer to orchestrate LLMs"     | OrchestrationEngine class manages LLM routing and artifact application    |
-| "In a language your enterprise understands"         | Ontology framework captures enterprise-specific geography, sectors, rules |
-| "People try to build Ontology by hand"              | Automated ontology mapping + human validation                             |
-| "Battlefield proved it works"                       | Production incident learning → immediate artifact updates                 |
-| "Sales force is shrinking"                          | Product "pulls" itself via demonstrated value (success metrics)           |
+| Insight                                               | DWS Implementation                                                        |
+| ----------------------------------------------------- | ------------------------------------------------------------------------- |
+| Off-the-shelf LLMs don't work for regulated tasks     | Orchestration layer routes queries through validated artifacts first      |
+| Enterprises need a software layer to orchestrate LLMs | OrchestrationEngine class manages LLM routing and artifact application    |
+| AI must speak the language the enterprise understands | Ontology framework captures enterprise-specific geography, sectors, rules |
+| Hand-rolled ontologies do not scale                   | Automated ontology mapping + human validation                             |
+| Production reality, not lab benchmarks, sets truth    | Production incident learning → immediate artifact updates                 |
+| Demonstrated value, not headcount, drives adoption    | Product "pulls" itself via demonstrated value (success metrics)           |
 
-### The Karp Principle
+### Guiding Principle
 
-> **"The gap between theoretical AI and practical enterprise value is bridged by ontology, orchestration, and continuous learning from battlefield reality."**
+> **The gap between theoretical AI and practical enterprise value is bridged by ontology, orchestration, and continuous learning from operational reality.**
 
 ---
 
@@ -1478,9 +1478,9 @@ Flow: `ONTOLOGY.md` -> `scripts/parse-ontology.ts` -> `supabase/seeds/059_seed.s
 
 ---
 
-## 13. Decision-Centric Roadmap (v1.2 — Palantir Gap Closure)
+## 13. Decision-Centric Roadmap (v1.2)
 
-DWS Ontology v1.0–1.1 is **knowledge-centric**: field notes → artifacts → LWM. Palantir's Ontology is **decision-centric**: data + logic + action + security unified per decision. v1.2 commits DWS to closing the four operational gaps below. Each gap has owner, target quarter, and acceptance criteria.
+DWS Ontology v1.0–1.1 is **knowledge-centric**: field notes → artifacts → LWM. v1.2 makes it **decision-centric**: data + logic + action + security unified per decision. The seven gaps below close that step. Each has owner, target quarter, and acceptance criteria.
 
 ### 13.1 Actions (Verbs) — Write-Back Layer
 
@@ -1553,7 +1553,7 @@ decision_record:
 
 ### 13.4 Purpose-Based + Marking-Based Policies
 
-**Gap:** RLS today gates by role + row. Palantir adds **purpose** (why is this query happening?) and **markings** (security tags that propagate through pipelines).
+**Gap:** RLS today gates by role + row. The European Ontology Standard requires **purpose** (why is this query happening?) and **markings** (security tags that propagate through pipelines) to be evaluated alongside role.
 
 **Target:** Extend Supabase RLS + agent gateway to evaluate `(role, purpose, markings)` at every data, logic, and action invocation.
 
@@ -1622,36 +1622,39 @@ logic_asset:
 
 ---
 
-## 14. Palantir Comparison — Where DWS Leads, Where DWS Lags
+## 14. Where DWS Leads, Where DWS Lags
+
+The DWS Ontology Standard is positioned as a **European Ontology Standard** — open, sovereign, regulation-native. Comparison below is against the prevailing decision-centric ontology pattern in the wider industry, not any single vendor.
 
 ### Where DWS leads
 
-| Capability                                          | DWS Advantage                                                                                                                     |
-| --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| **EU regulations as first-class ontology entities** | Fit for 55, ETS, CBAM, CSRD, AI Act, NIS2, GDPR are pre-modeled (§6). Palantir customers must encode these themselves.            |
-| **Sovereignty by design**                           | EU data residency (Finland/Germany), no CLOUD Act exposure, Gaia-X tier-3 path. Palantir AIP runs primarily on US hyperscalers.   |
-| **CCP — concept_context_policy**                    | Per-customer/industry/locale term preference + forbidden-term enforcement (Appendix D). Palantir has nothing at this granularity. |
-| **Active pruning + collision protocol**             | Forced reconciliation of contradictory artifacts with human gates (§8). Palantir captures lineage; DWS _enforces_ deprecation.    |
-| **Skilled Taxonomy (3-tier)**                       | Brand / Spec / UI naming for Agents, Workflows, Jurisdictions. Marketable and consistent across docs and UI.                      |
-| **Build-for-Agents discipline**                     | Every product must expose CLI + MCP + Skill (CLAUDE.md). Hard rule, not aspiration.                                               |
-| **Tribal-knowledge pipeline**                       | Field-note → artifact → LWM is opinionated and structured (§7).                                                                   |
+| Capability                                          | DWS Advantage                                                                                                                       |
+| --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| **EU regulations as first-class ontology entities** | Fit for 55, ETS, CBAM, CSRD, AI Act, NIS2, GDPR are pre-modeled (§6). Other ontologies require customers to encode these from zero. |
+| **Sovereignty by design**                           | EU data residency (Finland/Germany), no CLOUD Act exposure, Gaia-X tier-3 path. Most incumbent ontologies run on US hyperscalers.   |
+| **CCP — concept_context_policy**                    | Per-customer/industry/locale term preference + forbidden-term enforcement (Appendix D). Not standard practice elsewhere.            |
+| **Active pruning + collision protocol**             | Forced reconciliation of contradictory artifacts with human gates (§8). DWS _enforces_ deprecation, not just lineage.               |
+| **Skilled Taxonomy (3-tier)**                       | Brand / Spec / UI naming for Agents, Workflows, Jurisdictions. Marketable and consistent across docs and UI.                        |
+| **Build-for-Agents discipline**                     | Every product must expose CLI + MCP + Skill (CLAUDE.md). Hard rule, not aspiration.                                                 |
+| **Tribal-knowledge pipeline**                       | Field-note → artifact → LWM is opinionated and structured (§7).                                                                     |
+| **Open European standard**                          | Spec published openly under permissive licence; runtime competitive. Schema becomes a Brussels-Effect adoption surface.             |
 
 ### Where DWS lags (closed by §13)
 
-| Gap                                             | Palantir                                   | DWS v1.1              | DWS v1.2 plan                              |
-| ----------------------------------------------- | ------------------------------------------ | --------------------- | ------------------------------------------ |
-| Actions / write-back                            | Native (per substrate, staged → committed) | Missing               | §13.1 — Q3 2026                            |
-| Scenarios / Global Branching                    | Native                                     | Missing               | §13.2 — Q4 2026                            |
-| Per-decision lineage                            | Native                                     | Artifact-level only   | §13.3 — Q3 2026                            |
-| Purpose-based + marking policies                | Native (runtime)                           | Role + RLS only       | §13.4 — Q3 2026                            |
-| Logic binding (unified tool surface)            | Native                                     | Per-agent ad-hoc      | §13.5 — Q4 2026                            |
-| Multi-tier agent memory                         | Native                                     | Artifact weights only | §13.6 — Q1 2027                            |
-| Embedded edge ontology                          | Native (Embedded Ontology)                 | Spec phase            | §13.7 — Q2 2027                            |
-| Operational system connectors (ERP/MES/WMS/IoT) | Mature (1000+ connectors)                  | Aspirational          | Pulls from §13.1; Q4 2026 first 3 adapters |
+| Gap                                             | Decision-centric incumbent norm  | DWS v1.1              | DWS v1.2 plan                              |
+| ----------------------------------------------- | -------------------------------- | --------------------- | ------------------------------------------ |
+| Actions / write-back                            | Staged → committed per substrate | Missing               | §13.1 — Q3 2026                            |
+| Scenarios / Global Branching                    | Native                           | Missing               | §13.2 — Q4 2026                            |
+| Per-decision lineage                            | Native                           | Artifact-level only   | §13.3 — Q3 2026                            |
+| Purpose-based + marking policies                | Runtime-evaluated                | Role + RLS only       | §13.4 — Q3 2026                            |
+| Logic binding (unified tool surface)            | Single registry                  | Per-agent ad-hoc      | §13.5 — Q4 2026                            |
+| Multi-tier agent memory                         | Working/episodic/semantic/proc.  | Artifact weights only | §13.6 — Q1 2027                            |
+| Embedded edge ontology                          | Native edge runtime              | Spec phase            | §13.7 — Q2 2027                            |
+| Operational system connectors (ERP/MES/WMS/IoT) | Hundreds of mature adapters      | Aspirational          | Pulls from §13.1; Q4 2026 first 3 adapters |
 
 ### Strategic posture
 
-DWS does **not** out-engineer Palantir on operational connectors or scenario tooling — Palantir has a 20-year head start. DWS wins by being the **EU-sovereign, regulation-native, agent-first** ontology platform. The §13 roadmap closes the operational gaps just enough that DWS can credibly serve EU industrial customers who _cannot_ use Palantir for sovereignty reasons.
+DWS does **not** try to out-engineer 20-year-old US incumbents on operational connectors or scenario tooling. DWS wins by being the **EU-sovereign, regulation-native, agent-first, open-standard** ontology platform. The §13 roadmap closes operational gaps just enough that DWS can credibly serve EU industrial customers who require sovereignty, and the open European standard turns the schema itself into a market-shaping asset.
 
 ---
 
