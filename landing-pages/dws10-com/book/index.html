@@ -14,7 +14,7 @@
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
-      integrity="sha384-gIpHsDuXmGkuY+V0nPWfz8tH+eIkI6vyQbKIAkScEjgj/0UvW9gvZ/VGCqXPwGH8"
+      integrity="sha384-RkASv+6KfBMW9eknReJIJ6b3UnjKOKC5bOUaNgIY778NFbQ8MtWq9Lr/khUgqtTt"
       crossorigin="anonymous"
     />
     <style>
@@ -396,17 +396,19 @@
 
     <script
       src="https://cdn.jsdelivr.net/npm/flatpickr"
-      integrity="sha384-wPSsUvzJME+gpLvjqoJakhbuxIdZaPlNsWyz7XcIWsou5zlDyhrsKkrQmiyKHjWGD"
+      integrity="sha384-5JqMv4L/Xa0hfvtF06qboNdhvuYXUku9ZrhZh3bSk8VXF0A/RuSLHpLsSV9Zqhl6"
       crossorigin="anonymous"
     ></script>
     <script
       src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fi.js"
-      integrity="sha384-oRH0xVhBDJZQ0WqKEFj0Vk4tWfm3miFKKIkgOLOkrDJQ9p/mqEoZqzzcOmXfM7OWh"
+      integrity="sha384-eq8xYL0aTFBswlBwiDAr1v9CpLFwESm1DaGdosAvYEAgZp1ukboqAhfgyg47ZNbl"
       crossorigin="anonymous"
     ></script>
     <script>
       const API_BASE =
-        window.location.origin === "file://" ? "http://localhost:3000" : "https://dws6.com";
+        window.location.origin === "file://"
+          ? "http://localhost:3000"
+          : "https://dwsiqcontainersjwyssm4e-dws-iq-backend.functions.fnc.fr-par.scw.cloud";
 
       let services = [];
       let selectedService = null;
@@ -438,11 +440,59 @@
         setupEventListeners();
       }
 
+      function extractServiceHint() {
+        const raw = new URLSearchParams(window.location.search).get("service");
+        return raw ? raw.trim().toLowerCase() : "";
+      }
+
+      function resolveServiceByHint(hint) {
+        if (!hint) return null;
+        if (hint === "demo") {
+          return services.find((svc) => svc.name?.toLowerCase().includes("demo")) || null;
+        }
+        if (hint === "consultation" || hint === "konsultaatio") {
+          return (
+            services.find((svc) => svc.name?.toLowerCase().includes("konsultaatio")) ||
+            services.find((svc) => svc.name?.toLowerCase().includes("consultation")) ||
+            null
+          );
+        }
+
+        return (
+          services.find(
+            (svc) => svc.id === hint || svc.name?.toLowerCase() === hint || svc.name?.toLowerCase().includes(hint),
+          ) || null
+        );
+      }
+
+      async function applyServicePrefillFromUrl() {
+        const hint = extractServiceHint();
+        const resolvedService = resolveServiceByHint(hint);
+        if (!resolvedService) return;
+        elements.serviceSelect.value = resolvedService.id;
+        await onServiceChange();
+      }
+
       async function loadServices() {
         try {
           const res = await fetch(`${API_BASE}/api/v1/booking/services`);
-          if (!res.ok) throw new Error("Failed to load services");
-          const data = await res.json();
+          const contentType = res.headers.get("content-type") || "";
+          const bodyText = await res.text();
+
+          if (!res.ok) {
+            throw new Error(
+              `Palveluiden lataus epäonnistui (${res.status}). Varmista että booking API on käytössä.`,
+            );
+          }
+
+          if (!contentType.includes("application/json")) {
+            const preview = bodyText.slice(0, 80).replace(/\s+/g, " ").trim();
+            throw new Error(
+              `Booking API palautti väärän sisällön (${contentType || "tuntematon"}). Preview: ${preview}`,
+            );
+          }
+
+          const data = JSON.parse(bodyText);
           services = data.services || [];
 
           // Populate select
@@ -453,8 +503,9 @@
             option.textContent = `${svc.name} (${svc.duration_minutes} min)`;
             elements.serviceSelect.appendChild(option);
           });
+          await applyServicePrefillFromUrl();
         } catch (err) {
-          showError("Palveluiden lataaminen epäonnistui");
+          showError(err instanceof Error ? err.message : "Palveluiden lataaminen epäonnistui");
           console.error(err);
         }
       }
