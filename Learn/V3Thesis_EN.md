@@ -6,10 +6,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.51
+Version: 3.52
 
 Sessions & Modifications:
 
+- Version: 3.52 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-ontology-blog-3RGKG | Date: 29.04.2026 | Changes: Added Section 1.6 "Ontology — Etymology and Philosophical Background" linking the thesis to ONTOLOGY.md v1.3 (Greek ón + lógos, Aristotle, scholastic 17th–18th c. systematization, modern computer-science meaning). Aligns thesis terminology with the canonical DWS Ontology Standard. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule.
 - Version: 3.51 | Tool: Claude Code (Haiku 4.5) | Session: claude/sync-version-numbering-adEeB | Date: 28.04.2026 | Changes: Bumped from 3.39 to 3.51 (12 steps × 0.01). Unified thesis version track maintained. Created new Tutkimussuunnitelma_3.51.md (Research Plan) with three research streams (KYA standardization, DWS 7 empirical testbed, dual-use industries), eight research questions, "Human in Command ja Human in Loop" governance framework; versioning format rule (.X9 → .X+1,0) documented for DWS_DOCUMENT_STANDARD.md §5
 - Version: 3.39 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Terminology rename — "Aiven overlay" / "Aiven layer" (deprecated infrastructure labels) → "Article 12 Logging Pipeline" per new DWS_ARTICLE_12_LOGGING_STANDARD.md v1.0 (unified 3-tier canonical term). Aiven remains the correct name for the Postgres SaaS. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule; only V3Thesis_EN had the infra-context string in content
 - Version: 3.38 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Typo correction — "Aiwen" → "Aiven" (Aiven.io is our Helsinki Postgres partner) as part of repo-wide sweep of 116 files; no content change beyond the spelling fix; unified version track preserved (all 4 thesis files bumped in lockstep per CLAUDE.md thesis rule)
@@ -223,6 +224,16 @@ How can a bootstrapped industrial AI platform achieve product-market fit through
 | **SaaS**            | Software as a Service                                                     |
 | **DWS6**            | Digital Work System 6 - Technical name for the Firehorse platform         |
 | **Embodied Carbon** | Emissions from the manufacturing and transportation of building materials |
+
+## 1.6 Ontology — Etymology and Philosophical Background
+
+The Firehorse platform's data and reasoning layer is structured around a formal ontology — the DWS Ontology Standard (see `ONTOLOGY.md` v1.3 in the project repository). To ground the engineering choices in their conceptual heritage, this section briefly reviews the origin of the term.
+
+**Etymology.** The word _ontology_ derives from two Greek roots: **ὄν (ón)** — "that which is", the present participle of _einai_ ("to be") — and **λόγος (lógos)** — "doctrine, account, rational explanation". Literally, ontology is "the doctrine of being" — the study of what exists and in what manner.
+
+**Philosophical background.** Ontology is one of the central branches of metaphysics. Already in classical Greece, philosophers such as Aristotle examined the nature of being: what it means for something to _be_, what kinds of entities exist (objects, properties, relations, events), and what the basic structure of being is. The term _ontology_ itself was consolidated only in the 17th–18th centuries, particularly within scholastic and early-modern philosophy, when metaphysics began to be systematised into distinct sub-fields.
+
+**Modern usage.** Today the term is applied in several contexts: in philosophy, the study of the fundamental nature of existence; in computer science and artificial intelligence, a formal model of concepts and the relations between them (classes, properties, relations); and in the philosophy of science, the question of which entities a given theory commits to. The original meaning — _structuring what is_ — is preserved, while the application surface shifts. The DWS Ontology Standard builds on this foundation: EU regulations and industrial concepts are structured into a machine-readable form that humans and agents can query through the same interface.
 
 ---
 

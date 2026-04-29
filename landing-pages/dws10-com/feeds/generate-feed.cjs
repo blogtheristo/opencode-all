@@ -72,8 +72,6 @@ function generateProductXml(product) {
     xml += `
       <g:gtin>${escapeXml(product.gtin)}</g:gtin>`;
   }
-  // Note: identifier_exists should be true (or omitted) when MPN + brand are provided
-  // Only set to false if product has no GTIN, MPN, or brand
   if (!product.gtin && !product.mpn && !google.brand) {
     xml += `
       <g:identifier_exists>false</g:identifier_exists>`;
