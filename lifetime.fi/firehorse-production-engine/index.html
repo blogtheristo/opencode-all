@@ -61,70 +61,6 @@
         -webkit-font-smoothing: antialiased;
       }
 
-      /* Corporate nav (matches lifetime.fi, deeper bg) */
-      .corp-nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 100;
-        background: rgba(5, 7, 13, 0.95);
-        backdrop-filter: blur(14px);
-        border-bottom: 1px solid var(--border-subtle);
-      }
-
-      .corp-nav-inner {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 24px;
-        height: 64px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      .corp-logo {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: var(--text-primary);
-        text-decoration: none;
-        letter-spacing: -0.01em;
-      }
-
-      .corp-logo span {
-        color: var(--color-gold);
-      }
-
-      .corp-links {
-        display: flex;
-        gap: 32px;
-        list-style: none;
-      }
-
-      .corp-links a {
-        color: var(--text-secondary);
-        text-decoration: none;
-        font-size: 0.9rem;
-        font-weight: 500;
-        transition: color var(--transition-base);
-      }
-
-      .corp-links a:hover {
-        color: var(--text-primary);
-      }
-      .corp-links a.active {
-        color: var(--color-gold-light);
-      }
-
-      @media (max-width: 768px) {
-        .corp-links {
-          gap: 16px;
-        }
-        .corp-links a {
-          font-size: 0.8rem;
-        }
-      }
-
       /* Hero — deeper, quieter than lifetime.fi/ */
       .hero {
         min-height: 92vh;
@@ -745,19 +681,8 @@
     </style>
   </head>
   <body>
-    <!-- Corporate navigation -->
-    <header class="corp-nav">
-      <div class="corp-nav-inner">
-        <a href="/" class="corp-logo">Lifetime<span>.</span></a>
-        <ul class="corp-links">
-          <li><a href="/">Home</a></li>
-          <li><a href="https://dws10.com" target="_blank">Products</a></li>
-          <li><a href="https://dws10.com/fleet-admiral/" target="_blank">Investors</a></li>
-          <li><a href="/firehorse-production-engine/" class="active">FPE</a></li>
-          <li><a href="mailto:risto@onelifetime.world">Contact</a></li>
-        </ul>
-      </div>
-    </header>
+    <!-- Ironclad unified navigation (auto-injects, domain-aware) -->
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
 
     <!-- Hero -->
     <section class="hero">

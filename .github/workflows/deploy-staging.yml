@@ -130,7 +130,7 @@ jobs:
             ENABLE_DYNAMICS_INTEGRATION=false
             SOVEREIGNTY_AUDIT_ENABLED=false
             LLM_PRIMARY=groq
-            LLM_FALLBACK=scaleway
+            LLM_FALLBACK=nim
           secrets: |
             SUPABASE_URL=STAGING_SUPABASE_URL:latest
             SUPABASE_ANON_KEY=STAGING_SUPABASE_ANON_KEY:latest

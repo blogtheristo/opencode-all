@@ -177,7 +177,7 @@
                             </ul>
                         </li>
                         <li class="ironclad-separator"></li>
-                        <li><a href="${basePath}firehorse-production-engine/" style="color:#f97316;font-weight:700;">🔥 Firehorse Production Engine</a></li>
+                        <li><a href="https://lifetime.fi/firehorse-production-engine/" style="color:#f97316;font-weight:700;">🔥 Firehorse Production Engine</a></li>
                         <li><a href="${basePath}world-model/" style="color:#8b5cf6;font-weight:700;">🧠 Lifetime World Model V1</a></li>
                         <li class="ironclad-separator"></li>
                         <li class="ironclad-has-submenu">

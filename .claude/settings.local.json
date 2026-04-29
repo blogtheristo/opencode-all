@@ -12,10 +12,15 @@
       "Bash(git:*)",
       "Bash(start:*)",
       "Bash(xargs grep *)",
-      "Bash(node dws10.com/feeds/generate-local-inventory.cjs)"
+      "Bash(node dws10.com/feeds/generate-local-inventory.cjs)",
+      "Bash(cat)",
+      "Bash(bash /tmp/audit.sh)",
+      "Bash(grep -v \"index.html$\")"
     ]
   },
-  "enabledMcpjsonServers": ["dws-gateway-local"],
+  "enabledMcpjsonServers": [
+    "dws-gateway-local"
+  ],
   "hooks": {
     "SessionStart": [
       {

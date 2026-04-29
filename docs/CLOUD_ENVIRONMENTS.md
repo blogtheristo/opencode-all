@@ -60,10 +60,10 @@ DWS operates across three cloud environments serving different purposes, complia
 
 **Three Cloud Environments:**
 
-| Environment                | Region                    | Purpose                                                          | Account                      | Status          |
-| -------------------------- | ------------------------- | ---------------------------------------------------------------- | ---------------------------- | --------------- |
-| **US Cloud (Public)**      | US (Cloudflare global)    | Public-facing sites, store, landing pages                        | dws6.com                     | Active          |
-| **EU Cloud (Development)** | europe-north1 (Finland)   | Development, pilot customers, production backend                 | risto.paarni2024@lifetime.fi | Active          |
+| Environment                  | Region                    | Purpose                                                          | Account                      | Status          |
+| ---------------------------- | ------------------------- | ---------------------------------------------------------------- | ---------------------------- | --------------- |
+| **US Cloud (Public)**        | US (Cloudflare global)    | Public-facing sites, store, landing pages                        | dws6.com                     | Active          |
+| **EU Cloud (Development)**   | europe-north1 (Finland)   | Development, pilot customers, production backend                 | risto.paarni2024@lifetime.fi | Active          |
 | **Full Sovereignty (Aegis)** | EU-only (Finland/Germany) | EU AI Act Article 12 compliance, reasoning lineage, audit trails | Planned                      | Roadmap Q2 2026 |
 
 ---
@@ -195,14 +195,13 @@ Two primary accounts manage the DWS platform, each with distinct responsibilitie
 
 **Provider stack:**
 
-| Layer       | Provider                 | Region                  | Purpose                    |
-| ----------- | ------------------------ | ----------------------- | -------------------------- | ---------- |
-| Compute     | Google Cloud Run         | europe-north1 (Finland) | Backend API, agents        |
-| Database    | Supabase                 | EU (Frankfurt/Helsinki) | PostgreSQL, auth, realtime |
-| Secrets     | Google Secret Manager    | europe-north1           | API keys, credentials      | ✅ Enabled |
-| Images      | Google Artifact Registry | europe-north1           | Container registry         |
-| Training    | Google Compute (A3 mega) | europe-north1           | On-demand H100 GPU         |
-| Alternative | Scaleway Serverless      | fr-par (France)         | Backup compute             |
+| Layer    | Provider                 | Region                  | Purpose                    |
+| -------- | ------------------------ | ----------------------- | -------------------------- | ---------- |
+| Compute  | Google Cloud Run         | europe-north1 (Finland) | Backend API, agents        |
+| Database | Supabase                 | EU (Frankfurt/Helsinki) | PostgreSQL, auth, realtime |
+| Secrets  | Google Secret Manager    | europe-north1           | API keys, credentials      | ✅ Enabled |
+| Images   | Google Artifact Registry | europe-north1           | Container registry         |
+| Training | Google Compute (A3 mega) | europe-north1           | On-demand H100 GPU         |
 
 **Enabled Google Cloud APIs:**
 
@@ -634,12 +633,12 @@ DWS IQ 7 is the production platform (target: 16 paying customers, €72k+ MRR by
 
 DWS 7 operates across **four tiers** of environments:
 
-| Tier   | Environment   | Purpose                   | Provider                 | Region                |
-| ------ | ------------- | ------------------------- | ------------------------ | --------------------- |
-| **T1** | Development   | Local + CI testing        | Docker Compose           | Local                 |
-| **T2** | Staging       | Pre-production validation | Cloud Run                | europe-north1         |
-| **T3** | Production EU | Customer workloads        | Cloud Run + Scaleway     | europe-north1, fr-par |
-| **T4** | Edge (Global) | Static content, CDN       | Cloudflare Pages/Workers | Global                |
+| Tier   | Environment   | Purpose                   | Provider                 | Region        |
+| ------ | ------------- | ------------------------- | ------------------------ | ------------- |
+| **T1** | Development   | Local + CI testing        | Docker Compose           | Local         |
+| **T2** | Staging       | Pre-production validation | Cloud Run                | europe-north1 |
+| **T3** | Production EU | Customer workloads        | Cloud Run                | europe-north1 |
+| **T4** | Edge (Global) | Static content, CDN       | Cloudflare Pages/Workers | Global        |
 
 ### 5.3 DWS 7 Cloud Services
 
@@ -652,7 +651,6 @@ DWS 7 operates across **four tiers** of environments:
 | **Secrets**             | Google Secret Manager   | europe-north1      | Automated rotation, per-tenant secrets             |
 | **Training**            | GCP A3 (H100)           | europe-north1      | On-demand burst, MLflow experiment tracking        |
 | **Edge / CDN**          | Cloudflare              | Global (EU-routed) | Durable Objects, KV, Analytics Engine              |
-| **Backup Compute**      | Scaleway Serverless     | fr-par             | Failover for Cloud Run                             |
 | **Video (V3)**          | Hetzner Helsinki        | europe-north1      | Self-hosted Jitsi Meet                             |
 | **Email (V3)**          | Hetzner Helsinki        | europe-north1      | Postfix + Dovecot / Migadu                         |
 | **Monitoring**          | Prometheus + Grafana    | europe-north1      | Production-grade (Cloud Monitoring + self-hosted)  |
@@ -710,12 +708,12 @@ The original V3 specification targets Hetzner Helsinki for self-hosted Jitsi + E
 
 ### 6.3 V3 Upgrade Path (V3 → V3.1 → V3.2)
 
-| Version            | Scope                            | Cloud Changes                                               |
-| ------------------ | -------------------------------- | ----------------------------------------------------------- |
-| **V3** (Q1 2026)   | Jitsi IFrame + meet.jit.si       | No new infra — uses public meet.jit.si                      |
-| **V3.1** (Q2 2026) | Self-hosted Jitsi + Email launch | Hetzner Helsinki CX22 instances (€16.79/mo)                 |
+| Version            | Scope                              | Cloud Changes                                                     |
+| ------------------ | ---------------------------------- | ----------------------------------------------------------------- |
+| **V3** (Q1 2026)   | Jitsi IFrame + meet.jit.si         | No new infra — uses public meet.jit.si                            |
+| **V3.1** (Q2 2026) | Self-hosted Jitsi + Email launch   | Hetzner Helsinki CX22 instances (€16.79/mo)                       |
 | **V3.2** (Q3 2026) | Sovereignty compliance + recording | Full Sovereignty (Aegis) compliance logging, encrypted EU storage |
-| **V3.3** (Q4 2026) | Multi-language, clustered Jitsi  | Hetzner cluster (100+ concurrent rooms), CDN for recordings |
+| **V3.3** (Q4 2026) | Multi-language, clustered Jitsi    | Hetzner cluster (100+ concurrent rooms), CDN for recordings       |
 
 ### 6.4 V3 Cost Evolution
 
@@ -832,21 +830,21 @@ The Full Sovereignty tier runs entirely within the EU Cloud (pilot account). No 
 
 ### 8.1 Complete Service-to-Environment Mapping
 
-| Service           | US Cloud (Cloudflare) | EU Cloud (GCP/Supabase) | Full Sov. (EU)   | Hetzner (V3) | Aiven (Sandbox)        |
-| ----------------- | --------------------- | ----------------------- | ---------------- | ------------ | ---------------------- |
-| **Landing pages** | Cloudflare Pages      | —                       | —                | —            | —                      |
-| **Dashboard SPA** | Cloudflare Pages      | —                       | —                | —            | —                      |
-| **Edge API**      | Cloudflare Workers    | —                       | —                | —            | —                      |
-| **Backend API**   | —                     | Cloud Run               | Trace sidecar    | —            | —                      |
-| **AI Agents**     | —                     | Cloud Run               | Reasoning log    | —            | Agent workspace        |
-| **MCP Hub**       | —                     | Cloud Run               | Trace sidecar    | —            | —                      |
-| **Database**      | —                     | Supabase EU (prod)      | Audit tables     | —            | Daily mirror (sandbox) |
-| **Auth**          | —                     | Supabase Auth           | Identity layer   | —            | Auth stubs             |
-| **Jitsi (V3)**    | —                     | —                       | —                | Self-hosted  | —                      |
-| **Email (V3)**    | —                     | —                       | —                | Self-hosted  | —                      |
-| **Training**      | —                     | GCP A3 (burst)          | —                | —            | LWM training data      |
-| **Monitoring**    | —                     | Prometheus + Grafana    | —                | —            | —                      |
-| **Compliance**    | —                     | —                       | Full Sov. stack  | —            | —                      |
+| Service           | US Cloud (Cloudflare) | EU Cloud (GCP/Supabase) | Full Sov. (EU)  | Hetzner (V3) | Aiven (Sandbox)        |
+| ----------------- | --------------------- | ----------------------- | --------------- | ------------ | ---------------------- |
+| **Landing pages** | Cloudflare Pages      | —                       | —               | —            | —                      |
+| **Dashboard SPA** | Cloudflare Pages      | —                       | —               | —            | —                      |
+| **Edge API**      | Cloudflare Workers    | —                       | —               | —            | —                      |
+| **Backend API**   | —                     | Cloud Run               | Trace sidecar   | —            | —                      |
+| **AI Agents**     | —                     | Cloud Run               | Reasoning log   | —            | Agent workspace        |
+| **MCP Hub**       | —                     | Cloud Run               | Trace sidecar   | —            | —                      |
+| **Database**      | —                     | Supabase EU (prod)      | Audit tables    | —            | Daily mirror (sandbox) |
+| **Auth**          | —                     | Supabase Auth           | Identity layer  | —            | Auth stubs             |
+| **Jitsi (V3)**    | —                     | —                       | —               | Self-hosted  | —                      |
+| **Email (V3)**    | —                     | —                       | —               | Self-hosted  | —                      |
+| **Training**      | —                     | GCP A3 (burst)          | —               | —            | LWM training data      |
+| **Monitoring**    | —                     | Prometheus + Grafana    | —               | —            | —                      |
+| **Compliance**    | —                     | —                       | Full Sov. stack | —            | —                      |
 
 ### 8.2 Domain-to-Environment Mapping
 
@@ -880,7 +878,7 @@ The Full Sovereignty tier runs entirely within the EU Cloud (pilot account). No 
 ### 9.2 Sovereignty Levels
 
 | Deployment Option              | DWS 6 | DWS 7   | V3      | Full Sov. |
-| ------------------------------ | ----- | ------- | ------- | ------- |
+| ------------------------------ | ----- | ------- | ------- | --------- |
 | **EU Cloud (default)**         | High  | High    | High    | Maximum   |
 | **Self-hosted (customer VPC)** | —     | Maximum | Maximum | Maximum   |
 | **Hybrid edge**                | —     | High    | —       | High      |
@@ -892,13 +890,13 @@ The Full Sovereignty tier runs entirely within the EU Cloud (pilot account). No 
 
 ### 10.1 What Carries Forward
 
-| Component            | DWS 6 → DWS 7                 | Action                                      |
-| -------------------- | ----------------------------- | ------------------------------------------- |
-| Supabase database    | Migrate with schema evolution | Migration scripts in `supabase/migrations/` |
-| Cloud Run backend    | Upgrade in-place              | API versioning (v1 → v2 coexistence)        |
-| Cloudflare frontend  | Upgrade in-place              | Dashboard v10 replaces v8/v9                |
-| AI agents            | Upgrade + add new agents      | AgentFoundry evolution                      |
-| Customer accounts    | Preserve                      | Supabase Auth continuity                    |
+| Component            | DWS 6 → DWS 7                 | Action                                       |
+| -------------------- | ----------------------------- | -------------------------------------------- |
+| Supabase database    | Migrate with schema evolution | Migration scripts in `supabase/migrations/`  |
+| Cloud Run backend    | Upgrade in-place              | API versioning (v1 → v2 coexistence)         |
+| Cloudflare frontend  | Upgrade in-place              | Dashboard v10 replaces v8/v9                 |
+| AI agents            | Upgrade + add new agents      | AgentFoundry evolution                       |
+| Customer accounts    | Preserve                      | Supabase Auth continuity                     |
 | `.env` configuration | Extend                        | New vars for sovereignty layer, multi-tenant |
 
 ### 10.2 What Changes
@@ -915,13 +913,13 @@ The Full Sovereignty tier runs entirely within the EU Cloud (pilot account). No 
 
 ### 10.3 Migration Timeline
 
-| Period            | Migration Step                                                        |
-| ----------------- | --------------------------------------------------------------------- |
-| Feb–Apr 2026      | DWS 6 stabilized as "DWS 7 Phase 1" — same infra, production-hardened |
+| Period            | Migration Step                                                                     |
+| ----------------- | ---------------------------------------------------------------------------------- |
+| Feb–Apr 2026      | DWS 6 stabilized as "DWS 7 Phase 1" — same infra, production-hardened              |
 | May–Jul 2026      | Full Sovereignty (Aegis) layer added, compliance engine deployed — "DWS 7 Phase 2" |
-| Aug–Oct 2026      | Multi-tenant, ISO 27001 infra controls — "DWS 7 Phase 3"              |
-| Nov 2026–May 2027 | Intelligence + expansion — "DWS 7 Phase 4-5"                          |
-| Jun–Dec 2027      | DWS IQ 7.0 GA release — "DWS 7 Phase 6"                               |
+| Aug–Oct 2026      | Multi-tenant, ISO 27001 infra controls — "DWS 7 Phase 3"                           |
+| Nov 2026–May 2027 | Intelligence + expansion — "DWS 7 Phase 4-5"                                       |
+| Jun–Dec 2027      | DWS IQ 7.0 GA release — "DWS 7 Phase 6"                                            |
 
 ---
 
