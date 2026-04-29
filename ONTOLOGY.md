@@ -1,24 +1,29 @@
 # DWS Ontology & Lifetime World Model (LWM)
 
-***
+---
+
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
-  - Version: 1.1 | Tool: Claude Code (Claude Opus 4.6) | Session: claude/add-eu-info-note-8XYey | Date: 11.02.2026 | Changes: Added DWS6 Enterprise Ontology — EU institutions (Commission, Council, Parliament, EIB), EU Single Market (450M consumers), EU regulatory framework (Fit for 55, ETS, CBAM, CSRD, AI Act, GDPR, NIS2), DWS IQ 6 platform entities, 21-moat fortress taxonomy, 16 EU industries, key geographic entities, Alden Biesen retreat context
-  - Version: 1.0 | Tool: Claude Code | Session: claude/show-dws-version-LLEHz | Date: 21.01.2026 | Changes: Initial creation - Enterprise ontology framework with LWM integration
+
+- Version: 1.2 | Tool: Claude Code (Claude Opus 4.7) | Session: claude/compare-ontologies-NtJWP | Date: 29.04.2026 | Changes: Palantir-gap roadmap — added §13 Decision-Centric Roadmap (Actions, Scenarios/Global Branching, per-Decision Lineage, Purpose-based + Marking-based Policies, Logic Binding, Multi-tier Agent Memory, Embedded Edge Ontology) and §14 Palantir Comparison (where DWS leads, where DWS lags)
+- Version: 1.1 | Tool: Claude Code (Claude Opus 4.6) | Session: claude/add-eu-info-note-8XYey | Date: 11.02.2026 | Changes: Added DWS6 Enterprise Ontology — EU institutions (Commission, Council, Parliament, EIB), EU Single Market (450M consumers), EU regulatory framework (Fit for 55, ETS, CBAM, CSRD, AI Act, GDPR, NIS2), DWS IQ 6 platform entities, 21-moat fortress taxonomy, 16 EU industries, key geographic entities, Alden Biesen retreat context
+- Version: 1.0 | Tool: Claude Code | Session: claude/show-dws-version-LLEHz | Date: 21.01.2026 | Changes: Initial creation - Enterprise ontology framework with LWM integration
 
 Session Links & References:
-  - Claude Code (claude/show-dws-version-LLEHz): https://github.com/blogtheristo/dws6
-  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/ONTOLOGY.md
+
+- Claude Code (claude/show-dws-version-LLEHz): https://github.com/blogtheristo/dws6
+- View on GitHub: https://github.com/blogtheristo/dws6/blob/main/ONTOLOGY.md
 
 Document Status:
-  - Created: 21.01.2026
-  - Last Modified: 11.02.2026
-  - Language: English
-  - Languages Available: English
-  - Publication Status: ✅ ACTIVE
+
+- Created: 21.01.2026
+- Last Modified: 11.02.2026
+- Language: English
+- Languages Available: English
+- Publication Status: ✅ ACTIVE
 
 ---
 
@@ -58,6 +63,7 @@ Tämä dokumentti luo ontologisen kehyksen DWS7:lle ja sen jälkeisille versioil
 ### Scope / Soveltamisala
 
 Applies to:
+
 - Field notes and customer interactions
 - Enterprise knowledge capture
 - AI/LLM orchestration layers
@@ -68,11 +74,13 @@ Applies to:
 ### The "Bubble" vs. "Lag" Problem
 
 **The Problem:**
+
 - Companies buy LLMs off-the-shelf
 - Expect them to work for regulated, precise tasks (underwriting, compliance)
 - Face failure due to lack of enterprise-specific context
 
 **The Solution:**
+
 - **Orchestration Layer:** Software to manage and route LLM outputs
 - **Ontology:** Enterprise-specific language and logic framework
 - **World Model:** Continuous spatial and temporal mapping of business reality
@@ -84,11 +92,13 @@ Applies to:
 ### From Static Notes to Neural Inputs
 
 **Traditional Approach (Broken):**
+
 ```
 Field Note → Document File → Archive → Forgotten
 ```
 
 **LWM Approach (Living):**
+
 ```
 Field Note → Ontology Mapping → Orchestration Rule → World Model Update → Active Intelligence
 ```
@@ -118,14 +128,14 @@ Field Note → Ontology Mapping → Orchestration Rule → World Model Update �
 
 ### Database vs. Docs Files: Decision Matrix
 
-| Use Case | Storage Location | Reasoning |
-|----------|-----------------|-----------|
-| **Structured Intelligence** | Database (Supabase) | Queryable, linkable to objects, searchable in dashboards |
-| **Narrative Context** | Docs Files (.md) | Flow of argument, white papers, briefings |
-| **Core Artifacts** | Database with Docs Reference | Metadata in DB, full content in versioned .md |
-| **Regulatory Documents** | Docs Files with DB Index | Audit trail, version control, PDF generation |
-| **Training Data** | Database (Vector Store) | Embedding-ready, RAG-optimized |
-| **Field Notes** | Hybrid (DB → Docs → Artifact) | Captured in DB, processed to .md, refined to artifact |
+| Use Case                    | Storage Location              | Reasoning                                                |
+| --------------------------- | ----------------------------- | -------------------------------------------------------- |
+| **Structured Intelligence** | Database (Supabase)           | Queryable, linkable to objects, searchable in dashboards |
+| **Narrative Context**       | Docs Files (.md)              | Flow of argument, white papers, briefings                |
+| **Core Artifacts**          | Database with Docs Reference  | Metadata in DB, full content in versioned .md            |
+| **Regulatory Documents**    | Docs Files with DB Index      | Audit trail, version control, PDF generation             |
+| **Training Data**           | Database (Vector Store)       | Embedding-ready, RAG-optimized                           |
+| **Field Notes**             | Hybrid (DB → Docs → Artifact) | Captured in DB, processed to .md, refined to artifact    |
 
 ### Recommended Hybrid Approach
 
@@ -191,13 +201,13 @@ LWM = (Spatial Map + Temporal Timeline + Causal Logic + Safety Constraints)
 
 ### How LWM Differs from Traditional RAG
 
-| Feature | Traditional RAG | LWM |
-|---------|----------------|-----|
-| **Storage** | Static embeddings | Dynamic world state |
-| **Context** | Document chunks | Spatial-temporal coordinates |
-| **Updates** | Batch re-indexing | Continuous world model updates |
-| **Conflicts** | Ignored | Actively resolved |
-| **Safety** | Query filtering | Orchestration rules + safety constraints |
+| Feature       | Traditional RAG   | LWM                                      |
+| ------------- | ----------------- | ---------------------------------------- |
+| **Storage**   | Static embeddings | Dynamic world state                      |
+| **Context**   | Document chunks   | Spatial-temporal coordinates             |
+| **Updates**   | Batch re-indexing | Continuous world model updates           |
+| **Conflicts** | Ignored           | Actively resolved                        |
+| **Safety**    | Query filtering   | Orchestration rules + safety constraints |
 
 ---
 
@@ -211,10 +221,11 @@ Every significant piece of enterprise knowledge should be captured as a **Core A
 
 **Template:**
 
-```markdown
+````markdown
 # Artifact: [Descriptive Title]
 
 ---
+
 ## METADATA (The "Coordinates")
 
 - **Artifact ID:** ART-2026-001
@@ -229,6 +240,7 @@ Every significant piece of enterprise knowledge should be captured as a **Core A
 - **Source:** Field Note FN-2026-017, Customer Interview
 
 ---
+
 ## NARRATIVE (The "Divine Story")
 
 ### The Observation
@@ -238,6 +250,7 @@ Every significant piece of enterprise knowledge should be captured as a **Core A
 ### Why It Failed
 
 The off-the-shelf LLM was trained on pre-2025 regulatory data and lacked:
+
 1. Specific knowledge of UK FCA cross-border data rules
 2. Context about Customer X's multi-jurisdiction operations
 3. The temporal understanding that regulations changed mid-process
@@ -245,11 +258,13 @@ The off-the-shelf LLM was trained on pre-2025 regulatory data and lacked:
 ### The Ground Truth
 
 **Reality that contradicts generic AI:**
+
 - UK customers with EU data must apply Rule-Set-B (post-2025)
 - This is NOT in the base LLM training data
 - This MUST be in our enterprise ontology
 
 ---
+
 ## LOGIC (The "Orchestration Rule")
 
 ### Proposed Rule
@@ -265,6 +280,7 @@ THEN:
   - Require additional_compliance_check = True
   - Flag for_human_review = True
 ```
+````
 
 ### LWM Update Instruction
 
@@ -282,14 +298,15 @@ world_model_update:
 ```
 
 ---
+
 ## VALIDATION & FEEDBACK
 
 ### Usage History
 
-| Date | User | Action | Result | Feedback |
-|------|------|--------|--------|----------|
-| 2026-01-21 | user@dws.com | Applied to Case #1234 | ✅ Valid | Prevented compliance failure |
-| 2026-01-25 | user2@dws.com | Applied to Case #1240 | ✅ Valid | Confirmed accuracy |
+| Date       | User          | Action                | Result   | Feedback                     |
+| ---------- | ------------- | --------------------- | -------- | ---------------------------- |
+| 2026-01-21 | user@dws.com  | Applied to Case #1234 | ✅ Valid | Prevented compliance failure |
+| 2026-01-25 | user2@dws.com | Applied to Case #1240 | ✅ Valid | Confirmed accuracy           |
 
 ### World Model Weight
 
@@ -299,6 +316,7 @@ world_model_update:
 - **Success Rate:** 100%
 
 ---
+
 ## RELATED ARTIFACTS
 
 - **Supersedes:** ART-2024-089 (Pre-2025 UK Rules)
@@ -306,11 +324,13 @@ world_model_update:
 - **References:** REG-UK-FCA-2025-CROSS-BORDER.pdf
 
 ---
+
 ## VERSION HISTORY
 
 - **v1.0** (2026-01-21): Initial creation from field note FN-2026-017
 - **v1.1** (2026-01-25): Updated confidence score after validation
-```
+
+````
 
 ---
 
@@ -334,7 +354,7 @@ industry:
   - sector: [Financial_Services, Manufacturing, Healthcare, ...]
   - vertical: [Insurance, Banking, MedTech, ...]
   - use_case: [Underwriting, Claims, Diagnostics, ...]
-```
+````
 
 ### Temporal Ontology (WHEN)
 
@@ -633,12 +653,14 @@ geography_dws6:
 ### Stage Details
 
 #### Stage 1: Capture
+
 - **Input:** Raw field note, customer conversation, sales call
 - **Tool:** Mobile app, web form, voice-to-text
 - **Output:** Timestamped, geo-tagged note in database
 - **LWM Impact:** Sensory input—captures edge cases LLMs miss
 
 #### Stage 2: Ontology Mapping
+
 - **Input:** Raw note
 - **Process:** Auto-tag + human review
   - Extract entities (WHO: Customer, product)
@@ -649,6 +671,7 @@ geography_dws6:
 - **LWM Impact:** Spatial mapping—teaches model where this event sits in business geography
 
 #### Stage 3: Orchestration
+
 - **Input:** Tagged note
 - **Process:**
   - Does this conflict with existing rules?
@@ -658,6 +681,7 @@ geography_dws6:
 - **LWM Impact:** Temporal logic—establishes "if X happens, Y must follow"
 
 #### Stage 4: Refinement
+
 - **Input:** Orchestrated note
 - **Process:** Human + AI collaboration
   - Validate the insight
@@ -667,6 +691,7 @@ geography_dws6:
 - **LWM Impact:** Creates reusable, validated knowledge
 
 #### Stage 5: LWM Update
+
 - **Input:** Core Artifact
 - **Process:**
   - Update vector embeddings
@@ -682,6 +707,7 @@ geography_dws6:
 ### The "World Model Collision" Protocol
 
 **When does a collision occur?**
+
 - New field note contradicts existing artifact
 - Two artifacts have conflicting rules
 - Regulatory change invalidates prior knowledge
@@ -691,30 +717,30 @@ geography_dws6:
 ```yaml
 collision_detected:
   1. Flag_Conflict:
-     - artifact_1: ART-2024-089
-     - artifact_2: FN-2026-017
-     - conflict_type: REGULATORY_CHANGE
+    - artifact_1: ART-2024-089
+    - artifact_2: FN-2026-017
+    - conflict_type: REGULATORY_CHANGE
 
   2. Human_Review_Required:
-     - assign_to: Compliance Team
-     - priority: HIGH
-     - deadline: 48 hours
+    - assign_to: Compliance Team
+    - priority: HIGH
+    - deadline: 48 hours
 
   3. Resolution_Options:
-     a. Deprecate Old Artifact:
-        - status: ART-2024-089 → DEPRECATED
-        - create_new: ART-2026-001
-     b. Merge Artifacts:
-        - combine_knowledge: true
-        - update_version: ART-2024-089 v2.0
-     c. Create Exception Rule:
-        - scope: UK_Only
-        - effective_date: 2025-01-01
+    a. Deprecate Old Artifact:
+      - status: ART-2024-089 → DEPRECATED
+      - create_new: ART-2026-001
+    b. Merge Artifacts:
+      - combine_knowledge: true
+      - update_version: ART-2024-089 v2.0
+    c. Create Exception Rule:
+      - scope: UK_Only
+      - effective_date: 2025-01-01
 
   4. LWM_Update:
-     - learning_instruction: "Post-2025 UK rules supersede pre-2025"
-     - confidence_adjustment: Decrease old rule, increase new rule
-     - notify_affected_users: true
+    - learning_instruction: "Post-2025 UK rules supersede pre-2025"
+    - confidence_adjustment: Decrease old rule, increase new rule
+    - notify_affected_users: true
 ```
 
 ### Active Pruning System
@@ -792,6 +818,7 @@ safety_rules:
 ### Phase 1: Foundation (Weeks 1-4)
 
 **Deliverables:**
+
 1. Create `/artifacts/` directory structure
 2. Set up Supabase tables for field notes
 3. Define initial ontology tags (geography, sectors, products)
@@ -858,6 +885,7 @@ CREATE TABLE world_model_collisions (
 ### Phase 2: Ontology Mapping (Weeks 5-8)
 
 **Deliverables:**
+
 1. Implement auto-tagging for field notes (NER, regex patterns)
 2. Create ontology validation UI
 3. Train team on artifact creation process
@@ -898,6 +926,7 @@ class OntologyMapper:
 ### Phase 3: Orchestration Layer (Weeks 9-12)
 
 **Deliverables:**
+
 1. Implement orchestration rules engine
 2. Create LLM routing logic (when to use generic vs. enterprise-tuned)
 3. Build feedback loop system
@@ -955,6 +984,7 @@ class OrchestrationEngine:
 ### Phase 4: LWM Training (Weeks 13-16)
 
 **Deliverables:**
+
 1. Create vector embeddings for all artifacts
 2. Implement RAG with ontology-aware retrieval
 3. Build continuous learning pipeline
@@ -1013,7 +1043,7 @@ class OrchestrationEngine:
 
 ### Template 2: Battlefield/Production Learning
 
-```markdown
+````markdown
 # Field Note: Production Incident - [Brief Description]
 
 **Date:** 2026-01-21
@@ -1052,6 +1082,7 @@ new_rule:
   confidence: 0.9
   learning_priority: HIGH
 ```
+````
 
 ## Prevent Recurrence
 
@@ -1059,7 +1090,8 @@ new_rule:
 - [ ] Create monitoring alert
 - [ ] Update world model
 - [ ] Document as Core Artifact
-```
+
+````
 
 ### Template 3: Regulatory Change
 
@@ -1097,7 +1129,7 @@ world_model_collision:
   supersedes: [ART-2024-XXX, ART-2023-XXX]
   creates_new_rule: true
   requires_immediate_action: true
-```
+````
 
 ## Timeline
 
@@ -1105,7 +1137,8 @@ world_model_collision:
 - [ ] Update artifacts: [Date]
 - [ ] Deploy changes: [Date]
 - [ ] Notify customers: [Date]
-```
+
+````
 
 ---
 
@@ -1172,7 +1205,7 @@ VALUES ('ART-2026-001', 'UK Cross-Border Underwriting Rules', 'FINANCIAL_SERVICE
 
 # 4. Create embeddings
 python scripts/generate_embeddings.py --artifact ART-2026-001
-```
+````
 
 ### Flag a World Model Collision
 
@@ -1230,14 +1263,14 @@ artifact.update_confidence(feedback)
 
 ### Alex Karp's Insights → DWS Implementation
 
-| Karp's Point | DWS Implementation |
-|--------------|-------------------|
-| "Off-the-shelf LLMs don't work for regulated tasks" | Orchestration layer routes queries through validated artifacts first |
-| "You need a software layer to orchestrate LLMs" | OrchestrationEngine class manages LLM routing and artifact application |
-| "In a language your enterprise understands" | Ontology framework captures enterprise-specific geography, sectors, rules |
-| "People try to build Ontology by hand" | Automated ontology mapping + human validation |
-| "Battlefield proved it works" | Production incident learning → immediate artifact updates |
-| "Sales force is shrinking" | Product "pulls" itself via demonstrated value (success metrics) |
+| Karp's Point                                        | DWS Implementation                                                        |
+| --------------------------------------------------- | ------------------------------------------------------------------------- |
+| "Off-the-shelf LLMs don't work for regulated tasks" | Orchestration layer routes queries through validated artifacts first      |
+| "You need a software layer to orchestrate LLMs"     | OrchestrationEngine class manages LLM routing and artifact application    |
+| "In a language your enterprise understands"         | Ontology framework captures enterprise-specific geography, sectors, rules |
+| "People try to build Ontology by hand"              | Automated ontology mapping + human validation                             |
+| "Battlefield proved it works"                       | Production incident learning → immediate artifact updates                 |
+| "Sales force is shrinking"                          | Product "pulls" itself via demonstrated value (success metrics)           |
 
 ### The Karp Principle
 
@@ -1282,6 +1315,7 @@ dws6/
 ### Immediate Actions (This Quarter)
 
 1. **Create Artifacts Directory:**
+
    ```bash
    mkdir -p artifacts/{FINANCIAL_SERVICES,MANUFACTURING,HEALTHCARE,COMPLIANCE,GENERAL}
    ```
@@ -1343,6 +1377,7 @@ This section is the machine-readable source for `concept_context_policy` seed ge
 Flow: `ONTOLOGY.md` -> `scripts/parse-ontology.ts` -> `supabase/seeds/059_seed.sql`.
 
 <!-- CCP_SEED_START -->
+
 ```json
 {
   "source_version": "lwm_2026_04",
@@ -1438,7 +1473,185 @@ Flow: `ONTOLOGY.md` -> `scripts/parse-ontology.ts` -> `supabase/seeds/059_seed.s
   ]
 }
 ```
+
 <!-- CCP_SEED_END -->
+
+---
+
+## 13. Decision-Centric Roadmap (v1.2 — Palantir Gap Closure)
+
+DWS Ontology v1.0–1.1 is **knowledge-centric**: field notes → artifacts → LWM. Palantir's Ontology is **decision-centric**: data + logic + action + security unified per decision. v1.2 commits DWS to closing the four operational gaps below. Each gap has owner, target quarter, and acceptance criteria.
+
+### 13.1 Actions (Verbs) — Write-Back Layer
+
+**Gap:** Today, agent outputs are recommendations, not committed transactions on operational substrates (ERPs, MES, WMS, IoT).
+
+**Target:** Every Skilled Agent can stage, review, and commit an `Action` against a registered substrate, with full audit.
+
+```yaml
+action_primitive:
+  id: ACT-<YYYY>-<NNN>
+  verb: [create | update | delete | dispatch]
+  subject: <ontology_object_id> # the "noun"
+  substrate: [supabase | erp_sap | wms_<id> | jetson_fleet | email_ses | ...]
+  stage: [draft | staged | reviewed | committed | reverted]
+  staged_by: <agent_or_user>
+  reviewed_by: <human_user> # required for non-trusted actions
+  committed_at: <timestamp>
+  rollback_plan: <reversal_action_id>
+  policy_envelope:
+    purpose: [compliance_report | customer_outreach | site_dispatch | ...]
+    markings: [eu_only | csrd_audit | nis2_essential | ...]
+```
+
+**Acceptance:** `core_actions` table + `staged → committed` workflow + write-back connectors for at minimum Supabase, SES email, and one ERP adapter.
+
+**Owner:** Brain (DWS IQ 6) + Body (Firehorse). **Target:** Q3 2026.
+
+### 13.2 Scenarios / Global Branching
+
+**Gap:** No sandbox to safely simulate multi-step decisions before commit.
+
+**Target:** Branch the ontology (objects + staged actions) into a named scenario; run agents against the branch; merge or discard.
+
+```yaml
+scenario:
+  id: SCN-<YYYY>-<NNN>
+  parent_branch: main
+  created_by: <agent_or_user>
+  hypothesis: "Reallocate steel from supplier A to supplier B for Q3 CBAM exposure"
+  staged_actions: [ACT-..., ACT-...]
+  simulation_runs: [SIM-..., SIM-...]
+  status: [open | merged | discarded]
+  merge_review: <human_user>
+```
+
+**Acceptance:** Postgres-level branch (schema-namespaced or row-tagged), scenario diff view, agent tool `scenario.create / stage / merge`.
+
+**Owner:** Brain. **Target:** Q4 2026.
+
+### 13.3 Per-Decision Lineage
+
+**Gap:** v1.1 captures _artifact_ lineage (which note → which artifact). v1.2 must capture _decision_ lineage (which user + data version + logic version + tool calls + committed action).
+
+```yaml
+decision_record:
+  id: DEC-<YYYY>-<NNN>
+  triggered_by: <agent_or_user>
+  data_snapshot: <ontology_branch_hash>
+  logic_invoked: [SKILL-compliance, MODEL-cbam-forecast-v3]
+  tool_calls: [<jsonl_log_pointer>]
+  scenario: <SCN-id?>
+  committed_actions: [ACT-..., ACT-...]
+  outcome: [success | reverted | partial]
+  feedback_loop: <artifact_update_or_none>
+```
+
+**Acceptance:** `decisions` table referenced by every committed `core_actions` row. Replays a decision deterministically given the snapshot hash.
+
+**Owner:** Brain + Memory (LWM). **Target:** Q3 2026 (alongside §13.1).
+
+### 13.4 Purpose-Based + Marking-Based Policies
+
+**Gap:** RLS today gates by role + row. Palantir adds **purpose** (why is this query happening?) and **markings** (security tags that propagate through pipelines).
+
+**Target:** Extend Supabase RLS + agent gateway to evaluate `(role, purpose, markings)` at every data, logic, and action invocation.
+
+```yaml
+policy_evaluation:
+  inputs:
+    role: <user_or_agent_role>
+    purpose: <declared_purpose_of_use>
+    markings: <set_of_tags_on_data_or_logic>
+    eu_ai_act_risk_tier: [minimal | limited | high | unacceptable]
+  outputs:
+    decision: [allow | deny | require_human_oversight]
+    redactions: [<column_set>]
+    audit_log: <jsonl_pointer>
+```
+
+**Acceptance:** EU AI Act Article 14 (human oversight) and Article 12 (logging) covered by automated policy evaluation, not manual review.
+
+**Owner:** Security layer (KYA + RLS + agent gateway). **Target:** Q3 2026 (locks in before AI Act enforcement 2026-08-02).
+
+### 13.5 Logic Binding
+
+**Gap:** Each Skilled Agent invokes its own ML models, optimizers, and LLM tools ad-hoc.
+
+**Target:** A single "logic binding" registry where every callable — Supabase function, Python optimizer, fine-tuned LLM, MCP tool, external API — is exposed with the same interface to agents and humans.
+
+```yaml
+logic_asset:
+  id: LGC-<YYYY>-<NNN>
+  kind: [sql_function | python_callable | llm_tool | mcp_tool | external_api]
+  uri: <runtime_endpoint>
+  signature: <jsonschema>
+  policy_envelope: <see §13.4>
+  cost_per_call: <eur | tokens>
+  latency_p95_ms: <int>
+```
+
+**Acceptance:** `tools/list` (MCP) returns every logic asset with the same shape. New agents discover capabilities, not hard-code them.
+
+**Owner:** Brain + MCP Hub. **Target:** Q4 2026.
+
+### 13.6 Multi-Tier Agent Memory
+
+**Gap:** v1.1 has artifact weights and pruning. No formal memory tiers.
+
+**Target:** Backed by `decisions` (§13.3) and `artifacts` (existing):
+
+| Memory tier | DWS substrate                                                  | TTL                      |
+| ----------- | -------------------------------------------------------------- | ------------------------ |
+| Working     | Agent run context (LangGraph state, MCP session)               | per run                  |
+| Episodic    | `decisions` table + tool-call JSONL                            | 12 months hot, then cold |
+| Semantic    | `core_artifacts` + LWM embeddings                              | active until pruned      |
+| Procedural  | `logic_assets` registry (§13.5) + Skills (`.claude/commands/`) | versioned                |
+
+**Owner:** Memory (LWM). **Target:** Q1 2027.
+
+### 13.7 Embedded Edge Ontology
+
+**Gap:** Lifetime Fleet (Hands) is spec phase. No edge ontology runtime.
+
+**Target:** A Jetson-resident slice of the ontology (relevant objects + actions + policies) that operates offline and syncs decisions back when reconnected.
+
+**Acceptance:** Jetson agent can stage `Action` offline; on reconnect, the stage is reconciled against `main` branch with conflict detection (reuse §8 collision protocol).
+
+**Owner:** Hands (Lifetime Fleet) + Memory. **Target:** Q2 2027.
+
+---
+
+## 14. Palantir Comparison — Where DWS Leads, Where DWS Lags
+
+### Where DWS leads
+
+| Capability                                          | DWS Advantage                                                                                                                     |
+| --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| **EU regulations as first-class ontology entities** | Fit for 55, ETS, CBAM, CSRD, AI Act, NIS2, GDPR are pre-modeled (§6). Palantir customers must encode these themselves.            |
+| **Sovereignty by design**                           | EU data residency (Finland/Germany), no CLOUD Act exposure, Gaia-X tier-3 path. Palantir AIP runs primarily on US hyperscalers.   |
+| **CCP — concept_context_policy**                    | Per-customer/industry/locale term preference + forbidden-term enforcement (Appendix D). Palantir has nothing at this granularity. |
+| **Active pruning + collision protocol**             | Forced reconciliation of contradictory artifacts with human gates (§8). Palantir captures lineage; DWS _enforces_ deprecation.    |
+| **Skilled Taxonomy (3-tier)**                       | Brand / Spec / UI naming for Agents, Workflows, Jurisdictions. Marketable and consistent across docs and UI.                      |
+| **Build-for-Agents discipline**                     | Every product must expose CLI + MCP + Skill (CLAUDE.md). Hard rule, not aspiration.                                               |
+| **Tribal-knowledge pipeline**                       | Field-note → artifact → LWM is opinionated and structured (§7).                                                                   |
+
+### Where DWS lags (closed by §13)
+
+| Gap                                             | Palantir                                   | DWS v1.1              | DWS v1.2 plan                              |
+| ----------------------------------------------- | ------------------------------------------ | --------------------- | ------------------------------------------ |
+| Actions / write-back                            | Native (per substrate, staged → committed) | Missing               | §13.1 — Q3 2026                            |
+| Scenarios / Global Branching                    | Native                                     | Missing               | §13.2 — Q4 2026                            |
+| Per-decision lineage                            | Native                                     | Artifact-level only   | §13.3 — Q3 2026                            |
+| Purpose-based + marking policies                | Native (runtime)                           | Role + RLS only       | §13.4 — Q3 2026                            |
+| Logic binding (unified tool surface)            | Native                                     | Per-agent ad-hoc      | §13.5 — Q4 2026                            |
+| Multi-tier agent memory                         | Native                                     | Artifact weights only | §13.6 — Q1 2027                            |
+| Embedded edge ontology                          | Native (Embedded Ontology)                 | Spec phase            | §13.7 — Q2 2027                            |
+| Operational system connectors (ERP/MES/WMS/IoT) | Mature (1000+ connectors)                  | Aspirational          | Pulls from §13.1; Q4 2026 first 3 adapters |
+
+### Strategic posture
+
+DWS does **not** out-engineer Palantir on operational connectors or scenario tooling — Palantir has a 20-year head start. DWS wins by being the **EU-sovereign, regulation-native, agent-first** ontology platform. The §13 roadmap closes the operational gaps just enough that DWS can credibly serve EU industrial customers who _cannot_ use Palantir for sovereignty reasons.
 
 ---
 
