@@ -4,7 +4,7 @@
     <title>Lifetime Firehorse Store — Sovereign AI Products &amp; Services</title>
     <link>https://dws10.com/buy/</link>
     <description>Sovereign AI products and services for enterprises and SMEs. EU-hosted, CLOUD Act free. Climate compliance, industrial AI, and expert advisory by Lifetime Oy.</description>
-    <lastBuildDate>Fri, 24 Apr 2026 07:45:34 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 03 May 2026 16:00:03 GMT</lastBuildDate>
     <g:feedVersion>2.0</g:feedVersion>
 
     <item>
@@ -19,6 +19,27 @@
       <g:brand>Lifetime</g:brand>
       <g:mpn>DWSIQ-V6-2026</g:mpn>
       <g:google_product_category>1505</g:google_product_category>
+      <g:custom_label_0>featured</g:custom_label_0>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>FH-OMNI-001</g:id>
+      <g:title>Firehorse Omnichannel V2</g:title>
+      <g:description>AI-managed outreach — DWS runs your LinkedIn, email and content campaigns. You approve. We execute. No agency markup, no platform lock-in. 90-day pipeline guarantee. Proven playbooks built from 800+ days of EU industrial campaign data.</g:description>
+      <g:link>https://dws10.com/products/firehorse-omnichannel.html</g:link>
+      <g:image_link>https://dws10.com/static/images/firehorse-omnichannel-hero.png</g:image_link>
+      <g:price>1499.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Firehorse</g:brand>
+      <g:mpn>FH-OMNI-2026</g:mpn>
+      <g:google_product_category>1426</g:google_product_category>
       <g:custom_label_0>featured</g:custom_label_0>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
@@ -90,6 +111,26 @@
       </g:shipping>
     </item>
     <item>
+      <g:id>FH-SIGN-001</g:id>
+      <g:title>Firehorse Signed Reports</g:title>
+      <g:description>Add legally binding eSignatures to any Firehorse report. Compliance reports, carbon assessments, and investor reports get DocuSign eSignature — court-defensible, audit-ready, with full tracking. Author, reviewer, and auditor sign in sequence. Signed PDFs auto-archived.</g:description>
+      <g:link>https://dws10.com/products/firehorse-signed-reports.html</g:link>
+      <g:image_link>https://dws10.com/static/images/firehorse-signed-reports-hero.png</g:image_link>
+      <g:price>199.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Firehorse</g:brand>
+      <g:mpn>FH-SIGNED-REPORTS-2026</g:mpn>
+      <g:google_product_category>1505</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
       <g:id>FH-CMS-001</g:id>
       <g:title>Firehorse Content Management</g:title>
       <g:description>When auditors ask for proof, find it in seconds — not days. Evidence Vault auto-tags compliance documents, alerts before certificates expire, and provides semantic search across all your audit-ready documentation.</g:description>
@@ -110,22 +151,24 @@
       </g:shipping>
     </item>
     <item>
-        <g:id>DWS-EU-PILOT</g:id>
-        <g:title>DWS IQ — Enterprise Premium</g:title>
-        <g:description>Full EU sovereign evaluation. 8 AI agents, Firehorse Report, EU AI Act Article 12 logging, NIS2 dashboard, 5 seats. Zero CLOUD Act. Prove compliance ROI on sovereign infrastructure.</g:description>
-        <g:link>https://dws10.com/products/cloud-pricing.html</g:link>
-        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
-        <g:price>1499.00 EUR</g:price>
-        <g:availability>in_stock</g:availability>
-        <g:condition>new</g:condition>
-        <g:brand>Lifetime</g:brand>
-        <g:mpn>DWS-EU-PILOT-2026</g:mpn>
-        <g:identifier_exists>false</g:identifier_exists>
-        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
-        <g:custom_label_0>ai-cloud</g:custom_label_0>
-        <g:custom_label_1>featured</g:custom_label_1>
-        <g:target_country>FI</g:target_country>
-        <g:content_language>en</g:content_language>
+      <g:id>expert-services</g:id>
+      <g:title>Expert Advisory &amp; Implementation</g:title>
+      <g:description>DWS delivers any Firehorse product for you — Report, Omnichannel, Automation, Content Management, or Signed Reports. Three intensive days covering design, integration, and go-live. You define the outcome. We build and hand it over running.</g:description>
+      <g:link>https://dws10.com/products/expert-services.html</g:link>
+      <g:image_link>https://dws10.com/static/images/firehorse-expert-advisory-v2.png</g:image_link>
+      <g:price>4500.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>EXP-SVC-2026</g:mpn>
+      <g:google_product_category>1426</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
     </item>
     <item>
       <g:id>consulting-hourly</g:id>
@@ -139,6 +182,7 @@
       <g:brand>Lifetime</g:brand>
       <g:mpn>CONSULT-HR-2026</g:mpn>
       <g:google_product_category>1426</g:google_product_category>
+      <g:custom_label_0>featured</g:custom_label_0>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
@@ -159,6 +203,7 @@
       <g:brand>Lifetime</g:brand>
       <g:mpn>CONSULT-FIT55-2026</g:mpn>
       <g:google_product_category>1426</g:google_product_category>
+      <g:custom_label_0>featured</g:custom_label_0>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
@@ -169,8 +214,8 @@
     </item>
     <item>
       <g:id>aws-consultancy</g:id>
-      <g:title>AWS Cloud Architect Consultancy</g:title>
-      <g:description>One full day (€200/hour senior rate) with a certified AWS Solutions Architect. Assess your cloud posture, design the next migration step, and leave with a concrete architecture diagram plus a prioritised backlog. Covers AWS, Azure, and GCP — multi-cloud by default. Most clients identify a 30–60% infra cost saving in the first session.</g:description>
+      <g:title>AWS Cloud &amp; Claude Code Architect Consultancy</g:title>
+      <g:description>Industrial cloud architecture for manufacturing, logistics, construction, and energy. AWS just launched Claude Platform native on AWS — no Bedrock required. One day with a certified AWS Solutions Architect + Claude Code expert to evaluate your workloads, architect Claude Platform migrations (faster, cheaper, simpler than Lambda/container stacks), cut your AWS bill, and map your AI stack modernization. Fixed price.</g:description>
       <g:link>https://dws10.com/products/aws-consultancy.html</g:link>
       <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
       <g:price>1500.00 EUR</g:price>
@@ -179,26 +224,7 @@
       <g:brand>Lifetime</g:brand>
       <g:mpn>AWS-CONSULT-2026</g:mpn>
       <g:google_product_category>1426</g:google_product_category>
-      <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
-      <g:shipping>
-        <g:country>FI</g:country>
-        <g:service>Digital Delivery</g:service>
-        <g:price>0.00 EUR</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>conversational-agent</g:id>
-      <g:title>Conversational Agent Solution</g:title>
-      <g:description>Deploy AI agents where your team already works — Teams, Slack, WhatsApp, Zoom. Custom conversational agents for enterprise workflows with your choice of LLM (Claude, GPT, Groq, or self-hosted for data sovereignty). Live in 25 hours.</g:description>
-      <g:link>https://dws10.com/products/conversational-agent.html</g:link>
-      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-      <g:price>3500.00 EUR</g:price>
-      <g:availability>in_stock</g:availability>
-      <g:condition>new</g:condition>
-      <g:brand>Lifetime</g:brand>
-      <g:mpn>CONV-AGENT-2026</g:mpn>
-      <g:google_product_category>1505</g:google_product_category>
+      <g:custom_label_0>featured</g:custom_label_0>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
@@ -210,7 +236,7 @@
     <item>
       <g:id>m365-consultancy</g:id>
       <g:title>Microsoft Consultancy</g:title>
-      <g:description>Get 188% ROI from the Microsoft licenses you already pay for. One full day (€200/hour senior rate) of expert consultancy to automate business processes with Power Apps and cut development costs by 74%. Most clients launch their first app within the engagement.</g:description>
+      <g:description>Microsoft Power Platform and Dynamics 365 for industrial operations. Connect plant floor processes to Power Automate and Dynamics 365 — production orders, maintenance work orders, HSE reporting, logistics dispatch, field service. One day, 74% development cost reduction on industrial workflows.</g:description>
       <g:link>https://dws10.com/products/m365-consultancy.html</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
       <g:price>1500.00 EUR</g:price>
@@ -239,26 +265,7 @@
       <g:brand>Lifetime</g:brand>
       <g:mpn>AI-AGENT-2026</g:mpn>
       <g:google_product_category>1426</g:google_product_category>
-      <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
-      <g:shipping>
-        <g:country>FI</g:country>
-        <g:service>Digital Delivery</g:service>
-        <g:price>0.00 EUR</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>lean-project</g:id>
-      <g:title>AI Project Accelerator</g:title>
-      <g:description>Ship your next project in half the time. Lean methodology powered by AI tools — includes planning workshop, backlog setup, Kanban workflows, and roadmap. Teams using this approach see 2x delivery speed within the first sprint.</g:description>
-      <g:link>https://dws10.com/products/lean-project.html</g:link>
-      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-      <g:price>4960.00 EUR</g:price>
-      <g:availability>in_stock</g:availability>
-      <g:condition>new</g:condition>
-      <g:brand>Firehorse</g:brand>
-      <g:mpn>FH-LEAN-2026</g:mpn>
-      <g:google_product_category>1505</g:google_product_category>
+      <g:custom_label_0>featured</g:custom_label_0>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
@@ -328,26 +335,6 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>firehorse-flow</g:id>
-      <g:title>AI Customer Agent</g:title>
-      <g:description>Turn every customer interaction into a conversion opportunity. AI-powered prompt flow agent that continuously optimizes your service experience and drives measurable sales growth. Setup and first results in under 2 weeks.</g:description>
-      <g:link>https://dws10.com/products/firehorse-flow.html</g:link>
-      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-      <g:price>499.00 EUR</g:price>
-      <g:availability>in_stock</g:availability>
-      <g:condition>new</g:condition>
-      <g:brand>Firehorse</g:brand>
-      <g:mpn>FH-FLOW-2026</g:mpn>
-      <g:google_product_category>1505</g:google_product_category>
-      <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
-      <g:shipping>
-        <g:country>FI</g:country>
-        <g:service>Digital Delivery</g:service>
-        <g:price>0.00 EUR</g:price>
-      </g:shipping>
-    </item>
-    <item>
       <g:id>professional-web-pages</g:id>
       <g:title>Professional Dynamic Web Pages</g:title>
       <g:description>A professional web presence in days, not months. Responsive, modern pages built with React, Python, or a polyglot stack — your choice. AI chatbot and e-commerce add-ons available when you are ready to scale. One-day senior engagement.</g:description>
@@ -390,7 +377,7 @@
     <item>
       <g:id>firehorse-data-services</g:id>
       <g:title>Firehorse Data Services</g:title>
-      <g:description>Your data is worth more than you think. ERP connections (SAP, IFS, Dynamics, Monitor), LLM model integration (Claude, GPT, Gemini, Groq), and RAG pipelines that turn raw operational data into revenue and compliance insights. One-day senior consultancy at €200/hour — remote or on-site.</g:description>
+      <g:description>Connect your ERP, Salesforce, compliance systems, and operational data so every AI agent and sales rep works from the same live picture. ERP connections, RAG pipelines, Salesforce Agent data feeds, and LLM integration in days, not quarters.</g:description>
       <g:link>https://dws10.com/products/firehorse-data-services.html</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
       <g:price>1500.00 EUR</g:price>
@@ -399,26 +386,6 @@
       <g:brand>Firehorse</g:brand>
       <g:mpn>FH-DATA-2026</g:mpn>
       <g:google_product_category>1426</g:google_product_category>
-      <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
-      <g:shipping>
-        <g:country>FI</g:country>
-        <g:service>Digital Delivery</g:service>
-        <g:price>0.00 EUR</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>devops-lead</g:id>
-      <g:title>Manufacturing AI Readiness Assessment</g:title>
-      <g:description>Find out if your factory floor is AI-ready in 2 weeks. Complete manufacturing intelligence assessment with workflow scoring, ROI projection, automated deployment, performance dashboard, and 30-day monitoring. Clear go/no-go for your next investment.</g:description>
-      <g:link>https://dws10.com/products/devops-lead.html</g:link>
-      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-      <g:price>2500.00 EUR</g:price>
-      <g:availability>in_stock</g:availability>
-      <g:condition>new</g:condition>
-      <g:brand>Lifetime</g:brand>
-      <g:mpn>DEVOPS-LEAD-2026</g:mpn>
-      <g:google_product_category>1505</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
@@ -458,26 +425,6 @@
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>CRT-2026</g:mpn>
-      <g:google_product_category>1426</g:google_product_category>
-      <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
-      <g:shipping>
-        <g:country>FI</g:country>
-        <g:service>Digital Delivery</g:service>
-        <g:price>0.00 EUR</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>ai-koulutus-3d</g:id>
-      <g:title>AI Koulutus 3 Days Programme</g:title>
-      <g:description>Transform your team from AI-curious to AI-productive in 3 days. In-house training covering strategy, hands-on implementation, and tool adoption. EU AI Act Article 4 requires AI literacy — this programme gets you compliant and productive.</g:description>
-      <g:link>https://dws10.com/products/ai-koulutus-3d.html</g:link>
-      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-      <g:price>6250.00 EUR</g:price>
-      <g:availability>in_stock</g:availability>
-      <g:condition>new</g:condition>
-      <g:brand>Lifetime</g:brand>
-      <g:mpn>AI-KOULUTUS-3D-2026</g:mpn>
       <g:google_product_category>1426</g:google_product_category>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
@@ -551,6 +498,130 @@
       </g:shipping>
     </item>
     <item>
+      <g:id>sovereignty-cloud-consulting</g:id>
+      <g:title>Sovereignty Cloud Consulting – European Cloud Migration</g:title>
+      <g:description>Your US-hosted data is exposed to the CLOUD Act — and your EU clients know it. We migrate you to sovereign European infrastructure (OVHcloud, Hetzner, Supabase EU) with DPA creation, NIS2 compliance, and EU AI Act alignment. 78% of EU companies plan to reduce US cloud dependency.</g:description>
+      <g:link>https://dws10.com/products/sovereignty-cloud-consulting.html</g:link>
+      <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
+      <g:price>1500.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>SOVEREIGN-CLOUD-2026</g:mpn>
+      <g:google_product_category>1426</g:google_product_category>
+      <g:custom_label_0>featured</g:custom_label_0>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>DWS-US-STARTER</g:id>
+      <g:title>DWS IQ — US Cloud Navigator</g:title>
+      <g:description>Get started with DWS IQ on US Cloud infrastructure (Supabase + Cloudflare). 3 AI agents, basic CSRD dashboard, 1 user seat. Fastest path to compliance — upgrade to EU Sovereign anytime.</g:description>
+      <g:link>https://dws10.com/products/cloud-pricing.html</g:link>
+      <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+      <g:price>299.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>DWS-US-STARTER-2026</g:mpn>
+      <g:google_product_category>1505</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>DWS-US-PILOT</g:id>
+      <g:title>DWS IQ — US Cloud Premium</g:title>
+      <g:description>4-week evaluation with real data on US Cloud. 8 AI agents, Firehorse Report, 5 seats, kickoff workshop. Prove ROI before scaling — upgrade to EU Sovereign anytime.</g:description>
+      <g:link>https://dws10.com/products/cloud-pricing.html</g:link>
+      <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+      <g:price>799.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>DWS-US-PILOT-2026</g:mpn>
+      <g:google_product_category>1505</g:google_product_category>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>DWS-EU-STARTER</g:id>
+      <g:title>DWS IQ — Enterprise Navigator</g:title>
+      <g:description>DWS IQ on EU sovereign infrastructure (Aiven PostgreSQL + Hetzner/Scaleway). 3 AI agents, CSRD dashboard, zero CLOUD Act exposure, sovereignty score monitoring. EU data residency from day 1.</g:description>
+      <g:link>https://dws10.com/products/cloud-pricing.html</g:link>
+      <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+      <g:price>499.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>DWS-EU-STARTER-2026</g:mpn>
+      <g:google_product_category>1505</g:google_product_category>
+      <g:custom_label_0>featured</g:custom_label_0>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>DWS-EU-PILOT</g:id>
+      <g:title>DWS IQ — Enterprise Premium</g:title>
+      <g:description>Full EU sovereign evaluation. 8 AI agents, Firehorse Report, EU AI Act Article 12 logging, NIS2 dashboard, 5 seats. Zero CLOUD Act. Prove compliance ROI on sovereign infrastructure.</g:description>
+      <g:link>https://dws10.com/products/cloud-pricing.html</g:link>
+      <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+      <g:price>1499.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>DWS-EU-PILOT-2026</g:mpn>
+      <g:google_product_category>1505</g:google_product_category>
+      <g:custom_label_0>featured</g:custom_label_0>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>DWS-CLIMATE-001</g:id>
+      <g:title>DWS IQ Climate Intelligence</g:title>
+      <g:description>Deploy 8 Skilled Agents that deliver audit-ready EU climate compliance outcomes — ETS allowance calculations, CBAM import obligations, CSRD disclosure reports, and continuous carbon accounting. Skilled-Agent-delivered outcomes, not dashboards. The Agent Outcome Factory for climate compliance.</g:description>
+      <g:link>https://dws10.com/products/climate-intelligence.html</g:link>
+      <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+      <g:price>2999.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>DWS IQ</g:brand>
+      <g:mpn>DWS-CLIMATE-2026</g:mpn>
+      <g:google_product_category>1505</g:google_product_category>
+      <g:custom_label_0>featured</g:custom_label_0>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
       <g:id>DWS-AEGIS-001</g:id>
       <g:title>DWS IQ Aegis — Full Sovereignty</g:title>
       <g:description>Single-tenant sovereign AI platform on Finnish infrastructure (UpCloud Kubernetes, Helsinki DC). 21+ industrial AI agents across 21 EU-regulated industries including dual-use critical raw materials. Cross-vertical signal propagation detects compliance cascades invisible to single-industry tools. Sovereignty monitoring, KYA agent governance, EU AI Act Article 12 compliance. CER Directive, CRM Act, KRITIS, NIS2 coverage. Zero CLOUD Act exposure. Available August 2026.</g:description>
@@ -564,7 +635,7 @@
       <g:google_product_category>1505</g:google_product_category>
       <g:custom_label_0>featured</g:custom_label_0>
       <g:custom_label_1>one-time</g:custom_label_1>
-      <g:availability_date>2026-05-24</g:availability_date>
+      <g:availability_date>2026-08-02</g:availability_date>
       <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>
@@ -586,7 +657,28 @@
       <g:google_product_category>1505</g:google_product_category>
       <g:custom_label_0>featured</g:custom_label_0>
       <g:custom_label_1>one-time</g:custom_label_1>
-      <g:availability_date>2026-05-24</g:availability_date>
+      <g:availability_date>2026-08-02</g:availability_date>
+      <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>FH-FPE-001</g:id>
+      <g:title>Firehorse FPE Continuity Pack — Construction Edition</g:title>
+      <g:description>You invested in AI. One bad layoff can wipe out that value. FPE costs €14,999 to reduce weakest-link failure in 5 critical workflows — pick the most critical first; the other four follow inside the same 30 days. Each becomes operator-independent — KYA-signed, EU AI Act Article 12 logged, with a named owner and a named successor. Built for EU construction firms exposed to the 2024–2025 layoff wave.</g:description>
+      <g:link>https://dws10.com/https://lifetime.fi/firehorse-production-engine/</g:link>
+      <g:image_link>https://dws10.com/static/images/firehorse-starter-v2.png</g:image_link>
+      <g:price>14999.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Firehorse</g:brand>
+      <g:mpn>FH-FPE-CONSTRUCTION-2026</g:mpn>
+      <g:google_product_category>1505</g:google_product_category>
+      <g:custom_label_0>featured</g:custom_label_0>
+      <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672</g:checkout_link_template>
       <g:shipping>
         <g:country>FI</g:country>

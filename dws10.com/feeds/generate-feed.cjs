@@ -116,11 +116,15 @@ function generateProductXml(product) {
 
 function generateFeed(config) {
   const allProducts = Object.values(config.products);
-  // Filter: Google Merchant doesn't support subscription products without special agreement
-  // These should be handled separately via Sales/Admin integration or Stripe
-  const products = allProducts.filter((p) => p.type !== 'monthly' && p.type !== 'subscription');
+  // Filter: exclude subscriptions (require special Google Merchant approval)
+  // and archived products (no local inventory entry → triggers "varastodata puuttuu")
+  const products = allProducts.filter(
+    (p) => p.type !== 'monthly' && p.type !== 'subscription' && p.productType !== 'archived',
+  );
 
-  const excluded = allProducts.filter((p) => p.type === 'monthly' || p.type === 'subscription');
+  const excluded = allProducts.filter(
+    (p) => p.type === 'monthly' || p.type === 'subscription' || p.productType === 'archived',
+  );
 
   // All feed links must use the same domain registered in Google Merchant Center
   // Domain: dws10.com | Language: en | Channel: online
@@ -145,9 +149,11 @@ function generateFeed(config) {
   // Log excluded products
   if (excluded.length > 0) {
     console.log(
-      `⚠ Excluded ${excluded.length} subscription products (require special Google Merchant approval):`,
+      `⚠ Excluded ${excluded.length} products (subscriptions or archived — no local inventory entry):`,
     );
-    excluded.forEach((p) => console.log(`  - ${p.name} (${p.type})`));
+    excluded.forEach((p) =>
+      console.log(`  - ${p.name} (type:${p.type} productType:${p.productType || 'n/a'})`),
+    );
   }
 
   return xml;
@@ -172,7 +178,7 @@ try {
   console.log('✓ Feed generated successfully!');
   console.log(`  Total products: ${allCount}`);
   console.log(`  Included in feed: ${includedCount}`);
-  console.log(`  Excluded (subscriptions): ${allCount - includedCount}`);
+  console.log(`  Excluded (subscriptions + archived): ${allCount - includedCount}`);
   console.log(`  Output: ${OUTPUT_PATH}`);
   console.log(`  Feed URL: ${BASE_URL}/feeds/google-products.xml`);
 } catch (error) {
