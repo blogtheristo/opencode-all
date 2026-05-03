@@ -476,11 +476,11 @@
       "id": "conversational-agent",
       "gtin": null,
       "mpn": "CONV-AGENT-2026",
-      "name": "Conversational Agent Solution",
+      "name": "Voice Conversational Solution",
       "price": 3500,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Deploy AI agents where your team already works — Teams, Slack, WhatsApp, Zoom. Custom conversational agents for enterprise workflows with your choice of LLM (Claude, GPT, Groq, or self-hosted for data sovereignty). Live in 25 hours.",
+      "description": "Deploy AI-powered voice and chat assistants where your team already works — Teams, Slack, WhatsApp, Zoom. Custom conversational interfaces for enterprise workflows with your choice of LLM (Claude, GPT, Groq, or self-hosted for data sovereignty). Live in 25 hours.",
       "features": [
         "Teams, Slack, WhatsApp & Zoom",
         "Custom LLM choice for sovereignty",
@@ -498,7 +498,7 @@
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
+        "contentLanguage": "en",
         "checkoutLinkTemplate": "https://dws10.com/checkout/"
       },
       "storeCategory": "ai-cloud",

@@ -24,5 +24,11 @@ store_code	id	availability
 8496329	edge-node-gn100	on_display_to_order
 8496329	DWS-SOVEREIGN-DB-001	on_display_to_order
 8496329	sovereignty-cloud-consulting	on_display_to_order
+8496329	DWS-US-STARTER	on_display_to_order
+8496329	DWS-US-PILOT	on_display_to_order
+8496329	DWS-EU-STARTER	on_display_to_order
+8496329	DWS-EU-PILOT	on_display_to_order
+8496329	DWS-CLIMATE-001	on_display_to_order
 8496329	DWS-AEGIS-001	preorder
 8496329	DWS-THEMIS-001	preorder
+8496329	FH-FPE-001	on_display_to_order
