@@ -7,42 +7,55 @@
     <item>
       <g:id>DWS-IQ-006</g:id>
       <g:title>Lifetime DWS IQ Platform (Version 6)</g:title>
-      <g:description>&lt;p&gt;Stop risking fines and lost tenders. DWS IQ 6 automates Fit for 55, CSRD, and EPBD reporting across your operation — cutting 90% of manual compliance hours while producing audit-ready documentation. EU-hosted, EU-owned. Deploy in 30 days.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Automate Fit for 55, CSRD &amp; EPBD reporting&lt;/li&gt;&lt;li&gt;90% reduction in manual compliance hours&lt;/li&gt;&lt;li&gt;EU-hosted, deploy in 30 days&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:description>&lt;p&gt;Stop risking fines and lost tenders. DWS IQ 6 deploys 18+ Skilled Agents with agentic loops (observe-think-act) to automate Fit for 55, CSRD, and EPBD compliance across 20 EU industries — cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;18+ Skilled Agents with MCP protocol and CLI access&lt;/li&gt;&lt;li&gt;Automate Fit for 55, CSRD &amp; EPBD reporting&lt;/li&gt;&lt;li&gt;90% reduction in manual compliance hours&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/dws-iq-006.html</g:link>
       <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>4999 EUR</g:price>
       <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>FH-OMNI-001</g:id>
+      <g:title>Firehorse Omnichannel V2</g:title>
+      <g:description>&lt;p&gt;AI-managed outreach — DWS runs your LinkedIn, email and content campaigns. You approve. We execute. No agency markup, no platform lock-in. 90-day pipeline guarantee. Proven playbooks built from 800+ days of EU industrial campaign data.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;LinkedIn, email and content campaigns — fully managed by DWS&lt;/li&gt;&lt;li&gt;No platform lock-in — DWS absorbs the AI stack&lt;/li&gt;&lt;li&gt;90-day pipeline guarantee or we work free&lt;/li&gt;&lt;li&gt;Monthly pipeline report with qualified opportunities&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:link>https://dws10.com/products/fh-omni-001.html</g:link>
+      <g:image_link>https://dws10.com/static/images/firehorse-omnichannel-hero.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>1499 EUR</g:price>
+      <g:brand>Firehorse</g:brand>
+      <g:google_product_category>1426</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>FH-AUTO-001</g:id>
       <g:title>Firehorse Automation</g:title>
-      <g:description>&lt;p&gt;Manual data entry is where compliance fines start. Firehorse Automation eliminates human error with event-driven workflows for Fit for 55, CSRD, and EPBD 2028 — capturing ESG data directly from your systems with a complete audit trail.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Event-driven compliance workflows&lt;/li&gt;&lt;li&gt;Eliminate manual data entry errors&lt;/li&gt;&lt;li&gt;Complete audit trail for ESG data&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:description>&lt;p&gt;Manual data entry is where compliance fines start. Firehorse Automation eliminates human error with event-driven workflows for Fit for 55, CSRD, and EPBD 2028 — capturing ESG data directly from your systems with a complete audit trail.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Event-driven compliance workflows&lt;/li&gt;&lt;li&gt;Eliminate manual data entry errors&lt;/li&gt;&lt;li&gt;Complete audit trail for ESG data&lt;/li&gt;&lt;li&gt;Next step: add Firehorse Omnichannel → tell the market&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/fh-auto-001.html</g:link>
-      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:image_link>https://dws10.com/static/images/firehorse-automation-hero.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>4950 EUR</g:price>
       <g:brand>Firehorse</g:brand>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>LIFETIME-BUNDLE-2026</g:id>
-      <g:title>Climate Reporting Starter Bundle</g:title>
+      <g:title>Firehorse Starter V2</g:title>
       <g:description>&lt;h1&gt;Climate Reporting Starter Bundle&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Price:&lt;/strong&gt; €8,800 (One-time Setup) + €1,999 / year
-&lt;strong&gt;Includes:&lt;/strong&gt; DWS IQ Base Platform, Firehorse Report Module, and Kickoff Workshop.&lt;/p&gt;
+&lt;strong&gt;Includes:&lt;/strong&gt; DWS IQ Base Platform, DWS IQ Report Module, and Kickoff Workshop.&lt;/p&gt;
 &lt;h2&gt;Description&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;The Flagship Offer for 2026.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;The fastest, safest path to &quot;Fit for 55&quot; compliance. We combine our industrial &quot;Brain&quot; (DWS IQ) with our automated &quot;Last Mile&quot; reporting tool (Firehorse Report) to give you a complete, audit-ready climate reporting stack in 4 weeks.&lt;/p&gt;
+&lt;p&gt;The fastest, safest path to &quot;Fit for 55&quot; compliance. We combine our industrial &quot;Brain&quot; (DWS IQ) with our automated &quot;Last Mile&quot; reporting tool (DWS IQ Report) to give you a complete, audit-ready climate reporting stack in 4 weeks.&lt;/p&gt;
 &lt;h2&gt;What's Inside?&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;DWS IQ Base (Value €4,999):&lt;/strong&gt; The industrial AI platform deployed in your cloud. Validates and stores your operational data.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Firehorse Report (Value €1,999):&lt;/strong&gt; The automation module that turns that data into your specific Board Pack / Annual Report format.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DWS IQ Report (Value €1,999):&lt;/strong&gt; The automation module that turns that data into your specific Board Pack / Annual Report format.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Kickoff Package (Value €3,000):&lt;/strong&gt; Expert scoping and setup to ensure the first report is perfect.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;strong&gt;Total Value:&lt;/strong&gt; €9,998
@@ -52,7 +65,7 @@
 You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot;a consultant.&quot; You need to pass your audit. This bundle delivers the specific outcome: &lt;strong&gt;A compliant, automated Annual Report.&lt;/strong&gt;&lt;/p&gt;
 &lt;h2&gt;Usage Scenario&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Month 1:&lt;/strong&gt; We deploy DWS IQ and map your data.
-&lt;strong&gt;Month 2:&lt;/strong&gt; We configure the Firehorse Report template.
+&lt;strong&gt;Month 2:&lt;/strong&gt; We configure the DWS IQ Report template.
 &lt;strong&gt;Month 3:&lt;/strong&gt; You generate your first automated Board Pack.
 &lt;strong&gt;Month 4:&lt;/strong&gt; You pass your audit.&lt;/p&gt;
 &lt;h2&gt;Ideal For&lt;/h2&gt;
@@ -62,142 +75,142 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
 &lt;li&gt;Teams facing immediate &quot;Fit for 55&quot; or CSRD deadlines.&lt;/li&gt;
 &lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/lifetime-bundle-2026.html</g:link>
-      <g:image_link>https://dws10.com/static/images/8_Industries.png</g:image_link>
+      <g:image_link>https://dws10.com/static/images/firehorse-starter-v2.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
-      <g:price>6500 EUR</g:price>
+      <g:price>9990 EUR</g:price>
       <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
-      <g:identifier_exists>no</g:identifier_exists>
-    </item>
-    <item>
-      <g:id>FH-OMNI-001</g:id>
-      <g:title>Firehorse Omnichannel Next</g:title>
-      <g:description>&lt;p&gt;Launch climate-tech products without greenwashing risk. AI-powered marketing engine that ensures every claim meets EU AI Act and Green Claims Directive requirements. Includes 4-week pilot campaign with measurable results.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;AI-powered marketing engine&lt;/li&gt;&lt;li&gt;EU AI Act &amp; Green Claims compliant&lt;/li&gt;&lt;li&gt;4-week pilot with measurable results&lt;/li&gt;&lt;/ul&gt;</g:description>
-      <g:link>https://dws10.com/products/fh-omni-001.html</g:link>
-      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>499 EUR</g:price>
-      <g:brand>Firehorse</g:brand>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>FH-RPT-001</g:id>
       <g:title>Firehorse Report</g:title>
-      <g:description>&lt;p&gt;Replace 200+ hours of manual report building with one automated template. Fit for 55 compliant dashboards with SAP integration, real-time data feeds, and 4-week validation included. Your compliance team gets their weekends back.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Automated Fit for 55 dashboards&lt;/li&gt;&lt;li&gt;SAP integration with real-time data&lt;/li&gt;&lt;li&gt;4-week validation included&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:description>&lt;p&gt;Replace 200+ hours of manual report building with one automated template. Fit for 55 compliant dashboards with SAP integration, real-time data feeds, and 4-week validation included. Your compliance team gets their weekends back.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Automated Fit for 55 dashboards&lt;/li&gt;&lt;li&gt;SAP integration with real-time data&lt;/li&gt;&lt;li&gt;4-week validation included&lt;/li&gt;&lt;li&gt;Next step: add Firehorse Signed Reports → legal validity&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/fh-rpt-001.html</g:link>
-      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:image_link>https://dws10.com/static/images/firehorse-report-hero.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>1999 EUR</g:price>
+      <g:brand>DWS IQ</g:brand>
+      <g:google_product_category>1505</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>FH-SIGN-001</g:id>
+      <g:title>Firehorse Signed Reports</g:title>
+      <g:description>&lt;p&gt;Add legally binding eSignatures to any Firehorse report. Compliance reports, carbon assessments, and investor reports get DocuSign eSignature — court-defensible, audit-ready, with full tracking. Author, reviewer, and auditor sign in sequence. Signed PDFs auto-archived.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;DocuSign eSignature on all Firehorse reports&lt;/li&gt;&lt;li&gt;Multi-party signing (author → reviewer → auditor)&lt;/li&gt;&lt;li&gt;Signed PDF download and audit trail&lt;/li&gt;&lt;li&gt;Next step: add Firehorse Content Management → evidence vault&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:link>https://dws10.com/products/fh-sign-001.html</g:link>
+      <g:image_link>https://dws10.com/static/images/firehorse-signed-reports-hero.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>199 EUR</g:price>
       <g:brand>Firehorse</g:brand>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>FH-CMS-001</g:id>
       <g:title>Firehorse Content Management</g:title>
-      <g:description>&lt;p&gt;When auditors ask for proof, find it in seconds — not days. Evidence Vault auto-tags compliance documents, alerts before certificates expire, and provides semantic search across all your audit-ready documentation.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Auto-tagged compliance documents&lt;/li&gt;&lt;li&gt;Certificate expiry alerts&lt;/li&gt;&lt;li&gt;Semantic search across evidence&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:description>&lt;p&gt;When auditors ask for proof, find it in seconds — not days. Evidence Vault auto-tags compliance documents, alerts before certificates expire, and provides semantic search across all your audit-ready documentation.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Auto-tagged compliance documents&lt;/li&gt;&lt;li&gt;Certificate expiry alerts&lt;/li&gt;&lt;li&gt;Semantic search across evidence&lt;/li&gt;&lt;li&gt;Next step: add Firehorse Automation → eliminate manual data entry&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/fh-cms-001.html</g:link>
-      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:image_link>https://dws10.com/static/images/firehorse-content-management-hero.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
-      <g:price>2999 EUR</g:price>
+      <g:price>99 EUR</g:price>
       <g:brand>Firehorse</g:brand>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>expert-services</g:id>
-      <g:title>Workshop 3 Days - Expert Advisory &amp; Implementation</g:title>
-      <g:description>&lt;p&gt;Three days that save your team three months. Intensive hands-on workshop covering compliance report design, workflow automation, and strategic roadmap for Fit for 55, CSRD, and EU AI Act. Leave with working implementations, not just slide decks.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Hands-on compliance workshop&lt;/li&gt;&lt;li&gt;Workflow automation training&lt;/li&gt;&lt;li&gt;Working implementations in 3 days&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:title>Expert Advisory &amp; Implementation</g:title>
+      <g:description>&lt;p&gt;DWS delivers any Firehorse product for you — Report, Omnichannel, Automation, Content Management, or Signed Reports. Three intensive days covering design, integration, and go-live. You define the outcome. We build and hand it over running.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Covers all Firehorse products — Report, Omnichannel, Automation, CMS, Signed Reports&lt;/li&gt;&lt;li&gt;Design, integration and go-live in 3 days&lt;/li&gt;&lt;li&gt;Working implementation handed over — not slide decks&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/expert-services.html</g:link>
-      <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
+      <g:image_link>https://dws10.com/static/images/firehorse-expert-advisory-v2.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>4500 EUR</g:price>
       <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>consulting-hourly</g:id>
-      <g:title>Consulting - Hourly Rate</g:title>
-      <g:description>&lt;p&gt;Expert compliance guidance without a long-term commitment. Book by the hour for Fit for 55, CSRD, EU AI Act, or governance challenges across all 16 regulated EU industries. Most clients start with a 4-hour assessment.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Expert compliance guidance&lt;/li&gt;&lt;li&gt;All 16 EU industries covered&lt;/li&gt;&lt;li&gt;Flexible hourly booking&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:title>Senior Specialist – Hourly Consulting</g:title>
+      <g:description>&lt;p&gt;Senior specialist consulting with Risto Anton — 18 agents in production, NIS2 + EU AI Act + Fit for 55 expertise. Book by the hour for compliance, agentic development, or governance guidance across all 16 regulated EU industries. Most clients start with a 4-hour assessment.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Senior specialist, not junior&lt;/li&gt;&lt;li&gt;NIS2 + EU AI Act + Fit for 55&lt;/li&gt;&lt;li&gt;Flexible hourly booking&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/consulting-hourly.html</g:link>
       <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
-      <g:price>98 EUR</g:price>
+      <g:price>200 EUR</g:price>
       <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>LIFETIME-EXP-001</g:id>
       <g:title>Expert Advisory &amp; Implementation</g:title>
-      <g:description>&lt;p&gt;Your dedicated compliance strategist. Monthly retainer for ongoing report design, workflow optimization, and board-level advisory on Fit for 55, CSRD, and EU AI Act. Clients typically reduce compliance costs by 40% within the first quarter.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Dedicated compliance strategist&lt;/li&gt;&lt;li&gt;40% cost reduction typical&lt;/li&gt;&lt;li&gt;Board-level advisory included&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:description>&lt;p&gt;Your dedicated compliance strategist. Monthly retainer for ongoing report design, workflow optimization, and board-level advisory on Fit for 55, CSRD, and EU AI Act. 20 hours per month at senior specialist rate (€200/h). Clients typically reduce compliance costs by 40% within the first quarter.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;20 hours/month at senior rate&lt;/li&gt;&lt;li&gt;40% cost reduction typical&lt;/li&gt;&lt;li&gt;Board-level advisory included&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/lifetime-exp-001.html</g:link>
       <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
-      <g:price>3000 EUR</g:price>
+      <g:price>4000 EUR</g:price>
       <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>consulting-fit55</g:id>
       <g:title>Consulting Fit for 55 Specialist</g:title>
-      <g:description>&lt;p&gt;Direct access to the architect of DWS IQ 6. Monthly co-working with Risto Anton on Fit for 55 compliance, report design, agent coordination, and CxO-level strategy. For organizations that need the person who built the platform, not a junior consultant.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Direct access to DWS IQ architect&lt;/li&gt;&lt;li&gt;CxO-level compliance strategy&lt;/li&gt;&lt;li&gt;Monthly co-working sessions&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:description>&lt;p&gt;Direct access to the architect of DWS IQ 6. Daily engagement with Risto Anton on Fit for 55 compliance, report design, agent coordination, and CxO-level strategy. For organizations that need the person who built the platform, not a junior consultant.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Direct access to DWS IQ architect&lt;/li&gt;&lt;li&gt;CxO-level compliance strategy&lt;/li&gt;&lt;li&gt;Daily on-site or remote&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/consulting-fit55.html</g:link>
       <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
-      <g:price>3000 EUR</g:price>
+      <g:price>1500 EUR</g:price>
       <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>aws-consultancy</g:id>
-      <g:title>AI Engineering &amp; Cloud Solutions Consultancy</g:title>
-      <g:description>&lt;p&gt;25 hours of senior cloud architect time to assess, plan, and implement your AI and cloud infrastructure. Multi-cloud expertise across AWS, Azure, GCP. Includes a complimentary 4-hour strategy workshop to identify quick wins and avoid costly mistakes.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Multi-cloud AWS, Azure &amp; GCP&lt;/li&gt;&lt;li&gt;25 hours senior architect time&lt;/li&gt;&lt;li&gt;Free 4-hour strategy workshop&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:title>AWS Cloud &amp; Claude Code Architect Consultancy</g:title>
+      <g:description>&lt;p&gt;Industrial cloud architecture for manufacturing, logistics, construction, and energy. AWS just launched Claude Platform native on AWS — no Bedrock required. One day with a certified AWS Solutions Architect + Claude Code expert to evaluate your workloads, architect Claude Platform migrations (faster, cheaper, simpler than Lambda/container stacks), cut your AWS bill, and map your AI stack modernization. Fixed price.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;AWS Solutions Architect + Claude Code expert&lt;/li&gt;&lt;li&gt;Claude Platform on AWS evaluation &amp; architecture&lt;/li&gt;&lt;li&gt;Cost optimization (Lambda → Claude Platform migrations)&lt;/li&gt;&lt;li&gt;Infra savings roadmap + AI modernization plan&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/aws-consultancy.html</g:link>
       <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
-      <g:price>4500 EUR</g:price>
+      <g:price>1500 EUR</g:price>
       <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>conversational-agent</g:id>
-      <g:title>Conversational Agent Solution</g:title>
-      <g:description>&lt;p&gt;Deploy AI agents where your team already works — Teams, Slack, WhatsApp, Zoom. Custom conversational agents for enterprise workflows with your choice of LLM (Claude, GPT, Groq, or self-hosted for data sovereignty). Live in 25 hours.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Teams, Slack, WhatsApp &amp; Zoom&lt;/li&gt;&lt;li&gt;Custom LLM choice for sovereignty&lt;/li&gt;&lt;li&gt;Live in 25 hours&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:title>Voice Conversational Solution</g:title>
+      <g:description>&lt;p&gt;Deploy AI-powered voice and chat assistants where your team already works — Teams, Slack, WhatsApp, Zoom. Custom conversational interfaces for enterprise workflows with your choice of LLM (Claude, GPT, Groq, or self-hosted for data sovereignty). Live in 25 hours.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Teams, Slack, WhatsApp &amp; Zoom&lt;/li&gt;&lt;li&gt;Custom LLM choice for sovereignty&lt;/li&gt;&lt;li&gt;Live in 25 hours&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/conversational-agent.html</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>3500 EUR</g:price>
       <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>m365-consultancy</g:id>
       <g:title>Microsoft Consultancy</g:title>
-      <g:description>&lt;p&gt;Get 188% ROI from the Microsoft licenses you already pay for. 8 hours of expert consultancy to automate business processes with Power Apps and cut development costs by 74%. Most clients launch their first app within the engagement.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Power Apps process automation&lt;/li&gt;&lt;li&gt;188% ROI on M365 licenses&lt;/li&gt;&lt;li&gt;Launch first app within engagement&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:description>&lt;p&gt;Microsoft Power Platform and Dynamics 365 for industrial operations. Connect plant floor processes to Power Automate and Dynamics 365 — production orders, maintenance work orders, HSE reporting, logistics dispatch, field service. One day, 74% development cost reduction on industrial workflows.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Power Apps process automation&lt;/li&gt;&lt;li&gt;188% ROI on M365 licenses&lt;/li&gt;&lt;li&gt;Launch first app within engagement&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/m365-consultancy.html</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
-      <g:price>1120 EUR</g:price>
+      <g:price>1500 EUR</g:price>
       <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
@@ -208,9 +221,9 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
       <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
-      <g:price>99 EUR</g:price>
+      <g:price>200 EUR</g:price>
       <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
@@ -223,20 +236,20 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
       <g:availability>in_stock</g:availability>
       <g:price>4960 EUR</g:price>
       <g:brand>Firehorse</g:brand>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>ai-consultant-day</g:id>
       <g:title>AI Consultant Day</g:title>
-      <g:description>&lt;p&gt;One day to unblock your AI strategy. Senior consultant on-site or remote for strategy, prototyping, and hands-on implementation. Covers Claude, GPT, Gemini Pro, Copilot, and Azure AI Studio. Most clients book 2–3 days for a full sprint.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Strategy, prototyping &amp; implementation&lt;/li&gt;&lt;li&gt;Claude, GPT, Gemini Pro &amp; Copilot&lt;/li&gt;&lt;li&gt;On-site or remote available&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:description>&lt;p&gt;One day to unblock your AI strategy. Senior consultant on-site or remote for strategy, prototyping, and hands-on implementation. €200/hour senior rate (8-hour day). Covers Claude, GPT, Gemini Pro, Copilot, and Azure AI Studio. Most clients book 2–3 days for a full sprint.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Strategy, prototyping &amp; implementation&lt;/li&gt;&lt;li&gt;Claude, GPT, Gemini Pro &amp; Copilot&lt;/li&gt;&lt;li&gt;On-site or remote available&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/ai-consultant-day.html</g:link>
       <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
-      <g:price>699 EUR</g:price>
+      <g:price>1500 EUR</g:price>
       <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
@@ -249,7 +262,7 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
       <g:availability>in_stock</g:availability>
       <g:price>4960 EUR</g:price>
       <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
@@ -262,7 +275,7 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
       <g:availability>in_stock</g:availability>
       <g:price>499 EUR</g:price>
       <g:brand>Firehorse</g:brand>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
@@ -275,59 +288,46 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
       <g:availability>in_stock</g:availability>
       <g:price>499 EUR</g:price>
       <g:brand>Firehorse</g:brand>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
-      <g:identifier_exists>no</g:identifier_exists>
-    </item>
-    <item>
-      <g:id>omnichannel-multimodal</g:id>
-      <g:title>Firehorse Omnichannel &amp; Multimodal AI Assistant</g:title>
-      <g:description>&lt;p&gt;Stop guessing which channels convert. AI-optimized campaign management across all your marketing channels with daily performance measurement and automated optimization. Know exactly where your next customer is coming from.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;AI-optimized campaign management&lt;/li&gt;&lt;li&gt;Daily performance measurement&lt;/li&gt;&lt;li&gt;Automated channel optimization&lt;/li&gt;&lt;/ul&gt;</g:description>
-      <g:link>https://dws10.com/products/omnichannel-multimodal.html</g:link>
-      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>699 EUR</g:price>
-      <g:brand>Firehorse</g:brand>
-      <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>professional-web-pages</g:id>
-      <g:title>Professional Web Pages</g:title>
-      <g:description>&lt;p&gt;A professional web presence in days, not months. Responsive pages built with React, Blazor, WordPress, or Squarespace — your choice. AI chatbot and e-commerce add-ons available when you are ready to scale.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;React, Blazor or WordPress&lt;/li&gt;&lt;li&gt;AI chatbot add-on available&lt;/li&gt;&lt;li&gt;Professional web presence fast&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:title>Professional Dynamic Web Pages</g:title>
+      <g:description>&lt;p&gt;A professional web presence in days, not months. Responsive, modern pages built with React, Python, or a polyglot stack — your choice. AI chatbot and e-commerce add-ons available when you are ready to scale. One-day senior engagement.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;React, Python, or polyglot stack&lt;/li&gt;&lt;li&gt;AI chatbot add-on available&lt;/li&gt;&lt;li&gt;Modern responsive design&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/professional-web-pages.html</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
-      <g:price>799 EUR</g:price>
+      <g:price>1099 EUR</g:price>
       <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>secure-email-proton</g:id>
-      <g:title>Protonmail Secure Email &amp; Domains Implementation</g:title>
-      <g:description>&lt;p&gt;GDPR-compliant email in one business day. Full Proton Business Suite — encrypted email, cloud storage, password manager, and VPN. Meets GDPR, NIS2, and EU AI Act requirements. 8-hour implementation, fully operational by end of day.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;GDPR-compliant encrypted email&lt;/li&gt;&lt;li&gt;NIS2 &amp; EU AI Act compliant&lt;/li&gt;&lt;li&gt;Operational in 1 business day&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:title>Proton Workspace Implementation — Privacy-First Business Suite</g:title>
+      <g:description>&lt;p&gt;Replace Google Workspace or Microsoft 365 with a privacy-first alternative — no tracking, no ads, no data monetization. Proton Workspace bundles Mail, Calendar, Drive, Docs, Sheets, Meet (video calls + booking pages), VPN (19,836 servers, 145 countries), and Pass. GDPR, NIS2 and EU AI Act compliant. 8-hour implementation, fully operational by end of day.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Proton Meet: private video calls + appointment booking pages&lt;/li&gt;&lt;li&gt;Full suite: Mail, Calendar, Drive, Docs, Sheets, VPN, Pass&lt;/li&gt;&lt;li&gt;GDPR, NIS2 &amp; EU AI Act compliant — operational in 1 business day&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/secure-email-proton.html</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>499 EUR</g:price>
       <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>firehorse-data-services</g:id>
       <g:title>Firehorse Data Services</g:title>
-      <g:description>&lt;p&gt;Your data is worth more than you think. API-driven data products, brokerage strategy, and enrichment services that turn raw operational data into revenue and compliance insights. Remote and on-site consulting available.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;API-driven data products&lt;/li&gt;&lt;li&gt;Data monetization strategy&lt;/li&gt;&lt;li&gt;Remote and on-site consulting&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:description>&lt;p&gt;Connect your ERP, Salesforce, compliance systems, and operational data so every AI agent and sales rep works from the same live picture. ERP connections, RAG pipelines, Salesforce Agent data feeds, and LLM integration in days, not quarters.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;ERP connections (SAP, IFS, Dynamics, Monitor)&lt;/li&gt;&lt;li&gt;LLM models (Claude, GPT, Gemini, Groq)&lt;/li&gt;&lt;li&gt;RAG pipelines on your data&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/firehorse-data-services.html</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
-      <g:price>899 EUR</g:price>
+      <g:price>1500 EUR</g:price>
       <g:brand>Firehorse</g:brand>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
@@ -340,33 +340,33 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
       <g:availability>in_stock</g:availability>
       <g:price>2500 EUR</g:price>
       <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>1505</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>digital-design-gold</g:id>
-      <g:title>Digital Design Gold</g:title>
-      <g:description>&lt;p&gt;The Gold-tier production engine for enterprise brands. One engagement delivers your own Gold Standards (brand, document, design + security canon), Gold Skillful Agents trained on those standards, and the Firehorse production engine that outputs every marketing asset, campaign visual, compliance report, and live analytics dashboard.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Gold Standards — your own brand, doc, design + security canon&lt;/li&gt;&lt;li&gt;Gold Skillful Agents trained on your Gold Standards&lt;/li&gt;&lt;li&gt;Firehorse production engine for every marketing asset&lt;/li&gt;&lt;li&gt;Live analytics dashboards governed by Gold Standards&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:title>Digital Design Gold V2</g:title>
+      <g:description>&lt;p&gt;The Gold-tier production engine for enterprise brands. Digital Design Gold delivers the full stack: your own Gold Standards (brand, document, design, and security standards rebranded for your company), Gold Skillful Agents trained on those standards, and the Firehorse production engine that outputs every marketing asset, campaign visual, compliance report, and live analytics dashboard — all governed by one signed standard. One engagement, one source of truth, zero template chaos.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Gold Standards — your own brand, doc, design + security canon&lt;/li&gt;&lt;li&gt;Gold Skillful Agents trained on your Gold Standards&lt;/li&gt;&lt;li&gt;Firehorse production engine for every marketing asset&lt;/li&gt;&lt;li&gt;Live analytics dashboards governed by Gold Standards&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/digital-design-gold.html</g:link>
       <g:image_link>https://dws10.com/static/images/digital-design-gold-hero.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>24990 EUR</g:price>
       <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>cloud-ready-teams</g:id>
       <g:title>On-Demand AI &amp; Cloud Engineers</g:title>
-      <g:description>&lt;p&gt;Need expert developers this week, not next quarter? Pre-vetted cloud and AI professionals ready for immediate deployment. Skip the 3-month recruitment cycle and start building today.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Pre-vetted AI &amp; Cloud engineers&lt;/li&gt;&lt;li&gt;Immediate team deployment&lt;/li&gt;&lt;li&gt;Skip 3-month recruitment cycle&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:description>&lt;p&gt;Pre-vetted senior AI and cloud engineers on-demand at €200/hour senior rate. One day of expert time to scope, architect, or deploy — covers AWS, Azure, GCP, Kubernetes, and agentic AI stacks. Skip the 3-month recruitment cycle and ship this week.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Senior AI &amp; Cloud engineers&lt;/li&gt;&lt;li&gt;€200/hour senior rate&lt;/li&gt;&lt;li&gt;Skip 3-month recruitment cycle&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/cloud-ready-teams.html</g:link>
       <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
-      <g:price>950 EUR</g:price>
+      <g:price>1500 EUR</g:price>
       <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
@@ -379,7 +379,7 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
       <g:availability>in_stock</g:availability>
       <g:price>6250 EUR</g:price>
       <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
@@ -392,20 +392,33 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
       <g:availability>in_stock</g:availability>
       <g:price>2500 EUR</g:price>
       <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>edge-node-gn100</g:id>
-      <g:title>Acer Veriton GN100 — EU Sovereign Edge AI Node</g:title>
-      <g:description>&lt;p&gt;Run DWS IQ 6 entirely on your premises — zero cloud dependency, zero CLOUD Act exposure. The Acer Veriton GN100 is the reference hardware for Lifetime's EU sovereign edge AI stack: 20 cores, 120 GiB RAM, runs Qwen 2.5 72B (QLoRA) locally with OpenSandbox agent isolation. Minimum order 2 units for control room + situation room redundancy.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;EU air-gapped sovereign AI inference&lt;/li&gt;&lt;li&gt;20 cores / 120 GiB RAM per node&lt;/li&gt;&lt;li&gt;Minimum 2 units — €7,998 total&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:title>DWS Control Room / Situation Room Nodes</g:title>
+      <g:description>&lt;p&gt;EU-sovereign edge AI built on Acer Veriton GN100 hardware. Zero cloud dependency, zero CLOUD Act exposure. 20 cores, 120 GiB RAM per unit, runs Qwen 2.5 72B (QLoRA) locally with OpenSandbox agent isolation. Pricing: Acer base ~2 980 € + DWS sovereignty bundle (air-gap config, OpenSandbox setup, 2-unit redundancy) = ≈ 4 000 € VAT-incl (25,5 %). Minimum order 2 units for Control Room + Situation Room redundancy.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;DWS Control Room / Situation Room pair (2-unit min)&lt;/li&gt;&lt;li&gt;Acer Veriton GN100 — 20 cores / 120 GiB RAM per node&lt;/li&gt;&lt;li&gt;≈ 4 000 € VAT-incl per node · EU sovereign, zero CLOUD Act&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/edge-node-gn100.html</g:link>
       <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>3999 EUR</g:price>
       <g:brand>Acer</g:brand>
-      <g:google_product_category>Electronics &gt; Computers &gt; Desktop Computers</g:google_product_category>
+      <g:google_product_category>2682</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>DWS-SOVEREIGN-DB-001</g:id>
+      <g:title>Sovereign Database — EU Data Sovereignty for PostgreSQL</g:title>
+      <g:description>&lt;p&gt;Your EU customer data on a US-owned cloud is a liability. Sovereign Database eliminates CLOUD Act exposure with EU-hosted, EU-owned PostgreSQL, continuous sovereignty monitoring, and automated compliance scoring. Free assessment, paid tiers from €499/mo.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Zero CLOUD Act exposure&lt;/li&gt;&lt;li&gt;Continuous sovereignty monitoring agent&lt;/li&gt;&lt;li&gt;8-dimension compliance scoring&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:link>https://dws10.com/products/dws-sovereign-db-001.html</g:link>
+      <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>99 EUR</g:price>
+      <g:brand>Lifetime</g:brand>
+      <g:google_product_category>1505</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
@@ -418,7 +431,280 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
       <g:availability>in_stock</g:availability>
       <g:price>1500 EUR</g:price>
       <g:brand>Lifetime</g:brand>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+      <g:google_product_category>1426</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>DWS-US-STARTER</g:id>
+      <g:title>DWS IQ — US Cloud Navigator</g:title>
+      <g:description>&lt;p&gt;Get started with DWS IQ on US Cloud infrastructure (Supabase + Cloudflare). 3 AI agents, basic CSRD dashboard, 1 user seat. Fastest path to compliance — upgrade to EU Sovereign anytime.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;3 AI agents (Compliance, Report, Discovery)&lt;/li&gt;&lt;li&gt;Basic CSRD compliance dashboard&lt;/li&gt;&lt;li&gt;Supabase + Cloudflare infrastructure&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:link>https://dws10.com/products/dws-us-starter.html</g:link>
+      <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>299 EUR</g:price>
+      <g:brand>Lifetime</g:brand>
+      <g:google_product_category>1505</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>DWS-US-PILOT</g:id>
+      <g:title>DWS IQ — US Cloud Premium</g:title>
+      <g:description>&lt;p&gt;4-week evaluation with real data on US Cloud. 8 AI agents, Firehorse Report, 5 seats, kickoff workshop. Prove ROI before scaling — upgrade to EU Sovereign anytime.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;8 AI agents (full Firehorse suite)&lt;/li&gt;&lt;li&gt;Firehorse Report module included&lt;/li&gt;&lt;li&gt;5 user seats + kickoff workshop&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:link>https://dws10.com/products/dws-us-pilot.html</g:link>
+      <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>799 EUR</g:price>
+      <g:brand>Lifetime</g:brand>
+      <g:google_product_category>1505</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>DWS-EU-STARTER</g:id>
+      <g:title>DWS IQ — Enterprise Navigator</g:title>
+      <g:description>&lt;p&gt;DWS IQ on EU sovereign infrastructure (Aiven PostgreSQL + Hetzner/Scaleway). 3 AI agents, CSRD dashboard, zero CLOUD Act exposure, sovereignty score monitoring. EU data residency from day 1.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Zero CLOUD Act exposure (EU-owned providers)&lt;/li&gt;&lt;li&gt;Aiven PostgreSQL + Hetzner/Scaleway&lt;/li&gt;&lt;li&gt;Sovereignty score monitoring&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:link>https://dws10.com/products/dws-eu-starter.html</g:link>
+      <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>499 EUR</g:price>
+      <g:brand>Lifetime</g:brand>
+      <g:google_product_category>1505</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>DWS-EU-PILOT</g:id>
+      <g:title>DWS IQ — Enterprise Premium</g:title>
+      <g:description>&lt;p&gt;Full EU sovereign evaluation. 8 AI agents, Firehorse Report, EU AI Act Article 12 logging, NIS2 dashboard, 5 seats. Zero CLOUD Act. Prove compliance ROI on sovereign infrastructure.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;8 AI agents + EU AI Act Article 12 logging&lt;/li&gt;&lt;li&gt;NIS2 compliance dashboard&lt;/li&gt;&lt;li&gt;Zero CLOUD Act + EU data residency&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:link>https://dws10.com/products/dws-eu-pilot.html</g:link>
+      <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>1499 EUR</g:price>
+      <g:brand>Lifetime</g:brand>
+      <g:google_product_category>1505</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>DWS-CLIMATE-001</g:id>
+      <g:title>DWS IQ Climate Intelligence</g:title>
+      <g:description>&lt;h1&gt;DWS IQ Climate Intelligence&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;The Agent Outcome Factory for EU Climate Compliance&lt;/strong&gt;&lt;/p&gt;
+&lt;h2&gt;Product Overview&lt;/h2&gt;
+&lt;p&gt;DWS IQ Climate Intelligence is a purpose-built AI agent platform that automates EU climate compliance for industrial companies. Instead of hiring consultants or building spreadsheets, you deploy 8 specialized Skilled Agents that deliver audit-ready compliance outcomes — ETS allowance calculations, CBAM import obligations, CSRD disclosure reports, and continuous carbon accounting.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Why agents, not dashboards:&lt;/strong&gt; Dashboards show you data. Agents deliver outcomes. Climate Intelligence agents observe your emissions data, think through regulatory requirements, and act by generating compliance documentation — autonomously.&lt;/p&gt;
+&lt;h2&gt;Agents Included&lt;/h2&gt;
+&lt;p&gt;| Agent                | Capability                                       | Regulation                             |
+| -------------------- | ------------------------------------------------ | -------------------------------------- |
+| EmissionsDataAnalyst | Natural language queries on emissions data       | ETS, CSRD, CBAM                        |
+| ComplianceAgent      | EU regulatory compliance scoring (deterministic) | Fit for 55, ETS, CBAM, CSRD, EU AI Act |
+| ComplianceResearcher | Risk classification and gap analysis             | All EU climate regulations             |
+| MaterialOracle       | Carbon tracking &amp;amp; sustainable procurement        | EN 15978, CBAM                         |
+| BESSAgent            | Battery energy storage compliance                | RED III, battery regulation            |
+| HeliosAgent          | Solar/renewables compliance                      | RED III, EPBD                          |
+| PrometheusAgent      | Hydrogen classification (green/blue/grey)        | Delegated Acts 2023/1184, 2023/1185    |
+| ViabilityAgent       | Financial + carbon viability scoring             | CSRD double materiality                |&lt;/p&gt;
+&lt;h2&gt;Core Capabilities&lt;/h2&gt;
+&lt;h3&gt;ETS Calculator&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Installation-level compliance assessment&lt;/li&gt;
+&lt;li&gt;Free allocation formulas (Phase 4: 2021-2030)&lt;/li&gt;
+&lt;li&gt;Surrender obligation calculation&lt;/li&gt;
+&lt;li&gt;Cost projection with real carbon prices (source: EU ETS 2024 average)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;CBAM Calculator&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;6 covered sectors: cement, steel, aluminium, fertilizers, electricity, hydrogen&lt;/li&gt;
+&lt;li&gt;Import carbon obligation per shipment&lt;/li&gt;
+&lt;li&gt;CBAM certificate pricing&lt;/li&gt;
+&lt;li&gt;Quarterly declaration preparation&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;ESRS Registry&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;All 82 ESRS disclosures mapped (E1-E5, S1-S4, G1)&lt;/li&gt;
+&lt;li&gt;Mandatory vs. optional flags per company size&lt;/li&gt;
+&lt;li&gt;Gap analysis against current reporting&lt;/li&gt;
+&lt;li&gt;Disclosure-level readiness scoring&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Carbon Ledger&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Scope 1/2/3 emissions tracking&lt;/li&gt;
+&lt;li&gt;Debit-credit carbon balance sheet&lt;/li&gt;
+&lt;li&gt;Audit trail with source citations&lt;/li&gt;
+&lt;li&gt;EN 15978 lifecycle stages (A1-D)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Validated Data Sources&lt;/h2&gt;
+&lt;p&gt;All emission factors and benchmarks come from citable, auditable sources:&lt;/p&gt;
+&lt;p&gt;| Data Type       | Source                                                       |
+| --------------- | ------------------------------------------------------------ |
+| ETS benchmarks  | EU ETS Benchmark 2021-2025 (Reg. 2021/447)                   |
+| CBAM defaults   | Reg. 2023/1773 default emission values                       |
+| IPCC factors    | IPCC 2006 Guidelines for National Greenhouse Gas Inventories |
+| Sector averages | EEA GHG Inventory 2024, Eurostat SBS                         |
+| Carbon prices   | EU ETS 2024 average (ECB SDW)                                |&lt;/p&gt;
+&lt;h2&gt;Target Market&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Primary:&lt;/strong&gt; CSRD-obligated companies (50,000+ in EU by 2028)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sweet spot:&lt;/strong&gt; Mid-sized industrials (50-500 employees) in steel, cement, chemicals, construction, energy&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Geography:&lt;/strong&gt; EU/EEA, with Nordic priority (Finland, Sweden, Norway, Denmark)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Competitive Positioning&lt;/h2&gt;
+&lt;p&gt;SAP Sustainability Control Tower validates the market. DWS IQ Climate Intelligence owns the non-SAP stack:&lt;/p&gt;
+&lt;p&gt;| Competitor            | Gap we fill                                                           |
+| --------------------- | --------------------------------------------------------------------- |
+| SAP Sustainability    | Too expensive for mid-market. Locked to SAP ERP.                      |
+| Watershed / Persefoni | US-based. No EU data sovereignty. Dashboard-only, no agent outcomes.  |
+| Sweep / Plan A        | Manual data collection. No ERP integration. No deterministic scoring. |
+| Big 4 consultants     | €200-500k engagements. One-time reports, not continuous compliance.   |&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Our edge:&lt;/strong&gt; Skilled-Agent-delivered outcomes (not dashboards), EU-sovereign hosting, deterministic scoring (auditable, reproducible), ERP integration (SAP, IFS, Dynamics), €2,999/mo vs. €200k consultant engagements.</g:description>
+      <g:link>https://dws10.com/products/dws-climate-001.html</g:link>
+      <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2999 EUR</g:price>
+      <g:brand>DWS IQ</g:brand>
+      <g:google_product_category>1505</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>DWS-AEGIS-001</g:id>
+      <g:title>DWS IQ Aegis — Full Sovereignty</g:title>
+      <g:description>&lt;h1&gt;DWS IQ Aegis&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Dual-Use AI Platform for Defence &amp;amp; Sovereign Operations&lt;/strong&gt;&lt;/p&gt;
+&lt;h2&gt;Product Overview&lt;/h2&gt;
+&lt;p&gt;DWS IQ Aegis is a standalone dual-use AI platform covering all 21 EU-regulated industries (including dual-use critical raw materials) for government agencies, military industry enterprises, and dual-use manufacturing supply chains. It packages sovereignty monitoring, orbital intelligence, agent governance, and EU AI Act compliance into a hardened platform — available exclusively on European cloud or enterprise private cloud.&lt;/p&gt;
+&lt;p&gt;Named after Athena's shield — Aegis provides protection through intelligence, not just walls.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Why Aegis exists:&lt;/strong&gt; Defence and dual-use supply chains face the same EU compliance obligations as civilian ones (CSRD, CBAM, NIS2, CER Directive, CRM Act) — plus export control, data sovereignty, and dual-use regulation. No platform serves this intersection across all 21 industries with cross-vertical signal propagation. Aegis does.&lt;/p&gt;
+&lt;h2&gt;Agents Included&lt;/h2&gt;
+&lt;p&gt;| Agent              | Capability                                                           | Domain                                |
+| ------------------ | -------------------------------------------------------------------- | ------------------------------------- |
+| ArgusAgent         | AI orbital target labeling via SAR satellite data                    | Intelligence, supply chain visibility |
+| SovereigntyMonitor | CLOUD Act exposure detection, EU data residency verification         | Data sovereignty                      |
+| Article12Logger    | EU AI Act audit trails for all AI decisions                          | Regulatory compliance                 |
+| KYA Engine         | Know Your Agent — identity verification, isolation, kill authority   | Agent governance                      |
+| ComplianceAgent    | Dual-use export control + EU climate compliance                      | Regulatory                            |
+| CrossVerticalIntel | Supply chain signal propagation across 21 industries                 | Intelligence                          |
+| GaiaAgent          | Cement, lime &amp;amp; earth materials — dual-use critical raw material risk | Industry                              |
+| VulcanAgent        | Steel &amp;amp; metals — ETS Phase 4, CBAM carbon declarations               | Industry                              |
+| SiteSenseAgent     | Defence construction site safety &amp;amp; logistics                         | Field operations                      |&lt;/p&gt;
+&lt;h2&gt;Core Capabilities&lt;/h2&gt;
+&lt;h3&gt;Orbital Intelligence (Argus)&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;SAR satellite data ingestion and AI labeling (compatible with providers such as ICEYE)&lt;/li&gt;
+&lt;li&gt;All-weather, day/night industrial target detection&lt;/li&gt;
+&lt;li&gt;20 DWS industry classifications from orbit&lt;/li&gt;
+&lt;li&gt;Change detection alerts for infrastructure monitoring&lt;/li&gt;
+&lt;li&gt;Pipeline: AOI → SAR Catalog API → AI labeling → KYA governance → Article 12 audit trail&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Sovereignty Assessment&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;CLOUD Act exposure scoring (US vs. EU-sovereign providers)&lt;/li&gt;
+&lt;li&gt;Four sovereignty tiers: Sovereign / Compliant / Partial / Exposed&lt;/li&gt;
+&lt;li&gt;NIS2 alignment verification&lt;/li&gt;
+&lt;li&gt;EU AI Act compliance checks&lt;/li&gt;
+&lt;li&gt;Data residency audit trail&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Agent Governance (KYA — Know Your Agent)&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Agent identity verification (Shufti partnership)&lt;/li&gt;
+&lt;li&gt;Firecracker MicroVM sandbox isolation&lt;/li&gt;
+&lt;li&gt;Kill authority — revoke any agent in real-time&lt;/li&gt;
+&lt;li&gt;Forensic observability — full decision audit trail&lt;/li&gt;
+&lt;li&gt;Multi-agent control room for fleet oversight&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;EU AI Act Article 12 Logging&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Every AI decision logged with risk classification&lt;/li&gt;
+&lt;li&gt;Reasoning lineage preservation&lt;/li&gt;
+&lt;li&gt;Audit-ready documentation for regulators&lt;/li&gt;
+&lt;li&gt;Full Sovereignty environment (EU-only AI compliance layer)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Target Market&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Primary:&lt;/strong&gt; Government agencies (EU member states, defence ministries)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Secondary:&lt;/strong&gt; Military industry enterprises (defence contractors, shipyards, aerospace)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Tertiary:&lt;/strong&gt; Dual-use manufacturing supply chains (steel, chemicals, electronics, critical infrastructure)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Critical Infrastructure (CER Directive):&lt;/strong&gt; Railway operators, power grid operators, port authorities, gas transmission operators — all EU &quot;essential entities&quot; under CER Directive 2022/2557, facing mandatory infrastructure protection plans by Q4 2026&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Geography:&lt;/strong&gt; EU only — platform available on European cloud or enterprise private cloud. Sovereign deployments: UpCloud Helsinki (Finland/Nordic) or Scaleway Paris (France/Western EU)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Industries:&lt;/strong&gt; All 21 EU-regulated industries under dual-use scope (including lime/critical raw materials)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;France Market — Critical Infrastructure Signal&lt;/h3&gt;
+&lt;p&gt;SNCF (French national railway) operates a 200-drone surveillance fleet (De</g:description>
+      <g:link>https://dws10.com/products/dws-aegis-001.html</g:link>
+      <g:image_link>https://dws10.com/static/images/firehorse-aegis-head.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>preorder</g:availability>
+      <g:price>59990 EUR</g:price>
+      <g:brand>DWS IQ</g:brand>
+      <g:google_product_category>1505</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>DWS-THEMIS-001</g:id>
+      <g:title>DWS IQ Themis — The Aegis Control Plane</g:title>
+      <g:description>&lt;h1&gt;DWS IQ Themis&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;The Aegis Control Plane — Sovereign AI Governance for EU AI Act Article 12&lt;/strong&gt;&lt;/p&gt;
+&lt;h2&gt;One-Liner&lt;/h2&gt;
+&lt;p&gt;Themis — the Aegis Control Plane. DWS's proprietary implementation of the open KYA standard: identity attribution, Article 12 logging, Annex III systems registry, and policy gating bundled into one sovereign control plane, shipping with every Aegis deployment.&lt;/p&gt;
+&lt;h2&gt;Why Now&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;EU AI Act enforcement for high-risk systems: 2 August 2026.&lt;/strong&gt; Your AI needs automatic, tamper-evident record-keeping with six-month minimum retention (Art. 26(6)), Annex III classification, deployer evidence (Art. 26), and post-market monitoring integration (Art. 72). Themis ships this as one product.&lt;/p&gt;
+&lt;h2&gt;What Themis Is&lt;/h2&gt;
+&lt;p&gt;A drop-in control plane that turns any DWS IQ deployment — or any open-standard-KYA-compliant system — into an Article 12-ready, audit-defensible AI operation. Themis is DWS's productisation of the KYA open standard's sovereign control plane (KYA-S §11 Systems Inventory &amp;amp; Policy Gate + DWS_ARTICLE_12_LOGGING_STANDARD.md logging pipeline).&lt;/p&gt;
+&lt;h2&gt;What Customers Get&lt;/h2&gt;
+&lt;p&gt;| Capability                      | Detail                                                                                                                            |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| &lt;strong&gt;Article 12 Logging Pipeline&lt;/strong&gt; | OpenTelemetry → Collector (hashing + redaction) → hash-chained append-only ledger on Aiven Postgres → KYA-attested events         |
+| &lt;strong&gt;Annex III Systems Registry&lt;/strong&gt;  | &lt;code&gt;ai_systems_registry&lt;/code&gt; table with risk classification, conformity state, data lineage, deployment approvals                        |
+| &lt;strong&gt;Policy Gate (runtime)&lt;/strong&gt;       | Every inference call passes policy DSL evaluation before hitting the model; allow / deny / escalate with 24h human-review SLA     |
+| &lt;strong&gt;KYA Policy Proxy&lt;/strong&gt;            | Identity attribution (KYC-verified operator), capability-manifest enforcement, memory-mutation attestation (KYA-S §10)            |
+| &lt;strong&gt;Reporting Portal&lt;/strong&gt;            | Firehorse Report Engine — auditor JSON export under 10 business days; CSRD, NIS2, and Art. 72 post-market monitoring plug-ins     |
+| &lt;strong&gt;Retention&lt;/strong&gt;                   | 6-month floor (Art. 26(6)); 5-year for memory audit and identity events (KYA-S §10.4); 10-year for serious incidents (Art. 73)    |
+| &lt;strong&gt;Tier portability&lt;/strong&gt;            | Runs on Aegis sovereign infra (UpCloud / Hetzner), Tier 2 clouds (Red Hat OpenShift, Azure AI Foundry EU), or Tier 3 hyperscalers |&lt;/p&gt;
+&lt;h2&gt;Features&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;KYA-compliant&lt;/strong&gt; — implements the open KYA standard; no vendor lock-in on the protocol layer&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Defence-grade audit&lt;/strong&gt; — hash-chained append-only ledger with per-event SHA-256 chain, court-defensible tamper evidence&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cross-tier portable&lt;/strong&gt; — same control plane runs on Aegis Tier 1 sovereign infra, Tier 2 EU clouds, or Tier 3 hyperscalers&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;EU-built, zero CLOUD Act&lt;/strong&gt; — no US-incorporated vendor in the Aegis-tier data path&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;2 Aug 2026 ready&lt;/strong&gt; — ships before EU AI Act high-risk enforcement&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Bundled with Aegis&lt;/strong&gt; — zero additional cost for DWS IQ Aegis (Tier 1) customers; standalone SKU for Tier 2 Sovereign Infra customers&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Tier Positioning&lt;/h2&gt;
+&lt;p&gt;| Tier                         | Themis Delivery                                                                  | Price                              |
+| ---------------------------- | -------------------------------------------------------------------------------- | ---------------------------------- |
+| &lt;strong&gt;Aegis (Tier 1)&lt;/strong&gt;           | Included in platform — runs on UpCloud, single-tenant, zero CLOUD Act            | Bundled in €59,990 + €999/mo       |
+| &lt;strong&gt;Sovereign Infra (Tier 2)&lt;/strong&gt; | Standalone SKU — customer brings own EU cloud (Scaleway, OVH, Red Hat OpenShift) | &lt;strong&gt;€14,990 one-time + €499/mo&lt;/strong&gt;     |
+| &lt;strong&gt;Connect (Tier 3)&lt;/strong&gt;         | SaaS — customer chooses underlying cloud                                         | Enterprise pricing — contact sales |&lt;/p&gt;
+&lt;h2&gt;Who It's For&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Defence and dual-use manufacturers&lt;/strong&gt; needing Article 12 + Annex III evidence before 2 August 2026&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Government agencies&lt;/strong&gt; requiring zero CLOUD Act exposure in their AI audit trail&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Regulated EU enterprises&lt;/strong&gt; (CSRD, NIS2, CER, CBAM) who want EU AI Act compliance on infra they already run&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;AI system operators&lt;/strong&gt; whose existing governance tools (Credo AI, OneTrust, IBM Watsonx) would create US-parent sovereignty violations&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;What Makes Themis Different&lt;/h2&gt;
+&lt;</g:description>
+      <g:link>https://dws10.com/products/dws-themis-001.html</g:link>
+      <g:image_link>https://dws10.com/static/images/firehorse-aegis-head.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>preorder</g:availability>
+      <g:price>14990 EUR</g:price>
+      <g:brand>DWS IQ</g:brand>
+      <g:google_product_category>1505</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>FH-FPE-001</g:id>
+      <g:title>Firehorse FPE Continuity Pack — Construction Edition</g:title>
+      <g:description>&lt;p&gt;You invested in AI. One bad layoff can wipe out that value. FPE costs €14,999 to reduce weakest-link failure in 5 critical workflows — pick the most critical first; the other four follow inside the same 30 days. Each becomes operator-independent — KYA-signed, EU AI Act Article 12 logged, with a named owner and a named successor. Built for EU construction firms exposed to the 2024–2025 layoff wave.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;5 critical operator-bound workflows mapped, owned, made operator-independent&lt;/li&gt;&lt;li&gt;Pick the most critical first — the other four follow inside the same 30-day pack&lt;/li&gt;&lt;li&gt;KYA agent governance signature on every action&lt;/li&gt;&lt;li&gt;EU AI Act Article 12 audit log&lt;/li&gt;&lt;li&gt;30-day signed continuity audit (CFO + board readable)&lt;/li&gt;&lt;li&gt;Bolts onto Firehorse Starter V2 engine and existing AI investment&lt;/li&gt;&lt;li&gt;Construction scope: BIM, cost estimation, schedule, CSRD, CBAM, EN 15978 carbon, site safety, procurement&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:link>https://dws10.com/products/fh-fpe-001.html</g:link>
+      <g:image_link>https://dws10.com/static/images/firehorse-starter-v2.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>14999 EUR</g:price>
+      <g:brand>Firehorse</g:brand>
+      <g:google_product_category>1505</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
