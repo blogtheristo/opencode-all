@@ -43,10 +43,10 @@
     </item>
     <item>
         <g:id>FH-AUTO-001</g:id>
-        <g:title>Firehorse Automation</g:title>
-        <g:description>Manual data entry is where compliance fines start. Firehorse Automation eliminates human error with event-driven workflows for Fit for 55, CSRD, and EPBD 2028 — capturing ESG data directly from your systems with a complete audit trail.</g:description>
-        <g:link>https://dws10.com/products/firehorse-automation.html</g:link>
-        <g:image_link>https://dws10.com/static/images/firehorse-automation-hero.png</g:image_link>
+        <g:title>Firehorse Amplify</g:title>
+        <g:description>Manual data entry is where compliance fines start. Firehorse Amplify eliminates human error with event-driven workflows for Fit for 55, CSRD, and EPBD 2028 — capturing ESG data directly from your systems with a complete audit trail.</g:description>
+        <g:link>https://dws10.com/products/firehorse-amplify.html</g:link>
+        <g:image_link>https://dws10.com/static/images/firehorse-amplify-hero.png</g:image_link>
         <g:price>4950.00 EUR</g:price>
         <g:availability>in_stock</g:availability>
         <g:condition>new</g:condition>
