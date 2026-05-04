@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.4
 
 Sessions & Modifications:
 
+- Version: 1.4 | Tool: Claude Code (claude-sonnet-4-6) | Session: claude/knowledge-catalog-research-J207A | Date: 04.05.2026 | Changes: Added §15 "GC-KC Reference Architecture — What Industrial Ontology Runtime Looks Like". Maps Google Cloud Knowledge Catalog three pillars (Aggregation, Enrichment, Search) to DWS ontology tiers. Adds DWSDataProduct as a named concept. Connector decision documented (export adapter only). Updates §14 lags table: Knowledge Catalog Runtime gap now tracked.
 - Version: 1.3 | Tool: Claude Code (claude-sonnet-4-6) | Session: claude/add-ontology-background-s0H0S | Date: 29.04.2026 | Changes: Added §1.3 "Sanan ontologia tausta / Etymology and Philosophical Background" — kreikkalainen etymologia (ón + lógos), Aristoteles, skolastiikka 1600–1700-luvuilla, merkityksen laajeneminen filosofiasta tietojenkäsittelytieteeseen ja tekoälyyn
 - Version: 1.2 | Tool: Claude Code (Claude Opus 4.7) | Session: claude/compare-ontologies-NtJWP | Date: 29.04.2026 | Changes: Decision-centric roadmap — added §13 (Actions, Scenarios/Global Branching, per-Decision Lineage, Purpose-based + Marking-based Policies, Logic Binding, Multi-tier Agent Memory, Embedded Edge Ontology) and §14 Where DWS Leads, Where DWS Lags. Removed third-party vendor naming; positioned as European Ontology Standard.
 - Version: 1.1 | Tool: Claude Code (Claude Opus 4.6) | Session: claude/add-eu-info-note-8XYey | Date: 11.02.2026 | Changes: Added DWS6 Enterprise Ontology — EU institutions (Commission, Council, Parliament, EIB), EU Single Market (450M consumers), EU regulatory framework (Fit for 55, ETS, CBAM, CSRD, AI Act, GDPR, NIS2), DWS IQ 6 platform entities, 21-moat fortress taxonomy, 16 EU industries, key geographic entities, Alden Biesen retreat context
@@ -1691,6 +1692,100 @@ The DWS Ontology Standard is positioned as a **European Ontology Standard** — 
 ### Strategic posture
 
 DWS does **not** try to out-engineer 20-year-old US incumbents on operational connectors or scenario tooling. DWS wins by being the **EU-sovereign, regulation-native, agent-first, open-standard** ontology platform. The §13 roadmap closes operational gaps just enough that DWS can credibly serve EU industrial customers who require sovereignty, and the open European standard turns the schema itself into a market-shaping asset.
+
+---
+
+## 15. GC-KC Reference Architecture — What Industrial Ontology Runtime Looks Like
+
+> **Field note reference:** `docs/field-notes/2026-05-04-google-cloud-knowledge-catalog-analysis.md`
+
+In May 2026, Google Cloud released the **Knowledge Catalog** — an evolution of Dataplex described as a "universal context engine for agents." It is the closest public-cloud equivalent to what DWS is building as the EU-sovereign LWM runtime. This section maps GC-KC to DWS ontology tiers, documents the connector decision, and introduces the DWSDataProduct concept.
+
+### 15.1 GC-KC Three Pillars Mapped to DWS Ontology
+
+GC-KC operates on three pillars. Each maps directly to a DWS ontology layer:
+
+| GC-KC Pillar    | GC-KC capability                                                                           | DWS ontology tier                                      | DWS implementation                                                |
+| --------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------ | ----------------------------------------------------------------- |
+| **Aggregation** | Unified metadata from BigQuery, SAP, Salesforce, Workday into one governed source of truth | Tier 1: Controlled vocabulary + entity registry        | `ONTOLOGY.md` §6 entity taxonomy + `products.json` + `kb/wiki/`   |
+| **Enrichment**  | Gemini auto-extracts entity relationships, verified SQL patterns, business glossaries      | Tier 2: Class hierarchy + properties + inference rules | `ProfileFact` subject-predicate-value + `kb.agent.ts` KB pipeline |
+| **Search**      | Hybrid semantic search, sub-second, access-control-aware, surfaced to agents               | Tier 3: Axiom-driven query with policy enforcement     | `hybrid_memory_search()` + KYA trust score + RLS                  |
+
+**Key insight:** GC-KC is an ontology runtime at Google Cloud scale. DWS has the philosophy (this document) and the substrate (Supabase, KB, hybrid search). The gap is a unified API layer that aggregates across all five DWS metadata stores.
+
+### 15.2 GC-KC Concept → DWS Concept Mapping
+
+| GC-KC concept                        | DWS equivalent                                | Status                 |
+| ------------------------------------ | --------------------------------------------- | ---------------------- |
+| Business glossary                    | ONTOLOGY.md §6 entity taxonomy                | Exists (manual)        |
+| Entity relationship extraction       | `ProfileFact` subject-predicate-value triples | Exists (per-agent)     |
+| Verified SQL / query patterns        | `hybrid_memory_search()` confidence scoring   | Exists (internal only) |
+| Data products with SLAs + governance | `DWSDataProduct` interface (§15.3)            | Planned Q3 2026        |
+| Access-control-aware search          | RLS + KYA agent trust score                   | Exists                 |
+| Automated metadata enrichment        | `kb-auto-enrich.ts` daily script              | Planned Q2 2026        |
+| Cross-system metadata aggregation    | DWS Knowledge Catalog Agent                   | Planned Q2 2026        |
+
+### 15.3 DWSDataProduct — Named Ontology Concept
+
+Inspired by GC-KC "Data Products" (self-contained blocks with intent, SLAs, governance constraints), DWS introduces the `DWSDataProduct` as a first-class ontology concept. Every agent output that crosses agent boundaries MUST be declared as a Data Product.
+
+**Planned interface** (`src/agents/data-product.types.ts`):
+
+```
+DWSDataProduct {
+  id                  kebab-case stable identifier
+  producingAgent      which agent creates this
+  outputSchema        declared JSON Schema for the output
+  sla.confidenceFloor minimum acceptable confidence (0–1)
+  sla.maxLatencyMs    SLA latency ceiling in milliseconds
+  governance.allowedConsumerAgents  which agents may consume this
+  governance.regulationIds          which EU regulations this satisfies
+  governance.dataResidency          'EU' | 'EU+US' sovereignty declaration
+  ontologyAnchors     ONTOLOGY.md entity IDs this relates to
+  lineage.memoryIds   semantic_memories this depends on
+  lineage.kbArticles  KB wiki articles consulted
+}
+```
+
+This is the DWS sovereign equivalent of GC-KC's Data Product. It bundles output semantics, SLA, governance, and lineage into one governed unit — enabling agents to trust each other's outputs without re-validating from scratch.
+
+### 15.4 Connector Decision — EU Sovereignty First
+
+**Direct GC-KC ingestion (DWS data → Google Cloud): REJECTED**
+
+Rationale: DWS runs EU-sovereign on Supabase + Aiven Finland. GC-KC runs on Google Cloud infrastructure subject to CLOUD Act. Pushing operational DWS data into GC-KC destroys the sovereignty moat that is central to DWS's EU industrial market positioning.
+
+**DWS → GC-KC Export Adapter: APPROVED for Q4 2026 (customer-optional)**
+
+For enterprise customers already running Google Cloud (BigQuery + SAP), a one-way push adapter exports `DWSDataProduct` metadata descriptors to the customer's GC-KC instance. Only the descriptor (name, schema, SLA, description) is exported — no raw data, no embeddings, no agent logs. Sovereignty preserved; Google Cloud enterprise integration story enabled.
+
+**Future file:** `src/integrations/google/knowledge-catalog-export.ts`
+
+### 15.5 DWS Knowledge Catalog Roadmap
+
+| Phase              | Deliverable                                                | Target           |
+| ------------------ | ---------------------------------------------------------- | ---------------- |
+| 0 — Foundation     | Field note + ONTOLOGY.md §15 (this section)                | Done (Q2 2026)   |
+| 1 — Aggregation    | `knowledge-catalog.agent.ts` + unified metadata search API | Q2 2026 Sprint 1 |
+| 1 — CLI            | `dws knowledge-catalog search` → JSON + MCP tool           | Q2 2026 Sprint 1 |
+| 2 — Enrichment     | `kb-auto-enrich.ts` daily script, auto-ingest field notes  | Q2 2026 Sprint 2 |
+| 3 — Data Products  | `data-product.types.ts` + 5 agent descriptors              | Q3 2026          |
+| 4 — Export Adapter | GC-KC export adapter (dry-run, customer-optional)          | Q4 2026          |
+
+### 15.6 Strategic Positioning
+
+GC-KC validates that the ontology-first orchestration approach is correct — Google's largest cloud engineering teams have converged on exactly the architecture DWS has been building since v1.0 (January 2026). The difference is the sovereignty axis:
+
+| Dimension          | GC-KC                        | DWS Knowledge Catalog                        |
+| ------------------ | ---------------------------- | -------------------------------------------- |
+| Data residency     | Google Cloud (US-controlled) | EU-sovereign (Finland/Germany)               |
+| CLOUD Act exposure | Yes                          | No                                           |
+| Regulatory native  | Generic                      | EU AI Act, GDPR, ETS, CBAM, CSRD pre-modeled |
+| Enrichment model   | Gemini auto-extract          | LLM-maintained KB (Karpathy-inspired)        |
+| Gaia-X compatible  | No                           | Tier-3 path                                  |
+| Open standard      | No                           | Spec published under permissive licence      |
+
+DWS Knowledge Catalog is the **Gaia-X native, EU AI Act compliant, regulation-first** answer to GC-KC. The primary market: EU industrial enterprises that cannot or will not route sovereign data through US hyperscalers.
 
 ---
 
