@@ -176,7 +176,7 @@
                     <ul class="ironclad-dropdown ironclad-dropdown-wide">
                         <li><a href="${basePath}products/dwsiq.html" class="ironclad-primary">DWS IQ Platform v6</a></li>
                         <li><a href="${basePath}products/bundle.html">Climate Reporting Bundle</a></li>
-                        <li><a href="${basePath}products/firehorse-automation.html">Firehorse Automation</a></li>
+                        <li><a href="${basePath}products/firehorse-amplify.html">Firehorse Amplify</a></li>
                         <li><a href="${basePath}products/firehorse-omnichannel.html">Firehorse Omnichannel Next</a></li>
                         <li><a href="${basePath}products/expert-services.html">Workshop 3 Days</a></li>
                         <li><a href="${basePath}products/expert-advisory.html">Expert Advisory (Monthly)</a></li>

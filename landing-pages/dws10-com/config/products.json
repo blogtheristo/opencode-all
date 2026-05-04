@@ -8,10 +8,10 @@
       "price": 4999,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Stop risking fines and lost tenders. DWS IQ 6 deploys 18+ Skilled Agents with agentic loops (observe-think-act) to automate Fit for 55, CSRD, and EPBD compliance across 20 EU industries — cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.",
+      "description": "Stop risking fines and lost tenders. DWS IQ 6 deploys 18+ Skilled Agents with agentic loops (observe-think-act) to amplify Fit for 55, CSRD, and EPBD compliance across 20 EU industries — cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.",
       "features": [
         "18+ Skilled Agents with MCP protocol and CLI access",
-        "Automate Fit for 55, CSRD & EPBD reporting",
+        "Amplify Fit for 55, CSRD & EPBD reporting",
         "90% reduction in manual compliance hours"
       ],
       "priceNote": "One-time deployment package.",
@@ -83,11 +83,11 @@
       "id": "FH-AUTO-001",
       "gtin": null,
       "mpn": "FH-AUTO-2026",
-      "name": "Firehorse Automation",
+      "name": "Firehorse Amplify",
       "price": 4950,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Manual data entry is where compliance fines start. Firehorse Automation eliminates human error with event-driven workflows for Fit for 55, CSRD, and EPBD 2028 — capturing ESG data directly from your systems with a complete audit trail.",
+      "description": "Manual data entry is where compliance fines start. Firehorse Amplify eliminates human error with event-driven workflows for Fit for 55, CSRD, and EPBD 2028 — capturing ESG data directly from your systems with a complete audit trail.",
       "features": [
         "Event-driven compliance workflows",
         "Eliminate manual data entry errors",
@@ -97,8 +97,8 @@
       "priceNote": "Per project",
       "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
       "paypalPlanId": null,
-      "image": "/static/images/firehorse-automation-hero.png",
-      "detailsUrl": "../products/firehorse-automation.html",
+      "image": "/static/images/firehorse-amplify-hero.png",
+      "detailsUrl": "../products/firehorse-amplify.html",
       "featured": false,
       "google": {
         "productCategory": "1505",
@@ -248,7 +248,7 @@
         "Auto-tagged compliance documents",
         "Certificate expiry alerts",
         "Semantic search across evidence",
-        "Next step: add Firehorse Automation → eliminate manual data entry"
+        "Next step: add Firehorse Amplify → eliminate manual data entry"
       ],
       "priceNote": "Setup + migration",
       "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
@@ -281,9 +281,9 @@
       "price": 4500,
       "currency": "EUR",
       "type": "one-time",
-      "description": "DWS delivers any Firehorse product for you — Report, Omnichannel, Automation, Content Management, or Signed Reports. Three intensive days covering design, integration, and go-live. You define the outcome. We build and hand it over running.",
+      "description": "DWS delivers any Firehorse product for you — Report, Omnichannel, Amplify, Content Management, or Signed Reports. Three intensive days covering design, integration, and go-live. You define the outcome. We build and hand it over running.",
       "features": [
-        "Covers all Firehorse products — Report, Omnichannel, Automation, CMS, Signed Reports",
+        "Covers all Firehorse products — Report, Omnichannel, Amplify, CMS, Signed Reports",
         "Design, integration and go-live in 3 days",
         "Working implementation handed over — not slide decks"
       ],
@@ -1363,7 +1363,7 @@
       "description": "Deploy 8 Skilled Agents that deliver audit-ready EU climate compliance outcomes — ETS allowance calculations, CBAM import obligations, CSRD disclosure reports, and continuous carbon accounting. Skilled-Agent-delivered outcomes, not dashboards. The Agent Outcome Factory for climate compliance.",
       "features": [
         "8 specialized Skilled Agents for climate compliance",
-        "ETS, CBAM, CSRD & Fit for 55 automation",
+        "ETS, CBAM, CSRD & Fit for 55 amplification",
         "Deterministic scoring with validated EU data sources"
       ],
       "priceNote": "€2,999/mo + €4,990 one-time setup | Annual: 2 months free",

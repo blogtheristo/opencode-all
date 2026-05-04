@@ -84,7 +84,7 @@
             <a href="https://dws6.com/dashboard/">Dashboard</a>
             <a href="/products/dwsiq.html">DWS IQ 6</a>
             <a href="/products/firehorse-reports.html">Firehorse Reports</a>
-            <a href="/products/firehorse-automation.html">Firehorse Automation</a>
+            <a href="/products/firehorse-amplify.html">Firehorse Amplify</a>
             <a href="/products/firehorse-omnichannel.html">Firehorse Omnichannel</a>
             <a href="/architecture/">Architecture</a>
         </div>
