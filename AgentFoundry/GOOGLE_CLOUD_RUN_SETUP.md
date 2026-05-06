@@ -88,10 +88,15 @@ gcloud services enable \
   cloudscheduler.googleapis.com \
   secretmanager.googleapis.com \
   logging.googleapis.com \
-  monitoring.googleapis.com
+  monitoring.googleapis.com \
+  cloudtrace.googleapis.com \
+  telemetry.googleapis.com
 
 # Wait for APIs to be enabled...
 echo "✅ APIs enabled successfully"
+# Note: telemetry.googleapis.com (unified OTLP ingestion endpoint) is auto-activated
+# by GCP when logging/monitoring APIs are enabled (March 2026+), but listing it
+# explicitly ensures activation for projects created via API rather than console/CLI.
 ```
 
 ---

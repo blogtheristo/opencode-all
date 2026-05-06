@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.5
+Version: 2.6
 
 Sessions & Modifications:
 
+- Version: 2.6 | Tool: Claude Code (Claude Sonnet 4.6) | Session: claude/add-otel-api-docs-fU7r0 | Date: 06.05.2026 | Changes: Google Cloud Run section — added "OTel Ingestion API (Auto-Enabled)" subsection documenting that telemetry.googleapis.com is auto-activated on dws6run6 as of March 2026, OTLP endpoint value, and no additional IAM needed. Triggered by Google Cloud Observability announcement; see field note docs/field-notes/2026-05-02-gcp-otel-ingestion-api-launch.md.
 - Version: 1.0 | Tool: Claude Code | Session: Nov 2025 | Date: 23.11.2025 | Changes: Initial creation, session history
 - Version: 1.1 | Tool: Claude Code | Session: Dec 2025 | Date: 11.12.2025 | Changes: Sensitive Data Protection section
 - Version: 1.2 | Tool: Claude Code | Session: Dec 2025 | Date: 19.12.2025 | Changes: Bug Tracking & Security Maintenance
@@ -182,10 +183,10 @@ This section links the **full maintenance plan** in one place:
 
 DWS6 ships **two** lockfile-rooted JavaScript projects:
 
-| Location            | Package / role                         | Typical commands                                      |
-| ------------------- | -------------------------------------- | ----------------------------------------------------- |
-| Repository root     | `dws6-auth-backend` (Express + Vitest) | `npm run dev`, `npm run build`, `npm run test`        |
-| `src/cloudflare/`   | `@dws-iq/cloudflare-agent` (Workers)   | `npm run build`, `npm run typecheck`, `npm run test`, `npm run dev` |
+| Location          | Package / role                         | Typical commands                                                    |
+| ----------------- | -------------------------------------- | ------------------------------------------------------------------- |
+| Repository root   | `dws6-auth-backend` (Express + Vitest) | `npm run dev`, `npm run build`, `npm run test`                      |
+| `src/cloudflare/` | `@dws-iq/cloudflare-agent` (Workers)   | `npm run build`, `npm run typecheck`, `npm run test`, `npm run dev` |
 
 Use **`npm ci`** in each directory (not `npm install`) so installs match `package-lock.json` exactly—required for reproducible CI and agent environments.
 
@@ -854,6 +855,22 @@ gcloud projects add-iam-policy-binding dws6run6 \
   --role=roles/run.developer
 ```
 
+### OTel Ingestion API (Auto-Enabled)
+
+As of March 4, 2026, Google Cloud automatically activates `telemetry.googleapis.com` (unified OTLP ingestion endpoint) on `dws6run6` because `logging.googleapis.com` and `monitoring.googleapis.com` are already enabled on the project.
+
+| Property          | Value                                                             |
+| ----------------- | ----------------------------------------------------------------- |
+| **API**           | `telemetry.googleapis.com`                                        |
+| **OTLP endpoint** | `https://telemetry.googleapis.com`                                |
+| **Activation**    | Automatic — no manual step required                               |
+| **Supports**      | OTLP logs, trace spans, metrics                                   |
+| **Region**        | Global endpoint; data stays in `europe-north1` per project config |
+
+Use this as the value for `OTEL_EXPORTER_OTLP_ENDPOINT` when configuring OpenTelemetry exporters on Cloud Run services. No additional IAM role is required beyond the existing `roles/logging.logWriter` + `roles/cloudtrace.agent`.
+
+See field note: `docs/field-notes/2026-05-02-gcp-otel-ingestion-api-launch.md`
+
 ### Deployment Commands (from repo root in CMD)
 
 ```bash
@@ -910,10 +927,10 @@ gcloud run logs read dws-iq-backend --region europe-north1 --limit 50
 
 #### Cloud Run verification result
 
-| Project | Service | SUPABASE_URL | SUPABASE_SERVICE_KEY | Status |
-| --- | --- | --- | --- | --- |
-| `dws6run6` | `dws-iq-backend` | `secret` | `secret` | ✅ OK |
-| `dws6-backend` | N/A | N/A | N/A | ⚠️ No services visible to current operator identity (or no services deployed) |
+| Project        | Service          | SUPABASE_URL | SUPABASE_SERVICE_KEY | Status                                                                        |
+| -------------- | ---------------- | ------------ | -------------------- | ----------------------------------------------------------------------------- |
+| `dws6run6`     | `dws-iq-backend` | `secret`     | `secret`             | ✅ OK                                                                         |
+| `dws6-backend` | N/A              | N/A          | N/A                  | ⚠️ No services visible to current operator identity (or no services deployed) |
 
 #### SES SMTP-only runtime requirements
 
@@ -2881,21 +2898,21 @@ auditor-access model.
 
 ## Document Changelog
 
-| Version | Date         | Changes                                                                                                                                                                                                                                                                                                                                                        | Session ID |
-| ------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| 2.5     | May 10, 2026 | Node.js workspace setup section: dual `npm ci` at repository root and `src/cloudflare/` for backend vs Cloudflare agent workers; PowerShell-first examples; worktree and cloud-agent note; TOC renumbered.                                                                                                                                                      | cursor-admin-node-workspace-20260510 |
-| 2.4     | Apr 25, 2026 | Browse SSRF hardening (`src/utils/url-guard.ts`): default-deny IPv4/IPv6 private/loopback/link-local/cloud-metadata ranges, two-layer enforcement (pre-`goto` + `page.route` for redirects), `BROWSE_ALLOW_PRIVATE=1` dev override; moved `playwright` from devDependencies to dependencies so DGX Spark `npm ci --omit=dev` keeps it. 75 tests pass.          | Rg5Jy      |
-| 2.3     | Apr 25, 2026 | Added Agent Capabilities section (Browse + Second Brain): `dws browse` (Playwright Chromium, MCP `dws_browse_*`), DGX Spark embeddings provider (`EMBEDDING_PROVIDER=dgx-spark`), `dws kb preflight`, `scripts/daily/kb-watch-inbox.sh` (auto-backfill with `KB_WATCH_MAX_PER_RUN` cap); linked PLAYWRIGHT.md + AGENT_SECOND_BRAIN.md in Related Documentation | Rg5Jy      |
-| 2.2     | Apr 22, 2026 | Added Local-First CI + Audit Log section (scripts/local-ci.sh, ci-audit-verify.sh, ci-audit-upload.ts, weekly/security-audit.sh, .ci-audit/, ci-audit-verify.yml gate); linked new Audit Manual for external auditors; indexed Files & Folders manual                                                                                                          | vBYGo      |
-| 1.8     | Feb 6, 2026  | DWS Document Standard header; Admin Manuals Index (23 manuals); Revolut Payments & Store; MCP Configuration (Supabase, Upstash Redis, MCP Hub); AI Agent Operational Guidelines (Karpathy); Security Glossary & OWASP; DPA summary; Backup & Sync Infrastructure; Multi-Agent Orchestration (Subagents vs Agent Teams, Upstash Redis)                          | Rm8Jw      |
-| 1.7     | Jan 29, 2026 | Added Climate Assistant Chat Widget section with embed code, features, security configuration (Helmet CSP), and troubleshooting                                                                                                                                                                                                                                | krDzD      |
-| 1.6     | Jan 24, 2026 | Added Training section with LWM/Firehorse training workflows, certification paths, and external partner resources; Updated training manual location references                                                                                                                                                                                                 | r6bU3      |
-| 1.5     | Jan 4, 2026  | Added AI Model Configuration (Sonnet → Opus 4.5 switch); Added DWS IQ 6 Security Framework section; Updated compliance scores to 95%                                                                                                                                                                                                                           | -          |
-| 1.4     | Jan 3, 2026  | Added Code Review Process section; Removed Argus PR Review (moved to Archive); Documented Cursor AI + Snyk MCP workflow                                                                                                                                                                                                                                        | -          |
-| 1.3     | Dec 23, 2025 | Added AI Agent Policy section based on 2,500+ agent analysis; Protected admin directory in .gitignore                                                                                                                                                                                                                                                          | PxSux      |
-| 1.2     | Dec 19, 2025 | Added Bug Tracking & Security Maintenance section with 20-bug fix history, monthly maintenance budget, bug hunting roadmap                                                                                                                                                                                                                                     | -          |
-| 1.1     | Dec 11, 2025 | Added Sensitive Data Protection section (GDPR/ISO 27001 compliance)                                                                                                                                                                                                                                                                                            | -          |
-| 1.0     | Nov 23, 2025 | Initial creation, documented session history                                                                                                                                                                                                                                                                                                                   | -          |
+| Version | Date         | Changes                                                                                                                                                                                                                                                                                                                                                        | Session ID                           |
+| ------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| 2.5     | May 10, 2026 | Node.js workspace setup section: dual `npm ci` at repository root and `src/cloudflare/` for backend vs Cloudflare agent workers; PowerShell-first examples; worktree and cloud-agent note; TOC renumbered.                                                                                                                                                     | cursor-admin-node-workspace-20260510 |
+| 2.4     | Apr 25, 2026 | Browse SSRF hardening (`src/utils/url-guard.ts`): default-deny IPv4/IPv6 private/loopback/link-local/cloud-metadata ranges, two-layer enforcement (pre-`goto` + `page.route` for redirects), `BROWSE_ALLOW_PRIVATE=1` dev override; moved `playwright` from devDependencies to dependencies so DGX Spark `npm ci --omit=dev` keeps it. 75 tests pass.          | Rg5Jy                                |
+| 2.3     | Apr 25, 2026 | Added Agent Capabilities section (Browse + Second Brain): `dws browse` (Playwright Chromium, MCP `dws_browse_*`), DGX Spark embeddings provider (`EMBEDDING_PROVIDER=dgx-spark`), `dws kb preflight`, `scripts/daily/kb-watch-inbox.sh` (auto-backfill with `KB_WATCH_MAX_PER_RUN` cap); linked PLAYWRIGHT.md + AGENT_SECOND_BRAIN.md in Related Documentation | Rg5Jy                                |
+| 2.2     | Apr 22, 2026 | Added Local-First CI + Audit Log section (scripts/local-ci.sh, ci-audit-verify.sh, ci-audit-upload.ts, weekly/security-audit.sh, .ci-audit/, ci-audit-verify.yml gate); linked new Audit Manual for external auditors; indexed Files & Folders manual                                                                                                          | vBYGo                                |
+| 1.8     | Feb 6, 2026  | DWS Document Standard header; Admin Manuals Index (23 manuals); Revolut Payments & Store; MCP Configuration (Supabase, Upstash Redis, MCP Hub); AI Agent Operational Guidelines (Karpathy); Security Glossary & OWASP; DPA summary; Backup & Sync Infrastructure; Multi-Agent Orchestration (Subagents vs Agent Teams, Upstash Redis)                          | Rm8Jw                                |
+| 1.7     | Jan 29, 2026 | Added Climate Assistant Chat Widget section with embed code, features, security configuration (Helmet CSP), and troubleshooting                                                                                                                                                                                                                                | krDzD                                |
+| 1.6     | Jan 24, 2026 | Added Training section with LWM/Firehorse training workflows, certification paths, and external partner resources; Updated training manual location references                                                                                                                                                                                                 | r6bU3                                |
+| 1.5     | Jan 4, 2026  | Added AI Model Configuration (Sonnet → Opus 4.5 switch); Added DWS IQ 6 Security Framework section; Updated compliance scores to 95%                                                                                                                                                                                                                           | -                                    |
+| 1.4     | Jan 3, 2026  | Added Code Review Process section; Removed Argus PR Review (moved to Archive); Documented Cursor AI + Snyk MCP workflow                                                                                                                                                                                                                                        | -                                    |
+| 1.3     | Dec 23, 2025 | Added AI Agent Policy section based on 2,500+ agent analysis; Protected admin directory in .gitignore                                                                                                                                                                                                                                                          | PxSux                                |
+| 1.2     | Dec 19, 2025 | Added Bug Tracking & Security Maintenance section with 20-bug fix history, monthly maintenance budget, bug hunting roadmap                                                                                                                                                                                                                                     | -                                    |
+| 1.1     | Dec 11, 2025 | Added Sensitive Data Protection section (GDPR/ISO 27001 compliance)                                                                                                                                                                                                                                                                                            | -                                    |
+| 1.0     | Nov 23, 2025 | Initial creation, documented session history                                                                                                                                                                                                                                                                                                                   | -                                    |
 
 ---
 
