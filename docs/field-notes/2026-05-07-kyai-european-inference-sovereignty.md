@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code (Sonnet 4.6) | Session: claude/european-inference-sovereignty-RmVlq | Date: 07.05.2026 | Changes: Added §9 Cold Email — Variant A final copy, structural rationale, personalisation slots; renumbered Open Engineering Items to §10
 - Version: 1.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/european-inference-sovereignty-RmVlq | Date: 07.05.2026 | Changes: Added §8 Sales Opener — four validated variants (A/B/C/D), Boardy external validation logged, Variant A recommended for live sales calls
 - Version: 1.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/european-inference-sovereignty-RmVlq | Date: 07.05.2026 | Changes: Initial — KYA+I concept, three-jurisdiction model (EU/US/ASEAN), European Inference Engineering definition, DWS stack mapping, "No US AI Act" problem analysis, updated KYA skill to v2.0
 
@@ -383,7 +384,75 @@ Why Variant A works: it names the internal blocker (DPO veto, not the product fe
 
 ---
 
-## 9. Open Engineering Items
+## 9. Cold Email — Variant A (DPO Blocker Frame)
+
+**Status:** Final (07.05.2026). Use for outbound to Head of IT, CTO, CDO, or
+Head of Compliance at Nordic/EU industrial enterprise accounts.
+
+**Structural choices:**
+
+1. Lead with the competitor DPO problem, not the product — the buyer
+   recognises the blocker before they know what you're selling.
+2. Name competitors by name (Copilot, Joule, Einstein) — signals you
+   understand their stack, not a cold blast.
+3. The proof block is four bullets, not a paragraph — DPOs scan for
+   checkboxes; give them checkboxes.
+
+---
+
+**Subject:** Your DPO will block this AI vendor. Not DWS.
+
+---
+
+Hi [Name],
+
+Your DPO has one question before any AI platform goes to procurement:
+_where does inference run, and who signed the DPA with the LLM provider?_
+
+Most vendors can't answer it. Microsoft Copilot routes through Azure OpenAI —
+US parent, CLOUD Act exposure regardless of which datacenter. SAP Joule,
+Salesforce Einstein: same problem. Their EU-region addenda don't close the
+CLOUD Act gap, and your DPO knows it.
+
+DWS removes the veto. We name the inference location and the DPA signatory
+in the first call:
+
+- Inference runs on Scaleway Paris/Amsterdam — EU-incorporated, no US parent,
+  no CLOUD Act reach
+- DPA: Scaleway S.A.S. (Paris) auto-bound as processor, Lifetime Oy as
+  sub-processor — no separate signing ceremony
+- Every inference call logged to EU AI Act Art. 12 standard, WORM-sealed,
+  10-year retention
+- If inference fails over, the fallback chain is EU-only by policy —
+  no silent US hop
+
+That's the answer your DPO needs to say yes.
+
+We're working with [sector] clients in [geography] on [CSRD/ETS/EU AI Act]
+compliance. Happy to do a 30-minute technical call so your legal team can
+ask the hard questions directly.
+
+[Sender name]
+Lifetime Oy · DWS IQ
+
+---
+
+**Personalisation slots:**
+
+| Token                  | Options                                                 |
+| ---------------------- | ------------------------------------------------------- |
+| `[Name]`               | First name — required                                   |
+| `[sector]`             | construction, manufacturing, financial services, energy |
+| `[geography]`          | Nordic, Finnish, German, European                       |
+| `[CSRD/ETS/EU AI Act]` | pick the one most active for their sector               |
+
+**Do not personalise:** the competitor list (Copilot/Joule/Einstein) and the
+proof block — these are fixed and validated. Changing them dilutes the DPO
+veto frame.
+
+---
+
+## 10. Open Engineering Items
 
 - [ ] Implement `inference` block in `src/identity/kya-engine.ts` (KYA v2.0 schema)
 - [ ] Add `/kya inference <session_id>` CLI subcommand — report IJS + provider chain
