@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code (Sonnet 4.6) | Session: claude/european-inference-sovereignty-RmVlq | Date: 07.05.2026 | Changes: Cold email §9 — added NVIDIA Connect Partner paragraph covering Situation Room + Control Room on-prem GPU inference (IJS 100); added on-prem include/exclude guidance to personalisation notes
 - Version: 1.2 | Tool: Claude Code (Sonnet 4.6) | Session: claude/european-inference-sovereignty-RmVlq | Date: 07.05.2026 | Changes: Added §9 Cold Email — Variant A final copy, structural rationale, personalisation slots; renumbered Open Engineering Items to §10
 - Version: 1.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/european-inference-sovereignty-RmVlq | Date: 07.05.2026 | Changes: Added §8 Sales Opener — four validated variants (A/B/C/D), Boardy external validation logged, Variant A recommended for live sales calls
 - Version: 1.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/european-inference-sovereignty-RmVlq | Date: 07.05.2026 | Changes: Initial — KYA+I concept, three-jurisdiction model (EU/US/ASEAN), European Inference Engineering definition, DWS stack mapping, "No US AI Act" problem analysis, updated KYA skill to v2.0
@@ -426,6 +427,12 @@ in the first call:
 - If inference fails over, the fallback chain is EU-only by policy —
   no silent US hop
 
+For customers where even EU cloud is not enough: DWS deploys on-premise.
+The DWS Situation Room (strategic command) and Control Room (field operations)
+both run local NVIDIA GPU compute — inference never leaves your building.
+As an NVIDIA Connect Partner, we supply, certify, and support the hardware.
+Zero cloud dependency. IJS 100.
+
 That's the answer your DPO needs to say yes.
 
 We're working with [sector] clients in [geography] on [CSRD/ETS/EU AI Act]
@@ -446,9 +453,13 @@ Lifetime Oy · DWS IQ
 | `[geography]`          | Nordic, Finnish, German, European                       |
 | `[CSRD/ETS/EU AI Act]` | pick the one most active for their sector               |
 
+**On-prem paragraph:** include for defence-adjacent, critical infrastructure,
+and large manufacturing accounts where procurement policy prohibits cloud AI.
+Remove for standard enterprise accounts — too much hardware-sales weight too early.
+
 **Do not personalise:** the competitor list (Copilot/Joule/Einstein) and the
-proof block — these are fixed and validated. Changing them dilutes the DPO
-veto frame.
+cloud proof block — these are fixed and validated. Changing them dilutes the
+DPO veto frame.
 
 ---
 
