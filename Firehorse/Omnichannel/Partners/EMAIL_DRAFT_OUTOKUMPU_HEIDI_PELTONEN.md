@@ -43,6 +43,7 @@ Best regards,
 Risto Päärni
 CEO, Lifetime Oy (0772407-9)
 risto@onelifetime.world
++358 400 319 010
 Espoo, Finland
 
 ---
