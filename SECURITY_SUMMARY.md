@@ -9,6 +9,7 @@
 ## Security Scan Results
 
 ### CodeQL Analysis
+
 - **Status:** ✅ PASSED
 - **JavaScript Alerts:** 0
 - **TypeScript Alerts:** 0
@@ -20,13 +21,16 @@
 ### Vulnerability Assessment
 
 #### Changes Made
+
 All changes are CSS/styling modifications only:
+
 - Color adjustments (`bg-gray-400` → `bg-primary-500`)
 - Size modifications (`w-2` → `w-2.5`)
 - Animation timing (`animationDuration: '0.6s'`)
 - Text styling (`text-gray-500` → `text-primary-600`)
 
 #### Security Impact
+
 - **Risk Level:** 🟢 LOW
 - **Code Execution:** No new code execution paths
 - **Data Access:** No changes to data access patterns
@@ -35,6 +39,7 @@ All changes are CSS/styling modifications only:
 - **Secrets:** No secrets or credentials in changes
 
 ### Pre-existing Issues (Not Addressed)
+
 The following pre-existing linting warnings were found in the codebase but are unrelated to this PR:
 
 1. `useSpeechRecognition.ts:90` - setState in useEffect (pre-existing)
@@ -45,11 +50,13 @@ The following pre-existing linting warnings were found in the codebase but are u
 ### Compliance
 
 #### GDPR/Privacy
+
 - ✅ No PII handling changes
 - ✅ No data collection changes
 - ✅ No user tracking modifications
 
-#### EU AI Act (Applicable August 2026)
+#### EU AI Act (Annex III: 2 Dec 2027 — Omnibus prov. agr. 7 May 2026; was Aug 2026)
+
 - ✅ No AI model changes
 - ✅ No logging modifications
 - ✅ No reasoning lineage affected

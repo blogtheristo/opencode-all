@@ -28,7 +28,7 @@ Owner: Risto Anton Päärni, Lifetime Oy
 
 **Applies to.** Every DWS IQ 6 agent, workflow, and product that processes data in scope of the EU AI Act as a high-risk system (Annex III) or as a component of one. This is deployment-tier-aware: the same regulatory obligation, implemented with tier-specific vendors.
 
-**Full EU AI Act enforcement for high-risk systems:** 2 August 2026.
+**Full EU AI Act enforcement for high-risk systems (Annex III standalone):** 2 December 2027 (Omnibus provisional agreement, 7 May 2026; was 2 August 2026). Annex I embedded products (Machinery, Medical Device Regulation): 2 August 2028. Article 12 logging obligations are unchanged — the deferral shifts formal enforcement fines, not the substantive requirement to log.
 
 ---
 
