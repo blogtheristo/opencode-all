@@ -2,7 +2,8 @@
  * Provider-Agnostic LLM Client for DWS IQ 6/7
  *
  * Multi-provider client supporting:
- *   - Groq (OpenAI-compatible) — cloud, fast inference
+ *   - Groq (OpenAI-compatible) — cloud, fast inference (LPU, ~750 tok/s)
+ *   - Baseten (OpenAI-compatible) — cloud, EU residency, custom/fine-tuned models
  *   - Anthropic (Claude) — cloud, highest quality
  *   - Google (Gemini) — cloud, large context
  *   - Ollama (local on Acer Veriton GN100) — €0/hour, low latency
@@ -23,7 +24,14 @@ import type { ModelSelection } from './model-selector.js';
 
 // ============ PROVIDER CONFIGURATION ============
 
-export type LLMProvider = 'groq' | 'anthropic' | 'google' | 'ollama-local' | 'vllm-local' | 'openai-compatible';
+export type LLMProvider =
+  | 'groq'
+  | 'baseten'
+  | 'anthropic'
+  | 'google'
+  | 'ollama-local'
+  | 'vllm-local'
+  | 'openai-compatible';
 export type LLMMode = 'agent' | 'hil';
 
 export interface LLMClientConfig {
@@ -65,12 +73,25 @@ export function resolveProvider(agentModel: string): LLMClientConfig | null {
     };
   }
 
+  // Baseten EU — custom/fine-tuned model deployment, EU residency
+  // Sign Baseten DPA before routing EU customer data here
+  if (process.env.BASETEN_API_KEY) {
+    return {
+      provider: 'baseten',
+      apiKey: process.env.BASETEN_API_KEY,
+      baseUrl: process.env.BASETEN_BASE_URL || 'https://bridge.baseten.co/v1/direct',
+      model: process.env.BASETEN_MODEL || agentModel || 'llama-3-3-70b',
+      maxTokens: 2048,
+      temperature: 0.3,
+    };
+  }
+
   // Ollama on Acer Veriton GN100 (OpenAI-compatible API)
   if (process.env.OLLAMA_BASE_URL) {
     return {
       provider: 'ollama-local',
-      apiKey: 'ollama',  // Ollama doesn't require auth
-      baseUrl: process.env.OLLAMA_BASE_URL,  // e.g. http://localhost:11434/v1
+      apiKey: 'ollama', // Ollama doesn't require auth
+      baseUrl: process.env.OLLAMA_BASE_URL, // e.g. http://localhost:11434/v1
       model: agentModel || 'qwen2.5:32b',
       maxTokens: 4096,
       temperature: 0.3,
@@ -81,8 +102,8 @@ export function resolveProvider(agentModel: string): LLMClientConfig | null {
   if (process.env.VLLM_BASE_URL) {
     return {
       provider: 'vllm-local',
-      apiKey: process.env.VLLM_API_KEY || 'vllm',  // vLLM optional auth
-      baseUrl: process.env.VLLM_BASE_URL,  // e.g. http://localhost:8000/v1
+      apiKey: process.env.VLLM_API_KEY || 'vllm', // vLLM optional auth
+      baseUrl: process.env.VLLM_BASE_URL, // e.g. http://localhost:8000/v1
       model: agentModel || 'qwen2.5-32b',
       maxTokens: 4096,
       temperature: 0.3,
@@ -167,11 +188,26 @@ function mapSelectionToConfig(selection: ModelSelection): LLMClientConfig | null
         selection,
       };
 
+    case 'baseten': {
+      const basetenKey = process.env.BASETEN_API_KEY;
+      if (!basetenKey) return null;
+      return {
+        provider: 'baseten',
+        apiKey: basetenKey,
+        baseUrl: process.env.BASETEN_BASE_URL || 'https://bridge.baseten.co/v1/direct',
+        model: process.env.BASETEN_MODEL || selection.modelId,
+        maxTokens: selection.maxTokens,
+        temperature: selection.temperature,
+        selection,
+      };
+    }
+
     case 'google':
       return {
         provider: 'google',
         apiKey: process.env.GOOGLE_AI_API_KEY || process.env.GEMINI_API_KEY || '',
-        baseUrl: process.env.GOOGLE_AI_BASE_URL || 'https://generativelanguage.googleapis.com/v1beta',
+        baseUrl:
+          process.env.GOOGLE_AI_BASE_URL || 'https://generativelanguage.googleapis.com/v1beta',
         model: selection.modelId,
         maxTokens: selection.maxTokens,
         temperature: selection.temperature,
@@ -248,10 +284,7 @@ export class LLMClient {
    * Send a multi-turn conversation with optional tool definitions.
    * Returns the assistant's response, which may include tool calls.
    */
-  async chat(
-    messages: LLMMessage[],
-    tools?: ToolDefinition[],
-  ): Promise<LLMResponse> {
+  async chat(messages: LLMMessage[], tools?: ToolDefinition[]): Promise<LLMResponse> {
     if (this.config.provider === 'anthropic') {
       return this.chatAnthropic(messages, tools);
     }
@@ -284,11 +317,13 @@ export class LLMClient {
       if (m.role === 'tool') {
         return {
           role: 'user' as const,
-          content: [{
-            type: 'tool_result' as const,
-            tool_use_id: m.toolCallId || '',
-            content: typeof m.content === 'string' ? m.content : JSON.stringify(m.content),
-          }],
+          content: [
+            {
+              type: 'tool_result' as const,
+              tool_use_id: m.toolCallId || '',
+              content: typeof m.content === 'string' ? m.content : JSON.stringify(m.content),
+            },
+          ],
         };
       }
       if (m.role === 'assistant' && m.toolCalls) {
@@ -316,9 +351,10 @@ export class LLMClient {
     };
 
     if (systemMsg) {
-      body.system = typeof systemMsg.content === 'string'
-        ? systemMsg.content
-        : JSON.stringify(systemMsg.content);
+      body.system =
+        typeof systemMsg.content === 'string'
+          ? systemMsg.content
+          : JSON.stringify(systemMsg.content);
     }
     if (anthropicTools && anthropicTools.length > 0) {
       body.tools = anthropicTools;
@@ -335,13 +371,11 @@ export class LLMClient {
     });
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({})) as Record<string, unknown>;
-      throw new Error(
-        `Anthropic API error (${response.status}): ${JSON.stringify(errorData)}`,
-      );
+      const errorData = (await response.json().catch(() => ({}))) as Record<string, unknown>;
+      throw new Error(`Anthropic API error (${response.status}): ${JSON.stringify(errorData)}`);
     }
 
-    const data = await response.json() as {
+    const data = (await response.json()) as {
       content?: Array<{
         type: string;
         text?: string;
@@ -376,10 +410,7 @@ export class LLMClient {
 
   // ============ GOOGLE GEMINI PROVIDER ============
 
-  private async chatGoogle(
-    messages: LLMMessage[],
-    tools?: ToolDefinition[],
-  ): Promise<LLMResponse> {
+  private async chatGoogle(messages: LLMMessage[], tools?: ToolDefinition[]): Promise<LLMResponse> {
     // Convert to Gemini generateContent format
     const systemMsg = messages.find((m) => m.role === 'system');
     const nonSystemMsgs = messages.filter((m) => m.role !== 'system');
@@ -400,22 +431,27 @@ export class LLMClient {
 
     if (systemMsg) {
       body.systemInstruction = {
-        parts: [{
-          text: typeof systemMsg.content === 'string'
-            ? systemMsg.content
-            : JSON.stringify(systemMsg.content),
-        }],
+        parts: [
+          {
+            text:
+              typeof systemMsg.content === 'string'
+                ? systemMsg.content
+                : JSON.stringify(systemMsg.content),
+          },
+        ],
       };
     }
 
     if (tools && tools.length > 0) {
-      body.tools = [{
-        functionDeclarations: tools.map((t) => ({
-          name: t.name,
-          description: t.description,
-          parameters: t.parameters,
-        })),
-      }];
+      body.tools = [
+        {
+          functionDeclarations: tools.map((t) => ({
+            name: t.name,
+            description: t.description,
+            parameters: t.parameters,
+          })),
+        },
+      ];
     }
 
     const url = `${this.config.baseUrl}/models/${this.config.model}:generateContent`;
@@ -429,13 +465,11 @@ export class LLMClient {
     });
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({})) as Record<string, unknown>;
-      throw new Error(
-        `Google AI API error (${response.status}): ${JSON.stringify(errorData)}`,
-      );
+      const errorData = (await response.json().catch(() => ({}))) as Record<string, unknown>;
+      throw new Error(`Google AI API error (${response.status}): ${JSON.stringify(errorData)}`);
     }
 
-    const data = await response.json() as {
+    const data = (await response.json()) as {
       candidates?: Array<{
         content?: {
           parts?: Array<{
@@ -527,7 +561,8 @@ export class LLMClient {
 
     // If no tools, request JSON mode (backward compat with existing agents)
     // Skip for Ollama/vLLM which may not support response_format
-    const isLocal = this.config.provider === 'ollama-local' || this.config.provider === 'vllm-local';
+    const isLocal =
+      this.config.provider === 'ollama-local' || this.config.provider === 'vllm-local';
     if ((!tools || tools.length === 0) && !isLocal) {
       body.response_format = { type: 'json_object' };
     }
@@ -548,7 +583,7 @@ export class LLMClient {
     });
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({})) as {
+      const errorData = (await response.json().catch(() => ({}))) as {
         error?: { message?: string };
       };
       throw new Error(
@@ -556,7 +591,7 @@ export class LLMClient {
       );
     }
 
-    const data = await response.json() as {
+    const data = (await response.json()) as {
       choices?: Array<{
         message?: {
           content?: string;
