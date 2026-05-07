@@ -4,9 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 1.5
 
 Sessions & Modifications:
+
+- Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/european-inference-sovereignty-RmVlq | Date: 07.05.2026 | Changes: Strategic pivot to local-distributed-first; stack reordered (on-prem DGX [1], EU cloud [2-5]); §10 Moat Definition added with comparison table, durable moat statement, and positioning update; cold email restructured — on-prem leads, EU cloud is managed fallback tier
 
 - Version: 1.4 | Tool: Claude Code (Sonnet 4.6) | Session: claude/european-inference-sovereignty-RmVlq | Date: 07.05.2026 | Changes: Expanded all 4 EU-sovereign cloud providers throughout — inference stack (§4) now shows Scaleway→OVHcloud→UpCloud→Hetzner→NIM EU→DGX→Groq; §7 buyer table updated; cold email inference bullet updated to name all 4
 - Version: 1.3 | Tool: Claude Code (Sonnet 4.6) | Session: claude/european-inference-sovereignty-RmVlq | Date: 07.05.2026 | Changes: Cold email §9 — added NVIDIA Connect Partner paragraph covering Situation Room + Control Room on-prem GPU inference (IJS 100); added on-prem include/exclude guidance to personalisation notes
@@ -228,51 +230,60 @@ This is distinct from:
 - **Data sovereignty** (where data is stored) — covered by existing sovereignty-assess; inference sovereignty is the compute plane, not the storage plane
 - **AI safety** (model alignment, red-teaming) — orthogonal concern; safety-aligned US-hosted model is still CLOUD Act-exposed
 
-### DWS Inference Stack (May 2026)
+### DWS Inference Stack (May 2026 — Local-First Architecture)
+
+**Strategic shift (07.05.2026):** Local distributed inference is the primary
+model for European Enterprise — not EU cloud. EU cloud is the managed/shared
+tier for customers who do not require dedicated hardware. On-prem moves to [1].
 
 ```
-EU customer session
+EU Enterprise customer session
         │
         ▼
-[1] Scaleway Generative APIs (fr-par / nl-ams)
+[1] On-prem DGX (Situation Room / Control Room — customer premises)
+    Provider HQ: On-prem (Lifetime Oy + NVIDIA Connect Partner supply)
+    CLOUD Act: NO  |  DPA: N/A (own hardware)  |  Prompt leaves building: NO
+    IJS: 100 (Sovereign — maximum)
+        │ not deployed / customer chooses managed cloud tier
+        ▼
+[2] Scaleway Generative APIs (fr-par / nl-ams)
     Provider HQ: France (Iliad SA)
     CLOUD Act: NO  |  DPA: Auto-bound  |  Prompt retention: NO
     IJS: 95 (Sovereign)
         │ fail / rate-limit
         ▼
-[2] OVHcloud (FR, SecNumCloud)
+[3] OVHcloud (FR, SecNumCloud)
     Provider HQ: France (OVH SAS)
     CLOUD Act: NO  |  DPA: GDPR DPA available  |  Prompt retention: NO
     IJS: 95 (Sovereign)
         │ fail / rate-limit
         ▼
-[3] UpCloud (Helsinki / Frankfurt)
+[4] UpCloud (Helsinki / Frankfurt)
     Provider HQ: Finland (UpCloud Ltd)
     CLOUD Act: NO  |  DPA: EU-compliant DPA  |  EU-only staff access
     IJS: 92 (Sovereign)
         │ fail / rate-limit
         ▼
-[4] Hetzner (Nuremberg / Falkenstein / Helsinki)
+[5] Hetzner (Nuremberg / Falkenstein / Helsinki)
     Provider HQ: Germany (Hetzner Online GmbH)
     CLOUD Act: NO  |  DPA: GDPR DPA standard  |  Prompt retention: NO
     IJS: 88 (Compliant)
         │ fail
         ▼
-[5] NVIDIA NIM EU (planned V1 — EU region)
+[6] NVIDIA NIM EU (planned V1 — EU region)
     Provider HQ: USA ← CLOUD Act exposure
     BUT: NIM EU region DC = EU
     DPA: Requires explicit NVIDIA DPA (not auto-bound)
     IJS: 55 (Partial) — US parent offsets EU DC
-        │ fail
-        ▼
-[6] On-prem DGX Spark (Espoo, Finland)
-    Provider HQ: On-prem (Lifetime Oy)
-    CLOUD Act: NO  |  DPA: N/A (own hardware)  |  IJS: 100 (Sovereign)
         │ (non-EU admin / dev / demo path only)
         ▼
-[7] Groq (US, emergency fallback)
+[7] Groq (US, emergency fallback — blocked for EU customer data)
     Provider HQ: USA (NVIDIA subsidiary)
+    CLOUD Act: YES  |  IJS: 12 (Exposed)
+```
+
     CLOUD Act: YES  |  IJS: 12 (Exposed) — blocked for EU customer data
+
 ```
 
 ---
@@ -306,6 +317,7 @@ EU AI Act enforcement starts August 2026. US is moving toward deregulation (Trum
 ### Session lifecycle with inference binding
 
 ```
+
 1. Agent session starts
    └─ KYA v2: resolve human identity (Shufti Pro)
    └─ KYA+I: resolve inference provider, compute IJS
@@ -315,15 +327,16 @@ EU AI Act enforcement starts August 2026. US is moving toward deregulation (Trum
    └─ KYA+I: log {provider, region, promptHash, outputHash, latencyMs, IJS}
    └─ Art. 12 log entry written (if euAiActArt12Compliant == true)
    └─ if provider switches (e.g. fallback triggered):
-       └─ re-evaluate IJS
-       └─ if new IJS crosses tier boundary → emit InferenceJurisdictionAlert
-       └─ if new IJS < policyFloor → snap(INFERENCE_JURISDICTION_BREACH)
+   └─ re-evaluate IJS
+   └─ if new IJS crosses tier boundary → emit InferenceJurisdictionAlert
+   └─ if new IJS < policyFloor → snap(INFERENCE_JURISDICTION_BREACH)
 
 3. Session ends
    └─ KYA+I: seal inference audit trail
    └─ aggregate: total tokens per provider, total IJS-weighted session score
    └─ evidence pack written to Object Storage (WORM) for Art. 12 retention
-```
+
+````
 
 ### Per-customer inference policy
 
@@ -338,7 +351,7 @@ interface InferencePolicy {
   fallbackApproval: "auto" | "hil"; // auto = use next in chain; hil = require human-in-loop
   art12LogRequired: boolean;
 }
-```
+````
 
 ---
 
@@ -426,24 +439,22 @@ US parent, CLOUD Act exposure regardless of which datacenter. SAP Joule,
 Salesforce Einstein: same problem. Their EU-region addenda don't close the
 CLOUD Act gap, and your DPO knows it.
 
-DWS removes the veto. We name the inference location and the DPA signatory
-in the first call:
+DWS removes the veto. The primary deployment is on-premise — inference never
+leaves your building:
 
-- Inference runs on EU-sovereign providers only: Scaleway (Paris/Amsterdam),
-  OVHcloud (France, SecNumCloud), UpCloud (Finland), Hetzner (Germany) —
-  all EU-incorporated, no US parent, no CLOUD Act reach
-- DPA: named EU processor auto-bound or pre-signed per provider,
-  Lifetime Oy as sub-processor — no separate signing ceremony per customer
+- DWS Situation Room (strategic command) and Control Room (field operations)
+  run local NVIDIA GPU compute — no cloud hop, no third-party DPA, no
+  CLOUD Act exposure of any kind. IJS 100.
+- As an NVIDIA Connect Partner, we supply, certify, and support the hardware —
+  this is a product, not a positioning statement.
 - Every inference call logged to EU AI Act Art. 12 standard, WORM-sealed,
-  10-year retention
-- If inference fails over, the fallback chain is EU-only by policy —
-  no silent US hop
+  10-year retention — DWS is the sole responsible entity, no co-responsible
+  cloud provider
 
-For customers where even EU cloud is not enough: DWS deploys on-premise.
-The DWS Situation Room (strategic command) and Control Room (field operations)
-both run local NVIDIA GPU compute — inference never leaves your building.
-As an NVIDIA Connect Partner, we supply, certify, and support the hardware.
-Zero cloud dependency. IJS 100.
+For teams that prefer managed cloud: we run on four EU-sovereign providers
+(Scaleway, OVHcloud, UpCloud, Hetzner) — all EU-incorporated, no US parent,
+no CLOUD Act reach, DPA auto-bound. EU cloud is the fallback tier.
+US platforms cannot offer either option cleanly.
 
 That's the answer your DPO needs to say yes.
 
@@ -475,7 +486,61 @@ DPO veto frame.
 
 ---
 
-## 10. Open Engineering Items
+## 10. Moat Definition — Local Distributed First (07.05.2026)
+
+**Strategic conviction (validated this session):**
+
+> Local distributed inference is the better model for European Enterprise —
+> not EU cloud. Cloud is the managed/shared fallback for customers who do
+> not require dedicated hardware. The primary DWS deployment is on-prem.
+
+**Why local distributed beats EU cloud for European Enterprise:**
+
+| Dimension              | EU Cloud (Scaleway/OVH/UpCloud/Hetzner) | Local Distributed (DGX on-prem)    |
+| ---------------------- | --------------------------------------- | ---------------------------------- |
+| IJS score              | 88–95                                   | 100                                |
+| CLOUD Act exposure     | None                                    | None                               |
+| Prompt leaves building | Yes (encrypted, EU-resident)            | **No**                             |
+| Multi-tenant risk      | Shared infrastructure                   | **Dedicated, air-gappable**        |
+| Regulatory audit trail | Provider log + DWS log                  | DWS log only — no third party      |
+| Latency                | 20–80ms network round-trip              | Sub-millisecond local              |
+| EU AI Act Art. 12      | DWS + provider co-responsible           | **DWS sole responsible** — cleaner |
+| NIS2 supply-chain risk | Counts cloud provider as ICT supplier   | **No external ICT supplier**       |
+| DPA ceremony           | Required per provider                   | **None**                           |
+| Hardware relationship  | Rented                                  | **Owned**                          |
+
+**The moat — as stated:**
+
+> _This is a durable moat for DWS, and it strengthens our NVIDIA alliance
+> because the product is built to run locally, not just talk about sovereignty._
+
+Three reasons this is durable:
+
+1. **Sovereign deployment is a product, not a checkbox.** Situation Room and
+   Control Room ship with NVIDIA GPU hardware. Competitors can add an EU-region
+   toggle; they cannot add physical hardware without rebuilding their product.
+
+2. **On-prem control tightens the NVIDIA alliance.** Every Situation Room or
+   Control Room deployment requires NVIDIA hardware sourced through the Connect
+   Partner relationship. Volume grows with customer count — the alliance deepens
+   as we sell, not just at signing.
+
+3. **Local distributed scales to edge.** Lifetime Fleet (Jetson Orin Nano) runs
+   the same NIM container stack as DGX Spark. Site-level inference, robot
+   inference, and data-centre inference share one KYA+I trust model. No
+   competitor has that chain — they stop at the cloud gateway.
+
+**Positioning update:**
+
+| Before                                                | After                                                                           |
+| ----------------------------------------------------- | ------------------------------------------------------------------------------- |
+| "EU cloud primary, on-prem for customers who need it" | "On-prem primary, EU cloud for managed/shared tier"                             |
+| "Scaleway is our EU inference backbone"               | "NVIDIA hardware is our inference backbone; Scaleway is our managed cloud tier" |
+| On-prem paragraph at end of cold email (optional)     | On-prem leads the cold email; EU cloud is the accessibility tier                |
+
+---
+
+## 11. Open Engineering Items
 
 - [ ] Implement `inference` block in `src/identity/kya-engine.ts` (KYA v2.0 schema)
 - [ ] Add `/kya inference <session_id>` CLI subcommand — report IJS + provider chain
