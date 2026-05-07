@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/european-inference-sovereignty-RmVlq | Date: 07.05.2026 | Changes: Added §8 Sales Opener — four validated variants (A/B/C/D), Boardy external validation logged, Variant A recommended for live sales calls
 - Version: 1.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/european-inference-sovereignty-RmVlq | Date: 07.05.2026 | Changes: Initial — KYA+I concept, three-jurisdiction model (EU/US/ASEAN), European Inference Engineering definition, DWS stack mapping, "No US AI Act" problem analysis, updated KYA skill to v2.0
 
 Session Links & References:
@@ -351,7 +352,38 @@ This is the commercial proposition of **European Inference Engineering**: not ju
 
 ---
 
-## 8. Open Engineering Items
+## 8. Sales Opener — Validated (07.05.2026)
+
+Validated externally. Four variants, ordered by use case:
+
+| Variant | Format             | When to use                                                           |
+| ------- | ------------------ | --------------------------------------------------------------------- |
+| **A**   | Enterprise verbal  | First sentence in a demo or POC call with procurement/DPO in the room |
+| **B**   | Deck slide 1       | Competitive displacement slide; puts US platforms on the back foot    |
+| **C**   | Cold outreach body | One-breath opener for email or LinkedIn                               |
+| **D**   | Cold email subject | Question hook — highest open rate in legal/compliance buyer persona   |
+
+**A — Recommended for live sales calls:**
+
+> _DWS removes the DPO veto: we name where inference runs and who signed the DPA before your legal team asks._
+
+**B — Slide 1 / competitive displacement:**
+
+> _Every US AI platform fails the DPO question. DWS is the only one that answers in the first call: EU-resident inference, named DPA, Art. 12 log._
+
+**C — Cold outreach body:**
+
+> _When your DPO asks "where does inference run?" — DWS answers in the first call. No US platform can._
+
+**D — Cold email subject line:**
+
+> _Can your AI vendor tell your DPO where inference runs and who signed the DPA? DWS can._
+
+Why Variant A works: it names the internal blocker (DPO veto, not the product feature), implies the competitor weakness without naming competitors, and puts the proof burden on the vendor — which DWS can satisfy and US platforms structurally cannot.
+
+---
+
+## 9. Open Engineering Items
 
 - [ ] Implement `inference` block in `src/identity/kya-engine.ts` (KYA v2.0 schema)
 - [ ] Add `/kya inference <session_id>` CLI subcommand — report IJS + provider chain
