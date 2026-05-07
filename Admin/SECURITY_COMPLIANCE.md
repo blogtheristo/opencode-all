@@ -154,17 +154,17 @@ Q1 2027: IEC 62443 assessment (manufacturing OT deployments)
 
 ### Regulatory Alignment Summary
 
-| Regulation                 | Applicability                             | Our Position                                                                                          |
-| -------------------------- | ----------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| **GDPR (2016/679)**        | All products                              | ✅ Fully compliant, DPA ready                                                                         |
-| **NIS2 Directive**         | Construction, Manufacturing               | ✅ Compliant architecture                                                                             |
-| **DORA (2022/2554)**       | Lifetime Fleet (financial integration)    | Roadmap 2026                                                                                          |
-| **EU AI Act**              | All AI components                         | ✅ Self-classified limited-risk (Art. 6 + Annex III); Art. 12 logging active; Q2 2026 internal review |
-| **Fit for 55 / CSRD**      | Core product value                        | ✅ We automate this compliance                                                                        |
-| **EU ETS**                 | Carbon ledger — ETS allowance tracking    | ✅ Debit-credit ledger (PR-892)                                                                       |
-| **CBAM (2023/956)**        | Carbon ledger — import embedded emissions | ✅ Ledger entries + certificate tracking                                                              |
-| **EU Taxonomy (2020/852)** | Carbon ledger — alignment scoring         | ✅ Derived from ledger balance                                                                        |
-| **ePrivacy Directive**     | Fleet telematics                          | ✅ Compliant                                                                                          |
+| Regulation                 | Applicability                             | Our Position                                                                                                                                                                                                                                                   |
+| -------------------------- | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **GDPR (2016/679)**        | All products                              | ✅ Fully compliant, DPA ready                                                                                                                                                                                                                                  |
+| **NIS2 Directive**         | Construction, Manufacturing               | ✅ Compliant architecture                                                                                                                                                                                                                                      |
+| **DORA (2022/2554)**       | Lifetime Fleet (financial integration)    | Roadmap 2026                                                                                                                                                                                                                                                   |
+| **EU AI Act**              | All AI components                         | ✅ Self-classified limited-risk (Art. 6 + Annex III); Art. 12 logging active; Q2 2026 internal review. Omnibus provisional agreement 7 May 2026: Annex III enforcement → 2 Dec 2027; Annex I embedded → 2 Aug 2028. Art. 12 and Art. 50 obligations unchanged. |
+| **Fit for 55 / CSRD**      | Core product value                        | ✅ We automate this compliance                                                                                                                                                                                                                                 |
+| **EU ETS**                 | Carbon ledger — ETS allowance tracking    | ✅ Debit-credit ledger (PR-892)                                                                                                                                                                                                                                |
+| **CBAM (2023/956)**        | Carbon ledger — import embedded emissions | ✅ Ledger entries + certificate tracking                                                                                                                                                                                                                       |
+| **EU Taxonomy (2020/852)** | Carbon ledger — alignment scoring         | ✅ Derived from ledger balance                                                                                                                                                                                                                                 |
+| **ePrivacy Directive**     | Fleet telematics                          | ✅ Compliant                                                                                                                                                                                                                                                   |
 
 ### Carbon Balance Sheet Security Controls
 
