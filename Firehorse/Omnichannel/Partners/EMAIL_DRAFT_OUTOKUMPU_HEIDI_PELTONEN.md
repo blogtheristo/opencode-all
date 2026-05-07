@@ -2,42 +2,35 @@
 
 ## Send Details
 
-| Field       | Value                                                                       |
-| ----------- | --------------------------------------------------------------------------- |
-| **To**      | Heidi Peltonen, VP Sustainability, Outokumpu                                |
-| **From**    | risto@onelifetime.world                                                     |
-| **Subject** | Your CBAM certificates + our compliance engine — Finnish collaboration idea |
-| **Status**  | Draft — not sent                                                            |
-| **Version** | 1.0                                                                         |
+| Field       | Value                                                                 |
+| ----------- | --------------------------------------------------------------------- |
+| **To**      | Heidi Peltonen, VP Sustainability, Outokumpu                          |
+| **From**    | risto@onelifetime.world                                               |
+| **Subject** | Partnership offer: Outokumpu × Lifetime Oy — CBAM customer enablement |
+| **Attach**  | OUTOKUMPU_PARTNERSHIP_OFFER.md (or PDF export)                        |
+| **Status**  | Draft — not sent                                                      |
+| **Version** | 2.0                                                                   |
 
 ---
 
 ## Email Body
 
-Subject: Your CBAM certificates + our compliance engine — Finnish collaboration idea
+Subject: Partnership offer: Outokumpu × Lifetime Oy — CBAM customer enablement
 
 Hi Heidi,
 
-I read your recent piece on how CBAM is reshaping the stainless steel value chain — the Matthieu article
-makes the strategic case clearly. Outokumpu is in a genuinely rare position: your steel is already
-CBAM-ready. The problem is that your downstream customers often can't prove it.
+I have attached a short partnership offer for your review.
 
-I'm Risto Päärni, CEO of Lifetime Oy in Espoo. We build DWS IQ 6 — an EU-hosted industrial AI platform
-for compliance automation. Our CBAM agent scores supply chain embedded emissions, maps them against
-CBAM thresholds, and generates audit-ready annual reports. What it currently lacks is a direct feed
-from a verified, TÜV-validated ISO 14067 source. Your product-specific carbon footprint certificates
-are exactly that.
+The premise: Outokumpu's ISO 14067 certificates give your fabricator customers a near-zero CBAM
+liability versus non-EU steel. But most of them do not have the tools to calculate and document
+that advantage in a compliant CBAM annual declaration. We build exactly that tooling.
 
-The idea is straightforward: a fabricator buying from Outokumpu drops their delivery data and your PCF
-certificate into DWS IQ 6, and the platform automatically calculates their CBAM liability as near-zero
-versus the same volume imported from a non-EU mill. That becomes a concrete, documented purchasing
-argument — not a sustainability claim, but a line-item cost difference visible to their CFO.
+The offer proposes a 60-day pilot — no cost to Outokumpu, two or three of your fabricator accounts,
+a complete CBAM declaration as the deliverable. If the output is not submission-ready, there is no
+further conversation.
 
-For Outokumpu, this turns the PCF certificate from a compliance asset into a commercial one. For DWS,
-it gives our CBAM agent a verified upstream data source at scale.
-
-I would love a 30-minute call to explore whether there is a fit — even a small pilot with two or three
-of your Finnish or German fabricator accounts would tell us quickly whether this is worth building.
+I am Risto Päärni, CEO of Lifetime Oy in Espoo. Happy to walk you through the one-pager on a call
+if that is easier than reading it cold.
 
 Best regards,
 Risto Päärni
