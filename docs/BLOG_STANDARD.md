@@ -98,22 +98,25 @@ The language bar (`shared-assets/lang-bar.js`, v1.1+) auto-injects all 5 buttons
 
 Chronological order. Update this table when adding/removing posts.
 
-| #   | File                                      | Title                                                 | Date        |
-| --- | ----------------------------------------- | ----------------------------------------------------- | ----------- |
-| 1   | `business-case-logistics.html`            | Business Case: The Intelligent Fleet Pilot            | Dec 2025    |
-| 2   | `kya-standard-v1.html`                    | Field Note: KYA Standard for Autonomous Control Rooms | Mar 2026    |
-| 3   | `eu-regulation-harness-engineering.html`  | EU Regulation Makes Better AI                         | 14 Mar 2026 |
-| 4   | `eu-ai-act-compliance-ready.html`         | EU AI Act: Compliance Ready                           | 15 Mar 2026 |
-| 5   | `buyers-note-harness-engineering.html`    | Buyer's Note: Harness Engineering                     | 15 Mar 2026 |
-| 6   | `harness-engineering-investor-note.html`  | Investor Note: Harness Engineering                    | 15 Mar 2026 |
-| 7   | `nvidia-gtc-2026-dws-roadmap-impact.html` | NVIDIA GTC 2026: Industrial AI Roadmaps               | 16 Mar 2026 |
-| 8   | `validated-mock-data-principle.html`      | The Validated Mock Data Principle                     | 16 Mar 2026 |
-| 9   | `closing-the-bom-gap-cad-erp-sync.html`   | Closing the BOM Gap: CAD-ERP Sync                     | 26 Mar 2026 |
-| 10  | `liquidity-engine-captain-seats.html`     | The Liquidity Engine: Captain Seats                   | 28 Mar 2026 |
-| 11  | `core-resilience-hybrid-threats.html`     | CORE: The EU Model That Maps Every Hybrid Threat      | 16 Apr 2026 |
-| 12  | `solid-layers-aiven-scaleway-kya.html`    | Our Layers Are Solid — Aiven, Scaleway, KYA + Foundry | 22 Apr 2026 |
-| 13  | `mcp-apps-identity-spine.html`            | MCP Apps Extends the Frontier — KYA Identity Spine    | 22 Apr 2026 |
-| 14  | `redhat-sovereign-move-three-tiers.html`  | Red Hat's EU Sovereign Move — and the Three Tiers     | 23 Apr 2026 |
+| #   | File                                      | Title                                                                                | Date        |
+| --- | ----------------------------------------- | ------------------------------------------------------------------------------------ | ----------- |
+| 1   | `business-case-logistics.html`            | Business Case: The Intelligent Fleet Pilot                                           | Dec 2025    |
+| 2   | `kya-standard-v1.html`                    | Field Note: KYA Standard for Autonomous Control Rooms                                | Mar 2026    |
+| 3   | `eu-regulation-harness-engineering.html`  | EU Regulation Makes Better AI                                                        | 14 Mar 2026 |
+| 4   | `eu-ai-act-compliance-ready.html`         | EU AI Act: Compliance Ready                                                          | 15 Mar 2026 |
+| 5   | `buyers-note-harness-engineering.html`    | Buyer's Note: Harness Engineering                                                    | 15 Mar 2026 |
+| 6   | `harness-engineering-investor-note.html`  | Investor Note: Harness Engineering                                                   | 15 Mar 2026 |
+| 7   | `nvidia-gtc-2026-dws-roadmap-impact.html` | NVIDIA GTC 2026: Industrial AI Roadmaps                                              | 16 Mar 2026 |
+| 8   | `validated-mock-data-principle.html`      | The Validated Mock Data Principle                                                    | 16 Mar 2026 |
+| 9   | `closing-the-bom-gap-cad-erp-sync.html`   | Closing the BOM Gap: CAD-ERP Sync                                                    | 26 Mar 2026 |
+| 10  | `liquidity-engine-captain-seats.html`     | The Liquidity Engine: Captain Seats                                                  | 28 Mar 2026 |
+| 11  | `core-resilience-hybrid-threats.html`     | CORE: The EU Model That Maps Every Hybrid Threat                                     | 16 Apr 2026 |
+| 12  | `solid-layers-aiven-scaleway-kya.html`    | Our Layers Are Solid — Aiven, Scaleway, KYA + Foundry                                | 22 Apr 2026 |
+| 13  | `mcp-apps-identity-spine.html`            | MCP Apps Extends the Frontier — KYA Identity Spine                                   | 22 Apr 2026 |
+| 14  | `redhat-sovereign-move-three-tiers.html`  | Red Hat's EU Sovereign Move — and the Three Tiers                                    | 23 Apr 2026 |
+| 15  | `fpe-dark-mode-construction-wedge.html`   | FPE · The Construction Wedge — €14,999 to Reduce Weakest-Link Failure                | 27 Apr 2026 |
+| 16  | `dws-ontology-standard-v1.html`           | DWS Ontology Standard v1.3 — Etymology, Philosophy, and the Decision-Centric Pillars | 29 Apr 2026 |
+| 17  | `baseten-inference-engineering-300m.html` | Field Note: Baseten Raises $300M — Inference Engineering Is a Discipline Now         | 7 May 2026  |
 
 ---
 
