@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.4
 
 Sessions & Modifications:
 
+- Version: 1.4 | Tool: Claude Code (Sonnet 4.6) | Session: claude/european-inference-sovereignty-RmVlq | Date: 07.05.2026 | Changes: Expanded all 4 EU-sovereign cloud providers throughout — inference stack (§4) now shows Scaleway→OVHcloud→UpCloud→Hetzner→NIM EU→DGX→Groq; §7 buyer table updated; cold email inference bullet updated to name all 4
 - Version: 1.3 | Tool: Claude Code (Sonnet 4.6) | Session: claude/european-inference-sovereignty-RmVlq | Date: 07.05.2026 | Changes: Cold email §9 — added NVIDIA Connect Partner paragraph covering Situation Room + Control Room on-prem GPU inference (IJS 100); added on-prem include/exclude guidance to personalisation notes
 - Version: 1.2 | Tool: Claude Code (Sonnet 4.6) | Session: claude/european-inference-sovereignty-RmVlq | Date: 07.05.2026 | Changes: Added §9 Cold Email — Variant A final copy, structural rationale, personalisation slots; renumbered Open Engineering Items to §10
 - Version: 1.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/european-inference-sovereignty-RmVlq | Date: 07.05.2026 | Changes: Added §8 Sales Opener — four validated variants (A/B/C/D), Boardy external validation logged, Variant A recommended for live sales calls
@@ -80,7 +81,7 @@ Three regulatory surfaces govern where AI inference can legally run for enterpri
 
 **Inference posture required:** EU-resident inference provider with signed DPA, no prompt retention, no training on customer data, GDPR SCCs auto-bound.
 
-**DWS stack mapping:** Scaleway (primary, `fr-par`/`nl-ams`) → NVIDIA NIM EU (secondary) → on-prem DGX (on-prem sovereign).
+**DWS stack mapping:** Scaleway (primary, `fr-par`/`nl-ams`) → OVHcloud (FR, SecNumCloud) → UpCloud (FI, Helsinki) → Hetzner (DE, Nuremberg) → NVIDIA NIM EU (secondary, US-parent flagged) → on-prem DGX (on-prem sovereign).
 
 **KYA+I score floor for EU customers: ≥ 80 (Sovereign or Compliant tier).**
 
@@ -180,15 +181,15 @@ KYA+I v2.0 adds an `inference` block:
 
 The IJS is a 0-100 score computed at session start and re-evaluated on every provider switch.
 
-| Dimension                   | Max points | EU                           | US                                         | ASEAN                         |
-| --------------------------- | ---------- | ---------------------------- | ------------------------------------------ | ----------------------------- |
-| Provider HQ in jurisdiction | 20         | 20 (Scaleway FR, UpCloud FI) | 0 (OpenAI, Groq, Anthropic)                | 10 (AWS SG region, non-US HQ) |
-| Inference DC in EU/national | 20         | 20 (`fr-par`, `nl-ams`)      | 0 (US region)                              | 15 (SG/MY DC)                 |
-| No CLOUD Act exposure       | 20         | 20                           | 0                                          | 10 (if non-US parent)         |
-| No prompt retention         | 15         | 15 (Scaleway confirmed)      | 5 (varies, often no)                       | 10 (varies)                   |
-| DPA signed / auto-bound     | 15         | 15                           | 5 (SCCs available but CLOUD Act overrides) | 8                             |
-| Art. 12 log capability      | 10         | 10                           | 5                                          | 5                             |
-| **Max IJS**                 | **100**    | **100**                      | **15**                                     | **58**                        |
+| Dimension                   | Max points | EU                                                    | US                                         | ASEAN                         |
+| --------------------------- | ---------- | ----------------------------------------------------- | ------------------------------------------ | ----------------------------- |
+| Provider HQ in jurisdiction | 20         | 20 (Scaleway FR, OVHcloud FR, UpCloud FI, Hetzner DE) | 0 (OpenAI, Groq, Anthropic)                | 10 (AWS SG region, non-US HQ) |
+| Inference DC in EU/national | 20         | 20 (`fr-par`, `nl-ams`)                               | 0 (US region)                              | 15 (SG/MY DC)                 |
+| No CLOUD Act exposure       | 20         | 20                                                    | 0                                          | 10 (if non-US parent)         |
+| No prompt retention         | 15         | 15 (Scaleway confirmed)                               | 5 (varies, often no)                       | 10 (varies)                   |
+| DPA signed / auto-bound     | 15         | 15                                                    | 5 (SCCs available but CLOUD Act overrides) | 8                             |
+| Art. 12 log capability      | 10         | 10                                                    | 5                                          | 5                             |
+| **Max IJS**                 | **100**    | **100**                                               | **15**                                     | **58**                        |
 
 ### 3.3 IJS tier mapping
 
@@ -235,33 +236,43 @@ EU customer session
         ▼
 [1] Scaleway Generative APIs (fr-par / nl-ams)
     Provider HQ: France (Iliad SA)
-    CLOUD Act: NO
-    DPA: Auto-bound (ToS accepted 05.04.2026)
-    Prompt retention: NO
-    Training on customer data: NO
+    CLOUD Act: NO  |  DPA: Auto-bound  |  Prompt retention: NO
     IJS: 95 (Sovereign)
         │ fail / rate-limit
         ▼
-[2] NVIDIA NIM EU (planned V1 — EU region)
+[2] OVHcloud (FR, SecNumCloud)
+    Provider HQ: France (OVH SAS)
+    CLOUD Act: NO  |  DPA: GDPR DPA available  |  Prompt retention: NO
+    IJS: 95 (Sovereign)
+        │ fail / rate-limit
+        ▼
+[3] UpCloud (Helsinki / Frankfurt)
+    Provider HQ: Finland (UpCloud Ltd)
+    CLOUD Act: NO  |  DPA: EU-compliant DPA  |  EU-only staff access
+    IJS: 92 (Sovereign)
+        │ fail / rate-limit
+        ▼
+[4] Hetzner (Nuremberg / Falkenstein / Helsinki)
+    Provider HQ: Germany (Hetzner Online GmbH)
+    CLOUD Act: NO  |  DPA: GDPR DPA standard  |  Prompt retention: NO
+    IJS: 88 (Compliant)
+        │ fail
+        ▼
+[5] NVIDIA NIM EU (planned V1 — EU region)
     Provider HQ: USA ← CLOUD Act exposure
     BUT: NIM EU region DC = EU
     DPA: Requires explicit NVIDIA DPA (not auto-bound)
     IJS: 55 (Partial) — US parent offsets EU DC
         │ fail
         ▼
-[3] On-prem DGX Spark (Espoo, Finland)
+[6] On-prem DGX Spark (Espoo, Finland)
     Provider HQ: On-prem (Lifetime Oy)
-    CLOUD Act: NO
-    DPA: N/A (own hardware)
-    Prompt retention: NO (ephemeral)
-    IJS: 100 (Sovereign — on-prem)
+    CLOUD Act: NO  |  DPA: N/A (own hardware)  |  IJS: 100 (Sovereign)
         │ (non-EU admin / dev / demo path only)
         ▼
-[4] Groq (US, tertiary fallback)
-    Provider HQ: USA (now NVIDIA subsidiary)
-    CLOUD Act: YES
-    DPA: EU SCCs in ToS, CLOUD Act not overridden
-    IJS: 12 (Exposed) — blocked for EU customer data
+[7] Groq (US, emergency fallback)
+    Provider HQ: USA (NVIDIA subsidiary)
+    CLOUD Act: YES  |  IJS: 12 (Exposed) — blocked for EU customer data
 ```
 
 ---
@@ -342,13 +353,13 @@ Most AI vendors cannot answer either question. US-based AI platforms (Salesforce
 
 DWS + KYA+I answers both in the first sales call:
 
-| Buyer question                | DWS answer                                                            |
-| ----------------------------- | --------------------------------------------------------------------- |
-| Where does inference run?     | Scaleway Paris/Amsterdam — EU-resident, IJS 95                        |
-| Who is the DPA processor?     | Scaleway S.A.S. (Paris) + Lifetime Oy as sub-processor                |
-| CLOUD Act exposure?           | None on primary path. DGX on-prem option = zero                       |
-| EU AI Act Art. 12 log?        | Every inference call logged, WORM-sealed, 10-year retention           |
-| What if inference fails over? | Policy-bound fallback; EU-only approved chain; alert + snap on breach |
+| Buyer question                | DWS answer                                                                  |
+| ----------------------------- | --------------------------------------------------------------------------- |
+| Where does inference run?     | Scaleway, OVHcloud, UpCloud, or Hetzner — all EU-resident, IJS 88–95        |
+| Who is the DPA processor?     | Named EU provider (auto-bound or pre-signed) + Lifetime Oy as sub-processor |
+| CLOUD Act exposure?           | None on any EU cloud path. DGX on-prem option = zero                        |
+| EU AI Act Art. 12 log?        | Every inference call logged, WORM-sealed, 10-year retention                 |
+| What if inference fails over? | Policy-bound fallback; EU-only approved chain; alert + snap on breach       |
 
 This is the commercial proposition of **European Inference Engineering**: not just a technical architecture, but a legally defensible audit trail that removes the DPO veto.
 
@@ -418,10 +429,11 @@ CLOUD Act gap, and your DPO knows it.
 DWS removes the veto. We name the inference location and the DPA signatory
 in the first call:
 
-- Inference runs on Scaleway Paris/Amsterdam — EU-incorporated, no US parent,
-  no CLOUD Act reach
-- DPA: Scaleway S.A.S. (Paris) auto-bound as processor, Lifetime Oy as
-  sub-processor — no separate signing ceremony
+- Inference runs on EU-sovereign providers only: Scaleway (Paris/Amsterdam),
+  OVHcloud (France, SecNumCloud), UpCloud (Finland), Hetzner (Germany) —
+  all EU-incorporated, no US parent, no CLOUD Act reach
+- DPA: named EU processor auto-bound or pre-signed per provider,
+  Lifetime Oy as sub-processor — no separate signing ceremony per customer
 - Every inference call logged to EU AI Act Art. 12 standard, WORM-sealed,
   10-year retention
 - If inference fails over, the fallback chain is EU-only by policy —
