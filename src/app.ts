@@ -47,6 +47,7 @@ import analyticsRoutes from './routes/analytics.routes.js';
 import erpTrackingRoutes from './routes/erp-tracking.routes.js';
 import roleTrackingRoutes from './routes/role-tracking.routes.js';
 import gapsRoutes from './routes/gaps.routes.js';
+import agentsRoutes from './routes/agents.routes.js';
 import { terminateChain } from './identity/kya-engine.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
@@ -317,6 +318,7 @@ app.use('/api/v1/analytics', analyticsRoutes);
 app.use('/api/erp/track', erpTrackingRoutes);
 app.use('/api/roles/track', roleTrackingRoutes);
 app.use('/api/v1/gaps', gapsRoutes);
+app.use('/api/v1/agents', agentsRoutes);
 
 const getHeaderValue = (value: string | string[] | undefined): string | undefined =>
   Array.isArray(value) ? value[0] : value;

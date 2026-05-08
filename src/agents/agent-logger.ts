@@ -48,6 +48,10 @@ interface LogLine {
   userId?: string;
   projectId?: string;
   inputHash?: string;
+  /** PII-scrubbed input payload. Written when AGENT_LOG_FULL_INPUT=true. */
+  inputPayload?: Record<string, unknown>;
+  /** Short human-readable task summary extracted from input.task (first 200 chars). */
+  taskSummary?: string;
   modelId?: string;
   promptVersion?: string;
   toolsAvailable?: string[];
@@ -59,6 +63,58 @@ interface LogLine {
   status?: 'completed' | 'error';
   errorMessage?: string;
 }
+
+// ─── PII scrubber ─────────────────────────────────────────────────────────────
+
+/** Field names whose values are redacted before disk logging. */
+const PII_FIELDS = new Set([
+  'email',
+  'e_mail',
+  'emailAddress',
+  'name',
+  'fullName',
+  'firstName',
+  'lastName',
+  'surname',
+  'phone',
+  'phoneNumber',
+  'mobile',
+  'tel',
+  'address',
+  'streetAddress',
+  'postAddress',
+  'ssn',
+  'socialSecurityNumber',
+  'personalId',
+  'henkilotunnus',
+  'dob',
+  'dateOfBirth',
+  'birthDate',
+  'password',
+  'passwd',
+  'secret',
+  'token',
+  'apiKey',
+  'api_key',
+  'creditCard',
+  'cardNumber',
+  'cvv',
+  'iban',
+  'bic',
+]);
+
+function scrubPii(obj: unknown, depth = 0): unknown {
+  if (depth > 6 || obj === null || typeof obj !== 'object') return obj;
+  if (Array.isArray(obj)) return obj.map((item) => scrubPii(item, depth + 1));
+
+  const result: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(obj as Record<string, unknown>)) {
+    result[key] = PII_FIELDS.has(key) ? '[redacted]' : scrubPii(value, depth + 1);
+  }
+  return result;
+}
+
+const LOG_FULL_INPUT = process.env.AGENT_LOG_FULL_INPUT === 'true';
 
 // ─── Disk writer ──────────────────────────────────────────────────────────────
 
@@ -155,6 +211,9 @@ export const AgentLogger = {
     const runId = randomUUID();
     const inputHash = createHash('sha256').update(JSON.stringify(input)).digest('hex').slice(0, 16);
 
+    const taskSummary =
+      typeof input['task'] === 'string' ? (input['task'] as string).slice(0, 200) : undefined;
+
     const line: LogLine = {
       runId,
       agentName,
@@ -165,6 +224,8 @@ export const AgentLogger = {
       userId: context.userId,
       projectId: context.projectId,
       inputHash,
+      inputPayload: LOG_FULL_INPUT ? (scrubPii(input) as Record<string, unknown>) : undefined,
+      taskSummary,
       modelId: opts.modelId,
       promptVersion: opts.promptVersion,
       toolsAvailable: opts.toolsAvailable,
