@@ -10,7 +10,7 @@ image_link: "https://dws10.com/static/images/firehorse-aegis-head.png"
 brand: "DWS IQ"
 storeCategory: "platform"
 type: "one-time"
-priceNote: "€59,990 one-time platform deployment + €999/mo subscription"
+priceNote: "From €59,990 onboarding + integration, plus €999/mo subscription. 3 tiers: Standard, Defence, Sovereign."
 mpn: "DWS-AEGIS-2026"
 ---
 
@@ -28,22 +28,21 @@ Named after Athena's shield — Aegis provides protection through intelligence, 
 
 ## Agents Included
 
-| Agent              | Capability                                                           | Domain                                |
-| ------------------ | -------------------------------------------------------------------- | ------------------------------------- |
-| ArgusAgent         | AI orbital target labeling via SAR satellite data                    | Intelligence, supply chain visibility |
-| SovereigntyMonitor | CLOUD Act exposure detection, EU data residency verification         | Data sovereignty                      |
-| Article12Logger    | EU AI Act audit trails for all AI decisions                          | Regulatory compliance                 |
-| KYA Engine         | Know Your Agent — identity verification, isolation, kill authority   | Agent governance                      |
-| ComplianceAgent    | Dual-use export control + EU climate compliance                      | Regulatory                            |
-| CrossVerticalIntel | Supply chain signal propagation across 21 industries                 | Intelligence                          |
-| GaiaAgent          | Cement, lime & earth materials — dual-use critical raw material risk | Industry                              |
-| VulcanAgent        | Steel & metals — ETS Phase 4, CBAM carbon declarations               | Industry                              |
-| SiteSenseAgent     | Defence construction site safety & logistics                         | Field operations                      |
+| Agent | Capability | Domain |
+|-------|-----------|--------|
+| ArgusAgent | AI orbital target labeling via SAR satellite data | Intelligence, supply chain visibility |
+| SovereigntyMonitor | CLOUD Act exposure detection, EU data residency verification | Data sovereignty |
+| Article12Logger | EU AI Act audit trails for all AI decisions | Regulatory compliance |
+| KYA Engine | Know Your Agent — identity verification, isolation, kill authority | Agent governance |
+| ComplianceAgent | Dual-use export control + EU climate compliance | Regulatory |
+| CrossVerticalIntel | Supply chain signal propagation across 21 industries | Intelligence |
+| GaiaAgent | Cement, lime & earth materials — dual-use critical raw material risk | Industry |
+| VulcanAgent | Steel & metals — ETS Phase 4, CBAM carbon declarations | Industry |
+| SiteSenseAgent | Defence construction site safety & logistics | Field operations |
 
 ## Core Capabilities
 
 ### Orbital Intelligence (Argus)
-
 - SAR satellite data ingestion and AI labeling (compatible with providers such as ICEYE)
 - All-weather, day/night industrial target detection
 - 20 DWS industry classifications from orbit
@@ -51,7 +50,6 @@ Named after Athena's shield — Aegis provides protection through intelligence, 
 - Pipeline: AOI → SAR Catalog API → AI labeling → KYA governance → Article 12 audit trail
 
 ### Sovereignty Assessment
-
 - CLOUD Act exposure scoring (US vs. EU-sovereign providers)
 - Four sovereignty tiers: Sovereign / Compliant / Partial / Exposed
 - NIS2 alignment verification
@@ -59,7 +57,6 @@ Named after Athena's shield — Aegis provides protection through intelligence, 
 - Data residency audit trail
 
 ### Agent Governance (KYA — Know Your Agent)
-
 - Agent identity verification (Shufti partnership)
 - Firecracker MicroVM sandbox isolation
 - Kill authority — revoke any agent in real-time
@@ -67,28 +64,18 @@ Named after Athena's shield — Aegis provides protection through intelligence, 
 - Multi-agent control room for fleet oversight
 
 ### EU AI Act Article 12 Logging
-
 - Every AI decision logged with risk classification
 - Reasoning lineage preservation
 - Audit-ready documentation for regulators
-- Full Sovereignty environment (EU-only AI compliance layer)
+- Aiwen environment (EU-only AI compliance layer)
 
 ## Target Market
 
 - **Primary:** Government agencies (EU member states, defence ministries)
 - **Secondary:** Military industry enterprises (defence contractors, shipyards, aerospace)
 - **Tertiary:** Dual-use manufacturing supply chains (steel, chemicals, electronics, critical infrastructure)
-- **Critical Infrastructure (CER Directive):** Railway operators, power grid operators, port authorities, gas transmission operators — all EU "essential entities" under CER Directive 2022/2557, facing mandatory infrastructure protection plans by Q4 2026
-- **Geography:** EU only — platform available on European cloud or enterprise private cloud. Sovereign deployments: UpCloud Helsinki (Finland/Nordic) or Scaleway Paris (France/Western EU)
+- **Geography:** EU only — platform available exclusively on European cloud or enterprise private cloud
 - **Industries:** All 21 EU-regulated industries under dual-use scope (including lime/critical raw materials)
-
-### France Market — Critical Infrastructure Signal
-
-SNCF (French national railway) operates a 200-drone surveillance fleet (Delair) monitoring 28,000 km of railway 24/7, as part of a €100M annual network protection budget. Malicious acts caused 800,000+ minutes of delays affecting ~40,000 trains in 2024. This deployment pattern — AI-driven aerial surveillance with criminal network detection — is precisely the use case Aegis governs through ArgusAgent, KYA Engine, and Article 12 logging.
-
-Every EU railway operator, power grid, port, and gas network faces the same obligation under the CER Directive. Aegis at €59,990 represents 0.06% of SNCF's annual protection budget — a rounding error against the compliance and operational risk it eliminates.
-
-**Sovereign cloud for France:** Scaleway (Paris, Iliad Group) — French-owned, CISPE member, no CLOUD Act exposure. Equivalent sovereignty posture to UpCloud Helsinki.
 
 ### DEFINE / Defence Tech Hub Alignment
 
@@ -101,15 +88,14 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 
 ## Competitive Positioning
 
-| Competitor               | Gap we fill                                                                                                                                                                                   |
-| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Palantir AIP             | US-based, CLOUD Act exposed. Not EU-sovereign. No EU AI Act compliance. No CER Directive coverage.                                                                                            |
-| Anduril Lattice          | Hardware-focused. No compliance agents. US-only.                                                                                                                                              |
-| C3.ai Defence            | Dashboard platform, not agent outcomes. US-hosted.                                                                                                                                            |
-| Big 4 defence consulting | Advisory only. No autonomous agents. No orbital intelligence.                                                                                                                                 |
-| Delair OPENSKYLAB        | Drone analytics only. No AI governance (KYA), no Article 12 logging, no CER/NIS2 compliance layer. Complementary, not competitive — Delair builds the drones; Aegis governs the AI decisions. |
+| Competitor | Gap we fill |
+|-----------|-------------|
+| Palantir AIP | US-based, CLOUD Act exposed. Not EU-sovereign. No EU AI Act compliance. |
+| Anduril Lattice | Hardware-focused. No compliance agents. US-only. |
+| C3.ai Defence | Dashboard platform, not agent outcomes. US-hosted. |
+| Big 4 defence consulting | Advisory only. No autonomous agents. No orbital intelligence. |
 
-**Our edge:** EU-sovereign by design (Finnish/French hosting options), agent governance (KYA — no other platform has this), SAR orbital intelligence (ArgusAgent, compatible with ICEYE and drone fleet feeds), EU AI Act native (Article 12 built-in for high-risk AI surveillance), dual compliance (defence + climate + critical infrastructure in one platform).
+**Our edge:** EU-sovereign by design (Finnish hosting), agent governance (KYA — no other platform has this), SAR orbital intelligence (designed for integration with providers such as ICEYE), EU AI Act native (Article 12 built-in), dual compliance (defence + climate in one platform).
 
 ## Scope Principle
 
@@ -131,9 +117,8 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 
 ## Technical Requirements
 
-- **Deployment:** Single-tenant Kubernetes (Helm chart) on UpCloud UKS, Helsinki DC (fi-hel1 / fi-hel2). France/Western EU option: Scaleway (Paris, Iliad Group). Enterprise private cloud option available.
-- **Infrastructure (Nordic/Finland):** UpCloud Managed Kubernetes — Finnish-owned, Tesi-backed, ISO 27001, CISPE member, zero CLOUD Act exposure
-- **Infrastructure (France/Western EU):** Scaleway (Paris) — French-owned (Iliad Group), ISO 27001, CISPE member, zero CLOUD Act exposure, ~€200–300/mo for equivalent stack
+- **Deployment:** Single-tenant Kubernetes (Helm chart) on UpCloud UKS, Helsinki DC (fi-hel1 / fi-hel2). Enterprise private cloud option available.
+- **Infrastructure:** UpCloud Managed Kubernetes — Finnish-owned, Tesi-backed, ISO 27001, CISPE member, zero CLOUD Act exposure
 - **Database:** UpCloud Managed PostgreSQL + pgvector (HA, automated backups, Helsinki DC)
 - **Cache:** UpCloud Managed Valkey/Redis
 - **GPU:** NVIDIA L40S nodes available for local LLM inference
@@ -146,32 +131,30 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 
 ## Pricing
 
-| Tier               | Price                      | Included                                                                                                          |
-| ------------------ | -------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| **Aegis Platform** | €59,990 one-time + €999/mo | 21+ agents, 21 industries, cross-vertical intelligence, dedicated K8s cluster, Article 12 logging, KYA governance |
-| **Enterprise**     | Custom                     | Dedicated sovereign instance, SLA, custom agents, SAR AOI budget, private cloud deployment                        |
-| **Government**     | Custom                     | Enterprise private cloud, air-gapped option, security clearance support                                           |
+| Tier | Onboarding + Integration | Monthly | Included |
+|------|--------------------------|---------|----------|
+| **Aegis Standard** | €59,990 | €999/mo | 18 agents, 21 industries, dedicated K8s cluster, Article 12 logging, KYA governance, standard support |
+| **Aegis Defence** | €89,990 | €1,999/mo | Standard + NVIDIA L40S GPU, ArgusAgent SAR, priority support (4h SLA), EDIP compliance reporting |
+| **Aegis Sovereign** | Custom | €4,999/mo | Defence + air-gapped / on-premises option, security clearance support, dedicated engineering team, custom SLA |
 
 Aegis is a standalone product — not part of the Captain investor programme. Software-only platform (no hardware bundled).
 
 ## Strategic Partnerships
 
-| Partner  | Integration                                                                            | Status                           |
-| -------- | -------------------------------------------------------------------------------------- | -------------------------------- |
-| ICEYE    | SAR satellite data compatibility for Argus agent                                       | Target integration (Espoo-based) |
-| Shufti   | Agent identity verification for KYA                                                    | Partnership pending              |
-| NVIDIA   | Jetson Orin Nano edge deployment                                                       | ISV Partner (confirmed)          |
-| VTT      | Research collaboration, DIANA programme                                                | Ecosystem partner                |
-| Delair   | Drone fleet data feed into ArgusAgent (France/SNCF use case — OPENSKYLAB API research) | Explore Q3 2026 (Toulouse)       |
-| Scaleway | France/Western EU sovereign cloud deployment option                                    | Explore Tech Partner programme   |
+| Partner | Integration | Status |
+|---------|------------|--------|
+| ICEYE | SAR satellite data compatibility for Argus agent | Target integration (Espoo-based) |
+| Shufti | Agent identity verification for KYA | Partnership pending |
+| NVIDIA | Jetson Orin Nano edge deployment | ISV Partner (confirmed) |
+| VTT | Research collaboration, DIANA programme | Ecosystem partner |
 
 ## K8s AI Inference Roadmap
 
 > Source: KubeCon + CloudNativeCon Europe 2026 (Amsterdam). See `docs/field-notes/2026-03-30-kubecon-eu-2026-k8s-ai-inference.md`.
 
-| #   | Item                       | DWS7 PR | Target  | Description                                                                                                                                           |
-| --- | -------------------------- | ------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | Inference autoscaling      | 137A    | Q3 2026 | HPA + KEDA policies for Aegis agents. Scale 0→N in <30s based on inference queue depth. Defence bursty workloads (crisis response, satellite passes). |
-| 2   | Multi-model GPU sharing    | 137B    | Q3 2026 | MIG on L40S nodes — multiple agents per GPU with isolated VRAM. Target: per-customer GPU cost <€200/mo (from €376/mo).                                |
-| 3   | Model versioning CRDs      | 137C    | Q4 2026 | K8s Custom Resource Definitions for blue/green model deployments. Rollback <60s. Article 12 audit continuity on model changes.                        |
-| 4   | Edge-cloud inference split | 137D    | Q1 2027 | Jetson Orin Nano (field/classified) + UpCloud K8s (cloud/cross-vertical). Routing by classification level and sovereignty constraints.                |
+| # | Item | DWS7 PR | Target | Description |
+|---|------|---------|--------|-------------|
+| 1 | Inference autoscaling | 137A | Q3 2026 | HPA + KEDA policies for Aegis agents. Scale 0→N in <30s based on inference queue depth. Defence bursty workloads (crisis response, satellite passes). |
+| 2 | Multi-model GPU sharing | 137B | Q3 2026 | MIG on L40S nodes — multiple agents per GPU with isolated VRAM. Target: per-customer GPU cost <€200/mo (from €376/mo). |
+| 3 | Model versioning CRDs | 137C | Q4 2026 | K8s Custom Resource Definitions for blue/green model deployments. Rollback <60s. Article 12 audit continuity on model changes. |
+| 4 | Edge-cloud inference split | 137D | Q1 2027 | Jetson Orin Nano (field/classified) + UpCloud K8s (cloud/cross-vertical). Routing by classification level and sovereignty constraints. |

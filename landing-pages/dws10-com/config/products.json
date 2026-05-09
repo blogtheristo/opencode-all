@@ -8,76 +8,27 @@
       "price": 4999,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Stop risking fines and lost tenders. DWS IQ 6 deploys 18+ Skilled Agents with agentic loops (observe-think-act) to automate Fit for 55, CSRD, and EPBD compliance across 20 EU industries — cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.",
+      "description": "Stop risking fines and lost tenders. DWS IQ 6 deploys 18+ GodAgents with agentic loops (observe-think-act) to automate Fit for 55, CSRD, and EPBD compliance across 20 EU industries \u2014 cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.",
       "features": [
-        "18+ Skilled Agents with MCP protocol and CLI access",
+        "18+ GodAgents with MCP protocol and CLI access",
         "Automate Fit for 55, CSRD & EPBD reporting",
         "90% reduction in manual compliance hours"
       ],
-      "priceNote": "One-time deployment package.",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "priceNote": "One-time deployment + €499/mo subscription",
+      "revolutLink": "https://checkout.revolut.com/pay/f023d433-0bf4-48fa-98cd-494de448df39",
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
       "detailsUrl": "../products/dwsiq.html",
       "featured": true,
       "google": {
-        "productCategory": "1505",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "platform",
-      "productType": "dws-iq-platform",
-      "buyPage": 1,
-      "buyPageOrder": 2,
-      "pain": "Your CFO cannot sign the CSRD report — €10M penalty exposure and no audit-grade trail to back it up.",
-      "proofChip": "EFRAG ESRS · 82 disclosures mapped",
-      "proofSource": "EFRAG ESRS 2023 final set + CSRD Directive 2022/2464"
-    },
-    "FH-OMNI-001": {
-      "id": "FH-OMNI-001",
-      "gtin": null,
-      "mpn": "FH-OMNI-2026",
-      "name": "Firehorse Omnichannel V2",
-      "price": 1499,
-      "currency": "EUR",
-      "type": "one-time",
-      "stripeSubscriptionPriceId": "price_FH_OMNI_monthly",
-      "description": "AI-managed outreach — DWS runs your LinkedIn, email and content campaigns. You approve. We execute. No agency markup, no platform lock-in. 90-day pipeline guarantee. Proven playbooks built from 800+ days of EU industrial campaign data.",
-      "features": [
-        "LinkedIn, email and content campaigns — fully managed by DWS",
-        "No platform lock-in — DWS absorbs the AI stack",
-        "90-day pipeline guarantee or we work free",
-        "Monthly pipeline report with qualified opportunities"
-      ],
-      "priceNote": "Monthly managed service — strategy, execution and reporting included. Cancel anytime.",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
-      "paypalPlanId": null,
-      "image": "/static/images/firehorse-omnichannel-hero.png",
-      "detailsUrl": "../products/firehorse-omnichannel.html",
-      "featured": true,
-      "google": {
-        "productCategory": "1426",
-        "condition": "new",
-        "availability": "in_stock",
-        "subscriptionCost": "1499 EUR",
-        "subscriptionPeriod": "month",
-        "subscriptionPeriodLength": 1,
-        "brand": "Firehorse",
-        "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
-      },
-      "storeCategory": "platform",
-      "productType": "firehorse-saas",
-      "buyPage": 1,
-      "buyPageOrder": 3,
-      "pain": "Sales reps rewrite the same proposal 40× a month — €60K of senior time burned on copy-paste.",
-      "proofChip": "Multimodal · WhatsApp · Email · Voice",
-      "proofSource": "Lifetime Oy customer pipeline benchmark 2025"
+      "storeCategory": "platform"
     },
     "FH-AUTO-001": {
       "id": "FH-AUTO-001",
@@ -87,79 +38,93 @@
       "price": 4950,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Manual data entry is where compliance fines start. Firehorse Automation eliminates human error with event-driven workflows for Fit for 55, CSRD, and EPBD 2028 — capturing ESG data directly from your systems with a complete audit trail.",
+      "description": "Manual data entry is where compliance fines start. Firehorse Automation eliminates human error with event-driven workflows for Fit for 55, CSRD, and EPBD 2028 \u2014 capturing ESG data directly from your systems with a complete audit trail.",
       "features": [
         "Event-driven compliance workflows",
         "Eliminate manual data entry errors",
-        "Complete audit trail for ESG data",
-        "Next step: add Firehorse Omnichannel → tell the market"
+        "Complete audit trail for ESG data"
       ],
       "priceNote": "Per project",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "revolutLink": "https://checkout.revolut.com/pay/b0a1fc57-83e8-4ccb-86c2-64930d135869",
       "paypalPlanId": null,
-      "image": "/static/images/firehorse-automation-hero.png",
+      "image": "/static/images/Firehorse_Store.jpg",
       "detailsUrl": "../products/firehorse-automation.html",
       "featured": false,
       "google": {
-        "productCategory": "1505",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Firehorse",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "platform",
-      "productType": "firehorse-saas",
-      "buyPage": 1,
-      "buyPageOrder": 8,
-      "pain": "Repeat tasks eat 23 % of your team's week — that is €115K of payroll spent on copy-paste.",
-      "proofChip": "23 % work week · Eurofound study",
-      "proofSource": "Eurofound EWCS 2021 + Working Conditions Update 2024"
+      "storeCategory": "platform"
     },
     "LIFETIME-BUNDLE-2026": {
       "id": "LIFETIME-BUNDLE-2026",
       "gtin": null,
       "mpn": "CLM-BUNDLE-2026",
-      "name": "Firehorse Starter V2",
-      "price": 9990,
+      "name": "Climate Reporting Starter Bundle",
+      "price": 6500,
       "currency": "EUR",
       "type": "one-time",
-      "description": "The fastest path to audit-ready CFO reporting. Firehorse Starter V2 includes DWS IQ Base Platform, Firehorse Report, Firehorse Signed Reports, and a Kickoff Workshop. Operational in 30 days. CSRD, Fit for 55 and EPBD 2028 ready from day one.",
+      "description": "Everything you need to go from zero to compliant. Includes DWS IQ Base Platform, Firehorse Report Module, and a hands-on Kickoff Workshop. Built for companies facing their first CSRD reporting deadline. Operational in 30 days.",
       "features": [
-        "DWS IQ Base + Firehorse Report + Signed Reports + Workshop",
-        "CSRD, Fit for 55 and EPBD reporting ready",
-        "Audit-ready in 30 days",
-        "Next step: add Firehorse Content Management → evidence vault"
+        "DWS IQ + Firehorse Report + Workshop",
+        "First CSRD reporting deadline ready",
+        "Operational in 30 days"
       ],
-      "priceNote": "One-time setup and delivery package.",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "priceNote": "One-time + €1,999/year",
+      "revolutLink": "https://checkout.revolut.com/pay/065b9efd-5fd1-43aa-bfb9-869c41c2b01f",
       "paypalPlanId": null,
-      "image": "/static/images/firehorse-starter-v2.png",
-      "detailsUrl": "../products/firehorse-starter-v2.html",
+      "image": "/static/images/8_Industries.png",
+      "detailsUrl": "../products/bundle.html",
       "featured": true,
       "google": {
-        "productCategory": "1505",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "platform",
-      "productType": "firehorse-saas",
-      "buyPage": 1,
-      "buyPageOrder": 4,
-      "pain": "Your first AI rollout took 9 months — competitors shipped in 30 days and now own your pipeline.",
-      "proofChip": "Operational in 30 days",
-      "proofSource": "Lifetime Oy customer onboarding benchmark 2025"
+      "storeCategory": "platform"
+    },
+    "FH-OMNI-001": {
+      "id": "FH-OMNI-001",
+      "gtin": null,
+      "mpn": "FH-OMNI-2026",
+      "name": "Firehorse Omnichannel Next",
+      "price": 499,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Launch climate-tech products without greenwashing risk. AI-powered marketing engine that ensures every claim meets EU AI Act and Green Claims Directive requirements. Includes 4-week pilot campaign with measurable results.",
+      "features": [
+        "AI-powered marketing engine",
+        "EU AI Act & Green Claims compliant",
+        "4-week pilot with measurable results"
+      ],
+      "priceNote": "Per campaign cycle",
+      "revolutLink": "https://checkout.revolut.com/pay/c2eea068-dd5a-4575-88e2-cba1c3877fbf",
+      "paypalPlanId": null,
+      "image": "/static/images/Firehorse_Store.jpg",
+      "detailsUrl": "../products/firehorse-omnichannel.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Firehorse",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "platform"
     },
     "FH-RPT-001": {
       "id": "FH-RPT-001",
       "gtin": null,
       "mpn": "FH-REPORT-2026",
-      "name": "Firehorse Report",
+      "name": "DWS IQ Report",
       "price": 1999,
       "currency": "EUR",
       "type": "one-time",
@@ -167,31 +132,23 @@
       "features": [
         "Automated Fit for 55 dashboards",
         "SAP integration with real-time data",
-        "4-week validation included",
-        "Next step: add Firehorse Signed Reports → legal validity"
+        "4-week validation included"
       ],
-      "priceNote": "Per report template — start here",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "priceNote": "Per report template",
+      "revolutLink": "https://checkout.revolut.com/pay/5997823a-553d-4eb2-82f6-668d2e884b9c",
       "paypalPlanId": null,
-      "image": "/static/images/firehorse-report-hero.png",
+      "image": "/static/images/Firehorse_Store.jpg",
       "detailsUrl": "../products/firehorse-reports.html",
       "featured": false,
       "google": {
-        "productCategory": "1505",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
         "brand": "DWS IQ",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "platform",
-      "productType": "firehorse-saas",
-      "buyPage": 1,
-      "buyPageOrder": 5,
-      "pain": "Manual board reports cost 80 analyst-hours per quarter — and still arrive after the meeting.",
-      "proofChip": "Signed PDF · audit-grade",
-      "proofSource": "Lifetime Oy report-engine benchmark 2025"
+      "storeCategory": "platform"
     },
     "FH-SIGN-001": {
       "id": "FH-SIGN-001",
@@ -200,397 +157,298 @@
       "name": "Firehorse Signed Reports",
       "price": 199,
       "currency": "EUR",
-      "type": "one-time",
-      "stripeSubscriptionPriceId": "price_FH_SIGN_annual",
+      "type": "subscription",
       "description": "Add legally binding eSignatures to any Firehorse report. Compliance reports, carbon assessments, and investor reports get DocuSign eSignature — court-defensible, audit-ready, with full tracking. Author, reviewer, and auditor sign in sequence. Signed PDFs auto-archived.",
       "features": [
         "DocuSign eSignature on all Firehorse reports",
         "Multi-party signing (author → reviewer → auditor)",
-        "Signed PDF download and audit trail",
-        "Next step: add Firehorse Content Management → evidence vault"
+        "Signed PDF download and audit trail"
       ],
       "priceNote": "€199/year add-on — requires Firehorse Report",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/firehorse-signed-reports-hero.png",
-      "detailsUrl": "../products/firehorse-signed-reports.html",
+      "image": "/static/images/Firehorse_Store.jpg",
+      "detailsUrl": "../products/firehorse-reports.html",
       "featured": false,
       "google": {
-        "productCategory": "1505",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
-        "subscriptionCost": "199 EUR",
-        "subscriptionPeriod": "year",
-        "subscriptionPeriodLength": 1,
         "brand": "Firehorse",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "add-on",
-      "productType": "firehorse-saas",
-      "buyPage": 1,
-      "buyPageOrder": 6,
-      "pain": "Your compliance officer cannot prove report integrity in court — no cryptographic chain of custody.",
-      "proofChip": "eIDAS-aligned · qualified seal ready",
-      "proofSource": "eIDAS Reg. 910/2014 + eIDAS 2.0 Reg. 2024/1183"
+      "storeCategory": "add-on"
     },
     "FH-CMS-001": {
       "id": "FH-CMS-001",
       "gtin": null,
       "mpn": "FH-CMS-2026",
       "name": "Firehorse Content Management",
-      "price": 99,
+      "price": 2999,
       "currency": "EUR",
       "type": "one-time",
-      "description": "When auditors ask for proof, find it in seconds — not days. Evidence Vault auto-tags compliance documents, alerts before certificates expire, and provides semantic search across all your audit-ready documentation.",
+      "description": "When auditors ask for proof, find it in seconds \u2014 not days. Evidence Vault auto-tags compliance documents, alerts before certificates expire, and provides semantic search across all your audit-ready documentation.",
       "features": [
         "Auto-tagged compliance documents",
         "Certificate expiry alerts",
-        "Semantic search across evidence",
-        "Next step: add Firehorse Automation → eliminate manual data entry"
+        "Semantic search across evidence"
       ],
       "priceNote": "Setup + migration",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "revolutLink": "https://checkout.revolut.com/pay/b0a1fc57-83e8-4ccb-86c2-64930d135869",
       "paypalPlanId": null,
-      "image": "/static/images/firehorse-content-management-hero.png",
+      "image": "/static/images/Firehorse_Store.jpg",
       "detailsUrl": "../products/firehorse-content-management.html",
       "featured": false,
       "google": {
-        "productCategory": "1505",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Firehorse",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "platform",
-      "productType": "firehorse-saas",
-      "buyPage": 1,
-      "buyPageOrder": 7,
-      "pain": "Sales posts on 6 channels — 3 of them have not been updated since Q3 and look abandoned.",
-      "proofChip": "Single source · 6+ channels",
-      "proofSource": "Lifetime Oy content-pipeline benchmark 2025"
+      "storeCategory": "platform"
     },
     "expert-services": {
       "id": "expert-services",
       "gtin": null,
       "mpn": "EXP-SVC-2026",
-      "name": "Expert Advisory & Implementation",
+      "name": "Workshop 3 Days - Expert Advisory & Implementation",
       "price": 4500,
       "currency": "EUR",
       "type": "one-time",
-      "description": "DWS delivers any Firehorse product for you — Report, Omnichannel, Automation, Content Management, or Signed Reports. Three intensive days covering design, integration, and go-live. You define the outcome. We build and hand it over running.",
+      "description": "Three days that save your team three months. Intensive hands-on workshop covering compliance report design, workflow automation, and strategic roadmap for Fit for 55, CSRD, and EU AI Act. Leave with working implementations, not just slide decks.",
       "features": [
-        "Covers all Firehorse products — Report, Omnichannel, Automation, CMS, Signed Reports",
-        "Design, integration and go-live in 3 days",
-        "Working implementation handed over — not slide decks"
+        "Hands-on compliance workshop",
+        "Workflow automation training",
+        "Working implementations in 3 days"
       ],
-      "priceNote": "3-day engagement — book a call to scope your Firehorse delivery",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "priceNote": "3-day workshop",
+      "revolutLink": "https://checkout.revolut.com/pay/897acfa9-630f-4e0c-be02-71058bd45e2e",
       "paypalPlanId": null,
-      "image": "/static/images/firehorse-expert-advisory-v2.png",
+      "image": "/static/images/Risto_Malta.png",
       "detailsUrl": "../products/expert-services.html",
       "featured": false,
       "google": {
-        "productCategory": "1426",
+        "productCategory": "Business & Industrial > Business Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "advisory",
-      "productType": "consulting-substance",
-      "buyPage": 1,
-      "buyPageOrder": 16,
-      "pain": "You hired AI consultants who showed slides — your engineering team still cannot ship to production.",
-      "proofChip": "Senior architect · ship-to-prod method",
-      "proofSource": "Lifetime Oy delivery method 2025"
+      "storeCategory": "advisory"
     },
     "consulting-hourly": {
       "id": "consulting-hourly",
       "gtin": null,
       "mpn": "CONSULT-HR-2026",
-      "name": "Senior Specialist – Hourly Consulting",
-      "price": 200,
+      "name": "Consulting - Hourly Rate",
+      "price": 98,
       "currency": "EUR",
       "type": "hourly",
-      "description": "Senior specialist consulting with Risto Anton — 18 agents in production, NIS2 + EU AI Act + Fit for 55 expertise. Book by the hour for compliance, agentic development, or governance guidance across all 16 regulated EU industries. Most clients start with a 4-hour assessment.",
+      "description": "Expert compliance guidance without a long-term commitment. Book by the hour for Fit for 55, CSRD, EU AI Act, or governance challenges across all 16 regulated EU industries. Most clients start with a 4-hour assessment.",
       "features": [
-        "Senior specialist, not junior",
-        "NIS2 + EU AI Act + Fit for 55",
+        "Expert compliance guidance",
+        "All 16 EU industries covered",
         "Flexible hourly booking"
       ],
       "priceNote": "Per hour, VAT excl.",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "revolutLink": "https://checkout.revolut.com/pay/106a84fe-2956-4619-ac66-b4e89b5d59f3",
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
       "detailsUrl": "../products/consulting.html",
-      "featured": true,
+      "featured": false,
       "google": {
-        "productCategory": "1426",
+        "productCategory": "Business & Industrial > Business Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "advisory",
-      "productType": "hourly-remote",
-      "buyPage": 1,
-      "buyPageOrder": 20,
-      "pain": "You need a 2-hour answer, not a 6-month engagement — procurement keeps blocking small POs.",
-      "proofChip": "€200/h · senior only · invoice in 24h",
-      "proofSource": "Lifetime Oy hourly rate card 2025"
+      "storeCategory": "advisory"
     },
     "LIFETIME-EXP-001": {
       "id": "LIFETIME-EXP-001",
       "gtin": null,
       "mpn": "EXP-ADV-2026",
       "name": "Expert Advisory & Implementation",
-      "price": 4000,
+      "price": 3000,
       "currency": "EUR",
-      "type": "one-time",
-      "stripeSubscriptionPriceId": "price_LIFETIME_EXP_monthly",
-      "description": "Your dedicated compliance strategist. Monthly retainer for ongoing report design, workflow optimization, and board-level advisory on Fit for 55, CSRD, and EU AI Act. 20 hours per month at senior specialist rate (€200/h). Clients typically reduce compliance costs by 40% within the first quarter.",
+      "type": "monthly",
+      "description": "Your dedicated compliance strategist. Monthly retainer for ongoing report design, workflow optimization, and board-level advisory on Fit for 55, CSRD, and EU AI Act. Clients typically reduce compliance costs by 40% within the first quarter.",
       "features": [
-        "20 hours/month at senior rate",
+        "Dedicated compliance strategist",
         "40% cost reduction typical",
         "Board-level advisory included"
       ],
-      "priceNote": "Monthly, 20 hours",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "priceNote": "Monthly",
+      "revolutLink": "https://checkout.revolut.com/pay/21589576-b397-474c-bfb8-4719723155fd",
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
       "detailsUrl": "../products/expert-advisory.html",
       "featured": false,
       "google": {
-        "productCategory": "1426",
+        "productCategory": "Business & Industrial > Business Services",
         "condition": "new",
         "availability": "in_stock",
-        "subscriptionCost": "4000 EUR",
-        "subscriptionPeriod": "month",
-        "subscriptionPeriodLength": 1,
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "advisory",
-      "productType": "archived"
+      "storeCategory": "advisory"
     },
     "consulting-fit55": {
       "id": "consulting-fit55",
       "gtin": null,
       "mpn": "CONSULT-FIT55-2026",
       "name": "Consulting Fit for 55 Specialist",
-      "price": 1500,
+      "price": 3000,
       "currency": "EUR",
-      "type": "daily",
-      "description": "Direct access to the architect of DWS IQ 6. Daily engagement with Risto Anton on Fit for 55 compliance, report design, agent coordination, and CxO-level strategy. For organizations that need the person who built the platform, not a junior consultant.",
+      "type": "monthly",
+      "description": "Direct access to the architect of DWS IQ 6. Monthly co-working with Risto Anton on Fit for 55 compliance, report design, agent coordination, and CxO-level strategy. For organizations that need the person who built the platform, not a junior consultant.",
       "features": [
         "Direct access to DWS IQ architect",
         "CxO-level compliance strategy",
-        "Daily on-site or remote"
+        "Monthly co-working sessions"
       ],
-      "priceNote": "Per day, VAT excl.",
+      "priceNote": "Monthly",
       "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
       "detailsUrl": "../products/consulting-fit55.html",
-      "featured": true,
+      "featured": false,
       "google": {
-        "productCategory": "1426",
+        "productCategory": "Business & Industrial > Business Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "advisory",
-      "productType": "consulting-substance",
-      "buyPage": 1,
-      "buyPageOrder": 18,
-      "pain": "55 % emissions cut by 2030 is law — your decarb plan is still a PDF nobody reads.",
-      "proofChip": "Fit for 55 · 14 EU regulations",
-      "proofSource": "Fit for 55 COM/2021/550 + 14 implementing regulations"
+      "storeCategory": "advisory"
     },
     "aws-consultancy": {
       "id": "aws-consultancy",
       "gtin": null,
       "mpn": "AWS-CONSULT-2026",
-      "name": "AWS Cloud & Claude Code Architect Consultancy",
-      "price": 1500,
+      "name": "AI Engineering & Cloud Solutions Consultancy",
+      "price": 4500,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Industrial cloud architecture for manufacturing, logistics, construction, and energy. AWS just launched Claude Platform native on AWS — no Bedrock required. One day with a certified AWS Solutions Architect + Claude Code expert to evaluate your workloads, architect Claude Platform migrations (faster, cheaper, simpler than Lambda/container stacks), cut your AWS bill, and map your AI stack modernization. Fixed price.",
+      "description": "25 hours of senior cloud architect time to assess, plan, and implement your AI and cloud infrastructure. Multi-cloud expertise across AWS, Azure, GCP. Includes a complimentary 4-hour strategy workshop to identify quick wins and avoid costly mistakes.",
       "features": [
-        "AWS Solutions Architect + Claude Code expert",
-        "Claude Platform on AWS evaluation & architecture",
-        "Cost optimization (Lambda → Claude Platform migrations)",
-        "Infra savings roadmap + AI modernization plan"
+        "Multi-cloud AWS, Azure & GCP",
+        "25 hours senior architect time",
+        "Free 4-hour strategy workshop"
       ],
-      "priceNote": "Per day, VAT excl.",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "priceNote": "25 hours, valid 12 months",
+      "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
-      "detailsUrl": "../products/aws-consultancy.html",
-      "featured": true,
+      "detailsUrl": "mailto:sales@lifetime.fi",
+      "featured": false,
       "google": {
-        "productCategory": "1426",
+        "productCategory": "Business & Industrial > Business Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "digital",
-      "productType": "us-stack",
-      "buyPage": 1,
-      "buyPageOrder": 17,
-      "pain": "Your Lambda functions cost €80k/year to do what Claude Platform can do for €8k. Your team builds brittle container orchestration when they should be shipping agents. AWS just made Claude Platform native — but your architecture is stuck in 2023.",
-      "proofChip": "Claude Platform GA 2026 · 10× cost reduction typical",
-      "proofSource": "AWS Platform on AWS launch April 2026 + DWS consulting cost models 2026",
-      "heroText": "Your industrial workloads are running on AWS Lambda/container stacks — the bill is growing and the code is getting more fragile. AWS just launched Claude Platform native on AWS. One day to find what you're overspending, map your Lambda → Claude Platform migration, and reset your AI cost model.",
-      "focus": "Industrial cloud business cases only — factory floor AI agents, IoT data pipelines, SCADA integration, edge-to-cloud architectures, production agent deployments.",
-      "painPoints": [
-        "Lambda / container orchestration cost and complexity spiraling (€60k-€300k+/year)",
-        "Team shipping agents in scripts when they should use Claude Code + MCP",
-        "No clear path to native cloud-based agentic AI on AWS",
-        "CLOUD Act exposure on manufacturing and operational data"
-      ],
-      "outcomes": [
-        "Full cost inventory — running vs. kill-list resources + monthly spend baseline",
-        "Claude Platform on AWS evaluation & migration roadmap (phased cost model)",
-        "AI modernization plan — Lambda/container → Claude Platform agents",
-        "Sovereign infrastructure options if CLOUD Act exposure is a concern"
-      ]
+      "storeCategory": "ai-cloud"
     },
     "conversational-agent": {
       "id": "conversational-agent",
       "gtin": null,
       "mpn": "CONV-AGENT-2026",
-      "name": "Voice Conversational Solution",
+      "name": "Conversational Agent Solution",
       "price": 3500,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Deploy AI-powered voice and chat assistants where your team already works — Teams, Slack, WhatsApp, Zoom. Custom conversational interfaces for enterprise workflows with your choice of LLM (Claude, GPT, Groq, or self-hosted for data sovereignty). Live in 25 hours.",
+      "description": "Deploy AI agents where your team already works \u2014 Teams, Slack, WhatsApp, Zoom. Custom conversational agents for enterprise workflows with your choice of LLM (Claude, GPT, Groq, or self-hosted for data sovereignty). Live in 25 hours.",
       "features": [
         "Teams, Slack, WhatsApp & Zoom",
         "Custom LLM choice for sovereignty",
         "Live in 25 hours"
       ],
       "priceNote": "25 hours standard implementation",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "../products/conversational-agent.html",
+      "detailsUrl": "mailto:sales@lifetime.fi",
       "featured": false,
       "google": {
-        "productCategory": "1505",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "en",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "ai-cloud",
-      "productType": "archived"
+      "storeCategory": "ai-cloud"
     },
     "m365-consultancy": {
       "id": "m365-consultancy",
       "gtin": null,
       "mpn": "M365-CONSULT-2026",
       "name": "Microsoft Consultancy",
-      "price": 1500,
+      "price": 1120,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Microsoft Power Platform and Dynamics 365 for industrial operations. Connect plant floor processes to Power Automate and Dynamics 365 — production orders, maintenance work orders, HSE reporting, logistics dispatch, field service. One day, 74% development cost reduction on industrial workflows.",
+      "description": "Get 188% ROI from the Microsoft licenses you already pay for. 8 hours of expert consultancy to automate business processes with Power Apps and cut development costs by 74%. Most clients launch their first app within the engagement.",
       "features": [
         "Power Apps process automation",
         "188% ROI on M365 licenses",
         "Launch first app within engagement"
       ],
-      "priceNote": "Per day, VAT excl.",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "priceNote": "8 hours",
+      "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "../products/m365-consultancy.html",
+      "detailsUrl": "mailto:sales@lifetime.fi",
       "featured": false,
       "google": {
-        "productCategory": "1426",
+        "productCategory": "Business & Industrial > Business Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "digital",
-      "productType": "us-stack",
-      "buyPage": 3,
-      "buyPageOrder": 4,
-      "pain": "Industrial operations on Power Automate + Dynamics 365. Plant floor to board report in one day.",
-      "proofChip": "188 % ROI · Power Apps live in 1 day",
-      "proofSource": "Forrester TEI Microsoft Power Platform 2023",
-      "heroText": "Your plant floor still runs on email approvals and Excel handoffs — one day to connect industrial operations to Power Automate and Dynamics 365 and cut manual process costs by 74%.",
-      "focus": "Industrial business cases only — manufacturing, logistics, construction, energy.",
-      "productLinks": [
-        "https://www.microsoft.com/fi-fi/power-platform/products/power-automate",
-        "https://dynamics.microsoft.com/fi-fi/supply-chain-management/overview/",
-        "https://dynamics.microsoft.com/fi-fi/field-service/overview/"
-      ],
-      "useCases": [
-        "Production order approvals via Power Automate",
-        "Maintenance work orders connected to Dynamics 365 Field Service",
-        "HSE incident reporting automated and logged",
-        "Energy consumption tracking via Power BI + Dynamics",
-        "Logistics dispatch integrated with Dynamics 365 Supply Chain Management"
-      ]
+      "storeCategory": "digital"
     },
     "ai-agent-engineering": {
       "id": "ai-agent-engineering",
       "gtin": null,
       "mpn": "AI-AGENT-2026",
       "name": "AI & Agent Engineering",
-      "price": 200,
+      "price": 99,
       "currency": "EUR",
       "type": "hourly",
-      "description": "Hire a senior AI engineer by the hour — no recruitment overhead. Available as AI Product Manager, Solutions Architect, or ML Engineer for Azure AI Foundry, Google AI Studio, or custom agentic AI projects. Skip the 3-month hiring cycle.",
+      "description": "Hire a senior AI engineer by the hour \u2014 no recruitment overhead. Available as AI Product Manager, Solutions Architect, or ML Engineer for Azure AI Foundry, Google AI Studio, or custom agentic AI projects. Skip the 3-month hiring cycle.",
       "features": [
         "Senior AI engineer on demand",
         "Azure AI, Google AI & Claude",
         "Skip 3-month hiring cycle"
       ],
       "priceNote": "Per hour",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
-      "detailsUrl": "../products/ai-agent-engineering.html",
-      "featured": true,
+      "detailsUrl": "mailto:sales@lifetime.fi",
+      "featured": false,
       "google": {
-        "productCategory": "1426",
+        "productCategory": "Business & Industrial > Business Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "ai-cloud",
-      "productType": "hourly-remote",
-      "buyPage": 1,
-      "buyPageOrder": 19,
-      "pain": "Your AI proof-of-concept ships brittle — one model swap and the whole agent breaks.",
-      "proofChip": "Karpathy harness · MCP-native",
-      "proofSource": "Karpathy 2024 + Anthropic MCP spec 2024"
+      "storeCategory": "ai-cloud"
     },
     "lean-project": {
       "id": "lean-project",
@@ -600,66 +458,57 @@
       "price": 4960,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Ship your next project in half the time. Lean methodology powered by AI tools — includes planning workshop, backlog setup, Kanban workflows, and roadmap. Teams using this approach see 2x delivery speed within the first sprint.",
+      "description": "Ship your next project in half the time. Lean methodology powered by AI tools \u2014 includes planning workshop, backlog setup, Kanban workflows, and roadmap. Teams using this approach see 2x delivery speed within the first sprint.",
       "features": [
         "Lean AI-powered methodology",
         "2x delivery speed from sprint 1",
         "Kanban + roadmap included"
       ],
       "priceNote": "Project setup",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "../products/lean-project.html",
+      "detailsUrl": "mailto:sales@lifetime.fi",
       "featured": false,
       "google": {
-        "productCategory": "1505",
+        "productCategory": "Business & Industrial > Business Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Firehorse",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "advisory",
-      "productType": "archived"
+      "storeCategory": "advisory"
     },
     "ai-consultant-day": {
       "id": "ai-consultant-day",
       "gtin": null,
       "mpn": "AI-DAY-2026",
       "name": "AI Consultant Day",
-      "price": 1500,
+      "price": 699,
       "currency": "EUR",
       "type": "one-time",
-      "description": "One day to unblock your AI strategy. Senior consultant on-site or remote for strategy, prototyping, and hands-on implementation. €200/hour senior rate (8-hour day). Covers Claude, GPT, Gemini Pro, Copilot, and Azure AI Studio. Most clients book 2–3 days for a full sprint.",
+      "description": "One day to unblock your AI strategy. Senior consultant on-site or remote for strategy, prototyping, and hands-on implementation. Covers Claude, GPT, Gemini Pro, Copilot, and Azure AI Studio. Most clients book 2\u20133 days for a full sprint.",
       "features": [
         "Strategy, prototyping & implementation",
         "Claude, GPT, Gemini Pro & Copilot",
         "On-site or remote available"
       ],
       "priceNote": "Per day, VAT excl.",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
-      "detailsUrl": "../products/ai-consultant-day.html",
+      "detailsUrl": "mailto:sales@lifetime.fi",
       "featured": false,
       "google": {
-        "productCategory": "1426",
+        "productCategory": "Business & Industrial > Business Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "fi"
       },
-      "storeCategory": "ai-cloud",
-      "productType": "hourly-remote",
-      "buyPage": 3,
-      "buyPageOrder": 3,
-      "pain": "Your team has 50 AI ideas and zero priority — every standup spins on the same 3 questions.",
-      "proofChip": "1 day · ranked roadmap deliverable",
-      "proofSource": "Lifetime Oy consultant playbook 2025"
+      "storeCategory": "ai-cloud"
     },
     "business-mentor-30": {
       "id": "business-mentor-30",
@@ -669,34 +518,27 @@
       "price": 4960,
       "currency": "EUR",
       "type": "one-time",
-      "description": "30 hours of strategic AI mentoring, scheduled on your terms. Cover AI strategy, business process redesign with agents, and Copilot adoption in flexible 4–8 hour sessions over 12 months. Ideal for leadership teams navigating AI transformation.",
+      "description": "30 hours of strategic AI mentoring, scheduled on your terms. Cover AI strategy, business process redesign with agents, and Copilot adoption in flexible 4\u20138 hour sessions over 12 months. Ideal for leadership teams navigating AI transformation.",
       "features": [
         "30 hours strategic AI mentoring",
         "12-month flexible schedule",
         "Leadership AI transformation"
       ],
       "priceNote": "30 hours, valid 12 months",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
-      "detailsUrl": "../products/business-mentor-30.html",
+      "detailsUrl": "mailto:sales@lifetime.fi",
       "featured": false,
       "google": {
-        "productCategory": "1426",
+        "productCategory": "Business & Industrial > Business Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "fi"
       },
-      "storeCategory": "advisory",
-      "productType": "advisory-training",
-      "buyPage": 2,
-      "buyPageOrder": 3,
-      "pain": "You know AI matters — but you do not know which 3 things to do this quarter that will not waste budget.",
-      "proofChip": "30h · personalized · CEO-grade",
-      "proofSource": "Lifetime Oy mentor practice 2024-2025"
+      "storeCategory": "advisory"
     },
     "firehorse-coach": {
       "id": "firehorse-coach",
@@ -706,34 +548,27 @@
       "price": 499,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Your leadership team needs AI fluency — not just your engineers. EU AI Act Article 4 now requires AI literacy across your organization. In-house coaching with a free 3-hour workshop to assess readiness. Personal, team, or remote.",
+      "description": "Your leadership team needs AI fluency \u2014 not just your engineers. EU AI Act Article 4 now requires AI literacy across your organization. In-house coaching with a free 3-hour workshop to assess readiness. Personal, team, or remote.",
       "features": [
         "EU AI Act Article 4 compliance",
         "Personal or team coaching",
         "Free 3-hour readiness assessment"
       ],
       "priceNote": "Workshop + coaching",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "../products/firehorse-coach.html",
+      "detailsUrl": "mailto:sales@lifetime.fi",
       "featured": false,
       "google": {
-        "productCategory": "1426",
+        "productCategory": "Business & Industrial > Business Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Firehorse",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "fi"
       },
-      "storeCategory": "advisory",
-      "productType": "advisory-training",
-      "buyPage": 2,
-      "buyPageOrder": 4,
-      "pain": "EU AI Act Article 4 mandates AI literacy training — penalties up to 7 % of global revenue, in force now.",
-      "proofChip": "Reg. 2024/1689 Art. 4 mandatory",
-      "proofSource": "EU AI Act Reg. 2024/1689 Art. 4 (in force 2 Feb 2025)"
+      "storeCategory": "advisory"
     },
     "firehorse-flow": {
       "id": "firehorse-flow",
@@ -750,151 +585,170 @@
         "Results in under 2 weeks"
       ],
       "priceNote": "Setup + implementation",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "../products/firehorse-flow.html",
+      "detailsUrl": "mailto:sales@lifetime.fi",
       "featured": false,
       "google": {
-        "productCategory": "1505",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Firehorse",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "fi"
       },
-      "storeCategory": "digital",
-      "productType": "archived"
+      "storeCategory": "digital"
+    },
+    "omnichannel-multimodal": {
+      "id": "omnichannel-multimodal",
+      "gtin": null,
+      "mpn": "FH-OMNI-MM-2026",
+      "name": "Firehorse Omnichannel & Multimodal AI Assistant",
+      "price": 699,
+      "currency": "EUR",
+      "type": "monthly",
+      "description": "Stop guessing which channels convert. AI-optimized campaign management across all your marketing channels with daily performance measurement and automated optimization. Know exactly where your next customer is coming from.",
+      "features": [
+        "AI-optimized campaign management",
+        "Daily performance measurement",
+        "Automated channel optimization"
+      ],
+      "priceNote": "Monthly subscription",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/Firehorse_Store.jpg",
+      "detailsUrl": "mailto:sales@lifetime.fi",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Firehorse",
+        "targetCountry": "FI",
+        "contentLanguage": "fi"
+      },
+      "storeCategory": "advisory"
     },
     "professional-web-pages": {
       "id": "professional-web-pages",
       "gtin": null,
       "mpn": "WEB-PAGES-2026",
-      "name": "Professional Dynamic Web Pages",
-      "price": 1099,
+      "name": "Professional Web Pages",
+      "price": 799,
       "currency": "EUR",
       "type": "one-time",
-      "description": "A professional web presence in days, not months. Responsive, modern pages built with React, Python, or a polyglot stack — your choice. AI chatbot and e-commerce add-ons available when you are ready to scale. One-day senior engagement.",
+      "description": "A professional web presence in days, not months. Responsive pages built with React, Blazor, WordPress, or Squarespace \u2014 your choice. AI chatbot and e-commerce add-ons available when you are ready to scale.",
       "features": [
-        "React, Python, or polyglot stack",
+        "React, Blazor or WordPress",
         "AI chatbot add-on available",
-        "Modern responsive design"
+        "Professional web presence fast"
       ],
-      "priceNote": "Per day, VAT excl.",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "priceNote": "Starting price",
+      "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "../products/professional-web-pages.html",
+      "detailsUrl": "mailto:sales@lifetime.fi",
       "featured": false,
       "google": {
-        "productCategory": "1426",
+        "productCategory": "Business & Industrial > Business Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "fi"
       },
-      "storeCategory": "digital",
-      "productType": "delivery-service",
-      "buyPage": 2,
-      "buyPageOrder": 5,
-      "pain": "Your one-pager looks like a Wix demo — investors and CFOs scroll past in 4 seconds.",
-      "proofChip": "Cloudflare edge · 100/100 Lighthouse",
-      "proofSource": "Google Lighthouse Web Vitals 2024 thresholds"
+      "storeCategory": "digital"
     },
     "secure-email-proton": {
       "id": "secure-email-proton",
       "gtin": null,
-      "mpn": "PROTON-WORKSPACE-2026",
-      "name": "Proton Workspace Implementation — Privacy-First Business Suite",
+      "mpn": "PROTON-EMAIL-2026",
+      "name": "Protonmail Secure Email & Domains Implementation",
       "price": 499,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Replace Google Workspace or Microsoft 365 with a privacy-first alternative — no tracking, no ads, no data monetization. Proton Workspace bundles Mail, Calendar, Drive, Docs, Sheets, Meet (video calls + booking pages), VPN (19,836 servers, 145 countries), and Pass. GDPR, NIS2 and EU AI Act compliant. 8-hour implementation, fully operational by end of day.",
+      "description": "GDPR-compliant email in one business day. Full Proton Business Suite \u2014 encrypted email, cloud storage, password manager, and VPN. Meets GDPR, NIS2, and EU AI Act requirements. 8-hour implementation, fully operational by end of day.",
       "features": [
-        "Proton Meet: private video calls + appointment booking pages",
-        "Full suite: Mail, Calendar, Drive, Docs, Sheets, VPN, Pass",
-        "GDPR, NIS2 & EU AI Act compliant — operational in 1 business day"
+        "GDPR-compliant encrypted email",
+        "NIS2 & EU AI Act compliant",
+        "Operational in 1 business day"
       ],
-      "priceNote": "8-hour implementation — Proton Mail/Drive from €1 first month",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "priceNote": "8-hour implementation",
+      "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "../products/secure-email-proton.html",
+      "detailsUrl": "mailto:sales@lifetime.fi",
       "featured": false,
       "google": {
-        "productCategory": "1426",
+        "productCategory": "Business & Industrial > Business Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "fi"
       },
-      "storeCategory": "digital",
-      "productType": "delivery-service",
-      "buyPage": 2,
-      "buyPageOrder": 6,
-      "pain": "Your team uses Gmail — every attachment is parsed by Google AI and indexed for ads.",
-      "proofChip": "Swiss jurisdiction · E2E encrypted",
-      "proofSource": "Swiss Federal Data Protection Act 2023 + Proton AG"
+      "storeCategory": "digital"
     },
     "firehorse-data-services": {
       "id": "firehorse-data-services",
       "gtin": null,
       "mpn": "FH-DATA-2026",
       "name": "Firehorse Data Services",
-      "price": 1500,
+      "price": 899,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Connect your ERP, Salesforce, compliance systems, and operational data so every AI agent and sales rep works from the same live picture. ERP connections, RAG pipelines, Salesforce Agent data feeds, and LLM integration in days, not quarters.",
+      "description": "Your data is worth more than you think. API-driven data products, brokerage strategy, and enrichment services that turn raw operational data into revenue and compliance insights. Remote and on-site consulting available.",
       "features": [
-        "ERP connections (SAP, IFS, Dynamics, Monitor)",
-        "LLM models (Claude, GPT, Gemini, Groq)",
-        "RAG pipelines on your data"
+        "API-driven data products",
+        "Data monetization strategy",
+        "Remote and on-site consulting"
       ],
-      "priceNote": "Per day, VAT excl.",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "priceNote": "Consultancy engagement",
+      "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "../products/firehorse-data-services.html",
+      "detailsUrl": "mailto:sales@lifetime.fi",
       "featured": false,
       "google": {
-        "productCategory": "1426",
+        "productCategory": "Business & Industrial > Business Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Firehorse",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "fi"
       },
-      "storeCategory": "digital",
-      "productType": "delivery-service",
-      "buyPage": 2,
-      "buyPageOrder": 7,
-      "pain": "Connect your ERP, Salesforce Agents, and compliance systems. One data layer. Days, not quarters.",
-      "proofChip": "Unified pipeline · audit-grade",
-      "proofSource": "Lifetime Oy customer pipeline benchmark 2025",
-      "heroText": "Your Salesforce Agents can't close deals they can't see — connect your ERP, compliance data, and operational systems so every AI agent and sales rep works from the same live picture.",
-      "connectors": [
-        "SAP S/4HANA (OData V4)",
-        "Dynamics 365",
-        "IFS Cloud",
-        "Monitor G5",
-        "Procountor",
-        "Netvisor",
-        "Salesforce (Agentforce data feeds)",
-        "Microsoft Graph API"
+      "storeCategory": "digital"
+    },
+    "agentti-sanasto": {
+      "id": "agentti-sanasto",
+      "gtin": null,
+      "mpn": "AGENT-GLOSSARY-2026",
+      "name": "Agentti Sanasto Englanti-Suomi",
+      "price": 0.99,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Master AI agent terminology in Finnish. Comprehensive English-to-Finnish glossary covering all key agentic AI concepts with detailed explanations. Essential reference for Finnish tech teams working with international AI tools.",
+      "features": [
+        "English-Finnish AI terminology",
+        "Comprehensive agent concepts",
+        "Essential for Finnish tech teams"
       ],
-      "dataFlows": [
-        "Compliance pipelines — CSRD Scope 1-3 from ERP to disclosure",
-        "Sales intelligence — deal history and contract data to Salesforce Agents",
-        "AI/LLM — RAG pipelines from structured operational data",
-        "Operational dashboards — real-time ERP feeds"
-      ],
-      "salesforceNote": "Salesforce Agentforce integration: feeds live ERP, contract, and compliance context to Salesforce Agents so they can act on complete data. Order-to-cash reconciliation flows back from Salesforce to ERP."
+      "priceNote": "1-year license",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/Firehorse_Store.jpg",
+      "detailsUrl": "mailto:sales@lifetime.fi",
+      "featured": false,
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "fi"
+      },
+      "storeCategory": "digital"
     },
     "devops-lead": {
       "id": "devops-lead",
@@ -911,97 +765,80 @@
         "30-day performance monitoring"
       ],
       "priceNote": "Foundation package",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "../products/devops-lead.html",
+      "detailsUrl": "mailto:sales@lifetime.fi",
       "featured": false,
       "google": {
-        "productCategory": "1505",
+        "productCategory": "Business & Industrial > Business Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "ai-cloud",
-      "productType": "archived"
+      "storeCategory": "ai-cloud"
     },
     "digital-design-gold": {
       "id": "digital-design-gold",
       "gtin": null,
       "mpn": "DESIGN-GOLD-2026",
-      "name": "Digital Design Gold V2",
-      "price": 24990,
+      "name": "Digital Design Gold",
+      "price": 2499,
       "currency": "EUR",
       "type": "one-time",
-      "description": "The Gold-tier production engine for enterprise brands. Digital Design Gold delivers the full stack: your own Gold Standards (brand, document, design, and security standards rebranded for your company), Gold Skillful Agents trained on those standards, and the Firehorse production engine that outputs every marketing asset, campaign visual, compliance report, and live analytics dashboard — all governed by one signed standard. One engagement, one source of truth, zero template chaos.",
+      "description": "Your brand deserves more than templates. Digital Design Gold delivers a complete digital content repository — brand assets, marketing collateral, campaign visuals, and analytics dashboards — all governed by your brand standard. From identity system to live campaign intelligence in one engagement.",
       "features": [
-        "Gold Standards — your own brand, doc, design + security canon",
-        "Gold Skillful Agents trained on your Gold Standards",
-        "Firehorse production engine for every marketing asset",
-        "Live analytics dashboards governed by Gold Standards"
+        "Complete brand asset system",
+        "Campaign visual library",
+        "Live analytics dashboards"
       ],
-      "priceNote": "One-time setup, VAT excl.",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "priceNote": "One-time setup",
+      "revolutLink": null,
       "paypalPlanId": null,
-      "image": "/static/images/digital-design-gold-hero.png",
-      "detailsUrl": "../products/digital-design-gold.html",
+      "image": "/static/images/Firehorse_Store.jpg",
+      "detailsUrl": "mailto:sales@lifetime.fi",
       "featured": false,
       "google": {
-        "productCategory": "1426",
+        "productCategory": "Business & Industrial > Business Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "digital",
-      "productType": "delivery-service",
-      "buyPage": 1,
-      "buyPageOrder": 9,
-      "pain": "Your website looks like 2019 — buyers click away in 8 seconds, gone before trust loads.",
-      "proofChip": "Conversion-optimized · DWS Brand Standard",
-      "proofSource": "Nielsen Norman Group attention benchmarks 2024"
+      "storeCategory": "digital"
     },
     "cloud-ready-teams": {
       "id": "cloud-ready-teams",
       "gtin": null,
       "mpn": "CRT-2026",
       "name": "On-Demand AI & Cloud Engineers",
-      "price": 1500,
+      "price": 950,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Pre-vetted senior AI and cloud engineers on-demand at €200/hour senior rate. One day of expert time to scope, architect, or deploy — covers AWS, Azure, GCP, Kubernetes, and agentic AI stacks. Skip the 3-month recruitment cycle and ship this week.",
+      "description": "Need expert developers this week, not next quarter? Pre-vetted cloud and AI professionals ready for immediate deployment. Skip the 3-month recruitment cycle and start building today.",
       "features": [
-        "Senior AI & Cloud engineers",
-        "€200/hour senior rate",
+        "Pre-vetted AI & Cloud engineers",
+        "Immediate team deployment",
         "Skip 3-month recruitment cycle"
       ],
-      "priceNote": "Per day, VAT excl.",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "priceNote": "Team setup",
+      "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "../products/cloud-ready-teams.html",
+      "detailsUrl": "mailto:sales@lifetime.fi",
       "featured": false,
       "google": {
-        "productCategory": "1426",
+        "productCategory": "Business & Industrial > Business Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "digital",
-      "productType": "delivery-service",
-      "buyPage": 2,
-      "buyPageOrder": 8,
-      "pain": "You need 3 senior cloud engineers in 30 days — recruiting timeline says 9 months and €450K loaded.",
-      "proofChip": "Vetted seniors · start in 7 days",
-      "proofSource": "Lifetime Oy bench + LinkedIn Workforce Report 2024"
+      "storeCategory": "digital"
     },
     "ai-koulutus-3d": {
       "id": "ai-koulutus-3d",
@@ -1011,29 +848,27 @@
       "price": 6250,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Transform your team from AI-curious to AI-productive in 3 days. In-house training covering strategy, hands-on implementation, and tool adoption. EU AI Act Article 4 requires AI literacy — this programme gets you compliant and productive.",
+      "description": "Transform your team from AI-curious to AI-productive in 3 days. In-house training covering strategy, hands-on implementation, and tool adoption. EU AI Act Article 4 requires AI literacy \u2014 this programme gets you compliant and productive.",
       "features": [
         "Strategy to implementation in 3 days",
         "EU AI Act Article 4 compliant",
         "In-house team training"
       ],
       "priceNote": "3-day programme",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "../products/ai-koulutus-3d.html",
+      "detailsUrl": "mailto:sales@lifetime.fi",
       "featured": false,
       "google": {
-        "productCategory": "1426",
+        "productCategory": "Business & Industrial > Business Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "fi"
       },
-      "storeCategory": "advisory",
-      "productType": "archived"
+      "storeCategory": "advisory"
     },
     "ai-consulting-agentic": {
       "id": "ai-consulting-agentic",
@@ -1043,78 +878,64 @@
       "price": 2500,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Your competitors are shipping 10x faster with AI agents. We assess your codebase, run AGENTS.md workshops, restructure for agentic development, and set up quality governance — from practitioners building with Claude Code and Codex daily. 88% of enterprises are increasing agentic AI budgets in 2026.",
+      "description": "Your competitors are shipping 10x faster with AI agents. We assess your codebase, run AGENTS.md workshops, restructure for agentic development, and set up quality governance \u2014 from practitioners building with Claude Code and Codex daily. 88% of enterprises are increasing agentic AI budgets in 2026.",
       "features": [
         "Agentic development assessment",
         "AGENTS.md workshops & restructuring",
         "Quality governance setup"
       ],
-      "priceNote": "One-time assessment and implementation package.",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "priceNote": "Assessment from €2,500 | Retainers from €5,000/mo",
+      "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
       "detailsUrl": "../products/ai-consulting.html",
       "featured": true,
       "google": {
-        "productCategory": "1426",
+        "productCategory": "Business & Industrial > Business Services",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "ai-cloud",
-      "productType": "consulting-substance",
-      "buyPage": 2,
-      "buyPageOrder": 2,
-      "pain": "Your devs ship 3× slower than competitors using Claude/Cursor — engineering payroll keeps growing.",
-      "proofChip": "10× dev velocity case studies",
-      "proofSource": "Anthropic 2025 + Cursor productivity benchmarks 2025"
+      "storeCategory": "ai-cloud"
     },
     "edge-node-gn100": {
       "id": "edge-node-gn100",
       "gtin": null,
       "mpn": "LF-EDGE-GN100-2026",
-      "name": "DWS Control Room / Situation Room Nodes",
+      "name": "Acer Veriton GN100 — EU Sovereign Edge AI Node",
       "price": 3999,
       "currency": "EUR",
       "type": "one-time",
-      "description": "EU-sovereign edge AI built on Acer Veriton GN100 hardware. Zero cloud dependency, zero CLOUD Act exposure. 20 cores, 120 GiB RAM per unit, runs Qwen 2.5 72B (QLoRA) locally with OpenSandbox agent isolation. Pricing: Acer base ~2 980 € + DWS sovereignty bundle (air-gap config, OpenSandbox setup, 2-unit redundancy) = ≈ 4 000 € VAT-incl (25,5 %). Minimum order 2 units for Control Room + Situation Room redundancy.",
+      "description": "Run DWS IQ 6 entirely on your premises — zero cloud dependency, zero CLOUD Act exposure. The Acer Veriton GN100 is the reference hardware for Lifetime's EU sovereign edge AI stack: 20 cores, 120 GiB RAM, runs Qwen 2.5 72B (QLoRA) locally with OpenSandbox agent isolation. Minimum order 2 units for control room + situation room redundancy.",
       "features": [
-        "DWS Control Room / Situation Room pair (2-unit min)",
-        "Acer Veriton GN100 — 20 cores / 120 GiB RAM per node",
-        "≈ 4 000 € VAT-incl per node · EU sovereign, zero CLOUD Act"
+        "EU air-gapped sovereign AI inference",
+        "20 cores / 120 GiB RAM per node",
+        "Minimum 2 units — €7,998 total"
       ],
-      "priceNote": "≈ 4 000 € per node VAT-incl · Acer Veriton GN100 + DWS sovereignty bundle · min 2 units",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "priceNote": "€3,999 per unit · minimum 2 units (€7,998)",
+      "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
       "detailsUrl": "../products/edge-node-gn100.html",
       "featured": true,
       "google": {
-        "productCategory": "2682",
+        "productCategory": "Electronics > Computers > Desktop Computers",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Acer",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "hardware",
-      "productType": "sovereign-infra",
-      "buyPage": 1,
-      "buyPageOrder": 11,
-      "pain": "Your AI inference runs in someone else's datacenter — every prompt is exfiltrated by default.",
-      "proofChip": "Air-gapped · 20 cores · 120 GiB",
-      "proofSource": "Acer Veriton GN100 manufacturer spec + DWS sovereignty bundle"
+      "storeCategory": "hardware"
     },
     "DWS-SOVEREIGN-DB-001": {
       "id": "DWS-SOVEREIGN-DB-001",
       "gtin": null,
       "mpn": "SOVEREIGN-DB-2026",
       "name": "Sovereign Database — EU Data Sovereignty for PostgreSQL",
-      "price": 99,
+      "price": 0,
       "currency": "EUR",
       "type": "one-time",
       "description": "Your EU customer data on a US-owned cloud is a liability. Sovereign Database eliminates CLOUD Act exposure with EU-hosted, EU-owned PostgreSQL, continuous sovereignty monitoring, and automated compliance scoring. Free assessment, paid tiers from €499/mo.",
@@ -1123,28 +944,21 @@
         "Continuous sovereignty monitoring agent",
         "8-dimension compliance scoring"
       ],
-      "priceNote": "One-time sovereign database implementation package.",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "priceNote": "Assess: Free | Standard: €499/mo | Growth: €1,499/mo | Enterprise: €4,999/mo",
+      "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
       "detailsUrl": "../products/sovereign-database.html",
       "featured": true,
       "google": {
-        "productCategory": "1505",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "platform",
-      "productType": "sovereign-infra",
-      "buyPage": 1,
-      "buyPageOrder": 12,
-      "pain": "Customer data on US-controlled Postgres — GDPR Art. 44-49 violation waiting to happen.",
-      "proofChip": "EU-only · Schrems II safe",
-      "proofSource": "GDPR Reg. 2016/679 Art. 44-49 + Schrems II C-311/18"
+      "storeCategory": "platform"
     },
     "sovereignty-cloud-consulting": {
       "id": "sovereignty-cloud-consulting",
@@ -1153,49 +967,37 @@
       "name": "Sovereignty Cloud Consulting – European Cloud Migration",
       "price": 1500,
       "currency": "EUR",
-      "type": "one-time",
-      "stripeSubscriptionPriceId": "price_sovereignty_consulting_monthly",
-      "description": "Your US-hosted data is exposed to the CLOUD Act — and your EU clients know it. We migrate you to sovereign European infrastructure (OVHcloud, Hetzner, Supabase EU) with DPA creation, NIS2 compliance, and EU AI Act alignment. 78% of EU companies plan to reduce US cloud dependency.",
+      "type": "monthly",
+      "description": "Your US-hosted data is exposed to the CLOUD Act \u2014 and your EU clients know it. We migrate you to sovereign European infrastructure (OVHcloud, Hetzner, Supabase EU) with DPA creation, NIS2 compliance, and EU AI Act alignment. 78% of EU companies plan to reduce US cloud dependency.",
       "features": [
         "European sovereign cloud migration",
         "CLOUD Act free infrastructure",
         "NIS2, GDPR & EU AI Act aligned"
       ],
       "priceNote": "Standard €1,500/mo | Growth €3,000/mo | Partner from €5,000/mo",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
       "detailsUrl": "../products/sovereignty-cloud-consulting.html",
       "featured": true,
       "google": {
-        "productCategory": "1426",
+        "productCategory": "Business & Industrial > Business Services",
         "condition": "new",
         "availability": "in_stock",
-        "subscriptionCost": "1500 EUR",
-        "subscriptionPeriod": "month",
-        "subscriptionPeriodLength": 1,
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "ai-cloud",
-      "productType": "consulting-substance",
-      "buyPage": 1,
-      "buyPageOrder": 15,
-      "pain": "Migrating off AWS feels impossible — your team has never run sovereign infra and the clock is ticking.",
-      "proofChip": "Migration playbook · Hetzner/Scaleway/UpCloud",
-      "proofSource": "Lifetime Oy 12-customer migration corpus 2024-2025"
+      "storeCategory": "ai-cloud"
     },
     "DWS-US-STARTER": {
       "id": "DWS-US-STARTER",
       "gtin": null,
       "mpn": "DWS-US-STARTER-2026",
-      "name": "DWS IQ — US Cloud Navigator",
+      "name": "DWS IQ — US Cloud Starter",
       "price": 299,
       "currency": "EUR",
-      "type": "one-time",
-      "stripeSubscriptionPriceId": "price_DWS_US_STARTER_monthly",
+      "type": "monthly",
       "description": "Get started with DWS IQ on US Cloud infrastructure (Supabase + Cloudflare). 3 AI agents, basic CSRD dashboard, 1 user seat. Fastest path to compliance — upgrade to EU Sovereign anytime.",
       "features": [
         "3 AI agents (Compliance, Report, Discovery)",
@@ -1203,40 +1005,29 @@
         "Supabase + Cloudflare infrastructure"
       ],
       "priceNote": "€299/mo + €990 one-time setup | Annual: 2 months free",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
       "detailsUrl": "../products/cloud-pricing.html",
       "featured": false,
       "google": {
-        "productCategory": "1505",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
-        "subscriptionCost": "299 EUR",
-        "subscriptionPeriod": "month",
-        "subscriptionPeriodLength": 1,
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "ai-cloud",
-      "productType": "us-stack",
-      "buyPage": 3,
-      "buyPageOrder": 6,
-      "pain": "You need US-region AI inference now — but you do not want to spend a quarter procuring infra.",
-      "proofChip": "US-East/West · live in 24h",
-      "proofSource": "Lifetime Oy US deployment SLA 2025"
+      "storeCategory": "ai-cloud"
     },
     "DWS-US-PILOT": {
       "id": "DWS-US-PILOT",
       "gtin": null,
       "mpn": "DWS-US-PILOT-2026",
-      "name": "DWS IQ — US Cloud Premium",
+      "name": "DWS IQ — US Cloud Pilot",
       "price": 799,
       "currency": "EUR",
-      "type": "one-time",
-      "stripeSubscriptionPriceId": "price_DWS_US_PILOT_monthly",
+      "type": "monthly",
       "description": "4-week evaluation with real data on US Cloud. 8 AI agents, Firehorse Report, 5 seats, kickoff workshop. Prove ROI before scaling — upgrade to EU Sovereign anytime.",
       "features": [
         "8 AI agents (full Firehorse suite)",
@@ -1244,40 +1035,29 @@
         "5 user seats + kickoff workshop"
       ],
       "priceNote": "€799/mo + €2,490 one-time setup | Annual: 2 months free",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
       "detailsUrl": "../products/cloud-pricing.html",
       "featured": false,
       "google": {
-        "productCategory": "1505",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
-        "subscriptionCost": "799 EUR",
-        "subscriptionPeriod": "month",
-        "subscriptionPeriodLength": 1,
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "ai-cloud",
-      "productType": "us-stack",
-      "buyPage": 3,
-      "buyPageOrder": 7,
-      "pain": "Your US business needs a real production pilot — not a sandbox with rate-limit warnings.",
-      "proofChip": "Dedicated tenant · 99.9 % SLA",
-      "proofSource": "Lifetime Oy US enterprise SLA 2025"
+      "storeCategory": "ai-cloud"
     },
     "DWS-EU-STARTER": {
       "id": "DWS-EU-STARTER",
       "gtin": null,
       "mpn": "DWS-EU-STARTER-2026",
-      "name": "DWS IQ — Enterprise Navigator",
+      "name": "DWS IQ — EU Sovereign Starter",
       "price": 499,
       "currency": "EUR",
-      "type": "one-time",
-      "stripeSubscriptionPriceId": "price_DWS_EU_STARTER_monthly",
+      "type": "monthly",
       "description": "DWS IQ on EU sovereign infrastructure (Aiven PostgreSQL + Hetzner/Scaleway). 3 AI agents, CSRD dashboard, zero CLOUD Act exposure, sovereignty score monitoring. EU data residency from day 1.",
       "features": [
         "Zero CLOUD Act exposure (EU-owned providers)",
@@ -1285,71 +1065,50 @@
         "Sovereignty score monitoring"
       ],
       "priceNote": "€499/mo + €1,490 one-time setup | Annual: 2 months free",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
       "detailsUrl": "../products/cloud-pricing.html",
       "featured": true,
       "google": {
-        "productCategory": "1505",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
-        "subscriptionCost": "499 EUR",
-        "subscriptionPeriod": "month",
-        "subscriptionPeriodLength": 1,
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "ai-cloud",
-      "productType": "sovereign-infra",
-      "buyPage": 1,
-      "buyPageOrder": 13,
-      "pain": "Your team needs sovereign AI today — procurement will not approve €60K without a pilot.",
-      "proofChip": "EU Cloud · production-ready in 24h",
-      "proofSource": "Lifetime Oy launch SLA 2025"
+      "storeCategory": "ai-cloud"
     },
     "DWS-EU-PILOT": {
       "id": "DWS-EU-PILOT",
       "gtin": null,
       "mpn": "DWS-EU-PILOT-2026",
-      "name": "DWS IQ — Enterprise Premium",
+      "name": "DWS IQ — EU Sovereign Pilot",
       "price": 1499,
       "currency": "EUR",
-      "type": "one-time",
-      "stripeSubscriptionPriceId": "price_DWS_EU_PILOT_monthly",
-      "description": "Full EU sovereign evaluation. 8 AI agents, Firehorse Report, EU AI Act Article 12 logging, NIS2 dashboard, 5 seats. Zero CLOUD Act. Prove compliance ROI on sovereign infrastructure.",
+      "type": "monthly",
+      "description": "Full EU sovereign evaluation. 8 AI agents, Firehorse Report, Aiwen EU AI Act Article 12 logging, NIS2 dashboard, 5 seats. Zero CLOUD Act. Prove compliance ROI on sovereign infrastructure.",
       "features": [
-        "8 AI agents + EU AI Act Article 12 logging",
+        "8 AI agents + Aiwen Article 12 logging",
         "NIS2 compliance dashboard",
         "Zero CLOUD Act + EU data residency"
       ],
       "priceNote": "€1,499/mo + €3,990 one-time setup | Annual: 2 months free",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
       "detailsUrl": "../products/cloud-pricing.html",
       "featured": true,
       "google": {
-        "productCategory": "1505",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
-        "subscriptionCost": "1499 EUR",
-        "subscriptionPeriod": "month",
-        "subscriptionPeriodLength": 1,
         "brand": "Lifetime",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "ai-cloud",
-      "productType": "sovereign-infra",
-      "buyPage": 1,
-      "buyPageOrder": 14,
-      "pain": "You need a real production sovereign deployment — not a demo, not a slide deck.",
-      "proofChip": "Dedicated tenant · SLA-backed",
-      "proofSource": "Lifetime Oy enterprise SLA 2025"
+      "storeCategory": "ai-cloud"
     },
     "DWS-CLIMATE-001": {
       "id": "DWS-CLIMATE-001",
@@ -1358,280 +1117,59 @@
       "name": "DWS IQ Climate Intelligence",
       "price": 2999,
       "currency": "EUR",
-      "type": "one-time",
-      "stripeSubscriptionPriceId": "price_DWS_CLIMATE_monthly",
-      "description": "Deploy 8 Skilled Agents that deliver audit-ready EU climate compliance outcomes — ETS allowance calculations, CBAM import obligations, CSRD disclosure reports, and continuous carbon accounting. Skilled-Agent-delivered outcomes, not dashboards. The Agent Outcome Factory for climate compliance.",
+      "type": "monthly",
+      "description": "Deploy 8 GodAgents that deliver audit-ready EU climate compliance outcomes — ETS allowance calculations, CBAM import obligations, CSRD disclosure reports, and continuous carbon accounting. GodAgent-delivered outcomes, not dashboards. The Agent Outcome Factory for climate compliance.",
       "features": [
-        "8 specialized Skilled Agents for climate compliance",
+        "8 specialized GodAgents for climate compliance",
         "ETS, CBAM, CSRD & Fit for 55 automation",
         "Deterministic scoring with validated EU data sources"
       ],
       "priceNote": "€2,999/mo + €4,990 one-time setup | Annual: 2 months free",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
       "detailsUrl": "../products/climate-intelligence.html",
       "featured": true,
       "google": {
-        "productCategory": "1505",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "in_stock",
-        "subscriptionCost": "2999 EUR",
-        "subscriptionPeriod": "month",
-        "subscriptionPeriodLength": 1,
         "brand": "DWS IQ",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "platform",
-      "productType": "dws-iq-platform",
-      "buyPage": 1,
-      "buyPageOrder": 10,
-      "pain": "CSRD audit lands Q1 — and you do not have a single emission number in the right ESRS format.",
-      "proofChip": "CBAM Reg 2023/956 · EU ETS factors",
-      "proofSource": "EU ETS Benchmark Reg. 2021/447 + CBAM Reg. 2023/956 + IPCC 2006"
+      "storeCategory": "platform"
     },
     "DWS-AEGIS-001": {
       "id": "DWS-AEGIS-001",
       "gtin": null,
       "mpn": "DWS-AEGIS-2026",
-      "name": "DWS IQ Aegis — Full Sovereignty",
+      "name": "DWS IQ Aegis",
       "price": 59990,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Single-tenant sovereign AI platform on Finnish infrastructure (UpCloud Kubernetes, Helsinki DC). 21+ industrial AI agents across 21 EU-regulated industries including dual-use critical raw materials. Cross-vertical signal propagation detects compliance cascades invisible to single-industry tools. Sovereignty monitoring, KYA agent governance, EU AI Act Article 12 compliance. CER Directive, CRM Act, KRITIS, NIS2 coverage. Zero CLOUD Act exposure. Available August 2026.",
+      "description": "Single-tenant sovereign AI platform on Finnish infrastructure (UpCloud Kubernetes, Helsinki DC). 18 AI agents across 21 EU-regulated industries including dual-use critical raw materials. Three tiers: Standard, Defence (GPU + SAR), Sovereign (air-gapped). EDIP-ready (Article 9 eligible). Cross-vertical signal propagation, KYA agent governance, EU AI Act Article 12 compliance. Zero CLOUD Act exposure. Available August 2026.",
       "features": [
-        "Full Sovereignty — single-tenant EU platform, zero CLOUD Act exposure",
         "Cross-vertical intelligence — detect supply chain cascades across 21 industries",
         "EU-sovereign — Finnish-owned infrastructure, zero CLOUD Act exposure",
         "Dual-use compliance — CER, CRM Act, KRITIS, NIS2, EU AI Act, CBAM, ETS"
       ],
-      "priceNote": "One-time platform deployment package.",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
+      "priceNote": "From €59,990 onboarding + integration. Standard €999/mo | Defence €1,999/mo | Sovereign €4,999/mo",
+      "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/firehorse-aegis-head.png",
       "detailsUrl": "../products/aegis.html",
       "featured": true,
       "google": {
-        "productCategory": "1505",
+        "productCategory": "Software > Business & Productivity Software",
         "condition": "new",
         "availability": "preorder",
-        "availabilityDate": "2026-08-02",
         "brand": "DWS IQ",
         "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
+        "contentLanguage": "en"
       },
-      "storeCategory": "platform",
-      "productType": "dws-iq-platform",
-      "buyPage": 1,
-      "buyPageOrder": 1,
-      "pain": "Your AI runs on US clouds — one CLOUD Act subpoena and your audit trail walks across a border without you.",
-      "proofChip": "EU sovereign · CLOUD Act free",
-      "proofSource": "US CLOUD Act 2018 + EU Data Act Reg. 2023/2854"
-    },
-    "DWS-THEMIS-001": {
-      "id": "DWS-THEMIS-001",
-      "gtin": null,
-      "mpn": "DWS-THEMIS-2026",
-      "name": "DWS IQ Themis — The Aegis Control Plane",
-      "price": 14990,
-      "currency": "EUR",
-      "type": "one-time",
-      "description": "The Aegis Control Plane — DWS's proprietary implementation of the open KYA standard. Identity attribution, EU AI Act Article 12 logging pipeline, Annex III systems registry, and runtime policy gating bundled into one sovereign control plane. Bundled at no extra cost with DWS IQ Aegis (Tier 1); standalone SKU for Sovereign Infra (Tier 2) customers running Scaleway / OVH / Red Hat OpenShift / Azure AI Foundry EU. Hash-chained append-only ledger, KYA-attested events, 6-month minimum retention, auditor JSON export under 10 business days. Demo Q2 2026, GA before 2 August 2026 EU AI Act enforcement.",
-      "features": [
-        "KYA-compliant — implements the open KYA standard v1.7",
-        "Article 12 Logging Pipeline with hash-chained append-only ledger",
-        "Annex III Systems Registry + deployment approval workflow",
-        "Runtime Policy Gate with allow/deny/escalate (24h human-review SLA)",
-        "Tier-portable — Aegis-bundled, Tier 2 standalone, Tier 3 SaaS",
-        "Zero CLOUD Act exposure at Tier 1 (no US-parent vendor in data path)"
-      ],
-      "priceNote": "One-time control-plane deployment package. Included at no extra cost in DWS IQ Aegis. Enterprise pricing on request.",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
-      "paypalPlanId": null,
-      "image": "/static/images/firehorse-aegis-head.png",
-      "detailsUrl": "../products/themis.html",
-      "featured": true,
-      "google": {
-        "productCategory": "1505",
-        "condition": "new",
-        "availability": "preorder",
-        "availabilityDate": "2026-08-02",
-        "brand": "DWS IQ",
-        "targetCountry": "FI",
-        "contentLanguage": "fi",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
-      },
-      "storeCategory": "platform",
-      "productType": "dws-iq-platform",
-      "buyPage": 1,
-      "buyPageOrder": 2,
-      "pain": "EU AI Act enforces 2 August 2026 — you need Article 12 logging, Annex III registry, and policy gates. Your existing governance tool (Credo AI, OneTrust, IBM Watsonx) has a US parent, voiding your sovereignty claim.",
-      "proofChip": "KYA-compliant · EU-built · Aegis Control Plane",
-      "proofSource": "KYA Standard v1.7 + EU AI Act Articles 9, 12, 14, 17, 26, 43, 72, 73"
-    },
-    "FH-FPE-001": {
-      "id": "FH-FPE-001",
-      "gtin": null,
-      "mpn": "FH-FPE-CONSTRUCTION-2026",
-      "name": "Firehorse FPE Continuity Pack — Construction Edition",
-      "price": 14999,
-      "currency": "EUR",
-      "type": "one-time",
-      "description": "You invested in AI. One bad layoff can wipe out that value. FPE costs €14,999 to reduce weakest-link failure in 5 critical workflows — pick the most critical first; the other four follow inside the same 30 days. Each becomes operator-independent — KYA-signed, EU AI Act Article 12 logged, with a named owner and a named successor. Built for EU construction firms exposed to the 2024–2025 layoff wave.",
-      "features": [
-        "5 critical operator-bound workflows mapped, owned, made operator-independent",
-        "Pick the most critical first — the other four follow inside the same 30-day pack",
-        "KYA agent governance signature on every action",
-        "EU AI Act Article 12 audit log",
-        "30-day signed continuity audit (CFO + board readable)",
-        "Bolts onto Firehorse Starter V2 engine and existing AI investment",
-        "Construction scope: BIM, cost estimation, schedule, CSRD, CBAM, EN 15978 carbon, site safety, procurement"
-      ],
-      "priceNote": "One-time, 30-day delivery. CFO sign-off direct (under €15k procurement threshold).",
-      "revolutLink": "https://checkout.revolut.com/pay/3b94d171-0a5d-48da-bb35-18ce5a592672",
-      "paypalPlanId": null,
-      "image": "/static/images/firehorse-starter-v2.png",
-      "detailsUrl": "https://lifetime.fi/firehorse-production-engine/",
-      "featured": true,
-      "google": {
-        "productCategory": "1505",
-        "condition": "new",
-        "availability": "in_stock",
-        "brand": "Firehorse",
-        "targetCountry": "FI",
-        "contentLanguage": "en",
-        "checkoutLinkTemplate": "https://dws10.com/checkout/"
-      },
-      "storeCategory": "platform",
-      "productType": "firehorse-saas",
-      "buyPage": 1,
-      "buyPageOrder": 3,
-      "pain": "EU construction is mid-correction. Finnish construction employment dropped sharply in 2023–2024 (Statistics Finland). Lehto Group filed for bankruptcy March 2024; YIT and SRV announced co-determination rounds 2023–2024. When the operator who built your AI workflow is the one let go, the workflow stops.",
-      "proofChip": "Reduces weakest-link failure in one critical workflow",
-      "proofSource": "Statistics Finland construction employment release 2024; YIT Oyj and SRV Group stock-exchange notices 2023–2024; Lehto Group bankruptcy filing March 2024 (public press)"
+      "storeCategory": "platform"
     }
-  },
-  "priceList": {
-    "version": "2026.Q2",
-    "stampQuarter": "Q2 2026",
-    "stampDate": "2026-04-01",
-    "effectiveDate": "2026-04-01",
-    "validUntil": "2026-06-30",
-    "nextReviewDate": "2026-07-01",
-    "reviewCadence": "quarterly",
-    "quarterSchedule": {
-      "Q1": {
-        "stamp": "YYYY-01-01",
-        "validUntil": "YYYY-03-31"
-      },
-      "Q2": {
-        "stamp": "YYYY-04-01",
-        "validUntil": "YYYY-06-30"
-      },
-      "Q3": {
-        "stamp": "YYYY-07-01",
-        "validUntil": "YYYY-09-30"
-      },
-      "Q4": {
-        "stamp": "YYYY-10-01",
-        "validUntil": "YYYY-12-31"
-      }
-    },
-    "policy": {
-      "currency": "EUR",
-      "vatTreatment": "B2B_VAT_0",
-      "vatNote": "List prices are B2B, EUR, VAT 0% (reverse charge for EU intra-community supplies with valid VAT ID). Country-specific VAT is added at checkout if applicable.",
-      "paymentTerms": "Net 14 days",
-      "quoteValidity": "90 days from stamp date (quarterly)",
-      "incoterms": "Digital delivery unless stated otherwise"
-    },
-    "vatReference": {
-      "note": "DWS lists B2B prices at VAT 0% (reverse charge). These are the national consumer-VAT rates that apply to local billing. Source: European Commission — VAT rates applied in the Member States of the European Union, effective 2026.",
-      "source": "EC TAXUD/TAX_UD — VAT Rates 2026 (https://taxation-customs.ec.europa.eu/vat-rates_en)",
-      "countries": [
-        {
-          "language": "en",
-          "country": "EU",
-          "label": "EU B2B (reverse charge)",
-          "standardRate": 0,
-          "displayRate": "0%",
-          "note": "Cross-border B2B with valid EU VAT number — reverse charge under Art. 196 VAT Directive 2006/112/EC."
-        },
-        {
-          "language": "fi",
-          "country": "FI",
-          "label": "Finland",
-          "standardRate": 25.5,
-          "displayRate": "25,5%",
-          "note": "Standard FI VAT (raised from 24% to 25.5% on 2024-09-01, confirmed for 2026)."
-        },
-        {
-          "language": "sv",
-          "country": "SE",
-          "label": "Sweden",
-          "standardRate": 25,
-          "displayRate": "25%",
-          "note": "Standard SE moms (reduced rates 12% / 6% exist for specific categories)."
-        },
-        {
-          "language": "de",
-          "country": "DE",
-          "label": "Germany",
-          "standardRate": 19,
-          "displayRate": "19%",
-          "note": "Standard DE Mehrwertsteuer (reduced 7% for certain categories)."
-        },
-        {
-          "language": "fr",
-          "country": "FR",
-          "label": "France",
-          "standardRate": 20,
-          "displayRate": "20%",
-          "note": "Standard FR TVA (reduced rates 10% / 5.5% / 2.1% exist for specific categories)."
-        }
-      ]
-    },
-    "governance": {
-      "owner": "Risto Anton Päärni",
-      "legalEntity": "Lifetime Oy",
-      "businessId": "0772407-9",
-      "vatId": "FI07724079",
-      "address": "Laidunmaanraitti 2 A 25, 02330 Espoo, Finland",
-      "salesEmail": "sales@lifetime.fi",
-      "canonicalSource": "dws10.com/config/products.json",
-      "singlePointOfTruth": true,
-      "publicPriceListUrl": "https://dws10.com/price-list/"
-    },
-    "changeLog": [
-      {
-        "version": "2026.Q2",
-        "date": "2026-04-23",
-        "change": "Initial centralized price list. Consolidated from products.json; retired stale prices in product-catalog/README.md."
-      },
-      {
-        "version": "2026.Q2",
-        "date": "2026-04-23",
-        "change": "Quote validity extended to 90 days from stamp date (was 30) to match enterprise procurement cycles; quarterSchedule + stampQuarter + validUntil added for explicit Q1/Q2/Q3/Q4 semantics."
-      },
-      {
-        "version": "2026.Q2",
-        "date": "2026-04-23",
-        "change": "Added 5-language VAT reference (EU B2B 0%, FI 25.5%, SE 25%, DE 19%, FR 20%) sourced from EC TAXUD VAT Rates 2026."
-      },
-      {
-        "version": "2026.Q2",
-        "date": "2026-04-25",
-        "change": "DWS-WEB-UPDATE-2026-001: Industrial focus realignment for aws-consultancy, m365-consultancy, firehorse-data-services — updated descriptions, heroText, focus/useCases/connectors/dataFlows/salesforceNote, and price-list card taglines."
-      },
-      {
-        "version": "2026.Q2",
-        "date": "2026-04-27",
-        "change": "FH-FPE-001 added — Firehorse FPE Continuity Pack — Construction Edition (€14,999). Wedge: reduce weakest-link failure in one critical workflow. CFO-direct sign-off (under €15k threshold). Public-source pain trail: Statistics Finland 2023–2024 construction employment, Lehto Group bankruptcy March 2024, YIT/SRV co-determination rounds. Detail page: lifetime.fi/firehorse-production-engine/."
-      }
-    ]
   },
   "settings": {
     "defaultCurrency": "EUR",
@@ -1665,10 +1203,16 @@
     "google": {
       "merchantId": null,
       "feedUrl": "https://dws10.com/feeds/google-products.xml",
-      "targetCountries": ["FI", "SE", "NO", "DK", "DE"],
+      "targetCountries": [
+        "FI",
+        "SE",
+        "NO",
+        "DK",
+        "DE"
+      ],
       "contentLanguage": "en",
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-04-25T00:00:00Z"
+  "lastUpdated": "2026-03-22T12:00:00Z"
 }

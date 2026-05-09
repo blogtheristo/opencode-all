@@ -11,6 +11,7 @@ import { DigitalOffice } from './DigitalOffice';
 import { ControlRoom } from './ControlRoom';
 import { SituationRoom } from './SituationRoom';
 import { AgentRunner } from './AgentRunner';
+import { ConfidenceDriftView } from './ConfidenceDriftView';
 import { ALL_AGENTS as INITIAL_AGENTS, getSystemHealth, getAllActivities } from './agentData';
 import type { ViewMode, MonitorAgent } from './types';
 
@@ -19,6 +20,7 @@ const TABS: { id: ViewMode; label: string; description: string }[] = [
   { id: 'control', label: 'Control Room', description: 'System monitoring' },
   { id: 'situation', label: 'Situation Room', description: 'Executive overview' },
   { id: 'runner', label: 'Agent Runner', description: 'Execute agents' },
+  { id: 'drift', label: 'Drift', description: 'Confidence timeline' },
 ];
 
 interface AgentMonitorDashboardProps {
@@ -32,33 +34,38 @@ export function AgentMonitorDashboard({ onClose }: AgentMonitorDashboardProps) {
 
   // Simulate live updates every 5 seconds
   const simulateTick = useCallback(() => {
-    setAgents(prev => prev.map(agent => {
-      if (agent.status !== 'working' || !agent.currentTask) return agent;
+    setAgents((prev) =>
+      prev.map((agent) => {
+        if (agent.status !== 'working' || !agent.currentTask) return agent;
 
-      // Advance progress slightly
-      const newProgress = Math.min(agent.currentTask.progress + Math.floor(Math.random() * 4), 100);
+        // Advance progress slightly
+        const newProgress = Math.min(
+          agent.currentTask.progress + Math.floor(Math.random() * 4),
+          100,
+        );
 
-      // Fluctuate CPU/memory
-      const cpuDelta = Math.floor(Math.random() * 11) - 5;
-      const memDelta = Math.floor(Math.random() * 7) - 3;
+        // Fluctuate CPU/memory
+        const cpuDelta = Math.floor(Math.random() * 11) - 5;
+        const memDelta = Math.floor(Math.random() * 7) - 3;
 
-      return {
-        ...agent,
-        cpu: Math.max(1, Math.min(99, agent.cpu + cpuDelta)),
-        memory: Math.max(10, Math.min(95, agent.memory + memDelta)),
-        lastActive: new Date(),
-        currentTask: {
-          ...agent.currentTask,
-          progress: newProgress,
-        },
-      };
-    }));
+        return {
+          ...agent,
+          cpu: Math.max(1, Math.min(99, agent.cpu + cpuDelta)),
+          memory: Math.max(10, Math.min(95, agent.memory + memDelta)),
+          lastActive: new Date(),
+          currentTask: {
+            ...agent.currentTask,
+            progress: newProgress,
+          },
+        };
+      }),
+    );
   }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
       simulateTick();
-      setTick(t => t + 1);
+      setTick((t) => t + 1);
     }, 5000);
     return () => clearInterval(interval);
   }, [simulateTick]);
@@ -75,19 +82,18 @@ export function AgentMonitorDashboard({ onClose }: AgentMonitorDashboardProps) {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-lg font-bold text-gray-900">Agent Monitor</h2>
-          <p className="text-xs text-gray-500">Real-time view of all AI agents and their work status</p>
+          <p className="text-xs text-gray-500">
+            Real-time view of all AI agents and their work status
+          </p>
         </div>
-        <button
-          onClick={onClose}
-          className="btn-secondary text-sm"
-        >
+        <button onClick={onClose} className="btn-secondary text-sm">
           Back to Dashboard
         </button>
       </div>
 
       {/* View tabs */}
       <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
-        {TABS.map(tab => (
+        {TABS.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setView(tab.id)}
@@ -105,9 +111,24 @@ export function AgentMonitorDashboard({ onClose }: AgentMonitorDashboardProps) {
 
       {/* Active view */}
       {view === 'office' && <DigitalOffice agents={agents} />}
-      {view === 'control' && <ControlRoom agents={agents} health={health} activities={activities} />}
-      {view === 'situation' && <SituationRoom agents={agents} health={health} activities={activities} />}
+      {view === 'control' && (
+        <ControlRoom agents={agents} health={health} activities={activities} />
+      )}
+      {view === 'situation' && (
+        <SituationRoom agents={agents} health={health} activities={activities} />
+      )}
       {view === 'runner' && <AgentRunner />}
+      {view === 'drift' && (
+        <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
+          <div className="mb-3">
+            <h3 className="text-sm font-semibold text-gray-100">Confidence Drift</h3>
+            <p className="text-[10px] text-gray-500">
+              Daily mean confidence per agent — highlights inflection dates
+            </p>
+          </div>
+          <ConfidenceDriftView />
+        </div>
+      )}
     </div>
   );
 }

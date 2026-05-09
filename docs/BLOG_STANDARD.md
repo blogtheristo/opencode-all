@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.4
 
 Sessions & Modifications:
 
+- Version: 1.4 | Tool: Claude Code (Sonnet 4.6) | Session: claude/blog-polls-ads-features-spdD1 | Date: 07.05.2026 | Changes: Blog V2 — added §13 Reader Polls (lsj-poll.js, localStorage persistence, seed counts), §14 Ads & Sponsorship Slots (lsj-ads.js, lsj-ads-config.json, three slot types, rate card). Added advertise/index.html (media enquiries + sponsorship price list). Registered posts #18 (eu-policy-backed-capital-bankable-sovereignty). Updated ToC to include §13–14.
 - Version: 1.3 | Tool: Claude Code (Opus 4.7) | Session: claude/redhat-sovereignty-research-YGHtL | Date: 23.04.2026 | Changes: Added §12 Editor-in-Chief Voice (Seth Godin House Style) — house voice standard for all Lifetime Scope Journal posts. Codifies short paragraphs, verb-first sentences, partner-note sub-voice (gift → turn → honest limit), banned/kept words, and the pre-publish voice checklist. Reference exemplars: redhat-sovereign-move-three-tiers.html, mcp-apps-identity-spine.html, solid-layers-aiven-scaleway-kya.html, validated-mock-data-principle.html. Registered post #14 (redhat-sovereign-move-three-tiers).
 - Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-verification-setup-QKFtu | Date: 22.04.2026 | Changes: Added §3.1 Text of the Day Rule — latest blog post is automatically the Text of the Day on /blog/ index via hero card + paginated Latest Posts list (5 per page, Prev/Next). Registered posts #12 (solid-layers-aiven-scaleway-kya) and #13 (mcp-apps-identity-spine).
 - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/liquidity-engine-guide-P6sVY | Date: 28.03.2026 | Changes: Added social share section (LinkedIn, X, Email, Copy Link), registered in CLAUDE.md standards table
@@ -48,6 +49,8 @@ Document Status:
 10. [Social Share Section](#10-social-share-section)
 11. [Style Tokens](#11-style-tokens)
 12. [Editor-in-Chief Voice (Seth Godin House Style)](#12-editor-in-chief-voice-seth-godin-house-style)
+13. [Reader Polls](#13-reader-polls)
+14. [Ads & Sponsorship Slots](#14-ads--sponsorship-slots)
 
 ---
 
@@ -98,22 +101,26 @@ The language bar (`shared-assets/lang-bar.js`, v1.1+) auto-injects all 5 buttons
 
 Chronological order. Update this table when adding/removing posts.
 
-| #   | File                                      | Title                                                 | Date        |
-| --- | ----------------------------------------- | ----------------------------------------------------- | ----------- |
-| 1   | `business-case-logistics.html`            | Business Case: The Intelligent Fleet Pilot            | Dec 2025    |
-| 2   | `kya-standard-v1.html`                    | Field Note: KYA Standard for Autonomous Control Rooms | Mar 2026    |
-| 3   | `eu-regulation-harness-engineering.html`  | EU Regulation Makes Better AI                         | 14 Mar 2026 |
-| 4   | `eu-ai-act-compliance-ready.html`         | EU AI Act: Compliance Ready                           | 15 Mar 2026 |
-| 5   | `buyers-note-harness-engineering.html`    | Buyer's Note: Harness Engineering                     | 15 Mar 2026 |
-| 6   | `harness-engineering-investor-note.html`  | Investor Note: Harness Engineering                    | 15 Mar 2026 |
-| 7   | `nvidia-gtc-2026-dws-roadmap-impact.html` | NVIDIA GTC 2026: Industrial AI Roadmaps               | 16 Mar 2026 |
-| 8   | `validated-mock-data-principle.html`      | The Validated Mock Data Principle                     | 16 Mar 2026 |
-| 9   | `closing-the-bom-gap-cad-erp-sync.html`   | Closing the BOM Gap: CAD-ERP Sync                     | 26 Mar 2026 |
-| 10  | `liquidity-engine-captain-seats.html`     | The Liquidity Engine: Captain Seats                   | 28 Mar 2026 |
-| 11  | `core-resilience-hybrid-threats.html`     | CORE: The EU Model That Maps Every Hybrid Threat      | 16 Apr 2026 |
-| 12  | `solid-layers-aiven-scaleway-kya.html`    | Our Layers Are Solid — Aiven, Scaleway, KYA + Foundry | 22 Apr 2026 |
-| 13  | `mcp-apps-identity-spine.html`            | MCP Apps Extends the Frontier — KYA Identity Spine    | 22 Apr 2026 |
-| 14  | `redhat-sovereign-move-three-tiers.html`  | Red Hat's EU Sovereign Move — and the Three Tiers     | 23 Apr 2026 |
+| #   | File                                                 | Title                                                                                | Date        |
+| --- | ---------------------------------------------------- | ------------------------------------------------------------------------------------ | ----------- |
+| 1   | `business-case-logistics.html`                       | Business Case: The Intelligent Fleet Pilot                                           | Dec 2025    |
+| 2   | `kya-standard-v1.html`                               | Field Note: KYA Standard for Autonomous Control Rooms                                | Mar 2026    |
+| 3   | `eu-regulation-harness-engineering.html`             | EU Regulation Makes Better AI                                                        | 14 Mar 2026 |
+| 4   | `eu-ai-act-compliance-ready.html`                    | EU AI Act: Compliance Ready                                                          | 15 Mar 2026 |
+| 5   | `buyers-note-harness-engineering.html`               | Buyer's Note: Harness Engineering                                                    | 15 Mar 2026 |
+| 6   | `harness-engineering-investor-note.html`             | Investor Note: Harness Engineering                                                   | 15 Mar 2026 |
+| 7   | `nvidia-gtc-2026-dws-roadmap-impact.html`            | NVIDIA GTC 2026: Industrial AI Roadmaps                                              | 16 Mar 2026 |
+| 8   | `validated-mock-data-principle.html`                 | The Validated Mock Data Principle                                                    | 16 Mar 2026 |
+| 9   | `closing-the-bom-gap-cad-erp-sync.html`              | Closing the BOM Gap: CAD-ERP Sync                                                    | 26 Mar 2026 |
+| 10  | `liquidity-engine-captain-seats.html`                | The Liquidity Engine: Captain Seats                                                  | 28 Mar 2026 |
+| 11  | `core-resilience-hybrid-threats.html`                | CORE: The EU Model That Maps Every Hybrid Threat                                     | 16 Apr 2026 |
+| 12  | `solid-layers-aiven-scaleway-kya.html`               | Our Layers Are Solid — Aiven, Scaleway, KYA + Foundry                                | 22 Apr 2026 |
+| 13  | `mcp-apps-identity-spine.html`                       | MCP Apps Extends the Frontier — KYA Identity Spine                                   | 22 Apr 2026 |
+| 14  | `redhat-sovereign-move-three-tiers.html`             | Red Hat's EU Sovereign Move — and the Three Tiers                                    | 23 Apr 2026 |
+| 15  | `fpe-dark-mode-construction-wedge.html`              | FPE · The Construction Wedge — €14,999 to Reduce Weakest-Link Failure                | 27 Apr 2026 |
+| 16  | `dws-ontology-standard-v1.html`                      | DWS Ontology Standard v1.3 — Etymology, Philosophy, and the Decision-Centric Pillars | 29 Apr 2026 |
+| 17  | `baseten-inference-engineering-300m.html`            | Field Note: Baseten Raises $300M — Inference Engineering Is a Discipline Now         | 7 May 2026  |
+| 18  | `eu-policy-backed-capital-bankable-sovereignty.html` | The Strike Price State — Five Things Europe Just Made Official                       | 7 May 2026  |
 
 ---
 
@@ -419,6 +426,126 @@ Read these before writing. Match their rhythm.
 | `validated-mock-data-principle.html`     | **Principle-note canonical.** Small, declarative, unforgettable.                |
 
 If a draft does not feel like these four when read aloud, rewrite it until it does.
+
+---
+
+## 13. Reader Polls
+
+Every blog post may include one reader poll using `shared-assets/lsj-poll.js` (introduced Blog V2, 7 May 2026).
+
+### 13.1 How it works
+
+Drop a single `<div class="lsj-poll">` element anywhere in the article body. The widget self-renders with no external dependencies. Votes persist in localStorage per poll-id — a reader who has already voted sees results immediately on return.
+
+```html
+<div
+  class="lsj-poll"
+  data-poll-id="unique-slug-per-poll"
+  data-question="Your question here?"
+  data-options='["Option A","Option B","Option C","Option D"]'
+  data-seed="[42, 31, 18, 27]"
+  data-theme="gold"
+></div>
+```
+
+### 13.2 Required attributes
+
+| Attribute       | Required | Description                                                                                        |
+| --------------- | -------- | -------------------------------------------------------------------------------------------------- |
+| `data-poll-id`  | Yes      | Unique string. Use `<post-slug>-<topic>` (e.g. `strike-price-driver`).                             |
+| `data-question` | Yes      | The question shown to the reader.                                                                  |
+| `data-options`  | Yes      | JSON array of 2–4 option strings.                                                                  |
+| `data-seed`     | No       | JSON int array — starting vote counts per option. Match real audience distribution where possible. |
+| `data-theme`    | No       | `gold` (default) \| `cyan` \| `red`                                                                |
+
+### 13.3 Seed data rule (Validated Mock Data Principle)
+
+Seed counts MUST represent a plausible distribution — not uniform zeros. Use knowledge of the audience (EU B2B industrial buyers) to set initial weights. Document the rationale in an HTML comment above the poll div.
+
+### 13.4 Script loading
+
+Add to `<head>` of the post:
+
+```html
+<script src="../shared-assets/lsj-poll.js" defer></script>
+```
+
+For posts under `posts/en/` or `posts/fi/`:
+
+```html
+<script src="../../shared-assets/lsj-poll.js" defer></script>
+```
+
+### 13.5 Placement
+
+- One poll per article, placed after the first major section (approximately 30–40 % into the article).
+- Do not place polls inside callout boxes or card grids.
+
+### 13.6 Future upgrade path
+
+The current V1 implementation is localStorage-only (per-device). When real aggregate results are needed, replace localStorage read/write in `lsj-poll.js` with Supabase upsert/select calls using the `lsj_polls` table (not yet created). Seed counts will then seed the DB row on first vote, not the UI.
+
+---
+
+## 14. Ads & Sponsorship Slots
+
+Blog posts may include partner ad slots using `shared-assets/lsj-ads.js` and `shared-assets/lsj-ads-config.json` (introduced Blog V2, 7 May 2026).
+
+### 14.1 Ad slot types
+
+| Slot type | Placement                            | HTML element                                    |
+| --------- | ------------------------------------ | ----------------------------------------------- |
+| `sponsor` | Top of article, below the header     | `<div class="lsj-ad-slot" data-slot="sponsor">` |
+| `mid`     | Mid-article, between major sections  | `<div class="lsj-ad-slot" data-slot="mid">`     |
+| `footer`  | End-of-article, before product cards | `<div class="lsj-ad-slot" data-slot="footer">`  |
+
+Add `data-category="compliance|ai|sovereignty|carbon|industrial|erp|construction"` to target ads by article topic.
+
+### 14.2 Script loading
+
+```html
+<script src="../shared-assets/lsj-ads.js" defer></script>
+```
+
+### 14.3 Ad configuration
+
+Partner ads are managed in `onelifetime.world/shared-assets/lsj-ads-config.json`. Fields:
+
+| Field            | Required | Description                                     |
+| ---------------- | -------- | ----------------------------------------------- |
+| `id`             | Yes      | Unique string slug                              |
+| `active`         | Yes      | `true` to serve; `false` to pause               |
+| `name`           | Yes      | Partner brand name                              |
+| `tagline`        | Yes      | One-line value prop (max 80 chars)              |
+| `headline`       | No       | Mid-article card headline (max 60 chars)        |
+| `body`           | No       | Mid-article card body (2 sentences max)         |
+| `url`            | Yes      | Destination URL (UTM-tagged preferred)          |
+| `cta`            | No       | Call-to-action label (e.g. "See packages")      |
+| `slots`          | Yes      | Array: `["sponsor","mid","footer"]`             |
+| `categories`     | No       | Array of article category strings               |
+| `type`           | Yes      | `"house"` or `"paid"`                           |
+| `campaign_start` | No       | ISO date — slot will not serve before this date |
+| `campaign_end`   | No       | ISO date — slot will not serve after this date  |
+
+If no active ad matches a slot, the element is silently removed — no empty space.
+
+### 14.4 Sponsorship rate card
+
+Full rate card lives at `onelifetime.world/advertise/index.html`. Summary:
+
+| Format                 | Rate           |
+| ---------------------- | -------------- |
+| Article Sponsorship    | €800 / article |
+| Newsletter Sponsorship | €1,500 / issue |
+| Sponsored Article      | €2,500         |
+| Press Release          | €500           |
+| Mid-Article Card       | €600 / article |
+
+All prices EUR, B2B, VAT 0 % (EU reverse charge). Invoiced by Lifetime Oy, VAT FI07724079.
+
+### 14.5 Editorial policy
+
+Ad placements are clearly labelled ("Sponsored by" / "Partner Content"). Paid ads do not influence editorial content. The editor-in-chief approves all partners before activation.
 
 ---
 
