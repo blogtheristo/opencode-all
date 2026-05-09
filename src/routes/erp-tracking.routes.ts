@@ -51,10 +51,10 @@ router.post('/connection-started', async (req: Request, res: Response) => {
 
     await erpTrackingService.logERPConnectionStarted(tenantId, erpSystem, adminEmail);
 
-    res.json({ success: true, message: 'Connection start logged' });
+    return res.json({ success: true, message: 'Connection start logged' });
   } catch (error) {
     console.error('ERP tracking error:', error);
-    res.status(500).json({ error: 'Failed to log ERP event' });
+    return res.status(500).json({ error: 'Failed to log ERP event' });
   }
 });
 
@@ -98,10 +98,10 @@ router.post('/connection-test', async (req: Request, res: Response) => {
       );
     }
 
-    res.json({ success: true, message: 'Connection test logged' });
+    return res.json({ success: true, message: 'Connection test logged' });
   } catch (error) {
     console.error('ERP tracking error:', error);
-    res.status(500).json({ error: 'Failed to log ERP event' });
+    return res.status(500).json({ error: 'Failed to log ERP event' });
   }
 });
 
@@ -119,10 +119,10 @@ router.post('/field-mapping', async (req: Request, res: Response) => {
 
     await erpTrackingService.logFieldMappingComplete(tenantId, erpSystem, adminEmail, dataTypes);
 
-    res.json({ success: true, message: 'Field mapping logged' });
+    return res.json({ success: true, message: 'Field mapping logged' });
   } catch (error) {
     console.error('ERP tracking error:', error);
-    res.status(500).json({ error: 'Failed to log ERP event' });
+    return res.status(500).json({ error: 'Failed to log ERP event' });
   }
 });
 
@@ -153,10 +153,10 @@ router.post('/sync-activated', async (req: Request, res: Response) => {
 
     await erpTrackingService.logSyncActivated(tenantId, erpSystem, adminEmail, schedule, dataTypes);
 
-    res.json({ success: true, message: 'Sync activation logged' });
+    return res.json({ success: true, message: 'Sync activation logged' });
   } catch (error) {
     console.error('ERP tracking error:', error);
-    res.status(500).json({ error: 'Failed to log ERP event' });
+    return res.status(500).json({ error: 'Failed to log ERP event' });
   }
 });
 
@@ -174,10 +174,10 @@ router.post('/error', async (req: Request, res: Response) => {
 
     await erpTrackingService.logERPError(tenantId, erpSystem, adminEmail, errorCode, errorMessage);
 
-    res.json({ success: true, message: 'Error logged' });
+    return res.json({ success: true, message: 'Error logged' });
   } catch (error) {
     console.error('ERP tracking error:', error);
-    res.status(500).json({ error: 'Failed to log ERP event' });
+    return res.status(500).json({ error: 'Failed to log ERP event' });
   }
 });
 

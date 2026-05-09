@@ -117,8 +117,6 @@ router.post('/ses', async (req: Request, res: Response) => {
           messageId: ses.messageId,
         });
 
-        const emailId = ses.messageId || 'unknown';
-        // Note: We don't have a dedicated logEmailDelivered method
         // Delivery is implicit from logEmailSent
         // This webhook is mostly for confirmation logging
       }

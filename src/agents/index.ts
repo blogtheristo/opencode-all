@@ -303,12 +303,8 @@ export {
   MODEL_CATALOG,
   ACER_GN100_BUDGET,
 } from './model-selector.js';
-export type {
-  ModelTier,
-  ModelOption,
-  ModelSelection,
-  EdgeResourceBudget,
-} from './model-selector.js';
+export type { ModelTier } from './types.js';
+export type { ModelOption, ModelSelection, EdgeResourceBudget } from './model-selector.js';
 
 // Re-export sandbox isolation module
 export { executeIsolatedAgent, getAgentFoundryConfig, getSandboxStage } from '../sandbox/index.js';
