@@ -1205,18 +1205,30 @@
     "google": {
       "merchantId": null,
       "feedUrl": "https://dws10.com/feeds/google-products.xml",
-      "targetCountries": [
-        "FI",
-        "SE",
-        "NO",
-        "DK",
-        "DE"
-      ],
+      "targetCountries": ["FI", "SE", "NO", "DK", "DE"],
       "contentLanguage": "en",
       "channel": "online"
     }
   },
   "lastUpdated": "2026-05-10T12:00:00Z",
+  "priceVersion": "1.10",
+  "priceHistory": [
+    {
+      "version": "1.10",
+      "date": "2026-05-10",
+      "author": "claude/dynamic-deployment-pricing-LExxQ",
+      "changes": [
+        "Restore Firehorse Amplify name/description (regressed in Aegis commit)",
+        "consulting-hourly: €98 → €250/hr",
+        "ai-consultant-day: €699 → €1,200/day",
+        "aws-consultancy: €4,500 → €3,750 (25 hrs at €150/hr)",
+        "ai-agent-engineering: €99 → €200/hr",
+        "LIFETIME-EXP-001 renamed _OLD",
+        "expert-services renamed _OLD",
+        "Added DWS-IQ-SUB-001 (€499/mo) and FH-SUB-001 (€499/mo)"
+      ]
+    }
+  ],
   "subscriptions": {
     "DWS-IQ-SUB-001": {
       "id": "DWS-IQ-SUB-001",
