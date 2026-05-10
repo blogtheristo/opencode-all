@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 1.5
 
 Sessions & Modifications:
 
+- Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dynamic-deployment-pricing-LExxQ | Date: 10.05.2026 | Changes: Added Hardware Pricing Model (Section 12) — hardware is always an external product; Blue = buy-in/cost price (internal, never published), Green = client retail price (published online); unified the Blue=internal/Green=external principle across all three categories in the governing principle
 - Version: 1.4 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dynamic-deployment-pricing-LExxQ | Date: 10.05.2026 | Changes: Added Consultation Pricing Model (Section 11) — Blue = contractor pricing (confidential, never published online), Green = direct client pricing (publicly listed); confirmed Firehorse follows identical Blue/Green model; added cloud costs as separate operating costs rule; updated governing principle and TOC
 - Version: 1.3 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dynamic-deployment-pricing-LExxQ | Date: 10.05.2026 | Changes: Monthly subscription reclassified as a required separate product for all customers on both tiers — removed all optional/add-on framing; fixed duplicate section numbering in Sections 3 and 4; updated pricing table, obligation matrix, and definitions accordingly
 - Version: 1.2 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dynamic-deployment-pricing-LExxQ | Date: 10.05.2026 | Changes: Added monthly support as sellable add-on for both Blue and Green; added Product Version Governance rule (minimum 2 versions per product — one Blue, one Green); updated governing principle, Color Model table, pricing framework, and obligation matrix
@@ -42,22 +43,21 @@ Document Status:
 9. [Definitions](#9-definitions)
 10. [Product Version Governance](#10-product-version-governance)
 11. [Consultation Pricing Model](#11-consultation-pricing-model)
+12. [Hardware Pricing Model](#12-hardware-pricing-model)
 
 ---
 
 ## 1. Purpose
 
-> **Enterprise release principle — products**
+> **The unified Blue/Green rule**
 >
-> Blue is an early-access pilot, reduced price or free for up to 12 months, with customer-nominated PMs feeding issues back to DWS.
-> Green is the stable selling release.
-> Monthly subscription is separate and required on both tiers. Cloud costs stay separate as operating costs.
-> Every DWS product — including all Firehorse products — ships with a minimum of two versions: one Blue, one Green.
-
-> **Enterprise release principle — consultations**
+> Blue is always the internal cost side. Green is always the external client price. Only Green goes online.
 >
-> Blue is contractor pricing. Green is direct client pricing.
-> Only Green customer pricing is published online. Contractor pricing is never shared publicly.
+> **Software products:** Blue = early-access pilot, reduced or free for up to 12 months, with customer-nominated PMs feeding issues back to DWS. Green = stable selling release.
+> **Consultations:** Blue = contractor rate. Green = direct client rate.
+> **Hardware:** Blue = buy-in price. Green = client retail price.
+>
+> Monthly subscription is a required separate product on every contract. Cloud costs are separate operating costs, never bundled. Every DWS and Firehorse product ships with a minimum of two versions: one Blue, one Green.
 
 This standard governs how DWS names, positions, and prices enterprise deployments across the product lifecycle. It defines two named deployment tiers — **Blue** and **Green** — each signalling a distinct release role, not just a price point.
 
@@ -360,3 +360,32 @@ The monthly subscription and cloud costs rules from the product model carry over
 
 - **Monthly subscription**: billed to the client as a required separate line item covering the ongoing service relationship.
 - **Cloud costs**: billed as separate operating costs, passed through at cost or at an agreed markup, never bundled into the consultation day rate.
+
+---
+
+## 12. Hardware Pricing Model
+
+### 12.1 Blue and Green in Hardware
+
+Hardware is always an externally sourced product. DWS does not manufacture hardware; it procures and resells it. The Blue/Green rule therefore maps to the buy/sell distinction:
+
+| Color     | Hardware meaning                               | Published online? |
+| --------- | ---------------------------------------------- | ----------------- |
+| **Blue**  | Buy-in price — what DWS pays the supplier      | **Never**         |
+| **Green** | Client retail price — what the client pays DWS | **Yes**           |
+
+### 12.2 Publication Rule
+
+Only Green (retail) hardware pricing appears on dws10.com or any DWS public channel. Buy-in (Blue) pricing is internal and must not appear in any customer-facing document.
+
+### 12.3 Margin Integrity
+
+The spread between Blue (buy-in) and Green (retail) constitutes DWS hardware margin. This spread must be recorded in the internal pricing sheet before any hardware is quoted to a client. No hardware may be sold at or below buy-in price without CEO approval.
+
+### 12.4 Current Hardware — Green Prices (published)
+
+| Product                                        | Green (retail)            | SKU               |
+| ---------------------------------------------- | ------------------------- | ----------------- |
+| Acer Veriton GN100 — EU Sovereign Edge AI Node | €3,999/unit (min 2 units) | `edge-node-gn100` |
+
+Blue (buy-in) prices for all hardware are maintained in the internal procurement sheet, not in this document or `products.json`.
