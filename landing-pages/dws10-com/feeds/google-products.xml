@@ -4,11 +4,11 @@
     <title>Lifetime Firehorse Store — Sovereign AI Products &amp; Services</title>
     <link>https://dws10.com/buy/</link>
     <description>Sovereign AI products and services for enterprises and SMEs. EU-hosted, CLOUD Act free. Climate compliance, industrial AI, and expert advisory by Lifetime Oy.</description>
-    <lastBuildDate>2026-05-10T06:03:51.520Z</lastBuildDate>
+    <lastBuildDate>2026-05-10T16:58:31.043Z</lastBuildDate>
     <item>
         <g:id>DWS-IQ-006</g:id>
         <g:title>Lifetime DWS IQ Platform (Version 6)</g:title>
-        <g:description>Stop risking fines and lost tenders. DWS IQ 6 deploys 18+ GodAgents with agentic loops (observe-think-act) to automate Fit for 55, CSRD, and EPBD compliance across 20 EU industries — cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.</g:description>
+        <g:description>Stop risking fines and lost tenders. DWS IQ 6 deploys 18+ Skilled Agents with agentic loops (observe-think-act) to amplify Fit for 55, CSRD, and EPBD compliance across 20 EU industries — cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.</g:description>
         <g:link>https://dws10.com/products/dwsiq.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
         <g:price>4999.00 EUR</g:price>
@@ -25,10 +25,10 @@
     </item>
     <item>
         <g:id>FH-AUTO-001</g:id>
-        <g:title>Firehorse Automation</g:title>
-        <g:description>Manual data entry is where compliance fines start. Firehorse Automation eliminates human error with event-driven workflows for Fit for 55, CSRD, and EPBD 2028 — capturing ESG data directly from your systems with a complete audit trail.</g:description>
-        <g:link>https://dws10.com/products/firehorse-automation.html</g:link>
-        <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+        <g:title>Firehorse Amplify</g:title>
+        <g:description>Manual data entry is where compliance fines start. Firehorse Amplify eliminates human error with event-driven workflows for Fit for 55, CSRD, and EPBD 2028 — capturing ESG data directly from your systems with a complete audit trail.</g:description>
+        <g:link>https://dws10.com/products/firehorse-amplify.html</g:link>
+        <g:image_link>https://dws10.com/static/images/firehorse-amplify-hero.png</g:image_link>
         <g:price>4950.00 EUR</g:price>
         <g:availability>in_stock</g:availability>
         <g:condition>new</g:condition>
@@ -128,7 +128,7 @@
     </item>
     <item>
         <g:id>expert-services</g:id>
-        <g:title>Workshop 3 Days - Expert Advisory &amp; Implementation</g:title>
+        <g:title>Workshop 3 Days - Expert Advisory &amp; Implementation _OLD</g:title>
         <g:description>Three days that save your team three months. Intensive hands-on workshop covering compliance report design, workflow automation, and strategic roadmap for Fit for 55, CSRD, and EU AI Act. Leave with working implementations, not just slide decks.</g:description>
         <g:link>https://dws10.com/products/expert-services.html</g:link>
         <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
@@ -145,11 +145,11 @@
     </item>
     <item>
         <g:id>consulting-hourly</g:id>
-        <g:title>Consulting - Hourly Rate</g:title>
+        <g:title>Senior Specialist – Hourly Consulting</g:title>
         <g:description>Expert compliance guidance without a long-term commitment. Book by the hour for Fit for 55, CSRD, EU AI Act, or governance challenges across all 16 regulated EU industries. Most clients start with a 4-hour assessment.</g:description>
         <g:link>https://dws10.com/products/consulting.html</g:link>
         <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
-        <g:price>98.00 EUR</g:price>
+        <g:price>250.00 EUR</g:price>
         <g:availability>in_stock</g:availability>
         <g:condition>new</g:condition>
         <g:brand>Lifetime</g:brand>
@@ -162,7 +162,7 @@
     </item>
     <item>
         <g:id>LIFETIME-EXP-001</g:id>
-        <g:title>Expert Advisory &amp; Implementation</g:title>
+        <g:title>Expert Advisory &amp; Implementation _OLD</g:title>
         <g:description>Your dedicated compliance strategist. Monthly retainer for ongoing report design, workflow optimization, and board-level advisory on Fit for 55, CSRD, and EU AI Act. Clients typically reduce compliance costs by 40% within the first quarter.</g:description>
         <g:link>https://dws10.com/products/expert-advisory.html</g:link>
         <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
@@ -200,7 +200,7 @@
         <g:description>25 hours of senior cloud architect time to assess, plan, and implement your AI and cloud infrastructure. Multi-cloud expertise across AWS, Azure, GCP. Includes a complimentary 4-hour strategy workshop to identify quick wins and avoid costly mistakes.</g:description>
         <g:link>https://dws10.com/buy/page2/</g:link>
         <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
-        <g:price>4500.00 EUR</g:price>
+        <g:price>3750.00 EUR</g:price>
         <g:availability>in_stock</g:availability>
         <g:condition>new</g:condition>
         <g:brand>Lifetime</g:brand>
@@ -251,7 +251,7 @@
         <g:description>Hire a senior AI engineer by the hour — no recruitment overhead. Available as AI Product Manager, Solutions Architect, or ML Engineer for Azure AI Foundry, Google AI Studio, or custom agentic AI projects. Skip the 3-month hiring cycle.</g:description>
         <g:link>https://dws10.com/buy/page2/</g:link>
         <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
-        <g:price>99.00 EUR</g:price>
+        <g:price>200.00 EUR</g:price>
         <g:availability>in_stock</g:availability>
         <g:condition>new</g:condition>
         <g:brand>Lifetime</g:brand>
@@ -285,7 +285,7 @@
         <g:description>One day to unblock your AI strategy. Senior consultant on-site or remote for strategy, prototyping, and hands-on implementation. Covers Claude, GPT, Gemini Pro, Copilot, and Azure AI Studio. Most clients book 2–3 days for a full sprint.</g:description>
         <g:link>https://dws10.com/buy/page2/</g:link>
         <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
-        <g:price>699.00 EUR</g:price>
+        <g:price>1200.00 EUR</g:price>
         <g:availability>in_stock</g:availability>
         <g:condition>new</g:condition>
         <g:brand>Lifetime</g:brand>

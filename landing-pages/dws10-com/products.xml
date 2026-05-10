@@ -7,7 +7,7 @@
     <item>
       <g:id>DWS-IQ-006</g:id>
       <g:title>Lifetime DWS IQ Platform (Version 6)</g:title>
-      <g:description>&lt;p&gt;Stop risking fines and lost tenders. DWS IQ 6 deploys 18+ GodAgents with agentic loops (observe-think-act) to automate Fit for 55, CSRD, and EPBD compliance across 20 EU industries — cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;18+ GodAgents with MCP protocol and CLI access&lt;/li&gt;&lt;li&gt;Automate Fit for 55, CSRD &amp; EPBD reporting&lt;/li&gt;&lt;li&gt;90% reduction in manual compliance hours&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:description>&lt;p&gt;Stop risking fines and lost tenders. DWS IQ 6 deploys 18+ Skilled Agents with agentic loops (observe-think-act) to amplify Fit for 55, CSRD, and EPBD compliance across 20 EU industries — cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;18+ Skilled Agents with MCP protocol and CLI access&lt;/li&gt;&lt;li&gt;Amplify Fit for 55, CSRD &amp; EPBD reporting&lt;/li&gt;&lt;li&gt;90% reduction in manual compliance hours&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/dws-iq-006.html</g:link>
       <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
       <g:condition>new</g:condition>
@@ -19,10 +19,10 @@
     </item>
     <item>
       <g:id>FH-AUTO-001</g:id>
-      <g:title>Firehorse Automation</g:title>
-      <g:description>&lt;p&gt;Manual data entry is where compliance fines start. Firehorse Automation eliminates human error with event-driven workflows for Fit for 55, CSRD, and EPBD 2028 — capturing ESG data directly from your systems with a complete audit trail.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Event-driven compliance workflows&lt;/li&gt;&lt;li&gt;Eliminate manual data entry errors&lt;/li&gt;&lt;li&gt;Complete audit trail for ESG data&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:title>Firehorse Amplify</g:title>
+      <g:description>&lt;p&gt;Manual data entry is where compliance fines start. Firehorse Amplify eliminates human error with event-driven workflows for Fit for 55, CSRD, and EPBD 2028 — capturing ESG data directly from your systems with a complete audit trail.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Event-driven compliance workflows&lt;/li&gt;&lt;li&gt;Eliminate manual data entry errors&lt;/li&gt;&lt;li&gt;Complete audit trail for ESG data&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/fh-auto-001.html</g:link>
-      <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
+      <g:image_link>https://dws10.com/static/images/firehorse-amplify-hero.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>4950 EUR</g:price>
@@ -124,7 +124,7 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
     </item>
     <item>
       <g:id>expert-services</g:id>
-      <g:title>Workshop 3 Days - Expert Advisory &amp; Implementation</g:title>
+      <g:title>Workshop 3 Days - Expert Advisory &amp; Implementation _OLD</g:title>
       <g:description>&lt;p&gt;Three days that save your team three months. Intensive hands-on workshop covering compliance report design, workflow automation, and strategic roadmap for Fit for 55, CSRD, and EU AI Act. Leave with working implementations, not just slide decks.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Hands-on compliance workshop&lt;/li&gt;&lt;li&gt;Workflow automation training&lt;/li&gt;&lt;li&gt;Working implementations in 3 days&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/expert-services.html</g:link>
       <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
@@ -137,20 +137,20 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
     </item>
     <item>
       <g:id>consulting-hourly</g:id>
-      <g:title>Consulting - Hourly Rate</g:title>
+      <g:title>Senior Specialist – Hourly Consulting</g:title>
       <g:description>&lt;p&gt;Expert compliance guidance without a long-term commitment. Book by the hour for Fit for 55, CSRD, EU AI Act, or governance challenges across all 16 regulated EU industries. Most clients start with a 4-hour assessment.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Expert compliance guidance&lt;/li&gt;&lt;li&gt;All 16 EU industries covered&lt;/li&gt;&lt;li&gt;Flexible hourly booking&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/consulting-hourly.html</g:link>
       <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
-      <g:price>98 EUR</g:price>
+      <g:price>250 EUR</g:price>
       <g:brand>Lifetime</g:brand>
       <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
       <g:id>LIFETIME-EXP-001</g:id>
-      <g:title>Expert Advisory &amp; Implementation</g:title>
+      <g:title>Expert Advisory &amp; Implementation _OLD</g:title>
       <g:description>&lt;p&gt;Your dedicated compliance strategist. Monthly retainer for ongoing report design, workflow optimization, and board-level advisory on Fit for 55, CSRD, and EU AI Act. Clients typically reduce compliance costs by 40% within the first quarter.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Dedicated compliance strategist&lt;/li&gt;&lt;li&gt;40% cost reduction typical&lt;/li&gt;&lt;li&gt;Board-level advisory included&lt;/li&gt;&lt;/ul&gt;</g:description>
       <g:link>https://dws10.com/products/lifetime-exp-001.html</g:link>
       <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
@@ -182,7 +182,7 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
       <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
-      <g:price>4500 EUR</g:price>
+      <g:price>3750 EUR</g:price>
       <g:brand>Lifetime</g:brand>
       <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
@@ -221,7 +221,7 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
       <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
-      <g:price>99 EUR</g:price>
+      <g:price>200 EUR</g:price>
       <g:brand>Lifetime</g:brand>
       <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
@@ -247,7 +247,7 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
       <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
-      <g:price>699 EUR</g:price>
+      <g:price>1200 EUR</g:price>
       <g:brand>Lifetime</g:brand>
       <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
