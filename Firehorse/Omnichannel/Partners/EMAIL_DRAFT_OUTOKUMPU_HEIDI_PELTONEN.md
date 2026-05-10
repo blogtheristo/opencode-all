@@ -96,33 +96,24 @@ Do NOT position as a fallback. He owns the fabricator revenue; this is his deal.
 | ----------- | ------------------------------------------------------------------- |
 | **To**      | Matthieu Jehl, President, Business Line Stainless Europe, Outokumpu |
 | **From**    | risto@onelifetime.world                                             |
-| **Subject** | CBAM declarations for your fabricator accounts — 60-day pilot       |
-| **Status**  | Draft — not sent                                                    |
-| **Note**    | Boardy feedback applied: cut to one problem, one ask. Math + DWS    |
-|             | detail moved to OUTOKUMPU_JEHL_APPENDIX.md (send on reply).         |
+| **Subject** | CBAM declarations for your fabricator accounts                      |
+| **Status**  | APPROVED — final version confirmed by Risto 2026-05-10              |
+| **Note**    | Detail moved to OUTOKUMPU_JEHL_APPENDIX.md (send on reply).         |
 
-Subject: CBAM declarations for your fabricator accounts — 60-day pilot
+Subject: CBAM declarations for your fabricator accounts
 
 Hi Matthieu,
 
-Your fabricator accounts know that sourcing from Outokumpu reduces their CBAM liability. Most
-don't have the tooling to turn your ISO 14067 certificates into a compliant annual declaration —
-so the advantage stays theoretical.
+Your fabricator accounts know Outokumpu reduces CBAM liability. The missing piece is tooling
+to turn your ISO 14067 data into a compliant annual declaration.
 
-I'd like to run a 60-day pilot with two or three of your European accounts. No cost to Outokumpu.
-The deliverable is a submission-ready declaration using your verified data as the source.
+I'd like to run a 60-day pilot with 2 or 3 European accounts, at no cost to Outokumpu. The
+deliverable is a submission-ready declaration using your verified data as the source.
 
-Worth a conversation?
-
-Risto Päärni
-CEO, Lifetime Oy — Espoo, Finland
-risto@onelifetime.world
-+358 400 319 010
+Open to a quick conversation?
 
 Risto Päärni
-CEO, Lifetime Oy (0772407-9)
-risto@onelifetime.world
-+358 400 319 010
+CEO, Lifetime Oy
 Espoo, Finland
 
 ---
@@ -137,5 +128,6 @@ VERSION AND AGENT HISTORY
 | 3.0     | 2026-05-10 | Claude (Sonnet 4.6) | Rewrote hook around CBAM Q&A page, named punitive defaults, added LinkedIn/Matthieu                                   |
 | 4.0     | 2026-05-10 | Claude (Sonnet 4.6) | Matthieu Jehl confirmed President Stainless Europe; rewrote his section as direct C-suite pitch, co-primary contact   |
 | 5.0     | 2026-05-10 | Claude (Sonnet 4.6) | Boardy feedback: cut Matthieu email to one problem + one ask; math and DWS detail moved to OUTOKUMPU_JEHL_APPENDIX.md |
+| 6.0     | 2026-05-10 | Risto Päärni        | Final approved version — exact wording confirmed by sender                                                            |
 
 ---
