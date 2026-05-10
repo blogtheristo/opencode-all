@@ -6,13 +6,14 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.3
 
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/data-centre-factory-docs-eav19 | Date: 10.05.2026 | Changes: Initial — conceptual framework for distinguishing passive data storage (datakeskus) from active data creation and mining (tietotehdas) as national wealth
 - Version: 1.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/data-centre-factory-docs-eav19 | Date: 10.05.2026 | Changes: Added section 6 — Google Cloud "System of Action" / Agentic Data Cloud framework mapped to tietotehdas model; action implications for DWS IQ
 - Version: 1.2 | Tool: Claude Code (Sonnet 4.6) | Session: claude/data-centre-factory-docs-eav19 | Date: 10.05.2026 | Changes: Added section 6.6 — Gemini Enterprise Agent Platform as tietotehdas tuotekerros; fleet governance, Memory Bank, Agent Identity mapped to DWS IQ architecture; build-vs-buy analysis
+- Version: 1.3 | Tool: Claude Code (Sonnet 4.6) | Session: claude/data-centre-factory-docs-eav19 | Date: 10.05.2026 | Changes: Added section 2a — Kansallinen strategia / kolmikerrosmalli; DWS as intelligence layer on hyperscaler-built physical infrastructure over Finnish national data reserves
 
 Session Links & References:
 
@@ -64,6 +65,59 @@ This is **datakeskuskapasiteetti** — storage real estate. Finland earns:
 - A small number of permanent operations jobs
 
 What Finland does **not** automatically earn is the _output_ of the data processed inside those centres. That value flows to the hyperscaler, its customers, and their jurisdictions.
+
+---
+
+## 2a. Kansallinen strategia — Kolmikerrosmalli / National Strategy — Three-Layer Model
+
+**Ydinlause (kanoninen, käytetään sellaisenaan):**
+
+> DWS noudattaa kansallista strategiaa: kansainväliset toimijat rakentavat fyysiset tietotehtaat Suomeen, jotta datavarannot voidaan louhia täällä, pitää ohjaus Suomessa ja ottaa hyötykäyttöön DWS:n kaltaisilla järjestelmillä.
+
+Tämä ei ole opportunistinen positiointi — se on tietoinen linjaus kansalliseen infrastruktuuristrategiaan. Kolmikerrosmalli:
+
+```
+Kerros 3 — ÄLYKKYYDEN KERROS
+DWS IQ (System of Action -operaattori)
+Louhii, jalostaa, luo — pitää arvon Suomessa
+
+        ↑ operoi päällä ↑
+
+Kerros 2 — DATAVARANNON KERROS
+Suomalaiset kansalliset rekisterit
+DVV · Maanmittauslaitos · Kela · Traficom · Luke · Ilmatieteenlaitos · PRH
+Kansallinen malmi — ei viety, ei myyty, hallittu täällä
+
+        ↑ rakentaa infrastruktuurin ↑
+
+Kerros 1 — FYYSISEN INFRASTRUKTUURIN KERROS
+Kansainväliset hyperscalerit
+Microsoft · Google · AWS · Amazon
+Rakentavat miljardiluokan tietotehdaskiinteistöt Suomeen
+```
+
+**Strateginen logiikka:**
+
+Hyperscalerit investoivat Suomeen sen fyysisten etujen vuoksi (halvat elektroniset, kylmä ilmasto, poliittinen vakaus, NATO, valokuitu). He rakentavat **infrastruktuurikerroksen** — mutta eivät automaattisesti ota datavarannon hallintaa eikä tuota älykkyyden kerrosta.
+
+**Tässä on Suomen ikkuna:** Kansainväliset toimijat tarvitsevat paikallisen kumppanin, joka:
+
+- tuntee suomalaiset rekisterit ja niiden semantiikan
+- noudattaa GDPR:ää ja suomalaista tiedonhallintalakia natiivisti
+- pitää ohjauksen ja tuloksen Suomessa — ei ulkopuolisella lainkäyttöalueella
+- on jo rakentanut System of Action -arkkitehtuurin (DWS IQ)
+
+**DWS:n rooli kolmikerroksessa:**
+
+| Kerros                   | Toimija                              | DWS:n suhde                                   |
+| ------------------------ | ------------------------------------ | --------------------------------------------- |
+| Fyysinen infrastruktuuri | Microsoft, Google, AWS               | Asiakas / partneri — käyttää infrastruktuuria |
+| Datavarantokerros        | Suomen valtio, rekisteriviranomaiset | Lisenssinsaaja / API-kumppani                 |
+| Älykkyyden kerros        | DWS IQ                               | **Omistaja ja operaattori**                   |
+
+**Investorinarratiivi tästä:**
+
+Hyperscalerit investoivat miljardit Suomeen. He rakentavat kultakaivoksen maahan. DWS on se järjestelmä, joka osaa kaivaa. Ilman DWS:ää (tai vastaavaa) infrastruktuuri on tyhjillään seisova rakennus. DWS tekee siitä tuottavan.
 
 ---
 
