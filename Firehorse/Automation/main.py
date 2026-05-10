@@ -9,7 +9,7 @@ Features:
 - Workflow definitions and execution
 - Scheduled report generation
 - Webhook triggers
-- Email/Slack notifications
+- Email, Slack, and Microsoft Teams notifications (Incoming Webhooks)
 - Integration with Report Engine
 
 Endpoints:
@@ -22,7 +22,7 @@ Endpoints:
 - GET /health - Health check
 
 Author: DWS IQ 6 Platform Team
-Version: 1.0.0
+Version: 1.0.2
 """
 
 import logging
@@ -41,6 +41,28 @@ logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
+
+
+def teams_incoming_webhook_payload(title: str | None, text: str) -> dict:
+    """
+    Body for Microsoft Teams Incoming Webhook (Office 365 Connector MessageCard).
+    Works with channel Incoming Webhook URLs from Teams.
+    """
+    safe_title = title or "Notification"
+    return {
+        "@type": "MessageCard",
+        "@context": "http://schema.org/extensions",
+        "themeColor": "0076D7",
+        "summary": safe_title,
+        "sections": [
+            {
+                "activityTitle": safe_title,
+                "text": text,
+                "markdown": True,
+            }
+        ],
+    }
+
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -67,6 +89,7 @@ app.add_middleware(
 # Configuration
 REPORT_ENGINE_URL = os.getenv("REPORT_ENGINE_URL", "http://localhost:8084")
 SLACK_WEBHOOK_URL = os.getenv("SLACK_WEBHOOK_URL")
+TEAMS_WEBHOOK_URL = os.getenv("TEAMS_WEBHOOK_URL")
 EMAIL_API_URL = os.getenv("EMAIL_API_URL")
 
 # In-memory storage (replace with database in production)
@@ -92,6 +115,7 @@ class ActionType(StrEnum):
     GENERATE_REPORT = "generate_report"
     SEND_EMAIL = "send_email"
     SEND_SLACK = "send_slack"
+    SEND_TEAMS = "send_teams"
     CALL_WEBHOOK = "call_webhook"
     UPDATE_DATABASE = "update_database"
 
@@ -182,8 +206,13 @@ class ExecutionResponse(BaseModel):
 class NotificationRequest(BaseModel):
     """Send notification request"""
 
-    channel: str = Field(..., description="slack, email, or webhook")
-    recipient: str = Field(..., description="Email, Slack channel, or webhook URL")
+    channel: str = Field(
+        ..., description="slack, teams, email, or webhook"
+    )
+    recipient: str = Field(
+        ...,
+        description="Email, placeholder for slack/teams (webhook URL from env), or URL for webhook channel",
+    )
     subject: str | None = None
     message: str
     metadata: dict | None = None
@@ -372,6 +401,19 @@ async def _execute_action(action_type: str, config: dict) -> dict:
                 )
         return {"sent": True, "channel": "slack"}
 
+    elif action_type == ActionType.SEND_TEAMS.value:
+        if TEAMS_WEBHOOK_URL:
+            msg = config.get("message", "Automation notification")
+            async with httpx.AsyncClient() as client:
+                await client.post(
+                    TEAMS_WEBHOOK_URL,
+                    json=teams_incoming_webhook_payload(
+                        config.get("title"), msg
+                    ),
+                    timeout=10.0,
+                )
+        return {"sent": True, "channel": "teams"}
+
     elif action_type == ActionType.SEND_EMAIL.value:
         # Placeholder for email integration
         return {
@@ -415,7 +457,10 @@ async def send_notification(request: NotificationRequest):
 
     if request.channel == "slack":
         if not SLACK_WEBHOOK_URL:
-            raise HTTPException(status_code=400, detail="Slack webhook not configured")
+            raise HTTPException(
+                status_code=400,
+                detail="Slack webhook not configured (SLACK_WEBHOOK_URL)",
+            )
 
         async with httpx.AsyncClient() as client:
             await client.post(
@@ -427,6 +472,24 @@ async def send_notification(request: NotificationRequest):
             )
 
         return {"status": "sent", "channel": "slack"}
+
+    if request.channel == "teams":
+        if not TEAMS_WEBHOOK_URL:
+            raise HTTPException(
+                status_code=400,
+                detail="Teams webhook not configured (TEAMS_WEBHOOK_URL)",
+            )
+
+        async with httpx.AsyncClient() as client:
+            await client.post(
+                TEAMS_WEBHOOK_URL,
+                json=teams_incoming_webhook_payload(
+                    request.subject, request.message
+                ),
+                timeout=10.0,
+            )
+
+        return {"status": "sent", "channel": "teams"}
 
     if request.channel == "email":
         # Placeholder for email integration (Resend, SendGrid, etc.)
@@ -541,7 +604,7 @@ async def list_workflow_templates():
             {
                 "template_id": "daily-carbon-report",
                 "name": "Daily Carbon Report",
-                "description": "Generate EN 15978 carbon report daily and send to Slack",
+                "description": "Generate EN 15978 carbon report daily and notify Teams (add send_slack action if you also use Slack)",
                 "trigger": {
                     "trigger_type": "schedule",
                     "config": {"frequency": "daily", "time": "08:00"},
@@ -552,7 +615,7 @@ async def list_workflow_templates():
                         "config": {"standard": "EN 15978"},
                     },
                     {
-                        "action_type": "send_slack",
+                        "action_type": "send_teams",
                         "config": {"message": "Daily carbon report ready"},
                     },
                 ],
@@ -560,7 +623,7 @@ async def list_workflow_templates():
             {
                 "template_id": "threshold-alert",
                 "name": "Carbon Threshold Alert",
-                "description": "Alert when carbon budget exceeds 90%",
+                "description": "Alert when carbon budget exceeds 90% (Slack and Teams if both webhooks are configured)",
                 "trigger": {
                     "trigger_type": "threshold",
                     "config": {
@@ -570,6 +633,10 @@ async def list_workflow_templates():
                     },
                 },
                 "actions": [
+                    {
+                        "action_type": "send_teams",
+                        "config": {"message": "⚠️ Carbon budget at 90%!"},
+                    },
                     {
                         "action_type": "send_slack",
                         "config": {"message": "⚠️ Carbon budget at 90%!"},

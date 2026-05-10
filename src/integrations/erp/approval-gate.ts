@@ -82,7 +82,7 @@ export interface ApprovalGateConfig {
   autoApproveRiskLevels: OperationRiskLevel[]; // Auto-approve these levels
   approvalTimeoutMinutes: number;
   requireDualApproval: boolean; // Require 2 approvers for CRITICAL
-  notificationChannels: ('email' | 'slack' | 'mcp')[];
+  notificationChannels: ('email' | 'slack' | 'teams' | 'mcp')[];
 }
 
 // ============================================================================
@@ -360,6 +360,10 @@ export class ApprovalGateManager extends EventEmitter {
 
     if (this.config.notificationChannels.includes('slack')) {
       logger.info('Slack approval notification (not yet connected)', { requestId: request.id });
+    }
+
+    if (this.config.notificationChannels.includes('teams')) {
+      logger.info('Teams approval notification (not yet connected)', { requestId: request.id });
     }
 
     if (this.config.notificationChannels.includes('mcp')) {

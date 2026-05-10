@@ -156,7 +156,12 @@ echo -n "YOUR-RESEND-KEY" | gcloud secrets create resend-api-key \
   --data-file=- \
   --replication-policy="automatic"
 
-# Slack Webhook
+# Microsoft Teams Incoming Webhook
+echo -n "https://YOUR-TENANT.webhook.office.com/webhookb2/..." | gcloud secrets create teams-webhook \
+  --data-file=- \
+  --replication-policy="automatic"
+
+# Slack Incoming Webhook (optional; use alongside or instead of Teams)
 echo -n "https://hooks.slack.com/services/YOUR/WEBHOOK/URL" | gcloud secrets create slack-webhook \
   --data-file=- \
   --replication-policy="automatic"
@@ -171,7 +176,7 @@ echo -n "your-linkedin-password" | gcloud secrets create linkedin-password \
   --replication-policy="automatic"
 
 # Grant service account access to secrets
-for secret in anthropic-api-key groq-api-key supabase-url supabase-service-key apollo-api-key clearbit-api-key resend-api-key slack-webhook linkedin-email linkedin-password; do
+for secret in anthropic-api-key groq-api-key supabase-url supabase-service-key apollo-api-key clearbit-api-key resend-api-key teams-webhook slack-webhook linkedin-email linkedin-password; do
   gcloud secrets add-iam-policy-binding $secret \
     --member="serviceAccount:sales-agents@${PROJECT_ID}.iam.gserviceaccount.com" \
     --role="roles/secretmanager.secretAccessor"
@@ -179,6 +184,8 @@ done
 
 echo "✅ All secrets stored and accessible to service account"
 ```
+
+**Webhooks:** You can use **Slack only**, **Teams only**, or **both**. Store Slack as `slack-webhook` → env `SLACK_WEBHOOK_URL`, Teams as `teams-webhook` → env `TEAMS_WEBHOOK_URL`, grant the service account access to each secret you create, and attach both secret refs to Cloud Run if you want duplicate alerts to both channels.
 
 ---
 
@@ -334,7 +341,7 @@ echo "Share this URL with Sales HIL Director (login required)"
 - ⏰ Runs every day at **6:00 AM CET**
 - 🔍 Enriches up to 100 new leads
 - 📊 Calculates ICP scores
-- 🚨 Sends Slack notification with summary
+- 🚨 Sends Microsoft Teams notification with summary
 
 **Outreach Agent:**
 - ⏰ Runs Monday-Friday at **9:00 AM CET**

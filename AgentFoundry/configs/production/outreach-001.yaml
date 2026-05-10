@@ -208,6 +208,7 @@ agent:
 
   monitoring:
     slack_webhook: "${SLACK_WEBHOOK_URL}"
+    teams_webhook: "${TEAMS_WEBHOOK_URL}"
     alert_on_error: true
     alert_on_spam_complaint: true
     alert_on_unsubscribe: true
@@ -289,7 +290,7 @@ notes: |
 
   APPROVAL WORKFLOW (Advisor Mode):
   1. Agent drafts email → saves to firehorse_events with status='pending_approval'
-  2. HIL Director reviews in Supabase dashboard or Slack notification
+  2. HIL Director reviews in Supabase dashboard or Slack / Microsoft Teams notification
   3. HIL Director approves/rejects:
      - Approve: Update status='scheduled', agent sends at optimized time
      - Reject: Update status='rejected', provide feedback in notes field

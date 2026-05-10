@@ -4,7 +4,7 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.3
+Version: 2.5
 
 Sessions & Modifications:
 
@@ -22,6 +22,8 @@ Sessions & Modifications:
 - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Script versioning, engine choice (HTML/PDF), Supabase sync in startup pipeline, code/scripts backup
 - Version: 2.2 | Tool: Claude Code (Opus 4.7) | Session: claude/ci-hygiene-audit-vBYGo | Date: 22.04.2026 | Changes: Local-First CI + Audit Log section; new Audit Manual linked; Files & Folders manual indexed
 - Version: 2.3 | Tool: Copilot CLI (GPT-5.3-Codex) | Session: claude/fix-booking-email-delivery-20260429 | Date: 29.04.2026 | Changes: SES SMTP runtime hardening, Supabase runtime env audit, Cloud Run env requirements updated
+- Version: 2.4 | Tool: Cursor / Claude agents | Session: Rg5Jy | Date: 25.04.2026 | Changes: Browse SSRF hardening (`url-guard`), Playwright moved to production dependencies for DGX `npm ci --omit=dev`
+- Version: 2.5 | Tool: Cursor Agent | Session: cursor-admin-node-workspace-20260510 | Date: 10.05.2026 | Changes: Documented dual `npm ci` (repository root + `src/cloudflare`) for backend and Cloudflare agent workers; PowerShell-first command examples for local dev and cloud agent runtimes
 
 Session Links & References:
 
@@ -31,7 +33,7 @@ Session Links & References:
 Document Status:
 
 - Created: 23.11.2025
-- Last Modified: 29.04.2026
+- Last Modified: 10.05.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ✅ ACTIVE
@@ -46,30 +48,31 @@ Document Status:
 
 1. [Admin Manuals Index](#admin-manuals-index) ⭐ **NEW in v1.8**
 2. [Installation Manual](#installation-manual-link)
-3. [Scaleway Serverless Containers](#scaleway-serverless-containers-primary)
-4. [Revolut Payments & Store](#revolut-payments--store) ⭐ **NEW in v1.8**
-5. [MCP Configuration](#mcp-configuration) ⭐ **NEW in v1.8**
-6. [Climate Assistant Chat Widget](#climate-assistant-chat-widget)
-7. [AI Agent Operational Guidelines](#ai-agent-operational-guidelines) ⭐ **NEW in v1.8**
-8. [Security Glossary & OWASP](#security-glossary--owasp) ⭐ **NEW in v1.8**
-9. [Data Processing Agreement (DPA)](#data-processing-agreement-dpa) ⭐ **NEW in v1.8**
-10. [Backup & Sync Infrastructure](#backup--sync-infrastructure) ⭐ **NEW in v1.8**
-11. [Multi-Agent Orchestration](#multi-agent-orchestration) ⭐ **NEW in v1.8**
-12. [GitHub Copilot Instructions](#github-copilot-instructions)
-13. [Session Security Fixes (January 2026)](#session-security-fixes-january-2026)
-14. [Files and Folders Structure](#files-and-folders-structure)
-15. [Document Index](#document-index)
-16. [AI Agent Policy](#ai-agent-policy)
-17. [Deployment Procedures](#deployment-procedures)
-18. [Session History](#session-history)
-19. [Maintenance Plan (Complete)](#maintenance-plan-complete)
-20. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance)
-21. [Code Review Process](#code-review-process)
-22. [Maintenance Tasks](#maintenance-tasks)
-23. [Git Workflow](#git-workflow)
-24. [Sensitive Data Protection](#sensitive-data-protection)
-25. [Emergency Procedures](#emergency-procedures)
-26. [Training](#training)
+3. [Node.js workspace setup](#nodejs-workspace-setup-backend-and-cloudflare-agents)
+4. [Scaleway Serverless Containers](#scaleway-serverless-containers-primary)
+5. [Revolut Payments & Store](#revolut-payments--store) ⭐ **NEW in v1.8**
+6. [MCP Configuration](#mcp-configuration) ⭐ **NEW in v1.8**
+7. [Climate Assistant Chat Widget](#climate-assistant-chat-widget)
+8. [AI Agent Operational Guidelines](#ai-agent-operational-guidelines) ⭐ **NEW in v1.8**
+9. [Security Glossary & OWASP](#security-glossary--owasp) ⭐ **NEW in v1.8**
+10. [Data Processing Agreement (DPA)](#data-processing-agreement-dpa) ⭐ **NEW in v1.8**
+11. [Backup & Sync Infrastructure](#backup--sync-infrastructure) ⭐ **NEW in v1.8**
+12. [Multi-Agent Orchestration](#multi-agent-orchestration) ⭐ **NEW in v1.8**
+13. [GitHub Copilot Instructions](#github-copilot-instructions)
+14. [Session Security Fixes (January 2026)](#session-security-fixes-january-2026)
+15. [Files and Folders Structure](#files-and-folders-structure)
+16. [Document Index](#document-index)
+17. [AI Agent Policy](#ai-agent-policy)
+18. [Deployment Procedures](#deployment-procedures)
+19. [Session History](#session-history)
+20. [Maintenance Plan (Complete)](#maintenance-plan-complete)
+21. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance)
+22. [Code Review Process](#code-review-process)
+23. [Maintenance Tasks](#maintenance-tasks)
+24. [Git Workflow](#git-workflow)
+25. [Sensitive Data Protection](#sensitive-data-protection)
+26. [Emergency Procedures](#emergency-procedures)
+27. [Training](#training)
 
 ---
 
@@ -170,6 +173,46 @@ This section links the **full maintenance plan** in one place:
 - `Admin/Installation/Public/groq/` - Edge AI hardware
 
 **Start Here:** Choose your platform and follow the README in that folder.
+
+---
+
+## Node.js workspace setup (backend and Cloudflare agents)
+
+**Purpose:** On a fresh clone, CI runner, or Cursor Cloud Agents runtime, install Node dependencies so TypeScript `build`, `test`, and Worker tooling are on the `PATH` via local `node_modules/.bin`.
+
+DWS6 ships **two** lockfile-rooted JavaScript projects:
+
+| Location            | Package / role                         | Typical commands                                      |
+| ------------------- | -------------------------------------- | ----------------------------------------------------- |
+| Repository root     | `dws6-auth-backend` (Express + Vitest) | `npm run dev`, `npm run build`, `npm run test`        |
+| `src/cloudflare/`   | `@dws-iq/cloudflare-agent` (Workers)   | `npm run build`, `npm run typecheck`, `npm run test`, `npm run dev` |
+
+Use **`npm ci`** in each directory (not `npm install`) so installs match `package-lock.json` exactly—required for reproducible CI and agent environments.
+
+### PowerShell (primary on Windows 11)
+
+From your clone root (set the path to match your machine):
+
+```powershell
+Set-Location <path-to-dws6-clone>
+npm ci
+Set-Location .\src\cloudflare
+npm ci
+```
+
+Older PowerShell builds do not treat `&&` as a command separator; use separate lines or `;` instead of copying bash one-liners.
+
+### Bash (macOS, Linux, Git Bash)
+
+```bash
+cd /path/to/dws6 && npm ci && cd src/cloudflare && npm ci
+```
+
+### Worktrees and cloud agents
+
+Each git worktree has its **own** `node_modules/`. Run the same two `npm ci` steps inside every worktree. Cursor or remote cloud agents should execute both installs from the workspace root before relying on `npx`, `vitest`, `tsc`, or `wrangler`.
+
+**Related:** [`ADMIN_MANUAL_TESTING.md`](ADMIN_MANUAL_TESTING.md) (Vitest and CI), [`ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`](ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md) (Wrangler from `src/cloudflare`).
 
 ---
 
@@ -2840,6 +2883,7 @@ auditor-access model.
 
 | Version | Date         | Changes                                                                                                                                                                                                                                                                                                                                                        | Session ID |
 | ------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| 2.5     | May 10, 2026 | Node.js workspace setup section: dual `npm ci` at repository root and `src/cloudflare/` for backend vs Cloudflare agent workers; PowerShell-first examples; worktree and cloud-agent note; TOC renumbered.                                                                                                                                                      | cursor-admin-node-workspace-20260510 |
 | 2.4     | Apr 25, 2026 | Browse SSRF hardening (`src/utils/url-guard.ts`): default-deny IPv4/IPv6 private/loopback/link-local/cloud-metadata ranges, two-layer enforcement (pre-`goto` + `page.route` for redirects), `BROWSE_ALLOW_PRIVATE=1` dev override; moved `playwright` from devDependencies to dependencies so DGX Spark `npm ci --omit=dev` keeps it. 75 tests pass.          | Rg5Jy      |
 | 2.3     | Apr 25, 2026 | Added Agent Capabilities section (Browse + Second Brain): `dws browse` (Playwright Chromium, MCP `dws_browse_*`), DGX Spark embeddings provider (`EMBEDDING_PROVIDER=dgx-spark`), `dws kb preflight`, `scripts/daily/kb-watch-inbox.sh` (auto-backfill with `KB_WATCH_MAX_PER_RUN` cap); linked PLAYWRIGHT.md + AGENT_SECOND_BRAIN.md in Related Documentation | Rg5Jy      |
 | 2.2     | Apr 22, 2026 | Added Local-First CI + Audit Log section (scripts/local-ci.sh, ci-audit-verify.sh, ci-audit-upload.ts, weekly/security-audit.sh, .ci-audit/, ci-audit-verify.yml gate); linked new Audit Manual for external auditors; indexed Files & Folders manual                                                                                                          | vBYGo      |

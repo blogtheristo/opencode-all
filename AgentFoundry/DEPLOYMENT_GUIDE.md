@@ -36,7 +36,7 @@
   - Resend API key (email)
   - LinkedIn Sales Navigator account
 - [ ] GitHub repository access (blogtheristo/dws6)
-- [ ] Slack workspace for notifications
+- [ ] (Optional) Slack Incoming Webhook and/or Microsoft Teams Incoming Webhook for agent notifications
 
 ### Local Development Tools
 
@@ -144,8 +144,13 @@ echo -n "your-resend-key" | gcloud secrets create resend-api-key \
   --data-file=- \
   --replication-policy="automatic"
 
-# Slack Webhook
-echo -n "https://hooks.slack.com/services/YOUR/WEBHOOK/URL" | gcloud secrets create slack-webhook \
+# Slack Incoming Webhook (optional)
+echo -n "https://hooks.slack.com/services/YOUR/WEBHOOK" | gcloud secrets create slack-webhook \
+  --data-file=- \
+  --replication-policy="automatic"
+
+# Microsoft Teams Incoming Webhook (optional)
+echo -n "https://YOUR-TENANT.webhook.office.com/webhookb2/..." | gcloud secrets create teams-webhook \
   --data-file=- \
   --replication-policy="automatic"
 
@@ -408,15 +413,15 @@ GROUP BY agent_id
 ORDER BY mtd_cost_eur DESC;
 ```
 
-### Slack Notifications
+### Slack and Microsoft Teams notifications
 
-**Configure Slack alerts in each agent YAML:**
+**Configure one or both** in each agent YAML (`monitoring.slack_webhook` / `monitoring.teams_webhook` → env `SLACK_WEBHOOK_URL` / `TEAMS_WEBHOOK_URL`):
 
 - ✅ **Daily Summary** (9 AM CET): Leads enriched, emails sent, meetings booked
 - ⚠️ **Error Alerts**: Agent failures, API errors, GDPR violations
 - 🚨 **Critical Alerts**: Spam complaints, budget thresholds (80%), security issues
 
-**Example Slack message format:**
+**Example Teams message format (plain text in card body):**
 
 ```
 🤖 Lead Scout Agent - Daily Summary
@@ -659,7 +664,7 @@ ORDER BY e.created_at DESC;
 
 **Symptoms:**
 - Emails stuck in `pending_approval` status
-- No Slack notifications received
+- No Slack or Teams notifications received
 - HIL Director can't find approval UI
 
 **Debug Steps:**
@@ -676,7 +681,7 @@ WHERE status = 'expired'
 
 **Common Fixes:**
 - Run `SELECT expire_pending_approvals();` to clean up old approvals
-- Verify Slack webhook URL in Secret Manager
+- Verify webhook URL(s) in Secret Manager (`slack-webhook` → `SLACK_WEBHOOK_URL`, `teams-webhook` → `TEAMS_WEBHOOK_URL`)
 - Build custom approval UI (Supabase dashboard + email link)
 
 ---

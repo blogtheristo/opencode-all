@@ -186,7 +186,9 @@ agent:
     retention_days: 90
 
   monitoring:
+    # Optional: configure one or both (separate Incoming Webhook URLs)
     slack_webhook: "${SLACK_WEBHOOK_URL}"
+    teams_webhook: "${TEAMS_WEBHOOK_URL}"
     alert_on_error: true
     alert_on_budget_threshold: true
     daily_summary: true

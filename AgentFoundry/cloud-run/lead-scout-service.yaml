@@ -68,6 +68,8 @@ spec:
                 name: clearbit-api-key
             - secretRef:
                 name: slack-webhook
+            - secretRef:
+                name: teams-webhook
 
           # Health checks
           livenessProbe:

@@ -1130,7 +1130,11 @@ const spec = {
                   reason: { type: 'string' },
                   confidence: { type: 'number', minimum: 0, maximum: 1 },
                   context: { type: 'object' },
-                  channel: { type: 'string', enum: ['email', 'slack'], default: 'email' },
+                  channel: {
+                    type: 'string',
+                    enum: ['email', 'slack', 'teams'],
+                    default: 'email',
+                  },
                   recipient: { type: 'string', format: 'email' },
                 },
                 required: ['agentName', 'reason'],

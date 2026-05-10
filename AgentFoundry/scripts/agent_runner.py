@@ -14,7 +14,8 @@ Environment Variables:
   SUPABASE_KEY: Supabase service role key
   ANTHROPIC_API_KEY: Claude API key (for Lead Scout, Discovery, Proposal agents)
   GROQ_API_KEY: Groq API key (for Outreach, Customer Success agents)
-  SLACK_WEBHOOK_URL: Slack webhook for notifications
+  SLACK_WEBHOOK_URL: optional Slack Incoming Webhook for notifications
+  TEAMS_WEBHOOK_URL: optional Microsoft Teams Incoming Webhook for notifications
 """
 
 import logging

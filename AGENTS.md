@@ -66,7 +66,7 @@ DWS IQ 6 uses three categories of AI agents:
 | **Multi-Agent** | LlamaStack | Agent orchestration |
 | **Edge AI** | NVIDIA Jetson | On-premise SiteSense agents |
 | **Database** | Supabase (PostgreSQL + pgvector) | Data, embeddings, signals |
-| **Notifications** | Slack, Email (Resend) | Agent alerts |
+| **Notifications** | Microsoft Teams (webhook), Slack (webhook), Email (SES) | Agent alerts |
 
 ### MCP Hub Coordination Patterns
 
@@ -319,7 +319,7 @@ PHASE 4 (Enhancements - Optional)
 mode: "silent_pilot"
 actions: ["observe", "generate_reports", "calibrate"]
 approval: none
-output: "Daily reports to Slack"
+output: "Daily reports to Slack and/or Microsoft Teams"
 
 # Phase 2: Advisor (60 days)
 mode: "advisor"
