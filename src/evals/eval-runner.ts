@@ -25,7 +25,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
-import { AgentRegistry } from '../agents/index.js';
+import { agentRegistry } from '../agents/index.js';
 import { scoreResponse, type EvalExpected } from './scorer.js';
 import type { AgentContext } from '../agents/types.js';
 
@@ -127,7 +127,7 @@ async function runCase(evalCase: EvalCase): Promise<EvalResult> {
 
   const start = Date.now();
   try {
-    const response = await AgentRegistry.executeAgent(evalCase.agent, TEST_CONTEXT, evalCase.input);
+    const response = await agentRegistry.executeAgent(evalCase.agent, TEST_CONTEXT, evalCase.input);
 
     const latencyMs = Date.now() - start;
     const scored = scoreResponse(response, evalCase.expected);
@@ -243,9 +243,6 @@ function printSummary(report: EvalReport): void {
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 async function main(): Promise<void> {
-  // Ensure registry is populated
-  AgentRegistry.registerDefaults();
-
   let anyRegression = false;
 
   for (const dataset of DATASETS) {

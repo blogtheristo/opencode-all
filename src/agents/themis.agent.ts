@@ -151,7 +151,7 @@ Perform ${action} analysis. Output structured JSON with:
     context: AgentContext,
     input: Record<string, unknown>,
   ): Promise<AgentResponse> {
-    const caseId = (input.caseId as string) || context.caseId || 'ad-hoc';
+    const caseId = (input.caseId as string) || context.sessionId || 'ad-hoc';
     const caseType = (input.type as string) || 'default';
     const caseContext = (input.context as string) || JSON.stringify(input);
     const subAgents = CASE_AGENT_MAP[caseType] ?? CASE_AGENT_MAP['default'];

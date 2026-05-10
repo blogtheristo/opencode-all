@@ -32,6 +32,12 @@ const NAV_TIMEOUT_MS = 30_000;
 const DEFAULT_VIEWPORT = { width: 1280, height: 800 };
 const DEFAULT_USER_AGENT = 'Mozilla/5.0 (compatible; DWS-IQ-Agent/1.0; +https://dws10.com)';
 
+interface PageWithAccessibility extends Page {
+  accessibility: {
+    snapshot(options?: { interestingOnly?: boolean }): Promise<unknown>;
+  };
+}
+
 export interface BrowseFetchResult {
   url: string;
   finalUrl: string;
@@ -157,7 +163,9 @@ export async function browseSnapshot(url: string): Promise<BrowseSnapshotResult>
     // Flatten the accessibility tree to a list of (role, name) pairs.
     // Agents use this to locate elements without parsing raw HTML.
     type AxNode = { role?: string; name?: string; level?: number; children?: AxNode[] };
-    const root = (await page.accessibility.snapshot({ interestingOnly: true })) as AxNode | null;
+    const root = (await (page as PageWithAccessibility).accessibility.snapshot({
+      interestingOnly: true,
+    })) as AxNode | null;
     const nodes: BrowseSnapshotNode[] = [];
     const walk = (n: AxNode | null): void => {
       if (!n) return;
