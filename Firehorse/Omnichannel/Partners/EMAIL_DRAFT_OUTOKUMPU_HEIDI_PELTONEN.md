@@ -94,10 +94,11 @@ Do NOT position as a fallback. He owns the fabricator revenue; this is his deal.
 
 | Field       | Value                                                               |
 | ----------- | ------------------------------------------------------------------- |
-| **To**      | Matthieu Jehl, President, Business Line Stainless Europe, Outokumpu |
+| **To**      | matthieu.jehl@outokumpu.com                                         |
+| **Name**    | Matthieu Jehl, President, Business Line Stainless Europe, Outokumpu |
 | **From**    | risto@onelifetime.world                                             |
 | **Subject** | CBAM declarations for your fabricator accounts                      |
-| **Status**  | APPROVED — final version confirmed by Risto 2026-05-10              |
+| **Status**  | APPROVED — ready to send                                            |
 | **Note**    | Detail moved to OUTOKUMPU_JEHL_APPENDIX.md (send on reply).         |
 
 Subject: CBAM declarations for your fabricator accounts

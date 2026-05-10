@@ -8,8 +8,8 @@
 | **HQ**                | Helsinki, Finland (Risto's home market)                                                            |
 | **Size**              | ~9,000 employees, €5B+ revenue                                                                     |
 | **Primary Contact A** | Heidi Peltonen, VP Sustainability (policy, PCF, CBAM advocacy)                                     |
-| **Primary Contact B** | Matthieu Jehl, President, Business Line Stainless Europe (revenue, fabricator accounts)            |
-| **Status**            | Research complete — outreach not yet sent                                                          |
+| **Primary Contact B** | Matthieu Jehl — matthieu.jehl@outokumpu.com — President, Business Line Stainless Europe            |
+| **Status**            | Ready to send — email approved, address confirmed                                                  |
 | **Partnership Type**  | Strategic Alliance + Channel Partner                                                               |
 | **Priority**          | High — shared Finnish market, active CBAM posture, EVOLVE strategy 2026–2030                       |
 | **Source**            | CBAM article: outokumpu.com/en/expertise/.../how-cbam-will-reshape-the-stainless-steel-value-chain |
