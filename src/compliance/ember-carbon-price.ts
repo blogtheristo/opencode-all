@@ -118,7 +118,7 @@ function loadPersistedPrice(): CarbonPrice | null {
     if (parsed.source === 'seed-fallback') return null;
 
     const age = Date.now() - new Date(parsed.fetchedAt).getTime();
-    if (age > FILE_CACHE_TTL_MS) return null;
+    if (isNaN(age) || age > FILE_CACHE_TTL_MS) return null;
 
     return {
       priceEur: parsed.priceEur,

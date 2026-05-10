@@ -1,6 +1,6 @@
 # Field Note: CBAM — Carbon Border Adjustment Mechanism
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
@@ -29,7 +29,7 @@ Related Documents:
 - docs/energy-industry-eu-2026.md
 - docs/DWS7_HYDROGEN_SELVITYS.md
 
----
+***
 
 - **Date:** 10.05.2026
 - **Author:** Risto Anton Päärni (risto.paarni@lifetime.fi)
