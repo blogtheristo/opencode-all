@@ -368,9 +368,9 @@
       "price": 3500,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Deploy AI agents where your team already works \u2014 Teams, Slack, WhatsApp, Zoom. Custom conversational agents for enterprise workflows with your choice of LLM (Claude, GPT, Groq, or self-hosted for data sovereignty). Live in 25 hours.",
+      "description": "Deploy AI agents where your team already works \u2014 WhatsApp, Teams, Zoom, or a secure webhook. Custom conversational agents for enterprise workflows with your choice of LLM (Claude, GPT, Groq, or self-hosted for data sovereignty). Live in 25 hours.",
       "features": [
-        "Teams, Slack, WhatsApp & Zoom",
+        "WhatsApp, Teams, Zoom & secure webhooks",
         "Custom LLM choice for sovereignty",
         "Live in 25 hours"
       ],
@@ -393,16 +393,18 @@
     "m365-consultancy": {
       "id": "m365-consultancy",
       "gtin": null,
-      "mpn": "M365-CONSULT-2026",
-      "name": "Microsoft Consultancy",
-      "price": 1120,
+      "mpn": "M365-ATK-2026",
+      "name": "Microsoft 365 Agent Consultancy",
+      "price": 1200,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Get 188% ROI from the Microsoft licenses you already pay for. 8 hours of expert consultancy to automate business processes with Power Apps and cut development costs by 74%. Most clients launch their first app within the engagement.",
+      "description": "Build Declarative Agents and Custom Engine Agents for Microsoft 365 Copilot, Teams, and Office using the Microsoft 365 Agents Toolkit (ATK) — the evolution of Teams Toolkit. Zero-configuration approach with built-in M365 identity, Microsoft Graph, and Azure integration. 8 hours of expert engagement.",
       "features": [
-        "Power Apps process automation",
-        "188% ROI on M365 licenses",
-        "Launch first app within engagement"
+        "Declarative & Custom Engine Agents for M365 Copilot",
+        "Teams conversational agents with Microsoft Teams SDK",
+        "Office Add-ins for Excel, Word, PowerPoint and Outlook",
+        "Zero-configuration M365 identity + Microsoft Graph",
+        "Deploy to Azure with ATK templates"
       ],
       "priceNote": "8 hours",
       "revolutLink": null,
@@ -1203,13 +1205,7 @@
     "google": {
       "merchantId": null,
       "feedUrl": "https://dws10.com/feeds/google-products.xml",
-      "targetCountries": [
-        "FI",
-        "SE",
-        "NO",
-        "DK",
-        "DE"
-      ],
+      "targetCountries": ["FI", "SE", "NO", "DK", "DE"],
       "contentLanguage": "en",
       "channel": "online"
     }

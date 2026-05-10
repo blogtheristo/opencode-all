@@ -9,7 +9,7 @@ Features:
 - High-priority leads view
 - Cost tracking
 - Manual agent triggers
-- Real-time Slack-style notifications
+- Real-time operator notifications
 
 Deployment: Google Cloud Run (always-on, min 1 instance)
 Access: https://agent-director-dashboard-xxx.run.app (authentication required)

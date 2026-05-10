@@ -521,6 +521,7 @@ services:
       
       # Notifications
       SLACK_WEBHOOK_URL: ${SLACK_WEBHOOK_URL}
+      TEAMS_WEBHOOK_URL: ${TEAMS_WEBHOOK_URL}
       
       # Logging
       LOG_LEVEL: ${LOG_LEVEL:-info}

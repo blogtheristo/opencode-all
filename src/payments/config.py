@@ -75,11 +75,11 @@ SUBSCRIPTION_PLANS: dict[PlanTier, SubscriptionPlan] = {
         price_monthly_eur=Decimal("2499"),
         agent_calls_per_month=-1,  # Unlimited
         edge_devices=50,
-        support_type="Dedicated Slack",
+        support_type="Dedicated WhatsApp/Webhook",
         features=(
             "Unlimited agent calls",
             "50+ edge devices",
-            "Dedicated Slack channel",
+            "Dedicated WhatsApp/webhook channel",
             "Custom integrations",
             "Priority support",
             "SLA guarantee",

@@ -16,14 +16,13 @@ export interface GTMEvent {
   [key: string]: unknown;
 }
 
-export interface DataLayer {
-  push(event: GTMEvent): void;
-  [key: string]: unknown;
-}
+type DataLayerEntry = GTMEvent | IArguments;
+
+export type DataLayer = DataLayerEntry[];
 
 declare global {
   interface Window {
-    dataLayer: DataLayer[];
+    dataLayer: DataLayer;
     gtag: Function;
   }
 }
@@ -239,9 +238,7 @@ const getContainerId = (): string => {
     return meta.getAttribute('content') || 'GTM-XXXXXXX';
   }
   // Fallback to environment variable (if running in Node/Vite)
-  return (
-    process.env.VITE_GTM_CONTAINER_ID || import.meta.env.VITE_GTM_CONTAINER_ID || 'GTM-XXXXXXX'
-  );
+  return process.env.VITE_GTM_CONTAINER_ID || 'GTM-XXXXXXX';
 };
 
 export const gtmClient = new GTMClient(getContainerId());

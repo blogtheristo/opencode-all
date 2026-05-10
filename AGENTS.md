@@ -1,4 +1,5 @@
 # AGENTS.md - Master Agent Index
+
 ## DWS IQ 6 - Agent Architecture & Coordination
 
 **Version:** 1.0  
@@ -58,6 +59,7 @@ DWS IQ 6 uses three categories of AI agents:
 
 ### Technology Stack
 
+<<<<<<< Current (Your changes)
 | Layer | Technology | Purpose |
 |-------|------------|---------|
 | **Orchestration** | MCP Hub (`mcp-hub/server.py`) | Central coordination, workflow patterns |
@@ -66,7 +68,18 @@ DWS IQ 6 uses three categories of AI agents:
 | **Multi-Agent** | LlamaStack | Agent orchestration |
 | **Edge AI** | NVIDIA Jetson | On-premise SiteSense agents |
 | **Database** | Supabase (PostgreSQL + pgvector) | Data, embeddings, signals |
-| **Notifications** | Slack, Email (Resend) | Agent alerts |
+| **Notifications** | Microsoft Teams (webhook), Slack (webhook), Email (SES) | Agent alerts |
+=======
+| Layer                 | Technology                       | Purpose                                 |
+| --------------------- | -------------------------------- | --------------------------------------- |
+| **Orchestration**     | MCP Hub (`mcp-hub/server.py`)    | Central coordination, workflow patterns |
+| **Fast Inference**    | Groq API (Llama 3.1 70B)         | High-speed agent responses              |
+| **Complex Reasoning** | Claude Sonnet 4.5                | Deep analysis, planning                 |
+| **Multi-Agent**       | LlamaStack                       | Agent orchestration                     |
+| **Edge AI**           | NVIDIA Jetson                    | On-premise SiteSense agents             |
+| **Database**          | Supabase (PostgreSQL + pgvector) | Data, embeddings, signals               |
+| **Notifications**     | Slack, Email (Resend)            | Agent alerts                            |
+>>>>>>> Incoming (Background Agent changes)
 
 ### MCP Hub Coordination Patterns
 
@@ -91,12 +104,14 @@ Signals are the communication mechanism between agents. When an agent completes 
 ```
 
 **Components:**
+
 - `AGENT-XX`: Agent identifier (e.g., `AGENT-01`, `AGENT-07`)
 - `SIGNAL_TYPE`: `READY`, `COMPLETE`, `ERROR`, `BLOCKED`
 - `MILESTONE`: Specific deliverable (e.g., `supabase-auth`, `rls-policies`)
 - `TIMESTAMP`: ISO 8601 format
 
 **Examples:**
+
 ```
 [AGENT-07]:READY:rls-policies:2026-01-05T14:30:00Z
 [AGENT-01]:COMPLETE:v1-auth:2026-01-10T09:00:00Z
@@ -105,12 +120,12 @@ Signals are the communication mechanism between agents. When an agent completes 
 
 ### Signal Types
 
-| Type | Meaning | Action |
-|------|---------|--------|
-| `READY` | Milestone achieved, dependent agents can proceed | Unblocks downstream agents |
-| `COMPLETE` | All agent work finished | Agent moves to complete status |
-| `ERROR` | Agent encountered failure | Alerts coordinator, may block others |
-| `BLOCKED` | Agent waiting for external dependency | No action until unblocked |
+| Type       | Meaning                                          | Action                               |
+| ---------- | ------------------------------------------------ | ------------------------------------ |
+| `READY`    | Milestone achieved, dependent agents can proceed | Unblocks downstream agents           |
+| `COMPLETE` | All agent work finished                          | Agent moves to complete status       |
+| `ERROR`    | Agent encountered failure                        | Alerts coordinator, may block others |
+| `BLOCKED`  | Agent waiting for external dependency            | No action until unblocked            |
 
 ### How Agents Learn Signals
 
@@ -120,14 +135,15 @@ Agents read from `AGENT_SIGNAL_REGISTRY.json`:
 
 ```javascript
 // coordinator.cjs
-const registry = JSON.parse(fs.readFileSync('AGENT_SIGNAL_REGISTRY.json'));
-const myDependencies = registry.agents['agent-02'].signals.listening;
+const registry = JSON.parse(fs.readFileSync("AGENT_SIGNAL_REGISTRY.json"));
+const myDependencies = registry.agents["agent-02"].signals.listening;
 const emittedSignals = collectEmittedSignals(registry);
-const unmet = myDependencies.filter(sig => !emittedSignals.has(sig));
+const unmet = myDependencies.filter((sig) => !emittedSignals.has(sig));
 // If unmet.length === 0, agent can proceed
 ```
 
 **Commands:**
+
 ```bash
 cd .workflows/agents
 node coordinator.cjs status    # Show all agent statuses
@@ -173,11 +189,11 @@ PHASE 4 (Enhancements - Optional)
 
 ### Key Signal References
 
-| File | Purpose |
-|------|---------|
-| `.workflows/agents/AGENT_SIGNAL_REGISTRY.json` | Signal state database |
-| `.workflows/agents/ULTRA_AGENT_COORDINATOR.md` | Visual coordination guide |
-| `.workflows/agents/coordinator.cjs` | CLI tool for signal management |
+| File                                           | Purpose                        |
+| ---------------------------------------------- | ------------------------------ |
+| `.workflows/agents/AGENT_SIGNAL_REGISTRY.json` | Signal state database          |
+| `.workflows/agents/ULTRA_AGENT_COORDINATOR.md` | Visual coordination guide      |
+| `.workflows/agents/coordinator.cjs`            | CLI tool for signal management |
 
 ---
 
@@ -190,68 +206,78 @@ PHASE 4 (Enhancements - Optional)
 
 ### Agent Fleet
 
-| ID | Name | Phase | Priority | Status | Estimated Days |
-|----|------|-------|----------|--------|----------------|
-| Agent-01 | DWS IQ Login System | 1 | Critical | Running | 3-4 |
-| Agent-02 | Firehorse Apps | 2 | Critical | Waiting | 4-6 |
-| Agent-03 | Customer Dashboard | 3 | Critical | Waiting | 5-7 |
-| Agent-04 | AI Agents | 2 | Critical | Waiting | 5-7 |
-| Agent-05 | Mobile Dashboard | 3 | High | Waiting | 10-14 |
-| Agent-06 | Enterprise Integrations | V1.1 | Low | Deferred | 3-4 |
-| Agent-07 | Supabase Database | 1 | Critical | Running | 2 |
-| Agent-08 | Payment Integration | 4 | Medium | Waiting | 3-4 |
-| Agent-09 | Email System | 2 | High | Waiting | 2 |
-| Agent-10 | Documentation | 1 | Low | Running | Ongoing |
+| ID       | Name                    | Phase | Priority | Status   | Estimated Days |
+| -------- | ----------------------- | ----- | -------- | -------- | -------------- |
+| Agent-01 | DWS IQ Login System     | 1     | Critical | Running  | 3-4            |
+| Agent-02 | Firehorse Apps          | 2     | Critical | Waiting  | 4-6            |
+| Agent-03 | Customer Dashboard      | 3     | Critical | Waiting  | 5-7            |
+| Agent-04 | AI Agents               | 2     | Critical | Waiting  | 5-7            |
+| Agent-05 | Mobile Dashboard        | 3     | High     | Waiting  | 10-14          |
+| Agent-06 | Enterprise Integrations | V1.1  | Low      | Deferred | 3-4            |
+| Agent-07 | Supabase Database       | 1     | Critical | Running  | 2              |
+| Agent-08 | Payment Integration     | 4     | Medium   | Waiting  | 3-4            |
+| Agent-09 | Email System            | 2     | High     | Waiting  | 2              |
+| Agent-10 | Documentation           | 1     | Low      | Running  | Ongoing        |
 
 ### Agent Details
 
 #### Agent-01: DWS IQ Login System
+
 **Signals Emitted:** `jwt-service`, `auth-middleware`, `supabase-auth`, `login-ui`, `oauth-google`, `oauth-microsoft`, `v1-auth`  
 **Unlocks:** Agent-02, Agent-03, Agent-05, Agent-08  
 **Reference:** `V1_FEATURE_LIST.md` Section 1
 
 #### Agent-02: Firehorse Apps
+
 **Listens For:** `Agent-01:supabase-auth`, `Agent-07:rls-policies`  
 **Signals Emitted:** `report-api`, `automation-api`, `dms-upload`, `v1-firehorse`  
 **Unlocks:** Agent-03, Agent-05  
 **Reference:** `V1_FEATURE_LIST.md` Section 2, `Firehorse/` directory
 
 #### Agent-03: Customer Dashboard
+
 **Listens For:** `Agent-01:supabase-auth`, `Agent-02:report-api`, `Agent-04:customersat`  
 **Signals Emitted:** `nextjs-setup`, `dashboard-layout`, `project-view`, `carbon-dashboard`, `agent-chat`, `v1-dashboard`  
 **Reference:** `V1_FEATURE_LIST.md` Section 3
 
 #### Agent-04: AI Agents
+
 **Listens For:** `Agent-07:rls-policies`  
 **Signals Emitted:** `mcp-hub`, `groq-integration`, `sitesense`, `schedulegenius`, `materialoracle`, `customersat`, `v1-agents`  
 **Unlocks:** Agent-03, Agent-05  
 **Reference:** `V1_FEATURE_LIST.md` Section 4, `mcp-hub/server.py`
 
 #### Agent-05: Mobile Dashboard
+
 **Listens For:** `Agent-01:supabase-auth`, `Agent-02:report-api`, `Agent-04:mcp-hub`  
 **Signals Emitted:** `expo-setup`, `redux-store`, `navigation`, `dashboard-screen`, `projects-screen`, `offline-sync`, `v1-mobile`  
 **Reference:** `V1_FEATURE_LIST.md` Section 5, `mobile-dashboard/` directory
 
 #### Agent-06: Enterprise Integrations
+
 **Status:** DEFERRED TO V1.1  
 **Reference:** `V1_FEATURE_LIST.md` Section 6
 
 #### Agent-07: Supabase Database
+
 **Signals Emitted:** `schema-users`, `schema-orgs`, `rls-policies`, `seed-data`, `v1-database`  
 **Unlocks:** Agent-01, Agent-02, Agent-04, Agent-09  
 **Reference:** `V1_FEATURE_LIST.md` Section 7, `supabase/` directory
 
 #### Agent-08: Payment Integration
+
 **Listens For:** `Agent-01:v1-auth`, `Agent-07:v1-database`  
 **Signals Emitted:** `stripe-setup`, `subscription-plans`, `billing-ui`, `v1-payments`  
 **Reference:** `V1_FEATURE_LIST.md` Section 8, `PAYMENT_INTEGRATION.md`
 
 #### Agent-09: Email System
+
 **Listens For:** `Agent-07:schema-users`  
 **Signals Emitted:** `transactional`, `notifications`, `v1-email`  
 **Reference:** `V1_FEATURE_LIST.md` Section 9
 
 #### Agent-10: Documentation
+
 **Signals Emitted:** `api-docs`, `integration-guides`, `v1-docs`  
 **Reference:** `V1_FEATURE_LIST.md` Section 10
 
@@ -266,25 +292,26 @@ PHASE 4 (Enhancements - Optional)
 
 ### Development Agents
 
-| Agent | Role | Weekly Deliverable |
-|-------|------|-------------------|
-| **Architect Agent** | System designer, technical decisions | ADRs, diagrams, tech debt log |
-| **Builder Agent** | Code generator, implementation | Agent implementations, test coverage |
-| **DevOps Agent** | Infrastructure automation | Cost report, uptime report, CI/CD health |
-| **Security Agent** | Security hardening, compliance | Vulnerability scans, compliance checklist |
-| **Product Agent** | Progress tracking, reporting | Weekly reports (EN/FI), roadmap updates |
-| **Design Audit Agent** | Premium UI/UX architecture, Steve Jobs/Jony Ive philosophy | Design audit plans, phased improvements |
+| Agent                  | Role                                                       | Weekly Deliverable                        |
+| ---------------------- | ---------------------------------------------------------- | ----------------------------------------- |
+| **Architect Agent**    | System designer, technical decisions                       | ADRs, diagrams, tech debt log             |
+| **Builder Agent**      | Code generator, implementation                             | Agent implementations, test coverage      |
+| **DevOps Agent**       | Infrastructure automation                                  | Cost report, uptime report, CI/CD health  |
+| **Security Agent**     | Security hardening, compliance                             | Vulnerability scans, compliance checklist |
+| **Product Agent**      | Progress tracking, reporting                               | Weekly reports (EN/FI), roadmap updates   |
+| **Design Audit Agent** | Premium UI/UX architecture, Steve Jobs/Jony Ive philosophy | Design audit plans, phased improvements   |
 
 ### Sales & Market Intelligence Agents
 
-| Agent | Role | Weekly Deliverable |
-|-------|------|-------------------|
-| **Market Signal Agent** | Market intelligence, demand detection | Market signal report, product opportunities |
-| **Product Page Generator** | Dynamic sales page creation | Updated product pages, landing pages |
+| Agent                      | Role                                  | Weekly Deliverable                          |
+| -------------------------- | ------------------------------------- | ------------------------------------------- |
+| **Market Signal Agent**    | Market intelligence, demand detection | Market signal report, product opportunities |
+| **Product Page Generator** | Dynamic sales page creation           | Updated product pages, landing pages        |
 
 ### Weekly Coordination Cycle
 
 **Fridays:**
+
 1. Market Signal Agent → market insights
 2. Product Page Generator → page updates
 3. DevOps Agent → cost data + metrics
@@ -304,13 +331,13 @@ PHASE 4 (Enhancements - Optional)
 
 ### Core Agents
 
-| Agent | Purpose | Template |
-|-------|---------|----------|
-| **CustomerSat Agent** | Monitor satisfaction, prevent churn | `configs/templates/customer-satisfaction-agent.yaml` |
-| **Viability Agent** | Unit economics, financial health | `configs/templates/viability-agent.yaml` |
-| **SiteSense Agent** | Edge AI, site monitoring | `SiteSense/` (NVIDIA Jetson) |
-| **ScheduleGenius Agent** | Timeline optimization | Planned |
-| **MaterialOracle Agent** | Carbon tracking, procurement | Planned |
+| Agent                    | Purpose                             | Template                                             |
+| ------------------------ | ----------------------------------- | ---------------------------------------------------- |
+| **CustomerSat Agent**    | Monitor satisfaction, prevent churn | `configs/templates/customer-satisfaction-agent.yaml` |
+| **Viability Agent**      | Unit economics, financial health    | `configs/templates/viability-agent.yaml`             |
+| **SiteSense Agent**      | Edge AI, site monitoring            | `SiteSense/` (NVIDIA Jetson)                         |
+| **ScheduleGenius Agent** | Timeline optimization               | Planned                                              |
+| **MaterialOracle Agent** | Carbon tracking, procurement        | Planned                                              |
 
 ### Deployment Phases
 
@@ -319,7 +346,7 @@ PHASE 4 (Enhancements - Optional)
 mode: "silent_pilot"
 actions: ["observe", "generate_reports", "calibrate"]
 approval: none
-output: "Daily reports to Slack"
+output: "Daily reports to Slack and/or Microsoft Teams"
 
 # Phase 2: Advisor (60 days)
 mode: "advisor"
@@ -343,26 +370,26 @@ agent:
     provider: "anthropic"
     name: "claude-sonnet-4.5"
     temperature: 0.3
-  
+
   system_prompt: |
     You are a Customer Satisfaction Specialist...
-  
+
   knowledge_base:
     - type: "vector_db"
       provider: "supabase_pgvector"
     - type: "api"
       provider: "hubspot_crm"
-  
+
   deployment:
     phase_1: { mode: "silent_pilot", duration_days: 30 }
     phase_2: { mode: "advisor", duration_days: 60 }
     phase_3: { mode: "autonomous" }
-  
+
   tools:
     - name: "query_crm"
     - name: "calculate_health_score"
     - name: "send_notification"
-  
+
   cost_tracking:
     budget_monthly_eur: 100
 ```
@@ -373,18 +400,18 @@ agent:
 
 ### Active MCP Servers
 
-| Server | Purpose | Status |
-|--------|---------|--------|
-| **Docker MCP** | Container management, GitHub integration | Active |
-| **Snyk MCP** | Security scanning | Active |
-| **Browser MCP** | Web testing, UI verification | Active |
+| Server          | Purpose                                  | Status |
+| --------------- | ---------------------------------------- | ------ |
+| **Docker MCP**  | Container management, GitHub integration | Active |
+| **Snyk MCP**    | Security scanning                        | Active |
+| **Browser MCP** | Web testing, UI verification             | Active |
 
 ### Available MCP Servers (Not Configured)
 
-| Server | Purpose | Required Secrets |
-|--------|---------|------------------|
-| **Stripe MCP** | Payment integration | `stripe.secret_key` |
-| **Stripe Remote MCP** | Remote Stripe access | - |
+| Server                | Purpose              | Required Secrets    |
+| --------------------- | -------------------- | ------------------- |
+| **Stripe MCP**        | Payment integration  | `stripe.secret_key` |
+| **Stripe Remote MCP** | Remote Stripe access | -                   |
 
 ### Adding New MCP Servers
 
@@ -403,12 +430,12 @@ docker mcp add stripe --activate
 
 ### MCP Hub Endpoints
 
-| Endpoint | Method | Purpose |
-|----------|--------|---------|
-| `/` | GET | Service info |
-| `/health` | GET | Health check with MCP server status |
-| `/workflows/execute` | POST | Execute workflow (fan-out, reflection, sequential) |
-| `/pipelines/bim-carbon` | POST | BIM Carbon analysis pipeline |
+| Endpoint                | Method | Purpose                                            |
+| ----------------------- | ------ | -------------------------------------------------- |
+| `/`                     | GET    | Service info                                       |
+| `/health`               | GET    | Health check with MCP server status                |
+| `/workflows/execute`    | POST   | Execute workflow (fan-out, reflection, sequential) |
+| `/pipelines/bim-carbon` | POST   | BIM Carbon analysis pipeline                       |
 
 ---
 
@@ -428,11 +455,13 @@ All AI agents follow `AI_AGENT_GUIDELINES.md`:
 From `AI_AGENT_GUIDELINES.md` Part 8:
 
 **NEVER include in documents:**
+
 - API keys, secrets, passwords
 - PII without anonymization
 - Credentials or tokens
 
 **ALWAYS include:**
+
 - Anonymized examples
 - Architecture diagrams
 - Decision rationales
@@ -457,18 +486,18 @@ cost_tracking:
 
 ### File Locations
 
-| Resource | Path |
-|----------|------|
-| V1.0 Feature List | `V1_FEATURE_LIST.md` |
-| Signal Registry | `.workflows/agents/AGENT_SIGNAL_REGISTRY.json` |
-| Coordinator Script | `.workflows/agents/coordinator.cjs` |
-| Coordinator Guide | `.workflows/agents/ULTRA_AGENT_COORDINATOR.md` |
-| Design Audit Agent | `.workflows/agents/DESIGN_AUDIT_AGENT.md` |
-| Design Audit Admin Manual | `ADMIN_MANUAL_DESIGN_AUDIT_AGENT.md` |
-| Agent Guidelines | `AI_AGENT_GUIDELINES.md` |
-| DWS Team Agents | `CloudAgents/dws-team/README.md` |
-| Customer Agent Configs | `AgentFoundry/configs/templates/` |
-| MCP Hub | `mcp-hub/server.py` |
+| Resource                  | Path                                           |
+| ------------------------- | ---------------------------------------------- |
+| V1.0 Feature List         | `V1_FEATURE_LIST.md`                           |
+| Signal Registry           | `.workflows/agents/AGENT_SIGNAL_REGISTRY.json` |
+| Coordinator Script        | `.workflows/agents/coordinator.cjs`            |
+| Coordinator Guide         | `.workflows/agents/ULTRA_AGENT_COORDINATOR.md` |
+| Design Audit Agent        | `.workflows/agents/DESIGN_AUDIT_AGENT.md`      |
+| Design Audit Admin Manual | `ADMIN_MANUAL_DESIGN_AUDIT_AGENT.md`           |
+| Agent Guidelines          | `AI_AGENT_GUIDELINES.md`                       |
+| DWS Team Agents           | `CloudAgents/dws-team/README.md`               |
+| Customer Agent Configs    | `AgentFoundry/configs/templates/`              |
+| MCP Hub                   | `mcp-hub/server.py`                            |
 
 ### Common Commands
 
@@ -489,18 +518,18 @@ cd mcp-hub && python server.py
 
 ### V1.0 Completion Criteria
 
-| Agent | Completion Signal | Required for V1.0 |
-|-------|-------------------|-------------------|
-| Agent-01 | `COMPLETE:v1-auth` | YES |
-| Agent-02 | `COMPLETE:v1-firehorse` | YES |
-| Agent-03 | `COMPLETE:v1-dashboard` | YES |
-| Agent-04 | `COMPLETE:v1-agents` | YES |
-| Agent-05 | `COMPLETE:v1-mobile` | TestFlight OK |
-| Agent-06 | `COMPLETE:v1-enterprise` | V1.1 |
-| Agent-07 | `COMPLETE:v1-database` | YES |
-| Agent-08 | `COMPLETE:v1-payments` | Optional |
-| Agent-09 | `COMPLETE:v1-email` | YES |
-| Agent-10 | `COMPLETE:v1-docs` | YES |
+| Agent    | Completion Signal        | Required for V1.0 |
+| -------- | ------------------------ | ----------------- |
+| Agent-01 | `COMPLETE:v1-auth`       | YES               |
+| Agent-02 | `COMPLETE:v1-firehorse`  | YES               |
+| Agent-03 | `COMPLETE:v1-dashboard`  | YES               |
+| Agent-04 | `COMPLETE:v1-agents`     | YES               |
+| Agent-05 | `COMPLETE:v1-mobile`     | TestFlight OK     |
+| Agent-06 | `COMPLETE:v1-enterprise` | V1.1              |
+| Agent-07 | `COMPLETE:v1-database`   | YES               |
+| Agent-08 | `COMPLETE:v1-payments`   | Optional          |
+| Agent-09 | `COMPLETE:v1-email`      | YES               |
+| Agent-10 | `COMPLETE:v1-docs`       | YES               |
 
 ### Timeline
 
@@ -522,7 +551,47 @@ cd mcp-hub && python server.py
 
 ---
 
+## Cursor Cloud specific instructions
+
+### Services overview
+
+| Service         | Path                                      | Start command           | Port |
+| --------------- | ----------------------------------------- | ----------------------- | ---- |
+| Express Backend | `/workspace`                              | See startup notes below | 3001 |
+| React Dashboard | `dws6.com/dashboard/firehorse/v10-react/` | `npm run dev`           | 5173 |
+
+### Starting the Express backend
+
+The backend's `auth.service.ts` validates `JWT_SECRET` at module-load time (before `dotenv.config()` runs in `app.ts`). You must export the env vars **before** running `npm run dev`:
+
+```bash
+JWT_SECRET="dev-jwt-secret-key-for-local-development-only-32chars" \
+SUPABASE_URL="https://placeholder.supabase.co" \
+SUPABASE_SERVICE_KEY="placeholder-service-key" \
+STRIPE_SECRET_KEY="sk_test_placeholder_key_for_dev" \
+npm run dev
+```
+
+Or source the `.env` file properly in your shell. The `.env.example` has these placeholders but `dotenv` loads too late due to ES module import ordering.
+
+### Known pre-existing issues
+
+- **TypeScript build (`npm run build`)**: Has pre-existing type errors in `booking.routes.ts`, `erp-tracking.routes.ts`, `browser.ts`, `gtm-client.ts`. The project uses `tsx watch` for dev, not `tsc`.
+- **Dashboard ESLint (`npm run lint` in v10-react)**: Missing `parent-module` transitive dependency from `import-fresh` → ESLint 9.39 issue. Does not affect Vite dev server or build.
+- **Redis warnings**: Backend logs Redis connection errors at startup (expected without Redis running). The app degrades gracefully.
+- **Supabase "degraded"**: Without real Supabase credentials, `/health` reports degraded status. The server still starts and responds to requests.
+
+### Tests
+
+Run tests from workspace root: `npx vitest run`. Tests are self-contained and do not require external services. 53/56 test files pass; 4 failures are pre-existing in the compliance-agent-integration suite.
+
+### Lint
+
+Root backend has `"lint": "echo \"No linter configured\""` — no real linter. Dashboard linting has the upstream dependency issue noted above.
+
+---
+
 **Document Version:** 1.0  
-**Last Updated:** May 8, 2026  
+**Last Updated:** May 10, 2026  
 **Status:** Active  
 **Next Review:** January 10, 2026

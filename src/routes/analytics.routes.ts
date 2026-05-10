@@ -170,7 +170,7 @@ router.get('/cohort', async (req: Request, res: Response) => {
  * GET /api/v1/analytics/health
  * Health check for analytics service
  */
-router.get('/health', async (req: Request, res: Response) => {
+router.get('/health', async (_req: Request, res: Response) => {
   try {
     const health = {
       status: 'ok',

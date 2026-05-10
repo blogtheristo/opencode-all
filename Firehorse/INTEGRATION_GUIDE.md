@@ -117,9 +117,10 @@ SEND_TIMEZONE=Europe/Helsinki
 TRACKING_DOMAIN=dws10.com
 INVESTOR_PAGE_URL=https://dws10.com/investor-relations/
 
-# Alerts
+# Alerts (optional: one or both)
 ALERT_EMAIL=team@dws10.com
-SLACK_WEBHOOK=your-slack-webhook-url
+SLACK_WEBHOOK=your-slack-incoming-webhook-url
+TEAMS_WEBHOOK=your-teams-incoming-webhook-url
 ```
 
 ### Step 3: Update Investor Relations Page

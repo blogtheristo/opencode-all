@@ -9,7 +9,7 @@ Features:
 - Workflow definitions and execution
 - Scheduled report generation
 - Webhook triggers
-- Email/Slack notifications
+- Email, webhook, and WhatsApp notifications
 - Integration with Report Engine
 
 Endpoints:
@@ -66,7 +66,14 @@ app.add_middleware(
 
 # Configuration
 REPORT_ENGINE_URL = os.getenv("REPORT_ENGINE_URL", "http://localhost:8084")
-SLACK_WEBHOOK_URL = os.getenv("SLACK_WEBHOOK_URL")
+NOTIFY_WEBHOOK_URL = os.getenv("NOTIFY_WEBHOOK_URL")
+WHATSAPP_API_BASE_URL = os.getenv("WHATSAPP_API_BASE_URL", "https://graph.facebook.com")
+WHATSAPP_API_VERSION = os.getenv("WHATSAPP_API_VERSION", "v20.0")
+WHATSAPP_PHONE_NUMBER_ID = os.getenv("WHATSAPP_PHONE_NUMBER_ID")
+WHATSAPP_ACCESS_TOKEN = os.getenv("WHATSAPP_ACCESS_TOKEN")
+WHATSAPP_DEFAULT_RECIPIENT = os.getenv("WHATSAPP_DEFAULT_RECIPIENT")
+WHATSAPP_TEMPLATE_NAME = os.getenv("WHATSAPP_TEMPLATE_NAME")
+WHATSAPP_TEMPLATE_LANGUAGE = os.getenv("WHATSAPP_TEMPLATE_LANGUAGE", "en_US")
 EMAIL_API_URL = os.getenv("EMAIL_API_URL")
 
 # In-memory storage (replace with database in production)
@@ -91,7 +98,8 @@ class TriggerType(StrEnum):
 class ActionType(StrEnum):
     GENERATE_REPORT = "generate_report"
     SEND_EMAIL = "send_email"
-    SEND_SLACK = "send_slack"
+    SEND_NOTIFICATION = "send_notification"
+    SEND_WHATSAPP = "send_whatsapp"
     CALL_WEBHOOK = "call_webhook"
     UPDATE_DATABASE = "update_database"
 
@@ -182,8 +190,8 @@ class ExecutionResponse(BaseModel):
 class NotificationRequest(BaseModel):
     """Send notification request"""
 
-    channel: str = Field(..., description="slack, email, or webhook")
-    recipient: str = Field(..., description="Email, Slack channel, or webhook URL")
+    channel: str = Field(..., description="email, webhook, or whatsapp")
+    recipient: str = Field(..., description="Email, webhook URL, or E.164 WhatsApp number")
     subject: str | None = None
     message: str
     metadata: dict | None = None
@@ -362,15 +370,32 @@ async def _execute_action(action_type: str, config: dict) -> dict:
             )
             return response.json()
 
-    elif action_type == ActionType.SEND_SLACK.value:
-        if SLACK_WEBHOOK_URL:
-            async with httpx.AsyncClient() as client:
-                await client.post(
-                    SLACK_WEBHOOK_URL,
-                    json={"text": config.get("message", "Automation notification")},
-                    timeout=10.0,
-                )
-        return {"sent": True, "channel": "slack"}
+    elif action_type == ActionType.SEND_NOTIFICATION.value:
+        channel = config.get("channel", "webhook")
+        message = config.get("message", "Automation notification")
+        subject = config.get("subject")
+        recipient = config.get("recipient")
+
+        if channel == "whatsapp":
+            return await _send_whatsapp_notification(recipient, subject, message, config)
+
+        if channel == "email":
+            return {
+                "sent": True,
+                "channel": "email",
+                "to": recipient or config.get("to"),
+                "subject": subject,
+            }
+
+        return await _send_webhook_notification(recipient, subject, message, config)
+
+    elif action_type == ActionType.SEND_WHATSAPP.value:
+        return await _send_whatsapp_notification(
+            config.get("recipient"),
+            config.get("subject"),
+            config.get("message", "Automation notification"),
+            config,
+        )
 
     elif action_type == ActionType.SEND_EMAIL.value:
         # Placeholder for email integration
@@ -393,6 +418,113 @@ async def _execute_action(action_type: str, config: dict) -> dict:
         return {"message": f"Action type {action_type} not implemented"}
 
 
+def _redact_recipient(recipient: str | None) -> str | None:
+    """Avoid returning full phone numbers or webhook URLs in API responses."""
+    if not recipient:
+        return None
+
+    if recipient.startswith("http"):
+        return recipient.split("?", 1)[0]
+
+    return f"***{recipient[-4:]}" if len(recipient) > 4 else "***"
+
+
+def _format_notification_body(subject: str | None, message: str) -> str:
+    if subject:
+        return f"{subject}\n\n{message}"
+
+    return message
+
+
+async def _send_webhook_notification(
+    recipient: str | None,
+    subject: str | None,
+    message: str,
+    metadata: dict | None = None,
+) -> dict:
+    webhook_url = recipient or NOTIFY_WEBHOOK_URL
+    if not webhook_url:
+        raise HTTPException(status_code=400, detail="Notification webhook not configured")
+
+    async with httpx.AsyncClient() as client:
+        response = await client.post(
+            webhook_url,
+            json={
+                "subject": subject,
+                "message": message,
+                "metadata": metadata or {},
+            },
+            timeout=30.0,
+        )
+        response.raise_for_status()
+
+    return {"sent": True, "channel": "webhook", "to": _redact_recipient(webhook_url)}
+
+
+async def _send_whatsapp_notification(
+    recipient: str | None,
+    subject: str | None,
+    message: str,
+    metadata: dict | None = None,
+) -> dict:
+    to_number = recipient or WHATSAPP_DEFAULT_RECIPIENT
+    if not to_number:
+        raise HTTPException(status_code=400, detail="WhatsApp recipient not configured")
+
+    if not WHATSAPP_PHONE_NUMBER_ID or not WHATSAPP_ACCESS_TOKEN:
+        raise HTTPException(status_code=400, detail="WhatsApp Business Cloud API not configured")
+
+    url = (
+        f"{WHATSAPP_API_BASE_URL.rstrip('/')}/{WHATSAPP_API_VERSION}/"
+        f"{WHATSAPP_PHONE_NUMBER_ID}/messages"
+    )
+
+    if WHATSAPP_TEMPLATE_NAME:
+        payload = {
+            "messaging_product": "whatsapp",
+            "to": to_number,
+            "type": "template",
+            "template": {
+                "name": WHATSAPP_TEMPLATE_NAME,
+                "language": {"code": WHATSAPP_TEMPLATE_LANGUAGE},
+                "components": [
+                    {
+                        "type": "body",
+                        "parameters": [
+                            {"type": "text", "text": subject or "DWS Alert"},
+                            {"type": "text", "text": message},
+                        ],
+                    }
+                ],
+            },
+        }
+    else:
+        payload = {
+            "messaging_product": "whatsapp",
+            "to": to_number,
+            "type": "text",
+            "text": {"body": _format_notification_body(subject, message)},
+        }
+
+    async with httpx.AsyncClient() as client:
+        response = await client.post(
+            url,
+            headers={"Authorization": f"Bearer {WHATSAPP_ACCESS_TOKEN}"},
+            json=payload,
+            timeout=30.0,
+        )
+        response.raise_for_status()
+
+    logger.info("WhatsApp notification sent to %s", _redact_recipient(to_number))
+    return {
+        "sent": True,
+        "channel": "whatsapp",
+        "to": _redact_recipient(to_number),
+        "template": WHATSAPP_TEMPLATE_NAME,
+        "metadata": {"delivery": "meta-cloud-api"} if metadata is not None else {},
+    }
+
+
 @app.get("/v1/executions/{execution_id}", response_model=ExecutionResponse)
 async def get_execution(execution_id: str):
     """Get execution status"""
@@ -412,40 +544,30 @@ async def get_execution(execution_id: str):
 @app.post("/v1/notify")
 async def send_notification(request: NotificationRequest):
     """Send a notification"""
+    channel = request.channel.lower()
 
-    if request.channel == "slack":
-        if not SLACK_WEBHOOK_URL:
-            raise HTTPException(status_code=400, detail="Slack webhook not configured")
-
-        async with httpx.AsyncClient() as client:
-            await client.post(
-                SLACK_WEBHOOK_URL,
-                json={
-                    "text": f"*{request.subject or 'Notification'}*\n{request.message}"
-                },
-                timeout=10.0,
-            )
-
-        return {"status": "sent", "channel": "slack"}
-
-    if request.channel == "email":
-        # Placeholder for email integration (Resend, SendGrid, etc.)
+    if channel == "email":
+        # Placeholder for SES SMTP integration.
         logger.info(f"Email notification to {request.recipient}: {request.subject}")
         return {"status": "queued", "channel": "email", "to": request.recipient}
 
-    if request.channel == "webhook":
-        async with httpx.AsyncClient() as client:
-            await client.post(
-                request.recipient,
-                json={
-                    "subject": request.subject,
-                    "message": request.message,
-                    "metadata": request.metadata,
-                },
-                timeout=30.0,
-            )
+    if channel == "webhook":
+        result = await _send_webhook_notification(
+            request.recipient,
+            request.subject,
+            request.message,
+            request.metadata,
+        )
+        return {"status": "sent", **result}
 
-        return {"status": "sent", "channel": "webhook"}
+    if channel == "whatsapp":
+        result = await _send_whatsapp_notification(
+            request.recipient,
+            request.subject,
+            request.message,
+            request.metadata,
+        )
+        return {"status": "sent", **result}
 
     raise HTTPException(status_code=400, detail=f"Unknown channel: {request.channel}")
 
@@ -541,7 +663,7 @@ async def list_workflow_templates():
             {
                 "template_id": "daily-carbon-report",
                 "name": "Daily Carbon Report",
-                "description": "Generate EN 15978 carbon report daily and send to Slack",
+                "description": "Generate EN 15978 carbon report daily and send a notification",
                 "trigger": {
                     "trigger_type": "schedule",
                     "config": {"frequency": "daily", "time": "08:00"},
@@ -552,8 +674,11 @@ async def list_workflow_templates():
                         "config": {"standard": "EN 15978"},
                     },
                     {
-                        "action_type": "send_slack",
-                        "config": {"message": "Daily carbon report ready"},
+                        "action_type": "send_notification",
+                        "config": {
+                            "channel": "webhook",
+                            "message": "Daily carbon report ready",
+                        },
                     },
                 ],
             },
@@ -571,8 +696,11 @@ async def list_workflow_templates():
                 },
                 "actions": [
                     {
-                        "action_type": "send_slack",
-                        "config": {"message": "⚠️ Carbon budget at 90%!"},
+                        "action_type": "send_notification",
+                        "config": {
+                            "channel": "webhook",
+                            "message": "Carbon budget at 90%!",
+                        },
                     },
                     {
                         "action_type": "send_email",

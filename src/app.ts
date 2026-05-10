@@ -92,7 +92,8 @@ if (!envResult.valid && process.env.NODE_ENV === 'production') {
 }
 
 const app: Express = express();
-const PORT = process.env.PORT || 8080; // Cloud Run default
+const PORT =
+  process.env.PORT || (process.env.NODE_ENV === 'production' ? '8080' : '3001');
 
 // ES Module path helpers
 const __filename = fileURLToPath(import.meta.url);

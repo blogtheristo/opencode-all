@@ -25,6 +25,8 @@
 import logger from '../utils/logger.js';
 import type { ModelTier } from './types.js';
 
+export type { ModelTier } from './types.js';
+
 /** A single model option within a tier */
 export interface ModelOption {
   /** Model identifier (passed to LLM client) */
