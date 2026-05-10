@@ -9,6 +9,9 @@ Usage:
 Outputs:
     Learn/pilot-pricelist-v1.0-YYYY-MM-DD.html  (timestamped)
     Learn/pilot-pricelist-latest.html             (static alias, overwritten each run)
+
+READ-ONLY CONTRACT: This script reads from config files and writes only to Learn/.
+It must NEVER write to products.json, pilot-blue-prices.json, or any other config.
 """
 
 import json
@@ -136,24 +139,29 @@ def build_html(products: dict, subscriptions: dict, blue: dict, gen_date: str) -
         bnote = bp.get("blueNote", "")
         max_m = bp.get("maxPilotMonths", 12)
 
+        p = all_p.get(pid, {})
         gp = green_price(pid, all_p, {})
         name = green_name(pid, all_p, {})
+        ptype = p.get("type", "")
 
-        # Compose Blue price display
+        # Blue Free: show €0 for one-time products, €0/mo for monthly products
         if btype == "free":
-            blue_free_val = "€0/mo + €0 setup"
+            if ptype == "one-time":
+                blue_free_val = "€0"
+            else:
+                blue_free_val = "€0/mo" + (f" + €0 setup" if bsetup == 0 else "")
             blue_red_val = "—"
         else:
-            monthly = fmt_eur(bprice, "mo") if bprice is not None else "—"
-            setup = (f" + {fmt_eur(bsetup)} setup") if bsetup is not None and bsetup > 0 else ""
             blue_free_val = "—"
+            monthly = fmt_eur(bprice, "mo") if ptype not in ("one-time",) else fmt_eur(bprice)
+            setup = (f" + {fmt_eur(bsetup)} setup") if bsetup is not None and bsetup > 0 else ""
             blue_red_val = monthly + setup
 
         iq_rows.append(row([
             td(name),
             td(gp, mono=True),
-            td(blue_free_val if btype == "free" else "—", mono=True),
-            td(blue_red_val if btype == "reduced" else "—", mono=True),
+            td(blue_free_val, mono=True),
+            td(blue_red_val, mono=True),
             td(bnote),
             td(f"{max_m} mo"),
         ], alt=(i % 2 == 1)))
@@ -256,54 +264,7 @@ def build_html(products: dict, subscriptions: dict, blue: dict, gen_date: str) -
     )
 
     # -----------------------------------------------------------------------
-    # Section 4 — Consultations
-    # -----------------------------------------------------------------------
-    consult_ids = ["consulting-hourly", "ai-agent-engineering", "ai-consultant-day", "expert-services"]
-
-    consult_rows = []
-    for i, pid in enumerate(consult_ids):
-        bp = blue_products.get(pid, {})
-        bprice = bp.get("bluePrice")
-        btype = bp.get("blueType", "contractor")
-        bnote = bp.get("blueNote", "")
-
-        p = all_p.get(pid, {})
-        name = p.get("name", pid)
-        green_val = green_price(pid, all_p, {})
-
-        ptype = p.get("type", "")
-        if bprice is not None:
-            if ptype == "hourly":
-                blue_val = f"€{bprice}/hr"
-            elif pid == "ai-consultant-day":
-                blue_val = f"€{bprice}/day"
-            else:
-                blue_val = fmt_eur(bprice)
-        else:
-            blue_val = "—"
-
-        consult_rows.append(row([
-            td(name),
-            td(green_val, mono=True),
-            td(blue_val, mono=True),
-            td(bnote),
-        ], alt=(i % 2 == 1)))
-
-    consult_table = (
-        table_open()
-        + "<thead><tr>"
-        + th_neutral("Service")
-        + th_green("Green (Client Rate)")
-        + th_blue("Blue (Contractor Floor)")
-        + th_neutral("Notes")
-        + "</tr></thead><tbody>"
-        + "".join(consult_rows)
-        + "</tbody>"
-        + table_close()
-    )
-
-    # -----------------------------------------------------------------------
-    # Section 5 — Hardware
+    # Section 4 — Hardware
     # -----------------------------------------------------------------------
     hw_ids = ["edge-node-gn100"]
 
@@ -397,28 +358,36 @@ def build_html(products: dict, subscriptions: dict, blue: dict, gen_date: str) -
 
 {section_header("1. DWS IQ Platform")}
 {iq_table}
+<p style="font-size:0.82rem;color:#b45309;background:#fffbeb;border:1px solid #fcd34d;
+   padding:6px 12px;border-radius:4px;margin:-1em 0 1.5em 0;">
+  &#43; Monthly subscription (Section 3) required separately on every contract &mdash; not included in the prices above.
+</p>
 
 {section_header("2. Firehorse")}
 {fh_table}
+<p style="font-size:0.82rem;color:#b45309;background:#fffbeb;border:1px solid #fcd34d;
+   padding:6px 12px;border-radius:4px;margin:-1em 0 1.5em 0;">
+  &#43; Monthly subscription (Section 3) required separately on every contract &mdash; one subscription covers all Firehorse products.
+</p>
 
-{section_header("3. Monthly Subscriptions")}
+{section_header("3. Monthly Subscriptions — Required on All Contracts")}
 <p style="font-size:0.85rem;color:#b45309;margin:0 0 8px 0;">
-  Monthly subscriptions are <strong>always required</strong> even during Blue pilot periods. They may not be waived.
+  Cannot be waived. Buy alongside the product. Blue pilot reduces the product price, not the subscription.
 </p>
 {sub_table}
 
-{section_header("4. Consultations")}
-<p style="font-size:0.85rem;color:#475569;margin:0 0 8px 0;">
-  Blue rates are contractor floor rates. Never publish or share externally.
-  Multi-day bookings preferred &mdash; single-hour Blue rates require account lead approval.
-</p>
-{consult_table}
-
-{section_header("5. Hardware")}
+{section_header("4. Hardware")}
 <p style="font-size:0.85rem;color:#475569;margin:0 0 8px 0;">
   Blue price is the internal buy-in cost. Always contact procurement for current landed cost before quoting.
 </p>
 {hw_table}
+
+<div style="background:#fef2f2;border:1px solid #fca5a5;padding:10px 14px;
+     border-radius:4px;font-size:0.82rem;color:#991b1b;margin-top:1em;">
+  <strong>Consultation contractor rates are held separately.</strong>
+  They are not part of this pilot price list and must not appear in any client-facing document.
+  Contact account lead for internal consultation floor rates.
+</div>
 
 <!-- Footer -->
 <hr style="border:none;border-top:1px solid #cbd5e1;margin:2em 0 1em 0;">
