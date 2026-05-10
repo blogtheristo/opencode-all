@@ -19,6 +19,7 @@ import {
   type EmissionFactor,
   getFactorsForSector,
 } from './emission-factors.js';
+import { getCarbonPriceEur } from './ember-carbon-price.js';
 
 // ============ TYPES ============
 
@@ -257,4 +258,35 @@ export function estimateCBAMCost(
   const estimatedCost = Math.round(Math.max(0, netEmissions) * certificatePrice * 100) / 100;
 
   return { embeddedEmissions, estimatedCost, covered: true };
+}
+
+// ============ ASYNC WRAPPERS (live price) ============
+
+/**
+ * Calculate CBAM obligations using the live EU ETS certificate price.
+ *
+ * Fetches the current price via ember-carbon-price.ts cascade:
+ *   file cache → EMBER API → Sandbag → static fallback EUR 65
+ *
+ * Use this in API handlers and agents. Use calculateCBAM() only in tests
+ * or when the caller already holds a verified price.
+ */
+export async function calculateCBAMAsync(
+  declaration: CBAMDeclaration,
+): Promise<CBAMCalculationResult> {
+  const price = await getCarbonPriceEur();
+  return calculateCBAM(declaration, price);
+}
+
+/**
+ * Quick CBAM cost estimate using the live EU ETS certificate price.
+ * Async counterpart of estimateCBAMCost().
+ */
+export async function estimateCBAMCostAsync(
+  importQuantityTonnes: number,
+  sector: string,
+  originCountry: string = 'CN',
+): Promise<{ embeddedEmissions: number; estimatedCost: number; covered: boolean }> {
+  const price = await getCarbonPriceEur();
+  return estimateCBAMCost(importQuantityTonnes, sector, originCountry, price);
 }
