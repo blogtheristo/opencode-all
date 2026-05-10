@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-10T00:00:00Z",
+  "lastUpdated": "2026-05-10T12:30:00Z",
   "version": "1.0",
   "note": "INTERNAL ONLY — never publish. Blue pilot prices for enterprise negotiation.",
   "products": {
@@ -88,31 +88,31 @@
       "maxPilotMonths": 12
     },
     "consulting-hourly": {
-      "bluePrice": 55,
+      "bluePrice": 150,
       "bluePriceSetup": null,
       "blueType": "contractor",
-      "blueNote": "Contractor floor rate — never published. Do not go below €55/hr. Use this to anchor scope conversations; push toward day-rate packages where possible.",
+      "blueNote": "Contractor floor rate — never published. Do not go below €150/hr. Green client rate is €250/hr. Use this to anchor scope conversations; push toward day-rate packages where possible.",
       "maxPilotMonths": 12
     },
     "ai-agent-engineering": {
       "bluePrice": 60,
       "bluePriceSetup": null,
       "blueType": "contractor",
-      "blueNote": "Contractor floor rate for AI & Agent Engineering. €60/hr is the absolute floor. Senior specialisation warrants Green rate (€99/hr) after initial engagement.",
+      "blueNote": "Contractor floor rate for AI & Agent Engineering. €60/hr is the absolute floor. Senior specialisation warrants Green rate (€200/hr) after initial engagement.",
       "maxPilotMonths": 12
     },
     "ai-consultant-day": {
-      "bluePrice": 400,
+      "bluePrice": 600,
       "bluePriceSetup": null,
       "blueType": "contractor",
-      "blueNote": "Blue day rate — contractor floor. Green is €699/day. Offer Blue only for multi-day bookings (3+ days) to protect average order value.",
+      "blueNote": "Blue day rate — contractor floor. Green is €1,200/day. Offer Blue only for multi-day bookings (3+ days) to protect average order value.",
       "maxPilotMonths": 12
     },
     "expert-services": {
       "bluePrice": 2500,
       "bluePriceSetup": null,
       "blueType": "contractor",
-      "blueNote": "3-day expert workshop at contractor floor. Green is €4,500. Approved for strategic accounts only — CEO sign-off required. Do not advertise publicly.",
+      "blueNote": "3-day expert workshop at contractor floor. Green is €3,750 (25 hrs at €150/hr). Approved for strategic accounts only — CEO sign-off required. Do not advertise publicly.",
       "maxPilotMonths": 12
     },
     "edge-node-gn100": {

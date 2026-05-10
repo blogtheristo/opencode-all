@@ -8,10 +8,10 @@
       "price": 4999,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Stop risking fines and lost tenders. DWS IQ 6 deploys 18+ GodAgents with agentic loops (observe-think-act) to automate Fit for 55, CSRD, and EPBD compliance across 20 EU industries \u2014 cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.",
+      "description": "Stop risking fines and lost tenders. DWS IQ 6 deploys 18+ Skilled Agents with agentic loops (observe-think-act) to amplify Fit for 55, CSRD, and EPBD compliance across 20 EU industries — cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.",
       "features": [
         "18+ GodAgents with MCP protocol and CLI access",
-        "Automate Fit for 55, CSRD & EPBD reporting",
+        "Amplify Fit for 55, CSRD & EPBD reporting",
         "90% reduction in manual compliance hours"
       ],
       "priceNote": "One-time deployment + €499/mo subscription",
@@ -34,11 +34,11 @@
       "id": "FH-AUTO-001",
       "gtin": null,
       "mpn": "FH-AUTO-2026",
-      "name": "Firehorse Automation",
+      "name": "Firehorse Amplify",
       "price": 4950,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Manual data entry is where compliance fines start. Firehorse Automation eliminates human error with event-driven workflows for Fit for 55, CSRD, and EPBD 2028 \u2014 capturing ESG data directly from your systems with a complete audit trail.",
+      "description": "Manual data entry is where compliance fines start. Firehorse Amplify eliminates human error with event-driven workflows for Fit for 55, CSRD, and EPBD 2028 — capturing ESG data directly from your systems with a complete audit trail.",
       "features": [
         "Event-driven compliance workflows",
         "Eliminate manual data entry errors",
@@ -47,8 +47,8 @@
       "priceNote": "Per project",
       "revolutLink": "https://checkout.revolut.com/pay/b0a1fc57-83e8-4ccb-86c2-64930d135869",
       "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "../products/firehorse-automation.html",
+      "image": "/static/images/firehorse-amplify-hero.png",
+      "detailsUrl": "../products/firehorse-amplify.html",
       "featured": false,
       "google": {
         "productCategory": "Software > Business & Productivity Software",
@@ -188,7 +188,7 @@
       "price": 2999,
       "currency": "EUR",
       "type": "one-time",
-      "description": "When auditors ask for proof, find it in seconds \u2014 not days. Evidence Vault auto-tags compliance documents, alerts before certificates expire, and provides semantic search across all your audit-ready documentation.",
+      "description": "When auditors ask for proof, find it in seconds — not days. Evidence Vault auto-tags compliance documents, alerts before certificates expire, and provides semantic search across all your audit-ready documentation.",
       "features": [
         "Auto-tagged compliance documents",
         "Certificate expiry alerts",
@@ -214,7 +214,7 @@
       "id": "expert-services",
       "gtin": null,
       "mpn": "EXP-SVC-2026",
-      "name": "Workshop 3 Days - Expert Advisory & Implementation",
+      "name": "Workshop 3 Days - Expert Advisory & Implementation _OLD",
       "price": 4500,
       "currency": "EUR",
       "type": "one-time",
@@ -244,8 +244,8 @@
       "id": "consulting-hourly",
       "gtin": null,
       "mpn": "CONSULT-HR-2026",
-      "name": "Consulting - Hourly Rate",
-      "price": 98,
+      "name": "Senior Specialist – Hourly Consulting",
+      "price": 250,
       "currency": "EUR",
       "type": "hourly",
       "description": "Expert compliance guidance without a long-term commitment. Book by the hour for Fit for 55, CSRD, EU AI Act, or governance challenges across all 16 regulated EU industries. Most clients start with a 4-hour assessment.",
@@ -274,7 +274,7 @@
       "id": "LIFETIME-EXP-001",
       "gtin": null,
       "mpn": "EXP-ADV-2026",
-      "name": "Expert Advisory & Implementation",
+      "name": "Expert Advisory & Implementation _OLD",
       "price": 3000,
       "currency": "EUR",
       "type": "monthly",
@@ -335,7 +335,7 @@
       "gtin": null,
       "mpn": "AWS-CONSULT-2026",
       "name": "AI Engineering & Cloud Solutions Consultancy",
-      "price": 4500,
+      "price": 3750,
       "currency": "EUR",
       "type": "one-time",
       "description": "25 hours of senior cloud architect time to assess, plan, and implement your AI and cloud infrastructure. Multi-cloud expertise across AWS, Azure, GCP. Includes a complimentary 4-hour strategy workshop to identify quick wins and avoid costly mistakes.",
@@ -368,7 +368,7 @@
       "price": 3500,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Deploy AI agents where your team already works \u2014 WhatsApp, Teams, Zoom, or a secure webhook. Custom conversational agents for enterprise workflows with your choice of LLM (Claude, GPT, Groq, or self-hosted for data sovereignty). Live in 25 hours.",
+      "description": "Deploy AI agents where your team already works — WhatsApp, Teams, Zoom, or a secure webhook. Custom conversational agents for enterprise workflows with your choice of LLM (Claude, GPT, Groq, or self-hosted for data sovereignty). Live in 25 hours.",
       "features": [
         "WhatsApp, Teams, Zoom & secure webhooks",
         "Custom LLM choice for sovereignty",
@@ -427,10 +427,10 @@
       "gtin": null,
       "mpn": "AI-AGENT-2026",
       "name": "AI & Agent Engineering",
-      "price": 99,
+      "price": 200,
       "currency": "EUR",
       "type": "hourly",
-      "description": "Hire a senior AI engineer by the hour \u2014 no recruitment overhead. Available as AI Product Manager, Solutions Architect, or ML Engineer for Azure AI Foundry, Google AI Studio, or custom agentic AI projects. Skip the 3-month hiring cycle.",
+      "description": "Hire a senior AI engineer by the hour — no recruitment overhead. Available as AI Product Manager, Solutions Architect, or ML Engineer for Azure AI Foundry, Google AI Studio, or custom agentic AI projects. Skip the 3-month hiring cycle.",
       "features": [
         "Senior AI engineer on demand",
         "Azure AI, Google AI & Claude",
@@ -460,7 +460,7 @@
       "price": 4960,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Ship your next project in half the time. Lean methodology powered by AI tools \u2014 includes planning workshop, backlog setup, Kanban workflows, and roadmap. Teams using this approach see 2x delivery speed within the first sprint.",
+      "description": "Ship your next project in half the time. Lean methodology powered by AI tools — includes planning workshop, backlog setup, Kanban workflows, and roadmap. Teams using this approach see 2x delivery speed within the first sprint.",
       "features": [
         "Lean AI-powered methodology",
         "2x delivery speed from sprint 1",
@@ -487,10 +487,10 @@
       "gtin": null,
       "mpn": "AI-DAY-2026",
       "name": "AI Consultant Day",
-      "price": 699,
+      "price": 1200,
       "currency": "EUR",
       "type": "one-time",
-      "description": "One day to unblock your AI strategy. Senior consultant on-site or remote for strategy, prototyping, and hands-on implementation. Covers Claude, GPT, Gemini Pro, Copilot, and Azure AI Studio. Most clients book 2\u20133 days for a full sprint.",
+      "description": "One day to unblock your AI strategy. Senior consultant on-site or remote for strategy, prototyping, and hands-on implementation. Covers Claude, GPT, Gemini Pro, Copilot, and Azure AI Studio. Most clients book 2–3 days for a full sprint.",
       "features": [
         "Strategy, prototyping & implementation",
         "Claude, GPT, Gemini Pro & Copilot",
@@ -520,7 +520,7 @@
       "price": 4960,
       "currency": "EUR",
       "type": "one-time",
-      "description": "30 hours of strategic AI mentoring, scheduled on your terms. Cover AI strategy, business process redesign with agents, and Copilot adoption in flexible 4\u20138 hour sessions over 12 months. Ideal for leadership teams navigating AI transformation.",
+      "description": "30 hours of strategic AI mentoring, scheduled on your terms. Cover AI strategy, business process redesign with agents, and Copilot adoption in flexible 4–8 hour sessions over 12 months. Ideal for leadership teams navigating AI transformation.",
       "features": [
         "30 hours strategic AI mentoring",
         "12-month flexible schedule",
@@ -550,7 +550,7 @@
       "price": 499,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Your leadership team needs AI fluency \u2014 not just your engineers. EU AI Act Article 4 now requires AI literacy across your organization. In-house coaching with a free 3-hour workshop to assess readiness. Personal, team, or remote.",
+      "description": "Your leadership team needs AI fluency — not just your engineers. EU AI Act Article 4 now requires AI literacy across your organization. In-house coaching with a free 3-hour workshop to assess readiness. Personal, team, or remote.",
       "features": [
         "EU AI Act Article 4 compliance",
         "Personal or team coaching",
@@ -640,7 +640,7 @@
       "price": 799,
       "currency": "EUR",
       "type": "one-time",
-      "description": "A professional web presence in days, not months. Responsive pages built with React, Blazor, WordPress, or Squarespace \u2014 your choice. AI chatbot and e-commerce add-ons available when you are ready to scale.",
+      "description": "A professional web presence in days, not months. Responsive pages built with React, Blazor, WordPress, or Squarespace — your choice. AI chatbot and e-commerce add-ons available when you are ready to scale.",
       "features": [
         "React, Blazor or WordPress",
         "AI chatbot add-on available",
@@ -670,7 +670,7 @@
       "price": 499,
       "currency": "EUR",
       "type": "one-time",
-      "description": "GDPR-compliant email in one business day. Full Proton Business Suite \u2014 encrypted email, cloud storage, password manager, and VPN. Meets GDPR, NIS2, and EU AI Act requirements. 8-hour implementation, fully operational by end of day.",
+      "description": "GDPR-compliant email in one business day. Full Proton Business Suite — encrypted email, cloud storage, password manager, and VPN. Meets GDPR, NIS2, and EU AI Act requirements. 8-hour implementation, fully operational by end of day.",
       "features": [
         "GDPR-compliant encrypted email",
         "NIS2 & EU AI Act compliant",
@@ -850,7 +850,7 @@
       "price": 6250,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Transform your team from AI-curious to AI-productive in 3 days. In-house training covering strategy, hands-on implementation, and tool adoption. EU AI Act Article 4 requires AI literacy \u2014 this programme gets you compliant and productive.",
+      "description": "Transform your team from AI-curious to AI-productive in 3 days. In-house training covering strategy, hands-on implementation, and tool adoption. EU AI Act Article 4 requires AI literacy — this programme gets you compliant and productive.",
       "features": [
         "Strategy to implementation in 3 days",
         "EU AI Act Article 4 compliant",
@@ -880,7 +880,7 @@
       "price": 2500,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Your competitors are shipping 10x faster with AI agents. We assess your codebase, run AGENTS.md workshops, restructure for agentic development, and set up quality governance \u2014 from practitioners building with Claude Code and Codex daily. 88% of enterprises are increasing agentic AI budgets in 2026.",
+      "description": "Your competitors are shipping 10x faster with AI agents. We assess your codebase, run AGENTS.md workshops, restructure for agentic development, and set up quality governance — from practitioners building with Claude Code and Codex daily. 88% of enterprises are increasing agentic AI budgets in 2026.",
       "features": [
         "Agentic development assessment",
         "AGENTS.md workshops & restructuring",
@@ -970,7 +970,7 @@
       "price": 1500,
       "currency": "EUR",
       "type": "monthly",
-      "description": "Your US-hosted data is exposed to the CLOUD Act \u2014 and your EU clients know it. We migrate you to sovereign European infrastructure (OVHcloud, Hetzner, Supabase EU) with DPA creation, NIS2 compliance, and EU AI Act alignment. 78% of EU companies plan to reduce US cloud dependency.",
+      "description": "Your US-hosted data is exposed to the CLOUD Act — and your EU clients know it. We migrate you to sovereign European infrastructure (OVHcloud, Hetzner, Supabase EU) with DPA creation, NIS2 compliance, and EU AI Act alignment. 78% of EU companies plan to reduce US cloud dependency.",
       "features": [
         "European sovereign cloud migration",
         "CLOUD Act free infrastructure",
@@ -1205,7 +1205,13 @@
     "google": {
       "merchantId": null,
       "feedUrl": "https://dws10.com/feeds/google-products.xml",
-      "targetCountries": ["FI", "SE", "NO", "DK", "DE"],
+      "targetCountries": [
+        "FI",
+        "SE",
+        "NO",
+        "DK",
+        "DE"
+      ],
       "contentLanguage": "en",
       "channel": "online"
     }
