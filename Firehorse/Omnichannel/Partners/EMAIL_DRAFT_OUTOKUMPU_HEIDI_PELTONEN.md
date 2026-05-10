@@ -96,28 +96,28 @@ Do NOT position as a fallback. He owns the fabricator revenue; this is his deal.
 | ----------- | ------------------------------------------------------------------- |
 | **To**      | Matthieu Jehl, President, Business Line Stainless Europe, Outokumpu |
 | **From**    | risto@onelifetime.world                                             |
-| **Subject** | Making the CBAM saving visible to your fabricator accounts          |
+| **Subject** | CBAM declarations for your fabricator accounts — 60-day pilot       |
 | **Status**  | Draft — not sent                                                    |
+| **Note**    | Boardy feedback applied: cut to one problem, one ask. Math + DWS    |
+|             | detail moved to OUTOKUMPU_JEHL_APPENDIX.md (send on reply).         |
 
-Subject: Making the CBAM saving visible to your fabricator accounts
+Subject: CBAM declarations for your fabricator accounts — 60-day pilot
 
 Hi Matthieu,
 
-Your CBAM article identified the right problem: EU fabricators know that sourcing from Outokumpu
-eliminates their CBAM liability, but most cannot calculate or document that advantage in a
-compliant annual declaration. Without tooling, they fall back on the EU punitive default emission
-factors — calibrated for worst-case non-EU mills — and Outokumpu's carbon advantage disappears
-on paper even though it exists in practice.
+Your fabricator accounts know that sourcing from Outokumpu reduces their CBAM liability. Most
+don't have the tooling to turn your ISO 14067 certificates into a compliant annual declaration —
+so the advantage stays theoretical.
 
-We built the tooling that closes that gap. Our platform ingests Outokumpu's ISO 14067 certificates
-and generates submission-ready CBAM annual declarations for your fabricator accounts — with your
-verified numbers as the source. A fabricator switching 1,000 tonnes from a non-EU default supplier
-to Outokumpu EU steel saves up to €120,000 in CBAM certificates. DWS IQ 6 puts that figure in
-their CFO's inbox automatically, before your account manager even asks.
+I'd like to run a 60-day pilot with two or three of your European accounts. No cost to Outokumpu.
+The deliverable is a submission-ready declaration using your verified data as the source.
 
-I'd like to propose a 60-day pilot with two or three of your European fabricator accounts, at no
-cost. The deliverable is a submission-ready CBAM declaration. If it isn't, there is no further
-conversation.
+Worth a conversation?
+
+Risto Päärni
+CEO, Lifetime Oy — Espoo, Finland
+risto@onelifetime.world
++358 400 319 010
 
 Risto Päärni
 CEO, Lifetime Oy (0772407-9)
@@ -131,10 +131,11 @@ Espoo, Finland
 
 VERSION AND AGENT HISTORY
 
-| Version | Date       | Agent / Author      | Change                                                                                                              |
-| ------- | ---------- | ------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| 1.0     | 2026-05-07 | Claude (Sonnet 4.6) | Initial email draft created                                                                                         |
-| 3.0     | 2026-05-10 | Claude (Sonnet 4.6) | Rewrote hook around CBAM Q&A page, named punitive defaults, added LinkedIn/Matthieu                                 |
-| 4.0     | 2026-05-10 | Claude (Sonnet 4.6) | Matthieu Jehl confirmed President Stainless Europe; rewrote his section as direct C-suite pitch, co-primary contact |
+| Version | Date       | Agent / Author      | Change                                                                                                                |
+| ------- | ---------- | ------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| 1.0     | 2026-05-07 | Claude (Sonnet 4.6) | Initial email draft created                                                                                           |
+| 3.0     | 2026-05-10 | Claude (Sonnet 4.6) | Rewrote hook around CBAM Q&A page, named punitive defaults, added LinkedIn/Matthieu                                   |
+| 4.0     | 2026-05-10 | Claude (Sonnet 4.6) | Matthieu Jehl confirmed President Stainless Europe; rewrote his section as direct C-suite pitch, co-primary contact   |
+| 5.0     | 2026-05-10 | Claude (Sonnet 4.6) | Boardy feedback: cut Matthieu email to one problem + one ask; math and DWS detail moved to OUTOKUMPU_JEHL_APPENDIX.md |
 
 ---
