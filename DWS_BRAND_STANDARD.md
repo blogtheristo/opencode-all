@@ -1833,12 +1833,45 @@ Canonical positioning derived from Google Cloud's Agentic Data Cloud framework (
 
 **Use in:** Investor pitch decks (all rounds), dws10.com hero section, sales presentations, Series A materials, partner briefings. This is the primary cross-product positioning — takes precedence over product-specific one-liners when speaking about DWS IQ as a platform.
 
+### Three-Layer National Strategy (Investor / Homepage / Policy)
+
+Canonical framing derived from Finnish national data infrastructure strategy. Use verbatim — these are the distilled sentences, not summaries.
+
+**Investoriversio (FI) — short form:**
+
+> Hyperscalerit rakentavat infrastruktuurin, Suomi omistaa datavarannon, ja DWS operoi älykkyyden.
+
+**Homepage-versio (FI) — with sovereignty hook:**
+
+> DWS on älykkyyden operointikerros, jossa infrastruktuuri voi olla globaali, datavaranto pysyy Suomessa, ja päätösvalta säilyy täällä.
+
+**Investor/policy long form (FI):**
+
+> DWS noudattaa kansallista strategiaa: kansainväliset toimijat rakentavat fyysiset tietotehtaat Suomeen, jotta datavarannot voidaan louhia täällä, pitää ohjaus Suomessa ja ottaa hyötykäyttöön DWS:n kaltaisilla järjestelmillä.
+
+**Investor short form (EN):**
+
+> Hyperscalers build the infrastructure, Finland owns the data reserves, DWS operates the intelligence.
+
+**Homepage (EN):**
+
+> DWS is the intelligence operating layer — infrastructure can be global, data reserves stay in Finland, decision-making power stays here.
+
+**Translation notes:**
+
+- "operoi älykkyyden" → "operates the intelligence" — intentionally verb-first; DWS is active, not passive
+- "päätösvalta säilyy täällä" → "decision-making power stays here" — sovereignty claim, stronger than "data stays here"
+- Layer model: hyperscaler (Layer 1) → Finnish data reserves (Layer 2) → DWS IQ intelligence (Layer 3)
+
+**Use in:** Series A investor decks (Finland Advantage slide), dws10.com hero, policy briefings, EU grant applications, partner onboarding. Pair with System of Action Operator sentences when addressing both _what DWS does_ and _why Finland_.
+
 ---
 
 ## Changelog
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| v3.0    | 2026-05-10 | Added: §22 Three-Layer National Strategy — investor short form ("Hyperscalerit rakentavat infrastruktuurin, Suomi omistaa datavarannon, ja DWS operoi älykkyyden"), homepage version with sovereignty hook ("päätösvalta säilyy täällä"), and long-form policy sentence — FI+EN, translation notes, usage pairing with System of Action Operator sentences                                                                                                                                          |
 | v2.9    | 2026-05-10 | Added: §22 System of Action Operator — canonical investor sentence ("Emme ole SaaS-toimittaja, vaan System of Action -operaattori, joka vie säädellyn työn hallitusti maaliin audit traililla") and homepage sentence ("DWS ei ole SaaS, vaan System of Action -operaattori eurooppalaiselle teollisuudelle, jossa compliance voi pysäyttää tai vapauttaa rahaa") — FI+EN, with translation notes and usage guidance                                                                                |
 | v2.8    | 2026-04-28 | Added: §5.1 Ironclad Sync Rule; booking CTA; investment-safety rewritten                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | v2.7    | 2026-04-07 | Added: Aegis Sovereign Identity (KYA Layer 1) pitch lines — EU-only biometric IDV messaging, sovereignty selling points for defense/NIS2 buyers, EN/FI bilingual. Based on Shufti DPA compliance resolution (all 5 points resolved, Option 1+3 accepted).                                                                                                                                                                                                                                           |

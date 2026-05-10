@@ -70,7 +70,17 @@ What Finland does **not** automatically earn is the _output_ of the data process
 
 ## 2a. Kansallinen strategia — Kolmikerrosmalli / National Strategy — Three-Layer Model
 
-**Ydinlause (kanoninen, käytetään sellaisenaan):**
+**Kanoninen positiointikieli — käytetään sellaisenaan:**
+
+**Investoriversio:**
+
+> Hyperscalerit rakentavat infrastruktuurin, Suomi omistaa datavarannon, ja DWS operoi älykkyyden.
+
+**Homepage-versio:**
+
+> DWS on älykkyyden operointikerros, jossa infrastruktuuri voi olla globaali, datavaranto pysyy Suomessa, ja päätösvalta säilyy täällä.
+
+**Laaja kontekstilause (pitch / policy):**
 
 > DWS noudattaa kansallista strategiaa: kansainväliset toimijat rakentavat fyysiset tietotehtaat Suomeen, jotta datavarannot voidaan louhia täällä, pitää ohjaus Suomessa ja ottaa hyötykäyttöön DWS:n kaltaisilla järjestelmillä.
 
