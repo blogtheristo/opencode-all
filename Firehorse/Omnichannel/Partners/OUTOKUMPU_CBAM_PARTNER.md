@@ -7,7 +7,7 @@
 | **Company**           | Outokumpu Oyj                                                                                      |
 | **HQ**                | Helsinki, Finland (Risto's home market)                                                            |
 | **Size**              | ~9,000 employees, €5B+ revenue                                                                     |
-| **Primary Contact A** | Heidi Peltonen, VP Sustainability (policy, PCF, CBAM advocacy)                                     |
+| **Primary Contact A** | Heidi Peltonen — heidi.peltonen@outokumpu.com — VP Sustainability (policy, PCF, CBAM advocacy)     |
 | **Primary Contact B** | Matthieu Jehl — matthieu.jehl@outokumpu.com — President, Business Line Stainless Europe            |
 | **Status**            | Ready to send — email approved, address confirmed                                                  |
 | **Partnership Type**  | Strategic Alliance + Channel Partner                                                               |
