@@ -232,6 +232,18 @@ export function isCBAMCovered(sector: string): boolean {
 }
 
 /**
+ * Validate EORI number format (strict, case-sensitive).
+ * Returns null when valid, otherwise an error message.
+ */
+export function validateEORI(eori: string): string | null {
+  if (!eori) return 'EORI number is required';
+  if (!/^[A-Z]{2}[A-Z0-9]{8,15}$/.test(eori)) {
+    return 'Invalid EORI format. Use 2 uppercase country letters followed by 8-15 uppercase letters/digits.';
+  }
+  return null;
+}
+
+/**
  * Quick estimate of CBAM cost for a given import value and sector.
  * Used by the scoring engine for risk assessment without full declaration data.
  */
