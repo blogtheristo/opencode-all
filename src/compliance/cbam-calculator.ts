@@ -52,6 +52,8 @@ export interface CBAMCalculationResult {
   affectedSectors: string[];
   usesDefaultValues: boolean; // true if any import uses CBAM default factors
   phase: 'transitional' | 'definitive';
+  /** Present when EORI is missing or malformed. WARN only — does not block calculation. */
+  eoriWarning?: string;
 }
 
 export interface CBAMImportBreakdown {
@@ -65,6 +67,33 @@ export interface CBAMImportBreakdown {
   carbonPriceCredit: number; // tCO2e equivalent
   netObligation: number; // tCO2e
   estimatedCost: number; // EUR
+}
+
+// ============ EORI VALIDATION ============
+
+/**
+ * EU EORI (Economic Operator Registration and Identification) number format.
+ * Per EU Customs Regulation 952/2013 Art. 9:
+ *   - 2-letter ISO country code (issuing Member State)
+ *   - 1–15 alphanumeric characters
+ * Examples: FI1234567890, DE123456789012345, GB123456789
+ */
+const EORI_REGEX = /^[A-Z]{2}[0-9A-Z]{1,15}$/;
+
+/**
+ * Validate an EORI number.
+ * Returns null when valid, or a human-readable warning string when invalid.
+ * Treats undefined/empty as a warning (not an error) — historical data may lack EORI.
+ */
+export function validateEORI(eori: string | undefined): string | null {
+  if (!eori || eori.trim() === '') {
+    return 'EORI number missing — required for authorized CBAM declarant registration (Regulation 2023/956 Art. 5)';
+  }
+  const normalized = eori.trim().toUpperCase();
+  if (!EORI_REGEX.test(normalized)) {
+    return `EORI "${eori}" is malformed — expected format: 2-letter country code + 1–15 alphanumeric chars (e.g. FI1234567890)`;
+  }
+  return null;
 }
 
 // ============ CBAM SECTOR COVERAGE ============
@@ -275,7 +304,9 @@ export async function calculateCBAMAsync(
   declaration: CBAMDeclaration,
 ): Promise<CBAMCalculationResult> {
   const price = await getCarbonPriceEur();
-  return calculateCBAM(declaration, price);
+  const result = calculateCBAM(declaration, price);
+  const eoriWarning = validateEORI(declaration.eoriNumber);
+  return eoriWarning ? { ...result, eoriWarning } : result;
 }
 
 /**

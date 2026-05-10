@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (Claude Sonnet 4.6) | Session: claude/add-cbam-resource-8YWjB | Date: 10.05.2026 | Changes: Initial field note. Triggered by SAP CBAM resource reference. Documents the full CBAM regulatory framework (EU 2023/956 + 2023/1773), maps it to the DWS IQ 6 implementation in cbam-calculator.ts and emission-factors.ts, identifies gaps, and provides competitive context versus SAP Sustainability Control Tower. Source URL returned HTTP 403; note is grounded in EUR-Lex primary sources and existing DWS codebase.
+- Version: 1.1 | Tool: Claude Code (Claude Sonnet 4.6) | Session: claude/add-cbam-resource-8YWjB | Date: 10.05.2026 | Changes: Updated gaps §6 and actions §10 to mark certificate price automation (gap 1) and EORI validation (gap 5) as RESOLVED in PR-1265. Both fixes shipped in same session.
 
 Document Status:
 
@@ -182,7 +183,7 @@ SAP's CBAM positioning is essentially: "if your supply chain data is already in 
 
 ### Known Gaps
 
-**1. Certificate price staleness.** `CBAM_CERTIFICATE_PRICE_EUR = 65` is the 2024 average. No live fetch against the EU ETS weekly auction average. The price must be updated manually each quarter. A daily script at `scripts/daily/` should pull the ETS price from ECB SDW or ICE/ECX and update the constant.
+**1. Certificate price staleness.** ~~`CBAM_CERTIFICATE_PRICE_EUR = 65` hardcoded.~~ ✅ **RESOLVED (2026-05-10, PR-1265)** — `ember-carbon-price.ts` now serves a 4-tier cascade (in-memory → `config/cbam-price.json` → EMBER API → Sandbag → EUR 65 static). `scripts/daily/cbam-price-fetch.sh` writes the file daily. `calculateCBAMAsync()` fetches live price on every call.
 
 **2. Default factor staleness.** Emission-factors.ts comment warns: "Last verified: 2026-03-24 | Stale after: 180 days." This means factors should be re-verified by **2026-09-21**. The Commission may issue amendments. A reminder should be registered in the quarterly gate script.
 
@@ -190,7 +191,7 @@ SAP's CBAM positioning is essentially: "if your supply chain data is already in 
 
 **4. Indirect emissions for electricity imports.** The CBAM electricity factor (0.450 tCO2e/MWh) is the EU-wide grid average default. For electricity imports from specific third countries, the CBAM implementing regulation allows use of country-specific grid emission factors. This is not yet implemented — the calculator applies the EU average regardless of origin country for electricity.
 
-**5. No EORI number validation.** The `CBAMDeclaration` interface has `eoriNumber?: string` but it is not validated against EU EORI database. An invalid EORI on submission would cause rejection at the CBAM Registry.
+**5. No EORI number validation.** ~~`eoriNumber?: string` unvalidated.~~ ✅ **RESOLVED (2026-05-10, PR-1265)** — `validateEORI()` exported from `cbam-calculator.ts`. Regex `[A-Z]{2}[0-9A-Z]{1,15}` per EU Customs Regulation 952/2013. `calculateCBAMAsync()` runs validation and attaches `eoriWarning` to the result when EORI is absent or malformed (WARN, not ERROR — does not block calculation).
 
 ---
 
@@ -254,8 +255,8 @@ Per the Validated Mock Data Rule in CLAUDE.md, all CBAM-related data in DWS IQ 6
 
 Ordered by urgency:
 
-1. **This month — Certificate price automation.** Create `scripts/daily/cbam-price-fetch.ts` that pulls the weekly EU ETS average from ECB SDW (or ICE public feed) and writes the result to a config table. `cbam-calculator.ts` reads from config rather than the hardcoded constant. Prevents price staleness accumulating through 2026.
+1. ~~**This month — Certificate price automation.**~~ ✅ **DONE (PR-1265)** — `scripts/daily/cbam-price-fetch.sh` writes `config/cbam-price.json` daily. `ember-carbon-price.ts` serves a 4-tier cascade. `calculateCBAMAsync()` uses live price on every call.
 
-2. **This quarter — EORI validation.** Add EORI format validation (regex: `[A-Z]{2}[0-9A-Z]{1,15}`) to the `CBAMDeclaration` input at the API boundary. Flag missing or malformed EORI as a WARN (not ERROR, since historical data may lack it). This is the safest input boundary fix before the first declarant submissions.
+2. ~~**This quarter — EORI validation.**~~ ✅ **DONE (PR-1265)** — `validateEORI()` exported from `cbam-calculator.ts`. Format check per EU Customs Regulation 952/2013. `calculateCBAMAsync()` attaches `eoriWarning` to results with missing or malformed EORI. 9 test cases added.
 
 3. **2026-H2 — Commission Registry connector.** Build an adapter to the CBAM Transitional Registry API (when the Commission publishes its machine-readable interface). This turns DWS from a calculator into a submission system — the step that makes CBAM handling fully automated and closes the gap versus SAP.
