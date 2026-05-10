@@ -24,7 +24,7 @@ Related Documents:
 
 - src/compliance/cbam-calculator.ts
 - src/compliance/emission-factors.ts
-- src/**tests**/cbam-calculator.test.ts
+- src/__tests__/cbam-calculator.test.ts
 - src/synthetic-data/cbam-schema.ts
 - docs/energy-industry-eu-2026.md
 - docs/DWS7_HYDROGEN_SELVITYS.md
