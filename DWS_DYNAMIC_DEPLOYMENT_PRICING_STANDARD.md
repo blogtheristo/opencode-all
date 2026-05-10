@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.5
+Version: 1.6
 
 Sessions & Modifications:
 
+- Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dynamic-deployment-pricing-LExxQ | Date: 10.05.2026 | Changes: Added Section 13 — Price List Versioning Standard; mandates priceVersion 1.10 baseline, 0.01 increments, date on every change, version shown in both Green and Blue price list headers and per-product version column (stable Green / pilot Blue)
 - Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dynamic-deployment-pricing-LExxQ | Date: 10.05.2026 | Changes: Added Hardware Pricing Model (Section 12) — hardware is always an external product; Blue = buy-in/cost price (internal, never published), Green = client retail price (published online); unified the Blue=internal/Green=external principle across all three categories in the governing principle
 - Version: 1.4 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dynamic-deployment-pricing-LExxQ | Date: 10.05.2026 | Changes: Added Consultation Pricing Model (Section 11) — Blue = contractor pricing (confidential, never published online), Green = direct client pricing (publicly listed); confirmed Firehorse follows identical Blue/Green model; added cloud costs as separate operating costs rule; updated governing principle and TOC
 - Version: 1.3 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dynamic-deployment-pricing-LExxQ | Date: 10.05.2026 | Changes: Monthly subscription reclassified as a required separate product for all customers on both tiers — removed all optional/add-on framing; fixed duplicate section numbering in Sections 3 and 4; updated pricing table, obligation matrix, and definitions accordingly
@@ -44,6 +45,7 @@ Document Status:
 10. [Product Version Governance](#10-product-version-governance)
 11. [Consultation Pricing Model](#11-consultation-pricing-model)
 12. [Hardware Pricing Model](#12-hardware-pricing-model)
+13. [Price List Versioning Standard](#13-price-list-versioning-standard)
 
 ---
 
@@ -389,3 +391,79 @@ The spread between Blue (buy-in) and Green (retail) constitutes DWS hardware mar
 | Acer Veriton GN100 — EU Sovereign Edge AI Node | €3,999/unit (min 2 units) | `edge-node-gn100` |
 
 Blue (buy-in) prices for all hardware are maintained in the internal procurement sheet, not in this document or `products.json`.
+
+---
+
+## 13. Price List Versioning Standard
+
+### 13.1 Purpose
+
+This section exists specifically to prevent silent price regressions. Any commit that touches pricing without bumping the version is detectable immediately by comparing `priceVersion` in the file against the previous commit.
+
+### 13.2 Version Field Rules
+
+Every price-bearing config file carries a `priceVersion` field:
+
+| File                                           | Field          | Baseline        |
+| ---------------------------------------------- | -------------- | --------------- |
+| `dws10.com/config/products.json`               | `priceVersion` | `1.10`          |
+| `landing-pages/dws10-com/config/products.json` | `priceVersion` | mirror of above |
+| `config/pilot-blue-prices.json`                | `version`      | `1.0`           |
+
+**Increment rule: 0.01 per change.** Steps: `1.10 → 1.11 → 1.12 → ... → 1.99 → 2.00`.
+
+### 13.3 Required Fields on Every Price Change
+
+A price change is invalid unless all four fields are updated in the same commit:
+
+1. **`priceVersion`** — bumped by 0.01
+2. **`lastUpdated`** — ISO 8601 date-time of the change (`YYYY-MM-DDTHH:MM:SSZ`)
+3. **`priceHistory` entry** — array entry with `version`, `date`, `author`, and `changes[]`
+4. **Dual-folder sync** — `landing-pages/dws10-com/config/products.json` must match in the same commit
+
+Missing any of these four is a standard violation. CI or code review must reject the commit.
+
+### 13.4 Product Version Display
+
+Every product in both the Green and Blue price lists displays its version number in the following format:
+
+```
+Green v{version}  /  Blue v{blueVersion}
+```
+
+Examples:
+
+- `Green v6  /  Blue v6.1`
+- `Green v1.0  /  Blue v1.1`
+
+**Rule:** Blue version = Green version + 0.1. When Green advances from 6 → 7, Blue becomes 7.1. Major version increment (e.g. 6 → 7) happens when a Blue track graduates to become the new Green.
+
+### 13.5 Price List Headers
+
+Both generated price list HTML files must display in their header:
+
+- `priceVersion` (from `products.json`)
+- `lastUpdated` date (from `products.json`)
+- `version` (from `pilot-blue-prices.json`, Blue list only)
+- Generated timestamp
+
+### 13.6 Version Guard Rule
+
+The price list generators (`generate-green-pricelist.py`, `generate-pilot-pricelist.py`) enforce a version guard at runtime:
+
+> **If the existing `Learn/` HTML was generated from a higher `priceVersion` than the current `products.json`, the script must refuse to overwrite it and exit with an error.**
+
+This means a stale or rolled-back `products.json` cannot silently overwrite a correct price list. The guard message names the conflicting versions so the operator knows exactly which file needs updating.
+
+**Bypass is not permitted.** If the guard fires, the correct resolution is to update `products.json` with the right prices and bump `priceVersion` — not to delete the existing HTML.
+
+### 13.7 Governance
+
+| Action                            | Requirement                                              |
+| --------------------------------- | -------------------------------------------------------- |
+| Any price change                  | Bump `priceVersion` + add `priceHistory` entry           |
+| New product added                 | Assign `version` field; bump `priceVersion`              |
+| Product renamed `_OLD`            | Bump `priceVersion`; log in `priceHistory`               |
+| Blue pilot price change           | Bump `pilot-blue-prices.json` `version` by 0.01          |
+| Commit without version bump       | **Reject — standard violation**                          |
+| Running generator on stale config | **Blocked by version guard — fix config, do not bypass** |
