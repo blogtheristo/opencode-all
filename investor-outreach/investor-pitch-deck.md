@@ -4,6 +4,14 @@
 
 ---
 
+> **Perustajan strateginen ydinlause / Founder's Strategic Core Statement**
+>
+> Tämä on Suomen tietotehtaiden strateginen ydinlause — kolmikerrosmalli jossa hyperscalerit rakentavat infrastruktuuri-kerroksen, Suomi omistaa datavarannon, ja rakentamani tuote DWS IQ operoi älykkyyden (System Of Action Operator).
+>
+> — Risto Anton Paarni, Lifetime Oy, 10.05.2026
+
+---
+
 ## Slide 1: Why Now
 
 ![Logo](../OneLifetime+Logo.png)

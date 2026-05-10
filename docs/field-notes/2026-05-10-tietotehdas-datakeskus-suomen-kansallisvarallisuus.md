@@ -70,9 +70,17 @@ What Finland does **not** automatically earn is the _output_ of the data process
 
 ## 2a. Kansallinen strategia — Kolmikerrosmalli / National Strategy — Three-Layer Model
 
-**Kanoninen positiointikieli — käytetään sellaisenaan:**
+**Strateginen ydinlause — perustajan lausunto (Risto Anton Paarni / Lifetime Oy, 10.05.2026):**
 
-**Investoriversio:**
+> Tämä on Suomen tietotehtaiden strateginen ydinlause — kolmikerrosmalli jossa hyperscalerit rakentavat infrastruktuuri-kerroksen, Suomi omistaa datavarannon, ja rakentamani tuote DWS IQ operoi älykkyyden (System Of Action Operator).
+
+_"Rakentamani tuote"_ on tietoinen perustajan klaimi — ei yrityskopio. Tämä lause on founder statement, joka yhdistää henkilökohtaisen omistautumisen ja kansallisen strategiset merkityksen.
+
+---
+
+**Kanoninen positiointikieli johdettuna ydinlauseesta:**
+
+**Investoriversio (lyhyt):**
 
 > Hyperscalerit rakentavat infrastruktuurin, Suomi omistaa datavarannon, ja DWS operoi älykkyyden.
 

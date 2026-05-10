@@ -1805,6 +1805,20 @@ Canonical one-liners for investor materials, landing pages, and sales outreach. 
 - "battle-tested" → "taisteluvalmiita" — strong B2B Finnish, acceptable in industrial context
 - Use in NVIDIA co-marketing, technical partner materials, and deep-dive investor decks
 
+### Founder's Strategic Core Statement — Master Frame
+
+> Tämä on Suomen tietotehtaiden strateginen ydinlause — kolmikerrosmalli jossa hyperscalerit rakentavat infrastruktuuri-kerroksen, Suomi omistaa datavarannon, ja rakentamani tuote DWS IQ operoi älykkyyden (System Of Action Operator).
+>
+> — Risto Anton Paarni, Lifetime Oy, 10.05.2026
+
+This is the founder's declaration, not a copywriting exercise. _"Rakentamani tuote"_ (the product I built) is an intentional personal ownership claim. All derived positioning sentences below flow from this master frame. Do not paraphrase or dilute it in investor or strategic contexts — quote verbatim with attribution.
+
+**EN equivalent (for non-Finnish audiences):**
+
+> This is the strategic core sentence of Finnish data factories — a three-layer model where hyperscalers build the infrastructure layer, Finland owns the data reserve, and the product I built, DWS IQ, operates the intelligence (System of Action Operator).
+
+---
+
 ### System of Action Operator (Cross-Product / Core Positioning)
 
 Canonical positioning derived from Google Cloud's Agentic Data Cloud framework (22.04.2026) and tietotehdas field research. Use verbatim — no paraphrasing.
