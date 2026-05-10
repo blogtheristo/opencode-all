@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dynamic-deployment-pricing-LExxQ | Date: 10.05.2026 | Changes: Reframed Blue as access-and-learning tier, Green as saleability tier — separates release status from pricing to prevent conflation; added applied product mapping (Green = DWS IQ 6, Blue = DWS IQ 6.1); tightened governing principle to match enterprise release standard
 - Version: 1.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dynamic-deployment-pricing-LExxQ | Date: 10.05.2026 | Changes: Initial creation — formulated the Dynamic Deployment Pricing Standard covering Blue (enterprise pilot) and Green (stable commercial) deployment tiers, transition rules, customer obligation model, and sales motion guidance
 
 Session Links & References:
@@ -41,47 +42,61 @@ Document Status:
 
 ## 1. Purpose
 
-> **Blue = early-access pilot, reduced price or free for up to 12 months, with customer-nominated PMs feeding issues directly to DWS.**
-> **Green = stable selling release, no customer feedback obligations.**
+> **Enterprise release principle**
+>
+> Blue is an early-access pilot, free or reduced price for up to 12 months, with customer-nominated product managers feeding issues directly to DWS.
+> Green is the stable selling release, with no customer feedback obligations.
+> Enterprise accounts can stay in Blue until the pilot window ends, even after the product moves to full price.
 
-This standard governs how DWS prices, positions, and manages enterprise deployments across the product lifecycle. It defines two named deployment tiers — **Blue** and **Green** — each with distinct pricing terms, customer obligations, and transition conditions.
+This standard governs how DWS names, positions, and prices enterprise deployments across the product lifecycle. It defines two named deployment tiers — **Blue** and **Green** — each signalling a distinct release role, not just a price point.
 
-The model rewards enterprise customers who co-develop quality with DWS, while protecting those who prefer a self-contained commercial relationship.
+**The core distinction is release function, not price:**
+
+- Blue is the **access and learning** tier. It exists so that enterprise customers can get inside a product early and so that DWS can learn from real-world usage before setting the commercial baseline.
+- Green is the **saleability** tier. It is what DWS can stand behind fully — supported, documented, SLA-backed, and commercially clean.
+
+Keeping these roles separate prevents the pricing concession from being confused with the release status. A customer should never be uncertain whether they are on a pilot or a product. The color makes that unambiguous.
 
 ---
 
 ## 2. Deployment Color Model
 
-| Attribute               | Blue Version                     | Green Version                 |
-| ----------------------- | -------------------------------- | ----------------------------- |
-| **Stage**               | Pilot / early access             | Stable commercial             |
-| **Pricing**             | Free or reduced rate             | Full market price             |
-| **Customer obligation** | Active quality participation     | None                          |
-| **Target buyer**        | Enterprise innovation leads      | Procurement / standard buyers |
-| **DWS obligation**      | Rapid bug response, co-iteration | Standard SLA                  |
+| Attribute               | Blue Version                          | Green Version                   |
+| ----------------------- | ------------------------------------- | ------------------------------- |
+| **Role**                | Access and learning                   | Saleability                     |
+| **Release status**      | Early access / pilot                  | Stable, fully supported         |
+| **Pricing**             | Free or reduced (side effect of role) | Full market price               |
+| **Customer obligation** | Nominated PM, structured reporting    | None                            |
+| **DWS obligation**      | Rapid issue response, co-iteration    | Published SLA, standard support |
+| **Target buyer**        | Enterprise innovation leads           | Procurement / standard buyers   |
+| **Current product**     | DWS IQ 6.1                            | DWS IQ 6                        |
 
-The color signals the product maturity and the nature of the commercial relationship, not a quality ranking. Green is not "better" than Blue — it is a different contract mode.
+The color signals what the release is **for**, not how good it is. Pricing follows from that role — it is not the definition of it. Green is not "better" than Blue; it is ready for commercial commitments in a way that Blue is not yet.
 
 ---
 
-## 3. Blue Version — Enterprise Pilot Tier
+## 3. Blue Version — Access and Learning Tier
 
-### 3.1 Pricing
+Blue exists for two purposes: to give enterprise customers early access to a product before it is commercially stabilised, and to give DWS the real-world signal it needs to set the commercial baseline correctly. Reduced or free pricing is a consequence of that role, not the definition of it.
 
-- **Free** or at a **negotiated reduced rate** agreed before the pilot starts.
-- Pricing must be documented in the enterprise contract with an explicit sunset clause referencing the Green transition date.
-- No retroactive billing for Blue-period usage once Green is declared.
+**Current Blue product: DWS IQ 6.1**
 
-### 3.2 Enterprise Participation Requirement
+### 3.1 Enterprise Participation Requirement
 
-In exchange for reduced pricing, the enterprise commits to structured quality participation:
+In exchange for early access, the enterprise commits to structured learning participation:
 
 1. **Nominate at least one Product Manager (PM)** as the formal DWS-interface contact.
 2. The nominated PM is responsible for **documenting all observed errors, anomalies, and friction points** in the agreed format (DWS Issue Tracker or equivalent).
 3. Reports must be submitted within **5 business days** of observation.
 4. The PM attends a **monthly sync** with DWS to review open items and product direction.
 
-This is a bilateral value exchange: the enterprise receives below-market access; DWS receives real-world signal that accelerates product quality.
+This is a bilateral exchange: the enterprise gains early access and influence over the product direction; DWS gains real-world signal before the commercial baseline is set.
+
+### 3.2 Pricing
+
+- **Free** or at a **negotiated reduced rate** agreed before the pilot starts.
+- Pricing must be documented in the enterprise contract with an explicit sunset clause referencing the Green transition date.
+- No retroactive billing for Blue-period usage once Green is declared.
 
 ### 3.3 Pilot Duration and Extension
 
@@ -97,16 +112,20 @@ This is a bilateral value exchange: the enterprise receives below-market access;
 
 ---
 
-## 4. Green Version — Stable Commercial Tier
+## 4. Green Version — Saleability Tier
+
+Green is the version DWS can stand behind commercially without qualification. It is stable, documented, SLA-backed, and priced at full market rate. A product reaches Green when DWS is confident enough in it to make contractual commitments to any customer, not just those willing to participate in its development.
+
+**Current Green product: DWS IQ 6**
 
 ### 4.1 Definition
 
-The Green version is the **latest stable, fully supported release** of the product available for standard commercial purchase. DWS declares a product Green when:
+DWS declares a product Green when:
 
 - Core feature set is complete and tested.
 - Documentation is published.
 - Support SLA is activated.
-- Pricing is set at full market rate.
+- Pricing is published in `dws10.com/config/products.json` at full market rate.
 
 ### 4.2 Pricing
 
@@ -207,7 +226,7 @@ Position Green when:
 
 **Blue opening line:**
 
-> "We're giving your team early access at no cost in exchange for one thing: a named product manager who documents what they encounter. You shape the product; we ship faster. When the product goes commercial, you have 12 months to convert — no surprise pricing."
+> "Your team gets inside DWS IQ 6.1 before it goes to market. One condition: a named product manager who documents what they find. You shape how this ships; we move faster because of it. When it becomes the commercial version, you have 12 months to convert on agreed terms."
 
 **Green opening line:**
 
@@ -215,25 +234,25 @@ Position Green when:
 
 ### 8.4 Objection Handling
 
-| Objection                                  | Response                                                                                                             |
-| ------------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
-| "We don't want to be beta testers."        | "Blue is not beta. You're running a production-grade build. The PM obligation is structured reporting, not testing." |
-| "What if we never convert to Green?"       | "After the 12-month grace window, Blue access closes. We'll offer Green at list price at that point."                |
-| "Can we get Blue pricing forever?"         | "No. Blue is a time-bounded value exchange tied to product maturity. The clock starts when we declare GA."           |
-| "Can we negotiate the PM obligation away?" | "No. The PM obligation is the basis of the pricing concession. Without it, Green pricing applies."                   |
+| Objection                                  | Response                                                                                                                       |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| "We don't want to be beta testers."        | "Blue is not beta. You're running a production-grade build. The PM obligation is structured reporting, not testing."           |
+| "What if we never convert to Green?"       | "After the 12-month grace window, Blue access closes. We'll offer Green at list price at that point."                          |
+| "Can we stay on Blue forever?"             | "No. Blue is a time-bounded access arrangement. Once the product is Green, the clock runs for 12 months and then Blue closes." |
+| "Can we negotiate the PM obligation away?" | "No. The PM obligation is the basis of the pricing concession. Without it, Green pricing applies."                             |
 
 ---
 
 ## 9. Definitions
 
-| Term                          | Definition                                                                                                              |
-| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| **Blue Version**              | The enterprise pilot deployment tier offering free or reduced pricing in exchange for structured quality participation. |
-| **Green Version**             | The latest stable commercial release at full market price with no customer participation obligations.                   |
-| **GA (General Availability)** | The date DWS formally declares a product Green and begins full commercial sales.                                        |
-| **Grace Window**              | The 12-month period after GA during which Blue customers may remain on pilot pricing before converting.                 |
-| **Nominated PM**              | The enterprise-appointed Product Manager who owns the error-documentation obligation during the Blue/grace period.      |
-| **Loyalty Rate**              | A discounted first-year Green price offered to Blue customers who convert before the grace window expires.              |
+| Term                          | Definition                                                                                                                                                                         |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Blue Version**              | The access and learning tier. Early-access pilot deployment, free or reduced price, with customer-nominated PMs feeding issues to DWS. Current product: DWS IQ 6.1.                |
+| **Green Version**             | The saleability tier. Stable, fully supported commercial release that DWS can stand behind with SLA commitments. No customer participation obligations. Current product: DWS IQ 6. |
+| **GA (General Availability)** | The date DWS formally declares a product Green and opens full commercial sales.                                                                                                    |
+| **Grace Window**              | The 12-month period after GA during which Blue customers may remain on Blue access terms before converting to Green.                                                               |
+| **Nominated PM**              | The enterprise-appointed Product Manager who owns the error-documentation obligation during the Blue/grace period.                                                                 |
+| **Loyalty Rate**              | A discounted first-year Green price offered to Blue customers who convert before the grace window expires.                                                                         |
 
 ---
 
