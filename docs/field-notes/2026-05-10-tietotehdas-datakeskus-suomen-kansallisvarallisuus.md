@@ -12,11 +12,13 @@ Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/data-centre-factory-docs-eav19 | Date: 10.05.2026 | Changes: Initial — conceptual framework for distinguishing passive data storage (datakeskus) from active data creation and mining (tietotehdas) as national wealth
 - Version: 1.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/data-centre-factory-docs-eav19 | Date: 10.05.2026 | Changes: Added section 6 — Google Cloud "System of Action" / Agentic Data Cloud framework mapped to tietotehdas model; action implications for DWS IQ
+- Version: 1.2 | Tool: Claude Code (Sonnet 4.6) | Session: claude/data-centre-factory-docs-eav19 | Date: 10.05.2026 | Changes: Added section 6.6 — Gemini Enterprise Agent Platform as tietotehdas tuotekerros; fleet governance, Memory Bank, Agent Identity mapped to DWS IQ architecture; build-vs-buy analysis
 
 Session Links & References:
 
 - Claude Code (claude/data-centre-factory-docs-eav19): https://github.com/blogtheristo/dws6/commits/claude/data-centre-factory-docs-eav19
 - Google Cloud article (Andi Gutmans, 22.04.2026): https://cloud.google.com/transform/shift-system-of-action-architecting-the-agentic-data-cloud-ai
+- Google Cloud article (Gerstenhaber & Bachman, 22.04.2026): https://cloud.google.com/blog/products/ai-machine-learning/introducing-gemini-enterprise-agent-platform
 - Related: docs/field-notes/2026-04-18-eu-green-hydrogen-additionality-finland-datacentres.md
 - Related: docs/field-notes/2026-04-06-synthetic-data-pipeline-cbam.md
 - Related: docs/field-notes/2026-04-20-siemens-synthetic-data-partnership-wedge.md
@@ -24,7 +26,7 @@ Session Links & References:
 Document Status:
 
 - Created: 10.05.2026
-- Last Modified: 10.05.2026 (v1.1)
+- Last Modified: 10.05.2026 (v1.2)
 - Language: Finnish + English
 - Publication Status: INTERNAL — conceptual framework note
 
@@ -176,6 +178,56 @@ Nämä luvut kertovat, että siirtymä System of Action -malliin on jo käynniss
 | **Google Cloud -kumppanuusarviointi**     | Keski        | Agentic Data Cloud tarjoaa valmiin infrastruktuurin; arvioi BigQuery + Gemini vs. oma stack       |
 | **"Dark Data" -inventaario**              | Keski        | Kartoita, mitkä suomalaiset tietovarannot ovat aktivoimattomia ja GDPR-compliant hyödynnettävissä |
 | **System of Action -positioning**         | Korkea       | DWS IQ:n myyntinarratiivi: "emme ole SaaS-toimittaja, olemme System of Action -operaattori"       |
+
+### 6.6 Gemini Enterprise Agent Platform — Tietotehtaan tuotekerros
+
+Samana päivänä (22.04.2026) Google julkaisi **Gemini Enterprise Agent Platformin** — kaiken Vertex AI:n korvanneen agenttihallinnan alustan. Jos System of Action -artikkeli oli strategia, tämä on sen tuoteimplementaatio.
+
+> _"Agents that act with the same independence and reliability as a member of your team."_
+> — Gerstenhaber & Bachman, Google Cloud, 22.04.2026
+
+**Neljä pilaria — Build / Scale / Govern / Optimize:**
+
+| Pilari       | Keskeinen työkalu                                                                        | Tietotehdas-vastine                                  |
+| ------------ | ---------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| **Build**    | Agent Studio (low-code), ADK (code-first), Agent Garden (templates)                      | Tietotehtaan agenttikomponenttien kehittäminen       |
+| **Scale**    | Agent Runtime (sub-second cold start), Memory Bank (pitkäkestoinen konteksti)            | Tietotehtaan 24/7 -operaatio agenttivolyymeissa      |
+| **Govern**   | Agent Identity (kryptograafiset IDs), Agent Gateway ("air traffic control"), Model Armor | Julkisten tietovarantojen käyttövaltuuksien hallinta |
+| **Optimize** | Agent Simulation, Agent Evaluation, Agent Observability, Agent Optimizer                 | Tietotehtaan laadunvarmistus ja suorituskyky         |
+
+**Miksi Govern-pilari on ratkaisevin tietotehtaalle:**
+
+Suomalaisten julkisten rekisterien käyttö edellyttää täsmällistä valtuutushallintaa. Googlen **Agent Identity** — kryptograafiset tunnisteet ja auditoitavat valtuutuspolitiikat — tarjoaa teknisen pohjan, jota esimerkiksi DVV:n tai Kelan datan agenttikäyttö vaatii.
+
+- **Agent Gateway:** Yksi sisääntulopiste kaikille agenteille → jäljitettävyys jokaisesta datakosketuksesta
+- **Model Armor:** Suojaus prompt injectionia vastaan — kriittinen, kun agentit käsittelevät julkista henkilödataa
+- **Agent Anomaly Detection:** Tilastolliset mallit + LLM-as-a-judge poikkeavan käytöksen tunnistamiseen
+
+**Mittakaava:**
+
+- **6 biljoonaa tokenia kuukaudessa** käsitelty ADK:n kautta
+- Sub-sekunnin käynnistysaika uusille agenteille
+- Tuki **monipäiväisille autonomisille työnkuluille**
+
+**Mallikirjasto — DWS:n kannalta olennainen yksityiskohta:**
+
+Google Agent Platform tukee **Anthropic Claude Opus, Sonnet ja Haiku** -malleja natiivisti 200+ mallin ekosysteemissä. DWS IQ:n Anthropic-pohjainen agenttiarkkitehtuuri on suoraan yhteensopiva — ei migraatioestettä.
+
+### 6.7 Build vs. Buy — Tietotehdas-infrastruktuurin strateginen valinta
+
+Kaksi Googlen artikkelia yhdessä tekevät valinnan konkreettiseksi:
+
+|                         | Rakennetaan itse (DWS IQ + Anthropic + MCP)                                      | Ostetaan Googleltä (Gemini Enterprise Agent Platform) |
+| ----------------------- | -------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| **Kustannus**           | Kehitysaika, oma ylläpito                                                        | Käyttömaksupohjainen (per token/kuukausi)             |
+| **Kontrolli**           | Täysi — oma data, oma logiikka                                                   | Osittainen — Google hoitaa infrastruktuurin           |
+| **Nopeus markkinoille** | Hitaampi (rakentaminen)                                                          | Nopeampi (valmis alusta)                              |
+| **Suvereniteetti**      | Korkea — voidaan ajaa EU:ssa tai on-prem                                         | Matala — Google Cloud riippuvuus                      |
+| **MCP-yhteensopivuus**  | Natiiivi (jo käytössä)                                                           | Natiiivi (Google tukee MCP:tä)                        |
+| **Governance**          | Rakennettava itse                                                                | Valmis (Agent Identity, Agent Gateway, Model Armor)   |
+| **DWS-suositus**        | **Oma agenttitaso** + selektiivinen Google-infrastruktuuri governance-kerrokseen |                                                       |
+
+**Johtopäätös:** DWS IQ:n agenttiliiketoimintalogiikka pysyy omana. Googlen Govern-pilari (Agent Identity, Model Armor, Agent Gateway) on arvioitava erikseen governance-kerroksena, erityisesti jos/kun DWS alkaa operoida julkisten tietovarantojen päällä.
 
 ---
 
