@@ -8,13 +8,13 @@
       "price": 4999,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Stop risking fines and lost tenders. DWS IQ 6 deploys 18+ Skilled Agents with agentic loops (observe-think-act) to amplify Fit for 55, CSRD, and EPBD compliance across 20 EU industries — cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.",
+      "description": "Stop risking fines and lost tenders. DWS IQ 6 deploys 18+ Skilled Agents with agentic loops (observe-think-act) to amplify Fit for 55, CSRD, and EPBD compliance across 20 EU industries \u2014 cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.",
       "features": [
         "18+ GodAgents with MCP protocol and CLI access",
         "Amplify Fit for 55, CSRD & EPBD reporting",
         "90% reduction in manual compliance hours"
       ],
-      "priceNote": "One-time deployment + €499/mo subscription",
+      "priceNote": "One-time deployment + \u20ac499/mo subscription",
       "revolutLink": "https://checkout.revolut.com/pay/f023d433-0bf4-48fa-98cd-494de448df39",
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -39,7 +39,7 @@
       "price": 4950,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Manual data entry is where compliance fines start. Firehorse Amplify eliminates human error with event-driven workflows for Fit for 55, CSRD, and EPBD 2028 — capturing ESG data directly from your systems with a complete audit trail.",
+      "description": "Manual data entry is where compliance fines start. Firehorse Amplify eliminates human error with event-driven workflows for Fit for 55, CSRD, and EPBD 2028 \u2014 capturing ESG data directly from your systems with a complete audit trail.",
       "features": [
         "Event-driven compliance workflows",
         "Eliminate manual data entry errors",
@@ -76,7 +76,7 @@
         "First CSRD reporting deadline ready",
         "Operational in 30 days"
       ],
-      "priceNote": "One-time + €1,999/year",
+      "priceNote": "One-time + \u20ac1,999/year",
       "revolutLink": "https://checkout.revolut.com/pay/065b9efd-5fd1-43aa-bfb9-869c41c2b01f",
       "paypalPlanId": null,
       "image": "/static/images/8_Industries.png",
@@ -162,13 +162,13 @@
       "price": 199,
       "currency": "EUR",
       "type": "subscription",
-      "description": "Add legally binding eSignatures to any Firehorse report. Compliance reports, carbon assessments, and investor reports get DocuSign eSignature — court-defensible, audit-ready, with full tracking. Author, reviewer, and auditor sign in sequence. Signed PDFs auto-archived.",
+      "description": "Add legally binding eSignatures to any Firehorse report. Compliance reports, carbon assessments, and investor reports get DocuSign eSignature \u2014 court-defensible, audit-ready, with full tracking. Author, reviewer, and auditor sign in sequence. Signed PDFs auto-archived.",
       "features": [
         "DocuSign eSignature on all Firehorse reports",
-        "Multi-party signing (author → reviewer → auditor)",
+        "Multi-party signing (author \u2192 reviewer \u2192 auditor)",
         "Signed PDF download and audit trail"
       ],
-      "priceNote": "€199/year add-on — requires Firehorse Report",
+      "priceNote": "\u20ac199/year add-on \u2014 requires Firehorse Report",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
@@ -192,7 +192,7 @@
       "price": 2999,
       "currency": "EUR",
       "type": "one-time",
-      "description": "When auditors ask for proof, find it in seconds — not days. Evidence Vault auto-tags compliance documents, alerts before certificates expire, and provides semantic search across all your audit-ready documentation.",
+      "description": "When auditors ask for proof, find it in seconds \u2014 not days. Evidence Vault auto-tags compliance documents, alerts before certificates expire, and provides semantic search across all your audit-ready documentation.",
       "features": [
         "Auto-tagged compliance documents",
         "Certificate expiry alerts",
@@ -250,7 +250,7 @@
       "id": "consulting-hourly",
       "gtin": null,
       "mpn": "CONSULT-HR-2026",
-      "name": "Senior Specialist – Hourly Consulting",
+      "name": "Senior Specialist \u2013 Hourly Consulting",
       "price": 250,
       "currency": "EUR",
       "type": "hourly",
@@ -375,7 +375,7 @@
       "price": 3500,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Deploy AI agents where your team already works — WhatsApp, Teams, Zoom, or a secure webhook. Custom conversational agents for enterprise workflows with your choice of LLM (Claude, GPT, Groq, or self-hosted for data sovereignty). Live in 25 hours.",
+      "description": "Deploy AI agents where your team already works \u2014 WhatsApp, Teams, Zoom, or a secure webhook. Custom conversational agents for enterprise workflows with your choice of LLM (Claude, GPT, Groq, or self-hosted for data sovereignty). Live in 25 hours.",
       "features": [
         "WhatsApp, Teams, Zoom & secure webhooks",
         "Custom LLM choice for sovereignty",
@@ -405,7 +405,7 @@
       "price": 1200,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Build Declarative Agents and Custom Engine Agents for Microsoft 365 Copilot, Teams, and Office using the Microsoft 365 Agents Toolkit (ATK) — the evolution of Teams Toolkit. Zero-configuration approach with built-in M365 identity, Microsoft Graph, and Azure integration. 8 hours of expert engagement.",
+      "description": "Build Declarative Agents and Custom Engine Agents for Microsoft 365 Copilot, Teams, and Office using the Microsoft 365 Agents Toolkit (ATK) \u2014 the evolution of Teams Toolkit. Zero-configuration approach with built-in M365 identity, Microsoft Graph, and Azure integration. 8 hours of expert engagement.",
       "features": [
         "Declarative & Custom Engine Agents for M365 Copilot",
         "Teams conversational agents with Microsoft Teams SDK",
@@ -437,7 +437,7 @@
       "price": 200,
       "currency": "EUR",
       "type": "hourly",
-      "description": "Hire a senior AI engineer by the hour — no recruitment overhead. Available as AI Product Manager, Solutions Architect, or ML Engineer for Azure AI Foundry, Google AI Studio, or custom agentic AI projects. Skip the 3-month hiring cycle.",
+      "description": "Hire a senior AI engineer by the hour \u2014 no recruitment overhead. Available as AI Product Manager, Solutions Architect, or ML Engineer for Azure AI Foundry, Google AI Studio, or custom agentic AI projects. Skip the 3-month hiring cycle.",
       "features": [
         "Senior AI engineer on demand",
         "Azure AI, Google AI & Claude",
@@ -468,7 +468,7 @@
       "price": 4960,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Ship your next project in half the time. Lean methodology powered by AI tools — includes planning workshop, backlog setup, Kanban workflows, and roadmap. Teams using this approach see 2x delivery speed within the first sprint.",
+      "description": "Ship your next project in half the time. Lean methodology powered by AI tools \u2014 includes planning workshop, backlog setup, Kanban workflows, and roadmap. Teams using this approach see 2x delivery speed within the first sprint.",
       "features": [
         "Lean AI-powered methodology",
         "2x delivery speed from sprint 1",
@@ -498,7 +498,7 @@
       "price": 1200,
       "currency": "EUR",
       "type": "one-time",
-      "description": "One day to unblock your AI strategy. Senior consultant on-site or remote for strategy, prototyping, and hands-on implementation. Covers Claude, GPT, Gemini Pro, Copilot, and Azure AI Studio. Most clients book 2–3 days for a full sprint.",
+      "description": "One day to unblock your AI strategy. Senior consultant on-site or remote for strategy, prototyping, and hands-on implementation. Covers Claude, GPT, Gemini Pro, Copilot, and Azure AI Studio. Most clients book 2\u20133 days for a full sprint.",
       "features": [
         "Strategy, prototyping & implementation",
         "Claude, GPT, Gemini Pro & Copilot",
@@ -529,7 +529,7 @@
       "price": 4960,
       "currency": "EUR",
       "type": "one-time",
-      "description": "30 hours of strategic AI mentoring, scheduled on your terms. Cover AI strategy, business process redesign with agents, and Copilot adoption in flexible 4–8 hour sessions over 12 months. Ideal for leadership teams navigating AI transformation.",
+      "description": "30 hours of strategic AI mentoring, scheduled on your terms. Cover AI strategy, business process redesign with agents, and Copilot adoption in flexible 4\u20138 hour sessions over 12 months. Ideal for leadership teams navigating AI transformation.",
       "features": [
         "30 hours strategic AI mentoring",
         "12-month flexible schedule",
@@ -559,7 +559,7 @@
       "price": 499,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Your leadership team needs AI fluency — not just your engineers. EU AI Act Article 4 now requires AI literacy across your organization. In-house coaching with a free 3-hour workshop to assess readiness. Personal, team, or remote.",
+      "description": "Your leadership team needs AI fluency \u2014 not just your engineers. EU AI Act Article 4 now requires AI literacy across your organization. In-house coaching with a free 3-hour workshop to assess readiness. Personal, team, or remote.",
       "features": [
         "EU AI Act Article 4 compliance",
         "Personal or team coaching",
@@ -649,7 +649,7 @@
       "price": 799,
       "currency": "EUR",
       "type": "one-time",
-      "description": "A professional web presence in days, not months. Responsive pages built with React, Blazor, WordPress, or Squarespace — your choice. AI chatbot and e-commerce add-ons available when you are ready to scale.",
+      "description": "A professional web presence in days, not months. Responsive pages built with React, Blazor, WordPress, or Squarespace \u2014 your choice. AI chatbot and e-commerce add-ons available when you are ready to scale.",
       "features": [
         "React, Blazor or WordPress",
         "AI chatbot add-on available",
@@ -679,7 +679,7 @@
       "price": 499,
       "currency": "EUR",
       "type": "one-time",
-      "description": "GDPR-compliant email in one business day. Full Proton Business Suite — encrypted email, cloud storage, password manager, and VPN. Meets GDPR, NIS2, and EU AI Act requirements. 8-hour implementation, fully operational by end of day.",
+      "description": "GDPR-compliant email in one business day. Full Proton Business Suite \u2014 encrypted email, cloud storage, password manager, and VPN. Meets GDPR, NIS2, and EU AI Act requirements. 8-hour implementation, fully operational by end of day.",
       "features": [
         "GDPR-compliant encrypted email",
         "NIS2 & EU AI Act compliant",
@@ -799,7 +799,7 @@
       "price": 2499,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Your brand deserves more than templates. Digital Design Gold delivers a complete digital content repository — brand assets, marketing collateral, campaign visuals, and analytics dashboards — all governed by your brand standard. From identity system to live campaign intelligence in one engagement.",
+      "description": "Your brand deserves more than templates. Digital Design Gold delivers a complete digital content repository \u2014 brand assets, marketing collateral, campaign visuals, and analytics dashboards \u2014 all governed by your brand standard. From identity system to live campaign intelligence in one engagement.",
       "features": [
         "Complete brand asset system",
         "Campaign visual library",
@@ -859,7 +859,7 @@
       "price": 6250,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Transform your team from AI-curious to AI-productive in 3 days. In-house training covering strategy, hands-on implementation, and tool adoption. EU AI Act Article 4 requires AI literacy — this programme gets you compliant and productive.",
+      "description": "Transform your team from AI-curious to AI-productive in 3 days. In-house training covering strategy, hands-on implementation, and tool adoption. EU AI Act Article 4 requires AI literacy \u2014 this programme gets you compliant and productive.",
       "features": [
         "Strategy to implementation in 3 days",
         "EU AI Act Article 4 compliant",
@@ -885,17 +885,17 @@
       "id": "ai-consulting-agentic",
       "gtin": null,
       "mpn": "AI-CONSULT-2026",
-      "name": "AI Consulting – Agentic Software Development",
+      "name": "AI Consulting \u2013 Agentic Software Development",
       "price": 2500,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Your competitors are shipping 10x faster with AI agents. We assess your codebase, run AGENTS.md workshops, restructure for agentic development, and set up quality governance — from practitioners building with Claude Code and Codex daily. 88% of enterprises are increasing agentic AI budgets in 2026.",
+      "description": "Your competitors are shipping 10x faster with AI agents. We assess your codebase, run AGENTS.md workshops, restructure for agentic development, and set up quality governance \u2014 from practitioners building with Claude Code and Codex daily. 88% of enterprises are increasing agentic AI budgets in 2026.",
       "features": [
         "Agentic development assessment",
         "AGENTS.md workshops & restructuring",
         "Quality governance setup"
       ],
-      "priceNote": "Assessment from €2,500 | Retainers from €5,000/mo",
+      "priceNote": "Assessment from \u20ac2,500 | Retainers from \u20ac5,000/mo",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
@@ -915,17 +915,17 @@
       "id": "edge-node-gn100",
       "gtin": null,
       "mpn": "LF-EDGE-GN100-2026",
-      "name": "Acer Veriton GN100 — EU Sovereign Edge AI Node",
+      "name": "Acer Veriton GN100 \u2014 EU Sovereign Edge AI Node",
       "price": 3999,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Run DWS IQ 6 entirely on your premises — zero cloud dependency, zero CLOUD Act exposure. The Acer Veriton GN100 is the reference hardware for Lifetime's EU sovereign edge AI stack: 20 cores, 120 GiB RAM, runs Qwen 2.5 72B (QLoRA) locally with OpenSandbox agent isolation. Minimum order 2 units for control room + situation room redundancy.",
+      "description": "Run DWS IQ 6 entirely on your premises \u2014 zero cloud dependency, zero CLOUD Act exposure. The Acer Veriton GN100 is the reference hardware for Lifetime's EU sovereign edge AI stack: 20 cores, 120 GiB RAM, runs Qwen 2.5 72B (QLoRA) locally with OpenSandbox agent isolation. Minimum order 2 units for control room + situation room redundancy.",
       "features": [
         "EU air-gapped sovereign AI inference",
         "20 cores / 120 GiB RAM per node",
-        "Minimum 2 units — €7,998 total"
+        "Minimum 2 units \u2014 \u20ac7,998 total"
       ],
-      "priceNote": "€3,999 per unit · minimum 2 units (€7,998)",
+      "priceNote": "\u20ac3,999 per unit \u00b7 minimum 2 units (\u20ac7,998)",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -946,17 +946,17 @@
       "id": "DWS-SOVEREIGN-DB-001",
       "gtin": null,
       "mpn": "SOVEREIGN-DB-2026",
-      "name": "Sovereign Database — EU Data Sovereignty for PostgreSQL",
+      "name": "Sovereign Database \u2014 EU Data Sovereignty for PostgreSQL",
       "price": 0,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Your EU customer data on a US-owned cloud is a liability. Sovereign Database eliminates CLOUD Act exposure with EU-hosted, EU-owned PostgreSQL, continuous sovereignty monitoring, and automated compliance scoring. Free assessment, paid tiers from €499/mo.",
+      "description": "Your EU customer data on a US-owned cloud is a liability. Sovereign Database eliminates CLOUD Act exposure with EU-hosted, EU-owned PostgreSQL, continuous sovereignty monitoring, and automated compliance scoring. Free assessment, paid tiers from \u20ac499/mo.",
       "features": [
         "Zero CLOUD Act exposure",
         "Continuous sovereignty monitoring agent",
         "8-dimension compliance scoring"
       ],
-      "priceNote": "Assess: Free | Standard: €499/mo | Growth: €1,499/mo | Enterprise: €4,999/mo",
+      "priceNote": "Assess: Free | Standard: \u20ac499/mo | Growth: \u20ac1,499/mo | Enterprise: \u20ac4,999/mo",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -976,17 +976,17 @@
       "id": "sovereignty-cloud-consulting",
       "gtin": null,
       "mpn": "SOVEREIGN-CLOUD-2026",
-      "name": "Sovereignty Cloud Consulting – European Cloud Migration",
+      "name": "Sovereignty Cloud Consulting \u2013 European Cloud Migration",
       "price": 1500,
       "currency": "EUR",
       "type": "monthly",
-      "description": "Your US-hosted data is exposed to the CLOUD Act — and your EU clients know it. We migrate you to sovereign European infrastructure (OVHcloud, Hetzner, Supabase EU) with DPA creation, NIS2 compliance, and EU AI Act alignment. 78% of EU companies plan to reduce US cloud dependency.",
+      "description": "Your US-hosted data is exposed to the CLOUD Act \u2014 and your EU clients know it. We migrate you to sovereign European infrastructure (OVHcloud, Hetzner, Supabase EU) with DPA creation, NIS2 compliance, and EU AI Act alignment. 78% of EU companies plan to reduce US cloud dependency.",
       "features": [
         "European sovereign cloud migration",
         "CLOUD Act free infrastructure",
         "NIS2, GDPR & EU AI Act aligned"
       ],
-      "priceNote": "Standard €1,500/mo | Growth €3,000/mo | Partner from €5,000/mo",
+      "priceNote": "Standard \u20ac1,500/mo | Growth \u20ac3,000/mo | Partner from \u20ac5,000/mo",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
@@ -1006,17 +1006,17 @@
       "id": "DWS-US-STARTER",
       "gtin": null,
       "mpn": "DWS-US-STARTER-2026",
-      "name": "DWS IQ — US Cloud Starter",
+      "name": "DWS IQ \u2014 US Cloud Starter",
       "price": 299,
       "currency": "EUR",
       "type": "monthly",
-      "description": "Get started with DWS IQ on US Cloud infrastructure (Supabase + Cloudflare). 3 AI agents, basic CSRD dashboard, 1 user seat. Fastest path to compliance — upgrade to EU Sovereign anytime.",
+      "description": "Get started with DWS IQ on US Cloud infrastructure (Supabase + Cloudflare). 3 AI agents, basic CSRD dashboard, 1 user seat. Fastest path to compliance \u2014 upgrade to EU Sovereign anytime.",
       "features": [
         "3 AI agents (Compliance, Report, Discovery)",
         "Basic CSRD compliance dashboard",
         "Supabase + Cloudflare infrastructure"
       ],
-      "priceNote": "€299/mo + €990 one-time setup | Annual: 2 months free",
+      "priceNote": "\u20ac299/mo + \u20ac990 one-time setup | Annual: 2 months free",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -1037,17 +1037,17 @@
       "id": "DWS-US-PILOT",
       "gtin": null,
       "mpn": "DWS-US-PILOT-2026",
-      "name": "DWS IQ — US Cloud Pilot",
+      "name": "DWS IQ \u2014 US Cloud Pilot",
       "price": 799,
       "currency": "EUR",
       "type": "monthly",
-      "description": "4-week evaluation with real data on US Cloud. 8 AI agents, Firehorse Report, 5 seats, kickoff workshop. Prove ROI before scaling — upgrade to EU Sovereign anytime.",
+      "description": "4-week evaluation with real data on US Cloud. 8 AI agents, Firehorse Report, 5 seats, kickoff workshop. Prove ROI before scaling \u2014 upgrade to EU Sovereign anytime.",
       "features": [
         "8 AI agents (full Firehorse suite)",
         "Firehorse Report module included",
         "5 user seats + kickoff workshop"
       ],
-      "priceNote": "€799/mo + €2,490 one-time setup | Annual: 2 months free",
+      "priceNote": "\u20ac799/mo + \u20ac2,490 one-time setup | Annual: 2 months free",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -1068,7 +1068,7 @@
       "id": "DWS-EU-STARTER",
       "gtin": null,
       "mpn": "DWS-EU-STARTER-2026",
-      "name": "DWS IQ — EU Sovereign Starter",
+      "name": "DWS IQ \u2014 EU Sovereign Starter",
       "price": 499,
       "currency": "EUR",
       "type": "monthly",
@@ -1078,7 +1078,7 @@
         "Aiven PostgreSQL + Hetzner/Scaleway",
         "Sovereignty score monitoring"
       ],
-      "priceNote": "€499/mo + €1,490 one-time setup | Annual: 2 months free",
+      "priceNote": "\u20ac499/mo + \u20ac1,490 one-time setup | Annual: 2 months free",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -1099,7 +1099,7 @@
       "id": "DWS-EU-PILOT",
       "gtin": null,
       "mpn": "DWS-EU-PILOT-2026",
-      "name": "DWS IQ — EU Sovereign Pilot",
+      "name": "DWS IQ \u2014 EU Sovereign Pilot",
       "price": 1499,
       "currency": "EUR",
       "type": "monthly",
@@ -1109,7 +1109,7 @@
         "NIS2 compliance dashboard",
         "Zero CLOUD Act + EU data residency"
       ],
-      "priceNote": "€1,499/mo + €3,990 one-time setup | Annual: 2 months free",
+      "priceNote": "\u20ac1,499/mo + \u20ac3,990 one-time setup | Annual: 2 months free",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -1134,13 +1134,13 @@
       "price": 2999,
       "currency": "EUR",
       "type": "monthly",
-      "description": "Deploy 8 GodAgents that deliver audit-ready EU climate compliance outcomes — ETS allowance calculations, CBAM import obligations, CSRD disclosure reports, and continuous carbon accounting. GodAgent-delivered outcomes, not dashboards. The Agent Outcome Factory for climate compliance.",
+      "description": "Deploy 8 GodAgents that deliver audit-ready EU climate compliance outcomes \u2014 ETS allowance calculations, CBAM import obligations, CSRD disclosure reports, and continuous carbon accounting. GodAgent-delivered outcomes, not dashboards. The Agent Outcome Factory for climate compliance.",
       "features": [
         "8 specialized GodAgents for climate compliance",
         "ETS, CBAM, CSRD & Fit for 55 automation",
         "Deterministic scoring with validated EU data sources"
       ],
-      "priceNote": "€2,999/mo + €4,990 one-time setup | Annual: 2 months free",
+      "priceNote": "\u20ac2,999/mo + \u20ac4,990 one-time setup | Annual: 2 months free",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -1167,11 +1167,11 @@
       "type": "one-time",
       "description": "Single-tenant sovereign AI platform on Finnish infrastructure (UpCloud Kubernetes, Helsinki DC). 18 AI agents across 21 EU-regulated industries including dual-use critical raw materials. Three tiers: Standard, Defence (GPU + SAR), Sovereign (air-gapped). EDIP-ready (Article 9 eligible). Cross-vertical signal propagation, KYA agent governance, EU AI Act Article 12 compliance. Zero CLOUD Act exposure. Available August 2026.",
       "features": [
-        "Cross-vertical intelligence — detect supply chain cascades across 21 industries",
-        "EU-sovereign — Finnish-owned infrastructure, zero CLOUD Act exposure",
-        "Dual-use compliance — CER, CRM Act, KRITIS, NIS2, EU AI Act, CBAM, ETS"
+        "Cross-vertical intelligence \u2014 detect supply chain cascades across 21 industries",
+        "EU-sovereign \u2014 Finnish-owned infrastructure, zero CLOUD Act exposure",
+        "Dual-use compliance \u2014 CER, CRM Act, KRITIS, NIS2, EU AI Act, CBAM, ETS"
       ],
-      "priceNote": "From €59,990 onboarding + integration. Standard €999/mo | Defence €1,999/mo | Sovereign €4,999/mo",
+      "priceNote": "From \u20ac59,990 onboarding + integration. Standard \u20ac999/mo | Defence \u20ac1,999/mo | Sovereign \u20ac4,999/mo",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/firehorse-aegis-head.png",
@@ -1240,13 +1240,13 @@
       "author": "claude/dynamic-deployment-pricing-LExxQ",
       "changes": [
         "Restore Firehorse Amplify name/description (regressed in Aegis commit)",
-        "consulting-hourly: €98 → €250/hr",
-        "ai-consultant-day: €699 → €1,200/day",
-        "aws-consultancy: €4,500 → €3,750 (25 hrs at €150/hr)",
-        "ai-agent-engineering: €99 → €200/hr",
+        "consulting-hourly: \u20ac98 \u2192 \u20ac250/hr",
+        "ai-consultant-day: \u20ac699 \u2192 \u20ac1,200/day",
+        "aws-consultancy: \u20ac4,500 \u2192 \u20ac3,750 (25 hrs at \u20ac150/hr)",
+        "ai-agent-engineering: \u20ac99 \u2192 \u20ac200/hr",
         "LIFETIME-EXP-001 renamed _OLD",
         "expert-services renamed _OLD",
-        "Added DWS-IQ-SUB-001 (€499/mo) and FH-SUB-001 (€499/mo)"
+        "Added DWS-IQ-SUB-001 (\u20ac499/mo) and FH-SUB-001 (\u20ac499/mo)"
       ]
     },
     {
@@ -1273,7 +1273,7 @@
         "Access to updates and stable releases",
         "Required on all DWS IQ contracts (Blue and Green)"
       ],
-      "priceNote": "€499/mo — required separate product on all DWS IQ contracts",
+      "priceNote": "\u20ac499/mo \u2014 required separate product on all DWS IQ contracts",
       "storeCategory": "subscription",
       "version": "1.0"
     },
@@ -1291,7 +1291,7 @@
         "Support SLA and named DWS contact",
         "Required on all Firehorse contracts (Blue and Green)"
       ],
-      "priceNote": "€499/mo — covers all Firehorse products, required on all contracts",
+      "priceNote": "\u20ac499/mo \u2014 covers all Firehorse products, required on all contracts",
       "storeCategory": "subscription",
       "version": "1.0"
     }
