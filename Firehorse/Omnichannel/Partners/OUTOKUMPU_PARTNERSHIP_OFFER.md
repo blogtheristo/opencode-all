@@ -2,10 +2,10 @@
 
 ## Outokumpu × Lifetime Oy — CBAM Customer Enablement
 
-**Date:** 7 May 2026
+**Date:** 10 May 2026
 **From:** Risto Päärni, CEO — Lifetime Oy (0772407-9), Espoo, Finland
 **To:** Heidi Peltonen, VP Sustainability — Outokumpu Oyj, Helsinki, Finland
-**Ref:** PARTNER-2026-OUTOKUMPU-001
+**Ref:** PARTNER-2026-OUTOKUMPU-001 v2.0
 
 ---
 
@@ -13,12 +13,37 @@
 
 Outokumpu's stainless steel carries a verified, TÜV-validated carbon footprint up to 75% lower
 than the industry average. Since 1 January 2026 that difference has a price — the CBAM carbon
-certificate. A fabricator importing Outokumpu steel instead of non-EU steel can eliminate or
-drastically reduce their CBAM liability. But most downstream customers do not have the tools to
-calculate, document, and submit that advantage in a compliant CBAM annual declaration.
+certificate. A fabricator importing non-EU steel instead of Outokumpu steel pays that price in
+CBAM certificates. But most downstream customers do not yet have the tools to calculate, document,
+and submit the advantage in a compliant CBAM annual declaration.
 
-The gap is not in Outokumpu's product. It is in the tooling layer between your ISO 14067
-certificate and your customer's compliance filing.
+The gap is not in Outokumpu's product or in your CBAM Q&A content. It is in the tooling layer
+between your ISO 14067 certificate and your customer's actual compliance filing.
+
+---
+
+## The Default Value Problem
+
+Your CBAM Q&A correctly warns fabricators: if they cannot provide verified, actual emissions data
+for their steel imports, they are forced to use the EU punitive default emission factors.
+
+For steel, those defaults are set at the high end of global production intensity — they reflect
+worst-case non-EU mills, not EU production at Outokumpu's level.
+
+**What this costs a fabricator (illustrative, 1,000 tonnes steel import):**
+
+| Scenario                                     | Emission factor                            | Embedded CO₂      | CBAM certificate cost @ €65/tCO₂e |
+| -------------------------------------------- | ------------------------------------------ | ----------------- | --------------------------------- |
+| Non-EU supplier, no verified data (defaults) | 1.852 tCO₂e/t (EU default, Reg. 2023/1773) | 1,852 tCO₂e       | **€120,380**                      |
+| Non-EU supplier, verified low-carbon data    | ~0.5–0.9 tCO₂e/t (actual)                  | ~500–900 tCO₂e    | **€32,500–€58,500**               |
+| Outokumpu EU-origin steel                    | EU-produced — no CBAM                      | 0 tCO₂e liability | **€0**                            |
+
+Sources: EU default from Commission Implementing Regulation 2023/1773; ETS price EU average 2024.
+
+The fabricator who switches from non-EU default to Outokumpu EU steel saves up to **€120k per
+1,000 tonnes** in CBAM certificates — before factoring in the administrative compliance burden.
+That is a CFO-level decision, not a sustainability decision. DWS IQ 6 makes this calculation
+automatic, auditable, and ready for the annual verified report (deadline: 30 September 2027).
 
 ---
 
@@ -125,8 +150,9 @@ Business ID: 0772407-9 | VAT: FI07724079
 
 VERSION AND AGENT HISTORY
 
-| Version | Date       | Agent / Author      | Change                            |
-| ------- | ---------- | ------------------- | --------------------------------- |
-| 1.0     | 2026-05-07 | Claude (Sonnet 4.6) | Initial partnership offer drafted |
+| Version | Date       | Agent / Author      | Change                                                                    |
+| ------- | ---------- | ------------------- | ------------------------------------------------------------------------- |
+| 1.0     | 2026-05-07 | Claude (Sonnet 4.6) | Initial partnership offer drafted                                         |
+| 2.0     | 2026-05-10 | Claude (Sonnet 4.6) | Added default value problem section with cost table; date and ref updated |
 
 ---
