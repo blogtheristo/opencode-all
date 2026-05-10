@@ -28,7 +28,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "platform"
+      "storeCategory": "platform",
+      "version": "6"
     },
     "FH-AUTO-001": {
       "id": "FH-AUTO-001",
@@ -58,7 +59,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "platform"
+      "storeCategory": "platform",
+      "version": "1.0"
     },
     "LIFETIME-BUNDLE-2026": {
       "id": "LIFETIME-BUNDLE-2026",
@@ -118,7 +120,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "platform"
+      "storeCategory": "platform",
+      "version": "1.0"
     },
     "FH-RPT-001": {
       "id": "FH-RPT-001",
@@ -148,7 +151,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "platform"
+      "storeCategory": "platform",
+      "version": "1.0"
     },
     "FH-SIGN-001": {
       "id": "FH-SIGN-001",
@@ -208,7 +212,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "platform"
+      "storeCategory": "platform",
+      "version": "1.0"
     },
     "expert-services": {
       "id": "expert-services",
@@ -238,7 +243,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "advisory"
+      "storeCategory": "advisory",
+      "version": "1.0"
     },
     "consulting-hourly": {
       "id": "consulting-hourly",
@@ -268,7 +274,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "advisory"
+      "storeCategory": "advisory",
+      "version": "1.0"
     },
     "LIFETIME-EXP-001": {
       "id": "LIFETIME-EXP-001",
@@ -450,7 +457,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "ai-cloud"
+      "storeCategory": "ai-cloud",
+      "version": "1.0"
     },
     "lean-project": {
       "id": "lean-project",
@@ -510,7 +518,8 @@
         "targetCountry": "FI",
         "contentLanguage": "fi"
       },
-      "storeCategory": "ai-cloud"
+      "storeCategory": "ai-cloud",
+      "version": "1.0"
     },
     "business-mentor-30": {
       "id": "business-mentor-30",
@@ -930,7 +939,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "hardware"
+      "storeCategory": "hardware",
+      "version": "1.0"
     },
     "DWS-SOVEREIGN-DB-001": {
       "id": "DWS-SOVEREIGN-DB-001",
@@ -1020,7 +1030,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "ai-cloud"
+      "storeCategory": "ai-cloud",
+      "version": "1.0"
     },
     "DWS-US-PILOT": {
       "id": "DWS-US-PILOT",
@@ -1050,7 +1061,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "ai-cloud"
+      "storeCategory": "ai-cloud",
+      "version": "1.0"
     },
     "DWS-EU-STARTER": {
       "id": "DWS-EU-STARTER",
@@ -1080,7 +1092,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "ai-cloud"
+      "storeCategory": "ai-cloud",
+      "version": "1.0"
     },
     "DWS-EU-PILOT": {
       "id": "DWS-EU-PILOT",
@@ -1110,7 +1123,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "ai-cloud"
+      "storeCategory": "ai-cloud",
+      "version": "1.0"
     },
     "DWS-CLIMATE-001": {
       "id": "DWS-CLIMATE-001",
@@ -1140,7 +1154,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "platform"
+      "storeCategory": "platform",
+      "version": "1.0"
     },
     "DWS-AEGIS-001": {
       "id": "DWS-AEGIS-001",
@@ -1205,13 +1220,19 @@
     "google": {
       "merchantId": null,
       "feedUrl": "https://dws10.com/feeds/google-products.xml",
-      "targetCountries": ["FI", "SE", "NO", "DK", "DE"],
+      "targetCountries": [
+        "FI",
+        "SE",
+        "NO",
+        "DK",
+        "DE"
+      ],
       "contentLanguage": "en",
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-05-10T12:00:00Z",
-  "priceVersion": "1.10",
+  "lastUpdated": "2026-05-10T13:00:00Z",
+  "priceVersion": "1.11",
   "priceHistory": [
     {
       "version": "1.10",
@@ -1226,6 +1247,14 @@
         "LIFETIME-EXP-001 renamed _OLD",
         "expert-services renamed _OLD",
         "Added DWS-IQ-SUB-001 (€499/mo) and FH-SUB-001 (€499/mo)"
+      ]
+    },
+    {
+      "version": "1.11",
+      "date": "2026-05-10",
+      "author": "claude/dynamic-deployment-pricing-LExxQ",
+      "changes": [
+        "Add version field to all products (Green versions)"
       ]
     }
   ],
@@ -1245,7 +1274,8 @@
         "Required on all DWS IQ contracts (Blue and Green)"
       ],
       "priceNote": "€499/mo — required separate product on all DWS IQ contracts",
-      "storeCategory": "subscription"
+      "storeCategory": "subscription",
+      "version": "1.0"
     },
     "FH-SUB-001": {
       "id": "FH-SUB-001",
@@ -1262,7 +1292,8 @@
         "Required on all Firehorse contracts (Blue and Green)"
       ],
       "priceNote": "€499/mo — covers all Firehorse products, required on all contracts",
-      "storeCategory": "subscription"
+      "storeCategory": "subscription",
+      "version": "1.0"
     }
   }
 }
