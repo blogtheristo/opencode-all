@@ -218,7 +218,7 @@
     <item>
         <g:id>conversational-agent</g:id>
         <g:title>Voice Conversational Solution</g:title>
-        <g:description>Deploy AI-powered voice and chat assistants where your team already works — Teams, Slack, WhatsApp, Zoom. Custom conversational interfaces for enterprise workflows with your choice of LLM (Claude, GPT, Groq, or self-hosted for data sovereignty). Live in 25 hours.</g:description>
+        <g:description>Deploy AI-powered voice and chat assistants where your team already works — WhatsApp, Teams, Zoom, or a secure webhook. Custom conversational interfaces for enterprise workflows with your choice of LLM (Claude, GPT, Groq, or self-hosted for data sovereignty). Live in 25 hours.</g:description>
         <g:link>https://dws10.com/products/conversational-agent.html</g:link>
         <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
         <g:price>3500.00 EUR</g:price>

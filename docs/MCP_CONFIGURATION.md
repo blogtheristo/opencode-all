@@ -102,7 +102,7 @@ These are the MCP servers we recommend enabling by default on Win11.
   "mcpServers": {
     "dws-agents-local": {
       "type": "http",
-      "url": "http://localhost:8080/mcp"
+      "url": "http://localhost:3001/mcp"
     },
     "dws-gateway-local": {
       "type": "stdio",

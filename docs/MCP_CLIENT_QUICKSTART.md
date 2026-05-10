@@ -38,7 +38,7 @@ For Win11 developer work, use local MCP entries:
   "mcpServers": {
     "dws-agents-local": {
       "type": "http",
-      "url": "http://localhost:8080/mcp"
+      "url": "http://localhost:3001/mcp"
     },
     "dws-gateway-local": {
       "type": "stdio",
@@ -189,7 +189,7 @@ For Win11 backend development, start the Express app and use the local agent end
   "mcpServers": {
     "dws-agents-local": {
       "type": "http",
-      "url": "http://localhost:8080/mcp"
+      "url": "http://localhost:3001/mcp"
     }
   }
 }
@@ -206,7 +206,7 @@ For DGX orchestration, use `.env.mcp` and the DGX day-runner / hub processes rat
 Subscribe to real-time agent events:
 
 ```bash
-curl -N http://localhost:8080/mcp/sse
+curl -N http://localhost:3001/mcp/sse
 ```
 
 Events include agent executions, workflow progress, and compliance alerts.
@@ -218,7 +218,7 @@ Events include agent executions, workflow progress, and compliance alerts.
 dws health
 
 # Via HTTP
-curl http://localhost:8080/mcp/health
+curl http://localhost:3001/mcp/health
 ```
 
 Response:

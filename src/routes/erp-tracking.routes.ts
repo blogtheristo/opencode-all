@@ -41,12 +41,13 @@ interface ErrorRequest extends TrackingRequest {
  * POST /api/erp/track/connection-started
  * Log when admin selects an ERP to connect
  */
-router.post('/connection-started', async (req: Request, res: Response) => {
+router.post('/connection-started', async (req: Request, res: Response): Promise<void> => {
   try {
     const { tenantId, erpSystem, adminEmail }: TrackingRequest = req.body;
 
     if (!tenantId || !erpSystem || !adminEmail) {
-      return res.status(400).json({ error: 'Missing required fields' });
+      res.status(400).json({ error: 'Missing required fields' });
+      return;
     }
 
     await erpTrackingService.logERPConnectionStarted(tenantId, erpSystem, adminEmail);
@@ -62,7 +63,7 @@ router.post('/connection-started', async (req: Request, res: Response) => {
  * POST /api/erp/track/connection-test
  * Log connection test result (success or failure)
  */
-router.post('/connection-test', async (req: Request, res: Response) => {
+router.post('/connection-test', async (req: Request, res: Response): Promise<void> => {
   try {
     const {
       tenantId,
@@ -76,7 +77,8 @@ router.post('/connection-test', async (req: Request, res: Response) => {
     }: ConnectionTestRequest = req.body;
 
     if (!tenantId || !erpSystem || !adminEmail || success === undefined) {
-      return res.status(400).json({ error: 'Missing required fields' });
+      res.status(400).json({ error: 'Missing required fields' });
+      return;
     }
 
     if (success) {
@@ -109,12 +111,13 @@ router.post('/connection-test', async (req: Request, res: Response) => {
  * POST /api/erp/track/field-mapping
  * Log when field mapping is completed
  */
-router.post('/field-mapping', async (req: Request, res: Response) => {
+router.post('/field-mapping', async (req: Request, res: Response): Promise<void> => {
   try {
     const { tenantId, erpSystem, adminEmail, dataTypes }: FieldMappingRequest = req.body;
 
     if (!tenantId || !erpSystem || !adminEmail || !dataTypes || !Array.isArray(dataTypes)) {
-      return res.status(400).json({ error: 'Missing or invalid required fields' });
+      res.status(400).json({ error: 'Missing or invalid required fields' });
+      return;
     }
 
     await erpTrackingService.logFieldMappingComplete(tenantId, erpSystem, adminEmail, dataTypes);
@@ -130,7 +133,7 @@ router.post('/field-mapping', async (req: Request, res: Response) => {
  * POST /api/erp/track/sync-activated
  * Log when sync is activated with a schedule
  */
-router.post('/sync-activated', async (req: Request, res: Response) => {
+router.post('/sync-activated', async (req: Request, res: Response): Promise<void> => {
   try {
     const { tenantId, erpSystem, adminEmail, schedule, dataTypes }: SyncActivationRequest =
       req.body;
@@ -143,12 +146,14 @@ router.post('/sync-activated', async (req: Request, res: Response) => {
       !dataTypes ||
       !Array.isArray(dataTypes)
     ) {
-      return res.status(400).json({ error: 'Missing or invalid required fields' });
+      res.status(400).json({ error: 'Missing or invalid required fields' });
+      return;
     }
 
     const validSchedules = ['realtime', 'hourly', 'daily', 'weekly'];
     if (!validSchedules.includes(schedule)) {
-      return res.status(400).json({ error: 'Invalid schedule' });
+      res.status(400).json({ error: 'Invalid schedule' });
+      return;
     }
 
     await erpTrackingService.logSyncActivated(tenantId, erpSystem, adminEmail, schedule, dataTypes);
@@ -164,12 +169,13 @@ router.post('/sync-activated', async (req: Request, res: Response) => {
  * POST /api/erp/track/error
  * Log ERP connection or sync errors
  */
-router.post('/error', async (req: Request, res: Response) => {
+router.post('/error', async (req: Request, res: Response): Promise<void> => {
   try {
     const { tenantId, erpSystem, adminEmail, errorCode, errorMessage }: ErrorRequest = req.body;
 
     if (!tenantId || !erpSystem || !adminEmail || !errorCode || !errorMessage) {
-      return res.status(400).json({ error: 'Missing required fields' });
+      res.status(400).json({ error: 'Missing required fields' });
+      return;
     }
 
     await erpTrackingService.logERPError(tenantId, erpSystem, adminEmail, errorCode, errorMessage);

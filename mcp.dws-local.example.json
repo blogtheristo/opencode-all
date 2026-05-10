@@ -2,7 +2,7 @@
   "mcpServers": {
     "dws-agents-local": {
       "type": "http",
-      "url": "http://localhost:8080/mcp"
+      "url": "http://localhost:3001/mcp"
     },
     "dws-gateway-local": {
       "type": "stdio",
