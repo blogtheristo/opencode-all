@@ -71,6 +71,22 @@ If task mentions thesis/master thesis/pro gradu/opinnaytetyo, update all four to
 
 Also regenerate `Learn/` versioned HTML outputs. Never delete old thesis HTML versions.
 
+### Thesis Content Scope Rule
+
+**Master's thesis (V3Thesis_EN / V3Thesis_FI — Metropolia):**
+
+- Content is **product- and implementation-focused**, tightly coupled to the current and next DWS IQ product version.
+- Documents engineering decisions, architecture, PRs, and operational results.
+- Does **not** contain market intelligence, competitive signals, or long-horizon roadmap speculation.
+
+**PhD thesis (PHD_FIREHORSE_EN / PHD_FIREHORSE_FI — LUT):**
+
+- Content takes a **scientific perspective** with a longer roadmap view (3–7 years).
+- Is updated with **market signal data**: competitor movements, regulatory pipeline, standardization body activity, partnership signals.
+- Contains research questions, theoretical framing, and societal impact — not sprint-level implementation detail.
+
+When editing thesis content, apply this split: implementation evidence → master's thesis; market signals and scientific framing → PhD thesis.
+
 ## Downloadable HTML Rule
 
 For standalone downloadable HTML documents (CV/profile/report style), embed images as Base64 data URLs instead of relative paths.
