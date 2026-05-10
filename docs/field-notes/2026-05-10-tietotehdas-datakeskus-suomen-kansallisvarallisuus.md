@@ -94,25 +94,41 @@ _"Rakentamani tuote"_ on tietoinen perustajan klaimi — ei yrityskopio. Tämä 
 
 Tämä ei ole opportunistinen positiointi — se on tietoinen linjaus kansalliseen infrastruktuuristrategiaan. Kolmikerrosmalli:
 
+```mermaid
+flowchart TB
+    subgraph L1["☁️  KERROS 1 — INFRASTRUKTUURIKERROS\nHyperscalerit rakentavat fyysisen tietotehtaan Suomeen"]
+        MS["Microsoft Azure"]
+        GC["Google Cloud"]
+        AW["AWS"]
+        AM["Amazon"]
+    end
+
+    subgraph L2["🛡️  KERROS 2 — KANSALLINEN DATAVARANTO\nSuomi omistaa — kansallinen malmi, ei viety, hallittu täällä"]
+        DVV["DVV\nVäestö & identiteetti"]
+        MML["Maanmittauslaitos\nPaikkatiedot"]
+        KELA["Kela · THL\nTerveys & sosiaali"]
+        TFC["Traficom\nLiikenne & dronet"]
+        LUKE["Luke\nBiomassa & metsä"]
+        PRH["PRH\nYritysrekisteri"]
+        ILM["Ilmatieteenlaitos\nSää & ilmasto"]
+    end
+
+    subgraph L3["⚡  KERROS 3 — ÄLYKKYYDEN KERROS\nDWS IQ — System of Action Operator\n— rakentamani tuote operoi älykkyyden —"]
+        AGT["AI-agentit\n24/7 autonomia"]
+        CPL["Compliance\nCBAM · CSRD · NIS2"]
+        SYN["Synteettinen\ndata & mallit"]
+        AUD["Audit trail\nTäysi jäljitettävyys"]
+    end
+
+    L1 -->|"fyysinen perusta — miljardiluokan investointi Suomeen"| L2
+    L2 -->|"DWS IQ louhii · jalostaa · luo"| L3
+
+    style L1 fill:#1a3a5c,stroke:#4a90d9,color:#ffffff
+    style L2 fill:#1a5c2a,stroke:#4aaf70,color:#ffffff
+    style L3 fill:#2d1a5c,stroke:#8b4af0,color:#ffffff
 ```
-Kerros 3 — ÄLYKKYYDEN KERROS
-DWS IQ (System of Action -operaattori)
-Louhii, jalostaa, luo — pitää arvon Suomessa
 
-        ↑ operoi päällä ↑
-
-Kerros 2 — DATAVARANNON KERROS
-Suomalaiset kansalliset rekisterit
-DVV · Maanmittauslaitos · Kela · Traficom · Luke · Ilmatieteenlaitos · PRH
-Kansallinen malmi — ei viety, ei myyty, hallittu täällä
-
-        ↑ rakentaa infrastruktuurin ↑
-
-Kerros 1 — FYYSISEN INFRASTRUKTUURIN KERROS
-Kansainväliset hyperscalerit
-Microsoft · Google · AWS · Amazon
-Rakentavat miljardiluokan tietotehdaskiinteistöt Suomeen
-```
+_Kuva: Kolmikerrosmalli — Suomen tietotehtaiden strateginen ydinlause (Risto Anton Paarni / Lifetime Oy, 10.05.2026)_
 
 **Strateginen logiikka:**
 
