@@ -1210,5 +1210,41 @@
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-03-22T12:00:00Z"
+  "lastUpdated": "2026-05-10T12:00:00Z",
+  "subscriptions": {
+    "DWS-IQ-SUB-001": {
+      "id": "DWS-IQ-SUB-001",
+      "mpn": "DWSIQ-SUB-2026",
+      "name": "DWS IQ Monthly Subscription",
+      "price": 499,
+      "currency": "EUR",
+      "type": "subscription",
+      "billingPeriod": "monthly",
+      "description": "Required monthly subscription for all DWS IQ deployments. Covers support SLA, named DWS contact, and ongoing service relationship.",
+      "features": [
+        "Support SLA and named DWS contact",
+        "Access to updates and stable releases",
+        "Required on all DWS IQ contracts (Blue and Green)"
+      ],
+      "priceNote": "€499/mo — required separate product on all DWS IQ contracts",
+      "storeCategory": "subscription"
+    },
+    "FH-SUB-001": {
+      "id": "FH-SUB-001",
+      "mpn": "FH-SUB-2026",
+      "name": "Firehorse Monthly Subscription",
+      "price": 499,
+      "currency": "EUR",
+      "type": "subscription",
+      "billingPeriod": "monthly",
+      "description": "Required monthly subscription covering all Firehorse products. One subscription gives access to support SLA and service relationship across the full Firehorse product suite.",
+      "features": [
+        "Covers all Firehorse products under one subscription",
+        "Support SLA and named DWS contact",
+        "Required on all Firehorse contracts (Blue and Green)"
+      ],
+      "priceNote": "€499/mo — covers all Firehorse products, required on all contracts",
+      "storeCategory": "subscription"
+    }
+  }
 }
