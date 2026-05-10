@@ -119,7 +119,9 @@ CBAM certificates are not EU ETS allowances — they are a separate instrument:
 - Annual surrender: by May 31, certificates covering previous-year imports are surrendered and cancelled
 - Up to one-third of certificates can be re-sold back to the competent authority (but not traded peer-to-peer)
 
-The DWS implementation uses `CBAM_CERTIFICATE_PRICE_EUR = 65` (`emission-factors.ts:126`) as the reference price, matching the 2024 EU ETS annual average. This value must be updated at the start of each reporting period.
+The DWS implementation no longer relies solely on a fixed `CBAM_CERTIFICATE_PRICE_EUR = 65` reference value. It now fetches current EU ETS pricing via `ember-carbon-price.ts`, uses async wrappers in the CBAM calculator flow, and persists the latest retrieved price to `cbam-price.json` as a file-backed cache.
+
+In practice, this means certificate pricing is refreshed from a live source and can fall back to the cached `cbam-price.json` value when needed, which reduces the certificate-price staleness gap noted in earlier versions of this field note.
 
 ### 4.4 Carbon Price Credits
 
