@@ -128,7 +128,9 @@ flowchart TB
     style L3 fill:#2d1a5c,stroke:#8b4af0,color:#ffffff
 ```
 
-_Kuva: Kolmikerrosmalli — Suomen tietotehtaiden strateginen ydinlause (Risto Anton Paarni / Lifetime Oy, 10.05.2026)_
+![Kolmikerrosmalli — Suomen tietotehtaiden strateginen ydinlause](../../kb/raw/images/strategy/kolmikerrosmalli.png)
+
+_Kolmikerrosmalli — Suomen tietotehtaiden strateginen ydinlause (Risto Anton Paarni / Lifetime Oy, 10.05.2026)_
 
 **Strateginen logiikka:**
 
