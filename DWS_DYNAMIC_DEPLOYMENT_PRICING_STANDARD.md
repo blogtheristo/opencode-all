@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.6
+Version: 1.7
 
 Sessions & Modifications:
 
+- Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dynamic-deployment-pricing-LExxQ | Date: 10.05.2026 | Changes: Code review fixes — version guard uses tuple comparison (not float, which breaks at 1.9→1.10 boundary); versioned HTML overwrite protection added to both generators; noindex meta added to pilot pricelist; subscription products now visible on live price-list/index.html; \_OLD products get productType:archived; GodAgents→Skilled Agents in DWS-IQ-006 features; priceVersion 1.13
 - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dynamic-deployment-pricing-LExxQ | Date: 10.05.2026 | Changes: Added Section 13 — Price List Versioning Standard; mandates priceVersion 1.10 baseline, 0.01 increments, date on every change, version shown in both Green and Blue price list headers and per-product version column (stable Green / pilot Blue)
 - Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dynamic-deployment-pricing-LExxQ | Date: 10.05.2026 | Changes: Added Hardware Pricing Model (Section 12) — hardware is always an external product; Blue = buy-in/cost price (internal, never published), Green = client retail price (published online); unified the Blue=internal/Green=external principle across all three categories in the governing principle
 - Version: 1.4 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dynamic-deployment-pricing-LExxQ | Date: 10.05.2026 | Changes: Added Consultation Pricing Model (Section 11) — Blue = contractor pricing (confidential, never published online), Green = direct client pricing (publicly listed); confirmed Firehorse follows identical Blue/Green model; added cloud costs as separate operating costs rule; updated governing principle and TOC

@@ -289,6 +289,7 @@ def build_html(products: dict, blue: dict, gen_date: str) -> str:
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
 <title>DWS Pilot Price List — Internal Sales Negotiation</title>
 <style>
   @media print {{
@@ -380,11 +381,12 @@ def build_html(products: dict, blue: dict, gen_date: str) -> str:
     return html
 
 
-def _ver_float(v: str) -> float:
+def _ver_tuple(v: str) -> tuple:
+    """Convert version string to comparable tuple: '1.10' → (1, 10), '1.9' → (1, 9)."""
     try:
-        return float(v)
+        return tuple(int(x) for x in v.split("."))
     except (ValueError, TypeError):
-        return 0.0
+        return (0,)
 
 
 def _check_version_guard(price_ver: str, blue_ver: str, latest_path: Path) -> None:
@@ -395,13 +397,13 @@ def _check_version_guard(price_ver: str, blue_ver: str, latest_path: Path) -> No
     content = latest_path.read_text(encoding="utf-8")
     m_green = re.search(r"priceVersion\s+([\d.]+)", content)
     m_blue = re.search(r"pilot-blue-prices\.json.*?v([\d.]+)", content)
-    if m_green and _ver_float(m_green.group(1)) > _ver_float(price_ver):
+    if m_green and _ver_tuple(m_green.group(1)) > _ver_tuple(price_ver):
         raise SystemExit(
             f"[generate-pilot-pricelist] BLOCKED: existing Green priceVersion "
             f"({m_green.group(1)}) > products.json ({price_ver}). "
             f"Bump priceVersion in products.json before regenerating."
         )
-    if m_blue and _ver_float(m_blue.group(1)) > _ver_float(blue_ver):
+    if m_blue and _ver_tuple(m_blue.group(1)) > _ver_tuple(blue_ver):
         raise SystemExit(
             f"[generate-pilot-pricelist] BLOCKED: existing Blue version "
             f"({m_blue.group(1)}) > pilot-blue-prices.json ({blue_ver}). "
@@ -436,6 +438,11 @@ def main():
     versioned_path = LEARN_DIR / f"pilot-pricelist-v{version}-{date_slug}.html"
     latest_path = LEARN_DIR / "pilot-pricelist-latest.html"
 
+    if versioned_path.exists():
+        raise SystemExit(
+            f"[generate-pilot-pricelist] BLOCKED: {versioned_path.name} already exists. "
+            f"Bump version in pilot-blue-prices.json before regenerating."
+        )
     versioned_path.write_text(html, encoding="utf-8")
     print(f"[generate-pilot-pricelist] Written: {versioned_path}")
 

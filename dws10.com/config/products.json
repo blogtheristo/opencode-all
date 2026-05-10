@@ -10,7 +10,7 @@
       "type": "one-time",
       "description": "Stop risking fines and lost tenders. DWS IQ 6 deploys 18+ Skilled Agents with agentic loops (observe-think-act) to amplify Fit for 55, CSRD, and EPBD compliance across 20 EU industries — cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.",
       "features": [
-        "18+ GodAgents with MCP protocol and CLI access",
+        "18+ Skilled Agents with MCP protocol and CLI access",
         "Amplify Fit for 55, CSRD & EPBD reporting",
         "90% reduction in manual compliance hours"
       ],
@@ -244,7 +244,8 @@
         "contentLanguage": "en"
       },
       "storeCategory": "advisory",
-      "version": "1.0"
+      "version": "1.0",
+      "productType": "archived"
     },
     "consulting-hourly": {
       "id": "consulting-hourly",
@@ -305,7 +306,8 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "advisory"
+      "storeCategory": "advisory",
+      "productType": "archived"
     },
     "consulting-fit55": {
       "id": "consulting-fit55",
@@ -1231,10 +1233,10 @@
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-05-10T13:00:00Z",
-  "priceVersion": "1.12",
+  "lastUpdated": "2026-05-10T14:00:00Z",
+  "priceVersion": "1.13",
   "priceList": {
-    "version": "1.12",
+    "version": "1.13",
     "effectiveDate": "2026-05-10",
     "nextReviewDate": "2026-08-01",
     "policy": {
@@ -1282,6 +1284,15 @@
       "author": "claude/dynamic-deployment-pricing-LExxQ",
       "changes": [
         "Add priceList metadata block (version, effectiveDate, nextReviewDate, policy, governance) so live price-list/index.html renders version and governance data correctly"
+      ]
+    },
+    {
+      "version": "1.13",
+      "date": "2026-05-10",
+      "author": "claude/dynamic-deployment-pricing-LExxQ",
+      "changes": [
+        "Add productType:archived to _OLD products (expert-services, LIFETIME-EXP-001)",
+        "Fix DWS-IQ-006 features: GodAgents → Skilled Agents"
       ]
     }
   ],

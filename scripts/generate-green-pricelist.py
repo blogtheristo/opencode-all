@@ -221,25 +221,25 @@ def build_html(products: dict, gen_date: str) -> str:
     return html
 
 
-def _ver_float(v: str) -> float:
+def _ver_tuple(v: str) -> tuple:
+    """Convert version string to comparable tuple: '1.10' → (1, 10), '1.9' → (1, 9)."""
     try:
-        return float(v)
+        return tuple(int(x) for x in v.split("."))
     except (ValueError, TypeError):
-        return 0.0
+        return (0,)
 
 
 def _check_version_guard(price_ver: str, latest_path: Path) -> None:
     """Refuse to overwrite a price list generated from a newer priceVersion."""
     if not latest_path.exists():
         return
-    content = latest_path.read_text(encoding="utf-8")
-    # Header line: "priceVersion X.XX"
     import re
+    content = latest_path.read_text(encoding="utf-8")
     m = re.search(r"priceVersion\s+([\d.]+)", content)
     if not m:
         return
     existing_ver = m.group(1)
-    if _ver_float(existing_ver) > _ver_float(price_ver):
+    if _ver_tuple(existing_ver) > _ver_tuple(price_ver):
         raise SystemExit(
             f"[generate-green-pricelist] BLOCKED: existing latest ({existing_ver}) "
             f"> products.json priceVersion ({price_ver}). "
@@ -266,6 +266,11 @@ def main():
 
     versioned_path = LEARN_DIR / f"green-pricelist-v{price_ver}-{date_slug}.html"
 
+    if versioned_path.exists():
+        raise SystemExit(
+            f"[generate-green-pricelist] BLOCKED: {versioned_path.name} already exists. "
+            f"Bump priceVersion in products.json before regenerating."
+        )
     versioned_path.write_text(html, encoding="utf-8")
     print(f"[generate-green-pricelist] Written: {versioned_path}")
 
