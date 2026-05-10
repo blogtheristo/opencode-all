@@ -1132,10 +1132,10 @@ const spec = {
                   context: { type: 'object' },
                   channel: {
                     type: 'string',
-                    enum: ['email', 'slack', 'teams'],
+                    enum: ['email', 'webhook', 'teams'],
                     default: 'email',
                   },
-                  recipient: { type: 'string', format: 'email' },
+                  recipient: { type: 'string' },
                 },
                 required: ['agentName', 'reason'],
               },

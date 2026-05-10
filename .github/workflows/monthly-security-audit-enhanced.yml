@@ -274,6 +274,19 @@ json.dump(attacks, sys.stdout, indent=2)
               raise
           PY
 
+      # --- PHASE 8: GitHub Summary Notification ---
+      - name: Write Security Audit Summary
+        if: always()
+        run: |
+          {
+            echo "## Monthly Security Audit Complete"
+            echo ""
+            echo "- Compliance score: ${{ steps.audit.outputs.audit_score }}%"
+            echo "- Critical issues: ${{ steps.correlation.outputs.critical_issues }}"
+            echo "- New issues created: ${{ steps.issues.outputs.issues_created }}"
+            echo "- Aikido dashboard: https://app.aikido.dev"
+          } >> "$GITHUB_STEP_SUMMARY"
+
   # --- Job 2: Update Metrics Dashboard ---
   update-dashboard:
     name: Update Security Metrics Dashboard
