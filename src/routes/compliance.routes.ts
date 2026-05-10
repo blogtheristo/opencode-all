@@ -469,10 +469,13 @@ router.post('/cost-estimate', async (req: Request, res: Response, next: NextFunc
     } = req.body;
 
     const ets = estimateETSCost(annualEmissions, freeAllocation);
-    const [cbam, livePrice] = await Promise.all([
-      estimateCBAMCostAsync(importQuantity, sector, originCountry),
-      getCarbonPrice(),
-    ]);
+    const livePrice = await getCarbonPrice();
+    const cbam = await estimateCBAMCostAsync(
+      importQuantity,
+      sector,
+      originCountry,
+      livePrice.priceEur,
+    );
 
     res.json({
       ets: {
