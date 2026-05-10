@@ -14,12 +14,7 @@
 
 import pino from 'pino';
 import { EventEmitter } from 'events';
-import {
-  ERPProvider,
-  EntityType,
-  SyncOperation,
-  SyncResult
-} from './types';
+import { ERPProvider, EntityType, SyncOperation, SyncResult } from './types';
 import emailService from '../../services/email.service.js';
 
 const logger = pino({ name: 'erp-approval-gate' });
@@ -32,14 +27,14 @@ export enum ApprovalStatus {
   PENDING = 'pending',
   APPROVED = 'approved',
   REJECTED = 'rejected',
-  EXPIRED = 'expired'
+  EXPIRED = 'expired',
 }
 
 export enum OperationRiskLevel {
-  LOW = 'low',           // Read-only operations
-  MEDIUM = 'medium',     // Single record updates
-  HIGH = 'high',         // Production order modifications
-  CRITICAL = 'critical'  // Mass updates, cost transactions
+  LOW = 'low', // Read-only operations
+  MEDIUM = 'medium', // Single record updates
+  HIGH = 'high', // Production order modifications
+  CRITICAL = 'critical', // Mass updates, cost transactions
 }
 
 export interface ApprovalRequest {
@@ -82,7 +77,7 @@ export interface ApprovalGateConfig {
   autoApproveRiskLevels: OperationRiskLevel[]; // Auto-approve these levels
   approvalTimeoutMinutes: number;
   requireDualApproval: boolean; // Require 2 approvers for CRITICAL
-  notificationChannels: ('email' | 'slack' | 'mcp')[];
+  notificationChannels: ('email' | 'webhook' | 'mcp')[];
 }
 
 // ============================================================================
@@ -101,7 +96,7 @@ export class ApprovalGateManager extends EventEmitter {
       autoApproveRiskLevels: config?.autoApproveRiskLevels ?? [OperationRiskLevel.LOW],
       approvalTimeoutMinutes: config?.approvalTimeoutMinutes ?? 60,
       requireDualApproval: config?.requireDualApproval ?? true,
-      notificationChannels: config?.notificationChannels ?? ['email', 'mcp']
+      notificationChannels: config?.notificationChannels ?? ['email', 'mcp'],
     };
 
     // Cleanup expired requests every 5 minutes
@@ -124,7 +119,7 @@ export class ApprovalGateManager extends EventEmitter {
       affectedSystems?: string[];
       rollbackPlan?: string;
       previewData?: any;
-    }
+    },
   ): Promise<ApprovalRequest> {
     const riskLevel = this.assessRiskLevel(entityType, operationType, details.recordCount);
 
@@ -144,9 +139,9 @@ export class ApprovalGateManager extends EventEmitter {
         recordCount: details.recordCount,
         estimatedImpact: details.estimatedImpact,
         affectedSystems: details.affectedSystems,
-        rollbackPlan: details.rollbackPlan
+        rollbackPlan: details.rollbackPlan,
       },
-      previewData: details.previewData
+      previewData: details.previewData,
     };
 
     this.requests.set(request.id, request);
@@ -167,7 +162,7 @@ export class ApprovalGateManager extends EventEmitter {
       requestId: request.id,
       provider,
       entityType,
-      riskLevel
+      riskLevel,
     });
 
     return request;
@@ -201,7 +196,7 @@ export class ApprovalGateManager extends EventEmitter {
     logger.info('Approval granted', {
       requestId,
       approvedBy,
-      riskLevel: request.riskLevel
+      riskLevel: request.riskLevel,
     });
 
     return request;
@@ -231,7 +226,7 @@ export class ApprovalGateManager extends EventEmitter {
     logger.info('Approval rejected', {
       requestId,
       rejectedBy,
-      reason
+      reason,
     });
 
     return request;
@@ -249,7 +244,7 @@ export class ApprovalGateManager extends EventEmitter {
    */
   getPendingRequests(organizationId: string): ApprovalRequest[] {
     return Array.from(this.requests.values()).filter(
-      (req) => req.organizationId === organizationId && req.status === ApprovalStatus.PENDING
+      (req) => req.organizationId === organizationId && req.status === ApprovalStatus.PENDING,
     );
   }
 
@@ -286,9 +281,12 @@ export class ApprovalGateManager extends EventEmitter {
 
     // Wait for approval event
     return new Promise((resolve, reject) => {
-      const timeout = setTimeout(() => {
-        reject(new Error(`Approval timeout for request ${requestId}`));
-      }, timeoutMs || this.config.approvalTimeoutMinutes * 60 * 1000);
+      const timeout = setTimeout(
+        () => {
+          reject(new Error(`Approval timeout for request ${requestId}`));
+        },
+        timeoutMs || this.config.approvalTimeoutMinutes * 60 * 1000,
+      );
 
       const approvalHandler = (approvedRequest: ApprovalRequest) => {
         if (approvedRequest.id === requestId) {
@@ -320,7 +318,7 @@ export class ApprovalGateManager extends EventEmitter {
   private assessRiskLevel(
     entityType: EntityType,
     operationType: string,
-    recordCount?: number
+    recordCount?: number,
   ): OperationRiskLevel {
     // CRITICAL: Mass operations or cost transactions
     if (recordCount && recordCount > 100) {
@@ -350,16 +348,17 @@ export class ApprovalGateManager extends EventEmitter {
 
   private async sendApprovalNotifications(request: ApprovalRequest): Promise<void> {
     if (this.config.notificationChannels.includes('email')) {
-      const recipient = process.env.ERP_APPROVAL_EMAIL || process.env.ALERT_EMAIL_RECIPIENT || 'risto@lifetime.fi';
+      const recipient =
+        process.env.ERP_APPROVAL_EMAIL || process.env.ALERT_EMAIL_RECIPIENT || 'risto@lifetime.fi';
       await emailService.sendNotificationEmail(
         recipient,
         `ERP Approval Required: ${request.operationType} [${request.riskLevel}]`,
-        `An ERP operation requires approval.\n\nOperation: ${request.operationType}\nRisk Level: ${request.riskLevel}\nProvider: ${request.provider}\nRequest ID: ${request.id}\n\nPlease review and approve or reject this operation.`
+        `An ERP operation requires approval.\n\nOperation: ${request.operationType}\nRisk Level: ${request.riskLevel}\nProvider: ${request.provider}\nRequest ID: ${request.id}\n\nPlease review and approve or reject this operation.`,
       );
     }
 
-    if (this.config.notificationChannels.includes('slack')) {
-      logger.info('Slack approval notification (not yet connected)', { requestId: request.id });
+    if (this.config.notificationChannels.includes('webhook')) {
+      logger.info('Webhook approval notification (not yet connected)', { requestId: request.id });
     }
 
     if (this.config.notificationChannels.includes('mcp')) {

@@ -195,71 +195,18 @@ json.dump(attacks, sys.stdout, indent=2)
               labels: ['security', 'monthly-audit', 'automated']
             });
 
-      # --- PHASE 8: Slack Notification (Optional) ---
-      # Note: SLACK_WEBHOOK_URL is optional - notification will be skipped if not configured
-      - name: Send Slack Notification
+      # --- PHASE 8: GitHub Summary Notification ---
+      - name: Write Security Audit Summary
         if: always()
-        uses: slackapi/slack-github-action@v1
-        continue-on-error: true
-        with:
-          payload: |
-            {
-              "text": "Monthly Security Audit Complete",
-              "blocks": [
-                {
-                  "type": "header",
-                  "text": {
-                    "type": "plain_text",
-                    "text": "Security Audit Report - ${{ steps.audit.outputs.audit_score }}%"
-                  }
-                },
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Compliance Score:*\n${{ steps.audit.outputs.audit_score }}%"
-                    },
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Critical Issues:*\n${{ steps.correlation.outputs.critical_issues }}"
-                    },
-                    {
-                      "type": "mrkdwn",
-                      "text": "*New Issues Created:*\n${{ steps.issues.outputs.issues_created }}"
-                    },
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Status:*\nComplete"
-                    }
-                  ]
-                },
-                {
-                  "type": "actions",
-                  "elements": [
-                    {
-                      "type": "button",
-                      "text": {
-                        "type": "plain_text",
-                        "text": "View Results"
-                      },
-                      "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-                    },
-                    {
-                      "type": "button",
-                      "text": {
-                        "type": "plain_text",
-                        "text": "Aikido Dashboard"
-                      },
-                      "url": "https://app.aikido.dev"
-                    }
-                  ]
-                }
-              ]
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        run: |
+          {
+            echo "## Monthly Security Audit Complete"
+            echo ""
+            echo "- Compliance score: ${{ steps.audit.outputs.audit_score }}%"
+            echo "- Critical issues: ${{ steps.correlation.outputs.critical_issues }}"
+            echo "- New issues created: ${{ steps.issues.outputs.issues_created }}"
+            echo "- Aikido dashboard: https://app.aikido.dev"
+          } >> "$GITHUB_STEP_SUMMARY"
 
   # --- Job 2: Update Metrics Dashboard ---
   update-dashboard:
