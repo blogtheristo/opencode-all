@@ -86,21 +86,44 @@ Worth 20 minutes?
 
 Risto
 
-## Third Contact / LinkedIn Option
+## Direct Email to Matthieu Jehl — Co-Primary Contact
 
-For Matthieu (article author — commercial-facing sustainability):
+For Matthieu Jehl, President, Business Line Stainless Europe (Krefeld).
+Send in parallel with the Heidi email — same day, different angle.
+Do NOT position as a fallback. He owns the fabricator revenue; this is his deal.
 
-Subject: Your CBAM reshape article — a follow-on commercial tool
+| Field       | Value                                                               |
+| ----------- | ------------------------------------------------------------------- |
+| **To**      | Matthieu Jehl, President, Business Line Stainless Europe, Outokumpu |
+| **From**    | risto@onelifetime.world                                             |
+| **Subject** | Making the CBAM saving visible to your fabricator accounts          |
+| **Status**  | Draft — not sent                                                    |
+
+Subject: Making the CBAM saving visible to your fabricator accounts
 
 Hi Matthieu,
 
-Your piece on how CBAM reshapes the stainless steel value chain named the exact problem we solve:
-downstream fabricators can't convert Outokumpu's carbon credentials into a compliant CBAM filing.
-We build that conversion layer.
+Your CBAM article identified the right problem: EU fabricators know that sourcing from Outokumpu
+eliminates their CBAM liability, but most cannot calculate or document that advantage in a
+compliant annual declaration. Without tooling, they fall back on the EU punitive default emission
+factors — calibrated for worst-case non-EU mills — and Outokumpu's carbon advantage disappears
+on paper even though it exists in practice.
 
-Would you be the right person to discuss, or should I reach Heidi Peltonen directly?
+We built the tooling that closes that gap. Our platform ingests Outokumpu's ISO 14067 certificates
+and generates submission-ready CBAM annual declarations for your fabricator accounts — with your
+verified numbers as the source. A fabricator switching 1,000 tonnes from a non-EU default supplier
+to Outokumpu EU steel saves up to €120,000 in CBAM certificates. DWS IQ 6 puts that figure in
+their CFO's inbox automatically, before your account manager even asks.
 
-Risto Päärni, Lifetime Oy, Espoo
+I'd like to propose a 60-day pilot with two or three of your European fabricator accounts, at no
+cost. The deliverable is a submission-ready CBAM declaration. If it isn't, there is no further
+conversation.
+
+Risto Päärni
+CEO, Lifetime Oy (0772407-9)
+risto@onelifetime.world
++358 400 319 010
+Espoo, Finland
 
 ---
 
@@ -108,9 +131,10 @@ Risto Päärni, Lifetime Oy, Espoo
 
 VERSION AND AGENT HISTORY
 
-| Version | Date       | Agent / Author      | Change                                                                              |
-| ------- | ---------- | ------------------- | ----------------------------------------------------------------------------------- |
-| 1.0     | 2026-05-07 | Claude (Sonnet 4.6) | Initial email draft created                                                         |
-| 3.0     | 2026-05-10 | Claude (Sonnet 4.6) | Rewrote hook around CBAM Q&A page, named punitive defaults, added LinkedIn/Matthieu |
+| Version | Date       | Agent / Author      | Change                                                                                                              |
+| ------- | ---------- | ------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| 1.0     | 2026-05-07 | Claude (Sonnet 4.6) | Initial email draft created                                                                                         |
+| 3.0     | 2026-05-10 | Claude (Sonnet 4.6) | Rewrote hook around CBAM Q&A page, named punitive defaults, added LinkedIn/Matthieu                                 |
+| 4.0     | 2026-05-10 | Claude (Sonnet 4.6) | Matthieu Jehl confirmed President Stainless Europe; rewrote his section as direct C-suite pitch, co-primary contact |
 
 ---
