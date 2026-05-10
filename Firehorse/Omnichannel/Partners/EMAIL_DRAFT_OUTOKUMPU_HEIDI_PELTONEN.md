@@ -6,11 +6,11 @@
 | ----------- | -------------------------------------------------------------------- |
 | **To**      | heidi.peltonen@outokumpu.com                                         |
 | **Name**    | Heidi Peltonen, VP Sustainability, Outokumpu                         |
-| **From**    | risto@onelifetime.world                                              |
+| **From**    | risto.paarni@lifetime.fi                                             |
 | **Subject** | Your CBAM Q&A answers the "what" — we build the "how"                |
 | **Attach**  | Nothing on first send. Send OUTOKUMPU_PARTNERSHIP_OFFER.md on reply. |
-| **Status**  | APPROVED — ready to send                                             |
-| **Version** | 3.0                                                                  |
+| **Status**  | SENT — 2026-05-10 (earlier version, pre-v3.0)                        |
+| **Version** | 3.0 (current — for reference / follow-up use)                        |
 
 ---
 

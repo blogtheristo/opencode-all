@@ -9,7 +9,7 @@
 | **Size**              | ~9,000 employees, €5B+ revenue                                                                     |
 | **Primary Contact A** | Heidi Peltonen — heidi.peltonen@outokumpu.com — VP Sustainability (policy, PCF, CBAM advocacy)     |
 | **Primary Contact B** | Matthieu Jehl — matthieu.jehl@outokumpu.com — President, Business Line Stainless Europe            |
-| **Status**            | Jehl email SENT 2026-05-10 (risto.paarni@lifetime.fi) — Heidi email pending                        |
+| **Status**            | Both emails SENT 2026-05-10 — Jehl (v6.0) + Heidi (earlier version) — awaiting replies             |
 | **Partnership Type**  | Strategic Alliance + Channel Partner                                                               |
 | **Priority**          | High — shared Finnish market, active CBAM posture, EVOLVE strategy 2026–2030                       |
 | **Source**            | CBAM article: outokumpu.com/en/expertise/.../how-cbam-will-reshape-the-stainless-steel-value-chain |
