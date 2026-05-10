@@ -115,6 +115,30 @@ describe('file cache (loadPersistedPrice via getCarbonPrice)', () => {
     expect(price.source).toBe('fallback-static');
   });
 
+  it('rejects missing fetchedAt before TTL check', async () => {
+    vi.mocked(readFileSync).mockReturnValue(makeFileContent({ fetchedAt: undefined }));
+
+    const price = await getCarbonPrice();
+
+    expect(price.source).toBe('fallback-static');
+  });
+
+  it('rejects invalid date string in persisted cache', async () => {
+    vi.mocked(readFileSync).mockReturnValue(makeFileContent({ date: 'invalid-date' }));
+
+    const price = await getCarbonPrice();
+
+    expect(price.source).toBe('fallback-static');
+  });
+
+  it('rejects missing date before returning file-cache result', async () => {
+    vi.mocked(readFileSync).mockReturnValue(makeFileContent({ date: undefined }));
+
+    const price = await getCarbonPrice();
+
+    expect(price.source).toBe('fallback-static');
+  });
+
   it('rejects a missing file (readFileSync throws ENOENT)', async () => {
     vi.mocked(readFileSync).mockImplementation(() => {
       throw Object.assign(new Error('no such file'), { code: 'ENOENT' });

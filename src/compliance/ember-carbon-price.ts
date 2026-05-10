@@ -113,12 +113,19 @@ function loadPersistedPrice(): CarbonPrice | null {
     const parsed = JSON.parse(raw) as PersistedPriceFile;
 
     if (typeof parsed.priceEur !== 'number' || parsed.priceEur <= 0) return null;
+    if (typeof parsed.fetchedAt !== 'string' || typeof parsed.date !== 'string') return null;
 
     // Reject seed-fallback entries — they carry no live data
     if (parsed.source === 'seed-fallback') return null;
 
-    const age = Date.now() - new Date(parsed.fetchedAt).getTime();
-    if (isNaN(age) || age > FILE_CACHE_TTL_MS) return null;
+    const fetchedAtMs = new Date(parsed.fetchedAt).getTime();
+    if (!Number.isFinite(fetchedAtMs)) return null;
+
+    const dateMs = new Date(parsed.date).getTime();
+    if (!Number.isFinite(dateMs)) return null;
+
+    const age = Date.now() - fetchedAtMs;
+    if (age > FILE_CACHE_TTL_MS) return null;
 
     return {
       priceEur: parsed.priceEur,
