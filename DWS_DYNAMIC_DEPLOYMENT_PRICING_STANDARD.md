@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dynamic-deployment-pricing-LExxQ | Date: 10.05.2026 | Changes: Monthly subscription reclassified as a required separate product for all customers on both tiers — removed all optional/add-on framing; fixed duplicate section numbering in Sections 3 and 4; updated pricing table, obligation matrix, and definitions accordingly
 - Version: 1.2 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dynamic-deployment-pricing-LExxQ | Date: 10.05.2026 | Changes: Added monthly support as sellable add-on for both Blue and Green; added Product Version Governance rule (minimum 2 versions per product — one Blue, one Green); updated governing principle, Color Model table, pricing framework, and obligation matrix
 - Version: 1.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dynamic-deployment-pricing-LExxQ | Date: 10.05.2026 | Changes: Reframed Blue as access-and-learning tier, Green as saleability tier — separates release status from pricing to prevent conflation; added applied product mapping (Green = DWS IQ 6, Blue = DWS IQ 6.1); tightened governing principle to match enterprise release standard
 - Version: 1.0 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dynamic-deployment-pricing-LExxQ | Date: 10.05.2026 | Changes: Initial creation — formulated the Dynamic Deployment Pricing Standard covering Blue (enterprise pilot) and Green (stable commercial) deployment tiers, transition rules, customer obligation model, and sales motion guidance
@@ -47,9 +48,10 @@ Document Status:
 > **Enterprise release principle**
 >
 > Blue is an early-access pilot, reduced or free for up to 12 months, with customer-nominated product managers feeding issues directly to DWS.
-> Green is the stable selling release, with support sold monthly but no customer feedback obligations.
+> Green is the stable selling release, with no customer feedback obligations.
 > Enterprise accounts can stay in Blue until the pilot window ends, even after the product moves to full price.
-> Monthly support can be added to either tier. Every DWS product ships with a minimum of two versions: one Blue, one Green.
+> Monthly subscription is a required separate product for all customers on both tiers.
+> Every DWS product — including all Firehorse products — ships with a minimum of two versions: one Blue, one Green.
 
 This standard governs how DWS names, positions, and prices enterprise deployments across the product lifecycle. It defines two named deployment tiers — **Blue** and **Green** — each signalling a distinct release role, not just a price point.
 
@@ -64,16 +66,16 @@ Keeping these roles separate prevents the pricing concession from being confused
 
 ## 2. Deployment Color Model
 
-| Attribute               | Blue Version                          | Green Version                   |
-| ----------------------- | ------------------------------------- | ------------------------------- |
-| **Role**                | Access and learning                   | Saleability                     |
-| **Release status**      | Early access / pilot                  | Stable, fully supported         |
-| **Pricing**             | Free or reduced (side effect of role) | Full market price               |
-| **Customer obligation** | Nominated PM, structured reporting    | None                            |
-| **Monthly support**     | Available as add-on                   | Available as add-on             |
-| **DWS obligation**      | Rapid issue response, co-iteration    | Published SLA, standard support |
-| **Target buyer**        | Enterprise innovation leads           | Procurement / standard buyers   |
-| **Current product**     | DWS IQ 6.1                            | DWS IQ 6                        |
+| Attribute                | Blue Version                          | Green Version                   |
+| ------------------------ | ------------------------------------- | ------------------------------- |
+| **Role**                 | Access and learning                   | Saleability                     |
+| **Release status**       | Early access / pilot                  | Stable, fully supported         |
+| **Pricing**              | Free or reduced (side effect of role) | Full market price               |
+| **Customer obligation**  | Nominated PM, structured reporting    | None                            |
+| **Monthly subscription** | Required — separate product           | Required — separate product     |
+| **DWS obligation**       | Rapid issue response, co-iteration    | Published SLA, standard support |
+| **Target buyer**         | Enterprise innovation leads           | Procurement / standard buyers   |
+| **Current product**      | DWS IQ 6.1                            | DWS IQ 6                        |
 
 The color signals what the release is **for**, not how good it is. Pricing follows from that role — it is not the definition of it. Green is not "better" than Blue; it is ready for commercial commitments in a way that Blue is not yet.
 
@@ -102,19 +104,19 @@ This is a bilateral exchange: the enterprise gains early access and influence ov
 - Pricing must be documented in the enterprise contract with an explicit sunset clause referencing the Green transition date.
 - No retroactive billing for Blue-period usage once Green is declared.
 
-### 3.3 Pilot Duration and Extension
+### 3.3 Monthly Subscription
+
+Monthly subscription is a **required separate product** purchased alongside every Blue deployment. It is not optional and cannot be waived. The subscription covers the support relationship for the duration of the Blue access period.
+
+### 3.4 Pilot Duration and Extension
 
 - Default pilot period: as defined in the enterprise contract.
 - When the product reaches **General Availability (GA)** and DWS declares a Green version, the enterprise enters the **12-month grace window** (see Section 5).
 - Pilot mode cannot be extended beyond 12 months post-GA without a new negotiated agreement.
 
-### 3.3 Monthly Support Add-On
+### 3.5 What Blue Does Not Include
 
-Monthly support can be contracted on top of a Blue deployment. When purchased, it upgrades the response model from best-effort to a defined SLA for the duration of the support contract. It does not change the Blue access terms or PM obligation.
-
-### 3.4 What Blue Does Not Include (without monthly support)
-
-- Dedicated support SLA — best-effort response applies unless monthly support is contracted.
+- Guaranteed uptime or production SLA on the product itself.
 - Guaranteed feature parity with the Green release schedule.
 - Rights to resell or sublicense the Blue build.
 
@@ -140,19 +142,19 @@ DWS declares a product Green when:
 - Full market price as listed in `dws10.com/config/products.json` (single source of truth per CLAUDE.md).
 - No pilot obligations, no feedback requirements.
 
-### 4.3 Customer Obligations
+### 4.3 Monthly Subscription
 
-**None.** Green customers have zero mandatory interaction with DWS product development. They buy a product; DWS delivers it. Feedback is welcomed but never required.
+Monthly subscription is a **required separate product** purchased alongside every Green deployment. It is not optional and cannot be waived. It covers support, a named DWS contact, and the published response SLA for the duration of the Green contract.
 
-### 4.3 Monthly Support
+### 4.4 Customer Obligations
 
-Monthly support is the primary support revenue model for Green. It is sold as a recurring line item, separate from the product licence. Customers without a monthly support contract receive documentation and community channels only; contracted customers receive defined response SLAs and a named DWS contact.
+**None beyond the monthly subscription.** Green customers have zero mandatory interaction with DWS product development. They buy the product and the subscription; DWS delivers both. Feedback is welcomed but never required.
 
-### 4.4 What Green Includes
+### 4.5 What Green Includes
 
 - Access to all stable releases during the subscription period.
 - Standard onboarding without co-development expectations.
-- Monthly support available as a contracted add-on (see 4.3).
+- Named DWS contact and published SLA via the required monthly subscription.
 
 ---
 
@@ -188,14 +190,16 @@ Blue and Green versions may run concurrently in the market. DWS does not guarant
 
 ## 6. Pricing Framework
 
-| Tier                    | Typical Pricing                    | Trigger                                        |
-| ----------------------- | ---------------------------------- | ---------------------------------------------- |
-| Blue (free)             | €0 / period                        | Strategic enterprise; high feedback value      |
-| Blue (reduced)          | 20–60% of Green list               | Enterprise with moderate pilot commitment      |
-| Green (full)            | List price per `products.json`     | Standard commercial purchase                   |
-| Green (loyalty)         | 10–20% below list, year 1          | Early conversion from Blue within grace window |
-| Monthly support — Blue  | Negotiated per contract            | Any Blue customer wanting defined SLA          |
-| Monthly support — Green | Published rate per `products.json` | Any Green customer wanting named contact + SLA |
+Every contract is two line items: the product (Blue or Green) and the monthly subscription. Both are required.
+
+| Line item                    | Typical Pricing                    | Notes                                          |
+| ---------------------------- | ---------------------------------- | ---------------------------------------------- |
+| Blue product (free)          | €0 / period                        | Strategic enterprise; high feedback value      |
+| Blue product (reduced)       | 20–60% of Green list               | Enterprise with moderate pilot commitment      |
+| Green product (full)         | List price per `products.json`     | Standard commercial purchase                   |
+| Green product (loyalty)      | 10–20% below list, year 1          | Early conversion from Blue within grace window |
+| Monthly subscription — Blue  | Negotiated per contract            | Required; covers support SLA during pilot      |
+| Monthly subscription — Green | Published rate per `products.json` | Required; covers named contact + full SLA      |
 
 Exact pricing is set per deal by the DWS account lead and must be recorded in the signed contract. No pricing commitments are valid without a signed document.
 
@@ -203,15 +207,15 @@ Exact pricing is set per deal by the DWS account lead and must be recorded in th
 
 ## 7. Customer Obligation Matrix
 
-| Obligation              | Blue (pilot)        | Blue (grace window) | Green    |
-| ----------------------- | ------------------- | ------------------- | -------- |
-| Pay full list price     | No                  | No                  | Yes      |
-| Nominate product PM     | Yes                 | Yes                 | No       |
-| Submit error reports    | Yes (within 5 days) | Yes (within 5 days) | No       |
-| Monthly sync attendance | Yes                 | Yes                 | No       |
-| SLA guarantee (base)    | No (best-effort)    | No (best-effort)    | Yes      |
-| Monthly support add-on  | Optional            | Optional            | Optional |
-| Feature roadmap input   | Invited             | Invited             | No       |
+| Obligation               | Blue (pilot)        | Blue (grace window) | Green          |
+| ------------------------ | ------------------- | ------------------- | -------------- |
+| Pay full list price      | No                  | No                  | Yes            |
+| Buy monthly subscription | Yes (required)      | Yes (required)      | Yes (required) |
+| Nominate product PM      | Yes                 | Yes                 | No             |
+| Submit error reports     | Yes (within 5 days) | Yes (within 5 days) | No             |
+| Monthly sync attendance  | Yes                 | Yes                 | No             |
+| Product uptime SLA       | No                  | No                  | Yes            |
+| Feature roadmap input    | Invited             | Invited             | No             |
 
 ---
 
@@ -260,30 +264,36 @@ Position Green when:
 
 ## 9. Definitions
 
-| Term                          | Definition                                                                                                                                                                           |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Blue Version**              | The access and learning tier. Early-access pilot deployment, free or reduced price, with customer-nominated PMs feeding issues to DWS. Current product: DWS IQ 6.1.                  |
-| **Green Version**             | The saleability tier. Stable, fully supported commercial release that DWS can stand behind with SLA commitments. No customer participation obligations. Current product: DWS IQ 6.   |
-| **GA (General Availability)** | The date DWS formally declares a product Green and opens full commercial sales.                                                                                                      |
-| **Grace Window**              | The 12-month period after GA during which Blue customers may remain on Blue access terms before converting to Green.                                                                 |
-| **Nominated PM**              | The enterprise-appointed Product Manager who owns the error-documentation obligation during the Blue/grace period.                                                                   |
-| **Loyalty Rate**              | A discounted first-year Green price offered to Blue customers who convert before the grace window expires.                                                                           |
-| **Monthly Support**           | A recurring contracted add-on available on both Blue and Green. Upgrades response from best-effort to a defined SLA with a named DWS contact. Priced separately from product access. |
+| Term                          | Definition                                                                                                                                                                                                         |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Blue Version**              | The access and learning tier. Early-access pilot deployment, free or reduced price, with customer-nominated PMs feeding issues to DWS. Current product: DWS IQ 6.1.                                                |
+| **Green Version**             | The saleability tier. Stable, fully supported commercial release that DWS can stand behind with SLA commitments. No customer participation obligations. Current product: DWS IQ 6.                                 |
+| **GA (General Availability)** | The date DWS formally declares a product Green and opens full commercial sales.                                                                                                                                    |
+| **Grace Window**              | The 12-month period after GA during which Blue customers may remain on Blue access terms before converting to Green.                                                                                               |
+| **Nominated PM**              | The enterprise-appointed Product Manager who owns the error-documentation obligation during the Blue/grace period.                                                                                                 |
+| **Loyalty Rate**              | A discounted first-year Green price offered to Blue customers who convert before the grace window expires.                                                                                                         |
+| **Monthly Subscription**      | A required separate product purchased alongside every Blue or Green deployment. Cannot be waived. Covers support SLA, named DWS contact, and the ongoing service relationship. Priced separately from the product. |
 
 ---
 
 ## 10. Product Version Governance
 
-### 10.1 Minimum Version Rule
+### 10.1 Scope
 
-Every DWS product in active development must maintain **a minimum of two concurrent versions**:
+This standard applies to **all DWS and Firehorse products**. The Blue/Green model and the monthly subscription requirement are not IQ-specific — they are the company-wide release and commercial standard.
 
-| Version | Role                                                                     | Current example |
-| ------- | ------------------------------------------------------------------------ | --------------- |
-| Green   | Stable selling release — commercially supported, SLA-backed              | DWS IQ 6        |
-| Blue    | Early-access pilot — learning and signal gathering before the next Green | DWS IQ 6.1      |
+Current product registry:
 
-A product with only a Green version has no forward motion visible to enterprise customers. A product with only a Blue version has no commercial baseline. Both must exist simultaneously.
+| Product family | Green (current) | Blue (current) |
+| -------------- | --------------- | -------------- |
+| DWS IQ         | DWS IQ 6        | DWS IQ 6.1     |
+| Firehorse      | Firehorse Green | Firehorse Blue |
+
+Firehorse product names follow the same Blue/Green naming logic. Specific version identifiers are maintained in the product registry and updated in the same commit as each release declaration.
+
+### 10.2 Minimum Version Rule
+
+Every DWS and Firehorse product in active development must maintain **a minimum of two concurrent versions** — one Green, one Blue. A product with only a Green version has no visible forward motion for enterprise customers. A product with only a Blue version has no commercial baseline. Both must exist simultaneously.
 
 ### 10.2 Version Naming Convention
 
