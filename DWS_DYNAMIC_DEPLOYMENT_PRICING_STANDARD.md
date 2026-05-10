@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.4
 
 Sessions & Modifications:
 
+- Version: 1.4 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dynamic-deployment-pricing-LExxQ | Date: 10.05.2026 | Changes: Added Consultation Pricing Model (Section 11) — Blue = contractor pricing (confidential, never published online), Green = direct client pricing (publicly listed); confirmed Firehorse follows identical Blue/Green model; added cloud costs as separate operating costs rule; updated governing principle and TOC
 - Version: 1.3 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dynamic-deployment-pricing-LExxQ | Date: 10.05.2026 | Changes: Monthly subscription reclassified as a required separate product for all customers on both tiers — removed all optional/add-on framing; fixed duplicate section numbering in Sections 3 and 4; updated pricing table, obligation matrix, and definitions accordingly
 - Version: 1.2 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dynamic-deployment-pricing-LExxQ | Date: 10.05.2026 | Changes: Added monthly support as sellable add-on for both Blue and Green; added Product Version Governance rule (minimum 2 versions per product — one Blue, one Green); updated governing principle, Color Model table, pricing framework, and obligation matrix
 - Version: 1.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dynamic-deployment-pricing-LExxQ | Date: 10.05.2026 | Changes: Reframed Blue as access-and-learning tier, Green as saleability tier — separates release status from pricing to prevent conflation; added applied product mapping (Green = DWS IQ 6, Blue = DWS IQ 6.1); tightened governing principle to match enterprise release standard
@@ -40,18 +41,23 @@ Document Status:
 8. [Sales Motion Guide](#8-sales-motion-guide)
 9. [Definitions](#9-definitions)
 10. [Product Version Governance](#10-product-version-governance)
+11. [Consultation Pricing Model](#11-consultation-pricing-model)
 
 ---
 
 ## 1. Purpose
 
-> **Enterprise release principle**
+> **Enterprise release principle — products**
 >
-> Blue is an early-access pilot, reduced or free for up to 12 months, with customer-nominated product managers feeding issues directly to DWS.
-> Green is the stable selling release, with no customer feedback obligations.
-> Enterprise accounts can stay in Blue until the pilot window ends, even after the product moves to full price.
-> Monthly subscription is a required separate product for all customers on both tiers.
+> Blue is an early-access pilot, reduced price or free for up to 12 months, with customer-nominated PMs feeding issues back to DWS.
+> Green is the stable selling release.
+> Monthly subscription is separate and required on both tiers. Cloud costs stay separate as operating costs.
 > Every DWS product — including all Firehorse products — ships with a minimum of two versions: one Blue, one Green.
+
+> **Enterprise release principle — consultations**
+>
+> Blue is contractor pricing. Green is direct client pricing.
+> Only Green customer pricing is published online. Contractor pricing is never shared publicly.
 
 This standard governs how DWS names, positions, and prices enterprise deployments across the product lifecycle. It defines two named deployment tiers — **Blue** and **Green** — each signalling a distinct release role, not just a price point.
 
@@ -315,4 +321,42 @@ Major version increments (e.g. 6 → 7) happen when a Blue track graduates to be
 
 ---
 
-_This standard applies to all DWS enterprise product deployments. Deviations require written approval from the DWS account lead and CEO. Pricing source of truth remains `dws10.com/config/products.json`._
+_This standard applies to all DWS and Firehorse enterprise product deployments and all DWS consultation engagements. Deviations require written approval from the DWS account lead and CEO. Pricing source of truth remains `dws10.com/config/products.json`._
+
+---
+
+## 11. Consultation Pricing Model
+
+### 11.1 Blue and Green in Consultations
+
+The Blue/Green color model applies to consultation engagements with a different meaning from the product tiers:
+
+| Color     | Consultation meaning                                                                | Published online? |
+| --------- | ----------------------------------------------------------------------------------- | ----------------- |
+| **Blue**  | Contractor pricing — the rate DWS pays to or charges contractors and subcontractors | **Never**         |
+| **Green** | Direct client pricing — the rate charged to end clients                             | **Yes**           |
+
+The underlying principle is the same as products: Green is always the publicly visible, commercially clean price. Blue is always internal.
+
+### 11.2 Publication Rule
+
+**Only Green (direct client) pricing is published on dws10.com or any DWS public channel.**
+
+Contractor (Blue) pricing is confidential and must not appear in:
+
+- Public websites or landing pages
+- Marketing materials or proposals sent to clients
+- Any document that could be forwarded outside DWS
+
+Contractor pricing is shared only in signed contractor agreements.
+
+### 11.3 Margin Integrity
+
+The spread between Blue (contractor) and Green (client) rates constitutes DWS margin on consultation work. This spread must be defined and approved before any contractor engagement starts. No contractor may be engaged at a rate that eliminates or inverts the margin without CEO approval.
+
+### 11.4 Monthly Subscription and Cloud Costs
+
+The monthly subscription and cloud costs rules from the product model carry over to consultations:
+
+- **Monthly subscription**: billed to the client as a required separate line item covering the ongoing service relationship.
+- **Cloud costs**: billed as separate operating costs, passed through at cost or at an agreed markup, never bundled into the consultation day rate.
