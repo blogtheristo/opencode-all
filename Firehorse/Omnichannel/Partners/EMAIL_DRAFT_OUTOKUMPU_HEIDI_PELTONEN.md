@@ -93,14 +93,14 @@ For Matthieu Jehl, President, Business Line Stainless Europe (Krefeld).
 Send in parallel with the Heidi email — same day, different angle.
 Do NOT position as a fallback. He owns the fabricator revenue; this is his deal.
 
-| Field       | Value                                                               |
-| ----------- | ------------------------------------------------------------------- |
-| **To**      | matthieu.jehl@outokumpu.com                                         |
-| **Name**    | Matthieu Jehl, President, Business Line Stainless Europe, Outokumpu |
-| **From**    | risto@onelifetime.world                                             |
-| **Subject** | CBAM declarations for your fabricator accounts                      |
-| **Status**  | APPROVED — ready to send                                            |
-| **Note**    | Detail moved to OUTOKUMPU_JEHL_APPENDIX.md (send on reply).         |
+| Field       | Value                                                                               |
+| ----------- | ----------------------------------------------------------------------------------- |
+| **To**      | matthieu.jehl@outokumpu.com                                                         |
+| **Name**    | Matthieu Jehl, President, Business Line Stainless Europe, Outokumpu                 |
+| **From**    | risto.paarni@lifetime.fi                                                            |
+| **Subject** | CBAM declarations for your fabricator accounts                                      |
+| **Status**  | SENT — 2026-05-10                                                                   |
+| **Note**    | On reply: send OUTOKUMPU_JEHL_APPENDIX.md / Learn/OUTOKUMPU_JEHL_APPENDIX_v1.0.html |
 
 Subject: CBAM declarations for your fabricator accounts
 
