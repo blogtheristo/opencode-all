@@ -29,7 +29,9 @@
         "contentLanguage": "en"
       },
       "storeCategory": "platform",
-      "version": "6"
+      "version": "6",
+      "buyPage": 1,
+      "buyPageOrder": 2
     },
     "FH-AUTO-001": {
       "id": "FH-AUTO-001",
@@ -60,7 +62,9 @@
         "contentLanguage": "en"
       },
       "storeCategory": "platform",
-      "version": "1.0"
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 8
     },
     "LIFETIME-BUNDLE-2026": {
       "id": "LIFETIME-BUNDLE-2026",
@@ -90,7 +94,9 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "platform"
+      "storeCategory": "platform",
+      "buyPage": 1,
+      "buyPageOrder": 4
     },
     "FH-OMNI-001": {
       "id": "FH-OMNI-001",
@@ -121,7 +127,9 @@
         "contentLanguage": "en"
       },
       "storeCategory": "platform",
-      "version": "1.0"
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 3
     },
     "FH-RPT-001": {
       "id": "FH-RPT-001",
@@ -152,7 +160,9 @@
         "contentLanguage": "en"
       },
       "storeCategory": "platform",
-      "version": "1.0"
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 5
     },
     "FH-SIGN-001": {
       "id": "FH-SIGN-001",
@@ -182,7 +192,9 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "add-on"
+      "storeCategory": "add-on",
+      "buyPage": 1,
+      "buyPageOrder": 6
     },
     "FH-CMS-001": {
       "id": "FH-CMS-001",
@@ -213,7 +225,9 @@
         "contentLanguage": "en"
       },
       "storeCategory": "platform",
-      "version": "1.0"
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 7
     },
     "expert-services": {
       "id": "expert-services",
@@ -276,7 +290,9 @@
         "contentLanguage": "en"
       },
       "storeCategory": "advisory",
-      "version": "1.0"
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 20
     },
     "LIFETIME-EXP-001": {
       "id": "LIFETIME-EXP-001",
@@ -337,7 +353,9 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "advisory"
+      "storeCategory": "advisory",
+      "buyPage": 1,
+      "buyPageOrder": 18
     },
     "aws-consultancy": {
       "id": "aws-consultancy",
@@ -367,7 +385,9 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "ai-cloud"
+      "storeCategory": "ai-cloud",
+      "buyPage": 1,
+      "buyPageOrder": 17
     },
     "conversational-agent": {
       "id": "conversational-agent",
@@ -397,7 +417,9 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "ai-cloud"
+      "storeCategory": "ai-cloud",
+      "buyPage": 1,
+      "buyPageOrder": 21
     },
     "m365-consultancy": {
       "id": "m365-consultancy",
@@ -429,7 +451,9 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "digital"
+      "storeCategory": "digital",
+      "buyPage": 3,
+      "buyPageOrder": 4
     },
     "ai-agent-engineering": {
       "id": "ai-agent-engineering",
@@ -460,7 +484,9 @@
         "contentLanguage": "en"
       },
       "storeCategory": "ai-cloud",
-      "version": "1.0"
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 19
     },
     "lean-project": {
       "id": "lean-project",
@@ -490,7 +516,9 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "advisory"
+      "storeCategory": "advisory",
+      "buyPage": 2,
+      "buyPageOrder": 10
     },
     "ai-consultant-day": {
       "id": "ai-consultant-day",
@@ -521,7 +549,9 @@
         "contentLanguage": "fi"
       },
       "storeCategory": "ai-cloud",
-      "version": "1.0"
+      "version": "1.0",
+      "buyPage": 3,
+      "buyPageOrder": 3
     },
     "business-mentor-30": {
       "id": "business-mentor-30",
@@ -551,7 +581,9 @@
         "targetCountry": "FI",
         "contentLanguage": "fi"
       },
-      "storeCategory": "advisory"
+      "storeCategory": "advisory",
+      "buyPage": 2,
+      "buyPageOrder": 3
     },
     "firehorse-coach": {
       "id": "firehorse-coach",
@@ -581,7 +613,9 @@
         "targetCountry": "FI",
         "contentLanguage": "fi"
       },
-      "storeCategory": "advisory"
+      "storeCategory": "advisory",
+      "buyPage": 2,
+      "buyPageOrder": 4
     },
     "firehorse-flow": {
       "id": "firehorse-flow",
@@ -611,7 +645,9 @@
         "targetCountry": "FI",
         "contentLanguage": "fi"
       },
-      "storeCategory": "digital"
+      "storeCategory": "digital",
+      "buyPage": 2,
+      "buyPageOrder": 11
     },
     "omnichannel-multimodal": {
       "id": "omnichannel-multimodal",
@@ -641,7 +677,9 @@
         "targetCountry": "FI",
         "contentLanguage": "fi"
       },
-      "storeCategory": "advisory"
+      "storeCategory": "advisory",
+      "buyPage": 2,
+      "buyPageOrder": 5
     },
     "professional-web-pages": {
       "id": "professional-web-pages",
@@ -671,7 +709,9 @@
         "targetCountry": "FI",
         "contentLanguage": "fi"
       },
-      "storeCategory": "digital"
+      "storeCategory": "digital",
+      "buyPage": 2,
+      "buyPageOrder": 6
     },
     "secure-email-proton": {
       "id": "secure-email-proton",
@@ -701,7 +741,9 @@
         "targetCountry": "FI",
         "contentLanguage": "fi"
       },
-      "storeCategory": "digital"
+      "storeCategory": "digital",
+      "buyPage": 2,
+      "buyPageOrder": 7
     },
     "firehorse-data-services": {
       "id": "firehorse-data-services",
@@ -731,7 +773,9 @@
         "targetCountry": "FI",
         "contentLanguage": "fi"
       },
-      "storeCategory": "digital"
+      "storeCategory": "digital",
+      "buyPage": 2,
+      "buyPageOrder": 8
     },
     "agentti-sanasto": {
       "id": "agentti-sanasto",
@@ -761,7 +805,9 @@
         "targetCountry": "FI",
         "contentLanguage": "fi"
       },
-      "storeCategory": "digital"
+      "storeCategory": "digital",
+      "buyPage": 2,
+      "buyPageOrder": 13
     },
     "devops-lead": {
       "id": "devops-lead",
@@ -791,7 +837,9 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "ai-cloud"
+      "storeCategory": "ai-cloud",
+      "buyPage": 3,
+      "buyPageOrder": 5
     },
     "digital-design-gold": {
       "id": "digital-design-gold",
@@ -821,7 +869,9 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "digital"
+      "storeCategory": "digital",
+      "buyPage": 1,
+      "buyPageOrder": 9
     },
     "cloud-ready-teams": {
       "id": "cloud-ready-teams",
@@ -851,7 +901,9 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "digital"
+      "storeCategory": "digital",
+      "buyPage": 2,
+      "buyPageOrder": 9
     },
     "ai-koulutus-3d": {
       "id": "ai-koulutus-3d",
@@ -881,7 +933,9 @@
         "targetCountry": "FI",
         "contentLanguage": "fi"
       },
-      "storeCategory": "advisory"
+      "storeCategory": "advisory",
+      "buyPage": 2,
+      "buyPageOrder": 12
     },
     "ai-consulting-agentic": {
       "id": "ai-consulting-agentic",
@@ -911,7 +965,9 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "ai-cloud"
+      "storeCategory": "ai-cloud",
+      "buyPage": 2,
+      "buyPageOrder": 2
     },
     "edge-node-gn100": {
       "id": "edge-node-gn100",
@@ -942,7 +998,9 @@
         "contentLanguage": "en"
       },
       "storeCategory": "hardware",
-      "version": "1.0"
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 11
     },
     "DWS-SOVEREIGN-DB-001": {
       "id": "DWS-SOVEREIGN-DB-001",
@@ -972,7 +1030,9 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "platform"
+      "storeCategory": "platform",
+      "buyPage": 1,
+      "buyPageOrder": 12
     },
     "sovereignty-cloud-consulting": {
       "id": "sovereignty-cloud-consulting",
@@ -1002,7 +1062,9 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "ai-cloud"
+      "storeCategory": "ai-cloud",
+      "buyPage": 1,
+      "buyPageOrder": 15
     },
     "DWS-US-STARTER": {
       "id": "DWS-US-STARTER",
@@ -1033,7 +1095,9 @@
         "contentLanguage": "en"
       },
       "storeCategory": "ai-cloud",
-      "version": "1.0"
+      "version": "1.0",
+      "buyPage": 3,
+      "buyPageOrder": 6
     },
     "DWS-US-PILOT": {
       "id": "DWS-US-PILOT",
@@ -1064,7 +1128,9 @@
         "contentLanguage": "en"
       },
       "storeCategory": "ai-cloud",
-      "version": "1.0"
+      "version": "1.0",
+      "buyPage": 3,
+      "buyPageOrder": 7
     },
     "DWS-EU-STARTER": {
       "id": "DWS-EU-STARTER",
@@ -1095,7 +1161,9 @@
         "contentLanguage": "en"
       },
       "storeCategory": "ai-cloud",
-      "version": "1.0"
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 13
     },
     "DWS-EU-PILOT": {
       "id": "DWS-EU-PILOT",
@@ -1126,7 +1194,9 @@
         "contentLanguage": "en"
       },
       "storeCategory": "ai-cloud",
-      "version": "1.0"
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 14
     },
     "DWS-CLIMATE-001": {
       "id": "DWS-CLIMATE-001",
@@ -1157,7 +1227,9 @@
         "contentLanguage": "en"
       },
       "storeCategory": "platform",
-      "version": "1.0"
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 10
     },
     "DWS-AEGIS-001": {
       "id": "DWS-AEGIS-001",
@@ -1187,7 +1259,9 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       },
-      "storeCategory": "platform"
+      "storeCategory": "platform",
+      "buyPage": 1,
+      "buyPageOrder": 1
     }
   },
   "settings": {
