@@ -223,9 +223,14 @@ DWS IQ 6   → Private cloud (EU-hosted, GDPR/CSRD compliant by design)
 
 Competitors → Single vertical focus
 DWS IQ 6   → 8 verticals via modular agent architecture
+
+Competitors → System of Intelligence (reports what happened)
+DWS IQ 6   → System of Action operator (carries regulated work to completion with audit trail)
 ```
 
-**Strategic Upside**: We're not building a climate reporting tool. We're building the platform for agentic compliance automation.
+**Core Positioning (verbatim):** We are not a SaaS vendor — we are a _System of Action operator_ that carries regulated work reliably to completion with a full audit trail.
+
+**Strategic Upside**: We're not building a climate reporting tool. We're building the System of Action operating layer for regulated European industry — where compliance can freeze or release money.
 
 ### Enterprise Sandbox (New Revenue Stream)
 

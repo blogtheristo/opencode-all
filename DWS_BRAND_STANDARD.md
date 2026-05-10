@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.8
+Version: 2.9
 
 Sessions & Modifications:
 
+- Version: 2.9 | Tool: Claude Code (Sonnet 4.6) | Session: claude/data-centre-factory-docs-eav19 | Date: 10.05.2026 | Changes: Added §22 System of Action Operator — canonical investor and homepage positioning sentences (FI+EN), derived from Google Cloud Agentic Data Cloud framework and tietotehdas field research
 - Version: 2.8 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-booking-multilingual-hMx7m | Date: 28.04.2026 | Changes: Added §5.1 Ironclad Sync Rule — dws10.com is single source of truth for ironclad-nav.js + ironclad-footer.js across all sites; sync script scripts/on-deploy/sync-ironclad-nav.sh; domain-aware logo (LifetimeOy.png on lifetime.fi, OLW logo on onelifetime.world); Legal Hub simplified to direct link (no flyout); Agentic Commerce added; booking CTA /book/; investment-safety rewritten to gold standard.
 - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/add-red-hat-partners-d8Hey | Date: 21.03.2026 | Changes: Added Red Hat Technology Partner badge to Sovereignty Badge System (§11.2) — colors, usage rules, AgentOps BYOA context, implementation checklist. Added Technology Partners section to partners page.
 - Version: 2.6 | Tool: Claude Code (Opus 4.6) | Session: claude/dws-iq-synthetic-nervous-9TtAB | Date: 06.04.2026 | Changes: Added DWS IQ Platform (Series A) and Synthetic Nervous System (Technical) pitch lines to Section 22 — Arctic 15 investor positioning, EN/FI bilingual
@@ -1804,12 +1805,42 @@ Canonical one-liners for investor materials, landing pages, and sales outreach. 
 - "battle-tested" → "taisteluvalmiita" — strong B2B Finnish, acceptable in industrial context
 - Use in NVIDIA co-marketing, technical partner materials, and deep-dive investor decks
 
+### System of Action Operator (Cross-Product / Core Positioning)
+
+Canonical positioning derived from Google Cloud's Agentic Data Cloud framework (22.04.2026) and tietotehdas field research. Use verbatim — no paraphrasing.
+
+**Investor sentence (FI):**
+
+> Emme ole SaaS-toimittaja, vaan _System of Action -operaattori_, joka vie säädellyn työn hallitusti maaliin audit traililla.
+
+**Homepage sentence (FI):**
+
+> DWS ei ole SaaS, vaan _System of Action -operaattori_ eurooppalaiselle teollisuudelle, jossa compliance voi pysäyttää tai vapauttaa rahaa.
+
+**Investor sentence (EN):**
+
+> We are not a SaaS vendor — we are a _System of Action operator_ that carries regulated work reliably to completion with a full audit trail.
+
+**Homepage sentence (EN):**
+
+> DWS is not SaaS — it's a _System of Action operator_ for European industry, where compliance can freeze or release money.
+
+**Translation notes:**
+
+- "vie maaliin" → "carries to completion" — outcome-first language, not feature-first
+- "pysäyttää tai vapauttaa rahaa" → "freeze or release money" — direct; the financial mechanic of compliance gates
+- "audit trail" — keep untranslated in FI; universally understood in B2B compliance context
+
+**Use in:** Investor pitch decks (all rounds), dws10.com hero section, sales presentations, Series A materials, partner briefings. This is the primary cross-product positioning — takes precedence over product-specific one-liners when speaking about DWS IQ as a platform.
+
 ---
 
 ## Changelog
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| v2.9    | 2026-05-10 | Added: §22 System of Action Operator — canonical investor sentence ("Emme ole SaaS-toimittaja, vaan System of Action -operaattori, joka vie säädellyn työn hallitusti maaliin audit traililla") and homepage sentence ("DWS ei ole SaaS, vaan System of Action -operaattori eurooppalaiselle teollisuudelle, jossa compliance voi pysäyttää tai vapauttaa rahaa") — FI+EN, with translation notes and usage guidance                                                                                |
+| v2.8    | 2026-04-28 | Added: §5.1 Ironclad Sync Rule; booking CTA; investment-safety rewritten                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | v2.7    | 2026-04-07 | Added: Aegis Sovereign Identity (KYA Layer 1) pitch lines — EU-only biometric IDV messaging, sovereignty selling points for defense/NIS2 buyers, EN/FI bilingual. Based on Shufti DPA compliance resolution (all 5 points resolved, Option 1+3 accepted).                                                                                                                                                                                                                                           |
 | v2.6    | 2026-04-06 | Added: DWS IQ Platform (Series A) and Synthetic Nervous System (Technical) pitch lines to Section 22 — Arctic 15 investor positioning, EN/FI bilingual                                                                                                                                                                                                                                                                                                                                              |
 | v2.5    | 2026-04-01 | Added: Section 22 Product Pitch Lines — canonical EN/FI one-liners for DWS IQ Aegis, translation notes. Nordic Industrial rebrand — Section 2.1 Nordic Industrial Palette, IBM Plex Sans typography, EU language bar, 5-language homepage (FI/SV/DE/FR/EN), "Built in Finland" footer badge                                                                                                                                                                                                         |

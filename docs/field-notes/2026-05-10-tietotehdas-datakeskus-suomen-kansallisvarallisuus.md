@@ -229,6 +229,37 @@ Kaksi Googlen artikkelia yhdessä tekevät valinnan konkreettiseksi:
 
 **Johtopäätös:** DWS IQ:n agenttiliiketoimintalogiikka pysyy omana. Googlen Govern-pilari (Agent Identity, Model Armor, Agent Gateway) on arvioitava erikseen governance-kerroksena, erityisesti jos/kun DWS alkaa operoida julkisten tietovarantojen päällä.
 
+### 6.8 Kanoninen positiointikieli / Canonical Positioning Language
+
+Kahdesta Google-artikkelista ja tietotehdas-konseptista kristallisoitu DWS IQ:n virallinenpositiointilause. Näitä käytetään sellaisenaan — ei parafraaseja.
+
+**Investorilause (FI):**
+
+> Emme ole SaaS-toimittaja, vaan _System of Action -operaattori_, joka vie säädellyn työn hallitusti maaliin audit traililla.
+
+**Homepage-lause (FI):**
+
+> DWS ei ole SaaS, vaan _System of Action -operaattori_ eurooppalaiselle teollisuudelle, jossa compliance voi pysäyttää tai vapauttaa rahaa.
+
+**Investor sentence (EN):**
+
+> We are not a SaaS vendor — we are a _System of Action operator_ that carries regulated work reliably to completion with a full audit trail.
+
+**Homepage sentence (EN):**
+
+> DWS is not SaaS — it's a _System of Action operator_ for European industry, where compliance can freeze or release money.
+
+**Miksi nämä lauseet toimivat:**
+
+| Elementti                         | Selitys                                                                           |
+| --------------------------------- | --------------------------------------------------------------------------------- |
+| _"ei SaaS"_                       | Erottaa kilpailijoista — SaaS raportoi, System of Action tekee                    |
+| _"vie maaliin"_                   | Outcome-lupaus, ei feature-lupaus                                                 |
+| _"audit traililla"_               | Konkretisoi luotettavuuden — compliance vaatii jäljitettävyyttä                   |
+| _"pysäyttää tai vapauttaa rahaa"_ | Taloudellinen mekanismi selväksi — compliance ei ole kulu, vaan kassavirran avain |
+
+**Käyttökonteksti:** §22 DWS_BRAND_STANDARD.md • investor-pitch-deck.md Technical Moat • dws10.com hero • myyntiesitykset
+
 ---
 
 ## 7. Politiikkakytkös / Policy Dimension
