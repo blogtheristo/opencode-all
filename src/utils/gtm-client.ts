@@ -16,10 +16,9 @@ export interface GTMEvent {
   [key: string]: unknown;
 }
 
-export interface DataLayer {
-  push(event: GTMEvent): void;
-  [key: string]: unknown;
-}
+type DataLayerEntry = GTMEvent | IArguments;
+
+export type DataLayer = DataLayerEntry[];
 
 declare global {
   interface Window {
