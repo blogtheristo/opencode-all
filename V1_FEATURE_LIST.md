@@ -604,7 +604,42 @@ See `docs/MVP_ARCHITECTURE.md` for Mermaid diagram of MVP feature flow.
 
 ---
 
-**Document Version:** 2.7
+---
+
+## V2 / System of Action Track
+
+Derived from tietotehdas field research and Google Cloud Agentic Data Cloud analysis (10.05.2026).
+Source: `docs/field-notes/2026-05-10-tietotehdas-datakeskus-suomen-kansallisvarallisuus.md`
+
+Core thesis: DWS IQ is a **System of Action operator**, not a SaaS vendor. V2 track builds the infrastructure that makes this true at product level.
+
+### High Priority
+
+| #   | Feature                                   | Description                                                                                                          | Target  |
+| --- | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | ------- |
+| 1   | **MCP-katalogi julkisille rekistereille** | MCP servers for DVV, Traficom, PRH public APIs — tietotehdas access without data silo fragmentation                  | Q3 2026 |
+| 2   | **Knowledge Catalog prototype**           | Semantic layer on top of DWS IQ agent memory — raw data → contextualized knowledge (Google Knowledge Flywheel model) | Q3 2026 |
+| 3   | **System of Action positioning rollout**  | Update dws10.com hero, all sales decks, investor materials with canonical sentences from §22 DWS_BRAND_STANDARD      | Q2 2026 |
+
+### Medium Priority
+
+| #   | Feature                           | Description                                                                                                                                                         | Target  |
+| --- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| 4   | **Google Cloud partnership eval** | Assess Gemini Enterprise Agent Platform Govern pillar (Agent Identity, Agent Gateway, Model Armor) for DWS governance layer — especially for public register access | Q3 2026 |
+| 5   | **Dark Data inventory**           | Map Finnish public data reserves (DVV, Kela, THL, Luke, Ilmatieteenlaitos) for GDPR-compliant tietotehdas activation                                                | Q3 2026 |
+| 6   | **Agent fleet governance layer**  | Cryptographic agent identities + unified audit trail for all agent actions over regulated data — build or buy decision                                              | Q4 2026 |
+
+### Architecture Decision Required
+
+| Decision                     | Option A                           | Option B                                   | Owner |
+| ---------------------------- | ---------------------------------- | ------------------------------------------ | ----- |
+| Govern layer: build vs. buy  | Own implementation (Anthropic+MCP) | Google Gemini Enterprise Agent Platform    | CTO   |
+| Public register access model | Direct API federation              | Data broker / intermediary (e.g. Findynet) | CTO   |
+| Knowledge Catalog: scope     | DWS IQ agents only                 | Shared across Finnish tietotehdas partners | CEO   |
+
+---
+
+**Document Version:** 2.8
 **Created:** January 3, 2026
-**Last Updated:** April 16, 2026
-**Status:** All planned V1 gaps closed (13/13) — staging env, OpenAPI 79/79, SES migration, customer KB. One human action remaining: set SMTP credentials in Cloud Run.
+**Last Updated:** 10.05.2026
+**Status:** V1 complete. V2 System of Action track added — 6 features, 3 architecture decisions pending.
