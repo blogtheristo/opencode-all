@@ -169,4 +169,17 @@ describe('POST /api/v1/compliance/cost-estimate', () => {
     expect(res.status).toBe(200);
     expect(res.body.totalEstimatedCost).toBe(0);
   });
+
+  it('rejects invalid body types with 400', async () => {
+    const res = await request(app)
+      .post('/api/v1/compliance/cost-estimate')
+      .send({
+        annualEmissions: '10',
+        importQuantity: { bad: true },
+        sector: 'steel',
+        originCountry: 'CN',
+      });
+
+    expect(res.status).toBe(400);
+  });
 });
