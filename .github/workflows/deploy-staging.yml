@@ -7,7 +7,10 @@ name: Deploy to Staging (Cloud Run)
 # Image:  europe-north1-docker.pkg.dev/$PROJECT_ID/dws-iq/backend:staging-<sha>
 #
 # Required secrets (GitHub → Settings → Secrets → Actions):
-#   GCP_SA_KEY           — GCP service account JSON with Cloud Run + Artifact Registry roles
+#   GCP_SA_KEY           — GCP service account JSON with:
+#                          - Cloud Run Admin
+#                          - Artifact Registry Writer on europe-north1 repo dws-iq
+#                          - Service Account User (if required by deploy target)
 #   STAGING_SUPABASE_URL — Supabase URL for staging project
 #   STAGING_SUPABASE_ANON_KEY
 #   STAGING_SUPABASE_SERVICE_KEY
