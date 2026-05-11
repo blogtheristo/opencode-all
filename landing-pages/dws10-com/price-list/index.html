@@ -239,8 +239,43 @@
         font-size: 0.78rem;
         color: #94a3b8;
       }
-      .col-link a {
-        font-size: 0.82rem;
+      .col-link {
+        white-space: nowrap;
+      }
+      .col-link .act-btns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+      }
+      .col-link .act-btns a {
+        display: inline-block;
+        font-size: 0.72rem;
+        font-weight: 600;
+        padding: 3px 9px;
+        border-radius: 999px;
+        border: 1px solid;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      .col-link .act-btns a:hover {
+        text-decoration: none;
+        opacity: 0.82;
+      }
+      .act-card {
+        border-color: rgba(148, 163, 184, 0.35) !important;
+        color: #cbd5e1 !important;
+      }
+      .act-detail {
+        border-color: rgba(59, 130, 246, 0.5) !important;
+        color: #93c5fd !important;
+      }
+      .act-book {
+        border-color: rgba(16, 185, 129, 0.5) !important;
+        color: #6ee7b7 !important;
+      }
+      .act-email {
+        border-color: rgba(251, 191, 36, 0.4) !important;
+        color: #fcd34d !important;
       }
 
       .loading,
@@ -607,17 +642,35 @@
               "</div>" +
               '<table class="price-table"><thead><tr>' +
               "<th>ID</th><th>Product</th><th>Price (EUR)</th><th>Unit</th>" +
-              "<th>SKU / MPN</th><th>Details</th>" +
+              "<th>SKU / MPN</th><th>Actions</th>" +
               "</tr></thead><tbody>" +
               list
                 .map(function (p) {
                   var priceCell =
                     p.price === 0 ? '<span style="color:#fbbf24">Free / POA</span>' : eur(p.price);
                   var note = p.priceNote ? "<small>" + escapeHtml(p.priceNote) + "</small>" : "";
-                  var detailsHref = p.detailsUrl ? p.detailsUrl.replace(/^\.\.\//, "/") : "";
-                  var detailsLink = detailsHref
-                    ? '<a href="' + escapeHtml(detailsHref) + '">Spec</a>'
-                    : "—";
+                  var rawDetails = p.detailsUrl ? p.detailsUrl.replace(/^\.\.\//, "/") : "";
+                  var isMailto = rawDetails.indexOf("mailto:") === 0;
+                  var detailsHref = isMailto ? "" : rawDetails;
+                  var pid = escapeHtml(p.id || "");
+                  var pname = encodeURIComponent(p.name || p.id || "Product");
+                  var cardBtn =
+                    '<a class="act-card" href="/buy/#' + pid + '" title="Product card">Card</a>';
+                  var detailBtn = detailsHref
+                    ? '<a class="act-detail" href="' +
+                      escapeHtml(detailsHref) +
+                      '" title="Full product details">Details</a>'
+                    : "";
+                  var bookBtn =
+                    '<a class="act-book" href="/book/?product=' +
+                    pid +
+                    '" title="Book a meeting">Book&nbsp;Meeting</a>';
+                  var emailBtn =
+                    '<a class="act-email" href="mailto:sales@lifetime.fi?subject=Enquiry%3A%20' +
+                    pname +
+                    '" title="Email sales">Email</a>';
+                  var btns =
+                    '<div class="act-btns">' + cardBtn + detailBtn + bookBtn + emailBtn + "</div>";
                   return (
                     "<tr>" +
                     '<td class="col-id" data-label="ID">' +
@@ -636,8 +689,8 @@
                     '<td class="col-sku" data-label="SKU">' +
                     escapeHtml(p.mpn || p.sku || "—") +
                     "</td>" +
-                    '<td class="col-link" data-label="Details">' +
-                    detailsLink +
+                    '<td class="col-link" data-label="Actions">' +
+                    btns +
                     "</td>" +
                     "</tr>"
                   );
