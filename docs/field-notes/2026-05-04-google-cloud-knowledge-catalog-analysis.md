@@ -358,6 +358,8 @@ DWS Knowledge Catalog is the **Gaia-X native, EU AI Act compliant, regulation-fi
 
 ---
 
+---
+
 # VERSION AND AGENT HISTORY
 
 Version: 1.0

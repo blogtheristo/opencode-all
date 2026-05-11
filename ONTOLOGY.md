@@ -81,8 +81,8 @@ Sanan ontologia tausta liittyy filosofiaan ja erityisesti olemassaolon peruskysy
 
 Sana _ontologia_ tulee kreikan kielen sanoista:
 
-- **ὄν (ón)** – oleva, se mikä on
-- **λόγος (lógos)** – oppi, puhe, järjellinen selitys
+- **ὄν (on)** – oleva, se mikä on
+- **λόγος (logos)** – oppi, puhe, järjellinen selitys
 
 Kirjaimellisesti ontologia tarkoittaa siis _oppia olevasta_ — eli oppia siitä, mitä on olemassa ja millä tavoin.
 
@@ -226,7 +226,7 @@ LWM = (Spatial Map + Temporal Timeline + Causal Logic + Safety Constraints)
 │                  │     Layer      │                     │
 │                  └───────┬────────┘                     │
 │                          │                              │
-│         ┌────────────────┼────────────────┐            │
+│         ┌────────────────┬────────────────┐            │
 │         │                │                │            │
 │    ┌────▼────┐    ┌─────▼─────┐    ┌────▼────┐       │
 │    │ LLM API │    │ Rule Base │    │ Memory  │       │
@@ -662,23 +662,23 @@ geography_dws6:
 ```
 ┌─────────────┐
 │   CAPTURE   │  Field note / Customer interaction
-└──────┬──────┘
+└─────┬──────┘
        │
        ▼
 ┌─────────────┐
 │   ONTOLOGY  │  Tag entities, geography, temporal context
 │   MAPPING   │
-└──────┬──────┘
+└─────┬──────┘
        │
        ▼
 ┌─────────────┐
 │ ORCHESTRATE │  Link note to rules, actions, decisions
-└──────┬──────┘
+└─────┬──────┘
        │
        ▼
 ┌─────────────┐
 │   REFINE    │  Elevate to Core Artifact
-└──────┬──────┘
+└─────┬──────┘
        │
        ▼
 ┌─────────────┐
@@ -1688,6 +1688,7 @@ The DWS Ontology Standard is positioned as a **European Ontology Standard** — 
 | Multi-tier agent memory                         | Working/episodic/semantic/proc.  | Artifact weights only | §13.6 — Q1 2027                            |
 | Embedded edge ontology                          | Native edge runtime              | Spec phase            | §13.7 — Q2 2027                            |
 | Operational system connectors (ERP/MES/WMS/IoT) | Hundreds of mature adapters      | Aspirational          | Pulls from §13.1; Q4 2026 first 3 adapters |
+| **Knowledge Catalog Runtime**                   | GC-KC (Google), Atlan, Collibra  | Fragmented (5 stores) | §15 — Q2–Q4 2026                          |
 
 ### Strategic posture
 
