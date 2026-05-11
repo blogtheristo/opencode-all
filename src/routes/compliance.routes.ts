@@ -470,12 +470,9 @@ router.post('/cost-estimate', async (req: Request, res: Response, next: NextFunc
 
     const ets = estimateETSCost(annualEmissions, freeAllocation);
     const livePrice = await getCarbonPrice();
-    const cbam = await estimateCBAMCostAsync(
-      importQuantity,
-      sector,
-      originCountry,
-      livePrice.priceEur,
-    );
+    const carbonPrice =
+      typeof livePrice.priceEur === 'number' ? livePrice.priceEur : ETS_CARBON_PRICE_EUR;
+    const cbam = await estimateCBAMCostAsync(importQuantity, sector, originCountry, carbonPrice);
 
     res.json({
       ets: {
@@ -488,7 +485,7 @@ router.post('/cost-estimate', async (req: Request, res: Response, next: NextFunc
         covered: cbam.covered,
         embeddedEmissions: cbam.embeddedEmissions,
         estimatedCost: cbam.estimatedCost,
-        certificatePrice: livePrice.priceEur,
+        certificatePrice: carbonPrice,
         certificatePriceDate: livePrice.date,
         certificatePriceSource: livePrice.source,
         unit: 'EUR',

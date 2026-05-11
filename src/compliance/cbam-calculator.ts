@@ -312,12 +312,16 @@ export async function calculateCBAMAsync(
 /**
  * Quick CBAM cost estimate using the live EU ETS certificate price.
  * Async counterpart of estimateCBAMCost().
+ *
+ * Pass `certificatePrice` when the caller already holds a fetched price to
+ * avoid a redundant getCarbonPrice() call. Omit to fetch automatically.
  */
 export async function estimateCBAMCostAsync(
   importQuantityTonnes: number,
   sector: string,
   originCountry: string = 'CN',
+  certificatePrice?: number,
 ): Promise<{ embeddedEmissions: number; estimatedCost: number; covered: boolean }> {
-  const price = await getCarbonPriceEur();
+  const price = certificatePrice ?? (await getCarbonPriceEur());
   return estimateCBAMCost(importQuantityTonnes, sector, originCountry, price);
 }
