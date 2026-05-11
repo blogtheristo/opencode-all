@@ -6,7 +6,7 @@
     <title>Price List · DWS IQ Platform · Lifetime Oy</title>
     <meta
       name="description"
-      content="Official DWS IQ + Firehorse B2B price list. EUR, VAT 0% (reverse charge). Reviewed quarterly. Single source of truth synced from products.json."
+      content="Official DWS IQ + Firehorse B2B price list. EUR, VAT 0% (reverse charge). Reviewed quarterly."
     />
     <meta name="author" content="Lifetime Oy" />
     <meta name="robots" content="index, follow" />
@@ -410,14 +410,13 @@
           <strong>B2B Pricing · VAT 0% (reverse charge).</strong>
           All prices in EUR, excluding VAT. Finnish VAT (25.5%) is added at checkout for FI-billed
           customers. EU intra-community supplies are reverse-charged against a valid EU VAT number.
-          Quote valid <span id="mQuote">30 days</span>. Data source:
-          <a href="/config/products.json" target="_blank" rel="noopener">products.json</a>.
+          Quote valid <span id="mQuote">30 days</span>.
         </div>
       </header>
 
       <main id="priceListMain">
         <div class="loading">
-          <p>Loading price list from products.json…</p>
+          <p>Loading price list…</p>
         </div>
       </main>
 
@@ -433,10 +432,6 @@
           <h3>Price list governance</h3>
           <p>Owner: <span id="lOwner">Risto Anton Päärni</span></p>
           <p>Cadence: Reviewed every calendar quarter</p>
-          <p>Source of truth: <code>dws10.com/config/products.json</code></p>
-          <p>
-            This page is generated directly from products.json at load time — no hardcoded prices.
-          </p>
         </div>
         <div>
           <h3>Contact</h3>
@@ -688,7 +683,7 @@
             '<div class="error"><p>Could not load price list: ' +
             escapeHtml(msg) +
             "</p>" +
-            '<p style="margin-top:10px"><a href="/config/products.json">Open products.json directly</a></p></div>';
+            '<p style="margin-top:10px">Please refresh, or email <a href="mailto:sales@lifetime.fi">sales@lifetime.fi</a>.</p></div>';
         }
 
         fetch("../config/products.json", { cache: "no-store" })
