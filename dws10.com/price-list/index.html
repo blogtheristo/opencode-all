@@ -461,8 +461,17 @@
           digital: "Digital Services",
           hardware: "Sovereign Hardware",
           "add-on": "Add-ons",
+          subscription: "Required Subscriptions",
         };
-        var CATEGORY_ORDER = ["platform", "ai-cloud", "advisory", "digital", "hardware", "add-on"];
+        var CATEGORY_ORDER = [
+          "platform",
+          "ai-cloud",
+          "advisory",
+          "digital",
+          "hardware",
+          "add-on",
+          "subscription",
+        ];
 
         function eur(n) {
           if (n === null || n === undefined) return "—";
@@ -539,8 +548,17 @@
           }
 
           var products = data.products || {};
+          var subscriptions = data.subscriptions || {};
           var buckets = {};
           var archived = [];
+
+          // Merge subscriptions into the product map so they render in the
+          // "Required Subscriptions" category on the live price list page.
+          Object.keys(subscriptions).forEach(function (key) {
+            if (!products[key]) {
+              products[key] = Object.assign({ storeCategory: "subscription" }, subscriptions[key]);
+            }
+          });
 
           Object.keys(products).forEach(function (key) {
             var p = products[key];

@@ -7,9 +7,9 @@
 | **Company**           | Outokumpu Oyj                                                                                      |
 | **HQ**                | Helsinki, Finland (Risto's home market)                                                            |
 | **Size**              | ~9,000 employees, €5B+ revenue                                                                     |
-| **Primary Contact**   | Heidi Peltonen, VP Sustainability                                                                  |
-| **Secondary Contact** | Matthieu (article author, Commercial/Sustainability team)                                          |
-| **Status**            | Research complete — outreach not yet sent                                                          |
+| **Primary Contact A** | Heidi Peltonen — heidi.peltonen@outokumpu.com — VP Sustainability (policy, PCF, CBAM advocacy)     |
+| **Primary Contact B** | Matthieu Jehl — matthieu.jehl@outokumpu.com — President, Business Line Stainless Europe            |
+| **Status**            | Both emails SENT 2026-05-10 — Jehl (v6.0) + Heidi (earlier version) — awaiting replies             |
 | **Partnership Type**  | Strategic Alliance + Channel Partner                                                               |
 | **Priority**          | High — shared Finnish market, active CBAM posture, EVOLVE strategy 2026–2030                       |
 | **Source**            | CBAM article: outokumpu.com/en/expertise/.../how-cbam-will-reshape-the-stainless-steel-value-chain |
@@ -135,11 +135,18 @@ stack. We integrate with their output (certificates), not their internal ERP.
 - Drives CBAM lobbying, external policy positions, and sustainability partner decisions
 - **Pitch angle**: CBAM is her project. We amplify its market impact.
 
-### Matthieu (article author — 2026 CBAM reshape article)
+### Matthieu Jehl — President, Business Line Stainless Europe
 
-- Published the commercial-facing CBAM value chain article with UTM tags (Brand + Commercial + Traffic campaign)
-- This is a commercially-oriented sustainability comms piece — Matthieu is likely in Sales/Commercial + Sustainability overlap
-- **Pitch angle**: We convert their thought leadership content into customer action
+- Appointed to Outokumpu Leadership Team in 2025; reports to CEO Kati ter Horst
+- Based in Krefeld, Germany — owns P&L for all European stainless operations
+- 20+ years in the European steel industry; deep understanding of the EU fabricator market
+- Author of the commercial CBAM article — wrote it as a C-suite position statement, not marketing copy
+- Author page: outokumpu.com/fi-fi/expertise/industrial-evolution-insights/author/matthieu-jehl
+- LinkedIn: linkedin.com/in/matthieu-jehl/
+- **He owns the fabricator customer relationships we want channel access to**
+- **Pitch angle**: DWS makes Outokumpu the provably cheapest CBAM-adjusted choice for his European
+  fabricator accounts — this is a revenue argument, not a sustainability argument. The €120k/1,000t
+  CBAM saving goes directly into his customers' procurement decisions.
 
 ### Key Outokumpu URLs
 
@@ -164,19 +171,21 @@ stack. We integrate with their output (certificates), not their internal ERP.
 
 ### Risks and Honest Gaps
 
-| Risk                                                                                                 | Mitigation                                                                             |
-| ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| Outokumpu operates at enterprise scale — they may want Big 4 / Deloitte-style partner, not a startup | Lead with the PCF certificate integration story, not platform ambition                 |
-| Their customer base may be too large to serve via DWS IQ 6 today                                     | Propose a focused pilot: 3–5 key fabricator accounts in Finland/Germany                |
-| Matthieu's article is commercial marketing — may be a comms team, not decision-maker                 | Outreach to Heidi Peltonen (VP Sustainability) as primary                              |
-| Microsoft Sustainability Manager is already handling their CSRD — we could be seen as competing      | Emphasize we are downstream customer tooling, not a Sustainability Manager replacement |
+| Risk                                                                                                 | Mitigation                                                                                 |
+| ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Outokumpu operates at enterprise scale — they may want Big 4 / Deloitte-style partner, not a startup | Lead with the PCF certificate integration story, not platform ambition                     |
+| Their customer base may be too large to serve via DWS IQ 6 today                                     | Propose a focused pilot: 3–5 key fabricator accounts in Finland/Germany                    |
+| Matthieu Jehl is President of Stainless Europe — a C-suite cold outreach may be screened             | Lead with the fabricator revenue argument (€120k/1,000t CBAM saving); keep it to 150 words |
+| Microsoft Sustainability Manager is already handling their CSRD — we could be seen as competing      | Emphasize we are downstream customer tooling, not a Sustainability Manager replacement     |
 
 ---
 
 ## Next Steps
 
-- [ ] Draft outreach email to Heidi Peltonen (see companion email draft)
-- [ ] Prepare 1-pager: "Outokumpu × DWS IQ 6 — CBAM-Ready Steel for Your Customers"
+- [x] Draft outreach email to Heidi Peltonen — see EMAIL_DRAFT_OUTOKUMPU_HEIDI_PELTONEN.md (v3.0)
+- [x] Draft direct email to Matthieu Jehl — see EMAIL_DRAFT_OUTOKUMPU_HEIDI_PELTONEN.md (Matthieu section)
+- [x] Prepare partnership offer — OUTOKUMPU_PARTNERSHIP_OFFER.md (v3.0, five-industry coverage)
+- [ ] Send dual outreach: Heidi (sustainability/policy angle) + Matthieu (revenue/fabricator angle)
 - [ ] Identify 2–3 Outokumpu key accounts in Finland/Germany that are active CBAM filers
 - [ ] Review Outokumpu's PCF certificate format (ISO 14067) — map fields to DWS CBAM agent input schema
 - [ ] Set up NDA (use `Partners/NDA_TEMPLATE_EU_2026.md` v2.0)
@@ -187,7 +196,9 @@ stack. We integrate with their output (certificates), not their internal ERP.
 
 1. Does Outokumpu currently have any preferred CBAM compliance vendor for their customer base?
 2. What file format do Outokumpu PCF certificates ship in? (PDF only, or structured data export?)
-3. Who at Outokumpu owns downstream customer enablement for CBAM — Heidi's team or Commercial?
+3. ~~Who at Outokumpu owns downstream customer enablement for CBAM?~~ **ANSWERED:** Matthieu Jehl
+   (President, Stainless Europe) owns the fabricator commercial relationships; Heidi Peltonen owns
+   the sustainability/PCF/policy side. Both are co-primary contacts.
 4. Is there an active Outokumpu customer portal where certificates are distributed?
 
 ---
@@ -196,8 +207,9 @@ stack. We integrate with their output (certificates), not their internal ERP.
 
 VERSION AND AGENT HISTORY
 
-| Version | Date       | Agent / Author      | Change                                                           |
-| ------- | ---------- | ------------------- | ---------------------------------------------------------------- |
-| 1.0     | 2026-05-07 | Claude (Sonnet 4.6) | Initial partner profile created from CBAM article + web research |
+| Version | Date       | Agent / Author      | Change                                                                                                                                         |
+| ------- | ---------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1.0     | 2026-05-07 | Claude (Sonnet 4.6) | Initial partner profile created from CBAM article + web research                                                                               |
+| 2.0     | 2026-05-10 | Claude (Sonnet 4.6) | Matthieu Jehl identified: President Stainless Europe (not comms); dual-primary contact structure; Open Question 3 answered; Next Steps updated |
 
 ---
