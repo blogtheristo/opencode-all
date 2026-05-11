@@ -48,7 +48,7 @@
   "runner": "root@runsc",
   "runner_kind": "local",
   "schema": "ci-audit/v1",
-  "this_record_hash": "ab3a7b906a7ee3d712145d68c94009ada3c6da19c2127292284d96c8a9d17ae4",
+  "this_record_hash": "cdcd8cba762e6f04eebde303ff3d3e472914f195d59c729de7fe4724188d14df",
   "trigger_kind": "pre-push",
   "ts": "2026-04-22T03:23:01Z"
 }

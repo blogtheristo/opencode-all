@@ -50,12 +50,12 @@
   "commit_sha": "43720ffcf28c3e66afbf7051a99332968cf393b7",
   "duration_ms": 15922,
   "overall_pass": false,
-  "prev_record_hash": "ab3a7b906a7ee3d712145d68c94009ada3c6da19c2127292284d96c8a9d17ae4",
+  "prev_record_hash": "cdcd8cba762e6f04eebde303ff3d3e472914f195d59c729de7fe4724188d14df",
   "repo": "blogtheristo/dws6",
   "runner": "root@runsc",
   "runner_kind": "local",
   "schema": "ci-audit/v1",
-  "this_record_hash": "1741166d33d36e895e68adff7549de5ecd6a0d7866f7c348792b30e9abf339c5",
+  "this_record_hash": "a914bb6208632dbd31520ec39b8e1181c1e899097778a10f9ee49c927afd14ab",
   "trigger_kind": "pre-push",
   "ts": "2026-04-22T10:15:24Z"
 }
