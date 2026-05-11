@@ -27,7 +27,7 @@ beforeAll(async () => {
 
   // Error handler
   app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
-    res.status(err.status || 500).json({ error: err.message });
+    res.status(err.statusCode || err.status || 500).json({ error: err.message });
   });
 });
 
