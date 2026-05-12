@@ -4,11 +4,11 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - 'src/**'
-      - 'package.json'
+      - "src/**"
+      - "package.json"
   schedule:
     # Weekly Sunday 03:00 UTC
-    - cron: '0 3 * * 0'
+    - cron: "0 3 * * 0"
   workflow_dispatch:
 
 jobs:
@@ -36,18 +36,21 @@ jobs:
       - name: Start app in background
         run: |
           npx tsx src/app.ts &
-          sleep 5
-          curl -f http://localhost:8080/health || echo "App may need env vars — running ZAP against available endpoints"
+          sleep 10
+          curl -f http://localhost:8080/health
         env:
           NODE_ENV: test
           JWT_SECRET: ci-test-secret-minimum-32-characters-long
           PORT: 8080
+          SUPABASE_URL: http://127.0.0.1:54321
+          SUPABASE_SERVICE_ROLE_KEY: test-service-role-key
+          SUPABASE_ANON_KEY: test-anon-key
 
       - name: OWASP ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.14.0
         with:
-          target: 'http://localhost:8080'
-          rules_file_name: '.zap/rules.tsv'
+          target: "http://localhost:8080"
+          rules_file_name: ".zap/rules.tsv"
           fail_action: true
           allow_issue_writing: false
           artifact_name: zap-report

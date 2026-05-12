@@ -23,11 +23,9 @@ import {
   TOTAL_DISCLOSURES,
 } from '../compliance/esrs-registry.js';
 import { estimateETSCost } from '../compliance/ets-calculator.js';
-import { estimateCBAMCost } from '../compliance/cbam-calculator.js';
-import {
-  CBAM_CERTIFICATE_PRICE_EUR,
-  ETS_CARBON_PRICE_EUR,
-} from '../compliance/emission-factors.js';
+import { estimateCBAMCostAsync } from '../compliance/cbam-calculator.js';
+import { getCarbonPrice } from '../compliance/ember-carbon-price.js';
+import { ETS_CARBON_PRICE_EUR } from '../compliance/emission-factors.js';
 import { compareAgainstBenchmark, getBenchmark } from '../compliance/eu-benchmarks.js';
 import { fetchPublicComplianceData } from '../compliance/public-data-fetcher.js';
 import { extractComplianceData } from '../compliance/esg-report-extractor.js';
@@ -460,7 +458,7 @@ router.post(
  * Estimate ETS + CBAM compliance costs for a given scenario.
  * Quick calculation without full assessment — useful for onboarding and sales.
  */
-router.post('/cost-estimate', (req: Request, res: Response, next: NextFunction) => {
+router.post('/cost-estimate', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const {
       annualEmissions = 0,
@@ -471,7 +469,10 @@ router.post('/cost-estimate', (req: Request, res: Response, next: NextFunction) 
     } = req.body;
 
     const ets = estimateETSCost(annualEmissions, freeAllocation);
-    const cbam = estimateCBAMCost(importQuantity, sector, originCountry);
+    const livePrice = await getCarbonPrice();
+    const carbonPrice =
+      typeof livePrice.priceEur === 'number' ? livePrice.priceEur : ETS_CARBON_PRICE_EUR;
+    const cbam = await estimateCBAMCostAsync(importQuantity, sector, originCountry, carbonPrice);
 
     res.json({
       ets: {
@@ -484,7 +485,9 @@ router.post('/cost-estimate', (req: Request, res: Response, next: NextFunction) 
         covered: cbam.covered,
         embeddedEmissions: cbam.embeddedEmissions,
         estimatedCost: cbam.estimatedCost,
-        certificatePrice: CBAM_CERTIFICATE_PRICE_EUR,
+        certificatePrice: carbonPrice,
+        certificatePriceDate: livePrice.date,
+        certificatePriceSource: livePrice.source,
         unit: 'EUR',
       },
       totalEstimatedCost: Math.round((ets.estimatedCost + cbam.estimatedCost) * 100) / 100,
