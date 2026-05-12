@@ -11,10 +11,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.52
+Version: 3.56
 
 Sessions & Modifications:
 
+- Version: 3.56 | Tool: Claude Code (Opus 4.7) | Session: claude/deployment-strategies-comparison-T5gcw | Date: 12.05.2026 | Changes: Lisätty ristiviittaukset uuteen `DWS_DEPLOYMENT_STANDARD.md` v1.0 -standardiin osioon 14.11 (PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri) ja osioon 14.16 (Huhtikuun 2026 kehitys — Report Engine tuotannossa). Deployment Standard ottaa käyttöön eteenpäin suuntautuvan migraation (`supabase/migrations/`) expand / contract -kuvion kanssa kanonisena käytäntönä, nimeää pintakohtaisen käyttöönotto-ontologian (US Public / EU Development / Aegis Sovereign -pilvijurisdiktiot × Connect / Sovereign infra / Aegis -tuotetasot), ja määrittelee neljä muuttumatonta asiakaskohtaista manifestiä + Client Artifact Bundle -paketin, joka toimitetaan jokaisen julkaisun mukana. Kaikki 4 opinnäytetyötiedostoa nostettu lukon mukaisesti (3.52 → 3.56; väliversiot varattu).
 - Version: 3.52 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-ontology-blog-3RGKG | Date: 29.04.2026 | Changes: Lisätty luku 1.7 "Ontologia — etymologia ja filosofinen tausta", joka linkittää tohtoriohjelman suunnitelman ONTOLOGY.md v1.3:een (kreikan ón + lógos, Aristoteles, skolastiikan 1600–1700-luvun systematisointi, nykyinen tietojenkäsittelytieteen merkitys). Yhdenmukaistaa hiilitase-teesin DWS Ontology Standardin kanssa. Kaikki 4 opinnäytetyötiedostoa nostettu lukon mukaisesti.
 - Version: 3.51 | Tool: Claude Code (Haiku 4.5) | Session: claude/sync-version-numbering-adEeB | Date: 28.04.2026 | Changes: Bumped from 3.39 to 3.51 (12 steps × 0.01). Unified thesis version track maintained. Created new Tutkimussuunnitelma_3.51.md (Research Plan) with three research streams (KYA standardization, DWS 7 empirical testbed, dual-use industries), eight research questions, "Human in Command ja Human in Loop" governance framework; versioning format rule (.X9 → .X+1,0) documented for DWS_DOCUMENT_STANDARD.md §5
 - Version: 3.39 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Terminology rename — "Aiven overlay" / "Aiven layer" (deprecated infrastructure labels) → "Article 12 Logging Pipeline" per new DWS_ARTICLE_12_LOGGING_STANDARD.md v1.0 (unified 3-tier canonical term). Aiven remains the correct name for the Postgres SaaS. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule; only V3Thesis_EN had the infra-context string in content
@@ -1732,6 +1733,8 @@ Maaliskuuhun 2026 mennessä taitoinventaario kasvoi 6:sta 21:een tuotantotaitoon
 
 ### Osio 14.11: PostgreSQL-sarakemuotoinen HTAP-arkkitehtuuri — DWS-tietostandardi
 
+HTAP-pinon skeemamuutosten käyttöönottoa ohjaa `DWS_DEPLOYMENT_STANDARD.md` (v1.0, 2026-05-12) §2 Migration Event ja §4 Migration gate. Standardi ottaa käyttöön eteenpäin suuntautuvan migraation (`supabase/migrations/`, 75 migraatiota tänään) kanonisena käytäntönä ja suosittelee **expand / contract** -kuviota rikkoville skeemamuutoksille (deploy 1 lisää; deploy 2 täyttää; deploy 3 poistaa). Käyttöönottoa edeltävän varmuuskopion tuoreus (< 24 h, `scripts/db-daily-backup.sh`:n mukaan; RTO / RPO `DWS_DATA_STANDARD.md`:n mukaan) on käyttöönottoportin edellytys kaikille `production`-ympäristöä koskeville migraatioille.
+
 Firehorse-toimintamalli tuottaa kasvavia määriä kampanjatapahtumia, agenttisuorituslokeja ja auditointijälkidataa. Analytiikan suorittaminen transaktiotaulujen varastoon luo suorituskyvyn pullonkauloja datan kasvaessa.
 
 **Ratkaisu: Kaksitasoinen HTAP Aiven-first-mandaatilla**
@@ -1934,7 +1937,7 @@ Pro gradu (V3Thesis) kasvoi 82 sivuun ja yli 26 000 sanaan tekoälyavusteisen tu
 
 ### 14.16 Huhtikuun 2026 kehitys: Report Engine tuotannossa, Product Line V2, Snap-mittaustulos ja perustajan→tiimin siirtymä
 
-_Lisätty: 20.04.2026 | Lähde: PR #1064, #1109, #1110; kenttämuistiinpanot 2026-04-06–2026-04-19; Firehorse Snap -mittaustulos (Firecracker MicroVM); SOLO_FOUNDER_STATEMENT v1.2._
+_Lisätty: 20.04.2026 | Lähde: PR #1064, #1109, #1110; kenttämuistiinpanot 2026-04-06–2026-04-19; Firehorse Snap -mittaustulos (Firecracker MicroVM); SOLO_FOUNDER_STATEMENT v1.2. Päivitetty 2026-05-12: kaikkien alla olevien virstanpylväiden käyttöönottoa — Report-ajastimen, V2-tuotelinjan, Snap MicroVM:n ja perustaja→tiimi-luovutuksen — ohjaa nyt `DWS_DEPLOYMENT_STANDARD.md` v1.0, joka lisää pintakohtaisen käyttöönotto-ontologian, neljä muuttumatonta asiakaskohtaista manifestiä (File Index, Per-Tenant Secrets, Personnel, Connector Data Catalogue), Client Artifact Bundle -paketin (raporttipohjat, työnkulut, koulutusdokumentit, agenttien kyvykkyyskortit, vaatimustenmukaisuussidokset, KB-osajoukko) ja käyttöönottoportin edellytykset (Code Versioning §19, Article 12 -lokitus, KYA-sidottu käyttöönottovaltuutus, Observability-minimit, Subscription State, Update Lane). Aegis-tason tuotantokäyttöönotot toimitetaan Aegis Sovereign -pilveen ja avaavat LWM Acer Surface -elementin; Connect-tason markkinat (UAE, Singapore) toimitetaan US Public -pilveen._
 
 Versioiden 2.7 (18.03.2026) ja 2.8 (20.04.2026) välissä Firehorse eteni dokumentoidusta toimintamallista mitattavaksi tuotantojärjestelmäksi. Viisi operatiivista virstanpylvästä määrittää tämän ikkunan.
 
