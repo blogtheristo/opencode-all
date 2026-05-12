@@ -650,14 +650,16 @@
                   var pid = escapeHtml(p.id || "");
                   var pname = encodeURIComponent(p.name || p.id || "Product");
                   var cardBtn =
-                    '<a class="act-card" href="/buy/#' + pid + '" title="Product card">Card</a>';
+                    '<a class="act-card" href="/buy/#product-' +
+                    pid +
+                    '" title="Product card">Card</a>';
                   var detailBtn = detailsHref
                     ? '<a class="act-detail" href="' +
                       escapeHtml(detailsHref) +
                       '" title="Full product details">Details</a>'
                     : "";
                   var bookBtn =
-                    '<a class="act-book" href="/book/?product=' +
+                    '<a class="act-book" href="/book/?service=demo&amp;product=' +
                     pid +
                     '" title="Book a meeting">Book&nbsp;Meeting</a>';
                   var emailBtn =
