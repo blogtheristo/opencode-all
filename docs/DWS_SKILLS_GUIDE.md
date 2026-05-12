@@ -115,6 +115,16 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 
 **Output:** Queue files at `.claude/clawdbot/queue/<id>.md`, JSON status/list output, state in `.claude/clawdbot/state.json`.
 
+### 3.8 /promote-proposal
+
+**When to use:** After `/clawdbot dream-curate`, `dream-propose`, or `dream-prune` has written a proposal under `.claude/clawdbot/proposals/`, when you want to actually apply the changes to the repository. Closes the dream cycle.
+
+**What it does:** Reads a proposal file (or `--next` to auto-pick the newest unpromoted one), detects its kind (`curate-`, `skill-`, `archival-`), builds a per-item checklist, and walks each one through an `AskUserQuestion` HIL gate before applying. Curation items become memory notes + CLAUDE.md edits + queue mark-dones; skill candidates become real `skills/<name>/SKILL.md` + `.claude/commands/<name>.md` + skills-guide entries; archival items become `git mv skills/<name> skills/<name>_OLD` (per CLAUDE.md no-rm rule). After the loop, prepends `STATUS: PROMOTED <date>` to the proposal — proposal files are kept as historical record, never deleted.
+
+**Trigger phrases:** "promote proposal", "apply curate", "ship the proposal", "promote dream output", "promote curation", "promote skill candidate"
+
+**Output:** Edits applied (per HIL approval), queue ids marked done, proposal file annotated `STATUS: PROMOTED`. Trust zone YELLOW (touches `skills/`, `.claude/commands/`, `CLAUDE.md`, `docs/DWS_SKILLS_GUIDE.md`) but every change is HIL-gated.
+
 ## 4. Agent Discovery & Execution
 
 ### 4.1 /discover-agents
