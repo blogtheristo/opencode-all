@@ -51,13 +51,18 @@ app = FastAPI(
     redoc_url="/redoc",
 )
 
-# CORS configuration
+# CORS configuration - Follow DWS_SECURITY_STANDARD.md Section 13.3
+_CORS_ORIGINS: list[str] = os.getenv(
+    "CORS_ALLOWED_ORIGINS",
+    "http://localhost:3000,https://dws10.com,https://onelifetime.world",
+).split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=os.getenv("CORS_ORIGINS", "*").split(","),
+    allow_origins=_CORS_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization"],
 )
 
 # Initialize report engine

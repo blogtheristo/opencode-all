@@ -1,8 +1,8 @@
 ---
 title: DWS Security Standard
-version: 2.2
+version: 2.3
 created: 2026-02-07
-last_modified: 2026-04-10
+last_modified: 2026-05-12
 author: Lifetime Oy Security Team
 language: en
 languages_available: [en]
@@ -19,10 +19,11 @@ toc-depth: 3
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.2
+Version: 2.3
 
 Sessions & Modifications:
 
+- Version: 2.3 | Tool: Claude Code (Opus 4.7) | Session: claude/deployment-strategies-comparison-T5gcw | Date: 12.05.2026 | Changes: Added Section 20 (Related Standards) with back-reference to `DWS_DEPLOYMENT_STANDARD.md` v1.0. The Deployment Standard makes Code Versioning (§19 of `DWS_DOCUMENT_STANDARD.md`), Article 12 logging (`DWS_ARTICLE_12_LOGGING_STANDARD.md`), KYA-bound deploy authority, and Observability minimums deploy-gate prerequisites that this Security Standard's controls feed into. No edit to existing sections 1–19.
 - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/connect-kya-dws-cli-0MMIB | Date: 10.04.2026 | Changes: Added Section 18.6 (KYA Control Surfaces — CLI, HTTP, Webhook) documenting the `dws kya status` / `dws kya snap` CLI paths, timing-safe `ADMIN_API_KEY` auth pattern, mandatory forensic dumps, accepted reason codes, and cross-reference to `/kya` slash command; renumbered NIS2 compliance statement to 18.7 and updated it to mention operator CLI path
 - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/audit-shufti-dpa-artifacts-HFEGx | Date: 08.04.2026 | Changes: Updated Section 18.5 with Shufti Pro sub-processor risk assessment (TeleSign noyb complaint, Twilio security incidents, Cloudflare/IPStack risks) from PR #768 DPA clause audit; added ML training prohibition control to IDV partner controls table
 - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/dws-iq-synthetic-nervous-9TtAB | Date: 06.04.2026 | Changes: Added Section 19 (Synthetic Data & Model Fine-Tuning Security) — synthetic data generation controls, model provenance, inference isolation, drift monitoring, adversarial integrity, NIS2 compliance statement for NVIDIA NeMo DataDesigner integration
@@ -45,7 +46,7 @@ Session Links & References:
 Document Status:
 
 - Created: 07.02.2026
-- Last Modified: 09.03.2026
+- Last Modified: 12.05.2026
 - Language: English
 - Languages Available: EN
 - Publication Status: ACTIVE
@@ -584,15 +585,15 @@ DWS threat modeling uses **MITRE ATLAS** (Adversarial Threat Landscape for AI Sy
 
 ### 9.1 Current Compliance Status
 
-| Regulation               | Readiness | Deadline                                                                                                                                                                                  | DWS Action Required                                                                                                                                                                   |
-| ------------------------ | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **EU AI Act**            | 80%       | August 2, 2026 (original); **Dec 2027 if Omnibus passes** — high-risk applicability now tied to availability of harmonised standards/guidance per Nov 2025 Digital Omnibus on AI proposal | Close Article 12 logging gaps, complete technical documentation. **Note:** Omnibus does NOT weaken Article 12 substance — logging remains mandatory. Lighter QMS/doc burden for SMEs. |
-| **GDPR**                 | 95%       | Active                                                                                                                                                                                    | Maintain DPA readiness, quarterly privacy review                                                                                                                                      |
-| **NIS2 Directive**       | 75%       | Active                                                                                                                                                                                    | Expand incident response, strengthen supply chain security                                                                                                                            |
-| **Fit for 55**           | 90%       | Ongoing                                                                                                                                                                                   | Validate carbon footprint calculator, expand industry coverage                                                                                                                        |
-| **CSRD**                 | 85%       | Active                                                                                                                                                                                    | Automate sustainability reporting for client portfolio                                                                                                                                |
-| **Digital Services Act** | 90%       | Active                                                                                                                                                                                    | Voluntary compliance with Articles 14-24                                                                                                                                              |
-| **EU Data Act**          | 80%       | Active                                                                                                                                                                                    | Data portability (NDJSON/Parquet), sovereignty options                                                                                                                                |
+| Regulation               | Readiness | Deadline                                                                                                                                                          | DWS Action Required                                                                                                                                                                               |
+| ------------------------ | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **EU AI Act**            | 80%       | Annex III: **2 Dec 2027**; Annex I embedded: **2 Aug 2028** (Omnibus provisional agreement 7 May 2026; was 2 Aug 2026). Art. 12 + Art. 50 obligations active now. | Close Article 12 logging gaps, complete technical documentation. Art. 12 substance unchanged — logging remains mandatory. Lighter QMS/doc burden for SMEs per Omnibus proportionality provisions. |
+| **GDPR**                 | 95%       | Active                                                                                                                                                            | Maintain DPA readiness, quarterly privacy review                                                                                                                                                  |
+| **NIS2 Directive**       | 75%       | Active                                                                                                                                                            | Expand incident response, strengthen supply chain security                                                                                                                                        |
+| **Fit for 55**           | 90%       | Ongoing                                                                                                                                                           | Validate carbon footprint calculator, expand industry coverage                                                                                                                                    |
+| **CSRD**                 | 85%       | Active                                                                                                                                                            | Automate sustainability reporting for client portfolio                                                                                                                                            |
+| **Digital Services Act** | 90%       | Active                                                                                                                                                            | Voluntary compliance with Articles 14-24                                                                                                                                                          |
+| **EU Data Act**          | 80%       | Active                                                                                                                                                            | Data portability (NDJSON/Parquet), sovereignty options                                                                                                                                            |
 
 ### 7.2 Safety Report-Driven Compliance Actions
 
@@ -1595,7 +1596,16 @@ DWS IQ integrates NVIDIA NeMo DataDesigner to generate synthetic regulatory data
 
 ---
 
-**Document Version:** 2.0
+## 20. Related Standards
+
+- `DWS_DEPLOYMENT_STANDARD.md` v1.0 — Per-Surface deploy ontology, gates, per-tenant manifests (File Index, Per-Tenant Secrets, Personnel, Connector Data Catalogue), and Client Artifact Bundle. Makes the following Security-Standard controls deploy-gate prerequisites: §3.6 RLS coverage check (read at gate time), §14 sandbox isolation (per-environment Memory isolation in `DWS_DEPLOYMENT_STANDARD.md` §6.3), §18 KYA framework (deploy authority gate in `DWS_DEPLOYMENT_STANDARD.md` §4), and the scattered secret-rotation references that the Deployment Standard promotes to a Rotation Event (`secret.rotated`).
+- `DWS_ARTICLE_12_LOGGING_STANDARD.md` v1.0 — EU AI Act Article 12 audit pipeline; runtime probe is a deploy-gate per `DWS_DEPLOYMENT_STANDARD.md` §4.
+- `DWS_SOVEREIGNTY_STANDARD.md` v1.2 — EU sovereignty + Cloud Jurisdiction binding for cross-cloud deploys.
+- `DWS_DATA_STANDARD.md` v2.0 — data residency, schema versioning, backup RTO / RPO referenced from `DWS_DEPLOYMENT_STANDARD.md` Verification Contract.
+
+---
+
+**Document Version:** 2.3
 **Classification:** INTERNAL
 **Owner:** Security Team (security@lifetime.fi)
 **Approved by:** Risto Anton Päärni (DPO, dpo@lifetime.fi)

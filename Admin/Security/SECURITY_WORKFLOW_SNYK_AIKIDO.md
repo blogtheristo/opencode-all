@@ -279,25 +279,14 @@ jobs:
             merged-results.json
           retention-days: 90
 
-      # Step 11: Send Slack Notification
-      - name: Send Slack Notification
-        uses: slackapi/slack-github-action@v1
+      # Step 11: Send Microsoft Teams notification (Incoming Webhook)
+      - name: Send Teams notification
         if: always()
-        with:
-          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
-          payload: |
-            {
-              "text": "Daily Security Scan Report",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "🔐 Security Scan Complete\n*Status:* ${{ job.status }}\n*Critical Issues:* ${{ env.CRITICAL_COUNT }}\n*High Issues:* ${{ env.HIGH_COUNT }}"
-                  }
-                }
-              ]
-            }
+        env:
+          TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
+        run: |
+          # Post MessageCard JSON to TEAMS_WEBHOOK_URL (see monthly-security-audit-enhanced.yml)
+          echo "Configure TEAMS_WEBHOOK_URL secret for Teams alerts"
 ```
 
 ---
@@ -638,7 +627,7 @@ def update_backlog(results, backlog_file):
 SNYK_TOKEN
 AIKIDO_API_TOKEN
 GITHUB_TOKEN (auto-provided)
-SLACK_WEBHOOK_URL
+TEAMS_WEBHOOK_URL
 
 # Rotate tokens quarterly
 # Review access in both services

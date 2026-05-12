@@ -6,10 +6,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.39
+Version: 3.52
 
 Sessions & Modifications:
 
+- Version: 3.52 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-ontology-blog-3RGKG | Date: 29.04.2026 | Changes: Lisätty luku 1.6 "Ontologia — etymologia ja filosofinen tausta", joka linkittää opinnäytetyön ONTOLOGY.md v1.3 -dokumenttiin (kreikan ón + lógos, Aristoteles, skolastiikan 1600–1700-luvun systematisointi, nykyinen tietojenkäsittelytieteen merkitys). Yhdenmukaistaa terminologian DWS Ontology Standardin kanssa. Kaikki 4 opinnäytetyötiedostoa nostettu lukon mukaisesti CLAUDE.md:n ohjeen mukaan.
+- Version: 3.51 | Tool: Claude Code (Haiku 4.5) | Session: claude/sync-version-numbering-adEeB | Date: 28.04.2026 | Changes: Bumped from 3.39 to 3.51 (12 steps × 0.01). Unified thesis version track maintained. Created new Tutkimussuunnitelma_3.51.md (Research Plan) with three research streams (KYA standardization, DWS 7 empirical testbed, dual-use industries), eight research questions, "Human in Command ja Human in Loop" governance framework; versioning format rule (.X9 → .X+1,0) documented for DWS_DOCUMENT_STANDARD.md §5
 - Version: 3.39 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Terminology rename — "Aiven overlay" / "Aiven layer" (deprecated infrastructure labels) → "Article 12 Logging Pipeline" per new DWS_ARTICLE_12_LOGGING_STANDARD.md v1.0 (unified 3-tier canonical term). Aiven remains the correct name for the Postgres SaaS. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule; only V3Thesis_EN had the infra-context string in content
 - Version: 3.38 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Typo correction — "Aiwen" → "Aiven" (Aiven.io is our Helsinki Postgres partner) as part of repo-wide sweep of 116 files; no content change beyond the spelling fix; unified version track preserved (all 4 thesis files bumped in lockstep per CLAUDE.md thesis rule)
 - Version: 3.37 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: Lisätty osio 10.22 (DWS Skilled -taksonomia — kolme tasoa agenteille, työnkuluille ja jurisdiktioille); "GodAgent"/"Godagent"-brändäys poistettu käytöstä; kodifioitu `Skilled <Akseli>` / `Industrial Specialist <Akseli>` / `Industry <Akseli>` -kolmitasomalli kolmelle aktiiviselle akselille (Agentit, Työnkulut, Jurisdiktiot — EU/US/Aiven); malli suunniteltu laajennettavuuden tähden tuleville kyvykkyysakseleille (Datasets, Models, Regulations, Reports); lisätty lukumäärien dynamiikkakaavat (avoin `18+`, rekisteriankkuroitu, tuotekohtainen); kodifioidut poikkeukset (Docker/infra-tunnisteet, Pantheon kreikkalaismyyttinen brändi, historialliset tietueet); kanoninen lähde `docs/Deputy-Agents-Architecture.md` §1 Terminologia; lisätty avainpanos #31
@@ -222,6 +224,16 @@ Miten AI-avusteisesti kehitetty teollinen AI-alusta voi saavuttaa tuote-markkina
 | **SaaS**            | Software as a Service - Ohjelmisto palveluna             |
 | **DWS6**            | Digital Work System 6 - Firehorse-alustan tekninen nimi  |
 | **Sisältyvä hiili** | Rakennusmateriaalien valmistuksen ja kuljetuksen päästöt |
+
+## 1.6 Ontologia — etymologia ja filosofinen tausta
+
+Firehorse-alustan tieto- ja päättelykerros on jäsennetty muodollisen ontologian — DWS Ontology Standardin (ks. `ONTOLOGY.md` v1.3 projektin repositoriossa) — varaan. Insinöörivalintojen kytkemiseksi käsitteelliseen perinteeseen tämä luku tarkastelee lyhyesti termin alkuperää.
+
+**Etymologia.** Sana _ontologia_ tulee kreikan kielen sanoista **ὄν (ón)** — "oleva", verbin _einai_ ("olla") preesensin partisiippi — ja **λόγος (lógos)** — "oppi, puhe, järjellinen selitys". Kirjaimellisesti ontologia tarkoittaa _oppia olevasta_ — eli oppia siitä, mitä on olemassa ja millä tavoin.
+
+**Filosofinen tausta.** Ontologia on yksi metafysiikan keskeisistä osa-alueista. Jo antiikin Kreikassa filosofit kuten Aristoteles pohtivat olemisen luonnetta: mitä tarkoittaa, että jokin _on_; millaisia olevia on olemassa (esineet, ominaisuudet, suhteet, tapahtumat); ja mikä on olemisen perusrakenne. Varsinainen termi _ontologia_ vakiintui vasta 1600–1700-luvuilla, erityisesti skolastiikan ja varhaisen modernin filosofian piirissä, kun metafysiikkaa alettiin systematisoida omiksi osa-alueikseen.
+
+**Merkityksen laajeneminen nykyaikana.** Nykyään ontologiaa käytetään useissa eri yhteyksissä: filosofiassa tutkimuksena olemassaolon perusluonteesta; tietojenkäsittelytieteessä ja tekoälyssä muodollisena mallina käsitteistä ja niiden välisistä suhteista (luokat, ominaisuudet, relaatiot); ja tieteenfilosofiassa kysymyksenä siitä, millaisiin entiteetteihin jokin teoria sitoutuu. Sanan alkuperäinen merkitys — _olevan jäsentäminen_ — säilyy, mutta sovelluskohde muuttuu. DWS Ontology Standard rakentuu juuri tälle perustalle: EU-säännökset ja teollisuuden käsitteet jäsennetään koneluettavaan muotoon, jota sekä ihmiset että agentit voivat kyselyillä tutkia saman rajapinnan kautta.
 
 ---
 

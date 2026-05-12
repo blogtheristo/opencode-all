@@ -15,6 +15,7 @@
  */
 
 import logger from '../utils/logger.js';
+import { sendEmail } from '../utils/send-email.js';
 import { getNudgeTemplate, isMaxedOut } from './cadence.js';
 import type {
   EnrichedThread,
@@ -607,64 +608,27 @@ export async function sendDailyDigestEmail(): Promise<void> {
   });
   const subject = `Outreach ${dateStr}`;
 
-  const resendKey = process.env.RESEND_API_KEY;
-  const sendgridKey = process.env.SENDGRID_API_KEY;
+  const result = await sendEmail({
+    from: fromAddress,
+    to: recipient,
+    subject,
+    html,
+    text: plainText,
+    replyTo: replyToAddress,
+    source: 'outreach',
+    templateType: 'daily_digest',
+    metadata: { recipientCount: 1 },
+  });
 
-  if (resendKey) {
-    const response = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${resendKey}`,
-      },
-      body: JSON.stringify({
-        from: fromAddress,
-        to: [recipient],
-        reply_to: replyToAddress,
-        subject,
-        html,
-        text: plainText,
-      }),
+  if (!result.ok) {
+    logger.error('Daily digest SES SMTP send failed', {
+      error: result.error || 'Unknown SES SMTP failure',
     });
-
-    if (response.ok) {
-      logger.info('Daily digest sent via Resend', {
-        transport: 'resend',
-        recipientCount: 1,
-      });
-      return;
-    }
-    logger.warn('Resend failed, trying SendGrid fallback');
+    throw new Error(result.error || 'SES SMTP send failed');
   }
 
-  if (sendgridKey) {
-    const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${sendgridKey}`,
-      },
-      body: JSON.stringify({
-        personalizations: [{ to: [{ email: recipient }] }],
-        from: { email: fromAddress },
-        reply_to: { email: replyToAddress },
-        subject,
-        content: [
-          { type: 'text/plain', value: plainText },
-          { type: 'text/html', value: html },
-        ],
-      }),
-    });
-
-    if (response.ok || response.status === 202) {
-      logger.info('Daily digest sent via SendGrid', {
-        transport: 'sendgrid',
-        recipientCount: 1,
-      });
-      return;
-    }
-  }
-
-  logger.warn('No email provider configured. Printing digest to console.');
-  console.log('\n' + plainText);
+  logger.info('Daily digest sent via SES SMTP', {
+    transport: result.transport || 'ses',
+    recipientCount: 1,
+  });
 }

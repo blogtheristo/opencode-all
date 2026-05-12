@@ -638,6 +638,69 @@ async function cmdMcpCall(toolName: string, argsJson: string): Promise<void> {
   output(result);
 }
 
+// ============ BROWSE (Playwright via MCP) ============
+
+async function cmdBrowse(
+  action: string,
+  url: string,
+  flags: Record<string, string>,
+): Promise<void> {
+  if (!action) {
+    error(
+      'No browse action specified.',
+      'dws browse fetch <url>\n  dws browse screenshot <url> [--width 1280 --height 800] [--out file.png]\n  dws browse snapshot <url>',
+    );
+  }
+  if (!url) {
+    error('No URL specified.', `dws browse ${action} <url>`);
+  }
+
+  const toolMap: Record<string, string> = {
+    fetch: 'dws_browse_fetch',
+    screenshot: 'dws_browse_screenshot',
+    snapshot: 'dws_browse_snapshot',
+  };
+  const toolName = toolMap[action];
+  if (!toolName) {
+    error(`Unknown browse action '${action}'.`, 'Valid: fetch | screenshot | snapshot');
+  }
+
+  const args: Record<string, unknown> = { url };
+  if (action === 'screenshot') {
+    if (flags.width) args.width = parseInt(flags.width);
+    if (flags.height) args.height = parseInt(flags.height);
+  }
+
+  const result = (await mcpCall('tools/call', { name: toolName, arguments: args })) as {
+    content?: Array<{ type: string; text: string }>;
+  };
+
+  // MCP tools/call wraps results in {content: [{type:'text', text: '<json>'}]}.
+  // Unwrap once so consumers see the raw payload.
+  let payload: unknown = result;
+  if (result?.content?.[0]?.type === 'text') {
+    try {
+      payload = JSON.parse(result.content[0].text);
+    } catch {
+      payload = result.content[0].text;
+    }
+  }
+
+  // For screenshots, optionally write the PNG to disk and strip the base64 from
+  // stdout so the JSON stays small.
+  if (action === 'screenshot' && flags.out) {
+    const p = payload as { pngBase64?: string };
+    if (p?.pngBase64) {
+      const fs = await import('node:fs');
+      fs.writeFileSync(flags.out, Buffer.from(p.pngBase64, 'base64'));
+      delete p.pngBase64;
+      (p as Record<string, unknown>).savedTo = flags.out;
+    }
+  }
+
+  output(payload);
+}
+
 // ============ SOVEREIGNTY ASSESSMENT ============
 
 async function cmdSovereigntyAssess(inputJson: string, useStdin: boolean): Promise<void> {
@@ -1275,6 +1338,24 @@ Examples:
 Examples:
   dws version
   dws version --json`,
+
+  browse: `dws browse <action> <url> — Browser automation via Playwright (Chromium)
+
+Subcommands:
+  fetch <url>                 Return rendered HTML, final URL, status, title
+  screenshot <url>            Return full-page PNG (base64) of the URL
+  snapshot <url>              Return accessibility tree (role + name list)
+
+Options (screenshot):
+  --width N        Viewport width in px (default: 1280)
+  --height N       Viewport height in px (default: 800)
+  --out <file>     Write PNG bytes to file and strip base64 from JSON
+
+Examples:
+  dws browse fetch https://eur-lex.europa.eu/eli/reg/2023/956
+  dws browse screenshot https://dws10.com --out homepage.png
+  dws browse snapshot https://dws10.com/buy
+  dws browse fetch https://example.com --json | jq -r '.html'`,
 };
 
 function showSubcommandHelp(command: string): boolean {
@@ -1304,6 +1385,11 @@ KYA (Know Your Agent):
 DEMO:
   dws demo snap [--iterations N]             Firehorse Snap kill-latency benchmark
 
+BROWSE (Playwright):
+  dws browse fetch <url>                     Rendered HTML for any page (JS-aware)
+  dws browse screenshot <url> [--out f.png]  Full-page PNG screenshot
+  dws browse snapshot <url>                  Accessibility tree (role + name)
+
 KNOWLEDGE BASE:
   dws kb compile [--full]                 Compile kb/raw/ → kb/wiki/
   dws kb ask "question" [--save]          Q&A against the compiled wiki
@@ -1311,6 +1397,7 @@ KNOWLEDGE BASE:
   dws kb ingest <file>                    Add a raw source to kb/raw/
   dws kb lint                             Health check (orphans, backlinks)
   dws kb status                           Show KB stats
+  dws kb preflight                        Verify embedding provider (openai|dgx-spark)
 
 AGENTS:
   dws agents                              List all registered agents
@@ -1745,6 +1832,36 @@ async function cmdKB(
       break;
     }
 
+    case 'preflight': {
+      // Verify the configured embedding provider is actually usable.
+      // Done client-side (no API hop) so it works even when the backend is down.
+      const { preflightEmbeddings } =
+        (await import('../../src/utils/embeddings.js')) as typeof import('../../src/utils/embeddings.js');
+      const result = await preflightEmbeddings();
+      if (JSON_MODE) {
+        output(result);
+      } else {
+        const mark = (ok: boolean): string => (ok ? fmt.green('✓') : fmt.red('✗'));
+        console.log(fmt.bold(`Embeddings preflight — provider: ${result.provider}`));
+        console.log('');
+        for (const c of result.checks) {
+          const detail = c.detail ? fmt.dim(`  (${c.detail})`) : '';
+          console.log(`  ${mark(c.ok)}  ${c.name}${detail}`);
+        }
+        console.log('');
+        if (result.ok) {
+          console.log(
+            fmt.green(`OK — ${result.dimensions ?? '?'}-dim vectors from ${result.provider}.`),
+          );
+        } else {
+          console.log(fmt.red('NOT READY'));
+          if (result.hint) console.log(`  ${result.hint}`);
+        }
+      }
+      if (!result.ok) process.exit(1);
+      break;
+    }
+
     default:
       error(
         `Unknown kb subcommand '${subcommand}'.`,
@@ -1753,7 +1870,8 @@ async function cmdKB(
           '  dws kb research "question"      Deep research\n' +
           '  dws kb lint                     Health check\n' +
           '  dws kb status                   Show stats\n' +
-          '  dws kb ingest <file>            Add raw source',
+          '  dws kb ingest <file>            Add raw source\n' +
+          '  dws kb preflight                Verify embedding provider',
       );
   }
 }
@@ -1929,6 +2047,12 @@ async function main(): Promise<void> {
         await cmdKB(subcommand || 'status', flags, positional);
         break;
 
+      case 'browse': {
+        const browseUrl = positional[1] || '';
+        await cmdBrowse(subcommand || '', browseUrl, flags);
+        break;
+      }
+
       case 'mcp':
         if (subcommand === 'tools') {
           await cmdMcpTools();
@@ -1972,6 +2096,7 @@ async function main(): Promise<void> {
           'notifications',
           'dashboard',
           'activity',
+          'browse',
           'version',
           'help',
         ];

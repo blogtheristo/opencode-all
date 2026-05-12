@@ -25,12 +25,21 @@
 import logger from '../utils/logger.js';
 import type { ModelTier } from './types.js';
 
+export type { ModelTier } from './types.js';
+
 /** A single model option within a tier */
 export interface ModelOption {
   /** Model identifier (passed to LLM client) */
   id: string;
   /** Provider: determines which LLM client path to use */
-  provider: 'anthropic' | 'groq' | 'openai-compatible' | 'google' | 'ollama-local' | 'vllm-local';
+  provider:
+    | 'anthropic'
+    | 'groq'
+    | 'baseten'
+    | 'openai-compatible'
+    | 'google'
+    | 'ollama-local'
+    | 'vllm-local';
   /** Approximate disk usage in GB (for local models only; 0 for cloud) */
   diskGb: number;
   /** Approximate RAM usage in GB during inference (0 for cloud) */
@@ -75,12 +84,12 @@ export interface EdgeResourceBudget {
 
 /** Acer Veriton GN100 resource budget */
 export const ACER_GN100_BUDGET: EdgeResourceBudget = {
-  totalDiskGb: 3072,         // 3TB NVMe
-  reservedDiskGb: 1200,      // 1TB Firehorse DMS + 150GB OS + 50GB Docker images
+  totalDiskGb: 3072, // 3TB NVMe
+  reservedDiskGb: 1200, // 1TB Firehorse DMS + 150GB OS + 50GB Docker images
   availableModelDiskGb: 1872, // ~1.8TB for models
-  totalRamGb: 128,           // 128GB unified memory
-  reservedRamGb: 30,         // ~30GB for OS + Docker + PostgreSQL + monitoring
-  availableModelRamGb: 98,   // ~98GB headroom for model inference
+  totalRamGb: 128, // 128GB unified memory
+  reservedRamGb: 30, // ~30GB for OS + Docker + PostgreSQL + monitoring
+  availableModelRamGb: 98, // ~98GB headroom for model inference
 };
 
 // ============ MODEL CATALOG ============
@@ -121,7 +130,7 @@ export const MODEL_CATALOG: Record<ModelTier, TierConfig> = {
         diskGb: 0,
         ramGb: 0,
         costPer1MInput: 0.075,
-        costPer1MOutput: 0.30,
+        costPer1MOutput: 0.3,
         contextWindow: 1048576,
         supportsTools: true,
       },
@@ -153,12 +162,23 @@ export const MODEL_CATALOG: Record<ModelTier, TierConfig> = {
         supportsTools: true,
       },
       {
+        // GPU-hour pricing; set BASETEN_MODEL to your deployment ID
+        id: 'baseten-llama-3-3-70b',
+        provider: 'baseten',
+        diskGb: 0,
+        ramGb: 0,
+        costPer1MInput: 0,
+        costPer1MOutput: 0,
+        contextWindow: 128000,
+        supportsTools: true,
+      },
+      {
         id: 'claude-haiku-4-5-20251001',
         provider: 'anthropic',
         diskGb: 0,
         ramGb: 0,
-        costPer1MInput: 0.80,
-        costPer1MOutput: 4.00,
+        costPer1MInput: 0.8,
+        costPer1MOutput: 4.0,
         contextWindow: 200000,
         supportsTools: true,
       },
@@ -168,7 +188,7 @@ export const MODEL_CATALOG: Record<ModelTier, TierConfig> = {
         diskGb: 0,
         ramGb: 0,
         costPer1MInput: 0.15,
-        costPer1MOutput: 0.60,
+        costPer1MOutput: 0.6,
         contextWindow: 1048576,
         supportsTools: true,
       },
@@ -204,8 +224,8 @@ export const MODEL_CATALOG: Record<ModelTier, TierConfig> = {
         provider: 'anthropic',
         diskGb: 0,
         ramGb: 0,
-        costPer1MInput: 3.00,
-        costPer1MOutput: 15.00,
+        costPer1MInput: 3.0,
+        costPer1MOutput: 15.0,
         contextWindow: 200000,
         supportsTools: true,
       },
@@ -215,7 +235,7 @@ export const MODEL_CATALOG: Record<ModelTier, TierConfig> = {
         diskGb: 0,
         ramGb: 0,
         costPer1MInput: 1.25,
-        costPer1MOutput: 10.00,
+        costPer1MOutput: 10.0,
         contextWindow: 1048576,
         supportsTools: true,
       },
@@ -235,44 +255,44 @@ export const MODEL_CATALOG: Record<ModelTier, TierConfig> = {
  */
 export const AGENT_TIER_MAP: Record<string, ModelTier> = {
   // --- LITE tier: high-volume, low-complexity ---
-  'sitesense': 'lite',              // Safety scoring (0-100), weather risk classification
-  'customer-sat': 'lite',           // Churn probability, NPS classification
-  'keyword-intent': 'lite',         // Keyword classification
-  'lead-feedback': 'lite',          // Lead scoring
-  'quality-gate': 'lite',           // Binary pass/fail deployment readiness
-  'argus': 'lite',                  // Image classification (SAR target labeling)
+  sitesense: 'lite', // Safety scoring (0-100), weather risk classification
+  'customer-sat': 'lite', // Churn probability, NPS classification
+  'keyword-intent': 'lite', // Keyword classification
+  'lead-feedback': 'lite', // Lead scoring
+  'quality-gate': 'lite', // Binary pass/fail deployment readiness
+  argus: 'lite', // Image classification (SAR target labeling)
 
   // --- STANDARD tier: domain-specific analysis ---
-  'material-oracle': 'standard',    // Carbon calculation (EN 15978, A1-D lifecycle)
-  'schedule-genius': 'standard',    // Timeline optimization
-  'viability': 'standard',          // Unit economics, LTV
-  'compliance': 'standard',         // EU regulatory gap scoring
-  'logistics': 'standard',          // Route optimization, fleet dispatch
-  'construction': 'standard',       // Site coordination
-  'seo-audit': 'standard',          // SEO scoring
+  'material-oracle': 'standard', // Carbon calculation (EN 15978, A1-D lifecycle)
+  'schedule-genius': 'standard', // Timeline optimization
+  viability: 'standard', // Unit economics, LTV
+  compliance: 'standard', // EU regulatory gap scoring
+  logistics: 'standard', // Route optimization, fleet dispatch
+  construction: 'standard', // Site coordination
+  'seo-audit': 'standard', // SEO scoring
   'competitor-surveillance': 'standard', // Market intelligence
-  'content-brief': 'standard',      // Content generation briefs
+  'content-brief': 'standard', // Content generation briefs
   'deepwiki-extractor': 'standard', // Document extraction
   'emissions-data-analyst': 'standard', // Emissions data processing
-  'compliance-researcher': 'standard',  // Regulatory research
-  'sales-outreach': 'standard',     // Sales email generation
+  'compliance-researcher': 'standard', // Regulatory research
+  'sales-outreach': 'standard', // Sales email generation
 
   // --- STANDARD tier: industry specialists ---
-  'vulcan': 'standard',             // Steel & Metals (ETS Phase 4, CBAM)
-  'helios': 'standard',             // Energy & Renewables
-  'neptune': 'standard',            // Maritime & Shipping
-  'ceres': 'standard',              // Agriculture & Fertilizers
-  'prometheus': 'standard',         // Hydrogen & Energy Transition
-  'mars': 'standard',               // Construction & Buildings
-  'gaia': 'standard',               // Cement & Earth Materials
+  vulcan: 'standard', // Steel & Metals (ETS Phase 4, CBAM)
+  helios: 'standard', // Energy & Renewables
+  neptune: 'standard', // Maritime & Shipping
+  ceres: 'standard', // Agriculture & Fertilizers
+  prometheus: 'standard', // Hydrogen & Energy Transition
+  mars: 'standard', // Construction & Buildings
+  gaia: 'standard', // Cement & Earth Materials
 
   // --- HEAVY tier: orchestration + complex reasoning ---
-  'atlas': 'heavy',                 // Chief of Staff — synthesis & routing across all agents
-  'athena': 'heavy',                // Compliance Intelligence — novel regulatory interpretation
-  'hephaestus': 'heavy',            // Field & Site Intelligence — multi-source fusion
-  'iris': 'heavy',                  // Research & Market Intelligence — deep analysis
-  'hermes': 'heavy',                // Logistics & Operations — complex optimization
-  'apollo': 'heavy',                // Content & Outreach — long-form generation
+  atlas: 'heavy', // Chief of Staff — synthesis & routing across all agents
+  athena: 'heavy', // Compliance Intelligence — novel regulatory interpretation
+  hephaestus: 'heavy', // Field & Site Intelligence — multi-source fusion
+  iris: 'heavy', // Research & Market Intelligence — deep analysis
+  hermes: 'heavy', // Logistics & Operations — complex optimization
+  apollo: 'heavy', // Content & Outreach — long-form generation
 };
 
 /** Default tier for agents not in the map */
@@ -338,8 +358,9 @@ export function selectModel(
       if (!isLocalModelFeasible(model)) continue;
     }
 
-    const costPerCall = (estimatedInput / 1_000_000) * model.costPer1MInput
-      + (tierConfig.maxTokens / 1_000_000) * model.costPer1MOutput;
+    const costPerCall =
+      (estimatedInput / 1_000_000) * model.costPer1MInput +
+      (tierConfig.maxTokens / 1_000_000) * model.costPer1MOutput;
 
     return {
       modelId: model.id,
@@ -365,12 +386,14 @@ export function selectModel(
       if (requiresTools && !model.supportsTools) continue;
       if (!isProviderAvailable(model.provider)) continue;
       if (
-        (model.provider === 'ollama-local' || model.provider === 'vllm-local')
-        && !isLocalModelFeasible(model)
-      ) continue;
+        (model.provider === 'ollama-local' || model.provider === 'vllm-local') &&
+        !isLocalModelFeasible(model)
+      )
+        continue;
 
-      const costPerCall = (estimatedInput / 1_000_000) * model.costPer1MInput
-        + (fallbackConfig.maxTokens / 1_000_000) * model.costPer1MOutput;
+      const costPerCall =
+        (estimatedInput / 1_000_000) * model.costPer1MInput +
+        (fallbackConfig.maxTokens / 1_000_000) * model.costPer1MOutput;
 
       logger.warn('Model selection: fell back to higher tier', {
         agent: agentName,
@@ -414,6 +437,8 @@ export function isProviderAvailable(provider: ModelOption['provider']): boolean 
       return !!process.env.ANTHROPIC_API_KEY;
     case 'groq':
       return !!process.env.GROQ_API_KEY;
+    case 'baseten':
+      return !!process.env.BASETEN_API_KEY;
     case 'google':
       return !!process.env.GOOGLE_AI_API_KEY || !!process.env.GEMINI_API_KEY;
     case 'ollama-local':
@@ -498,8 +523,8 @@ export function estimateLocalModelDiskUsage(activeAgents: string[]): {
     totalDiskGb,
     totalRamGb,
     models,
-    fitsOnAcer: totalDiskGb <= budget.availableModelDiskGb
-      && totalRamGb <= budget.availableModelRamGb,
+    fitsOnAcer:
+      totalDiskGb <= budget.availableModelDiskGb && totalRamGb <= budget.availableModelRamGb,
   };
 }
 

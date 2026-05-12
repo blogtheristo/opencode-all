@@ -6,6 +6,7 @@
 
 import pino from 'pino';
 import { getSupabaseClient } from '../../config/supabase.js';
+import { gtmEventLogger } from '../../services/gtm-event-logger.js';
 import { BaseERPConnector } from './base-connector';
 import { MonitorERPConnector } from './monitor-connector';
 import { IFSCloudConnector } from './connectors/ifs-connector';
@@ -23,7 +24,7 @@ import {
   SyncOperation,
   MachineData,
   OEEMetrics,
-  ERPWebhookEvent
+  ERPWebhookEvent,
 } from './types';
 import {
   resolveCompanyERP,
@@ -31,7 +32,7 @@ import {
   getCompaniesByProvider,
   getAllRegisteredCompanies,
   CompanyLookupResult,
-  CompanyERPEntry
+  CompanyERPEntry,
 } from './company-registry';
 
 const logger = pino({ name: 'erp-integration-service' });
@@ -52,7 +53,7 @@ export class ERPIntegrationService {
     provider: ERPProvider,
     config: ERPConnectionConfig,
     syncSettings: SyncSettings,
-    fieldMappings: FieldMapping[]
+    fieldMappings: FieldMapping[],
   ): Promise<ERPIntegrationSettings> {
     try {
       // Create connector instance
@@ -77,7 +78,7 @@ export class ERPIntegrationService {
         syncSettings,
         fieldMappings,
         status: 'active',
-        lastSyncAt: undefined
+        lastSyncAt: undefined,
       };
 
       this.integrationSettings.set(key, settings);
@@ -85,22 +86,38 @@ export class ERPIntegrationService {
       // Persist to Supabase (graceful fallback to in-memory only)
       const supabase = getSupabaseClient();
       if (supabase) {
-        const { error: dbError } = await supabase.from('erp_integrations').upsert({
-          organization_id: organizationId,
-          provider,
-          config: JSON.parse(JSON.stringify(config)),
-          sync_settings: JSON.parse(JSON.stringify(syncSettings)),
-          field_mappings: JSON.parse(JSON.stringify(fieldMappings)),
-          status: 'active',
-        }, { onConflict: 'organization_id,provider' });
+        const { error: dbError } = await supabase.from('erp_integrations').upsert(
+          {
+            organization_id: organizationId,
+            provider,
+            config: JSON.parse(JSON.stringify(config)),
+            sync_settings: JSON.parse(JSON.stringify(syncSettings)),
+            field_mappings: JSON.parse(JSON.stringify(fieldMappings)),
+            status: 'active',
+          },
+          { onConflict: 'organization_id,provider' },
+        );
         if (dbError) {
-          logger.warn('Failed to persist ERP integration to database — using in-memory', { error: dbError.message });
+          logger.warn('Failed to persist ERP integration to database — using in-memory', {
+            error: dbError.message,
+          });
         }
       }
 
       logger.info('ERP integration configured', {
         organizationId,
-        provider
+        provider,
+      });
+
+      // Step 13: ERP first-sync activated — customer has connected their ERP
+      gtmEventLogger.logEvent({
+        event_type: 'erp_sync_activated',
+        source: 'backend',
+        properties: {
+          organization_id: organizationId,
+          provider,
+        },
+        timestamp: new Date().toISOString(),
       });
 
       return settings;
@@ -163,7 +180,7 @@ export class ERPIntegrationService {
   async syncProductionOrders(
     organizationId: string,
     provider: ERPProvider,
-    since?: Date
+    since?: Date,
   ): Promise<SyncResult> {
     try {
       const connector = this.getConnector(organizationId, provider);
@@ -184,7 +201,7 @@ export class ERPIntegrationService {
   async syncMachineData(
     organizationId: string,
     provider: ERPProvider,
-    data: MachineData[]
+    data: MachineData[],
   ): Promise<SyncResult> {
     try {
       const connector = this.getConnector(organizationId, provider);
@@ -205,7 +222,7 @@ export class ERPIntegrationService {
   async syncOEEMetrics(
     organizationId: string,
     provider: ERPProvider,
-    metrics: OEEMetrics[]
+    metrics: OEEMetrics[],
   ): Promise<SyncResult> {
     try {
       const connector = this.getConnector(organizationId, provider);
@@ -226,7 +243,7 @@ export class ERPIntegrationService {
   async syncMaintenanceEvents(
     organizationId: string,
     provider: ERPProvider,
-    direction: 'to_erp' | 'from_erp'
+    direction: 'to_erp' | 'from_erp',
   ): Promise<SyncResult> {
     try {
       const connector = this.getConnector(organizationId, provider);
@@ -257,7 +274,7 @@ export class ERPIntegrationService {
         entityId: event.entityId,
         timestamp: new Date(),
         payload: event,
-        processed: false
+        processed: false,
       };
 
       // Persist webhook event to Supabase
@@ -291,7 +308,7 @@ export class ERPIntegrationService {
   async getSyncHistory(
     organizationId: string,
     provider?: ERPProvider,
-    limit: number = 50
+    limit: number = 50,
   ): Promise<SyncOperation[]> {
     const supabase = getSupabaseClient();
     if (!supabase) return [];
@@ -332,10 +349,7 @@ export class ERPIntegrationService {
   /**
    * Create connector instance based on provider
    */
-  private createConnector(
-    provider: ERPProvider,
-    config: ERPConnectionConfig
-  ): BaseERPConnector {
+  private createConnector(provider: ERPProvider, config: ERPConnectionConfig): BaseERPConnector {
     switch (provider) {
       case ERPProvider.MONITOR:
         return new MonitorERPConnector(config as any);
@@ -372,7 +386,8 @@ export class ERPIntegrationService {
       // Persist last sync timestamp
       const supabase = getSupabaseClient();
       if (supabase) {
-        await supabase.from('erp_integrations')
+        await supabase
+          .from('erp_integrations')
           .update({ last_sync_at: settings.lastSyncAt.toISOString() })
           .eq('organization_id', organizationId)
           .eq('provider', provider);

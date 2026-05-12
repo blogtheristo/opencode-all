@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.2
+Version: 2.6
 
 Sessions & Modifications:
 
+- Version: 2.6 | Tool: Claude Code (Claude Sonnet 4.6) | Session: claude/add-otel-api-docs-fU7r0 | Date: 06.05.2026 | Changes: Google Cloud Run section — added "OTel Ingestion API (Auto-Enabled)" subsection documenting that telemetry.googleapis.com is auto-activated on dws6run6 as of March 2026, OTLP endpoint value, and no additional IAM needed. Triggered by Google Cloud Observability announcement; see field note docs/field-notes/2026-05-02-gcp-otel-ingestion-api-launch.md.
 - Version: 1.0 | Tool: Claude Code | Session: Nov 2025 | Date: 23.11.2025 | Changes: Initial creation, session history
 - Version: 1.1 | Tool: Claude Code | Session: Dec 2025 | Date: 11.12.2025 | Changes: Sensitive Data Protection section
 - Version: 1.2 | Tool: Claude Code | Session: Dec 2025 | Date: 19.12.2025 | Changes: Bug Tracking & Security Maintenance
@@ -21,6 +22,9 @@ Sessions & Modifications:
 - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Moved 9 admin manuals to Admin/ folder, PDF auto-open in Edge on login, splatting fix
 - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Script versioning, engine choice (HTML/PDF), Supabase sync in startup pipeline, code/scripts backup
 - Version: 2.2 | Tool: Claude Code (Opus 4.7) | Session: claude/ci-hygiene-audit-vBYGo | Date: 22.04.2026 | Changes: Local-First CI + Audit Log section; new Audit Manual linked; Files & Folders manual indexed
+- Version: 2.3 | Tool: Copilot CLI (GPT-5.3-Codex) | Session: claude/fix-booking-email-delivery-20260429 | Date: 29.04.2026 | Changes: SES SMTP runtime hardening, Supabase runtime env audit, Cloud Run env requirements updated
+- Version: 2.4 | Tool: Cursor / Claude agents | Session: Rg5Jy | Date: 25.04.2026 | Changes: Browse SSRF hardening (`url-guard`), Playwright moved to production dependencies for DGX `npm ci --omit=dev`
+- Version: 2.5 | Tool: Cursor Agent | Session: cursor-admin-node-workspace-20260510 | Date: 10.05.2026 | Changes: Documented dual `npm ci` (repository root + `src/cloudflare`) for backend and Cloudflare agent workers; PowerShell-first command examples for local dev and cloud agent runtimes
 
 Session Links & References:
 
@@ -30,7 +34,7 @@ Session Links & References:
 Document Status:
 
 - Created: 23.11.2025
-- Last Modified: 22.04.2026
+- Last Modified: 10.05.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ✅ ACTIVE
@@ -45,30 +49,31 @@ Document Status:
 
 1. [Admin Manuals Index](#admin-manuals-index) ⭐ **NEW in v1.8**
 2. [Installation Manual](#installation-manual-link)
-3. [Scaleway Serverless Containers](#scaleway-serverless-containers-primary)
-4. [Revolut Payments & Store](#revolut-payments--store) ⭐ **NEW in v1.8**
-5. [MCP Configuration](#mcp-configuration) ⭐ **NEW in v1.8**
-6. [Climate Assistant Chat Widget](#climate-assistant-chat-widget)
-7. [AI Agent Operational Guidelines](#ai-agent-operational-guidelines) ⭐ **NEW in v1.8**
-8. [Security Glossary & OWASP](#security-glossary--owasp) ⭐ **NEW in v1.8**
-9. [Data Processing Agreement (DPA)](#data-processing-agreement-dpa) ⭐ **NEW in v1.8**
-10. [Backup & Sync Infrastructure](#backup--sync-infrastructure) ⭐ **NEW in v1.8**
-11. [Multi-Agent Orchestration](#multi-agent-orchestration) ⭐ **NEW in v1.8**
-12. [GitHub Copilot Instructions](#github-copilot-instructions)
-13. [Session Security Fixes (January 2026)](#session-security-fixes-january-2026)
-14. [Files and Folders Structure](#files-and-folders-structure)
-15. [Document Index](#document-index)
-16. [AI Agent Policy](#ai-agent-policy)
-17. [Deployment Procedures](#deployment-procedures)
-18. [Session History](#session-history)
-19. [Maintenance Plan (Complete)](#maintenance-plan-complete)
-20. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance)
-21. [Code Review Process](#code-review-process)
-22. [Maintenance Tasks](#maintenance-tasks)
-23. [Git Workflow](#git-workflow)
-24. [Sensitive Data Protection](#sensitive-data-protection)
-25. [Emergency Procedures](#emergency-procedures)
-26. [Training](#training)
+3. [Node.js workspace setup](#nodejs-workspace-setup-backend-and-cloudflare-agents)
+4. [Scaleway Serverless Containers](#scaleway-serverless-containers-primary)
+5. [Revolut Payments & Store](#revolut-payments--store) ⭐ **NEW in v1.8**
+6. [MCP Configuration](#mcp-configuration) ⭐ **NEW in v1.8**
+7. [Climate Assistant Chat Widget](#climate-assistant-chat-widget)
+8. [AI Agent Operational Guidelines](#ai-agent-operational-guidelines) ⭐ **NEW in v1.8**
+9. [Security Glossary & OWASP](#security-glossary--owasp) ⭐ **NEW in v1.8**
+10. [Data Processing Agreement (DPA)](#data-processing-agreement-dpa) ⭐ **NEW in v1.8**
+11. [Backup & Sync Infrastructure](#backup--sync-infrastructure) ⭐ **NEW in v1.8**
+12. [Multi-Agent Orchestration](#multi-agent-orchestration) ⭐ **NEW in v1.8**
+13. [GitHub Copilot Instructions](#github-copilot-instructions)
+14. [Session Security Fixes (January 2026)](#session-security-fixes-january-2026)
+15. [Files and Folders Structure](#files-and-folders-structure)
+16. [Document Index](#document-index)
+17. [AI Agent Policy](#ai-agent-policy)
+18. [Deployment Procedures](#deployment-procedures)
+19. [Session History](#session-history)
+20. [Maintenance Plan (Complete)](#maintenance-plan-complete)
+21. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance)
+22. [Code Review Process](#code-review-process)
+23. [Maintenance Tasks](#maintenance-tasks)
+24. [Git Workflow](#git-workflow)
+25. [Sensitive Data Protection](#sensitive-data-protection)
+26. [Emergency Procedures](#emergency-procedures)
+27. [Training](#training)
 
 ---
 
@@ -91,15 +96,15 @@ All admin manuals across the DWS6 repository, organized by domain.
 
 ### Websites & Store
 
-| Manual                     | Location                                                                                                        | Language | Description                                     |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------- | -------- | ----------------------------------------------- |
-| **DWS6.com Manual**        | [`ADMIN_MANUAL_DWS6_COM.md`](ADMIN_MANUAL_DWS6_COM.md)                                                          | EN       | DWS6 website operations                         |
+| Manual                     | Location                                                                                                        | Language | Description                                                    |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------- | -------- | -------------------------------------------------------------- |
+| **DWS6.com Manual**        | [`ADMIN_MANUAL_DWS6_COM.md`](ADMIN_MANUAL_DWS6_COM.md)                                                          | EN       | DWS6 website operations                                        |
 | **DWS10 Store & Payments** | [`ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`](ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md)                                  | EN       | Revolut + Stripe hybrid flow, Google Merchant ops, 38 products |
-| **Store Admin (EN)**       | [`dws10.com/docs/STORE_ADMIN_MANUAL_EN.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_EN.md)                         | EN       | Store product management, feeds                 |
-| **Store Admin (FI)**       | [`dws10.com/docs/STORE_ADMIN_MANUAL_FI.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_FI.md)                         | FI       | Kaupan hallinta                                 |
-| **Dashboard V8 Manual**    | [`ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md`](ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md)                                      | EN       | Firehorse dashboard operations                  |
-| **Blog System (EN)**       | [`onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_EN_v1.md`](../onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_EN_v1.md) | EN       | Onelifetime.world blog CMS                      |
-| **Blog System (FI)**       | [`onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_FI_v1.md`](../onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_FI_v1.md) | FI       | Blogin hallinta                                 |
+| **Store Admin (EN)**       | [`dws10.com/docs/STORE_ADMIN_MANUAL_EN.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_EN.md)                         | EN       | Store product management, feeds                                |
+| **Store Admin (FI)**       | [`dws10.com/docs/STORE_ADMIN_MANUAL_FI.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_FI.md)                         | FI       | Kaupan hallinta                                                |
+| **Dashboard V8 Manual**    | [`ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md`](ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md)                                      | EN       | Firehorse dashboard operations                                 |
+| **Blog System (EN)**       | [`onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_EN_v1.md`](../onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_EN_v1.md) | EN       | Onelifetime.world blog CMS                                     |
+| **Blog System (FI)**       | [`onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_FI_v1.md`](../onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_FI_v1.md) | FI       | Blogin hallinta                                                |
 
 ### Security
 
@@ -121,13 +126,15 @@ All admin manuals across the DWS6 repository, organized by domain.
 
 ### Related Documentation
 
-| Document                | Location                                                                            | Description                                        |
-| ----------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------- |
-| **CLAUDE.md**           | [`CLAUDE.md`](../CLAUDE.md)                                                         | AI agent behavior guidelines (Karpathy principles) |
-| **DPA Agreement**       | [`docs/DPA_DATA_PROCESSING_AGREEMENT.md`](../docs/DPA_DATA_PROCESSING_AGREEMENT.md) | GDPR data processing agreement                     |
-| **MCP Configuration**   | [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md)                         | Model Context Protocol server setup                |
-| **Security Compliance** | [`SECURITY_COMPLIANCE.md`](SECURITY_COMPLIANCE.md)                                  | Security framework and compliance status           |
-| **Security Glossary**   | [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md)                         | Security terms and OWASP references                |
+| Document                  | Location                                                                            | Description                                                                 |
+| ------------------------- | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| **CLAUDE.md**             | [`CLAUDE.md`](../CLAUDE.md)                                                         | AI agent behavior guidelines (Karpathy principles)                          |
+| **DPA Agreement**         | [`docs/DPA_DATA_PROCESSING_AGREEMENT.md`](../docs/DPA_DATA_PROCESSING_AGREEMENT.md) | GDPR data processing agreement                                              |
+| **MCP Configuration**     | [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md)                         | Model Context Protocol server setup                                         |
+| **Security Compliance**   | [`SECURITY_COMPLIANCE.md`](SECURITY_COMPLIANCE.md)                                  | Security framework and compliance status                                    |
+| **Security Glossary**     | [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md)                         | Security terms and OWASP references                                         |
+| **Playwright Capability** | [`docs/PLAYWRIGHT.md`](../docs/PLAYWRIGHT.md)                                       | `dws browse` + MCP `dws_browse_*` — JS-rendered fetch, screenshot, snapshot |
+| **Agent Second Brain**    | [`docs/AGENT_SECOND_BRAIN.md`](../docs/AGENT_SECOND_BRAIN.md)                       | DGX Spark embeddings, KB inbox watcher, `dws kb preflight`                  |
 
 ---
 
@@ -167,6 +174,46 @@ This section links the **full maintenance plan** in one place:
 - `Admin/Installation/Public/groq/` - Edge AI hardware
 
 **Start Here:** Choose your platform and follow the README in that folder.
+
+---
+
+## Node.js workspace setup (backend and Cloudflare agents)
+
+**Purpose:** On a fresh clone, CI runner, or Cursor Cloud Agents runtime, install Node dependencies so TypeScript `build`, `test`, and Worker tooling are on the `PATH` via local `node_modules/.bin`.
+
+DWS6 ships **two** lockfile-rooted JavaScript projects:
+
+| Location          | Package / role                         | Typical commands                                                    |
+| ----------------- | -------------------------------------- | ------------------------------------------------------------------- |
+| Repository root   | `dws6-auth-backend` (Express + Vitest) | `npm run dev`, `npm run build`, `npm run test`                      |
+| `src/cloudflare/` | `@dws-iq/cloudflare-agent` (Workers)   | `npm run build`, `npm run typecheck`, `npm run test`, `npm run dev` |
+
+Use **`npm ci`** in each directory (not `npm install`) so installs match `package-lock.json` exactly—required for reproducible CI and agent environments.
+
+### PowerShell (primary on Windows 11)
+
+From your clone root (set the path to match your machine):
+
+```powershell
+Set-Location <path-to-dws6-clone>
+npm ci
+Set-Location .\src\cloudflare
+npm ci
+```
+
+Older PowerShell builds do not treat `&&` as a command separator; use separate lines or `;` instead of copying bash one-liners.
+
+### Bash (macOS, Linux, Git Bash)
+
+```bash
+cd /path/to/dws6 && npm ci && cd src/cloudflare && npm ci
+```
+
+### Worktrees and cloud agents
+
+Each git worktree has its **own** `node_modules/`. Run the same two `npm ci` steps inside every worktree. Cursor or remote cloud agents should execute both installs from the workspace root before relying on `npx`, `vitest`, `tsc`, or `wrangler`.
+
+**Related:** [`ADMIN_MANUAL_TESTING.md`](ADMIN_MANUAL_TESTING.md) (Vitest and CI), [`ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`](ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md) (Wrangler from `src/cloudflare`).
 
 ---
 
@@ -808,6 +855,22 @@ gcloud projects add-iam-policy-binding dws6run6 \
   --role=roles/run.developer
 ```
 
+### OTel Ingestion API (Auto-Enabled)
+
+As of March 4, 2026, Google Cloud automatically activates `telemetry.googleapis.com` (unified OTLP ingestion endpoint) on `dws6run6` because `logging.googleapis.com` and `monitoring.googleapis.com` are already enabled on the project.
+
+| Property          | Value                                                             |
+| ----------------- | ----------------------------------------------------------------- |
+| **API**           | `telemetry.googleapis.com`                                        |
+| **OTLP endpoint** | `https://telemetry.googleapis.com`                                |
+| **Activation**    | Automatic — no manual step required                               |
+| **Supports**      | OTLP logs, trace spans, metrics                                   |
+| **Region**        | Global endpoint; data stays in `europe-north1` per project config |
+
+Use this as the value for `OTEL_EXPORTER_OTLP_ENDPOINT` when configuring OpenTelemetry exporters on Cloud Run services. No additional IAM role is required beyond the existing `roles/logging.logWriter` + `roles/cloudtrace.agent`.
+
+See field note: `docs/field-notes/2026-05-02-gcp-otel-ingestion-api-launch.md`
+
 ### Deployment Commands (from repo root in CMD)
 
 ```bash
@@ -857,6 +920,45 @@ gcloud run logs read dws-iq-backend --region europe-north1 --limit 50
 - `STRIPE_WEBHOOK_SECRET` (whsec\_...)
 - `SUPABASE_URL`
 - `SUPABASE_SERVICE_KEY`
+
+### Runtime Environment Audit (2026-04-29)
+
+**Scope:** Verify that production runtime instances include Supabase credentials required for booking + email audit logging, and align email delivery with SES SMTP-only policy.
+
+#### Cloud Run verification result
+
+| Project        | Service          | SUPABASE_URL | SUPABASE_SERVICE_KEY | Status                                                                        |
+| -------------- | ---------------- | ------------ | -------------------- | ----------------------------------------------------------------------------- |
+| `dws6run6`     | `dws-iq-backend` | `secret`     | `secret`             | ✅ OK                                                                         |
+| `dws6-backend` | N/A              | N/A          | N/A                  | ⚠️ No services visible to current operator identity (or no services deployed) |
+
+#### SES SMTP-only runtime requirements
+
+For booking confirmations and admin notifications to send reliably, Cloud Run runtime must include:
+
+- `SMTP_HOST`
+- `SMTP_PORT` (default `587`)
+- `SMTP_SECURE` (default `false`)
+- `SMTP_USER`
+- `SMTP_PASS`
+- `EMAIL_FROM` (default `risto@onelifetime.world`)
+- `BOOKING_ADMIN_EMAIL` (default `risto@lifetime.fi`)
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_KEY`
+
+#### Implemented hardening changes (same remediation set)
+
+1. Cloud Run GitHub deployment now injects SMTP + Supabase envs:
+   - `.github/workflows/deploy-cloudrun.yml`
+2. Manual PowerShell Cloud Run deployment now validates and injects SMTP + Supabase envs:
+   - `scripts/Deploy-CloudRun.ps1`
+3. Core mail sender switched to SES SMTP-only behavior (Resend fallback removed):
+   - `src/utils/send-email.ts`
+4. Additional email flows switched from Resend/SendGrid fallback to SES SMTP sender:
+   - `src/morning-briefing/scheduler.ts`
+   - `src/outreach/daily-digest.ts`
+   - `src/routes/hil.routes.ts`
+   - `src/routes/webhook.routes.ts`
 
 ---
 
@@ -1875,6 +1977,53 @@ Switched to **Claude Opus 4.5** which has:
 
 ---
 
+## Agent Capabilities — Browse + Second Brain (2026-04-25)
+
+Two agent-facing capabilities ship in branch `claude/add-playwright-implementation-Rg5Jy`. Full design in [`docs/PLAYWRIGHT.md`](../docs/PLAYWRIGHT.md) and [`docs/AGENT_SECOND_BRAIN.md`](../docs/AGENT_SECOND_BRAIN.md).
+
+### Browse (Playwright)
+
+| Surface        | Command / endpoint                                                               |
+| -------------- | -------------------------------------------------------------------------------- |
+| CLI            | `dws browse fetch <url>` / `screenshot <url>` / `snapshot <url>`                 |
+| MCP tools      | `dws_browse_fetch`, `dws_browse_screenshot`, `dws_browse_snapshot`               |
+| Skill          | `/browse`                                                                        |
+| Runtime dep    | `playwright` is in `dependencies` (so `npm ci --omit=dev` keeps it on the Spark) |
+| One-time setup | `npx playwright install chromium` per machine (browser binary not in git)        |
+
+**SSRF guard (`src/utils/url-guard.ts`):** every URL — both the user-supplied one AND any redirect / sub-resource Chromium tries to load via `page.route('**/*')` — is checked against a default-deny list of IPv4/IPv6 private, loopback, link-local, cloud-metadata (`169.254.169.254`), CGNAT, and unique-local ranges. Hostnames `localhost`, `*.local`, `*.internal`, `*.intranet` are blocked without a DNS lookup; all other hostnames are resolved and rejected if **any** answer is private. Override for local dev only: `BROWSE_ALLOW_PRIVATE=1`. Residual risk: DNS rebinding (documented; not fully mitigated).
+
+URL guard also accepts `http://` and `https://` only; 30 s navigation timeout; fresh `BrowserContext` per call. Results return rendered HTML / base64 PNG / accessibility-tree JSON.
+
+### Agent Second Brain (DGX Spark embeddings + KB watcher)
+
+| Surface                 | Command / file                                                      |
+| ----------------------- | ------------------------------------------------------------------- |
+| Embeddings provider     | `src/utils/embeddings.ts` — `EMBEDDING_PROVIDER=openai\|dgx-spark`  |
+| DGX Spark probe (shell) | `scripts/ollama-spark-embed.sh --preflight`                         |
+| Preflight (CLI)         | `dws kb preflight` (exits non-zero on failure with actionable hint) |
+| Inbox watcher           | `scripts/daily/kb-watch-inbox.sh` (auto-discovered by day-runner)   |
+| Cap (operator-tunable)  | `KB_WATCH_MAX_PER_RUN` (default `25`)                               |
+
+`memoryService` (`semantic_memories` pgvector) keeps OpenAI 1536-dim by default. Switching it to DGX Spark's 768-dim `nomic-embed-text` requires a schema migration (RED zone) and is documented as a follow-up.
+
+### Operator runbook (DGX Spark embeddings)
+
+```bash
+# 1. Probe — verify SSH alias + Ollama + model in one call
+dws kb preflight
+
+# 2. If model missing, pull it on the Spark
+ssh dgx-spark ollama pull nomic-embed-text
+
+# 3. Flip the env var only after preflight is green
+export EMBEDDING_PROVIDER=dgx-spark
+```
+
+The watcher's first run backfills the existing inbox up to the cap and rolls remaining files into the next day. No manual sentinel deletion is needed.
+
+---
+
 ## Code Review Process
 
 ### Overview
@@ -2749,18 +2898,21 @@ auditor-access model.
 
 ## Document Changelog
 
-| Version | Date         | Changes                                                                                                                                                                                                                                                                                                                               | Session ID |
-| ------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| 2.2     | Apr 22, 2026 | Added Local-First CI + Audit Log section (scripts/local-ci.sh, ci-audit-verify.sh, ci-audit-upload.ts, weekly/security-audit.sh, .ci-audit/, ci-audit-verify.yml gate); linked new Audit Manual for external auditors; indexed Files & Folders manual                                                                                 | vBYGo      |
-| 1.8     | Feb 6, 2026  | DWS Document Standard header; Admin Manuals Index (23 manuals); Revolut Payments & Store; MCP Configuration (Supabase, Upstash Redis, MCP Hub); AI Agent Operational Guidelines (Karpathy); Security Glossary & OWASP; DPA summary; Backup & Sync Infrastructure; Multi-Agent Orchestration (Subagents vs Agent Teams, Upstash Redis) | Rm8Jw      |
-| 1.7     | Jan 29, 2026 | Added Climate Assistant Chat Widget section with embed code, features, security configuration (Helmet CSP), and troubleshooting                                                                                                                                                                                                       | krDzD      |
-| 1.6     | Jan 24, 2026 | Added Training section with LWM/Firehorse training workflows, certification paths, and external partner resources; Updated training manual location references                                                                                                                                                                        | r6bU3      |
-| 1.5     | Jan 4, 2026  | Added AI Model Configuration (Sonnet → Opus 4.5 switch); Added DWS IQ 6 Security Framework section; Updated compliance scores to 95%                                                                                                                                                                                                  | -          |
-| 1.4     | Jan 3, 2026  | Added Code Review Process section; Removed Argus PR Review (moved to Archive); Documented Cursor AI + Snyk MCP workflow                                                                                                                                                                                                               | -          |
-| 1.3     | Dec 23, 2025 | Added AI Agent Policy section based on 2,500+ agent analysis; Protected admin directory in .gitignore                                                                                                                                                                                                                                 | PxSux      |
-| 1.2     | Dec 19, 2025 | Added Bug Tracking & Security Maintenance section with 20-bug fix history, monthly maintenance budget, bug hunting roadmap                                                                                                                                                                                                            | -          |
-| 1.1     | Dec 11, 2025 | Added Sensitive Data Protection section (GDPR/ISO 27001 compliance)                                                                                                                                                                                                                                                                   | -          |
-| 1.0     | Nov 23, 2025 | Initial creation, documented session history                                                                                                                                                                                                                                                                                          | -          |
+| Version | Date         | Changes                                                                                                                                                                                                                                                                                                                                                        | Session ID                           |
+| ------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| 2.5     | May 10, 2026 | Node.js workspace setup section: dual `npm ci` at repository root and `src/cloudflare/` for backend vs Cloudflare agent workers; PowerShell-first examples; worktree and cloud-agent note; TOC renumbered.                                                                                                                                                     | cursor-admin-node-workspace-20260510 |
+| 2.4     | Apr 25, 2026 | Browse SSRF hardening (`src/utils/url-guard.ts`): default-deny IPv4/IPv6 private/loopback/link-local/cloud-metadata ranges, two-layer enforcement (pre-`goto` + `page.route` for redirects), `BROWSE_ALLOW_PRIVATE=1` dev override; moved `playwright` from devDependencies to dependencies so DGX Spark `npm ci --omit=dev` keeps it. 75 tests pass.          | Rg5Jy                                |
+| 2.3     | Apr 25, 2026 | Added Agent Capabilities section (Browse + Second Brain): `dws browse` (Playwright Chromium, MCP `dws_browse_*`), DGX Spark embeddings provider (`EMBEDDING_PROVIDER=dgx-spark`), `dws kb preflight`, `scripts/daily/kb-watch-inbox.sh` (auto-backfill with `KB_WATCH_MAX_PER_RUN` cap); linked PLAYWRIGHT.md + AGENT_SECOND_BRAIN.md in Related Documentation | Rg5Jy                                |
+| 2.2     | Apr 22, 2026 | Added Local-First CI + Audit Log section (scripts/local-ci.sh, ci-audit-verify.sh, ci-audit-upload.ts, weekly/security-audit.sh, .ci-audit/, ci-audit-verify.yml gate); linked new Audit Manual for external auditors; indexed Files & Folders manual                                                                                                          | vBYGo                                |
+| 1.8     | Feb 6, 2026  | DWS Document Standard header; Admin Manuals Index (23 manuals); Revolut Payments & Store; MCP Configuration (Supabase, Upstash Redis, MCP Hub); AI Agent Operational Guidelines (Karpathy); Security Glossary & OWASP; DPA summary; Backup & Sync Infrastructure; Multi-Agent Orchestration (Subagents vs Agent Teams, Upstash Redis)                          | Rm8Jw                                |
+| 1.7     | Jan 29, 2026 | Added Climate Assistant Chat Widget section with embed code, features, security configuration (Helmet CSP), and troubleshooting                                                                                                                                                                                                                                | krDzD                                |
+| 1.6     | Jan 24, 2026 | Added Training section with LWM/Firehorse training workflows, certification paths, and external partner resources; Updated training manual location references                                                                                                                                                                                                 | r6bU3                                |
+| 1.5     | Jan 4, 2026  | Added AI Model Configuration (Sonnet → Opus 4.5 switch); Added DWS IQ 6 Security Framework section; Updated compliance scores to 95%                                                                                                                                                                                                                           | -                                    |
+| 1.4     | Jan 3, 2026  | Added Code Review Process section; Removed Argus PR Review (moved to Archive); Documented Cursor AI + Snyk MCP workflow                                                                                                                                                                                                                                        | -                                    |
+| 1.3     | Dec 23, 2025 | Added AI Agent Policy section based on 2,500+ agent analysis; Protected admin directory in .gitignore                                                                                                                                                                                                                                                          | PxSux                                |
+| 1.2     | Dec 19, 2025 | Added Bug Tracking & Security Maintenance section with 20-bug fix history, monthly maintenance budget, bug hunting roadmap                                                                                                                                                                                                                                     | -                                    |
+| 1.1     | Dec 11, 2025 | Added Sensitive Data Protection section (GDPR/ISO 27001 compliance)                                                                                                                                                                                                                                                                                            | -                                    |
+| 1.0     | Nov 23, 2025 | Initial creation, documented session history                                                                                                                                                                                                                                                                                                                   | -                                    |
 
 ---
 

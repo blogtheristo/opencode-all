@@ -24,17 +24,16 @@ import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes
 import outreachRoutes from './routes/outreach.routes.js';
 import outreachSendRoutes from './routes/outreach-send.routes.js';
 import emailRoutes from './routes/email.routes.js';
+import bookingRoutes from './routes/booking.routes.js';
 import webhookRoutes from './routes/webhook.routes.js';
 import agentRoutes from './agents/routes.js';
 import bimRoutes from './routes/bim.routes.js';
 import hilRoutes from './routes/hil.routes.js';
 import situationRoomRoutes from './routes/situation-room.routes.js';
 // import grokConsentRoutes from './routes/grok-consent.routes.js'; // TODO: restore when grok-consent is available
-import capTableRouter from './investor-reports/cap-table-routes.js';
 import paymentRoutes from './routes/payment.routes.js';
 import b2bPaymentRoutes from './routes/b2b-payment.routes.js';
 import stripeWebhookRoutes from './routes/stripe-webhook.routes.js';
-import { createMCPRouter } from './mcp/agent-server.js';
 import captainRoutes from './routes/captain.routes.js';
 import usageRoutes from './routes/usage.routes.js';
 import onboardRoutes from './routes/onboard.routes.js';
@@ -42,19 +41,42 @@ import complianceRoutes from './routes/compliance.routes.js';
 import reportExportRoutes from './routes/report-export.routes.js';
 import apiKeyRoutes from './routes/api-keys.routes.js';
 import kyaWebhookRoutes from './routes/kya-webhook.routes.js';
+import gtmEventsRoutes from './routes/gtm-events.routes.js';
+import emailWebhookRoutes from './routes/email-webhook.routes.js';
+import analyticsRoutes from './routes/analytics.routes.js';
+import erpTrackingRoutes from './routes/erp-tracking.routes.js';
+import roleTrackingRoutes from './routes/role-tracking.routes.js';
+import gapsRoutes from './routes/gaps.routes.js';
+import agentsRoutes from './routes/agents.routes.js';
 import { terminateChain } from './identity/kya-engine.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
 import { constructionLeadsScheduler, fetchAndProcessLeads } from './construction-leads/index.js';
-// @ts-ignore — firehorse module exists at runtime in container
-import { firehorseRoutes, initFirehorsePilot, shutdownFirehorsePilot } from './firehorse/index';
 import { memoryScheduler } from './agents/memory.scheduler.js';
 import { apiVersionMiddleware } from './middleware/api-version.middleware.js';
 import { correlationId } from './middleware/correlation-id.js';
 import { errorHandler, notFoundHandler } from './middleware/error-handler.js';
 import { healthCheck, livenessCheck } from './middleware/health.js';
 import { validateEnv } from './middleware/env-validation.js';
+
+// ============ STUBS FOR MODULES EXCLUDED FROM BUILD ============
+// tsconfig.json excludes src/firehorse/**, src/mcp/**, and src/investor-reports/**
+// from compilation, so they are not present in dist/ at runtime. Static imports
+// from these paths would crash the container with ERR_MODULE_NOT_FOUND before
+// app.listen() — breaking Cloud Run health checks. Instead we expose no-op
+// stubs; affected routes will 404 and scheduled hooks are no-ops. Unstub by
+// restoring the modules in tsconfig `include` and reverting this block.
+const firehorseRoutes = express.Router();
+const initFirehorsePilot = (): void => {
+  logger.warn('firehorse stubbed — module excluded from build');
+};
+const shutdownFirehorsePilot = (): void => {
+  /* no-op */
+};
+const createMCPRouter = () => express.Router();
+const capTableRouter = express.Router();
+// ================================================================
 
 dotenv.config();
 
@@ -70,7 +92,8 @@ if (!envResult.valid && process.env.NODE_ENV === 'production') {
 }
 
 const app: Express = express();
-const PORT = process.env.PORT || 8080; // Cloud Run default
+const PORT =
+  process.env.PORT || (process.env.NODE_ENV === 'production' ? '8080' : '3001');
 
 // ES Module path helpers
 const __filename = fileURLToPath(import.meta.url);
@@ -155,8 +178,21 @@ app.use(correlationId);
 app.use(apiVersionMiddleware);
 
 // Body parsers with size limits
-app.use(express.json({ limit: '10kb' }));
-app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+//
+// IMPORTANT: stripe-webhook routes are mounted BEFORE express.json() (further
+// down in this file's STRIPE WEBHOOK MOUNT block) so that preserveRawBody can
+// read the raw HTTP stream. If express.json() processes the request first,
+// the stream is consumed and `req.on('data')` / `req.on('end')` never fire,
+// causing the webhook handler to hang until Cloud Run kills the request at
+// the 60s timeout.
+app.use((req, res, next) => {
+  if (req.path.startsWith('/webhooks/stripe')) return next();
+  return express.json({ limit: '10kb' })(req, res, next);
+});
+app.use((req, res, next) => {
+  if (req.path.startsWith('/webhooks/stripe')) return next();
+  return express.urlencoded({ extended: true, limit: '10kb' })(req, res, next);
+});
 
 // Rate limiting (general)
 const limiter = rateLimit({
@@ -263,6 +299,7 @@ app.use('/mcp', createMCPRouter());
 
 // Email sending API (queued via Redis Streams)
 app.use('/api/v1/email', emailRoutes);
+app.use('/api/v1/booking', bookingRoutes);
 app.use('/api/v1/captain', captainRoutes);
 
 // Webhooks (Resend inbound email for digest replies)
@@ -270,6 +307,19 @@ app.use('/webhooks', webhookRoutes);
 
 // KYA Webhook Bridge (Shufti Pro → Policy Engine)
 app.use('/api/v1/kya', kyaWebhookRoutes);
+
+// GTM Events API (Google Tag Manager event logging — Phase 1)
+app.use('/api/gtm/events', gtmEventsRoutes);
+
+// Email Webhooks (Amazon SES bounce/delivery/open/click/complaint — Phase 2a)
+app.use('/webhooks/email', emailWebhookRoutes);
+
+// Analytics API (Funnel dashboard + drop-off analysis — Phase 2b)
+app.use('/api/v1/analytics', analyticsRoutes);
+app.use('/api/erp/track', erpTrackingRoutes);
+app.use('/api/roles/track', roleTrackingRoutes);
+app.use('/api/v1/gaps', gapsRoutes);
+app.use('/api/v1/agents', agentsRoutes);
 
 const getHeaderValue = (value: string | string[] | undefined): string | undefined =>
   Array.isArray(value) ? value[0] : value;

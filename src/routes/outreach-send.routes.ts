@@ -9,8 +9,9 @@
  *   Query: ?token=THREAD_TOKEN&type=investor&key=ADMIN_KEY
  *   Returns HTML confirmation page with send button
  *
- * Sends via Resend from risto@onelifetime.world to the prospect's primary_email.
- * Logs an outreach_activity for audit trail.
+ * SECURITY: Migrated from Resend to Amazon SES (SMTP) on 2026-04-16.
+ * Resend permanently banned — see CLAUDE.md Email Rules.
+ * Transport: src/utils/send-email.ts (SES SMTP only).
  */
 
 import crypto from 'crypto';
@@ -19,6 +20,7 @@ import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
 import { generateProspectEmail } from '../outreach/prospect-email-templates.js';
 import type { EmailType, ProspectContext } from '../outreach/prospect-email-templates.js';
+import { sendEmail } from '../utils/send-email.js';
 
 const router: Router = express.Router();
 
@@ -96,7 +98,9 @@ async function lookupThread(token: string): Promise<ThreadData | null> {
   const db = getSupabase();
   const { data, error } = await db
     .from('v_outreach_enriched')
-    .select('id,pipeline,thread_token,our_angle,their_angle,investor_type,check_size,partnership_type,customer_segment,first_name,last_name,person_title,org_name,primary_email,person_phone,person_id,org_id')
+    .select(
+      'id,pipeline,thread_token,our_angle,their_angle,investor_type,check_size,partnership_type,customer_segment,first_name,last_name,person_title,org_name,primary_email,person_phone,person_id,org_id',
+    )
     .eq('thread_token', token)
     .limit(1)
     .single();
@@ -112,7 +116,6 @@ async function sendProspectEmail(
   thread: ThreadData,
   emailType: EmailType,
   fromAddress: string,
-  resendKey: string
 ): Promise<{ success: boolean; error?: string }> {
   if (!thread.primary_email) {
     return { success: false, error: 'No primary email for this prospect. Add their email first.' };
@@ -134,47 +137,36 @@ async function sendProspectEmail(
 
   const { subject, html, text } = generateProspectEmail(emailType, ctx);
 
-  // Send via Resend
-  const response = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${resendKey}`,
-    },
-    body: JSON.stringify({
-      from: fromAddress,
-      to: [thread.primary_email],
-      reply_to: fromAddress,
-      subject,
-      html,
-      text,
-    }),
+  // Send via Amazon SES (SMTP) — Resend permanently banned 2026-03-26
+  const sesResult = await sendEmail({
+    from: fromAddress,
+    to: thread.primary_email,
+    subject,
+    html,
+    text,
   });
 
-  if (!response.ok) {
-    const errBody = await response.text();
-    logger.error('Resend prospect email failed', { status: response.status, error: errBody });
-    return { success: false, error: `Resend error: ${response.status}` };
+  if (!sesResult.ok) {
+    logger.error('SES prospect email failed', { error: sesResult.error });
+    return { success: false, error: sesResult.error ?? 'SES send failed' };
   }
 
   // Log the outreach activity via SDK
   try {
     const db = getSupabase();
-    const { error: activityErr } = await db
-      .from('outreach_activities')
-      .insert({
-        thread_id: thread.id,
-        person_id: thread.person_id,
-        org_id: thread.org_id,
-        pipeline: thread.pipeline,
-        channel: 'email',
-        activity_type: 'sent',
-        description: `${emailType} email sent to ${thread.primary_email}: "${subject}"`,
-        raw_payload: { email_type: emailType, subject, to: thread.primary_email },
-        outcome: 'neutral',
-        source: 'manual',
-        created_by: 'quick_send_api',
-      });
+    const { error: activityErr } = await db.from('outreach_activities').insert({
+      thread_id: thread.id,
+      person_id: thread.person_id,
+      org_id: thread.org_id,
+      pipeline: thread.pipeline,
+      channel: 'email',
+      activity_type: 'sent',
+      description: `${emailType} email sent to ${thread.primary_email}: "${subject}"`,
+      raw_payload: { email_type: emailType, subject, to: thread.primary_email },
+      outcome: 'neutral',
+      source: 'manual',
+      created_by: 'quick_send_api',
+    });
 
     if (activityErr) {
       logger.warn('Failed to log outreach activity', { error: activityErr.message });
@@ -198,13 +190,21 @@ router.get('/send-email', async (req: Request, res: Response) => {
 
   // SECURITY: Timing-safe comparison to prevent timing attacks
   if (!adminKey || !provided) {
-    res.status(401).send('<html><body style="background:#0a0a0a;color:#ff4444;font-family:sans-serif;padding:40px;"><h2>Unauthorized</h2></body></html>');
+    res
+      .status(401)
+      .send(
+        '<html><body style="background:#0a0a0a;color:#ff4444;font-family:sans-serif;padding:40px;"><h2>Unauthorized</h2></body></html>',
+      );
     return;
   }
   const providedBuf2 = Buffer.from(String(provided).padEnd(256, '\0'));
   const expectedBuf2 = Buffer.from(adminKey.padEnd(256, '\0'));
   if (!crypto.timingSafeEqual(providedBuf2, expectedBuf2)) {
-    res.status(401).send('<html><body style="background:#0a0a0a;color:#ff4444;font-family:sans-serif;padding:40px;"><h2>Unauthorized</h2></body></html>');
+    res
+      .status(401)
+      .send(
+        '<html><body style="background:#0a0a0a;color:#ff4444;font-family:sans-serif;padding:40px;"><h2>Unauthorized</h2></body></html>',
+      );
     return;
   }
 
@@ -212,28 +212,30 @@ router.get('/send-email', async (req: Request, res: Response) => {
   const emailType = req.query.type as EmailType;
 
   if (!token || !emailType || !VALID_EMAIL_TYPES.includes(emailType)) {
-    res.status(400).send('<html><body style="background:#0a0a0a;color:#ff4444;font-family:sans-serif;padding:40px;"><h2>Missing token or type</h2></body></html>');
+    res
+      .status(400)
+      .send(
+        '<html><body style="background:#0a0a0a;color:#ff4444;font-family:sans-serif;padding:40px;"><h2>Missing token or type</h2></body></html>',
+      );
     return;
   }
 
   try {
     const thread = await lookupThread(token);
     if (!thread) {
-      res.status(404).send('<html><body style="background:#0a0a0a;color:#ff4444;font-family:sans-serif;padding:40px;"><h2>Thread not found</h2></body></html>');
+      res
+        .status(404)
+        .send(
+          '<html><body style="background:#0a0a0a;color:#ff4444;font-family:sans-serif;padding:40px;"><h2>Thread not found</h2></body></html>',
+        );
       return;
     }
 
     // Check if this is a confirmed send (confirm=1 query param)
     if (req.query.confirm === '1') {
-      const resendKey = process.env.RESEND_API_KEY;
       const fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
 
-      if (!resendKey) {
-        res.status(503).send('<html><body style="background:#0a0a0a;color:#ff4444;font-family:sans-serif;padding:40px;"><h2>RESEND_API_KEY not configured</h2></body></html>');
-        return;
-      }
-
-      const result = await sendProspectEmail(thread, emailType, fromAddress, resendKey);
+      const result = await sendProspectEmail(thread, emailType, fromAddress);
 
       if (result.success) {
         const name = [thread.first_name, thread.last_name].filter(Boolean).join(' ');
@@ -243,7 +245,8 @@ router.get('/send-email', async (req: Request, res: Response) => {
           <p style="color:#666;margin-top:24px;font-size:12px;">Activity logged. You can close this window.</p>
         </body></html>`);
       } else {
-        res.status(500).send(`<html><body style="background:#0a0a0a;color:#ff4444;font-family:sans-serif;padding:40px;">
+        res.status(500)
+          .send(`<html><body style="background:#0a0a0a;color:#ff4444;font-family:sans-serif;padding:40px;">
           <h2>Send Failed</h2>
           <p style="color:#ccc;">${escHtml(result.error || 'Unknown error')}</p>
         </body></html>`);
@@ -254,10 +257,18 @@ router.get('/send-email', async (req: Request, res: Response) => {
     // Show confirmation page
     const name = [thread.first_name, thread.last_name].filter(Boolean).join(' ');
     const org = thread.org_name ? ` (${escHtml(thread.org_name)})` : '';
-    const email = thread.primary_email ? escHtml(thread.primary_email) : '<span style="color:#ff4444">No email on file</span>';
-    const phone = thread.person_phone ? `<p style="color:#888;margin:4px 0;">Phone: ${escHtml(thread.person_phone)}</p>` : '';
+    const email = thread.primary_email
+      ? escHtml(thread.primary_email)
+      : '<span style="color:#ff4444">No email on file</span>';
+    const phone = thread.person_phone
+      ? `<p style="color:#888;margin:4px 0;">Phone: ${escHtml(thread.person_phone)}</p>`
+      : '';
 
-    const typeColors: Record<string, string> = { investor: '#60a5fa', sales: '#00d4aa', partnership: '#c084fc' };
+    const typeColors: Record<string, string> = {
+      investor: '#60a5fa',
+      sales: '#00d4aa',
+      partnership: '#c084fc',
+    };
     const typeColor = typeColors[emailType] || '#ccc';
 
     const confirmUrl = `/api/v1/outreach/send-email?token=${encodeURIComponent(token)}&type=${emailType}&key=${encodeURIComponent(provided)}&confirm=1`;
@@ -271,17 +282,25 @@ router.get('/send-email', async (req: Request, res: Response) => {
     <p style="margin:4px 0;color:#888;">To: ${email}</p>
     ${phone}
     <p style="margin:16px 0 4px;color:#888;font-size:12px;">Pipeline: <span style="color:${typeColor};">${thread.pipeline.toUpperCase()}</span></p>
-    ${!thread.primary_email ? '<p style="color:#ff4444;margin:16px 0;">Cannot send — no email address on file. Add their email first.</p>' : `
+    ${
+      !thread.primary_email
+        ? '<p style="color:#ff4444;margin:16px 0;">Cannot send — no email address on file. Add their email first.</p>'
+        : `
     <a href="${confirmUrl}" style="display:inline-block;margin-top:24px;padding:12px 32px;background:${typeColor};color:#000;text-decoration:none;font-weight:700;border-radius:6px;font-size:14px;">
       Confirm & Send
-    </a>`}
+    </a>`
+    }
     <p style="color:#444;margin-top:24px;font-size:11px;">Click to send. Activity will be logged automatically.</p>
   </div>
 </body></html>`);
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'Unknown error';
     logger.error('Quick-send confirmation page error', { error: msg });
-    res.status(500).send(`<html><body style="background:#0a0a0a;color:#ff4444;font-family:sans-serif;padding:40px;"><h2>Error</h2><p>${escHtml(msg)}</p></body></html>`);
+    res
+      .status(500)
+      .send(
+        `<html><body style="background:#0a0a0a;color:#ff4444;font-family:sans-serif;padding:40px;"><h2>Error</h2><p>${escHtml(msg)}</p></body></html>`,
+      );
   }
 });
 
@@ -295,17 +314,13 @@ router.post('/send-email', express.json(), async (req: Request, res: Response) =
   const { thread_token, email_type } = req.body;
 
   if (!thread_token || !email_type || !VALID_EMAIL_TYPES.includes(email_type)) {
-    res.status(400).json({ error: 'Provide thread_token and email_type (investor|sales|partnership)' });
+    res
+      .status(400)
+      .json({ error: 'Provide thread_token and email_type (investor|sales|partnership)' });
     return;
   }
 
-  const resendKey = process.env.RESEND_API_KEY;
   const fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
-
-  if (!resendKey) {
-    res.status(503).json({ error: 'RESEND_API_KEY not configured' });
-    return;
-  }
 
   try {
     const thread = await lookupThread(thread_token);
@@ -314,7 +329,7 @@ router.post('/send-email', express.json(), async (req: Request, res: Response) =
       return;
     }
 
-    const result = await sendProspectEmail(thread, email_type, fromAddress, resendKey);
+    const result = await sendProspectEmail(thread, email_type, fromAddress);
 
     if (result.success) {
       logger.info('Prospect email sent via API', {

@@ -852,14 +852,14 @@ PROPOSE FIX for every gap found.
 ```
 PRODUCT: DWS IQ — EU Sovereign Pilot
 PRICE: €1,499/month + €3,990 one-time setup (Annual: 2 months free)
-CLAIMS: "8 AI agents + Article 12 logging. NIS2 dashboard. 5 seats. Zero CLOUD Act. Full EU sovereign evaluation."
+CLAIMS: "8 AI agents + EU AI Act Article 12 logging. NIS2 dashboard. 5 seats. Zero CLOUD Act. Full EU sovereign evaluation."
 FEATURES LISTED: 8 AI agents + Article 12 logging | NIS2 compliance dashboard | Zero CLOUD Act + EU data residency
 
 TASK:
 Do extreme focus on substance. Extreme focus on getting to the truth.
 
 Evaluate:
-1. TRUTH CHECK — "Article 12 logging" — Article 12 of the EU AI Act requires "record-keeping" for high-risk AI systems. Is DWS IQ 6 classified as a high-risk AI system (Annex III)? If not, Article 12 logging is not required. If yes, the entire system needs a Conformity Assessment. Which is it?
+1. TRUTH CHECK — "EU AI Act Article 12 logging" — Article 12 of the EU AI Act requires "record-keeping" for high-risk AI systems. Is DWS IQ 6 classified as a high-risk AI system (Annex III)? If not, Article 12 logging is not required. If yes, the entire system needs a Conformity Assessment. Which is it?
 2. TRUTH CHECK — "NIS2 compliance dashboard" — NIS2 compliance requires organizational measures far beyond a dashboard (incident reporting, governance, supply chain audits). A dashboard that shows "NIS2 compliant" without the organizational process is a checkbox, not compliance.
 3. TRUTH CHECK — Total pilot cost: €3,990 + €1,499 = €5,489 for 4 weeks. This is the most expensive pilot in the store. What is the exit/refund policy if the pilot does not prove ROI?
 4. TRUTH CHECK — "Zero CLOUD Act + EU data residency" — same Aiven infrastructure question as AGENT 36. Verify the full stack has no US-provider touchpoint (DNS, CDN, email delivery, authentication provider).

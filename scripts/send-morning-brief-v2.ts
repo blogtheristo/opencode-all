@@ -87,6 +87,49 @@ function checkHelsinkiTime(): boolean {
   return true;
 }
 
+function buildMorningBriefHtml(subject: string, dateStr: string, text: string): string {
+  const body = text
+    .split('\n')
+    .map((line) => {
+      if (!line.trim()) {
+        return '<div style="height:8px;"></div>';
+      }
+      if (/^═+$/u.test(line) || /^─+$/u.test(line)) {
+        return '<hr style="border:none;border-top:1px solid #2a2a2a;margin:10px 0;">';
+      }
+      if (/^\d+\.\s+[A-Z]/.test(line)) {
+        return `<h2 style="margin:14px 0 6px;font-size:14px;color:#00d4aa;">${escapeHtml(line)}</h2>`;
+      }
+      if (/^MORNING BRIEF V2/.test(line)) {
+        return `<h1 style="margin:0 0 8px;font-size:18px;color:#00d4aa;">${escapeHtml(line)}</h1>`;
+      }
+      return `<p style="margin:0 0 4px;font-size:13px;line-height:1.5;color:#d6d6d6;">${escapeHtml(line)}</p>`;
+    })
+    .join('\n');
+
+  return `<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${escapeHtml(subject)}</title>
+</head>
+<body style="margin:0;padding:0;background:#0a0a0a;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="max-width:760px;margin:0 auto;background:#111;">
+    <tr>
+      <td style="padding:18px 20px;border-bottom:2px solid #00d4aa;">
+        <div style="font-size:12px;color:#777;">Morning Brief</div>
+        <div style="font-size:16px;font-weight:600;color:#eaeaea;margin-top:2px;">${escapeHtml(dateStr)}</div>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:18px 20px;">${body}</td>
+    </tr>
+  </table>
+</body>
+</html>`;
+}
+
 // ---------------------------------------------------------------------------
 // Supabase helper (for flow tasks query)
 // ---------------------------------------------------------------------------
@@ -961,8 +1004,15 @@ async function main(): Promise<void> {
     to: TO,
     subject,
     text,
-    html: `<pre style="font-family: monospace; font-size: 13px; line-height: 1.5;">${escapeHtml(text)}</pre>`,
+    html: buildMorningBriefHtml(subject, dateStr, text),
     replyTo: REPLY_TO,
+    source: 'admin',
+    templateType: 'morning_brief_v2',
+    metadata: {
+      recipientCount: 1,
+      urgentCount,
+      overdueCount,
+    },
     headers: {
       'X-DWS-Email-Type': 'morning-brief-v2',
     },

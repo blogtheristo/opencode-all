@@ -154,9 +154,9 @@ A Q2-2026 catalog found **47 unique badge labels** spread across **74 HTML files
 <span class="reg">CBAM</span>
 ```
 
-### Aiven AI Compliance `v1.0`
+### EU AI Act Compliance `v1.0`
 
-- **Label:** `Aiven AI Compliance`
+- **Label:** `EU AI Act Compliance`
 - **Category:** Compliance (dual-use markets)
 - **Used in:** `construction/index.html:552`.
 

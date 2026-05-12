@@ -35,7 +35,7 @@ AGENT HISTORY:
 **Strong thesis + velocity fit — warm intro on the table.** Key alignment:
 
 1. **Nordic focus match** — Vesna explicitly targets Nordic founders. We are Finland-based. No geographic friction.
-2. **AI-DD builder** — He's building his own AI-driven due diligence engine. Our 21-agent architecture, ERP integration, agent scoring, Aiven audit layer — he will grasp it in one call. No need to explain what "AI agent" means.
+2. **AI-DD builder** — He's building his own AI-driven due diligence engine. Our 21-agent architecture, ERP integration, agent scoring, sovereignty audit layer — he will grasp it in one call. No need to explain what "AI agent" means.
 3. **High velocity** — 3-week commit timeline fits our pre-Arctic 15 closing window. We need speed, he delivers speed.
 4. **Ticket range works** — $100K-$500K. Even the low end is 2x a Captain seat. The high end could anchor the round.
 5. **Pre-seed / seed stage** — We're at EUR 7K MRR with V1 launching June 15. His exact entry point.
@@ -74,7 +74,7 @@ Hi Ross,
 
 Thanks for the recent conversation. Sending the follow-up we discussed.
 
-DWS IQ 6 is the carbon compliance platform for EU industrial companies. 21 AI agents connect to SAP, IFS Cloud, Dynamics 365, pull operational data, and auto-generate audit-ready ETS / CBAM / CSRD / EU Taxonomy reports. Architecture: MCP-exposed agents, deterministic scoring, full audit trail, EU AI Act compliant, Aiven reasoning lineage.
+DWS IQ 6 is the carbon compliance platform for EU industrial companies. 21 AI agents connect to SAP, IFS Cloud, Dynamics 365, pull operational data, and auto-generate audit-ready ETS / CBAM / CSRD / EU Taxonomy reports. Architecture: MCP-exposed agents, deterministic scoring, full audit trail, EU AI Act compliant, sovereignty audit reasoning lineage.
 
 Given your AI-DD engine work, the architecture is the fastest way in:
 

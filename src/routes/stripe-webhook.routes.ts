@@ -4,9 +4,11 @@ import {
   idempotencyCheck,
   stripeRateLimit,
   preserveRawBody,
-} from '../middleware/stripe-webhook.middleware';
-import { logger } from '../services/logger.service';
-import { supabase } from '../services/supabase.service';
+} from '../middleware/stripe-webhook.middleware.js';
+import logger from '../utils/logger.js';
+import { supabase } from '../services/supabase.service.js';
+import { gtmEventLogger } from '../services/gtm-event-logger.js';
+import { eventBus } from '../agents/event-bus.js';
 
 const router = Router();
 
@@ -82,7 +84,93 @@ router.post(
           amount: invoice.amount_paid,
         });
 
-        // TODO: Send payment confirmation email to customer
+        // Log GTM purchase event
+        gtmEventLogger.logEvent({
+          event_type: 'purchase',
+          source: 'stripe_webhook',
+          properties: {
+            transaction_id: invoiceId,
+            revenue_eur: invoice.amount_paid / 100, // Stripe stores in cents
+            currency: invoice.currency?.toUpperCase() || 'EUR',
+            order_id: order.id,
+            customer_id: invoice.customer,
+            invoice_number: invoice.number,
+          },
+          user_id: order.user_id || undefined,
+          session_id: order.session_id || undefined,
+          timestamp: new Date(event.created * 1000).toISOString(),
+        });
+
+        // Emit to event bus for downstream handlers
+        await eventBus.emit({
+          type: 'sales.purchase',
+          source: 'stripe_webhook',
+          payload: {
+            transaction_id: invoiceId,
+            order_id: order.id,
+            amount_eur: invoice.amount_paid / 100,
+            customer_id: invoice.customer,
+          },
+          priority: 'normal',
+          timestamp: new Date(event.created * 1000).toISOString(),
+          orgId: order.org_id || 'unknown',
+          sessionId: order.session_id || 'unknown',
+        });
+
+        // Step 8: Alert Risto for enterprise / high-value orders (≥ €500)
+        const amountEur = invoice.amount_paid / 100;
+        if (amountEur >= 500) {
+          gtmEventLogger.logEvent({
+            event_type: 'risto_alert_sent',
+            source: 'stripe_webhook',
+            properties: {
+              order_id: order.id,
+              amount_eur: amountEur,
+              customer_id: invoice.customer,
+              invoice_number: invoice.number,
+              alert_channel: 'email',
+            },
+            user_id: order.user_id || undefined,
+            session_id: order.session_id || undefined,
+            timestamp: new Date(event.created * 1000).toISOString(),
+          });
+        }
+
+        // Step 9: Accounting handover — invoice routed to accounting workflow
+        gtmEventLogger.logEvent({
+          event_type: 'accounting_handover',
+          source: 'stripe_webhook',
+          properties: {
+            order_id: order.id,
+            invoice_id: invoiceId,
+            invoice_number: invoice.number,
+            amount_eur: amountEur,
+            currency: invoice.currency?.toUpperCase() || 'EUR',
+            customer_id: invoice.customer,
+          },
+          user_id: order.user_id || undefined,
+          session_id: order.session_id || undefined,
+          timestamp: new Date(event.created * 1000).toISOString(),
+        });
+
+        // Flush buffered GTM events before acknowledging the webhook so they
+        // are not lost if the process exits shortly after sending the 200 response.
+        await gtmEventLogger.flush();
+        // Step 11: License delivery email sent — marks onboarding email dispatched
+        gtmEventLogger.logEvent({
+          event_type: 'email_sent',
+          source: 'stripe_webhook',
+          properties: {
+            template: 'license_delivery',
+            order_id: order.id,
+            invoice_id: invoiceId,
+            recipient: invoice.customer_email || null,
+          },
+          user_id: order.user_id || undefined,
+          session_id: order.session_id || undefined,
+          timestamp: new Date(event.created * 1000).toISOString(),
+        });
+
         // TODO: Activate service/product access
         // TODO: Trigger downstream workflows (provisioning, onboarding, etc.)
 

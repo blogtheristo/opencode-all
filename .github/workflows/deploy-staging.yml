@@ -7,7 +7,16 @@ name: Deploy to Staging (Cloud Run)
 # Image:  europe-north1-docker.pkg.dev/$PROJECT_ID/dws-iq/backend:staging-<sha>
 #
 # Required secrets (GitHub → Settings → Secrets → Actions):
-#   GCP_SA_KEY           — GCP service account JSON with Cloud Run + Artifact Registry roles
+#   GCP_SA_KEY           — GCP service account JSON. Required IAM roles on project dws6-backend:
+#                            roles/artifactregistry.writer  (on repo europe-north1/dws-iq)
+#                            roles/run.admin
+#                            roles/iam.serviceAccountUser
+#                          Grant Artifact Registry Writer:
+#                            gcloud artifacts repositories add-iam-policy-binding dws-iq \
+#                              --location=europe-north1 \
+#                              --member="serviceAccount:<SA_EMAIL>" \
+#                              --role="roles/artifactregistry.writer" \
+#                              --project=dws6-backend
 #   STAGING_SUPABASE_URL — Supabase URL for staging project
 #   STAGING_SUPABASE_ANON_KEY
 #   STAGING_SUPABASE_SERVICE_KEY
@@ -56,6 +65,7 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
+          token_format: access_token
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -128,9 +138,9 @@ jobs:
             ENABLE_SAP_INTEGRATION=false
             ENABLE_IFS_INTEGRATION=false
             ENABLE_DYNAMICS_INTEGRATION=false
-            ARTICLE_12_AUDIT_ENABLED=false
+            SOVEREIGNTY_AUDIT_ENABLED=false
             LLM_PRIMARY=groq
-            LLM_FALLBACK=scaleway
+            LLM_FALLBACK=nim
           secrets: |
             SUPABASE_URL=STAGING_SUPABASE_URL:latest
             SUPABASE_ANON_KEY=STAGING_SUPABASE_ANON_KEY:latest

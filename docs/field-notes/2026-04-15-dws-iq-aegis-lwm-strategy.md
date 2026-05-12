@@ -1120,7 +1120,7 @@ DWS IQ -tuoteperhe — kolme tasoa, kaksi tuotelinjaa:
 ─────────────────────────────────────────────────────────────────────
 TASO            TUOTE               PILVI           MARKKINA
 ─────────────────────────────────────────────────────────────────────
-Aegis           DWS IQ Aegis        Aiwen,          Puolustus,
+Aegis           DWS IQ Aegis        Full Sov.       Puolustus,
                 (OMA TUOTE)         europe-north1   kriittinen infra
 
 Sovereign Infra DWS IQ v6           Scaleway EU     Säännelty
@@ -1178,7 +1178,7 @@ v6 olisi itsenäinen compliance SaaS. **Nämä eivät kilpaile keskenään.**
 | ------------------ | -------------------- | --------------------------- | ----------------- | ------------------------ |
 | v6 Connect         | Global AWS/Azure     | TBD (entry)                 | ≤1M               | Globaali SaaS            |
 | v6 Sovereign Infra | Scaleway EU          | TBD (mid)                   | ≤5M               | Säännelty EU             |
-| **Aegis**          | **Aiwen, eu-north1** | **EUR 59,990 + EUR 999/kk** | **Rajoittamaton** | **Puolustus/kriittinen** |
+| **Aegis**          | **Full Sov., eu-north1** | **EUR 59,990 + EUR 999/kk** | **Rajoittamaton** | **Puolustus/kriittinen** |
 
 > **Huom:** Aegis-rivi on tässä vain viitteenä markkina-arkkitehtuurin
 > selkeyttämiseksi — se ei ole v6:n tier. Hinnat v6 Connect ja Sovereign
@@ -1203,7 +1203,7 @@ määrittänyt. Ei brainstorming — vahvistettu rakenne.
 │  TUOTE 1: DWS IQ Aegis                                              │
 │  Sovereign/defense — erillinen tuote, ei vertailtavissa v6:een      │
 ├─────────────────────────────────────────────────────────────────────┤
-│  Pilvi:      Aiwen + europe-north1                                  │
+│  Pilvi:      Full Sovereignty (Aegis) + europe-north1               │
 │  Hinta:      EUR 59,990 + EUR 999/kk                                │
 │  Ostaja:     CISO, puolustushankinnat, erikoissopimus               │
 │  Hinnoittelu: Oma hinnasto — ei EUR 0.012/muuttuja -taulukossa       │

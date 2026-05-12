@@ -9,7 +9,7 @@ Story Lock: B2B DeepTech + Defensible IP + Technical Moat (operator-to-operator)
 Intro Type: Cold (to be initiated)
 
 AGENT HISTORY:
-- v1.0 (2026-04-19): Initial draft. Partner at Hard2beat VC, €250K-€750K pre-seed/seed DeepTech across Europe. 3x exited founder (Piwik PRO to €12M ARR) — evaluates technical moats himself, operator-to-operator conversation. B2B enterprise software with defensible IP is his exact mandate, DWS IQ 6 fits. Drawback 1: Poland-focused fund (invests across Europe). Drawback 2: solo founder is a flag for him. Mitigation: lead with defensible IP (21-agent architecture, EU AI Act moat, Aiven audit lineage, ERP connectors), acknowledge solo-founder directly with operator track record + named advisors + paying customers.
+- v1.0 (2026-04-19): Initial draft. Partner at Hard2beat VC, €250K-€750K pre-seed/seed DeepTech across Europe. 3x exited founder (Piwik PRO to €12M ARR) — evaluates technical moats himself, operator-to-operator conversation. B2B enterprise software with defensible IP is his exact mandate, DWS IQ 6 fits. Drawback 1: Poland-focused fund (invests across Europe). Drawback 2: solo founder is a flag for him. Mitigation: lead with defensible IP (21-agent architecture, EU AI Act moat, sovereignty audit lineage, ERP connectors), acknowledge solo-founder directly with operator track record + named advisors + paying customers.
 -->
 
 # Investor Intro Note — Maciej Zawadzinski, Hard2beat VC
@@ -34,7 +34,7 @@ AGENT HISTORY:
 
 **Strong mandate fit — operator-to-operator conversation if we land the technical moat story.** Key alignment:
 
-1. **Exact mandate match** — B2B enterprise software with defensible IP. DWS IQ 6 is B2B enterprise software (industrial ERP integration, compliance automation) with a real moat (21-agent architecture, EU AI Act compliance stack, Aiven reasoning lineage, regulated-industry domain knowledge).
+1. **Exact mandate match** — B2B enterprise software with defensible IP. DWS IQ 6 is B2B enterprise software (industrial ERP integration, compliance automation) with a real moat (21-agent architecture, EU AI Act compliance stack, sovereignty audit reasoning lineage, regulated-industry domain knowledge).
 2. **Ticket range anchors the round** — €250K-€750K. Our €650K SAFE fits entirely inside his range. He could lead with a single anchor check.
 3. **Operator filter** — He's a 3x exited founder who scaled Piwik PRO to €12M ARR. He will evaluate the technical moat himself, and he will evaluate the GTM plan himself. This is operator-to-operator, not fund-analyst-to-founder.
 4. **Pan-European** — Poland-focused but invests across Europe. Finnish base is not a friction point.
@@ -48,7 +48,7 @@ AGENT HISTORY:
 
 ## Strategy
 
-- **Lead with defensible IP / technical moat** — His filter is the moat. Open with 21 agents + MCP + EU AI Act compliance + Aiven audit lineage + 20 regulated industries of domain ontology. These are not commodities.
+- **Lead with defensible IP / technical moat** — His filter is the moat. Open with 21 agents + MCP + EU AI Act compliance + sovereignty audit lineage + 20 regulated industries of domain ontology. These are not commodities.
 - **Operator-to-operator tone** — No fund-pitch language. No "massive TAM" throat-clearing. Numbers, architecture, next 6 months. He scaled Piwik PRO, he knows the difference between a slide and a product.
 - **Anchor check framing** — His €250K-€750K range means he can lead. Explicitly offer that seat.
 - **Address solo-founder in the opening** — Don't hide from his stated preference. Make it one line in paragraph 1, with the operator-track-record counter in the same paragraph. Move on.
@@ -81,7 +81,7 @@ Risto Päärni, Lifetime Oy (Espoo, Finland). Reaching out because Hard2beat's B
 - 21 AI agents, MCP-exposed (JSON-RPC 2.0), deterministic scoring
 - ERP connectors: SAP S/4HANA, IFS Cloud, Dynamics 365 (live)
 - EU AI Act compliant from v0 — not retrofitted
-- Aiven reasoning lineage layer — full audit trail for regulators
+- Sovereignty audit reasoning lineage — full audit trail for regulators
 - 20 EU-regulated industries with encoded domain ontology
 - Sovereign deployment (Finland/Germany), no CLOUD Act exposure
 

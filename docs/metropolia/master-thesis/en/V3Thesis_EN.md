@@ -6,10 +6,13 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.39
+Version: 3.56
 
 Sessions & Modifications:
 
+- Version: 3.56 | Tool: Claude Code (Opus 4.7) | Session: claude/deployment-strategies-comparison-T5gcw | Date: 12.05.2026 | Changes: Added cross-references to the new `DWS_DEPLOYMENT_STANDARD.md` v1.0 in Section 4.3.1 (Hybrid Cloud-Edge Architecture) and Section 5.1 (Infrastructure Deployment). The Deployment Standard governs the per-Surface deploy ontology, the four per-tenant manifests (File Index, Per-Tenant Secrets, Personnel, Connector Data Catalogue), the Client Artifact Bundle, the per-Surface Brain (LLM) declaration rule, and the Industry × Sales-Jurisdiction × Cloud-Jurisdiction (US Public / EU Development / Aegis Sovereign) × Tier (Connect / Sovereign infra / Aegis) deploy bindings. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule (3.52 → 3.56; intermediate versions reserved).
+- Version: 3.52 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-ontology-blog-3RGKG | Date: 29.04.2026 | Changes: Added Section 1.6 "Ontology — Etymology and Philosophical Background" linking the thesis to ONTOLOGY.md v1.3 (Greek ón + lógos, Aristotle, scholastic 17th–18th c. systematization, modern computer-science meaning). Aligns thesis terminology with the canonical DWS Ontology Standard. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule.
+- Version: 3.51 | Tool: Claude Code (Haiku 4.5) | Session: claude/sync-version-numbering-adEeB | Date: 28.04.2026 | Changes: Bumped from 3.39 to 3.51 (12 steps × 0.01). Unified thesis version track maintained. Created new Tutkimussuunnitelma_3.51.md (Research Plan) with three research streams (KYA standardization, DWS 7 empirical testbed, dual-use industries), eight research questions, "Human in Command ja Human in Loop" governance framework; versioning format rule (.X9 → .X+1,0) documented for DWS_DOCUMENT_STANDARD.md §5
 - Version: 3.39 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Terminology rename — "Aiven overlay" / "Aiven layer" (deprecated infrastructure labels) → "Article 12 Logging Pipeline" per new DWS_ARTICLE_12_LOGGING_STANDARD.md v1.0 (unified 3-tier canonical term). Aiven remains the correct name for the Postgres SaaS. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule; only V3Thesis_EN had the infra-context string in content
 - Version: 3.38 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Typo correction — "Aiwen" → "Aiven" (Aiven.io is our Helsinki Postgres partner) as part of repo-wide sweep of 116 files; no content change beyond the spelling fix; unified version track preserved (all 4 thesis files bumped in lockstep per CLAUDE.md thesis rule)
 - Version: 3.37 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: Added Section 10.22 (DWS Skilled Taxonomy — Three Tiers Across Agents, Workflows, and Jurisdictions); deprecated "GodAgent"/"Godagent" branding; codified the `Skilled <Axis>` / `Industrial Specialist <Axis>` / `Industry <Axis>` three-tier pattern across three active axes (Agents, Workflows, Jurisdictions — EU/US/Aiven); pattern designed for extensibility to future capability axes (Datasets, Models, Regulations, Reports); added count-dynamism patterns (open-ended `18+`, registry-anchored, product-scoped); codified exclusions (Docker/infra identifiers, Pantheon Greek-mythology brand, historical records); canonical source of truth is `docs/Deputy-Agents-Architecture.md` §1 Terminology; added Key Contribution #31
@@ -222,6 +225,16 @@ How can a bootstrapped industrial AI platform achieve product-market fit through
 | **SaaS**            | Software as a Service                                                     |
 | **DWS6**            | Digital Work System 6 - Technical name for the Firehorse platform         |
 | **Embodied Carbon** | Emissions from the manufacturing and transportation of building materials |
+
+## 1.6 Ontology — Etymology and Philosophical Background
+
+The Firehorse platform's data and reasoning layer is structured around a formal ontology — the DWS Ontology Standard (see `ONTOLOGY.md` v1.3 in the project repository). To ground the engineering choices in their conceptual heritage, this section briefly reviews the origin of the term.
+
+**Etymology.** The word _ontology_ derives from two Greek roots: **ὄν (ón)** — "that which is", the present participle of _einai_ ("to be") — and **λόγος (lógos)** — "doctrine, account, rational explanation". Literally, ontology is "the doctrine of being" — the study of what exists and in what manner.
+
+**Philosophical background.** Ontology is one of the central branches of metaphysics. Already in classical Greece, philosophers such as Aristotle examined the nature of being: what it means for something to _be_, what kinds of entities exist (objects, properties, relations, events), and what the basic structure of being is. The term _ontology_ itself was consolidated only in the 17th–18th centuries, particularly within scholastic and early-modern philosophy, when metaphysics began to be systematised into distinct sub-fields.
+
+**Modern usage.** Today the term is applied in several contexts: in philosophy, the study of the fundamental nature of existence; in computer science and artificial intelligence, a formal model of concepts and the relations between them (classes, properties, relations); and in the philosophy of science, the question of which entities a given theory commits to. The original meaning — _structuring what is_ — is preserved, while the application surface shifts. The DWS Ontology Standard builds on this foundation: EU regulations and industrial concepts are structured into a machine-readable form that humans and agents can query through the same interface.
 
 ---
 
@@ -736,6 +749,8 @@ AgentFoundry is a multi-model, multi-tenant framework for deploying AI agents ac
 
 ### 4.3.1 Hybrid Cloud-Edge Architecture
 
+The deployment of this hybrid architecture across environments is governed by `DWS_DEPLOYMENT_STANDARD.md` (v1.0, 2026-05-12). Each layer in the diagram below corresponds to one or more Surfaces in the standard's ontology — the Cloud Layer to the Cloud Run Backend / AgentFoundry / MCP Gateway Surfaces, the Edge Layer to the Lifetime World Model (LWM) on the Acer Veriton GN100 sovereign edge, and the Client Layer to the static-site and dashboard Surfaces. The Brain-Memory-Body-Hands taxonomy used throughout this thesis is mapped to per-Surface deploy lanes in §6 of the Deployment Standard, with the rule that each Surface declares its primary Brain (LLM) explicitly; swapping a production Brain is a RED-zone event under the auto-mode trust boundary.
+
 ```
 +-------------------------------------------------+
 |  DWS6 HYBRID ARCHITECTURE                        |
@@ -838,6 +853,8 @@ Establishing community rules and moderation for the "Lifetime World" platform.
 This chapter documents the Firehorse operating model implementation during the MVP phase (December 2025 - February 2026).
 
 ## 5.1 Infrastructure Deployment
+
+Infrastructure deployment is governed by the canonical engineering standard `DWS_DEPLOYMENT_STANDARD.md` (v1.0, 2026-05-12). The standard defines every deployable artefact as a **Surface** (static sites, dashboards, Cloud Run backend, AgentFoundry, MCP gateway, Firehorse Python suite, **Situation Room**, **Control Room**, the **Lifetime World Model on Acer Veriton GN100**, and the Store), and binds each release to a Strategy (blue/green, rolling revisions, manual sovereign-edge, workflow-driven sync, dashboard build-and-publish), an Environment (`development`, `staging`, `production`, `test`), and two orthogonal jurisdiction dimensions: **Sales / Regulatory Jurisdiction** (NO / DK / FI today, plus UAE / Singapore on the Connect tier) and **Deployment / Cloud Jurisdiction** (US Public, EU Development, Aegis Sovereign per `docs/CLOUD_ENVIRONMENTS.md`). Every release ships with five immutable per-tenant artefacts — a **Client-Owned File Index**, a **Per-Tenant Secrets Manifest**, a **Personnel Manifest** (KYA-bound nominated roles), a **Connector Data Catalogue Manifest**, and a **Client Artifact Bundle** (report templates, workflows, training documents, agent capability cards, compliance binders per jurisdiction, KB subset) — published both inside the deployed artefact and into the client's own tenant storage, so the client retains an operator-independent record of what is running on their instance. The three canonical product tiers (DWS IQ Connect, DWS IQ Sovereign infra, DWS IQ Aegis) bind to feature scope and Cloud Jurisdiction availability through the standard; the Aegis tier unlocks the sovereign-edge LWM Acer Surface.
 
 ### 5.1.1 Cloud Infrastructure
 

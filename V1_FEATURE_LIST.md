@@ -566,6 +566,8 @@ Week 5 (Feb 3-7):    Email + Auth UI + Polish ██████████ 70%
 
 ### Closed Since Last Update
 
+### Closed Since Last Update
+
 | #   | Gap                            | Resolution                                                                                                                                                                                                                               | Date       |
 | --- | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
 | 1   | PDF Preview in browser         | Implemented — iframe viewer with Supabase signed URL + fallback HTML preview                                                                                                                                                             | 2026-03-22 |
@@ -578,6 +580,9 @@ Week 5 (Feb 3-7):    Email + Auth UI + Polish ██████████ 70%
 | 8   | Public status page             | `GET /api/v1/status` endpoint added — returns service name, version, uptime, environment, region, component status (no auth required)                                                                                                    | 2026-04-15 |
 | 9   | Audit log SIEM export          | `GET /api/v1/activity/export` added — admin-only, NDJSON or CSV format, date range + type filters, up to 10k events (Splunk/OpenSearch compatible)                                                                                       | 2026-04-15 |
 | 10  | Staging environment            | `NODE_ENV=staging` added to enum; `staging.env.example`; `infrastructure/staging/docker-compose.staging.yml`; `.github/workflows/deploy-staging.yml` (auto-deploys `claude/**` branches to Cloud Run staging service `dws6run6-staging`) | 2026-04-15 |
+| 11  | Email Resend→SES migration     | `outreach-send.routes.ts` migrated from banned Resend to SES SMTP (`sendEmail()`). Field note `docs/field-notes/2026-04-16-ses-smtp-production-setup.md` documents exact AWS console steps for credentials setup.                        | 2026-04-16 |
+| 12  | OpenAPI remaining 9 endpoints  | Added investor-reports (metrics, MRR, summary, generate), content DMS (list, create, stats, transition), outreach send-email — spec now covers 79/79 operations                                                                          | 2026-04-16 |
+| 13  | Customer knowledge base        | `docs/CUSTOMER_KB.md` — 12-section FAQ covering login, dashboard, reports, carbon tracking, AI agents, compliance, billing, data/privacy, security, ERP integrations, troubleshooting, and contact                                       | 2026-04-16 |
 
 ### Still Open
 
@@ -585,15 +590,13 @@ Week 5 (Feb 3-7):    Email + Auth UI + Polish ██████████ 70%
 | --- | ----------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------- | -------- |
 | 1   | Mobile App screens            | V1.1     | Foundation only — deferred                                                                                        | Q2 2026  |
 | 2   | OAuth/SSO (Google, Microsoft) | V1.1     | Not started                                                                                                       | Q2 2026  |
-| 3   | Email production credentials  | High     | Service ready, needs API keys                                                                                     | ASAP     |
+| 3   | Email production credentials  | High     | Code complete — human must set SMTP_USER + SMTP_PASS in Cloud Run (see field note 2026-04-16)                     | ASAP     |
 | 4   | Workflow Builder UI           | V1.1     | Backend state machine ready                                                                                       | Q2 2026  |
 | 5   | Full agent test suite         | Medium   | Partial coverage                                                                                                  | Q2 2026  |
 | 6   | Stripe payment                | V1.1     | PayPal + Revolut sufficient for EU                                                                                | Q3 2026  |
 | 7   | EU-Sovereign Migration        | Low      | Plan decided (Aiven)                                                                                              | Aug 2026 |
 | 8   | LlamaStack integration        | V1.1     | Groq fallback works                                                                                               | Q2 2026  |
-| 9   | OpenAPI remaining 9 endpoints | Low      | 70 of 79 — investor cap-table, content DMS, outreach-send remain                                                  | Q2 2026  |
-| 11  | Customer knowledge base       | Medium   | No FAQ / help docs                                                                                                | Q2 2026  |
-| 12  | Blue-green deployment         | V1.1     | Staging/prod split done; blue-green = Cloud Run revision traffic splitting (0% → smoke test → 100%) not yet wired | Q3 2026  |
+| 9   | Blue-green deployment         | V1.1     | Staging/prod split done; blue-green = Cloud Run revision traffic splitting (0% → smoke test → 100%) not yet wired | Q3 2026  |
 
 ### Architecture Diagram
 
@@ -601,7 +604,42 @@ See `docs/MVP_ARCHITECTURE.md` for Mermaid diagram of MVP feature flow.
 
 ---
 
-**Document Version:** 2.6
+---
+
+## V2 / System of Action Track
+
+Derived from tietotehdas field research and Google Cloud Agentic Data Cloud analysis (10.05.2026).
+Source: `docs/field-notes/2026-05-10-tietotehdas-datakeskus-suomen-kansallisvarallisuus.md`
+
+Core thesis: DWS IQ is a **System of Action operator**, not a SaaS vendor. V2 track builds the infrastructure that makes this true at product level.
+
+### High Priority
+
+| #   | Feature                                   | Description                                                                                                          | Target  |
+| --- | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | ------- |
+| 1   | **MCP-katalogi julkisille rekistereille** | MCP servers for DVV, Traficom, PRH public APIs — tietotehdas access without data silo fragmentation                  | Q3 2026 |
+| 2   | **Knowledge Catalog prototype**           | Semantic layer on top of DWS IQ agent memory — raw data → contextualized knowledge (Google Knowledge Flywheel model) | Q3 2026 |
+| 3   | **System of Action positioning rollout**  | Update dws10.com hero, all sales decks, investor materials with canonical sentences from §22 DWS_BRAND_STANDARD      | Q2 2026 |
+
+### Medium Priority
+
+| #   | Feature                           | Description                                                                                                                                                         | Target  |
+| --- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| 4   | **Google Cloud partnership eval** | Assess Gemini Enterprise Agent Platform Govern pillar (Agent Identity, Agent Gateway, Model Armor) for DWS governance layer — especially for public register access | Q3 2026 |
+| 5   | **Dark Data inventory**           | Map Finnish public data reserves (DVV, Kela, THL, Luke, Ilmatieteenlaitos) for GDPR-compliant tietotehdas activation                                                | Q3 2026 |
+| 6   | **Agent fleet governance layer**  | Cryptographic agent identities + unified audit trail for all agent actions over regulated data — build or buy decision                                              | Q4 2026 |
+
+### Architecture Decision Required
+
+| Decision                     | Option A                           | Option B                                   | Owner |
+| ---------------------------- | ---------------------------------- | ------------------------------------------ | ----- |
+| Govern layer: build vs. buy  | Own implementation (Anthropic+MCP) | Google Gemini Enterprise Agent Platform    | CTO   |
+| Public register access model | Direct API federation              | Data broker / intermediary (e.g. Findynet) | CTO   |
+| Knowledge Catalog: scope     | DWS IQ agents only                 | Shared across Finnish tietotehdas partners | CEO   |
+
+---
+
+**Document Version:** 2.8
 **Created:** January 3, 2026
-**Last Updated:** April 15, 2026
-**Status:** Staging environment wired — gaps #7–#10 closed. Open: #3 (email creds), #9 (OpenAPI 9 remaining), #11 (KB)
+**Last Updated:** 10.05.2026
+**Status:** V1 complete. V2 System of Action track added — 6 features, 3 architecture decisions pending.

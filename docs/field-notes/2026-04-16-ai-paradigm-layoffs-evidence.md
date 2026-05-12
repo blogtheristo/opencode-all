@@ -237,7 +237,7 @@ These are exactly the knowledge-work functions that the 9.x → 13.2 shift is au
 
 3. **Urgency signal:** The AI-first companies that reversed (Klarna, Duolingo) are the ones who tried to go all-in without enterprise-grade agent infrastructure. DWS IQ 6 is that infrastructure for EU-regulated industrial sectors.
 
-4. **EU differentiation:** The US-centric layoff wave creates a regulatory arbitrage opportunity. EU companies face AI Act obligations that US-designed tools don't cover. DWS's Aiwen compliance layer is the only EU-native answer in the industrial segment.
+4. **EU differentiation:** The US-centric layoff wave creates a regulatory arbitrage opportunity. EU companies face AI Act obligations that US-designed tools don't cover. DWS's EU AI Act compliance layer is the only EU-native answer in the industrial segment.
 
 ---
 

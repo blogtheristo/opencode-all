@@ -135,7 +135,7 @@ Tesla and xAI are US companies. The CLOUD Act means US authorities can demand an
 | **Machinery Regulation 2023/1230** | Optimus is "machinery" — requires notified body CE-like assessment | DWS IQ provides technical file, compliance documentation, EU-language manuals |
 | **GDPR Article 22** | Automated decision-making with legal/physical effect | Human Captain always has final override — DWS IQ enforces this architecturally |
 | **NIS2** | Critical infrastructure sectors require EU-jurisdiction AI | Air-gapped GN-100 cluster — zero US cloud dependency |
-| **Article 12 Logging** | Every Optimus decision must be logged on-prem | DWS Aiven logging layer captures all AI events locally |
+| **Article 12 Logging** | Every Optimus decision must be logged on-prem | DWS sovereignty audit logging layer captures all AI events locally |
 | **Language requirements** | EU AI Act requires technical docs in official EU languages | DWS delivers 27-country localization across all 16 industries |
 
 **The reframe:** DWS IQ is not just a customer of xAI/Tesla. **DWS IQ is the compliance bridge that makes Optimus V3 legally deployable in EU regulated industries.** This is a strategic distribution partnership, not a vendor relationship.
@@ -355,7 +355,7 @@ These roles exist exclusively for premium wallet-openers from any of the 27 EU c
 | Revocation | Instant model + data revocation, one click | GDPR Article 17 |
 | Incident reporting | Structured log exportable for national authority | EU AI Act Article 18 |
 
-**Aiven Logging Layer (DWS7 Phase 2, Q2 2026):** Dedicated EU-only Article 12 compliance service, running on GN-100 cluster, separate from production AI inference. Every Grok decision and every Optimus action gets a tamper-evident log entry.
+**Full Sovereignty audit logging (DWS7 Phase 2, Q2 2026):** Dedicated EU-only Article 12 compliance service, running on GN-100 cluster, separate from production AI inference. Every Grok decision and every Optimus action gets a tamper-evident log entry.
 
 ---
 

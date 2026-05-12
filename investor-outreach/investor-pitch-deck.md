@@ -4,6 +4,14 @@
 
 ---
 
+> **Perustajan strateginen ydinlause / Founder's Strategic Core Statement**
+>
+> Tämä on Suomen tietotehtaiden strateginen ydinlause — kolmikerrosmalli jossa hyperscalerit rakentavat infrastruktuuri-kerroksen, Suomi omistaa datavarannon, ja rakentamani tuote DWS IQ operoi älykkyyden (System Of Action Operator).
+>
+> — Risto Anton Paarni, Lifetime Oy, 10.05.2026
+
+---
+
 ## Slide 1: Why Now
 
 ![Logo](../OneLifetime+Logo.png)
@@ -223,9 +231,14 @@ DWS IQ 6   → Private cloud (EU-hosted, GDPR/CSRD compliant by design)
 
 Competitors → Single vertical focus
 DWS IQ 6   → 8 verticals via modular agent architecture
+
+Competitors → System of Intelligence (reports what happened)
+DWS IQ 6   → System of Action operator (carries regulated work to completion with audit trail)
 ```
 
-**Strategic Upside**: We're not building a climate reporting tool. We're building the platform for agentic compliance automation.
+**Core Positioning (verbatim):** We are not a SaaS vendor — we are a _System of Action operator_ that carries regulated work reliably to completion with a full audit trail.
+
+**Strategic Upside**: We're not building a climate reporting tool. We're building the System of Action operating layer for regulated European industry — where compliance can freeze or release money.
 
 ### Enterprise Sandbox (New Revenue Stream)
 
@@ -303,15 +316,37 @@ Strengthens enterprise security posture for Tier 1 construction customers by kee
 
 ### The Finland Advantage
 
+**National Strategy Alignment — Three-Layer Model**
+
+> International actors build physical data factories in Finland so that data reserves can be mined here, control kept in Finland, and utilized by systems like DWS.
+
+This is not positioning — it is conscious alignment with Finnish national infrastructure strategy.
+
+```
+Layer 3 — INTELLIGENCE LAYER        DWS IQ (System of Action operator)
+                                     Mines, refines, creates — value stays in Finland
+                  ↑ operates on top of ↑
+Layer 2 — DATA RESERVE LAYER        Finnish national registers
+                                     DVV · Maanmittauslaitos · Kela · Traficom · Luke
+                                     National ore — not exported, governed here
+                  ↑ builds infrastructure for ↑
+Layer 1 — PHYSICAL LAYER            International hyperscalers
+                                     Microsoft · Google · AWS
+                                     Investing billions in Finnish data factory real estate
+```
+
+**The investor logic:** Hyperscalers invest billions building the mine. DWS is the system that knows how to dig. Without DWS (or equivalent), the infrastructure is an empty building. DWS makes it productive.
+
 **Why Finland = Investor Protection & Market Edge**
 
 1. **AAA Credit Rating** – Sovereign stability, rule of law
 2. **GDPR Compliance Leader** – Data protection built into national infrastructure
 3. **Nordic Regulatory First-Mover** – Finland implements EU directives faster than most member states
-4. **Innovation Ecosystem** – Slush, Nordic VC networks, government R&D support
-5. **Investor Protection** – Strong legal framework, transparent governance, founder-friendly SAFE terms
+4. **Hyperscaler Infrastructure Magnet** – Microsoft, Google, AWS all building Finnish data centres — Layer 1 is funded by others
+5. **National Data Reserves** – DVV, Kela, Traficom, Luke: uniquely rich, GDPR-native, underutilised — DWS's ore
+6. **Investor Protection** – Strong legal framework, transparent governance, founder-friendly SAFE terms
 
-**Finland is not just a location. It's a strategic advantage for EU climate tech.**
+**Finland is not just a location. It is the three-layer stack that makes DWS structurally defensible.**
 
 ---
 

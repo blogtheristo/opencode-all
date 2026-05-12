@@ -8,6 +8,8 @@ Session: claude/connect-kya-dws-cli-0MMIB
 Tool: Claude Code CLI
 Status: Published
 
+- Version: 1.7 | Agent: Claude Code (Sonnet 4.6) | Date: 08.05.2026 | Session: claude/improve-dws-case-handling-4VhRu | Changes: Added /case-run skill (section 4.3) — Themis as Case Coordinator dispatching specialist agents per case type; updated totals from 30 to 31 skills (28 slash + 3 discipline); added Quick Reference row; updated Themis agent to v2.0 with case-coordinate action.
+- Version: 1.6 | Agent: Codex 5.3 | Date: 29.04.2026 | Session: n/a | Changes: Added new slash skill `/fix-dual-folder-api-connectivity` for API endpoint drift incidents across root/landing mirror folders; updated totals from 29 to 30 skills (27 slash + 3 discipline); added Operations section entry and Quick Reference row.
 - Version: 1.5 | Agent: Claude Code (Opus 4.7) | Date: 22.04.2026 | Session: claude/github-version-compatibility-uTOO7 | Changes: Post-merge reconciliation — after merging main (PRs #1152 axios, #1153 Grok removal, #1156 npm audit, #1161 ollama-spark) the true skill count is 29 (26 slash + 3 discipline). Updated count line accordingly. No new content; fixes inconsistency introduced because /gh-to-mcp (v1.4) and /ollama-spark landed in parallel.
 - Version: 1.4 | Agent: Claude Code (Opus 4.7) | Date: 22.04.2026 | Session: claude/github-version-compatibility-uTOO7 | Changes: Added /gh-to-mcp skill (section 6.1a) — translates gh CLI commands to GitHub MCP tool calls and clarifies that gh and MCP are independently versioned; updated skill count from 24 to 25; added Quick Reference row; added docs/GITHUB_CLI_VS_MCP.md reference.
 - Version: 1.3 | Agent: Claude Code (Opus 4.7) | Date: 18.04.2026 | Session: claude/green-energy-roadmap-pEPPK | Changes: Added /regulatory-radar skill (section 5.2a) — EU regulatory pipeline scanner scoring upcoming instruments per customer; updated skill count from 23 to 24; added Quick Reference row. Skill spec only — agent implementation deferred until datacentre-compliance PRD Gate 1.
@@ -17,7 +19,7 @@ Status: Published
 
 ## 1. Overview
 
-DWS IQ 6 provides **29 skills** for AI coding agents — 26 slash commands in `.claude/commands/` and 3 composable discipline skills in `skills/`. This guide explains every skill: what it does, when to use it, and how skills connect into workflows.
+DWS IQ 6 provides **31 skills** for AI coding agents — 28 slash commands in `.claude/commands/` and 3 composable discipline skills in `skills/`. This guide explains every skill: what it does, when to use it, and how skills connect into workflows.
 
 **Audience:** Human-in-the-loop (HIL) operators, developers using Claude Code, Cursor, or VS Code with DWS6.
 
@@ -125,7 +127,30 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 
 **Available agents:** sitesense, material-oracle, compliance, schedule-genius, customer-sat, viability, deepwiki-extractor, emissions-data-analyst, construction, logistics, quality-gate, competitor-surveillance, seo-audit, lead-feedback.
 
-### 4.3 /workflow
+### 4.3 /case-run
+
+**When to use:** Running a case — when work spans multiple agents, domains, or time. Say "run case", "open a case", "coordinate agents on this", "case status", "Themis coordinate", or describe a situation (compliance check + contract review + ERP sync on one customer).
+
+**What it does:** Invokes Themis as Case Coordinator. Themis reads the case context, dispatches specialist agents (ChronosAgent for deadlines, Auditor for audit trail, QualityGate for ERP, SalesOutreach for sales), and returns a unified status with one clear next step and an approval flag if any action is HIGH risk.
+
+**Trigger phrases:** "run case", "open a case", "case status", "coordinate agents", "Themis coordinate", "assign agents to case", "what agents should handle this"
+
+**Case types:** `compliance` · `contract` · `erp-sync` · `sales`
+
+**Sub-agents dispatched per type:**
+
+| Case type  | Sub-agents                      |
+| ---------- | ------------------------------- |
+| compliance | Themis + ChronosAgent + Auditor |
+| contract   | Themis + Auditor                |
+| erp-sync   | Themis + QualityGate + Auditor  |
+| sales      | Themis + SalesOutreach          |
+
+**Output:** Case ID, status, priority, agent findings, deadline risk, next step, approval gate (YES/NO).
+
+**Composes with:** `/workflow` (for multi-step pre-built workflows), `/agent-run` (for single ad-hoc agent calls), `/compliance-check` (point-in-time compliance scoring).
+
+### 4.4 /workflow
 
 **When to use:** When a task requires multiple agents working together.
 
@@ -273,6 +298,16 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 **Composes with:** Any DWS agent whose `LLMClient` catches a cloud 429 and wants a fallback; `/kya` for sovereignty-sensitive sessions; `/sovereignty-assess` for pre-flight checks on whether a prompt should go here by default.
 
 **Trigger phrases:** "lsj publish", "draft scope monthly", "best blog of the fortnight", "lifetime scope monthly", "linkedin newsletter draft", "prepare LSJ issue"
+
+### 6.7 /fix-dual-folder-api-connectivity
+
+**When to use:** Public site page reaches the wrong API host, returns HTML instead of JSON, or root and landing mirror copies have drifted endpoint logic.
+
+**What it does:** Applies a deterministic dual-folder API connectivity repair workflow: detect host mismatch, patch both root + landing pages in same change set, preserve local fallback, add response diagnostics, and verify end-to-end write path (including Supabase persistence when relevant).
+
+**Trigger phrases:** "booking not connecting", "API returns HTML", "wrong backend host", "fix dual folder API", "dws10 page cannot reach DB", "connectivity drift"
+
+**Output:** Root cause summary + files changed + endpoint verification + DB verification delta + remaining infra follow-up (if DNS/routing outage).
 
 ## 7. Runtime Safety & Knowledge
 
@@ -460,34 +495,36 @@ Badges (section pill, skill chips, KYA badge, Standards & Interop strip) are can
 
 ## 10. Quick Reference — When to Use What
 
-| Situation                      | Skill               | Type       |
-| ------------------------------ | ------------------- | ---------- |
-| Starting a new feature         | /plan-ceo-review    | gstack     |
-| Designing architecture         | /plan-eng-review    | gstack     |
-| Code is written, needs review  | /review             | gstack     |
-| Ready to merge                 | /ship               | gstack     |
-| Need to verify UI              | /browse             | gstack     |
-| End of week                    | /retro              | gstack     |
-| Don't know which agent to use  | /discover-agents    | Agent      |
-| Know the agent, want to run it | /agent-run          | Agent      |
-| Need multi-agent analysis      | /workflow           | Agent      |
-| EU regulatory question         | /compliance-check   | Compliance |
-| Upcoming EU regulation scoring | /regulatory-radar   | Compliance |
-| Carbon footprint calculation   | /carbon-analysis    | Compliance |
-| Database sovereignty check     | /sovereignty-assess | Compliance |
-| Construction site assessment   | /site-safety        | Compliance |
-| Check git branch state         | /flow-status        | Operations |
-| Translate gh command to MCP    | /gh-to-mcp          | Operations |
-| Send email notification        | /email              | Operations |
-| Control edge devices           | /remote-control     | Operations |
-| Add/triage investor intro      | /investor-outreach  | Operations |
-| Check agent trust / kill chain | /kya                | Safety     |
-| Compile wiki / ask KB          | /kb                 | Knowledge  |
-| Code feels bloated             | /simplify           | Quality    |
-| Add/audit language bar         | /multilingual       | i18n       |
-| About to claim "done"          | verification-gate   | Discipline |
-| Big feature, many files        | design-first        | Discipline |
-| Editing site root folders      | dual-folder-sync    | Discipline |
+| Situation                      | Skill                             | Type       |
+| ------------------------------ | --------------------------------- | ---------- |
+| Starting a new feature         | /plan-ceo-review                  | gstack     |
+| Designing architecture         | /plan-eng-review                  | gstack     |
+| Code is written, needs review  | /review                           | gstack     |
+| Ready to merge                 | /ship                             | gstack     |
+| Need to verify UI              | /browse                           | gstack     |
+| End of week                    | /retro                            | gstack     |
+| Don't know which agent to use  | /discover-agents                  | Agent      |
+| Know the agent, want to run it | /agent-run                        | Agent      |
+| Coordinate agents on a case    | /case-run                         | Agent      |
+| Need multi-agent analysis      | /workflow                         | Agent      |
+| EU regulatory question         | /compliance-check                 | Compliance |
+| Upcoming EU regulation scoring | /regulatory-radar                 | Compliance |
+| Carbon footprint calculation   | /carbon-analysis                  | Compliance |
+| Database sovereignty check     | /sovereignty-assess               | Compliance |
+| Construction site assessment   | /site-safety                      | Compliance |
+| Check git branch state         | /flow-status                      | Operations |
+| Translate gh command to MCP    | /gh-to-mcp                        | Operations |
+| Send email notification        | /email                            | Operations |
+| Control edge devices           | /remote-control                   | Operations |
+| Add/triage investor intro      | /investor-outreach                | Operations |
+| Fix dual-folder API drift      | /fix-dual-folder-api-connectivity | Operations |
+| Check agent trust / kill chain | /kya                              | Safety     |
+| Compile wiki / ask KB          | /kb                               | Knowledge  |
+| Code feels bloated             | /simplify                         | Quality    |
+| Add/audit language bar         | /multilingual                     | i18n       |
+| About to claim "done"          | verification-gate                 | Discipline |
+| Big feature, many files        | design-first                      | Discipline |
+| Editing site root folders      | dual-folder-sync                  | Discipline |
 
 ## 11. Creating New Skills
 

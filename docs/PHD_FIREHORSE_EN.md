@@ -11,10 +11,13 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.39
+Version: 3.56
 
 Sessions & Modifications:
 
+- Version: 3.56 | Tool: Claude Code (Opus 4.7) | Session: claude/deployment-strategies-comparison-T5gcw | Date: 12.05.2026 | Changes: Added cross-references to the new `DWS_DEPLOYMENT_STANDARD.md` v1.0 in Section 14.11 (PostgreSQL Columnar HTAP Architecture) and Section 14.16 (April 2026 Evolution — Report Engine in Production). The Deployment Standard adopts forward-only migration (`supabase/migrations/`) with the expand / contract pattern as the canonical convention, names the per-Surface deploy ontology (US Public / EU Development / Aegis Sovereign cloud jurisdictions × Connect / Sovereign infra / Aegis product tiers), and defines the four immutable per-tenant manifests + Client Artifact Bundle that ship with every release. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule (3.52 → 3.56; intermediate versions reserved).
+- Version: 3.52 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-ontology-blog-3RGKG | Date: 29.04.2026 | Changes: Added Section 1.7 "Ontology — Etymology and Philosophical Background" linking the doctoral plan to ONTOLOGY.md v1.3 (Greek ón + lógos, Aristotle, scholastic 17th–18th c. systematization, modern computer-science meaning). Aligns the carbon-balance-sheet thesis with the canonical DWS Ontology Standard. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule.
+- Version: 3.51 | Tool: Claude Code (Haiku 4.5) | Session: claude/sync-version-numbering-adEeB | Date: 28.04.2026 | Changes: Bumped from 3.39 to 3.51 (12 steps × 0.01). Unified thesis version track maintained. Created new Tutkimussuunnitelma_3.51.md (Research Plan) with three research streams (KYA standardization, DWS 7 empirical testbed, dual-use industries), eight research questions, "Human in Command and Human in Loop" governance framework; versioning format rule (.X9 → .X+1,0) documented for DWS_DOCUMENT_STANDARD.md §5
 - Version: 3.39 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Terminology rename — "Aiven overlay" / "Aiven layer" (deprecated infrastructure labels) → "Article 12 Logging Pipeline" per new DWS_ARTICLE_12_LOGGING_STANDARD.md v1.0 (unified 3-tier canonical term). Aiven remains the correct name for the Postgres SaaS. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule; only V3Thesis_EN had the infra-context string in content
 - Version: 3.38 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Typo correction — "Aiwen" → "Aiven" (Aiven.io is our Helsinki Postgres partner) as part of repo-wide sweep of 116 files; no content change beyond the spelling fix; unified version track preserved (all 4 thesis files bumped in lockstep per CLAUDE.md thesis rule)
 - Version: 3.37 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: **Unified thesis version track.** PHD_FIREHORSE and Metropolia V3Thesis are now on a single shared version number (3.37). From this commit forward, all 4 thesis files (V3Thesis_EN/FI + PHD_FIREHORSE_EN/FI) bump in lockstep (3.37 → 3.38 → … → 3.99 → 4.00). Chain-break history honestly recorded: v2.9 → v2.10 (21.04.2026, Boardy refinements) → an unintended v3.10 jump collided with an already-existing local v3.1, v3.2 chain → remote was pushed to v3.5 in this session (22.04.2026) without visibility of the local v3.2 work → unified here to v3.37 to align with V3Thesis. Local v3.2 work is expected to be folded into v3.38 as the next bump (human to paste diff). Substantive content in this version: Section 14.17 (DWS Skilled Taxonomy — Brand / Spec / UI Across Agents, Workflows, and Jurisdictions); "GodAgent"/"Godagent" branding deprecated; three-tier `Skilled <Axis>` / `Industrial Specialist <Axis>` / `Industry <Axis>` pattern across three active axes (Agents, Workflows, Jurisdictions — EU/US/Aiven); SKU-copy, scheduler-copy, and jurisdiction-packaging disciplines derived as operations-model implications; Key Contribution #22.
@@ -196,6 +199,16 @@ I would be glad to discuss this draft with you online or in person. I can send a
 
 Kind regards,  
 Risto Anton Päärni
+
+### 1.7 Ontology — Etymology and Philosophical Background
+
+The doctoral programme situates the Firehorse operations model inside a formal enterprise ontology — the DWS Ontology Standard (see `ONTOLOGY.md` v1.3 in the project repository). To anchor the engineering and regulatory layers in their conceptual heritage, this subsection reviews the origin of the term.
+
+**Etymology.** The word _ontology_ derives from two Greek roots: **ὄν (ón)** — "that which is", the present participle of _einai_ ("to be") — and **λόγος (lógos)** — "doctrine, account, rational explanation". Literally, ontology is "the doctrine of being".
+
+**Philosophical background.** Ontology is one of the central branches of metaphysics. In classical Greece, philosophers such as Aristotle examined what it means for something to _be_, what kinds of entities exist (objects, properties, relations, events), and what the basic structure of being is. The term _ontology_ itself was consolidated only in the 17th–18th centuries, within scholastic and early-modern philosophy, when metaphysics was systematised into distinct sub-fields.
+
+**Modern usage.** Today the term is applied across philosophy (the study of the fundamental nature of existence), computer science and artificial intelligence (a formal model of concepts and the relations between them — classes, properties, relations), and the philosophy of science (the question of which entities a given theory commits to). The original meaning — _structuring what is_ — is preserved while the application surface shifts. The DWS Ontology Standard builds on this foundation: EU regulations (ETS, CBAM, CSRD, AI Act, NIS2, GDPR) and industrial concepts are structured into a machine-readable form that humans and agents query through the same interface, enabling the carbon balance sheet and the KYA-certified governance model that the doctoral research validates.
 
 ---
 
@@ -1736,6 +1749,8 @@ The 31-agent system accumulated 6 TypeScript compilation errors and 3 test failu
 
 ### Section 14.11: PostgreSQL Columnar HTAP Architecture — DWS Data Standard
 
+Schema-change deployments to the HTAP stack are governed by `DWS_DEPLOYMENT_STANDARD.md` (v1.0, 2026-05-12) §2 Migration Event and §4 Migration gate. The standard adopts forward-only migration (`supabase/migrations/`, 75 migrations today) as the canonical convention and recommends the **expand / contract** pattern for breaking schema changes (deploy 1 adds; deploy 2 backfills; deploy 3 removes). Pre-deploy backup freshness (< 24 h, per `scripts/db-daily-backup.sh`; RTO / RPO per `DWS_DATA_STANDARD.md`) is a deploy-gate prerequisite for any migration touching `production`.
+
 The Firehorse operations model generates growing volumes of campaign events, agent execution logs, and audit trail data. Running analytics against transactional heap tables creates performance bottlenecks as data scales.
 
 **Solution: Two-Tier HTAP — Aiven-first mandate (updated 13.03.2026)**
@@ -1938,7 +1953,7 @@ The master thesis (V3Thesis) grew to 82 pages and 26,000+ words during the AI-as
 
 ### 14.16 April 2026 Evolution: Report Engine in Production, Product Line V2, Snap Benchmark, and Founder→Team Transition
 
-_Added: 20.04.2026 | Source: PRs #1064, #1109, #1110; field notes 2026-04-06 through 2026-04-19; Firehorse Snap benchmark (Firecracker MicroVM); SOLO_FOUNDER_STATEMENT v1.2._
+_Added: 20.04.2026 | Source: PRs #1064, #1109, #1110; field notes 2026-04-06 through 2026-04-19; Firehorse Snap benchmark (Firecracker MicroVM); SOLO_FOUNDER_STATEMENT v1.2. Updated 2026-05-12: deployment of all milestones below — the Report scheduler, the V2 product line, Snap MicroVM, and the founder→team handoff — is now governed by `DWS_DEPLOYMENT_STANDARD.md` v1.0, which adds the per-Surface deploy ontology, the four immutable per-tenant manifests (File Index, Per-Tenant Secrets, Personnel, Connector Data Catalogue), the Client Artifact Bundle (report templates, workflows, training documents, agent capability cards, compliance binders, KB subset), and the deploy-gate prerequisites (Code Versioning §19, Article 12 logging, KYA-bound deploy authority, Observability minimums, Subscription State, Update Lane). Production deploys on the Aegis tier ship to the Aegis Sovereign cloud and unlock the LWM Acer Surface; Connect-tier markets (UAE, Singapore) ship to US Public._
 
 Between v2.7 (18.03.2026) and v2.8 (20.04.2026) Firehorse progressed from a documented operating model to a measurable production system. Five operational milestones define this window.
 
