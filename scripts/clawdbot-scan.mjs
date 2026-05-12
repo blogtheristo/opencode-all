@@ -66,6 +66,9 @@ function parseArgs(argv) {
     } else if (a === '--done') {
       args.command = 'done';
       args.target = argv[++i];
+    } else if (a === '--preview') {
+      args.command = 'preview';
+      args.target = argv[++i];
     } else if (a === '--max-age') args.maxAgeDays = parseInt(argv[++i], 10);
     else if (a === '--exclude') args.exclude.push(argv[++i]);
     else if (a === '--live-window') args.liveWindowSec = parseInt(argv[++i], 10);
@@ -404,6 +407,93 @@ function cmdStatus() {
   );
 }
 
+// Classify a file path into a trust zone per .claude SessionStart hook policy.
+// RED  — DB migrations, deploys, thesis, store sync, secrets
+// YELLOW — MCP config, agent skills, docker, gh CLI scripts, mcp-servers
+// GREEN — everything else (code, tests, docs, lint config)
+const RED_PATTERNS = [
+  /^supabase\/migrations\//i,
+  /^docs\/metropolia\/master-thesis\//i,
+  /^docs\/PHD_FIREHORSE_(EN|FI)\.md$/i,
+  /^Store\//i,
+  /^Learn\/.*thesis/i,
+  /\.env(\.|$)/i,
+  /(credentials|service-account|secrets?)\..*$/i,
+  /^scripts\/on-deploy\//i,
+  /Deploy[-_]/i,
+];
+const YELLOW_PATTERNS = [
+  /^\.mcp\.json$/i,
+  /^mcp-hub\//i,
+  /^mcp-servers\//i,
+  /^\.claude\/(hooks|commands)\//i,
+  /^skills\//i,
+  /Dockerfile|docker-compose/i,
+  /^\.github\/workflows\//i,
+];
+
+function classifyPath(p) {
+  const rel = p.replace(REPO_ROOT + '/', '');
+  if (RED_PATTERNS.some((re) => re.test(rel))) return 'RED';
+  if (YELLOW_PATTERNS.some((re) => re.test(rel))) return 'YELLOW';
+  return 'GREEN';
+}
+
+function cmdPreview(target) {
+  if (!target) {
+    console.error('Missing target id');
+    process.exit(2);
+  }
+  const state = loadState();
+  let matched = null;
+  for (const sid of Object.keys(state.sessions)) {
+    if (sid === target || shortId(sid) === target) {
+      matched = sid;
+      break;
+    }
+  }
+  if (!matched) {
+    console.error(`No session matches: ${target}`);
+    process.exit(3);
+  }
+
+  const transcriptPath = join(TRANSCRIPT_DIR, `${matched}.jsonl`);
+  if (!existsSync(transcriptPath)) {
+    console.error(`Transcript missing: ${transcriptPath}`);
+    process.exit(4);
+  }
+  const events = readJsonl(transcriptPath);
+  const d = digest(events, matched);
+
+  const zones = { GREEN: 0, YELLOW: 0, RED: 0 };
+  const perFile = d.filesTouched.map((p) => {
+    const z = classifyPath(p);
+    zones[z]++;
+    return { path: p.replace(REPO_ROOT + '/', ''), zone: z };
+  });
+  const highest = zones.RED > 0 ? 'RED' : zones.YELLOW > 0 ? 'YELLOW' : 'GREEN';
+  const branchOk = (d.branch || '').startsWith('claude/');
+
+  console.log(
+    JSON.stringify(
+      {
+        ok: true,
+        sessionId: matched,
+        shortId: shortId(matched),
+        branch: d.branch,
+        branchOk,
+        zoneCounts: zones,
+        highestZone: highest,
+        autoResumeEligible: highest === 'GREEN' && branchOk,
+        files: perFile,
+        pendingTodos: d.pendingTodos.length,
+      },
+      null,
+      2,
+    ),
+  );
+}
+
 function cmdMark(target, status) {
   if (!target) {
     console.error('Missing target id');
@@ -437,6 +527,7 @@ Usage:
   node scripts/clawdbot-scan.mjs --status        counts: pending/dismissed/done
   node scripts/clawdbot-scan.mjs --dismiss <id>  mark queue item dismissed
   node scripts/clawdbot-scan.mjs --done <id>     mark queue item done
+  node scripts/clawdbot-scan.mjs --preview <id>  classify trust zone of files touched
 
 Live-session skip order: CLAUDE_SESSION_ID env → --exclude flags → newest
 jsonl modified within --live-window seconds (default 300).
@@ -459,6 +550,9 @@ switch (args.command) {
     break;
   case 'done':
     cmdMark(args.target, 'done');
+    break;
+  case 'preview':
+    cmdPreview(args.target);
     break;
   case 'help':
     cmdHelp();

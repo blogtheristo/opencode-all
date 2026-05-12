@@ -72,14 +72,15 @@ discovered  ──scan──▶  pending  ──resume──▶  (work runs in a
 
 ## CLI surface
 
-| Command                          | Purpose                                              |
-| -------------------------------- | ---------------------------------------------------- |
-| `node scripts/clawdbot-scan.mjs` | Scan transcripts, write queue files, update state.   |
-| `… --list`                       | Print pending queue items as JSON (newest first).    |
-| `… --status`                     | Print summary counts (pending / dismissed / done).   |
-| `… --dismiss <id>`               | Mark a queue item dismissed (short id or full uuid). |
-| `… --done <id>`                  | Mark a queue item done.                              |
-| `… --max-age <N>`                | Ignore sessions older than N days (default 30).      |
+| Command                          | Purpose                                                                                               |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `node scripts/clawdbot-scan.mjs` | Scan transcripts, write queue files, update state.                                                    |
+| `… --list`                       | Print pending queue items as JSON (newest first).                                                     |
+| `… --status`                     | Print summary counts (pending / dismissed / done).                                                    |
+| `… --dismiss <id>`               | Mark a queue item dismissed (short id or full uuid).                                                  |
+| `… --done <id>`                  | Mark a queue item done.                                                                               |
+| `… --preview <id>`               | Classify a queue item's trust zone (GREEN/YELLOW/RED) from its files-touched list, without executing. |
+| `… --max-age <N>`                | Ignore sessions older than N days (default 30).                                                       |
 
 ## Heuristics & caveats
 
@@ -98,12 +99,12 @@ discovered  ──scan──▶  pending  ──resume──▶  (work runs in a
 ## Productization checklist (per CLAUDE.md "Agent Productization Rule")
 
 - [x] CLI command path: `node scripts/clawdbot-scan.mjs`
-- [x] Structured JSON output: `--list`, `--status` emit JSON
+- [x] Structured JSON output: `--list`, `--status`, `--preview` emit JSON
 - [x] Skill registered: this file
 - [x] Slash command: `.claude/commands/clawdbot.md`
+- [x] Scheduler hook: `scripts/daily/clawdbot-digest.sh` (auto-discovered by
+      `day-runner.sh`; writes daily digest to `logs/clawdbot-digest-*.json`)
 - [ ] MCP exposure: not yet (local-only, reads sensitive transcripts)
-- [ ] Scheduler hook: optional — can be added to `scripts/daily/` later if the
-      team wants a daily digest of pending work
 
 ## Examples
 

@@ -13,7 +13,7 @@ resuming them in a fresh session.
 
 Input: `$ARGUMENTS` — subcommand. Default is `status`.
 
-Subcommands: `scan`, `list`, `status`, `next`, `dismiss <id>`, `done <id>`.
+Subcommands: `scan`, `list`, `status`, `next`, `preview <id>`, `dismiss <id>`, `done <id>`.
 
 ## Backing store
 
@@ -30,6 +30,7 @@ Subcommands: `scan`, `list`, `status`, `next`, `dismiss <id>`, `done <id>`.
    - `list` → run `node scripts/clawdbot-scan.mjs --list`, render as a short markdown table sorted by recency (newest first).
    - `status` → run `node scripts/clawdbot-scan.mjs --status` and print the JSON `counts`.
    - `next` → see "Next" flow below.
+   - `preview <id>` → run `node scripts/clawdbot-scan.mjs --preview <id>` and show the zone classification (GREEN/YELLOW/RED) of every file the queued session touched, plus `autoResumeEligible` (true only when highest zone is GREEN AND branch starts with `claude/`).
    - `dismiss <id>` → run `node scripts/clawdbot-scan.mjs --dismiss <id>` and confirm.
    - `done <id>` → run `node scripts/clawdbot-scan.mjs --done <id>` and confirm.
 3. Never silently auto-execute pending work. Always present the plan and stop for HIL.
