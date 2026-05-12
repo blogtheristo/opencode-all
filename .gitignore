@@ -46,6 +46,10 @@ dws6.com/**/config/*.local.js
 logs/
 *.log
 
+# --- CLAWDBOT QUEUE (per-machine; transcripts are private) ---
+.claude/clawdbot/queue/
+.claude/clawdbot/state.json
+
 # --- BUILD ARTIFACTS & DEPENDENCIES ---
 **/node_modules/
 **/.next/

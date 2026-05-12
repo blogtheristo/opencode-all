@@ -105,6 +105,16 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 
 **Output:** Commits analyzed, velocity metrics, work pattern insights, shipping cadence, recommendations.
 
+### 3.7 /clawdbot
+
+**When to use:** When you want to know what unfinished work was left across past Claude Code sessions, or want to resume a previous session's work in a new HIL-approved run.
+
+**What it does:** Internal session janitor. Scans `~/.claude/projects/-home-user-dws6/*.jsonl` transcripts, digests each into an "original ask + last user message + last assistant signal + pending TodoWrite items + files touched + branch" record, and writes one Markdown plan per session with pending work to `.claude/clawdbot/queue/<short-id>.md`. Subcommands: `scan`, `list`, `status`, `next`, `dismiss <id>`, `done <id>`. The `next` flow is HIL-gated — it summarizes the top queue item and asks whether to resume here, copy the plan for a fresh session, or dismiss.
+
+**Trigger phrases:** "clawdbot", "session janitor", "what did I leave unfinished", "resume past session", "continue where we left off", "scan old sessions", "queue follow-up work"
+
+**Output:** Queue files at `.claude/clawdbot/queue/<id>.md`, JSON status/list output, state in `.claude/clawdbot/state.json`.
+
 ## 4. Agent Discovery & Execution
 
 ### 4.1 /discover-agents
