@@ -68,4 +68,15 @@ A skipped gate is only safe if the change goes through the **PR + CI** path. Dir
 - Skipping the gate because "I already know the right answer"
 - Starting implementation while "waiting" for approval
 
+## Latent vs Deterministic
+
+| Step                                                                | Kind                                                     |
+| ------------------------------------------------------------------- | -------------------------------------------------------- |
+| Trigger detection (does this change touch 3+ files? Architectural?) | Deterministic (file count) + Latent (architectural-ness) |
+| Assumption surfacing                                                | Latent                                                   |
+| Designing 2–3 approaches with tradeoffs                             | Latent                                                   |
+| Waiting for approval                                                | Deterministic (control flow — do not proceed)            |
+
+Rule: never collapse the gate. Even if you "know the right answer", the gate exists because the _user's preference_ is itself unknown information.
+
 Adapted from obra/superpowers `brainstorming` for DWS IQ 6.

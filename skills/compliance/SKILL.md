@@ -91,6 +91,19 @@ allowed-tools: [Bash, WebSearch]
 - CSRD data gap identification before reporting deadline
 - CBAM transitional period filings (quarterly, due by Jan/April/July/Oct)
 
+## Latent vs Deterministic
+
+| Step                                               | Where                                                    | Kind          |
+| -------------------------------------------------- | -------------------------------------------------------- | ------------- |
+| Score computation (0–100 per regulation)           | `src/compliance/scoring-engine.ts`                       | Deterministic |
+| ETS allowance / CBAM certificate arithmetic        | `src/compliance/ets-calculator.ts`, `cbam-calculator.ts` | Deterministic |
+| ESRS data-point coverage lookup                    | `src/compliance/esrs-registry.ts`                        | Deterministic |
+| Gap severity judgment (critical/high/medium)       | LLM                                                      | Latent        |
+| Cost-vs-risk prioritization in remediation roadmap | LLM                                                      | Latent        |
+| Narrative / report markdown                        | LLM                                                      | Latent        |
+
+Rule: do not ask the LLM to compute the compliance score. The score is a function of inputs and must match `scoring-engine.ts`.
+
 ## Standards References
 
 - EU Reg. 2021/447 — ETS free allocation benchmarks (product benchmarks Annex I)
