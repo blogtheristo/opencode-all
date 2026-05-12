@@ -10,6 +10,7 @@
  */
 
 import { beforeAll, describe, expect, it } from 'vitest';
+import express from 'express';
 import request from 'supertest';
 
 let app: express.Express;
@@ -64,8 +65,7 @@ describe('E2E Smoke Test — Core User Journey', () => {
   });
 
   it('Step 2: ESRS registry is accessible', async () => {
-    const res = await request(app)
-      .get('/api/v1/compliance/registry');
+    const res = await request(app).get('/api/v1/compliance/registry');
 
     expect(res.status).toBe(200);
     expect(res.body.total).toBeGreaterThan(0);
@@ -104,14 +104,12 @@ describe('E2E Smoke Test — Core User Journey', () => {
   });
 
   it('Step 4: Cost estimate provides actionable data', async () => {
-    const res = await request(app)
-      .post('/api/v1/compliance/cost-estimate')
-      .send({
-        annualEmissions: 15000,
-        importQuantity: 500,
-        sector: 'cement',
-        originCountry: 'TR',
-      });
+    const res = await request(app).post('/api/v1/compliance/cost-estimate').send({
+      annualEmissions: 15000,
+      importQuantity: 500,
+      sector: 'cement',
+      originCountry: 'TR',
+    });
 
     expect(res.status).toBe(200);
     expect(res.body.ets.estimatedCost).toBeGreaterThan(0);
@@ -121,8 +119,7 @@ describe('E2E Smoke Test — Core User Journey', () => {
   });
 
   it('Step 5: 404 handler returns structured error', async () => {
-    const res = await request(app)
-      .get('/api/v1/nonexistent-route');
+    const res = await request(app).get('/api/v1/nonexistent-route');
 
     expect(res.status).toBe(404);
     expect(res.body.error).toBeDefined();
@@ -138,9 +135,7 @@ describe('E2E Smoke Test — Core User Journey', () => {
   });
 
   it('Step 7: Onboard endpoint is reachable', async () => {
-    const res = await request(app)
-      .post('/api/v1/onboard')
-      .send({});
+    const res = await request(app).post('/api/v1/onboard').send({});
 
     // Should return validation error or auth required — not 404
     expect([400, 401, 422, 500]).toContain(res.status);
