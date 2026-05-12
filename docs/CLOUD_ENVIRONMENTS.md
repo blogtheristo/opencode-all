@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.1
+Version: 2.2
 
 Sessions & Modifications:
 
+- Version: 2.2 | Tool: Claude Code (Claude Sonnet 4.6) | Session: claude/add-otel-api-docs-fU7r0 | Date: 06.05.2026 | Changes: Section 7.4 — updated Trace Collection row to reference `telemetry.googleapis.com` as GCP-native OTLP ingestion endpoint in europe-north1. Section 7.6 — updated Foundation row to note `telemetry.googleapis.com` is available ahead of Q2 2026 schedule (auto-enabled March 2026). Triggered by Google Cloud Observability OTel ingestion API launch announcement; see field note docs/field-notes/2026-05-02-gcp-otel-ingestion-api-launch.md.
 - Version: 2.1 | Tool: Claude Code (Opus 4.7) | Session: claude/b2b-payment-stack-DNdkW | Date: 25.04.2026 | Changes: Section 4.5 — added "Scaling note" subsection. Records that the current single-tenant deployment pattern (one Cloud Run service, one trigger, one Stripe endpoint, one shared secret inventory) is correct for the internal Lifetime Oy billing use case shipped today, and lists the re-evaluation triggers (>100 tenants, first per-tenant Stripe account, first non-EU residency, first non-CLOUD-Act jurisdiction) that would force a rework. Includes a single-tenant→multi-tenant dimension table for future reference; explicit instruction to fork the section rather than mutate it when re-evaluating, so historical pattern is preserved. Note, not a task
 - Version: 2.0 | Tool: Claude Code (Opus 4.7) | Session: claude/b2b-payment-stack-DNdkW | Date: 25.04.2026 | Changes: Section 4.5 — added STRIPE_WEBHOOK_SECRET to required secrets table and canonical deploy command; new "Public ingress" subsection covering the two-layer block (Workspace org policy `iam.allowedPolicyMemberDomains` + Cloud Run private-by-default IAM) with the exact override + binding commands; new "Stripe webhook wiring" table pinning service URL, mounted route, signing secret, Stripe destination name (`charming-serenity`), 7 subscribed event types; new "Smoke-test recipes" with three single-curl tests proving liveness, raw-body chain, and full HMAC chain; new "Pitfalls discovered & captured" subsection logging six lessons learned: express.json consumes raw stream, Compute-SA default since 2024, tsconfig excludes vs runtime stubs, Node 22 ESM `.js` requirement, `/webhooks/stripe` path, `timingSafeEqual` length-mismatch behaviour. Major version bump to 2.0 reflects that 4.5 is now a complete deployment standard, not a partial pattern note
 - Version: 1.9 | Tool: Claude Code (Opus 4.7) | Session: claude/b2b-payment-stack-DNdkW | Date: 24.04.2026 | Changes: Added Section 4.5 "DWS 6 Cloud Run Deployment Pattern (Standard)" — principles (secrets in Secret Manager not env-vars, user-managed replication pinned to europe-north1, least-privilege secretAccessor per secret, never-paste rule); provisioning workflow via `scripts/Provision-DwsIqSecrets.ps1`; required backend secret inventory (STRIPE_SECRET_KEY, SUPABASE_URL/ANON/SERVICE/SERVICE_ROLE, JWT_SECRET, SMTP_USER/PASS); canonical deploy command separating `--set-env-vars` (non-secret config) from `--set-secrets` (Secret Manager refs); rotation playbook with `:latest` + nonce env-var; security-benefits comparison table. Renumbered prior 4.5 Limitations → 4.6
@@ -785,15 +786,15 @@ The Full Sovereignty tier is not a separate cloud provider — it is a **complia
 
 ### 7.4 Full Sovereignty Technology Stack
 
-| Component            | Technology                         | Purpose                                 |
-| -------------------- | ---------------------------------- | --------------------------------------- |
-| **Trace Collection** | OpenTelemetry SDK                  | Capture all AI interactions             |
-| **Reasoning Store**  | Supabase pgvector                  | Store reasoning chains as embeddings    |
-| **Audit Log**        | Immutable PostgreSQL (append-only) | 7-year retention, SIEM export           |
-| **Privacy**          | Presidio / Custom NER              | PII masking before LLM                  |
-| **Safety**           | NeMo Guardrails / Llama Guard      | Toxic prompt blocking                   |
-| **Identity**         | OAuth 2.0 / OIDC                   | Role-based data access                  |
-| **Dashboard**        | React (DWS IQ Dashboard module)    | Forensic debugging for compliance teams |
+| Component            | Technology                                                                        | Purpose                                 |
+| -------------------- | --------------------------------------------------------------------------------- | --------------------------------------- |
+| **Trace Collection** | OpenTelemetry SDK → `telemetry.googleapis.com` (GCP-native OTLP, `europe-north1`) | Capture all AI interactions             |
+| **Reasoning Store**  | Supabase pgvector                                                                 | Store reasoning chains as embeddings    |
+| **Audit Log**        | Immutable PostgreSQL (append-only)                                                | 7-year retention, SIEM export           |
+| **Privacy**          | Presidio / Custom NER                                                             | PII masking before LLM                  |
+| **Safety**           | NeMo Guardrails / Llama Guard                                                     | Toxic prompt blocking                   |
+| **Identity**         | OAuth 2.0 / OIDC                                                                  | Role-based data access                  |
+| **Dashboard**        | React (DWS IQ Dashboard module)                                                   | Forensic debugging for compliance teams |
 
 ### 7.5 Full Sovereignty Deployment on EU Cloud
 
@@ -810,13 +811,13 @@ The Full Sovereignty tier runs entirely within the EU Cloud (pilot account). No 
 
 ### 7.6 Full Sovereignty Rollout Timeline
 
-| Phase                   | Period     | Deliverables                                                          |
-| ----------------------- | ---------- | --------------------------------------------------------------------- |
-| **Foundation**          | Q2 2026    | OpenTelemetry integration, basic trace collection, audit log schema   |
-| **Reasoning Lineage**   | Q3 2026    | Decision chain logging, pgvector reasoning store, forensic dashboard  |
-| **Trust Guardrails**    | Q3–Q4 2026 | PII masking (Presidio), toxicity filtering (NeMo), approval gates     |
-| **Certification Ready** | Q4 2026    | EU AI Act high-risk assessment, documentation package, external audit |
-| **Production**          | Q1 2027    | Full Article 12 compliance, customer-facing compliance reports        |
+| Phase                   | Period     | Deliverables                                                                                                                                                             |
+| ----------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Foundation**          | Q2 2026    | OpenTelemetry integration, basic trace collection, audit log schema — `telemetry.googleapis.com` (GCP-native OTLP endpoint) available ahead of schedule as of March 2026 |
+| **Reasoning Lineage**   | Q3 2026    | Decision chain logging, pgvector reasoning store, forensic dashboard                                                                                                     |
+| **Trust Guardrails**    | Q3–Q4 2026 | PII masking (Presidio), toxicity filtering (NeMo), approval gates                                                                                                        |
+| **Certification Ready** | Q4 2026    | EU AI Act high-risk assessment, documentation package, external audit                                                                                                    |
+| **Production**          | Q1 2027    | Full Article 12 compliance, customer-facing compliance reports                                                                                                           |
 
 ### 7.7 Full Sovereignty for DWS 6 vs DWS 7
 
