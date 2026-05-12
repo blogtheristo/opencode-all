@@ -6,18 +6,26 @@ This file defines concise operating rules for AI agents working in the DWS6 repo
 
 Ship reliable outcomes fast, but never past security, compliance, or source-of-truth rules.
 
-## Required Standards (read before edits)
+## Resolver — Standards Documents
 
-- `DWS_DOCUMENT_STANDARD.md`
-- `DWS_BRAND_STANDARD.md`
-- `DWS_SECURITY_STANDARD.md`
-- `DWS_MARKET_RESEARCH_STANDARD.md`
-- `SITE_QUALITY_STANDARDS.md`
-- `docs/DWS_SKILLS_GUIDE.md`
-- `docs/BLOG_STANDARD.md`
-- `DWS_STANDARDS_LIBRARY.md`
-- `AI_AGENT_GUIDELINES.md`
-- `AGENTS.md`
+Before editing, match the task against this table and load the matching standard. The table is the active routing layer — not a passive bibliography. Load every standard whose trigger fires; if multiple fire, load all matched.
+
+| If the task touches…                                                                                                                           | Load                              |
+| ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| auth, RLS, secrets, JWT, API endpoints, user input validation, OWASP, KYA / sandbox / MicroVM, NIS2, GDPR, EU AI Act, prompt injection         | `DWS_SECURITY_STANDARD.md`        |
+| document header, `VERSION AND AGENT HISTORY` block, document version bump, language pair lockstep, `***` vs `---` delimiter, naming convention | `DWS_DOCUMENT_STANDARD.md`        |
+| brand identity, logo, color palette, copy tone, hero text, landing page voice, marketing surface, deprecated terminology                       | `DWS_BRAND_STANDARD.md`           |
+| market sizing, TAM / SAM / SOM, competitor analysis, investor narrative, customer segmentation                                                 | `DWS_MARKET_RESEARCH_STANDARD.md` |
+| site QA, image quality / format / weight, copy quality, dual-folder mirror checks, deploy-readiness checklist                                  | `SITE_QUALITY_STANDARDS.md`       |
+| adding / removing / renaming a slash command or `skills/<name>/SKILL.md`; updating discipline gates; skill manifest                            | `docs/DWS_SKILLS_GUIDE.md`        |
+| blog post on `onelifetime.world/blog/`, `dws10.com/blog/`, editorial cadence, LSJ                                                              | `docs/BLOG_STANDARD.md`           |
+| BaseAgent class, new agent in `src/agents/`, autonomy tier, cost budget, agent execution logging, bacterial-code extraction                    | `AI_AGENT_GUIDELINES.md`          |
+| agent topology, signal dependencies (READY / COMPLETE / ERROR / BLOCKED), agent-XX numbering, what unlocks what                                | `AGENTS.md`                       |
+| "which standard governs X?" / index lookup / standards catalogue                                                                               | `DWS_STANDARDS_LIBRARY.md`        |
+
+**Multi-match is normal.** A task that adds a new agent that touches user input + ships a blog post fires four triggers and must load four standards. Do not pick the "most relevant" one — load all matched.
+
+**No match?** Default to `DWS_STANDARDS_LIBRARY.md` (catalogue) and ask the user before editing.
 
 If the user says **"Use DWS standard"**, apply all relevant standards and update impacted standards/docs in the same change.
 
