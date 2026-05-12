@@ -2,7 +2,8 @@ import { beforeEach, describe, expect, test, vi } from 'vitest';
 import request from 'supertest';
 import express from 'express';
 
-const mockService = {
+// vi.hoisted ensures these are initialised before vi.mock factories run
+const mockService = vi.hoisted(() => ({
   configureIntegration: vi.fn(),
   testConnection: vi.fn(),
   getIntegrations: vi.fn(),
@@ -16,18 +17,21 @@ const mockService = {
   getCompaniesByProvider: vi.fn(),
   getSyncHistory: vi.fn(),
   handleWebhook: vi.fn(),
-};
+}));
 
-const mockApprovalGate = {
+const mockApprovalGate = vi.hoisted(() => ({
   requestApproval: vi.fn(),
   getPendingRequests: vi.fn(),
   approve: vi.fn(),
   reject: vi.fn(),
   getRequest: vi.fn(),
-};
+}));
 
 vi.mock('../integrations/erp/service.js', () => ({
-  ERPIntegrationService: vi.fn(() => mockService),
+  // Must use `function` keyword — arrow functions are not constructable (Vitest v4)
+  ERPIntegrationService: vi.fn(function () {
+    return mockService;
+  }),
 }));
 
 vi.mock('../integrations/erp/approval-gate.js', () => ({
