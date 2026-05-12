@@ -72,15 +72,16 @@ discovered  ──scan──▶  pending  ──resume──▶  (work runs in a
 
 ## CLI surface
 
-| Command                          | Purpose                                                                                               |
-| -------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `node scripts/clawdbot-scan.mjs` | Scan transcripts, write queue files, update state.                                                    |
-| `… --list`                       | Print pending queue items as JSON (newest first).                                                     |
-| `… --status`                     | Print summary counts (pending / dismissed / done).                                                    |
-| `… --dismiss <id>`               | Mark a queue item dismissed (short id or full uuid).                                                  |
-| `… --done <id>`                  | Mark a queue item done.                                                                               |
-| `… --preview <id>`               | Classify a queue item's trust zone (GREEN/YELLOW/RED) from its files-touched list, without executing. |
-| `… --max-age <N>`                | Ignore sessions older than N days (default 30).                                                       |
+| Command                                   | Purpose                                                                                                                                                                                                                    |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `node scripts/clawdbot-scan.mjs`          | Scan transcripts, write queue files, update state.                                                                                                                                                                         |
+| `… --list`                                | Print pending queue items as JSON (newest first).                                                                                                                                                                          |
+| `… --status`                              | Print summary counts (pending / dismissed / done).                                                                                                                                                                         |
+| `… --dismiss <id>`                        | Mark a queue item dismissed (short id or full uuid).                                                                                                                                                                       |
+| `… --done <id>`                           | Mark a queue item done.                                                                                                                                                                                                    |
+| `… --preview <id>`                        | Classify a queue item's trust zone (GREEN/YELLOW/RED) from its files-touched list, without executing.                                                                                                                      |
+| `… --enrich <id> [--model M] [--dry-run]` | LLM-pass via `scripts/ollama-spark.sh` (default model `llama3.1:70b`). Appends a `## LLM Digest` section with `{summary, proposed_next, blockers, risk_notes}` JSON to the queue file. `--dry-run` prints the prompt only. |
+| `… --max-age <N>`                         | Ignore sessions older than N days (default 30).                                                                                                                                                                            |
 
 ## Heuristics & caveats
 

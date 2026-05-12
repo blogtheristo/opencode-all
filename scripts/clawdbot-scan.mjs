@@ -17,6 +17,7 @@
 import { readFileSync, writeFileSync, readdirSync, mkdirSync, existsSync, statSync } from 'node:fs';
 import { join, resolve, basename } from 'node:path';
 import { homedir } from 'node:os';
+import { spawnSync } from 'node:child_process';
 
 const REPO_ROOT = resolve(process.cwd());
 const PROJECT_ENCODED = REPO_ROOT.replace(/[\/\\]/g, '-'); // "-home-user-dws6"
@@ -55,6 +56,8 @@ function parseArgs(argv) {
     target: null,
     exclude: [],
     liveWindowSec: 300,
+    model: 'llama3.1:70b',
+    dryRun: false,
   };
   for (let i = 2; i < argv.length; i++) {
     const a = argv[i];
@@ -69,7 +72,12 @@ function parseArgs(argv) {
     } else if (a === '--preview') {
       args.command = 'preview';
       args.target = argv[++i];
-    } else if (a === '--max-age') args.maxAgeDays = parseInt(argv[++i], 10);
+    } else if (a === '--enrich') {
+      args.command = 'enrich';
+      args.target = argv[++i];
+    } else if (a === '--model') args.model = argv[++i];
+    else if (a === '--dry-run') args.dryRun = true;
+    else if (a === '--max-age') args.maxAgeDays = parseInt(argv[++i], 10);
     else if (a === '--exclude') args.exclude.push(argv[++i]);
     else if (a === '--live-window') args.liveWindowSec = parseInt(argv[++i], 10);
     else if (a === '--help' || a === '-h') args.command = 'help';
@@ -494,6 +502,163 @@ function cmdPreview(target) {
   );
 }
 
+// Build the LLM enrichment prompt from a session digest.
+function buildEnrichPrompt(d) {
+  const todos = d.pendingTodos.length
+    ? d.pendingTodos.map((t) => `- (${t.status}) ${t.content}`).join('\n')
+    : '(none)';
+  const files = d.filesTouched.length
+    ? d.filesTouched.map((f) => `- ${f.replace(REPO_ROOT + '/', '')}`).join('\n')
+    : '(none)';
+  return `You are clawdbot, an internal session-janitor LLM. Read the Claude Code session
+excerpt below and emit ONLY a JSON object with this exact shape (no prose
+around it, no markdown fences):
+
+{
+  "summary": "<one sentence, what the session was doing>",
+  "proposed_next": ["<short imperative>", "..."],
+  "blockers": ["<known obstacles or open questions>", "..."],
+  "risk_notes": "<one line on risk: any thesis/migration/secret/store hits?>"
+}
+
+Session excerpt
+---------------
+First user prompt:
+${d.firstUser}
+
+Last user prompt:
+${d.lastUser}
+
+Last assistant signal:
+${d.lastAssistant}
+
+Pending todos:
+${todos}
+
+Files touched:
+${files}
+
+Branch: ${d.branch}
+`;
+}
+
+function tryParseJson(text) {
+  if (!text) return null;
+  const m = text.match(/\{[\s\S]*\}/);
+  if (!m) return null;
+  try {
+    return JSON.parse(m[0]);
+  } catch {
+    return null;
+  }
+}
+
+function cmdEnrich(target, model, dryRun) {
+  if (!target) {
+    console.error('Missing target id');
+    process.exit(2);
+  }
+  const state = loadState();
+  let matched = null;
+  for (const sid of Object.keys(state.sessions)) {
+    if (sid === target || shortId(sid) === target) {
+      matched = sid;
+      break;
+    }
+  }
+  if (!matched) {
+    console.error(`No session matches: ${target}`);
+    process.exit(3);
+  }
+
+  const transcriptPath = join(TRANSCRIPT_DIR, `${matched}.jsonl`);
+  if (!existsSync(transcriptPath)) {
+    console.error(`Transcript missing: ${transcriptPath}`);
+    process.exit(4);
+  }
+  const events = readJsonl(transcriptPath);
+  const d = digest(events, matched);
+  const prompt = buildEnrichPrompt(d);
+
+  if (dryRun) {
+    console.log(
+      JSON.stringify(
+        { ok: true, dryRun: true, sessionId: matched, model, promptChars: prompt.length, prompt },
+        null,
+        2,
+      ),
+    );
+    return;
+  }
+
+  // Shell out to ollama-spark. 120s timeout — large local models can be slow.
+  const result = spawnSync('bash', [join(REPO_ROOT, 'scripts/ollama-spark.sh'), model, '-'], {
+    input: prompt,
+    encoding: 'utf8',
+    timeout: 120000,
+  });
+
+  if (result.error || result.status !== 0) {
+    console.log(
+      JSON.stringify(
+        {
+          ok: false,
+          sessionId: matched,
+          model,
+          error: result.error?.message || `exit ${result.status}`,
+          stderr: (result.stderr || '').slice(0, 500),
+          hint: 'Check `ssh dgx-spark` works and Ollama is running on the Spark.',
+        },
+        null,
+        2,
+      ),
+    );
+    process.exit(5);
+  }
+
+  const raw = result.stdout.trim();
+  const parsed = tryParseJson(raw);
+
+  // Append the enrichment to the queue file (preserve the original).
+  const queueFile = join(QUEUE_DIR, `${shortId(matched)}.md`);
+  if (existsSync(queueFile)) {
+    const existing = readFileSync(queueFile, 'utf8');
+    const block =
+      `\n\n## LLM Digest (model: ${model})\n` +
+      `> Generated: ${new Date().toISOString()}\n\n` +
+      (parsed
+        ? '```json\n' + JSON.stringify(parsed, null, 2) + '\n```\n'
+        : '```\n' + raw + '\n```\n_(model did not return valid JSON — raw response above)_\n');
+    // Strip any prior LLM Digest section so re-enrichment replaces it.
+    const stripped = existing.replace(/\n\n## LLM Digest[\s\S]*$/, '');
+    writeFileSync(queueFile, stripped + block);
+  }
+
+  // Update state with enrichment metadata.
+  state.sessions[matched].llmEnriched = true;
+  state.sessions[matched].llmEnrichedAt = new Date().toISOString();
+  state.sessions[matched].llmModel = model;
+  if (parsed?.summary) {
+    state.sessions[matched].llmSummary = parsed.summary.slice(0, 240);
+  }
+  saveState(state);
+
+  console.log(
+    JSON.stringify(
+      {
+        ok: true,
+        sessionId: matched,
+        model,
+        parsed: !!parsed,
+        queueFile: queueFile.replace(REPO_ROOT + '/', ''),
+        digest: parsed,
+      },
+      null,
+      2,
+    ),
+  );
+}
+
 function cmdMark(target, status) {
   if (!target) {
     console.error('Missing target id');
@@ -528,6 +693,9 @@ Usage:
   node scripts/clawdbot-scan.mjs --dismiss <id>  mark queue item dismissed
   node scripts/clawdbot-scan.mjs --done <id>     mark queue item done
   node scripts/clawdbot-scan.mjs --preview <id>  classify trust zone of files touched
+  node scripts/clawdbot-scan.mjs --enrich <id> [--model llama3.1:70b] [--dry-run]
+                                                 LLM-pass via ollama-spark; appends
+                                                 ## LLM Digest section to the queue file
 
 Live-session skip order: CLAUDE_SESSION_ID env → --exclude flags → newest
 jsonl modified within --live-window seconds (default 300).
@@ -553,6 +721,9 @@ switch (args.command) {
     break;
   case 'preview':
     cmdPreview(args.target);
+    break;
+  case 'enrich':
+    cmdEnrich(args.target, args.model, args.dryRun);
     break;
   case 'help':
     cmdHelp();
