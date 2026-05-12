@@ -34,6 +34,16 @@ If the user says **"Use DWS standard"**, apply all relevant standards and update
 9. Keep edits scoped; do not do unrelated refactors.
 10. Use PowerShell-first command examples on Windows (`.ps1`, `.\script.ps1`).
 
+## Auto-Mode Trust Boundary
+
+When operating in auto-mode (Claude Code without per-tool prompts), the SessionStart hook declares three zones. The canonical policy lives here; the hook output must match this section.
+
+- **GREEN — full auto:** Read, Edit, Write, lint, test, build, git on feature branches (e.g. `claude/*`, `feature/*`, `fix/*`).
+- **YELLOW — auto + logged:** MCP tools, agent skills, Docker, `gh`/MCP GitHub calls, `git push`. Every YELLOW action is appended to `.claude/hooks/audit/`.
+- **RED — BLOCKED, human required:** DB migrations, deploys, outbound email, thesis files, Store sync, secrets. Must be approved per-action by a human; tooling refuses to proceed otherwise.
+
+Trust-zone classification of a file uses the regex patterns in `scripts/clawdbot-scan.mjs` (`classifyPath`). If a new file pattern needs a zone, update both the hook and the scanner in the same commit.
+
 ## Source-of-Truth Rules
 
 ### Store/Product Pricing
@@ -113,6 +123,8 @@ If a reusable capability appears, propose turning it into a skill and register i
 ## Script Automation Rule
 
 Do not create scripts that depend on human memory to run. Place them in scheduler/discovery paths (`scripts/daily`, `scripts/weekly`, `scripts/hourly`, `scripts/on-deploy`) or register Windows `.ps1` tasks in the scheduler installer flow.
+
+Scripts in `scripts/daily/` are auto-discovered and executed at 03:00–06:00 UTC by `day-runner.sh` on DGX Spark. No registration is needed and no GitHub Actions are involved — dropping a `.sh` or `.ts` file in `scripts/daily/` ships a daily cron job. State is tracked in `logs/day-runner-state.json` to prevent double-runs.
 
 ## Development Baseline
 
