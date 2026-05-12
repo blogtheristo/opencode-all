@@ -49,7 +49,13 @@ function shortId(sid) {
 }
 
 function parseArgs(argv) {
-  const args = { command: 'scan', maxAgeDays: 30, target: null };
+  const args = {
+    command: 'scan',
+    maxAgeDays: 30,
+    target: null,
+    exclude: [],
+    liveWindowSec: 300,
+  };
   for (let i = 2; i < argv.length; i++) {
     const a = argv[i];
     if (a === '--list') args.command = 'list';
@@ -61,9 +67,39 @@ function parseArgs(argv) {
       args.command = 'done';
       args.target = argv[++i];
     } else if (a === '--max-age') args.maxAgeDays = parseInt(argv[++i], 10);
+    else if (a === '--exclude') args.exclude.push(argv[++i]);
+    else if (a === '--live-window') args.liveWindowSec = parseInt(argv[++i], 10);
     else if (a === '--help' || a === '-h') args.command = 'help';
   }
   return args;
+}
+
+// Identify the currently-running session so we don't queue ourselves.
+// Strategy (in order):
+//   1. CLAUDE_SESSION_ID env var (set by Claude Code in some environments).
+//   2. --exclude <id> flags (caller-supplied; may be short or full id).
+//   3. Heuristic: the jsonl file whose mtime is within liveWindowSec of now.
+function detectLiveSession(transcriptDir, liveWindowSec) {
+  const env = process.env.CLAUDE_SESSION_ID;
+  if (env) return { id: env, source: 'env' };
+  if (!existsSync(transcriptDir)) return null;
+  const now = Date.now();
+  let newest = null;
+  for (const f of readdirSync(transcriptDir)) {
+    if (!f.endsWith('.jsonl')) continue;
+    const full = join(transcriptDir, f);
+    const mtime = statSync(full).mtimeMs;
+    if (now - mtime > liveWindowSec * 1000) continue;
+    if (!newest || mtime > newest.mtime) {
+      newest = { id: basename(f, '.jsonl'), mtime, source: 'mtime' };
+    }
+  }
+  return newest;
+}
+
+function matchesId(sid, target) {
+  if (!target) return false;
+  return sid === target || shortId(sid) === target;
 }
 
 // --- transcript parsing ---------------------------------------------------
@@ -267,17 +303,25 @@ function cmdScan(args) {
   }
 
   const files = readdirSync(TRANSCRIPT_DIR).filter((f) => f.endsWith('.jsonl'));
-  const currentSession = process.env.CLAUDE_SESSION_ID || '';
+  const live = detectLiveSession(TRANSCRIPT_DIR, args.liveWindowSec);
   const queued = [];
   let scanned = 0;
   let skippedStale = 0;
   let skippedNoWork = 0;
   let skippedHandled = 0;
+  let skippedLive = 0;
 
   for (const f of files) {
     const full = join(TRANSCRIPT_DIR, f);
     const sid = basename(f, '.jsonl');
-    if (sid === currentSession) continue;
+    if (live && sid === live.id) {
+      skippedLive++;
+      continue;
+    }
+    if (args.exclude.some((t) => matchesId(sid, t))) {
+      skippedLive++;
+      continue;
+    }
 
     const entry = state.sessions[sid];
     if (entry && (entry.status === 'dismissed' || entry.status === 'done')) {
@@ -329,6 +373,8 @@ function cmdScan(args) {
         skippedStale,
         skippedNoWork,
         skippedHandled,
+        skippedLive,
+        liveSession: live ? { id: live.id, source: live.source } : null,
         queueDir: QUEUE_DIR.replace(REPO_ROOT + '/', ''),
         items: queued,
       },
@@ -385,11 +431,15 @@ function cmdHelp() {
   console.log(`clawdbot-scan — mine Claude Code transcripts for unfinished work
 
 Usage:
-  node scripts/clawdbot-scan.mjs [--max-age N]   scan + write queue (default)
+  node scripts/clawdbot-scan.mjs [--max-age N] [--live-window S] [--exclude <id>]
+                                                 scan + write queue (default)
   node scripts/clawdbot-scan.mjs --list          list pending queue items (json)
   node scripts/clawdbot-scan.mjs --status        counts: pending/dismissed/done
   node scripts/clawdbot-scan.mjs --dismiss <id>  mark queue item dismissed
   node scripts/clawdbot-scan.mjs --done <id>     mark queue item done
+
+Live-session skip order: CLAUDE_SESSION_ID env → --exclude flags → newest
+jsonl modified within --live-window seconds (default 300).
 
 Queue lives in .claude/clawdbot/queue/<short-id>.md
 State lives in .claude/clawdbot/state.json

@@ -83,9 +83,13 @@ discovered  ──scan──▶  pending  ──resume──▶  (work runs in a
 
 ## Heuristics & caveats
 
-- The scanner has no way to know the current session id by default. It will
-  include the currently running session in its scan; dismiss it once at start.
-  (Future: pass `CLAUDE_SESSION_ID` env var to skip it.)
+- **Live-session skip** (so the scanner doesn't queue the running session):
+  1. `CLAUDE_SESSION_ID` env var if set, else
+  2. `--exclude <id>` flags (short or full id), else
+  3. The newest `.jsonl` modified within `--live-window` seconds (default 300)
+     is treated as live and skipped.
+     The scan output reports which session was treated as live under
+     `liveSession.{id, source}` and counts it under `skippedLive`.
 - Follow-up phrasing is regex-based and may false-positive on conversational
   text. Dismiss freely — the scanner is idempotent.
 - `--max-age` defaults to 30 days. Older sessions are skipped silently
