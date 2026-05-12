@@ -6,10 +6,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.52
+Version: 3.56
 
 Sessions & Modifications:
 
+- Version: 3.56 | Tool: Claude Code (Opus 4.7) | Session: claude/deployment-strategies-comparison-T5gcw | Date: 12.05.2026 | Changes: Lisätty ristiviittaukset uuteen `DWS_DEPLOYMENT_STANDARD.md` v1.0 -standardiin luvuissa 4.3.1 (Hybridi pilvi-edge-arkkitehtuuri) ja 5.1 (Infrastruktuurin käyttöönotto). Deployment Standard määrittelee pintakohtaisen käyttöönotto-ontologian, neljä asiakaskohtaista manifestiä (File Index, Per-Tenant Secrets, Personnel, Connector Data Catalogue), asiakaskohtaisen Client Artifact Bundle -paketin, pintakohtaisen Brain (LLM) -ilmoituksen säännön sekä Industry × Sales-Jurisdiction × Cloud-Jurisdiction (US Public / EU Development / Aegis Sovereign) × Tier (Connect / Sovereign infra / Aegis) -käyttöönottositoumukset. Kaikki 4 opinnäytetyötiedostoa nostettu lukon mukaisesti (3.52 → 3.56; väliversiot varattu).
 - Version: 3.52 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-ontology-blog-3RGKG | Date: 29.04.2026 | Changes: Lisätty luku 1.6 "Ontologia — etymologia ja filosofinen tausta", joka linkittää opinnäytetyön ONTOLOGY.md v1.3 -dokumenttiin (kreikan ón + lógos, Aristoteles, skolastiikan 1600–1700-luvun systematisointi, nykyinen tietojenkäsittelytieteen merkitys). Yhdenmukaistaa terminologian DWS Ontology Standardin kanssa. Kaikki 4 opinnäytetyötiedostoa nostettu lukon mukaisesti CLAUDE.md:n ohjeen mukaan.
 - Version: 3.51 | Tool: Claude Code (Haiku 4.5) | Session: claude/sync-version-numbering-adEeB | Date: 28.04.2026 | Changes: Bumped from 3.39 to 3.51 (12 steps × 0.01). Unified thesis version track maintained. Created new Tutkimussuunnitelma_3.51.md (Research Plan) with three research streams (KYA standardization, DWS 7 empirical testbed, dual-use industries), eight research questions, "Human in Command ja Human in Loop" governance framework; versioning format rule (.X9 → .X+1,0) documented for DWS_DOCUMENT_STANDARD.md §5
 - Version: 3.39 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Terminology rename — "Aiven overlay" / "Aiven layer" (deprecated infrastructure labels) → "Article 12 Logging Pipeline" per new DWS_ARTICLE_12_LOGGING_STANDARD.md v1.0 (unified 3-tier canonical term). Aiven remains the correct name for the Postgres SaaS. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule; only V3Thesis_EN had the infra-context string in content
@@ -739,6 +740,8 @@ AgentFoundry on monimalli-, monivuokralainen kehys AI-agenttien käyttöönottoo
 
 ### 4.3.1 Hybridi pilvi-edge-arkkitehtuuri
 
+Tämän hybridiarkkitehtuurin käyttöönottoa eri ympäristöissä ohjaa `DWS_DEPLOYMENT_STANDARD.md` (v1.0, 2026-05-12). Jokainen alla esitetyn kaavion kerros vastaa yhtä tai useampaa Surface-elementtiä standardin ontologiassa — Pilvikerros vastaa Cloud Run -backendin, AgentFoundryn ja MCP-yhdyskäytävän Surface-elementtejä, Reunakerros vastaa Acer Veriton GN100 -suvereenia reunaa isännöivää Lifetime World Model (LWM) -pintaa, ja Asiakaskerros vastaa staattisia sivustoja ja kojetauluja. Tässä opinnäytetyössä käytetty Aivot-Muisti-Keho-Kädet -taksonomia on kuvattu pintakohtaisiksi käyttöönottokaistoiksi Deployment Standardin luvussa 6 säännöllä, että jokainen Surface ilmoittaa ensisijaisen Brain (LLM) -mallinsa eksplisiittisesti; tuotannossa olevan Brainin vaihtaminen on auto-mode-luottamusrajan RED-vyöhykkeen tapahtuma.
+
 ```
 ┌─────────────────────────────────────────────────┐
 │  DWS6 HYBRIDIARKKITEHTUURI                       │
@@ -841,6 +844,8 @@ Yhteisösääntöjen ja moderoinnin luominen "Lifetime World" -alustalle.
 Tämä luku dokumentoi Firehorse-toimintamallin toteutuksen MVP-vaiheessa (joulukuu 2025 - helmikuu 2026).
 
 ## 5.1 Infrastruktuurin käyttöönotto
+
+Infrastruktuurin käyttöönottoa ohjaa kanoninen tekninen standardi `DWS_DEPLOYMENT_STANDARD.md` (v1.0, 2026-05-12). Standardi määrittelee jokaisen käyttöönotettavan artefaktin **Surface**-elementiksi (staattiset sivustot, kojetaulut, Cloud Run -backend, AgentFoundry, MCP-yhdyskäytävä, Firehorse Python -kokonaisuus, **Situation Room**, **Control Room**, **Lifetime World Model Acer Veriton GN100 -laitteella** ja Store) ja sitoo jokaisen julkaisun Strategiaan (sininen/vihreä, rolling revisions, manuaalinen suvereeni reuna, työnkulkupohjainen synkronointi, kojetaulun rakenna-ja-julkaise), ympäristöön (`development`, `staging`, `production`, `test`) sekä kahteen ortogonaaliseen jurisdiktioulottuvuuteen: **Sales / Regulatory Jurisdiction** (tällä hetkellä NO / DK / FI, sekä UAE / Singapore Connect-tasolla) ja **Deployment / Cloud Jurisdiction** (US Public, EU Development, Aegis Sovereign `docs/CLOUD_ENVIRONMENTS.md` mukaisesti). Jokaisen julkaisun mukana toimitetaan viisi muuttumatonta asiakaskohtaista artefaktia — **Client-Owned File Index**, **Per-Tenant Secrets Manifest**, **Personnel Manifest** (KYA-sidotut nimitetyt roolit), **Connector Data Catalogue Manifest** sekä **Client Artifact Bundle** (raporttipohjat, työnkulut, koulutusdokumentit, agenttien kyvykkyyskortit, jurisdiktiokohtaiset vaatimustenmukaisuussidokset, KB-osajoukko) — julkaistuna sekä käyttöönotetun artefaktin sisällä että asiakkaan omassa tenant-tallennustilassa, jotta asiakkaalla säilyy operaattorista riippumaton tieto siitä, mitä heidän instanssissaan ajetaan. Kolme kanonista tuotetasoa (DWS IQ Connect, DWS IQ Sovereign infra, DWS IQ Aegis) sitovat ominaisuuslaajuuden ja Cloud Jurisdiction -saatavuuden standardin kautta; Aegis-taso avaa suvereenin reunan LWM Acer Surface -elementin.
 
 ### 5.1.1 Pilvi-infrastruktuuri
 
