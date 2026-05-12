@@ -72,16 +72,19 @@ discovered  ──scan──▶  pending  ──resume──▶  (work runs in a
 
 ## CLI surface
 
-| Command                                   | Purpose                                                                                                                                                                                                                    |
-| ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `node scripts/clawdbot-scan.mjs`          | Scan transcripts, write queue files, update state.                                                                                                                                                                         |
-| `… --list`                                | Print pending queue items as JSON (newest first).                                                                                                                                                                          |
-| `… --status`                              | Print summary counts (pending / dismissed / done).                                                                                                                                                                         |
-| `… --dismiss <id>`                        | Mark a queue item dismissed (short id or full uuid).                                                                                                                                                                       |
-| `… --done <id>`                           | Mark a queue item done.                                                                                                                                                                                                    |
-| `… --preview <id>`                        | Classify a queue item's trust zone (GREEN/YELLOW/RED) from its files-touched list, without executing.                                                                                                                      |
-| `… --enrich <id> [--model M] [--dry-run]` | LLM-pass via `scripts/ollama-spark.sh` (default model `llama3.1:70b`). Appends a `## LLM Digest` section with `{summary, proposed_next, blockers, risk_notes}` JSON to the queue file. `--dry-run` prints the prompt only. |
-| `… --max-age <N>`                         | Ignore sessions older than N days (default 30).                                                                                                                                                                            |
+| Command                                           | Purpose                                                                                                                                                                                                                    |
+| ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `node scripts/clawdbot-scan.mjs`                  | Scan transcripts, write queue files, update state.                                                                                                                                                                         |
+| `… --list`                                        | Print pending queue items as JSON (newest first).                                                                                                                                                                          |
+| `… --status`                                      | Print summary counts (pending / dismissed / done).                                                                                                                                                                         |
+| `… --dismiss <id>`                                | Mark a queue item dismissed (short id or full uuid).                                                                                                                                                                       |
+| `… --done <id>`                                   | Mark a queue item done.                                                                                                                                                                                                    |
+| `… --preview <id>`                                | Classify a queue item's trust zone (GREEN/YELLOW/RED) from its files-touched list, without executing.                                                                                                                      |
+| `… --enrich <id> [--model M] [--dry-run]`         | LLM-pass via `scripts/ollama-spark.sh` (default model `llama3.1:70b`). Appends a `## LLM Digest` section with `{summary, proposed_next, blockers, risk_notes}` JSON to the queue file. `--dry-run` prints the prompt only. |
+| `… --dream-prune [--lookback-days N]`             | Pure-grep skill usage scan across transcripts (default 90 days). Writes `.claude/clawdbot/proposals/archival-<date>.md` listing unused skills as candidates for `_OLD` rename. No LLM.                                     |
+| `… --dream-curate [--dry-run]`                    | LLM clusters recurring corrections from queue summaries into memory notes + CLAUDE.md edit proposals. Output: `.claude/clawdbot/proposals/curate-<date>.md`.                                                               |
+| `… --dream-propose [--min-cluster N] [--dry-run]` | LLM drafts candidate `skills/<name>/SKILL.md` + slash command when ≥N (default 3) pending queue items share a verb/file cluster. Output: `.claude/clawdbot/proposals/skill-<name>.md`.                                     |
+| `… --max-age <N>`                                 | Ignore sessions older than N days (default 30).                                                                                                                                                                            |
 
 ## Heuristics & caveats
 
@@ -113,9 +116,31 @@ discovered  ──scan──▶  pending  ──resume──▶  (work runs in a
 /clawdbot scan
 /clawdbot list
 /clawdbot next
+/clawdbot preview 0e2e931a
+/clawdbot enrich 0e2e931a
 /clawdbot dismiss 0e2e931a
 /clawdbot done 0e2e931a
+/clawdbot dream-prune
+/clawdbot dream-curate
+/clawdbot dream-propose
 ```
+
+## Dream modes — "offline reflection" architecture
+
+These three modes implement the longer-horizon half of clawdbot: instead of
+queueing a single session's follow-up, they look at the population of
+transcripts/queue items and propose changes to the repo itself. **None
+auto-apply.** Everything lands in `.claude/clawdbot/proposals/` for HIL review.
+
+| Mode              | LLM?               | Output                         | When it triggers                                 |
+| ----------------- | ------------------ | ------------------------------ | ------------------------------------------------ |
+| `--dream-prune`   | no                 | `proposals/archival-<date>.md` | Always; lists 0-hit skills.                      |
+| `--dream-curate`  | yes (ollama-spark) | `proposals/curate-<date>.md`   | When ≥1 queue item exists.                       |
+| `--dream-propose` | yes (ollama-spark) | `proposals/skill-<name>.md`    | When ≥`--min-cluster` (3) pending items cluster. |
+
+Promotion flow: HIL reviews a proposal → copies the body into its target
+location (e.g. `skills/<name>/SKILL.md`) → registers it per the Agent
+Productization Rule → deletes the proposal file in the same commit.
 
 ## See also
 

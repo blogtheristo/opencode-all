@@ -13,7 +13,7 @@ resuming them in a fresh session.
 
 Input: `$ARGUMENTS` — subcommand. Default is `status`.
 
-Subcommands: `scan`, `list`, `status`, `next`, `preview <id>`, `enrich <id>`, `dismiss <id>`, `done <id>`.
+Subcommands: `scan`, `list`, `status`, `next`, `preview <id>`, `enrich <id>`, `dismiss <id>`, `done <id>`, `dream-prune`, `dream-curate`, `dream-propose`.
 
 ## Backing store
 
@@ -32,6 +32,9 @@ Subcommands: `scan`, `list`, `status`, `next`, `preview <id>`, `enrich <id>`, `d
    - `next` → see "Next" flow below.
    - `preview <id>` → run `node scripts/clawdbot-scan.mjs --preview <id>` and show the zone classification (GREEN/YELLOW/RED) of every file the queued session touched, plus `autoResumeEligible` (true only when highest zone is GREEN AND branch starts with `claude/`).
    - `enrich <id>` → run `node scripts/clawdbot-scan.mjs --enrich <id>` to LLM-enrich the queue file via `ollama-spark` (EU-local, on-prem). Pass `--dry-run` to inspect the prompt without calling the model. If ssh/DGX fails, the script returns `ok:false` with a hint — surface it and stop. This is a YELLOW-zone action (external network to DGX Spark).
+   - `dream-prune` → run `node scripts/clawdbot-scan.mjs --dream-prune` (pure grep, no LLM). Reports zero-hit skills and writes `.claude/clawdbot/proposals/archival-<date>.md`. Surface the JSON `unused` list and link the proposal file. GREEN zone.
+   - `dream-curate` → run `node scripts/clawdbot-scan.mjs --dream-curate`. LLM-clusters recurring corrections from queue summaries into memory + CLAUDE.md edit proposals at `.claude/clawdbot/proposals/curate-<date>.md`. YELLOW zone (calls ollama-spark). Suggest `--dry-run` if the user wants to inspect the prompt first.
+   - `dream-propose` → run `node scripts/clawdbot-scan.mjs --dream-propose`. LLM drafts candidate new skills when ≥3 pending sessions cluster. Writes `.claude/clawdbot/proposals/skill-<name>.md` per proposal. YELLOW zone. Never auto-creates skills — strictly HIL.
    - `dismiss <id>` → run `node scripts/clawdbot-scan.mjs --dismiss <id>` and confirm.
    - `done <id>` → run `node scripts/clawdbot-scan.mjs --done <id>` and confirm.
 3. Never silently auto-execute pending work. Always present the plan and stop for HIL.

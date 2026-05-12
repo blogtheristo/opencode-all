@@ -46,9 +46,7 @@ dws6.com/**/config/*.local.js
 logs/
 *.log
 
-# --- CLAWDBOT QUEUE (per-machine; transcripts are private) ---
-.claude/clawdbot/queue/
-.claude/clawdbot/state.json
+# Clawdbot queue + state are gitignored down in the .claude/* section.
 
 # --- BUILD ARTIFACTS & DEPENDENCIES ---
 **/node_modules/
@@ -83,6 +81,9 @@ Thumbs.db
 !.claude/archive/
 !.claude/commands/
 !.claude/agents/
+!.claude/clawdbot/
+.claude/clawdbot/queue/
+.claude/clawdbot/state.json
 .claude/hooks/audit/
 .claude/command-log.txt
 claude-output.json
