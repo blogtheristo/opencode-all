@@ -127,7 +127,7 @@ No one-off judgment work. If the user asks for something that will need to happe
 
 **Skill shape:** Skill files are parameterized procedures, not domain scripts. A skill describes the process; the invocation supplies the world (TARGET, KIND, DATASET, ROLE). Four near-identical skills with different filenames is a smell — collapse them into one skill with arguments.
 
-**Learning loop:** When `/retro` or post-mortems surface mediocre outcomes ("OK but not great"), propose edits to the relevant `SKILL.md` files in the same commit. Skills get better; the harness stays thin.
+**Learning loop:** Run `/learn SCOPE=last-week` after `/retro` (or at the end of a feature). It reads retros, commit churn, and hook audit logs, diarizes the mediocre outcomes ("OK but not great"), and emits a read-only edit plan in `docs/learning-loops/`. A human applies approved edits in a follow-up commit titled `learn: <scope> rule updates`. Skills get better; the harness stays thin.
 
 ## Development Baseline
 

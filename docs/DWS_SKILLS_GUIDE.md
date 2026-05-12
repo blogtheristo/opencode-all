@@ -8,6 +8,7 @@ Session: claude/connect-kya-dws-cli-0MMIB
 Tool: Claude Code CLI
 Status: Published
 
+- Version: 1.9 | Agent: Claude Code (Opus 4.7) | Date: 12.05.2026 | Session: claude/audit-dws-firehorse-fDKB5 | Changes: Added `/learn` slash command (section 3.6) — closes the learning loop by diarizing mediocre retro / CI / audit-log outcomes and emitting read-only skill-edit plans to `docs/learning-loops/`. Bumped count from 30 to 31 (28 slash + 3 discipline). Added Quick Reference row. Linked from `CLAUDE.md` Skill Codification Rule.
 - Version: 1.8 | Agent: Claude Code (Opus 4.7) | Date: 12.05.2026 | Session: claude/audit-dws-firehorse-fDKB5 | Changes: Applied "thin harness, fat skills" doctrine (Garry Tan, May 2026). Collapsed `plan-ceo-review` + `plan-eng-review` into parameterized `/plan-review ROLE=<ceo|eng>` (section 3.1, renumbered 3.2–3.5); collapsed 4 `firehorse-report-{annual,board-pack,carbon,compliance}` discipline skills into one parameterized `firehorse-report KIND=<annual|board-pack|carbon|compliance>` (`skills/firehorse-report/SKILL.md`); old files renamed to `_OLD` per CLAUDE.md rule 6. Total: 31 → 30 (27 slash + 3 discipline). Added section 13 "Skill Codification Doctrine".
 - Version: 1.7 | Agent: Claude Code (Sonnet 4.6) | Date: 08.05.2026 | Session: claude/improve-dws-case-handling-4VhRu | Changes: Added /case-run skill (section 4.3) — Themis as Case Coordinator dispatching specialist agents per case type; updated totals from 30 to 31 skills (28 slash + 3 discipline); added Quick Reference row; updated Themis agent to v2.0 with case-coordinate action.
 - Version: 1.6 | Agent: Codex 5.3 | Date: 29.04.2026 | Session: n/a | Changes: Added new slash skill `/fix-dual-folder-api-connectivity` for API endpoint drift incidents across root/landing mirror folders; updated totals from 29 to 30 skills (27 slash + 3 discipline); added Operations section entry and Quick Reference row.
@@ -20,7 +21,7 @@ Status: Published
 
 ## 1. Overview
 
-DWS IQ 6 provides **30 skills** for AI coding agents — 27 slash commands in `.claude/commands/` and 3 composable discipline skills in `skills/`. This guide explains every skill: what it does, when to use it, and how skills connect into workflows.
+DWS IQ 6 provides **31 skills** for AI coding agents — 28 slash commands in `.claude/commands/` and 3 composable discipline skills in `skills/`. This guide explains every skill: what it does, when to use it, and how skills connect into workflows.
 
 **Skill shape:** Skills are parameterized procedures (method calls), not domain-specific scripts. The same `SKILL.md` is invoked with different arguments (ROLE, KIND, TARGET) to produce different capabilities. See section 13 for the Skill Codification Doctrine.
 
@@ -111,6 +112,20 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 **Trigger phrases:** "weekly retro", "what did we ship", "velocity report", "how did the week go"
 
 **Output:** Commits analyzed, velocity metrics, work pattern insights, shipping cadence, recommendations.
+
+### 3.6 /learn
+
+**When to use:** After `/retro`, weekly, or at the end of a feature. Closes the learning loop.
+
+**What it does:** Reads recent retros, commit churn, `.claude/hooks/audit/*.log`, and CI failure logs; classifies events into FAILURE / MEDIOCRE / OK / GOOD; **focuses on MEDIOCRE** (Tan's "OK but not great" cases); extracts the missing rule from each cluster of 3+ related mediocre events; proposes unified-diff edits against the right `SKILL.md`, `CLAUDE.md`, or `AI_AGENT_GUIDELINES.md`. **Read-only** — emits a plan to `docs/learning-loops/<DATE>-<SCOPE>.md`; a human applies approved edits in a follow-up `learn: <scope> rule updates` commit.
+
+**Trigger phrases:** "learn from this week", "what should we codify", "skill update proposals", "retro to rules", "feed retro into skills", "close the learning loop", "what rules did we discover"
+
+**Parameters:** `SCOPE=<last-day|last-week|last-feature|last-N|YYYY-MM-DD..YYYY-MM-DD>`, optional `TARGET=<skill-name|all>`.
+
+**Output:** Path to generated plan, count of proposed edits per target, top 3 highest-confidence rules.
+
+**Discipline:** Never auto-applies edits. Never proposes a rule from <3 supporting events. Skipped FAILURE events (those already trigger hook blocks). Cross-references `CLAUDE.md` Skill Codification Rule and `AI_AGENT_GUIDELINES.md` §10.
 
 ## 4. Agent Discovery & Execution
 
@@ -510,6 +525,7 @@ Badges (section pill, skill chips, KYA badge, Standards & Interop strip) are can
 | Ready to merge                 | /ship                             | gstack     |
 | Need to verify UI              | /browse                           | gstack     |
 | End of week                    | /retro                            | gstack     |
+| Codify retro into skill edits  | /learn SCOPE=last-week            | gstack     |
 | Don't know which agent to use  | /discover-agents                  | Agent      |
 | Know the agent, want to run it | /agent-run                        | Agent      |
 | Coordinate agents on a case    | /case-run                         | Agent      |
