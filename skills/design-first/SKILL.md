@@ -57,8 +57,8 @@ A skipped gate is only safe if the change goes through the **PR + CI** path. Dir
 
 ## DWS Integration
 
-- Use `/plan-ceo-review` for product-level decisions (is this the right thing to build?)
-- Use `/plan-eng-review` for architecture decisions (is this the right way to build it?)
+- Use `/plan-review ROLE=ceo` for product-level decisions (is this the right thing to build?)
+- Use `/plan-review ROLE=eng` for architecture decisions (is this the right way to build it?)
 - This skill is the lightweight version for everyday feature work
 
 ## Common Mistakes

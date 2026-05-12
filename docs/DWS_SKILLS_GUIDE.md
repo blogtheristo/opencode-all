@@ -8,6 +8,7 @@ Session: claude/connect-kya-dws-cli-0MMIB
 Tool: Claude Code CLI
 Status: Published
 
+- Version: 1.8 | Agent: Claude Code (Opus 4.7) | Date: 12.05.2026 | Session: claude/audit-dws-firehorse-fDKB5 | Changes: Applied "thin harness, fat skills" doctrine (Garry Tan, May 2026). Collapsed `plan-ceo-review` + `plan-eng-review` into parameterized `/plan-review ROLE=<ceo|eng>` (section 3.1, renumbered 3.2–3.5); collapsed 4 `firehorse-report-{annual,board-pack,carbon,compliance}` discipline skills into one parameterized `firehorse-report KIND=<annual|board-pack|carbon|compliance>` (`skills/firehorse-report/SKILL.md`); old files renamed to `_OLD` per CLAUDE.md rule 6. Total: 31 → 30 (27 slash + 3 discipline). Added section 13 "Skill Codification Doctrine".
 - Version: 1.7 | Agent: Claude Code (Sonnet 4.6) | Date: 08.05.2026 | Session: claude/improve-dws-case-handling-4VhRu | Changes: Added /case-run skill (section 4.3) — Themis as Case Coordinator dispatching specialist agents per case type; updated totals from 30 to 31 skills (28 slash + 3 discipline); added Quick Reference row; updated Themis agent to v2.0 with case-coordinate action.
 - Version: 1.6 | Agent: Codex 5.3 | Date: 29.04.2026 | Session: n/a | Changes: Added new slash skill `/fix-dual-folder-api-connectivity` for API endpoint drift incidents across root/landing mirror folders; updated totals from 29 to 30 skills (27 slash + 3 discipline); added Operations section entry and Quick Reference row.
 - Version: 1.5 | Agent: Claude Code (Opus 4.7) | Date: 22.04.2026 | Session: claude/github-version-compatibility-uTOO7 | Changes: Post-merge reconciliation — after merging main (PRs #1152 axios, #1153 Grok removal, #1156 npm audit, #1161 ollama-spark) the true skill count is 29 (26 slash + 3 discipline). Updated count line accordingly. No new content; fixes inconsistency introduced because /gh-to-mcp (v1.4) and /ollama-spark landed in parallel.
@@ -19,7 +20,9 @@ Status: Published
 
 ## 1. Overview
 
-DWS IQ 6 provides **31 skills** for AI coding agents — 28 slash commands in `.claude/commands/` and 3 composable discipline skills in `skills/`. This guide explains every skill: what it does, when to use it, and how skills connect into workflows.
+DWS IQ 6 provides **30 skills** for AI coding agents — 27 slash commands in `.claude/commands/` and 3 composable discipline skills in `skills/`. This guide explains every skill: what it does, when to use it, and how skills connect into workflows.
+
+**Skill shape:** Skills are parameterized procedures (method calls), not domain-specific scripts. The same `SKILL.md` is invoked with different arguments (ROLE, KIND, TARGET) to produce different capabilities. See section 13 for the Skill Codification Doctrine.
 
 **Audience:** Human-in-the-loop (HIL) operators, developers using Claude Code, Cursor, or VS Code with DWS6.
 
@@ -42,7 +45,11 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 
 ### Recommended Flow: plan > review > ship > retro
 
-### 3.1 /plan-ceo-review
+### 3.1 /plan-review
+
+**Parameterized by `ROLE`.** One skill, two lenses — `ROLE=ceo` runs the product review, `ROLE=eng` runs the architecture review. Run `ROLE=ceo` first; on SHIP IT, run `ROLE=eng`.
+
+#### `/plan-review ROLE=ceo`
 
 **When to use:** Starting a new feature, product, or major change.
 
@@ -50,11 +57,11 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 
 **Trigger phrases:** "new feature", "should we build", "product direction", "is this the right thing"
 
-**Output:** GO / PIVOT / STOP decision with rationale.
+**Output:** SHIP IT / RESHAPE / STOP decision with rationale.
 
-### 3.2 /plan-eng-review
+#### `/plan-review ROLE=eng`
 
-**When to use:** After CEO approval, before writing any code.
+**When to use:** After CEO approval (SHIP IT), before writing any code.
 
 **What it does:** Engineering Manager architecture review. Locks data flow, diagrams, edge cases, test plan. Asks "are we building it the RIGHT WAY?"
 
@@ -62,7 +69,7 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 
 **Output:** Locked implementation plan with data flow, API contracts, edge cases, and test strategy.
 
-### 3.3 /review
+### 3.2 /review
 
 **When to use:** After implementation, before shipping.
 
@@ -77,7 +84,7 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 - Performance: N+1 queries, memory leaks, unnecessary re-renders
 - DWS compliance: dual-folder sync, document standard, store format
 
-### 3.4 /ship
+### 3.3 /ship
 
 **When to use:** After /review approval.
 
@@ -87,7 +94,7 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 
 **Flow:** git pull > npm test > npm run build > git commit > git push > gh pr create
 
-### 3.5 /browse
+### 3.4 /browse
 
 **When to use:** QA verification of UI changes, testing user flows, taking screenshots.
 
@@ -95,7 +102,7 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 
 **Trigger phrases:** "check the site", "take a screenshot", "verify the UI", "test the page", "browse to"
 
-### 3.6 /retro
+### 3.5 /retro
 
 **When to use:** Weekly (Fridays) or at end of a feature.
 
@@ -497,8 +504,8 @@ Badges (section pill, skill chips, KYA badge, Standards & Interop strip) are can
 
 | Situation                      | Skill                             | Type       |
 | ------------------------------ | --------------------------------- | ---------- |
-| Starting a new feature         | /plan-ceo-review                  | gstack     |
-| Designing architecture         | /plan-eng-review                  | gstack     |
+| Starting a new feature         | /plan-review ROLE=ceo             | gstack     |
+| Designing architecture         | /plan-review ROLE=eng             | gstack     |
 | Code is written, needs review  | /review                           | gstack     |
 | Ready to merge                 | /ship                             | gstack     |
 | Need to verify UI              | /browse                           | gstack     |
@@ -577,4 +584,31 @@ Human ──/skill──> Claude Code ──agent-run──> DWS IQ Agent ──
 
 **Token budget:** Skills should be as short as possible. Under context window pressure, agents skip long documents. The superpowers research (docs/research/superpowers-analysis.md) found that discipline rules under 150 words have the highest compliance rate.
 
-**Composability:** Skills can reference each other. /plan-ceo-review naturally flows into /plan-eng-review. /review naturally flows into /ship. design-first is a lightweight version of the plan skills for everyday work.
+**Composability:** Skills can reference each other. `/plan-review ROLE=ceo` naturally flows into `/plan-review ROLE=eng`. `/review` naturally flows into `/ship`. `design-first` is a lightweight version of the plan skills for everyday work.
+
+## 13. Skill Codification Doctrine ("Thin Harness, Fat Skills")
+
+Source: Garry Tan, May 2026 — "Thin harness, fat skills." Reinforced by `CLAUDE.md` Skill Codification Rule and `AI_AGENT_GUIDELINES.md` §10.
+
+### Three Principles
+
+1. **Skill = method call.** A `SKILL.md` describes a _process of judgment_ with parameters (`ROLE`, `KIND`, `TARGET`, `DATASET`). The invocation supplies the world. Same skill, different arguments → radically different capability. Four near-identical SKILL.md files differing only in a noun is a function with no arguments — collapse them.
+2. **Asked twice = failure.** If the user has to ask for the same kind of judgment work twice, codify it as a parameterized skill _in the same commit_ and re-run to verify. Do not let know-how live in chat scrollback.
+3. **Latent vs deterministic boundary is explicit.** Every step in a skill is either LLM judgment (latent) or function call (deterministic). The `SKILL.md` must mark each step. Asking the LLM to do arithmetic, optimization, or schema validation is a category error.
+
+### Parameterization Examples in This Codebase
+
+| Anti-pattern (script-shaped)                             | Correct shape (method-shaped)                                    |
+| -------------------------------------------------------- | ---------------------------------------------------------------- |
+| `plan-ceo-review`, `plan-eng-review`                     | `plan-review ROLE=<ceo\|eng>`                                    |
+| `firehorse-report-{annual,board-pack,carbon,compliance}` | `firehorse-report KIND=<annual\|board-pack\|carbon\|compliance>` |
+
+### Learning Loop
+
+`/retro` and post-mortems surface mediocre outcomes (NPS = OK, not great). Diarize them, extract the missing rule, propose a `SKILL.md` diff in the next commit. The skill rewrites itself; the harness stays thin.
+
+### Reference
+
+- `CLAUDE.md` → "Skill Codification Rule"
+- `AI_AGENT_GUIDELINES.md` §10 → "Skill Codification: Asked Twice = Failure"
+- Tan, "Thin Harness, Fat Skills" (May 2026)

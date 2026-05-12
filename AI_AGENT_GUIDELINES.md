@@ -1,33 +1,38 @@
 # AI Agent Guidelines
 
-***
+---
+
 # VERSION AND AGENT HISTORY
 
 Version: 1.0
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/deepwiki-agent-extraction-aS6Ub | Date: 11.02.2026 | Changes: Initial creation - consolidates distributed agent standards into single reference
+
+- Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/deepwiki-agent-extraction-aS6Ub | Date: 11.02.2026 | Changes: Initial creation - consolidates distributed agent standards into single reference
 
 Session Links & References:
-  - Claude Code (claude/deepwiki-agent-extraction-aS6Ub): https://github.com/blogtheristo/dws6/commits/claude/deepwiki-agent-extraction-aS6Ub
+
+- Claude Code (claude/deepwiki-agent-extraction-aS6Ub): https://github.com/blogtheristo/dws6/commits/claude/deepwiki-agent-extraction-aS6Ub
 
 Document Status:
-  - Created: 11.02.2026
-  - Last Modified: 11.02.2026
-  - Language: English
-  - Languages Available: EN
-  - Publication Status: ACTIVE
+
+- Created: 11.02.2026
+- Last Modified: 11.02.2026
+- Language: English
+- Languages Available: EN
+- Publication Status: ACTIVE
 
 Related Documents:
-  - AGENTS.md (Master agent index - references this file in Section 7)
-  - CLAUDE.md (AI behavior principles - Karpathy guidelines)
-  - DWS_DOCUMENT_STANDARD.md (Document formatting and versioning)
-  - DWS_SECURITY_STANDARD.md (Security framework)
-  - src/agents/base.agent.ts (BaseAgent abstract class)
-  - src/agents/types.ts (AgentContext, AgentResponse, AgentConfig, AgentExecutionLog)
-  - docs/architecture/01-AGENT-DISCOVERY.md (When to use an agent)
 
-***
+- AGENTS.md (Master agent index - references this file in Section 7)
+- CLAUDE.md (AI behavior principles - Karpathy guidelines)
+- DWS_DOCUMENT_STANDARD.md (Document formatting and versioning)
+- DWS_SECURITY_STANDARD.md (Security framework)
+- src/agents/base.agent.ts (BaseAgent abstract class)
+- src/agents/types.ts (AgentContext, AgentResponse, AgentConfig, AgentExecutionLog)
+- docs/architecture/01-AGENT-DISCOVERY.md (When to use an agent)
+
+---
 
 **Version:** 1.0
 **Effective Date:** 2026-02-11
@@ -46,6 +51,7 @@ Related Documents:
 7. [Autonomy Tiers](#7-autonomy-tiers)
 8. [Testing Requirements](#8-testing-requirements)
 9. [Extraction Pattern: Bacterial Code](#9-extraction-pattern-bacterial-code)
+10. [Skill Codification: Asked Twice = Failure](#10-skill-codification-asked-twice--failure)
 
 ---
 
@@ -54,6 +60,7 @@ Related Documents:
 This document is the single reference for building, documenting, and operating AI agents within DWS IQ 6. It consolidates guidance that was previously scattered across CLAUDE.md, DWS_DOCUMENT_STANDARD.md, DWS_SECURITY_STANDARD.md, and the architecture docs.
 
 **This applies to:**
+
 - All production agents in `src/agents/`
 - All MCP server tools in `mcp-servers/`
 - All customer-facing agents in `AgentFoundry/`
@@ -69,23 +76,20 @@ This document is the single reference for building, documenting, and operating A
 Every production agent extends `BaseAgent` (`src/agents/base.agent.ts`):
 
 ```typescript
-import { BaseAgent } from './base.agent.js';
-import type { AgentContext, AgentResponse } from './types.js';
+import { BaseAgent } from "./base.agent.js";
+import type { AgentContext, AgentResponse } from "./types.js";
 
 export class YourAgent extends BaseAgent {
   constructor() {
     super({
-      name: 'your-agent',                    // kebab-case, unique
-      description: 'What this agent does',    // one sentence
-      capabilities: ['tag-1', 'tag-2'],       // discovery tags
-      model: 'llama-3.1-70b-versatile',       // LLM model ID
+      name: "your-agent", // kebab-case, unique
+      description: "What this agent does", // one sentence
+      capabilities: ["tag-1", "tag-2"], // discovery tags
+      model: "llama-3.1-70b-versatile", // LLM model ID
     });
   }
 
-  async execute(
-    context: AgentContext,
-    input: Record<string, unknown>,
-  ): Promise<AgentResponse> {
+  async execute(context: AgentContext, input: Record<string, unknown>): Promise<AgentResponse> {
     const startTime = Date.now();
 
     // Log start
@@ -97,16 +101,18 @@ export class YourAgent extends BaseAgent {
       project_id: context.projectId,
       input,
       output: null,
-      status: 'started',
+      status: "started",
       duration_ms: 0,
       created_at: new Date().toISOString(),
     });
 
     // Your logic here
-    const result = { /* ... */ };
+    const result = {
+      /* ... */
+    };
     const confidence = 0.85;
-    const reasoning = 'Explain why this result was produced';
-    const recommendations = ['Next step 1', 'Next step 2'];
+    const reasoning = "Explain why this result was produced";
+    const recommendations = ["Next step 1", "Next step 2"];
 
     const response: AgentResponse = {
       agentName: this.config.name,
@@ -129,7 +135,7 @@ export class YourAgent extends BaseAgent {
       project_id: context.projectId,
       input,
       output: response,
-      status: 'completed',
+      status: "completed",
       duration_ms: Date.now() - startTime,
       created_at: new Date().toISOString(),
     });
@@ -144,21 +150,21 @@ export class YourAgent extends BaseAgent {
 Register in `src/agents/index.ts`:
 
 ```typescript
-import { YourAgent } from './your-agent.agent.js';
+import { YourAgent } from "./your-agent.agent.js";
 // In registerDefaults():
 this.register(new YourAgent());
 ```
 
 ### Required Response Fields
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `agentName` | string | Yes | Machine name of the agent |
-| `result` | object | Yes | Primary output payload |
-| `confidence` | number | Yes | 0.0 to 1.0 reliability score |
-| `reasoning` | string | Yes | Human-readable explanation of logic |
-| `recommendations` | string[] | Yes | Actionable next steps |
-| `metadata` | object | Yes | Timing, model info, token usage |
+| Field             | Type     | Required | Description                         |
+| ----------------- | -------- | -------- | ----------------------------------- |
+| `agentName`       | string   | Yes      | Machine name of the agent           |
+| `result`          | object   | Yes      | Primary output payload              |
+| `confidence`      | number   | Yes      | 0.0 to 1.0 reliability score        |
+| `reasoning`       | string   | Yes      | Human-readable explanation of logic |
+| `recommendations` | string[] | Yes      | Actionable next steps               |
+| `metadata`        | object   | Yes      | Timing, model info, token usage     |
 
 ### Graceful Degradation
 
@@ -172,12 +178,12 @@ this.register(new YourAgent());
 
 ### Agent Names
 
-| Convention | Format | Example |
-|-----------|--------|---------|
-| Machine name | `kebab-case` | `material-oracle`, `customer-sat` |
-| File name | `{name}.agent.ts` | `material-oracle.agent.ts` |
-| Class name | `PascalCase + Agent` | `MaterialOracleAgent` |
-| Registry ID (dev) | `agent-XX` (zero-padded) | `agent-04` |
+| Convention        | Format                   | Example                           |
+| ----------------- | ------------------------ | --------------------------------- |
+| Machine name      | `kebab-case`             | `material-oracle`, `customer-sat` |
+| File name         | `{name}.agent.ts`        | `material-oracle.agent.ts`        |
+| Class name        | `PascalCase + Agent`     | `MaterialOracleAgent`             |
+| Registry ID (dev) | `agent-XX` (zero-padded) | `agent-04`                        |
 
 ### Signal Names
 
@@ -344,30 +350,34 @@ Every agent must have corresponding tests in `src/__tests__/`:
 
 ```typescript
 // src/__tests__/agents/your-agent.test.ts
-import { describe, it, expect } from 'vitest';
-import { YourAgent } from '../../agents/your-agent.agent.js';
+import { describe, it, expect } from "vitest";
+import { YourAgent } from "../../agents/your-agent.agent.js";
 
-describe('YourAgent', () => {
+describe("YourAgent", () => {
   const agent = new YourAgent();
   const context = {
-    projectId: 'test-project',
-    userId: 'test-user',
-    orgId: 'test-org',
-    sessionId: 'test-session',
+    projectId: "test-project",
+    userId: "test-user",
+    orgId: "test-org",
+    sessionId: "test-session",
   };
 
-  it('returns valid AgentResponse shape', async () => {
-    const result = await agent.execute(context, { /* test input */ });
-    expect(result.agentName).toBe('your-agent');
+  it("returns valid AgentResponse shape", async () => {
+    const result = await agent.execute(context, {
+      /* test input */
+    });
+    expect(result.agentName).toBe("your-agent");
     expect(result.confidence).toBeGreaterThanOrEqual(0);
     expect(result.confidence).toBeLessThanOrEqual(1);
     expect(result.reasoning).toBeTruthy();
     expect(Array.isArray(result.recommendations)).toBe(true);
   });
 
-  it('handles missing LLM gracefully', async () => {
+  it("handles missing LLM gracefully", async () => {
     // Ensure agent works without GROQ_API_KEY
-    const result = await agent.execute(context, { /* test input */ });
+    const result = await agent.execute(context, {
+      /* test input */
+    });
     expect(result.result).toBeDefined();
   });
 });
@@ -390,13 +400,13 @@ Based on Andrej Karpathy's "bacterial code" concept (February 2026): instead of 
 
 ### When to Use Extraction
 
-| Scenario | Use Extraction | Use Library |
-|----------|---------------|-------------|
-| Need 1 function from 100k LOC library | Yes | No |
-| Need ongoing updates from maintained library | No | Yes |
-| Library has complex transitive dependencies | Yes | No |
-| Functionality is stable/well-understood | Yes | No |
-| Library provides security patches you depend on | No | Yes |
+| Scenario                                        | Use Extraction | Use Library |
+| ----------------------------------------------- | -------------- | ----------- |
+| Need 1 function from 100k LOC library           | Yes            | No          |
+| Need ongoing updates from maintained library    | No             | Yes         |
+| Library has complex transitive dependencies     | Yes            | No          |
+| Functionality is stable/well-understood         | Yes            | No          |
+| Library provides security patches you depend on | No             | Yes         |
 
 ### How It Works
 
@@ -438,20 +448,67 @@ Extracted code must include a header comment:
 
 ---
 
+## 10. Skill Codification: Asked Twice = Failure
+
+### Philosophy
+
+Following the "thin harness, fat skills" doctrine (Garry Tan, May 2026): the harness is the program that runs the LLM — it should be small. The intelligence lives in skill files: parameterized markdown procedures that encode judgment and process. Every reusable capability becomes a permanent upgrade to the system. When the model gets better, every skill instantly gets better.
+
+### The Rule
+
+If the user has to ask for the same kind of work twice, the agent failed. Repeating judgment work is not "execution" — it is a missing skill file.
+
+### Procedure
+
+1. **Do it manually** the first time on 3–10 representative items.
+2. **Show output** to the user for approval.
+3. **Codify** the approved procedure as a parameterized skill:
+   - Judgment-heavy reusable capability → `skills/<name>/SKILL.md`
+   - Slash-invocable workflow → `.claude/commands/<name>.md`
+   - Time-driven deterministic automation → script under `scripts/{daily,weekly,hourly,on-deploy}/` (see Script Automation Rule in CLAUDE.md)
+4. **Re-run** the new skill against the same 3–10 items to confirm reproduction.
+5. **Register** the skill in `docs/DWS_SKILLS_GUIDE.md` (Agent Productization Rule).
+
+### Skill Shape (Method, Not Script)
+
+Skill files are method calls, not domain-specific scripts. A skill describes a process of judgment; the invocation supplies the world.
+
+| Anti-pattern (script)            | Correct shape (method)             |
+| -------------------------------- | ---------------------------------- |
+| `firehorse-report-annual`        | `firehorse-report KIND=annual`     |
+| `firehorse-report-board-pack`    | `firehorse-report KIND=board-pack` |
+| `plan-ceo-review`                | `plan-review ROLE=ceo`             |
+| `plan-eng-review`                | `plan-review ROLE=eng`             |
+| `match-breakout-cohort-july2026` | `match KIND=breakout COHORT=...`   |
+
+**Signal:** if you find yourself copying a `SKILL.md` and changing one parameter, you have a function with no arguments. Collapse them.
+
+### Latent vs Deterministic Boundary
+
+Every step in a skill is either **latent** (LLM judgment: read, synthesize, decide) or **deterministic** (function: SQL, arithmetic, schema validation). The SKILL.md must mark each step. Asking the LLM to do 800-person seating optimization is a category error — that is combinatorial code. Asking deterministic code to judge whether a founder's GitHub commits match their pitch is the opposite error.
+
+### Learning Loop
+
+`/retro` and post-mortems surface mediocre outcomes (NPS = OK, not great). Diarize those, extract the rule the system was missing, and propose a diff against the relevant `SKILL.md`. Commit the rule into the skill — do not store it in chat history or human memory.
+
+> Skills compound. Build once. The system runs forever. — Tan
+
+---
+
 ## Quick Reference
 
 ### File Locations
 
-| Resource | Path |
-|----------|------|
-| BaseAgent class | `src/agents/base.agent.ts` |
-| Agent types | `src/agents/types.ts` |
-| Agent registry | `src/agents/index.ts` |
-| Agent API routes | `src/agents/routes.ts` |
-| Agent implementations | `src/agents/*.agent.ts` |
-| Agent tests | `src/__tests__/agents/` |
-| Master agent index | `AGENTS.md` |
-| This guidelines file | `AI_AGENT_GUIDELINES.md` |
+| Resource              | Path                       |
+| --------------------- | -------------------------- |
+| BaseAgent class       | `src/agents/base.agent.ts` |
+| Agent types           | `src/agents/types.ts`      |
+| Agent registry        | `src/agents/index.ts`      |
+| Agent API routes      | `src/agents/routes.ts`     |
+| Agent implementations | `src/agents/*.agent.ts`    |
+| Agent tests           | `src/__tests__/agents/`    |
+| Master agent index    | `AGENTS.md`                |
+| This guidelines file  | `AI_AGENT_GUIDELINES.md`   |
 
 ### Checklist for New Agents
 

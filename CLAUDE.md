@@ -114,6 +114,21 @@ If a reusable capability appears, propose turning it into a skill and register i
 
 Do not create scripts that depend on human memory to run. Place them in scheduler/discovery paths (`scripts/daily`, `scripts/weekly`, `scripts/hourly`, `scripts/on-deploy`) or register Windows `.ps1` tasks in the scheduler installer flow.
 
+## Skill Codification Rule ("Asked Twice = Failure")
+
+No one-off judgment work. If the user asks for something that will need to happen again, the agent must:
+
+1. Do it manually the first time on 3–10 items.
+2. Show the output to the user.
+3. If the user approves, codify it as a parameterized skill in `skills/<name>/SKILL.md` (judgment work) or `.claude/commands/<name>.md` (slash-invocable workflow). If the task is deterministic and time-driven, also register a cron entry per the Script Automation Rule.
+4. Re-run the new skill once to verify it reproduces the approved output.
+
+**Test:** If the user has to ask for the same thing twice without it being a one-line skill invocation, the agent failed. Document repeating patterns in `SKILL.md` files, not in chat scrollback.
+
+**Skill shape:** Skill files are parameterized procedures, not domain scripts. A skill describes the process; the invocation supplies the world (TARGET, KIND, DATASET, ROLE). Four near-identical skills with different filenames is a smell — collapse them into one skill with arguments.
+
+**Learning loop:** When `/retro` or post-mortems surface mediocre outcomes ("OK but not great"), propose edits to the relevant `SKILL.md` files in the same commit. Skills get better; the harness stays thin.
+
 ## Development Baseline
 
 ### Build/Test Sequence (root)
