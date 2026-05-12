@@ -15,6 +15,10 @@ Input: `$ARGUMENTS` — subcommand. Default is `status`.
 
 Subcommands: `scan`, `list`, `status`, `next`, `preview <id>`, `enrich <id>`, `dismiss <id>`, `done <id>`, `dream-prune`, `dream-curate`, `dream-propose`.
 
+The `dream-*` family plus `/promote-proposal` is branded **Firehorse Dreaming** —
+the local, EU-on-prem analog of Anthropic's `POST /v1/dreams` API. See
+`.claude/clawdbot/memory/clawdbot-architecture.md` for the convergence table.
+
 ## Backing store
 
 - Scanner script: `scripts/clawdbot-scan.mjs`

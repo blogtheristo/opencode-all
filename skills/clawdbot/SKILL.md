@@ -125,12 +125,23 @@ discovered  ──scan──▶  pending  ──resume──▶  (work runs in a
 /clawdbot dream-propose
 ```
 
-## Dream modes — "offline reflection" architecture
+## Firehorse Dreaming — "offline reflection" architecture
 
-These three modes implement the longer-horizon half of clawdbot: instead of
-queueing a single session's follow-up, they look at the population of
-transcripts/queue items and propose changes to the repo itself. **None
-auto-apply.** Everything lands in `.claude/clawdbot/proposals/` for HIL review.
+The three `--dream-*` modes plus the `/promote-proposal` skill that consumes
+their output are collectively branded **Firehorse Dreaming**. (Same naming
+convention as `firehorse-report-*` in this repo: Firehorse is the umbrella,
+clawdbot is the worker.) When you see "Firehorse Dreaming" in customer-facing
+copy or PRs, this is what it means.
+
+Functionally: these modes look at the population of transcripts/queue items
+and propose changes to the repo itself. **None auto-apply.** Everything lands
+in `.claude/clawdbot/proposals/` for HIL review and promotion via
+`/promote-proposal`.
+
+Parallel to Anthropic's `POST /v1/dreams` managed-runtime primitive (research
+preview, 2026-04-21 beta); same idea, different substrate. See
+`.claude/clawdbot/memory/clawdbot-architecture.md` § "Convergence with
+Anthropic Dreams API" for the mapping table and the substrate-gap explanation.
 
 | Mode              | LLM?               | Output                         | When it triggers                                 |
 | ----------------- | ------------------ | ------------------------------ | ------------------------------------------------ |
