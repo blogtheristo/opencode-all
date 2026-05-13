@@ -16,7 +16,8 @@
       "Bash(cat)",
       "Bash(bash /tmp/audit.sh)",
       "Bash(grep -v \"index.html$\")",
-      "mcp__2044ea13-4688-47fb-aac6-01788ed5fee0__get_gammas"
+      "mcp__2044ea13-4688-47fb-aac6-01788ed5fee0__get_gammas",
+      "mcp__2044ea13-4688-47fb-aac6-01788ed5fee0__read_gamma"
     ]
   },
   "enabledMcpjsonServers": [
