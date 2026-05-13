@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.0
+Version: 3.1
 
 Sessions & Modifications:
 
+- Version: 3.1 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: main | Date: 13.05.2026 | Changes: Added reusable CI failure checklist for `.github/workflows/deploy-staging.yml` and `.github/workflows/dast-zap-scan.yml`: Artifact Registry existence check and create command, reserved Cloud Run `PORT` rule, `issues: write` permission for failure-notify issue creation, OWASP ZAP root/robots/sitemap endpoint rule, and startup health-wait loop guidance.
 - Version: 2.8 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Added billing account management inventory: billing account `011602-801DEC-A53E8F` (Lifetime Oy, Direct), linked projects (`dws-mcp-hub`, `dws-iq-pilot`, `dws6login`), and billing administrators (`risto.paarni2024@lifetime.fi`, `admin@dws6.com`)
 - Version: 3.0 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: main | Date: 13.05.2026 | Changes: Finalized major Cloud Run CI auth migration in admin docs: GitHub OIDC / Workload Identity Federation is now the authoritative path for `dws-iq-60`; documented Cloud Shell provider creation, exact GitHub Secrets values (`GCP_WORKLOAD_IDENTITY_PROVIDER`, `GCP_SERVICE_ACCOUNT`), `.github/workflows/deploy-staging.yml` OIDC switch, and retirement of legacy `GCP_SA_KEY`. Marked service-account key creation as prohibited when `constraints/iam.disableServiceAccountKeyCreation` is enforced.
 - Version: 2.9 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 13.05.2026 | Changes: Added Google Cloud Run CI identity runbook (`gcr-skill`) for admin-owned project `dws-iq-60`: project creation, billing link, ADC quota alignment, required API enablement, deployer service account IAM bindings (including `roles/iam.serviceAccountTokenCreator` fix), and GitHub secret migration checklist
@@ -39,7 +40,7 @@ Document Status:
 
 - Created: 23.11.2025
 - Last Modified: 13.05.2026
-- Version: 3.0
+- Version: 3.1
 - Language: English
 - Languages Available: English
 - Publication Status: ✅ ACTIVE
@@ -324,6 +325,50 @@ The workflow also now sets:
 5. Re-run staging workflow and confirm no IAM token error.
 6. After successful deploy, delete legacy GitHub secret:
    - `GCP_SA_KEY`
+
+### CI Failure Checks for Reuse (authoritative)
+
+Use this checklist whenever Cloud Run staging or OWASP ZAP fails in GitHub Actions. These checks are now the canonical triage flow for `.github/workflows/deploy-staging.yml` and `.github/workflows/dast-zap-scan.yml`.
+
+| Failure signature | Root cause | Required check | Fix |
+| --- | --- | --- | --- |
+| `Permission 'iam.serviceAccounts.getAccessToken' denied` | Workload Identity principal can authenticate but cannot mint access token for deployer service account | Confirm target service account has `roles/iam.serviceAccountTokenCreator` and repo principal has `roles/iam.workloadIdentityUser` | Re-apply the SA-level IAM bindings in the OIDC runbook above |
+| `Repository "dws-iq-repo" not found` during `Build Staging Image` | Artifact Registry repository does not exist in `dws-iq-60` | Run `gcloud artifacts repositories describe dws-iq-repo --location=europe-north1 --project=dws-iq-60` | Create it: `gcloud artifacts repositories create dws-iq-repo --repository-format=docker --location=europe-north1 --description="DWS IQ staging images"` |
+| Cloud Run deploy rejects `PORT` in `env_vars` | `PORT` is a reserved Cloud Run runtime variable | Inspect `.github/workflows/deploy-staging.yml` for `PORT=` under `env_vars` | Remove `PORT` from workflow-managed env vars; Cloud Run injects it automatically |
+| `Notify on Failure` cannot create issue (`Resource not accessible by integration`) | Workflow permissions omit issue-write scope | Inspect top-level `permissions:` block in `.github/workflows/deploy-staging.yml` | Add `issues: write` alongside `contents: read` and `id-token: write` |
+| OWASP ZAP baseline fails with `expected 200 / got 404` for `/`, `/robots.txt`, or `/sitemap.xml` | Baseline spider visits common public paths even when target is `/health` | Confirm app returns HTTP 200 for `/`, `/robots.txt`, and `/sitemap.xml` | Keep lightweight public handlers in `src/app.ts` for those three routes |
+| OWASP ZAP baseline fails intermittently before scan starts | App is not fully ready when ZAP begins | Check that workflow waits on `/health` with retries rather than a fixed sleep | Use a retry loop in `.github/workflows/dast-zap-scan.yml` before invoking ZAP |
+
+### Current known-good workflow checks
+
+For reuse in other workflows, the following checks are now considered the safe baseline:
+
+1. **Artifact Registry preflight** — before `docker/build-push-action`, run `gcloud artifacts repositories describe ...` and skip the staging deploy cleanly if the repository is missing.
+2. **Cloud Run reserved env guard** — never include `PORT` in `env_vars`; treat it like a platform-owned variable.
+3. **Failure-notify permission check** — any workflow that auto-creates GitHub issues must include `issues: write` in its top-level `permissions:` block.
+4. **DAST readiness check** — wait for `curl -sSf http://localhost:8080/health` to succeed in a loop before launching ZAP.
+5. **DAST crawler compatibility check** — keep `/`, `/robots.txt`, and `/sitemap.xml` returning 200 in CI-safe environments so baseline spiders do not fail on framework-default 404s.
+6. **Supabase CI compatibility check** — for local CI app startup, provide both `SUPABASE_SERVICE_KEY` and `SUPABASE_SERVICE_ROLE_KEY` when the code may read either one.
+
+### Copy-paste validation commands
+
+```bash
+# 1) OIDC / identity
+gcloud iam service-accounts get-iam-policy github-actions-deployer@dws-iq-60.iam.gserviceaccount.com
+
+# 2) Artifact Registry repository exists
+gcloud artifacts repositories describe dws-iq-repo \
+  --location=europe-north1 \
+  --project=dws-iq-60
+
+# 3) Cloud Run deploy target exists
+gcloud run services describe dws6run6-staging \
+  --region=europe-north1 \
+  --project=dws-iq-60
+
+# 4) GitHub workflow rerun after fix
+gh workflow run deploy-staging.yml --ref claude/admin-support-chat-20260513
+```
 
 ### Operational Note
 
