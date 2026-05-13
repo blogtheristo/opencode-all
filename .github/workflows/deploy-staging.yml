@@ -4,13 +4,11 @@ name: Deploy to Staging (Cloud Run)
 # Production deploy (deploy-scaleway.yml / cloudbuild.yaml) only triggers on main.
 #
 # Target: Cloud Run service dws6run6-staging (europe-north1)
-# Image:  europe-north1-docker.pkg.dev/$PROJECT_ID/dws-iq/backend:staging-<sha>
+# Image:  europe-north1-docker.pkg.dev/$PROJECT_ID/dws-iq-repo/backend:staging-<sha>
 #
 # Required secrets (GitHub → Settings → Secrets → Actions):
-#   GCP_SA_KEY           — GCP service account JSON with:
-#                          - Cloud Run Admin
-#                          - Artifact Registry Writer on europe-north1 repo dws-iq
-#                          - Service Account User (if required by deploy target)
+#   GCP_WORKLOAD_IDENTITY_PROVIDER — projects/<number>/locations/global/workloadIdentityPools/<pool>/providers/<provider>
+#   GCP_SERVICE_ACCOUNT           — github-actions-deployer@<project>.iam.gserviceaccount.com
 #   STAGING_SUPABASE_URL — Supabase URL for staging project
 #   STAGING_SUPABASE_ANON_KEY
 #   STAGING_SUPABASE_SERVICE_KEY
@@ -32,14 +30,16 @@ on:
 
 env:
   REGION: europe-north1
-  PROJECT_ID: dws6-backend
+  PROJECT_ID: dws-iq-60
   REGISTRY: europe-north1-docker.pkg.dev
-  IMAGE_NAME: dws-iq/backend
+  ARTIFACT_REPOSITORY: dws-iq-repo
+  IMAGE_NAME: backend
   SERVICE_NAME: dws6run6-staging
 
 permissions:
   contents: read
   id-token: write
+  issues: write
 
 jobs:
   # --------------------------------------------------------------------------
@@ -50,6 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       image: ${{ steps.image.outputs.ref }}
+      registry_ready: ${{ steps.registry.outputs.exists }}
 
     steps:
       - name: Checkout
@@ -58,7 +59,9 @@ jobs:
       - name: Authenticate to GCP
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          token_format: access_token
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -66,24 +69,47 @@ jobs:
       - name: Configure Docker for Artifact Registry
         run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
 
+      - name: Verify Artifact Registry repository
+        id: registry
+        shell: bash
+        run: |
+          if gcloud artifacts repositories describe "${{ env.ARTIFACT_REPOSITORY }}" \
+            --project="${{ env.PROJECT_ID }}" \
+            --location="${{ env.REGION }}" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::Artifact Registry repository '${{ env.ARTIFACT_REPOSITORY }}' does not exist in project '${{ env.PROJECT_ID }}'. Skipping staging image push."
+            {
+              echo "### Staging deploy skipped"
+              echo ""
+              echo "Artifact Registry repository \`${{ env.ARTIFACT_REPOSITORY }}\` does not exist in project \`${{ env.PROJECT_ID }}\`."
+              echo ""
+              echo "Create it with:"
+              echo "\`gcloud artifacts repositories create ${{ env.ARTIFACT_REPOSITORY }} --repository-format=docker --location=${{ env.REGION }} --description=\"DWS IQ staging images\"\`"
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
       - name: Build and push
         id: build
+        if: steps.registry.outputs.exists == 'true'
         uses: docker/build-push-action@v5
         with:
           context: .
           file: ./Dockerfile
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:staging-${{ github.sha }}
-            ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:staging-latest
+            ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REPOSITORY }}/${{ env.IMAGE_NAME }}:staging-${{ github.sha }}
+            ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REPOSITORY }}/${{ env.IMAGE_NAME }}:staging-latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
           platforms: linux/amd64
 
       - name: Output image ref
         id: image
+        if: steps.registry.outputs.exists == 'true'
         run: |
-          echo "ref=${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:staging-${{ github.sha }}" >> "$GITHUB_OUTPUT"
+          echo "ref=${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REPOSITORY }}/${{ env.IMAGE_NAME }}:staging-${{ github.sha }}" >> "$GITHUB_OUTPUT"
 
   # --------------------------------------------------------------------------
   # Deploy to Cloud Run staging service
@@ -92,6 +118,7 @@ jobs:
     name: Deploy to Cloud Run Staging
     runs-on: ubuntu-latest
     needs: build
+    if: needs.build.outputs.registry_ready == 'true'
     environment:
       name: staging
       url: https://dws6run6-staging-${{ env.REGION }}.a.run.app
@@ -100,7 +127,9 @@ jobs:
       - name: Authenticate to GCP
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          token_format: access_token
 
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v2

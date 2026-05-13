@@ -16,7 +16,7 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
-import { useApi } from '../hooks/useApi';
+import { useApi } from '../../hooks/useApi';
 
 // ─── Types (mirror drift-detector.ts output) ──────────────────────────────────
 
@@ -54,12 +54,6 @@ const SEVERITY_STYLE: Record<AgentDriftResult['severity'], string> = {
   ok: 'bg-green-500/20 text-green-400',
   warn: 'bg-amber-500/20 text-amber-400',
   alert: 'bg-red-500/20 text-red-400',
-};
-
-const BAR_COLOR: Record<AgentDriftResult['severity'], string> = {
-  ok: 'bg-green-500',
-  warn: 'bg-amber-500',
-  alert: 'bg-red-500',
 };
 
 function timeAgo(iso: string): string {

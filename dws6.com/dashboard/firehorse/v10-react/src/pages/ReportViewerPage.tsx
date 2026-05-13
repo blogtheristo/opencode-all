@@ -94,7 +94,7 @@ export function ReportViewerPage() {
     : reports.filter((r) => r.type === filterType);
 
   const handleDownload = useCallback((reportId: string) => {
-    const url = `${API_BASE}/v1/reports/${reportId}/download`;
+    const url = `${API_BASE}/api/v1/reports/${reportId}/download`;
     window.open(url, '_blank', 'noopener,noreferrer');
   }, []);
 
@@ -260,7 +260,7 @@ async function getReportPreviewUrl(reportId: string): Promise<{ url: string; typ
   }
 
   // Fallback: use the API download endpoint (may trigger download instead of preview)
-  const apiUrl = `${API_BASE}/v1/reports/${reportId}/download`;
+  const apiUrl = `${API_BASE}/api/v1/reports/${reportId}/download`;
   return { url: apiUrl, type: 'fallback' };
 }
 

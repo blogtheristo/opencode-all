@@ -21,6 +21,7 @@ import authRoutes from './routes/auth.routes.js';
 import userRoutes from './routes/user.routes.js';
 import climateAssistantRoutes from './routes/climate-assistant.routes.js';
 import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes.js';
+import adminSupportRoutes from './routes/admin-support.routes.js';
 import outreachRoutes from './routes/outreach.routes.js';
 import outreachSendRoutes from './routes/outreach-send.routes.js';
 import emailRoutes from './routes/email.routes.js';
@@ -37,6 +38,7 @@ import stripeWebhookRoutes from './routes/stripe-webhook.routes.js';
 import captainRoutes from './routes/captain.routes.js';
 import usageRoutes from './routes/usage.routes.js';
 import onboardRoutes from './routes/onboard.routes.js';
+import memoryRoutes from './routes/memory.routes.js';
 import complianceRoutes from './routes/compliance.routes.js';
 import reportExportRoutes from './routes/report-export.routes.js';
 import apiKeyRoutes from './routes/api-keys.routes.js';
@@ -259,6 +261,9 @@ app.use('/api/climate-assistant', climateAssistantRoutes);
 // Climate Assistant Gated routes (tiered access with lead capture)
 app.use('/api/v2/climate-assistant', climateAssistantGatedRoutes);
 
+// Admin support chat channel (settings panel)
+app.use('/api/v1/admin/support', adminSupportRoutes);
+
 // Outreach inbound intake (shared secret auth via X-Outreach-Key)
 app.use('/api/v1/outreach', outreachRoutes);
 
@@ -276,6 +281,9 @@ app.use('/api/v1/usage', usageRoutes);
 
 // Onboarding wizard (baseline compliance assessment)
 app.use('/api/v1/onboard', onboardRoutes);
+
+// Memory dashboard stats + audit endpoints
+app.use('/api/v1/memory', memoryRoutes);
 
 // Compliance assessment API (scoring, registry, cost estimate)
 app.use('/api/v1/compliance', complianceRoutes);

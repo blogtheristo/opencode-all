@@ -2,8 +2,8 @@
 
 ## DWS IQ 6 & Firehorse Agent Systems
 
-**Version:** 1.0.0  
-**Last Updated:** 2026-01-19  
+**Version:** 1.1.0  
+**Last Updated:** 2026-05-13  
 **Phase Focus:** Infrastructure, monitoring, scaling, safety guardrails  
 **Estimated Implementation:** 40 hours (1 week)
 
@@ -158,6 +158,35 @@ gcloud secrets create mcp-auth-token \
 echo -n "sk-ant-..." | gcloud secrets versions add anthropic-api-key --data-file=-
 echo -n "https://xxx.supabase.co" | gcloud secrets versions add supabase-url --data-file=-
 ```
+
+### 2.5 GitHub Actions Authentication (Keyless OIDC - Required)
+
+Use Workload Identity Federation (OIDC) for Cloud Run deploys. Do not rely on JSON service-account keys.
+
+**Why:** Many projects enforce `constraints/iam.disableServiceAccountKeyCreation`; key creation is blocked by policy.
+
+```bash
+# Required service account roles (project + SA-level)
+# Project: run.admin, artifactregistry.writer, iam.serviceAccountUser
+# Service account: iam.serviceAccountTokenCreator
+```
+
+GitHub Actions auth step (authoritative pattern):
+
+```yaml
+- uses: google-github-actions/auth@v2
+  with:
+    workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+    service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+    token_format: access_token
+```
+
+**Failure signature and fix**
+
+- Error: `Permission 'iam.serviceAccounts.getAccessToken' denied`
+- Fix: Add `roles/iam.serviceAccountTokenCreator` on the target deployer service account and ensure the GitHub principal has `roles/iam.workloadIdentityUser`.
+
+**DWS control-plane policy:** For DWS6 production/staging sales deployments, use an `admin@dws6.com`-owned project (for example `dws-iq-60`) and a dedicated deployer identity (`github-actions-deployer@<project>.iam.gserviceaccount.com`).
 
 ---
 

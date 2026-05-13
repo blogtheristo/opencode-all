@@ -145,3 +145,8 @@ export const OnboardingErpTestSchema = z
       });
     }
   });
+
+/** Onboarding team invite payload */
+export const OnboardingInviteSchema = z.object({
+  email: z.string().email('Valid email is required'),
+});

@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 13.05.2026 | Changes: Added Cloud Run CI identity policy for admin-owned projects (`admin@dws6.com`) and keyless GitHub OIDC as default deploy auth. Documented `constraints/iam.disableServiceAccountKeyCreation` handling, mandatory `roles/iam.serviceAccountTokenCreator` fix for `getAccessToken` failures, and runbook references to ADMIN_MANUAL + `/gcr-skill` for client deployment readiness.
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/deployment-strategies-comparison-T5gcw | Date: 12.05.2026 | Changes: Initial creation. Master standard for deploys across every DWS Surface (static sites, dashboards, Cloud Run backend, AgentFoundry, MCP gateway, Firehorse Python suite, Situation Room, Control Room, LWM Acer / DGX Spark, Store). Defines the deploy ontology (Surface × Environment × Strategy × Event × Industry × Sales-Jurisdiction × Cloud-Jurisdiction × Tier), the per-surface Brain (LLM) declaration rule, the four release-time manifests (File Index, Per-Tenant Secrets, Personnel, Connector Data Catalogue) and the Client Artifact Bundle, the deploy-gate prerequisites (Code Versioning per `DWS_DOCUMENT_STANDARD.md` §19, Article 12 logging per `DWS_ARTICLE_12_LOGGING_STANDARD.md`, KYA-bound deploy authority, Observability minimums, Subscription State + Update Lane), and the rollback / verification / offboarding contracts. Indexes the 13+ existing deploy runbooks as referenced procedures; introduces no new code path. Companion lockstep thesis bump (all 4 files → 3.56), back-references added to DWS_SECURITY_STANDARD, DWS_SOVEREIGNTY_STANDARD, DWS_DATA_STANDARD, DWS_STANDARDS_LIBRARY in the same change.
 
 Session Links & References:
@@ -18,7 +19,7 @@ Session Links & References:
 Document Status:
 
 - Created: 12.05.2026
-- Last Modified: 12.05.2026
+- Last Modified: 13.05.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE
@@ -466,7 +467,9 @@ Deploy-time movement rules only. Substantive policy lives in `DWS_SECURITY_STAND
   - **Store** — Stripe secret + webhook secret.
   - **Static sites** — no runtime secrets.
   - **Situation Room / Control Room** — inherit from AgentFoundry slot set (they consume its reports).
-- **Provisioning per environment.** Local dev: `.env`. Cloud Run prod: Google Secret Manager (`--set-secrets=` injection via `cloudbuild.yaml:96`, `.github/workflows/deploy-cloudrun.yml:56-67`; provisioning via `scripts/Provision-DwsIqSecrets.ps1`). Sovereign edge: file-based `.env` at deploy-time SSH push. GitHub Actions: org / repo-level named secrets.
+- **Provisioning per environment.** Local dev: `.env`. Cloud Run prod: Google Secret Manager (`--set-secrets=` injection via `cloudbuild.yaml:96`, `.github/workflows/deploy-cloudrun.yml:56-67`; provisioning via `scripts/Provision-DwsIqSecrets.ps1`). Sovereign edge: file-based `.env` at deploy-time SSH push. GitHub Actions: keyless OIDC / Workload Identity Federation is default; JSON service-account keys are prohibited when `constraints/iam.disableServiceAccountKeyCreation` is enforced.
+- **CI identity ownership.** Production and staging Cloud Run deploy identity must live in an admin-owned project (`admin@dws6.com`) and use `github-actions-deployer@<project>.iam.gserviceaccount.com` (or equivalent) with `roles/run.admin`, `roles/artifactregistry.writer`, `roles/iam.serviceAccountUser`, and SA-level `roles/iam.serviceAccountTokenCreator`.
+- **Known failure contract.** If deploy logs show `Permission 'iam.serviceAccounts.getAccessToken' denied`, treat as IAM gate failure and remediate by granting `roles/iam.serviceAccountTokenCreator` on the target deployer service account.
 - **Tenant scoping today is `internal` / `shared`** (`docs/CLOUD_ENVIRONMENTS.md:560-586`). Schema is forward-compatible with per-tenant slots.
 - **Rotation.** Per `docs/CLOUD_ENVIRONMENTS.md:§4.5`: `Provision-DwsIqSecrets.ps1` writes a new Secret Manager version under `:latest`; next Cloud Run revision picks it up; old version retained for rollback. Manifest records `last_rotated` and `expiry`. OAuth secrets target 90-day rotation. SSH keys / GPG passphrases: manual. Production rotation is RED-zone.
 - **Offboarding.** `tenant.offboarded` executes the §2 Tenant Offboarding contract. Runbook is §11.
@@ -611,6 +614,7 @@ The existing 13+ deployment documents remain authoritative as runbooks under thi
 - **dws6.com-specific runbooks** — `DWS6_DEPLOYMENT_PLAN.md`, `DWS6_DEPLOYMENT_TROUBLESHOOTING.md`.
 - **Cloud topology** — `docs/CLOUD_ENVIRONMENTS.md` (referenced from §2 Environment, §2 Cloud Jurisdiction, §2 Single-Tenant Mode).
 - **Cloud Run production architecture** — `docs/architecture/09-PRODUCTION-DEPLOYMENT.md`.
+- **Cloud Run CI identity (keyless OIDC) runbook** — `Admin/ADMIN_MANUAL.md` section "Google Cloud Run CI Identity Runbook (gcr-skill)" + `.claude/commands/gcr-skill.md`.
 - **Auto-mode CI behaviour** — `docs/CICD_AUTO_MODE.md`.
 - **Proposals / pilots** — `docs/ANTIGRAVITY_CLOUD_RUN_PROPOSAL.md`, `docs/CLOUDFLARE_SANDBOX_PILOT.md`.
 - **Version- and domain-specific guides** — `V8_LOCAL_DEPLOYMENT.md`, `KIMI_V7_DEPLOYMENT_GUIDE.md`, `DOMAIN_DEPLOYMENT_GUIDE.md`.
