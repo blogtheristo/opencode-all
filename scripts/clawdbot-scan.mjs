@@ -422,12 +422,14 @@ function cmdStatus() {
   );
 }
 
-// Classify a file path into a trust zone per .claude SessionStart hook policy.
-// RED  — DB migrations, deploys, thesis, store sync, secrets
+// Classify a file path into a trust zone per CLAUDE.md "Auto-Mode Trust Boundary".
+// RED  — applying migrations (psql/supabase db push), thesis, store sync, secrets, deploys
 // YELLOW — MCP config, agent skills, docker, gh CLI scripts, mcp-servers
-// GREEN — everything else (code, tests, docs, lint config)
+// GREEN — everything else (code, tests, docs, lint config, MIGRATION FILES per se)
+// Note: authoring a migration FILE is GREEN; applying it is RED. The scanner
+// classifies the file artifact, not the apply action — so supabase/migrations/
+// is intentionally NOT in RED_PATTERNS.
 const RED_PATTERNS = [
-  /^supabase\/migrations\//i,
   /^docs\/metropolia\/master-thesis\//i,
   /^docs\/PHD_FIREHORSE_(EN|FI)\.md$/i,
   /^Store\//i,
