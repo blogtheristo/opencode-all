@@ -32,7 +32,12 @@ A Firehorse Dreaming cycle is exactly five steps. Any deviation is a bug.
    (never deleted, per CLAUDE.md no-rm rule). For memory notes specifically,
    the body is dual-written to the canonical Firehorse CMS via
    `scripts/firehorse-memory-write.mjs` (insert-only into
-   `firehorse_memory`).
+   `firehorse_memory`). Then **commit, push, AND open a pull request**
+   (`mcp__github__create_pull_request`). The PR is mandatory — previous
+   Dreaming sessions repeatedly pushed without PR-ing, leaving curated
+   work stranded on feature branches with no review surface. Without the
+   PR step the loop is broken; with it the dreamer's output becomes a
+   reviewable artifact in GitHub's UI immediately.
 
 ## Why plan mode and not per-item AskUserQuestion
 

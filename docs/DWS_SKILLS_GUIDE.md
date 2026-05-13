@@ -125,6 +125,16 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 
 **Output:** Edits applied (per HIL approval), queue ids marked done, proposal file annotated `STATUS: PROMOTED`. Trust zone YELLOW (touches `skills/`, `.claude/commands/`, `CLAUDE.md`, `docs/DWS_SKILLS_GUIDE.md`) but every change is HIL-gated.
 
+### 3.9 /dream-on
+
+**When to use:** When you want to run the Firehorse Dreaming loop end-to-end without per-step approval. One trigger, one plan-mode HIL gate, then auto-mode runs to completion. Replaces the "ask me what's next" UX.
+
+**What it does:** Scans transcripts, picks the next unpromoted dream artifact (proposal under `.claude/clawdbot/proposals/`, falling back to top queue item), builds a TODO list, enters plan mode via `ExitPlanMode` for atomic HIL approval, then executes under auto-mode. After execution, marks the proposal `STATUS: PROMOTED`, dual-writes any new memory notes to the Firehorse CMS via `scripts/firehorse-memory-write.mjs`, commits, **pushes, AND opens a pull request** (the Record step must leave a PR open so the curated work surfaces in the review queue — previous Dreaming sessions sometimes pushed without PR-ing, stranding the work). Suggests a `/goal` directive the user can paste to keep the session driving until the work is done.
+
+**Trigger phrases:** "dream on", "keep dreaming", "continue dreaming", "auto-dream", "run the dream loop", "next dream pass"
+
+**Output:** Plan-mode approval moment + auto-executed edits + commit + push + **PR URL**. Trust zone YELLOW (skills, slash commands, CLAUDE.md, CMS writes); the single plan-mode approval satisfies HIL gating. Composes `clawdbot` (producer) + `/promote-proposal` (applier, soon plan-mode-first) + `/goal` (cross-turn runner).
+
 ## 4. Agent Discovery & Execution
 
 ### 4.1 /discover-agents
