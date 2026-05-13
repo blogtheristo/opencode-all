@@ -23,9 +23,11 @@ import {
   TOTAL_DISCLOSURES,
 } from '../compliance/esrs-registry.js';
 import { estimateETSCost } from '../compliance/ets-calculator.js';
-import { estimateCBAMCostAsync } from '../compliance/cbam-calculator.js';
-import { getCarbonPrice } from '../compliance/ember-carbon-price.js';
-import { ETS_CARBON_PRICE_EUR } from '../compliance/emission-factors.js';
+import { estimateCBAMCost } from '../compliance/cbam-calculator.js';
+import {
+  CBAM_CERTIFICATE_PRICE_EUR,
+  ETS_CARBON_PRICE_EUR,
+} from '../compliance/emission-factors.js';
 import { compareAgainstBenchmark, getBenchmark } from '../compliance/eu-benchmarks.js';
 import { fetchPublicComplianceData } from '../compliance/public-data-fetcher.js';
 import { extractComplianceData } from '../compliance/esg-report-extractor.js';
@@ -399,6 +401,14 @@ const LedgerSchema = AssessmentSchema.extend({
   greenFinancingEur: z.number().min(0).optional(),
 });
 
+const CostEstimateSchema = z.object({
+  annualEmissions: z.number().min(0).max(10_000_000).default(0),
+  importQuantity: z.number().min(0).max(10_000_000).default(0),
+  sector: z.string().min(1).max(64).regex(/^[a-z-]+$/).default('manufacturing'),
+  originCountry: z.string().length(2).regex(/^[A-Z]{2}$/).default('CN'),
+  freeAllocation: z.number().min(0).max(10_000_000).default(0),
+});
+
 router.post(
   '/ledger',
   validate({ body: LedgerSchema }),
@@ -458,21 +468,12 @@ router.post(
  * Estimate ETS + CBAM compliance costs for a given scenario.
  * Quick calculation without full assessment — useful for onboarding and sales.
  */
-router.post('/cost-estimate', async (req: Request, res: Response, next: NextFunction) => {
+router.post('/cost-estimate', validate({ body: CostEstimateSchema }), (req: Request, res: Response, next: NextFunction) => {
   try {
-    const {
-      annualEmissions = 0,
-      importQuantity = 0,
-      sector = 'manufacturing',
-      originCountry = 'CN',
-      freeAllocation = 0,
-    } = req.body;
+    const { annualEmissions, importQuantity, sector, originCountry, freeAllocation } = req.body;
 
     const ets = estimateETSCost(annualEmissions, freeAllocation);
-    const livePrice = await getCarbonPrice();
-    const carbonPrice =
-      typeof livePrice.priceEur === 'number' ? livePrice.priceEur : ETS_CARBON_PRICE_EUR;
-    const cbam = await estimateCBAMCostAsync(importQuantity, sector, originCountry, carbonPrice);
+    const cbam = estimateCBAMCost(importQuantity, sector, originCountry);
 
     res.json({
       ets: {
@@ -485,9 +486,7 @@ router.post('/cost-estimate', async (req: Request, res: Response, next: NextFunc
         covered: cbam.covered,
         embeddedEmissions: cbam.embeddedEmissions,
         estimatedCost: cbam.estimatedCost,
-        certificatePrice: carbonPrice,
-        certificatePriceDate: livePrice.date,
-        certificatePriceSource: livePrice.source,
+        certificatePrice: CBAM_CERTIFICATE_PRICE_EUR,
         unit: 'EUR',
       },
       totalEstimatedCost: Math.round((ets.estimatedCost + cbam.estimatedCost) * 100) / 100,

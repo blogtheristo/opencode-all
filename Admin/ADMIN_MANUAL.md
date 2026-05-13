@@ -4,11 +4,13 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.6
+Version: 2.8
 
 Sessions & Modifications:
 
-- Version: 2.6 | Tool: Claude Code (Claude Sonnet 4.6) | Session: claude/add-otel-api-docs-fU7r0 | Date: 06.05.2026 | Changes: Google Cloud Run section — added "OTel Ingestion API (Auto-Enabled)" subsection documenting that telemetry.googleapis.com is auto-activated on dws6run6 as of March 2026, OTLP endpoint value, and no additional IAM needed. Triggered by Google Cloud Observability announcement; see field note docs/field-notes/2026-05-02-gcp-otel-ingestion-api-launch.md.
+- Version: 2.8 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Added billing account management inventory: billing account `011602-801DEC-A53E8F` (Lifetime Oy, Direct), linked projects (`dws-mcp-hub`, `dws-iq-pilot`, `dws6login`), and billing administrators (`risto.paarni2024@lifetime.fi`, `admin@dws6.com`)
+- Version: 2.7 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Added Google Cloud billing IAM transfer note for `dws-mcp-hub`: confirmed `admin@dws6.com` as project owner and documented billing account `011602-801DEC-A53E8F` policy update (`roles/billing.user` for `admin@dws6.com`, `roles/billing.admin` retained for `risto.paarni2024@lifetime.fi`) with follow-up to enable billing and rotate CI deploy credentials under admin-owned control plane
+- Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Agent accountability/observability layer (AgentLogger JSONL + Supabase agent_executions, AgentVersionRegistry, drift-detector.ts daily confidence-drop reports, eval-runner.ts compliance dataset scoring, HIL review queue API + ReviewQueuePanel + ConfidenceDriftView); Baseten added as OpenAI-compatible LLM provider in model-selector.ts with BASETEN_API_KEY/BASETEN_BASE_URL/BASETEN_MODEL env vars; /case-run skill registered, Themis v2.0 case-coordinate action (case-type→sub-agent mapping, Legora AOS competitive analysis); Blog V2 engagement layer (lsj-poll.js reader polls, lsj-ads.js ad slots, /advertise rate card, post #18 — The Strike Price State); TokenSpeed inference engine field note (LightSeek MIT, DGX Spark fit); Outokumpu CBAM partnership offer print-ready HTML v1.0; Axios vulnerability patched across mobile subprojects
 - Version: 1.0 | Tool: Claude Code | Session: Nov 2025 | Date: 23.11.2025 | Changes: Initial creation, session history
 - Version: 1.1 | Tool: Claude Code | Session: Dec 2025 | Date: 11.12.2025 | Changes: Sensitive Data Protection section
 - Version: 1.2 | Tool: Claude Code | Session: Dec 2025 | Date: 19.12.2025 | Changes: Bug Tracking & Security Maintenance
@@ -34,7 +36,8 @@ Session Links & References:
 Document Status:
 
 - Created: 23.11.2025
-- Last Modified: 10.05.2026
+- Last Modified: 11.05.2026
+- Version: 2.8
 - Language: English
 - Languages Available: English
 - Publication Status: ✅ ACTIVE
@@ -812,6 +815,47 @@ app.use(
 | **Service**           | `dws-iq-backend` (Stripe webhook endpoint)          |
 | **Endpoint**          | `https://dws-iq-backend-[hash]-uc.a.run.app`        |
 
+### Billing & ownership transfer update (2026-05-11)
+
+`admin@dws6.com` is now project owner for:
+
+- **Project Name:** `DWS MCP Hub`
+- **Project ID:** `dws-mcp-hub`
+- **Project Number:** `191347396816`
+
+Billing account IAM was updated as follows:
+
+| Billing Account | Principal | Role |
+| --- | --- | --- |
+| `011602-801DEC-A53E8F` | `user:risto.paarni2024@lifetime.fi` | `roles/billing.admin` |
+| `011602-801DEC-A53E8F` | `user:admin@dws6.com` | `roles/billing.user` |
+
+Current status recorded during transfer:
+
+- `dws-mcp-hub` parent is organization `1074856518213` (`lifetime.fi`) ✅
+- Billing IAM grant succeeded ✅
+- Project billing link still needs to be activated from `admin@dws6.com` context (`billingEnabled` was `false` at capture time) ⚠️
+
+#### Billing account management inventory (2026-05-11)
+
+| Property | Value |
+| --- | --- |
+| Billing account ID | `011602-801DEC-A53E8F` |
+| Billing account display name | `Lifetime Oy Account` |
+| Organisation | `lifetime.fi` |
+| Account type | `Direct` |
+
+**Projects linked to this billing account:**
+
+- `dws-mcp-hub` (DWS MCP Hub)
+- `dws-iq-pilot` (DWS IQ Pilot)
+- `dws6login` (dws6login)
+
+**Billing administrators:**
+
+- `risto.paarni2024@lifetime.fi`
+- `admin@dws6.com`
+
 ### ⚠️ CRITICAL: Cloud Build Service Account IAM Roles
 
 **Service Account:** `1074393862472-compute@developer.gserviceaccount.com`
@@ -854,22 +898,6 @@ gcloud projects add-iam-policy-binding dws6run6 \
   --member=serviceAccount:1074393862472-compute@developer.gserviceaccount.com \
   --role=roles/run.developer
 ```
-
-### OTel Ingestion API (Auto-Enabled)
-
-As of March 4, 2026, Google Cloud automatically activates `telemetry.googleapis.com` (unified OTLP ingestion endpoint) on `dws6run6` because `logging.googleapis.com` and `monitoring.googleapis.com` are already enabled on the project.
-
-| Property          | Value                                                             |
-| ----------------- | ----------------------------------------------------------------- |
-| **API**           | `telemetry.googleapis.com`                                        |
-| **OTLP endpoint** | `https://telemetry.googleapis.com`                                |
-| **Activation**    | Automatic — no manual step required                               |
-| **Supports**      | OTLP logs, trace spans, metrics                                   |
-| **Region**        | Global endpoint; data stays in `europe-north1` per project config |
-
-Use this as the value for `OTEL_EXPORTER_OTLP_ENDPOINT` when configuring OpenTelemetry exporters on Cloud Run services. No additional IAM role is required beyond the existing `roles/logging.logWriter` + `roles/cloudtrace.agent`.
-
-See field note: `docs/field-notes/2026-05-02-gcp-otel-ingestion-api-launch.md`
 
 ### Deployment Commands (from repo root in CMD)
 

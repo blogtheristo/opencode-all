@@ -14,10 +14,8 @@
 import logger from '../utils/logger.js';
 import { BaseAgent } from './base.agent.js';
 import type { AgentContext, AgentResponse } from './types.js';
-import {
-  ETS_CARBON_PRICE_EUR,
-  CBAM_CERTIFICATE_PRICE_EUR,
-} from '../compliance/emission-factors.js';
+import { scoreCompliance, type DataPointStatus } from '../compliance/scoring-engine.js';
+import { generateReport } from '../compliance/report-generator.js';
 
 // ============ REGULATORY THRESHOLDS ============
 
@@ -33,15 +31,15 @@ const REGULATION_DEADLINES: Record<string, { deadline: string; description: stri
     deadline: '2030-12-31',
     description: 'EU Fit for 55 package: 55% emissions reduction target vs 1990',
   },
-  ets: {
+  'ets': {
     deadline: '2026-12-31',
     description: 'EU Emissions Trading System Phase 4 full auctioning',
   },
-  cbam: {
+  'cbam': {
     deadline: '2026-01-01',
     description: 'Carbon Border Adjustment Mechanism full implementation',
   },
-  csrd: {
+  'csrd': {
     deadline: '2025-01-01',
     description: 'Corporate Sustainability Reporting Directive (large companies)',
   },
@@ -54,34 +52,34 @@ const REGULATION_DEADLINES: Record<string, { deadline: string; description: stri
 /** Compliance measure weights per regulation */
 const MEASURE_WEIGHTS: Record<string, Record<string, number>> = {
   'fit-for-55': {
-    carbonReporting: 0.3,
-    emissionsMonitoring: 0.4,
-    supplyChainDueDiligence: 0.2,
-    aiSystemLogging: 0.1,
+    carbonReporting: 0.30,
+    emissionsMonitoring: 0.40,
+    supplyChainDueDiligence: 0.20,
+    aiSystemLogging: 0.10,
   },
-  ets: {
+  'ets': {
     carbonReporting: 0.35,
     emissionsMonitoring: 0.45,
-    supplyChainDueDiligence: 0.1,
-    aiSystemLogging: 0.1,
+    supplyChainDueDiligence: 0.10,
+    aiSystemLogging: 0.10,
   },
-  cbam: {
+  'cbam': {
     carbonReporting: 0.25,
     emissionsMonitoring: 0.25,
-    supplyChainDueDiligence: 0.4,
-    aiSystemLogging: 0.1,
+    supplyChainDueDiligence: 0.40,
+    aiSystemLogging: 0.10,
   },
-  csrd: {
-    carbonReporting: 0.3,
+  'csrd': {
+    carbonReporting: 0.30,
     emissionsMonitoring: 0.25,
     supplyChainDueDiligence: 0.25,
-    aiSystemLogging: 0.2,
+    aiSystemLogging: 0.20,
   },
   'eu-ai-act': {
     carbonReporting: 0.05,
     emissionsMonitoring: 0.05,
-    supplyChainDueDiligence: 0.1,
-    aiSystemLogging: 0.8,
+    supplyChainDueDiligence: 0.10,
+    aiSystemLogging: 0.80,
   },
 };
 
@@ -106,6 +104,7 @@ interface ComplianceInput {
   projectId: string;
   industry: string;
   regulations: string[];
+  dataPoints: DataPointStatus[];
   currentMeasures: {
     carbonReporting: boolean;
     emissionsMonitoring: boolean;
@@ -114,7 +113,6 @@ interface ComplianceInput {
   };
   annualEmissions: number;
   importValue: number;
-  dataPoints: { disclosureId: string; provided: boolean }[];
 }
 
 // ============ AGENT IMPLEMENTATION ============
@@ -147,32 +145,37 @@ export class ComplianceAgent extends BaseAgent {
         : typeof raw.regulation === 'string'
           ? [raw.regulation]
           : ['ets', 'cbam', 'csrd'],
+      dataPoints: Array.isArray(raw.dataPoints)
+        ? raw.dataPoints
+            .filter(
+              (d) => d
+                && typeof d === 'object'
+                && typeof (d as { disclosureId?: unknown }).disclosureId === 'string',
+            )
+            .map((d) => ({
+              disclosureId: (d as { disclosureId: string }).disclosureId,
+              provided: Boolean((d as { provided?: unknown }).provided),
+            }))
+        : [],
       currentMeasures: {
         carbonReporting: raw.currentMeasures?.carbonReporting ?? raw.carbonReporting ?? false,
-        emissionsMonitoring:
-          raw.currentMeasures?.emissionsMonitoring ?? raw.emissionsMonitoring ?? false,
-        supplyChainDueDiligence:
-          raw.currentMeasures?.supplyChainDueDiligence ?? raw.supplyChainDueDiligence ?? false,
+        emissionsMonitoring: raw.currentMeasures?.emissionsMonitoring ?? raw.emissionsMonitoring ?? false,
+        supplyChainDueDiligence: raw.currentMeasures?.supplyChainDueDiligence ?? raw.supplyChainDueDiligence ?? false,
         aiSystemLogging: raw.currentMeasures?.aiSystemLogging ?? raw.aiSystemLogging ?? false,
       },
       annualEmissions: raw.annualEmissions ?? raw.annual_emissions ?? raw.emissions ?? 0,
       importValue: raw.importValue ?? raw.import_value ?? raw.imports ?? 0,
-      dataPoints: Array.isArray(raw.dataPoints) ? raw.dataPoints : [],
     };
   }
 
-  async execute(context: AgentContext, input: Record<string, unknown>): Promise<AgentResponse> {
+  async execute(
+    context: AgentContext,
+    input: Record<string, unknown>,
+  ): Promise<AgentResponse> {
     const startTime = Date.now();
 
-    const {
-      projectId,
-      industry,
-      regulations,
-      currentMeasures,
-      annualEmissions,
-      importValue,
-      dataPoints,
-    } = this.normalizeInput(input);
+      const { projectId, industry, regulations, dataPoints, currentMeasures, annualEmissions, importValue } =
+        this.normalizeInput(input);
 
     logger.info('Compliance agent executing', {
       projectId,
@@ -195,24 +198,51 @@ export class ComplianceAgent extends BaseAgent {
     });
 
     try {
-      // 1. Score each regulation
-      const regulationScores = regulations.map((reg) =>
-        this.scoreRegulation(reg, currentMeasures, annualEmissions, importValue, dataPoints),
-      );
+      // 1. Score core regulations with deterministic scoring engine
+      const scoringResult = scoreCompliance({
+        industry,
+        dataPoints,
+        annualEmissions,
+        importValue,
+        hasTransitionPlan: currentMeasures.carbonReporting,
+        hasEmissionsMonitoring: currentMeasures.emissionsMonitoring,
+        hasSupplyChainDD: currentMeasures.supplyChainDueDiligence,
+      });
+      const scoringByReg = new Map(scoringResult.regulationScores.map((r) => [r.regulation, r]));
 
-      // 2. Compute overall compliance score
+      // 2. Score each requested regulation (retain fit-for-55/eu-ai-act support)
+      const regulationScores = regulations.map((reg) => {
+        const scoring = scoringByReg.get(reg);
+        if (scoring) {
+          return { regulation: reg, score: scoring.score };
+        }
+        return this.scoreRegulation(reg, currentMeasures, annualEmissions, importValue);
+      });
+
+      // 3. Compute overall compliance score
       const overallScore = this.computeOverallScore(regulationScores);
 
-      // 3. Identify gaps
-      const gaps = this.identifyGaps(regulations, currentMeasures, annualEmissions, importValue);
+      // 4. Identify gaps (merge scoring-engine gaps + legacy non-core gaps)
+      const legacyGaps = this.identifyGaps(regulations, currentMeasures, annualEmissions, importValue);
+      const scoringGaps = scoringResult.gaps.filter((g) => regulations.includes(g.regulation));
+      const mergedGaps = [...scoringGaps];
+      for (const legacyGap of legacyGaps) {
+        const exists = mergedGaps.some(
+          (g) => g.regulation === legacyGap.regulation && g.gap === legacyGap.gap,
+        );
+        if (!exists) {
+          mergedGaps.push(legacyGap);
+        }
+      }
+      const gaps = mergedGaps;
 
-      // 4. Compute deadline urgency
+      // 5. Compute deadline urgency
       const deadlines = this.computeDeadlineUrgency(regulations);
 
-      // 5. Industry risk factor
+      // 6. Industry risk factor
       const industryRisk = INDUSTRY_RISK[industry.toLowerCase()] ?? INDUSTRY_RISK.default;
 
-      // 6. Build deterministic recommendations
+      // 7. Build deterministic recommendations
       const recommendations = this.buildRecommendations(
         gaps,
         deadlines,
@@ -222,7 +252,7 @@ export class ComplianceAgent extends BaseAgent {
         overallScore,
       );
 
-      // 7. LLM enhancement for specific remediation strategies
+      // 8. LLM enhancement for specific remediation strategies
       const llmResponse = await this.callLLM(
         `Analyze EU regulatory compliance and suggest remediation priorities:
 Industry: ${industry}
@@ -247,6 +277,14 @@ Respond as JSON with keys: "prioritizedActions" (string[]), "riskAssessment" (st
       }
 
       const durationMs = Date.now() - startTime;
+      const report = generateReport(scoringResult, {
+        name: context.orgId || 'Unknown organization',
+        industry,
+        country: 'FI',
+      });
+      const surrenderObligation = annualEmissions >= ETS_EMISSIONS_THRESHOLD_TONNES
+        ? annualEmissions
+        : 0;
 
       const response: AgentResponse = {
         agentName: this.config.name,
@@ -261,6 +299,22 @@ Respond as JSON with keys: "prioritizedActions" (string[]), "riskAssessment" (st
             status: rs.score >= 80 ? 'compliant' : rs.score >= 50 ? 'partial' : 'non-compliant',
           })),
           gaps,
+          dataCompleteness: scoringResult.dataCompleteness,
+          costEstimates: {
+            ets: {
+              estimatedCost: scoringResult.costBreakdown?.etsCostEur ?? 0,
+              surrenderObligation,
+            },
+            cbam: {
+              estimatedCost: scoringResult.costBreakdown?.cbamCostEur ?? 0,
+            },
+            csrd: {
+              estimatedCost: scoringResult.costBreakdown?.csrdReportingCostEur ?? 0,
+            },
+            total: scoringResult.costBreakdown?.totalCostEur ?? 0,
+            carbonPriceEur: scoringResult.costBreakdown?.carbonPriceEur ?? 0,
+          },
+          report,
           deadlines,
           industryRiskFactor: industryRisk,
           thresholds: {
@@ -268,38 +322,6 @@ Respond as JSON with keys: "prioritizedActions" (string[]), "riskAssessment" (st
             etsApplies: annualEmissions >= ETS_EMISSIONS_THRESHOLD_TONNES,
             cbamImportThreshold: CBAM_IMPORT_THRESHOLD_EUR,
             etsEmissionsThreshold: ETS_EMISSIONS_THRESHOLD_TONNES,
-          },
-          dataCompleteness: Math.round(
-            ((Object.values(currentMeasures).filter(Boolean).length +
-              (annualEmissions > 0 ? 1 : 0) +
-              (importValue > 0 ? 1 : 0)) /
-              6) *
-              100,
-          ),
-          costEstimates: {
-            ets: {
-              estimatedCost:
-                annualEmissions >= ETS_EMISSIONS_THRESHOLD_TONNES
-                  ? Math.round(annualEmissions * ETS_CARBON_PRICE_EUR)
-                  : 0,
-              surrenderObligation: annualEmissions,
-            },
-            cbam: {
-              estimatedCost:
-                importValue >= CBAM_IMPORT_THRESHOLD_EUR
-                  ? Math.round(importValue * 0.005 * CBAM_CERTIFICATE_PRICE_EUR)
-                  : 0,
-            },
-          },
-          report: {
-            reportId: `CR-${Date.now()}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`,
-            generatedAt: new Date().toISOString(),
-            metadata: {
-              framework: 'DWS IQ Compliance Engine',
-              version: '1.0',
-              industry,
-              regulationsAssessed: regulations.length,
-            },
           },
           llmRiskAssessment,
         },
@@ -355,7 +377,6 @@ Respond as JSON with keys: "prioritizedActions" (string[]), "riskAssessment" (st
     measures: ComplianceInput['currentMeasures'],
     emissions: number,
     importValue: number,
-    dataPoints: ComplianceInput['dataPoints'] = [],
   ): { regulation: string; score: number } {
     const weights = MEASURE_WEIGHTS[regulation] || MEASURE_WEIGHTS['fit-for-55'];
     let score = 0;
@@ -367,27 +388,13 @@ Respond as JSON with keys: "prioritizedActions" (string[]), "riskAssessment" (st
     if (measures.aiSystemLogging) score += weights.aiSystemLogging * 100;
 
     // Penalty for high emissions without monitoring
-    if (
-      regulation === 'ets' &&
-      emissions >= ETS_EMISSIONS_THRESHOLD_TONNES &&
-      !measures.emissionsMonitoring
-    ) {
+    if (regulation === 'ets' && emissions >= ETS_EMISSIONS_THRESHOLD_TONNES && !measures.emissionsMonitoring) {
       score = Math.max(0, score - 20);
     }
 
     // Penalty for high imports without supply chain DD
-    if (
-      regulation === 'cbam' &&
-      importValue >= CBAM_IMPORT_THRESHOLD_EUR &&
-      !measures.supplyChainDueDiligence
-    ) {
+    if (regulation === 'cbam' && importValue >= CBAM_IMPORT_THRESHOLD_EUR && !measures.supplyChainDueDiligence) {
       score = Math.max(0, score - 20);
-    }
-
-    // ESRS data points bonus for CSRD (up to +20 points)
-    if (regulation === 'csrd' && dataPoints.length > 0) {
-      const provided = dataPoints.filter((dp) => dp.provided).length;
-      score = Math.min(100, score + Math.round((provided / dataPoints.length) * 20));
     }
 
     return { regulation, score: Math.round(score) };
@@ -405,11 +412,7 @@ Respond as JSON with keys: "prioritizedActions" (string[]), "riskAssessment" (st
     emissions: number,
     importValue: number,
   ): { regulation: string; gap: string; severity: 'critical' | 'high' | 'medium' | 'low' }[] {
-    const gaps: {
-      regulation: string;
-      gap: string;
-      severity: 'critical' | 'high' | 'medium' | 'low';
-    }[] = [];
+    const gaps: { regulation: string; gap: string; severity: 'critical' | 'high' | 'medium' | 'low' }[] = [];
 
     for (const reg of regulations) {
       if (!measures.carbonReporting) {
@@ -448,12 +451,9 @@ Respond as JSON with keys: "prioritizedActions" (string[]), "riskAssessment" (st
     return gaps;
   }
 
-  private computeDeadlineUrgency(regulations: string[]): {
-    regulation: string;
-    deadline: string;
-    daysRemaining: number;
-    urgency: 'overdue' | 'urgent' | 'approaching' | 'comfortable';
-  }[] {
+  private computeDeadlineUrgency(
+    regulations: string[],
+  ): { regulation: string; deadline: string; daysRemaining: number; urgency: 'overdue' | 'urgent' | 'approaching' | 'comfortable' }[] {
     const now = new Date();
 
     return regulations
@@ -461,9 +461,7 @@ Respond as JSON with keys: "prioritizedActions" (string[]), "riskAssessment" (st
       .map((reg) => {
         const info = REGULATION_DEADLINES[reg];
         const deadlineDate = new Date(info.deadline);
-        const daysRemaining = Math.ceil(
-          (deadlineDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24),
-        );
+        const daysRemaining = Math.ceil((deadlineDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
 
         let urgency: 'overdue' | 'urgent' | 'approaching' | 'comfortable';
         if (daysRemaining < 0) urgency = 'overdue';
@@ -480,9 +478,7 @@ Respond as JSON with keys: "prioritizedActions" (string[]), "riskAssessment" (st
       });
   }
 
-  private classifyCompliance(
-    score: number,
-  ): 'compliant' | 'mostly-compliant' | 'partially-compliant' | 'non-compliant' {
+  private classifyCompliance(score: number): 'compliant' | 'mostly-compliant' | 'partially-compliant' | 'non-compliant' {
     if (score >= 80) return 'compliant';
     if (score >= 60) return 'mostly-compliant';
     if (score >= 40) return 'partially-compliant';
@@ -565,12 +561,12 @@ Respond as JSON with keys: "prioritizedActions" (string[]), "riskAssessment" (st
     regulations: string[],
     measures: ComplianceInput['currentMeasures'],
   ): number {
-    let confidence = 0.8;
+    let confidence = 0.80;
 
     // Known regulations increase confidence
     const knownRegs = regulations.filter((r) => REGULATION_DEADLINES[r]);
-    if (knownRegs.length === regulations.length) confidence += 0.1;
-    else if (knownRegs.length === 0) confidence -= 0.2;
+    if (knownRegs.length === regulations.length) confidence += 0.10;
+    else if (knownRegs.length === 0) confidence -= 0.20;
 
     // More measures data = higher confidence
     const measureCount = Object.values(measures).filter(Boolean).length;

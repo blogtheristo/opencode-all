@@ -92,6 +92,7 @@ if (!envResult.valid && process.env.NODE_ENV === 'production') {
 }
 
 const app: Express = express();
+app.disable('x-powered-by');
 const PORT =
   process.env.PORT || (process.env.NODE_ENV === 'production' ? '8080' : '3001');
 

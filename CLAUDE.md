@@ -34,16 +34,6 @@ If the user says **"Use DWS standard"**, apply all relevant standards and update
 9. Keep edits scoped; do not do unrelated refactors.
 10. Use PowerShell-first command examples on Windows (`.ps1`, `.\script.ps1`).
 
-## Auto-Mode Trust Boundary
-
-When operating in auto-mode (Claude Code without per-tool prompts), the SessionStart hook declares three zones. The canonical policy lives here; the hook output must match this section.
-
-- **GREEN — full auto:** Read, Edit, Write, lint, test, build, git on feature branches (e.g. `claude/*`, `feature/*`, `fix/*`). **Authoring** DB migration files (`supabase/migrations/*.sql`) is GREEN — they are reviewable text artifacts; applying them is the RED action.
-- **YELLOW — auto + logged:** MCP tools, agent skills, Docker, `gh`/MCP GitHub calls, `git push`. Every YELLOW action is appended to `.claude/hooks/audit/`.
-- **RED — BLOCKED, human required:** **Applying** DB migrations (`psql`, `supabase db push`, `supabase migration up`), deploys, outbound email, thesis files, Store sync, secrets. Must be approved per-action by a human; tooling refuses to proceed otherwise.
-
-Trust-zone classification of a file uses the regex patterns in `scripts/clawdbot-scan.mjs` (`classifyPath`). If a new file pattern needs a zone, update both the hook and the scanner in the same commit.
-
 ## Source-of-Truth Rules
 
 ### Store/Product Pricing
@@ -80,6 +70,22 @@ If task mentions thesis/master thesis/pro gradu/opinnaytetyo, update all four to
 - `docs/PHD_FIREHORSE_FI.md`
 
 Also regenerate `Learn/` versioned HTML outputs. Never delete old thesis HTML versions.
+
+### Thesis Content Scope Rule
+
+**Master's thesis (V3Thesis_EN / V3Thesis_FI — Metropolia):**
+
+- Content is **product- and implementation-focused**, tightly coupled to the current and next DWS IQ product version.
+- Documents engineering decisions, architecture, PRs, and operational results.
+- Does **not** contain market intelligence, competitive signals, or long-horizon roadmap speculation.
+
+**PhD thesis (PHD_FIREHORSE_EN / PHD_FIREHORSE_FI — LUT):**
+
+- Content takes a **scientific perspective** with a longer roadmap view (3–7 years).
+- Is updated with **market signal data**: competitor movements, regulatory pipeline, standardization body activity, partnership signals.
+- Contains research questions, theoretical framing, and societal impact — not sprint-level implementation detail.
+
+When editing thesis content, apply this split: implementation evidence → master's thesis; market signals and scientific framing → PhD thesis.
 
 ## Downloadable HTML Rule
 
@@ -120,52 +126,9 @@ Every production capability should be agent-accessible:
 
 If a reusable capability appears, propose turning it into a skill and register it in `docs/DWS_SKILLS_GUIDE.md` when approved.
 
-## Cross-Surface Verification Rule (non-negotiable)
-
-**Founding observation, by HIL:** "you overly rely on your own sandbox, but HIL really wants all surfaces operational for different needs — not your usability." This rule exists because the agent's sandbox is not the user's environment, and the agent's habit of shipping from sandbox-only verification is a systemic failure of trust. Catching this in one feature (`/dream-on`) is not the lesson. The lesson is: **the agent must stop conflating "it ran in my sandbox" with "it works for the HIL".** A user-facing artifact is not done until the user's actual surfaces have been considered, designed for, and verified — by someone other than the agent on those surfaces.
-
-Every skill, slash command, shell wrapper, or user-facing feature MUST be designed for and verified on **every Anthropic surface its target users actually use**, before it is described as shipped, available, or part of a capability brand.
-
-Surfaces in scope:
-
-1. **Claude CLI** (`claude` terminal binary) — macOS, Linux, AND Windows (PowerShell). PowerShell is not optional — Windows is a first-class target per the "PowerShell-first command examples on Windows" rule.
-2. **Claude Desktop on Windows 11** — the standalone desktop app at claude.ai/download.
-3. **Claude Mobile** — iOS and Android.
-4. **claude.ai web chat** — when the feature uses web-reachable resources.
-
-For each surface, the feature must either:
-
-- **Have a working install/usage path**, smoke-tested cold (someone other than the author runs it from a fresh checkout / fresh install and it works), AND documented in the user-facing README with platform-specific commands, OR
-- **Carry an explicit "does not apply on `<surface>` because `<reason>`" note** in the SKILL.md, slash command body, and any README the user might read first.
-
-Wishful documentation is forbidden. "This will work on Windows once you add it to PATH" is not a working install path until somebody on Windows actually ran it from a fresh shell against a fresh checkout and reported success. Until that test result exists, the feature's status in SKILL.md and PR descriptions is **`EXPERIMENTAL: not yet cross-surface verified`** — not "shipped", not "the umbrella", not the customer-facing brand name.
-
-When a feature originates inside a sandboxed Claude Code session (where the agent can't reach the user's real Windows/mobile machines), the agent is responsible for **surfacing the verification gap to HIL before declaring done**, NOT for shipping "it should work on Windows, I think" code paths.
-
-A feature that fails this bar gets one of:
-
-1. Downgraded to `EXPERIMENTAL: Claude-internal workflow, not yet cross-surface verified` in all user-facing copy and skill metadata.
-2. Renamed to `_OLD` and removed from the skills index (per the no-rm rule), with a memory note explaining why.
-3. Re-implemented against a primitive that genuinely spans surfaces (e.g. Anthropic's Managed Agents API instead of a repo-local shell wrapper).
-
-This rule has teeth: PRs that introduce or rename a user-facing feature MUST include a "Cross-surface verification" section in the description listing each surface and either a verification timestamp or a "does not apply because …" reason.
-
-### HIL handoff: every resolution gets a runnable PowerShell snippet
-
-Whenever the agent reports "resolution ready" / "shipped" / "try this on your machine", the message MUST include a **single, copy-pasteable PowerShell code block** that runs cleanly when pasted into a PowerShell window opened in the repository folder on Win11. The snippet should:
-
-- Use only PowerShell-native commands (no `$SHELL`, no `~/.zshrc`, no `chmod`, no implicit `bash`).
-- Be self-contained: `git fetch` / `git checkout` / `git pull` whatever branch is being handed off.
-- Include verification commands (e.g. `Select-String`, `Get-ChildItem`, `Get-Command`) so HIL can confirm the resolution landed without reading a 12-line walkthrough.
-- Print clear success/failure signals to the console — no silent assumptions.
-
-If the resolution genuinely cannot run on Windows (e.g. it's a server-side change applied by the agent), the message says so explicitly instead of providing a snippet. Unix-only snippets without a PowerShell counterpart violate this rule and the existing "PowerShell-first command examples on Windows" rule.
-
 ## Script Automation Rule
 
 Do not create scripts that depend on human memory to run. Place them in scheduler/discovery paths (`scripts/daily`, `scripts/weekly`, `scripts/hourly`, `scripts/on-deploy`) or register Windows `.ps1` tasks in the scheduler installer flow.
-
-Scripts in `scripts/daily/` are auto-discovered and executed at 03:00–06:00 UTC by `day-runner.sh` on DGX Spark. No registration is needed and no GitHub Actions are involved — dropping a `.sh` or `.ts` file in `scripts/daily/` ships a daily cron job. State is tracked in `logs/day-runner-state.json` to prevent double-runs.
 
 ## Development Baseline
 

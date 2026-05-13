@@ -7,14 +7,17 @@
 **Document Type:** Doctoral Programme Application Appendix (Jatko-opiskeluhakemus)
 **Reference:** LUT Doctoral School — Application and Attachments
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.52
+Version: 3.55
 
 Sessions & Modifications:
 
+- Version: 3.55 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Version bump from 3.54 to 3.55 in lockstep across all 4 thesis files; fixed VERSION AND AGENT HISTORY closing delimiter to ***; regenerated Learn thesis HTML outputs at v3.55
+- Version: 3.54 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Replaced §1.2 placeholder e-commerce questions with 6 doctoral research questions differentiated from master's thesis (ontologies/multi-industry, KYA standard, Agentic AI Foundation/NIST/EU, Agentic Commerce, EU eWallet, Transactions); added §1.2.1 five reformulated supervisor discussion questions (catalog governance, efficiency reversal, ontological grounding, risk classification conflicts, carbon signal sovereignty); added §1.3 content scope rule table (master's vs PhD: product/implementation vs science/standards, market signals, time horizon); all 4 thesis files bumped in lockstep per CLAUDE.md thesis rule
+- Version: 3.53 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Added agent accountability and observability layer as new Key Contribution: AgentLogger (structured JSONL + non-blocking Supabase agent_executions), AgentVersionRegistry for version rollback, drift-detector.ts daily confidence-drop reports, eval-runner.ts compliance dataset scoring — directly implements EU AI Act Articles 9 (risk management), 12 (logging), and 14 (human oversight) obligations as running production code; Baseten added as OpenAI-compatible LLM provider expanding multi-provider routing to Groq/Baseten/OpenAI with task-aware model-selector; /case-run skill registered (Themis v2.0 case-coordinate action — case-type→sub-agent mapping), Legora AOS competitive analysis documenting DWS Case entity roadmap P0 actions; Outokumpu CBAM partnership model as first industrial-buyer compliance cost quantification case; TokenSpeed inference engine field note (LightSeek MIT — TensorRT-LLM-class throughput, DGX Spark fit assessment); all 4 thesis files bumped in lockstep per CLAUDE.md thesis rule
 - Version: 3.52 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-ontology-blog-3RGKG | Date: 29.04.2026 | Changes: Added Section 1.7 "Ontology — Etymology and Philosophical Background" linking the doctoral plan to ONTOLOGY.md v1.3 (Greek ón + lógos, Aristotle, scholastic 17th–18th c. systematization, modern computer-science meaning). Aligns the carbon-balance-sheet thesis with the canonical DWS Ontology Standard. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule.
 - Version: 3.51 | Tool: Claude Code (Haiku 4.5) | Session: claude/sync-version-numbering-adEeB | Date: 28.04.2026 | Changes: Bumped from 3.39 to 3.51 (12 steps × 0.01). Unified thesis version track maintained. Created new Tutkimussuunnitelma_3.51.md (Research Plan) with three research streams (KYA standardization, DWS 7 empirical testbed, dual-use industries), eight research questions, "Human in Command and Human in Loop" governance framework; versioning format rule (.X9 → .X+1,0) documented for DWS_DOCUMENT_STANDARD.md §5
 - Version: 3.39 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Terminology rename — "Aiven overlay" / "Aiven layer" (deprecated infrastructure labels) → "Article 12 Logging Pipeline" per new DWS_ARTICLE_12_LOGGING_STANDARD.md v1.0 (unified 3-tier canonical term). Aiven remains the correct name for the Postgres SaaS. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule; only V3Thesis_EN had the infra-context string in content
@@ -58,7 +61,7 @@ Document Status:
 - Languages Available: English, Suomi
 - Publication Status: DRAFT (V3.0 — LWM Sequencing Strategy: compliance→fleet→Series A, LeWorldModel validation, Phase 2 technical gap)
 
----
+***
 
 ## Abstract
 
@@ -66,7 +69,7 @@ This thesis documents the implementation of the Firehorse Operations Model, an A
 
 **Keywords:** AI Operations, E-Commerce Automation, Google Merchant Center, Claude Code, Firehorse Model, EU AI Act Compliance, Carbon Calculator, Industrial Compliance
 
----
+***
 
 ## Table of Contents
 
@@ -105,23 +108,53 @@ Lifetime Oy operates DWS10.com, an enterprise e-commerce platform serving climat
 
 ### 1.2 Research Questions
 
-1. How can AI assistants effectively manage e-commerce product catalogs?
-2. What efficiency gains are achievable through automated feed management?
-3. How should audio-based customer interaction evolve to recommend industry-specific solutions?
-4. What EU AI Act requirements impact AI-assisted sales channels?
-5. How can carbon calculators drive product recommendations for industrial prospects?
+The PhD thesis is organized around six doctoral research questions that explicitly differentiate it from the master's thesis (Metropolia V3Thesis) in scope and ambition. The master's thesis addresses the Firehorse product manufacturing operating model; this doctoral research addresses the foundational standards, market structures, and transaction primitives that govern agentic AI at societal scale.
+
+1. **Ontologies and multi-industry combinatorial benefits** — How do shared ontological frameworks enable cross-industry compliance intelligence that single-vertical tools cannot produce? What industrial benefits emerge when the carbon balance sheet thesis (§1.4) formalizes emissions flows across ETS, CBAM, CSRD, and EU Taxonomy as a reusable ontology layer — and at what scale does the cross-industry network effect become self-reinforcing?
+
+2. **Know Your Agent (KYA) standard development** — How should a general-purpose identity, trust, and governance standard for agentic AI systems be designed to satisfy EU AI Act Articles 9 (risk management), 12 (logging), and 14 (human oversight) while remaining adoptable by open-standards bodies (Agentic AI Foundation, Linux Foundation)?
+
+3. **Agentic AI Foundation, NIST, and EU alignment** — What standardization pathway (open specification + reference implementation + multi-body adoption) enables KYA to become a foundational interoperability standard across EU regulatory, US NIST, and global agentic contexts? How must the standard be structured so that EU regulatory obligations and US NIST voluntary frameworks can both reference it without conflict?
+
+4. **Agentic Commerce** — How do autonomous AI agents transact commercially on behalf of humans and enterprises within regulated EU markets? What accountability, identity-binding, and audit-trail mechanisms are required for agentic transactions to carry legal and commercial weight — and how does KYA serve as the trust primitive enabling this?
+
+5. **EU eWallet** — How does the EU Digital Identity Wallet (eIDAS 2.0) integrate with agentic systems to enable agent-to-agent and agent-to-institution transactions with legally valid identity and consent chains? What changes to KYA are required for it to function as the agent-side counterpart to the citizen-side eWallet?
+
+6. **Transactions** — What is the minimal viable transaction primitive that allows AI agents to conduct, verify, and dispute commerce across EU-regulated sectors? How does the journal-entry model (§1.4 carbon balance sheet) extend to cover non-carbon commercial transactions within an agentic commerce architecture?
+
+### 1.2.1 Discussion Questions for Supervisor
+
+The following five questions are reformulated from the thesis's early operational observations into doctoral-level propositions. They are intended as **open agenda items for supervisor discussion** — not yet formalised as research questions, but candidates for refinement into the research programme.
+
+1. **Autonomous catalog governance boundary** — At what decision-making boundary should AI catalog management systems defer to human judgment in regulated EU e-commerce environments? What governance mechanism (EU AI Act Article 14; operator accountability policies) determines that boundary — and is it stable across industries, or does it need to be dynamically determined per sector and risk classification?
+
+2. **Efficiency measurement in agentic orchestration — diminishing returns and reversal** — Under what conditions do efficiency gains from AI-assisted multi-channel product feed orchestration (FTE reduction, time-to-publish, error rate) saturate or reverse? What factors — hallucination rate, regulatory versioning frequency, integration drift — are the primary predictors of reversal, and can they be modelled a priori?
+
+3. **Ontological grounding as a prerequisite for auditable multimodal recommendations** — What level of domain-ontology grounding is necessary for multimodal AI recommendations (voice + text) to meet EU AI Act Article 13 transparency requirements in B2B industrial procurement? Is ontological grounding sufficient, or does regulatory auditability require additional provenance mechanisms (e.g., chain-of-thought logging, source attribution)?
+
+4. **Risk classification conflicts between EU AI Act and sector-specific regulations** — When EU AI Act risk classification (Articles 9, 13, 17) is applied to AI-assisted recommendation systems serving simultaneously CSRD, ETS, and CBAM-regulated industries, does the interaction produce complementary compliance obligations or irreconcilable conflicts? Which conflicts, if any, require new regulatory guidance to resolve?
+
+5. **Carbon compliance signal as a recommendation primitive — scope and sovereignty** — Can a cross-regulation carbon balance sheet (ETS/CBAM/CSRD/EU Taxonomy) replace intent-signal marketing with compliance-gap routing for industrial buyers at EU cross-border scale? What EU data sovereignty constraints (GDPR, EU Data Act 2023/2854, AI Act) govern the use of third-party emissions data as a commercial recommendation signal?
 
 ### 1.3 Scope
 
-This thesis covers the DWS10.com store implementation, serving 30+ products across:
+#### Content Scope Rule (v3.55)
 
-| Category            | Products                             | Price Range     |
-| ------------------- | ------------------------------------ | --------------- |
-| Platform Software   | DWS IQ v5, v6                        | €4,999 - €6,995 |
-| Firehorse Suite     | Automation, Report, CMS, Omnichannel | €499 - €4,950   |
-| Consulting Services | Hourly, Monthly, Workshops           | €98 - €6,250    |
-| Training & Coaching | AI Koulutus, Coach, Mentor           | €499 - €6,250   |
-| Digital Products    | Glossaries, Web Pages                | €0.99 - €799    |
+This PhD thesis takes a **scientific perspective** with a longer research horizon (3–7 years). It is updated with **market signal data**: competitor movements, regulatory pipeline, standardization body activity (Agentic AI Foundation, NIST, EU), and partnership signals. It contains research questions, theoretical framing, and societal-impact analysis.
+
+**This PhD thesis does NOT contain** sprint-level implementation detail or PR-level engineering records. Those belong in the master's thesis (`V3Thesis_EN.md` / `V3Thesis_FI.md`).
+
+| Dimension          | Master's thesis (V3Thesis) | PhD thesis (PHD_FIREHORSE)        |
+| ------------------ | -------------------------- | --------------------------------- |
+| Focus              | Product & implementation   | Science & standards               |
+| Time horizon       | Current + next version     | 3–7 year roadmap                  |
+| Market signals     | Not included               | Included                          |
+| Engineering detail | PR-level                   | Architecture-level                |
+| Update trigger     | Product release / PR merge | Market event / research milestone |
+
+#### Product scope (DWS10.com reference)
+
+The Firehorse operations model documented in this thesis is delivered through DWS10.com, serving 30+ products across platform software, Firehorse Suite, consulting services, training and coaching, and digital products. Product and pricing detail is maintained in the master's thesis; this document references the product line only where it is evidence for a research claim.
 
 ### 1.4 Motivating Thesis: The Carbon Balance Sheet
 

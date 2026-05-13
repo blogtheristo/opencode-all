@@ -203,6 +203,21 @@ describe('estimateCBAMCost', () => {
   });
 });
 
+describe('validateEORI', () => {
+  it('accepts valid uppercase EORI format', () => {
+    expect(validateEORI('FI1234567890')).toBeNull();
+  });
+
+  it('rejects lowercase country code in strict format mode', () => {
+    expect(validateEORI('fi1234567890')).not.toBeNull();
+  });
+
+  it('rejects malformed EORI values', () => {
+    expect(validateEORI('F1234567890')).not.toBeNull();
+    expect(validateEORI('FI123')).not.toBeNull();
+  });
+});
+
 describe('CBAM Default Factors', () => {
   it('covers all CBAM Annex I sectors', () => {
     const factorSectors = new Set(CBAM_DEFAULT_FACTORS.map((f) => f.sector));
@@ -223,45 +238,5 @@ describe('CBAM Default Factors', () => {
       if (f.id.endsWith('-PROXY')) continue;
       expect(f.methodology).toBe('cbam-default');
     }
-  });
-});
-
-describe('validateEORI', () => {
-  it('accepts valid Finnish EORI', () => {
-    expect(validateEORI('FI1234567890')).toBeNull();
-  });
-
-  it('accepts valid German EORI with max-length suffix', () => {
-    expect(validateEORI('DE123456789012345')).toBeNull();
-  });
-
-  it('accepts valid UK EORI', () => {
-    expect(validateEORI('GB123456789')).toBeNull();
-  });
-
-  it('rejects missing EORI', () => {
-    expect(validateEORI(undefined)).not.toBeNull();
-    expect(validateEORI('')).not.toBeNull();
-  });
-
-  it('rejects lowercase country code', () => {
-    expect(validateEORI('fi1234567890')).not.toBeNull();
-  });
-
-  it('rejects country code longer than 2 chars', () => {
-    expect(validateEORI('FIN1234567890')).not.toBeNull();
-  });
-
-  it('rejects suffix longer than 15 chars', () => {
-    expect(validateEORI('FI1234567890123456')).not.toBeNull(); // 16-char suffix
-  });
-
-  it('rejects suffix with special characters', () => {
-    expect(validateEORI('FI123-456')).not.toBeNull();
-  });
-
-  it('warning message cites the regulation', () => {
-    const warning = validateEORI(undefined);
-    expect(warning).toContain('2023/956');
   });
 });

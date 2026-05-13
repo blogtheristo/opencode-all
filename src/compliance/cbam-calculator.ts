@@ -14,12 +14,10 @@
  */
 
 import {
-  CBAM_DEFAULT_FACTORS as _CBAM_DEFAULT_FACTORS,
   CBAM_CERTIFICATE_PRICE_EUR,
   type EmissionFactor,
   getFactorsForSector,
 } from './emission-factors.js';
-import { getCarbonPriceEur } from './ember-carbon-price.js';
 
 // ============ TYPES ============
 
@@ -52,8 +50,6 @@ export interface CBAMCalculationResult {
   affectedSectors: string[];
   usesDefaultValues: boolean; // true if any import uses CBAM default factors
   phase: 'transitional' | 'definitive';
-  /** Present when EORI is missing or malformed. WARN only — does not block calculation. */
-  eoriWarning?: string;
 }
 
 export interface CBAMImportBreakdown {
@@ -67,33 +63,6 @@ export interface CBAMImportBreakdown {
   carbonPriceCredit: number; // tCO2e equivalent
   netObligation: number; // tCO2e
   estimatedCost: number; // EUR
-}
-
-// ============ EORI VALIDATION ============
-
-/**
- * EU EORI (Economic Operator Registration and Identification) number format.
- * Per EU Customs Regulation 952/2013 Art. 9:
- *   - 2-letter ISO country code (issuing Member State)
- *   - 1–15 alphanumeric characters
- * Examples: FI1234567890, DE123456789012345, GB123456789
- */
-const EORI_REGEX = /^[A-Z]{2}[0-9A-Z]{1,15}$/;
-
-/**
- * Validate an EORI number.
- * Returns null when valid, or a human-readable warning string when invalid.
- * Treats undefined/empty as a warning (not an error) — historical data may lack EORI.
- */
-export function validateEORI(eori: string | undefined): string | null {
-  if (!eori || eori.trim() === '') {
-    return 'EORI number missing — required for authorized CBAM declarant registration (Regulation 2023/956 Art. 5)';
-  }
-  const normalized = eori.trim().toUpperCase();
-  if (!EORI_REGEX.test(normalized)) {
-    return `EORI "${eori}" is malformed — expected format: 2-letter country code + 1–15 alphanumeric chars (e.g. FI1234567890)`;
-  }
-  return null;
 }
 
 // ============ CBAM SECTOR COVERAGE ============
@@ -262,6 +231,18 @@ export function isCBAMCovered(sector: string): boolean {
 }
 
 /**
+ * Validate EORI number format (strict, case-sensitive).
+ * Returns null when valid, otherwise an error message.
+ */
+export function validateEORI(eori: string): string | null {
+  if (!eori) return 'EORI number is required';
+  if (!/^[A-Z]{2}[A-Z0-9]{8,15}$/.test(eori)) {
+    return 'Invalid EORI format. Use 2 uppercase country letters followed by 8-15 uppercase letters/digits.';
+  }
+  return null;
+}
+
+/**
  * Quick estimate of CBAM cost for a given import value and sector.
  * Used by the scoring engine for risk assessment without full declaration data.
  */
@@ -287,41 +268,4 @@ export function estimateCBAMCost(
   const estimatedCost = Math.round(Math.max(0, netEmissions) * certificatePrice * 100) / 100;
 
   return { embeddedEmissions, estimatedCost, covered: true };
-}
-
-// ============ ASYNC WRAPPERS (live price) ============
-
-/**
- * Calculate CBAM obligations using the live EU ETS certificate price.
- *
- * Fetches the current price via ember-carbon-price.ts cascade:
- *   file cache → EMBER API → Sandbag → static fallback EUR 65
- *
- * Use this in API handlers and agents. Use calculateCBAM() only in tests
- * or when the caller already holds a verified price.
- */
-export async function calculateCBAMAsync(
-  declaration: CBAMDeclaration,
-): Promise<CBAMCalculationResult> {
-  const price = await getCarbonPriceEur();
-  const result = calculateCBAM(declaration, price);
-  const eoriWarning = validateEORI(declaration.eoriNumber);
-  return eoriWarning ? { ...result, eoriWarning } : result;
-}
-
-/**
- * Quick CBAM cost estimate using the live EU ETS certificate price.
- * Async counterpart of estimateCBAMCost().
- *
- * Pass `certificatePrice` when the caller already holds a fetched price to
- * avoid a redundant getCarbonPrice() call. Omit to fetch automatically.
- */
-export async function estimateCBAMCostAsync(
-  importQuantityTonnes: number,
-  sector: string,
-  originCountry: string = 'CN',
-  certificatePrice?: number,
-): Promise<{ embeddedEmissions: number; estimatedCost: number; covered: boolean }> {
-  const price = certificatePrice ?? (await getCarbonPriceEur());
-  return estimateCBAMCost(importQuantityTonnes, sector, originCountry, price);
 }
