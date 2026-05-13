@@ -125,15 +125,17 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 
 **Output:** Edits applied (per HIL approval), queue ids marked done, proposal file annotated `STATUS: PROMOTED`. Trust zone YELLOW (touches `skills/`, `.claude/commands/`, `CLAUDE.md`, `docs/DWS_SKILLS_GUIDE.md`) but every change is HIL-gated.
 
-### 3.9 /dream-on
+### 3.9 /dream-on (EXPERIMENTAL — Claude-internal only)
 
-**When to use:** When you want to run the Firehorse Dreaming loop end-to-end without per-step approval. One trigger, one plan-mode HIL gate, then auto-mode runs to completion. Replaces the "ask me what's next" UX.
+> **STATUS: EXPERIMENTAL — Claude-internal workflow, not yet cross-surface verified.** Per CLAUDE.md § "Cross-Surface Verification Rule" this is **not** a shipped capability and the prior framing as "the Firehorse Dreaming umbrella" was inaccurate. It works inside a Claude Code CLI session checked out at this repo; the `bin/` wrappers have not been smoke-tested on the HIL's Win11 PowerShell environment, and the feature has no implementation on Claude Desktop or Claude Mobile. See `.claude/clawdbot/memory/cross-surface-verification-rule.md` for the founding observation and the discipline this status downgrade implements.
 
-**What it does:** Scans transcripts, picks the next unpromoted dream artifact (proposal under `.claude/clawdbot/proposals/`, falling back to top queue item), builds a TODO list, enters plan mode via `ExitPlanMode` for atomic HIL approval, then executes under auto-mode. After execution, marks the proposal `STATUS: PROMOTED`, dual-writes any new memory notes to the Firehorse CMS via `scripts/firehorse-memory-write.mjs`, commits, **pushes, AND opens a pull request** (the Record step must leave a PR open so the curated work surfaces in the review queue — previous Dreaming sessions sometimes pushed without PR-ing, stranding the work). Suggests a `/goal` directive the user can paste to keep the session driving until the work is done.
+**When to use:** Inside a Claude CLI session in this repo, when you want the agent to walk its offline-reflection loop end-to-end without per-step approval. Not a customer-facing capability.
 
-**Trigger phrases:** "dream on", "keep dreaming", "continue dreaming", "auto-dream", "run the dream loop", "next dream pass"
+**What it does:** Scans transcripts, picks the next unpromoted dream artifact (proposal under `.claude/clawdbot/proposals/`, falling back to top queue item), builds a TODO list, asks for plan approval, then executes. After execution, marks the proposal `STATUS: PROMOTED`, dual-writes any new memory notes to the Firehorse CMS via `scripts/firehorse-memory-write.mjs` when env is set, commits, pushes, and opens a pull request.
 
-**Output:** Plan-mode approval moment + auto-executed edits + commit + push + **PR URL**. Trust zone YELLOW (skills, slash commands, CLAUDE.md, CMS writes); the single plan-mode approval satisfies HIL gating. Composes `clawdbot` (producer) + `/promote-proposal` (applier, soon plan-mode-first) + `/goal` (cross-turn runner).
+**Trigger phrases:** "dream on", "keep dreaming", "continue dreaming", "auto-dream", "run the dream loop", "next dream pass" — recognized only inside a Claude CLI session.
+
+**Output:** Plan approval moment + edits + commit + push + PR URL. Trust zone YELLOW. Composes `clawdbot` (producer) + `/promote-proposal` (applier) + `/goal` (cross-turn runner).
 
 ## 4. Agent Discovery & Execution
 
