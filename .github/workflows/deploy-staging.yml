@@ -4,7 +4,7 @@ name: Deploy to Staging (Cloud Run)
 # Production deploy (deploy-scaleway.yml / cloudbuild.yaml) only triggers on main.
 #
 # Target: Cloud Run service dws6run6-staging (europe-north1)
-# Image:  europe-north1-docker.pkg.dev/$PROJECT_ID/dws-iq/backend:staging-<sha>
+# Image:  europe-north1-docker.pkg.dev/$PROJECT_ID/dws-iq-repo/backend:staging-<sha>
 #
 # Required secrets (GitHub → Settings → Secrets → Actions):
 #   GCP_WORKLOAD_IDENTITY_PROVIDER — projects/<number>/locations/global/workloadIdentityPools/<pool>/providers/<provider>
@@ -32,7 +32,8 @@ env:
   REGION: europe-north1
   PROJECT_ID: dws-iq-60
   REGISTRY: europe-north1-docker.pkg.dev
-  IMAGE_NAME: dws-iq/backend
+  ARTIFACT_REPOSITORY: dws-iq-repo
+  IMAGE_NAME: backend
   SERVICE_NAME: dws6run6-staging
 
 permissions:
@@ -74,8 +75,8 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:staging-${{ github.sha }}
-            ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:staging-latest
+            ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REPOSITORY }}/${{ env.IMAGE_NAME }}:staging-${{ github.sha }}
+            ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REPOSITORY }}/${{ env.IMAGE_NAME }}:staging-latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
           platforms: linux/amd64
@@ -83,7 +84,7 @@ jobs:
       - name: Output image ref
         id: image
         run: |
-          echo "ref=${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:staging-${{ github.sha }}" >> "$GITHUB_OUTPUT"
+          echo "ref=${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REPOSITORY }}/${{ env.IMAGE_NAME }}:staging-${{ github.sha }}" >> "$GITHUB_OUTPUT"
 
   # --------------------------------------------------------------------------
   # Deploy to Cloud Run staging service

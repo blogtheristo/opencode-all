@@ -16,6 +16,7 @@ interface ChatHistoryMessage {
 }
 
 const router: Router = express.Router();
+const MAX_CONVERSATION_HISTORY = 15;
 
 const chatValidation = [
   body('message')
@@ -25,8 +26,8 @@ const chatValidation = [
     .withMessage('Message must be between 1 and 4000 characters'),
   body('conversationHistory')
     .optional()
-    .isArray({ max: 15 })
-    .withMessage('Conversation history must be an array with max 15 messages'),
+    .isArray({ max: MAX_CONVERSATION_HISTORY })
+    .withMessage(`Conversation history must be an array with max ${MAX_CONVERSATION_HISTORY} messages`),
 ];
 
 const validateRequest = (req: Request, res: Response, next: () => void): void => {
@@ -51,7 +52,7 @@ function sanitizeHistory(messages: unknown[]): ChatHistoryMessage[] {
       content: typeof item.content === 'string' ? item.content.trim() : '',
     }))
     .filter((item) => item.content.length > 0)
-    .slice(-6);
+    .slice(-MAX_CONVERSATION_HISTORY);
 }
 
 router.post(
@@ -73,7 +74,12 @@ router.post(
         'including troubleshooting steps, operational checks, and safe next actions.';
 
       const response = await ClimateAssistantService.processMessage({
-        message: `${adminPromptPrefix}\n\nAdmin request:\n${message}`,
+        message:
+          `${adminPromptPrefix}\n\n` +
+          '---USER_INPUT_START---\n' +
+          `${message}\n` +
+          '---USER_INPUT_END---\n' +
+          'Respond only to the request inside the delimiters.',
         conversationHistory,
       });
 

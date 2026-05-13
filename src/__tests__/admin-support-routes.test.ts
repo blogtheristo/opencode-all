@@ -68,6 +68,12 @@ describe('Admin support routes', () => {
     expect(response.status).toBe(200);
     expect(response.body.content).toContain('Try checking');
     expect(processMessageMock).toHaveBeenCalledTimes(1);
+    expect(processMessageMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        message: expect.stringContaining('---USER_INPUT_START---'),
+        conversationHistory: [{ role: 'user', content: 'Earlier context' }],
+      }),
+    );
   });
 
   it('rejects non-admin users', async () => {
@@ -89,5 +95,31 @@ describe('Admin support routes', () => {
 
     expect(response.status).toBe(400);
     expect(response.body.error).toBe('Validation Error');
+  });
+
+  it('preserves up to 15 sanitized history messages', async () => {
+    processMessageMock.mockResolvedValueOnce({
+      content: 'OK',
+      model: 'llama-3.3-70b-versatile',
+      usage: undefined,
+    });
+
+    const app = buildApp();
+    const conversationHistory = Array.from({ length: 15 }, (_, index) => ({
+      role: index % 2 === 0 ? 'user' : 'assistant',
+      content: `message-${index + 1}`,
+    }));
+
+    const response = await request(app).post('/api/v1/admin/support/chat').send({
+      message: 'Need a deployment check.',
+      conversationHistory,
+    });
+
+    expect(response.status).toBe(200);
+    expect(processMessageMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        conversationHistory,
+      }),
+    );
   });
 });
