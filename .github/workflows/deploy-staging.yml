@@ -49,6 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       image: ${{ steps.image.outputs.ref }}
+      registry_ready: ${{ steps.registry.outputs.exists }}
 
     steps:
       - name: Checkout
@@ -67,8 +68,30 @@ jobs:
       - name: Configure Docker for Artifact Registry
         run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
 
+      - name: Verify Artifact Registry repository
+        id: registry
+        shell: bash
+        run: |
+          if gcloud artifacts repositories describe "${{ env.ARTIFACT_REPOSITORY }}" \
+            --project="${{ env.PROJECT_ID }}" \
+            --location="${{ env.REGION }}" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::Artifact Registry repository '${{ env.ARTIFACT_REPOSITORY }}' does not exist in project '${{ env.PROJECT_ID }}'. Skipping staging image push."
+            {
+              echo "### Staging deploy skipped"
+              echo ""
+              echo "Artifact Registry repository \`${{ env.ARTIFACT_REPOSITORY }}\` does not exist in project \`${{ env.PROJECT_ID }}\`."
+              echo ""
+              echo "Create it with:"
+              echo "\`gcloud artifacts repositories create ${{ env.ARTIFACT_REPOSITORY }} --repository-format=docker --location=${{ env.REGION }} --description=\"DWS IQ staging images\"\`"
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
       - name: Build and push
         id: build
+        if: steps.registry.outputs.exists == 'true'
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -83,6 +106,7 @@ jobs:
 
       - name: Output image ref
         id: image
+        if: steps.registry.outputs.exists == 'true'
         run: |
           echo "ref=${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REPOSITORY }}/${{ env.IMAGE_NAME }}:staging-${{ github.sha }}" >> "$GITHUB_OUTPUT"
 
@@ -93,6 +117,7 @@ jobs:
     name: Deploy to Cloud Run Staging
     runs-on: ubuntu-latest
     needs: build
+    if: needs.build.outputs.registry_ready == 'true'
     environment:
       name: staging
       url: https://dws6run6-staging-${{ env.REGION }}.a.run.app
