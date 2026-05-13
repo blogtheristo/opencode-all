@@ -694,6 +694,15 @@ function listSkills() {
   });
 }
 
+// A folder is a "conventional skill" only if it contains a top-level SKILL.md.
+// Folders without one are discoverability bugs (the auto-loader won't index
+// them) — NOT archival candidates. dream-prune learned this the hard way on
+// skills/risto/ which had Risto_Skills.md instead of SKILL.md. See
+// .claude/clawdbot/proposals/archival-2026-05-12.md for the case study.
+function hasConventionalSkillFile(skillName) {
+  return existsSync(join(REPO_ROOT, 'skills', skillName, 'SKILL.md'));
+}
+
 function listTranscripts(lookbackDays) {
   if (!existsSync(TRANSCRIPT_DIR)) return [];
   const cutoff = Date.now() - lookbackDays * 86400 * 1000;
@@ -714,18 +723,25 @@ function cmdDreamPrune(args) {
   const transcripts = listTranscripts(args.lookbackDays);
 
   const results = [];
+  const discoverabilityBugs = [];
   for (const skill of skills) {
     let hits = 0;
     for (const t of transcripts) {
       const r = spawnSync('grep', ['-ciw', skill, t], { encoding: 'utf8' });
       if (r.status === 0) hits += parseInt((r.stdout || '0').trim(), 10) || 0;
     }
-    results.push({ skill, hits });
+    const hasSkillMd = hasConventionalSkillFile(skill);
+    results.push({ skill, hits, hasSkillMd });
+    if (!hasSkillMd) discoverabilityBugs.push(skill);
   }
   results.sort((a, b) => a.hits - b.hits);
 
-  const unused = results.filter((r) => r.hits === 0);
-  const lowUse = results.filter((r) => r.hits > 0 && r.hits <= 2);
+  // Only treat a folder as a real archival candidate if it has a SKILL.md
+  // AND zero invocations. Folders missing SKILL.md are discoverability bugs
+  // (the auto-loader can't see them), surfaced separately for the dreamer
+  // to fix-not-archive. Learned from skills/risto/ false-positive (2026-05-12).
+  const unused = results.filter((r) => r.hits === 0 && r.hasSkillMd);
+  const lowUse = results.filter((r) => r.hits > 0 && r.hits <= 2 && r.hasSkillMd);
 
   // Write a single proposal file dated today.
   const today = new Date().toISOString().slice(0, 10);
@@ -754,11 +770,24 @@ ${
     : '_(none)_'
 }
 
+## Discoverability bugs (no \`SKILL.md\` — auto-loader misses these)
+
+${
+  discoverabilityBugs.length
+    ? discoverabilityBugs
+        .map(
+          (s) =>
+            `- \`skills/${s}/\` — has no top-level \`SKILL.md\`. **Fix, do not archive**: rename the existing skill file (e.g. \`Foo_Skills.md\`) to \`SKILL.md\` so the auto-loader indexes it. Excluded from archival candidates above. See \`.claude/clawdbot/proposals/archival-2026-05-12.md\` for the case study (\`skills/risto/\`).`,
+        )
+        .join('\n')
+    : '_(none — every skill folder has a conventional SKILL.md)_'
+}
+
 ## Full counts (asc)
 
-| Skill | Hits |
-| --- | --- |
-${results.map((r) => `| ${r.skill} | ${r.hits} |`).join('\n')}
+| Skill | Hits | SKILL.md? |
+| --- | --- | --- |
+${results.map((r) => `| ${r.skill} | ${r.hits} | ${r.hasSkillMd ? 'yes' : '**no**'} |`).join('\n')}
 
 ## Action
 
@@ -766,6 +795,10 @@ Per CLAUDE.md "Never use destructive git/file actions" — propose **rename to \
 never delete. If a skill is genuinely obsolete, also remove its entry from
 \`docs/DWS_SKILLS_GUIDE.md\` and any \`.claude/commands/<name>.md\` slash command
 in the same commit. HIL must approve.
+
+Folders listed under "Discoverability bugs" should NOT be archived — they
+are auto-loader misses caused by non-standard filenames. Rename the skill
+file to \`SKILL.md\` and the next prune pass will count them correctly.
 `;
   writeFileSync(proposalPath, md);
 
@@ -779,6 +812,7 @@ in the same commit. HIL must approve.
         skillsInventoried: skills.length,
         unused: unused.map((r) => r.skill),
         lowUse: lowUse.map((r) => ({ skill: r.skill, hits: r.hits })),
+        discoverabilityBugs,
         proposal: proposalPath.replace(REPO_ROOT + '/', ''),
       },
       null,
