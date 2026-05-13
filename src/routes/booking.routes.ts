@@ -14,7 +14,6 @@
 
 import { type Request, type Response, Router } from 'express';
 import { body, param, validationResult, query } from 'express-validator';
-import type { SupabaseClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
 import { getSupabaseClient } from '../config/supabase.js';
 import { sendEmail } from '../utils/send-email.js';
@@ -44,14 +43,6 @@ function handleValidationErrors(req: Request, res: Response): boolean {
   return false;
 }
 
-function requireSupabaseClient(): SupabaseClient {
-  const supabase = getSupabaseClient();
-  if (!supabase) {
-    throw new Error('Supabase client not configured');
-  }
-  return supabase;
-}
-
 // ============================================================================
 // HELPER FUNCTIONS
 // ============================================================================
@@ -61,7 +52,11 @@ function requireSupabaseClient(): SupabaseClient {
  */
 async function isFinnishHoliday(date: Date): Promise<boolean> {
   const dateStr = date.toISOString().split('T')[0]; // YYYY-MM-DD
-  const supabase = requireSupabaseClient();
+  const supabase = getSupabaseClient();
+  if (!supabase) {
+    logger.error('Supabase unavailable in isFinnishHoliday');
+    return false;
+  }
   const { data, error } = await supabase
     .from('finnish_holidays')
     .select('id')
@@ -85,7 +80,11 @@ async function getAvailableSlotsForDate(
   dateStr: string, // YYYY-MM-DD
   durationMinutes: number,
 ): Promise<string[]> {
-  const supabase = requireSupabaseClient();
+  const supabase = getSupabaseClient();
+  if (!supabase) {
+    logger.error('Supabase unavailable in getAvailableSlotsForDate');
+    return [];
+  }
   const date = new Date(dateStr + 'T00:00:00Z');
   const dayOfWeek = date.getUTCDay(); // 0=Sunday, 6=Saturday
 
@@ -191,9 +190,12 @@ async function getAvailableSlotsForDate(
 // GET /services — List all booking services
 // ============================================================================
 
-router.get('/services', async (_req: Request, res: Response): Promise<void> => {
+router.get('/services', async (_req: Request, res: Response) => {
   try {
-    const supabase = requireSupabaseClient();
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      return res.status(500).json({ error: 'Database unavailable' });
+    }
     const { data, error } = await supabase
       .from('booking_services')
       .select('*')
@@ -201,15 +203,14 @@ router.get('/services', async (_req: Request, res: Response): Promise<void> => {
 
     if (error) {
       logger.error('Error fetching services', { error });
-      res.status(500).json({ error: 'Failed to fetch services' });
-      return;
+      return res.status(500).json({ error: 'Failed to fetch services' });
     }
 
-    res.json({ services: data });
+    return res.json({ services: data });
   } catch (err) {
     const errorMsg = err instanceof Error ? err.message : 'Unknown error';
     logger.error('Unexpected error in /services', { error: errorMsg });
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -226,10 +227,13 @@ const availabilityValidation = [
 router.get(
   '/availability/:serviceId',
   availabilityValidation,
-  async (req: Request, res: Response): Promise<void> => {
+  async (req: Request, res: Response) => {
     if (handleValidationErrors(req, res)) return;
 
-    const supabase = requireSupabaseClient();
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      return res.status(500).json({ error: 'Database unavailable' });
+    }
     const { serviceId } = req.params;
     let { startDate, endDate } = req.query;
 
@@ -242,8 +246,7 @@ router.get(
         .limit(1);
 
       if (svcError || !service || service.length === 0) {
-        res.status(404).json({ error: 'Service not found' });
-        return;
+        return res.status(404).json({ error: 'Service not found' });
       }
 
       // Default: next 60 days
@@ -282,7 +285,7 @@ router.get(
         .gte('date', startDate)
         .lte('date', endDate);
 
-      res.json({
+      return res.json({
         serviceId,
         durationMinutes: service[0].duration_minutes,
         availability,
@@ -291,7 +294,7 @@ router.get(
     } catch (err) {
       const errorMsg = err instanceof Error ? err.message : 'Unknown error';
       logger.error('Unexpected error in /availability', { error: errorMsg });
-      res.status(500).json({ error: 'Internal server error' });
+      return res.status(500).json({ error: 'Internal server error' });
     }
   },
 );
@@ -318,75 +321,73 @@ const meetInviteValidation = [
   body('dateStr').optional().isString().trim(),
 ];
 
-router.post(
-  '/meet-invite',
-  meetInviteValidation,
-  async (req: Request, res: Response): Promise<void> => {
-    if (handleValidationErrors(req, res)) return;
-
-    const { requesterEmail, roomName, directUrl, shareUrl, dateStr } = req.body as {
-      requesterEmail?: string;
-      roomName: string;
-      directUrl: string;
-      shareUrl: string;
-      dateStr?: string;
-    };
-
-    const subject = `Meeting request — ${roomName}`;
-    const bodyLines = [
-      'Meeting request from dws6.com/meet',
-      '',
-      requesterEmail ? `Requester email: ${requesterEmail}` : 'Requester email: Not provided',
-      dateStr ? `When: ${dateStr}` : '',
-      `Room: ${roomName}`,
-      '',
-      'Requested join link:',
-      directUrl,
-      '',
-      'Firehorse Meeting page:',
-      shareUrl,
-    ].filter(Boolean);
-    const text = bodyLines.join('\n');
-    const html = `<pre style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; white-space: pre-wrap;">${text
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')}</pre>`;
-
-    const result = await sendEmail({
-      from: process.env.EMAIL_FROM || 'risto@onelifetime.world',
-      to: process.env.BOOKING_ADMIN_EMAIL || 'risto@onelifetime.world',
-      subject,
-      text,
-      html,
-      source: 'platform',
-      templateType: 'meet_invite_request',
-      metadata: {
-        requesterEmail: requesterEmail || null,
-        roomName,
-        directUrl,
-        shareUrl,
-        dateStr: dateStr || null,
-      },
-    });
-
-    if (!result.ok) {
-      logger.error('Meet invite request email failed', {
-        error: result.error,
-        roomName,
-        requesterEmail: requesterEmail || null,
-      });
-      res.status(502).json({ error: result.error || 'Failed to send invite request' });
-      return;
-    }
-
-    res.status(201).json({ success: true, message: 'Invite request sent' });
-  },
-);
-
-router.post('/reserve', reserveValidation, async (req: Request, res: Response): Promise<void> => {
+router.post('/meet-invite', meetInviteValidation, async (req: Request, res: Response) => {
   if (handleValidationErrors(req, res)) return;
 
-  const supabase = requireSupabaseClient();
+  const { requesterEmail, roomName, directUrl, shareUrl, dateStr } = req.body as {
+    requesterEmail?: string;
+    roomName: string;
+    directUrl: string;
+    shareUrl: string;
+    dateStr?: string;
+  };
+
+  const subject = `Meeting request — ${roomName}`;
+  const bodyLines = [
+    'Meeting request from dws6.com/meet',
+    '',
+    requesterEmail ? `Requester email: ${requesterEmail}` : 'Requester email: Not provided',
+    dateStr ? `When: ${dateStr}` : '',
+    `Room: ${roomName}`,
+    '',
+    'Requested join link:',
+    directUrl,
+    '',
+    'Firehorse Meeting page:',
+    shareUrl,
+  ].filter(Boolean);
+  const text = bodyLines.join('\n');
+  const html = `<pre style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; white-space: pre-wrap;">${text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')}</pre>`;
+
+  const result = await sendEmail({
+    from: process.env.EMAIL_FROM || 'risto@onelifetime.world',
+    to: process.env.BOOKING_ADMIN_EMAIL || 'risto@onelifetime.world',
+    subject,
+    text,
+    html,
+    source: 'platform',
+    templateType: 'meet_invite_request',
+    metadata: {
+      requesterEmail: requesterEmail || null,
+      roomName,
+      directUrl,
+      shareUrl,
+      dateStr: dateStr || null,
+    },
+  });
+
+  if (!result.ok) {
+    logger.error('Meet invite request email failed', {
+      error: result.error,
+      roomName,
+      requesterEmail: requesterEmail || null,
+    });
+    return res.status(502).json({ error: result.error || 'Failed to send invite request' });
+  }
+
+  return res.status(201).json({ success: true, message: 'Invite request sent' });
+});
+
+router.post('/reserve', reserveValidation, async (req: Request, res: Response) => {
+  if (handleValidationErrors(req, res)) return;
+
+  const supabase = getSupabaseClient();
+  if (!supabase) {
+    return res.status(500).json({ error: 'Database unavailable' });
+  }
 
   const {
     serviceId,
@@ -407,8 +408,7 @@ router.post('/reserve', reserveValidation, async (req: Request, res: Response): 
       .limit(1);
 
     if (svcError || !service || service.length === 0) {
-      res.status(404).json({ error: 'Service not found' });
-      return;
+      return res.status(404).json({ error: 'Service not found' });
     }
 
     const durationMinutes = service[0].duration_minutes;
@@ -430,8 +430,7 @@ router.post('/reserve', reserveValidation, async (req: Request, res: Response): 
     });
 
     if (hasConflict) {
-      res.status(409).json({ error: 'Slot already booked. Please choose another time.' });
-      return;
+      return res.status(409).json({ error: 'Slot already booked. Please choose another time.' });
     }
 
     // Insert reservation
@@ -454,8 +453,7 @@ router.post('/reserve', reserveValidation, async (req: Request, res: Response): 
 
     if (insertError) {
       logger.error('Error creating reservation', { insertError });
-      res.status(500).json({ error: 'Failed to create reservation' });
-      return;
+      return res.status(500).json({ error: 'Failed to create reservation' });
     }
 
     // Send confirmation emails
@@ -550,14 +548,13 @@ router.post('/reserve', reserveValidation, async (req: Request, res: Response): 
         reservationId,
         error: errorMessage,
       });
-      res.status(502).json({
+      return res.status(502).json({
         error: 'Reservation saved, but confirmation email delivery failed.',
         reservationId,
       });
-      return;
     }
 
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
       reservationId,
       message: 'Reservation confirmed. Check your email for details.',
@@ -572,7 +569,7 @@ router.post('/reserve', reserveValidation, async (req: Request, res: Response): 
   } catch (err) {
     const errorMsg = err instanceof Error ? err.message : 'Unknown error';
     logger.error('Unexpected error in /reserve', { error: errorMsg });
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -582,40 +579,38 @@ router.post('/reserve', reserveValidation, async (req: Request, res: Response): 
 
 const emailParamValidation = [param('email').isEmail().withMessage('Valid email required')];
 
-router.get(
-  '/reservations/:email',
-  emailParamValidation,
-  async (req: Request, res: Response): Promise<void> => {
-    if (handleValidationErrors(req, res)) return;
+router.get('/reservations/:email', emailParamValidation, async (req: Request, res: Response) => {
+  if (handleValidationErrors(req, res)) return;
 
-    const supabase = requireSupabaseClient();
-    const { email } = req.params;
+  const supabase = getSupabaseClient();
+  if (!supabase) {
+    return res.status(500).json({ error: 'Database unavailable' });
+  }
+  const { email } = req.params;
 
-    try {
-      const { data, error } = await supabase
-        .from('booking_reservations')
-        .select('*, booking_services(name)')
-        .eq('customer_email', email)
-        .order('reserved_at', { ascending: false });
+  try {
+    const { data, error } = await supabase
+      .from('booking_reservations')
+      .select('*, booking_services(name)')
+      .eq('customer_email', email)
+      .order('reserved_at', { ascending: false });
 
-      if (error) {
-        logger.error('Error fetching reservations', { email, error });
-        res.status(500).json({ error: 'Failed to fetch reservations' });
-        return;
-      }
-
-      res.json({
-        email,
-        count: data?.length || 0,
-        reservations: data || [],
-      });
-    } catch (err) {
-      const errorMsg = err instanceof Error ? err.message : 'Unknown error';
-      logger.error('Unexpected error in /reservations/:email', { error: errorMsg });
-      res.status(500).json({ error: 'Internal server error' });
+    if (error) {
+      logger.error('Error fetching reservations', { email, error });
+      return res.status(500).json({ error: 'Failed to fetch reservations' });
     }
-  },
-);
+
+    return res.json({
+      email,
+      count: data?.length || 0,
+      reservations: data || [],
+    });
+  } catch (err) {
+    const errorMsg = err instanceof Error ? err.message : 'Unknown error';
+    logger.error('Unexpected error in /reservations/:email', { error: errorMsg });
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 // ============================================================================
 // DELETE /reservations/:id — Cancel a reservation
@@ -623,35 +618,33 @@ router.get(
 
 const idParamValidation = [param('id').isUUID().withMessage('Valid reservation ID required')];
 
-router.delete(
-  '/reservations/:id',
-  idParamValidation,
-  async (req: Request, res: Response): Promise<void> => {
-    if (handleValidationErrors(req, res)) return;
+router.delete('/reservations/:id', idParamValidation, async (req: Request, res: Response) => {
+  if (handleValidationErrors(req, res)) return;
 
-    const supabase = requireSupabaseClient();
-    const { id } = req.params;
+  const supabase = getSupabaseClient();
+  if (!supabase) {
+    return res.status(500).json({ error: 'Database unavailable' });
+  }
+  const { id } = req.params;
 
-    try {
-      const { error } = await supabase
-        .from('booking_reservations')
-        .update({ status: 'cancelled', updated_at: new Date().toISOString() })
-        .eq('id', id);
+  try {
+    const { error } = await supabase
+      .from('booking_reservations')
+      .update({ status: 'cancelled', updated_at: new Date().toISOString() })
+      .eq('id', id);
 
-      if (error) {
-        logger.error('Error cancelling reservation', { id, error });
-        res.status(500).json({ error: 'Failed to cancel reservation' });
-        return;
-      }
-
-      logger.info('Reservation cancelled', { id });
-      res.json({ success: true, message: 'Reservation cancelled' });
-    } catch (err) {
-      const errorMsg = err instanceof Error ? err.message : 'Unknown error';
-      logger.error('Unexpected error in DELETE /reservations/:id', { error: errorMsg });
-      res.status(500).json({ error: 'Internal server error' });
+    if (error) {
+      logger.error('Error cancelling reservation', { id, error });
+      return res.status(500).json({ error: 'Failed to cancel reservation' });
     }
-  },
-);
+
+    logger.info('Reservation cancelled', { id });
+    return res.json({ success: true, message: 'Reservation cancelled' });
+  } catch (err) {
+    const errorMsg = err instanceof Error ? err.message : 'Unknown error';
+    logger.error('Unexpected error in DELETE /reservations/:id', { error: errorMsg });
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 export default router;

@@ -4,11 +4,13 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.8
+Version: 3.0
 
 Sessions & Modifications:
 
 - Version: 2.8 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Added billing account management inventory: billing account `011602-801DEC-A53E8F` (Lifetime Oy, Direct), linked projects (`dws-mcp-hub`, `dws-iq-pilot`, `dws6login`), and billing administrators (`risto.paarni2024@lifetime.fi`, `admin@dws6.com`)
+- Version: 3.0 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: main | Date: 13.05.2026 | Changes: Finalized major Cloud Run CI auth migration in admin docs: GitHub OIDC / Workload Identity Federation is now the authoritative path for `dws-iq-60`; documented Cloud Shell provider creation, exact GitHub Secrets values (`GCP_WORKLOAD_IDENTITY_PROVIDER`, `GCP_SERVICE_ACCOUNT`), `.github/workflows/deploy-staging.yml` OIDC switch, and retirement of legacy `GCP_SA_KEY`. Marked service-account key creation as prohibited when `constraints/iam.disableServiceAccountKeyCreation` is enforced.
+- Version: 2.9 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 13.05.2026 | Changes: Added Google Cloud Run CI identity runbook (`gcr-skill`) for admin-owned project `dws-iq-60`: project creation, billing link, ADC quota alignment, required API enablement, deployer service account IAM bindings (including `roles/iam.serviceAccountTokenCreator` fix), and GitHub secret migration checklist
 - Version: 2.7 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Added Google Cloud billing IAM transfer note for `dws-mcp-hub`: confirmed `admin@dws6.com` as project owner and documented billing account `011602-801DEC-A53E8F` policy update (`roles/billing.user` for `admin@dws6.com`, `roles/billing.admin` retained for `risto.paarni2024@lifetime.fi`) with follow-up to enable billing and rotate CI deploy credentials under admin-owned control plane
 - Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Agent accountability/observability layer (AgentLogger JSONL + Supabase agent_executions, AgentVersionRegistry, drift-detector.ts daily confidence-drop reports, eval-runner.ts compliance dataset scoring, HIL review queue API + ReviewQueuePanel + ConfidenceDriftView); Baseten added as OpenAI-compatible LLM provider in model-selector.ts with BASETEN_API_KEY/BASETEN_BASE_URL/BASETEN_MODEL env vars; /case-run skill registered, Themis v2.0 case-coordinate action (case-type→sub-agent mapping, Legora AOS competitive analysis); Blog V2 engagement layer (lsj-poll.js reader polls, lsj-ads.js ad slots, /advertise rate card, post #18 — The Strike Price State); TokenSpeed inference engine field note (LightSeek MIT, DGX Spark fit); Outokumpu CBAM partnership offer print-ready HTML v1.0; Axios vulnerability patched across mobile subprojects
 - Version: 1.0 | Tool: Claude Code | Session: Nov 2025 | Date: 23.11.2025 | Changes: Initial creation, session history
@@ -36,8 +38,8 @@ Session Links & References:
 Document Status:
 
 - Created: 23.11.2025
-- Last Modified: 11.05.2026
-- Version: 2.8
+- Last Modified: 13.05.2026
+- Version: 3.0
 - Language: English
 - Languages Available: English
 - Publication Status: ✅ ACTIVE
@@ -52,31 +54,32 @@ Document Status:
 
 1. [Admin Manuals Index](#admin-manuals-index) ⭐ **NEW in v1.8**
 2. [Installation Manual](#installation-manual-link)
-3. [Node.js workspace setup](#nodejs-workspace-setup-backend-and-cloudflare-agents)
-4. [Scaleway Serverless Containers](#scaleway-serverless-containers-primary)
-5. [Revolut Payments & Store](#revolut-payments--store) ⭐ **NEW in v1.8**
-6. [MCP Configuration](#mcp-configuration) ⭐ **NEW in v1.8**
-7. [Climate Assistant Chat Widget](#climate-assistant-chat-widget)
-8. [AI Agent Operational Guidelines](#ai-agent-operational-guidelines) ⭐ **NEW in v1.8**
-9. [Security Glossary & OWASP](#security-glossary--owasp) ⭐ **NEW in v1.8**
-10. [Data Processing Agreement (DPA)](#data-processing-agreement-dpa) ⭐ **NEW in v1.8**
-11. [Backup & Sync Infrastructure](#backup--sync-infrastructure) ⭐ **NEW in v1.8**
-12. [Multi-Agent Orchestration](#multi-agent-orchestration) ⭐ **NEW in v1.8**
-13. [GitHub Copilot Instructions](#github-copilot-instructions)
-14. [Session Security Fixes (January 2026)](#session-security-fixes-january-2026)
-15. [Files and Folders Structure](#files-and-folders-structure)
-16. [Document Index](#document-index)
-17. [AI Agent Policy](#ai-agent-policy)
-18. [Deployment Procedures](#deployment-procedures)
-19. [Session History](#session-history)
-20. [Maintenance Plan (Complete)](#maintenance-plan-complete)
-21. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance)
-22. [Code Review Process](#code-review-process)
-23. [Maintenance Tasks](#maintenance-tasks)
-24. [Git Workflow](#git-workflow)
-25. [Sensitive Data Protection](#sensitive-data-protection)
-26. [Emergency Procedures](#emergency-procedures)
-27. [Training](#training)
+3. [Google Cloud Run CI Identity Runbook (gcr-skill)](#google-cloud-run-ci-identity-runbook-gcr-skill)
+4. [Node.js workspace setup](#nodejs-workspace-setup-backend-and-cloudflare-agents)
+5. [Scaleway Serverless Containers](#scaleway-serverless-containers-primary)
+6. [Revolut Payments & Store](#revolut-payments--store) ⭐ **NEW in v1.8**
+7. [MCP Configuration](#mcp-configuration) ⭐ **NEW in v1.8**
+8. [Climate Assistant Chat Widget](#climate-assistant-chat-widget)
+9. [AI Agent Operational Guidelines](#ai-agent-operational-guidelines) ⭐ **NEW in v1.8**
+10. [Security Glossary & OWASP](#security-glossary--owasp) ⭐ **NEW in v1.8**
+11. [Data Processing Agreement (DPA)](#data-processing-agreement-dpa) ⭐ **NEW in v1.8**
+12. [Backup & Sync Infrastructure](#backup--sync-infrastructure) ⭐ **NEW in v1.8**
+13. [Multi-Agent Orchestration](#multi-agent-orchestration) ⭐ **NEW in v1.8**
+14. [GitHub Copilot Instructions](#github-copilot-instructions)
+15. [Session Security Fixes (January 2026)](#session-security-fixes-january-2026)
+16. [Files and Folders Structure](#files-and-folders-structure)
+17. [Document Index](#document-index)
+18. [AI Agent Policy](#ai-agent-policy)
+19. [Deployment Procedures](#deployment-procedures)
+20. [Session History](#session-history)
+21. [Maintenance Plan (Complete)](#maintenance-plan-complete)
+22. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance)
+23. [Code Review Process](#code-review-process)
+24. [Maintenance Tasks](#maintenance-tasks)
+25. [Git Workflow](#git-workflow)
+26. [Sensitive Data Protection](#sensitive-data-protection)
+27. [Emergency Procedures](#emergency-procedures)
+28. [Training](#training)
 
 ---
 
@@ -177,6 +180,160 @@ This section links the **full maintenance plan** in one place:
 - `Admin/Installation/Public/groq/` - Edge AI hardware
 
 **Start Here:** Choose your platform and follow the README in that folder.
+
+---
+
+## Google Cloud Run CI Identity Runbook (gcr-skill)
+
+**Purpose:** Bootstrap or repair Google Cloud Run staging/prod CI identity under the correct owner account (`admin@dws6.com`) and fix `iam.serviceAccounts.getAccessToken` failures.
+
+**Scope:** This runbook is the authoritative command set for project `dws-iq-60` and service account `github-actions-deployer@dws-iq-60.iam.gserviceaccount.com`.
+
+### Preconditions
+
+1. You are authenticated as `admin@dws6.com`.
+2. Billing account is available and linkable.
+3. You run commands in `cmd` or Cloud Shell terminal.
+
+### cmd Command Sequence (authoritative)
+
+```cmd
+gcloud auth login admin@dws6.com
+gcloud auth list
+
+set PROJECT_ID=dws-iq-60
+set PROJECT_NAME=DWS IQ 60
+set SA_NAME=github-actions-deployer
+
+gcloud projects create %PROJECT_ID% --name="%PROJECT_NAME%"
+gcloud billing projects link %PROJECT_ID% --billing-account=018486-885BFB-BDDEFA
+
+gcloud config set project %PROJECT_ID%
+gcloud auth application-default set-quota-project %PROJECT_ID%
+
+gcloud services enable iamcredentials.googleapis.com run.googleapis.com artifactregistry.googleapis.com cloudbuild.googleapis.com secretmanager.googleapis.com --project=%PROJECT_ID%
+
+gcloud iam service-accounts create %SA_NAME% --display-name="GitHub Actions Deployer"
+set DEPLOYER_SA=%SA_NAME%@%PROJECT_ID%.iam.gserviceaccount.com
+
+gcloud projects add-iam-policy-binding %PROJECT_ID% --member="serviceAccount:%DEPLOYER_SA%" --role="roles/run.admin"
+gcloud projects add-iam-policy-binding %PROJECT_ID% --member="serviceAccount:%DEPLOYER_SA%" --role="roles/artifactregistry.writer"
+gcloud projects add-iam-policy-binding %PROJECT_ID% --member="serviceAccount:%DEPLOYER_SA%" --role="roles/iam.serviceAccountUser"
+gcloud iam service-accounts add-iam-policy-binding %DEPLOYER_SA% --member="serviceAccount:%DEPLOYER_SA%" --role="roles/iam.serviceAccountTokenCreator"
+```
+
+### Validation Commands
+
+```cmd
+gcloud services list --enabled --project=dws-iq-60 | findstr /I "iamcredentials run artifactregistry cloudbuild secretmanager"
+gcloud iam service-accounts get-iam-policy github-actions-deployer@dws-iq-60.iam.gserviceaccount.com
+```
+
+### Key Creation Policy (Important)
+
+On `dws-iq-60`, service-account key creation is blocked by policy:
+
+- `constraints/iam.disableServiceAccountKeyCreation`
+
+If you see:
+
+- `FAILED_PRECONDITION: Key creation is not allowed on this service account`
+
+that is the expected secure state. **Do not attempt to bypass it.** Use GitHub OIDC / Workload Identity Federation instead.
+
+### Cloud Shell OIDC / Workload Identity Federation Commands (authoritative)
+
+```bash
+PROJECT_ID="dws-iq-60"
+PROJECT_NUMBER="134875067432"
+POOL="github-pool"
+PROVIDER="github-provider"
+REPO="blogtheristo/dws6"
+SA="github-actions-deployer@${PROJECT_ID}.iam.gserviceaccount.com"
+
+gcloud config set project "$PROJECT_ID"
+
+gcloud iam workload-identity-pools create "$POOL" \
+  --project="$PROJECT_ID" \
+  --location="global" \
+  --display-name="GitHub Actions Pool" || true
+
+gcloud iam workload-identity-pools providers create-oidc "$PROVIDER" \
+  --project="$PROJECT_ID" \
+  --location="global" \
+  --workload-identity-pool="$POOL" \
+  --display-name="GitHub Provider" \
+  --issuer-uri="https://token.actions.githubusercontent.com" \
+  --attribute-mapping="google.subject=assertion.sub,attribute.actor=assertion.actor,attribute.repository=assertion.repository,attribute.ref=assertion.ref" \
+  --attribute-condition="assertion.repository=='blogtheristo/dws6'" || true
+
+gcloud iam service-accounts add-iam-policy-binding "$SA" \
+  --project="$PROJECT_ID" \
+  --role="roles/iam.workloadIdentityUser" \
+  --member="principalSet://iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/${POOL}/attribute.repository/${REPO}"
+
+gcloud iam service-accounts add-iam-policy-binding "$SA" \
+  --project="$PROJECT_ID" \
+  --role="roles/iam.serviceAccountTokenCreator" \
+  --member="principalSet://iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/${POOL}/attribute.repository/${REPO}"
+
+gcloud iam workload-identity-pools providers describe "$PROVIDER" \
+  --project="$PROJECT_ID" \
+  --location="global" \
+  --workload-identity-pool="$POOL"
+```
+
+### GitHub Secrets (exact values)
+
+Create these repository secrets in **GitHub -> Settings -> Secrets and variables -> Actions**:
+
+1. `GCP_WORKLOAD_IDENTITY_PROVIDER`
+   - `projects/134875067432/locations/global/workloadIdentityPools/github-pool/providers/github-provider`
+2. `GCP_SERVICE_ACCOUNT`
+   - `github-actions-deployer@dws-iq-60.iam.gserviceaccount.com`
+
+### Workflow Migration (authoritative file path)
+
+The staging workflow now authenticates with OIDC in:
+
+- `.github/workflows/deploy-staging.yml`
+
+Required auth block:
+
+```yaml
+- name: Authenticate to GCP
+  uses: google-github-actions/auth@v2
+  with:
+    workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+    service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+    token_format: access_token
+```
+
+The workflow also now sets:
+
+- `PROJECT_ID: dws-iq-60`
+
+### GitHub CI Migration Checklist
+
+1. Replace project refs from `dws-iq-pilot` -> `dws-iq-60`.
+2. Replace deployer SA refs to `github-actions-deployer@dws-iq-60.iam.gserviceaccount.com`.
+3. Add repository secrets:
+   - `GCP_WORKLOAD_IDENTITY_PROVIDER`
+   - `GCP_SERVICE_ACCOUNT`
+4. Replace old workflow auth blocks using `credentials_json: ${{ secrets.GCP_SA_KEY }}` with the OIDC auth block above.
+5. Re-run staging workflow and confirm no IAM token error.
+6. After successful deploy, delete legacy GitHub secret:
+   - `GCP_SA_KEY`
+
+### Operational Note
+
+If terminal line continuation keeps breaking provider creation, prefer Cloud Shell over local `cmd`. Cloud Shell `bash` handles the OIDC provider creation command reliably.
+
+### Known Failure and Root Cause
+
+- **Error:** `Permission 'iam.serviceAccounts.getAccessToken' denied`
+- **Cause:** Missing `roles/iam.serviceAccountTokenCreator` on deployer SA
+- **Fix:** SA-level binding shown above (non-negotiable for token minting flows)
 
 ---
 

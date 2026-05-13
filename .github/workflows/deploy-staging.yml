@@ -7,10 +7,8 @@ name: Deploy to Staging (Cloud Run)
 # Image:  europe-north1-docker.pkg.dev/$PROJECT_ID/dws-iq/backend:staging-<sha>
 #
 # Required secrets (GitHub → Settings → Secrets → Actions):
-#   GCP_SA_KEY           — GCP service account JSON with:
-#                          - Cloud Run Admin
-#                          - Artifact Registry Writer on europe-north1 repo dws-iq
-#                          - Service Account User (if required by deploy target)
+#   GCP_WORKLOAD_IDENTITY_PROVIDER — projects/<number>/locations/global/workloadIdentityPools/<pool>/providers/<provider>
+#   GCP_SERVICE_ACCOUNT           — github-actions-deployer@<project>.iam.gserviceaccount.com
 #   STAGING_SUPABASE_URL — Supabase URL for staging project
 #   STAGING_SUPABASE_ANON_KEY
 #   STAGING_SUPABASE_SERVICE_KEY
@@ -32,7 +30,7 @@ on:
 
 env:
   REGION: europe-north1
-  PROJECT_ID: dws6-backend
+  PROJECT_ID: dws-iq-60
   REGISTRY: europe-north1-docker.pkg.dev
   IMAGE_NAME: dws-iq/backend
   SERVICE_NAME: dws6run6-staging
@@ -58,7 +56,9 @@ jobs:
       - name: Authenticate to GCP
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          token_format: access_token
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -100,7 +100,9 @@ jobs:
       - name: Authenticate to GCP
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          token_format: access_token
 
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v2

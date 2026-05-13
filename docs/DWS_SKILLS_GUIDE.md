@@ -8,6 +8,7 @@ Session: claude/connect-kya-dws-cli-0MMIB
 Tool: Claude Code CLI
 Status: Published
 
+- Version: 1.8 | Agent: GitHub Copilot CLI (GPT-5.3-Codex) | Date: 13.05.2026 | Session: main | Changes: Added /gcr-skill (section 6.1b) for admin@dws6.com-owned Google Cloud Run project bootstrap, IAM token-creator fix, API enablement checklist, and GitHub secret rotation flow; updated totals to 32 skills (29 slash + 3 discipline); added Quick Reference row.
 - Version: 1.7 | Agent: Claude Code (Sonnet 4.6) | Date: 08.05.2026 | Session: claude/improve-dws-case-handling-4VhRu | Changes: Added /case-run skill (section 4.3) — Themis as Case Coordinator dispatching specialist agents per case type; updated totals from 30 to 31 skills (28 slash + 3 discipline); added Quick Reference row; updated Themis agent to v2.0 with case-coordinate action.
 - Version: 1.6 | Agent: Codex 5.3 | Date: 29.04.2026 | Session: n/a | Changes: Added new slash skill `/fix-dual-folder-api-connectivity` for API endpoint drift incidents across root/landing mirror folders; updated totals from 29 to 30 skills (27 slash + 3 discipline); added Operations section entry and Quick Reference row.
 - Version: 1.5 | Agent: Claude Code (Opus 4.7) | Date: 22.04.2026 | Session: claude/github-version-compatibility-uTOO7 | Changes: Post-merge reconciliation — after merging main (PRs #1152 axios, #1153 Grok removal, #1156 npm audit, #1161 ollama-spark) the true skill count is 29 (26 slash + 3 discipline). Updated count line accordingly. No new content; fixes inconsistency introduced because /gh-to-mcp (v1.4) and /ollama-spark landed in parallel.
@@ -19,7 +20,7 @@ Status: Published
 
 ## 1. Overview
 
-DWS IQ 6 provides **31 skills** for AI coding agents — 28 slash commands in `.claude/commands/` and 3 composable discipline skills in `skills/`. This guide explains every skill: what it does, when to use it, and how skills connect into workflows.
+DWS IQ 6 provides **32 skills** for AI coding agents — 29 slash commands in `.claude/commands/` and 3 composable discipline skills in `skills/`. This guide explains every skill: what it does, when to use it, and how skills connect into workflows.
 
 **Audience:** Human-in-the-loop (HIL) operators, developers using Claude Code, Cursor, or VS Code with DWS6.
 
@@ -104,6 +105,36 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 **Trigger phrases:** "weekly retro", "what did we ship", "velocity report", "how did the week go"
 
 **Output:** Commits analyzed, velocity metrics, work pattern insights, shipping cadence, recommendations.
+
+### 3.7 /clawdbot
+
+**When to use:** When you want to know what unfinished work was left across past Claude Code sessions, or want to resume a previous session's work in a new HIL-approved run.
+
+**What it does:** Internal session janitor. Scans `~/.claude/projects/-home-user-dws6/*.jsonl` transcripts, digests each into an "original ask + last user message + last assistant signal + pending TodoWrite items + files touched + branch" record, and writes one Markdown plan per session with pending work to `.claude/clawdbot/queue/<short-id>.md`. Subcommands: `scan`, `list`, `status`, `next`, `preview <id>`, `enrich <id>`, `dismiss <id>`, `done <id>`, `dream-prune`, `dream-curate`, `dream-propose`. The `next` flow is HIL-gated — it summarizes the top queue item and asks whether to resume here, copy the plan for a fresh session, or dismiss. `preview` classifies the trust zone (GREEN/YELLOW/RED) of every file the session touched. `enrich` runs an LLM pass via `ollama-spark` (EU-local DGX) to append a structured `{summary, proposed_next, blockers, risk_notes}` digest to the queue file. The three `dream-*` modes plus `/promote-proposal` are branded collectively as **Firehorse Dreaming** — the local, EU-on-prem analog of Anthropic's managed `POST /v1/dreams` primitive (2026-04-21 beta). `dream-prune` (pure grep) flags zero-hit skills as archival candidates, `dream-curate` (LLM) clusters recurring corrections into memory notes + CLAUDE.md edit proposals, `dream-propose` (LLM) drafts candidate new skills when pending sessions cluster. All dream output lands in `.claude/clawdbot/proposals/` for HIL review — nothing auto-applies. Daily scheduler hook at `scripts/daily/clawdbot-digest.sh`. See `.claude/clawdbot/memory/clawdbot-architecture.md` for the Anthropic Dreams convergence table.
+
+**Trigger phrases:** "clawdbot", "session janitor", "what did I leave unfinished", "resume past session", "continue where we left off", "scan old sessions", "queue follow-up work"
+
+**Output:** Queue files at `.claude/clawdbot/queue/<id>.md`, JSON status/list output, state in `.claude/clawdbot/state.json`.
+
+### 3.8 /promote-proposal
+
+**When to use:** After `/clawdbot dream-curate`, `dream-propose`, or `dream-prune` has written a proposal under `.claude/clawdbot/proposals/`, when you want to actually apply the changes to the repository. Closes the dream cycle.
+
+**What it does:** Reads a proposal file (or `--next` to auto-pick the newest unpromoted one), detects its kind (`curate-`, `skill-`, `archival-`), builds a per-item checklist, and walks each one through an `AskUserQuestion` HIL gate before applying. Curation items become memory notes + CLAUDE.md edits + queue mark-dones; skill candidates become real `skills/<name>/SKILL.md` + `.claude/commands/<name>.md` + skills-guide entries; archival items become `git mv skills/<name> skills/<name>_OLD` (per CLAUDE.md no-rm rule). After the loop, prepends `STATUS: PROMOTED <date>` to the proposal — proposal files are kept as historical record, never deleted.
+
+**Trigger phrases:** "promote proposal", "apply curate", "ship the proposal", "promote dream output", "promote curation", "promote skill candidate"
+
+**Output:** Edits applied (per HIL approval), queue ids marked done, proposal file annotated `STATUS: PROMOTED`. Trust zone YELLOW (touches `skills/`, `.claude/commands/`, `CLAUDE.md`, `docs/DWS_SKILLS_GUIDE.md`) but every change is HIL-gated.
+
+### 3.9 /dream-on
+
+**When to use:** When you want to run the Firehorse Dreaming loop end-to-end without per-step approval. One trigger, one plan-mode HIL gate, then auto-mode runs to completion. Replaces the "ask me what's next" UX.
+
+**What it does:** Scans transcripts, picks the next unpromoted dream artifact (proposal under `.claude/clawdbot/proposals/`, falling back to top queue item), builds a TODO list, enters plan mode via `ExitPlanMode` for atomic HIL approval, then executes under auto-mode. After execution, marks the proposal `STATUS: PROMOTED`, dual-writes any new memory notes to the Firehorse CMS via `scripts/firehorse-memory-write.mjs`, commits, **pushes, AND opens a pull request** (the Record step must leave a PR open so the curated work surfaces in the review queue — previous Dreaming sessions sometimes pushed without PR-ing, stranding the work). Suggests a `/goal` directive the user can paste to keep the session driving until the work is done.
+
+**Trigger phrases:** "dream on", "keep dreaming", "continue dreaming", "auto-dream", "run the dream loop", "next dream pass"
+
+**Output:** Plan-mode approval moment + auto-executed edits + commit + push + **PR URL**. Trust zone YELLOW (skills, slash commands, CLAUDE.md, CMS writes); the single plan-mode approval satisfies HIL gating. Composes `clawdbot` (producer) + `/promote-proposal` (applier, soon plan-mode-first) + `/goal` (cross-turn runner).
 
 ## 4. Agent Discovery & Execution
 
@@ -239,6 +270,23 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 **Trigger phrases:** "gh to mcp", "gh equivalent", "mcp equivalent of gh", "gh vs mcp", "is gh 2.54 compatible with mcp", "how do I do X via mcp"
 
 **Reference:** `docs/GITHUB_CLI_VS_MCP.md` (full translation map) | `docs/GITHUB_MCP_TOOLS.md` (48-tool catalogue).
+
+### 6.1b /gcr-skill
+
+**When to use:** Cloud Run staging/deploy gates fail with Google IAM token errors (for example `iam.serviceAccounts.getAccessToken` denied), or when creating a clean admin-owned GCP control plane for DWS6 CI.
+
+**What it does:** Executes a deterministic bootstrap and repair flow for Google Cloud Run CI identity:
+
+- verifies owner account is `admin@dws6.com`,
+- sets active project and ADC quota project,
+- enables required APIs (`iamcredentials`, `run`, `artifactregistry`, `cloudbuild`, `secretmanager`),
+- creates `github-actions-deployer@<project>.iam.gserviceaccount.com`,
+- grants deployment roles and `roles/iam.serviceAccountTokenCreator`,
+- rotates GitHub project/service-account secrets away from stale projects (for example `dws-iq-pilot`).
+
+**Trigger phrases:** "Cloud Run staging IAM error", "getAccessToken denied", "bootstrap GCP project for CI", "create dws-iq-60 deploy identity", "fix deployer service account permissions"
+
+**Output:** Command checklist + IAM binding state + API enablement confirmation + GitHub secret update checklist.
 
 ### 6.2 /email
 
@@ -514,6 +562,7 @@ Badges (section pill, skill chips, KYA badge, Standards & Interop strip) are can
 | Construction site assessment   | /site-safety                      | Compliance |
 | Check git branch state         | /flow-status                      | Operations |
 | Translate gh command to MCP    | /gh-to-mcp                        | Operations |
+| Bootstrap/fix Cloud Run IAM    | /gcr-skill                        | Operations |
 | Send email notification        | /email                            | Operations |
 | Control edge devices           | /remote-control                   | Operations |
 | Add/triage investor intro      | /investor-outreach                | Operations |

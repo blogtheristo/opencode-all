@@ -1,0 +1,8 @@
+{
+  "$comment": "CBAM certificate price cache. Written daily by scripts/daily/cbam-price-fetch.sh from EMBER Climate API (primary) / ECB SDW (secondary). If stale, cbam-calculator falls back to EUR 65 (2024 ETS average). Do not edit manually.",
+  "priceEur": 65,
+  "date": "2026-05-10",
+  "source": "seed-fallback",
+  "fetchedAt": "2026-05-10T00:00:00.000Z",
+  "validUntil": "2026-05-11T00:00:00.000Z"
+}
