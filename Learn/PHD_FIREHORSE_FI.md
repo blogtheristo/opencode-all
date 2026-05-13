@@ -63,7 +63,7 @@ Tämä tutkielma dokumentoi Firehorse-toimintamallin toteutuksen, joka on tekoä
 
 **Avainsanat:** Tekoälytoiminnot, Verkkokaupan automaatio, Google Merchant Center, Claude Code, Firehorse-malli, EU:n tekoälysäädös, Hiilijalanjälkilaskuri, Teollinen vaatimustenmukaisuus
 
----
+***
 
 ## Sisällysluettelo
 

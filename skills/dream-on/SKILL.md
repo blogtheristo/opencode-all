@@ -1,23 +1,73 @@
 ---
 name: dream-on
+status: EXPERIMENTAL — Claude-internal workflow, not yet cross-surface verified
 description: >
-  One-trigger entry to the Firehorse Dreaming loop. User says "dream on" (or
-  invokes /dream-on); the skill walks the canonical five-step loop end-to-end:
-  scan past sessions, pick the next unpromoted dream artifact (proposal or
-  queue item), build a plan, enter plan mode for atomic HIL approval, set a
-  /goal for cross-turn execution, then run auto-mode until the goal evaluates
-  true. Replaces the old "ask the user what to do next" UX.
-  Use when: "dream on", "keep dreaming", "continue dreaming", "auto-dream",
-  "run the dream loop", "next dream pass".
+  EXPERIMENTAL Claude-Code-internal workflow. Walks the offline-reflection
+  loop (scan past sessions, pick next unpromoted dream artifact, build a
+  plan, plan-mode HIL approval, then auto-execute under /goal). Currently
+  verified ONLY in the Claude Code sandbox; the bin/ shell wrappers
+  (bin/dream-on, dream-on.ps1, dream-on.cmd) have NOT been smoke-tested
+  on the HIL's Windows 11 / PowerShell environment, and the feature has
+  no implementation on Claude Desktop or Claude Mobile. Per CLAUDE.md
+  § "Cross-Surface Verification Rule" this skill is NOT a shipped
+  capability — do not call it "the Firehorse Dreaming umbrella" or any
+  brand-level name in user-facing copy. Use when: "dream on", "keep
+  dreaming", "continue dreaming", "auto-dream", "run the dream loop",
+  "next dream pass" — but only inside a Claude CLI session, knowing
+  this is an internal automation pattern, not a productized feature.
 argument-hint: "[optional topic or proposal path]"
 allowed-tools: [Read, Edit, Write, Bash, ExitPlanMode]
 ---
 
-# Dream-On Skill — the Firehorse Dreaming umbrella
+# Dream-On Skill — EXPERIMENTAL Claude-internal workflow
 
-`/dream-on` is the one-trigger entry to the canonical
-**Firehorse Dreaming** loop (see
-`.claude/clawdbot/memory/dreaming-loop-discipline.md` for the discipline).
+> **STATUS: EXPERIMENTAL — Claude-internal workflow, not yet
+> cross-surface verified.** Per CLAUDE.md § "Cross-Surface Verification
+> Rule" this is NOT a shipped capability. It works inside a Claude
+> Code CLI sandbox; it has not been verified on the HIL's Windows
+> 11 PowerShell environment, and it has no implementation on Claude
+> Desktop or Claude Mobile. Do not promote the brand name "Firehorse
+> Dreaming" or the framing "the umbrella" in user-facing copy. See
+> `.claude/clawdbot/memory/cross-surface-verification-rule.md` for
+> the founding observation and the discipline this status downgrade
+> implements.
+
+`/dream-on` walks the canonical five-step offline-reflection loop
+inside a Claude Code session. It composes existing in-repo machinery
+(`clawdbot` scanner producer, `/promote-proposal` applier, Claude
+Code `/goal` for cross-turn execution) into one in-session flow gated
+by a single plan-mode HIL approval at the start.
+
+## Cross-surface story (per CLAUDE.md "Cross-Surface Verification Rule")
+
+| Surface                           | Path to reach `/dream-on`                                                                                                                                                 | Verified by HIL? |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------: |
+| Claude CLI on Win11 (PowerShell)  | `mcp-servers/clawdbot-dream/` stdio MCP server (see its README install snippet)                                                                                           | **pending HIL**  |
+| Claude CLI on macOS / Linux / WSL | Same MCP server, or the `bin/dream-on` shell wrapper, or the `/dream-on` slash command directly                                                                           | **pending HIL**  |
+| Claude Desktop on Win11           | Same MCP server, configured in `%APPDATA%\Claude\claude_desktop_config.json` per its README                                                                               | **pending HIL**  |
+| Claude Mobile (iOS / Android)     | **Not yet.** Stdio MCP can't reach a phone. Follow-up: extend `mcp-servers/cloud-run-gateway/server.py` with the same tool surface backed by Supabase `firehorse_memory`. |       N/A        |
+| claude.ai web chat                | Same as Mobile — needs cloud-run-gateway extension.                                                                                                                       |       N/A        |
+
+Until the "pending HIL" cells flip to verified (someone other than the
+agent runs the install on a fresh checkout on each surface and reports
+success), this skill remains `EXPERIMENTAL: not yet cross-surface verified`.
+
+What changed from the previous status: an architectural path now exists
+for the three "Claude Code" surfaces (CLI macOS / CLI Win11 / Desktop
+Win11) via `mcp-servers/clawdbot-dream/`. Mobile and web still need the
+gateway-extension follow-up. Neither this nor the bin/ wrapper has been
+verified by HIL on Win11 yet.
+
+It does **not** yet:
+
+- Run on Claude Mobile or claude.ai web (no cloud-run-gateway extension yet).
+- Have any HIL-verified install path on any surface.
+
+What it does today is real but narrow: when invoked from inside a
+Claude CLI session checked out at this repo, it captures the
+offline-reflection workflow that previously required HIL to drive the
+agent step-by-step. It's a useful internal automation. It is not the
+customer-facing capability the earlier framing claimed.
 
 It composes three already-shipped pieces — `clawdbot` (producer),
 `/promote-proposal` (applier), and Claude Code `/goal` (cross-turn
