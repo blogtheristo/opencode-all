@@ -38,14 +38,30 @@ inside a Claude Code session. It composes existing in-repo machinery
 Code `/goal` for cross-turn execution) into one in-session flow gated
 by a single plan-mode HIL approval at the start.
 
+## Cross-surface story (per CLAUDE.md "Cross-Surface Verification Rule")
+
+| Surface                           | Path to reach `/dream-on`                                                                                                                                                 | Verified by HIL? |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------: |
+| Claude CLI on Win11 (PowerShell)  | `mcp-servers/clawdbot-dream/` stdio MCP server (see its README install snippet)                                                                                           | **pending HIL**  |
+| Claude CLI on macOS / Linux / WSL | Same MCP server, or the `bin/dream-on` shell wrapper, or the `/dream-on` slash command directly                                                                           | **pending HIL**  |
+| Claude Desktop on Win11           | Same MCP server, configured in `%APPDATA%\Claude\claude_desktop_config.json` per its README                                                                               | **pending HIL**  |
+| Claude Mobile (iOS / Android)     | **Not yet.** Stdio MCP can't reach a phone. Follow-up: extend `mcp-servers/cloud-run-gateway/server.py` with the same tool surface backed by Supabase `firehorse_memory`. |       N/A        |
+| claude.ai web chat                | Same as Mobile — needs cloud-run-gateway extension.                                                                                                                       |       N/A        |
+
+Until the "pending HIL" cells flip to verified (someone other than the
+agent runs the install on a fresh checkout on each surface and reports
+success), this skill remains `EXPERIMENTAL: not yet cross-surface verified`.
+
+What changed from the previous status: an architectural path now exists
+for the three "Claude Code" surfaces (CLI macOS / CLI Win11 / Desktop
+Win11) via `mcp-servers/clawdbot-dream/`. Mobile and web still need the
+gateway-extension follow-up. Neither this nor the bin/ wrapper has been
+verified by HIL on Win11 yet.
+
 It does **not** yet:
 
-- Run reliably from a fresh Win11 PowerShell shell (the `bin/` wrappers
-  exist but haven't been smoke-tested cold by a Windows user).
-- Run on Claude Desktop or Claude Mobile (different runtime, no
-  repo-local skill loading).
-- Have a server-side / managed-runtime adapter that would make it
-  reachable cross-surface.
+- Run on Claude Mobile or claude.ai web (no cloud-run-gateway extension yet).
+- Have any HIL-verified install path on any surface.
 
 What it does today is real but narrow: when invoked from inside a
 Claude CLI session checked out at this repo, it captures the
