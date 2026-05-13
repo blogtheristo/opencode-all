@@ -11,10 +11,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.54
+Version: 3.55
 
 Sessions & Modifications:
 
+- Version: 3.55 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Versiopäivitys 3.54 -> 3.55 lukitussa 4 opinnäytetyötiedoston ketjussa; VERSION AND AGENT HISTORY -lohkon sulkeva erotin korjattu muotoon ***; Learn-kansion opinnäytetyön HTML-julkaisut generoitu v3.55-muotoon
 - Version: 3.54 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Korvattu §1.2:n väliaikaiset verkkokauppakysymykset kuudella tohtoritason tutkimuskysymyksellä, jotka eriytyvät maisteriopinnäytetyöstä (ontologiat/monitoimiala, KYA-standardi, Agentic AI Foundation/NIST/EU, Agentic Commerce, EU eWallet, Transaktiot); lisätty §1.2.1 viisi uudelleenmuotoiltua ohjaajalle suunnattua kysymystä (katalogihallinnon raja, tehokkuuden kääntyminen, ontologinen perustus, riskiluokitusristiriidat, hiilisignaalin suvereniteetti); lisätty §1.3 sisältörajauksen vertailutaulukko (maisterityö vs väitöskirja); kaikki 4 opinnäytetyötiedostoa nostettu rinnakkain CLAUDE.md:n ohjeen mukaan
 - Version: 3.53 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Lisätty agenttien vastuullisuus- ja havainnointitaso uutena avainpanoksena: AgentLogger (jäsennelty JSONL + ei-blokkaava Supabase agent_executions), AgentVersionRegistry rollback-tukea varten, drift-detector.ts päivittäisten luottamuspisteiden laskuraportteja varten, eval-runner.ts noudattamisaineistojen pisteytystä varten — toteuttaa suoraan EU:n tekoälysäädöksen artiklojen 9 (riskinhallinta), 12 (lokitus) ja 14 (ihmisvalvonta) vaatimukset tuotantokoodina; Baseten lisätty OpenAI-yhteensopivaksi LLM-tarjoajaksi laajentaen monituottajareititystä Groq/Baseten/OpenAI-vaihtoehtoihin tehtävätietoisella model-selector-valinnalla; /case-run-taito rekisteröity (Themis v2.0 case-coordinate-toiminto, Legora AOS -kilpailuanalyysi DWS Case -entiteetin tiekartalla); Outokumpu CBAM -kumppanuusmalli ensimmäisenä teollisuusostaajan vaatimustenmukaisuuskustannusten kvantifiointitapauksena; TokenSpeed-inferenssimoottori (LightSeek MIT, DGX Spark -sopivuusarvio); kaikki 4 opinnäytetyötiedostoa nostettu rinnakkain CLAUDE.md:n ohjeen mukaan
 - Version: 3.52 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-ontology-blog-3RGKG | Date: 29.04.2026 | Changes: Lisätty luku 1.7 "Ontologia — etymologia ja filosofinen tausta", joka linkittää tohtoriohjelman suunnitelman ONTOLOGY.md v1.3:een (kreikan ón + lógos, Aristoteles, skolastiikan 1600–1700-luvun systematisointi, nykyinen tietojenkäsittelytieteen merkitys). Yhdenmukaistaa hiilitase-teesin DWS Ontology Standardin kanssa. Kaikki 4 opinnäytetyötiedostoa nostettu lukon mukaisesti.
@@ -54,7 +55,7 @@ Document Status:
 - Languages Available: English, Suomi
 - Publication Status: DRAFT (V2.10 — KYA open source -standardipolku, NIST-tilanne, artikkelivaiheistus, ohjaajakirje tarkennettu)
 
----
+***
 
 ## Tiivistelmä
 
@@ -131,7 +132,7 @@ Seuraavat viisi kysymystä on muotoiltu uudelleen tutkielman varhaisista operati
 
 ### 1.3 Laajuus
 
-#### Sisältörajaus (v3.54)
+#### Sisältörajaus (v3.55)
 
 Tämä väitöskirja ottaa **tieteellisen näkökulman** pidemmällä tutkimushorisonttilla (3–7 vuotta). Sitä päivitetään **markkinasignaalitiedolla**: kilpailijoiden liikkeillä, sääntelypipelinella, standardointielinten toiminnalla (Agentic AI Foundation, NIST, EU) ja kumppanuussignaaleilla. Se sisältää tutkimuskysymykset, teoreettisen kehystyksen ja yhteiskunnallisen vaikutuksen analyysin.
 

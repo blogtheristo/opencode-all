@@ -15,7 +15,12 @@
       "Bash(node dws10.com/feeds/generate-local-inventory.cjs)",
       "Bash(cat)",
       "Bash(bash /tmp/audit.sh)",
-      "Bash(grep -v \"index.html$\")"
+      "Bash(grep -v \"index.html$\")",
+      "Bash(cp \"F:/2026/Repos2026/dws6/docs/metropolia/master-thesis/en/V3Thesis_EN.md\" \"F:/2026/Repos2026/dws6/Learn/V3Thesis_EN.md\")",
+      "Bash(cp \"F:/2026/Repos2026/dws6/docs/metropolia/master-thesis/fi/V3Thesis_FI.md\" \"F:/2026/Repos2026/dws6/Learn/V3Thesis_FI.md\")",
+      "Bash(cp \"F:/2026/Repos2026/dws6/docs/PHD_FIREHORSE_EN.md\" \"F:/2026/Repos2026/dws6/Learn/PHD_FIREHORSE_EN.md\")",
+      "Bash(cp \"F:/2026/Repos2026/dws6/docs/PHD_FIREHORSE_FI.md\" \"F:/2026/Repos2026/dws6/Learn/PHD_FIREHORSE_FI.md\")",
+      "Bash(node scripts/gen-thesis-html.cjs)"
     ]
   },
   "enabledMcpjsonServers": [

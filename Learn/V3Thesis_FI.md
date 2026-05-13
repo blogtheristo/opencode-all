@@ -6,10 +6,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.54
+Version: 3.55
 
 Sessions & Modifications:
 
+- Version: 3.55 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Versiopäivitys 3.54 -> 3.55 lukitussa 4 opinnäytetyötiedoston ketjussa; VERSION AND AGENT HISTORY -lohkon sulkeva erotin korjattu muotoon ***; Learn-kansion opinnäytetyön HTML-julkaisut generoitu v3.55-muotoon
 - Version: 3.54 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Lisätty §1.4 Sisältörajaus — maisteriopinnäytetyö on tuote/toteutuslähtöinen, ei sisällä markkinatietoa eikä pitkän aikavälin tiekarttaa; rajaus kirjattu CLAUDE.md:hen ja peilattu kaikkiin 4 opinnäytetyötiedostoon; väitöskirjan eriytyminen formalisoitu; versionosto rinnakkain CLAUDE.md:n ohjeen mukaan
 - Version: 3.53 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Lisätty agenttien vastuullisuus- ja havainnointitaso uutena avainpanoksena: AgentLogger (jäsennelty JSONL + ei-blokkaava Supabase agent_executions), AgentVersionRegistry rollback-tukea varten, drift-detector.ts päivittäisten luottamuspisteiden laskuraportteja varten, eval-runner.ts noudattamisaineistojen pisteytystä varten — toteuttaa suoraan EU:n tekoälysäädöksen artiklojen 9 (riskinhallinta), 12 (lokitus) ja 14 (ihmisvalvonta) vaatimukset tuotantokoodina; Baseten lisätty OpenAI-yhteensopivaksi LLM-tarjoajaksi laajentaen monituottajareititystä Groq/Baseten/OpenAI-vaihtoehtoihin tehtävätietoisella model-selector-valinnalla; /case-run-taito rekisteröity (Themis v2.0 case-coordinate-toiminto, Legora AOS -kilpailuanalyysi DWS Case -entiteetin tiekartalla); Outokumpu CBAM -kumppanuusmalli ensimmäisenä teollisuusostaajan vaatimustenmukaisuuskustannusten kvantifiointitapauksena; TokenSpeed-inferenssimoottori (LightSeek MIT, DGX Spark -sopivuusarvio); kaikki 4 opinnäytetyötiedostoa nostettu rinnakkain CLAUDE.md:n ohjeen mukaan
 - Version: 3.52 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-ontology-blog-3RGKG | Date: 29.04.2026 | Changes: Lisätty luku 1.6 "Ontologia — etymologia ja filosofinen tausta", joka linkittää opinnäytetyön ONTOLOGY.md v1.3 -dokumenttiin (kreikan ón + lógos, Aristoteles, skolastiikan 1600–1700-luvun systematisointi, nykyinen tietojenkäsittelytieteen merkitys). Yhdenmukaistaa terminologian DWS Ontology Standardin kanssa. Kaikki 4 opinnäytetyötiedostoa nostettu lukon mukaisesti CLAUDE.md:n ohjeen mukaan.
@@ -76,7 +77,7 @@ Document Status:
 - Languages Available: English, Suomi
 - Publication Status: DRAFT (V3.36 — KYA open source -standardipolku, NIST-tilanne, Artikkeli 1 tarkennus, julkaisuvaiheistus)
 
----
+***
 
 **Opinnäytetyö**
 **Metropolia Ammattikorkeakoulu**
@@ -217,7 +218,7 @@ Miten AI-avusteisesti kehitetty teollinen AI-alusta voi saavuttaa tuote-markkina
 - **Asiakkaat:** 5 pilottiasiakasta (€10-100M liikevaihto)
 - **Verkkokauppa:** 30 tuotetta alusta-, ohjelmisto- ja palvelukategorioissa [V3.0]
 
-### Sisältörajaus (v3.54)
+### Sisältörajaus (v3.55)
 
 Tämä opinnäytetyö on **tuote- ja toteutuslähtöinen**. Sisältö kytkeytyy tiukasti DWS IQ:n nykyiseen ja seuraavaan tuoteversioon. Se dokumentoi suunnittelupäätökset, arkkitehtuurin, pull requestit ja mitattavat operatiiviset tulokset.
 

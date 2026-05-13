@@ -14,7 +14,6 @@
  */
 
 import {
-  CBAM_DEFAULT_FACTORS as _CBAM_DEFAULT_FACTORS,
   CBAM_CERTIFICATE_PRICE_EUR,
   type EmissionFactor,
   getFactorsForSector,
