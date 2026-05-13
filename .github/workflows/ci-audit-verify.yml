@@ -2,9 +2,10 @@ name: CI Audit Gate
 
 # Verify that the pushed HEAD has a corresponding local CI audit record
 # (written by scripts/local-ci.sh) and that the hash chain is intact.
-# During baseline rollout, this workflow allows HEAD records with
-# overall_pass = false so CI can gate on chain integrity + HEAD coverage
-# without blocking every PR until the baseline is green.
+# During baseline rollout, this workflow is run with --allow-failure, which
+# downgrades chain breaks, missing HEAD records, and overall_pass=false to
+# warnings instead of failures. Once the baseline is green and the chain
+# is intact on main, drop --allow-failure to restore strict gating.
 #
 # This is a GATE, not a runner. It does NOT re-run vitest/gitleaks/etc.
 # Actual checks run locally (free, fast) via .githooks/pre-push.

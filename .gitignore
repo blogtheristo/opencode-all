@@ -46,6 +46,8 @@ dws6.com/**/config/*.local.js
 logs/
 *.log
 
+# Clawdbot queue + state are gitignored down in the .claude/* section.
+
 # --- BUILD ARTIFACTS & DEPENDENCIES ---
 **/node_modules/
 **/.next/
@@ -79,6 +81,9 @@ Thumbs.db
 !.claude/archive/
 !.claude/commands/
 !.claude/agents/
+!.claude/clawdbot/
+.claude/clawdbot/queue/
+.claude/clawdbot/state.json
 .claude/hooks/audit/
 .claude/command-log.txt
 claude-output.json
