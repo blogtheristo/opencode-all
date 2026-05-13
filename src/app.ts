@@ -21,6 +21,7 @@ import authRoutes from './routes/auth.routes.js';
 import userRoutes from './routes/user.routes.js';
 import climateAssistantRoutes from './routes/climate-assistant.routes.js';
 import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes.js';
+import adminSupportRoutes from './routes/admin-support.routes.js';
 import outreachRoutes from './routes/outreach.routes.js';
 import outreachSendRoutes from './routes/outreach-send.routes.js';
 import emailRoutes from './routes/email.routes.js';
@@ -258,6 +259,9 @@ app.use('/api/climate-assistant', climateAssistantRoutes);
 
 // Climate Assistant Gated routes (tiered access with lead capture)
 app.use('/api/v2/climate-assistant', climateAssistantGatedRoutes);
+
+// Admin support chat channel (settings panel)
+app.use('/api/v1/admin/support', adminSupportRoutes);
 
 // Outreach inbound intake (shared secret auth via X-Outreach-Key)
 app.use('/api/v1/outreach', outreachRoutes);

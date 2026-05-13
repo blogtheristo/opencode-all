@@ -12,8 +12,8 @@
 import { useState, useCallback, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { useSettings } from '../hooks/useSettings';
+import { AdminSupportChat } from '../components/AdminSupportChat';
 
-type Theme = 'dark' | 'light';
 type Locale = 'en' | 'fi' | 'de' | 'sv';
 
 const API_BASE = import.meta.env.VITE_API_URL || '';
@@ -130,9 +130,6 @@ export function SettingsPage() {
   const [inviteEmail, setInviteEmail] = useState('');
   const [inviteLoading, setInviteLoading] = useState(false);
   const [inviteMessage, setInviteMessage] = useState<string | null>(null);
-
-  const [theme, setTheme] = useState<Theme>('dark');
-  const [locale, setLocale] = useState<Locale>('en');
 
   const [saving, setSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
@@ -710,6 +707,17 @@ export function SettingsPage() {
               {inviteMessage}
             </p>
           )}
+        </section>
+
+        {/* Admin Support */}
+        <section className="bg-gray-900 border border-gray-800 rounded-xl p-6">
+          <div className="mb-4">
+            <h2 className="text-lg font-semibold text-white">Admin Panel Support</h2>
+            <p className="text-xs text-gray-400 mt-1">
+              Internal support channel for platform operations and troubleshooting.
+            </p>
+          </div>
+          <AdminSupportChat />
         </section>
 
         {/* Data Export */}
