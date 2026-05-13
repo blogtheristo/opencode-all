@@ -69,10 +69,10 @@ export function AdminSupportChat() {
   }
 
   return (
-    <div className="bg-gray-800/40 border border-gray-700 rounded-lg">
-      <div className="border-b border-gray-700 px-4 py-3">
-        <h3 className="text-sm font-semibold text-white">Admin Support Chat</h3>
-        <p className="text-xs text-gray-400 mt-1">Backend-enforced admin/owner access</p>
+    <div className="rounded-lg border border-amber-500/30 bg-gray-900/60">
+      <div className="border-b border-amber-500/20 px-4 py-3">
+        <h3 className="text-sm font-semibold text-amber-200">Admin Support Chat</h3>
+        <p className="mt-1 text-xs text-amber-100/70">Backend-enforced admin/owner access</p>
       </div>
 
       <div className="max-h-80 overflow-y-auto p-4 space-y-3">
@@ -84,8 +84,8 @@ export function AdminSupportChat() {
             <div
               className={`max-w-[85%] rounded-lg px-3 py-2 text-sm ${
                 message.role === 'user'
-                  ? 'bg-primary-600 text-white'
-                  : 'bg-gray-900 text-gray-100 border border-gray-700'
+                  ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-gray-950'
+                  : 'border border-amber-500/20 bg-gray-900 text-gray-100'
               }`}
             >
               <p className="whitespace-pre-wrap">{message.content}</p>
@@ -93,13 +93,13 @@ export function AdminSupportChat() {
           </div>
         ))}
         {loading && (
-          <p className="text-xs text-primary-400" role="status" aria-live="polite">
+          <p className="text-xs text-amber-300" role="status" aria-live="polite">
             Assistant is preparing a response...
           </p>
         )}
       </div>
 
-      <div className="border-t border-gray-700 p-4">
+      <div className="border-t border-amber-500/20 p-4">
         <div className="flex gap-2">
           <input
             type="text"
@@ -112,13 +112,13 @@ export function AdminSupportChat() {
               }
             }}
             placeholder="Ask admin support..."
-            className="flex-1 px-3 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className="flex-1 rounded-lg border border-amber-500/20 bg-gray-900 px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-amber-500"
             disabled={loading}
           />
           <button
             onClick={() => void handleSend()}
             disabled={loading || !input.trim()}
-            className="px-4 py-2 text-sm font-medium text-white bg-primary-600 rounded-lg hover:bg-primary-500 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            className="rounded-lg bg-gradient-to-r from-amber-500 to-yellow-500 px-4 py-2 text-sm font-medium text-gray-950 transition-colors hover:from-amber-400 hover:to-yellow-400 disabled:cursor-not-allowed disabled:opacity-40"
           >
             Send
           </button>

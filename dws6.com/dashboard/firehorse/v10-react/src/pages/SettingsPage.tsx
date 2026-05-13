@@ -341,19 +341,7 @@ export function SettingsPage() {
         setInviteMessage('Could not send invitation. Try again.');
       }
     } catch {
-      // Optimistic add even without backend
-      setMembers((prev) => [
-        ...prev,
-        {
-          id: `pending-${Date.now()}`,
-          name: inviteEmail.trim().split('@')[0],
-          email: inviteEmail.trim(),
-          role: 'analyst',
-          joinedAt: new Date().toISOString(),
-        },
-      ]);
-      setInviteMessage('Invitation sent (offline mode).');
-      setInviteEmail('');
+      setInviteMessage('Could not send invitation. API unavailable.');
     } finally {
       setInviteLoading(false);
       setTimeout(() => setInviteMessage(null), 3000);
@@ -710,10 +698,10 @@ export function SettingsPage() {
         </section>
 
         {/* Admin Support */}
-        <section className="bg-gray-900 border border-gray-800 rounded-xl p-6">
+        <section className="rounded-xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 via-gray-900 to-gray-900 p-6 shadow-[0_0_30px_rgba(245,158,11,0.08)]">
           <div className="mb-4">
-            <h2 className="text-lg font-semibold text-white">Admin Panel Support</h2>
-            <p className="text-xs text-gray-400 mt-1">
+            <h2 className="text-lg font-semibold text-amber-200">Admin Panel Support</h2>
+            <p className="mt-1 text-xs text-amber-100/80">
               Internal support channel for platform operations and troubleshooting.
             </p>
           </div>

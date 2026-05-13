@@ -38,6 +38,7 @@ import stripeWebhookRoutes from './routes/stripe-webhook.routes.js';
 import captainRoutes from './routes/captain.routes.js';
 import usageRoutes from './routes/usage.routes.js';
 import onboardRoutes from './routes/onboard.routes.js';
+import memoryRoutes from './routes/memory.routes.js';
 import complianceRoutes from './routes/compliance.routes.js';
 import reportExportRoutes from './routes/report-export.routes.js';
 import apiKeyRoutes from './routes/api-keys.routes.js';
@@ -280,6 +281,9 @@ app.use('/api/v1/usage', usageRoutes);
 
 // Onboarding wizard (baseline compliance assessment)
 app.use('/api/v1/onboard', onboardRoutes);
+
+// Memory dashboard stats + audit endpoints
+app.use('/api/v1/memory', memoryRoutes);
 
 // Compliance assessment API (scoring, registry, cost estimate)
 app.use('/api/v1/compliance', complianceRoutes);
