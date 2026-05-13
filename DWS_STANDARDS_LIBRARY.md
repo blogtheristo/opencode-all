@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/deployment-strategies-comparison-T5gcw | Date: 12.05.2026 | Changes: Registered `DWS_DEPLOYMENT_STANDARD.md` v1.0 — new master standard for deploys across every DWS Surface (static sites, dashboards, Cloud Run backend, AgentFoundry, MCP gateway, Firehorse Python suite, Situation Room, Control Room, LWM Acer, Store). Added §4 Standards per Enterprise Integration row for the **Deployment** integration. Added entry to §7 Related Documents.
 - Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/redhat-sovereignty-research-YGHtL | Date: 23.04.2026 | Changes: Added Section 3.6 Sovereignty Tier Map (Tier 1 Full EU Sovereign / Tier 2 EU Operational / Tier 3 EU Region, US Ownership) to anchor honest vendor positioning. Red Hat Confirmed Sovereign Support classified as strong Tier 2; Aiven, Scaleway, OVHcloud, IONOS, SUSE anchored as Tier 1. Referenced from `/sovereignty-assess` skill and the partner-note blog post `onelifetime.world/posts/redhat-sovereign-move-three-tiers.html`.
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/expand-standards-knowledge-oAULz | Date: 19.04.2026 | Changes: Initial creation — SPICE + SQuaRE + integration-standards map triggered by Teemu Vesala advisor engagement (see docs/field-notes/2026-04-19-vesala-teemu-standards-enthusiast.md). Indexes all DWS-adopted standards with version, scope, DWS application, and owner.
 
@@ -22,7 +23,7 @@ Session Links & References:
 Document Status:
 
 - Created: 19.04.2026
-- Last Modified: 23.04.2026
+- Last Modified: 12.05.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE
@@ -141,23 +142,24 @@ Standards fall into five categories:
 
 Mapping of each DWS integration to the standards that govern it. Useful for customer RFP responses.
 
-| Integration                     | Protocol Standards         | Security / Data Standards                                            | Process Standards                                   |
-| ------------------------------- | -------------------------- | -------------------------------------------------------------------- | --------------------------------------------------- |
-| **SAP S/4HANA**                 | OData v2/v4, OAuth 2.1     | ISO 27001 (target), GDPR, NIS2                                       | SAP Integration Standards (SAP SE)                  |
-| **IFS Cloud**                   | REST/OData, OAuth 2.1      | GDPR, NIS2                                                           | IFS Certified Integration                           |
-| **Microsoft Dynamics 365**      | OData v4, OAuth 2.1        | GDPR, NIS2                                                           | Microsoft Partner Integration                       |
-| **Monitor ERP**                 | REST API (custom)          | GDPR                                                                 | —                                                   |
-| **Visma**                       | REST/OAuth 2.0             | GDPR                                                                 | —                                                   |
-| **Jeeves**                      | REST (custom)              | GDPR                                                                 | —                                                   |
-| **Worldfavor**                  | REST API                   | GDPR, ESRS, CSRD                                                     | ESRS disclosure alignment                           |
-| **PositionGreen**               | REST API                   | GDPR, ESRS, CSRD                                                     | ESRS disclosure alignment                           |
-| **EC3 (Carbon)**                | REST API                   | GHG Protocol                                                         | Embodied carbon (EN 15978)                          |
-| **DocuSign eSignature**         | REST API, OAuth 2.0        | eIDAS (EU Reg. 910/2014), GDPR                                       | —                                                   |
-| **ICEYE**                       | REST API                   | GDPR, EU Space Data policy                                           | —                                                   |
-| **Lifetime Fleet (edge)**       | MQTT, OPC-UA, Modbus TCP   | ISO 27001 (target)                                                   | **ASPICE v4.0 Level 2–3 (target)**                  |
-| **Aegis (surveillance)**        | REST/MQTT                  | NIS2, GDPR, EU AI Act Art. 10 (data governance)                      | —                                                   |
-| **KYA (Know Your Agent)**       | MCP, REST                  | ISO/IEC 25010 SQuaRE, EU AI Act Art. 12                              | SQuaRE trust-score metric                           |
-| **Article 12 Logging Pipeline** | OpenTelemetry (OTLP), REST | EU AI Act Regulation 2024/1689 Arts. 12, 14(5), 26(5), 26(6), 72, 73 | `DWS_ARTICLE_12_LOGGING_STANDARD.md` v1.0 ✅ Active |
+| Integration                     | Protocol Standards                                           | Security / Data Standards                                             | Process Standards                                                                                                                                                   |
+| ------------------------------- | ------------------------------------------------------------ | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **SAP S/4HANA**                 | OData v2/v4, OAuth 2.1                                       | ISO 27001 (target), GDPR, NIS2                                        | SAP Integration Standards (SAP SE)                                                                                                                                  |
+| **IFS Cloud**                   | REST/OData, OAuth 2.1                                        | GDPR, NIS2                                                            | IFS Certified Integration                                                                                                                                           |
+| **Microsoft Dynamics 365**      | OData v4, OAuth 2.1                                          | GDPR, NIS2                                                            | Microsoft Partner Integration                                                                                                                                       |
+| **Monitor ERP**                 | REST API (custom)                                            | GDPR                                                                  | —                                                                                                                                                                   |
+| **Visma**                       | REST/OAuth 2.0                                               | GDPR                                                                  | —                                                                                                                                                                   |
+| **Jeeves**                      | REST (custom)                                                | GDPR                                                                  | —                                                                                                                                                                   |
+| **Worldfavor**                  | REST API                                                     | GDPR, ESRS, CSRD                                                      | ESRS disclosure alignment                                                                                                                                           |
+| **PositionGreen**               | REST API                                                     | GDPR, ESRS, CSRD                                                      | ESRS disclosure alignment                                                                                                                                           |
+| **EC3 (Carbon)**                | REST API                                                     | GHG Protocol                                                          | Embodied carbon (EN 15978)                                                                                                                                          |
+| **DocuSign eSignature**         | REST API, OAuth 2.0                                          | eIDAS (EU Reg. 910/2014), GDPR                                        | —                                                                                                                                                                   |
+| **ICEYE**                       | REST API                                                     | GDPR, EU Space Data policy                                            | —                                                                                                                                                                   |
+| **Lifetime Fleet (edge)**       | MQTT, OPC-UA, Modbus TCP                                     | ISO 27001 (target)                                                    | **ASPICE v4.0 Level 2–3 (target)**                                                                                                                                  |
+| **Aegis (surveillance)**        | REST/MQTT                                                    | NIS2, GDPR, EU AI Act Art. 10 (data governance)                       | —                                                                                                                                                                   |
+| **KYA (Know Your Agent)**       | MCP, REST                                                    | ISO/IEC 25010 SQuaRE, EU AI Act Art. 12                               | SQuaRE trust-score metric                                                                                                                                           |
+| **Article 12 Logging Pipeline** | OpenTelemetry (OTLP), REST                                   | EU AI Act Regulation 2024/1689 Arts. 12, 14(5), 26(5), 26(6), 72, 73  | `DWS_ARTICLE_12_LOGGING_STANDARD.md` v1.0 ✅ Active                                                                                                                 |
+| **Deployment**                  | REST, MCP, Cloud Run, Cloudflare Pages, SSH (sovereign edge) | ISO 27001 (target), NIS2, GDPR, EU AI Act Art. 12 + KYA trust binding | `DWS_DEPLOYMENT_STANDARD.md` v1.0 ✅ Active — per-Surface Strategy, Industry × Sales-Jurisdiction × Cloud-Jurisdiction × Tier × Tenant manifests, rollback contract |
 
 ---
 
@@ -190,6 +192,8 @@ When an agent (or human) needs to determine which standards apply to a given pro
 - `DWS_DOCUMENT_STANDARD.md` — How to write/version this document
 - `DWS_SECURITY_STANDARD.md` — Security control implementation
 - `DWS_DATA_STANDARD.md` — Data storage governance (GDPR implementation)
+- `DWS_DEPLOYMENT_STANDARD.md` — Per-Surface deploy ontology, gates, per-tenant manifests (File Index, Secrets, Personnel, Connectors, Artifact Bundle), rollback contract
+- `DWS_ARTICLE_12_LOGGING_STANDARD.md` — EU AI Act Art. 12 audit pipeline (deploy-gate prerequisite per `DWS_DEPLOYMENT_STANDARD.md` §4)
 - `docs/DWS6_TO_DWS7_UPDATE.md` Section 8 — Certification path
 - `docs/field-notes/2026-04-19-vesala-teemu-standards-enthusiast.md` — Advisor engagement for ASPICE + SQuaRE
 - `dws10.com/enterprise-integrations/` — Customer-facing integration catalogue with standards shown

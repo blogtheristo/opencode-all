@@ -44,8 +44,11 @@ case "$file" in
     echo "Blocked: $file is a sensitive key/cert." >&2; exit 2 ;;
   credentials.json|service-account-*.json)
     echo "Blocked: $file contains credentials." >&2; exit 2 ;;
-  supabase/migrations/*.sql)
-    echo "Blocked: DB migrations require human authoring." >&2; exit 2 ;;
+  # supabase/migrations/*.sql intentionally NOT blocked here.
+  # Per CLAUDE.md "Auto-Mode Trust Boundary": authoring a migration FILE is
+  # GREEN (reviewable text artifact in PR); APPLYING it via
+  # `psql` / `supabase db push` / `supabase migration up` is the RED action,
+  # blocked on the Bash side by .claude/hooks/sql-safety-guard.sh.
   package-lock.json|yarn.lock)
     echo "Blocked: lockfiles are auto-generated." >&2; exit 2 ;;
 esac
