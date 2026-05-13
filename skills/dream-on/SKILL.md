@@ -24,6 +24,48 @@ It composes three already-shipped pieces — `clawdbot` (producer),
 runner) — into one autonomous flow gated by a single plan-mode HIL
 approval at the start.
 
+## Invocation — the canonical entry point is the shell wrapper, not `/dream-on` typed into an existing session
+
+The right way to trigger a dream cycle is from your shell:
+
+```bash
+dream-on                  # pick newest unpromoted proposal (or next queue item)
+dream-on --next           # explicit alias
+dream-on <proposal-path>  # target a specific proposal
+dream-on <topic-keyword>  # filter proposals whose body mentions <topic>
+```
+
+`bin/dream-on` is a one-line `exec claude "/dream-on $*"` wrapper. Each
+invocation spawns a **fresh Claude Code session** with its own
+transcript at `~/.claude/projects/-home-user-dws6/<uuid>.jsonl`, its
+own context window, and a clean slate. When the dream cycle finishes
+(plan approved → executed → committed → pushed → PR open), the spawned
+session exits and you're back in your shell.
+
+Why this matters:
+
+- **Context isolation.** Running `/dream-on` inside an existing session
+  reuses that session's context window. Across many runs this both
+  bloats context and tangles dream cycles with whatever else the
+  session was doing. One session per cycle = one transcript per cycle.
+- **Honest audit trail.** `clawdbot --scan` reads each transcript as a
+  single coherent unit-of-work. Multi-cycle sessions confuse the
+  digest. One-cycle sessions produce clean queue entries.
+- **Trivial parallelism.** Multiple `dream-on <different-path>` calls
+  in different terminals never interfere — each has its own context.
+
+To install the wrapper on your PATH (once per machine):
+
+```bash
+echo 'export PATH="'"$(git rev-parse --show-toplevel)"'/bin:$PATH"' >> ~/.zshrc
+exec $SHELL -l
+```
+
+Typing `/dream-on` directly into an existing Claude Code session still
+works (the slash command is registered) but it's the **degraded mode**
+— use it only when you can't reach a fresh shell, or when you're
+intentionally chaining cycles inside one investigation.
+
 ## The five-step loop, executed end-to-end
 
 1. **Scan & pick.** If `$ARGUMENTS` is a proposal path, use it. Else
