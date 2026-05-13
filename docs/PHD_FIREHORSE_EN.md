@@ -69,7 +69,7 @@ This thesis documents the implementation of the Firehorse Operations Model, an A
 
 **Keywords:** AI Operations, E-Commerce Automation, Google Merchant Center, Claude Code, Firehorse Model, EU AI Act Compliance, Carbon Calculator, Industrial Compliance
 
----
+***
 
 ## Table of Contents
 

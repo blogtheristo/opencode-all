@@ -89,7 +89,7 @@ Document Status:
 **Date:** 16.1.2026
 **InvestEU Portal:** Project Lifetime World, DWS IQ 6, Firehorse (INPO-20254383) submitted for publication on the InvestEU Portal on 25.12.2025 — InvestEU Portal Team, European Commission
 
----
+***
 
 ## Abstract
 
