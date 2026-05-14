@@ -58,29 +58,30 @@ Document Status:
 3. [Google Cloud Run CI Identity Runbook (gcr-skill)](#google-cloud-run-ci-identity-runbook-gcr-skill)
 4. [Node.js workspace setup](#nodejs-workspace-setup-backend-and-cloudflare-agents)
 5. [Scaleway Serverless Containers](#scaleway-serverless-containers-primary)
-6. [Revolut Payments & Store](#revolut-payments--store) ⭐ **NEW in v1.8**
-7. [MCP Configuration](#mcp-configuration) ⭐ **NEW in v1.8**
-8. [Climate Assistant Chat Widget](#climate-assistant-chat-widget)
-9. [AI Agent Operational Guidelines](#ai-agent-operational-guidelines) ⭐ **NEW in v1.8**
-10. [Security Glossary & OWASP](#security-glossary--owasp) ⭐ **NEW in v1.8**
-11. [Data Processing Agreement (DPA)](#data-processing-agreement-dpa) ⭐ **NEW in v1.8**
-12. [Backup & Sync Infrastructure](#backup--sync-infrastructure) ⭐ **NEW in v1.8**
-13. [Multi-Agent Orchestration](#multi-agent-orchestration) ⭐ **NEW in v1.8**
-14. [GitHub Copilot Instructions](#github-copilot-instructions)
-15. [Session Security Fixes (January 2026)](#session-security-fixes-january-2026)
-16. [Files and Folders Structure](#files-and-folders-structure)
-17. [Document Index](#document-index)
-18. [AI Agent Policy](#ai-agent-policy)
-19. [Deployment Procedures](#deployment-procedures)
-20. [Session History](#session-history)
-21. [Maintenance Plan (Complete)](#maintenance-plan-complete)
-22. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance)
-23. [Code Review Process](#code-review-process)
-24. [Maintenance Tasks](#maintenance-tasks)
-25. [Git Workflow](#git-workflow)
-26. [Sensitive Data Protection](#sensitive-data-protection)
-27. [Emergency Procedures](#emergency-procedures)
-28. [Training](#training)
+6. [DGX Spark Cron Failover Wrap](#dgx-spark-cron-failover-wrap) ⭐ **NEW**
+7. [Revolut Payments & Store](#revolut-payments--store) ⭐ **NEW in v1.8**
+8. [MCP Configuration](#mcp-configuration) ⭐ **NEW in v1.8**
+9. [Climate Assistant Chat Widget](#climate-assistant-chat-widget)
+10. [AI Agent Operational Guidelines](#ai-agent-operational-guidelines) ⭐ **NEW in v1.8**
+11. [Security Glossary & OWASP](#security-glossary--owasp) ⭐ **NEW in v1.8**
+12. [Data Processing Agreement (DPA)](#data-processing-agreement-dpa) ⭐ **NEW in v1.8**
+13. [Backup & Sync Infrastructure](#backup--sync-infrastructure) ⭐ **NEW in v1.8**
+14. [Multi-Agent Orchestration](#multi-agent-orchestration) ⭐ **NEW in v1.8**
+15. [GitHub Copilot Instructions](#github-copilot-instructions)
+16. [Session Security Fixes (January 2026)](#session-security-fixes-january-2026)
+17. [Files and Folders Structure](#files-and-folders-structure)
+18. [Document Index](#document-index)
+19. [AI Agent Policy](#ai-agent-policy)
+20. [Deployment Procedures](#deployment-procedures)
+21. [Session History](#session-history)
+22. [Maintenance Plan (Complete)](#maintenance-plan-complete)
+23. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance)
+24. [Code Review Process](#code-review-process)
+25. [Maintenance Tasks](#maintenance-tasks)
+26. [Git Workflow](#git-workflow)
+27. [Sensitive Data Protection](#sensitive-data-protection)
+28. [Emergency Procedures](#emergency-procedures)
+29. [Training](#training)
 
 ---
 
@@ -705,6 +706,203 @@ Go to **Settings → Secrets and variables → Actions** and add:
 # Trigger deployment from CLI
 gh workflow run deploy-scaleway.yml
 ```
+
+---
+
+## DGX Spark Cron Failover Wrap
+
+**Status:** ✅ **ACTIVE** — Reduces GitHub Actions minute consumption by routing scheduled workloads to on-prem DGX Spark
+**Wrap commit:** `2f3777c` (PR #1314, merged 2026-05-14)
+**Owner:** Platform / Infra
+**Projected savings:** 1,100–1,700 GHA minutes/month
+
+### What it does
+
+GitHub Actions scheduled workflows (cron-triggered) check a public heartbeat URL before doing any work. If the DGX Spark on-prem box is healthy, the GHA job short-circuits (`dgx_alive=true`) and exits after ~1 second — the actual work runs on DGX via the cron-runner. If DGX is unreachable, the GHA workflow continues as before (automatic failover). Net effect: scheduled work runs on owned hardware while keeping GHA as a hot standby.
+
+### Architecture
+
+```
+GitHub Actions scheduled run
+        │
+        ▼
+.github/actions/dgx-failover-check
+        │
+        ▼ curl --max-time 10 ${DGX_SPARK_HEARTBEAT_URL}/health
+        │
+        ▼
+heartbeat.dws6.com (Cloudflare-proxied, orange-cloud)
+        │
+        ▼ (Cloudflare Tunnel, outbound-only QUIC over UDP/443)
+        │
+cloudflared on DGX Spark
+        │
+        ▼ http://localhost:9999/health
+        │
+DGX heartbeat service (port 9999)
+        │
+        ▼
+DGX cron-runner (mirrors all 13 wrapped workflows)
+```
+
+### Components
+
+| Component | Location | Notes |
+| --- | --- | --- |
+| GitHub Actions variable | `DGX_SPARK_HEARTBEAT_URL` at https://github.com/blogtheristo/dws6/settings/variables/actions | Value: `https://heartbeat.dws6.com` (no trailing slash, no `/health` — action appends it) |
+| Reusable composite action | `.github/actions/dgx-failover-check/action.yml` | Outputs `dgx_alive` (true/false) and `dgx_status` (raw JSON or `down_<code>`) |
+| Cloudflare Tunnel | Name `dgx-heartbeat`, ID `b2d1d6e8-28e5-48e0-a2d5-3d5b702ead8b` | Managed locally via `/etc/cloudflared/config.yml` on the DGX box (not via dashboard) |
+| DNS record | `heartbeat.dws6.com` CNAME → `<tunnel-id>.cfargotunnel.com` | Proxied (orange cloud) — required for tunnels |
+| Tunnel ingress rule | `/etc/cloudflared/config.yml` on DGX | Routes `heartbeat.dws6.com` → `http://localhost:9999` |
+| Heartbeat service | `localhost:9999` on DGX Spark | `/health` returns HTTP 200 + `{"status":"healthy","timestamp":"..."}` |
+| Cron-runner | Separate concern — mirrors wrapped workflows on DGX | Wrap saves GHA minutes regardless; cron-runner ensures the work still runs |
+
+### Wrapped workflows (13)
+
+These all start with the DGX failover check and skip the rest of their steps when DGX is alive:
+
+```
+agents-md-freshness          campaign-daily-posts          construction-leads
+daily-db-backup              daily-mvp-audit               daily-site-backup
+golden-principle-scan        housekeeping-weekly           quarterly-price-list
+security-audit-enhanced      ted-followup                  ted-learning-weekly
+ted-pipeline
+```
+
+### Adding the wrap to a new scheduled workflow
+
+Insert the failover check as the first step after `actions/checkout@v4`, and gate every subsequent step on `steps.failover.outputs.dgx_alive != 'true'`:
+
+```yaml
+jobs:
+  my-scheduled-job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: DGX Spark failover check
+        id: failover
+        uses: ./.github/actions/dgx-failover-check
+        with:
+          heartbeat_url: ${{ vars.DGX_SPARK_HEARTBEAT_URL }}
+
+      - name: Setup Node.js
+        if: steps.failover.outputs.dgx_alive != 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Real work
+        if: steps.failover.outputs.dgx_alive != 'true'
+        run: node scripts/whatever.mjs
+
+      - name: Upload artifact
+        if: always() && steps.failover.outputs.dgx_alive != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: report
+          path: report.json
+```
+
+Also mirror the job in the DGX cron-runner so the work actually runs somewhere when GHA skips.
+
+### Verifying the wrap is working
+
+1. Dispatch a wrapped workflow on any branch: https://github.com/blogtheristo/dws6/actions/workflows/agents-md-freshness.yml → **Run workflow**.
+2. Expand the **DGX Spark failover check** step. Expected output:
+   ```
+   Checking DGX Spark heartbeat: https://heartbeat.dws6.com
+   DGX Spark is ALIVE — this workflow is FAILOVER only
+   ```
+3. All downstream steps should show as **skipped** (greyed out, no duration). Each skipped run saves 30–120 seconds of GHA time vs. the previous baseline.
+
+Monthly verification: https://github.com/blogtheristo/dws6/settings/billing/actions — minutes-used graph should show a stepwise drop after the wrap goes active.
+
+### Troubleshooting
+
+Read the **DGX Spark failover check** step log. The HTTP code printed in `DGX Spark is DOWN (HTTP <code>)` tells you which layer is broken:
+
+| HTTP code | Layer broken | Fix |
+| --- | --- | --- |
+| `000` / `000000` | DNS or TCP — runner couldn't connect at all | Check Cloudflare DNS for `heartbeat.dws6.com` CNAME (must be proxied / orange cloud). On DGX: `cloudflared tunnel list` should show 3–4 connections to nearby Cloudflare PoPs |
+| `404` | Tunnel up, but `/health` path not exposed | Check `/etc/cloudflared/config.yml` ingress rule matches the hostname being requested |
+| `502` | Tunnel up, origin service down | On DGX: `ss -tlnp \| grep :9999` (should show LISTEN); `curl http://localhost:9999/health` (should return 200 + JSON) |
+| `530` / `1033` | Cloudflare Tunnel daemon not connected to edge | On DGX: `sudo systemctl status cloudflared` — restart if needed |
+| `200` but workflow runs anyway | Variable misconfigured or empty | Verify `DGX_SPARK_HEARTBEAT_URL` is set under Variables (not Secrets), exact value `https://heartbeat.dws6.com`, no trailing slash |
+
+### DGX-side operations
+
+All commands run on the DGX Spark box (ARM64, `uname -m` → `aarch64`).
+
+```bash
+# Tunnel status (expect 3–4 active connections to nearest Cloudflare PoPs)
+cloudflared tunnel list
+cloudflared tunnel info dgx-heartbeat
+
+# Service status & recent logs
+sudo systemctl status cloudflared
+sudo journalctl -u cloudflared -n 50 --no-pager
+
+# Restart the tunnel (briefly drops connections; ~5–10s unreachability)
+sudo systemctl restart cloudflared
+
+# View current ingress rules
+sudo cat /etc/cloudflared/config.yml
+
+# Heartbeat service local check
+ss -tlnp | grep :9999
+curl -sS http://localhost:9999/health
+```
+
+### Updating cloudflared on DGX
+
+The daemon is installed via `dpkg`, not via the in-place auto-updater (which is disabled by the `--no-autoupdate` flag in the systemd unit). To upgrade:
+
+```bash
+curl -L -o /tmp/cloudflared.deb \
+  https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64.deb
+ls -lh /tmp/cloudflared.deb        # expect ~16–35 MB
+sudo dpkg -i /tmp/cloudflared.deb
+sudo systemctl restart cloudflared
+cloudflared --version              # verify version bump
+sudo systemctl status cloudflared  # confirm "active (running)" + fresh Registered tunnel connection lines
+```
+
+Use `cloudflared-linux-amd64.deb` for x86_64 hardware; `arm64` is for the Grace-based DGX Spark.
+
+If both `/usr/bin/cloudflared` and `/usr/local/bin/cloudflared` exist, `which cloudflared` may report the unmanaged copy in `/usr/local/bin` while systemd actually runs `/usr/bin/cloudflared`. Reconcile by removing the unmanaged binary after confirming it's unowned:
+
+```bash
+dpkg -S /usr/local/bin/cloudflared   # expect: "no path found matching"
+sudo rm /usr/local/bin/cloudflared
+hash -r
+```
+
+### Adding a new public hostname to the tunnel (future)
+
+If a second on-prem service needs public exposure via this tunnel:
+
+```bash
+# 1. Create the proxied DNS CNAME
+cloudflared tunnel route dns dgx-heartbeat <new-subdomain>.dws6.com
+
+# 2. Edit /etc/cloudflared/config.yml — add ingress rule BEFORE the catch-all 404:
+#    - hostname: <new-subdomain>.dws6.com
+#      service: http://localhost:<port>
+#    - service: http_status:404
+
+# 3. Restart the daemon
+sudo systemctl restart cloudflared
+```
+
+### Failure & rollback
+
+The wrap is rollout-safe by design:
+
+- If `DGX_SPARK_HEARTBEAT_URL` is unset, the action prints `No DGX_SPARK_HEARTBEAT_URL configured — running as primary` and the workflow runs on GHA as before.
+- If the heartbeat URL returns anything other than HTTP 200, the workflow runs on GHA as before.
+- To temporarily force all wrapped workflows back onto GHA: clear or rename the `DGX_SPARK_HEARTBEAT_URL` variable. No code change needed.
+- To remove the wrap from a specific workflow: delete the `DGX Spark failover check` step and the `if: steps.failover.outputs.dgx_alive != 'true'` conditions from each step in that file.
 
 ---
 
