@@ -85,6 +85,18 @@
                 </div>
             </div>
 
+            <div class="card hidden" id="upsellBanner" data-source="src/services/upsell-rules.ts">
+                <h2>Next step</h2>
+                <p class="muted" id="upsellReason">No upsell trigger fired yet.</p>
+                <div class="row">
+                    <span class="pill" id="upsellSku">—</span>
+                    <a class="btn" id="upsellLink" href="https://dws10.com/price-list/">View on price list</a>
+                </div>
+                <p class="muted" style="margin-top:8px; font-size:0.78rem;">
+                    Rule output from upsell-rules.ts §5. One banner only — no nags.
+                </p>
+            </div>
+
             <div class="card hidden" id="containerCard">
                 <h2>Admin: Container Status</h2>
                 <p class="muted">Operational view for admin users.</p>
@@ -276,6 +288,31 @@
         await loadDeliveryStatus();
         renderBriefHistory();
         await loadAgentStatus();
+        renderUpsellBanner();
+
+        function renderUpsellBanner() {
+            // Reads a server-rendered recommendation from window.__UPSELL or
+            // sessionStorage. The recommendation object is produced by
+            // src/services/upsell-rules.ts; the API/SSR layer wires it in.
+            // Render only when a recommendation exists — no banner = no nag.
+            let rec = null;
+            try {
+                if (window.__UPSELL && typeof window.__UPSELL === 'object') {
+                    rec = window.__UPSELL;
+                } else {
+                    const raw = sessionStorage.getItem('dws.upsell');
+                    if (raw) rec = JSON.parse(raw);
+                }
+            } catch (_e) { rec = null; }
+            if (!rec || !rec.nextSku) return;
+            const banner = document.getElementById('upsellBanner');
+            if (!banner) return;
+            document.getElementById('upsellReason').textContent = rec.reason || '';
+            document.getElementById('upsellSku').textContent = rec.nextSku;
+            const link = document.getElementById('upsellLink');
+            link.href = 'https://dws10.com/price-list/#product-' + encodeURIComponent(rec.nextSku);
+            banner.classList.remove('hidden');
+        }
 
         await handleOAuthCallback();
         const user = await getCurrentUser();
