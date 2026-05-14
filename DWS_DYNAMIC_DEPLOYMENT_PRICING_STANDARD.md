@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.7
+Version: 1.8
 
 Sessions & Modifications:
 
+- Version: 1.8 | Tool: Claude Code (Opus 4.7) | Session: claude/ai-pricing-labor-catalog-1raj8 | Date: 14.05.2026 | Changes: §13.8 added — labor-anchored SKU schema extension (sku, tier, priceUnit, agents[], replaces{role,fteCount,fullyLoadedAnnualCostEUR}, nextUpsellSku, deploymentColor). priceVersion baseline bumped to 1.14 in line with first labor-anchored catalog (T0–T4) load. Public render rule: SaaS comparison columns removed, Replaces column required.
 - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dynamic-deployment-pricing-LExxQ | Date: 10.05.2026 | Changes: Code review fixes — version guard uses tuple comparison (not float, which breaks at 1.9→1.10 boundary); versioned HTML overwrite protection added to both generators; noindex meta added to pilot pricelist; subscription products now visible on live price-list/index.html; \_OLD products get productType:archived; GodAgents→Skilled Agents in DWS-IQ-006 features; priceVersion 1.13
 - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dynamic-deployment-pricing-LExxQ | Date: 10.05.2026 | Changes: Added Section 13 — Price List Versioning Standard; mandates priceVersion 1.10 baseline, 0.01 increments, date on every change, version shown in both Green and Blue price list headers and per-product version column (stable Green / pilot Blue)
 - Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/dynamic-deployment-pricing-LExxQ | Date: 10.05.2026 | Changes: Added Hardware Pricing Model (Section 12) — hardware is always an external product; Blue = buy-in/cost price (internal, never published), Green = client retail price (published online); unified the Blue=internal/Green=external principle across all three categories in the governing principle
@@ -407,11 +408,14 @@ Every price-bearing config file carries a `priceVersion` field:
 
 | File                                           | Field          | Baseline        |
 | ---------------------------------------------- | -------------- | --------------- |
-| `dws10.com/config/products.json`               | `priceVersion` | `1.10`          |
+| `dws10.com/config/products.json`               | `priceVersion` | `1.14`          |
 | `landing-pages/dws10-com/config/products.json` | `priceVersion` | mirror of above |
 | `config/pilot-blue-prices.json`                | `version`      | `1.0`           |
 
 **Increment rule: 0.01 per change.** Steps: `1.10 → 1.11 → 1.12 → ... → 1.99 → 2.00`.
+
+Baseline raised from `1.10` to `1.14` on 14.05.2026 with the first labor-anchored
+catalog load (Blue/pilot) — see §13.8 for the schema extension that triggered the bump.
 
 ### 13.3 Required Fields on Every Price Change
 
@@ -468,3 +472,47 @@ This means a stale or rolled-back `products.json` cannot silently overwrite a co
 | Blue pilot price change           | Bump `pilot-blue-prices.json` `version` by 0.01          |
 | Commit without version bump       | **Reject — standard violation**                          |
 | Running generator on stale config | **Blocked by version guard — fix config, do not bypass** |
+
+### 13.8 Labor-Anchored SKU Schema (added 14.05.2026)
+
+The labor-pricing thesis (`docs/marketing/AI-AS-LABOR-PRICING-STRATEGY.md`) requires
+every SKU to be benchmarked against the human role it replaces, not against any
+SaaS competitor. The following fields are **required** on every SKU added or
+edited from `priceVersion 1.14` onward. Pre-1.14 SKUs are grandfathered until
+their next price change.
+
+| Field             | Type                        | Required when                                                                                    | Notes |
+| ----------------- | --------------------------- | ------------------------------------------------------------------------------------------------ | ----- |
+| `sku`             | string                      | always                                                                                           | Canonical SKU code, e.g. `CMP-T2`, `ESG-T3`, `LAND-EUAI`. Matches the catalog in `docs/marketing/PRODUCT-CATALOG-UPSELL-TIERS-2026.md`. |
+| `tier`            | enum: `T0 \| T1 \| T2 \| T3 \| T4 \| land \| meter` | always                                                              | T0=Pilot (Blue only), T1=Starter, T2=Pro, T3=Function, T4=Workforce. `meter` for per-outcome SKUs. `land` for engagement-led bundles. |
+| `priceUnit`       | enum: `per-month \| per-outcome \| per-year \| per-day \| per-site-per-day \| one-time \| hourly` | always | Replaces the legacy `type` field for new SKUs. `type` may remain for back-compat. |
+| `agents`          | string[]                    | always (`[]` if none — e.g. pure consulting)                                                     | List of Skilled Agents bundled in the SKU. |
+| `replaces`        | `{ role: string, fteCount: number, fullyLoadedAnnualCostEUR?: number }` | always for non-`land` SKUs in T1+                                | The **labor anchor**. Rendered on every public price-list card. `fullyLoadedAnnualCostEUR` is optional but recommended — drives the "~X% of fully loaded cost" line. |
+| `nextUpsellSku`   | string \| null              | always                                                                                           | Target SKU for the next tier. `null` only for the top of a ladder (T4 / pure attach SKUs). |
+| `deploymentColor` | enum: `blue \| green`       | always                                                                                           | T0 is **always** `blue`. T1–T4 are `blue` until Risto signs them Green. |
+| `priceVersion`    | string                      | always                                                                                           | The `priceVersion` at which this SKU was last touched. Bumps in lockstep with the file-level `priceVersion`. |
+
+#### 13.8.1 Public render rules
+
+The public price-list page (`dws10.com/price-list/`, mirrors, and any partner
+embed) **MUST**:
+
+1. Render the **`replaces`** field as the primary differentiator line on every SKU card:
+   *"Replaces {role} ≈ {fteCount} FTE at ~{percent}% of fully loaded cost."*
+2. Render a **tier badge** (`T0` … `T4`, `Land`, `Meter`) on every SKU.
+3. Render a **next upsell** link to `nextUpsellSku` when set.
+4. **NOT** render any SaaS-comparison column, claim, or footnote.
+5. **NOT** render any `deploymentColor:"blue"` SKU on a public page. Blue SKUs
+   are visible only on the Blue/pilot price list (`Learn/pilot-pricelist-*.html`)
+   and internal dashboards.
+
+#### 13.8.2 Validation gate
+
+The pre-commit and CI validator (`scripts/validate-pricing.ts` /
+`scripts/validate-pricing.ps1`) **MUST** fail the commit when:
+
+- Any SKU is missing `sku`, `tier`, `priceUnit`, `agents`, `nextUpsellSku`, or `deploymentColor`.
+- A non-`land` T1+ SKU is missing `replaces`.
+- A `T0` SKU is not `deploymentColor:"blue"`.
+- `dws10.com/config/products.json` and `landing-pages/dws10-com/config/products.json` differ.
+- `priceVersion` did not advance versus the previous commit.

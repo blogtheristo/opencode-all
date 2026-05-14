@@ -42,9 +42,23 @@ def load_json(path: Path) -> dict:
 def fmt_price(p: dict) -> str:
     price = p.get("price")
     ptype = p.get("type", "")
+    unit = p.get("priceUnit") or ""
     note = p.get("priceNote", "")
     if price is None:
         return note or "Contact sales"
+    if unit:
+        # New labor-anchored SKUs render by priceUnit, not legacy type
+        suffix_map = {
+            "per-month": "/mo",
+            "per-year": "/yr",
+            "per-day": "/day",
+            "per-outcome": "/outcome",
+            "per-site-per-day": "/site/day",
+            "hourly": "/hr",
+            "one-time": "",
+        }
+        base = f"€{price:,.0f}{suffix_map.get(unit, '')}"
+        return base
     if ptype == "monthly":
         base = f"€{price:,.0f}/mo"
     elif ptype == "hourly":
@@ -57,6 +71,64 @@ def fmt_price(p: dict) -> str:
     else:
         base = f"€{price:,.0f}"
     return base
+
+
+_TIER_COLOR = {
+    "T0": "#94a3b8",
+    "T1": "#0ea5e9",
+    "T2": "#16a34a",
+    "T3": "#7c3aed",
+    "T4": "#dc2626",
+    "land": "#ea580c",
+    "meter": "#475569",
+}
+
+
+def tier_badge(tier: str | None) -> str:
+    if not tier:
+        return ""
+    label = tier if tier not in ("land", "meter") else tier.capitalize()
+    color = _TIER_COLOR.get(tier, "#475569")
+    return (
+        f'<span style="display:inline-block;background:{color};color:#fff;'
+        f'font-size:0.7rem;font-weight:700;padding:2px 7px;border-radius:4px;'
+        f'margin-right:6px;letter-spacing:0.05em;">{label}</span>'
+    )
+
+
+def replaces_line(p: dict) -> str:
+    r = p.get("replaces")
+    if not r or not isinstance(r, dict):
+        return ""
+    role = r.get("role", "human role")
+    fte = r.get("fteCount")
+    cost = r.get("fullyLoadedAnnualCostEUR")
+    pct = None
+    price = p.get("price") or 0
+    unit = p.get("priceUnit") or ""
+    if cost and price:
+        annual = price * 12 if unit == "per-month" else price if unit == "per-year" else None
+        if annual:
+            try:
+                pct = round((annual / cost) * 100)
+            except ZeroDivisionError:
+                pct = None
+    tail = f" at ~{pct}% of fully loaded cost" if pct is not None else ""
+    fte_str = f"{fte:g}" if fte is not None else "?"
+    return (
+        f'<div style="font-size:0.78rem;color:#0f766e;margin-top:4px;font-style:italic;">'
+        f'Replaces {role} ≈ {fte_str} FTE{tail}.</div>'
+    )
+
+
+def upsell_line(p: dict) -> str:
+    nxt = p.get("nextUpsellSku")
+    if not nxt:
+        return ""
+    return (
+        f'<div style="font-size:0.78rem;color:#64748b;margin-top:2px;">'
+        f'Next upsell: <strong>{nxt}</strong></div>'
+    )
 
 
 def ver_badge(version: str | None) -> str:
@@ -116,31 +188,68 @@ def build_html(products: dict, gen_date: str) -> str:
 
     def product_rows(ids, source, subs):
         rows = []
-        for i, pid in enumerate(ids):
+        idx = 0
+        for pid in ids:
             p = source.get(pid) or subs.get(pid)
             if not p:
+                continue
+            # Green price list never shows Blue (pilot) rows
+            if p.get("deploymentColor") == "blue":
                 continue
             name = p.get("name", pid)
             if "_OLD" in name:
                 continue
             version = p.get("version")
+            tier = p.get("tier")
             note = p.get("priceNote", p.get("description", "")[:120] + ("…" if len(p.get("description", "")) > 120 else ""))
-            name_cell = name + ver_badge(version)
+            name_cell = tier_badge(tier) + name + ver_badge(version) + replaces_line(p) + upsell_line(p)
             rows.append(row([
                 td(name_cell),
                 td(pid, mono=True),
                 td(fmt_price(p), mono=True),
                 td(note),
-            ], alt=(i % 2 == 1)))
+            ], alt=(idx % 2 == 1)))
+            idx += 1
         return rows
 
-    hdr = th_neutral("Product / Version") + th_neutral("SKU") + th_green("Price (EUR, VAT excl.)") + th_neutral("Notes")
+    def labor_anchored_rows(all_products):
+        """Render Green labor-anchored SKUs (anything with tier set and color=green)."""
+        rows = []
+        idx = 0
+        # Sort by tier then sku
+        items = []
+        for sku, p in all_products.items():
+            if not isinstance(p, dict):
+                continue
+            if not p.get("tier"):
+                continue
+            if p.get("deploymentColor") != "green":
+                continue
+            items.append((sku, p))
+        items.sort(key=lambda kv: (kv[1].get("tier", ""), kv[0]))
+        for sku, p in items:
+            tier = p.get("tier")
+            name = p.get("name", sku)
+            note = p.get("description", "")[:140]
+            name_cell = tier_badge(tier) + name + replaces_line(p) + upsell_line(p)
+            rows.append(row([
+                td(name_cell),
+                td(sku, mono=True),
+                td(fmt_price(p), mono=True),
+                td(note),
+            ], alt=(idx % 2 == 1)))
+            idx += 1
+        return rows
+
+    hdr = th_neutral("Product / Tier / Replaces") + th_neutral("SKU") + th_green("Price (EUR, VAT excl.)") + th_neutral("Notes")
 
     iq_table = table_wrap(hdr, product_rows(IQ_IDS, all_p, {}))
     fh_table = table_wrap(hdr, product_rows(FH_IDS, all_p, {}))
     sub_table = table_wrap(hdr, product_rows(SUB_IDS, {}, all_subs))
     consult_table = table_wrap(hdr, product_rows(CONSULT_IDS, all_p, {}))
     hw_table = table_wrap(hdr, product_rows(HW_IDS, all_p, {}))
+    labor_rows = labor_anchored_rows(all_p)
+    labor_table = table_wrap(hdr, labor_rows) if labor_rows else ""
 
     html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -171,6 +280,17 @@ def build_html(products: dict, gen_date: str) -> str:
      color:#14532d;padding:10px 18px;border-radius:6px;margin-bottom:20px;
      font-weight:700;font-size:0.95rem;text-align:center;">
   DWS Official Green Price List &mdash; All prices are published stable (Green) rates
+</div>
+
+<div style="background:#ecfdf5;border-left:4px solid {CLR_GREEN_HDR};
+     padding:14px 18px;border-radius:4px;margin-bottom:24px;">
+  <div style="font-size:1.05rem;font-weight:700;color:#064e3b;margin-bottom:4px;">
+    Price AI like labor, not like a tool.
+  </div>
+  <div style="font-size:0.85rem;color:#065f46;">
+    Every SKU below is anchored to the human role it replaces. We do not publish
+    SaaS-tool comparisons.
+  </div>
 </div>
 
 <h1 style="color:{CLR_SECTION_HDR};margin:0 0 4px 0;font-size:1.5rem;">
@@ -207,6 +327,13 @@ def build_html(products: dict, gen_date: str) -> str:
 
 {section_header("5. Hardware")}
 {hw_table}
+
+{section_header("6. Skilled Agents Catalog (Green-ratified labor-anchored SKUs)")}
+<p style="font-size:0.82rem;color:#475569;margin:-0.5em 0 0.8em 0;">
+  Only SKUs explicitly ratified as Green appear here. Blue/pilot SKUs are on
+  the internal pilot price list. Every row shows the human role it replaces.
+</p>
+{labor_table or '<p style="color:#94a3b8;font-style:italic;">No labor-anchored SKUs have been ratified Green yet — see internal pilot price list.</p>'}
 
 <hr style="border:none;border-top:1px solid #cbd5e1;margin:2em 0 1em 0;">
 <p style="font-size:0.8rem;color:#64748b;line-height:1.8;margin:0;">

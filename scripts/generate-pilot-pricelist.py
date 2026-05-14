@@ -105,6 +105,60 @@ def build_html(products: dict, blue: dict, gen_date: str) -> str:
         bg = f'background:{CLR_ROW_ALT};' if alt else ""
         return f'<tr style="{bg}border-bottom:1px solid {CLR_BORDER};">{"".join(cells)}</tr>'
 
+    _TIER_COLOR = {
+        "T0": "#94a3b8", "T1": "#0ea5e9", "T2": "#16a34a",
+        "T3": "#7c3aed", "T4": "#dc2626", "land": "#ea580c",
+        "meter": "#475569",
+    }
+
+    def tier_badge(tier):
+        if not tier:
+            return ""
+        label = tier if tier not in ("land", "meter") else tier.capitalize()
+        color = _TIER_COLOR.get(tier, "#475569")
+        return (
+            f'<span style="display:inline-block;background:{color};color:#fff;'
+            f'font-size:0.7rem;font-weight:700;padding:2px 7px;border-radius:4px;'
+            f'margin-right:6px;letter-spacing:0.05em;">{label}</span>'
+        )
+
+    def replaces_text(p):
+        r = p.get("replaces")
+        if not r or not isinstance(r, dict):
+            return ""
+        role = r.get("role", "human role")
+        fte = r.get("fteCount")
+        cost = r.get("fullyLoadedAnnualCostEUR")
+        pct = None
+        price = p.get("price") or 0
+        unit = p.get("priceUnit") or ""
+        if cost and price:
+            annual = price * 12 if unit == "per-month" else price if unit == "per-year" else None
+            if annual:
+                try:
+                    pct = round((annual / cost) * 100)
+                except ZeroDivisionError:
+                    pct = None
+        tail = f" at ~{pct}% of fully loaded cost" if pct is not None else ""
+        fte_str = f"{fte:g}" if fte is not None else "?"
+        return f"Replaces {role} ≈ {fte_str} FTE{tail}."
+
+    def fmt_unit(p):
+        suffix_map = {
+            "per-month": "/mo",
+            "per-year": "/yr",
+            "per-day": "/day",
+            "per-outcome": "/outcome",
+            "per-site-per-day": "/site/day",
+            "hourly": "/hr",
+            "one-time": "",
+        }
+        unit = p.get("priceUnit") or ""
+        price = p.get("price")
+        if price is None:
+            return p.get("priceNote", "—")
+        return f"€{price:,.0f}{suffix_map.get(unit, '')}"
+
     def green_price_str(pid, source, subs):
         p = source.get(pid) or subs.get(pid)
         if not p:
@@ -250,6 +304,51 @@ def build_html(products: dict, blue: dict, gen_date: str) -> str:
         + "</tbody>" + table_close()
     )
 
+    # ── Section 5: Labor-Anchored Skilled Agents Catalog (Blue/pilot) ────────
+    labor_blue = []
+    for sku, p in all_p.items():
+        if not isinstance(p, dict):
+            continue
+        if p.get("deploymentColor") != "blue":
+            continue
+        if not p.get("tier"):
+            continue
+        labor_blue.append((sku, p))
+
+    # Sort by tier then SKU
+    _tier_rank = {"T0": 0, "T1": 1, "T2": 2, "T3": 3, "T4": 4, "land": 5, "meter": 6}
+    labor_blue.sort(key=lambda kv: (_tier_rank.get(kv[1].get("tier", ""), 99), kv[0]))
+
+    labor_rows = []
+    for i, (sku, p) in enumerate(labor_blue):
+        tier = p.get("tier")
+        name_cell = tier_badge(tier) + p.get("name", sku)
+        replaces = replaces_text(p)
+        nxt = p.get("nextUpsellSku") or "—"
+        agents = ", ".join(p.get("agents", [])) or "—"
+        labor_rows.append(row([
+            td(name_cell),
+            td(sku, mono=True),
+            td(fmt_unit(p), mono=True),
+            td(replaces),
+            td(nxt, mono=True),
+            td(agents),
+        ], alt=(i % 2 == 1)))
+
+    labor_table = (
+        table_open()
+        + "<thead><tr>"
+        + th_neutral("Product / Tier")
+        + th_neutral("SKU")
+        + th_blue("Blue Price")
+        + th_neutral("Labor Anchor")
+        + th_neutral("Next Upsell")
+        + th_neutral("Agents")
+        + "</tr></thead><tbody>"
+        + "".join(labor_rows)
+        + "</tbody>" + table_close()
+    )
+
     # ── Section 4: Hardware ──────────────────────────────────────────────────
     hw_ids = ["edge-node-gn100"]
 
@@ -361,6 +460,14 @@ def build_html(products: dict, blue: dict, gen_date: str) -> str:
 
 {section_header("4. Hardware")}
 {hw_table}
+
+{section_header("5. Labor-Anchored Skilled Agents Catalog (Blue/pilot)")}
+<p style="font-size:0.82rem;color:#1e40af;margin:0 0 8px 0;">
+  Every row is anchored to the human role it replaces. Tier badges:
+  T0 Pilot · T1 Starter · T2 Pro · T3 Function · T4 Workforce · Land · Meter.
+  All rows are <strong>Blue/pilot</strong> until Risto signs them Green.
+</p>
+{labor_table}
 
 <div style="background:#fef2f2;border:1px solid #fca5a5;padding:10px 14px;
      border-radius:4px;font-size:0.82rem;color:#991b1b;margin-top:1em;">

@@ -426,10 +426,11 @@
             >
           </nav>
         </div>
-        <h1>Price List</h1>
+        <h1>Price AI like labor, not like a tool.</h1>
         <p class="subtitle">
-          Official DWS IQ &amp; Firehorse product catalogue. Single source of truth. Reviewed
-          quarterly.
+          Official DWS Skilled Agents price list. Every SKU is anchored to the human role it
+          replaces. Single source of truth, reviewed quarterly. No per-seat fees, no copilot
+          framing, no SaaS-tool comparisons.
         </p>
 
         <div class="meta-bar" id="metaBar">
@@ -502,6 +503,52 @@
           "add-on",
           "subscription",
         ];
+        var TIER_COLOR = {
+          T0: "#94a3b8",
+          T1: "#0ea5e9",
+          T2: "#16a34a",
+          T3: "#7c3aed",
+          T4: "#dc2626",
+          land: "#ea580c",
+          meter: "#475569",
+        };
+        function tierBadge(tier) {
+          if (!tier) return "";
+          var label = tier === "land" || tier === "meter" ?
+            tier.charAt(0).toUpperCase() + tier.slice(1) : tier;
+          var c = TIER_COLOR[tier] || "#475569";
+          return '<span style="display:inline-block;background:' + c +
+            ';color:#fff;font-size:0.7rem;font-weight:700;padding:2px 7px;' +
+            'border-radius:4px;margin-right:8px;letter-spacing:0.05em;">' +
+            label + '</span>';
+        }
+        function replacesLine(p) {
+          var r = p && p.replaces;
+          if (!r || typeof r !== "object") return "";
+          var role = r.role || "human role";
+          var fte = r.fteCount;
+          var cost = r.fullyLoadedAnnualCostEUR;
+          var pct = null;
+          var price = p.price || 0;
+          var unit = p.priceUnit || "";
+          if (cost && price) {
+            var annual = unit === "per-month" ? price * 12 :
+              unit === "per-year" ? price : null;
+            if (annual) pct = Math.round((annual / cost) * 100);
+          }
+          var tail = pct !== null ? " at ~" + pct + "% of fully loaded cost" : "";
+          var fteStr = fte === undefined || fte === null ? "?" : String(fte);
+          return '<div class="replaces-line" style="font-size:0.82rem;color:#34d399;' +
+            'margin-top:6px;font-style:italic;">Replaces ' + escapeHtml(role) +
+            ' ≈ ' + escapeHtml(fteStr) + ' FTE' + escapeHtml(tail) + '.</div>';
+        }
+        function upsellLine(p) {
+          var nxt = p && p.nextUpsellSku;
+          if (!nxt) return "";
+          return '<div class="upsell-line" style="font-size:0.78rem;color:#94a3b8;' +
+            'margin-top:2px;">Next upsell: <strong style="color:#cbd5e1;">' +
+            escapeHtml(nxt) + '</strong></div>';
+        }
 
         function eur(n) {
           if (n === null || n === undefined) return "—";
@@ -597,6 +644,10 @@
               archived.push(p);
               return;
             }
+            // Public price list never shows Blue/pilot SKUs (T0 or
+            // deploymentColor:"blue"). They remain in products.json
+            // but render only on internal pilot list.
+            if (p.deploymentColor === "blue") return;
             var cat = p.storeCategory || "other";
             if (!buckets[cat]) buckets[cat] = [];
             buckets[cat].push(p);
@@ -668,14 +719,20 @@
                     '" title="Email sales">Email</a>';
                   var btns =
                     '<div class="act-btns">' + cardBtn + detailBtn + bookBtn + emailBtn + "</div>";
+                  var tierHtml = tierBadge(p.tier);
+                  var anchor = replacesLine(p);
+                  var upsell = upsellLine(p);
                   return (
                     "<tr>" +
                     '<td class="col-id" data-label="ID">' +
                     escapeHtml(p.id || "") +
                     "</td>" +
                     '<td class="col-name" data-label="Product">' +
+                    tierHtml +
                     escapeHtml(p.name || "") +
                     note +
+                    anchor +
+                    upsell +
                     "</td>" +
                     '<td class="col-price" data-label="Price">' +
                     priceCell +

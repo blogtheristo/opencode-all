@@ -1262,6 +1262,3020 @@
       "storeCategory": "platform",
       "buyPage": 1,
       "buyPageOrder": 1
+    },
+    "CMP-T0": {
+      "id": "CMP-T0",
+      "sku": "CMP-T0",
+      "mpn": "CMP-T0",
+      "name": "Compliance Agent — Pilot (60 days)",
+      "price": 0,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T0",
+      "agents": [
+        "compliance"
+      ],
+      "replaces": {
+        "role": "Junior compliance analyst",
+        "fteCount": 0.25,
+        "fullyLoadedAnnualCostEUR": 18000
+      },
+      "nextUpsellSku": "CMP-T1",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "60-day pilot of the Compliance Agent. 2 gap analyses, watermarked, no SLA.",
+      "features": [
+        "Replaces Junior compliance analyst ≈ 0.25 FTE",
+        "Tier T0",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "Pilot — capped, watermarked",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "CMP-T1": {
+      "id": "CMP-T1",
+      "sku": "CMP-T1",
+      "mpn": "CMP-T1",
+      "name": "Compliance Agent — Starter",
+      "price": 1499,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T1",
+      "agents": [
+        "compliance"
+      ],
+      "replaces": {
+        "role": "Junior compliance analyst",
+        "fteCount": 0.5,
+        "fullyLoadedAnnualCostEUR": 36000
+      },
+      "nextUpsellSku": "CMP-T2",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Up to 3 gap analyses per month, basic SLA, EU residency.",
+      "features": [
+        "Replaces Junior compliance analyst ≈ 0.5 FTE",
+        "Tier T1",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€1,499 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "CMP-T2": {
+      "id": "CMP-T2",
+      "sku": "CMP-T2",
+      "mpn": "CMP-T2",
+      "name": "Compliance Agent — Pro",
+      "price": 2999,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T2",
+      "agents": [
+        "compliance"
+      ],
+      "replaces": {
+        "role": "Senior compliance analyst",
+        "fteCount": 0.8,
+        "fullyLoadedAnnualCostEUR": 72000
+      },
+      "nextUpsellSku": "ESG-T3",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Unlimited compliance outcomes, audit pack, EU AI Act co-sign-ready.",
+      "features": [
+        "Replaces Senior compliance analyst ≈ 0.8 FTE",
+        "Tier T2",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€2,999 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "CMP-OC-STD": {
+      "id": "CMP-OC-STD",
+      "sku": "CMP-OC-STD",
+      "mpn": "CMP-OC-STD",
+      "name": "Outcome — CSRD/CBAM/AI Act gap (Standard)",
+      "price": 999,
+      "currency": "EUR",
+      "type": "metered",
+      "priceUnit": "per-outcome",
+      "tier": "meter",
+      "agents": [
+        "compliance"
+      ],
+      "replaces": {
+        "role": "Compliance analyst",
+        "fteCount": 0.05,
+        "fullyLoadedAnnualCostEUR": 3600
+      },
+      "nextUpsellSku": "CMP-T1",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Single-domain compliance gap analysis.",
+      "features": [
+        "Replaces Compliance analyst ≈ 0.05 FTE",
+        "Tier meter",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€999 per-outcome — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "CMP-OC-ENT": {
+      "id": "CMP-OC-ENT",
+      "sku": "CMP-OC-ENT",
+      "mpn": "CMP-OC-ENT",
+      "name": "Outcome — CSRD/CBAM/AI Act gap (Enterprise)",
+      "price": 2499,
+      "currency": "EUR",
+      "type": "metered",
+      "priceUnit": "per-outcome",
+      "tier": "meter",
+      "agents": [
+        "compliance"
+      ],
+      "replaces": {
+        "role": "Senior compliance analyst",
+        "fteCount": 0.08,
+        "fullyLoadedAnnualCostEUR": 7200
+      },
+      "nextUpsellSku": "CMP-T2",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Audit-pack signed-off compliance gap analysis.",
+      "features": [
+        "Replaces Senior compliance analyst ≈ 0.08 FTE",
+        "Tier meter",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€2,499 per-outcome — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "SS-T0": {
+      "id": "SS-T0",
+      "sku": "SS-T0",
+      "mpn": "SS-T0",
+      "name": "SiteSense — Pilot (30 days, 1 site)",
+      "price": 0,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T0",
+      "agents": [
+        "sitesense"
+      ],
+      "replaces": {
+        "role": "HSE supervisor",
+        "fteCount": 0.2,
+        "fullyLoadedAnnualCostEUR": 14000
+      },
+      "nextUpsellSku": "SS-T1",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "30-day pilot, 5 site-safety assessments, watermarked.",
+      "features": [
+        "Replaces HSE supervisor ≈ 0.2 FTE",
+        "Tier T0",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "Pilot — capped, watermarked",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "SS-T1": {
+      "id": "SS-T1",
+      "sku": "SS-T1",
+      "mpn": "SS-T1",
+      "name": "SiteSense — Starter",
+      "price": 1499,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T1",
+      "agents": [
+        "sitesense"
+      ],
+      "replaces": {
+        "role": "HSE supervisor",
+        "fteCount": 0.4,
+        "fullyLoadedAnnualCostEUR": 28000
+      },
+      "nextUpsellSku": "SS-T2",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "30 site-safety assessments/month, single site.",
+      "features": [
+        "Replaces HSE supervisor ≈ 0.4 FTE",
+        "Tier T1",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€1,499 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "SS-T2": {
+      "id": "SS-T2",
+      "sku": "SS-T2",
+      "mpn": "SS-T2",
+      "name": "SiteSense — Pro",
+      "price": 2499,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T2",
+      "agents": [
+        "sitesense"
+      ],
+      "replaces": {
+        "role": "HSE supervisor",
+        "fteCount": 0.8,
+        "fullyLoadedAnnualCostEUR": 56000
+      },
+      "nextUpsellSku": "CONSTR-T3",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Unlimited sites, audit trail, EN 13001 crane warnings.",
+      "features": [
+        "Replaces HSE supervisor ≈ 0.8 FTE",
+        "Tier T2",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€2,499 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "SS-OC-STD": {
+      "id": "SS-OC-STD",
+      "sku": "SS-OC-STD",
+      "mpn": "SS-OC-STD",
+      "name": "Outcome — Site safety assessment (Standard)",
+      "price": 49,
+      "currency": "EUR",
+      "type": "metered",
+      "priceUnit": "per-site-per-day",
+      "tier": "meter",
+      "agents": [
+        "sitesense"
+      ],
+      "replaces": {
+        "role": "HSE supervisor",
+        "fteCount": 0.01,
+        "fullyLoadedAnnualCostEUR": 700
+      },
+      "nextUpsellSku": "SS-T1",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Daily site safety score, single site.",
+      "features": [
+        "Replaces HSE supervisor ≈ 0.01 FTE",
+        "Tier meter",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€49 per-site-per-day — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "SS-OC-ENT": {
+      "id": "SS-OC-ENT",
+      "sku": "SS-OC-ENT",
+      "mpn": "SS-OC-ENT",
+      "name": "Outcome — Site safety assessment (Enterprise)",
+      "price": 99,
+      "currency": "EUR",
+      "type": "metered",
+      "priceUnit": "per-site-per-day",
+      "tier": "meter",
+      "agents": [
+        "sitesense"
+      ],
+      "replaces": {
+        "role": "HSE supervisor",
+        "fteCount": 0.02,
+        "fullyLoadedAnnualCostEUR": 1400
+      },
+      "nextUpsellSku": "SS-T2",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Signed-off insurance-ready daily site safety score.",
+      "features": [
+        "Replaces HSE supervisor ≈ 0.02 FTE",
+        "Tier meter",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€99 per-site-per-day — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "MO-T0": {
+      "id": "MO-T0",
+      "sku": "MO-T0",
+      "mpn": "MO-T0",
+      "name": "Material Oracle — Pilot (60 days, 1 project)",
+      "price": 0,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T0",
+      "agents": [
+        "material-oracle"
+      ],
+      "replaces": {
+        "role": "LCA analyst",
+        "fteCount": 0.2,
+        "fullyLoadedAnnualCostEUR": 16000
+      },
+      "nextUpsellSku": "MO-T1",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "60-day pilot, 1 LCA report, watermarked.",
+      "features": [
+        "Replaces LCA analyst ≈ 0.2 FTE",
+        "Tier T0",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "Pilot — capped, watermarked",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "MO-T1": {
+      "id": "MO-T1",
+      "sku": "MO-T1",
+      "mpn": "MO-T1",
+      "name": "Material Oracle — Starter",
+      "price": 1299,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T1",
+      "agents": [
+        "material-oracle"
+      ],
+      "replaces": {
+        "role": "LCA analyst",
+        "fteCount": 0.3,
+        "fullyLoadedAnnualCostEUR": 24000
+      },
+      "nextUpsellSku": "MO-T2",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Up to 2 LCA reports per month.",
+      "features": [
+        "Replaces LCA analyst ≈ 0.3 FTE",
+        "Tier T1",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€1,299 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "MO-T2": {
+      "id": "MO-T2",
+      "sku": "MO-T2",
+      "mpn": "MO-T2",
+      "name": "Material Oracle — Pro",
+      "price": 1999,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T2",
+      "agents": [
+        "material-oracle"
+      ],
+      "replaces": {
+        "role": "Senior LCA analyst",
+        "fteCount": 0.6,
+        "fullyLoadedAnnualCostEUR": 54000
+      },
+      "nextUpsellSku": "ESG-T3",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Unlimited LCA reports, EN 15978 A1–D, audit pack.",
+      "features": [
+        "Replaces Senior LCA analyst ≈ 0.6 FTE",
+        "Tier T2",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€1,999 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "MO-OC-STD": {
+      "id": "MO-OC-STD",
+      "sku": "MO-OC-STD",
+      "mpn": "MO-OC-STD",
+      "name": "Outcome — LCA report (Standard)",
+      "price": 499,
+      "currency": "EUR",
+      "type": "metered",
+      "priceUnit": "per-outcome",
+      "tier": "meter",
+      "agents": [
+        "material-oracle"
+      ],
+      "replaces": {
+        "role": "LCA analyst",
+        "fteCount": 0.03,
+        "fullyLoadedAnnualCostEUR": 2400
+      },
+      "nextUpsellSku": "MO-T1",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Single-project EN 15978 LCA report.",
+      "features": [
+        "Replaces LCA analyst ≈ 0.03 FTE",
+        "Tier meter",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€499 per-outcome — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "MO-OC-ENT": {
+      "id": "MO-OC-ENT",
+      "sku": "MO-OC-ENT",
+      "mpn": "MO-OC-ENT",
+      "name": "Outcome — LCA report (Enterprise)",
+      "price": 999,
+      "currency": "EUR",
+      "type": "metered",
+      "priceUnit": "per-outcome",
+      "tier": "meter",
+      "agents": [
+        "material-oracle"
+      ],
+      "replaces": {
+        "role": "Senior LCA analyst",
+        "fteCount": 0.05,
+        "fullyLoadedAnnualCostEUR": 4500
+      },
+      "nextUpsellSku": "MO-T2",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Signed and supplier-data-validated EN 15978 LCA report.",
+      "features": [
+        "Replaces Senior LCA analyst ≈ 0.05 FTE",
+        "Tier meter",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€999 per-outcome — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "ED-T1": {
+      "id": "ED-T1",
+      "sku": "ED-T1",
+      "mpn": "ED-T1",
+      "name": "Emissions Data — Starter",
+      "price": 999,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T1",
+      "agents": [
+        "emissions-data"
+      ],
+      "replaces": {
+        "role": "ESG data analyst",
+        "fteCount": 0.25,
+        "fullyLoadedAnnualCostEUR": 22500
+      },
+      "nextUpsellSku": "ED-T2",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Scope 1/2/3 dataset with monthly variance.",
+      "features": [
+        "Replaces ESG data analyst ≈ 0.25 FTE",
+        "Tier T1",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€999 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "ED-T2": {
+      "id": "ED-T2",
+      "sku": "ED-T2",
+      "mpn": "ED-T2",
+      "name": "Emissions Data — Pro",
+      "price": 1499,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T2",
+      "agents": [
+        "emissions-data"
+      ],
+      "replaces": {
+        "role": "ESG data analyst",
+        "fteCount": 0.5,
+        "fullyLoadedAnnualCostEUR": 45000
+      },
+      "nextUpsellSku": "ESG-T3",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Unlimited datasets, supplier reach.",
+      "features": [
+        "Replaces ESG data analyst ≈ 0.5 FTE",
+        "Tier T2",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€1,499 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "SG-T1": {
+      "id": "SG-T1",
+      "sku": "SG-T1",
+      "mpn": "SG-T1",
+      "name": "Schedule Genius — Starter",
+      "price": 1299,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T1",
+      "agents": [
+        "schedule-genius"
+      ],
+      "replaces": {
+        "role": "Project planner",
+        "fteCount": 0.3,
+        "fullyLoadedAnnualCostEUR": 27000
+      },
+      "nextUpsellSku": "SG-T2",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Up to 2 project plans per month.",
+      "features": [
+        "Replaces Project planner ≈ 0.3 FTE",
+        "Tier T1",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€1,299 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "SG-T2": {
+      "id": "SG-T2",
+      "sku": "SG-T2",
+      "mpn": "SG-T2",
+      "name": "Schedule Genius — Pro",
+      "price": 1999,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T2",
+      "agents": [
+        "schedule-genius"
+      ],
+      "replaces": {
+        "role": "Project planner",
+        "fteCount": 0.6,
+        "fullyLoadedAnnualCostEUR": 54000
+      },
+      "nextUpsellSku": "CONSTR-T3",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Unlimited plans, risk-pass automation.",
+      "features": [
+        "Replaces Project planner ≈ 0.6 FTE",
+        "Tier T2",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€1,999 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "CONSTR-T2": {
+      "id": "CONSTR-T2",
+      "sku": "CONSTR-T2",
+      "mpn": "CONSTR-T2",
+      "name": "Construction Agent — Pro (bundle)",
+      "price": 3999,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T2",
+      "agents": [
+        "sitesense",
+        "material-oracle",
+        "schedule-genius"
+      ],
+      "replaces": {
+        "role": "Construction PM",
+        "fteCount": 0.7,
+        "fullyLoadedAnnualCostEUR": 70000
+      },
+      "nextUpsellSku": "CONSTR-T3",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Safety + materials + plan in one assessment workflow.",
+      "features": [
+        "Replaces Construction PM ≈ 0.7 FTE",
+        "Tier T2",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€3,999 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "LOG-T1": {
+      "id": "LOG-T1",
+      "sku": "LOG-T1",
+      "mpn": "LOG-T1",
+      "name": "Logistics — Starter",
+      "price": 1299,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T1",
+      "agents": [
+        "logistics"
+      ],
+      "replaces": {
+        "role": "Logistics planner",
+        "fteCount": 0.3,
+        "fullyLoadedAnnualCostEUR": 24000
+      },
+      "nextUpsellSku": "LOG-T2",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Up to 5 lanes.",
+      "features": [
+        "Replaces Logistics planner ≈ 0.3 FTE",
+        "Tier T1",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€1,299 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "LOG-T2": {
+      "id": "LOG-T2",
+      "sku": "LOG-T2",
+      "mpn": "LOG-T2",
+      "name": "Logistics — Pro",
+      "price": 1799,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T2",
+      "agents": [
+        "logistics"
+      ],
+      "replaces": {
+        "role": "Logistics planner",
+        "fteCount": 0.5,
+        "fullyLoadedAnnualCostEUR": 40000
+      },
+      "nextUpsellSku": "CONSTR-T3",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Unlimited lanes, ETA risk model.",
+      "features": [
+        "Replaces Logistics planner ≈ 0.5 FTE",
+        "Tier T2",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€1,799 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "SOV-T1": {
+      "id": "SOV-T1",
+      "sku": "SOV-T1",
+      "mpn": "SOV-T1",
+      "name": "Sovereignty Monitor — Starter",
+      "price": 1299,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T1",
+      "agents": [
+        "sovereignty"
+      ],
+      "replaces": {
+        "role": "DPO assistant",
+        "fteCount": 0.2,
+        "fullyLoadedAnnualCostEUR": 18000
+      },
+      "nextUpsellSku": "SOV-T2",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Monthly database sovereignty assessment.",
+      "features": [
+        "Replaces DPO assistant ≈ 0.2 FTE",
+        "Tier T1",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€1,299 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "SOV-T2": {
+      "id": "SOV-T2",
+      "sku": "SOV-T2",
+      "mpn": "SOV-T2",
+      "name": "Sovereignty Monitor — Pro",
+      "price": 1999,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T2",
+      "agents": [
+        "sovereignty"
+      ],
+      "replaces": {
+        "role": "DPO assistant",
+        "fteCount": 0.5,
+        "fullyLoadedAnnualCostEUR": 45000
+      },
+      "nextUpsellSku": "SOV-T3",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Continuous monitoring, NIS2 reports.",
+      "features": [
+        "Replaces DPO assistant ≈ 0.5 FTE",
+        "Tier T2",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€1,999 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "QG-T1": {
+      "id": "QG-T1",
+      "sku": "QG-T1",
+      "mpn": "QG-T1",
+      "name": "Quality Gate — Starter",
+      "price": 999,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T1",
+      "agents": [
+        "quality-gate"
+      ],
+      "replaces": {
+        "role": "QA reviewer",
+        "fteCount": 0.2,
+        "fullyLoadedAnnualCostEUR": 16000
+      },
+      "nextUpsellSku": "QG-T2",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Up to 10k verified outputs/month.",
+      "features": [
+        "Replaces QA reviewer ≈ 0.2 FTE",
+        "Tier T1",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€999 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "QG-T2": {
+      "id": "QG-T2",
+      "sku": "QG-T2",
+      "mpn": "QG-T2",
+      "name": "Quality Gate — Pro",
+      "price": 1499,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T2",
+      "agents": [
+        "quality-gate"
+      ],
+      "replaces": {
+        "role": "QA reviewer",
+        "fteCount": 0.4,
+        "fullyLoadedAnnualCostEUR": 32000
+      },
+      "nextUpsellSku": null,
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Unlimited outputs, schema/citation audit. Attached-only — no upsell ladder.",
+      "features": [
+        "Replaces QA reviewer ≈ 0.4 FTE",
+        "Tier T2",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€1,499 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "CSAT-T1": {
+      "id": "CSAT-T1",
+      "sku": "CSAT-T1",
+      "mpn": "CSAT-T1",
+      "name": "Customer Sat — Starter",
+      "price": 599,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T1",
+      "agents": [
+        "customer-sat"
+      ],
+      "replaces": {
+        "role": "Customer success analyst",
+        "fteCount": 0.15,
+        "fullyLoadedAnnualCostEUR": 12000
+      },
+      "nextUpsellSku": "CSAT-T2",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "1 cohort tracked.",
+      "features": [
+        "Replaces Customer success analyst ≈ 0.15 FTE",
+        "Tier T1",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€599 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "CSAT-T2": {
+      "id": "CSAT-T2",
+      "sku": "CSAT-T2",
+      "mpn": "CSAT-T2",
+      "name": "Customer Sat — Pro",
+      "price": 999,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T2",
+      "agents": [
+        "customer-sat"
+      ],
+      "replaces": {
+        "role": "Customer success analyst",
+        "fteCount": 0.3,
+        "fullyLoadedAnnualCostEUR": 24000
+      },
+      "nextUpsellSku": "GTM-T3",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Unlimited cohorts, churn flag.",
+      "features": [
+        "Replaces Customer success analyst ≈ 0.3 FTE",
+        "Tier T2",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€999 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "LF-T1": {
+      "id": "LF-T1",
+      "sku": "LF-T1",
+      "mpn": "LF-T1",
+      "name": "Lead Feedback — Starter",
+      "price": 599,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T1",
+      "agents": [
+        "lead-feedback"
+      ],
+      "replaces": {
+        "role": "Sales analyst",
+        "fteCount": 0.15,
+        "fullyLoadedAnnualCostEUR": 12000
+      },
+      "nextUpsellSku": "LF-T2",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Weekly pipeline review.",
+      "features": [
+        "Replaces Sales analyst ≈ 0.15 FTE",
+        "Tier T1",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€599 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "LF-T2": {
+      "id": "LF-T2",
+      "sku": "LF-T2",
+      "mpn": "LF-T2",
+      "name": "Lead Feedback — Pro",
+      "price": 999,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T2",
+      "agents": [
+        "lead-feedback"
+      ],
+      "replaces": {
+        "role": "Sales analyst",
+        "fteCount": 0.3,
+        "fullyLoadedAnnualCostEUR": 24000
+      },
+      "nextUpsellSku": "GTM-T3",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Continuous review, objection map.",
+      "features": [
+        "Replaces Sales analyst ≈ 0.3 FTE",
+        "Tier T2",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€999 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "CS-T1": {
+      "id": "CS-T1",
+      "sku": "CS-T1",
+      "mpn": "CS-T1",
+      "name": "Competitor Surveillance — Starter",
+      "price": 899,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T1",
+      "agents": [
+        "competitor-surveillance"
+      ],
+      "replaces": {
+        "role": "Market analyst",
+        "fteCount": 0.2,
+        "fullyLoadedAnnualCostEUR": 18000
+      },
+      "nextUpsellSku": "CS-T2",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Monthly brief, single segment.",
+      "features": [
+        "Replaces Market analyst ≈ 0.2 FTE",
+        "Tier T1",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€899 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "CS-T2": {
+      "id": "CS-T2",
+      "sku": "CS-T2",
+      "mpn": "CS-T2",
+      "name": "Competitor Surveillance — Pro",
+      "price": 1499,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T2",
+      "agents": [
+        "competitor-surveillance"
+      ],
+      "replaces": {
+        "role": "Market analyst",
+        "fteCount": 0.4,
+        "fullyLoadedAnnualCostEUR": 36000
+      },
+      "nextUpsellSku": "GTM-T3",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Continuous, multi-segment surveillance.",
+      "features": [
+        "Replaces Market analyst ≈ 0.4 FTE",
+        "Tier T2",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€1,499 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "SEO-T1": {
+      "id": "SEO-T1",
+      "sku": "SEO-T1",
+      "mpn": "SEO-T1",
+      "name": "SEO Audit — Starter",
+      "price": 599,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T1",
+      "agents": [
+        "seo-audit"
+      ],
+      "replaces": {
+        "role": "SEO specialist",
+        "fteCount": 0.1,
+        "fullyLoadedAnnualCostEUR": 9000
+      },
+      "nextUpsellSku": "SEO-T2",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Quarterly audit.",
+      "features": [
+        "Replaces SEO specialist ≈ 0.1 FTE",
+        "Tier T1",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€599 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "SEO-T2": {
+      "id": "SEO-T2",
+      "sku": "SEO-T2",
+      "mpn": "SEO-T2",
+      "name": "SEO Audit — Pro",
+      "price": 999,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T2",
+      "agents": [
+        "seo-audit"
+      ],
+      "replaces": {
+        "role": "SEO specialist",
+        "fteCount": 0.25,
+        "fullyLoadedAnnualCostEUR": 22500
+      },
+      "nextUpsellSku": "GTM-T3",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Monthly audit plus recommendations.",
+      "features": [
+        "Replaces SEO specialist ≈ 0.25 FTE",
+        "Tier T2",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€999 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "DW-T1": {
+      "id": "DW-T1",
+      "sku": "DW-T1",
+      "mpn": "DW-T1",
+      "name": "Deepwiki Extractor — Starter",
+      "price": 599,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T1",
+      "agents": [
+        "deepwiki-extractor"
+      ],
+      "replaces": {
+        "role": "Research analyst",
+        "fteCount": 0.1,
+        "fullyLoadedAnnualCostEUR": 8000
+      },
+      "nextUpsellSku": "DW-T2",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Up to 5 source packs.",
+      "features": [
+        "Replaces Research analyst ≈ 0.1 FTE",
+        "Tier T1",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€599 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "DW-T2": {
+      "id": "DW-T2",
+      "sku": "DW-T2",
+      "mpn": "DW-T2",
+      "name": "Deepwiki Extractor — Pro",
+      "price": 799,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T2",
+      "agents": [
+        "deepwiki-extractor"
+      ],
+      "replaces": {
+        "role": "Research analyst",
+        "fteCount": 0.2,
+        "fullyLoadedAnnualCostEUR": 16000
+      },
+      "nextUpsellSku": null,
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Unlimited extractions, structured outputs. Attached-only.",
+      "features": [
+        "Replaces Research analyst ≈ 0.2 FTE",
+        "Tier T2",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€799 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "VIA-T1": {
+      "id": "VIA-T1",
+      "sku": "VIA-T1",
+      "mpn": "VIA-T1",
+      "name": "Viability — Starter",
+      "price": 999,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T1",
+      "agents": [
+        "viability"
+      ],
+      "replaces": {
+        "role": "Strategy analyst",
+        "fteCount": 0.2,
+        "fullyLoadedAnnualCostEUR": 20000
+      },
+      "nextUpsellSku": "VIA-T2",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "One go/no-go scoring per quarter.",
+      "features": [
+        "Replaces Strategy analyst ≈ 0.2 FTE",
+        "Tier T1",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€999 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "VIA-T2": {
+      "id": "VIA-T2",
+      "sku": "VIA-T2",
+      "mpn": "VIA-T2",
+      "name": "Viability — Pro",
+      "price": 1499,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T2",
+      "agents": [
+        "viability"
+      ],
+      "replaces": {
+        "role": "Strategy analyst",
+        "fteCount": 0.4,
+        "fullyLoadedAnnualCostEUR": 40000
+      },
+      "nextUpsellSku": null,
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Continuous scoring plus sensitivity. Attached-only.",
+      "features": [
+        "Replaces Strategy analyst ≈ 0.4 FTE",
+        "Tier T2",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€1,499 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "TH-T2": {
+      "id": "TH-T2",
+      "sku": "TH-T2",
+      "mpn": "TH-T2",
+      "name": "Themis Coordinator — Pro",
+      "price": 2499,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T2",
+      "agents": [
+        "themis"
+      ],
+      "replaces": {
+        "role": "Ops coordinator",
+        "fteCount": 0.5,
+        "fullyLoadedAnnualCostEUR": 40000
+      },
+      "nextUpsellSku": "WF-T4",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Case routing, sub-agent assignment, KYA chain.",
+      "features": [
+        "Replaces Ops coordinator ≈ 0.5 FTE",
+        "Tier T2",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€2,499 per-month — Blue/pilot",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "ESG-T3": {
+      "id": "ESG-T3",
+      "sku": "ESG-T3",
+      "mpn": "ESG-T3",
+      "name": "ESG Function-as-a-Service",
+      "price": 6999,
+      "annualPrice": 69990,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T3",
+      "agents": [
+        "material-oracle",
+        "emissions-data",
+        "compliance",
+        "themis"
+      ],
+      "replaces": {
+        "role": "ESG/Compliance lead",
+        "fteCount": 1.75,
+        "fullyLoadedAnnualCostEUR": 157500
+      },
+      "nextUpsellSku": "WF-T4",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "ESG function bundle (Material Oracle + Emissions Data + Compliance + Themis).",
+      "features": [
+        "Replaces ESG/Compliance lead ≈ 1.75 FTE",
+        "Tier T3 — Function/Workforce bundle",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€6,999/mo — annual €69,990 (2 months free)",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "HSE-T3": {
+      "id": "HSE-T3",
+      "sku": "HSE-T3",
+      "mpn": "HSE-T3",
+      "name": "HSE Function-as-a-Service",
+      "price": 4999,
+      "annualPrice": 49990,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T3",
+      "agents": [
+        "sitesense",
+        "compliance",
+        "themis"
+      ],
+      "replaces": {
+        "role": "HSE supervisor",
+        "fteCount": 1.25,
+        "fullyLoadedAnnualCostEUR": 87500
+      },
+      "nextUpsellSku": "WF-T4",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "HSE function bundle (SiteSense + Compliance-HSE-scope + Themis).",
+      "features": [
+        "Replaces HSE supervisor ≈ 1.25 FTE",
+        "Tier T3 — Function/Workforce bundle",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€4,999/mo — annual €49,990 (2 months free)",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "CONSTR-T3": {
+      "id": "CONSTR-T3",
+      "sku": "CONSTR-T3",
+      "mpn": "CONSTR-T3",
+      "name": "Construction Ops Pod",
+      "price": 8499,
+      "annualPrice": 84990,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T3",
+      "agents": [
+        "sitesense",
+        "material-oracle",
+        "schedule-genius",
+        "logistics",
+        "themis"
+      ],
+      "replaces": {
+        "role": "Construction PM and planner",
+        "fteCount": 2.0,
+        "fullyLoadedAnnualCostEUR": 180000
+      },
+      "nextUpsellSku": "WF-T4",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Construction function bundle (Construction + Schedule Genius + Logistics + Themis).",
+      "features": [
+        "Replaces Construction PM and planner ≈ 2.0 FTE",
+        "Tier T3 — Function/Workforce bundle",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€8,499/mo — annual €84,990 (2 months free)",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "SOV-T3": {
+      "id": "SOV-T3",
+      "sku": "SOV-T3",
+      "mpn": "SOV-T3",
+      "name": "Sovereignty & Compliance Pack",
+      "price": 5499,
+      "annualPrice": 54990,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T3",
+      "agents": [
+        "sovereignty",
+        "compliance",
+        "quality-gate"
+      ],
+      "replaces": {
+        "role": "Compliance + 0.3 DPO",
+        "fteCount": 1.3,
+        "fullyLoadedAnnualCostEUR": 117000
+      },
+      "nextUpsellSku": "WF-T4",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Sovereignty + Compliance + Quality Gate bundle.",
+      "features": [
+        "Replaces Compliance + 0.3 DPO ≈ 1.3 FTE",
+        "Tier T3 — Function/Workforce bundle",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€5,499/mo — annual €54,990 (2 months free)",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "GTM-T3": {
+      "id": "GTM-T3",
+      "sku": "GTM-T3",
+      "mpn": "GTM-T3",
+      "name": "Go-to-Market Pod",
+      "price": 3999,
+      "annualPrice": 39990,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T3",
+      "agents": [
+        "seo-audit",
+        "competitor-surveillance",
+        "lead-feedback",
+        "customer-sat"
+      ],
+      "replaces": {
+        "role": "Marketing and CS analysts",
+        "fteCount": 1.5,
+        "fullyLoadedAnnualCostEUR": 120000
+      },
+      "nextUpsellSku": "WF-T4",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "GTM bundle (SEO + Competitor Surveillance + Lead Feedback + CSAT).",
+      "features": [
+        "Replaces Marketing and CS analysts ≈ 1.5 FTE",
+        "Tier T3 — Function/Workforce bundle",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€3,999/mo — annual €39,990 (2 months free)",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "WF-T4": {
+      "id": "WF-T4",
+      "sku": "WF-T4",
+      "mpn": "WF-T4",
+      "name": "Full Skilled Workforce",
+      "price": 19990,
+      "annualPrice": 199900,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T4",
+      "agents": [
+        "all"
+      ],
+      "replaces": {
+        "role": "Multi-disciplinary FTE team",
+        "fteCount": 7.0,
+        "fullyLoadedAnnualCostEUR": 700000
+      },
+      "nextUpsellSku": null,
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "All 16 Skilled Agents under Themis orchestration with premium SLA.",
+      "features": [
+        "Replaces Multi-disciplinary FTE team ≈ 7.0 FTE",
+        "Tier T4 — Function/Workforce bundle",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€19,990/mo — annual €199,900 (2 months free)",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "IND-MARS": {
+      "id": "IND-MARS",
+      "sku": "IND-MARS",
+      "mpn": "IND-MARS",
+      "name": "Mars — Construction industry pod",
+      "price": 999,
+      "annualPrice": 9990,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T3",
+      "agents": [
+        "industry-model"
+      ],
+      "replaces": {
+        "role": "construction vertical SME",
+        "fteCount": 0.3,
+        "fullyLoadedAnnualCostEUR": 30000
+      },
+      "nextUpsellSku": "WF-T4",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Industry-vertical specialisation add-on for construction. Sits on top of a T3 Function bundle. Never sold standalone.",
+      "features": [
+        "Vertical: construction",
+        "T3 add-on only — requires base T3 bundle",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "+€999/mo add-on on top of CONSTR-T3 or ESG-T3",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "industryPodAddOn": true,
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "IND-HELIOS": {
+      "id": "IND-HELIOS",
+      "sku": "IND-HELIOS",
+      "mpn": "IND-HELIOS",
+      "name": "Helios — Energy industry pod",
+      "price": 999,
+      "annualPrice": 9990,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T3",
+      "agents": [
+        "industry-model"
+      ],
+      "replaces": {
+        "role": "energy vertical SME",
+        "fteCount": 0.3,
+        "fullyLoadedAnnualCostEUR": 30000
+      },
+      "nextUpsellSku": "WF-T4",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Industry-vertical specialisation add-on for energy. Sits on top of a T3 Function bundle. Never sold standalone.",
+      "features": [
+        "Vertical: energy",
+        "T3 add-on only — requires base T3 bundle",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "+€999/mo add-on on top of CONSTR-T3 or ESG-T3",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "industryPodAddOn": true,
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "IND-VULCAN": {
+      "id": "IND-VULCAN",
+      "sku": "IND-VULCAN",
+      "mpn": "IND-VULCAN",
+      "name": "Vulcan — Steel industry pod",
+      "price": 1499,
+      "annualPrice": 14990,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T3",
+      "agents": [
+        "industry-model"
+      ],
+      "replaces": {
+        "role": "steel ETS/CBAM vertical SME",
+        "fteCount": 0.3,
+        "fullyLoadedAnnualCostEUR": 30000
+      },
+      "nextUpsellSku": "WF-T4",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Industry-vertical specialisation add-on for steel ETS/CBAM. Sits on top of a T3 Function bundle. Never sold standalone.",
+      "features": [
+        "Vertical: steel ETS/CBAM",
+        "T3 add-on only — requires base T3 bundle",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "+€1,499/mo add-on on top of CONSTR-T3 or ESG-T3",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "industryPodAddOn": true,
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "IND-TALOS": {
+      "id": "IND-TALOS",
+      "sku": "IND-TALOS",
+      "mpn": "IND-TALOS",
+      "name": "Talos — Aluminium industry pod",
+      "price": 1499,
+      "annualPrice": 14990,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T3",
+      "agents": [
+        "industry-model"
+      ],
+      "replaces": {
+        "role": "aluminium ETS/CBAM vertical SME",
+        "fteCount": 0.3,
+        "fullyLoadedAnnualCostEUR": 30000
+      },
+      "nextUpsellSku": "WF-T4",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Industry-vertical specialisation add-on for aluminium ETS/CBAM. Sits on top of a T3 Function bundle. Never sold standalone.",
+      "features": [
+        "Vertical: aluminium ETS/CBAM",
+        "T3 add-on only — requires base T3 bundle",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "+€1,499/mo add-on on top of CONSTR-T3 or ESG-T3",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "industryPodAddOn": true,
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "IND-GAIA": {
+      "id": "IND-GAIA",
+      "sku": "IND-GAIA",
+      "mpn": "IND-GAIA",
+      "name": "Gaia — Cement industry pod",
+      "price": 1499,
+      "annualPrice": 14990,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T3",
+      "agents": [
+        "industry-model"
+      ],
+      "replaces": {
+        "role": "cement ETS/CBAM vertical SME",
+        "fteCount": 0.3,
+        "fullyLoadedAnnualCostEUR": 30000
+      },
+      "nextUpsellSku": "WF-T4",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Industry-vertical specialisation add-on for cement ETS/CBAM. Sits on top of a T3 Function bundle. Never sold standalone.",
+      "features": [
+        "Vertical: cement ETS/CBAM",
+        "T3 add-on only — requires base T3 bundle",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "+€1,499/mo add-on on top of CONSTR-T3 or ESG-T3",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "industryPodAddOn": true,
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "IND-CERES": {
+      "id": "IND-CERES",
+      "sku": "IND-CERES",
+      "mpn": "IND-CERES",
+      "name": "Ceres — Agri / Circular industry pod",
+      "price": 999,
+      "annualPrice": 9990,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T3",
+      "agents": [
+        "industry-model"
+      ],
+      "replaces": {
+        "role": "agri/circular vertical SME",
+        "fteCount": 0.3,
+        "fullyLoadedAnnualCostEUR": 30000
+      },
+      "nextUpsellSku": "WF-T4",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Industry-vertical specialisation add-on for agri/circular. Sits on top of a T3 Function bundle. Never sold standalone.",
+      "features": [
+        "Vertical: agri/circular",
+        "T3 add-on only — requires base T3 bundle",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "+€999/mo add-on on top of CONSTR-T3 or ESG-T3",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "industryPodAddOn": true,
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "IND-NEPTUN": {
+      "id": "IND-NEPTUN",
+      "sku": "IND-NEPTUN",
+      "mpn": "IND-NEPTUN",
+      "name": "Neptune — Maritime industry pod",
+      "price": 999,
+      "annualPrice": 9990,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T3",
+      "agents": [
+        "industry-model"
+      ],
+      "replaces": {
+        "role": "maritime ops vertical SME",
+        "fteCount": 0.3,
+        "fullyLoadedAnnualCostEUR": 30000
+      },
+      "nextUpsellSku": "WF-T4",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Industry-vertical specialisation add-on for maritime ops. Sits on top of a T3 Function bundle. Never sold standalone.",
+      "features": [
+        "Vertical: maritime ops",
+        "T3 add-on only — requires base T3 bundle",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "+€999/mo add-on on top of CONSTR-T3 or ESG-T3",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "industryPodAddOn": true,
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "IND-PROM": {
+      "id": "IND-PROM",
+      "sku": "IND-PROM",
+      "mpn": "IND-PROM",
+      "name": "Prometheus — Hydrogen industry pod",
+      "price": 1499,
+      "annualPrice": 14990,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T3",
+      "agents": [
+        "industry-model"
+      ],
+      "replaces": {
+        "role": "hydrogen vertical SME",
+        "fteCount": 0.3,
+        "fullyLoadedAnnualCostEUR": 30000
+      },
+      "nextUpsellSku": "WF-T4",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Industry-vertical specialisation add-on for hydrogen. Sits on top of a T3 Function bundle. Never sold standalone.",
+      "features": [
+        "Vertical: hydrogen",
+        "T3 add-on only — requires base T3 bundle",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "+€1,499/mo add-on on top of CONSTR-T3 or ESG-T3",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "industryPodAddOn": true,
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "IND-BESS": {
+      "id": "IND-BESS",
+      "sku": "IND-BESS",
+      "mpn": "IND-BESS",
+      "name": "BESS — Battery storage industry pod",
+      "price": 1499,
+      "annualPrice": 14990,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T3",
+      "agents": [
+        "industry-model"
+      ],
+      "replaces": {
+        "role": "battery storage vertical SME",
+        "fteCount": 0.3,
+        "fullyLoadedAnnualCostEUR": 30000
+      },
+      "nextUpsellSku": "WF-T4",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Industry-vertical specialisation add-on for battery storage. Sits on top of a T3 Function bundle. Never sold standalone.",
+      "features": [
+        "Vertical: battery storage",
+        "T3 add-on only — requires base T3 bundle",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "+€1,499/mo add-on on top of CONSTR-T3 or ESG-T3",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS IQ",
+      "version": "1.0",
+      "industryPodAddOn": true,
+      "addsOnTo": [
+        "CONSTR-T3",
+        "ESG-T3"
+      ],
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS IQ",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "LAND-AIL": {
+      "id": "LAND-AIL",
+      "sku": "LAND-AIL",
+      "mpn": "LAND-AIL",
+      "name": "AI Literacy Bridge",
+      "price": 34990,
+      "currency": "EUR",
+      "type": "bundle",
+      "priceUnit": "per-year",
+      "tier": "land",
+      "agents": [
+        "compliance"
+      ],
+      "replaces": {
+        "role": "AI literacy programme manager",
+        "fteCount": 0.4,
+        "fullyLoadedAnnualCostEUR": 36000
+      },
+      "nextUpsellSku": "CMP-T2",
+      "attachedAgentSku": "CMP-T2",
+      "yearOneEUR": 34990,
+      "yearTwoPlusEUR": 29990,
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "EU AI Act Literacy programme (20 seats) + 12-month T2 Compliance agent.",
+      "features": [
+        "Replaces AI literacy programme manager ≈ 0.4 FTE during engagement",
+        "Y1 €34,990 · Y2+ €29,990/yr",
+        "Land overlay — engagement + 12-month agent attach"
+      ],
+      "priceNote": "Y1 €34,990 · Y2+ €29,990/yr — engagement + 12-month CMP-T2",
+      "image": "/static/images/Risto_Malta.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "advisory",
+      "brand": "Lifetime",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Business & Industrial > Business Services",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "LAND-EUAI": {
+      "id": "LAND-EUAI",
+      "sku": "LAND-EUAI",
+      "mpn": "LAND-EUAI",
+      "name": "EU AI Act Compliance Sprint",
+      "price": 39990,
+      "currency": "EUR",
+      "type": "bundle",
+      "priceUnit": "per-year",
+      "tier": "land",
+      "agents": [
+        "compliance"
+      ],
+      "replaces": {
+        "role": "Senior compliance lead",
+        "fteCount": 0.6,
+        "fullyLoadedAnnualCostEUR": 54000
+      },
+      "nextUpsellSku": "CMP-T2",
+      "attachedAgentSku": "CMP-T2",
+      "yearOneEUR": 39990,
+      "yearTwoPlusEUR": 29990,
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "5-day senior compliance sprint + 12-month T2 Compliance agent.",
+      "features": [
+        "Replaces Senior compliance lead ≈ 0.6 FTE during engagement",
+        "Y1 €39,990 · Y2+ €29,990/yr",
+        "Land overlay — engagement + 12-month agent attach"
+      ],
+      "priceNote": "Y1 €39,990 · Y2+ €29,990/yr — engagement + 12-month CMP-T2",
+      "image": "/static/images/Risto_Malta.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "advisory",
+      "brand": "Lifetime",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Business & Industrial > Business Services",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "LAND-HSE": {
+      "id": "LAND-HSE",
+      "sku": "LAND-HSE",
+      "mpn": "LAND-HSE",
+      "name": "Site Safety Bootcamp",
+      "price": 29990,
+      "currency": "EUR",
+      "type": "bundle",
+      "priceUnit": "per-year",
+      "tier": "land",
+      "agents": [
+        "sitesense"
+      ],
+      "replaces": {
+        "role": "HSE supervisor",
+        "fteCount": 0.7,
+        "fullyLoadedAnnualCostEUR": 49000
+      },
+      "nextUpsellSku": "SS-T2",
+      "attachedAgentSku": "SS-T2",
+      "yearOneEUR": 29990,
+      "yearTwoPlusEUR": 24990,
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "3-day site-safety training + 2-day audit + 12-month T2 SiteSense.",
+      "features": [
+        "Replaces HSE supervisor ≈ 0.7 FTE during engagement",
+        "Y1 €29,990 · Y2+ €24,990/yr",
+        "Land overlay — engagement + 12-month agent attach"
+      ],
+      "priceNote": "Y1 €29,990 · Y2+ €24,990/yr — engagement + 12-month SS-T2",
+      "image": "/static/images/Risto_Malta.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "advisory",
+      "brand": "Lifetime",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Business & Industrial > Business Services",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "LAND-CSRD": {
+      "id": "LAND-CSRD",
+      "sku": "LAND-CSRD",
+      "mpn": "LAND-CSRD",
+      "name": "CSRD Reporting Accelerator",
+      "price": 89990,
+      "currency": "EUR",
+      "type": "bundle",
+      "priceUnit": "per-year",
+      "tier": "land",
+      "agents": [
+        "material-oracle",
+        "emissions-data",
+        "compliance",
+        "themis"
+      ],
+      "replaces": {
+        "role": "ESG reporting lead",
+        "fteCount": 1.5,
+        "fullyLoadedAnnualCostEUR": 135000
+      },
+      "nextUpsellSku": "ESG-T3",
+      "attachedAgentSku": "ESG-T3",
+      "yearOneEUR": 89990,
+      "yearTwoPlusEUR": 69990,
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "10-day ESG accelerator + 12-month T3 ESG bundle.",
+      "features": [
+        "Replaces ESG reporting lead ≈ 1.5 FTE during engagement",
+        "Y1 €89,990 · Y2+ €69,990/yr",
+        "Land overlay — engagement + 12-month agent attach"
+      ],
+      "priceNote": "Y1 €89,990 · Y2+ €69,990/yr — engagement + 12-month ESG-T3",
+      "image": "/static/images/Risto_Malta.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "advisory",
+      "brand": "Lifetime",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Business & Industrial > Business Services",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "LAND-LCA": {
+      "id": "LAND-LCA",
+      "sku": "LAND-LCA",
+      "mpn": "LAND-LCA",
+      "name": "Carbon Reporting Sprint",
+      "price": 49990,
+      "currency": "EUR",
+      "type": "bundle",
+      "priceUnit": "per-year",
+      "tier": "land",
+      "agents": [
+        "material-oracle",
+        "emissions-data"
+      ],
+      "replaces": {
+        "role": "LCA specialist",
+        "fteCount": 0.8,
+        "fullyLoadedAnnualCostEUR": 64000
+      },
+      "nextUpsellSku": "MO-T2",
+      "attachedAgentSku": "MO-T2",
+      "yearOneEUR": 49990,
+      "yearTwoPlusEUR": 39990,
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "5-day LCA sprint + 12-month T2 Material Oracle/Emissions Data.",
+      "features": [
+        "Replaces LCA specialist ≈ 0.8 FTE during engagement",
+        "Y1 €49,990 · Y2+ €39,990/yr",
+        "Land overlay — engagement + 12-month agent attach"
+      ],
+      "priceNote": "Y1 €49,990 · Y2+ €39,990/yr — engagement + 12-month MO-T2",
+      "image": "/static/images/Risto_Malta.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "advisory",
+      "brand": "Lifetime",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Business & Industrial > Business Services",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "LAND-SOV": {
+      "id": "LAND-SOV",
+      "sku": "LAND-SOV",
+      "mpn": "LAND-SOV",
+      "name": "Sovereignty & NIS2 Sprint",
+      "price": 69990,
+      "currency": "EUR",
+      "type": "bundle",
+      "priceUnit": "per-year",
+      "tier": "land",
+      "agents": [
+        "sovereignty",
+        "compliance",
+        "quality-gate"
+      ],
+      "replaces": {
+        "role": "Compliance + DPO",
+        "fteCount": 1.0,
+        "fullyLoadedAnnualCostEUR": 90000
+      },
+      "nextUpsellSku": "SOV-T3",
+      "attachedAgentSku": "SOV-T3",
+      "yearOneEUR": 69990,
+      "yearTwoPlusEUR": 54990,
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "5-day sovereignty audit + 12-month T3 Sovereignty pack.",
+      "features": [
+        "Replaces Compliance + DPO ≈ 1.0 FTE during engagement",
+        "Y1 €69,990 · Y2+ €54,990/yr",
+        "Land overlay — engagement + 12-month agent attach"
+      ],
+      "priceNote": "Y1 €69,990 · Y2+ €54,990/yr — engagement + 12-month SOV-T3",
+      "image": "/static/images/Risto_Malta.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "advisory",
+      "brand": "Lifetime",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Business & Industrial > Business Services",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "LAND-OPS": {
+      "id": "LAND-OPS",
+      "sku": "LAND-OPS",
+      "mpn": "LAND-OPS",
+      "name": "Construction Ops Pilot",
+      "price": 109990,
+      "currency": "EUR",
+      "type": "bundle",
+      "priceUnit": "per-year",
+      "tier": "land",
+      "agents": [
+        "sitesense",
+        "material-oracle",
+        "schedule-genius",
+        "logistics",
+        "themis"
+      ],
+      "replaces": {
+        "role": "Construction PM and planner",
+        "fteCount": 1.8,
+        "fullyLoadedAnnualCostEUR": 162000
+      },
+      "nextUpsellSku": "CONSTR-T3",
+      "attachedAgentSku": "CONSTR-T3",
+      "yearOneEUR": 109990,
+      "yearTwoPlusEUR": 84990,
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "4–8 week site pilot + 12-month T3 Construction Ops Pod.",
+      "features": [
+        "Replaces Construction PM and planner ≈ 1.8 FTE during engagement",
+        "Y1 €109,990 · Y2+ €84,990/yr",
+        "Land overlay — engagement + 12-month agent attach"
+      ],
+      "priceNote": "Y1 €109,990 · Y2+ €84,990/yr — engagement + 12-month CONSTR-T3",
+      "image": "/static/images/Risto_Malta.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "advisory",
+      "brand": "Lifetime",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Business & Industrial > Business Services",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "LAND-GTM": {
+      "id": "LAND-GTM",
+      "sku": "LAND-GTM",
+      "mpn": "LAND-GTM",
+      "name": "Go-to-Market Sprint",
+      "price": 49990,
+      "currency": "EUR",
+      "type": "bundle",
+      "priceUnit": "per-year",
+      "tier": "land",
+      "agents": [
+        "seo-audit",
+        "competitor-surveillance",
+        "lead-feedback",
+        "customer-sat"
+      ],
+      "replaces": {
+        "role": "GTM analyst team",
+        "fteCount": 1.3,
+        "fullyLoadedAnnualCostEUR": 104000
+      },
+      "nextUpsellSku": "GTM-T3",
+      "attachedAgentSku": "GTM-T3",
+      "yearOneEUR": 49990,
+      "yearTwoPlusEUR": 39990,
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "5-day GTM sprint + 12-month T3 GTM pod.",
+      "features": [
+        "Replaces GTM analyst team ≈ 1.3 FTE during engagement",
+        "Y1 €49,990 · Y2+ €39,990/yr",
+        "Land overlay — engagement + 12-month agent attach"
+      ],
+      "priceNote": "Y1 €49,990 · Y2+ €39,990/yr — engagement + 12-month GTM-T3",
+      "image": "/static/images/Risto_Malta.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "advisory",
+      "brand": "Lifetime",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Business & Industrial > Business Services",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "LAND-THEMIS": {
+      "id": "LAND-THEMIS",
+      "sku": "LAND-THEMIS",
+      "mpn": "LAND-THEMIS",
+      "name": "Themis Coordinator Workshop",
+      "price": 29990,
+      "currency": "EUR",
+      "type": "bundle",
+      "priceUnit": "per-year",
+      "tier": "land",
+      "agents": [
+        "themis"
+      ],
+      "replaces": {
+        "role": "Ops coordinator",
+        "fteCount": 0.5,
+        "fullyLoadedAnnualCostEUR": 40000
+      },
+      "nextUpsellSku": "TH-T2",
+      "attachedAgentSku": "TH-T2",
+      "yearOneEUR": 29990,
+      "yearTwoPlusEUR": 24990,
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "3-day Themis workshop + 12-month T2 Themis Coordinator.",
+      "features": [
+        "Replaces Ops coordinator ≈ 0.5 FTE during engagement",
+        "Y1 €29,990 · Y2+ €24,990/yr",
+        "Land overlay — engagement + 12-month agent attach"
+      ],
+      "priceNote": "Y1 €29,990 · Y2+ €24,990/yr — engagement + 12-month TH-T2",
+      "image": "/static/images/Risto_Malta.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "advisory",
+      "brand": "Lifetime",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Business & Industrial > Business Services",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "LAND-WF": {
+      "id": "LAND-WF",
+      "sku": "LAND-WF",
+      "mpn": "LAND-WF",
+      "name": "Full Workforce Onboarding",
+      "price": 249990,
+      "currency": "EUR",
+      "type": "bundle",
+      "priceUnit": "per-year",
+      "tier": "land",
+      "agents": [
+        "all"
+      ],
+      "replaces": {
+        "role": "Multi-disciplinary FTE team",
+        "fteCount": 6.5,
+        "fullyLoadedAnnualCostEUR": 650000
+      },
+      "nextUpsellSku": "WF-T4",
+      "attachedAgentSku": "WF-T4",
+      "yearOneEUR": 249990,
+      "yearTwoPlusEUR": 199990,
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "20-day onboarding + 12-month T4 Full Skilled Workforce.",
+      "features": [
+        "Replaces Multi-disciplinary FTE team ≈ 6.5 FTE during engagement",
+        "Y1 €249,990 · Y2+ €199,990/yr",
+        "Land overlay — engagement + 12-month agent attach"
+      ],
+      "priceNote": "Y1 €249,990 · Y2+ €199,990/yr — engagement + 12-month WF-T4",
+      "image": "/static/images/Risto_Malta.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "advisory",
+      "brand": "Lifetime",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Business & Industrial > Business Services",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "DWS365-CMP-T3": {
+      "id": "DWS365-CMP-T3",
+      "sku": "DWS365-CMP-T3",
+      "mpn": "DWS365-CMP-T3",
+      "name": "DWS 365 Compliance Agents",
+      "price": 5999,
+      "annualPrice": 59990,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T3",
+      "agents": [
+        "compliance",
+        "sovereignty",
+        "quality-gate",
+        "themis"
+      ],
+      "replaces": {
+        "role": "Compliance officer + 0.3 DPO",
+        "fteCount": 1.5,
+        "fullyLoadedAnnualCostEUR": 135000
+      },
+      "nextUpsellSku": "WF-T4",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "DWS 365 brand bundle — compliance pod packaged for the Microsoft Agent 365 channel. Compliance + Sovereignty + Quality Gate under Themis orchestration.",
+      "features": [
+        "Replaces Compliance officer + 0.3 DPO ≈ 1.5 FTE",
+        "Tier T3 — Function/Workforce bundle",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€5,999/mo — annual €59,990 (2 months free)",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "DWS 365",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "DWS 365",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "FH-SKILL-T3": {
+      "id": "FH-SKILL-T3",
+      "sku": "FH-SKILL-T3",
+      "mpn": "FH-SKILL-T3",
+      "name": "Firehorse Skilled Agents",
+      "price": 5499,
+      "annualPrice": 54990,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T3",
+      "agents": [
+        "lead-feedback",
+        "customer-sat",
+        "competitor-surveillance",
+        "seo-audit",
+        "themis"
+      ],
+      "replaces": {
+        "role": "Marketing/CS team lead",
+        "fteCount": 1.4,
+        "fullyLoadedAnnualCostEUR": 112000
+      },
+      "nextUpsellSku": "WF-T4",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Firehorse brand bundle — growth pod packaged for Salesforce Agentforce and direct sales. SEO + Competitor Surveillance + Lead Feedback + CSAT under Themis orchestration.",
+      "features": [
+        "Replaces Marketing/CS team lead ≈ 1.4 FTE",
+        "Tier T3 — Function/Workforce bundle",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€5,499/mo — annual €54,990 (2 months free)",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "Firehorse",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Firehorse",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
+    },
+    "AC365-T3": {
+      "id": "AC365-T3",
+      "sku": "AC365-T3",
+      "mpn": "AC365-T3",
+      "name": "Agentic Commerce 365 Skilled Agents",
+      "price": 6499,
+      "annualPrice": 64990,
+      "currency": "EUR",
+      "type": "subscription",
+      "priceUnit": "per-month",
+      "tier": "T3",
+      "agents": [
+        "customer-sat",
+        "viability",
+        "schedule-genius",
+        "logistics",
+        "themis"
+      ],
+      "replaces": {
+        "role": "Commerce ops lead",
+        "fteCount": 1.5,
+        "fullyLoadedAnnualCostEUR": 120000
+      },
+      "nextUpsellSku": "WF-T4",
+      "deploymentColor": "blue",
+      "priceVersion": "1.15",
+      "description": "Agentic Commerce 365 brand bundle — commerce/operations pod packaged for the Microsoft Agent 365 channel. CSAT + Viability + Schedule Genius + Logistics under Themis orchestration.",
+      "features": [
+        "Replaces Commerce ops lead ≈ 1.5 FTE",
+        "Tier T3 — Function/Workforce bundle",
+        "Blue/pilot — internal sign-off required before quoting"
+      ],
+      "priceNote": "€6,499/mo — annual €64,990 (2 months free)",
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": false,
+      "storeCategory": "platform",
+      "brand": "Agentic Commerce 365",
+      "version": "1.0",
+      "google": {
+        "productCategory": "Software > Business & Productivity Software",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Agentic Commerce 365",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      }
     }
   },
   "settings": {
@@ -1307,10 +4321,10 @@
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-05-10T14:00:00Z",
-  "priceVersion": "1.13",
+  "lastUpdated": "2026-05-14T14:00:00Z",
+  "priceVersion": "1.15",
   "priceList": {
-    "version": "1.13",
+    "version": "1.15",
     "effectiveDate": "2026-05-10",
     "nextReviewDate": "2026-08-01",
     "policy": {
@@ -1367,6 +4381,28 @@
       "changes": [
         "Add productType:archived to _OLD products (expert-services, LIFETIME-EXP-001)",
         "Fix DWS-IQ-006 features: GodAgents → Skilled Agents"
+      ]
+    },
+    {
+      "version": "1.14",
+      "date": "2026-05-14",
+      "author": "claude/ai-pricing-labor-catalog-1raj8",
+      "changes": [
+        "Labor-anchored SKU schema landed (Blue/pilot only) — adds sku, tier, priceUnit, agents[], replaces{role,fteCount,fullyLoadedAnnualCostEUR}, nextUpsellSku, deploymentColor to every new row",
+        "Loaded T0–T4 catalog from docs/marketing/PRODUCT-CATALOG-UPSELL-TIERS-2026.md as deploymentColor=blue (pilot). No Green flips this commit.",
+        "DWS_DYNAMIC_DEPLOYMENT_PRICING_STANDARD §13.8 documents the schema and validation gate."
+      ]
+    },
+    {
+      "version": "1.15",
+      "date": "2026-05-14",
+      "author": "claude/ai-pricing-labor-catalog-1raj8",
+      "changes": [
+        "Add three brand-cut T3 bundles alongside the existing domain-cut T3 bundles (nothing replaced):",
+        "  - DWS365-CMP-T3 (€5,999/mo) — DWS 365 Compliance Agents, Microsoft Agent 365 channel",
+        "  - FH-SKILL-T3 (€5,499/mo) — Firehorse Skilled Agents, Salesforce Agentforce channel",
+        "  - AC365-T3 (€6,499/mo) — Agentic Commerce 365 Skilled Agents, commerce channel",
+        "All three land deploymentColor=blue (pilot). No Green flips."
       ]
     }
   ],

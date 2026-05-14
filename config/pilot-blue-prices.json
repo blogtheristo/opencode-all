@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2026-05-10T13:00:00Z",
-  "version": "1.0",
-  "note": "INTERNAL ONLY — never publish. Blue pilot prices for enterprise negotiation.",
+  "lastUpdated": "2026-05-14T14:00:00Z",
+  "version": "1.1",
+  "note": "INTERNAL ONLY — never publish. Blue pilot prices for enterprise negotiation. v1.1: no override changes; bump allows the pilot HTML to be re-rendered with the three new T3 brand bundles (DWS365-CMP-T3, FH-SKILL-T3, AC365-T3) added to the labor-anchored catalog at priceVersion 1.15.",
   "products": {
     "DWS-IQ-006": {
       "bluePrice": 0,
