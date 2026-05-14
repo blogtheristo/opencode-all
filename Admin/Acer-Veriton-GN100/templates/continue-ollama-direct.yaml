@@ -6,7 +6,7 @@ models:
   - name: Qwen 2.5 Coder 32B (Veriton Direct)
     provider: ollama
     model: qwen2.5-coder:32b
-    apiBase: http://veriton-host-or-ip:11434
+    apiBase: http://192.168.101.113:11434
     roles:
       - chat
       - edit

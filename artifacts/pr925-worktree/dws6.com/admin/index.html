@@ -1,0 +1,1232 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Portal | DWS6 Platform Administration</title>
+    <meta
+      name="description"
+      content="DWS6 Administration Portal - Manage authentication, connectors, dashboards, and enterprise services."
+    />
+
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ============================================
+           DWS6 GAMMA ENTERPRISE DESIGN SYSTEM
+           Admin Portal - Dashboard Overview
+           ============================================ */
+
+      :root {
+        /* Colors - Enterprise Palette */
+        --color-primary: #0a1628;
+        --color-primary-light: #152238;
+        --color-accent: #0066cc;
+        --color-accent-dark: #0052a3;
+        --color-success: #0d7a3e;
+        --color-warning: #b45309;
+        --color-danger: #dc2626;
+        --color-gold: #b8860b;
+
+        /* Neutrals */
+        --color-white: #ffffff;
+        --color-gray-50: #f8fafc;
+        --color-gray-100: #f1f5f9;
+        --color-gray-200: #e2e8f0;
+        --color-gray-300: #cbd5e1;
+        --color-gray-400: #94a3b8;
+        --color-gray-500: #64748b;
+        --color-gray-600: #475569;
+        --color-gray-700: #334155;
+        --color-gray-800: #1e293b;
+        --color-gray-900: #0f172a;
+
+        /* Typography */
+        --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+        /* Spacing */
+        --space-1: 0.25rem;
+        --space-2: 0.5rem;
+        --space-3: 0.75rem;
+        --space-4: 1rem;
+        --space-6: 1.5rem;
+        --space-8: 2rem;
+        --space-12: 3rem;
+        --space-16: 4rem;
+
+        /* Border Radius */
+        --radius-sm: 0.375rem;
+        --radius-md: 0.5rem;
+        --radius-lg: 0.75rem;
+        --radius-xl: 1rem;
+        --radius-full: 9999px;
+
+        /* Shadows */
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+        /* Transitions */
+        --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        font-size: 16px;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        background: var(--color-gray-50);
+        color: var(--color-gray-900);
+        min-height: 100vh;
+      }
+
+      /* === HEADER === */
+      .header {
+        background: var(--color-primary);
+        color: var(--color-white);
+        padding: var(--space-4) var(--space-8);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .header-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: var(--space-4);
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        text-decoration: none;
+        color: var(--color-white);
+      }
+
+      .logo-icon {
+        font-size: 1.5rem;
+      }
+
+      .logo-text {
+        font-size: 1.25rem;
+        font-weight: 700;
+      }
+
+      .header-badge {
+        background: var(--color-danger);
+        color: var(--color-white);
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: var(--space-1) var(--space-3);
+        border-radius: var(--radius-full);
+      }
+
+      .header-nav {
+        display: flex;
+        gap: var(--space-6);
+      }
+
+      .nav-link {
+        color: var(--color-gray-300);
+        text-decoration: none;
+        font-size: 0.875rem;
+        font-weight: 500;
+        transition: color var(--transition-fast);
+      }
+
+      .nav-link:hover {
+        color: var(--color-white);
+      }
+
+      .nav-link.active {
+        color: var(--color-white);
+      }
+
+      .login-btn {
+        background: var(--color-accent);
+        color: var(--color-white);
+        padding: var(--space-2) var(--space-4);
+        border-radius: var(--radius-md);
+        text-decoration: none;
+        font-size: 0.875rem;
+        font-weight: 600;
+        transition: all var(--transition-fast);
+      }
+
+      .login-btn:hover {
+        background: var(--color-accent-dark);
+      }
+
+      /* === MAIN === */
+      .main {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: var(--space-8);
+      }
+
+      /* === PAGE HEADER === */
+      .page-header {
+        margin-bottom: var(--space-8);
+      }
+
+      .page-title {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--color-gray-900);
+        margin-bottom: var(--space-2);
+      }
+
+      .page-subtitle {
+        font-size: 1rem;
+        color: var(--color-gray-500);
+      }
+
+      /* === ALERT BANNER === */
+      .alert-banner {
+        background: linear-gradient(135deg, var(--color-danger), #b91c1c);
+        color: var(--color-white);
+        padding: var(--space-4) var(--space-6);
+        border-radius: var(--radius-lg);
+        margin-bottom: var(--space-8);
+        display: flex;
+        align-items: center;
+        gap: var(--space-4);
+      }
+
+      .alert-icon {
+        font-size: 1.5rem;
+      }
+
+      .alert-content {
+        flex: 1;
+      }
+
+      .alert-title {
+        font-weight: 700;
+        margin-bottom: var(--space-1);
+      }
+
+      .alert-text {
+        font-size: 0.875rem;
+        opacity: 0.9;
+      }
+
+      /* === STATS GRID === */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: var(--space-6);
+        margin-bottom: var(--space-8);
+      }
+
+      .stat-card {
+        background: var(--color-white);
+        border: 1px solid var(--color-gray-200);
+        border-radius: var(--radius-xl);
+        padding: var(--space-6);
+      }
+
+      .stat-label {
+        font-size: 0.875rem;
+        color: var(--color-gray-500);
+        margin-bottom: var(--space-2);
+      }
+
+      .stat-value {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--color-gray-900);
+      }
+
+      .stat-change {
+        font-size: 0.75rem;
+        margin-top: var(--space-2);
+      }
+
+      .stat-change.positive {
+        color: var(--color-success);
+      }
+
+      .stat-change.negative {
+        color: var(--color-danger);
+      }
+
+      /* === SECTIONS GRID === */
+      .sections-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: var(--space-6);
+        margin-bottom: var(--space-8);
+      }
+
+      .section-card {
+        background: var(--color-white);
+        border: 1px solid var(--color-gray-200);
+        border-radius: var(--radius-xl);
+        padding: var(--space-6);
+        text-decoration: none;
+        transition: all var(--transition-base);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .section-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--card-color, var(--color-accent));
+        transform: scaleX(0);
+        transition: transform var(--transition-base);
+      }
+
+      .section-card:hover {
+        border-color: var(--card-color, var(--color-accent));
+        box-shadow: var(--shadow-lg);
+        transform: translateY(-4px);
+      }
+
+      .section-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .section-icon {
+        font-size: 2.5rem;
+        margin-bottom: var(--space-4);
+      }
+
+      .section-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--color-gray-900);
+        margin-bottom: var(--space-2);
+      }
+
+      .section-desc {
+        font-size: 0.875rem;
+        color: var(--color-gray-500);
+        margin-bottom: var(--space-4);
+      }
+
+      .section-badge {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: var(--space-1) var(--space-3);
+        border-radius: var(--radius-full);
+        background: var(--color-gray-100);
+        color: var(--color-gray-600);
+      }
+
+      .section-badge.active {
+        background: rgba(13, 122, 62, 0.1);
+        color: var(--color-success);
+      }
+
+      .section-badge.enterprise {
+        background: rgba(184, 134, 11, 0.1);
+        color: var(--color-gold);
+      }
+
+      /* Card colors */
+      .section-card.connectors {
+        --card-color: #6366f1;
+      }
+      .section-card.dashboards {
+        --card-color: #3b82f6;
+      }
+      .section-card.users {
+        --card-color: #10b981;
+      }
+      .section-card.security {
+        --card-color: #ef4444;
+      }
+      .section-card.integrations {
+        --card-color: #f97316;
+      }
+      .section-card.settings {
+        --card-color: #8b5cf6;
+      }
+
+      /* === QUICK LINKS === */
+      .quick-links {
+        background: var(--color-white);
+        border: 1px solid var(--color-gray-200);
+        border-radius: var(--radius-xl);
+        padding: var(--space-6);
+      }
+
+      .quick-links-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--color-gray-900);
+        margin-bottom: var(--space-4);
+      }
+
+      .quick-links-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: var(--space-3);
+      }
+
+      .quick-link {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        padding: var(--space-3);
+        background: var(--color-gray-50);
+        border: 1px solid var(--color-gray-200);
+        border-radius: var(--radius-md);
+        text-decoration: none;
+        color: var(--color-gray-700);
+        font-size: 0.875rem;
+        font-weight: 500;
+        transition: all var(--transition-fast);
+      }
+
+      .quick-link:hover {
+        background: var(--color-white);
+        border-color: var(--color-accent);
+        color: var(--color-accent);
+      }
+
+      /* === LEARN SECTION === */
+      .learn-section {
+        margin-top: var(--space-8);
+      }
+
+      .learn-header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        margin-bottom: var(--space-4);
+      }
+
+      .learn-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--color-gray-900);
+      }
+
+      .learn-new-badge {
+        display: inline-block;
+        background: rgba(0, 102, 204, 0.1);
+        color: var(--color-accent);
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: var(--radius-full);
+        margin-left: var(--space-2);
+        vertical-align: middle;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .learn-view-all {
+        font-size: 0.8rem;
+        color: var(--color-accent);
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .learn-view-all:hover {
+        text-decoration: underline;
+      }
+
+      .learn-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: var(--space-4);
+      }
+
+      .learn-card {
+        background: var(--color-white);
+        border: 1px solid var(--color-gray-200);
+        border-radius: var(--radius-lg);
+        padding: var(--space-4) var(--space-5);
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2);
+        transition: all var(--transition-fast);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .learn-card::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: var(--card-accent, var(--color-accent));
+        border-radius: 0 2px 2px 0;
+      }
+
+      .learn-card:hover {
+        border-color: var(--card-accent, var(--color-accent));
+        box-shadow: var(--shadow-md);
+        transform: translateY(-2px);
+      }
+
+      .learn-card-meta {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+      }
+
+      .learn-card-date {
+        font-size: 0.7rem;
+        color: var(--color-gray-400);
+        font-family: monospace;
+      }
+
+      .learn-card-type {
+        font-size: 0.68rem;
+        font-weight: 600;
+        padding: 1px 6px;
+        border-radius: var(--radius-full);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .learn-card-type.standard {
+        background: rgba(0, 102, 204, 0.08);
+        color: var(--color-accent);
+      }
+
+      .learn-card-type.field-note {
+        background: rgba(13, 122, 62, 0.08);
+        color: var(--color-success);
+      }
+
+      .learn-card-type.admin {
+        background: rgba(184, 134, 11, 0.1);
+        color: var(--color-gold);
+      }
+
+      .learn-card-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--color-gray-800);
+        line-height: 1.35;
+      }
+
+      .learn-card-arrow {
+        font-size: 0.75rem;
+        color: var(--color-gray-400);
+        margin-top: auto;
+        transition: color var(--transition-fast);
+      }
+
+      .learn-card:hover .learn-card-arrow {
+        color: var(--card-accent, var(--color-accent));
+      }
+
+      /* Card accent colors */
+      .learn-card.standard {
+        --card-accent: #0066cc;
+      }
+      .learn-card.field-note {
+        --card-accent: #0d7a3e;
+      }
+      .learn-card.admin {
+        --card-accent: #b8860b;
+      }
+      .learn-card.security {
+        --card-accent: #dc2626;
+      }
+
+      /* === FOOTER === */
+      .footer {
+        background: var(--color-primary);
+        color: var(--color-gray-400);
+        padding: var(--space-8);
+        text-align: center;
+        margin-top: var(--space-16);
+      }
+
+      .footer-text {
+        font-size: 0.875rem;
+      }
+
+      .footer-link {
+        color: var(--color-accent);
+        text-decoration: none;
+      }
+
+      .footer-link:hover {
+        text-decoration: underline;
+      }
+
+      /* === RESPONSIVE === */
+      @media (max-width: 768px) {
+        .header {
+          padding: var(--space-3) var(--space-4);
+        }
+
+        .header-nav {
+          display: none;
+        }
+
+        .main {
+          padding: var(--space-4);
+        }
+
+        .page-title {
+          font-size: 1.5rem;
+        }
+
+        .sections-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      /* Card colors - Tools */
+      .section-card.tools {
+        --card-color: #8b5cf6;
+      }
+
+      /* === CRON STATUS === */
+      .cron-section {
+        margin-top: var(--space-8);
+      }
+
+      .cron-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: var(--space-4);
+      }
+
+      .cron-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--color-gray-900);
+      }
+
+      .cron-refresh-btn {
+        background: var(--color-gray-100);
+        border: 1px solid var(--color-gray-200);
+        border-radius: var(--radius-md);
+        padding: var(--space-2) var(--space-3);
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--color-gray-600);
+        cursor: pointer;
+        transition: all var(--transition-fast);
+      }
+
+      .cron-refresh-btn:hover {
+        background: var(--color-white);
+        border-color: var(--color-accent);
+        color: var(--color-accent);
+      }
+
+      .cron-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: var(--space-3);
+      }
+
+      .cron-card {
+        background: var(--color-white);
+        border: 1px solid var(--color-gray-200);
+        border-radius: var(--radius-lg);
+        padding: var(--space-4);
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-3);
+        transition: all var(--transition-fast);
+      }
+
+      .cron-card:hover {
+        border-color: var(--color-gray-300);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .cron-indicator {
+        width: 12px;
+        height: 12px;
+        border-radius: var(--radius-full);
+        flex-shrink: 0;
+        margin-top: 4px;
+      }
+
+      .cron-indicator.green {
+        background: #22c55e;
+        box-shadow: 0 0 6px rgba(34, 197, 94, 0.4);
+      }
+
+      .cron-indicator.red {
+        background: #ef4444;
+        box-shadow: 0 0 6px rgba(239, 68, 68, 0.4);
+      }
+
+      .cron-indicator.gray {
+        background: var(--color-gray-300);
+      }
+
+      .cron-info {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .cron-name {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--color-gray-800);
+        margin-bottom: 2px;
+      }
+
+      .cron-schedule {
+        font-size: 0.7rem;
+        color: var(--color-gray-400);
+        font-family: monospace;
+      }
+
+      .cron-last-run {
+        font-size: 0.75rem;
+        color: var(--color-gray-500);
+        margin-top: 4px;
+      }
+
+      .cron-status-badge {
+        font-size: 0.65rem;
+        font-weight: 600;
+        padding: 1px 6px;
+        border-radius: var(--radius-full);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .cron-status-badge.success {
+        background: rgba(34, 197, 94, 0.1);
+        color: #16a34a;
+      }
+
+      .cron-status-badge.failure {
+        background: rgba(239, 68, 68, 0.1);
+        color: #dc2626;
+      }
+
+      .cron-status-badge.pending {
+        background: rgba(148, 163, 184, 0.15);
+        color: var(--color-gray-500);
+      }
+
+      .cron-summary {
+        display: flex;
+        gap: var(--space-4);
+        margin-bottom: var(--space-4);
+        font-size: 0.875rem;
+      }
+
+      .cron-summary-item {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+      }
+
+      .cron-summary-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: var(--radius-full);
+      }
+
+      .cron-summary-dot.green {
+        background: #22c55e;
+      }
+      .cron-summary-dot.red {
+        background: #ef4444;
+      }
+      .cron-summary-dot.gray {
+        background: var(--color-gray-300);
+      }
+
+      .cron-error-banner {
+        background: var(--color-gray-100);
+        border: 1px solid var(--color-gray-200);
+        border-radius: var(--radius-lg);
+        padding: var(--space-4);
+        text-align: center;
+        color: var(--color-gray-500);
+        font-size: 0.875rem;
+      }
+    </style>
+    <script src="/shared-assets/nav/ironclad-admin-nav.js" defer></script>
+  </head>
+  <body>
+    <!-- Ironclad Admin Navigation injected via /shared-assets/nav/ironclad-admin-nav.js -->
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Page Header -->
+      <div class="page-header">
+        <h1 class="page-title">Administration Portal</h1>
+        <p class="page-subtitle">
+          Manage authentication, connectors, users, and enterprise services
+        </p>
+      </div>
+
+      <!-- Alert Banner -->
+      <div class="alert-banner">
+        <span class="alert-icon">⚠️</span>
+        <div class="alert-content">
+          <div class="alert-title">Administrator Access Required</div>
+          <div class="alert-text">
+            This portal is restricted to authorized administrators only. All actions are logged and
+            audited.
+          </div>
+        </div>
+        <a href="/admin/login/" class="login-btn" style="background: rgba(255, 255, 255, 0.2)"
+          >Login Now</a
+        >
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Active Connectors</div>
+          <div class="stat-value">4</div>
+          <div class="stat-change positive">↑ 2 this month</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Total Providers</div>
+          <div class="stat-value">18</div>
+          <div class="stat-change positive">↑ 6 new</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Active Users</div>
+          <div class="stat-value">—</div>
+          <div class="stat-change">Login to view</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Security Score</div>
+          <div class="stat-value">A+</div>
+          <div class="stat-change positive">NIS2 Compliant</div>
+        </div>
+      </div>
+
+      <!-- Sections Grid -->
+      <div class="sections-grid">
+        <!-- Caption Connectors -->
+        <a href="/admin/connectors/" class="section-card connectors">
+          <div class="section-icon">🔗</div>
+          <div class="section-title">Caption Connectors</div>
+          <p class="section-desc">
+            Configure enterprise SSO providers. Google, Microsoft, IBM, Okta, SAP, and 12+ more
+            identity providers.
+          </p>
+          <span class="section-badge active">18 Providers</span>
+        </a>
+
+        <!-- Dashboards -->
+        <a href="/dashboard/" class="section-card dashboards">
+          <div class="section-icon">📊</div>
+          <div class="section-title">Dashboards</div>
+          <p class="section-desc">
+            Access V9, V8, Firehorse, and mobile dashboards. Real-time analytics and portfolio
+            management.
+          </p>
+          <span class="section-badge active">4 Active</span>
+        </a>
+
+        <!-- User Management -->
+        <a href="/admin/users/" class="section-card users">
+          <div class="section-icon">👥</div>
+          <div class="section-title">User Management</div>
+          <p class="section-desc">
+            Manage user accounts, roles, permissions, and access control. RBAC and team management.
+          </p>
+          <span class="section-badge">Requires Login</span>
+        </a>
+
+        <!-- Security & Compliance -->
+        <a href="/admin/security/" class="section-card security">
+          <div class="section-icon">🛡️</div>
+          <div class="section-title">Security & Compliance</div>
+          <p class="section-desc">
+            NIS2, GDPR, EU AI Act compliance. Audit logs, security policies, and MFA configuration.
+          </p>
+          <span class="section-badge enterprise">Enterprise</span>
+        </a>
+
+        <!-- Enterprise Integrations -->
+        <a href="/admin/integrations/" class="section-card integrations">
+          <div class="section-icon">🔌</div>
+          <div class="section-title">Enterprise Integrations</div>
+          <p class="section-desc">
+            SAP, Aspentech, ABB Robotics, Siemens Building X, and custom API integrations. Webhook management.
+          </p>
+          <span class="section-badge enterprise">Enterprise</span>
+        </a>
+
+        <!-- Settings -->
+        <a href="/admin/settings/" class="section-card settings">
+          <div class="section-icon">⚙️</div>
+          <div class="section-title">Portal Settings</div>
+          <p class="section-desc">
+            Configure authentication settings, branding, email templates, and system preferences.
+          </p>
+          <span class="section-badge">Requires Login</span>
+        </a>
+
+        <!-- Admin Tools -->
+        <a href="/admin/tools/jsonl-review/" class="section-card tools">
+          <div class="section-icon">🛠️</div>
+          <div class="section-title">Admin Tools</div>
+          <p class="section-desc">
+            JSONL Session Review, Claude Code timeline analysis, and developer management utilities.
+          </p>
+          <span class="section-badge">Requires Login</span>
+        </a>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="quick-links">
+        <h3 class="quick-links-title">Quick Links</h3>
+        <div class="quick-links-grid">
+          <a href="/admin/login/" class="quick-link">🔑 Admin Login</a>
+          <a href="/login/" class="quick-link">👤 User Login</a>
+          <a href="/admin/connectors/" class="quick-link">🔗 Connectors</a>
+          <a href="/dashboard/v9/" class="quick-link">📊 V9 Dashboard</a>
+          <a href="/dashboard/v8/" class="quick-link">⚡ V8 Dashboard</a>
+          <a href="/Firehorse/" class="quick-link">🔥 Firehorse</a>
+          <a href="/register/" class="quick-link">📝 Register</a>
+          <a href="/forgot-password/" class="quick-link">🔐 Reset Password</a>
+          <a href="/admin/tools/jsonl-review/" class="quick-link">📋 JSONL Review</a>
+          <a href="/" class="quick-link">🏠 Home</a>
+          <a href="https://dws10.com" class="quick-link">🌐 DWS10.com</a>
+          <a href="https://onelifetime.world" class="quick-link">🌍 OneLifetime</a>
+          <a href="/docs/" class="quick-link">📖 Documentation</a>
+        </div>
+      </div>
+      <!-- Cron Status — Last 24h -->
+      <section class="cron-section" id="cron-section">
+        <div class="cron-header">
+          <h3 class="cron-title">Cron Jobs — Last 24h</h3>
+          <button class="cron-refresh-btn" onclick="fetchCronStatus()">Refresh</button>
+        </div>
+        <div class="cron-summary" id="cron-summary"></div>
+        <div class="cron-grid" id="cron-grid">
+          <div class="cron-error-banner">Loading cron status...</div>
+        </div>
+      </section>
+    </main>
+
+    <!-- What's New — Learn Artifacts -->
+    <section class="learn-section">
+      <div class="learn-header">
+        <h3 class="learn-title">
+          What's New
+          <span class="learn-new-badge">Learn</span>
+        </h3>
+        <a
+          href="https://github.com/blogtheristo/dws6/tree/main/Learn"
+          target="_blank"
+          rel="noopener"
+          class="learn-view-all"
+        >
+          All artifacts &rarr;
+        </a>
+      </div>
+      <div class="learn-grid">
+        <!-- DWS Document Standard v1.7 — 2026-02-28 -->
+        <a
+          href="https://github.com/blogtheristo/dws6/blob/main/Learn/DWS_DOCUMENT_STANDARD_v1.7.html"
+          target="_blank"
+          rel="noopener"
+          class="learn-card standard"
+        >
+          <div class="learn-card-meta">
+            <span class="learn-card-date">2026-02-28</span>
+            <span class="learn-card-type standard">Standard</span>
+          </div>
+          <div class="learn-card-title">DWS Document Standard v1.7</div>
+          <div class="learn-card-arrow">
+            Web Content Index check + Learn HTML generation rule &rarr;
+          </div>
+        </a>
+
+        <!-- Web Content Index v1.0 — 2026-02-28 -->
+        <a
+          href="https://github.com/blogtheristo/dws6/blob/main/Learn/WEB_CONTENT_INDEX_v1.0.html"
+          target="_blank"
+          rel="noopener"
+          class="learn-card standard"
+        >
+          <div class="learn-card-meta">
+            <span class="learn-card-date">2026-02-28</span>
+            <span class="learn-card-type standard">Index</span>
+          </div>
+          <div class="learn-card-title">Web Content Index v1.0</div>
+          <div class="learn-card-arrow">
+            Maps docs to dws10.com / dws6.com / onelifetime pages &rarr;
+          </div>
+        </a>
+
+        <!-- Morning Email Incident Field Note — 2026-02-17 -->
+        <a
+          href="https://github.com/blogtheristo/dws6/blob/main/Learn/2026-02-17-morning-email-0600-eest-incident.html"
+          target="_blank"
+          rel="noopener"
+          class="learn-card field-note"
+        >
+          <div class="learn-card-meta">
+            <span class="learn-card-date">2026-02-17</span>
+            <span class="learn-card-type field-note">Field Note</span>
+          </div>
+          <div class="learn-card-title">Morning Email 06:00 EEST Incident</div>
+          <div class="learn-card-arrow">CEO Cockpit timing fix &rarr;</div>
+        </a>
+
+        <!-- NVIDIA Blackwell Ultra — 2026-02-16 -->
+        <a
+          href="https://github.com/blogtheristo/dws6/blob/main/Learn/2026-02-16-nvidia-blackwell-ultra-agentic-ai-inference.html"
+          target="_blank"
+          rel="noopener"
+          class="learn-card field-note"
+        >
+          <div class="learn-card-meta">
+            <span class="learn-card-date">2026-02-16</span>
+            <span class="learn-card-type field-note">Field Note</span>
+          </div>
+          <div class="learn-card-title">NVIDIA Blackwell Ultra — Agentic AI Inference</div>
+          <div class="learn-card-arrow">Read field note &rarr;</div>
+        </a>
+
+        <!-- OpenClaw / Moltworker — 2026-02-15 -->
+        <a
+          href="https://github.com/blogtheristo/dws6/blob/main/Learn/2026-02-15-moltworker-openclaw-dws-assistant.html"
+          target="_blank"
+          rel="noopener"
+          class="learn-card field-note"
+        >
+          <div class="learn-card-meta">
+            <span class="learn-card-date">2026-02-15</span>
+            <span class="learn-card-type field-note">Field Note</span>
+          </div>
+          <div class="learn-card-title">Moltworker / OpenClaw — DWS Assistant</div>
+          <div class="learn-card-arrow">Read field note &rarr;</div>
+        </a>
+
+        <!-- Admin Manual -->
+        <a
+          href="https://github.com/blogtheristo/dws6/blob/main/Learn/ADMIN_MANUAL.html"
+          target="_blank"
+          rel="noopener"
+          class="learn-card admin"
+        >
+          <div class="learn-card-meta">
+            <span class="learn-card-date">2026-02-07</span>
+            <span class="learn-card-type admin">Admin</span>
+          </div>
+          <div class="learn-card-title">Admin Manual v2.1</div>
+          <div class="learn-card-arrow">Full administration guide &rarr;</div>
+        </a>
+
+        <!-- Security Compliance -->
+        <a
+          href="https://github.com/blogtheristo/dws6/blob/main/Learn/SECURITY_COMPLIANCE.html"
+          target="_blank"
+          rel="noopener"
+          class="learn-card security"
+        >
+          <div class="learn-card-meta">
+            <span class="learn-card-date">2026-02-06</span>
+            <span
+              class="learn-card-type"
+              style="background: rgba(220, 38, 38, 0.08); color: #dc2626"
+              >Security</span
+            >
+          </div>
+          <div class="learn-card-title">Security Compliance</div>
+          <div class="learn-card-arrow">NIS2, GDPR, EU AI Act controls &rarr;</div>
+        </a>
+
+        <!-- CLAUDE Guidelines -->
+        <a
+          href="https://github.com/blogtheristo/dws6/blob/main/Learn/CLAUDE.html"
+          target="_blank"
+          rel="noopener"
+          class="learn-card admin"
+        >
+          <div class="learn-card-meta">
+            <span class="learn-card-date">2026-02-05</span>
+            <span class="learn-card-type admin">AI</span>
+          </div>
+          <div class="learn-card-title">CLAUDE Agent Guidelines</div>
+          <div class="learn-card-arrow">AI agent behavior & coding rules &rarr;</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Cron Status Script -->
+    <script>
+      const CRON_STATUS_URL =
+        window.location.hostname === "localhost"
+          ? "http://localhost:8081/status"
+          : "/api/v1/cron/status";
+
+      function timeAgo(isoDate) {
+        if (!isoDate) return "never";
+        const diff = Date.now() - new Date(isoDate).getTime();
+        const mins = Math.floor(diff / 60000);
+        if (mins < 1) return "just now";
+        if (mins < 60) return mins + "m ago";
+        const hours = Math.floor(mins / 60);
+        if (hours < 24) return hours + "h ago";
+        const days = Math.floor(hours / 24);
+        return days + "d ago";
+      }
+
+      function isWithin24h(isoDate) {
+        if (!isoDate) return false;
+        return Date.now() - new Date(isoDate).getTime() < 86400000;
+      }
+
+      function renderCronStatus(jobs) {
+        const grid = document.getElementById("cron-grid");
+        const summary = document.getElementById("cron-summary");
+
+        if (!jobs || jobs.length === 0) {
+          grid.innerHTML = '<div class="cron-error-banner">No cron jobs registered.</div>';
+          return;
+        }
+
+        let greenCount = 0;
+        let redCount = 0;
+        let grayCount = 0;
+
+        const cards = jobs
+          .map(function (job) {
+            var color, badgeClass, badgeText;
+            if (!job.lastRun || !isWithin24h(job.lastRun)) {
+              color = "gray";
+              badgeClass = "pending";
+              badgeText = job.lastRun ? "stale" : "no run";
+              grayCount++;
+            } else if (job.lastStatus === "success") {
+              color = "green";
+              badgeClass = "success";
+              badgeText = "ok";
+              greenCount++;
+            } else {
+              color = "red";
+              badgeClass = "failure";
+              badgeText = "fail";
+              redCount++;
+            }
+
+            var displayName = job.name.replace(/-/g, " ");
+            var lastRunText = job.lastRun ? timeAgo(job.lastRun) : "never";
+
+            return (
+              '<div class="cron-card">' +
+              '<div class="cron-indicator ' +
+              color +
+              '"></div>' +
+              '<div class="cron-info">' +
+              '<div class="cron-name">' +
+              displayName +
+              ' <span class="cron-status-badge ' +
+              badgeClass +
+              '">' +
+              badgeText +
+              "</span></div>" +
+              '<div class="cron-schedule">' +
+              job.schedule +
+              (job.workflow ? " &middot; " + job.workflow : "") +
+              "</div>" +
+              '<div class="cron-last-run">Last run: ' +
+              lastRunText +
+              "</div>" +
+              "</div>" +
+              "</div>"
+            );
+          })
+          .join("");
+
+        grid.innerHTML = cards;
+
+        summary.innerHTML =
+          '<div class="cron-summary-item"><span class="cron-summary-dot green"></span> ' +
+          greenCount +
+          " OK</div>" +
+          '<div class="cron-summary-item"><span class="cron-summary-dot red"></span> ' +
+          redCount +
+          " Failed</div>" +
+          '<div class="cron-summary-item"><span class="cron-summary-dot gray"></span> ' +
+          grayCount +
+          " No run</div>" +
+          '<span style="font-size: 0.75rem; color: var(--color-gray-400); margin-left: auto;">Updated: ' +
+          new Date().toLocaleTimeString() +
+          "</span>";
+      }
+
+      function fetchCronStatus() {
+        var grid = document.getElementById("cron-grid");
+        grid.innerHTML = '<div class="cron-error-banner">Loading cron status...</div>';
+
+        fetch(CRON_STATUS_URL)
+          .then(function (res) {
+            if (!res.ok) throw new Error("HTTP " + res.status);
+            return res.json();
+          })
+          .then(function (data) {
+            renderCronStatus(data.jobs || data);
+          })
+          .catch(function () {
+            grid.innerHTML =
+              '<div class="cron-error-banner">' +
+              "Could not reach cron service. DGX Spark may be offline." +
+              '<br><small style="color: var(--color-gray-400);">Endpoint: ' +
+              CRON_STATUS_URL +
+              "</small></div>";
+            document.getElementById("cron-summary").innerHTML = "";
+          });
+      }
+
+      // Auto-fetch on page load
+      fetchCronStatus();
+    </script>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p class="footer-text">
+        DWS6.com Administration Portal — <a href="/" class="footer-link">Home</a> ·
+        <a href="/admin/login/" class="footer-link">Admin Login</a> ·
+        <a href="/login/" class="footer-link">User Login</a>
+        <br /><br />
+        © 2025 Lifetime Oy. All rights reserved. Unauthorized access is prohibited.
+      </p>
+    </footer>
+  </body>
+</html>

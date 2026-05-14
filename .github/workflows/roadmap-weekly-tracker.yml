@@ -27,7 +27,7 @@ jobs:
       - name: Count roadmap PRs by phase
         id: count
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           WEEK=$(date -u '+%Y-W%V')
           echo "# DWS7 Roadmap Weekly Report — $WEEK" > report.md
@@ -214,7 +214,7 @@ jobs:
 
       - name: Create or update tracking issue
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           WEEK=$(date -u '+%Y-W%V')
           TITLE="DWS7 Roadmap Progress — $WEEK"

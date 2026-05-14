@@ -1,0 +1,65 @@
+{
+  "month": "2025-12",
+  "month_name": "December",
+  "workflows_scheduled": 3,
+
+  "schedule": [
+    {
+      "day": 1,
+      "date": "2025-12-01",
+      "workflows": [
+        {
+          "time": "00:00 UTC",
+          "workflow_id": "monthly-security-audit",
+          "workflow_name": "Monthly Security Audit",
+          "type": "cron",
+          "status": "completed",
+          "result": "success",
+          "duration": "12 minutes"
+        },
+        {
+          "time": "02:00 UTC",
+          "workflow_id": "monthly-security-audit-enhanced",
+          "workflow_name": "Monthly Security Audit (Enhanced)",
+          "type": "cron",
+          "status": "completed",
+          "result": "success",
+          "duration": "18 minutes"
+        }
+      ]
+    },
+    {
+      "day": 15,
+      "date": "2025-12-15",
+      "workflows": [
+        {
+          "time": "00:00 UTC",
+          "workflow_id": "investor-timeline-tracker",
+          "workflow_name": "Investor Timeline Tracker",
+          "type": "cron",
+          "status": "completed",
+          "result": "success",
+          "duration": "3 minutes"
+        }
+      ]
+    }
+  ],
+
+  "summary": {
+    "total_scheduled": 3,
+    "completed": 3,
+    "pending": 0,
+    "failed": 0,
+    "success_rate": 100
+  },
+
+  "next_month": {
+    "month": "2026-01",
+    "scheduled_workflows": 3,
+    "first_workflow": {
+      "date": "2026-01-01",
+      "time": "00:00 UTC",
+      "workflow_id": "monthly-security-audit"
+    }
+  }
+}

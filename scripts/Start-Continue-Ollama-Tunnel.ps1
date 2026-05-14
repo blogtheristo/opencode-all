@@ -11,7 +11,7 @@
 #>
 
 param(
-    [string]$RemoteSsh = "admin100@gn100-cb5d",
+    [string]$RemoteSsh = "admin100@192.168.101.113",
     [int]$LocalPort = 11435,
     [int]$RemotePort = 11434,
     [int]$MaxWaitSeconds = 15,

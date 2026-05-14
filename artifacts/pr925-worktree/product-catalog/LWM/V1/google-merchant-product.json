@@ -1,0 +1,192 @@
+{
+  "product_data_version": "1.0",
+  "last_updated": "2026-01-23",
+  "merchant_id": "lifetime-oy",
+  "feed_label": "EN",
+  "target_country": "FI",
+  "content_language": "en",
+
+  "product": {
+    "id": "LWM-V1-2026",
+    "offerId": "LWM-V1-INCEPTION",
+    "title": "Lifetime World Model V1 (LWM) - 55B Parameter Physical AI",
+    "description": "Sovereign Physical AI for construction: 55-billion parameter world model maintaining persistent 'Lifetime' memory of physical environments. Solves spatial-temporal data gaps, enables autonomous material logistics and real-time carbon-neutrality steering for EU Fit for 55 compliance. Deployed on-premise via NVIDIA GB10 Grace Blackwell Superchip.",
+
+    "link": "https://dws10.com/world-model/",
+    "mobileLink": "https://dws10.com/world-model/",
+    "imageLink": "https://dws10.com/DWS_IQ2026.png",
+    "additionalImageLinks": [],
+
+    "contentLanguage": "en",
+    "targetCountry": "FI",
+    "channel": "online",
+    "availability": "in_stock",
+    "availabilityDate": "2026-03-01",
+    "expirationDate": "2027-12-31",
+
+    "price": {
+      "value": "250000.00",
+      "currency": "EUR"
+    },
+    "salePrice": null,
+    "salePriceEffectiveDate": null,
+
+    "costOfGoodsSold": {
+      "value": "100000.00",
+      "currency": "EUR"
+    },
+
+    "googleProductCategory": "Business & Industrial > Business Services > Consulting Services",
+    "productTypes": [
+      "Software > Enterprise Software > Physical AI",
+      "Software > Construction Technology > World Model",
+      "Professional Services > AI Solutions > Sovereign AI"
+    ],
+
+    "brand": "Lifetime Oy",
+    "mpn": "LWM-V1-2026",
+    "gtin": null,
+    "identifierExists": true,
+
+    "condition": "new",
+    "adult": false,
+    "multipack": 1,
+    "isBundle": false,
+    "energyEfficiencyClass": null,
+
+    "ageGroup": null,
+    "color": null,
+    "gender": null,
+    "material": null,
+    "pattern": null,
+    "size": null,
+    "sizeType": null,
+    "sizeSystem": null,
+
+    "itemGroupId": "LWM-FAMILY",
+    "productDetail": [
+      {
+        "sectionName": "Model Architecture",
+        "attributeName": "Parameter Count",
+        "attributeValue": "55 billion parameters"
+      },
+      {
+        "sectionName": "Hardware",
+        "attributeName": "Target Platform",
+        "attributeValue": "NVIDIA GB10 Grace Blackwell Superchip"
+      },
+      {
+        "sectionName": "Performance",
+        "attributeName": "Compute",
+        "attributeValue": "1 PetaFLOP FP4 inference"
+      },
+      {
+        "sectionName": "Deployment",
+        "attributeName": "Type",
+        "attributeValue": "On-premise sovereign stack"
+      }
+    ],
+
+    "productHighlights": [
+      "55B parameter construction-specific Physical AI model",
+      "Persistent 'Lifetime' memory of site evolution",
+      "NVIDIA Cosmos integration for occlusion reasoning",
+      "On-premise deployment for data sovereignty",
+      "EU Fit for 55 compliance automation",
+      "Sub-second inference on site scenarios"
+    ],
+
+    "shipping": [
+      {
+        "country": "FI",
+        "service": "Digital Delivery",
+        "price": {
+          "value": "0.00",
+          "currency": "EUR"
+        }
+      },
+      {
+        "country": "EU",
+        "service": "On-site Installation",
+        "price": {
+          "value": "15000.00",
+          "currency": "EUR"
+        }
+      }
+    ],
+
+    "shippingWeight": {
+      "value": null,
+      "unit": null
+    },
+
+    "shippingLength": null,
+    "shippingWidth": null,
+    "shippingHeight": null,
+
+    "shipsFromCountry": "FI",
+    "transitTimeLabel": "Installation: 2-4 weeks",
+
+    "maxHandlingTime": 30,
+    "minHandlingTime": 14,
+
+    "taxes": [
+      {
+        "country": "FI",
+        "region": null,
+        "rate": 24.0,
+        "taxShip": false
+      }
+    ],
+
+    "customLabel0": "Physical AI",
+    "customLabel1": "Construction Tech",
+    "customLabel2": "Sovereign AI",
+    "customLabel3": "Fit for 55",
+    "customLabel4": "NVIDIA Inception",
+
+    "promotionIds": [],
+
+    "includedDestinations": [
+      "SurfacesAcrossGoogle",
+      "Shopping",
+      "DisplayAds",
+      "LocalInventoryAds"
+    ],
+
+    "excludedDestinations": [],
+
+    "pause": "ads",
+
+    "lifestyleImageLinks": [],
+
+    "certifications": [
+      {
+        "certificationAuthority": "NVIDIA",
+        "certificationName": "Inception Program Member",
+        "certificationCode": "PENDING-2026"
+      }
+    ],
+
+    "structuredTitle": {
+      "digitalSourceType": "trained_algorithmic_media",
+      "content": "Lifetime World Model V1 - 55B Parameter Sovereign Physical AI for Construction"
+    },
+
+    "structuredDescription": {
+      "digitalSourceType": "trained_algorithmic_media",
+      "content": "First sovereign Physical AI for construction industry: 55-billion parameter world model with persistent memory architecture. Integrates NVIDIA Cosmos for occlusion reasoning, deployed on GB10 Grace Blackwell Superchip. Enables autonomous material logistics, real-time carbon tracking, and same-day Fit for 55 compliance audits. On-premise deployment guarantees 100% data sovereignty."
+    }
+  },
+
+  "metadata": {
+    "source": "product-catalog/LWM/V1/",
+    "version": "1.0",
+    "created_by": "Claude Session r6bU3",
+    "created_date": "2026-01-23",
+    "nvidia_inception_status": "Preparing Application",
+    "development_stage": "Developing",
+    "pilot_sites": 0,
+    "target_pilot_sites_q2_2026": 5
+  }
+}

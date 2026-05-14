@@ -6,6 +6,8 @@ name: Deploy to Staging (Cloud Run)
 # Target: Cloud Run service dws6run6-staging (europe-north1)
 # Image:  europe-north1-docker.pkg.dev/$PROJECT_ID/dws-iq-repo/backend:staging-<sha>
 #
+# Cloud Run injects PORT automatically — do not set PORT in env_vars (deploy will fail).
+#
 # Required secrets (GitHub → Settings → Secrets → Actions):
 #   GCP_WORKLOAD_IDENTITY_PROVIDER — projects/<number>/locations/global/workloadIdentityPools/<pool>/providers/<provider>
 #   GCP_SERVICE_ACCOUNT           — github-actions-deployer@<project>.iam.gserviceaccount.com
@@ -147,7 +149,6 @@ jobs:
             --timeout=60s
           env_vars: |
             NODE_ENV=staging
-            PORT=8080
             LOG_LEVEL=debug
             DETAILED_ERRORS=true
             ENABLE_CRON_JOBS=false

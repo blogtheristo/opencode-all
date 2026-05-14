@@ -23,5 +23,5 @@ context:
   - provider: terminal
 
 rules:
-  - Start an SSH tunnel before use: ssh -L 11435:localhost:11434 admin100@<veriton-host>
+  - Start an SSH tunnel before use: ssh -L 127.0.0.1:11435:localhost:11434 admin100@192.168.101.113
   - Point Continue at localhost:11435 so the inference endpoint stays private.

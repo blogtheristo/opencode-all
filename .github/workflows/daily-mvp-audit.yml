@@ -249,7 +249,7 @@ jobs:
       - name: Update or create tracking issue
         if: steps.timecheck.outputs.should_run == 'true'
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           TITLE="MVP Audit: ${{ steps.audit.outputs.score }}/${{ steps.audit.outputs.total }} (${{ steps.audit.outputs.pct }}%) — $(date -u +%Y-%m-%d)"
 

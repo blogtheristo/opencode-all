@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teollisuussähkövero: pieni säätö, kestävä kapasiteetti — Lifetime Scope Journal</title>
+    <meta
+      name="description"
+      content="Teollisuussähkövero (II veroluokka) on EU-minimissä 0,063 snt/kWh. Pieni korotus, korvamerkittynä kantaverkon pullonkauloihin ja joustoon, kasvattaa kapasiteettia ilman valtion velkaa."
+    />
+    <meta name="author" content="Risto Anton Paarni" />
+    <meta name="date" content="2026-04-17" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Teollisuussähkövero: pieni säätö, kestävä kapasiteetti" />
+    <meta
+      property="og:description"
+      content="Miten pieni korotus II-veroluokkaan luo kolme vipua — hintasignaalin, kohdennetun tuoton ja joustokannustimen — ja kasvattaa Suomen sähkökapasiteettia kestävästi."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="fi_FI" />
+    <meta property="og:url" content="https://onelifetime.world/blog/teollisuussahkovero.html" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="og:site_name" content="Lifetime Scope Journal" />
+    <meta property="article:published_time" content="2026-04-17" />
+    <meta property="article:author" content="Risto Anton Paarni" />
+    <meta property="article:section" content="Energiapolitiikka" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Teollisuussähkövero: pieni säätö, kestävä kapasiteetti" />
+    <meta
+      name="twitter:description"
+      content="Pieni korotus II-veroluokkaan, korvamerkittynä kantaverkon pullonkauloihin — kapasiteetti kasvaa ilman valtion velkaa."
+    />
+    <link
+      rel="alternate"
+      hreflang="fi"
+      href="https://onelifetime.world/blog/teollisuussahkovero.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://onelifetime.world/blog/industrial-electricity-tax.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="sv"
+      href="https://onelifetime.world/blog/industriell-elskatt.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://onelifetime.world/blog/industrial-electricity-tax.html"
+    />
+    <link rel="canonical" href="https://onelifetime.world/blog/teollisuussahkovero.html" />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../shared-assets/lang-bar.js"></script>
+    <style>
+      .hero-glow {
+        text-shadow:
+          0 0 40px rgba(6, 182, 212, 0.3),
+          0 0 80px rgba(6, 182, 212, 0.1);
+      }
+      .metric-card {
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+        border: 1px solid rgba(6, 182, 212, 0.2);
+        transition:
+          border-color 0.3s ease,
+          transform 0.3s ease;
+      }
+      .metric-card:hover {
+        border-color: rgba(6, 182, 212, 0.5);
+        transform: translateY(-2px);
+      }
+      .insight-card {
+        background: linear-gradient(135deg, rgba(30, 58, 138, 0.15) 0%, rgba(30, 41, 59, 0.9) 100%);
+        border: 1px solid rgba(96, 165, 250, 0.2);
+      }
+      .cta-card {
+        background: linear-gradient(
+          135deg,
+          rgba(212, 168, 67, 0.1) 0%,
+          rgba(30, 41, 59, 0.95) 100%
+        );
+        border: 1px solid rgba(212, 168, 67, 0.3);
+      }
+      blockquote {
+        border-left: 3px solid #06b6d4;
+        padding-left: 1rem;
+        margin: 1.5rem 0;
+        font-style: italic;
+        color: #94a3b8;
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Teollisuussähkövero: pieni säätö, kestävä kapasiteetti",
+        "description": "Pieni korotus II-veroluokkaan luo kolme vipua — hintasignaalin, kohdennetun tuoton ja joustokannustimen — ja kasvattaa kapasiteettia kestävästi.",
+        "author": {
+          "@type": "Person",
+          "name": "Risto Anton Paarni",
+          "url": "https://onelifetime.world"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Lifetime Oy",
+          "url": "https://dws10.com"
+        },
+        "datePublished": "2026-04-17",
+        "mainEntityOfPage": "https://onelifetime.world/blog/teollisuussahkovero.html",
+        "articleSection": "Energiapolitiikka",
+        "inLanguage": "fi"
+      }
+    </script>
+  </head>
+  <body
+    class="font-sans antialiased flex flex-col min-h-screen"
+    style="
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #f1f5f9;
+    "
+  >
+    <script>
+      function toggleMobileMenu() {
+        const menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("hidden");
+      }
+    </script>
+
+    <nav
+      style="background: #1e293b; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)"
+      class="sticky top-0 z-50 border-b border-gray-700"
+    >
+      <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
+        <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5" aria-label="Valikko">
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+        </button>
+        <a href="/" class="flex items-center">
+          <img
+            src="../OneLifetime+Logo.png"
+            alt="OneLifetime.World"
+            class="h-8 w-auto"
+            style="filter: brightness(1.1)"
+          />
+        </a>
+        <a
+          href="https://dws10.com/buy"
+          class="text-xs font-bold px-3 py-1 rounded"
+          style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a"
+        >
+          Kauppa
+        </a>
+      </div>
+      <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+        <a
+          href="/blog/"
+          class="block px-3 py-2 text-sm text-cyan-400 hover:bg-gray-700 rounded font-semibold"
+          >Blogi</a
+        >
+        <a href="/press/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Press</a
+        >
+        <a
+          href="https://dws10.com"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >DWS IQ -alusta</a
+        >
+        <a
+          href="https://dws10.com/buy"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Kauppa</a
+        >
+      </div>
+    </nav>
+
+    <main class="flex-grow">
+      <section class="py-16 px-4">
+        <div class="max-w-3xl mx-auto text-center">
+          <p class="text-yellow-400 text-xs font-mono uppercase tracking-widest mb-3">
+            Energiapolitiikka &middot; 17.4.2026
+          </p>
+          <h1 class="text-3xl md:text-4xl font-bold mb-6 hero-glow">
+            Teollisuussähkövero:<br />pieni säätö, kestävä kapasiteetti
+          </h1>
+          <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+            II veroluokka on EU-minimissä 0,063 snt/kWh. Pieni korotus — korvamerkittynä kantaverkon
+            pullonkauloihin ja joustoon — kasvattaa kapasiteettia ilman valtion velkaa.
+          </p>
+        </div>
+      </section>
+
+      <section class="pb-16 px-4">
+        <article class="max-w-3xl mx-auto space-y-8">
+          <div class="grid grid-cols-3 gap-4">
+            <div class="metric-card rounded-lg p-5 text-center">
+              <p class="text-2xl font-bold text-cyan-400">0,063</p>
+              <p class="text-xs text-gray-400 mt-1">snt/kWh<br />II veroluokka 2026</p>
+            </div>
+            <div class="metric-card rounded-lg p-5 text-center">
+              <p class="text-2xl font-bold text-cyan-400">3</p>
+              <p class="text-xs text-gray-400 mt-1">
+                vipua joilla vero<br />kasvattaa kapasiteettia
+              </p>
+            </div>
+            <div class="metric-card rounded-lg p-5 text-center">
+              <p class="text-2xl font-bold text-cyan-400">P1</p>
+              <p class="text-xs text-gray-400 mt-1">Fingridin<br />pohjoinen pullonkaula</p>
+            </div>
+          </div>
+
+          <div class="space-y-6 text-gray-300 leading-relaxed">
+            <h2 class="text-2xl font-bold text-white">Vero ei ole rangaistus — se on vipu</h2>
+
+            <p>
+              Teollisuuden ja konesalien sähkövero (II veroluokka) on Suomessa nyt EU:n
+              minimitasolla, 0,063 snt/kWh. Moni pitää veroa vain kustannuksena. Se on myös
+              <strong class="text-cyan-400">säädettävä ohjausinstrumentti</strong> — ja oikein
+              käytettynä yksi harvoista työkaluista, jolla sähkökapasiteettia voi kasvattaa ilman
+              uutta valtion velkaa.
+            </p>
+
+            <blockquote>
+              Pieni mutta riittävä: korotus, joka on pienempi kuin säästö tehokkuudesta ja
+              verkkoinvestointien tuotto yhteensä. Nettovaikutus teollisuudelle positiivinen.
+            </blockquote>
+
+            <h2 class="text-2xl font-bold text-white mt-8">
+              Kolme vipua — miten vero kasvattaa kapasiteettia
+            </h2>
+
+            <div class="insight-card rounded-lg p-5 my-4">
+              <p class="text-blue-400 text-xs font-semibold uppercase tracking-wider mb-2">
+                Vipu 1
+              </p>
+              <p class="text-lg font-semibold text-gray-100 mb-2">
+                Hintasignaali &rarr; tehokkuusinvestointi
+              </p>
+              <p class="text-sm text-gray-400">
+                Kun kilowattitunti maksaa hieman enemmän, teollisuus investoi tehonsäätöön,
+                hukkalämmön talteenottoon ja taajuusmuuttajiin. Jokainen säästetty MWh vapauttaa
+                kapasiteettia verkkoon <em>ilman</em> uutta tuotantoa. Tätä kutsutaan
+                negawatti-kapasiteetiksi — halvin megawatti on se, jota ei koskaan käytetä.
+              </p>
+            </div>
+
+            <div class="insight-card rounded-lg p-5 my-4">
+              <p class="text-blue-400 text-xs font-semibold uppercase tracking-wider mb-2">
+                Vipu 2
+              </p>
+              <p class="text-lg font-semibold text-gray-100 mb-2">
+                Korvamerkitty tuotto &rarr; verkon pullonkaulat
+              </p>
+              <p class="text-sm text-gray-400">
+                Korotuksen tuotto korvamerkitään Fingridin pohjois-etelä-pullonkauloihin (P1),
+                akustoihin ja kantaverkon vahvistukseen. Ei valtion velkaa — vero maksaa verkon.
+                Fyysinen kapasiteetti kasvaa siellä, missä se nyt rajoittaa teollisuuden siirtymää
+                puhtaaseen sähköön.
+              </p>
+            </div>
+
+            <div class="insight-card rounded-lg p-5 my-4">
+              <p class="text-blue-400 text-xs font-semibold uppercase tracking-wider mb-2">
+                Vipu 3
+              </p>
+              <p class="text-lg font-semibold text-gray-100 mb-2">
+                Joustokannustin &rarr; virtuaalikapasiteetti
+              </p>
+              <p class="text-sm text-gray-400">
+                Veroon kytketty alennus niille, jotka osallistuvat kysyntäjoustoon huippuhetkillä.
+                Jos laitos siirtää kulutustaan tunnilla, se maksaa vähemmän veroa. Tämä luo
+                <strong class="text-cyan-400">virtuaalikapasiteettia</strong> — megawatteja ilman
+                betonia, ilman uutta voimalaitosta.
+              </p>
+            </div>
+
+            <h2 class="text-2xl font-bold text-white mt-8">Kestävyys tulee laskennasta</h2>
+
+            <p>
+              Korotus on kestävä, kun se on mitoitettu niin, että
+              <strong class="text-gray-100"
+                >säästö tehokkuudesta + verkkoinvestointien tuotto &gt; veronmaksu</strong
+              >. Teollisuus ei maksa enemmän — se maksaa eri tavalla, ja saa vastineeksi vahvemman
+              verkon ja ennustettavamman sähkönhinnan.
+            </p>
+
+            <p>
+              Suomen etu on, että meillä on jo tekninen infrastruktuuri: älykkäät mittarit,
+              reaaliaikainen joustomarkkina (Fingrid), ja teollisuus joka ymmärtää tehonsäädön.
+              Mikään näistä ei ole luotu verouudistuksen takia — mutta vero voi käyttää kaikkia
+              kolmea vipuna.
+            </p>
+
+            <h2 class="text-2xl font-bold text-white mt-8">Mitä tämä tarkoittaa konesaleille</h2>
+
+            <p>
+              Konesalit ovat II veroluokan suurin kasvuryhmä. Pieni korotus ei estä niiden tuloa
+              Suomeen — 0,1 snt/kWh on yhä alle Saksan ja Ruotsin tason. Mutta se luo signaalin,
+              että hukkalämpö kannattaa talteenottaa kaukolämpöön, ja että kulutus kannattaa
+              ajoittaa tuulen ja auringon mukaan.
+            </p>
+
+            <p>
+              Nämä eivät ole rangaistuksia. Ne ovat
+              <strong class="text-cyan-400"
+                >markkinasignaaleja, jotka tekevät Suomesta paremman sijoituskohteen</strong
+              >
+              — ei huonomman.
+            </p>
+          </div>
+
+          <div class="cta-card rounded-xl p-6">
+            <h3 class="text-lg font-bold text-yellow-300 mb-2">
+              Mallinna vaikutus omaan liiketoimintaasi
+            </h3>
+            <p class="text-sm text-gray-300 mb-4">
+              DWS IQ 6 -alustan energiamallit näyttävät, miten vero + joustoalennus + hukkalämpö
+              vaikuttavat nettokustannukseen teollisuudessasi. Varaa 30 minuutin mallinnussessio.
+            </p>
+            <a
+              href="https://dws10.com/products/dwsiq.html"
+              class="inline-block bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-bold px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity"
+            >
+              Varaa mallinnus &rarr;
+            </a>
+          </div>
+
+          <div class="space-y-3">
+            <h3 class="text-sm font-semibold uppercase tracking-wider text-gray-500">Lue myös</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <a
+                href="/posts/core-resilience-hybrid-threats.html"
+                class="block rounded-lg p-4"
+                style="
+                  background: rgba(30, 41, 59, 0.6);
+                  border: 1px solid rgba(100, 116, 139, 0.3);
+                "
+              >
+                <p class="text-xs text-blue-400 uppercase tracking-wider mb-1">Resilienssi</p>
+                <p class="text-sm font-semibold text-gray-200">CORE: EU-malli hybridiuhkille</p>
+                <p class="text-xs text-gray-500 mt-1">13 domeenia, 3 kerrosta, NIS2/CER/CSRD</p>
+              </a>
+              <a
+                href="/posts/eu-regulation-harness-engineering.html"
+                class="block rounded-lg p-4"
+                style="
+                  background: rgba(30, 41, 59, 0.6);
+                  border: 1px solid rgba(100, 116, 139, 0.3);
+                "
+              >
+                <p class="text-xs text-blue-400 uppercase tracking-wider mb-1">EU-sääntely</p>
+                <p class="text-sm font-semibold text-gray-200">
+                  EU-sääntely tekee paremman tekoälyn
+                </p>
+                <p class="text-xs text-gray-500 mt-1">Miksi regulatorinen harness on kilpailuetu</p>
+              </a>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer
+      class="border-t border-gray-700 py-8 text-center text-xs text-gray-500"
+      style="background: #0f172a"
+    >
+      <p>&copy; 2026 Lifetime Oy &middot; ALV FI07724079 &middot; Helsinki, Suomi</p>
+      <p class="mt-1">
+        <a href="https://dws10.com" class="text-blue-400 hover:underline">DWS IQ -alusta</a>
+        &middot;
+        <a href="https://dws10.com/buy" class="text-blue-400 hover:underline">Kauppa</a>
+        &middot;
+        <a href="/blog/" class="text-blue-400 hover:underline">Blogi</a>
+        &middot;
+        <a href="/press/" class="text-blue-400 hover:underline">Press</a>
+      </p>
+    </footer>
+  </body>
+</html>

@@ -117,7 +117,7 @@ jobs:
         if: inputs.create_pr == true
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ github.token }}
           commit-message: |
             refactor(ruff): Auto-fix code quality issues (${{ inputs.fix_mode }} mode)
             

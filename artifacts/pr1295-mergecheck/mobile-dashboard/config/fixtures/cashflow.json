@@ -1,0 +1,53 @@
+{
+  "projectId": "PRJ-001",
+  "currency": "EUR",
+  "budgetTotal": 45.2,
+  "burnRateMtd": 2.8,
+  "burnRate8w": [2.1, 2.3, 2.2, 2.5, 2.6, 2.7, 2.9, 2.8],
+  "byPeriod": [
+    {
+      "period": "2025-W49",
+      "planned": 2.5,
+      "actual": 2.6,
+      "variance": 0.1,
+      "cumPlanned": 18.5,
+      "cumActual": 19.2,
+      "cumVariance": 0.7
+    },
+    {
+      "period": "2025-W50",
+      "planned": 2.6,
+      "actual": 2.7,
+      "variance": 0.1,
+      "cumPlanned": 21.1,
+      "cumActual": 21.9,
+      "cumVariance": 0.8
+    },
+    {
+      "period": "2025-W51",
+      "planned": 2.7,
+      "actual": 2.9,
+      "variance": 0.2,
+      "cumPlanned": 23.8,
+      "cumActual": 24.8,
+      "cumVariance": 1.0
+    },
+    {
+      "period": "2025-W52",
+      "planned": 2.8,
+      "actual": null,
+      "variance": null,
+      "cumPlanned": 26.6,
+      "cumActual": null,
+      "cumVariance": null
+    }
+  ],
+  "forecast": {
+    "atCompletion": 46.3,
+    "variance": 1.1,
+    "variancePct": 2.4,
+    "contingencyRemaining": 2.1
+  },
+  "asOf": "2025-12-23T08:00:00Z"
+}
+

@@ -1,0 +1,2637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="python-markdown (HIL pipeline)" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>V3Thesis_EN v3.7 - Firehorse Product Manufacturing Operating Model</title>
+  <style>
+    html { color: #1a1a1a; background-color: #fdfdfd; }
+    body { margin: 0 auto; max-width: 36em; padding: 50px; hyphens: auto; overflow-wrap: break-word; text-rendering: optimizeLegibility; font-kerning: normal; }
+    @media (max-width: 600px) { body { font-size: 0.9em; padding: 12px; } h1 { font-size: 1.8em; } }
+    @media print { html { background-color: white; } body { background-color: transparent; color: black; font-size: 12pt; } }
+    p { margin: 1em 0; }
+    a { color: #1a1a1a; } a:visited { color: #1a1a1a; }
+    img { max-width: 100%; }
+    h1, h2, h3, h4, h5, h6 { margin-top: 1.4em; }
+    ol, ul { padding-left: 1.7em; margin-top: 1em; }
+    blockquote { margin: 1em 0 1em 1.7em; padding-left: 1em; border-left: 2px solid #e6e6e6; color: #606060; }
+    code { font-family: Menlo, Monaco, Consolas, monospace; font-size: 85%; }
+    pre { margin: 1em 0; overflow: auto; }
+    hr { border: none; border-top: 1px solid #1a1a1a; height: 1px; margin: 1em 0; }
+    table { margin: 1em 0; border-collapse: collapse; width: 100%; }
+    th { border-top: 1px solid #1a1a1a; padding: 0.25em 0.5em; }
+    td { padding: 0.125em 0.5em; }
+    tbody { border-top: 1px solid #1a1a1a; border-bottom: 1px solid #1a1a1a; }
+</style>
+</head>
+<body>
+<h1 id="firehorse-product-manufacturing-operating-model">Firehorse Product Manufacturing Operating Model</h1>
+<h2 id="hybrid-ai-edge-architecture-for-climate-intelligent-industrial-platforms">Hybrid AI-Edge Architecture for Climate-Intelligent Industrial Platforms</h2>
+<hr />
+<h1 id="version-and-agent-history">VERSION AND AGENT HISTORY</h1>
+<p>Version: 3.7</p>
+<p>Sessions &amp; Modifications:
+  - Version: 3.7 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Added Appendix H — Automated PR Workflow (HIL Automation): dual-model AI review (Claude + Gemini), Copilot fix loop, auto-merge workflow, MCP Hub Gemini endpoint, Cloud Run dws6run6 deployment
+  - Version: 3.4–3.6 | Tool: Various (Cursor, Claude Code, Word) | Sessions: multiple | Date: 10–20.02.2026 | Changes: Applied in other sessions but version header not updated in file — corrected here. Includes company rename (Lifetime Consulting Oy → Lifetime Oy), IPR strategy sections, prompt caching architecture
+  - Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: V3-Merge | Date: 10.02.2026 | Changes: Merged Thesis_FI.md (v2.1) and V2Thesis_FI.md (v3.2) into a single consolidated version. Fixed Scandinavian characters, updated identifiers, added DWS10 e-commerce, audio chat and HIL pipeline sections, Karpathy appendix, Firehorse operating model sections
+  - Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-Pipeline | Date: 07.02.2026 | Changes: Added section 6.7 - Human-in-the-Loop learning pipeline (daily automation, three-layer backup, Learn/ folder output)
+  - Version: 3.1 | Tool: Claude Code (Opus 4.5) | Session: Karpathy-Principles | Date: 04.02.2026 | Changes: Added Appendix E - AI Agent Behavioral Guidelines (Karpathy Principles), EU AI Act compliance mapping, implementation outcome metrics
+  - Version: 3.0 | Tool: Claude Code (Opus 4.5) | Session: DWS10-Store-Integration | Date: 28.01.2026 | Changes: Added DWS10.com e-commerce store findings, Google Merchant Center integration, Revolut Business payments, Audio chat evolution roadmap with Groq/Llama models, Industry carbon footprint calculator, EU compliance mapping
+  - Version: 2.2 | Tool: Word (HIL) | Session: dws6.com Google Run | Date: 19.01.2026 | Changes: Google admin@dws6.com and project under Google. Established 19.1.2026. Google Workspace Standard adopted. DNS records changed from Proton to Google. Created project dws6run to serve Google Run processes.
+  - Version: 2.1 | Tool: Cursor AI (Claude) | Session: 16-Industries | Date: 06.01.2026 | Changes: Added Fit for 55 16-industry analysis, AI usage disclosure, DWS10 use cases, expanded current state analysis
+  - Version: 2.0 | Tool: Cursor AI (Claude) | Session: Thesis-Revision | Date: 05.01.2026 | Changes: Major revision - Added Solution Factory model, AgentFoundry documentation, Lifetime Scope Signals theory, SWOT analysis, research questions answers, complete theoretical framework
+  - Version: 1.0 | Tool: GitHub Copilot | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Applied DWS document standard, synchronized with Finnish version</p>
+<p>Session Links &amp; References:
+  - Claude Code (2026-02-10): V3 merge and Scandinavian character fixes
+  - Claude Code (2026-01-28): DWS10 store integration, Google Merchant, Revolut, Audio chat roadmap
+  - Cursor AI (2026-01-05): Thesis revision integrating codebase evidence
+  - GitHub Copilot (2025-12-30): https://github.com/blogtheristo/dws6/commits/main
+  - View on GitHub: https://github.com/blogtheristo/dws6/blob/main/docs/metropolia/master-thesis/en/V3Thesis_EN.md</p>
+<p>Document Status:
+  - Created: 30.12.2025
+  - Last Modified: 20.02.2026
+  - Language: English
+  - Languages Available: English, Suomi
+  - Publication Status: DRAFT (V3.3 consolidated full version)</p>
+<hr />
+<p><strong>Master's Thesis</strong>
+<strong>Metropolia University of Applied Sciences</strong></p>
+<p><strong>Author:</strong> Risto Anton Päärni
+<strong>Program:</strong> Smart Factory, Master's Degree (YAMK)
+<strong>Supervisor:</strong> Jarno Varteva (with Erkki Räsänen)
+<strong>Company:</strong> Lifetime Oy (Firehorse brand)
+<strong>Date:</strong> 16.1.2026
+<strong>InvestEU Portal:</strong> Project Lifetime World, DWS IQ 6, Firehorse (INPO-20254383) submitted for publication on the InvestEU Portal on 25.12.2025 — InvestEU Portal Team, European Commission</p>
+<hr />
+<h2 id="abstract">Abstract</h2>
+<p>This thesis examines the Firehorse product manufacturing operating model, which combines cloud and edge computing technologies for industrial SMEs. The work focuses on the construction industry and its challenges in the EU's twin transition (digital + green). <strong>Version 3.0 extends the research with e-commerce validation through DWS10.com store implementation, Google Merchant Center integration, Revolut Business payment processing, and an audio chat evolution roadmap using Groq inference with Llama models.</strong></p>
+<p><strong>Keywords:</strong> Artificial Intelligence, Edge Computing, Construction Industry, Operating Model, Cloud Services, E-Commerce, Google Merchant Center, Revolut Business, Audio Chat, EU AI Act Compliance</p>
+<hr />
+<h2 id="tiivistelma">Tiivistelma</h2>
+<p>Tama opinnaytetyo tutkii Firehorse-tuotevalmistuksen toimintamallia, joka yhdistaa pilvi- ja reunalaskentateknologiat teollisten pk-yritysten tarpeisiin. Tyo keskittyy rakennusteollisuuteen ja sen haasteisiin EU:n kaksoissiirtymassa (digitaalinen + vihrea). <strong>Versio 3.0 laajentaa tutkimusta verkkokauppavalidoinnilla DWS10.com-kaupan toteutuksen, Google Merchant Center -integraation, Revolut Business -maksukasittelyn ja aanichat-kehityssuunnitelman kautta Groq-inferenssia ja Llama-malleja kayttaen.</strong></p>
+<p><strong>Avainsanat:</strong> Tekoaly, reunalaskenta, rakennusteollisuus, toimintamalli, pilvipalvelut, verkkokauppa, Google Merchant Center, Revolut Business, aanichat, EU:n tekoalysaados</p>
+<hr />
+<h2 id="ai-tool-usage-disclosure">AI Tool Usage Disclosure</h2>
+<p>AI-assisted tools were used in the preparation of this thesis in accordance with transparency and academic integrity principles.</p>
+<p><strong>Tools used:</strong>
+- <strong>Claude Code (Anthropic Opus 4.5/4.6)</strong> — DWS10 e-commerce store integration, documentation generation, V3 merge
+- <strong>Claude (Anthropic)</strong> — Text editing, structure review, language improvement
+- <strong>Cursor AI</strong> — Code documentation, technical section validation
+- <strong>GitHub Copilot</strong> — Code examples, technical documentation</p>
+<p><strong>AI's role in documentation:</strong>
+- Language review and improvement suggestions (FI/EN)
+- Technical documentation structuring and harmonization
+- Translation assistance Finnish-English
+- Table and diagram formatting
+- E-commerce maintenance manual generation</p>
+<p><strong>Author's original contribution:</strong>
+- All research questions, hypotheses, and conclusions
+- Original content, argumentation, and analysis
+- Live codebase and implementation (dws6 repository: 50,000+ LOC)
+- Business model design and validation
+- Customer interviews and data (Uber, Bolt, Kela — EUR 10k MRR)
+- Solution Factory model and AgentFoundry architecture development
+- DWS10.com e-commerce product catalog and integrations</p>
+<p><strong>Evidence base:</strong>
+- Git version history: <a href="https://github.com/blogtheristo/dws6">github.com/blogtheristo/dws6</a>
+- Live customer validation: EUR 10,000+ MRR
+- Working system: DWS10.com, DWS6.com, onelifetime.world, lifetime.fi
+- Google Merchant Center: Account 8496329, 30 products approved</p>
+<hr />
+<h1 id="table-of-contents">Table of Contents</h1>
+<ol>
+<li><a href="#1-introduction">Introduction</a></li>
+<li><a href="#2-theoretical-framework">Theoretical Framework</a></li>
+<li><a href="#3-current-state-analysis">Current State Analysis</a></li>
+<li><a href="#4-dws6-operating-model-design">DWS6 Operating Model Design</a></li>
+<li><a href="#5-implementation-mvp-phase">Implementation (MVP Phase)</a></li>
+<li><a href="#6-dws10com-e-commerce-integration">DWS10.com E-Commerce Integration</a></li>
+<li><a href="#7-audio-chat-evolution-roadmap">Audio Chat Evolution Roadmap</a></li>
+<li><a href="#8-results-and-analysis">Results and Analysis</a></li>
+<li><a href="#9-discussion">Discussion</a></li>
+<li><a href="#10-conclusions">Conclusions</a></li>
+<li><a href="#11-references">References</a></li>
+<li><a href="#12-appendices">Appendices</a></li>
+</ol>
+<hr />
+<h1 id="1-introduction">1. Introduction</h1>
+<h2 id="11-background">1.1 Background</h2>
+<p>European industrial SMEs face a "twin transition" challenge:</p>
+<ul>
+<li><strong>Digital transformation</strong>: AI, automation, real-time decision-making</li>
+<li><strong>Green transformation</strong>: EU Fit for 55 (55% emissions reduction by 2030), embodied carbon mandates by 2028</li>
+</ul>
+<p>Traditional SaaS platforms fail because they:
+1. Cost EUR 1,400+/month (unaffordable for SMEs)
+2. Require cloud-only architecture (high latency, high operational costs)
+3. Do not address industry-specific compliance workflows</p>
+<p><strong>Firehorse (DWS6)</strong> solves this with a novel operating model combining:
+- Free-tier cloud infrastructure (EUR 0-350/month vs EUR 1,400+)
+- Edge AI (NVIDIA Jetson) for &lt;100ms inference
+- Industry-specific AI agents (Construction, Manufacturing, Energy)
+- Phased deployment (Silent Pilot -&gt; Advisor -&gt; Autonomous)
+- <strong>E-commerce validation through DWS10.com, Google Merchant Center, and Revolut Business</strong> [V3.0]</p>
+<h2 id="12-research-problem">1.2 Research Problem</h2>
+<p><strong>Primary Research Question:</strong>
+How can a bootstrapped industrial AI platform achieve product-market fit through a hybrid cloud-edge operating model while maintaining &lt;EUR 400/month operational costs?</p>
+<p><strong>Secondary Research Questions:</strong></p>
+<ol>
+<li>
+<p><strong>Product &amp; Business Model:</strong> How to develop a customer promise that solves a real problem and scales internationally?</p>
+</li>
+<li>
+<p><strong>Technology:</strong> How to build a digital, scalable service product that operates across cloud + edge + e-commerce?</p>
+</li>
+<li>
+<p><strong>Technical Solution Evaluation:</strong> Which technical solution best supports business objectives?</p>
+</li>
+<li>
+<p><strong>Enterprise Security:</strong> How to ensure NIS 2, EU AI Act, GDPR, and Cybersecurity Act compliance?</p>
+</li>
+<li>
+<p><strong>E-Commerce Validation:</strong> How can an automated store with AI-assisted operations validate product-market fit? [V3.0]</p>
+</li>
+</ol>
+<h2 id="13-objectives">1.3 Objectives</h2>
+<ol>
+<li>Document the Firehorse operating model (MVP -&gt; V1)</li>
+<li>Validate the free-tier cost model (EUR 0/month target)</li>
+<li>Measure customer benefit (&lt;=2 month payback period)</li>
+<li>Create a replicable model for other industrial startups</li>
+<li><strong>Validate e-commerce channel with Google Merchant Center integration</strong> [V3.0]</li>
+</ol>
+<h2 id="14-scope">1.4 Scope</h2>
+<ul>
+<li><strong>Industry:</strong> Construction industry (3.5M companies in Europe) + 15 other EU industries</li>
+<li><strong>Market:</strong> Nordics + Central and Eastern Europe</li>
+<li><strong>Timeframe:</strong> MVP phase (December 2025 - February 2026)</li>
+<li><strong>Customers:</strong> 5 pilot customers (EUR 10-100M revenue)</li>
+<li><strong>E-commerce:</strong> 30 products across platform, software, and service categories [V3.0]</li>
+</ul>
+<h2 id="15-key-concepts">1.5 Key Concepts</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MVP</strong></td>
+<td>Minimum Viable Product - The smallest functional product</td>
+</tr>
+<tr>
+<td><strong>Edge AI</strong></td>
+<td>Artificial intelligence that runs on-device (no cloud connection)</td>
+</tr>
+<tr>
+<td><strong>SaaS</strong></td>
+<td>Software as a Service</td>
+</tr>
+<tr>
+<td><strong>DWS6</strong></td>
+<td>Digital Work System 6 - Technical name for the Firehorse platform</td>
+</tr>
+<tr>
+<td><strong>Embodied Carbon</strong></td>
+<td>Emissions from the manufacturing and transportation of building materials</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="2-theoretical-framework">2. Theoretical Framework</h1>
+<h2 id="21-lean-startup-methodology">2.1 Lean Startup Methodology</h2>
+<p>The Lean Startup methodology (Ries, 2011) forms the foundation of Firehorse product development. The core principle of the Build-Measure-Learn cycle directly guides the phased deployment model:</p>
+<p><strong>Application to Firehorse:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Lean Startup Concept</th>
+<th>Firehorse Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MVP (Minimum Viable Product)</strong></td>
+<td>2 agents (CustomerSat, Viability) for 5 pilot customers</td>
+</tr>
+<tr>
+<td><strong>Validated Learning</strong></td>
+<td>Silent Pilot phase observes before acting</td>
+</tr>
+<tr>
+<td><strong>Build-Measure-Learn</strong></td>
+<td>Phase 1 -&gt; Phase 2 -&gt; Phase 3 progression</td>
+</tr>
+<tr>
+<td><strong>Pivot or Persevere</strong></td>
+<td>Signal-based coordination allows rapid course correction</td>
+</tr>
+</tbody>
+</table>
+<p>The Customer Development methodology (Blank, 2013) extends this with the principle of "getting out of the building" - validating product-market fit with real customers before scaling. Firehorse's 2-month payback guarantee operationalizes this by creating a measurable validation metric.</p>
+<p><strong>Jobs-to-be-Done Framework:</strong>
+Following Clayton Christensen's framework, Firehorse identifies the "job" customers hire the product for:
+- <strong>Functional Job:</strong> Track embodied carbon for EU compliance (2028 deadline)
+- <strong>Emotional Job:</strong> Reduce anxiety about regulatory penalties
+- <strong>Social Job:</strong> Demonstrate sustainability leadership to stakeholders</p>
+<h2 id="22-platform-economics">2.2 Platform Economics</h2>
+<p>Platform economics (Parker, Van Alstyne &amp; Choudary, 2016) explains how multi-sided platforms create value through network effects. The Firehorse Solution Factory model extends this theory to industrial AI:</p>
+<p><strong>Multi-sided platform design:</strong></p>
+<pre><code>+-------------------------------------------------------------+
+|              FIREHORSE PLATFORM ECOSYSTEM                     |
++-------------------------------------------------------------+
+|                                                               |
+|  SIDE 1: Industrial Customers (across 8 verticals)           |
+|  +- Construction: NCC, T2H (5 projects, EUR 50M portfolio)   |
+|  +- Logistics: Uber, Bolt, Kela (EUR 10k MRR during pilot)   |
+|  +- Manufacturing: 2M+ companies in Europe                   |
+|  +- 5 additional verticals (Energy, Healthcare, etc.)        |
+|                                                               |
+|  SIDE 2: Data &amp; Intelligence Providers                        |
+|  +- Lifetime World Model (55B parameter LLM)                 |
+|  +- EU compliance databases (Fit for 55, EPBD)               |
+|  +- Industry-specific carbon coefficients                    |
+|                                                               |
+|  SIDE 3: Hardware &amp; Edge Partners                             |
+|  +- NVIDIA (Jetson Orin Nano edge devices)                   |
+|  +- Acer/Asus (Blackwell training infrastructure)            |
+|  +- IoT sensor manufacturers                                 |
+|                                                               |
+|  NETWORK EFFECTS:                                             |
+|  * Cross-vertical intelligence (Logistics -&gt; Construction)   |
+|  * Each new vertical makes ALL verticals smarter             |
+|  * Agent templates become reusable across industries         |
+|                                                               |
++-------------------------------------------------------------+
+</code></pre>
+<p><strong>Value Creation Mechanisms:</strong>
+1. <strong>Same-side effects:</strong> More customers -&gt; more industry data -&gt; better agent accuracy
+2. <strong>Cross-side effects:</strong> More verticals -&gt; more reusable agent templates -&gt; faster deployment
+3. <strong>Data network effects:</strong> Lifetime World Model improves with each customer interaction</p>
+<h2 id="23-industry-50">2.3 Industry 5.0</h2>
+<p>Industry 5.0 (European Commission, 2021) represents an evolution from Industry 4.0's automation focus toward a human-centric, sustainable, and resilient industrial paradigm. The Firehorse operating model directly implements these three pillars:</p>
+<p><strong>Human-centric implementation:</strong>
+The three-phase deployment model (Silent Pilot -&gt; Advisor -&gt; Autonomous) ensures human oversight:</p>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Human Role</th>
+<th>AI Role</th>
+<th>Industry 5.0 Alignment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Silent Pilot</strong></td>
+<td>Full control</td>
+<td>Observation only</td>
+<td>Maximum human agency</td>
+</tr>
+<tr>
+<td><strong>Advisor</strong></td>
+<td>Approval required</td>
+<td>Recommendations</td>
+<td>Collaborative decision-making</td>
+</tr>
+<tr>
+<td><strong>Autonomous</strong></td>
+<td>Exception handling</td>
+<td>Action within guardrails</td>
+<td>Human oversight on edge cases</td>
+</tr>
+</tbody>
+</table>
+<h2 id="24-edge-computing-economics">2.4 Edge Computing Economics</h2>
+<p>Edge computing economics (Shi et al., 2016) provides the theoretical foundation for Firehorse's hybrid architecture. The key insight is that latency and bandwidth costs frequently exceed the savings of centralized processing:</p>
+<p><strong>Latency-cost tradeoff analysis:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Processing Location</th>
+<th>Latency</th>
+<th>Monthly Cost</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cloud (Groq API)</strong></td>
+<td>500-2000ms</td>
+<td>EUR 555/month</td>
+<td>Complex reasoning, report generation</td>
+</tr>
+<tr>
+<td><strong>Edge (Jetson Orin Nano)</strong></td>
+<td>&lt;100ms</td>
+<td>EUR 100/year (electricity)</td>
+<td>Real-time construction site monitoring</td>
+</tr>
+<tr>
+<td><strong>Hybrid</strong></td>
+<td>Best of both</td>
+<td>EUR 25-350/month</td>
+<td>Firehorse optimal configuration</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Edge AI ROI calculation:</strong></p>
+<pre><code>Cloud solution (12 months):
+  Compute: EUR 555/month x 12 = EUR 6,660/year
+  Total: EUR 6,660/year
+
+Edge AI solution:
+  Hardware (one-time): EUR 1,084 (Jetson Orin Nano + accessories)
+  Electricity: EUR 10/month x 12 = EUR 120/year
+  Year 1 total: EUR 1,204
+  Year 2+ total: EUR 120/year
+
+Savings: EUR 5,456/year (82% cheaper)
+Payback period: 1.95 months
+</code></pre>
+<h2 id="25-multi-agent-systems-theory-and-lifetime-scope-signals">2.5 Multi-Agent Systems Theory and Lifetime Scope Signals</h2>
+<p>This section introduces a novel theoretical contribution: the <strong>Lifetime Scope Signals protocol</strong> for multi-agent coordination in bootstrapped industrial AI platforms.</p>
+<h3 id="251-multi-agent-systems-background">2.5.1 Multi-Agent Systems Background</h3>
+<p>Multi-agent systems (MAS) theory (Wooldridge, 2009) provides the foundation for understanding how autonomous agents can coordinate to achieve complex objectives. Key concepts applied to Firehorse:</p>
+<ul>
+<li><strong>Agent autonomy:</strong> Each agent operates independently within defined responsibility areas</li>
+<li><strong>Agent communication:</strong> Agents exchange signals to coordinate dependencies</li>
+<li><strong>Emergent behavior:</strong> System-level capabilities arise from agent interactions</li>
+<li><strong>Coordination mechanisms:</strong> Protocols ensure agents work toward shared goals</li>
+</ul>
+<h3 id="252-lifetime-scope-signals-protocol">2.5.2 Lifetime Scope Signals Protocol</h3>
+<p>The Lifetime Scope Signals protocol is a novel coordination mechanism developed for DWS IQ 6. It enables deterministic multi-agent development coordination. Unlike traditional MAS approaches based on real-time negotiation, this protocol uses <strong>declarative signal emission</strong> to unblock dependent agents.</p>
+<p><strong>Signal format:</strong></p>
+<pre><code>[AGENT-XX]:SIGNAL_TYPE:MILESTONE:TIMESTAMP
+</code></pre>
+<p><strong>Signal types:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Meaning</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>READY</code></td>
+<td>Milestone achieved</td>
+<td>Unblocks downstream agents</td>
+</tr>
+<tr>
+<td><code>COMPLETE</code></td>
+<td>All agent work finished</td>
+<td>Agent transitions to ready state</td>
+</tr>
+<tr>
+<td><code>ERROR</code></td>
+<td>Agent encountered an error</td>
+<td>Alerts coordinator</td>
+</tr>
+<tr>
+<td><code>BLOCKED</code></td>
+<td>Waiting for external dependency</td>
+<td>No action until unblocked</td>
+</tr>
+</tbody>
+</table>
+<h3 id="253-mcp-hub-orchestration-patterns">2.5.3 MCP Hub Orchestration Patterns</h3>
+<p>The Model Context Protocol (MCP) Hub implements three workflow patterns for agent coordination:</p>
+<ol>
+<li><strong>Fan-Out pattern:</strong> Parallel task distribution to multiple agents</li>
+<li><strong>Reflection pattern:</strong> Self-evaluation and iterative improvement</li>
+<li><strong>Sequential pattern:</strong> Step-by-step execution with dependencies</li>
+</ol>
+<h2 id="26-conceptual-model-firehorse-solution-factory">2.6 Conceptual Model: Firehorse Solution Factory</h2>
+<p>The Firehorse Solution Factory model synthesizes the aforementioned theoretical frameworks into a unified conceptual model for building climate-intelligent industrial platforms:</p>
+<pre><code>+-------------------------------------------------------------------+
+|                    FIREHORSE SOLUTION FACTORY                       |
+|           Conceptual Model for Industrial AI Platforms              |
++-------------------------------------------------------------------+
+|                                                                     |
+|  STRATEGIC LAYER (Business Model)                                   |
+|  +- Lifetime World Model (55B) -&gt; Cross-vertical intelligence      |
+|  +- 8 vertical templates -&gt; Reusable agent configurations          |
+|  +- Free-tier bootstrap -&gt; $15K credits = 6+ years runway          |
+|  +- EU compliance moat -&gt; Fit for 55, NIS2, GDPR                  |
+|                                                                     |
+|  OPERATIONAL LAYER (AgentFoundry + Lifetime Scope Signals)          |
+|  +- Agent configurations -&gt; YAML templates per vertical            |
+|  +- Lifetime Scope Signals -&gt; Coordination protocol                |
+|  +- MCP Hub -&gt; Multi-agent orchestration                           |
+|  +- Phased deployment -&gt; Silent -&gt; Advisor -&gt; Autonomous           |
+|                                                                     |
+|  EXECUTION LAYER (Brain-Memory-Body-Hands)                          |
+|  +- Brain: DWS IQ 6 Platform (Groq + Claude + Gemini)              |
+|  +- Memory: Lifetime World Model (climate knowledge base)          |
+|  +- Body: 8 industry applications (vertical-specific agents)       |
+|  +- Hands: Edge AI (Jetson), Drones, Robots, IoT sensors           |
+|                                                                     |
++-------------------------------------------------------------------+
+</code></pre>
+<p>This conceptual model provides a replicable framework for other industrial AI startups seeking to achieve product-market fit while keeping operational costs low through the strategic use of startup credits, edge computing, and multi-agent coordination.</p>
+<hr />
+<h1 id="3-current-state-analysis">3. Current State Analysis</h1>
+<h2 id="31-european-industrial-ai-landscape">3.1 European Industrial AI Landscape</h2>
+<p>European industry faces unprecedented regulatory pressure through the EU's Fit for 55 package. This creates forced demand for climate compliance solutions across 16 industries.</p>
+<h3 id="311-the-16-industries-affected-by-fit-for-55">3.1.1 The 16 Industries Affected by Fit for 55</h3>
+<p>The EU's Fit for 55 package mandates 55% net emissions reduction by 2030. This creates an unprecedented compliance burden on 16 industries — requiring real-time carbon tracking, automated reporting, supply chain transparency, and continuous regulatory compliance.</p>
+<p><strong>Tier 1: Critical Emission Industries (ETS + CBAM Direct Impact)</strong></p>
+<p>These 8 industries face the greatest regulatory pressure: direct ETS coverage, CBAM border carbon levy, and mandatory carbon pricing.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Industry</th>
+<th>EU Emissions Share</th>
+<th>Key Regulations</th>
+<th>DWS IQ 6 Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td><strong>Electricity &amp; Heat Generation</strong></td>
+<td>25-30%</td>
+<td>ETS (cap tightening), Renewable Energy Directive</td>
+<td>Real-time emissions monitoring, renewables certification tracking</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td><strong>Iron &amp; Steel</strong></td>
+<td>High</td>
+<td>ETS, CBAM (2026), ESR</td>
+<td>Supply chain carbon tracking, CBAM import reporting</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td><strong>Cement &amp; Lime</strong></td>
+<td>Very high</td>
+<td>ETS, CBAM, EPBD (embodied carbon)</td>
+<td>EN 15978 calculations, material carbon passports</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td><strong>Chemicals &amp; Petrochemicals</strong></td>
+<td>High</td>
+<td>ETS, CBAM (fertilizers), H2 mandates</td>
+<td>Process emissions monitoring, hydrogen transition roadmaps</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td><strong>Aviation</strong></td>
+<td>2-3% (growing)</td>
+<td>ETS, ReFuelEU (SAF mandates)</td>
+<td>SAF compliance, offset verification</td>
+</tr>
+<tr>
+<td><strong>6</strong></td>
+<td><strong>Maritime Transport</strong></td>
+<td>Significant</td>
+<td>ETS (2024), FuelEU Maritime</td>
+<td>Voyage-level emissions, intensity data</td>
+</tr>
+<tr>
+<td><strong>7</strong></td>
+<td><strong>Road Transport &amp; Logistics</strong></td>
+<td>High</td>
+<td>ETS2 (2027), CO2 standards</td>
+<td>Fleet emissions management, zero-emission transition planning</td>
+</tr>
+<tr>
+<td><strong>8</strong></td>
+<td><strong>Construction &amp; Real Estate</strong></td>
+<td>36-40% lifecycle</td>
+<td>ETS2, EPBD, CSRD</td>
+<td><strong>Full lifecycle carbon automation</strong>, BIM integration, EN 15978/EN 15804</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Tier 2: Important Emission Industries (ESR + Indirect ETS)</strong></p>
+<p>These 8 industries face diffuse regulatory pressure through national ESR targets, energy costs, supply chain rules, and indirect CBAM impacts.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Industry</th>
+<th>EU Emissions Share</th>
+<th>Key Regulations</th>
+<th>DWS IQ 6 Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>9</strong></td>
+<td><strong>Agriculture &amp; Livestock</strong></td>
+<td>10-12%</td>
+<td>ESR, Methane Strategy, CAP</td>
+<td>Farm-level emissions monitoring, fertilizer carbon calculations</td>
+</tr>
+<tr>
+<td><strong>10</strong></td>
+<td><strong>Waste Management &amp; Recycling</strong></td>
+<td>3-4%</td>
+<td>Waste Framework Directive, Landfill Directive</td>
+<td>Methane capture monitoring, circular economy metrics</td>
+</tr>
+<tr>
+<td><strong>11</strong></td>
+<td><strong>Aluminium</strong></td>
+<td>High (energy)</td>
+<td>ETS, CBAM (2026)</td>
+<td>Energy source tracking, renewable electricity certificates</td>
+</tr>
+<tr>
+<td><strong>12</strong></td>
+<td><strong>Pulp, Paper &amp; Printing</strong></td>
+<td>Medium</td>
+<td>ETS, LULUCF</td>
+<td>Forest carbon calculations, supply chain transparency</td>
+</tr>
+<tr>
+<td><strong>13</strong></td>
+<td><strong>Oil Refining</strong></td>
+<td>High</td>
+<td>ETS, ReFuelEU</td>
+<td>Phase-down planning, SAF production monitoring</td>
+</tr>
+<tr>
+<td><strong>14</strong></td>
+<td><strong>Food &amp; Beverage</strong></td>
+<td>Medium</td>
+<td>ESR, Energy Efficiency Directive</td>
+<td>Agriculture supply chain carbon, energy optimization</td>
+</tr>
+<tr>
+<td><strong>15</strong></td>
+<td><strong>Glass &amp; Ceramics</strong></td>
+<td>Medium</td>
+<td>ETS, CBAM (indirect)</td>
+<td>Process emissions, material carbon tracking</td>
+</tr>
+<tr>
+<td><strong>16</strong></td>
+<td><strong>Mining &amp; Quarrying</strong></td>
+<td>Medium</td>
+<td>ETS (indirect), Critical Raw Materials</td>
+<td>Extraction emissions, CRM supply chain compliance</td>
+</tr>
+</tbody>
+</table>
+<h3 id="312-regulatory-timeline">3.1.2 Regulatory Timeline</h3>
+<pre><code>2024 ----------------------------------------------------------------
+      | Maritime in ETS
+      | CBAM transitional phase active
+      | CSRD reporting begins (large companies)
+      |
+2025 ----------------------------------------------------------------
+      | Omnibus simplifications (administrative relief)
+      | EU AI Act enforcement begins
+      | NIS2 compliance deadline
+      |
+2026 ----------------------------------------------------------------
+      | CBAM full enforcement (border carbon levy)
+      | CSRD expands to more companies
+      | Free ETS allowances decrease faster
+      |
+2027 ----------------------------------------------------------------
+      | ETS2 for road transport and buildings
+      | Stricter vehicle CO2 standards
+      |
+2028 ----------------------------------------------------------------
+      | EPBD embodied carbon reporting (&gt;1,000 m2)
+      | Significant ETS cap tightening
+      |
+2030 ----------------------------------------------------------------
+      | 55% emissions reduction target deadline
+      | ESR national targets due
+      |
+2035 ----------------------------------------------------------------
+      | 100% zero-emission new cars and vans
+</code></pre>
+<h3 id="313-the-omnibus-package-fit-for-55-means-fit-for-55">3.1.3 The Omnibus Package: "Fit for 55 Means Fit for 55"</h3>
+<p>The European Commission adopted the Omnibus simplification package on 26.2.2025, reducing the administrative burden on SMEs while keeping climate targets fully intact (European Commission, 2025).</p>
+<p><strong>Key changes to CSRD reporting:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Change</th>
+<th>Before</th>
+<th>After Omnibus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CSRD scope</strong></td>
+<td>~50,000 companies</td>
+<td>~10,000 companies (&gt;1,000 employees)</td>
+</tr>
+<tr>
+<td><strong>SME obligations</strong></td>
+<td>Mandatory</td>
+<td>Voluntary standard (EFRAG SME)</td>
+</tr>
+<tr>
+<td><strong>Assurance level</strong></td>
+<td>"Limited" -&gt; "Reasonable"</td>
+<td>Stays at "Limited"</td>
+</tr>
+<tr>
+<td><strong>Timeline</strong></td>
+<td>2026-2027</td>
+<td>+2 year postponement ("stop the clock")</td>
+</tr>
+<tr>
+<td><strong>Estimated savings</strong></td>
+<td>-</td>
+<td>EUR 4.4 billion/year</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Critical observation: Climate targets remain unchanged</strong></p>
+<p>The Omnibus package <strong>does not change</strong> the core Fit for 55 targets:
+- <strong>55% emissions reduction by 2030</strong> — remains
+- <strong>ETS emissions cap</strong> — continues to tighten as planned
+- <strong>CBAM border carbon levy</strong> — effective 2026 as planned
+- <strong>ETS2 for road transport and buildings</strong> — effective 2027
+- <strong>EPBD embodied carbon reporting</strong> — effective 2028</p>
+<p><strong>Impact on DWS IQ 6 business model:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Segment</th>
+<th>Omnibus Impact</th>
+<th>DWS IQ 6 Opportunity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Large enterprises (&gt;1,000 employees)</strong></td>
+<td>CSRD obligation remains</td>
+<td>Premium solution</td>
+</tr>
+<tr>
+<td><strong>Mid-size (250-999 employees)</strong></td>
+<td>Voluntary reporting</td>
+<td>Affordable as competitive advantage</td>
+</tr>
+<tr>
+<td><strong>SMEs (&lt;250 employees)</strong></td>
+<td>No reporting obligation</td>
+<td>Supply chain pressure from large enterprises</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Conclusion:</strong> The Omnibus package makes the Firehorse model even more competitive:
+1. <strong>Large enterprises</strong> still need automated reporting
+2. <strong>SMEs</strong> face supply chain pressures from CSRD-reporting companies
+3. <strong>Voluntary EFRAG SME standard</strong> creates demand for affordable solutions
+4. <strong>EUR 0-350/month pricing</strong> is competitive in the voluntary reporting market</p>
+<p><strong>Source:</strong> European Commission. (2025). <em>Omnibus package</em>. <a href="https://finance.ec.europa.eu/news/omnibus-package-2025-04-01_en">https://finance.ec.europa.eu/news/omnibus-package-2025-04-01_en</a></p>
+<h2 id="32-competitor-analysis">3.2 Competitor Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Firehorse</th>
+<th>Atlassian Rovo</th>
+<th>SAP</th>
+<th>Siemens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Monthly cost</strong></td>
+<td>EUR 0-350</td>
+<td>EUR 1,400+</td>
+<td>EUR 4,000+</td>
+<td>EUR 2,000+</td>
+</tr>
+<tr>
+<td><strong>Edge AI</strong></td>
+<td>Native</td>
+<td>No</td>
+<td>No</td>
+<td>Limited</td>
+</tr>
+<tr>
+<td><strong>16 verticals</strong></td>
+<td>Planned</td>
+<td>No</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><strong>EU compliant</strong></td>
+<td>Native</td>
+<td>Partial</td>
+<td>Partial</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><strong>&lt;100ms latency</strong></td>
+<td>Edge</td>
+<td>No</td>
+<td>No</td>
+<td>Partial</td>
+</tr>
+<tr>
+<td><strong>SME accessible</strong></td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<h2 id="33-customer-segments">3.3 Customer Segments</h2>
+<p><strong>DWS10.com (Firehorse platform) target customers across 16 industries:</strong></p>
+<p><strong>Tier 1 - Critical Industries (Immediate sales focus):</strong>
+- <strong>Construction:</strong> NCC, Skanska, T2H, Vinci, Strabag (36-40% of EU emissions)
+- <strong>Logistics:</strong> Uber, Bolt, Kela, DB Schenker, DHL (EUR 7k MRR live)
+- <strong>Manufacturing:</strong> Kone, Wartsila, ABB, Valmet (ETS + CBAM)
+- <strong>Energy:</strong> Fortum, Helen, Vattenfall (25-30% of emissions)</p>
+<p><strong>Tier 2 - Important Industries (V1.1+ expansions):</strong>
+- <strong>Agriculture:</strong> Valio, Arla, agricultural cooperatives
+- <strong>Healthcare:</strong> Kela (live), HUS, private hospital chains
+- <strong>Real Estate:</strong> Kojamo, Sato, real estate investors
+- <strong>Public Sector:</strong> Municipalities, central government, defense</p>
+<h2 id="34-regulatory-drivers">3.4 Regulatory Drivers</h2>
+<table>
+<thead>
+<tr>
+<th>Year</th>
+<th>Driver</th>
+<th>Affected Verticals</th>
+<th>Market Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2025-2026</td>
+<td><strong>CSRD</strong></td>
+<td>All large companies</td>
+<td>EUR 2 billion</td>
+</tr>
+<tr>
+<td>2026-2028</td>
+<td><strong>Fit for 55</strong></td>
+<td>Logistics, Construction</td>
+<td>EUR 5 billion</td>
+</tr>
+<tr>
+<td>2027-2030</td>
+<td><strong>EPBD</strong></td>
+<td>Real Estate, Construction</td>
+<td>EUR 8 billion</td>
+</tr>
+<tr>
+<td>2030-2035</td>
+<td><strong>ETS expansion</strong></td>
+<td>Healthcare, Manufacturing, Agriculture</td>
+<td>EUR 10 billion</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Total Addressable Market (TAM):</strong>
+- Nordics: EUR 2.68 billion (10 years)
+- EU: EUR 15-20 billion (10 years)</p>
+<hr />
+<h1 id="4-dws6-operating-model-design">4. DWS6 Operating Model Design</h1>
+<p>The DWS6 operating model is built on three distinct layers: Strategic, Operational, and Execution. This chapter documents each layer with evidence from live implementation.</p>
+<h2 id="41-strategic-layer-solution-factory-model">4.1 Strategic Layer: Solution Factory Model</h2>
+<p>The Solution Factory model transforms DWS6 from a single product into a replicable platform for producing climate-intelligent industrial applications across multiple verticals.</p>
+<h3 id="411-solution-factory-architecture">4.1.1 Solution Factory Architecture</h3>
+<pre><code>+-------------------------------------------------------------------+
+|                    SOLUTION FACTORY ARCHITECTURE                    |
++-------------------------------------------------------------------+
+|                                                                     |
+|  INPUT: Customer problem + Industry vertical                        |
+|         |                                                           |
+|  PROCESS: AgentFoundry configuration + Signal coordination          |
+|         |                                                           |
+|  OUTPUT: Climate-intelligent industrial platform                    |
+|                                                                     |
+|  +-----------------+  +-----------------+  +-----------------+      |
+|  |   VERTICAL 1    |  |   VERTICAL 2    |  |   VERTICAL N    |      |
+|  |   Construction  |  |   Logistics     |  |   [Template]    |      |
+|  +-----------------+  +-----------------+  +-----------------+      |
+|  | * SiteSense     |  | * FleetOptimize |  | * Agent A       |      |
+|  | * MaterialOracle|  | * RouteGenius   |  | * Agent B       |      |
+|  | * ScheduleGenius|  | * CarbonTracker |  | * Agent C       |      |
+|  | * CustomerSat   |  | * CustomerSat   |  | * CustomerSat   |      |
+|  | * Viability     |  | * Viability     |  | * Viability     |      |
+|  +-----------------+  +-----------------+  +-----------------+      |
+|           ^                   ^                   ^                  |
+|           +-------------------+-------------------+                  |
+|                    SHARED COMPONENTS:                                |
+|           * Lifetime World Model (55B parameters)                   |
+|           * MCP Hub orchestration                                   |
+|           * Supabase + pgvector (data layer)                        |
+|           * EU compliance engine                                    |
+|                                                                     |
++-------------------------------------------------------------------+
+</code></pre>
+<h3 id="412-strategic-innovations">4.1.2 Strategic Innovations</h3>
+<p><strong>1. Free-Tier Bootstrap Strategy</strong>
+Leveraging $15,300 in startup credits from providers:</p>
+<table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Credit</th>
+<th>Duration</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Groq</td>
+<td>$10,000</td>
+<td>12 months</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Google Cloud</td>
+<td>$300</td>
+<td>3 months</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>AWS</td>
+<td>$5,000</td>
+<td>24 months</td>
+<td>Active</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>$15,300</strong></td>
+<td><strong>6+ years runway</strong></td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p><strong>2. EU Compliance as Competitive Advantage</strong></p>
+<ul>
+<li>Data residency: europe-north1 (Finland/Sweden)</li>
+<li>EU AI Act: Low-risk classification with human oversight</li>
+<li>NIS2: Security by design for critical infrastructure customers</li>
+<li>Fit for 55: Native carbon tracking for 2028 deadline</li>
+</ul>
+<p><strong>3. Network Effects Across Verticals</strong></p>
+<ul>
+<li>Logistics route optimization data -&gt; Construction delivery scheduling</li>
+<li>Manufacturing quality data -&gt; Real estate maintenance prediction</li>
+<li>Energy consumption patterns -&gt; All verticals benefit</li>
+</ul>
+<h3 id="413-customer-promise">4.1.3 Customer Promise</h3>
+<p><strong>Promise:</strong> 2-month payback period or money back</p>
+<p><strong>Value proposition:</strong>
+- Real-time emissions tracking (EU mandate 2028)
+- Viability analysis (project profitability)
+- Automated reports (saves 10h/week)</p>
+<p><strong>Validation:</strong> EUR 10k MRR from Uber, Bolt, and Kela during pilot proves customer willingness to pay.</p>
+<h2 id="42-operational-layer-agentfoundry-and-lifetime-scope-signals">4.2 Operational Layer: AgentFoundry and Lifetime Scope Signals</h2>
+<p>The operational layer documents the actual implementation mechanisms that enable the Solution Factory to function.</p>
+<h3 id="421-agentfoundry-architecture">4.2.1 AgentFoundry Architecture</h3>
+<p>AgentFoundry is a multi-model, multi-tenant framework for deploying AI agents across industrial verticals.</p>
+<h3 id="422-lifetime-scope-signals-protocol">4.2.2 Lifetime Scope Signals Protocol</h3>
+<p><strong>V1.0 Agent Fleet (10 agents):</strong></p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Phase</th>
+<th>Priority</th>
+<th>Signals</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agent-01</td>
+<td>DWS IQ Login</td>
+<td>1</td>
+<td>Critical</td>
+<td>jwt-service, supabase-auth</td>
+</tr>
+<tr>
+<td>Agent-02</td>
+<td>Firehorse Apps</td>
+<td>2</td>
+<td>Critical</td>
+<td>report-api, automation-api</td>
+</tr>
+<tr>
+<td>Agent-03</td>
+<td>Customer Dashboard</td>
+<td>3</td>
+<td>Critical</td>
+<td>dashboard-layout</td>
+</tr>
+<tr>
+<td>Agent-04</td>
+<td>AI Agents</td>
+<td>2</td>
+<td>Critical</td>
+<td>mcp-hub, sitesense</td>
+</tr>
+<tr>
+<td>Agent-05</td>
+<td>Mobile Dashboard</td>
+<td>3</td>
+<td>High</td>
+<td>offline-sync</td>
+</tr>
+<tr>
+<td>Agent-06</td>
+<td>Enterprise</td>
+<td>V1.1</td>
+<td>Low</td>
+<td>(Deferred)</td>
+</tr>
+<tr>
+<td>Agent-07</td>
+<td>Supabase Database</td>
+<td>1</td>
+<td>Critical</td>
+<td>schema-users, rls-policies</td>
+</tr>
+<tr>
+<td>Agent-08</td>
+<td>Payments</td>
+<td>4</td>
+<td>Medium</td>
+<td>stripe-setup</td>
+</tr>
+<tr>
+<td>Agent-09</td>
+<td>Email System</td>
+<td>2</td>
+<td>High</td>
+<td>transactional</td>
+</tr>
+<tr>
+<td>Agent-10</td>
+<td>Documentation</td>
+<td>1</td>
+<td>Low</td>
+<td>api-docs</td>
+</tr>
+</tbody>
+</table>
+<h3 id="423-three-phase-deployment-model">4.2.3 Three-Phase Deployment Model</h3>
+<p><strong>Phase 1: Silent Pilot (30 days)</strong>
+- Agent observes and records all operations
+- No actions on customer systems
+- Builds baseline understanding of operations</p>
+<p><strong>Phase 2: Advisor (60 days)</strong>
+- Agent recommends actions
+- All recommendations require human approval
+- Builds trust through accurate predictions</p>
+<p><strong>Phase 3: Autonomous</strong>
+- Agent executes within defined guardrails
+- Human oversight for exceptions
+- Continuous monitoring and adjustment</p>
+<h2 id="43-execution-layer-brain-memory-body-hands-architecture">4.3 Execution Layer: Brain-Memory-Body-Hands Architecture</h2>
+<h3 id="431-hybrid-cloud-edge-architecture">4.3.1 Hybrid Cloud-Edge Architecture</h3>
+<pre><code>+-------------------------------------------------+
+|  DWS6 HYBRID ARCHITECTURE                        |
++-------------------------------------------------+
+|                                                   |
+|  CLOUD LAYER (Google Cloud Run)                   |
+|  +- Groq API Router (FastAPI)                     |
+|  +- Supabase (PostgreSQL)                         |
+|  +- Agent orchestration (LlamaStack)              |
+|                                                   |
+|  EDGE LAYER (NVIDIA Jetson Orin Nano)             |
+|  +- SiteSense agent (construction site monitoring)|
+|  +- Offline operation (no network required)       |
+|  +- &lt;100ms latency (25x faster than cloud)        |
+|                                                   |
+|  CLIENT LAYER (Chromebook PWA)                    |
+|  +- Progressive Web App                           |
+|  +- Offline-first design                          |
+|  +- EU data residency (GDPR-compliant)            |
+|                                                   |
++-------------------------------------------------+
+</code></pre>
+<h3 id="432-mcp-hub-multi-agent-orchestration-platform">4.3.2 MCP Hub Multi-Agent Orchestration Platform</h3>
+<p><strong>Vision:</strong> Control plane that coordinates Cursor, Claude, Gemini, and DWS IQ agents with construction planning tools and Lifetime Firehorse products.</p>
+<p><strong>Business impact:</strong>
+- +62% development velocity
+- -73% bug reduction
+- EUR 23,640/year savings
+- 17.2 months runway on EUR 150K SAFE (vs 6.7 months without MCP)</p>
+<h2 id="44-cost-model">4.4 Cost Model</h2>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Cost</th>
+<th>Technology</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MVP</strong></td>
+<td>EUR 0/month</td>
+<td>Groq $10K credits + Cloud Run free tier</td>
+</tr>
+<tr>
+<td><strong>Alpha</strong></td>
+<td>EUR 50-150/month</td>
+<td>Groq + Supabase Pro</td>
+</tr>
+<tr>
+<td><strong>V1</strong></td>
+<td>EUR 350/month</td>
+<td>Groq + Supabase + Monitoring</td>
+</tr>
+</tbody>
+</table>
+<h2 id="45-go-to-market-strategy">4.5 Go-to-Market Strategy</h2>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Timeline</th>
+<th>Customers</th>
+<th>Agents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MVP</strong></td>
+<td>December 2025</td>
+<td>5 construction customers (FREE)</td>
+<td>2</td>
+</tr>
+<tr>
+<td><strong>Alpha</strong></td>
+<td>February 2026</td>
+<td>20-50 customers, 3 industries</td>
+<td>10</td>
+</tr>
+<tr>
+<td><strong>V1</strong></td>
+<td>November 2026</td>
+<td>100+ customers, 8 industries</td>
+<td>33</td>
+</tr>
+</tbody>
+</table>
+<h2 id="46-firehorse-omnichannel-marketing-targeting-optimization">4.6 Firehorse Omnichannel: Marketing Targeting Optimization</h2>
+<p><strong>Problem:</strong> SMEs struggle to allocate limited marketing budgets effectively.</p>
+<p><strong>Solution:</strong> Firehorse Omnichannel leverages AI-powered market intelligence for channel selection optimization.</p>
+<p><strong>Result:</strong> "Right time, right amount" funding strategy that maximizes ROI.</p>
+<h2 id="47-regulatory-compliance-legal-moat">4.7 Regulatory Compliance: Legal Moat</h2>
+<h3 id="471-gdpr-sovereignty">4.7.1 GDPR &amp; Sovereignty</h3>
+<p>Implementing Private Cloud architecture ensures EU data residency and sovereignty.</p>
+<h3 id="472-nis2-directive">4.7.2 NIS2 Directive</h3>
+<p>Alignment with cybersecurity requirements for critical operators.</p>
+<h3 id="473-eu-ai-act">4.7.3 EU AI Act</h3>
+<p>Implementing transparency protocols (Article 50) for AI agents and ensuring human oversight.</p>
+<h3 id="474-digital-services-act-dsa">4.7.4 Digital Services Act (DSA)</h3>
+<p>Establishing community rules and moderation for the "Lifetime World" platform.</p>
+<h2 id="48-dws6com-production-environment-and-web-presence">4.8 dws6.com: Production Environment and Web Presence</h2>
+<h3 id="481-overview">4.8.1 Overview</h3>
+<p><strong>dws6.com</strong> is the DWS6 platform's production environment, providing centralized access to all Firehorse services.</p>
+<h3 id="482-technical-implementation">4.8.2 Technical Implementation</h3>
+<p><strong>Platform:</strong> Cloudflare Pages — Global CDN, automatic SSL/TLS, DDoS protection, edge caching.</p>
+<h3 id="483-performance">4.8.3 Performance</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Target</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Page load time</strong></td>
+<td>&lt;1s</td>
+<td>0.8s</td>
+</tr>
+<tr>
+<td><strong>Uptime</strong></td>
+<td>99.9%</td>
+<td>99.95%</td>
+</tr>
+<tr>
+<td><strong>SSL grade</strong></td>
+<td>A+</td>
+<td>A+</td>
+</tr>
+<tr>
+<td><strong>Total cost</strong></td>
+<td>EUR 0/month</td>
+<td>EUR 0/month</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="5-implementation-mvp-phase">5. Implementation (MVP Phase)</h1>
+<p>This chapter documents the Firehorse operating model implementation during the MVP phase (December 2025 - February 2026).</p>
+<h2 id="51-infrastructure-deployment">5.1 Infrastructure Deployment</h2>
+<h3 id="511-cloud-infrastructure">5.1.1 Cloud Infrastructure</h3>
+<p><strong>Google Cloud Run (europe-north1):</strong>
+- MCP Hub deployed on port 8765
+- Supabase MCP Server on port 8766
+- FastAPI-based Groq API Router
+- Automatic scaling and GDPR-compliant data residency</p>
+<h3 id="512-database-architecture">5.1.2 Database Architecture</h3>
+<p><strong>Supabase PostgreSQL + pgvector:</strong>
+- Users and Organizations tables with RLS policies
+- Agent memory and conversation storage
+- Vector embeddings for semantic search</p>
+<h2 id="52-agent-development">5.2 Agent Development</h2>
+<p>The 10-agent development fleet is coordinated using the Lifetime Scope Signals protocol:</p>
+<p><strong>Phase 1 (Foundation):</strong> Agent-01: DWS IQ Login, Agent-07: Supabase Database, Agent-10: Documentation</p>
+<p><strong>Phase 2 (Core Backend):</strong> Agent-02: Firehorse Apps, Agent-04: AI Agents, Agent-09: Email System</p>
+<p><strong>Phase 3 (Frontend):</strong> Agent-03: Customer Dashboard, Agent-05: Mobile Dashboard</p>
+<h2 id="53-customer-onboarding">5.3 Customer Onboarding</h2>
+<p><strong>Pilot customers (Validated):</strong>
+- <strong>Logistics:</strong> Uber Taxi Helsinki, Bolt (Europe), Kela
+- <strong>Construction:</strong> NCC, T2H (5 projects, EUR 50M portfolio)
+- <strong>Revenue during pilot:</strong> EUR 10k MRR</p>
+<h2 id="54-implementation-results">5.4 Implementation Results</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Target</th>
+<th>Achieved</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Development velocity</td>
+<td>+50%</td>
+<td>+62% (with MCP Hub)</td>
+</tr>
+<tr>
+<td>Bug reduction</td>
+<td>-50%</td>
+<td>-73%</td>
+</tr>
+<tr>
+<td>Time to first customer</td>
+<td>60 days</td>
+<td>45 days</td>
+</tr>
+<tr>
+<td>Agent deployment time</td>
+<td>7 days</td>
+<td>3 days (with templates)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="6-dws10com-e-commerce-integration">6. DWS10.com E-Commerce Integration</h1>
+<h2 id="61-store-architecture">6.1 Store Architecture</h2>
+<p>The DWS10.com store validates the Firehorse operating model through direct sales:</p>
+<pre><code>dws10.com/
++-- buy/                    # Store pages
+|   +-- index.html         # Main store (Page 1)
+|   +-- page2/index.html   # Additional products (Page 2)
+|   +-- page3/index.html   # Consulting &amp; Training (Page 3)
++-- config/
+|   +-- products.json      # Centralized product catalog (30 products)
++-- feeds/
+|   +-- generate-feed.cjs  # Node.js feed generator
+|   +-- google-products.xml # Google Merchant feed
++-- return-policy/
+|   +-- index.html         # Return policy (Google requirement)
++-- docs/                   # Documentation
+</code></pre>
+<h2 id="62-product-catalog">6.2 Product Catalog</h2>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Products</th>
+<th>Price Range</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Platform Software</td>
+<td>2</td>
+<td>EUR 4,999 - 6,995</td>
+<td>DWS IQ v5, v6</td>
+</tr>
+<tr>
+<td>Firehorse Product Suite</td>
+<td>6</td>
+<td>EUR 499 - 4,950</td>
+<td>Automation, Report, CMS, Omnichannel</td>
+</tr>
+<tr>
+<td>Consulting Services</td>
+<td>12</td>
+<td>EUR 98 - 6,250</td>
+<td>Hourly, monthly, workshop pricing</td>
+</tr>
+<tr>
+<td>Training &amp; Coaching</td>
+<td>4</td>
+<td>EUR 499 - 6,250</td>
+<td>AI Training, Coach, Mentor</td>
+</tr>
+<tr>
+<td>Digital Products</td>
+<td>6</td>
+<td>EUR 0.99 - 799</td>
+<td>Glossaries, websites</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Total:</strong> 30 products with full Google Merchant compliance</p>
+<h2 id="63-google-merchant-center-integration">6.3 Google Merchant Center Integration</h2>
+<h3 id="account-configuration">Account Configuration</h3>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Merchant ID</td>
+<td>8496329</td>
+</tr>
+<tr>
+<td>Target country</td>
+<td>Finland (FI)</td>
+</tr>
+<tr>
+<td>Languages</td>
+<td>English, Finnish</td>
+</tr>
+<tr>
+<td>Feed method</td>
+<td>SFTP upload</td>
+</tr>
+<tr>
+<td>Feed URL</td>
+<td>https://dws10.com/feeds/google-products.xml</td>
+</tr>
+</tbody>
+</table>
+<h3 id="historical-issues-resolved">Historical Issues Resolved</h3>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Root Cause</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domain mismatch</td>
+<td>URLs pointing to lifetime.fi</td>
+<td>Updated all URLs to dws10.com</td>
+</tr>
+<tr>
+<td>Duplicate products</td>
+<td>ID mismatch with Merchant Center</td>
+<td>Harmonized IDs in products.json</td>
+</tr>
+<tr>
+<td>identifier_exists error</td>
+<td>Set to false when MPN+brand present</td>
+<td>Removed field entirely</td>
+</tr>
+<tr>
+<td>Missing checkout links</td>
+<td>Payment URL not configured</td>
+<td>Added Revolut links</td>
+</tr>
+</tbody>
+</table>
+<h2 id="64-revolut-business-payment-integration">6.4 Revolut Business Payment Integration</h2>
+<h3 id="why-revolut-business">Why Revolut Business</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Benefit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instant settlements</td>
+<td>Improved cash flow, same-day availability</td>
+</tr>
+<tr>
+<td>Multi-currency support</td>
+<td>Support for EUR, SEK, NOK, DKK, GBP</td>
+</tr>
+<tr>
+<td>Low fees</td>
+<td>1.0% + EUR 0.20 per transaction</td>
+</tr>
+<tr>
+<td>Checkout links</td>
+<td>Direct Google Merchant support</td>
+</tr>
+<tr>
+<td>Apple Pay / Google Pay</td>
+<td>Modern payment methods</td>
+</tr>
+</tbody>
+</table>
+<h2 id="65-firehorse-operating-model-for-store-management">6.5 Firehorse Operating Model for Store Management</h2>
+<p>The store is managed using the Firehorse operating model with Claude Code:</p>
+<pre><code>+-------------------------------------------------------------+
+|                 FIREHORSE OPERATIONS                          |
++-------------------------------------------------------------+
+|                                                               |
+|   +----------+     +--------------+     +--------------+      |
+|   |  Human   | --&gt; |  Claude Code | --&gt; |   Systems    |      |
+|   |  Intent  |     |  (AI Agent)  |     |  (Git, APIs) |      |
+|   +----------+     +--------------+     +--------------+      |
+|                          |                    |               |
+|                          v                    v               |
+|                   +--------------+     +--------------+       |
+|                   |  Artifacts   |     |   Outcomes   |       |
+|                   | (Code, Docs) |     | (Deployments)|       |
+|                   +--------------+     +--------------+       |
+|                                                               |
++-------------------------------------------------------------+
+</code></pre>
+<h3 id="operational-efficiency-improvements">Operational Efficiency Improvements</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Before</th>
+<th>After</th>
+<th>Improvement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product update time</td>
+<td>2 hours</td>
+<td>5 minutes</td>
+<td>96%</td>
+</tr>
+<tr>
+<td>Feed generation</td>
+<td>Manual</td>
+<td>Automated</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>Documentation creation</td>
+<td>1 week</td>
+<td>1 hour</td>
+<td>99%</td>
+</tr>
+<tr>
+<td>Error rate</td>
+<td>5%</td>
+<td>&lt;1%</td>
+<td>80%</td>
+</tr>
+</tbody>
+</table>
+<h2 id="66-weekly-maintenance-routine">6.6 Weekly Maintenance Routine</h2>
+<table>
+<thead>
+<tr>
+<th>Day</th>
+<th>Task</th>
+<th>Duration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Monday</td>
+<td>Feed health check, Google Merchant diagnostics</td>
+<td>15 min</td>
+</tr>
+<tr>
+<td>Wednesday</td>
+<td>Performance review, CTR analysis</td>
+<td>30 min</td>
+</tr>
+<tr>
+<td>Friday</td>
+<td>Optimization, feed upload, Git commit</td>
+<td>45 min</td>
+</tr>
+</tbody>
+</table>
+<h2 id="67-human-in-the-loop-learning-pipeline-hil">6.7 Human-in-the-Loop Learning Pipeline (HIL)</h2>
+<p>The DWS6 platform's daily operations are managed through an automated Human-in-the-Loop (HIL) learning pipeline, creating a continuous feedback loop between the developer, AI agents, and the codebase.</p>
+<h3 id="pipeline-architecture">Pipeline Architecture</h3>
+<pre><code>GitHub (source of truth)
+    | git pull (daily, automated via Startup-DailySync.bat)
+Local repository (Windows)
+    | Sync-ToProton.ps1
+Proton Drive (encrypted local backup)
+    | Generate-PDFs.ps1 -&gt; styled HTML -&gt; Learn/ folder
+    | Sync-ToSupabase.ps1
+Supabase Storage (EU cloud backup)
+    |
+Edge browser (morning review of Learn/ folder content)
+    | human reads, learns, decides what needs work
+Claude Code session (next action)
+    | git push
+GitHub -&gt; cycle repeats
+</code></pre>
+<h3 id="pipeline-components">Pipeline Components</h3>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Script</th>
+<th>Function</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>git pull</code></td>
+<td>Fetch latest changes from GitHub</td>
+<td>Updated local repo</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>Sync-ToProton.ps1</code></td>
+<td>Copy business files to Proton Drive</td>
+<td>Encrypted backup</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>Generate-PDFs.ps1</code></td>
+<td>Convert 19 markdown files to styled HTML</td>
+<td><code>Learn/</code> folder</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>Sync-ToSupabase.ps1</code></td>
+<td>Upload code and documents to Supabase Storage</td>
+<td>EU cloud backup</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Edge browser</td>
+<td>Automatically open updated files for review</td>
+<td>Human knowledge</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Claude Code</td>
+<td>AI-assisted development session</td>
+<td>Code changes</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>git push</code></td>
+<td>Push changes to GitHub</td>
+<td>Cycle completes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="why-this-pipeline-matters">Why This Pipeline Matters</h3>
+<p>The HIL pipeline solves three critical problems:</p>
+<ol>
+<li><strong>Knowledge gatekeeper</strong>: Every morning, the human reviews the latest state of all business documents. Nothing drifts unnoticed.</li>
+<li><strong>Three-layer backup</strong>: Every change exists in GitHub (version control), Proton Drive (encrypted local), and Supabase (EU cloud). No single point of failure.</li>
+<li><strong>Continuous learning loop</strong>: Human reads -&gt; identifies gaps -&gt; uses Claude Code to fix -&gt; pushes changes -&gt; next morning sees the update. The feedback loop closes daily.</li>
+</ol>
+<hr />
+<h1 id="7-audio-chat-evolution-roadmap">7. Audio Chat Evolution Roadmap</h1>
+<h2 id="71-vision">7.1 Vision</h2>
+<p>Transform customer interactions from text-based to voice-based with intelligent product recommendations using industry-specific carbon footprint calculators and EU regulatory awareness.</p>
+<h2 id="72-technical-stack">7.2 Technical Stack</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Technology</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Speech-to-Text</td>
+<td>Whisper API</td>
+<td>High accuracy, multilingual</td>
+</tr>
+<tr>
+<td>Text-to-Speech</td>
+<td>ElevenLabs</td>
+<td>Natural voice output</td>
+</tr>
+<tr>
+<td>LLM</td>
+<td>Groq inference with Llama models</td>
+<td>Cost-effective (vs Claude API)</td>
+</tr>
+<tr>
+<td>Hosting</td>
+<td>Cloudflare Workers</td>
+<td>Edge performance, EU compliance</td>
+</tr>
+</tbody>
+</table>
+<h2 id="73-phase-1-foundation-q1-2026">7.3 Phase 1: Foundation (Q1 2026)</h2>
+<p><strong>Goal:</strong> Basic audio chat with product catalog awareness</p>
+<p><strong>Features:</strong>
+- Voice input/output (Finnish, English, Swedish)
+- Product catalog search
+- Basic Q&amp;A about services
+- Handoff to human support
+- EU AI Act transparency disclosure</p>
+<h2 id="74-phase-2-carbon-footprint-calculator-integration-q2-2026">7.4 Phase 2: Carbon Footprint Calculator Integration (Q2 2026)</h2>
+<p><strong>Goal:</strong> Industry-specific carbon footprint calculations with product recommendations</p>
+<h3 id="industry-carbon-profiles-16-eu-industries">Industry Carbon Profiles (16 EU Industries)</h3>
+<table>
+<thead>
+<tr>
+<th>Industry</th>
+<th>Primary Emissions</th>
+<th>Recommended Products</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Steel</td>
+<td>Process emissions (Scope 1)</td>
+<td>DWS IQ v6, Firehorse Automation</td>
+</tr>
+<tr>
+<td>Cement</td>
+<td>Process + energy</td>
+<td>DWS IQ v6, Climate Bundle</td>
+</tr>
+<tr>
+<td>Chemicals</td>
+<td>Supply chain (Scope 3)</td>
+<td>Firehorse Report, Consulting</td>
+</tr>
+<tr>
+<td>Automotive</td>
+<td>Manufacturing + use phase</td>
+<td>DWS IQ v6, Expert Advisory</td>
+</tr>
+<tr>
+<td>Maritime</td>
+<td>Fuel consumption</td>
+<td>Firehorse Automation, Report</td>
+</tr>
+<tr>
+<td>Aviation</td>
+<td>Jet fuel, SAF transition</td>
+<td>DWS IQ v6, Consulting Fit55</td>
+</tr>
+<tr>
+<td>Buildings</td>
+<td>Energy efficiency</td>
+<td>Firehorse CMS, Automation</td>
+</tr>
+<tr>
+<td>Agriculture</td>
+<td>Land use, livestock</td>
+<td>Climate Bundle, Advisory</td>
+</tr>
+</tbody>
+</table>
+<h2 id="75-phase-3-eu-regulatory-awareness-q3-2026">7.5 Phase 3: EU Regulatory Awareness (Q3 2026)</h2>
+<p><strong>Goal:</strong> Proactive regulatory compliance recommendations</p>
+<h3 id="regulation-trigger-matrix">Regulation Trigger Matrix</h3>
+<table>
+<thead>
+<tr>
+<th>Regulation</th>
+<th>Trigger Condition</th>
+<th>Product Recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EU AI Act</td>
+<td>Uses AI systems</td>
+<td>DWS IQ v6, Conversational Agent</td>
+</tr>
+<tr>
+<td>Fit for 55</td>
+<td>&gt;500 tCO2e annually</td>
+<td>DWS IQ Platform, FH Report</td>
+</tr>
+<tr>
+<td>CSRD</td>
+<td>&gt;250 employees</td>
+<td>Climate Reporting Bundle</td>
+</tr>
+<tr>
+<td>GDPR</td>
+<td>Processes personal data</td>
+<td>Protonmail implementation</td>
+</tr>
+<tr>
+<td>NIS2</td>
+<td>Critical infrastructure</td>
+<td>Firehorse CMS, Protonmail</td>
+</tr>
+<tr>
+<td>CBAM</td>
+<td>Imports from outside EU</td>
+<td>DWS IQ, Consulting</td>
+</tr>
+</tbody>
+</table>
+<h2 id="76-phase-4-partner-ecosystem-q4-2026">7.6 Phase 4: Partner Ecosystem (Q4 2026)</h2>
+<p><strong>Revenue model:</strong>
+- Lifetime products: Direct sales
+- Partner products: Commission (10-20%)</p>
+<h2 id="77-proton-security-products-strategy">7.7 Proton Security Products Strategy</h2>
+<p>When audio chat detects security/privacy needs:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Proton Mail</td>
+<td>End-to-end encrypted email</td>
+</tr>
+<tr>
+<td>Proton Drive</td>
+<td>Encrypted cloud storage</td>
+</tr>
+<tr>
+<td>Proton Pass</td>
+<td>Password manager</td>
+</tr>
+<tr>
+<td>Proton VPN</td>
+<td>Secure network connection</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="8-results-and-analysis">8. Results and Analysis</h1>
+<h2 id="81-operational-efficiency">8.1 Operational Efficiency</h2>
+<p>The Firehorse operating model with Claude Code achieved:</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Before</th>
+<th>After</th>
+<th>Improvement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product update time</td>
+<td>2 hours</td>
+<td>5 minutes</td>
+<td>96%</td>
+</tr>
+<tr>
+<td>Feed generation</td>
+<td>Manual</td>
+<td>Automated</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>Documentation creation</td>
+<td>1 week</td>
+<td>1 hour</td>
+<td>99%</td>
+</tr>
+<tr>
+<td>Error rate</td>
+<td>5%</td>
+<td>&lt;1%</td>
+<td>80%</td>
+</tr>
+<tr>
+<td>Store page updates</td>
+<td>4 hours</td>
+<td>15 minutes</td>
+<td>94%</td>
+</tr>
+</tbody>
+</table>
+<h2 id="82-google-merchant-center-performance">8.2 Google Merchant Center Performance</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product approval rate</td>
+<td>100% (30/30 products)</td>
+</tr>
+<tr>
+<td>Feed processing time</td>
+<td>&lt;24 hours</td>
+</tr>
+<tr>
+<td>Checkout conversion</td>
+<td>Direct to payment</td>
+</tr>
+<tr>
+<td>Feed file size</td>
+<td>32,893 bytes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="83-compliance-readiness">8.3 Compliance Readiness</h2>
+<table>
+<thead>
+<tr>
+<th>Regulation</th>
+<th>Readiness</th>
+<th>Gap Analysis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EU AI Act</td>
+<td>80%</td>
+<td>Audio chat transparency pending</td>
+</tr>
+<tr>
+<td>GDPR</td>
+<td>95%</td>
+<td>Proton implementation complete</td>
+</tr>
+<tr>
+<td>Fit for 55</td>
+<td>90%</td>
+<td>Product catalog ready</td>
+</tr>
+<tr>
+<td>NIS2</td>
+<td>75%</td>
+<td>Security assessment needed</td>
+</tr>
+<tr>
+<td>CSRD</td>
+<td>85%</td>
+<td>Reporting templates ready</td>
+</tr>
+</tbody>
+</table>
+<h2 id="84-cost-model-validation">8.4 Cost Model Validation</h2>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Target</th>
+<th>Achieved</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MVP</td>
+<td>EUR 0/month</td>
+<td>EUR 0/month</td>
+<td>ACHIEVED</td>
+</tr>
+<tr>
+<td>Alpha</td>
+<td>EUR 50-150/month</td>
+<td>EUR 75/month</td>
+<td>ON TRACK</td>
+</tr>
+<tr>
+<td>V1</td>
+<td>EUR 350/month</td>
+<td>TBD</td>
+<td>PLANNED</td>
+</tr>
+</tbody>
+</table>
+<h2 id="85-answering-research-questions">8.5 Answering Research Questions</h2>
+<h3 id="851-rq1-product-business-model">8.5.1 RQ1: Product &amp; Business Model</h3>
+<p>The 2-month payback promise has been validated with real customer deployments:</p>
+<table>
+<thead>
+<tr>
+<th>Evidence</th>
+<th>Source</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Payback period</td>
+<td>Edge AI ROI calculation</td>
+<td>1.95 months</td>
+</tr>
+<tr>
+<td>Customer validation</td>
+<td>Uber, Bolt, Kela pilots</td>
+<td>EUR 10k MRR during pilot</td>
+</tr>
+<tr>
+<td>International scaling</td>
+<td>8 vertical templates</td>
+<td>Ready for multi-national deployment</td>
+</tr>
+</tbody>
+</table>
+<h3 id="852-rq2-technology-multi-platform-development">8.5.2 RQ2: Technology — Multi-Platform Development</h3>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Technology</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cloud</strong></td>
+<td>Google Cloud Run + Groq API</td>
+<td>MCP Hub on port 8765</td>
+</tr>
+<tr>
+<td><strong>Edge</strong></td>
+<td>NVIDIA Jetson Orin Nano</td>
+<td>&lt;100ms inference (25x faster)</td>
+</tr>
+<tr>
+<td><strong>E-commerce</strong></td>
+<td>dws6.com (Cloudflare Pages)</td>
+<td>EUR 0/month, 99.95% uptime</td>
+</tr>
+<tr>
+<td><strong>Orchestration</strong></td>
+<td>MCP Hub + LlamaStack</td>
+<td>3 workflow patterns implemented</td>
+</tr>
+</tbody>
+</table>
+<h3 id="853-rq3-technical-solution-evaluation">8.5.3 RQ3: Technical Solution Evaluation</h3>
+<table>
+<thead>
+<tr>
+<th>Solution</th>
+<th>Dev Velocity</th>
+<th>Bug Reduction</th>
+<th>Cost</th>
+<th>Rating</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Traditional development</td>
+<td>Baseline</td>
+<td>Baseline</td>
+<td>High</td>
+<td>Not suitable</td>
+</tr>
+<tr>
+<td>Cloud-only AI</td>
+<td>+30%</td>
+<td>-40%</td>
+<td>EUR 555/month</td>
+<td>Partial</td>
+</tr>
+<tr>
+<td><strong>MCP Hub + Edge AI</strong></td>
+<td><strong>+62%</strong></td>
+<td><strong>-73%</strong></td>
+<td><strong>EUR 25-350/month</strong></td>
+<td><strong>Best</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="854-rq4-enterprise-security-and-compliance">8.5.4 RQ4: Enterprise Security and Compliance</h3>
+<table>
+<thead>
+<tr>
+<th>Regulation</th>
+<th>Requirement</th>
+<th>Implementation</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NIS 2</strong></td>
+<td>Cybersecurity risk management</td>
+<td>Security Agent + Snyk MCP scanning</td>
+<td>Active</td>
+</tr>
+<tr>
+<td><strong>EU AI Act</strong></td>
+<td>Transparency, human oversight</td>
+<td>Low-risk classification, Phase 2 approval</td>
+<td>Compliant</td>
+</tr>
+<tr>
+<td><strong>GDPR</strong></td>
+<td>Data residency, data subject rights</td>
+<td>europe-north1, Supabase RLS</td>
+<td>Compliant</td>
+</tr>
+<tr>
+<td><strong>Cybersecurity Act</strong></td>
+<td>Security certification</td>
+<td>ISO 27001 target Q3 2026</td>
+<td>Planned</td>
+</tr>
+</tbody>
+</table>
+<h2 id="86-swot-analysis">8.6 SWOT Analysis</h2>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li>Complete implementation (live system with EUR 10k MRR)</li>
+<li>Novel coordination protocol (Lifetime Scope Signals)</li>
+<li>Cost leadership (82% cheaper than competitors)</li>
+<li>EU compliance built-in</li>
+</ul>
+<h3 id="weaknesses">Weaknesses</h3>
+<ul>
+<li>Single developer dependency</li>
+<li>No external validation</li>
+<li>Edge hardware dependency (NVIDIA Jetson)</li>
+</ul>
+<h3 id="opportunities">Opportunities</h3>
+<ul>
+<li>EU Fit for 55 mandate (EUR 15-20 billion EU TAM)</li>
+<li>Solution Factory replication (8 verticals)</li>
+<li>NCC board-level partnership</li>
+</ul>
+<h3 id="threats">Threats</h3>
+<ul>
+<li>Big tech market entry</li>
+<li>Credit expiration (12 months)</li>
+<li>Competition from established players</li>
+</ul>
+<hr />
+<h1 id="9-discussion">9. Discussion</h1>
+<h2 id="91-key-findings-and-implications">9.1 Key Findings and Implications</h2>
+<h3 id="911-validation-of-the-free-tier-bootstrap-model">9.1.1 Validation of the Free-Tier Bootstrap Model</h3>
+<p><strong>Finding 1: Startup credits as a substitute for venture capital</strong>
+- $15,300 in startup credits provides 6+ years of infrastructure runway
+- Eliminates the need for early-stage infrastructure investment</p>
+<p><strong>Finding 2: Edge AI provides sustainable cost advantage</strong>
+- 82% cost reduction vs. cloud-only architecture
+- 1.95-month payback period on hardware investment</p>
+<h2 id="92-replicability-the-solution-factory-model">9.2 Replicability: The Solution Factory Model</h2>
+<p><strong>Phase 1: Bootstrap (6 months, EUR 0-350/month)</strong> — Free tiers, 5 pilot customers</p>
+<p><strong>Phase 2: Validate (6 months, EUR 5-15k MRR)</strong> — Paying customers, &lt;2 month payback</p>
+<p><strong>Phase 3: Scale (12 months, EUR 50k+ MRR)</strong> — 2-3 verticals, Series A</p>
+<h2 id="93-limitations">9.3 Limitations</h2>
+<table>
+<thead>
+<tr>
+<th>Limitation</th>
+<th>Impact</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single case study</td>
+<td>Limited generalizability</td>
+<td>Model provides framework for replication studies</td>
+</tr>
+<tr>
+<td>Self-reported metrics</td>
+<td>Potential bias</td>
+<td>Third-party validation planned Q2 2026</td>
+</tr>
+<tr>
+<td>Short observation period</td>
+<td>Long-term effects unknown</td>
+<td>Continuous monitoring</td>
+</tr>
+</tbody>
+</table>
+<h2 id="94-recommendations">9.4 Recommendations</h2>
+<ol>
+<li><strong>Execute V1.0 release (23 February 2026)</strong></li>
+<li><strong>Document Solution Factory</strong> — public cost calculator, AgentFoundry templates</li>
+<li><strong>Validate second vertical</strong> — Construction (NCC, T2H)</li>
+</ol>
+<hr />
+<h1 id="10-conclusions">10. Conclusions</h1>
+<h2 id="101-summary">10.1 Summary</h2>
+<p>The Firehorse operating model demonstrates that AI-assisted e-commerce management can:</p>
+<ol>
+<li><strong>Reduce operational overhead</strong> by over 90% with automated product management</li>
+<li><strong>Ensure compliance</strong> with EU regulations through documented audit trails</li>
+<li><strong>Enable rapid iteration</strong> on product offerings through natural language interfaces</li>
+<li><strong>Prepare infrastructure</strong> for voice-based customer interaction</li>
+<li><strong>Validate product-market fit</strong> through Google Merchant Center integration</li>
+</ol>
+<h2 id="102-key-contributions">10.2 Key Contributions</h2>
+<ol>
+<li>Documented framework for AI-assisted store operations (Firehorse model)</li>
+<li>Integration patterns for Google Merchant Center and Revolut Business</li>
+<li>Roadmap for audio chat with carbon footprint calculator integration (4 phases)</li>
+<li>EU compliance mapping for industrial software products</li>
+<li>Product recommendation engine architecture for 16 EU industries</li>
+<li>Proton security products strategy for GDPR/NIS2 compliance</li>
+</ol>
+<h2 id="103-contribution-to-theory">10.3 Contribution to Theory</h2>
+<h3 id="lifetime-scope-signals-protocol">Lifetime Scope Signals Protocol</h3>
+<p>A novel contribution to multi-agent systems theory — declarative coordination, deterministic dependencies, and bootstrap optimization.</p>
+<h3 id="solution-factory-model">Solution Factory Model</h3>
+<p>Synthesizes Lean Startup, Platform Economics, Industry 5.0, and Edge Computing Economics into a unified framework.</p>
+<h2 id="104-impact-of-regulatory-changes-omnibus-package">10.4 Impact of Regulatory Changes: Omnibus Package</h2>
+<p>The Omnibus package <strong>strengthens</strong> the Firehorse model's competitiveness: climate emission targets are not compromised — only administrative burden is reduced. This creates a new market segment for voluntary reporting, where the EUR 0-350/month price point is particularly competitive.</p>
+<h2 id="105-future-work">10.5 Future Work</h2>
+<ol>
+<li><strong>Q1 2026:</strong> Deploy audio chat Phase 1 with Groq/Llama models</li>
+<li><strong>Q2 2026:</strong> Implement industry carbon footprint calculator with Scope 1/2/3</li>
+<li><strong>Q3 2026:</strong> Launch regulatory awareness engine</li>
+<li><strong>Q4 2026:</strong> Establish partner ecosystem with commission model</li>
+<li><strong>2027:</strong> Expand to other EU markets (SE, NO, DK, DE)</li>
+</ol>
+<hr />
+<h1 id="11-references">11. References</h1>
+<h2 id="academic-literature">Academic Literature</h2>
+<ol>
+<li>
+<p>Ries, E. (2011). <em>The Lean Startup: How Today's Entrepreneurs Use Continuous Innovation to Create Radically Successful Businesses</em>. Crown Business.</p>
+</li>
+<li>
+<p>Blank, S. (2013). <em>The Four Steps to the Epiphany: Successful Strategies for Products that Win</em>. K&amp;S Ranch.</p>
+</li>
+<li>
+<p>Parker, G., Van Alstyne, M., &amp; Choudary, S. (2016). <em>Platform Revolution: How Networked Markets Are Transforming the Economy</em>. W.W. Norton.</p>
+</li>
+<li>
+<p>European Commission (2021). <em>Industry 5.0: Towards a Sustainable, Human-Centric and Resilient European Industry</em>. Publications Office of the EU.</p>
+</li>
+<li>
+<p>Shi, W., Cao, J., Zhang, Q., Li, Y., &amp; Xu, L. (2016). "Edge Computing: Vision and Challenges." <em>IEEE Internet of Things Journal</em>, 3(5), 637-646.</p>
+</li>
+<li>
+<p>Christensen, C. M., Hall, T., Dillon, K., &amp; Duncan, D. S. (2016). "Know Your Customers' Jobs to Be Done." <em>Harvard Business Review</em>, 94(9), 54-62.</p>
+</li>
+<li>
+<p>Wooldridge, M. (2009). <em>An Introduction to MultiAgent Systems</em> (2nd ed.). Wiley.</p>
+</li>
+<li>
+<p>Jennings, N. R., &amp; Wooldridge, M. (1998). "Applications of intelligent agents." <em>Agent Technology: Foundations, Applications, and Markets</em>, 3-28.</p>
+</li>
+</ol>
+<h2 id="multi-agent-systems-and-ai-coordination">Multi-Agent Systems and AI Coordination</h2>
+<ol>
+<li>
+<p>LangChain Documentation (2024). "Building LLM Applications with Composable Components." https://docs.langchain.com</p>
+</li>
+<li>
+<p>Anthropic (2024). "Model Context Protocol Specification." https://modelcontextprotocol.io</p>
+</li>
+<li>
+<p>NVIDIA (2024). "Jetson Orin Nano Developer Kit: Technical Specifications." https://developer.nvidia.com/embedded/jetson-orin-nano</p>
+</li>
+</ol>
+<h2 id="industry-reports">Industry Reports</h2>
+<ol>
+<li>
+<p>European Commission &amp; Ramboll (2025). "Analysis of Life-Cycle Greenhouse Gas Emissions of EU Buildings." DG Environment.</p>
+</li>
+<li>
+<p>GRESB (2024). "Building an Embodied Carbon Strategy in EU Markets: A Guide for Real Estate Investors."</p>
+</li>
+<li>
+<p>Eurofound &amp; Cedefop (2025). "Digitisation of SMEs in the EU: Trends, Policies and Implications." Publications Office of the EU.</p>
+</li>
+<li>
+<p>McKinsey &amp; Company (2024). "The State of AI in Construction: Adoption, Impact, and Future Outlook."</p>
+</li>
+</ol>
+<h2 id="regulations-and-standards">Regulations and Standards</h2>
+<ol>
+<li>NIS 2 Directive (EU) 2022/2555</li>
+<li>EU AI Act (EU) 2024/1689</li>
+<li>General Data Protection Regulation (GDPR) (EU) 2016/679</li>
+<li>Cybersecurity Act (EU) 2019/881</li>
+<li>ISO/IEC 27001:2022</li>
+<li>European Commission (2025). <em>Omnibus package</em>.</li>
+<li>EN 15978:2011 Sustainability of Construction Works</li>
+<li>Energy Performance of Buildings Directive (EPBD) (EU) 2024/1275</li>
+<li>Google Merchant Center Technical Specifications (2026)</li>
+<li>Revolut Business API Documentation</li>
+<li>Anthropic Claude Code Documentation</li>
+</ol>
+<h2 id="internal-reference-artifacts">Internal Reference Artifacts</h2>
+<ol>
+<li>Lifetime Oy (2026). <em>Lifetime World LLM Scaling Blueprint (GN-100 hybrid + cloud path).</em> <code>Admin/Model/LLM_TRAINING_FEASIBILITY.md</code>.</li>
+</ol>
+<hr />
+<h1 id="12-appendices">12. Appendices</h1>
+<h2 id="appendix-a-solution-factory-canvas">Appendix A: Solution Factory Canvas</h2>
+<pre><code>+-------------------------------------------------------------------------+
+|                     FIREHORSE SOLUTION FACTORY CANVAS                    |
++-------------------------------------------------------------------------+
+|                                                                          |
+|  PROBLEM                          |  SOLUTION                           |
+|  * EU compliance deadlines        |  * Phased AI deployment             |
+|  * High SaaS costs                |  * Free-tier bootstrap              |
+|    (EUR 1,400+)                   |  * Edge AI (&lt;100ms)                 |
+|  * Cloud-only latency             |  * EUR 0-350/month pricing          |
+|  * No SME-accessible options      |                                     |
+|                                   |                                     |
++-----------------------------------+-------------------------------------+
+|                                                                          |
+|  KEY METRICS                      |  UNFAIR ADVANTAGE                   |
+|  * Payback: &lt;=2 months            |  * Lifetime Scope Signals           |
+|  * Cost: 82% cheaper              |  * AgentFoundry templates           |
+|  * Velocity: +62%                 |  * EU compliance native             |
+|  * Retention: 100%                |  * 8 vertical coverage              |
+|                                   |                                     |
++-----------------------------------+-------------------------------------+
+|                                                                          |
+|  CUSTOMER SEGMENTS                |  CHANNELS                           |
+|  * Construction SMEs              |  * dws6.com (direct)                |
+|  * Logistics companies            |  * Partner network                  |
+|  * Manufacturing                  |  * LinkedIn (B2B)                   |
+|  * 5 additional verticals         |  * GitHub (developer trust)         |
+|                                   |                                     |
++-----------------------------------+-------------------------------------+
+|                                                                          |
+|  COST STRUCTURE                   |  REVENUE STREAMS                    |
+|  * EUR 0-350/month infrastructure |  * SaaS subscriptions               |
+|  * Startup credits ($15K)         |  * Edge hardware margin             |
+|  * Single developer (bootstrap)   |  * Professional services            |
+|  * No marketing spend (organic)   |  * Solution Factory licensing       |
+|                                   |                                     |
++-------------------------------------------------------------------------+
+</code></pre>
+<h2 id="appendix-b-product-catalog-summary">Appendix B: Product Catalog Summary</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Product</th>
+<th>Price</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DWS-IQ-006</td>
+<td>DWS IQ Platform v6</td>
+<td>EUR 4,999</td>
+<td>Platform</td>
+</tr>
+<tr>
+<td>DWS-IQ-005</td>
+<td>DWS IQ Platform v5</td>
+<td>EUR 6,995</td>
+<td>Platform</td>
+</tr>
+<tr>
+<td>FH-AUTO-001</td>
+<td>Firehorse Automation</td>
+<td>EUR 4,950</td>
+<td>Software</td>
+</tr>
+<tr>
+<td>FH-RPT-001</td>
+<td>Firehorse Report</td>
+<td>EUR 1,999</td>
+<td>Software</td>
+</tr>
+<tr>
+<td>FH-CMS-001</td>
+<td>Firehorse CMS</td>
+<td>EUR 2,999</td>
+<td>Software</td>
+</tr>
+<tr>
+<td>FH-OMNI-001</td>
+<td>Firehorse Omnichannel</td>
+<td>EUR 499</td>
+<td>Software</td>
+</tr>
+<tr>
+<td>LIFETIME-BUNDLE-2026</td>
+<td>Climate Bundle</td>
+<td>EUR 6,500</td>
+<td>Bundle</td>
+</tr>
+<tr>
+<td>consulting-hourly</td>
+<td>Consulting hourly rate</td>
+<td>EUR 98/h</td>
+<td>Service</td>
+</tr>
+<tr>
+<td>consulting-fit55</td>
+<td>Fit55 expert advisory</td>
+<td>EUR 3,000/month</td>
+<td>Service</td>
+</tr>
+<tr>
+<td>secure-email-proton</td>
+<td>Protonmail implementation</td>
+<td>EUR 499</td>
+<td>Service</td>
+</tr>
+<tr>
+<td>ai-koulutus-3d</td>
+<td>AI Training 3 days</td>
+<td>EUR 6,250</td>
+<td>Training</td>
+</tr>
+</tbody>
+</table>
+<h2 id="appendix-c-lifetime-scope-signals-protocol-schema">Appendix C: Lifetime Scope Signals Protocol Schema</h2>
+<pre><code class="language-json">{
+  &quot;$schema&quot;: &quot;Lifetime Scope Signals v1.0&quot;,
+  &quot;version&quot;: &quot;1.0&quot;,
+  &quot;launch_date&quot;: &quot;2026-02-23&quot;,
+  &quot;signal_format&quot;: &quot;[AGENT-XX]:SIGNAL_TYPE:MILESTONE:TIMESTAMP&quot;,
+  &quot;signal_types&quot;: {
+    &quot;READY&quot;: &quot;Milestone achieved, unblocks downstream agents&quot;,
+    &quot;COMPLETE&quot;: &quot;All agent work finished&quot;,
+    &quot;ERROR&quot;: &quot;Agent encountered an error&quot;,
+    &quot;BLOCKED&quot;: &quot;Waiting for external dependency&quot;
+  }
+}
+</code></pre>
+<h2 id="appendix-d-ai-agent-behavioral-guidelines-karpathy-principles">Appendix D: AI Agent Behavioral Guidelines (Karpathy Principles)</h2>
+<h3 id="d1-background">D.1 Background</h3>
+<p>The DWS6 project adopted AI coding agent behavioral guidelines based on <strong>Andrej Karpathy's viral AI coding guidelines</strong>. These guidelines are documented in the repository's <code>CLAUDE.md</code> file and ensure consistent, high-quality AI-human collaboration in agent-based coding workflows.</p>
+<h3 id="d2-core-philosophy">D.2 Core Philosophy</h3>
+<pre><code>&quot;You are the hands; the human is the architect.
+Move fast, but never faster than the human can verify.
+Your code will be watched -- write accordingly.&quot;
+</code></pre>
+<h3 id="d3-critical-behavioral-patterns">D.3 Critical Behavioral Patterns</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Behavior</th>
+<th>Description</th>
+<th>EU AI Act Alignment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Assumption surfacing</strong></td>
+<td>State assumptions explicitly before implementation</td>
+<td>Supports reasoning lineage (Article 12)</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Confusion management</strong></td>
+<td>STOP when confused; ask clarifying questions</td>
+<td>Prevents autonomous errors</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Push back when warranted</strong></td>
+<td>Point out issues directly</td>
+<td>Ensures human oversight</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Simplicity enforcement</strong></td>
+<td>Actively resist overcomplication</td>
+<td>Maintainability</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Scope discipline</strong></td>
+<td>Touch only what is asked</td>
+<td>Audit trail clarity</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Dead code hygiene</strong></td>
+<td>Ask before removing unused code</td>
+<td>Change documentation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="d4-implementation-outcomes">D.4 Implementation Outcomes</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Before</th>
+<th>After</th>
+<th>Improvement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Code review rejections</td>
+<td>15%</td>
+<td>3%</td>
+<td>80% reduction</td>
+</tr>
+<tr>
+<td>Unclear change rationale</td>
+<td>25%</td>
+<td>5%</td>
+<td>80% reduction</td>
+</tr>
+<tr>
+<td>Unauthorized scope changes</td>
+<td>10%</td>
+<td>&lt;1%</td>
+<td>90% reduction</td>
+</tr>
+<tr>
+<td>Documentation coverage</td>
+<td>60%</td>
+<td>95%</td>
+<td>58% improvement</td>
+</tr>
+</tbody>
+</table>
+<h2 id="appendix-e-ai-model-training-infrastructure">Appendix E: AI Model Training Infrastructure</h2>
+<h3 id="lifetime-world-model-lwm-training-pipeline">Lifetime World Model (LWM) Training Pipeline</h3>
+<p><strong>Hardware:</strong>
+- <strong>Primary:</strong> Acer Veriton GN-100 (dedicated, on-premises)
+- <strong>Accelerator:</strong> NVIDIA GB10 Grace Blackwell Superchip
+- <strong>Compute:</strong> 1 PetaFLOP local inference
+- <strong>Memory:</strong> 128GB unified memory</p>
+<p><strong>Training workflow:</strong>
+1. Curriculum design (Claude API)
+2. Synthetic data generation (Claude API, 2000+ examples per industry)
+3. Local fine-tuning (Acer Veriton GN-100, QLoRA, 16h per model)
+4. Evaluation &amp; deployment (Claude-as-judge, target &gt;7.0/10)</p>
+<p><strong>Cost:</strong> EUR 80-125 per industry model (vs. EUR 15,000+ traditionally, 99% cost reduction)</p>
+<h2 id="appendix-f-v10-agent-fleet">Appendix F: V1.0 Agent Fleet</h2>
+<table>
+<thead>
+<tr>
+<th>Agent ID</th>
+<th>Name</th>
+<th>Phase</th>
+<th>Priority</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agent-01</td>
+<td>DWS IQ Login</td>
+<td>1</td>
+<td>Critical</td>
+<td>In Progress</td>
+</tr>
+<tr>
+<td>Agent-02</td>
+<td>Firehorse Apps</td>
+<td>2</td>
+<td>Critical</td>
+<td>Pending</td>
+</tr>
+<tr>
+<td>Agent-03</td>
+<td>Customer Dashboard</td>
+<td>3</td>
+<td>Critical</td>
+<td>Pending</td>
+</tr>
+<tr>
+<td>Agent-04</td>
+<td>AI Agents</td>
+<td>2</td>
+<td>Critical</td>
+<td>Pending</td>
+</tr>
+<tr>
+<td>Agent-05</td>
+<td>Mobile Dashboard</td>
+<td>3</td>
+<td>High</td>
+<td>Pending</td>
+</tr>
+<tr>
+<td>Agent-06</td>
+<td>Enterprise</td>
+<td>V1.1</td>
+<td>Low</td>
+<td>Deferred</td>
+</tr>
+<tr>
+<td>Agent-07</td>
+<td>Supabase Database</td>
+<td>1</td>
+<td>Critical</td>
+<td>In Progress</td>
+</tr>
+<tr>
+<td>Agent-08</td>
+<td>Payments</td>
+<td>4</td>
+<td>Medium</td>
+<td>Pending</td>
+</tr>
+<tr>
+<td>Agent-09</td>
+<td>Email System</td>
+<td>2</td>
+<td>High</td>
+<td>Pending</td>
+</tr>
+<tr>
+<td>Agent-10</td>
+<td>Documentation</td>
+<td>1</td>
+<td>Low</td>
+<td>In Progress</td>
+</tr>
+</tbody>
+</table>
+<h2 id="appendix-g-glossary">Appendix G: Glossary</h2>
+<h3 id="platform-and-business-concepts">Platform and Business Concepts</h3>
+<table>
+<thead>
+<tr>
+<th>Term (EN)</th>
+<th>Finnish</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AgentFoundry</strong></td>
+<td>AgentFoundry</td>
+<td>Multi-model, multi-tenant framework for deploying AI agents across industrial verticals</td>
+</tr>
+<tr>
+<td><strong>Edge AI</strong></td>
+<td>Reunatekoaly</td>
+<td>AI processing on local devices instead of cloud servers</td>
+</tr>
+<tr>
+<td><strong>Firehorse</strong></td>
+<td>Firehorse</td>
+<td>DWS6 product suite (Reports, Automation, Omnichannel, CMS)</td>
+</tr>
+<tr>
+<td><strong>Fit for 55</strong></td>
+<td>Fit for 55</td>
+<td>EU legislative package mandating 55% emissions reduction by 2030</td>
+</tr>
+<tr>
+<td><strong>Lifetime Scope Signals</strong></td>
+<td>Lifetime Scope Signals</td>
+<td>Coordination protocol for multi-agent development via declarative signal emission</td>
+</tr>
+<tr>
+<td><strong>MCP Hub</strong></td>
+<td>MCP Hub</td>
+<td>Model Context Protocol coordination server for multi-agent orchestration</td>
+</tr>
+<tr>
+<td><strong>Solution Factory</strong></td>
+<td>Solution Factory</td>
+<td>Operating model for producing multiple industrial AI platforms from shared components</td>
+</tr>
+</tbody>
+</table>
+<h3 id="security-and-compliance">Security and Compliance</h3>
+<table>
+<thead>
+<tr>
+<th>Term (EN)</th>
+<th>Finnish</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EU AI Act</strong></td>
+<td>EU:n tekoalysaados</td>
+<td>EU regulation for AI systems (August 2026 deadline)</td>
+</tr>
+<tr>
+<td><strong>GDPR</strong></td>
+<td>GDPR (Yleinen tietosuoja-asetus)</td>
+<td>EU data protection regulation</td>
+</tr>
+<tr>
+<td><strong>NIS2</strong></td>
+<td>NIS2</td>
+<td>EU cybersecurity directive for critical infrastructure</td>
+</tr>
+<tr>
+<td><strong>RLS</strong></td>
+<td>Rivitason suojaus</td>
+<td>Row-Level Security - database-level access control per user/organization</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="appendix-h-automated-pr-workflow-hil-automation">Appendix H: Automated PR Workflow (HIL Automation)</h2>
+<h3 id="background">Background</h3>
+<p>A key operational challenge for solo developers and small teams managing enterprise-grade codebases is maintaining code quality without a dedicated review team. The Firehorse model addresses this with a fully automated pull request review and merge workflow that replaces manual human-in-the-loop (HIL) code review with dual-model AI review.</p>
+<h3 id="architecture">Architecture</h3>
+<pre><code>Claude Code → PR → Claude sanity check → Gemini HIL review → @copilot fixes → CI → auto-merge
+                                                ↑                    |
+                                                └────────────────────┘  (fix loop)
+</code></pre>
+<h3 id="components">Components</h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Role</th>
+<th>Technology</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Claude Code</td>
+<td>Code generation, branch creation, PR opening</td>
+<td>Anthropic Claude Opus/Sonnet</td>
+</tr>
+<tr>
+<td>Claude (reviewer)</td>
+<td>Quick sanity check: security, correctness, breaking changes</td>
+<td>Claude Sonnet 4 API</td>
+</tr>
+<tr>
+<td>Gemini (HIL gate)</td>
+<td>Deep review: edge cases, tests, architecture, OWASP security</td>
+<td>Gemini 2.0 Flash API</td>
+</tr>
+<tr>
+<td>Copilot coding agent</td>
+<td>Implements fix instructions from review comments</td>
+<td>GitHub Copilot</td>
+</tr>
+<tr>
+<td>PR Auto-Merge</td>
+<td>Merges when all checks pass and AI approves</td>
+<td>GitHub Actions + GraphQL</td>
+</tr>
+</tbody>
+</table>
+<h3 id="design-decisions">Design Decisions</h3>
+<ol>
+<li><strong>Gemini defaults to REQUEST_CHANGES</strong> — ensures every PR goes through at least one improvement cycle, even when the original implementation appears correct</li>
+<li><strong>Dual-model review</strong> — two different AI models catch different classes of issues (structural vs. security vs. convention)</li>
+<li><strong>Automated fix loop</strong> — structured fix instructions sent to @copilot, which implements fixes and re-triggers review, reducing developer involvement to final skim (~5 min per PR)</li>
+<li><strong>Human overrides</strong> — <code>do-not-merge</code> and <code>needs-human-review</code> labels pause automation for manual review when needed</li>
+</ol>
+<h3 id="relevance-to-thesis">Relevance to Thesis</h3>
+<p>This workflow demonstrates the Solution Factory model (Section 5) operating at full automation: a single developer with AI agents produces enterprise-quality code at scale. The HIL learning pipeline (Section 6.7) feeds review insights back into agent training, creating a continuous improvement loop that aligns with EU AI Act Article 12 auditability requirements.</p>
+<h3 id="deployment">Deployment</h3>
+<p>Cloud Run service <code>dws6run6</code> (europe-north1, Finland). MCP Hub exposes <code>POST /gemini/review</code> for on-demand security analysis by any agent in the Firehorse fleet.</p>
+<hr />
+<p><strong>Document Information:</strong></p>
+<p><strong>Title:</strong> Firehorse Product Manufacturing Operating Model: Hybrid AI-Edge Architecture for Climate-Intelligent Industrial Platforms
+<strong>Author:</strong> Risto Anton Päärni
+<strong>Institution:</strong> Metropolia University of Applied Sciences
+<strong>Program:</strong> Smart Factory, Master's Degree (YAMK)
+<strong>Supervisor:</strong> Jarno Varteva (with Erkki Räsänen)
+<strong>Company:</strong> Lifetime Oy (Firehorse brand)
+<strong>Status:</strong> DRAFT - V3.7 consolidated full version
+<strong>Version:</strong> 3.7
+<strong>Last Modified:</strong> 20.02.2026
+<strong>V1.0 Release Target:</strong> 23 February 2026</p>
+<p><strong>Languages:</strong> English, Suomi
+<strong>Related Documents:</strong>
+- <a href="../fi/V3Thesis_FI.md">Finnish Version</a>
+- <a href="../../../.workflows/agents/AGENT_SIGNAL_INSTRUCTIONS.md">Agent Signal Instructions</a>
+- <a href="../../../AgentFoundry/AGENT_FOUNDRY_ARCHITECTURE_STANDARD.md">AgentFoundry Architecture</a>
+- <a href="../../../product-catalog/LWM/training-manual.md">LWM Training Manual</a>
+- <a href="../../../Admin/ADMIN_MANUAL.md">System Administrator Manual</a></p>
+<p><strong>Key Contributions:</strong>
+1. Lifetime Scope Signals Protocol — Novel multi-agent coordination framework
+2. Solution Factory Model — Replicable industrial AI platform blueprint
+3. Free-Tier Bootstrap Strategy — Startup credits as substitute for venture capital
+4. Phased Deployment Framework — Building trust for AI in regulated industries
+5. DWS10.com E-Commerce Validation — Google Merchant Center + Revolut Business
+6. HIL Learning Pipeline — Daily human-AI feedback loop
+7. Automated PR Workflow — Dual-model AI review replacing manual code review</p>
+<p><strong>License:</strong> Proprietary - Lifetime Oy
+<strong>Contact:</strong> risto@lifetime.fi</p>
+</body>
+</html>

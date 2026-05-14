@@ -1,0 +1,564 @@
+# DWS IQ Hybrid Deployment Configuration
+# 
+# This Docker Compose file configures the hybrid architecture that combines:
+# - Local Docker services (MCP Hub, Temporal, PostgreSQL)
+# - Cloudflare edge workers (Claude agents, MCP gateway, sandboxes)
+#
+# The hybrid model provides:
+# - Edge execution for customer-facing AI agents (Cloudflare)
+# - Stateful workflow orchestration (Temporal on Docker)
+# - Persistent context storage (PostgreSQL on Docker)
+# - EU data residency compliance
+#
+# Usage:
+#   Development: docker-compose -f docker-compose.hybrid.yml up -d
+#   Production:  docker-compose -f docker-compose.hybrid.yml -f docker-compose.hybrid.prod.yml up -d
+#
+# @version 1.1.0
+# @license Proprietary - Lifetime Oy
+
+# YAML anchors for shared configuration
+x-healthcheck-defaults: &healthcheck-defaults
+  interval: 30s
+  timeout: 10s
+  retries: 3
+
+x-common-env: &common-env
+  LOG_LEVEL: ${LOG_LEVEL:-info}
+  CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3000,https://dws10.com,https://onelifetime.world}
+
+services:
+  # ============================================================================
+  # DWS IQ Backend (Express Dev Server)
+  # ============================================================================
+
+  backend-dev:
+    image: node:22-alpine
+    container_name: dws-backend-dev
+    working_dir: /app
+    command: sh -c "npm install && npx tsx watch src/app.ts"
+    environment:
+      PORT: 8080
+      NODE_ENV: development
+      JWT_SECRET: ${JWT_SECRET:-your-256-bit-secret-for-development-only-change-in-production}
+      SUPABASE_URL: ${SUPABASE_URL}
+      SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY}
+      SUPABASE_ANON_KEY: ${SUPABASE_ANON_KEY}
+      RESEND_API_KEY: ${RESEND_API_KEY}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      GROQ_API_KEY: ${GROQ_API_KEY}
+      GOOGLE_API_KEY: ${GOOGLE_API_KEY}
+      EMAIL_QUEUE_ENABLED: "false"
+    ports:
+      - "3002:8080"
+    volumes:
+      - .:/app
+      - backend_node_modules:/app/node_modules
+    networks:
+      - dws-hybrid-network
+    restart: unless-stopped
+    profiles:
+      - backend
+
+  # ============================================================================
+  # Core MCP Hub (Origin Server)
+  # ============================================================================
+  
+  mcp-hub:
+    build:
+      context: ./mcp-hub
+      dockerfile: Dockerfile
+    container_name: dws-mcp-hub
+    environment:
+      # Server Configuration
+      MCP_HUB_PORT: 8765
+      MCP_HUB_HOST: 0.0.0.0
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      
+      # Database
+      DATABASE_URL: postgresql://mcp_user:${MCP_DB_PASSWORD:-mcp_password_dev}@postgres:5432/mcp_hub
+      
+      # AI Providers
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      GOOGLE_API_KEY: ${GOOGLE_API_KEY}
+      GROQ_API_KEY: ${GROQ_API_KEY}
+      
+      # Temporal
+      TEMPORAL_HOST: temporal
+      TEMPORAL_PORT: 7233
+      TEMPORAL_NAMESPACE: dws-mcp-hub
+      
+      # Supabase (optional - for cloud sync)
+      SUPABASE_URL: ${SUPABASE_URL}
+      SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY}
+      
+      # Redis
+      REDIS_URL: redis://redis:6379
+      
+      # Service URLs (Docker internal hostnames)
+      BACKEND_URL: http://backend-dev:8080
+      GITHUB_MCP_URL: http://github-mcp:8767
+      SUPABASE_MCP_URL: http://supabase-mcp:8766
+      CARBON_API_URL: http://carbon-api:8766
+      CLOUDRUN_MCP_URL: http://cloudrun-mcp:8769
+      LWM_MCP_URL: http://lwm-mcp:8770
+      CLAUDE_MCP_URL: http://claude-mcp:8771
+      PROMETHEUS_URL: http://prometheus:9090
+      GRAFANA_URL: http://grafana:3000
+      AGENT_FOUNDRY_URL: http://agent-foundry:8080
+      LIGHTPANDA_CDP_URL: ws://lightpanda:9222
+
+      # Session Management
+      SESSION_TTL_HOURS: 168
+      AUTO_GENERATE_CLAUDE_MD: true
+      
+      # Workflow Patterns
+      ENABLE_FAN_OUT_PATTERN: true
+      ENABLE_REFLECTION_PATTERN: true
+      ENABLE_SEQUENTIAL_PATTERN: true
+      MAX_PARALLEL_TASKS: 10
+      
+      # Cloudflare Integration
+      CLOUDFLARE_ACCOUNT_ID: ${CLOUDFLARE_ACCOUNT_ID}
+      CLOUDFLARE_API_TOKEN: ${CLOUDFLARE_API_TOKEN}
+      CLOUDFLARE_GATEWAY_URL: ${CLOUDFLARE_GATEWAY_URL:-https://mcp.dws10.com}
+      
+      # Security
+      MCP_HUB_AUTH_ENABLED: true
+      MCP_HUB_API_KEY: ${MCP_HUB_API_KEY}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3000,https://dws10.com,https://onelifetime.world}
+      
+      # Environment
+      ENVIRONMENT: ${ENVIRONMENT:-development}
+    ports:
+      - "8765:8765"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      temporal:
+        condition: service_started
+    volumes:
+      - ./mcp-hub:/app
+      - mcp_logs:/app/logs
+    networks:
+      - dws-hybrid-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8765/health"]
+      <<: *healthcheck-defaults
+    restart: unless-stopped
+
+  # ============================================================================
+  # DWS Carbon API
+  # ============================================================================
+
+  carbon-api:
+    build:
+      context: ./mcp-servers/supabase
+      dockerfile: Dockerfile
+    container_name: dws-carbon-api
+    environment:
+      <<: *common-env
+      SUPABASE_MCP_PORT: 8766
+      SUPABASE_URL: ${SUPABASE_URL}
+      SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY}
+      DATABASE_URL: postgresql://mcp_user:${MCP_DB_PASSWORD:-mcp_password_dev}@postgres:5432/mcp_hub
+    ports:
+      - "8766:8766"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - dws-hybrid-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8766/health"]
+      <<: *healthcheck-defaults
+    restart: unless-stopped
+
+  # ============================================================================
+  # Cloud Run MCP Server (port 8769)
+  # ============================================================================
+
+  cloudrun-mcp:
+    build:
+      context: ./mcp-servers/cloudrun
+      dockerfile: Dockerfile
+    container_name: dws-cloudrun-mcp
+    environment:
+      <<: *common-env
+      CLOUDRUN_MCP_PORT: 8769
+      GCP_PROJECT_ID: ${GCP_PROJECT_ID:?GCP_PROJECT_ID required}
+      GCP_REGION: ${GCP_REGION:-europe-north1}
+      GCP_ARTIFACT_REGISTRY: ${GCP_ARTIFACT_REGISTRY:-europe-north1-docker.pkg.dev}
+      GCP_REPOSITORY: ${GCP_REPOSITORY:-dws-iq}
+      GOOGLE_APPLICATION_CREDENTIALS_JSON: ${GOOGLE_APPLICATION_CREDENTIALS_JSON}
+      MCP_HUB_API_KEY: ${MCP_HUB_API_KEY}
+    ports:
+      - "8769:8769"
+    networks:
+      - dws-hybrid-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8769/health"]
+      <<: *healthcheck-defaults
+    restart: unless-stopped
+
+  # ============================================================================
+  # LWM Training Bridge MCP Server (port 8770)
+  # ============================================================================
+
+  lwm-mcp:
+    build:
+      context: ./mcp-servers/lwm
+      dockerfile: Dockerfile
+    container_name: dws-lwm-mcp
+    environment:
+      <<: *common-env
+      LWM_MCP_PORT: 8770
+      GN100_HOST: ${GN100_HOST:-192.168.1.100}
+      GN100_PORT: ${GN100_PORT:-8890}
+      MLFLOW_URL: ${MLFLOW_URL:-http://192.168.1.100:5000}
+      GCS_CHECKPOINTS_BUCKET: ${GCS_CHECKPOINTS_BUCKET:-lifetime-llm-checkpoints}
+      MCP_HUB_API_KEY: ${MCP_HUB_API_KEY}
+    ports:
+      - "8770:8770"
+    networks:
+      - dws-hybrid-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8770/health"]
+      <<: *healthcheck-defaults
+    restart: unless-stopped
+
+  # ============================================================================
+  # Claude Session Sync MCP Server (port 8771)
+  # ============================================================================
+
+  claude-mcp:
+    build:
+      context: ./mcp-servers/claude
+      dockerfile: Dockerfile
+    container_name: dws-claude-mcp
+    environment:
+      <<: *common-env
+      CLAUDE_MCP_PORT: 8771
+      SUPABASE_URL: ${SUPABASE_URL:?SUPABASE_URL required}
+      SUPABASE_SERVICE_KEY: ${SUPABASE_SERVICE_KEY:?SUPABASE_SERVICE_KEY required}
+      REPO_PATH: /handoff
+      CLAUDE_MCP_PLATFORM: ${CLAUDE_MCP_PLATFORM:-win11}
+      MCP_HUB_API_KEY: ${MCP_HUB_API_KEY}
+    ports:
+      - "8771:8771"
+    volumes:
+      - ./.claude/handoff.md:/handoff/handoff.md:ro
+    networks:
+      - dws-hybrid-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8771/health"]
+      <<: *healthcheck-defaults
+    restart: unless-stopped
+
+  # ============================================================================
+  # PostgreSQL with pgvector
+  # ============================================================================
+  
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: dws-mcp-postgres
+    environment:
+      POSTGRES_USER: mcp_user
+      POSTGRES_PASSWORD: ${MCP_DB_PASSWORD:-mcp_password_dev}
+      POSTGRES_DB: mcp_hub
+    ports:
+      - "5433:5432"  # Different port to avoid conflict with main DB
+    volumes:
+      - mcp_postgres_data:/var/lib/postgresql/data
+      - ./mcp-hub/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mcp_user -d mcp_hub"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - dws-hybrid-network
+    restart: unless-stopped
+
+  # ============================================================================
+  # Temporal Workflow Engine
+  # ============================================================================
+  
+  temporal:
+    image: temporalio/auto-setup:1.22.4
+    container_name: dws-temporal
+    environment:
+      - DB=postgresql
+      - DB_PORT=5432
+      - POSTGRES_USER=mcp_user
+      - POSTGRES_PWD=${MCP_DB_PASSWORD:-mcp_password_dev}
+      - POSTGRES_SEEDS=postgres
+      - DYNAMIC_CONFIG_FILE_PATH=config/dynamicconfig/development.yaml
+    ports:
+      - "7233:7233"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./config/temporal:/etc/temporal/config/dynamicconfig
+    networks:
+      - dws-hybrid-network
+    restart: unless-stopped
+
+  # ============================================================================
+  # Temporal UI
+  # ============================================================================
+  
+  temporal-ui:
+    image: temporalio/ui:2.22.3
+    container_name: dws-temporal-ui
+    environment:
+      - TEMPORAL_ADDRESS=temporal:7233
+      - TEMPORAL_CORS_ORIGINS=http://localhost:3000,https://dws10.com
+    ports:
+      - "8088:8080"
+    depends_on:
+      - temporal
+    networks:
+      - dws-hybrid-network
+    restart: unless-stopped
+
+  # ============================================================================
+  # Cloudflare Tunnel (Secure connection to edge)
+  # ============================================================================
+  
+  cloudflare-tunnel:
+    image: cloudflare/cloudflared:2024.12.2
+    container_name: dws-cloudflare-tunnel
+    command: tunnel --no-autoupdate run
+    environment:
+      TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN}
+    depends_on:
+      - mcp-hub
+      - carbon-api
+    networks:
+      - dws-hybrid-network
+    restart: unless-stopped
+    profiles:
+      - production
+
+  # ============================================================================
+  # Redis (Session cache and rate limiting)
+  # ============================================================================
+  
+  redis:
+    image: redis:7-alpine
+    container_name: dws-mcp-redis
+    ports:
+      - "6380:6379"  # Different port to avoid conflict
+    volumes:
+      - mcp_redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - dws-hybrid-network
+    restart: unless-stopped
+
+  # ============================================================================
+  # Prometheus (Metrics collection)
+  # ============================================================================
+  
+  prometheus:
+    image: prom/prometheus:v2.48.0
+    container_name: dws-prometheus
+    ports:
+      - "9091:9090"
+    volumes:
+      - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    networks:
+      - dws-hybrid-network
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+  # ============================================================================
+  # Grafana (Dashboards)
+  # ============================================================================
+  
+  grafana:
+    image: grafana/grafana:10.2.2
+    container_name: dws-grafana
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./config/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./config/grafana/datasources:/etc/grafana/provisioning/datasources
+    depends_on:
+      - prometheus
+    networks:
+      - dws-hybrid-network
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+  # ============================================================================
+  # Cloudflare Worker Development Proxy
+  # ============================================================================
+  
+  worker-proxy:
+    image: node:20-alpine
+    container_name: dws-worker-proxy
+    working_dir: /app
+    command: sh -c "npm install && npm run dev"
+    environment:
+      - MCP_HUB_ORIGIN=http://mcp-hub:8765
+      - ENVIRONMENT=development
+    ports:
+      - "8787:8787"  # Wrangler dev port
+    volumes:
+      - ./src/cloudflare:/app
+      - worker_node_modules:/app/node_modules
+    depends_on:
+      - mcp-hub
+    networks:
+      - dws-hybrid-network
+    profiles:
+      - development
+
+  # ============================================================================
+  # Container Monitoring Services
+  # ============================================================================
+
+  # cAdvisor for container metrics
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.47.0
+    container_name: dws-cadvisor
+    ports:
+      - "8080:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    depends_on:
+      - prometheus
+    networks:
+      - dws-hybrid-network
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+  # Node Exporter for host metrics
+  node-exporter:
+    image: prom/node-exporter:v1.6.1
+    container_name: dws-node-exporter
+    ports:
+      - "9100:9100"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    depends_on:
+      - prometheus
+    networks:
+      - dws-hybrid-network
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+  # ============================================================================
+  # Lightpanda Browser (Headless CDP for Agent Browsing)
+  # ============================================================================
+
+  lightpanda:
+    image: lightpanda/browser:nightly
+    container_name: dws-lightpanda
+    ports:
+      - "9222:9222"
+    networks:
+      - dws-hybrid-network
+    restart: unless-stopped
+
+  # ============================================================================
+  # AI Agents (Agent Foundry)
+  # ============================================================================
+
+  agent-foundry:
+    build:
+      context: ./AgentFoundry
+      dockerfile: Dockerfile
+    container_name: dws-agent-foundry
+    ports:
+      - "8082:8080"
+    environment:
+      # Agent Configuration
+      AGENT_ID: ${AGENT_ID:-lead-scout-001}
+      AGENT_CONFIG_PATH: configs/production/lead-scout-001.yaml
+      
+      # Database
+      SUPABASE_URL: ${SUPABASE_URL}
+      SUPABASE_KEY: ${SUPABASE_SERVICE_KEY}
+      
+      # AI Providers
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      GROQ_API_KEY: ${GROQ_API_KEY}
+      
+      # Notifications
+      SLACK_WEBHOOK_URL: ${SLACK_WEBHOOK_URL}
+      TEAMS_WEBHOOK_URL: ${TEAMS_WEBHOOK_URL}
+      
+      # Logging
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    networks:
+      - dws-hybrid-network
+    restart: unless-stopped
+    profiles:
+      - agents
+
+# ============================================================================
+# Volumes
+# ============================================================================
+
+volumes:
+  mcp_postgres_data:
+    driver: local
+  mcp_redis_data:
+    driver: local
+  mcp_logs:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+  worker_node_modules:
+    driver: local
+  backend_node_modules:
+    driver: local
+
+# ============================================================================
+# Networks
+# ============================================================================
+
+networks:
+  dws-hybrid-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/16
