@@ -2,6 +2,9 @@
 
 Kaggle Summer School — Risto Paarni (<https://www.kaggle.com/ristoprni>)
 
+Follow-up to *DWS IQ Platform: Climate-Aware Multi-Agent AI for Construction*
+(Nov 16, 2025 — saved at `docs/KAGGLE_DWS6_AGENTS_NOV2025.md`).
+
 One notebook, three open datasets (ERA5, EDGAR v8, EU ETS Union Registry),
 one output: a one-page exposure brief for an EU industrial site.
 
