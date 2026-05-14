@@ -19,6 +19,18 @@ on:
     branches:
       - 'copilot/**'
       - 'claude/**'
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'Store/**'
+      - 'Learn/**'
+
+# Cancel earlier in-flight pre-flight runs when a new commit is pushed.
+# Copilot/Claude branches often see rapid successive pushes; only the latest
+# state needs review.
+concurrency:
+  group: preflight-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: write       # needed to commit PREFLIGHT_ISSUES.md

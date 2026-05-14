@@ -13,7 +13,19 @@ name: AI Code Review (HIL Automation)
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'Store/**'
+      - 'Learn/**'
+      - '.github/workflows/**.disabled'
+
+# Cancel earlier in-flight reviews when a new commit is pushed to the same PR.
+# Saves significant minutes on rapid push sequences during active development.
+concurrency:
+  group: ai-pr-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -26,8 +38,11 @@ jobs:
     runs-on: ubuntu-latest
     # Skip github-actions[bot] (pure CI automation) but allow Copilot actors
     # so the "@copilot fixes → push → re-review" loop runs correctly.
+    # Skip drafts — review only runs once a PR is marked ready.
     # Livelock is prevented by the iteration cap in the "Route fixes to Copilot" step.
-    if: github.actor != 'github-actions[bot]'
+    if: |
+      !github.event.pull_request.draft &&
+      github.actor != 'github-actions[bot]'
 
     steps:
       - name: Checkout code

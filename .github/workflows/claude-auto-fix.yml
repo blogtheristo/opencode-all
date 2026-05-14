@@ -2,7 +2,13 @@ name: Claude Auto-Fix
 
 on:
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, synchronize, ready_for_review]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'Store/**'
+      - 'Learn/**'
+      - '.github/workflows/**.disabled'
   workflow_dispatch:
     inputs:
       task:
@@ -15,6 +21,13 @@ on:
         default: 'Read,Edit,Bash(npm run lint),Bash(npm run test),Bash(npm run build)'
         type: string
 
+# Cancel earlier in-flight auto-fix runs when a new commit is pushed.
+# claude-auto-fix is the largest per-PR minute consumer (npm ci + Claude CLI install
+# + full lint/test). Cancellation prevents stacking on rapid-fire pushes.
+concurrency:
+  group: claude-auto-fix-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
@@ -23,8 +36,10 @@ jobs:
     name: Claude Auto-Fix
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    # Skip bot-triggered events to prevent fix loops
+    # Skip bot-triggered events to prevent fix loops.
+    # Skip drafts — only run once a PR is marked ready for review.
     if: |
+      (github.event_name != 'pull_request' || !github.event.pull_request.draft) &&
       github.actor != 'github-actions[bot]' &&
       github.actor != 'copilot[bot]'
 

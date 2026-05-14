@@ -7,9 +7,19 @@ on:
       - 'src/**'
       - 'package.json'
   schedule:
-    # Weekly Sunday 03:00 UTC
-    - cron: '0 3 * * 0'
+    # ZAP needs a Docker-in-Docker baseline that DGX Spark's node:22-slim
+    # cron container cannot host cleanly, so this scheduled run stays on GHA.
+    # Reduced from weekly → monthly (1st of each month at 03:00 UTC) to cut
+    # minute consumption ~75% while preserving baseline drift detection.
+    # PR-triggered runs (above) catch in-flight regressions.
+    - cron: '0 3 1 * *'
   workflow_dispatch:
+
+# Cancel earlier in-flight scans (PR re-pushes) — only the latest commit needs
+# its DAST baseline.
+concurrency:
+  group: dast-zap-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   zap-scan:

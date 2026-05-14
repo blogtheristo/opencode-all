@@ -35,7 +35,17 @@ jobs:
         with:
           fetch-depth: 0
 
+      # DGX Spark runs scripts/daily/mvp-audit.sh as primary (day-runner.sh
+      # handles once-per-day semantics in Europe/Helsinki via state file).
+      # This GHA workflow is failover only.
+      - name: DGX Spark failover check
+        id: failover
+        uses: ./.github/actions/dgx-failover-check
+        with:
+          heartbeat_url: ${{ vars.DGX_SPARK_HEARTBEAT_URL }}
+
       - name: Helsinki time guard
+        if: steps.failover.outputs.dgx_alive != 'true'
         id: timecheck
         run: |
           HELSINKI_HOUR=$(TZ='Europe/Helsinki' date +%H)
