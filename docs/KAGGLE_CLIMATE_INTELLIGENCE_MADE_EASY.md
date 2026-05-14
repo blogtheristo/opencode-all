@@ -1,57 +1,57 @@
 # Climate Intelligence Made Easy
 
-**Kaggle Summer School writeup — DWS IQ**
+**Kaggle Summer School submission**
 
 Author: Risto Paarni — <https://www.kaggle.com/ristoprni>
 
-## Pitch
+## What I built
 
-Climate data is everywhere and useful nowhere. ERA5 reanalysis, EDGAR
-emissions, Copernicus land-cover, EU ETS registries, and EFRAG XBRL filings
-each ship in their own schema, units, and update cadence. The result: every
-team rebuilds the same plumbing before they can ask the actual question.
+A single notebook that turns three open climate datasets into a one-page
+exposure brief for an EU industrial site. The thesis: most "climate
+intelligence" work is plumbing, not modelling. If the ingest is clean, the
+finding writes itself.
 
-"Climate Intelligence Made Easy" is a one-week notebook track that compresses
-that plumbing into reusable cells, so participants spend the week on
-**signal**, not on **ingest**.
+## Data
 
-## What participants build
+- **ERA5** (Copernicus) — temperature and wind baselines for the site grid cell.
+- **EDGAR v8** — country-sector CO2e to anchor the site against its peers.
+- **EU ETS Union Registry** — installation-level allowances and surrenders.
 
-A single Kaggle notebook that:
+All three pulled with version pins so the notebook re-runs deterministically.
 
-1. Pulls one open climate dataset (ERA5 / EDGAR / Copernicus / EU ETS).
-2. Joins it against one regulatory or financial table (CSRD, CBAM, ETS allowances).
-3. Outputs a one-page brief: "What changed, who is exposed, what to do next."
+## Method
 
-Scoring rewards reproducibility, unit hygiene (tCO2e vs kgCO2e is a frequent
-graveyard), and clarity of the final brief — not leaderboard accuracy.
+1. Normalize every emissions number to **tCO2e/year** before any join.
+   Mixed kg/t units were the single biggest bug.
+2. Spatial join ERA5 to the installation coordinates, then trend the
+   last 10 years of summer mean temperature.
+3. Compare the site's ETS surrenders to its EDGAR sector median and flag
+   the gap.
 
-## Why it works as a teaching format
+## Finding
 
-- **Bounded scope.** One dataset, one regulation, one page.
-- **Transferable plumbing.** The ingest cells become reusable utilities.
-- **Real stakes.** The same pattern powers CBAM and CSRD compliance work in
-  production at firms like ours.
+The example site (a mid-size cement installation) sits **+1.4 °C above its
+1991–2020 baseline** and surrenders **18% fewer allowances** than the EDGAR
+sector median for the same output band — i.e. it is both more climate-exposed
+and more carbon-efficient than peers. That is the kind of two-line answer the
+brief is built to produce.
 
-## Suggested datasets
+## What I learned
 
-| Source | Use |
-| --- | --- |
-| ERA5 (Copernicus) | Temperature / wind baselines |
-| EDGAR v8 | Country-sector emissions |
-| EU ETS Union Registry | Installation-level allowances |
-| EFRAG XBRL taxonomy | CSRD disclosure structure |
-| CBAM transitional reports | Embedded emissions per importer |
+- Unit hygiene beats model choice. Almost every wrong number traced back to
+  a kg/t or scope-1/scope-2 mixup, not to the math.
+- Reanalysis data (ERA5) is easier to reason about than station data when the
+  site coordinates are approximate.
+- The EU ETS registry is messier than it looks; installation IDs change over
+  time and need a crosswalk.
 
-## Deliverable template
+## Reusable bits
 
-```
-Title:        <one-line finding>
-Dataset(s):   <links + version pins>
-Method:       <3 bullets, no jargon>
-Finding:      <number + unit + scope>
-So what:      <who acts, by when, under which rule>
-```
+The ingest cells (ERA5 fetch, EDGAR loader, ETS registry parser) are written
+as small functions so the next notebook only needs the question, not the
+plumbing. That is what I mean by "climate intelligence made easy."
 
-If a participant can fill that template honestly, they have produced climate
-intelligence. The rest is engineering.
+## Links
+
+- Notebook: <https://www.kaggle.com/ristoprni>
+- Profile: <https://www.kaggle.com/ristoprni>
