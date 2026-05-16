@@ -149,6 +149,8 @@ cmd_deploy() {
     curl -sf http://localhost:8080/health 2>/dev/null && echo '' || echo 'Backend: starting...'
     echo '=== Cron ===' && \
     curl -sf http://localhost:8081/health 2>/dev/null && echo '' || echo 'Cron: starting...'
+    echo '=== OpenClaw ===' && \
+    curl -sf http://localhost:8090/health 2>/dev/null && echo '' || echo 'OpenClaw: starting...'
     echo '=== Heartbeat ===' && \
     curl -sf http://localhost:9999/health 2>/dev/null && echo '' || echo 'Heartbeat: starting...'
   "

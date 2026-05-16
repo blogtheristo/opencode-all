@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.5
+Version: 1.6
 
 Sessions & Modifications:
 
+- Version: 1.6 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Wired OpenClaw into the docker-compose stack as a first-class service (port 8090) — image parameterised via `OPENCLAW_IMAGE` env var, `OPENCLAW_ALLOW_EGRESS=false` enforces no-egress posture, persistent state and logs volumes added. Heartbeat service now polls `CHECK_OPENCLAW=http://openclaw:8090/health` alongside backend/cron/ollama. `deploy.sh` post-deploy health-check sequence prints OpenClaw status. Container table and Host Paths table updated. Deployment status snapshot row marked `(post-deploy)` — full healthy confirmation will land on first deploy.
 - Version: 1.5 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Added OpenClaw as a tracked Spark service — local autonomous agent runtime with Brain wired to `nemotron-3-super` via Ollama. Architecture diagram now shows OpenClaw alongside Ollama/Redis. New "OpenClaw — local autonomous agent runtime" section clarifies the EU-sovereign no-egress role, its complementarity with the cloud-side `clawdbot` skill, and the workload pairings (private data analysis, confidential code review, long-document reasoning at 256K).
 - Version: 1.4 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Replaced Primary tier Llama 3.3 70B (dense, ~4.4 tok/s) → Nemotron 3 Super (NVIDIA `nemotron_h_moe`, 123.6B/12.7B active, Mamba-2 + attention + Latent MoE, ~19.5 tok/s on DGX Spark Q4_K_M — ~4.5× faster). Memory budget tightened (~126GB committed, ~2GB headroom — relies on Ollama lazy-load + `OLLAMA_KEEP_ALIVE` to avoid simultaneous-hot OOM). Added operational notes: Ollama 0.17.1+ requirement, default ctx 262144 (1M = OOM), NVIDIA sampling defaults (temp 1.0 chat / 0.6 + top_p 0.95 tool calls). Hardware table refreshed with GB10 GPU specs, 20-core ARM split, 240W power, form factor.
 - Version: 1.3 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Upgraded Fast tier from Qwen 2.5 Coder 32B → Qwen3-Coder 30B (MoE 30B/3.3B active). Added Synth-data routing row (SyntheticDataAgent teacher via NeMo DataDesigner). Added "Next Steps — NVFP4 path" section covering Blackwell FP4 cores, Nemotron 3 Super/Ultra context, and compute-scarcity hedge rationale. Memory budget refreshed (~19GB Qwen, ~49GB headroom).
@@ -87,6 +88,7 @@ All services verified live:
 | dws-redis     | healthy        | 6379 | `redis-cli ping` → PONG                        |
 | dws-backend   | healthy        | 8080 | `curl localhost:8080/api/health` → 200         |
 | dws-cron      | healthy        | 8081 | 17 enabled jobs running                        |
+| dws-openclaw  | (post-deploy)  | 8090 | `curl localhost:8090/health` → 200 — local agent runtime, no egress |
 | dws-heartbeat | healthy        | 9999 | `curl localhost:9999/health` → 200             |
 | cloudflared   | systemd active | —    | `curl https://heartbeat.dws6.com/health` → 200 |
 
@@ -105,6 +107,9 @@ Exact absolute paths on the Acer Veriton GN100 host (`admin100@192.168.101.113`)
 | **Env file (for compose)** | `/home/admin100/dws6/infrastructure/dgx-spark/.env`                           |
 | **Repo-level .env**        | `/home/admin100/dws6/.env`                                                    |
 | **Cron-runner source**     | `/home/admin100/dws6/infrastructure/dgx-spark/cron-runner.ts`                 |
+| **OpenClaw image (env)**   | `OPENCLAW_IMAGE` in `infrastructure/dgx-spark/.env` (default `ghcr.io/openclaw/openclaw:latest`) |
+| **OpenClaw state volume**  | Docker volume `dgx-spark_openclaw-state`                                      |
+| **OpenClaw logs volume**   | Docker volume `dgx-spark_openclaw-logs`                                       |
 | **Morning brief script**   | `/home/admin100/dws6/scripts/send-morning-brief-v2.ts`                        |
 | **Ollama models (host)**   | `/usr/share/ollama/.ollama/models/`                                           |
 | **Backend logs volume**    | Docker volume `dgx-spark_backend-logs` (inspect with `docker volume inspect`) |

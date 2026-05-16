@@ -158,6 +158,52 @@ services:
       retries: 5
 
   # ==========================================================================
+  # OpenClaw — Local autonomous agent runtime
+  # EU-sovereign agent surface: no network egress; Brain wired to Nemotron 3 Super
+  # via Ollama on the host. See DWS_DEPLOYMENT_STANDARD.md and field note
+  # docs/field-notes/2026-03-29-dgx-spark-primary-runtime-setup.md §OpenClaw.
+  # ==========================================================================
+  openclaw:
+    image: ${OPENCLAW_IMAGE:-ghcr.io/openclaw/openclaw:latest}
+    container_name: dws-openclaw
+    restart: unless-stopped
+    ports:
+      - "8090:8090"
+    env_file:
+      - .env
+    environment:
+      PORT: 8090
+      OLLAMA_BASE_URL: http://host.docker.internal:11434
+      OPENCLAW_DEFAULT_MODEL: nemotron-3-super
+      OPENCLAW_FAST_MODEL: qwen3-coder:30b
+      # No egress by design — agent runtime stays inside the Spark LAN.
+      # If a workload requires outbound calls, add the specific allow-list here
+      # rather than opening egress wholesale.
+      OPENCLAW_ALLOW_EGRESS: "false"
+    volumes:
+      - openclaw-state:/app/state
+      - openclaw-logs:/app/logs
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8090/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 1G
+
+  # ==========================================================================
   # Heartbeat Service — Reports status to GitHub Actions failover
   # ==========================================================================
   heartbeat:
@@ -176,6 +222,7 @@ services:
       CHECK_CRON: http://dws-cron:8081/health
       CHECK_OLLAMA: http://host.docker.internal:11434/api/tags
       CHECK_REDIS: redis://redis:6379
+      CHECK_OPENCLAW: http://openclaw:8090/health
       # GitHub repository for status reporting
       GITHUB_REPOSITORY: blogtheristo/dws6
     depends_on:
@@ -195,6 +242,8 @@ volumes:
   redis-data:
   firehorse-reports:
   cron-state:
+  openclaw-state:
+  openclaw-logs:
 
 networks:
   default:
