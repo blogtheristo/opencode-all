@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
+  - Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/industries-hub-worldmodel-lJrC6 | Date: 15.05.2026 | Changes: Added "Easiest path to actually try NVFP4 inference today" subsection under V1 — 3-line vLLM + `drawais/Qwen3-8B-SpinQuant-NVFP4` recipe for a 15-minute spike, plus framing of what the spike does and does not validate. Also bumped "23 industry evals" → "25 industry evals" to align with the registry reconciliation.
   - Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/industries-hub-worldmodel-lJrC6 | Date: 15.05.2026 | Changes: Added §"Industry-registry inconsistency" appendix. Repo currently disagrees on the industry count (16 / 20 / 21 / 22 / 23 across 16-INDUSTRIES.md, README.md, Aegis docs, DWS7/DWS8 roadmaps, V3Thesis, PHD_FIREHORSE). Reconciliation target locked at **25** with Data Centres + RFNBO committed. Renamed `16-INDUSTRIES.md` → `INDUSTRIES.md` and updated it to the canonical 25-industry registry.
   - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/industries-hub-worldmodel-lJrC6 | Date: 15.05.2026 | Changes: Initial study note on arxiv:2509.25149 ("Pretraining Large Language Models with NVFP4", NVIDIA). Maps the NVFP4 format and pretraining recipe onto the Lifetime World Model V1 (June 12 2026, DWS IQ 6) and V2 (November 2026, DWS IQ 7) control-room deployment.
 
@@ -118,8 +119,31 @@ This is implementation-level — belongs in V3Thesis, not PhD Firehorse (per CLA
 ### V1 Multimodal — June 12 2026 (DWS IQ 6)
 
 **Already locked.** Don't change pretraining mid-flight. But:
-- **Post-training quantization to NVFP4** is feasible *before* June 12 if we want it. ~2 weeks of engineering: quantize checkpoint, run accuracy regression on the 23 industry evals, swap inference engine to TensorRT-LLM NVFP4 path.
+- **Post-training quantization to NVFP4** is feasible *before* June 12 if we want it. ~2 weeks of engineering: quantize checkpoint, run accuracy regression on the 25 industry evals, swap inference engine to TensorRT-LLM NVFP4 path.
 - Decision point: ship V1 in FP8 (proven) and follow with an NVFP4 inference path as a v1.1 dot-release in July.
+
+#### Easiest path to actually try NVFP4 inference today (15-minute spike)
+
+No internal training run required. A public Qwen3-8B NVFP4 checkpoint is on the Hub. To validate the latency story on a 4090 / 5090 / H100 / GB10 before committing to the V1.1 path:
+
+```bash
+pip install vllm
+vllm serve drawais/Qwen3-8B-SpinQuant-NVFP4
+# now point any OpenAI-compatible client at http://localhost:8000
+```
+
+That's it — no code changes, no recipe tuning, no SpinQuant setup of our own. You get Qwen3-8B-class output, faster generation than the INT4 / AWQ lane on the same hardware, and a clean baseline to A/B against our existing FP8 inference stack.
+
+**What this spike tells us:**
+- Whether vLLM's NVFP4 GEMM path is stable enough on our hardware mix today (it is, per Avarok's DGX Spark reports — but worth confirming on our own GN-100 silicon).
+- Real measured tok/s vs our current FP8 path — feeds the V1.1 go/no-go decision.
+- Whether the OpenAI-compatible surface is drop-in for our agent orchestrator (it should be — we already talk OpenAI-compat to FP8 vLLM).
+
+**What it does *not* tell us:**
+- Accuracy on our 25 industry compliance evals (those are LWM-specific, not Qwen3-base). Still need the ~2-week quantize-and-regress pass on our own checkpoints before V1.1 ships.
+- KV-cache behaviour at 1M+ tokens (V2 territory, not V1).
+
+Owner for the spike: whoever's first to a GN-100 / Spark with an idle hour. Result: a one-page tok/s + memory comparison appended to this note as Appendix B.
 
 ### V2 Omnimodal / Video — November 2026 (DWS IQ 7)
 
