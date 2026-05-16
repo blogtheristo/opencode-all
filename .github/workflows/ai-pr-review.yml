@@ -682,7 +682,7 @@ IMPORTANT RULES:
         if: steps.conflict-check.outputs.has_conflicts != 'true'
         env:
           OLLAMA_HOST: ${{ secrets.OLLAMA_HOST }}
-          OLLAMA_MODEL: ${{ secrets.OLLAMA_MODEL || 'qwen2.5-coder:14b' }}
+          OLLAMA_MODEL: ${{ secrets.OLLAMA_MODEL || 'qwen3-coder:30b' }}
         run: |
           if [ -z "${OLLAMA_HOST:-}" ]; then
             echo "Ollama review skipped — OLLAMA_HOST not configured" > /tmp/ollama-review.txt

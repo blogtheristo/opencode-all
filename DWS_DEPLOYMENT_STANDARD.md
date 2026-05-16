@@ -4,10 +4,13 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.4
 
 Sessions & Modifications:
 
+- Version: 1.4 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Added "OpenClaw (local agent runtime)" as a new tracked Surface in the per-Surface Brain mapping table. Primary `nemotron-3-super`, Fast `qwen3-coder:30b`, **no cloud fallback by design** — EU-sovereign no-egress agent runtime on the DGX Spark, complement to (not replacement for) the cloud-side `clawdbot` skill. Workload pairings: confidential data analysis, code review on private code, 256K-context long-document reasoning.
+- Version: 1.3 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Replaced LWM Acer (sovereign edge) Primary Brain from `llama3.3:70b` (dense 70B, ~4.4 tok/s on DGX Spark Q4) → `nemotron-3-super` (NVIDIA `nemotron_h_moe`, 123.6B total / 12.7B active, ~19.5 tok/s eval on DGX Spark Q4_K_M — ~4.5× faster). Mamba-2 + interleaved attention + Latent MoE architecture; small KV cache by design. Brain-swap example row also refreshed. Groq cloud fallback unchanged (`llama-3.3-70b-versatile` is a separate tier, not on the Spark).
+- Version: 1.2 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Updated LWM Acer (sovereign edge) Fast Path entry from `qwen2.5-coder:32b` → `qwen3-coder:30b` (MoE 30B/3.3B active). Same physical host (Acer Veriton GN-100 = DGX Spark). Pulled in lockstep with `infrastructure/dgx-spark/*`, `.continue/config.yaml`, Veriton Continue templates, LWM training-manual parts 1-3, and `.github/workflows/ai-pr-review.yml` Level 5 default.
 - Version: 1.1 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 13.05.2026 | Changes: Added Cloud Run CI identity policy for admin-owned projects (`admin@dws6.com`) and keyless GitHub OIDC as default deploy auth. Documented `constraints/iam.disableServiceAccountKeyCreation` handling, mandatory `roles/iam.serviceAccountTokenCreator` fix for `getAccessToken` failures, and runbook references to ADMIN_MANUAL + `/gcr-skill` for client deployment readiness.
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/deployment-strategies-comparison-T5gcw | Date: 12.05.2026 | Changes: Initial creation. Master standard for deploys across every DWS Surface (static sites, dashboards, Cloud Run backend, AgentFoundry, MCP gateway, Firehorse Python suite, Situation Room, Control Room, LWM Acer / DGX Spark, Store). Defines the deploy ontology (Surface × Environment × Strategy × Event × Industry × Sales-Jurisdiction × Cloud-Jurisdiction × Tier), the per-surface Brain (LLM) declaration rule, the four release-time manifests (File Index, Per-Tenant Secrets, Personnel, Connector Data Catalogue) and the Client Artifact Bundle, the deploy-gate prerequisites (Code Versioning per `DWS_DOCUMENT_STANDARD.md` §19, Article 12 logging per `DWS_ARTICLE_12_LOGGING_STANDARD.md`, KYA-bound deploy authority, Observability minimums, Subscription State + Update Lane), and the rollback / verification / offboarding contracts. Indexes the 13+ existing deploy runbooks as referenced procedures; introduces no new code path. Companion lockstep thesis bump (all 4 files → 3.56), back-references added to DWS_SECURITY_STANDARD, DWS_SOVEREIGNTY_STANDARD, DWS_DATA_STANDARD, DWS_STANDARDS_LIBRARY in the same change.
 
@@ -19,7 +22,7 @@ Session Links & References:
 Document Status:
 
 - Created: 12.05.2026
-- Last Modified: 13.05.2026
+- Last Modified: 16.05.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE
@@ -118,7 +121,8 @@ Each Surface may bind to a different model. This standard does **not** mandate a
 
 | Surface                    | Primary Brain                                | Fast Path                           | Cloud Fallback                    | Notes                                                              |
 | -------------------------- | -------------------------------------------- | ----------------------------------- | --------------------------------- | ------------------------------------------------------------------ |
-| LWM Acer (sovereign edge)  | `llama3.3:70b` (Ollama, local)               | `qwen2.5-coder:32b` (Ollama, local) | `claude-opus-4-6` (Anthropic API) | Groq fallback: `groq/llama-3.3-70b-versatile`. EU-only at primary. |
+| LWM Acer (sovereign edge)  | `nemotron-3-super` (Ollama, local)           | `qwen3-coder:30b` (Ollama, local)   | `claude-opus-4-6` (Anthropic API) | Nemotron 3 Super: NVIDIA MoE 120B total / 12.7B active, 88-layer Mamba-2 + attention + Latent MoE, ~19.5 tok/s on DGX Spark Q4_K_M (~4.5× dense Llama 70B). Groq fallback: `groq/llama-3.3-70b-versatile`. EU-only at primary. |
+| OpenClaw (local agent runtime) | `nemotron-3-super` (Ollama, local)       | `qwen3-coder:30b` (Ollama, local)   | None — no egress by design        | EU-sovereign autonomous-agent surface on the DGX Spark. Same Ollama endpoint as LWM Acer. **No cloud fallback** — workloads (healthcare / finance / legal / defense data, confidential code review, 256K-context long-document reasoning) require all reasoning to stay inside the Spark LAN. Complements `clawdbot` (cloud-side Claude Code session janitor); does not replace it. |
 | Backend API / AgentFoundry | Model declared by calling agent              | —                                   | —                                 | Default per agent config.                                          |
 | Situation Room             | Per-view declaration; no single global Brain | —                                   | —                                 | Consumes pre-generated Firehorse reports.                          |
 | Control Room               | Per-view declaration; no single global Brain | —                                   | —                                 | Operational dashboard; per-view config.                            |
@@ -440,7 +444,7 @@ All gates here block `deploy.applied` or `deploy.verified` as noted; failure emi
 | **Skill version**                  | `deploy.applied`                                                                                   | Any `skills/<name>/SKILL.md` to be deployed lacks a version in frontmatter                                                                                                                       | Phase-in via §11 allowlist; today all skills lack version.                                                                      |
 | **KB compile**                     | `deploy.applied` to KB-consuming Surfaces (LWM Acer, AgentFoundry, Situation / Control Rooms)      | `kb/kb.json` shows `lastCompile: null` or older than source files                                                                                                                                | Compile script is §11.                                                                                                          |
 | **Locale & Currency**              | `deploy.applied`                                                                                   | Release's Locale & Currency binding inconsistent with Sales Jurisdiction (e.g. FI deploy declaring NOK)                                                                                          | Wiring is §11.                                                                                                                  |
-| **Brain (LLM) swap on production** | `deploy.applied`                                                                                   | Surface's primary Brain changes (e.g. LWM Acer primary swapped from `llama3.3:70b` to a different model)                                                                                         | RED-zone; record swap in File Index.                                                                                            |
+| **Brain (LLM) swap on production** | `deploy.applied`                                                                                   | Surface's primary Brain changes (e.g. LWM Acer primary swapped from `nemotron-3-super` to a different model)                                                                                     | RED-zone; record swap in File Index.                                                                                            |
 
 ---
 

@@ -11,10 +11,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.55
+Version: 3.56
 
 Sessions & Modifications:
 
+- Version: 3.56 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Added Section 14.18 (Compute-Scarcity Hedge and the NVFP4 Hardware Moat) — five subsections covering the supply-side signal (Anthropic 5+ GW across AWS / Google / Azure / Fluidstack / CoreWeave + new SpaceX Colossus 1, orbital concept), the NVIDIA hardware moat (NVFP4-native pretraining at 500B scale, Nemotron 3 Super / Ultra), operating-model implications (owned EU-sovereign Spark as compute-scarcity hedge; Brain layer now NVFP4-native; agent runtime physically EU-sovereign via OpenClaw), threats (NVIDIA lock-in, orbital tier resolving, AMD/Intel FP4 catch-up), and Key Contribution #23 — Compute-Supply as a Structural Variable in Industrial AI Operating Models. PhD scope per §1.3 (3–7 year horizon, market signals). All 4 thesis files bumped to v3.56 in lockstep per CLAUDE.md thesis rule; Master's V3Thesis files document the implementation-side Spark Brain change (Llama → Nemotron, OpenClaw runtime added) in their respective sections. `Learn/` HTML regeneration required (not in this commit — needs Pandoc build).
 - Version: 3.55 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Version bump from 3.54 to 3.55 in lockstep across all 4 thesis files; fixed VERSION AND AGENT HISTORY closing delimiter to ***; regenerated Learn thesis HTML outputs at v3.55
 - Version: 3.54 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Replaced §1.2 placeholder e-commerce questions with 6 doctoral research questions differentiated from master's thesis (ontologies/multi-industry, KYA standard, Agentic AI Foundation/NIST/EU, Agentic Commerce, EU eWallet, Transactions); added §1.2.1 five reformulated supervisor discussion questions (catalog governance, efficiency reversal, ontological grounding, risk classification conflicts, carbon signal sovereignty); added §1.3 content scope rule table (master's vs PhD: product/implementation vs science/standards, market signals, time horizon); all 4 thesis files bumped in lockstep per CLAUDE.md thesis rule
 - Version: 3.53 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Added agent accountability and observability layer as new Key Contribution: AgentLogger (structured JSONL + non-blocking Supabase agent_executions), AgentVersionRegistry for version rollback, drift-detector.ts daily confidence-drop reports, eval-runner.ts compliance dataset scoring — directly implements EU AI Act Articles 9 (risk management), 12 (logging), and 14 (human oversight) obligations as running production code; Baseten added as OpenAI-compatible LLM provider expanding multi-provider routing to Groq/Baseten/OpenAI with task-aware model-selector; /case-run skill registered (Themis v2.0 case-coordinate action — case-type→sub-agent mapping), Legora AOS competitive analysis documenting DWS Case entity roadmap P0 actions; Outokumpu CBAM partnership model as first industrial-buyer compliance cost quantification case; TokenSpeed inference engine field note (LightSeek MIT — TensorRT-LLM-class throughput, DGX Spark fit assessment); all 4 thesis files bumped in lockstep per CLAUDE.md thesis rule
@@ -2094,6 +2095,63 @@ The number of entries in each axis will shift as industries, workflows, and juri
 #### 14.17.6 Research Contribution
 
 **Key Contribution #22 — Register-Explicit Brand Architecture for Operating Models:** The Firehorse Operations Model formalises a three-tier naming taxonomy (Skilled / Industrial Specialist / Industry) applied uniformly across three orthogonal capability axes (agents, workflows, jurisdictions). The taxonomy is a research contribution because it treats naming as part of the operations model rather than marketing overhead: each register has a different audience (buyer, auditor, user) with different compliance obligations, and the single-label convention inherited from early-stage SaaS cannot satisfy all three simultaneously in EU-regulated industries. The `Skilled <Axis>` monotone pattern is proposed as a generalisable design pattern for one-person-team industrial AI platforms that need auditable brand architecture without a dedicated marketing function.
+
+### 14.18 Compute-Scarcity Hedge and the NVFP4 Hardware Moat
+
+_Added: 16.05.2026 | Source: Saiyam Pathak (2026-03-13) "What I'd Actually Use This For — Running Nemotron 3 Super on DGX Spark"; NVIDIA Nemotron 3 Super technical report; Anthropic compute-deal disclosures (AWS, Google, Azure, Fluidstack, CoreWeave, SpaceX Colossus 1); SpaceX–Anthropic orbital compute concept (announcement stage); $NBIS / $IREN public-market signals._
+
+The Firehorse Operations Model has so far treated compute as a fungible input — buyable from Groq, Anthropic, or any EU-sovereign cloud the carbon ledger requires. That assumption is now structurally wrong. The supply side of frontier-class GPU compute is consolidating into a small number of multi-gigawatt deals between three actors (Anthropic, NVIDIA, hyperscalers), and the bottleneck has shifted from price to **delivered power and GPUs that are actually online**. This section documents the market signal, the underlying NVIDIA hardware moat that makes the signal durable, and the operating-model implications for an EU-sovereign industrial AI platform.
+
+#### 14.18.1 The Supply-Side Signal
+
+As of Q2 2026, Anthropic has secured contracted capacity exceeding 5 GW across five named providers and one new entrant:
+
+| Provider                       | Disclosed capacity                            | Role                                                     |
+| ------------------------------ | --------------------------------------------- | -------------------------------------------------------- |
+| AWS (Amazon)                   | ~5 GW                                         | Primary training + inference cloud                       |
+| Google Cloud                   | ~5 GW (Google + Broadcom)                     | Multi-year training capacity                             |
+| Microsoft Azure                | ~$30 B capacity commitment                    | Azure inference and Anthropic API surface                |
+| Fluidstack                     | ~$50 B multi-year deal                        | Dedicated training clusters                              |
+| CoreWeave                      | Multi-year capacity contract                  | Specialised GPU cloud                                    |
+| **SpaceX Colossus 1**          | **300 MW+, 220k+ NVIDIA GPUs (new, Q2 2026)** | Additional training capacity on top of the five above    |
+
+The interpretation is unambiguous: a buyer that has already secured five separate hyperscaler-class supply chains is still adding **another GW-scale provider**. The marginal demand signal is not "we are price-sensitive"; it is "we cannot get enough delivered power and online GPUs". SpaceX has additionally indicated interest in **multi-gigawatt orbital compute** with Anthropic, and Google is reported to be in similar conversations on orbital data centres. The orbital tier is concept-stage and carries no revenue today, but it confirms the demand-side direction: actors with hyperscaler-class budgets are exploring physical envelopes that bypass terrestrial power and cooling constraints altogether.
+
+Public-market proxies for this trade behave consistently with the supply scarcity:
+
+- **Nebius (`$NBIS`)** — full-stack AI cloud, the cleanest public-comp expression of the build-out.
+- **Iris Energy (`$IREN`)** — power + data-centre asset operator, higher-beta exposure with known dilution and circularity concerns.
+
+Both names are structurally pulled into the same shortage story because they own two of the three scarce inputs (delivered power, online GPU footprint) and have a real NVIDIA relationship. The thesis treats them as observable proxies rather than recommendations.
+
+#### 14.18.2 The Hardware Moat: NVFP4 Pretraining at 500B Scale
+
+The supply story would be conjunctural — a temporary mismatch resolved by the next CAPEX cycle — were it not anchored to a NVIDIA hardware capability that is, as of 2026-Q2, **structurally unique to Blackwell**. NVIDIA's Nemotron 3 family makes the moat explicit:
+
+- **Nemotron 3 Super** (123.6B total, 12.7B active, MoE) — pretrained natively in NVFP4 across 25 trillion tokens. Most labs still pretrain in BF16 and post-quantise; pretraining directly in 4-bit floating point format requires hardware that natively dispatches FP4 in the tensor cores. Blackwell does. GB10 (DGX Spark) ships those cores at desk-side scale.
+- **Nemotron 3 Ultra** (~500B parameters, also NVFP4-pretrained, announced not yet released) — extends the same regime to a parameter count where the alternative (BF16 pretrain followed by quantisation collapse) is empirically untested.
+
+This matters for the operating model in two ways. First, the post-quantisation accuracy loss that the industry has accepted as standard is structurally absent in models born in FP4 — so the inference-economy advantage compounds with a quality advantage rather than trading against it. Second, the right to run these models efficiently is gated by access to the tensor cores: Hopper-class hardware can serve them, but at significantly worse tokens-per-watt and tokens-per-dollar than Blackwell. NVIDIA has therefore positioned the model layer (Nemotron) as the proof-of-need for the hardware layer (GB10 / GB200 / Vera Rubin) — and released the model weights, training data, and recipes (NeMo, NeMo Gym, NeMo RL; Artificial Analysis Openness Index 83/100) under licences that drive adoption rather than restrict it. The openness is ecosystem-building, not philanthropy: every developer who builds on Nemotron has a structural pull toward NVIDIA hardware.
+
+#### 14.18.3 Operating-Model Implications
+
+For the Firehorse Operations Model — an EU-sovereign industrial AI platform shipping from a single-operator team into 20+ regulated industries — three implications follow:
+
+1. **Owned EU-sovereign compute is a pre-positioned hedge.** The DGX Spark (Acer Veriton GN100, 128 GB unified LPDDR5x, 1 PFLOP FP4 sparse, 240 W) is fixed-power compute we already control. It is not a substitute for hyperscaler capacity at training scale, but at inference scale — where the actual carbon-balance-sheet workload lives, multiplied across CBAM / ESRS / EPBD / EU AI Act generation runs — it removes the operating model's dependence on auction-priced cloud GPU. As of Q2 2026, this is no longer a cost-optimisation argument; it is a **capacity-availability** argument. If Anthropic, OpenAI, and Mistral are bidding into the same shortage, the carbon-ledger workload that takes thousands of agentic subtasks per industry per quarter cannot rely on the residual capacity. The Spark, and the next units in the Lifetime Fleet, are the answer to a supply-side bet that has now resolved against renting at the margin.
+2. **The Brain layer is now NVFP4-native by default.** The Primary tier on the Spark moved from Llama 3.3 70B (dense, ~4.4 tok/s at Q4 on this hardware) to Nemotron 3 Super (~19.5 tok/s — see field note `docs/field-notes/2026-03-29-dgx-spark-primary-runtime-setup.md` v1.6 and the Brain mapping table in `DWS_DEPLOYMENT_STANDARD.md`). The 4.5× decode speedup is partly architectural (MoE, Mamba-2, small KV cache) and partly NVFP4 model–hardware alignment. The PR 161 Climate LLM fine-tune (§DWS7_ROADMAP.md) re-bases on Nemotron 3 Super for the same reason: a domain-tuned LoRA on an NVFP4-pretrained base is the only configuration where post-training does not undo the precision regime.
+3. **The agent runtime layer is now physically EU-sovereign.** OpenClaw runs on the same Spark, with its Brain wired to Nemotron 3 Super via Ollama and `OPENCLAW_ALLOW_EGRESS=false` enforced at the container level. This makes the autonomous-agent surface — the one that actually executes CBAM record generation, code review on confidential repos, and long-document reasoning over the consolidated EU AI Act text — a Surface whose trust boundary is the LAN, not a cloud provider's network. The Brain-Memory-Body-Hands architecture (§14.13 LWM Sequencing Strategy) gains a fourth practical guarantee: not just Brain locality, but Brain-and-runtime locality.
+
+#### 14.18.4 Threats and Open Questions
+
+Three threats to this hedge that the operating model must monitor:
+
+- **NVIDIA platform lock-in.** The hardware moat works against the operating model the moment NVIDIA decides to monetise it through licence terms (the Nemotron licence is already an evaluation licence, not Apache-class). The hedge is conditional on the NVIDIA Connect ISV Partner relationship (Lifetime Oy is confirmed) staying in good standing.
+- **The orbital tier resolving in the wrong direction.** If SpaceX / Google orbital compute moves from concept to revenue inside 3–5 years, terrestrial fixed-power compute becomes a less differentiated hedge. The operating model should treat the orbital concept as a watched signal in the PhD market-signal layer rather than as a roadmap input.
+- **AMD MI400 / Intel Gaudi 4 closing the FP4 gap.** A structurally similar hardware moat from a second supplier would re-introduce optionality but also re-introduce migration cost on the Brain layer. The Spark commitment is reversible at the LoRA-adapter level (the adapter can be re-derived against a different base), but only the adapter — not the runtime stack.
+
+#### 14.18.5 Research Contribution
+
+**Key Contribution #23 — Compute-Supply as a Structural Variable in Industrial AI Operating Models:** The Firehorse Operations Model elevates compute-supply scarcity from an operational risk note to a structural variable that shapes the operating-model design choices for an EU-sovereign industrial AI platform. The contribution is the explicit reasoning chain: hyperscaler GW-class demand (5+ GW Anthropic, parallel Microsoft / Meta / Google / OpenAI commitments) meets a NVIDIA hardware moat (NVFP4-native pretraining at 500B not feasible without Blackwell-class FP4 tensor cores), and the rational response for a single-operator industrial AI platform with EU compliance obligations is **owned, EU-sited, fixed-power compute pre-positioned at inference scale**, not auction participation. The contribution generalises beyond Lifetime Oy: any EU industrial platform whose unit of value is "regulated artefact per industrial customer per quarter" (carbon ledger, CSRD declaration, CBAM filing, EU AI Act conformity assessment) faces the same supply-side calculus and should structure its operating model accordingly. This contribution is positioned at the 3–7 year horizon (per the master-versus-PhD scope rule §1.3) because it depends on the duration of NVIDIA's NVFP4 lead and on the resolution of orbital-tier compute, both of which are multi-year unknowns.
 
 ---
 
