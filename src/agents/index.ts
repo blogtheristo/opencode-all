@@ -64,6 +64,7 @@ import { VisionOracleAgent } from './vision-oracle.agent.js';
 import { ChronosAgent } from './chronos.agent.js';
 import { registerBuiltinTools } from './tools.js';
 import { eventBus, registerDefaultEventHandlers } from './event-bus.js';
+import { withAgentSpan } from '../observability/tracing.js';
 import type { AgentConfig, AgentContext, AgentResponse } from './types.js';
 
 export class AgentRegistry {
@@ -152,7 +153,24 @@ export class AgentRegistry {
     });
 
     try {
-      const result = await agent.execute(context, input);
+      const result = await withAgentSpan(
+        name,
+        {
+          orgId: context.orgId,
+          sessionId: context.sessionId,
+          delegationDepth: currentDepth,
+        },
+        async (span) => {
+          const r = await agent.execute(context, input);
+          if (typeof r.confidence === 'number') {
+            span.setAttribute('dws.agent.confidence', r.confidence);
+          }
+          if (typeof r.metadata?.durationMs === 'number') {
+            span.setAttribute('dws.agent.duration_ms', r.metadata.durationMs);
+          }
+          return r;
+        },
+      );
 
       // Emit completion event
       await eventBus.emit({
