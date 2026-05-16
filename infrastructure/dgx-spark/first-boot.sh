@@ -106,7 +106,7 @@ if command -v ollama &>/dev/null; then
 
   # Check required models
   INSTALLED=$(ollama list 2>/dev/null | tail -n +2 | awk '{print $1}')
-  REQUIRED=("llama3.3:70b" "qwen2.5-coder:32b")
+  REQUIRED=("llama3.3:70b" "qwen3-coder:30b")
   MISSING=()
 
   for model in "${REQUIRED[@]}"; do

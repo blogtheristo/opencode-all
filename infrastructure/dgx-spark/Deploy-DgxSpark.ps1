@@ -209,8 +209,8 @@ function Invoke-DgxModels {
 echo 'Pulling llama3.3:70b (may take a while)...'
 ollama pull llama3.3:70b
 echo ''
-echo 'Pulling qwen2.5-coder:32b...'
-ollama pull qwen2.5-coder:32b
+echo 'Pulling qwen3-coder:30b...'
+ollama pull qwen3-coder:30b
 echo ''
 echo 'Available models:'
 ollama list

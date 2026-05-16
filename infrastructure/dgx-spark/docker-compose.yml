@@ -32,7 +32,7 @@ services:
       LLM_PRIMARY: ollama
       LLM_FALLBACK: groq
       OLLAMA_MODEL: llama3.3:70b
-      OLLAMA_MODEL_FAST: qwen2.5-coder:32b
+      OLLAMA_MODEL_FAST: qwen3-coder:30b
       # Enable all schedulers
       ENABLE_CRON_JOBS: "true"
       ENABLE_MORNING_BRIEFING: "true"

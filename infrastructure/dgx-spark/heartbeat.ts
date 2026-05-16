@@ -127,7 +127,7 @@ const server = http.createServer(async (req, res) => {
       services,
       models: {
         primary: 'llama3.3:70b (Ollama, local)',
-        fast: 'qwen2.5-coder:32b (Ollama, local)',
+        fast: 'qwen3-coder:30b (Ollama, local)',
         cloud: 'claude-opus-4-6 (Anthropic API)',
         fallback: 'groq/llama-3.3-70b-versatile',
       },

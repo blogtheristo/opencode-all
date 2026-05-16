@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Updated LWM Acer (sovereign edge) Fast Path entry from `qwen2.5-coder:32b` → `qwen3-coder:30b` (MoE 30B/3.3B active). Same physical host (Acer Veriton GN-100 = DGX Spark). Pulled in lockstep with `infrastructure/dgx-spark/*`, `.continue/config.yaml`, Veriton Continue templates, LWM training-manual parts 1-3, and `.github/workflows/ai-pr-review.yml` Level 5 default.
 - Version: 1.1 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 13.05.2026 | Changes: Added Cloud Run CI identity policy for admin-owned projects (`admin@dws6.com`) and keyless GitHub OIDC as default deploy auth. Documented `constraints/iam.disableServiceAccountKeyCreation` handling, mandatory `roles/iam.serviceAccountTokenCreator` fix for `getAccessToken` failures, and runbook references to ADMIN_MANUAL + `/gcr-skill` for client deployment readiness.
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/deployment-strategies-comparison-T5gcw | Date: 12.05.2026 | Changes: Initial creation. Master standard for deploys across every DWS Surface (static sites, dashboards, Cloud Run backend, AgentFoundry, MCP gateway, Firehorse Python suite, Situation Room, Control Room, LWM Acer / DGX Spark, Store). Defines the deploy ontology (Surface × Environment × Strategy × Event × Industry × Sales-Jurisdiction × Cloud-Jurisdiction × Tier), the per-surface Brain (LLM) declaration rule, the four release-time manifests (File Index, Per-Tenant Secrets, Personnel, Connector Data Catalogue) and the Client Artifact Bundle, the deploy-gate prerequisites (Code Versioning per `DWS_DOCUMENT_STANDARD.md` §19, Article 12 logging per `DWS_ARTICLE_12_LOGGING_STANDARD.md`, KYA-bound deploy authority, Observability minimums, Subscription State + Update Lane), and the rollback / verification / offboarding contracts. Indexes the 13+ existing deploy runbooks as referenced procedures; introduces no new code path. Companion lockstep thesis bump (all 4 files → 3.56), back-references added to DWS_SECURITY_STANDARD, DWS_SOVEREIGNTY_STANDARD, DWS_DATA_STANDARD, DWS_STANDARDS_LIBRARY in the same change.
 
@@ -19,7 +20,7 @@ Session Links & References:
 Document Status:
 
 - Created: 12.05.2026
-- Last Modified: 13.05.2026
+- Last Modified: 16.05.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE
@@ -118,7 +119,7 @@ Each Surface may bind to a different model. This standard does **not** mandate a
 
 | Surface                    | Primary Brain                                | Fast Path                           | Cloud Fallback                    | Notes                                                              |
 | -------------------------- | -------------------------------------------- | ----------------------------------- | --------------------------------- | ------------------------------------------------------------------ |
-| LWM Acer (sovereign edge)  | `llama3.3:70b` (Ollama, local)               | `qwen2.5-coder:32b` (Ollama, local) | `claude-opus-4-6` (Anthropic API) | Groq fallback: `groq/llama-3.3-70b-versatile`. EU-only at primary. |
+| LWM Acer (sovereign edge)  | `llama3.3:70b` (Ollama, local)               | `qwen3-coder:30b` (Ollama, local)   | `claude-opus-4-6` (Anthropic API) | Groq fallback: `groq/llama-3.3-70b-versatile`. EU-only at primary. |
 | Backend API / AgentFoundry | Model declared by calling agent              | —                                   | —                                 | Default per agent config.                                          |
 | Situation Room             | Per-view declaration; no single global Brain | —                                   | —                                 | Consumes pre-generated Firehorse reports.                          |
 | Control Room               | Per-view declaration; no single global Brain | —                                   | —                                 | Operational dashboard; per-view config.                            |

@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Upgraded Fast tier from Qwen 2.5 Coder 32B → Qwen3-Coder 30B (MoE 30B/3.3B active). Added Synth-data routing row (SyntheticDataAgent teacher via NeMo DataDesigner). Added "Next Steps — NVFP4 path" section covering Blackwell FP4 cores, Nemotron 3 Super/Ultra context, and compute-scarcity hedge rationale. Memory budget refreshed (~19GB Qwen, ~49GB headroom).
 - Version: 1.2 | Tool: Claude Opus 4.6 | Session: claude/mvp-missing-features-pS9La | Date: 13.04.2026 | Changes: Added "Host Paths on DGX Spark" section with exact absolute paths (dws6 repo, docker-compose.yml, env file, logs, Ollama models) + rebuild playbook to prevent "stale container" confusion after host git pull
 - Version: 1.1 | Tool: Claude Opus 4.6 | Session: claude/dgx-spark-setup-UN9WR | Date: 29.03.2026 | Changes: Deployment complete — 4 containers healthy, Cloudflare Tunnel live (heartbeat.dws6.com), systemd auto-start, CORS hardened (LAN-only), syntax fixes in data-collectors.ts and briefing-template.ts
 - Version: 1.0 | Tool: Claude Opus 4.6 | Session: claude/dgx-spark-setup-UN9WR | Date: 29.03.2026 | Changes: Initial setup — DGX Spark as primary runtime, GitHub Actions as failover, SSH deploy, heartbeat system, model routing
@@ -15,7 +16,7 @@ Sessions & Modifications:
 Document Status:
 
 - Created: 29.03.2026
-- Last Modified: 13.04.2026
+- Last Modified: 16.05.2026
 - Language: English
 - Publication Status: ACTIVE
 - Document Type: Field Note / Infrastructure
@@ -48,7 +49,8 @@ Related Documents:
 │  │  Ollama       │  │  Redis       │                     │
 │  │  :11434       │  │  :6379       │                     │
 │  │  Llama 70B    │  │  job queue   │                     │
-│  │  Qwen 32B     │  │              │                     │
+│  │  Qwen3-Coder  │  │              │                     │
+│  │  30B (MoE)    │  │              │                     │
 │  └──────────────┘  └──────────────┘                     │
 │                                                          │
 │  SSH: admin100@192.168.101.113                           │
@@ -156,20 +158,34 @@ docker exec dws-cron ls -la /app/scripts/<new-script>.ts
 
 ## Model Routing Strategy
 
-| Tier         | Model                   | Where               | Cost      | Use Case                              |
-| ------------ | ----------------------- | ------------------- | --------- | ------------------------------------- |
-| **Primary**  | Llama 3.3 70B           | Ollama on DGX Spark | €0        | 14 of 16 agents                       |
-| **Fast**     | Qwen 2.5 Coder 32B      | Ollama on DGX Spark | €0        | Code generation, quick tasks          |
-| **Cloud**    | Claude Opus 4.6         | Anthropic API       | Per-token | Designer agent, complex orchestration |
-| **Fallback** | Llama 3.3 70B Versatile | Groq API            | Per-token | Burst capacity when DGX is loaded     |
+| Tier             | Model                   | Where               | Cost      | Use Case                              |
+| ---------------- | ----------------------- | ------------------- | --------- | ------------------------------------- |
+| **Primary**      | Llama 3.3 70B           | Ollama on DGX Spark | €0        | 14 of 16 agents                       |
+| **Fast**         | Qwen3-Coder 30B (MoE)   | Ollama on DGX Spark | €0        | Code generation, quick tasks          |
+| **Synth-data**   | Qwen3-Coder 30B (MoE)   | Ollama on DGX Spark | €0        | SyntheticDataAgent teacher (CBAM / ESRS / EPBD seeding via NeMo DataDesigner) |
+| **Cloud**        | Claude Opus 4.6         | Anthropic API       | Per-token | Designer agent, complex orchestration |
+| **Fallback**     | Llama 3.3 70B Versatile | Groq API            | Per-token | Burst capacity when DGX is loaded     |
+
+Qwen3-Coder is a Mixture-of-Experts model: 30B total parameters with only 3.3B active per token. Inference is faster than the previous dense Qwen 2.5 Coder 32B despite a comparable disk/VRAM footprint, which is why the Fast tier and the synthetic-data teacher slot share the same weights — one pull, two roles.
 
 **Memory budget:**
 
 - Llama 3.3 70B Q4: ~40GB
-- Qwen 2.5 Coder 32B Q4: ~20GB
+- Qwen3-Coder 30B Q4 (MoE): ~19GB
 - DWS Backend + Cron + Redis: ~12GB
 - OS + Docker overhead: ~8GB
-- **Available headroom: ~48GB** (enough for additional models or higher quantization)
+- **Available headroom: ~49GB** (enough for additional models or higher quantization)
+
+## Next Steps — NVFP4 path (strategic, Track 2)
+
+The Spark's GB10 ships Blackwell FP4 tensor cores. Running Qwen3-Coder as Q4 GGUF through Ollama uses general-purpose CUDA, not the FP4 path — we leave Blackwell's hardware moat on the table. Two strategic moves:
+
+1. **Native NVFP4 serving for Qwen.** Move the Fast / Synth-data slot off Ollama Q4 onto NVIDIA's native stack — TensorRT-LLM or NIM with a Qwen3-Coder build in NVFP4. Expected: significantly higher tokens/sec on the same hardware, and tighter alignment with the path NVIDIA itself is taking with Nemotron 3 Super (120B, 25T tokens, pretrained NVFP4) and Nemotron 3 Ultra (~500B, pretrained NVFP4). Pretraining directly in NVFP4 at 500B scale is new ground — most labs still BF16-pretrain and post-quantize.
+2. **Compute-scarcity hedge.** Anthropic has already secured ≥5GW across AWS / Google / Azure / Fluidstack / CoreWeave and now added SpaceX Colossus 1 (300MW+, 220k+ NVIDIA GPUs). The bottleneck for everyone behind that wave is delivered power + GPUs actually online. The Spark is **owned, EU-sited, fixed-power compute we already control** — pre-positioning Qwen on its native FP4 stack now means we are not bidding into the shortage when synthetic-data demand (CBAM / ESRS / EPBD generation) scales.
+
+This stays a planning note in this PR — actual NIM / TensorRT-LLM integration is a separate workstream because it replaces the `:11434` Ollama endpoint that 14 agents + `scripts/ollama-spark.sh` target.
+
+Market-signal references (Anthropic compute deals, SpaceX orbital concept, $NBIS / $IREN comps) belong in `docs/PHD_FIREHORSE_EN.md` / `docs/PHD_FIREHORSE_FI.md` per the CLAUDE.md thesis split, not here.
 
 ## Cron Jobs — 23 Schedules Mirrored
 
@@ -225,7 +241,7 @@ ssh -L 11435:localhost:11434 \
 
 1. SSH config with `LocalForward` for Ollama and heartbeat
 2. Cursor → Settings → Models → Base URL = `http://localhost:11435/v1`
-3. Model: `qwen2.5-coder:32b` or `llama3.3:70b`
+3. Model: `qwen3-coder:30b` or `llama3.3:70b`
 4. Heartbeat dashboard: `http://localhost:9998/`
 
 **CC Mobile (Claude Code on mobile):**
