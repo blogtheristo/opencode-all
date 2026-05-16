@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.6
+Version: 1.7
 
 Sessions & Modifications:
 
+- Version: 1.7 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Added `--models-cleanup` flag to `deploy.sh` + `Deploy-DgxSpark.ps1` for destructive removal of deprecated `llama3.3:70b` and `qwen2.5-coder:32b`. Separate from `--models` on purpose: requires explicit `remove` confirmation prompt, intended to run only after the new Primary + Fast tiers are verified in production. Field note documents the warm-rollback policy (May 2026): all four models stay on disk during transition — Spark NVMe has ~3TB, no constraint, RAM unaffected because Ollama lazy-loads.
 - Version: 1.6 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Wired OpenClaw into the docker-compose stack as a first-class service (port 8090) — image parameterised via `OPENCLAW_IMAGE` env var, `OPENCLAW_ALLOW_EGRESS=false` enforces no-egress posture, persistent state and logs volumes added. Heartbeat service now polls `CHECK_OPENCLAW=http://openclaw:8090/health` alongside backend/cron/ollama. `deploy.sh` post-deploy health-check sequence prints OpenClaw status. Container table and Host Paths table updated. Deployment status snapshot row marked `(post-deploy)` — full healthy confirmation will land on first deploy.
 - Version: 1.5 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Added OpenClaw as a tracked Spark service — local autonomous agent runtime with Brain wired to `nemotron-3-super` via Ollama. Architecture diagram now shows OpenClaw alongside Ollama/Redis. New "OpenClaw — local autonomous agent runtime" section clarifies the EU-sovereign no-egress role, its complementarity with the cloud-side `clawdbot` skill, and the workload pairings (private data analysis, confidential code review, long-document reasoning at 256K).
 - Version: 1.4 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Replaced Primary tier Llama 3.3 70B (dense, ~4.4 tok/s) → Nemotron 3 Super (NVIDIA `nemotron_h_moe`, 123.6B/12.7B active, Mamba-2 + attention + Latent MoE, ~19.5 tok/s on DGX Spark Q4_K_M — ~4.5× faster). Memory budget tightened (~126GB committed, ~2GB headroom — relies on Ollama lazy-load + `OLLAMA_KEEP_ALIVE` to avoid simultaneous-hot OOM). Added operational notes: Ollama 0.17.1+ requirement, default ctx 262144 (1M = OOM), NVIDIA sampling defaults (temp 1.0 chat / 0.6 + top_p 0.95 tool calls). Hardware table refreshed with GB10 GPU specs, 20-core ARM split, 240W power, form factor.
@@ -191,6 +192,8 @@ docker exec dws-cron ls -la /app/scripts/<new-script>.ts
 Both models loaded simultaneously leaves effectively no room for KV cache growth. In practice, Ollama lazy-loads on request and unloads idle models after `OLLAMA_KEEP_ALIVE` (default 5m), so usually only one large model is hot at a time. Cold-load penalty on tier switch (~30–60s for Nemotron from NVMe). For workloads that flip frequently between Primary and Fast, set `OLLAMA_KEEP_ALIVE=15m` to reduce thrash at the cost of higher steady-state memory pressure.
 
 **Ollama context limits:** `ollama show nemotron-3-super` reports default context 262144 (256K). The model's theoretical max is 1M tokens; setting `--ctx-size` to 1M on the Spark triggers CUDA OOM. Practical range on the Spark: 16384 to 262144. Use NVIDIA's recommended sampling: `temperature=1.0` for chat, `temperature=0.6 top_p=0.95` for tool calling.
+
+**Warm-rollback policy (May 2026):** All four models stay on disk during the Nemotron / Qwen3-Coder transition — `nemotron-3-super` + `qwen3-coder:30b` (new Primary + Fast) and `llama3.3:70b` + `qwen2.5-coder:32b` (deprecated, kept as warm rollback). Total disk: ~166GB of the Spark's 3TB NVMe; no constraint. RAM is unaffected (Ollama lazy-loads, only one big model hot at a time). To remove the deprecated pair once the new models are verified in production, run `./infrastructure/dgx-spark/deploy.sh --models-cleanup` — destructive, prompts to confirm with `remove`, reclaims ~60GB.
 
 ## OpenClaw — local autonomous agent runtime
 
