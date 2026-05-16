@@ -1,18 +1,20 @@
 # DWS IQ 6 — The Platform for Fit for 55 Compliance
 
-> **DWS IQ 6 is the de facto platform for critical and important carbon credit works across 16 EU-regulated industries.**
+> **DWS IQ 6 is the de facto platform for critical and important carbon credit works across 25 EU-regulated industries.**
+
+> **Canonical registry — single source of truth.** This file supersedes the legacy `16-INDUSTRIES.md`. All other documents (README.md, DWS7_ROADMAP.md, DWS8_ROADMAP.md, Store/PRODUCT_AEGIS.md, Learn/PHD_FIREHORSE_EN.md, INVESTOR_EMAIL_TEMPLATES.md, ONTOLOGY.md, dws10.com pages) must reconcile their industry counts against this list. Last reconciliation target: **25 industries**, including the May 2026 commitments of **Data Centres** and **RFNBO (Renewable Fuels of Non-Biological Origin)**.
 
 ---
 
 ## Executive Summary
 
-The EU's **Fit for 55** package mandates a 55% reduction in net GHG emissions by 2030. This creates an unprecedented compliance burden across 16 industries — requiring real-time carbon tracking, automated reporting, supply chain transparency, and continuous regulatory alignment.
+The EU's **Fit for 55** package mandates a 55% reduction in net GHG emissions by 2030. This creates an unprecedented compliance burden across 25 industries — requiring real-time carbon tracking, automated reporting, supply chain transparency, and continuous regulatory alignment.
 
 **DWS IQ 6 automates this entire compliance stack.** From embodied carbon calculations (EN 15978) to ETS reporting, CBAM border adjustments, and CSRD sustainability disclosures — one platform, one source of truth.
 
 ---
 
-## The 16 Industries: Fit for 55 Impact Matrix
+## The 25 Industries: Fit for 55 Impact Matrix
 
 ### Tier 1: Critical Emissions Industries (ETS + CBAM Direct)
 
@@ -43,6 +45,22 @@ These 8 industries face distributed regulatory pressure through national ESR tar
 | **14** | 🍕 **Food & Beverage Processing** | Medium | ESR, Energy Efficiency Directive | Agricultural supply chain carbon, energy optimization |
 | **15** | 🏺 **Glass & Ceramics Production** | Medium | ETS, CBAM (indirect) | Process emissions, material carbon tracking |
 | **16** | ⛏️ **Mining & Quarrying** | Medium | ETS (indirect), Critical Raw Materials | Extraction emissions, CRM supply chain compliance |
+
+### Tier 3: Cross-Cutting & Newly Regulated Industries (CSRD + Sector-Specific)
+
+These 9 industries are pulled into the Fit for 55 envelope through CSRD value-chain reporting, sector-specific delegated acts, and the 2026 EU regulatory expansion. The May 2026 commitment adds **Data Centres** (EED Article 12 + Data Centre Energy Reporting Delegated Regulation) and **RFNBO** (RED III Delegated Acts on green hydrogen & e-fuels) as canonical industries.
+
+| # | Industry | EU Emissions Share | Key Regulations | DWS IQ 6 Solution |
+|---|----------|-------------------|-----------------|-------------------|
+| **17** | 🏠 **Real Estate** | Embedded in 36-40% buildings | EPBD, CSRD, EU Taxonomy | Portfolio energy-performance reporting, renovation roadmaps |
+| **18** | ⚙️ **Manufacturing (cross-sector)** | High (aggregate) | ETS, ESPR, CSRD, CBAM | Digital Product Passports, plant-level energy + emissions |
+| **19** | 🏥 **Healthcare** | Medium (facility + supply) | CSRD, GDPR, EHDS, MDR | Facility carbon, ESRS S1, EHDS-aligned secondary data |
+| **20** | 🏦 **Financial Services** | Financed emissions (huge) | SFDR, CSRD, EU Taxonomy, CRR3 | Financed-emissions accounting, PAI tables, Taxonomy KPIs |
+| **21** | 🏛️ **Public Sector** | Procurement + facility | CSRD, GDPR, GPP, NIS2 | Sovereign on-prem AI, GPP green procurement, NIS2 dossiers |
+| **22** | ⚓ **Shipbuilding** | Build-phase + lifecycle | ETS Maritime, EN 14017, FuelEU Maritime, CSRD | Vessel LCA, ETS Maritime declarations, FuelEU pooling |
+| **23** | 🚚 **Logistics (multimodal freight)** | Distinct from road transport | ETS2, CountEmissionsEU, CSRD | Freight emissions, scope-3 transport, ETS2 readiness |
+| **24** | 🖥️ **Data Centres** *(committed May 2026)* | 2-3% (growing fast) | EED Article 12, Data Centre Energy Reporting Delegated Reg, CSRD | PUE/WUE telemetry, Annex VII reporting, sovereign on-prem AI |
+| **25** | 🔋 **RFNBO / Green H2 & E-Fuels** *(committed May 2026)* | Net-negative carrier | RED III, REDII Delegated Acts (Art. 27), ETS coupling | RFNBO certification, additionality audits, temporal/geographic correlation |
 
 ---
 

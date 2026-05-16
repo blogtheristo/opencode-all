@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/industries-hub-worldmodel-lJrC6 | Date: 15.05.2026 | Changes: Added §"Industry-registry inconsistency" appendix. Repo currently disagrees on the industry count (16 / 20 / 21 / 22 / 23 across 16-INDUSTRIES.md, README.md, Aegis docs, DWS7/DWS8 roadmaps, V3Thesis, PHD_FIREHORSE). Reconciliation target locked at **25** with Data Centres + RFNBO committed. Renamed `16-INDUSTRIES.md` → `INDUSTRIES.md` and updated it to the canonical 25-industry registry.
   - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/industries-hub-worldmodel-lJrC6 | Date: 15.05.2026 | Changes: Initial study note on arxiv:2509.25149 ("Pretraining Large Language Models with NVFP4", NVIDIA). Maps the NVFP4 format and pretraining recipe onto the Lifetime World Model V1 (June 12 2026, DWS IQ 6) and V2 (November 2026, DWS IQ 7) control-room deployment.
 
 Session Links & References:
@@ -152,3 +153,57 @@ This is the alignment point with the **world-model V1→V2 roadmap** we just shi
 ## One-line thesis
 
 > NVFP4 is the format that makes a 100B-class on-prem world model fit in a single control-room chassis. The paper proves the recipe works at 12B / 10T tokens. We pre-commit to NVFP4 for LWM V2 (November 2026) and decide on an NVFP4 V1.1 inference path before June 12.
+
+---
+
+## Appendix A — Industry-registry inconsistency (flagged 15.05.2026)
+
+The repo currently disagrees with itself on how many EU-regulated industries the LWM and DWS IQ platform support. This is a registry hygiene problem, not a product problem — but it shows up in investor decks, the world-model page, the master thesis and PhD thesis, so it must be reconciled to one number.
+
+### What was found
+
+| Count | Where it's stated | Status |
+|------:|-------------------|--------|
+| **16** | `16-INDUSTRIES.md` (now `INDUSTRIES.md`), `DWS7_ROADMAP.md`, `ONTOLOGY.md`, parts of `Learn/PHD_FIREHORSE_EN.md`, `skills/risto/SKILL.md` | Stale (pre-V1) |
+| **20** | `README.md`, `DWS8_ROADMAP.md`, `INVESTOR_EMAIL_TEMPLATES.md`, parts of `Learn/PHD_FIREHORSE_EN.md`, dws10.com/world-model (pre-15.05) | Mid-cycle |
+| **21** | `Store/PRODUCT_AEGIS.md`, dws10.com/index.html, ironclad-nav v3.x comments | Aegis-era |
+| **22** | Implicit in earlier draft of world-model V1 | Transient |
+| **23** | dws10.com/world-model/ (15.05 morning), dws10.com/industries/, captain/details/ | Locked & shipped today |
+| **25** | **NEW target** — adds Data Centres + RFNBO | **Canonical from 15.05.2026** |
+
+### Recommended action — already executed in this PR
+
+1. ✅ Rename `16-INDUSTRIES.md` → `INDUSTRIES.md` (`git mv`).
+2. ✅ Update `INDUSTRIES.md` to be the **canonical registry** with 25 industries in three tiers (Tier 1: ETS+CBAM direct, 1–8 · Tier 2: ESR+indirect, 9–16 · Tier 3: cross-cutting + newly regulated, 17–25).
+3. ✅ Commit Data Centres (EED Article 12 + Data Centre Energy Reporting Delegated Regulation + CSRD) and RFNBO (RED III + REDII Delegated Acts Article 27 + ETS coupling) as industries 24 and 25.
+4. ✅ Update `dws10.com/world-model/index.html` (+ landing-pages mirror) 23 → 25 — hero stat, h2, JSON-LD, og/twitter meta, version-roadmap, "industry models" stat, and added the two new industry tiles.
+5. ✅ Update `dws10.com/industries/index.html` (+ mirror) hero badge "23 → 25 EU-Regulated Industries on the Lifetime World Model" and stat-strip "25 Models in LWM V1".
+
+### Recommended action — TODO (out of scope for this PR)
+
+A repo-wide reconciliation pass to bring every other doc to **25**. Files known to need editing:
+
+- `README.md` (3 occurrences of "20 industries" / "20 industry verticals")
+- `DWS7_ROADMAP.md` (5+ occurrences of "16 industries" / "16 industrial customers" — separate concept; review whether customer count should follow registry)
+- `DWS8_ROADMAP.md` (3 occurrences of "20 industries")
+- `Store/PRODUCT_AEGIS.md` (5 occurrences of "21 industries" — Aegis SKU description)
+- `Learn/PHD_FIREHORSE_EN.md` (mixed 16 + 20 within same doc — needs careful pass since PhD-thesis scope rule applies)
+- `Learn/V3Thesis_EN.html` + `docs/metropolia/master-thesis/en/V3Thesis_EN.md` + FI mirror (thesis-rule: all 4 files together per CLAUDE.md)
+- `INVESTOR_EMAIL_TEMPLATES.md` (3 occurrences of "20 industries", incl. Industry Captain seat description)
+- `ONTOLOGY.md` (2 occurrences of "16 industries")
+- `CHANGELOG.md` (historical note "16 to 20 industries" — leave as-is for audit trail)
+- `Firehorse/Omnichannel/Investors/*.md` (CAPTAIN_ACQUISITION_FUNNEL, INDEX, OUTREACH_WORKFLOW)
+- `dws10.com/index.html` line 1436 / 1442: "21 industry applications" / "Body: 21 industry-specific applications"
+- `dws10.com/shared-assets/nav/ironclad-nav.js` v3.x comment (cosmetic — comment changelog, not user-facing)
+- `Learn/` HTML archives: leave as historical snapshots; do not edit (they are versioned outputs).
+
+This sweep should be a single dedicated PR titled `chore: reconcile industry-registry to 25 across docs (Data Centres + RFNBO)` so each file's edit is reviewable in one place.
+
+### Why Data Centres and RFNBO
+
+Both have moved from "watch list" to "in scope" in 2026:
+
+- **Data Centres** — EED 2023/1791 Article 12 enforced in 2026 with the Commission's Data Centre Energy Reporting Delegated Regulation; CSRD ESRS E1 applies; hyperscalers and colos in Finland (Microsoft, Google, Equinix, Telia) are direct prospects.
+- **RFNBO** — RED III Delegated Acts (Article 27) on additionality, temporal and geographic correlation are binding from 2026; the Finnish hydrogen valleys (Joutseno, Kokkola, Inkoo) need certification infrastructure DWS IQ can provide.
+
+These are commitments, not aspirations. Industry models 24 (Data Centres) and 25 (RFNBO) enter the LWM V1 training set before June 12 2026 ship.
