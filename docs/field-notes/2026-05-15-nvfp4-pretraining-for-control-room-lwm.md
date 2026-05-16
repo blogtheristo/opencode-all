@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.4
 
 Sessions & Modifications:
+  - Version: 1.4 | Tool: Claude Code (Opus 4.7) | Session: claude/industries-hub-worldmodel-lJrC6 | Date: 15.05.2026 | Changes: Promoted **`nvidia/Gemma-4-31B-IT-NVFP4`** to canonical spike model — first-party NVIDIA release with documented **99.7% accuracy retention on GPQA (75.46% vs 75.71%)**, ~16 GB on disk, attention kept in BF16 (matches arxiv:2509.25149 §3 selective-precision pattern), 256K context preserved. Kept drawais Qwen3 variants as recipe-contrast points. The three models now stake out three points on the quantization-recipe surface (skip-attention, quantize-everything, SpinQuant) for our 55B LWM PTQ decision.
   - Version: 1.3 | Tool: Claude Code (Opus 4.7) | Session: claude/industries-hub-worldmodel-lJrC6 | Date: 15.05.2026 | Changes: Added `drawais/Qwen3-32B-NVFP4` as the headline spike model (Apache-2.0, dense 32B, **W4A4**, ~17 GB on disk, fits a single 24 GB consumer GPU). 32B is the closest publicly available proxy for an LWM-class checkpoint on a control-room-class box. Kept the 8B variant as a laptop fallback and added a model-selection table.
   - Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/industries-hub-worldmodel-lJrC6 | Date: 15.05.2026 | Changes: Added "Easiest path to actually try NVFP4 inference today" subsection under V1 — 3-line vLLM + `drawais/Qwen3-8B-SpinQuant-NVFP4` recipe for a 15-minute spike, plus framing of what the spike does and does not validate. Also bumped "23 industry evals" → "25 industry evals" to align with the registry reconciliation.
   - Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/industries-hub-worldmodel-lJrC6 | Date: 15.05.2026 | Changes: Added §"Industry-registry inconsistency" appendix. Repo currently disagrees on the industry count (16 / 20 / 21 / 22 / 23 across 16-INDUSTRIES.md, README.md, Aegis docs, DWS7/DWS8 roadmaps, V3Thesis, PHD_FIREHORSE). Reconciliation target locked at **25** with Data Centres + RFNBO committed. Renamed `16-INDUSTRIES.md` → `INDUSTRIES.md` and updated it to the canonical 25-industry registry.
@@ -125,37 +126,44 @@ This is implementation-level — belongs in V3Thesis, not PhD Firehorse (per CLA
 
 #### Easiest path to actually try NVFP4 inference today (15-minute spike)
 
-No internal training run required. Two public NVFP4 checkpoints are on the Hub. Pick the size that matches the GPU in front of you and run a single `vllm serve` command — no quantization work of our own:
+No internal training run required. Several public NVFP4 checkpoints are now on the Hub — including a **first-party NVIDIA release with documented GPQA accuracy retention**. Pick the size that matches the GPU in front of you and run a single `vllm serve` command:
 
-| Model | Format | On-disk | Min VRAM | Best for |
-|-------|--------|--------:|---------:|----------|
-| `drawais/Qwen3-8B-SpinQuant-NVFP4` | NVFP4 (SpinQuant) | ~5 GB | 8–12 GB | Laptop / 4060 / fast smoke test |
-| `drawais/Qwen3-32B-NVFP4` | NVFP4 **W4A4** | **~17 GB** | **24 GB** (single consumer GPU) | 4090 / 5090 / RTX PRO / GB10 / H100 — the realistic LWM-class spike |
-
-The 32B drop is the one that matters for us — same Qwen3 family, dense not MoE, Apache-2.0, full **W4A4** (weights *and* activations at 4-bit, which is the actual NVFP4 promise) — and it fits on a **single 24 GB consumer GPU**. That's the closest publicly available proxy for an LWM-class checkpoint we can run on a control-room-class box without negotiating an internal eval.
+| Model | Publisher | Format | On-disk | Min VRAM | Documented accuracy | Best for |
+|-------|-----------|--------|--------:|---------:|---------------------|----------|
+| **`nvidia/Gemma-4-31B-IT-NVFP4`** | **NVIDIA (first-party)** | NVFP4 W4A4, **attention kept BF16**, 256K context preserved | ~16 GB | **24 GB** | **99.7% of FP16 on GPQA — 75.46% vs 75.71%** | **Recommended canonical spike** — NVIDIA-supported, accuracy-verified, ships with the paper's selective-precision recipe baked in |
+| `drawais/Qwen3-32B-NVFP4` | Community (drawais) | NVFP4 W4A4 (all linear layers) | ~17 GB | 24 GB | Not published | More aggressive quantization (no BF16 attention) — useful as a contrast to NVIDIA's recipe |
+| `drawais/Qwen3-8B-SpinQuant-NVFP4` | Community | NVFP4 + SpinQuant rotations | ~5 GB | 8–12 GB | Not published | Laptop / 4060 / fast smoke test; answers the rotations-help-at-small-scale question |
 
 ```bash
 pip install vllm
-vllm serve drawais/Qwen3-32B-NVFP4         # premium spike — 17 GB, 24 GB GPU
-# or:
-vllm serve drawais/Qwen3-8B-SpinQuant-NVFP4  # 5 GB, runs anywhere
+vllm serve nvidia/Gemma-4-31B-IT-NVFP4       # canonical spike — NVIDIA-blessed, ~16 GB, 24 GB GPU
+# or to contrast quantization recipes on similar-size models:
+vllm serve drawais/Qwen3-32B-NVFP4           # aggressive W4A4 incl. attention, ~17 GB
+vllm serve drawais/Qwen3-8B-SpinQuant-NVFP4  # ~5 GB, runs anywhere
 # point any OpenAI-compatible client at http://localhost:8000
 ```
 
-That's it — no code changes, no recipe tuning, no SpinQuant or activation-scale setup of our own. You get Qwen3-class output, faster generation than the INT4 / AWQ lane on the same hardware, and a clean baseline to A/B against our existing FP8 inference stack.
+That's it — no code changes, no recipe tuning, no quantization work of our own. You get **31B-class output at 99.7% FP16 accuracy** with NVIDIA's reference recipe, faster generation than the INT4 / AWQ lane on the same hardware, and a clean baseline to A/B against our existing FP8 inference stack.
+
+**Why the NVIDIA Gemma-4-31B release matters most for us:**
+- **First-party**: NVIDIA owns the recipe. If something is broken in vLLM's NVFP4 path on our hardware, this is the model NVIDIA will debug against.
+- **Documented accuracy**: 75.46% vs 75.71% on GPQA = **0.25 pp absolute drop, 99.7% retention**. This is the concrete number we cite in the V1.1 decision memo — not a vibes claim.
+- **The recipe matches the paper.** Self-attention stays in BF16; only MLP layers go to NVFP4. That's exactly the "first 2 / last 8 layers in BF16" pattern from arxiv:2509.25149 §3, generalized. It tells us our own LWM PTQ should follow the same pattern — skip attention, quantize MLPs.
+- **256K context preserved.** This is the V1.1 happy path: long industrial prompts (full EPBD building report + months of telemetry) without surgery on rope scaling.
 
 **What this spike tells us:**
 - Whether vLLM's NVFP4 GEMM path is stable enough on our hardware mix today (it is, per Avarok's DGX Spark reports — but worth confirming on our own GN-100 silicon).
-- Real measured tok/s vs our current FP8 path at LWM-realistic model size — **32B in 17 GB** is the headline data point.
+- Real measured tok/s vs our current FP8 path at LWM-realistic model size — **~31B in ~16 GB at 99.7% accuracy** is the headline data point.
 - Whether the OpenAI-compatible surface is drop-in for our agent orchestrator (it should be — we already talk OpenAI-compat to FP8 vLLM).
 - Whether W4A4 (4-bit activations, not just weights) holds up on real prompts — this is what differentiates NVFP4 from AWQ/INT4-weight-only.
+- **Attention-precision sensitivity**: NVIDIA-Gemma (BF16 attention) vs Qwen3-32B (FP4 attention) on the same prompt set tells us whether the BF16-attention escape hatch is necessary for our 55B LWM PTQ or just nice-to-have.
 
 **What it does *not* tell us:**
-- Accuracy on our 25 industry compliance evals (those are LWM-specific, not Qwen3-base). Still need the ~2-week quantize-and-regress pass on our own checkpoints before V1.1 ships.
+- Accuracy on our 25 industry compliance evals (those are LWM-specific, not Gemma-base or Qwen3-base). Still need the ~2-week quantize-and-regress pass on our own checkpoints before V1.1 ships.
 - KV-cache behaviour at 1M+ tokens (V2 territory, not V1).
-- Whether SpinQuant-style rotations are needed for our checkpoints — `Qwen3-32B-NVFP4` is the cleaner reference (no SpinQuant); `Qwen3-8B-SpinQuant-NVFP4` answers the rotation-helps-at-small-scale question.
+- Whether SpinQuant-style rotations are needed for our own LWM checkpoints — the three models above stake out three points on the recipe surface (NVIDIA's "skip attention", drawais's "quantize everything", drawais's "SpinQuant rotations") so we can pick the closest fit.
 
-Owner for the spike: whoever's first to a GN-100 / Spark / 4090+ with an idle hour. Default model: `drawais/Qwen3-32B-NVFP4` if the GPU is ≥24 GB, else the 8B. Result: a one-page tok/s + memory comparison appended to this note as Appendix B.
+Owner for the spike: whoever's first to a GN-100 / Spark / 4090+ with an idle hour. Default model: **`nvidia/Gemma-4-31B-IT-NVFP4`** if the GPU is ≥24 GB, else `drawais/Qwen3-8B-SpinQuant-NVFP4`. Result: a one-page tok/s + memory + GPQA comparison appended to this note as Appendix B.
 
 ### V2 Omnimodal / Video — November 2026 (DWS IQ 7)
 
