@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 1.5
 
 Sessions & Modifications:
 
+- Version: 1.5 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Added OpenClaw as a tracked Spark service — local autonomous agent runtime with Brain wired to `nemotron-3-super` via Ollama. Architecture diagram now shows OpenClaw alongside Ollama/Redis. New "OpenClaw — local autonomous agent runtime" section clarifies the EU-sovereign no-egress role, its complementarity with the cloud-side `clawdbot` skill, and the workload pairings (private data analysis, confidential code review, long-document reasoning at 256K).
 - Version: 1.4 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Replaced Primary tier Llama 3.3 70B (dense, ~4.4 tok/s) → Nemotron 3 Super (NVIDIA `nemotron_h_moe`, 123.6B/12.7B active, Mamba-2 + attention + Latent MoE, ~19.5 tok/s on DGX Spark Q4_K_M — ~4.5× faster). Memory budget tightened (~126GB committed, ~2GB headroom — relies on Ollama lazy-load + `OLLAMA_KEEP_ALIVE` to avoid simultaneous-hot OOM). Added operational notes: Ollama 0.17.1+ requirement, default ctx 262144 (1M = OOM), NVIDIA sampling defaults (temp 1.0 chat / 0.6 + top_p 0.95 tool calls). Hardware table refreshed with GB10 GPU specs, 20-core ARM split, 240W power, form factor.
 - Version: 1.3 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Upgraded Fast tier from Qwen 2.5 Coder 32B → Qwen3-Coder 30B (MoE 30B/3.3B active). Added Synth-data routing row (SyntheticDataAgent teacher via NeMo DataDesigner). Added "Next Steps — NVFP4 path" section covering Blackwell FP4 cores, Nemotron 3 Super/Ultra context, and compute-scarcity hedge rationale. Memory budget refreshed (~19GB Qwen, ~49GB headroom).
 - Version: 1.2 | Tool: Claude Opus 4.6 | Session: claude/mvp-missing-features-pS9La | Date: 13.04.2026 | Changes: Added "Host Paths on DGX Spark" section with exact absolute paths (dws6 repo, docker-compose.yml, env file, logs, Ollama models) + rebuild playbook to prevent "stale container" confusion after host git pull
@@ -46,14 +47,14 @@ Related Documents:
 │  │  node-cron    │  │  mirrors GHA  │  │  LAN-only    │  │
 │  └──────────────┘  └──────────────┘  └──────────────┘  │
 │                                                          │
-│  ┌──────────────┐  ┌──────────────┐                     │
-│  │  Ollama       │  │  Redis       │                     │
-│  │  :11434       │  │  :6379       │                     │
-│  │  Nemotron 3   │  │  job queue   │                     │
-│  │  Super (MoE)  │  │              │                     │
-│  │  Qwen3-Coder  │  │              │                     │
-│  │  30B (MoE)    │  │              │                     │
-│  └──────────────┘  └──────────────┘                     │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
+│  │  Ollama       │  │  Redis       │  │  OpenClaw    │  │
+│  │  :11434       │  │  :6379       │  │  agent rt    │  │
+│  │  Nemotron 3   │  │  job queue   │  │  Brain →     │  │
+│  │  Super (MoE)  │  │              │  │  Nemotron 3  │  │
+│  │  Qwen3-Coder  │  │              │  │  Super (Ollama)│  │
+│  │  30B (MoE)    │  │              │  │  no egress   │  │
+│  └──────────────┘  └──────────────┘  └──────────────┘  │
 │                                                          │
 │  SSH: admin100@192.168.101.113                           │
 └──────────────────┬──────────────────────────────────────┘
@@ -185,6 +186,20 @@ docker exec dws-cron ls -la /app/scripts/<new-script>.ts
 Both models loaded simultaneously leaves effectively no room for KV cache growth. In practice, Ollama lazy-loads on request and unloads idle models after `OLLAMA_KEEP_ALIVE` (default 5m), so usually only one large model is hot at a time. Cold-load penalty on tier switch (~30–60s for Nemotron from NVMe). For workloads that flip frequently between Primary and Fast, set `OLLAMA_KEEP_ALIVE=15m` to reduce thrash at the cost of higher steady-state memory pressure.
 
 **Ollama context limits:** `ollama show nemotron-3-super` reports default context 262144 (256K). The model's theoretical max is 1M tokens; setting `--ctx-size` to 1M on the Spark triggers CUDA OOM. Practical range on the Spark: 16384 to 262144. Use NVIDIA's recommended sampling: `temperature=1.0` for chat, `temperature=0.6 top_p=0.95` for tool calling.
+
+## OpenClaw — local autonomous agent runtime
+
+OpenClaw is an open-source agent framework running directly on the Spark, with its Brain wired to `nemotron-3-super` via Ollama at `http://localhost:11434`. It is the **EU-sovereign autonomous-agent surface**: every reasoning step, tool call, and intermediate artifact stays inside the 192.168.101.x LAN. No network egress by default.
+
+This is the runtime for workloads that cannot legally or commercially touch a cloud provider — healthcare / finance / legal / defense data, confidential codebases under code review, full-stack long-document reasoning where the 256K context lets us load entire spec bundles without RAG. It complements rather than replaces the `clawdbot` skill: `clawdbot` is the session janitor over Claude Code transcripts (cloud-bound, Anthropic side); OpenClaw is the local agent runtime (Spark side, Nemotron-backed, no egress). Different surfaces, different trust boundaries, both kept.
+
+Concrete pairings:
+
+- **Private data analysis** (healthcare, finance, legal, defense) — clients whose data cannot leave the building call OpenClaw on the Spark; output streams back over LAN/VPN only.
+- **Confidential code review** — Nemotron's PinchBench / Qodo code-review scores (~73% precision) make this practical on code that cannot ship to GitHub Copilot or Cursor cloud.
+- **Long-document reasoning** — load entire codebases, regulation bundles (CSRD ESRS package, CBAM Implementing Regulation, EU AI Act consolidated text) into one 256K-token context, no chunking, no RAG.
+
+When OpenClaw is the active workload, the routing strategy above still applies — OpenClaw issues completion / tool / thinking requests against `nemotron-3-super` (Primary) and falls through to `qwen3-coder:30b` (Fast) for code-heavy subtasks via the same `OLLAMA_BASE_URL` other Spark services use.
 
 ## Next Steps — NVFP4 path (strategic, Track 2)
 
