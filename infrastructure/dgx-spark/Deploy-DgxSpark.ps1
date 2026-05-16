@@ -206,8 +206,8 @@ function Invoke-DgxStop {
 function Invoke-DgxModels {
     Write-DGX "Pulling required Ollama models on DGX Spark..."
     Invoke-SshCommand @"
-echo 'Pulling llama3.3:70b (may take a while)...'
-ollama pull llama3.3:70b
+echo 'Pulling nemotron-3-super (may take a while — ~87GB)...'
+ollama pull nemotron-3-super
 echo ''
 echo 'Pulling qwen3-coder:30b...'
 ollama pull qwen3-coder:30b

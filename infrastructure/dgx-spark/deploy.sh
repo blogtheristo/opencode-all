@@ -188,8 +188,8 @@ cmd_stop() {
 cmd_ollama_models() {
   log "Pulling required Ollama models on DGX Spark..."
   ssh_run "
-    echo 'Pulling llama3.3:70b (may take a while)...'
-    ollama pull llama3.3:70b
+    echo 'Pulling nemotron-3-super (may take a while — ~87GB)...'
+    ollama pull nemotron-3-super
     echo ''
     echo 'Pulling qwen3-coder:30b...'
     ollama pull qwen3-coder:30b
@@ -233,7 +233,7 @@ cmd_help() {
   echo "  --stop         Stop services (enables GHA failover)"
   echo "  --logs         Tail container logs"
   echo "  --pull         Git pull only"
-  echo "  --models       Pull Ollama models (llama3.3:70b, qwen3-coder:30b)"
+  echo "  --models       Pull Ollama models (nemotron-3-super, qwen3-coder:30b)"
   echo "  --ssh-config   Show SSH config for Cursor/CC Mobile"
   echo "  --help         This help"
   echo ""

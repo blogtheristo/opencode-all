@@ -126,7 +126,7 @@ const server = http.createServer(async (req, res) => {
       uptime: process.uptime(),
       services,
       models: {
-        primary: 'llama3.3:70b (Ollama, local)',
+        primary: 'nemotron-3-super (Ollama, local, MoE 120B/12.7B active)',
         fast: 'qwen3-coder:30b (Ollama, local)',
         cloud: 'claude-opus-4-6 (Anthropic API)',
         fallback: 'groq/llama-3.3-70b-versatile',

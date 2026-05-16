@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.4
 
 Sessions & Modifications:
 
+- Version: 1.4 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Replaced Primary tier Llama 3.3 70B (dense, ~4.4 tok/s) → Nemotron 3 Super (NVIDIA `nemotron_h_moe`, 123.6B/12.7B active, Mamba-2 + attention + Latent MoE, ~19.5 tok/s on DGX Spark Q4_K_M — ~4.5× faster). Memory budget tightened (~126GB committed, ~2GB headroom — relies on Ollama lazy-load + `OLLAMA_KEEP_ALIVE` to avoid simultaneous-hot OOM). Added operational notes: Ollama 0.17.1+ requirement, default ctx 262144 (1M = OOM), NVIDIA sampling defaults (temp 1.0 chat / 0.6 + top_p 0.95 tool calls). Hardware table refreshed with GB10 GPU specs, 20-core ARM split, 240W power, form factor.
 - Version: 1.3 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Upgraded Fast tier from Qwen 2.5 Coder 32B → Qwen3-Coder 30B (MoE 30B/3.3B active). Added Synth-data routing row (SyntheticDataAgent teacher via NeMo DataDesigner). Added "Next Steps — NVFP4 path" section covering Blackwell FP4 cores, Nemotron 3 Super/Ultra context, and compute-scarcity hedge rationale. Memory budget refreshed (~19GB Qwen, ~49GB headroom).
 - Version: 1.2 | Tool: Claude Opus 4.6 | Session: claude/mvp-missing-features-pS9La | Date: 13.04.2026 | Changes: Added "Host Paths on DGX Spark" section with exact absolute paths (dws6 repo, docker-compose.yml, env file, logs, Ollama models) + rebuild playbook to prevent "stale container" confusion after host git pull
 - Version: 1.1 | Tool: Claude Opus 4.6 | Session: claude/dgx-spark-setup-UN9WR | Date: 29.03.2026 | Changes: Deployment complete — 4 containers healthy, Cloudflare Tunnel live (heartbeat.dws6.com), systemd auto-start, CORS hardened (LAN-only), syntax fixes in data-collectors.ts and briefing-template.ts
@@ -48,7 +49,8 @@ Related Documents:
 │  ┌──────────────┐  ┌──────────────┐                     │
 │  │  Ollama       │  │  Redis       │                     │
 │  │  :11434       │  │  :6379       │                     │
-│  │  Llama 70B    │  │  job queue   │                     │
+│  │  Nemotron 3   │  │  job queue   │                     │
+│  │  Super (MoE)  │  │              │                     │
 │  │  Qwen3-Coder  │  │              │                     │
 │  │  30B (MoE)    │  │              │                     │
 │  └──────────────┘  └──────────────┘                     │
@@ -149,10 +151,12 @@ docker exec dws-cron ls -la /app/scripts/<new-script>.ts
 
 | Spec        | Value                              | Implication                                                   |
 | ----------- | ---------------------------------- | ------------------------------------------------------------- |
-| **CPU**     | ARM Cortex-X925, 10 cores @ 3.9GHz | Docker images must be `linux/arm64`                           |
-| **RAM**     | 128GB unified                      | Llama 70B Q4 (~40GB) + Qwen 32B (~20GB) + services fit easily |
+| **CPU**     | 20-core ARM (10× Cortex-X925 + 10× Cortex-A725) | Docker images must be `linux/arm64`                           |
+| **GPU**     | 6,144 CUDA cores, 5th-gen Tensor (GB10 Grace Blackwell) | NVFP4 sparse: 1 PFLOP                                  |
+| **RAM**     | 128GB unified LPDDR5x (273 GB/s)   | Nemotron 3 Super Q4_K_M (~87GB) + Qwen3-Coder 30B Q4 (~19GB) + services — tight; see budget below |
 | **Storage** | 3TB NVMe                           | Model storage, backups, logs — no issue                       |
-| **AI**      | 1 PFLOP (GB10)                     | 70B model inference at full speed                             |
+| **AI**      | 1 PFLOP FP4 sparse (GB10)          | MoE inference at decode bandwidth limit (~19.5 tok/s Nemotron) |
+| **Power**   | 240W                               | Form factor: 150×150×50 mm, 1.2 kg — desktop AI box           |
 | **OS**      | Ubuntu 24.04 LTS                   | Docker, systemd, Ollama all native                            |
 | **Network** | Local LAN (192.168.101.x)          | SSH tunnel for remote access                                  |
 
@@ -160,30 +164,36 @@ docker exec dws-cron ls -la /app/scripts/<new-script>.ts
 
 | Tier             | Model                   | Where               | Cost      | Use Case                              |
 | ---------------- | ----------------------- | ------------------- | --------- | ------------------------------------- |
-| **Primary**      | Llama 3.3 70B           | Ollama on DGX Spark | €0        | 14 of 16 agents                       |
+| **Primary**      | Nemotron 3 Super (MoE)  | Ollama on DGX Spark | €0        | 14 of 16 agents; agentic reasoning, long-context workflows |
 | **Fast**         | Qwen3-Coder 30B (MoE)   | Ollama on DGX Spark | €0        | Code generation, quick tasks          |
 | **Synth-data**   | Qwen3-Coder 30B (MoE)   | Ollama on DGX Spark | €0        | SyntheticDataAgent teacher (CBAM / ESRS / EPBD seeding via NeMo DataDesigner) |
 | **Cloud**        | Claude Opus 4.6         | Anthropic API       | Per-token | Designer agent, complex orchestration |
 | **Fallback**     | Llama 3.3 70B Versatile | Groq API            | Per-token | Burst capacity when DGX is loaded     |
 
-Qwen3-Coder is a Mixture-of-Experts model: 30B total parameters with only 3.3B active per token. Inference is faster than the previous dense Qwen 2.5 Coder 32B despite a comparable disk/VRAM footprint, which is why the Fast tier and the synthetic-data teacher slot share the same weights — one pull, two roles.
+**Nemotron 3 Super** (NVIDIA, architecture `nemotron_h_moe`): 123.6B total parameters, ~12.7B active per token (~10:1 sparsity). 88 layers — mostly Mamba-2 state-space blocks (linear time, fixed-size state, no KV cache growth) with interleaved Grouped-Query attention (32Q / 2KV, head dim 128) at strategic depths and Latent MoE layers that route 4× more experts per token at standard-MoE cost. Pretrained natively in NVFP4 across 25T tokens. Capabilities: `completion`, `tools`, `thinking`. On the DGX Spark Q4_K_M: prompt-eval ~3.51 tok/s, eval ~19.5 tok/s — **~4.5× faster than dense Llama 3.3 70B on the same hardware** because MoE moves ~12B of weights through the 273 GB/s memory bus per token instead of all 70B. Requires Ollama ≥ 0.17.1.
 
-**Memory budget:**
+**Qwen3-Coder** is a Mixture-of-Experts model: 30B total parameters with only 3.3B active per token. Inference is faster than the previous dense Qwen 2.5 Coder 32B despite a comparable disk/VRAM footprint, which is why the Fast tier and the synthetic-data teacher slot share the same weights — one pull, two roles.
 
-- Llama 3.3 70B Q4: ~40GB
+**Memory budget (128GB unified LPDDR5x):**
+
+- Nemotron 3 Super Q4_K_M: ~87GB
 - Qwen3-Coder 30B Q4 (MoE): ~19GB
 - DWS Backend + Cron + Redis: ~12GB
 - OS + Docker overhead: ~8GB
-- **Available headroom: ~49GB** (enough for additional models or higher quantization)
+- **Committed if both models hot: ~126GB → ~2GB headroom (tight)**
+
+Both models loaded simultaneously leaves effectively no room for KV cache growth. In practice, Ollama lazy-loads on request and unloads idle models after `OLLAMA_KEEP_ALIVE` (default 5m), so usually only one large model is hot at a time. Cold-load penalty on tier switch (~30–60s for Nemotron from NVMe). For workloads that flip frequently between Primary and Fast, set `OLLAMA_KEEP_ALIVE=15m` to reduce thrash at the cost of higher steady-state memory pressure.
+
+**Ollama context limits:** `ollama show nemotron-3-super` reports default context 262144 (256K). The model's theoretical max is 1M tokens; setting `--ctx-size` to 1M on the Spark triggers CUDA OOM. Practical range on the Spark: 16384 to 262144. Use NVIDIA's recommended sampling: `temperature=1.0` for chat, `temperature=0.6 top_p=0.95` for tool calling.
 
 ## Next Steps — NVFP4 path (strategic, Track 2)
 
-The Spark's GB10 ships Blackwell FP4 tensor cores. Running Qwen3-Coder as Q4 GGUF through Ollama uses general-purpose CUDA, not the FP4 path — we leave Blackwell's hardware moat on the table. Two strategic moves:
+The Spark's GB10 ships Blackwell FP4 tensor cores. Nemotron 3 Super was pretrained natively in NVFP4 across 25T tokens, but we are serving it as Q4_K_M GGUF through Ollama — Ollama's CUDA path doesn't dispatch to the FP4 tensor cores, so we're leaving the Blackwell hardware moat on the table even with the right weights. Two moves to close that gap:
 
-1. **Native NVFP4 serving for Qwen.** Move the Fast / Synth-data slot off Ollama Q4 onto NVIDIA's native stack — TensorRT-LLM or NIM with a Qwen3-Coder build in NVFP4. Expected: significantly higher tokens/sec on the same hardware, and tighter alignment with the path NVIDIA itself is taking with Nemotron 3 Super (120B, 25T tokens, pretrained NVFP4) and Nemotron 3 Ultra (~500B, pretrained NVFP4). Pretraining directly in NVFP4 at 500B scale is new ground — most labs still BF16-pretrain and post-quantize.
-2. **Compute-scarcity hedge.** Anthropic has already secured ≥5GW across AWS / Google / Azure / Fluidstack / CoreWeave and now added SpaceX Colossus 1 (300MW+, 220k+ NVIDIA GPUs). The bottleneck for everyone behind that wave is delivered power + GPUs actually online. The Spark is **owned, EU-sited, fixed-power compute we already control** — pre-positioning Qwen on its native FP4 stack now means we are not bidding into the shortage when synthetic-data demand (CBAM / ESRS / EPBD generation) scales.
+1. **Native NVFP4 serving for Nemotron + Qwen.** Stand up TensorRT-LLM or NIM alongside Ollama and route the Primary + Fast tiers there in NVFP4. Expected: another step up over the current ~19.5 tok/s on Nemotron, tighter latency tails, and access to thinking-mode / tool-calling features the model exposes natively. The same path applies upward to Nemotron 3 Ultra (~500B, also pretrained NVFP4) when 1.6T-class workloads land — 500B NVFP4 pretrain is new ground vs the industry default of BF16-pretrain then post-quantize.
+2. **Compute-scarcity hedge.** Anthropic has already secured ≥5GW across AWS / Google / Azure / Fluidstack / CoreWeave and now added SpaceX Colossus 1 (300MW+, 220k+ NVIDIA GPUs). The bottleneck for everyone behind that wave is delivered power + GPUs actually online. The Spark is **owned, EU-sited, fixed-power compute we already control** — pre-positioning the stack on its native FP4 path now means we are not bidding into the shortage when synthetic-data demand (CBAM / ESRS / EPBD generation) scales.
 
-This stays a planning note in this PR — actual NIM / TensorRT-LLM integration is a separate workstream because it replaces the `:11434` Ollama endpoint that 14 agents + `scripts/ollama-spark.sh` target.
+This stays a planning note in this PR — actual NIM / TensorRT-LLM integration is a separate workstream because it replaces the `:11434` Ollama endpoint that 14 agents + `scripts/ollama-spark.sh` target. Build flag note for the llama.cpp path: `-DCMAKE_CUDA_ARCHITECTURES="121"` for GB10 (without it, CPU-only fallback).
 
 Market-signal references (Anthropic compute deals, SpaceX orbital concept, $NBIS / $IREN comps) belong in `docs/PHD_FIREHORSE_EN.md` / `docs/PHD_FIREHORSE_FI.md` per the CLAUDE.md thesis split, not here.
 
@@ -241,7 +251,7 @@ ssh -L 11435:localhost:11434 \
 
 1. SSH config with `LocalForward` for Ollama and heartbeat
 2. Cursor → Settings → Models → Base URL = `http://localhost:11435/v1`
-3. Model: `qwen3-coder:30b` or `llama3.3:70b`
+3. Model: `qwen3-coder:30b` or `nemotron-3-super`
 4. Heartbeat dashboard: `http://localhost:9998/`
 
 **CC Mobile (Claude Code on mobile):**
