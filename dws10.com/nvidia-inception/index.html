@@ -1,0 +1,262 @@
+<!doctype html>
+<!--
+  DWS Document Standard — HTML mirror
+  Document: dws10.com/nvidia-inception/index.html
+  Version: 1.0  ·  Effective: 2026-05-17  ·  Status: ACTIVE (DRAFT for NVIDIA submission)
+  Owner: Lifetime Oy
+  Session: claude/add-hardware-products-MY7X7
+
+  Purpose:
+    Partner-facing summary + internal preparation page for the
+    NVIDIA Inception application (sovereign EU edge AI track).
+    Keep this page in sync with the live hardware SKUs in
+    /config/products.json — it doubles as the public proof point
+    for NVIDIA's review.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NVIDIA Inception — Lifetime Oy preparation | DWS IQ</title>
+    <meta name="description" content="Lifetime Oy's NVIDIA Inception preparation page — sovereign EU edge AI track. Built on NVIDIA: CUDA, TensorRT-LLM, NVIDIA-optimised Qwen / Llama / Whisper / YOLO across Control Room and Situation Room SKUs." />
+    <meta name="author" content="Lifetime Oy" />
+    <meta name="robots" content="index, follow" />
+    <meta name="dws-doc-version" content="1.0" />
+    <meta name="dws-doc-effective" content="2026-05-17" />
+    <meta name="dws-doc-status" content="ACTIVE" />
+    <meta name="dws-lang-stay" content="true" />
+    <meta property="og:title" content="NVIDIA Inception — Lifetime Oy preparation" />
+    <meta property="og:description" content="Sovereign EU edge AI built on NVIDIA. Control Room + Situation Room SKUs, full service." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://dws10.com/nvidia-inception/" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <link rel="canonical" href="https://dws10.com/nvidia-inception/" />
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
+    <script src="../shared-assets/nav/ironclad-nav.js" defer></script>
+    <script src="/shared-assets/vertical-lang-bar.js" defer></script>
+    <style>
+      :root {
+        --nvidia-green: #76B900;
+        --nvidia-green-dark: #5a8c00;
+        --nvidia-green-soft: rgba(118,185,0,0.12);
+        --nvidia-black: #000000;
+        --color-eu-blue: #003399;
+        --color-gray-100: #f1f5f9;
+        --color-gray-200: #e2e8f0;
+        --color-gray-500: #64748b;
+        --color-gray-600: #475569;
+        --color-gray-900: #0f172a;
+        --font-sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: var(--font-sans); line-height: 1.6; color: var(--color-gray-900); background: #fff; }
+      .nvidia-strip {
+        background: linear-gradient(90deg, var(--nvidia-black) 0%, #0a0a0a 50%, var(--nvidia-black) 100%);
+        border-bottom: 2px solid var(--nvidia-green);
+        color: #fff;
+        padding: 14px 20px;
+        text-align: center;
+        font-size: 0.85rem;
+        letter-spacing: 0.03em;
+      }
+      .nvidia-strip strong { color: var(--nvidia-green); font-weight: 700; }
+      .nvidia-hero {
+        background: linear-gradient(135deg, var(--nvidia-black) 0%, #0a1010 60%, #0a1628 100%);
+        color: #fff;
+        padding: 80px 20px 60px;
+        text-align: center;
+      }
+      .nvidia-badge {
+        display: inline-block;
+        background: var(--nvidia-green);
+        color: var(--nvidia-black);
+        padding: 6px 14px;
+        border-radius: 4px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+      }
+      .nvidia-hero h1 {
+        font-size: clamp(1.9rem, 4vw, 3rem);
+        font-weight: 800;
+        margin-bottom: 16px;
+        line-height: 1.15;
+      }
+      .nvidia-hero h1 .accent { color: var(--nvidia-green); }
+      .nvidia-hero p.lead {
+        font-size: 1.1rem;
+        color: rgba(255,255,255,0.85);
+        max-width: 720px;
+        margin: 0 auto 28px;
+      }
+      .cta {
+        display: inline-block;
+        background: var(--nvidia-green);
+        color: var(--nvidia-black);
+        padding: 14px 32px;
+        border-radius: 6px;
+        font-weight: 700;
+        text-decoration: none;
+        letter-spacing: 0.02em;
+        margin: 6px;
+        transition: background 0.2s;
+      }
+      .cta:hover { background: var(--nvidia-green-dark); color: #fff; }
+      .cta-secondary {
+        background: transparent;
+        border: 1px solid var(--nvidia-green);
+        color: var(--nvidia-green);
+      }
+      .cta-secondary:hover { background: var(--nvidia-green); color: var(--nvidia-black); }
+      .container { max-width: 980px; margin: 0 auto; padding: 50px 20px; }
+      h2 {
+        font-size: 1.65rem;
+        font-weight: 800;
+        color: var(--nvidia-black);
+        margin-top: 48px;
+        margin-bottom: 16px;
+        border-bottom: 3px solid var(--nvidia-green);
+        padding-bottom: 8px;
+        display: inline-block;
+      }
+      h3 { font-size: 1.1rem; font-weight: 700; color: var(--color-gray-900); margin-top: 24px; margin-bottom: 10px; }
+      p { color: var(--color-gray-600); margin-bottom: 14px; }
+      ul, ol { padding-left: 24px; margin-bottom: 16px; }
+      li { color: var(--color-gray-600); margin-bottom: 8px; }
+      strong { color: var(--color-gray-900); }
+      a { color: var(--nvidia-green-dark); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      .pillars {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 18px;
+        margin: 24px 0 32px;
+      }
+      .pillar {
+        background: #fff;
+        border: 2px solid var(--color-gray-200);
+        border-top: 4px solid var(--nvidia-green);
+        border-radius: 0 0 10px 10px;
+        padding: 22px 24px;
+      }
+      .pillar h3 { color: var(--nvidia-green-dark); margin-top: 0; font-size: 1rem; }
+      .pillar p { font-size: 0.9rem; margin-bottom: 0; }
+      .spec-table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 0.92rem; }
+      .spec-table th, .spec-table td { border: 1px solid var(--color-gray-200); padding: 11px 14px; text-align: left; }
+      .spec-table th { background: var(--nvidia-black); color: var(--nvidia-green); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+      .spec-table tr:hover td { background: var(--color-gray-100); }
+      .callout {
+        border-left: 6px solid var(--nvidia-green);
+        background: var(--nvidia-green-soft);
+        padding: 16px 20px;
+        margin: 24px 0;
+        border-radius: 0 8px 8px 0;
+      }
+      .footer-note {
+        background: var(--nvidia-black);
+        color: rgba(255,255,255,0.8);
+        padding: 32px 20px;
+        text-align: center;
+        font-size: 0.88rem;
+      }
+      .footer-note strong { color: var(--nvidia-green); }
+      .footer-note a { color: var(--nvidia-green); }
+    </style>
+  </head>
+  <body>
+    <div class="nvidia-strip">
+      <strong>NVIDIA INCEPTION APPLICANT</strong> · Sovereign EU edge AI track · Built on CUDA + TensorRT-LLM
+    </div>
+
+    <section class="nvidia-hero">
+      <div class="nvidia-badge">NVIDIA Inception · Application in preparation</div>
+      <h1>Sovereign EU edge AI, <span class="accent">built on NVIDIA</span>.</h1>
+      <p class="lead">Lifetime Oy is preparing its NVIDIA Inception application on the <strong>sovereign EU edge AI</strong> track. Two productised SKUs are live today — <strong>Control Room</strong> and <strong>Situation Room</strong> — both running an NVIDIA stack end-to-end on customer premises with full service: operator training, 24/7 technical support, warranty servicing, and remote configuration.</p>
+      <div>
+        <a href="/products/edge-node-gn100.html" class="cta">See Control Room (€4,994)</a>
+        <a href="/products/situation-room.html" class="cta cta-secondary">See Situation Room (€8,993)</a>
+      </div>
+    </section>
+
+    <div class="container">
+      <h2>Why Lifetime Oy &amp; NVIDIA</h2>
+      <p>The centre of gravity in AI has moved from hardware to software, algorithms, and analytics — but in regulated EU industries (defence, energy, healthcare, critical infrastructure, civil defence) the software <em>has to run on customer-owned hardware</em>. Cloud is not an option. That's the gap Lifetime fills, and we fill it on NVIDIA.</p>
+
+      <div class="pillars">
+        <div class="pillar">
+          <h3>1. EU-sovereign by construction</h3>
+          <p>Customer-owned hardware, Finnish jurisdiction, zero CLOUD Act exposure. Compliant with EU AI Act Article 12, GDPR, NIS2, CER.</p>
+        </div>
+        <div class="pillar">
+          <h3>2. Built on NVIDIA end-to-end</h3>
+          <p>CUDA + NVIDIA drivers, TensorRT-LLM inference, NVIDIA-optimised Qwen / Llama / Whisper / BGE / YOLO and NIM-style microservices.</p>
+        </div>
+        <div class="pillar">
+          <h3>3. Productised, not consulting</h3>
+          <p>Two live SKUs at clear price points (€4,994 and €8,993). Recurring subscription (€299/mo). Real revenue, real customers, not a slide.</p>
+        </div>
+        <div class="pillar">
+          <h3>4. Full service, not just hardware</h3>
+          <p>Operator training, 24/7 technical support, warranty servicing, remote configuration — all included in the recurring relationship.</p>
+        </div>
+      </div>
+
+      <h2>The NVIDIA stack we ship</h2>
+      <table class="spec-table">
+        <thead>
+          <tr><th>NVIDIA component</th><th>How we use it</th><th>Where it ships</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>CUDA + NVIDIA drivers</strong></td><td>Locked at known-good revision per release; validated against the bundle's model set.</td><td>Control Room, Situation Room, NVIDIA Model Install add-on</td></tr>
+          <tr><td><strong>TensorRT-LLM</strong></td><td>Production inference kernels for 7B–72B-class models; speculative decoding where it pays off.</td><td>All hardware SKUs</td></tr>
+          <tr><td><strong>Tensor parallel / multi-GPU</strong></td><td>Bridged across 2 nodes for Situation Room — heavy 70B-class models shard, light models replicate.</td><td>Situation Room (bridged pair)</td></tr>
+          <tr><td><strong>NVIDIA NIM-style microservices</strong></td><td>Packaged, versioned, sovereign — never leaves customer premises.</td><td>Sovereign Model Updates subscription</td></tr>
+          <tr><td><strong>NVIDIA-optimised model weights</strong></td><td>AWQ / GGUF Q4-K-M quantization tuned per GPU configuration; refreshed monthly.</td><td>Sovereign Model Updates subscription</td></tr>
+          <tr><td><strong>NVIDIA-tuned vision &amp; acoustic</strong></td><td>YOLOv8/9/10 for drone/PPE/perimeter; acoustic event models for dual-use detection.</td><td>Situation Room (VPK Drone Defense bundle)</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Productised reference (the Inception evidence)</h2>
+      <ul>
+        <li><strong>Control Room</strong> — 1× Acer Veriton GN100 + NVIDIA model install — <strong>€4,994</strong>. <a href="/products/edge-node-gn100.html">Product page</a>.</li>
+        <li><strong>Situation Room</strong> — 2× bridged Acer Veriton GN100 + NVIDIA model bundle — <strong>€8,993</strong>. <a href="/products/situation-room.html">Product page</a>.</li>
+        <li><strong>NVIDIA Model Installation</strong> — add-on service — <strong>€995/device</strong>. <a href="/products/nvidia-model-install.html">Product page</a>.</li>
+        <li><strong>Sovereign Model Updates Subscription</strong> — recurring — <strong>€299/mo</strong> — LLM updates, security patches, 24/7 support, warranty servicing, remote configuration.</li>
+      </ul>
+
+      <h2>Reference use case — VPK drone defense (dual-use)</h2>
+      <div class="callout">A Finnish volunteer fire brigade (VPK) running a sovereign-by-default situation room out of the kalustohalli: YOLOv8-x on Node A processes 4 camera feeds; BirdNET-class acoustic model classifies rotor signatures; Qwen 2.5 72B (sharded across the NVIDIA bridge) cross-references EU dual-use rules and local NOTAM; Llama 70B on Node B runs an independent check; Article 12 immutable log replicated across both NVIDIA nodes. <strong>Nothing leaves the building.</strong></div>
+
+      <h2>Full service — what's bundled with the hardware</h2>
+      <p>We don't drop a box and walk away. Every hardware SKU is wrapped in a full service relationship:</p>
+      <ul>
+        <li><strong>Operator training</strong> — on-site drill at install + remote refreshers; runbook handover; scenario rehearsals (e.g. VPK dispatch, CSRD audit dry-run).</li>
+        <li><strong>24/7 technical support</strong> — Lifetime-staffed channel for production incidents; named contact; SLAs covered under the subscription.</li>
+        <li><strong>Warranty servicing</strong> — hardware warranty handling on the Acer Veriton GN100 fleet, including swap-out coordination.</li>
+        <li><strong>Remote configuration</strong> — push model bundle changes, security patches, OS updates over the customer's secure tunnel; never lift-and-shift, always sovereign.</li>
+      </ul>
+
+      <h2>What we're asking NVIDIA Inception for</h2>
+      <ol>
+        <li><strong>Inception membership</strong> on the sovereign EU edge AI track — for technical credibility with EU defence, civil protection, and critical-infrastructure buyers.</li>
+        <li><strong>Co-marketing</strong> on EU sovereign edge AI use cases — VPK drone defense and CER/NIS2 compliance reference deployments.</li>
+        <li><strong>Early access</strong> to NVIDIA NIM updates, TensorRT-LLM kernels, and reference architectures for bridged multi-node sovereign deployments.</li>
+        <li><strong>EU programme alignment</strong> — Lifetime Oy is positioned for EDIP / EDF dual-use windows where NVIDIA reference architectures meet EU sovereignty requirements.</li>
+      </ol>
+
+      <h2>Contact</h2>
+      <p>Risto Anton Päärni, CEO &middot; Lifetime Oy &middot; Espoo, Finland<br />
+        Email: <a href="mailto:risto.paarni@lifetime.fi">risto.paarni@lifetime.fi</a> · Sales: <a href="mailto:sales@lifetime.fi">sales@lifetime.fi</a><br />
+        Business ID: 0772407-9 &middot; VAT ID: FI07724079</p>
+    </div>
+
+    <div class="footer-note">
+      <strong>BUILT ON NVIDIA · NVIDIA Inception applicant</strong><br />
+      This page doubles as the public proof point for our NVIDIA Inception application. Pricing on this page is the single source of truth from <code>dws10.com/config/products.json</code> (priceList 1.16, effective 2026-05-17). For NVIDIA partner team enquiries: <a href="mailto:risto.paarni@lifetime.fi">risto.paarni@lifetime.fi</a>.
+    </div>
+
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+  </body>
+</html>

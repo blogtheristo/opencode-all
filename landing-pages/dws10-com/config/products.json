@@ -4418,9 +4418,10 @@
         "edge-node-gn100 expanded into Control Room bundle: 1× Acer Veriton GN100 + NVIDIA model install. Price €3,999 → €4,994 (+€995 install).",
         "Added LF-SITROOM-001 — Situation Room: 2× bridged Acer Veriton GN100 + NVIDIA model bundle. Price €8,993 (2× €3,999 hardware + €995 install for the bridged pair).",
         "Added LF-NVIDIA-INSTALL — NVIDIA Model Installation add-on (€995 per device or per bridged pair).",
-        "Added LF-SOV-MODEL-SUB — Sovereign Model Updates Subscription (€299/mo).",
+        "Added LF-SOV-MODEL-SUB — Sovereign Model Updates Subscription (€299/mo). v1.1 framing: LLM updates + rising token economics + front-line feedback loop is the moat; hardware is the carrier.",
         "Renumbered buyPage 1 orders 14-22 to fit hardware block.",
-        "price-list/index.html: removed 'Price AI like labor' hero (negative connotation); replaced with 'Sovereign intelligence and compliance.' + DWS Document Standard versioning header."
+        "price-list/index.html: removed 'Price AI like labor' hero (negative connotation); replaced with 'Sovereign intelligence and compliance.' + DWS Document Standard versioning header.",
+        "Control Room and Situation Room pages: added 'LLM updates + rising token economics' section emphasizing that the model bundle (not the box) is the recurring value."
       ]
     },
     {
@@ -4531,15 +4532,17 @@
       "currency": "EUR",
       "type": "subscription",
       "billingPeriod": "monthly",
-      "description": "Monthly model updates, security patches, and new bundle additions for Control Room and Situation Room edge devices. Keeps your on-premise NVIDIA model stack current without rebuilding the install. Required on all sovereign hardware deployments.",
+      "description": "Monthly LLM and model-bundle updates for Control Room and Situation Room edge devices. The hardware is the carrier; this subscription is where the moat lives. Each refresh ships newer LLMs (Qwen, Llama, Whisper, vision/acoustic) with better quantization, higher tokens/sec, and lower per-token cost on the same box — so your token economics keep rising while your monthly fee stays flat. Front-line operator feedback (e.g. VPK dispatch notes) feeds the next bundle.",
       "features": [
-        "Monthly NVIDIA model bundle updates (Qwen, Llama, Whisper, vision/acoustic)",
+        "Monthly LLM updates (Qwen 2.5 → 3 → …, Llama 3.1 → 4, Whisper v3 → v4, vision/acoustic versioned)",
+        "Rising token economics: more tokens/sec and lower per-token cost on the same hardware, every release",
+        "Front-line feedback loop: operator notes → next month's bundle",
         "Security patches for OpenSandbox + driver stack",
         "Required on Control Room and Situation Room deployments"
       ],
-      "priceNote": "€299/mo per site — required on sovereign hardware contracts",
+      "priceNote": "€299/mo per site — flat fee, rising value (newer LLMs + better token economics each release)",
       "storeCategory": "subscription",
-      "version": "1.0"
+      "version": "1.1"
     }
   }
 }

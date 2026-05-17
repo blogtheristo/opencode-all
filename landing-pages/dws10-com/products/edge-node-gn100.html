@@ -64,8 +64,51 @@
         --color-eu-gold: #ffcc00; --color-success: #0d7a3e; --color-white: #ffffff;
         --color-gray-50: #f8fafc; --color-gray-100: #f1f5f9; --color-gray-200: #e2e8f0;
         --color-gray-500: #64748b; --color-gray-600: #475569; --color-gray-700: #334155;
-        --color-gray-900: #0f172a; --font-sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        --color-gray-900: #0f172a;
+        /* NVIDIA brand colors — used on hardware product pages */
+        --nvidia-green: #76B900;
+        --nvidia-green-dark: #5a8c00;
+        --nvidia-green-soft: rgba(118,185,0,0.12);
+        --nvidia-black: #000000;
+        --font-sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
       }
+      .nvidia-strip {
+        background: linear-gradient(90deg, var(--nvidia-black) 0%, #0a0a0a 50%, var(--nvidia-black) 100%);
+        border-top: 2px solid var(--nvidia-green);
+        border-bottom: 2px solid var(--nvidia-green);
+        color: #fff;
+        padding: 14px 20px;
+        text-align: center;
+        font-size: 0.85rem;
+        letter-spacing: 0.03em;
+      }
+      .nvidia-strip strong { color: var(--nvidia-green); font-weight: 700; }
+      .nvidia-strip a { color: var(--nvidia-green); text-decoration: none; }
+      .nvidia-strip a:hover { text-decoration: underline; }
+      .nvidia-badge {
+        display: inline-block;
+        background: var(--nvidia-green);
+        color: var(--nvidia-black);
+        padding: 6px 14px;
+        border-radius: 4px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+      }
+      .nvidia-card {
+        background: var(--nvidia-black);
+        color: #fff;
+        border-left: 6px solid var(--nvidia-green);
+        border-radius: 0 12px 12px 0;
+        padding: 24px 28px;
+        margin: 28px 0;
+      }
+      .nvidia-card h3 { color: var(--nvidia-green); margin-top: 0; font-size: 1.05rem; font-weight: 700; }
+      .nvidia-card p { color: rgba(255,255,255,0.85); }
+      .nvidia-card ul li { color: rgba(255,255,255,0.85); }
+      .product-price-nv { color: var(--nvidia-green) !important; }
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html { font-size: 16px; -webkit-font-smoothing: antialiased; }
       body { font-family: var(--font-sans); line-height: 1.6; color: var(--color-gray-900); background: var(--color-white); }
@@ -118,12 +161,16 @@
     </style>
   </head>
   <body>
+    <div class="nvidia-strip">
+      <strong>BUILT ON NVIDIA</strong> · CUDA · TensorRT-LLM · NVIDIA-optimised Qwen / Llama / Whisper · <strong>NVIDIA Inception applicant</strong>
+    </div>
     <section class="product-hero">
+      <div class="nvidia-badge">BUILT ON NVIDIA · CUDA · TensorRT-LLM</div>
       <div class="product-badge">🖥️ Lifetime Fleet — Sovereign Control Room</div>
       <h1 class="product-title"><span class="highlight">Control Room</span><br />Acer Veriton GN100 + NVIDIA Model Install</h1>
       <p class="product-subtitle">When your team needs a sovereign AI brain that lives in your own building — not in someone else's cloud. One Acer Veriton GN100, NVIDIA model stack installed on-site, configured for how you actually work. Built for places like VPK (vapaapalokunta) where decisions can't wait for a cloud round-trip.</p>
       <div class="price-block">
-        <div class="product-price">€4,994</div>
+        <div class="product-price product-price-nv">€4,994</div>
         <div class="price-min">1× Acer Veriton GN100 (€3,999) + NVIDIA model installation (€995) · turnkey</div>
       </div>
       <div class="product-cta-group">
@@ -200,6 +247,50 @@
           <p>Tell us which models matter to your operation; we scope and bundle during onboarding. Common picks: legal, healthcare triage, energy ops.</p>
         </div>
       </div>
+
+      <hr />
+
+      <div class="nvidia-card">
+        <h3>The NVIDIA stack on this box</h3>
+        <p>Control Room is end-to-end NVIDIA on the inference side. We install and tune the full sovereign stack on-site so you don't have to:</p>
+        <ul>
+          <li><strong>CUDA + NVIDIA drivers</strong> — validated against the bundle's models, locked at a known-good revision per release.</li>
+          <li><strong>TensorRT-LLM / vLLM</strong> — production inference kernels for Qwen, Llama, Whisper, BGE, with speculative decoding where it pays off.</li>
+          <li><strong>NVIDIA NIM-style microservices (optional)</strong> — packaged, versioned, sovereign — no model call leaves your building.</li>
+          <li><strong>NVIDIA-optimised quantization</strong> — AWQ / GGUF Q4-K-M tuned for your specific GPU configuration.</li>
+        </ul>
+        <p style="margin-top: 14px; margin-bottom: 0; font-size: 0.9rem; color: rgba(255,255,255,0.7);">Lifetime Oy is a <strong style="color: var(--nvidia-green);">NVIDIA Inception</strong> applicant — sovereign EU edge AI track. Partner enquiries: <a href="mailto:risto@onelifetime.world" style="color: var(--nvidia-green);">risto@onelifetime.world</a>.</p>
+      </div>
+
+      <h2>LLM updates and rising token economics — the recurring value</h2>
+      <div class="callout"><strong>The hardware is the carrier. The moat is the model.</strong> The centre of gravity has moved from hardware to software, algorithms, and analytics. Whoever adapts faster, implements changes more quickly, and uses front-line feedback better — wins. Control Room is built around that reality.</div>
+      <p>You pay €4,994 once for the box. Then €299/mo (<a href="../buy/#LF-SOV-MODEL-SUB">Sovereign Model Updates</a>) keeps the brain inside it rising — without changing the hardware.</p>
+      <table class="spec-table">
+        <thead><tr><th>What ships each month</th><th>Why your token economics rise on the same box</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Newer LLM weights</strong><br />Qwen 2.5 → Qwen 3 → … · Llama 3.1 → Llama 4 · Whisper v3 → v4 · BGE-M3 → BGE-M4 · YOLOv8 → YOLOv9/10</td><td>Newer architectures squeeze more reasoning per token. Same prompt, fewer tokens, better answer.</td></tr>
+          <tr><td><strong>Better quantization</strong><br />QLoRA → AWQ → GGUF Q5 → Q4-K-M tuned per chip</td><td>The same 72B-class model runs in less RAM, leaving headroom for a second model alongside.</td></tr>
+          <tr><td><strong>Throughput improvements</strong><br />vLLM / TensorRT-LLM kernel updates, speculative decoding</td><td>Tokens/sec on the same GN100 trend up every release — sometimes step-changes (e.g. 2–3×).</td></tr>
+          <tr><td><strong>Per-token cost ↓</strong><br />Same €299/mo, more usable compute behind it</td><td>You locked in a flat fee. The cost-per-useful-answer keeps falling under it. Cloud pricing can't promise that.</td></tr>
+          <tr><td><strong>Front-line feedback loop</strong><br />Operator notes from your dispatch desk → next bundle</td><td>The system you bought adapts to your operation faster than the threat / regulation / customer adapts to you.</td></tr>
+        </tbody>
+      </table>
+      <p>This is also why we sell the box once and the subscription forever. Hardware depreciates. Token economics keep rising. The customer who renews compounds the gain.</p>
+
+      <hr />
+
+      <h2>Full service — not just hardware</h2>
+      <p>You're not buying a beige box. You're buying a relationship with a Finnish team that keeps the brain alive in your building. Every Control Room ships with full service bundled into the install + subscription:</p>
+      <table class="spec-table">
+        <thead><tr><th>Service</th><th>What you get</th><th>Where it lives</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Operator training</strong></td><td>30-minute install drill, scenario rehearsal (VPK dispatch / CSRD audit / your runbook), remote refresher sessions every quarter, runbook handover. Your operator signs off before we leave.</td><td>Included in install (€995)</td></tr>
+          <tr><td><strong>24/7 technical support</strong></td><td>Named Lifetime contact for production incidents. SLAs sized to your operation. No ticketing-system black hole — a Finnish engineer answers.</td><td>Sovereign Model Updates Subscription (€299/mo)</td></tr>
+          <tr><td><strong>Warranty servicing</strong></td><td>We handle the Acer Veriton GN100 warranty for you — diagnostics, RMA paperwork, swap-out coordination, redeploy. You don't talk to a vendor support queue.</td><td>Sovereign Model Updates Subscription (€299/mo)</td></tr>
+          <tr><td><strong>Remote configuration</strong></td><td>Model bundle changes, security patches, OS updates, MCP endpoint tweaks — all pushed over your secure tunnel. Sovereign always: nothing leaves your building unless you decide so.</td><td>Sovereign Model Updates Subscription (€299/mo)</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size: 0.92rem; color: var(--color-gray-500);">If you cancel the subscription, the box still works — your data and audit log stay yours. You just stop getting LLM updates, support, warranty handling, and remote config. The relationship is opt-in, every month.</p>
 
       <hr />
 

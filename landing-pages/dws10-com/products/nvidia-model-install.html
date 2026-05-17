@@ -45,24 +45,47 @@
     <script src="../shared-assets/nav/ironclad-nav.js" defer></script>
     <script src="/shared-assets/vertical-lang-bar.js" defer></script>
     <style>
-      :root { --color-eu-blue: #003399; --color-accent: #0066cc; --color-gray-600: #475569; --color-gray-200: #e2e8f0; --color-gray-500: #64748b; }
+      :root {
+        --color-eu-blue: #003399; --color-accent: #0066cc; --color-gray-600: #475569;
+        --color-gray-200: #e2e8f0; --color-gray-500: #64748b;
+        --nvidia-green: #76B900; --nvidia-green-dark: #5a8c00; --nvidia-black: #000000;
+      }
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.6; color: #0f172a; background: #fff; }
-      .product-hero { background: linear-gradient(135deg, #0a1628 0%, #001a4d 100%); color: #fff; padding: 60px 20px 40px; text-align: center; }
-      h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; margin-bottom: 16px; color: #ffcc00; }
+      .nvidia-strip {
+        background: linear-gradient(90deg, var(--nvidia-black) 0%, #0a0a0a 50%, var(--nvidia-black) 100%);
+        border-top: 2px solid var(--nvidia-green); border-bottom: 2px solid var(--nvidia-green);
+        color: #fff; padding: 14px 20px; text-align: center; font-size: 0.85rem; letter-spacing: 0.03em;
+      }
+      .nvidia-strip strong { color: var(--nvidia-green); font-weight: 700; }
+      .nvidia-strip a { color: var(--nvidia-green); text-decoration: none; }
+      .nvidia-badge {
+        display: inline-block; background: var(--nvidia-green); color: var(--nvidia-black);
+        padding: 6px 14px; border-radius: 4px; font-size: 0.78rem; font-weight: 700;
+        letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 14px;
+      }
+      .product-hero { background: linear-gradient(135deg, var(--nvidia-black) 0%, #0a1628 100%); color: #fff; padding: 60px 20px 40px; text-align: center; }
+      h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; margin-bottom: 16px; color: var(--nvidia-green); }
       .product-hero p { color: rgba(255,255,255,0.85); max-width: 640px; margin: 0 auto 24px; }
-      .price { font-size: 2.4rem; font-weight: 800; color: #4ade80; margin: 16px 0 4px; }
-      .btn-primary { padding: 12px 28px; background: linear-gradient(135deg, #0066cc, #0052a3); color: #fff; border-radius: 6px; font-weight: 600; text-decoration: none; display: inline-block; margin-top: 20px; }
+      .price { font-size: 2.4rem; font-weight: 800; color: var(--nvidia-green); margin: 16px 0 4px; }
+      .btn-primary { padding: 12px 28px; background: var(--nvidia-green); color: var(--nvidia-black); border-radius: 6px; font-weight: 700; text-decoration: none; display: inline-block; margin-top: 20px; letter-spacing: 0.02em; }
+      .btn-primary:hover { background: var(--nvidia-green-dark); color: #fff; }
       .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
       h2 { font-size: 1.4rem; font-weight: 700; color: var(--color-eu-blue); margin-top: 32px; margin-bottom: 14px; }
       p, li { color: var(--color-gray-600); margin-bottom: 10px; }
       ul { padding-left: 24px; margin-bottom: 16px; }
       .back-link { display: inline-block; color: var(--color-gray-500); font-size: 0.875rem; margin-bottom: 24px; text-decoration: none; }
       .back-link:hover { color: var(--color-accent); }
+      .nv-footer-note { font-size: 0.85rem; color: var(--color-gray-500); border-left: 4px solid var(--nvidia-green); padding: 12px 18px; background: #f9fafb; margin-top: 24px; border-radius: 0 8px 8px 0; }
+      .nv-footer-note strong { color: var(--nvidia-green-dark); }
     </style>
   </head>
   <body>
+    <div class="nvidia-strip">
+      <strong>BUILT ON NVIDIA</strong> · CUDA · TensorRT-LLM · NVIDIA-optimised model bundles · <strong>NVIDIA Inception applicant</strong>
+    </div>
     <section class="product-hero">
+      <div class="nvidia-badge">BUILT ON NVIDIA · CUDA · TensorRT-LLM</div>
       <h1>NVIDIA Model Installation — Per Edge Device</h1>
       <p>Add-on service for adding nodes to an existing Lifetime Fleet — or for any customer-supplied NVIDIA-capable edge device that needs the DWS IQ sovereign model stack installed on-site.</p>
       <div class="price">€995</div>
@@ -97,6 +120,10 @@
       </ul>
 
       <p style="font-size: 0.875rem; color: var(--color-gray-500); text-align: center; margin-top: 32px">Lead time: 1–2 weeks for an engineer on-site within Finland. EU travel quoted separately. Contact <a href="mailto:risto@onelifetime.world">risto@onelifetime.world</a> for bulk fleet installs.</p>
+
+      <div class="nv-footer-note">
+        <strong>Built on NVIDIA — Inception applicant.</strong> Lifetime Oy is applying to <strong>NVIDIA Inception</strong> on the sovereign EU edge AI track. The install service uses the NVIDIA stack end-to-end: CUDA, NVIDIA drivers, TensorRT-LLM inference kernels, and NVIDIA-optimised model weights for Qwen, Llama, Whisper, BGE, YOLOv8 and acoustic models. See <a href="/nvidia-inception/">/nvidia-inception/</a> for partner / programme details.
+      </div>
     </div>
 
     <script src="/shared-assets/footer/ironclad-footer.js"></script>
