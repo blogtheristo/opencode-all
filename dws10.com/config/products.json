@@ -4532,17 +4532,17 @@
       "currency": "EUR",
       "type": "subscription",
       "billingPeriod": "monthly",
-      "description": "Monthly LLM and model-bundle updates for Control Room and Situation Room edge devices. The hardware is the carrier; this subscription is where the moat lives. Each refresh ships newer LLMs (Qwen, Llama, Whisper, vision/acoustic) with better quantization, higher tokens/sec, and lower per-token cost on the same box — so your token economics keep rising while your monthly fee stays flat. Front-line operator feedback (e.g. VPK dispatch notes) feeds the next bundle.",
+      "description": "The NVIDIA stack on your box, kept current. Monthly NIM refreshes (Llama Nemotron Nano/Super/Ultra, Cosmos Reason 2/Predict 2.5/Transfer 2.5, Cosmos Nemotron VLMs, Nemotron Speech/RAG/Safety), TensorRT-LLM kernel updates, and GB10-specific quantization. Plus weekly security backports and daily hotfixes for critical CVEs — pushed over your secure tunnel, sovereign always. Includes 24/7 technical support, warranty servicing, and remote configuration. The hardware is the carrier; this subscription is the moat.",
       "features": [
-        "Monthly LLM updates (Qwen 2.5 → 3 → …, Llama 3.1 → 4, Whisper v3 → v4, vision/acoustic versioned)",
-        "Rising token economics: more tokens/sec and lower per-token cost on the same hardware, every release",
-        "Front-line feedback loop: operator notes → next month's bundle",
-        "Security patches for OpenSandbox + driver stack",
+        "Monthly: new NVIDIA NIMs (Llama Nemotron, Cosmos, Nemotron Speech/RAG/Safety) + TensorRT-LLM + GB10 quantization",
+        "Weekly: CUDA driver patches, container CVE backports, OpenSandbox + Ubuntu LTS updates",
+        "Daily hotfixes (when needed): zero-day CVE patches pushed within 24 h over your secure tunnel",
+        "24/7 technical support + warranty servicing + remote configuration bundled in",
         "Required on Control Room and Situation Room deployments"
       ],
-      "priceNote": "€299/mo per site — flat fee, rising value (newer LLMs + better token economics each release)",
+      "priceNote": "€299/mo per site — NVIDIA NIM refresh + security cadence + full service · cancel and the box still works, just stops compounding",
       "storeCategory": "subscription",
-      "version": "1.1"
+      "version": "1.2"
     }
   }
 }

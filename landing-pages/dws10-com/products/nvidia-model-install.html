@@ -131,6 +131,23 @@
       </table>
       <p style="font-size: 0.92rem; color: var(--color-gray-500);">The install is the one-off. The service is the relationship. The NVIDIA models compound on your box every month — that's what you're really renewing.</p>
 
+      <h2>Why the subscription is not optional — NVIDIA update cadence</h2>
+      <p>NVIDIA ships fast. You cannot keep up by hand:</p>
+      <ul>
+        <li><strong>Monthly:</strong> New NIM versions (Llama Nemotron Nano / Super / Ultra, Cosmos Reason 2 / Predict 2.5 / Transfer 2.5, Cosmos Nemotron VLMs, Nemotron Speech / RAG / Safety), new model bundles, TensorRT-LLM kernel refresh, GB10-specific quantization updates.</li>
+        <li><strong>Weekly:</strong> Security backports — CUDA driver patches, container CVE fixes, OpenSandbox + Ubuntu LTS updates, minor model patches.</li>
+        <li><strong>Daily hotfixes (when needed):</strong> Zero-day CVE patches, NVIDIA driver hotfixes, model-side jailbreak / prompt-injection mitigations — pushed within 24 h over your secure tunnel.</li>
+      </ul>
+      <p>If your box runs in a regulated industry (EU AI Act, NIS2, CER) a documented patch cadence is not optional. The €299/mo subscription is the cadence.</p>
+
+      <h2>Supported NVIDIA-capable hardware we can install on</h2>
+      <ul>
+        <li><strong>Acer Veriton GN100</strong> — NVIDIA GB10 Grace Blackwell · 128 GB LPDDR5x · 1 PFLOPS FP4 · €3,999 (Acer). Our default.</li>
+        <li><strong>NVIDIA DGX Spark</strong> — same GB10 Grace Blackwell, NVIDIA's own SKU at €4,699/unit (price as of Feb 2026). Same install, same service wrap.</li>
+        <li><strong>Acer Veriton 2000 Large Tower</strong> — Intel Core Ultra 9 Series 2 + NVIDIA GeForce RTX 5080 (CES 2026). For larger workstation workloads.</li>
+        <li><strong>Customer-supplied NVIDIA-capable edge device</strong> — Jetson Orin, OEM box with CUDA-capable NVIDIA GPU, DGX Station. Scope your hardware with us before ordering.</li>
+      </ul>
+
       <h2>When you don't need this separately</h2>
       <ul>
         <li>You're ordering <a href="edge-node-gn100.html">Control Room</a> — installation is already baked into the €4,994 (€995 included)</li>
