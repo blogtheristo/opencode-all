@@ -4,7 +4,7 @@
     <title>Lifetime Firehorse Store — Sovereign AI Products &amp; Services</title>
     <link>https://dws10.com/buy/</link>
     <description>Sovereign AI products and services for enterprises and SMEs. EU-hosted, CLOUD Act free. Climate compliance, industrial AI, and expert advisory by Lifetime Oy.</description>
-    <lastBuildDate>2026-05-17T15:12:14.975Z</lastBuildDate>
+    <lastBuildDate>2026-05-17T16:01:16.631Z</lastBuildDate>
     <item>
         <g:id>DWS-IQ-006</g:id>
         <g:title>Lifetime DWS IQ Platform (Version 6)</g:title>
@@ -556,8 +556,8 @@
     </item>
     <item>
         <g:id>LF-NVIDIA-INSTALL</g:id>
-        <g:title>NVIDIA Model Installation — Per Edge Device</g:title>
-        <g:description>Add-on service: install and tune the NVIDIA model stack on one edge device. Includes CUDA drivers, model bundle of your choice (Qwen, Llama, Whisper, vision/acoustic models), OpenSandbox isolation, MCP endpoint, and a sanity-tested first run. Bundled into Control Room and Situation Room products — buy this separately when adding nodes to an existing fleet.</g:description>
+        <g:title>NVIDIA Model Installation + Full Service</g:title>
+        <g:description>Install the sovereign NVIDIA model stack (NIMs, Cosmos, Isaac ROS, CV-CUDA, TensorRT-LLM) on your hardware — your own NVIDIA-capable device or a Lifetime Fleet expansion. €995 install fee, but the install always ships with the full Lifetime service relationship: operator training, 24/7 technical support, warranty servicing, and remote configuration (via the €299/mo Sovereign Model Updates Subscription). The install is the one-off; the service relationship is what keeps NVIDIA&apos;s NIM catalogue compounding on your box every month.</g:description>
         <g:link>https://dws10.com/products/nvidia-model-install.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
         <g:price>995.00 EUR</g:price>
@@ -567,6 +567,40 @@
         <g:mpn>LF-NVIDIA-INSTALL-2026</g:mpn>
         <g:identifier_exists>false</g:identifier_exists>
         <g:google_product_category>Services &gt; Computer &amp; Network Services</g:google_product_category>
+        <g:custom_label_0>hardware</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>LF-JETSON-NANO</g:id>
+        <g:title>Jetson Sensor Node — Orin Nano Super + Install &amp; Service</g:title>
+        <g:description>Compact sovereign-AI sensor node for the edge of your operation: 1× NVIDIA Jetson Orin Nano Super Developer Kit (67 TOPS, 8 GB, 1024-CUDA-core Ampere GPU) + on-site install + full Lifetime service wrap. Drop one at each camera / acoustic / IoT location and feed events back to the central Control Room or Situation Room. Includes operator training, 24/7 support, warranty servicing, and remote configuration via the €299/mo Sovereign Model Updates Subscription. NVIDIA-priced at USD 249; we deliver turnkey on-site in the EU for €764.</g:description>
+        <g:link>https://dws10.com/products/jetson-sensor.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>764.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>NVIDIA</g:brand>
+        <g:mpn>LF-JETSON-NANO-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Electronics &gt; Computers &gt; Desktop Computers</g:google_product_category>
+        <g:custom_label_0>hardware</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>LF-JETSON-AGX</g:id>
+        <g:title>Jetson Sensor Concentrator — AGX Orin 64GB + Install &amp; Service</g:title>
+        <g:description>Multi-sensor concentrator for heavy edge workloads: 1× NVIDIA Jetson AGX Orin 64 GB Developer Kit (275 TOPS, 64 GB, 2048-CUDA-core Ampere GPU) + on-site install + full Lifetime service wrap. Aggregates 4–8 sensor lanes (cameras, LiDAR, acoustic, IoT) and runs YOLOv8 / Cosmos Reason / Whisper locally before forwarding only events to the central Control Room or Situation Room. Includes operator training, 24/7 support, warranty servicing, and remote configuration via the €299/mo Sovereign Model Updates Subscription. NVIDIA-priced at USD 1,999; we deliver turnkey on-site in the EU for €2,494.</g:description>
+        <g:link>https://dws10.com/products/jetson-sensor.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>2494.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>NVIDIA</g:brand>
+        <g:mpn>LF-JETSON-AGX-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Electronics &gt; Computers &gt; Desktop Computers</g:google_product_category>
         <g:custom_label_0>hardware</g:custom_label_0>
         <g:target_country>FI</g:target_country>
         <g:content_language>en</g:content_language>
