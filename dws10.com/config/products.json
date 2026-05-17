@@ -974,16 +974,16 @@
       "gtin": null,
       "mpn": "LF-CTRLROOM-GN100-2026",
       "name": "Control Room — Acer Veriton GN100 + NVIDIA Model Install",
-      "price": 4994,
+      "price": 5294,
       "currency": "EUR",
       "type": "one-time",
-      "description": "When your team needs a sovereign AI brain that lives in your own building. One Acer Veriton GN100 (20 cores, 120 GiB RAM) + on-site NVIDIA model installation, configured for your operations. Used by Lifetime as the command brain — and built for places like VPK (vapaapalokunta) where decisions can't wait for a cloud round-trip. Pick the model bundle that fits how you work.",
+      "description": "When your team needs a sovereign AI brain that lives in your own building. One Acer Veriton GN100 (NVIDIA GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm) + on-site NVIDIA model installation, configured for your operations. Used by Lifetime as the command brain — and built for places like VPK (vapaapalokunta) where decisions can't wait for a cloud round-trip. Pick the model bundle that fits how you work. Finnish / EU B2B (VAT 0% reverse charge).",
       "features": [
-        "1× Acer Veriton GN100 (20 cores / 120 GiB RAM) — EU air-gapped",
-        "NVIDIA model installation included (€995 value)",
+        "1× Acer Veriton GN100 (NVIDIA GB10 Grace Blackwell · 1 PFLOPS FP4 · 128 GB LPDDR5x · 20-core Arm) — €4,299 hardware",
+        "NVIDIA model installation included — €995 (CUDA + NIMs + Cosmos + MCP + Article 12 log)",
         "Choose your model bundle: VPK Ops · Compliance · Construction · Custom"
       ],
-      "priceNote": "€4,994 one-time · €3,999 hardware + €995 NVIDIA model install · DWS IQ subscription separate",
+      "priceNote": "€5,294 one-time · €4,299 hardware (Acer Veriton GN100, Finnish/EMEA channel) + €995 NVIDIA model installation · DWS IQ subscription separate · Finnish / EU B2B (VAT 0% reverse charge)",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -1007,17 +1007,17 @@
       "gtin": null,
       "mpn": "LF-SITROOM-GN100-2026",
       "name": "Situation Room — 2× Acer Veriton GN100 Bridged + NVIDIA Model Bundle",
-      "price": 8993,
+      "price": 10093,
       "currency": "EUR",
       "type": "one-time",
-      "description": "When one node isn't enough — and the situation is bigger than a single screen. Two Acer Veriton GN100 nodes bridged for parallel inference, plus a wider NVIDIA model bundle covering vision, acoustic, language and reasoning. Built for dual-use scenarios like VPK drone defense: detect the threat with vision + acoustic models, coordinate the response with reasoning + voice models, log everything for the audit. Pick your bundle. Sovereign by default.",
+      "description": "When one node isn't enough — and the situation is bigger than a single screen. Two Acer Veriton GN100 nodes bridged for parallel inference, plus a wider NVIDIA model bundle covering vision, acoustic, language and reasoning. Built for dual-use scenarios like VPK drone defense: detect the threat with vision + acoustic models, coordinate the response with reasoning + voice models, log everything for the audit. Pick your bundle. Sovereign by default. Finnish / EU B2B (VAT 0% reverse charge).",
       "features": [
-        "2× Acer Veriton GN100 bridged (40 cores / 240 GiB RAM total)",
-        "NVIDIA model installation included for the bridged pair (€995 value)",
-        "Wider model selection: vision, acoustic, language, reasoning, voice",
+        "2× Acer Veriton GN100 bridged (40 cores · 256 GB unified memory · NVIDIA ConnectX-7 200 Gbps link) — 2× €4,299 hardware",
+        "NVIDIA model installation for the bridged pair — €1,495 (tensor-parallel sharding, dual-node Article 12 log replica, failover)",
+        "Wider model selection: vision, acoustic, language, reasoning, voice — all NVIDIA NIMs",
         "Choose your bundle: VPK Drone Defense · Crisis Coordination · Compliance + Defence · Full Sovereign"
       ],
-      "priceNote": "€8,993 one-time · 2× €3,999 hardware + €995 NVIDIA model install · DWS IQ subscription separate",
+      "priceNote": "€10,093 one-time · 2× €4,299 hardware (bridged Acer Veriton GN100 pair) + €1,495 NVIDIA model install for the bridged pair · DWS IQ subscription separate · Finnish / EU B2B (VAT 0% reverse charge)",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -1107,16 +1107,16 @@
       "gtin": null,
       "mpn": "LF-JETSON-AGX-2026",
       "name": "Jetson Sensor Concentrator — AGX Orin 64GB + Install & Service",
-      "price": 2494,
+      "price": 2694,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Multi-sensor concentrator for heavy edge workloads: 1× NVIDIA Jetson AGX Orin 64 GB Developer Kit (275 TOPS, 64 GB, 2048-CUDA-core Ampere GPU) + on-site install + full Lifetime service wrap. Aggregates 4–8 sensor lanes (cameras, LiDAR, acoustic, IoT) and runs YOLOv8 / Cosmos Reason / Whisper locally before forwarding only events to the central Control Room or Situation Room. Includes operator training, 24/7 support, warranty servicing, and remote configuration via the €299/mo Sovereign Model Updates Subscription. NVIDIA-priced at USD 1,999; we deliver turnkey on-site in the EU for €2,494.",
+      "description": "Multi-sensor concentrator for heavy edge workloads: 1× NVIDIA Jetson AGX Orin 64 GB (275 TOPS, 64 GB, 2048-CUDA-core Ampere GPU) + on-site install + full Lifetime service wrap. Aggregates 4-8 sensor lanes (cameras, LiDAR, acoustic, IoT) and runs YOLOv8 / Cosmos Reason / Whisper locally before forwarding only events to the central Control Room or Situation Room. EMEA channel hardware pricing + Lifetime reseller margin. Finnish / EU B2B (VAT 0% reverse charge).",
       "features": [
-        "1× NVIDIA Jetson AGX Orin 64 GB (275 TOPS, 64 GB, Ampere GPU) — €1,999 hardware",
+        "1× NVIDIA Jetson AGX Orin 64 GB (275 TOPS · 64 GB · 2048-CUDA-core Ampere GPU) — €2,199 hardware (EMEA channel)",
         "On-site install + service wrap — €495 (CUDA + NIMs + Isaac ROS + CV-CUDA + MCP + Article 12 log)",
         "Built for sensor-concentrator workflows: VPK drone defense forward node, port operations multi-cam, rail wayside, energy substation"
       ],
-      "priceNote": "€2,494 one-time · €1,999 hardware + €495 install · €299/mo subscription separate",
+      "priceNote": "€2,694 one-time · €2,199 hardware (NVIDIA AGX Orin 64 GB Dev Kit, EMEA channel) + €495 install · €299/mo subscription separate · Finnish / EU B2B (VAT 0% reverse charge)",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -4553,10 +4553,10 @@
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-05-17T22:30:00Z",
-  "priceVersion": "1.19",
+  "lastUpdated": "2026-05-17T23:00:00Z",
+  "priceVersion": "1.20",
   "priceList": {
-    "version": "1.19",
+    "version": "1.20",
     "effectiveDate": "2026-05-17",
     "nextReviewDate": "2026-08-01",
     "policy": {
@@ -4576,6 +4576,20 @@
     }
   },
   "priceHistory": [
+    {
+      "version": "1.20",
+      "date": "2026-05-17",
+      "author": "claude/add-hardware-products-MY7X7",
+      "changes": [
+        "Three hardware-margin bumps per user direction (capture small reseller margin without undercutting NVIDIA/Acer EU channel):",
+        "  edge-node-gn100 (Control Room): €4,994 -> €5,294. Hardware €3,999 -> €4,299 (+€300 over Acer EMEA launch).",
+        "  LF-SITROOM-001 (Situation Room): €8,993 -> €10,093. 2x €4,299 hardware + €1,495 install for the bridged pair (install +€500 over single-node fee, captures the heavier engineering value).",
+        "  LF-JETSON-AGX (Jetson Concentrator): €2,494 -> €2,694. Hardware €1,999 -> €2,199 (+€200 over NVIDIA USD 1,999 list / welectron.com EU street).",
+        "Other SKUs held at v1.19 prices.",
+        "All increases sit above the NVIDIA/Acer EU channel base (we no longer undercut). Finnish / EU B2B (VAT 0% reverse charge) framing preserved.",
+        "Rationale (per user): we are not actively tracking NVIDIA/Acer EU channel price moves in real time. NVIDIA already raised DGX Spark USD 3,999 -> USD 4,699 in Feb 2026; Acer or NVIDIA can move again at any time. Small reseller margin above the channel base gives us headroom so we are not at-cost or upside-down when the channel moves. Margin protects the install + subscription economics."
+      ]
+    },
     {
       "version": "1.19",
       "date": "2026-05-17",

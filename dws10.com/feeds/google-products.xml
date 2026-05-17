@@ -4,7 +4,7 @@
     <title>Lifetime Firehorse Store — Sovereign AI Products &amp; Services</title>
     <link>https://dws10.com/buy/</link>
     <description>Sovereign AI products and services for enterprises and SMEs. EU-hosted, CLOUD Act free. Climate compliance, industrial AI, and expert advisory by Lifetime Oy.</description>
-    <lastBuildDate>2026-05-17T16:28:25.430Z</lastBuildDate>
+    <lastBuildDate>2026-05-17T16:43:39.384Z</lastBuildDate>
     <item>
         <g:id>DWS-IQ-006</g:id>
         <g:title>Lifetime DWS IQ Platform (Version 6)</g:title>
@@ -521,10 +521,10 @@
     <item>
         <g:id>edge-node-gn100</g:id>
         <g:title>Control Room — Acer Veriton GN100 + NVIDIA Model Install</g:title>
-        <g:description>When your team needs a sovereign AI brain that lives in your own building. One Acer Veriton GN100 (20 cores, 120 GiB RAM) + on-site NVIDIA model installation, configured for your operations. Used by Lifetime as the command brain — and built for places like VPK (vapaapalokunta) where decisions can&apos;t wait for a cloud round-trip. Pick the model bundle that fits how you work.</g:description>
+        <g:description>When your team needs a sovereign AI brain that lives in your own building. One Acer Veriton GN100 (NVIDIA GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm) + on-site NVIDIA model installation, configured for your operations. Used by Lifetime as the command brain — and built for places like VPK (vapaapalokunta) where decisions can&apos;t wait for a cloud round-trip. Pick the model bundle that fits how you work. Finnish / EU B2B (VAT 0% reverse charge).</g:description>
         <g:link>https://dws10.com/products/edge-node-gn100.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
-        <g:price>4994.00 EUR</g:price>
+        <g:price>5294.00 EUR</g:price>
         <g:availability>in_stock</g:availability>
         <g:condition>new</g:condition>
         <g:brand>Acer</g:brand>
@@ -539,10 +539,10 @@
     <item>
         <g:id>LF-SITROOM-001</g:id>
         <g:title>Situation Room — 2× Acer Veriton GN100 Bridged + NVIDIA Model Bundle</g:title>
-        <g:description>When one node isn&apos;t enough — and the situation is bigger than a single screen. Two Acer Veriton GN100 nodes bridged for parallel inference, plus a wider NVIDIA model bundle covering vision, acoustic, language and reasoning. Built for dual-use scenarios like VPK drone defense: detect the threat with vision + acoustic models, coordinate the response with reasoning + voice models, log everything for the audit. Pick your bundle. Sovereign by default.</g:description>
+        <g:description>When one node isn&apos;t enough — and the situation is bigger than a single screen. Two Acer Veriton GN100 nodes bridged for parallel inference, plus a wider NVIDIA model bundle covering vision, acoustic, language and reasoning. Built for dual-use scenarios like VPK drone defense: detect the threat with vision + acoustic models, coordinate the response with reasoning + voice models, log everything for the audit. Pick your bundle. Sovereign by default. Finnish / EU B2B (VAT 0% reverse charge).</g:description>
         <g:link>https://dws10.com/products/situation-room.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
-        <g:price>8993.00 EUR</g:price>
+        <g:price>10093.00 EUR</g:price>
         <g:availability>in_stock</g:availability>
         <g:condition>new</g:condition>
         <g:brand>Acer</g:brand>
@@ -591,10 +591,10 @@
     <item>
         <g:id>LF-JETSON-AGX</g:id>
         <g:title>Jetson Sensor Concentrator — AGX Orin 64GB + Install &amp; Service</g:title>
-        <g:description>Multi-sensor concentrator for heavy edge workloads: 1× NVIDIA Jetson AGX Orin 64 GB Developer Kit (275 TOPS, 64 GB, 2048-CUDA-core Ampere GPU) + on-site install + full Lifetime service wrap. Aggregates 4–8 sensor lanes (cameras, LiDAR, acoustic, IoT) and runs YOLOv8 / Cosmos Reason / Whisper locally before forwarding only events to the central Control Room or Situation Room. Includes operator training, 24/7 support, warranty servicing, and remote configuration via the €299/mo Sovereign Model Updates Subscription. NVIDIA-priced at USD 1,999; we deliver turnkey on-site in the EU for €2,494.</g:description>
+        <g:description>Multi-sensor concentrator for heavy edge workloads: 1× NVIDIA Jetson AGX Orin 64 GB (275 TOPS, 64 GB, 2048-CUDA-core Ampere GPU) + on-site install + full Lifetime service wrap. Aggregates 4-8 sensor lanes (cameras, LiDAR, acoustic, IoT) and runs YOLOv8 / Cosmos Reason / Whisper locally before forwarding only events to the central Control Room or Situation Room. EMEA channel hardware pricing + Lifetime reseller margin. Finnish / EU B2B (VAT 0% reverse charge).</g:description>
         <g:link>https://dws10.com/products/jetson-sensor.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
-        <g:price>2494.00 EUR</g:price>
+        <g:price>2694.00 EUR</g:price>
         <g:availability>in_stock</g:availability>
         <g:condition>new</g:condition>
         <g:brand>NVIDIA</g:brand>
