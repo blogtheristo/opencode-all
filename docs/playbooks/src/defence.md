@@ -5,7 +5,7 @@ industry: "Defence / dual-use"
 industry_number: 8
 flagship: true
 language: en
-version: 1.1.0
+version: 1.2.0
 status: ACTIVE
 effective: 2026-05-17
 owner: Lifetime Oy
@@ -27,6 +27,7 @@ badges:
 VERSION AND AGENT HISTORY
 - 1.0.0 — 2026-05-17 — initial Phase 1 reference playbook (claude/playbooks-phase-1-Ps5Ax)
 - 1.1.0 — 2026-05-17 — Boardy editorial pass: believer-filter opener, pull-quoted hooks, timeline vignette, harder NestAI positioning, three-objection handler (claude/playbooks-phase-1-Ps5Ax)
+- 1.2.0 — 2026-05-17 — Nokia Defence positioning added in procurement annex: Nokia = network credibility + secure connectivity + integration cover (under the line); DWS = governed action stack + moat (above the line) (claude/playbooks-phase-1-Ps5Ax)
 ***
 
 # Defence / dual-use — sovereign-stack playbook
@@ -288,6 +289,35 @@ with 30210000-4 and 48000000-8 as additional CPVs.
 | Yhteyshenkilö | risto.paarni@lifetime.fi |
 | Toimitusketju | NVIDIA Inception Partner (EU Sovereign track) · Acer ISV path · EU-resident manufacture / integration / support |
 | Saatavuus | Toimitus 4–8 viikkoa tilauksesta, asennus 1–2 päivää / sivusto |
+
+### Positioning vis-à-vis Nokia Defence
+
+> **Nokia gives the network credibility. DWS gives the governed action stack.**
+
+Nokia's defence-and-intelligence portfolio — private 5G, mission-critical
+networks, tactical-bubble deployable connectivity, MX Industrial Edge — solves
+the layer below the sovereign stack: getting bits from camera, radio, and
+sensor into the inference plane reliably enough to be operationally trusted,
+in the field as well as in the kalustohalli.
+
+Three things Nokia adds to a joint case:
+
+- **Procurement credibility.** A known Nordic defence player at the network
+  layer makes the sovereign stack feel less like a startup thesis and more
+  like a buyable system. The buyer's risk committee recognises the Nokia
+  logo as something they have signed off on before.
+- **Secure connectivity.** Private 5G / edge / mission-critical pieces let
+  the on-site NVIDIA stack actually operate in the field — vehicle, vessel,
+  container, forward node — not only in a fixed building.
+- **Integration cover.** Nokia owns the network and infrastructure layer;
+  DWS owns the control plane and the Article 12 logging plane on top.
+  Cleaner architecture than trying to be everything ourselves.
+
+What Nokia does **not** add is the moat. The moat — sovereign deployment,
+customer-owned hardware, auditable hand-off, NVIDIA NIM service wrapper,
+and the field-feedback loop — sits with DWS. A joint proposal makes the
+geometry explicit: **Nokia under the line, DWS above the line, customer
+in custody of the seal.**
 
 ### Positioning vis-à-vis NestAI cooperation
 

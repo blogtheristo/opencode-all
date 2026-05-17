@@ -38,5 +38,5 @@ export const PUBLISHED_PLAYBOOKS: ReadonlySet<IndustrySlug> = new Set<IndustrySl
 ]);
 
 export const PDF_VERSIONS: Record<string, string> = {
-  defence: 'defence-en@1.1.0',
+  defence: 'defence-en@1.2.0',
 };
