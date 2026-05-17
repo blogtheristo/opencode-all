@@ -193,6 +193,21 @@
         </ul>
       </div>
 
+      <h2>What's in the box — itemised</h2>
+      <p>Two line items make up the €4,994 turnkey price. Both ship together; you can also buy the install separately if you already own NVIDIA-capable hardware.</p>
+      <div class="bundle-grid">
+        <div class="bundle-card" style="border-color: var(--color-eu-blue);">
+          <h4>1. Acer Veriton GN100 — Sovereign Edge AI Node</h4>
+          <p style="margin-bottom: 6px;"><strong>€3,999</strong> · NVIDIA GB10 Grace Blackwell SoC · 20 cores · 120 GiB unified memory · Ubuntu 24.04 LTS pre-imaged · 230 V EU plug.</p>
+          <p style="font-size: 0.82rem; color: var(--color-gray-500); margin-bottom: 0;">The hardware substrate. EU air-gapped, customer-owned, zero CLOUD Act exposure.</p>
+        </div>
+        <div class="bundle-card" style="border-color: var(--nvidia-green); background: var(--nvidia-green-soft);">
+          <h4 style="color: var(--nvidia-green-dark);">2. NVIDIA Model Installation — <a href="nvidia-model-install.html" style="color: var(--nvidia-green-dark);">view product →</a></h4>
+          <p style="margin-bottom: 6px;"><strong style="color: var(--nvidia-green-dark);">€995</strong> · On-site engineer · CUDA + NVIDIA drivers validated · NVIDIA NIM microservices · model bundle of your choice loaded and sanity-tested · MCP endpoint live · Article 12 log started.</p>
+          <p style="font-size: 0.82rem; color: var(--color-gray-500); margin-bottom: 0;">The service that turns the box into something your operator can actually use on day one. Included here; <a href="nvidia-model-install.html">also sold standalone</a> for adding nodes later.</p>
+        </div>
+      </div>
+
       <h2>How we install it (on-site, in one visit)</h2>
       <ol style="padding-left: 24px;">
         <li><strong>Pre-flight (remote):</strong> we confirm site power, network segmentation, and which model bundle you've picked. You ship us the room dimensions; we ship the right cable kit.</li>
@@ -262,20 +277,22 @@
         <p style="margin-top: 14px; margin-bottom: 0; font-size: 0.9rem; color: rgba(255,255,255,0.7);">Lifetime Oy is a <strong style="color: var(--nvidia-green);">NVIDIA Inception</strong> applicant — sovereign EU edge AI track. Partner enquiries: <a href="mailto:risto@onelifetime.world" style="color: var(--nvidia-green);">risto@onelifetime.world</a>.</p>
       </div>
 
-      <h2>LLM updates and rising token economics — the recurring value</h2>
-      <div class="callout"><strong>The hardware is the carrier. The moat is the model.</strong> The centre of gravity has moved from hardware to software, algorithms, and analytics. Whoever adapts faster, implements changes more quickly, and uses front-line feedback better — wins. Control Room is built around that reality.</div>
-      <p>You pay €4,994 once for the box. Then €299/mo (<a href="../buy/#LF-SOV-MODEL-SUB">Sovereign Model Updates</a>) keeps the brain inside it rising — without changing the hardware.</p>
+      <h2>The moat is the NVIDIA models — running sovereign on your box</h2>
+      <div class="callout"><strong>The hardware is the carrier. The moat is the NVIDIA model stack.</strong> The centre of gravity has moved from hardware to software, algorithms, and analytics. The hard part isn't owning a GN100 — anyone can buy one. The hard part is having the <em>NVIDIA proprietary model stack</em> (NIMs, Cosmos, Isaac ROS, Aerial Omniverse) installed, tuned, and refreshed on it, sovereign, in your building, with a service relationship behind it. That's what €299/mo (<a href="../buy/#LF-SOV-MODEL-SUB">Sovereign Model Updates</a>) buys you — and that's what cloud LLMs can't sell you.</div>
+      <p>You pay €4,994 once for the box and the install. Then €299/mo keeps NVIDIA's proprietary model stack rising on the same box — without you changing the hardware.</p>
       <table class="spec-table">
-        <thead><tr><th>What ships each month</th><th>Why your token economics rise on the same box</th></tr></thead>
+        <thead><tr><th>NVIDIA model / component shipped each month</th><th>Why your token economics rise on the same GN100</th></tr></thead>
         <tbody>
-          <tr><td><strong>Newer LLM weights</strong><br />Qwen 2.5 → Qwen 3 → … · Llama 3.1 → Llama 4 · Whisper v3 → v4 · BGE-M3 → BGE-M4 · YOLOv8 → YOLOv9/10</td><td>Newer architectures squeeze more reasoning per token. Same prompt, fewer tokens, better answer.</td></tr>
-          <tr><td><strong>Better quantization</strong><br />QLoRA → AWQ → GGUF Q5 → Q4-K-M tuned per chip</td><td>The same 72B-class model runs in less RAM, leaving headroom for a second model alongside.</td></tr>
-          <tr><td><strong>Throughput improvements</strong><br />vLLM / TensorRT-LLM kernel updates, speculative decoding</td><td>Tokens/sec on the same GN100 trend up every release — sometimes step-changes (e.g. 2–3×).</td></tr>
-          <tr><td><strong>Per-token cost ↓</strong><br />Same €299/mo, more usable compute behind it</td><td>You locked in a flat fee. The cost-per-useful-answer keeps falling under it. Cloud pricing can't promise that.</td></tr>
-          <tr><td><strong>Front-line feedback loop</strong><br />Operator notes from your dispatch desk → next bundle</td><td>The system you bought adapts to your operation faster than the threat / regulation / customer adapts to you.</td></tr>
+          <tr><td><strong>NVIDIA NIM microservices</strong><br />Llama 3.1 70B / 8B Instruct NIMs, NVIDIA-curated Qwen / Whisper / BGE NIMs — packaged, versioned, sovereign</td><td>NVIDIA's NIMs are the moat: you can't pip-install them, you can't get them from a hyperscaler with EU sovereignty intact. We ship them onto your box, refreshed monthly.</td></tr>
+          <tr><td><strong>NVIDIA Cosmos</strong><br />World foundation model (physics prediction, occlusion reasoning, long-horizon planning) — refreshed as new Cosmos checkpoints land</td><td>The basis for spatial-temporal reasoning. Cosmos updates land here first, sovereign, the moment they're available on NGC.</td></tr>
+          <tr><td><strong>NVIDIA Isaac ROS &amp; CV-CUDA</strong><br />Multi-sensor calibration, fusion pipeline, accelerated vision kernels</td><td>For control-room camera and sensor pipelines — the NVIDIA-optimised path is faster and cheaper-per-frame than anything we could write ourselves.</td></tr>
+          <tr><td><strong>NVIDIA TensorRT-LLM kernel updates</strong><br />Speculative decoding, FP4/FP8 paths on Grace Blackwell, optimised attention</td><td>Tokens/sec on the same GN100 trend up every release — sometimes 2–3× on a single jump when a new kernel lands.</td></tr>
+          <tr><td><strong>NVIDIA-tuned quantization</strong><br />AWQ / GGUF Q4-K-M weights tuned for GB10 Grace Blackwell specifically</td><td>NVIDIA + Lifetime co-tune the quantization for your exact chip. The same 70B-class model runs in less RAM, leaving headroom for a second model alongside.</td></tr>
+          <tr><td><strong>Per-token cost ↓</strong><br />Same €299/mo, more usable NVIDIA compute behind it</td><td>You locked in a flat fee. The cost-per-useful-answer keeps falling under it. Cloud pricing can't promise that.</td></tr>
+          <tr><td><strong>Front-line feedback loop</strong><br />Operator notes from your dispatch desk → next NIM bundle</td><td>Your VPK dispatch notes / CSRD audit pain → fed back into the next month's NVIDIA NIM bundle for your operation. The system adapts to <em>you</em>.</td></tr>
         </tbody>
       </table>
-      <p>This is also why we sell the box once and the subscription forever. Hardware depreciates. Token economics keep rising. The customer who renews compounds the gain.</p>
+      <p>This is also why we sell the box once and the NVIDIA model subscription forever. Hardware depreciates. NVIDIA's NIM catalogue keeps growing. Your token economics keep rising. The customer who renews compounds the gain.</p>
 
       <hr />
 

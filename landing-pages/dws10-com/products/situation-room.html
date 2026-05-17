@@ -195,6 +195,21 @@
         </ul>
       </div>
 
+      <h2>What's in the box — itemised</h2>
+      <p>Two line items make up the €8,993 turnkey price. The €995 NVIDIA model install is one fee for the bridged pair (not €995 per node). Both ship together; the install is also sold standalone if you're adding nodes to an existing fleet.</p>
+      <div class="bundle-grid">
+        <div class="bundle-card" style="border-color: var(--color-eu-blue);">
+          <h4>1. 2× Acer Veriton GN100 — Bridged Sovereign Edge AI Nodes</h4>
+          <p style="margin-bottom: 6px;"><strong>€7,998</strong> (2× €3,999) · 2× NVIDIA GB10 Grace Blackwell SoC · 40 cores / 240 GiB unified memory combined · Ubuntu 24.04 LTS pre-imaged on both · direct node-to-node bridge link.</p>
+          <p style="font-size: 0.82rem; color: var(--color-gray-500); margin-bottom: 0;">The hardware substrate — two NVIDIA-powered nodes joined into a single inference cluster. EU air-gapped, customer-owned, zero CLOUD Act exposure.</p>
+        </div>
+        <div class="bundle-card" style="border-color: var(--nvidia-green); background: var(--nvidia-green-soft);">
+          <h4 style="color: var(--nvidia-green-dark);">2. NVIDIA Model Installation (bridged pair) — <a href="nvidia-model-install.html" style="color: var(--nvidia-green-dark);">view product →</a></h4>
+          <p style="margin-bottom: 6px;"><strong style="color: var(--nvidia-green-dark);">€995</strong> · One fee covers the bridged pair · On-site engineer · CUDA + NVIDIA drivers validated on both nodes · NVIDIA NIM microservices + Cosmos checkpoints loaded · tensor parallel sharding configured · MCP endpoint live · Article 12 replica log started.</p>
+          <p style="font-size: 0.82rem; color: var(--color-gray-500); margin-bottom: 0;">The service that turns two boxes into one situation room. Baked into the €8,993; <a href="nvidia-model-install.html">also sold standalone</a> at €995/device for fleet expansion.</p>
+        </div>
+      </div>
+
       <h2>How we install it (on-site, in one visit)</h2>
       <ol>
         <li><strong>Pre-flight:</strong> we confirm site power, network segmentation, where the two nodes live (same rack vs. failover rack), and which bundle you've picked.</li>
@@ -270,20 +285,22 @@
         <p style="margin-top: 14px; margin-bottom: 0; font-size: 0.9rem; color: rgba(255,255,255,0.7);">Lifetime Oy is a <strong style="color: var(--nvidia-green);">NVIDIA Inception</strong> applicant — sovereign EU edge AI, dual-use track. Partner enquiries: <a href="mailto:risto@onelifetime.world" style="color: var(--nvidia-green);">risto@onelifetime.world</a>.</p>
       </div>
 
-      <h2>LLM updates and rising token economics — the recurring value</h2>
-      <div class="callout"><strong>The bridged box is the carrier. The moat is the model.</strong> The centre of gravity has moved from hardware to software, algorithms, and analytics. Whoever adapts faster, implements changes more quickly, and uses front-line feedback better — wins. Situation Room is built around that reality.</div>
-      <p>You pay €8,993 once for the bridged pair. Then €299/mo (<a href="../buy/#LF-SOV-MODEL-SUB">Sovereign Model Updates</a>) keeps both nodes rising — without changing the hardware.</p>
+      <h2>The moat is the NVIDIA models — running sovereign across both nodes</h2>
+      <div class="callout"><strong>The bridged box is the carrier. The moat is the NVIDIA model stack across it.</strong> Anyone can buy two GN100s. The hard part is having NVIDIA's proprietary model stack — NIMs, Cosmos, Isaac ROS, Aerial Omniverse, CV-CUDA, TensorRT-LLM tensor-parallel kernels — installed, sharded across the bridge, tuned, and refreshed monthly, sovereign, in your building, with full service behind it. That's what €299/mo (<a href="../buy/#LF-SOV-MODEL-SUB">Sovereign Model Updates</a>) buys you — and that's what cloud LLMs and pure-hardware vendors can't sell you.</div>
+      <p>You pay €8,993 once for the bridged pair + install. Then €299/mo keeps NVIDIA's proprietary model stack rising on both nodes — without you changing the hardware.</p>
       <table class="spec-table">
-        <thead><tr><th>What ships each month</th><th>Why your token economics rise on the bridged pair</th></tr></thead>
+        <thead><tr><th>NVIDIA model / component shipped each month</th><th>Why your token economics rise on the bridged pair</th></tr></thead>
         <tbody>
-          <tr><td><strong>Newer LLM weights</strong><br />Qwen 2.5 → Qwen 3 → … · Llama 3.1 → Llama 4 · Whisper v3 → v4 · YOLOv8-x → v9/v10 · acoustic event v-next</td><td>Newer architectures squeeze more reasoning, more recall, and tighter detection per token. Two-node bridge gets twice the headroom for the upgrade.</td></tr>
-          <tr><td><strong>Better sharding &amp; quantization</strong><br />Multi-GPU tensor parallel, AWQ/GGUF Q4-K-M, speculative decoding across nodes</td><td>The same heavy model runs faster across the bridge each release. Independent-check Llama lane on Node B becomes cheaper to run.</td></tr>
-          <tr><td><strong>Throughput step-changes</strong><br />vLLM / TensorRT-LLM kernel updates tuned for the bridged topology</td><td>Tokens/sec across the cluster trend up every release — often 2–3× on a single jump (e.g. when a new kernel lands).</td></tr>
-          <tr><td><strong>Per-token cost ↓</strong><br />Same €299/mo, more usable compute behind it</td><td>You locked in a flat fee. The cost-per-detection-decision-log line keeps falling underneath it.</td></tr>
-          <tr><td><strong>Front-line dual-use feedback</strong><br />Drill notes, false-positive flags, operator overrides → next bundle</td><td>Your sovereign situation room adapts to <em>your</em> sky, <em>your</em> dispatch SOPs, <em>your</em> dual-use call patterns — faster than the threat adapts to you.</td></tr>
+          <tr><td><strong>NVIDIA NIM microservices (multi-node)</strong><br />Llama 3.1 70B / 8B Instruct NIMs sharded across the bridge · Whisper / BGE / vision NIMs replicated per node</td><td>NVIDIA NIMs are the moat: packaged, versioned, sovereign — the bridged topology gets twice the headroom for the next NIM bundle without touching hardware.</td></tr>
+          <tr><td><strong>NVIDIA Cosmos (world foundation model)</strong><br />Physics prediction, occlusion reasoning, long-horizon planning — refreshed as new Cosmos checkpoints land on NGC</td><td>Cosmos is the basis for spatial-temporal reasoning in your situation room — drone trajectory prediction, occluded-target inference, multi-hour scenario simulation.</td></tr>
+          <tr><td><strong>NVIDIA Isaac ROS &amp; CV-CUDA</strong><br />Multi-sensor calibration + fusion + accelerated vision pipelines for camera/LiDAR/acoustic feeds</td><td>For the multi-stream dual-use detection pipeline — Isaac ROS fuses the sensor lanes, CV-CUDA accelerates the vision kernels. NVIDIA's stack is the only one tuned for this end-to-end.</td></tr>
+          <tr><td><strong>NVIDIA Aerial Omniverse</strong><br />Digital-twin sync of the operational area — useful for VPK area familiarisation, dual-use scenario rehearsal, after-action review</td><td>Lets your operators rehearse a scenario inside an Omniverse twin of the actual kalustohalli / response zone before they ever see it for real.</td></tr>
+          <tr><td><strong>TensorRT-LLM tensor-parallel kernels</strong><br />Speculative decoding across nodes, FP4/FP8 on Grace Blackwell, optimised attention for bridged topology</td><td>Tokens/sec across the cluster trend up every release — often 2–3× on a single jump when a new TensorRT-LLM kernel lands.</td></tr>
+          <tr><td><strong>NVIDIA-tuned quantization for GB10 Grace Blackwell</strong><br />AWQ / GGUF Q4-K-M weights tuned for the exact chip pair</td><td>NVIDIA + Lifetime co-tune for the bridged GB10 pair specifically. Independent-check Llama 70B on Node B becomes cheaper to run with each refresh.</td></tr>
+          <tr><td><strong>Front-line dual-use feedback</strong><br />Drill notes, false-positive flags, operator overrides → next NVIDIA NIM bundle</td><td>Your sovereign situation room adapts to <em>your</em> sky, <em>your</em> dispatch SOPs, <em>your</em> dual-use call patterns — faster than the threat adapts to you.</td></tr>
         </tbody>
       </table>
-      <p>This is also why the box ships once and the subscription runs forever. Hardware depreciates. Token economics keep rising. The customer who renews compounds the gain.</p>
+      <p>This is also why the box ships once and the NVIDIA model subscription runs forever. Hardware depreciates. NVIDIA's NIM catalogue keeps growing. Token economics keep rising. The customer who renews compounds the gain.</p>
 
       <hr />
 

@@ -1040,17 +1040,17 @@
       "id": "LF-NVIDIA-INSTALL",
       "gtin": null,
       "mpn": "LF-NVIDIA-INSTALL-2026",
-      "name": "NVIDIA Model Installation — Per Edge Device",
+      "name": "NVIDIA Model Installation + Full Service",
       "price": 995,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Add-on service: install and tune the NVIDIA model stack on one edge device. Includes CUDA drivers, model bundle of your choice (Qwen, Llama, Whisper, vision/acoustic models), OpenSandbox isolation, MCP endpoint, and a sanity-tested first run. Bundled into Control Room and Situation Room products — buy this separately when adding nodes to an existing fleet.",
+      "description": "Install the sovereign NVIDIA model stack (NIMs, Cosmos, Isaac ROS, CV-CUDA, TensorRT-LLM) on your hardware — your own NVIDIA-capable device or a Lifetime Fleet expansion. €995 install fee, but the install always ships with the full Lifetime service relationship: operator training, 24/7 technical support, warranty servicing, and remote configuration (via the €299/mo Sovereign Model Updates Subscription). The install is the one-off; the service relationship is what keeps NVIDIA's NIM catalogue compounding on your box every month.",
       "features": [
-        "CUDA + NVIDIA driver stack installed and validated",
-        "Model bundle of your choice (Qwen 2.5 72B, Whisper, vision/acoustic, custom)",
-        "OpenSandbox agent isolation + local MCP endpoint configured"
+        "CUDA + NVIDIA drivers + TensorRT-LLM installed and validated",
+        "NVIDIA NIM microservices + Cosmos checkpoints + Isaac ROS + CV-CUDA (per bundle scope)",
+        "Operator training + 24/7 support + warranty servicing + remote configuration (via subscription)"
       ],
-      "priceNote": "€995 per edge device · already included in Control Room & Situation Room",
+      "priceNote": "€995 per edge device · already included in Control Room & Situation Room · service wrap via Sovereign Model Updates Subscription (€299/mo)",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
