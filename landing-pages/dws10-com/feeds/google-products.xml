@@ -4,7 +4,7 @@
     <title>Lifetime Firehorse Store — Sovereign AI Products &amp; Services</title>
     <link>https://dws10.com/buy/</link>
     <description>Sovereign AI products and services for enterprises and SMEs. EU-hosted, CLOUD Act free. Climate compliance, industrial AI, and expert advisory by Lifetime Oy.</description>
-    <lastBuildDate>2026-05-10T16:58:31.043Z</lastBuildDate>
+    <lastBuildDate>2026-05-17T15:12:14.975Z</lastBuildDate>
     <item>
         <g:id>DWS-IQ-006</g:id>
         <g:title>Lifetime DWS IQ Platform (Version 6)</g:title>
@@ -520,19 +520,54 @@
     </item>
     <item>
         <g:id>edge-node-gn100</g:id>
-        <g:title>Acer Veriton GN100 — EU Sovereign Edge AI Node</g:title>
-        <g:description>Run DWS IQ 6 entirely on your premises — zero cloud dependency, zero CLOUD Act exposure. The Acer Veriton GN100 is the reference hardware for Lifetime&apos;s EU sovereign edge AI stack: 20 cores, 120 GiB RAM, runs Qwen 2.5 72B (QLoRA) locally with OpenSandbox agent isolation. Minimum order 2 units for control room + situation room redundancy.</g:description>
+        <g:title>Control Room — Acer Veriton GN100 + NVIDIA Model Install</g:title>
+        <g:description>When your team needs a sovereign AI brain that lives in your own building. One Acer Veriton GN100 (20 cores, 120 GiB RAM) + on-site NVIDIA model installation, configured for your operations. Used by Lifetime as the command brain — and built for places like VPK (vapaapalokunta) where decisions can&apos;t wait for a cloud round-trip. Pick the model bundle that fits how you work.</g:description>
         <g:link>https://dws10.com/products/edge-node-gn100.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
-        <g:price>3999.00 EUR</g:price>
+        <g:price>4994.00 EUR</g:price>
         <g:availability>in_stock</g:availability>
         <g:condition>new</g:condition>
         <g:brand>Acer</g:brand>
-        <g:mpn>LF-EDGE-GN100-2026</g:mpn>
+        <g:mpn>LF-CTRLROOM-GN100-2026</g:mpn>
         <g:identifier_exists>false</g:identifier_exists>
         <g:google_product_category>Electronics &gt; Computers &gt; Desktop Computers</g:google_product_category>
         <g:custom_label_0>hardware</g:custom_label_0>
         <g:custom_label_1>featured</g:custom_label_1>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>LF-SITROOM-001</g:id>
+        <g:title>Situation Room — 2× Acer Veriton GN100 Bridged + NVIDIA Model Bundle</g:title>
+        <g:description>When one node isn&apos;t enough — and the situation is bigger than a single screen. Two Acer Veriton GN100 nodes bridged for parallel inference, plus a wider NVIDIA model bundle covering vision, acoustic, language and reasoning. Built for dual-use scenarios like VPK drone defense: detect the threat with vision + acoustic models, coordinate the response with reasoning + voice models, log everything for the audit. Pick your bundle. Sovereign by default.</g:description>
+        <g:link>https://dws10.com/products/situation-room.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>8993.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Acer</g:brand>
+        <g:mpn>LF-SITROOM-GN100-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Electronics &gt; Computers &gt; Desktop Computers</g:google_product_category>
+        <g:custom_label_0>hardware</g:custom_label_0>
+        <g:custom_label_1>featured</g:custom_label_1>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>LF-NVIDIA-INSTALL</g:id>
+        <g:title>NVIDIA Model Installation — Per Edge Device</g:title>
+        <g:description>Add-on service: install and tune the NVIDIA model stack on one edge device. Includes CUDA drivers, model bundle of your choice (Qwen, Llama, Whisper, vision/acoustic models), OpenSandbox isolation, MCP endpoint, and a sanity-tested first run. Bundled into Control Room and Situation Room products — buy this separately when adding nodes to an existing fleet.</g:description>
+        <g:link>https://dws10.com/products/nvidia-model-install.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>995.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Lifetime</g:brand>
+        <g:mpn>LF-NVIDIA-INSTALL-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Services &gt; Computer &amp; Network Services</g:google_product_category>
+        <g:custom_label_0>hardware</g:custom_label_0>
         <g:target_country>FI</g:target_country>
         <g:content_language>en</g:content_language>
     </item>
@@ -675,6 +710,1145 @@
         <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
         <g:custom_label_0>platform</g:custom_label_0>
         <g:custom_label_1>featured</g:custom_label_1>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>CMP-T0</g:id>
+        <g:title>Compliance Agent — Pilot (60 days)</g:title>
+        <g:description>60-day pilot of the Compliance Agent. 2 gap analyses, watermarked, no SLA.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>0.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>CMP-T0</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>CMP-T1</g:id>
+        <g:title>Compliance Agent — Starter</g:title>
+        <g:description>Up to 3 gap analyses per month, basic SLA, EU residency.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>1499.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>CMP-T1</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>CMP-T2</g:id>
+        <g:title>Compliance Agent — Pro</g:title>
+        <g:description>Unlimited compliance outcomes, audit pack, EU AI Act co-sign-ready.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>2999.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>CMP-T2</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>CMP-OC-STD</g:id>
+        <g:title>Outcome — CSRD/CBAM/AI Act gap (Standard)</g:title>
+        <g:description>Single-domain compliance gap analysis.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>999.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>CMP-OC-STD</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>CMP-OC-ENT</g:id>
+        <g:title>Outcome — CSRD/CBAM/AI Act gap (Enterprise)</g:title>
+        <g:description>Audit-pack signed-off compliance gap analysis.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>2499.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>CMP-OC-ENT</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>SS-T0</g:id>
+        <g:title>SiteSense — Pilot (30 days, 1 site)</g:title>
+        <g:description>30-day pilot, 5 site-safety assessments, watermarked.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>0.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>SS-T0</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>SS-T1</g:id>
+        <g:title>SiteSense — Starter</g:title>
+        <g:description>30 site-safety assessments/month, single site.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>1499.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>SS-T1</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>SS-T2</g:id>
+        <g:title>SiteSense — Pro</g:title>
+        <g:description>Unlimited sites, audit trail, EN 13001 crane warnings.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>2499.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>SS-T2</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>SS-OC-STD</g:id>
+        <g:title>Outcome — Site safety assessment (Standard)</g:title>
+        <g:description>Daily site safety score, single site.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>49.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>SS-OC-STD</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>SS-OC-ENT</g:id>
+        <g:title>Outcome — Site safety assessment (Enterprise)</g:title>
+        <g:description>Signed-off insurance-ready daily site safety score.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>99.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>SS-OC-ENT</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>MO-T0</g:id>
+        <g:title>Material Oracle — Pilot (60 days, 1 project)</g:title>
+        <g:description>60-day pilot, 1 LCA report, watermarked.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>0.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>MO-T0</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>MO-T1</g:id>
+        <g:title>Material Oracle — Starter</g:title>
+        <g:description>Up to 2 LCA reports per month.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>1299.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>MO-T1</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>MO-T2</g:id>
+        <g:title>Material Oracle — Pro</g:title>
+        <g:description>Unlimited LCA reports, EN 15978 A1–D, audit pack.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>1999.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>MO-T2</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>MO-OC-STD</g:id>
+        <g:title>Outcome — LCA report (Standard)</g:title>
+        <g:description>Single-project EN 15978 LCA report.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>499.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>MO-OC-STD</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>MO-OC-ENT</g:id>
+        <g:title>Outcome — LCA report (Enterprise)</g:title>
+        <g:description>Signed and supplier-data-validated EN 15978 LCA report.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>999.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>MO-OC-ENT</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>ED-T1</g:id>
+        <g:title>Emissions Data — Starter</g:title>
+        <g:description>Scope 1/2/3 dataset with monthly variance.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>999.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>ED-T1</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>ED-T2</g:id>
+        <g:title>Emissions Data — Pro</g:title>
+        <g:description>Unlimited datasets, supplier reach.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>1499.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>ED-T2</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>SG-T1</g:id>
+        <g:title>Schedule Genius — Starter</g:title>
+        <g:description>Up to 2 project plans per month.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>1299.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>SG-T1</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>SG-T2</g:id>
+        <g:title>Schedule Genius — Pro</g:title>
+        <g:description>Unlimited plans, risk-pass automation.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>1999.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>SG-T2</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>CONSTR-T2</g:id>
+        <g:title>Construction Agent — Pro (bundle)</g:title>
+        <g:description>Safety + materials + plan in one assessment workflow.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>3999.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>CONSTR-T2</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>LOG-T1</g:id>
+        <g:title>Logistics — Starter</g:title>
+        <g:description>Up to 5 lanes.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>1299.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>LOG-T1</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>LOG-T2</g:id>
+        <g:title>Logistics — Pro</g:title>
+        <g:description>Unlimited lanes, ETA risk model.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>1799.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>LOG-T2</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>SOV-T1</g:id>
+        <g:title>Sovereignty Monitor — Starter</g:title>
+        <g:description>Monthly database sovereignty assessment.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>1299.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>SOV-T1</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>SOV-T2</g:id>
+        <g:title>Sovereignty Monitor — Pro</g:title>
+        <g:description>Continuous monitoring, NIS2 reports.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>1999.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>SOV-T2</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>QG-T1</g:id>
+        <g:title>Quality Gate — Starter</g:title>
+        <g:description>Up to 10k verified outputs/month.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>999.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>QG-T1</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>QG-T2</g:id>
+        <g:title>Quality Gate — Pro</g:title>
+        <g:description>Unlimited outputs, schema/citation audit. Attached-only — no upsell ladder.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>1499.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>QG-T2</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>CSAT-T1</g:id>
+        <g:title>Customer Sat — Starter</g:title>
+        <g:description>1 cohort tracked.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>599.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>CSAT-T1</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>CSAT-T2</g:id>
+        <g:title>Customer Sat — Pro</g:title>
+        <g:description>Unlimited cohorts, churn flag.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>999.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>CSAT-T2</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>LF-T1</g:id>
+        <g:title>Lead Feedback — Starter</g:title>
+        <g:description>Weekly pipeline review.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>599.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>LF-T1</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>LF-T2</g:id>
+        <g:title>Lead Feedback — Pro</g:title>
+        <g:description>Continuous review, objection map.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>999.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>LF-T2</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>CS-T1</g:id>
+        <g:title>Competitor Surveillance — Starter</g:title>
+        <g:description>Monthly brief, single segment.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>899.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>CS-T1</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>CS-T2</g:id>
+        <g:title>Competitor Surveillance — Pro</g:title>
+        <g:description>Continuous, multi-segment surveillance.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>1499.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>CS-T2</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>SEO-T1</g:id>
+        <g:title>SEO Audit — Starter</g:title>
+        <g:description>Quarterly audit.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>599.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>SEO-T1</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>SEO-T2</g:id>
+        <g:title>SEO Audit — Pro</g:title>
+        <g:description>Monthly audit plus recommendations.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>999.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>SEO-T2</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>DW-T1</g:id>
+        <g:title>Deepwiki Extractor — Starter</g:title>
+        <g:description>Up to 5 source packs.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>599.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>DW-T1</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>DW-T2</g:id>
+        <g:title>Deepwiki Extractor — Pro</g:title>
+        <g:description>Unlimited extractions, structured outputs. Attached-only.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>799.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>DW-T2</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>VIA-T1</g:id>
+        <g:title>Viability — Starter</g:title>
+        <g:description>One go/no-go scoring per quarter.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>999.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>VIA-T1</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>VIA-T2</g:id>
+        <g:title>Viability — Pro</g:title>
+        <g:description>Continuous scoring plus sensitivity. Attached-only.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>1499.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>VIA-T2</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>TH-T2</g:id>
+        <g:title>Themis Coordinator — Pro</g:title>
+        <g:description>Case routing, sub-agent assignment, KYA chain.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>2499.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>TH-T2</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>ESG-T3</g:id>
+        <g:title>ESG Function-as-a-Service</g:title>
+        <g:description>ESG function bundle (Material Oracle + Emissions Data + Compliance + Themis).</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>6999.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>ESG-T3</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>HSE-T3</g:id>
+        <g:title>HSE Function-as-a-Service</g:title>
+        <g:description>HSE function bundle (SiteSense + Compliance-HSE-scope + Themis).</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>4999.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>HSE-T3</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>CONSTR-T3</g:id>
+        <g:title>Construction Ops Pod</g:title>
+        <g:description>Construction function bundle (Construction + Schedule Genius + Logistics + Themis).</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>8499.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>CONSTR-T3</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>SOV-T3</g:id>
+        <g:title>Sovereignty &amp; Compliance Pack</g:title>
+        <g:description>Sovereignty + Compliance + Quality Gate bundle.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>5499.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>SOV-T3</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>GTM-T3</g:id>
+        <g:title>Go-to-Market Pod</g:title>
+        <g:description>GTM bundle (SEO + Competitor Surveillance + Lead Feedback + CSAT).</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>3999.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>GTM-T3</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>WF-T4</g:id>
+        <g:title>Full Skilled Workforce</g:title>
+        <g:description>All 16 Skilled Agents under Themis orchestration with premium SLA.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>19990.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>WF-T4</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>IND-MARS</g:id>
+        <g:title>Mars — Construction industry pod</g:title>
+        <g:description>Industry-vertical specialisation add-on for construction. Sits on top of a T3 Function bundle. Never sold standalone.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>999.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>IND-MARS</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>IND-HELIOS</g:id>
+        <g:title>Helios — Energy industry pod</g:title>
+        <g:description>Industry-vertical specialisation add-on for energy. Sits on top of a T3 Function bundle. Never sold standalone.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>999.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>IND-HELIOS</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>IND-VULCAN</g:id>
+        <g:title>Vulcan — Steel industry pod</g:title>
+        <g:description>Industry-vertical specialisation add-on for steel ETS/CBAM. Sits on top of a T3 Function bundle. Never sold standalone.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>1499.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>IND-VULCAN</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>IND-TALOS</g:id>
+        <g:title>Talos — Aluminium industry pod</g:title>
+        <g:description>Industry-vertical specialisation add-on for aluminium ETS/CBAM. Sits on top of a T3 Function bundle. Never sold standalone.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>1499.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>IND-TALOS</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>IND-GAIA</g:id>
+        <g:title>Gaia — Cement industry pod</g:title>
+        <g:description>Industry-vertical specialisation add-on for cement ETS/CBAM. Sits on top of a T3 Function bundle. Never sold standalone.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>1499.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>IND-GAIA</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>IND-CERES</g:id>
+        <g:title>Ceres — Agri / Circular industry pod</g:title>
+        <g:description>Industry-vertical specialisation add-on for agri/circular. Sits on top of a T3 Function bundle. Never sold standalone.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>999.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>IND-CERES</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>IND-NEPTUN</g:id>
+        <g:title>Neptune — Maritime industry pod</g:title>
+        <g:description>Industry-vertical specialisation add-on for maritime ops. Sits on top of a T3 Function bundle. Never sold standalone.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>999.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>IND-NEPTUN</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>IND-PROM</g:id>
+        <g:title>Prometheus — Hydrogen industry pod</g:title>
+        <g:description>Industry-vertical specialisation add-on for hydrogen. Sits on top of a T3 Function bundle. Never sold standalone.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>1499.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>IND-PROM</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>IND-BESS</g:id>
+        <g:title>BESS — Battery storage industry pod</g:title>
+        <g:description>Industry-vertical specialisation add-on for battery storage. Sits on top of a T3 Function bundle. Never sold standalone.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>1499.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS IQ</g:brand>
+        <g:mpn>IND-BESS</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>LAND-AIL</g:id>
+        <g:title>AI Literacy Bridge</g:title>
+        <g:description>EU AI Act Literacy programme (20 seats) + 12-month T2 Compliance agent.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
+        <g:price>34990.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Lifetime</g:brand>
+        <g:mpn>LAND-AIL</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+        <g:custom_label_0>advisory</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>LAND-EUAI</g:id>
+        <g:title>EU AI Act Compliance Sprint</g:title>
+        <g:description>5-day senior compliance sprint + 12-month T2 Compliance agent.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
+        <g:price>39990.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Lifetime</g:brand>
+        <g:mpn>LAND-EUAI</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+        <g:custom_label_0>advisory</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>LAND-HSE</g:id>
+        <g:title>Site Safety Bootcamp</g:title>
+        <g:description>3-day site-safety training + 2-day audit + 12-month T2 SiteSense.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
+        <g:price>29990.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Lifetime</g:brand>
+        <g:mpn>LAND-HSE</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+        <g:custom_label_0>advisory</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>LAND-CSRD</g:id>
+        <g:title>CSRD Reporting Accelerator</g:title>
+        <g:description>10-day ESG accelerator + 12-month T3 ESG bundle.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
+        <g:price>89990.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Lifetime</g:brand>
+        <g:mpn>LAND-CSRD</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+        <g:custom_label_0>advisory</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>LAND-LCA</g:id>
+        <g:title>Carbon Reporting Sprint</g:title>
+        <g:description>5-day LCA sprint + 12-month T2 Material Oracle/Emissions Data.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
+        <g:price>49990.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Lifetime</g:brand>
+        <g:mpn>LAND-LCA</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+        <g:custom_label_0>advisory</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>LAND-SOV</g:id>
+        <g:title>Sovereignty &amp; NIS2 Sprint</g:title>
+        <g:description>5-day sovereignty audit + 12-month T3 Sovereignty pack.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
+        <g:price>69990.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Lifetime</g:brand>
+        <g:mpn>LAND-SOV</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+        <g:custom_label_0>advisory</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>LAND-OPS</g:id>
+        <g:title>Construction Ops Pilot</g:title>
+        <g:description>4–8 week site pilot + 12-month T3 Construction Ops Pod.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
+        <g:price>109990.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Lifetime</g:brand>
+        <g:mpn>LAND-OPS</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+        <g:custom_label_0>advisory</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>LAND-GTM</g:id>
+        <g:title>Go-to-Market Sprint</g:title>
+        <g:description>5-day GTM sprint + 12-month T3 GTM pod.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
+        <g:price>49990.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Lifetime</g:brand>
+        <g:mpn>LAND-GTM</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+        <g:custom_label_0>advisory</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>LAND-THEMIS</g:id>
+        <g:title>Themis Coordinator Workshop</g:title>
+        <g:description>3-day Themis workshop + 12-month T2 Themis Coordinator.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
+        <g:price>29990.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Lifetime</g:brand>
+        <g:mpn>LAND-THEMIS</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+        <g:custom_label_0>advisory</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>LAND-WF</g:id>
+        <g:title>Full Workforce Onboarding</g:title>
+        <g:description>20-day onboarding + 12-month T4 Full Skilled Workforce.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
+        <g:price>249990.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Lifetime</g:brand>
+        <g:mpn>LAND-WF</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+        <g:custom_label_0>advisory</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>DWS365-CMP-T3</g:id>
+        <g:title>DWS 365 Compliance Agents</g:title>
+        <g:description>DWS 365 brand bundle — compliance pod packaged for the Microsoft Agent 365 channel. Compliance + Sovereignty + Quality Gate under Themis orchestration.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>5999.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>DWS 365</g:brand>
+        <g:mpn>DWS365-CMP-T3</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>FH-SKILL-T3</g:id>
+        <g:title>Firehorse Skilled Agents</g:title>
+        <g:description>Firehorse brand bundle — growth pod packaged for Salesforce Agentforce and direct sales. SEO + Competitor Surveillance + Lead Feedback + CSAT under Themis orchestration.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>5499.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Firehorse</g:brand>
+        <g:mpn>FH-SKILL-T3</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>AC365-T3</g:id>
+        <g:title>Agentic Commerce 365 Skilled Agents</g:title>
+        <g:description>Agentic Commerce 365 brand bundle — commerce/operations pod packaged for the Microsoft Agent 365 channel. CSAT + Viability + Schedule Genius + Logistics under Themis orchestration.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>6499.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Agentic Commerce 365</g:brand>
+        <g:mpn>AC365-T3</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
+        <g:custom_label_0>platform</g:custom_label_0>
         <g:target_country>FI</g:target_country>
         <g:content_language>en</g:content_language>
     </item>
