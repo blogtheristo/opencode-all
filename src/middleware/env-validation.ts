@@ -31,11 +31,27 @@ const envSchema: EnvVar[] = [
   { name: 'ANTHROPIC_API_KEY', required: false, description: 'Anthropic API key' },
   { name: 'GOOGLE_GEMINI_API_KEY', required: false, description: 'Google Gemini API key' },
 
-  // Email
+  // Email (SES SMTP — Resend banned per security policy)
+  { name: 'SMTP_HOST', required: false, description: 'Amazon SES SMTP host' },
+  { name: 'SMTP_PORT', required: false, description: 'Amazon SES SMTP port (e.g. 587)' },
+  { name: 'SMTP_SECURE', required: false, description: 'Amazon SES SMTP secure mode (true/false)' },
+  { name: 'SMTP_USER', required: false, description: 'Amazon SES SMTP username' },
+  { name: 'SMTP_PASS', required: false, description: 'Amazon SES SMTP password' },
   { name: 'EMAIL_FROM', required: false, description: 'Sender email address' },
 
   // Security
   { name: 'ADMIN_API_KEY', required: false, description: 'Admin endpoint auth key' },
+
+  // Secret loader / vault
+  { name: 'VAULT_PROVIDER', required: false, description: 'Vault provider: aiven (EU-sovereign) or gcp' },
+  { name: 'GCP_SECRET_LOADER', required: false, description: 'Legacy: GCP Secret Manager (use VAULT_PROVIDER=gcp instead)' },
+  { name: 'GCP_PROJECT_ID', required: false, description: 'GCP project ID for Secret Manager' },
+  { name: 'AIVEN_DATABASE_URL', required: false, description: 'Aiven PostgreSQL connection URL for app_secrets table' },
+  { name: 'AIVEN_VAULT_KEY', required: false, description: 'Aiven AES-256 symmetric key for pgcrypto secret encryption' },
+
+  // Credential broker
+  { name: 'BROKER_AGENT_TOKENS', required: false, description: 'JSON map of agent → {tokenSha256, scopes} for broker auth' },
+  { name: 'BROKER_SIGNING_KEY', required: false, description: 'HMAC key for signing/verifying broker capability tokens' },
 ];
 
 export function validateEnv(): { valid: boolean; missing: string[]; warnings: string[] } {
@@ -63,6 +79,15 @@ export function validateEnv(): { valid: boolean; missing: string[]; warnings: st
     warnings.push('No LLM provider configured (GROQ_API_KEY, ANTHROPIC_API_KEY, or GOOGLE_GEMINI_API_KEY)');
   }
 
+  // SMTP (SES) needs HOST+USER+PASS together to be usable
+  const smtpHost = process.env.SMTP_HOST?.trim();
+  const smtpUser = process.env.SMTP_USER?.trim();
+  const smtpPass = process.env.SMTP_PASS?.trim();
+  const smtpAvailable = Boolean(smtpHost && smtpUser && smtpPass);
+  if (smtpHost && !smtpAvailable) {
+    warnings.push('SMTP configured partially — set SMTP_HOST + SMTP_USER + SMTP_PASS for SES transport');
+  }
+
   // Log results
   if (missing.length > 0) {
     logger.error('Missing required environment variables', { missing });
@@ -74,7 +99,7 @@ export function validateEnv(): { valid: boolean; missing: string[]; warnings: st
     });
   }
   if (missing.length === 0) {
-    logger.info('Environment validation passed');
+    logger.info('Environment validation passed', { smtpAvailable });
   }
 
   return { valid: missing.length === 0, missing, warnings };
