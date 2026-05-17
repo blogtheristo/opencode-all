@@ -192,7 +192,7 @@ export function recommendUpsell(
   // Rule: ANY → Land overlay — buyer pushback on AI capability
   // Offered only when explicitly triggered; never as a default banner.
   if (signals.aiCapabilityPushback) {
-    const landSku = pickLandOverlay(signals.currentTier, signals.currentSku);
+    const landSku = pickLandOverlay(signals.currentSku);
     if (landSku) {
       return {
         nextSku: landSku,
@@ -235,7 +235,7 @@ function pickIndustryPod(signals: string[]): string | null {
   return null;
 }
 
-function pickLandOverlay(tier: Tier, sku: string): string | null {
+function pickLandOverlay(sku: string): string | null {
   // Map current SKU → best-fit land overlay (engagement-led re-anchor).
   const map: Record<string, string> = {
     "CMP-T0": "LAND-AIL",

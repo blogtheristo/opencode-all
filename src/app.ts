@@ -25,6 +25,7 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 import logger from './utils/logger.js';
 import authRoutes from './routes/auth.routes.js';
+import { brokerRouter } from './broker/broker.routes.js';
 import userRoutes from './routes/user.routes.js';
 import climateAssistantRoutes from './routes/climate-assistant.routes.js';
 import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes.js';
@@ -68,6 +69,7 @@ import { correlationId } from './middleware/correlation-id.js';
 import { errorHandler, notFoundHandler } from './middleware/error-handler.js';
 import { healthCheck, livenessCheck } from './middleware/health.js';
 import { validateEnv } from './middleware/env-validation.js';
+import { loadSecrets } from './config/secret-loader.js';
 
 // ============ STUBS FOR MODULES EXCLUDED FROM BUILD ============
 // tsconfig.json excludes src/firehorse/**, src/mcp/**, and src/investor-reports/**
@@ -88,6 +90,11 @@ const capTableRouter = express.Router();
 // ================================================================
 
 dotenv.config();
+
+// ============ VAULT BOOTSTRAP ============
+// Pull secrets from configured vault (Aiven / GCP Secret Manager) into
+// process.env before validation. No-op if VAULT_PROVIDER is not set.
+await loadSecrets();
 
 // ============ STARTUP VALIDATION ============
 
@@ -259,6 +266,7 @@ app.use('/landing-pages', express.static(landingPagesPath));
 // ============ API ROUTES ============
 
 // Auth routes
+app.use('/api/v1/broker', brokerRouter);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/user', userRoutes);
 
