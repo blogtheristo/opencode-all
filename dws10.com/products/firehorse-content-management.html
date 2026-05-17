@@ -28,11 +28,18 @@
       a.buy-btn { display: inline-block; background: #2563eb; color: white; padding: 15px 30px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 20px; }
       a.back-link { color: #94a3b8; text-decoration: none; display: block; margin-bottom: 20px; }
       .hero-image { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 8px; margin: 16px 0 24px; border: 1px solid rgba(255, 255, 255, 0.08); display: block; }
-      .lang-bar { display: flex; gap: 6px; margin-bottom: 14px; }
+      .lang-bar { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
       .lang-btn { background: transparent; border: 1px solid rgba(255, 255, 255, 0.15); color: #64748b; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; transition: all 0.15s; font-family: inherit; }
       .lang-btn.active, .lang-btn:hover { background: rgba(249, 115, 22, 0.15); border-color: rgba(249, 115, 22, 0.4); color: #f97316; }
       .hero-oneliner { font-size: 1.1rem; font-weight: 600; color: #f1f5f9; margin: 0 0 8px; line-height: 1.4; }
-      .lang-desc { color: #94a3b8; margin: 0 0 28px; line-height: 1.7; }
+      .lang-desc { color: #94a3b8; margin: 0 0 16px; line-height: 1.7; }
+      .personal-desc { color: #cbd5e1; line-height: 1.7; margin: 0 0 28px; }
+      .personal-desc p.opener { font-size: 1.02rem; color: #e2e8f0; margin: 0 0 18px; }
+      .personal-desc h3.section { color: #f97316; font-size: 1.02rem; margin: 18px 0 6px; font-weight: 700; }
+      .personal-desc ul { list-style: none; padding-left: 0; margin: 0 0 6px; }
+      .personal-desc ul li { padding-left: 18px; position: relative; margin-bottom: 6px; color: #cbd5e1; }
+      .personal-desc ul li:before { content: "★"; color: #f97316; position: absolute; left: 0; font-size: 0.85rem; top: 2px; }
+      .personal-desc a.terms-link { color: #60a5fa; text-decoration: none; font-size: 0.9rem; }
       [data-lang] { display: none; }
       [data-lang].lang-active { display: block; }
     </style>
@@ -45,28 +52,90 @@
       <h1>Firehorse Content Management</h1>
       <img src="../static/images/firehorse-content-management-hero.png" alt="Firehorse Content Management — EU-sovereign evidence vault" class="hero-image" />
       <div class="lang-bar">
-        <button class="lang-btn" data-pick="en">EN</button>
         <button class="lang-btn" data-pick="fi">FI</button>
         <button class="lang-btn" data-pick="sv">SV</button>
-        <button class="lang-btn" data-pick="de">DE</button>
-        <button class="lang-btn" data-pick="fr">FR</button>
+        <button class="lang-btn" data-pick="en">EN</button>
       </div>
-      <p class="hero-oneliner" data-lang="en">Every compliance document — found in seconds, stored in EU, governed forever.</p>
       <p class="hero-oneliner" data-lang="fi">Jokainen compliance-asiakirja — löytyy sekunneissa, tallennettu EU:ssa, hallinnoitu pysyvästi.</p>
       <p class="hero-oneliner" data-lang="sv">Varje compliance-dokument — hittat på sekunder, lagrat i EU, styrt för alltid.</p>
-      <p class="hero-oneliner" data-lang="de">Jedes Compliance-Dokument — in Sekunden gefunden, in der EU gespeichert, dauerhaft verwaltet.</p>
-      <p class="hero-oneliner" data-lang="fr">Chaque document de conformité — trouvé en secondes, stocké dans l'UE, gouverné pour toujours.</p>
-      <p class="lang-desc" data-lang="en">Firehorse Content Management is your EU-sovereign evidence vault for compliance documentation. Organise regulations, audit trails, supplier data, and environmental evidence with taxonomy-driven search. Full audit access, zero CLOUD Act exposure, GDPR compliant by design.</p>
-      <p class="lang-desc" data-lang="fi">Firehorse Content Management on EU-suvereeni todisteholvi compliance-dokumentaatiolle. Järjestä säädökset, auditointiketjut, toimittajadata ja ympäristötodisteet taksonomiapohjaisella haulla. Täysi auditointipääsy, nolla CLOUD Act -altistus, GDPR-yhteensopiva rakenteeltaan.</p>
-      <p class="lang-desc" data-lang="sv">Firehorse Content Management är ett EU-suvernät bevisvalv för compliance-dokumentation. Organisera förordningar, revisionssspår, leverantörsdata och miljöbevis med taxonomidriven sökning. Full revisionsåtkomst, noll CLOUD Act-exponering, GDPR-kompatibel av design.</p>
-      <p class="lang-desc" data-lang="de">Firehorse Content Management ist Ihr EU-suvernäes Beweisdepot für Compliance-Dokumentation. Organisieren Sie Vorschriften, Prüfpfade, Lieferantendaten und Umweltnachweise mit taxonomiegesteuerter Suche. Vollständiger Prüfzugang, null CLOUD Act-Exposition, DSGVO-konform by Design.</p>
-      <p class="lang-desc" data-lang="fr">Firehorse Content Management est votre coffre à preuves EU-souverain pour la documentation de conformité. Organisez les réglementations, pistes d'audit, données fournisseurs et preuves environnementales avec une recherche taxonomique. Accès audit complet, zéro exposition CLOUD Act, conforme RGPD par conception.</p>
+      <p class="hero-oneliner" data-lang="en">Every compliance document — found in seconds, stored in EU, governed forever.</p>
+
+      <div class="personal-desc" data-lang="fi">
+        <p class="opener">Kun auditoija soittaa torstaina ja pyytää todisteen Q3:n vihreästä sähköstä. Olipa kyseessä alkuperätakuun PDF, toimittajan päästöilmoitus tai vanha sertifikaatti joka piileksii jonkun sähköpostissa, Firehorse Content Management auttaa sinua löytämään todisteen sekunneissa — etkä joudu metsästämään tiimisi inboxia.</p>
+        <h3 class="section">Löydä todisteesi sekunneissa:</h3>
+        <ul>
+          <li>Kirjoita "Q3 alkuperätakuut" — Search Agent löytää PDF:t ja näyttää linkin lähdedataan.</li>
+          <li>Anna AI-luokittajan tagittaa uudet dokumentit automaattisesti (#EU-ETS, #Scope3, #EPBD).</li>
+          <li>Käytä luonnollisen kielen hakua semanttisella vektorimoottorilla — ei avainsanaarpomista.</li>
+        </ul>
+        <h3 class="section">Pidä todisteesi turvassa ja EU:ssa:</h3>
+        <ul>
+          <li>Tallenna kaikki EU-suvereniin pilveen ilman CLOUD Act -altistusta — datasi pysyy kotona.</li>
+          <li>Salaa lepotilassa ja hallitse GDPR-säilytysaikatauluja automaattisesti.</li>
+          <li>Anna Access Controllerille käsiteltäväksi temporaariset auditointijaot ja roolikohtaiset oikeudet.</li>
+        </ul>
+        <h3 class="section">Ennakoi auditoinnit, älä reagoi paniikilla:</h3>
+        <ul>
+          <li>Anna Expiration Trackerin hälyttää ennen kuin vihreä sertifikaattisi vanhenee.</li>
+          <li>Linkitä jokainen vihreä väittämä suoraan DWS IQ:n datapisteeseen — yksi klikki todisteeseen.</li>
+          <li>Vastaa auditoijalle minuuteissa, ei päivissä — ja vältä toistuvat compliance-rikkomukset.</li>
+        </ul>
+        <p><a class="terms-link" href="https://dws10.com/legal/">Käyttöehdot ja käytännöt →</a></p>
+      </div>
+
+      <div class="personal-desc" data-lang="sv">
+        <p class="opener">När revisorn ringer på torsdagen och ber om bevis på Q3:s gröna el. Oavsett om det är ursprungsgarantins PDF, leverantörens utsläppsdeklaration eller ett gammalt certifikat som gömmer sig i någons mejl, hjälper Firehorse Content Management dig att hitta beviset på sekunder — utan att jaga teamets inboxar.</p>
+        <h3 class="section">Hitta era bevis på sekunder:</h3>
+        <ul>
+          <li>Skriv "Q3 ursprungsgarantier" — Search Agent hittar PDF:erna och visar länken till källan.</li>
+          <li>Låt AI-klassificeraren tagga nya dokument automatiskt (#EU-ETS, #Scope3, #EPBD).</li>
+          <li>Använd semantisk vektorsökning i naturligt språk — slut på sökordsgissningar.</li>
+        </ul>
+        <h3 class="section">Håll era bevis säkra och inom EU:</h3>
+        <ul>
+          <li>Lagra allt i EU-suveränt moln utan CLOUD Act-exponering — er data stannar hemma.</li>
+          <li>Kryptering i vila och automatisk GDPR-retentionshantering, inbyggt.</li>
+          <li>Låt Access Controller hantera tillfälliga revisionsdelningar och rollbaserade rättigheter.</li>
+        </ul>
+        <h3 class="section">Förutse revisioner, reagera inte i panik:</h3>
+        <ul>
+          <li>Låt Expiration Tracker larma innan ert gröna certifikat upphör.</li>
+          <li>Länka varje grönt påstående direkt till DWS IQ-datapunkten — ett klick till beviset.</li>
+          <li>Svara revisorn på minuter, inte dagar — undvik upprepade complianceavvikelser.</li>
+        </ul>
+        <p><a class="terms-link" href="https://dws10.com/legal/">Användarvillkor och policyer →</a></p>
+      </div>
+
+      <div class="personal-desc" data-lang="en">
+        <p class="opener">When the auditor calls on a Thursday and asks for proof of your Q3 green power. Whether it's a guarantee-of-origin PDF, a supplier emissions declaration or an old certificate hiding in someone's inbox, Firehorse Content Management helps you surface the evidence in seconds — no team-wide inbox hunt required.</p>
+        <h3 class="section">Find your evidence in seconds:</h3>
+        <ul>
+          <li>Type "Q3 guarantees of origin" — the Search Agent finds the PDFs and links them to the source data.</li>
+          <li>Let the AI classifier auto-tag new uploads (#EU-ETS, #Scope3, #EPBD).</li>
+          <li>Search in plain language with a semantic vector engine — no more keyword guessing.</li>
+        </ul>
+        <h3 class="section">Keep your evidence safe and in the EU:</h3>
+        <ul>
+          <li>Store everything on EU-sovereign cloud with zero CLOUD Act exposure — your data stays home.</li>
+          <li>Encryption at rest and automatic GDPR retention workflows, built in.</li>
+          <li>Let Access Controller handle temporary audit shares and role-based permissions.</li>
+        </ul>
+        <h3 class="section">Get ahead of audits — don't react in panic:</h3>
+        <ul>
+          <li>Let the Expiration Tracker warn you before a critical green certificate lapses.</li>
+          <li>Link every green claim to its data point in DWS IQ — one click to the proof.</li>
+          <li>Respond to the auditor in minutes, not days — and avoid repeat compliance findings.</li>
+        </ul>
+        <p><a class="terms-link" href="https://dws10.com/legal/">Terms and policies →</a></p>
+      </div>
+
       <script>
         (function () {
-          var LANGS = ["en", "fi", "sv", "de", "fr"];
-          var lang = localStorage.getItem("dws-lang") || "en";
-          if (!LANGS.includes(lang)) lang = "en";
+          var LANGS = ["fi", "sv", "en"];
+          var stored = localStorage.getItem("dws-lang");
+          var lang = LANGS.indexOf(stored) >= 0 ? stored : "fi";
           function applyLang(l) {
+            if (LANGS.indexOf(l) < 0) l = "fi";
             document.querySelectorAll("[data-lang]").forEach(function (el) { el.classList.toggle("lang-active", el.getAttribute("data-lang") === l); });
             document.querySelectorAll(".lang-btn").forEach(function (btn) { btn.classList.toggle("active", btn.getAttribute("data-pick") === l); });
             localStorage.setItem("dws-lang", l);

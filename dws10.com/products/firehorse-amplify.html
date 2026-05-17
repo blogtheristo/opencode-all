@@ -84,48 +84,20 @@
         border: 1px solid rgba(255, 255, 255, 0.08);
         display: block;
       }
-      .lang-bar {
-        display: flex;
-        gap: 6px;
-        margin-bottom: 14px;
-      }
-      .lang-btn {
-        background: transparent;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        color: #64748b;
-        padding: 4px 10px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 0.7rem;
-        font-weight: 700;
-        letter-spacing: 0.06em;
-        transition: all 0.15s;
-        font-family: inherit;
-      }
-      .lang-btn.active,
-      .lang-btn:hover {
-        background: rgba(249, 115, 22, 0.15);
-        border-color: rgba(249, 115, 22, 0.4);
-        color: #f97316;
-      }
-      .hero-oneliner {
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: #f1f5f9;
-        margin: 0 0 8px;
-        line-height: 1.4;
-      }
-      .lang-desc {
-        color: #94a3b8;
-        margin: 0 0 28px;
-        line-height: 1.7;
-      }
-      [data-lang] {
-        display: none;
-      }
-      [data-lang].lang-active {
-        display: block;
-      }
+      .lang-bar { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+      .lang-btn { background: transparent; border: 1px solid rgba(255, 255, 255, 0.15); color: #64748b; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; transition: all 0.15s; font-family: inherit; }
+      .lang-btn.active, .lang-btn:hover { background: rgba(249, 115, 22, 0.15); border-color: rgba(249, 115, 22, 0.4); color: #f97316; }
+      .hero-oneliner { font-size: 1.1rem; font-weight: 600; color: #f1f5f9; margin: 0 0 8px; line-height: 1.4; }
+      .lang-desc { color: #94a3b8; margin: 0 0 16px; line-height: 1.7; }
+      .personal-desc { color: #cbd5e1; line-height: 1.7; margin: 0 0 28px; }
+      .personal-desc p.opener { font-size: 1.02rem; color: #e2e8f0; margin: 0 0 18px; }
+      .personal-desc h3.section { color: #f97316; font-size: 1.02rem; margin: 18px 0 6px; font-weight: 700; }
+      .personal-desc ul { list-style: none; padding-left: 0; margin: 0 0 6px; }
+      .personal-desc ul li { padding-left: 18px; position: relative; margin-bottom: 6px; color: #cbd5e1; }
+      .personal-desc ul li:before { content: "★"; color: #f97316; position: absolute; left: 0; font-size: 0.85rem; top: 2px; }
+      .personal-desc a.terms-link { color: #60a5fa; text-decoration: none; font-size: 0.9rem; }
+      [data-lang] { display: none; }
+      [data-lang].lang-active { display: block; }
     </style>
   </head>
   <body>
@@ -140,77 +112,97 @@
         class="hero-image"
       />
       <div class="lang-bar">
-        <button class="lang-btn" data-pick="en">EN</button>
         <button class="lang-btn" data-pick="fi">FI</button>
         <button class="lang-btn" data-pick="sv">SV</button>
-        <button class="lang-btn" data-pick="de">DE</button>
-        <button class="lang-btn" data-pick="fr">FR</button>
+        <button class="lang-btn" data-pick="en">EN</button>
       </div>
-      <p class="hero-oneliner" data-lang="en">
-        AI-amplified compliance workflows — event-driven, auditable, on time.
-      </p>
-      <p class="hero-oneliner" data-lang="fi">
-        AI-tehostetut compliance-työnkulut — tapahtumaohjatusti, auditointivalmis, aikataulussa.
-      </p>
-      <p class="hero-oneliner" data-lang="sv">
-        AI-amplifierade compliance-arbetsflöden — händelsedrivna, revisionsredo, i tid.
-      </p>
-      <p class="hero-oneliner" data-lang="de">
-        KI-verstärkte Compliance-Workflows — ereignisgesteuert, prüfbereit, termingerecht.
-      </p>
-      <p class="hero-oneliner" data-lang="fr">
-        Workflows de conformité amplifiés par IA — événementiels, auditables, dans les délais.
-      </p>
-      <p class="lang-desc" data-lang="en">
-        Firehorse Amplify builds event-driven workflows that capture ESG data directly from your
-        ERP, sensors, and manual inputs — producing audit-ready reports with a complete chain of
-        custody. Designed for Fit for 55, CSRD, and EPBD 2028 deadlines.
-      </p>
-      <p class="lang-desc" data-lang="fi">
-        Firehorse Amplify rakentaa tapahtumaohjatut työnkulut, jotka keräävät ESG-datan suoraan
-        ERP-järjestelmästäsi, sensoreistasi ja manuaalisista syötteistä — tuottaen auditointivalmiin
-        raportin täydellä todistusketjulla. Suunniteltu Fit for 55-, CSRD- ja EPBD 2028
-        -määräajoille.
-      </p>
-      <p class="lang-desc" data-lang="sv">
-        Firehorse Amplify bygger händelsedrivna arbetsflöden som samlar ESG-data direkt från ert
-        ERP, sensorer och manuella inmatningar — och producerar revisionsredo rapporter med
-        fullständig spårbarhet. Utformat för Fit for 55, CSRD och EPBD 2028-deadlines.
-      </p>
-      <p class="lang-desc" data-lang="de">
-        Firehorse Amplify erstellt ereignisgesteuerte Workflows, die ESG-Daten direkt aus Ihrem ERP,
-        Sensoren und manuellen Eingaben erfassen — und prüffertige Berichte mit vollständiger
-        Nachvollziehbarkeit liefern. Entwickelt für Fit for 55, CSRD und EPBD 2028-Fristen.
-      </p>
-      <p class="lang-desc" data-lang="fr">
-        Firehorse Amplify crée des workflows événementiels qui capturent les données ESG directement
-        depuis votre ERP, vos capteurs et vos saisies manuelles — produisant des rapports prêts pour
-        l'audit avec une traçabilité complète. Conçu pour les échéances Fit for 55, CSRD et EPBD
-        2028.
-      </p>
+      <p class="hero-oneliner" data-lang="fi">AI-tehostetut compliance-työnkulut — tapahtumaohjatusti, auditointivalmis, aikataulussa.</p>
+      <p class="hero-oneliner" data-lang="sv">AI-amplifierade compliance-arbetsflöden — händelsedrivna, revisionsredo, i tid.</p>
+      <p class="hero-oneliner" data-lang="en">AI-amplified compliance workflows — event-driven, auditable, on time.</p>
+
+      <div class="personal-desc" data-lang="fi">
+        <p class="opener">Kun ainoa asia, jota et halua palata käsittelemään viikonlopun jälkeen, on rikkoutunut datavirta. Olipa kyseessä yksittäisen mittarin vika kesken kuukauden, ERP-syötteen viive tai täysin manuaalinen energianhallinta, Firehorse Amplify auttaa sinua pitämään compliance-koneistosi käynnissä paremmin kuin yksikään taulukkolaskenta.</p>
+        <h3 class="section">Yhdistä järjestelmäsi kerralla:</h3>
+        <ul>
+          <li>Liitä SAP, ERP ja IoT-sensorit yhteen putkeen — kerää, validoi, ja hälytä automaattisesti.</li>
+          <li>Suunnittele 3 ydintyönkulkua tiimisi viiden kipupisteen ympärille (energia, hiili, EPBD).</li>
+          <li>Aja kaikki EU-pohjaisessa serverless-infrassasi tai oman VPC:n sisällä — sinä päätät.</li>
+        </ul>
+        <h3 class="section">Pidä auditointiketjusi katkeamattomana:</h3>
+        <ul>
+          <li>Jokainen ajo logitetaan, jokainen virhe laukaisee hälytyksen — ei enää viikonloppupanikkia.</li>
+          <li>Säilytä auditointilokit 7 vuotta CSRD-vaatimusten mukaisesti, automaattisesti.</li>
+          <li>Tunnista anomaliat reaaliajassa: kun mittari hiljenee, tiimisi tietää ensimmäisenä.</li>
+        </ul>
+        <h3 class="section">Anna tekoälyn hoitaa rutiinit:</h3>
+        <ul>
+          <li>Vähennä manuaalinen datankeruu 60–85% ja lopeta excelin metsästys.</li>
+          <li>Lisää uusia työnkulkuja ilman uutta infrastruktuuriprojektia — runbook tulee mukana.</li>
+          <li>Tee Fit for 55-, CSRD- ja EPBD 2028 -määräajoista normaalia rutiinia, ei sankariteoksia.</li>
+        </ul>
+        <p><a class="terms-link" href="https://dws10.com/legal/">Käyttöehdot ja käytännöt →</a></p>
+      </div>
+
+      <div class="personal-desc" data-lang="sv">
+        <p class="opener">När det sista du vill återvända till efter helgen är ett brutet dataflöde. Oavsett om det är en sensor som dör mitt i månaden, en ERP-fördröjning eller helt manuell energihantering, hjälper Firehorse Amplify dig att hålla din compliance-motor igång bättre än något kalkylblad.</p>
+        <h3 class="section">Koppla ihop dina system en gång för alla:</h3>
+        <ul>
+          <li>Anslut SAP, ERP och IoT-sensorer till en pipeline — samla in, validera och larma automatiskt.</li>
+          <li>Designa 3 kärnarbetsflöden runt teamets fem smärtpunkter (energi, koldioxid, EPBD).</li>
+          <li>Kör allt på er EU-baserade serverless-infra eller inuti er egen VPC — ni bestämmer.</li>
+        </ul>
+        <h3 class="section">Håll revisionsskedjan obruten:</h3>
+        <ul>
+          <li>Varje körning loggas, varje fel utlöser ett larm — slut på helgpanik.</li>
+          <li>Spara revisionsloggar i 7 år enligt CSRD-kravet, automatiskt.</li>
+          <li>Upptäck anomalier i realtid: när en mätare tystnar vet ert team först.</li>
+        </ul>
+        <h3 class="section">Låt AI sköta rutinerna:</h3>
+        <ul>
+          <li>Minska manuell datainsamling med 60–85% och sluta jaga Excel-filer.</li>
+          <li>Lägg till nya arbetsflöden utan nytt infrastrukturprojekt — runbook ingår.</li>
+          <li>Gör Fit for 55, CSRD och EPBD 2028-deadlines till vanlig rutin, inte heroiska insatser.</li>
+        </ul>
+        <p><a class="terms-link" href="https://dws10.com/legal/">Användarvillkor och policyer →</a></p>
+      </div>
+
+      <div class="personal-desc" data-lang="en">
+        <p class="opener">When the last thing you want to return to after a long weekend is a broken data pipeline. Whether it's a single meter failing mid-month, an ERP feed delay or fully manual energy bookkeeping, Firehorse Amplify helps you keep your compliance engine running better than any spreadsheet ever will.</p>
+        <h3 class="section">Connect your systems once and for all:</h3>
+        <ul>
+          <li>Wire up SAP, ERP and IoT sensors into one pipeline — collect, validate and alert automatically.</li>
+          <li>Design 3 core workflows around your team's top five pain points (energy, carbon, EPBD).</li>
+          <li>Run it all on EU-based serverless infrastructure or inside your own VPC — your call.</li>
+        </ul>
+        <h3 class="section">Keep your audit trail unbroken:</h3>
+        <ul>
+          <li>Every run is logged, every error fires an alert — no more weekend heroics.</li>
+          <li>Retain audit logs for 7 years per CSRD requirements, automatically.</li>
+          <li>Spot anomalies in real time: when a meter goes quiet, your team knows first.</li>
+        </ul>
+        <h3 class="section">Let AI handle the routine:</h3>
+        <ul>
+          <li>Cut manual data collection by 60–85% and stop chasing spreadsheets.</li>
+          <li>Add new workflows without a new infrastructure project — runbook included.</li>
+          <li>Make Fit for 55, CSRD and EPBD 2028 deadlines feel like ordinary routine, not heroics.</li>
+        </ul>
+        <p><a class="terms-link" href="https://dws10.com/legal/">Terms and policies →</a></p>
+      </div>
+
       <script>
         (function () {
-          var LANGS = ["en", "fi", "sv", "de", "fr"];
-          var lang = localStorage.getItem("dws-lang") || "en";
-          if (!LANGS.includes(lang)) lang = "en";
+          var LANGS = ["fi", "sv", "en"];
+          var stored = localStorage.getItem("dws-lang");
+          var lang = LANGS.indexOf(stored) >= 0 ? stored : "fi";
           function applyLang(l) {
-            document.querySelectorAll("[data-lang]").forEach(function (el) {
-              el.classList.toggle("lang-active", el.getAttribute("data-lang") === l);
-            });
-            document.querySelectorAll(".lang-btn").forEach(function (btn) {
-              btn.classList.toggle("active", btn.getAttribute("data-pick") === l);
-            });
+            if (LANGS.indexOf(l) < 0) l = "fi";
+            document.querySelectorAll("[data-lang]").forEach(function (el) { el.classList.toggle("lang-active", el.getAttribute("data-lang") === l); });
+            document.querySelectorAll(".lang-btn").forEach(function (btn) { btn.classList.toggle("active", btn.getAttribute("data-pick") === l); });
             localStorage.setItem("dws-lang", l);
           }
           applyLang(lang);
-          document.querySelectorAll(".lang-btn").forEach(function (btn) {
-            btn.addEventListener("click", function () {
-              applyLang(this.getAttribute("data-pick"));
-            });
-          });
-          window.addEventListener("dws-lang-change", function (e) {
-            applyLang(e.detail.lang);
-          });
+          document.querySelectorAll(".lang-btn").forEach(function (btn) { btn.addEventListener("click", function () { applyLang(this.getAttribute("data-pick")); }); });
+          window.addEventListener("dws-lang-change", function (e) { applyLang(e.detail.lang); });
         })();
       </script>
       <div class="price">€4,995</div>

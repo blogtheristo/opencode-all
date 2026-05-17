@@ -30,6 +30,18 @@
       .hero-image { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 8px; margin: 16px 0 24px; border: 1px solid rgba(255, 255, 255, 0.08); display: block; }
       ul { padding-left: 20px; }
       li { margin-bottom: 8px; }
+      .lang-bar { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+      .lang-btn { background: transparent; border: 1px solid rgba(255, 255, 255, 0.15); color: #64748b; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; transition: all 0.15s; font-family: inherit; }
+      .lang-btn.active, .lang-btn:hover { background: rgba(249, 115, 22, 0.15); border-color: rgba(249, 115, 22, 0.4); color: #f97316; }
+      .personal-desc { color: #cbd5e1; line-height: 1.7; margin: 0 0 28px; }
+      .personal-desc p.opener { font-size: 1.02rem; color: #e2e8f0; margin: 0 0 18px; }
+      .personal-desc h3.section { color: #f97316; font-size: 1.02rem; margin: 18px 0 6px; font-weight: 700; }
+      .personal-desc ul { list-style: none; padding-left: 0; margin: 0 0 6px; }
+      .personal-desc ul li { padding-left: 18px; position: relative; margin-bottom: 6px; color: #cbd5e1; }
+      .personal-desc ul li:before { content: "★"; color: #f97316; position: absolute; left: 0; font-size: 0.85rem; top: 2px; }
+      .personal-desc a.terms-link { color: #60a5fa; text-decoration: none; font-size: 0.9rem; }
+      [data-lang] { display: none; }
+      [data-lang].lang-active { display: block; }
     </style>
   </head>
   <body>
@@ -39,6 +51,98 @@
       <a href="../buy/?from=sign" class="back-link">&larr; Back to Store</a>
       <h1>Firehorse Signed Reports</h1>
       <img src="../static/images/firehorse-signed-reports-hero.png" alt="Firehorse Signed Reports — legally binding eSignatures for compliance reports" class="hero-image" />
+      <div class="lang-bar">
+        <button class="lang-btn" data-pick="fi">FI</button>
+        <button class="lang-btn" data-pick="sv">SV</button>
+        <button class="lang-btn" data-pick="en">EN</button>
+      </div>
+
+      <div class="personal-desc" data-lang="fi">
+        <p class="opener">Kun auditoija pyytää todisteen siitä, että juuri se versio raportista on se versio, jonka CFO hyväksyi. Olipa kyseessä CSRD-vuosiraportti, sijoittajapaketti tai vihreä rahoituspäätös, Firehorse Signed Reports auttaa sinua liittämään lainvoimaisen allekirjoituksen jokaiseen Firehorse-raporttiin paremmin kuin yksikään sähköpostiketju.</p>
+        <h3 class="section">Allekirjoita raportit lainvoimaisesti:</h3>
+        <ul>
+          <li>Käytä DocuSign-eSignaturia jokaiseen Firehorse-raporttiin — eIDAS-yhteensopiva, oikeudessa pätevä.</li>
+          <li>Ketjuta allekirjoitusprosessi: tekijä → tarkastaja → auditoija — automaattisesti.</li>
+          <li>Lataa allekirjoitettu PDF ja täysi audit-todistus yhdellä klikkauksella.</li>
+        </ul>
+        <h3 class="section">Säilytä auditointiketjusi ehjänä:</h3>
+        <ul>
+          <li>Arkistoi allekirjoitetut todisteet automaattisesti — ei "missä on viimeisin versio" -keskusteluja.</li>
+          <li>Yhdistä KYA-allekirjoitukseen, joka todistaa myös sen, kuka AI-agentti tuotti raportin.</li>
+          <li>Säilytä koneprovenanssi jokaiselle generoidulle numerolle (EU AI Act Article 12).</li>
+        </ul>
+        <h3 class="section">Vastaa EU-vaatimuksiin etukäteen:</h3>
+        <ul>
+          <li>Toimita CSRD- ja Fit for 55 -auditoreille raportti, jonka he hyväksyvät ilman lisäkysymyksiä.</li>
+          <li>Pakota tekijä/tarkastaja/auditoija -työnkulku ilman manuaalisia muistuttamisia.</li>
+          <li>Liitä Firehorse Content Managementiin ja luo kestävä todisteholvi tulevaisuutta varten.</li>
+        </ul>
+        <p><a class="terms-link" href="https://dws10.com/legal/">Käyttöehdot ja käytännöt →</a></p>
+      </div>
+
+      <div class="personal-desc" data-lang="sv">
+        <p class="opener">När revisorn ber om bevis på att just den versionen av rapporten är den version som CFO godkände. Oavsett om det är CSRD-årsrapporten, investerarpaketet eller ett grönt finansieringsbeslut, hjälper Firehorse Signed Reports er att fästa en juridiskt bindande signatur på varje Firehorse-rapport bättre än någon mejlkedja.</p>
+        <h3 class="section">Signera rapporter juridiskt bindande:</h3>
+        <ul>
+          <li>Använd DocuSign-eSignatur på varje Firehorse-rapport — eIDAS-kompatibel, hållbar i domstol.</li>
+          <li>Kedja signeringsprocessen: författare → granskare → revisor — automatiskt.</li>
+          <li>Ladda ner signerad PDF och fullständigt audit-certifikat med ett klick.</li>
+        </ul>
+        <h3 class="section">Bevara revisionsspåret intakt:</h3>
+        <ul>
+          <li>Arkivera signerade bevis automatiskt — inga "var är senaste versionen"-diskussioner.</li>
+          <li>Koppla till KYA-signatur som även bevisar vilken AI-agent som producerade rapporten.</li>
+          <li>Bevara maskinprovenans för varje genererad siffra (EU AI Act artikel 12).</li>
+        </ul>
+        <h3 class="section">Möt EU-kraven i förväg:</h3>
+        <ul>
+          <li>Leverera till CSRD- och Fit for 55-revisorer en rapport som de godkänner utan följdfrågor.</li>
+          <li>Tvinga fram författare/granskare/revisor-flödet utan manuella påminnelser.</li>
+          <li>Anslut till Firehorse Content Management och bygg ett hållbart bevisvalv för framtiden.</li>
+        </ul>
+        <p><a class="terms-link" href="https://dws10.com/legal/">Användarvillkor och policyer →</a></p>
+      </div>
+
+      <div class="personal-desc" data-lang="en">
+        <p class="opener">When the auditor asks for proof that this exact version of the report is the one the CFO signed off. Whether it's the CSRD annual report, the investor pack or a green-finance decision, Firehorse Signed Reports helps you bind a legally enforceable signature to every Firehorse report better than any email chain ever will.</p>
+        <h3 class="section">Sign reports with legal weight:</h3>
+        <ul>
+          <li>Use DocuSign eSignature on every Firehorse report — eIDAS-compliant, court-defensible.</li>
+          <li>Chain the signing flow: author → reviewer → auditor — automatically.</li>
+          <li>Download the signed PDF and the full audit certificate with one click.</li>
+        </ul>
+        <h3 class="section">Keep your audit trail intact:</h3>
+        <ul>
+          <li>Auto-archive signed evidence — no "where's the latest version" debates.</li>
+          <li>Pair with KYA signing that also proves which AI agent produced the report.</li>
+          <li>Preserve machine provenance for every generated number (EU AI Act Article 12).</li>
+        </ul>
+        <h3 class="section">Meet EU requirements ahead of time:</h3>
+        <ul>
+          <li>Hand CSRD and Fit for 55 auditors a report they accept without follow-up questions.</li>
+          <li>Enforce the author/reviewer/auditor flow without manual chase-ups.</li>
+          <li>Plug into Firehorse Content Management and build a durable evidence vault for the future.</li>
+        </ul>
+        <p><a class="terms-link" href="https://dws10.com/legal/">Terms and policies →</a></p>
+      </div>
+
+      <script>
+        (function () {
+          var LANGS = ["fi", "sv", "en"];
+          var stored = localStorage.getItem("dws-lang");
+          var lang = LANGS.indexOf(stored) >= 0 ? stored : "fi";
+          function applyLang(l) {
+            if (LANGS.indexOf(l) < 0) l = "fi";
+            document.querySelectorAll("[data-lang]").forEach(function (el) { el.classList.toggle("lang-active", el.getAttribute("data-lang") === l); });
+            document.querySelectorAll(".lang-btn").forEach(function (btn) { btn.classList.toggle("active", btn.getAttribute("data-pick") === l); });
+            localStorage.setItem("dws-lang", l);
+          }
+          applyLang(lang);
+          document.querySelectorAll(".lang-btn").forEach(function (btn) { btn.addEventListener("click", function () { applyLang(this.getAttribute("data-pick")); }); });
+          window.addEventListener("dws-lang-change", function (e) { applyLang(e.detail.lang); });
+        })();
+      </script>
+
       <p><strong>Add legally binding eSignatures to any Firehorse report — court-defensible, audit-ready.</strong></p>
       <p>Compliance reports, carbon assessments, and investor reports get DocuSign eSignature with full tracking. Author, reviewer, and auditor sign in sequence. Signed PDFs are auto-archived with a cryptographic audit trail.</p>
       <div class="price">&euro;199 / year</div>
