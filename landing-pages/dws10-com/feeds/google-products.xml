@@ -4,7 +4,7 @@
     <title>Lifetime Firehorse Store — Sovereign AI Products &amp; Services</title>
     <link>https://dws10.com/buy/</link>
     <description>Sovereign AI products and services for enterprises and SMEs. EU-hosted, CLOUD Act free. Climate compliance, industrial AI, and expert advisory by Lifetime Oy.</description>
-    <lastBuildDate>2026-05-17T16:01:16.631Z</lastBuildDate>
+    <lastBuildDate>2026-05-17T16:11:32.556Z</lastBuildDate>
     <item>
         <g:id>DWS-IQ-006</g:id>
         <g:title>Lifetime DWS IQ Platform (Version 6)</g:title>
@@ -599,6 +599,57 @@
         <g:condition>new</g:condition>
         <g:brand>NVIDIA</g:brand>
         <g:mpn>LF-JETSON-AGX-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Electronics &gt; Computers &gt; Desktop Computers</g:google_product_category>
+        <g:custom_label_0>hardware</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>LF-DGX-SPARK</g:id>
+        <g:title>DGX Spark — NVIDIA-branded Sovereign Edge AI + Install &amp; Service</g:title>
+        <g:description>NVIDIA&apos;s own GB10 Grace Blackwell desktop AI workstation — same silicon as the Acer Veriton GN100 (1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm), shipped with NVIDIA branding for customers who want the NVIDIA logo on the box. 200 Gbps ConnectX-7 lets two units pair for 405 B-param models. Includes on-site install + full Lifetime service wrap (operator training, 24/7 support, warranty servicing, remote configuration). NVIDIA-priced at USD 4,699 (Feb 2026 price increase from USD 3,999).</g:description>
+        <g:link>https://dws10.com/products/dgx-spark.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>5994.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>NVIDIA</g:brand>
+        <g:mpn>LF-DGX-SPARK-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Electronics &gt; Computers &gt; Desktop Computers</g:google_product_category>
+        <g:custom_label_0>hardware</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>LF-JETSON-NX</g:id>
+        <g:title>Jetson Sensor Mid — Orin NX 16 GB + Install &amp; Service</g:title>
+        <g:description>The middle Jetson tier between Orin Nano Super and AGX Orin. 100 TOPS, 16 GB, configurable 10–40 W. Smaller form factor than AGX but enough headroom for multi-stream camera + acoustic + RAG locally. On-site install + Lifetime service wrap. Hardware via NVIDIA distributor channel (USD 899 module + carrier).</g:description>
+        <g:link>https://dws10.com/products/jetson-sensor.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>1990.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>NVIDIA</g:brand>
+        <g:mpn>LF-JETSON-NX-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Electronics &gt; Computers &gt; Desktop Computers</g:google_product_category>
+        <g:custom_label_0>hardware</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>LF-IGX-ORIN</g:id>
+        <g:title>IGX Orin — Industrial / Medical Sovereign Edge + Install &amp; Service</g:title>
+        <g:description>The medical / industrial / pharma / nuclear SKU. Same Ampere class as AGX Orin but with ECC memory, safety certifications (functional-safety roadmap), an enterprise 10-year NVIDIA support window (life cycle through 2033), 200 Gb/s networking and a PCIe Gen5 ×16 slot for an optional dGPU (RTX PRO 6000 Blackwell). Distributor channel: PNY, Leadtek, Arrow, Edom, Macnica, Ryoyo, Syntech. Includes on-site install + full Lifetime service wrap.</g:description>
+        <g:link>https://dws10.com/products/igx-orin.html</g:link>
+        <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+        <g:price>11990.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>NVIDIA</g:brand>
+        <g:mpn>LF-IGX-ORIN-2026</g:mpn>
         <g:identifier_exists>false</g:identifier_exists>
         <g:google_product_category>Electronics &gt; Computers &gt; Desktop Computers</g:google_product_category>
         <g:custom_label_0>hardware</g:custom_label_0>

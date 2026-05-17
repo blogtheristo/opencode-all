@@ -487,6 +487,45 @@ You don't need &quot;a platform&quot; and &quot;a reporting tool&quot; and &quot
       <g:identifier_exists>no</g:identifier_exists>
     </item>
     <item>
+      <g:id>LF-DGX-SPARK</g:id>
+      <g:title>DGX Spark — NVIDIA-branded Sovereign Edge AI + Install &amp; Service</g:title>
+      <g:description>&lt;p&gt;NVIDIA's own GB10 Grace Blackwell desktop AI workstation — same silicon as the Acer Veriton GN100 (1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm), shipped with NVIDIA branding for customers who want the NVIDIA logo on the box. 200 Gbps ConnectX-7 lets two units pair for 405 B-param models. Includes on-site install + full Lifetime service wrap (operator training, 24/7 support, warranty servicing, remote configuration). NVIDIA-priced at USD 4,699 (Feb 2026 price increase from USD 3,999).&lt;/p&gt;&lt;ul&gt;&lt;li&gt;1× NVIDIA DGX Spark (GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x) — €4,999 hardware&lt;/li&gt;&lt;li&gt;On-site install + service wrap — €995 (CUDA + NIMs + Cosmos + MCP + Article 12 log)&lt;/li&gt;&lt;li&gt;Pair two for 405 B-param models over the ConnectX-7 200 Gbps link&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:link>https://dws10.com/products/lf-dgx-spark.html</g:link>
+      <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>5994 EUR</g:price>
+      <g:brand>NVIDIA</g:brand>
+      <g:google_product_category>Electronics &gt; Computers &gt; Desktop Computers</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>LF-JETSON-NX</g:id>
+      <g:title>Jetson Sensor Mid — Orin NX 16 GB + Install &amp; Service</g:title>
+      <g:description>&lt;p&gt;The middle Jetson tier between Orin Nano Super and AGX Orin. 100 TOPS, 16 GB, configurable 10–40 W. Smaller form factor than AGX but enough headroom for multi-stream camera + acoustic + RAG locally. On-site install + Lifetime service wrap. Hardware via NVIDIA distributor channel (USD 899 module + carrier).&lt;/p&gt;&lt;ul&gt;&lt;li&gt;1× NVIDIA Jetson Orin NX 16 GB (100 TOPS, 16 GB, Ampere GPU) — €1,495 hardware&lt;/li&gt;&lt;li&gt;On-site install + service wrap — €495 (CUDA + NIMs + Isaac ROS + CV-CUDA + MCP + Article 12)&lt;/li&gt;&lt;li&gt;Built for: 2–4 sensor lane node, busier than Nano, lighter than AGX (rail wayside, mid-size kalustohalli, multi-cam factory cell)&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:link>https://dws10.com/products/lf-jetson-nx.html</g:link>
+      <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>1990 EUR</g:price>
+      <g:brand>NVIDIA</g:brand>
+      <g:google_product_category>Electronics &gt; Computers &gt; Desktop Computers</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
+      <g:id>LF-IGX-ORIN</g:id>
+      <g:title>IGX Orin — Industrial / Medical Sovereign Edge + Install &amp; Service</g:title>
+      <g:description>&lt;p&gt;The medical / industrial / pharma / nuclear SKU. Same Ampere class as AGX Orin but with ECC memory, safety certifications (functional-safety roadmap), an enterprise 10-year NVIDIA support window (life cycle through 2033), 200 Gb/s networking and a PCIe Gen5 ×16 slot for an optional dGPU (RTX PRO 6000 Blackwell). Distributor channel: PNY, Leadtek, Arrow, Edom, Macnica, Ryoyo, Syntech. Includes on-site install + full Lifetime service wrap.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;1× NVIDIA IGX Orin (12-core Arm Cortex-A78AE + Ampere GPU + 64 GB LPDDR5 ECC + 64 GB eMMC + NVDLA 2.0 + PVA v2) — €10,995 hardware&lt;/li&gt;&lt;li&gt;10-year NVIDIA enterprise support life cycle (through 2033) — built for medical &amp; industrial procurement&lt;/li&gt;&lt;li&gt;On-site install + service wrap — €995 (CUDA + NIMs + Cosmos + Isaac ROS + Holoscan-ready + MCP + Article 12)&lt;/li&gt;&lt;/ul&gt;</g:description>
+      <g:link>https://dws10.com/products/lf-igx-orin.html</g:link>
+      <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>11990 EUR</g:price>
+      <g:brand>NVIDIA</g:brand>
+      <g:google_product_category>Electronics &gt; Computers &gt; Desktop Computers</g:google_product_category>
+      <g:identifier_exists>no</g:identifier_exists>
+    </item>
+    <item>
       <g:id>DWS-SOVEREIGN-DB-001</g:id>
       <g:title>Sovereign Database — EU Data Sovereignty for PostgreSQL</g:title>
       <g:description>&lt;p&gt;Your EU customer data on a US-owned cloud is a liability. Sovereign Database eliminates CLOUD Act exposure with EU-hosted, EU-owned PostgreSQL, continuous sovereignty monitoring, and automated compliance scoring. Free assessment, paid tiers from €499/mo.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Zero CLOUD Act exposure&lt;/li&gt;&lt;li&gt;Continuous sovereignty monitoring agent&lt;/li&gt;&lt;li&gt;8-dimension compliance scoring&lt;/li&gt;&lt;/ul&gt;</g:description>
