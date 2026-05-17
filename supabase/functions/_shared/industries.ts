@@ -37,6 +37,12 @@ export const PUBLISHED_PLAYBOOKS: ReadonlySet<IndustrySlug> = new Set<IndustrySl
   'defence',
 ]);
 
-export const PDF_VERSIONS: Record<string, string> = {
-  defence: 'defence-en@1.2.0',
+// PDF object-key resolution: storage key = `${industry}-${language}.pdf`.
+// PDF_VERSIONS[industry][language] returns the pinned semver of the file
+// currently in the "playbooks" bucket, logged into playbook_downloads.
+export const PDF_VERSIONS: Record<string, Partial<Record<'en'|'fi'|'sv'|'de'|'fr', string>>> = {
+  defence: {
+    en: 'defence-en@1.2.0',
+    fi: 'defence-fi@1.2.0',
+  },
 };

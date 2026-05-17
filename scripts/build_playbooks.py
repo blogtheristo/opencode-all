@@ -23,7 +23,7 @@ from pathlib import Path
 
 import markdown  # type: ignore
 import yaml  # type: ignore
-from PIL import Image  # type: ignore
+from PIL import Image, ImageDraw  # type: ignore
 from weasyprint import HTML  # type: ignore
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -32,18 +32,57 @@ TARGETS = [
     ROOT / "dws10.com" / "playbooks" / "pdf",
     ROOT / "landing-pages" / "dws10-com" / "playbooks" / "pdf",
 ]
-AEGIS_LOGO = ROOT / "dws10.com" / "static" / "images" / "firehorse-aegis-head.png"
+AEGIS_LOGO = ROOT / "kb" / "raw" / "images" / "products" / "firehorse-aegis-clean.png"
+AEGIS_HEAD = ROOT / "dws10.com" / "static" / "images" / "firehorse-aegis-head.png"
 
 
-def thumb_as_data_url(path: Path, size_px: int = 240) -> str:
-    """Resize image to size_px square and return as base64 PNG data URL.
-    Keeps the cover lightweight (DWS_DOCUMENT_STANDARD downloadable rule)."""
+def thumb_as_data_url(path: Path, max_px: int = 480) -> str:
+    """Thumbnail an image preserving aspect ratio + alpha, return as base64
+    PNG data URL."""
     if not path.exists():
         return ""
     img = Image.open(path).convert("RGBA")
-    img.thumbnail((size_px, size_px), Image.LANCZOS)
+    img.thumbnail((max_px, max_px), Image.LANCZOS)
     buf = io.BytesIO()
     img.save(buf, format="PNG", optimize=True)
+    b64 = base64.b64encode(buf.getvalue()).decode("ascii")
+    return f"data:image/png;base64,{b64}"
+
+
+def aegis_circular_badge(
+    logo_path: Path,
+    badge_px: int = 480,
+    ring_color: tuple = (0xd4, 0xa8, 0x43, 0xff),
+    ring_width_px: int = 14,
+) -> str:
+    """Composite the Aegis logo onto a circular badge: white-filled circle
+    with a gold ring, logo (RGBA) centered inside. Returns base64 PNG of
+    the finished square image. WeasyPrint just renders it as an image —
+    no CSS clipping required, so the badge is guaranteed clean and round."""
+    if not logo_path.exists():
+        return ""
+    canvas = Image.new("RGBA", (badge_px, badge_px), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(canvas)
+    draw.ellipse((0, 0, badge_px - 1, badge_px - 1), fill=(255, 255, 255, 255))
+
+    inner_pad = int(badge_px * 0.12)
+    inner_w = badge_px - 2 * inner_pad
+    inner_h = inner_w
+
+    logo = Image.open(logo_path).convert("RGBA")
+    logo.thumbnail((inner_w, inner_h), Image.LANCZOS)
+    paste_x = (badge_px - logo.width) // 2
+    paste_y = (badge_px - logo.height) // 2
+    canvas.alpha_composite(logo, dest=(paste_x, paste_y))
+
+    draw.ellipse(
+        (0, 0, badge_px - 1, badge_px - 1),
+        outline=ring_color,
+        width=ring_width_px,
+    )
+
+    buf = io.BytesIO()
+    canvas.save(buf, format="PNG", optimize=True)
     b64 = base64.b64encode(buf.getvalue()).decode("ascii")
     return f"data:image/png;base64,{b64}"
 
@@ -158,31 +197,52 @@ li {{ margin-bottom: 3pt; }}
 .cover-left {{ flex: 1 1 auto; min-width: 0; }}
 .cover-aegis {{
   flex: 0 0 auto;
-  width: 32mm;
-  height: 32mm;
-  border-radius: 50%;
-  border: 2px solid {GOLD};
-  background: #fff;
-  padding: 3mm;
-  box-sizing: border-box;
+  width: 38mm;
+  height: 38mm;
   text-align: center;
   line-height: 0;
 }}
 .cover-aegis img {{
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  width: 38mm;
+  height: 38mm;
+  display: inline-block;
 }}
 .cover-aegis-label {{
-  margin-top: 2mm;
+  margin-top: 3mm;
   text-align: center;
   font-size: 7.5pt;
   color: #555;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  width: 32mm;
+  width: 38mm;
+  line-height: 1.2;
 }}
 .cover-aegis-wrap {{ display: inline-block; }}
+
+/* Closing badge — second round badge on the last page ("What to do next").
+ * Same composite trick as the cover badge but with an EU-blue ring, so the
+ * narrative arc closes visually: DWS Aegis opens, EU Sovereign closes. */
+.closing-badge-wrap {{
+  margin-top: 22pt;
+  text-align: center;
+  page-break-inside: avoid;
+}}
+.closing-badge {{
+  display: inline-block;
+  width: 32mm;
+  height: 32mm;
+  line-height: 0;
+}}
+.closing-badge img {{ width: 32mm; height: 32mm; }}
+.closing-badge-label {{
+  margin-top: 3mm;
+  text-align: center;
+  font-size: 8pt;
+  color: {EU_BLUE};
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+}}
 .cover-num {{
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   font-size: 11pt;
@@ -446,7 +506,7 @@ def build_cover_html(meta: dict) -> str:
         '<span class="badge eu">EU Inception</span>'
     )
 
-    aegis_data = thumb_as_data_url(AEGIS_LOGO, size_px=240)
+    aegis_data = aegis_circular_badge(AEGIS_LOGO, badge_px=540)
     aegis_html = (
         f'<div class="cover-aegis-wrap">'
         f'<div class="cover-aegis"><img src="{aegis_data}" alt="DWS Aegis"/></div>'
@@ -494,6 +554,26 @@ def build_cover_html(meta: dict) -> str:
     )
 
 
+def build_closing_badge_html(meta: dict) -> str:
+    """Round badge for the last page (EU-blue ring + 'EU Sovereign' label)."""
+    label = "EU Sovereign" if (meta.get("language") or "en") == "en" else "EU-suvereeni"
+    head_path = AEGIS_HEAD if AEGIS_HEAD.exists() else AEGIS_LOGO
+    data_url = aegis_circular_badge(
+        head_path,
+        badge_px=460,
+        ring_color=(0x00, 0x33, 0x99, 0xff),
+        ring_width_px=14,
+    )
+    if not data_url:
+        return ""
+    return (
+        '<div class="closing-badge-wrap">'
+        f'<div class="closing-badge"><img src="{data_url}" alt="DWS Aegis · {label}"/></div>'
+        f'<div class="closing-badge-label">DWS Aegis · {label}</div>'
+        '</div>'
+    )
+
+
 def build_footer_html(meta: dict) -> str:
     slug = meta.get("slug", "").upper()
     version = meta.get("version", "1.0.0")
@@ -530,20 +610,24 @@ def render(slug: str) -> Path | None:
         output_format="html5",
     )
 
+    lang_attr = (meta.get("language") or "en")
     full_html = (
-        "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\">"
+        f"<!DOCTYPE html><html lang=\"{lang_attr}\"><head><meta charset=\"utf-8\">"
         f"<title>{meta.get('title','DWS Sovereign Playbook')}</title>"
         f"<style>{CSS}</style></head><body>"
         f"{build_cover_html(meta)}"
         f"{md_html}"
+        f"{build_closing_badge_html(meta)}"
         f"{build_footer_html(meta)}"
         "</body></html>"
     )
 
+    # The file stem IS the storage key (e.g. defence-en, defence-fi). The
+    # build never appends a language suffix; the source filename carries it.
     written: list[Path] = []
     for target_dir in TARGETS:
         target_dir.mkdir(parents=True, exist_ok=True)
-        out = target_dir / f"{slug}-en.pdf"
+        out = target_dir / f"{slug}.pdf"
         HTML(string=full_html, base_url=str(ROOT)).write_pdf(str(out))
         written.append(out)
         print(f"[ok ] {out.relative_to(ROOT)}")

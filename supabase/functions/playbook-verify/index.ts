@@ -51,7 +51,7 @@ serve(async (req: Request) => {
 
   const { data: leadRows, error: selErr } = await sb
     .from('playbook_leads')
-    .select('id, code_hash, code_salt, code_expires_at, attempts_remaining, verified_at, is_waitlist')
+    .select('id, code_hash, code_salt, code_expires_at, attempts_remaining, verified_at, is_waitlist, language')
     .eq('email', input.email)
     .eq('industry_slug', input.industry)
     .eq('is_waitlist', false)
@@ -100,13 +100,15 @@ serve(async (req: Request) => {
     return json(req, { error: 'server-error' }, 500);
   }
 
-  const pdfVersion = PDF_VERSIONS[input.industry];
-  const objectKey = `${input.industry}-en.pdf`;
+  const language = (lead.language ?? 'en') as 'en' | 'fi' | 'sv' | 'de' | 'fr';
+  const pdfVersion = PDF_VERSIONS[input.industry]?.[language]
+    ?? PDF_VERSIONS[input.industry]?.en;
+  const objectKey = `${input.industry}-${language}.pdf`;
 
   const { data: signed, error: signErr } = await sb.storage
     .from(PLAYBOOK_BUCKET)
     .createSignedUrl(objectKey, SIGNED_URL_TTL_SECONDS, {
-      download: `dws-playbook-${input.industry}-en.pdf`,
+      download: `dws-playbook-${input.industry}-${language}.pdf`,
     });
   if (signErr || !signed) {
     console.error('signed url failed', signErr);
@@ -116,7 +118,7 @@ serve(async (req: Request) => {
   await sb.from('playbook_downloads').insert({
     lead_id: lead.id,
     industry_slug: input.industry,
-    pdf_version: pdfVersion ?? `${input.industry}-en@unknown`,
+    pdf_version: pdfVersion ?? `${input.industry}-${language}@unknown`,
   });
 
   return json(req, {
