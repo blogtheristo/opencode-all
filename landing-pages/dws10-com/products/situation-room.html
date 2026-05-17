@@ -163,6 +163,12 @@
       .hero-tagline { font-size: 0.78rem; letter-spacing: 0.14em; color: rgba(255,255,255,0.7); text-transform: uppercase; font-weight: 700; margin: 10px 0 14px; }
       .workflow-pick { color: #ffcc00; }
       .workflow-note { display: block; margin-top: 4px; font-size: 0.85rem; color: rgba(255,255,255,0.6); font-style: italic; }
+      /* Boardy hero — consistent across all hardware pages */
+      .boardy-hero { max-width: 760px; margin: 18px auto 22px; text-align: center; }
+      .boardy-tagline { font-size: 0.82rem; letter-spacing: 0.16em; color: rgba(255,255,255,0.78); text-transform: uppercase; font-weight: 700; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid rgba(118,185,0,0.35); }
+      .boardy-sub { font-size: 1rem; color: rgba(255,255,255,0.86); line-height: 1.55; margin: 0 auto; max-width: 700px; font-weight: 400; }
+      .boardy-sub strong { color: #fff; }
+
     </style>
   </head>
   <body>
@@ -172,8 +178,11 @@
     <section class="product-hero">
       <div class="nvidia-badge">BUILT ON NVIDIA · CUDA · TensorRT-LLM</div>
       <div class="product-badge">🛡️ Lifetime Fleet — Situation Room (Dual-Use)</div>
-      <div class="hero-tagline">On-site sovereign AI for regulated work</div>
       <h1 class="product-title"><span class="highlight">Situation Room</span><br />2× Acer Veriton GN100 Bridged + NVIDIA Model Bundle</h1>
+      <div class="boardy-hero">
+        <div class="boardy-tagline">On-site sovereign AI hardware for regulated work.</div>
+        <p class="boardy-sub">Cloud-only LLMs break on jurisdiction, logging, and control. DWS ships the NVIDIA stack on-site, with customer-owned hardware, bridged inference, and auditable handoff.</p>
+      </div>
       <p class="product-subtitle">Cloud-only LLMs break on jurisdiction, logging, and control. DWS brings the NVIDIA stack on-site, with customer-owned hardware, bridged inference, and auditable handoff. <strong class="workflow-pick">One workflow first:</strong> crisis operations <span class="workflow-note">(VPK drone defense · dispatch coordination · NIS2 / CER incident handoff)</span>.</p>
       <div class="price-block">
         <div class="product-price product-price-nv">€8,993</div>
