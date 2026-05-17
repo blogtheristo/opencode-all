@@ -2,6 +2,11 @@ import Stripe from 'stripe';
 import axios from 'axios';
 import logger from '../utils/logger.js';
 import { supabase } from './supabase.service.js';
+import { sendEmail } from '../utils/send-email.js';
+import {
+  generatePaymentConfirmationHTML,
+  generatePaymentConfirmationPlainText,
+} from '../templates/invoice-email.template.js';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '');
 
@@ -215,6 +220,84 @@ export async function voidInvoice(invoice_id: string): Promise<Stripe.Invoice | 
 // ============================================================================
 
 /**
+ * Send payment confirmation email to the customer for a paid order.
+ * Safe to fire and forget — failures are logged but never throw so the
+ * webhook ack path stays clean.
+ */
+export async function sendPaymentConfirmationEmail(order: {
+  id: string;
+  company_billing_profile_id?: string | null;
+  product_id?: string | null;
+  product_price_cents?: number | null;
+}): Promise<void> {
+  try {
+    if (!order.company_billing_profile_id) {
+      logger.warn('Cannot send payment confirmation: order has no billing profile', {
+        order_id: order.id,
+      });
+      return;
+    }
+
+    const { data: profile, error: profileError } = await supabase
+      .from('company_billing_profiles')
+      .select('company_name, contact_email')
+      .eq('id', order.company_billing_profile_id)
+      .single();
+
+    if (profileError || !profile?.contact_email) {
+      logger.warn('Cannot send payment confirmation: billing profile or contact email missing', {
+        order_id: order.id,
+        error: profileError,
+      });
+      return;
+    }
+
+    const companyName = (profile.company_name as string) || 'Customer';
+    const contactEmail = profile.contact_email as string;
+    const paidDate = new Date().toISOString().slice(0, 10);
+    const params = {
+      customer_name: companyName,
+      company_name: companyName,
+      order_id: order.id,
+      paid_date: paidDate,
+      invoice_amount_eur: order.product_price_cents ?? 0,
+      product_name: (order.product_id as string) || 'DWS Platform',
+    };
+
+    const result = await sendEmail({
+      from: process.env.EMAIL_FROM || 'risto@onelifetime.world',
+      to: contactEmail,
+      subject: `Payment Confirmed — Order ${order.id}`,
+      html: generatePaymentConfirmationHTML(params),
+      text: generatePaymentConfirmationPlainText(params),
+      source: 'platform',
+      templateType: 'payment_confirmation',
+      metadata: {
+        order_id: order.id,
+        company: companyName,
+      },
+    });
+
+    if (!result.ok) {
+      logger.warn('Payment confirmation email failed to send', {
+        order_id: order.id,
+        contactEmail,
+        error: result.error,
+      });
+      return;
+    }
+
+    logger.info('Payment confirmation email sent', {
+      order_id: order.id,
+      contactEmail,
+      transport: result.transport,
+    });
+  } catch (error) {
+    logger.error('Error sending payment confirmation email', { error, order_id: order.id });
+  }
+}
+
+/**
  * Handle Stripe invoice payment succeeded webhook
  */
 export async function handleInvoicePaymentSucceeded(invoice_id: string): Promise<void> {
@@ -246,7 +329,7 @@ export async function handleInvoicePaymentSucceeded(invoice_id: string): Promise
       invoice_id,
     });
 
-    // TODO: Send confirmation email to customer
+    await sendPaymentConfirmationEmail(order);
     // TODO: Activate service/product access
   } catch (error) {
     logger.error('Error handling invoice payment', { error, invoice_id });
