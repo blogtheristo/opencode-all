@@ -34,6 +34,28 @@ TARGETS = [
 ]
 AEGIS_LOGO = ROOT / "kb" / "raw" / "images" / "products" / "firehorse-aegis-clean.png"
 AEGIS_HEAD = ROOT / "dws10.com" / "static" / "images" / "firehorse-aegis-head.png"
+PAGE_BADGE_SRC = ROOT / "kb" / "raw" / "images" / "products" / "firehorse-aegis-eu-sovereign.png"
+PAGE_BADGE_MM = 22.0  # printed badge size in mm, every page top-right
+
+
+def page_badge_data_url(path: Path, mm: float = 22.0, dpi: int = 300) -> str:
+    """Crop the round EU-Sovereign-by-Design badge out of the rectangular
+    source image (center square — the badge sits centred in the wider
+    canvas), resize for print resolution, return as base64 PNG."""
+    if not path.exists():
+        return ""
+    img = Image.open(path).convert("RGBA")
+    w, h = img.size
+    side = min(w, h)
+    left = (w - side) // 2
+    top = (h - side) // 2
+    img = img.crop((left, top, left + side, top + side))
+    target_px = int(mm / 25.4 * dpi) * 2  # 2× for retina-quality print
+    img.thumbnail((target_px, target_px), Image.LANCZOS)
+    buf = io.BytesIO()
+    img.save(buf, format="PNG", optimize=True)
+    b64 = base64.b64encode(buf.getvalue()).decode("ascii")
+    return f"data:image/png;base64,{b64}"
 
 
 def thumb_as_data_url(path: Path, max_px: int = 480) -> str:
@@ -91,14 +113,28 @@ GOLD = "#d4a843"
 EU_BLUE = "#003399"
 NVIDIA_GREEN = "#76B900"
 
+_PAGE_BADGE_DATA = page_badge_data_url(PAGE_BADGE_SRC, mm=PAGE_BADGE_MM, dpi=300)
+
 CSS = f"""
 /* Hybrid style: Nokia info-design discipline + DWS palette (gold + EU blue +
    NVIDIA green accents). Conservative whitespace, info-dense tables, vendor
    block + reference number in cover and footer. Inter is the open substitute
-   for Nokia Pure; falls back to Helvetica. */
+   for Nokia Pure; falls back to Helvetica.
+   Every page (including cover) carries the EU-Sovereign-by-Design badge in
+   the top-right corner via @top-right margin box; no other logos. */
 @page {{
   size: A4;
-  margin: 24mm 20mm 22mm 20mm;
+  margin: 30mm 20mm 22mm 20mm;
+  @top-right {{
+    content: "";
+    background-image: url("{_PAGE_BADGE_DATA}");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right top;
+    width: {PAGE_BADGE_MM}mm;
+    height: {PAGE_BADGE_MM}mm;
+    margin: 4mm 0 0 0;
+  }}
   @bottom-left {{
     content: string(docref);
     font-family: "Inter", "Helvetica", "Arial", sans-serif;
@@ -154,95 +190,23 @@ ul, ol {{ margin: 0 0 10pt 0; padding-left: 18pt; }}
 li {{ margin-bottom: 3pt; }}
 
 /* ============================================================
- * COVER — visual front page.
- * Full-bleed top gold strip, industry number + huge title, Aegis
- * head badge in the top-right, framework chips, meta grid, then
- * page-break before section 0. Designed to look like a defence
- * advisory deliverable, not a brochure.
+ * COVER — visual front page. Uses the default @page geometry so the
+ * top-right EU-Sovereign badge is consistent with every other page.
+ * Visual identity comes from typography, framework chips, and an
+ * EU-blue accent rule above the title — no full-bleed strips, no
+ * second logo. (User: "ei muita logoja".)
  * ============================================================ */
 .cover {{
-  page: cover;
   string-set: industry attr(data-industry) " · DWS Sovereign Playbook";
   page-break-after: always;
-}}
-@page cover {{
-  size: A4;
-  margin: 0;
-  @bottom-left  {{ content: none; }}
-  @bottom-center{{ content: none; }}
-  @bottom-right {{ content: none; }}
-}}
-.cover-strip-top {{
-  height: 8mm;
-  background: linear-gradient(90deg, {GOLD} 0%, #e6c068 60%, {GOLD} 100%);
-}}
-.cover-strip-bottom {{
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 8mm;
-  background: linear-gradient(90deg, {EU_BLUE} 0%, #00277a 50%, {EU_BLUE} 100%);
+  padding: 0;
 }}
 .cover-body {{
-  padding: 22mm 22mm 16mm 22mm;
+  padding: 0;
   position: relative;
-  min-height: 240mm;
 }}
-.cover-row {{
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16mm;
-  margin-bottom: 18pt;
-}}
-.cover-left {{ flex: 1 1 auto; min-width: 0; }}
-.cover-aegis {{
-  flex: 0 0 auto;
-  width: 38mm;
-  height: 38mm;
-  text-align: center;
-  line-height: 0;
-}}
-.cover-aegis img {{
-  width: 38mm;
-  height: 38mm;
-  display: inline-block;
-}}
-.cover-aegis-label {{
-  margin-top: 3mm;
-  text-align: center;
-  font-size: 7.5pt;
-  color: #555;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  width: 38mm;
-  line-height: 1.2;
-}}
-.cover-aegis-wrap {{ display: inline-block; }}
-
-/* Closing badge — second round badge on the last page ("What to do next").
- * Same composite trick as the cover badge but with an EU-blue ring, so the
- * narrative arc closes visually: DWS Aegis opens, EU Sovereign closes. */
-.closing-badge-wrap {{
-  margin-top: 22pt;
-  text-align: center;
-  page-break-inside: avoid;
-}}
-.closing-badge {{
-  display: inline-block;
-  width: 32mm;
-  height: 32mm;
-  line-height: 0;
-}}
-.closing-badge img {{ width: 32mm; height: 32mm; }}
-.closing-badge-label {{
-  margin-top: 3mm;
-  text-align: center;
-  font-size: 8pt;
-  color: {EU_BLUE};
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-weight: 600;
-}}
+.cover-row {{ display: block; margin-bottom: 8pt; }}
+.cover-left {{ display: block; }}
 .cover-num {{
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   font-size: 11pt;
@@ -506,22 +470,9 @@ def build_cover_html(meta: dict) -> str:
         '<span class="badge eu">EU Inception</span>'
     )
 
-    aegis_data = aegis_circular_badge(AEGIS_LOGO, badge_px=540)
-    aegis_html = (
-        f'<div class="cover-aegis-wrap">'
-        f'<div class="cover-aegis"><img src="{aegis_data}" alt="DWS Aegis"/></div>'
-        f'<div class="cover-aegis-label">DWS Aegis</div>'
-        f'</div>'
-        if aegis_data
-        else ""
-    )
-
     return (
         f'<div class="cover" data-industry="{industry}">'
-        '<div class="cover-strip-top"></div>'
         '<div class="cover-body">'
-        '<div class="cover-row">'
-        '<div class="cover-left">'
         f'<p class="cover-num">PLAYBOOK {num_label} · DEFENCE &amp; CRITICAL INFRASTRUCTURE</p>'
         f'<h1 class="industry">{industry}</h1>'
         '<p class="subtitle">DWS Sovereign-Stack Playbook · for EU defence ministries, '
@@ -546,30 +497,6 @@ def build_cover_html(meta: dict) -> str:
         f'<div><b>Owner</b><span class="v">{owner}</span></div>'
         '</div>'
         '</div>'
-        f'<div class="cover-right">{aegis_html}</div>'
-        '</div>'
-        '</div>'
-        '<div class="cover-strip-bottom"></div>'
-        '</div>'
-    )
-
-
-def build_closing_badge_html(meta: dict) -> str:
-    """Round badge for the last page (EU-blue ring + 'EU Sovereign' label)."""
-    label = "EU Sovereign" if (meta.get("language") or "en") == "en" else "EU-suvereeni"
-    head_path = AEGIS_HEAD if AEGIS_HEAD.exists() else AEGIS_LOGO
-    data_url = aegis_circular_badge(
-        head_path,
-        badge_px=460,
-        ring_color=(0x00, 0x33, 0x99, 0xff),
-        ring_width_px=14,
-    )
-    if not data_url:
-        return ""
-    return (
-        '<div class="closing-badge-wrap">'
-        f'<div class="closing-badge"><img src="{data_url}" alt="DWS Aegis · {label}"/></div>'
-        f'<div class="closing-badge-label">DWS Aegis · {label}</div>'
         '</div>'
     )
 
@@ -617,7 +544,6 @@ def render(slug: str) -> Path | None:
         f"<style>{CSS}</style></head><body>"
         f"{build_cover_html(meta)}"
         f"{md_html}"
-        f"{build_closing_badge_html(meta)}"
         f"{build_footer_html(meta)}"
         "</body></html>"
     )
