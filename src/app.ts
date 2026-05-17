@@ -7,12 +7,19 @@
  * - Event-driven agent runtime initialized on startup (Fix #6)
  */
 
+import dotenv from 'dotenv';
+dotenv.config();
+
+// Initialize OTel before any module that may emit spans (agent registry,
+// llm-client, workflows). Safe no-op when OTEL_EXPORTER_OTLP_ENDPOINT is unset.
+import { initOtel, shutdownOtel } from './observability/otel.js';
+initOtel();
+
 import express, { Express, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import crypto from 'crypto';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
-import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
@@ -707,7 +714,7 @@ process.on('SIGTERM', () => {
   outreachScheduler.stop();
   memoryScheduler.stop();
   shutdownFirehorsePilot();
-  emailQueue.shutdown().finally(() => {
+  Promise.all([emailQueue.shutdown(), shutdownOtel()]).finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');
       process.exit(0);
@@ -721,7 +728,7 @@ process.on('SIGINT', () => {
   outreachScheduler.stop();
   memoryScheduler.stop();
   shutdownFirehorsePilot();
-  emailQueue.shutdown().finally(() => {
+  Promise.all([emailQueue.shutdown(), shutdownOtel()]).finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');
       process.exit(0);

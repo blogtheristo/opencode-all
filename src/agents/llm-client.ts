@@ -21,6 +21,17 @@ import logger from '../utils/logger.js';
 import type { ToolDefinition, ToolCall, LLMMessage, LLMResponse, ModelTier } from './types.js';
 import { selectModel } from './model-selector.js';
 import type { ModelSelection } from './model-selector.js';
+import { recordLLMResponse, withLLMSpan } from '../observability/tracing.js';
+
+const PROVIDER_GENAI_SYSTEM: Record<string, string> = {
+  anthropic: 'anthropic',
+  google: 'gcp.gemini',
+  groq: 'groq',
+  baseten: 'baseten',
+  'ollama-local': 'ollama',
+  'vllm-local': 'vllm',
+  'openai-compatible': 'openai',
+};
 
 // ============ PROVIDER CONFIGURATION ============
 
@@ -285,14 +296,33 @@ export class LLMClient {
    * Returns the assistant's response, which may include tool calls.
    */
   async chat(messages: LLMMessage[], tools?: ToolDefinition[]): Promise<LLMResponse> {
-    if (this.config.provider === 'anthropic') {
-      return this.chatAnthropic(messages, tools);
-    }
-    if (this.config.provider === 'google') {
-      return this.chatGoogle(messages, tools);
-    }
-    // Groq, Ollama, vLLM, and OpenAI-compatible all share the same API shape
-    return this.chatOpenAICompatible(messages, tools);
+    return withLLMSpan(
+      {
+        system: PROVIDER_GENAI_SYSTEM[this.config.provider] || this.config.provider,
+        operationName: 'chat',
+        requestModel: this.config.model,
+        requestMaxTokens: this.config.maxTokens,
+        requestTemperature: this.config.temperature,
+      },
+      async (span) => {
+        let response: LLMResponse;
+        if (this.config.provider === 'anthropic') {
+          response = await this.chatAnthropic(messages, tools);
+        } else if (this.config.provider === 'google') {
+          response = await this.chatGoogle(messages, tools);
+        } else {
+          // Groq, Ollama, vLLM, and OpenAI-compatible all share the same API shape
+          response = await this.chatOpenAICompatible(messages, tools);
+        }
+        recordLLMResponse(span, {
+          responseModel: response.model,
+          inputTokens: response.inputTokens,
+          outputTokens: response.outputTokens,
+          finishReason: response.stopReason,
+        });
+        return response;
+      },
+    );
   }
 
   // ============ ANTHROPIC PROVIDER ============

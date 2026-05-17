@@ -5,6 +5,13 @@ export default defineConfig({
     environment: 'node',
     globals: true,
     setupFiles: ['./src/__tests__/setup.ts'],
+    exclude: [
+      '**/node_modules/**',
+      '**/dist/**',
+      // Stale PR-snapshot worktrees checked into the repo. They carry their
+      // own outdated tests/mocks and must not run as part of main CI.
+      'artifacts/**',
+    ],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'text-summary', 'json-summary', 'html'],

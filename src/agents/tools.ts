@@ -13,6 +13,7 @@
 import logger from '../utils/logger.js';
 import { telemetryService } from './telemetry.service.js';
 import type { ToolTelemetryEvent } from './telemetry.types.js';
+import { currentTraceIds, withToolSpan } from '../observability/tracing.js';
 import type {
   AgentContext,
   ToolCall,
@@ -56,6 +57,7 @@ export async function executeTool(
   if (!handler) {
     // Record unknown tool as error telemetry
     if (meta) {
+      const ids = currentTraceIds();
       telemetryService.recordInvocation({
         agentName: meta.agentName,
         toolName: call.name,
@@ -70,6 +72,8 @@ export async function executeTool(
         chainLength: meta.chainLength,
         iterationIndex: meta.iterationIndex,
         timestamp: new Date().toISOString(),
+        traceId: ids.traceId,
+        spanId: ids.spanId,
       });
     }
     return {
@@ -80,78 +84,99 @@ export async function executeTool(
     };
   }
 
-  const startTime = Date.now();
-  let outcome: ToolTelemetryEvent['outcome'] = 'success';
-  let errorMessage: string | undefined;
+  return withToolSpan(
+    call.name,
+    {
+      agentName: meta?.agentName,
+      chainPosition: meta?.chainPosition,
+      chainLength: meta?.chainLength,
+    },
+    async (span) => {
+      const startTime = Date.now();
+      let outcome: ToolTelemetryEvent['outcome'] = 'success';
+      let errorMessage: string | undefined;
 
-  try {
-    // Timeout wrapper: prevents hung tools from blocking the chain
-    const result = await Promise.race([
-      handler(call.arguments, context),
-      new Promise<never>((_, reject) =>
-        setTimeout(() => reject(new Error(`Tool ${call.name} timed out after ${TOOL_TIMEOUT_MS}ms`)), TOOL_TIMEOUT_MS),
-      ),
-    ]);
-    const durationMs = Date.now() - startTime;
-    logger.debug('Tool executed', { tool: call.name, durationMs });
+      try {
+        // Timeout wrapper: prevents hung tools from blocking the chain
+        const result = await Promise.race([
+          handler(call.arguments, context),
+          new Promise<never>((_, reject) =>
+            setTimeout(() => reject(new Error(`Tool ${call.name} timed out after ${TOOL_TIMEOUT_MS}ms`)), TOOL_TIMEOUT_MS),
+          ),
+        ]);
+        const durationMs = Date.now() - startTime;
+        logger.debug('Tool executed', { tool: call.name, durationMs });
+        span.setAttribute('dws.tool.outcome', 'success');
+        span.setAttribute('dws.tool.duration_ms', durationMs);
 
-    // Record success telemetry
-    if (meta) {
-      telemetryService.recordInvocation({
-        agentName: meta.agentName,
-        toolName: call.name,
-        orgId: context.orgId,
-        sessionId: context.sessionId,
-        outcome: 'success',
-        durationMs,
-        isRetry: false,
-        retryCount: 0,
-        chainPosition: meta.chainPosition,
-        chainLength: meta.chainLength,
-        iterationIndex: meta.iterationIndex,
-        timestamp: new Date().toISOString(),
-      });
-    }
+        // Record success telemetry
+        if (meta) {
+          const ids = currentTraceIds();
+          telemetryService.recordInvocation({
+            agentName: meta.agentName,
+            toolName: call.name,
+            orgId: context.orgId,
+            sessionId: context.sessionId,
+            outcome: 'success',
+            durationMs,
+            isRetry: false,
+            retryCount: 0,
+            chainPosition: meta.chainPosition,
+            chainLength: meta.chainLength,
+            iterationIndex: meta.iterationIndex,
+            timestamp: new Date().toISOString(),
+            traceId: ids.traceId,
+            spanId: ids.spanId,
+          });
+        }
 
-    return {
-      toolCallId: call.id,
-      name: call.name,
-      result: result as Record<string, unknown>,
-      isError: false,
-    };
-  } catch (err: unknown) {
-    const msg = err instanceof Error ? err.message : 'Unknown error';
-    const durationMs = Date.now() - startTime;
-    outcome = msg.includes('timed out') ? 'timeout' : 'error';
-    errorMessage = msg;
-    logger.error('Tool execution failed', { tool: call.name, error: msg, outcome });
+        return {
+          toolCallId: call.id,
+          name: call.name,
+          result: result as Record<string, unknown>,
+          isError: false,
+        };
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : 'Unknown error';
+        const durationMs = Date.now() - startTime;
+        outcome = msg.includes('timed out') ? 'timeout' : 'error';
+        errorMessage = msg;
+        logger.error('Tool execution failed', { tool: call.name, error: msg, outcome });
+        span.setAttribute('dws.tool.outcome', outcome);
+        span.setAttribute('dws.tool.duration_ms', durationMs);
 
-    // Record failure telemetry
-    if (meta) {
-      telemetryService.recordInvocation({
-        agentName: meta.agentName,
-        toolName: call.name,
-        orgId: context.orgId,
-        sessionId: context.sessionId,
-        outcome,
-        durationMs,
-        errorMessage,
-        isRetry: false,
-        retryCount: 0,
-        chainPosition: meta.chainPosition,
-        chainLength: meta.chainLength,
-        iterationIndex: meta.iterationIndex,
-        timestamp: new Date().toISOString(),
-      });
-    }
+        // Record failure telemetry
+        if (meta) {
+          const ids = currentTraceIds();
+          telemetryService.recordInvocation({
+            agentName: meta.agentName,
+            toolName: call.name,
+            orgId: context.orgId,
+            sessionId: context.sessionId,
+            outcome,
+            durationMs,
+            errorMessage,
+            isRetry: false,
+            retryCount: 0,
+            chainPosition: meta.chainPosition,
+            chainLength: meta.chainLength,
+            iterationIndex: meta.iterationIndex,
+            timestamp: new Date().toISOString(),
+            traceId: ids.traceId,
+            spanId: ids.spanId,
+          });
+        }
 
-    return {
-      toolCallId: call.id,
-      name: call.name,
-      result: { error: msg },
-      isError: true,
-    };
-  }
+        // Returning a tool error result (not throwing) — span outcome already recorded.
+        return {
+          toolCallId: call.id,
+          name: call.name,
+          result: { error: msg },
+          isError: true,
+        };
+      }
+    },
+  );
 }
 
 /**
