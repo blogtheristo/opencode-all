@@ -4,7 +4,7 @@
     <title>Lifetime Firehorse Store — Sovereign AI Products &amp; Services</title>
     <link>https://dws10.com/buy/</link>
     <description>Sovereign AI products and services for enterprises and SMEs. EU-hosted, CLOUD Act free. Climate compliance, industrial AI, and expert advisory by Lifetime Oy.</description>
-    <lastBuildDate>2026-05-17T16:19:09.678Z</lastBuildDate>
+    <lastBuildDate>2026-05-17T16:26:24.135Z</lastBuildDate>
     <item>
         <g:id>DWS-IQ-006</g:id>
         <g:title>Lifetime DWS IQ Platform (Version 6)</g:title>
@@ -608,7 +608,7 @@
     <item>
         <g:id>LF-DGX-SPARK</g:id>
         <g:title>DGX Spark — NVIDIA-branded Sovereign Edge AI + Install &amp; Service</g:title>
-        <g:description>NVIDIA&apos;s own GB10 Grace Blackwell desktop AI workstation — same silicon as the Acer Veriton GN100 (1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm), shipped with NVIDIA branding for customers who want the NVIDIA logo on the box. 200 Gbps ConnectX-7 lets two units pair for 405 B-param models. Includes on-site install + full Lifetime service wrap (operator training, 24/7 support, warranty servicing, remote configuration). NVIDIA-priced at USD 4,699 (Feb 2026 price increase from USD 3,999).</g:description>
+        <g:description>NVIDIA&apos;s own GB10 Grace Blackwell desktop AI workstation — same silicon as the Acer Veriton GN100 (1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm), shipped with NVIDIA branding for customers who want the NVIDIA logo on the box. 200 Gbps ConnectX-7 lets two units pair for 405 B-param models. Includes on-site install + full Lifetime service wrap (operator training, 24/7 support, warranty servicing, remote configuration). Finnish / EU B2B price (VAT 0% reverse charge) — not converted from US list.</g:description>
         <g:link>https://dws10.com/products/dgx-spark.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
         <g:price>5994.00 EUR</g:price>
@@ -642,7 +642,7 @@
     <item>
         <g:id>LF-IGX-ORIN</g:id>
         <g:title>IGX Orin — Industrial / Medical Sovereign Edge + Install &amp; Service</g:title>
-        <g:description>The medical / industrial / pharma / nuclear SKU. Same Ampere class as AGX Orin but with ECC memory, safety certifications (functional-safety roadmap), an enterprise 10-year NVIDIA support window (life cycle through 2033), 200 Gb/s networking and a PCIe Gen5 ×16 slot for an optional dGPU (RTX PRO 6000 Blackwell). Distributor channel: PNY, Leadtek, Arrow, Edom, Macnica, Ryoyo, Syntech. Includes on-site install + full Lifetime service wrap.</g:description>
+        <g:description>The medical / industrial / pharma / nuclear SKU. Same Ampere class as AGX Orin but with ECC memory, safety certifications (functional-safety roadmap), enterprise 10-year NVIDIA support window (life cycle through 2033), 200 Gb/s networking and a PCIe Gen5 ×16 slot for an optional dGPU (RTX PRO 6000 Blackwell). Distribution channel: PNY (NALA), Arrow AGC (EMEA), Leadtek (APAC). Includes on-site install + full Lifetime service wrap. Finnish / EU B2B price (VAT 0% reverse charge), set against EMEA distributor channel — not converted from US list.</g:description>
         <g:link>https://dws10.com/products/igx-orin.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
         <g:price>11990.00 EUR</g:price>

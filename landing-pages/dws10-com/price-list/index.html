@@ -4,15 +4,24 @@
   DWS DOCUMENT STANDARD — VERSION AND AGENT HISTORY (HTML mirror)
   ============================================================================
   Document: dws10.com/price-list/index.html
-  Version: 1.18
+  Version: 1.19
   Effective: 2026-05-17
   Owner: Lifetime Oy (sales@lifetime.fi)
   Publication Status: ACTIVE
   Language: English (primary) · Suomi · Svenska · Deutsch · Français
+  Market: Finnish / EU B2B (VAT 0%, reverse charge against valid EU VAT ID)
 
   Sessions & Modifications:
+    - Version 1.19 | claude/add-hardware-products-MY7X7 | 2026-05-17 |
+        Reaffirmed all hardware prices as Finnish / EU B2B (VAT 0% reverse charge).
+        Pricing held - no drops. DGX Spark stays €5,994 turnkey, IGX Orin stays
+        €11,990 turnkey. Both set against EMEA distributor channel (not US list)
+        with our Lifetime margin baked in.
+        Added priceList.policy.marketNote, <meta dws-doc-market>, and a visible
+        "Finnish / EU B2B · VAT 0 %" line in the price-list footer so the
+        framing is explicit on every consumer of the JSON and the rendered HTML.
     - Version 1.18 | claude/add-hardware-products-MY7X7 | 2026-05-17 |
-        Added LF-DGX-SPARK (€5,994), LF-JETSON-NX (€1,990), LF-IGX-ORIN (€11,990).
+        Added LF-DGX-SPARK, LF-JETSON-NX, LF-IGX-ORIN.
         Hardware ladder now: Jetson Nano (€764) → Jetson NX (€1,990) → Jetson AGX (€2,494)
         → Control Room (€4,994) → DGX Spark (€5,994) → Situation Room (€8,993) → IGX Orin
         (€11,990). Plus NVIDIA Install (€995/device) and Sovereign Model Updates
@@ -44,7 +53,8 @@
       content="Official DWS IQ + Firehorse B2B price list. EUR, VAT 0% (reverse charge). Sovereign intelligence and compliance. Reviewed quarterly."
     />
     <meta name="author" content="Lifetime Oy" />
-    <meta name="dws-doc-version" content="1.18" />
+    <meta name="dws-doc-version" content="1.19" />
+    <meta name="dws-doc-market" content="Finnish / EU B2B · VAT 0% reverse charge" />
     <meta name="dws-doc-effective" content="2026-05-17" />
     <meta name="dws-doc-status" content="ACTIVE" />
     <meta name="robots" content="index, follow" />
@@ -506,8 +516,9 @@
           <h3>Price list governance</h3>
           <p>Owner: <span id="lOwner">Risto Anton Päärni</span></p>
           <p>Cadence: Reviewed every calendar quarter</p>
-          <p>DWS Document Standard version: <strong>1.18</strong> · Effective <strong>2026-05-17</strong></p>
-          <p style="margin-top:6px;">New in v1.18: NVIDIA hardware ladder — Jetson Nano / Jetson NX / Jetson AGX · Control Room · DGX Spark · Situation Room · IGX Orin · NVIDIA Install + Service · Sovereign Model Updates Subscription.</p>
+          <p>DWS Document Standard version: <strong>1.19</strong> · Effective <strong>2026-05-17</strong></p>
+          <p style="margin-top:6px;">Market: <strong>Finnish / EU B2B · VAT 0 % (reverse charge)</strong>. Hardware costs reflect verified EU distributor and EMEA launch prices — not converted from US list. NVIDIA / Acer EU sources documented in <code>priceHistory[]</code>.</p>
+          <p style="margin-top:6px;">v1.19 sovereign-hardware ladder (Finnish B2B): Jetson Nano €764 · Jetson NX €1,990 · Jetson AGX €2,494 · Control Room €4,994 · DGX Spark €5,994 · Situation Room €8,993 · IGX Orin €11,990 · NVIDIA Install €995/device · Sovereign Model Updates €299/mo.</p>
           <p>Source of truth: <code>dws10.com/config/products.json</code></p>
         </div>
         <div>
