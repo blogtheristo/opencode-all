@@ -14,6 +14,8 @@ EU-friendly: WeasyPrint only; no third-party SaaS.
 """
 from __future__ import annotations
 
+import base64
+import io
 import re
 import sys
 from datetime import date
@@ -21,6 +23,7 @@ from pathlib import Path
 
 import markdown  # type: ignore
 import yaml  # type: ignore
+from PIL import Image  # type: ignore
 from weasyprint import HTML  # type: ignore
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -29,6 +32,20 @@ TARGETS = [
     ROOT / "dws10.com" / "playbooks" / "pdf",
     ROOT / "landing-pages" / "dws10-com" / "playbooks" / "pdf",
 ]
+AEGIS_LOGO = ROOT / "dws10.com" / "static" / "images" / "firehorse-aegis-head.png"
+
+
+def thumb_as_data_url(path: Path, size_px: int = 240) -> str:
+    """Resize image to size_px square and return as base64 PNG data URL.
+    Keeps the cover lightweight (DWS_DOCUMENT_STANDARD downloadable rule)."""
+    if not path.exists():
+        return ""
+    img = Image.open(path).convert("RGBA")
+    img.thumbnail((size_px, size_px), Image.LANCZOS)
+    buf = io.BytesIO()
+    img.save(buf, format="PNG", optimize=True)
+    b64 = base64.b64encode(buf.getvalue()).decode("ascii")
+    return f"data:image/png;base64,{b64}"
 
 # DWS brand palette (DWS_BRAND_STANDARD).
 GOLD = "#d4a843"
@@ -97,65 +114,191 @@ p {{ margin: 0 0 8pt 0; }}
 ul, ol {{ margin: 0 0 10pt 0; padding-left: 18pt; }}
 li {{ margin-bottom: 3pt; }}
 
-/* Cover block — Nokia-style information panel with reference + classification */
+/* ============================================================
+ * COVER — visual front page.
+ * Full-bleed top gold strip, industry number + huge title, Aegis
+ * head badge in the top-right, framework chips, meta grid, then
+ * page-break before section 0. Designed to look like a defence
+ * advisory deliverable, not a brochure.
+ * ============================================================ */
 .cover {{
-  border-top: 3px solid {EU_BLUE};
-  border-bottom: 1px solid #ddd;
-  padding: 8pt 0 10pt 0;
-  margin: 0 0 14pt 0;
+  page: cover;
   string-set: industry attr(data-industry) " · DWS Sovereign Playbook";
+  page-break-after: always;
 }}
-.cover-meta-grid {{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4pt 14pt;
-  font-size: 8.5pt;
-  color: #444;
-  margin-top: 8pt;
-  border-top: 1px solid #eee;
-  padding-top: 8pt;
+@page cover {{
+  size: A4;
+  margin: 0;
+  @bottom-left  {{ content: none; }}
+  @bottom-center{{ content: none; }}
+  @bottom-right {{ content: none; }}
 }}
-.cover-meta-grid b {{ color: #111; font-weight: 600; }}
+.cover-strip-top {{
+  height: 8mm;
+  background: linear-gradient(90deg, {GOLD} 0%, #e6c068 60%, {GOLD} 100%);
+}}
+.cover-strip-bottom {{
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 8mm;
+  background: linear-gradient(90deg, {EU_BLUE} 0%, #00277a 50%, {EU_BLUE} 100%);
+}}
+.cover-body {{
+  padding: 22mm 22mm 16mm 22mm;
+  position: relative;
+  min-height: 240mm;
+}}
+.cover-row {{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16mm;
+  margin-bottom: 18pt;
+}}
+.cover-left {{ flex: 1 1 auto; min-width: 0; }}
+.cover-aegis {{
+  flex: 0 0 auto;
+  width: 32mm;
+  height: 32mm;
+  border-radius: 50%;
+  border: 2px solid {GOLD};
+  background: #fff;
+  padding: 3mm;
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 0;
+}}
+.cover-aegis img {{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}}
+.cover-aegis-label {{
+  margin-top: 2mm;
+  text-align: center;
+  font-size: 7.5pt;
+  color: #555;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  width: 32mm;
+}}
+.cover-aegis-wrap {{ display: inline-block; }}
+.cover-num {{
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 11pt;
+  color: {GOLD};
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin: 0 0 4pt 0;
+  text-transform: uppercase;
+}}
 .cover .industry {{
-  font-size: 24pt;
+  font-size: 38pt;
   font-weight: 700;
   color: {EU_BLUE};
   margin: 0;
-  letter-spacing: -0.01em;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
 }}
 .cover .subtitle {{
-  font-size: 10pt;
-  color: #444;
-  margin: 4pt 0 0 0;
+  font-size: 11pt;
+  color: #333;
+  margin: 6pt 0 0 0;
+  letter-spacing: 0.01em;
+}}
+.cover-rule {{
+  height: 3pt;
+  background: {GOLD};
+  width: 60mm;
+  margin: 14pt 0 14pt 0;
+  border-radius: 1pt;
 }}
 .cover .docref {{
   string-set: docref content();
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  font-size: 9pt;
+  font-size: 9.5pt;
   color: #111;
-  margin: 8pt 0 0 0;
+  margin: 0 0 14pt 0;
   letter-spacing: 0.01em;
+  background: #f4f4ee;
+  padding: 4pt 8pt;
+  display: inline-block;
+  border-radius: 2px;
+  border: 1px solid #e0dfc8;
 }}
-.badges {{ margin-top: 8pt; }}
+.cover-promise {{
+  font-size: 12pt;
+  color: #111;
+  margin: 14pt 0 14pt 0;
+  font-weight: 500;
+  max-width: 130mm;
+  line-height: 1.4;
+}}
+.cover-promise b {{ color: {EU_BLUE}; font-weight: 700; }}
+
+.badges {{ margin: 14pt 0 0 0; }}
 .badge {{
   display: inline-block;
-  padding: 2pt 8pt;
-  margin-right: 5pt;
-  font-size: 8pt;
+  padding: 3pt 9pt;
+  margin: 0 5pt 4pt 0;
+  font-size: 8.5pt;
   font-weight: 600;
   border-radius: 2px;
   border: 1px solid #ccc;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }}
 .badge.eu  {{ background: {EU_BLUE}; color: #fff; border-color: {EU_BLUE}; }}
 .badge.nv  {{ background: {NVIDIA_GREEN}; color: #fff; border-color: {NVIDIA_GREEN}; }}
 .badge.dws {{ background: {GOLD}; color: #111; border-color: {GOLD}; }}
-.frameworks {{
-  margin-top: 6pt;
-  font-size: 9pt;
-  color: #333;
+
+.framework-chips {{
+  margin-top: 18pt;
 }}
-.frameworks ul {{ margin: 2pt 0 0 0; padding-left: 16pt; }}
+.framework-chips-label {{
+  font-size: 8.5pt;
+  color: #555;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0 0 6pt 0;
+}}
+.framework-chips-row {{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6pt;
+}}
+.framework-chip {{
+  display: inline-block;
+  padding: 4pt 10pt;
+  font-size: 9pt;
+  font-weight: 600;
+  color: {EU_BLUE};
+  background: #f0f4ff;
+  border-left: 3px solid {EU_BLUE};
+  border-radius: 0 3px 3px 0;
+}}
+
+.cover-meta-grid {{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8pt 18pt;
+  font-size: 8.5pt;
+  color: #444;
+  margin-top: 22pt;
+  padding-top: 12pt;
+  border-top: 1px solid #ddd;
+}}
+.cover-meta-grid b {{
+  color: #111;
+  font-weight: 600;
+  font-size: 7.5pt;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 2pt;
+  color: #888;
+}}
+.cover-meta-grid .v {{ color: #111; font-size: 10pt; font-weight: 500; }}
 
 /* Tables — restrained Nokia-style. Header bar uses EU blue; cells stay clean. */
 table {{
@@ -273,39 +416,81 @@ def build_cover_html(meta: dict) -> str:
     version = meta.get("version", "1.0.0")
     language = (meta.get("language") or "en").upper()
     effective = meta.get("effective", date.today().isoformat())
+    status = meta.get("status", "ACTIVE")
+    owner = meta.get("owner", "Lifetime Oy")
     docref = f"DWS-PB-{slug}-{language}-{version}"
-    flagship = (
-        '<span class="badge dws">★ FLAGSHIP</span> ' if meta.get("flagship") else ""
-    )
-    industry_no_html = (
-        f' <span style="color:#888;font-size:16pt;">· #{industry_no}</span>'
-        if industry_no
+
+    flagship_chip = (
+        '<span class="badge dws">★ FLAGSHIP</span> '
+        if meta.get("flagship")
         else ""
     )
+    num_label = f"#{industry_no:02d}" if isinstance(industry_no, int) else (
+        f"#{industry_no}" if industry_no else ""
+    )
+
     frameworks = meta.get("frameworks") or []
-    fw_html = "".join(f"<li>{fw}</li>" for fw in frameworks)
+    paren_re = re.compile(r"\s*\(")
+
+    def chip_label(fw: str) -> str:
+        return paren_re.split(fw, maxsplit=1)[0]
+
+    chips_html = "".join(
+        f'<span class="framework-chip">{chip_label(fw)}</span>'
+        for fw in frameworks
+    )
+
     badges = (
         '<span class="badge dws">DWS Sovereign Stack</span>'
         '<span class="badge nv">NVIDIA Inception</span>'
         '<span class="badge eu">EU Inception</span>'
     )
+
+    aegis_data = thumb_as_data_url(AEGIS_LOGO, size_px=240)
+    aegis_html = (
+        f'<div class="cover-aegis-wrap">'
+        f'<div class="cover-aegis"><img src="{aegis_data}" alt="DWS Aegis"/></div>'
+        f'<div class="cover-aegis-label">DWS Aegis</div>'
+        f'</div>'
+        if aegis_data
+        else ""
+    )
+
     return (
         f'<div class="cover" data-industry="{industry}">'
-        f'{flagship}'
-        f'<p class="industry">{industry}{industry_no_html}</p>'
-        '<p class="subtitle">DWS Sovereign-Stack Playbook</p>'
+        '<div class="cover-strip-top"></div>'
+        '<div class="cover-body">'
+        '<div class="cover-row">'
+        '<div class="cover-left">'
+        f'<p class="cover-num">PLAYBOOK {num_label} · DEFENCE &amp; CRITICAL INFRASTRUCTURE</p>'
+        f'<h1 class="industry">{industry}</h1>'
+        '<p class="subtitle">DWS Sovereign-Stack Playbook · for EU defence ministries, '
+        'dual-use operators, and CER / NIS2 critical entities</p>'
+        '<div class="cover-rule"></div>'
         f'<p class="docref">Reference: {docref}</p>'
-        f'<div class="badges">{badges}</div>'
-        '<div class="cover-meta-grid">'
-        f'<div><b>Version</b><br/>{version}</div>'
-        f'<div><b>Effective</b><br/>{effective}</div>'
-        f'<div><b>Status</b><br/>{meta.get("status","ACTIVE")}</div>'
-        f'<div><b>Classification</b><br/>Public</div>'
-        f'<div><b>Language</b><br/>{language}</div>'
-        f'<div><b>Owner</b><br/>{meta.get("owner","Lifetime Oy")}</div>'
+        '<p class="cover-promise">'
+        'The <b>NVIDIA stack on your own hardware</b>, in your own building, '
+        'with an <b>Article 12 log</b> your inspector can seal.'
+        '</p>'
+        f'<div class="badges">{flagship_chip}{badges}</div>'
+        '<div class="framework-chips">'
+        '<p class="framework-chips-label">Regulatory frameworks covered</p>'
+        f'<div class="framework-chips-row">{chips_html}</div>'
         '</div>'
-        f'<div class="frameworks"><b>Regulatory frameworks:</b><ul>{fw_html}</ul></div>'
-        "</div>"
+        '<div class="cover-meta-grid">'
+        f'<div><b>Version</b><span class="v">{version}</span></div>'
+        f'<div><b>Effective</b><span class="v">{effective}</span></div>'
+        f'<div><b>Status</b><span class="v">{status}</span></div>'
+        '<div><b>Classification</b><span class="v">Public</span></div>'
+        f'<div><b>Language</b><span class="v">{language}</span></div>'
+        f'<div><b>Owner</b><span class="v">{owner}</span></div>'
+        '</div>'
+        '</div>'
+        f'<div class="cover-right">{aegis_html}</div>'
+        '</div>'
+        '</div>'
+        '<div class="cover-strip-bottom"></div>'
+        '</div>'
     )
 
 
