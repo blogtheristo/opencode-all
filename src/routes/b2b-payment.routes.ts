@@ -3,6 +3,7 @@ import { supabase } from '../services/supabase.service.js';
 import { requireAuth } from '../middleware/auth.middleware.js';
 import logger from '../utils/logger.js';
 import Stripe from 'stripe';
+import { sendPaymentConfirmationEmail } from '../services/billing.service.js';
 
 const router = Router();
 let stripeClient: Stripe | null = null;
@@ -367,7 +368,7 @@ router.post('/webhook', async (req: Request, res: Response, next: NextFunction) 
 
       logger.info('Order marked as paid', { orderId: order.id, invoiceId: invoice_id });
 
-      // TODO: Send confirmation email to customer
+      await sendPaymentConfirmationEmail(order);
     } else if (type === 'invoice.marked_uncollectible' && invoice_id) {
       // Handle Stripe invoice failure
       const { data: order } = await supabase
