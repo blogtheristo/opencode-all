@@ -28,11 +28,18 @@
       a.buy-btn { display: inline-block; background: #2563eb; color: white; padding: 15px 30px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 20px; }
       a.back-link { color: #94a3b8; text-decoration: none; display: block; margin-bottom: 20px; }
       .hero-image { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 8px; margin: 16px 0 24px; border: 1px solid rgba(255, 255, 255, 0.08); display: block; }
-      .lang-bar { display: flex; gap: 6px; margin-bottom: 14px; }
+      .lang-bar { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
       .lang-btn { background: transparent; border: 1px solid rgba(255, 255, 255, 0.15); color: #64748b; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; transition: all 0.15s; font-family: inherit; }
       .lang-btn.active, .lang-btn:hover { background: rgba(249, 115, 22, 0.15); border-color: rgba(249, 115, 22, 0.4); color: #f97316; }
       .hero-oneliner { font-size: 1.1rem; font-weight: 600; color: #f1f5f9; margin: 0 0 8px; line-height: 1.4; }
-      .lang-desc { color: #94a3b8; margin: 0 0 28px; line-height: 1.7; }
+      .lang-desc { color: #94a3b8; margin: 0 0 16px; line-height: 1.7; }
+      .personal-desc { color: #cbd5e1; line-height: 1.7; margin: 0 0 28px; }
+      .personal-desc p.opener { font-size: 1.02rem; color: #e2e8f0; margin: 0 0 18px; }
+      .personal-desc h3.section { color: #f97316; font-size: 1.02rem; margin: 18px 0 6px; font-weight: 700; }
+      .personal-desc ul { list-style: none; padding-left: 0; margin: 0 0 6px; }
+      .personal-desc ul li { padding-left: 18px; position: relative; margin-bottom: 6px; color: #cbd5e1; }
+      .personal-desc ul li:before { content: "★"; color: #f97316; position: absolute; left: 0; font-size: 0.85rem; top: 2px; }
+      .personal-desc a.terms-link { color: #60a5fa; text-decoration: none; font-size: 0.9rem; }
       [data-lang] { display: none; }
       [data-lang].lang-active { display: block; }
     </style>
@@ -46,28 +53,90 @@
       <h1>Firehorse Report</h1>
       <img src="../static/images/firehorse-report-hero.png" alt="Firehorse Report — automated board-level compliance reporting" class="hero-image" />
       <div class="lang-bar">
-        <button class="lang-btn" data-pick="en">EN</button>
         <button class="lang-btn" data-pick="fi">FI</button>
         <button class="lang-btn" data-pick="sv">SV</button>
-        <button class="lang-btn" data-pick="de">DE</button>
-        <button class="lang-btn" data-pick="fr">FR</button>
+        <button class="lang-btn" data-pick="en">EN</button>
       </div>
-      <p class="hero-oneliner" data-lang="en">Board-ready compliance reports — from your data, signed, in hours.</p>
       <p class="hero-oneliner" data-lang="fi">Hallitusvalmis raportti — datastasi, allekirjoitettuna, tunneissa.</p>
       <p class="hero-oneliner" data-lang="sv">Styrelseredo compliance-rapport — från era data, signerad, på timmar.</p>
-      <p class="hero-oneliner" data-lang="de">Vorstandsfertige Compliance-Berichte — aus Ihren Daten, signiert, in Stunden.</p>
-      <p class="hero-oneliner" data-lang="fr">Rapports de conformité prêts pour le conseil — depuis vos données, signés, en quelques heures.</p>
-      <p class="lang-desc" data-lang="en">Firehorse Report automates board-level ESG and climate compliance reporting on top of DWS IQ. Pull data from your systems, structure it to regulatory requirements, and deliver board packs with cryptographic signatures for CSRD and Fit for 55 — without manual compilation.</p>
-      <p class="lang-desc" data-lang="fi">Firehorse Report automatisoi hallitustason ESG- ja ilmastocompliance-raportoinnin DWS IQ:n päälle. Hae data järjestelmistäsi, rakenna se sääntelyvaatimusten mukaan ja toimita hallituspaketit kryptografisilla allekirjoituksilla CSRD:tä ja Fit for 55:tä varten — ilman manuaalista koostamista.</p>
-      <p class="lang-desc" data-lang="sv">Firehorse Report automatiserar ESG- och klimatcompliance-rapportering på styrelsenivu ovanpå DWS IQ. Hämta data från era system, strukturera det enligt regulatoriska krav och leverera styrelsepaket med kryptografiska signaturer för CSRD och Fit for 55 — utan manuell sammanställning.</p>
-      <p class="lang-desc" data-lang="de">Firehorse Report automatisiert die ESG- und Klimacompliance-Berichterstattung auf Vorstandsebene auf Basis von DWS IQ. Daten aus Ihren Systemen abrufen, nach regulatorischen Anforderungen strukturieren und Vorstandspakete mit kryptografischen Signaturen für CSRD und Fit for 55 liefern — ohne manuelle Zusammenstellung.</p>
-      <p class="lang-desc" data-lang="fr">Firehorse Report automatise le reporting ESG et de conformité climatique au niveau du conseil sur DWS IQ. Extrayez les données de vos systèmes, structurez-les selon les exigences réglementaires et livrez des dossiers de conseil avec des signatures cryptographiques pour CSRD et Fit for 55 — sans compilation manuelle.</p>
+      <p class="hero-oneliner" data-lang="en">Board-ready compliance reports — from your data, signed, in hours.</p>
+
+      <div class="personal-desc" data-lang="fi">
+        <p class="opener">Kun raportin määräaika lähestyy ja excelit eivät vain tahdo täsmätä. Olipa kyseessä hallituksen ilmasto-KPI-paketti, CSRD-vuosiraportti tai Fit for 55 -auditointivastaus, Firehorse Report auttaa sinua tuottamaan allekirjoitusvalmiin asiakirjan nopeammin kuin mikään SaaS + sisäinen tiimi yhdistelmä.</p>
+        <h3 class="section">Automatisoi raportointityösi:</h3>
+        <ul>
+          <li>Anna Report-agentin herätä kuukauden 1. päivä, hakea verifioitu data DWS IQ:sta ja täyttää oma PowerPoint-pohjasi.</li>
+          <li>Vaihda 5 työpäivän käsityö 15 minuutin tarkistukseen Teamsissa, WhatsAppissa tai webhookilla.</li>
+          <li>Klikkaa mitä tahansa numeroa PDF:ssä ja jäljitä se takaisin lähdejärjestelmään — ei enää copy-pastea.</li>
+        </ul>
+        <h3 class="section">Vastaa EU-säädöksiin ilman pelkoa:</h3>
+        <ul>
+          <li>Tuota CSRD-, Fit for 55-, EU ETS- ja EPBD-raportit yhdellä koneella, omalla brändilläsi.</li>
+          <li>Säilytä auditointiketju automaattisesti — Audit Logger tallentaa milloin ja miten raportti syntyi.</li>
+          <li>Vältä virheelliset luvut ja niistä seuraavat sanktiot kone-konedatavirralla.</li>
+        </ul>
+        <h3 class="section">Säästä viikkoja ja anna tiimisi tehdä oikeita töitä:</h3>
+        <ul>
+          <li>Vähennä raportointiin käytettyä työaikaa 90% (McKinsey 2025).</li>
+          <li>Toimita raportti päivänä 1, ei päivänä 10 — nopeammat päätöskierrokset hallitukselle.</li>
+          <li>Skaalaa: lisää uusia template-pohjia (PPT, Excel, PDF, HTML) ilman uutta toimittajasopimusta.</li>
+        </ul>
+        <p><a class="terms-link" href="https://dws10.com/legal/">Käyttöehdot ja käytännöt →</a></p>
+      </div>
+
+      <div class="personal-desc" data-lang="sv">
+        <p class="opener">När rapportdeadlinen närmar sig och Excel-arken bara inte stämmer. Oavsett om det handlar om styrelsens klimat-KPI-paket, CSRD-årsrapport eller Fit for 55-revisionssvar, hjälper Firehorse Report dig att leverera ett signeringsklart dokument snabbare än någon SaaS + internt team-kombination.</p>
+        <h3 class="section">Automatisera ditt rapporteringsarbete:</h3>
+        <ul>
+          <li>Låt Report-agenten vakna den 1:a varje månad, hämta verifierad data från DWS IQ och fylla i din egen PowerPoint-mall.</li>
+          <li>Byt 5 dagars handarbete mot 15 minuters granskning i Teams, WhatsApp eller via webhook.</li>
+          <li>Klicka på vilken siffra som helst i PDF:en och spåra den tillbaka till källsystemet — inget mer copy-paste.</li>
+        </ul>
+        <h3 class="section">Möt EU-regelverken utan rädsla:</h3>
+        <ul>
+          <li>Producera CSRD-, Fit for 55-, EU ETS- och EPBD-rapporter med en maskin, i ert varumärke.</li>
+          <li>Bevara revisionsskedjan automatiskt — Audit Logger registrerar när och hur rapporten skapades.</li>
+          <li>Undvik felaktiga siffror och de sanktioner som följer, tack vare maskin-till-maskin dataflöde.</li>
+        </ul>
+        <h3 class="section">Spar veckor och låt teamet göra rätt jobb:</h3>
+        <ul>
+          <li>Minska arbetstiden för rapportering med 90% (McKinsey 2025).</li>
+          <li>Leverera rapporten dag 1, inte dag 10 — snabbare beslutsrundor för styrelsen.</li>
+          <li>Skala: lägg till nya mallar (PPT, Excel, PDF, HTML) utan nytt leverantörsavtal.</li>
+        </ul>
+        <p><a class="terms-link" href="https://dws10.com/legal/">Användarvillkor och policyer →</a></p>
+      </div>
+
+      <div class="personal-desc" data-lang="en">
+        <p class="opener">When the reporting deadline closes in and the spreadsheets simply won't reconcile. Whether it's the board's climate KPI pack, your CSRD annual report or a Fit for 55 audit response, Firehorse Report helps you produce a sign-off-ready document faster than any SaaS + internal team combined.</p>
+        <h3 class="section">Automate your reporting work:</h3>
+        <ul>
+          <li>Let the Report agent wake up on the 1st of the month, pull verified data from DWS IQ and fill your own PowerPoint template.</li>
+          <li>Trade 5 days of manual work for a 15-minute review in Teams, WhatsApp or via webhook.</li>
+          <li>Click any number in the PDF and trace it back to the source system — no more copy-paste.</li>
+        </ul>
+        <h3 class="section">Meet EU regulations without fear:</h3>
+        <ul>
+          <li>Produce CSRD, Fit for 55, EU ETS and EPBD reports on one engine, in your own branding.</li>
+          <li>Preserve the audit trail automatically — the Audit Logger records exactly when and how the report was generated.</li>
+          <li>Avoid incorrect numbers and the penalties that follow, with machine-to-machine data flow.</li>
+        </ul>
+        <h3 class="section">Save weeks and let your team do the real work:</h3>
+        <ul>
+          <li>Cut reporting man-hours by 90% (McKinsey 2025).</li>
+          <li>Deliver the report on Day 1, not Day 10 — faster decision cycles for the board.</li>
+          <li>Scale: add new templates (PPT, Excel, PDF, HTML) without a new vendor contract.</li>
+        </ul>
+        <p><a class="terms-link" href="https://dws10.com/legal/">Terms and policies →</a></p>
+      </div>
+
       <script>
         (function () {
-          var LANGS = ["en", "fi", "sv", "de", "fr"];
-          var lang = localStorage.getItem("dws-lang") || "en";
-          if (!LANGS.includes(lang)) lang = "en";
+          var LANGS = ["fi", "sv", "en"];
+          var stored = localStorage.getItem("dws-lang");
+          var lang = LANGS.indexOf(stored) >= 0 ? stored : "fi";
           function applyLang(l) {
+            if (LANGS.indexOf(l) < 0) l = "fi";
             document.querySelectorAll("[data-lang]").forEach(function (el) { el.classList.toggle("lang-active", el.getAttribute("data-lang") === l); });
             document.querySelectorAll(".lang-btn").forEach(function (btn) { btn.classList.toggle("active", btn.getAttribute("data-pick") === l); });
             localStorage.setItem("dws-lang", l);

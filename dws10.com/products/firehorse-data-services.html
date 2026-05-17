@@ -18,6 +18,19 @@
         .nav-links { display: flex; gap: 20px; }
         .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: color 0.2s; }
         .nav-links a:hover { color: #60a5fa; }
+
+        .lang-bar { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+        .lang-btn { background: transparent; border: 1px solid rgba(255, 255, 255, 0.15); color: #64748b; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; transition: all 0.15s; font-family: inherit; }
+        .lang-btn.active, .lang-btn:hover { background: rgba(249, 115, 22, 0.15); border-color: rgba(249, 115, 22, 0.4); color: #f97316; }
+        .personal-desc { color: #cbd5e1; line-height: 1.7; margin: 0 0 28px; }
+        .personal-desc p.opener { font-size: 1.02rem; color: #e2e8f0; margin: 0 0 18px; }
+        .personal-desc h3.section { color: #f97316; font-size: 1.02rem; margin: 18px 0 6px; font-weight: 700; }
+        .personal-desc ul { list-style: none; padding-left: 0; margin: 0 0 6px; }
+        .personal-desc ul li { padding-left: 18px; position: relative; margin-bottom: 6px; color: #cbd5e1; }
+        .personal-desc ul li:before { content: "★"; color: #f97316; position: absolute; left: 0; font-size: 0.85rem; top: 2px; }
+        .personal-desc a.terms-link { color: #60a5fa; text-decoration: none; font-size: 0.9rem; }
+        [data-lang] { display: none; }
+        [data-lang].lang-active { display: block; }
     </style>
 </head>
 <body>
@@ -33,14 +46,100 @@
     <div class="container">
         <a href="../" class="back-link">← Back to Store</a>
         <h1>Firehorse Data Services</h1>
+        <div class="lang-bar">
+            <button class="lang-btn" data-pick="fi">FI</button>
+            <button class="lang-btn" data-pick="sv">SV</button>
+            <button class="lang-btn" data-pick="en">EN</button>
+        </div>
         <div class="price">€899</div>
-        <div class="content">
-            <p>Your data is worth more than you think. API-driven data products, brokerage strategy, and enrichment services that turn raw operational data into revenue and compliance insights. Remote and on-site consulting available.</p>
+
+        <div class="personal-desc" data-lang="fi">
+            <p class="opener">Kun huomaat, että 80% datastasi vain makaa SAP-tauluissa eikä tuo riviäkään liikevaihtoa. Olipa kyseessä toimittajaverkostosi päästödata, asiakkaidesi käyttötiedot tai sensoritrendien historia, Firehorse Data Services auttaa sinua tekemään datastasi rahanlähteen paremmin kuin yksikään perinteinen BI-projekti.</p>
+            <h3 class="section">Muunna datasi tuotoiksi:</h3>
             <ul>
-                <li>API-driven data products</li>
-                <li>Data monetization strategy</li>
-                <li>Remote and on-site consulting</li>
+                <li>Käynnistä API-pohjaiset datatuotteet, joista asiakkaasi ovat valmiit maksamaan.</li>
+                <li>Suunnittele dataportfolio yhdessä asiantuntijamme kanssa — etänä tai paikan päällä.</li>
+                <li>Rikastuta operatiivinen datasi compliance- ja markkinatiedolla samalla työnkululla.</li>
             </ul>
+            <h3 class="section">Säilytä suvereniteetti ja luottamus:</h3>
+            <ul>
+                <li>Aja kaikki EU-suvernissa pilvessä (Aiven PostgreSQL, Suomi) — ei CLOUD Act -altistusta.</li>
+                <li>Säilytä 7 vuoden muuttumaton auditointijälki kaikista muunnoksista (EU AI Act Art 12).</li>
+                <li>Rakenna GDPR by design: RLS, retention-säännöt ja salaus lepotilassa, oletusarvona.</li>
+            </ul>
+            <h3 class="section">Skaalaa kasvuun ilman uudelleenkirjoittamista:</h3>
+            <ul>
+                <li>Hyödynnä TimescaleDB Hypercore: 90–98% pakkaus, 10–100× nopeammat aikasarjakyselyt.</li>
+                <li>Lisää uusia datalähteitä Two-Tier HTAP -arkkitehtuurilla ilman alustamuutoksia.</li>
+                <li>Hallitse jokainen tietokantalaajennos sovereignty-arvioiden mukaan — ei piileviä riskejä.</li>
+            </ul>
+            <p><a class="terms-link" href="https://dws10.com/legal/">Käyttöehdot ja käytännöt →</a></p>
+        </div>
+
+        <div class="personal-desc" data-lang="sv">
+            <p class="opener">När ni inser att 80% av er data bara ligger i SAP-tabeller utan att skapa en rad intäkter. Oavsett om det är leverantörsnätverkets utsläppsdata, kundens användardata eller sensortrenders historik, hjälper Firehorse Data Services er att göra data till en intäktskälla bättre än något traditionellt BI-projekt.</p>
+            <h3 class="section">Förvandla er data till intäkter:</h3>
+            <ul>
+                <li>Lansera API-baserade dataprodukter som era kunder är villiga att betala för.</li>
+                <li>Designa dataportföljen tillsammans med vår expert — på distans eller på plats.</li>
+                <li>Berika operativ data med compliance- och marknadsdata i samma arbetsflöde.</li>
+            </ul>
+            <h3 class="section">Behåll suveränitet och förtroende:</h3>
+            <ul>
+                <li>Kör allt i EU-suverän cloud (Aiven PostgreSQL, Finland) — ingen CLOUD Act-exponering.</li>
+                <li>Behåll 7-årig oföränderlig revisionsspår för alla transformationer (EU AI Act Art 12).</li>
+                <li>Bygg GDPR by design: RLS, retentionsregler och kryptering i vila som standard.</li>
+            </ul>
+            <h3 class="section">Skala för tillväxt utan omskrivning:</h3>
+            <ul>
+                <li>Använd TimescaleDB Hypercore: 90–98% komprimering, 10–100× snabbare tidsseriefrågor.</li>
+                <li>Lägg till nya datakällor med Two-Tier HTAP-arkitektur utan plattformsändringar.</li>
+                <li>Styr varje databastillägg via sovereignty-bedömningar — inga dolda risker.</li>
+            </ul>
+            <p><a class="terms-link" href="https://dws10.com/legal/">Användarvillkor och policyer →</a></p>
+        </div>
+
+        <div class="personal-desc" data-lang="en">
+            <p class="opener">When you realise 80% of your data just sits in SAP tables earning no revenue. Whether it's your supplier network's emissions, your customers' usage patterns or sensor trends from the last five years, Firehorse Data Services helps you turn data into income better than any traditional BI project will.</p>
+            <h3 class="section">Turn your data into revenue:</h3>
+            <ul>
+                <li>Launch API-driven data products customers are willing to pay for.</li>
+                <li>Design the data portfolio with our expert — remote or on-site.</li>
+                <li>Enrich operational data with compliance and market intelligence in the same workflow.</li>
+            </ul>
+            <h3 class="section">Keep sovereignty and trust:</h3>
+            <ul>
+                <li>Run everything on EU-sovereign cloud (Aiven PostgreSQL, Finland) — zero CLOUD Act exposure.</li>
+                <li>Retain a 7-year immutable audit trail for every transformation (EU AI Act Art 12).</li>
+                <li>Build GDPR by design: RLS, retention policies and encryption at rest, by default.</li>
+            </ul>
+            <h3 class="section">Scale for growth without rewrites:</h3>
+            <ul>
+                <li>Use TimescaleDB Hypercore: 90–98% compression, 10–100× faster time-series queries.</li>
+                <li>Add new data sources via the Two-Tier HTAP architecture without platform changes.</li>
+                <li>Govern every database extension via sovereignty assessments — no hidden risks.</li>
+            </ul>
+            <p><a class="terms-link" href="https://dws10.com/legal/">Terms and policies →</a></p>
+        </div>
+
+        <script>
+            (function () {
+                var LANGS = ["fi", "sv", "en"];
+                var stored = localStorage.getItem("dws-lang");
+                var lang = LANGS.indexOf(stored) >= 0 ? stored : "fi";
+                function applyLang(l) {
+                    if (LANGS.indexOf(l) < 0) l = "fi";
+                    document.querySelectorAll("[data-lang]").forEach(function (el) { el.classList.toggle("lang-active", el.getAttribute("data-lang") === l); });
+                    document.querySelectorAll(".lang-btn").forEach(function (btn) { btn.classList.toggle("active", btn.getAttribute("data-pick") === l); });
+                    localStorage.setItem("dws-lang", l);
+                }
+                applyLang(lang);
+                document.querySelectorAll(".lang-btn").forEach(function (btn) { btn.addEventListener("click", function () { applyLang(this.getAttribute("data-pick")); }); });
+                window.addEventListener("dws-lang-change", function (e) { applyLang(e.detail.lang); });
+            })();
+        </script>
+
+        <div class="content">
             <h2>Built on the DWS Data Sovereignty Standard</h2>
             <p>Every Firehorse Data Service runs on EU-sovereign infrastructure governed by 11 EU regulations:</p>
             <ul>

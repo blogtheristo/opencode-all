@@ -18,6 +18,19 @@
         .nav-links { display: flex; gap: 20px; }
         .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: color 0.2s; }
         .nav-links a:hover { color: #60a5fa; }
+
+        .lang-bar { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+        .lang-btn { background: transparent; border: 1px solid rgba(255, 255, 255, 0.15); color: #64748b; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; transition: all 0.15s; font-family: inherit; }
+        .lang-btn.active, .lang-btn:hover { background: rgba(249, 115, 22, 0.15); border-color: rgba(249, 115, 22, 0.4); color: #f97316; }
+        .personal-desc { color: #cbd5e1; line-height: 1.7; margin: 0 0 28px; }
+        .personal-desc p.opener { font-size: 1.02rem; color: #e2e8f0; margin: 0 0 18px; }
+        .personal-desc h3.section { color: #f97316; font-size: 1.02rem; margin: 18px 0 6px; font-weight: 700; }
+        .personal-desc ul { list-style: none; padding-left: 0; margin: 0 0 6px; }
+        .personal-desc ul li { padding-left: 18px; position: relative; margin-bottom: 6px; color: #cbd5e1; }
+        .personal-desc ul li:before { content: "★"; color: #f97316; position: absolute; left: 0; font-size: 0.85rem; top: 2px; }
+        .personal-desc a.terms-link { color: #60a5fa; text-decoration: none; font-size: 0.9rem; }
+        [data-lang] { display: none; }
+        [data-lang].lang-active { display: block; }
     </style>
 </head>
 <body>
@@ -33,10 +46,99 @@
     <div class="container">
         <a href="../" class="back-link">← Back to Store</a>
         <h1>AI Customer Agent</h1>
-        <div class="price">€499</div>
-        <div class="content">
-            <p>Turn every customer interaction into a conversion opportunity. AI-powered prompt flow agent that continuously optimizes your service experience and drives measurable sales growth. Setup and first results in under 2 weeks.</p><ul><li>AI-powered customer interactions</li><li>Continuous service optimization</li><li>Results in under 2 weeks</li></ul>
+        <div class="lang-bar">
+            <button class="lang-btn" data-pick="fi">FI</button>
+            <button class="lang-btn" data-pick="sv">SV</button>
+            <button class="lang-btn" data-pick="en">EN</button>
         </div>
+        <div class="price">€499</div>
+
+        <div class="personal-desc" data-lang="fi">
+            <p class="opener">Kun jokainen asiakaskohtaaminen voi olla joko unohdettu lippu tai uusi tilaus. Olipa kyseessä myöhäisillan chat-kysymys, vanha asiakas joka tarvitsee uudelleenaktivointia tai ensikävijä joka epäröi, AI Customer Agent auttaa sinua tekemään jokaisesta keskustelusta konversion paremmin kuin yksikään yötä-päivää-tukitiimi.</p>
+            <h3 class="section">Optimoi asiakaskokemus ympärivuorokautisesti:</h3>
+            <ul>
+                <li>Anna AI-agentin hoitaa rutiinikysymykset välittömästi — tiimisi keskittyy isoihin kauppoihin.</li>
+                <li>Personoi vastaukset asiakkaan tilauksen, kanavan ja vaiheen mukaan automaattisesti.</li>
+                <li>Käytä todennettuja prompt flow -mallinpohjia, jotka oppivat oman bränisi sävyn 1 viikossa.</li>
+            </ul>
+            <h3 class="section">Kasvata myyntiä mitattavasti:</h3>
+            <ul>
+                <li>Käynnistä ensimmäiset konversiotulokset alle 2 viikossa — ei pitkiä rollout-projekteja.</li>
+                <li>Tunnista valmiit ostajat real-aikaisesti ja siirrä ne myyjälle oikealla hetkellä.</li>
+                <li>Korvaa kylmät käsittelyajat lämpimillä asiakaspolulla ja kasvata follow-up-konversiota.</li>
+            </ul>
+            <h3 class="section">Mittaa ja optimoi tuloksiasi:</h3>
+            <ul>
+                <li>Seuraa kysymystyyppejä, ratkaisuasteita ja myynnin vaikutusta yhdellä dashboardilla.</li>
+                <li>Anna AI:n ehdottaa uusia prompt-pohjia, kun se huomaa toistuvia kuvioita.</li>
+                <li>Yhdistä Firehorse Omnichanneliin ja sulje silmukka myynnin ja markkinoinnin välillä.</li>
+            </ul>
+            <p><a class="terms-link" href="https://dws10.com/legal/">Käyttöehdot ja käytännöt →</a></p>
+        </div>
+
+        <div class="personal-desc" data-lang="sv">
+            <p class="opener">När varje kundmöte kan bli antingen ett glömt ärende eller en ny order. Oavsett om det är en chattfråga sent på kvällen, en gammal kund som behöver återaktiveras eller en förstagångsbesökare som tvekar, hjälper AI Customer Agent er att förvandla varje samtal till en konvertering bättre än något dygnetrunt-supportteam.</p>
+            <h3 class="section">Optimera kundupplevelsen dygnet runt:</h3>
+            <ul>
+                <li>Låt AI-agenten hantera rutinfrågor omedelbart — ert team fokuserar på de stora affärerna.</li>
+                <li>Personalisera svar efter kundens beställning, kanal och fas — automatiskt.</li>
+                <li>Använd beprövade prompt flow-mallar som lär sig ert varumärkes ton på en vecka.</li>
+            </ul>
+            <h3 class="section">Öka försäljningen mätbart:</h3>
+            <ul>
+                <li>Få första konverteringsresultat på under 2 veckor — inga långa rollout-projekt.</li>
+                <li>Identifiera köpklara kunder i realtid och skicka dem till säljaren vid rätt ögonblick.</li>
+                <li>Byt ut kalla kösystem mot varma kundresor och höj follow-up-konverteringen.</li>
+            </ul>
+            <h3 class="section">Mät och optimera era resultat:</h3>
+            <ul>
+                <li>Följ frågetyper, lösningsgrad och säljpåverkan på en enda dashboard.</li>
+                <li>Låt AI föreslå nya prompt-mallar när den ser upprepade mönster.</li>
+                <li>Koppla ihop med Firehorse Omnichannel och stäng loopen mellan sälj och marknad.</li>
+            </ul>
+            <p><a class="terms-link" href="https://dws10.com/legal/">Användarvillkor och policyer →</a></p>
+        </div>
+
+        <div class="personal-desc" data-lang="en">
+            <p class="opener">When every customer interaction could be either a forgotten ticket or a new order. Whether it's a late-evening chat question, an old customer who needs reactivation or a first-time visitor who's hesitating, AI Customer Agent helps you turn every conversation into a conversion better than any round-the-clock support team will.</p>
+            <h3 class="section">Optimise customer experience around the clock:</h3>
+            <ul>
+                <li>Let the AI agent handle routine questions instantly — your team focuses on the big deals.</li>
+                <li>Personalise answers by the customer's order, channel and stage — automatically.</li>
+                <li>Use proven prompt-flow templates that learn your brand voice in one week.</li>
+            </ul>
+            <h3 class="section">Grow sales — measurably:</h3>
+            <ul>
+                <li>See first conversion results in under 2 weeks — no long rollout project.</li>
+                <li>Spot purchase-ready buyers in real time and hand them to a salesperson at the right moment.</li>
+                <li>Replace cold queues with warm customer journeys and lift follow-up conversion.</li>
+            </ul>
+            <h3 class="section">Measure and optimise your results:</h3>
+            <ul>
+                <li>Track question types, resolution rates and sales impact on a single dashboard.</li>
+                <li>Let AI suggest new prompt templates when it spots recurring patterns.</li>
+                <li>Plug into Firehorse Omnichannel and close the loop between sales and marketing.</li>
+            </ul>
+            <p><a class="terms-link" href="https://dws10.com/legal/">Terms and policies →</a></p>
+        </div>
+
+        <script>
+            (function () {
+                var LANGS = ["fi", "sv", "en"];
+                var stored = localStorage.getItem("dws-lang");
+                var lang = LANGS.indexOf(stored) >= 0 ? stored : "fi";
+                function applyLang(l) {
+                    if (LANGS.indexOf(l) < 0) l = "fi";
+                    document.querySelectorAll("[data-lang]").forEach(function (el) { el.classList.toggle("lang-active", el.getAttribute("data-lang") === l); });
+                    document.querySelectorAll(".lang-btn").forEach(function (btn) { btn.classList.toggle("active", btn.getAttribute("data-pick") === l); });
+                    localStorage.setItem("dws-lang", l);
+                }
+                applyLang(lang);
+                document.querySelectorAll(".lang-btn").forEach(function (btn) { btn.addEventListener("click", function () { applyLang(this.getAttribute("data-pick")); }); });
+                window.addEventListener("dws-lang-change", function (e) { applyLang(e.detail.lang); });
+            })();
+        </script>
+
         <a href="https://dws10.com/book" class="buy-btn">📅 Book Session</a>
     </div>
     <footer style="text-align: center; padding: 40px; color: #64748b; font-size: 0.9rem;">

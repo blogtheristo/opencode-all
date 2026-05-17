@@ -43,11 +43,18 @@
       h3 { color: #cbd5e1; margin-top: 20px; }
       .subtitle { color: #94a3b8; font-size: 1.1rem; margin-top: 0; margin-bottom: 24px; }
       .hero-image { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 8px; margin: 16px 0 24px; border: 1px solid rgba(255, 255, 255, 0.08); display: block; }
-      .lang-bar { display: flex; gap: 6px; margin-bottom: 14px; }
+      .lang-bar { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
       .lang-btn { background: transparent; border: 1px solid rgba(255, 255, 255, 0.15); color: #64748b; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; transition: all 0.15s; font-family: inherit; }
       .lang-btn.active, .lang-btn:hover { background: rgba(249, 115, 22, 0.15); border-color: rgba(249, 115, 22, 0.4); color: #f97316; }
       .hero-oneliner { font-size: 1.1rem; font-weight: 600; color: #f1f5f9; margin: 0 0 8px; line-height: 1.4; }
-      .lang-desc { color: #94a3b8; margin: 0 0 28px; line-height: 1.7; }
+      .lang-desc { color: #94a3b8; margin: 0 0 16px; line-height: 1.7; }
+      .personal-desc { color: #cbd5e1; line-height: 1.7; margin: 0 0 28px; }
+      .personal-desc p.opener { font-size: 1.02rem; color: #e2e8f0; margin: 0 0 18px; }
+      .personal-desc h3.section { color: #f97316; font-size: 1.02rem; margin: 18px 0 6px; font-weight: 700; }
+      .personal-desc ul { list-style: none; padding-left: 0; margin: 0 0 6px; }
+      .personal-desc ul li { padding-left: 18px; position: relative; margin-bottom: 6px; color: #cbd5e1; }
+      .personal-desc ul li:before { content: "★"; color: #f97316; position: absolute; left: 0; font-size: 0.85rem; top: 2px; }
+      .personal-desc a.terms-link { color: #60a5fa; text-decoration: none; font-size: 0.9rem; }
       [data-lang] { display: none; }
       [data-lang].lang-active { display: block; }
       .price { font-size: 2rem; color: #4ade80; font-weight: bold; margin-bottom: 4px; }
@@ -89,28 +96,90 @@
       <p class="subtitle">AI-managed outreach — DWS runs your campaigns. You own the results.</p>
       <img src="/static/images/firehorse-omnichannel-hero.png" alt="Firehorse Omnichannel V2 — AI command room with campaign dashboards" class="hero-image" />
       <div class="lang-bar">
-        <button class="lang-btn" data-pick="en">EN</button>
         <button class="lang-btn" data-pick="fi">FI</button>
         <button class="lang-btn" data-pick="sv">SV</button>
-        <button class="lang-btn" data-pick="de">DE</button>
-        <button class="lang-btn" data-pick="fr">FR</button>
+        <button class="lang-btn" data-pick="en">EN</button>
       </div>
-      <p class="hero-oneliner" data-lang="en">AI runs your campaigns. You approve the strategy.</p>
       <p class="hero-oneliner" data-lang="fi">Tekoäly pyörittää kampanjasi. Sinä hyväksyt strategian.</p>
       <p class="hero-oneliner" data-lang="sv">AI driver dina kampanjer. Du godkänner strategin.</p>
-      <p class="hero-oneliner" data-lang="de">KI führt Ihre Kampagnen durch. Sie genehmigen die Strategie.</p>
-      <p class="hero-oneliner" data-lang="fr">L'IA gère vos campagnes. Vous approuvez la stratégie.</p>
-      <p class="lang-desc" data-lang="en">Firehorse Omnichannel V2 delivers AI-managed outreach across LinkedIn, email, and content channels. DWS runs campaigns using proven playbooks built from 800+ days of live data across EU industrial and climate-tech sectors. Platform-agnostic: no vendor lock-in.</p>
-      <p class="lang-desc" data-lang="fi">Firehorse Omnichannel V2 toimittaa tekoälyohjatun outreachin LinkedInissä, sähköpostissa ja sisältökanavissa. DWS ajaa kampanjat 800+ päivän live-datasta rakennetuilla todennetuilla playbook-malleilla EU:n teollisuus- ja ilmastoteknologiasektoreilla. Alustariippumaton: ei toimittajalukitusta.</p>
-      <p class="lang-desc" data-lang="sv">Firehorse Omnichannel V2 levererar AI-hanterad outreach över LinkedIn, e-post och innehållskanaler. DWS kör kampanjer med beprovade playbooks byggda från 800+ dagars livedata inom EU:s industri- och klimattekniksektorer. Plattformsoberoende: ingen leverantörslåsning.</p>
-      <p class="lang-desc" data-lang="de">Firehorse Omnichannel V2 liefert KI-verwaltetes Outreach über LinkedIn, E-Mail und Inhaltskanäle. DWS führt Kampagnen mit bewährten Playbooks durch, die aus 800+ Tagen Live-Daten aus EU-Industrie- und Klimatechnik-Sektoren aufgebaut wurden. Plattformunabhängig: keine Anbieterbindung.</p>
-      <p class="lang-desc" data-lang="fr">Firehorse Omnichannel V2 offre un outreach géré par IA sur LinkedIn, email et canaux de contenu. DWS gère les campagnes avec des playbooks éprouvés construits à partir de 800+ jours de données en direct dans les secteurs industriels et climatiques de l'UE. Indépendant de la plateforme: pas de dépendance fournisseur.</p>
+      <p class="hero-oneliner" data-lang="en">AI runs your campaigns. You approve the strategy.</p>
+
+      <div class="personal-desc" data-lang="fi">
+        <p class="opener">Kun haluat pitää ne arvokkaat asiakaskohtaamiset, mutta sinulla ei ole aikaa rakentaa viiden kanavan kampanjakoneistoa itse. Olipa kyseessä LinkedIn-tavoittaminen päättäjille, sähköpostisarjat ostajille tai sisältösyötteet näytteilleasettajille, Firehorse Omnichannel V2 auttaa sinua tavoittamaan oikeat ihmiset paremmin kuin oma in-house markkinointitiimi.</p>
+        <h3 class="section">Käynnistä kampanjasi heti:</h3>
+        <ul>
+          <li>Anna DWS:n ajaa kampanjat 800+ päivän live-datasta jalostetuilla playbookeilla.</li>
+          <li>Käytä todennettuja malleja EU:n teollisuus- ja climate tech -sektoreilla — ei arvauspeliä.</li>
+          <li>Säilytä omistajuus tuloksiisi: alustariippumaton, ei toimittajalukitusta.</li>
+        </ul>
+        <h3 class="section">Tavoita oikeat ihmiset useassa kanavassa:</h3>
+        <ul>
+          <li>Synkronoi viesti LinkedInin, sähköpostin ja sisältösyötteiden välillä — yhden komentokeskuksen kautta.</li>
+          <li>Anna AI:n personoida jokainen kosketus prospektin roolin ja segmentin mukaan.</li>
+          <li>Hyväksy strategia kerran kuussa, anna kampanjojen pyöriä taustalla.</li>
+        </ul>
+        <h3 class="section">Mittaa, opi ja optimoi:</h3>
+        <ul>
+          <li>Seuraa konversioita, vastausprosentteja ja pipeline-vaikutusta yhdellä dashboardilla.</li>
+          <li>Anna AI:n testata otsikoita ja CTA:ita jatkuvasti — voittajat skaalautuvat automaattisesti.</li>
+          <li>Lopeta vaipuvasta käyttöasteesta murehtiminen — tulokset näkyvät myynnin putkessa, eivät pelkissä kuvaajissa.</li>
+        </ul>
+        <p><a class="terms-link" href="https://dws10.com/legal/">Käyttöehdot ja käytännöt →</a></p>
+      </div>
+
+      <div class="personal-desc" data-lang="sv">
+        <p class="opener">När ni vill behålla de värdefulla kundmötena, men inte har tid att bygga ert eget kampanjmaskineri på fem kanaler. Oavsett om det är LinkedIn-outreach till beslutsfattare, e-postserier till köpare eller innehållsflöden till mässbesökare, hjälper Firehorse Omnichannel V2 er att nå rätt människor bättre än ett in-house marknadsteam.</p>
+        <h3 class="section">Kör igång kampanjerna direkt:</h3>
+        <ul>
+          <li>Låt DWS köra kampanjerna med playbooks förfinade på 800+ dagars livedata.</li>
+          <li>Använd beprövade modeller från EU-industri och climate tech — ingen gissningslek.</li>
+          <li>Behåll ägandet av era resultat: plattformsoberoende, ingen leverantörslåsning.</li>
+        </ul>
+        <h3 class="section">Nå rätt människor i flera kanaler:</h3>
+        <ul>
+          <li>Synka budskapet mellan LinkedIn, e-post och innehållsflöden — från ett kontrollrum.</li>
+          <li>Låt AI personalisera varje kontakt efter prospektets roll och segment.</li>
+          <li>Godkänn strategin en gång i månaden, låt kampanjerna rulla i bakgrunden.</li>
+        </ul>
+        <h3 class="section">Mät, lär och optimera:</h3>
+        <ul>
+          <li>Följ konverteringar, svarsfrekvenser och pipeline-effekt på en dashboard.</li>
+          <li>Låt AI testa rubriker och CTA:er löpande — vinnarna skalas automatiskt.</li>
+          <li>Sluta oroa er för bortfall — resultaten syns i pipelinen, inte bara i diagrammen.</li>
+        </ul>
+        <p><a class="terms-link" href="https://dws10.com/legal/">Användarvillkor och policyer →</a></p>
+      </div>
+
+      <div class="personal-desc" data-lang="en">
+        <p class="opener">When you want to keep the valuable customer conversations but don't have time to build a five-channel campaign engine yourself. Whether it's LinkedIn outreach to decision-makers, email sequences to buyers or content feeds to trade-fair visitors, Firehorse Omnichannel V2 helps you reach the right people better than an in-house marketing team would.</p>
+        <h3 class="section">Launch your campaigns today:</h3>
+        <ul>
+          <li>Let DWS run the campaigns using playbooks distilled from 800+ days of live data.</li>
+          <li>Use proven models from EU industrial and climate-tech sectors — no guesswork.</li>
+          <li>Keep ownership of your results: platform-agnostic, no vendor lock-in.</li>
+        </ul>
+        <h3 class="section">Reach the right people across channels:</h3>
+        <ul>
+          <li>Sync the message across LinkedIn, email and content feeds — from one command room.</li>
+          <li>Let AI personalise every touch by the prospect's role and segment.</li>
+          <li>Approve the strategy once a month and let the campaigns run in the background.</li>
+        </ul>
+        <h3 class="section">Measure, learn and optimise:</h3>
+        <ul>
+          <li>Track conversions, reply rates and pipeline impact on a single dashboard.</li>
+          <li>Let AI test subject lines and CTAs continuously — winners scale automatically.</li>
+          <li>Stop worrying about open rates — see the impact in the sales pipeline, not just in charts.</li>
+        </ul>
+        <p><a class="terms-link" href="https://dws10.com/legal/">Terms and policies →</a></p>
+      </div>
+
       <script>
         (function () {
-          var LANGS = ["en", "fi", "sv", "de", "fr"];
-          var lang = localStorage.getItem("dws-lang") || "en";
-          if (!LANGS.includes(lang)) lang = "en";
+          var LANGS = ["fi", "sv", "en"];
+          var stored = localStorage.getItem("dws-lang");
+          var lang = LANGS.indexOf(stored) >= 0 ? stored : "fi";
           function applyLang(l) {
+            if (LANGS.indexOf(l) < 0) l = "fi";
             document.querySelectorAll("[data-lang]").forEach(function (el) { el.classList.toggle("lang-active", el.getAttribute("data-lang") === l); });
             document.querySelectorAll(".lang-btn").forEach(function (btn) { btn.classList.toggle("active", btn.getAttribute("data-pick") === l); });
             localStorage.setItem("dws-lang", l);

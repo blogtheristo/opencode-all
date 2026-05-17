@@ -60,6 +60,18 @@
       .next-steps-box p { color: #94a3b8; margin-bottom: 12px; }
       .next-steps-box a { color: #60a5fa; text-decoration: none; font-weight: 600; }
       @media (max-width: 600px) { .bundle-grid { grid-template-columns: 1fr; } .timeline-row { flex-direction: column; } .timeline-step { border-right: none; border-bottom: 1px solid #334155; } .timeline-step:last-child { border-bottom: none; } }
+      .lang-bar { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+      .lang-btn { background: transparent; border: 1px solid rgba(255, 255, 255, 0.15); color: #64748b; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; transition: all 0.15s; font-family: inherit; }
+      .lang-btn.active, .lang-btn:hover { background: rgba(249, 115, 22, 0.15); border-color: rgba(249, 115, 22, 0.4); color: #f97316; }
+      .personal-desc { color: #cbd5e1; line-height: 1.7; margin: 0 0 28px; }
+      .personal-desc p.opener { font-size: 1.02rem; color: #e2e8f0; margin: 0 0 18px; }
+      .personal-desc h3.section { color: #f97316; font-size: 1.02rem; margin: 18px 0 6px; font-weight: 700; }
+      .personal-desc ul { list-style: none; padding-left: 0; margin: 0 0 6px; }
+      .personal-desc ul li { padding-left: 18px; position: relative; margin-bottom: 6px; color: #cbd5e1; }
+      .personal-desc ul li:before { content: "★"; color: #f97316; position: absolute; left: 0; font-size: 0.85rem; top: 2px; }
+      .personal-desc a.terms-link { color: #60a5fa; text-decoration: none; font-size: 0.9rem; }
+      [data-lang] { display: none; }
+      [data-lang].lang-active { display: block; }
     </style>
   </head>
   <body>
@@ -69,6 +81,97 @@
       <h1>Firehorse Starter V2</h1>
       <p class="subtitle">Complete CFO reporting stack — audit-ready in 30 days</p>
       <img src="/static/images/firehorse-starter-v2.png" alt="Firehorse Starter V2 — complete compliance reporting bundle" class="hero-image" />
+      <div class="lang-bar">
+        <button class="lang-btn" data-pick="fi">FI</button>
+        <button class="lang-btn" data-pick="sv">SV</button>
+        <button class="lang-btn" data-pick="en">EN</button>
+      </div>
+
+      <div class="personal-desc" data-lang="fi">
+        <p class="opener">Kun CSRD-määräaika lähestyy ja sinulla on 30 päivää aikaa rakentaa kokonainen compliance-koneisto, joka kestää auditoijan tarkastelun. Olipa kyseessä Fit for 55 -datankerääminen, EPBD-energiaraportit tai ensimmäinen hallituksen ilmasto-KPI-paketti, Firehorse Starter V2 auttaa sinua siirtymään nollasta audit-valmiiksi paremmin kuin yksikään 6 kuukauden konsulttiprojekti.</p>
+        <h3 class="section">Käynnistä compliance-koneistosi 30 päivässä:</h3>
+        <ul>
+          <li>Viikko 1: Kickoff Workshop — kartoita datalähteesi ja suunnittele ensimmäinen raporttipohja yhdessä asiantuntijamme kanssa.</li>
+          <li>Viikko 2: DWS IQ Base otetaan käyttöön — datalähteet kytketään, ei IT-projektia tarvita.</li>
+          <li>Viikko 3–4: Firehorse Report toimittaa ensimmäisen automatisoidun raportin, allekirjoitettuna ja audit-valmiina.</li>
+        </ul>
+        <h3 class="section">Allekirjoita ja toimita raporttisi:</h3>
+        <ul>
+          <li>Saa Firehorse Signed Reports mukaan — eIDAS-yhteensopiva, EU-auditoijien hyväksymä.</li>
+          <li>Vastaa CSRD-, Fit for 55-, EPBD 2028- ja eIDAS 2 -vaatimuksiin yhdellä paketilla.</li>
+          <li>Säilytä data EU:ssa (Suomi tai Saksa) — GDPR by design, ei lisämuotoiluja.</li>
+        </ul>
+        <h3 class="section">Pidä määräajat kunnossa ja säästä rahaa:</h3>
+        <ul>
+          <li>Säästä €2 007 verrattuna tuotteiden ostamiseen erikseen (yhteenlaskettu arvo €11 997).</li>
+          <li>Vältä tyypilliset kalliit virheet: puuttuva todistusketju, väärät päästölaskelmat, manuaalinen koostaminen.</li>
+          <li>Skaalaa luonnollisesti seuraavaan vaiheeseen: Firehorse Content Management evidence vaultiin.</li>
+        </ul>
+        <p><a class="terms-link" href="https://dws10.com/legal/">Käyttöehdot ja käytännöt →</a></p>
+      </div>
+
+      <div class="personal-desc" data-lang="sv">
+        <p class="opener">När CSRD-deadlinen närmar sig och ni har 30 dagar att bygga ett komplett compliance-maskineri som klarar revisorns granskning. Oavsett om det är Fit for 55-datainsamlingen, EPBD-energirapporter eller styrelsens första klimat-KPI-paket, hjälper Firehorse Starter V2 er att gå från noll till revisionsklar bättre än något 6-månaders konsultprojekt.</p>
+        <h3 class="section">Starta ert compliance-maskineri på 30 dagar:</h3>
+        <ul>
+          <li>Vecka 1: Kickoff-workshop — kartlägg era datakällor och designa första rapportmallen med vår expert.</li>
+          <li>Vecka 2: DWS IQ Base driftsätts — datakällor kopplas, inget IT-projekt krävs.</li>
+          <li>Vecka 3–4: Firehorse Report levererar första automatiserade rapporten, signerad och revisionsklar.</li>
+        </ul>
+        <h3 class="section">Signera och leverera era rapporter:</h3>
+        <ul>
+          <li>Få Firehorse Signed Reports inkluderat — eIDAS-kompatibel, godkänd av EU-revisorer.</li>
+          <li>Möt CSRD-, Fit for 55-, EPBD 2028- och eIDAS 2-kraven med ett enda paket.</li>
+          <li>Behåll data inom EU (Finland eller Tyskland) — GDPR by design, inga extra konfigurationer.</li>
+        </ul>
+        <h3 class="section">Håll deadlines och spara pengar:</h3>
+        <ul>
+          <li>Spara 2 007 € jämfört med att köpa produkterna separat (totalvärde 11 997 €).</li>
+          <li>Undvik typiska dyra misstag: bristande revisionsspår, felaktiga utsläppsberäkningar, manuell sammanställning.</li>
+          <li>Skala naturligt till nästa steg: Firehorse Content Management evidence vault.</li>
+        </ul>
+        <p><a class="terms-link" href="https://dws10.com/legal/">Användarvillkor och policyer →</a></p>
+      </div>
+
+      <div class="personal-desc" data-lang="en">
+        <p class="opener">When the CSRD deadline is closing in and you have 30 days to build a complete compliance engine that withstands the auditor's scrutiny. Whether it's Fit for 55 data collection, EPBD energy reports or the board's first climate KPI pack, Firehorse Starter V2 helps you go from zero to audit-ready better than any 6-month consultancy project would.</p>
+        <h3 class="section">Get your compliance engine running in 30 days:</h3>
+        <ul>
+          <li>Week 1: Kickoff workshop — map your data sources and design the first report template with our expert.</li>
+          <li>Week 2: DWS IQ Base deployed — data sources connected, no IT project required.</li>
+          <li>Week 3–4: Firehorse Report delivers the first automated output, signed and audit-ready.</li>
+        </ul>
+        <h3 class="section">Sign and deliver your reports:</h3>
+        <ul>
+          <li>Get Firehorse Signed Reports included — eIDAS-compliant, accepted by EU auditors.</li>
+          <li>Meet CSRD, Fit for 55, EPBD 2028 and eIDAS 2 requirements with a single bundle.</li>
+          <li>Keep data in the EU (Finland or Germany) — GDPR by design, no extra configuration.</li>
+        </ul>
+        <h3 class="section">Hit deadlines and save money:</h3>
+        <ul>
+          <li>Save €2,007 compared to buying the products separately (combined value €11,997).</li>
+          <li>Avoid the typical costly mistakes: broken audit trail, wrong emissions calculations, manual compilation.</li>
+          <li>Scale naturally to the next layer: Firehorse Content Management evidence vault.</li>
+        </ul>
+        <p><a class="terms-link" href="https://dws10.com/legal/">Terms and policies →</a></p>
+      </div>
+
+      <script>
+        (function () {
+          var LANGS = ["fi", "sv", "en"];
+          var stored = localStorage.getItem("dws-lang");
+          var lang = LANGS.indexOf(stored) >= 0 ? stored : "fi";
+          function applyLang(l) {
+            if (LANGS.indexOf(l) < 0) l = "fi";
+            document.querySelectorAll("[data-lang]").forEach(function (el) { el.classList.toggle("lang-active", el.getAttribute("data-lang") === l); });
+            document.querySelectorAll(".lang-btn").forEach(function (btn) { btn.classList.toggle("active", btn.getAttribute("data-pick") === l); });
+            localStorage.setItem("dws-lang", l);
+          }
+          applyLang(lang);
+          document.querySelectorAll(".lang-btn").forEach(function (btn) { btn.addEventListener("click", function () { applyLang(this.getAttribute("data-pick")); }); });
+          window.addEventListener("dws-lang-change", function (e) { applyLang(e.detail.lang); });
+        })();
+      </script>
       <div class="badge-row">
         <span class="badge badge-bundle">Bundle — 4 products in 1</span>
         <span class="badge badge-v2">V2 — 2026</span>
