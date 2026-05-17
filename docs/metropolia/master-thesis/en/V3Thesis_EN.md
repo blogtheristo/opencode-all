@@ -6,10 +6,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.56
+Version: 3.57
 
 Sessions & Modifications:
 
+- Version: 3.57 | Tool: Claude Code (Opus 4.7) | Session: claude/multi-agent-ai-alignment-F2NIO | Date: 17.05.2026 | Changes: Lockstep version bump 3.56 → 3.57 across all 4 thesis files per CLAUDE.md thesis rule. No content change in this master's thesis file: the v3.57 substantive addition is a market/standardisation signal (Shapira et al. "Agents of Chaos" arXiv:2602.20021 + Emergence AI "Emergence World" world.emergence.ai → KYA Standard falsifiability locus) which per the master-vs-PhD scope rule §1.4 belongs in the PhD thesis only. See PHD_FIREHORSE_EN.md §14.19 (Multi-Agent Emergent Misalignment and Incentive Design as the Alignment Unit) and Key Contribution #24 for the scientific framing. `Learn/` HTML regeneration required (not in this commit — needs Pandoc build).
 - Version: 3.56 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Added §10.10.6.1 (Hardware Brain Update — May 2026) documenting the Spark Primary tier swap from `llama3.3:70b` to `nemotron-3-super` (~4.5× decode speedup, MoE 123.6B / 12.7B active, Mamba-2 + attention + Latent MoE, NVFP4-pretrained), the Fast tier upgrade from `qwen2.5-coder:32b` to `qwen3-coder:30b`, and the addition of OpenClaw as a first-class compose service for EU-sovereign no-egress agent workloads. Implementation artefacts cited: field note 2026-03-29 v1.6, DWS_DEPLOYMENT_STANDARD.md v1.4, docker-compose.yml, DWS7_ROADMAP.md PR 161 re-base. Market-signal rationale (compute scarcity, NVFP4 hardware moat) cross-referenced to PHD_FIREHORSE_EN §14.18 per the master-vs-PhD scope rule §1.4. All 4 thesis files bumped to v3.56 in lockstep per CLAUDE.md thesis rule. `Learn/` HTML regeneration required (not in this commit — needs Pandoc build).
 - Version: 3.55 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Version bump from 3.54 to 3.55 in lockstep across all 4 thesis files; fixed VERSION AND AGENT HISTORY closing delimiter to ***; regenerated Learn thesis HTML outputs at v3.55
 - Version: 3.54 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Added §1.4 Content Scope Rule — master's thesis is product/implementation-focused, excludes market intelligence and long-horizon roadmap; scope rule written into CLAUDE.md and mirrored in all 4 thesis files; PhD thesis differentiation formalized; version bump in lockstep per CLAUDE.md thesis rule
