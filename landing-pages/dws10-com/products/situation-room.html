@@ -195,6 +195,21 @@
         </ul>
       </div>
 
+      <h2>What's in the box — itemised</h2>
+      <p>Two line items make up the €8,993 turnkey price. The €995 NVIDIA model install is one fee for the bridged pair (not €995 per node). Both ship together; the install is also sold standalone if you're adding nodes to an existing fleet.</p>
+      <div class="bundle-grid">
+        <div class="bundle-card" style="border-color: var(--color-eu-blue);">
+          <h4>1. 2× Acer Veriton GN100 — Bridged Sovereign Edge AI Nodes</h4>
+          <p style="margin-bottom: 6px;"><strong>€7,998</strong> (2× €3,999) · 2× NVIDIA GB10 Grace Blackwell SoC · 40 cores / 240 GiB unified memory combined · Ubuntu 24.04 LTS pre-imaged on both · direct node-to-node bridge link.</p>
+          <p style="font-size: 0.82rem; color: var(--color-gray-500); margin-bottom: 0;">The hardware substrate — two NVIDIA-powered nodes joined into a single inference cluster. EU air-gapped, customer-owned, zero CLOUD Act exposure.</p>
+        </div>
+        <div class="bundle-card" style="border-color: var(--nvidia-green); background: var(--nvidia-green-soft);">
+          <h4 style="color: var(--nvidia-green-dark);">2. NVIDIA Model Installation (bridged pair) — <a href="nvidia-model-install.html" style="color: var(--nvidia-green-dark);">view product →</a></h4>
+          <p style="margin-bottom: 6px;"><strong style="color: var(--nvidia-green-dark);">€995</strong> · One fee covers the bridged pair · On-site engineer · CUDA + NVIDIA drivers validated on both nodes · NVIDIA NIM microservices + Cosmos checkpoints loaded · tensor parallel sharding configured · MCP endpoint live · Article 12 replica log started.</p>
+          <p style="font-size: 0.82rem; color: var(--color-gray-500); margin-bottom: 0;">The service that turns two boxes into one situation room. Baked into the €8,993; <a href="nvidia-model-install.html">also sold standalone</a> at €995/device for fleet expansion.</p>
+        </div>
+      </div>
+
       <h2>How we install it (on-site, in one visit)</h2>
       <ol>
         <li><strong>Pre-flight:</strong> we confirm site power, network segmentation, where the two nodes live (same rack vs. failover rack), and which bundle you've picked.</li>
@@ -270,20 +285,35 @@
         <p style="margin-top: 14px; margin-bottom: 0; font-size: 0.9rem; color: rgba(255,255,255,0.7);">Lifetime Oy is a <strong style="color: var(--nvidia-green);">NVIDIA Inception</strong> applicant — sovereign EU edge AI, dual-use track. Partner enquiries: <a href="mailto:risto@onelifetime.world" style="color: var(--nvidia-green);">risto@onelifetime.world</a>.</p>
       </div>
 
-      <h2>LLM updates and rising token economics — the recurring value</h2>
-      <div class="callout"><strong>The bridged box is the carrier. The moat is the model.</strong> The centre of gravity has moved from hardware to software, algorithms, and analytics. Whoever adapts faster, implements changes more quickly, and uses front-line feedback better — wins. Situation Room is built around that reality.</div>
-      <p>You pay €8,993 once for the bridged pair. Then €299/mo (<a href="../buy/#LF-SOV-MODEL-SUB">Sovereign Model Updates</a>) keeps both nodes rising — without changing the hardware.</p>
+      <h2>The moat is the NVIDIA models — running sovereign across both nodes</h2>
+      <div class="callout"><strong>The bridged box is the carrier. The moat is the NVIDIA model stack across it.</strong> Anyone can buy two GN100s. The hard part is having NVIDIA's proprietary model stack — <strong>Llama Nemotron NIMs (Nano / Super / Ultra)</strong>, <strong>Cosmos Reason 2 / Predict 2.5 / Transfer 2.5</strong>, <strong>Cosmos Nemotron VLMs</strong>, <strong>Nemotron Speech</strong>, <strong>Nemotron RAG &amp; Safety</strong>, <strong>Isaac ROS</strong>, <strong>CV-CUDA</strong>, <strong>TensorRT-LLM tensor-parallel kernels</strong> — installed, sharded across the bridge, tuned, and refreshed monthly, sovereign, in your building. That's what €299/mo (<a href="../buy/#LF-SOV-MODEL-SUB">Sovereign Model Updates</a>) buys you.</div>
+      <p>You pay €8,993 once for the bridged pair + install. Then €299/mo keeps NVIDIA's proprietary model stack rising on both nodes — without you changing the hardware.</p>
       <table class="spec-table">
-        <thead><tr><th>What ships each month</th><th>Why your token economics rise on the bridged pair</th></tr></thead>
+        <thead><tr><th>NVIDIA model / component shipped each month</th><th>Why your token economics rise on the bridged pair</th></tr></thead>
         <tbody>
-          <tr><td><strong>Newer LLM weights</strong><br />Qwen 2.5 → Qwen 3 → … · Llama 3.1 → Llama 4 · Whisper v3 → v4 · YOLOv8-x → v9/v10 · acoustic event v-next</td><td>Newer architectures squeeze more reasoning, more recall, and tighter detection per token. Two-node bridge gets twice the headroom for the upgrade.</td></tr>
-          <tr><td><strong>Better sharding &amp; quantization</strong><br />Multi-GPU tensor parallel, AWQ/GGUF Q4-K-M, speculative decoding across nodes</td><td>The same heavy model runs faster across the bridge each release. Independent-check Llama lane on Node B becomes cheaper to run.</td></tr>
-          <tr><td><strong>Throughput step-changes</strong><br />vLLM / TensorRT-LLM kernel updates tuned for the bridged topology</td><td>Tokens/sec across the cluster trend up every release — often 2–3× on a single jump (e.g. when a new kernel lands).</td></tr>
-          <tr><td><strong>Per-token cost ↓</strong><br />Same €299/mo, more usable compute behind it</td><td>You locked in a flat fee. The cost-per-detection-decision-log line keeps falling underneath it.</td></tr>
-          <tr><td><strong>Front-line dual-use feedback</strong><br />Drill notes, false-positive flags, operator overrides → next bundle</td><td>Your sovereign situation room adapts to <em>your</em> sky, <em>your</em> dispatch SOPs, <em>your</em> dual-use call patterns — faster than the threat adapts to you.</td></tr>
+          <tr><td><strong>Llama Nemotron Ultra NIM</strong><br />Highest-accuracy agentic-reasoning NIM, designed for data-center-grade workloads — sharded across the bridge via TensorRT-LLM tensor parallel</td><td>With the bridged pair (240 GB unified memory combined) you can actually run Nemotron Ultra locally. One node can't. This is the upgrade unlock the bridge buys you.</td></tr>
+          <tr><td><strong>Llama Nemotron Super + Nano NIMs</strong><br />Super on Node A (single-GPU high-accuracy), Nano on Node B (real-time low-latency)</td><td>One brain for hard reasoning, one for fast triage. Both NVIDIA NIMs. Refreshed monthly.</td></tr>
+          <tr><td><strong>Cosmos world foundation models</strong><br />Cosmos Reason 2 (spatiotemporal VLM, leaderboard-topping chain-of-thought), Cosmos Predict 2.5 (future-state generation), Cosmos Transfer 2.5 (photorealistic physics simulation)</td><td>Cosmos is built for physical AI. Drone trajectory prediction, occluded-target inference, multi-hour scenario simulation in the situation room. Cosmos 3 (unified gen + reasoning + action) lands here first when NVIDIA releases.</td></tr>
+          <tr><td><strong>Cosmos Nemotron VLMs &amp; Nemotron Speech</strong><br />Vision-language NIMs for camera feeds · leaderboard ASR for Virve / radio / dispatch in FI/SV/EN</td><td>The detection-to-decision pipeline runs entirely on NVIDIA NIMs. No cloud transcription, no cloud VLM call.</td></tr>
+          <tr><td><strong>NVIDIA Isaac ROS &amp; CV-CUDA</strong><br />Multi-sensor calibration + fusion + accelerated vision pipelines for camera / LiDAR / acoustic feeds</td><td>The multi-stream dual-use detection pipeline (4 camera feeds + acoustic + radio) — Isaac ROS fuses the lanes, CV-CUDA accelerates the kernels. End-to-end NVIDIA.</td></tr>
+          <tr><td><strong>NVIDIA Aerial Omniverse</strong><br />Digital-twin sync of the operational area for VPK familiarisation, dual-use scenario rehearsal, after-action review</td><td>Your operators rehearse a scenario inside an Omniverse twin of the actual kalustohalli / response zone before they ever see it for real.</td></tr>
+          <tr><td><strong>TensorRT-LLM tensor-parallel kernels for GB10</strong><br />Speculative decoding across the ConnectX-7 link, FP4/FP8 paths on Grace Blackwell, optimised attention for the bridged topology</td><td>Tokens/sec across the cluster trend up every release — often 2–3× on a single jump when a new TensorRT-LLM kernel lands.</td></tr>
+          <tr><td><strong>Front-line dual-use feedback</strong><br />Drill notes, false-positive flags, operator overrides → next NVIDIA NIM bundle</td><td>Your sovereign situation room adapts to <em>your</em> sky, <em>your</em> dispatch SOPs, <em>your</em> dual-use call patterns — faster than the threat adapts to you.</td></tr>
         </tbody>
       </table>
-      <p>This is also why the box ships once and the subscription runs forever. Hardware depreciates. Token economics keep rising. The customer who renews compounds the gain.</p>
+      <p>This is also why the box ships once and the NVIDIA model subscription runs forever. Hardware depreciates. NVIDIA's NIM catalogue keeps growing. Token economics keep rising. The customer who renews compounds the gain.</p>
+
+      <h2>Why you need a subscription — the NVIDIA update cadence</h2>
+      <div class="callout"><strong>NVIDIA ships fast. You can't keep up by hand — especially across a bridged pair.</strong> NVIDIA NIM feature branches release <strong>monthly</strong> with new models and security fixes. Production branches get <strong>30-day scheduled security updates</strong>. Critical CVEs land as <strong>roll-forward hotfixes</strong> — sometimes weekly, sometimes daily. With two nodes in a tensor-parallel cluster the patch surface doubles, the security window doubles, and the cost of falling behind doubles.</div>
+      <table class="spec-table">
+        <thead><tr><th>Cadence</th><th>What lands on the bridge</th><th>Why it's not optional</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Monthly</strong></td><td>New NIM versions on both nodes (Llama Nemotron Ultra/Super/Nano, Cosmos checkpoints, Nemotron Speech / RAG / Safety), new bundles, TensorRT-LLM tensor-parallel kernel refresh, quantization updates tuned for the GB10 pair</td><td>This is the rising-token-economics curve. Skip a month, your dual-use detection lane is a month slower than the threat.</td></tr>
+          <tr><td><strong>Weekly</strong></td><td>Security backports on both nodes (CUDA driver patches, container CVE fixes, OpenSandbox + Ubuntu LTS), minor model patches, bug fixes, bridge-config tweaks</td><td>CER / NIS2 / EU AI Act inspectors expect a documented patch cadence. Weekly = inspector-friendly. Two nodes = double the audit surface.</td></tr>
+          <tr><td><strong>Daily hotfixes (when needed)</strong></td><td>Zero-day CVE patches, NVIDIA driver hotfixes for critical issues, model-side jailbreak / prompt-injection fixes — pushed to both nodes simultaneously, no downtime via failover</td><td>When NVIDIA ships an emergency CUDA / driver fix, you can't wait for next month's release. We push within 24 h over your secure tunnel, with rollback ready.</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size: 0.92rem; color: var(--color-gray-500);">All updates ship over your secure tunnel to both nodes — sovereign always. Either node can survive a bad update; we roll one first, verify, then roll the second.</p>
 
       <hr />
 
@@ -302,19 +332,32 @@
 
       <hr />
 
-      <h2>Hardware Specification (bridged pair)</h2>
+      <h2>Hardware Specification (bridged pair) — 2× Acer Veriton GN100</h2>
+      <p style="font-size: 0.92rem; color: var(--color-gray-500);">Verified against Acer's official launch (Oct 2025) and current 2026 stock. The ConnectX-7 bridge is the official Acer-supported link mode for running models up to 405 B parameters across a GN100 pair.</p>
       <table class="spec-table">
         <thead><tr><th>Specification</th><th>Per node</th><th>Combined (bridge)</th></tr></thead>
         <tbody>
-          <tr><td><strong>CPU Cores</strong></td><td>20</td><td>40 cores parallel</td></tr>
-          <tr><td><strong>RAM</strong></td><td>120 GiB</td><td>240 GiB across the cluster</td></tr>
-          <tr><td><strong>NVIDIA GPU</strong></td><td>Configurable per bundle</td><td>Heavy / light split possible</td></tr>
-          <tr><td><strong>Storage</strong></td><td>NVMe SSD</td><td>Article 12 log replica (active/standby)</td></tr>
-          <tr><td><strong>Network bridge</strong></td><td>1 GbE / 10 GbE</td><td>Direct node-to-node link for inference sharding</td></tr>
-          <tr><td><strong>OS</strong></td><td>Ubuntu 24.04 LTS pre-imaged</td><td>Single MCP endpoint exposed to clients</td></tr>
-          <tr><td><strong>Failover</strong></td><td>—</td><td>Either node can survive a hardware fault; lighter degraded mode keeps running</td></tr>
+          <tr><td><strong>NVIDIA chip</strong></td><td>NVIDIA GB10 Grace Blackwell Superchip · 5th-gen Tensor Cores · next-gen CUDA cores</td><td>2× GB10 — TensorRT-LLM tensor-parallel sharding for Llama Nemotron Ultra</td></tr>
+          <tr><td><strong>AI performance</strong></td><td>1 PFLOPS FP4</td><td><strong>~2 PFLOPS FP4</strong> across the bridge</td></tr>
+          <tr><td><strong>CPU</strong></td><td>20-core Arm (10× Cortex-X925 @ 4 GHz + 10× Cortex-A725 @ 2.8 GHz)</td><td><strong>40 Arm cores</strong> total</td></tr>
+          <tr><td><strong>Unified memory</strong></td><td>128 GB LPDDR5x · 273 GB/s</td><td><strong>256 GB LPDDR5x</strong> across the cluster — enough for Llama Nemotron Ultra + a second model alongside</td></tr>
+          <tr><td><strong>Storage</strong></td><td>Up to 4× 4 TB self-encrypting NVMe</td><td>Article 12 log replicated (active/standby)</td></tr>
+          <tr><td><strong>Network bridge</strong></td><td>NVIDIA ConnectX-7 NIC (200 Gbps)</td><td>Direct node-to-node link — Acer-supported, enables models up to <strong>405 B parameters</strong></td></tr>
+          <tr><td><strong>Wireless</strong></td><td>Wi-Fi 7 · Bluetooth 5.1</td><td>(optional; usually disabled in NIS2 deployments)</td></tr>
+          <tr><td><strong>I/O per node</strong></td><td>4× USB 3.2 Type-C · HDMI 2.1b · RJ-45 · Kensington lock</td><td>—</td></tr>
+          <tr><td><strong>Form factor</strong></td><td>150 × 150 × 50.5 mm · &lt; 1.5 kg</td><td>Both fit in a single half-rack shelf</td></tr>
+          <tr><td><strong>OS / software</strong></td><td>NVIDIA AI software stack preloaded; we re-image with Ubuntu 24.04 LTS + DWS IQ 6 at install</td><td>Single MCP endpoint exposed to clients · supports PyTorch, Jupyter, Ollama, vLLM, TensorRT-LLM out of the box</td></tr>
+          <tr><td><strong>Failover</strong></td><td>—</td><td>Either node can survive a hardware fault; lighter degraded mode keeps the situation room alive</td></tr>
+          <tr><td><strong>Hardware price</strong></td><td>€3,999 (Acer launch, EMEA)</td><td>€7,998 hardware (independent of our €995 install for the bridged pair)</td></tr>
         </tbody>
       </table>
+
+      <h3>Other Acer hardware we can deliver instead</h3>
+      <ul>
+        <li><strong>Acer Veriton RA100 AI Mini Workstation</strong> (CES 2026) — AMD Ryzen AI Max+ 395 · 50 NPU TOPS · 60 TFLOPS · Windows 11 Copilot+. Non-NVIDIA alternative — useful when the bridged workload is more design / rendering / creative than LLM inference.</li>
+        <li><strong>Acer Veriton 2000 Large Tower</strong> (CES 2026) — Intel Core Ultra 9 Series 2 + NVIDIA GeForce RTX 5080. For SMB AI-assisted content creation alongside the sovereign agent stack.</li>
+        <li><strong>2× NVIDIA DGX Spark</strong> — same GB10 Grace Blackwell, NVIDIA's own SKU at €4,699/unit (price increased Feb 2026), also ConnectX-7-linkable. We support DGX Spark pairs under the standalone NVIDIA Model Install service.</li>
+      </ul>
 
       <hr />
 
