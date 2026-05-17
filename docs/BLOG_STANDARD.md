@@ -122,6 +122,7 @@ Chronological order. Update this table when adding/removing posts.
 | 17  | `baseten-inference-engineering-300m.html`            | Field Note: Baseten Raises $300M — Inference Engineering Is a Discipline Now         | 7 May 2026  |
 | 18  | `eu-policy-backed-capital-bankable-sovereignty.html` | The Strike Price State — Five Things Europe Just Made Official                       | 7 May 2026  |
 | 19  | `fire-brigades-drone-defense-units.html`             | Fire Brigades as Drone Defence Units — Three Reasons to Build the Network Now (EN/FI/SV) | 15 May 2026 |
+| 20  | `moat-is-not-the-model.html`                         | The Moat Is Not the Model — NVIDIA Makes It Possible, EU-Sovereign Deployment Makes It Defensible | 17 May 2026 |
 
 ---
 

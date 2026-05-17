@@ -292,7 +292,7 @@
       "storeCategory": "advisory",
       "version": "1.0",
       "buyPage": 1,
-      "buyPageOrder": 23
+      "buyPageOrder": 26
     },
     "LIFETIME-EXP-001": {
       "id": "LIFETIME-EXP-001",
@@ -355,7 +355,7 @@
       },
       "storeCategory": "advisory",
       "buyPage": 1,
-      "buyPageOrder": 21
+      "buyPageOrder": 24
     },
     "aws-consultancy": {
       "id": "aws-consultancy",
@@ -387,7 +387,7 @@
       },
       "storeCategory": "ai-cloud",
       "buyPage": 1,
-      "buyPageOrder": 20
+      "buyPageOrder": 23
     },
     "conversational-agent": {
       "id": "conversational-agent",
@@ -419,7 +419,7 @@
       },
       "storeCategory": "ai-cloud",
       "buyPage": 1,
-      "buyPageOrder": 24
+      "buyPageOrder": 27
     },
     "m365-consultancy": {
       "id": "m365-consultancy",
@@ -486,7 +486,7 @@
       "storeCategory": "ai-cloud",
       "version": "1.0",
       "buyPage": 1,
-      "buyPageOrder": 22
+      "buyPageOrder": 25
     },
     "lean-project": {
       "id": "lean-project",
@@ -1135,6 +1135,105 @@
       "buyPage": 1,
       "buyPageOrder": 15
     },
+    "LF-DGX-SPARK": {
+      "id": "LF-DGX-SPARK",
+      "gtin": null,
+      "mpn": "LF-DGX-SPARK-2026",
+      "name": "DGX Spark — NVIDIA-branded Sovereign Edge AI + Install & Service",
+      "price": 5994,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "NVIDIA's own GB10 Grace Blackwell desktop AI workstation — same silicon as the Acer Veriton GN100 (1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm), shipped with NVIDIA branding for customers who want the NVIDIA logo on the box. 200 Gbps ConnectX-7 lets two units pair for 405 B-param models. Includes on-site install + full Lifetime service wrap (operator training, 24/7 support, warranty servicing, remote configuration). NVIDIA-priced at USD 4,699 (Feb 2026 price increase from USD 3,999).",
+      "features": [
+        "1× NVIDIA DGX Spark (GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x) — €4,999 hardware",
+        "On-site install + service wrap — €995 (CUDA + NIMs + Cosmos + MCP + Article 12 log)",
+        "Pair two for 405 B-param models over the ConnectX-7 200 Gbps link"
+      ],
+      "priceNote": "€5,994 one-time · €4,999 hardware + €995 install · €299/mo subscription separate",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/dgx-spark.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Electronics > Computers > Desktop Computers",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "NVIDIA",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "hardware",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 16
+    },
+    "LF-JETSON-NX": {
+      "id": "LF-JETSON-NX",
+      "gtin": null,
+      "mpn": "LF-JETSON-NX-2026",
+      "name": "Jetson Sensor Mid — Orin NX 16 GB + Install & Service",
+      "price": 1990,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "The middle Jetson tier between Orin Nano Super and AGX Orin. 100 TOPS, 16 GB, configurable 10–40 W. Smaller form factor than AGX but enough headroom for multi-stream camera + acoustic + RAG locally. On-site install + Lifetime service wrap. Hardware via NVIDIA distributor channel (USD 899 module + carrier).",
+      "features": [
+        "1× NVIDIA Jetson Orin NX 16 GB (100 TOPS, 16 GB, Ampere GPU) — €1,495 hardware",
+        "On-site install + service wrap — €495 (CUDA + NIMs + Isaac ROS + CV-CUDA + MCP + Article 12)",
+        "Built for: 2–4 sensor lane node, busier than Nano, lighter than AGX (rail wayside, mid-size kalustohalli, multi-cam factory cell)"
+      ],
+      "priceNote": "€1,990 one-time · €1,495 hardware + €495 install · €299/mo subscription separate",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/jetson-sensor.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Electronics > Computers > Desktop Computers",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "NVIDIA",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "hardware",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 17
+    },
+    "LF-IGX-ORIN": {
+      "id": "LF-IGX-ORIN",
+      "gtin": null,
+      "mpn": "LF-IGX-ORIN-2026",
+      "name": "IGX Orin — Industrial / Medical Sovereign Edge + Install & Service",
+      "price": 11990,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "The medical / industrial / pharma / nuclear SKU. Same Ampere class as AGX Orin but with ECC memory, safety certifications (functional-safety roadmap), an enterprise 10-year NVIDIA support window (life cycle through 2033), 200 Gb/s networking and a PCIe Gen5 ×16 slot for an optional dGPU (RTX PRO 6000 Blackwell). Distributor channel: PNY, Leadtek, Arrow, Edom, Macnica, Ryoyo, Syntech. Includes on-site install + full Lifetime service wrap.",
+      "features": [
+        "1× NVIDIA IGX Orin (12-core Arm Cortex-A78AE + Ampere GPU + 64 GB LPDDR5 ECC + 64 GB eMMC + NVDLA 2.0 + PVA v2) — €10,995 hardware",
+        "10-year NVIDIA enterprise support life cycle (through 2033) — built for medical & industrial procurement",
+        "On-site install + service wrap — €995 (CUDA + NIMs + Cosmos + Isaac ROS + Holoscan-ready + MCP + Article 12)"
+      ],
+      "priceNote": "€11,990 one-time · €10,995 hardware + €995 install · €299/mo subscription separate · dGPU (RTX PRO 6000) quoted separately",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/DWS_IQ2026.png",
+      "detailsUrl": "../products/igx-orin.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Electronics > Computers > Desktop Computers",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "NVIDIA",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "hardware",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 18
+    },
     "DWS-SOVEREIGN-DB-001": {
       "id": "DWS-SOVEREIGN-DB-001",
       "gtin": null,
@@ -1165,7 +1264,7 @@
       },
       "storeCategory": "platform",
       "buyPage": 1,
-      "buyPageOrder": 16
+      "buyPageOrder": 19
     },
     "sovereignty-cloud-consulting": {
       "id": "sovereignty-cloud-consulting",
@@ -1197,7 +1296,7 @@
       },
       "storeCategory": "ai-cloud",
       "buyPage": 1,
-      "buyPageOrder": 19
+      "buyPageOrder": 22
     },
     "DWS-US-STARTER": {
       "id": "DWS-US-STARTER",
@@ -1296,7 +1395,7 @@
       "storeCategory": "ai-cloud",
       "version": "1.0",
       "buyPage": 1,
-      "buyPageOrder": 17
+      "buyPageOrder": 20
     },
     "DWS-EU-PILOT": {
       "id": "DWS-EU-PILOT",
@@ -1329,7 +1428,7 @@
       "storeCategory": "ai-cloud",
       "version": "1.0",
       "buyPage": 1,
-      "buyPageOrder": 18
+      "buyPageOrder": 21
     },
     "DWS-CLIMATE-001": {
       "id": "DWS-CLIMATE-001",
@@ -4454,10 +4553,10 @@
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-05-17T18:00:00Z",
-  "priceVersion": "1.17",
+  "lastUpdated": "2026-05-17T20:00:00Z",
+  "priceVersion": "1.18",
   "priceList": {
-    "version": "1.17",
+    "version": "1.18",
     "effectiveDate": "2026-05-17",
     "nextReviewDate": "2026-08-01",
     "policy": {
@@ -4476,6 +4575,19 @@
     }
   },
   "priceHistory": [
+    {
+      "version": "1.18",
+      "date": "2026-05-17",
+      "author": "claude/add-hardware-products-MY7X7",
+      "changes": [
+        "Added LF-DGX-SPARK — NVIDIA DGX Spark (same GB10 as GN100, NVIDIA-branded) — €5,994 turnkey (NVIDIA list USD 4,699 as of Feb 2026).",
+        "Added LF-JETSON-NX — Jetson Sensor Mid (Orin NX 16 GB, 100 TOPS) — €1,990 turnkey. Closes the gap between Nano (€764) and AGX (€2,494).",
+        "Added LF-IGX-ORIN — IGX Orin medical/industrial sovereign edge — €11,990 turnkey. 10-year NVIDIA support life cycle through 2033, ECC memory, PCIe Gen5 ×16 for optional dGPU.",
+        "Renumbered buyPage 1 orders 16..24 → 19..27 to make room for the three new SKUs at 16, 17, 18.",
+        "Hardware ladder now: Jetson Nano → Jetson NX → Jetson AGX → Control Room (GN100) → DGX Spark → Situation Room → IGX Orin.",
+        "Sources: nvidia.com/en-us/products/workstations/dgx-spark/, nvidia.com/en-us/edge-computing/products/igx/, developer.nvidia.com/embedded/buy-jetson."
+      ]
+    },
     {
       "version": "1.17",
       "date": "2026-05-17",

@@ -106,6 +106,11 @@ const posts = [
     title: 'Brandkårer som drönarförsvarsenheter — tre skäl att bygga nätverket nu',
     date: '15 May 2026',
   },
+  {
+    file: 'moat-is-not-the-model.html',
+    title: 'The Moat Is Not the Model — NVIDIA Makes It Possible, EU-Sovereign Deployment Makes It Defensible',
+    date: '17 May 2026',
+  },
 ];
 
 // Three featured products
