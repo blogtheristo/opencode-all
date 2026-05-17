@@ -13,7 +13,7 @@
   Uses .moat-* class names to avoid collision with page-level CSS.
   ============================================================================
 -->
-<section class="moat-block" aria-label="Sovereign moat — why this is hard to copy">
+<section class="moat-block" id="sovereign-moat" aria-label="Sovereign moat — why this is hard to copy">
   <style>
     .moat-block {
       background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
@@ -180,6 +180,24 @@
         <tr><td><strong>Remote configuration</strong></td><td>Bundle switches, patches, OS updates over your secure tunnel — sovereign always</td><td>Ongoing</td></tr>
       </tbody>
     </table>
+
+    <h3 class="moat-section-h"><span class="moat-num">3b.</span>What you can build on top — your sovereign Linux platform</h3>
+    <p>You're not buying a sealed appliance. The GN100 ships with a full <strong>Ubuntu 24.04 LTS</strong> stack you own and extend. Cron jobs, systemd timers, Docker compose stacks, custom Python services, REST gateways — anything that runs on Linux runs here, alongside the NVIDIA model stack.</p>
+    <table class="moat-tbl">
+      <thead><tr><th>Build capability</th><th>What customers actually do with it</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Ubuntu 24.04 LTS — full Linux platform</strong></td><td>Root access. Standard apt / systemd / cron / journald — everything your DevOps already knows. Pre-imaged but never sealed.</td></tr>
+        <tr><td><strong>cron / systemd timer workflows</strong></td><td>Schedule nightly ETL into the Article 12 log · 06:00 dispatch-readiness report · weekly Nemotron RAG re-index of your SOPs · monthly CSRD evidence bundle export. Workflow scheduling is built-in.</td></tr>
+        <tr><td><strong>Docker / Docker Compose + OpenSandbox</strong></td><td>Drop in your own containers next to the NVIDIA NIMs — internal microservices, custom ETL, in-house ML models. OpenSandbox keeps them isolated from each other and from the NIM stack.</td></tr>
+        <tr><td><strong>Local MCP server</strong></td><td>Wire Claude Code / your IDE / your dispatcher app to the box over your internal network. No internet hop. Customer-supplied MCP tools mount alongside ours.</td></tr>
+        <tr><td><strong>Pre-installed toolchain</strong></td><td>PyTorch, Jupyter, Ollama, vLLM, TensorRT-LLM, NVIDIA NIMs — ready out of the box. Bring your own libraries via apt / pip / conda.</td></tr>
+        <tr><td><strong>Article 12 log API</strong></td><td>HTTP API for read-only access to the immutable log. Wire it to your SIEM, your CSRD platform, your inspector portal. The log is yours; the API is documented.</td></tr>
+        <tr><td><strong>REST / webhook gateway</strong></td><td>Expose any agent or model as an internal HTTP endpoint for your ERP, dispatcher, ticketing system — sovereign, on-prem, no third-party API call.</td></tr>
+        <tr><td><strong>Bring-your-own model</strong></td><td>Drop a custom fine-tune (Llama / Mistral / Qwen variants) into the NVIDIA NIM runtime alongside the curated bundle. The box doesn't care whether the weights came from NVIDIA or you.</td></tr>
+        <tr><td><strong>Air-gap switchable</strong></td><td>Firewall policy can cut external network at any time. Update tunnel opens only when you allow it; otherwise the box runs fully offline for as long as you want.</td></tr>
+      </tbody>
+    </table>
+    <div class="moat-callout"><strong>This is the Linux moat inside the moat.</strong> SaaS LLM vendors don't ship you a Linux platform you can extend. Sovereign LLM vendors do — because the box is yours, and Linux is yours.</div>
 
     <h3 class="moat-section-h"><span class="moat-num">4.</span>Why this is hard to copy — the actual moat</h3>
     <p>Six layers. Each is hard. The combination is harder. This is what the customer is really buying — and why a cloud LLM vendor can't compete on the same axis.</p>
