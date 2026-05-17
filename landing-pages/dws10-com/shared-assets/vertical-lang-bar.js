@@ -1,9 +1,9 @@
 /**
- * DWS10.com Vertical Language Bar v1.0
- * Introduced-In: PR-TBD (restore-language-bar)
- * Code-Version: 1.0
- * Branch: claude/restore-language-bar-xH99X
- * Date: 2026-04-17
+ * DWS10.com Vertical Language Bar v1.1
+ * Introduced-In: PR-TBD (restore-language-bar) / updated: claude/add-hardware-products-MY7X7
+ * Code-Version: 1.1
+ * Branch: claude/add-hardware-products-MY7X7
+ * Date: 2026-05-17
  * Owner: Lifetime Oy
  *
  * PAGE ELEMENT — not a menu/nav element.
@@ -15,6 +15,8 @@
  *
  * Also exports window.dwsVlbCardHTML() for use inside product cards (buy/index.html).
  * Shares localStorage key 'dws-lang' with ironclad-nav.js.
+ *
+ * v1.1 — Added product version line (Control Room / Situation Room hardware bundles).
  */
 (function () {
   'use strict';
@@ -28,6 +30,7 @@
       home: 'Pohjoismainen teollisuus-AI. Rakennettu Suomessa, Pohjoismaille.',
       store: 'Suvereeneja AI-tuotteita eurooppalaisille yrityksille.',
       product: 'Kultainen br\u00e4ndistandardisi, teko\u00e4lyagentit ja tuotantokone.',
+      versions: 'Control Room (1\u00d7 GN100) 4\u00a0994\u00a0\u20ac \u00b7 Situation Room (2\u00d7 sillattu) 8\u00a0993\u00a0\u20ac',
     },
     {
       code: 'sv',
@@ -37,6 +40,7 @@
       home: 'Nordisk industri-AI. Byggd i Finland, f\u00f6r Norden.',
       store: 'Suvern\u00e4na AI-produkter f\u00f6r europeiska f\u00f6retag.',
       product: 'Din guldstandard f\u00f6r varum\u00e4rke, AI-agenter och produktionsmotor.',
+      versions: 'Control Room (1\u00d7 GN100) 4 994 \u20ac \u00b7 Situation Room (2\u00d7 bryggad) 8 993 \u20ac',
     },
     {
       code: 'de',
@@ -46,6 +50,7 @@
       home: 'Gestalte, wie Europas Industrial IQ Compliance-Schwungrad sich dreht.',
       store: 'Souver\u00e4ne KI-Produkte f\u00fcr europ\u00e4ische Unternehmen.',
       product: 'Ihr Goldstandard f\u00fcr Marke, KI-Agenten und Produktions-Engine.',
+      versions: 'Control Room (1\u00d7 GN100) 4.994 \u20ac \u00b7 Situation Room (2\u00d7 gebr\u00fcckt) 8.993 \u20ac',
     },
     {
       code: 'fr',
@@ -55,6 +60,7 @@
       home: 'Fa\u00e7onnez la dynamique du volant d\u2019inertie Industrial IQ Compliance en Europe.',
       store: 'Produits IA souverains pour les entreprises europ\u00e9ennes.',
       product: 'Votre standard d\u2019or pour la marque, les agents IA et le moteur de production.',
+      versions: 'Control Room (1\u00d7 GN100) 4 994 \u20ac \u00b7 Situation Room (2\u00d7 pont\u00e9e) 8 993 \u20ac',
     },
     {
       code: 'en',
@@ -64,6 +70,7 @@
       home: 'Nordic Industrial AI. Built in Finland, for the Nordics.',
       store: 'Sovereign AI products for European enterprises.',
       product: 'Your brand Gold Standards, AI agents and Firehorse production engine.',
+      versions: 'Control Room (1× GN100) €4,994 · Situation Room (2× bridged) €8,993',
     },
   ];
 
@@ -164,6 +171,17 @@
       '.dws-vlb-row.dws-vlb-active .dws-vlb-text {',
       '  color: #e2e8f0;',
       '}',
+      '.dws-vlb-text-main { display: block; }',
+      '.dws-vlb-versions {',
+      '  display: block;',
+      '  font-size: 0.7rem;',
+      '  color: rgba(255,209,102,0.55);',
+      '  margin-top: 3px;',
+      '  letter-spacing: 0.01em;',
+      '}',
+      '.dws-vlb-row.dws-vlb-active .dws-vlb-versions {',
+      '  color: rgba(255,209,102,0.85);',
+      '}',
       '.dws-vlb-flag {',
       '  font-size: 1.55rem;',
       '  flex-shrink: 0;',
@@ -238,7 +256,8 @@
         l.name +
         '</span>' +
         '<span class="dws-vlb-text">' +
-        l[textKey] +
+        '<span class="dws-vlb-text-main">' + l[textKey] + '</span>' +
+        '<span class="dws-vlb-versions">' + l.versions + '</span>' +
         '</span>' +
         '<span class="dws-vlb-flag">' +
         l.flag +

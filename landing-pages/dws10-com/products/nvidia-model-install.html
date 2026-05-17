@@ -1,0 +1,132 @@
+<!doctype html>
+<!--
+  DWS Document Standard — HTML mirror
+  Document: dws10.com/products/nvidia-model-install.html
+  Version: 1.0  ·  Effective: 2026-05-17  ·  Status: ACTIVE
+  Owner: Lifetime Oy
+  Session: claude/add-hardware-products-MY7X7
+  Pricing source of truth: /dws10.com/config/products.json → "LF-NVIDIA-INSTALL"
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NVIDIA Model Installation — Per Edge Device | DWS IQ</title>
+    <meta name="description" content="Add-on service: install and tune the NVIDIA model stack on one edge device — CUDA, drivers, model bundle, OpenSandbox, MCP endpoint. €995 per device. Already bundled in Control Room &amp; Situation Room." />
+    <meta name="author" content="Lifetime Oy" />
+    <meta name="robots" content="index, follow" />
+    <meta name="dws-doc-version" content="1.0" />
+    <meta name="dws-doc-effective" content="2026-05-17" />
+    <meta name="dws-doc-status" content="ACTIVE" />
+    <meta name="dws-lang-stay" content="true" />
+    <meta property="og:title" content="NVIDIA Model Installation — Per Edge Device" />
+    <meta property="og:description" content="Install and tune NVIDIA models on your edge device. €995 per device." />
+    <meta property="og:type" content="website" />
+    <link rel="canonical" href="https://dws10.com/products/nvidia-model-install.html" />
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
+    <meta property="product:price:amount" content="995.00" />
+    <meta property="product:price:currency" content="EUR" />
+    <meta property="product:availability" content="in stock" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org/",
+        "@type": "Service",
+        "name": "NVIDIA Model Installation — Per Edge Device",
+        "description": "On-site NVIDIA model stack installation: CUDA, drivers, model bundle of choice, OpenSandbox agent isolation, local MCP endpoint. €995 per edge device.",
+        "provider": { "@type": "Organization", "name": "Lifetime Oy" },
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "EUR",
+          "price": "995.00",
+          "availability": "https://schema.org/InStock"
+        }
+      }
+    </script>
+    <script src="../shared-assets/nav/ironclad-nav.js" defer></script>
+    <script src="/shared-assets/vertical-lang-bar.js" defer></script>
+    <style>
+      :root {
+        --color-eu-blue: #003399; --color-accent: #0066cc; --color-gray-600: #475569;
+        --color-gray-200: #e2e8f0; --color-gray-500: #64748b;
+        --nvidia-green: #76B900; --nvidia-green-dark: #5a8c00; --nvidia-black: #000000;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.6; color: #0f172a; background: #fff; }
+      .nvidia-strip {
+        background: linear-gradient(90deg, var(--nvidia-black) 0%, #0a0a0a 50%, var(--nvidia-black) 100%);
+        border-top: 2px solid var(--nvidia-green); border-bottom: 2px solid var(--nvidia-green);
+        color: #fff; padding: 14px 20px; text-align: center; font-size: 0.85rem; letter-spacing: 0.03em;
+      }
+      .nvidia-strip strong { color: var(--nvidia-green); font-weight: 700; }
+      .nvidia-strip a { color: var(--nvidia-green); text-decoration: none; }
+      .nvidia-badge {
+        display: inline-block; background: var(--nvidia-green); color: var(--nvidia-black);
+        padding: 6px 14px; border-radius: 4px; font-size: 0.78rem; font-weight: 700;
+        letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 14px;
+      }
+      .product-hero { background: linear-gradient(135deg, var(--nvidia-black) 0%, #0a1628 100%); color: #fff; padding: 60px 20px 40px; text-align: center; }
+      h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; margin-bottom: 16px; color: var(--nvidia-green); }
+      .product-hero p { color: rgba(255,255,255,0.85); max-width: 640px; margin: 0 auto 24px; }
+      .price { font-size: 2.4rem; font-weight: 800; color: var(--nvidia-green); margin: 16px 0 4px; }
+      .btn-primary { padding: 12px 28px; background: var(--nvidia-green); color: var(--nvidia-black); border-radius: 6px; font-weight: 700; text-decoration: none; display: inline-block; margin-top: 20px; letter-spacing: 0.02em; }
+      .btn-primary:hover { background: var(--nvidia-green-dark); color: #fff; }
+      .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+      h2 { font-size: 1.4rem; font-weight: 700; color: var(--color-eu-blue); margin-top: 32px; margin-bottom: 14px; }
+      p, li { color: var(--color-gray-600); margin-bottom: 10px; }
+      ul { padding-left: 24px; margin-bottom: 16px; }
+      .back-link { display: inline-block; color: var(--color-gray-500); font-size: 0.875rem; margin-bottom: 24px; text-decoration: none; }
+      .back-link:hover { color: var(--color-accent); }
+      .nv-footer-note { font-size: 0.85rem; color: var(--color-gray-500); border-left: 4px solid var(--nvidia-green); padding: 12px 18px; background: #f9fafb; margin-top: 24px; border-radius: 0 8px 8px 0; }
+      .nv-footer-note strong { color: var(--nvidia-green-dark); }
+    </style>
+  </head>
+  <body>
+    <div class="nvidia-strip">
+      <strong>BUILT ON NVIDIA</strong> · CUDA · TensorRT-LLM · NVIDIA-optimised model bundles · <strong>NVIDIA Inception applicant</strong>
+    </div>
+    <section class="product-hero">
+      <div class="nvidia-badge">BUILT ON NVIDIA · CUDA · TensorRT-LLM</div>
+      <h1>NVIDIA Model Installation — Per Edge Device</h1>
+      <p>Add-on service for adding nodes to an existing Lifetime Fleet — or for any customer-supplied NVIDIA-capable edge device that needs the DWS IQ sovereign model stack installed on-site.</p>
+      <div class="price">€995</div>
+      <div style="color: rgba(255,255,255,0.65); font-size: 0.95rem;">per edge device · already included in Control Room &amp; Situation Room</div>
+      <a href="mailto:risto@onelifetime.world?subject=NVIDIA Model Installation — Add-On Order" class="btn-primary">Request Installation →</a>
+    </section>
+
+    <div class="container">
+      <a href="../buy/" class="back-link">← Back to Store</a>
+
+      <h2>What's included</h2>
+      <ul>
+        <li>CUDA + NVIDIA driver stack installed and validated on the target device</li>
+        <li>Model bundle of your choice (Qwen 2.5 72B, Llama 3.1, Whisper, BGE-M3, YOLOv8, acoustic, TTS, or custom)</li>
+        <li>OpenSandbox agent isolation layer + local MCP endpoint configured on your internal network</li>
+        <li>First inference call sanity-tested end-to-end</li>
+        <li>Article 12 immutable logging service initialised</li>
+        <li>Signed install protocol + runbook handover</li>
+      </ul>
+
+      <h2>When you need this separately</h2>
+      <ul>
+        <li>You're adding a 3rd, 4th, ... node to an existing Control Room or Situation Room fleet</li>
+        <li>You have customer-supplied NVIDIA hardware (not an Acer Veriton GN100) that needs the same stack</li>
+        <li>You're switching model bundles on an existing device and want a clean re-install</li>
+      </ul>
+
+      <h2>When you don't need this</h2>
+      <ul>
+        <li>You're ordering <a href="edge-node-gn100.html">Control Room</a> — installation is already bundled (€995 included)</li>
+        <li>You're ordering <a href="situation-room.html">Situation Room</a> — installation is bundled for the bridged pair (€995 included)</li>
+      </ul>
+
+      <p style="font-size: 0.875rem; color: var(--color-gray-500); text-align: center; margin-top: 32px">Lead time: 1–2 weeks for an engineer on-site within Finland. EU travel quoted separately. Contact <a href="mailto:risto@onelifetime.world">risto@onelifetime.world</a> for bulk fleet installs.</p>
+
+      <div class="nv-footer-note">
+        <strong>Built on NVIDIA — Inception applicant.</strong> Lifetime Oy is applying to <strong>NVIDIA Inception</strong> on the sovereign EU edge AI track. The install service uses the NVIDIA stack end-to-end: CUDA, NVIDIA drivers, TensorRT-LLM inference kernels, and NVIDIA-optimised model weights for Qwen, Llama, Whisper, BGE, YOLOv8 and acoustic models. See <a href="/nvidia-inception/">/nvidia-inception/</a> for partner / programme details.
+      </div>
+    </div>
+
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+    <script src="../shared-assets/nav/product-actions.js"></script>
+  </body>
+</html>
