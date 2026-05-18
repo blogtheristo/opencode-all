@@ -1,13 +1,14 @@
-# DWS Gamma Brand Standard v2.8
+# DWS Gamma Brand Standard v3.1
 
 ---
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.9
+Version: 3.1
 
 Sessions & Modifications:
 
+- Version: 3.1 | Tool: Claude Code (Opus 4.7) | Session: claude/dws-compliance-sales-rz5He | Date: 18.05.2026 | Changes: Added §22 DWS Master Tagline — Intelligence Amplifier (EN+FI), companion product-truth sentence, `.hero .tagline` CSS spec, pairing rules with System of Action Operator + Three-Layer National Strategy + Boardy buyer-facing headline. Applied tagline to sector page heroes (/construction, /manufacturing, /logistics, /energy) and /sovereign-cbam-disclosure/.
 - Version: 2.9 | Tool: Claude Code (Sonnet 4.6) | Session: claude/data-centre-factory-docs-eav19 | Date: 10.05.2026 | Changes: Added §22 System of Action Operator — canonical investor and homepage positioning sentences (FI+EN), derived from Google Cloud Agentic Data Cloud framework and tietotehdas field research
 - Version: 2.8 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-booking-multilingual-hMx7m | Date: 28.04.2026 | Changes: Added §5.1 Ironclad Sync Rule — dws10.com is single source of truth for ironclad-nav.js + ironclad-footer.js across all sites; sync script scripts/on-deploy/sync-ironclad-nav.sh; domain-aware logo (LifetimeOy.png on lifetime.fi, OLW logo on onelifetime.world); Legal Hub simplified to direct link (no flyout); Agentic Commerce added; booking CTA /book/; investment-safety rewritten to gold standard.
 - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/add-red-hat-partners-d8Hey | Date: 21.03.2026 | Changes: Added Red Hat Technology Partner badge to Sovereignty Badge System (§11.2) — colors, usage rules, AgentOps BYOA context, implementation checklist. Added Technology Partners section to partners page.
@@ -1751,6 +1752,58 @@ Visible only on mobile (`md:hidden`). Three horizontal bars (`w-5 h-0.5`) that o
 
 Canonical one-liners for investor materials, landing pages, and sales outreach. Both language versions MUST be updated together.
 
+### DWS Master Tagline — Intelligence Amplifier (Cross-Product / Master Frame)
+
+The master umbrella tagline. Sits above every product-specific pitch line. Use as a kicker/strapline below the H1 on sector pages and as the lead line in any meeting where the audience has not yet seen DWS positioning.
+
+**EN:** We amplify human intelligence in regulated industries.
+
+**FI (kotimainen):** Vahvistamme ihmisen älykkyyttä säännellyillä toimialoilla.
+
+**Companion sentence (product truth, for elaboration):**
+
+**EN:** DWS Intelligence is the product. Removing compliance friction is the entry point — how we get into the workflow. Amplifying the intelligence of every person in the disclosure, audit, and regulated-decision pipeline is what we are actually doing. Friction removal is one-shot; intelligence compounds. The compounding curve is the moat.
+
+**FI (kotimainen):** DWS Intelligence on tuote. Compliance-kitkan poistaminen on sisäänkäyntipiste — tapa, jolla pääsemme työnkulkuun. Tehtävämme on vahvistaa jokaisen disclosure-, audit- ja sääntelypäätösketjuun osallistuvan ihmisen älykkyyttä. Kitkan poisto on kertaluonteista; älykkyys kasautuu. Kasvun käyrä on vallihauta.
+
+**Translation notes:**
+
+- "amplify" → "vahvistaa" (strengthen/amplify) — preferred over "kasvattaa" (grow) which sounds too soft for B2B; "vahvistaa" is the verb used in Finnish engineering and signal-processing contexts
+- "human intelligence" → "ihmisen älykkyys" — concrete, role-anchored; preferred over "inhimillinen älykkyys" which leans poetic
+- "regulated industries" → "säännellyt toimialat" — already canonical FI in this section (also used for Aegis pitch); never use "säädelty" (it sounds adjusted/tuned)
+- "compounding curve is the moat" → "kasvun käyrä on vallihauta" — direct; "vallihauta" (moat) is now established Finnish startup vocabulary
+- Use "DWS Intelligence" untranslated in FI — it is the product surface name
+
+**Visual treatment (sector pages, hero):**
+
+```html
+<p class="tagline">DWS Intelligence &middot; We amplify human intelligence in regulated industries.</p>
+```
+
+```css
+.hero .tagline {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+  max-width: 720px;
+  margin: 0 auto 18px;
+}
+```
+
+**Pairing rules:**
+
+- **With System of Action Operator (§22.x below):** the master tagline names *what we do* (amplify intelligence). System of Action Operator names *how we do it* (carry regulated work to completion with audit trail). Lead with the master tagline on first-touch, switch to System of Action Operator when the conversation goes operational.
+- **With Three-Layer National Strategy (§22.x below):** the master tagline is global; Three-Layer is the Finnish-policy frame. Use master tagline outside Finland; pair both inside Finland or for EU-policy audiences.
+- **With Boardy buyer-line headline** (`DWS helps [company] sell more by removing compliance friction before the sale, using KYA-governed disclosure logic and sovereign NVIDIA infra to make regulated deals easier to close and the IP moat stronger`): master tagline is the product truth, Boardy line is the buyer-facing concretion. In a meeting, lead with whichever fits — buyer-facing meetings start with Boardy, strategic/board/investor meetings start with the master tagline.
+
+**Use in:** Hero kickers on all sector pages (`/construction`, `/manufacturing`, `/logistics`, `/energy`, `/healthcare`, `/financial-services`, `/public-sector`, `/real-estate`, `/shipbuilding`, `/mining`, `/waste`, and any sovereign-disclosure pattern page), investor decks (opening slide), partner one-pagers, sales-outreach letter openers, LinkedIn header line.
+
+**Do not use in:** Store / product-card copy (use product-specific pitch lines below instead), legal documents (use Lifetime Oy legal identity per CLAUDE.md), or any place where "regulated industries" would be misread as gatekeeping (use product-specific line instead).
+
+---
+
 ### DWS IQ Aegis
 
 **EN:** DWS IQ Aegis — intelligence interceptor for EU dual-use industries. Sovereign AI, Finnish-hosted, CLOUD Act-free.
@@ -1885,6 +1938,7 @@ Canonical framing derived from Finnish national data infrastructure strategy. Us
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| v3.1    | 2026-05-18 | Added: §22 DWS Master Tagline — Intelligence Amplifier (EN: "We amplify human intelligence in regulated industries." / FI: "Vahvistamme ihmisen älykkyyttä säännellyillä toimialoilla.") with companion product-truth sentence, visual hero treatment (`.hero .tagline` CSS), and pairing rules with System of Action Operator + Three-Layer National Strategy + Boardy buyer-facing headline. Applied tagline to sector page heroes (`/construction`, `/manufacturing`, `/logistics`, `/energy`) and to `/sovereign-cbam-disclosure/` pattern page. |
 | v3.0    | 2026-05-10 | Added: §22 Three-Layer National Strategy — investor short form ("Hyperscalerit rakentavat infrastruktuurin, Suomi omistaa datavarannon, ja DWS operoi älykkyyden"), homepage version with sovereignty hook ("päätösvalta säilyy täällä"), and long-form policy sentence — FI+EN, translation notes, usage pairing with System of Action Operator sentences                                                                                                                                          |
 | v2.9    | 2026-05-10 | Added: §22 System of Action Operator — canonical investor sentence ("Emme ole SaaS-toimittaja, vaan System of Action -operaattori, joka vie säädellyn työn hallitusti maaliin audit traililla") and homepage sentence ("DWS ei ole SaaS, vaan System of Action -operaattori eurooppalaiselle teollisuudelle, jossa compliance voi pysäyttää tai vapauttaa rahaa") — FI+EN, with translation notes and usage guidance                                                                                |
 | v2.8    | 2026-04-28 | Added: §5.1 Ironclad Sync Rule; booking CTA; investment-safety rewritten                                                                                                                                                                                                                                                                                                                                                                                                                            |
