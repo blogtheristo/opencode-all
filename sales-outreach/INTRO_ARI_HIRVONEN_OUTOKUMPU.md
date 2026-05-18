@@ -51,25 +51,83 @@ Those are **published technical disclosures**. Today they exit Outokumpu through
 2. **Trade-secret erosion.** Detail levels demanded by automotive OEMs (BMW, Mercedes, Stellantis, Volvo) trend deeper each year. A field that started as "tCO₂e/t" now wants process route, energy provenance, and recycled-content provenance.
 3. **AI Act / IP-prosecution exposure.** Any AI tool used to draft these disclosures that touches US cloud is, for Outokumpu's IP function, a discovery and Cloud-Act exposure surface for inventions in prosecution.
 
-## Headline (use this line — Boardy-validated)
+## Product truth (the line behind the line)
+
+> **DWS Intelligence is the product. We amplify human intelligence in regulated industries.**
+
+Removing compliance friction is the entry point — how we get into the workflow. Amplifying the intelligence of every person in the disclosure pipeline (IP, R&D, Legal, Sustainability, Operations, IT, Security, Sales, Procurement, Finance, IR, Board) is what we are actually doing. Friction removal is one-shot. Intelligence compounds. The compounding curve is the moat — for the customer, and for us.
+
+## Headline (the Boardy-validated buyer-facing line)
 
 > **DWS helps Outokumpu sell more by removing compliance friction before the sale, using KYA-governed disclosure logic and sovereign NVIDIA infra to make regulated deals easier to close and the IP moat stronger.**
 
-One line. One mechanic (KYA-governed disclosure logic + sovereign NVIDIA). Two outcomes (sell more + IP moat stronger). 24/7 support is a footer in the signoff, not part of the headline.
+One line. One mechanic (KYA-governed disclosure logic + sovereign NVIDIA). Two outcomes (sell more + IP moat stronger). 24/7 support is a footer in the signoff, not part of the headline. The product-truth line above sits behind it; lead with whichever fits the meeting (buyer-facing = Boardy line; investor / board / strategic = product truth).
 
-## Wedge by role — same headline, different emphasis
+## Wedge by role — same headline, every role wins
 
-The headline above lands differently depending on who is reading it. Tailor the emphasis to the role; never change the line.
+The headline above lands differently depending on who is reading it. Tailor the emphasis; never change the line. Read the matrix diagonally: each role's "what you win" column lights up someone else's "win you create" column. That diagonal is the win-win — and the reason the headline holds. Rows are ordered by buying-journey stage.
 
-| Role | Which half of the headline they care about | What to lead with after the headline |
+### Strategic sponsors — open the door
+
+| Role | What you win | Win you create for the rest of the company |
 |---|---|---|
-| **Patent / IP Director (Ari, door #1)** | "…IP moat stronger." | The disclosure-as-IP gap. Today the IP function is absent from CBAM / EPD approval. Tomorrow it is the policy author. Field-level allow / redact / aggregate rules, KYA-attested veto path. No US Cloud Act perimeter on inventions in prosecution. |
-| **CSO / Head of Sustainability** | "…regulated deals easier to close." | CBAM Q3 2026 definitive declarations + CSRD Wave 2 + EU Taxonomy converging onto one signed pipeline. Verifier-ready audit trail. ESRS datapoint coverage built in. Replaces 3–5 fragmented tools. |
-| **Head of Sales Engineering / Commercial** | "…sell more." | Quote-to-signed-disclosure: weeks → < 2 min. Win rate on regulated EU OEM tenders. Pre-approved templates mean reps stop waiting for sustainability + legal review for every quote. |
-| **CIO / Head of IT** | "…sovereign NVIDIA infra." | Vendor consolidation: one stack replaces 3–5 fragmented compliance + shadow-AI tools across sustainability, sales, and legal. NVIDIA Connect ISV; runs on Jetson edge, DGX Spark on-prem, or EU-sovereign cloud already in your perimeter. EU AI Act Article 16 inventory + Annex III alignment built in. KYA gives the CISO a cryptographic operator-identity layer that is defensible end-to-end. Integrates to ERP / LIMS / historians via standard connectors — no new shadow pipelines. |
-| **CRO / Chief Revenue Officer** | "…sell more." | Deal cycle on regulated EU tenders compresses from 2–6 weeks to minutes precisely where the CBAM premium lives (highest-margin SKUs). Sales engineers redirected from form-filling to selling. Win-rate uplift on tenders that now demand sovereign-AI attestation from suppliers — answered with one URL. Pricing power: a signed disclosure attached to a quote at parity with delivery time lets you quote tighter and faster than competitors stuck in the review loop. |
-| **General Counsel / Legal** | "…IP moat stronger" + sovereignty | EU AI Act Annex III alignment. Article 12 audit log. No US discovery surface on disclosure drafts. KYA cryptographic operator identity makes the evidence chain defensible. |
-| **CEO / CFO** | All three. | CBAM premium captured (margin protection), regulated-tender velocity (revenue acceleration), competitive disclosure leak closed (moat defended). Same platform, three P&L lines. |
+| **Patent / IP Director (Ari, door #1)** | Policy-author seat at every disclosure that leaves. Field-level allow / redact / aggregate. KYA-attested veto path. No US Cloud Act perimeter on inventions in prosecution. | Sales stops bypassing IP. CSO gets pre-approved templates to fill instead of fights to fight. CRO gets faster regulated deals. CEO gets a defended moat. |
+| **Head of R&D / CTO** | Low-CO₂ process IP (bio-reductants, EAF route, slag valorization, recycled-content provenance) does not leak through CBAM disclosures ahead of filing. R&D → IP → disclosure becomes a closed, calendar-aware loop. | IP Director's policy gets real input from inventors. CSO's disclosures align with the technology roadmap. CEO's "lowest-carbon stainless" narrative stays consistent across patents, disclosures, and investor docs. |
+| **General Counsel / Legal** | EU AI Act Annex III alignment. Article 12 audit log. KYA cryptographic operator identity. No US discovery surface on disclosure drafts or adjacent inventions. | IP function strengthens. CIO has an audit-ready stack. CSO has defensible disclosures. CEO sees enforcement risk drop. Sales gets a signed paper trail to hand to customers under audit. |
+
+### Operational owners — run the workflow
+
+| Role | What you win | Win you create for the rest of the company |
+|---|---|---|
+| **CSO / Head of Sustainability** | CBAM Q3 2026 + CSRD Wave 2 + EU Taxonomy on one signed pipeline with verifier-ready audit trail. ESRS datapoint coverage built in. Replaces 3–5 fragmented tools. | IP's governance loop is closed without your team negotiating it. Sales gets minutes-to-signed. CIO consolidates vendors. CFO sees compliance-reporting cost fall. |
+| **Head of Application / Customer Engineering** | Stop being the manual fulfilment desk for customer carbon-disclosure forms. Answer technical-spec and carbon-spec questions in the same signed document. Reclaim the week. | Sales engineering gets faster quotes. CSO sees consistency across customer-facing disclosures (no more bespoke per-OEM forms diverging). CRO sees higher quote-to-close. |
+| **Plant / Operations Director (Tornio / Avesta)** | Clean, standard pipeline from melt-shop / EAF historians, energy-management, and scrap registry into disclosures. Data quality issues surface at the source, not in the disclosure draft. Operations stops being asked to pull data manually each week. | CSO gets verifier-grade source data. IP's policy is enforced at the data layer, not the document layer. CIO gets clean historian integrations with audit trail. CFO sees rework cost fall. |
+
+### Tech approvers — clear the stack
+
+| Role | What you win | Win you create for the rest of the company |
+|---|---|---|
+| **CIO / Head of IT** | Vendor consolidation: one stack replaces 3–5 fragmented compliance and shadow-AI tools. NVIDIA Connect ISV running on Jetson edge / DGX Spark / EU-sovereign cloud already in your perimeter. EU AI Act Article 16 inventory + Annex III alignment built in. | CSO stops bringing shadow SaaS through procurement. Sales gets one connector instead of five. IP gets a cryptographically defensible evidence chain. CFO sees licence-cost reduction. |
+| **CISO / Head of InfoSec** | NIS2 obligations cleanly met for a regulated-disclosure system. KYA cryptographic operator identity for every AI-mediated action. No US Cloud Act / discovery surface on disclosure drafts. EU-sovereign by construction, not by configuration. | CIO's vendor stack stops adding attack surface. IP function's "no US perimeter" claim is technically backed. Sales has a one-URL answer to customer security questionnaires. Legal sees TPRM/DPIA load drop. |
+
+### Commercial drivers — prove the value
+
+| Role | What you win | Win you create for the rest of the company |
+|---|---|---|
+| **Head of Sales Engineering / Commercial** | Quote-to-signed-disclosure: weeks → < 2 min. Pre-approved templates kill the per-quote review loop. Reps spend their week selling, not filling forms. | IP and CSO stop being the bottleneck and become the platform you sell from. CRO sees pipeline conversion lift. Customers get answers at delivery-quote parity. |
+| **CRO / Chief Revenue Officer** | Regulated-tender cycle compresses from weeks to minutes precisely where the CBAM premium lives (highest-margin SKUs). Win-rate uplift on tenders demanding sovereign-AI attestation from suppliers — answered with one URL. Pricing power on premium-margin SKUs. | CSO's team becomes a sales accelerator, not a tax. IP function is visible upside, not a brake. CFO sees the premium-margin SKU mix grow. CIO's vendor consolidation gets a revenue story attached to it. |
+| **Chief Procurement Officer / Head of Procurement** | Vendor TPRM/DPIA load reduced through consolidation. The same KYA-governed disclosure logic flips to govern *upstream* supplier disclosures Outokumpu receives (precursor CBAM, recycled-content provenance, ferrochrome origin). Supplier compliance scoring built in. | CIO consolidates inbound + outbound disclosure tooling. CSO sees supplier-side data coverage improve. Legal's TPRM workload drops. CFO sees procurement leakage on non-compliant suppliers fall. |
+
+### Executive sponsors — sign the deal
+
+| Role | What you win | Win you create for the rest of the company |
+|---|---|---|
+| **CEO / CFO** | All three P&L lines move: **margin** (CBAM premium captured), **revenue** (cycle compression), **moat** (leak closed). Same platform, three outcomes. | The whole organisation pulls one rope. Investor and board narrative simplifies: one stack, three measurable outcomes, one EU-sovereign jurisdiction. |
+| **Head of Investor Relations** | CSRD-aligned messaging consistent with operating reality. CBAM premium quantified and presentable to capital markets. "EU-sovereign AI infrastructure" becomes a credible analyst-day line, not a marketing one. | CEO/CFO get an investor narrative grounded in operations. Legal sees Reg-FD-adjacent risk reduced. ESG analysts (MSCI, Sustainalytics, ISS) get clean, reproducible responses to questionnaires. |
+| **Board ESG Committee Chair** | Oversight materials reproducible to source data. CSRD / CBAM compliance audit-ready. The board ESG narrative on "what we are doing about AI sovereignty and disclosure governance" gets a clean, defensible answer. | CEO/CFO get top-down policy support to act on. IP and Legal get explicit board-level sponsorship for disclosure governance. The whole organisation has a clear directional mandate. |
+
+## DWS Intelligence sharpens each role (the compounding moat)
+
+Removing compliance friction is the entry point. **DWS Intelligence is the main product** — situational awareness for every person in the disclosure pipeline, carried forward over time. Friction removal is one-shot; intelligence compounds. The right way to pitch this internally at Outokumpu is: *"easier today, sharper every quarter."*
+
+| Role | How DWS Intelligence sharpens you |
+|---|---|
+| **Patent / IP Director (Ari)** | Live competitor-filing radar (H2 Green Steel, SSAB HYBRIT, ArcelorMittal XCarb, Aperam) cross-referenced against pending CBAM / EPD disclosures and patent calendar. Surfaces disclosure–IP overlap before the document leaves. |
+| **Head of R&D / CTO** | EU regulatory horizon scan tied to active R&D themes. Surfaces which projects should accelerate filings *before* disclosure pressure pulls the IP into the public record. |
+| **General Counsel / Legal** | Continuous enforcement-action, case-law, and regulator-guidance feed scored against live disclosure templates. Read regulatory shift in days, not quarterly memos. |
+| **CSO / Head of Sustainability** | ESRS datapoint drift, CBAM verifier methodology updates, EFRAG / CINEA signals, peer-disclosure benchmarking on Outokumpu product lines. Sector-best precision without sector-best headcount. |
+| **Head of Application / Customer Engineering** | Customer-specific Scope 3 schema patterns (BMW vs Mercedes vs Stellantis vs Bosch vs Electrolux) with template recommendations. Institutional memory of "what they asked last time and how they're trending." |
+| **Plant / Operations Director (Tornio / Avesta)** | Cross-shop disclosure-leverage analytics: which data-quality fixes move the published carbon numbers the most, per tonne of operational effort. Ops investment with disclosure ROI. |
+| **CIO / Head of IT** | Peer-EU sovereign-stack map and EU AI Act inventory drift across regulated industry. See where peer CIOs are consolidating before procurement reopens. |
+| **CISO / Head of InfoSec** | Continuous AI-attack-surface awareness, NIS2 enforcement signal, AI-mediated-action threat patterns. Every agent action is signed; every signature is monitored. |
+| **Head of Sales Engineering / Commercial** | Institutional disclosure memory — which framing converted in which OEM tender, with win/loss attribution. Every quote you ship is training data for the next one. |
+| **CRO / Chief Revenue Officer** | Tender-velocity benchmarks, win-rate by CBAM-exposure tier, pricing-power signals on premium-margin SKUs (Forta, Circle Green). See where the CBAM premium is actually being paid versus negotiated away. |
+| **Chief Procurement Officer** | Continuous supplier-compliance scoring, precursor CBAM heat maps (ferrochrome, scrap origin), supplier-swap leverage analysis. The same intelligence layer pointed upstream that points downstream. |
+| **CEO / CFO** | Portfolio-level margin / revenue / moat dashboard by SKU and customer. Where to invest next in the moat-extension thesis, with the regulatory pipeline 24 months out as ground truth. |
+| **Head of Investor Relations** | Analyst-question patterns, ESG rating drift (MSCI, Sustainalytics, ISS), peer disclosure benchmarking. Brief before the next quarterly, not after the next downgrade. |
+| **Board ESG Committee Chair** | 24-month regulatory pipeline horizon and peer board-level signal map. Which decisions need board sponsorship *now* to land in time for the disclosure cycle they govern. |
+
+**Intelligence sourcing (use this to defuse "where does the data come from" objections):** public EU regulatory pipeline (EUR-Lex, DG ENER, Commission work programme, EFRAG, CINEA, ENTSO-E), peer-disclosure benchmarking on *publicly filed* documents only, and Outokumpu's own deployment of DWS IQ. No customer data is shared across producers. KYA-attested provenance on every intelligence item.
 
 ## How the mechanic delivers both outcomes
 

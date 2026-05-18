@@ -30,7 +30,7 @@ Sender: risto.paarni@lifetime.fi (never noreply@, per CLAUDE.md non-negotiable r
 
 Hei Ari,
 
-**DWS helps Outokumpu sell more by removing compliance friction before the sale, using KYA-governed disclosure logic and sovereign NVIDIA infra to make regulated deals easier to close and the IP moat stronger.**
+**DWS Intelligence amplifies human intelligence in regulated industries.** Concretely for Outokumpu: **DWS helps you sell more by removing compliance friction before the sale, using KYA-governed disclosure logic and sovereign NVIDIA infra to make regulated deals easier to close and the IP moat stronger.**
 
 The gap is this: every CBAM declaration, EPD, and Scope 3 attestation your sales engineers attach to a customer quote is a published technical disclosure — embedded emissions, scrap ratio, energy mix, process route — that reads on the same process IP your office governs in filings and trade-secret programs. Q3 2026 definitive CBAM pushes granularity further. Today those documents exit through sustainability without the IP / Patent function in the approval loop.
 
@@ -40,6 +40,8 @@ Two mechanics close it:
 - **Sovereign NVIDIA infra.** EU-sovereign Jetson, DGX Spark, or EU cloud (Aiven Helsinki / Scaleway Paris). No US Cloud Act perimeter on disclosure drafts or on inventions in prosecution. EU AI Act Annex III aligned.
 
 The commercial effect: sales attaches a signed CBAM / EPD / Scope 3 document to every quote in minutes instead of two-to-six weeks. Regulated deals move faster **because** the IP function authored the logic up-front, not in spite of it. Less compliance friction, stronger IP moat — not the usual trade-off.
+
+And the friction-removal is just the entry point. **DWS Intelligence is the main product** — from week one your office gets a live competitor-filing radar (H2 Green Steel, SSAB HYBRIT, ArcelorMittal XCarb) cross-referenced against your own pending CBAM / EPD disclosures and patent calendar, plus an EU regulatory horizon scan tied to your live disclosure templates. Easier today, sharper every quarter.
 
 We are Espoo-based (Lifetime Oy, business ID 0772407-9), 15 minutes from Salmisaarenranta. 20 minutes at your office: one product line of your choice, modeled end-to-end.
 
