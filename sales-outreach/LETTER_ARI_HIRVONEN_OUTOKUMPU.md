@@ -24,27 +24,26 @@ Sender: risto.paarni@lifetime.fi (never noreply@, per CLAUDE.md non-negotiable r
 
 **To:** ari.hirvonen@outokumpu.com (verify before send)
 **From:** risto.paarni@lifetime.fi
-**Subject:** Every CBAM doc your sales team attaches is a public IP filing — let's govern it
+**Subject:** Sell more, IP moat stronger — 20 min at Salmisaarenranta?
 
 ---
 
 Hei Ari,
 
-Every CBAM declaration, EPD, and Scope 3 attestation Outokumpu sales engineers attach to a customer quote is, in practice, a published technical disclosure: embedded emissions per product, scrap ratio, energy mix, process route. Q3 2026 definitive CBAM filings will push the granularity further, and OEM customer audits are already there.
+**DWS helps Outokumpu sell more by removing compliance friction before the sale, using KYA-governed disclosure logic and sovereign NVIDIA infra to make regulated deals easier to close and the IP moat stronger.**
 
-Those documents read on Outokumpu's process IP — the same IP that earns the CBAM premium on Forta, Core, Ultra, and Circle Green. Today they exit through sustainability and sales engineering. From the outside, it doesn't look like the IP / Patent function is in that approval loop. That is the gap we'd like to close with you.
+The gap is this: every CBAM declaration, EPD, and Scope 3 attestation your sales engineers attach to a customer quote is a published technical disclosure — embedded emissions, scrap ratio, energy mix, process route — that reads on the same process IP your office governs in filings and trade-secret programs. Q3 2026 definitive CBAM pushes granularity further. Today those documents exit through sustainability without the IP / Patent function in the approval loop.
 
-**DWS IQ is the missing layer between Outokumpu's IP office and its customer-facing disclosure pipeline.**
+Two mechanics close it:
 
-- **KYA-governed disclosure templates.** Your office pre-approves what process detail can leave Outokumpu per product line. Signed, auditable, with a cryptographic human-bound veto path. The IP function moves from absent to policy author.
-- **EU-sovereign NVIDIA hw + EU-hosted models.** No US Cloud Act perimeter on disclosure drafts or on inventions in prosecution. Sovereign-by-construction for the EU AI Act Annex III obligations now reaching industrial AI.
-- **Lifetime 24/7 support, EU-staffed.** An IP-aware human on call when sales is about to publish a borderline disclosure on a Friday night before a Monday tender. The veto path stays human, not buried in a US ticketing queue.
+- **KYA-governed disclosure logic.** Your office authors field-level allow / redact / aggregate rules per product line. A cryptographic human-bound gate stops anything above your threshold before publication. IP function moves from absent to policy author.
+- **Sovereign NVIDIA infra.** EU-sovereign Jetson, DGX Spark, or EU cloud (Aiven Helsinki / Scaleway Paris). No US Cloud Act perimeter on disclosure drafts or on inventions in prosecution. EU AI Act Annex III aligned.
 
-The downstream effect for Outokumpu's commercial side: sales attaches a signed CBAM / EPD / Scope 3 document to every quote in minutes instead of two-to-six-week back-and-forth. Regulated deals move faster precisely **because** the IP function has authored the disclosure logic up-front. Less compliance friction, stronger IP moat — not the usual trade-off.
+The commercial effect: sales attaches a signed CBAM / EPD / Scope 3 document to every quote in minutes instead of two-to-six weeks. Regulated deals move faster **because** the IP function authored the logic up-front, not in spite of it. Less compliance friction, stronger IP moat — not the usual trade-off.
 
-We are Finnish, Espoo-based (Lifetime Oy, business ID 0772407-9), 15 minutes from Salmisaarenranta. I'd like 20 minutes at your office to show one product line — Circle Green, Forta, or a stainless long-product line of your choice — modeled end-to-end: customer asks for CBAM disclosure → KYA-governed template → IP-pre-approved fields → signed document attached to quote → audit trail back to your office.
+We are Espoo-based (Lifetime Oy, business ID 0772407-9), 15 minutes from Salmisaarenranta. 20 minutes at your office: one product line of your choice, modeled end-to-end.
 
-Would week of 2026-06-01 or 2026-06-08 work?
+Week of 2026-06-01 or 2026-06-08?
 
 Best,
 Risto
@@ -59,6 +58,7 @@ Laidunmaanraitti 2 A 25, 02330 Espoo
 Business ID 0772407-9 · VAT FI07724079
 
 DWS IQ 6 — EU-sovereign agentic compliance infrastructure, NVIDIA Connect ISV.
+Backed by Lifetime 24/7 EU-staffed support.
 https://dws10.com
 
 ---

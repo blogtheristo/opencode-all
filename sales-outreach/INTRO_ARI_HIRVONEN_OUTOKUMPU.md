@@ -51,17 +51,32 @@ Those are **published technical disclosures**. Today they exit Outokumpu through
 2. **Trade-secret erosion.** Detail levels demanded by automotive OEMs (BMW, Mercedes, Stellantis, Volvo) trend deeper each year. A field that started as "tCO₂e/t" now wants process route, energy provenance, and recycled-content provenance.
 3. **AI Act / IP-prosecution exposure.** Any AI tool used to draft these disclosures that touches US cloud is, for Outokumpu's IP function, a discovery and Cloud-Act exposure surface for inventions in prosecution.
 
-**DWS IQ closes the gap on three axes that map to Ari's job:**
+## Headline (use this line — Boardy-validated)
 
-| Axis | What it gives the IP Director | What it gives Sales (downstream) |
+> **DWS helps Outokumpu sell more by removing compliance friction before the sale, using KYA-governed disclosure logic and sovereign NVIDIA infra to make regulated deals easier to close and the IP moat stronger.**
+
+One line. One mechanic (KYA-governed disclosure logic + sovereign NVIDIA). Two outcomes (sell more + IP moat stronger). 24/7 support is a footer in the signoff, not part of the headline.
+
+## Wedge by role — same headline, different emphasis
+
+The headline above lands differently depending on who is reading it. Tailor the emphasis to the role; never change the line.
+
+| Role | Which half of the headline they care about | What to lead with after the headline |
 |---|---|---|
-| **KYA-governed disclosure templates** | IP pre-approves what process detail can leave per product line, signed and auditable. The IP function moves from "absent" to "policy author." | Sales reps stop chasing approvals. Pre-approved templates fill from product data; signed CBAM/EPD/Scope-3 docs attach to every quote in minutes, not weeks. |
-| **EU-sovereign NVIDIA hw + models** | No US Cloud Act exposure on inventions in prosecution. Process data and disclosure drafts never train a foreign model. Sovereign-by-construction for EU AI Act compliance. | Customers (especially EU OEM and EU defence-adjacent) increasingly require sovereign-AI attestations from suppliers. Outokumpu sales can answer that question with one URL. |
-| **Lifetime 24/7 support** | An IP-aware human is on call when sales is about to publish a borderline disclosure at 11 PM Friday before a Monday tender deadline. The veto path stays human. | Sales does not stall waiting for IP review. The 24/7 layer is what makes "instant signed disclosure" defensible to Legal. |
+| **Patent / IP Director (Ari, door #1)** | "…IP moat stronger." | The disclosure-as-IP gap. Today the IP function is absent from CBAM / EPD approval. Tomorrow it is the policy author. Field-level allow / redact / aggregate rules, KYA-attested veto path. No US Cloud Act perimeter on inventions in prosecution. |
+| **CSO / Head of Sustainability** | "…regulated deals easier to close." | CBAM Q3 2026 definitive declarations + CSRD Wave 2 + EU Taxonomy converging onto one signed pipeline. Verifier-ready audit trail. ESRS datapoint coverage built in. Replaces 3–5 fragmented tools. |
+| **Head of Sales Engineering / Commercial** | "…sell more." | Quote-to-signed-disclosure: weeks → < 2 min. Win rate on regulated EU OEM tenders. Pre-approved templates mean reps stop waiting for sustainability + legal review for every quote. |
+| **General Counsel / Legal** | "…IP moat stronger" + sovereignty | EU AI Act Annex III alignment. Article 12 audit log. No US discovery surface on disclosure drafts. KYA cryptographic operator identity makes the evidence chain defensible. |
+| **CEO / CFO** | All three. | CBAM premium captured (margin protection), regulated-tender velocity (revenue acceleration), competitive disclosure leak closed (moat defended). Same platform, three P&L lines. |
 
-**Net positioning sentence (use in the letter):**
+## How the mechanic delivers both outcomes
 
-> DWS helps your sales team close regulated deals faster — without your IP function losing control of what process detail leaves Outokumpu in the published carbon docs that get attached to every quote.
+| Mechanic | "Sell more" path | "IP moat stronger" path |
+|---|---|---|
+| **KYA-governed disclosure logic** | Pre-approved templates fill from product data; signed CBAM/EPD/Scope-3 docs attach to every quote in minutes instead of weeks. | IP function authors the policy. Every field above the process-detail threshold stops at a KYA human-bound gate before publication. |
+| **Sovereign NVIDIA infra (Jetson / DGX Spark / EU cloud)** | EU OEM and EU defence-adjacent customers increasingly demand sovereign-AI attestations from suppliers. Sales answers with one URL. | No US Cloud Act perimeter on inventions in prosecution. Process data never trains a foreign model. EU AI Act Annex III aligned. |
+
+24/7 Lifetime EU support is the operational footer that makes the above defensible at 11 PM Friday before a Monday tender. It is not a headline axis.
 
 ## Why now (timing wedge)
 
@@ -84,7 +99,7 @@ We open at door #1 because IP is the function that has the strongest reason to *
 
 > Hei Ari,
 >
-> Risto Päärni, Lifetime Oy (Espoo). Short version: every CBAM and EPD document Outokumpu sales attaches to a quote is, in practice, a published technical disclosure that reads on process IP — and today the IP function isn't in that loop. We've built DWS IQ on EU-sovereign NVIDIA infra so the IP office can govern what process detail leaves Outokumpu in carbon disclosures, while sales gets signed CBAM/EPD docs in minutes instead of weeks.
+> Risto Päärni, Lifetime Oy (Espoo). One line: DWS helps Outokumpu sell more by removing compliance friction before the sale, using KYA-governed disclosure logic and sovereign NVIDIA infra to make regulated deals easier to close and the IP moat stronger. Concretely: every CBAM / EPD doc your sales attaches to a quote is a published technical disclosure that reads on process IP — and today the IP function isn't in that loop. We close that gap.
 >
 > Worth 20 minutes? Happy to come to Salmisaarenranta.
 >
