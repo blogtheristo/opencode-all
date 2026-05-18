@@ -134,8 +134,8 @@ Generic CBAM tools (Sphera, Watershed, Carbon Chain, Position Green) solve **cal
 - [ ] Confirm Ari Hirvonen's current title and preferred contact route (LinkedIn first; corporate IP function as fallback).
 - [ ] Send LinkedIn connect message (text above) — target send date 2026-05-19.
 - [ ] If no reply within 5 business days, send `LETTER_ARI_HIRVONEN_OUTOKUMPU.md` via direct email (sender: risto.paarni@lifetime.fi, transport: Amazon SES SMTP).
-- [ ] In parallel, prepare a one-page anonymized "KYA-governed CBAM disclosure" reference (same template family as `dws10.com/enterprise-integrations/`). Do not publish before Ari sees it.
-- [ ] On first reply, attach (a) one-pager link and (b) Lifetime Oy corporate identity (business ID, VAT, CEO contact) — Finnish-to-Finnish trust signal.
+- [x] Anonymized "Sovereign CBAM Disclosure for EU Stainless" sector-pattern reference is live at `dws10.com/sovereign-cbam-disclosure/` (mirrored to `landing-pages/dws10-com/sovereign-cbam-disclosure/`). Outokumpu is **not** named on the page; sector-pattern framing only.
+- [ ] On first reply, attach (a) the sovereign-CBAM-disclosure URL and (b) Lifetime Oy corporate identity (business ID, VAT, CEO contact) — Finnish-to-Finnish trust signal.
 - [ ] After first call, escalate per variant #4 to a three-party motion with Outokumpu CSO + one product-line VP.
 
 ## Related files
@@ -143,5 +143,7 @@ Generic CBAM tools (Sphera, Watershed, Carbon Chain, Position Green) solve **cal
 - `sales-outreach/LETTER_ARI_HIRVONEN_OUTOKUMPU.md` — cold email draft.
 - `sales-outreach/INTRO_FRIDA_AHLBERG_SIEMENS.md` — reference precedent for INTRO file pattern.
 - `Sales/Myyntikirje_3_Omnibus_Pivot.md` — current Q1 2026 messaging foundation (Fit for 55 unchanged).
-- `dws10.com/enterprise-integrations/` — destination for an Outokumpu-style sovereign-disclosure one-pager once produced.
+- `dws10.com/sovereign-cbam-disclosure/index.html` — anonymized sector-pattern one-pager. Send this link in the first reply.
+- `landing-pages/dws10-com/sovereign-cbam-disclosure/index.html` — Cloudflare production mirror (kept in lockstep).
+- `dws10.com/enterprise-integrations/` — broader integrations index, referenced from the one-pager footer.
 - `AGENTS.md` — KYA / Aegis / Sovereign Infra agent inventory referenced in the wedge.

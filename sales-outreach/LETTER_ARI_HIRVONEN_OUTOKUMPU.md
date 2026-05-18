@@ -68,8 +68,8 @@ https://dws10.com
 - **Transport:** Amazon SES SMTP (per `CLAUDE.md` non-negotiable rule #4 — no Resend).
 - **Sender:** `risto.paarni@lifetime.fi` — never `noreply@` (per `CLAUDE.md` non-negotiable rule #3).
 - **Recipient:** verify `ari.hirvonen@outokumpu.com` against Outokumpu's published IP-function contact before send. If unverifiable, route via Outokumpu IP/Legal department contact or LinkedIn InMail using the connect message in `INTRO_ARI_HIRVONEN_OUTOKUMPU.md` thread step 1.
-- **Attachments at first send:** none. Link to `https://dws10.com/enterprise-integrations/` only after first reply.
-- **Do not attach** any internal Outokumpu intel one-pager until Ari has seen and approved the framing.
+- **Attachments at first send:** none. After first reply, link to `https://dws10.com/sovereign-cbam-disclosure/` (sector-pattern, anonymized — does not name Outokumpu).
+- **Do not attach** any Outokumpu-specific worked example until Ari has seen and approved the framing.
 
 ## Follow-up (if no response in 5 business days)
 
