@@ -93,6 +93,8 @@ This file is the **canonical index of all data streams** that feed the Lifetime 
 
 **First lab note:** `docs/lab-notes/` created 2026-04-16.
 
+**Latest lab note:** `docs/lab-notes/2026-05-20-claude-code-large-codebases-best-practices.md` — Anthropic harness model (CLAUDE.md / hooks / skills / plugins / MCP) mapped to DWS6 assets, with plugin-packaging and LSP gaps logged.
+
 ---
 
 ## Stream 4: Four Outreach Channels (Sales & Market Intelligence)
