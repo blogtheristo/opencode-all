@@ -6,9 +6,7 @@
  * Supported providers:
  *   - "aiven"  — EU-sovereign (Finnish company, no CLOUD Act). Secrets stored
  *                in Aiven PostgreSQL `app_secrets` table. RECOMMENDED.
- *                Requires `pg` package to be installed.
  *   - "gcp"    — Google Cloud Secret Manager (US company, CLOUD Act applies).
- *                No extra deps — uses fetch + metadata server / gcloud CLI.
  *
  * Priority order (highest wins):
  *   1. process.env values that already exist at startup
@@ -27,6 +25,31 @@
  */
 
 import logger from '../utils/logger.js';
+
+interface PgClientConfig {
+  connectionString: string;
+  ssl?: { rejectUnauthorized: boolean };
+  connectionTimeoutMillis?: number;
+}
+
+interface PgRow {
+  key: string;
+  value: string;
+}
+
+interface PgQueryResult<T> {
+  rows: T[];
+}
+
+interface PgClient {
+  connect(): Promise<void>;
+  query<T>(text: string, values?: unknown[]): Promise<PgQueryResult<T>>;
+  end(): Promise<void>;
+}
+
+interface PgClientConstructor {
+  new (config: PgClientConfig): PgClient;
+}
 
 const SECRET_MAP: Record<string, string> = {
   SUPABASE_URL: 'supabase-url',
@@ -50,33 +73,24 @@ const SECRET_MAP: Record<string, string> = {
   ADMIN_API_KEY: 'admin-api-key',
   BROKER_SIGNING_KEY: 'broker-signing-key',
   BROKER_AGENT_TOKENS: 'broker-agent-tokens',
-};
 
-interface PgClientLike {
-  connect(): Promise<void>;
-  end(): Promise<void>;
-  query<T = unknown>(text: string, params?: unknown[]): Promise<{ rows: T[] }>;
-}
-interface PgModuleLike {
-  Client: new (cfg: {
-    connectionString: string;
-    ssl?: { rejectUnauthorized: boolean };
-    connectionTimeoutMillis?: number;
-  }) => PgClientLike;
-}
+  OPENCLAW_ENDPOINT: 'openclaw-endpoint',
+  OPENCLAW_API_KEY: 'openclaw-api-key',
+};
 
 async function loadFromAiven(connectionUrl: string): Promise<Record<string, string>> {
   const secrets: Record<string, string> = {};
 
-  let pgModule: PgModuleLike;
+  let Client: PgClientConstructor;
   try {
-    pgModule = (await import(/* @vite-ignore */ 'pg' as string)) as unknown as PgModuleLike;
+    const { createRequire } = await import('module');
+    const require = createRequire(import.meta.url);
+    ({ Client } = require('pg') as { Client: PgClientConstructor });
   } catch {
     logger.warn('Aiven provider: `pg` package not installed — run `npm install pg`');
     return secrets;
   }
-
-  const client = new pgModule.Client({
+  const client = new Client({
     connectionString: connectionUrl,
     ssl: { rejectUnauthorized: true },
     connectionTimeoutMillis: 5000,
@@ -100,7 +114,7 @@ async function loadFromAiven(connectionUrl: string): Promise<Record<string, stri
       return secrets;
     }
 
-    const { rows } = await client.query<{ key: string; value: string }>(
+    const { rows } = await client.query<PgRow>(
       `SELECT key, pgp_sym_decrypt(value, $1) AS value FROM app_secrets`,
       [vaultKey],
     );
@@ -126,10 +140,12 @@ async function getGcpAccessToken(): Promise<string | null> {
     );
     if (res.ok) {
       const data = (await res.json()) as { access_token?: string };
-      if (data.access_token) return data.access_token;
+      if (data.access_token) {
+        return data.access_token;
+      }
     }
   } catch {
-    // Not on GCP — fall through to gcloud CLI
+    // Not on GCP — fall through to gcloud CLI.
   }
 
   try {
@@ -178,7 +194,7 @@ async function loadFromGcp(projectId: string): Promise<Record<string, string>> {
         secrets[envVar] = Buffer.from(b64, 'base64').toString('utf-8');
       }
     } catch {
-      // Individual secret fetch failure — skip
+      // Individual secret fetch failure — skip.
     }
   });
 
@@ -186,16 +202,6 @@ async function loadFromGcp(projectId: string): Promise<Record<string, string>> {
   return secrets;
 }
 
-/**
- * Load secrets from configured vault provider into process.env.
- *
- * Set VAULT_PROVIDER to enable:
- *   - "aiven" (recommended, EU-sovereign) — needs AIVEN_DATABASE_URL + AIVEN_VAULT_KEY
- *   - "gcp" — needs GCP_PROJECT_ID
- *
- * Legacy: GCP_SECRET_LOADER=true still works (maps to VAULT_PROVIDER=gcp).
- * Never overwrites already-set env vars.
- */
 export async function loadSecrets(): Promise<void> {
   let provider = process.env.VAULT_PROVIDER?.toLowerCase();
 
