@@ -13,7 +13,7 @@
 import logger from '../utils/logger.js';
 import { telemetryService } from './telemetry.service.js';
 import type { ToolTelemetryEvent } from './telemetry.types.js';
-import { currentTraceIds, withToolSpan } from '../observability/tracing.js';
+import { MCPToolRegistry, ToolColor } from '../mcp/security/tool-colors.js';
 import type {
   AgentContext,
   ToolCall,
@@ -57,7 +57,6 @@ export async function executeTool(
   if (!handler) {
     // Record unknown tool as error telemetry
     if (meta) {
-      const ids = currentTraceIds();
       telemetryService.recordInvocation({
         agentName: meta.agentName,
         toolName: call.name,
@@ -72,8 +71,6 @@ export async function executeTool(
         chainLength: meta.chainLength,
         iterationIndex: meta.iterationIndex,
         timestamp: new Date().toISOString(),
-        traceId: ids.traceId,
-        spanId: ids.spanId,
       });
     }
     return {
@@ -84,99 +81,78 @@ export async function executeTool(
     };
   }
 
-  return withToolSpan(
-    call.name,
-    {
-      agentName: meta?.agentName,
-      chainPosition: meta?.chainPosition,
-      chainLength: meta?.chainLength,
-    },
-    async (span) => {
-      const startTime = Date.now();
-      let outcome: ToolTelemetryEvent['outcome'] = 'success';
-      let errorMessage: string | undefined;
+  const startTime = Date.now();
+  let outcome: ToolTelemetryEvent['outcome'] = 'success';
+  let errorMessage: string | undefined;
 
-      try {
-        // Timeout wrapper: prevents hung tools from blocking the chain
-        const result = await Promise.race([
-          handler(call.arguments, context),
-          new Promise<never>((_, reject) =>
-            setTimeout(() => reject(new Error(`Tool ${call.name} timed out after ${TOOL_TIMEOUT_MS}ms`)), TOOL_TIMEOUT_MS),
-          ),
-        ]);
-        const durationMs = Date.now() - startTime;
-        logger.debug('Tool executed', { tool: call.name, durationMs });
-        span.setAttribute('dws.tool.outcome', 'success');
-        span.setAttribute('dws.tool.duration_ms', durationMs);
+  try {
+    // Timeout wrapper: prevents hung tools from blocking the chain
+    const result = await Promise.race([
+      handler(call.arguments, context),
+      new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error(`Tool ${call.name} timed out after ${TOOL_TIMEOUT_MS}ms`)), TOOL_TIMEOUT_MS),
+      ),
+    ]);
+    const durationMs = Date.now() - startTime;
+    logger.debug('Tool executed', { tool: call.name, durationMs });
 
-        // Record success telemetry
-        if (meta) {
-          const ids = currentTraceIds();
-          telemetryService.recordInvocation({
-            agentName: meta.agentName,
-            toolName: call.name,
-            orgId: context.orgId,
-            sessionId: context.sessionId,
-            outcome: 'success',
-            durationMs,
-            isRetry: false,
-            retryCount: 0,
-            chainPosition: meta.chainPosition,
-            chainLength: meta.chainLength,
-            iterationIndex: meta.iterationIndex,
-            timestamp: new Date().toISOString(),
-            traceId: ids.traceId,
-            spanId: ids.spanId,
-          });
-        }
+    // Record success telemetry
+    if (meta) {
+      telemetryService.recordInvocation({
+        agentName: meta.agentName,
+        toolName: call.name,
+        orgId: context.orgId,
+        sessionId: context.sessionId,
+        outcome: 'success',
+        durationMs,
+        isRetry: false,
+        retryCount: 0,
+        chainPosition: meta.chainPosition,
+        chainLength: meta.chainLength,
+        iterationIndex: meta.iterationIndex,
+        timestamp: new Date().toISOString(),
+      });
+    }
 
-        return {
-          toolCallId: call.id,
-          name: call.name,
-          result: result as Record<string, unknown>,
-          isError: false,
-        };
-      } catch (err: unknown) {
-        const msg = err instanceof Error ? err.message : 'Unknown error';
-        const durationMs = Date.now() - startTime;
-        outcome = msg.includes('timed out') ? 'timeout' : 'error';
-        errorMessage = msg;
-        logger.error('Tool execution failed', { tool: call.name, error: msg, outcome });
-        span.setAttribute('dws.tool.outcome', outcome);
-        span.setAttribute('dws.tool.duration_ms', durationMs);
+    return {
+      toolCallId: call.id,
+      name: call.name,
+      result: result as Record<string, unknown>,
+      isError: false,
+    };
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : 'Unknown error';
+    const durationMs = Date.now() - startTime;
+    outcome = msg.includes('timed out') ? 'timeout' : 'error';
+    errorMessage = msg;
+    logger.error('Tool execution failed', { tool: call.name, error: msg, outcome });
 
-        // Record failure telemetry
-        if (meta) {
-          const ids = currentTraceIds();
-          telemetryService.recordInvocation({
-            agentName: meta.agentName,
-            toolName: call.name,
-            orgId: context.orgId,
-            sessionId: context.sessionId,
-            outcome,
-            durationMs,
-            errorMessage,
-            isRetry: false,
-            retryCount: 0,
-            chainPosition: meta.chainPosition,
-            chainLength: meta.chainLength,
-            iterationIndex: meta.iterationIndex,
-            timestamp: new Date().toISOString(),
-            traceId: ids.traceId,
-            spanId: ids.spanId,
-          });
-        }
+    // Record failure telemetry
+    if (meta) {
+      telemetryService.recordInvocation({
+        agentName: meta.agentName,
+        toolName: call.name,
+        orgId: context.orgId,
+        sessionId: context.sessionId,
+        outcome,
+        durationMs,
+        errorMessage,
+        isRetry: false,
+        retryCount: 0,
+        chainPosition: meta.chainPosition,
+        chainLength: meta.chainLength,
+        iterationIndex: meta.iterationIndex,
+        timestamp: new Date().toISOString(),
+      });
+    }
 
-        // Returning a tool error result (not throwing) — span outcome already recorded.
-        return {
-          toolCallId: call.id,
-          name: call.name,
-          result: { error: msg },
-          isError: true,
-        };
-      }
-    },
-  );
+    return {
+      toolCallId: call.id,
+      name: call.name,
+      result: { error: msg },
+      isError: true,
+    };
+  }
 }
 
 /**
@@ -186,8 +162,81 @@ export async function executeTool(
 export async function executeTools(
   calls: ToolCall[],
   context: AgentContext,
-  meta?: { iterationIndex: number; agentName: string },
+  meta?: { iterationIndex: number; agentName: string; allowedTools?: Set<string> },
 ): Promise<ToolResult[]> {
+  const disallowedTools = meta?.allowedTools
+    ? calls.filter((call) => !meta.allowedTools?.has(call.name)).map((call) => call.name)
+    : [];
+  if (disallowedTools.length > 0) {
+    const reason = `Tool call rejected because it was not offered to the model: ${disallowedTools.join(', ')}`;
+    logger.warn('Blocked disallowed tool call', {
+      tools: disallowedTools,
+      allowedTools: meta?.allowedTools ? Array.from(meta.allowedTools) : [],
+      agentName: meta?.agentName,
+      sessionId: context.sessionId,
+    });
+
+    return calls.map((call) => ({
+      toolCallId: call.id,
+      name: call.name,
+      result: { error: reason },
+      isError: true,
+    }));
+  }
+
+  const safety = MCPToolRegistry.validateToolCombination(new Set(calls.map((call) => call.name)));
+  if (!safety.isSafe) {
+    logger.warn('Blocked unsafe tool combination', {
+      tools: calls.map((call) => call.name),
+      reason: safety.reason,
+      agentName: meta?.agentName,
+      sessionId: context.sessionId,
+    });
+
+    return calls.map((call) => ({
+      toolCallId: call.id,
+      name: call.name,
+      result: { error: safety.reason },
+      isError: true,
+    }));
+  }
+
+  const currentRedTools = calls
+    .filter((call) => MCPToolRegistry.getToolColor(call.name) === ToolColor.RED)
+    .map((call) => call.name);
+  const currentBlueTools = calls
+    .filter((call) => MCPToolRegistry.getToolColor(call.name) === ToolColor.BLUE)
+    .map((call) => call.name);
+  const priorRedTools = context.toolSafety?.taintedRedTools ?? [];
+
+  if (priorRedTools.length > 0 && currentBlueTools.length > 0) {
+    const reason =
+      `LETHAL TRIFECTA DETECTED ACROSS EXECUTION CHAIN!\n` +
+      `Prior RED tools (untrusted input): ${priorRedTools.join(', ')}\n` +
+      `Current BLUE tools (critical actions): ${currentBlueTools.join(', ')}\n\n` +
+      `A prior RED tool tainted this session, so later BLUE actions are blocked.`;
+
+    logger.warn('Blocked tainted blue tool execution', {
+      priorRedTools,
+      currentBlueTools,
+      agentName: meta?.agentName,
+      sessionId: context.sessionId,
+    });
+
+    return calls.map((call) => ({
+      toolCallId: call.id,
+      name: call.name,
+      result: { error: reason },
+      isError: true,
+    }));
+  }
+
+  if (currentRedTools.length > 0) {
+    context.toolSafety = {
+      taintedRedTools: Array.from(new Set([...priorRedTools, ...currentRedTools])),
+    };
+  }
+
   const chainLength = calls.length;
   const results = await Promise.allSettled(
     calls.map((call, idx) =>

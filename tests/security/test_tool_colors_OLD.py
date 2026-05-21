@@ -4,7 +4,7 @@ Tests for MCP Colors Framework
 Based on Simon Willison: "MCP Colors" (2025-11-04)
 """
 
-from src.mcp.security.tool_colors import MCPToolRegistry, ToolColor
+from src.mcp.security.tool_colors_OLD import MCPToolRegistry, ToolColor
 
 
 class TestMCPToolColors:

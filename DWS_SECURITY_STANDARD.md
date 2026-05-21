@@ -1,8 +1,8 @@
 ---
 title: DWS Security Standard
-version: 2.3
+version: 2.4
 created: 2026-02-07
-last_modified: 2026-05-12
+last_modified: 2026-05-20
 author: Lifetime Oy Security Team
 language: en
 languages_available: [en]
@@ -19,11 +19,12 @@ toc-depth: 3
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.3
+Version: 2.4
 
 Sessions & Modifications:
 
-- Version: 2.3 | Tool: Claude Code (Opus 4.7) | Session: claude/deployment-strategies-comparison-T5gcw | Date: 12.05.2026 | Changes: Added Section 20 (Related Standards) with back-reference to `DWS_DEPLOYMENT_STANDARD.md` v1.0. The Deployment Standard makes Code Versioning (§19 of `DWS_DOCUMENT_STANDARD.md`), Article 12 logging (`DWS_ARTICLE_12_LOGGING_STANDARD.md`), KYA-bound deploy authority, and Observability minimums deploy-gate prerequisites that this Security Standard's controls feed into. No edit to existing sections 1–19.
+- Version: 2.4 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: pr-1368-review | Date: 20.05.2026 | Changes: Corrected PR #1368 integration status and versioning; enabled TypeScript redirect sanitization in the Express stack and CSRF enforcement on auth/payment routes; added Vitest coverage for the TypeScript security ports; switched MCP tool classification to fail closed for unknown tools; updated testing and pentest references to the TypeScript paths.
+- Version: 2.3 | Tool: GitHub Copilot (Gemini 2.0 Flash) | Session: claude/mvp-missing-features-pS9La | Date: 20.05.2026 | Changes: Ported legacy November 2025 security components from Python/Flask to TypeScript/Express (Modern CSRF, Redirect Validation, MCP DCR, Tool Colors, Image Prompt Injection); archived legacy Python components as _OLD.py.
 - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/connect-kya-dws-cli-0MMIB | Date: 10.04.2026 | Changes: Added Section 18.6 (KYA Control Surfaces — CLI, HTTP, Webhook) documenting the `dws kya status` / `dws kya snap` CLI paths, timing-safe `ADMIN_API_KEY` auth pattern, mandatory forensic dumps, accepted reason codes, and cross-reference to `/kya` slash command; renumbered NIS2 compliance statement to 18.7 and updated it to mention operator CLI path
 - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/audit-shufti-dpa-artifacts-HFEGx | Date: 08.04.2026 | Changes: Updated Section 18.5 with Shufti Pro sub-processor risk assessment (TeleSign noyb complaint, Twilio security incidents, Cloudflare/IPStack risks) from PR #768 DPA clause audit; added ML training prohibition control to IDV partner controls table
 - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/dws-iq-synthetic-nervous-9TtAB | Date: 06.04.2026 | Changes: Added Section 19 (Synthetic Data & Model Fine-Tuning Security) — synthetic data generation controls, model provenance, inference isolation, drift monitoring, adversarial integrity, NIS2 compliance statement for NVIDIA NeMo DataDesigner integration
@@ -46,7 +47,7 @@ Session Links & References:
 Document Status:
 
 - Created: 07.02.2026
-- Last Modified: 12.05.2026
+- Last Modified: 20.05.2026
 - Language: English
 - Languages Available: EN
 - Publication Status: ACTIVE
@@ -270,27 +271,28 @@ The AI Safety Report 2026 recommends **defence-in-depth** — layering multiple 
 
 **Purpose:** Prevent cross-domain attacks and privilege escalation through tool separation.
 
-| Control                          | Implementation                                        | Status |
-| -------------------------------- | ----------------------------------------------------- | ------ |
-| RED/BLUE tool separation         | MCP Colors prevents mixing untrusted + critical tools | Active |
-| Tool approval workflow           | MCP tool access requires authorization                | Active |
-| Protected configuration          | Immutable config with restricted write access         | Active |
-| Cross-agent privilege prevention | ProtectedConfiguration class (src/config/)            | Active |
+| Control                          | Implementation                                                                     | Status |
+| -------------------------------- | ---------------------------------------------------------------------------------- | ------ |
+| RED/BLUE tool separation         | MCP Colors classification library with fail-closed handling for unknown tools (src/mcp/security/tool-colors.ts) | Active |
+| Tool approval workflow           | MCP tool access requires authorization                                             | Active |
+| Protected configuration          | Immutable config with restricted write access                                      | Active |
+| Cross-agent privilege prevention | ProtectedConfiguration class (src/config/)                                         | Active |
+| Dynamic Client Registration      | RFC 7591 compliant MCP registration utility for MCP integrations (src/mcp/oauth-handler.ts) | Integration-ready |
 
 ### Layer 3: Data Protection
 
 **Purpose:** Prevent data exfiltration, injection, and unauthorized access.
 
-| Control                          | Implementation                                                      | Status |
-| -------------------------------- | ------------------------------------------------------------------- | ------ |
-| Domain validation                | Domain Validator prevents data exfiltration to unauthorized domains | Active |
-| File access control              | Protected system files from agent modification                      | Active |
-| CSRF protection                  | Modern Sec-Fetch-Site based CSRF middleware (94.18% coverage)       | Active |
-| Redirect validation              | Open redirect prevention                                            | Active |
-| SQL injection prevention         | Secure Query Builder (parameterized queries)                        | Active |
-| Image prompt injection detection | Detects hidden instructions in uploaded images                      | Active |
-| Encryption at rest               | AES-256-GCM with customer-managed keys (BYOK/CMEK)                  | Active |
-| Encryption in transit            | TLS 1.3, mTLS for service-to-service                                | Active |
+| Control                          | Implementation                                                                   | Status |
+| -------------------------------- | -------------------------------------------------------------------------------- | ------ |
+| Domain validation                | Domain Validator prevents data exfiltration to unauthorized domains              | Active |
+| File access control              | Protected system files from agent modification                                   | Active |
+| CSRF protection                  | Modern Sec-Fetch-Site based CSRF on `/api/v1/auth` and `/api/v1/payments` (src/middleware/csrf-protection.ts) | Active |
+| Redirect validation              | Open redirect prevention applied to Express query handling (src/middleware/redirect-validator.ts) | Active |
+| SQL injection prevention         | Secure Query Builder (parameterized queries)                                     | Active |
+| Image prompt injection detection | Detects hidden instructions in images (src/mcp/security/image-sanitizer.ts)      | Integration-ready |
+| Encryption at rest               | AES-256-GCM with customer-managed keys (BYOK/CMEK)                               | Active |
+| Encryption in transit            | TLS 1.3, mTLS for service-to-service                                             | Active |
 
 ### Layer 4: Human Oversight (Firehorse Human-in-the-Loop)
 
@@ -353,7 +355,7 @@ Supabase (production) → pg_dump (daily) → 4 destinations:
 | DR-3 | Backup encryption             | GPG symmetric AES-256 encryption before any cloud/remote transfer. Unencrypted dumps deleted after encryption. Passphrase in `.env` (never hardcoded).        | `gpg --symmetric --cipher-algo AES256`                        | Active |
 | DR-4 | Restore verification          | Row count snapshot (`row_counts.json`) taken during backup, compared after Aiven restore. Delta > 5% triggers warning.                                        | `Backup-Database.ps1`, `Mirror-ToAiven.ps1`                   | Active |
 | DR-5 | Sandbox mirror (Aiven)        | Daily mirror to Aiven PostgreSQL (EU Finland) for agent work and LWM training. Also serves as warm standby. Auth stubs for RLS compatibility.                 | `Mirror-ToAiven.ps1`, `aiven-init.sql`                        | Active |
-| DR-6 | Human gate on destructive ops | No `DROP DATABASE`, `terraform destroy`, or schema-breaking migrations without human approval. AI agents generate plans; humans execute destructive commands. | PR review gate, Marcus review                                 | Active |
+| DR-6 | Human gate on destructive ops | No `DROP DATABASE`, `terraform destroy`, or schema-breaking migrations without human approval. AI agents generate plans; humans execute destructive commands. | PR review gate, Boardy review                                 | Active |
 | DR-7 | Deletion protection           | Supabase project-level deletion protection enabled in dashboard. Aiven service termination protection enabled.                                                | Provider dashboard settings                                   | Active |
 
 **RTO/RPO Targets:**
@@ -585,15 +587,15 @@ DWS threat modeling uses **MITRE ATLAS** (Adversarial Threat Landscape for AI Sy
 
 ### 9.1 Current Compliance Status
 
-| Regulation               | Readiness | Deadline                                                                                                                                                          | DWS Action Required                                                                                                                                                                               |
-| ------------------------ | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **EU AI Act**            | 80%       | Annex III: **2 Dec 2027**; Annex I embedded: **2 Aug 2028** (Omnibus provisional agreement 7 May 2026; was 2 Aug 2026). Art. 12 + Art. 50 obligations active now. | Close Article 12 logging gaps, complete technical documentation. Art. 12 substance unchanged — logging remains mandatory. Lighter QMS/doc burden for SMEs per Omnibus proportionality provisions. |
-| **GDPR**                 | 95%       | Active                                                                                                                                                            | Maintain DPA readiness, quarterly privacy review                                                                                                                                                  |
-| **NIS2 Directive**       | 75%       | Active                                                                                                                                                            | Expand incident response, strengthen supply chain security                                                                                                                                        |
-| **Fit for 55**           | 90%       | Ongoing                                                                                                                                                           | Validate carbon footprint calculator, expand industry coverage                                                                                                                                    |
-| **CSRD**                 | 85%       | Active                                                                                                                                                            | Automate sustainability reporting for client portfolio                                                                                                                                            |
-| **Digital Services Act** | 90%       | Active                                                                                                                                                            | Voluntary compliance with Articles 14-24                                                                                                                                                          |
-| **EU Data Act**          | 80%       | Active                                                                                                                                                            | Data portability (NDJSON/Parquet), sovereignty options                                                                                                                                            |
+| Regulation               | Readiness | Deadline                                                                                                                                                                                  | DWS Action Required                                                                                                                                                                   |
+| ------------------------ | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **EU AI Act**            | 80%       | August 2, 2026 (original); **Dec 2027 if Omnibus passes** — high-risk applicability now tied to availability of harmonised standards/guidance per Nov 2025 Digital Omnibus on AI proposal | Close Article 12 logging gaps, complete technical documentation. **Note:** Omnibus does NOT weaken Article 12 substance — logging remains mandatory. Lighter QMS/doc burden for SMEs. |
+| **GDPR**                 | 95%       | Active                                                                                                                                                                                    | Maintain DPA readiness, quarterly privacy review                                                                                                                                      |
+| **NIS2 Directive**       | 75%       | Active                                                                                                                                                                                    | Expand incident response, strengthen supply chain security                                                                                                                            |
+| **Fit for 55**           | 90%       | Ongoing                                                                                                                                                                                   | Validate carbon footprint calculator, expand industry coverage                                                                                                                        |
+| **CSRD**                 | 85%       | Active                                                                                                                                                                                    | Automate sustainability reporting for client portfolio                                                                                                                                |
+| **Digital Services Act** | 90%       | Active                                                                                                                                                                                    | Voluntary compliance with Articles 14-24                                                                                                                                              |
+| **EU Data Act**          | 80%       | Active                                                                                                                                                                                    | Data portability (NDJSON/Parquet), sovereignty options                                                                                                                                |
 
 ### 7.2 Safety Report-Driven Compliance Actions
 
@@ -697,7 +699,7 @@ DWS Security Standard (this document)
 └── IMPLEMENTATION
     ├── src/config/protected_config.py     ← Protected configuration
     ├── src/mcp/security/                  ← MCP security modules
-    ├── src/web/                           ← CSRF, redirect validation
+    ├── src/middleware/                    ← CSRF, redirect validation
     ├── src/database/                      ← SQL injection prevention
     └── .github/workflows/security-*.yml   ← 8 security workflows
 ```
@@ -1596,16 +1598,7 @@ DWS IQ integrates NVIDIA NeMo DataDesigner to generate synthetic regulatory data
 
 ---
 
-## 20. Related Standards
-
-- `DWS_DEPLOYMENT_STANDARD.md` v1.0 — Per-Surface deploy ontology, gates, per-tenant manifests (File Index, Per-Tenant Secrets, Personnel, Connector Data Catalogue), and Client Artifact Bundle. Makes the following Security-Standard controls deploy-gate prerequisites: §3.6 RLS coverage check (read at gate time), §14 sandbox isolation (per-environment Memory isolation in `DWS_DEPLOYMENT_STANDARD.md` §6.3), §18 KYA framework (deploy authority gate in `DWS_DEPLOYMENT_STANDARD.md` §4), and the scattered secret-rotation references that the Deployment Standard promotes to a Rotation Event (`secret.rotated`).
-- `DWS_ARTICLE_12_LOGGING_STANDARD.md` v1.0 — EU AI Act Article 12 audit pipeline; runtime probe is a deploy-gate per `DWS_DEPLOYMENT_STANDARD.md` §4.
-- `DWS_SOVEREIGNTY_STANDARD.md` v1.2 — EU sovereignty + Cloud Jurisdiction binding for cross-cloud deploys.
-- `DWS_DATA_STANDARD.md` v2.0 — data residency, schema versioning, backup RTO / RPO referenced from `DWS_DEPLOYMENT_STANDARD.md` Verification Contract.
-
----
-
-**Document Version:** 2.3
+**Document Version:** 2.0
 **Classification:** INTERNAL
 **Owner:** Security Team (security@lifetime.fi)
 **Approved by:** Risto Anton Päärni (DPO, dpo@lifetime.fi)

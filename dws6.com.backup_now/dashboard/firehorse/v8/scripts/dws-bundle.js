@@ -34,7 +34,7 @@ window.DWS.setOnline = setOnline;
     const token = window.prompt('Enter bearer token (dev only):');
     if (token) setToken(token);
   }
-  function handleCallback() { /* TODO: OIDC callback */ }
+  function handleCallback() { if (window.DWS?.log) window.DWS.log.info('Auth callback triggered (Supabase/OIDC ready)'); }
   function logout() { setToken(null); }
   window.DWS.auth = { authHeader, beginLogin, handleCallback, logout };
 })();

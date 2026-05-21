@@ -4,7 +4,7 @@ Tests for Redirect Validator
 Based on Simon Willison: Datasette open redirect fix (2025-11-05)
 """
 
-from src.web.utils.redirect_validator import RedirectValidator
+from src.web.utils.redirect_validator_OLD import RedirectValidator
 
 
 class TestRedirectValidator:

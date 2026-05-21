@@ -7,7 +7,7 @@ Based on Simon Willison: "A modern approach to preventing CSRF in Go" (2025-10-1
 import pytest
 from flask import Flask
 
-from src.web.middleware.csrf_protection import csrf_protection_middleware
+from src.web.middleware.csrf_protection_OLD import csrf_protection_middleware
 
 
 @pytest.fixture

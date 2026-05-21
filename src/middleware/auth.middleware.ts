@@ -52,6 +52,12 @@ export const authenticateToken = async (req: Request, res: Response, next: NextF
     req.userId = decoded.userId;
     req.userEmail = decoded.email;
     req.userRole = decoded.role as UserRole; // Extract role for requireRole middleware
+    req.organizationId =
+      typeof decoded.organizationId === 'string'
+        ? decoded.organizationId
+        : typeof decoded.orgId === 'string'
+          ? decoded.orgId
+          : undefined;
     req.token = token;
 
     logger.debug('Token verified successfully', { userId: decoded.userId, role: decoded.role });
