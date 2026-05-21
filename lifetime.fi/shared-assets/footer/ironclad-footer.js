@@ -16,6 +16,12 @@
 (function () {
   'use strict';
 
+  const hostname = window.location.hostname;
+  const regulatoryNoticeHref =
+    hostname === 'dws10.com' || hostname === 'www.dws10.com'
+      ? '/regulatory-notice/'
+      : 'https://dws10.com/legal/';
+
   const footerCSS = `
 /* === DWS10.com Iron Clad Footer v1.2 === */
 .ironclad-footer { background: #1e293b; border-top: 1px solid #334155; color: #94a3b8; font-size: 0.875rem; font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif; }
@@ -100,7 +106,7 @@
             <a href="/fit-for-55/">Fit for 55</a>
             <a href="/csrd/">CSRD Reporting</a>
             <a href="/compliance/">EU AI Act</a>
-            <a href="/regulatory-notice/">Regulatory Notice</a>
+            <a href="${regulatoryNoticeHref}">Regulatory Notice</a>
             <a href="/dual-use/">Dual Use</a>
             <a href="/calculator/">Carbon Calculator</a>
         </div>
@@ -139,13 +145,13 @@
     </div>
     <div class="ironclad-footer-bottom">
         <div class="ironclad-footer-legal">
-            <a href="/terms/">Website Terms</a>
+            <a href="/legal/">Legal Hub</a>
             <a href="/privacy-policy/">Privacy Policy</a>
             <a href="/return-policy/">Return Policy</a>
             <a href="/data-handling-policy/">Data Handling</a>
             <a href="/data-security-policy/">Data Security</a>
             <a href="/investment-safety/">Investment Safety</a>
-            <a href="/regulatory-notice/">Regulatory Notice</a>
+            <a href="${regulatoryNoticeHref}">Regulatory Notice</a>
         </div>
         <div class="ironclad-footer-copyright">
             DWS IQ Aegis &mdash; Sovereign AI for EU defence supply chains &middot; Lifetime Oy (Y-tunnus 0772407-9) &middot; 100&nbsp;% Finnish owned limited company<br>&copy; 2026 Lifetime Oy &middot; VAT FI07724079 &middot; GDPR &middot; DSA &middot; NIS2 &middot; EU AI Act

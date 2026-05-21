@@ -80,6 +80,14 @@
             logoAlt: 'DWS IQ Platform',
             title: 'DWS IQ Platform Version 6',
           };
+  const regulatoryNoticeHref =
+    hostname === 'dws10.com' || hostname === 'www.dws10.com'
+      ? `${basePath}regulatory-notice/`
+      : 'https://dws10.com/legal/';
+  const priceListHref =
+    hostname === 'dws10.com' || hostname === 'www.dws10.com'
+      ? `${basePath}price-list/`
+      : 'https://dws10.com/price-list/';
 
   // Navigation HTML (Gamma-aligned with hamburger support)
   const navHTML = `
@@ -236,7 +244,7 @@
                                 <li><a href="${basePath}series-a/" style="color: #d4a843; font-weight: 600;">Series A</a></li>
                                 <li><a href="${basePath}fleet-admiral/" style="color: #ffd700; font-weight: 700;">⚓ Fleet Admiral</a></li>
                                 <li><a href="${basePath}captain/" style="color: #d4a843; font-weight: 600;">Industry Captain Seats</a></li>
-                                <li><a href="${basePath}regulatory-notice/">Regulatory Notice</a></li>
+                                <li><a href="${regulatoryNoticeHref}">Regulatory Notice</a></li>
                             </ul>
                         </li>
                         <li class="ironclad-separator"></li>
@@ -1116,7 +1124,7 @@
           'buy/" class="ironclad-primary">Buy / Store</a></li>' +
           '<li><a href="' +
           basePath +
-          'price-list/" class="ironclad-primary">View full Price List →</a></li>';
+          `${priceListHref}" class="ironclad-primary">View full Price List →</a></li>`;
         menu.dataset.productsMenu = 'fallback';
         attachMobileToggles(menu);
       }
@@ -1180,7 +1188,7 @@
             '<li class="ironclad-separator"></li>' +
             '<li><a href="' +
             basePath +
-            'price-list/" class="ironclad-primary">View full Price List →</a></li>' +
+            `${priceListHref}" class="ironclad-primary">View full Price List →</a></li>` +
             '<li><a href="' +
             basePath +
             'buy/">Buy / Store</a></li>';
