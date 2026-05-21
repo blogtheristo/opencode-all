@@ -14,7 +14,7 @@
         "Amplify Fit for 55, CSRD & EPBD reporting",
         "90% reduction in manual compliance hours"
       ],
-      "priceNote": "One-time deployment + €499/mo subscription",
+      "priceNote": "One-time deployment",
       "revolutLink": "https://checkout.revolut.com/pay/f023d433-0bf4-48fa-98cd-494de448df39",
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -80,7 +80,7 @@
         "First CSRD reporting deadline ready",
         "Operational in 30 days"
       ],
-      "priceNote": "One-time + €1,999/year",
+      "priceNote": "One-time",
       "revolutLink": "https://checkout.revolut.com/pay/065b9efd-5fd1-43aa-bfb9-869c41c2b01f",
       "paypalPlanId": null,
       "image": "/static/images/8_Industries.png",
@@ -308,7 +308,7 @@
         "40% cost reduction typical",
         "Board-level advisory included"
       ],
-      "priceNote": "Monthly",
+      "priceNote": "Retainer €3,600 | 3x8 hours",
       "revolutLink": "https://checkout.revolut.com/pay/21589576-b397-474c-bfb8-4719723155fd",
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
@@ -813,7 +813,7 @@
       "id": "devops-lead",
       "gtin": null,
       "mpn": "DEVOPS-LEAD-2026",
-      "name": "Manufacturing AI Readiness Assessment",
+      "name": "Assessment",
       "price": 2500,
       "currency": "EUR",
       "type": "one-time",
@@ -951,7 +951,7 @@
         "AGENTS.md workshops & restructuring",
         "Quality governance setup"
       ],
-      "priceNote": "Assessment from €2,500 | Retainers from €5,000/mo",
+      "priceNote": "Assessment from €2,500 | Retainer 4x8h = €4,800",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
@@ -983,7 +983,7 @@
         "NVIDIA model installation included — €995 (CUDA + NIMs + Cosmos + MCP + Article 12 log)",
         "Choose your model bundle: VPK Ops · Compliance · Construction · Custom"
       ],
-      "priceNote": "€5,294 one-time · €4,299 hardware (Acer Veriton GN100, Finnish/EMEA channel) + €995 NVIDIA model installation · DWS IQ subscription separate · Finnish / EU B2B (VAT 0% reverse charge)",
+      "priceNote": "€5,294 one-time · €4,299 hardware (Acer Veriton GN100, Finnish/EMEA channel) + €995 NVIDIA model installation · Finnish / EU B2B (VAT 0% reverse charge)",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -1017,7 +1017,7 @@
         "Wider model selection: vision, acoustic, language, reasoning, voice — all NVIDIA NIMs",
         "Choose your bundle: VPK Drone Defense · Crisis Coordination · Compliance + Defence · Full Sovereign"
       ],
-      "priceNote": "€10,093 one-time · 2× €4,299 hardware (bridged Acer Veriton GN100 pair) + €1,495 NVIDIA model install for the bridged pair · DWS IQ subscription separate · Finnish / EU B2B (VAT 0% reverse charge)",
+      "priceNote": "€10,093 one-time · 2× €4,299 hardware (bridged Acer Veriton GN100 pair) + €1,495 NVIDIA model install for the bridged pair · Finnish / EU B2B (VAT 0% reverse charge)",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -1050,7 +1050,7 @@
         "NVIDIA NIM microservices + Cosmos checkpoints + Isaac ROS + CV-CUDA (per bundle scope)",
         "Operator training + 24/7 support + warranty servicing + remote configuration (via subscription)"
       ],
-      "priceNote": "€995 per edge device · already included in Control Room & Situation Room · service wrap via Sovereign Model Updates Subscription (€299/mo)",
+      "priceNote": "€995 per edge device · already included in Control Room & Situation Room",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -1083,7 +1083,7 @@
         "On-site install + service wrap — €495 (CUDA + NIMs + MCP + Article 12 log)",
         "Built for sensor-edge workflows: drone defense perimeter cams, VPK acoustic pods, SiteSense vision, healthcare bedside dictation"
       ],
-      "priceNote": "€764 one-time · €269 hardware + €495 install · €299/mo subscription separate",
+      "priceNote": "€764 one-time · €269 hardware + €495 install",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -1116,7 +1116,7 @@
         "On-site install + service wrap — €495 (CUDA + NIMs + Isaac ROS + CV-CUDA + MCP + Article 12 log)",
         "Built for sensor-concentrator workflows: VPK drone defense forward node, port operations multi-cam, rail wayside, energy substation"
       ],
-      "priceNote": "€2,694 one-time · €2,199 hardware (NVIDIA AGX Orin 64 GB Dev Kit, EMEA channel) + €495 install · €299/mo subscription separate · Finnish / EU B2B (VAT 0% reverse charge)",
+      "priceNote": "€2,694 one-time · €2,199 hardware (NVIDIA AGX Orin 64 GB Dev Kit, EMEA channel) + €495 install · Finnish / EU B2B (VAT 0% reverse charge)",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -1149,7 +1149,7 @@
         "On-site install + service wrap — €995 (CUDA + NIMs + Cosmos + MCP + Article 12 log)",
         "Pair two for 405 B-param models over the ConnectX-7 200 Gbps link"
       ],
-      "priceNote": "€5,994 one-time · €4,999 hardware + €995 install · €299/mo subscription separate · Finnish / EU B2B (VAT 0% reverse charge)",
+      "priceNote": "€5,994 one-time · €4,999 hardware + €995 install · Finnish / EU B2B (VAT 0% reverse charge)",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -1182,7 +1182,7 @@
         "On-site install + service wrap — €495 (CUDA + NIMs + Isaac ROS + CV-CUDA + MCP + Article 12)",
         "Built for: 2–4 sensor lane node, busier than Nano, lighter than AGX (rail wayside, mid-size kalustohalli, multi-cam factory cell)"
       ],
-      "priceNote": "€1,990 one-time · €1,495 hardware + €495 install · €299/mo subscription separate",
+      "priceNote": "€1,990 one-time · €1,495 hardware + €495 install",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -1215,7 +1215,7 @@
         "10-year NVIDIA enterprise support life cycle (through 2033) — built for medical & industrial procurement",
         "On-site install + service wrap — €995 (CUDA + NIMs + Cosmos + Isaac ROS + Holoscan-ready + MCP + Article 12)"
       ],
-      "priceNote": "€11,990 one-time · €10,995 hardware + €995 install · €299/mo subscription separate · dGPU (RTX PRO 6000) quoted separately · Finnish / EU B2B (VAT 0% reverse charge)",
+      "priceNote": "€11,990 one-time · €10,995 hardware + €995 install · dGPU (RTX PRO 6000) quoted separately · Finnish / EU B2B (VAT 0% reverse charge)",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -1438,13 +1438,13 @@
       "price": 2999,
       "currency": "EUR",
       "type": "monthly",
-      "description": "Deploy 8 GodAgents that deliver audit-ready EU climate compliance outcomes — ETS allowance calculations, CBAM import obligations, CSRD disclosure reports, and continuous carbon accounting. GodAgent-delivered outcomes, not dashboards. The Agent Outcome Factory for climate compliance.",
+      "description": "Deploy 8 Skilled Agents that deliver audit-ready EU climate compliance outcomes — ETS allowance calculations, CBAM import obligations, CSRD disclosure reports, and continuous carbon accounting. Agent-delivered outcomes, not dashboards. The Agent Outcome Factory for climate compliance.",
       "features": [
-        "8 specialized GodAgents for climate compliance",
+        "8 specialized Skilled Agents for climate compliance",
         "ETS, CBAM, CSRD & Fit for 55 automation",
         "Deterministic scoring with validated EU data sources"
       ],
-      "priceNote": "€2,999/mo + €4,990 one-time setup | Annual: 2 months free",
+      "priceNote": "€2,999/mo + €4,990 one-time setup | Annual: 2 months free = €7,990",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
@@ -1477,7 +1477,7 @@
         "EU-sovereign — Finnish-owned infrastructure, zero CLOUD Act exposure",
         "Dual-use compliance — CER, CRM Act, KRITIS, NIS2, EU AI Act, CBAM, ETS"
       ],
-      "priceNote": "From €59,990 onboarding + integration. Standard €999/mo | Defence €1,999/mo | Sovereign €4,999/mo",
+      "priceNote": "From €59,990 onboarding + one-time integration. Standard €999 | Defence €1,999 | Sovereign €4,999",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/firehorse-aegis-head.png",
