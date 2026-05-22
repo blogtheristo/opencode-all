@@ -384,13 +384,17 @@ export function EC3DashboardPage() {
                 />
                 <Tooltip
                   contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', borderRadius: '8px', color: '#f3f4f6' }}
-                  formatter={(value: number, name: string) => {
+                  formatter={(value: number | string | undefined, name: string | undefined) => {
                     const labels: Record<string, string> = { median: 'Median', p10: 'P10 (low)', p90: 'P90 (high)' };
-                    return [`${value.toFixed(3)} kgCO2e/kg`, labels[name] || name];
+                    return [
+                      typeof value === 'number' ? `${value.toFixed(3)} kgCO2e/kg` : `${String(value)} kgCO2e/kg`,
+                      labels[name ?? ''] || name || 'Value',
+                    ];
                   }}
-                  labelFormatter={(label: string) => {
-                    const item = chartData.find((d) => d.name === label);
-                    return item?.fullName || label;
+                  labelFormatter={(label: unknown) => {
+                    const resolvedLabel = String(label ?? '');
+                    const item = chartData.find((d) => d.name === resolvedLabel);
+                    return item?.fullName || resolvedLabel;
                   }}
                 />
                 <Bar dataKey="median" name="median" radius={[4, 4, 0, 0]}>

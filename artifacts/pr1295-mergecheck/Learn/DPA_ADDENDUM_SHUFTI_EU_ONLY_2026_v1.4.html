@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DPA Addendum — Shufti Pro (EU-Only Processing) v1.4</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 20px 40px;
+        line-height: 1.7;
+        color: #1a1a2e;
+        background: #fafafa;
+      }
+      h1 {
+        color: #0f172a;
+        border-bottom: 3px solid #fbbf24;
+        padding-bottom: 10px;
+      }
+      h2 {
+        color: #1e3a5f;
+        border-bottom: 1px solid #e2e8f0;
+        padding-bottom: 8px;
+        margin-top: 40px;
+      }
+      h3 {
+        color: #334155;
+      }
+      h4 {
+        color: #475569;
+      }
+      code {
+        background: #f1f5f9;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.9em;
+      }
+      pre {
+        background: #1e293b;
+        color: #e2e8f0;
+        padding: 16px;
+        border-radius: 8px;
+        overflow-x: auto;
+      }
+      pre code {
+        background: none;
+        color: inherit;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 20px 0;
+      }
+      th,
+      td {
+        border: 1px solid #cbd5e1;
+        padding: 10px 14px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: #1e3a5f;
+        color: #fff;
+      }
+      tr:nth-child(even) {
+        background: #f8fafc;
+      }
+      blockquote {
+        border-left: 4px solid #fbbf24;
+        margin: 20px 0;
+        padding: 10px 20px;
+        background: #fffbeb;
+      }
+      a {
+        color: #2563eb;
+      }
+      strong {
+        color: #0f172a;
+      }
+      ul {
+        margin: 8px 0 16px 24px;
+        padding-left: 0;
+      }
+      li {
+        margin: 4px 0;
+      }
+      .clause {
+        margin: 8px 0;
+      }
+      .source {
+        color: #64748b;
+        font-size: 0.9em;
+        margin-top: 8px;
+      }
+      .sig-block {
+        margin: 16px 0;
+        padding: 12px 0;
+        border-top: 1px solid #e2e8f0;
+      }
+      .sig-line {
+        display: block;
+        margin: 6px 0;
+        font-family: "Courier New", monospace;
+      }
+      .dws-version-banner {
+        background: #1e293b;
+        color: #e2e8f0;
+        padding: 12px 20px;
+        margin: 0 -20px 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+        font-size: 0.85rem;
+      }
+      .dws-version-badge {
+        background: #fbbf24;
+        color: #0f172a;
+        font-weight: 700;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        letter-spacing: 0.04em;
+      }
+      .dws-version-meta {
+        color: #94a3b8;
+        font-size: 0.8rem;
+      }
+      .dws-version-title {
+        color: #e2e8f0;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dws-version-banner">
+      <span class="dws-version-title">DPA Addendum — Shufti Pro (EU-Only Processing)</span>
+      <span class="dws-version-badge">v1.4</span>
+      <span class="dws-version-meta">Lifetime Oy · 2026-04-24 · Learn/ (private)</span>
+    </div>
+
+    <h1>ADDENDUM TO DATA PROCESSING AGREEMENT — EU-Only Processing</h1>
+
+    <p>
+      <strong>Version:</strong> 1.4 &nbsp;·&nbsp; <strong>Date:</strong> 2026-04-24 &nbsp;·&nbsp;
+      <strong>Owner:</strong> Lifetime Oy &nbsp;·&nbsp; <strong>Status:</strong> Ready for Signature
+    </p>
+
+    <h3>Sessions &amp; Modifications</h3>
+    <ul>
+      <li>
+        <strong>v1.4</strong> | Claude Code (Opus 4.7) | Session:
+        <code>claude/fix-dpa-addendum-SzFLQ</code> | 24.04.2026 | Rendering fix: single well-formed
+        DOCTYPE, semantic lists, italics, paragraph blocks. No clause text changes. Scope: addendum
+        only — base Shufti DPA (26.02.2026) not modified.
+      </li>
+      <li>
+        <strong>v1.3</strong> | Codex 5.3 | Session: <code>claude/kya-memory-binding-RuJ0G</code> |
+        23.04.2026 | Switched removed sub-processor row from markdown <code>~~strike~~</code> to
+        semantic HTML <code>&lt;del&gt;</code>. (Artifact superseded — duplicated DOCTYPE in
+        published file.)
+      </li>
+      <li>
+        <strong>v1.2</strong> | Claude Code (Opus 4.7) | Session:
+        <code>claude/kya-memory-binding-RuJ0G</code> | 23.04.2026 | Added Clause 8 (KYA Memory
+        Binding — tenant isolation, no cross-customer blending, memory-mutation audit trail) per
+        public KYA Standard v1.5 §3.
+      </li>
+      <li>
+        <strong>v1.1</strong> | Claude Code (Opus 4.6) | Session:
+        <code>claude/audit-shufti-dpa-artifacts-HFEGx</code> | 08.04.2026 | Added Clause 6 (ML
+        training prohibition) and Clause 7 (GDPR Art. 9 legal basis) per PR #768 audit findings A
+        and #3.
+      </li>
+      <li>
+        <strong>v1.0</strong> | Claude Code | Session: <code>claude/check-dpa-status-YD0A1</code> |
+        07.04.2026 | Initial addendum: EU-only processing, GCP EEA lock, 30-day sub-processor
+        notification, breach notification chain.
+      </li>
+    </ul>
+
+    <hr />
+
+    <h2>Parties</h2>
+    <p>
+      <strong>Data Controller:</strong> Lifetime Oy, Business ID 0772407-9, VAT FI07724079,
+      Laidunmaanraitti 2 A 25, 02330 Espoo, Finland. Represented by Risto Anton Päärni, CEO.
+    </p>
+    <p><strong>Data Processor:</strong> Shufti Pro Limited, registered in the United Kingdom.</p>
+    <p>
+      <strong>Base Agreement:</strong> Shufti Data Processing Agreement dated 26 February 2026 (the
+      &ldquo;DPA&rdquo;).
+    </p>
+
+    <hr />
+
+    <h2>Recitals</h2>
+    <p>WHEREAS the Parties entered into the DPA for identity verification (KYC/IDV) services;</p>
+    <p>
+      WHEREAS Shufti Pro Compliance confirmed EU-only processing and storage capability for Lifetime
+      Oy&rsquo;s account (compliance@shufti.com, 2 April 2026);
+    </p>
+    <p>
+      WHEREAS the Parties wish to incorporate the agreed modifications into the DPA as binding
+      contractual obligations;
+    </p>
+    <p>NOW THEREFORE the Parties agree to amend the DPA as follows:</p>
+
+    <hr />
+
+    <h2>Clause 1: EU-Only Processing and Storage</h2>
+    <p class="clause">
+      <strong>1.1</strong> All processing and storage of Personal Data under this DPA shall take
+      place exclusively within the European Economic Area (EEA).
+    </p>
+    <p class="clause">
+      <strong>1.2</strong> Shufti Pro shall not transfer, store, process, or make accessible any
+      Personal Data — including biometric data (facial images, liveness data), identity document
+      images, and verification results — to or from any location outside the EEA.
+    </p>
+    <p class="clause">
+      <strong>1.3</strong> The sub-processor
+      <strong>Programmers Force (Pvt.) Ltd.</strong> (Pakistan) is hereby removed from the
+      authorized sub-processor list and shall have no access to Lifetime Oy&rsquo;s data under any
+      circumstance.
+    </p>
+    <p class="clause">
+      <strong>1.4</strong> EU-only processing mode shall be enabled at the account level for
+      Lifetime Oy and shall not be disabled without prior written consent from the Data Controller.
+    </p>
+
+    <hr />
+
+    <h2>Clause 2: Google Cloud Infrastructure — EEA Lock</h2>
+    <p class="clause">
+      <strong>2.1</strong> All Google Cloud Platform infrastructure used for processing Lifetime
+      Oy&rsquo;s data shall be locked to EEA regions only.
+    </p>
+    <p class="clause">
+      <strong>2.2</strong> The authorized sub-processor entry for Google Cloud shall read:
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Sub-processor</th>
+          <th>Purpose</th>
+          <th>Data Location</th>
+          <th>Restriction</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Google Cloud (Google LLC)</td>
+          <td>Cloud infrastructure for verification processing</td>
+          <td>EEA only</td>
+          <td>Region-locked; no replication outside EEA</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="clause">
+      <strong>2.3</strong> Any change to Google Cloud region configuration affecting Lifetime
+      Oy&rsquo;s data requires 30 days prior written notice and Data Controller consent.
+    </p>
+
+    <hr />
+
+    <h2>Clause 3: Sub-Processor Notification Period — 30 Days</h2>
+    <p class="clause">
+      <strong>3.1</strong> Article 9 (or equivalent sub-processor clause) of the base DPA is hereby
+      amended: Shufti Pro shall notify Lifetime Oy at least
+      <strong>thirty (30) calendar days</strong> in advance of any intended addition, replacement,
+      or removal of a sub-processor.
+    </p>
+    <p class="clause">
+      <strong>3.2</strong> Lifetime Oy shall have the right to object to any proposed sub-processor
+      change within the 30-day notice period. If Shufti Pro cannot reasonably accommodate the
+      objection, Lifetime Oy may terminate the DPA without penalty.
+    </p>
+
+    <hr />
+
+    <h2>Clause 4: EU-Only Processing Clause — DPA Body Insertion</h2>
+    <p class="clause">
+      <strong>4.1</strong> The following clause shall be inserted into the main body of the DPA as a
+      new article (or appended to the existing data location article):
+    </p>
+    <blockquote>
+      <strong>EU-Only Processing Obligation.</strong> All Personal Data processed under this
+      Agreement, including but not limited to biometric data (GDPR Article 9 special category data),
+      identity document images, verification metadata, and verification results, shall be processed
+      and stored exclusively within the European Economic Area (EEA). No Personal Data shall be
+      transferred to, accessed from, or replicated in any jurisdiction outside the EEA. This
+      obligation applies to all sub-processors engaged by the Data Processor. This clause cannot be
+      waived except by written agreement signed by both Parties.
+    </blockquote>
+
+    <hr />
+
+    <h2>Acknowledged Trade-Off: EU-Only Processing Mode</h2>
+    <p>
+      The Parties acknowledge that EU-only processing mode entails the following operational
+      constraints, as communicated by Shufti Pro Compliance (2 April 2026):
+    </p>
+    <ul>
+      <li>
+        <strong>No model training</strong> — Lifetime Oy&rsquo;s verification data will not be used
+        for Shufti&rsquo;s global AI model training.
+      </li>
+      <li>
+        <strong>No manual verification</strong> — No human reviewer fallback when automated
+        verification returns uncertain results.
+      </li>
+    </ul>
+    <p>
+      The Data Controller accepts these constraints. The absence of model training and manual review
+      is consistent with Lifetime Oy&rsquo;s data sovereignty requirements and the KYA (Know Your
+      Agent) framework.
+    </p>
+
+    <hr />
+
+    <h2>Updated Sub-Processor List (Lifetime Oy Account)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Sub-processor</th>
+          <th>Purpose</th>
+          <th>Data Location</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Google Cloud (Google LLC)</td>
+          <td>Cloud infrastructure</td>
+          <td>EEA only (region-locked)</td>
+          <td>ACTIVE</td>
+        </tr>
+        <tr>
+          <td><del>Programmers Force (Pvt.) Ltd.</del></td>
+          <td><del>Development support</del></td>
+          <td><del>Pakistan</del></td>
+          <td>REMOVED</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr />
+
+    <h2>Clause 5: Breach Notification — 48h/72h Chain</h2>
+    <p class="clause">
+      <strong>5.1</strong> The 48-hour breach notification deadline in the base DPA (Article 6.1) is
+      an internal processor-to-controller deadline. It provides Lifetime Oy with a 24-hour
+      assessment window before the statutory 72-hour obligation to notify the Finnish Data
+      Protection Authority (Tietosuojavaltuutetun toimisto) per GDPR Article 33.
+    </p>
+    <p class="clause">
+      <strong>5.2</strong> Upon receipt of Shufti Pro&rsquo;s 48-hour breach notification, Lifetime
+      Oy shall execute the following internal procedure:
+    </p>
+    <ul>
+      <li>
+        <strong>T+0h:</strong> Log breach receipt in Supabase
+        <code>breach_notifications</code> table with timestamp, breach category, and affected data
+        subjects estimate.
+      </li>
+      <li>
+        <strong>T+0–12h:</strong> Assess severity — determine if breach involves biometric data
+        (Art. 9), scale of data subjects affected, and likelihood of risk to rights and freedoms.
+      </li>
+      <li>
+        <strong>T+12–20h:</strong> Prepare notification to Tietosuojavaltuutetun toimisto (Finnish
+        DPA) using the authority&rsquo;s online form. Draft data subject notification if required
+        under GDPR Article 34.
+      </li>
+      <li>
+        <strong>T+20–24h (hard deadline):</strong> Submit notification to Finnish DPA. This leaves
+        48h buffer before the statutory 72h GDPR Article 33 deadline expires.
+      </li>
+    </ul>
+    <p>
+      Automated daily monitoring (<code>scripts/daily/check-breach-deadlines.ts</code>) alerts at
+      24h (internal review deadline) and 48h (last call before statutory 72h). All checks are logged
+      to Supabase <code>audit_log</code> for traceability.
+    </p>
+
+    <hr />
+
+    <h2>Clause 6: Prohibition on Machine Learning Training</h2>
+    <p class="clause">
+      <strong>6.1</strong> The Data Processor shall not use any Personal Data, including biometric
+      data (facial images, liveness data), identity document images, verification metadata, and
+      verification results, processed on behalf of the Data Controller for the purposes of training,
+      fine-tuning, or improving machine learning models, artificial intelligence systems, or any
+      automated decision-making systems.
+    </p>
+    <p class="clause">
+      <strong>6.2</strong> This prohibition applies to all sub-processors engaged by the Data
+      Processor. No sub-processor shall use the Data Controller&rsquo;s Personal Data for model
+      improvement purposes.
+    </p>
+    <p class="clause">
+      <strong>6.3</strong> The Data Processor shall maintain technical and organizational measures
+      to ensure separation of the Data Controller&rsquo;s Personal Data from any datasets used for
+      model training or improvement.
+    </p>
+    <p class="clause">
+      <strong>6.4</strong> This clause supplements the acknowledged trade-off in the EU-Only
+      Processing section above. While the Data Processor has informally confirmed that EU-only mode
+      excludes model training, this clause elevates that commitment to a binding contractual
+      obligation.
+    </p>
+    <p class="source">
+      <em>Source: DPA clause-by-clause audit finding A (2026-04-02, PR #768).</em>
+    </p>
+
+    <hr />
+
+    <h2>Clause 7: GDPR Article 9 Legal Basis for Biometric Processing</h2>
+    <p class="clause">
+      <strong>7.1</strong> The Parties acknowledge that the processing of biometric data (facial
+      recognition, liveness detection) under this DPA constitutes processing of special categories
+      of personal data under GDPR Article 9.
+    </p>
+    <p class="clause">
+      <strong>7.2</strong> The legal basis for processing biometric data is GDPR Article 9(2)(a) —
+      explicit consent of the data subject, obtained by the Data Controller prior to initiating each
+      verification request.
+    </p>
+    <p class="clause">
+      <strong>7.3</strong> The Data Controller is solely responsible for obtaining valid explicit
+      consent from each data subject before submitting biometric data to the Data Processor for
+      verification.
+    </p>
+    <p class="source">
+      <em>Source: DPA clause-by-clause audit finding #3 (2026-04-02, PR #768).</em>
+    </p>
+
+    <hr />
+
+    <h2>Clause 8: KYA Memory Binding — Tenant Isolation of Verification Data</h2>
+    <p class="clause">
+      <strong>8.1</strong> The Parties acknowledge that Lifetime Oy operates under the Know Your
+      Agent (KYA) Standard v1.5, whose Memory Binding principle (Section 3) requires that customer
+      data remain tenant-isolated, provenance-logged, and not blended into shared model state.
+    </p>
+    <p class="clause">
+      <strong>8.2 Tenant Isolation.</strong> The Data Processor shall ensure that Personal Data
+      processed on behalf of Lifetime Oy — including biometric data, identity document images,
+      verification metadata, and verification results — is stored, indexed, and retrieved in a
+      manner that prevents co-mingling with data originating from other Shufti Pro customers. Access
+      controls shall enforce tenant boundaries at the record level.
+    </p>
+    <p class="clause">
+      <strong>8.3 No Shared-Model Promotion.</strong> The Data Processor shall not promote,
+      aggregate, anonymize, or otherwise transfer Personal Data processed on behalf of Lifetime Oy
+      into any shared knowledge base, shared model, or shared analytics pool used to serve other
+      customers, except where (a) explicit written consent is obtained from the Data Controller and
+      (b) the contribution is limited to anonymized, aggregated patterns that do not permit
+      re-identification of individual data subjects.
+    </p>
+    <p class="clause">
+      <strong>8.4 Memory-Mutation Audit Trail.</strong> The Data Processor shall maintain an
+      immutable log of operations that create, update, supersede, or delete Personal Data records on
+      behalf of Lifetime Oy. Each log entry shall record at minimum: operation type, timestamp,
+      actor (system or human reviewer), affected record identifier, and reason code where
+      applicable. The log shall be retained for the duration of the Agreement plus five (5) years,
+      consistent with EU AI Act Article 12 logging requirements.
+    </p>
+    <p class="clause">
+      <strong>8.5 Availability to Controller.</strong> Upon reasonable written request, the Data
+      Processor shall provide Lifetime Oy with an export of the Memory-Mutation Audit Trail entries
+      pertaining to Lifetime Oy&rsquo;s data, in a machine-readable format (JSON or equivalent),
+      within ten (10) business days.
+    </p>
+    <p class="clause">
+      <strong>8.6</strong> This clause complements Clause 6 (ML Training Prohibition): Clause 6
+      prohibits use for model improvement; Clause 8 governs how the data is held and logged
+      regardless of downstream use.
+    </p>
+    <p class="source">
+      <em
+        >Source: Public KYA Standard v1.5 §3 Memory Binding — https://dws10.com/kya-standard/
+        (published 23.04.2026).</em
+      >
+    </p>
+
+    <hr />
+
+    <h2>General Provisions</h2>
+    <p>
+      <strong>Conflict.</strong> In the event of any conflict between this Addendum and the base
+      DPA, this Addendum shall prevail.
+    </p>
+    <p>
+      <strong>Effective Date.</strong> This Addendum shall take effect upon signature by both
+      Parties.
+    </p>
+    <p>
+      <strong>Governing Law.</strong> This Addendum is governed by Finnish law. Espoon käräjäoikeus
+      (Espoo District Court) has exclusive jurisdiction.
+    </p>
+    <p>All other terms and conditions of the DPA remain unchanged and in full force.</p>
+
+    <hr />
+
+    <h2>Signatures</h2>
+    <div class="sig-block">
+      <p>For <strong>Lifetime Oy</strong> (Data Controller):</p>
+      <span class="sig-line">Name: Risto Anton Päärni</span>
+      <span class="sig-line">Title: CEO</span>
+      <span class="sig-line">Date: ____________________</span>
+      <span class="sig-line">Signature: ____________________</span>
+    </div>
+    <div class="sig-block">
+      <p>For <strong>Shufti Pro Limited</strong> (Data Processor):</p>
+      <span class="sig-line">Name: ____________________</span>
+      <span class="sig-line">Title: ____________________</span>
+      <span class="sig-line">Date: ____________________</span>
+      <span class="sig-line">Signature: ____________________</span>
+    </div>
+
+    <hr />
+
+    <h3>Reference Documents</h3>
+    <ul>
+      <li>
+        Shufti Data Processing Agreement dated 26 February 2026 (base DPA — unchanged by this
+        Addendum)
+      </li>
+      <li>
+        Shufti Compliance response (compliance@shufti.com, 2 April 2026, forwarded by Haris R., 5
+        April 2026)
+      </li>
+      <li>DWS IQ 6 DPA template (<code>docs/DPA_DATA_PROCESSING_AGREEMENT.md</code>, v1.1)</li>
+      <li>Lifetime Oy KYA Standard v1.5 (<code>Legal/KYA_STANDARD_v1.md</code>)</li>
+    </ul>
+  </body>
+</html>

@@ -19,6 +19,7 @@ const PORT = Number(process.env.PORT || 9999);
 const CHECK_BACKEND = process.env.CHECK_BACKEND || 'http://dws-backend:8080/health';
 const CHECK_CRON = process.env.CHECK_CRON || 'http://dws-cron:8081/health';
 const CHECK_OLLAMA = process.env.CHECK_OLLAMA || 'http://host.docker.internal:11434/api/tags';
+const CHECK_OPENCLAW = process.env.CHECK_OPENCLAW || 'http://openclaw:8090/health';
 const STATUS_TOKEN = process.env.HEARTBEAT_STATUS_TOKEN || '';
 
 // LAN-only CIDR check (192.168.x.x, 10.x.x.x, 172.16-31.x.x, ::1, 127.x.x.x)
@@ -68,6 +69,7 @@ async function runChecks(): Promise<void> {
     checkService('backend', CHECK_BACKEND),
     checkService('cron', CHECK_CRON),
     checkService('ollama', CHECK_OLLAMA),
+    checkService('openclaw', CHECK_OPENCLAW),
   ]);
 
   services.length = 0;
@@ -126,8 +128,8 @@ const server = http.createServer(async (req, res) => {
       uptime: process.uptime(),
       services,
       models: {
-        primary: 'llama3.3:70b (Ollama, local)',
-        fast: 'qwen2.5-coder:32b (Ollama, local)',
+        primary: 'nemotron-3-super (Ollama, local, MoE 120B/12.7B active)',
+        fast: 'qwen3-coder:30b (Ollama, local)',
         cloud: 'claude-opus-4-6 (Anthropic API)',
         fallback: 'groq/llama-3.3-70b-versatile',
       },

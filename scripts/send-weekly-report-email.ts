@@ -17,7 +17,11 @@
 
 import { readFileSync, existsSync } from 'fs';
 import { resolve } from 'path';
+import dotenv from 'dotenv';
 import { sendEmail } from '../src/utils/send-email.js';
+
+dotenv.config();
+dotenv.config({ path: '.env.local', override: true });
 
 const reportPath = process.argv[2] || 'report.md';
 const absPath = resolve(process.cwd(), reportPath);

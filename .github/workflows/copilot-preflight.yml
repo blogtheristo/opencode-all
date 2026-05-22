@@ -6,7 +6,7 @@ name: Copilot Pre-flight Review
 #
 # Flow:
 #   push to copilot/* or claude/* branch
-#   → Claude + Grok Fast quick review (< 60s combined)
+#   → Claude quick review (< 60s)
 #   → PASS: set green commit status → Copilot opens PR normally
 #   → FAIL: write PREFLIGHT_ISSUES.md to branch → Copilot reads, fixes, re-pushes
 #           (pre-flight re-runs automatically on the new push)
@@ -19,6 +19,18 @@ on:
     branches:
       - 'copilot/**'
       - 'claude/**'
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'Store/**'
+      - 'Learn/**'
+
+# Cancel earlier in-flight pre-flight runs when a new commit is pushed.
+# Copilot/Claude branches often see rapid successive pushes; only the latest
+# state needs review.
+concurrency:
+  group: preflight-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: write       # needed to commit PREFLIGHT_ISSUES.md
@@ -41,8 +53,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          # Use GITHUB_TOKEN with write access so we can commit back
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # Default token with contents: write from workflow permissions
+          token: ${{ github.token }}
 
       # ── Skip if PR already exists for this branch ──
       # Once a PR exists, ai-pr-review.yml is the authoritative gate.
@@ -85,12 +97,18 @@ jobs:
 
       # ── Step 1: Claude quick check ──
       - name: Claude Pre-flight
-        if: steps.pr-check.outputs.has_pr == 'false' && secrets.ANTHROPIC_API_KEY != ''
+        if: steps.pr-check.outputs.has_pr == 'false'
         id: claude
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           BRANCH: ${{ github.ref_name }}
         run: |
+          if [ -z "${ANTHROPIC_API_KEY:-}" ]; then
+            echo "verdict=skip" >> "$GITHUB_OUTPUT"
+            echo "Skipping Claude pre-flight — ANTHROPIC_API_KEY not set"
+            exit 0
+          fi
+
           PROMPT_STATIC='You are doing a quick pre-flight review of a branch before a PR is opened.
 Be brief and actionable. Flag ONLY real blockers — security issues, logic errors, missing error handling.
 Do NOT comment on style or non-critical suggestions.
@@ -134,68 +152,16 @@ Format:
             echo "verdict=pass" >> $GITHUB_OUTPUT
           fi
 
-      # ── Step 2: Grok Fast check ──
-      - name: Grok Fast Pre-flight
-        if: steps.pr-check.outputs.has_pr == 'false' && secrets.XAI_API_KEY != ''
-        id: grok
-        env:
-          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
-          BRANCH: ${{ github.ref_name }}
-        run: |
-          PROMPT_STATIC='Quick pre-flight review before PR creation.
-Flag ONLY: security issues (API keys, injection), null/undefined crashes, auth gaps.
-Skip style comments entirely.
-
-Format:
-## Grok Pre-flight
-**Issues:** [list with file:line, or None]
-**Verdict:** PASS / FAIL'
-
-          PAYLOAD=$(jq -n \
-            --arg static "$PROMPT_STATIC" \
-            --arg branch "$BRANCH" \
-            --rawfile diff  /tmp/preflight-diff.txt \
-            --rawfile files /tmp/preflight-files.txt \
-            '{
-              model: "grok-3-fast",
-              max_tokens: 512,
-              messages: [{
-                role: "user",
-                content: (
-                  $static
-                  + "\n\nBranch: " + $branch
-                  + "\nChanged files:\n" + $files
-                  + "\nDiff:\n" + $diff
-                )
-              }]
-            }')
-
-          RESPONSE=$(curl -s --max-time 30 -X POST \
-            "https://api.x.ai/v1/chat/completions" \
-            -H "Authorization: Bearer ${XAI_API_KEY}" \
-            -H "Content-Type: application/json" \
-            -d "$PAYLOAD" \
-            | jq -r '.choices[0].message.content // "unavailable"')
-
-          echo "$RESPONSE" > /tmp/grok-preflight.txt
-
-          if echo "$RESPONSE" | grep -q "^.*Verdict.*FAIL"; then
-            echo "verdict=fail" >> $GITHUB_OUTPUT
-          else
-            echo "verdict=pass" >> $GITHUB_OUTPUT
-          fi
-
-      # ── Determine combined pre-flight verdict ──
+      # ── Determine pre-flight verdict ──
       - name: Combine pre-flight verdicts
         if: steps.pr-check.outputs.has_pr == 'false'
         id: verdict
         run: |
           CLAUDE="${{ steps.claude.outputs.verdict }}"
-          GROK="${{ steps.grok.outputs.verdict }}"
 
-          if [ "$CLAUDE" = "fail" ] || [ "$GROK" = "fail" ]; then
+          if [ "$CLAUDE" = "fail" ]; then
             echo "result=fail" >> $GITHUB_OUTPUT
-          elif [ -z "$CLAUDE" ] && [ -z "$GROK" ]; then
+          elif [ -z "$CLAUDE" ]; then
             echo "result=skip" >> $GITHUB_OUTPUT   # no API keys configured
           else
             echo "result=pass" >> $GITHUB_OUTPUT
@@ -255,13 +221,6 @@ Format:
               echo "---"
               echo ""
               cat /tmp/claude-preflight.txt
-              echo ""
-            fi
-
-            if [ -f /tmp/grok-preflight.txt ]; then
-              echo "---"
-              echo ""
-              cat /tmp/grok-preflight.txt
               echo ""
             fi
 

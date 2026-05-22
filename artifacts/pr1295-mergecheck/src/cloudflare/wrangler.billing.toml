@@ -1,0 +1,152 @@
+# DWS IQ Billing Integration - Cloudflare Configuration
+# 
+# This configures the billing worker that integrates usage metering
+# with Stripe for subscription management and invoicing.
+#
+# Deployment: npx wrangler deploy -c wrangler.billing.toml
+# Local dev:  npx wrangler dev -c wrangler.billing.toml
+#
+# @version 1.0.0
+# @license Proprietary - Lifetime Oy
+
+name = "dws-iq-billing"
+main = "billing-integration.ts"
+compatibility_date = "2024-12-01"
+
+# ============================================================================
+# Worker Settings
+# ============================================================================
+
+[build]
+command = "npm run build:billing"
+
+[build.upload]
+format = "modules"
+main = "./dist/billing-integration.js"
+
+# ============================================================================
+# Environment Variables (non-secrets)
+# ============================================================================
+
+[vars]
+ENVIRONMENT = "production"
+NOTIFICATION_WEBHOOK_URL = "https://api.dws10.com/v1/webhooks/billing"
+
+# ============================================================================
+# Secrets (set via wrangler secret put)
+# ============================================================================
+# Required secrets:
+# - STRIPE_SECRET_KEY: Stripe API secret key
+# - STRIPE_WEBHOOK_SECRET: Stripe webhook signing secret
+#
+# Set with: npx wrangler secret put STRIPE_SECRET_KEY -c wrangler.billing.toml
+
+# ============================================================================
+# KV Namespaces
+# ============================================================================
+
+[[kv_namespaces]]
+binding = "TENANT_CONFIG"
+id = "tenant-config-kv-id"  # Same as sandbox manager
+preview_id = "tenant-config-kv-preview-id"
+
+[[kv_namespaces]]
+binding = "USAGE_DATA"
+id = "usage-data-kv-id"
+preview_id = "usage-data-kv-preview-id"
+
+# ============================================================================
+# Analytics Engine
+# ============================================================================
+
+[[analytics_engine_datasets]]
+binding = "USAGE_METRICS"
+dataset = "dws_iq_billing_usage"
+
+# ============================================================================
+# Routes & Custom Domains
+# ============================================================================
+
+[[routes]]
+pattern = "billing.dws10.com/*"
+zone_name = "dws10.com"
+
+[[routes]]
+pattern = "api.dws10.com/billing/*"
+zone_name = "dws10.com"
+
+# ============================================================================
+# Scheduled Tasks (Usage Sync)
+# ============================================================================
+
+[triggers]
+crons = [
+  "0 * * * *",    # Every hour for usage sync
+  "0 0 * * *"     # Daily for threshold checks
+]
+
+# ============================================================================
+# Observability
+# ============================================================================
+
+[observability]
+enabled = true
+
+[observability.logs]
+enabled = true
+invocation_logs = true
+
+# ============================================================================
+# Development Environment
+# ============================================================================
+
+[env.development]
+name = "dws-iq-billing-dev"
+vars = { ENVIRONMENT = "development", NOTIFICATION_WEBHOOK_URL = "http://localhost:3000/webhooks/billing" }
+
+[[env.development.kv_namespaces]]
+binding = "TENANT_CONFIG"
+id = "tenant-config-kv-dev-id"
+
+[[env.development.kv_namespaces]]
+binding = "USAGE_DATA"
+id = "usage-data-kv-dev-id"
+
+# ============================================================================
+# Staging Environment
+# ============================================================================
+
+[env.staging]
+name = "dws-iq-billing-staging"
+vars = { ENVIRONMENT = "staging", NOTIFICATION_WEBHOOK_URL = "https://api-staging.dws10.com/v1/webhooks/billing" }
+
+[[env.staging.kv_namespaces]]
+binding = "TENANT_CONFIG"
+id = "tenant-config-kv-staging-id"
+
+[[env.staging.kv_namespaces]]
+binding = "USAGE_DATA"
+id = "usage-data-kv-staging-id"
+
+# ============================================================================
+# Production Environment
+# ============================================================================
+
+[env.production]
+name = "dws-iq-billing"
+vars = { ENVIRONMENT = "production", NOTIFICATION_WEBHOOK_URL = "https://api.dws10.com/v1/webhooks/billing" }
+
+[[env.production.kv_namespaces]]
+binding = "TENANT_CONFIG"
+id = "tenant-config-kv-prod-id"
+
+[[env.production.kv_namespaces]]
+binding = "USAGE_DATA"
+id = "usage-data-kv-prod-id"
+
+# ============================================================================
+# Limits
+# ============================================================================
+
+[limits]
+cpu_ms = 50  # Standard tier - sufficient for billing operations

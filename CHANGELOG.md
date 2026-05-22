@@ -5,6 +5,48 @@ All notable changes to DWS IQ 6 are documented in this file.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- Labor-anchored product catalog (T0–T4, Blue/pilot) wired across
+  `dws10.com/config/products.json` and the `landing-pages/` mirror.
+- 64 Blue/pilot SKUs: 39 single-agent rows (CMP / SS / MO / ED / SG /
+  CONSTR / LOG / SOV / QG / CSAT / LF / CS / SEO / DW / VIA / TH +
+  per-outcome meters), 6 Function/Workforce bundles, 9 Industry Pod
+  add-ons (Mars/Helios/Vulcan/Talos/Gaia/Ceres/Neptune/Prometheus/BESS),
+  10 Land overlay engagements.
+- §13.8 in `DWS_DYNAMIC_DEPLOYMENT_PRICING_STANDARD.md` documenting the
+  labor-anchored SKU schema (`sku`, `tier`, `priceUnit`, `agents[]`,
+  `replaces{role,fteCount,fullyLoadedAnnualCostEUR}`, `nextUpsellSku`,
+  `deploymentColor`) and the public-render rule that bans SaaS-comparison
+  columns.
+- `scripts/load-labor-catalog.py` — idempotent loader for the catalog.
+- `scripts/validate-pricing.ts` + `.ps1` — schema/mirror/version-monotonic
+  validator. Wired into `.githooks/pre-commit` and a new CI workflow
+  `.github/workflows/validate-pricing.yml`.
+- `src/services/upsell-rules.ts` — pure-function trigger engine implementing
+  the §5 ladder rules with Zod-validated inputs.
+- Dashboard upsell banner on `dws6.com/dashboard/` — one card, no nags.
+- Public price-list redesign with the "Price AI like labor, not like a tool."
+  hero, tier badges, Replaces line, and Next Upsell link.
+- `/upsell-map/` page on dws10.com (mirrored) rendering the §5 ASCII ladder.
+- OneLifetime price-list + upsell-map front doors pointing to the canonical
+  dws10.com pages.
+- Tests: 25 new tests (15 upsell-rules + 10 labor-catalog) covering rule
+  logic, schema validity, mirror sync, the LAND-* engagement+agent rule,
+  and Green/Blue HTML snapshots.
+
+### Changed
+- `priceVersion` 1.13 → 1.14 (labor-anchored baseline).
+- `scripts/generate-green-pricelist.py` and `generate-pilot-pricelist.py`
+  now render tier badges, Replaces lines, and the Next Upsell SKU on every
+  row. Green list filters out every `deploymentColor:"blue"` SKU.
+
+### Governance
+- Every SKU lands `deploymentColor:"blue"` (pilot). No Green flips occur
+  in this changeset — flips require explicit Risto sign-off per
+  `DWS_DYNAMIC_DEPLOYMENT_PRICING_STANDARD` §5.
+
 ## [1.4.0] - 2026-04-02
 
 ### Added

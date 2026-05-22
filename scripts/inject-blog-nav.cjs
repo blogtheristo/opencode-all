@@ -11,16 +11,106 @@ const POSTS_DIR = path.join(__dirname, '..', 'onelifetime.world', 'posts');
 
 // Chronological order of root-level posts
 const posts = [
-  { file: 'business-case-logistics.html', title: 'Business Case: The Intelligent Fleet Pilot', date: 'Dec 2025' },
-  { file: 'kya-standard-v1.html', title: 'Field Note: KYA Standard for Autonomous Control Rooms', date: 'Mar 2026' },
-  { file: 'eu-regulation-harness-engineering.html', title: 'EU Regulation Makes Better AI', date: '14 Mar 2026' },
-  { file: 'eu-ai-act-compliance-ready.html', title: 'EU AI Act: Compliance Ready', date: '15 Mar 2026' },
-  { file: 'buyers-note-harness-engineering.html', title: "Buyer\u2019s Note: Harness Engineering", date: '15 Mar 2026' },
-  { file: 'harness-engineering-investor-note.html', title: 'Investor Note: Harness Engineering', date: '15 Mar 2026' },
-  { file: 'nvidia-gtc-2026-dws-roadmap-impact.html', title: 'NVIDIA GTC 2026: Industrial AI Roadmaps', date: '16 Mar 2026' },
-  { file: 'validated-mock-data-principle.html', title: 'The Validated Mock Data Principle', date: '16 Mar 2026' },
-  { file: 'closing-the-bom-gap-cad-erp-sync.html', title: 'Closing the BOM Gap: CAD-ERP Sync', date: '26 Mar 2026' },
-  { file: 'liquidity-engine-captain-seats.html', title: 'The Liquidity Engine: Captain Seats', date: '28 Mar 2026' },
+  {
+    file: 'business-case-logistics.html',
+    title: 'Business Case: The Intelligent Fleet Pilot',
+    date: 'Dec 2025',
+  },
+  {
+    file: 'kya-standard-v1.html',
+    title: 'Field Note: KYA Standard for Autonomous Control Rooms',
+    date: 'Mar 2026',
+  },
+  {
+    file: 'eu-regulation-harness-engineering.html',
+    title: 'EU Regulation Makes Better AI',
+    date: '14 Mar 2026',
+  },
+  {
+    file: 'eu-ai-act-compliance-ready.html',
+    title: 'EU AI Act: Compliance Ready',
+    date: '15 Mar 2026',
+  },
+  {
+    file: 'buyers-note-harness-engineering.html',
+    title: 'Buyer\u2019s Note: Harness Engineering',
+    date: '15 Mar 2026',
+  },
+  {
+    file: 'harness-engineering-investor-note.html',
+    title: 'Investor Note: Harness Engineering',
+    date: '15 Mar 2026',
+  },
+  {
+    file: 'nvidia-gtc-2026-dws-roadmap-impact.html',
+    title: 'NVIDIA GTC 2026: Industrial AI Roadmaps',
+    date: '16 Mar 2026',
+  },
+  {
+    file: 'validated-mock-data-principle.html',
+    title: 'The Validated Mock Data Principle',
+    date: '16 Mar 2026',
+  },
+  {
+    file: 'closing-the-bom-gap-cad-erp-sync.html',
+    title: 'Closing the BOM Gap: CAD-ERP Sync',
+    date: '26 Mar 2026',
+  },
+  {
+    file: 'liquidity-engine-captain-seats.html',
+    title: 'The Liquidity Engine: Captain Seats',
+    date: '28 Mar 2026',
+  },
+  {
+    file: 'core-resilience-hybrid-threats.html',
+    title: 'CORE: The EU Model That Maps Every Hybrid Threat',
+    date: '16 Apr 2026',
+  },
+  {
+    file: 'solid-layers-aiven-scaleway-kya.html',
+    title: 'Our Layers Are Solid — Aiven, Scaleway, KYA + Foundry',
+    date: '22 Apr 2026',
+  },
+  {
+    file: 'mcp-apps-identity-spine.html',
+    title: 'MCP Apps Extends the Frontier — KYA Is the Identity Spine',
+    date: '22 Apr 2026',
+  },
+  {
+    file: 'fpe-dark-mode-construction-wedge.html',
+    title: 'FPE · The Construction Wedge — €14,999 to Reduce Weakest-Link Failure',
+    date: '27 Apr 2026',
+  },
+  {
+    file: 'dws-ontology-standard-v1.html',
+    title: 'DWS Ontology Standard v1.3 — Etymology, Philosophy, and the Decision-Centric Pillars',
+    date: '29 Apr 2026',
+  },
+  {
+    file: 'baseten-inference-engineering-300m.html',
+    title: 'Field Note: Baseten Raises $300M — Inference Engineering Is a Discipline Now',
+    date: '7 May 2026',
+  },
+  {
+    file: 'fire-brigades-drone-defense-units.html',
+    title: 'Fire Brigades as Drone Defence Units — Three Reasons to Build the Network Now',
+    date: '15 May 2026',
+  },
+  {
+    file: 'palokunnat-droonitorjuntayksikot.html',
+    title: 'Palokunnat ja VPK:t droonitorjuntayksiköiksi — kolme syytä rakentaa verkko nyt',
+    date: '15 May 2026',
+  },
+  {
+    file: 'brandkarer-dronarforsvars-enheter.html',
+    title: 'Brandkårer som drönarförsvarsenheter — tre skäl att bygga nätverket nu',
+    date: '15 May 2026',
+  },
+  {
+    file: 'moat-is-not-the-model.html',
+    title: 'The Moat Is Not the Model — NVIDIA Makes It Possible, EU-Sovereign Deployment Makes It Defensible',
+    date: '17 May 2026',
+  },
 ];
 
 // Three featured products
@@ -49,13 +139,17 @@ const products = [
 ];
 
 function buildProductCards() {
-  return products.map(p => `
+  return products
+    .map(
+      (p) => `
                         <a href="${p.url}" class="block rounded-lg p-4 text-center" style="background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.95)); border: 1px solid rgba(6,182,212,0.2); transition: border-color 0.3s, transform 0.2s;" onmouseover="this.style.borderColor='rgba(6,182,212,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(6,182,212,0.2)';this.style.transform='none'">
                             <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2" style="background: rgba(212,168,67,0.15); color: #d4a843; border: 1px solid rgba(212,168,67,0.25);">${p.badge}</span>
                             <p class="text-sm font-semibold text-gray-200">${p.name}</p>
                             <p class="text-lg font-bold text-cyan-400 my-1">${p.price}</p>
                             <p class="text-xs text-gray-500">${p.desc}</p>
-                        </a>`).join('\n');
+                        </a>`,
+    )
+    .join('\n');
 }
 
 function buildSocialShare(post) {
@@ -138,7 +232,14 @@ for (let i = 0; i < posts.length; i++) {
   let html = fs.readFileSync(filePath, 'utf-8');
 
   // Remove old injected nav if present (idempotent)
-  html = html.replace(/\n\s*<!-- Post Navigation \+ Products \(auto-injected.*?\) -->[\s\S]*?<\/section>\n\n/g, '\n');
+  html = html.replace(
+    /\n\s*<!-- Post Navigation \+ Products \(auto-injected.*?\) -->[\s\S]*?<\/section>\n\n/g,
+    '\n',
+  );
+  html = html.replace(
+    /\n\s*<!-- Post Navigation \+ Products \(auto-injected.*?\) -->\s*\n*/g,
+    '\n',
+  );
 
   // Insert before footer (supports both <!-- Footer --> comment and direct <footer> tag)
   const marker1 = '    <!-- Footer -->';
@@ -157,7 +258,9 @@ for (let i = 0; i < posts.length; i++) {
   html = html.replace(marker, navBlock + marker);
 
   fs.writeFileSync(filePath, html, 'utf-8');
-  console.log(`OK: ${posts[i].file} (prev: ${i > 0 ? posts[i-1].file : 'none'} | next: ${i < posts.length - 1 ? posts[i+1].file : 'none'})`);
+  console.log(
+    `OK: ${posts[i].file} (prev: ${i > 0 ? posts[i - 1].file : 'none'} | next: ${i < posts.length - 1 ? posts[i + 1].file : 'none'})`,
+  );
   updated++;
 }
 

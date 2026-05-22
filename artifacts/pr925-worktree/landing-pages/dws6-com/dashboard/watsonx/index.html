@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBM watsonx.ai Dashboard</title>
+    <link rel="icon" href="https://dws10.com/DWS_IQ2026.png" type="image/png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif; background: #f4f4f4; color: #161616; }
+        .header { background: linear-gradient(135deg, #0f62fe 0%, #0043ce 100%); padding: 16px 20px; color: white; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .header h1 { font-size: 1.25rem; display: flex; align-items: center; gap: 12px; }
+        .logout-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 8px 16px; border-radius: 6px; cursor: pointer; transition: all 0.3s; }
+        .logout-btn:hover { background: rgba(255,255,255,0.2); }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        .welcome-card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px; border-left: 4px solid #0f62fe; }
+        .welcome-card h2 { color: #161616; margin-bottom: 8px; }
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 20px; }
+        .dashboard-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: all 0.3s; }
+        .dashboard-card:hover { transform: translateY(-4px); box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+        .stat-value { font-size: 2rem; font-weight: 700; color: #0f62fe; margin-bottom: 4px; }
+        .stat-label { font-size: 0.9rem; color: #525252; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+        .feature-card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .feature-card h3 { color: #161616; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .feature-card ul { list-style: none; padding: 0; }
+        .feature-card li { padding: 8px 0; color: #525252; display: flex; align-items: center; gap: 8px; }
+        .feature-card li:before { content: "✓"; color: #24a148; font-weight: bold; }
+        .action-btn { background: linear-gradient(135deg, #0f62fe 0%, #0043ce 100%); color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; margin-top: 12px; font-weight: 600; margin-right: 8px; transition: all 0.3s; }
+        .action-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(15, 98, 254, 0.3); }
+        .secondary-btn { background: white; color: #0f62fe; border: 1px solid #0f62fe; }
+        .secondary-btn:hover { background: #f4f4f4; }
+        .status-badge { display: inline-block; padding: 4px 12px; border-radius: 16px; font-size: 0.85rem; font-weight: 600; }
+        .status-active { background: #defbe6; color: #24a148; }
+        .status-training { background: #d0e2ff; color: #0043ce; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>
+            <span>🤖</span>
+            <span>IBM watsonx.ai</span>
+        </h1>
+        <button onclick="handleLogout()" class="logout-btn">Logout</button>
+    </div>
+    
+    <div class="container">
+        <div class="welcome-card">
+            <h2>Welcome to watsonx.ai</h2>
+            <div id="userInfo">Loading...</div>
+            <p style="color: #525252; margin-top: 8px;">Enterprise AI and machine learning platform powered by IBM</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="dashboard-card">
+                <h3 style="color: #161616; margin-bottom: 12px;">Foundation Models</h3>
+                <div class="stat-value">15</div>
+                <div class="stat-label">Available models</div>
+                <span class="status-badge status-active" style="margin-top: 8px;">Active</span>
+            </div>
+            
+            <div class="dashboard-card">
+                <h3 style="color: #161616; margin-bottom: 12px;">Prompt Lab Sessions</h3>
+                <div class="stat-value">24</div>
+                <div class="stat-label">This month</div>
+            </div>
+            
+            <div class="dashboard-card">
+                <h3 style="color: #161616; margin-bottom: 12px;">Tuning Studio</h3>
+                <div class="stat-value">3</div>
+                <div class="stat-label">Models in training</div>
+                <span class="status-badge status-training" style="margin-top: 8px;">Training</span>
+            </div>
+            
+            <div class="dashboard-card">
+                <h3 style="color: #161616; margin-bottom: 12px;">API Requests</h3>
+                <div class="stat-value">1.2M</div>
+                <div class="stat-label">This month</div>
+            </div>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>🎯 Foundation Models</h3>
+                <ul>
+                    <li>Granite series models</li>
+                    <li>Llama 3.1 8B & 70B</li>
+                    <li>Mistral & Mixtral</li>
+                    <li>FLAN-T5 & FLAN-UL2</li>
+                    <li>Qwen 2.5 Coder</li>
+                </ul>
+                <button class="action-btn" onclick="alert('Model catalog coming soon')">Browse Models</button>
+            </div>
+
+            <div class="feature-card">
+                <h3>🔬 Prompt Lab</h3>
+                <ul>
+                    <li>Interactive prompt engineering</li>
+                    <li>Multi-model comparison</li>
+                    <li>Parameter tuning</li>
+                    <li>Save & share prompts</li>
+                    <li>Batch inference</li>
+                </ul>
+                <button class="action-btn" onclick="alert('Prompt Lab coming soon')">Open Prompt Lab</button>
+            </div>
+
+            <div class="feature-card">
+                <h3>⚙️ Tuning Studio</h3>
+                <ul>
+                    <li>Fine-tune foundation models</li>
+                    <li>Prompt tuning</li>
+                    <li>Custom training data</li>
+                    <li>Model evaluation</li>
+                    <li>Deployment automation</li>
+                </ul>
+                <button class="action-btn" onclick="alert('Tuning Studio coming soon')">Start Tuning</button>
+            </div>
+
+            <div class="feature-card">
+                <h3>🚀 Deployments</h3>
+                <ul>
+                    <li>One-click model deployment</li>
+                    <li>REST API endpoints</li>
+                    <li>Scalable inference</li>
+                    <li>Usage monitoring</li>
+                    <li>Version management</li>
+                </ul>
+                <button class="action-btn" onclick="alert('Deployments coming soon')">View Deployments</button>
+            </div>
+
+            <div class="feature-card">
+                <h3>📊 Governance</h3>
+                <ul>
+                    <li>Model risk management</li>
+                    <li>Bias detection</li>
+                    <li>Explainability reports</li>
+                    <li>Compliance tracking</li>
+                    <li>Audit logs</li>
+                </ul>
+                <button class="action-btn" onclick="alert('Governance coming soon')">Open Governance</button>
+            </div>
+
+            <div class="feature-card">
+                <h3>🔌 API & SDKs</h3>
+                <ul>
+                    <li>Python SDK</li>
+                    <li>REST API</li>
+                    <li>Node.js SDK</li>
+                    <li>API key management</li>
+                    <li>Usage analytics</li>
+                </ul>
+                <button class="action-btn" onclick="alert('API docs coming soon')">View Documentation</button>
+            </div>
+        </div>
+
+        <div class="welcome-card" style="margin-top: 20px;">
+            <h3>Quick Start</h3>
+            <p style="color: #525252; margin-top: 12px; margin-bottom: 16px;">
+                Get started with IBM watsonx.ai by exploring foundation models, creating prompts, or fine-tuning models for your specific use cases.
+            </p>
+            <button class="action-btn">🎓 View Tutorials</button>
+            <button class="action-btn secondary-btn">📖 Read Documentation</button>
+            <button class="action-btn secondary-btn">💬 Join Community</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module">
+        import { getCurrentUser } from '../../shared/js/supabase-client.js';
+        import { logout, requireRole } from '../../shared/js/auth-handler.js';
+        
+        window.addEventListener('DOMContentLoaded', async () => {
+            await requireRole('watsonx_user');
+            const user = await getCurrentUser();
+            if (user) {
+                document.getElementById('userInfo').textContent = `Logged in as: ${user.email}`;
+            }
+        });
+        
+        window.handleLogout = async function() {
+            await logout();
+            window.location.href = '/login/watsonx/';
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign CBAM Disclosure for EU Stainless | DWS IQ | Lifetime Oy</title>
+    <meta name="description" content="Every CBAM declaration attached to a customer quote is a published technical document that reads on process IP. DWS IQ puts the IP function back in the disclosure loop on EU-sovereign NVIDIA infra — and the same pipeline removes compliance friction from sales.">
+    <meta name="keywords" content="CBAM, sovereign CBAM disclosure, stainless steel CBAM, EU AI Act, KYA, IP governance, process IP, EAF, scrap ratio, ferrochrome, EU sovereign NVIDIA, EPD, Scope 3">
+    <meta name="author" content="Lifetime Oy">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Sovereign CBAM Disclosure for EU Stainless | DWS IQ">
+    <meta property="og:description" content="Govern what process IP leaves your perimeter in every CBAM, EPD, and Scope 3 document attached to a customer quote. EU-sovereign NVIDIA stack with KYA-attested audit trail.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dws10.com/sovereign-cbam-disclosure/">
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png">
+    <meta property="og:site_name" content="DWS IQ Platform">
+    <link rel="canonical" href="https://dws10.com/sovereign-cbam-disclosure/">
+    <link rel="icon" type="image/png" href="/DWS_IQ2026.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../gamma/ultra-styles.css?v=12">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; color: #1e293b; background: #f8fafc; margin: 0; }
+        .page-hero { background: linear-gradient(135deg, #0a1628 0%, #009999 100%); color: white; padding: 80px 20px 60px; text-align: center; }
+        .page-hero .kicker { display: inline-block; background: rgba(94, 234, 212, 0.18); color: #a7f3d0; padding: 6px 14px; border-radius: 20px; font-size: 0.82rem; font-weight: 600; margin-bottom: 16px; letter-spacing: 0.04em; text-transform: uppercase; }
+        .page-hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; margin: 0 0 14px; color: white; }
+        .page-hero .subtitle { font-size: 1.18rem; color: rgba(255, 255, 255, 0.92); max-width: 860px; margin: 0 auto 20px; }
+        .page-hero .status-line { font-size: 0.9rem; color: rgba(255, 255, 255, 0.72); margin-top: 14px; }
+        main.content { max-width: 1100px; margin: 0 auto; padding: 40px 20px 60px; }
+        .section { background: white; padding: 34px 30px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); margin-bottom: 24px; }
+        .section h2 { color: #0a1628; font-size: 1.6rem; font-weight: 700; margin: 0 0 14px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
+        .section h3 { color: #009999; font-size: 1.2rem; font-weight: 700; margin: 22px 0 10px; }
+        .section p { color: #334155; font-size: 1rem; margin: 0 0 12px; }
+        .section ul { color: #334155; padding-left: 22px; }
+        .section ul li { margin: 6px 0; }
+        .lead { font-size: 1.1rem; color: #0a1628; }
+        .callout { background: #f0fdfa; border-left: 4px solid #009999; padding: 18px 22px; border-radius: 6px; margin: 18px 0; color: #0f766e; }
+        .callout-warning { background: #fef3c7; border-left: 4px solid #d97706; padding: 18px 22px; border-radius: 6px; margin: 18px 0; color: #78350f; }
+        .data-flow { background: #0a1628; color: #e2e8f0; padding: 20px 24px; border-radius: 10px; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; overflow-x: auto; margin: 20px 0; line-height: 1.8; }
+        .data-flow .arrow { color: #fbbf24; }
+        .data-flow .stage { color: #5eead4; }
+        .data-flow .veto { color: #fca5a5; }
+        table.mapping { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 0.93rem; }
+        table.mapping th, table.mapping td { padding: 12px 14px; border: 1px solid #e2e8f0; text-align: left; vertical-align: top; }
+        table.mapping th { background: #f0fdfa; color: #0f766e; font-weight: 600; }
+        table.mapping tr:nth-child(even) td { background: #fafbfc; }
+        .two-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 16px; }
+        .sub-card { background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #009999; border-radius: 10px; padding: 20px; }
+        .sub-card h4 { margin: 0 0 8px; font-size: 1.05rem; color: #0a1628; }
+        .sub-card p { color: #475569; font-size: 0.92rem; margin: 0; }
+        .metric { display: inline-block; background: #ecfeff; border: 1px solid #67e8f9; padding: 8px 14px; border-radius: 8px; font-size: 0.92rem; color: #0e7490; margin: 4px 6px 4px 0; font-weight: 600; }
+        .cta { background: linear-gradient(135deg, #009999 0%, #0a1628 100%); color: white; padding: 36px 28px; border-radius: 12px; text-align: center; }
+        .cta h3 { color: white; font-size: 1.5rem; margin: 0 0 12px; }
+        .cta p { color: rgba(255, 255, 255, 0.9); margin: 0 0 18px; }
+        .cta a { background: white; color: #009999; padding: 12px 26px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block; margin: 0 6px; }
+        .cta a.secondary { background: rgba(255, 255, 255, 0.15); color: white; border: 1px solid rgba(255, 255, 255, 0.4); }
+        .footnote { font-size: 0.85rem; color: #64748b; margin-top: 12px; }
+        .trademark { font-size: 0.8rem; color: #94a3b8; font-style: italic; }
+        .compat-line { font-size: 0.92rem; color: #475569; padding: 10px 14px; background: #f1f5f9; border-radius: 8px; display: inline-block; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="page-hero">
+        <span class="kicker">DWS Intelligence &middot; Disclosure Pattern</span>
+        <h1>Sovereign CBAM Disclosure for EU Stainless</h1>
+        <p style="font-size:1.05rem; color:#a7f3d0; letter-spacing:0.04em; text-transform:uppercase; font-weight:600; margin:0 0 18px;">We amplify human intelligence in regulated industries.</p>
+        <p class="subtitle"><strong>DWS IQ helps you sell more by removing compliance friction before the sale, using KYA-governed disclosure logic and sovereign NVIDIA infra to make regulated deals easier to close and the IP moat stronger.</strong></p>
+        <p class="status-line">Reference for Patent / IP, Legal, Sustainability, IT, Security, Commercial &amp; Board leaders &middot; Q3 2026 CBAM definitive declarations &middot; EU AI Act Annex III aligned</p>
+    </div>
+
+    <main class="content">
+
+        <div class="section" style="background:linear-gradient(135deg, #f0fdfa 0%, #ecfeff 100%); border-left:6px solid #009999;">
+            <h2 style="border-bottom:none; padding-bottom:0; margin-bottom:8px;">DWS Intelligence: we amplify intelligence</h2>
+            <p class="lead" style="margin:0 0 10px;"><strong>DWS Intelligence is the product.</strong> Removing compliance friction is the entry point &mdash; how we get into your workflow. Amplifying the intelligence of every person in the disclosure pipeline is what we are actually doing.</p>
+            <p style="margin:0 0 6px;">IP Directors get sharper because they see the disclosure&ndash;patent overlap before the document leaves. R&amp;D heads get sharper because they see regulatory pressure on their roadmap two years out. Sales engineers get sharper because every quote they ship is training data for the next one. CIOs get sharper because they see the peer sovereign-stack consolidation map. CROs get sharper because they see the CBAM premium being paid versus negotiated away, by SKU and customer.</p>
+            <p style="margin:0; font-weight:600; color:#0f766e;">Friction removal is one-shot. Intelligence compounds. The compounding curve is the moat &mdash; for you, and for us.</p>
+        </div>
+
+        <div class="section">
+            <h2>Why this pattern exists</h2>
+            <p class="lead">For low-carbon EU stainless producers, the moat is partly process IP &mdash; scrap ratio above 90%, EAF route, electrified ferrochrome, slag valorization, recycled-content provenance. The CBAM premium on low-CO<sub>2</sub> stainless is paid for, in part, by exactly that IP.</p>
+            <p>CBAM (definitive declarations from Q3 2026), EPD requests, automotive customer Scope 3 audits, and CSRD Wave-2 disclosures now require sales engineers to publish, per product, per quote:</p>
+            <ul>
+                <li>Embedded emissions intensity (tCO<sub>2</sub>e/t steel)</li>
+                <li>Energy mix and primary input shares</li>
+                <li>Scrap ratio and recycled-content provenance</li>
+                <li>Process route attestations and verifier statements</li>
+            </ul>
+            <div class="callout-warning">
+                <strong>The gap:</strong> these are <em>published technical disclosures</em>. They exit the producer through sustainability and sales engineering. The Patent / IP function is typically not in the approval loop &mdash; even though the disclosures read on the same process IP the IP function governs in filings and trade-secret programs.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Same headline, different role &mdash; and every role wins</h2>
+            <p>One line, one mechanic, two outcomes &mdash; with a third claim hiding in plain sight: <strong>every role wins, and each win enables the others</strong>. This is the proof the "easier to close <em>and</em> IP moat stronger" promise is not a trade-off. Rows are ordered by the typical buying journey: strategic sponsors &rarr; operational owners &rarr; tech approvers &rarr; commercial drivers &rarr; executive sponsors.</p>
+            <table class="mapping">
+                <thead>
+                    <tr>
+                        <th>If you are&hellip;</th>
+                        <th>What you win</th>
+                        <th>Win you create for the rest of the company</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="3" style="background:#0a1628; color:#5eead4; font-weight:600; padding:8px 14px; font-size:0.85rem; letter-spacing:0.04em; text-transform:uppercase;">Strategic sponsors &mdash; open the door</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Patent / IP Director</strong></td>
+                        <td>Policy-author seat at every disclosure that leaves. Field-level allow / redact / aggregate. KYA-attested veto path. No US Cloud Act perimeter on inventions in prosecution.</td>
+                        <td>Sales stops bypassing IP. CSO gets pre-approved templates to fill instead of fights to fight. CRO gets faster regulated deals. CEO gets a defended moat.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Head of R&amp;D / CTO</strong></td>
+                        <td>Low-CO<sub>2</sub> process IP (bio-reductants, EAF route, slag valorization, recycled-content provenance) does not leak through CBAM disclosures ahead of filing. R&amp;D&ndash;to&ndash;IP&ndash;to&ndash;disclosure becomes a closed, calendar-aware loop.</td>
+                        <td>IP Director's policy gets real input from inventors. CSO's disclosures align with the technology roadmap. CEO's "lowest-carbon stainless" narrative stays consistent across patents, disclosures, and investor docs.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>General Counsel / Legal</strong></td>
+                        <td>EU AI Act Annex III alignment. Article 12 audit log. KYA cryptographic operator identity. No US discovery surface on disclosure drafts or adjacent inventions.</td>
+                        <td>IP function strengthens. CIO has an audit-ready stack. CSO has defensible disclosures. CEO sees enforcement risk drop. Sales gets a signed paper trail to hand to customers under audit.</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="background:#0a1628; color:#5eead4; font-weight:600; padding:8px 14px; font-size:0.85rem; letter-spacing:0.04em; text-transform:uppercase;">Operational owners &mdash; run the workflow</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CSO / Head of Sustainability</strong></td>
+                        <td>CBAM Q3 2026 + CSRD Wave 2 + EU Taxonomy on one signed pipeline with verifier-ready audit trail. ESRS datapoint coverage built in. Replaces 3&ndash;5 fragmented tools.</td>
+                        <td>IP's governance loop is closed without your team negotiating it. Sales gets minutes-to-signed. CIO consolidates vendors. CFO sees compliance-reporting cost fall.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Head of Application / Customer Engineering</strong></td>
+                        <td>Stop being the manual fulfilment desk for customer carbon-disclosure forms. Answer technical-spec and carbon-spec questions in the same signed document. Reclaim the week.</td>
+                        <td>Sales engineering gets faster quotes. CSO sees consistency across customer-facing disclosures (no more bespoke per-OEM forms diverging). CRO sees higher quote-to-close.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Plant / Operations Director</strong></td>
+                        <td>Clean, standard pipeline from melt-shop / EAF historians, energy-management, and scrap registry into disclosures. Data quality issues surface at the source, not in the disclosure draft. Operations stops being asked to pull data manually each week.</td>
+                        <td>CSO gets verifier-grade source data. IP's policy is enforced at the data layer, not the document layer. CIO gets clean historian integrations with audit trail. CFO sees rework cost fall.</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="background:#0a1628; color:#5eead4; font-weight:600; padding:8px 14px; font-size:0.85rem; letter-spacing:0.04em; text-transform:uppercase;">Tech approvers &mdash; clear the stack</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CIO / Head of IT</strong></td>
+                        <td>Vendor consolidation: one stack replaces 3&ndash;5 fragmented compliance and shadow-AI tools. NVIDIA Connect ISV running on Jetson edge / DGX Spark / EU-sovereign cloud already in your perimeter. EU AI Act Article 16 inventory + Annex III alignment built in.</td>
+                        <td>CSO stops bringing shadow SaaS through procurement. Sales gets one connector instead of five. IP gets a cryptographically defensible evidence chain. CFO sees licence-cost reduction.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CISO / Head of InfoSec</strong></td>
+                        <td>NIS2 obligations cleanly met for a regulated-disclosure system. KYA cryptographic operator identity for every AI-mediated action. No US Cloud Act / discovery surface on disclosure drafts. EU-sovereign by construction, not by configuration.</td>
+                        <td>CIO's vendor stack stops adding attack surface. IP function's "no US perimeter" claim is technically backed. Sales has a one-URL answer to customer security questionnaires. Legal sees TPRM/DPIA load drop.</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="background:#0a1628; color:#5eead4; font-weight:600; padding:8px 14px; font-size:0.85rem; letter-spacing:0.04em; text-transform:uppercase;">Commercial drivers &mdash; prove the value</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Head of Sales Engineering / Commercial</strong></td>
+                        <td>Quote-to-signed-disclosure: weeks &rarr; &lt; 2 min. Pre-approved templates kill the per-quote review loop. Reps spend their week selling, not filling forms.</td>
+                        <td>IP and CSO stop being the bottleneck and become the platform you sell from. CRO sees pipeline conversion lift. Customers get answers at delivery-quote parity.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CRO / Chief Revenue Officer</strong></td>
+                        <td>Regulated-tender cycle compresses from weeks to minutes precisely where the CBAM premium lives (highest-margin SKUs). Win-rate uplift on tenders that demand sovereign-AI attestation from suppliers &mdash; answered with one URL. Pricing power on premium-margin SKUs.</td>
+                        <td>CSO's team becomes a sales accelerator, not a tax. IP function is visible upside, not a brake. CFO sees the premium-margin SKU mix grow. CIO's vendor consolidation gets a revenue story attached to it.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Chief Procurement Officer / Head of Procurement</strong></td>
+                        <td>Vendor TPRM/DPIA load reduced through consolidation. The same KYA-governed disclosure logic flips to govern <em>upstream</em> supplier disclosures Outokumpu receives (precursor CBAM, recycled-content provenance, ferrochrome origin). Supplier compliance scoring built in.</td>
+                        <td>CIO consolidates inbound + outbound disclosure tooling. CSO sees supplier-side data coverage improve. Legal's TPRM workload drops. CFO sees procurement leakage on non-compliant suppliers fall.</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="background:#0a1628; color:#5eead4; font-weight:600; padding:8px 14px; font-size:0.85rem; letter-spacing:0.04em; text-transform:uppercase;">Executive sponsors &mdash; sign the deal</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CEO / CFO</strong></td>
+                        <td>All three P&amp;L lines move: <strong>margin</strong> (CBAM premium captured), <strong>revenue</strong> (cycle compression), <strong>moat</strong> (leak closed). Same platform, three outcomes.</td>
+                        <td>The whole organisation pulls one rope. Investor and board narrative simplifies: one stack, three measurable outcomes, one EU-sovereign jurisdiction.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Head of Investor Relations</strong></td>
+                        <td>CSRD-aligned messaging consistent with operating reality. CBAM premium quantified and presentable to capital markets. "EU-sovereign AI infrastructure" becomes a credible analyst-day line, not a marketing one.</td>
+                        <td>CEO/CFO get an investor narrative grounded in operations. Legal sees Reg-FD-adjacent risk reduced. ESG analysts (MSCI, Sustainalytics, ISS) get clean, reproducible responses to questionnaires.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Board ESG Committee Chair</strong></td>
+                        <td>Oversight materials reproducible to source data. CSRD / CBAM compliance audit-ready. The board ESG narrative on "what we are doing about AI sovereignty and disclosure governance" gets a clean, defensible answer.</td>
+                        <td>CEO/CFO get top-down policy support to act on. IP and Legal get explicit board-level sponsorship for disclosure governance. The whole organisation has a clear directional mandate.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="footnote">Read the table diagonally: each role's "what you win" column lights up someone else's "win you create" column. That diagonal is the win-win — and the reason the headline holds. Fourteen roles, one mechanic, no trade-off.</p>
+        </div>
+
+        <div class="section">
+            <h2>DWS Intelligence sharpens each role</h2>
+            <p class="lead">Removing compliance friction is the entry point. <strong>The main product is DWS Intelligence</strong> &mdash; situational awareness for every person in the disclosure pipeline, carried forward over time. The system learns from every disclosure you ship and every peer signal it observes, and feeds that back as intelligence the role can act on tomorrow.</p>
+            <div class="callout">
+                Friction removal is one-shot. Intelligence compounds. The right way to read this page is: "DWS IQ makes my job easier <em>today</em> and makes me sharper <em>every quarter</em>." The compounding curve is the real moat.
+            </div>
+            <table class="mapping">
+                <thead>
+                    <tr>
+                        <th>Role</th>
+                        <th>How DWS Intelligence sharpens you</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Patent / IP Director</strong></td>
+                        <td>Live competitor-filing radar (H2 Green Steel, SSAB HYBRIT, ArcelorMittal XCarb, Aperam) cross-referenced against your own pending CBAM / EPD disclosures and patent calendar. Surfaces disclosure&ndash;IP overlap before the document leaves.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Head of R&amp;D / CTO</strong></td>
+                        <td>EU regulatory horizon scan tied to your active R&amp;D themes. Surfaces which projects should accelerate filings <em>before</em> disclosure pressure pulls the IP into the public record.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>General Counsel / Legal</strong></td>
+                        <td>Continuous enforcement-action, case-law, and regulator-guidance feed scored against your live disclosure templates. Read regulatory shift in days, not quarterly memos.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CSO / Head of Sustainability</strong></td>
+                        <td>ESRS datapoint drift, CBAM verifier methodology updates, EFRAG / CINEA signals, and peer-disclosure benchmarking on your product lines. Sector-best precision without sector-best headcount.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Head of Application / Customer Engineering</strong></td>
+                        <td>Customer-specific Scope 3 schema patterns (per OEM, per tier) with template recommendations. Institutional memory of "what BMW asked last time and how Mercedes is trending."</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Plant / Operations Director</strong></td>
+                        <td>Cross-shop disclosure-leverage analytics: which data-quality fixes move the published carbon numbers the most, per tonne of operational effort. Ops investment with disclosure ROI.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CIO / Head of IT</strong></td>
+                        <td>Peer-EU sovereign-stack map and EU AI Act inventory drift across regulated industry. See where peer CIOs are consolidating before your procurement cycle reopens.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CISO / Head of InfoSec</strong></td>
+                        <td>Continuous AI-attack-surface awareness, NIS2 enforcement signal, AI-mediated-action threat patterns. Every agent action is signed; every signature is monitored.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Head of Sales Engineering / Commercial</strong></td>
+                        <td>Institutional disclosure memory &mdash; which framing converted in which OEM tender, with win/loss attribution. Every quote you ship is training data for the next one.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CRO / Chief Revenue Officer</strong></td>
+                        <td>Tender-velocity benchmarks, win-rate by CBAM-exposure tier, pricing-power signals on premium-margin SKUs. See where the CBAM premium is actually being paid versus negotiated away.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Chief Procurement Officer / Head of Procurement</strong></td>
+                        <td>Continuous supplier-compliance scoring, precursor CBAM heat maps, supplier-swap leverage analysis. The same intelligence layer pointed upstream that points downstream.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CEO / CFO</strong></td>
+                        <td>Portfolio-level margin / revenue / moat dashboard by SKU and customer. Where to invest next in the moat-extension thesis, with the regulatory pipeline 24 months out as ground truth.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Head of Investor Relations</strong></td>
+                        <td>Analyst-question patterns, ESG rating drift (MSCI, Sustainalytics, ISS), peer disclosure benchmarking. Brief before the next quarterly, not after the next downgrade.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Board ESG Committee Chair</strong></td>
+                        <td>24-month regulatory pipeline horizon and peer board-level signal map. Which decisions need board sponsorship <em>now</em> to land in time for the disclosure cycle they govern.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="footnote">Every signal above is sourced from public EU regulatory pipeline data (EUR-Lex, DG ENER, Commission work programme, EFRAG, CINEA, ENTSO-E), peer-disclosure benchmarking on publicly filed documents, and the producer's own deployment of DWS IQ. No customer data is shared across producers. KYA-attested provenance on every intelligence item.</p>
+        </div>
+
+        <div class="section">
+            <h2>What goes wrong without governance</h2>
+            <div class="two-col">
+                <div class="sub-card">
+                    <h4>Competitive intelligence leak</h4>
+                    <p>Hydrogen-DRI entrants and incumbent integrated mills mine published carbon disclosures across customer tenders. Detail demanded by EU OEMs trends deeper each year.</p>
+                </div>
+                <div class="sub-card">
+                    <h4>Trade-secret erosion</h4>
+                    <p>A field that started as "tCO<sub>2</sub>e/t" now wants process route, energy provenance, and recycled-content provenance. Disclosure granularity drifts past the boundary the IP function would have drawn.</p>
+                </div>
+                <div class="sub-card">
+                    <h4>AI Act &amp; Cloud Act exposure</h4>
+                    <p>AI tools used to draft disclosures that touch US cloud become a discovery and CLOUD Act surface for inventions in prosecution and adjacent trade secrets.</p>
+                </div>
+                <div class="sub-card">
+                    <h4>Sales velocity penalty</h4>
+                    <p>Without pre-approved templates, every regulated tender re-triggers a 2&ndash;6 week back-and-forth between sales, sustainability, and (sometimes) legal. Deals slow exactly when the CBAM premium is highest.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>The KYA-governed disclosure pattern</h2>
+            <p>DWS IQ inserts a governed, signed, auditable disclosure layer between the producer's data systems and the documents that leave with customer quotes. The IP function authors the policy. Sales gets minutes-to-signed instead of weeks-of-review.</p>
+            <div class="data-flow">
+<span class="stage">[INGEST]</span>     ERP &middot; LIMS &middot; energy-management &middot; melt-shop / EAF historians &middot; scrap registry
+              <span class="arrow">&darr;</span>
+<span class="stage">[RESIDENCY]</span>  DWS IQ EU-sovereign stack &mdash; NVIDIA Jetson edge OR DGX Spark
+              OR EU cloud (Aiven Helsinki, Scaleway Paris, UpCloud Helsinki). No US data routing.
+              <span class="arrow">&darr;</span>
+<span class="stage">[POLICY]</span>     IP-authored disclosure templates &mdash; per product line, per market,
+              per customer tier. Field-level allow / redact / aggregate rules.
+              <span class="arrow">&darr;</span>
+<span class="stage">[REASON]</span>     Lifetime World Model maps live data to CBAM Article 7 attributes,
+              EN 15804+A2 EPD fields, ESRS E1 datapoints, customer Scope 3 schemas.
+              <span class="arrow">&darr;</span>
+<span class="veto">[KYA GATE]</span>   Human-bound agent identity required for any field above the
+              policy's process-detail threshold. IP / Legal veto path stays human.
+              <span class="arrow">&darr;</span>
+<span class="stage">[ACT]</span>       Signed CBAM declaration &middot; EPD &middot; Scope 3 attestation
+              attached to the customer quote in &lt; 2 minutes.
+              <span class="arrow">&darr;</span>
+<span class="stage">[AUDIT]</span>     Aegis signed output + EU AI Act Article 12 audit log + KYA-attested
+              operator identity. Every disclosure reproducible to source data.
+            </div>
+            <div class="callout">
+                <strong>What changes for the IP function:</strong> from absent to policy author. Every field that leaves the perimeter is pre-classified. Borderline fields stop at the KYA gate for human sign-off. The IP office moves from reactive to designed-in.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Compliance mapping</h2>
+            <table class="mapping">
+                <thead>
+                    <tr>
+                        <th>Producer data</th>
+                        <th>Regulatory output</th>
+                        <th>IP-policy lever</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>EAF runtime, electrode consumption, off-gas readings</td>
+                        <td>CBAM Article 7 &mdash; embedded emissions (direct)</td>
+                        <td>Publish at product-route level; redact charge-by-charge granularity unless customer tier requires</td>
+                    </tr>
+                    <tr>
+                        <td>Ferrochrome consumption, reductant mix, electricity provenance</td>
+                        <td>CBAM precursor allocation; ESRS E1-5 energy</td>
+                        <td>Aggregate to annual mix; gate provider-level detail behind tier-3 customer NDA</td>
+                    </tr>
+                    <tr>
+                        <td>Scrap registry, recycled-content traceability (per heat / per coil)</td>
+                        <td>EN 15804+A2 EPD recycled-content fields; CBAM scrap allocation rules</td>
+                        <td>Disclose annual fraction; gate per-heat provenance &mdash; it reads on supplier strategy</td>
+                    </tr>
+                    <tr>
+                        <td>Slag composition, valorization route, secondary-product credits</td>
+                        <td>EU Taxonomy DNSH on circular-economy substantial-contribution activities</td>
+                        <td>Disclose product names + credited tonnage; redact composition windows that read on filings</td>
+                    </tr>
+                    <tr>
+                        <td>Verifier statements (third-party CBAM, EPD program-operator letters)</td>
+                        <td>CBAM Article 8 verification &amp; ESRS phase-in disclosure</td>
+                        <td>Always publish; KYA-attest the operator who triggered the attestation</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="footnote">Field examples shown are sector-representative. The actual policy is producer-specific and IP-function authored.</p>
+        </div>
+
+        <div class="section">
+            <h2>Two mechanics behind the headline</h2>
+            <p>The headline names one mechanic with two parts. They are co-equal &mdash; neither stands alone.</p>
+            <div class="two-col">
+                <div class="sub-card">
+                    <h4>KYA-governed disclosure logic</h4>
+                    <p>The IP function authors field-level allow / redact / aggregate rules per product line. <strong>Aegis</strong> converts CBAM, EPD, ESRS, EU Taxonomy, Fit for 55, ETS, and EU AI Act obligations into machine-enforceable controls. <strong>KYA</strong> (Know Your Agent) binds every draft and approval to a named, trust-scored human operator. The veto path is cryptographic and auditable.</p>
+                </div>
+                <div class="sub-card">
+                    <h4>Sovereign NVIDIA infra</h4>
+                    <p>NVIDIA Jetson Orin Nano (air-gapped edge), DGX Spark (on-prem), or EU-sovereign cloud (Aiven Helsinki, Scaleway Paris, UpCloud Helsinki). No US Cloud Act perimeter on disclosure drafts or on inventions in prosecution. Process data never trains a foreign model. NVIDIA Connect ISV Partner. EU AI Act Annex III aligned.</p>
+                </div>
+            </div>
+            <p class="footnote">Operational footer: <strong>Lifetime 24/7 EU-staffed support</strong> &mdash; an IP-aware operations team on call when sales is about to publish a borderline disclosure before a Monday tender deadline. The veto path stays human, never a US ticket queue. This is what makes the two mechanics defensible in production; it is not a headline axis.</p>
+        </div>
+
+        <div class="section">
+            <h2>Outcome metrics</h2>
+            <p>Targets observed across regulated-industrial DWS IQ pilots (construction, logistics, healthcare baselines; stainless modeled):</p>
+            <p>
+                <span class="metric">Quote-to-signed-disclosure: weeks &rarr; &lt; 2 min</span>
+                <span class="metric">IP-function review coverage: ad-hoc &rarr; 100%</span>
+                <span class="metric">Disclosure consistency across markets: per-rep variance &rarr; policy-enforced</span>
+                <span class="metric">US-cloud exposure on disclosure pipeline: present &rarr; 0</span>
+                <span class="metric">Audit-trail reproducibility: partial &rarr; cryptographic to source data</span>
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>Who this pattern is for</h2>
+            <ul>
+                <li><strong>Patent / IP Directors</strong> in EU stainless steel, ferro-alloys, and low-CO<sub>2</sub> metals producers facing CBAM Q3 2026 definitive declarations.</li>
+                <li><strong>Chief Sustainability Officers</strong> running CBAM, EPD, and CSRD Wave 2 programs at industrial scale.</li>
+                <li><strong>Heads of Sales Engineering</strong> closing regulated tenders with EU OEM customers (automotive, white goods, process, infrastructure).</li>
+                <li><strong>General Counsel / Legal</strong> evaluating EU AI Act Annex III and CLOUD Act exposure on disclosure-generating AI systems.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>How a pilot is scoped</h2>
+            <ul>
+                <li><strong>One product line</strong> &mdash; typically a low-CO<sub>2</sub> branded SKU where the CBAM premium is largest.</li>
+                <li><strong>One customer tier</strong> &mdash; usually an EU automotive OEM running Scope 3 supplier audits at depth.</li>
+                <li><strong>One IP-authored disclosure template</strong> &mdash; field-level allow / redact / aggregate, KYA-gated.</li>
+                <li><strong>Two outcomes measured</strong> &mdash; disclosure cycle time and IP-function review coverage. Both reported with audit trail.</li>
+            </ul>
+            <p class="footnote">Default duration: 8 weeks scoping + pilot. Default deployment: edge (Jetson / DGX Spark) on producer premises; no producer data leaves EU jurisdiction at any point in the pilot.</p>
+        </div>
+
+        <div class="cta">
+            <h3>Talk to us about an IP-governed CBAM disclosure pilot</h3>
+            <p>We are Espoo-based (Lifetime Oy, business ID 0772407-9). Default first step: 20 minutes at your office or a sovereign video call. We bring a worked example modeled on one of your product lines.</p>
+            <a href="mailto:risto.paarni@lifetime.fi?subject=Sovereign%20CBAM%20Disclosure%20%E2%80%94%20Pilot%20Discussion">Email Risto</a>
+            <a href="https://calendar.app.google/5Kh3k9uhJtt6F3Mu9" class="secondary">Schedule 20 min</a>
+            <p class="trademark" style="color: rgba(255,255,255,0.7); margin-top: 14px;">NVIDIA, Jetson, and DGX are trademarks of NVIDIA Corporation. CBAM, CSRD, EU Taxonomy, and EU AI Act references are to the corresponding EU regulations. Mentioned for factual compatibility only.</p>
+        </div>
+
+        <p style="font-size: 0.85rem; color: #94a3b8; text-align: center; margin-top: 30px;">
+            See also: <a href="/enterprise-integrations/">All Enterprise Integrations</a> &middot; <a href="/kya-standard/">KYA Standard v1</a> &middot; <a href="/aegis/">Aegis</a> &middot; <a href="/compliance/">Compliance</a> &middot; <a href="/fit-for-55/">Fit for 55</a> &middot; Contact: <a href="mailto:risto.paarni@lifetime.fi">risto.paarni@lifetime.fi</a>
+        </p>
+    </main>
+
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+</body>
+</html>

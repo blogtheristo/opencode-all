@@ -1,10 +1,12 @@
 #requires -Version 7.0
 <#
 .SYNOPSIS
-    Launches a PowerShell terminal that automatically loads secrets from .env.mcp.
+    Launches a PowerShell terminal that loads secrets from .env.mcp (and merges .env).
 
 .DESCRIPTION
-    Reads key/value pairs from the provided .env file, injects them into the
+    Reads key/value pairs from the primary env file (default .env.mcp), then merges
+    repo-root .env on top when present (so SMTP_* and other local secrets in .env
+    are available in Cursor-bootstrapped terminals). Injects variables into the
     environment, changes directory to the repository root, and (by default)
     spawns a new PowerShell window that stays open for further commands.
 
@@ -31,34 +33,59 @@ $ErrorActionPreference = "Stop"
 
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $envPath = Join-Path -Path $projectRoot -ChildPath $EnvFile
+$dotEnvPath = Join-Path -Path $projectRoot -ChildPath ".env"
 $activatePath = Join-Path -Path $projectRoot -ChildPath "venv\Scripts\Activate.ps1"
 
+function Add-EnvFileToPairs {
+    param(
+        [hashtable]$Pairs,
+        [string]$Path
+    )
+    if (-not (Test-Path -Path $Path)) {
+        return
+    }
+    Get-Content -Path $Path | ForEach-Object {
+        $line = $_.Trim()
+        if (-not $line) { return }
+        if ($line.StartsWith("#")) { return }
+
+        $split = $line -split "=", 2
+        if ($split.Count -lt 2) {
+            Write-Warning "Skipping invalid line in ${Path}: $line"
+            return
+        }
+
+        $name = $split[0].Trim()
+        $value = $split[1].Trim()
+
+        if (-not $name) {
+            Write-Warning "Skipping unnamed variable in line: $line"
+            return
+        }
+
+        $Pairs[$name] = $value
+    }
+}
+
 if (-not (Test-Path -Path $envPath)) {
-    Write-Warning "Cannot find '$EnvFile' in $projectRoot. Create it (copy from env.mcp.example) and rerun."
-    exit 1
+    if ($EnvFile -eq ".env.mcp" -and (Test-Path -Path $dotEnvPath)) {
+        Write-Host "Note: .env.mcp not found; loading .env only." -ForegroundColor DarkYellow
+        $envPath = $dotEnvPath
+        $EnvFile = ".env"
+    }
+    else {
+        Write-Warning "Cannot find '$EnvFile' in $projectRoot. Create it (copy from env.mcp.example) and rerun."
+        exit 1
+    }
 }
 
 $envPairs = @{}
-Get-Content -Path $envPath | ForEach-Object {
-    $line = $_.Trim()
-    if (-not $line) { return }
-    if ($line.StartsWith("#")) { return }
+Add-EnvFileToPairs -Pairs $envPairs -Path $envPath
 
-    $split = $line -split "=", 2
-    if ($split.Count -lt 2) {
-        Write-Warning "Skipping invalid line: $line"
-        return
-    }
-
-    $name = $split[0].Trim()
-    $value = $split[1].Trim()
-
-    if (-not $name) {
-        Write-Warning "Skipping unnamed variable in line: $line"
-        return
-    }
-
-    $envPairs[$name] = $value
+$mergedDotEnv = $false
+if ((Split-Path -Leaf $envPath) -ne ".env" -and (Test-Path -Path $dotEnvPath)) {
+    Add-EnvFileToPairs -Pairs $envPairs -Path $dotEnvPath
+    $mergedDotEnv = $true
 }
 
 if ($envPairs.Count -eq 0) {
@@ -103,11 +130,13 @@ foreach ($entry in $envPairs.GetEnumerator()) {
     $scriptLines += "`$env:$name = '$value'"
 }
 $scriptLines += "if (Test-Path '$activatePath') { . '$activatePath'; Write-Host 'Python virtual environment activated via $activatePath' -ForegroundColor DarkCyan } else { Write-Host 'Skipping virtual environment activation (venv\Scripts\Activate.ps1 not found).' -ForegroundColor Yellow }"
-$scriptLines += "Write-Host 'Loaded $($envPairs.Count) variables from $EnvFile (auto terminal).' -ForegroundColor Green"
+$srcLabel = if ($mergedDotEnv) { "$EnvFile + .env" } else { $EnvFile }
+$scriptLines += "Write-Host 'Loaded $($envPairs.Count) variables from $srcLabel (auto terminal).' -ForegroundColor Green"
 $scriptLines += "Write-Host 'Repo root: $projectRoot' -ForegroundColor DarkGray"
 $commandString = $scriptLines -join "; "
 
 Start-Process pwsh -ArgumentList "-NoExit", "-Command", $commandString | Out-Null
 
-Write-Host "New PowerShell window launched with $($envPairs.Count) environment variables from $EnvFile." -ForegroundColor Green
+$launchMsg = if ($mergedDotEnv) { "$EnvFile + .env" } else { $EnvFile }
+Write-Host "New PowerShell window launched with $($envPairs.Count) environment variables from $launchMsg." -ForegroundColor Green
 Write-Host "Close this bootstrap shell if no longer needed." -ForegroundColor DarkGray

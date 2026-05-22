@@ -25,6 +25,19 @@
       "actionOnDueDate": "Auto-clears when SCW-STARTUP-DECISION-2026-05-06 resolves.",
       "createdAt": "2026-04-05",
       "acknowledged": false
+    },
+    {
+      "id": "LINKEDIN-ACCESS-TOKEN-RENEW-2026-07-06",
+      "dueDate": "2026-07-06",
+      "hardExpiryDate": "2026-07-13",
+      "category": "credential",
+      "severity": "amber",
+      "title": "LinkedIn OAuth access token — renew (1 week before hard expiry)",
+      "detail": "Firehorse Social / Posts API: access token for profile Risto Päärni (risto.anton@proton.me). Hard expiry ~2026-07-13 (~60-day token from 2026-05-14). Refresh OAuth and rotate LINKEDIN_ACCESS_TOKEN in .env + deployment secrets so publishing does not break.",
+      "source": "Admin/FIREHORSE_SOCIAL_LINKEDIN.md · scripts/linkedin-oauth.ts",
+      "actionOnDueDate": "Run LinkedIn OAuth refresh; update LINKEDIN_ACCESS_TOKEN; verify with validateLinkedInToken or a dry-run publish.",
+      "createdAt": "2026-05-14",
+      "acknowledged": false
     }
   ]
 }

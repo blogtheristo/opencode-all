@@ -1,0 +1,69 @@
+# Cloud Build — DWS MCP Gateway (TypeScript)
+# Human operator console identity: admin@dws.com (workload SA below).
+
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'build'
+    args:
+      - 'build'
+      - '-t'
+      - 'europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-iq/mcp-gateway-ts:${SHORT_SHA}'
+      - '-t'
+      - 'europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-iq/mcp-gateway-ts:latest'
+      - '-f'
+      - 'mcp-servers/cloud-run-gateway-ts/Dockerfile'
+      - 'mcp-servers/cloud-run-gateway-ts'
+
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'push'
+    args:
+      - 'push'
+      - '--all-tags'
+      - 'europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-iq/mcp-gateway-ts'
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: 'deploy'
+    entrypoint: 'gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'mcp-gateway'
+      - '--image'
+      - 'europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-iq/mcp-gateway-ts:${SHORT_SHA}'
+      - '--region'
+      - 'europe-north1'
+      - '--platform'
+      - 'managed'
+      - '--no-allow-unauthenticated'
+      - '--service-account'
+      - 'mcp-gateway@${PROJECT_ID}.iam.gserviceaccount.com'
+      - '--cpu'
+      - '1'
+      - '--memory'
+      - '512Mi'
+      - '--min-instances'
+      - '0'
+      - '--max-instances'
+      - '3'
+      - '--concurrency'
+      - '20'
+      - '--timeout'
+      - '120s'
+      - '--set-env-vars'
+      - 'LOG_LEVEL=INFO,NODE_ENV=production'
+      - '--set-secrets'
+      - 'SUPABASE_URL=supabase-url:latest,SUPABASE_SERVICE_KEY=supabase-service-key:latest,GITHUB_TOKEN=github-token:latest,MCP_GATEWAY_API_KEY=mcp-gateway-api-key:latest'
+      - '--labels'
+      - 'service=mcp-gateway-ts,environment=production,project=dws-iq6'
+
+images:
+  - 'europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-iq/mcp-gateway-ts:${SHORT_SHA}'
+  - 'europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-iq/mcp-gateway-ts:latest'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+substitutions:
+  _REGION: 'europe-north1'
+
+timeout: '900s'

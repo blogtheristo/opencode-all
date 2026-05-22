@@ -1,4 +1,4 @@
-# Aegis SWOT Analysis — Boardy Version
+# Aegis SWOT Analysis — Marcus Review
 
 ---
 
@@ -8,7 +8,7 @@ Version: 1.0
 
 Sessions & Modifications:
 
-- Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/aegis-swot-analysis-gYCYG | Date: 05.04.2026 | Changes: Initial honest SWOT on Aegis fundability (Boardy review style) — strengths, weaknesses, opportunities, threats for defence procurement positioning
+- Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/aegis-swot-analysis-gYCYG | Date: 05.04.2026 | Changes: Initial honest SWOT on Aegis fundability (Marcus review style) — strengths, weaknesses, opportunities, threats for defence procurement positioning
 
 Session Links & References:
 
@@ -33,7 +33,7 @@ Document Status:
 
 ## Purpose
 
-Honest SWOT on Aegis getting funded. Boardy review style — no sugar-coating, prod-safety mindset applied to the go-to-market and fundraising posture.
+Honest SWOT on Aegis getting funded. Marcus review style — no sugar-coating, prod-safety mindset applied to the go-to-market and fundraising posture.
 
 ---
 
@@ -66,7 +66,7 @@ Honest SWOT on Aegis getting funded. Boardy review style — no sugar-coating, p
 
 ---
 
-## Boardy's Bottom Line
+## Marcus's Bottom Line
 
 Aegis has a **real structural wedge** (sovereign hosting + Article 12/26 evidence infra) and **real timing** (EDIP DEF 2.0). It does not yet have a **real defence customer**. Close that gap — even one design-partner LOI from a Finnish government body or BAE Suomi — and the fundraise narrative flips from "compelling thesis" to "de-risked wedge."
 

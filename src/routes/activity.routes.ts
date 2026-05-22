@@ -202,10 +202,11 @@ router.get('/stream', async (req: Request, res: Response) => {
     res.write(`data: ${JSON.stringify(sseData)}\n\n`);
   });
 
-  // Heartbeat every 30s to keep connection alive
+  // Heartbeat every 15s to keep connection alive.
+  // Shorter than any upstream proxy timeout (nginx default: 60s).
   const heartbeat = setInterval(() => {
     res.write(': heartbeat\n\n');
-  }, 30_000);
+  }, 15_000);
 
   // Cleanup on disconnect
   req.on('close', () => {

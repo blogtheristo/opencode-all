@@ -12,8 +12,8 @@
 import { useState, useCallback, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { useSettings } from '../hooks/useSettings';
+import { AdminSupportChat } from '../components/AdminSupportChat';
 
-type Theme = 'dark' | 'light';
 type Locale = 'en' | 'fi' | 'de' | 'sv';
 
 const API_BASE = import.meta.env.VITE_API_URL || '';
@@ -41,6 +41,14 @@ interface ApiKey {
   lastUsedAt: string | null;
   scopes: string[];
   revoked: boolean;
+}
+
+interface TeamMember {
+  id: string;
+  name: string;
+  email: string;
+  role: 'admin' | 'manager' | 'analyst' | 'viewer';
+  joinedAt: string;
 }
 
 interface UsageMetric {
@@ -117,6 +125,12 @@ export function SettingsPage() {
   // Usage metering
   const [usageStats, setUsageStats] = useState<UsageStats | null>(null);
 
+  // Team members
+  const [members, setMembers] = useState<TeamMember[]>([]);
+  const [inviteEmail, setInviteEmail] = useState('');
+  const [inviteLoading, setInviteLoading] = useState(false);
+  const [inviteMessage, setInviteMessage] = useState<string | null>(null);
+
   const [saving, setSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
   const [exporting, setExporting] = useState(false);
@@ -171,6 +185,21 @@ export function SettingsPage() {
           setUsageStats(data);
         }
       } catch { /* API not available */ }
+
+      // Load team members — fallback to current user as sole member
+      try {
+        const { data: sessionData } = await supabase.auth.getSession();
+        const user = sessionData.session?.user;
+        if (user) {
+          setMembers([{
+            id: user.id,
+            name: user.user_metadata?.full_name || user.email?.split('@')[0] || 'You',
+            email: user.email || '',
+            role: 'admin',
+            joinedAt: user.created_at || new Date().toISOString(),
+          }]);
+        }
+      } catch { /* Fallback to empty */ }
     }
 
     loadData();
@@ -271,6 +300,53 @@ export function SettingsPage() {
 
     setApiKeys((prev) => prev.filter((k) => k.id !== keyId));
   }, []);
+
+  const handleMemberRoleChange = useCallback((memberId: string, newRole: TeamMember['role']) => {
+    setMembers((prev) => prev.map((m) =>
+      m.id === memberId ? { ...m, role: newRole } : m
+    ));
+  }, []);
+
+  const handleRemoveMember = useCallback((memberId: string) => {
+    setMembers((prev) => prev.filter((m) => m.id !== memberId));
+  }, []);
+
+  const handleInviteMember = useCallback(async () => {
+    if (!inviteEmail.trim()) return;
+    setInviteLoading(true);
+    setInviteMessage(null);
+
+    try {
+      const headers = await getAuthHeaders();
+      const res = await fetch(`${API_BASE}/api/v1/onboard/invite`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ email: inviteEmail.trim() }),
+      });
+
+      if (res.ok) {
+        setInviteMessage('Invitation sent successfully.');
+        setMembers((prev) => [
+          ...prev,
+          {
+            id: `pending-${Date.now()}`,
+            name: inviteEmail.trim().split('@')[0],
+            email: inviteEmail.trim(),
+            role: 'analyst',
+            joinedAt: new Date().toISOString(),
+          },
+        ]);
+        setInviteEmail('');
+      } else {
+        setInviteMessage('Could not send invitation. Try again.');
+      }
+    } catch {
+      setInviteMessage('Could not send invitation. API unavailable.');
+    } finally {
+      setInviteLoading(false);
+      setTimeout(() => setInviteMessage(null), 3000);
+    }
+  }, [inviteEmail]);
 
   const handleExportData = useCallback(async (format: 'csv' | 'json') => {
     setExporting(true);
@@ -551,6 +627,85 @@ export function SettingsPage() {
               </select>
             </div>
           </div>
+        </section>
+
+        {/* Team Members */}
+        <section className="bg-gray-900 border border-gray-800 rounded-xl p-6">
+          <h2 className="text-lg font-semibold text-white mb-4">Team Members</h2>
+          <p className="text-xs text-gray-400 mb-4">Manage who has access to your organization's compliance data.</p>
+
+          {/* Member list */}
+          <div className="space-y-2 mb-4">
+            {members.map((member) => (
+              <div key={member.id} className="flex items-center justify-between bg-gray-800/50 rounded-lg px-4 py-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-primary-600/30 flex items-center justify-center text-primary-400 text-sm font-medium">
+                    {member.name.charAt(0).toUpperCase()}
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-white">{member.name}</p>
+                    <p className="text-xs text-gray-500">{member.email}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <select
+                    value={member.role}
+                    onChange={(e) => handleMemberRoleChange(member.id, e.target.value as TeamMember['role'])}
+                    disabled={member.email === profile.email}
+                    className="px-2 py-1 text-xs bg-gray-800 border border-gray-700 rounded text-gray-300 focus:outline-none focus:ring-1 focus:ring-primary-500 disabled:opacity-50"
+                    aria-label={`Role for ${member.name}`}
+                  >
+                    <option value="admin">Admin</option>
+                    <option value="manager">Manager</option>
+                    <option value="analyst">Analyst</option>
+                    <option value="viewer">Viewer</option>
+                  </select>
+                  {member.email !== profile.email && (
+                    <button
+                      onClick={() => handleRemoveMember(member.id)}
+                      className="text-xs text-red-400 hover:text-red-300 font-medium transition-colors"
+                    >
+                      Remove
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Invite member */}
+          <div className="flex items-center gap-2">
+            <input
+              type="email"
+              value={inviteEmail}
+              onChange={(e) => setInviteEmail(e.target.value)}
+              placeholder="colleague@company.com"
+              className="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            />
+            <button
+              onClick={handleInviteMember}
+              disabled={!inviteEmail.trim() || inviteLoading}
+              className="px-4 py-2 text-sm font-medium text-white bg-primary-600 rounded-lg hover:bg-primary-500 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              {inviteLoading ? 'Inviting...' : 'Invite'}
+            </button>
+          </div>
+          {inviteMessage && (
+            <p className={`text-xs mt-2 ${inviteMessage.includes('sent') ? 'text-green-400' : 'text-red-400'}`}>
+              {inviteMessage}
+            </p>
+          )}
+        </section>
+
+        {/* Admin Support */}
+        <section className="rounded-xl border border-amber-500/30 bg-gradient-to-br from-amber-500/10 via-gray-900 to-gray-900 p-6 shadow-[0_0_30px_rgba(245,158,11,0.08)]">
+          <div className="mb-4">
+            <h2 className="text-lg font-semibold text-amber-200">Admin Panel Support</h2>
+            <p className="mt-1 text-xs text-amber-100/80">
+              Internal support channel for platform operations and troubleshooting.
+            </p>
+          </div>
+          <AdminSupportChat />
         </section>
 
         {/* Data Export */}

@@ -10,7 +10,7 @@ image_link: "https://dws10.com/static/images/firehorse-aegis-head.png"
 brand: "DWS IQ"
 storeCategory: "platform"
 type: "one-time"
-priceNote: "€59,990 one-time platform deployment + €999/mo subscription"
+priceNote: "From €59,990 onboarding + integration, plus €999/mo subscription. 3 tiers: Standard, Defence, Sovereign."
 mpn: "DWS-AEGIS-2026"
 ---
 
@@ -131,11 +131,11 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 
 ## Pricing
 
-| Tier | Price | Included |
-|------|-------|----------|
-| **Aegis Platform** | €59,990 one-time + €999/mo | 21+ agents, 21 industries, cross-vertical intelligence, dedicated K8s cluster, Article 12 logging, KYA governance |
-| **Enterprise** | Custom | Dedicated sovereign instance, SLA, custom agents, SAR AOI budget, private cloud deployment |
-| **Government** | Custom | Enterprise private cloud, air-gapped option, security clearance support |
+| Tier | Onboarding + Integration | Monthly | Included |
+|------|--------------------------|---------|----------|
+| **Aegis Standard** | €59,990 | €999/mo | 18 agents, 21 industries, dedicated K8s cluster, Article 12 logging, KYA governance, standard support |
+| **Aegis Defence** | €89,990 | €1,999/mo | Standard + NVIDIA L40S GPU, ArgusAgent SAR, priority support (4h SLA), EDIP compliance reporting |
+| **Aegis Sovereign** | Custom | €4,999/mo | Defence + air-gapped / on-premises option, security clearance support, dedicated engineering team, custom SLA |
 
 Aegis is a standalone product — not part of the Captain investor programme. Software-only platform (no hardware bundled).
 

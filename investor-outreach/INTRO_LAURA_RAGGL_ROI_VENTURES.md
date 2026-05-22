@@ -15,6 +15,33 @@ AGENT HISTORY:
 
 # Investor Intro Note — Laura Raggl, ROI Ventures
 
+
+---
+
+## Labor Thesis Opening (2026 Q2 Refresh) — Wedge: MARGIN
+
+> Master template: `docs/investor/INTRO_TEMPLATE_LABOR_THESIS.md`. This block refreshes the opening of this INTRO around the labor-pricing thesis. Investor-specific context below (Target Profile, Fit Assessment, Strategy, Attachments, Next Steps) is preserved.
+
+**Subject line:** Vertical AI labor economics — DWS 365 Skilled Agents · 2026 Q2 SAFE
+
+**Email body — opening three paragraphs + ask:**
+
+Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts *doing the work itself*, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. *(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)* **DWS 365 Skilled Agents** (powered by the DWS IQ platform) sit on the labor side of that line.
+
+16 Skilled Agents are already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the human cost of producing that work, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
+
+Gross margin sits above 80% at list and expands as inference cost falls — the price anchor is human labor, not compute, so the curve goes the right way as foundation models commoditize. Our comp set is vertical AI labor companies (Cognition, Sierra, Harvey, Decagon), not horizontal SaaS, and the unit economics tell that story without any heroic assumptions. The spine in one line: **labor-anchored pricing, regulation drives demand, MACC + AppExchange drive distribution.** That is the line we lead with at the Messe round and in PE meetings this quarter.
+
+**Ask + two slots + unsubscribe:**
+
+We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commercial pickup through Q3/26. Two slots that work: Thu 22 May 09:00 CET (30 min) or Tue 27 May 14:00 CET (30 min). Messe Germany stand visit (Stuttgart, Sep 17–19, 2026) is also open if you'd rather see it live. If this isn't a fit, reply STOP and you won't hear from me again.
+
+**Sender:** `risto.paarni@lifetime.fi` via Amazon SES SMTP. Never Resend, never noreply@.
+
+**Attachment for first touch:** `docs/investor/INVESTOR_ONE_PAGER_2026Q2.pdf` (HTML mirror at `docs/investor/INVESTOR_ONE_PAGER_2026Q2.html`).
+
+> The investor-specific context (Target Profile, Fit Assessment, Drawbacks / Mitigations, Strategy, Draft LinkedIn DM, Draft Email, Attachments, Next Steps) below this section is the prior INTRO content and remains canonical for fund-specific intel. The opening above replaces the **email opening only**; everything below stays.
+
 ## Target Profile
 
 | Field          | Value                                                                                    |
@@ -38,7 +65,7 @@ AGENT HISTORY:
 
 1. **B2B SaaS thesis match** — ROI Ventures invests specifically in B2B SaaS. DWS IQ is B2B SaaS for EU compliance automation. This is her core thesis, not an adjacent play.
 2. **Ticket size fits** — Up to €100K. Maps directly to Captain seat (€50K) or double Captain. No negotiation on check size needed.
-3. **Pre-seed/early-stage** — She invests without initial revenue requirements. We have €7K MRR and 5 paying customers — we're ahead of her typical entry point. This is a strength.
+3. **Pre-seed/early-stage** — She invests without initial revenue requirements. We have €7K MRR and 6 paying customers — we're ahead of her typical entry point. This is a strength.
 4. **Defence/aerospace in portfolio** — Shield Space and GATE Space are in her portfolio. The Aegis dual-use angle resonates — she already backs companies in this space.
 5. **Austrian Angel Investors Association network** — As former MD of aaia (2020–2023), she has the Austrian angel ecosystem in her rolodex. One investment from Laura can cascade to co-investor intros across the DACH region.
 6. **EU-based, EU-focused** — Vienna. No CLOUD Act concerns. Aligns with our sovereign ownership rule (EU/EEA-domiciled investors).
@@ -60,7 +87,7 @@ AGENT HISTORY:
 
 Hi Laura — I've been following ROI Ventures' B2B SaaS portfolio, strong thesis.
 
-I'm building Lifetime Oy (Finland) — carbon balance sheet for EU companies. 18 AI agents pulling from SAP/IFS/Dynamics, auto-generating compliance reports. EUR 7K MRR, 5 customers, 100% retention. Raising EUR 650K SAFE at EUR 3.8M cap, Captain seats at EUR 50K. V1 launches at Arctic 15 in Helsinki on June 15.
+I'm building Lifetime Oy (Finland) — carbon balance sheet for EU companies. 21 AI agents pulling from SAP/IFS/Dynamics, auto-generating compliance reports. EUR 7K MRR, 5 customers, 100% retention. Raising EUR 650K SAFE at EUR 3.8M cap, Captain seats at EUR 50K. V1 launches at Arctic 15 in Helsinki on June 15.
 
 Happy to send our one-pager if this fits your thesis.
 
@@ -72,15 +99,15 @@ Hi Laura,
 
 Risto Päärni, Lifetime Oy (Espoo, Finland). I'm reaching out because ROI Ventures' B2B SaaS thesis aligns directly with what we're building.
 
-DWS IQ 6 is the carbon balance sheet for EU companies — 18 AI agents that connect to SAP, IFS Cloud, and Dynamics 365, pull operational data, and auto-generate audit-ready compliance reports every quarter. One ledger covering ETS, CBAM, CSRD, and EU Taxonomy. Full audit trail, EU AI Act compliant.
+DWS IQ 6 is the carbon balance sheet for EU companies — 21 AI agents that connect to SAP, IFS Cloud, and Dynamics 365, pull operational data, and auto-generate audit-ready compliance reports every quarter. One ledger covering ETS, CBAM, CSRD, and EU Taxonomy. Full audit trail, EU AI Act compliant.
 
 The numbers:
 
-- EUR 7K MRR, 5 paying customers, 100% retention
+- EUR 7K MRR, 6 paying customers, 100% retention
 - Customer LTV: EUR 70K–120K/year
 - Enterprise pilots at EUR 4,950 convert to EUR 8,950/year
 - Target: EUR 900K ARR by end 2026
-- Platform: 18 AI agents, 32 products, 20 EU-regulated industries
+- Platform: 21 AI agents, 32 products, 20 EU-regulated industries
 
 Raising EUR 650K SAFE at EUR 3.8M cap. Captain seats at EUR 50K — fits your ticket range. The market is 49,000+ EU companies facing mandatory CSRD reporting. This is compliance infrastructure, not optional software.
 

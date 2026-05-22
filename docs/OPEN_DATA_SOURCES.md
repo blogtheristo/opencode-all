@@ -378,7 +378,7 @@ const customerComplianceProcess: ProcessConfig = {
 | **Reporting cadence** | Quarterly CSRD cycle | Customer's own schedule (monthly, weekly, event-driven) |
 | **Data validation** | DWS schema validation | Customer's own business rules + edge case handling |
 | **Notification channels** | Email (SES/Resend) | Slack, Teams, customer webhook, SMS |
-| **Audit trail** | DWS Aiwen logging | Customer's own SIEM (Splunk, Sentinel, QRadar) |
+| **Audit trail** | DWS sovereignty audit logging | Customer's own SIEM (Splunk, Sentinel, QRadar) |
 
 **How it works:**
 1. DWS ships with sensible defaults — every workflow works out of the box

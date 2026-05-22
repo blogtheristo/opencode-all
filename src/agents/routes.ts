@@ -67,7 +67,7 @@ const validateRequest = (req: Request, res: Response, next: express.NextFunction
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     logger.warn('Agent request validation error', {
-      errors: errors.array().map((e) => e.msg),
+      errors: errors.array().map((e: { msg: string }) => e.msg),
     });
     return res.status(400).json({
       error: 'Validation Error',
@@ -105,9 +105,13 @@ router.get('/', authenticateToken, (_req: Request, res: Response) => {
  * GET /api/agents/:name
  * Get details for a specific agent
  */
-router.get('/:name', authenticateToken, (req: Request, res: Response) => {
+router.get('/:name', authenticateToken, (req: Request, res: Response, next: express.NextFunction) => {
   try {
     const { name } = req.params;
+    if (name === 'workflows' || name === 'events' || name === 'discover') {
+      return next();
+    }
+
     const agent = agentRegistry.getAgent(name);
 
     if (!agent) {
@@ -159,7 +163,7 @@ router.post(
     const context: AgentContext = {
       projectId: bodyContext.projectId,
       userId: req.userId || 'unknown',
-      orgId: req.organizationId || bodyContext.orgId || 'default',
+      orgId: req.organizationId || `user:${req.userId || 'unknown'}`,
       sessionId: bodyContext.sessionId,
     };
 
@@ -220,7 +224,7 @@ router.post(
     const context: AgentContext = {
       projectId: req.body.context?.projectId || `dashboard-${Date.now()}`,
       userId: req.userId || 'unknown',
-      orgId: req.organizationId || req.body.context?.orgId || 'default',
+      orgId: req.organizationId || `user:${req.userId || 'unknown'}`,
       sessionId: req.body.context?.sessionId || `run-${Date.now()}`,
     };
 
@@ -286,7 +290,7 @@ router.post(
     const context: AgentContext = {
       projectId: `chat-${Date.now()}`,
       userId: req.userId || 'unknown',
-      orgId: req.organizationId || 'default',
+      orgId: req.organizationId || `user:${req.userId || 'unknown'}`,
       sessionId: req.body.sessionId || `chat-${Date.now()}`,
     };
 
@@ -410,7 +414,7 @@ router.post(
     const context: AgentContext = {
       projectId: bodyContext?.projectId || 'workflow-session',
       userId: req.userId || 'unknown',
-      orgId: req.organizationId || bodyContext?.orgId || 'default',
+      orgId: req.organizationId || `user:${req.userId || 'unknown'}`,
       sessionId: bodyContext?.sessionId || `wf-${Date.now()}`,
     };
 
@@ -461,8 +465,12 @@ router.get('/events', authenticateToken, (req: Request, res: Response) => {
   try {
     const pattern = req.query.pattern as string | undefined;
     const limit = parseInt(req.query.limit as string) || 50;
+    const orgId = req.organizationId || `user:${req.userId || 'unknown'}`;
 
-    const events = eventBus.getRecentEvents(pattern, limit);
+    const events = eventBus
+      .getRecentEvents(pattern, limit * 2)
+      .filter((event) => event.orgId === orgId)
+      .slice(0, limit);
 
     return res.status(200).json({
       events,

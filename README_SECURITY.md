@@ -40,7 +40,7 @@ if is_suspicious:
 ```
 
 ### 3. MCP Colors Framework
-**Module**: `src/mcp/security/tool_colors.py`
+**Module**: `src/mcp/security/tool-colors.ts`
 
 Prevents mixing RED (untrusted input) + BLUE (critical actions) tools:
 ```python
@@ -89,28 +89,25 @@ FileAccessControl.validate_file_operation("write", Path("~/.ssh/id_rsa"))
 ```
 
 ### 6. Modern CSRF Protection
-**Module**: `src/web/middleware/csrf_protection.py`
+**Module**: `src/middleware/csrf-protection.ts`
 
-Flask middleware for CSRF protection:
-```python
-from flask import Flask
-from src.web.middleware import csrf_protection_middleware
+Express middleware for CSRF protection:
+```typescript
+import express from 'express';
+import { csrfProtectionMiddleware } from './src/middleware/csrf-protection.js';
 
-app = Flask(__name__)
-csrf_protection_middleware(app)  # Automatic protection
+const app = express();
+app.use('/api/v1/auth', csrfProtectionMiddleware);
 ```
 
 ### 7. Redirect Validator
-**Module**: `src/web/utils/redirect_validator.py`
+**Module**: `src/middleware/redirect-validator.ts`
 
 Prevents open redirect vulnerabilities:
-```python
-from src.web.utils import RedirectValidator
+```typescript
+import { RedirectValidator } from './src/middleware/redirect-validator.js';
 
-# Sanitize user-provided redirect
-next_url = request.args.get("next")
-safe_url = RedirectValidator.sanitize_redirect(next_url, default="/dashboard")
-return redirect(safe_url)
+const safeUrl = RedirectValidator.sanitizeRedirect(nextUrl, '/dashboard');
 ```
 
 ### 8. Secure Query Builder

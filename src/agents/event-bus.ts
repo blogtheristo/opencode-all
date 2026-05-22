@@ -78,9 +78,7 @@ class EventBus {
     });
 
     // Find matching subscribers
-    const matching = this.subscriptions.filter((s) =>
-      this.matchPattern(s.pattern, event.type),
-    );
+    const matching = this.subscriptions.filter((s) => this.matchPattern(s.pattern, event.type));
 
     // Dispatch to all matching handlers (non-blocking)
     const dispatches = matching.map(async (sub) => {
@@ -124,9 +122,7 @@ class EventBus {
     if (pattern === '*') return true;
 
     // Convert glob pattern to regex: "compliance.*" → "^compliance\..*$"
-    const regexStr = '^' + pattern
-      .replace(/\./g, '\\.')
-      .replace(/\*/g, '.*') + '$';
+    const regexStr = '^' + pattern.replace(/\./g, '\\.').replace(/\*/g, '.*') + '$';
 
     return new RegExp(regexStr).test(eventType);
   }
@@ -140,9 +136,14 @@ class EventBus {
 
       // Fire-and-forget Redis XADD
       const streamKey = `dws:events:${event.orgId}`;
-      await fetch(`${redisUrl}/xadd/${streamKey}/*/${encodeURIComponent('type')}/${encodeURIComponent(event.type)}/${encodeURIComponent('payload')}/${encodeURIComponent(JSON.stringify(event.payload))}/${encodeURIComponent('source')}/${encodeURIComponent(event.source)}/${encodeURIComponent('priority')}/${encodeURIComponent(event.priority)}`, {
-        headers: { Authorization: `Bearer ${redisToken}` },
-      }).catch(() => { /* best-effort */ });
+      await fetch(
+        `${redisUrl}/xadd/${streamKey}/*/${encodeURIComponent('type')}/${encodeURIComponent(event.type)}/${encodeURIComponent('payload')}/${encodeURIComponent(JSON.stringify(event.payload))}/${encodeURIComponent('source')}/${encodeURIComponent(event.source)}/${encodeURIComponent('priority')}/${encodeURIComponent(event.priority)}`,
+        {
+          headers: { Authorization: `Bearer ${redisToken}` },
+        },
+      ).catch(() => {
+        /* best-effort */
+      });
     } catch {
       // Redis is optional — don't fail event dispatch
     }
@@ -182,5 +183,34 @@ export function registerDefaultEventHandlers(): void {
     });
   });
 
+  // Sales funnel events (GTM machine — Phase 1)
+  eventBus.subscribe('sales.*', async (event) => {
+    logger.info('Sales event', {
+      type: event.type,
+      source: event.source,
+      orgId: event.orgId,
+      payload: event.payload,
+    });
+  });
+
   logger.info('Default event handlers registered');
 }
+
+// ============ SALES EVENT TYPES (GTM Machine) ============
+// New event types registered for the GTM machine (Phase 1a/b)
+// These events are fired from:
+// - GTM (frontend): product_view, add_to_cart, begin_checkout events from dws10.com/buy
+// - Stripe webhooks: purchase event from payment confirmation
+// - Backend: sales.conversion event from /api/checkout/confirm
+//
+// Event bus pattern: 'sales.{event_name}'
+// Examples:
+//   - sales.product_view (GTM)
+//   - sales.add_to_cart (GTM)
+//   - sales.begin_checkout (GTM)
+//   - sales.purchase (Stripe webhook)
+//   - sales.conversion (Backend checkout)
+//
+// These are monitored by the telemetry service for buffering to Supabase.
+// See: src/agents/telemetry.service.ts
+// Supabase table: gtm_event_log

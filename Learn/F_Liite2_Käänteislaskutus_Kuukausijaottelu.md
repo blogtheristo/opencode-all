@@ -6,12 +6,13 @@
 
 - **Document:** Liite 2 — Käänteislaskutuksen kuukausijaottelu
 - **Document ID:** F-Liite2
-- **Version:** 1.0
-- **Date:** 13.04.2026
+- **Version:** 1.1
+- **Date:** 21.04.2026
 - **Owner:** Risto Anton Päärni, CEO, Lifetime Oy (Y-tunnus 0772407-9)
 - **Branch:** claude/lucid-poincare
 - **Sessions & Modifications:**
-  - 1.0 (13.04.2026): Alkuperäinen versio. Taksilaskutuksen pohjalta laadittu kuukausitason käänteislaskutusanalyysi ajanjaksolta 12/2019–09/2025 (Kirjaus 2). ETK-ansiotietojen vertailusarake lisätty.
+  - 1.1 (21.04.2026): Kirjanpitäjän henkilökohtaiset tiedot poistettu. Päivälukueron selitys (931 vs 659) vahvistettu: erotus = lomapäivät. Lähdeviite muutettu geneeriseksi.
+  - 1.0 (13.04.2026): Alkuperäinen versio. Taksilaskutuksen pohjalta laadittu kuukausitason käänteislaskutusanalyysi.
 - **Document Status:** LIITE DOKUMENTTIIN F
 
 ---
@@ -57,7 +58,7 @@ Inflaatiotarkistus: 80 EUR/h (2019) + 3 %/vuosi. Työpäivä: 8 h.
 | **2025 (1–9)** | **92** | **234** | **138** | **95,52** | **1 104** | **105 454** |
 | **YHTEENSÄ** | **803** | **1 821** | **931** | | **7 448** | **658 883** |
 
-> **Johtopäätös:** Käänteislaskutuksen inflaatiotarkistettu R&D-arvo = **658 883 EUR**. Aktivoidaan 594 000 EUR = 90,2 % todellisesta. Konservatiivinen.
+> **Johtopäätös:** Käänteislaskutuksen inflaatiotarkistettu R&D-arvo = **658 883 EUR**. Aktivoidaan 594 000 EUR = 90,2 % todellisesta. Erotus 931 − 659 aktivoitua päivää = 272 päivää = lomapäivät, sairaspäivät, pyhäpäivät. Aktivointi on kiistattoman konservatiivinen.
 
 ---
 
@@ -65,7 +66,7 @@ Inflaatiotarkistus: 80 EUR/h (2019) + 3 %/vuosi. Työpäivä: 8 h.
 
 | Menetelmä | R&D-päiviä | Tunteja/pv | Tuntihinta | R&D-arvo (kiinteä) | R&D-arvo (inflaatiotarkistettu) | Lähde |
 | :--- | ---: | ---: | ---: | ---: | ---: | :--- |
-| Käänteislaskutus (kirjanpito) | 931 | 8 h | 80–100 EUR/h | 595 840–744 800 EUR | — (jo inflaatiotarkistettu) | Merjan kirjanpito (Lemonsoft + Google Sheets) |
+| Käänteislaskutus (kirjanpito) | 931 | 8 h | 80–100 EUR/h | 595 840–744 800 EUR | — (jo inflaatiotarkistettu) | Lifetime Oy:n kirjanpito (Lemonsoft + Google Sheets taksilaskutusrekisteri) |
 | ETK-ansiotiedot | 962 | 7,5 h | 80–100 EUR/h | 721 500 EUR (kiinteä 100€) | 678 081 EUR (inflaatiotarkistettu) | Eläketurvakeskus / Työeläke.fi |
 
 ### ETK-menetelmän inflaatiotarkistus (ks. Liite 1: F_Liite_Tuntikirjaukset.md)

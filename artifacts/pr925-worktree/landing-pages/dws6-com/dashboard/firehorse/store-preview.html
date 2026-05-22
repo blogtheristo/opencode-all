@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifetime Firehorse™ Store - All 8 Products | DWS IQ</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 20px;
+        }
+
+        .product-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .product-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #10b981;
+        }
+
+        .product-label {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-top: 5px;
+        }
+
+        .product-description {
+            color: #475569;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .features {
+            margin-bottom: 25px;
+        }
+
+        .feature-item {
+            display: inline-block;
+            background: #f1f5f9;
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin: 5px 5px 5px 0;
+            font-size: 0.85rem;
+            color: #475569;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 12px;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .cta-button i {
+            margin-left: 8px;
+        }
+
+        .details-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .details-button:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            opacity: 0.8;
+        }
+
+        .category {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+
+            .stat-value {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-fire"></i> Lifetime Firehorse™ Store</h1>
+            <p>Complete product catalog: 8 solutions for climate intelligence, compliance automation & portfolio management</p>
+        </div>
+
+        <div class="products-grid">
+            <!-- 1. Firehorse Amplify -->
+            <div class="product-card">
+                <div class="category">Automation</div>
+                <div class="product-header">
+                    <div>
+                        <div class="product-title">Firehorse Amplify</div>
+                        <div class="product-label">Zero-touch compliance automation</div>
+                    </div>
+                    <div>
+                        <div class="product-price">€4,995</div>
+                        <div class="product-label">per project</div>
+                    </div>
+                </div>
+
+                <div class="product-description">
+                    Zero-touch automation for critical compliance and operations. Event-driven workflows for Fit for 55, CSRD and EPBD 2028.
+                </div>
+
+                <div class="features">
+                    <div class="feature-item">Event-driven workflows</div>
+                    <div class="feature-item">Sensor data integration</div>
+                    <div class="feature-item">ERP transaction automation</div>
+                    <div class="feature-item">Auditable reports</div>
+                </div>
+
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value">Zero</div>
+                        <div class="stat-label">Touch</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">100%</div>
+                        <div class="stat-label">Auditable</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">2028</div>
+                        <div class="stat-label">EPBD Ready</div>
+                    </div>
+                </div>
+
+                <button class="cta-button" onclick="window.open('https://dws10.com/products/firehorse-amplify.html', '_blank')">
+                    <i class="fas fa-external-link-alt"></i> View Details
+                </button>
+            </div>
+
+            <!-- 2. DWS IQ Platform V6 -->
+            <div class="product-card">
+                <div class="category">Platform</div>
+                <div class="product-header">
+                    <div>
+                        <div class="product-title">DWS IQ 6 Platform + Lifetime World Model</div>
+                        <div class="product-label">Complete platform deployment</div>
+                    </div>
+                    <div>
+                        <div class="product-price">€4,999</div>
+                        <div class="product-label">standard</div>
+                    </div>
+                </div>
+
+                <div class="product-description">
+                    Complete mobile dashboard for on-site management of Fit for 55 and strategic enterprise construction portfolio management with real-time KPIs and prediction engine for entire portfolio.
+                </div>
+
+                <div class="features">
+                    <div class="feature-item">Private cloud deployment</div>
+                    <div class="feature-item">One Firehorse Report</div>
+                    <div class="feature-item">Base platform access</div>
+                    <div class="feature-item">Standard support</div>
+                </div>
+
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value">V6</div>
+                        <div class="stat-label">Latest</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">Cloud</div>
+                        <div class="stat-label">Deployed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">1 Report</div>
+                        <div class="stat-label">Included</div>
+                    </div>
+                </div>
+
+                <button class="cta-button" onclick="window.open('https://dws10.com/products/dwsiq.html', '_blank')">
+                    <i class="fas fa-external-link-alt"></i> View Details
+                </button>
+                <button class="details-button" onclick="openMobileDashboard()">
+                    <i class="fas fa-mobile-alt"></i> Demo Dashboard
+                </button>
+                <button class="details-button" onclick="openLoginPortal()" style="margin-top: 10px; background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%); color: white; border: none;">
+                    <i class="fas fa-sign-in-alt"></i> Login to Full Platform
+                </button>
+            </div>
+
+            <!-- 3. Climate Reporting Starter Bundle -->
+            <div class="product-card">
+                <div class="category">Bundle</div>
+                <div class="product-header">
+                    <div>
+                        <div class="product-title">Climate Reporting Starter</div>
+                        <div class="product-label">Complete CSRD solution</div>
+                    </div>
+                    <div>
+                        <div class="product-price">€6,500</div>
+                        <div class="product-label">+ €1,999/year</div>
+                    </div>
+                </div>
+
+                <div class="product-description">
+                    DWS IQ Base Platform, Firehorse Report Module, and Kickoff Workshop for complete CSRD compliance.
+                </div>
+
+                <div class="features">
+                    <div class="feature-item">DWS IQ Base Platform</div>
+                    <div class="feature-item">Firehorse Report Module</div>
+                    <div class="feature-item">Kickoff Workshop</div>
+                    <div class="feature-item">Annual maintenance</div>
+                </div>
+
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value">4 weeks</div>
+                        <div class="stat-label">Time to value</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">40+hrs</div>
+                        <div class="stat-label">Saved/month</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">€70k+</div>
+                        <div class="stat-label">Annual value</div>
+                    </div>
+                </div>
+
+                <button class="cta-button" onclick="window.open('https://dws10.com/products/bundle.html', '_blank')">
+                    <i class="fas fa-external-link-alt"></i> View Details
+                </button>
+            </div>
+
+            <!-- 4. Firehorse Omnichannel Next -->
+            <div class="product-card">
+                <div class="category">Omnichannel</div>
+                <div class="product-header">
+                    <div>
+                        <div class="product-title">Firehorse™ Omnichannel Next</div>
+                        <div class="product-label">4-week outbound engine</div>
+                    </div>
+                    <div>
+                        <div class="product-price">€4,950</div>
+                        <div class="product-label">per cycle</div>
+                    </div>
+                </div>
+
+                <div class="product-description">
+                    4-week outbound engine for Nordic and European construction portfolios. Reach TOP-30 account decision-makers.
+                </div>
+
+                <div class="features">
+                    <div class="feature-item">TOP-30 account targeting</div>
+                    <div class="feature-item">CDO/Head of Digital reach</div>
+                    <div class="feature-item">4-week campaign cycle</div>
+                    <div class="feature-item">Nordic & EU focus</div>
+                </div>
+
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value">4 weeks</div>
+                        <div class="stat-label">Cycle</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">TOP-30</div>
+                        <div class="stat-label">Accounts</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">EU</div>
+                        <div class="stat-label">Coverage</div>
+                    </div>
+                </div>
+
+                <button class="cta-button" onclick="window.open('https://dws10.com/products/firehorse-omnichannel.html', '_blank')">
+                    <i class="fas fa-external-link-alt"></i> View Details
+                </button>
+            </div>
+
+            <!-- 5. Firehorse Report -->
+            <div class="product-card">
+                <div class="category">Reports</div>
+                <div class="product-header">
+                    <div>
+                        <div class="product-title">Firehorse Report</div>
+                        <div class="product-label">Individual automated report</div>
+                    </div>
+                    <div>
+                        <div class="product-price">€1,999</div>
+                        <div class="product-label">template</div>
+                    </div>
+                </div>
+
+                <div class="product-description">
+                    One automated report template with SAP integration setup and 4-week validation cycle.
+                </div>
+
+                <div class="features">
+                    <div class="feature-item">One report template</div>
+                    <div class="feature-item">SAP integration</div>
+                    <div class="feature-item">4-week validation</div>
+                    <div class="feature-item">Custom data sources</div>
+                </div>
+
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value">4 weeks</div>
+                        <div class="stat-label">Setup</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">90%</div>
+                        <div class="stat-label">ROI</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">1</div>
+                        <div class="stat-label">Template</div>
+                    </div>
+                </div>
+
+                <button class="cta-button" onclick="window.open('https://dws10.com/products/firehorse-reports.html', '_blank')">
+                    <i class="fas fa-external-link-alt"></i> View Details
+                </button>
+            </div>
+
+            <!-- 6. Firehorse Content Management -->
+            <div class="product-card">
+                <div class="category">Content</div>
+                <div class="product-header">
+                    <div>
+                        <div class="product-title">Firehorse Content Management</div>
+                        <div class="product-label">Secure evidence vault</div>
+                    </div>
+                    <div>
+                        <div class="product-price">Custom</div>
+                        <div class="product-label">quote</div>
+                    </div>
+                </div>
+
+                <div class="product-description">
+                    Secure Evidence Vault setup, Taxonomy design workshop, and initial data migration.
+                </div>
+
+                <div class="features">
+                    <div class="feature-item">Evidence Vault setup</div>
+                    <div class="feature-item">Taxonomy workshop</div>
+                    <div class="feature-item">Data migration</div>
+                    <div class="feature-item">Custom configuration</div>
+                </div>
+
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value">Secure</div>
+                        <div class="stat-label">Vault</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">Custom</div>
+                        <div class="stat-label">Taxonomy</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">Full</div>
+                        <div class="stat-label">Migration</div>
+                    </div>
+                </div>
+
+                <button class="cta-button" onclick="window.open('https://dws10.com/products/firehorse-content-management.html', '_blank')">
+                    <i class="fas fa-external-link-alt"></i> View Details
+                </button>
+            </div>
+
+            <!-- 7. Expert Advisory & Implementation -->
+            <div class="product-card">
+                <div class="category">Services</div>
+                <div class="product-header">
+                    <div>
+                        <div class="product-title">Expert Advisory</div>
+                        <div class="product-label">Professional services</div>
+                    </div>
+                    <div>
+                        <div class="product-price">€1,500</div>
+                        <div class="product-label">per month</div>
+                    </div>
+                </div>
+
+                <div class="product-description">
+                    Dedicated expert time to design reports, integrate systems, and ensure compliance. Kickoff package €3,000.
+                </div>
+
+                <div class="features">
+                    <div class="feature-item">Report design</div>
+                    <div class="feature-item">System integration</div>
+                    <div class="feature-item">Compliance consulting</div>
+                    <div class="feature-item">Kickoff package</div>
+                </div>
+
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value">Expert</div>
+                        <div class="stat-label">Time</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">€3k</div>
+                        <div class="stat-label">Kickoff</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">Retainer</div>
+                        <div class="stat-label">Available</div>
+                    </div>
+                </div>
+
+                <button class="cta-button" onclick="window.open('https://dws10.com/products/expert-services.html', '_blank')">
+                    <i class="fas fa-external-link-alt"></i> View Details
+                </button>
+            </div>
+
+            <!-- 8. DWS IQ Platform V5 (Legacy) -->
+            <div class="product-card">
+                <div class="category">Legacy</div>
+                <div class="product-header">
+                    <div>
+                        <div class="product-title">DWS IQ Platform V5</div>
+                        <div class="product-label">Legacy support</div>
+                    </div>
+                    <div>
+                        <div class="product-price">Contact</div>
+                        <div class="product-label">sales</div>
+                    </div>
+                </div>
+
+                <div class="product-description">
+                    Assessment of legacy infrastructure and support for existing DWS IQ Version 5 deployments.
+                </div>
+
+                <div class="features">
+                    <div class="feature-item">Legacy assessment</div>
+                    <div class="feature-item">Infrastructure support</div>
+                    <div class="feature-item">Migration planning</div>
+                    <div class="feature-item">V5 maintenance</div>
+                </div>
+
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value">V5</div>
+                        <div class="stat-label">Support</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">Legacy</div>
+                        <div class="stat-label">Systems</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">Migrate</div>
+                        <div class="stat-label">to V6</div>
+                    </div>
+                </div>
+
+                <button class="cta-button" onclick="window.open('https://dws10.com/products/dws-iq5.html', '_blank')">
+                    <i class="fas fa-external-link-alt"></i> View Details
+                </button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2026 Firehorse by DWS IQ 6 | Lifetime Oy | All Rights Reserved</p>
+            <p style="margin-top: 10px;">
+                <a href="https://dws10.com" style="color: white; text-decoration: none;">
+                    <i class="fas fa-globe"></i> Visit DWS IQ Platform
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function viewProduct(productType) {
+            const products = {
+                'report': {
+                    name: 'Firehorse Report',
+                    price: '€1999',
+                    description: 'Single automated report template with full integration'
+                },
+                'mobile': {
+                    name: 'DWS IQ 6 Mobile',
+                    price: '€4999',
+                    description: 'Complete mobile dashboard for portfolio management'
+                },
+                'bundle': {
+                    name: 'Climate Reporting Starter Bundle',
+                    price: '€9999',
+                    description: 'Complete CSRD automation solution'
+                }
+            };
+
+            const product = products[productType];
+            alert(`Added to cart:\n\n${product.name}\n${product.price}\n\n${product.description}\n\nContact: investor@dws10.com`);
+        }
+
+        function viewDetails(productType) {
+            const details = {
+                'report': 'Firehorse Report includes:\n\n• One automated report template\n• SAP integration setup\n• 4-week validation cycle\n• Custom data sources\n• 90% ROI\n• 4 weeks implementation\n\nContact: investor@dws10.com',
+                'bundle': 'Climate Reporting Starter Bundle includes:\n\n• DWS IQ Base (private cloud)\n• Firehorse Report (automated agent)\n• 8-hour workshop\n• Scope 1, 2, 3 emissions\n• Regulatory compliance docs\n• Project-level tracking\n• Continuous monitoring\n• 4 weeks time to value\n• 40+ hours saved per month\n• €70k+ annual value\n\nContact: investor@dws10.com'
+            };
+
+            alert(details[productType] || 'Product details coming soon!\n\nContact: investor@dws10.com');
+        }
+
+        function openMobileDashboard() {
+            // Open the mobile dashboard in a new window (demo mode)
+            window.open('index.html', '_blank', 'width=375,height=812');
+        }
+        
+        function openLoginPortal() {
+            // Redirect to DWS6 login portal
+            window.location.href = '/login/portal.html';
+        }
+    </script>
+</body>
+</html>
+
+        }
+    </script>
+</body>
+</html>

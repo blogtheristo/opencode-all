@@ -5,6 +5,13 @@ export default defineConfig({
     environment: 'node',
     globals: true,
     setupFiles: ['./src/__tests__/setup.ts'],
+    exclude: [
+      '**/node_modules/**',
+      '**/dist/**',
+      // Stale PR-snapshot worktrees checked into the repo. They carry their
+      // own outdated tests/mocks and must not run as part of main CI.
+      'artifacts/**',
+    ],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'text-summary', 'json-summary', 'html'],
@@ -14,14 +21,12 @@ export default defineConfig({
         'src/__tests__/**',
         'src/**/*.d.ts',
         'src/**/types.ts',
-        'src/**/index.ts',
       ],
       thresholds: {
-        // Baseline 2026-04-13: ~28/21/29/28%. Raise incrementally as tests expand.
-        statements: 28,
-        branches: 20,
-        functions: 28,
-        lines: 28,
+        statements: 60,
+        branches: 50,
+        functions: 55,
+        lines: 60,
       },
     },
   },

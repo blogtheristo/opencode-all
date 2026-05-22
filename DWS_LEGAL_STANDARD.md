@@ -38,29 +38,28 @@ This standard governs all legal documents, agreements, and compliance frameworks
 
 ## 3. Legal Hub Structure
 
-Public legal documents are published at `dws10.com/legal-hub/` (HTML only — no .md files in public site folders per CLAUDE.md rule).
+Public legal documents are published at `dws10.com/legal/` (HTML only — no .md files in public site folders per CLAUDE.md rule). The legacy `/legal-hub/*` root was consolidated into `/legal/` in April 2026; the three legacy paths are now redirect stubs that canonicalise to the `/legal/` equivalents.
 
 ### 3.1 Document Registry
 
-| Document                            | Source (repo)                           | Public URL                        | Status      |
-| ----------------------------------- | --------------------------------------- | --------------------------------- | ----------- |
-| **Legal & Governance Hub**          | `dws10.com/legal-hub/index.html`        | `/legal-hub/`                     | Active      |
-| **Data Processing Agreement (DPA)** | `docs/DPA_DATA_PROCESSING_AGREEMENT.md` | `/legal-hub/dpa.html`             | Active v1.1 |
-| **Sub-Processor List**              | (embedded in DPA Annex A)               | `/legal-hub/sub-processors.html`  | Active      |
-| **DPA Print (Shufti)**              | `dws10.com/legal-hub/dpa-print.html`    | `/legal-hub/dpa-print.html`       | Active      |
-| **Privacy & Compliance Hub**        | `dws10.com/legal/index.html`            | `/legal/`                         | Active      |
-| **Aegis Platform Terms**            | `docs/legal/AEGIS_PLATFORM_TERMS.md`    | `/legal-hub/aegis-terms.html`     | Stub        |
-| **KYA Partner Agreement**           | `docs/legal/KYA_PARTNER_AGREEMENT.md`   | `/legal-hub/kya-partner.html`     | Stub        |
-| **Dual-Use Export Notice**          | `docs/legal/DUAL_USE_EXPORT_NOTICE.md`  | `/legal-hub/dual-use-notice.html` | Stub        |
+| Document                            | Source (repo)                           | Public URL                    | Status      |
+| ----------------------------------- | --------------------------------------- | ----------------------------- | ----------- |
+| **Legal & Compliance Hub**          | `dws10.com/legal/index.html`            | `/legal/`                     | Active      |
+| **Data Processing Agreement (DPA)** | `docs/DPA_DATA_PROCESSING_AGREEMENT.md` | `/legal/dpa.html`             | Active v1.2 |
+| **Sub-Processor List**              | (embedded in DPA Annex A)               | `/legal/sub-processors.html`  | Active      |
+| **DPA Print (Shufti)**              | `dws10.com/legal/dpa-print.html`        | `/legal/dpa-print.html`       | Active      |
+| **Aegis Platform Terms**            | `docs/legal/AEGIS_PLATFORM_TERMS.md`    | `/legal/aegis-terms.html`     | Stub        |
+| **KYA Partner Agreement**           | `docs/legal/KYA_PARTNER_AGREEMENT.md`   | `/legal/kya-partner.html`     | Stub        |
+| **Dual-Use Export Notice**          | `docs/legal/DUAL_USE_EXPORT_NOTICE.md`  | `/legal/dual-use-notice.html` | Stub        |
 
 ### 3.2 Dual Folder Sync Rule
 
 Per CLAUDE.md, all legal hub files must exist in both:
 
-- `dws10.com/legal-hub/` (source of truth)
-- `landing-pages/dws10-com/legal-hub/` (production)
+- `dws10.com/legal/` (source of truth)
+- `landing-pages/dws10-com/legal/` (production)
 
-Both must be updated in the same commit.
+Both must be updated in the same commit. The legacy `dws10.com/legal-hub/` and `landing-pages/dws10-com/legal-hub/` folders contain only redirect stubs (301-equivalent meta-refresh + canonical + JS `location.replace`) pointing to the corresponding `/legal/` paths — do not add new content there.
 
 ## 4. Data Processing Agreement (DPA)
 
@@ -281,16 +280,16 @@ Verification of our DPA against the standard GDPR.eu DPA template:
 
 Best-practice trust center structure (based on AEB and enterprise SaaS standards):
 
-| Page                      | Content                                      | Our Equivalent                                          |
-| ------------------------- | -------------------------------------------- | ------------------------------------------------------- |
-| Trust Center landing      | Overview, certifications, badges             | `/legal-hub/` (partial)                                 |
-| Data Protection / Privacy | DPA, privacy policy, sub-processors          | `/legal-hub/dpa.html`, `/legal-hub/sub-processors.html` |
-| Security                  | SOC 2 report, pen test summary, architecture | `/legal/` Section 10                                    |
-| Compliance                | Regulatory mapping, certifications           | `/legal/` Sections 7-9                                  |
-| Sub-processors            | Dedicated sub-processor list with change log | `/legal-hub/sub-processors.html` ✅                     |
-| DPA download              | Downloadable/printable DPA                   | `/legal-hub/dpa-print.html` ✅                          |
+| Page                      | Content                                      | Our Equivalent                                           |
+| ------------------------- | -------------------------------------------- | -------------------------------------------------------- |
+| Trust Center landing      | Overview, certifications, badges             | `/legal/` (Sections 0, 10 + `/compliance/trust-center/`) |
+| Data Protection / Privacy | DPA, privacy policy, sub-processors          | `/legal/dpa.html`, `/legal/sub-processors.html`          |
+| Security                  | SOC 2 report, pen test summary, architecture | `/legal/` Section 10                                     |
+| Compliance                | Regulatory mapping, certifications           | `/legal/` Sections 7-9                                   |
+| Sub-processors            | Dedicated sub-processor list with change log | `/legal/sub-processors.html` ✅                          |
+| DPA download              | Downloadable/printable DPA                   | `/legal/dpa-print.html` ✅                               |
 
-**Gap:** Our legal hub is split between `/legal/` (privacy/compliance hub, comprehensive) and `/legal-hub/` (KYA governance + DPA). Consider consolidating or cross-linking more prominently.
+**Status (April 2026):** The previously-split `/legal/` and `/legal-hub/` roots were consolidated into a single `/legal/` hub. Board governance, D&O safe-harbor, evidence-layer and EU-regulated-industries content now live as dedicated sections inside `/legal/index.html`. Legacy `/legal-hub/*` URLs resolve to redirect stubs with canonical pointing at the new `/legal/*` path.
 
 ---
 

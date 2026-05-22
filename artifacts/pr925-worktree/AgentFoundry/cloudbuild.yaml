@@ -1,0 +1,158 @@
+# Cloud Build Configuration for DWS Sales AI Agents
+# Builds Docker image and deploys to Google Cloud Run
+# Triggered on: git push to main, manual trigger, or scheduled
+
+steps:
+  # ============================================================================
+  # Step 1: Build Docker image
+  # ============================================================================
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'build-image'
+    args:
+      - 'build'
+      - '--tag=europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-agents/sales-agent:${SHORT_SHA}'
+      - '--tag=europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-agents/sales-agent:latest'
+      - '--cache-from=europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-agents/sales-agent:latest'
+      - '--build-arg=BUILDKIT_INLINE_CACHE=1'
+      - '-f=AgentFoundry/Dockerfile'
+      - '.'
+    timeout: '600s'
+
+  # ============================================================================
+  # Step 2: Push Docker image to Artifact Registry
+  # ============================================================================
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'push-image'
+    args:
+      - 'push'
+      - '--all-tags'
+      - 'europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-agents/sales-agent'
+    timeout: '300s'
+
+  # ============================================================================
+  # Step 3: Deploy Lead Scout Agent to Cloud Run
+  # ============================================================================
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: 'deploy-lead-scout'
+    entrypoint: 'gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'agent-lead-scout-001'
+      - '--image=europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-agents/sales-agent:${SHORT_SHA}'
+      - '--region=europe-north1'
+      - '--platform=managed'
+      - '--allow-unauthenticated=false'  # Requires authentication
+      - '--service-account=sales-agents@${PROJECT_ID}.iam.gserviceaccount.com'
+      - '--set-env-vars=AGENT_ID=lead-scout-001'
+      - '--set-env-vars=AGENT_CONFIG_PATH=/app/AgentFoundry/configs/production/lead-scout-001.yaml'
+      - '--set-secrets=ANTHROPIC_API_KEY=anthropic-api-key:latest'
+      - '--set-secrets=SUPABASE_URL=supabase-url:latest'
+      - '--set-secrets=SUPABASE_KEY=supabase-service-key:latest'
+      - '--set-secrets=APOLLO_API_KEY=apollo-api-key:latest'
+      - '--set-secrets=CLEARBIT_API_KEY=clearbit-api-key:latest'
+      - '--cpu=1'
+      - '--memory=512Mi'
+      - '--concurrency=10'
+      - '--min-instances=0'  # Scale to zero when idle
+      - '--max-instances=5'
+      - '--timeout=300s'
+      - '--cpu-throttling'  # Enable CPU throttling to reduce costs
+      - '--labels=agent=lead-scout,environment=production,project=dws-iq6'
+    timeout: '600s'
+
+  # ============================================================================
+  # Step 4: Deploy Outreach Agent to Cloud Run
+  # ============================================================================
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: 'deploy-outreach'
+    entrypoint: 'gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'agent-outreach-001'
+      - '--image=europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-agents/sales-agent:${SHORT_SHA}'
+      - '--region=europe-north1'
+      - '--platform=managed'
+      - '--allow-unauthenticated=false'
+      - '--service-account=sales-agents@${PROJECT_ID}.iam.gserviceaccount.com'
+      - '--set-env-vars=AGENT_ID=outreach-001'
+      - '--set-env-vars=AGENT_CONFIG_PATH=/app/AgentFoundry/configs/production/outreach-001.yaml'
+      - '--set-secrets=GROQ_API_KEY=groq-api-key:latest'
+      - '--set-secrets=SUPABASE_URL=supabase-url:latest'
+      - '--set-secrets=SUPABASE_KEY=supabase-service-key:latest'
+      - '--set-secrets=RESEND_API_KEY=resend-api-key:latest'
+      - '--set-secrets=LINKEDIN_EMAIL=linkedin-email:latest'
+      - '--set-secrets=LINKEDIN_PASSWORD=linkedin-password:latest'
+      - '--cpu=1'
+      - '--memory=512Mi'
+      - '--concurrency=10'
+      - '--min-instances=0'
+      - '--max-instances=5'
+      - '--timeout=300s'
+      - '--cpu-throttling'
+      - '--labels=agent=outreach,environment=production,project=dws-iq6'
+    timeout: '600s'
+
+  # ============================================================================
+  # Step 5: Create Cloud Scheduler jobs for daily agent runs
+  # ============================================================================
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: 'create-schedulers'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        # Lead Scout Agent - runs daily at 6:00 AM CET
+        gcloud scheduler jobs create http lead-scout-daily-run \
+          --location=europe-north1 \
+          --schedule="0 6 * * *" \
+          --time-zone="Europe/Helsinki" \
+          --uri="https://agent-lead-scout-001-XXXXX-ew.a.run.app/run" \
+          --http-method=POST \
+          --oidc-service-account-email=sales-agents@${PROJECT_ID}.iam.gserviceaccount.com \
+          --oidc-token-audience="https://agent-lead-scout-001-XXXXX-ew.a.run.app" \
+          --attempt-deadline=600s \
+          --max-retry-attempts=3 \
+          --description="Daily run of Lead Scout Agent (enrichment + ICP scoring)" \
+          || echo "Scheduler already exists, updating..." && \
+          gcloud scheduler jobs update http lead-scout-daily-run \
+            --location=europe-north1 \
+            --schedule="0 6 * * *"
+
+        # Outreach Agent - runs daily at 9:00 AM CET (optimal send time)
+        gcloud scheduler jobs create http outreach-daily-run \
+          --location=europe-north1 \
+          --schedule="0 9 * * 1-5" \
+          --time-zone="Europe/Helsinki" \
+          --uri="https://agent-outreach-001-XXXXX-ew.a.run.app/run" \
+          --http-method=POST \
+          --oidc-service-account-email=sales-agents@${PROJECT_ID}.iam.gserviceaccount.com \
+          --oidc-token-audience="https://agent-outreach-001-XXXXX-ew.a.run.app" \
+          --attempt-deadline=600s \
+          --max-retry-attempts=3 \
+          --description="Daily run of Outreach Agent (Mon-Fri only, no weekends)" \
+          || echo "Scheduler already exists"
+    timeout: '300s'
+
+# ============================================================================
+# Build Configuration
+# ============================================================================
+options:
+  machineType: 'E2_HIGHCPU_8'  # Faster builds
+  logging: CLOUD_LOGGING_ONLY
+  dynamicSubstitutions: true
+
+# Timeout for entire build
+timeout: '1800s'  # 30 minutes
+
+# Tags for build tracking
+tags:
+  - 'dws-agents'
+  - 'sales-automation'
+  - 'phase-1'
+
+# Substitutions (can be overridden)
+substitutions:
+  _ENVIRONMENT: 'production'
+  _REGION: 'europe-north1'

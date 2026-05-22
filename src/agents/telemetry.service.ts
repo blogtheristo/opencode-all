@@ -10,11 +10,17 @@
  * Buffered writes: events accumulate in memory and flush to Supabase
  * every 50 events or 30 seconds (whichever first). Non-blocking.
  *
- * Code-Version: 1.0
+ * Code-Version: 1.1
  * Introduced-In: PR-TBD (ASTA Phase 1)
  * Branch: claude/agent-tool-adaptation-7jpgj
  * Date: 2026-04-03
  * Owner: Lifetime Oy
+ *
+ * v1.1 (2026-05-15, claude/update-control-room-telemetry-s9I4X):
+ *   Flush now includes OpenTelemetry GenAI semantic-convention columns
+ *   (`gen_ai_*`, `trace_id`, `span_id`) when the event carries them.
+ *   Non-LLM tool events are unaffected — fields default to NULL.
+ *   See migration 066_tool_telemetry_genai.sql.
  */
 
 import logger from '../utils/logger.js';
@@ -63,21 +69,37 @@ class ToolTelemetryService {
       }
 
       const client = createClient(url, key);
-      const rows = batch.map((e) => ({
-        agent_name: e.agentName,
-        tool_name: e.toolName,
-        org_id: e.orgId,
-        session_id: e.sessionId,
-        outcome: e.outcome,
-        duration_ms: e.durationMs,
-        error_message: e.errorMessage || null,
-        is_retry: e.isRetry,
-        retry_count: e.retryCount,
-        chain_position: e.chainPosition,
-        chain_length: e.chainLength,
-        iteration_index: e.iterationIndex,
-        created_at: e.timestamp,
-      }));
+      const rows = batch.map((e) => {
+        const g = e.genAi;
+        return {
+          agent_name: e.agentName,
+          tool_name: e.toolName,
+          org_id: e.orgId,
+          session_id: e.sessionId,
+          outcome: e.outcome,
+          duration_ms: e.durationMs,
+          error_message: e.errorMessage || null,
+          is_retry: e.isRetry,
+          retry_count: e.retryCount,
+          chain_position: e.chainPosition,
+          chain_length: e.chainLength,
+          iteration_index: e.iterationIndex,
+          created_at: e.timestamp,
+          trace_id: e.traceId ?? null,
+          span_id: e.spanId ?? null,
+          gen_ai_system: g?.system ?? null,
+          gen_ai_operation_name: g?.operationName ?? null,
+          gen_ai_request_model: g?.requestModel ?? null,
+          gen_ai_response_model: g?.responseModel ?? null,
+          gen_ai_request_max_tokens: g?.requestMaxTokens ?? null,
+          gen_ai_request_temperature: g?.requestTemperature ?? null,
+          gen_ai_request_top_p: g?.requestTopP ?? null,
+          gen_ai_usage_input_tokens: g?.usageInputTokens ?? null,
+          gen_ai_usage_output_tokens: g?.usageOutputTokens ?? null,
+          gen_ai_response_finish_reasons: g?.responseFinishReasons ?? null,
+          gen_ai_response_id: g?.responseId ?? null,
+        };
+      });
 
       const { error } = await client.from('tool_telemetry').insert(rows);
       if (error) {

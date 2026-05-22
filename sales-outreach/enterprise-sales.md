@@ -45,7 +45,7 @@ Enterprise sales in regulated industries require a precise documentation arsenal
 |Specification    |DWS IQ 6 Requirement                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 |-----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |Format           |14 slides (Andy Raskin structure)                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-|Required sections|1) World shift: EPBD 2027/2030 zero-emission mandates, 2) Winners vs losers: Real-time vs batch processing buildings, 3) Promised land: Sub-100ms climate intelligence, 4) Obstacles: Legacy BMS 2-5 min latency, data silos, 5) DWS IQ 6 solution, 6) How it works (NVIDIA Jetson + Groq LPU architecture), 7) Demo screenshots, 8) Kela case study, 9) Uber Finland case study, 10) ROI framework, 11) 20-moat competitive fortress, 12) Pricing tiers, 13) Team/EU credibility, 14) Pilot CTA|
+|Required sections|1) World shift: EPBD 2027/2030 zero-emission mandates, 2) Winners vs losers: Real-time vs batch processing buildings, 3) Promised land: Sub-100ms climate intelligence, 4) Obstacles: Legacy BMS 2-5 min latency, data silos, 5) DWS IQ 6 solution, 6) How it works (NVIDIA Jetson + Groq LPU architecture), 7) Demo screenshots, 8) Kela case study, 9) Uber Finland case study, 10) ROI framework, 11) 21-moat competitive fortress, 12) Pricing tiers, 13) Team/EU credibility, 14) Pilot CTA|
 |Time to create   |**30-40 hours**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 |Impact           |Primary deal driver; “shift in the world” framing increases close rates **40%+**                                                                                                                                                                                                                                                                                                                                                                                                                |
 
@@ -228,7 +228,7 @@ The dual pricing structure requires distinct documentation approaches:
 - Sales materials: Full 14-slide deck, custom ROI calculator, detailed technical architecture
 - Sales cycle: 12-18 months
 
-### Documenting the 20-moat competitive fortress
+### Documenting the 21-moat competitive fortress
 
 The €3-6M competitor entry barrier should be systematically documented across five categories:
 
@@ -292,7 +292,7 @@ Nordic enterprises increasingly require EU data residency. Document DWS IQ 6’s
 |-|---------------------------------------------------------------------------------------------------------|-----|---------------------------------|----------------------------|
 |1|**Build interactive ROI calculator** with energy savings, compliance value, and payback visualization    |25-35|+15-25% demo-to-pilot            |€3-5k MRR acceleration      |
 |2|**Create Kela case study** documenting government validation, deployment timeline, and quantified results|25-30|+20% B2B2G credibility           |€5-8k MRR (government deals)|
-|3|**Develop 14-slide enterprise deck** with EPBD/CSRD urgency framing and 20-moat positioning              |30-40|+40% close rate improvement      |€8-12k MRR acceleration     |
+|3|**Develop 14-slide enterprise deck** with EPBD/CSRD urgency framing and 21-moat positioning              |30-40|+40% close rate improvement      |€8-12k MRR acceleration     |
 |4|**Implement MEDDPICC in CRM** with DWS-specific qualification criteria and exit gates                    |15-20|+25% win rate                    |€4-6k MRR efficiency        |
 |5|**Create CFO one-pager** with ROI summary, payback period, and competitive TCO comparison                |10-12|Enables multi-stakeholder selling|€2-4k MRR acceleration      |
 
@@ -326,7 +326,7 @@ Nordic enterprises increasingly require EU data residency. Document DWS IQ 6’s
 
 |# |Action                                                                                                |Hours|Impact                        |Revenue Effect            |
 |--|------------------------------------------------------------------------------------------------------|-----|------------------------------|--------------------------|
-|16|**Document 20-moat framework** with detailed technical specifications and evidence                    |20-25|Investor + customer confidence|Supports €150k SAFE raise |
+|16|**Document 21-moat framework** with detailed technical specifications and evidence                    |20-25|Investor + customer confidence|Supports €150k SAFE raise |
 |17|**Create switching cost calculator** showing migration complexity from legacy BMS                     |10-12|+25% retention, pricing power |Maintains 100% retention  |
 |18|**Develop Uber Finland case study** for logistics vertical expansion                                  |20-25|Vertical credibility          |€5-8k MRR logistics deals |
 |19|**Build healthcare vertical documentation** with HIPAA considerations for Finnish healthcare expansion|25-30|Healthcare pipeline           |€8-12k MRR healthcare     |

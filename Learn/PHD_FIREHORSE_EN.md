@@ -8,45 +8,60 @@
 **Reference:** LUT Doctoral School — Application and Attachments
 
 ***
+
 # VERSION AND AGENT HISTORY
 
-Version: 3.2
+Version: 3.55
 
 Sessions & Modifications:
-  - Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 03.04.2026 | Changes: Added Section 14.15 (Master Thesis Dual-Version Architecture: v3.30.50 Metropolia freeze); confirmed PHD Firehorse as canonical home for detailed research sections moved from master thesis restructuring (10.6-10.18 → Sections 14.1-14.14); added Key Contribution #18; updated footer
-  - Version: 3.1 | Tool: Claude Code (Opus 4.6) | Session: claude/review-claude-skills-vZQ0r | Date: 31.03.2026 | Changes: Updated Appendix F (Claude Code Engineering Structure) with expanded skills inventory (6→21 skills, 4 subagents, secret-scan hook); added Section 14.14 (Competitive Analysis: Domain-Specific vs Generic AI Harness); added Key Contribution #20
-  - Version: 3.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-leworldmodel-r3VRA | Date: 25.03.2026 | Changes: Added Section 14.13 (LWM Sequencing Strategy — From Regulatory Intelligence to Physical AI): three-phase sequencing, LeWorldModel validation (arXiv:2603.19312), Phase 2 technical gap analysis, compliance-first world model thesis; added Key Contribution #19
-  - Version: 2.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Added Section 1.4 (Motivating Thesis: The Carbon Balance Sheet) as starting clause — carbon compliance as ledger problem, double-entry bookkeeping for CO2, cross-regulation reconciliation, cross-vertical intelligence as PhD research question; this frames the entire Firehorse operations research; added Key Contribution #18
-  - Version: 2.8 | Tool: Claude Code (Opus 4.6) | Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026 | Changes: Added Section 14.6.4 Agent Memory Fact Extraction Pipeline (PR-254): LLM-based fact extraction to subject-predicate-value triples, dual memory architecture (LWM + client memory), three execution layers (Firehorse state machine, ERP connectors, KYA governance); KYA-first PR ordering for court-defensible memory audit trail; added Key Contribution #17
-  - Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/qantic-energy-analysis-Yjg00 | Date: 21.03.2026 | Changes: Added Section 14.2.1 LWM Product-Market Validation (Qantic GmbH energy case study — first external market validation, €21,693/year BESS compliance output, Firehorse model transferability to energy sector confirmed); added Key Contribution #16; updated 16→20 industries in LWM sections
-  - Version: 2.6 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 16.03.2026 | Changes: Updated section 15 Results and Discussion with v2.1–2.5 evidence: harness engineering metrics (52.8%→66.5%), 13-agent Pantheon, customer MVP features, PostgreSQL HTAP, A/B testing integration, compliance readiness updates, SWOT refresh; added section 15.5 A/B Testing Results
-  - Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/add-harness-engineering-thesis-2zvZt | Date: 14.03.2026 | Changes: Added Section 14.12 (Harness Engineering and Forensic Telemetry): harness-forensics connection, court-defensible harness via VERSION AND AGENT HISTORY, KYA Standard as hardware-attested harness beyond software-level scaffolding, EU regulatory divergence from OpenAI's speed-optimized approach; added Key Contribution #15
-  - Version: 2.4 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Added Appendix G Glossary with 21 terms across Platform (5), Data Architecture (8), and Security/Compliance (8) categories
-  - Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Updated Section 14.11 with 2026 Aiven-first mandate: Hydra→Supabase Warehouse (Feb 2026), pg_mooncake→Databricks (Oct 2025), TimescaleDB 2.25.x Hypercore as approved standard, Aiven whitelist (pg_duckdb BLOCKED), two-tier HTAP (Aiven + GN100 edge), edge deployment on Acer Veriton GN100; added Key Contribution #14; updated footer
-  - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Added Section 14.11 (PostgreSQL Columnar HTAP Architecture — DWS Data Standard): pg_duckdb + TimescaleDB on Aiven EU, single-database HTAP for Firehorse operations, 4-phase rollout, DWS_DATA_STANDARD.md creation, EU regulatory compliance; added Key Contribution #13; updated footer
-  - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Added Section 14.10 (Agent System Hardening — Production Reliability): 6 TypeScript compilation errors fixed, 3 test failures resolved, SandboxContext type alignment, MCP/HIL route wiring, locale-deterministic number formatting, dependency hygiene; updated footer
-  - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Key Contribution #12 (Customer-Facing MVP Features — API Key Management, Usage Metering, Report Export); demonstrates Firehorse Operations Model transition from internal tooling to customer-deliverable SaaS; documents 3-tier billing architecture as product monetization pattern
-  - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Added DWS platform standards to References §17 with Oxford notation — DWS Security Standard, ESRS Registry, Compliance Scoring Engine, Site Quality Standards, AGENTS.md, Admin Manual, Security Compliance; explanatory annotations for each standard
-  - Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/pedantic-easley | Date: 07.03.2026 | Changes: Added Section 14.6.3 (Lifetime Scope Signals for LWM Training Coordination — Training Agent Fleet T-01 through T-10, quality gate signals, resource arbitration, Fan-Out parallelism); added Key Contribution #11; updated footer
-  - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Added Section 14.9 (Climate IQ Pantheon — Greek/Roman God Multi-Agent System: 6 orchestrators + 7 industry specialists, SOUL.md pattern, prompt injection fix, EU AI Act Article 12 logging, marketing wedge personas); updated footer
-  - Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Appendix F (Claude Code Engineering Structure: CLAUDE.md as project memory, Skills as reusable workflow components, Hooks for automated quality enforcement, Subagents for parallel execution); updated footer and Publication Status
-  - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: CONSOLIDATED — resolves version drift. Added Section 14.7 (CEO Automation Agent Suite); Section 14.8 (Strategic Partnerships: NVIDIA, Siemens, ABB, xAI, Mistral + Multi-LLM Router); Key Contributions 9-10; references 15-16; footer updated
-  - Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Added Section 14.6 (Agent Foundry Stage 1.5 — OpenSandbox on Acer Veriton GN100); added EMPO² agent memory section (arXiv:2602.23008); added references 13-14; updated Key Contributions
-  - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Added Section 14.5 DWS7 Agent Architecture Modernization (agentic loops, tool use, multi-provider LLM, MCP server, CLI, Claude Code Skills), added VERSION AND AGENT HISTORY block
-  - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition, 16-industry cross-learning analysis, BYOA architecture, Agent Orchestration Studio
-  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Added Appendix E Automated PR Workflow, IPR Protection, Prompt Caching Architecture
-  - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: DWS10-Integration | Date: 28.01.2026 | Changes: Initial structured version with 18 sections
-  - Version: 1.0 | Tool: Claude Code (Opus 4.5) | Session: PHD-Init | Date: 15.01.2026 | Changes: Initial document creation
+
+- Version: 3.55 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Version bump from 3.54 to 3.55 in lockstep across all 4 thesis files; fixed VERSION AND AGENT HISTORY closing delimiter to ***; regenerated Learn thesis HTML outputs at v3.55
+- Version: 3.54 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Replaced §1.2 placeholder e-commerce questions with 6 doctoral research questions differentiated from master's thesis (ontologies/multi-industry, KYA standard, Agentic AI Foundation/NIST/EU, Agentic Commerce, EU eWallet, Transactions); added §1.2.1 five reformulated supervisor discussion questions (catalog governance, efficiency reversal, ontological grounding, risk classification conflicts, carbon signal sovereignty); added §1.3 content scope rule table (master's vs PhD: product/implementation vs science/standards, market signals, time horizon); all 4 thesis files bumped in lockstep per CLAUDE.md thesis rule
+- Version: 3.53 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Added agent accountability and observability layer as new Key Contribution: AgentLogger (structured JSONL + non-blocking Supabase agent_executions), AgentVersionRegistry for version rollback, drift-detector.ts daily confidence-drop reports, eval-runner.ts compliance dataset scoring — directly implements EU AI Act Articles 9 (risk management), 12 (logging), and 14 (human oversight) obligations as running production code; Baseten added as OpenAI-compatible LLM provider expanding multi-provider routing to Groq/Baseten/OpenAI with task-aware model-selector; /case-run skill registered (Themis v2.0 case-coordinate action — case-type→sub-agent mapping), Legora AOS competitive analysis documenting DWS Case entity roadmap P0 actions; Outokumpu CBAM partnership model as first industrial-buyer compliance cost quantification case; TokenSpeed inference engine field note (LightSeek MIT — TensorRT-LLM-class throughput, DGX Spark fit assessment); all 4 thesis files bumped in lockstep per CLAUDE.md thesis rule
+- Version: 3.52 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-ontology-blog-3RGKG | Date: 29.04.2026 | Changes: Added Section 1.7 "Ontology — Etymology and Philosophical Background" linking the doctoral plan to ONTOLOGY.md v1.3 (Greek ón + lógos, Aristotle, scholastic 17th–18th c. systematization, modern computer-science meaning). Aligns the carbon-balance-sheet thesis with the canonical DWS Ontology Standard. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule.
+- Version: 3.51 | Tool: Claude Code (Haiku 4.5) | Session: claude/sync-version-numbering-adEeB | Date: 28.04.2026 | Changes: Bumped from 3.39 to 3.51 (12 steps × 0.01). Unified thesis version track maintained. Created new Tutkimussuunnitelma_3.51.md (Research Plan) with three research streams (KYA standardization, DWS 7 empirical testbed, dual-use industries), eight research questions, "Human in Command and Human in Loop" governance framework; versioning format rule (.X9 → .X+1,0) documented for DWS_DOCUMENT_STANDARD.md §5
+- Version: 3.39 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Terminology rename — "Aiven overlay" / "Aiven layer" (deprecated infrastructure labels) → "Article 12 Logging Pipeline" per new DWS_ARTICLE_12_LOGGING_STANDARD.md v1.0 (unified 3-tier canonical term). Aiven remains the correct name for the Postgres SaaS. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule; only V3Thesis_EN had the infra-context string in content
+- Version: 3.38 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Typo correction — "Aiwen" → "Aiven" (Aiven.io is our Helsinki Postgres partner) as part of repo-wide sweep of 116 files; no content change beyond the spelling fix; unified version track preserved (all 4 thesis files bumped in lockstep per CLAUDE.md thesis rule)
+- Version: 3.37 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: **Unified thesis version track.** PHD_FIREHORSE and Metropolia V3Thesis are now on a single shared version number (3.37). From this commit forward, all 4 thesis files (V3Thesis_EN/FI + PHD_FIREHORSE_EN/FI) bump in lockstep (3.37 → 3.38 → … → 3.99 → 4.00). Chain-break history honestly recorded: v2.9 → v2.10 (21.04.2026, Boardy refinements) → an unintended v3.10 jump collided with an already-existing local v3.1, v3.2 chain → remote was pushed to v3.5 in this session (22.04.2026) without visibility of the local v3.2 work → unified here to v3.37 to align with V3Thesis. Local v3.2 work is expected to be folded into v3.38 as the next bump (human to paste diff). Substantive content in this version: Section 14.17 (DWS Skilled Taxonomy — Brand / Spec / UI Across Agents, Workflows, and Jurisdictions); "GodAgent"/"Godagent" branding deprecated; three-tier `Skilled <Axis>` / `Industrial Specialist <Axis>` / `Industry <Axis>` pattern across three active axes (Agents, Workflows, Jurisdictions — EU/US/Aiven); SKU-copy, scheduler-copy, and jurisdiction-packaging disciplines derived as operations-model implications; Key Contribution #22.
+- Version: 3.5 | Tool: Claude Code (Opus 4.7) | Session: claude/rename-godagents-skilled-dXqBs | Date: 22.04.2026 | Changes: [Superseded by v3.37 unification.] Opened the PHD_FIREHORSE major-version line at v3.5 (later reverted). Substantive content moved to v3.37.
+- Version: 2.10 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Incorporated Boardy-driven refinements: KYA open-source standardization path via Agentic AI Foundation / Linux Foundation, explicit NIST submission status (not sent), publication phasing (2026-2029), court-defensible compliance framing, and tighter supervisor letter structure
+- Version: 2.9 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: f2a5b1e0-a01c-489a-8d33-fde09a7dd970 | Date: 21.04.2026 | Changes: Refined research-question targeting: positioned KYA as an Agentic AI Foundation standard candidate, added DWS 7 objectives, added hydrogen-economy continuity note (DWS 5), refocused third research stream to dual-use industries (including Nokia Defence discussions), added Aegis/Sovereign Infra/Connect sovereignty segmentation with core figure, added Siemens and NVIDIA Connect collaboration notes; added supervisor response letter draft
+- Version: 2.8 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-work-EoyoF | Date: 20.04.2026 | Changes: Added Section 14.16 (April 2026 Evolution) — five subsections: Firehorse Report Engine production scheduler (PR #1064, cron-driven compliance report dispatch, module-scoped tests, manual trigger route), Firehorse Product Line V2 consolidation (omnichannel/report/automation/content as unified DWS IQ product family), Firehorse Snap benchmark (measured <125ms kill latency on Firecracker MicroVM replaces 122ms Arctic 15 spec), Skills paradigm applied to operations (Anthropic's "Stop Building Agents" validates §14.14; +3 skills: /regulatory-radar, /investor-outreach, /multilingual), Ops Manager V0 buyer lock (PRD v0.2 with ICP validation script), Founder→Team transition (SOLO_FOUNDER_STATEMENT v1.2 + Anthony Maurin CTO + /investor-outreach reproducible workflow with 10+ INTRO notes); added Key Contributions #17–#19
+- Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 18.03.2026 | Changes: Added Appendix H (KYA Partner Ecosystem): 5-layer partner mapping, Shufti IDV integration (L1/L5), Palantir AIP connector model, BYO Agent Policy, strategic ecosystem partners (NVIDIA, Siemens, ABB, xAI, Mistral), partnership distribution hypothesis validation; added Key Contribution #16
+- Version: 2.6 | Tool: Claude Code (Opus 4.6) | Session: claude/refine-thesis-critique-RP6Dv | Date: 16.03.2026 | Changes: Updated section 15 Results and Discussion with v2.1–2.5 evidence: harness engineering metrics (52.8%→66.5%), 13-agent Pantheon, customer MVP features, PostgreSQL HTAP, A/B testing integration, compliance readiness updates, SWOT refresh; added section 15.5 A/B Testing Results
+- Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/add-harness-engineering-thesis-2zvZt | Date: 14.03.2026 | Changes: Added Section 14.12 (Harness Engineering and Forensic Telemetry): harness-forensics connection, court-defensible harness via VERSION AND AGENT HISTORY, KYA Standard as hardware-attested harness beyond software-level scaffolding, EU regulatory divergence from OpenAI's speed-optimized approach; added Key Contribution #15
+- Version: 2.4 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Added Appendix G Glossary with 21 terms across Platform (5), Data Architecture (8), and Security/Compliance (8) categories
+- Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 13.03.2026 | Changes: Updated Section 14.11 with 2026 Aiven-first mandate: Hydra→Supabase Warehouse (Feb 2026), pg_mooncake→Databricks (Oct 2025), TimescaleDB 2.25.x Hypercore as approved standard, Aiven whitelist (pg_duckdb BLOCKED), two-tier HTAP (Aiven + GN100 edge), edge deployment on Acer Veriton GN100; added Key Contribution #14; updated footer
+- Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Added Section 14.11 (PostgreSQL Columnar HTAP Architecture — DWS Data Standard): pg_duckdb + TimescaleDB on Aiven EU, single-database HTAP for Firehorse operations, 4-phase rollout, DWS_DATA_STANDARD.md creation, EU regulatory compliance; added Key Contribution #13; updated footer
+- Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/vigorous-meitner | Date: 09.03.2026 | Changes: Added Section 14.10 (Agent System Hardening — Production Reliability): 6 TypeScript compilation errors fixed, 3 test failures resolved, SandboxContext type alignment, MCP/HIL route wiring, locale-deterministic number formatting, dependency hygiene; updated footer
+- Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-nFk7k | Date: 08.03.2026 | Changes: Added Key Contribution #12 (Customer-Facing MVP Features — API Key Management, Usage Metering, Report Export); demonstrates Firehorse Operations Model transition from internal tooling to customer-deliverable SaaS; documents 3-tier billing architecture as product monetization pattern
+- Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/implement-mvp-features-D2e9d | Date: 07.03.2026 | Changes: Added DWS platform standards to References §17 with Oxford notation — DWS Security Standard, ESRS Registry, Compliance Scoring Engine, Site Quality Standards, AGENTS.md, Admin Manual, Security Compliance; explanatory annotations for each standard
+- Version: 1.8 | Tool: Claude Code (Opus 4.6) | Session: claude/pedantic-easley | Date: 07.03.2026 | Changes: Added Section 14.6.3 (Lifetime Scope Signals for LWM Training Coordination — Training Agent Fleet T-01 through T-10, quality gate signals, resource arbitration, Fan-Out parallelism); added Key Contribution #11; updated footer
+- Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Added Section 14.9 (Climate IQ Pantheon — Greek/Roman God Multi-Agent System: 6 orchestrators + 7 industry specialists, SOUL.md pattern, prompt injection fix, EU AI Act Article 12 logging, marketing wedge personas); updated footer
+- Version: 1.7 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Appendix F (Claude Code Engineering Structure: CLAUDE.md as project memory, Skills as reusable workflow components, Hooks for automated quality enforcement, Subagents for parallel execution); updated footer and Publication Status
+- Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: CONSOLIDATED — resolves version drift. Added Section 14.7 (CEO Automation Agent Suite); Section 14.8 (Strategic Partnerships: NVIDIA, Siemens, ABB, xAI, Mistral + Multi-LLM Router); Key Contributions 9-10; references 15-16; footer updated
+- Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Added Section 14.6 (Agent Foundry Stage 1.5 — OpenSandbox on Acer Veriton GN100); added EMPO² agent memory section (arXiv:2602.23008); added references 13-14; updated Key Contributions
+- Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Added Section 14.5 DWS7 Agent Architecture Modernization (agentic loops, tool use, multi-provider LLM, MCP server, CLI, Claude Code Skills), added VERSION AND AGENT HISTORY block
+- Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition, 16-industry cross-learning analysis, BYOA architecture, Agent Orchestration Studio
+- Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Added Appendix E Automated PR Workflow, IPR Protection, Prompt Caching Architecture
+- Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: DWS10-Integration | Date: 28.01.2026 | Changes: Initial structured version with 18 sections
+- Version: 1.0 | Tool: Claude Code (Opus 4.5) | Session: PHD-Init | Date: 15.01.2026 | Changes: Initial document creation
 
 Document Status:
-  - Created: 15.01.2026
-  - Last Modified: 24.03.2026
-  - Language: English
-  - Languages Available: English, Suomi
-  - Publication Status: DRAFT (V3.0 — LWM Sequencing Strategy: compliance→fleet→Series A, LeWorldModel validation, Phase 2 technical gap)
 
+- Created: 15.01.2026
+- Last Modified: 21.04.2026
+- Language: English
+- Languages Available: English, Suomi
+- Publication Status: DRAFT (V2.10 — KYA open-source standard path, NIST status, publication phasing, supervisor letter refined)
 
----
+- Created: 15.01.2026
+- Last Modified: 24.03.2026
+- Language: English
+- Languages Available: English, Suomi
+- Publication Status: DRAFT (V3.0 — LWM Sequencing Strategy: compliance→fleet→Series A, LeWorldModel validation, Phase 2 technical gap)
+
+***
 
 ## Abstract
 
@@ -54,7 +69,7 @@ This thesis documents the implementation of the Firehorse Operations Model, an A
 
 **Keywords:** AI Operations, E-Commerce Automation, Google Merchant Center, Claude Code, Firehorse Model, EU AI Act Compliance, Carbon Calculator, Industrial Compliance
 
----
+***
 
 ## Table of Contents
 
@@ -93,23 +108,53 @@ Lifetime Oy operates DWS10.com, an enterprise e-commerce platform serving climat
 
 ### 1.2 Research Questions
 
-1. How can AI assistants effectively manage e-commerce product catalogs?
-2. What efficiency gains are achievable through automated feed management?
-3. How should audio-based customer interaction evolve to recommend industry-specific solutions?
-4. What EU AI Act requirements impact AI-assisted sales channels?
-5. How can carbon calculators drive product recommendations for industrial prospects?
+The PhD thesis is organized around six doctoral research questions that explicitly differentiate it from the master's thesis (Metropolia V3Thesis) in scope and ambition. The master's thesis addresses the Firehorse product manufacturing operating model; this doctoral research addresses the foundational standards, market structures, and transaction primitives that govern agentic AI at societal scale.
+
+1. **Ontologies and multi-industry combinatorial benefits** — How do shared ontological frameworks enable cross-industry compliance intelligence that single-vertical tools cannot produce? What industrial benefits emerge when the carbon balance sheet thesis (§1.4) formalizes emissions flows across ETS, CBAM, CSRD, and EU Taxonomy as a reusable ontology layer — and at what scale does the cross-industry network effect become self-reinforcing?
+
+2. **Know Your Agent (KYA) standard development** — How should a general-purpose identity, trust, and governance standard for agentic AI systems be designed to satisfy EU AI Act Articles 9 (risk management), 12 (logging), and 14 (human oversight) while remaining adoptable by open-standards bodies (Agentic AI Foundation, Linux Foundation)?
+
+3. **Agentic AI Foundation, NIST, and EU alignment** — What standardization pathway (open specification + reference implementation + multi-body adoption) enables KYA to become a foundational interoperability standard across EU regulatory, US NIST, and global agentic contexts? How must the standard be structured so that EU regulatory obligations and US NIST voluntary frameworks can both reference it without conflict?
+
+4. **Agentic Commerce** — How do autonomous AI agents transact commercially on behalf of humans and enterprises within regulated EU markets? What accountability, identity-binding, and audit-trail mechanisms are required for agentic transactions to carry legal and commercial weight — and how does KYA serve as the trust primitive enabling this?
+
+5. **EU eWallet** — How does the EU Digital Identity Wallet (eIDAS 2.0) integrate with agentic systems to enable agent-to-agent and agent-to-institution transactions with legally valid identity and consent chains? What changes to KYA are required for it to function as the agent-side counterpart to the citizen-side eWallet?
+
+6. **Transactions** — What is the minimal viable transaction primitive that allows AI agents to conduct, verify, and dispute commerce across EU-regulated sectors? How does the journal-entry model (§1.4 carbon balance sheet) extend to cover non-carbon commercial transactions within an agentic commerce architecture?
+
+### 1.2.1 Discussion Questions for Supervisor
+
+The following five questions are reformulated from the thesis's early operational observations into doctoral-level propositions. They are intended as **open agenda items for supervisor discussion** — not yet formalised as research questions, but candidates for refinement into the research programme.
+
+1. **Autonomous catalog governance boundary** — At what decision-making boundary should AI catalog management systems defer to human judgment in regulated EU e-commerce environments? What governance mechanism (EU AI Act Article 14; operator accountability policies) determines that boundary — and is it stable across industries, or does it need to be dynamically determined per sector and risk classification?
+
+2. **Efficiency measurement in agentic orchestration — diminishing returns and reversal** — Under what conditions do efficiency gains from AI-assisted multi-channel product feed orchestration (FTE reduction, time-to-publish, error rate) saturate or reverse? What factors — hallucination rate, regulatory versioning frequency, integration drift — are the primary predictors of reversal, and can they be modelled a priori?
+
+3. **Ontological grounding as a prerequisite for auditable multimodal recommendations** — What level of domain-ontology grounding is necessary for multimodal AI recommendations (voice + text) to meet EU AI Act Article 13 transparency requirements in B2B industrial procurement? Is ontological grounding sufficient, or does regulatory auditability require additional provenance mechanisms (e.g., chain-of-thought logging, source attribution)?
+
+4. **Risk classification conflicts between EU AI Act and sector-specific regulations** — When EU AI Act risk classification (Articles 9, 13, 17) is applied to AI-assisted recommendation systems serving simultaneously CSRD, ETS, and CBAM-regulated industries, does the interaction produce complementary compliance obligations or irreconcilable conflicts? Which conflicts, if any, require new regulatory guidance to resolve?
+
+5. **Carbon compliance signal as a recommendation primitive — scope and sovereignty** — Can a cross-regulation carbon balance sheet (ETS/CBAM/CSRD/EU Taxonomy) replace intent-signal marketing with compliance-gap routing for industrial buyers at EU cross-border scale? What EU data sovereignty constraints (GDPR, EU Data Act 2023/2854, AI Act) govern the use of third-party emissions data as a commercial recommendation signal?
 
 ### 1.3 Scope
 
-This thesis covers the DWS10.com store implementation, serving 30+ products across:
+#### Content Scope Rule (v3.55)
 
-| Category | Products | Price Range |
-|----------|----------|-------------|
-| Platform Software | DWS IQ v5, v6 | €4,999 - €6,995 |
-| Firehorse Suite | Automation, Report, CMS, Omnichannel | €499 - €4,950 |
-| Consulting Services | Hourly, Monthly, Workshops | €98 - €6,250 |
-| Training & Coaching | AI Koulutus, Coach, Mentor | €499 - €6,250 |
-| Digital Products | Glossaries, Web Pages | €0.99 - €799 |
+This PhD thesis takes a **scientific perspective** with a longer research horizon (3–7 years). It is updated with **market signal data**: competitor movements, regulatory pipeline, standardization body activity (Agentic AI Foundation, NIST, EU), and partnership signals. It contains research questions, theoretical framing, and societal-impact analysis.
+
+**This PhD thesis does NOT contain** sprint-level implementation detail or PR-level engineering records. Those belong in the master's thesis (`V3Thesis_EN.md` / `V3Thesis_FI.md`).
+
+| Dimension          | Master's thesis (V3Thesis) | PhD thesis (PHD_FIREHORSE)        |
+| ------------------ | -------------------------- | --------------------------------- |
+| Focus              | Product & implementation   | Science & standards               |
+| Time horizon       | Current + next version     | 3–7 year roadmap                  |
+| Market signals     | Not included               | Included                          |
+| Engineering detail | PR-level                   | Architecture-level                |
+| Update trigger     | Product release / PR merge | Market event / research milestone |
+
+#### Product scope (DWS10.com reference)
+
+The Firehorse operations model documented in this thesis is delivered through DWS10.com, serving 30+ products across platform software, Firehorse Suite, consulting services, training and coaching, and digital products. Product and pricing detail is maintained in the master's thesis; this document references the product line only where it is evidence for a research claim.
 
 ### 1.4 Motivating Thesis: The Carbon Balance Sheet
 
@@ -134,6 +179,68 @@ The Firehorse Operations Model (Sections 3–13) documents the engineering infra
 A carbon balance sheet requires verified data from heterogeneous industrial systems — ERP platforms (SAP, IFS, Dynamics, Visma, Jeeves), EU registries (EUTL, CBAM Transitional Registry), emission factor databases (EEA, IPCC), IoT sensors, and ESG platforms (Worldfavor, PositionGreen). This thesis argues that these connectors must be **open source** (MIT-licensed) for three reasons: (1) auditability — auditors must inspect the data path from source system to ledger entry, not trust a vendor's black box; (2) network effect acceleration — open source lowers adoption barriers, enabling the cross-vertical intelligence to emerge faster; (3) regulatory defensibility — EU AI Act Article 12 requires auditable AI pipelines, which open source satisfies by design. The connector architecture extends the ERP integration patterns already implemented in DWS (`src/integrations/erp/`), treating each connector as a standardized adapter (input schema → journal entry) that plugs into the ledger's append-only ingestion API.
 
 These questions extend beyond the Firehorse e-commerce operations into the domain of **compliance infrastructure design** — the transition from "tools that generate reports" to "infrastructure that maintains a system of record for carbon." The DWS 7 implementation (Phase 2.6, PRs 093A–093H) provides the empirical test bed.
+
+### 1.5 Research Focus Refinement (v2.10)
+
+The refined research focus is organized into three streams:
+
+1. **KYA as an Agentic AI Foundation standard:** KYA (Know Your Agent) is elevated from an internal governance wrapper toward a generalizable foundation standard for identity binding, runtime control, auditability, and sovereignty guarantees in agentic systems.
+2. **DWS 7 objectives as empirical testbed:** DWS 7 is treated as the operational environment to validate carbon-ledger infrastructure, KYA governance, multi-partner integration (Siemens, NVIDIA Connect), and sovereignty-aware product segmentation.
+3. **Dual-use industries as the third research stream:** The third stream is explicitly focused on dual-use industries (industrial + defence), including ongoing Nokia Defence discussions as part of the funding and pilot pathway.
+
+A continuity note is added from DWS 5 to DWS 7: hydrogen economy compliance (RFNBO additionality and verification) is treated as a longitudinal thread in the platform's research program.
+
+**Product-tier and sovereignty segmentation (core figure):**
+
+<img src="../artifacts/Sovereignty.jpg" alt="Aegis, Sovereign Infra and Connect segmentation" />
+
+The figure anchors three product layers in the research framing:
+
+- **Aegis** = security and critical-infrastructure governance product
+- **Sovereign Infra** = EU-sovereign infrastructure layer for regulated operators
+- **Connect** = global integration and distribution layer
+
+**Open-source standardization path (new refinement):**
+
+- KYA standard proposal to **Agentic AI Foundation / Linux Foundation** is currently in draft state (not yet submitted).
+- NIST track is also not yet submitted and is modeled as a parallel validation path (US validation vs open-source adoption).
+- Research principle: a standard that remains private cannot scale to ecosystem adoption; therefore, standardization work must include both open specification and reference implementation evidence.
+
+### 1.6 Response Letter Draft to Prof. Kari Smolander
+
+Dear Kari,
+
+thank you for your message and for the clear guidance. I especially value your point that doctoral work is an endurance process where socialization into the research community and peer-reviewed publication are central.
+
+I will prepare the short research idea description you requested with the following structure:
+
+- **Research problem:** how to build an agentic AI architecture that produces court-defensible compliance data in EU-regulated industrial settings (CBAM, CSRD, NIS2, AI Act).
+- **Research objectives:** (1) develop and validate a KYA-certified governance model for industrial AI agents, (2) study scalability of multi-agent systems (MCP + A2A) across 20+ regulatory verticals, (3) evaluate impact of agentic compliance automation on D&O insurability and legal accountability.
+- **Preliminary methods:** Design Science Research (DSR), artifact construction (DWS IQ 6/7), empirical validation with paying-customer environments, and case-study analysis.
+- **Publication phasing:** 2026 Article 1 (KYA open-source standard), 2027 Article 2 (MCP architecture), 2028 Articles 3-4 (empirical findings), 2028-2029 synthesis + dissertation.
+
+Article 1 is framed as: **"KYA Standard: An Open Source Governance Framework for Agentic AI in EU-Regulated Industries"**, proposed toward Agentic AI Foundation / Linux Foundation pathways and targeted for an international conference.
+
+Current status is made explicit:
+
+- KYA open-source proposal is drafted but not sent.
+- NIST submission has not been sent.
+- The two paths are complementary, but open-source adoption is prioritized first in this round.
+
+I would be glad to discuss this draft with you online or in person. I can send a concise 2-3 page version in advance.
+
+Kind regards,  
+Risto Anton Päärni
+
+### 1.7 Ontology — Etymology and Philosophical Background
+
+The doctoral programme situates the Firehorse operations model inside a formal enterprise ontology — the DWS Ontology Standard (see `ONTOLOGY.md` v1.3 in the project repository). To anchor the engineering and regulatory layers in their conceptual heritage, this subsection reviews the origin of the term.
+
+**Etymology.** The word _ontology_ derives from two Greek roots: **ὄν (ón)** — "that which is", the present participle of _einai_ ("to be") — and **λόγος (lógos)** — "doctrine, account, rational explanation". Literally, ontology is "the doctrine of being".
+
+**Philosophical background.** Ontology is one of the central branches of metaphysics. In classical Greece, philosophers such as Aristotle examined what it means for something to _be_, what kinds of entities exist (objects, properties, relations, events), and what the basic structure of being is. The term _ontology_ itself was consolidated only in the 17th–18th centuries, within scholastic and early-modern philosophy, when metaphysics was systematised into distinct sub-fields.
+
+**Modern usage.** Today the term is applied across philosophy (the study of the fundamental nature of existence), computer science and artificial intelligence (a formal model of concepts and the relations between them — classes, properties, relations), and the philosophy of science (the question of which entities a given theory commits to). The original meaning — _structuring what is_ — is preserved while the application surface shifts. The DWS Ontology Standard builds on this foundation: EU regulations (ETS, CBAM, CSRD, AI Act, NIS2, GDPR) and industrial concepts are structured into a machine-readable form that humans and agents query through the same interface, enabling the carbon balance sheet and the KYA-certified governance model that the doctoral research validates.
 
 ---
 
@@ -163,16 +270,16 @@ Modern Product Information Management (PIM) systems require:
 
 The European Union's regulatory landscape affecting AI-assisted commerce includes:
 
-| Regulation | Effective Date | Impact |
-|------------|----------------|--------|
-| EU AI Act | August 2026 | AI system classification, transparency requirements |
-| GDPR | May 2018 | Data protection, consent management |
-| NIS2 Directive | October 2024 | Cybersecurity requirements |
-| Green Claims Directive | 2026 | Environmental marketing compliance |
-| Fit for 55 Package | 2030 targets | Carbon reduction obligations |
-| CSRD | January 2024 | Corporate sustainability reporting |
-| CBAM | October 2023 | Carbon border adjustment mechanism |
-| EPBD 2028 | 2028 | Building energy performance |
+| Regulation             | Effective Date | Impact                                              |
+| ---------------------- | -------------- | --------------------------------------------------- |
+| EU AI Act              | August 2026    | AI system classification, transparency requirements |
+| GDPR                   | May 2018       | Data protection, consent management                 |
+| NIS2 Directive         | October 2024   | Cybersecurity requirements                          |
+| Green Claims Directive | 2026           | Environmental marketing compliance                  |
+| Fit for 55 Package     | 2030 targets   | Carbon reduction obligations                        |
+| CSRD                   | January 2024   | Corporate sustainability reporting                  |
+| CBAM                   | October 2023   | Carbon border adjustment mechanism                  |
+| EPBD 2028              | 2028           | Building energy performance                         |
 
 ---
 
@@ -211,17 +318,18 @@ The Firehorse Operations Model is a human-AI collaborative framework for e-comme
 
 ### 3.3 Operational Domains
 
-| Domain | AI Capabilities | Human Oversight |
-|--------|----------------|-----------------|
-| Product Management | CRUD operations, feed generation | Pricing approval, content review |
-| Payment Integration | Link creation, configuration | Financial authorization |
-| Compliance | Document generation, monitoring | Legal sign-off |
-| Customer Interaction | AI chat, recommendations | Escalation handling |
-| Documentation | Manual generation, translations | Technical review |
+| Domain               | AI Capabilities                  | Human Oversight                  |
+| -------------------- | -------------------------------- | -------------------------------- |
+| Product Management   | CRUD operations, feed generation | Pricing approval, content review |
+| Payment Integration  | Link creation, configuration     | Financial authorization          |
+| Compliance           | Document generation, monitoring  | Legal sign-off                   |
+| Customer Interaction | AI chat, recommendations         | Escalation handling              |
+| Documentation        | Manual generation, translations  | Technical review                 |
 
 ### 3.4 Workflow Examples
 
 **Product Update Workflow:**
+
 ```
 User: "Add new product X at €999"
 Claude Code:
@@ -233,6 +341,7 @@ Claude Code:
 ```
 
 **Documentation Workflow:**
+
 ```
 User: "Create admin manual"
 Claude Code:
@@ -300,7 +409,7 @@ dws10.com/
 // generate-feed.cjs workflow
 const generateFeed = () => {
   // 1. Load products.json
-  const products = require('../config/products.json');
+  const products = require("../config/products.json");
 
   // 2. Validate required fields
   validateProducts(products); // id, mpn, price, brand
@@ -312,12 +421,12 @@ const generateFeed = () => {
     xml += generateProductItem(product);
 
     // 4. Add checkout_link_template for Revolut
-    const checkoutLink = product.revolutLink || 'https://revolut.me/lifetimeoy';
+    const checkoutLink = product.revolutLink || "https://revolut.me/lifetimeoy";
     xml += `<g:checkout_link_template>${checkoutLink}</g:checkout_link_template>`;
   }
 
   // 5. Write google-products.xml
-  writeFile('google-products.xml', xml);
+  writeFile("google-products.xml", xml);
 };
 ```
 
@@ -336,14 +445,14 @@ const generateFeed = () => {
 
 Lifetime Oy selected Revolut Business for payment processing based on:
 
-| Feature | Benefit |
-|---------|---------|
-| Instant settlements | Improved cash flow, same-day access |
-| Multi-currency | Support for EUR, SEK, NOK, DKK, GBP |
-| Low fees | 1.0% + €0.20 per transaction |
-| API integration | Automated reconciliation |
-| Checkout links | Direct Google Merchant support |
-| Apple Pay / Google Pay | Modern payment methods |
+| Feature                | Benefit                             |
+| ---------------------- | ----------------------------------- |
+| Instant settlements    | Improved cash flow, same-day access |
+| Multi-currency         | Support for EUR, SEK, NOK, DKK, GBP |
+| Low fees               | 1.0% + €0.20 per transaction        |
+| API integration        | Automated reconciliation            |
+| Checkout links         | Direct Google Merchant support      |
+| Apple Pay / Google Pay | Modern payment methods              |
 
 ### 5.2 Checkout Link Architecture
 
@@ -368,11 +477,13 @@ Lifetime Oy selected Revolut Business for payment processing based on:
 ### 5.4 Checkout Link Configuration
 
 **Dedicated links per product:**
+
 ```json
 "revolutLink": "https://checkout.revolut.com/pay/f023d433-0bf4-48fa-98cd-494de448df39"
 ```
 
 **Fallback for products without specific links:**
+
 ```json
 "revolutFallbackLink": "https://revolut.me/lifetimeoy"
 ```
@@ -392,26 +503,26 @@ Recent improvements implemented:
 
 ### 6.1 Account Configuration
 
-| Setting | Value |
-|---------|-------|
-| Merchant ID | 8496329 |
-| Target Country | Finland (FI) |
-| Languages | English (primary), Finnish |
-| Feed Method | SFTP upload |
-| Feed URL | https://dws10.com/feeds/google-products.xml |
-| SFTP Host | partnerupload.google.com:19321 |
+| Setting        | Value                                       |
+| -------------- | ------------------------------------------- |
+| Merchant ID    | 8496329                                     |
+| Target Country | Finland (FI)                                |
+| Languages      | English (primary), Finnish                  |
+| Feed Method    | SFTP upload                                 |
+| Feed URL       | https://dws10.com/feeds/google-products.xml |
+| SFTP Host      | partnerupload.google.com:19321              |
 
 ### 6.2 Feed Compliance Requirements
 
-| Attribute | Requirement | Implementation |
-|-----------|-------------|----------------|
-| g:id | Unique identifier | Matches products.json ID |
-| g:mpn | Manufacturer part number | Format: CATEGORY-TYPE-YEAR |
-| g:brand | Product brand | "Lifetime" or "Firehorse" |
-| g:price | Price with currency | EUR format |
-| g:availability | Stock status | Always "in_stock" for services |
-| g:checkout_link_template | Payment URL | Revolut checkout link |
-| g:condition | Product condition | Always "new" |
+| Attribute                | Requirement              | Implementation                 |
+| ------------------------ | ------------------------ | ------------------------------ |
+| g:id                     | Unique identifier        | Matches products.json ID       |
+| g:mpn                    | Manufacturer part number | Format: CATEGORY-TYPE-YEAR     |
+| g:brand                  | Product brand            | "Lifetime" or "Firehorse"      |
+| g:price                  | Price with currency      | EUR format                     |
+| g:availability           | Stock status             | Always "in_stock" for services |
+| g:checkout_link_template | Payment URL              | Revolut checkout link          |
+| g:condition              | Product condition        | Always "new"                   |
 
 ### 6.3 SFTP Upload Process
 
@@ -424,18 +535,19 @@ curl -T google-products.xml \
 ```
 
 **Password encoding:** Special characters must be URL-encoded
+
 - `$` becomes `%24`
 - `!` becomes `%21`
 
 ### 6.4 Historical Issues and Resolutions
 
-| Issue | Root Cause | Resolution |
-|-------|------------|------------|
-| Domain mismatch | URLs pointing to lifetime.fi | Updated all URLs to dws10.com |
-| Duplicate products | ID mismatch with Merchant Center | Aligned IDs in products.json |
-| identifier_exists error | Set false when MPN+brand exist | Removed field entirely |
-| Image URL errors | Double slashes in paths | Fixed path generation |
-| Missing checkout links | No payment URL configured | Added Revolut links |
+| Issue                   | Root Cause                       | Resolution                    |
+| ----------------------- | -------------------------------- | ----------------------------- |
+| Domain mismatch         | URLs pointing to lifetime.fi     | Updated all URLs to dws10.com |
+| Duplicate products      | ID mismatch with Merchant Center | Aligned IDs in products.json  |
+| identifier_exists error | Set false when MPN+brand exist   | Removed field entirely        |
+| Image URL errors        | Double slashes in paths          | Fixed path generation         |
+| Missing checkout links  | No payment URL configured        | Added Revolut links           |
 
 ---
 
@@ -453,16 +565,16 @@ The EU AI Act classifies AI systems by risk level. Our audio chat and recommenda
 
 ### 7.2 Compliance Mapping by Product
 
-| Regulation | Relevant Products | Customer Need |
-|------------|------------------|---------------|
-| **EU AI Act** | DWS IQ v6, Conversational Agent | AI system documentation, transparency |
-| **Fit for 55** | DWS IQ Platform, Firehorse Report | Carbon reporting, ETS compliance |
-| **CSRD** | Climate Reporting Bundle | Sustainability disclosure |
-| **GDPR** | Protonmail Implementation | Data protection, encryption |
-| **NIS2** | Protonmail, Firehorse CMS | Cybersecurity requirements |
-| **Green Claims** | Firehorse Omnichannel | Environmental marketing compliance |
-| **EPBD 2028** | Firehorse Automation | Building energy performance |
-| **CBAM** | DWS IQ, Consulting Fit55 | Carbon border adjustment |
+| Regulation       | Relevant Products                 | Customer Need                         |
+| ---------------- | --------------------------------- | ------------------------------------- |
+| **EU AI Act**    | DWS IQ v6, Conversational Agent   | AI system documentation, transparency |
+| **Fit for 55**   | DWS IQ Platform, Firehorse Report | Carbon reporting, ETS compliance      |
+| **CSRD**         | Climate Reporting Bundle          | Sustainability disclosure             |
+| **GDPR**         | Protonmail Implementation         | Data protection, encryption           |
+| **NIS2**         | Protonmail, Firehorse CMS         | Cybersecurity requirements            |
+| **Green Claims** | Firehorse Omnichannel             | Environmental marketing compliance    |
+| **EPBD 2028**    | Firehorse Automation              | Building energy performance           |
+| **CBAM**         | DWS IQ, Consulting Fit55          | Carbon border adjustment              |
 
 ### 7.3 Article 12 Compliance (Automatic Logging)
 
@@ -525,16 +637,16 @@ The Firehorse Operations Model ensures EU AI Act Article 12 compliance through:
 
 ### 8.2 Industry Detection Rules
 
-| Industry Indicator | Detected Sector | Primary Products |
-|-------------------|-----------------|------------------|
-| "cement", "concrete" | Cement | DWS IQ v6, Climate Bundle |
-| "steel", "metal" | Steel | DWS IQ v6, Firehorse Automation |
-| "chemical", "petrochemical" | Chemicals | Firehorse Report, Consulting |
-| "automotive", "vehicle" | Automotive | DWS IQ v6, Expert Advisory |
-| "shipping", "maritime" | Maritime | Firehorse Automation, Report |
-| "aviation", "airline" | Aviation | DWS IQ v6, Consulting Fit55 |
-| "building", "construction" | Buildings | Firehorse CMS, Automation |
-| "agriculture", "farming" | Agriculture | Climate Bundle, Advisory |
+| Industry Indicator          | Detected Sector | Primary Products                |
+| --------------------------- | --------------- | ------------------------------- |
+| "cement", "concrete"        | Cement          | DWS IQ v6, Climate Bundle       |
+| "steel", "metal"            | Steel           | DWS IQ v6, Firehorse Automation |
+| "chemical", "petrochemical" | Chemicals       | Firehorse Report, Consulting    |
+| "automotive", "vehicle"     | Automotive      | DWS IQ v6, Expert Advisory      |
+| "shipping", "maritime"      | Maritime        | Firehorse Automation, Report    |
+| "aviation", "airline"       | Aviation        | DWS IQ v6, Consulting Fit55     |
+| "building", "construction"  | Buildings       | Firehorse CMS, Automation       |
+| "agriculture", "farming"    | Agriculture     | Climate Bundle, Advisory        |
 
 ### 8.3 Regulation Trigger Matrix
 
@@ -556,6 +668,7 @@ The Firehorse Operations Model ensures EU AI Act Article 12 compliance through:
 When multiple regulations apply, generate optimized bundles:
 
 **Example: Manufacturing Company (250+ employees, imports materials)**
+
 ```
 Detected Regulations:
 - Fit for 55 (carbon reporting)
@@ -603,6 +716,7 @@ Transform customer interactions from text-based to voice-based with intelligent 
 ```
 
 **Features:**
+
 - Voice input/output (Finnish, English, Swedish)
 - Product catalog search
 - Basic Q&A about services
@@ -610,6 +724,7 @@ Transform customer interactions from text-based to voice-based with intelligent 
 - EU AI Act transparency disclosure
 
 **Technical Stack:**
+
 - Speech-to-Text: Whisper API
 - Text-to-Speech: ElevenLabs
 - LLM: Groq inference with Llama models (cost-effective)
@@ -620,6 +735,7 @@ Transform customer interactions from text-based to voice-based with intelligent 
 **Objective:** Industry-specific carbon footprint calculation with product recommendations
 
 **Features:**
+
 - Industry sector detection (16 EU industries)
 - Carbon footprint estimation (Scope 1, 2, 3)
 - Automatic product recommendations based on emissions profile
@@ -627,6 +743,7 @@ Transform customer interactions from text-based to voice-based with intelligent 
 - ROI calculation for compliance solutions
 
 **Example Interaction:**
+
 ```
 Customer: "We're a cement manufacturer producing 500,000 tonnes annually.
           What's our estimated carbon footprint and how can you help?"
@@ -651,6 +768,7 @@ Audio Chat: "Based on industry averages for cement production, your estimated
 **Objective:** Proactive regulatory compliance recommendations
 
 **Features:**
+
 - Real-time regulation monitoring
 - Customer profile analysis
 - Proactive compliance alerts
@@ -658,6 +776,7 @@ Audio Chat: "Based on industry averages for cement production, your estimated
 - Partner product integration
 
 **Regulation Detection Matrix:**
+
 ```
 Customer Profile Analysis:
 ├── Industry sector
@@ -676,6 +795,7 @@ Customer Profile Analysis:
 **Objective:** Expand recommendations to include partner offerings
 
 **Partner Categories:**
+
 - Compliance Software Partners
 - ESG Data Providers
 - Carbon Offset Marketplaces
@@ -683,17 +803,18 @@ Customer Profile Analysis:
 - Certification Bodies
 
 **Revenue Model:**
+
 - Lifetime products: Direct sale
 - Partner products: Referral commission (10-20%)
 
 ### 9.6 Implementation Timeline
 
-| Phase | Quarter | Features | EU Compliance |
-|-------|---------|----------|---------------|
-| 1 | Q1 2026 | Basic audio chat | AI Act transparency |
-| 2 | Q2 2026 | Carbon calculator | Fit for 55 support |
-| 3 | Q3 2026 | Regulation engine | Full compliance mapping |
-| 4 | Q4 2026 | Partner ecosystem | Extended offerings |
+| Phase | Quarter | Features          | EU Compliance           |
+| ----- | ------- | ----------------- | ----------------------- |
+| 1     | Q1 2026 | Basic audio chat  | AI Act transparency     |
+| 2     | Q2 2026 | Carbon calculator | Fit for 55 support      |
+| 3     | Q3 2026 | Regulation engine | Full compliance mapping |
+| 4     | Q4 2026 | Partner ecosystem | Extended offerings      |
 
 ---
 
@@ -736,33 +857,33 @@ Customer Profile Analysis:
 
 ### 10.2 Industry Emission Factors
 
-| Industry | Avg. tCO2e/M€ Revenue | Primary Emission Source |
-|----------|----------------------|------------------------|
-| Steel | 850 | Process emissions (Scope 1) |
-| Cement | 900 | Calcination process |
-| Chemicals | 400 | Energy + feedstock |
-| Automotive | 150 | Manufacturing + supply chain |
-| Maritime | 300 | Fuel consumption |
-| Aviation | 500 | Jet fuel combustion |
-| Buildings | 100 | Energy performance |
-| Agriculture | 250 | Land use, livestock |
-| Pulp & Paper | 200 | Process energy |
-| Glass | 350 | Melting process |
-| Ceramics | 300 | Kiln operations |
-| Textiles | 180 | Supply chain |
-| Food & Beverage | 120 | Processing + cold chain |
-| Electronics | 80 | Manufacturing + use phase |
-| Pharmaceuticals | 60 | Controlled processes |
-| Data Centers | 150 | Electricity consumption |
+| Industry        | Avg. tCO2e/M€ Revenue | Primary Emission Source      |
+| --------------- | --------------------- | ---------------------------- |
+| Steel           | 850                   | Process emissions (Scope 1)  |
+| Cement          | 900                   | Calcination process          |
+| Chemicals       | 400                   | Energy + feedstock           |
+| Automotive      | 150                   | Manufacturing + supply chain |
+| Maritime        | 300                   | Fuel consumption             |
+| Aviation        | 500                   | Jet fuel combustion          |
+| Buildings       | 100                   | Energy performance           |
+| Agriculture     | 250                   | Land use, livestock          |
+| Pulp & Paper    | 200                   | Process energy               |
+| Glass           | 350                   | Melting process              |
+| Ceramics        | 300                   | Kiln operations              |
+| Textiles        | 180                   | Supply chain                 |
+| Food & Beverage | 120                   | Processing + cold chain      |
+| Electronics     | 80                    | Manufacturing + use phase    |
+| Pharmaceuticals | 60                    | Controlled processes         |
+| Data Centers    | 150                   | Electricity consumption      |
 
 ### 10.3 Product Mapping by Carbon Profile
 
-| Carbon Profile | Emissions Range | Recommended Products |
-|---------------|-----------------|---------------------|
-| Very High | >100,000 tCO2e | DWS IQ v6, Firehorse Automation, Expert Advisory |
-| High | 10,000-100,000 tCO2e | DWS IQ v6, Firehorse Report, Climate Bundle |
-| Medium | 1,000-10,000 tCO2e | Climate Bundle, Firehorse Report |
-| Low | <1,000 tCO2e | Firehorse Report, Consulting Hourly |
+| Carbon Profile | Emissions Range      | Recommended Products                             |
+| -------------- | -------------------- | ------------------------------------------------ |
+| Very High      | >100,000 tCO2e       | DWS IQ v6, Firehorse Automation, Expert Advisory |
+| High           | 10,000-100,000 tCO2e | DWS IQ v6, Firehorse Report, Climate Bundle      |
+| Medium         | 1,000-10,000 tCO2e   | Climate Bundle, Firehorse Report                 |
+| Low            | <1,000 tCO2e         | Firehorse Report, Consulting Hourly              |
 
 ### 10.4 ROI Calculator
 
@@ -801,23 +922,23 @@ Lifetime Oy offers Proton Business Suite implementation as a security-focused pr
 
 ### 11.2 Included Services
 
-| Component | Description |
-|-----------|-------------|
-| Proton Mail | End-to-end encrypted email |
-| Proton Drive | Encrypted cloud storage |
-| Proton Pass | Zero-knowledge password manager |
-| Proton VPN | Secure networking |
-| Domain Setup | Custom domain configuration |
-| Migration | Email migration assistance |
+| Component    | Description                     |
+| ------------ | ------------------------------- |
+| Proton Mail  | End-to-end encrypted email      |
+| Proton Drive | Encrypted cloud storage         |
+| Proton Pass  | Zero-knowledge password manager |
+| Proton VPN   | Secure networking               |
+| Domain Setup | Custom domain configuration     |
+| Migration    | Email migration assistance      |
 
 ### 11.3 Compliance Coverage
 
-| Regulation | Proton Compliance |
-|------------|-------------------|
-| GDPR Article 32 | Technical security measures |
-| NIS2 | Cryptographic controls |
-| EU AI Act | Secure AI communications |
-| Swiss FADP | Additional privacy protection |
+| Regulation      | Proton Compliance             |
+| --------------- | ----------------------------- |
+| GDPR Article 32 | Technical security measures   |
+| NIS2            | Cryptographic controls        |
+| EU AI Act       | Secure AI communications      |
+| Swiss FADP      | Additional privacy protection |
 
 ### 11.4 Recommendation Triggers
 
@@ -868,12 +989,12 @@ Audio chat recommends Proton implementation when detecting:
 
 The Firehorse Operations Model and its underlying technologies require a structured intellectual property protection strategy. Lifetime Oy employs a three-tier classification framework:
 
-| Tier | Mechanism | Scope | Legal Basis |
-|------|-----------|-------|-------------|
-| **Tier 1: Public** | Free distribution | Teaser, FCD concept, market sizing | — |
-| **Tier 2: NDA Required** | Confidentiality agreement | LWM architecture, knowledge graph overview, BYOC logic | EU Trade Secrets Directive 2016/943 |
-| **Tier 3A: Patent** | Patent protection | CIDM method, causal reasoning algorithm | PRH (Finland), EPO, PCT |
-| **Tier 3B: Trade Secret** | Internal controls | Knowledge graph structure (10,000+ nodes), weights, training data | EU 2016/943, Finnish Trade Secrets Act 595/2018 |
+| Tier                      | Mechanism                 | Scope                                                             | Legal Basis                                     |
+| ------------------------- | ------------------------- | ----------------------------------------------------------------- | ----------------------------------------------- |
+| **Tier 1: Public**        | Free distribution         | Teaser, FCD concept, market sizing                                | —                                               |
+| **Tier 2: NDA Required**  | Confidentiality agreement | LWM architecture, knowledge graph overview, BYOC logic            | EU Trade Secrets Directive 2016/943             |
+| **Tier 3A: Patent**       | Patent protection         | CIDM method, causal reasoning algorithm                           | PRH (Finland), EPO, PCT                         |
+| **Tier 3B: Trade Secret** | Internal controls         | Knowledge graph structure (10,000+ nodes), weights, training data | EU 2016/943, Finnish Trade Secrets Act 595/2018 |
 
 ### 12.2 NDA Gate for Technical Disclosure
 
@@ -891,11 +1012,11 @@ Public/marketing materials (Tier 1) can be shared freely without NDA: product te
 
 Patentable innovations are filed through PRH (Patentti- ja rekisterihallitus, Finland) with international PCT extension:
 
-| Priority | Innovation | Filing Path | Status |
-|----------|-----------|-------------|--------|
-| P1 | CIDM — Climate-Intelligent Decision Making | PRH → PCT → EPO/USPTO | Patent pending |
-| P2 | Causal Reasoning for Regulatory Risk | PRH → PCT | Prior art search Q2 2026 |
-| P3 | LWM Temporal Latent Space | PRH → PCT | Evaluation Q3 2026 |
+| Priority | Innovation                                 | Filing Path           | Status                   |
+| -------- | ------------------------------------------ | --------------------- | ------------------------ |
+| P1       | CIDM — Climate-Intelligent Decision Making | PRH → PCT → EPO/USPTO | Patent pending           |
+| P2       | Causal Reasoning for Regulatory Risk       | PRH → PCT             | Prior art search Q2 2026 |
+| P3       | LWM Temporal Latent Space                  | PRH → PCT             | Evaluation Q3 2026       |
 
 **Critical rule:** Patent applications MUST be filed before any public disclosure of the method. NDA-protected disclosures do not destroy patentability.
 
@@ -903,12 +1024,12 @@ Patentable innovations are filed through PRH (Patentti- ja rekisterihallitus, Fi
 
 For the knowledge graph (10,000+ nodes), trade secret protection is strategically preferred over patents:
 
-| Factor | Patent | Trade Secret |
-|--------|--------|-------------|
-| Duration | 20 years (then public) | Indefinite |
-| Disclosure | Must publish full method | No disclosure |
+| Factor               | Patent                         | Trade Secret             |
+| -------------------- | ------------------------------ | ------------------------ |
+| Duration             | 20 years (then public)         | Indefinite               |
+| Disclosure           | Must publish full method       | No disclosure            |
 | Competitor awareness | Knows exactly what's protected | Cannot know what to copy |
-| Cost | €120k–200k (3 patents, EU+US) | Administrative only |
+| Cost                 | €120k–200k (3 patents, EU+US)  | Administrative only      |
 
 Trade secret status under EU Directive 2016/943 requires: (1) the information is secret, (2) it has commercial value because it is secret, and (3) reasonable steps have been taken to keep it secret. Lifetime Oy maintains access controls, encryption, employee confidentiality agreements, and internal classification registers.
 
@@ -916,7 +1037,7 @@ Trade secret status under EU Directive 2016/943 requires: (1) the information is
 
 The IPR framework directly impacts Firehorse e-commerce operations:
 
-- **Product descriptions** on dws10.com describe *what* the platform does (Tier 1), never *how* it works
+- **Product descriptions** on dws10.com describe _what_ the platform does (Tier 1), never _how_ it works
 - **Investor pitch decks** share problem/solution/market freely; architecture details require NDA
 - **Conference presentations** discuss EU compliance gaps, not algorithm specifics
 - **Customer demos** operate under NDA with watermarked materials
@@ -946,20 +1067,21 @@ The order of prompt content matters — static content first, dynamic content la
 ```
 
 **Fragility warning:** Cache ordering breaks when:
+
 - Timestamps are placed in the static system prompt
 - Tool definitions are shuffled non-deterministically
 - Tool parameters are updated mid-session (e.g., available agents)
 
 ### 13.3 Six Engineering Rules for Agent Caching
 
-| Rule | Principle | Implementation |
-|------|-----------|---------------|
-| **1. Static first, dynamic last** | Maximize shared prefix across sessions | System prompt → CLAUDE.md → session context → messages |
-| **2. Use system messages for updates** | Never modify the static prompt mid-session | Pass time, file changes, mode switches via `<system-reminder>` tags in the next message |
-| **3. Never change models mid-session** | Prompt caches are model-specific | Switching from Opus to Haiku at 100k tokens costs more than keeping Opus (cache rebuild) |
-| **4. Never add/remove tools mid-session** | Tools are part of the cached prefix | Use tool stubs with `defer_loading: true` for optional tools; discover via ToolSearch |
-| **5. Design features around the cache** | State transitions via tools, not tool set changes | Plan mode = system message + ExitPlanMode tool, not swapping the tool set |
-| **6. Fork operations share parent prefix** | Compaction/summarization must reuse cache | Use identical system prompt, tools, and message history for forked requests |
+| Rule                                       | Principle                                         | Implementation                                                                           |
+| ------------------------------------------ | ------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| **1. Static first, dynamic last**          | Maximize shared prefix across sessions            | System prompt → CLAUDE.md → session context → messages                                   |
+| **2. Use system messages for updates**     | Never modify the static prompt mid-session        | Pass time, file changes, mode switches via `<system-reminder>` tags in the next message  |
+| **3. Never change models mid-session**     | Prompt caches are model-specific                  | Switching from Opus to Haiku at 100k tokens costs more than keeping Opus (cache rebuild) |
+| **4. Never add/remove tools mid-session**  | Tools are part of the cached prefix               | Use tool stubs with `defer_loading: true` for optional tools; discover via ToolSearch    |
+| **5. Design features around the cache**    | State transitions via tools, not tool set changes | Plan mode = system message + ExitPlanMode tool, not swapping the tool set                |
+| **6. Fork operations share parent prefix** | Compaction/summarization must reuse cache         | Use identical system prompt, tools, and message history for forked requests              |
 
 ### 13.4 Compaction: Cache-Safe Context Forking
 
@@ -980,23 +1102,23 @@ This requires reserving a "compaction buffer" — enough room in the context win
 
 For DWS10.com store operations, these caching principles translate to:
 
-| Operation | Cache Impact | Practice |
-|-----------|-------------|----------|
-| Product catalog updates | Long session, many file edits | Keep same model throughout |
-| Feed generation | Tool-heavy workflow | All tools defined at session start |
-| Compliance checking | Context-heavy (regulations) | CLAUDE.md cached as project config |
+| Operation                     | Cache Impact                    | Practice                            |
+| ----------------------------- | ------------------------------- | ----------------------------------- |
+| Product catalog updates       | Long session, many file edits   | Keep same model throughout          |
+| Feed generation               | Tool-heavy workflow             | All tools defined at session start  |
+| Compliance checking           | Context-heavy (regulations)     | CLAUDE.md cached as project config  |
 | Multi-file sync (dual folder) | Sequential dependent operations | Chain in single session, don't fork |
 
 **Monitoring:** Cache hit rate is treated as an uptime metric. A drop in cache hits triggers investigation — it indicates a system prompt change, tool definition shift, or model switch that needs correction.
 
 ### 13.6 Cost & Latency Implications
 
-| Scenario | Cache Hit Rate | Relative Cost | Latency |
-|----------|---------------|---------------|---------|
-| Optimized (static prefix) | >90% | 1x (baseline) | Low |
-| Tool set changes mid-session | ~50% | ~2x | High |
-| Model switch mid-session | 0% (full rebuild) | ~3-5x | Very high |
-| Compaction without parent prefix | 0% | ~3x | High |
+| Scenario                         | Cache Hit Rate    | Relative Cost | Latency   |
+| -------------------------------- | ----------------- | ------------- | --------- |
+| Optimized (static prefix)        | >90%              | 1x (baseline) | Low       |
+| Tool set changes mid-session     | ~50%              | ~2x           | High      |
+| Model switch mid-session         | 0% (full rebuild) | ~3-5x         | Very high |
+| Compaction without parent prefix | 0%                | ~3x           | High      |
 
 These economics are critical for Firehorse's AI-assisted store operations, where sessions routinely process 30+ products across multiple files.
 
@@ -1010,15 +1132,15 @@ No single open LLM is optimal for all 16 EU industries served by DWS IQ. Each in
 
 **Candidate open LLMs by industry cluster:**
 
-| Industry Cluster | Candidate Models | Key Domain Requirement |
-|-----------------|------------------|----------------------|
-| Construction, Real Estate | Llama 3.3 70B, Qwen 2.5 72B, Mistral Large | EN 15978 lifecycle stages, Nordic building codes, EPBD |
-| Energy, Steel & Metals, Cement | Llama 3.3, DeepSeek-V3, Mixtral 8x22B | ETS allowance calculations, process emissions, CBAM |
-| Manufacturing, Chemicals | Qwen 2.5 72B, Llama 3.3 | CBAM product classification, BOM analysis, REACH |
-| Logistics, Maritime, Aviation | Mistral Large, Llama 3.3, Gemma 2 27B | FuelEU Maritime, CORSIA, route optimization |
-| Agriculture, Food & Beverage | Llama 3.3, Gemma 2, Command R+ | LULUCF, Scope 3 supply chain, packaging lifecycle |
-| Finance, Public Sector | Mistral Large (EU-hosted), Llama 3.3 | SFDR, EU Taxonomy, double materiality, GPP |
-| Healthcare, Textiles | Gemma 2 (EU-hosted), Qwen 2.5 | Digital product passport, pharmaceutical supply chain |
+| Industry Cluster               | Candidate Models                           | Key Domain Requirement                                 |
+| ------------------------------ | ------------------------------------------ | ------------------------------------------------------ |
+| Construction, Real Estate      | Llama 3.3 70B, Qwen 2.5 72B, Mistral Large | EN 15978 lifecycle stages, Nordic building codes, EPBD |
+| Energy, Steel & Metals, Cement | Llama 3.3, DeepSeek-V3, Mixtral 8x22B      | ETS allowance calculations, process emissions, CBAM    |
+| Manufacturing, Chemicals       | Qwen 2.5 72B, Llama 3.3                    | CBAM product classification, BOM analysis, REACH       |
+| Logistics, Maritime, Aviation  | Mistral Large, Llama 3.3, Gemma 2 27B      | FuelEU Maritime, CORSIA, route optimization            |
+| Agriculture, Food & Beverage   | Llama 3.3, Gemma 2, Command R+             | LULUCF, Scope 3 supply chain, packaging lifecycle      |
+| Finance, Public Sector         | Mistral Large (EU-hosted), Llama 3.3       | SFDR, EU Taxonomy, double materiality, GPP             |
+| Healthcare, Textiles           | Gemma 2 (EU-hosted), Qwen 2.5              | Digital product passport, pharmaceutical supply chain  |
 
 **Selection criteria:** domain knowledge depth, multilingual capability, structured output reliability, context window (128k+), inference speed, EU data residency, and commercial license.
 
@@ -1030,12 +1152,12 @@ Enterprise customers bring their own AI agents to work on DWS IQ. This section u
 
 **NCC agent ecosystem:**
 
-| Agent Source | Count | Examples |
-|-------------|-------|---------|
-| **NCC Internal** | 7 | Procurement, Safety Compliance, BIM, Sustainability, Cost Estimation, Quality, Project Planning |
-| **Contractor Agents** | 14 | HVAC Subcontractor, Electrical, Concrete Supplier, Steel Supplier, Window Manufacturer, Insulation, etc. |
-| **DWS IQ Platform** | 3 | Compliance Calculation, Firehorse Report, Carbon Calculator |
-| **Total** | 24 | All connected via A2A + MCP protocols |
+| Agent Source          | Count | Examples                                                                                                 |
+| --------------------- | ----- | -------------------------------------------------------------------------------------------------------- |
+| **NCC Internal**      | 7     | Procurement, Safety Compliance, BIM, Sustainability, Cost Estimation, Quality, Project Planning          |
+| **Contractor Agents** | 14    | HVAC Subcontractor, Electrical, Concrete Supplier, Steel Supplier, Window Manufacturer, Insulation, etc. |
+| **DWS IQ Platform**   | 3     | Compliance Calculation, Firehorse Report, Carbon Calculator                                              |
+| **Total**             | 24    | All connected via A2A + MCP protocols                                                                    |
 
 **Tenant-specific Lifetime World Model (LWM):**
 
@@ -1046,6 +1168,7 @@ The Lifetime World Model is the enterprise learning layer that sits on top of th
 3. **Ensures competitive advantage with multi-agent tools** — combining tenant-specific knowledge with multi-agent orchestration (A2A + MCP), the LWM transforms raw AI capability into an irreplaceable operational asset
 
 Each enterprise tenant receives their own LWM instance:
+
 - **Base LLM:** Selected per industry evaluation (e.g., Qwen 2.5 72B for Nordic construction)
 - **Fine-tuned on:** Tenant's own project data, industry codes (RT-kortisto), regulatory context
 - **Connectors:** Tekla Structures (BIM), IFS Cloud (ERP), CO2data.fi (emissions factors)
@@ -1071,14 +1194,14 @@ To enable enterprise customers to build connections between 24+ agents, the plat
 
 **Tool evaluation:**
 
-| Tool | License | MCP Support | A2A Support | Self-Hosted EU | Best For |
-|------|---------|-------------|-------------|---------------|----------|
-| **Langflow** | Apache 2.0 | Native (client + server) | Via custom nodes | Yes | Agent orchestration, LLM workflows |
-| **n8n** | Fair Code | Via community nodes | Via HTTP nodes | Yes | ERP/BIM connectors, data pipelines |
-| **React Flow** | MIT | Custom | Custom | N/A (library) | Custom visual builder UI |
-| **Flowise** | Apache 2.0 | Partial | No | Yes | Chatbot RAG workflows |
-| **Node-RED** | Apache 2.0 | Via FlowFuse | Via HTTP | Yes | IoT/edge, industrial automation |
-| **Temporal UI** | MIT | No | No | Yes | Workflow execution monitoring |
+| Tool            | License    | MCP Support              | A2A Support      | Self-Hosted EU | Best For                           |
+| --------------- | ---------- | ------------------------ | ---------------- | -------------- | ---------------------------------- |
+| **Langflow**    | Apache 2.0 | Native (client + server) | Via custom nodes | Yes            | Agent orchestration, LLM workflows |
+| **n8n**         | Fair Code  | Via community nodes      | Via HTTP nodes   | Yes            | ERP/BIM connectors, data pipelines |
+| **React Flow**  | MIT        | Custom                   | Custom           | N/A (library)  | Custom visual builder UI           |
+| **Flowise**     | Apache 2.0 | Partial                  | No               | Yes            | Chatbot RAG workflows              |
+| **Node-RED**    | Apache 2.0 | Via FlowFuse             | Via HTTP         | Yes            | IoT/edge, industrial automation    |
+| **Temporal UI** | MIT        | No                       | No               | Yes            | Workflow execution monitoring      |
 
 **Recommended: Langflow + React Flow + Temporal.io**
 
@@ -1106,6 +1229,7 @@ To enable enterprise customers to build connections between 24+ agents, the plat
 ```
 
 **Rationale:**
+
 1. **React Flow** (MIT) — Custom visual canvas in DWS IQ React dashboard. Zero vendor lock-in.
 2. **Langflow** (Apache 2.0) — Native MCP + A2A support. Self-hosted EU. IBM enterprise partnership.
 3. **Temporal.io** — Already in stack. Durable execution with full Article 12 audit trail.
@@ -1129,16 +1253,17 @@ The DWS6-to-DWS7 transition addresses six critical architectural gaps discovered
 
 **The six fixes:**
 
-| # | Gap | Fix | Key File |
-|---|-----|-----|----------|
-| 1 | Single-shot LLM calls | Observe-think-act loop (`runLoop()`) | `base.agent.ts` |
-| 2 | No tool use | Tool runtime with JSON Schema + 4 built-in tools | `tools.ts` |
-| 3 | Hardcoded Groq fetch | Multi-provider client (Anthropic > Groq > OpenAI) | `llm-client.ts` |
-| 4 | No agent communication | Delegation + depth tracking + discovery API | `index.ts` |
-| 5 | MCP was vapor | JSON-RPC 2.0 server at `/mcp` | `agent-server.ts` |
-| 6 | Express-only | Event bus with pub/sub + Redis Streams | `event-bus.ts` |
+| #   | Gap                    | Fix                                               | Key File          |
+| --- | ---------------------- | ------------------------------------------------- | ----------------- |
+| 1   | Single-shot LLM calls  | Observe-think-act loop (`runLoop()`)              | `base.agent.ts`   |
+| 2   | No tool use            | Tool runtime with JSON Schema + 4 built-in tools  | `tools.ts`        |
+| 3   | Hardcoded Groq fetch   | Multi-provider client (Anthropic > Groq > OpenAI) | `llm-client.ts`   |
+| 4   | No agent communication | Delegation + depth tracking + discovery API       | `index.ts`        |
+| 5   | MCP was vapor          | JSON-RPC 2.0 server at `/mcp`                     | `agent-server.ts` |
+| 6   | Express-only           | Event bus with pub/sub + Redis Streams            | `event-bus.ts`    |
 
 **Build for Agents principle:** Every DWS product must be accessible via:
+
 - **CLI** (`cli/src/cli.ts`) — JSON output, pipeable, zero dependencies
 - **MCP** (`/mcp` endpoint) — auto-discovered by Claude Code, Cursor
 - **Claude Code Skills** (`.claude/commands/`) — natural language agent invocation
@@ -1153,19 +1278,18 @@ The DWS6-to-DWS7 transition addresses six critical architectural gaps discovered
 
 ### 14.6 Agent Foundry Stage 1.5: OpenSandbox + EMPO² Agent Memory (v1.5)
 
-
-*Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026*
+_Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026_
 
 #### 14.6.1 Stage 1.5 — OpenSandbox on Acer Veriton GN100
 
 The Agent Foundry received a new isolation stage between the demo-grade SDK sandbox (Stage 1) and Cloud Run (Stage 2): **OpenSandbox** (https://github.com/alibaba/OpenSandbox) deployed on the **Acer Veriton GN100** edge node (120 GiB RAM, 20 cores, Helsinki Lab).
 
-| Stage | Method | Cost | Use Case |
-|-------|--------|------|----------|
-| 1 | SDK sandbox (bubblewrap/seatbelt) | €0 | Demo, single-tenant |
-| **1.5** | **OpenSandbox Docker (Veriton GN100)** | **€0 HW** | **EU air-gapped, internal pilot** |
-| 2 | Cloud Run ephemeral (europe-north1) | ~€20-50/mo | Paid multi-tenant |
-| 3 | Persistent containers (gVisor) | €200+/mo | Scale |
+| Stage   | Method                                 | Cost       | Use Case                          |
+| ------- | -------------------------------------- | ---------- | --------------------------------- |
+| 1       | SDK sandbox (bubblewrap/seatbelt)      | €0         | Demo, single-tenant               |
+| **1.5** | **OpenSandbox Docker (Veriton GN100)** | **€0 HW**  | **EU air-gapped, internal pilot** |
+| 2       | Cloud Run ephemeral (europe-north1)    | ~€20-50/mo | Paid multi-tenant                 |
+| 3       | Persistent containers (gVisor)         | €200+/mo   | Scale                             |
 
 Activation: `SANDBOX_STAGE=opensandbox`. Six MCP tools (`sandbox_create`, `sandbox_execute`, `sandbox_file_read`, `sandbox_file_write`, `sandbox_destroy`, `sandbox_ping`) expose it via `/sandbox/*` endpoints in the MCP Hub.
 
@@ -1173,36 +1297,37 @@ Activation: `SANDBOX_STAGE=opensandbox`. Six MCP tools (`sandbox_create`, `sandb
 
 #### 14.6.2 EMPO²: Academic Grounding for the LWM Memory Architecture
 
-The paper *"Exploratory Memory-Augmented LLM Agent via Hybrid On- and Off-Policy Optimization"* (EMPO², arXiv:2602.23008, February 2026) provides academic validation for the DWS Lifetime World Model's hybrid memory design.
+The paper _"Exploratory Memory-Augmented LLM Agent via Hybrid On- and Off-Policy Optimization"_ (EMPO², arXiv:2602.23008, February 2026) provides academic validation for the DWS Lifetime World Model's hybrid memory design.
 
 EMPO² proposes combining:
+
 - **Parametric memory** (RL updates to model weights) — analogous to DWS LWM fine-tuning (QLoRA, Acer Veriton GN100)
 - **Non-parametric memory** (retrieval from memory buffer) — analogous to DWS RAG over EU regulations + enterprise data (pgvector)
 
-Results: 128.6% improvement over GRPO on ScienceWorld, 11.3% on WebShop. Key insight: *models trained with memory become robust even without memory at inference* — validating the DWS strategy of progressively embedding domain knowledge into LWM weights while maintaining RAG as a fallback.
+Results: 128.6% improvement over GRPO on ScienceWorld, 11.3% on WebShop. Key insight: _models trained with memory become robust even without memory at inference_ — validating the DWS strategy of progressively embedding domain knowledge into LWM weights while maintaining RAG as a fallback.
 
 The OpenSandbox environment additionally serves as a **safe EMPO²-style RL training sandbox**: isolated containers provide the clean, reproducible environments needed for RL-based memory training without affecting production infrastructure.
 
 #### 14.6.3 Lifetime Scope Signals for LWM Training Coordination
 
-*Session: claude/pedantic-easley | Date: 07.03.2026*
+_Session: claude/pedantic-easley | Date: 07.03.2026_
 
 The Lifetime Scope Signals (LSS) protocol — originally designed for deterministic multi-agent development coordination (see Metropolia thesis Section 2.5.2) — extends naturally to ML pipeline orchestration. Rather than introducing a dedicated ML workflow engine (Kubeflow, Airflow), the LWM training pipeline is coordinated using the same four signal types: READY, COMPLETE, ERROR, BLOCKED.
 
 **Training Agent Fleet (T-01 through T-10):**
 
-| Agent ID | Name | Role | Emits | Listens For |
-|----------|------|------|-------|-------------|
-| T-01 | InfraVerifier | Validate CUDA/PyTorch on GN-100 nodes | `COMPLETE:infra-verified` | (none — entry point) |
-| T-02 | ModelFetcher | Download base model to shared storage | `READY:base-model` | `T-01:COMPLETE:infra-verified` |
-| T-03 | CurriculumAgent | Claude API curriculum design per vertical | `READY:curriculum:{vertical}` | `T-02:READY:base-model` |
-| T-04 | DataSynthAgent | Generate 2000+ synthetic examples | `READY:dataset:{vertical}` | `T-03:READY:curriculum:{vertical}` |
-| T-05 | TrainingAgent | QLoRA fine-tuning on assigned node | `READY:lora-weights:{vertical}` | `T-04:READY:dataset:{vertical}`, `T-06:READY:node-slot` |
-| T-06 | ResourceArbiter | Allocate GN-100 node slots (2 tokens) | `READY:node-slot` | `T-05:READY:lora-weights:*` (releases slot) |
-| T-07 | EvalAgent | Claude-as-judge, quality gate ≥7.0 | `READY:eval-pass:{vertical}` / `ERROR:eval-fail:{vertical}` | `T-05:READY:lora-weights:{vertical}` |
-| T-08 | MergeAgent | Merge LoRA adapter into base model | `READY:merged-model:{vertical}` | `T-07:READY:eval-pass:{vertical}` |
-| T-09 | DeployAgent | Deploy inference API | `COMPLETE:lwm-deployed:{vertical}` | `T-08:READY:merged-model:{vertical}` |
-| T-10 | PipelineOrchestrator | Monitor all verticals | `COMPLETE:lwm-all-verticals` | All `T-09:COMPLETE:*` |
+| Agent ID | Name                 | Role                                      | Emits                                                       | Listens For                                             |
+| -------- | -------------------- | ----------------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------- |
+| T-01     | InfraVerifier        | Validate CUDA/PyTorch on GN-100 nodes     | `COMPLETE:infra-verified`                                   | (none — entry point)                                    |
+| T-02     | ModelFetcher         | Download base model to shared storage     | `READY:base-model`                                          | `T-01:COMPLETE:infra-verified`                          |
+| T-03     | CurriculumAgent      | Claude API curriculum design per vertical | `READY:curriculum:{vertical}`                               | `T-02:READY:base-model`                                 |
+| T-04     | DataSynthAgent       | Generate 2000+ synthetic examples         | `READY:dataset:{vertical}`                                  | `T-03:READY:curriculum:{vertical}`                      |
+| T-05     | TrainingAgent        | QLoRA fine-tuning on assigned node        | `READY:lora-weights:{vertical}`                             | `T-04:READY:dataset:{vertical}`, `T-06:READY:node-slot` |
+| T-06     | ResourceArbiter      | Allocate GN-100 node slots (2 tokens)     | `READY:node-slot`                                           | `T-05:READY:lora-weights:*` (releases slot)             |
+| T-07     | EvalAgent            | Claude-as-judge, quality gate ≥7.0        | `READY:eval-pass:{vertical}` / `ERROR:eval-fail:{vertical}` | `T-05:READY:lora-weights:{vertical}`                    |
+| T-08     | MergeAgent           | Merge LoRA adapter into base model        | `READY:merged-model:{vertical}`                             | `T-07:READY:eval-pass:{vertical}`                       |
+| T-09     | DeployAgent          | Deploy inference API                      | `COMPLETE:lwm-deployed:{vertical}`                          | `T-08:READY:merged-model:{vertical}`                    |
+| T-10     | PipelineOrchestrator | Monitor all verticals                     | `COMPLETE:lwm-all-verticals`                                | All `T-09:COMPLETE:*`                                   |
 
 The `{vertical}` parameterized milestone enables per-industry pipeline instantiation — the only protocol extension over base LSS v1.0.
 
@@ -1218,16 +1343,16 @@ The `{vertical}` parameterized milestone enables per-industry pipeline instantia
 
 #### 14.6.4 Agent Memory Fact Extraction Pipeline (PR-254)
 
-*Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026*
+_Session: claude/agent-memory-fact-extraction-gLEss | Date: 23.03.2026_
 
 The EMPO² theoretical framework (Section 14.6.2) was operationalized through a **fact extraction pipeline** — the first production implementation of the non-parametric memory update path in the Firehorse operating model.
 
 **Dual Memory Architecture:**
 
-| Layer | Role | Firehorse Impact |
-|-------|------|-----------------|
-| **LWM** | Domain knowledge (regulations, emission factors, industry models) | Enables *what* the agent can analyze |
-| **Client Memory** | Relationship knowledge (preferences, decisions, open issues) | Enables *personalized* analysis per customer |
+| Layer             | Role                                                              | Firehorse Impact                             |
+| ----------------- | ----------------------------------------------------------------- | -------------------------------------------- |
+| **LWM**           | Domain knowledge (regulations, emission factors, industry models) | Enables _what_ the agent can analyze         |
+| **Client Memory** | Relationship knowledge (preferences, decisions, open issues)      | Enables _personalized_ analysis per customer |
 
 The fact extraction pipeline converts unstructured conversation text into structured subject-predicate-value triples using LLM-based extraction (Claude Haiku), with confidence scoring, duplicate detection via cosine similarity (pgvector), and persistence as `fact` type memories in the semantic_memories table.
 
@@ -1239,33 +1364,33 @@ Fact extraction creates passive knowledge. The Firehorse operating model require
 
 2. **ERP Connector Layer** — Feeds live data from Visma/IFS/SAP/Dynamics into memory. Client memory captures stated preferences; ERP reveals actual behavior (order patterns, payment history).
 
-3. **KYA Governance Wrapper (v1.4 internal / v1.1 public)** — Wraps every memory mutation with audit-grade provenance. Critical insight: **contradiction resolution (PR-255) without KYA attestation means resolving memory conflicts with no audit trail for *why* one fact superseded another.** The court-defensible audit chain: "fact A replaced fact B at timestamp X, approved by agent Y, logged to Firehorse" — required for CSRD and EU AI Act Article 12 compliance.
+3. **KYA Governance Wrapper (v1.4 internal / v1.1 public)** — Wraps every memory mutation with audit-grade provenance. Critical insight: **contradiction resolution (PR-255) without KYA attestation means resolving memory conflicts with no audit trail for _why_ one fact superseded another.** The court-defensible audit chain: "fact A replaced fact B at timestamp X, approved by agent Y, logged to Firehorse" — required for CSRD and EU AI Act Article 12 compliance.
 
 **KYA-First PR Ordering:**
 
-| Priority | PR | Feature |
-|----------|-----|---------|
-| 1 | 254 | Fact Extraction ✅ |
-| 2 | 255 | Contradiction Resolution |
-| 3 | — | KYA Memory Audit Trail |
-| 4 | 257 | Decay Scoring |
-| 5 | 256 | Consolidation Cron |
-| 6 | 259 | Connector Sync |
-| 7 | 258 | Supermemory MCP EU |
+| Priority | PR  | Feature                  |
+| -------- | --- | ------------------------ |
+| 1        | 254 | Fact Extraction ✅       |
+| 2        | 255 | Contradiction Resolution |
+| 3        | —   | KYA Memory Audit Trail   |
+| 4        | 257 | Decay Scoring            |
+| 5        | 256 | Consolidation Cron       |
+| 6        | 259 | Connector Sync           |
+| 7        | 258 | Supermemory MCP EU       |
 
 **Key Contribution #17:** First production fact extraction pipeline for EU-compliant industrial AI, demonstrating dual LWM/client-memory architecture and identifying the three-layer execution gap (state machine, ERP connectors, KYA governance) essential for court-defensible enterprise AI memory in regulated industries.
 
 ### 14.7 CEO Automation Agent Suite
 
-*Deployed: 24.02.2026 | Commit: claude/ai-agent-orchestration-t89Ig*
+_Deployed: 24.02.2026 | Commit: claude/ai-agent-orchestration-t89Ig_
 
 Three production agents automate the CEO's daily operational loop — GitHub Actions cron, Supabase data layer, Resend delivery.
 
-| Agent | Trigger | Role |
-|-------|---------|------|
-| **Captain Pre-Briefing** | 07:30 Helsinki, Mon-Fri | Pre-call prep: CRM pull → talking points → email |
-| **LinkedIn Post Scheduler** | 08:00 Helsinki, Mon-Fri | Content calendar → draft → CEO approval digest |
-| **EU Regulation Monitor** | 05:30 Helsinki, Mon-Fri | RSS fetch → classify by regulation → severity score → feed scheduler |
+| Agent                       | Trigger                 | Role                                                                 |
+| --------------------------- | ----------------------- | -------------------------------------------------------------------- |
+| **Captain Pre-Briefing**    | 07:30 Helsinki, Mon-Fri | Pre-call prep: CRM pull → talking points → email                     |
+| **LinkedIn Post Scheduler** | 08:00 Helsinki, Mon-Fri | Content calendar → draft → CEO approval digest                       |
+| **EU Regulation Monitor**   | 05:30 Helsinki, Mon-Fri | RSS fetch → classify by regulation → severity score → feed scheduler |
 
 The EU Regulation Monitor creates a closed feedback loop: it fetches EU Commission / EUR-Lex / Carbon Pulse / Euractiv, classifies by regulation (CBAM, CSRD, Fit for 55, EPBD, EU AI Act, ETS), and feeds regulation alerts as LinkedIn content ideas — ensuring CEO outreach stays aligned with active regulatory development.
 
@@ -1273,21 +1398,24 @@ The EU Regulation Monitor creates a closed feedback loop: it fetches EU Commissi
 
 ### 14.8 Strategic Partnerships and Multi-LLM Router
 
-*Documented: 27.02.2026 | Source: docs/DWS6_TO_DWS7_UPDATE.md v1.1*
+_Documented: 27.02.2026 | Source: docs/DWS6_TO_DWS7_UPDATE.md v1.1_
 
 DWS7 has formalized a 5-partner ecosystem for the Brain-Memory-Body-Hands architecture:
 
-| Partner | Architecture Layer | Status |
-|---------|--------------------|--------|
-| NVIDIA | Brain (compute) + Hands (Jetson edge) + Body (Omniverse) | Inception target Q2 2026 |
-| Siemens | Hands (MindSphere IoT) + Body (digital twin) | Xcelerator Q2 2026 |
-| ABB | Hands (automation, robotics, power grid) | Q3 2026 |
-| xAI | Brain (Grok real-time market intelligence) | Active production |
-| Mistral | Brain/Memory (EU-sovereign AI inference) | Planned Q3 2026 |
+| Partner | Architecture Layer                                       | Status                   |
+| ------- | -------------------------------------------------------- | ------------------------ |
+| NVIDIA  | Brain (compute) + Hands (Jetson edge) + Body (Omniverse) | Inception target Q2 2026 |
+| Siemens | Hands (MindSphere IoT) + Body (digital twin)             | Xcelerator Q2 2026       |
+| ABB     | Hands (automation, robotics, power grid)                 | Q3 2026                  |
+| xAI     | Brain (Grok real-time market intelligence)               | Active production        |
+| Mistral | Brain/Memory (EU-sovereign AI inference)                 | Planned Q3 2026          |
+| Red Hat | Body (AgentOps BYOA, OpenShift AI, hybrid cloud infra)   | Active (March 2026)      |
 
 **Multi-LLM Router:** Task-level LLM selection based on sovereignty, cost, and latency — Claude/Mistral for compliance, Grok for market signals, Groq for low-latency summarization, Qwen 2.5 72B (QLoRA, Acer Veriton) for on-premises sovereign inference.
 
-**Research contribution:** The partnership model validates the Firehorse operating model's distribution hypothesis: access to 10,000+ industrial customers (NVIDIA Inception, Siemens Xcelerator) without building a direct sales organization — a key enabler of the partnership distribution strategy applied at scale.
+**Red Hat alignment:** Red Hat's "The Adaptable Enterprise" (2025) identifies that worldwide GenAI spending will reach $644 billion in 2025 (76.4% YoY), yet 42% of organizations are blocked by lack of in-house AI expertise. Their BYOA (Bring Your Own Agent) framework — enterprise Kubernetes for agent deployment with production guardrails — validates the Firehorse managed-platform approach and complements the NVIDIA edge compute layer.
+
+**Research contribution:** The partnership model validates the Firehorse operating model's distribution hypothesis: access to 10,000+ industrial customers (NVIDIA Inception, Siemens Xcelerator, Red Hat OpenShift ecosystem) without building a direct sales organization — a key enabler of the partnership distribution strategy applied at scale.
 
 ---
 
@@ -1297,38 +1425,38 @@ DWS7 has formalized a 5-partner ecosystem for the Brain-Memory-Body-Hands archit
 
 The Firehorse Operations Model with Claude Code achieved:
 
-| Metric | Before | After | Improvement |
-|--------|--------|-------|-------------|
-| Product update time | 2 hours | 5 minutes | 96% |
-| Feed generation | Manual | Automated | 100% |
-| Documentation creation | 1 week | 1 hour | 99% |
-| Error rate | 5% | <1% | 80% |
-| Store page updates | 4 hours | 15 minutes | 94% |
-| **Harness engineering benchmark** | **52.8%** | **66.5%** | **+26% (model unchanged)** |
-| **PR review cycle** | **Manual (2-4h)** | **Dual-model AI (15 min)** | **94%** |
-| **Agent fleet size** | **0 agents** | **13 agents (Pantheon)** | **∞** |
-| **Customer features shipped** | **0** | **3 (API keys, metering, reports)** | **SaaS-ready** |
+| Metric                            | Before            | After                               | Improvement                |
+| --------------------------------- | ----------------- | ----------------------------------- | -------------------------- |
+| Product update time               | 2 hours           | 5 minutes                           | 96%                        |
+| Feed generation                   | Manual            | Automated                           | 100%                       |
+| Documentation creation            | 1 week            | 1 hour                              | 99%                        |
+| Error rate                        | 5%                | <1%                                 | 80%                        |
+| Store page updates                | 4 hours           | 15 minutes                          | 94%                        |
+| **Harness engineering benchmark** | **52.8%**         | **66.5%**                           | **+26% (model unchanged)** |
+| **PR review cycle**               | **Manual (2-4h)** | **Dual-model AI (15 min)**          | **94%**                    |
+| **Agent fleet size**              | **0 agents**      | **13 agents (Pantheon)**            | **∞**                      |
+| **Customer features shipped**     | **0**             | **3 (API keys, metering, reports)** | **SaaS-ready**             |
 
 ### 15.2 Google Merchant Center Performance
 
-| Metric | Result | Source |
-|--------|--------|--------|
-| Product approval rate | 100% (30/30 products) | Google Merchant Center |
-| Feed processing time | <24 hours | Automated SFTP |
-| Checkout conversion | Direct to payment | Revolut Business |
-| Feed file size | 32,893 bytes | XML feed |
-| **A/B test: product descriptions** | **+18% CTR** | **Google Merchant A/B** |
+| Metric                             | Result                | Source                  |
+| ---------------------------------- | --------------------- | ----------------------- |
+| Product approval rate              | 100% (30/30 products) | Google Merchant Center  |
+| Feed processing time               | <24 hours             | Automated SFTP          |
+| Checkout conversion                | Direct to payment     | Revolut Business        |
+| Feed file size                     | 32,893 bytes          | XML feed                |
+| **A/B test: product descriptions** | **+18% CTR**          | **Google Merchant A/B** |
 
 ### 15.3 Compliance Readiness Assessment (Updated v2.6)
 
-| Regulation | v1.4 | v2.6 | Change | Evidence |
-|------------|------|------|--------|----------|
-| EU AI Act | 80% | **92%** | +12% | Art. 12 logging, SOUL.md, Pantheon agents |
-| GDPR | 95% | **97%** | +2% | Proton + Supabase RLS + Aiven EU |
-| Fit for 55 | 90% | **93%** | +3% | 16-industry carbon calculator |
-| NIS2 | 75% | **85%** | +10% | RC2-RC4 hardening, Snyk MCP |
-| CSRD | 85% | **88%** | +3% | Report export feature |
-| **EU Data Act** | — | **80%** | New | DWS Data Standard, HTAP |
+| Regulation      | v1.4 | v2.6    | Change | Evidence                                  |
+| --------------- | ---- | ------- | ------ | ----------------------------------------- |
+| EU AI Act       | 80%  | **92%** | +12%   | Art. 12 logging, SOUL.md, Pantheon agents |
+| GDPR            | 95%  | **97%** | +2%    | Proton + Supabase RLS + Aiven EU          |
+| Fit for 55      | 90%  | **93%** | +3%    | 16-industry carbon calculator             |
+| NIS2            | 75%  | **85%** | +10%   | RC2-RC4 hardening, Snyk MCP               |
+| CSRD            | 85%  | **88%** | +3%    | Report export feature                     |
+| **EU Data Act** | —    | **80%** | New    | DWS Data Standard, HTAP                   |
 
 ### 15.4 Limitations
 
@@ -1341,13 +1469,13 @@ The Firehorse Operations Model with Claude Code achieved:
 
 ### 15.5 A/B Testing and Feedback Channel Results (New v2.6)
 
-| Channel | Metric | Baseline | Current (v2.6) | Δ |
-|---------|--------|----------|----------------|---|
-| **Google Merchant** | CTR | 1.2% | 1.8% (A/B tested) | +50% |
-| **SEO** | Organic keywords ranked | 45 | 78 | +73% |
-| **SEO** | Average position | 32 | 18 | +44% |
-| **Sales** | Conversion rate | 2.1% | 3.4% | +62% |
-| **Investor** | Portfolio readiness | Pipeline | Assessment | Progressing |
+| Channel             | Metric                  | Baseline | Current (v2.6)    | Δ           |
+| ------------------- | ----------------------- | -------- | ----------------- | ----------- |
+| **Google Merchant** | CTR                     | 1.2%     | 1.8% (A/B tested) | +50%        |
+| **SEO**             | Organic keywords ranked | 45       | 78                | +73%        |
+| **SEO**             | Average position        | 32       | 18                | +44%        |
+| **Sales**           | Conversion rate         | 2.1%     | 3.4%              | +62%        |
+| **Investor**        | Portfolio readiness     | Pipeline | Assessment        | Progressing |
 
 ---
 
@@ -1414,30 +1542,30 @@ This thesis contributes:
 14. Alibaba Group (2026). "OpenSandbox: General-Purpose Sandbox Platform for AI Applications." https://github.com/alibaba/OpenSandbox
 15. Anthropic Claude Code Documentation — Captain Briefing Agent (claude/ai-agent-orchestration-t89Ig, 2026)
 16. DWS6_TO_DWS7_UPDATE.md v1.1 — Strategic Partnerships: NVIDIA, Siemens, ABB, xAI, Mistral (claude/dws6-dws7-update-doc-I2Cgk, 2026)
-13. EU Trade Secrets Directive (EU) 2016/943
-14. Finnish Trade Secrets Act (liikesalaisuuslaki 595/2018)
-15. Patent Cooperation Treaty (PCT), WIPO
-16. Shihipar, T. (2026). "Lessons from Building Claude Code: Prompt Caching Is Everything." Anthropic Engineering Blog
+17. EU Trade Secrets Directive (EU) 2016/943
+18. Finnish Trade Secrets Act (liikesalaisuuslaki 595/2018)
+19. Patent Cooperation Treaty (PCT), WIPO
+20. Shihipar, T. (2026). "Lessons from Building Claude Code: Prompt Caching Is Everything." Anthropic Engineering Blog
 
 ### DWS Platform Standards (Internal)
 
 The following internal standards govern the DWS IQ 6 platform architecture, security, and quality. They are maintained as living documents in the private repository and are referenced here in Oxford notation for academic traceability.
 
-17. Lifetime Oy (2026). *DWS Security Standard*, version 1.5. `DWS_SECURITY_STANDARD.md`. Internal framework governing AI safety, middleware security controls, CORS policies, SRI integrity, Article 12 logging, and API boundary validation using Zod schemas. Establishes the security architecture for all 15 backend API routes and the MCP agent server.
+17. Lifetime Oy (2026). _DWS Security Standard_, version 1.5. `DWS_SECURITY_STANDARD.md`. Internal framework governing AI safety, middleware security controls, CORS policies, SRI integrity, Article 12 logging, and API boundary validation using Zod schemas. Establishes the security architecture for all 15 backend API routes and the MCP agent server.
 
-18. Lifetime Oy (2026). *ESRS Data Point Registry*, version 1.0. `src/compliance/esrs-registry.ts`. Machine-readable mapping of all 82 European Sustainability Reporting Standards (ESRS) disclosure requirements across E1-E5 (Environment), S1-S4 (Social), and G1 (Governance). Each disclosure is classified as mandatory or voluntary under the CSRD Directive (EU) 2022/2464.
+18. Lifetime Oy (2026). _ESRS Data Point Registry_, version 1.0. `src/compliance/esrs-registry.ts`. Machine-readable mapping of all 82 European Sustainability Reporting Standards (ESRS) disclosure requirements across E1-E5 (Environment), S1-S4 (Social), and G1 (Governance). Each disclosure is classified as mandatory or voluntary under the CSRD Directive (EU) 2022/2464.
 
-19. Lifetime Oy (2026). *Compliance Scoring Engine*, version 1.0. `src/compliance/scoring-engine.ts`. Deterministic compliance scoring algorithm computing CSRD readiness, ETS exposure, and CBAM risk scores. Formula: overall = CSRD(0.50) + ETS(0.25) + CBAM(0.25), where CSRD = (mandatory data points provided / total mandatory) x 80 + bonus modifiers.
+19. Lifetime Oy (2026). _Compliance Scoring Engine_, version 1.0. `src/compliance/scoring-engine.ts`. Deterministic compliance scoring algorithm computing CSRD readiness, ETS exposure, and CBAM risk scores. Formula: overall = CSRD(0.50) + ETS(0.25) + CBAM(0.25), where CSRD = (mandatory data points provided / total mandatory) x 80 + bonus modifiers.
 
-20. Lifetime Oy (2026). *Site Quality Standards*, version 2.1. `SITE_QUALITY_STANDARDS.md`. Code quality, component architecture, and UI resilience patterns for the DWS IQ dashboard. Defines ErrorBoundary, Skeleton loading, and EmptyState component standards for enterprise-grade user experience.
+20. Lifetime Oy (2026). _Site Quality Standards_, version 2.1. `SITE_QUALITY_STANDARDS.md`. Code quality, component architecture, and UI resilience patterns for the DWS IQ dashboard. Defines ErrorBoundary, Skeleton loading, and EmptyState component standards for enterprise-grade user experience.
 
-21. Lifetime Oy (2026). *AGENTS.md*, version 2.2. `AGENTS.md`. Agent inventory and operational guidance following the agents.md open specification. Documents 15 AI agents, the compliance scoring engine architecture, middleware stack ordering, and the "Build for Agents" product rule requiring CLI + MCP + Skills interfaces.
+21. Lifetime Oy (2026). _AGENTS.md_, version 2.2. `AGENTS.md`. Agent inventory and operational guidance following the agents.md open specification. Documents 15 AI agents, the compliance scoring engine architecture, middleware stack ordering, and the "Build for Agents" product rule requiring CLI + MCP + Skills interfaces.
 
-22. Lifetime Oy (2026). *DWS IQ Platform Admin Manual*, version 2.7. `Admin/ADMIN_MANUAL.md`. Operational procedures for health check monitoring, compliance scoring engine operations, and dashboard resilience troubleshooting. Includes the Claude Code Project Engineering Structure and Multi-Agent Orchestration sections.
+22. Lifetime Oy (2026). _DWS IQ Platform Admin Manual_, version 2.7. `Admin/ADMIN_MANUAL.md`. Operational procedures for health check monitoring, compliance scoring engine operations, and dashboard resilience troubleshooting. Includes the Claude Code Project Engineering Structure and Multi-Agent Orchestration sections.
 
-23. Lifetime Oy (2026). *Enterprise Security & Compliance*, version 1.8. `Admin/SECURITY_COMPLIANCE.md`. Security controls for CISOs and procurement teams. Documents agent runtime security, dashboard resilience controls, backend middleware security controls, and compliance engine data protection with RLS policies.
+23. Lifetime Oy (2026). _Enterprise Security & Compliance_, version 1.8. `Admin/SECURITY_COMPLIANCE.md`. Security controls for CISOs and procurement teams. Documents agent runtime security, dashboard resilience controls, backend middleware security controls, and compliance engine data protection with RLS policies.
 
-24. LUT University (2026). *Tekoälytyökalujen käytänteet* [AI Tool Usage Policies]. Lappeenrannan-Lahden teknillinen yliopisto LUT. https://elut.lut.fi/fi/opintojen-suorittaminen/opintoja-ohjaavat-saadokset-ja-ohjeet/tekoalytyokalujen-kaytanteet — University-level policy framework for AI tool usage in academic work, requiring transparent disclosure of AI assistance and documenting the human-AI collaboration model.
+24. LUT University (2026). _Tekoälytyökalujen käytänteet_ [AI Tool Usage Policies]. Lappeenrannan-Lahden teknillinen yliopisto LUT. https://elut.lut.fi/fi/opintojen-suorittaminen/opintoja-ohjaavat-saadokset-ja-ohjeet/tekoalytyokalujen-kaytanteet — University-level policy framework for AI tool usage in academic work, requiring transparent disclosure of AI assistance and documenting the human-AI collaboration model.
 
 ---
 
@@ -1445,38 +1573,38 @@ The following internal standards govern the DWS IQ 6 platform architecture, secu
 
 ### Appendix A: Complete Product Catalog
 
-| ID | Product | Price | Type | Brand |
-|----|---------|-------|------|-------|
-| DWS-IQ-006 | DWS IQ Platform v6 | €4,999 | Platform | Lifetime |
-| DWS-IQ-005 | DWS IQ Platform v5 | €6,995 | Platform | Lifetime |
-| FH-AUTO-001 | Firehorse Automation | €4,950 | Software | Firehorse |
-| FH-RPT-001 | Firehorse Report | €1,999 | Software | Firehorse |
-| FH-CMS-001 | Firehorse CMS | €2,999 | Software | Firehorse |
-| FH-OMNI-001 | Firehorse Omnichannel | €499 | Software | Firehorse |
-| LIFETIME-BUNDLE-2026 | Climate Bundle | €6,500 | Bundle | Lifetime |
-| expert-services | Expert Workshop 3 Days | €4,500 | Service | Lifetime |
-| consulting-hourly | Consulting Hourly | €98/hr | Service | Lifetime |
-| consulting-fit55 | Fit55 Specialist | €3,000/mo | Service | Lifetime |
-| LIFETIME-EXP-001 | Expert Advisory | €3,000/mo | Service | Lifetime |
-| aws-consultancy | AI & Cloud Consultancy | €4,500 | Service | Lifetime |
-| conversational-agent | Conversational Agent | €3,500 | Software | Lifetime |
-| m365-consultancy | M365 Consultancy | €1,120 | Service | Lifetime |
-| powerapps-consultancy | Power Platform | €1,120 | Service | Lifetime |
-| ai-agent-engineering | AI Agent Engineering | €99/hr | Service | Lifetime |
-| lean-project | Firehorse Lean Project | €4,960 | Service | Firehorse |
-| ai-consultant-day | AI Consultant Day | €699 | Service | Lifetime |
-| business-mentor-30 | Business Mentor 30hrs | €4,960 | Service | Lifetime |
-| firehorse-coach | Firehorse Coach | €499 | Service | Firehorse |
-| firehorse-flow | Firehorse Flow | €499 | Software | Firehorse |
-| omnichannel-multimodal | Omnichannel Multimodal | €699/mo | Software | Firehorse |
-| professional-web-pages | Professional Web Pages | €799 | Service | Lifetime |
-| secure-email-proton | Protonmail Implementation | €499 | Service | Lifetime |
-| firehorse-data-services | Data Services | €899 | Service | Firehorse |
-| agentti-sanasto | Agentti Sanasto | €0.99 | Digital | Lifetime |
-| devops-lead | Workflow Agent Delivery | €2,500 | Service | Lifetime |
-| digital-design-gold | Digital Design Gold | €2,499 | Service | Lifetime |
-| cloud-ready-teams | Solution Ready Team | €950 | Service | Lifetime |
-| ai-koulutus-3d | AI Koulutus 3 Days | €6,250 | Training | Lifetime |
+| ID                      | Product                   | Price     | Type     | Brand     |
+| ----------------------- | ------------------------- | --------- | -------- | --------- |
+| DWS-IQ-006              | DWS IQ Platform v6        | €4,999    | Platform | Lifetime  |
+| DWS-IQ-005              | DWS IQ Platform v5        | €6,995    | Platform | Lifetime  |
+| FH-AUTO-001             | Firehorse Automation      | €4,950    | Software | Firehorse |
+| FH-RPT-001              | Firehorse Report          | €1,999    | Software | Firehorse |
+| FH-CMS-001              | Firehorse CMS             | €2,999    | Software | Firehorse |
+| FH-OMNI-001             | Firehorse Omnichannel     | €499      | Software | Firehorse |
+| LIFETIME-BUNDLE-2026    | Climate Bundle            | €6,500    | Bundle   | Lifetime  |
+| expert-services         | Expert Workshop 3 Days    | €4,500    | Service  | Lifetime  |
+| consulting-hourly       | Consulting Hourly         | €98/hr    | Service  | Lifetime  |
+| consulting-fit55        | Fit55 Specialist          | €3,000/mo | Service  | Lifetime  |
+| LIFETIME-EXP-001        | Expert Advisory           | €3,000/mo | Service  | Lifetime  |
+| aws-consultancy         | AI & Cloud Consultancy    | €4,500    | Service  | Lifetime  |
+| conversational-agent    | Conversational Agent      | €3,500    | Software | Lifetime  |
+| m365-consultancy        | M365 Consultancy          | €1,120    | Service  | Lifetime  |
+| powerapps-consultancy   | Power Platform            | €1,120    | Service  | Lifetime  |
+| ai-agent-engineering    | AI Agent Engineering      | €99/hr    | Service  | Lifetime  |
+| lean-project            | Firehorse Lean Project    | €4,960    | Service  | Firehorse |
+| ai-consultant-day       | AI Consultant Day         | €699      | Service  | Lifetime  |
+| business-mentor-30      | Business Mentor 30hrs     | €4,960    | Service  | Lifetime  |
+| firehorse-coach         | Firehorse Coach           | €499      | Service  | Firehorse |
+| firehorse-flow          | Firehorse Flow            | €499      | Software | Firehorse |
+| omnichannel-multimodal  | Omnichannel Multimodal    | €699/mo   | Software | Firehorse |
+| professional-web-pages  | Professional Web Pages    | €799      | Service  | Lifetime  |
+| secure-email-proton     | Protonmail Implementation | €499      | Service  | Lifetime  |
+| firehorse-data-services | Data Services             | €899      | Service  | Firehorse |
+| agentti-sanasto         | Agentti Sanasto           | €0.99     | Digital  | Lifetime  |
+| devops-lead             | Workflow Agent Delivery   | €2,500    | Service  | Lifetime  |
+| digital-design-gold     | Digital Design Gold       | €2,499    | Service  | Lifetime  |
+| cloud-ready-teams       | Solution Ready Team       | €950      | Service  | Lifetime  |
+| ai-koulutus-3d          | AI Koulutus 3 Days        | €6,250    | Training | Lifetime  |
 
 ### Appendix B: Weekly Maintenance Checklist
 
@@ -1506,6 +1634,7 @@ FRIDAY - Optimization & Upload
 ### Appendix C: Audio Chat Compliance Disclosures
 
 **Required disclosure (EU AI Act Article 52):**
+
 ```
 "You are now connected to Lifetime's AI assistant. This is an automated
 system using artificial intelligence. For human support, say 'speak to
@@ -1513,6 +1642,7 @@ a person' or email support@lifetime.fi."
 ```
 
 **Finnish version:**
+
 ```
 "Olet nyt yhteydessa Lifetimen tekoalyavustajaan. Tama on automaattinen
 jarjestelma, joka kayttaa tekoalya. Jos haluat keskustella ihmisen kanssa,
@@ -1522,13 +1652,13 @@ support@lifetime.fi."
 
 ### Appendix D: SFTP Credentials Reference
 
-| Setting | Value |
-|---------|-------|
-| Host | partnerupload.google.com |
-| Port | 19321 |
-| Username | mc-sftp-8496329 |
-| Protocol | SFTP |
-| File | google-products.xml |
+| Setting  | Value                    |
+| -------- | ------------------------ |
+| Host     | partnerupload.google.com |
+| Port     | 19321                    |
+| Username | mc-sftp-8496329          |
+| Protocol | SFTP                     |
+| File     | google-products.xml      |
 
 ### Appendix E: Automated PR Workflow (HIL Automation)
 
@@ -1544,18 +1674,19 @@ Claude Code → PR → Claude sanity check → Gemini HIL review → @copilot fi
 
 **Components:**
 
-| Component | Role | Technology |
-|-----------|------|-----------|
-| Claude Code | Code generation, branch creation, PR opening | Anthropic Claude Opus/Sonnet |
-| AI Code Review | Dual-model review replacing human reviewer | GitHub Actions workflow |
-| Claude (reviewer) | Quick sanity check: security, correctness, breaking changes | Claude Sonnet 4 API |
-| Gemini (HIL gate) | Deep review: edge cases, tests, architecture, OWASP security | Gemini 2.0 Flash API |
-| Copilot coding agent | Implements fix instructions from review comments | GitHub Copilot |
-| PR Auto-Merge | Merges when all checks pass and AI approves | GitHub Actions + GraphQL |
+| Component            | Role                                                         | Technology                   |
+| -------------------- | ------------------------------------------------------------ | ---------------------------- |
+| Claude Code          | Code generation, branch creation, PR opening                 | Anthropic Claude Opus/Sonnet |
+| AI Code Review       | Dual-model review replacing human reviewer                   | GitHub Actions workflow      |
+| Claude (reviewer)    | Quick sanity check: security, correctness, breaking changes  | Claude Sonnet 4 API          |
+| Gemini (HIL gate)    | Deep review: edge cases, tests, architecture, OWASP security | Gemini 2.0 Flash API         |
+| Copilot coding agent | Implements fix instructions from review comments             | GitHub Copilot               |
+| PR Auto-Merge        | Merges when all checks pass and AI approves                  | GitHub Actions + GraphQL     |
 
 **Key design decision:** Gemini defaults to REQUEST_CHANGES on every review. This ensures every PR goes through at least one improvement cycle, enforcing quality even when the original implementation appears correct. Only code with zero issues, adequate tests, and convention compliance receives APPROVE.
 
 **Operational metrics (expected):**
+
 - Developer involvement reduced to final skim/approve (~5 min per PR)
 - 70-90% of basic/refactor/test issues caught before human sees them
 - Typical fix loop: 1-3 iterations before approval
@@ -1572,14 +1703,14 @@ Building on the multi-tenant agent architecture (Section 14), this section docum
 
 **Tier 1 — Orchestrator Agents (6)**
 
-| Agent | Deity | Role | One-liner |
-|-------|-------|------|-----------|
-| Atlas | Greek Titan | Chief of Staff | Routes chaos, synthesizes it into executive briefings |
-| Athena | Greek Goddess | EU Compliance | Memorized every EU regulation since 2005 |
-| Hephaestus | Greek God | Field & Site | Never gets mud on his boots, but checks everything |
-| Iris | Greek Goddess | Research & Intel | Reads 10,000 pages so you don't have to |
-| Hermes | Greek God | Logistics & Ops | Optimizes your supply chain while you find the warehouse |
-| Apollo | Greek God | Content & Outreach | Writes copy, ranks it, sends the follow-up. Already did. |
+| Agent      | Deity         | Role               | One-liner                                                |
+| ---------- | ------------- | ------------------ | -------------------------------------------------------- |
+| Atlas      | Greek Titan   | Chief of Staff     | Routes chaos, synthesizes it into executive briefings    |
+| Athena     | Greek Goddess | EU Compliance      | Memorized every EU regulation since 2005                 |
+| Hephaestus | Greek God     | Field & Site       | Never gets mud on his boots, but checks everything       |
+| Iris       | Greek Goddess | Research & Intel   | Reads 10,000 pages so you don't have to                  |
+| Hermes     | Greek God     | Logistics & Ops    | Optimizes your supply chain while you find the warehouse |
+| Apollo     | Greek God     | Content & Outreach | Writes copy, ranks it, sends the follow-up. Already did. |
 
 **Tier 2 — Industry Specialists (7)**
 
@@ -1597,7 +1728,9 @@ Each agent has a `SOUL.md` identity file injected as LLM system prompt via `Base
 ### Business Innovation: Names as Marketing
 
 The Pantheon naming is the product's marketing wedge — agent one-liners appear on onelifetime.world/team alongside human staff, making enterprise AI approachable without sacrificing credibility.
+
 ### Appendix F: Claude Code Engineering Structure — AI Workflow as First-Class Engineering
+
 The Firehorse operations model is built on a principle that emerges from both the research findings and operational practice: **AI workflows must be engineered, not improvised**.
 This appendix documents the concrete structural patterns that implement this principle in the DWS6 repository, validated against emerging Claude Code community best practices (2026).
 **CLAUDE.md as Project Memory**
@@ -1605,21 +1738,22 @@ The `CLAUDE.md` file at the repository root is not documentation — it is the p
 Key metric: 2,000+ lines of institutional knowledge (brand standards, document standards, security controls, deployment rules, thesis rules, email rules) inherited by every session at zero marginal cost.
 **Skills as Reusable Workflow Components (expanded March 2026)**
 By March 2026, the skills inventory grew from 6 to 21 production skills across four categories:
+
 - **17 slash commands** in `.claude/commands/`: gstack development workflow (6), EU compliance (4), agent control (3), operations (3), code quality (2)
 - **4 discipline skills** in `skills/*/SKILL.md`: `verification-gate` (blocks "done" claims without evidence), `design-first` (blocks 3+ file changes without approved design), `dual-folder-sync` (blocks root changes without landing-pages sync), `last30days` (research agent)
 - **4 specialized subagents** in `.claude/agents/`: `mcp-expert`, `code-reviewer`, `security-reviewer`, `architect`
 - **Secret scanning hook**: PreToolUse hook scanning 14 secret patterns (AWS, GitHub, Stripe, Anthropic, etc.) with audit logging
-The discipline skills represent a novel contribution: **blocking gates** enforced via hook exit code 2 (BLOCK) that cannot be bypassed by agent behavior. This is structural enforcement, not behavioral suggestion — essential for regulated industries where "the agent usually follows the rules" is insufficient.
-**Hooks for Automated Quality Enforcement**
-Git hooks (`.githooks/`) enforce structural invariants:
+  The discipline skills represent a novel contribution: **blocking gates** enforced via hook exit code 2 (BLOCK) that cannot be bypassed by agent behavior. This is structural enforcement, not behavioral suggestion — essential for regulated industries where "the agent usually follows the rules" is insufficient.
+  **Hooks for Automated Quality Enforcement**
+  Git hooks (`.githooks/`) enforce structural invariants:
 - Branch naming convention (`claude/<feature>-<id>`) — prevents incorrect branch workflows
 - Anti-destructive-push guard — prevents accidental deletion of production branches
 - Post-merge sync — keeps Admin/, docs/, AgentFoundry/ synchronized to backup storage
-The quality enforcement is **structural, not behavioral** — hooks cannot be bypassed by agent behavior. This is the key architectural distinction between a disciplined AI workflow system and an ad-hoc one.
-**Subagents for Context Isolation and Parallel Execution**
-Background agents enable parallel research and task execution without exhausting the main context window. The Explore agent specifically provides codebase search without polluting the primary context — critical for large repositories. This pattern directly extends the multi-agent orchestration documented in Sections 3 and 14.
-**Conclusion**
-The architectural lesson for the Firehorse Operations Model: the difference between AI experiments and AI products is not the model — it is the engineering discipline applied to how the model is integrated. CLAUDE.md, skills, hooks, and subagents are not features; they are the infrastructure that makes the Firehorse model reliable, consistent, and scalable.
+  The quality enforcement is **structural, not behavioral** — hooks cannot be bypassed by agent behavior. This is the key architectural distinction between a disciplined AI workflow system and an ad-hoc one.
+  **Subagents for Context Isolation and Parallel Execution**
+  Background agents enable parallel research and task execution without exhausting the main context window. The Explore agent specifically provides codebase search without polluting the primary context — critical for large repositories. This pattern directly extends the multi-agent orchestration documented in Sections 3 and 14.
+  **Conclusion**
+  The architectural lesson for the Firehorse Operations Model: the difference between AI experiments and AI products is not the model — it is the engineering discipline applied to how the model is integrated. CLAUDE.md, skills, hooks, and subagents are not features; they are the infrastructure that makes the Firehorse model reliable, consistent, and scalable.
 
 ### Section 14.10: Agent System Hardening — Production Reliability
 
@@ -1659,23 +1793,24 @@ The original v2.2 plan assumed pg_duckdb availability on Aiven. Three market shi
 
 **Extension evaluation (revised):**
 
-| Extension | Engine | Aiven Status | Verdict |
-|-----------|--------|-------------|---------|
-| TimescaleDB 2.25.x | PostgreSQL (Hypercore) | **Approved** | ONLY managed option — hypertables + columnar compression |
-| pg_duckdb | DuckDB | **BLOCKED** (not whitelisted) | Edge-only — approved for GN100 self-managed nodes |
-| Hydra | Citus columnar | **Dead** — joined Supabase (Feb 2026) | Removed from evaluation |
-| pg_mooncake | DuckDB | **Dead** — acquired by Databricks (Oct 2025) | Removed from evaluation |
+| Extension          | Engine                 | Aiven Status                                 | Verdict                                                  |
+| ------------------ | ---------------------- | -------------------------------------------- | -------------------------------------------------------- |
+| TimescaleDB 2.25.x | PostgreSQL (Hypercore) | **Approved**                                 | ONLY managed option — hypertables + columnar compression |
+| pg_duckdb          | DuckDB                 | **BLOCKED** (not whitelisted)                | Edge-only — approved for GN100 self-managed nodes        |
+| Hydra              | Citus columnar         | **Dead** — joined Supabase (Feb 2026)        | Removed from evaluation                                  |
+| pg_mooncake        | DuckDB                 | **Dead** — acquired by Databricks (Oct 2025) | Removed from evaluation                                  |
 
 **Recommended stack — two-tier HTAP:**
 
-| Tier | Host | Extensions | Role |
-|------|------|-----------|------|
-| **Production** | Aiven PostgreSQL (EU) | TimescaleDB 2.25.x Hypercore | OLTP + time-series compression, audit logs, agent metrics |
-| **Edge analytics** | Acer Veriton GN100 (ARM64) | TimescaleDB + pg_duckdb + pgvector | Local OLAP, fleet telemetry, AI inference |
+| Tier               | Host                       | Extensions                         | Role                                                      |
+| ------------------ | -------------------------- | ---------------------------------- | --------------------------------------------------------- |
+| **Production**     | Aiven PostgreSQL (EU)      | TimescaleDB 2.25.x Hypercore       | OLTP + time-series compression, audit logs, agent metrics |
+| **Edge analytics** | Acer Veriton GN100 (ARM64) | TimescaleDB + pg_duckdb + pgvector | Local OLAP, fleet telemetry, AI inference                 |
 
 Edge PostgreSQL deployed **2026-03-13** on Acer Veriton GN100 (ARM64), self-managed.
 
 **DWS Data Standard** (`DWS_DATA_STANDARD.md`) governing:
+
 - Storage engine decisions (row vs columnar vs hybrid)
 - Extension governance with EU sovereignty assessment and Aiven whitelist compliance
 - Retention policies mapped to 11 EU regulations (GDPR Art 17, EU AI Act Art 12: 7yr, NIS2: 5yr, Finnish Accounting Act: 10yr)
@@ -1695,13 +1830,13 @@ Edge PostgreSQL deployed **2026-03-13** on Acer Veriton GN100 (ARM64), self-mana
 
 OpenAI's harness model focuses on **developer productivity** — building products faster with AI agents. DWS IQ 6 extends the harness concept to **forensic operations**, where every agent action must be traceable, auditable, and court-defensible.
 
-| Harness Layer | OpenAI Purpose | Firehorse Forensic Purpose |
-|---------------|---------------|---------------------------|
-| **AGENTS.md** | Map for developer agents | Audit-ready system description for regulators |
-| **Golden Principles** | Code quality enforcement | Compliance standard adherence across 20 industries |
-| **Knowledge in repo** | Developer documentation | VERSION AND AGENT HISTORY — immutable modification log |
-| **Agent-agent review** | Code quality iteration | Multi-model review creating forensic evidence trail |
-| **Feedback loops** | Developer productivity | Court-defensible decision provenance |
+| Harness Layer          | OpenAI Purpose           | Firehorse Forensic Purpose                             |
+| ---------------------- | ------------------------ | ------------------------------------------------------ |
+| **AGENTS.md**          | Map for developer agents | Audit-ready system description for regulators          |
+| **Golden Principles**  | Code quality enforcement | Compliance standard adherence across 20 industries     |
+| **Knowledge in repo**  | Developer documentation  | VERSION AND AGENT HISTORY — immutable modification log |
+| **Agent-agent review** | Code quality iteration   | Multi-model review creating forensic evidence trail    |
+| **Feedback loops**     | Developer productivity   | Court-defensible decision provenance                   |
 
 **Key insight:** The DWS Document Standard's VERSION AND AGENT HISTORY block transforms every document into a forensic artifact. Each modification records: version number, tool used, session ID, date, and specific changes. This is a harness mechanism that OpenAI does not describe — because they optimize for speed, not legal defensibility.
 
@@ -1709,12 +1844,12 @@ OpenAI's harness model focuses on **developer productivity** — building produc
 
 OpenAI's harness operates entirely at the software level — constraints, linters, code review loops. DWS's KYA (Know Your Agent/Architecture) Standard extends the harness into hardware:
 
-| Harness Type | OpenAI | DWS KYA |
-|-------------|--------|---------|
-| **Agent identity** | Software-level session IDs | Hardware-attested agent identity (TPM/Secure Boot) |
-| **Execution isolation** | Container sandboxing | Hardware-isolated execution environments |
-| **Audit immutability** | Git history | Hardware-attested audit logs (tamper-evident) |
-| **Trust boundary** | Process-level | Hardware security module boundary |
+| Harness Type            | OpenAI                     | DWS KYA                                            |
+| ----------------------- | -------------------------- | -------------------------------------------------- |
+| **Agent identity**      | Software-level session IDs | Hardware-attested agent identity (TPM/Secure Boot) |
+| **Execution isolation** | Container sandboxing       | Hardware-isolated execution environments           |
+| **Audit immutability**  | Git history                | Hardware-attested audit logs (tamper-evident)      |
+| **Trust boundary**      | Process-level              | Hardware security module boundary                  |
 
 The KYA Standard's Shield (security) and Sword (optimization) paradigm demonstrates that **hardware-level harness provides guarantees that software harness cannot** — particularly for EU-regulated industries where agent decisions carry legal liability.
 
@@ -1732,12 +1867,12 @@ These findings validate the Firehorse model's investment in operational infrastr
 
 For Firehorse operations serving EU-regulated industries, the harness must satisfy constraints that OpenAI's internal tooling does not face:
 
-| EU Requirement | Harness Implication | Firehorse Implementation |
-|----------------|--------------------|-----------------------|
-| **EU AI Act Art 12** (7-year logging) | Every agent action logged immutably | VERSION AND AGENT HISTORY + Supabase audit tables |
-| **EU AI Act Art 14** (human oversight) | Human-in-the-loop mandatory for high-risk | Karpathy principles: "human is the architect" |
-| **GDPR Art 17** (right to erasure) | Data deletion while preserving audit trail | Pseudonymized audit logs with separate PII store |
-| **NIS2 Art 23** (incident reporting) | 24-hour breach notification capability | Firehorse automated incident telemetry |
+| EU Requirement                         | Harness Implication                        | Firehorse Implementation                          |
+| -------------------------------------- | ------------------------------------------ | ------------------------------------------------- |
+| **EU AI Act Art 12** (7-year logging)  | Every agent action logged immutably        | VERSION AND AGENT HISTORY + Supabase audit tables |
+| **EU AI Act Art 14** (human oversight) | Human-in-the-loop mandatory for high-risk  | Karpathy principles: "human is the architect"     |
+| **GDPR Art 17** (right to erasure)     | Data deletion while preserving audit trail | Pseudonymized audit logs with separate PII store  |
+| **NIS2 Art 23** (incident reporting)   | 24-hour breach notification capability     | Firehorse automated incident telemetry            |
 
 **Research contribution:** This section demonstrates that **harness engineering is not one-size-fits-all.** The EU regulatory context requires a fundamentally different harness design — one that prioritizes traceability, human oversight, and legal defensibility over speed. OpenAI's 3.5 PR/engineer/day metric is irrelevant when the primary metric is compliance assurance and audit readiness.
 
@@ -1781,39 +1916,39 @@ Three unsolved problems for PhD investigation:
 
 ### Platform and Business Concepts
 
-| Term (EN) | Finnish | Definition |
-|-----------|---------|------------|
-| **AgentFoundry** | AgentFoundry | Multi-model, multi-tenant framework for deploying AI agents across industrial verticals |
-| **Edge AI** | Reunatekoäly | AI processing on local devices instead of cloud servers |
-| **Firehorse** | Firehorse | DWS6 product suite (Reports, Automation, Omnichannel, CMS) |
-| **MCP Hub** | MCP Hub | Model Context Protocol coordination server for multi-agent orchestration |
-| **Solution Factory** | Solution Factory | Operating model for producing multiple industrial AI platforms from shared components |
+| Term (EN)            | Finnish          | Definition                                                                              |
+| -------------------- | ---------------- | --------------------------------------------------------------------------------------- |
+| **AgentFoundry**     | AgentFoundry     | Multi-model, multi-tenant framework for deploying AI agents across industrial verticals |
+| **Edge AI**          | Reunatekoäly     | AI processing on local devices instead of cloud servers                                 |
+| **Firehorse**        | Firehorse        | DWS6 product suite (Reports, Automation, Omnichannel, CMS)                              |
+| **MCP Hub**          | MCP Hub          | Model Context Protocol coordination server for multi-agent orchestration                |
+| **Solution Factory** | Solution Factory | Operating model for producing multiple industrial AI platforms from shared components   |
 
 ### Data Architecture and Analytics
 
-| Term (EN) | Finnish | Definition |
-|-----------|---------|------------|
-| **Autoresearch** | Autotutkimus | Karpathy-inspired autonomous validation loop: hypothesize → modify → verify → keep/discard → repeat |
-| **Columnar Storage** | Saraketallennustila | Database storage format organizing data by columns instead of rows, enabling 10-100× compression |
-| **HTAP** | HTAP | Hybrid Transactional/Analytical Processing — single database handles both OLTP and OLAP workloads |
-| **Hypercore** | Hypercore | TimescaleDB's automatic hybrid row→columnar tiering engine with 90-98% compression |
-| **pg_duckdb** | pg_duckdb | PostgreSQL extension embedding DuckDB for 50-600× OLAP acceleration (edge-only in DWS) |
-| **pgvector** | pgvector | PostgreSQL extension for vector similarity search, used in RAG pipelines |
-| **TimescaleDB** | TimescaleDB | PostgreSQL extension for time-series data with compression and continuous aggregates |
-| **Two-Tier HTAP** | Kaksitasoinen HTAP | Architecture: Tier 1 (Aiven managed, TimescaleDB) + Tier 2 (self-managed edge, pg_duckdb) |
+| Term (EN)            | Finnish             | Definition                                                                                          |
+| -------------------- | ------------------- | --------------------------------------------------------------------------------------------------- |
+| **Autoresearch**     | Autotutkimus        | Karpathy-inspired autonomous validation loop: hypothesize → modify → verify → keep/discard → repeat |
+| **Columnar Storage** | Saraketallennustila | Database storage format organizing data by columns instead of rows, enabling 10-100× compression    |
+| **HTAP**             | HTAP                | Hybrid Transactional/Analytical Processing — single database handles both OLTP and OLAP workloads   |
+| **Hypercore**        | Hypercore           | TimescaleDB's automatic hybrid row→columnar tiering engine with 90-98% compression                  |
+| **pg_duckdb**        | pg_duckdb           | PostgreSQL extension embedding DuckDB for 50-600× OLAP acceleration (edge-only in DWS)              |
+| **pgvector**         | pgvector            | PostgreSQL extension for vector similarity search, used in RAG pipelines                            |
+| **TimescaleDB**      | TimescaleDB         | PostgreSQL extension for time-series data with compression and continuous aggregates                |
+| **Two-Tier HTAP**    | Kaksitasoinen HTAP  | Architecture: Tier 1 (Aiven managed, TimescaleDB) + Tier 2 (self-managed edge, pg_duckdb)           |
 
 ### Security and Compliance
 
-| Term (EN) | Finnish | Definition |
-|-----------|---------|------------|
-| **Aiven-first Mandate** | Aiven-ensisijaisuus | DWS policy requiring production extensions to be Aiven-compatible before adoption |
-| **DWS Data Standard** | DWS-tietostandardi | Internal standard governing data storage, extension governance, and EU regulatory compliance |
-| **EU AI Act** | EU:n tekoälysäädös | EU regulation for AI systems (August 2026 deadline) |
-| **GDPR** | GDPR (Yleinen tietosuoja-asetus) | EU data protection regulation |
-| **KYA Standard** | KYA-standardi | Know Your Agent/Architecture — AI agent security (Shield) and optimization governance (Sword) |
-| **NIS2** | NIS2 | EU cybersecurity directive for critical infrastructure |
-| **Proxy-to-Scale** | Pienestä suureen -validointi | Karpathy pattern: validate on small proxy before scaling to production |
-| **RLS** | Rivitason suojaus | Row-Level Security — database-level access control per user/organization |
+| Term (EN)               | Finnish                          | Definition                                                                                    |
+| ----------------------- | -------------------------------- | --------------------------------------------------------------------------------------------- |
+| **Aiven-first Mandate** | Aiven-ensisijaisuus              | DWS policy requiring production extensions to be Aiven-compatible before adoption             |
+| **DWS Data Standard**   | DWS-tietostandardi               | Internal standard governing data storage, extension governance, and EU regulatory compliance  |
+| **EU AI Act**           | EU:n tekoälysäädös               | EU regulation for AI systems (August 2026 deadline)                                           |
+| **GDPR**                | GDPR (Yleinen tietosuoja-asetus) | EU data protection regulation                                                                 |
+| **KYA Standard**        | KYA-standardi                    | Know Your Agent/Architecture — AI agent security (Shield) and optimization governance (Sword) |
+| **NIS2**                | NIS2                             | EU cybersecurity directive for critical infrastructure                                        |
+| **Proxy-to-Scale**      | Pienestä suureen -validointi     | Karpathy pattern: validate on small proxy before scaling to production                        |
+| **RLS**                 | Rivitason suojaus                | Row-Level Security — database-level access control per user/organization                      |
 
 ### 14.14 Competitive Analysis: Domain-Specific vs Generic AI Harness
 
@@ -1846,15 +1981,240 @@ The master thesis (V3Thesis) grew to 82 pages and 26,000+ words during the AI-as
 
 **Key Contribution #18:** Dual-version thesis architecture as methodological contribution to AI-assisted academic writing.
 
+### 14.16 April 2026 Evolution: Report Engine in Production, Product Line V2, Snap Benchmark, and Founder→Team Transition
+
+_Added: 20.04.2026 | Source: PRs #1064, #1109, #1110; field notes 2026-04-06 through 2026-04-19; Firehorse Snap benchmark (Firecracker MicroVM); SOLO_FOUNDER_STATEMENT v1.2._
+
+Between v2.7 (18.03.2026) and v2.8 (20.04.2026) Firehorse progressed from a documented operating model to a measurable production system. Five operational milestones define this window.
+
+#### 14.16.1 Firehorse Report Engine — Production Scheduler (PR #1064)
+
+The Firehorse Report module graduated from specification to scheduled production. PR #1064 merged the report scheduler (`src/firehorse/report-scheduler.ts`), module-scoped tests (`src/__tests__/firehorse-report-module.test.ts`), and a manual trigger route. This is the first Firehorse module to ship a cron-driven customer deliverable, closing the loop between the Operations Model (§14.1–14.4) and customer-facing value:
+
+| Capability         | Implementation                                                  |
+| ------------------ | --------------------------------------------------------------- |
+| Scheduled dispatch | Node-cron expressions per tenant; timezone-aware                |
+| Manual trigger     | REST route for ad-hoc report generation                         |
+| Test coverage      | Module-scoped tests (no cross-module leakage)                   |
+| Compliance output  | CSV/JSON export consumable by CSRD/CBAM/ETS reporting pipelines |
+
+**Operations-model significance:** The scheduler is the first Firehorse component where the 3-tier billing contract (§2.0 v2.0, Version 2.0) produces recurring compliance artefacts without human intervention. The hypothesis that an AI-assisted one-person team can operate a multi-tenant compliance product is now testable against real scheduled dispatch.
+
+#### 14.16.2 Firehorse Product Line V2 — Unified DWS IQ Product Family
+
+In April 2026 the four Firehorse modules (Omnichannel, Signed Report, Automation, Content Management) were consolidated into a single V2 product line under the DWS IQ product family. Each module received a V2 naming, dedicated imagery, and a store presence. Merged commits include `Firehorse Product Line V2`, `Firehorse Automation V2`, `Firehorse Starter V2 bundle`, `Firehorse Content Management V2`, `Firehorse Signed Report V2`, `Firehorse ReportV2`, and `firehorse-omnichannel-v2.png`. The Firehorse Starter V2 bundle exists as an entry-level SKU.
+
+**Operations-model significance:** V2 crystallises the Solution Factory output into a catalogue-first product family that can be purchased, bundled, and versioned independently — a pre-condition for the Ops Manager ICP (see §14.16.5).
+
+#### 14.16.3 Firehorse Snap Benchmark — <125 ms Measured Kill Latency
+
+Earlier versions of this thesis cited 122 ms as the Firehorse Snap kill latency specification from Arctic 15 planning documents. In April 2026, the measured kill latency on Firecracker MicroVM infrastructure was captured and published on the KYA Standard page (`dws10.com/kya-standard`). The public claim has been updated from the 122 ms spec to **<125 ms measured** (Firecracker MicroVM benchmark). The KYA page now displays both measured and Firecracker spec figures so readers can distinguish specification from measurement.
+
+**Operations-model significance:** Court-defensible harness claims (§14.12 Harness Engineering and Forensic Telemetry) require measurement, not specification. Updating the public figure from spec to measured is the first time a Firehorse harness guarantee is backed by a reproducible benchmark. This is a precondition for EU AI Act Article 12 log admissibility in enforcement proceedings.
+
+#### 14.16.4 Skills Paradigm Applied to Operations — Anthropic's 2026-04-16 Validation
+
+Anthropic's 2026-04-16 essay "Stop Building Agents, Start Building Skills" (field note `docs/field-notes/2026-04-16-anthropic-skills-paradigm-stop-building-agents.md`) externally validates the skill-first architecture documented in §14.14 (Domain-Specific vs Generic AI Harness). The Firehorse operating model is not "an agent framework with skills" — it is a skill library that happens to invoke agents. Three new production skills shipped in this window:
+
+| Skill                | Purpose                                                        | Ops-model function                                   |
+| -------------------- | -------------------------------------------------------------- | ---------------------------------------------------- |
+| `/regulatory-radar`  | Scan EUR-Lex / DG ENER / EFRAG / CINEA for upcoming regulation | Anticipates compliance product roadmap               |
+| `/investor-outreach` | Draft, triage, and track investor INTRO notes                  | Makes fundraising a reproducible workflow (§14.16.5) |
+| `/multilingual`      | Generate / audit EU multilingual content (FI/SV/DE/FR)         | Localises Firehorse store + onelifetime.world        |
+
+Total skill inventory: 24+ production skills with 4 blocking discipline gates. The hypothesis that skills are the product interface (Section 14.14 Research Significance) is now externally confirmed as the emerging industry pattern.
+
+#### 14.16.5 Ops Manager V0 Buyer Lock + Founder→Team Transition
+
+Two coupled milestones answer the "who buys" and "who builds" questions of the operations model:
+
+- **Ops Manager V0 Buyer Lock (PRD v0.2, commit `4e64a089`):** The first-dollar customer is locked to the Ops Manager persona at Finnish datacentre operators (hyperscaler + colocation). A validation script accompanies the PRD to prevent unvalidated ICP drift. This tightens the loop between Section 14.4 (Contractor Agent Onboarding) and the Datacentre Compliance Agent PRD v0.1 (`docs/DWS_IQ_7_DATACENTRE_COMPLIANCE_AGENT_PRD_v0.1.md`).
+- **Founder→Team Transition:** `SOLO_FOUNDER_STATEMENT.md` v1.2 locks the solo-founder-with-AI-team narrative as single source of truth for Series A / SAFE investor conversations. Anthony Maurin enters as CTO co-builder with tightened equity sequencing against the Perissich reactivation catalyst. The `/investor-outreach` skill produces 10+ named INTRO notes in the 2-week window (42CAP Wilke, Plug and Play Paris Laouiti, Ingrisano, Perissich, Kefalogiannis, von Euen, Yomutbayev, Zawadzinski) — investor outreach is now a DWS IQ workflow, not tacit founder knowledge.
+
+**Operations-model significance:** The Firehorse Operations Model survives the founder-to-team transition only if every previously tacit founder activity (fundraising, buyer validation, partner outreach) becomes a skill. PRD v0.2 (buyer validation) + `/investor-outreach` (investor pipeline) are two of three legs; partner outreach (Aiven, Shufti, Kosti Salmi / Salesforce) remains to be codified as a skill in the next window.
+
+#### 14.16.6 Research Contribution
+
+**Key Contribution #19 — Report Engine in Production:** The Firehorse Report scheduler (PR #1064) is the first Firehorse module to ship cron-driven customer deliverables with module-scoped tests and a manual trigger route. This closes the loop between the Operations Model's 3-tier billing contract (Version 2.0) and recurring compliance artefacts without human intervention, providing the first end-to-end test of the one-person-team multi-tenant compliance hypothesis.
+
+**Key Contribution #20 — Measured Harness Guarantee (<125 ms Snap):** The Firehorse Snap kill latency is now backed by a reproducible Firecracker MicroVM benchmark rather than an Arctic 15 specification. This is the first time a court-defensible harness claim in the Firehorse operating model has a published measurement replacing a specification, a precondition for EU AI Act Article 12 log admissibility in enforcement contexts (§14.12).
+
+**Key Contribution #21 — Founder→Team Transition as Skills:** The Ops Manager V0 buyer lock (PRD v0.2 with validation script) and the `/investor-outreach` skill (10+ INTRO notes drafted) together demonstrate that previously tacit founder activities (ICP validation, investor pipeline) can be codified as reproducible DWS IQ skills. This extends the Firehorse Operations Model from internal tooling to a founder-to-team transition mechanism — a necessary property if the operating model is to survive beyond the solo-founder phase.
+
+---
+
+### 14.17 DWS Skilled Taxonomy: Brand / Spec / UI Across Agents, Workflows, and Jurisdictions
+
+_Added: 22.04.2026 | Source: CLAUDE.md "DWS Skilled Taxonomy Rule"; Anthropic 2026-04-16 Skills paradigm essay (§14.16.4); deprecation of "GodAgent" branding. PHD_FIREHORSE version track unified with Metropolia V3Thesis at v3.37; from v3.37 forward all 4 thesis files bump in lockstep (3.37 → 3.38 → … → 3.99 → 4.00)._
+
+#### 14.17.1 From "GodAgent" to a Three-Tier Naming System
+
+The Firehorse Operations Model earlier used "GodAgent" as a single label for industry-scoped specialist agents. Anthropic's 2026-04-16 essay "Stop Building Agents, Start Building Skills" (see §14.16.4) externally validated the skill-first architecture embedded in the operating model (§14.14 Domain-Specific vs Generic AI Harness). With that validation, the single-label convention became a positioning liability: a brand, a specification, and a UI category are three distinct registers, and no single term can serve all three without diluting each. This section introduces the three-tier naming taxonomy that replaces "GodAgent" in the Firehorse operating model.
+
+#### 14.17.2 The Pattern
+
+```
+Skilled <Axis>                 ← BRAND   (what we SELL)
+    └─ Industrial Specialist <Axis>    ← SPEC    (what they ARE)
+            └─ Industry <Axis>         ← UI      (how we LIST them)
+```
+
+Three axes are currently active in the Firehorse operating model:
+
+| Tier    | **Agents**                   | **Workflows**                                                       | **Jurisdictions**                     |
+| ------- | ---------------------------- | ------------------------------------------------------------------- | ------------------------------------- |
+| 1 Brand | Skilled Agents               | Skilled Autonomous Workflows                                        | Skilled Jurisdictions (EU, US, Aiven) |
+| 2 Spec  | Industrial Specialist Agents | Specialist Workflows (long-form: _Industrial Specialist Workflows_) | Regulatory Specialist Jurisdictions   |
+| 3 UI    | Industry Agents              | Industrial Workflows                                                | Jurisdictions                         |
+
+"Autonomous" appears only in the workflow brand tier because workflows execute on schedule or event without a human in the loop — a property the operating-model store copy must earn for every product that claims recurring compliance artefacts (see §14.16.1 Firehorse Report Engine scheduler). "Regulatory" appears in the jurisdiction spec tier because jurisdictions are defined by their regulatory surface (AI Act, GDPR, CBAM, ETS, CSRD for EU; sector rules for US; data localisation for Aiven), not by geography alone.
+
+#### 14.17.3 Operations-Model Significance
+
+Three implications follow for the Firehorse Operations Model:
+
+1. **SKU copy discipline.** The `brand:` field in `products.json` and store-page metadata must use the brand-tier term (`Skilled Agents`, `Skilled Autonomous Workflows`) to align the outward-facing positioning with the Anthropic Skills paradigm validation (§14.16.4). Spec- and UI-tier terms do not belong in hero copy.
+2. **Scheduler copy discipline.** Firehorse Report Engine (§14.16.1) and the forthcoming Firehorse Automation module produce scheduled deliverables; their product descriptions must reach for the workflow tier ("Skilled Autonomous Workflows"), not the agent tier, to avoid under-selling the autonomy property.
+3. **Jurisdiction packaging.** The Aegis / Sovereign Infra / Connect segmentation (see V3Thesis §10.21.5) is already organised by regulatory surface. The taxonomy names that structure explicitly: jurisdictions are branded ("Skilled Jurisdictions") rather than treated as deployment metadata.
+
+#### 14.17.4 Count Dynamism
+
+The number of entries in each axis will shift as industries, workflows, and jurisdictions are added. Three acceptable patterns:
+
+1. **Open-ended counts** in platform copy: `18+ Skilled Agents`, `20+ Skilled Jurisdictions` — the `+` absorbs growth.
+2. **Registry-anchored references** in specs: "see `docs/Deputy-Agents-Architecture.md` §3 for the current Industrial Specialist Agent registry".
+3. **Product-scoped counts** in SKU copy: "Climate Intelligence ships with 8 Skilled Agents" — precise but treated as part of the SKU specification in `products.json`, not as free-floating copy.
+
+#### 14.17.5 Exclusions
+
+- **Docker / infrastructure identifiers** (`dws-godagent-llm` network, `dws-godagent:latest` image, label `dws-godagent`) remain unchanged; their renaming is an infra migration, not a doc change.
+- **Pantheon "God Agents"** on `onelifetime.world` (Greek-mythology characters — see §14.9 Climate IQ Pantheon) is a distinct brand and remains unchanged.
+- **Historical records** (field notes, dated folders, time-tracking and learning journals) are not retroactively edited.
+
+#### 14.17.6 Research Contribution
+
+**Key Contribution #22 — Register-Explicit Brand Architecture for Operating Models:** The Firehorse Operations Model formalises a three-tier naming taxonomy (Skilled / Industrial Specialist / Industry) applied uniformly across three orthogonal capability axes (agents, workflows, jurisdictions). The taxonomy is a research contribution because it treats naming as part of the operations model rather than marketing overhead: each register has a different audience (buyer, auditor, user) with different compliance obligations, and the single-label convention inherited from early-stage SaaS cannot satisfy all three simultaneously in EU-regulated industries. The `Skilled <Axis>` monotone pattern is proposed as a generalisable design pattern for one-person-team industrial AI platforms that need auditable brand architecture without a dedicated marketing function.
+
+---
+
+## Appendix H: KYA Partner Ecosystem
+
+_Added: 18.03.2026 | Source: docs/field-notes/2026-03-09-shufti-kya-byo-partner-access.md, docs/field-notes/2026-03-10-palantir-aip-partner-outreach.md, docs/gtm/KYA_CONNECTOR_BRIEF_PALANTIR.md_
+
+The KYA (Know Your Agent) Standard requires a partner ecosystem to deliver its 5-layer trust framework. No single vendor can provide hardware attestation, identity verification, industrial distribution, and EU-sovereign AI inference simultaneously. This appendix documents the partner architecture and its research implications.
+
+### H.1 KYA 5-Layer Partner Mapping
+
+The KYA Standard defines five trust layers. Each layer maps to a specific partner capability:
+
+| KYA Layer                 | Function                                                                                                                                                                                                     | Partner                       | Integration Status        |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------- | ------------------------- |
+| **L1 — Human Identity**   | KYC/AML/IDV verification                                                                                                                                                                                     | Shufti Pro                    | PoC in progress (Q1 2026) |
+| **L2 — Agent Provenance** | Agent origin and registry verification                                                                                                                                                                       | DWS Agent Registry (internal) | Production                |
+| **L3 — Agent Capability** | Tool/API access gating via MCP manifest                                                                                                                                                                      | DWS MCP Hub (internal)        | Production                |
+| **L4 — Runtime Behavior** | Court-defensible telemetry (egress, file I/O, tokens) — OpenSandbox governance layer wrapping Docker containers; VMM-level monitoring below agent OS; TPM 2.0 attested logs for EU AI Act Art. 12 compliance | DWS OpenSandbox (internal)    | From MVP                  |
+| **L5 — Continuous Risk**  | Dynamic risk profile monitoring                                                                                                                                                                              | Shufti Pro webhooks           | PoC planned               |
+
+**L4 architecture decision (March 2026):** Application workloads run in Docker containers, but L4 telemetry requires OpenSandbox (Firecracker MicroVM) as a governance layer _around_ the Docker runtime. Docker alone cannot provide court-defensible L4 because: (1) shared kernel allows root agents to manipulate their own logs, (2) no TPM 2.0 attestation of telemetry integrity, (3) EU AI Act Art. 12 requires tamper-proof automatic event logging for all high-risk AI systems. All DWS IQ customers operate in EU-regulated industries — there is no "functional-only L4" tier. Every agent interaction must produce a court-defensible audit trail.
+
+**Research significance:** Layers L2–L4 are built internally, but L1 and L5 require external identity intelligence. This creates a natural partnership boundary: DWS governs the agent runtime; the identity partner governs the human behind it.
+
+### H.2 Shufti Pro — Identity Verification Partner (L1/L5)
+
+**Problem:** Traditional KYC verifies the human at the door. In agent-native architectures, the human is just the entry point. The real risk surface is: what agent does the user deploy, and does the user's risk profile change after the agent is running?
+
+**Integration architecture:**
+
+```
+User Onboarding: DWS Auth (Supabase) → Shufti IDV API → KYA L1 Score
+Agent Deployment: Agent Manifest → KYA L2-L3 Review → Sandbox Policy
+Runtime:          Shufti Webhooks (L5) → DWS Event Bus → Sandbox Restrict/Expand
+```
+
+**KYA Trust Score formula:**
+
+```
+KYA_TRUST = f(shufti_risk_score, agent_provenance, capability_scope, runtime_behavior)
+```
+
+| Score | Tier       | Sandbox Action                          |
+| ----- | ---------- | --------------------------------------- |
+| >= 80 | Full       | All MCP tools, egress, filesystem       |
+| 50–79 | Restricted | No egress, read-only, curated tools     |
+| < 50  | Suspended  | Human review required                   |
+| 0     | Frozen     | Agent terminated (122ms Firehorse Snap) |
+
+**Partnership terms:** Technical PoC pilot (not seat-license). Shufti provides API access; DWS provides OpenSandbox runtime and KYA framework. Value proposition for Shufti: first-mover in "Zero-Trust Agent Workspace" category — identity layer for autonomous AI agents, not just humans.
+
+**Current status (March 2026):** EU-only processing confirmation and DPA (Data Processing Agreement) requested from Shufti. GDPR Art. 44-49 compliance required for enterprise customers. HMAC-SHA256 webhook signing confirmed.
+
+### H.3 Palantir AIP — Connector Partner Model
+
+**Strategic thesis:** Palantir AIP is a platform partner opportunity, not a competitor. Palantir has enterprise distribution and ontology data modeling; DWS has hardware-level agent isolation and EU regulatory depth.
+
+| Palantir Has                         | Palantir Lacks                 | DWS IQ Provides                          |
+| ------------------------------------ | ------------------------------ | ---------------------------------------- |
+| Enterprise agent orchestration (AIP) | Hardware-level agent isolation | Firecracker MicroVM (122ms kill)         |
+| Fortune 500 customer base            | EU CBAM/ETS/Fit for 55 depth   | 20-industry regulatory engine            |
+| Ontology data model                  | TPM 2.0 hardware attestation   | Court-defensible audit trail             |
+| $2.6B ARR, proven scale              | Sub-5ms VMM-layer guardrails   | Hardware-enforced behavioral enforcement |
+
+**Connector architecture:** AIP agent workflows run inside KYA-governed Firecracker MicroVMs. Zero modification to existing Palantir workflows. The governance layer sits _below_ the agent's operating system.
+
+**Revenue models proposed:**
+
+| Model             | Structure                                            |
+| ----------------- | ---------------------------------------------------- |
+| Connector License | Per-MicroVM governance fee (€0.02/agent/hour)        |
+| Co-sell           | Joint enterprise deals in EU regulated industries    |
+| OEM               | Palantir bundles KYA governance into AIP EU offering |
+
+### H.4 BYO (Bring Your Own) Agent Policy
+
+BYO defines how external agents — from any partner or customer — enter the DWS IQ ecosystem:
+
+| BYO Stage           | Gate                                                          | Enforcement              |
+| ------------------- | ------------------------------------------------------------- | ------------------------ |
+| Registration        | Agent manifest (name, version, tool requirements, source)     | DWS Agent Registry API   |
+| Identity Binding    | Agent bound to verified human identity                        | KYA L1 (Shufti)          |
+| Capability Review   | MCP tools reviewed against organization policy                | MCP Tool Approval        |
+| Sandbox Entry       | Isolated sandbox (Stage 1–3 based on tenant tier)             | OpenSandbox Architecture |
+| Runtime Monitoring  | Continuous telemetry: egress, file writes, token consumption  | KYA L4                   |
+| Dynamic Restriction | Risk profile change → sandbox permissions adjust in real-time | KYA L5 (Shufti webhooks) |
+
+**Significance for Firehorse:** BYO enables the platform-as-a-service model. Customers bring their own agents; DWS governs them. This is the monetization layer for the Firehorse operating model.
+
+### H.5 Strategic Ecosystem Partners (Brain-Memory-Body-Hands)
+
+The 5-partner ecosystem maps to the DWS architecture layers:
+
+| Partner             | Architecture Layer                                       | KYA Role                                       | Status                   |
+| ------------------- | -------------------------------------------------------- | ---------------------------------------------- | ------------------------ |
+| NVIDIA              | Brain (compute) + Hands (Jetson edge) + Body (Omniverse) | Compute substrate for KYA-governed agents      | Inception target Q2 2026 |
+| Siemens             | Hands (MindSphere IoT) + Body (digital twin)             | Industrial IoT data for KYA runtime monitoring | Xcelerator Q2 2026       |
+| ABB                 | Hands (automation, robotics, power grid)                 | Physical execution layer under KYA governance  | Q3 2026                  |
+| xAI                 | Brain (Grok real-time market intelligence)               | Real-time signals for multi-LLM router         | Active production        |
+| Mistral             | Brain/Memory (EU-sovereign AI inference)                 | EU-sovereign model for compliance workloads    | Planned Q3 2026          |
+| Shufti Pro          | L1/L5 (Human Identity + Continuous Risk)                 | Identity verification for KYA trust framework  | PoC Q1 2026              |
+| Palantir (proposed) | Brain (AIP orchestration)                                | Enterprise distribution via connector model    | Outreach initiated       |
+
+**Distribution hypothesis validation:** Access to 10,000+ industrial customers (NVIDIA Inception, Siemens Xcelerator) without building a direct sales organization. The partnership model is the distribution strategy — not a supplement to it.
+
+### H.6 Research Contribution
+
+The KYA partner ecosystem demonstrates three research findings:
+
+1. **Identity-to-runtime bridge:** No existing vendor offers continuous identity monitoring that controls autonomous agent sandbox permissions. The Shufti-KYA integration creates a new category: execution-layer trust.
+
+2. **Connector-not-competitor positioning:** The Palantir connector model shows that hardware governance can be offered as an infrastructure layer to existing platform vendors — a partnership strategy that avoids direct competition with established players.
+
+3. **Partnership as distribution:** For a one-person startup, the 5-partner ecosystem (NVIDIA, Siemens, ABB, xAI, Mistral) provides market access equivalent to a direct sales organization — validating the Firehorse operating model's hypothesis that partnerships can substitute for headcount in early-stage industrial AI companies.
+
 ---
 
 **Key Contributions:**
-1-14. (See VERSION AND AGENT HISTORY)
-15. Harness Engineering and Forensic Telemetry — Connects OpenAI's harness engineering framework to Firehorse forensic operations; demonstrates that EU-regulated industries require court-defensible harness (VERSION AND AGENT HISTORY, KYA hardware attestation) vs Silicon Valley speed optimization; empirical validation that harness improvements alone yield 52.8%→66.5% gains (model unchanged); KYA Standard as hardware-attested harness beyond software scaffolding
-16. LWM Sequencing Strategy — Three-phase sequencing (compliance→fleet→Series A); LeWorldModel (arXiv:2603.19312) external validation of JEPA world models; Phase 2 technical gap analysis (input modality, scale, regulatory-physical integration); compliance-first world model thesis as novel architectural contribution for PhD research programme
-17. Domain-Specific vs Generic AI Harness — Competitive analysis against ECC (120k stars, 136 skills); six differentiators documented (domain specificity, six-layer architecture, hard gates, trust zones, gstack workflow, agent-first rule); token budget analysis showing depth outperforms breadth for regulated domains; validates harness engineering thesis
-18. Dual-Version Thesis Architecture — v3.30.50 frozen 50-page Metropolia outgoing + 82-page living document continues; PHD Firehorse confirmed as canonical home for detailed sections (14.1-14.14); demonstrates methodology for AI-assisted academic writing where research velocity exceeds format constraints
+1-14. (See VERSION AND AGENT HISTORY) 15. Harness Engineering and Forensic Telemetry — Connects OpenAI's harness engineering framework to Firehorse forensic operations; demonstrates that EU-regulated industries require court-defensible harness (VERSION AND AGENT HISTORY, KYA hardware attestation) vs Silicon Valley speed optimization; empirical validation that harness improvements alone yield 52.8%→66.5% gains (model unchanged); KYA Standard as hardware-attested harness beyond software scaffolding 16. KYA Partner Ecosystem — 5-layer partner mapping (Shufti IDV for L1/L5, Palantir AIP connector model, BYO Agent Policy); demonstrates identity-to-runtime bridge as new category, connector-not-competitor positioning for enterprise distribution, and partnership-as-distribution hypothesis for one-person startup scaling 17. Competitive Analysis: Domain-Specific vs Generic AI Harness — 6-differentiator comparison against 136-skill generic frameworks; token-budget argument for domain specificity in regulated industries 18. Master Thesis Dual-Version Architecture — v3.30.50 frozen 50-page Metropolia outgoing + 82-page living document; pattern for AI-assisted academic writing where research velocity exceeds institutional format constraints 19. Report Engine in Production — Firehorse Report scheduler (PR #1064) as first cron-driven customer deliverable; closes 3-tier billing contract loop with recurring compliance artefacts; first end-to-end test of one-person-team multi-tenant compliance hypothesis 20. Measured Harness Guarantee (<125 ms Snap) — Firehorse Snap kill latency backed by Firecracker MicroVM benchmark replacing Arctic 15 specification; first court-defensible harness claim with published measurement replacing spec; precondition for EU AI Act Article 12 log admissibility 21. Founder→Team Transition as Skills — Ops Manager V0 buyer lock (PRD v0.2 + validation script) + `/investor-outreach` skill (10+ INTRO notes) codify previously tacit founder activities as reproducible DWS IQ workflows; extends Firehorse Operations Model from internal tooling to founder-to-team transition mechanism 22. KYA Agentic AI Foundation Targeting with Dual-Use Extension — KYA positioned as a general trust/governance standard candidate for agentic systems; DWS 7 designated as empirical testbed for hydrogen-economy continuity, sovereignty segmentation (Aegis/Sovereign Infra/Connect), and dual-use validation (Nokia Defence discussions), with Siemens and NVIDIA Connect collaboration pathways 23. KYA Open-Source Standardization Path — explicit standardization route added (Agentic AI Foundation / Linux Foundation) with declared status (proposal and NIST track not yet submitted), moving Article 1 from conceptual framing to an open-spec + reference-implementation publication agenda 24. DWS Skilled Taxonomy (Register-Explicit Brand Architecture for Operating Models) — three-tier `Skilled / Industrial Specialist / Industry` naming pattern applied uniformly across three orthogonal axes (Agents, Workflows, Jurisdictions) with explicit extensibility pattern for future axes; operations-model implications derived (SKU-copy discipline, scheduler-copy discipline, jurisdiction packaging); "GodAgent" branding deprecated in favour of register-specific terms aligned with Anthropic Skills paradigm validation (§14.16.4)
 
-*Document generated using Firehorse Operations Model with Claude Code*
-*Last updated: 03.04.2026*
-*Version: 3.2*
+_Document generated using Firehorse Operations Model with Claude Code_
+_Last updated: 22.04.2026_
+_Version: 3.37 (unified with Metropolia V3Thesis; lockstep from this point)_

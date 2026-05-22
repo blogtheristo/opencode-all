@@ -5,10 +5,10 @@ Hej AI Stockholm community,
 
 Risto Päärni from Lifetime Oy (DWS IQ 6), AI Stockholm member expanding from Finland to Swedish market Q2 2025.
 
-We're raising €150k SAFE (€3.8M cap, 20% discount) to bridge to Series A. Our unique positioning:
+We're raising €150k SAFE (€3.8M cap, 18% discount) to bridge to Series A. Our unique positioning:
 ├─ Sub-100ms edge AI decisioning (NVIDIA Jetson + Groq LPU)
 ├─ €7k MRR traction (Uber Finland, Kela, Bolt), 100% retention
-├─ 20-moat competitive fortress (€3-6M competitor entry barrier)
+├─ 21-moat competitive fortress (€3-6M competitor entry barrier)
 └─ €500k Construction Heroes campaign launching Q1 (59 Nordic enterprises)
 
 Looking for warm intros to:

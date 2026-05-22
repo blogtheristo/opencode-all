@@ -4,23 +4,16 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.4
+Version: 3.1
 
 Sessions & Modifications:
 
-- Version: 3.4 | Tool: Claude Code (Opus 4.6) | Session: claude/connect-kya-dws-cli-0MMIB | Date: 10.04.2026 | Changes: Added Section 33 (DWS CLI Operator Reference) — KYA CLI admin workflow (status/dry-run/snap), destructive action authorization matrix cross-reference, Knowledge Base folder ownership rules (kb/raw/ human-owned, kb/wiki/ LLM-owned, kb/ephemeral/ auto-swept), daily kb-cleanup.sh automation, slash command wrappers /kya and /kb
-- Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: claude/replace-actions-with-cron-6A9Fr | Date: 08.04.2026 | Changes: Added Section 32 (GitHub Actions & Cron Job Registry) — full audit of 35 workflows and 22 cron scripts, removed cron schedules from 7 daily/weekly GitHub Actions (saving ~1,200 min/month), DGX Spark is primary runtime, GitHub Actions failover only with workflow_dispatch
-- Version: 3.2 | Tool: Claude Code (Opus 4.6) | Session: claude/setup-safety-hooks-vyt21 | Date: 04.04.2026 | Changes: Added Section 30 (Claude Code Safety Hooks Reference) — full documentation of 12 hooks across 4 event types, deny patterns, secret scanner patterns, SQL safety rules, file protection rules, trust boundary zones, audit logging, testing instructions; updated Section 27.3 hooks summary to reflect current state
-- Version: 3.1 | Tool: Claude Code (Opus 4.6) | Session: claude/dgx-spark-setup-UN9WR | Date: 29.03.2026 | Changes: Updated Section 29 — DGX Spark fully deployed: 4 Docker containers healthy, Cloudflare Tunnel (heartbeat.dws6.com) as systemd service, §29.11 Cloudflare Tunnel setup, §29.12 Docker container reference, §29.9 secrets updated with live values, deployment verification checklist
-- Version: 3.0 | Tool: Claude Code (Opus 4.6) | Session: claude/dgx-spark-setup-UN9WR | Date: 29.03.2026 | Changes: Added Section 29 (DGX Spark Primary 24/7 Runtime) — full admin documentation for DGX Spark setup, SSH access, day-runner, script auto-discovery, failover, troubleshooting
-- Version: 2.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Added Section 28 (Carbon Balance Sheet & Compliance Ledger) — debit-credit architecture, open source connectors, DWS 7 Phase 2.6 plan; updated Section 11 Multi-Agent Orchestration with memory service (PR-871), memory decay (PR-876-878), ContentMS (PR-873); updated Section 10 Backup with Supabase automated scripts (PR-882); updated 16→20 industries throughout; added Firehorse ContentMS, company-to-ERP resolver, EC3 Material Database to capabilities; PR gap analysis from 50 latest PRs
-- Version: 2.8 | Tool: Claude Code (Opus 4.6) | Session: claude/research-superpowers-dws-AWAYB | Date: 22.03.2026 | Changes: Version bump (2.7 already applied externally), skills guide finalized
-- Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/research-superpowers-dws-AWAYB | Date: 21.03.2026 | Changes: Updated Section 27 skills inventory (7→20 skills: 17 slash commands + 3 discipline skills), added gstack workflow, discipline skills (verification-gate, design-first, dual-folder-sync), skills guide reference (docs/DWS_SKILLS_GUIDE.md, Learn/DWS_SKILLS_GUIDE_v1.0.html)
-- Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/organize-repo-structure-F3xqn | Date: 02.03.2026 | Changes: Added Section 27 (Claude Code Project Engineering Structure: CLAUDE.md as project memory, Skills as reusable workflows, Hooks for automated quality enforcement, Subagents, MCP integrations); repository gap analysis documented; added to ToC; updated footer
-- Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/implement-workflow-agents-CHFFN | Date: 02.03.2026 | Changes: Added Climate IQ Pantheon subsection to Multi-Agent Orchestration (13 agents: 6 Pantheon orchestrators + 7 industry specialists, registry, SOUL.md pattern)
-- Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/create-handover-documentation-kJunm | Date: 24.02.2026 | Changes: Added Client Handover document (DWS_HANDOVER.md) to Related Documentation index
-- Version: 2.4 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition as enterprise learning layer (fine-tunes data/regulation, optimizes market value, ensures competitive advantage with multi-agent tools)
-- Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Sandbox Isolation (Agent Foundry) section, Per-Industry Open LLM Selection matrix for 16 EU industries
+- Version: 3.1 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: main | Date: 13.05.2026 | Changes: Added reusable CI failure checklist for `.github/workflows/deploy-staging.yml` and `.github/workflows/dast-zap-scan.yml`: Artifact Registry existence check and create command, reserved Cloud Run `PORT` rule, `issues: write` permission for failure-notify issue creation, OWASP ZAP root/robots/sitemap endpoint rule, and startup health-wait loop guidance.
+- Version: 2.8 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Added billing account management inventory: billing account `011602-801DEC-A53E8F` (Lifetime Oy, Direct), linked projects (`dws-mcp-hub`, `dws-iq-pilot`, `dws6login`), and billing administrators (`risto.paarni2024@lifetime.fi`, `admin@dws6.com`)
+- Version: 3.0 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: main | Date: 13.05.2026 | Changes: Finalized major Cloud Run CI auth migration in admin docs: GitHub OIDC / Workload Identity Federation is now the authoritative path for `dws-iq-60`; documented Cloud Shell provider creation, exact GitHub Secrets values (`GCP_WORKLOAD_IDENTITY_PROVIDER`, `GCP_SERVICE_ACCOUNT`), `.github/workflows/deploy-staging.yml` OIDC switch, and retirement of legacy `GCP_SA_KEY`. Marked service-account key creation as prohibited when `constraints/iam.disableServiceAccountKeyCreation` is enforced.
+- Version: 2.9 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 13.05.2026 | Changes: Added Google Cloud Run CI identity runbook (`gcr-skill`) for admin-owned project `dws-iq-60`: project creation, billing link, ADC quota alignment, required API enablement, deployer service account IAM bindings (including `roles/iam.serviceAccountTokenCreator` fix), and GitHub secret migration checklist
+- Version: 2.7 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Added Google Cloud billing IAM transfer note for `dws-mcp-hub`: confirmed `admin@dws6.com` as project owner and documented billing account `011602-801DEC-A53E8F` policy update (`roles/billing.user` for `admin@dws6.com`, `roles/billing.admin` retained for `risto.paarni2024@lifetime.fi`) with follow-up to enable billing and rotate CI deploy credentials under admin-owned control plane
+- Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Agent accountability/observability layer (AgentLogger JSONL + Supabase agent_executions, AgentVersionRegistry, drift-detector.ts daily confidence-drop reports, eval-runner.ts compliance dataset scoring, HIL review queue API + ReviewQueuePanel + ConfidenceDriftView); Baseten added as OpenAI-compatible LLM provider in model-selector.ts with BASETEN_API_KEY/BASETEN_BASE_URL/BASETEN_MODEL env vars; /case-run skill registered, Themis v2.0 case-coordinate action (case-type→sub-agent mapping, Legora AOS competitive analysis); Blog V2 engagement layer (lsj-poll.js reader polls, lsj-ads.js ad slots, /advertise rate card, post #18 — The Strike Price State); TokenSpeed inference engine field note (LightSeek MIT, DGX Spark fit); Outokumpu CBAM partnership offer print-ready HTML v1.0; Axios vulnerability patched across mobile subprojects
 - Version: 1.0 | Tool: Claude Code | Session: Nov 2025 | Date: 23.11.2025 | Changes: Initial creation, session history
 - Version: 1.1 | Tool: Claude Code | Session: Dec 2025 | Date: 11.12.2025 | Changes: Sensitive Data Protection section
 - Version: 1.2 | Tool: Claude Code | Session: Dec 2025 | Date: 19.12.2025 | Changes: Bug Tracking & Security Maintenance
@@ -33,9 +26,10 @@ Sessions & Modifications:
 - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Windows Startup folder documentation, pandoc PDF generation workflow
 - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 06.02.2026 | Changes: Moved 9 admin manuals to Admin/ folder, PDF auto-open in Edge on login, splatting fix
 - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Script versioning, engine choice (HTML/PDF), Supabase sync in startup pipeline, code/scripts backup
-- Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/fix-morning-email-time-K3bXV | Date: 17.02.2026 | Changes: Appendix A — CEO Cockpit Morning Briefing user manual
-- Version: 2.3 | Tool: GitHub Copilot (Claude Sonnet 4.6) | Session: claude/zealous-mcclintock | Date: 23.02.2026 | Changes: MCP Server Expansion — cloudrun-mcp (8769), lwm-mcp (8770), claude-mcp (8771); Supabase migration 033_mcp_session_sync; docker-compose and mcp-hub updates
-- Version: 3.3 | Tool: Claude Code (Opus 4.6) | Session: claude/cron-status-indicator-fhkxP | Date: 08.04.2026 | Changes: Section 29.14 Cron Status Dashboard on Admin Portal; Section 29.15 Morning Brief V2; cron-runner updated to V2 script
+- Version: 2.2 | Tool: Claude Code (Opus 4.7) | Session: claude/ci-hygiene-audit-vBYGo | Date: 22.04.2026 | Changes: Local-First CI + Audit Log section; new Audit Manual linked; Files & Folders manual indexed
+- Version: 2.3 | Tool: Copilot CLI (GPT-5.3-Codex) | Session: claude/fix-booking-email-delivery-20260429 | Date: 29.04.2026 | Changes: SES SMTP runtime hardening, Supabase runtime env audit, Cloud Run env requirements updated
+- Version: 2.4 | Tool: Cursor / Claude agents | Session: Rg5Jy | Date: 25.04.2026 | Changes: Browse SSRF hardening (`url-guard`), Playwright moved to production dependencies for DGX `npm ci --omit=dev`
+- Version: 2.5 | Tool: Cursor Agent | Session: cursor-admin-node-workspace-20260510 | Date: 10.05.2026 | Changes: Documented dual `npm ci` (repository root + `src/cloudflare`) for backend and Cloudflare agent workers; PowerShell-first command examples for local dev and cloud agent runtimes
 
 Session Links & References:
 
@@ -45,7 +39,8 @@ Session Links & References:
 Document Status:
 
 - Created: 23.11.2025
-- Last Modified: 08.04.2026
+- Last Modified: 13.05.2026
+- Version: 3.1
 - Language: English
 - Languages Available: English
 - Publication Status: ✅ ACTIVE
@@ -60,38 +55,33 @@ Document Status:
 
 1. [Admin Manuals Index](#admin-manuals-index) ⭐ **NEW in v1.8**
 2. [Installation Manual](#installation-manual-link)
-3. [Scaleway Serverless Containers](#scaleway-serverless-containers-primary)
-4. [Revolut Payments & Store](#revolut-payments--store) ⭐ **NEW in v1.8**
-5. [MCP Configuration](#mcp-configuration) ⭐ **NEW in v1.8**
-6. [Climate Assistant Chat Widget](#climate-assistant-chat-widget)
-7. [AI Agent Operational Guidelines](#ai-agent-operational-guidelines) ⭐ **NEW in v1.8**
-8. [Security Glossary & OWASP](#security-glossary--owasp) ⭐ **NEW in v1.8**
-9. [Data Processing Agreement (DPA)](#data-processing-agreement-dpa) ⭐ **NEW in v1.8**
-10. [Backup & Sync Infrastructure](#backup--sync-infrastructure) ⭐ **NEW in v1.8**
-11. [Multi-Agent Orchestration](#multi-agent-orchestration) ⭐ **NEW in v1.8**
-12. [GitHub Copilot Instructions](#github-copilot-instructions)
-13. [Session Security Fixes (January 2026)](#session-security-fixes-january-2026)
-14. [Files and Folders Structure](#files-and-folders-structure)
-15. [Document Index](#document-index)
-16. [AI Agent Policy](#ai-agent-policy)
-17. [Deployment Procedures](#deployment-procedures)
-18. [Session History](#session-history)
-19. [Maintenance Plan (Complete)](#maintenance-plan-complete)
-20. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance)
-21. [Code Review Process](#code-review-process)
-22. [Maintenance Tasks](#maintenance-tasks)
-23. [Git Workflow](#git-workflow)
-24. [Sensitive Data Protection](#sensitive-data-protection)
-25. [Emergency Procedures](#emergency-procedures)
-26. [Training](#training)
-27. [Claude Code Project Engineering Structure](#claude-code-project-engineering-structure) ⭐ **NEW in v2.6**
-28. [Carbon Balance Sheet & Compliance Ledger](#carbon-balance-sheet--compliance-ledger) ⭐ **NEW in v2.9**
-29. [Claude Code Safety Hooks Reference](#section-30-claude-code-safety-hooks-reference) ⭐ **NEW in v3.2**
-30. [GitHub Actions & Cron Job Registry](#section-32-github-actions--cron-job-registry) ⭐ **NEW in v3.3**
-
-**Appendices**
-
-- [Appendix A: CEO Cockpit Morning Briefing](#appendix-a-ceo-cockpit-morning-briefing)
+3. [Google Cloud Run CI Identity Runbook (gcr-skill)](#google-cloud-run-ci-identity-runbook-gcr-skill)
+4. [Node.js workspace setup](#nodejs-workspace-setup-backend-and-cloudflare-agents)
+5. [Scaleway Serverless Containers](#scaleway-serverless-containers-primary)
+6. [DGX Spark Cron Failover Wrap](#dgx-spark-cron-failover-wrap) ⭐ **NEW**
+7. [Revolut Payments & Store](#revolut-payments--store) ⭐ **NEW in v1.8**
+8. [MCP Configuration](#mcp-configuration) ⭐ **NEW in v1.8**
+9. [Climate Assistant Chat Widget](#climate-assistant-chat-widget)
+10. [AI Agent Operational Guidelines](#ai-agent-operational-guidelines) ⭐ **NEW in v1.8**
+11. [Security Glossary & OWASP](#security-glossary--owasp) ⭐ **NEW in v1.8**
+12. [Data Processing Agreement (DPA)](#data-processing-agreement-dpa) ⭐ **NEW in v1.8**
+13. [Backup & Sync Infrastructure](#backup--sync-infrastructure) ⭐ **NEW in v1.8**
+14. [Multi-Agent Orchestration](#multi-agent-orchestration) ⭐ **NEW in v1.8**
+15. [GitHub Copilot Instructions](#github-copilot-instructions)
+16. [Session Security Fixes (January 2026)](#session-security-fixes-january-2026)
+17. [Files and Folders Structure](#files-and-folders-structure)
+18. [Document Index](#document-index)
+19. [AI Agent Policy](#ai-agent-policy)
+20. [Deployment Procedures](#deployment-procedures)
+21. [Session History](#session-history)
+22. [Maintenance Plan (Complete)](#maintenance-plan-complete)
+23. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance)
+24. [Code Review Process](#code-review-process)
+25. [Maintenance Tasks](#maintenance-tasks)
+26. [Git Workflow](#git-workflow)
+27. [Sensitive Data Protection](#sensitive-data-protection)
+28. [Emergency Procedures](#emergency-procedures)
+29. [Training](#training)
 
 ---
 
@@ -101,26 +91,28 @@ All admin manuals across the DWS6 repository, organized by domain.
 
 ### Core Platform
 
-| Manual                       | Location                                                                     | Language | Description                                                                                                            |
-| ---------------------------- | ---------------------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------- |
-| **Admin Manual** (this file) | [`ADMIN_MANUAL.md`](ADMIN_MANUAL.md)                                         | EN       | Master admin manual - platform operations                                                                              |
-| **Authentication Manual**    | [`ADMIN_MANUAL_AUTHENTICATION.md`](ADMIN_MANUAL_AUTHENTICATION.md)           | EN       | JWT auth, login flows, token management                                                                                |
-| **Supabase Manual**          | [`ADMIN_MANUAL_SUPABASE_EN_v1.md`](ADMIN_MANUAL_SUPABASE_EN_v1.md)           | EN       | Database, RLS, migrations, storage                                                                                     |
-| **Testing Manual**           | [`ADMIN_MANUAL_TESTING.md`](ADMIN_MANUAL_TESTING.md)                         | EN       | Vitest, security tests, CI/CD testing                                                                                  |
-| **Gaps Analysis**            | [`ADMIN_MANUAL_GAPS_ANALYSIS.md`](ADMIN_MANUAL_GAPS_ANALYSIS.md)             | EN       | Missing features and remediation plan                                                                                  |
-| **DWS IQ 6 User Manual**     | [`../Situation/DWS_IQ6_USER_MANUAL.md`](../Situation/DWS_IQ6_USER_MANUAL.md) | EN       | End-user workflow from `dws10.com` to `dws6.com`, Dashboard V10, Situation Room, and local Veriton-backed Control Room |
+| Manual                               | Location                                                                 | Language | Description                                                                                                    |
+| ------------------------------------ | ------------------------------------------------------------------------ | -------- | -------------------------------------------------------------------------------------------------------------- |
+| **Admin Manual** (this file)         | [`ADMIN_MANUAL.md`](ADMIN_MANUAL.md)                                     | EN       | Master admin manual - platform operations                                                                      |
+| **Audit Manual (external auditors)** | [`ADMIN_MANUAL_AUDIT.md`](ADMIN_MANUAL_AUDIT.md)                         | EN       | Audit-trail inventory, sample SQL, integrity checks, auditor access model (EU AI Act Art. 12, GDPR, ISO 27001) |
+| **GitHub Apps Audit**                | [`GITHUB_APPS_AUDIT.md`](GITHUB_APPS_AUDIT.md)                           | EN       | Audit of 9 installed GitHub Apps; keep / review / remove verdict; Continue → Claude Code migration             |
+| **Authentication Manual**            | [`ADMIN_MANUAL_AUTHENTICATION.md`](ADMIN_MANUAL_AUTHENTICATION.md)       | EN       | JWT auth, login flows, token management                                                                        |
+| **Supabase Manual**                  | [`ADMIN_MANUAL_SUPABASE_EN_v1.md`](ADMIN_MANUAL_SUPABASE_EN_v1.md)       | EN       | Database, RLS, migrations, storage                                                                             |
+| **Testing Manual**                   | [`ADMIN_MANUAL_TESTING.md`](ADMIN_MANUAL_TESTING.md)                     | EN       | Vitest, security tests, CI/CD testing                                                                          |
+| **Files & Folders Index**            | [`ADMIN_MANUAL_FILES_AND_FOLDERS.md`](ADMIN_MANUAL_FILES_AND_FOLDERS.md) | EN       | Every script, workflow, config, doc — what it does and how it's used                                           |
+| **Gaps Analysis**                    | [`ADMIN_MANUAL_GAPS_ANALYSIS.md`](ADMIN_MANUAL_GAPS_ANALYSIS.md)         | EN       | Missing features and remediation plan                                                                          |
 
 ### Websites & Store
 
-| Manual                     | Location                                                                                                        | Language | Description                                     |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------- | -------- | ----------------------------------------------- |
-| **DWS6.com Manual**        | [`ADMIN_MANUAL_DWS6_COM.md`](ADMIN_MANUAL_DWS6_COM.md)                                                          | EN       | DWS6 website operations                         |
-| **DWS10 Store & Payments** | [`ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`](ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md)                                  | EN       | Revolut Web SDK, Cloudflare Worker, 25 products |
-| **Store Admin (EN)**       | [`dws10.com/docs/STORE_ADMIN_MANUAL_EN.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_EN.md)                         | EN       | Store product management, feeds                 |
-| **Store Admin (FI)**       | [`dws10.com/docs/STORE_ADMIN_MANUAL_FI.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_FI.md)                         | FI       | Kaupan hallinta                                 |
-| **Dashboard V8 Manual**    | [`ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md`](ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md)                                      | EN       | Firehorse dashboard operations                  |
-| **Blog System (EN)**       | [`onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_EN_v1.md`](../onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_EN_v1.md) | EN       | Onelifetime.world blog CMS                      |
-| **Blog System (FI)**       | [`onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_FI_v1.md`](../onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_FI_v1.md) | FI       | Blogin hallinta                                 |
+| Manual                     | Location                                                                                                        | Language | Description                                                    |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------- | -------- | -------------------------------------------------------------- |
+| **DWS6.com Manual**        | [`ADMIN_MANUAL_DWS6_COM.md`](ADMIN_MANUAL_DWS6_COM.md)                                                          | EN       | DWS6 website operations                                        |
+| **DWS10 Store & Payments** | [`ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`](ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md)                                  | EN       | Revolut + Stripe hybrid flow, Google Merchant ops, 38 products |
+| **Store Admin (EN)**       | [`dws10.com/docs/STORE_ADMIN_MANUAL_EN.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_EN.md)                         | EN       | Store product management, feeds                                |
+| **Store Admin (FI)**       | [`dws10.com/docs/STORE_ADMIN_MANUAL_FI.md`](../dws10.com/docs/STORE_ADMIN_MANUAL_FI.md)                         | FI       | Kaupan hallinta                                                |
+| **Dashboard V8 Manual**    | [`ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md`](ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md)                                      | EN       | Firehorse dashboard operations                                 |
+| **Blog System (EN)**       | [`onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_EN_v1.md`](../onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_EN_v1.md) | EN       | Onelifetime.world blog CMS                                     |
+| **Blog System (FI)**       | [`onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_FI_v1.md`](../onelifetime.world/ADMIN_MANUAL_BLOG_SYSTEM_FI_v1.md) | FI       | Blogin hallinta                                                |
 
 ### Security
 
@@ -132,34 +124,25 @@ All admin manuals across the DWS6 repository, organized by domain.
 | **Security Testing**       | [`Admin/Security/ADMIN_MANUAL_SECURITY_TESTING.md`](Security/ADMIN_MANUAL_SECURITY_TESTING.md)       | EN       | Penetration testing, vulnerability scanning |
 | **Security Audit Report**  | [`Admin/SECURITY_AUDIT_REPORT.md`](SECURITY_AUDIT_REPORT.md)                                         | EN       | Latest security audit findings              |
 
-### Edge Infrastructure
-
-| Manual                    | Location                                                             | Language | Description                                                             |
-| ------------------------- | -------------------------------------------------------------------- | -------- | ----------------------------------------------------------------------- |
-| **Acer GN100 Admin**      | [`Admin/Acer-Veriton-GN100/README.md`](Acer-Veriton-GN100/README.md) | EN       | Edge AI device: Docker, CUDA, Ollama, OpenSandbox, PostgreSQL           |
-| **Edge PostgreSQL Setup** | [`Admin/Acer-Veriton-GN100/postgres/`](Acer-Veriton-GN100/postgres/) | EN       | Docker Compose + Dockerfile for TimescaleDB + pg_duckdb + pgvector      |
-| **DWS Data Standard**     | [`DWS_DATA_STANDARD.md`](../DWS_DATA_STANDARD.md)                    | EN       | Data storage governance, Aiven-first mandate, extension registry (v2.0) |
-
 ### Products & Architecture
 
-| Manual                         | Location                                                                                                 | Language | Description                                                                             |
-| ------------------------------ | -------------------------------------------------------------------------------------------------------- | -------- | --------------------------------------------------------------------------------------- |
-| **Client Veriton Offers**      | [`Acer-Veriton-GN100/CLIENT_VERITON_OFFERS_EN_v1.md`](Acer-Veriton-GN100/CLIENT_VERITON_OFFERS_EN_v1.md) | EN       | Product definition for Control Room Acer Veriton and Situation Room Acer Veriton-backed |
-| **Veriton Edge Stack Runbook** | [`Acer-Veriton-GN100/VERITON_EDGE_STACK_RUNBOOK.md`](Acer-Veriton-GN100/VERITON_EDGE_STACK_RUNBOOK.md)   | EN       | Docker, Ollama, OpenSandbox, MCP, tunnel, and health-check runbook                      |
-| **User Storyboard**            | [`../Situation/user-storyboard.md`](../Situation/user-storyboard.md)                                     | EN       | End-user path from public entry to Dashboard V10 and local Control Room                 |
-| **Admin Storyboard**           | [`../Situation/admin-storyboard.md`](../Situation/admin-storyboard.md)                                   | EN       | Admin path for Dashboard V10 oversight, local admin app, and Veriton operations         |
-| **Firehorse Omnichannel**      | [`Admin/Firehorse_Omnichannel_Next_Admin_Manual.md`](Firehorse_Omnichannel_Next_Admin_Manual.md)         | EN       | Omnichannel product operations                                                          |
-| **Files & Folders**            | [`ADMIN_MANUAL_FILES_AND_FOLDERS.md`](ADMIN_MANUAL_FILES_AND_FOLDERS.md)                                 | EN       | Repository structure, backup infrastructure                                             |
+| Manual                    | Location                                                                                         | Language | Description                                      |
+| ------------------------- | ------------------------------------------------------------------------------------------------ | -------- | ------------------------------------------------ |
+| **Firehorse Omnichannel** | [`Admin/Firehorse_Omnichannel_Next_Admin_Manual.md`](Firehorse_Omnichannel_Next_Admin_Manual.md) | EN       | Omnichannel product operations                   |
+| **Files & Folders**       | [`ADMIN_MANUAL_FILES_AND_FOLDERS.md`](ADMIN_MANUAL_FILES_AND_FOLDERS.md)                         | EN       | Repository structure, backup infrastructure      |
+| **Port Mapping**          | [`PORT_MAPPING.md`](PORT_MAPPING.md)                                                             | EN       | Docker/host port allocation, conflict prevention |
 
 ### Related Documentation
 
-| Document                | Location                                                                            | Description                                        |
-| ----------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------- |
-| **CLAUDE.md**           | [`CLAUDE.md`](../CLAUDE.md)                                                         | AI agent behavior guidelines (Karpathy principles) |
-| **DPA Agreement**       | [`docs/DPA_DATA_PROCESSING_AGREEMENT.md`](../docs/DPA_DATA_PROCESSING_AGREEMENT.md) | GDPR data processing agreement                     |
-| **MCP Configuration**   | [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md)                         | Model Context Protocol server setup                |
-| **Security Compliance** | [`SECURITY_COMPLIANCE.md`](SECURITY_COMPLIANCE.md)                                  | Security framework and compliance status           |
-| **Security Glossary**   | [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md)                         | Security terms and OWASP references                |
+| Document                  | Location                                                                            | Description                                                                 |
+| ------------------------- | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| **CLAUDE.md**             | [`CLAUDE.md`](../CLAUDE.md)                                                         | AI agent behavior guidelines (Karpathy principles)                          |
+| **DPA Agreement**         | [`docs/DPA_DATA_PROCESSING_AGREEMENT.md`](../docs/DPA_DATA_PROCESSING_AGREEMENT.md) | GDPR data processing agreement                                              |
+| **MCP Configuration**     | [`docs/MCP_CONFIGURATION.md`](../docs/MCP_CONFIGURATION.md)                         | Model Context Protocol server setup                                         |
+| **Security Compliance**   | [`SECURITY_COMPLIANCE.md`](SECURITY_COMPLIANCE.md)                                  | Security framework and compliance status                                    |
+| **Security Glossary**     | [`docs/SECURITY_GLOSSARY.md`](../docs/SECURITY_GLOSSARY.md)                         | Security terms and OWASP references                                         |
+| **Playwright Capability** | [`docs/PLAYWRIGHT.md`](../docs/PLAYWRIGHT.md)                                       | `dws browse` + MCP `dws_browse_*` — JS-rendered fetch, screenshot, snapshot |
+| **Agent Second Brain**    | [`docs/AGENT_SECOND_BRAIN.md`](../docs/AGENT_SECOND_BRAIN.md)                       | DGX Spark embeddings, KB inbox watcher, `dws kb preflight`                  |
 
 ---
 
@@ -199,6 +182,244 @@ This section links the **full maintenance plan** in one place:
 - `Admin/Installation/Public/groq/` - Edge AI hardware
 
 **Start Here:** Choose your platform and follow the README in that folder.
+
+---
+
+## Google Cloud Run CI Identity Runbook (gcr-skill)
+
+**Purpose:** Bootstrap or repair Google Cloud Run staging/prod CI identity under the correct owner account (`admin@dws6.com`) and fix `iam.serviceAccounts.getAccessToken` failures.
+
+**Scope:** This runbook is the authoritative command set for project `dws-iq-60` and service account `github-actions-deployer@dws-iq-60.iam.gserviceaccount.com`.
+
+### Preconditions
+
+1. You are authenticated as `admin@dws6.com`.
+2. Billing account is available and linkable.
+3. You run commands in `cmd` or Cloud Shell terminal.
+
+### cmd Command Sequence (authoritative)
+
+```cmd
+gcloud auth login admin@dws6.com
+gcloud auth list
+
+set PROJECT_ID=dws-iq-60
+set PROJECT_NAME=DWS IQ 60
+set SA_NAME=github-actions-deployer
+
+gcloud projects create %PROJECT_ID% --name="%PROJECT_NAME%"
+gcloud billing projects link %PROJECT_ID% --billing-account=018486-885BFB-BDDEFA
+
+gcloud config set project %PROJECT_ID%
+gcloud auth application-default set-quota-project %PROJECT_ID%
+
+gcloud services enable iamcredentials.googleapis.com run.googleapis.com artifactregistry.googleapis.com cloudbuild.googleapis.com secretmanager.googleapis.com --project=%PROJECT_ID%
+
+gcloud iam service-accounts create %SA_NAME% --display-name="GitHub Actions Deployer"
+set DEPLOYER_SA=%SA_NAME%@%PROJECT_ID%.iam.gserviceaccount.com
+
+gcloud projects add-iam-policy-binding %PROJECT_ID% --member="serviceAccount:%DEPLOYER_SA%" --role="roles/run.admin"
+gcloud projects add-iam-policy-binding %PROJECT_ID% --member="serviceAccount:%DEPLOYER_SA%" --role="roles/artifactregistry.writer"
+gcloud projects add-iam-policy-binding %PROJECT_ID% --member="serviceAccount:%DEPLOYER_SA%" --role="roles/iam.serviceAccountUser"
+gcloud iam service-accounts add-iam-policy-binding %DEPLOYER_SA% --member="serviceAccount:%DEPLOYER_SA%" --role="roles/iam.serviceAccountTokenCreator"
+```
+
+### Validation Commands
+
+```cmd
+gcloud services list --enabled --project=dws-iq-60 | findstr /I "iamcredentials run artifactregistry cloudbuild secretmanager"
+gcloud iam service-accounts get-iam-policy github-actions-deployer@dws-iq-60.iam.gserviceaccount.com
+```
+
+### Key Creation Policy (Important)
+
+On `dws-iq-60`, service-account key creation is blocked by policy:
+
+- `constraints/iam.disableServiceAccountKeyCreation`
+
+If you see:
+
+- `FAILED_PRECONDITION: Key creation is not allowed on this service account`
+
+that is the expected secure state. **Do not attempt to bypass it.** Use GitHub OIDC / Workload Identity Federation instead.
+
+### Cloud Shell OIDC / Workload Identity Federation Commands (authoritative)
+
+```bash
+PROJECT_ID="dws-iq-60"
+PROJECT_NUMBER="134875067432"
+POOL="github-pool"
+PROVIDER="github-provider"
+REPO="blogtheristo/dws6"
+SA="github-actions-deployer@${PROJECT_ID}.iam.gserviceaccount.com"
+
+gcloud config set project "$PROJECT_ID"
+
+gcloud iam workload-identity-pools create "$POOL" \
+  --project="$PROJECT_ID" \
+  --location="global" \
+  --display-name="GitHub Actions Pool" || true
+
+gcloud iam workload-identity-pools providers create-oidc "$PROVIDER" \
+  --project="$PROJECT_ID" \
+  --location="global" \
+  --workload-identity-pool="$POOL" \
+  --display-name="GitHub Provider" \
+  --issuer-uri="https://token.actions.githubusercontent.com" \
+  --attribute-mapping="google.subject=assertion.sub,attribute.actor=assertion.actor,attribute.repository=assertion.repository,attribute.ref=assertion.ref" \
+  --attribute-condition="assertion.repository=='blogtheristo/dws6'" || true
+
+gcloud iam service-accounts add-iam-policy-binding "$SA" \
+  --project="$PROJECT_ID" \
+  --role="roles/iam.workloadIdentityUser" \
+  --member="principalSet://iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/${POOL}/attribute.repository/${REPO}"
+
+gcloud iam service-accounts add-iam-policy-binding "$SA" \
+  --project="$PROJECT_ID" \
+  --role="roles/iam.serviceAccountTokenCreator" \
+  --member="principalSet://iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/${POOL}/attribute.repository/${REPO}"
+
+gcloud iam workload-identity-pools providers describe "$PROVIDER" \
+  --project="$PROJECT_ID" \
+  --location="global" \
+  --workload-identity-pool="$POOL"
+```
+
+### GitHub Secrets (exact values)
+
+Create these repository secrets in **GitHub -> Settings -> Secrets and variables -> Actions**:
+
+1. `GCP_WORKLOAD_IDENTITY_PROVIDER`
+   - `projects/134875067432/locations/global/workloadIdentityPools/github-pool/providers/github-provider`
+2. `GCP_SERVICE_ACCOUNT`
+   - `github-actions-deployer@dws-iq-60.iam.gserviceaccount.com`
+
+### Workflow Migration (authoritative file path)
+
+The staging workflow now authenticates with OIDC in:
+
+- `.github/workflows/deploy-staging.yml`
+
+Required auth block:
+
+```yaml
+- name: Authenticate to GCP
+  uses: google-github-actions/auth@v2
+  with:
+    workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+    service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+    token_format: access_token
+```
+
+The workflow also now sets:
+
+- `PROJECT_ID: dws-iq-60`
+
+### GitHub CI Migration Checklist
+
+1. Replace project refs from `dws-iq-pilot` -> `dws-iq-60`.
+2. Replace deployer SA refs to `github-actions-deployer@dws-iq-60.iam.gserviceaccount.com`.
+3. Add repository secrets:
+   - `GCP_WORKLOAD_IDENTITY_PROVIDER`
+   - `GCP_SERVICE_ACCOUNT`
+4. Replace old workflow auth blocks using `credentials_json: ${{ secrets.GCP_SA_KEY }}` with the OIDC auth block above.
+5. Re-run staging workflow and confirm no IAM token error.
+6. After successful deploy, delete legacy GitHub secret:
+   - `GCP_SA_KEY`
+
+### CI Failure Checks for Reuse (authoritative)
+
+Use this checklist whenever Cloud Run staging or OWASP ZAP fails in GitHub Actions. These checks are now the canonical triage flow for `.github/workflows/deploy-staging.yml` and `.github/workflows/dast-zap-scan.yml`.
+
+| Failure signature | Root cause | Required check | Fix |
+| --- | --- | --- | --- |
+| `Permission 'iam.serviceAccounts.getAccessToken' denied` | Workload Identity principal can authenticate but cannot mint access token for deployer service account | Confirm target service account has `roles/iam.serviceAccountTokenCreator` and repo principal has `roles/iam.workloadIdentityUser` | Re-apply the SA-level IAM bindings in the OIDC runbook above |
+| `Repository "dws-iq-repo" not found` during `Build Staging Image` | Artifact Registry repository does not exist in `dws-iq-60` | Run `gcloud artifacts repositories describe dws-iq-repo --location=europe-north1 --project=dws-iq-60` | Create it: `gcloud artifacts repositories create dws-iq-repo --repository-format=docker --location=europe-north1 --description="DWS IQ staging images"` |
+| Cloud Run deploy rejects `PORT` in `env_vars` | `PORT` is a reserved Cloud Run runtime variable | Inspect `.github/workflows/deploy-staging.yml` for `PORT=` under `env_vars` | Remove `PORT` from workflow-managed env vars; Cloud Run injects it automatically |
+| `Notify on Failure` cannot create issue (`Resource not accessible by integration`) | Workflow permissions omit issue-write scope | Inspect top-level `permissions:` block in `.github/workflows/deploy-staging.yml` | Add `issues: write` alongside `contents: read` and `id-token: write` |
+| OWASP ZAP baseline fails with `expected 200 / got 404` for `/`, `/robots.txt`, or `/sitemap.xml` | Baseline spider visits common public paths even when target is `/health` | Confirm app returns HTTP 200 for `/`, `/robots.txt`, and `/sitemap.xml` | Keep lightweight public handlers in `src/app.ts` for those three routes |
+| OWASP ZAP baseline fails intermittently before scan starts | App is not fully ready when ZAP begins | Check that workflow waits on `/health` with retries rather than a fixed sleep | Use a retry loop in `.github/workflows/dast-zap-scan.yml` before invoking ZAP |
+
+### Current known-good workflow checks
+
+For reuse in other workflows, the following checks are now considered the safe baseline:
+
+1. **Artifact Registry preflight** — before `docker/build-push-action`, run `gcloud artifacts repositories describe ...` and skip the staging deploy cleanly if the repository is missing.
+2. **Cloud Run reserved env guard** — never include `PORT` in `env_vars`; treat it like a platform-owned variable.
+3. **Failure-notify permission check** — any workflow that auto-creates GitHub issues must include `issues: write` in its top-level `permissions:` block.
+4. **DAST readiness check** — wait for `curl -sSf http://localhost:8080/health` to succeed in a loop before launching ZAP.
+5. **DAST crawler compatibility check** — keep `/`, `/robots.txt`, and `/sitemap.xml` returning 200 in CI-safe environments so baseline spiders do not fail on framework-default 404s.
+6. **Supabase CI compatibility check** — for local CI app startup, provide both `SUPABASE_SERVICE_KEY` and `SUPABASE_SERVICE_ROLE_KEY` when the code may read either one.
+
+### Copy-paste validation commands
+
+```bash
+# 1) OIDC / identity
+gcloud iam service-accounts get-iam-policy github-actions-deployer@dws-iq-60.iam.gserviceaccount.com
+
+# 2) Artifact Registry repository exists
+gcloud artifacts repositories describe dws-iq-repo \
+  --location=europe-north1 \
+  --project=dws-iq-60
+
+# 3) Cloud Run deploy target exists
+gcloud run services describe dws6run6-staging \
+  --region=europe-north1 \
+  --project=dws-iq-60
+
+# 4) GitHub workflow rerun after fix
+gh workflow run deploy-staging.yml --ref claude/admin-support-chat-20260513
+```
+
+### Operational Note
+
+If terminal line continuation keeps breaking provider creation, prefer Cloud Shell over local `cmd`. Cloud Shell `bash` handles the OIDC provider creation command reliably.
+
+### Known Failure and Root Cause
+
+- **Error:** `Permission 'iam.serviceAccounts.getAccessToken' denied`
+- **Cause:** Missing `roles/iam.serviceAccountTokenCreator` on deployer SA
+- **Fix:** SA-level binding shown above (non-negotiable for token minting flows)
+
+---
+
+## Node.js workspace setup (backend and Cloudflare agents)
+
+**Purpose:** On a fresh clone, CI runner, or Cursor Cloud Agents runtime, install Node dependencies so TypeScript `build`, `test`, and Worker tooling are on the `PATH` via local `node_modules/.bin`.
+
+DWS6 ships **two** lockfile-rooted JavaScript projects:
+
+| Location          | Package / role                         | Typical commands                                                    |
+| ----------------- | -------------------------------------- | ------------------------------------------------------------------- |
+| Repository root   | `dws6-auth-backend` (Express + Vitest) | `npm run dev`, `npm run build`, `npm run test`                      |
+| `src/cloudflare/` | `@dws-iq/cloudflare-agent` (Workers)   | `npm run build`, `npm run typecheck`, `npm run test`, `npm run dev` |
+
+Use **`npm ci`** in each directory (not `npm install`) so installs match `package-lock.json` exactly—required for reproducible CI and agent environments.
+
+### PowerShell (primary on Windows 11)
+
+From your clone root (set the path to match your machine):
+
+```powershell
+Set-Location <path-to-dws6-clone>
+npm ci
+Set-Location .\src\cloudflare
+npm ci
+```
+
+Older PowerShell builds do not treat `&&` as a command separator; use separate lines or `;` instead of copying bash one-liners.
+
+### Bash (macOS, Linux, Git Bash)
+
+```bash
+cd /path/to/dws6 && npm ci && cd src/cloudflare && npm ci
+```
+
+### Worktrees and cloud agents
+
+Each git worktree has its **own** `node_modules/`. Run the same two `npm ci` steps inside every worktree. Cursor or remote cloud agents should execute both installs from the workspace root before relying on `npx`, `vitest`, `tsc`, or `wrangler`.
+
+**Related:** [`ADMIN_MANUAL_TESTING.md`](ADMIN_MANUAL_TESTING.md) (Vitest and CI), [`ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md`](ADMIN_MANUAL_DWS10_STORE_PAYMENTS.md) (Wrangler from `src/cloudflare`).
 
 ---
 
@@ -488,6 +709,203 @@ gh workflow run deploy-scaleway.yml
 
 ---
 
+## DGX Spark Cron Failover Wrap
+
+**Status:** ✅ **ACTIVE** — Reduces GitHub Actions minute consumption by routing scheduled workloads to on-prem DGX Spark
+**Wrap commit:** `2f3777c` (PR #1314, merged 2026-05-14)
+**Owner:** Platform / Infra
+**Projected savings:** 1,100–1,700 GHA minutes/month
+
+### What it does
+
+GitHub Actions scheduled workflows (cron-triggered) check a public heartbeat URL before doing any work. If the DGX Spark on-prem box is healthy, the GHA job short-circuits (`dgx_alive=true`) and exits after ~1 second — the actual work runs on DGX via the cron-runner. If DGX is unreachable, the GHA workflow continues as before (automatic failover). Net effect: scheduled work runs on owned hardware while keeping GHA as a hot standby.
+
+### Architecture
+
+```
+GitHub Actions scheduled run
+        │
+        ▼
+.github/actions/dgx-failover-check
+        │
+        ▼ curl --max-time 10 ${DGX_SPARK_HEARTBEAT_URL}/health
+        │
+        ▼
+heartbeat.dws6.com (Cloudflare-proxied, orange-cloud)
+        │
+        ▼ (Cloudflare Tunnel, outbound-only QUIC over UDP/443)
+        │
+cloudflared on DGX Spark
+        │
+        ▼ http://localhost:9999/health
+        │
+DGX heartbeat service (port 9999)
+        │
+        ▼
+DGX cron-runner (mirrors all 13 wrapped workflows)
+```
+
+### Components
+
+| Component | Location | Notes |
+| --- | --- | --- |
+| GitHub Actions variable | `DGX_SPARK_HEARTBEAT_URL` at https://github.com/blogtheristo/dws6/settings/variables/actions | Value: `https://heartbeat.dws6.com` (no trailing slash, no `/health` — action appends it) |
+| Reusable composite action | `.github/actions/dgx-failover-check/action.yml` | Outputs `dgx_alive` (true/false) and `dgx_status` (raw JSON or `down_<code>`) |
+| Cloudflare Tunnel | Name `dgx-heartbeat`, ID `b2d1d6e8-28e5-48e0-a2d5-3d5b702ead8b` | Managed locally via `/etc/cloudflared/config.yml` on the DGX box (not via dashboard) |
+| DNS record | `heartbeat.dws6.com` CNAME → `<tunnel-id>.cfargotunnel.com` | Proxied (orange cloud) — required for tunnels |
+| Tunnel ingress rule | `/etc/cloudflared/config.yml` on DGX | Routes `heartbeat.dws6.com` → `http://localhost:9999` |
+| Heartbeat service | `localhost:9999` on DGX Spark | `/health` returns HTTP 200 + `{"status":"healthy","timestamp":"..."}` |
+| Cron-runner | Separate concern — mirrors wrapped workflows on DGX | Wrap saves GHA minutes regardless; cron-runner ensures the work still runs |
+
+### Wrapped workflows (13)
+
+These all start with the DGX failover check and skip the rest of their steps when DGX is alive:
+
+```
+agents-md-freshness          campaign-daily-posts          construction-leads
+daily-db-backup              daily-mvp-audit               daily-site-backup
+golden-principle-scan        housekeeping-weekly           quarterly-price-list
+security-audit-enhanced      ted-followup                  ted-learning-weekly
+ted-pipeline
+```
+
+### Adding the wrap to a new scheduled workflow
+
+Insert the failover check as the first step after `actions/checkout@v4`, and gate every subsequent step on `steps.failover.outputs.dgx_alive != 'true'`:
+
+```yaml
+jobs:
+  my-scheduled-job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: DGX Spark failover check
+        id: failover
+        uses: ./.github/actions/dgx-failover-check
+        with:
+          heartbeat_url: ${{ vars.DGX_SPARK_HEARTBEAT_URL }}
+
+      - name: Setup Node.js
+        if: steps.failover.outputs.dgx_alive != 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Real work
+        if: steps.failover.outputs.dgx_alive != 'true'
+        run: node scripts/whatever.mjs
+
+      - name: Upload artifact
+        if: always() && steps.failover.outputs.dgx_alive != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: report
+          path: report.json
+```
+
+Also mirror the job in the DGX cron-runner so the work actually runs somewhere when GHA skips.
+
+### Verifying the wrap is working
+
+1. Dispatch a wrapped workflow on any branch: https://github.com/blogtheristo/dws6/actions/workflows/agents-md-freshness.yml → **Run workflow**.
+2. Expand the **DGX Spark failover check** step. Expected output:
+   ```
+   Checking DGX Spark heartbeat: https://heartbeat.dws6.com
+   DGX Spark is ALIVE — this workflow is FAILOVER only
+   ```
+3. All downstream steps should show as **skipped** (greyed out, no duration). Each skipped run saves 30–120 seconds of GHA time vs. the previous baseline.
+
+Monthly verification: https://github.com/blogtheristo/dws6/settings/billing/actions — minutes-used graph should show a stepwise drop after the wrap goes active.
+
+### Troubleshooting
+
+Read the **DGX Spark failover check** step log. The HTTP code printed in `DGX Spark is DOWN (HTTP <code>)` tells you which layer is broken:
+
+| HTTP code | Layer broken | Fix |
+| --- | --- | --- |
+| `000` / `000000` | DNS or TCP — runner couldn't connect at all | Check Cloudflare DNS for `heartbeat.dws6.com` CNAME (must be proxied / orange cloud). On DGX: `cloudflared tunnel list` should show 3–4 connections to nearby Cloudflare PoPs |
+| `404` | Tunnel up, but `/health` path not exposed | Check `/etc/cloudflared/config.yml` ingress rule matches the hostname being requested |
+| `502` | Tunnel up, origin service down | On DGX: `ss -tlnp \| grep :9999` (should show LISTEN); `curl http://localhost:9999/health` (should return 200 + JSON) |
+| `530` / `1033` | Cloudflare Tunnel daemon not connected to edge | On DGX: `sudo systemctl status cloudflared` — restart if needed |
+| `200` but workflow runs anyway | Variable misconfigured or empty | Verify `DGX_SPARK_HEARTBEAT_URL` is set under Variables (not Secrets), exact value `https://heartbeat.dws6.com`, no trailing slash |
+
+### DGX-side operations
+
+All commands run on the DGX Spark box (ARM64, `uname -m` → `aarch64`).
+
+```bash
+# Tunnel status (expect 3–4 active connections to nearest Cloudflare PoPs)
+cloudflared tunnel list
+cloudflared tunnel info dgx-heartbeat
+
+# Service status & recent logs
+sudo systemctl status cloudflared
+sudo journalctl -u cloudflared -n 50 --no-pager
+
+# Restart the tunnel (briefly drops connections; ~5–10s unreachability)
+sudo systemctl restart cloudflared
+
+# View current ingress rules
+sudo cat /etc/cloudflared/config.yml
+
+# Heartbeat service local check
+ss -tlnp | grep :9999
+curl -sS http://localhost:9999/health
+```
+
+### Updating cloudflared on DGX
+
+The daemon is installed via `dpkg`, not via the in-place auto-updater (which is disabled by the `--no-autoupdate` flag in the systemd unit). To upgrade:
+
+```bash
+curl -L -o /tmp/cloudflared.deb \
+  https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64.deb
+ls -lh /tmp/cloudflared.deb        # expect ~16–35 MB
+sudo dpkg -i /tmp/cloudflared.deb
+sudo systemctl restart cloudflared
+cloudflared --version              # verify version bump
+sudo systemctl status cloudflared  # confirm "active (running)" + fresh Registered tunnel connection lines
+```
+
+Use `cloudflared-linux-amd64.deb` for x86_64 hardware; `arm64` is for the Grace-based DGX Spark.
+
+If both `/usr/bin/cloudflared` and `/usr/local/bin/cloudflared` exist, `which cloudflared` may report the unmanaged copy in `/usr/local/bin` while systemd actually runs `/usr/bin/cloudflared`. Reconcile by removing the unmanaged binary after confirming it's unowned:
+
+```bash
+dpkg -S /usr/local/bin/cloudflared   # expect: "no path found matching"
+sudo rm /usr/local/bin/cloudflared
+hash -r
+```
+
+### Adding a new public hostname to the tunnel (future)
+
+If a second on-prem service needs public exposure via this tunnel:
+
+```bash
+# 1. Create the proxied DNS CNAME
+cloudflared tunnel route dns dgx-heartbeat <new-subdomain>.dws6.com
+
+# 2. Edit /etc/cloudflared/config.yml — add ingress rule BEFORE the catch-all 404:
+#    - hostname: <new-subdomain>.dws6.com
+#      service: http://localhost:<port>
+#    - service: http_status:404
+
+# 3. Restart the daemon
+sudo systemctl restart cloudflared
+```
+
+### Failure & rollback
+
+The wrap is rollout-safe by design:
+
+- If `DGX_SPARK_HEARTBEAT_URL` is unset, the action prints `No DGX_SPARK_HEARTBEAT_URL configured — running as primary` and the workflow runs on GHA as before.
+- If the heartbeat URL returns anything other than HTTP 200, the workflow runs on GHA as before.
+- To temporarily force all wrapped workflows back onto GHA: clear or rename the `DGX_SPARK_HEARTBEAT_URL` variable. No code change needed.
+- To remove the wrap from a specific workflow: delete the `DGX Spark failover check` step and the `if: steps.failover.outputs.dgx_alive != 'true'` conditions from each step in that file.
+
+---
+
 ## Revolut Payments & Store
 
 **Status:** ✅ **ACTIVE**
@@ -541,7 +959,7 @@ curl -X POST https://api.dws10.com/checkout/create-order \
 ## MCP Configuration
 
 **Status:** ✅ **ACTIVE**
-**Last Updated:** February 23, 2026
+**Last Updated:** February 5, 2026
 
 ### Overview
 
@@ -549,22 +967,12 @@ Model Context Protocol (MCP) connects Claude Code and other AI tools to external
 
 ### Configured Servers
 
-| Server                | Port | Purpose                                            | Credentials                                          |
-| --------------------- | ---- | -------------------------------------------------- | ---------------------------------------------------- |
-| **Supabase MCP**      | -    | Database queries, auth, real-time                  | `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`               |
-| **Upstash Redis MCP** | -    | Token blacklist, rate limiting, cache              | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` |
-| **DWS Supabase API**  | 8766 | Custom REST wrapper                                | Docker-based                                         |
-| **MCP Hub**           | 8765 | Multi-agent workflow coordination                  | Temporal.io integration                              |
-| **CloudRun MCP**      | 8769 | GCP Cloud Run management, container deployment     | `GCP_PROJECT_ID`, `GCP_REGION`                       |
-| **LWM MCP**           | 8770 | Lifetime World Model training, NVIDIA Jetson GN100 | `LWM_MCP_PORT`, `GN100_HOST`, `MLFLOW_URL`           |
-| **Claude MCP**        | 8771 | Claude Code session sync, git repo tools           | `CLAUDE_MCP_PORT`, `REPO_PATH`                       |
-
-**New in v2.3 — Session Persistence:** Migration `033_mcp_session_sync.sql` adds two Supabase tables:
-
-- `mcp_sessions` — Persists agent branch, tool, checkpoint, and session summary across restarts
-- `mcp_migration_queue` — Tracks migration state with unique migration numbers and Supabase apply status
-
-Both tables use RLS with `service_role` policies. See `supabase/migrations/033_mcp_session_sync.sql`.
+| Server                | Port | Purpose                               | Credentials                                          |
+| --------------------- | ---- | ------------------------------------- | ---------------------------------------------------- |
+| **Supabase MCP**      | -    | Database queries, auth, real-time     | `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`               |
+| **Upstash Redis MCP** | -    | Token blacklist, rate limiting, cache | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` |
+| **DWS Supabase API**  | 8766 | Custom REST wrapper                   | Docker-based                                         |
+| **MCP Hub**           | 8765 | Multi-agent workflow coordination     | Temporal.io integration                              |
 
 ### Setup
 
@@ -791,36 +1199,194 @@ app.use(
 
 ---
 
-## Google Cloud Run (Optional/Backup)
+## Google Cloud Run (Active - B2B Payment Stack)
 
-**Status:** ⏸️ **PENDING** - Requires billing setup
+**Status:** ✅ **ACTIVE** - Deployed for B2B payment webhooks
 
-### Project: dws6run
+### Project: dws6run6
 
-| Property              | Value                                              |
-| --------------------- | -------------------------------------------------- |
-| **Project ID**        | `dws6run`                                          |
-| **Project Number**    | `446442351781`                                     |
-| **Region**            | `europe-north1` (Finland)                          |
-| **Artifact Registry** | `europe-north1-docker.pkg.dev/dws6run/dws-iq-repo` |
-| **Admin Account**     | `admin@dws6.com`                                   |
+| Property              | Value                                               |
+| --------------------- | --------------------------------------------------- |
+| **Project ID**        | `dws6run6`                                          |
+| **Project Number**    | `1074393862472`                                     |
+| **Region**            | `europe-north1` (Finland)                           |
+| **Artifact Registry** | `europe-north1-docker.pkg.dev/dws6run6/dws-iq-repo` |
+| **Admin Account**     | `admin@dws6.com`                                    |
+| **Service**           | `dws-iq-backend` (Stripe webhook endpoint)          |
+| **Endpoint**          | `https://dws-iq-backend-[hash]-uc.a.run.app`        |
 
-### Service Account Permissions
+### Billing & ownership transfer update (2026-05-11)
 
-Cloud Build service account (`446442351781@cloudbuild.gserviceaccount.com`) requires:
+`admin@dws6.com` is now project owner for:
 
-- `roles/artifactregistry.writer` - Push Docker images
-- `roles/logging.logWriter` - Write build logs
+- **Project Name:** `DWS MCP Hub`
+- **Project ID:** `dws-mcp-hub`
+- **Project Number:** `191347396816`
 
-### Deployment Commands
+Billing account IAM was updated as follows:
 
-```powershell
-# Build and push image
-gcloud builds submit --tag europe-north1-docker.pkg.dev/dws6run/dws-iq-repo/dws-iq-backend:latest --project=dws6run
+| Billing Account | Principal | Role |
+| --- | --- | --- |
+| `011602-801DEC-A53E8F` | `user:risto.paarni2024@lifetime.fi` | `roles/billing.admin` |
+| `011602-801DEC-A53E8F` | `user:admin@dws6.com` | `roles/billing.user` |
 
-# Deploy to Cloud Run
-gcloud run deploy dws-iq-backend --image europe-north1-docker.pkg.dev/dws6run/dws-iq-repo/dws-iq-backend:latest --region europe-north1 --project dws6run --allow-unauthenticated --set-env-vars="GROQ_API_KEY=<key>,NODE_ENV=production"
+Current status recorded during transfer:
+
+- `dws-mcp-hub` parent is organization `1074856518213` (`lifetime.fi`) ✅
+- Billing IAM grant succeeded ✅
+- Project billing link still needs to be activated from `admin@dws6.com` context (`billingEnabled` was `false` at capture time) ⚠️
+
+#### Billing account management inventory (2026-05-11)
+
+| Property | Value |
+| --- | --- |
+| Billing account ID | `011602-801DEC-A53E8F` |
+| Billing account display name | `Lifetime Oy Account` |
+| Organisation | `lifetime.fi` |
+| Account type | `Direct` |
+
+**Projects linked to this billing account:**
+
+- `dws-mcp-hub` (DWS MCP Hub)
+- `dws-iq-pilot` (DWS IQ Pilot)
+- `dws6login` (dws6login)
+
+**Billing administrators:**
+
+- `risto.paarni2024@lifetime.fi`
+- `admin@dws6.com`
+
+### ⚠️ CRITICAL: Cloud Build Service Account IAM Roles
+
+**Service Account:** `1074393862472-compute@developer.gserviceaccount.com`
+
+**Required Roles** (grant ALL of these or build will fail):
+
+| Role                             | Permission                | Why Needed                         |
+| -------------------------------- | ------------------------- | ---------------------------------- |
+| `roles/cloudbuild.builds.editor` | Cloud Build operations    | Build and push Docker images       |
+| `roles/storage.admin`            | Cloud Storage access      | Upload source code tarball + cache |
+| `roles/logging.logWriter`        | Write build logs          | Display build output and errors    |
+| `roles/artifactregistry.writer`  | Push to Artifact Registry | Store Docker images                |
+| `roles/run.developer`            | Deploy to Cloud Run       | Create/update Cloud Run services   |
+
+**Setup Commands** (run once per project):
+
+```bash
+# Grant Cloud Build permissions
+gcloud projects add-iam-policy-binding dws6run6 \
+  --member=serviceAccount:1074393862472-compute@developer.gserviceaccount.com \
+  --role=roles/cloudbuild.builds.editor
+
+# Grant Storage access
+gcloud projects add-iam-policy-binding dws6run6 \
+  --member=serviceAccount:1074393862472-compute@developer.gserviceaccount.com \
+  --role=roles/storage.admin
+
+# Grant Logging access
+gcloud projects add-iam-policy-binding dws6run6 \
+  --member=serviceAccount:1074393862472-compute@developer.gserviceaccount.com \
+  --role=roles/logging.logWriter
+
+# Grant Artifact Registry access
+gcloud projects add-iam-policy-binding dws6run6 \
+  --member=serviceAccount:1074393862472-compute@developer.gserviceaccount.com \
+  --role=roles/artifactregistry.writer
+
+# Grant Cloud Run access
+gcloud projects add-iam-policy-binding dws6run6 \
+  --member=serviceAccount:1074393862472-compute@developer.gserviceaccount.com \
+  --role=roles/run.developer
 ```
+
+### Deployment Commands (from repo root in CMD)
+
+```bash
+# Authenticate with Google Cloud
+gcloud auth login --project=dws6run6
+
+# Set active project
+gcloud config set project dws6run6
+
+# Build and push Docker image
+gcloud builds submit --tag europe-north1-docker.pkg.dev/dws6run6/dws-iq-repo/dws-iq-backend:latest
+
+# Deploy to Cloud Run with environment variables
+gcloud run deploy dws-iq-backend ^
+  --image europe-north1-docker.pkg.dev/dws6run6/dws-iq-repo/dws-iq-backend:latest ^
+  --region europe-north1 ^
+  --allow-unauthenticated ^
+  --memory 512Mi ^
+  --cpu 1 ^
+  --timeout 300 ^
+  --set-env-vars="STRIPE_SECRET_KEY=sk_live_...,STRIPE_WEBHOOK_SECRET=whsec_...,NODE_ENV=production"
+
+# View deployment logs
+gcloud run logs read dws-iq-backend --region europe-north1 --limit 50
+```
+
+### Troubleshooting
+
+| Error                                                    | Cause                             | Fix                                 |
+| -------------------------------------------------------- | --------------------------------- | ----------------------------------- |
+| `PERMISSION_DENIED: does not have permission`            | Missing IAM role                  | Run one of the setup commands above |
+| `does not have storage.objects.get access`               | Missing `roles/storage.admin`     | Grant storage.admin role            |
+| `does not have permission to write logs`                 | Missing `roles/logging.logWriter` | Grant logging.logWriter role        |
+| `Build step failure: gcr.io/cloud-builders/gcb-internal` | Multiple permission issues        | Run ALL setup commands              |
+
+### Webhook Configuration
+
+**Stripe Workbench Setup:**
+
+- Endpoint URL: `https://dws-iq-backend-[hash]-uc.a.run.app/webhooks/stripe`
+- Events: `invoice.payment_succeeded`, `invoice.payment_failed`, `invoice.payment_attempt_required`, `invoice.payment_action_required`, `charge.refunded`, `customer.deleted`
+- Signing Secret: `whsec_...` (from Stripe Workbench → Destination)
+
+**Environment Variables Required:**
+
+- `STRIPE_SECRET_KEY` (sk*live*...)
+- `STRIPE_WEBHOOK_SECRET` (whsec\_...)
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_KEY`
+
+### Runtime Environment Audit (2026-04-29)
+
+**Scope:** Verify that production runtime instances include Supabase credentials required for booking + email audit logging, and align email delivery with SES SMTP-only policy.
+
+#### Cloud Run verification result
+
+| Project        | Service          | SUPABASE_URL | SUPABASE_SERVICE_KEY | Status                                                                        |
+| -------------- | ---------------- | ------------ | -------------------- | ----------------------------------------------------------------------------- |
+| `dws6run6`     | `dws-iq-backend` | `secret`     | `secret`             | ✅ OK                                                                         |
+| `dws6-backend` | N/A              | N/A          | N/A                  | ⚠️ No services visible to current operator identity (or no services deployed) |
+
+#### SES SMTP-only runtime requirements
+
+For booking confirmations and admin notifications to send reliably, Cloud Run runtime must include:
+
+- `SMTP_HOST`
+- `SMTP_PORT` (default `587`)
+- `SMTP_SECURE` (default `false`)
+- `SMTP_USER`
+- `SMTP_PASS`
+- `EMAIL_FROM` (default `risto@onelifetime.world`)
+- `BOOKING_ADMIN_EMAIL` (default `risto@lifetime.fi`)
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_KEY`
+
+#### Implemented hardening changes (same remediation set)
+
+1. Cloud Run GitHub deployment now injects SMTP + Supabase envs:
+   - `.github/workflows/deploy-cloudrun.yml`
+2. Manual PowerShell Cloud Run deployment now validates and injects SMTP + Supabase envs:
+   - `scripts/Deploy-CloudRun.ps1`
+3. Core mail sender switched to SES SMTP-only behavior (Resend fallback removed):
+   - `src/utils/send-email.ts`
+4. Additional email flows switched from Resend/SendGrid fallback to SES SMTP sender:
+   - `src/morning-briefing/scheduler.ts`
+   - `src/outreach/daily-digest.ts`
+   - `src/routes/hil.routes.ts`
+   - `src/routes/webhook.routes.ts`
 
 ---
 
@@ -949,29 +1515,26 @@ Claude Code cloud sessions can ONLY reach GitHub. Supabase, Google Cloud, Proton
 
 All automation scripts include version headers and change logs.
 
-| Script                            | Version | Purpose                                                                  |
-| --------------------------------- | ------- | ------------------------------------------------------------------------ |
-| `scripts/Startup-DailySync.bat`   | v1.6    | Login trigger: health check + git pull + Proton sync + docs + Supabase   |
-| `scripts/Test-DailySync.ps1`      | v1.0    | Pre-flight health check (GitHub, Proton, Supabase) with JSON output      |
-| `scripts/Sync-ToProton.ps1`       | v1.9    | Proton Drive sync (folders, secrets, docs, Learn/ HTML, sales, investor) |
-| `scripts/Generate-PDFs.ps1`       | v1.6    | Markdown to HTML/PDF (pandoc, output to Learn/)                          |
-| `scripts/Install-StartupSync.ps1` | v1.1    | Creates/removes Startup shortcut                                         |
-| `scripts/Sync-ToSupabase.ps1`     | v1.5    | EU cloud backup to Supabase Storage (auto-creates bucket)                |
-| `scripts/Sync-Report.ps1`         | v1.0    | Full pipeline wrapper with structured JSON report output                 |
+| Script                            | Version | Purpose                                                 |
+| --------------------------------- | ------- | ------------------------------------------------------- |
+| `scripts/Startup-DailySync.bat`   | v1.4    | Login trigger: git pull + Proton sync + docs + Supabase |
+| `scripts/Sync-ToProton.ps1`       | v1.7    | Proton Drive sync (folders, secrets, docs, Learn/ HTML) |
+| `scripts/Generate-PDFs.ps1`       | v1.6    | Markdown to HTML/PDF (pandoc, output to Learn/)         |
+| `scripts/Install-StartupSync.ps1` | v1.1    | Creates/removes Startup shortcut                        |
+| `scripts/Sync-ToSupabase.ps1`     | v1.2    | EU cloud backup to Supabase Storage                     |
 
 ### Daily Operations
 
-| Task                 | How to run                                                       |
-| -------------------- | ---------------------------------------------------------------- |
-| Sync to Proton       | VS Code: Terminal > Run Task > "Sync to Proton Drive"            |
-| Full backup          | VS Code: Terminal > Run Task > "Full Repo Backup to Proton"      |
-| Pull and sync        | VS Code: Terminal > Run Task > "Pull and Sync"                   |
-| Dry run              | `.\scripts\Sync-ToProton.ps1 -DryRun`                            |
-| Auto on login        | `.\scripts\Install-StartupSync.ps1` (one-time)                   |
-| Generate docs (HTML) | `.\scripts\Generate-PDFs.ps1` (default: HTML engine)             |
-| Generate docs (PDF)  | `.\scripts\Generate-PDFs.ps1 -Engine wkhtmltopdf`                |
-| Supabase backup      | `.\scripts\Sync-ToSupabase.ps1 -CreateBucket` (or `-DryRun`)     |
-| Health check         | `.\scripts\Test-DailySync.ps1` (or `-JsonOnly` for agent output) |
+| Task                 | How to run                                                  |
+| -------------------- | ----------------------------------------------------------- |
+| Sync to Proton       | VS Code: Terminal > Run Task > "Sync to Proton Drive"       |
+| Full backup          | VS Code: Terminal > Run Task > "Full Repo Backup to Proton" |
+| Pull and sync        | VS Code: Terminal > Run Task > "Pull and Sync"              |
+| Dry run              | `.\scripts\Sync-ToProton.ps1 -DryRun`                       |
+| Auto on login        | `.\scripts\Install-StartupSync.ps1` (one-time)              |
+| Generate docs (HTML) | `.\scripts\Generate-PDFs.ps1` (default: HTML engine)        |
+| Generate docs (PDF)  | `.\scripts\Generate-PDFs.ps1 -Engine wkhtmltopdf`           |
+| Supabase backup      | `.\scripts\Sync-ToSupabase.ps1` (or `-DryRun`)              |
 
 ### Windows Startup Auto-Sync
 
@@ -991,11 +1554,10 @@ C:\Users\risto\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
 **What it does on every Windows login:**
 
 1. Waits 120 seconds (for network + Proton Drive to mount)
-2. Runs `Test-DailySync.ps1` (pre-flight health check — GitHub, Proton, Supabase)
-3. `git pull origin main` (gets latest from GitHub)
-4. Runs `Sync-ToProton.ps1 -GeneratePDFs -OpenNewPDFs` (Proton sync + doc generation)
-5. Runs `Sync-ToSupabase.ps1 -CreateBucket` (EU cloud backup of Admin, scripts, src, Firehorse, sales, investor)
-6. Opens changed documents in Edge for morning review
+2. `git pull origin main` (gets latest from GitHub)
+3. Runs `Sync-ToProton.ps1 -GeneratePDFs -OpenNewPDFs` (Proton sync + doc generation)
+4. Runs `Sync-ToSupabase.ps1` (EU cloud backup of Admin, scripts, src, Firehorse, sales, investor)
+5. Opens changed documents in Edge for morning review
 
 ### Document Generation (Pandoc)
 
@@ -1094,110 +1656,6 @@ MCP Hub (Port 8765) + Temporal.io
   ├── Agent Teams (parallel, collaborative)
   └── Lifetime Scope Signals (dependency DAG)
 ```
-
-### Sandbox Isolation (Agent Foundry)
-
-**Implementation:** `src/sandbox/` — Staged tenant isolation for multi-tenant agent execution.
-
-| Stage                     | Isolation Method                          | LLM Provider           | When                    |
-| ------------------------- | ----------------------------------------- | ---------------------- | ----------------------- |
-| 1 — SDK Sandbox           | Anthropic Agent SDK (bubblewrap/seatbelt) | Groq (default)         | Demo / Pilot            |
-| 2 — Ephemeral Containers  | Cloud Run Jobs (europe-north1)            | Configurable per agent | First paid multi-tenant |
-| 3 — Persistent Containers | gVisor / Firecracker                      | Configurable per agent | Scale (€50k+ MRR)       |
-
-**Environment variable:** `SANDBOX_STAGE=1` (default), `2`, or `3`
-
-See `DWS_SECURITY_STANDARD.md` Section 14 for full security architecture.
-
-### Climate IQ Pantheon Agent Registry
-
-DWS IQ runs **13 named agents** organized in two tiers, registered at startup in `src/agents/index.ts`.
-
-**Tier 1 — Orchestrators (6 agents)**
-
-| Agent        | Deity | Role               | Capabilities                                                   |
-| ------------ | ----- | ------------------ | -------------------------------------------------------------- |
-| `atlas`      | Titan | Chief of Staff     | workflow-orchestration, executive-briefing, request-routing    |
-| `athena`     | Greek | EU Compliance      | eu-regulatory, ets-monitoring, cbam-assessment, csrd-reporting |
-| `hephaestus` | Greek | Field & Site       | site-safety, materials-analysis, schedule-management           |
-| `iris`       | Greek | Research & Intel   | competitor-analysis, market-research, deep-wiki-extraction     |
-| `hermes`     | Greek | Logistics & Ops    | logistics-optimization, supply-chain-risk, quality-gate        |
-| `apollo`     | Greek | Content & Outreach | content-strategy, seo-optimization, sales-outreach             |
-
-**Tier 2 — Industry Specialists (7 agents)**
-
-| Agent        | Deity | Industry                  | Key Regulation                        |
-| ------------ | ----- | ------------------------- | ------------------------------------- |
-| `vulcan`     | Roman | Steel & Metals            | ETS Phase 4, CBAM iron/steel          |
-| `helios`     | Greek | Energy & Renewables       | RED III 42.5%, REPowerEU              |
-| `neptune`    | Roman | Maritime & Shipping       | FuelEU Maritime, ETS shipping         |
-| `ceres`      | Roman | Agriculture & Fertilizers | CBAM fertilizers, N2O                 |
-| `prometheus` | Greek | Hydrogen                  | RFNBO additionality, RED III          |
-| `mars`       | Roman | Construction & Buildings  | EPBD, EN 15978 whole-life carbon      |
-| `gaia`       | Greek | Cement & Earth Materials  | CBAM clinker benchmark 766 tCO2/1000t |
-
-**Identity pattern:** Each agent has `src/agents/workflow/{tier}/{name}/SOUL.md` injected as system prompt.
-**Logging:** All agents call `logExecution()` to `agent_executions` Supabase table (EU AI Act Article 12).
-**Security:** No `...input` spreads to sub-agents — all delegation uses explicit typed field extraction.
-
-### Per-Industry Open LLM Selection (IMPORTANT)
-
-**Do NOT default to Llama 3.3 70B for every industry.** Each of the 16 EU industries DWS IQ serves has different domain characteristics. The agent system must evaluate and select the best open LLM per industry vertical.
-
-**Selection criteria per industry:**
-
-| Criteria                      | Why It Matters                                                              |
-| ----------------------------- | --------------------------------------------------------------------------- |
-| Domain knowledge depth        | Construction vs. maritime vs. healthcare have different regulatory language |
-| Multilingual capability       | Nordic industries need Finnish/Swedish, CBAM suppliers need 20+ languages   |
-| Structured output reliability | Compliance reports need deterministic JSON, not creative prose              |
-| Context window                | Supply chain analysis may need 128k+ context                                |
-| Inference speed               | Real-time compliance checks need sub-second response                        |
-| EU data residency             | Some models can only run on EU-hosted infrastructure                        |
-| License                       | Commercial use restrictions vary by model                                   |
-
-**Industry LLM evaluation matrix (to be completed per industry study):**
-
-| Industry              | Default LLM          | Alternatives to Evaluate                 | Key Requirement                                      |
-| --------------------- | -------------------- | ---------------------------------------- | ---------------------------------------------------- |
-| Construction          | Llama 3.3 70B (Groq) | Mistral Large, Qwen 2.5 72B, DeepSeek-V3 | EN 15978 lifecycle stages, Finnish building codes    |
-| Energy                | TBD                  | Llama 3.3, Mistral, Command R+           | ETS allowance calculations, power grid terminology   |
-| Manufacturing         | TBD                  | Llama 3.3, Qwen 2.5, Mixtral 8x22B       | CBAM product classification, BOM analysis            |
-| Logistics & Transport | TBD                  | Llama 3.3, Mistral, Gemma 2 27B          | Route optimization, ESR non-ETS emissions            |
-| Maritime & Shipping   | TBD                  | Llama 3.3, Mistral Large                 | FuelEU Maritime, MRV regulations                     |
-| Aviation              | TBD                  | Llama 3.3, Mistral                       | CORSIA, SAF calculations                             |
-| Steel & Metals        | TBD                  | Llama 3.3, Qwen 2.5                      | CBAM embedded emissions, alloy specifications        |
-| Chemicals             | TBD                  | Llama 3.3, DeepSeek-V3                   | REACH, process emissions, safety data sheets         |
-| Cement & Concrete     | TBD                  | Llama 3.3, Mistral                       | Clinker ratios, EPD data, kiln emissions             |
-| Agriculture           | TBD                  | Llama 3.3, Gemma 2                       | LULUCF, methane accounting, CAP subsidies            |
-| Food & Beverage       | TBD                  | Llama 3.3, Mistral                       | Scope 3 supply chain, packaging lifecycle            |
-| Textiles              | TBD                  | Llama 3.3, Qwen 2.5                      | Digital product passport, CBAM for imports           |
-| Real Estate           | TBD                  | Llama 3.3, Mistral                       | EPBD energy certificates, renovation passports       |
-| Finance & Insurance   | TBD                  | Llama 3.3, Mistral Large                 | SFDR, EU Taxonomy alignment, double materiality      |
-| Public Sector         | TBD                  | Llama 3.3, Mistral (EU-hosted)           | CSRD for state-owned enterprises, GPP criteria       |
-| Healthcare            | TBD                  | Llama 3.3, Gemma 2 (EU-hosted)           | Medical waste emissions, pharmaceutical supply chain |
-
-**Evaluation process for each industry:**
-
-1. **Benchmark** — Run industry-specific compliance prompts (EN 15978, CSRD ESRS E1, CBAM declarations) against 3-4 candidate models
-2. **Score** — Evaluate on accuracy, structured output reliability, and domain terminology
-3. **Cost** — Compare inference cost per 1K tokens across providers (Groq, Together, Fireworks, self-hosted)
-4. **Residency** — Verify EU data residency compliance for the provider
-5. **Select** — Choose the best model per industry, document rationale
-6. **Configure** — Set per-agent model in `AgentConfig.model` field (`src/agents/types.ts`)
-
-**Configuration example:**
-
-```typescript
-// In each agent's constructor, set the industry-optimized model:
-new ConstructionAgent({
-  name: "construction",
-  model: "llama-3.3-70b-versatile", // Or 'mistral-large-latest' after evaluation
-  // ...
-});
-```
-
-**Action item:** Complete industry LLM benchmarks before first enterprise deployment. Each industry vertical should have a documented model selection rationale.
 
 ### Related Documentation
 
@@ -1947,6 +2405,53 @@ Switched to **Claude Opus 4.5** which has:
 
 ---
 
+## Agent Capabilities — Browse + Second Brain (2026-04-25)
+
+Two agent-facing capabilities ship in branch `claude/add-playwright-implementation-Rg5Jy`. Full design in [`docs/PLAYWRIGHT.md`](../docs/PLAYWRIGHT.md) and [`docs/AGENT_SECOND_BRAIN.md`](../docs/AGENT_SECOND_BRAIN.md).
+
+### Browse (Playwright)
+
+| Surface        | Command / endpoint                                                               |
+| -------------- | -------------------------------------------------------------------------------- |
+| CLI            | `dws browse fetch <url>` / `screenshot <url>` / `snapshot <url>`                 |
+| MCP tools      | `dws_browse_fetch`, `dws_browse_screenshot`, `dws_browse_snapshot`               |
+| Skill          | `/browse`                                                                        |
+| Runtime dep    | `playwright` is in `dependencies` (so `npm ci --omit=dev` keeps it on the Spark) |
+| One-time setup | `npx playwright install chromium` per machine (browser binary not in git)        |
+
+**SSRF guard (`src/utils/url-guard.ts`):** every URL — both the user-supplied one AND any redirect / sub-resource Chromium tries to load via `page.route('**/*')` — is checked against a default-deny list of IPv4/IPv6 private, loopback, link-local, cloud-metadata (`169.254.169.254`), CGNAT, and unique-local ranges. Hostnames `localhost`, `*.local`, `*.internal`, `*.intranet` are blocked without a DNS lookup; all other hostnames are resolved and rejected if **any** answer is private. Override for local dev only: `BROWSE_ALLOW_PRIVATE=1`. Residual risk: DNS rebinding (documented; not fully mitigated).
+
+URL guard also accepts `http://` and `https://` only; 30 s navigation timeout; fresh `BrowserContext` per call. Results return rendered HTML / base64 PNG / accessibility-tree JSON.
+
+### Agent Second Brain (DGX Spark embeddings + KB watcher)
+
+| Surface                 | Command / file                                                      |
+| ----------------------- | ------------------------------------------------------------------- |
+| Embeddings provider     | `src/utils/embeddings.ts` — `EMBEDDING_PROVIDER=openai\|dgx-spark`  |
+| DGX Spark probe (shell) | `scripts/ollama-spark-embed.sh --preflight`                         |
+| Preflight (CLI)         | `dws kb preflight` (exits non-zero on failure with actionable hint) |
+| Inbox watcher           | `scripts/daily/kb-watch-inbox.sh` (auto-discovered by day-runner)   |
+| Cap (operator-tunable)  | `KB_WATCH_MAX_PER_RUN` (default `25`)                               |
+
+`memoryService` (`semantic_memories` pgvector) keeps OpenAI 1536-dim by default. Switching it to DGX Spark's 768-dim `nomic-embed-text` requires a schema migration (RED zone) and is documented as a follow-up.
+
+### Operator runbook (DGX Spark embeddings)
+
+```bash
+# 1. Probe — verify SSH alias + Ollama + model in one call
+dws kb preflight
+
+# 2. If model missing, pull it on the Spark
+ssh dgx-spark ollama pull nomic-embed-text
+
+# 3. Flip the env var only after preflight is green
+export EMBEDDING_PROVIDER=dgx-spark
+```
+
+The watcher's first run backfills the existing inbox up to the cap and rolls remaining files into the next day. No manual sentinel deletion is needed.
+
+---
+
 ## Code Review Process
 
 ### Overview
@@ -2043,56 +2548,6 @@ Before approving/merging a PR:
 2. **Run Snyk before pushing** - Catch vulnerabilities early
 3. **Review deployment file protections** - Pre-commit hook should block sensitive files
 4. **Check GitHub Actions results** - Automated security scans catch what humans miss
-
----
-
-## Tools
-
-### Database Migration (db_push)
-
-Push Supabase migrations to the linked project (ref: `kpucuwwfhuwurdxyjjtz`).
-
-```powershell
-# Full run (link + push)
-pwsh -File scripts/db_push.ps1
-
-# Or via npm
-npm run db:push
-
-# Skip link if already linked
-pwsh -File scripts/db_push.ps1 -SkipLink
-npm run db:push:skip-link
-```
-
-**When to run:** After adding new migrations in `supabase/migrations/`, or when setting up on a new machine.
-
-**Check pending migrations:**
-
-```bash
-npx supabase migration list
-```
-
-### Supabase MCP
-
-The **Supabase MCP Server** (`mcp-servers/supabase/server.py`) provides AI-accessible tools for Supabase integration:
-
-| Endpoint                                | Purpose                          |
-| --------------------------------------- | -------------------------------- |
-| `POST /tools/query_carbon_calculations` | Query carbon calculation history |
-| `POST /tools/log_agent_activity`        | Log agent activity to database   |
-| `POST /tools/query_compliance`          | Query compliance data            |
-
-**Configuration:** Port 8766. Set `SUPABASE_URL` and `SUPABASE_SERVICE_KEY` in `.env.mcp`.
-
-**Docker:** Runs as `supabase-mcp` in `docker-compose.hybrid.yml`.
-
-### Supabase Skills (Cursor)
-
-For AI-assisted database operations in Cursor, configure Supabase skills:
-
-- **MCP File System:** Supabase tool descriptors in `mcps/<server>/tools/`
-- **Skills:** Create `.cursor/skills/` or use Cursor's built-in Supabase MCP integration
-- **Reference:** `ADMIN_MANUAL_SUPABASE_EN_v1.md` for full database administration
 
 ---
 
@@ -2793,1359 +3248,102 @@ Track training effectiveness:
 
 ---
 
-## Appendix A: CEO Cockpit Morning Briefing
+## Local-First CI + Audit Log (2026-04-22)
 
-**Status:** ✅ **ACTIVE** (since February 2026)
-**Delivery:** Mon–Sat at 06:00 Helsinki time via GitHub Actions
-**Workflow:** `.github/workflows/morning-briefing.yml`
+DWS6 runs CI checks **locally** (dev machines) and **on DGX Spark** (weekly
+cron), not on GitHub Actions. Every run produces a tamper-evident audit
+record mirrored to Supabase `ci_audit_log` as the legal record-of-truth.
 
-### What It Is
+**Why:** GitHub Actions minutes are paid and slow (2–5 min queue + run) for
+checks that take <1 min locally. EU AI Act Art. 12 and CSRD ESRS G1 require
+traceable, tamper-evident audit trails with EU residency — GitHub Actions
+logs don't meet that bar; Supabase europe-north1 (Helsinki) + RLS-enforced
+INSERT-only does.
 
-A 5-minute daily briefing email delivering a prioritized CEO action summary. Pulls live data from Supabase and sends via Resend.
+### Architecture
 
-### Schedule
+```
+Dev laptop                      DGX Spark (weekly cron)
+git push → .githooks/pre-push   scripts/weekly/security-audit.sh
+  → scripts/local-ci.sh            (same record format, runner_kind=dgx-spark)
+  ↓                                ↓
+.ci-audit/runs/<ts>_<sha>.json (hash-chained, committed to git)
+  ↓
+Supabase ci_audit_log (INSERT-only, EU, tamper-evident)
+  ↓
+GitHub: CI Audit Gate workflow (~3s) — verifies chain + HEAD coverage
+```
 
-| Trigger       | When                   | Notes                                                 |
-| ------------- | ---------------------- | ----------------------------------------------------- |
-| **Automatic** | Mon–Sat 06:00 Helsinki | Dual cron (03:00 + 04:00 UTC) covers both DST offsets |
-| **Manual**    | Anytime                | GitHub Actions → "Morning Briefing" → Run workflow    |
+### Files
 
-The send script has a Helsinki time guard: it only sends when the Helsinki hour is exactly 6. The "wrong" cron entry silently exits. Manual triggers (`workflow_dispatch`) skip the time guard automatically.
+| File                                    | Purpose                                                   |
+| --------------------------------------- | --------------------------------------------------------- |
+| `scripts/local-ci.sh`                   | Runner: vitest + gitleaks + npm-audit + ruff              |
+| `scripts/ci-audit-verify.sh`            | Verifier: chain integrity + HEAD coverage                 |
+| `scripts/ci-audit-upload.ts`            | Supabase uploader (no-op if env/table missing)            |
+| `scripts/weekly/security-audit.sh`      | DGX Spark weekly replacement for GitHub security scanners |
+| `.githooks/pre-push`                    | Runs `local-ci.sh` after ZenFree on every `git push`      |
+| `.github/workflows/ci-audit-verify.yml` | 3-second GitHub gate (verify-only)                        |
+| `.ci-audit/runs/*.json`                 | Local hash-chained audit records (committed)              |
+| `.ci-audit/README.md`                   | Quick-reference for the record format                     |
+| `docs/CI_AUDIT.md`                      | Full developer spec + Supabase migration SQL              |
+| `Admin/ADMIN_MANUAL_AUDIT.md`           | External-auditor manual (evidence packs, queries)         |
 
-### Email Sections
+### What was disabled
 
-| #   | Section              | What It Shows                                                       | Data Source                                               |
-| --- | -------------------- | ------------------------------------------------------------------- | --------------------------------------------------------- |
-| 1   | **3 Changes**        | Pipeline movement, product velocity, delivery milestones (last 24h) | `v_outreach_enriched`, `agent_metrics`, `firehorse_leads` |
-| 2   | **Today's 3 Bets**   | Top 3 actions for the day (auto-generated from overdue/due threads) | `v_outreach_enriched`                                     |
-| 3   | **Top Risk**         | Most overdue thread + days overdue + next action                    | `v_outreach_enriched`                                     |
-| 4   | **Captain Momentum** | Contacts to ping today + suggested artifact to prepare              | `v_outreach_enriched`                                     |
-| 5   | **Metrics Strip**    | MRR, active convos, weekly commits, MVP ETA                         | GitHub API, Supabase, env vars                            |
-| 6   | **Send List**        | Top 3–5 contacts to manually message, sorted by urgency             | `v_outreach_enriched`                                     |
+Four GitHub workflows renamed `.yml.disabled` (rename back to re-enable):
+`test.yml`, `secret-scan-gitleaks.yml`, `dependency_review.yml`, `ruff.yml`.
 
-### How to Trigger Manually
-
-1. Go to **GitHub → Actions → "Morning Briefing"**
-2. Click **"Run workflow"**
-3. Optionally enter a recipient email to override the default
-4. Click the green **"Run workflow"** button
-
-### How to Enter Data
-
-#### Outreach Contacts (feeds Pipeline, Bets, Risk, Momentum, Send List)
+### Setup (once per clone)
 
 ```bash
-curl -X POST https://your-server/api/v1/outreach/inbound \
-  -H "Content-Type: application/json" \
-  -H "X-Outreach-Key: YOUR_KEY" \
-  -d '{
-    "first_name": "Matti",
-    "org_name": "Wärtsilä",
-    "pipeline": "customer",
-    "source": "linkedin"
-  }'
+git config core.hooksPath .githooks
+export SUPABASE_URL="https://<ref>.supabase.co"        # enables legal record
+export SUPABASE_SERVICE_ROLE_KEY="eyJ..."
 ```
 
-**Pipeline values:** `investor`, `customer`, `partner`
-**Source values:** `boardy`, `linkedin`, `conference`, `referral`, `cold`, `inbound`, `manual`
+Apply the `ci_audit_log` Supabase migration (SQL block in `docs/CI_AUDIT.md`)
+— it is RED-zone per CLAUDE.md, so a human must run it in Supabase SQL
+editor. Without the table, local records still work; Supabase upload is a
+no-op with warning until the table exists.
 
-Or add/edit records directly in **Supabase Dashboard → Table Editor**:
+### Override paths (all audited)
 
-- `outreach_threads` — thread status, next_action, next_action_date
-- `persons` — contact details
-- `outreach_orgs` — company info
+- Normal: `git push` — runs local-ci, writes record, gate on GitHub verifies
+- Skip CI only (keep ZenFree): `SKIP_LOCAL_CI=1 git push` — visible in shell history
+- Skip every hook: `git push --no-verify` — recorded in git reflog
+- Commits pushed without an audit record will fail the GitHub gate
 
-#### Firehorse Leads (feeds Delivery changes)
+### External auditor reference
 
-```bash
-curl -X POST https://your-server/api/v1/firehorse/leads \
-  -H "Content-Type: application/json" \
-  -d '{"email": "matti@wartsila.com", "first_name": "Matti", "company": "Wärtsilä", "country": "FI"}'
-```
-
-**CSV bulk import:**
-
-```bash
-npx tsx scripts/import-leads-csv.ts data/leads.csv
-```
-
-#### Metrics (MRR, MVP ETA)
-
-Set as **GitHub repository secrets** (Settings → Secrets and variables → Actions → Secrets):
-
-| Secret    | Example   | Purpose                          |
-| --------- | --------- | -------------------------------- |
-| `MRR_EUR` | `500`     | Monthly recurring revenue in EUR |
-| `MVP_ETA` | `2026-Q2` | Estimated MVP date               |
-
-Weekly commits are fetched live from the GitHub API — no manual config needed.
-
-### Manual API Trigger
-
-If the Express server is running:
-
-```bash
-curl -X POST https://your-server/api/v1/morning-briefing/send \
-  -H "x-admin-key: YOUR_ADMIN_KEY"
-```
-
-### Configuration (GitHub Secrets)
-
-| Secret                  | Default                      | Purpose                                            |
-| ----------------------- | ---------------------------- | -------------------------------------------------- |
-| `RESEND_API_KEY`        | _(required)_                 | Resend email provider API key                      |
-| `SUPABASE_URL`          | _(required)_                 | Supabase project URL                               |
-| `SUPABASE_SERVICE_KEY`  | _(required)_                 | Supabase service role key                          |
-| `EMAIL_FROM`            | `risto@onelifetime.world`    | Sender address (must be on Resend-verified domain) |
-| `OUTREACH_DIGEST_EMAIL` | `risto@lifetime.fi`          | Recipient address                                  |
-| `GITHUB_TOKEN`          | _(auto-provided by Actions)_ | For live commit count                              |
-| `MRR_EUR`               | —                            | Monthly recurring revenue                          |
-| `MVP_ETA`               | —                            | MVP estimated date                                 |
-
-### File Map
-
-```
-scripts/send-morning-briefing.ts          # Entry point (GitHub Actions runs this)
-src/morning-briefing/
-  ├── data-collectors.ts                  # Supabase queries for all 6 sections
-  ├── briefing-template.ts                # HTML + plain text email templates
-  ├── scheduler.ts                        # Send logic (Resend API call)
-  └── index.ts                            # Module exports
-.github/workflows/morning-briefing.yml    # Cron schedule + workflow_dispatch
-```
-
-### Troubleshooting
-
-| Symptom                           | Cause                                        | Fix                                                                                    |
-| --------------------------------- | -------------------------------------------- | -------------------------------------------------------------------------------------- |
-| "domain not verified" from Resend | `EMAIL_FROM` secret set to unverified domain | Set secret to `risto@onelifetime.world` or verify the domain in Resend                 |
-| "column does not exist" in logs   | Supabase table schema changed                | Check column names in `data-collectors.ts` match actual table                          |
-| Email arrives at 05:00 or 07:00   | DST offset change                            | Both cron entries (03:00 + 04:00 UTC) handle this; time guard ensures only 06:00 sends |
-| Commits show 0                    | `GITHUB_TOKEN` not in workflow env           | Verify workflow passes `GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}`                     |
-| "No product signals captured"     | No rows in `agent_metrics` for yesterday     | Agents must write daily metrics; table may be empty                                    |
-| Email not received                | No `RESEND_API_KEY` secret                   | Add the secret in GitHub repository settings                                           |
-
-### Fix History
-
-| PR   | Date       | Fix                                                                                 |
-| ---- | ---------- | ----------------------------------------------------------------------------------- |
-| #501 | 2026-02-17 | `v_outreach_enriched.updated_at` → `created_at`; `firehorse_leads.status` → `state` |
-| #504 | 2026-02-17 | `firehorse_leads.updated_at` → `created_at`                                         |
-| #505 | 2026-02-17 | `agent_logs` → `agent_metrics`; live commit count via GitHub API                    |
-
----
-
-## Automated PR Workflow (HIL Automation)
-
-### Overview
-
-All code changes undergo automated dual-model AI review before merge, replacing manual human-in-the-loop review:
-
-```
-Claude Code → PR → Claude sanity check → Gemini HIL review → @copilot fixes → CI → auto-merge
-                                                ↑                    |
-                                                └────────────────────┘  (fix loop)
-```
-
-### Workflow Files
-
-| File                                  | Purpose                                |
-| ------------------------------------- | -------------------------------------- |
-| `.github/workflows/ai-pr-review.yml`  | Dual AI review (Claude + Gemini HIL)   |
-| `.github/workflows/pr-auto-merge.yml` | Auto-merge when approved + CI green    |
-| `.github/copilot-setup-steps.yml`     | Copilot coding agent environment setup |
-
-### How It Works
-
-1. Claude Code generates implementation on a feature branch and opens a PR
-2. **Claude** performs quick sanity check (security, correctness, breaking changes)
-3. **Gemini** performs deep HIL review (edge cases, tests, architecture, OWASP security)
-4. Gemini defaults to **REQUEST_CHANGES** — only APPROVE when zero issues + adequate tests
-5. If changes requested: structured fix instructions sent to **@copilot** coding agent
-6. Copilot implements fixes, pushes to branch → review re-triggers automatically
-7. When both approve: `ai-approved` label triggers auto-merge workflow
-
-### Labels
-
-| Label                  | Meaning                                 |
-| ---------------------- | --------------------------------------- |
-| `ai-reviewed`          | AI review completed (dual-model)        |
-| `ai-approved`          | Both Claude + Gemini approved           |
-| `ai-changes-requested` | Issues found, waiting for fixes         |
-| `do-not-merge`         | Human override: block auto-merge        |
-| `needs-human-review`   | Human override: pause for manual review |
-
-### Required Secrets
-
-| Secret              | Purpose                                                     |
-| ------------------- | ----------------------------------------------------------- |
-| `ANTHROPIC_API_KEY` | Claude API review (GitHub Settings → Secrets)               |
-| `GOOGLE_AI_API_KEY` | Gemini API review (GitHub Settings + Google Secret Manager) |
-
-### MCP Hub Integration
-
-Gemini review available at `POST /gemini/review` on MCP Hub (`mcp-hub/server.py`). Model: `gemini-2.0-flash`. Cloud Run service: `dws6run6` (europe-north1).
+For external auditors (EU AI Act, GDPR, ISO 27001, PiTuKri), see the
+dedicated **Audit Manual** at `Admin/ADMIN_MANUAL_AUDIT.md`. It contains:
+the four audit-trail inventory, sample SQL queries for evidence pulls,
+integrity-check procedures, retention policy, and the read-only
+auditor-access model.
 
 ---
 
 ## Document Changelog
 
-| Version | Date         | Changes                                                                                                                                                                                                                                                                                                                               | Session ID |
-| ------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| 3.3     | Apr 8, 2026  | Section 29.14 Cron Status Dashboard on Admin Portal (green/red/gray indicators per job, last 24h); Section 29.15 Morning Brief V2 (7-section combined email replaces 5 separate scripts); cron-runner updated to V2; `/api/v1/cron/status` proxy route added                                                                          | fhkxP      |
-| 2.6     | Mar 2, 2026  | Claude Code Project Engineering Structure (Section 27): CLAUDE.md as project memory, Skills, Hooks, Subagents, MCP; repository gap analysis from exploration                                                                                                                                                                          | F3xqn      |
-| 2.5     | Feb 24, 2026 | Client Handover document (DWS_HANDOVER.md) added to Related Documentation index                                                                                                                                                                                                                                                       | kJunm      |
-| 2.4     | Feb 21, 2026 | Enhanced LWM definition as enterprise learning layer                                                                                                                                                                                                                                                                                  | Q0lzp      |
-| 2.3     | Feb 20, 2026 | Automated PR Workflow (HIL Automation): Claude + Gemini dual review, Copilot fix loop, auto-merge, Cloud Run dws6run6                                                                                                                                                                                                                 | e5wXD      |
-| 2.2     | Feb 17, 2026 | Appendix A: CEO Cockpit Morning Briefing — schedule, data entry, configuration, troubleshooting, fix history                                                                                                                                                                                                                          | K3bXV      |
-| 1.8     | Feb 6, 2026  | DWS Document Standard header; Admin Manuals Index (23 manuals); Revolut Payments & Store; MCP Configuration (Supabase, Upstash Redis, MCP Hub); AI Agent Operational Guidelines (Karpathy); Security Glossary & OWASP; DPA summary; Backup & Sync Infrastructure; Multi-Agent Orchestration (Subagents vs Agent Teams, Upstash Redis) | Rm8Jw      |
-| 1.7     | Jan 29, 2026 | Added Climate Assistant Chat Widget section with embed code, features, security configuration (Helmet CSP), and troubleshooting                                                                                                                                                                                                       | krDzD      |
-| 1.6     | Jan 24, 2026 | Added Training section with LWM/Firehorse training workflows, certification paths, and external partner resources; Updated training manual location references                                                                                                                                                                        | r6bU3      |
-| 1.5     | Jan 4, 2026  | Added AI Model Configuration (Sonnet → Opus 4.5 switch); Added DWS IQ 6 Security Framework section; Updated compliance scores to 95%                                                                                                                                                                                                  | -          |
-| 1.4     | Jan 3, 2026  | Added Code Review Process section; Removed Argus PR Review (moved to Archive); Documented Cursor AI + Snyk MCP workflow                                                                                                                                                                                                               | -          |
-| 1.3     | Dec 23, 2025 | Added AI Agent Policy section based on 2,500+ agent analysis; Protected admin directory in .gitignore                                                                                                                                                                                                                                 | PxSux      |
-| 1.2     | Dec 19, 2025 | Added Bug Tracking & Security Maintenance section with 20-bug fix history, monthly maintenance budget, bug hunting roadmap                                                                                                                                                                                                            | -          |
-| 1.1     | Dec 11, 2025 | Added Sensitive Data Protection section (GDPR/ISO 27001 compliance)                                                                                                                                                                                                                                                                   | -          |
-| 1.0     | Nov 23, 2025 | Initial creation, documented session history                                                                                                                                                                                                                                                                                          | -          |
+| Version | Date         | Changes                                                                                                                                                                                                                                                                                                                                                        | Session ID                           |
+| ------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| 2.5     | May 10, 2026 | Node.js workspace setup section: dual `npm ci` at repository root and `src/cloudflare/` for backend vs Cloudflare agent workers; PowerShell-first examples; worktree and cloud-agent note; TOC renumbered.                                                                                                                                                     | cursor-admin-node-workspace-20260510 |
+| 2.4     | Apr 25, 2026 | Browse SSRF hardening (`src/utils/url-guard.ts`): default-deny IPv4/IPv6 private/loopback/link-local/cloud-metadata ranges, two-layer enforcement (pre-`goto` + `page.route` for redirects), `BROWSE_ALLOW_PRIVATE=1` dev override; moved `playwright` from devDependencies to dependencies so DGX Spark `npm ci --omit=dev` keeps it. 75 tests pass.          | Rg5Jy                                |
+| 2.3     | Apr 25, 2026 | Added Agent Capabilities section (Browse + Second Brain): `dws browse` (Playwright Chromium, MCP `dws_browse_*`), DGX Spark embeddings provider (`EMBEDDING_PROVIDER=dgx-spark`), `dws kb preflight`, `scripts/daily/kb-watch-inbox.sh` (auto-backfill with `KB_WATCH_MAX_PER_RUN` cap); linked PLAYWRIGHT.md + AGENT_SECOND_BRAIN.md in Related Documentation | Rg5Jy                                |
+| 2.2     | Apr 22, 2026 | Added Local-First CI + Audit Log section (scripts/local-ci.sh, ci-audit-verify.sh, ci-audit-upload.ts, weekly/security-audit.sh, .ci-audit/, ci-audit-verify.yml gate); linked new Audit Manual for external auditors; indexed Files & Folders manual                                                                                                          | vBYGo                                |
+| 1.8     | Feb 6, 2026  | DWS Document Standard header; Admin Manuals Index (23 manuals); Revolut Payments & Store; MCP Configuration (Supabase, Upstash Redis, MCP Hub); AI Agent Operational Guidelines (Karpathy); Security Glossary & OWASP; DPA summary; Backup & Sync Infrastructure; Multi-Agent Orchestration (Subagents vs Agent Teams, Upstash Redis)                          | Rm8Jw                                |
+| 1.7     | Jan 29, 2026 | Added Climate Assistant Chat Widget section with embed code, features, security configuration (Helmet CSP), and troubleshooting                                                                                                                                                                                                                                | krDzD                                |
+| 1.6     | Jan 24, 2026 | Added Training section with LWM/Firehorse training workflows, certification paths, and external partner resources; Updated training manual location references                                                                                                                                                                                                 | r6bU3                                |
+| 1.5     | Jan 4, 2026  | Added AI Model Configuration (Sonnet → Opus 4.5 switch); Added DWS IQ 6 Security Framework section; Updated compliance scores to 95%                                                                                                                                                                                                                           | -                                    |
+| 1.4     | Jan 3, 2026  | Added Code Review Process section; Removed Argus PR Review (moved to Archive); Documented Cursor AI + Snyk MCP workflow                                                                                                                                                                                                                                        | -                                    |
+| 1.3     | Dec 23, 2025 | Added AI Agent Policy section based on 2,500+ agent analysis; Protected admin directory in .gitignore                                                                                                                                                                                                                                                          | PxSux                                |
+| 1.2     | Dec 19, 2025 | Added Bug Tracking & Security Maintenance section with 20-bug fix history, monthly maintenance budget, bug hunting roadmap                                                                                                                                                                                                                                     | -                                    |
+| 1.1     | Dec 11, 2025 | Added Sensitive Data Protection section (GDPR/ISO 27001 compliance)                                                                                                                                                                                                                                                                                            | -                                    |
+| 1.0     | Nov 23, 2025 | Initial creation, documented session history                                                                                                                                                                                                                                                                                                                   | -                                    |
 
 ---
 
-## Claude Code Project Engineering Structure
-
-_Added in v2.6 | 02.03.2026_
-
-This section documents the DWS6 Claude Code engineering structure — the patterns that make AI-assisted development reliable, consistent, and scalable. Based on a repository audit conducted on 02.03.2026.
-
-### Architecture: Five Pillars
-
-#### 1. CLAUDE.md — Project Memory
-
-`CLAUDE.md` (repo root, 2,000+ lines) is the primary intelligence substrate for all Claude Code sessions. It is not documentation — it is institutional memory. Every session inherits:
-
-- Brand, document, security, UI, and market research standards
-- Architecture decisions (Brain-Memory-Body-Hands, dual folder rule, store update checklist)
-- Critical rules (git mv not rm, .md never published to public sites, email sender rules)
-- EU compliance requirements (GDPR, Article 12, data residency)
-- Security coding rules (execFile not exec, CORS, SRI hashes)
-
-**Impact:** Zero per-session context repetition. Zero behavioral drift from standards.
-
-#### 2. Skills — Reusable Workflow Components
-
-**20 production skills** (17 slash commands in `.claude/commands/` + 3 discipline skills in `skills/`) replace ad-hoc prompting with callable, documented, testable workflow components.
-
-**Full guide:** `docs/DWS_SKILLS_GUIDE.md` | HTML: `Learn/DWS_SKILLS_GUIDE_v1.0.html`
-
-**gstack Development Workflow (Garry Tan):**
-`/plan-ceo-review` → `/plan-eng-review` → _implement_ → `/review` → `/ship` → `/retro`
-
-| Category                       | Skills                                                                          | Count |
-| ------------------------------ | ------------------------------------------------------------------------------- | ----- |
-| gstack (dev workflow)          | `/plan-ceo-review`, `/plan-eng-review`, `/review`, `/ship`, `/browse`, `/retro` | 6     |
-| Agent discovery & execution    | `/discover-agents`, `/agent-run`, `/workflow`                                   | 3     |
-| EU compliance & analysis       | `/compliance-check`, `/carbon-analysis`, `/sovereignty-assess`, `/site-safety`  | 4     |
-| Operations & infrastructure    | `/flow-status`, `/email`, `/remote-control`                                     | 3     |
-| Code quality                   | `/simplify`                                                                     | 1     |
-| Discipline skills (hard gates) | `verification-gate`, `design-first`, `dual-folder-sync`                         | 3     |
-
-**Discipline skills** (in `skills/*/SKILL.md`) are passive — agents follow them automatically:
-
-- **verification-gate:** No completion claims without fresh verification evidence
-- **design-first:** No implementation without design approval for 3+ file changes
-- **dual-folder-sync:** Root folder changes must sync to landing-pages in same commit
-
-**Principle:** If a capability cannot be invoked as `dws <command>`, it is not shipped.
-
-#### 3. Hooks — Automated Quality Enforcement
-
-**Git hooks** (`.githooks/`, installed via `git config core.hooksPath .githooks`):
-
-| Hook         | Trigger         | Enforcement                                        |
-| ------------ | --------------- | -------------------------------------------------- |
-| `pre-push`   | Before git push | Branch name validation, blocks destructive deletes |
-| `post-merge` | After merge     | Syncs Admin/, AgentFoundry/, docs/ to backup       |
-
-**Claude Code hooks** (`.claude/hooks/`) — **12 hooks across 4 event types**, configured in `.claude/settings.local.json`. Full reference: [Section 30](#section-30-claude-code-safety-hooks-reference).
-
-| Event                    | Hooks                                                                             | Design                                                |
-| ------------------------ | --------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| SessionStart             | `session-start.sh`                                                                | Injects trust boundary (GREEN/YELLOW/RED zones)       |
-| PreToolUse (Bash)        | `pretooluse-guard.sh`, `secret-scan.sh`, `log-commands.sh`, `sql-safety-guard.sh` | Block destructive commands, detect secrets, audit     |
-| PreToolUse (Edit/Write)  | `protect-files.sh`, `secret-scan.sh`                                              | Block .env/.key writes, .md in public folders         |
-| PreToolUse (PR create)   | `require-tests-for-pr.sh`                                                         | Hard gate: tests must pass before PR                  |
-| PostToolUse (Write/Edit) | prettier, eslint (inline)                                                         | Auto-format on every file change                      |
-| Stop                     | `session-stop.sh`, `auto-commit.sh`                                               | Governance checklist, auto-commit on feature branches |
-
-**Design principle:** Zero permission prompts. Block or allow, never ask.
-
-#### 4. Subagents — Context Isolation and Parallel Execution
-
-Claude Code subagent types used in DWS6:
-
-| Type              | Use Case                                | Isolation                  |
-| ----------------- | --------------------------------------- | -------------------------- |
-| `Explore`         | Codebase search, file discovery         | Protects main context      |
-| `Plan`            | Architecture design, trade-off analysis | Read-only, no side effects |
-| `general-purpose` | Multi-step research, document analysis  | Full tool access           |
-| Background        | Parallel independent tasks              | Non-blocking               |
-
-**Rule:** Run independent research in parallel background agents whenever possible.
-
-#### 5. MCP Integration (`/mcp`, `mcp.json`, `mcp-hub/`)
-
-MCP exposes all DWS agents as auto-discoverable tools via JSON-RPC 2.0:
-
-```bash
-# List all agents
-curl POST /mcp -d '{"method": "tools/list"}'
-
-# Execute agent
-curl POST /mcp -d '{"method": "tools/call", "params": {"name": "compliance", "arguments": {...}}}'
-```
-
-**Current gap:** `mcp.json` not committed to repo (users must copy `.mcp.json.example`). **Action: commit safe default config.**
-
-### Repository Gap Analysis (Audit: 02.03.2026)
-
-| Gap                                                 | Priority | Status      |
-| --------------------------------------------------- | -------- | ----------- |
-| `.claude/hooks/` directory and `pre-bash-safety.sh` | High     | **Done**    |
-| `mcp.json` not committed                            | High     | Planned     |
-| No pre-commit lint hook                             | Medium   | Planned     |
-| No consolidated `docs/MCP_TOOLS.md`                 | Medium   | Planned     |
-| Supabase MCP server is stub only                    | Medium   | In progress |
-| No dev server launcher script                       | Low      | Planned     |
-
-### Operational Checklist: New Claude Code Session Setup
-
-```bash
-# 1. Verify hooks installed
-git config core.hooksPath
-# Expected: .githooks
-
-# 2. Verify skills accessible
-ls .claude/commands/
-# Expected: 17 .md files (slash commands)
-ls skills/*/SKILL.md
-# Expected: 3 SKILL.md files (discipline skills)
-
-# 3. Verify CLAUDE.md loaded
-# Claude Code reads this automatically on session start
-
-# 4. Set up MCP (if needed)
-cp .mcp.json.example .mcp.json
-# Edit with actual Supabase/Redis credentials
-
-# 5. Start dev server
-cd dws6.com/dashboard/firehorse/v9-react && npm run dev  # Frontend
-npm run dev  # Backend (root)
-```
-
----
-
-## Section 28: Carbon Balance Sheet & Compliance Ledger
-
-_Added: v2.9 (24.03.2026) — PR-892, thesis v3.29/v2.9_
-
-### 28.1 Overview
-
-The Carbon Balance Sheet is DWS IQ's core compliance infrastructure — a double-entry bookkeeping system for CO2 that tracks carbon across multiple EU regulations (ETS, CBAM, CSRD, EU Taxonomy) in dual units (EUR and tCO2e).
-
-**Key principle:** Carbon compliance is a ledger problem, not a reporting problem. The same tonne of CO2e flows through multiple regulatory touchpoints. The debit-credit ledger reconciles them.
-
-### 28.2 Debit-Credit Architecture
-
-Every compliance event produces a journal entry:
-
-| Event                              | Debit (liability) | Credit (asset) | Regulation |
-| ---------------------------------- | ----------------- | -------------- | ---------- |
-| ETS allowance surrender            | tCO2e + EUR       | —              | EU ETS     |
-| Free allocation received           | —                 | tCO2e          | EU ETS     |
-| CBAM certificate purchase          | EUR + tCO2e       | —              | CBAM       |
-| CBAM origin carbon price deduction | —                 | EUR            | CBAM       |
-| Verified offset retirement         | —                 | tCO2e          | Voluntary  |
-
-**Net carbon position** = Total liabilities (debits) − Total assets (credits)
-
-**Implementation:** `src/compliance/debit-credit-ledger.ts` (V1 in-memory), promoted to persistent ledger in DWS 7 Phase 2.6.
-
-### 28.3 Open Source Connectors (MIT-Licensed)
-
-The ledger depends on open source connectors for data ingestion from industrial systems:
-
-| Connector                   | Source Systems                                               | Status                                        |
-| --------------------------- | ------------------------------------------------------------ | --------------------------------------------- |
-| **ERP**                     | SAP S/4HANA, IFS Cloud, Dynamics 365, Monitor, Visma, Jeeves | `src/integrations/erp/` (active)              |
-| **ETS/Registry**            | EU Transaction Log (EUTL), national registries               | Planned (Phase 2.6)                           |
-| **CBAM**                    | CBAM Transitional Registry, customs                          | Planned (Phase 2.6)                           |
-| **Emission factors**        | EEA GHG Inventory, IPCC, EU ETS benchmarks                   | `src/compliance/emission-factors.ts` (active) |
-| **IoT/edge**                | NVIDIA Jetson Orin Nano, energy meters                       | Edge deployment active (GN100)                |
-| **ESG platforms**           | Worldfavor, PositionGreen, CDP                               | `src/integrations/esg/` (active)              |
-| **EC3 Material Database**   | Building Transparency EC3                                    | Dashboard added (PR-880)                      |
-| **Company-to-ERP resolver** | Nordic construction company registry                         | `src/integrations/erp/` (PR-867)              |
-
-**Why MIT-licensed:** Auditability (auditors inspect source code, not vendor black boxes), regulatory defensibility (EU AI Act Art 12), and network effect acceleration (lower adoption barriers for 50,000+ CSRD-obligated companies).
-
-### 28.4 DWS 7 Phase 2.6 Implementation Plan (May–July 2026)
-
-8 planned PRs (093A–093H):
-
-1. Persistent carbon ledger (append-only, corrections as reverse entries)
-2. Dual-unit entries (EUR + tCO2e, carbon price at entry time)
-3. Chart of carbon accounts (ESRS E1 scopes)
-4. Cross-regulation reconciliation (ETS ↔ CBAM ↔ CSRD)
-5. Ledger-native compliance scoring
-6. CFO dashboard (balance sheet view with drill-down)
-7. ERP GL sync (SAP/IFS/Dynamics general ledger)
-8. XBRL export (machine-readable CSRD reports)
-
-### 28.5 Recent Feature Updates (PRs 843–892)
-
-Features shipped since last admin manual update (v2.8, 22.03.2026):
-
-| PR         | Feature                                               | Admin Impact                               |
-| ---------- | ----------------------------------------------------- | ------------------------------------------ |
-| **PR-892** | Debit-credit compliance ledger + 18 open data sources | This section                               |
-| **PR-882** | Automated Supabase backup/restore scripts             | Backup procedures updated                  |
-| **PR-880** | EC3 Material Database dashboard                       | New data source for carbon factors         |
-| **PR-878** | Memory Dashboard + pg_cron decay                      | Agent memory now auto-decays stale facts   |
-| **PR-876** | Memory confidence decay + forget() agent              | KYA-compliant memory lifecycle             |
-| **PR-875** | Memory audit trail + contradiction resolution         | Court-defensible agent memory              |
-| **PR-873** | Firehorse ContentMS MVP                               | Content pipeline for blog, email, outreach |
-| **PR-871** | Unified memory service + hybrid search + MCP tools    | Agent memory searchable via MCP            |
-| **PR-870** | Firehorse expanded to 20 industries                   | Was 16, now 20 EU-regulated industries     |
-| **PR-867** | Company-to-ERP resolver (Nordic construction)         | Auto-resolves company → ERP system         |
-| **PR-865** | US Cloud vs EU Sovereign pricing tiers                | Dual pricing model                         |
-| **PR-864** | PDF preview, payment UI, DB seeding                   | Store checkout improvements                |
-| **PR-857** | Superpowers framework + composable skills             | 3 sample skills added                      |
-| **PR-854** | Qantic energy partnership + BESS calculator           | First external LWM validation              |
-| **PR-852** | BESS compliance API                                   | Battery energy storage compliance          |
-| **PR-846** | 8 Dependabot vulnerability fixes                      | 7 high, 1 low resolved                     |
-
-### 28.6 Operational Notes
-
-- **Backup automation (PR-882):** Supabase backup/restore scripts now available at `scripts/db-backup.sh` and `scripts/db-restore.sh`. Automated daily backups with 30-day retention.
-- **Memory decay (PR-876-878):** Agent memory facts decay over time via pg_cron. Stale facts below confidence threshold are auto-archived. Dashboard at `/dashboard/memory`.
-- **20 industries:** All documentation should now reference 20 EU-regulated industries (was 16). Industries added: energy/BESS, chemicals, textiles, food processing.
-
----
-
-## Section 29: DGX Spark — Primary 24/7 Runtime
-
-### 29.1 Overview
-
-DGX Spark (Acer Veriton GN100) is the primary compute runtime for all DWS IQ agents, cron jobs, and scheduled tasks. GitHub Actions is failover only — workflows check DGX Spark heartbeat before running.
-
-| Spec            | Value                                                |
-| --------------- | ---------------------------------------------------- |
-| **Hardware**    | NVIDIA Grace Blackwell GB10 Superchip                |
-| **RAM**         | 128GB unified memory                                 |
-| **Storage**     | 3TB NVMe                                             |
-| **OS**          | NVIDIA DGX Spark 7.4.0 (Ubuntu, Linux 6.17, aarch64) |
-| **Hostname**    | gn100-cb5d                                           |
-| **IP**          | 192.168.101.113 (Wi-Fi wlP9s9)                       |
-| **SSH**         | admin100@192.168.101.113                             |
-| **Web Console** | https://gn100-cb5d:9090/ (Cockpit)                   |
-
-### 29.2 Architecture
-
-```
-DGX Spark (24/7, autonomous)              Win11 (on laptop open)
-├── dws-backend    :8080  (16 agents)     ├── Startup-DWS.ps1 (at logon)
-├── dws-cron       :8081  (23 cron jobs)  │   - git pull
-├── dws-heartbeat  :9999  (health API)    │   - check DGX Spark heartbeat
-├── redis          :6379  (job queue)     │   - run missed daily tasks
-├── Ollama         :11434 (native)        └── Install-DailyTasks.ps1 (one-time)
-│   ├── llama3.3:70b    (~40GB)
-│   └── qwen2.5-coder:32b (~20GB)        GitHub Actions (failover)
-└── day-runner.sh (systemd, every 5min)   ├── Checks heartbeat before each run
-    ├── git pull if behind                ├── Skips if DGX Spark alive
-    ├── docker compose up                 └── Runs job if DGX Spark down
-    ├── scan scripts/daily/
-    ├── scan scripts/hourly/
-    └── scan scripts/on-deploy/
-```
-
-### 29.3 First-Time Setup (Run Once)
-
-SSH into DGX Spark and run:
-
-```bash
-ssh admin100@192.168.101.113
-
-# Set git identity (first time only)
-git config --global user.email "risto.paarni@lifetime.fi"
-git config --global user.name "DGX Spark"
-
-# Clone or update repo
-cd ~/dws6 && git pull origin main
-
-# Run first-boot (installs everything)
-bash infrastructure/dgx-spark/first-boot.sh
-```
-
-The first-boot script:
-
-1. Installs Node.js 22 (if not present)
-2. Runs `npm ci`
-3. Pulls Ollama models (llama3.3:70b, qwen2.5-coder:32b)
-4. Copies `.env` from repo root (or creates from `.env.example`)
-5. Installs systemd services (day-runner timer + docker service)
-6. Generates SSH key for GitHub Actions deploy
-
-After first-boot, edit `.env` with real API keys:
-
-```bash
-nano ~/dws6/infrastructure/dgx-spark/.env
-```
-
-### 29.4 SSH Access from Win11
-
-Add to `~\.ssh\config`:
-
-```
-Host dgx-spark
-  HostName 192.168.101.113
-  User admin100
-  IdentityFile ~/.ssh/id_ed25519
-  ServerAliveInterval 60
-  ServerAliveCountMax 3
-  LocalForward 11435 localhost:11434
-  LocalForward 9998 localhost:9999
-  LocalForward 8081 localhost:8081
-```
-
-Then: `ssh dgx-spark`
-
-Port forwards provide:
-
-- `localhost:11435` → Ollama API (for Cursor/Cline)
-- `localhost:9998` → Heartbeat dashboard
-- `localhost:8081` → Cron runner status
-
-### 29.5 Daily Operations
-
-DGX Spark is autonomous. The day-runner (systemd timer, every 5 minutes):
-
-1. Checks if repo is behind — pulls if needed
-2. Copies `.env` if missing or stale
-3. Rebuilds Docker if Dockerfiles changed
-4. Restarts unhealthy containers
-5. Runs scripts in `scripts/daily/`, `scripts/hourly/`, `scripts/on-deploy/`
-
-**Check status from Win11:**
-
-```powershell
-.\infrastructure\dgx-spark\Deploy-DgxSpark.ps1 -Status
-```
-
-**Or via SSH:**
-
-```bash
-ssh admin100@192.168.101.113
-systemctl status dws-day-runner.timer    # Day runner active?
-systemctl status dws-docker.service      # Docker containers up?
-docker ps                                # Running containers
-curl -s http://localhost:9999/health     # Heartbeat status
-curl -s http://localhost:8081/status     # Cron job status
-journalctl -u dws-day-runner --since today  # Today's logs
-```
-
-### 29.6 Script Convention (Auto-Discovery)
-
-Drop a script in the right folder and it runs automatically. No config needed.
-
-| Folder                             | Runs                                  | Example                                         |
-| ---------------------------------- | ------------------------------------- | ----------------------------------------------- |
-| `scripts/daily/*.sh` or `*.ts`     | Once per day (03:00–06:00 UTC)        | `db-backup.sh`, `morning-emails.sh`             |
-| `scripts/hourly/*.sh` or `*.ts`    | Once per hour                         | Health checks                                   |
-| `scripts/on-deploy/*.sh` or `*.ts` | After every git pull with new commits | `generate-google-feed.sh`, `inject-blog-nav.sh` |
-
-State tracked in `logs/day-runner-state.json` to prevent double-runs.
-
-### 29.7 Failover Behavior
-
-| DGX Spark Status            | GitHub Actions                                                |
-| --------------------------- | ------------------------------------------------------------- |
-| Healthy (200)               | Skips scheduled runs (exit 0)                                 |
-| Degraded (200)              | Skips scheduled runs — DGX still alive, avoids duplicate jobs |
-| Down (503) / Unreachable    | Runs all jobs (full takeover)                                 |
-| No heartbeat URL configured | Runs as primary (backwards compatible)                        |
-
-**GitHub secret required:** `DGX_SPARK_HEARTBEAT_URL` — public URL of heartbeat service (via Cloudflare Tunnel or ngrok). Without this secret, GitHub Actions runs as primary.
-
-**GitHub secret for auto-deploy:** `DGX_SPARK_SSH_KEY` — private SSH key matching DGX Spark's `~/.ssh/authorized_keys`.
-
-### 29.8 Troubleshooting
-
-| Problem                    | Fix                                                                                                                  |
-| -------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| Containers not running     | `ssh dgx-spark "cd ~/dws6/infrastructure/dgx-spark && docker compose up -d"`                                         |
-| Day-runner not running     | `ssh dgx-spark "sudo systemctl start dws-day-runner.timer"`                                                          |
-| Ollama not responding      | `ssh dgx-spark "systemctl status ollama"` then `sudo systemctl restart ollama`                                       |
-| Repo stuck on wrong branch | `ssh dgx-spark "cd ~/dws6 && git checkout main && git pull origin main"`                                             |
-| .env missing/stale         | Day-runner auto-copies from repo root every 5min. Or manually: `cp ~/dws6/.env ~/dws6/infrastructure/dgx-spark/.env` |
-| SSH connection refused     | Check firewall: `ssh dgx-spark "sudo ufw status"`. Check sshd: `systemctl status sshd`                               |
-| Model not found in Ollama  | `ssh dgx-spark "ollama pull llama3.3:70b"`                                                                           |
-
-### 29.9 GitHub Repository Secrets
-
-Manage at: https://github.com/blogtheristo/dws6/settings/secrets/actions
-
-| Secret                           | Purpose                                              | Rotate via                                                                        |
-| -------------------------------- | ---------------------------------------------------- | --------------------------------------------------------------------------------- |
-| `CLOUDFLARE_API_TOKEN`           | Cache purge for landing pages sync                   | Cloudflare → Profile → API Tokens (Google SSO via `risto.paarni2024@lifetime.fi`) |
-| `CLOUDFLARE_ACCOUNT_ID`          | Cloudflare account identifier                        | Cloudflare dashboard → Account ID (sidebar)                                       |
-| `CLOUDFLARE_ZONE_ID_DWS10`       | Zone ID for dws10.com                                | Cloudflare → dws10.com → Overview → Zone ID                                       |
-| `CLOUDFLARE_ZONE_ID_ONELIFETIME` | Zone ID for onelifetime.world                        | Cloudflare → onelifetime.world → Overview → Zone ID                               |
-| `DGX_SPARK_SSH_KEY`              | Private SSH key for auto-deploy to DGX Spark         | `ssh-keygen -t ed25519` on DGX Spark, paste private key                           |
-| `DGX_SPARK_HOST`                 | DGX Spark IP address (192.168.101.113)               | Update if IP changes                                                              |
-| `DGX_SPARK_KNOWN_HOSTS`          | Pinned SSH host key (prevents MITM)                  | `ssh-keyscan -t ed25519 192.168.101.113` on trusted network                       |
-| `DGX_SPARK_HEARTBEAT_URL`        | `https://heartbeat.dws6.com/health` — failover check | Reconfigure if tunnel changes                                                     |
-| `SUPABASE_URL`                   | Supabase project URL                                 | Supabase dashboard → Settings → API                                               |
-| `SUPABASE_SERVICE_KEY`           | Supabase service role key                            | Supabase dashboard → Settings → API                                               |
-| `GROQ_API_KEY`                   | Groq API for LLM fallback                            | https://console.groq.com/keys                                                     |
-| `EMAIL_FROM`                     | Default sender email                                 | Verified in Amazon SES eu-north-1                                                 |
-| `GCP_SA_KEY`                     | Google Cloud service account key                     | GCP Console → IAM → Service Accounts                                              |
-| `SNYK_TOKEN`                     | Snyk security scanning                               | https://app.snyk.io/account                                                       |
-| `SCW_ACCESS_KEY`                 | Scaleway API access key                              | Scaleway Console → Credentials                                                    |
-| `SCW_SECRET_KEY`                 | Scaleway API secret key                              | Scaleway Console → Credentials                                                    |
-| `SCW_ORGANIZATION_ID`            | Scaleway organization ID                             | Scaleway Console → Organization                                                   |
-| `SCW_PROJECT_ID`                 | Scaleway project ID                                  | Scaleway Console → Project Settings                                               |
-| `SCW_NAMESPACE_ID`               | Scaleway container namespace                         | Scaleway Console → Serverless Containers                                          |
-
-**Deleted secrets (do NOT re-add):**
-
-- `RESEND_API_KEY` — Resend banned (suspected C2 channel in Clawdbot incident). Email via Amazon SES only.
-- `CLOUDFLARE_APII_TOKEN` — typo duplicate of `CLOUDFLARE_API_TOKEN`. No workflows referenced it.
-- `DEEPSEEK_API_KEY` — unused, can be removed.
-
-**Cloudflare login:** Google SSO via `risto.paarni2024@lifetime.fi` at https://dash.cloudflare.com/login
-
-**API token rotation:** https://dash.cloudflare.com/profile/api-tokens → find token → Roll → copy new value → update GitHub secret.
-
-### 29.10 Cloudflare Tunnel (heartbeat.dws6.com)
-
-The heartbeat service is exposed to the internet via a Cloudflare Tunnel so GitHub Actions can check DGX Spark health for failover decisions.
-
-**Tunnel details:**
-| Field | Value |
-|-------|-------|
-| Tunnel name | `dgx-heartbeat` |
-| Tunnel ID | `b2d1d6e8-28e5-48e0-a2d5-3d5b702ead8b` |
-| Public URL | `https://heartbeat.dws6.com/health` |
-| Local target | `http://localhost:9999` |
-| Systemd service | `cloudflared.service` (auto-starts on boot) |
-| Config file | `/etc/cloudflared/config.yml` |
-| Credentials | `/etc/cloudflared/b2d1d6e8-28e5-48e0-a2d5-3d5b702ead8b.json` |
-| User config (backup) | `~/.cloudflared/config.yml` |
-
-**Config file contents (`/etc/cloudflared/config.yml`):**
-
-```yaml
-tunnel: dgx-heartbeat
-credentials-file: /home/admin100/.cloudflared/b2d1d6e8-28e5-48e0-a2d5-3d5b702ead8b.json
-
-ingress:
-  - hostname: heartbeat.dws6.com
-    service: http://localhost:9999
-  - service: http_status:404
-```
-
-**Troubleshooting tunnel:**
-| Problem | Fix |
-|---------|-----|
-| 502 error | Heartbeat container not running: `docker compose up -d heartbeat` |
-| 1033 error | Tunnel not running: `sudo systemctl restart cloudflared` |
-| Tunnel config missing | `sudo cp ~/.cloudflared/config.yml /etc/cloudflared/` |
-| Check tunnel status | `cloudflared tunnel info dgx-heartbeat` |
-| Check systemd status | `sudo systemctl status cloudflared` |
-| View tunnel logs | `sudo journalctl -u cloudflared -f` |
-
-**Security:** Only `/ping` and `/health` are public (minimal info). `/status` and `/api/*` require LAN IP or `HEARTBEAT_STATUS_TOKEN`. The heartbeat never leaks hostname or internal IPs.
-
-### 29.11 Docker Containers
-
-All services run via Docker Compose from `~/dws6/infrastructure/dgx-spark/`.
-
-| Container       | Image                   | Port            | Health check                     | Purpose                        |
-| --------------- | ----------------------- | --------------- | -------------------------------- | ------------------------------ |
-| `dws-redis`     | `redis:7-alpine`        | 6379            | `redis-cli ping`                 | Cache, queue                   |
-| `dws-backend`   | `dgx-spark-dws-backend` | 8080            | `curl localhost:8080/api/health` | Express API server             |
-| `dws-cron`      | `dgx-spark-dws-cron`    | 8081 (internal) | `curl localhost:8081/health`     | 17 cron jobs                   |
-| `dws-heartbeat` | `dgx-spark-heartbeat`   | 9999            | `curl localhost:9999/health`     | Health aggregator for failover |
-
-**Common commands:**
-
-```bash
-# Status
-cd ~/dws6/infrastructure/dgx-spark && docker compose ps
-
-# Restart all
-docker compose down && docker compose up -d
-
-# Rebuild single container (e.g. after code fix)
-docker compose build --no-cache dws-backend && docker compose up -d --no-deps dws-backend
-
-# View logs
-docker logs dws-backend --tail 50
-docker logs dws-cron --tail 50
-docker logs dws-heartbeat --tail 50
-
-# Full rebuild from scratch
-docker compose down && docker compose build --no-cache && docker compose up -d
-```
-
-**Build context:** Dockerfiles use `context: ../../` (repo root) for backend/cron, and `context: ./` for heartbeat/redis.
-
-**Important:** After code fixes, always `git pull` on DGX Spark before rebuilding. The Docker build uses the local filesystem, not the Docker cache.
-
-### 29.12 Deployment Verification Checklist
-
-After any deployment or reboot, verify:
-
-```bash
-# 1. All containers healthy
-docker compose ps
-
-# 2. Backend responding
-curl http://localhost:8080/api/health
-
-# 3. Heartbeat responding
-curl http://localhost:9999/health
-
-# 4. Cloudflare Tunnel connected
-curl https://heartbeat.dws6.com/health
-
-# 5. Ollama running
-curl http://localhost:11434/api/tags | python3 -m json.tool
-
-# 6. Cloudflared service active
-sudo systemctl status cloudflared
-```
-
-All 6 checks should pass. If heartbeat returns healthy but Cloudflare returns 502/1033, restart the tunnel: `sudo systemctl restart cloudflared`.
-
-### 29.13 Related Files
-
-| File                                                                    | Purpose                               |
-| ----------------------------------------------------------------------- | ------------------------------------- |
-| `infrastructure/dgx-spark/docker-compose.yml`                           | All Docker services                   |
-| `infrastructure/dgx-spark/day-runner.sh`                                | Systemd auto-runner (every 5min)      |
-| `infrastructure/dgx-spark/first-boot.sh`                                | One-time setup script                 |
-| `infrastructure/dgx-spark/cron-runner.ts`                               | 23 cron jobs mirroring GitHub Actions |
-| `infrastructure/dgx-spark/heartbeat.ts`                                 | Health aggregator                     |
-| `infrastructure/dgx-spark/Deploy-DgxSpark.ps1`                          | Win11 PowerShell control              |
-| `infrastructure/dgx-spark/.env.example`                                 | Environment template                  |
-| `.github/actions/dgx-failover-check/action.yml`                         | Reusable failover check               |
-| `.github/workflows/deploy-dgx-spark.yml`                                | Auto-deploy on merge to main          |
-| `scripts/Startup-DWS.ps1`                                               | Win11 logon script                    |
-| `scripts/Install-DailyTasks.ps1`                                        | Win11 Task Scheduler installer        |
-| `docs/field-notes/2026-03-29-dgx-spark-primary-runtime-setup.md`        | Architecture field note               |
-| `docs/field-notes/2026-03-06-dgx-spark-hardened-firewall-ollama-ssh.md` | SSH/firewall hardening                |
-
-### 29.14 Cron Status Dashboard (Admin Portal)
-
-_Added: v3.3 (08.04.2026) — Branch: claude/cron-status-indicator-fhkxP_
-
-The **Admin Portal** (`dws6.com/admin/`) displays a real-time cron status indicator showing green/red/gray status for each cron job in the last 24 hours.
-
-**How it works:**
-
-1. Admin dashboard fetches `GET /api/v1/cron/status` from the Express backend
-2. Express backend proxies to DGX Spark cron-runner at `:8081/status`
-3. Each job shows: name, cron schedule, last run time, and status indicator
-
-**Status indicators:**
-
-| Color | Meaning                        |
-| ----- | ------------------------------ |
-| Green | Last run within 24h, succeeded |
-| Red   | Last run within 24h, failed    |
-| Gray  | No run in last 24h or never    |
-
-**Summary bar** shows total counts: OK / Failed / No run, plus last refresh timestamp.
-
-**Environment variables:**
-
-| Variable          | Default                 | Purpose                   |
-| ----------------- | ----------------------- | ------------------------- |
-| `CRON_RUNNER_URL` | `http://localhost:8081` | DGX Spark cron-runner URL |
-
-**Troubleshooting:**
-
-| Symptom                        | Cause                    | Fix                                                      |
-| ------------------------------ | ------------------------ | -------------------------------------------------------- |
-| "Could not reach cron service" | DGX Spark offline        | SSH to DGX Spark, `docker compose ps`, restart if needed |
-| All jobs show gray             | Cron runner just started | Wait for first scheduled run                             |
-| Proxy returns 503              | Network/firewall issue   | Check DGX Spark is reachable from backend                |
-
-### 29.15 Morning Brief V2
-
-_Added: v3.3 (08.04.2026) — Branch: claude/cron-status-indicator-fhkxP_
-
-**Morning Brief V2** (`scripts/send-morning-brief-v2.ts`) replaces the original CEO Cockpit with a single combined email containing 7 sections:
-
-| #   | Section             | Content                                        |
-| --- | ------------------- | ---------------------------------------------- |
-| 1   | Metrics Strip       | MRR, conversations, commits, MVP ETA           |
-| 2   | Pipeline Dashboard  | Outreach threads + flow tasks                  |
-| 3   | Captain & Inquiries | Seat count, new inquiries, captain calls       |
-| 4   | Regulation Signals  | EU regulatory news (RSS)                       |
-| 5   | Media Board         | Published posts, drafts, autonomous post audit |
-| 6   | Social Queue        | LinkedIn drafts pending approval               |
-| 7   | HIL Checklist       | Win11 morning session completion checklist     |
-
-**Cron schedule:** `0 4 * * 1-6` UTC (06:00 Helsinki, Mon-Sat) via DGX Spark `dws-cron` container.
-
-**Replaces:** `send-morning-briefing.ts`, `send-outreach-digest.ts`, `send-captain-briefing.ts`, `send-regulation-digest.ts`, `send-social-digest.ts`.
-
-**Does NOT replace:** `send-campaign-newsletter.ts` (Friday), `send-weekly-report-email.ts` (Monday).
-
----
-
-## Section 30: Claude Code Safety Hooks Reference
-
-_Added: v3.2 (04.04.2026) — Branch: claude/setup-safety-hooks-vyt21_
-
-### 30.1 Overview
-
-DWS6 uses **12 Claude Code hooks** across 4 event types to enforce safety, security, and code quality automatically. All hooks are in `.claude/hooks/` and configured in `.claude/settings.local.json`.
-
-**Design philosophy:** Zero permission prompts. Every hook either blocks (exit 2) or allows (exit 0). Never prompts the user to decide. This eliminates decision fatigue from constant approval dialogs.
-
-**Architecture:** Allow-first. Safe command prefixes (node, npx, npm, python, git commit, etc.) are allowed immediately before any deny checks run. This prevents false positives from SQL/git keywords inside string literals, commit messages, or inline scripts.
-
-### 30.2 Hook Inventory
-
-#### SessionStart Hooks
-
-| Hook           | File               | Purpose                                                                                                   |
-| -------------- | ------------------ | --------------------------------------------------------------------------------------------------------- |
-| Trust Boundary | `session-start.sh` | Injects GREEN/YELLOW/RED zone context, checks branch, warns about dirty working tree, verifies MCP health |
-
-#### PreToolUse Hooks — Bash Commands
-
-| Hook             | File                  | Purpose                                                                                                                                                                                            |
-| ---------------- | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Pretooluse Guard | `pretooluse-guard.sh` | Master deny list: blocks rm -rf, force push, hard reset, git clean, git rm, sudo, pipe-to-shell, ollama model changes                                                                              |
-| Secret Scanner   | `secret-scan.sh`      | Detects 14 OWASP secret patterns (AWS keys, GitHub tokens, Stripe keys, Anthropic keys, private key headers, JWT, npm tokens, Slack tokens)                                                        |
-| Command Logger   | `log-commands.sh`     | Timestamps and audits every Bash command with branch info to `.claude/hooks/audit/bash-commands.log`                                                                                               |
-| SQL Safety Guard | `sql-safety-guard.sh` | 7 SQL rules: transaction wrappers required, RLS on every CREATE TABLE, DROP TABLE approval, Aiwen Article 12 audit table immutability, CASCADE warnings, SECURITY DEFINER warnings, pg_cron safety |
-
-#### PreToolUse Hooks — Edit/Write
-
-| Hook           | File               | Purpose                                                                                                                                                     |
-| -------------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| File Protector | `protect-files.sh` | Blocks writes to: `.env*`, `.git/*`, `*.pem/*.key/*.secret`, `credentials.json`, `supabase/migrations/*.sql`, lockfiles, `.md` files in public site folders |
-| Secret Scanner | `secret-scan.sh`   | Same 14-pattern scan on file content being written                                                                                                          |
-
-#### PreToolUse Hooks — PR Creation
-
-| Hook      | File                      | Purpose                                                              |
-| --------- | ------------------------- | -------------------------------------------------------------------- |
-| Test Gate | `require-tests-for-pr.sh` | Hard gate: runs `npm run test`, blocks PR creation if any test fails |
-
-#### PostToolUse Hooks — Write/Edit
-
-| Hook     | Command                         | Purpose                                             |
-| -------- | ------------------------------- | --------------------------------------------------- |
-| Prettier | `npx prettier --write` (inline) | Auto-formats every written/edited file              |
-| ESLint   | `npx eslint --fix` (inline)     | Auto-fixes lint errors on every written/edited file |
-
-#### Stop Hooks
-
-| Hook         | File              | Purpose                                                                                                                                                        |
-| ------------ | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Session Stop | `session-stop.sh` | Advisory governance checklist: uncommitted changes, dual folder sync, thesis file consistency, .md in public folders, standards updates                        |
-| Auto-Commit  | `auto-commit.sh`  | Auto-commits staged changes on feature branches at session end. Skips main/master. Message format: `chore(ai): auto-commit N file(s) on session stop [branch]` |
-
-#### Other
-
-| Hook             | File                      | Purpose                                                                                               |
-| ---------------- | ------------------------- | ----------------------------------------------------------------------------------------------------- |
-| Branch Validator | `validate-branch-name.py` | Validates Git Flow naming: `feature/`, `release/vX.Y.Z`, `hotfix/`. Returns JSON denial with examples |
-
-### 30.3 Trust Boundary Zones
-
-Injected by `session-start.sh` on every session start:
-
-| Zone                       | Policy              | Examples                                                                             |
-| -------------------------- | ------------------- | ------------------------------------------------------------------------------------ |
-| **GREEN** (full auto)      | No restrictions     | Read, Edit, Write, lint, test, build, git on feature branches                        |
-| **YELLOW** (auto + logged) | Allowed but audited | MCP tools, agent skills, Docker, gh CLI, git push                                    |
-| **RED** (blocked)          | Human required      | DB migrations, deploys, emails, thesis files, Store sync, standards updates, secrets |
-
-### 30.4 Pretooluse Guard — Deny Patterns
-
-| Pattern                           | Block Reason                         |
-| --------------------------------- | ------------------------------------ |
-| `rm -rf /`, `rm -fr /`            | Destructive rm on broad path         |
-| `git push --force`, `git push -f` | Force push                           |
-| `git reset --hard`                | Hard reset                           |
-| `git clean -f`                    | Git clean with force                 |
-| `git rm`                          | Must use `git mv` with `_OLD` suffix |
-| `sudo`                            | Sudo blocked                         |
-| `curl ... \| sh/bash`             | Pipe-to-shell attack                 |
-| `wget ... \| sh/bash`             | Pipe-to-shell attack                 |
-| `ollama pull/rm/remove/delete`    | Ollama model changes require human   |
-
-**Allow-first bypass:** Commands starting with `node`, `npx`, `npm`, `tsx`, `python`, `git` (non-destructive), `make`, `cargo`, `docker`, `curl` (without pipe), `ls`, `cat`, `grep`, etc. skip all deny checks immediately.
-
-### 30.5 Secret Scanner — 14 Patterns
-
-| #   | Pattern                        | Detects               |
-| --- | ------------------------------ | --------------------- |
-| 1   | `AKIA[0-9A-Z]{16}`             | AWS Access Key        |
-| 2   | `ghp_[A-Za-z0-9]{36}`          | GitHub Personal Token |
-| 3   | `gho_[A-Za-z0-9]{36}`          | GitHub OAuth Token    |
-| 4   | `ghu_[A-Za-z0-9]{36}`          | GitHub User Token     |
-| 5   | `ghs_[A-Za-z0-9]{36}`          | GitHub Server Token   |
-| 6   | `ghr_[A-Za-z0-9]{36}`          | GitHub Refresh Token  |
-| 7   | `sk_live_[A-Za-z0-9]{24,}`     | Stripe Live Key       |
-| 8   | `rk_live_[A-Za-z0-9]{24,}`     | Stripe Restricted Key |
-| 9   | `-----BEGIN.*PRIVATE KEY-----` | Private Key Header    |
-| 10  | `eyJ[A-Za-z0-9_-]{20,}\.eyJ`   | JWT Token             |
-| 11  | `npm_[A-Za-z0-9]{36}`          | npm Token             |
-| 12  | `sk-ant-[A-Za-z0-9_-]{20,}`    | Anthropic API Key     |
-| 13  | `xoxb-[0-9]{10,}`              | Slack Bot Token       |
-| 14  | `xoxp-[0-9]{10,}`              | Slack User Token      |
-
-### 30.6 SQL Safety Rules
-
-| #   | Rule                     | Enforcement                                                     |
-| --- | ------------------------ | --------------------------------------------------------------- |
-| 1   | Transaction wrappers     | Multi-DDL statements require `BEGIN`/`COMMIT`                   |
-| 2   | RLS required             | `CREATE TABLE` without `ENABLE ROW LEVEL SECURITY` is blocked   |
-| 3   | DROP TABLE approval      | Requires `-- APPROVED:` comment                                 |
-| 4   | Aiwen immutability       | `UPDATE`/`DELETE` on `aiwen_*` and `article12_*` tables blocked |
-| 5   | CASCADE warning          | `ON DELETE CASCADE` logged as warning                           |
-| 6   | SECURITY DEFINER warning | Logged for review                                               |
-| 7   | pg_cron safety           | Mutations via `cron.schedule` flagged                           |
-
-### 30.7 File Protection Rules
-
-| Blocked Path Pattern                               | Reason                              |
-| -------------------------------------------------- | ----------------------------------- |
-| `.env`, `.env.*`                                   | Secrets file                        |
-| `.git/*`                                           | Git internals                       |
-| `*.pem`, `*.key`, `*.secret`                       | Cryptographic material              |
-| `credentials.json`, `service-account-*.json`       | Service credentials                 |
-| `supabase/migrations/*.sql`                        | DB migrations (human-authored only) |
-| `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml` | Lockfiles                           |
-| `dws10.com/**/*.md`, `dws6.com/**/*.md`            | .md in public site folders          |
-| `landing-pages/**/*.md`                            | .md in public site folders          |
-| `onelifetime.world/**/*.md`                        | .md in public site folders          |
-
-### 30.8 Configuration
-
-Full hook wiring in `.claude/settings.local.json`. See `.claude/settings.local.json` in the repository for the complete JSON configuration. Key structure:
-
-- `hooks.SessionStart` — runs `session-start.sh`
-- `hooks.PreToolUse` — 3 matcher groups: `Bash`, `Edit|Write`, `mcp__github__create_pull_request`
-- `hooks.PostToolUse` — matcher `Write|Edit` runs prettier + eslint
-- `hooks.Stop` — runs `session-stop.sh` + `auto-commit.sh`
-
-### 30.9 Audit and Logging
-
-| Log File                                | Content                                     |
-| --------------------------------------- | ------------------------------------------- |
-| `.claude/hooks/audit/bash-commands.log` | Every Bash command with timestamp + branch  |
-| `.claude/hooks/audit.log`               | Block/allow decisions from pretooluse-guard |
-| `.claude/command-log.txt`               | Duplicate command log                       |
-
-All log files are gitignored (`*.log` pattern).
-
-### 30.10 Testing Hooks
-
-```bash
-# Test pretooluse-guard — should BLOCK (exit 2)
-echo '{"tool_name":"Bash","tool_input":{"command":"rm -rf /"}}' | bash .claude/hooks/pretooluse-guard.sh
-
-# Test pretooluse-guard — should ALLOW (exit 0)
-echo '{"tool_name":"Bash","tool_input":{"command":"npm run test"}}' | bash .claude/hooks/pretooluse-guard.sh
-
-# Test sql-safety-guard — should BLOCK (missing RLS)
-echo '{"tool_name":"Bash","tool_input":{"command":"psql -c \"CREATE TABLE foo (id int)\""}}' | bash .claude/hooks/sql-safety-guard.sh
-```
-
-### 30.11 Dependencies
-
-- `jq` — JSON parser (required by all hooks)
-- `grep` with Perl regex (`-P`) — used by secret-scan
-- POSIX shell (`/bin/sh`) — all hooks
-- Python 3 — `validate-branch-name.py` only
-- `npm` — `require-tests-for-pr.sh`, PostToolUse formatters
-
-### 30.12 Related Files
-
-| File                               | Purpose                              |
-| ---------------------------------- | ------------------------------------ |
-| `.claude/hooks/README.md`          | Developer README for hooks directory |
-| `.claude/settings.local.json`      | Hook wiring configuration            |
-| `docs/AUTO_MODE_TRUST_BOUNDARY.md` | GREEN/YELLOW/RED zone definitions    |
-| `CLAUDE.md`                        | Security rules that hooks enforce    |
-| `Admin/SECURITY_COMPLIANCE.md`     | Enterprise security controls         |
-| `DWS_SECURITY_STANDARD.md`         | AI safety framework                  |
-
----
-
-## Section 31: External Repositories & Dependency Registry
-
-_Added: v3.3 (08.04.2026) — Branch: claude/document-repos-weekly-sync-hHRMR_
-
-### 31.1 Overview
-
-DWS6 depends on external repositories for skills, tools, sandboxing, and research. This section is the **single source of truth** for all imported external repos, their security status, update cadence, and breach exposure analysis.
-
-**Weekly sync:** `scripts/weekly/sync-external-repos.sh` runs every Sunday at 04:00 UTC via `day-runner.sh`.
-
-### 31.2 External Repository Registry
-
-| #   | Repository                      | License     | Version (pinned)                  | Category              | Integration Type                               | Status                   |
-| --- | ------------------------------- | ----------- | --------------------------------- | --------------------- | ---------------------------------------------- | ------------------------ |
-| 1   | `garrytan/gstack`               | MIT         | v0.15.16.0                        | Skills/Workflow       | Global install (`~/.claude/skills/gstack/`)    | ADOPT — 8 skills active  |
-| 2   | `karpathy/autoresearch`         | MIT         | Fork: `blogtheristo/autoresearch` | Research/Optimization | Forked, `src/autoresearch/` adapts pattern     | ADOPT — KYA tuner        |
-| 3   | `alibaba/OpenSandbox`           | Apache-2.0  | ^0.1.0                            | Sandboxing            | SDK integration (`src/sandbox/opensandbox.ts`) | TRIAL — Stage 1.5        |
-| 4   | `vercel-labs/agent-browser`     | MIT         | Latest                            | Browser Automation    | CLI tool + `/browse` skill                     | ADOPT — QA/testing       |
-| 5   | `googleworkspace/cli`           | Apache-2.0  | Latest                            | Workspace Integration | Optional global CLI add-on                     | ASSESS — not required    |
-| 6   | `mvanhorn/last30days-skill`     | Unknown     | Vendored (in-repo)                | Prompt Research       | Vendored in `last30days-skill/`                | ADOPT — vendored copy    |
-| 7   | `agentsmd/agents.md`            | Open spec   | v1.0                              | Specification         | AGENTS.md format standard                      | ADOPT — spec only        |
-| 8   | `clawdbot/clawdbot`             | Unknown     | **BANNED**                        | Agent Framework       | Research reference ONLY                        | **BANNED** — C2 incident |
-| 9   | `Shubhamsaboo/awesome-llm-apps` | Open source | N/A                               | Research              | Read-only extraction guide                     | ASSESS — research only   |
-
-### 31.3 Security Exposure Analysis
-
-#### 31.3.1 Resolved Incidents
-
-| Incident           | Date       | External Dep                     | Impact                                                                             | Resolution                                                                            | Status        |
-| ------------------ | ---------- | -------------------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------- |
-| Clawdbot/Resend C2 | 2026-03-26 | `clawdbot/clawdbot` + Resend SDK | Suspected environment hijack via Cursor MCP; email exfiltration through Resend API | Resend permanently banned; Docker MCP retired; Cursor removed; CLI-first architecture | **RESOLVED**  |
-| OpenClaw MCP Hub   | 2026-02-21 | OpenClaw/Moltworker ecosystem    | 3 critical + 5 high findings: SSRF via callback_url, zero auth, Redis injection    | MCP Hub isolated; auth required; never deployed to prod                               | **MITIGATED** |
-
-#### 31.3.2 Current Risk Assessment
-
-| Repository                  | Risk Level | Attack Surface                                                                       | Mitigation                                                                                        |
-| --------------------------- | ---------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
-| `garrytan/gstack`           | **MEDIUM** | Rapid releases (multiple/day); skill code executes with full Claude Code permissions | Pin to tested version; review changelogs before updating; weekly sync checks for breaking changes |
-| `alibaba/OpenSandbox`       | **MEDIUM** | Low maturity (v0.1.0); sparse documentation; Docker-based (container escape risk)    | Network egress controls; Acer Veriton only (air-gapped); never expose to internet                 |
-| `vercel-labs/agent-browser` | **LOW**    | Rust binary; CDP access to Chrome; AES-256-GCM encrypted sessions                    | Headless mode only; no persistent sessions in prod; scoped to QA                                  |
-| `mvanhorn/last30days-skill` | **LOW**    | Requires OpenAI + XAI API keys; vendored (no auto-update)                            | Keys in `~/.config/last30days/.env` (not in repo); vendored copy is frozen                        |
-| `googleworkspace/cli`       | **LOW**    | Optional; OAuth scoped; not officially supported by Google                           | Only install when needed; service account for CI                                                  |
-| `karpathy/autoresearch`     | **LOW**    | Single GPU, no network, no tools; forked and governed by KYA v1.4                    | Local-only; 11% efficiency cap; human gate on parameter changes                                   |
-
-#### 31.3.3 Supply Chain Rules
-
-1. **Never auto-install** external skills or tools from community registries (CLAUDE.md rule)
-2. **Pin versions** — every external dep must have a pinned version in this registry
-3. **Weekly audit** — `scripts/weekly/sync-external-repos.sh` checks for new releases, security advisories, and breaking changes
-4. **Vendor when possible** — prefer vendored copies (like `last30days-skill/`) over global installs
-5. **BANNED list** — `clawdbot/clawdbot` and `resend` package are permanently banned (see incident report: `docs/field-notes/2026-03-26-post-incident-cli-first-migration.md`)
-
-### 31.4 Update Procedures
-
-| Frequency                 | What                                                 | Script                                               | Human Approval               |
-| ------------------------- | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------- |
-| Weekly (Sunday 04:00 UTC) | Check all repos for new releases, CVEs, deprecations | `scripts/weekly/sync-external-repos.sh`              | Report only — no auto-update |
-| Monthly                   | Review gstack changelog, update pinned version       | Manual                                               | Required                     |
-| On incident               | Emergency audit of all external deps                 | `scripts/weekly/sync-external-repos.sh --full-audit` | Required                     |
-
-### 31.5 Autoresearch Status
-
-**Upstream:** `karpathy/autoresearch` (MIT, 30k+ stars)
-**Fork:** `blogtheristo/autoresearch`
-**DWS integration:** `src/autoresearch/runner.ts` + `src/autoresearch/kya-tuner.ts` + `src/autoresearch/synthetic-kya.ts`
-
-The DWS autoresearch implementation adapts Karpathy's pattern for KYA (Know Your Architecture) parameter tuning:
-
-- Overnight batch optimization of agent trust score parameters
-- Governed by KYA v1.4 Pillar 4 (11% efficiency cap, 72h human gate)
-- Methodology documented: `docs/field-notes/2026-03-14-openclaw-autoresearch-dws-feature-plan.md`
-
-**Weekly sync updates the fork** from upstream (`karpathy/autoresearch`) and reports divergence.
-
-### 31.6 Related Documents
-
-| Document                                                                         | Purpose                          |
-| -------------------------------------------------------------------------------- | -------------------------------- |
-| `docs/field-notes/2026-03-26-post-incident-cli-first-migration.md`               | Clawdbot/Resend incident report  |
-| `docs/field-notes/2026-02-21-security-vulnerability-assessment-openclaw-dws6.md` | OpenClaw security assessment     |
-| `docs/field-notes/2026-03-14-openclaw-autoresearch-dws-feature-plan.md`          | Autoresearch + OpenClaw strategy |
-| `docs/TECH_RADAR.md`                                                             | Technology adoption rings        |
-| `AGENTS.md` Section 16                                                           | Rise of CLIs & External Add-ons  |
-| `DWS_SECURITY_STANDARD.md`                                                       | AI safety framework              |
-
----
-
-## Section 32: GitHub Actions & Cron Job Registry
-
-> **Added v3.3 (08.04.2026)** — Full audit of 35 GitHub Actions workflows and 22+ DGX Spark cron scripts. As of 2026-04-08, **DGX Spark is the primary runtime** for all scheduled automation. GitHub Actions retains only CI/CD (PR/push-triggered) workflows and manual dispatch fallbacks.
-
-### 32.1 Architecture: DGX Spark Primary, GitHub Actions Failover
-
-```
-DGX Spark (24/7)                    GitHub Actions (CI/CD only)
-├── day-runner.sh (every 5 min)     ├── PR/push-triggered workflows
-│   ├── scripts/daily/*.{ts,sh}     ├── workflow_dispatch (manual fallback)
-│   ├── scripts/weekly/*.{ts,sh}    └── Deployment workflows
-│   ├── scripts/hourly/*.{ts,sh}
-│   └── scripts/on-deploy/*.{ts,sh}
-└── systemd timers (morning emails)
-```
-
-**Why:** GitHub Actions free tier = 3,000 min/month. Scheduled workflows consumed ~1,200 min/month on timer checks alone. DGX Spark runs 24/7 with no minute limits.
-
-### 32.2 DGX Spark Cron Scripts (Primary)
-
-Auto-discovered by `infrastructure/dgx-spark/day-runner.sh`. No config needed — drop a script in the right folder.
-
-#### Daily Scripts (`scripts/daily/`)
-
-| Script                        | Purpose                                    | Replaced GitHub Actions         |
-| ----------------------------- | ------------------------------------------ | ------------------------------- |
-| `generate-campaign-post.sh`   | 800-day campaign post generation (EN + FI) | `campaign-daily-posts.yml`      |
-| `construction-leads.sh`       | TED tender scraping, Supabase storage      | `construction-leads.yml`        |
-| `db-backup.sh`                | pg_dump Supabase, AES-256 encryption       | `daily-db-backup.yml`           |
-| `backup-sites.sh`             | Backup dws6/dws10/onelifetime sites        | `daily-site-backup.yml`         |
-| `db-restore-verify.sh`        | Verify backup integrity                    | —                               |
-| `morning-emails.sh`           | Wrapper for morning brief V2               | `morning-briefing.yml.disabled` |
-| `news-to-signal.sh`           | RSS to regulation signals                  | —                               |
-| `autosend-x.sh`               | Autonomous social posting                  | —                               |
-| `check-ollama-models.sh`      | Verify Ollama models are loaded            | —                               |
-| `check-breach-deadlines.sh`   | GDPR breach deadline alerts                | —                               |
-| `check-breach-deadlines.ts`   | TypeScript version of above                | —                               |
-| `kb-lint.sh`                  | Knowledge base linting                     | —                               |
-| `kb-cleanup.sh`               | Knowledge base cleanup                     | —                               |
-| `dependabot-audit.sh`         | Dependency vulnerability check             | —                               |
-| `flow-sales-outreach.ts`      | Autonomous sales pipeline                  | —                               |
-| `flow-media-outreach.ts`      | Autonomous media pipeline                  | —                               |
-| `flow-investor-outreach.ts`   | Autonomous investor pipeline               | —                               |
-| `flow-partner-outreach.ts`    | Autonomous partner pipeline                | —                               |
-| `flow-customer-onboarding.ts` | Autonomous onboarding pipeline             | —                               |
-| `tool-telemetry-report.ts`    | MCP tool usage analytics                   | —                               |
-| `synthetic-data-health.ts`    | Synthetic data quality checks              | —                               |
-
-#### Weekly Scripts (`scripts/weekly/`)
-
-| Script                   | Purpose                                     | Replaced GitHub Actions      |
-| ------------------------ | ------------------------------------------- | ---------------------------- |
-| `sync-external-repos.sh` | Sync forks from upstream                    | —                            |
-| `market-research.sh`     | Competitor data collection, Supabase writes | `market-research-weekly.yml` |
-
-#### Hourly Scripts (`scripts/hourly/`)
-
-None currently. Place scripts here for hourly execution.
-
-#### On-Deploy Scripts (`scripts/on-deploy/`)
-
-Run after every `git pull` that has new commits.
-
-### 32.3 GitHub Actions — Schedule REMOVED (Manual Dispatch Only)
-
-These workflows had their `schedule` (cron) triggers removed on 2026-04-08. They remain available via `workflow_dispatch` (manual trigger from GitHub UI) as fallback.
-
-| Workflow                     | Was                                | Monthly Minutes Saved | DGX Spark Replacement                               |
-| ---------------------------- | ---------------------------------- | --------------------- | --------------------------------------------------- |
-| `campaign-daily-posts.yml`   | `0 3,4 * * *` (2x daily)           | ~480 min              | `scripts/daily/generate-campaign-post.sh`           |
-| `construction-leads.yml`     | `0 3,4 * * 1-6` (2x daily Mon-Sat) | ~241 min              | `scripts/daily/construction-leads.sh`               |
-| `daily-db-backup.yml`        | `30 2 * * *` (daily)               | ~120 min              | `scripts/daily/db-backup.sh`                        |
-| `daily-site-backup.yml`      | `0 2 * * *` (daily)                | ~150 min              | `scripts/daily/backup-sites.sh`                     |
-| `daily-backup.yml`           | `55 23 * * *` (daily)              | ~90 min               | Not needed (backs up git-tracked files into git)    |
-| `daily-claude-backup.yml`    | `0 6 * * *` (daily)                | ~60 min               | Not needed (Claude sessions are local to worktrees) |
-| `market-research-weekly.yml` | `0 7 * * 1` (Monday)               | ~43 min               | `scripts/weekly/market-research.sh`                 |
-| **TOTAL SAVED**              |                                    | **~1,184 min/month**  |                                                     |
-
-### 32.4 GitHub Actions — Schedule ACTIVE (Remain in Actions)
-
-These workflows keep their cron schedules because they need GitHub API access (issue creation, PR comments, security events) that DGX Spark doesn't have.
-
-| Workflow                              | Schedule             | Purpose                                     | Monthly Minutes    |
-| ------------------------------------- | -------------------- | ------------------------------------------- | ------------------ |
-| `agents-md-freshness.yml`             | Mon 06:00 UTC        | AGENTS.md staleness check, creates issues   | ~9 min             |
-| `biweekly-auth-security-audit.yml`    | 1st & 15th 02:00 UTC | Auth security audit, creates issues         | ~38 min            |
-| `golden-principle-scan.yml`           | Mon 06:30 UTC        | Golden principle violations, creates issues | ~9 min             |
-| `housekeeping-weekly.yml`             | Sun 03:00 UTC        | Repo housekeeping audit, creates issues     | ~13 min            |
-| `roadmap-weekly-tracker.yml`          | Mon 08:00 UTC        | DWS7 roadmap progress, creates issues       | ~22 min            |
-| `security-audit-enhanced.yml`         | Mon 02:00 UTC        | Deployment file protection check            | ~9 min             |
-| `security-scan-weekly.yml`            | Sun 21:00 UTC        | ZenFree weekly security scan                | ~26 min            |
-| `security-scan-biweekly.yml`          | 1st & 15th 02:30 UTC | ZenFree biweekly scan                       | ~38 min            |
-| `monthly-security-audit-enhanced.yml` | 1st 00:00 UTC        | Monthly deep security audit                 | ~6 min             |
-| `dependency_review.yml`               | Sun 00:00 UTC + PR   | Dependency vulnerability scan               | ~18 min            |
-| **TOTAL ACTIVE**                      |                      |                                             | **~188 min/month** |
-
-**Migration note:** If `gh` CLI is installed on DGX Spark, these could also move to cron. For now they stay in Actions due to GitHub API dependency.
-
-### 32.5 GitHub Actions — PR/Push-Triggered (CI/CD)
-
-These run only on code changes and are essential CI/CD gates. No changes needed.
-
-| Workflow                      | Trigger                    | Purpose                          |
-| ----------------------------- | -------------------------- | -------------------------------- |
-| `test.yml`                    | Push/PR to src/            | Vitest + coverage (CI gate)      |
-| `secret-scan-gitleaks.yml`    | PR + main push             | Gitleaks secret detection        |
-| `security-check-pr.yml`       | PR code changes            | Aikido security check            |
-| `ai-pr-review.yml`            | PR opened/sync             | Dual AI review (Claude + Gemini) |
-| `claude-review.yml`           | PR ready                   | Claude PR review                 |
-| `claude-auto-fix.yml`         | PR + manual                | Claude Code auto-fix             |
-| `copilot-preflight.yml`       | Push copilot/_, claude/_   | Pre-PR gate                      |
-| `ruff.yml`                    | PR/Push \*\*.py            | Python linting                   |
-| `image-guardian.yml`          | PR/Push images             | Image asset protection           |
-| `agents-md-sync.yml`          | Push main, src/agents/     | Auto-sync AGENTS.md              |
-| `sync-dws6-landing-pages.yml` | Push main, site dirs       | rsync to landing-pages/          |
-| `update-store.yml`            | Push Store/, products.json | Google Merchant feed build       |
-| `dependency-submission.yml`   | Push deps + manual         | Dependency snapshot              |
-| `no-delete-branch-guard.yml`  | Branch delete event        | Auto-restore deleted branches    |
-
-### 32.6 GitHub Actions — Deployment Workflows
-
-| Workflow               | Trigger              | Purpose                                    |
-| ---------------------- | -------------------- | ------------------------------------------ |
-| `deploy-dgx-spark.yml` | Push main (filtered) | SSH to DGX Spark, git pull, docker rebuild |
-| `deploy-scaleway.yml`  | Push main + manual   | Docker build, Scaleway deploy              |
-
-### 32.7 GitHub Actions — Manual Dispatch Only
-
-| Workflow            | Purpose                     |
-| ------------------- | --------------------------- |
-| `ruff-auto-fix.yml` | Ruff auto-fix + PR creation |
-| `pr-auto-merge.yml` | Auto-merge ai-approved PRs  |
-
-### 32.8 Morning Brief V2 Sections
-
-The Morning Brief V2 (`scripts/send-morning-brief-v2.ts`) sends one combined email at 06:00 Helsinki time (Mon-Sat). As of v3.0 it has 10 sections:
-
-| #   | Section             | Data Source                                      | Added |
-| --- | ------------------- | ------------------------------------------------ | ----- |
-| 1   | Metrics Strip       | Supabase (cockpit data)                          | v2.0  |
-| 2   | Pipeline Dashboard  | Supabase (outreach threads + flow tasks)         | v2.0  |
-| 3   | Captain & Inquiries | Supabase (captain_inquiries + outreach)          | v2.0  |
-| 4   | Regulation Signals  | External RSS feeds                               | v2.0  |
-| 5   | Media Board         | Supabase (content_calendar)                      | v2.0  |
-| 6   | Social Queue        | Supabase (social scheduler)                      | v2.0  |
-| 7   | Campaign Posts      | Supabase (content_calendar) + day counter        | v3.0  |
-| 8   | Construction Leads  | Supabase (construction_leads via lead-processor) | v3.0  |
-| 9   | Market Research     | Supabase (market_research_signals), Monday only  | v3.0  |
-| 10  | HIL Checklist       | Static + Supabase (overdue count)                | v2.0  |
-
-**Sections 7-9** were added 2026-04-08 to surface campaign posts and construction leads that previously only ran as GitHub Actions with no email notification. Market research signals are surfaced on Mondays after the weekly collection.
-
-### 32.9 Backup Infrastructure Audit
-
-| Backup Type             | Script/Workflow                      | Schedule             | Storage                    | Retention      |
-| ----------------------- | ------------------------------------ | -------------------- | -------------------------- | -------------- |
-| Database (pg_dump)      | `scripts/daily/db-backup.sh`         | Daily 03-06 UTC      | Local encrypted + artifact | 30 days        |
-| Database restore verify | `scripts/daily/db-restore-verify.sh` | Daily (after backup) | Local log                  | —              |
-| Site files              | `scripts/daily/backup-sites.sh`      | Daily 03-06 UTC      | Local tar.gz               | 30 days        |
-| Git sync                | `day-runner.sh` step 1               | Every 5 min          | DGX Spark local repo       | Always current |
-| Docker images           | `day-runner.sh` step 2               | On code change       | DGX Spark Docker           | Latest         |
-
-**Git sync verification:** The day-runner runs `git fetch origin main` every 5 minutes and `git reset --hard origin/main` when behind. This ensures DGX Spark always has the latest code, which means backup scripts always backup the latest state.
-
-### 32.10 Cost Impact Summary
-
-| Before (March 2026)           | After (April 2026)                          |
-| ----------------------------- | ------------------------------------------- |
-| 35 workflows, 16 scheduled    | 35 workflows, 10 scheduled                  |
-| ~1,372 min/month scheduled    | ~188 min/month scheduled                    |
-| 90% of 3,000 min free tier    | ~6% of 3,000 min free tier (scheduled only) |
-| PR/push variable: ~2,000+ min | PR/push unchanged: ~2,000+ min              |
-| **Monthly total: ~3,400 min** | **Monthly total: ~2,200 min**               |
-
-**Savings: ~1,200 min/month (~35% reduction)**
-
----
-
-## Section 33: DWS CLI Operator Reference
-
-_Added: 2026-04-10 | Session: claude/connect-kya-dws-cli-0MMIB_
-
-The DWS CLI (`dws`) is the operator's primary non-UI surface. Every agent, workflow, and runtime-safety control is reachable from `dws <command>`. Full CLI reference: `cli/README.md`. This section covers the two subsystems with admin-level impact: **KYA** (runtime safety) and **KB** (knowledge base).
-
-### 33.1 Install & Authenticate
-
-```bash
-cd cli
-npm install && npm run build && npm link    # makes 'dws' global
-dws init > ~/.dws.env                        # interactive setup
-source ~/.dws.env
-dws health                                    # verify connectivity
-```
-
-Environment variables the CLI reads:
-
-| Variable        | Purpose                                                        |
-| --------------- | -------------------------------------------------------------- |
-| `DWS_API_URL`   | Backend URL (default `http://localhost:8080`)                  |
-| `DWS_API_TOKEN` | JWT for operator auth (standard role-based endpoints)          |
-| `ADMIN_API_KEY` | RED-zone secret — required for destructive ops like `kya snap` |
-| `DWS_PROJECT`   | Default project ID                                             |
-| `DWS_SESSION`   | Default session ID for agent runs                              |
-
-### 33.2 KYA CLI — Runtime Safety Admin
-
-Three subcommands, one destructive. Full control surface details in `DWS_SECURITY_STANDARD.md` §18.6 and destructive-action inventory in `Admin/SECURITY_COMPLIANCE.md`.
-
-| Command                                                               | Purpose                                      | Destructive |
-| --------------------------------------------------------------------- | -------------------------------------------- | ----------- |
-| `dws kya status <session_id>`                                         | Read trust score, identity binding, policies | No          |
-| `dws kya snap <session_id> --reason <code> --dry-run`                 | Preview TC-4 Leash Snap termination payload  | No          |
-| `dws kya snap <session_id> --reason <code> [--force-cascade] [--yes]` | Execute TC-4 chain termination               | **YES**     |
-
-**Operator workflow (incident response):**
-
-1. Read trust score: `dws kya status session-abc123`
-2. If ATS < 50 and behavior is suspicious, dry-run snap: `dws kya snap session-abc123 --reason TRUST_VIOLATION --dry-run`
-3. Review the dry-run payload (session, reason, cascade flag, endpoint)
-4. If confirmed, execute: `dws kya snap session-abc123 --reason TRUST_VIOLATION --force-cascade --yes`
-5. Within 24h: file a field note at `docs/field-notes/YYYY-MM-DD-kya-snap-<short-description>.md` with the forensic dump reference
-
-**Authorization matrix:** See `Admin/SECURITY_COMPLIANCE.md` Destructive Action Inventory for role/command matrix. Developers may only run `status` and `--dry-run`.
-
-**Backend path:** CLI → `POST /api/v1/kya/snap` → `src/app.ts:283` (timing-safe admin-key compare) → `terminateChain()` in `src/identity/kya-engine.ts` → forensic dump + chain termination.
-
-### 33.3 Knowledge Base (`kb/` folder + `dws kb`)
-
-The KB is a Karpathy-style LLM-maintained wiki. No vector DB, no embeddings — raw markdown/PDF sources in `kb/raw/`, LLM-compiled output in `kb/wiki/`, ephemeral research in `kb/ephemeral/`. The human is the source of truth for raw sources; the LLM is the source of truth for compiled wiki.
-
-**Folder layout (operators MUST know which folders are LLM-owned vs. human-owned):**
-
-| Path            | Owner     | Rule                                                      |
-| --------------- | --------- | --------------------------------------------------------- |
-| `kb/raw/`       | **Human** | Drop sources here — compile picks them up incrementally   |
-| `kb/wiki/`      | **LLM**   | NEVER hand-edit — overwritten on next `dws kb compile`    |
-| `kb/ephemeral/` | LLM       | Temp research wikis — auto-swept after 7 days             |
-| `kb/kb.json`    | LLM       | Metadata: version, lastCompile, articleCount, healthScore |
-
-**Subcommand reference:**
-
-| Command                          | Purpose                                                          | Destructive           |
-| -------------------------------- | ---------------------------------------------------------------- | --------------------- |
-| `dws kb status`                  | Show raw count, article count, health, last compile/lint         | No                    |
-| `dws kb ingest <file>`           | Add raw source to `kb/raw/` (auto-routes by type)                | No                    |
-| `dws kb compile [--full]`        | Compile `kb/raw/` → `kb/wiki/` (incremental by default)          | Overwrites `kb/wiki/` |
-| `dws kb ask "question" [--save]` | Q&A against compiled wiki; `--save` writes to `kb/wiki/reports/` | No                    |
-| `dws kb research "question"`     | Deep multi-hop research, writes to `kb/ephemeral/`               | No                    |
-| `dws kb lint`                    | Health check — orphans, broken backlinks, stale summaries        | No                    |
-
-**Daily automation:** `scripts/daily/kb-cleanup.sh` (auto-discovered by `day-runner.sh`) sweeps `kb/ephemeral/` entries older than 7 days. Nothing in `kb/wiki/` or `kb/raw/` is ever auto-deleted.
-
-**Retention & classification:** See `docs/DWS_DATA_STANDARD.md` for retention policy and content classification of `kb/raw/`, `kb/wiki/`, and `kb/ephemeral/`. The KB is **NOT cleared for PII** — never ingest documents containing personal data.
-
-**Backend path:** All `dws kb` subcommands → `POST /api/agents/kb/execute` with `input.operation = compile|ask|research|lint|ingest|status`. Agent implementation: `src/agents/kb.agent.ts`. Tools: `kb_list_raw`, `kb_read_file`, `kb_write_article`, `kb_list_wiki`, `kb_update_metadata` — all path-traversal protected and confined to `kb/wiki/` for writes.
-
-### 33.4 CLI Slash Command Wrappers
-
-For interactive Claude Code sessions, prefer the slash command wrappers over raw CLI — they add additional safety gates:
-
-| Slash command | Wraps         | Extra safety                                                                        |
-| ------------- | ------------- | ----------------------------------------------------------------------------------- |
-| `/kya`        | `dws kya ...` | Forces dry-run preview before real snap; requires session-ID retype                 |
-| `/kb`         | `dws kb ...`  | Reminds operator which folders are LLM-owned; offers follow-up `lint` after compile |
-
-Full slash-command guide: `docs/DWS_SKILLS_GUIDE.md` §7.
-
----
-
-**License:** Proprietary - Lifetime Oy
-**Maintained by:** Lifetime Oy Development Team
+**License:** Proprietary - Lifetime Oy  
+**Maintained by:** Lifetime Oy Development Team  
 **Storage:** GitHub (private repo) + ProtonDrive sync - /2026/Repos2026/dws6/Admin

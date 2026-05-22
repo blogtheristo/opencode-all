@@ -1,24 +1,32 @@
 /**
- * OneLifetime.World Iron Clad Footer v1.0
- * Unified footer for all pages — mirrors DWS10.com Ironclad Footer design standard
+ * DWS10.com Iron Clad Footer v1.0
+ * Unified footer for all pages (matches store page footer design)
  *
- * Usage: Add this script to any page before </body>:
+ * Usage: Add this script to any page:
  * <script src="/shared-assets/footer/ironclad-footer.js"></script>
  *
- * v1.2 — 2026-03-15: Add Firehorse Mobile Google Play badge
- * v1.1 — 2026-03-10: Add Pantheon link, update copyright year
- * v1.0 — 2026-03-02: Initial release for onelifetime.world
- *        5-column links, payment methods, legal bar, copyright
+ * v1.2 — 2026-04-06: Nordic Industrial rebrand — "Built in Finland" badge, IBM Plex Sans font
+ * v1.1 — 2026-03-15: Add Firehorse Mobile Google Play badge
+ * v1.0 — Initial release: 5-column links, payment methods, legal bar, locale buttons
  *
- * Auto-injects footer before </body>, removing any existing <footer> element.
+ * The script will automatically inject the footer before </body>,
+ * replacing any existing <footer> or <div class="footer"> element.
  */
 
-(function() {
-    'use strict';
+(function () {
+  'use strict';
 
-    const footerCSS = `
-/* === OneLifetime.World Iron Clad Footer v1.2 === */
-.ironclad-footer { background: #1e293b; border-top: 1px solid #334155; color: #94a3b8; font-size: 0.875rem; font-family: system-ui, -apple-system, sans-serif; }
+  const hostname = window.location.hostname;
+  const regulatoryNoticeHref =
+    hostname === 'dws10.com' || hostname === 'www.dws10.com'
+      ? '/regulatory-notice/'
+      : 'https://dws10.com/legal/';
+
+  const footerCSS = `
+/* === DWS10.com Iron Clad Footer v1.2 === */
+.ironclad-footer { background: #1e293b; border-top: 1px solid #334155; color: #94a3b8; font-size: 0.875rem; font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif; }
+.ironclad-footer-finland { max-width: 1200px; margin: 0 auto; padding: 16px 20px 0; display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: #8fbc8f; font-weight: 600; letter-spacing: 0.02em; }
+.ironclad-footer-finland svg { flex-shrink: 0; }
 .ironclad-footer a { color: #94a3b8; text-decoration: none; transition: color 0.2s; }
 .ironclad-footer a:hover { color: #60a5fa; }
 .ironclad-footer-columns { display: grid; grid-template-columns: repeat(5, 1fr); gap: 32px; max-width: 1200px; margin: 0 auto; padding: 48px 20px 32px; }
@@ -27,6 +35,11 @@
 .ironclad-footer-payments { max-width: 1200px; margin: 0 auto; padding: 0 20px 24px; display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
 .ironclad-footer-payments span { font-size: 0.8rem; }
 .ironclad-footer-bottom { border-top: 1px solid #334155; max-width: 1200px; margin: 0 auto; padding: 20px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.ironclad-footer-locale { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: #94a3b8; }
+.ironclad-footer-locale svg { flex-shrink: 0; }
+.ironclad-footer-locale-btn { background: none; border: 1px solid #334155; color: #94a3b8; padding: 4px 10px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 0.8rem; transition: border-color 0.2s, color 0.2s; font-family: inherit; }
+.ironclad-footer-locale-btn:hover { border-color: #60a5fa; color: #e2e8f0; }
+.ironclad-footer-locale-btn.active { border-color: #60a5fa; color: #e2e8f0; }
 .ironclad-footer-legal { display: flex; gap: 16px; flex-wrap: wrap; }
 .ironclad-footer-legal a { color: #64748b; font-size: 0.8rem; }
 .ironclad-footer-legal a:hover { color: #60a5fa; }
@@ -50,55 +63,63 @@
 }
 `;
 
-    const footerHTML = `
-<!-- OneLifetime.World Iron Clad Footer v1.0 -->
+  const footerHTML = `
+<!-- DWS10.com Iron Clad Footer v1.2 — Nordic Industrial -->
 <footer class="ironclad-footer">
+    <div class="ironclad-footer-finland">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 20 14" aria-hidden="true"><rect width="20" height="14" fill="#fff"/><rect y="5" width="20" height="4" fill="#003580"/><rect x="6" width="4" height="14" fill="#003580"/></svg>
+        Built in Finland &middot; EU Sovereign AI &middot; Finnish Jurisdiction
+    </div>
     <div class="ironclad-footer-columns">
         <div class="ironclad-footer-col">
             <h4>Products</h4>
-            <a href="https://dws10.com/buy/">DWS IQ Platform</a>
-            <a href="https://dws10.com/products/dwsiq.html">Climate IQ</a>
-            <a href="https://dws10.com/products/firehorse-reports.html">Firehorse Suite</a>
-            <a href="https://dws10.com/buy/page2/">AI &amp; Cloud Consulting</a>
+            <a href="/buy/">Platform &amp; Products</a>
+            <a href="/buy/page2/">AI &amp; Cloud Consulting</a>
+            <a href="/buy/page3/">Expert Advisory &amp; Training</a>
+            <a href="/buy/page4/">Digital Services</a>
             <a href="mailto:offer@lifetime.fi">Enterprise Offers</a>
         </div>
         <div class="ironclad-footer-col">
-            <h4>Industries</h4>
-            <a href="https://dws10.com/construction/">Construction</a>
-            <a href="https://dws10.com/energy/">Energy &amp; Renewables</a>
-            <a href="https://dws10.com/logistics/">Maritime &amp; Logistics</a>
-            <a href="https://dws10.com/manufacturing/">Steel &amp; Manufacturing</a>
-            <a href="https://dws10.com/real-estate/">Buildings &amp; Real Estate</a>
-            <a href="https://dws10.com/public-sector/">Public Sector</a>
+            <h4>Dual Use Industries</h4>
+            <a href="/dual-use-industries/" style="color: #d4a843;">All Industries &amp; Aegis</a>
+            <a href="/construction/">Construction</a>
+            <a href="/energy/">Energy</a>
+            <a href="/manufacturing/">Manufacturing</a>
+            <a href="/real-estate/">Real Estate</a>
+            <a href="/logistics/">Logistics</a>
+            <a href="/healthcare/">Healthcare</a>
+            <a href="/financial-services/">Financial Services</a>
+            <a href="/public-sector/">Public Sector</a>
         </div>
         <div class="ironclad-footer-col">
             <h4>Platform</h4>
             <a href="https://dws6.com/login">Login</a>
             <a href="https://dws6.com/dashboard/">Dashboard</a>
-            <a href="https://dws10.com/compliance/">EU AI Act Compliance</a>
-            <a href="https://dws10.com/fit-for-55/">Fit for 55</a>
-            <a href="https://dws10.com/csrd/">CSRD Reporting</a>
-            <a href="https://dws10.com/calculator/">Carbon Calculator</a>
+            <a href="/products/dwsiq.html">DWS IQ 6</a>
+            <a href="/products/firehorse-reports.html">Firehorse Reports</a>
+            <a href="/products/firehorse-amplify.html">Firehorse Amplify</a>
+            <a href="/products/firehorse-omnichannel.html">Firehorse Omnichannel</a>
+            <a href="/architecture/">Architecture</a>
         </div>
         <div class="ironclad-footer-col">
-            <h4>Community</h4>
-            <a href="/blog/">Blog</a>
-            <a href="/posts/">Posts &amp; Articles</a>
+            <h4>Compliance</h4>
+            <a href="/fit-for-55/">Fit for 55</a>
+            <a href="/csrd/">CSRD Reporting</a>
+            <a href="/compliance/">EU AI Act</a>
+            <a href="${regulatoryNoticeHref}">Regulatory Notice</a>
+            <a href="/dual-use/">Dual Use</a>
+            <a href="/calculator/">Carbon Calculator</a>
+        </div>
+        <div class="ironclad-footer-col">
+            <h4>Help &amp; Company</h4>
+            <a href="/lifetime-consulting/">Lifetime Consulting</a>
             <a href="/careers/">Careers</a>
-            <a href="/Partners/">Partners</a>
-            <a href="/pledge/">Climate Pledge</a>
-            <a href="/pantheon/">AI Pantheon</a>
+            <a href="/partners/">Partners</a>
+            <a href="/investor-relations/">Investor Relations</a>
+            <a href="https://onelifetime.world">Community</a>
             <a href="mailto:support@lifetime.fi">Support</a>
             <a href="mailto:sales@lifetime.fi">Sales</a>
-        </div>
-        <div class="ironclad-footer-col">
-            <h4>Legal &amp; Company</h4>
-            <a href="/terms/">Website Terms</a>
-            <a href="/privacy-policy/">Privacy Policy</a>
-            <a href="/regulatory-notice/">Regulatory Notice</a>
-            <a href="/investment-safety/">Investment Safety</a>
             <a href="/legal/">Legal Hub</a>
-            <a href="https://dws10.com/architecture/">Architecture</a>
         </div>
     </div>
     <div class="ironclad-footer-payments">
@@ -110,7 +131,7 @@
     </div>
     <div class="ironclad-footer-app">
         <a href="https://play.google.com/store/apps/details?id=com.dws6.firehorse" target="_blank" rel="noopener noreferrer" class="ironclad-footer-app-badge" aria-label="Get Firehorse Mobile on Google Play">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
                 <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92z" fill="#4285F4"/>
                 <path d="M17.556 8.237L5.178.807a1.005 1.005 0 0 0-1.07.063l9.684 9.684 3.764-2.317z" fill="#34A853"/>
                 <path d="M17.556 15.763l-3.764-2.317-9.684 9.684c.327.232.746.275 1.07.063l12.378-7.43z" fill="#EA4335"/>
@@ -124,39 +145,43 @@
     </div>
     <div class="ironclad-footer-bottom">
         <div class="ironclad-footer-legal">
-            <a href="/terms/">Website Terms</a>
-            <a href="/privacy-policy/">Privacy Policy</a>
             <a href="/legal/">Legal Hub</a>
+            <a href="/privacy-policy/">Privacy Policy</a>
+            <a href="/return-policy/">Return Policy</a>
+            <a href="/data-handling-policy/">Data Handling</a>
+            <a href="/data-security-policy/">Data Security</a>
             <a href="/investment-safety/">Investment Safety</a>
-            <a href="/regulatory-notice/">Regulatory Notice</a>
+            <a href="${regulatoryNoticeHref}">Regulatory Notice</a>
         </div>
         <div class="ironclad-footer-copyright">
-            &copy; 2025&ndash;2026 Lifetime Oy &middot; VAT FI07724079 &middot; Laidunmaanraitti 2 A 25, 02330 Espoo, Finland &middot; GDPR &middot; DSA &middot; NIS2 &middot; EU AI Act
+            DWS IQ Aegis &mdash; Sovereign AI for EU defence supply chains &middot; Lifetime Oy (Y-tunnus 0772407-9) &middot; 100&nbsp;% Finnish owned limited company<br>&copy; 2026 Lifetime Oy &middot; VAT FI07724079 &middot; GDPR &middot; DSA &middot; NIS2 &middot; EU AI Act
         </div>
     </div>
 </footer>
 `;
 
-    function init() {
-        // Inject CSS
-        var style = document.createElement('style');
-        style.textContent = footerCSS;
-        document.head.appendChild(style);
+  function init() {
+    // Inject CSS
+    var style = document.createElement('style');
+    style.textContent = footerCSS;
+    document.head.appendChild(style);
 
-        // Remove any existing footer
-        var oldFooters = document.querySelectorAll('footer, div.footer');
-        oldFooters.forEach(function(el) { el.remove(); });
+    // Remove any existing footer
+    var oldFooters = document.querySelectorAll('footer, div.footer');
+    oldFooters.forEach(function (el) {
+      el.remove();
+    });
 
-        // Inject footer HTML before </body>
-        var wrapper = document.createElement('div');
-        wrapper.innerHTML = footerHTML.trim();
-        var footerEl = wrapper.firstElementChild;
-        document.body.appendChild(footerEl);
-    }
+    // Inject footer HTML before </body>
+    var wrapper = document.createElement('div');
+    wrapper.innerHTML = footerHTML.trim();
+    var footerEl = wrapper.firstElementChild;
+    document.body.appendChild(footerEl);
+  }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
-    }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();

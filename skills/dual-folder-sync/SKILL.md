@@ -12,12 +12,12 @@ description: >
 
 ## Folder Map
 
-| Root (source of truth) | Production copy |
-|------------------------|-----------------|
-| `dws10.com/` | `landing-pages/dws10-com/` |
-| `onelifetime.world/` | `landing-pages/onelifetime-world/` |
-| `dws6.com/` | `landing-pages/dws6-com/` |
-| `lifetime.fi/` | `landing-pages/lifetime-fi/` |
+| Root (source of truth) | Production copy                    |
+| ---------------------- | ---------------------------------- |
+| `dws10.com/`           | `landing-pages/dws10-com/`         |
+| `onelifetime.world/`   | `landing-pages/onelifetime-world/` |
+| `dws6.com/`            | `landing-pages/dws6-com/`          |
+| `lifetime.fi/`         | `landing-pages/lifetime-fi/`       |
 
 ## Workflow
 
@@ -50,5 +50,16 @@ diff -rq dws10.com/buy/ landing-pages/dws10-com/buy/ | head -20
 ```
 
 If this shows ANY differences after your commit, the sync is broken.
+
+## Latent vs Deterministic
+
+| Step                                                                              | Kind                 |
+| --------------------------------------------------------------------------------- | -------------------- |
+| Detect a write to `dws10.com/`, `onelifetime.world/`, `dws6.com/`, `lifetime.fi/` | Deterministic        |
+| Compute mirror path under `landing-pages/<site>/`                                 | Deterministic        |
+| Copy + `diff -rq` verification                                                    | Deterministic        |
+| Block commit if `diff` shows any difference                                       | Deterministic (hook) |
+
+This skill is entirely deterministic — there is no judgment step. The LLM does not get to decide whether to sync; the rule applies whenever the trigger fires.
 
 Extracted from DWS CLAUDE.md Store Update Rule and Dual Folder Structure Rule.

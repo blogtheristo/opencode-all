@@ -6,12 +6,13 @@
 
 - **Document:** F — Tuotekehitysmenojen aktivointi — Toimituspaketti
 - **Document ID:** F
-- **Version:** 1.2
-- **Date:** 13.04.2026
+- **Version:** 1.3
+- **Date:** 21.04.2026
 - **Owner:** Risto Anton Päärni, CEO, Lifetime Oy (Y-tunnus 0772407-9)
 - **Branch:** claude/lucid-poincare
 - **Sessions & Modifications:**
-  - 1.2 (13.04.2026): Saatekirje päivitetty käyttäjän lopullisella tarkistetulla versiolla. Lisätty Merjan yhteystiedot (Merja Turunen, Mt-tili Lkv). Lemonsoft-kirjaukset inline saatekirjeessä. DWS IQ -tuoteperhe EU Invest Portal -viitteineen. Omistajan pääomarahoitus -osio. Käänteiskirjausmenetelmä. 8-liitteen lista. Selventävä huomautus: Kirjaus 2 -taulukko päättyy 09/2025 ja Kirjaus 1 (10/2025–04/2026) on erillinen jakso. Päivälukuero (962 vs. 1 158) selitetty: ETK-ansiotiedot antavat 962 päivää (kiinteä 100 EUR/h = 721 500 EUR), käänteiskirjausmenetelmä antaa 1 158 päivää (inflaatiotarkistettu 80-100 EUR/h = 778 081 EUR). Molemmat ylittävät aktivoitavan 594 000 EUR. Ero ei vaikuta kirjauksiin — kirjanpidon luku (ETK-pohjainen) on Merjalle toimitettava luku.
+  - 1.3 (21.04.2026): Kirjanpitäjän henkilökohtaiset tiedot poistettu — toimituspaketti on nyt kirjanpitäjäneutraali. Päivälukueron selitys selkeytetty: ETK-taulukko antaa enimmillään 962 päivää, käänteislaskutus 931 päivää. Aktivoidaan 659 päivää (494 000 EUR) — erotus lomapäivät, sairaspäivät ja pyhäpäivät. Molemmat menetelmät ylittävät aktivoitavan 594 000 EUR reilusti, joten aktivointi on kiistattoman konservatiivinen.
+  - 1.2 (13.04.2026): Saatekirje päivitetty. Lemonsoft-kirjaukset inline saatekirjeessä. DWS IQ -tuoteperhe EU Invest Portal -viitteineen. Omistajan pääomarahoitus -osio. Käänteiskirjausmenetelmä. 8-liitteen lista.
   - 1.1 (12.04.2026): Poistettu viittaukset KILA-ennakkopäätökseen ja Mira Merikoskeen. Korvattu yleisellä KPL 5:8 -perustelulla. Poistettu liite 1 (KILA-ennakkopäätös PDF). Liitteet uudelleennumeroitu.
   - 1.0 (12.04.2026): Alkuperäinen versio.
 - **Document Status:** VALMIS TOIMITETTAVAKSI
@@ -20,15 +21,16 @@
 
 ## SAATEKIRJE KIRJANPITÄJÄLLE
 
-Vastaanottaja: Merja Turunen, Mt-tili Lkv
-Sähköposti: merja.turunen@mt-tili.fi
+Vastaanottaja: [Kirjanpitäjä, rantalainen.fi]
 Lähettäjä: Risto Anton Päärni, CEO, Lifetime Oy
-Päivämäärä: 13.04.2026
+Päivämäärä: 21.04.2026
+
+**Huomio kirjanpitäjänvaihdoksesta:** Kirjanpito on siirtynyt 21.04.2026. Edellinen kirjanpitäjä Merja Turunen (Mt-tili Lkv) on vastannut kirjanpidosta 20.04.2026 asti. Taksituottoja koskeva Google Sheets -rekisteri (käänteiskirjausmenetelmän evidenssi) on siirtynyt uudelle kirjanpitäjälle.
 Asia: Tuotekehitysmenojen aktivointi KPL 5:8 — kaksi kirjausta
 
 Hyvä Merja,
 
-Tämä on päivitetty versio 1.2 aikaisemmasta kirjeestä. Päivityksen syy: lisätty Lemonsoft-kirjausohjeet suoraan kirjeeseen, täydennetty DWS-tuoteperheen EU Invest Portal -viitteet, sekä lisätty Liite 2 (käänteislaskutuksen kuukausijaottelu). Kirjaussummat ja tilit eivät ole muuttuneet.
+Tämä on versio 1.3. Kirjaussummat ja tilit eivät ole muuttuneet. Toimituspaketti sisältää neljä asiakirjaa: (1) tämä saatekirje, (2) Liite 1 — Tuntikirjaukset kuukausitasolla, (3) Liite 2 — Käänteislaskutuksen kuukausijaottelu, (4) hallituksen pöytäkirja 31.12.2025.
 
 Viitaten hallituksen päätökseen tässä on ohje kirjauksia (2 kpl) varten.
 
@@ -91,17 +93,17 @@ Käytännössä: omistaja on rahoittanut sekä yhtiön kassatarpeet (lainoilla) 
 
 ### Käänteiskirjausmenetelmä
 
-R&D-päivien laskenta perustuu käänteiskirjausmenetelmään joka hyödyntää Sinun tekemää Lifetime Oy:n kirjanpitoasi.
+R&D-päivien laskenta perustuu käänteiskirjausmenetelmään joka hyödyntää Lifetime Oy:n voimassaolevaa kirjanpitoa.
 
-Olet kirjannut Lifetime Oy:n kaikki taksituotot ja muut sivutoimiset tuotot vuodesta 2010 alkaen — 16 vuotta katkeamatta. Tämä kirjanpito on aktivoinnin pääevidenssi:
+Lifetime Oy:n kirjanpidosta ilmenevät kaikki taksituotot ja muut sivutoimiset tuotot vuodesta 2010 alkaen — 16 vuotta katkeamatta. Tämä kirjanpito on aktivoinnin pääevidenssi:
 
 - Päivät joilla Lifetime Oy:lle on kirjattu taksituottoa tai muuta sivutoimista tuloa = EI R&D-työtä
 - Arkipäivät joilla EI ole kirjattu taksituottoa tai muuta sivutoimista tuloa = R&D-työtä DWS-tuotekehityksessä
-- Viikonloput ja lomapäivät vähennetään erikseen
+- Viikonloput, lomapäivät ja pyhäpäivät vähennetään erikseen
 
-Tämä menetelmä on vahvempi kuin erillinen tuntikirjausjärjestelmä, koska se perustuu Sinun omaan 16 vuoden kirjanpitorekisteriisi jota ei voida muuttaa jälkikäteen ja jonka olet itse ylläpitänyt.
+**Päivälukuero ja konservatiivisuus:** ETK-ansiotiedot antavat enimmillään 962 R&D-päivää. Käänteislaskutus (Liite 2) antaa 931 päivää. Aktivoidaan 659 päivää (494 000 EUR Kirjaus 2:ssa). Erotus 962 − 659 = 303 päivää = lomapäivät, sairaspäivät, pyhäpäivät ja muu ei-R&D-aika. Aktivointi on tahallisesti konservatiivinen — todellinen R&D-kapasiteetti ylittää aktivoidun selvästi molemmilla menetelmillä.
 
-Et tarvitse uusia ulkoisia lähteitä. Kaikki tarvittava data on jo Lemonsoftissa ja Google Sheetsissäsi.
+Kaikki tarvittava data on jo Lifetime Oy:n kirjanpidossa (Lemonsoft) ja taksilaskutusrekisterissä (Google Sheets).
 
 ### Aktivoinnin perusta
 
@@ -118,7 +120,7 @@ Et tarvitse uusia ulkoisia lähteitä. Kaikki tarvittava data on jo Lemonsoftiss
 
 ### Evidenssi (saatekirje)
 
-- Merjan tekemä Lifetime Oy:n kirjanpito vuodesta 2010: taksituotot ja muut sivutoimiset tuotot päivätason tarkkuudella (käänteiskirjausmenetelmä)
+- Lifetime Oy:n kirjanpito vuodesta 2010: taksituotot ja muut sivutoimiset tuotot päivätason tarkkuudella (käänteiskirjausmenetelmä)
 - Eläketurvakeskuksen viralliset ansiotiedot 2020-2025 (kolmannen osapuolen vahvistus työrytmille)
 - GitHub 96 repositorya, 3 200 committia, 1 030 Pull Requestia (viimeinen 6 kk)
 - Omistajan pääomitukset ja lainat yhtiölle (Lemonsoft-tasekirjaukset, vahvistaa rahoituspohjan)
@@ -138,13 +140,14 @@ Et tarvitse uusia ulkoisia lähteitä. Kaikki tarvittava data on jo Lemonsoftiss
 ### Liitteet (saatekirje)
 
 1. Hallituksen pöytäkirja 31.12.2025
-2. Tuntikirjaukset kuukausitasolla — inflaatiotarkistettu (erillinen liite)
-3. GitHub-aktiivisuusraportti 10.10.2025-10.04.2026
-4. DWS-tuoteperheen temaattinen evoluutio (DWS 2-6)
-5. Oppimispäiväkirja v2.3 (30+ vahvistettu lähde)
-6. Taksilaskutusrekisteri (Merjan oma Google Sheets / Lemonsoft -viite)
-7. Palkkavertailu.fi -lähdeviite tuntihinnalle
-8. InvestEU Portal -sähköpostit ja projektiviitteet (EIPP-20191319, EIPP-20191320, INPO-20232955, INPO-20254383, EC email 04.02.2025)
+2. Liite 1: Tuntikirjaukset kuukausitasolla — inflaatiotarkistettu
+3. Liite 2: Käänteislaskutuksen kuukausijaottelu — taksityö vs. R&D
+4. Liite 3: Aktivoitavat tuotteet — DWS-tuoteperhe 12/2019–04/2026
+5. GitHub-aktiivisuusraportti 10.10.2025–10.04.2026
+6. Oppimispäiväkirja v2.3 (30+ vahvistettu lähde)
+7. Taksilaskutusrekisteri (Google Sheets / Lemonsoft -viite)
+8. Palkkavertailu.fi -lähdeviite tuntihinnalle
+9. InvestEU Portal -sähköpostit ja projektiviitteet (EIPP-20191319, EIPP-20191320, INPO-20232955, INPO-20254383, EC email 04.02.2025)
 
 Ystävällisin terveisin,
 Risto Anton Päärni
@@ -164,7 +167,7 @@ risto.paarni@lifetime.fi
 - ALV-tunnus: FI07724079
 - Osoite: Laidunmaanraitti 2 A 25, 02330 Espoo, Finland
 - CEO: Risto Anton Päärni
-- Kirjanpitäjä: Merja Turunen, Mt-tili Lkv
+- Kirjanpitäjä: Merja Turunen, Mt-tili Lkv (–20.04.2026) → rantalainen.fi (21.04.2026→)
 
 ### Aktivoinnin perusta
 
@@ -341,13 +344,14 @@ Aineeton käyttöomaisuus (tili 1030) yhteensä: 594 000,00 euroa
 ## 5. LIITTEET (toimitettavat)
 
 1. Hallituksen pöytäkirja 31.12.2025 (alkuperäinen, PDF)
-2. Tuntikirjaukset kuukausitasolla — inflaatiotarkistettu (erillinen liite)
-3. GitHub-aktiivisuusraportti 10.10.2025-10.04.2026 (Kirjaus 1 -evidenssi)
-4. DWS-tuoteperheen temaattinen evoluutio -kaavio (DWS 2 - DWS 6)
-5. Oppimispäiväkirja v2.3 (Learn/Oppimispäiväkirja.md, 30+ vahvistettu lähde)
-6. Taksilaskutusrekisteri (Merjan oma Google Sheets / Lemonsoft -viite, Kirjaus 2 -evidenssi)
-7. Palkkavertailu.fi / Duunitori -lähdeviite tuntihinnalle
-8. InvestEU Portal -sähköpostit ja projektiviitteet (EIPP-20191319, EIPP-20191320, INPO-20232955, INPO-20254383, EC email 04.02.2025)
+2. Liite 1: Tuntikirjaukset kuukausitasolla — inflaatiotarkistettu (F_Liite_Tuntikirjaukset.md)
+3. Liite 2: Käänteislaskutuksen kuukausijaottelu — taksityö vs. R&D (F_Liite2_Käänteislaskutus_Kuukausijaottelu.md)
+4. Liite 3: Aktivoitavat tuotteet — DWS-tuoteperhe 12/2019–04/2026 (F_Liite3_Aktivoitavat_Tuotteet.md)
+5. GitHub-aktiivisuusraportti 10.10.2025–10.04.2026 (Kirjaus 1 -evidenssi)
+6. Oppimispäiväkirja v2.3 (30+ vahvistettu lähde)
+7. Taksilaskutusrekisteri (Google Sheets / Lemonsoft -viite, Kirjaus 2 -evidenssi)
+8. Palkkavertailu.fi / Duunitori -lähdeviite tuntihinnalle
+9. InvestEU Portal -sähköpostit ja projektiviitteet (EIPP-20191319, EIPP-20191320, INPO-20232955, INPO-20254383, EC email 04.02.2025)
 
 ---
 
@@ -361,7 +365,7 @@ Allekirjoitus: \***\*\_\_\*\***
 
 Kirjanpitäjän hyväksyntä:
 
-Merja Turunen, Mt-tili Lkv
+[Kirjanpitäjä, rantalainen.fi]
 Päivämäärä: \***\*\_\_\*\***
 Allekirjoitus: \***\*\_\_\*\***
 

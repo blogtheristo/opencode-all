@@ -1,0 +1,5 @@
+{
+  "$schema_comment": "Optional override for MCP Hub LLM mesh — copy and set MCP_HUB_LLM_REGISTRY_JSON.",
+  "endpoints": [],
+  "tier_fallback": {}
+}

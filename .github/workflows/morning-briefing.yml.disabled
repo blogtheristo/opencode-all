@@ -67,4 +67,4 @@ jobs:
           MRR_EUR: ${{ secrets.MRR_EUR }}
           MVP_ETA: ${{ secrets.MVP_ETA }}
           SKIP_TIME_CHECK: ${{ github.event_name == 'workflow_dispatch' }}
-        run: npx tsx scripts/send-morning-briefing.ts
+        run: node --import tsx scripts/send-morning-briefing.ts

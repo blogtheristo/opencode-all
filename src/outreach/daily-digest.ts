@@ -15,13 +15,14 @@
  */
 
 import logger from '../utils/logger.js';
+import { sendEmail } from '../utils/send-email.js';
 import { getNudgeTemplate, isMaxedOut } from './cadence.js';
 import type {
-  DigestThread,
   EnrichedThread,
   OutreachPipeline,
   OutreachStatus,
   StatusBucket,
+  DigestThread,
 } from './types.js';
 
 const PIPELINES: OutreachPipeline[] = ['investor', 'customer', 'partner'];
@@ -607,32 +608,27 @@ export async function sendDailyDigestEmail(): Promise<void> {
   });
   const subject = `Outreach ${dateStr}`;
 
-  const hasTransport = !!(process.env.SMTP_HOST || process.env.RESEND_API_KEY);
-
-  if (!hasTransport) {
-    logger.warn('No SMTP or RESEND_API_KEY configured. Printing digest to console.');
-    console.log('\n' + plainText);
-    return;
-  }
-
-  const { sendEmail } = await import('../utils/send-email.js');
   const result = await sendEmail({
     from: fromAddress,
     to: recipient,
-    replyTo: replyToAddress,
     subject,
     html,
     text: plainText,
+    replyTo: replyToAddress,
+    source: 'outreach',
+    templateType: 'daily_digest',
+    metadata: { recipientCount: 1 },
   });
 
-  if (result.ok) {
-    logger.info('Daily digest sent', {
-      to: recipient,
-      transport: result.transport,
-      replyTo: replyToAddress,
+  if (!result.ok) {
+    logger.error('Daily digest SES SMTP send failed', {
+      error: result.error || 'Unknown SES SMTP failure',
     });
-    return;
+    throw new Error(result.error || 'SES SMTP send failed');
   }
 
-  logger.error('Daily digest send failed', { error: result.error });
+  logger.info('Daily digest sent via SES SMTP', {
+    transport: result.transport || 'ses',
+    recipientCount: 1,
+  });
 }

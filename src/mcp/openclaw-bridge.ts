@@ -80,6 +80,9 @@ export interface BridgeConfig {
   /** OpenClaw runtime endpoint (local only — never cloud) */
   openclawEndpoint: string;
 
+  /** Optional bearer token for OpenClaw runtime authentication */
+  openclawApiKey: string | null;
+
   /** Maximum response size in bytes before truncation */
   maxResponseBytes: number;
 
@@ -95,11 +98,44 @@ export interface BridgeConfig {
 
 const DEFAULT_BRIDGE_CONFIG: BridgeConfig = {
   openclawEndpoint: 'http://127.0.0.1:3100',
+  openclawApiKey: null,
   maxResponseBytes: 1_048_576, // 1MB
   timeoutMs: 30_000,
   logBasePath: '/mnt/firehorse-dms/logs',
   allowedSkills: [],
 };
+
+function parseIntegerEnv(
+  value: string | undefined,
+  fallback: number,
+  opts: { min?: number } = {},
+): number {
+  if (!value) {
+    return fallback;
+  }
+
+  const parsed = Number.parseInt(value, 10);
+  if (!Number.isFinite(parsed)) {
+    return fallback;
+  }
+
+  if (opts.min !== undefined && parsed < opts.min) {
+    return fallback;
+  }
+
+  return parsed;
+}
+
+export function parseOpenClawAllowedSkills(value: string | undefined): string[] {
+  if (!value) {
+    return [];
+  }
+
+  return value
+    .split(',')
+    .map((skill) => skill.trim())
+    .filter((skill) => skill.length > 0);
+}
 
 // ============================================================================
 // INPUT SANITIZATION (anti-prompt-injection)
@@ -152,6 +188,32 @@ export class OpenClawBridge {
 
   constructor(config: Partial<BridgeConfig> = {}) {
     this.config = { ...DEFAULT_BRIDGE_CONFIG, ...config };
+  }
+
+  /**
+   * Build bridge configuration from environment variables.
+   *
+   * This lets OpenClaw consume values populated by the startup secret loader
+   * instead of relying on hardcoded runtime configuration.
+   */
+  static fromEnv(config: Partial<BridgeConfig> = {}): OpenClawBridge {
+    return new OpenClawBridge({
+      openclawEndpoint: process.env.OPENCLAW_ENDPOINT || DEFAULT_BRIDGE_CONFIG.openclawEndpoint,
+      openclawApiKey: process.env.OPENCLAW_API_KEY || DEFAULT_BRIDGE_CONFIG.openclawApiKey,
+      maxResponseBytes: parseIntegerEnv(
+        process.env.OPENCLAW_MAX_RESPONSE_BYTES,
+        DEFAULT_BRIDGE_CONFIG.maxResponseBytes,
+        { min: 1 },
+      ),
+      timeoutMs: parseIntegerEnv(
+        process.env.OPENCLAW_TIMEOUT_MS,
+        DEFAULT_BRIDGE_CONFIG.timeoutMs,
+        { min: 1 },
+      ),
+      logBasePath: process.env.OPENCLAW_LOG_BASE_PATH || DEFAULT_BRIDGE_CONFIG.logBasePath,
+      allowedSkills: parseOpenClawAllowedSkills(process.env.OPENCLAW_ALLOWED_SKILLS),
+      ...config,
+    });
   }
 
   /**
@@ -243,17 +305,23 @@ export class OpenClawBridge {
     };
 
     // 4. Send to OpenClaw runtime
+    let timeout: ReturnType<typeof setTimeout> | undefined;
     try {
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), this.config.timeoutMs);
+      timeout = setTimeout(() => controller.abort(), this.config.timeoutMs);
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+        'X-KYA-Session': request.kyaSessionId,
+        'X-DWS-Agent': request.callerAgentId,
+      };
+
+      if (this.config.openclawApiKey) {
+        headers.Authorization = `Bearer ${this.config.openclawApiKey}`;
+      }
 
       const response = await fetch(this.config.openclawEndpoint, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-KYA-Session': request.kyaSessionId,
-          'X-DWS-Agent': request.callerAgentId,
-        },
+        headers,
         body: JSON.stringify(rpcRequest),
         signal: controller.signal,
       });
@@ -320,7 +388,9 @@ export class OpenClawBridge {
         durationMs: Date.now() - startTime,
       };
     } finally {
-      clearTimeout(timeout);
+      if (timeout) {
+        clearTimeout(timeout);
+      }
     }
   }
 }

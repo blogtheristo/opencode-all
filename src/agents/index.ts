@@ -49,8 +49,22 @@ import { SovereigntyMonitorAgent } from './sovereignty-monitor.agent.js';
 import { DesignerAgent } from './designer.agent.js';
 import { KBAgent } from './kb.agent.js';
 import { SyntheticDataAgent } from './synthetic-data.agent.js';
+// Intelligence Expansion — 12 new agents (2026-05-03, AI Engineering book mapping)
+import { MnemosyneAgent } from './mnemosyne.agent.js';
+import { ThemisAgent } from './themis.agent.js';
+import { CassandraAgent } from './cassandra.agent.js';
+import { DaedalusAgent } from './daedalus.agent.js';
+import { AgoraAgent } from './agora.agent.js';
+import { JunoAgent } from './workflow/industry/juno.agent.js';
+import { MercuryTradeAgent } from './workflow/industry/mercury-trade.agent.js';
+import { MinervaAgent } from './minerva.agent.js';
+import { PanaceaAgent } from './panacea.agent.js';
+import { AuditorAgent } from './auditor.agent.js';
+import { VisionOracleAgent } from './vision-oracle.agent.js';
+import { ChronosAgent } from './chronos.agent.js';
 import { registerBuiltinTools } from './tools.js';
 import { eventBus, registerDefaultEventHandlers } from './event-bus.js';
+import { withAgentSpan } from '../observability/tracing.js';
 import type { AgentConfig, AgentContext, AgentResponse } from './types.js';
 
 export class AgentRegistry {
@@ -139,7 +153,24 @@ export class AgentRegistry {
     });
 
     try {
-      const result = await agent.execute(context, input);
+      const result = await withAgentSpan(
+        name,
+        {
+          orgId: context.orgId,
+          sessionId: context.sessionId,
+          delegationDepth: currentDepth,
+        },
+        async (span) => {
+          const r = await agent.execute(context, input);
+          if (typeof r.confidence === 'number') {
+            span.setAttribute('dws.agent.confidence', r.confidence);
+          }
+          if (typeof r.metadata?.durationMs === 'number') {
+            span.setAttribute('dws.agent.duration_ms', r.metadata.durationMs);
+          }
+          return r;
+        },
+      );
 
       // Emit completion event
       await eventBus.emit({
@@ -234,6 +265,20 @@ export class AgentRegistry {
     // Synthetic Data Pipeline — CBAM stress testing (NeMo DataDesigner)
     this.register(new SyntheticDataAgent()); // generate, validate, dd-summary
 
+    // Intelligence Expansion — 12 new agents (2026-05-03, AI Engineering book mapping, total 50)
+    this.register(new MnemosyneAgent()); // Long-term memory oracle — cross-session context
+    this.register(new ThemisAgent()); // Legal intelligence + ethical reasoning (EU AI Act Art. 9)
+    this.register(new CassandraAgent()); // Predictive analytics — ETS/CBAM price forecast
+    this.register(new DaedalusAgent()); // Tool composition + MCP bridge — dynamic chaining
+    this.register(new AgoraAgent()); // Collective intelligence — multi-agent consensus
+    this.register(new JunoAgent()); // Chemical & pharma industry — CBAM fertilisers/H2
+    this.register(new MercuryTradeAgent()); // Trade intelligence — CBAM import analytics
+    this.register(new MinervaAgent()); // Knowledge transfer + XAI explainability
+    this.register(new PanaceaAgent()); // Self-improving adaptive optimizer
+    this.register(new AuditorAgent()); // Audit trail + hash chain (EU AI Act Art. 12)
+    this.register(new VisionOracleAgent()); // Vision language model — site photos, SAR imagery
+    this.register(new ChronosAgent()); // Temporal workflow + EU compliance deadline engine
+
     logger.info('Agent registry initialized', {
       agentCount: this.agents.size,
       agents: Array.from(this.agents.keys()),
@@ -265,7 +310,19 @@ export { BaseAgent } from './base.agent.js';
 // Re-export DWS7 modules
 export { eventBus } from './event-bus.js';
 export { BUILTIN_TOOLS, registerToolHandler } from './tools.js';
-export { createLLMClient, LLMClient } from './llm-client.js';
+export { createLLMClient, createLLMClientForAgent, LLMClient } from './llm-client.js';
+
+// Re-export model selector
+export {
+  selectModel,
+  getModelSelectionSummary,
+  estimateLocalModelDiskUsage,
+  AGENT_TIER_MAP,
+  MODEL_CATALOG,
+  ACER_GN100_BUDGET,
+} from './model-selector.js';
+export type { ModelTier } from './types.js';
+export type { ModelOption, ModelSelection, EdgeResourceBudget } from './model-selector.js';
 
 // Re-export sandbox isolation module
 export { executeIsolatedAgent, getAgentFoundryConfig, getSandboxStage } from '../sandbox/index.js';

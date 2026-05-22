@@ -56,7 +56,7 @@ R&D-päivien laskenta perustuu Eläketurvakeskuksen virallisiin ansiotietoihin j
 
 ---
 
-## 4. Vuosiyhteenveto (Merjalle kuukausitasoiseen Lemonsoft-kirjaukseen)
+## 4. Vuosiyhteenveto (kirjanpitäjälle kuukausitasoiseen Lemonsoft-kirjaukseen)
 
 | Vuosi                 |  EUR/h | R&D-päiviä |    Tunnit | Vuosisumma EUR | Per kuukausi EUR |
 | :-------------------- | -----: | ---------: | --------: | -------------: | ---------------: |
@@ -85,6 +85,8 @@ R&D-päivien laskenta perustuu Eläketurvakeskuksen virallisiin ansiotietoihin j
 | Puskuri päivissä                                          | **~278 päivää käyttämättä** |
 
 Aktivointi on tahallisesti konservatiivinen: 24 % todellisesta R&D-arvosta jätetään aktivoimatta. Tämä antaa merkittävän turvamarginaalin auditoinnissa.
+
+**Päivälukueron selitys:** Laskennallinen maksimi tässä liitteessä on 1 025 päivää (Kirjaus 2). ETK-ansiotiedot antavat 962 päivää. Käänteislaskutus (Liite 2) antaa 931 päivää. Aktivoidaan 659 päivää (4 940 h × 100 €/h = 494 000 EUR). Erotus 931 − 659 = 272 päivää, 962 − 659 = 303 päivää = lomapäivät, sairaspäivät, pyhäpäivät ja muut ei-R&D-päivät. Tämä ei haittaa — se tekee aktivoinnista konservatiivisen.
 
 ---
 
@@ -121,6 +123,6 @@ Risto Anton Päärni, CEO, Lifetime Oy
 Päivämäärä: ****\_\_****
 Allekirjoitus: ****\_\_****
 
-Merja [sukunimi], kirjanpitäjä
+[Kirjanpitäjä]
 Päivämäärä: ****\_\_****
 Allekirjoitus: ****\_\_****

@@ -1,12 +1,19 @@
 # NVIDIA Connect Portal — Product Descriptions
 
 VERSION AND AGENT HISTORY
-Version: 1.0
-Date: 2026-03-08
-Author: Claude Code (Opus 4.6)
+Version: 1.1
+Date: 2026-05-17
+Author: Claude Code (Opus 4.7) · Session claude/add-hardware-products-MY7X7
 Reviewed by: Risto Paarni
-Status: Draft — ready for portal submission
-Changes: Initial three-product portfolio for NVIDIA Connect portal
+Status: Draft — ready for portal submission (v1.1: hardware bundles added)
+Changes:
+- v1.1 (2026-05-17): Added Product 4 (Control Room), Product 5 (Situation Room),
+  Product 6 (NVIDIA Model Installation). All built on NVIDIA end-to-end (CUDA +
+  TensorRT-LLM). Cross-linked to dws10.com/products/* and dws10.com/nvidia-inception/.
+  These are the productised hardware SKUs supporting the new NVIDIA Inception
+  application on the Sovereign EU Edge AI track.
+- v1.0 (2026-03-08): Initial three-product portfolio (DWS IQ 6, LWM, Firehorse V2)
+  for NVIDIA Connect portal.
 
 ---
 
@@ -156,15 +163,111 @@ This turns a hardware sale into a hardware + software + compliance deal. Higher 
 
 ---
 
+## Product 4: Control Room — Sovereign Edge AI Hardware Bundle
+
+**Product Name:** Control Room — Acer Veriton GN100 + NVIDIA Model Install
+
+**Category:** Hardware / Edge AI / Sovereign Infrastructure
+
+**One-Line Description:**
+Turnkey sovereign edge AI: 1× Acer Veriton GN100 (NVIDIA GB10 Grace Blackwell) + on-site NVIDIA model installation. €4,994 — operational the day we leave the building.
+
+**Full Description:**
+Control Room is the entry SKU for sovereign EU edge AI deployments. One Acer Veriton GN100 (NVIDIA GB10 Grace Blackwell SoC, 20 cores, 120 GiB unified memory) ships pre-imaged with Ubuntu 24.04 LTS, Docker, OpenSandbox isolation, and the CUDA + NVIDIA driver stack. A Lifetime engineer arrives on-site, validates drivers, installs the customer's chosen NVIDIA model bundle (Qwen 2.5 72B QLoRA, Llama 3.1 8B, Whisper-large-v3, BGE-M3, optional YOLOv8-s), tests end-to-end inference, brings the local MCP endpoint online, and signs the install protocol. Front-line operators get a 30-minute drill before we leave.
+
+**NVIDIA Technologies Used:**
+- NVIDIA GB10 Grace Blackwell SoC (in the Acer Veriton GN100)
+- CUDA Toolkit + NVIDIA drivers
+- TensorRT-LLM (production inference kernels)
+- NVIDIA-optimised Qwen / Llama / Whisper / BGE-M3 / YOLOv8 model weights (AWQ / GGUF Q4-K-M)
+- NVIDIA NIM-style microservices (optional, packaged in Sovereign Model Updates subscription)
+
+**Full Service (Bundled with Every Deployment):**
+- Operator training — on-site drill at install + remote refreshers
+- 24/7 technical support — named Lifetime contact, SLAs under the subscription
+- Warranty servicing — hardware warranty handling, swap-out coordination
+- Remote configuration — push model bundle changes, security patches, OS updates over secure tunnel
+
+**Target Buyers:**
+VPK (vapaapalokunta) operations rooms · construction site office command · municipal control rooms · regulated SME compliance teams (CSRD / CBAM / Article 12 evidence)
+
+**Pricing:** €4,994 one-time (€3,999 hardware + €995 NVIDIA model install). Recurring: Sovereign Model Updates Subscription €299/mo (LLM updates + 24/7 support + warranty + remote configuration).
+
+**Website:** https://dws10.com/products/edge-node-gn100.html
+
+---
+
+## Product 5: Situation Room — Sovereign Dual-Use Hardware Bundle
+
+**Product Name:** Situation Room — 2× Acer Veriton GN100 Bridged + NVIDIA Model Bundle
+
+**Category:** Hardware / Edge AI / Sovereign Infrastructure / Dual-Use
+
+**One-Line Description:**
+Bridged sovereign edge AI: 2× Acer Veriton GN100 with NVIDIA tensor-parallel inference + wider NVIDIA model bundle (vision, acoustic, language, reasoning, voice). €8,993 turnkey — built for dual-use scenarios like VPK drone defense.
+
+**Full Description:**
+Situation Room scales Control Room to the bridged pair: two Acer Veriton GN100 nodes (NVIDIA GB10 Grace Blackwell SoC each, 40 cores / 240 GiB unified memory combined) joined into a single inference cluster. Heavy 70B-class models (Qwen 2.5 72B, Llama 3.1 70B) shard across the NVIDIA bridge via TensorRT-LLM tensor parallel; light models (Whisper, BGE, YOLOv8-x, BirdNET-class acoustic, TTS) replicate for failover. A single MCP endpoint serves all clients on the internal network. Article 12 immutable logs replicate across both NVIDIA nodes for inspector handover.
+
+Built and validated for dual-use scenarios — the lead use case is a Finnish volunteer fire brigade (VPK) running drone-defense detection-to-decision out of the kalustohalli, fully sovereign, no cloud round-trip.
+
+**NVIDIA Technologies Used:**
+- 2× NVIDIA GB10 Grace Blackwell SoC (bridged pair)
+- CUDA + TensorRT-LLM with multi-GPU tensor parallel
+- NVIDIA-optimised vision models (YOLOv8-x → YOLOv9/10)
+- NVIDIA-optimised acoustic event models (BirdNET-class)
+- Whisper-large-v3 (NVIDIA-optimised), TTS (Piper/Coqui on NVIDIA kernels)
+- NVIDIA NIM-style microservices packaging (Sovereign Model Updates subscription)
+
+**Full Service (Bundled with Every Deployment):**
+- Operator training — on-site drill at install, dual-use scenario rehearsal of customer's choice, runbook handover
+- 24/7 technical support — named Lifetime contact, SLAs covered under the subscription
+- Warranty servicing — hardware warranty handling on both nodes, swap-out coordination
+- Remote configuration — push bundle updates, patches, OS updates over secure tunnel to both NVIDIA nodes
+
+**Target Buyers:**
+VPK dual-use / civil defence operators · CER / NIS2-regulated critical infrastructure · municipal situation rooms · defence-adjacent EU SMEs · regulated industries with CSRD + dual-use export-control exposure
+
+**Pricing:** €8,993 one-time (2× €3,999 hardware + €995 NVIDIA model install for the bridged pair). Recurring: Sovereign Model Updates Subscription €299/mo per site.
+
+**Website:** https://dws10.com/products/situation-room.html
+
+---
+
+## Product 6: NVIDIA Model Installation — Per Edge Device
+
+**Product Name:** NVIDIA Model Installation — Per Edge Device
+
+**Category:** Services / Edge AI Deployment
+
+**One-Line Description:**
+On-site installation service for the NVIDIA model stack on a single edge device — CUDA, drivers, model bundle of choice, OpenSandbox isolation, MCP endpoint. €995 per device.
+
+**Full Description:**
+The standalone install service for customers adding nodes to an existing Lifetime Fleet, customers with NVIDIA-capable hardware they want the DWS IQ sovereign model stack deployed onto, or customers switching bundles on an existing device. The €995 fee covers a Lifetime engineer on-site (within Finland; EU travel quoted separately), CUDA + NVIDIA driver validation, model bundle install (Qwen, Llama, Whisper, BGE, YOLOv8, acoustic, TTS, or custom), OpenSandbox isolation, local MCP endpoint, first inference sanity check, Article 12 logging initialisation, and a signed install protocol.
+
+**NVIDIA Technologies Used:**
+- CUDA Toolkit + NVIDIA drivers (validated, locked at known-good revision)
+- TensorRT-LLM inference kernels
+- NVIDIA-optimised model weights (AWQ / GGUF Q4-K-M)
+- NVIDIA NIM-style microservices packaging (optional)
+
+**Pricing:** €995 per edge device. Already included in Control Room and Situation Room.
+
+**Website:** https://dws10.com/products/nvidia-model-install.html
+
+---
+
 ## Portal Profile Checklist
 
-- [ ] Upload product descriptions (all three)
+- [ ] Upload product descriptions (all six)
 - [ ] Add Lifetime Oy company details
 - [ ] Upload product screenshots / architecture diagrams
-- [ ] Set target industries (construction, logistics, manufacturing)
+- [ ] Set target industries (construction, logistics, manufacturing, civil defence, VPK / dual-use)
 - [ ] Set deployment regions (EU, Nordic)
 - [ ] Add contact: risto@lifetime.fi
 - [ ] Request co-marketing review from NVIDIA team
+- [ ] Link Inception Sovereign EU Edge AI track application to portal profile
 
 ---
 
@@ -172,3 +275,4 @@ This turns a hardware sale into a hardware + software + compliance deal. Higher 
 **Contact:** Risto Paarni, CEO — risto@lifetime.fi
 **Portal:** https://partners.nvidia.com
 **ISV Status:** Approved (2026-03-08)
+**Inception Applications:** LWM V1 · Firehorse V2 · Sovereign EU Edge AI (in preparation, 2026-05-17)

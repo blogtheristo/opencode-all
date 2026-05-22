@@ -1,21 +1,25 @@
-# DWS Gamma Brand Standard v2.6
+# DWS Gamma Brand Standard v3.1
 
 ---
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.6
+Version: 3.1
 
 Sessions & Modifications:
 
+- Version: 3.1 | Tool: Claude Code (Opus 4.7) | Session: claude/dws-compliance-sales-rz5He | Date: 18.05.2026 | Changes: Added §22 DWS Master Tagline — Intelligence Amplifier (EN+FI), companion product-truth sentence, `.hero .tagline` CSS spec, pairing rules with System of Action Operator + Three-Layer National Strategy + Boardy buyer-facing headline. Applied tagline to sector page heroes (/construction, /manufacturing, /logistics, /energy) and /sovereign-cbam-disclosure/.
+- Version: 2.9 | Tool: Claude Code (Sonnet 4.6) | Session: claude/data-centre-factory-docs-eav19 | Date: 10.05.2026 | Changes: Added §22 System of Action Operator — canonical investor and homepage positioning sentences (FI+EN), derived from Google Cloud Agentic Data Cloud framework and tietotehdas field research
+- Version: 2.8 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-booking-multilingual-hMx7m | Date: 28.04.2026 | Changes: Added §5.1 Ironclad Sync Rule — dws10.com is single source of truth for ironclad-nav.js + ironclad-footer.js across all sites; sync script scripts/on-deploy/sync-ironclad-nav.sh; domain-aware logo (LifetimeOy.png on lifetime.fi, OLW logo on onelifetime.world); Legal Hub simplified to direct link (no flyout); Agentic Commerce added; booking CTA /book/; investment-safety rewritten to gold standard.
+- Version: 2.7 | Tool: Claude Code (Opus 4.6) | Session: claude/add-red-hat-partners-d8Hey | Date: 21.03.2026 | Changes: Added Red Hat Technology Partner badge to Sovereignty Badge System (§11.2) — colors, usage rules, AgentOps BYOA context, implementation checklist. Added Technology Partners section to partners page.
 - Version: 2.6 | Tool: Claude Code (Opus 4.6) | Session: claude/dws-iq-synthetic-nervous-9TtAB | Date: 06.04.2026 | Changes: Added DWS IQ Platform (Series A) and Synthetic Nervous System (Technical) pitch lines to Section 22 — Arctic 15 investor positioning, EN/FI bilingual
 - Version: 2.5 | Tool: Claude Code (Opus 4.6) | Session: claude/nordic-industrial-rebrand-glOfb | Date: 06.04.2026 | Changes: Nordic Industrial rebrand — added Section 2.1 Nordic Industrial Palette, IBM Plex Sans typography, EU language bar, trilingual homepage (FI/SV/EN), "Built in Finland" footer badge, Mistral AI sovereign inference reference
-- Version: 1.0 | Tool: Cursor AI | Session: cursor/initial | Date: 01.01.2026 | Changes: Initial brand standard — store identity, dark tokens, product cards, category nav
-- Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Gamma edition — Iron Clad nav v3.0, footer, hero, typography, SEO meta, sovereignty badges, A2A, responsive, WCAG 2.2, shared assets registry, page template
-- Version: 2.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block to comply with DWS Document Standard
-- Version: 2.2 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-profile-menu-fFgv8 | Date: 03.03.2026 | Changes: Added Section 18 — Dashboard Profile Menu Standard v1.0 (ProfileMenu, HamburgerMenu, avatar initials, accessibility specs, layout integration)
-- Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-linkedin-social-note-QrRLH | Date: 08.03.2026 | Changes: Added NVIDIA Connect ISV Partner badge to Sovereignty Badge System (§11.1) — colors, usage rules, implementation checklist
 - Version: 2.4 | Tool: Claude Code (Opus 4.6) | Session: claude/build-mvp-features-qif39 | Date: 08.03.2026 | Changes: Added Section 19 — Onboarding Wizard Standard, Section 20 — Compliance Score Widget Standard, Section 21 — CLI Rich Output Standard
+- Version: 2.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-linkedin-social-note-QrRLH | Date: 08.03.2026 | Changes: Added NVIDIA Connect ISV Partner badge to Sovereignty Badge System (§11.1) — colors, usage rules, implementation checklist
+- Version: 2.2 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-profile-menu-fFgv8 | Date: 03.03.2026 | Changes: Added Section 18 — Dashboard Profile Menu Standard v1.0 (ProfileMenu, HamburgerMenu, avatar initials, accessibility specs, layout integration)
+- Version: 2.1 | Tool: Claude Code (Sonnet 4.6) | Session: claude/document-layering-strategy-ddhtQ | Date: 02.03.2026 | Changes: Added VERSION AND AGENT HISTORY block to comply with DWS Document Standard
+- Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/research-dws-brand-standard-Rm8Jw | Date: 07.02.2026 | Changes: Gamma edition — Iron Clad nav v3.0, footer, hero, typography, SEO meta, sovereignty badges, A2A, responsive, WCAG 2.2, shared assets registry, page template
+- Version: 1.0 | Tool: Cursor AI | Session: cursor/initial | Date: 01.01.2026 | Changes: Initial brand standard — store identity, dark tokens, product cards, category nav
 
 Session Links & References:
 
@@ -348,12 +352,38 @@ Products in `config/products.json` MUST have a `storeCategory` field.
 
 ---
 
-## 5. Iron Clad Navigation v3.0 (Single Source of Truth)
+## 5. Iron Clad Navigation v3.4 (Single Source of Truth)
 
-**CRITICAL: Only ONE navigation exists for all dws10.com pages.**
+**CRITICAL: Only ONE navigation exists for ALL sites (dws10.com, lifetime.fi, onelifetime.world).**
 
-**File:** `shared-assets/nav/ironclad-nav.js`
-**Version:** v3.0 (with mobile hamburger menu)
+**File:** `dws10.com/shared-assets/nav/ironclad-nav.js` — canonical source
+**Version:** v3.4 (domain-aware logo + Legal Hub simplified + Agentic Commerce)
+
+### 5.1 Ironclad Sync Rule (CRITICAL — added v2.8)
+
+**`dws10.com/shared-assets/nav/ironclad-nav.js` is the single source of truth for ALL sites.**
+
+| Site              | Nav file                                              | Footer file                                                 |
+| ----------------- | ----------------------------------------------------- | ----------------------------------------------------------- |
+| dws10.com         | `dws10.com/shared-assets/nav/ironclad-nav.js`         | `dws10.com/shared-assets/footer/ironclad-footer.js`         |
+| lifetime.fi       | `lifetime.fi/shared-assets/nav/ironclad-nav.js`       | `lifetime.fi/shared-assets/footer/ironclad-footer.js`       |
+| onelifetime.world | `onelifetime.world/shared-assets/nav/ironclad-nav.js` | `onelifetime.world/shared-assets/footer/ironclad-footer.js` |
+
+**Rule:** NEVER edit nav or footer files in lifetime.fi or onelifetime.world directly. Always edit `dws10.com/shared-assets/nav/ironclad-nav.js`, then sync:
+
+```bash
+bash scripts/on-deploy/sync-ironclad-nav.sh
+```
+
+The sync script (`scripts/on-deploy/sync-ironclad-nav.sh`) runs automatically after every `git pull` with new commits (on-deploy convention) and syncs all 8 target files (4 sites × root + landing-pages mirror).
+
+**Domain-aware logo (v3.4):** The nav auto-detects `window.location.hostname` and shows:
+
+- `dws10.com` → `DWS_IQ2026.png` (DWS IQ Platform)
+- `lifetime.fi` → `static/images/LifetimeOy.png` (Lifetime Oy)
+- `onelifetime.world` → `static/images/OneLifetime_Logo_Final.png` (OneLifetime.World)
+
+**Legal Hub simplification (v3.4):** The Legal menu is a single direct link `<a href="/legal/">Legal Hub</a>` — no flyout submenu. All legal sub-pages are listed on the Legal Hub page itself (`/legal/index.html`).
 
 **Usage:** Add to any page:
 
@@ -720,7 +750,7 @@ Pages should reference the DWS IQ logo or a dedicated favicon:
 Every page should include a subset of these core keywords:
 
 - **Brand:** DWS IQ, Firehorse, Lifetime Oy, dws10.com
-- **Compliance:** Fit for 55, CSRD, EU ETS, CBAM, EU AI Act, NIS2, GDPR
+- **Compliance:** Fit for 55, CSRD, EU ETS, CBAM, EU AI Act, NIS2, CER, GDPR
 - **Industry:** Climate compliance, industrial AI, carbon reporting, ESG
 - **Geography:** EU, Finland, EU data residency, CLOUD Act free, GAIA-X
 - **Products:** AI consulting, compliance automation, carbon calculator, Firehorse reports
@@ -740,6 +770,7 @@ For products and pages related to EU data sovereignty compliance.
 | EU AI Act | `#f59e0b` (amber) | `.sovereignty-badge.eu-ai-act` | EU AI Act Article 12 compliant |
 | CLOUD Act Free | `#ef4444` (red accent) | `.sovereignty-badge.cloud-act-free` | No US CLOUD Act exposure |
 | NVIDIA Connect ISV Partner | `#76b900` (NVIDIA green) | `.sovereignty-badge.nvidia-isv` | NVIDIA Connect ISV certified |
+| Red Hat Technology Partner | `#ee0000` (Red Hat red) | `.sovereignty-badge.redhat` | Red Hat AgentOps ecosystem |
 
 **Badge CSS:**
 
@@ -783,6 +814,11 @@ For products and pages related to EU data sovereignty compliance.
   color: #76b900;
   border: 1px solid rgba(118, 185, 0, 0.3);
 }
+.sovereignty-badge.redhat {
+  background: rgba(238, 0, 0, 0.15);
+  color: #ee0000;
+  border: 1px solid rgba(238, 0, 0, 0.3);
+}
 ```
 
 ### 11.1 NVIDIA Connect ISV Partner Badge
@@ -809,6 +845,30 @@ For products and pages related to EU data sovereignty compliance.
 - [x] Products dropdown: "DWS IQ Report" label, href unchanged
 - [x] NVIDIA ISV Partner page live at dws10.com/lifetime-fleet/nvidia-isv/
 - [ ] Annex III biometric one-liner in Technical Requirements section on Optimus V3 page
+
+### 11.2 Red Hat Technology Partner Badge
+
+**Status:** Active partnership (2026-03-21). Contact: Mikko Pylväs, Red Hat Finland.
+
+**Colors:** Red Hat Red `#ee0000`, White `#ffffff`.
+
+**Context:** Red Hat hosted an AI event with partners in Finland (March 2026). Their AgentOps strategy — Bring Your Own Agent (BYOA) — aligns with DWS IQ 6's multi-framework agent orchestration. Red Hat + NVIDIA joint work on secure AI infrastructure directly supports the KYA-governed agent isolation model. Red Hat's "The Adaptable Enterprise" (2025) Key Findings report validates DWS IQ 6 architecture: inference-native, MCP-native, hybrid-deployable, open-source aligned. Market data: $644B GenAI spending 2025, 80%+ accelerators for inference by 2028.
+
+**Usage rules:**
+
+- Display on partners page, technology ecosystem sections, and agent infrastructure pages
+- Never claim "Red Hat certified" — use "Red Hat Technology Partner" or "Red Hat AgentOps ecosystem"
+- Reference the BYOA (Bring Your Own Agent) framework when discussing agent compatibility
+- Highlight open-source alignment with EU digital sovereignty requirements
+
+**Implementation checklist (2026-03-21):**
+
+- [x] Red Hat added to Technology Partners section on dws10.com/partners/
+- [x] Red Hat badge added to Sovereignty Badge System (§11)
+- [x] Partners outreach pipeline updated with Mikko Pylväs contact
+- [x] Landing pages synced (dual folder rule)
+- [ ] Red Hat logo asset added to shared-assets/logos/
+- [ ] OpenShift AI integration documented in architecture docs
 
 ---
 
@@ -1692,6 +1752,58 @@ Visible only on mobile (`md:hidden`). Three horizontal bars (`w-5 h-0.5`) that o
 
 Canonical one-liners for investor materials, landing pages, and sales outreach. Both language versions MUST be updated together.
 
+### DWS Master Tagline — Intelligence Amplifier (Cross-Product / Master Frame)
+
+The master umbrella tagline. Sits above every product-specific pitch line. Use as a kicker/strapline below the H1 on sector pages and as the lead line in any meeting where the audience has not yet seen DWS positioning.
+
+**EN:** We amplify human intelligence in regulated industries.
+
+**FI (kotimainen):** Vahvistamme ihmisen älykkyyttä säännellyillä toimialoilla.
+
+**Companion sentence (product truth, for elaboration):**
+
+**EN:** DWS Intelligence is the product. Removing compliance friction is the entry point — how we get into the workflow. Amplifying the intelligence of every person in the disclosure, audit, and regulated-decision pipeline is what we are actually doing. Friction removal is one-shot; intelligence compounds. The compounding curve is the moat.
+
+**FI (kotimainen):** DWS Intelligence on tuote. Compliance-kitkan poistaminen on sisäänkäyntipiste — tapa, jolla pääsemme työnkulkuun. Tehtävämme on vahvistaa jokaisen disclosure-, audit- ja sääntelypäätösketjuun osallistuvan ihmisen älykkyyttä. Kitkan poisto on kertaluonteista; älykkyys kasautuu. Kasvun käyrä on vallihauta.
+
+**Translation notes:**
+
+- "amplify" → "vahvistaa" (strengthen/amplify) — preferred over "kasvattaa" (grow) which sounds too soft for B2B; "vahvistaa" is the verb used in Finnish engineering and signal-processing contexts
+- "human intelligence" → "ihmisen älykkyys" — concrete, role-anchored; preferred over "inhimillinen älykkyys" which leans poetic
+- "regulated industries" → "säännellyt toimialat" — already canonical FI in this section (also used for Aegis pitch); never use "säädelty" (it sounds adjusted/tuned)
+- "compounding curve is the moat" → "kasvun käyrä on vallihauta" — direct; "vallihauta" (moat) is now established Finnish startup vocabulary
+- Use "DWS Intelligence" untranslated in FI — it is the product surface name
+
+**Visual treatment (sector pages, hero):**
+
+```html
+<p class="tagline">DWS Intelligence &middot; We amplify human intelligence in regulated industries.</p>
+```
+
+```css
+.hero .tagline {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+  max-width: 720px;
+  margin: 0 auto 18px;
+}
+```
+
+**Pairing rules:**
+
+- **With System of Action Operator (§22.x below):** the master tagline names *what we do* (amplify intelligence). System of Action Operator names *how we do it* (carry regulated work to completion with audit trail). Lead with the master tagline on first-touch, switch to System of Action Operator when the conversation goes operational.
+- **With Three-Layer National Strategy (§22.x below):** the master tagline is global; Three-Layer is the Finnish-policy frame. Use master tagline outside Finland; pair both inside Finland or for EU-policy audiences.
+- **With Boardy buyer-line headline** (`DWS helps [company] sell more by removing compliance friction before the sale, using KYA-governed disclosure logic and sovereign NVIDIA infra to make regulated deals easier to close and the IP moat stronger`): master tagline is the product truth, Boardy line is the buyer-facing concretion. In a meeting, lead with whichever fits — buyer-facing meetings start with Boardy, strategic/board/investor meetings start with the master tagline.
+
+**Use in:** Hero kickers on all sector pages (`/construction`, `/manufacturing`, `/logistics`, `/energy`, `/healthcare`, `/financial-services`, `/public-sector`, `/real-estate`, `/shipbuilding`, `/mining`, `/waste`, and any sovereign-disclosure pattern page), investor decks (opening slide), partner one-pagers, sales-outreach letter openers, LinkedIn header line.
+
+**Do not use in:** Store / product-card copy (use product-specific pitch lines below instead), legal documents (use Lifetime Oy legal identity per CLAUDE.md), or any place where "regulated industries" would be misread as gatekeeping (use product-specific line instead).
+
+---
+
 ### DWS IQ Aegis
 
 **EN:** DWS IQ Aegis — intelligence interceptor for EU dual-use industries. Sovereign AI, Finnish-hosted, CLOUD Act-free.
@@ -1746,12 +1858,90 @@ Canonical one-liners for investor materials, landing pages, and sales outreach. 
 - "battle-tested" → "taisteluvalmiita" — strong B2B Finnish, acceptable in industrial context
 - Use in NVIDIA co-marketing, technical partner materials, and deep-dive investor decks
 
+### Founder's Strategic Core Statement — Master Frame
+
+> Tämä on Suomen tietotehtaiden strateginen ydinlause — kolmikerrosmalli jossa hyperscalerit rakentavat infrastruktuuri-kerroksen, Suomi omistaa datavarannon, ja rakentamani tuote DWS IQ operoi älykkyyden (System Of Action Operator).
+>
+> — Risto Anton Paarni, Lifetime Oy, 10.05.2026
+
+This is the founder's declaration, not a copywriting exercise. _"Rakentamani tuote"_ (the product I built) is an intentional personal ownership claim. All derived positioning sentences below flow from this master frame. Do not paraphrase or dilute it in investor or strategic contexts — quote verbatim with attribution.
+
+**EN equivalent (for non-Finnish audiences):**
+
+> This is the strategic core sentence of Finnish data factories — a three-layer model where hyperscalers build the infrastructure layer, Finland owns the data reserve, and the product I built, DWS IQ, operates the intelligence (System of Action Operator).
+
+---
+
+### System of Action Operator (Cross-Product / Core Positioning)
+
+Canonical positioning derived from Google Cloud's Agentic Data Cloud framework (22.04.2026) and tietotehdas field research. Use verbatim — no paraphrasing.
+
+**Investor sentence (FI):**
+
+> Emme ole SaaS-toimittaja, vaan _System of Action -operaattori_, joka vie säädellyn työn hallitusti maaliin audit traililla.
+
+**Homepage sentence (FI):**
+
+> DWS ei ole SaaS, vaan _System of Action -operaattori_ eurooppalaiselle teollisuudelle, jossa compliance voi pysäyttää tai vapauttaa rahaa.
+
+**Investor sentence (EN):**
+
+> We are not a SaaS vendor — we are a _System of Action operator_ that carries regulated work reliably to completion with a full audit trail.
+
+**Homepage sentence (EN):**
+
+> DWS is not SaaS — it's a _System of Action operator_ for European industry, where compliance can freeze or release money.
+
+**Translation notes:**
+
+- "vie maaliin" → "carries to completion" — outcome-first language, not feature-first
+- "pysäyttää tai vapauttaa rahaa" → "freeze or release money" — direct; the financial mechanic of compliance gates
+- "audit trail" — keep untranslated in FI; universally understood in B2B compliance context
+
+**Use in:** Investor pitch decks (all rounds), dws10.com hero section, sales presentations, Series A materials, partner briefings. This is the primary cross-product positioning — takes precedence over product-specific one-liners when speaking about DWS IQ as a platform.
+
+### Three-Layer National Strategy (Investor / Homepage / Policy)
+
+Canonical framing derived from Finnish national data infrastructure strategy. Use verbatim — these are the distilled sentences, not summaries.
+
+**Investoriversio (FI) — short form:**
+
+> Hyperscalerit rakentavat infrastruktuurin, Suomi omistaa datavarannon, ja DWS operoi älykkyyden.
+
+**Homepage-versio (FI) — with sovereignty hook:**
+
+> DWS on älykkyyden operointikerros, jossa infrastruktuuri voi olla globaali, datavaranto pysyy Suomessa, ja päätösvalta säilyy täällä.
+
+**Investor/policy long form (FI):**
+
+> DWS noudattaa kansallista strategiaa: kansainväliset toimijat rakentavat fyysiset tietotehtaat Suomeen, jotta datavarannot voidaan louhia täällä, pitää ohjaus Suomessa ja ottaa hyötykäyttöön DWS:n kaltaisilla järjestelmillä.
+
+**Investor short form (EN):**
+
+> Hyperscalers build the infrastructure, Finland owns the data reserves, DWS operates the intelligence.
+
+**Homepage (EN):**
+
+> DWS is the intelligence operating layer — infrastructure can be global, data reserves stay in Finland, decision-making power stays here.
+
+**Translation notes:**
+
+- "operoi älykkyyden" → "operates the intelligence" — intentionally verb-first; DWS is active, not passive
+- "päätösvalta säilyy täällä" → "decision-making power stays here" — sovereignty claim, stronger than "data stays here"
+- Layer model: hyperscaler (Layer 1) → Finnish data reserves (Layer 2) → DWS IQ intelligence (Layer 3)
+
+**Use in:** Series A investor decks (Finland Advantage slide), dws10.com hero, policy briefings, EU grant applications, partner onboarding. Pair with System of Action Operator sentences when addressing both _what DWS does_ and _why Finland_.
+
 ---
 
 ## Changelog
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| v3.1    | 2026-05-18 | Added: §22 DWS Master Tagline — Intelligence Amplifier (EN: "We amplify human intelligence in regulated industries." / FI: "Vahvistamme ihmisen älykkyyttä säännellyillä toimialoilla.") with companion product-truth sentence, visual hero treatment (`.hero .tagline` CSS), and pairing rules with System of Action Operator + Three-Layer National Strategy + Boardy buyer-facing headline. Applied tagline to sector page heroes (`/construction`, `/manufacturing`, `/logistics`, `/energy`) and to `/sovereign-cbam-disclosure/` pattern page. |
+| v3.0    | 2026-05-10 | Added: §22 Three-Layer National Strategy — investor short form ("Hyperscalerit rakentavat infrastruktuurin, Suomi omistaa datavarannon, ja DWS operoi älykkyyden"), homepage version with sovereignty hook ("päätösvalta säilyy täällä"), and long-form policy sentence — FI+EN, translation notes, usage pairing with System of Action Operator sentences                                                                                                                                          |
+| v2.9    | 2026-05-10 | Added: §22 System of Action Operator — canonical investor sentence ("Emme ole SaaS-toimittaja, vaan System of Action -operaattori, joka vie säädellyn työn hallitusti maaliin audit traililla") and homepage sentence ("DWS ei ole SaaS, vaan System of Action -operaattori eurooppalaiselle teollisuudelle, jossa compliance voi pysäyttää tai vapauttaa rahaa") — FI+EN, with translation notes and usage guidance                                                                                |
+| v2.8    | 2026-04-28 | Added: §5.1 Ironclad Sync Rule; booking CTA; investment-safety rewritten                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | v2.7    | 2026-04-07 | Added: Aegis Sovereign Identity (KYA Layer 1) pitch lines — EU-only biometric IDV messaging, sovereignty selling points for defense/NIS2 buyers, EN/FI bilingual. Based on Shufti DPA compliance resolution (all 5 points resolved, Option 1+3 accepted).                                                                                                                                                                                                                                           |
 | v2.6    | 2026-04-06 | Added: DWS IQ Platform (Series A) and Synthetic Nervous System (Technical) pitch lines to Section 22 — Arctic 15 investor positioning, EN/FI bilingual                                                                                                                                                                                                                                                                                                                                              |
 | v2.5    | 2026-04-01 | Added: Section 22 Product Pitch Lines — canonical EN/FI one-liners for DWS IQ Aegis, translation notes. Nordic Industrial rebrand — Section 2.1 Nordic Industrial Palette, IBM Plex Sans typography, EU language bar, 5-language homepage (FI/SV/DE/FR/EN), "Built in Finland" footer badge                                                                                                                                                                                                         |

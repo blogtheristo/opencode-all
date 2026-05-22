@@ -12,7 +12,7 @@
   "mcpServers": {
     "dws-gateway": {
       "_comment": "Remote MCP Gateway on Cloud Run (for mobile + desktop)",
-      "type": "url",
+      "type": "http",
       "url": "https://mcp-gateway-XXXXX-ew.a.run.app/mcp",
       "headers": {
         "Authorization": "Bearer ${MCP_GATEWAY_API_KEY}"
@@ -20,7 +20,7 @@
     },
     "dws-gateway-local": {
       "_comment": "Local MCP Gateway (for desktop development — no Cloud Run needed)",
-      "type": "command",
+      "type": "stdio",
       "command": "python",
       "args": [
         "mcp-servers/cloud-run-gateway/server.py",

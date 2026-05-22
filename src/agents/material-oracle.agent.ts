@@ -187,6 +187,7 @@ export class MaterialOracleAgent extends BaseAgent {
         'ec3-epd-lookup',
       ],
       model: 'llama-3.3-70b-versatile',
+      modelTier: 'standard',
     });
     this.ec3Client = createEC3Client();
   }

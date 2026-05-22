@@ -84,6 +84,18 @@ export interface ConstructionLead {
   raw_data: Record<string, unknown>;
   source: string;
   created_by: string;
+
+  /**
+   * Dedup key with tender_id — must match DB (migration 047).
+   * company_name = normalized buyer; tender_id = ted_notice_id for TED.
+   */
+  company_name: string;
+  tender_id: string;
+
+  /** Heuristic ERP (company-erp-resolver) */
+  resolved_erp?: string | null;
+  /** Matched compliance/climate keywords from TED text */
+  compliance_keywords?: string[] | null;
 }
 
 export type ConstructionLeadStatus =
@@ -102,6 +114,17 @@ export interface ConstructionLeadRow extends ConstructionLead {
   notes: string | null;
   created_at: string;
   updated_at: string;
+  outreach_sent?: boolean;
+  sent_at?: string | null;
+  follow_up_sent?: boolean;
+  follow_up_sent_at?: string | null;
+  opened?: boolean;
+  replied?: boolean;
+  bounced?: boolean;
+  unsubscribed?: boolean;
+  open_rate_lang?: string | null;
+  hil_feedback?: string | null;
+  template_flag?: string | null;
 }
 
 /** Summary for morning briefing */

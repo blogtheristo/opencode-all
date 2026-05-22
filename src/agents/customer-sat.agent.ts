@@ -67,6 +67,7 @@ export class CustomerSatAgent extends BaseAgent {
         'nps-analysis',
       ],
       model: 'llama-3.3-70b-versatile',
+      modelTier: 'lite',
     });
   }
 

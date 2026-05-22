@@ -1,8 +1,8 @@
 ---
 title: DWS Security Standard
-version: 2.2
+version: 2.4
 created: 2026-02-07
-last_modified: 2026-04-10
+last_modified: 2026-05-20
 author: Lifetime Oy Security Team
 language: en
 languages_available: [en]
@@ -19,10 +19,12 @@ toc-depth: 3
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.2
+Version: 2.4
 
 Sessions & Modifications:
 
+- Version: 2.4 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: pr-1368-review | Date: 20.05.2026 | Changes: Corrected PR #1368 integration status and versioning; enabled TypeScript redirect sanitization in the Express stack and CSRF enforcement on auth/payment routes; added Vitest coverage for the TypeScript security ports; switched MCP tool classification to fail closed for unknown tools; updated testing and pentest references to the TypeScript paths.
+- Version: 2.3 | Tool: GitHub Copilot (Gemini 2.0 Flash) | Session: claude/mvp-missing-features-pS9La | Date: 20.05.2026 | Changes: Ported legacy November 2025 security components from Python/Flask to TypeScript/Express (Modern CSRF, Redirect Validation, MCP DCR, Tool Colors, Image Prompt Injection); archived legacy Python components as _OLD.py.
 - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/connect-kya-dws-cli-0MMIB | Date: 10.04.2026 | Changes: Added Section 18.6 (KYA Control Surfaces — CLI, HTTP, Webhook) documenting the `dws kya status` / `dws kya snap` CLI paths, timing-safe `ADMIN_API_KEY` auth pattern, mandatory forensic dumps, accepted reason codes, and cross-reference to `/kya` slash command; renumbered NIS2 compliance statement to 18.7 and updated it to mention operator CLI path
 - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/audit-shufti-dpa-artifacts-HFEGx | Date: 08.04.2026 | Changes: Updated Section 18.5 with Shufti Pro sub-processor risk assessment (TeleSign noyb complaint, Twilio security incidents, Cloudflare/IPStack risks) from PR #768 DPA clause audit; added ML training prohibition control to IDV partner controls table
 - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/dws-iq-synthetic-nervous-9TtAB | Date: 06.04.2026 | Changes: Added Section 19 (Synthetic Data & Model Fine-Tuning Security) — synthetic data generation controls, model provenance, inference isolation, drift monitoring, adversarial integrity, NIS2 compliance statement for NVIDIA NeMo DataDesigner integration
@@ -45,7 +47,7 @@ Session Links & References:
 Document Status:
 
 - Created: 07.02.2026
-- Last Modified: 09.03.2026
+- Last Modified: 20.05.2026
 - Language: English
 - Languages Available: EN
 - Publication Status: ACTIVE
@@ -269,27 +271,28 @@ The AI Safety Report 2026 recommends **defence-in-depth** — layering multiple 
 
 **Purpose:** Prevent cross-domain attacks and privilege escalation through tool separation.
 
-| Control                          | Implementation                                        | Status |
-| -------------------------------- | ----------------------------------------------------- | ------ |
-| RED/BLUE tool separation         | MCP Colors prevents mixing untrusted + critical tools | Active |
-| Tool approval workflow           | MCP tool access requires authorization                | Active |
-| Protected configuration          | Immutable config with restricted write access         | Active |
-| Cross-agent privilege prevention | ProtectedConfiguration class (src/config/)            | Active |
+| Control                          | Implementation                                                                     | Status |
+| -------------------------------- | ---------------------------------------------------------------------------------- | ------ |
+| RED/BLUE tool separation         | MCP Colors classification library with fail-closed handling for unknown tools (src/mcp/security/tool-colors.ts) | Active |
+| Tool approval workflow           | MCP tool access requires authorization                                             | Active |
+| Protected configuration          | Immutable config with restricted write access                                      | Active |
+| Cross-agent privilege prevention | ProtectedConfiguration class (src/config/)                                         | Active |
+| Dynamic Client Registration      | RFC 7591 compliant MCP registration utility for MCP integrations (src/mcp/oauth-handler.ts) | Integration-ready |
 
 ### Layer 3: Data Protection
 
 **Purpose:** Prevent data exfiltration, injection, and unauthorized access.
 
-| Control                          | Implementation                                                      | Status |
-| -------------------------------- | ------------------------------------------------------------------- | ------ |
-| Domain validation                | Domain Validator prevents data exfiltration to unauthorized domains | Active |
-| File access control              | Protected system files from agent modification                      | Active |
-| CSRF protection                  | Modern Sec-Fetch-Site based CSRF middleware (94.18% coverage)       | Active |
-| Redirect validation              | Open redirect prevention                                            | Active |
-| SQL injection prevention         | Secure Query Builder (parameterized queries)                        | Active |
-| Image prompt injection detection | Detects hidden instructions in uploaded images                      | Active |
-| Encryption at rest               | AES-256-GCM with customer-managed keys (BYOK/CMEK)                  | Active |
-| Encryption in transit            | TLS 1.3, mTLS for service-to-service                                | Active |
+| Control                          | Implementation                                                                   | Status |
+| -------------------------------- | -------------------------------------------------------------------------------- | ------ |
+| Domain validation                | Domain Validator prevents data exfiltration to unauthorized domains              | Active |
+| File access control              | Protected system files from agent modification                                   | Active |
+| CSRF protection                  | Modern Sec-Fetch-Site based CSRF on `/api/v1/auth` and `/api/v1/payments` (src/middleware/csrf-protection.ts) | Active |
+| Redirect validation              | Open redirect prevention applied to Express query handling (src/middleware/redirect-validator.ts) | Active |
+| SQL injection prevention         | Secure Query Builder (parameterized queries)                                     | Active |
+| Image prompt injection detection | Detects hidden instructions in images (src/mcp/security/image-sanitizer.ts)      | Integration-ready |
+| Encryption at rest               | AES-256-GCM with customer-managed keys (BYOK/CMEK)                               | Active |
+| Encryption in transit            | TLS 1.3, mTLS for service-to-service                                             | Active |
 
 ### Layer 4: Human Oversight (Firehorse Human-in-the-Loop)
 
@@ -696,7 +699,7 @@ DWS Security Standard (this document)
 └── IMPLEMENTATION
     ├── src/config/protected_config.py     ← Protected configuration
     ├── src/mcp/security/                  ← MCP security modules
-    ├── src/web/                           ← CSRF, redirect validation
+    ├── src/middleware/                    ← CSRF, redirect validation
     ├── src/database/                      ← SQL injection prevention
     └── .github/workflows/security-*.yml   ← 8 security workflows
 ```

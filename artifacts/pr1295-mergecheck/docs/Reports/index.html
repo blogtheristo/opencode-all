@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DWS IQ 6 - Investor Reports | Lifetime Oy</title>
+    <meta name="description" content="Weekly investor progress reports for DWS IQ 6 platform development by Lifetime Oy">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-hover: #2a2a2a;
+            --text-primary: #f0f0f0;
+            --text-secondary: #888;
+            --accent: #f97316;
+            --link: #60a5fa;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            border-bottom: 1px solid #333;
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        h1 {
+            color: var(--accent);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+        
+        h2 {
+            color: var(--text-primary);
+            margin: 2rem 0 1rem;
+            font-size: 1.5rem;
+        }
+        
+        a {
+            color: var(--link);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .report-list {
+            list-style: none;
+        }
+        
+        .report-item {
+            padding: 1.25rem;
+            margin: 0.75rem 0;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+        
+        .report-item:hover {
+            background: var(--bg-hover);
+            transform: translateX(4px);
+        }
+        
+        .report-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .report-meta {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .report-date {
+            color: var(--accent);
+            font-weight: 500;
+        }
+        
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .metric-card {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .metric-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        
+        .confidential {
+            background: #422006;
+            color: #fbbf24;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 600px) {
+            .container { padding: 1rem; }
+            h1 { font-size: 1.75rem; }
+            .footer-links { flex-direction: column; gap: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 DWS IQ 6 Investor Reports <span class="badge">V1.0 Progress</span></h1>
+            <p class="subtitle">Weekly development progress for investors, partners, and Metropolia thesis committee</p>
+        </header>
+        
+        <div class="confidential">
+            🔒 <strong>Confidential</strong> - For authorized investors and partners only
+        </div>
+        
+        <div class="metrics">
+            <div class="metric-card">
+                <div class="metric-value">48%</div>
+                <div class="metric-label">V1.0 Readiness</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">49</div>
+                <div class="metric-label">Days to Launch</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">€10K</div>
+                <div class="metric-label">Monthly Revenue</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">22+</div>
+                <div class="metric-label">AI Agents</div>
+            </div>
+        </div>
+        
+        <h2>📊 2026 Reports</h2>
+        <ul class="report-list">
+            <li class="report-item">
+                <div class="report-title">
+                    <a href="en/Weekly_Report_2026-W01.md">Week 1: Agent Coordination System Launch</a>
+                </div>
+                <div class="report-meta">
+                    <span class="report-date">January 1-5, 2026</span> • 
+                    Lifetime Scope Signals Protocol • Enterprise Documentation • 3 New Products
+                </div>
+            </li>
+        </ul>
+        
+        <h2>📁 2025 Reports (Archive)</h2>
+        <ul class="report-list">
+            <li class="report-item">
+                <div class="report-title">
+                    <a href="en/Weekly_Report_2025-W50_Consolidated.md">Week 50: Website Modernization</a>
+                </div>
+                <div class="report-meta">
+                    <span class="report-date">December 9-15, 2025</span> • 
+                    Squarespace Migration • SSG Architecture • €10K MRR Confirmed
+                </div>
+            </li>
+            <li class="report-item">
+                <div class="report-title">
+                    <a href="en/Weekly_Report_2025-W49_Consolidated.md">Week 49: Consolidated Report</a>
+                </div>
+                <div class="report-meta">
+                    <span class="report-date">December 2-8, 2025</span> • 
+                    Platform Foundation • Infrastructure Setup
+                </div>
+            </li>
+            <li class="report-item">
+                <div class="report-title">
+                    <a href="en/Weekly_Progress_Report_2025-W49.md">Week 49: Progress Report</a>
+                </div>
+                <div class="report-meta">
+                    <span class="report-date">December 2-8, 2025</span> • 
+                    Initial Progress Tracking
+                </div>
+            </li>
+        </ul>
+        
+        <h2>📚 Related Documentation</h2>
+        <ul class="report-list">
+            <li class="report-item">
+                <div class="report-title">
+                    <a href="https://github.com/blogtheristo/dws6" target="_blank">GitHub Repository</a>
+                </div>
+                <div class="report-meta">
+                    Full source code, documentation, and automated workflows
+                </div>
+            </li>
+            <li class="report-item">
+                <div class="report-title">
+                    <a href="https://app.peachscore.com/company/lifetime-oy" target="_blank">Peachscore Profile</a>
+                </div>
+                <div class="report-meta">
+                    Cohort 25 • Nordic VC Network • Benchmarking
+                </div>
+            </li>
+        </ul>
+        
+        <footer>
+            <div class="footer-links">
+                <div>
+                    <strong>Company:</strong> Lifetime Oy
+                </div>
+                <div>
+                    <strong>Contact:</strong> <a href="mailto:risto@lifetime.fi">risto@lifetime.fi</a>
+                </div>
+                <div>
+                    <strong>Website:</strong> <a href="https://dws10.com" target="_blank">dws10.com</a>
+                </div>
+                <div>
+                    <strong>Community:</strong> <a href="https://onelifetime.world" target="_blank">onelifetime.world</a>
+                </div>
+            </div>
+            <p>
+                © 2026 Lifetime Oy. All rights reserved.<br>
+                Finland | EU Data Residency | Climate Intelligence Platform
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

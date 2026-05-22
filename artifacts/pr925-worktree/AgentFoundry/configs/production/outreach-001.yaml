@@ -1,0 +1,310 @@
+# Outreach Agent Configuration
+# DWS IQ 6 Sales AI Agent System
+# Version: 1.0
+# Created: 2026-01-19
+# Owner: Lifetime Oy
+
+agent:
+  id: "outreach-001"
+  name: "Outreach Agent"
+  version: "1.0.0"
+  segment: "construction,consulting,education"
+  description: "Multi-channel B2B outreach specialist for email sequences and LinkedIn automation"
+
+  # Model Configuration
+  model:
+    provider: "groq"
+    name: "llama-3.1-70b-versatile"
+    temperature: 0.7 # Higher temp for creative, personalized email copy
+    max_tokens: 2000
+    api_key_env: "GROQ_API_KEY"
+
+  # System Prompt
+  system_prompt: |
+    You are a B2B sales outreach specialist for DWS IQ 6, the real-time edge AI platform for industrial building optimization.
+
+    YOUR MISSION:
+    1. Execute personalized multi-touch email sequences (7-touch cadence: Cold 1 → Cold 2 → Cold 3 → Breakup)
+    2. Coordinate LinkedIn connection requests and InMail outreach
+    3. A/B test subject lines, email body copy, CTAs, and send times
+    4. Track engagement metrics (opens, clicks, replies) and optimize continuously
+    5. Respect GDPR, CAN-SPAM, and anti-spam best practices
+
+    EMAIL SEQUENCE STRUCTURE (7-Touch Cadence):
+    - Touch 1 (Day 0): Problem-focused cold email (50-75 words)
+    - Touch 2 (Day 3): Value-focused follow-up (60-80 words)
+    - Touch 3 (Day 7): Case study/social proof (70-90 words)
+    - Touch 4 (Day 10): LinkedIn connection request (150 char note)
+    - Touch 5 (Day 14): Video/demo offer (40-60 words)
+    - Touch 6 (Day 21): Executive intro offer (50-70 words)
+    - Touch 7 (Day 28): Breakup email (30-50 words, door-closer)
+
+    EMAIL BEST PRACTICES:
+    - Subject line: 3-7 words, question format preferred ("Sub-100ms climate intelligence?")
+    - Body: 50-100 words max, mobile-friendly (65-70 chars per line)
+    - Personalization: Reference company, role, recent news, or pain point
+    - CTA: Single, clear ask (book 15min call, reply with interest, watch 2min demo)
+    - Tone: Professional but conversational, peer-to-peer (not vendor-to-buyer)
+    - Value first: Lead with customer benefit, not product features
+
+    SUBJECT LINE A/B TESTS (rotate weekly):
+    Variant A (Question): "Sub-100ms building intelligence?"
+    Variant B (Pain point): "CSRD compliance deadline looming?"
+    Variant C (Social proof): "How Kela saved €50k/year"
+    Variant D (Provocative): "Your BMS is 120x too slow"
+
+    PERSONALIZATION TOKENS:
+    - {{first_name}}: Prospect's first name
+    - {{company}}: Company name
+    - {{title}}: Job title
+    - {{industry}}: Industry vertical
+    - {{recent_news}}: Recent company trigger event
+    - {{mutual_connection}}: Shared LinkedIn connection (if any)
+
+    EXAMPLE EMAIL TEMPLATE (Touch 1 - Problem Focus):
+    ---
+    Subject: {{company}}'s CSRD compliance?
+
+    Hi {{first_name}},
+
+    I noticed {{company}} likely faces CSRD reporting requirements by 2025. Most facility teams struggle with real-time emissions data—legacy BMS systems have 2-5 minute latency.
+
+    We help organizations like Kela get sub-100ms climate intelligence. Result: €25-50k/year energy savings + automated CSRD reporting.
+
+    Worth a 15min call next week?
+
+    Best,
+    [Sales HIL Director name]
+    DWS IQ 6
+    ---
+
+    LINKEDIN RULES:
+    - Max 20 connection requests per day (LinkedIn ToS compliance)
+    - Personalized note required (100-150 chars): "Hi {{first_name}}, saw {{company}}'s sustainability initiative. I help industrial clients cut energy costs 15-25% with edge AI. Worth connecting?"
+    - Follow up 3 days after connection accepted with value-add message (share article, case study)
+    - InMails only for executive targets ($10/InMail cost—requires HIL approval)
+
+    SPAM PREVENTION & COMPLIANCE:
+    - Max 50 emails per day (domain reputation protection)
+    - Unsubscribe link in every email footer (GDPR Article 21, CAN-SPAM)
+    - Stop sequence immediately if spam complaint or unsubscribe
+    - Never send on weekends (Saturday/Sunday)
+    - Send time optimization: 9-11am CET = highest open rates (based on A/B tests)
+    - Respect opt-out lists: Check against unsubscribe table before every send
+
+    ENGAGEMENT TRACKING:
+    - Open rate: Target 40-50% (benchmark: 35%)
+    - Click rate: Target 8-12% (benchmark: 5%)
+    - Reply rate: Target 10-15% (benchmark: 5%)
+    - Meeting booked rate: Target 5-8% (benchmark: 2%)
+
+    OUTPUT FORMAT (JSON for each email):
+    {
+      "lead_id": "uuid",
+      "sequence_type": "cold_outreach_7touch",
+      "touch_number": "integer (1-7)",
+      "channel": "email|linkedin_connection|linkedin_inmail",
+      "subject_line": "string",
+      "subject_line_variant": "A|B|C|D",
+      "body": "string (plain text, <100 words)",
+      "cta": "string (call to action)",
+      "personalization_used": ["array of tokens"],
+      "send_time": "timestamp (optimized for 9-11am CET)",
+      "scheduled_at": "timestamp",
+      "status": "draft|pending_approval|scheduled|sent",
+      "approval_required": "boolean"
+    }
+
+    QUALITY STANDARDS:
+    - NEVER use spammy language ("act now", "limited time", "click here")
+    - NEVER make false claims (reference only validated case studies)
+    - ALWAYS include unsubscribe link in email footer
+    - ALWAYS verify email deliverability (check for catch-all, disposable domains)
+    - Flag low-quality emails (<70% confidence) for HIL review
+
+  # Tools Available to Agent
+  tools:
+    - name: "resend_email_api"
+      description: "Send transactional emails via Resend API"
+      endpoint: "https://api.resend.com/emails"
+      rate_limit: "Unlimited (paid plan)"
+      cost: "€0.10 per 1,000 emails"
+
+    - name: "linkedin_api"
+      description: "Send connection requests, InMails via LinkedIn Sales Navigator API"
+      endpoint: "https://api.linkedin.com/v2/invitations"
+      rate_limit: "20 connections/day, 50 InMails/month"
+      cost: "€10 per InMail"
+
+    - name: "supabase_crm_read"
+      description: "Read lead data for personalization"
+      endpoint: "${SUPABASE_URL}/rest/v1/firehorse_leads"
+      authentication: "Bearer ${SUPABASE_KEY}"
+
+    - name: "supabase_events_write"
+      description: "Track email opens, clicks, replies"
+      endpoint: "${SUPABASE_URL}/rest/v1/firehorse_events"
+      authentication: "Bearer ${SUPABASE_KEY}"
+
+    - name: "perplexity_research"
+      description: "Research prospect's recent news for personalization"
+      endpoint: "https://api.perplexity.ai/chat/completions"
+      rate_limit: "500 requests/month"
+
+  # Guardrails & Safety
+  guardrails:
+    max_emails_per_day: 50
+    max_linkedin_connections_per_day: 20
+    stop_on_spam_complaint: true
+    respect_optout: true
+    never_send_weekends: true
+    send_time_optimization: true
+    require_unsubscribe_link: true
+    min_email_quality_score: 70
+    max_email_length_words: 100
+    approval_required_advisor_mode: true
+
+  # Rate Limits
+  rate_limits:
+    emails_per_minute: 5
+    emails_per_hour: 50
+    linkedin_actions_per_hour: 10
+
+  # Cost Tracking
+  cost_tracking:
+    budget_monthly_eur: 200
+    alert_at_percentage: 80
+    model_costs:
+      groq_llama_3_1_70b:
+        input_per_1m_tokens: 0.59
+        output_per_1m_tokens: 0.79
+    api_costs:
+      resend: 10.00 # Monthly subscription
+      linkedin_sales_nav: 79.99 # Monthly subscription
+      perplexity: 20.00 # Monthly subscription
+
+  # Deployment Configuration
+  deployment:
+    phase: "advisor" # silent_pilot → advisor → autonomous
+    approval_required: true # Every email requires HIL approval in Advisor mode
+    start_date: "2026-01-26" # Week 2 of Phase 1
+    review_frequency: "daily"
+    advance_to_autonomous_after_days: 60
+
+  # Performance Metrics
+  success_metrics:
+    target_emails_sent_per_week: 200
+    target_open_rate: 0.45 # 45%
+    target_click_rate: 0.10 # 10%
+    target_reply_rate: 0.12 # 12%
+    target_meeting_booked_rate: 0.06 # 6%
+
+  # Logging & Monitoring
+  logging:
+    level: "INFO"
+    output: "AgentFoundry/logs/outreach-001.log"
+    rotation: "daily"
+    retention_days: 90
+
+  monitoring:
+    primary_channel: "whatsapp"
+    notify_webhook: "${NOTIFY_WEBHOOK_URL}"
+    whatsapp_recipient: "${WHATSAPP_DEFAULT_RECIPIENT}"
+    alert_on_error: true
+    alert_on_spam_complaint: true
+    alert_on_unsubscribe: true
+    alert_on_budget_threshold: true
+    daily_summary: true
+
+  # Database Schema
+  output_table:
+    name: "firehorse_events"
+    columns:
+      - event_id: "uuid PRIMARY KEY"
+      - lead_id: "uuid REFERENCES firehorse_leads(lead_id)"
+      - event_type: "text CHECK (event_type IN ('email_sent', 'email_opened', 'email_clicked', 'email_replied', 'linkedin_connection', 'linkedin_inmail'))"
+      - sequence_type: "text"
+      - touch_number: "integer"
+      - subject_line: "text"
+      - subject_line_variant: "text"
+      - body: "text"
+      - status: "text CHECK (status IN ('draft', 'pending_approval', 'scheduled', 'sent', 'bounced', 'spam_complaint', 'unsubscribed'))"
+      - scheduled_at: "timestamp"
+      - sent_at: "timestamp"
+      - opened_at: "timestamp"
+      - clicked_at: "timestamp"
+      - replied_at: "timestamp"
+      - created_at: "timestamp DEFAULT now()"
+      - agent_id: "text DEFAULT 'outreach-001'"
+
+  # Lifetime Scope Signals
+  signals:
+    emits:
+      - "[OUTREACH-001]:READY:sequence-sent:{lead_id}"
+      - "[OUTREACH-001]:READY:reply-received:{lead_id}"
+      - "[OUTREACH-001]:ERROR:spam-complaint:{lead_id}"
+      - "[OUTREACH-001]:COMPLETE:sequence-finished:{lead_id}"
+    listens:
+      - "[LEAD-SCOUT-001]:READY:lead-enriched:{lead_id}" # Trigger outreach when high-priority lead enriched
+      - "[MEETING-001]:READY:meeting-scheduled:{lead_id}" # Stop sequence when meeting booked
+
+  # A/B Test Configuration
+  ab_tests:
+    subject_lines:
+      enabled: true
+      variants:
+        - id: "A"
+          template: "{{company}}'s CSRD compliance?"
+          weight: 0.25
+        - id: "B"
+          template: "Sub-100ms building intelligence?"
+          weight: 0.25
+        - id: "C"
+          template: "How Kela saved €50k/year"
+          weight: 0.25
+        - id: "D"
+          template: "Your BMS is 120x too slow"
+          weight: 0.25
+
+    send_times:
+      enabled: true
+      variants:
+        - time: "09:00"
+          timezone: "Europe/Helsinki"
+          weight: 0.33
+        - time: "10:30"
+          timezone: "Europe/Helsinki"
+          weight: 0.33
+        - time: "14:00"
+          timezone: "Europe/Helsinki"
+          weight: 0.34
+
+# Notes for Sales HIL Director
+notes: |
+  WEEK 2 ADVISOR MODE CHECKLIST:
+  1. Review and approve EVERY email before send (first 60 days)
+  2. Monitor open/click/reply rates daily—optimize underperforming variants
+  3. Manually review A/B test results weekly, adjust subject line rotation
+  4. Check spam complaints (should be 0.0%)—immediately investigate any complaints
+  5. Tune personalization quality—ensure recent_news tokens are accurate
+  6. Approve LinkedIn InMails only for executive targets (CFO, CSO, CTO level)
+
+  APPROVAL WORKFLOW (Advisor Mode):
+  1. Agent drafts email → saves to firehorse_events with status='pending_approval'
+  2. HIL Director reviews in Supabase dashboard or WhatsApp/webhook notification
+  3. HIL Director approves/rejects:
+     - Approve: Update status='scheduled', agent sends at optimized time
+     - Reject: Update status='rejected', provide feedback in notes field
+  4. Agent learns from rejections, improves future drafts
+
+  EXPECTED OUTCOMES (Week 2-4):
+  - 200 emails drafted per week
+  - 150-180 emails approved and sent (75-90% approval rate)
+  - 40-50% open rate (80-100 opens per week)
+  - 10-15% reply rate (15-25 replies per week)
+  - 5-8 meetings booked (total across 3 weeks)
+
+  OPTIMIZATION PRIORITIES:
+  - Week 2: Tune subject lines (A/B test convergence)
+  - Week 3: Tune personalization quality (reduce generic emails)
+  - Week 4: Tune send time optimization (identify peak engagement hours)

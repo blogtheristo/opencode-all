@@ -4,10 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.0
+Version: 2.2
 
 Sessions & Modifications:
 
+- Version: 2.2 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: pr-1368-review | Date: 20.05.2026 | Changes: Corrected PR #1368 security integration claims; TypeScript redirect sanitization is active in the Express stack, CSRF protection now covers auth/payment routes, and Vitest coverage exists for the TypeScript security modules. MCP DCR and image prompt-injection detection remain integration-ready libraries rather than always-on runtime controls.
+- Version: 2.1 | Tool: GitHub Copilot (Gemini 2.0 Flash) | Session: claude/mvp-missing-features-pS9La | Date: 20.05.2026 | Changes: Ported 2025-11 security components to TypeScript (CSRF, Redirects, MCP DCR, Tool Colors); archived legacy Python components
 - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/audit-shufti-dpa-artifacts-HFEGx | Date: 08.04.2026 | Changes: Added Shufti Pro Limited to infrastructure providers table (KYC/IDV, EU-only, Companies House verified); added vendor risk note with TeleSign noyb complaint, Twilio incidents, ML training prohibition status from PR #768 DPA clause audit
 - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: Added Carbon Balance Sheet Security Controls section — append-only ledger integrity, open source connector audit requirements, cross-regulation reconciliation security, XBRL export signing; added ETS/CBAM/CSRD to Regulatory Alignment Summary; updated 16→20 industries
 - Version: 1.0 | Tool: Claude Code | Session: initial | Date: 01.01.2026 | Changes: Initial security compliance document for CISOs and procurement teams
@@ -23,7 +25,7 @@ Session Links & References:
 Document Status:
 
 - Created: 01.01.2026
-- Last Modified: 24.03.2026
+- Last Modified: 20.05.2026
 - Language: English
 - Languages Available: English
 - Classification: Public (detailed versions available under NDA)

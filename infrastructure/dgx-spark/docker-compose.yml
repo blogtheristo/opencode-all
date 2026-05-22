@@ -2,12 +2,12 @@
 # Hardware: Acer Veriton GN100 (NVIDIA Grace Blackwell GB10, 128GB, ARM64)
 # Failover: GitHub Actions mirrors all cron schedules
 #
-# Code-Version: 1.1.0
+# Code-Version: 1.1.1
 # Introduced-In: PR-1045
 # Branch: claude/aspire-isolated-mode-research-IXTT0
-# Date: 2026-04-13
+# Date: 2026-05-22
 # Owner: Lifetime Oy
-# Change: Added aspire-dashboard:13.2 (dashboard-only, option 1 from field note
+# Change: Added aspire-dashboard:13.3.5 (dashboard-only, option 1 from field note
 #         2026-04-10-aspire-13-2-isolated-mode.md §2.4). No AppHost or .NET toolchain
 #         required. OTEL_* env vars pre-wired to dws-backend and dws-cron — ignored
 #         until @opentelemetry/sdk-node is added; establishes the contract.
@@ -36,8 +36,8 @@ services:
       # Model routing: local first, API fallback
       LLM_PRIMARY: ollama
       LLM_FALLBACK: groq
-      OLLAMA_MODEL: llama3.3:70b
-      OLLAMA_MODEL_FAST: qwen2.5-coder:32b
+      OLLAMA_MODEL: nemotron-3-super
+      OLLAMA_MODEL_FAST: qwen3-coder:30b
       # Enable all schedulers
       ENABLE_CRON_JOBS: "true"
       ENABLE_MORNING_BRIEFING: "true"
@@ -57,13 +57,7 @@ services:
       - backend-logs:/app/logs
       - backup-data:/app/backups
     healthcheck:
-      test:
-        [
-          "CMD",
-          "node",
-          "-e",
-          "fetch('http://localhost:8080/health').then(r => r.ok ? process.exit(0) : process.exit(1)).catch(() => process.exit(1))"
-        ]
+      test: ["CMD", "node", "-e", "fetch('http://localhost:8080/health').then(r => r.ok ? process.exit(0) : process.exit(1)).catch(() => process.exit(1))"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -100,7 +94,7 @@ services:
       OLLAMA_BASE_URL: http://host.docker.internal:11434
       LLM_PRIMARY: ollama
       LLM_FALLBACK: groq
-      OLLAMA_MODEL: llama3.3:70b
+      OLLAMA_MODEL: nemotron-3-super
       DWS_BACKEND_URL: http://dws-backend:8080
       # Heartbeat detection handled by the heartbeat container (:9999)
       # No HEARTBEAT_URL — cron-runner skips the periodic POST
@@ -149,13 +143,7 @@ services:
     volumes:
       - firehorse-reports:/app/reports
     healthcheck:
-      test:
-        [
-          "CMD",
-          "python3",
-          "-c",
-          "import urllib.request; urllib.request.urlopen('http://localhost:8084/health')"
-        ]
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8084/health')"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -183,6 +171,52 @@ services:
       retries: 5
 
   # ==========================================================================
+  # OpenClaw — Local autonomous agent runtime
+  # EU-sovereign agent surface: no network egress; Brain wired to Nemotron 3 Super
+  # via Ollama on the host. See DWS_DEPLOYMENT_STANDARD.md and field note
+  # docs/field-notes/2026-03-29-dgx-spark-primary-runtime-setup.md §OpenClaw.
+  # ==========================================================================
+  openclaw:
+    image: ${OPENCLAW_IMAGE:-ghcr.io/openclaw/openclaw:latest}
+    container_name: dws-openclaw
+    restart: unless-stopped
+    ports:
+      - "8090:8090"
+    env_file:
+      - .env
+    environment:
+      PORT: 8090
+      OLLAMA_BASE_URL: http://host.docker.internal:11434
+      OPENCLAW_DEFAULT_MODEL: nemotron-3-super
+      OPENCLAW_FAST_MODEL: qwen3-coder:30b
+      # No egress by design — agent runtime stays inside the Spark LAN.
+      # If a workload requires outbound calls, add the specific allow-list here
+      # rather than opening egress wholesale.
+      OPENCLAW_ALLOW_EGRESS: "false"
+    volumes:
+      - openclaw-state:/app/state
+      - openclaw-logs:/app/logs
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8090/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 1G
+
+  # ==========================================================================
   # Heartbeat Service — Reports status to GitHub Actions failover
   # ==========================================================================
   heartbeat:
@@ -201,6 +235,7 @@ services:
       CHECK_CRON: http://dws-cron:8081/health
       CHECK_OLLAMA: http://host.docker.internal:11434/api/tags
       CHECK_REDIS: redis://redis:6379
+      CHECK_OPENCLAW: http://openclaw:8090/health
       CHECK_ASPIRE: http://aspire-dashboard:18888/health
       # GitHub repository for status reporting
       GITHUB_REPOSITORY: blogtheristo/dws6
@@ -216,14 +251,14 @@ services:
       - "host.docker.internal:host-gateway"
 
   # ==========================================================================
-  # Aspire Dashboard 13.2 — Distributed traces, metrics, logs (OTel aggregator)
+  # Aspire Dashboard 13.3.5 — Distributed traces, metrics, logs (OTel aggregator)
   # Dashboard-only install — no AppHost or .NET toolchain required.
   # UI:        http://dgx-spark:18888   (browser)
   # OTLP gRPC: http://aspire-dashboard:18889  (services push telemetry here)
   # Ref: docs/field-notes/2026-04-10-aspire-13-2-isolated-mode.md §2.4 option 1
   # ==========================================================================
   aspire-dashboard:
-    image: mcr.microsoft.com/dotnet/aspire-dashboard:13.2
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:13.3.5
     container_name: aspire-dashboard
     restart: unless-stopped
     ports:
@@ -255,6 +290,8 @@ volumes:
   redis-data:
   firehorse-reports:
   cron-state:
+  openclaw-state:
+  openclaw-logs:
 
 networks:
   default:

@@ -12,6 +12,33 @@ AGENT HISTORY:
 
 # Investor Intro Note — Steven Miller, Black Prism Capital Partners
 
+
+---
+
+## Labor Thesis Opening (2026 Q2 Refresh) — Wedge: DEFENSE
+
+> Master template: `docs/investor/INTRO_TEMPLATE_LABOR_THESIS.md`. This block refreshes the opening of this INTRO around the labor-pricing thesis. Investor-specific context below (Target Profile, Fit Assessment, Strategy, Attachments, Next Steps) is preserved.
+
+**Subject line:** Dual-use sovereign AI labor — DWS 365 Skilled Agents + Aegis · 2026 Q2 SAFE
+
+**Email body — opening three paragraphs + ask:**
+
+Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts *doing the work itself*, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. *(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)* **DWS 365 Skilled Agents** (powered by the DWS IQ platform) sit on the labor side of that line.
+
+16 Skilled Agents are already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the human cost of producing that work, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
+
+DWS 365 Skilled Agents + the Aegis module are built for dual-use sovereignty — EU residency, no CLOUD Act surface on the data plane, KYA runtime trust (TC-0…TC-4) with leash-snap chain termination. Skilled Agents producing signed artifacts make the stack auditable under defense and critical-infrastructure procurement gates that conventional cloud agents fail. The spine in one line: **labor-anchored pricing, regulation drives demand, MACC + AppExchange drive distribution.** That is the line we lead with at the Messe round and in PE meetings this quarter.
+
+**Ask + two slots + unsubscribe:**
+
+We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commercial pickup through Q3/26. Two slots that work: Thu 22 May 09:00 CET (30 min) or Tue 27 May 14:00 CET (30 min). Messe Germany stand visit (Stuttgart, Sep 17–19, 2026) is also open if you'd rather see it live. If this isn't a fit, reply STOP and you won't hear from me again.
+
+**Sender:** `risto.paarni@lifetime.fi` via Amazon SES SMTP. Never Resend, never noreply@.
+
+**Attachment for first touch:** `docs/investor/INVESTOR_ONE_PAGER_2026Q2.pdf` (HTML mirror at `docs/investor/INVESTOR_ONE_PAGER_2026Q2.html`).
+
+> The investor-specific context (Target Profile, Fit Assessment, Drawbacks / Mitigations, Strategy, Draft LinkedIn DM, Draft Email, Attachments, Next Steps) below this section is the prior INTRO content and remains canonical for fund-specific intel. The opening above replaces the **email opening only**; everything below stays.
+
 ## Target Profile
 
 | Field | Value |
@@ -57,7 +84,7 @@ AGENT HISTORY:
 Lead with:
 1. **EU-sovereign alternative** — "We're building the EU's answer to defense-grade AI compliance — ITAR-free, CLOUD Act-free, built on EU-sovereign infrastructure"
 2. **NATO interoperability** — "EU pillar of NATO AI standards. Your US defense experience is exactly why we need strategic counsel — you understand what interoperability actually requires"
-3. **Dual-use economics** — "Same 18 AI agents serve civilian compliance (CSRD, CBAM) and defense supply chain monitoring (Aegis). Revenue from civilian side de-risks the defense bet"
+3. **Dual-use economics** — "Same 21 AI agents serve civilian compliance (CSRD, CBAM) and defense supply chain monitoring (Aegis). Revenue from civilian side de-risks the defense bet"
 4. **Operator-to-operator** — Risto's industrial engineering background + Steven's defense operations background = complementary domain expertise
 
 **Do NOT lead with:**
@@ -72,7 +99,7 @@ Lead with:
 If asked "how do you stay EU-sovereign with US investors?":
 - SAFE gives economic rights, not operational control
 - Architecture: Supabase (EU), GCP europe-north1, Hetzner Helsinki — zero US data transit
-- EU AI Act Article 12 logging (Aiwen overlay) — all reasoning stays in EU
+- EU AI Act Article 12 logging (sovereignty compliance overlay) — all reasoning stays in EU
 - No ITAR components, no US export control exposure
 - Finnish company (Lifetime Oy, Y-tunnus 0772407-9), EU jurisdiction
 
@@ -84,9 +111,9 @@ Hi Steven,
 
 [Human's name] suggested we connect. I'm building something that sits at the intersection of your two worlds — defense-grade AI infrastructure and EU regulatory compliance.
 
-DWS IQ is a platform of 18 AI agents that serve two markets from one codebase: civilian compliance (carbon balance sheet for CSRD/CBAM/ETS across 20 industries) and EU-sovereign defense supply chain monitoring (our Aegis framework). Think of it as the ITAR-free EU alternative to US defense AI — NATO-interoperable, CLOUD Act-free, built entirely on EU infrastructure.
+DWS IQ is a platform of 21 AI agents that serve two markets from one codebase: civilian compliance (carbon balance sheet for CSRD/CBAM/ETS across 20 industries) and EU-sovereign defense supply chain monitoring (our Aegis framework). Think of it as the ITAR-free EU alternative to US defense AI — NATO-interoperable, CLOUD Act-free, built entirely on EU infrastructure.
 
-Current state: 5 paying customers, €7K MRR, zero churn. V1 launching at Arctic 15 (Helsinki) on June 15. Raising €650K on a SAFE at €3.8M cap.
+Current state: 6 paying customers, €7K MRR, zero churn. V1 launching at Arctic 15 (Helsinki) on June 15. Raising €650K on a SAFE at €3.8M cap.
 
 Your background scaling defense intelligence to $80M ARR is exactly the kind of operator perspective we need as we position Aegis for EU defense procurement. Would welcome 15 minutes to walk you through the dual-use architecture and how the civilian revenue stream de-risks the defense bet.
 

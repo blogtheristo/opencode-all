@@ -1,0 +1,53 @@
+{
+  "id": "unique-id-here",
+  "type": "internal|partner|customer|investor",
+  "status": "active|prospect|inactive",
+  "personal": {
+    "first_name": "",
+    "last_name": "",
+    "full_name": "",
+    "title": "",
+    "email": "",
+    "phone": "",
+    "linkedin": "",
+    "photo_url": ""
+  },
+  "organization": {
+    "company": "",
+    "department": "",
+    "role": "",
+    "location": {
+      "city": "",
+      "country": "",
+      "region": "Nordic|Central Europe|Global|Other"
+    }
+  },
+  "professional": {
+    "education": "",
+    "expertise": [],
+    "languages": [],
+    "certifications": []
+  },
+  "relationship": {
+    "tags": [],
+    "products": ["firehorse", "dws-iq"],
+    "interests": [],
+    "engagement_level": "high|medium|low",
+    "last_contact": "YYYY-MM-DD",
+    "next_action": "",
+    "notes": ""
+  },
+  "business": {
+    "contract_value": 0,
+    "contract_start": "YYYY-MM-DD",
+    "contract_end": "YYYY-MM-DD",
+    "payment_terms": "",
+    "projects": []
+  },
+  "metadata": {
+    "created_at": "YYYY-MM-DDTHH:MM:SSZ",
+    "updated_at": "YYYY-MM-DDTHH:MM:SSZ",
+    "created_by": "",
+    "updated_by": ""
+  }
+}

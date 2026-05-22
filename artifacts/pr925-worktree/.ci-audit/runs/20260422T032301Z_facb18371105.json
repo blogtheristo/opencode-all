@@ -1,0 +1,54 @@
+{
+  "branch": "claude/ci-hygiene-audit-vBYGo",
+  "checks": [
+    {
+      "duration_ms": 24,
+      "name": "npm-install-check",
+      "notes": "",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "pass": true
+    },
+    {
+      "duration_ms": 13209,
+      "name": "vitest",
+      "notes": "exit=1",
+      "output_sha256": "730701c68343e234b3c0174359af6cb80cb1be23431d6aca01652609c3858db7",
+      "pass": false
+    },
+    {
+      "duration_ms": 461,
+      "name": "gitleaks-staged",
+      "notes": "",
+      "output_sha256": "98c3947df6f533ef09d9dc326467c15d8e4b33684c12b5e8d358306bd6b9ff68",
+      "pass": true
+    },
+    {
+      "duration_ms": 2785,
+      "name": "npm-audit-root",
+      "notes": "exit=1",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "pass": false
+    },
+    {
+      "duration_ms": 1863,
+      "name": "ruff-check",
+      "notes": "exit=1",
+      "output_sha256": "780097865b96cae7ddbc7a3bcf942b75b427944da3f48a00c0848ce7f3ab323c",
+      "pass": false
+    }
+  ],
+  "checks_failed": 3,
+  "checks_passed": 2,
+  "checks_total": 5,
+  "commit_sha": "facb1837110543220dbe8a19cbde9bbbde0d00c5",
+  "duration_ms": 18557,
+  "overall_pass": false,
+  "prev_record_hash": null,
+  "repo": "blogtheristo/dws6",
+  "runner": "root@runsc",
+  "runner_kind": "local",
+  "schema": "ci-audit/v1",
+  "this_record_hash": "4813b5aaf1c7de7e8cbe643da0b81b5db1f10b130da8debe4d41e6a903342971",
+  "trigger_kind": "pre-push",
+  "ts": "2026-04-22T03:23:01Z"
+}

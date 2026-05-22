@@ -206,7 +206,7 @@ All A2A Tasks are automatically logged per EU AI Act Article 12 requirements:
 - Task creation, state transitions, and completion
 - Agent reasoning chain (from DWS IQ's internal processing)
 - Input data provenance and output artifact lineage
-- Stored in `aiwen_audit_log` table with 7-year retention
+- Stored in `aiven_audit_log` table with 7-year retention
 
 ---
 

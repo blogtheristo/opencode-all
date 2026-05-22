@@ -1,0 +1,81 @@
+name: Daily Claude Session Backup
+
+on:
+  # Schedule REMOVED 2026-04-08 — Claude sessions are local to worktrees, not on the runner.
+  # This workflow found nothing to backup on scheduled runs. Consumed ~60 min/month.
+  # Was: cron '0 6 * * *' (daily at 06:00 UTC)
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  backup-claude-sessions:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Fetch all worktrees
+          fetch-depth: 0
+
+      - name: Setup Git worktrees
+        run: |
+          # List all worktrees and create backup directory
+          mkdir -p .claude-sessions-backup
+
+          # Get worktree list and backup .claude directories
+          git worktree list | while read -r line; do
+            worktree_path=$(echo "$line" | awk '{print $1}')
+            branch_name=$(echo "$line" | grep -o '\[.*\]' | tr -d '[]')
+
+            if [ -d "$worktree_path/.claude" ]; then
+              echo "Backing up Claude session from: $branch_name"
+              mkdir -p ".claude-sessions-backup/$branch_name"
+              cp -r "$worktree_path/.claude"/* ".claude-sessions-backup/$branch_name/" 2>/dev/null || true
+            fi
+          done
+
+      - name: Create backup archive
+        run: |
+          # Create timestamped backup archive
+          timestamp=$(date +%Y%m%d_%H%M%S)
+          tar -czf "claude-sessions-backup-${timestamp}.tar.gz" .claude-sessions-backup/
+
+          # Clean up temp directory
+          rm -rf .claude-sessions-backup
+
+      - name: Upload backup to artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: claude-sessions-backup
+          path: claude-sessions-backup-*.tar.gz
+          retention-days: 30
+
+      - name: Commit backup to sessions-backup branch
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+
+          # Create or switch to sessions-backup branch
+          git checkout -b sessions-backup 2>/dev/null || git checkout sessions-backup
+
+          # Remove old backups (keep last 7 days)
+          find . -name "claude-sessions-backup-*.tar.gz" -mtime +7 -delete 2>/dev/null || true
+
+          # Add new backup
+          git add claude-sessions-backup-*.tar.gz 2>/dev/null || true
+
+          # Commit if there are changes
+          if [ -n "$(git status --porcelain)" ]; then
+            timestamp=$(date +%Y-%m-%d_%H-%M-%S)
+            git commit -m "Daily Claude sessions backup - ${timestamp}"
+            git push origin sessions-backup
+          else
+            echo "No changes to commit"
+          fi
+
+      - name: Cleanup
+        run: |
+          # Switch back to main branch
+          git checkout main
+          # Remove backup files from working directory
+          rm -f claude-sessions-backup-*.tar.gz

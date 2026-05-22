@@ -1,0 +1,16 @@
+import { Request } from 'express';
+
+declare global {
+  namespace Express {
+    interface Request {
+      user?: {
+        id: string;
+        email: string;
+        [key: string]: any;
+      };
+      rawBody?: Buffer;
+      stripeEvent?: any;
+      storeWebhookResult?: (result: any) => void;
+    }
+  }
+}

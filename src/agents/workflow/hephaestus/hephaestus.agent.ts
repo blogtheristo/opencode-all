@@ -27,6 +27,7 @@ export class HephaestusAgent extends BaseAgent {
         'en-13001-crane-safety',
       ],
       model: 'claude-haiku-4-5-20251001',
+      modelTier: 'heavy',
     });
   }
 
