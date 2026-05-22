@@ -8,7 +8,9 @@ Session: claude/connect-kya-dws-cli-0MMIB
 Tool: Claude Code CLI
 Status: Published
 
-- Version: 1.8 | Agent: GitHub Copilot CLI (GPT-5.3-Codex) | Date: 13.05.2026 | Session: main | Changes: Added /gcr-skill (section 6.1b) for admin@dws6.com-owned Google Cloud Run project bootstrap, IAM token-creator fix, API enablement checklist, and GitHub secret rotation flow; updated totals to 32 skills (29 slash + 3 discipline); added Quick Reference row.
+- Version: 1.10 | Agent: Claude Code (Opus 4.7) | Date: 22.05.2026 | Session: claude/audit-dws-firehorse-fDKB5 | Changes: Post-merge reconciliation against main — folded in `/clawdbot` (section 3.7), `/promote-proposal` (3.8), `/dream-on` (3.9), and `/gcr-skill` (6.1b) introduced in `1abd4eaa docs: migrate Cloud Run deploy auth to GitHub OIDC`. Bumped count from 31 to 35 (32 slash + 3 discipline). Added Quick Reference rows for the four new skills. No content lost on either side.
+- Version: 1.9 | Agent: Claude Code (Opus 4.7) | Date: 12.05.2026 | Session: claude/audit-dws-firehorse-fDKB5 | Changes: Added `/learn` slash command (section 3.6) — closes the learning loop by diarizing mediocre retro / CI / audit-log outcomes and emitting read-only skill-edit plans to `docs/learning-loops/`. Bumped count from 30 to 31 (28 slash + 3 discipline). Added Quick Reference row. Linked from `CLAUDE.md` Skill Codification Rule.
+- Version: 1.8 | Agent: Claude Code (Opus 4.7) | Date: 12.05.2026 | Session: claude/audit-dws-firehorse-fDKB5 | Changes: Applied "thin harness, fat skills" doctrine (Garry Tan, May 2026). Collapsed `plan-ceo-review` + `plan-eng-review` into parameterized `/plan-review ROLE=<ceo|eng>` (section 3.1, renumbered 3.2–3.5); collapsed 4 `firehorse-report-{annual,board-pack,carbon,compliance}` discipline skills into one parameterized `firehorse-report KIND=<annual|board-pack|carbon|compliance>` (`skills/firehorse-report/SKILL.md`); old files renamed to `_OLD` per CLAUDE.md rule 6. Total: 31 → 30 (27 slash + 3 discipline). Added section 13 "Skill Codification Doctrine".
 - Version: 1.7 | Agent: Claude Code (Sonnet 4.6) | Date: 08.05.2026 | Session: claude/improve-dws-case-handling-4VhRu | Changes: Added /case-run skill (section 4.3) — Themis as Case Coordinator dispatching specialist agents per case type; updated totals from 30 to 31 skills (28 slash + 3 discipline); added Quick Reference row; updated Themis agent to v2.0 with case-coordinate action.
 - Version: 1.6 | Agent: Codex 5.3 | Date: 29.04.2026 | Session: n/a | Changes: Added new slash skill `/fix-dual-folder-api-connectivity` for API endpoint drift incidents across root/landing mirror folders; updated totals from 29 to 30 skills (27 slash + 3 discipline); added Operations section entry and Quick Reference row.
 - Version: 1.5 | Agent: Claude Code (Opus 4.7) | Date: 22.04.2026 | Session: claude/github-version-compatibility-uTOO7 | Changes: Post-merge reconciliation — after merging main (PRs #1152 axios, #1153 Grok removal, #1156 npm audit, #1161 ollama-spark) the true skill count is 29 (26 slash + 3 discipline). Updated count line accordingly. No new content; fixes inconsistency introduced because /gh-to-mcp (v1.4) and /ollama-spark landed in parallel.
@@ -20,7 +22,9 @@ Status: Published
 
 ## 1. Overview
 
-DWS IQ 6 provides **32 skills** for AI coding agents — 29 slash commands in `.claude/commands/` and 3 composable discipline skills in `skills/`. This guide explains every skill: what it does, when to use it, and how skills connect into workflows.
+DWS IQ 6 provides **35 skills** for AI coding agents — 32 slash commands in `.claude/commands/` and 3 composable discipline skills in `skills/`. This guide explains every skill: what it does, when to use it, and how skills connect into workflows.
+
+**Skill shape:** Skills are parameterized procedures (method calls), not domain-specific scripts. The same `SKILL.md` is invoked with different arguments (ROLE, KIND, TARGET) to produce different capabilities. See section 13 for the Skill Codification Doctrine.
 
 **Audience:** Human-in-the-loop (HIL) operators, developers using Claude Code, Cursor, or VS Code with DWS6.
 
@@ -43,7 +47,11 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 
 ### Recommended Flow: plan > review > ship > retro
 
-### 3.1 /plan-ceo-review
+### 3.1 /plan-review
+
+**Parameterized by `ROLE`.** One skill, two lenses — `ROLE=ceo` runs the product review, `ROLE=eng` runs the architecture review. Run `ROLE=ceo` first; on SHIP IT, run `ROLE=eng`.
+
+#### `/plan-review ROLE=ceo`
 
 **When to use:** Starting a new feature, product, or major change.
 
@@ -51,11 +59,11 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 
 **Trigger phrases:** "new feature", "should we build", "product direction", "is this the right thing"
 
-**Output:** GO / PIVOT / STOP decision with rationale.
+**Output:** SHIP IT / RESHAPE / STOP decision with rationale.
 
-### 3.2 /plan-eng-review
+#### `/plan-review ROLE=eng`
 
-**When to use:** After CEO approval, before writing any code.
+**When to use:** After CEO approval (SHIP IT), before writing any code.
 
 **What it does:** Engineering Manager architecture review. Locks data flow, diagrams, edge cases, test plan. Asks "are we building it the RIGHT WAY?"
 
@@ -63,7 +71,7 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 
 **Output:** Locked implementation plan with data flow, API contracts, edge cases, and test strategy.
 
-### 3.3 /review
+### 3.2 /review
 
 **When to use:** After implementation, before shipping.
 
@@ -78,7 +86,7 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 - Performance: N+1 queries, memory leaks, unnecessary re-renders
 - DWS compliance: dual-folder sync, document standard, store format
 
-### 3.4 /ship
+### 3.3 /ship
 
 **When to use:** After /review approval.
 
@@ -88,7 +96,7 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 
 **Flow:** git pull > npm test > npm run build > git commit > git push > gh pr create
 
-### 3.5 /browse
+### 3.4 /browse
 
 **When to use:** QA verification of UI changes, testing user flows, taking screenshots.
 
@@ -96,7 +104,7 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 
 **Trigger phrases:** "check the site", "take a screenshot", "verify the UI", "test the page", "browse to"
 
-### 3.6 /retro
+### 3.5 /retro
 
 **When to use:** Weekly (Fridays) or at end of a feature.
 
@@ -105,6 +113,20 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 **Trigger phrases:** "weekly retro", "what did we ship", "velocity report", "how did the week go"
 
 **Output:** Commits analyzed, velocity metrics, work pattern insights, shipping cadence, recommendations.
+
+### 3.6 /learn
+
+**When to use:** After `/retro`, weekly, or at the end of a feature. Closes the learning loop.
+
+**What it does:** Reads recent retros, commit churn, `.claude/hooks/audit/*.log`, and CI failure logs; classifies events into FAILURE / MEDIOCRE / OK / GOOD; **focuses on MEDIOCRE** (Tan's "OK but not great" cases); extracts the missing rule from each cluster of 3+ related mediocre events; proposes unified-diff edits against the right `SKILL.md`, `CLAUDE.md`, or `AI_AGENT_GUIDELINES.md`. **Read-only** — emits a plan to `docs/learning-loops/<DATE>-<SCOPE>.md`; a human applies approved edits in a follow-up `learn: <scope> rule updates` commit.
+
+**Trigger phrases:** "learn from this week", "what should we codify", "skill update proposals", "retro to rules", "feed retro into skills", "close the learning loop", "what rules did we discover"
+
+**Parameters:** `SCOPE=<last-day|last-week|last-feature|last-N|YYYY-MM-DD..YYYY-MM-DD>`, optional `TARGET=<skill-name|all>`.
+
+**Output:** Path to generated plan, count of proposed edits per target, top 3 highest-confidence rules.
+
+**Discipline:** Never auto-applies edits. Never proposes a rule from <3 supporting events. Skipped FAILURE events (those already trigger hook blocks). Cross-references `CLAUDE.md` Skill Codification Rule and `AI_AGENT_GUIDELINES.md` §10.
 
 ### 3.7 /clawdbot
 
@@ -545,12 +567,17 @@ Badges (section pill, skill chips, KYA badge, Standards & Interop strip) are can
 
 | Situation                      | Skill                             | Type       |
 | ------------------------------ | --------------------------------- | ---------- |
-| Starting a new feature         | /plan-ceo-review                  | gstack     |
-| Designing architecture         | /plan-eng-review                  | gstack     |
+| Starting a new feature         | /plan-review ROLE=ceo             | gstack     |
+| Designing architecture         | /plan-review ROLE=eng             | gstack     |
 | Code is written, needs review  | /review                           | gstack     |
 | Ready to merge                 | /ship                             | gstack     |
 | Need to verify UI              | /browse                           | gstack     |
 | End of week                    | /retro                            | gstack     |
+| Codify retro into skill edits  | /learn SCOPE=last-week            | gstack     |
+| Find unfinished past-session work | /clawdbot                      | Dreaming   |
+| Apply a clawdbot proposal      | /promote-proposal                 | Dreaming   |
+| Run Dreaming loop end-to-end   | /dream-on                         | Dreaming   |
+| Bootstrap GCP CI identity      | /gcr-skill                        | Operations |
 | Don't know which agent to use  | /discover-agents                  | Agent      |
 | Know the agent, want to run it | /agent-run                        | Agent      |
 | Coordinate agents on a case    | /case-run                         | Agent      |
@@ -562,7 +589,6 @@ Badges (section pill, skill chips, KYA badge, Standards & Interop strip) are can
 | Construction site assessment   | /site-safety                      | Compliance |
 | Check git branch state         | /flow-status                      | Operations |
 | Translate gh command to MCP    | /gh-to-mcp                        | Operations |
-| Bootstrap/fix Cloud Run IAM    | /gcr-skill                        | Operations |
 | Send email notification        | /email                            | Operations |
 | Control edge devices           | /remote-control                   | Operations |
 | Add/triage investor intro      | /investor-outreach                | Operations |
@@ -626,4 +652,31 @@ Human ──/skill──> Claude Code ──agent-run──> DWS IQ Agent ──
 
 **Token budget:** Skills should be as short as possible. Under context window pressure, agents skip long documents. The superpowers research (docs/research/superpowers-analysis.md) found that discipline rules under 150 words have the highest compliance rate.
 
-**Composability:** Skills can reference each other. /plan-ceo-review naturally flows into /plan-eng-review. /review naturally flows into /ship. design-first is a lightweight version of the plan skills for everyday work.
+**Composability:** Skills can reference each other. `/plan-review ROLE=ceo` naturally flows into `/plan-review ROLE=eng`. `/review` naturally flows into `/ship`. `design-first` is a lightweight version of the plan skills for everyday work.
+
+## 13. Skill Codification Doctrine ("Thin Harness, Fat Skills")
+
+Source: Garry Tan, May 2026 — "Thin harness, fat skills." Reinforced by `CLAUDE.md` Skill Codification Rule and `AI_AGENT_GUIDELINES.md` §10.
+
+### Three Principles
+
+1. **Skill = method call.** A `SKILL.md` describes a _process of judgment_ with parameters (`ROLE`, `KIND`, `TARGET`, `DATASET`). The invocation supplies the world. Same skill, different arguments → radically different capability. Four near-identical SKILL.md files differing only in a noun is a function with no arguments — collapse them.
+2. **Asked twice = failure.** If the user has to ask for the same kind of judgment work twice, codify it as a parameterized skill _in the same commit_ and re-run to verify. Do not let know-how live in chat scrollback.
+3. **Latent vs deterministic boundary is explicit.** Every step in a skill is either LLM judgment (latent) or function call (deterministic). The `SKILL.md` must mark each step. Asking the LLM to do arithmetic, optimization, or schema validation is a category error.
+
+### Parameterization Examples in This Codebase
+
+| Anti-pattern (script-shaped)                             | Correct shape (method-shaped)                                    |
+| -------------------------------------------------------- | ---------------------------------------------------------------- |
+| `plan-ceo-review`, `plan-eng-review`                     | `plan-review ROLE=<ceo\|eng>`                                    |
+| `firehorse-report-{annual,board-pack,carbon,compliance}` | `firehorse-report KIND=<annual\|board-pack\|carbon\|compliance>` |
+
+### Learning Loop
+
+`/retro` and post-mortems surface mediocre outcomes (NPS = OK, not great). Diarize them, extract the missing rule, propose a `SKILL.md` diff in the next commit. The skill rewrites itself; the harness stays thin.
+
+### Reference
+
+- `CLAUDE.md` → "Skill Codification Rule"
+- `AI_AGENT_GUIDELINES.md` §10 → "Skill Codification: Asked Twice = Failure"
+- Tan, "Thin Harness, Fat Skills" (May 2026)

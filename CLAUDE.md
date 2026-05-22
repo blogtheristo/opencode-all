@@ -6,18 +6,26 @@ This file defines concise operating rules for AI agents working in the DWS6 repo
 
 Ship reliable outcomes fast, but never past security, compliance, or source-of-truth rules.
 
-## Required Standards (read before edits)
+## Resolver — Standards Documents
 
-- `DWS_DOCUMENT_STANDARD.md`
-- `DWS_BRAND_STANDARD.md`
-- `DWS_SECURITY_STANDARD.md`
-- `DWS_MARKET_RESEARCH_STANDARD.md`
-- `SITE_QUALITY_STANDARDS.md`
-- `docs/DWS_SKILLS_GUIDE.md`
-- `docs/BLOG_STANDARD.md`
-- `DWS_STANDARDS_LIBRARY.md`
-- `AI_AGENT_GUIDELINES.md`
-- `AGENTS.md`
+Before editing, match the task against this table and load the matching standard. The table is the active routing layer — not a passive bibliography. Load every standard whose trigger fires; if multiple fire, load all matched.
+
+| If the task touches…                                                                                                                           | Load                              |
+| ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| auth, RLS, secrets, JWT, API endpoints, user input validation, OWASP, KYA / sandbox / MicroVM, NIS2, GDPR, EU AI Act, prompt injection         | `DWS_SECURITY_STANDARD.md`        |
+| document header, `VERSION AND AGENT HISTORY` block, document version bump, language pair lockstep, `***` vs `---` delimiter, naming convention | `DWS_DOCUMENT_STANDARD.md`        |
+| brand identity, logo, color palette, copy tone, hero text, landing page voice, marketing surface, deprecated terminology                       | `DWS_BRAND_STANDARD.md`           |
+| market sizing, TAM / SAM / SOM, competitor analysis, investor narrative, customer segmentation                                                 | `DWS_MARKET_RESEARCH_STANDARD.md` |
+| site QA, image quality / format / weight, copy quality, dual-folder mirror checks, deploy-readiness checklist                                  | `SITE_QUALITY_STANDARDS.md`       |
+| adding / removing / renaming a slash command or `skills/<name>/SKILL.md`; updating discipline gates; skill manifest                            | `docs/DWS_SKILLS_GUIDE.md`        |
+| blog post on `onelifetime.world/blog/`, `dws10.com/blog/`, editorial cadence, LSJ                                                              | `docs/BLOG_STANDARD.md`           |
+| BaseAgent class, new agent in `src/agents/`, autonomy tier, cost budget, agent execution logging, bacterial-code extraction                    | `AI_AGENT_GUIDELINES.md`          |
+| agent topology, signal dependencies (READY / COMPLETE / ERROR / BLOCKED), agent-XX numbering, what unlocks what                                | `AGENTS.md`                       |
+| "which standard governs X?" / index lookup / standards catalogue                                                                               | `DWS_STANDARDS_LIBRARY.md`        |
+
+**Multi-match is normal.** A task that adds a new agent that touches user input + ships a blog post fires four triggers and must load four standards. Do not pick the "most relevant" one — load all matched.
+
+**No match?** Default to `DWS_STANDARDS_LIBRARY.md` (catalogue) and ask the user before editing.
 
 If the user says **"Use DWS standard"**, apply all relevant standards and update impacted standards/docs in the same change.
 
@@ -129,6 +137,21 @@ If a reusable capability appears, propose turning it into a skill and register i
 ## Script Automation Rule
 
 Do not create scripts that depend on human memory to run. Place them in scheduler/discovery paths (`scripts/daily`, `scripts/weekly`, `scripts/hourly`, `scripts/on-deploy`) or register Windows `.ps1` tasks in the scheduler installer flow.
+
+## Skill Codification Rule ("Asked Twice = Failure")
+
+No one-off judgment work. If the user asks for something that will need to happen again, the agent must:
+
+1. Do it manually the first time on 3–10 items.
+2. Show the output to the user.
+3. If the user approves, codify it as a parameterized skill in `skills/<name>/SKILL.md` (judgment work) or `.claude/commands/<name>.md` (slash-invocable workflow). If the task is deterministic and time-driven, also register a cron entry per the Script Automation Rule.
+4. Re-run the new skill once to verify it reproduces the approved output.
+
+**Test:** If the user has to ask for the same thing twice without it being a one-line skill invocation, the agent failed. Document repeating patterns in `SKILL.md` files, not in chat scrollback.
+
+**Skill shape:** Skill files are parameterized procedures, not domain scripts. A skill describes the process; the invocation supplies the world (TARGET, KIND, DATASET, ROLE). Four near-identical skills with different filenames is a smell — collapse them into one skill with arguments.
+
+**Learning loop:** Run `/learn SCOPE=last-week` after `/retro` (or at the end of a feature). It reads retros, commit churn, and hook audit logs, diarizes the mediocre outcomes ("OK but not great"), and emits a read-only edit plan in `docs/learning-loops/`. A human applies approved edits in a follow-up commit titled `learn: <scope> rule updates`. Skills get better; the harness stays thin.
 
 ## Development Baseline
 
