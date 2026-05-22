@@ -406,46 +406,54 @@ class AuthService {
 
     const client = getSupabaseClient();
     if (client) {
-      // Check if user already exists in Supabase
-      const { data: existing } = await client
-        .from('users')
-        .select('id')
-        .eq('email', normalizedEmail)
-        .single();
+      try {
+        // Check if user already exists in Supabase
+        const { data: existing } = await client
+          .from('users')
+          .select('id')
+          .eq('email', normalizedEmail)
+          .single();
 
-      if (existing) {
-        throw new Error('User already exists');
-      }
+        if (existing) {
+          throw new Error('User already exists');
+        }
 
-      const { data, error } = await client
-        .from('users')
-        .insert({
-          id: userId,
-          email: normalizedEmail,
-          password_hash: passwordHash,
-          first_name: userData?.firstName || null,
-          last_name: userData?.lastName || null,
-          role: userData?.role || 'dws_iq_standard',
-          access_level: userData?.accessLevel || 'free',
-        })
-        .select('id, email, first_name, last_name, role, access_level')
-        .single();
+        const { data, error } = await client
+          .from('users')
+          .insert({
+            id: userId,
+            email: normalizedEmail,
+            password_hash: passwordHash,
+            first_name: userData?.firstName || null,
+            last_name: userData?.lastName || null,
+            role: userData?.role || 'dws_iq_standard',
+            access_level: userData?.accessLevel || 'free',
+          })
+          .select('id, email, first_name, last_name, role, access_level')
+          .single();
 
-      if (error) {
-        logger.error('Supabase user registration failed', { error: error.message });
-        throw new Error('Registration failed');
-      }
-
-      if (data) {
-        logger.info('User registered (Supabase)', { userId: data.id });
-        return {
-          id: data.id,
-          email: data.email,
-          firstName: data.first_name,
-          lastName: data.last_name,
-          role: data.role,
-          accessLevel: data.access_level,
-        };
+        if (error) {
+          logger.warn('Supabase user registration failed, falling back to in-memory', {
+            error: error.message,
+          });
+        } else if (data) {
+          logger.info('User registered (Supabase)', { userId: data.id });
+          return {
+            id: data.id,
+            email: data.email,
+            firstName: data.first_name,
+            lastName: data.last_name,
+            role: data.role,
+            accessLevel: data.access_level,
+          };
+        }
+      } catch (error) {
+        if (error instanceof Error && error.message === 'User already exists') {
+          throw error;
+        }
+        logger.warn('Supabase registration path failed, using in-memory fallback', {
+          error: error instanceof Error ? error.message : 'Unknown error',
+        });
       }
     }
 

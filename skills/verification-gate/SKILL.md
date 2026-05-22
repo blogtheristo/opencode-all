@@ -1,5 +1,11 @@
 ---
 name: verification-gate
+triggers:
+  - verify before completion
+  - fresh verification
+  - completion gate
+  - before commit
+  - before claiming done
 description: >
   Use when about to claim a task is complete, mark a todo as done, commit code,
   or close a PR. Prevents false completion claims by requiring fresh evidence.

@@ -25,8 +25,16 @@ export interface AgentContext {
   orgId: string;
   /** Unique session ID for tracing a conversation or workflow */
   sessionId: string;
+  /** Tool safety taint state carried across a session/tool chain. */
+  toolSafety?: ToolSafetyState;
   /** Sandbox isolation settings (optional — applied when SANDBOX_STAGE is set) */
   sandbox?: SandboxContext;
+}
+
+/** Tool safety state propagated across agent and MCP execution chains. */
+export interface ToolSafetyState {
+  /** RED tools already used in this session, which taint later BLUE actions. */
+  taintedRedTools: string[];
 }
 
 /** Sandbox isolation context attached to agent executions */

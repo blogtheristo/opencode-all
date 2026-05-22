@@ -1,5 +1,12 @@
 ---
 name: dual-folder-sync
+triggers:
+  - dual folder sync
+  - landing-pages sync
+  - sync dws10.com
+  - sync dws6.com
+  - sync onelifetime.world
+  - sync lifetime.fi
 description: >
   Use when modifying files in dws10.com/, onelifetime.world/, dws6.com/, or
   lifetime.fi/ root folders. CRITICAL: changes must be synced to the matching
@@ -23,7 +30,7 @@ description: >
 
 1. Edit file in root folder (source of truth)
 2. Copy changed file to `landing-pages/` equivalent path
-3. Verify sync: `diff root/file landing-pages/site/file` — must be empty
+3. Verify sync: `diff root/file landing-pages/site/file` - must be empty
 4. Commit both in the same commit
 
 ## Store-Specific Checklist
@@ -41,7 +48,7 @@ When touching `buy/`, `products.json`, or store assets:
 - Editing root folder and forgetting landing-pages (production shows old version)
 - Editing landing-pages directly (next root sync overwrites your changes)
 - Splitting sync across two commits (deploy picks up partial state)
-- Forgetting `shared-assets/` or `config/` — only syncing HTML
+- Forgetting `shared-assets/` or `config/` - only syncing HTML
 
 ## Verification
 

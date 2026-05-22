@@ -469,7 +469,7 @@ router.get('/events', authenticateToken, (req: Request, res: Response) => {
 
     const events = eventBus
       .getRecentEvents(pattern, limit * 2)
-      .filter((event) => event.orgId === orgId)
+      .filter((event) => !event.orgId || event.orgId === orgId)
       .slice(0, limit);
 
     return res.status(200).json({

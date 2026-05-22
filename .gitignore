@@ -81,6 +81,7 @@ Thumbs.db
 !.claude/settings.local.json
 !.claude/archive/
 !.claude/commands/
+!.claude/commands/*.md
 !.claude/agents/
 !.claude/clawdbot/
 .claude/clawdbot/queue/

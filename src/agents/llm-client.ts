@@ -52,6 +52,10 @@ export interface LLMClientConfig {
   model: string;
   maxTokens?: number;
   temperature?: number;
+  /** Optional Ollama KV cache mode configured on the local host. */
+  kvCacheCompression?: 'none' | 'q4_0' | 'q8_0' | 'turboquant-3bit';
+  /** Optional Ollama context window size sent as num_ctx. */
+  numCtx?: number;
   /** Model selection metadata (when created via createLLMClientForAgent) */
   selection?: ModelSelection;
 }
@@ -99,14 +103,17 @@ export function resolveProvider(agentModel: string): LLMClientConfig | null {
 
   // Ollama on Acer Veriton GN100 (OpenAI-compatible API)
   if (process.env.OLLAMA_BASE_URL) {
-    return {
-      provider: 'ollama-local',
-      apiKey: 'ollama', // Ollama doesn't require auth
-      baseUrl: process.env.OLLAMA_BASE_URL, // e.g. http://localhost:11434/v1
-      model: agentModel || 'qwen2.5:32b',
-      maxTokens: 4096,
-      temperature: 0.3,
-    };
+      return {
+        provider: 'ollama-local',
+        apiKey: 'ollama', // Ollama doesn't require auth
+        baseUrl: process.env.OLLAMA_BASE_URL, // e.g. http://localhost:11434/v1
+        model: agentModel || 'qwen2.5:32b',
+        maxTokens: 4096,
+        temperature: 0.3,
+        kvCacheCompression:
+          (process.env.OLLAMA_KV_CACHE_TYPE as LLMClientConfig['kvCacheCompression']) || 'none',
+        numCtx: process.env.OLLAMA_NUM_CTX ? parseInt(process.env.OLLAMA_NUM_CTX, 10) : undefined,
+      };
   }
 
   // vLLM on Acer Veriton GN100 (OpenAI-compatible API)
@@ -235,6 +242,9 @@ function mapSelectionToConfig(selection: ModelSelection): LLMClientConfig | null
         model: selection.modelId,
         maxTokens: selection.maxTokens,
         temperature: selection.temperature,
+        kvCacheCompression:
+          (process.env.OLLAMA_KV_CACHE_TYPE as LLMClientConfig['kvCacheCompression']) || 'none',
+        numCtx: process.env.OLLAMA_NUM_CTX ? parseInt(process.env.OLLAMA_NUM_CTX, 10) : undefined,
         selection,
       };
     }
@@ -585,6 +595,10 @@ export class LLMClient {
       temperature: this.config.temperature || 0.3,
     };
 
+    if (this.config.provider === 'ollama-local' && this.config.numCtx) {
+      body.options = { num_ctx: this.config.numCtx };
+    }
+
     if (openaiTools && openaiTools.length > 0) {
       body.tools = openaiTools;
     }
@@ -695,6 +709,8 @@ export function createLLMClientForAgent(
     tier: config.selection?.tier,
     isLocal: config.selection?.isLocal,
     reason: config.selection?.reason,
+    numCtx: config.numCtx,
+    kvCacheCompression: config.kvCacheCompression,
   });
   return new LLMClient(config);
 }

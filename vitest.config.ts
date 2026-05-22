@@ -10,6 +10,7 @@ export default defineConfig({
       '**/dist/**',
       // Stale PR-snapshot worktrees checked into the repo. They carry their
       // own outdated tests/mocks and must not run as part of main CI.
+      '.claude/worktrees/**',
       'artifacts/**',
     ],
     coverage: {

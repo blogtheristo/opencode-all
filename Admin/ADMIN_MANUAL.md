@@ -1,13 +1,14 @@
 # DWS IQ Platform - Admin Manual
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.1
+Version: 3.2
 
 Sessions & Modifications:
 
+- Version: 3.2 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: pr-975 | Date: 22.05.2026 | Changes: Added GBrain standalone setup and operator usage for the `blogtheristo/gbrain` fork, documented Bun + PGLite workflow, and aligned Admin Manual rendering with `***` version-history delimiters for Pandoc compatibility.
 - Version: 3.1 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: main | Date: 13.05.2026 | Changes: Added reusable CI failure checklist for `.github/workflows/deploy-staging.yml` and `.github/workflows/dast-zap-scan.yml`: Artifact Registry existence check and create command, reserved Cloud Run `PORT` rule, `issues: write` permission for failure-notify issue creation, OWASP ZAP root/robots/sitemap endpoint rule, and startup health-wait loop guidance.
 - Version: 2.8 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Added billing account management inventory: billing account `011602-801DEC-A53E8F` (Lifetime Oy, Direct), linked projects (`dws-mcp-hub`, `dws-iq-pilot`, `dws6login`), and billing administrators (`risto.paarni2024@lifetime.fi`, `admin@dws6.com`)
 - Version: 3.0 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: main | Date: 13.05.2026 | Changes: Finalized major Cloud Run CI auth migration in admin docs: GitHub OIDC / Workload Identity Federation is now the authoritative path for `dws-iq-60`; documented Cloud Shell provider creation, exact GitHub Secrets values (`GCP_WORKLOAD_IDENTITY_PROVIDER`, `GCP_SERVICE_ACCOUNT`), `.github/workflows/deploy-staging.yml` OIDC switch, and retirement of legacy `GCP_SA_KEY`. Marked service-account key creation as prohibited when `constraints/iam.disableServiceAccountKeyCreation` is enforced.
@@ -39,8 +40,8 @@ Session Links & References:
 Document Status:
 
 - Created: 23.11.2025
-- Last Modified: 13.05.2026
-- Version: 3.1
+- Last Modified: 22.05.2026
+- Version: 3.2
 - Language: English
 - Languages Available: English
 - Publication Status: ✅ ACTIVE
@@ -50,6 +51,56 @@ Document Status:
 **Repository:** [blogtheristo/dws6](https://github.com/blogtheristo/dws6)
 
 ---
+
+## GBrain Standalone Setup
+
+Use standalone GBrain when you want local brain-memory workflows from any shell without depending on OpenClaw, Hermes, Docker, or a hosted database.
+
+### Install and initialize
+
+```powershell
+bun install -g --ignore-scripts github:blogtheristo/gbrain
+gbrain init --pglite --no-embedding
+gbrain doctor
+```
+
+- **Install source:** `blogtheristo/gbrain` fork
+- **Brain path:** `C:\Users\risto\.gbrain\brain.pglite`
+- **Fast local mode:** PGLite, no server, no Docker
+
+### Optional fork checkout for development
+
+```powershell
+Set-Location F:\2026\Repos2026
+git clone https://github.com/blogtheristo/gbrain.git
+Set-Location .\gbrain
+git remote add upstream https://github.com/garrytan/gbrain.git
+```
+
+### Daily operator commands
+
+```powershell
+gbrain doctor
+gbrain import .\skills
+gbrain search "qa test first"
+gbrain query "What skills are available for release safety?"
+gbrain graph-query "Show links from verification-gate"
+```
+
+### DWS6 workspace requirements
+
+GBrain health checks in this repository expect:
+
+1. `skills\RESOLVER.md` to exist.
+2. Skill frontmatter to include `triggers:`.
+3. Skill markdown to use **LF** line endings when GBrain parses frontmatter on Windows.
+
+If `gbrain doctor` reports resolver or trigger issues in DWS6, normalize the affected `skills\*.md` files to LF and re-run the doctor command.
+
+### When to use standalone vs agent-platform mode
+
+- Use **standalone** for local search, skill discovery, and memory workflows from PowerShell.
+- Use **agent-platform mode** only when you need GBrain scaffold/skillpack behavior inside an existing agent workspace.
 
 ## Table of Contents
 
