@@ -2,10 +2,15 @@
 # Hardware: Acer Veriton GN100 (NVIDIA Grace Blackwell GB10, 128GB, ARM64)
 # Failover: GitHub Actions mirrors all cron schedules
 #
-# Code-Version: 1.0.0
-# Branch: claude/dgx-spark-setup-UN9WR
-# Date: 2026-03-29
+# Code-Version: 1.1.1
+# Introduced-In: PR-1045
+# Branch: claude/aspire-isolated-mode-research-IXTT0
+# Date: 2026-05-22
 # Owner: Lifetime Oy
+# Change: Added aspire-dashboard:13.3.5 (dashboard-only, option 1 from field note
+#         2026-04-10-aspire-13-2-isolated-mode.md §2.4). No AppHost or .NET toolchain
+#         required. OTEL_* env vars pre-wired to dws-backend and dws-cron — ignored
+#         until @opentelemetry/sdk-node is added; establishes the contract.
 
 services:
   # ==========================================================================
@@ -44,6 +49,10 @@ services:
       # Heartbeat for failover detection
       HEARTBEAT_ENDPOINT: "true"
       HEARTBEAT_PORT: 9999
+      # OpenTelemetry — pre-wired for Aspire Dashboard (active when @opentelemetry/sdk-node added)
+      OTEL_SERVICE_NAME: dws-backend
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://aspire-dashboard:18889
+      OTEL_EXPORTER_OTLP_PROTOCOL: grpc
     volumes:
       - backend-logs:/app/logs
       - backup-data:/app/backups
@@ -89,6 +98,10 @@ services:
       DWS_BACKEND_URL: http://dws-backend:8080
       # Heartbeat detection handled by the heartbeat container (:9999)
       # No HEARTBEAT_URL — cron-runner skips the periodic POST
+      # OpenTelemetry — pre-wired for Aspire Dashboard (active when @opentelemetry/sdk-node added)
+      OTEL_SERVICE_NAME: dws-cron
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://aspire-dashboard:18889
+      OTEL_EXPORTER_OTLP_PROTOCOL: grpc
     volumes:
       - backend-logs:/app/logs
       - backup-data:/app/backups
@@ -223,6 +236,7 @@ services:
       CHECK_OLLAMA: http://host.docker.internal:11434/api/tags
       CHECK_REDIS: redis://redis:6379
       CHECK_OPENCLAW: http://openclaw:8090/health
+      CHECK_ASPIRE: http://aspire-dashboard:18888/health
       # GitHub repository for status reporting
       GITHUB_REPOSITORY: blogtheristo/dws6
     depends_on:
@@ -235,6 +249,40 @@ services:
         max-file: "3"
     extra_hosts:
       - "host.docker.internal:host-gateway"
+
+  # ==========================================================================
+  # Aspire Dashboard 13.3.5 — Distributed traces, metrics, logs (OTel aggregator)
+  # Dashboard-only install — no AppHost or .NET toolchain required.
+  # UI:        http://dgx-spark:18888   (browser)
+  # OTLP gRPC: http://aspire-dashboard:18889  (services push telemetry here)
+  # Ref: docs/field-notes/2026-04-10-aspire-13-2-isolated-mode.md §2.4 option 1
+  # ==========================================================================
+  aspire-dashboard:
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:13.3.5
+    container_name: aspire-dashboard
+    restart: unless-stopped
+    ports:
+      - "18888:18888" # Dashboard UI
+    environment:
+      DASHBOARD__FRONTEND__AUTHMODE: Unsecured
+      DASHBOARD__OTLP__AUTHMODE: Unsecured
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:18888/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M
 
 volumes:
   backend-logs:

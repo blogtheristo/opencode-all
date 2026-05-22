@@ -9,8 +9,8 @@
  *   GET /health     → simple alive check
  *   GET /ping       → "pong" (minimal latency check)
  *
- * Code-Version: 1.0.0
- * Date: 2026-03-29
+ * Code-Version: 1.0.1
+ * Date: 2026-05-22
  */
 
 import http from 'http';
@@ -20,6 +20,7 @@ const CHECK_BACKEND = process.env.CHECK_BACKEND || 'http://dws-backend:8080/heal
 const CHECK_CRON = process.env.CHECK_CRON || 'http://dws-cron:8081/health';
 const CHECK_OLLAMA = process.env.CHECK_OLLAMA || 'http://host.docker.internal:11434/api/tags';
 const CHECK_OPENCLAW = process.env.CHECK_OPENCLAW || 'http://openclaw:8090/health';
+const CHECK_ASPIRE = process.env.CHECK_ASPIRE || 'http://aspire-dashboard:18888/health';
 const STATUS_TOKEN = process.env.HEARTBEAT_STATUS_TOKEN || '';
 
 // LAN-only CIDR check (192.168.x.x, 10.x.x.x, 172.16-31.x.x, ::1, 127.x.x.x)
@@ -37,6 +38,14 @@ interface ServiceStatus {
   lastCheck: string;
   detail?: string;
 }
+
+const SERVICE_CHECKS = [
+  { name: 'backend', url: CHECK_BACKEND },
+  { name: 'cron', url: CHECK_CRON },
+  { name: 'ollama', url: CHECK_OLLAMA },
+  { name: 'openclaw', url: CHECK_OPENCLAW },
+  { name: 'aspire', url: CHECK_ASPIRE },
+] as const;
 
 const services: ServiceStatus[] = [];
 let systemStatus: 'healthy' | 'degraded' | 'down' = 'down';
@@ -65,12 +74,9 @@ async function checkService(name: string, url: string): Promise<ServiceStatus> {
 }
 
 async function runChecks(): Promise<void> {
-  const results = await Promise.all([
-    checkService('backend', CHECK_BACKEND),
-    checkService('cron', CHECK_CRON),
-    checkService('ollama', CHECK_OLLAMA),
-    checkService('openclaw', CHECK_OPENCLAW),
-  ]);
+  const results = await Promise.all(
+    SERVICE_CHECKS.map(({ name, url }) => checkService(name, url))
+  );
 
   services.length = 0;
   services.push(...results);
