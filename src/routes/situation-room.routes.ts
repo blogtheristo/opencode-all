@@ -22,7 +22,10 @@ const router: Router = express.Router();
 // Supabase service client
 // ---------------------------------------------------------------------------
 const supabaseUrl = process.env.SUPABASE_URL || '';
-const supabaseKey = process.env.SUPABASE_SERVICE_KEY || '';
+const supabaseKey =
+  process.env.SUPABASE_SERVICE_KEY
+  || process.env.SUPABASE_SERVICE_ROLE_KEY
+  || '';
 const supabase = supabaseUrl ? createClient(supabaseUrl, supabaseKey) : null;
 
 // ---------------------------------------------------------------------------

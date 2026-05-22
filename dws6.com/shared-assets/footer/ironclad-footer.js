@@ -133,7 +133,7 @@
     <div class="ironclad-footer-bottom">
         <div class="ironclad-footer-legal">
             <a href="/terms/">Website Terms</a>
-            <a href="/privacy-policy/">Privacy Policy</a>
+            <a href="https://dws10.com/privacy-policy/">Privacy Policy</a>
             <a href="/return-policy/">Return Policy</a>
             <a href="/data-handling-policy/">Data Handling</a>
             <a href="/data-security-policy/">Data Security</a>

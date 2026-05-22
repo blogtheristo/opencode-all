@@ -137,6 +137,50 @@ const jobs: CronJob[] = [
     command: 'python3 scripts/collect_market_research.py',
     enabled: false,
   },
+  // daily-mvp-audit: feature parity check across RC1–RC5 + infra metrics.
+  // Mirrored from .github/workflows/daily-mvp-audit.yml. day-runner.sh
+  // already enforces once-per-day semantics; no Helsinki time guard needed.
+  {
+    name: 'daily-mvp-audit',
+    schedule: '0 2 * * *',
+    workflow: 'daily-mvp-audit.yml',
+    command: 'bash scripts/daily/mvp-audit.sh',
+    enabled: true,
+  },
+  // ted-pipeline: daily TED tender fetch + optional SES outreach.
+  // Mirrored from .github/workflows/ted-pipeline.yml (06:00 UTC).
+  // Script is also auto-discovered by day-runner.sh under scripts/daily/.
+  {
+    name: 'ted-pipeline',
+    schedule: '0 6 * * *',
+    workflow: 'ted-pipeline.yml',
+    command: 'bash scripts/daily/ted-pipeline.sh',
+    enabled: true,
+  },
+  {
+    name: 'ted-followup',
+    schedule: '30 7 * * *',
+    workflow: 'ted-followup.yml',
+    command: 'bash scripts/daily/ted-followup.sh',
+    enabled: true,
+  },
+  {
+    name: 'ted-learning-weekly',
+    schedule: '15 8 * * 1',
+    workflow: 'ted-learning-weekly.yml',
+    command: 'bash scripts/weekly/ted-learning.sh',
+    enabled: true,
+  },
+  // housekeeping-weekly: weekly housekeeping audit per HOUSEKEEPING_POLICY.md.
+  // Mirrored from .github/workflows/housekeeping-weekly.yml (Sun 03:00 UTC).
+  // Requires `gh` CLI on DGX for issue creation.
+  {
+    name: 'housekeeping-weekly',
+    schedule: '0 3 * * 0',
+    workflow: 'housekeeping-weekly.yml',
+    command: 'bash scripts/weekly/housekeeping-audit.sh',
+    enabled: true,
+  },
   // roadmap-weekly-tracker: GHA-only (creates GitHub issue with roadmap summary)
   {
     name: 'agents-md-freshness',

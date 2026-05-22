@@ -66,6 +66,9 @@ export interface AgentResponse {
 /** Model tier for task-aware model selection (see model-selector.ts) */
 export type ModelTier = 'lite' | 'standard' | 'heavy';
 
+/** Ollama model presets mapped to task types */
+export type OllamaModelPreset = 'fast' | 'agent' | 'quality' | 'vision' | 'coding' | 'default';
+
 /** Registration metadata for an agent */
 export interface AgentConfig {
   /** Unique machine-readable name (kebab-case) */

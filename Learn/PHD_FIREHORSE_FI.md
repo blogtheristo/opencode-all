@@ -7,14 +7,17 @@
 **Dokumenttityyppi:** Jatko-opiskeluhakemuksen liite (tohtoriohjelma)
 **Viite:** LUT Doctoral School — Jatko-opiskeluhakemus
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.52
+Version: 3.55
 
 Sessions & Modifications:
 
+- Version: 3.55 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Versiopäivitys 3.54 -> 3.55 lukitussa 4 opinnäytetyötiedoston ketjussa; VERSION AND AGENT HISTORY -lohkon sulkeva erotin korjattu muotoon ***; Learn-kansion opinnäytetyön HTML-julkaisut generoitu v3.55-muotoon
+- Version: 3.54 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Korvattu §1.2:n väliaikaiset verkkokauppakysymykset kuudella tohtoritason tutkimuskysymyksellä, jotka eriytyvät maisteriopinnäytetyöstä (ontologiat/monitoimiala, KYA-standardi, Agentic AI Foundation/NIST/EU, Agentic Commerce, EU eWallet, Transaktiot); lisätty §1.2.1 viisi uudelleenmuotoiltua ohjaajalle suunnattua kysymystä (katalogihallinnon raja, tehokkuuden kääntyminen, ontologinen perustus, riskiluokitusristiriidat, hiilisignaalin suvereniteetti); lisätty §1.3 sisältörajauksen vertailutaulukko (maisterityö vs väitöskirja); kaikki 4 opinnäytetyötiedostoa nostettu rinnakkain CLAUDE.md:n ohjeen mukaan
+- Version: 3.53 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Lisätty agenttien vastuullisuus- ja havainnointitaso uutena avainpanoksena: AgentLogger (jäsennelty JSONL + ei-blokkaava Supabase agent_executions), AgentVersionRegistry rollback-tukea varten, drift-detector.ts päivittäisten luottamuspisteiden laskuraportteja varten, eval-runner.ts noudattamisaineistojen pisteytystä varten — toteuttaa suoraan EU:n tekoälysäädöksen artiklojen 9 (riskinhallinta), 12 (lokitus) ja 14 (ihmisvalvonta) vaatimukset tuotantokoodina; Baseten lisätty OpenAI-yhteensopivaksi LLM-tarjoajaksi laajentaen monituottajareititystä Groq/Baseten/OpenAI-vaihtoehtoihin tehtävätietoisella model-selector-valinnalla; /case-run-taito rekisteröity (Themis v2.0 case-coordinate-toiminto, Legora AOS -kilpailuanalyysi DWS Case -entiteetin tiekartalla); Outokumpu CBAM -kumppanuusmalli ensimmäisenä teollisuusostaajan vaatimustenmukaisuuskustannusten kvantifiointitapauksena; TokenSpeed-inferenssimoottori (LightSeek MIT, DGX Spark -sopivuusarvio); kaikki 4 opinnäytetyötiedostoa nostettu rinnakkain CLAUDE.md:n ohjeen mukaan
 - Version: 3.52 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-ontology-blog-3RGKG | Date: 29.04.2026 | Changes: Lisätty luku 1.7 "Ontologia — etymologia ja filosofinen tausta", joka linkittää tohtoriohjelman suunnitelman ONTOLOGY.md v1.3:een (kreikan ón + lógos, Aristoteles, skolastiikan 1600–1700-luvun systematisointi, nykyinen tietojenkäsittelytieteen merkitys). Yhdenmukaistaa hiilitase-teesin DWS Ontology Standardin kanssa. Kaikki 4 opinnäytetyötiedostoa nostettu lukon mukaisesti.
 - Version: 3.51 | Tool: Claude Code (Haiku 4.5) | Session: claude/sync-version-numbering-adEeB | Date: 28.04.2026 | Changes: Bumped from 3.39 to 3.51 (12 steps × 0.01). Unified thesis version track maintained. Created new Tutkimussuunnitelma_3.51.md (Research Plan) with three research streams (KYA standardization, DWS 7 empirical testbed, dual-use industries), eight research questions, "Human in Command ja Human in Loop" governance framework; versioning format rule (.X9 → .X+1,0) documented for DWS_DOCUMENT_STANDARD.md §5
 - Version: 3.39 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Terminology rename — "Aiven overlay" / "Aiven layer" (deprecated infrastructure labels) → "Article 12 Logging Pipeline" per new DWS_ARTICLE_12_LOGGING_STANDARD.md v1.0 (unified 3-tier canonical term). Aiven remains the correct name for the Postgres SaaS. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule; only V3Thesis_EN had the infra-context string in content
@@ -52,7 +55,7 @@ Document Status:
 - Languages Available: English, Suomi
 - Publication Status: DRAFT (V2.10 — KYA open source -standardipolku, NIST-tilanne, artikkelivaiheistus, ohjaajakirje tarkennettu)
 
----
+***
 
 ## Tiivistelmä
 
@@ -60,7 +63,7 @@ Tämä tutkielma dokumentoi Firehorse-toimintamallin toteutuksen, joka on tekoä
 
 **Avainsanat:** Tekoälytoiminnot, Verkkokaupan automaatio, Google Merchant Center, Claude Code, Firehorse-malli, EU:n tekoälysäädös, Hiilijalanjälkilaskuri, Teollinen vaatimustenmukaisuus
 
----
+***
 
 ## Sisällysluettelo
 
@@ -99,13 +102,53 @@ Lifetime Oy operoi DWS10.com-alustaa, yritysverkkokauppaa joka palvelee ilmastoa
 
 ### 1.2 Tutkimuskysymykset
 
-1. Miten tekoälyavustajat voivat tehokkaasti hallita verkkokaupan tuotekatalogeja?
-2. Mitka tehokkuusparannukset ovat saavutettavissa automatisoidulla syotehallinnalla?
-3. Miten aanipohjiaisen asiakasvuorovaikutuksen tulisi kehittya suositellakseen toimialakohtaisia ratkaisuja?
-4. Mitka EU:n tekoälysaadoksen vaatimukset vaikuttavat tekoälyavusteisiin myyntikanaviin?
-5. Miten hiilijalanjälkilaskurit voivat ohjata tuotesuosituksia teollisille asiakkaille?
+Väitöskirja rakentuu kuuden tohtoritasoisen tutkimuskysymyksen varaan, jotka erottavat sen laajuudeltaan ja kunnianhimoltaan maisteriopinnäytetyöstä (Metropolia V3Thesis). Maisterityö käsittelee Firehorse-tuotevalmistuksen toimintamallia; tämä väitöstutkimus kohdistuu agenttisen tekoälyn yhteiskunnalliseen infrastruktuuriin — perusstandardeihin, markkinarakenteisiin ja transaktioprimitiiveihin.
+
+1. **Ontologiat ja useamman teollisuusalan yhdistämisen teollisuushyödyt** — Miten yhteisiin ontologisiin kehyksiin perustuva lähestymistapa mahdollistaa poikkitoimialaisen vaatimustenmukaisuusälykkyyden, jota yksitoimialainen työkalu ei voi replikoida? Millaisia teollisuushyötyjä syntyy, kun hiilitaseteesi (§1.4) formalisoi päästövirrat ETS:n, CBAM:n, CSRD:n ja EU-taksonomian yli uudelleenkäytettäväksi ontologiakerrokseksi — ja missä mittakaavassa poikkitoimialainen verkostovaikutus muuttuu itseään vahvistavaksi?
+
+2. **Know Your Agent (KYA) -standardin kehittäminen** — Miten yleiskäyttöinen identiteetti-, luottamus- ja hallintostandardi agenttiperusteisille tekoälyjärjestelmille tulisi suunnitella, jotta se täyttää EU:n tekoälysäädöksen artiklat 9 (riskinhallinta), 12 (lokitus) ja 14 (ihmisvalvonta) ja pysyy avointen standardointielinten (Agentic AI Foundation, Linux Foundation) omaksuttavana?
+
+3. **Agentic AI Foundation, NIST ja EU-linjaus** — Mikä standardointipolku (avoin spesifikaatio + referenssitoteutus + monielintoimija-hyväksyntä) mahdollistaa KYA:n kehittymisen perustavanlaatuiseksi yhteentoimivuusstandardiksi EU:n sääntely-ympäristössä, yhdysvaltalaisessa NIST-viitekehyksessä ja globaalissa agenttisessa kaupankäynnissä? Miten standardi on rakennettava niin, että EU:n pakolliset ja NIST:n vapaaehtoiset vaatimukset viittaavat siihen ristiriidattomasti?
+
+4. **Agenttinen kaupankäynti (Agentic Commerce)** — Miten autonomiset tekoälyagentit suorittavat kaupallisia transaktioita ihmisten ja yritysten puolesta säännellyissä EU-markkinoissa? Mitä vastuullisuus-, identiteettisidonta- ja auditoitavuusmekanismeja tarvitaan, jotta agenttisten transaktioiden oikeudellinen ja kaupallinen paino on riittävä — ja miten KYA toimii tämän mahdollistavana luottamusprimiitiiveinä?
+
+5. **EU eWallet** — Miten EU:n digitaalinen henkilöllisyystodistus (eIDAS 2.0) integroituu agenttisiin järjestelmiin mahdollistaakseen agentti–agentti- ja agentti–instituutio-transaktiot oikeudellisesti pätevällä identiteetti- ja suostumusketjulla? Mitä muutoksia KYA:han tarvitaan, jotta se toimii kansalaispuolen eWalletia vastaavana agentinpuolen luottamusvastinparina?
+
+6. **Transaktiot** — Mikä on minimaalisesti toteuttamiskelpoinen transaktioprimitiivi, joka mahdollistaa tekoälyagenttien suorittaa, varmistaa ja riitauttaa kaupankäyntiä EU-säänneltyjen toimialojen yli? Miten kirjanpitokirjausmalli (§1.4 hiilitase) laajenee kattamaan muut kuin hiilitransaktiot agenttisessa kaupankäyntiarkitehtuurissa?
+
+### 1.2.1 Ohjaajan kanssa käsiteltävät kysymykset
+
+Seuraavat viisi kysymystä on muotoiltu uudelleen tutkielman varhaisista operatiivisista havainnoista tohtoritason propositioiksi. Ne on tarkoitettu **avoimiksi agenda-asioiksi ohjaajan kanssa** käytävään keskusteluun — ei vielä formalisoituina tutkimuskysymyksinä, mutta kandidaatteina tutkimusohjelmaan tarkentamista varten.
+
+1. **Autonomisen katalogihallinnon raja** — Missä päätöspisteessä tekoälyvetoisten kataloginhallintajärjestelmien tulisi siirtää päätösvalta ihmiselle säännellyssä EU:n verkkokauppaympäristössä? Mikä hallintorakenne (EU:n tekoälysäädöksen artikla 14; operaattorin vastuupolitiikat) määrittelee tämän rajan — ja onko se stabiili eri toimialoilla, vai täytyykö se määritellä dynaamisesti toimialakohtaisen riskiluokituksen mukaan?
+
+2. **Tehokkuuden mittaus agenttisessa orkestroinnissa — vähenevät tuotot ja kääntyminen** — Millaisissa olosuhteissa tekoälyavusteisen monikanavaisen tuotesyötteen orkestroinnin tehokkuushyödyt (HTV-väheneminen, julkaisuaika, virheaste) tasoittuvat tai kääntyvät negatiivisiksi? Mitkä tekijät — hallusinaatioaste, sääntelyversioinnin tiheys, integraatioajautuminen — ovat käänteen ensisijaisia ennustajia, ja voidaanko ne mallintaa ennakolta?
+
+3. **Ontologinen perustus auditoitavien multimodaalisten suositusten edellytyksenä** — Millainen toimialaontologian taso on välttämätön, jotta multimodaaliset tekoälysuositukset (puhe + teksti) täyttävät EU:n tekoälysäädöksen artiklan 13 läpinäkyvyysvaatimukset B2B-teollisessa hankinnassa? Riittääkö ontologinen perustus vai edellyttääkö sääntelyauditoitavuus lisäprovenanssi-mekanismeja (esim. päättelyketjun lokitus, lähdeattribuointi)?
+
+4. **EU:n tekoälysäädöksen ja toimialakohtaisten säädösten riskiluokitusristiriidat** — Kun EU:n tekoälysäädöksen riskiluokitusta (artiklat 9, 13, 17) sovelletaan tekoälyavusteisiin suosittelujärjestelmiin, jotka palvelevat samanaikaisesti CSRD:n, ETS:n ja CBAM:n säätelemiä toimialoja, tuottaako yhteisvaikutus täydentäviä vaatimustenmukaisuusvelvoitteita vai sovittamattomia ristiriitoja? Mitkä ristiriidat, jos sellaisia on, edellyttävät uusia sääntelyohjeita ratkaisuksi?
+
+5. **Hiilivaatimustenmukaisuussignaali suositteluprimiitiiveinä — laajuus ja suvereniteetti** — Voiko poikkisääntelyinen hiilitase (ETS/CBAM/CSRD/EU-taksonomia) korvata tarkoitussignaaliin perustuvan markkinoinnin vaatimustenmukaisuuspuutteen mukaisella reitityksellä teollisuusostaajille EU:n rajat ylittävässä mittakaavassa? Mitä EU:n datakansallisvaatimuksia (GDPR, EU Data Act 2023/2854, tekoälysäädös) kohdistuu kolmannen osapuolen päästödatan käyttöön kaupallisena suosittelusignaalina?
 
 ### 1.3 Laajuus
+
+#### Sisältörajaus (v3.55)
+
+Tämä väitöskirja ottaa **tieteellisen näkökulman** pidemmällä tutkimushorisonttilla (3–7 vuotta). Sitä päivitetään **markkinasignaalitiedolla**: kilpailijoiden liikkeillä, sääntelypipelinella, standardointielinten toiminnalla (Agentic AI Foundation, NIST, EU) ja kumppanuussignaaleilla. Se sisältää tutkimuskysymykset, teoreettisen kehystyksen ja yhteiskunnallisen vaikutuksen analyysin.
+
+**Tämä väitöskirja EI sisällä** sprinttitason toteutusyksityiskohtia tai PR-tason insinööritietueita. Ne kuuluvat maisteriopinnäytetyöhön (`V3Thesis_EN.md` / `V3Thesis_FI.md`).
+
+| Ulottuvuus              | Maisteriopinnäytetyö (V3Thesis) | Väitöskirja (PHD_FIREHORSE)           |
+| ----------------------- | ------------------------------- | ------------------------------------- |
+| Fokus                   | Tuote ja toteutus               | Tiede ja standardit                   |
+| Aikahorisontti          | Nykyinen + seuraava versio      | 3–7 vuoden tiekartta                  |
+| Markkinasignaalit       | Ei sisällytetä                  | Sisällytetään                         |
+| Insinööriyksityiskohdat | PR-taso                         | Arkkitehtuuritaso                     |
+| Päivitysaukaisu         | Tuotejulkaisu / PR-fuusio       | Markkinatapahtuma / tutkimusmilestone |
+
+#### Tuotelaajuus (DWS10.com-viite)
+
+Tässä tutkielmassa dokumentoitu Firehorse-toimintamalli toimitetaan DWS10.com:n kautta, joka palvelee yli 30 tuotetta alusta-, Firehorse Suite-, konsultointi-, koulutus- ja digitaalisten tuotteiden kategorioissa. Tuote- ja hintatiedot ylläpidetään maisteriopinnäytetyössä; tämä dokumentti viittaa tuoteperheeseen vain silloin, kun se toimii tutkimusväitteen todisteena.
 
 Tämä tutkielma kattaa DWS10.com-kaupan toteutuksen, joka palvelee yli 30 tuotetta seuraavissa kategorioissa:
 

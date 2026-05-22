@@ -1,7 +1,7 @@
 /**
  * Shared Supabase Client for Backend Services
  *
- * Uses SUPABASE_SERVICE_KEY (service_role) for full table access.
+ * Uses SUPABASE_SERVICE_KEY / SUPABASE_SERVICE_ROLE_KEY (service_role) for full table access.
  * All RLS policies grant service_role full access, so this client
  * bypasses row-level security by design — authorization is handled
  * in route middleware (authenticateToken, requireRole).
@@ -20,10 +20,10 @@ export function getSupabaseClient(): SupabaseClient | null {
   if (_client) return _client;
 
   const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_KEY;
+  const key = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!url || !key) {
-    logger.warn('Supabase credentials not configured — services will use in-memory fallback');
+    logger.warn('Supabase service-role credentials not configured — services will use in-memory fallback');
     return null;
   }
 

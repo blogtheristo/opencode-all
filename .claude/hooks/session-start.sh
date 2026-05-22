@@ -8,9 +8,9 @@ set -euo pipefail
 cat <<'CONTEXT'
 ## Auto-Mode Trust Boundary Active
 
-GREEN zone (full auto): Read, Edit, Write, lint, test, build, git on feature branches
+GREEN zone (full auto): Read, Edit, Write, lint, test, build, git on feature branches. Authoring DB migration FILES (supabase/migrations/*.sql) is GREEN — they are reviewable text artifacts.
 YELLOW zone (auto + logged): MCP tools, agent skills, Docker, gh CLI, git push
-RED zone (BLOCKED — human required): DB migrations, deploys, emails, thesis files, Store sync, secrets
+RED zone (BLOCKED — human required): APPLYING migrations (psql / supabase db push / supabase migration up), deploys, outbound email, thesis files, Store sync, secrets
 
 Budget: Check CLAUDE_AUTO_MODE_BUDGET env var (default: no limit)
 Audit: All YELLOW actions logged to .claude/hooks/audit/

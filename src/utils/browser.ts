@@ -32,12 +32,6 @@ const NAV_TIMEOUT_MS = 30_000;
 const DEFAULT_VIEWPORT = { width: 1280, height: 800 };
 const DEFAULT_USER_AGENT = 'Mozilla/5.0 (compatible; DWS-IQ-Agent/1.0; +https://dws10.com)';
 
-interface PageWithAccessibility extends Page {
-  accessibility: {
-    snapshot(options?: { interestingOnly?: boolean }): Promise<unknown>;
-  };
-}
-
 export interface BrowseFetchResult {
   url: string;
   finalUrl: string;
@@ -68,6 +62,19 @@ export interface BrowseSnapshotResult {
   title: string;
   nodes: BrowseSnapshotNode[];
   durationMs: number;
+}
+
+interface AccessibilitySnapshotNode {
+  role?: string;
+  name?: string;
+  level?: number;
+  children?: AccessibilitySnapshotNode[];
+}
+
+interface LegacyAccessibilityPage {
+  accessibility?: {
+    snapshot?: () => Promise<AccessibilitySnapshotNode | null | undefined>;
+  };
 }
 
 async function withPage<T>(
@@ -160,25 +167,33 @@ export async function browseSnapshot(url: string): Promise<BrowseSnapshotResult>
   return withPage(async (page) => {
     await page.goto(url, { waitUntil: 'domcontentloaded' });
     const title = await page.title();
-    // Flatten the accessibility tree to a list of (role, name) pairs.
-    // Agents use this to locate elements without parsing raw HTML.
-    type AxNode = { role?: string; name?: string; level?: number; children?: AxNode[] };
-    const root = (await (page as PageWithAccessibility).accessibility.snapshot({
-      interestingOnly: true,
-    })) as AxNode | null;
-    const nodes: BrowseSnapshotNode[] = [];
-    const walk = (n: AxNode | null): void => {
-      if (!n) return;
-      if (n.role && (n.name || n.role === 'heading')) {
-        nodes.push({
-          role: n.role,
-          name: n.name ?? '',
-          ...(typeof n.level === 'number' ? { level: n.level } : {}),
-        });
-      }
-      for (const c of n.children ?? []) walk(c);
-    };
-    walk(root);
+    let nodes: BrowseSnapshotNode[];
+
+    if (typeof page.locator === 'function') {
+      // Flatten semantic DOM elements to a list of (role, name) pairs.
+      nodes = await page
+        .locator('h1, h2, h3, h4, h5, h6, button, a, input, textarea, select, [role]')
+        .evaluateAll((elements) =>
+          elements
+            .map((el) => {
+              const tagName = el.tagName.toLowerCase();
+              const role =
+                el.getAttribute('role') || (/^h[1-6]$/.test(tagName) ? 'heading' : tagName);
+              const name = (el.textContent || el.getAttribute('aria-label') || '').trim();
+              const level =
+                role === 'heading' && /^h[1-6]$/.test(tagName)
+                  ? Number(tagName.substring(1))
+                  : undefined;
+              return { role, name, ...(level !== undefined ? { level } : {}) };
+            })
+            .filter((n) => n.name || n.role === 'heading'),
+        );
+    } else {
+      const legacyPage = page as Page & LegacyAccessibilityPage;
+      const snapshot = await legacyPage.accessibility?.snapshot?.();
+      nodes = flattenAccessibilitySnapshot(snapshot);
+    }
+
     return {
       url,
       finalUrl: page.url(),
@@ -187,4 +202,36 @@ export async function browseSnapshot(url: string): Promise<BrowseSnapshotResult>
       durationMs: Date.now() - start,
     };
   });
+}
+
+function flattenAccessibilitySnapshot(
+  root: AccessibilitySnapshotNode | null | undefined,
+): BrowseSnapshotNode[] {
+  if (!root) {
+    return [];
+  }
+
+  const nodes: BrowseSnapshotNode[] = [];
+  const stack: AccessibilitySnapshotNode[] = [...(root.children || [])];
+
+  while (stack.length > 0) {
+    const node = stack.shift();
+    if (!node) {
+      continue;
+    }
+
+    if (node.role && (node.name || node.role === 'heading')) {
+      nodes.push({
+        role: node.role,
+        name: node.name || '',
+        ...(node.level !== undefined ? { level: node.level } : {}),
+      });
+    }
+
+    if (node.children?.length) {
+      stack.unshift(...node.children);
+    }
+  }
+
+  return nodes;
 }

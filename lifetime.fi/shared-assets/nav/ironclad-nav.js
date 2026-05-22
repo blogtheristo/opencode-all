@@ -80,6 +80,10 @@
             logoAlt: 'DWS IQ Platform',
             title: 'DWS IQ Platform Version 6',
           };
+  const regulatoryNoticeHref =
+    hostname === 'dws10.com' || hostname === 'www.dws10.com'
+      ? `${basePath}regulatory-notice/`
+      : 'https://dws10.com/legal/';
 
   // Navigation HTML (Gamma-aligned with hamburger support)
   const navHTML = `
@@ -236,7 +240,7 @@
                                 <li><a href="${basePath}series-a/" style="color: #d4a843; font-weight: 600;">Series A</a></li>
                                 <li><a href="${basePath}fleet-admiral/" style="color: #ffd700; font-weight: 700;">⚓ Fleet Admiral</a></li>
                                 <li><a href="${basePath}captain/" style="color: #d4a843; font-weight: 600;">Industry Captain Seats</a></li>
-                                <li><a href="${basePath}regulatory-notice/">Regulatory Notice</a></li>
+                                <li><a href="${regulatoryNoticeHref}">Regulatory Notice</a></li>
                             </ul>
                         </li>
                         <li class="ironclad-separator"></li>

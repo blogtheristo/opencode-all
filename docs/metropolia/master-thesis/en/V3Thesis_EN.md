@@ -2,14 +2,19 @@
 
 ## Hybrid AI-Edge Architecture for Climate-Intelligent Industrial Platforms
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.52
+Version: 3.57
 
 Sessions & Modifications:
 
+- Version: 3.57 | Tool: Claude Code (Opus 4.7) | Session: claude/multi-agent-ai-alignment-F2NIO | Date: 17.05.2026 | Changes: Lockstep version bump 3.56 → 3.57 across all 4 thesis files per CLAUDE.md thesis rule. No content change in this master's thesis file: the v3.57 substantive addition is a market/standardisation signal (Shapira et al. "Agents of Chaos" arXiv:2602.20021 + Emergence AI "Emergence World" world.emergence.ai → KYA Standard falsifiability locus) which per the master-vs-PhD scope rule §1.4 belongs in the PhD thesis only. See PHD_FIREHORSE_EN.md §14.19 (Multi-Agent Emergent Misalignment and Incentive Design as the Alignment Unit) and Key Contribution #24 for the scientific framing. `Learn/` HTML regeneration required (not in this commit — needs Pandoc build).
+- Version: 3.56 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Added §10.10.6.1 (Hardware Brain Update — May 2026) documenting the Spark Primary tier swap from `llama3.3:70b` to `nemotron-3-super` (~4.5× decode speedup, MoE 123.6B / 12.7B active, Mamba-2 + attention + Latent MoE, NVFP4-pretrained), the Fast tier upgrade from `qwen2.5-coder:32b` to `qwen3-coder:30b`, and the addition of OpenClaw as a first-class compose service for EU-sovereign no-egress agent workloads. Implementation artefacts cited: field note 2026-03-29 v1.6, DWS_DEPLOYMENT_STANDARD.md v1.4, docker-compose.yml, DWS7_ROADMAP.md PR 161 re-base. Market-signal rationale (compute scarcity, NVFP4 hardware moat) cross-referenced to PHD_FIREHORSE_EN §14.18 per the master-vs-PhD scope rule §1.4. All 4 thesis files bumped to v3.56 in lockstep per CLAUDE.md thesis rule. `Learn/` HTML regeneration required (not in this commit — needs Pandoc build).
+- Version: 3.55 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Version bump from 3.54 to 3.55 in lockstep across all 4 thesis files; fixed VERSION AND AGENT HISTORY closing delimiter to ***; regenerated Learn thesis HTML outputs at v3.55
+- Version: 3.54 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Added §1.4 Content Scope Rule — master's thesis is product/implementation-focused, excludes market intelligence and long-horizon roadmap; scope rule written into CLAUDE.md and mirrored in all 4 thesis files; PhD thesis differentiation formalized; version bump in lockstep per CLAUDE.md thesis rule
+- Version: 3.53 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Added agent accountability and observability layer as new Key Contribution: AgentLogger (structured JSONL + non-blocking Supabase agent_executions), AgentVersionRegistry for version rollback, drift-detector.ts daily confidence-drop reports, eval-runner.ts compliance dataset scoring — directly implements EU AI Act Articles 9 (risk management), 12 (logging), and 14 (human oversight) obligations as running production code; Baseten added as OpenAI-compatible LLM provider expanding multi-provider routing to Groq/Baseten/OpenAI with task-aware model-selector; /case-run skill registered (Themis v2.0 case-coordinate action — case-type→sub-agent mapping), Legora AOS competitive analysis documenting DWS Case entity roadmap P0 actions; Outokumpu CBAM partnership model as first industrial-buyer compliance cost quantification case; TokenSpeed inference engine field note (LightSeek MIT — TensorRT-LLM-class throughput, DGX Spark fit assessment); all 4 thesis files bumped in lockstep per CLAUDE.md thesis rule
 - Version: 3.52 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-ontology-blog-3RGKG | Date: 29.04.2026 | Changes: Added Section 1.6 "Ontology — Etymology and Philosophical Background" linking the thesis to ONTOLOGY.md v1.3 (Greek ón + lógos, Aristotle, scholastic 17th–18th c. systematization, modern computer-science meaning). Aligns thesis terminology with the canonical DWS Ontology Standard. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule.
 - Version: 3.51 | Tool: Claude Code (Haiku 4.5) | Session: claude/sync-version-numbering-adEeB | Date: 28.04.2026 | Changes: Bumped from 3.39 to 3.51 (12 steps × 0.01). Unified thesis version track maintained. Created new Tutkimussuunnitelma_3.51.md (Research Plan) with three research streams (KYA standardization, DWS 7 empirical testbed, dual-use industries), eight research questions, "Human in Command ja Human in Loop" governance framework; versioning format rule (.X9 → .X+1,0) documented for DWS_DOCUMENT_STANDARD.md §5
 - Version: 3.39 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Terminology rename — "Aiven overlay" / "Aiven layer" (deprecated infrastructure labels) → "Article 12 Logging Pipeline" per new DWS_ARTICLE_12_LOGGING_STANDARD.md v1.0 (unified 3-tier canonical term). Aiven remains the correct name for the Postgres SaaS. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule; only V3Thesis_EN had the infra-context string in content
@@ -74,7 +79,7 @@ Document Status:
 - Languages Available: English, Suomi
 - Publication Status: DRAFT (V3.36 — KYA open-source standard path, NIST status, Article 1 refinement, publication phasing)
 
----
+***
 
 **Master's Thesis**
 **Metropolia University of Applied Sciences**
@@ -86,7 +91,7 @@ Document Status:
 **Date:** 16.1.2026
 **InvestEU Portal:** Project Lifetime World, DWS IQ 6, Firehorse (INPO-20254383) submitted for publication on the InvestEU Portal on 25.12.2025 — InvestEU Portal Team, European Commission
 
----
+***
 
 ## Abstract
 
@@ -214,6 +219,18 @@ How can a bootstrapped industrial AI platform achieve product-market fit through
 - **Timeframe:** MVP phase (December 2025 - February 2026)
 - **Customers:** 5 pilot customers (EUR 10-100M revenue)
 - **E-commerce:** 30 products across platform, software, and service categories [V3.0]
+
+### Content Scope Rule (v3.55)
+
+This thesis is **product- and implementation-focused**. Its content is tightly coupled to the current and next DWS IQ product version. It documents engineering decisions, architecture, pull requests, and measurable operational results.
+
+**This thesis does NOT contain:**
+
+- Market intelligence or competitive signals
+- Long-horizon roadmap speculation (beyond next product version)
+- Scientific framing, standardization body activity, or research-program positioning
+
+Those belong in the PhD thesis (`PHD_FIREHORSE_EN.md` / `PHD_FIREHORSE_FI.md`).
 
 ## 1.5 Key Concepts
 
@@ -1874,6 +1891,10 @@ Stage 1.5 demonstrates three thesis claims simultaneously:
 2. **Lifetime Fleet concept validation (Section 3.5):** The Acer Veriton GN100 is the first physical node in the Lifetime Fleet — EU-resident hardware running containerized AI workloads under full operator control, fulfilling the edge-AI theoretical model proposed in the thesis.
 
 3. **EMPO² memory architecture alignment:** The hybrid parametric/non-parametric memory architecture independently validated by EMPO² (arXiv:2602.23008) matches the DWS LWM design — providing academic grounding for an implementation choice made on engineering intuition.
+
+#### 10.10.6.1 Hardware Brain Update (May 2026)
+
+The Acer Veriton GN100 / DGX Spark Brain layer was re-pinned in May 2026 as a direct consequence of three engineering observations: (1) dense Llama 3.3 70B at Q4 ran at ~4.4 tok/s decode on the GB10 memory bus (273 GB/s) — too slow for interactive agent workloads, since each forward pass pushed all 70B parameters through the bus; (2) NVIDIA's Nemotron 3 Super (architecture `nemotron_h_moe`, 123.6B total / 12.7B active, 88-layer Mamba-2 + interleaved attention + Latent MoE, pretrained natively in NVFP4 across 25T tokens) runs at ~19.5 tok/s Q4_K_M on the same hardware — roughly 4.5× faster — because MoE moves only ~12B of weights per token; (3) the Nemotron 3 Super model exposes `thinking` and tool-calling capabilities natively, which the Brain-Memory-Body-Hands architecture (Section 4.3) requires for agent reasoning chains. The Primary tier was therefore swapped from `llama3.3:70b` to `nemotron-3-super`; the Fast tier was simultaneously upgraded from `qwen2.5-coder:32b` to `qwen3-coder:30b` (MoE 30B / 3.3B active) which doubles as the SyntheticDataAgent teacher model. **OpenClaw** was added as a first-class compose service on port 8090, its Brain wired to Nemotron 3 Super via Ollama and `OPENCLAW_ALLOW_EGRESS=false` enforced at the container level — establishing a no-egress local agent runtime alongside the existing Stage 1.5 OpenSandbox isolation layer. Implementation artefacts: `docs/field-notes/2026-03-29-dgx-spark-primary-runtime-setup.md` v1.6, `DWS_DEPLOYMENT_STANDARD.md` v1.4 (Surfaces table adds OpenClaw row), `infrastructure/dgx-spark/docker-compose.yml`, `DWS7_ROADMAP.md` PR 161 re-based to Nemotron 3 Super. The market-signal rationale (compute scarcity, NVFP4 hardware moat) is documented in `docs/PHD_FIREHORSE_EN.md` §14.18 per the master-vs-PhD scope rule.
 
 ### 10.10.7 Agent Memory Fact Extraction Pipeline (PR-254)
 

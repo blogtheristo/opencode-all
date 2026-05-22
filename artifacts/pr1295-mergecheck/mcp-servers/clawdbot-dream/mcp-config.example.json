@@ -1,0 +1,13 @@
+{
+  "_comment": "Sample MCP server config for clawdbot-dream. Add the inner block to your .mcp.json (project-scoped) or to Claude Desktop's claude_desktop_config.json (user-scoped). Replace ABSOLUTE_PATH_TO with the absolute path of your dws6 checkout.",
+  "mcpServers": {
+    "clawdbot-dream": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["ABSOLUTE_PATH_TO/dws6/mcp-servers/clawdbot-dream/server.py"],
+      "env": {
+        "CLAUDE_PROJECT_DIR": "ABSOLUTE_PATH_TO/dws6"
+      }
+    }
+  }
+}

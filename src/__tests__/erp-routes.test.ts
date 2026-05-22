@@ -27,7 +27,9 @@ const mockApprovalGate = {
 };
 
 vi.mock('../integrations/erp/service.js', () => ({
-  ERPIntegrationService: vi.fn(() => mockService),
+  ERPIntegrationService: vi.fn().mockImplementation(function ERPIntegrationServiceMock() {
+    return mockService;
+  }),
 }));
 
 vi.mock('../integrations/erp/approval-gate.js', () => ({

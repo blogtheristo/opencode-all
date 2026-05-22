@@ -1,0 +1,51 @@
+# =============================================================================
+# LIFETIME WORLD - GCP LLM TRAINING CONFIGURATION
+# =============================================================================
+# Copy this file to training.tfvars and configure for your project
+# =============================================================================
+
+# =============================================================================
+# PROJECT CONFIGURATION
+# =============================================================================
+project_id = "lifetime-world-prod"
+region     = "europe-north1"
+zone       = "europe-north1-a"
+environment = "prod"
+
+# =============================================================================
+# TRAINING CLUSTER CONFIGURATION
+# =============================================================================
+training_cluster_name = "lifetime-llm-training"
+
+# GPU Configuration
+# Options:
+#   - a3-megagpu-8g  (8x H100 80GB) - €35/hr on-demand, €14/hr spot
+#   - a2-ultragpu-8g (8x A100 80GB) - €25/hr on-demand, €10/hr spot
+#   - a2-highgpu-8g  (8x A100 40GB) - €20/hr on-demand, €8/hr spot
+machine_type = "a3-megagpu-8g"
+gpu_type     = "nvidia-h100-80gb"
+gpu_count    = 8
+
+# Number of training nodes
+# For 70B fine-tuning: 1 node (8x H100) is sufficient
+# For 800B training: 8-16 nodes required
+node_count = 1
+
+# Use spot instances for 60% cost savings (but may be preempted)
+use_spot = false
+
+# Boot disk size (500GB recommended for large models)
+disk_size_gb = 500
+
+# =============================================================================
+# STORAGE CONFIGURATION
+# =============================================================================
+checkpoint_bucket = "lifetime-llm-checkpoints"
+dataset_bucket    = "lifetime-llm-datasets"
+
+# =============================================================================
+# CREDENTIALS (use environment variables or Secret Manager)
+# =============================================================================
+# Set via: TF_VAR_hf_token="hf_xxx" terraform apply
+# hf_token = ""
+# wandb_api_key = ""

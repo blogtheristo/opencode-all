@@ -13,6 +13,7 @@
 import logger from '../utils/logger.js';
 import { telemetryService } from './telemetry.service.js';
 import type { ToolTelemetryEvent } from './telemetry.types.js';
+import { MCPToolRegistry, ToolColor } from '../mcp/security/tool-colors.js';
 import type {
   AgentContext,
   ToolCall,
@@ -161,8 +162,81 @@ export async function executeTool(
 export async function executeTools(
   calls: ToolCall[],
   context: AgentContext,
-  meta?: { iterationIndex: number; agentName: string },
+  meta?: { iterationIndex: number; agentName: string; allowedTools?: Set<string> },
 ): Promise<ToolResult[]> {
+  const disallowedTools = meta?.allowedTools
+    ? calls.filter((call) => !meta.allowedTools?.has(call.name)).map((call) => call.name)
+    : [];
+  if (disallowedTools.length > 0) {
+    const reason = `Tool call rejected because it was not offered to the model: ${disallowedTools.join(', ')}`;
+    logger.warn('Blocked disallowed tool call', {
+      tools: disallowedTools,
+      allowedTools: meta?.allowedTools ? Array.from(meta.allowedTools) : [],
+      agentName: meta?.agentName,
+      sessionId: context.sessionId,
+    });
+
+    return calls.map((call) => ({
+      toolCallId: call.id,
+      name: call.name,
+      result: { error: reason },
+      isError: true,
+    }));
+  }
+
+  const safety = MCPToolRegistry.validateToolCombination(new Set(calls.map((call) => call.name)));
+  if (!safety.isSafe) {
+    logger.warn('Blocked unsafe tool combination', {
+      tools: calls.map((call) => call.name),
+      reason: safety.reason,
+      agentName: meta?.agentName,
+      sessionId: context.sessionId,
+    });
+
+    return calls.map((call) => ({
+      toolCallId: call.id,
+      name: call.name,
+      result: { error: safety.reason },
+      isError: true,
+    }));
+  }
+
+  const currentRedTools = calls
+    .filter((call) => MCPToolRegistry.getToolColor(call.name) === ToolColor.RED)
+    .map((call) => call.name);
+  const currentBlueTools = calls
+    .filter((call) => MCPToolRegistry.getToolColor(call.name) === ToolColor.BLUE)
+    .map((call) => call.name);
+  const priorRedTools = context.toolSafety?.taintedRedTools ?? [];
+
+  if (priorRedTools.length > 0 && currentBlueTools.length > 0) {
+    const reason =
+      `LETHAL TRIFECTA DETECTED ACROSS EXECUTION CHAIN!\n` +
+      `Prior RED tools (untrusted input): ${priorRedTools.join(', ')}\n` +
+      `Current BLUE tools (critical actions): ${currentBlueTools.join(', ')}\n\n` +
+      `A prior RED tool tainted this session, so later BLUE actions are blocked.`;
+
+    logger.warn('Blocked tainted blue tool execution', {
+      priorRedTools,
+      currentBlueTools,
+      agentName: meta?.agentName,
+      sessionId: context.sessionId,
+    });
+
+    return calls.map((call) => ({
+      toolCallId: call.id,
+      name: call.name,
+      result: { error: reason },
+      isError: true,
+    }));
+  }
+
+  if (currentRedTools.length > 0) {
+    context.toolSafety = {
+      taintedRedTools: Array.from(new Set([...priorRedTools, ...currentRedTools])),
+    };
+  }
+
   const chainLength = calls.length;
   const results = await Promise.allSettled(
     calls.map((call, idx) =>

@@ -1,0 +1,2136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SALES_AI_AGENT_DESIGN_FI_v1</title>
+  <style>
+
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11pt; line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 40px; color: #333; }h1 { color: #0a1628; border-bottom: 3px solid #0066cc; padding-bottom: 8px; margin-top: 32px; }h2 { color: #0a1628; border-bottom: 1px solid #ddd; padding-bottom: 4px; margin-top: 24px; }h3 { color: #333; margin-top: 20px; }code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; font-size: 10pt; }pre { background: #f4f4f4; padding: 12px; border-radius: 4px; overflow-x: auto; border: 1px solid #ddd; }table { border-collapse: collapse; width: 100%; margin: 12px 0; }th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }th { background: #0a1628; color: white; }tr:nth-child(even) { background: #f9f9f9; }a { color: #0066cc; }blockquote { border-left: 4px solid #0066cc; margin: 16px 0; padding: 8px 16px; background: #f0f7ff; }</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">SALES_AI_AGENT_DESIGN_FI_v1</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#sales-ai-agent-design---dws-iq-6-myyntiautomaatio" id="toc-sales-ai-agent-design---dws-iq-6-myyntiautomaatio">Sales AI
+Agent Design - DWS IQ 6 Myyntiautomaatio</a></li>
+<li><a href="#version-and-agent-history" id="toc-version-and-agent-history">VERSION AND AGENT HISTORY</a>
+<ul>
+<li><a href="#executive-summary-yhteenveto" id="toc-executive-summary-yhteenveto">Executive Summary /
+Yhteenveto</a></li>
+<li><a href="#table-of-contents" id="toc-table-of-contents">Table of
+Contents</a></li>
+<li><a href="#human-to-agent-ratio-vastuut" id="toc-human-to-agent-ratio-vastuut">1. Human-to-Agent Ratio &amp;
+Vastuut</a></li>
+<li><a href="#agent-ylivoima-sales-funnelissa" id="toc-agent-ylivoima-sales-funnelissa">2. Agent Ylivoima Sales
+Funnelissa</a></li>
+<li><a href="#kontrolli-tarkistuspisteet" id="toc-kontrolli-tarkistuspisteet">3. Kontrolli &amp;
+Tarkistuspisteet</a></li>
+<li><a href="#orkestrointi-johtaminen" id="toc-orkestrointi-johtaminen">4. Orkestrointi &amp;
+Johtaminen</a></li>
+<li><a href="#skills-agentit-vs.-hil-director" id="toc-skills-agentit-vs.-hil-director">5. Skills: Agentit vs. HIL
+Director</a></li>
+<li><a href="#vaaditut-agentit" id="toc-vaaditut-agentit">6. Vaaditut
+Agentit</a></li>
+<li><a href="#tuotekohtaiset-myyntiotteeet" id="toc-tuotekohtaiset-myyntiotteeet">7. Tuotekohtaiset
+Myyntiotteeet</a></li>
+<li><a href="#yaml-agent-configurations" id="toc-yaml-agent-configurations">8. YAML Agent Configurations</a></li>
+<li><a href="#implementation-roadmap" id="toc-implementation-roadmap">9.
+Implementation Roadmap</a></li>
+<li><a href="#cost-analysis" id="toc-cost-analysis">10. Cost
+Analysis</a></li>
+<li><a href="#success-metrics-kpis" id="toc-success-metrics-kpis">11.
+Success Metrics &amp; KPIs</a></li>
+<li><a href="#risk-mitigation" id="toc-risk-mitigation">12. Risk
+Mitigation</a></li>
+<li><a href="#appendix-reference-documents" id="toc-appendix-reference-documents">13. Appendix: Reference
+Documents</a></li>
+<li><a href="#glossary-sanasto" id="toc-glossary-sanasto">14. Glossary /
+Sanasto</a></li>
+<li><a href="#quick-reference-pikaohje" id="toc-quick-reference-pikaohje">Quick Reference / Pikaohje</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="sales-ai-agent-design---dws-iq-6-myyntiautomaatio">Sales AI
+Agent Design - DWS IQ 6 Myyntiautomaatio</h1>
+<hr />
+<h1 id="version-and-agent-history">VERSION AND AGENT HISTORY</h1>
+<p>Version: 1.0</p>
+<p>Sessions &amp; Modifications: - Version: 1.0 | Tool: Claude Code |
+Session: jqfl0 | Date: 19.01.2026 | Changes: Initial creation -
+Comprehensive sales AI agent design for 5 customer segments</p>
+<p>Session Links &amp; References: - Claude Code (jqfl0):
+https://github.com/blogtheristo/dws6/tree/claude/sales-ai-agent-design-jqfl0
+- View on GitHub: [Pending commit]</p>
+<p>Document Status: - Created: 19.01.2026 - Last Modified: 19.01.2026 -
+Language: Finnish &amp; English (bilingual) - Languages Available:
+Suomi, English - Publication Status: 🚧 DRAFT</p>
+<hr />
+<p><strong>Version:</strong> 1.0 <strong>Purpose:</strong> Määritellä
+AI-agentit myynnin tehostamiseen viidelle asiakassegmentille
+<strong>Audience:</strong> Sales Leadership, Product Management,
+Engineering <strong>Updated:</strong> 19.01.2026</p>
+<hr />
+<h2 id="executive-summary-yhteenveto">Executive Summary /
+Yhteenveto</h2>
+<h3 id="ongelma-myynti-ei-vedä">Ongelma: Myynti ei vedä</h3>
+<p>DWS IQ 6:lla on viisi erillistä myyntihaastetta:</p>
+<ol type="1">
+<li><strong>Pilotti asiakkaat rakennusala</strong> - Construction pilot
+customers</li>
+<li><strong>Pilotti asiakkaat konsultointi</strong> - Consulting pilot
+customers</li>
+<li><strong>Pilotti asiakkaat koulutus</strong> - Training/education
+pilot customers</li>
+<li><strong>Firehorse asiakkaat</strong> - Firehorse CRM customers</li>
+<li><strong>Investor outreach sales</strong> - Investor/VC sales</li>
+</ol>
+<h3 id="ratkaisu-human-agent--hybridimalli">Ratkaisu: Human-Agent
+-hybridimalli</h3>
+<p>Tämä dokumentti määrittelee <strong>6 erikoistunutta
+myyntiagenttia</strong> + <strong>1 Sales HIL Director</strong> -roolit,
+jotka yhdessä muodostavat skaalautuvan myyntiorganisaation.</p>
+<p><strong>Keskeiset mittarit:</strong> - Human-to-Agent ratio: 1:6 (1
+Director + 6 agenttia) - Tavoite: €7k → €60k MRR (16-18 kuukaudessa) -
+Kustannustehokkuus: €900-1,500/kk (vs. €25k-35k/kk 3 SDR:ää)</p>
+<hr />
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol type="1">
+<li><a href="#1-human-to-agent-ratio--vastuut">Human-to-Agent Ratio
+&amp; Vastuut</a></li>
+<li><a href="#2-agent-ylivoima-sales-funnelissa">Agent Ylivoima Sales
+Funnelissa</a></li>
+<li><a href="#3-kontrolli--tarkistuspisteet">Kontrolli &amp;
+Tarkistuspisteet</a></li>
+<li><a href="#4-orkestrointi--johtaminen">Orkestrointi &amp;
+Johtaminen</a></li>
+<li><a href="#5-skills-agentit-vs-hil-director">Skills: Agentit vs. HIL
+Director</a></li>
+<li><a href="#6-vaaditut-agentit">Vaaditut Agentit</a></li>
+<li><a href="#7-tuotekohtaiset-myyntiotteeet">Tuotekohtaiset
+Myyntiotteeet</a></li>
+<li><a href="#8-yaml-agent-configurations">YAML Agent
+Configurations</a></li>
+<li><a href="#9-implementation-roadmap">Implementation Roadmap</a></li>
+</ol>
+<hr />
+<h2 id="human-to-agent-ratio-vastuut">1. Human-to-Agent Ratio &amp;
+Vastuut</h2>
+<h3 id="missä-ihminen-tuo-eniten-lisäarvoa">1.1 Missä ihminen tuo eniten
+lisäarvoa?</h3>
+<p><strong>Human-in-Loop (HIL): Sales Director -rooli</strong></p>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 40%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr>
+<th>Vaihe</th>
+<th>Ihmisen lisäarvo</th>
+<th>Miksi AI ei riitä?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Strategic account selection</strong></td>
+<td>Subjektiivinen bisneslogiikka</td>
+<td>Agent ei ymmärrä markkinadynamiikkaa, kilpailutilannetta,
+poliittisia tekijöitä</td>
+</tr>
+<tr>
+<td><strong>High-touch negotiations</strong></td>
+<td>Luottamuksen rakentaminen</td>
+<td>€29,950 pilotti + €8,500/kk deals vaativat henkilökohtaisen
+suhteen</td>
+</tr>
+<tr>
+<td><strong>Complex RFP response</strong></td>
+<td>Räätälöinti &amp; storytelling</td>
+<td>Nordic construction RFP:t vaativat kulttuurista ymmärrystä (Kela,
+Senaatti)</td>
+</tr>
+<tr>
+<td><strong>Executive relationships</strong></td>
+<td>Pitkäaikaiset suhteet</td>
+<td>CFO/CSO/CTO -tasolla ihmiskontakti pakollinen</td>
+</tr>
+<tr>
+<td><strong>Crisis management</strong></td>
+<td>Emotionaalinen äly</td>
+<td>Churn prevention, escalation handling vaatii empatiaa</td>
+</tr>
+<tr>
+<td><strong>Product-market fit validation</strong></td>
+<td>Strateginen oivallus</td>
+<td>Määrittää mitä tuotteita kenellekin segmentille myydään</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Kontribuutio:</strong> - <strong>Ihminen:</strong> 20%
+ajasta, 80% arvosta (high-value touchpoints) - <strong>Agentit:</strong>
+80% ajasta, 20% arvosta (repetitive, data-driven tasks)</p>
+<hr />
+<h3 id="agent-first-tasks">1.2 Agent-First Tasks</h3>
+<p><strong>Mitä agentit tekevät paremmin:</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 48%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr>
+<th>Tehtävä</th>
+<th>Agentin etu</th>
+<th>ROI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Lead enrichment</strong></td>
+<td>24/7 LinkedIn scraping, company data aggregation</td>
+<td>10x nopeampi kuin manuaalinen</td>
+</tr>
+<tr>
+<td><strong>Email sequence execution</strong></td>
+<td>Perfect timing, no “forgot to follow up”</td>
+<td>3x parempi response rate</td>
+</tr>
+<tr>
+<td><strong>Meeting scheduling</strong></td>
+<td>Instant calendar coordination</td>
+<td>5h/viikko aikasäästö</td>
+</tr>
+<tr>
+<td><strong>CRM hygiene</strong></td>
+<td>Auto-update contact info, deal stages</td>
+<td>100% data accuracy</td>
+</tr>
+<tr>
+<td><strong>Multi-channel presence</strong></td>
+<td>Simultaneous LinkedIn + Email + calls</td>
+<td>Inhimillisesti mahdoton</td>
+</tr>
+<tr>
+<td><strong>A/B testing</strong></td>
+<td>Continuous subject line, CTA optimization</td>
+<td>40% parempi open rate</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="agent-ylivoima-sales-funnelissa">2. Agent Ylivoima Sales
+Funnelissa</h2>
+<h3 id="industrial-sales-funnel---agent-vs.-human-map">2.1 Industrial
+Sales Funnel - Agent vs. Human Map</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────────────────┐
+│                    DWS IQ 6 INDUSTRIAL SALES FUNNEL                     │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│  AWARENESS (100% Agent)                                                 │
+│  ├─ LinkedIn scraping &amp; enrichment          [Lead Scout Agent]          │
+│  ├─ Company trigger event monitoring        [Lead Scout Agent]          │
+│  └─ ICP scoring (CSRD compliance, revenue)  [Lead Scout Agent]          │
+│                                                                         │
+│  INTEREST (90% Agent, 10% Human)                                        │
+│  ├─ Cold email sequences (7-touch)          [Outreach Agent]            │
+│  ├─ LinkedIn connection requests             [Outreach Agent]            │
+│  ├─ A/B testing subject lines               [Outreach Agent]            │
+│  └─ [HIL] Warm intro via network            [Sales Director]            │
+│                                                                         │
+│  CONSIDERATION (70% Agent, 30% Human)                                   │
+│  ├─ Meeting scheduling &amp; reminders          [Meeting Agent]             │
+│  ├─ Discovery call prep (research)          [Discovery Agent]           │
+│  ├─ [HIL] Discovery call execution          [Sales Director]            │
+│  ├─ Demo deck customization                 [Discovery Agent]           │
+│  └─ ROI calculator generation                [Proposal Agent]            │
+│                                                                         │
+│  EVALUATION (50% Agent, 50% Human)                                      │
+│  ├─ Proposal drafting                       [Proposal Agent]            │
+│  ├─ [HIL] Proposal presentation              [Sales Director]           │
+│  ├─ Competitor battle card prep              [Discovery Agent]          │
+│  ├─ [HIL] Negotiation &amp; pricing              [Sales Director]           │
+│  └─ Contract prep &amp; legal review            [Proposal Agent]            │
+│                                                                         │
+│  DECISION (80% Human, 20% Agent)                                        │
+│  ├─ [HIL] Executive sign-off meeting         [Sales Director]           │
+│  ├─ [HIL] Final objection handling           [Sales Director]           │
+│  └─ Contract finalization tracking          [Proposal Agent]            │
+│                                                                         │
+│  ONBOARDING (90% Agent, 10% Human)                                      │
+│  ├─ Kickoff scheduling                      [Customer Success Agent]    │
+│  ├─ Documentation delivery                  [Customer Success Agent]    │
+│  ├─ Training session coordination            [Customer Success Agent]    │
+│  └─ [HIL] Executive check-in (30/60/90)     [Sales Director]            │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘</code></pre>
+<h3 id="mikä-agentti-on-ylivoimainen-missä">2.2 Mikä agentti on
+ylivoimainen missä?</h3>
+<table>
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 33%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr>
+<th>Sales Funnel Vaihe</th>
+<th>Paras Agentti</th>
+<th>Perustelu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Top-of-funnel (TOFU)</strong></td>
+<td>Lead Scout Agent</td>
+<td>Skaalaa 1,000+ leads/week, ihminen max 50</td>
+</tr>
+<tr>
+<td><strong>Middle-of-funnel (MOFU)</strong></td>
+<td>Discovery Agent</td>
+<td>Tuottaa ROI calcit, case studyt 24/7</td>
+</tr>
+<tr>
+<td><strong>Bottom-of-funnel (BOFU)</strong></td>
+<td>Proposal Agent</td>
+<td>€29,950 proposals error-free, legal compliance</td>
+</tr>
+<tr>
+<td><strong>Post-sale retention</strong></td>
+<td>Customer Success Agent</td>
+<td>NPS monitoring, churn signals, proactive support</td>
+</tr>
+<tr>
+<td><strong>Investor outreach</strong></td>
+<td>Investor Outreach Agent</td>
+<td>500+ VC/PE database, warm intro paths</td>
+</tr>
+<tr>
+<td><strong>Multi-channel sequencing</strong></td>
+<td>Outreach Agent</td>
+<td>Koordinoi Email+LinkedIn+Phone perfectly</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="kontrolli-tarkistuspisteet">3. Kontrolli &amp;
+Tarkistuspisteet</h2>
+<h3 id="miten-varmistamme-laadun">3.1 Miten varmistamme laadun?</h3>
+<p><strong>Phased Deployment Model (Agent Foundry
+Standard):</strong></p>
+<table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 17%" />
+<col style="width: 21%" />
+<col style="width: 28%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Duration</th>
+<th>Agent Mode</th>
+<th>Human Approval</th>
+<th>Checkpoint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Silent Pilot</strong></td>
+<td>30 days</td>
+<td>Observe only</td>
+<td>Not required</td>
+<td>Daily review of agent recommendations</td>
+</tr>
+<tr>
+<td><strong>Advisor Mode</strong></td>
+<td>60 days</td>
+<td>Recommend</td>
+<td>Every action requires approval</td>
+<td>Director approves before send</td>
+</tr>
+<tr>
+<td><strong>Autonomous</strong></td>
+<td>Ongoing</td>
+<td>Execute</td>
+<td>Exception-based (€10k+ deals)</td>
+<td>Weekly pipeline review</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tarkistuspisteet-checkpoints">3.2 Tarkistuspisteet
+(Checkpoints)</h3>
+<p><strong>Daily (Automated):</strong> - Email send volume (max 50/day
+per agent) - Response rate tracking (alert if &lt;5%) - Spam complaint
+monitoring (threshold: 0.1%) - CRM data quality score (Supabase
+validation)</p>
+<p><strong>Weekly (Human Review):</strong> - HIL Director reviews all
+proposals &gt;€10k - Pipeline velocity analysis (stuck deals flagged) -
+A/B test results review &amp; optimization - Agent performance
+leaderboard</p>
+<p><strong>Monthly (Strategic):</strong> - Win/loss analysis (why deals
+closed/lost) - ICP refinement (which segments convert best) - Agent
+skill upgrades (new tools, prompts) - Budget review (€900-1,500/mo agent
+costs)</p>
+<h3 id="approval-gates">3.3 Approval Gates</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">approval_gates</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">email_send</span><span class="kw">:</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">silent_pilot</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span><span class="co">      # No emails sent, log only</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">advisor_mode</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">       # Every email requires HIL approval</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">autonomous</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span><span class="co">        # Auto-send unless flagged</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">proposal_generation</span><span class="kw">:</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">&lt;10k_eur</span><span class="kw">:</span><span class="at"> advisor_mode</span><span class="co">   # Auto-draft, HIL review before send</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">10k-30k_eur</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">        # Always require HIL approval</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">&gt;30k_eur</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">           # Always require HIL + Legal review</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">meeting_scheduling</span><span class="kw">:</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">discovery</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span><span class="co">         # Auto-schedule</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">demo</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span><span class="co">              # Auto-schedule</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">executive</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">          # Require HIL coordination</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">linkedin_outreach</span><span class="kw">:</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">connection_requests</span><span class="kw">:</span><span class="at"> advisor_mode</span><span class="co">  # Max 20/day, HIL review in Advisor</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">inmails</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">            # Always require HIL approval (cost: $10/InMail)</span></span></code></pre></div>
+<hr />
+<h2 id="orkestrointi-johtaminen">4. Orkestrointi &amp; Johtaminen</h2>
+<h3 id="miten-orkestroimme-agentit">4.1 Miten orkestroimme agentit?</h3>
+<p><strong>MCP Hub Coordination Pattern (file:
+<code>mcp-hub/server.py</code>)</strong></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Agent orchestration via MCP Hub</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Pattern: Sequential + Fan-Out hybrid</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>SALES_WORKFLOW <span class="op">=</span> {</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;new_lead_intake&quot;</span>: {</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;pattern&quot;</span>: <span class="st">&quot;sequential&quot;</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;agents&quot;</span>: [</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>            {<span class="st">&quot;agent&quot;</span>: <span class="st">&quot;lead-scout&quot;</span>, <span class="st">&quot;action&quot;</span>: <span class="st">&quot;enrich_lead&quot;</span>},</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>            {<span class="st">&quot;agent&quot;</span>: <span class="st">&quot;lead-scout&quot;</span>, <span class="st">&quot;action&quot;</span>: <span class="st">&quot;icp_score&quot;</span>},</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>            {<span class="st">&quot;agent&quot;</span>: <span class="st">&quot;outreach&quot;</span>, <span class="st">&quot;action&quot;</span>: <span class="st">&quot;trigger_sequence_if_qualified&quot;</span>}</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;discovery_call_prep&quot;</span>: {</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;pattern&quot;</span>: <span class="st">&quot;fan-out&quot;</span>,  <span class="co"># Parallel execution</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;agents&quot;</span>: [</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>            {<span class="st">&quot;agent&quot;</span>: <span class="st">&quot;discovery&quot;</span>, <span class="st">&quot;action&quot;</span>: <span class="st">&quot;research_company&quot;</span>},</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>            {<span class="st">&quot;agent&quot;</span>: <span class="st">&quot;discovery&quot;</span>, <span class="st">&quot;action&quot;</span>: <span class="st">&quot;generate_meddpicc&quot;</span>},</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>            {<span class="st">&quot;agent&quot;</span>: <span class="st">&quot;proposal&quot;</span>, <span class="st">&quot;action&quot;</span>: <span class="st">&quot;draft_roi_calculator&quot;</span>}</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;deal_won&quot;</span>: {</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;pattern&quot;</span>: <span class="st">&quot;sequential&quot;</span>,</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;agents&quot;</span>: [</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>            {<span class="st">&quot;agent&quot;</span>: <span class="st">&quot;proposal&quot;</span>, <span class="st">&quot;action&quot;</span>: <span class="st">&quot;finalize_contract&quot;</span>},</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>            {<span class="st">&quot;agent&quot;</span>: <span class="st">&quot;customer-success&quot;</span>, <span class="st">&quot;action&quot;</span>: <span class="st">&quot;schedule_kickoff&quot;</span>},</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>            {<span class="st">&quot;agent&quot;</span>: <span class="st">&quot;customer-success&quot;</span>, <span class="st">&quot;action&quot;</span>: <span class="st">&quot;deliver_docs&quot;</span>}</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h3 id="lifetime-scope-signals-agent-to-agent-communication">4.2
+Lifetime Scope Signals (Agent-to-Agent Communication)</h3>
+<p><strong>Signal Format:</strong>
+<code>[AGENT-ID]:SIGNAL_TYPE:MILESTONE:TIMESTAMP</code></p>
+<p><strong>Example Flow:</strong></p>
+<pre><code>[LEAD-SCOUT-001]:READY:lead-enriched:2026-01-19T10:00:00Z
+  ↓
+[OUTREACH-001]:READY:sequence-sent:2026-01-19T10:05:00Z
+  ↓
+[MEETING-001]:READY:discovery-scheduled:2026-01-19T14:30:00Z
+  ↓
+[DISCOVERY-001]:READY:meddpicc-complete:2026-01-20T09:00:00Z
+  ↓
+[PROPOSAL-001]:READY:proposal-drafted:2026-01-21T16:00:00Z
+  ↓
+[HIL-DIRECTOR]:APPROVAL_REQUIRED:proposal-review:2026-01-21T16:05:00Z</code></pre>
+<h3 id="johtamistaidot--menetelmät">4.3 Johtamistaidot &amp;
+-menetelmät</h3>
+<p><strong>Sales HIL Director - Required Skills:</strong></p>
+<table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 36%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr>
+<th>Skill Category</th>
+<th>Specific Skills</th>
+<th>Why Critical</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Agent Management</strong></td>
+<td>Prompt engineering, YAML config tuning</td>
+<td>Optimize agent performance</td>
+</tr>
+<tr>
+<td><strong>Data Literacy</strong></td>
+<td>SQL, Supabase queries, pipeline analytics</td>
+<td>Identify bottlenecks</td>
+</tr>
+<tr>
+<td><strong>Sales Strategy</strong></td>
+<td>ICP definition, vertical positioning</td>
+<td>Guide agent targeting</td>
+</tr>
+<tr>
+<td><strong>Emotional Intelligence</strong></td>
+<td>Objection handling, executive rapport</td>
+<td>High-touch moments</td>
+</tr>
+<tr>
+<td><strong>Compliance</strong></td>
+<td>GDPR, CSRD, NIS2 awareness</td>
+<td>Avoid legal risks</td>
+</tr>
+<tr>
+<td><strong>Storytelling</strong></td>
+<td>Value prop articulation, case studies</td>
+<td>Differentiate in crowded market</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Leadership Methods:</strong></p>
+<ol type="1">
+<li><strong>Weekly Agent Performance Review</strong>
+<ul>
+<li>Leaderboard: Open rate, reply rate, meeting-booked rate</li>
+<li>Identify underperforming agents → prompt/tool updates</li>
+</ul></li>
+<li><strong>Monthly ICP Calibration</strong>
+<ul>
+<li>Analyze win/loss data</li>
+<li>Refine target account lists (TOP 30 enforcement)</li>
+</ul></li>
+<li><strong>Quarterly Strategic Pivots</strong>
+<ul>
+<li>Vertical prioritization (construction vs. consulting
+vs. education)</li>
+<li>Product-market fit validation (DWS IQ 6 vs. Firehorse
+positioning)</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="skills-agentit-vs.-hil-director">5. Skills: Agentit vs. HIL
+Director</h2>
+<h3 id="agent-skills-defined-in-yaml">5.1 Agent Skills (Defined in
+YAML)</h3>
+<p><strong>Example: Lead Scout Agent Skills</strong></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">agent</span><span class="kw">:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">id</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;lead-scout-001&quot;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">skills</span><span class="kw">:</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">data_enrichment</span><span class="kw">:</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> linkedin_scraping</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> company_database_lookup</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> trigger_event_monitoring</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">scoring</span><span class="kw">:</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> icp_qualification</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> lead_prioritization</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> segment_classification</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">research</span><span class="kw">:</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> competitor_analysis</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> tech_stack_detection</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> recent_news_aggregation</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">compliance</span><span class="kw">:</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> gdpr_data_handling</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> spam_law_compliance</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> opt_out_management</span></span></code></pre></div>
+<p><strong>Full Agent Skill Matrix:</strong></p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 37%" />
+<col style="width: 20%" />
+<col style="width: 22%" />
+</colgroup>
+<thead>
+<tr>
+<th>Agent</th>
+<th>Core Skills</th>
+<th>Tools</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Lead Scout</strong></td>
+<td>LinkedIn scraping, ICP scoring, trigger events</td>
+<td>Apollo.io API, LinkedIn Sales Nav, Clearbit</td>
+<td>Enriched lead records</td>
+</tr>
+<tr>
+<td><strong>Outreach</strong></td>
+<td>Email copywriting, A/B testing, send-time optimization</td>
+<td>Resend API, Supabase, LinkedIn API</td>
+<td>Email sequences, connection requests</td>
+</tr>
+<tr>
+<td><strong>Meeting</strong></td>
+<td>Calendar coordination, reminder sequences, no-show prevention</td>
+<td>Google Calendar API, Calendly</td>
+<td>Scheduled meetings</td>
+</tr>
+<tr>
+<td><strong>Discovery</strong></td>
+<td>Company research, MEDDPICC, battle cards</td>
+<td>Perplexity API, internal knowledge base</td>
+<td>Discovery prep docs</td>
+</tr>
+<tr>
+<td><strong>Proposal</strong></td>
+<td>ROI calculations, proposal drafting, contract templating</td>
+<td>Pandoc, Supabase templates</td>
+<td>Proposals, contracts</td>
+</tr>
+<tr>
+<td><strong>Customer Success</strong></td>
+<td>NPS monitoring, churn prediction, upsell signals</td>
+<td>Supabase analytics, Slack API</td>
+<td>Health scores, alerts</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sales-hil-director-skills">5.2 Sales HIL Director Skills</h3>
+<p><strong>Unique Human Skills (AI cannot replicate):</strong></p>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 38%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr>
+<th>Skill Domain</th>
+<th>Specific Competencies</th>
+<th>Example Application</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Strategic Intuition</strong></td>
+<td>Market timing, competitive positioning</td>
+<td>“We should focus on logistics NOW because NIS2 Oct 2024 deadline
+creates urgency”</td>
+</tr>
+<tr>
+<td><strong>Relationship Capital</strong></td>
+<td>Executive network, warm intros, trust</td>
+<td>Leveraging Kela relationship to unlock Senaatti (Finnish
+Senate)</td>
+</tr>
+<tr>
+<td><strong>Cultural Fluency</strong></td>
+<td>Nordic business culture, hierarchy navigation</td>
+<td>Understanding Finnish decision-making (consensus-based, slow but
+sticky)</td>
+</tr>
+<tr>
+<td><strong>Complex Negotiation</strong></td>
+<td>Multi-stakeholder alignment, creative deal structures</td>
+<td>“We’ll discount pilot to €19,950 if you commit to €8.5k/mo for 12
+months”</td>
+</tr>
+<tr>
+<td><strong>Crisis Leadership</strong></td>
+<td>Churn prevention, escalation handling</td>
+<td>When Uber threatens to cancel, Director steps in with executive
+call</td>
+</tr>
+<tr>
+<td><strong>Product Vision</strong></td>
+<td>Roadmap influence, customer feedback synthesis</td>
+<td>“Construction customers need EN 15978 carbon reporting → prioritize
+DWS IQ 6 feature”</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Skill Development Plan for HIL Director:</strong></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sales_hil_director</span><span class="kw">:</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">technical_skills</span><span class="kw">:</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">yaml_configuration</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Tune agent prompts and guardrails&quot;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">sql_analytics</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Query Supabase for pipeline insights&quot;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">mcp_hub_coordination</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Trigger agent workflows via API&quot;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">sales_skills</span><span class="kw">:</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">meddpicc_framework</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Qualify €29,950 pilot deals&quot;</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">value_selling</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Articulate sub-100ms latency ROI&quot;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">vertical_expertise</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Deep knowledge of construction, logistics, healthcare&quot;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">leadership_skills</span><span class="kw">:</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">agent_team_management</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Optimize 6-agent sales team&quot;</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">data_driven_decisions</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Use metrics to guide strategy&quot;</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">stakeholder_alignment</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Coordinate with Product, Engineering, Legal&quot;</span></span></code></pre></div>
+<hr />
+<h2 id="vaaditut-agentit">6. Vaaditut Agentit</h2>
+<h3 id="core-sales-agents-6-agents">6.1 Core Sales Agents (6
+agents)</h3>
+<p><strong>Agent Roster:</strong></p>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 21%" />
+<col style="width: 8%" />
+<col style="width: 31%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>#</th>
+<th>Agent Name</th>
+<th>ID</th>
+<th>Primary Function</th>
+<th>Customer Segments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Lead Scout Agent</strong></td>
+<td><code>lead-scout-001</code></td>
+<td>Lead enrichment, ICP scoring</td>
+<td>All segments</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Outreach Agent</strong></td>
+<td><code>outreach-001</code></td>
+<td>Multi-channel sequences (Email + LinkedIn)</td>
+<td>Construction, Consulting, Education pilots</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Meeting Agent</strong></td>
+<td><code>meeting-001</code></td>
+<td>Scheduling, reminders, follow-ups</td>
+<td>All segments</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Discovery Agent</strong></td>
+<td><code>discovery-001</code></td>
+<td>Research, MEDDPICC, demo prep</td>
+<td>Construction, Consulting, Education pilots</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Proposal Agent</strong></td>
+<td><code>proposal-001</code></td>
+<td>ROI calculators, proposals, contracts</td>
+<td>All segments</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Customer Success Agent</strong></td>
+<td><code>customer-success-001</code></td>
+<td>Onboarding, NPS, churn prevention</td>
+<td>Firehorse customers</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Special-Purpose Agents:</strong></p>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 21%" />
+<col style="width: 8%" />
+<col style="width: 32%" />
+<col style="width: 32%" />
+</colgroup>
+<thead>
+<tr>
+<th>#</th>
+<th>Agent Name</th>
+<th>ID</th>
+<th>Primary Function</th>
+<th>Customer Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7</td>
+<td><strong>Investor Outreach Agent</strong></td>
+<td><code>investor-outreach-001</code></td>
+<td>VC/PE database, warm intro paths, pitch deck versioning</td>
+<td>Investor outreach</td>
+</tr>
+</tbody>
+</table>
+<h3 id="agent-deployment-map-by-segment">6.2 Agent Deployment Map by
+Segment</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────────────────┐
+│              AGENT DEPLOYMENT BY CUSTOMER SEGMENT                       │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│  🏗️  CONSTRUCTION PILOTS (Target: 2 in Q1/2026)                        │
+│  ├─ Lead Scout → Outreach → Meeting → Discovery → Proposal             │
+│  └─ Focus: Kela, Senaatti, YIT, SRV                                    │
+│                                                                         │
+│  💼 CONSULTING PILOTS (Target: 1 in Q1/2026)                            │
+│  ├─ Lead Scout → Outreach → Meeting → Discovery → Proposal             │
+│  └─ Focus: McKinsey Digital, BCG Platinion (sustainability practice)   │
+│                                                                         │
+│  🎓 EDUCATION PILOTS (Target: 1 in Q2/2026)                             │
+│  ├─ Lead Scout → Outreach → Meeting → Discovery → Proposal             │
+│  └─ Focus: Aalto University, University of Helsinki (campus ops)       │
+│                                                                         │
+│  🔥 FIREHORSE CUSTOMERS (Target: Retain all, upsell 3)                  │
+│  ├─ Customer Success → Proposal (for upsells)                          │
+│  └─ Focus: NPS monitoring, churn prevention, feature adoption          │
+│                                                                         │
+│  💰 INVESTOR OUTREACH (Target: €2M raise in H2/2026)                    │
+│  ├─ Investor Outreach → Meeting → Proposal                             │
+│  └─ Focus: Nordic VCs (Voima, Lifeline), EU climate tech funds         │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘</code></pre>
+<hr />
+<h2 id="tuotekohtaiset-myyntiotteeet">7. Tuotekohtaiset
+Myyntiotteeet</h2>
+<h3 id="vaatiiko-eri-tuotteet-eri-myyntiotteen">7.1 Vaatiiko eri
+tuotteet eri myyntiotteen?</h3>
+<p><strong>Vastaus: KYLLÄ. Jokaisella tuotteella oma value proposition,
+buyer persona, ja sales cycle.</strong></p>
+<h3 id="product-specific-sales-playbooks">7.2 Product-Specific Sales
+Playbooks</h3>
+<h4 id="dws-iq-6-constructionindustrial">7.2.1 DWS IQ 6
+(Construction/Industrial)</h4>
+<p><strong>Product:</strong> Real-time edge AI for building optimization
+<strong>Price:</strong> €29,950 pilot + €8,500/month <strong>Sales
+Cycle:</strong> 16 months (long, complex, multi-stakeholder)</p>
+<table>
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr>
+<th>Element</th>
+<th>Construction Playbook</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Buyer Persona</strong></td>
+<td>CFO (ROI), CSO (CSRD compliance), Facilities Manager
+(operations)</td>
+</tr>
+<tr>
+<td><strong>Pain Points</strong></td>
+<td>2-5 min legacy BMS latency, CSRD reporting gaps, 15-25% energy
+waste</td>
+</tr>
+<tr>
+<td><strong>Value Prop</strong></td>
+<td>Sub-100ms climate intelligence → €25-50k/year energy savings + CSRD
+compliance</td>
+</tr>
+<tr>
+<td><strong>Competitive Moat</strong></td>
+<td>NVIDIA Jetson edge AI (vs. Siemens/Schneider cloud latency)</td>
+</tr>
+<tr>
+<td><strong>Sales Approach</strong></td>
+<td>Enterprise B2B: Discovery → Demo → ROI calc → Pilot →
+Production</td>
+</tr>
+<tr>
+<td><strong>Key Documents</strong></td>
+<td>14-slide pitch deck, ROI calculator, Kela case study, NIS2
+compliance package</td>
+</tr>
+<tr>
+<td><strong>Agent Focus</strong></td>
+<td>Discovery Agent (MEDDPICC), Proposal Agent (ROI calc)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="firehorse-crm">7.2.2 Firehorse CRM</h4>
+<p><strong>Product:</strong> Omnichannel sales automation (Email +
+LinkedIn + Meetings) <strong>Price:</strong> €500-2,000/month (tiered)
+<strong>Sales Cycle:</strong> 3-6 months (mid-market SaaS)</p>
+<table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 67%" />
+</colgroup>
+<thead>
+<tr>
+<th>Element</th>
+<th>Firehorse Playbook</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Buyer Persona</strong></td>
+<td>VP Sales, Sales Ops Manager, SDR Team Lead</td>
+</tr>
+<tr>
+<td><strong>Pain Points</strong></td>
+<td>Manual prospecting, low reply rates, CRM data rot</td>
+</tr>
+<tr>
+<td><strong>Value Prop</strong></td>
+<td>3x reply rates, 10x SDR productivity, perfect CRM hygiene</td>
+</tr>
+<tr>
+<td><strong>Competitive Moat</strong></td>
+<td>Account-based enforcement (no spray-and-pray), Nordic data
+sovereignty</td>
+</tr>
+<tr>
+<td><strong>Sales Approach</strong></td>
+<td>Product-led growth: Free trial → Advisor mode → Autonomous
+upgrade</td>
+</tr>
+<tr>
+<td><strong>Key Documents</strong></td>
+<td>Interactive demo, A/B test results, customer testimonials</td>
+</tr>
+<tr>
+<td><strong>Agent Focus</strong></td>
+<td>Outreach Agent (self-demo), Customer Success Agent (retention)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="agent-foundry-enterprise-platform">7.2.3 Agent Foundry
+(Enterprise Platform)</h4>
+<p><strong>Product:</strong> Deploy custom AI agents for industrial
+operations <strong>Price:</strong> €500-2,000/month (Starter/Pro),
+Custom (Enterprise) <strong>Sales Cycle:</strong> 12-18 months (platform
+sale, integration-heavy)</p>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 72%" />
+</colgroup>
+<thead>
+<tr>
+<th>Element</th>
+<th>Agent Foundry Playbook</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Buyer Persona</strong></td>
+<td>CTO, VP Engineering, Head of Digital Transformation</td>
+</tr>
+<tr>
+<td><strong>Pain Points</strong></td>
+<td>AI pilot hell (never scale), lack of governance, cost overruns</td>
+</tr>
+<tr>
+<td><strong>Value Prop</strong></td>
+<td>Production-grade agent framework, EU AI Act compliance, phased
+rollout</td>
+</tr>
+<tr>
+<td><strong>Competitive Moat</strong></td>
+<td>YAML-based config (no-code), MCP Hub orchestration, built-in
+guardrails</td>
+</tr>
+<tr>
+<td><strong>Sales Approach</strong></td>
+<td>Consultative: POC → Silent Pilot → Advisor → Autonomous</td>
+</tr>
+<tr>
+<td><strong>Key Documents</strong></td>
+<td>Technical architecture doc, compliance matrix (GDPR/AI Act), ROI
+model</td>
+</tr>
+<tr>
+<td><strong>Agent Focus</strong></td>
+<td>Discovery Agent (technical deep-dive), Proposal Agent (MSA/SLA)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vertical-specific-customizations">7.3 Vertical-Specific
+Customizations</h3>
+<p><strong>Construction Vertical:</strong> - Emphasize: EN 15978 carbon
+reporting, BIM integration, Fit for 55 compliance - Case studies: Kela,
+Senaatti - Competitive: Siemens, Schneider, Honeywell</p>
+<p><strong>Consulting Vertical:</strong> - Emphasize: Client
+billability, sustainability advisory tools, CSRD expertise - Case
+studies: McKinsey Digital sustainability practice - Competitive:
+Internal builds, Watershed, Persefoni</p>
+<p><strong>Education Vertical:</strong> - Emphasize: Campus energy
+savings, student sustainability engagement, grant funding - Case
+studies: Aalto University smart campus - Competitive: Legacy campus
+management systems</p>
+<p><strong>Investor Vertical:</strong> - Emphasize: €720k ARR roadmap,
+20-moat competitive fortress, Nordic market leadership - Case studies:
+Kela (B2B2G validation), Uber Finland (logistics) - Competitive: Other
+climate tech startups (Normative, Plan A)</p>
+<hr />
+<h2 id="yaml-agent-configurations">8. YAML Agent Configurations</h2>
+<h3 id="lead-scout-agent">8.1 Lead Scout Agent</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">agent</span><span class="kw">:</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">id</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;lead-scout-001&quot;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Lead Scout Agent&quot;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;1.0.0&quot;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">segment</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;all&quot;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">model</span><span class="kw">:</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">provider</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;anthropic&quot;</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;claude-sonnet-4.5&quot;</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">temperature</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.3</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">  system_prompt</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    You are a B2B lead intelligence specialist for DWS IQ 6.</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    Your mission:</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    1. Enrich leads with company data (revenue, employee count, tech stack)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    2. Score leads against ICP criteria (CSRD compliance, NIS2 exposure)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    3. Identify trigger events (new CSO hire, sustainability report published)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    4. Classify by segment: Construction, Consulting, Education, Firehorse, Investor</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    ICP Criteria (score 0-100):</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    - Revenue: €50M+ (CSRD mandatory) = +30 points</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    - Employees: 250+ = +20 points</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    - Industry: Construction/Logistics/Healthcare = +20 points</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    - Trigger event: Sustainability officer hire = +15 points</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    - Tech stack: Legacy BMS detected = +15 points</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    Threshold: 70+ points = &quot;High Priority&quot;, 50-69 = &quot;Medium&quot;, &lt;50 = &quot;Low&quot;</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    Output format: JSON with enriched data + ICP score + reasoning.</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">tools</span><span class="kw">:</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> linkedin_company_lookup</span></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> apollo_io_enrichment</span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> clearbit_reveal</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> news_aggregation</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> tech_stack_detection</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">guardrails</span><span class="kw">:</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">max_leads_per_day</span><span class="kw">:</span><span class="at"> </span><span class="dv">100</span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">min_icp_score_for_outreach</span><span class="kw">:</span><span class="at"> </span><span class="dv">70</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">gdpr_compliant</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">no_competitors</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">  # Don&#39;t scrape Siemens, Schneider employees</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">cost_tracking</span><span class="kw">:</span></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">budget_monthly_eur</span><span class="kw">:</span><span class="at"> </span><span class="dv">150</span></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">alert_at_percentage</span><span class="kw">:</span><span class="at"> </span><span class="dv">80</span></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">model_costs</span><span class="kw">:</span></span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">claude_sonnet_4_5</span><span class="kw">:</span></span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">input_per_1m_tokens</span><span class="kw">:</span><span class="at"> </span><span class="fl">3.00</span></span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">output_per_1m_tokens</span><span class="kw">:</span><span class="at"> </span><span class="fl">15.00</span></span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">deployment</span><span class="kw">:</span></span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">phase</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;advisor&quot;</span><span class="co">  # Silent Pilot → Advisor → Autonomous</span></span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">approval_required</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span><span class="co">  # Auto-enrich, HIL reviews scores weekly</span></span></code></pre></div>
+<h3 id="outreach-agent">8.2 Outreach Agent</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">agent</span><span class="kw">:</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">id</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;outreach-001&quot;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Outreach Agent&quot;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;1.0.0&quot;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">segment</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;construction,consulting,education&quot;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">model</span><span class="kw">:</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">provider</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;groq&quot;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;llama-3.1-70b-versatile&quot;</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">temperature</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.7</span><span class="co">  # Higher temp for creative email copy</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="fu">  system_prompt</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    You are a B2B sales outreach specialist for DWS IQ 6.</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    Your mission:</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    1. Execute 7-touch email sequences (Cold 1 → Cold 2 → Cold 3 → Breakup)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    2. Personalize based on lead data (company, role, recent news)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    3. A/B test subject lines, CTAs, send times</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    4. Coordinate LinkedIn connection requests + InMails</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    5. Track engagement (opens, clicks, replies) and optimize</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    Email best practices:</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    - Subject line: 3-7 words, question format works best</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    - Body: 50-100 words max, mobile-friendly</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    - CTA: Single, clear ask (book 15min call)</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    - Personalization: Reference recent company news or pain point</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    - Compliance: Include unsubscribe link (GDPR), no spam keywords</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>    Example Subject Lines (A/B test):</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>    - &quot;Sub-100ms building intelligence?&quot;</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>    - &quot;CSRD compliance for [Company]?&quot;</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>    - &quot;15% energy savings at Kela&quot;</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>    LinkedIn Rules:</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>    - Max 20 connection requests/day</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>    - Personalized note (150 chars): &quot;Hi [Name], saw your CSRD initiative...&quot;</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>    - Follow up 3 days after connection accepted</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>    Spam Prevention:</span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>    - Max 50 emails/day</span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>    - Stop sequence if spam complaint</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>    - Respect opt-outs immediately</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">tools</span><span class="kw">:</span></span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> resend_email_api</span></span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> linkedin_api</span></span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> supabase_crm</span></span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> perplexity_research</span><span class="co">  # For personalization research</span></span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">guardrails</span><span class="kw">:</span></span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">max_emails_per_day</span><span class="kw">:</span><span class="at"> </span><span class="dv">50</span></span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">max_linkedin_connections_per_day</span><span class="kw">:</span><span class="at"> </span><span class="dv">20</span></span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">stop_on_spam_complaint</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">respect_optout</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">never_send_weekends</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">send_time_optimization</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">  # 9-11am CET highest open rates</span></span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">cost_tracking</span><span class="kw">:</span></span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">budget_monthly_eur</span><span class="kw">:</span><span class="at"> </span><span class="dv">200</span></span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">alert_at_percentage</span><span class="kw">:</span><span class="at"> </span><span class="dv">80</span></span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">costs</span><span class="kw">:</span></span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">resend_api</span><span class="kw">:</span><span class="at"> 0.10_per_1000_emails</span></span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">linkedin_inmails</span><span class="kw">:</span><span class="at"> 10.00_per_inmail</span></span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">deployment</span><span class="kw">:</span></span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">phase</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;advisor&quot;</span><span class="co">  # Requires HIL approval for first 60 days</span></span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">approval_required</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">  # Every email reviewed before send</span></span></code></pre></div>
+<h3 id="discovery-agent">8.3 Discovery Agent</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">agent</span><span class="kw">:</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">id</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;discovery-001&quot;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Discovery Agent&quot;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;1.0.0&quot;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">segment</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;construction,consulting,education&quot;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">model</span><span class="kw">:</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">provider</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;anthropic&quot;</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;claude-sonnet-4.5&quot;</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">temperature</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.2</span><span class="co">  # Low temp for accurate research</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="fu">  system_prompt</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    You are a sales engineer and discovery specialist for DWS IQ 6.</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    Your mission:</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    1. Research prospect company before discovery call (financials, tech stack, competitors)</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    2. Generate MEDDPICC qualification framework</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    3. Prepare demo customization (vertical-specific use cases)</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    4. Create competitive battle cards (vs. Siemens, Schneider, Honeywell)</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    5. Draft post-call summary and next steps</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    MEDDPICC Framework:</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    - Metrics: What are their energy cost baselines? Emissions targets?</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    - Economic Buyer: Who owns the budget? (CFO, CSO, Facilities Director)</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    - Decision Criteria: What matters most? (Latency, compliance, ROI, EU sovereignty)</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    - Decision Process: How many stakeholders? Timeline?</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    - Identify Pain: What&#39;s broken today? (Legacy BMS latency, CSRD gaps)</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    - Champion: Who internally will advocate for DWS IQ 6?</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    - Paper Process: Procurement cycles, framework agreements?</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>    Competitive Intelligence:</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>    - Siemens Desigo CC: 2-5 min cloud latency, €3-6M entry cost → We win on speed + price</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>    - Schneider EcoStruxure: Vendor lock-in, complex integration → We win on simplicity</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>    - Honeywell Forge: US data centers, GDPR concerns → We win on EU sovereignty</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>    Demo Customization:</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>    - Construction: Show BIM integration, EN 15978 carbon tracking</span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>    - Consulting: Show client dashboard, CSRD report automation</span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>    - Education: Show campus energy map, student engagement dashboard</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>    Output: Structured JSON for HIL Director review before call.</span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">tools</span><span class="kw">:</span></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> perplexity_research</span></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> company_financials_api</span></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> tech_stack_detection</span></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> news_aggregation</span></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> internal_knowledge_base</span><span class="co">  # Case studies, battle cards, ROI models</span></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">guardrails</span><span class="kw">:</span></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">verify_facts</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">  # Never hallucinate company data</span></span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">cite_sources</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">  # Link to LinkedIn, news articles</span></span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">flag_low_confidence</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">  # Alert HIL if research incomplete</span></span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">cost_tracking</span><span class="kw">:</span></span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">budget_monthly_eur</span><span class="kw">:</span><span class="at"> </span><span class="dv">100</span></span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">alert_at_percentage</span><span class="kw">:</span><span class="at"> </span><span class="dv">80</span></span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">deployment</span><span class="kw">:</span></span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">phase</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;advisor&quot;</span></span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">approval_required</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span><span class="co">  # Auto-generate research, HIL reviews before call</span></span></code></pre></div>
+<h3 id="proposal-agent">8.4 Proposal Agent</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">agent</span><span class="kw">:</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">id</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;proposal-001&quot;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Proposal Agent&quot;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;1.0.0&quot;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">segment</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;all&quot;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">model</span><span class="kw">:</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">provider</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;anthropic&quot;</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;claude-sonnet-4.5&quot;</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">temperature</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.1</span><span class="co">  # Very low temp for legal accuracy</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="fu">  system_prompt</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    You are a proposal and contract specialist for DWS IQ 6.</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    Your mission:</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    1. Generate ROI calculators (Excel/Google Sheets + 1-page summary)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    2. Draft proposals (2-4 pages: Challenge, Solution, Results, Pricing)</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    3. Prepare contracts (MSA, DPA, SLA) using legal-approved templates</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    4. Track proposal status (sent, under review, negotiation, accepted/rejected)</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    5. Alert HIL Director on pricing negotiations</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    ROI Calculator Inputs:</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>    - Current energy costs (€/year)</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>    - Building sqm, occupancy hours</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>    - Legacy BMS latency (minutes)</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>    - CSRD compliance status (yes/no)</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    ROI Calculator Outputs:</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>    - Energy savings: 15-25% reduction = €X/year</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>    - CSRD automation value: €15-30k/year (FTE savings)</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>    - Equipment failure prevention: €50-200k avoided costs</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>    - Payback period: 6-12 months</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>    - 5-year NPV: €X</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>    Proposal Template:</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>    1. Executive Summary (1 paragraph)</span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>    2. Challenge (prospect&#39;s pain points)</span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>    3. Solution (DWS IQ 6 deployment plan)</span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>    4. Results (Kela case study metrics)</span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>    5. Investment (€29,950 pilot + €8,500/mo)</span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>    6. Timeline (12-week implementation)</span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>    7. Next Steps (sign by [date], kickoff [date])</span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>    Pricing Tiers:</span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>    - Starter Pilot: €29,950 (1 building, 3 months)</span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>    - Production: €8,500/month (1-5 buildings)</span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>    - Enterprise: Custom (5+ buildings, SLA, dedicated support)</span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>    Approval Gates:</span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>    - &lt;€10k: Auto-draft, HIL review</span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a>    - €10k-€30k: Requires HIL approval</span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>    - &gt;€30k: Requires HIL + Legal review</span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">tools</span><span class="kw">:</span></span>
+<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> pandoc_pdf_generation</span></span>
+<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> excel_formula_engine</span></span>
+<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> supabase_templates</span><span class="co">  # MSA, DPA, SLA templates</span></span>
+<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> docusign_api</span><span class="co">  # For contract signing</span></span>
+<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">guardrails</span><span class="kw">:</span></span>
+<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">legal_template_only</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">  # Never deviate from approved MSA/DPA</span></span>
+<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">pricing_within_bounds</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">  # Min €8,500/mo, max 20% discount</span></span>
+<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">approval_threshold_eur</span><span class="kw">:</span><span class="at"> </span><span class="dv">10000</span></span>
+<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">never_share_competitor_data</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">cost_tracking</span><span class="kw">:</span></span>
+<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">budget_monthly_eur</span><span class="kw">:</span><span class="at"> </span><span class="dv">50</span></span>
+<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">alert_at_percentage</span><span class="kw">:</span><span class="at"> </span><span class="dv">80</span></span>
+<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">deployment</span><span class="kw">:</span></span>
+<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">phase</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;autonomous&quot;</span><span class="co">  # Can auto-draft, but approval gates enforce HIL review</span></span>
+<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">approval_required</span><span class="kw">:</span><span class="at"> conditional</span><span class="co">  # Based on deal size</span></span></code></pre></div>
+<h3 id="customer-success-agent">8.5 Customer Success Agent</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">agent</span><span class="kw">:</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">id</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;customer-success-001&quot;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Customer Success Agent&quot;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;1.0.0&quot;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">segment</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;firehorse,post-sale&quot;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">model</span><span class="kw">:</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">provider</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;groq&quot;</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;llama-3.1-70b-versatile&quot;</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">temperature</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.5</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="fu">  system_prompt</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    You are a customer success manager for Firehorse CRM customers.</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    Your mission:</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    1. Monitor NPS scores (quarterly surveys)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    2. Detect churn signals (login frequency, feature adoption, support tickets)</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    3. Trigger proactive outreach (30/60/90 day check-ins)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    4. Identify upsell opportunities (Advisor → Autonomous upgrade)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    5. Coordinate onboarding (kickoff, training, documentation delivery)</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    Churn Signals:</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>    - No login for 14+ days → Send re-engagement email</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>    - Support ticket sentiment: negative → Alert HIL Director</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>    - Feature adoption &lt;30% after 60 days → Offer training session</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    - NPS &lt;7 → Immediate HIL escalation</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>    Upsell Triggers:</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>    - Hitting plan limits (3 agents on Starter → suggest Pro)</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>    - High engagement (daily usage) → Suggest Autonomous upgrade</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>    - Positive NPS (9-10) → Request case study, referral</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>    Onboarding Checklist:</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>    - Day 0: Kickoff call scheduled (HIL Director + customer exec)</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>    - Day 1-7: Training sessions (product walkthrough)</span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>    - Day 7: Documentation delivered (admin manual, API docs)</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>    - Day 30: Check-in (how&#39;s it going? any blockers?)</span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>    - Day 60: Feature adoption review</span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>    - Day 90: NPS survey + renewal discussion</span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>    Output: Health score (0-100), churn risk (low/medium/high), recommended actions.</span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">tools</span><span class="kw">:</span></span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> supabase_analytics</span><span class="co">  # Login frequency, feature usage</span></span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> nps_survey_api</span></span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> slack_api</span><span class="co">  # Alert HIL Director</span></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> calendly_api</span><span class="co">  # Schedule check-ins</span></span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">guardrails</span><span class="kw">:</span></span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">escalate_churn_risk_high</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">  # Alert HIL immediately</span></span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">max_automated_emails</span><span class="kw">:</span><span class="at"> 10_per_month_per_customer</span></span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">never_push_upsell_if_churn_risk</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">cost_tracking</span><span class="kw">:</span></span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">budget_monthly_eur</span><span class="kw">:</span><span class="at"> </span><span class="dv">100</span></span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">alert_at_percentage</span><span class="kw">:</span><span class="at"> </span><span class="dv">80</span></span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">deployment</span><span class="kw">:</span></span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">phase</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;autonomous&quot;</span></span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">approval_required</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span><span class="co">  # Auto-monitor, auto-alert HIL on issues</span></span></code></pre></div>
+<h3 id="investor-outreach-agent">8.6 Investor Outreach Agent</h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">agent</span><span class="kw">:</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">id</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;investor-outreach-001&quot;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Investor Outreach Agent&quot;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;1.0.0&quot;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">segment</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;investor&quot;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">model</span><span class="kw">:</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">provider</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;anthropic&quot;</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;claude-sonnet-4.5&quot;</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">temperature</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.6</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="fu">  system_prompt</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    You are an investor relations specialist for DWS IQ 6 fundraising.</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    Your mission:</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    1. Maintain VC/PE database (500+ Nordic/EU climate tech investors)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    2. Identify warm intro paths (LinkedIn 2nd degree connections)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    3. Customize pitch deck versions (Seed, Series A, strategic investors)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    4. Track outreach status (intro requested, meeting scheduled, pass)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    5. Prepare investor FAQs (financials, market size, competitive moat)</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    Investor Segmentation:</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    - Nordic VCs: Voima Ventures, Lifeline Ventures, Inventure</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    - EU Climate Tech: Extantia Capital, ETF Partners, 2150</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    - Corporate VCs: Siemens Next47, Schneider Electric Ventures</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>    - Family Offices: Nordic sustainable investing focus</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>    Warm Intro Strategy:</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>    - Check LinkedIn for shared connections (founder network, advisors)</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>    - Prioritize 1st degree intros &gt; cold emails</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>    - Leverage Kela case study for B2B2G credibility</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>    Pitch Deck Customization:</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>    - Seed ($1-2M): Emphasize market urgency (EPBD 2027, CSRD), team, traction</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>    - Series A ($5-10M): Emphasize €720k ARR roadmap, 20-moat, unit economics</span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>    - Strategic: Emphasize partnership opportunities (channel, integration)</span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>    Investor FAQs:</span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>    - Market size: €127B TAM (EU smart building market)</span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>    - Traction: €7k → €60k MRR roadmap, Kela/Uber Finland customers</span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>    - Competition: Siemens/Schneider = €3-6M entry barrier, we&#39;re €29,950 pilot</span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>    - Defensibility: 20-moat framework (NVIDIA Jetson, EU data sovereignty, edge AI)</span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>    - Exit: Strategic acquirer (Siemens, Schneider, Honeywell) or IPO (2030+)</span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>    Output: Investor CRM updates, meeting prep docs, pitch deck versions.</span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">tools</span><span class="kw">:</span></span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> linkedin_api</span></span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> crunchbase_api</span></span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> pitch_deck_versioning</span><span class="co">  # Auto-generate slide variations</span></span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> supabase_investor_crm</span></span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">guardrails</span><span class="kw">:</span></span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">never_cold_email_tier1_vcs</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">  # Always seek warm intro</span></span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">max_outreach_per_week</span><span class="kw">:</span><span class="at"> </span><span class="dv">10</span><span class="co">  # Quality &gt; quantity</span></span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">verify_investor_focus</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">  # Only climate tech, B2B SaaS, industrial IoT</span></span>
+<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">nda_compliance</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">  # Never share confidential metrics publicly</span></span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">cost_tracking</span><span class="kw">:</span></span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">budget_monthly_eur</span><span class="kw">:</span><span class="at"> </span><span class="dv">100</span></span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">alert_at_percentage</span><span class="kw">:</span><span class="at"> </span><span class="dv">80</span></span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">deployment</span><span class="kw">:</span></span>
+<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">phase</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;advisor&quot;</span></span>
+<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">approval_required</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">  # Every investor outreach reviewed by HIL Director</span></span></code></pre></div>
+<hr />
+<h2 id="implementation-roadmap">9. Implementation Roadmap</h2>
+<h3 id="phase-1-foundations-weeks-1-4">9.1 Phase 1: Foundations (Weeks
+1-4)</h3>
+<p><strong>Goal:</strong> Deploy Lead Scout + Outreach agents in Silent
+Pilot mode</p>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 29%" />
+<col style="width: 18%" />
+<col style="width: 35%" />
+</colgroup>
+<thead>
+<tr>
+<th>Week</th>
+<th>Milestone</th>
+<th>Owner</th>
+<th>Deliverable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Agent infrastructure setup</td>
+<td>Engineering</td>
+<td>MCP Hub deployed, Supabase tables created</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Lead Scout agent YAML config</td>
+<td>Sales HIL Director</td>
+<td><code>lead-scout-001.yaml</code> finalized</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Outreach agent YAML config</td>
+<td>Sales HIL Director</td>
+<td><code>outreach-001.yaml</code> finalized</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Silent Pilot launch</td>
+<td>Sales HIL Director</td>
+<td>30-day observation log started</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Success Metrics:</strong> - 100 leads enriched/week (Lead
+Scout) - 50 emails drafted/week (Outreach, not sent yet) - 0 errors, 0
+spam complaints</p>
+<h3 id="phase-2-advisor-mode-weeks-5-12">9.2 Phase 2: Advisor Mode
+(Weeks 5-12)</h3>
+<p><strong>Goal:</strong> Activate Outreach + Discovery + Meeting agents
+with HIL approval</p>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 29%" />
+<col style="width: 18%" />
+<col style="width: 35%" />
+</colgroup>
+<thead>
+<tr>
+<th>Week</th>
+<th>Milestone</th>
+<th>Owner</th>
+<th>Deliverable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5</td>
+<td>Advance to Advisor mode</td>
+<td>Sales HIL Director</td>
+<td>Approval workflow configured</td>
+</tr>
+<tr>
+<td>6-8</td>
+<td>Discovery agent deployment</td>
+<td>Engineering</td>
+<td><code>discovery-001.yaml</code> live</td>
+</tr>
+<tr>
+<td>9-10</td>
+<td>Meeting agent deployment</td>
+<td>Engineering</td>
+<td><code>meeting-001.yaml</code> live</td>
+</tr>
+<tr>
+<td>11-12</td>
+<td>First agent-sourced meeting</td>
+<td>Sales HIL Director</td>
+<td>1 discovery call from agent outreach</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Success Metrics:</strong> - 10% reply rate on outreach emails
+- 5 meetings scheduled (agent-sourced) - 1 demo delivered</p>
+<h3 id="phase-3-autonomous-weeks-13-24">9.3 Phase 3: Autonomous (Weeks
+13-24)</h3>
+<p><strong>Goal:</strong> Full agent orchestration, 2 pilots signed</p>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 29%" />
+<col style="width: 18%" />
+<col style="width: 35%" />
+</colgroup>
+<thead>
+<tr>
+<th>Week</th>
+<th>Milestone</th>
+<th>Owner</th>
+<th>Deliverable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>13</td>
+<td>Proposal agent deployment</td>
+<td>Engineering</td>
+<td><code>proposal-001.yaml</code> live</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Customer Success agent deployment</td>
+<td>Engineering</td>
+<td><code>customer-success-001.yaml</code> live</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Investor Outreach agent deployment</td>
+<td>Sales HIL Director</td>
+<td><code>investor-outreach-001.yaml</code> live</td>
+</tr>
+<tr>
+<td>16-20</td>
+<td>Autonomous mode for Outreach + Meeting</td>
+<td>Sales HIL Director</td>
+<td>Approval gates configured</td>
+</tr>
+<tr>
+<td>21-24</td>
+<td>First agent-sourced pilot signed</td>
+<td>Sales HIL Director</td>
+<td>€29,950 pilot contract</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Success Metrics:</strong> - 2 pilots signed (€59,900 revenue)
+- 8-12 demos delivered - €7k → €15k MRR growth</p>
+<h3 id="phase-4-scale-months-7-12">9.4 Phase 4: Scale (Months 7-12)</h3>
+<p><strong>Goal:</strong> €7k → €60k MRR with agent-led sales</p>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 42%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr>
+<th>Month</th>
+<th>Milestone</th>
+<th>Target</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7-9</td>
+<td>Optimize agent performance (A/B testing)</td>
+<td>15% reply rate, 8% meeting-booked rate</td>
+</tr>
+<tr>
+<td>10-12</td>
+<td>Deploy vertical-specific agent variations</td>
+<td>Construction, Consulting, Education playbooks live</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Achieve €60k MRR</td>
+<td>7 production customers @ €8.5k/mo</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Success Metrics:</strong> - €60k MRR - 1:6 Human-to-Agent
+ratio maintained - &lt;€1,500/mo agent operational costs</p>
+<hr />
+<h2 id="cost-analysis">10. Cost Analysis</h2>
+<h3 id="agent-operating-costs">10.1 Agent Operating Costs</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 41%" />
+<col style="width: 35%" />
+</colgroup>
+<thead>
+<tr>
+<th>Agent</th>
+<th>Monthly Cost</th>
+<th>Breakdown</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lead Scout</td>
+<td>€150</td>
+<td>Claude API (100k tokens/day)</td>
+</tr>
+<tr>
+<td>Outreach</td>
+<td>€200</td>
+<td>Groq API + Resend (2k emails/mo) + LinkedIn (20 InMails/mo)</td>
+</tr>
+<tr>
+<td>Meeting</td>
+<td>€50</td>
+<td>Calendly API, Google Calendar</td>
+</tr>
+<tr>
+<td>Discovery</td>
+<td>€100</td>
+<td>Claude API + Perplexity (research)</td>
+</tr>
+<tr>
+<td>Proposal</td>
+<td>€50</td>
+<td>Claude API + Pandoc</td>
+</tr>
+<tr>
+<td>Customer Success</td>
+<td>€100</td>
+<td>Groq API + Slack alerts</td>
+</tr>
+<tr>
+<td>Investor Outreach</td>
+<td>€100</td>
+<td>Claude API + Crunchbase</td>
+</tr>
+<tr>
+<td><strong>TOTAL</strong></td>
+<td><strong>€750-900/mo</strong></td>
+<td>vs. €25k-35k/mo for 3 human SDRs</td>
+</tr>
+</tbody>
+</table>
+<p><strong>ROI:</strong> - Cost savings: 96% (€750 vs. €25k) - Output:
+6x more leads processed - Quality: Higher (no “forgot to follow up”)</p>
+<h3 id="human-cost-sales-hil-director">10.2 Human Cost (Sales HIL
+Director)</h3>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 11%" />
+<col style="width: 32%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr>
+<th>Role</th>
+<th>FTE</th>
+<th>Monthly Cost</th>
+<th>Responsibilities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sales HIL Director</td>
+<td>1.0</td>
+<td>€8,000-12,000</td>
+<td>Agent orchestration, high-touch deals, strategic accounts</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Total Sales Cost:</strong> - Agents: €900/mo - Human:
+€10,000/mo - <strong>Combined: €10,900/mo</strong> (vs. €35k/mo
+traditional SDR team)</p>
+<hr />
+<h2 id="success-metrics-kpis">11. Success Metrics &amp; KPIs</h2>
+<h3 id="agent-performance-metrics">11.1 Agent Performance Metrics</h3>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 27%" />
+<col style="width: 44%" />
+</colgroup>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Target</th>
+<th>Measurement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Lead Enrichment Rate</strong></td>
+<td>100 leads/week</td>
+<td>Supabase <code>firehorse_leads</code> table growth</td>
+</tr>
+<tr>
+<td><strong>ICP Score Accuracy</strong></td>
+<td>80%+ qualified</td>
+<td>Win rate on &gt;70 ICP score leads</td>
+</tr>
+<tr>
+<td><strong>Email Reply Rate</strong></td>
+<td>10-15%</td>
+<td>Resend analytics</td>
+</tr>
+<tr>
+<td><strong>Meeting-Booked Rate</strong></td>
+<td>5-8%</td>
+<td>Calendly conversions</td>
+</tr>
+<tr>
+<td><strong>Demo-to-Pilot Rate</strong></td>
+<td>25%</td>
+<td>8 demos → 2 pilots</td>
+</tr>
+<tr>
+<td><strong>Pilot-to-Production Rate</strong></td>
+<td>50%</td>
+<td>2 pilots → 1 production</td>
+</tr>
+<tr>
+<td><strong>Customer Health Score</strong></td>
+<td>75+ (low churn risk)</td>
+<td>Supabase analytics</td>
+</tr>
+<tr>
+<td><strong>Agent Cost per Deal</strong></td>
+<td>&lt;€500</td>
+<td>Agent costs / deals closed</td>
+</tr>
+</tbody>
+</table>
+<h3 id="human-hil-director-metrics">11.2 Human (HIL Director)
+Metrics</h3>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 27%" />
+<col style="width: 44%" />
+</colgroup>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Target</th>
+<th>Measurement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>High-Touch Deal Close Rate</strong></td>
+<td>30%</td>
+<td>Deals &gt;€10k requiring negotiation</td>
+</tr>
+<tr>
+<td><strong>Executive Relationship NPS</strong></td>
+<td>9+</td>
+<td>Quarterly surveys with C-level buyers</td>
+</tr>
+<tr>
+<td><strong>Agent Optimization Cycles</strong></td>
+<td>2/month</td>
+<td>YAML config updates, prompt tuning</td>
+</tr>
+<tr>
+<td><strong>Time Spent on Admin</strong></td>
+<td>&lt;10%</td>
+<td>More time on strategy, less on CRM hygiene</td>
+</tr>
+</tbody>
+</table>
+<h3 id="business-outcomes">11.3 Business Outcomes</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Q1/2026 Target</th>
+<th>Q4/2026 Target</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MRR</strong></td>
+<td>€15k</td>
+<td>€60k</td>
+</tr>
+<tr>
+<td><strong>New Pilots Signed</strong></td>
+<td>2</td>
+<td>8</td>
+</tr>
+<tr>
+<td><strong>Production Customers</strong></td>
+<td>1</td>
+<td>7</td>
+</tr>
+<tr>
+<td><strong>Investor Meetings</strong></td>
+<td>5</td>
+<td>20</td>
+</tr>
+<tr>
+<td><strong>Customer Churn Rate</strong></td>
+<td>&lt;5%</td>
+<td>&lt;5%</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="risk-mitigation">12. Risk Mitigation</h2>
+<h3 id="risks-mitigations">12.1 Risks &amp; Mitigations</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 31%" />
+<col style="width: 21%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Likelihood</th>
+<th>Impact</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Agent sends spam</strong></td>
+<td>Medium</td>
+<td>High (brand damage)</td>
+<td>Advisor mode for 60 days, max 50 emails/day, spam monitoring</td>
+</tr>
+<tr>
+<td><strong>Low reply rates</strong></td>
+<td>Medium</td>
+<td>Medium (wasted effort)</td>
+<td>A/B testing, ICP refinement, warm intros via HIL</td>
+</tr>
+<tr>
+<td><strong>Agent hallucinates data</strong></td>
+<td>Low</td>
+<td>High (legal risk)</td>
+<td>Fact verification, cite sources, HIL review before send</td>
+</tr>
+<tr>
+<td><strong>GDPR violation</strong></td>
+<td>Low</td>
+<td>Critical (fines)</td>
+<td>Opt-out enforcement, EU data residency, legal review</td>
+</tr>
+<tr>
+<td><strong>Agent cost overruns</strong></td>
+<td>Low</td>
+<td>Low (budget impact)</td>
+<td>Monthly budget alerts at 80%, hard caps on API calls</td>
+</tr>
+<tr>
+<td><strong>Over-reliance on agents</strong></td>
+<td>Medium</td>
+<td>Medium (skill atrophy)</td>
+<td>HIL Director maintains high-touch deal skills</td>
+</tr>
+</tbody>
+</table>
+<h3 id="compliance-checklist">12.2 Compliance Checklist</h3>
+<ul class="task-list">
+<li><label><input type="checkbox"></input><strong>GDPR:</strong> Opt-out links
+in all emails, data retention policies</label></li>
+<li><label><input type="checkbox"></input><strong>CAN-SPAM:</strong>
+Unsubscribe mechanism, physical address in footer</label></li>
+<li><label><input type="checkbox"></input><strong>LinkedIn ToS:</strong> Max
+20 connection requests/day, no scraping</label></li>
+<li><label><input type="checkbox"></input><strong>EU AI Act:</strong>
+Transparency (recipients know it’s AI), human oversight (Advisor
+mode)</label></li>
+<li><label><input type="checkbox"></input><strong>NIS2:</strong> Secure API
+keys (Google Secret Manager), audit logs</label></li>
+</ul>
+<hr />
+<h2 id="appendix-reference-documents">13. Appendix: Reference
+Documents</h2>
+<h3 id="dws-internal-docs">13.1 DWS Internal Docs</h3>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 24%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr>
+<th>Document</th>
+<th>Path</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DWS Document Standard</strong></td>
+<td><code>DWS_DOCUMENT_STANDARD.md</code></td>
+<td>Versioning, naming conventions</td>
+</tr>
+<tr>
+<td><strong>Agent Foundry Product Doc</strong></td>
+<td><code>Store/PRODUCT_AGENT_FOUNDRY.md</code></td>
+<td>Agent framework, YAML templates</td>
+</tr>
+<tr>
+<td><strong>AGENTS.md</strong></td>
+<td><code>AGENTS.md</code></td>
+<td>Master agent index, MCP Hub patterns</td>
+</tr>
+<tr>
+<td><strong>Enterprise Sales Blueprint</strong></td>
+<td><code>sales-outreach/enterprise-sales.md</code></td>
+<td>13-document sales stack</td>
+</tr>
+<tr>
+<td><strong>Firehorse Sales Pipeline</strong></td>
+<td><code>src/firehorse/sales-pipeline.ts</code></td>
+<td>Meeting &amp; proposal tracking code</td>
+</tr>
+<tr>
+<td><strong>MCP Hub Orchestration</strong></td>
+<td><code>mcp-hub/server.py</code></td>
+<td>Workflow coordination logic</td>
+</tr>
+</tbody>
+</table>
+<h3 id="external-resources">13.2 External Resources</h3>
+<table>
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 20%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>Resource</th>
+<th>URL</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MEDDPICC Framework</strong></td>
+<td><a href="https://www.meddpicc.com">meddpicc.com</a></td>
+<td>Sales qualification methodology</td>
+</tr>
+<tr>
+<td><strong>Apollo.io API</strong></td>
+<td><a href="https://www.apollo.io/api">apollo.io/api</a></td>
+<td>Lead enrichment</td>
+</tr>
+<tr>
+<td><strong>Resend Email API</strong></td>
+<td><a href="https://resend.com/docs">resend.com/docs</a></td>
+<td>Transactional email</td>
+</tr>
+<tr>
+<td><strong>LinkedIn Sales Navigator</strong></td>
+<td><a href="https://www.linkedin.com/sales">linkedin.com/sales</a></td>
+<td>B2B prospecting</td>
+</tr>
+<tr>
+<td><strong>EU AI Act Compliance</strong></td>
+<td><a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai">digital-strategy.ec.europa.eu</a></td>
+<td>Regulatory guidance</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="glossary-sanasto">14. Glossary / Sanasto</h2>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 34%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr>
+<th>Term (EN)</th>
+<th>Termi (FI)</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Human-in-Loop (HIL)</strong></td>
+<td>Ihminen silmukassa</td>
+<td>Human oversight in AI workflows, especially for high-stakes
+decisions</td>
+</tr>
+<tr>
+<td><strong>Agent</strong></td>
+<td>Agentti</td>
+<td>Autonomous AI software that performs tasks (email, research,
+scheduling)</td>
+</tr>
+<tr>
+<td><strong>ICP</strong></td>
+<td>Ideaaliasiakasprofiili</td>
+<td>Ideal Customer Profile - target customer characteristics</td>
+</tr>
+<tr>
+<td><strong>MEDDPICC</strong></td>
+<td>MEDDPICC</td>
+<td>Sales qualification framework (Metrics, Economic Buyer, Decision
+Criteria, etc.)</td>
+</tr>
+<tr>
+<td><strong>MRR</strong></td>
+<td>Kuukausittainen toistuva liikevaihto</td>
+<td>Monthly Recurring Revenue</td>
+</tr>
+<tr>
+<td><strong>Churn</strong></td>
+<td>Asiakaspoistuma</td>
+<td>Customer cancellation rate</td>
+</tr>
+<tr>
+<td><strong>NPS</strong></td>
+<td>Net Promoter Score</td>
+<td>Customer satisfaction metric (-100 to +100)</td>
+</tr>
+<tr>
+<td><strong>Sales Funnel</strong></td>
+<td>Myyntisuppilo</td>
+<td>Customer journey stages (Awareness → Interest → Decision)</td>
+</tr>
+<tr>
+<td><strong>Pilot</strong></td>
+<td>Pilotti</td>
+<td>Trial deployment (€29,950 for 3 months)</td>
+</tr>
+<tr>
+<td><strong>Production</strong></td>
+<td>Tuotantokäyttö</td>
+<td>Full deployment (€8,500/month)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>Document Version:</strong> 1.0 <strong>Last Updated:</strong>
+January 19, 2026 <strong>Owner:</strong> Lifetime Oy - Sales &amp;
+Product <strong>© 2026 Lifetime Oy. All rights reserved.</strong></p>
+<hr />
+<h2 id="quick-reference-pikaohje">Quick Reference / Pikaohje</h2>
+<h3 id="for-sales-hil-director">For Sales HIL Director</h3>
+<p><strong>Daily Tasks:</strong></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check agent status</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> .workflows/agents</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="ex">node</span> coordinator.cjs status</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Review overnight agent activity</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="ex">node</span> coordinator.cjs signals <span class="kw">|</span> <span class="fu">grep</span> <span class="va">$(</span><span class="fu">date</span> +%Y-%m-%d<span class="va">)</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Approve pending emails (Advisor mode)</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="ex">psql</span> <span class="va">$DATABASE_URL</span> <span class="at">-c</span> <span class="st">&quot;SELECT * FROM firehorse_events WHERE status=&#39;pending_approval&#39;;&quot;</span></span></code></pre></div>
+<p><strong>Weekly Review:</strong></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pipeline analytics</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">psql</span> <span class="va">$DATABASE_URL</span> <span class="at">-f</span> scripts/weekly_sales_report.sql</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Agent performance leaderboard</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/agent_performance.py <span class="at">--week</span><span class="op">=</span><span class="va">$(</span><span class="fu">date</span> +%U<span class="va">)</span></span></code></pre></div>
+<p><strong>Monthly Optimization:</strong></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A/B test results</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/ab_test_analysis.py <span class="at">--month</span><span class="op">=</span><span class="va">$(</span><span class="fu">date</span> +%m<span class="va">)</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Update agent configs based on learnings</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="ex">vim</span> AgentFoundry/configs/production/outreach-001.yaml</span></code></pre></div>
+<h3 id="for-engineering">For Engineering</h3>
+<p><strong>Deploy new agent:</strong></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Create YAML config</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> AgentFoundry/configs/templates/agent-template.yaml <span class="dt">\</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>   AgentFoundry/configs/production/new-agent.yaml</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Register with MCP Hub</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/register_agent.py <span class="at">--config</span><span class="op">=</span>production/new-agent.yaml</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Start in Silent Pilot</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/deploy_agent.py <span class="at">--agent</span><span class="op">=</span>new-agent <span class="at">--mode</span><span class="op">=</span>silent_pilot</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Monitor logs</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> <span class="at">-f</span> logs/agents/new-agent.log</span></code></pre></div>
+<p><strong>Emergency shutdown:</strong></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stop runaway agent</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/kill_agent.py <span class="at">--agent</span><span class="op">=</span>outreach-001 <span class="at">--reason</span><span class="op">=</span><span class="st">&quot;spam_detected&quot;</span></span></code></pre></div>
+<hr />
+<p><strong>END OF DOCUMENT</strong></p>
+</body>
+</html>

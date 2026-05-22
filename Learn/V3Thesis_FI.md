@@ -2,14 +2,17 @@
 
 ## Hybridi AI-edge-arkkitehtuuri ilmastoälykkäille teollisille alustoille
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.52
+Version: 3.55
 
 Sessions & Modifications:
 
+- Version: 3.55 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Versiopäivitys 3.54 -> 3.55 lukitussa 4 opinnäytetyötiedoston ketjussa; VERSION AND AGENT HISTORY -lohkon sulkeva erotin korjattu muotoon ***; Learn-kansion opinnäytetyön HTML-julkaisut generoitu v3.55-muotoon
+- Version: 3.54 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Lisätty §1.4 Sisältörajaus — maisteriopinnäytetyö on tuote/toteutuslähtöinen, ei sisällä markkinatietoa eikä pitkän aikavälin tiekarttaa; rajaus kirjattu CLAUDE.md:hen ja peilattu kaikkiin 4 opinnäytetyötiedostoon; väitöskirjan eriytyminen formalisoitu; versionosto rinnakkain CLAUDE.md:n ohjeen mukaan
+- Version: 3.53 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Lisätty agenttien vastuullisuus- ja havainnointitaso uutena avainpanoksena: AgentLogger (jäsennelty JSONL + ei-blokkaava Supabase agent_executions), AgentVersionRegistry rollback-tukea varten, drift-detector.ts päivittäisten luottamuspisteiden laskuraportteja varten, eval-runner.ts noudattamisaineistojen pisteytystä varten — toteuttaa suoraan EU:n tekoälysäädöksen artiklojen 9 (riskinhallinta), 12 (lokitus) ja 14 (ihmisvalvonta) vaatimukset tuotantokoodina; Baseten lisätty OpenAI-yhteensopivaksi LLM-tarjoajaksi laajentaen monituottajareititystä Groq/Baseten/OpenAI-vaihtoehtoihin tehtävätietoisella model-selector-valinnalla; /case-run-taito rekisteröity (Themis v2.0 case-coordinate-toiminto, Legora AOS -kilpailuanalyysi DWS Case -entiteetin tiekartalla); Outokumpu CBAM -kumppanuusmalli ensimmäisenä teollisuusostaajan vaatimustenmukaisuuskustannusten kvantifiointitapauksena; TokenSpeed-inferenssimoottori (LightSeek MIT, DGX Spark -sopivuusarvio); kaikki 4 opinnäytetyötiedostoa nostettu rinnakkain CLAUDE.md:n ohjeen mukaan
 - Version: 3.52 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-ontology-blog-3RGKG | Date: 29.04.2026 | Changes: Lisätty luku 1.6 "Ontologia — etymologia ja filosofinen tausta", joka linkittää opinnäytetyön ONTOLOGY.md v1.3 -dokumenttiin (kreikan ón + lógos, Aristoteles, skolastiikan 1600–1700-luvun systematisointi, nykyinen tietojenkäsittelytieteen merkitys). Yhdenmukaistaa terminologian DWS Ontology Standardin kanssa. Kaikki 4 opinnäytetyötiedostoa nostettu lukon mukaisesti CLAUDE.md:n ohjeen mukaan.
 - Version: 3.51 | Tool: Claude Code (Haiku 4.5) | Session: claude/sync-version-numbering-adEeB | Date: 28.04.2026 | Changes: Bumped from 3.39 to 3.51 (12 steps × 0.01). Unified thesis version track maintained. Created new Tutkimussuunnitelma_3.51.md (Research Plan) with three research streams (KYA standardization, DWS 7 empirical testbed, dual-use industries), eight research questions, "Human in Command ja Human in Loop" governance framework; versioning format rule (.X9 → .X+1,0) documented for DWS_DOCUMENT_STANDARD.md §5
 - Version: 3.39 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Terminology rename — "Aiven overlay" / "Aiven layer" (deprecated infrastructure labels) → "Article 12 Logging Pipeline" per new DWS_ARTICLE_12_LOGGING_STANDARD.md v1.0 (unified 3-tier canonical term). Aiven remains the correct name for the Postgres SaaS. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule; only V3Thesis_EN had the infra-context string in content
@@ -74,7 +77,7 @@ Document Status:
 - Languages Available: English, Suomi
 - Publication Status: DRAFT (V3.36 — KYA open source -standardipolku, NIST-tilanne, Artikkeli 1 tarkennus, julkaisuvaiheistus)
 
----
+***
 
 **Opinnäytetyö**
 **Metropolia Ammattikorkeakoulu**
@@ -86,7 +89,7 @@ Document Status:
 **Päivämäärä:** 16.1.2026
 **InvestEU Portal:** Projekti Lifetime World, DWS IQ 6, Firehorse (INPO-20254383) jätetty julkaistavaksi InvestEU-portaaliin 25.12.2025 — InvestEU Portal Team, Euroopan komissio
 
----
+***
 
 ## Tiivistelmä
 
@@ -214,6 +217,18 @@ Miten AI-avusteisesti kehitetty teollinen AI-alusta voi saavuttaa tuote-markkina
 - **Aikajänne:** MVP-vaihe (joulukuu 2025 - helmikuu 2026)
 - **Asiakkaat:** 5 pilottiasiakasta (€10-100M liikevaihto)
 - **Verkkokauppa:** 30 tuotetta alusta-, ohjelmisto- ja palvelukategorioissa [V3.0]
+
+### Sisältörajaus (v3.55)
+
+Tämä opinnäytetyö on **tuote- ja toteutuslähtöinen**. Sisältö kytkeytyy tiukasti DWS IQ:n nykyiseen ja seuraavaan tuoteversioon. Se dokumentoi suunnittelupäätökset, arkkitehtuurin, pull requestit ja mitattavat operatiiviset tulokset.
+
+**Tämä opinnäytetyö EI sisällä:**
+
+- Markkinatietoa tai kilpailijoiden signaaleja
+- Pitkän tähtäimen tiekarttaa (yli seuraavan tuoteversion)
+- Tieteellistä kehystystä, standardointielinten toimintaa tai tutkimusohjelman positiointia
+
+Nämä kuuluvat väitöskirjaan (`PHD_FIREHORSE_EN.md` / `PHD_FIREHORSE_FI.md`).
 
 ## 1.5 Keskeiset käsitteet
 

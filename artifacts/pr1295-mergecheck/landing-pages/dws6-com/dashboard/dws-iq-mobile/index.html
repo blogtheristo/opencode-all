@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>DWS IQ Mobile Dashboard</title>
+    <link rel="icon" href="https://dws10.com/DWS_IQ2026.png" type="image/png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; }
+
+        /* Header */
+        .header { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 50; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .header-left { display: flex; align-items: center; gap: 10px; }
+        .header-logo { width: 32px; height: 32px; border-radius: 8px; }
+        .header h1 { font-size: 1.1rem; font-weight: 700; }
+        .header-actions { display: flex; gap: 8px; }
+        .icon-btn { width: 36px; height: 36px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.05); color: #94a3b8; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem; transition: all 0.2s; }
+        .icon-btn:hover { background: rgba(255,255,255,0.1); color: #e2e8f0; }
+
+        .container { max-width: 600px; margin: 0 auto; padding: 16px; }
+
+        /* User greeting */
+        .greeting { padding: 8px 0 16px; }
+        .greeting-text { font-size: 1.3rem; font-weight: 700; }
+        .greeting-sub { font-size: 0.85rem; color: #64748b; margin-top: 2px; }
+
+        /* Stat chips */
+        .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+        .stat-chip { background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 14px 10px; text-align: center; }
+        .stat-value { font-size: 1.5rem; font-weight: 800; line-height: 1.2; }
+        .stat-value.green { color: #4ade80; }
+        .stat-value.blue { color: #60a5fa; }
+        .stat-value.amber { color: #fbbf24; }
+        .stat-value.red { color: #f87171; }
+        .stat-label { font-size: 0.65rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 4px; }
+
+        /* Quick Actions */
+        .section-title { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #64748b; margin-bottom: 12px; }
+        .quick-actions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 24px; }
+        .action-card { background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 16px; cursor: pointer; transition: all 0.2s; text-decoration: none; color: inherit; display: flex; align-items: flex-start; gap: 12px; }
+        .action-card:hover, .action-card:active { background: rgba(37, 99, 235, 0.15); border-color: rgba(96, 165, 250, 0.3); transform: scale(0.98); }
+        .action-icon { font-size: 1.5rem; flex-shrink: 0; line-height: 1; }
+        .action-content { min-width: 0; }
+        .action-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 2px; }
+        .action-desc { font-size: 0.75rem; color: #64748b; }
+
+        /* Compliance status */
+        .compliance-card { background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 20px; margin-bottom: 20px; }
+        .compliance-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .compliance-title { font-size: 1rem; font-weight: 700; }
+        .compliance-score { font-size: 0.85rem; font-weight: 700; padding: 4px 12px; border-radius: 20px; }
+        .score-good { background: rgba(74, 222, 128, 0.15); color: #4ade80; }
+        .score-warn { background: rgba(251, 191, 36, 0.15); color: #fbbf24; }
+        .regulation-list { display: flex; flex-direction: column; gap: 10px; }
+        .regulation-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: rgba(15, 23, 42, 0.5); border-radius: 8px; }
+        .reg-status { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+        .reg-status.ok { background: #4ade80; }
+        .reg-status.gap { background: #fbbf24; }
+        .reg-status.risk { background: #f87171; }
+        .reg-name { font-size: 0.85rem; font-weight: 600; flex: 1; }
+        .reg-detail { font-size: 0.75rem; color: #64748b; }
+
+        /* Activity feed */
+        .feed-card { background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 20px; margin-bottom: 20px; }
+        .feed-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+        .feed-item:last-child { border-bottom: none; }
+        .feed-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+        .feed-dot.agent { background: #60a5fa; }
+        .feed-dot.alert { background: #fbbf24; }
+        .feed-dot.done { background: #4ade80; }
+        .feed-text { font-size: 0.85rem; color: #cbd5e1; }
+        .feed-time { font-size: 0.72rem; color: #475569; margin-top: 2px; }
+
+        /* AI Chat FAB */
+        .chat-fab { position: fixed; bottom: 24px; right: 24px; width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #2563eb, #1d4ed8); border: none; color: white; font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 20px rgba(37, 99, 235, 0.5); z-index: 100; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+        .chat-fab:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(37, 99, 235, 0.6); }
+
+        /* Bottom nav */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; border-top: 1px solid rgba(255,255,255,0.08); display: flex; z-index: 50; padding-bottom: env(safe-area-inset-bottom, 0); }
+        .nav-item { flex: 1; padding: 10px 0 8px; text-align: center; cursor: pointer; color: #64748b; transition: color 0.2s; text-decoration: none; }
+        .nav-item.active { color: #60a5fa; }
+        .nav-icon { font-size: 1.2rem; display: block; }
+        .nav-label { font-size: 0.6rem; margin-top: 2px; display: block; }
+
+        /* Safe bottom padding for nav */
+        .bottom-spacer { height: 80px; }
+
+        /* Loading */
+        .loading { text-align: center; padding: 40px; color: #64748b; }
+
+        @media (min-width: 768px) {
+            .stat-row { grid-template-columns: repeat(4, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <img src="https://dws10.com/DWS_IQ2026.png" alt="DWS IQ" class="header-logo">
+            <h1>DWS IQ</h1>
+        </div>
+        <div class="header-actions">
+            <button class="icon-btn" title="Notifications" id="notifBtn">&#x1f514;</button>
+            <button class="icon-btn" title="Logout" onclick="handleLogout()">&#x23fb;</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Greeting -->
+        <div class="greeting">
+            <div class="greeting-text" id="greetingText">Good morning</div>
+            <div class="greeting-sub" id="userEmail">Loading...</div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stat-row">
+            <div class="stat-chip">
+                <div class="stat-value green" id="statProjects">--</div>
+                <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat-chip">
+                <div class="stat-value blue" id="statAgents">--</div>
+                <div class="stat-label">Agents</div>
+            </div>
+            <div class="stat-chip">
+                <div class="stat-value amber" id="statTasks">--</div>
+                <div class="stat-label">Pending</div>
+            </div>
+            <div class="stat-chip">
+                <div class="stat-value red" id="statAlerts">--</div>
+                <div class="stat-label">Alerts</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="section-title">Quick Actions</div>
+        <div class="quick-actions">
+            <a class="action-card" href="#" onclick="runAction('safety')">
+                <span class="action-icon">&#x1f6e1;</span>
+                <div class="action-content">
+                    <div class="action-title">Site Safety</div>
+                    <div class="action-desc">Run site check</div>
+                </div>
+            </a>
+            <a class="action-card" href="#" onclick="runAction('carbon')">
+                <span class="action-icon">&#x1f331;</span>
+                <div class="action-content">
+                    <div class="action-title">Carbon Calc</div>
+                    <div class="action-desc">Material footprint</div>
+                </div>
+            </a>
+            <a class="action-card" href="#" onclick="runAction('compliance')">
+                <span class="action-icon">&#x2705;</span>
+                <div class="action-content">
+                    <div class="action-title">Compliance</div>
+                    <div class="action-desc">Gap analysis</div>
+                </div>
+            </a>
+            <a class="action-card" href="#" onclick="runAction('report')">
+                <span class="action-icon">&#x1f4ca;</span>
+                <div class="action-content">
+                    <div class="action-title">Report</div>
+                    <div class="action-desc">Export PDF</div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Compliance Status -->
+        <div class="section-title">Compliance Status</div>
+        <div class="compliance-card">
+            <div class="compliance-header">
+                <div class="compliance-title">EU Regulations</div>
+                <span class="compliance-score score-warn">78%</span>
+            </div>
+            <div class="regulation-list">
+                <div class="regulation-item">
+                    <span class="reg-status ok"></span>
+                    <span class="reg-name">CSRD</span>
+                    <span class="reg-detail">Reporting ready</span>
+                </div>
+                <div class="regulation-item">
+                    <span class="reg-status ok"></span>
+                    <span class="reg-name">ETS</span>
+                    <span class="reg-detail">Allowances tracked</span>
+                </div>
+                <div class="regulation-item">
+                    <span class="reg-status gap"></span>
+                    <span class="reg-name">CBAM</span>
+                    <span class="reg-detail">Import data incomplete</span>
+                </div>
+                <div class="regulation-item">
+                    <span class="reg-status gap"></span>
+                    <span class="reg-name">EU AI Act</span>
+                    <span class="reg-detail">Literacy training pending</span>
+                </div>
+                <div class="regulation-item">
+                    <span class="reg-status risk"></span>
+                    <span class="reg-name">EPBD</span>
+                    <span class="reg-detail">Energy audit overdue</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activity Feed -->
+        <div class="section-title">Recent Activity</div>
+        <div class="feed-card">
+            <div class="feed-item">
+                <span class="feed-dot agent"></span>
+                <div>
+                    <div class="feed-text">Compliance agent completed CSRD gap analysis for Project Alpha</div>
+                    <div class="feed-time">2 hours ago</div>
+                </div>
+            </div>
+            <div class="feed-item">
+                <span class="feed-dot done"></span>
+                <div>
+                    <div class="feed-text">Site safety score updated: 87/100 (Construction Site B)</div>
+                    <div class="feed-time">4 hours ago</div>
+                </div>
+            </div>
+            <div class="feed-item">
+                <span class="feed-dot alert"></span>
+                <div>
+                    <div class="feed-text">ETS allowance balance below 15% threshold</div>
+                    <div class="feed-time">Yesterday</div>
+                </div>
+            </div>
+            <div class="feed-item">
+                <span class="feed-dot agent"></span>
+                <div>
+                    <div class="feed-text">Material Oracle calculated 1,240 kgCO2e for concrete batch</div>
+                    <div class="feed-time">Yesterday</div>
+                </div>
+            </div>
+            <div class="feed-item">
+                <span class="feed-dot done"></span>
+                <div>
+                    <div class="feed-text">Q1 2026 Board Pack generated and sent to stakeholders</div>
+                    <div class="feed-time">3 days ago</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-spacer"></div>
+    </div>
+
+    <!-- AI Chat FAB -->
+    <button class="chat-fab" onclick="openChat()" title="Ask AI Assistant">&#x1f4ac;</button>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a class="nav-item active" href="#">
+            <span class="nav-icon">&#x1f3e0;</span>
+            <span class="nav-label">Home</span>
+        </a>
+        <a class="nav-item" href="#">
+            <span class="nav-icon">&#x1f4cb;</span>
+            <span class="nav-label">Projects</span>
+        </a>
+        <a class="nav-item" href="#">
+            <span class="nav-icon">&#x1f916;</span>
+            <span class="nav-label">Agents</span>
+        </a>
+        <a class="nav-item" href="#">
+            <span class="nav-icon">&#x1f4ca;</span>
+            <span class="nav-label">Reports</span>
+        </a>
+        <a class="nav-item" href="#">
+            <span class="nav-icon">&#x2699;</span>
+            <span class="nav-label">Settings</span>
+        </a>
+    </nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module">
+        import { getCurrentUser } from '../../shared/js/supabase-client.js';
+        import { logout } from '../../shared/js/auth-handler.js';
+        import { requireRole } from '../../shared/js/auth-handler.js';
+
+        // Check authorization
+        window.addEventListener('DOMContentLoaded', async () => {
+            const authorized = await requireRole('dws_iq_mobile');
+            if (!authorized) return;
+
+            const user = await getCurrentUser();
+            if (user) {
+                const name = user.user_metadata?.full_name || user.email?.split('@')[0] || 'User';
+                const hour = new Date().getHours();
+                const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+                document.getElementById('greetingText').textContent = `${greeting}, ${name}`;
+                document.getElementById('userEmail').textContent = user.email;
+            }
+
+            // Populate stats (demo data — replace with API calls)
+            document.getElementById('statProjects').textContent = '12';
+            document.getElementById('statAgents').textContent = '16';
+            document.getElementById('statTasks').textContent = '23';
+            document.getElementById('statAlerts').textContent = '3';
+        });
+
+        window.handleLogout = async function() {
+            const result = await logout();
+            if (result.success) {
+                window.location.href = '/login/dws-iq-mobile/';
+            }
+        };
+    </script>
+    <script>
+        function runAction(type) {
+            event.preventDefault();
+            const messages = {
+                safety: 'Opening site safety check...',
+                carbon: 'Opening carbon calculator...',
+                compliance: 'Opening compliance gap analysis...',
+                report: 'Generating compliance report...',
+            };
+            // Placeholder — connect to real agent API endpoints
+            alert(messages[type] || 'Action not available yet');
+        }
+
+        function openChat() {
+            // Navigate to AI assistant or open chat modal
+            alert('AI Assistant: Ask about compliance, emissions, or site safety.\n\nFull voice + text assistant available in the SaaS dashboard.');
+        }
+    </script>
+</body>
+</html>

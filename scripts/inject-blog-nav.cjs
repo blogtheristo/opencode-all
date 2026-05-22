@@ -91,6 +91,26 @@ const posts = [
     title: 'Field Note: Baseten Raises $300M — Inference Engineering Is a Discipline Now',
     date: '7 May 2026',
   },
+  {
+    file: 'fire-brigades-drone-defense-units.html',
+    title: 'Fire Brigades as Drone Defence Units — Three Reasons to Build the Network Now',
+    date: '15 May 2026',
+  },
+  {
+    file: 'palokunnat-droonitorjuntayksikot.html',
+    title: 'Palokunnat ja VPK:t droonitorjuntayksiköiksi — kolme syytä rakentaa verkko nyt',
+    date: '15 May 2026',
+  },
+  {
+    file: 'brandkarer-dronarforsvars-enheter.html',
+    title: 'Brandkårer som drönarförsvarsenheter — tre skäl att bygga nätverket nu',
+    date: '15 May 2026',
+  },
+  {
+    file: 'moat-is-not-the-model.html',
+    title: 'The Moat Is Not the Model — NVIDIA Makes It Possible, EU-Sovereign Deployment Makes It Defensible',
+    date: '17 May 2026',
+  },
 ];
 
 // Three featured products

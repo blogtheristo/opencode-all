@@ -2,14 +2,19 @@
 
 ## Hybridi AI-edge-arkkitehtuuri ilmastoälykkäille teollisille alustoille
 
----
+***
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.52
+Version: 3.57
 
 Sessions & Modifications:
 
+- Version: 3.57 | Tool: Claude Code (Opus 4.7) | Session: claude/multi-agent-ai-alignment-F2NIO | Date: 17.05.2026 | Changes: Lukkokohtainen versionosto 3.56 → 3.57 kaikkien 4 opinnäytetyötiedoston yli CLAUDE.md:n opinnäytetyösäännön mukaan. Ei sisältömuutosta tässä maisteritiedostossa: v3.57:n sisältölisäys on markkinasignaali ja standardointi-signaali (Shapira et al. "Agents of Chaos" arXiv:2602.20021 + Emergence AI "Emergence World" world.emergence.ai → KYA-standardi falsifioitavuuden ankkurina), joka master-vs-PhD-skooppisäännön §1.4 mukaan kuuluu vain väitöskirjaan. Katso PHD_FIREHORSE_FI.md §14.19 (Moniagenttisten järjestelmien emergentti väärinkohdistus ja kannustinten suunnittelu kohdistuksen yksikkönä) ja Avainpanos #24 tieteellistä kehystystä varten. `Learn/`-HTML-uudelleengenerointi tarvitaan (ei tässä committissa — vaatii Pandoc-buildin).
+- Version: 3.56 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Lisätty §10.10.6.1 (Laitteistollisen Brainin päivitys — toukokuu 2026), joka dokumentoi Spark Primary tierin vaihdon `llama3.3:70b`:stä `nemotron-3-super`:iin (~4,5× dekoodausnopeus, MoE 123,6B / 12,7B aktiivisia, Mamba-2 + attentio + Latent MoE, NVFP4-esikoulutettu), Fast tierin päivityksen `qwen2.5-coder:32b`:stä `qwen3-coder:30b`:hen, sekä OpenClawn lisäämisen ensiluokkaiseksi compose-palveluksi EU-suvereeneille no-egress agenttityökuormille. Toteutusartefaktit viitattu: kenttämuistio 2026-03-29 v1.6, DWS_DEPLOYMENT_STANDARD.md v1.4, docker-compose.yml, DWS7_ROADMAP.md PR 161 uudelleenperustus. Markkinasignaaliperustelu (laskentaniukkuus, NVFP4-laitteistovallihauta) viitattu PHD_FIREHORSE_FI §14.18:aan master-vs-PhD-skooppisäännön §1.4 mukaisesti. Kaikki 4 opinnäytetyötiedostoa nostettu v3.56:een lukitusti CLAUDE.md:n ohjeen mukaan. `Learn/`-HTML-uudelleengenerointi tarvitaan (ei tässä committissa — vaatii Pandoc-buildin).
+- Version: 3.55 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Versiopäivitys 3.54 -> 3.55 lukitussa 4 opinnäytetyötiedoston ketjussa; VERSION AND AGENT HISTORY -lohkon sulkeva erotin korjattu muotoon ***; Learn-kansion opinnäytetyön HTML-julkaisut generoitu v3.55-muotoon
+- Version: 3.54 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Lisätty §1.4 Sisältörajaus — maisteriopinnäytetyö on tuote/toteutuslähtöinen, ei sisällä markkinatietoa eikä pitkän aikavälin tiekarttaa; rajaus kirjattu CLAUDE.md:hen ja peilattu kaikkiin 4 opinnäytetyötiedostoon; väitöskirjan eriytyminen formalisoitu; versionosto rinnakkain CLAUDE.md:n ohjeen mukaan
+- Version: 3.53 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Lisätty agenttien vastuullisuus- ja havainnointitaso uutena avainpanoksena: AgentLogger (jäsennelty JSONL + ei-blokkaava Supabase agent_executions), AgentVersionRegistry rollback-tukea varten, drift-detector.ts päivittäisten luottamuspisteiden laskuraportteja varten, eval-runner.ts noudattamisaineistojen pisteytystä varten — toteuttaa suoraan EU:n tekoälysäädöksen artiklojen 9 (riskinhallinta), 12 (lokitus) ja 14 (ihmisvalvonta) vaatimukset tuotantokoodina; Baseten lisätty OpenAI-yhteensopivaksi LLM-tarjoajaksi laajentaen monituottajareititystä Groq/Baseten/OpenAI-vaihtoehtoihin tehtävätietoisella model-selector-valinnalla; /case-run-taito rekisteröity (Themis v2.0 case-coordinate-toiminto, Legora AOS -kilpailuanalyysi DWS Case -entiteetin tiekartalla); Outokumpu CBAM -kumppanuusmalli ensimmäisenä teollisuusostaajan vaatimustenmukaisuuskustannusten kvantifiointitapauksena; TokenSpeed-inferenssimoottori (LightSeek MIT, DGX Spark -sopivuusarvio); kaikki 4 opinnäytetyötiedostoa nostettu rinnakkain CLAUDE.md:n ohjeen mukaan
 - Version: 3.52 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-ontology-blog-3RGKG | Date: 29.04.2026 | Changes: Lisätty luku 1.6 "Ontologia — etymologia ja filosofinen tausta", joka linkittää opinnäytetyön ONTOLOGY.md v1.3 -dokumenttiin (kreikan ón + lógos, Aristoteles, skolastiikan 1600–1700-luvun systematisointi, nykyinen tietojenkäsittelytieteen merkitys). Yhdenmukaistaa terminologian DWS Ontology Standardin kanssa. Kaikki 4 opinnäytetyötiedostoa nostettu lukon mukaisesti CLAUDE.md:n ohjeen mukaan.
 - Version: 3.51 | Tool: Claude Code (Haiku 4.5) | Session: claude/sync-version-numbering-adEeB | Date: 28.04.2026 | Changes: Bumped from 3.39 to 3.51 (12 steps × 0.01). Unified thesis version track maintained. Created new Tutkimussuunnitelma_3.51.md (Research Plan) with three research streams (KYA standardization, DWS 7 empirical testbed, dual-use industries), eight research questions, "Human in Command ja Human in Loop" governance framework; versioning format rule (.X9 → .X+1,0) documented for DWS_DOCUMENT_STANDARD.md §5
 - Version: 3.39 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-memory-binding-RuJ0G | Date: 23.04.2026 | Changes: Terminology rename — "Aiven overlay" / "Aiven layer" (deprecated infrastructure labels) → "Article 12 Logging Pipeline" per new DWS_ARTICLE_12_LOGGING_STANDARD.md v1.0 (unified 3-tier canonical term). Aiven remains the correct name for the Postgres SaaS. All 4 thesis files bumped in lockstep per CLAUDE.md thesis rule; only V3Thesis_EN had the infra-context string in content
@@ -74,7 +79,7 @@ Document Status:
 - Languages Available: English, Suomi
 - Publication Status: DRAFT (V3.36 — KYA open source -standardipolku, NIST-tilanne, Artikkeli 1 tarkennus, julkaisuvaiheistus)
 
----
+***
 
 **Opinnäytetyö**
 **Metropolia Ammattikorkeakoulu**
@@ -86,7 +91,7 @@ Document Status:
 **Päivämäärä:** 16.1.2026
 **InvestEU Portal:** Projekti Lifetime World, DWS IQ 6, Firehorse (INPO-20254383) jätetty julkaistavaksi InvestEU-portaaliin 25.12.2025 — InvestEU Portal Team, Euroopan komissio
 
----
+***
 
 ## Tiivistelmä
 
@@ -214,6 +219,18 @@ Miten AI-avusteisesti kehitetty teollinen AI-alusta voi saavuttaa tuote-markkina
 - **Aikajänne:** MVP-vaihe (joulukuu 2025 - helmikuu 2026)
 - **Asiakkaat:** 5 pilottiasiakasta (€10-100M liikevaihto)
 - **Verkkokauppa:** 30 tuotetta alusta-, ohjelmisto- ja palvelukategorioissa [V3.0]
+
+### Sisältörajaus (v3.55)
+
+Tämä opinnäytetyö on **tuote- ja toteutuslähtöinen**. Sisältö kytkeytyy tiukasti DWS IQ:n nykyiseen ja seuraavaan tuoteversioon. Se dokumentoi suunnittelupäätökset, arkkitehtuurin, pull requestit ja mitattavat operatiiviset tulokset.
+
+**Tämä opinnäytetyö EI sisällä:**
+
+- Markkinatietoa tai kilpailijoiden signaaleja
+- Pitkän tähtäimen tiekarttaa (yli seuraavan tuoteversion)
+- Tieteellistä kehystystä, standardointielinten toimintaa tai tutkimusohjelman positiointia
+
+Nämä kuuluvat väitöskirjaan (`PHD_FIREHORSE_EN.md` / `PHD_FIREHORSE_FI.md`).
 
 ## 1.5 Keskeiset käsitteet
 
@@ -1861,6 +1878,10 @@ Stage 1.5 osoittaa kolme opinnäytetyön väitettä samanaikaisesti:
 2. **Lifetime Fleet -konseptin validointi (osio 3.5):** Acer Veriton GN100 on ensimmäinen fyysinen solmu Lifetime Fleet -laivastossa — EU:ssa sijaitseva laitteisto, joka ajaa kontaineroituja tekoälykuormia täydessä operaattorin hallinnassa, täyttäen opinnäytetyössä ehdotetun reunatekoälyteoreettisen mallin.
 
 3. **EMPO²-muistiarkkitehtuurin yhdenmukaisuus:** EMPO²:n (arXiv:2602.23008) itsenäisesti validoima hybridiparametrinen/ei-parametrinen muistiarkkitehtuuri vastaa DWS LWM -suunnittelua — tarjoten akateemisen perustan insinööri-intuitiolla tehdylle toteutusvalinnalle.
+
+#### 10.10.6.1 Laitteistollisen Brainin päivitys (toukokuu 2026)
+
+Acer Veriton GN100 / DGX Spark -Brain-kerros uudelleenkiinnitettiin toukokuussa 2026 kolmen insinöörihavainnon suorana seurauksena: (1) tiheä Llama 3.3 70B Q4-formaatissa toimi nopeudella ~4,4 tok/s dekoodauksessa GB10-muistiväylällä (273 GB/s) — liian hitaasti interaktiivisille agenttityökuormille, koska jokainen forward pass työnsi kaikki 70B parametria väylän läpi; (2) NVIDIA:n Nemotron 3 Super (arkkitehtuuri `nemotron_h_moe`, 123,6B yhteensä / 12,7B aktiivisia, 88-kerroksinen Mamba-2 + lomittautuva attentio + Latent MoE, esikoulutettu natiivisti NVFP4-formaatissa 25T tokenin laajuudella) toimii nopeudella ~19,5 tok/s Q4_K_M-formaatissa samalla laitteistolla — noin 4,5-kertaisesti nopeammin — koska MoE liikuttaa vain ~12B parametria tokenia kohden; (3) Nemotron 3 Super -malli paljastaa `thinking`- ja työkalukutsukyvykkyydet natiivisti, joita Brain-Memory-Body-Hands -arkkitehtuuri (osio 4.3) vaatii agenttipäätösketjuihin. Ensisijainen tier vaihdettiin siten `llama3.3:70b`:stä `nemotron-3-super`:iin; samanaikaisesti Fast-tier päivitettiin `qwen2.5-coder:32b`:stä `qwen3-coder:30b`:hen (MoE 30B / 3,3B aktiivisia), joka toimii kaksoisroolissa myös SyntheticDataAgentin opettajamallina. **OpenClaw** lisättiin ensiluokkaisena compose-palveluna porttiin 8090, sen Brain kytkettiin Nemotron 3 Superiin Ollaman kautta ja `OPENCLAW_ALLOW_EGRESS=false` valvotaan konttitasolla — luoden no-egress paikallisen agenttiajoympäristön olemassa olevan Stage 1.5 OpenSandbox -eristyskerroksen rinnalle. Toteutusartefaktit: `docs/field-notes/2026-03-29-dgx-spark-primary-runtime-setup.md` v1.6, `DWS_DEPLOYMENT_STANDARD.md` v1.4 (Surfaces-taulukkoon lisätty OpenClaw-rivi), `infrastructure/dgx-spark/docker-compose.yml`, `DWS7_ROADMAP.md` PR 161 uudelleenperustettu Nemotron 3 Superiin. Markkinasignaaliperustelu (laskentaniukkuus, NVFP4-laitteistovallihauta) on dokumentoitu tiedostossa `docs/PHD_FIREHORSE_FI.md` §14.18 master-vs-PhD-skooppisäännön mukaisesti.
 
 ### 10.10.7 Agenttimuistin faktojen poimintaputki (PR-254)
 

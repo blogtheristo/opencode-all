@@ -29,6 +29,7 @@ import {
 } from './types.js';
 import { renderMarkdownToHtml } from './blog-publisher.js';
 import { recordAudit } from './audit.js';
+import { linkedInService } from '../firehorse/linkedin-service.js';
 
 // ============================================================================
 // HELPERS
@@ -184,19 +185,27 @@ export async function distributeContent(
         }
 
         case OmnichannelTarget.LinkedIn: {
-          // STATUS: PLANNED — linkedin-service.ts is a stub (console.log only).
-          // PhantomBuster was evaluated but not deployed.
-          // No messages have ever been sent via automation.
-          // Next step: Connect to LinkedIn Marketing API or approved third-party tool.
-          logger.warn('Omnichannel: LinkedIn target is PLANNED — not connected to live API', {
+          const postText = [item.title, item.excerpt || '', item.product_sku ? `SKU: ${item.product_sku}` : '']
+            .filter(Boolean)
+            .join('\n\n');
+
+          const postUrl = item.slug ? `https://dws10.com/products/${item.slug}.html` : undefined;
+
+          const shareResult = await linkedInService.sharePost({
+            text: postText,
+            url: postUrl,
             content_id: item.id,
-            status: 'dry_run',
           });
+
           results.push({
             target,
-            success: false,
-            error: 'LinkedIn distribution not yet connected (planned)',
-            path: 'linkedin:not_connected',
+            success: shareResult.success,
+            path: shareResult.post_id
+              ? `linkedin:post:${shareResult.post_id}`
+              : shareResult.dry_run
+                ? 'linkedin:dry_run'
+                : undefined,
+            error: shareResult.error,
           });
           break;
         }

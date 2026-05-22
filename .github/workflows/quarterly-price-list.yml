@@ -43,12 +43,22 @@ jobs:
         with:
           fetch-depth: 0
 
+      # DGX Spark cron-runner runs the primary quarterly stamp.
+      # This GHA workflow is failover only; skip if DGX is alive.
+      - name: DGX Spark failover check
+        id: failover
+        uses: ./.github/actions/dgx-failover-check
+        with:
+          heartbeat_url: ${{ vars.DGX_SPARK_HEARTBEAT_URL }}
+
       - name: Setup Node
+        if: steps.failover.outputs.dgx_alive != 'true'
         uses: actions/setup-node@v4
         with:
           node-version: "20"
 
       - name: Derive quarter for today
+        if: steps.failover.outputs.dgx_alive != 'true'
         id: q
         run: |
           YEAR=$(date -u +%Y); MONTH=$(date -u +%m); DAY=$(date -u +%d)
@@ -69,6 +79,7 @@ jobs:
           echo "today=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
 
       - name: Check if roll is needed
+        if: steps.failover.outputs.dgx_alive != 'true'
         id: need
         run: |
           CURRENT=$(node -e "console.log(JSON.parse(require('fs').readFileSync('dws10.com/config/products.json','utf8')).priceList.version||'')")

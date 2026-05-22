@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.1
+Version: 2.2
 
 Sessions & Modifications:
 
+- Version: 2.2 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Documented current Google Cloud account/project inventory for `risto.paarni2024@lifetime.fi` (active + not-current projects and org), and added staging deployment project-alignment note clarifying that CI/CD must target `dws6run6` (not `dws6-backend`) to avoid Artifact Registry IAM failures
 - Version: 2.1 | Tool: Claude Code (Opus 4.7) | Session: claude/b2b-payment-stack-DNdkW | Date: 25.04.2026 | Changes: Section 4.5 — added "Scaling note" subsection. Records that the current single-tenant deployment pattern (one Cloud Run service, one trigger, one Stripe endpoint, one shared secret inventory) is correct for the internal Lifetime Oy billing use case shipped today, and lists the re-evaluation triggers (>100 tenants, first per-tenant Stripe account, first non-EU residency, first non-CLOUD-Act jurisdiction) that would force a rework. Includes a single-tenant→multi-tenant dimension table for future reference; explicit instruction to fork the section rather than mutate it when re-evaluating, so historical pattern is preserved. Note, not a task
 - Version: 2.0 | Tool: Claude Code (Opus 4.7) | Session: claude/b2b-payment-stack-DNdkW | Date: 25.04.2026 | Changes: Section 4.5 — added STRIPE_WEBHOOK_SECRET to required secrets table and canonical deploy command; new "Public ingress" subsection covering the two-layer block (Workspace org policy `iam.allowedPolicyMemberDomains` + Cloud Run private-by-default IAM) with the exact override + binding commands; new "Stripe webhook wiring" table pinning service URL, mounted route, signing secret, Stripe destination name (`charming-serenity`), 7 subscribed event types; new "Smoke-test recipes" with three single-curl tests proving liveness, raw-body chain, and full HMAC chain; new "Pitfalls discovered & captured" subsection logging six lessons learned: express.json consumes raw stream, Compute-SA default since 2024, tsconfig excludes vs runtime stubs, Node 22 ESM `.js` requirement, `/webhooks/stripe` path, `timingSafeEqual` length-mismatch behaviour. Major version bump to 2.0 reflects that 4.5 is now a complete deployment standard, not a partial pattern note
 - Version: 1.9 | Tool: Claude Code (Opus 4.7) | Session: claude/b2b-payment-stack-DNdkW | Date: 24.04.2026 | Changes: Added Section 4.5 "DWS 6 Cloud Run Deployment Pattern (Standard)" — principles (secrets in Secret Manager not env-vars, user-managed replication pinned to europe-north1, least-privilege secretAccessor per secret, never-paste rule); provisioning workflow via `scripts/Provision-DwsIqSecrets.ps1`; required backend secret inventory (STRIPE_SECRET_KEY, SUPABASE_URL/ANON/SERVICE/SERVICE_ROLE, JWT_SECRET, SMTP_USER/PASS); canonical deploy command separating `--set-env-vars` (non-secret config) from `--set-secrets` (Secret Manager refs); rotation playbook with `:latest` + nonce env-var; security-benefits comparison table. Renumbered prior 4.5 Limitations → 4.6
@@ -30,7 +31,7 @@ Session Links & References:
 Document Status:
 
 - Created: 16.02.2026
-- Last Modified: 24.04.2026
+- Last Modified: 11.05.2026
 - Language: EN
 - Languages Available: EN
 - Publication Status: ACTIVE
@@ -148,6 +149,20 @@ Two primary accounts manage the DWS platform, each with distinct responsibilitie
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
+### 2.4 `risto.paarni2024@lifetime.fi` — Google Cloud inventory snapshot (May 2026)
+
+The following inventory reflects the currently visible projects/org context when troubleshooting staging deploy permissions:
+
+| Resource | Type | Status in account context |
+| --- | --- | --- |
+| `dws6run6` | Project | **Current** |
+| `coral-loop-494008-r2` | Project (MCP Google Drive) | Not current |
+| `dws-mcp-hub` | Project (DWS MCP Hub) | Not current |
+| `dws-iq-pilot` | Project (DWS IQ Pilot) | Not current |
+| `dws6login` | Project | Not current |
+| `sys-28065221981339444149331534` | Project (GPT3 Demo Template) | Not current |
+| `1074856518213` | Organisation (`lifetime.fi`) | Not current |
+
 ---
 
 ## 3. Cloud Environment Overview
@@ -260,6 +275,13 @@ User → Cloudflare CDN (US/Global) → Static frontend
 - `wrangler.toml` — Cloudflare Workers config
 - GitHub → Cloudflare Pages auto-deploy (main branch)
 - SSL, brotli compression, minification enabled
+
+#### Staging deployment project alignment (critical)
+
+For GitHub Actions staging deploys (Cloud Run + Artifact Registry), `PROJECT_ID` must match the active backend project in this account context: **`dws6run6`**.
+
+- Expected image path pattern: `europe-north1-docker.pkg.dev/dws6run6/...`
+- Using `dws6-backend` in workflow/env with a key from `dws6run6` causes IAM/resource mismatch failures (for example `artifactregistry.repositories.uploadArtifacts denied`).
 
 ### 4.4 DWS 6 Cloud IAM Bindings
 

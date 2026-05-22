@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Processing Agreement — Lifetime Oy ↔ Shufti Pro Limited</title>
+    <style>
+      :root {
+        --ink: #0f172a;
+        --rule: #d1d5db;
+        --muted: #4b5563;
+        --tier: #1e3a5f;
+      }
+      @page {
+        size: A4;
+        margin: 22mm 20mm 24mm 20mm;
+      }
+      html,
+      body {
+        background: #fff;
+        color: var(--ink);
+      }
+      body {
+        font-family: "Times New Roman", Georgia, serif;
+        font-size: 11.5pt;
+        line-height: 1.55;
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 24px 28px 48px;
+      }
+      header.letterhead {
+        border-bottom: 1.5pt solid var(--ink);
+        padding-bottom: 10px;
+        margin-bottom: 22px;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 16px;
+      }
+      header.letterhead .org {
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        font-size: 12pt;
+      }
+      header.letterhead .meta {
+        font-size: 9.5pt;
+        color: var(--muted);
+        text-align: right;
+      }
+      h1 {
+        font-size: 17pt;
+        font-weight: 700;
+        margin: 0 0 4px;
+        text-align: center;
+        letter-spacing: 0.01em;
+      }
+      .subtitle {
+        text-align: center;
+        color: var(--muted);
+        font-style: italic;
+        font-size: 10.5pt;
+        margin-bottom: 22px;
+      }
+      h2 {
+        font-size: 12.5pt;
+        font-weight: 700;
+        margin: 22px 0 8px;
+        border-bottom: 0.5pt solid var(--rule);
+        padding-bottom: 3px;
+        page-break-after: avoid;
+      }
+      h2 + p,
+      h2 + ol,
+      h2 + ul,
+      h2 + table {
+        page-break-before: avoid;
+      }
+      h3 {
+        font-size: 11.5pt;
+        margin: 14px 0 6px;
+      }
+      p {
+        margin: 6px 0 8px;
+      }
+      .clause {
+        margin: 6px 0 8px;
+      }
+      .clause strong {
+        color: var(--ink);
+      }
+      ol,
+      ul {
+        margin: 6px 0 10px 22px;
+      }
+      li {
+        margin: 3px 0;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 10px 0 14px;
+        font-size: 10.5pt;
+        page-break-inside: avoid;
+      }
+      th,
+      td {
+        border: 0.5pt solid var(--rule);
+        padding: 6px 8px;
+        vertical-align: top;
+        text-align: left;
+      }
+      th {
+        background: #f3f4f6;
+      }
+      .recital {
+        margin: 4px 0;
+      }
+      .recital::before {
+        content: "WHEREAS, ";
+        font-variant: small-caps;
+        font-weight: 600;
+      }
+      .signatures {
+        margin-top: 28px;
+        page-break-inside: avoid;
+      }
+      .sig-row {
+        display: flex;
+        gap: 32px;
+        margin-top: 18px;
+      }
+      .sig-col {
+        flex: 1 1 0;
+        border-top: 0.5pt solid var(--ink);
+        padding-top: 6px;
+        font-size: 10.5pt;
+      }
+      .sig-col .label {
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .sig-line {
+        display: block;
+        margin: 14px 0 0;
+        border-bottom: 0.5pt solid var(--ink);
+        height: 18px;
+      }
+      .sig-cap {
+        display: block;
+        font-size: 9pt;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+      footer.coda {
+        margin-top: 30px;
+        padding-top: 8px;
+        border-top: 0.5pt solid var(--rule);
+        font-size: 9pt;
+        color: var(--muted);
+        text-align: center;
+      }
+      .tier-tag {
+        display: inline-block;
+        border: 1pt solid var(--tier);
+        color: var(--tier);
+        padding: 2px 10px;
+        font-size: 9.5pt;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-left: 8px;
+        vertical-align: middle;
+      }
+      blockquote {
+        margin: 10px 16px;
+        padding: 8px 14px;
+        border-left: 2pt solid var(--rule);
+        font-style: italic;
+        color: var(--muted);
+      }
+      @media screen {
+        body {
+          background: #f8fafc;
+          box-shadow: 0 0 0 1px #e5e7eb;
+          margin: 24px auto;
+          padding: 36px 44px;
+        }
+      }
+      @media print {
+        body {
+          box-shadow: none;
+          margin: 0;
+          padding: 0;
+          max-width: none;
+        }
+        a {
+          color: var(--ink);
+          text-decoration: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="letterhead">
+      <div class="org">LIFETIME OY</div>
+      <div class="meta">
+        Business ID 0772407-9 · VAT FI07724079<br />
+        Laidunmaanraitti 2 A 25, 02330 Espoo, Finland<br />
+        risto.paarni@lifetime.fi
+      </div>
+    </header>
+
+    <h1>Data Processing Agreement</h1>
+    <p class="subtitle">
+      Lifetime Oy (Data Controller) ↔ Shufti Pro Limited (Data Processor)
+      <span class="tier-tag">Tier 1 / Tier 2</span><br />
+      Identity Verification Services — EU-Only Processing
+    </p>
+
+    <h2>1. Parties &amp; Roles</h2>
+    <p class="clause">
+      <strong>1.1 Data Controller.</strong> <strong>Lifetime Oy</strong>, Business ID 0772407-9, VAT
+      FI07724079, registered at Laidunmaanraitti 2 A 25, 02330 Espoo, Finland (the
+      &ldquo;<strong>Controller</strong>&rdquo;).
+    </p>
+    <p class="clause">
+      <strong>1.2 Data Processor.</strong> <strong>Shufti Pro Limited</strong>, registered in the
+      United Kingdom (the &ldquo;<strong>Processor</strong>&rdquo;).
+    </p>
+    <p class="clause">
+      <strong>1.3 Roles.</strong> The Controller engages the Processor to provide identity
+      verification services (KYC / IDV) in connection with the Controller&rsquo;s DWS IQ platform.
+      The Processor acts as Data Processor within the meaning of GDPR Article 4(8). Where the
+      Controller&rsquo;s own customer (the end-customer of the DWS IQ platform) is the underlying
+      Data Controller, the Processor acknowledges its position as Sub-Processor in that chain.
+    </p>
+
+    <h2>2. Scope &amp; Underlying Framework</h2>
+    <p class="clause">
+      <strong>2.1 Reference framework.</strong> This Agreement is the Lifetime ↔ Shufti instance of
+      the Lifetime Oy Data Processing Agreement template, version 1.2 (April 2026), published at
+      <strong>https://dws10.com/legal-hub/dpa.html</strong> (the &ldquo;<strong>Template DPA</strong
+      >&rdquo;). Where this Agreement is silent, the Template DPA applies.
+    </p>
+    <p class="clause">
+      <strong>2.2 DWS Tier applicability.</strong> The Processor's services support the Controller's
+      <strong>Tier 1 (DWS IQ Aegis)</strong> and
+      <strong>Tier 2 (DWS IQ 6 Sovereign Infra)</strong> deployments. EU-Only Mode (Clause 4) is
+      mandatory for both tiers. The Processor is not engaged for Tier 3 (DWS IQ Connect) deployments
+      under this Agreement.
+    </p>
+    <p class="clause">
+      <strong>2.3 Subject matter.</strong> Identity verification (document scan, facial match,
+      liveness check) and the related processing of biometric data (GDPR Article 9 special category
+      data) submitted by the Controller via the Processor's verification API.
+    </p>
+    <p class="clause">
+      <strong>2.4 Categories of data subjects.</strong> Natural persons whose identity is being
+      verified at the Controller's request, including end-users of the Controller's customers and
+      personnel of the Controller's customers.
+    </p>
+    <p class="clause">
+      <strong>2.5 Categories of personal data.</strong> Identity document images (passport, national
+      ID, driver&rsquo;s licence), facial images and liveness video frames (biometric data, GDPR
+      Art. 9), document metadata, verification results, and verification request metadata.
+    </p>
+    <p class="clause">
+      <strong>2.6 Duration.</strong> For the term of the underlying commercial agreement between the
+      Controller and the Processor, plus the retention period set out in Clause 9.
+    </p>
+
+    <h2>3. Legal Basis (GDPR Article 9)</h2>
+    <p class="clause">
+      <strong>3.1</strong> The Parties acknowledge that the processing of biometric data under this
+      Agreement constitutes processing of special categories of personal data under GDPR Article 9.
+    </p>
+    <p class="clause">
+      <strong>3.2</strong> The legal basis is GDPR Article 9(2)(a) — explicit consent of the data
+      subject, obtained by the Controller (or by the Controller&rsquo;s end-customer) prior to
+      initiating each verification request.
+    </p>
+    <p class="clause">
+      <strong>3.3</strong> The Controller is solely responsible for obtaining valid explicit consent
+      from each data subject. The Processor is entitled to rely on the Controller&rsquo;s
+      representation that consent has been obtained for each verification request submitted to the
+      Processor.
+    </p>
+
+    <h2>4. EU-Only Processing &amp; Storage</h2>
+    <p class="clause">
+      <strong>4.1 EU-Only Mode (mandatory).</strong> All processing and storage of Personal Data
+      under this Agreement shall take place exclusively within the European Economic Area
+      (&ldquo;<strong>EEA</strong>&rdquo;). The Processor shall enable EU-Only Mode on the
+      Controller&rsquo;s account and shall not disable it without the Controller&rsquo;s prior
+      written consent.
+    </p>
+    <p class="clause">
+      <strong>4.2 No extra-EEA transfer.</strong> The Processor shall not transfer, store, process,
+      or make accessible any Personal Data to or from any location outside the EEA. This obligation
+      applies to all Sub-Processors.
+    </p>
+    <p class="clause">
+      <strong>4.3 Sub-Processor exclusion.</strong> The Sub-Processor
+      <strong>Programmers Force (Pvt.) Ltd.</strong> (Pakistan) is excluded from the authorised
+      Sub-Processor list for the Controller's account and shall have no access to the Controller's
+      Personal Data under any circumstance.
+    </p>
+    <p class="clause">
+      <strong>4.4 Acknowledged trade-offs.</strong> The Controller acknowledges, as flagged by the
+      Processor's Compliance team on 2 April 2026, that EU-Only Mode entails the following
+      operational constraints, which the Controller accepts:
+    </p>
+    <ul>
+      <li>
+        <strong>No model training</strong> on the Controller&rsquo;s verification data (no
+        contribution to the Processor&rsquo;s global AI models).
+      </li>
+      <li>
+        <strong>No manual human-reviewer fallback</strong> when an automated check is uncertain;
+        ambiguous cases will return &ldquo;uncertain&rdquo;.
+      </li>
+    </ul>
+
+    <h2>5. Sub-Processors</h2>
+    <p class="clause">
+      <strong>5.1 Authorised list.</strong> The Processor's authorised Sub-Processor list for the
+      Controller's account is set out in <strong>Schedule A</strong>.
+    </p>
+    <p class="clause">
+      <strong>5.2 Google Cloud — EEA region lock.</strong> All Google Cloud Platform infrastructure
+      used to process the Controller&rsquo;s data shall be region-locked to the EEA. Replication
+      outside the EEA is prohibited.
+    </p>
+    <p class="clause">
+      <strong>5.3 Notice period.</strong> The Processor shall give the Controller at least
+      <strong>thirty (30) calendar days</strong> advance written notice of any intended addition,
+      replacement, or removal of a Sub-Processor. The Controller may object within that window; if
+      the Processor cannot reasonably accommodate the objection, the Controller may terminate this
+      Agreement without penalty.
+    </p>
+
+    <h2>6. Security of Processing</h2>
+    <p class="clause">
+      <strong>6.1</strong> The Processor shall implement appropriate technical and organisational
+      measures per GDPR Article 32, including encryption at rest and in transit, role-based access
+      control, tenant isolation at the record level, and continuous monitoring.
+    </p>
+    <p class="clause">
+      <strong>6.2</strong> The Processor shall ensure all personnel accessing Personal Data are
+      bound by confidentiality obligations and have received data protection training.
+    </p>
+
+    <h2>7. Personal Data Breach Notification</h2>
+    <p class="clause">
+      <strong>7.1 Forty-eight-hour notification.</strong> The Processor shall notify the Controller
+      within <strong>forty-eight (48) hours</strong> of becoming aware of any Personal Data Breach
+      affecting the Controller&rsquo;s data, providing the information needed for GDPR Articles 33
+      and 34 notifications. This 48-hour processor-to-controller deadline is set so that the
+      Controller can comfortably meet the statutory 72-hour obligation to the Finnish Data
+      Protection Authority (Tietosuojavaltuutetun toimisto) under GDPR Article 33.
+    </p>
+    <p class="clause">
+      <strong>7.2</strong> The Processor shall implement, without undue delay, measures to contain
+      the breach and mitigate its effects, and shall provide ongoing updates as additional
+      information becomes available.
+    </p>
+
+    <h2>8. Data Subject Rights &amp; Audit</h2>
+    <p class="clause">
+      <strong>8.1</strong> The Processor shall cooperate with the Controller in fulfilling Data
+      Subject rights requests (access, rectification, erasure, restriction, portability, objection)
+      within the timeframes required by GDPR.
+    </p>
+    <p class="clause">
+      <strong>8.2 Audit.</strong> The Controller may audit the Processor&rsquo;s compliance with
+      this Agreement <strong>once per calendar year</strong> with thirty (30) days&rsquo; written
+      notice, at the Controller&rsquo;s expense. Audit results are confidential and subject to
+      non-disclosure.
+    </p>
+
+    <h2>9. Retention &amp; Return / Deletion</h2>
+    <p class="clause">
+      <strong>9.1</strong> The Processor shall retain Personal Data for no longer than necessary for
+      the verification purpose, and in any case no longer than thirty (30) days following completion
+      of the verification request, unless a longer retention period is required by law or expressly
+      instructed in writing by the Controller.
+    </p>
+    <p class="clause">
+      <strong>9.2 End of Agreement.</strong> Upon termination of this Agreement, the Processor
+      shall, at the Controller&rsquo;s option, return or securely delete all Personal Data within
+      thirty (30) days, and certify deletion in writing.
+    </p>
+
+    <h2>10. Optional Partner Addendum</h2>
+    <p class="clause">
+      <strong>10.1</strong> The Parties acknowledge the existence of the
+      <strong>KYA Partner Addendum</strong> (v1.0, 24 April 2026), which records optional,
+      forward-looking operational practices aligned with the Lifetime Oy Know Your Agent (KYA)
+      Standard v1.5 (Memory Binding). The KYA Partner Addendum is offered separately, is not a
+      precondition of this Agreement, and takes effect only if signed by both Parties.
+    </p>
+
+    <h2>11. Term, Conflict &amp; Governing Law</h2>
+    <p class="clause">
+      <strong>11.1 Effective date.</strong> This Agreement takes effect on the date of last
+      signature below.
+    </p>
+    <p class="clause">
+      <strong>11.2 Conflict.</strong> In the event of any conflict between this Agreement and the
+      Template DPA in respect of the Lifetime ↔ Shufti relationship, this Agreement prevails.
+    </p>
+    <p class="clause">
+      <strong>11.3 Governing law.</strong> This Agreement is governed by Finnish law. Espoon
+      k&auml;r&auml;j&auml;oikeus (Espoo District Court) has exclusive jurisdiction.
+    </p>
+    <p class="clause">
+      <strong>11.4 Counterparts.</strong> This Agreement may be signed in counterparts (including by
+      qualified electronic signature), each of which is an original and which together constitute
+      one instrument.
+    </p>
+
+    <h2>Schedule A — Authorised Sub-Processors (Lifetime Oy account)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Sub-Processor</th>
+          <th>Purpose</th>
+          <th>Data Location</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Google Cloud (Google LLC)</td>
+          <td>Cloud infrastructure for verification processing</td>
+          <td>EEA only (region-locked)</td>
+          <td>ACTIVE</td>
+        </tr>
+        <tr>
+          <td><del>Programmers Force (Pvt.) Ltd.</del></td>
+          <td><del>Development support</del></td>
+          <td><del>Pakistan</del></td>
+          <td>EXCLUDED (per Clause 4.3)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Schedule B — Source of the Four EU Commitments</h2>
+    <p>
+      Clauses 4 and 5 of this Agreement codify the four operational commitments confirmed in writing
+      by Shufti Compliance (<code>compliance@shufti.com</code>) on 2 April 2026 (forwarded to the
+      Controller by Haris R. on 5 April 2026):
+    </p>
+    <ol>
+      <li>
+        EU-only processing and storage at the account level (rendering Programmers Force
+        inapplicable). — Clause 4.1, 4.3.
+      </li>
+      <li>Google Cloud infrastructure region-locked to EEA. — Clause 5.2.</li>
+      <li>Sub-processor notification period of thirty (30) days. — Clause 5.3.</li>
+      <li>Explicit EU-only clause in the DPA body. — Clause 4.1, 4.2.</li>
+    </ol>
+    <blockquote>
+      Caveat (verbatim, Shufti Compliance, 2 April 2026): &ldquo;their accuracy might be affected
+      since no model training will be carried out on their data and no manual verification will be
+      conducted.&rdquo; The Controller acknowledges and accepts this trade-off (Clause 4.4).
+    </blockquote>
+
+    <div class="signatures">
+      <h2>12. Signatures</h2>
+      <p>Signed on the date last appearing below.</p>
+      <div class="sig-row">
+        <div class="sig-col">
+          <div class="label">For Lifetime Oy (Data Controller)</div>
+          <span class="sig-line"></span>
+          <span class="sig-cap">Risto Anton Päärni — CEO</span>
+          <span class="sig-line"></span>
+          <span class="sig-cap">Date</span>
+        </div>
+        <div class="sig-col">
+          <div class="label">For Shufti Pro Limited (Data Processor)</div>
+          <span class="sig-line"></span>
+          <span class="sig-cap">Name &amp; Title</span>
+          <span class="sig-line"></span>
+          <span class="sig-cap">Date</span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="coda">
+      Lifetime Oy ↔ Shufti Pro Limited DPA v1.0 · 24 April 2026 · Tier 1 / Tier 2 · EU-Only
+      Processing · Companion to https://dws10.com/legal-hub/dpa.html
+    </footer>
+  </body>
+</html>

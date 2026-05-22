@@ -3,9 +3,17 @@ import { supabase } from '../services/supabase.service.js';
 import { requireAuth } from '../middleware/auth.middleware.js';
 import logger from '../utils/logger.js';
 import Stripe from 'stripe';
+import { sendPaymentConfirmationEmail } from '../services/billing.service.js';
 
 const router = Router();
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '');
+let stripeClient: Stripe | null = null;
+function getStripeClient(): Stripe | null {
+  if (stripeClient) return stripeClient;
+  const secret = process.env.STRIPE_SECRET_KEY;
+  if (!secret) return null;
+  stripeClient = new Stripe(secret);
+  return stripeClient;
+}
 
 // ============================================================================
 // REQUEST/RESPONSE SCHEMAS
@@ -260,6 +268,12 @@ router.post(
 
       // Create Stripe invoice for remainder
       try {
+        const stripe = getStripeClient();
+        if (!stripe) {
+          logger.error('Stripe invoice creation unavailable: STRIPE_SECRET_KEY missing');
+          return res.status(503).json({ error: 'Stripe billing is not configured' });
+        }
+
         // Step 1: Create invoice item (Stripe will bundle it into the invoice)
         await stripe.invoiceItems.create({
           customer: userId,
@@ -354,7 +368,7 @@ router.post('/webhook', async (req: Request, res: Response, next: NextFunction) 
 
       logger.info('Order marked as paid', { orderId: order.id, invoiceId: invoice_id });
 
-      // TODO: Send confirmation email to customer
+      await sendPaymentConfirmationEmail(order);
     } else if (type === 'invoice.marked_uncollectible' && invoice_id) {
       // Handle Stripe invoice failure
       const { data: order } = await supabase

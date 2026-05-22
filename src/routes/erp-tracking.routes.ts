@@ -53,9 +53,11 @@ router.post('/connection-started', async (req: Request, res: Response): Promise<
     await erpTrackingService.logERPConnectionStarted(tenantId, erpSystem, adminEmail);
 
     res.json({ success: true, message: 'Connection start logged' });
+    return;
   } catch (error) {
     console.error('ERP tracking error:', error);
     res.status(500).json({ error: 'Failed to log ERP event' });
+    return;
   }
 });
 
@@ -101,9 +103,11 @@ router.post('/connection-test', async (req: Request, res: Response): Promise<voi
     }
 
     res.json({ success: true, message: 'Connection test logged' });
+    return;
   } catch (error) {
     console.error('ERP tracking error:', error);
     res.status(500).json({ error: 'Failed to log ERP event' });
+    return;
   }
 });
 
@@ -123,9 +127,11 @@ router.post('/field-mapping', async (req: Request, res: Response): Promise<void>
     await erpTrackingService.logFieldMappingComplete(tenantId, erpSystem, adminEmail, dataTypes);
 
     res.json({ success: true, message: 'Field mapping logged' });
+    return;
   } catch (error) {
     console.error('ERP tracking error:', error);
     res.status(500).json({ error: 'Failed to log ERP event' });
+    return;
   }
 });
 
@@ -159,9 +165,11 @@ router.post('/sync-activated', async (req: Request, res: Response): Promise<void
     await erpTrackingService.logSyncActivated(tenantId, erpSystem, adminEmail, schedule, dataTypes);
 
     res.json({ success: true, message: 'Sync activation logged' });
+    return;
   } catch (error) {
     console.error('ERP tracking error:', error);
     res.status(500).json({ error: 'Failed to log ERP event' });
+    return;
   }
 });
 
@@ -181,9 +189,11 @@ router.post('/error', async (req: Request, res: Response): Promise<void> => {
     await erpTrackingService.logERPError(tenantId, erpSystem, adminEmail, errorCode, errorMessage);
 
     res.json({ success: true, message: 'Error logged' });
+    return;
   } catch (error) {
     console.error('ERP tracking error:', error);
     res.status(500).json({ error: 'Failed to log ERP event' });
+    return;
   }
 });
 

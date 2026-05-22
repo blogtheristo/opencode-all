@@ -11,7 +11,6 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import {
-  LineChart,
   Line,
   BarChart,
   Bar,
@@ -71,14 +70,6 @@ const TYPE_COLORS: Record<string, string> = {
   episode: CHART_COLORS.warning,
   fact: CHART_COLORS.info,
   profile: CHART_COLORS.danger,
-};
-
-const OPERATION_COLORS: Record<string, string> = {
-  store: CHART_COLORS.success,
-  recall: CHART_COLORS.primary,
-  supersede: CHART_COLORS.warning,
-  forget: CHART_COLORS.danger,
-  extract: CHART_COLORS.secondary,
 };
 
 // ============ DATA FETCHING ============
@@ -378,8 +369,12 @@ function DecayCurveChart({ data }: { data: MemoryStats['decayCurve'] }) {
           />
           <Tooltip
             contentStyle={{ backgroundColor: '#fff', border: '1px solid #e5e7eb', borderRadius: '8px' }}
-            formatter={(value: number) => [`${(value * 100).toFixed(1)}%`, 'Confidence']}
-            labelFormatter={(label: number) => `Day ${label}`}
+            formatter={(value: number | string | undefined) =>
+              typeof value === 'number'
+                ? [`${(value * 100).toFixed(1)}%`, 'Confidence']
+                : [String(value ?? '0'), 'Confidence']
+            }
+            labelFormatter={(label: unknown) => `Day ${String(label ?? '')}`}
           />
           <Area
             type="monotone"
@@ -429,7 +424,10 @@ function TypeDistributionChart({ data }: { data: MemoryStats['typeDistribution']
             ))}
           </Pie>
           <Tooltip
-            formatter={(value: number, name: string) => [`${value} memories`, name]}
+            formatter={(value: number | string | undefined, name: string | undefined) => [
+              `${String(value ?? 0)} memories`,
+              name ?? 'Value',
+            ]}
           />
         </PieChart>
       </ResponsiveContainer>
@@ -459,10 +457,10 @@ function ConfidenceHistogram({ data }: { data: MemoryStats['confidenceDistributi
           <YAxis tick={{ fontSize: 12 }} stroke="#6b7280" />
           <Tooltip
             contentStyle={{ backgroundColor: '#fff', border: '1px solid #e5e7eb', borderRadius: '8px' }}
-            formatter={(value: number) => [`${value} memories`, 'Count']}
+            formatter={(value: number | string | undefined) => [`${String(value ?? 0)} memories`, 'Count']}
           />
           <Bar dataKey="count" radius={[4, 4, 0, 0]}>
-            {data.map((entry, i) => (
+            {data.map((_, i) => (
               <Cell
                 key={i}
                 fill={

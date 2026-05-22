@@ -337,6 +337,27 @@
 - ✅ Cloudflare DNS setup
 - ✅ Google Cloud Run deployment scripts
 
+### 12. Labor-Anchored Product Catalog (T0–T4, Blue/pilot)
+
+- ✅ §13.8 of `DWS_DYNAMIC_DEPLOYMENT_PRICING_STANDARD.md` — schema for the
+  labor-anchored SKU (sku / tier / priceUnit / agents[] / replaces /
+  nextUpsellSku / deploymentColor) and the public-render rule that bans
+  SaaS-comparison columns.
+- ✅ 64 Blue/pilot SKUs in `dws10.com/config/products.json` (mirrored to
+  `landing-pages/dws10-com/config/products.json` in lockstep): 39 single
+  agents, 6 Function/Workforce bundles, 9 Industry Pod add-ons,
+  10 Land overlay engagements.
+- ✅ Green + Blue price-list generators render tier, Replaces, and
+  Next Upsell. Green list filters out every Blue SKU.
+- ✅ Public price list (`dws10.com/price-list/` + landing-pages mirror) and
+  `/upsell-map/` with the "Price AI like labor, not like a tool." hero.
+- ✅ `src/services/upsell-rules.ts` implements the §5 trigger ladder
+  (Zod-validated inputs); dashboard banner consumes it.
+- ✅ Pricing validator (`scripts/validate-pricing.ts` / `.ps1`) wired to
+  `.githooks/pre-commit` and a dedicated CI workflow.
+- ⏳ Green ratification — every SKU stays Blue/pilot until Risto signs it
+  Green per §5.
+
 ### 12. Security Framework ✅
 
 - ✅ Auth service with JWT

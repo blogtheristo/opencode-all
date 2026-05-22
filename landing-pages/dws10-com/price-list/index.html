@@ -1,4 +1,48 @@
 <!doctype html>
+<!--
+  ============================================================================
+  DWS DOCUMENT STANDARD — VERSION AND AGENT HISTORY (HTML mirror)
+  ============================================================================
+  Document: dws10.com/price-list/index.html
+  Version: 1.19
+  Effective: 2026-05-17
+  Owner: Lifetime Oy (sales@lifetime.fi)
+  Publication Status: ACTIVE
+  Language: English (primary) · Suomi · Svenska · Deutsch · Français
+  Market: Finnish / EU B2B (VAT 0%, reverse charge against valid EU VAT ID)
+
+  Sessions & Modifications:
+    - Version 1.19 | claude/add-hardware-products-MY7X7 | 2026-05-17 |
+        Reaffirmed all hardware prices as Finnish / EU B2B (VAT 0% reverse charge).
+        Pricing held - no drops. DGX Spark stays €5,994 turnkey, IGX Orin stays
+        €11,990 turnkey. Both set against EMEA distributor channel (not US list)
+        with our Lifetime margin baked in.
+        Added priceList.policy.marketNote, <meta dws-doc-market>, and a visible
+        "Finnish / EU B2B · VAT 0 %" line in the price-list footer so the
+        framing is explicit on every consumer of the JSON and the rendered HTML.
+    - Version 1.18 | claude/add-hardware-products-MY7X7 | 2026-05-17 |
+        Added LF-DGX-SPARK, LF-JETSON-NX, LF-IGX-ORIN.
+        Hardware ladder now: Jetson Nano (€764) → Jetson NX (€1,990) → Jetson AGX (€2,494)
+        → Control Room (€4,994) → DGX Spark (€5,994) → Situation Room (€8,993) → IGX Orin
+        (€11,990). Plus NVIDIA Install (€995/device) and Sovereign Model Updates
+        Subscription (€299/mo). New Boardy hero on every hardware product page:
+        "On-site sovereign AI hardware for regulated work."
+    - Version 1.17 | claude/add-hardware-products-MY7X7 | 2026-05-17 |
+        Added LF-JETSON-NANO (€764) and LF-JETSON-AGX (€2,494) — Jetson sensor tier.
+        Verified NVIDIA Jetson Orin Nano Super USD 249 and AGX Orin 64 GB USD 1,999.
+    - Version 1.16 | claude/add-hardware-products-MY7X7 | 2026-05-17 |
+        Removed 'Price AI like labor' hero (negative connotation).
+        New tagline: 'Sovereign intelligence and compliance.' + how-we-help-you-succeed line.
+        Added Control Room (€4,994), Situation Room (€8,993), NVIDIA Install (€995),
+        and Sovereign Model Updates Subscription (€299/mo) to the catalog feed.
+    - Version 1.15 | claude/ai-pricing-labor-catalog-1raj8 | 2026-05-14 |
+        Added DWS 365 / Firehorse / Agentic Commerce T3 bundles.
+    - Prior history: see priceHistory[] in /config/products.json.
+
+  Source of truth for pricing: /dws10.com/config/products.json (mirrored to
+  /landing-pages/dws10-com/config/products.json in the same commit).
+  ============================================================================
+-->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,9 +50,13 @@
     <title>Price List · DWS IQ Platform · Lifetime Oy</title>
     <meta
       name="description"
-      content="Official DWS IQ + Firehorse B2B price list. EUR, VAT 0% (reverse charge). Reviewed quarterly."
+      content="Official DWS IQ + Firehorse B2B price list. EUR, VAT 0% (reverse charge). Sovereign intelligence and compliance. Reviewed quarterly."
     />
     <meta name="author" content="Lifetime Oy" />
+    <meta name="dws-doc-version" content="1.20" />
+    <meta name="dws-doc-market" content="Finnish / EU B2B · VAT 0% reverse charge" />
+    <meta name="dws-doc-effective" content="2026-05-17" />
+    <meta name="dws-doc-status" content="ACTIVE" />
     <meta name="robots" content="index, follow" />
     <meta property="og:title" content="DWS IQ Price List · Lifetime Oy" />
     <meta
@@ -239,8 +287,43 @@
         font-size: 0.78rem;
         color: #94a3b8;
       }
-      .col-link a {
-        font-size: 0.82rem;
+      .col-link {
+        white-space: nowrap;
+      }
+      .col-link .act-btns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+      }
+      .col-link .act-btns a {
+        display: inline-block;
+        font-size: 0.72rem;
+        font-weight: 600;
+        padding: 3px 9px;
+        border-radius: 999px;
+        border: 1px solid;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      .col-link .act-btns a:hover {
+        text-decoration: none;
+        opacity: 0.82;
+      }
+      .act-card {
+        border-color: rgba(148, 163, 184, 0.35) !important;
+        color: #cbd5e1 !important;
+      }
+      .act-detail {
+        border-color: rgba(59, 130, 246, 0.5) !important;
+        color: #93c5fd !important;
+      }
+      .act-book {
+        border-color: rgba(16, 185, 129, 0.5) !important;
+        color: #6ee7b7 !important;
+      }
+      .act-email {
+        border-color: rgba(251, 191, 36, 0.4) !important;
+        color: #fcd34d !important;
       }
 
       .loading,
@@ -391,10 +474,11 @@
             >
           </nav>
         </div>
-        <h1>Price List</h1>
+        <h1>Sovereign intelligence and compliance.</h1>
         <p class="subtitle">
-          Official DWS IQ &amp; Firehorse product catalogue. Single source of truth. Reviewed
-          quarterly.
+          Our products help your company succeed by making EU compliance, sovereign AI, and
+          on-premise hardware boring — predictable line items instead of executive risk. Official
+          DWS Skilled Agents price list. Single source of truth, reviewed quarterly.
         </p>
 
         <div class="meta-bar" id="metaBar">
@@ -432,6 +516,10 @@
           <h3>Price list governance</h3>
           <p>Owner: <span id="lOwner">Risto Anton Päärni</span></p>
           <p>Cadence: Reviewed every calendar quarter</p>
+          <p>DWS Document Standard version: <strong>1.20</strong> · Effective <strong>2026-05-17</strong></p>
+          <p style="margin-top:6px;">Market: <strong>Finnish / EU B2B · VAT 0 % (reverse charge)</strong>. Hardware costs reflect verified EU distributor and EMEA launch prices — not converted from US list. NVIDIA / Acer EU sources documented in <code>priceHistory[]</code>.</p>
+          <p style="margin-top:6px;">v1.20 sovereign-hardware ladder (Finnish B2B): Jetson Nano €764 · Jetson NX €1,990 · Jetson AGX €2,694 · Control Room €5,294 · DGX Spark €5,994 · Situation Room €10,093 · IGX Orin €11,990 · NVIDIA Install €995/device · Sovereign Model Updates €299/mo.</p>
+          <p>Source of truth: <code>dws10.com/config/products.json</code></p>
         </div>
         <div>
           <h3>Contact</h3>
@@ -467,6 +555,52 @@
           "add-on",
           "subscription",
         ];
+        var TIER_COLOR = {
+          T0: "#94a3b8",
+          T1: "#0ea5e9",
+          T2: "#16a34a",
+          T3: "#7c3aed",
+          T4: "#dc2626",
+          land: "#ea580c",
+          meter: "#475569",
+        };
+        function tierBadge(tier) {
+          if (!tier) return "";
+          var label = tier === "land" || tier === "meter" ?
+            tier.charAt(0).toUpperCase() + tier.slice(1) : tier;
+          var c = TIER_COLOR[tier] || "#475569";
+          return '<span style="display:inline-block;background:' + c +
+            ';color:#fff;font-size:0.7rem;font-weight:700;padding:2px 7px;' +
+            'border-radius:4px;margin-right:8px;letter-spacing:0.05em;">' +
+            label + '</span>';
+        }
+        function replacesLine(p) {
+          var r = p && p.replaces;
+          if (!r || typeof r !== "object") return "";
+          var role = r.role || "human role";
+          var fte = r.fteCount;
+          var cost = r.fullyLoadedAnnualCostEUR;
+          var pct = null;
+          var price = p.price || 0;
+          var unit = p.priceUnit || "";
+          if (cost && price) {
+            var annual = unit === "per-month" ? price * 12 :
+              unit === "per-year" ? price : null;
+            if (annual) pct = Math.round((annual / cost) * 100);
+          }
+          var tail = pct !== null ? " at ~" + pct + "% of fully loaded cost" : "";
+          var fteStr = fte === undefined || fte === null ? "?" : String(fte);
+          return '<div class="replaces-line" style="font-size:0.82rem;color:#34d399;' +
+            'margin-top:6px;font-style:italic;">Replaces ' + escapeHtml(role) +
+            ' ≈ ' + escapeHtml(fteStr) + ' FTE' + escapeHtml(tail) + '.</div>';
+        }
+        function upsellLine(p) {
+          var nxt = p && p.nextUpsellSku;
+          if (!nxt) return "";
+          return '<div class="upsell-line" style="font-size:0.78rem;color:#94a3b8;' +
+            'margin-top:2px;">Next upsell: <strong style="color:#cbd5e1;">' +
+            escapeHtml(nxt) + '</strong></div>';
+        }
 
         function eur(n) {
           if (n === null || n === undefined) return "—";
@@ -562,6 +696,10 @@
               archived.push(p);
               return;
             }
+            // Public price list never shows Blue/pilot SKUs (T0 or
+            // deploymentColor:"blue"). They remain in products.json
+            // but render only on internal pilot list.
+            if (p.deploymentColor === "blue") return;
             var cat = p.storeCategory || "other";
             if (!buckets[cat]) buckets[cat] = [];
             buckets[cat].push(p);
@@ -602,25 +740,51 @@
               "</div>" +
               '<table class="price-table"><thead><tr>' +
               "<th>ID</th><th>Product</th><th>Price (EUR)</th><th>Unit</th>" +
-              "<th>SKU / MPN</th><th>Details</th>" +
+              "<th>SKU / MPN</th><th>Actions</th>" +
               "</tr></thead><tbody>" +
               list
                 .map(function (p) {
                   var priceCell =
                     p.price === 0 ? '<span style="color:#fbbf24">Free / POA</span>' : eur(p.price);
                   var note = p.priceNote ? "<small>" + escapeHtml(p.priceNote) + "</small>" : "";
-                  var detailsHref = p.detailsUrl ? p.detailsUrl.replace(/^\.\.\//, "/") : "";
-                  var detailsLink = detailsHref
-                    ? '<a href="' + escapeHtml(detailsHref) + '">Spec</a>'
-                    : "—";
+                  var rawDetails = p.detailsUrl ? p.detailsUrl.replace(/^\.\.\//, "/") : "";
+                  var isMailto = rawDetails.indexOf("mailto:") === 0;
+                  var detailsHref = isMailto ? "" : rawDetails;
+                  var pid = escapeHtml(p.id || "");
+                  var pname = encodeURIComponent(p.name || p.id || "Product");
+                  var cardBtn =
+                    '<a class="act-card" href="/buy/#product-' +
+                    pid +
+                    '" title="Product card">Card</a>';
+                  var detailBtn = detailsHref
+                    ? '<a class="act-detail" href="' +
+                      escapeHtml(detailsHref) +
+                      '" title="Full product details">Details</a>'
+                    : "";
+                  var bookBtn =
+                    '<a class="act-book" href="/book/?service=demo&amp;product=' +
+                    pid +
+                    '" title="Book a meeting">Book&nbsp;Meeting</a>';
+                  var emailBtn =
+                    '<a class="act-email" href="mailto:sales@lifetime.fi?subject=Enquiry%3A%20' +
+                    pname +
+                    '" title="Email sales">Email</a>';
+                  var btns =
+                    '<div class="act-btns">' + cardBtn + detailBtn + bookBtn + emailBtn + "</div>";
+                  var tierHtml = tierBadge(p.tier);
+                  var anchor = replacesLine(p);
+                  var upsell = upsellLine(p);
                   return (
                     "<tr>" +
                     '<td class="col-id" data-label="ID">' +
                     escapeHtml(p.id || "") +
                     "</td>" +
                     '<td class="col-name" data-label="Product">' +
+                    tierHtml +
                     escapeHtml(p.name || "") +
                     note +
+                    anchor +
+                    upsell +
                     "</td>" +
                     '<td class="col-price" data-label="Price">' +
                     priceCell +
@@ -631,8 +795,8 @@
                     '<td class="col-sku" data-label="SKU">' +
                     escapeHtml(p.mpn || p.sku || "—") +
                     "</td>" +
-                    '<td class="col-link" data-label="Details">' +
-                    detailsLink +
+                    '<td class="col-link" data-label="Actions">' +
+                    btns +
                     "</td>" +
                     "</tr>"
                   );

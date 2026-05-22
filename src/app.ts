@@ -7,20 +7,29 @@
  * - Event-driven agent runtime initialized on startup (Fix #6)
  */
 
+import dotenv from 'dotenv';
+dotenv.config();
+
+// Initialize OTel before any module that may emit spans (agent registry,
+// llm-client, workflows). Safe no-op when OTEL_EXPORTER_OTLP_ENDPOINT is unset.
+import { initOtel, shutdownOtel } from './observability/otel.js';
+initOtel();
+
 import express, { Express, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import crypto from 'crypto';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
-import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import logger from './utils/logger.js';
 import authRoutes from './routes/auth.routes.js';
+import { brokerRouter } from './broker/broker.routes.js';
 import userRoutes from './routes/user.routes.js';
 import climateAssistantRoutes from './routes/climate-assistant.routes.js';
 import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes.js';
+import adminSupportRoutes from './routes/admin-support.routes.js';
 import outreachRoutes from './routes/outreach.routes.js';
 import outreachSendRoutes from './routes/outreach-send.routes.js';
 import emailRoutes from './routes/email.routes.js';
@@ -37,6 +46,7 @@ import stripeWebhookRoutes from './routes/stripe-webhook.routes.js';
 import captainRoutes from './routes/captain.routes.js';
 import usageRoutes from './routes/usage.routes.js';
 import onboardRoutes from './routes/onboard.routes.js';
+import memoryRoutes from './routes/memory.routes.js';
 import complianceRoutes from './routes/compliance.routes.js';
 import reportExportRoutes from './routes/report-export.routes.js';
 import apiKeyRoutes from './routes/api-keys.routes.js';
@@ -59,6 +69,7 @@ import { correlationId } from './middleware/correlation-id.js';
 import { errorHandler, notFoundHandler } from './middleware/error-handler.js';
 import { healthCheck, livenessCheck } from './middleware/health.js';
 import { validateEnv } from './middleware/env-validation.js';
+import { loadSecrets } from './config/secret-loader.js';
 
 // ============ STUBS FOR MODULES EXCLUDED FROM BUILD ============
 // tsconfig.json excludes src/firehorse/**, src/mcp/**, and src/investor-reports/**
@@ -80,6 +91,11 @@ const capTableRouter = express.Router();
 
 dotenv.config();
 
+// ============ VAULT BOOTSTRAP ============
+// Pull secrets from configured vault (Aiven / GCP Secret Manager) into
+// process.env before validation. No-op if VAULT_PROVIDER is not set.
+await loadSecrets();
+
 // ============ STARTUP VALIDATION ============
 
 const envResult = validateEnv();
@@ -92,6 +108,7 @@ if (!envResult.valid && process.env.NODE_ENV === 'production') {
 }
 
 const app: Express = express();
+app.disable('x-powered-by');
 const PORT =
   process.env.PORT || (process.env.NODE_ENV === 'production' ? '8080' : '3001');
 
@@ -249,6 +266,7 @@ app.use('/landing-pages', express.static(landingPagesPath));
 // ============ API ROUTES ============
 
 // Auth routes
+app.use('/api/v1/broker', brokerRouter);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/user', userRoutes);
 
@@ -257,6 +275,9 @@ app.use('/api/climate-assistant', climateAssistantRoutes);
 
 // Climate Assistant Gated routes (tiered access with lead capture)
 app.use('/api/v2/climate-assistant', climateAssistantGatedRoutes);
+
+// Admin support chat channel (settings panel)
+app.use('/api/v1/admin/support', adminSupportRoutes);
 
 // Outreach inbound intake (shared secret auth via X-Outreach-Key)
 app.use('/api/v1/outreach', outreachRoutes);
@@ -275,6 +296,9 @@ app.use('/api/v1/usage', usageRoutes);
 
 // Onboarding wizard (baseline compliance assessment)
 app.use('/api/v1/onboard', onboardRoutes);
+
+// Memory dashboard stats + audit endpoints
+app.use('/api/v1/memory', memoryRoutes);
 
 // Compliance assessment API (scoring, registry, cost estimate)
 app.use('/api/v1/compliance', complianceRoutes);
@@ -698,7 +722,7 @@ process.on('SIGTERM', () => {
   outreachScheduler.stop();
   memoryScheduler.stop();
   shutdownFirehorsePilot();
-  emailQueue.shutdown().finally(() => {
+  Promise.all([emailQueue.shutdown(), shutdownOtel()]).finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');
       process.exit(0);
@@ -712,7 +736,7 @@ process.on('SIGINT', () => {
   outreachScheduler.stop();
   memoryScheduler.stop();
   shutdownFirehorsePilot();
-  emailQueue.shutdown().finally(() => {
+  Promise.all([emailQueue.shutdown(), shutdownOtel()]).finally(() => {
     server.close(() => {
       logger.info('HTTP server closed');
       process.exit(0);

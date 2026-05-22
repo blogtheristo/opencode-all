@@ -4,8 +4,21 @@ on:
   push:
     branches:
       - main
-      - claude/*
+    paths:
+      - 'src/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'Dockerfile'
+      - 'Dockerfile.*'
+      - 'infrastructure/cloudrun/**'
+      - '.github/workflows/deploy-cloudrun.yml'
   workflow_dispatch:
+
+# Cancel earlier deploys when a new commit lands on main — only the latest
+# image needs to ship.
+concurrency:
+  group: deploy-cloudrun-${{ github.ref }}
+  cancel-in-progress: true
 
 env:
   PROJECT_ID: dws6run6

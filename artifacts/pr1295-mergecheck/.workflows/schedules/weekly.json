@@ -1,0 +1,68 @@
+{
+  "week": "2025-W52",
+  "week_start": "2025-12-22",
+  "week_end": "2025-12-28",
+  "workflows_scheduled": 2,
+
+  "schedule": [
+    {
+      "day": "Monday",
+      "date": "2025-12-22",
+      "workflows": [
+        {
+          "time": "09:00 UTC",
+          "workflow_id": "weekly-report",
+          "workflow_name": "Weekly Report",
+          "type": "cron",
+          "status": "completed",
+          "result": "success"
+        }
+      ]
+    },
+    {
+      "day": "Tuesday",
+      "date": "2025-12-23",
+      "workflows": []
+    },
+    {
+      "day": "Wednesday",
+      "date": "2025-12-24",
+      "workflows": []
+    },
+    {
+      "day": "Thursday",
+      "date": "2025-12-25",
+      "workflows": []
+    },
+    {
+      "day": "Friday",
+      "date": "2025-12-26",
+      "workflows": [
+        {
+          "time": "16:00 UTC",
+          "workflow_id": "purge-cloudflare-cache",
+          "workflow_name": "Purge Cloudflare Cache",
+          "type": "cron",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "day": "Saturday",
+      "date": "2025-12-27",
+      "workflows": []
+    },
+    {
+      "day": "Sunday",
+      "date": "2025-12-28",
+      "workflows": []
+    }
+  ],
+
+  "summary": {
+    "total_scheduled": 2,
+    "completed": 1,
+    "pending": 1,
+    "failed": 0
+  }
+}

@@ -4,10 +4,13 @@ name: Deploy to Staging (Cloud Run)
 # Production deploy (deploy-scaleway.yml / cloudbuild.yaml) only triggers on main.
 #
 # Target: Cloud Run service dws6run6-staging (europe-north1)
-# Image:  europe-north1-docker.pkg.dev/$PROJECT_ID/dws-iq/backend:staging-<sha>
+# Image:  europe-north1-docker.pkg.dev/$PROJECT_ID/$ARTIFACT_REPOSITORY/backend:staging-<sha>
+#
+# Cloud Run injects PORT automatically — do not set PORT in env_vars (deploy will fail).
 #
 # Required secrets (GitHub → Settings → Secrets → Actions):
-#   GCP_SA_KEY           — GCP service account JSON with Cloud Run + Artifact Registry roles
+#   GCP_WORKLOAD_IDENTITY_PROVIDER — projects/<number>/locations/global/workloadIdentityPools/<pool>/providers/<provider>
+#   GCP_SERVICE_ACCOUNT           — github-actions-deployer@<project>.iam.gserviceaccount.com
 #   STAGING_SUPABASE_URL — Supabase URL for staging project
 #   STAGING_SUPABASE_ANON_KEY
 #   STAGING_SUPABASE_SERVICE_KEY
@@ -29,41 +32,82 @@ on:
 
 env:
   REGION: europe-north1
-  PROJECT_ID: dws6-backend
+  PROJECT_ID: dws-iq-60
   REGISTRY: europe-north1-docker.pkg.dev
-  IMAGE_NAME: dws-iq/backend
+  ARTIFACT_REPOSITORY: dws-iq-repo
+  IMAGE_NAME: backend
   SERVICE_NAME: dws6run6-staging
+  HAS_GCP_DEPLOY_AUTH: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER != '' && secrets.GCP_SERVICE_ACCOUNT != '' }}
 
 permissions:
   contents: read
   id-token: write
+  issues: write
 
 jobs:
-  # --------------------------------------------------------------------------
-  # Build + push staging image
-  # --------------------------------------------------------------------------
   build:
     name: Build Staging Image
     runs-on: ubuntu-latest
     outputs:
       image: ${{ steps.image.outputs.ref }}
+      registry_ready: ${{ steps.registry.outputs.exists }}
 
     steps:
+      - name: Skip staging build when GCP deploy auth is unavailable
+        if: env.HAS_GCP_DEPLOY_AUTH != 'true'
+        run: |
+          echo "GCP workload identity credentials are not configured for this workflow context."
+          echo "Skipping staging image build instead of failing the PR gate."
+          {
+            echo "## Staging Deployment"
+            echo ""
+            echo "Skipped: workload identity secrets are unavailable in this workflow context."
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Checkout
+        if: env.HAS_GCP_DEPLOY_AUTH == 'true'
         uses: actions/checkout@v4
 
       - name: Authenticate to GCP
+        if: env.HAS_GCP_DEPLOY_AUTH == 'true'
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          token_format: access_token
 
       - name: Set up Docker Buildx
+        if: env.HAS_GCP_DEPLOY_AUTH == 'true'
         uses: docker/setup-buildx-action@v3
 
       - name: Configure Docker for Artifact Registry
+        if: env.HAS_GCP_DEPLOY_AUTH == 'true'
         run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
 
+      - name: Verify Artifact Registry repository
+        if: env.HAS_GCP_DEPLOY_AUTH == 'true'
+        id: registry
+        shell: bash
+        run: |
+          if gcloud artifacts repositories describe "${{ env.ARTIFACT_REPOSITORY }}" \
+            --project="${{ env.PROJECT_ID }}" \
+            --location="${{ env.REGION }}" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::Artifact Registry repository '${{ env.ARTIFACT_REPOSITORY }}' does not exist in project '${{ env.PROJECT_ID }}'. Skipping staging image push."
+            {
+              echo "### Staging deploy skipped"
+              echo ""
+              echo "Artifact Registry repository \`${{ env.ARTIFACT_REPOSITORY }}\` does not exist in project \`${{ env.PROJECT_ID }}\`."
+              echo ""
+              echo "Create it with:"
+              echo "\`gcloud artifacts repositories create ${{ env.ARTIFACT_REPOSITORY }} --repository-format=docker --location=${{ env.REGION }} --description=\"DWS IQ staging images\"\`"
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
       - name: Build and push
+        if: env.HAS_GCP_DEPLOY_AUTH == 'true' && steps.registry.outputs.exists == 'true'
         id: build
         uses: docker/build-push-action@v5
         with:
@@ -71,24 +115,23 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:staging-${{ github.sha }}
-            ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:staging-latest
+            ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REPOSITORY }}/${{ env.IMAGE_NAME }}:staging-${{ github.sha }}
+            ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REPOSITORY }}/${{ env.IMAGE_NAME }}:staging-latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
           platforms: linux/amd64
 
       - name: Output image ref
+        if: env.HAS_GCP_DEPLOY_AUTH == 'true' && steps.registry.outputs.exists == 'true'
         id: image
         run: |
-          echo "ref=${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:staging-${{ github.sha }}" >> "$GITHUB_OUTPUT"
+          echo "ref=${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REPOSITORY }}/${{ env.IMAGE_NAME }}:staging-${{ github.sha }}" >> "$GITHUB_OUTPUT"
 
-  # --------------------------------------------------------------------------
-  # Deploy to Cloud Run staging service
-  # --------------------------------------------------------------------------
   deploy:
     name: Deploy to Cloud Run Staging
     runs-on: ubuntu-latest
     needs: build
+    if: needs.build.outputs.registry_ready == 'true'
     environment:
       name: staging
       url: https://dws6run6-staging-${{ env.REGION }}.a.run.app
@@ -97,7 +140,9 @@ jobs:
       - name: Authenticate to GCP
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          token_format: access_token
 
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v2
@@ -115,7 +160,6 @@ jobs:
             --timeout=60s
           env_vars: |
             NODE_ENV=staging
-            PORT=8080
             LOG_LEVEL=debug
             DETAILED_ERRORS=true
             ENABLE_CRON_JOBS=false
@@ -184,24 +228,22 @@ jobs:
           echo "| Commit | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
           echo "| URL | https://dws6run6-staging-${{ env.REGION }}.a.run.app |" >> $GITHUB_STEP_SUMMARY
 
-  # --------------------------------------------------------------------------
-  # Notify on failure
-  # --------------------------------------------------------------------------
   notify-failure:
     name: Notify on Failure
     runs-on: ubuntu-latest
     needs: [build, deploy]
-    if: failure()
+    if: failure() && env.HAS_GCP_DEPLOY_AUTH == 'true'
 
     steps:
       - name: Create issue on failure
         uses: actions/github-script@v7
         with:
           script: |
-            const title = `Staging Deploy Failed — ${context.ref_name} — ${new Date().toISOString().split('T')[0]}`;
+            const branchName = context.ref?.replace('refs/heads/', '') || 'unknown-branch';
+            const title = `Staging Deploy Failed — ${branchName} — ${new Date().toISOString().split('T')[0]}`;
             const body = `## Staging Deployment Failure
 
-            **Branch:** ${context.ref_name}
+            **Branch:** ${branchName}
             **Commit:** ${context.sha}
             **Run:** ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}
             **Actor:** ${context.actor}

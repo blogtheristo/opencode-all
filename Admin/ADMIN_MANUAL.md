@@ -4,10 +4,16 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.5
+Version: 3.1
 
 Sessions & Modifications:
 
+- Version: 3.1 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: main | Date: 13.05.2026 | Changes: Added reusable CI failure checklist for `.github/workflows/deploy-staging.yml` and `.github/workflows/dast-zap-scan.yml`: Artifact Registry existence check and create command, reserved Cloud Run `PORT` rule, `issues: write` permission for failure-notify issue creation, OWASP ZAP root/robots/sitemap endpoint rule, and startup health-wait loop guidance.
+- Version: 2.8 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Added billing account management inventory: billing account `011602-801DEC-A53E8F` (Lifetime Oy, Direct), linked projects (`dws-mcp-hub`, `dws-iq-pilot`, `dws6login`), and billing administrators (`risto.paarni2024@lifetime.fi`, `admin@dws6.com`)
+- Version: 3.0 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: main | Date: 13.05.2026 | Changes: Finalized major Cloud Run CI auth migration in admin docs: GitHub OIDC / Workload Identity Federation is now the authoritative path for `dws-iq-60`; documented Cloud Shell provider creation, exact GitHub Secrets values (`GCP_WORKLOAD_IDENTITY_PROVIDER`, `GCP_SERVICE_ACCOUNT`), `.github/workflows/deploy-staging.yml` OIDC switch, and retirement of legacy `GCP_SA_KEY`. Marked service-account key creation as prohibited when `constraints/iam.disableServiceAccountKeyCreation` is enforced.
+- Version: 2.9 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 13.05.2026 | Changes: Added Google Cloud Run CI identity runbook (`gcr-skill`) for admin-owned project `dws-iq-60`: project creation, billing link, ADC quota alignment, required API enablement, deployer service account IAM bindings (including `roles/iam.serviceAccountTokenCreator` fix), and GitHub secret migration checklist
+- Version: 2.7 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Added Google Cloud billing IAM transfer note for `dws-mcp-hub`: confirmed `admin@dws6.com` as project owner and documented billing account `011602-801DEC-A53E8F` policy update (`roles/billing.user` for `admin@dws6.com`, `roles/billing.admin` retained for `risto.paarni2024@lifetime.fi`) with follow-up to enable billing and rotate CI deploy credentials under admin-owned control plane
+- Version: 2.6 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Agent accountability/observability layer (AgentLogger JSONL + Supabase agent_executions, AgentVersionRegistry, drift-detector.ts daily confidence-drop reports, eval-runner.ts compliance dataset scoring, HIL review queue API + ReviewQueuePanel + ConfidenceDriftView); Baseten added as OpenAI-compatible LLM provider in model-selector.ts with BASETEN_API_KEY/BASETEN_BASE_URL/BASETEN_MODEL env vars; /case-run skill registered, Themis v2.0 case-coordinate action (case-type→sub-agent mapping, Legora AOS competitive analysis); Blog V2 engagement layer (lsj-poll.js reader polls, lsj-ads.js ad slots, /advertise rate card, post #18 — The Strike Price State); TokenSpeed inference engine field note (LightSeek MIT, DGX Spark fit); Outokumpu CBAM partnership offer print-ready HTML v1.0; Axios vulnerability patched across mobile subprojects
 - Version: 1.0 | Tool: Claude Code | Session: Nov 2025 | Date: 23.11.2025 | Changes: Initial creation, session history
 - Version: 1.1 | Tool: Claude Code | Session: Dec 2025 | Date: 11.12.2025 | Changes: Sensitive Data Protection section
 - Version: 1.2 | Tool: Claude Code | Session: Dec 2025 | Date: 19.12.2025 | Changes: Bug Tracking & Security Maintenance
@@ -33,7 +39,8 @@ Session Links & References:
 Document Status:
 
 - Created: 23.11.2025
-- Last Modified: 10.05.2026
+- Last Modified: 13.05.2026
+- Version: 3.1
 - Language: English
 - Languages Available: English
 - Publication Status: ✅ ACTIVE
@@ -48,31 +55,33 @@ Document Status:
 
 1. [Admin Manuals Index](#admin-manuals-index) ⭐ **NEW in v1.8**
 2. [Installation Manual](#installation-manual-link)
-3. [Node.js workspace setup](#nodejs-workspace-setup-backend-and-cloudflare-agents)
-4. [Scaleway Serverless Containers](#scaleway-serverless-containers-primary)
-5. [Revolut Payments & Store](#revolut-payments--store) ⭐ **NEW in v1.8**
-6. [MCP Configuration](#mcp-configuration) ⭐ **NEW in v1.8**
-7. [Climate Assistant Chat Widget](#climate-assistant-chat-widget)
-8. [AI Agent Operational Guidelines](#ai-agent-operational-guidelines) ⭐ **NEW in v1.8**
-9. [Security Glossary & OWASP](#security-glossary--owasp) ⭐ **NEW in v1.8**
-10. [Data Processing Agreement (DPA)](#data-processing-agreement-dpa) ⭐ **NEW in v1.8**
-11. [Backup & Sync Infrastructure](#backup--sync-infrastructure) ⭐ **NEW in v1.8**
-12. [Multi-Agent Orchestration](#multi-agent-orchestration) ⭐ **NEW in v1.8**
-13. [GitHub Copilot Instructions](#github-copilot-instructions)
-14. [Session Security Fixes (January 2026)](#session-security-fixes-january-2026)
-15. [Files and Folders Structure](#files-and-folders-structure)
-16. [Document Index](#document-index)
-17. [AI Agent Policy](#ai-agent-policy)
-18. [Deployment Procedures](#deployment-procedures)
-19. [Session History](#session-history)
-20. [Maintenance Plan (Complete)](#maintenance-plan-complete)
-21. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance)
-22. [Code Review Process](#code-review-process)
-23. [Maintenance Tasks](#maintenance-tasks)
-24. [Git Workflow](#git-workflow)
-25. [Sensitive Data Protection](#sensitive-data-protection)
-26. [Emergency Procedures](#emergency-procedures)
-27. [Training](#training)
+3. [Google Cloud Run CI Identity Runbook (gcr-skill)](#google-cloud-run-ci-identity-runbook-gcr-skill)
+4. [Node.js workspace setup](#nodejs-workspace-setup-backend-and-cloudflare-agents)
+5. [Scaleway Serverless Containers](#scaleway-serverless-containers-primary)
+6. [DGX Spark Cron Failover Wrap](#dgx-spark-cron-failover-wrap) ⭐ **NEW**
+7. [Revolut Payments & Store](#revolut-payments--store) ⭐ **NEW in v1.8**
+8. [MCP Configuration](#mcp-configuration) ⭐ **NEW in v1.8**
+9. [Climate Assistant Chat Widget](#climate-assistant-chat-widget)
+10. [AI Agent Operational Guidelines](#ai-agent-operational-guidelines) ⭐ **NEW in v1.8**
+11. [Security Glossary & OWASP](#security-glossary--owasp) ⭐ **NEW in v1.8**
+12. [Data Processing Agreement (DPA)](#data-processing-agreement-dpa) ⭐ **NEW in v1.8**
+13. [Backup & Sync Infrastructure](#backup--sync-infrastructure) ⭐ **NEW in v1.8**
+14. [Multi-Agent Orchestration](#multi-agent-orchestration) ⭐ **NEW in v1.8**
+15. [GitHub Copilot Instructions](#github-copilot-instructions)
+16. [Session Security Fixes (January 2026)](#session-security-fixes-january-2026)
+17. [Files and Folders Structure](#files-and-folders-structure)
+18. [Document Index](#document-index)
+19. [AI Agent Policy](#ai-agent-policy)
+20. [Deployment Procedures](#deployment-procedures)
+21. [Session History](#session-history)
+22. [Maintenance Plan (Complete)](#maintenance-plan-complete)
+23. [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance)
+24. [Code Review Process](#code-review-process)
+25. [Maintenance Tasks](#maintenance-tasks)
+26. [Git Workflow](#git-workflow)
+27. [Sensitive Data Protection](#sensitive-data-protection)
+28. [Emergency Procedures](#emergency-procedures)
+29. [Training](#training)
 
 ---
 
@@ -176,16 +185,214 @@ This section links the **full maintenance plan** in one place:
 
 ---
 
+## Google Cloud Run CI Identity Runbook (gcr-skill)
+
+**Purpose:** Bootstrap or repair Google Cloud Run staging/prod CI identity under the correct owner account (`admin@dws6.com`) and fix `iam.serviceAccounts.getAccessToken` failures.
+
+**Scope:** This runbook is the authoritative command set for project `dws-iq-60` and service account `github-actions-deployer@dws-iq-60.iam.gserviceaccount.com`.
+
+### Preconditions
+
+1. You are authenticated as `admin@dws6.com`.
+2. Billing account is available and linkable.
+3. You run commands in `cmd` or Cloud Shell terminal.
+
+### cmd Command Sequence (authoritative)
+
+```cmd
+gcloud auth login admin@dws6.com
+gcloud auth list
+
+set PROJECT_ID=dws-iq-60
+set PROJECT_NAME=DWS IQ 60
+set SA_NAME=github-actions-deployer
+
+gcloud projects create %PROJECT_ID% --name="%PROJECT_NAME%"
+gcloud billing projects link %PROJECT_ID% --billing-account=018486-885BFB-BDDEFA
+
+gcloud config set project %PROJECT_ID%
+gcloud auth application-default set-quota-project %PROJECT_ID%
+
+gcloud services enable iamcredentials.googleapis.com run.googleapis.com artifactregistry.googleapis.com cloudbuild.googleapis.com secretmanager.googleapis.com --project=%PROJECT_ID%
+
+gcloud iam service-accounts create %SA_NAME% --display-name="GitHub Actions Deployer"
+set DEPLOYER_SA=%SA_NAME%@%PROJECT_ID%.iam.gserviceaccount.com
+
+gcloud projects add-iam-policy-binding %PROJECT_ID% --member="serviceAccount:%DEPLOYER_SA%" --role="roles/run.admin"
+gcloud projects add-iam-policy-binding %PROJECT_ID% --member="serviceAccount:%DEPLOYER_SA%" --role="roles/artifactregistry.writer"
+gcloud projects add-iam-policy-binding %PROJECT_ID% --member="serviceAccount:%DEPLOYER_SA%" --role="roles/iam.serviceAccountUser"
+gcloud iam service-accounts add-iam-policy-binding %DEPLOYER_SA% --member="serviceAccount:%DEPLOYER_SA%" --role="roles/iam.serviceAccountTokenCreator"
+```
+
+### Validation Commands
+
+```cmd
+gcloud services list --enabled --project=dws-iq-60 | findstr /I "iamcredentials run artifactregistry cloudbuild secretmanager"
+gcloud iam service-accounts get-iam-policy github-actions-deployer@dws-iq-60.iam.gserviceaccount.com
+```
+
+### Key Creation Policy (Important)
+
+On `dws-iq-60`, service-account key creation is blocked by policy:
+
+- `constraints/iam.disableServiceAccountKeyCreation`
+
+If you see:
+
+- `FAILED_PRECONDITION: Key creation is not allowed on this service account`
+
+that is the expected secure state. **Do not attempt to bypass it.** Use GitHub OIDC / Workload Identity Federation instead.
+
+### Cloud Shell OIDC / Workload Identity Federation Commands (authoritative)
+
+```bash
+PROJECT_ID="dws-iq-60"
+PROJECT_NUMBER="134875067432"
+POOL="github-pool"
+PROVIDER="github-provider"
+REPO="blogtheristo/dws6"
+SA="github-actions-deployer@${PROJECT_ID}.iam.gserviceaccount.com"
+
+gcloud config set project "$PROJECT_ID"
+
+gcloud iam workload-identity-pools create "$POOL" \
+  --project="$PROJECT_ID" \
+  --location="global" \
+  --display-name="GitHub Actions Pool" || true
+
+gcloud iam workload-identity-pools providers create-oidc "$PROVIDER" \
+  --project="$PROJECT_ID" \
+  --location="global" \
+  --workload-identity-pool="$POOL" \
+  --display-name="GitHub Provider" \
+  --issuer-uri="https://token.actions.githubusercontent.com" \
+  --attribute-mapping="google.subject=assertion.sub,attribute.actor=assertion.actor,attribute.repository=assertion.repository,attribute.ref=assertion.ref" \
+  --attribute-condition="assertion.repository=='blogtheristo/dws6'" || true
+
+gcloud iam service-accounts add-iam-policy-binding "$SA" \
+  --project="$PROJECT_ID" \
+  --role="roles/iam.workloadIdentityUser" \
+  --member="principalSet://iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/${POOL}/attribute.repository/${REPO}"
+
+gcloud iam service-accounts add-iam-policy-binding "$SA" \
+  --project="$PROJECT_ID" \
+  --role="roles/iam.serviceAccountTokenCreator" \
+  --member="principalSet://iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/${POOL}/attribute.repository/${REPO}"
+
+gcloud iam workload-identity-pools providers describe "$PROVIDER" \
+  --project="$PROJECT_ID" \
+  --location="global" \
+  --workload-identity-pool="$POOL"
+```
+
+### GitHub Secrets (exact values)
+
+Create these repository secrets in **GitHub -> Settings -> Secrets and variables -> Actions**:
+
+1. `GCP_WORKLOAD_IDENTITY_PROVIDER`
+   - `projects/134875067432/locations/global/workloadIdentityPools/github-pool/providers/github-provider`
+2. `GCP_SERVICE_ACCOUNT`
+   - `github-actions-deployer@dws-iq-60.iam.gserviceaccount.com`
+
+### Workflow Migration (authoritative file path)
+
+The staging workflow now authenticates with OIDC in:
+
+- `.github/workflows/deploy-staging.yml`
+
+Required auth block:
+
+```yaml
+- name: Authenticate to GCP
+  uses: google-github-actions/auth@v2
+  with:
+    workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+    service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+    token_format: access_token
+```
+
+The workflow also now sets:
+
+- `PROJECT_ID: dws-iq-60`
+
+### GitHub CI Migration Checklist
+
+1. Replace project refs from `dws-iq-pilot` -> `dws-iq-60`.
+2. Replace deployer SA refs to `github-actions-deployer@dws-iq-60.iam.gserviceaccount.com`.
+3. Add repository secrets:
+   - `GCP_WORKLOAD_IDENTITY_PROVIDER`
+   - `GCP_SERVICE_ACCOUNT`
+4. Replace old workflow auth blocks using `credentials_json: ${{ secrets.GCP_SA_KEY }}` with the OIDC auth block above.
+5. Re-run staging workflow and confirm no IAM token error.
+6. After successful deploy, delete legacy GitHub secret:
+   - `GCP_SA_KEY`
+
+### CI Failure Checks for Reuse (authoritative)
+
+Use this checklist whenever Cloud Run staging or OWASP ZAP fails in GitHub Actions. These checks are now the canonical triage flow for `.github/workflows/deploy-staging.yml` and `.github/workflows/dast-zap-scan.yml`.
+
+| Failure signature | Root cause | Required check | Fix |
+| --- | --- | --- | --- |
+| `Permission 'iam.serviceAccounts.getAccessToken' denied` | Workload Identity principal can authenticate but cannot mint access token for deployer service account | Confirm target service account has `roles/iam.serviceAccountTokenCreator` and repo principal has `roles/iam.workloadIdentityUser` | Re-apply the SA-level IAM bindings in the OIDC runbook above |
+| `Repository "dws-iq-repo" not found` during `Build Staging Image` | Artifact Registry repository does not exist in `dws-iq-60` | Run `gcloud artifacts repositories describe dws-iq-repo --location=europe-north1 --project=dws-iq-60` | Create it: `gcloud artifacts repositories create dws-iq-repo --repository-format=docker --location=europe-north1 --description="DWS IQ staging images"` |
+| Cloud Run deploy rejects `PORT` in `env_vars` | `PORT` is a reserved Cloud Run runtime variable | Inspect `.github/workflows/deploy-staging.yml` for `PORT=` under `env_vars` | Remove `PORT` from workflow-managed env vars; Cloud Run injects it automatically |
+| `Notify on Failure` cannot create issue (`Resource not accessible by integration`) | Workflow permissions omit issue-write scope | Inspect top-level `permissions:` block in `.github/workflows/deploy-staging.yml` | Add `issues: write` alongside `contents: read` and `id-token: write` |
+| OWASP ZAP baseline fails with `expected 200 / got 404` for `/`, `/robots.txt`, or `/sitemap.xml` | Baseline spider visits common public paths even when target is `/health` | Confirm app returns HTTP 200 for `/`, `/robots.txt`, and `/sitemap.xml` | Keep lightweight public handlers in `src/app.ts` for those three routes |
+| OWASP ZAP baseline fails intermittently before scan starts | App is not fully ready when ZAP begins | Check that workflow waits on `/health` with retries rather than a fixed sleep | Use a retry loop in `.github/workflows/dast-zap-scan.yml` before invoking ZAP |
+
+### Current known-good workflow checks
+
+For reuse in other workflows, the following checks are now considered the safe baseline:
+
+1. **Artifact Registry preflight** — before `docker/build-push-action`, run `gcloud artifacts repositories describe ...` and skip the staging deploy cleanly if the repository is missing.
+2. **Cloud Run reserved env guard** — never include `PORT` in `env_vars`; treat it like a platform-owned variable.
+3. **Failure-notify permission check** — any workflow that auto-creates GitHub issues must include `issues: write` in its top-level `permissions:` block.
+4. **DAST readiness check** — wait for `curl -sSf http://localhost:8080/health` to succeed in a loop before launching ZAP.
+5. **DAST crawler compatibility check** — keep `/`, `/robots.txt`, and `/sitemap.xml` returning 200 in CI-safe environments so baseline spiders do not fail on framework-default 404s.
+6. **Supabase CI compatibility check** — for local CI app startup, provide both `SUPABASE_SERVICE_KEY` and `SUPABASE_SERVICE_ROLE_KEY` when the code may read either one.
+
+### Copy-paste validation commands
+
+```bash
+# 1) OIDC / identity
+gcloud iam service-accounts get-iam-policy github-actions-deployer@dws-iq-60.iam.gserviceaccount.com
+
+# 2) Artifact Registry repository exists
+gcloud artifacts repositories describe dws-iq-repo \
+  --location=europe-north1 \
+  --project=dws-iq-60
+
+# 3) Cloud Run deploy target exists
+gcloud run services describe dws6run6-staging \
+  --region=europe-north1 \
+  --project=dws-iq-60
+
+# 4) GitHub workflow rerun after fix
+gh workflow run deploy-staging.yml --ref claude/admin-support-chat-20260513
+```
+
+### Operational Note
+
+If terminal line continuation keeps breaking provider creation, prefer Cloud Shell over local `cmd`. Cloud Shell `bash` handles the OIDC provider creation command reliably.
+
+### Known Failure and Root Cause
+
+- **Error:** `Permission 'iam.serviceAccounts.getAccessToken' denied`
+- **Cause:** Missing `roles/iam.serviceAccountTokenCreator` on deployer SA
+- **Fix:** SA-level binding shown above (non-negotiable for token minting flows)
+
+---
+
 ## Node.js workspace setup (backend and Cloudflare agents)
 
 **Purpose:** On a fresh clone, CI runner, or Cursor Cloud Agents runtime, install Node dependencies so TypeScript `build`, `test`, and Worker tooling are on the `PATH` via local `node_modules/.bin`.
 
 DWS6 ships **two** lockfile-rooted JavaScript projects:
 
-| Location            | Package / role                         | Typical commands                                      |
-| ------------------- | -------------------------------------- | ----------------------------------------------------- |
-| Repository root     | `dws6-auth-backend` (Express + Vitest) | `npm run dev`, `npm run build`, `npm run test`        |
-| `src/cloudflare/`   | `@dws-iq/cloudflare-agent` (Workers)   | `npm run build`, `npm run typecheck`, `npm run test`, `npm run dev` |
+| Location          | Package / role                         | Typical commands                                                    |
+| ----------------- | -------------------------------------- | ------------------------------------------------------------------- |
+| Repository root   | `dws6-auth-backend` (Express + Vitest) | `npm run dev`, `npm run build`, `npm run test`                      |
+| `src/cloudflare/` | `@dws-iq/cloudflare-agent` (Workers)   | `npm run build`, `npm run typecheck`, `npm run test`, `npm run dev` |
 
 Use **`npm ci`** in each directory (not `npm install`) so installs match `package-lock.json` exactly—required for reproducible CI and agent environments.
 
@@ -502,6 +709,203 @@ gh workflow run deploy-scaleway.yml
 
 ---
 
+## DGX Spark Cron Failover Wrap
+
+**Status:** ✅ **ACTIVE** — Reduces GitHub Actions minute consumption by routing scheduled workloads to on-prem DGX Spark
+**Wrap commit:** `2f3777c` (PR #1314, merged 2026-05-14)
+**Owner:** Platform / Infra
+**Projected savings:** 1,100–1,700 GHA minutes/month
+
+### What it does
+
+GitHub Actions scheduled workflows (cron-triggered) check a public heartbeat URL before doing any work. If the DGX Spark on-prem box is healthy, the GHA job short-circuits (`dgx_alive=true`) and exits after ~1 second — the actual work runs on DGX via the cron-runner. If DGX is unreachable, the GHA workflow continues as before (automatic failover). Net effect: scheduled work runs on owned hardware while keeping GHA as a hot standby.
+
+### Architecture
+
+```
+GitHub Actions scheduled run
+        │
+        ▼
+.github/actions/dgx-failover-check
+        │
+        ▼ curl --max-time 10 ${DGX_SPARK_HEARTBEAT_URL}/health
+        │
+        ▼
+heartbeat.dws6.com (Cloudflare-proxied, orange-cloud)
+        │
+        ▼ (Cloudflare Tunnel, outbound-only QUIC over UDP/443)
+        │
+cloudflared on DGX Spark
+        │
+        ▼ http://localhost:9999/health
+        │
+DGX heartbeat service (port 9999)
+        │
+        ▼
+DGX cron-runner (mirrors all 13 wrapped workflows)
+```
+
+### Components
+
+| Component | Location | Notes |
+| --- | --- | --- |
+| GitHub Actions variable | `DGX_SPARK_HEARTBEAT_URL` at https://github.com/blogtheristo/dws6/settings/variables/actions | Value: `https://heartbeat.dws6.com` (no trailing slash, no `/health` — action appends it) |
+| Reusable composite action | `.github/actions/dgx-failover-check/action.yml` | Outputs `dgx_alive` (true/false) and `dgx_status` (raw JSON or `down_<code>`) |
+| Cloudflare Tunnel | Name `dgx-heartbeat`, ID `b2d1d6e8-28e5-48e0-a2d5-3d5b702ead8b` | Managed locally via `/etc/cloudflared/config.yml` on the DGX box (not via dashboard) |
+| DNS record | `heartbeat.dws6.com` CNAME → `<tunnel-id>.cfargotunnel.com` | Proxied (orange cloud) — required for tunnels |
+| Tunnel ingress rule | `/etc/cloudflared/config.yml` on DGX | Routes `heartbeat.dws6.com` → `http://localhost:9999` |
+| Heartbeat service | `localhost:9999` on DGX Spark | `/health` returns HTTP 200 + `{"status":"healthy","timestamp":"..."}` |
+| Cron-runner | Separate concern — mirrors wrapped workflows on DGX | Wrap saves GHA minutes regardless; cron-runner ensures the work still runs |
+
+### Wrapped workflows (13)
+
+These all start with the DGX failover check and skip the rest of their steps when DGX is alive:
+
+```
+agents-md-freshness          campaign-daily-posts          construction-leads
+daily-db-backup              daily-mvp-audit               daily-site-backup
+golden-principle-scan        housekeeping-weekly           quarterly-price-list
+security-audit-enhanced      ted-followup                  ted-learning-weekly
+ted-pipeline
+```
+
+### Adding the wrap to a new scheduled workflow
+
+Insert the failover check as the first step after `actions/checkout@v4`, and gate every subsequent step on `steps.failover.outputs.dgx_alive != 'true'`:
+
+```yaml
+jobs:
+  my-scheduled-job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: DGX Spark failover check
+        id: failover
+        uses: ./.github/actions/dgx-failover-check
+        with:
+          heartbeat_url: ${{ vars.DGX_SPARK_HEARTBEAT_URL }}
+
+      - name: Setup Node.js
+        if: steps.failover.outputs.dgx_alive != 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Real work
+        if: steps.failover.outputs.dgx_alive != 'true'
+        run: node scripts/whatever.mjs
+
+      - name: Upload artifact
+        if: always() && steps.failover.outputs.dgx_alive != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: report
+          path: report.json
+```
+
+Also mirror the job in the DGX cron-runner so the work actually runs somewhere when GHA skips.
+
+### Verifying the wrap is working
+
+1. Dispatch a wrapped workflow on any branch: https://github.com/blogtheristo/dws6/actions/workflows/agents-md-freshness.yml → **Run workflow**.
+2. Expand the **DGX Spark failover check** step. Expected output:
+   ```
+   Checking DGX Spark heartbeat: https://heartbeat.dws6.com
+   DGX Spark is ALIVE — this workflow is FAILOVER only
+   ```
+3. All downstream steps should show as **skipped** (greyed out, no duration). Each skipped run saves 30–120 seconds of GHA time vs. the previous baseline.
+
+Monthly verification: https://github.com/blogtheristo/dws6/settings/billing/actions — minutes-used graph should show a stepwise drop after the wrap goes active.
+
+### Troubleshooting
+
+Read the **DGX Spark failover check** step log. The HTTP code printed in `DGX Spark is DOWN (HTTP <code>)` tells you which layer is broken:
+
+| HTTP code | Layer broken | Fix |
+| --- | --- | --- |
+| `000` / `000000` | DNS or TCP — runner couldn't connect at all | Check Cloudflare DNS for `heartbeat.dws6.com` CNAME (must be proxied / orange cloud). On DGX: `cloudflared tunnel list` should show 3–4 connections to nearby Cloudflare PoPs |
+| `404` | Tunnel up, but `/health` path not exposed | Check `/etc/cloudflared/config.yml` ingress rule matches the hostname being requested |
+| `502` | Tunnel up, origin service down | On DGX: `ss -tlnp \| grep :9999` (should show LISTEN); `curl http://localhost:9999/health` (should return 200 + JSON) |
+| `530` / `1033` | Cloudflare Tunnel daemon not connected to edge | On DGX: `sudo systemctl status cloudflared` — restart if needed |
+| `200` but workflow runs anyway | Variable misconfigured or empty | Verify `DGX_SPARK_HEARTBEAT_URL` is set under Variables (not Secrets), exact value `https://heartbeat.dws6.com`, no trailing slash |
+
+### DGX-side operations
+
+All commands run on the DGX Spark box (ARM64, `uname -m` → `aarch64`).
+
+```bash
+# Tunnel status (expect 3–4 active connections to nearest Cloudflare PoPs)
+cloudflared tunnel list
+cloudflared tunnel info dgx-heartbeat
+
+# Service status & recent logs
+sudo systemctl status cloudflared
+sudo journalctl -u cloudflared -n 50 --no-pager
+
+# Restart the tunnel (briefly drops connections; ~5–10s unreachability)
+sudo systemctl restart cloudflared
+
+# View current ingress rules
+sudo cat /etc/cloudflared/config.yml
+
+# Heartbeat service local check
+ss -tlnp | grep :9999
+curl -sS http://localhost:9999/health
+```
+
+### Updating cloudflared on DGX
+
+The daemon is installed via `dpkg`, not via the in-place auto-updater (which is disabled by the `--no-autoupdate` flag in the systemd unit). To upgrade:
+
+```bash
+curl -L -o /tmp/cloudflared.deb \
+  https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64.deb
+ls -lh /tmp/cloudflared.deb        # expect ~16–35 MB
+sudo dpkg -i /tmp/cloudflared.deb
+sudo systemctl restart cloudflared
+cloudflared --version              # verify version bump
+sudo systemctl status cloudflared  # confirm "active (running)" + fresh Registered tunnel connection lines
+```
+
+Use `cloudflared-linux-amd64.deb` for x86_64 hardware; `arm64` is for the Grace-based DGX Spark.
+
+If both `/usr/bin/cloudflared` and `/usr/local/bin/cloudflared` exist, `which cloudflared` may report the unmanaged copy in `/usr/local/bin` while systemd actually runs `/usr/bin/cloudflared`. Reconcile by removing the unmanaged binary after confirming it's unowned:
+
+```bash
+dpkg -S /usr/local/bin/cloudflared   # expect: "no path found matching"
+sudo rm /usr/local/bin/cloudflared
+hash -r
+```
+
+### Adding a new public hostname to the tunnel (future)
+
+If a second on-prem service needs public exposure via this tunnel:
+
+```bash
+# 1. Create the proxied DNS CNAME
+cloudflared tunnel route dns dgx-heartbeat <new-subdomain>.dws6.com
+
+# 2. Edit /etc/cloudflared/config.yml — add ingress rule BEFORE the catch-all 404:
+#    - hostname: <new-subdomain>.dws6.com
+#      service: http://localhost:<port>
+#    - service: http_status:404
+
+# 3. Restart the daemon
+sudo systemctl restart cloudflared
+```
+
+### Failure & rollback
+
+The wrap is rollout-safe by design:
+
+- If `DGX_SPARK_HEARTBEAT_URL` is unset, the action prints `No DGX_SPARK_HEARTBEAT_URL configured — running as primary` and the workflow runs on GHA as before.
+- If the heartbeat URL returns anything other than HTTP 200, the workflow runs on GHA as before.
+- To temporarily force all wrapped workflows back onto GHA: clear or rename the `DGX_SPARK_HEARTBEAT_URL` variable. No code change needed.
+- To remove the wrap from a specific workflow: delete the `DGX Spark failover check` step and the `if: steps.failover.outputs.dgx_alive != 'true'` conditions from each step in that file.
+
+---
+
 ## Revolut Payments & Store
 
 **Status:** ✅ **ACTIVE**
@@ -811,6 +1215,47 @@ app.use(
 | **Service**           | `dws-iq-backend` (Stripe webhook endpoint)          |
 | **Endpoint**          | `https://dws-iq-backend-[hash]-uc.a.run.app`        |
 
+### Billing & ownership transfer update (2026-05-11)
+
+`admin@dws6.com` is now project owner for:
+
+- **Project Name:** `DWS MCP Hub`
+- **Project ID:** `dws-mcp-hub`
+- **Project Number:** `191347396816`
+
+Billing account IAM was updated as follows:
+
+| Billing Account | Principal | Role |
+| --- | --- | --- |
+| `011602-801DEC-A53E8F` | `user:risto.paarni2024@lifetime.fi` | `roles/billing.admin` |
+| `011602-801DEC-A53E8F` | `user:admin@dws6.com` | `roles/billing.user` |
+
+Current status recorded during transfer:
+
+- `dws-mcp-hub` parent is organization `1074856518213` (`lifetime.fi`) ✅
+- Billing IAM grant succeeded ✅
+- Project billing link still needs to be activated from `admin@dws6.com` context (`billingEnabled` was `false` at capture time) ⚠️
+
+#### Billing account management inventory (2026-05-11)
+
+| Property | Value |
+| --- | --- |
+| Billing account ID | `011602-801DEC-A53E8F` |
+| Billing account display name | `Lifetime Oy Account` |
+| Organisation | `lifetime.fi` |
+| Account type | `Direct` |
+
+**Projects linked to this billing account:**
+
+- `dws-mcp-hub` (DWS MCP Hub)
+- `dws-iq-pilot` (DWS IQ Pilot)
+- `dws6login` (dws6login)
+
+**Billing administrators:**
+
+- `risto.paarni2024@lifetime.fi`
+- `admin@dws6.com`
+
 ### ⚠️ CRITICAL: Cloud Build Service Account IAM Roles
 
 **Service Account:** `1074393862472-compute@developer.gserviceaccount.com`
@@ -910,10 +1355,10 @@ gcloud run logs read dws-iq-backend --region europe-north1 --limit 50
 
 #### Cloud Run verification result
 
-| Project | Service | SUPABASE_URL | SUPABASE_SERVICE_KEY | Status |
-| --- | --- | --- | --- | --- |
-| `dws6run6` | `dws-iq-backend` | `secret` | `secret` | ✅ OK |
-| `dws6-backend` | N/A | N/A | N/A | ⚠️ No services visible to current operator identity (or no services deployed) |
+| Project        | Service          | SUPABASE_URL | SUPABASE_SERVICE_KEY | Status                                                                        |
+| -------------- | ---------------- | ------------ | -------------------- | ----------------------------------------------------------------------------- |
+| `dws6run6`     | `dws-iq-backend` | `secret`     | `secret`             | ✅ OK                                                                         |
+| `dws6-backend` | N/A              | N/A          | N/A                  | ⚠️ No services visible to current operator identity (or no services deployed) |
 
 #### SES SMTP-only runtime requirements
 
@@ -2881,21 +3326,21 @@ auditor-access model.
 
 ## Document Changelog
 
-| Version | Date         | Changes                                                                                                                                                                                                                                                                                                                                                        | Session ID |
-| ------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| 2.5     | May 10, 2026 | Node.js workspace setup section: dual `npm ci` at repository root and `src/cloudflare/` for backend vs Cloudflare agent workers; PowerShell-first examples; worktree and cloud-agent note; TOC renumbered.                                                                                                                                                      | cursor-admin-node-workspace-20260510 |
-| 2.4     | Apr 25, 2026 | Browse SSRF hardening (`src/utils/url-guard.ts`): default-deny IPv4/IPv6 private/loopback/link-local/cloud-metadata ranges, two-layer enforcement (pre-`goto` + `page.route` for redirects), `BROWSE_ALLOW_PRIVATE=1` dev override; moved `playwright` from devDependencies to dependencies so DGX Spark `npm ci --omit=dev` keeps it. 75 tests pass.          | Rg5Jy      |
-| 2.3     | Apr 25, 2026 | Added Agent Capabilities section (Browse + Second Brain): `dws browse` (Playwright Chromium, MCP `dws_browse_*`), DGX Spark embeddings provider (`EMBEDDING_PROVIDER=dgx-spark`), `dws kb preflight`, `scripts/daily/kb-watch-inbox.sh` (auto-backfill with `KB_WATCH_MAX_PER_RUN` cap); linked PLAYWRIGHT.md + AGENT_SECOND_BRAIN.md in Related Documentation | Rg5Jy      |
-| 2.2     | Apr 22, 2026 | Added Local-First CI + Audit Log section (scripts/local-ci.sh, ci-audit-verify.sh, ci-audit-upload.ts, weekly/security-audit.sh, .ci-audit/, ci-audit-verify.yml gate); linked new Audit Manual for external auditors; indexed Files & Folders manual                                                                                                          | vBYGo      |
-| 1.8     | Feb 6, 2026  | DWS Document Standard header; Admin Manuals Index (23 manuals); Revolut Payments & Store; MCP Configuration (Supabase, Upstash Redis, MCP Hub); AI Agent Operational Guidelines (Karpathy); Security Glossary & OWASP; DPA summary; Backup & Sync Infrastructure; Multi-Agent Orchestration (Subagents vs Agent Teams, Upstash Redis)                          | Rm8Jw      |
-| 1.7     | Jan 29, 2026 | Added Climate Assistant Chat Widget section with embed code, features, security configuration (Helmet CSP), and troubleshooting                                                                                                                                                                                                                                | krDzD      |
-| 1.6     | Jan 24, 2026 | Added Training section with LWM/Firehorse training workflows, certification paths, and external partner resources; Updated training manual location references                                                                                                                                                                                                 | r6bU3      |
-| 1.5     | Jan 4, 2026  | Added AI Model Configuration (Sonnet → Opus 4.5 switch); Added DWS IQ 6 Security Framework section; Updated compliance scores to 95%                                                                                                                                                                                                                           | -          |
-| 1.4     | Jan 3, 2026  | Added Code Review Process section; Removed Argus PR Review (moved to Archive); Documented Cursor AI + Snyk MCP workflow                                                                                                                                                                                                                                        | -          |
-| 1.3     | Dec 23, 2025 | Added AI Agent Policy section based on 2,500+ agent analysis; Protected admin directory in .gitignore                                                                                                                                                                                                                                                          | PxSux      |
-| 1.2     | Dec 19, 2025 | Added Bug Tracking & Security Maintenance section with 20-bug fix history, monthly maintenance budget, bug hunting roadmap                                                                                                                                                                                                                                     | -          |
-| 1.1     | Dec 11, 2025 | Added Sensitive Data Protection section (GDPR/ISO 27001 compliance)                                                                                                                                                                                                                                                                                            | -          |
-| 1.0     | Nov 23, 2025 | Initial creation, documented session history                                                                                                                                                                                                                                                                                                                   | -          |
+| Version | Date         | Changes                                                                                                                                                                                                                                                                                                                                                        | Session ID                           |
+| ------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| 2.5     | May 10, 2026 | Node.js workspace setup section: dual `npm ci` at repository root and `src/cloudflare/` for backend vs Cloudflare agent workers; PowerShell-first examples; worktree and cloud-agent note; TOC renumbered.                                                                                                                                                     | cursor-admin-node-workspace-20260510 |
+| 2.4     | Apr 25, 2026 | Browse SSRF hardening (`src/utils/url-guard.ts`): default-deny IPv4/IPv6 private/loopback/link-local/cloud-metadata ranges, two-layer enforcement (pre-`goto` + `page.route` for redirects), `BROWSE_ALLOW_PRIVATE=1` dev override; moved `playwright` from devDependencies to dependencies so DGX Spark `npm ci --omit=dev` keeps it. 75 tests pass.          | Rg5Jy                                |
+| 2.3     | Apr 25, 2026 | Added Agent Capabilities section (Browse + Second Brain): `dws browse` (Playwright Chromium, MCP `dws_browse_*`), DGX Spark embeddings provider (`EMBEDDING_PROVIDER=dgx-spark`), `dws kb preflight`, `scripts/daily/kb-watch-inbox.sh` (auto-backfill with `KB_WATCH_MAX_PER_RUN` cap); linked PLAYWRIGHT.md + AGENT_SECOND_BRAIN.md in Related Documentation | Rg5Jy                                |
+| 2.2     | Apr 22, 2026 | Added Local-First CI + Audit Log section (scripts/local-ci.sh, ci-audit-verify.sh, ci-audit-upload.ts, weekly/security-audit.sh, .ci-audit/, ci-audit-verify.yml gate); linked new Audit Manual for external auditors; indexed Files & Folders manual                                                                                                          | vBYGo                                |
+| 1.8     | Feb 6, 2026  | DWS Document Standard header; Admin Manuals Index (23 manuals); Revolut Payments & Store; MCP Configuration (Supabase, Upstash Redis, MCP Hub); AI Agent Operational Guidelines (Karpathy); Security Glossary & OWASP; DPA summary; Backup & Sync Infrastructure; Multi-Agent Orchestration (Subagents vs Agent Teams, Upstash Redis)                          | Rm8Jw                                |
+| 1.7     | Jan 29, 2026 | Added Climate Assistant Chat Widget section with embed code, features, security configuration (Helmet CSP), and troubleshooting                                                                                                                                                                                                                                | krDzD                                |
+| 1.6     | Jan 24, 2026 | Added Training section with LWM/Firehorse training workflows, certification paths, and external partner resources; Updated training manual location references                                                                                                                                                                                                 | r6bU3                                |
+| 1.5     | Jan 4, 2026  | Added AI Model Configuration (Sonnet → Opus 4.5 switch); Added DWS IQ 6 Security Framework section; Updated compliance scores to 95%                                                                                                                                                                                                                           | -                                    |
+| 1.4     | Jan 3, 2026  | Added Code Review Process section; Removed Argus PR Review (moved to Archive); Documented Cursor AI + Snyk MCP workflow                                                                                                                                                                                                                                        | -                                    |
+| 1.3     | Dec 23, 2025 | Added AI Agent Policy section based on 2,500+ agent analysis; Protected admin directory in .gitignore                                                                                                                                                                                                                                                          | PxSux                                |
+| 1.2     | Dec 19, 2025 | Added Bug Tracking & Security Maintenance section with 20-bug fix history, monthly maintenance budget, bug hunting roadmap                                                                                                                                                                                                                                     | -                                    |
+| 1.1     | Dec 11, 2025 | Added Sensitive Data Protection section (GDPR/ISO 27001 compliance)                                                                                                                                                                                                                                                                                            | -                                    |
+| 1.0     | Nov 23, 2025 | Initial creation, documented session history                                                                                                                                                                                                                                                                                                                   | -                                    |
 
 ---
 

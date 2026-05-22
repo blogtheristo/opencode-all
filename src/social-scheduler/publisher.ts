@@ -22,6 +22,8 @@ import type { SocialPost } from './types.js';
 
 const LINKEDIN_API_BASE = 'https://api.linkedin.com';
 const LINKEDIN_VERSION = '202401';
+const LINKEDIN_PUBLISH_TIMEOUT_MS = 45_000;
+const LINKEDIN_USERINFO_TIMEOUT_MS = 15_000;
 
 // ============================================================================
 // TYPES
@@ -78,9 +80,12 @@ export async function publishToLinkedIn(post: SocialPost): Promise<PublishResult
     isReshareDisabledByAuthor: false,
   };
 
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), LINKEDIN_PUBLISH_TIMEOUT_MS);
   try {
     const response = await fetch(`${LINKEDIN_API_BASE}/rest/posts`, {
       method: 'POST',
+      signal: controller.signal,
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -115,9 +120,21 @@ export async function publishToLinkedIn(post: SocialPost): Promise<PublishResult
       error: `HTTP ${response.status}: ${errorText}`,
     };
   } catch (err) {
+    if (err instanceof Error && err.name === 'AbortError') {
+      logger.error('LinkedIn publish timed out', {
+        postId: post.id,
+        timeout_ms: LINKEDIN_PUBLISH_TIMEOUT_MS,
+      });
+      return {
+        success: false,
+        error: `LinkedIn request timed out after ${LINKEDIN_PUBLISH_TIMEOUT_MS / 1000}s`,
+      };
+    }
     const msg = err instanceof Error ? err.message : 'Unknown error';
     logger.error('LinkedIn publish error', { postId: post.id, error: msg });
     return { success: false, error: msg };
+  } finally {
+    clearTimeout(timeout);
   }
 }
 
@@ -137,8 +154,11 @@ export async function validateLinkedInToken(): Promise<{ id: string; name: strin
   const token = process.env.LINKEDIN_ACCESS_TOKEN;
   if (!token) return null;
 
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), LINKEDIN_USERINFO_TIMEOUT_MS);
   try {
     const response = await fetch(`${LINKEDIN_API_BASE}/v2/userinfo`, {
+      signal: controller.signal,
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -150,5 +170,7 @@ export async function validateLinkedInToken(): Promise<{ id: string; name: strin
     return { id: data.sub, name: data.name };
   } catch {
     return null;
+  } finally {
+    clearTimeout(timeout);
   }
 }
