@@ -13,6 +13,8 @@ on:
       - "**/Pipfile"
       - "**/Pipfile.lock"
       - ".github/workflows/dependency-submission.yml"
+      - "!artifacts/**"
+      - "!**/*_OLD/**"
 
 permissions:
   contents: write
@@ -37,6 +39,7 @@ jobs:
         uses: advanced-security/component-detection-dependency-submission-action@v0.1.1
         with:
           filePath: "."
+          directoryExclusionList: "{artifacts/**,**/*_OLD/**}"
           detectorArgs: "Pip=EnableIfDefaultOff,SimplePip=EnableIfDefaultOff,Poetry=EnableIfDefaultOff"
 
       - name: Retry After Transient Failure
@@ -44,4 +47,5 @@ jobs:
         uses: advanced-security/component-detection-dependency-submission-action@v0.1.1
         with:
           filePath: "."
+          directoryExclusionList: "{artifacts/**,**/*_OLD/**}"
           detectorArgs: "Pip=EnableIfDefaultOff,SimplePip=EnableIfDefaultOff,Poetry=EnableIfDefaultOff"
