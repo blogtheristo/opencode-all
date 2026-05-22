@@ -408,11 +408,15 @@ class AuthService {
     if (client) {
       try {
         // Check if user already exists in Supabase
-        const { data: existing } = await client
+        const { data: existing, error: existingError } = await client
           .from('users')
           .select('id')
           .eq('email', normalizedEmail)
           .single();
+
+        if (existingError && existingError.code !== 'PGRST116') {
+          throw existingError;
+        }
 
         if (existing) {
           throw new Error('User already exists');
@@ -433,10 +437,10 @@ class AuthService {
           .single();
 
         if (error) {
-          logger.warn('Supabase user registration failed, falling back to in-memory', {
-            error: error.message,
-          });
-        } else if (data) {
+          throw error;
+        }
+
+        if (data) {
           logger.info('User registered (Supabase)', { userId: data.id });
           return {
             id: data.id,
@@ -447,12 +451,12 @@ class AuthService {
             accessLevel: data.access_level,
           };
         }
-      } catch (error) {
-        if (error instanceof Error && error.message === 'User already exists') {
-          throw error;
+      } catch (err) {
+        if (err instanceof Error && err.message === 'User already exists') {
+          throw err;
         }
-        logger.warn('Supabase registration path failed, using in-memory fallback', {
-          error: error instanceof Error ? error.message : 'Unknown error',
+        logger.warn('Supabase user registration failed, falling back to in-memory', {
+          error: err instanceof Error ? err.message : String(err),
         });
       }
     }

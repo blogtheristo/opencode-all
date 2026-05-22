@@ -8,7 +8,19 @@ import {
   generatePaymentConfirmationPlainText,
 } from '../templates/invoice-email.template.js';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '');
+let stripeClient: Stripe | null = null;
+
+function getStripeClient(): Stripe {
+  if (stripeClient) return stripeClient;
+
+  const secret = process.env.STRIPE_SECRET_KEY;
+  if (!secret) {
+    throw new Error('STRIPE_SECRET_KEY is not configured');
+  }
+
+  stripeClient = new Stripe(secret);
+  return stripeClient;
+}
 
 // ============================================================================
 // VAT VALIDATION
@@ -84,6 +96,7 @@ interface InvoiceParams {
  * Create Stripe invoice for order remainder
  */
 export async function createStripeInvoice(params: InvoiceParams): Promise<Stripe.Invoice> {
+  const stripe = getStripeClient();
   const {
     order_id,
     user_id,
@@ -177,7 +190,7 @@ export async function createStripeInvoice(params: InvoiceParams): Promise<Stripe
  */
 export async function getInvoice(invoice_id: string): Promise<Stripe.Invoice | null> {
   try {
-    return await stripe.invoices.retrieve(invoice_id);
+    return await getStripeClient().invoices.retrieve(invoice_id);
   } catch (error) {
     logger.error('Failed to fetch invoice', { error, invoice_id });
     return null;
@@ -192,7 +205,7 @@ export async function sendInvoiceEmail(
   customer_email: string,
 ): Promise<boolean> {
   try {
-    await stripe.invoices.sendInvoice(invoice_id);
+    await getStripeClient().invoices.sendInvoice(invoice_id);
     logger.info('Invoice sent via email', { invoice_id, customer_email });
     return true;
   } catch (error) {
@@ -206,7 +219,7 @@ export async function sendInvoiceEmail(
  */
 export async function voidInvoice(invoice_id: string): Promise<Stripe.Invoice | null> {
   try {
-    const invoice = await stripe.invoices.voidInvoice(invoice_id);
+    const invoice = await getStripeClient().invoices.voidInvoice(invoice_id);
     logger.info('Invoice voided', { invoice_id });
     return invoice;
   } catch (error) {
@@ -401,6 +414,7 @@ export async function refundPayment(
   reason: string,
 ): Promise<Stripe.Refund | null> {
   try {
+    const stripe = getStripeClient();
     const invoice = await stripe.invoices.retrieve(invoice_id);
 
     if (!(invoice as any).charge) {

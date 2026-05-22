@@ -8,9 +8,9 @@ export default defineConfig({
     exclude: [
       '**/node_modules/**',
       '**/dist/**',
+      '**/.claude/worktrees/**',
       // Stale PR-snapshot worktrees checked into the repo. They carry their
       // own outdated tests/mocks and must not run as part of main CI.
-      '.claude/worktrees/**',
       'artifacts/**',
     ],
     coverage: {
