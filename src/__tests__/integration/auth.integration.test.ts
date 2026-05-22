@@ -69,11 +69,25 @@ describe('POST /api/v1/auth/register', () => {
     expect(res.body.error).toBe('Validation Error');
   });
 
+  it('rejects RFC 2606 reserved domain (example.com) with 400', async () => {
+    const res = await request(app)
+      .post('/api/v1/auth/register')
+      .send({
+        email: `smoke-${Date.now()}@example.com`,
+        password: 'ValidP@ssw0rd!2026',
+        firstName: 'Smoke',
+        lastName: 'Probe',
+      });
+
+    expect(res.status).toBe(400);
+    expect(res.body.error).toBe('Validation Error');
+  });
+
   it('accepts valid registration and returns 201', async () => {
     const res = await request(app)
       .post('/api/v1/auth/register')
       .send({
-        email: `integration-${Date.now()}@example.com`,
+        email: `integration-${Date.now()}@lifetime.fi`,
         password: 'ValidP@ssw0rd!2026',
         firstName: 'Integration',
         lastName: 'Test',
