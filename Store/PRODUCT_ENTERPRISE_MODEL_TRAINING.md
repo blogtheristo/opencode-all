@@ -2,16 +2,17 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Cursor.ai | Session: Ultra-Agents | Commit: pending | Date: 03.01.2026 | Changes: Initial product documentation for Enterprise Model Training
+- Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/lwm-price-estimate-study-IXS4l | Commit: pending | Date: 23.05.2026 | Changes: Added "Product Ladder" bridge section positioning EMT-001 (€50K–€200K project tier) as the top of a two-tier ladder, with new Train Model (TM-001) self-serve SKU (€1,490–€7,490) as the entry tier underneath. Added "when to pick which" matrix. Updated Related Products to link TM-001 and Aegis. EMT-001 scope, deliverables, and pricing unchanged — the ladder addresses customers who would otherwise leak to OpenAI fine-tuning, not customers already qualified for project-tier engagement.
 
 Document Status:
 
 - Created: 03.01.2026
-- Last Modified: 03.01.2026
+- Last Modified: 23.05.2026
 - Language: English
 - Publication Status: Draft
 - Document Type: Product Documentation
@@ -56,6 +57,47 @@ Legal:
 | **Manufacturing Leaders** | Process optimization, quality control        | 7B-70B     |
 | **Energy Utilities**      | Grid management, demand forecasting          | 30B-70B    |
 | **Financial Services**    | Risk modeling, compliance automation         | 70B-405B   |
+
+---
+
+## Product Ladder — Where Enterprise Model Training Sits
+
+Enterprise Model Training (EMT-001, €50K–€200K) is the **top of a two-tier ladder**. Below it sits **Train Model (TM-001)** — a self-serve fixed-scope SKU at €1,490–€7,490 for customers who don't need a project-tier engagement.
+
+```
+                                  Customer Sophistication →
+
+  ┌──────────────────────┐                ┌──────────────────────────────────────┐
+  │  Train Model         │     ──→        │  Enterprise Model Training (this)    │
+  │  (TM-001)            │                │  (EMT-001)                           │
+  │  €1,490 – €7,490     │                │  €50K – €200K                        │
+  │                      │                │                                      │
+  │  Self-serve          │                │  Project-based                       │
+  │  Customer brings     │                │  We construct dataset                │
+  │  structured dataset  │                │  Custom architecture (up to 405B)    │
+  │  Fixed-scope         │                │  Multi-week SOW                      │
+  │  Overnight delivery  │                │  12-month support contract           │
+  │  3B / 9B / 32B       │                │  7B–405B (any architecture)          │
+  └──────────────────────┘                └──────────────────────────────────────┘
+       SMB → Mid-market                          Enterprise / regulated
+```
+
+### When to pick which
+
+| Customer signal                                               | Right SKU                          |
+| ------------------------------------------------------------- | ---------------------------------- |
+| "I have a dataset in JSONL — train me a model"                | → **Train Model (TM-001)**         |
+| "I have raw documents — build me a dataset and train a model" | → **Enterprise Model Training**    |
+| "Standard architecture is fine"                               | → **Train Model (TM-001)**         |
+| "I need a custom architecture / 405B / non-Llama base"        | → **Enterprise Model Training**    |
+| "Buy once, no ongoing relationship"                           | → **Train Model (TM-001)**         |
+| "12-month support contract required"                          | → **Enterprise Model Training**    |
+| "Single model, single use case"                               | → **Train Model (TM-001)**         |
+| "Full ecosystem — model + APIs + agents + monitoring"         | → **Enterprise Model Training**    |
+
+A customer who outgrows Train Model graduates to Enterprise Model Training. The two SKUs are complementary, not competitive — the ladder prevents leakage to OpenAI on the entry end and protects project-tier engagement value on the enterprise end.
+
+See [PRODUCT_TRAIN_MODEL.md](PRODUCT_TRAIN_MODEL.md) for the entry SKU.
 
 ---
 
@@ -381,8 +423,10 @@ Begin project with:
 
 ## Related Products
 
+- [Train Model (TM-001)](PRODUCT_TRAIN_MODEL.md) — self-serve entry tier (€1,490–€7,490) for customers who bring their own dataset
 - [Lifetime Agent Foundry](PRODUCT_AGENT_FOUNDRY.md)
 - [Agent Administration Platform](PRODUCT_AGENT_ADMINISTRATION.md)
+- [Aegis](PRODUCT_AEGIS.md) — sovereign tier; required for CLOUD-Act-free deployments
 - [DWS IQ 6 Platform](../INVESTOR_DOCUMENTATION.md)
 
 ---
