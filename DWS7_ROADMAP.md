@@ -420,6 +420,19 @@ The codebase has ~~3~~ 17 test files. Coverage gate still missing — this remai
 | 176 | Carbon reduction tracking vs targets           | P0       | SBTi target progress visualization                          |
 | 177 | Board-ready ESG presentation export            | P1       | PowerPoint/PDF export formatted for board meetings          |
 
+### 4.5 eIDAS 2.0 & Trust Services (PRs TBD — call-conditional)
+
+Added to support DIGITAL-2026-AI-DATA-10 grant deliverable. Not counted in the 40 PR Phase 4 total; triggered when EUDI Wallet Large Scale Pilots reach production in target jurisdictions (Finland, Germany). See `docs/EU_FUNDING_DIGITAL_2026_AI_DATA_10.md` §3 requirement #7.
+
+| PR  | Title                                                         | Priority | Description                                                                                       |
+| --- | ------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------- |
+| TBD | EUDI Wallet relying-party integration (OIDC4VP / ISO 18013-5) | P1       | Authenticate natural + legal persons via wallet-issued PIDs when submitting compliance data       |
+| TBD | Qualified Electronic Seal (QSeal) on compliance submissions   | P1       | Apply QTSP-issued seals to ETS / CBAM / CSRD reports per eIDAS 2.0                                |
+| TBD | Qualified Electronic Ledger integration                       | P2       | Tamper-evident audit trail for regulatory submissions via qualified ledger (eIDAS 2.0 Art. 45h)   |
+| TBD | EUDI Wallet verification at Supplier Portal onboarding        | P2       | Verify supplier legal identity via wallet-issued LPID at Phase 5 Supplier Portal (PR 178) sign-up |
+
+**Trigger condition:** European Commission EUDI Wallet rollout — LSPs (Large Scale Pilots) reaching GA in FI/DE. Track via EU Digital Identity Wallet Toolbox + national wallet providers (FI: DVV, DE: Bundesdruckerei).
+
 ---
 
 ## Phase 5: Market Expansion (Feb–May 2027) — 44 PRs
@@ -713,6 +726,7 @@ DWS7 is eligible for multiple EU funding instruments. These are non-dilutive and
 | **Horizon Europe — Cluster 5: Climate, Energy & Mobility** | Up to €5M per project                | Rolling calls 2026-2027                                     | Climate compliance automation, IoT monitoring, ETS optimization                                                                                                                                                                                               | 2, 4  |
 | **EIC Accelerator**                                        | Up to €2.5M grant + €15M equity      | Cut-off dates: Mar, Jun, Oct 2026                           | Deep-tech AI platform with market traction, <€5M revenue                                                                                                                                                                                                      | 3     |
 | **Digital Europe Programme (DIGITAL)**                     | €50K–€2M (€63.2M envelope announced) | 4 of 7 calls open, deadline 2026-10-01 — monitor for 3 more | AI deployment in industry, cybersecurity, cloud-to-edge. Current open 4 are low DWS fit (medical-imaging, EDIC CSA, info-integrity cascading grants, D&E CSA). See `docs/field-notes/2026-04-22-digital-europe-programme-ai-health-online-safety-call.md` §3. | 1, 4  |
+| **DIGITAL-2026-AI-DATA-10 (AI Continent / Compliance)**    | Lump sum grant (3–4 projects)        | **Deadline 01 Oct 2026**                                    | Direct thesis match: automate EU regulatory reporting via trusted data sharing. One of the "3 more" DIGITAL topics referenced above. See [`docs/EU_FUNDING_DIGITAL_2026_AI_DATA_10.md`](docs/EU_FUNDING_DIGITAL_2026_AI_DATA_10.md).                          | 2, 3  |
 | **EIC Pathfinder**                                         | Up to €4M                            | Annual calls                                                | Novel multi-agent coordination, agentic AI for compliance                                                                                                                                                                                                     | 4     |
 | **LIFE Programme — Clean Energy Transition**               | Up to €2M co-funding                 | Annual calls Q1                                             | Tools for industrial decarbonization, ETS compliance                                                                                                                                                                                                          | 2     |
 | **InvestEU — Sustainable Infrastructure**                  | Loan guarantees, equity              | Continuous via intermediaries                               | Scale-up funding for climate-tech platforms                                                                                                                                                                                                                   | 5, 6  |
@@ -746,18 +760,19 @@ Phase 6 (Jun-Dec 2027): Apply for InvestEU (scale-up infrastructure)
 
 ### Funding Application Calendar
 
-| Month    | Program                          | Action                                                                      | Estimated Value       |
-| -------- | -------------------------------- | --------------------------------------------------------------------------- | --------------------- |
-| Mar 2026 | Business Finland Tempo           | Submit application                                                          | €50K                  |
-| Apr 2026 | Digital Europe Programme         | Reviewed: 4 of 7 topics open, none primary DWS fit — monitor for topics 5–7 | €200K–€500K (if fit)  |
-| Jun 2026 | LIFE Programme                   | Submit consortium proposal                                                  | €500K–€1M             |
-| Jul 2026 | Academy of Finland               | PhD funding application                                                     | €150K (4 years)       |
-| Oct 2026 | Digital Europe Programme         | Submit only if a primary-fit topic opens (deadline 2026-10-01) — else skip  | €200K–€500K           |
-| Oct 2026 | EIC Accelerator                  | Submit full application                                                     | €2.5M grant + equity  |
-| Nov 2026 | Horizon Europe Cluster 4         | Submit consortium proposal                                                  | €500K–€1M (DWS share) |
-| Jan 2027 | EU Innovation Fund (small-scale) | Submit application                                                          | €2.5M                 |
-| Mar 2027 | Business Finland Co-Innovation   | Submit with industrial partners                                             | €1M                   |
-| Jun 2027 | Climate Fund (Ilmastorahasto)    | Growth investment discussion                                                | €2M–€5M               |
+| Month    | Program                              | Action                                                                      | Estimated Value         |
+| -------- | ------------------------------------ | --------------------------------------------------------------------------- | ----------------------- |
+| Mar 2026 | Business Finland Tempo               | Submit application                                                          | €50K                    |
+| Apr 2026 | Digital Europe Programme             | Reviewed: 4 of 7 topics open, none primary DWS fit — monitor for topics 5–7 | €200K–€500K (if fit)    |
+| Apr 2026 | DIGITAL-2026-AI-DATA-10 (Compliance) | Topic opens 21 Apr — confirmed primary fit, queue for Oct submission        | €200K–€500K             |
+| Jun 2026 | LIFE Programme                       | Submit consortium proposal                                                  | €500K–€1M               |
+| Jul 2026 | Academy of Finland                   | PhD funding application                                                     | €150K (4 years)         |
+| Oct 2026 | DIGITAL-2026-AI-DATA-10 (Compliance) | Submit by 01 Oct 17:00 Brussels                                             | Lump sum (3–4 projects) |
+| Oct 2026 | EIC Accelerator                      | Submit full application                                                     | €2.5M grant + equity    |
+| Nov 2026 | Horizon Europe Cluster 4             | Submit consortium proposal                                                  | €500K–€1M (DWS share)   |
+| Jan 2027 | EU Innovation Fund (small-scale)     | Submit application                                                          | €2.5M                   |
+| Mar 2027 | Business Finland Co-Innovation       | Submit with industrial partners                                             | €1M                     |
+| Jun 2027 | Climate Fund (Ilmastorahasto)        | Growth investment discussion                                                | €2M–€5M                 |
 
 ### Total Non-Dilutive Funding Potential: €7M–€12M (2026-2027)
 

@@ -1,0 +1,133 @@
+# EU Funding Brief — DIGITAL-2026-AI-DATA-10 (AI Continent / Compliance)
+
+***
+
+## VERSION AND AGENT HISTORY
+
+| Field          | Value                                                          |
+| -------------- | -------------------------------------------------------------- |
+| Version        | 1.0                                                            |
+| Date           | 2026-04-22                                                     |
+| Author         | Lifetime Oy                                                    |
+| Owner          | risto-001                                                      |
+| Status         | Draft — pre-decision                                           |
+| Classification | Internal                                                       |
+| Introduced-In  | PR-TBD                                                         |
+| Branch         | claude/add-eu-funding-info-GNDb4                               |
+| Source         | EU Funding & Tenders Portal (topic page, retrieved 2026-04-22) |
+
+***
+
+## 1. Call Identification
+
+| Field             | Value                                                                   |
+| ----------------- | ----------------------------------------------------------------------- |
+| Programme         | Digital Europe Programme (DIGITAL)                                      |
+| Call              | AI Continent                                                            |
+| Call ID           | DIGITAL-2026-AI-DATA-10                                                 |
+| Topic ID          | DIGITAL-2026-AI-DATA-10-COMPLIANCE                                      |
+| Type of action    | DIGITAL-LS — DIGITAL Lump Sum Grants                                    |
+| Type of MGA       | DIGITAL Lump Sum Grant [DIGITAL-AG-LS]                                  |
+| Deadline model    | Single-stage                                                            |
+| Opening date      | 21 April 2026                                                           |
+| Deadline          | 01 October 2026, 17:00 Brussels time                                    |
+| Expected projects | 3–4 funded                                                              |
+| Policy anchor     | Specific Objective 2 (SO2) of DIGITAL — reinforce EU core AI capacities |
+| Strategy anchor   | Apply AI Strategy (upcoming)                                            |
+
+***
+
+## 2. Objective (verbatim from topic page)
+
+Deliver 3–4 projects that demonstrate **streamlining of regulatory reporting through automated and trusted sharing of compliance data**. Each project must address governance, technical, legal, and processing aspects.
+
+Programme-level goal: reduce administrative burden on enterprises by applying advanced digital technologies to automate the reporting process — targeting regulatory reporting requirements from aggregate data (balance sheets) to detailed data (transactions, events, product registrations). Strong focus on **privacy-preserving technologies** to ensure trust between reporting entity and regulatory authority.
+
+***
+
+## 3. Scope Requirements — Mapped to DWS IQ 6
+
+Commission requirement on the left; existing DWS IQ 6 capability on the right. `✓` = in production, `~` = partial / roadmap, `✗` = gap.
+
+| #   | Commission Requirement                                                                                       | DWS IQ 6 Today                                                                                                                   | Fit |
+| --- | ------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- | --- |
+| 1   | Privacy-preserving technologies, data capturing, automatic transmission, analysis, cloud storage, encryption | Aiwen sovereign cloud layer (Q2 2026), KYA hardware-attested agent isolation, EU-resident Supabase (Finland/Germany)             | ~   |
+| 2   | Comprehensive APIs for real-time compliance and self-compliance checks                                       | `/mcp` JSON-RPC 2.0 endpoint, `dws` CLI with structured JSON output, 18 platform agents exposed via `tools/list`                 | ✓   |
+| 3   | Machine learning for automated monitoring and reporting                                                      | Claude / Gemini / Groq / Ollama routing; compliance agent scores CSRD, CBAM, ETS, EPBD deterministically                         | ✓   |
+| 4   | Deterministic data collection using Common European Data Space catalogue entries                             | ESRS registry (82 disclosures mapped), emission-factors.ts (EU ETS Benchmark 2021-2025, CBAM defaults Reg. 2023/1773, IPCC 2006) | ✓   |
+| 5   | Direct communication channels with regulatory authorities; machine-readable reporting requirements           | `regulatory-radar` skill scans EUR-Lex / DG ENER / EFRAG / CINEA; requirements modelled as executable rules                      | ~   |
+| 6   | Robust access control and audit trails                                                                       | EU AI Act Article 12 logging (Aiwen), RLS on every Supabase table, `logs/email-audit.jsonl`, PR-traceable code versioning        | ✓   |
+| 7   | European Digital Identity Wallet integration (when available)                                                | Planned — roadmap entry `DWS7_ROADMAP.md` §Phase 4.5 "eIDAS 2.0 & Trust Services" (call-conditional, triggered by EUDI LSP GA)   | ~   |
+| 8   | Collaboration with data-space providers, emphasis on open source (e.g. Simpl)                                | Simpl alignment possible; repo is TypeScript + Python, large parts of platform are open architecture                             | ~   |
+| 9   | Open source, interoperable with existing government data systems, European standards                         | Private repo today; open-source release of compliance core feasible as grant deliverable                                         | ~   |
+| 10  | Scalable to large volumes and high transaction rates                                                         | Supabase + pgvector, Cloudflare Workers edge, DGX Spark on-prem inference, 37 CI/CD workflows                                    | ✓   |
+| 11  | End-user-focused, accessible                                                                                 | Customer onboarding wizard (shipped March 2026), compliance scoring UI                                                           | ✓   |
+| 12  | Comprehensive data governance (quality, stewardship, lifecycle)                                              | DWS_DATA_STANDARD.md covers storage governance, columnar/row policy, extension registry, retention, EU compliance                | ✓   |
+| 13  | Quantifiable compliance metrics assessable by analytics                                                      | Deterministic scoring per regulation (ETS, CBAM, CSRD, EPBD, ESR, LULUCF, ReFuelEU, NIS2, CER, EU AI Act)                        | ✓   |
+| 14  | No overlap with ongoing initiatives (Digital Product Passport, Customs reform)                               | Scope is **reporting automation**, not DPP or customs — no overlap                                                               | ✓   |
+
+Sectors the call wants to explore: **agriculture, environment, manufacturing, healthcare, energy**. DWS IQ 6 already operates in **manufacturing, energy, environment, construction**, with agent coverage across 20 EU-regulated industries.
+
+***
+
+## 4. Strategic Fit Assessment
+
+**Why this call is a priority for DWS IQ 6:**
+
+- Exact thesis match: "automate regulatory reporting through trusted data sharing" is the DWS IQ 6 product definition.
+- Sectoral match: call explicitly names environment, manufacturing, energy — three of DWS's four primary verticals.
+- Lump sum MGA lowers audit overhead compared to actual-cost Horizon grants.
+- Opening 21 Apr 2026 → deadline 01 Oct 2026 gives ~5 months to build a consortium and submit.
+- Complements the **EIC Accelerator Oct 2026 cut-off** already on the roadmap; the two applications can share technical annexes.
+
+**Gaps to close before submission:**
+
+1. **Consortium partners** — need ≥1 reporting entity (industrial), ≥1 regulatory authority or sandbox, ≥1 data-space provider (preferably Simpl-aligned).
+2. **Open-source commitment** — define which compliance-core modules ship OSS as a grant deliverable (candidates: `emission-factors.ts`, `esrs-registry.ts`, MCP compliance server).
+3. **Privacy-preserving tech evidence** — document KYA + Aiwen attestation and map to call requirement 1.
+4. **eIDAS 2.0 wallet plan** — done: `DWS7_ROADMAP.md` §Phase 4.5 "eIDAS 2.0 & Trust Services" (PRs TBD, call-conditional on EUDI Wallet LSP GA in FI/DE).
+5. **Sector pick** — choose 1–2 sectors to pilot (recommend: energy/ETS + manufacturing/CBAM — DWS has deepest data).
+
+***
+
+## 5. Next Steps
+
+| #   | Action                                                                            | Owner      | Target date |
+| --- | --------------------------------------------------------------------------------- | ---------- | ----------- |
+| 1   | Confirm go/no-go with CEO                                                         | Risto      | 2026-04-30  |
+| 2   | Download call document + Part B application form from Submission System           | Risto      | 2026-05-05  |
+| 3   | Identify 2 industrial partners (reporting entities) and 1 regulatory-side partner | Sales      | 2026-06-15  |
+| 4   | Draft Part B sections 1–3 (Excellence, Impact, Implementation)                    | Risto + AI | 2026-07-31  |
+| 5   | Detailed budget table (DEP LSII template) — lump sum work packages                | Risto      | 2026-08-31  |
+| 6   | Internal review + external reader                                                 | External   | 2026-09-15  |
+| 7   | Submit via Funding & Tenders Portal                                               | Risto      | 2026-09-25  |
+
+***
+
+## 6. Reference Documents
+
+- Call page: Funding & Tenders Portal — topic `DIGITAL-2026-AI-DATA-10-COMPLIANCE`
+- Application form: Standard application form (DEP), in Submission System
+- Budget template: Detailed budget table (DEP LSII)
+- Model Grant Agreement: Lump Sum MGA
+- Regulation: Regulation (EU) 2021/694 of 29 April 2021 establishing the Digital Europe Programme (OJ L 166, 11.5.2021, p. 1); EU Financial Regulation 2024/2509
+- Related internal docs:
+  - `DWS7_ROADMAP.md` §EU Funding Programs
+  - `docs/INVESTOR_ROADMAP_2026.md`
+  - `docs/briefs/construction-compliance-brief.md`
+  - `README.md` §Regulatory Layer coverage table
+  - `src/compliance/emission-factors.ts`, `src/compliance/eu-benchmarks.ts`, `src/compliance/esrs-registry.ts`
+
+***
+
+## 7. Open Questions
+
+1. Consortium size — is DWS lead applicant or partner? (Lead = more work, more credit; Partner = faster submission.)
+2. Which sector pilot gives strongest narrative — energy/ETS (deepest DWS data) or environment/CSRD (broadest applicability)?
+3. Does the Simpl programme alignment require code-level integration by submission, or is a letter of intent sufficient?
+4. Open-source scope — release compliance core under EUPL or Apache-2.0? Licence choice affects future enterprise licensing.
+5. Co-funding rate for DIGITAL-LS lump sum — to be confirmed from call document (typically 50%, can be 100% for coordination actions).
+
+***
+
+**End of brief.**
