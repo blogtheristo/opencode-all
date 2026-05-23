@@ -4,12 +4,13 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/ai-pricing-labor-model-GeqbE | Date: 14.05.2026 | Changes: Initial creation — first labor-anchored price list for DWS Skilled Agents (per-outcome + per-agent-month units) and derived listings for Microsoft Agent 365 (Azure Marketplace) and Salesforce Agentforce (AppExchange). Companion to AI-AS-LABOR-PRICING-STRATEGY.md. Pilot/Blue prices; commercial Green ratification pending Dynamic Deployment Pricing Standard governance.
 - Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/lwm-price-estimate-study-IXS4l | Date: 23.05.2026 | Changes: Added §3 "Model Training" chapter covering the full product ladder: Train Model (TM-001) self-serve at €1,490 / €2,990 / €7,490, Bridge Track (EMT-001 invite-only) at €19,990, Enterprise Model Training (EMT-001 project) at €50K / €100K / €200K. Renumbered subsequent chapters (Recommended Bundles → §4, Microsoft Agent 365 → §5, Salesforce Agentforce → §6, Channel Comparison → §7, Governance Hooks → §8, Open Questions → §9, Companion Documents → §10). Updated companion references to link Store SKU pages.
+- Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/lwm-price-estimate-study-IXS4l | Date: 23.05.2026 | Changes: Added "Measurement plan" subsection to §3 Model Training. Flags that Train Model has zero historical conversion data and locks 60-day measurement metrics (cart starts, completed orders, tier mix, Bridge inbound, Aegis attach, time-to-completion, SLA invocations) before Y1 projections get scaled into paid marketing. Defers Firehorse mobile-UI surfacing decision until tier mix is measured.
 
 Session Links & References:
 
@@ -155,6 +156,24 @@ Notes:
 Full product specs:
 - [Store/PRODUCT_TRAIN_MODEL.md](../../Store/PRODUCT_TRAIN_MODEL.md) — TM-001 self-serve (T1–T3)
 - [Store/PRODUCT_ENTERPRISE_MODEL_TRAINING.md](../../Store/PRODUCT_ENTERPRISE_MODEL_TRAINING.md) — EMT-001 Bridge Track + Starter / Pro / Enterprise (T4–T7)
+
+### Measurement plan (pre-launch — read before scaling marketing spend)
+
+Train Model has **zero historical conversion data** — TM-001 is a brand-new SKU. The Y1 projection (50 customers, ~€170K revenue, mix 10 Compact / 30 Standard / 10 Pro) is anchored on price benchmarks (OpenAI fine-tune, Hugging Face AutoTrain, Together AI) and one proxy signal (78% acceptance on the production "compliance strategist" upsell rule per `docs/GTM_MACHINE_PHASE_2_SUMMARY.md:218`). It is **not** anchored on measured Train Model demand.
+
+For the first **60 days post-launch**, track:
+
+| Metric                            | Source                                        | Decision it informs                                |
+| --------------------------------- | --------------------------------------------- | -------------------------------------------------- |
+| Cart starts (TM-001 page → Stripe)| `dws10.com/admin/analytics/funnel.html`       | Top-of-funnel: is the SKU page converting visitors?|
+| Completed orders                  | Stripe + Supabase                             | Y1 projection sanity check (target ≥ 4/month avg)  |
+| Tier mix (Compact / Standard / Pro split) | Stripe line items                     | Pricing-anchor validity; informs Firehorse surfacing decision (heavy Standard/Pro → desktop buyers → defer mobile) |
+| Bridge Track inbound qualifications | sales CRM (qualifying-call dispositions)    | Validate teaser-tile pull; confirm or kill the gated-tile pattern |
+| Aegis sovereign uplift attach rate| Stripe + order metadata                       | Sovereign-tier demand signal; informs Aegis pricing |
+| Time-to-completion (order → artifact delivery) | order timestamps                | Unattended-loop reliability proof (gate for SLA promise) |
+| 30-day eval-regression SLA invocations | Support tickets                          | Quality signal; informs add-on pricing and Pro tier scope |
+
+**Re-anchor before scaling.** After 60 days, re-fit the Y1 projection against measured data. If tier mix, conversion rate, or unattended reliability are materially off, the price-list §3 numbers, the Store SKU pages, and the BOM tables get a revision pass *before* paid marketing or new ICP outbound begins.
 
 ---
 
