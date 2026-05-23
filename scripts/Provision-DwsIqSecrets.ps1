@@ -16,6 +16,7 @@
       JWT_SECRET            -> jwt-secret
       SMTP_USER             -> smtp-user
       SMTP_PASS             -> smtp-pass
+      EXA_API_KEY           -> exa-api-key
 
     Then grants roles/secretmanager.secretAccessor on each secret to the
     Cloud Run runtime service account (Compute Engine default SA; this is the
@@ -86,6 +87,7 @@ $SecretMap = [ordered]@{
     'JWT_SECRET'            = 'jwt-secret'
     'SMTP_USER'             = 'smtp-user'
     'SMTP_PASS'             = 'smtp-pass'
+    'EXA_API_KEY'           = 'exa-api-key'
 }
 
 function Write-Info  { param($m) Write-Host "[INFO]  $m" -ForegroundColor Cyan }
