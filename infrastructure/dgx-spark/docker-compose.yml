@@ -304,9 +304,11 @@ services:
     environment:
       PORT: 9801
       SNAPSHOT_DIR: /app/state/snapshots
+      DASHBOARD_PATH: /app/dashboard.html
     entrypoint: ["node", "--experimental-strip-types", "/app/state-observer.ts"]
     volumes:
       - ./state-observer.ts:/app/state-observer.ts:ro
+      - ./dashboard.html:/app/dashboard.html:ro
       - state-snapshots:/app/state/snapshots
       - /var/run/docker.sock:/var/run/docker.sock:ro
     extra_hosts:

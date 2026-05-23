@@ -335,7 +335,21 @@ async function captureSnapshot(): Promise<StateSnapshot> {
 setInterval(captureSnapshot, 60_000);
 captureSnapshot();
 
+const DASHBOARD_PATH = process.env.DASHBOARD_PATH || '/app/dashboard.html';
+
 const server = http.createServer(async (req, res) => {
+  if (req.url === '/dashboard' || req.url === '/dashboard/') {
+    try {
+      const html = fs.readFileSync(DASHBOARD_PATH, 'utf-8');
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      res.end(html);
+    } catch {
+      res.writeHead(500, { 'Content-Type': 'text/plain' });
+      res.end('Dashboard file not found');
+    }
+    return;
+  }
+
   res.setHeader('Content-Type', 'application/json');
 
   if (req.url === '/state/latest' || req.url === '/') {
@@ -391,4 +405,5 @@ server.listen(PORT, '0.0.0.0', () => {
   console.log(`[STATE] Latest:  http://localhost:${PORT}/state/latest`);
   console.log(`[STATE] Drift:   http://localhost:${PORT}/state/drift`);
   console.log(`[STATE] History: http://localhost:${PORT}/state/history?date=YYYY-MM-DD`);
+  console.log(`[STATE] Dashboard: http://localhost:${PORT}/dashboard`);
 });
