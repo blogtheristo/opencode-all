@@ -1,10 +1,10 @@
 # DWS7 ROADMAP — From Pilot to 16 Paying Industrial Customers
 
 > **Document Standard:** DWS Document Standard v2.0
-> **Version:** 1.5.0
+> **Version:** 1.6.0
 > **Status:** Living Document (auto-tracked weekly)
 > **Created:** 2026-02-12
-> **Updated:** 2026-04-16 — Added Phase 6.4 Multi-Jurisdiction Infrastructure (PRs 248–251): jurisdiction router, UAE/G42 integration, ASEA scaffold, 4-jurisdiction sovereignty score engine. Decision record: docs/field-notes/2026-04-16-jurisdiction-expansion-dws7.md
+> **Updated:** 2026-05-23 — Added Phase 4.6 Situation Room — Strategic Command Surface (PRs 177A–177D): product-surface scaffold, LWM V2 NIM container, Control Room ↔ Situation Room federation, KYA TC-3 access control. Sits next to §4.5 eIDAS 2.0 & Trust Services (added separately via #1376). Decision record: `docs/field-notes/2026-05-15-nvfp4-pretraining-for-control-room-lwm.md` (V2 timing pin) and `docs/field-notes/2026-05-23-lwm-price-estimate-colab-vs-nvidia-cloud.md` (two-budget split). Previously: 2026-04-16 — Added Phase 6.4 Multi-Jurisdiction Infrastructure (PRs 248–251): jurisdiction router, UAE/G42 integration, ASEA scaffold, 4-jurisdiction sovereignty score engine. Decision record: docs/field-notes/2026-04-16-jurisdiction-expansion-dws7.md
 > **Timeline:** Q1 2026 → Q4 2027 (22 months)
 > **Target:** DWS IQ 7 — Production-grade, 16 industrial customers, investors signed, profitable
 
@@ -72,7 +72,7 @@ Physical and cloud infrastructure already in place entering Phase 1. These are n
 | **1** | Feb–Apr 2026      | **Launch & Stabilize**                       | 45  | V1.0 production launch, first 3 paying customers                              |
 | **2** | May–Jul 2026      | **Compliance Engine + Carbon Balance Sheet** | 56  | Full Fit-for-55 coverage, EU AI Act compliance, debit-credit ledger           |
 | **3** | Aug–Oct 2026      | **Scale & Harden**                           | 48  | 8 customers, ISO 27001 initiated, SOC 2 prep, Aegis K8s inference infra       |
-| **4** | Nov 2026–Jan 2027 | **Intelligence Layer**                       | 40  | Agentic AI workflows, IoT pipeline live                                       |
+| **4** | Nov 2026–Jan 2027 | **Intelligence Layer**                       | 40  | Agentic AI workflows, IoT pipeline live, **Situation Room ships (LWM V2)**    |
 | **5** | Feb–May 2027      | **Market Expansion**                         | 44  | 16 customers, supplier portal, partner ecosystem, open-source agent framework |
 | **6** | Jun–Dec 2027      | **DWS7 Release**                             | 32  | V7.0 GA, investor metrics dashboard, profitability                            |
 
@@ -432,6 +432,23 @@ Added to support DIGITAL-2026-AI-DATA-10 grant deliverable. Not counted in the 4
 | TBD | EUDI Wallet verification at Supplier Portal onboarding        | P2       | Verify supplier legal identity via wallet-issued LPID at Phase 5 Supplier Portal (PR 178) sign-up |
 
 **Trigger condition:** European Commission EUDI Wallet rollout — LSPs (Large Scale Pilots) reaching GA in FI/DE. Track via EU Digital Identity Wallet Toolbox + national wallet providers (FI: DVV, DE: Bundesdruckerei).
+
+### 4.6 Situation Room — Strategic Command Surface (PRs 177A–177D)
+
+**Strategic context:** Situation Room is the productized strategic-command surface that sits above per-customer Control Rooms (which run LWM1 / V1 per-industry models locally on Acer Veriton GN-100). Situation Room consumes **LWM V2** (omnimodal, NVFP4-native, ≥100B class) for cross-room reasoning. V2 ships in Phase 4 per `docs/field-notes/2026-05-15-nvfp4-pretraining-for-control-room-lwm.md`. Earlier roadmap drafts left this surface implicit inside Phase 4.1 Agentic AI Workflows; pinning it as its own subsection 4.6 prevents slip into Phase 5+ and gives the work explicit ownership. See `docs/field-notes/2026-05-23-lwm-price-estimate-colab-vs-nvidia-cloud.md` for the two-budget split that separates V1 fine-tune economics (cheap A100 cloud, Train Model TM-001 SKU) from V2 pretrain economics (Blackwell silicon, Enterprise Model Training EMT-001 SKU).
+
+| PR    | Title                                                       | Priority | Description                                                                                                                                          |
+| ----- | ----------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 177A  | Situation Room product surface scaffold                     | P0       | React dashboard component + backend API. Strategic-command view consuming LWM V2 inference. Parallel to Control Room field-ops view, not a replacement — Control Rooms continue to run LWM V1 per-industry models locally per customer site. |
+| 177B  | LWM V2 inference container (NVFP4 native, Blackwell)        | P0       | NVIDIA NIM container packaging LWM V2 with NVFP4 weights for B100 / B200 / GB10 deployment. Inference-only; V2 training pipeline scoped in NVFP4 lab note. ~28 GB on disk (NVFP4), fits single Acer GN-100 or DGX Spark chassis. |
+| 177C  | Control Room → Situation Room federation                    | P1       | Cross-room data flow: per-site Control Room state aggregated into Situation Room strategic view. Per-customer privacy boundaries enforced via KYA chain-of-custody; cross-customer queries gated by Aegis tier. |
+| 177D  | Situation Room access control (KYA TC-3 + Article 12 audit) | P0       | KYA TC-3 strategic-command trust tier (above TC-2 field-ops default). Multi-party approval for cross-customer queries. Full EU AI Act Article 12 reasoning lineage logged for every Situation Room session. |
+
+**Owners / dependencies:**
+- Depends on V2 pretraining (separate workstream, see NVFP4 lab note)
+- Depends on PR 137A–137D Aegis K8s inference infra (Phase 3.6)
+- Depends on KYA v1.4 (already in place, internal)
+- Unblocks: Situation Room product SKU (Store catalog entry, separate PR in Phase 5 marketing track)
 
 ---
 

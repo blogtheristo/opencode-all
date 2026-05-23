@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.5
+Version: 1.6
 
 Sessions & Modifications:
+  - Version: 1.6 | Tool: Claude Code (Opus 4.7) | Session: claude/lwm-price-estimate-study-IXS4l | Date: 23.05.2026 | Changes: Pinned V2 / Situation Room timing to **DWS IQ 7 Phase 4 (Nov 2026 – Jan 2027)** per DWS7_ROADMAP.md. Earlier "DWS IQ 7" wording risked being read as "DWS IQ 7 GA = Q4 2027" — a 10-month overstatement of the customer-facing wait. Phase 4 is the actual Intelligence Layer milestone that ships V2. Also surfaces the IQ 8 mismatch: DWS IQ 8 GA = Q3-Q4 2029, hardware-bound to NVIDIA Feynman silicon — not a viable "later" option for V2 / Situation Room without a 3-year delay.
   - Version: 1.5 | Tool: Claude Code (Opus 4.7) | Session: claude/lwm-price-estimate-study-IXS4l | Date: 23.05.2026 | Changes: Appended "Training Economics Addendum (LWM2)" — separates the V1 per-industry fine-tune economics (now ~$10 USD on Colab Pro+ A100 80GB, an order of magnitude under the manual's €50–70 figure) from the V2 NVFP4 pretrain economics (still B100/B200/GB10 class, justifies DGX Cloud / Brev premium). Confirms the two-budget split: V1 fine-tunes go cheap-cloud, V2 omnimodal pretrain stays on Blackwell silicon.
   - Version: 1.4 | Tool: Claude Code (Opus 4.7) | Session: claude/industries-hub-worldmodel-lJrC6 | Date: 15.05.2026 | Changes: Promoted **`nvidia/Gemma-4-31B-IT-NVFP4`** to canonical spike model — first-party NVIDIA release with documented **99.7% accuracy retention on GPQA (75.46% vs 75.71%)**, ~16 GB on disk, attention kept in BF16 (matches arxiv:2509.25149 §3 selective-precision pattern), 256K context preserved. Kept drawais Qwen3 variants as recipe-contrast points. The three models now stake out three points on the quantization-recipe surface (skip-attention, quantize-everything, SpinQuant) for our 55B LWM PTQ decision.
   - Version: 1.3 | Tool: Claude Code (Opus 4.7) | Session: claude/industries-hub-worldmodel-lJrC6 | Date: 15.05.2026 | Changes: Added `drawais/Qwen3-32B-NVFP4` as the headline spike model (Apache-2.0, dense 32B, **W4A4**, ~17 GB on disk, fits a single 24 GB consumer GPU). 32B is the closest publicly available proxy for an LWM-class checkpoint on a control-room-class box. Kept the 8B variant as a laptop fallback and added a model-selection table.
@@ -166,7 +167,9 @@ That's it — no code changes, no recipe tuning, no quantization work of our own
 
 Owner for the spike: whoever's first to a GN-100 / Spark / 4090+ with an idle hour. Default model: **`nvidia/Gemma-4-31B-IT-NVFP4`** if the GPU is ≥24 GB, else `drawais/Qwen3-8B-SpinQuant-NVFP4`. Result: a one-page tok/s + memory + GPQA comparison appended to this note as Appendix B.
 
-### V2 Omnimodal / Video — November 2026 (DWS IQ 7)
+### V2 Omnimodal / Video — DWS IQ 7 Phase 4 (Nov 2026 – Jan 2027)
+
+> **Timing note (locked 23.05.2026):** V2 ships as part of **DWS IQ 7 Phase 4 "Intelligence Layer"** per `DWS7_ROADMAP.md` line 75. Not DWS IQ 7 GA (Q4 2027) and not DWS IQ 8 (Q3–Q4 2029). Phase 4 is the actual customer-facing milestone. See PRs 177A–177D in `DWS7_ROADMAP.md` for the Situation Room product-surface work that consumes this V2 model.
 
 **Design for NVFP4 from day one.** Video tokens are the killer use case:
 - Video at 8 FPS × 6 months on-site = **billions of vision tokens** per construction project
@@ -197,7 +200,7 @@ This is the alignment point with the **world-model V1→V2 roadmap** we just shi
 
 ## One-line thesis
 
-> NVFP4 is the format that makes a 100B-class on-prem world model fit in a single control-room chassis. The paper proves the recipe works at 12B / 10T tokens. We pre-commit to NVFP4 for LWM V2 (November 2026) and decide on an NVFP4 V1.1 inference path before June 12.
+> NVFP4 is the format that makes a 100B-class on-prem world model fit in a single control-room chassis. The paper proves the recipe works at 12B / 10T tokens. We pre-commit to NVFP4 for LWM V2 (**DWS IQ 7 Phase 4 — Nov 2026 / Jan 2027**) and decide on an NVFP4 V1.1 inference path before June 12.
 
 ---
 
