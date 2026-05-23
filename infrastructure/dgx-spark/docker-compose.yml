@@ -2,15 +2,15 @@
 # Hardware: Acer Veriton GN100 (NVIDIA Grace Blackwell GB10, 128GB, ARM64)
 # Failover: GitHub Actions mirrors all cron schedules
 #
-# Code-Version: 1.1.1
-# Introduced-In: PR-1045
+# Code-Version: 1.2.0
+# Introduced-In: PR-1117
 # Branch: claude/aspire-isolated-mode-research-IXTT0
-# Date: 2026-05-22
+# Date: 2026-05-23
 # Owner: Lifetime Oy
-# Change: Added aspire-dashboard:13.3.5 (dashboard-only, option 1 from field note
-#         2026-04-10-aspire-13-2-isolated-mode.md §2.4). No AppHost or .NET toolchain
-#         required. OTEL_* env vars pre-wired to dws-backend and dws-cron — ignored
-#         until @opentelemetry/sdk-node is added; establishes the contract.
+# Change: v1.2.0 — Fixed OTel protocol (gRPC→HTTP, port 18889→18888 to match
+#         otel.ts HTTP exporter). Added state-observer for typed system snapshots
+#         (CPU, memory, GPU, containers, drift detection). Added github-runner and
+#         state-observer to heartbeat checks. Self-hosted runner registered.
 
 services:
   # ==========================================================================
@@ -51,8 +51,8 @@ services:
       HEARTBEAT_PORT: 9999
       # OpenTelemetry — pre-wired for Aspire Dashboard (active when @opentelemetry/sdk-node added)
       OTEL_SERVICE_NAME: dws-backend
-      OTEL_EXPORTER_OTLP_ENDPOINT: http://aspire-dashboard:18889
-      OTEL_EXPORTER_OTLP_PROTOCOL: grpc
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://aspire-dashboard:18888
+      OTEL_EXPORTER_OTLP_PROTOCOL: http/protobuf
     volumes:
       - backend-logs:/app/logs
       - backup-data:/app/backups
@@ -100,8 +100,8 @@ services:
       # No HEARTBEAT_URL — cron-runner skips the periodic POST
       # OpenTelemetry — pre-wired for Aspire Dashboard (active when @opentelemetry/sdk-node added)
       OTEL_SERVICE_NAME: dws-cron
-      OTEL_EXPORTER_OTLP_ENDPOINT: http://aspire-dashboard:18889
-      OTEL_EXPORTER_OTLP_PROTOCOL: grpc
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://aspire-dashboard:18888
+      OTEL_EXPORTER_OTLP_PROTOCOL: http/protobuf
     volumes:
       - backend-logs:/app/logs
       - backup-data:/app/backups
@@ -237,6 +237,8 @@ services:
       CHECK_REDIS: redis://redis:6379
       CHECK_OPENCLAW: http://openclaw:8090/health
       CHECK_ASPIRE: http://aspire-dashboard:18888/health
+      CHECK_RUNNER: http://host.docker.internal:9800/healthz
+      CHECK_STATE_OBSERVER: http://state-observer:9801/health
       # GitHub repository for status reporting
       GITHUB_REPOSITORY: blogtheristo/dws6
     depends_on:
@@ -284,6 +286,48 @@ services:
         reservations:
           memory: 128M
 
+  # ==========================================================================
+  # State Observer — Typed system snapshots (CPU, memory, GPU, containers,
+  # runner, models, drift detection). Per webframp.com/posts/you-were-never-
+  # declaring-state/ — observe what IS, not what should be.
+  # ==========================================================================
+  state-observer:
+    build:
+      context: .
+      dockerfile: Dockerfile.heartbeat
+      platforms:
+        - linux/arm64
+    container_name: dws-state-observer
+    restart: unless-stopped
+    ports:
+      - "9801:9801"
+    environment:
+      PORT: 9801
+      SNAPSHOT_DIR: /app/state/snapshots
+    entrypoint: ["node", "--experimental-strip-types", "/app/state-observer.ts"]
+    volumes:
+      - ./state-observer.ts:/app/state-observer.ts:ro
+      - state-snapshots:/app/state/snapshots
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:9801/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 64M
+
 volumes:
   backend-logs:
   backup-data:
@@ -292,6 +336,7 @@ volumes:
   cron-state:
   openclaw-state:
   openclaw-logs:
+  state-snapshots:
 
 networks:
   default:

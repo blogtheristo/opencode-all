@@ -21,6 +21,8 @@ const CHECK_CRON = process.env.CHECK_CRON || 'http://dws-cron:8081/health';
 const CHECK_OLLAMA = process.env.CHECK_OLLAMA || 'http://host.docker.internal:11434/api/tags';
 const CHECK_OPENCLAW = process.env.CHECK_OPENCLAW || 'http://openclaw:8090/health';
 const CHECK_ASPIRE = process.env.CHECK_ASPIRE || 'http://aspire-dashboard:18888/health';
+const CHECK_RUNNER = process.env.CHECK_RUNNER || 'http://host.docker.internal:9800/healthz';
+const CHECK_STATE_OBSERVER = process.env.CHECK_STATE_OBSERVER || 'http://state-observer:9801/health';
 const STATUS_TOKEN = process.env.HEARTBEAT_STATUS_TOKEN || '';
 
 // LAN-only CIDR check (192.168.x.x, 10.x.x.x, 172.16-31.x.x, ::1, 127.x.x.x)
@@ -45,6 +47,8 @@ const SERVICE_CHECKS = [
   { name: 'ollama', url: CHECK_OLLAMA },
   { name: 'openclaw', url: CHECK_OPENCLAW },
   { name: 'aspire', url: CHECK_ASPIRE },
+  { name: 'github-runner', url: CHECK_RUNNER },
+  { name: 'state-observer', url: CHECK_STATE_OBSERVER },
 ] as const;
 
 const services: ServiceStatus[] = [];

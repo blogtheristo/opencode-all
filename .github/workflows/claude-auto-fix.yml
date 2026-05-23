@@ -34,7 +34,7 @@ permissions:
 jobs:
   auto-fix:
     name: Claude Auto-Fix
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, dgx-spark]
     timeout-minutes: 10
     # Skip bot-triggered events to prevent fix loops.
     # Skip drafts — only run once a PR is marked ready for review.
