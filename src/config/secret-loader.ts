@@ -152,7 +152,10 @@ async function getGcpAccessToken(): Promise<string | null> {
     const { execFile } = await import('child_process');
     const { promisify } = await import('util');
     const execFileAsync = promisify(execFile);
-    const { stdout } = await execFileAsync('gcloud', [
+    const bin =
+      process.env.GCLOUD_BIN ||
+      (process.platform === 'win32' ? 'gcloud.cmd' : 'gcloud');
+    const { stdout } = await execFileAsync(bin, [
       'auth',
       'application-default',
       'print-access-token',

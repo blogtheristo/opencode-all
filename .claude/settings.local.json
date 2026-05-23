@@ -1,4 +1,13 @@
 {
   "$schema": "https://json-schema.org/claude-code-settings.json",
-  "_comment": "Local machine-only overrides. Shared defaults live in .claude/settings.json."
+  "_comment": "Local machine-only overrides. Shared defaults live in .claude/settings.json.",
+  "permissions": {
+    "allow": [
+      "Bash(cd /F/2026/Repos2026/dws6 && find . -type f -name \"*.yml\" -o -name \"*.yaml\" | head -20)",
+      "WebFetch(domain:webframp.com)",
+      "Bash(git add *)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(npx tsc *)"
+    ]
+  }
 }
