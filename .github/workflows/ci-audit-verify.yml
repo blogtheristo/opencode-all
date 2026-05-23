@@ -29,7 +29,7 @@ concurrency:
 jobs:
   verify:
     name: Verify audit chain + HEAD coverage
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, dgx-spark]
     timeout-minutes: 2
     steps:
       - name: Checkout

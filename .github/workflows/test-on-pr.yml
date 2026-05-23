@@ -23,7 +23,7 @@ concurrency:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, dgx-spark]
     timeout-minutes: 10
 
     steps:
@@ -58,7 +58,7 @@ jobs:
           retention-days: 7
 
   lint-check:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, dgx-spark]
     timeout-minutes: 5
 
     steps:
