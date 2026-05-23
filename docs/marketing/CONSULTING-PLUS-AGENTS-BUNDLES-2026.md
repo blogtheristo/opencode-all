@@ -136,7 +136,7 @@ Tier-1 bundles are designed so that **70% of customers attach a second agent wit
 2. **The agent SKU is the recurring product.** Year-2 quotes drop the engagement line and renew only the agent subscription (per `DWS_DYNAMIC_DEPLOYMENT_PRICING_STANDARD.md` — monthly subscription is a required separate product).
 3. **The engagement deliverable is the agent's first output**, not a parallel artifact. The consultant runs the agent; the customer signs off on the agent's work.
 4. **Senior Specialist day rate floor: €1,500/day direct, €1,200/day contractor** (Blue/Green split per Dynamic Deployment Pricing Standard §11). Training day rate floor: €999/seat for a half-day, €499/seat for the existing EU AI Act Literacy SKU.
-5. **Marketplace-listed agents always carry the gross-up** (+3% MSFT, +18% SF, per Skilled Agents Price List §4–5). Bundles sold direct are at sticker.
+5. **Marketplace-listed agents always carry the gross-up** (+3% MSFT, +18% SF, per Skilled Agents Price List §5–6). Bundles sold direct are at sticker.
 6. **Every bundle quote shows the human-baseline anchor line** ("Replaces N FTEs + advisory retainer at €X/yr today"). No SaaS comparison appears on the quote.
 
 ---

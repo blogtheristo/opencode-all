@@ -2,11 +2,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/lwm-price-estimate-study-IXS4l | Commit: pending | Date: 23.05.2026 | Changes: Initial product documentation for Train Model (self-serve entry SKU). Sits one tier below Enterprise Model Training (EMT-001), addressing customers who want to own a fine-tuned SLM without a project-tier engagement. Three sizes (Compact 3B, Standard 9B, Pro 32B) at €1,490 / €2,990 / €7,490. Built bottom-up from the 23.05.2026 LWM price-estimate study with €100/h SLM engineer line included.
+- Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/lwm-price-estimate-study-IXS4l | Commit: pending | Date: 23.05.2026 | Changes: CEO review pass. (1) Tightened Pro 32B to single-overnight delivery: wall clock 10–14h (was ~36h / 3 nights), training data cap 2M examples (was 10M), NVFP4 PTQ + NIM container moved from default deliverable to paid add-ons. Restores "overnight on every tier" identity. Pro price held at €7,490 (margin lifts to ~94%). (2) Killed the proposed Flagship 70B **self-checkout** tier — a Stripe-enabled 70B card would have turned the Store page into a soft project SKU. Instead, added a **visible-but-gated 70B teaser tile** ("Bridge Track 70B — Invite Only") with no published price and a "Contact Sales" CTA. Real Bridge Track scope and pricing (€19,990) live inside EMT-001 (see PRODUCT_ENTERPRISE_MODEL_TRAINING.md v1.2). This surfaces existence so qualifying scripts can route inbound, without diluting the self-serve identity. (3) Added Agent Surface section (`POST /train-model`) per Build for Agents rule. (4) Added Inbound Qualification Scripts section (audited Boardy drafts) for sales-led routing into Bridge Track.
 
 Document Status:
 
@@ -96,13 +97,39 @@ Unlike Enterprise Model Training (EMT-001), Train Model is **self-serve** and **
 
 | Aspect              | Details                                                              |
 | ------------------- | -------------------------------------------------------------------- |
-| **Base Model**      | Qwen3 32B / Llama 3.1 70B (Q4 inference) / Gemma 2 27B (customer choice) |
-| **Training Method** | QLoRA + Split-LoRA, NVFP4 post-training quantization for Blackwell   |
-| **Training Data**   | Up to 10M examples                                                   |
-| **Wall Clock**      | ~36 hours (3 overnight cycles)                                       |
-| **Hardware**        | H100 80GB cloud (Lambda / Brev) or 2× A100 80GB                      |
+| **Base Model**      | Qwen3 32B / Gemma 2 27B (customer choice — 2 supported architectures) |
+| **Training Method** | QLoRA + Split-LoRA (Unsloth Triton kernels)                          |
+| **Training Data**   | Up to 2M examples                                                    |
+| **Wall Clock**      | ~10–14 hours (single overnight cycle)                                |
+| **Hardware**        | H100 80GB cloud (Lambda / Brev), single GPU                          |
 | **Deployment Fit**  | Single H100 / Acer Veriton GN-100 (NVFP4) / Mac Studio M3 Ultra (MLX) |
-| **Deliverables**    | safetensors + GGUF (Q4/Q8) + MLX (4/8-bit) + NIM container + NVFP4 PTQ + eval report + registry |
+| **Deliverables**    | safetensors + GGUF (Q4/Q8) + MLX (4/8-bit) + eval report + registry  |
+| **Add-ons** (paid)  | NVIDIA NIM container (+€490) · NVFP4 PTQ for Blackwell (+€990 — bundled in Aegis uplift) |
+
+**Why Pro tightened from 36h to overnight (v1.1 change):** the original 36h / 3-night Pro broke the self-serve "wake up to a model" promise that Compact + Standard deliver. Datasets larger than 2M examples or workloads that genuinely need NVFP4 PTQ in the default deliverable now belong in the **Bridge Track** (see below). Pro stays a clean overnight SKU.
+
+---
+
+### Bridge Track 70B — **Invite Only** · price on request
+
+> ⚡ **Not self-checkout.** This tier is gated by an inbound qualification call. We'll route you here from any inbound that asks for 70B and has a JSONL dataset ready.
+
+| Aspect              | Details                                                                  |
+| ------------------- | ------------------------------------------------------------------------ |
+| **Base Model**      | Llama 3.1 70B / Qwen3 70B-class (customer choice, Apache-2.0 / Llama license) |
+| **Training Method** | QLoRA + Split-LoRA on H100 80GB cloud                                    |
+| **Training Data**   | Customer-supplied dataset (JSONL, no construction included)              |
+| **Wall Clock**      | ~3 business days                                                         |
+| **Hardware**        | H100 80GB cloud (Lambda / NVIDIA Brev), or 2× A100 80GB                  |
+| **Deployment Fit**  | Acer Veriton GN-100 (NVFP4) · DGX Spark · Mac Studio M3 Ultra (MLX)      |
+| **Support**         | 30-day model SLA (eval-regression guarantee). Not a 12-month contract.   |
+| **Architecture**    | Standard Llama/Qwen 70B class only. Custom architectures route to EMT-001 full project tier. |
+| **Pricing**         | **Price on request** — invite-only, indicative €19,990                   |
+| **How to access**   | [Contact Sales](#order-process) — qualification call required            |
+
+**Why this is invite-only:** the 70B fine-tune workload is operationally heavier than overnight Pro and benefits from a 15-minute scoping call to confirm dataset shape, base model choice, and target deployment surface. Publishing 70B as Stripe-checkout would either underspec the engagement or overspec the page — neither serves the customer.
+
+Bridge Track scope, qualifying questions, and full pricing logic live in [PRODUCT_ENTERPRISE_MODEL_TRAINING.md → Training Packages → Bridge Track](PRODUCT_ENTERPRISE_MODEL_TRAINING.md#bridge-track-19990--invite-only).
 
 ---
 
@@ -188,7 +215,29 @@ Customers who **outgrow** Train Model (need dataset construction, custom archite
 4. **Specify eval benchmark** — customer-supplied test set OR DWS industry baseline
 5. **(Optional) Add Aegis uplift** — for sovereign / EU-residency deployment
 6. **Pay** — invoice or Stripe
-7. **Receive artifact bundle** — next business day for Compact/Standard, 3 business days for Pro
+7. **Receive artifact bundle** — next business day, all tiers (overnight on every tier)
+
+### Inbound qualification — Bridge Track 70B routing
+
+When inbound asks about 70B, route via one of two scripts (drafted by Boardy, audited 23.05.2026):
+
+**Script A — DWS-curious enterprise (knows DWS, wants the LWM-class size):**
+
+> Thanks for the interest. I'm keeping TM-001 tight for self-serve buyers, but there's a stronger fit if you want the 70B path. If you already have a JSONL dataset and want the same 70B-class size DWS targets for Control Room, I'd move you into an invite-only bridge so we can line up the right scope and timeline.
+
+**Script B — Frontier-experimenter startup (wants thesis validation, has data):**
+
+> If you want to validate a thesis fast with a 70B fine-tune and you already have the dataset ready, I'd route you into an invite-only bridge rather than the public self-serve tier. That keeps the path clean and gets you to the right architecture faster.
+
+**Qualifying questions on the routing call** (15 minutes):
+
+1. Is your training dataset already in JSONL or convertible to JSONL? (If no → EMT-001 Starter)
+2. Are you targeting a standard Llama/Qwen 70B architecture? (If no → EMT-001 Professional/Enterprise)
+3. Do you need a 12-month support contract, or is a 30-day eval-regression SLA enough? (If 12-month → EMT-001 Professional/Enterprise)
+4. Where will the model be deployed? (GN-100 / DGX Spark / Mac Studio / generic H100 — confirms feasibility, not gating)
+5. Is your data EU residency-sensitive? (If yes → +Aegis uplift on the quote)
+
+If all four green-light → Bridge Track at €19,990 quoted on the call.
 
 ---
 
@@ -212,7 +261,7 @@ Customers who **outgrow** Train Model (need dataset construction, custom archite
 | -------- | ----------------------------------------------------------------------------- |
 | Compact  | Llama 3.2 3B, Qwen3 3B, Phi-3.5 mini (3.8B), Gemma 2 2B                        |
 | Standard | Llama 3.1 8B, Mistral 9B, Qwen3 8B, Gemma 2 9B                                 |
-| Pro      | Qwen3 32B, Gemma 2 27B, Llama 3.1 70B (Q4 inference), Mixtral 8×7B (MoE)       |
+| Pro      | Qwen3 32B, Gemma 2 27B (32B class only — 70B routes to Bridge Track in EMT-001) |
 
 ### Training Stack
 
@@ -232,6 +281,63 @@ Customers who **outgrow** Train Model (need dataset construction, custom archite
 
 ---
 
+## Agent Surface (Build for Agents)
+
+Train Model orders are agent-callable. An agent can place an order, monitor progress, and pull the artifact bundle without human-in-the-loop intervention.
+
+### Endpoint
+
+```
+POST /api/v1/train-model
+Authorization: Bearer <customer-jwt>
+Content-Type: application/json
+```
+
+### Request shape (Zod-validated)
+
+```json
+{
+  "tier": "compact" | "standard" | "pro",
+  "base_model": "llama-3.2-3b" | "qwen3-3b" | "phi-3.5-mini" | "gemma-2-2b"
+              | "llama-3.1-8b" | "mistral-9b" | "qwen3-8b" | "gemma-2-9b"
+              | "qwen3-32b" | "gemma-2-27b",
+  "dataset_url": "https://...",          // signed URL to JSONL
+  "eval_set": "dws_industry_baseline" | "customer_supplied",
+  "eval_set_url": "https://...",         // required if eval_set = customer_supplied
+  "aegis": false,                        // true → sovereign uplift +€990
+  "addons": ["nim", "nvfp4_ptq"],        // optional, Pro tier only
+  "callback_url": "https://..."          // optional, completion webhook
+}
+```
+
+### Response (202 Accepted)
+
+```json
+{
+  "order_id": "tm-001-2026-05-23-abc123",
+  "tier": "standard",
+  "estimated_completion": "2026-05-24T08:00:00Z",
+  "status_url": "https://api.dws6.com/orders/tm-001-2026-05-23-abc123",
+  "amount_eur": 2990,
+  "invoice_url": "https://..."
+}
+```
+
+### MCP exposure
+
+Same endpoint exposed as MCP tool `train_model` on the DWS IQ MCP server. Schema mirrors the HTTP request shape. Agents using Claude Code, Codex, or any MCP-compatible runtime can place orders directly without scripting the HTTP call.
+
+### CLI
+
+```bash
+dws train-model --tier standard --base-model qwen3-8b \
+  --dataset dataset.jsonl --eval dws_industry_baseline
+```
+
+Status polling: `dws train-model status <order_id>`.
+
+---
+
 ## Compliance & Security
 
 - **EU AI Act:** Train Model outputs are derivative works of customer data; transparency declarations included in eval report
@@ -243,13 +349,14 @@ Customers who **outgrow** Train Model (need dataset construction, custom archite
 
 ## Roadmap
 
-| Quarter   | Capability                                                                       |
-| --------- | -------------------------------------------------------------------------------- |
-| Q2 2026   | 5-run unattended reliability proof (gate to Q3 launch)                           |
-| Q3 2026   | Public launch — Compact + Standard tiers                                         |
-| Q3 2026   | Pro tier + NVFP4 PTQ ship                                                        |
-| Q4 2026   | Train Model — Subscription (monthly re-train cadence, separate SKU)              |
-| Q1 2027   | LWM2 omnimodal tier (video + audio data) — pricing TBD, will sit above Pro tier  |
+| Quarter   | Capability                                                                                  |
+| --------- | ------------------------------------------------------------------------------------------- |
+| Q2 2026   | 5-run unattended reliability proof (gate to Q3 launch)                                      |
+| Q3 2026   | Public launch — Compact + Standard + Pro tiers (all overnight delivery)                     |
+| Q3 2026   | NVFP4 PTQ paid add-on (+€990) for Blackwell deployments                                     |
+| Q4 2026   | Train Model — Subscription (monthly re-train cadence, separate SKU)                         |
+| Q4 2026   | Bridge Track (70B, invite-only) inside EMT-001 — see PRODUCT_ENTERPRISE_MODEL_TRAINING.md   |
+| Q1 2027   | LWM2 omnimodal tier (video + audio data) — pricing TBD, will sit at Bridge Track or above   |
 
 ---
 

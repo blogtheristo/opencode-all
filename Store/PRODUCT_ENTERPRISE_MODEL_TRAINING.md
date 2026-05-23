@@ -2,12 +2,13 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Cursor.ai | Session: Ultra-Agents | Commit: pending | Date: 03.01.2026 | Changes: Initial product documentation for Enterprise Model Training
 - Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/lwm-price-estimate-study-IXS4l | Commit: pending | Date: 23.05.2026 | Changes: Added "Product Ladder" bridge section positioning EMT-001 (€50K–€200K project tier) as the top of a two-tier ladder, with new Train Model (TM-001) self-serve SKU (€1,490–€7,490) as the entry tier underneath. Added "when to pick which" matrix. Updated Related Products to link TM-001 and Aegis. EMT-001 scope, deliverables, and pricing unchanged — the ladder addresses customers who would otherwise leak to OpenAI fine-tuning, not customers already qualified for project-tier engagement.
+- Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/lwm-price-estimate-study-IXS4l | Commit: pending | Date: 23.05.2026 | Changes: Added "Bridge Track" package (€19,990, invite-only) between TM-001 Pro (€7,490) and EMT-001 Starter (€50K). Scope: 70B fine-tune, customer-supplied dataset (no construction), no custom architecture, 30-day support (not 12-month). Serves the real 70B buyer without a public flagship Store tile that would dilute TM-001's self-serve identity. Routes are inbound→sales→bridge or EMT-001 downsell. Updated pricing range, Product Ladder diagram, and "when to pick which" matrix.
 
 Document Status:
 
@@ -35,9 +36,9 @@ Legal:
 ## Custom LLM Fine-Tuning for Industry-Specific AI Agents
 
 **Product Code:** EMT-001  
-**Version:** 1.0  
-**Availability:** January 8, 2026 (Acer Node Setup)  
-**Pricing:** Project-Based (€50K-200K)
+**Version:** 1.2  
+**Availability:** January 8, 2026 (Acer Node Setup) · Bridge Track Q4 2026  
+**Pricing:** Bridge Track €19,990 (invite-only) · Starter–Enterprise €50K–€200K (project-based)
 
 ---
 
@@ -62,25 +63,29 @@ Legal:
 
 ## Product Ladder — Where Enterprise Model Training Sits
 
-Enterprise Model Training (EMT-001, €50K–€200K) is the **top of a two-tier ladder**. Below it sits **Train Model (TM-001)** — a self-serve fixed-scope SKU at €1,490–€7,490 for customers who don't need a project-tier engagement.
+Enterprise Model Training (EMT-001) is the **top of a three-rung ladder**. Below it sits **Train Model (TM-001)** — a self-serve fixed-scope SKU at €1,490–€7,490. Between them is the **Bridge Track** — an invite-only 70B SKU at €19,990 that lives inside EMT-001 (not on the public Store page).
 
 ```
-                                  Customer Sophistication →
+                                            Customer Sophistication →
 
-  ┌──────────────────────┐                ┌──────────────────────────────────────┐
-  │  Train Model         │     ──→        │  Enterprise Model Training (this)    │
-  │  (TM-001)            │                │  (EMT-001)                           │
-  │  €1,490 – €7,490     │                │  €50K – €200K                        │
-  │                      │                │                                      │
-  │  Self-serve          │                │  Project-based                       │
-  │  Customer brings     │                │  We construct dataset                │
-  │  structured dataset  │                │  Custom architecture (up to 405B)    │
-  │  Fixed-scope         │                │  Multi-week SOW                      │
-  │  Overnight delivery  │                │  12-month support contract           │
-  │  3B / 9B / 32B       │                │  7B–405B (any architecture)          │
-  └──────────────────────┘                └──────────────────────────────────────┘
-       SMB → Mid-market                          Enterprise / regulated
+  ┌──────────────────┐        ┌────────────────────────┐        ┌──────────────────────────────────┐
+  │  Train Model     │  ──→   │  Bridge Track          │  ──→   │  Enterprise Model Training       │
+  │  (TM-001)        │        │  (EMT-001 / invite)    │        │  Starter → Enterprise (EMT-001)  │
+  │  €1,490–€7,490   │        │  €19,990               │        │  €50K – €200K                    │
+  │                  │        │                        │        │                                  │
+  │  Self-serve      │        │  Sales-led intake      │        │  Project-based                   │
+  │  Bring dataset   │        │  Bring dataset         │        │  We construct dataset            │
+  │  Overnight       │        │  ~3 business days      │        │  2–8 weeks                       │
+  │  Fixed-scope     │        │  30-day support        │        │  12-month support                │
+  │  3B / 9B / 32B   │        │  70B fine-tune         │        │  7B–405B (any architecture)      │
+  │                  │        │  Standard architecture │        │  Custom architecture OK          │
+  └──────────────────┘        └────────────────────────┘        └──────────────────────────────────┘
+     SMB → Mid-market              70B-curious enterprise              Enterprise / regulated
+     Stripe checkout               Inbound sales qualification         Full SOW + procurement
+     Public Store page             NOT publicly listed                 Public Store page
 ```
+
+The Bridge Track is **not a public Store tile**. It exists to catch the real 70B buyer who has a dataset ready, doesn't need custom architecture, doesn't need a 12-month support contract, but does want the LWM-class model size that DWS itself runs. Publishing a 70B card on TM-001 would dilute the self-serve identity; routing 70B customers exclusively to €50K Starter would lose them to OpenAI fine-tuning. The Bridge Track solves both.
 
 ### When to pick which
 
@@ -88,16 +93,20 @@ Enterprise Model Training (EMT-001, €50K–€200K) is the **top of a two-tier
 | ------------------------------------------------------------- | ---------------------------------- |
 | "I have a dataset in JSONL — train me a model"                | → **Train Model (TM-001)**         |
 | "I have raw documents — build me a dataset and train a model" | → **Enterprise Model Training**    |
-| "Standard architecture is fine"                               | → **Train Model (TM-001)**         |
+| "Standard architecture is fine, 32B or smaller"               | → **Train Model (TM-001)**         |
+| "Standard architecture, 70B specifically"                     | → **Bridge Track** (invite-only)   |
 | "I need a custom architecture / 405B / non-Llama base"        | → **Enterprise Model Training**    |
 | "Buy once, no ongoing relationship"                           | → **Train Model (TM-001)**         |
+| "30-day eval-regression SLA is enough"                        | → **Bridge Track** (invite-only)   |
 | "12-month support contract required"                          | → **Enterprise Model Training**    |
-| "Single model, single use case"                               | → **Train Model (TM-001)**         |
+| "Budget €5K–€10K"                                             | → **Train Model (TM-001)**         |
+| "Budget €15K–€25K, want LWM-class size"                       | → **Bridge Track** (invite-only)   |
+| "Budget €50K+, full project scope"                            | → **Enterprise Model Training**    |
 | "Full ecosystem — model + APIs + agents + monitoring"         | → **Enterprise Model Training**    |
 
-A customer who outgrows Train Model graduates to Enterprise Model Training. The two SKUs are complementary, not competitive — the ladder prevents leakage to OpenAI on the entry end and protects project-tier engagement value on the enterprise end.
+A customer who outgrows Train Model graduates to Bridge Track if size is the only delta; to EMT-001 Starter or higher if scope, support, or architecture is the delta. The ladder prevents leakage to OpenAI on the entry end and protects project-tier engagement value on the enterprise end.
 
-See [PRODUCT_TRAIN_MODEL.md](PRODUCT_TRAIN_MODEL.md) for the entry SKU.
+See [PRODUCT_TRAIN_MODEL.md](PRODUCT_TRAIN_MODEL.md) for the entry SKU. Bridge Track is documented in §"Training Packages" below.
 
 ---
 
@@ -176,6 +185,60 @@ Custom knowledge injection for:
 ---
 
 ## Training Packages
+
+### Bridge Track (€19,990) — Invite Only
+
+> ⚡ **Not publicly listed for self-checkout.** Bridge Track is gated by a 15-minute inbound qualification call. Surfaced as a teaser tile on TM-001 ("Bridge Track 70B — Invite Only · price on request"). Customers reach this tier via [Contact Sales](PRODUCT_TRAIN_MODEL.md#inbound-qualification--bridge-track-70b-routing) or as a downsell from a Starter Package conversation.
+
+| Aspect              | Details                                                                  |
+| ------------------- | ------------------------------------------------------------------------ |
+| **Base Model**      | Llama 3.1 70B / Qwen3 70B-class (standard architectures only)            |
+| **Training Method** | QLoRA + Split-LoRA on H100 80GB cloud                                    |
+| **Training Data**   | Customer-supplied JSONL dataset (no construction — that's Starter+)      |
+| **Hardware**        | H100 80GB cloud (Lambda / NVIDIA Brev), or 2× A100 80GB                  |
+| **Duration**        | ~3 business days end-to-end (intake call → delivery)                     |
+| **Support**         | 30-day model SLA (eval-regression guarantee). NOT a 12-month contract.   |
+| **Architecture**    | Standard Llama/Qwen 70B only. Custom architectures → Starter+            |
+| **Deliverables**    | safetensors + GGUF (Q4/Q8) + MLX (4/8-bit) + NVFP4 PTQ for Blackwell + eval report + registry push |
+
+**Aegis uplift available** (+€990) for EU-residency / CLOUD-Act-free training.
+
+**Loaded BOM** (€100/h SLM engineer):
+
+| Line                                                         | Cost     |
+| ------------------------------------------------------------ | -------: |
+| GPU compute (H100 80GB, ~55h)                                | €140–225 |
+| Claude API data generation / curation                        | €80–150  |
+| SLM engineer (5h: scoping 1h + checkpoint monitoring 3×0.5h + final verify 1.5h + post-delivery 1h) | €500     |
+| Sales engagement overhead (15-min qualifying call + quote)   | €100     |
+| Conversion + NIM + NVFP4 PTQ                                 | €25      |
+| **Total loaded BOM**                                         | **€845–1,000** |
+| **List price**                                               | **€19,990** |
+| **Gross margin**                                             | ~95 %    |
+
+#### When Bridge Track is the right answer
+
+| Customer signal                                              | Route                          |
+| ------------------------------------------------------------ | ------------------------------ |
+| "I have JSONL dataset, want 70B, standard architecture"      | → **Bridge Track**             |
+| "I have JSONL, want 32B or smaller"                          | → TM-001 Pro (self-serve)      |
+| "I have raw documents, need dataset construction"            | → Starter / Professional       |
+| "I need custom architecture (non-Llama/Qwen base)"           | → Professional / Enterprise    |
+| "I need 12-month support contract"                           | → Starter / Professional       |
+| "Budget is fixed at €15K–€25K, scope is everything else"     | → **Bridge Track**             |
+| "Budget is €50K+, full project scope welcome"                | → Starter / Professional       |
+
+#### Qualifying questions on the routing call (15 minutes)
+
+1. Is your training dataset already in JSONL or convertible to JSONL?
+2. Are you targeting a standard Llama/Qwen 70B architecture?
+3. Do you need a 12-month support contract, or is a 30-day eval-regression SLA enough?
+4. Where will the model be deployed? (GN-100 / DGX Spark / Mac Studio / generic H100)
+5. Is your data EU residency-sensitive? (drives Aegis uplift +€990)
+
+If all four are green → Bridge Track quoted at €19,990 on the call. If any are red → routed to Starter / Professional / Enterprise as appropriate.
+
+---
 
 ### Starter Package (€50K)
 
