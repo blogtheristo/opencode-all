@@ -76,6 +76,9 @@ const SECRET_MAP: Record<string, string> = {
 
   OPENCLAW_ENDPOINT: 'openclaw-endpoint',
   OPENCLAW_API_KEY: 'openclaw-api-key',
+
+  EXA_API_KEY: 'exa-api-key',
+  EXA_API_KEY_OPENCLAW: 'exa-api-key-openclaw',
 };
 
 async function loadFromAiven(connectionUrl: string): Promise<Record<string, string>> {
