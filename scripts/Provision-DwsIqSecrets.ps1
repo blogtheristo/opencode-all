@@ -88,6 +88,7 @@ $SecretMap = [ordered]@{
     'SMTP_USER'             = 'smtp-user'
     'SMTP_PASS'             = 'smtp-pass'
     'EXA_API_KEY'           = 'exa-api-key'
+    'EXA_API_KEY_OPENCLAW'  = 'exa-api-key-openclaw'
 }
 
 function Write-Info  { param($m) Write-Host "[INFO]  $m" -ForegroundColor Cyan }
