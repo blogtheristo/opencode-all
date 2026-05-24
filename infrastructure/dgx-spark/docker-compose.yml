@@ -299,13 +299,21 @@ services:
         - linux/arm64
     container_name: dws-state-observer
     restart: unless-stopped
-    ports:
-      - "9801:9801"
+    # No host port mapping — only reachable within dws-network (heartbeat, backend).
+    # Access the dashboard via SSH tunnel: ssh -L 9801:localhost:9801 admin100@dgx-spark
+    # Or expose on localhost only: ports: ["127.0.0.1:9801:9801"]
     environment:
       PORT: 9801
       SNAPSHOT_DIR: /app/state/snapshots
       DASHBOARD_PATH: /app/dashboard.html
+      # Docker socket GID — must match host `stat -c '%g' /var/run/docker.sock`
+      # Default on Ubuntu 24.04 is 999. Override with DOCKER_GID if different.
+      DOCKER_GID: "${DOCKER_GID:-999}"
     entrypoint: ["node", "--experimental-strip-types", "/app/state-observer.ts"]
+    # Grant dws user read access to Docker socket via host docker group GID.
+    # Uses Docker Engine REST API over the socket — no CLI binary needed.
+    group_add:
+      - "${DOCKER_GID:-999}"
     volumes:
       - ./state-observer.ts:/app/state-observer.ts:ro
       - ./dashboard.html:/app/dashboard.html:ro

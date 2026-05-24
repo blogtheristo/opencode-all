@@ -24,7 +24,7 @@ permissions:
 
 jobs:
   pr-security-check:
-    runs-on: [self-hosted, dgx-spark]
+    runs-on: ubuntu-latest
     
     steps:
       - name: Checkout PR code

@@ -79,7 +79,8 @@ Captures a `StateSnapshot` every 60 seconds:
 | Containers | Name, status, health, restarts, memory | `docker ps`, `docker stats`, `docker inspect` |
 | Runner | Online/offline, PID | `pgrep -f "Runner.Listener"` |
 | Ollama | Model inventory, up/down | `curl localhost:11434/api/tags` |
-| Services | Backend, cron, heartbeat, Aspire, Redis | HTTP health checks with latency |
+| Services | Backend, cron, heartbeat, Aspire | HTTP health checks with latency |
+| Redis | Up/down | TCP PING/PONG probe (not HTTP — Redis speaks its own protocol) |
 
 **Drift detection rules:**
 - Memory > 90% → critical
@@ -146,11 +147,12 @@ Supports `GCLOUD_BIN` env var override for non-standard install paths.
 Updated to Code-Version 1.2.0. Key additions:
 
 ```yaml
-# New service
+# New service — uses Docker Engine REST API, not CLI
+# No host port mapping — only reachable within dws-network
 state-observer:
   build: { context: ., dockerfile: Dockerfile.heartbeat }
   entrypoint: ["node", "--experimental-strip-types", "/app/state-observer.ts"]
-  ports: ["9801:9801"]
+  group_add: ["${DOCKER_GID:-999}"]   # host docker group for socket access
   volumes:
     - ./state-observer.ts:/app/state-observer.ts:ro
     - ./dashboard.html:/app/dashboard.html:ro
@@ -164,6 +166,20 @@ state-snapshots:
 CHECK_RUNNER: http://host.docker.internal:9800/healthz
 CHECK_STATE_OBSERVER: http://state-observer:9801/health
 ```
+
+### 3.1 Security Review Fixes
+
+Five issues caught in code review and fixed:
+
+1. **State observer network exposure.** Port 9801 was mapped to all host interfaces, exposing system resource data, container inventory, runner PID, and model list without authentication. Fixed by removing host port mapping — now only reachable within the Docker network. Dashboard access via SSH tunnel.
+
+2. **Redis false-positive drift.** `checkService('redis', 'http://redis:6379')` tried HTTP against Redis's TCP protocol, always returning "down." Replaced with a TCP PING/PONG probe (`checkRedis`) using `net.Socket`.
+
+3. **runner-health.sh not installed.** `setup-github-runner.sh` installed only the runner service but not the companion health probe. Heartbeat checked `:9800/healthz`, which was always closed. Fixed by adding runner-health systemd unit installation (including netcat dependency check) to the setup script.
+
+4. **Untrusted PR code on self-hosted runner.** `test-on-pr.yml`, `security-check-pr.yml`, and `claude-auto-fix.yml` ran PR-triggered jobs on DGX Spark, exposing the host's filesystem, Docker socket, network, and local credentials to arbitrary PR code. Reverted all four workflow files to `ubuntu-latest`. Self-hosted runner remains available for trusted push-triggered workflows.
+
+5. **Auto-fix with write permissions.** `claude-auto-fix.yml` had `contents: write` and checked out the PR branch on DGX Spark with the Anthropic API key available. Reverted to GitHub-hosted runner.
 
 ## 4. Architecture After This Session
 
@@ -214,6 +230,12 @@ CHECK_STATE_OBSERVER: http://state-observer:9801/health
 3. **User-level systemd is enough.** The GitHub Actions runner and runner-health service run as user-level systemd units — no sudo required, no root daemons, clean separation from Docker.
 
 4. **Windows `.cmd` resolution.** Node's `execFile` does not shell-expand `.cmd` extensions. Any cross-platform CLI invocation (`gcloud`, `az`, `aws`) should use the `.cmd` suffix on `win32` or allow a `*_BIN` env var override.
+
+5. **Docker socket access from slim containers.** The state-observer reuses `Dockerfile.heartbeat` (node:22-slim, unprivileged `dws` user). Shelling out to `docker ps` / `docker stats` would fail — no Docker CLI installed and no socket group membership. Fixed by using Docker Engine REST API over the mounted Unix socket (`http.request` with `socketPath`) and adding `group_add: ["${DOCKER_GID:-999}"]` to compose. No CLI binary needed, no root, read-only socket mount preserved.
+
+6. **Self-hosted runners and untrusted PRs.** A persistent self-hosted runner executing `npm ci` and test scripts from untrusted PR checkouts exposes the entire host to attacker-controlled code. PR-triggered CI must stay on ephemeral GitHub-hosted runners. Self-hosted is safe for push-triggered workflows on trusted branches only.
+
+7. **Protocol-aware health checks.** HTTP `fetch()` against `redis:6379` always fails because Redis speaks RESP, not HTTP. Every service check must speak the target's wire protocol — TCP PING for Redis, HTTP GET for HTTP services.
 
 ## 6. Follow-ups
 

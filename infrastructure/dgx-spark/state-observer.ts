@@ -133,38 +133,80 @@ function observeSystem(): SystemResources {
   };
 }
 
-function observeContainers(): ContainerState[] {
-  const raw = execSafe(
-    'docker ps --format "{{.Names}}|{{.Status}}|{{.State}}" --no-trunc 2>/dev/null'
-  );
-  if (!raw) return [];
+const DOCKER_SOCKET = '/var/run/docker.sock';
 
-  return raw.split('\n').filter(Boolean).map((line) => {
-    const [name, status, state] = line.split('|');
-
-    const statsRaw = execSafe(
-      `docker stats ${name} --no-stream --format "{{.MemUsage}}" 2>/dev/null`
+/** GET request to Docker Engine API over the Unix socket. No Docker CLI needed. */
+function dockerApi(path: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const req = http.request(
+      { socketPath: DOCKER_SOCKET, path, method: 'GET', timeout: 5000 },
+      (res) => {
+        const chunks: Buffer[] = [];
+        res.on('data', (c: Buffer) => chunks.push(c));
+        res.on('end', () => resolve(Buffer.concat(chunks).toString()));
+      },
     );
-    const memMatch = statsRaw.match(/([\d.]+)([GM])iB/);
-    let memMB = 0;
-    if (memMatch) {
-      memMB = Number(memMatch[1]) * (memMatch[2] === 'G' ? 1024 : 1);
+    req.on('error', reject);
+    req.on('timeout', () => { req.destroy(); reject(new Error('timeout')); });
+    req.end();
+  });
+}
+
+async function observeContainers(): Promise<ContainerState[]> {
+  try {
+    const listRaw = await dockerApi('/containers/json?all=false');
+    const containers = JSON.parse(listRaw) as Array<{
+      Id: string;
+      Names: string[];
+      State: string;
+      Status: string;
+    }>;
+    if (!containers.length) return [];
+
+    const results: ContainerState[] = [];
+
+    for (const c of containers) {
+      const name = (c.Names[0] || '').replace(/^\//, '');
+
+      // Inspect for restart count and health
+      let restartCount = 0;
+      let health = 'none';
+      let memMB = 0;
+      try {
+        const inspectRaw = await dockerApi(`/containers/${c.Id}/json`);
+        const inspect = JSON.parse(inspectRaw) as {
+          RestartCount?: number;
+          State?: { Health?: { Status?: string } };
+        };
+        restartCount = inspect.RestartCount || 0;
+        health = inspect.State?.Health?.Status || 'none';
+      } catch { /* inspect failed — use defaults */ }
+
+      // Stats for memory usage (one-shot, stream=false)
+      try {
+        const statsRaw = await dockerApi(`/containers/${c.Id}/stats?stream=false&one-shot=true`);
+        const stats = JSON.parse(statsRaw) as {
+          memory_stats?: { usage?: number; limit?: number };
+        };
+        if (stats.memory_stats?.usage) {
+          memMB = Math.round(stats.memory_stats.usage / 1024 / 1024);
+        }
+      } catch { /* stats failed — leave at 0 */ }
+
+      results.push({
+        name,
+        status: c.State || 'unknown',
+        health,
+        restartCount,
+        uptime: c.Status || 'unknown',
+        memoryUsageMB: memMB,
+      });
     }
 
-    const inspectRaw = execSafe(
-      `docker inspect ${name} --format "{{.RestartCount}}|{{.State.Health.Status}}" 2>/dev/null`
-    );
-    const [restartCount, health] = (inspectRaw || '0|none').split('|');
-
-    return {
-      name,
-      status: state || 'unknown',
-      health: health || 'none',
-      restartCount: Number(restartCount) || 0,
-      uptime: status || 'unknown',
-      memoryUsageMB: Math.round(memMB),
-    };
-  });
+    return results;
+  } catch {
+    return [];
+  }
 }
 
 function observeRunner(): RunnerState {
@@ -203,6 +245,31 @@ async function checkService(name: string, url: string): Promise<{ name: string; 
   } catch {
     return { name, status: 'down', latencyMs: Date.now() - start };
   }
+}
+
+/** TCP PING probe for Redis — connects, sends PING, expects +PONG. */
+async function checkRedis(name: string, host: string, port: number): Promise<{ name: string; status: 'up' | 'down'; latencyMs: number }> {
+  const net = await import('net');
+  const start = Date.now();
+  return new Promise((resolve) => {
+    const socket = new net.Socket();
+    let settled = false;
+    const done = (up: boolean) => {
+      if (settled) return;
+      settled = true;
+      socket.destroy();
+      resolve({ name, status: up ? 'up' : 'down', latencyMs: Date.now() - start });
+    };
+    socket.setTimeout(3000);
+    socket.on('timeout', () => done(false));
+    socket.on('error', () => done(false));
+    socket.connect(port, host, () => {
+      socket.write('PING\r\n');
+    });
+    socket.on('data', (data: Buffer) => {
+      done(data.toString().includes('+PONG'));
+    });
+  });
 }
 
 function detectDrift(snapshot: Omit<StateSnapshot, 'drift'>): DriftSignal[] {
@@ -274,7 +341,7 @@ let latestSnapshot: StateSnapshot | null = null;
 
 async function captureSnapshot(): Promise<StateSnapshot> {
   const system = observeSystem();
-  const containers = observeContainers();
+  const containers = await observeContainers();
   const runner = observeRunner();
   const ollama = observeOllama();
 
@@ -283,7 +350,7 @@ async function captureSnapshot(): Promise<StateSnapshot> {
     checkService('cron', 'http://dws-cron:8081/health'),
     checkService('heartbeat', 'http://heartbeat:9999/ping'),
     checkService('aspire', 'http://aspire-dashboard:18888/health'),
-    checkService('redis', 'http://redis:6379'),
+    checkRedis('redis', 'redis', 6379),
   ]);
 
   const partial = {
