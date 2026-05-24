@@ -41,6 +41,7 @@ If the user says **"Use DWS standard"**, apply all relevant standards and update
 8. Validate user input (Zod/validators), use parameterized DB queries, and keep RLS/security posture intact.
 9. Keep edits scoped; do not do unrelated refactors.
 10. Use PowerShell-first command examples on Windows (`.ps1`, `.\script.ps1`).
+11. **`gcloud` is a CMD-based tool, not PowerShell.** All `gcloud` examples MUST use CMD syntax — single-line OR caret (`^`) continuation, never backtick (`` ` ``). PowerShell-first (Rule 10) still applies for `.ps1` scripts and other Windows commands; the CMD rule is specific to `gcloud`. When a flow mixes `.ps1` and `gcloud`, invoke the `.ps1` via `powershell -ExecutionPolicy Bypass -File .\script.ps1` from CMD rather than switching shells mid-flow.
 
 ## Source-of-Truth Rules
 
