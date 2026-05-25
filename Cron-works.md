@@ -1,10 +1,12 @@
 # Cron-works — DWS6 Scheduled Work Registry
 
-All scheduled work across DGX Spark (primary) and GitHub Actions (failover/PR-only).
+All scheduled work across DGX Spark (primary), GitHub Actions (PR/push + manual failover),
+and Claude Code Routines (automated cloud backup).
 Single source of truth for what runs when and where.
 
 **Budget target:** GitHub Actions under $10/month (down from $18).
-**Strategy:** DGX Spark is primary for all scheduled work. GHA keeps `workflow_dispatch:` for manual failover. PR/push-triggered workflows stay on GHA.
+**Strategy:** Three-tier failover: DGX Spark → Claude Routines (auto) → GHA workflow_dispatch (manual).
+PR/push-triggered workflows stay on GHA.
 
 ## DGX Spark — Primary Cron (24/7)
 
@@ -162,3 +164,91 @@ These workflows had their `schedule:` removed. They remain available for manual 
 **Previous:** ~2,250 min/month = $18.00
 **After this change:** ~500 min/month = ~$4.00
 **Savings:** ~$14/month (78%)
+
+## Claude Code Routines — Tier 3 Automated Cloud Backup
+
+Claude Code Routines run on Anthropic-managed cloud infrastructure. They work even when
+DGX Spark is down AND the laptop is off. Configure at [claude.ai/code/routines](https://claude.ai/code/routines)
+or via `/schedule` in the CLI.
+
+### Architecture
+
+```
+Tier 1: DGX Spark cron (primary, free, 24/7 ARM64 hardware)
+   ↓ heartbeat fails
+Tier 2: Claude Routines (automated cloud backup, subscription usage)
+   ↓ routine disabled / plan limit
+Tier 3: GHA workflow_dispatch (manual failover, $0.008/min)
+```
+
+### How Routines Integrate
+
+- **Schedule trigger:** Routines run on their own schedule (minimum 1 hour interval)
+- **API trigger:** DGX heartbeat monitor can POST to routine `/fire` endpoint on failure
+- **GitHub trigger:** React to PR/push events (already covered by GHA, skip these)
+- Routines clone the repo fresh each run — no local state dependency
+- Connectors (GitHub, Slack) provide tool access during runs
+- Runs appear as sessions at claude.ai — reviewable and continuable
+
+### Recommended Routines (Critical Jobs Only)
+
+Only the highest-value scheduled jobs justify a Routine backup. Low-value audits
+and reports can wait for manual `workflow_dispatch` if DGX is down.
+
+| Routine Name | Schedule | Prompt Summary | Why Critical |
+|---|---|---|---|
+| `daily-db-backup` | Daily 03:00 UTC | Run `scripts/daily/db-backup.sh` — pg_dump to 4 destinations | Data loss risk if backup gaps exceed 48h |
+| `ted-pipeline` | Daily 06:00 UTC | Run `scripts/daily/ted-pipeline.sh` — fetch TED tenders, filter, store | Tender deadlines are hard; missing a day = lost opportunities |
+| `morning-briefing` | Daily 04:00 UTC | Run `scripts/daily/morning-emails.sh` — compile and send morning brief | Operator situational awareness; no brief = blind start |
+| `security-audit` | Weekly Sun 04:00 | Run `scripts/weekly/security-audit.sh` — npm audit, gitleaks, bandit | Compliance requirement; max gap 14 days |
+| `construction-leads` | Daily 03:00 UTC | Run `scripts/daily/construction-leads.sh` — scrape + store leads | Revenue pipeline; leads go stale in 24-48h |
+
+### Routine Setup Checklist
+
+To create each routine at [claude.ai/code/routines](https://claude.ai/code/routines):
+
+1. **Name:** Use the names from the table above
+2. **Repository:** `blogtheristo/dws6`
+3. **Environment:** Create "DWS Cron" environment with:
+   - Network access: Custom (add `*.supabase.co`, SMTP hosts)
+   - Env vars: `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`, `PROTON_SMTP_*` (from vault)
+   - Setup script: `npm ci --ignore-scripts`
+4. **Prompt:** `cd /home/user/dws6 && bash scripts/{daily|weekly}/{name}.sh`
+5. **Schedule:** Match the DGX cron times (stagger 30-60 min later as backup)
+6. **Connectors:** GitHub (for issue creation), Slack (for alerts)
+7. **Branch pushes:** Disabled (backup runs should not push)
+
+### API Trigger for Auto-Failover
+
+The DGX heartbeat monitor can auto-trigger routines when it detects failure:
+
+```bash
+# In DGX heartbeat failure handler (infrastructure/dgx-spark/heartbeat.ts):
+# POST to routine's /fire endpoint when health check fails 3x consecutive
+curl -X POST https://api.anthropic.com/v1/claude_code/routines/trig_XXXXX/fire \
+  -H "Authorization: Bearer $ROUTINE_API_TOKEN" \
+  -H "anthropic-beta: experimental-cc-routine-2026-04-01" \
+  -H "anthropic-version: 2023-06-01" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "DGX Spark heartbeat failed. Running backup cron jobs."}'
+```
+
+Store `ROUTINE_API_TOKEN` in the Aiven vault alongside other secrets.
+
+### Desktop Scheduled Tasks (Not Recommended for Backup)
+
+Desktop tasks run on the local Windows machine but require the Claude Desktop app
+to be open and the computer awake. Not suitable as a reliability backup layer.
+
+Use Desktop tasks only for developer-experience conveniences:
+- Morning PR review when laptop opens
+- Pre-meeting code status check
+- Local-only tasks needing uncommitted files
+
+### `/loop` (Session-Scoped, Not for Backup)
+
+`/loop` runs inside an open CLI session and dies when the session ends.
+Use only for live monitoring during active work:
+- `/loop 5m check if the deploy finished`
+- `/loop 15m /review` during PR review cycles
+- `/loop check CI and address review comments` (dynamic interval)
