@@ -2,15 +2,21 @@
 # Hardware: Acer Veriton GN100 (NVIDIA Grace Blackwell GB10, 128GB, ARM64)
 # Failover: GitHub Actions mirrors all cron schedules
 #
-# Code-Version: 1.2.0
-# Introduced-In: PR-1117
-# Branch: claude/aspire-isolated-mode-research-IXTT0
-# Date: 2026-05-23
+# Code-Version: 1.3.0
+# Introduced-In: claude/bumblebee-dgx-observability-mzV5U
+# Branch: claude/bumblebee-dgx-observability-mzV5U
+# Date: 2026-05-25
 # Owner: Lifetime Oy
-# Change: v1.2.0 — Fixed OTel protocol (gRPC→HTTP, port 18889→18888 to match
-#         otel.ts HTTP exporter). Added state-observer for typed system snapshots
-#         (CPU, memory, GPU, containers, drift detection). Added github-runner and
-#         state-observer to heartbeat checks. Self-hosted runner registered.
+# Change: v1.3.0 — Added bumblebee-collector (Perplexity Bumblebee supply-chain
+#         scanner) as a third OTLP producer. Read-only host mount, supercronic-
+#         driven daily/weekly scans, OTel metrics + structured exposure logs
+#         pushed to aspire-dashboard via the OTLP/HTTP endpoint introduced in
+#         v1.2.0. Build pins upstream via bumblebee/bumblebee.version.
+#         Prior (1.2.0, PR-1117): Fixed OTel protocol (gRPC→HTTP, port 18889→
+#         18888 to match otel.ts HTTP exporter); added state-observer for typed
+#         system snapshots; added github-runner + state-observer to heartbeat.
+#         Prior (1.1.1): added aspire-dashboard:13.3.5 dashboard-only
+#         (field note 2026-04-10 §2.4).
 
 services:
   # ==========================================================================
@@ -328,6 +334,54 @@ services:
       resources:
         limits:
           memory: 256M
+        reservations:
+          memory: 64M
+
+  # ==========================================================================
+  # Bumblebee Collector — Perplexity Bumblebee supply-chain scanner.
+  # Read-only inventory of installed packages / lockfiles / MCP configs on the
+  # DGX host; results pushed to aspire-dashboard as OTel metrics + logs over
+  # OTLP/HTTP (port 18888, per v1.2.0 protocol switch).
+  # Pinned upstream SHA: infrastructure/dgx-spark/bumblebee/bumblebee.version
+  # ==========================================================================
+  bumblebee-collector:
+    build:
+      context: ./bumblebee
+      dockerfile: Dockerfile
+      platforms:
+        - linux/arm64
+    container_name: bumblebee-collector
+    restart: unless-stopped
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      OTEL_SERVICE_NAME: bumblebee
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://aspire-dashboard:18888
+      OTEL_EXPORTER_OTLP_PROTOCOL: http/protobuf
+      BUMBLEBEE_HOST_LABEL: dgx-spark
+      BUMBLEBEE_HOST_ROOT: /host
+      BUMBLEBEE_CATALOG: /app/catalog.json
+      TZ: UTC
+    volumes:
+      # Read-only view of the host so Bumblebee can inventory lockfiles,
+      # package-manager metadata, and MCP configs without write access.
+      - /:/host:ro
+    depends_on:
+      aspire-dashboard:
+        condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: "1.0"
         reservations:
           memory: 64M
 
