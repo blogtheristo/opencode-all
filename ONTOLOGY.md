@@ -11,7 +11,7 @@ Sessions & Modifications:
 - Version: 1.4 | Tool: Claude Code (claude-sonnet-4-6) | Session: claude/knowledge-catalog-research-J207A | Date: 04.05.2026 | Changes: Added §15 "GC-KC Reference Architecture — What Industrial Ontology Runtime Looks Like". Maps Google Cloud Knowledge Catalog three pillars (Aggregation, Enrichment, Search) to DWS ontology tiers. Adds DWSDataProduct as a named concept. Connector decision documented (export adapter only). Updates §14 lags table: Knowledge Catalog Runtime gap now tracked.
 - Version: 1.3 | Tool: Claude Code (claude-sonnet-4-6) | Session: claude/add-ontology-background-s0H0S | Date: 29.04.2026 | Changes: Added §1.3 "Sanan ontologia tausta / Etymology and Philosophical Background" — kreikkalainen etymologia (ón + lógos), Aristoteles, skolastiikka 1600–1700-luvuilla, merkityksen laajeneminen filosofiasta tietojenkäsittelytieteeseen ja tekoälyyn
 - Version: 1.2 | Tool: Claude Code (Claude Opus 4.7) | Session: claude/compare-ontologies-NtJWP | Date: 29.04.2026 | Changes: Decision-centric roadmap — added §13 (Actions, Scenarios/Global Branching, per-Decision Lineage, Purpose-based + Marking-based Policies, Logic Binding, Multi-tier Agent Memory, Embedded Edge Ontology) and §14 Where DWS Leads, Where DWS Lags. Removed third-party vendor naming; positioned as European Ontology Standard.
-- Version: 1.1 | Tool: Claude Code (Claude Opus 4.6) | Session: claude/add-eu-info-note-8XYey | Date: 11.02.2026 | Changes: Added DWS6 Enterprise Ontology — EU institutions (Commission, Council, Parliament, EIB), EU Single Market (450M consumers), EU regulatory framework (Fit for 55, ETS, CBAM, CSRD, AI Act, GDPR, NIS2), DWS IQ 6 platform entities, 21-moat fortress taxonomy, 16 EU industries, key geographic entities, Alden Biesen retreat context
+- Version: 1.1 | Tool: Claude Code (Claude Opus 4.6) | Session: claude/add-eu-info-note-8XYey | Date: 11.02.2026 | Changes: Added DWS6 Enterprise Ontology — EU institutions (Commission, Council, Parliament, EIB), EU Single Market (450M consumers), EU regulatory framework (Fit for 55, ETS, CBAM, CSRD, AI Act, GDPR, NIS2), DWS IQ 6 platform entities, 21-moat fortress taxonomy, 25+ EU industries, key geographic entities, Alden Biesen retreat context
 - Version: 1.0 | Tool: Claude Code | Session: claude/show-dws-version-LLEHz | Date: 21.01.2026 | Changes: Initial creation - Enterprise ontology framework with LWM integration
 
 Session Links & References:
@@ -486,7 +486,7 @@ eu_single_market:
     - EU-compliant companies get privileged market access
     - Non-compliant competitors excluded by design
   dws6_leverage:
-    - 16 EU industries served across Single Market
+    - 25+ EU industries served across Single Market
     - Compliance = access key (not cost center)
     - Regulatory-first DNA as competitive advantage
 ```
@@ -498,7 +498,7 @@ eu_regulations:
   fit_for_55:
     type: Climate legislation package
     scope: EU-wide emissions reduction 55% by 2030
-    dws6_relevance: Core compliance automation target across 16 industries
+    dws6_relevance: Core compliance automation target across 25+ industries
     status: Active — implementation ongoing
 
   eu_ets:
@@ -527,7 +527,7 @@ eu_regulations:
     dws6_relevance:
       - Article 12 automatic logging (built-in)
       - Reasoning lineage documentation (LWM architecture)
-      - High-risk AI system compliance for 16 industries
+      - High-risk AI system compliance for 25+ industries
     status: Pre-enforcement — DWS IQ 6 designed for compliance
 
   gdpr:

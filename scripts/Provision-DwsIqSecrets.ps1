@@ -133,7 +133,10 @@ function Get-SecretsFromFile {
         if ($Aliases.ContainsKey($envName)) { $candidates += $Aliases[$envName] }
 
         foreach ($candidate in $candidates) {
-            $pattern = '\b' + [regex]::Escape($candidate) + '\s*=\s*(?:"([^"]*)"|''([^'']*)''|([^\s,"''\r\n]+))'
+            # Build regex using [char]39 for the single-quote to avoid PowerShell 5.1
+            # parser quirks with dense '' escapes inside complex string literals.
+            $sq = [char]39
+            $pattern = '\b' + [regex]::Escape($candidate) + "\s*=\s*(?:`"([^`"]*)`"|$sq([^$sq]*)$sq|([^\s,`"$sq\r\n]+))"
             $regex = [regex]::new($pattern, [System.Text.RegularExpressions.RegexOptions]::Multiline)
             $match = $regex.Match($raw)
             if ($match.Success) {

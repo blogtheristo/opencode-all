@@ -1,0 +1,116 @@
+# DWS Truth Standard
+
+***
+# VERSION AND AGENT HISTORY
+
+Version: 1.2
+
+Sessions & Modifications:
+  - Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/exa-openclaw-integration-YnDpO | Date: 25.05.2026 | Changes: Pilot — added Skill, Workflow, and Roles & Responsibilities chapters using the new optional template that other standards may adopt. Registered DWS_ROLES_REGISTRY.md as §2 row 15.
+  - Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/exa-openclaw-integration-YnDpO | Date: 25.05.2026 | Changes: Slimmed to a thin meta-registry (~60 lines body). Removed verbose founding-incident prose, CI lint discussion, relationship explanations. The registry table is the file. Founding incident moved to a single-line reference.
+  - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/exa-openclaw-integration-YnDpO | Date: 25.05.2026 | Changes: Initial creation. Triggered by the "16 EU industries" propagation incident — wrong number lived in 58 files because no master index of source-of-truth files existed.
+
+Document Status:
+  - Created: 25.05.2026
+  - Last Modified: 25.05.2026
+  - Language: English
+  - Publication Status: ACTIVE
+  - Document Type: Meta-Standard / Internal Registry Index
+  - Owner: Risto Päärni (interim)
+
+***
+
+## 1. Purpose
+
+Thin meta-registry listing every internal source-of-truth file in DWS6. Answers one question: *"Where is the canonical definition of X?"*
+
+This file does not define facts. It is a directory. Sibling to `DWS_STANDARDS_LIBRARY.md` (which catalogs *external* standards adopted by DWS); this catalogs *internal* registries DWS itself owns.
+
+**Founding incident:** the 16→25+ EU industries propagation (commit `d4abb4d`, 2026-05-25 — wrong number in 58 files because no index of canonical files existed).
+
+**Optional template extension (sections 7–9):** standards in this registry may include `## Skill`, `## Workflow`, and `## Roles & Responsibilities` chapters using the templates piloted at the bottom of this file. The Roles chapter pulls from `DWS_ROLES_REGISTRY.md` (registered as §2 row 15). The extension is optional — not every standard needs all three; force-fit creates noise.
+
+## 2. Registry
+
+| # | Domain | Canonical (human-readable) | Structured mirror | Scope |
+|---|---|---|---|---|
+| 1 | Industries & captain framework | `/INDUSTRIES.md` | `dws10.com/config/industries.json` (+ landing-pages mirror) | "X EU industries" / "X captain hats" claims |
+| 2 | Products & pricing | `DWS_PRODUCT_STANDARD.md` | `dws10.com/config/products.json` (+ landing-pages mirror) | Product definitions, prices, descriptions, store metadata |
+| 3 | External standards | `DWS_STANDARDS_LIBRARY.md` | — | EU regs, ISO, IETF, GHG accounting, protocols |
+| 4 | Sovereignty vendor tiers | `DWS_STANDARDS_LIBRARY.md` §3.6 | — | Tier 1/2/3 vendor classification for `/sovereignty-assess` |
+| 5 | Data storage & retention | `DWS_DATA_STANDARD.md` | — | Database, columnar/row, KB classification, RTO/RPO |
+| 6 | Agent behavior | `CLAUDE.md` | — | Operational rules and non-negotiables for AI agents |
+| 7 | KYA scoring | `Legal/KYA_STANDARD_v1.md` | — | Trust scores, ATS ranges, financial multipliers |
+| 8 | Captain framework | `docs/FOUNDER_CREDIBILITY_PLAYBOOK.md` | `dws10.com/config/industries.json` `captainHats[]` | 16 captain hats, tranche allocation, seat prices |
+| 9 | Brand identity | `DWS_BRAND_STANDARD.md` | — | Visual identity, voice, typography |
+| 10 | Security posture | `DWS_SECURITY_STANDARD.md` | — | Coding rules, secret handling, OWASP defences |
+| 11 | Document format | `DWS_DOCUMENT_STANDARD.md` | — | VERSION AND AGENT HISTORY block, `***` Pandoc delimiter rule |
+| 12 | Legal identity | `CLAUDE.md` §Legal Identity Rule | — | Lifetime Oy name, Business ID, VAT, address, CEO |
+| 13 | Deployment lanes | `DWS_DEPLOYMENT_STANDARD.md` | — | Per-Surface deploy ontology, forward-only migration |
+| 14 | Truth registry meta | `DWS_TRUTH_STANDARD.md` (this file) | — | The registry itself |
+| 15 | Enterprise role taxonomy | `DWS_ROLES_REGISTRY.md` | — | The 25 canonical roles + 5 buying-journey stages. Source for every standard's Roles chapter and every per-customer outreach matrix. |
+
+**Excluded on purpose:** thesis files (academic, not operational), field notes (historical, not authoritative).
+
+## 3. Conflict Resolution Rule
+
+If two files disagree on a fact, the canonical file from §2 wins. Downstream copy (decks, press, sales, landing pages) is wrong and gets corrected — not the canonical source. Don't silently propagate either version; fix the drift in the same change that surfaces it.
+
+## 4. How to Register a New Canonical File
+
+1. Add a row to §2.
+2. Place this declaration header in the new canonical file: *"Canonical registry — single source of truth. Registered in `DWS_TRUTH_STANDARD.md` §2 row N."*
+3. If creating a structured mirror, set `sourceOfTruth: false`, `structuredMirror: true`, `humanReadableSource: "<relative path>"`, and populate `approvedDisplayPhrases` / `deprecatedDisplayPhrases` for the future CI lint.
+4. Add to `CLAUDE.md` Required Standards list if reading is mandatory before edits.
+
+## 5. CI Lint (recommended, not built)
+
+`scripts/lint-truth-claims.{ts,ps1}` — iterates every structured mirror; rejects deprecated phrases, warns on ambiguous ones, passes approved ones. Scopes to public-layer copy only (public-site folders, investor/sales outreach, CEO/founder/press docs). Skips internal docs and audit-trail metadata.
+
+## 6. Drift Log
+
+| Date | Domain | Symptom | Resolution |
+|---|---|---|---|
+| 2026-05-25 | Industries | "16 EU industries" in 58 files; actual is 25 | Commits `d4abb4d`, `0b07140`, `3b489e1`, `16ccd68` |
+| 2026-05-25 | Enterprise roles | 25 roles lived only in one outreach letter; no canonical registry | Created `DWS_ROLES_REGISTRY.md`, registered as §2 row 15 |
+
+---
+
+## 7. Skill *(pilot — template chapter)*
+
+The skill that operationalizes this standard ad-hoc. Recommended, not yet built.
+
+- **`/truth lookup <domain>`** — read §2; return the canonical file + structured mirror for the named domain. Example: `/truth lookup industries` → `/INDUSTRIES.md` + `dws10.com/config/industries.json`.
+- **`/truth check <claim>`** — parse a public-copy claim, infer the domain, load the relevant mirror's `approvedDisplayPhrases` / `deprecatedDisplayPhrases` / `ambiguousDisplayPhrasesNeedingContext`, return PASS / WARN / FAIL with the canonical phrasing on mismatch.
+- **`/truth scan [<path>]`** — walk public-layer files (per §5 scope), report any deprecated phrases. No edits, findings only.
+
+**Status:** not yet built. Recommended next step. Slots into the existing skill family (`/kya`, `/compliance-check`, `/sovereignty-assess`, `/gh-to-mcp`). Registration in `docs/DWS_SKILLS_GUIDE.md` follows build.
+
+---
+
+## 8. Workflow *(pilot — template chapter)*
+
+The CI/automation gate that enforces this standard automatically. Recommended, not yet built.
+
+- **`lint-truth-claims` GitHub Actions workflow** — iterates every structured mirror with `structuredMirror: true`; loads the phrase lists; scans the public-layer scope.
+  - **PR-time:** scans the diff only, comments inline on any deprecated phrases the change introduces. Non-blocking warning initially; blocking after stabilization.
+  - **Nightly:** scans full public layer; opens an issue if drift detected.
+  - **On-deploy:** runs as deploy-gate per `DWS_DEPLOYMENT_STANDARD.md` §4 — fails the deploy if build output contains deprecated phrases.
+
+**Status:** not yet built. Same script logic across all three triggers (~200 lines TS or PowerShell + ~30 lines of GitHub Actions YAML). Tracked as follow-up to `industries.json` v2.0.
+
+---
+
+## 9. Roles & Responsibilities *(pilot — template chapter)*
+
+Roles pulled from `DWS_ROLES_REGISTRY.md`. Skip stages that don't apply to this standard. Reference by R-ID so future role-name changes propagate.
+
+| Stage | Role(s) | What they own for this standard | What they get from it |
+|---|---|---|---|
+| 1 — Sponsor | R22 CEO + R23 CFO | Approve which files are declared canonical; arbitrate domain ownership disputes | Investor narrative grounded in a single set of facts (no contradicting decks) |
+| 2 — Owner | Risto Päärni (interim) / R&D Standards Advisor when named | Maintain §2 registry; resolve drift incidents; review new canonical registrations | The drift log (§6) as governance evidence; standards posture as enterprise RFP asset |
+| 3 — Approver | R05 General Counsel + R13 CIO | Legal review of any new canonical declaration; technical review of structured mirrors | Audit-ready evidence chain; vendor consolidation supported by a single registry of registries |
+| 4 — Driver | All engineers + any AI agent in an editing session | Consult §2 before asserting a fact externally; correct drift in the same change that surfaces it | Time savings: no re-discovery of "where is X canonical?" per session |
+| 5 — Sign-off | R22 CEO | Sign off on adding/removing entries from §2 (rare; affects company posture) | Single-source-of-truth posture defensible to board and regulators |
+
+**RACI shorthand:** Owner is *Accountable*; Sponsor and Sign-off are *Responsible*; Approver is *Consulted*; Driver is *Informed and acts*. Stages 1 + 5 typically overlap (CEO appears in both) — that's normal for meta-standards.

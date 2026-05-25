@@ -49,7 +49,7 @@ Two years ago I looked at the EU's Fit for 55 package — ETS, CBAM, CSRD, EPBD,
 
 So I built it.
 
-**DWS IQ 6** is an AI platform that automates climate compliance across 16 EU industries. Not a dashboard. Not a consulting slide deck with a login screen. A real platform that thinks, remembers, and deploys.
+**DWS IQ 6** is an AI platform that automates climate compliance across **16 captain hats covering 25+ EU industries**. Not a dashboard. Not a consulting slide deck with a login screen. A real platform that thinks, remembers, and deploys.
 
 The part that matters to an engineer:
 - We run edge AI on NVIDIA Jetson devices. Inference under 100ms.
@@ -106,7 +106,7 @@ Design these as clean, dark-themed slides matching DWS brand. One fact per slide
 **Slide 5 — Traction**
 "EUR 7-14k MRR (Fleet division)"
 "EUR 59,900 in Q1 2026 pilot contracts"
-"16 EU industries covered"
+"16 captain hats covering 25+ EU industries"
 
 **Slide 6 — CTA**
 "Looking for 6 Fleet Captains."

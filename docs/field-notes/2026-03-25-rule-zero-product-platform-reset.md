@@ -89,7 +89,7 @@ When AI agent frameworks commoditize and every hyperscaler ships agent tooling, 
 | Moat | Why it's defensible | DWS position |
 |------|--------------------|----|
 | **Proprietary data** | Models are commodities. The data you train and score with is not. Whoever owns the dataset owns the outcome. | EU ETS benchmarks, CBAM defaults, ESRS registry, emission factors — all codified in `src/compliance/`. ICEYE SAR imagery via Argus. Customer compliance data accumulates over time. |
-| **Deep understanding of customer outcomes** | Anyone can build an agent. Knowing *which* outcome the customer will pay for — and how to measure it — takes years of discovery. | 16 industries mapped with specific regulatory pain. CXO call scripts with real objection patterns. MPO definitions per agent. This knowledge compounds. |
+| **Deep understanding of customer outcomes** | Anyone can build an agent. Knowing *which* outcome the customer will pay for — and how to measure it — takes years of discovery. | 25+ industries mapped with specific regulatory pain. CXO call scripts with real objection patterns. MPO definitions per agent. This knowledge compounds. |
 | **Regulatory lock-in** | Once a customer uses your system for regulatory reporting and an auditor has accepted it, switching costs become enormous. Compliance is sticky. | CSRD gap analysis, EU ETS allowance tracking, CBAM border carbon — once an auditor has validated reports from DWS, the customer can't easily switch mid-reporting cycle. Article 12 logging for EU AI Act creates audit trail lock-in. |
 | **Program of Record** | In defense and enterprise procurement, being the "Program of Record" — the approved, contracted vendor for a specific capability — creates multi-year lock-in that competitors can't displace without a full re-evaluation. | Not yet achieved. This is the goal for Captain seats: become the named compliance AI vendor for each industry vertical. In defense: become the sovereign EU AI platform of record for NATO/EU procurement. |
 
@@ -283,7 +283,7 @@ DWS IQ is not a compliance company. It is not a defense company. It is a **produ
     │  Customers:          │       │  Customers:              │
     │  Construction CXOs   │       │  Finnish MoD, NATO       │
     │  Energy, Logistics   │       │  EU defense primes       │
-    │  16 EU industries    │       │  Nordic allies           │
+    │  25+ EU industries    │       │  Nordic allies           │
     │                      │       │                          │
     │  Entry: Direct sales │       │  Entry: DEFINE Accel     │
     │  €30-60K pilots      │       │  Defence Tech Hub Espoo  │
@@ -325,7 +325,7 @@ SAP is not the enemy. SAP is the distribution channel.
 |----------|----------|----------|
 | 400+ generic compliance use cases via Joule | Deep regulation-specific scoring (CBAM emission factors, AI Act risk classification, NIS2 Article 21 mapping) | SAP customers get enterprise compliance that actually passes audits |
 | S/4HANA ERP platform (80% of EU large enterprises) | Sovereign EU AI layer with no CLOUD Act exposure | SAP can tell EU government customers "we have a sovereign compliance option" |
-| Global scale, global sales force | 16-industry regulatory domain depth | SAP sells, DWS delivers the 20% that SAP gets wrong |
+| Global scale, global sales force | 25+-industry regulatory domain depth | SAP sells, DWS delivers the 20% that SAP gets wrong |
 
 **The play:**
 1. Build certified SAP integration (DWS already has `src/integrations/erp/sap/`)

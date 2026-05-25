@@ -67,7 +67,7 @@ Construction, logistics, manufacturing, steel, cement, chemicals, maritime, avia
 **Category:** AI / Machine Learning / Domain-Specific LLM
 
 **One-Line Description:**
-Proprietary industrial knowledge base and inference engine that maps 15,000+ EU regulatory documents across 16 verticals — the intelligence layer underneath DWS IQ 6, running on NVIDIA GPU infrastructure.
+Proprietary industrial knowledge base and inference engine that maps 15,000+ EU regulatory documents across 25+ verticals — the intelligence layer underneath DWS IQ 6, running on NVIDIA GPU infrastructure.
 
 **Full Description:**
 The Lifetime World Model is the proprietary AI engine that powers DWS IQ 6. It is not a fine-tuned wrapper around a foundation model. It is a structured regulatory intelligence graph that maps every obligation in the EU's Fit for 55 package to specific industries, deadlines, data requirements, and reporting formats.

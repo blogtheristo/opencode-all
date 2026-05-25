@@ -8,7 +8,7 @@
       "price": 4999,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Stop risking fines and lost tenders. DWS IQ 6 deploys 18+ Skilled Agents with agentic loops (observe-think-act) to amplify Fit for 55, CSRD, and EPBD compliance across 20 EU industries — cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.",
+      "description": "Stop risking fines and lost tenders. DWS IQ 6 deploys 18+ Skilled Agents with agentic loops (observe-think-act) to amplify Fit for 55, CSRD, and EPBD compliance across 16 captain hats covering 25+ EU industries — cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.",
       "features": [
         "18+ Skilled Agents with MCP protocol and CLI access",
         "Amplify Fit for 55, CSRD & EPBD reporting",
@@ -269,10 +269,10 @@
       "price": 250,
       "currency": "EUR",
       "type": "hourly",
-      "description": "Expert compliance guidance without a long-term commitment. Book by the hour for Fit for 55, CSRD, EU AI Act, or governance challenges across all 16 regulated EU industries. Most clients start with a 4-hour assessment.",
+      "description": "Expert compliance guidance without a long-term commitment. Book by the hour for Fit for 55, CSRD, EU AI Act, or governance challenges across 16 captain hats covering 25+ EU regulated industries. Most clients start with a 4-hour assessment.",
       "features": [
         "Expert compliance guidance",
-        "All 16 EU industries covered",
+        "16 captain hats covering 25+ EU industries",
         "Flexible hourly booking"
       ],
       "priceNote": "Per hour, VAT excl.",

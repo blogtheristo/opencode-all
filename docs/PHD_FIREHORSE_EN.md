@@ -46,7 +46,7 @@ Sessions & Modifications:
 - Version: 1.6 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: CONSOLIDATED — resolves version drift. Added Section 14.7 (CEO Automation Agent Suite); Section 14.8 (Strategic Partnerships: NVIDIA, Siemens, ABB, xAI, Mistral + Multi-LLM Router); Key Contributions 9-10; references 15-16; footer updated
 - Version: 1.5 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Added Section 14.6 (Agent Foundry Stage 1.5 — OpenSandbox on Acer Veriton GN100); added EMPO² agent memory section (arXiv:2602.23008); added references 13-14; updated Key Contributions
 - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Added Section 14.5 DWS7 Agent Architecture Modernization (agentic loops, tool use, multi-provider LLM, MCP server, CLI, Claude Code Skills), added VERSION AND AGENT HISTORY block
-- Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition, 16-industry cross-learning analysis, BYOA architecture, Agent Orchestration Studio
+- Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition, 25+-industry cross-learning analysis, BYOA architecture, Agent Orchestration Studio
 - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Added Appendix E Automated PR Workflow, IPR Protection, Prompt Caching Architecture
 - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: DWS10-Integration | Date: 28.01.2026 | Changes: Initial structured version with 18 sections
 - Version: 1.0 | Tool: Claude Code (Opus 4.5) | Session: PHD-Init | Date: 15.01.2026 | Changes: Initial document creation
@@ -740,7 +740,7 @@ Transform customer interactions from text-based to voice-based with intelligent 
 
 **Features:**
 
-- Industry sector detection (16 EU industries)
+- Industry sector detection (25+ EU industries)
 - Carbon footprint estimation (Scope 1, 2, 3)
 - Automatic product recommendations based on emissions profile
 - Compliance requirement identification
@@ -833,7 +833,7 @@ Customer Profile Analysis:
 │                                                              │
 │  Input Parameters:                                           │
 │  ┌────────────────────────────────────────────────────┐     │
-│  │ • Industry sector (16 EU industries supported)     │     │
+│  │ • Industry sector (25+ EU industries supported)     │     │
 │  │ • Annual revenue (EUR)                             │     │
 │  │ • Energy consumption (kWh)                         │     │
 │  │ • Transportation logistics (km, modes)             │     │
@@ -1132,7 +1132,7 @@ These economics are critical for Firehorse's AI-assisted store operations, where
 
 ### 14.1 Per-Industry Open LLM Selection
 
-No single open LLM is optimal for all 16 EU industries served by DWS IQ. Each industry vertical has distinct regulatory language, domain knowledge requirements, and structured output needs. The `AgentConfig.model` field is already per-agent, so each concrete agent can be configured with a different trained Lifetime World Model (LWM) + open LLM, with continuous benchmarking.
+No single open LLM is optimal for all 25+ EU industries served by DWS IQ. Each industry vertical has distinct regulatory language, domain knowledge requirements, and structured output needs. The `AgentConfig.model` field is already per-agent, so each concrete agent can be configured with a different trained Lifetime World Model (LWM) + open LLM, with continuous benchmarking.
 
 **Candidate open LLMs by industry cluster:**
 
@@ -1341,7 +1341,7 @@ The `{vertical}` parameterized milestone enables per-industry pipeline instantia
 
 2. **Resource arbitration** — T-06 manages two node-slot tokens (one per GN-100). Training agents acquire a token before starting; release on completion. First-come-first-served by signal emission order.
 
-3. **Fan-Out parallelism** — Curriculum generation (T-03) and data synthesis (T-04) run across all 16 verticals simultaneously (CPU-bound, no GPU constraint), eliminating idle GPU time.
+3. **Fan-Out parallelism** — Curriculum generation (T-03) and data synthesis (T-04) run across all 25+ verticals simultaneously (CPU-bound, no GPU constraint), eliminating idle GPU time.
 
 **Firehorse operating model impact:** The training coordination validates LSS as a general-purpose deterministic coordination mechanism — the same protocol orchestrates both software development agents (Appendix F) and ML training pipelines, reducing operational complexity for Firehorse customers who need both capabilities.
 
@@ -1457,7 +1457,7 @@ The Firehorse Operations Model with Claude Code achieved:
 | --------------- | ---- | ------- | ------ | ----------------------------------------- |
 | EU AI Act       | 80%  | **92%** | +12%   | Art. 12 logging, SOUL.md, Pantheon agents |
 | GDPR            | 95%  | **97%** | +2%    | Proton + Supabase RLS + Aiven EU          |
-| Fit for 55      | 90%  | **93%** | +3%    | 16-industry carbon calculator             |
+| Fit for 55      | 90%  | **93%** | +3%    | 25+-industry carbon calculator             |
 | NIS2            | 75%  | **85%** | +10%   | RC2-RC4 hardening, Snyk MCP               |
 | CSRD            | 85%  | **88%** | +3%    | Report export feature                     |
 | **EU Data Act** | —    | **80%** | New    | DWS Data Standard, HTAP                   |
@@ -1503,7 +1503,7 @@ This thesis contributes:
 2. Integration patterns for Google Merchant Center and Revolut Business
 3. A roadmap for audio chat with carbon calculator integration (4 phases)
 4. EU compliance mapping for industrial software products
-5. Product recommendation engine architecture for 16 EU industries
+5. Product recommendation engine architecture for 25+ EU industries
 6. Proton products security strategy for GDPR/NIS2 compliance
 7. Agent Foundry Stage 1.5 — OpenSandbox on Acer Veriton GN100 for EU air-gapped agent sandboxing
 8. EMPO² alignment — hybrid parametric/non-parametric memory architecture validated by arXiv:2602.23008

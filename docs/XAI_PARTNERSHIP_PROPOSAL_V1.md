@@ -219,7 +219,7 @@ These roles are designed exclusively for premium wallet-openers from any of the 
 
 **What DWS IQ provides:**
 - Pre-built EU regulatory compliance layer (Fit for 55, ETS, CBAM, CSRD, EU AI Act)
-- 16-industry vertical coverage already operational
+- 25+-industry vertical coverage already operational
 - Finnish sovereign trust anchor (NATO member, EU founding digital trust zone)
 - Iceye SAR integration (unique EU situational awareness data stream)
 - Direct access to Platinum Captains — decision-makers with €50 000 investment capacity per seat

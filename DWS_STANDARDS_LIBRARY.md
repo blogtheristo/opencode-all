@@ -4,10 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.4
 
 Sessions & Modifications:
 
+- Version: 1.4 | Tool: Claude Code (Opus 4.7) | Session: claude/exa-openclaw-integration-YnDpO | Date: 25.05.2026 | Changes: Registered `DWS_ROLES_REGISTRY.md` v1.0 in §7 Related Documents. Canonical 25-role enterprise taxonomy + 5 buying-journey stages extracted from the Outokumpu case. Source for every standard's optional Roles chapter and per-customer outreach wedge matrices.
+- Version: 1.3 | Tool: Claude Code (Opus 4.7) | Session: claude/exa-openclaw-integration-YnDpO | Date: 25.05.2026 | Changes: Registered sibling meta-standard `DWS_TRUTH_STANDARD.md` v1.0 in §7 Related Documents. The Truth Standard catalogs internal canonical files (industries, products, KYA, captain framework, brand, security, document format, deployment) — the parallel index to this file's external-standards registry. Founded after the 16→25+ EU industries propagation incident (commit d4abb4d) revealed that DWS had no master index of source-of-truth files.
 - Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/deployment-strategies-comparison-T5gcw | Date: 12.05.2026 | Changes: Registered `DWS_DEPLOYMENT_STANDARD.md` v1.0 — new master standard for deploys across every DWS Surface (static sites, dashboards, Cloud Run backend, AgentFoundry, MCP gateway, Firehorse Python suite, Situation Room, Control Room, LWM Acer, Store). Added §4 Standards per Enterprise Integration row for the **Deployment** integration. Added entry to §7 Related Documents.
 - Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/redhat-sovereignty-research-YGHtL | Date: 23.04.2026 | Changes: Added Section 3.6 Sovereignty Tier Map (Tier 1 Full EU Sovereign / Tier 2 EU Operational / Tier 3 EU Region, US Ownership) to anchor honest vendor positioning. Red Hat Confirmed Sovereign Support classified as strong Tier 2; Aiven, Scaleway, OVHcloud, IONOS, SUSE anchored as Tier 1. Referenced from `/sovereignty-assess` skill and the partner-note blog post `onelifetime.world/posts/redhat-sovereign-move-three-tiers.html`.
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/expand-standards-knowledge-oAULz | Date: 19.04.2026 | Changes: Initial creation — SPICE + SQuaRE + integration-standards map triggered by Teemu Vesala advisor engagement (see docs/field-notes/2026-04-19-vesala-teemu-standards-enthusiast.md). Indexes all DWS-adopted standards with version, scope, DWS application, and owner.
@@ -188,6 +190,8 @@ When an agent (or human) needs to determine which standards apply to a given pro
 
 ## 7. Related Documents
 
+- `DWS_TRUTH_STANDARD.md` — **Sibling meta-standard.** Where `DWS_STANDARDS_LIBRARY.md` registers *external* standards (EU regulations, ISO, IETF), `DWS_TRUTH_STANDARD.md` registers *internal* canonical files (which file owns the industries count, which owns product prices, which owns KYA scoring, etc.). Founded 2026-05-25 after the "16 EU industries" propagation incident. Consult both when investigating a question.
+- `DWS_ROLES_REGISTRY.md` — Canonical 25-role enterprise taxonomy + 5 buying-journey stages (Sponsors / Owners / Approvers / Drivers / Sign-off). Extracted from the Outokumpu case (2026-05-18). Source for every standard's optional Roles & Responsibilities chapter (template piloted in `DWS_TRUTH_STANDARD.md` §9) and every per-customer outreach wedge matrix. Roles referenced by R-ID (R01–R25).
 - `docs/DWS_STANDARDS_ROADMAP.md` — Gap analysis + Q1-Q4 2026 roadmap
 - `DWS_DOCUMENT_STANDARD.md` — How to write/version this document
 - `DWS_SECURITY_STANDARD.md` — Security control implementation

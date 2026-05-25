@@ -44,7 +44,7 @@
 - Full pipeline from first touch to signed Captain
 - Stage definitions, success metrics, email implementation
 
-**[CAPTAIN_LINKEDIN_DM_GENERIC.md](CAPTAIN_LINKEDIN_DM_GENERIC.md)** - LinkedIn DM templates for all 16 industries
+**[CAPTAIN_LINKEDIN_DM_GENERIC.md](CAPTAIN_LINKEDIN_DM_GENERIC.md)** - LinkedIn DM templates for 16 captain hats (covering 25+ industries)
 - 4 templates: CDO/CTO, CSO/Sustainability, Board/Angel, Connection Request
 - Industry keyword map with regulation + pain point per vertical
 - Personalization checklist and daily cadence
@@ -216,7 +216,7 @@
 | **README.md** | Complete strategy & workflow | Campaign setup, reference |
 | **DWS6_INVESTOR_PROFILES.md** | Detailed qualification guide | Deep research, scoring |
 | **CAPTAIN_ACQUISITION_FUNNEL.md** | 11-stage Captain funnel | End-to-end Captain acquisition |
-| **CAPTAIN_LINKEDIN_DM_GENERIC.md** | DM templates for 16 industries | Daily LinkedIn outreach |
+| **CAPTAIN_LINKEDIN_DM_GENERIC.md** | DM templates for 16 captain hats (25+ industries) | Daily LinkedIn outreach |
 | **CAPTAIN_WEBINAR_PITCH.md** | Webinar pitch + co-host strategy | Event-driven lead generation |
 | **CAPTAIN_REFERRAL_ASK.md** | Referral templates for customers | Warm intro pipeline |
 | **INDEX.md** | Navigation & overview | Finding the right doc |
