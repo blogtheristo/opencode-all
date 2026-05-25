@@ -24,6 +24,7 @@ import {
   withWorkflowStepSpan,
   recordLLMResponse,
 } from '../observability/tracing.js';
+import { initOtel, isOtelEnabled, shutdownOtel } from '../observability/otel.js';
 
 let memoryExporter: InMemorySpanExporter;
 let provider: BasicTracerProvider;
@@ -147,12 +148,13 @@ describe('tracing helpers', () => {
   });
 
   it('initOtel is a no-op when OTEL_EXPORTER_OTLP_ENDPOINT is unset', async () => {
-    vi.resetModules();
     const prev = process.env.OTEL_EXPORTER_OTLP_ENDPOINT;
     delete process.env.OTEL_EXPORTER_OTLP_ENDPOINT;
-    const { initOtel, isOtelEnabled } = await import('../observability/otel.js');
+    await shutdownOtel();
     expect(initOtel()).toBe(false);
     expect(isOtelEnabled()).toBe(false);
-    if (prev) process.env.OTEL_EXPORTER_OTLP_ENDPOINT = prev;
+    if (prev) {
+      process.env.OTEL_EXPORTER_OTLP_ENDPOINT = prev;
+    }
   });
 });

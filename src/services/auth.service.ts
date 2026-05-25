@@ -406,46 +406,58 @@ class AuthService {
 
     const client = getSupabaseClient();
     if (client) {
-      // Check if user already exists in Supabase
-      const { data: existing } = await client
-        .from('users')
-        .select('id')
-        .eq('email', normalizedEmail)
-        .single();
+      try {
+        // Check if user already exists in Supabase
+        const { data: existing, error: existingError } = await client
+          .from('users')
+          .select('id')
+          .eq('email', normalizedEmail)
+          .single();
 
-      if (existing) {
-        throw new Error('User already exists');
-      }
+        if (existingError && existingError.code !== 'PGRST116') {
+          throw existingError;
+        }
 
-      const { data, error } = await client
-        .from('users')
-        .insert({
-          id: userId,
-          email: normalizedEmail,
-          password_hash: passwordHash,
-          first_name: userData?.firstName || null,
-          last_name: userData?.lastName || null,
-          role: userData?.role || 'dws_iq_standard',
-          access_level: userData?.accessLevel || 'free',
-        })
-        .select('id, email, first_name, last_name, role, access_level')
-        .single();
+        if (existing) {
+          throw new Error('User already exists');
+        }
 
-      if (error) {
-        logger.error('Supabase user registration failed', { error: error.message });
-        throw new Error('Registration failed');
-      }
+        const { data, error } = await client
+          .from('users')
+          .insert({
+            id: userId,
+            email: normalizedEmail,
+            password_hash: passwordHash,
+            first_name: userData?.firstName || null,
+            last_name: userData?.lastName || null,
+            role: userData?.role || 'dws_iq_standard',
+            access_level: userData?.accessLevel || 'free',
+          })
+          .select('id, email, first_name, last_name, role, access_level')
+          .single();
 
-      if (data) {
-        logger.info('User registered (Supabase)', { userId: data.id });
-        return {
-          id: data.id,
-          email: data.email,
-          firstName: data.first_name,
-          lastName: data.last_name,
-          role: data.role,
-          accessLevel: data.access_level,
-        };
+        if (error) {
+          throw error;
+        }
+
+        if (data) {
+          logger.info('User registered (Supabase)', { userId: data.id });
+          return {
+            id: data.id,
+            email: data.email,
+            firstName: data.first_name,
+            lastName: data.last_name,
+            role: data.role,
+            accessLevel: data.access_level,
+          };
+        }
+      } catch (err) {
+        if (err instanceof Error && err.message === 'User already exists') {
+          throw err;
+        }
+        logger.warn('Supabase user registration failed, falling back to in-memory', {
+          error: err instanceof Error ? err.message : String(err),
+        });
       }
     }
 

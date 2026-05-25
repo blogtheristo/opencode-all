@@ -104,7 +104,6 @@ HEALTH_SCRIPT="${SCRIPT_DIR}/runner-health.sh"
 if [ -f "$HEALTH_SCRIPT" ]; then
   log "Installing runner-health companion service..."
 
-  # Ensure netcat is available (used by runner-health.sh)
   if ! command -v nc &>/dev/null; then
     warn "netcat (nc) not found — installing ncat..."
     sudo apt-get install -y ncat 2>/dev/null || warn "Could not install ncat — runner-health may not work"

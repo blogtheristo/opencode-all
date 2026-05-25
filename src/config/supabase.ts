@@ -19,6 +19,14 @@ let _client: SupabaseClient | null = null;
 export function getSupabaseClient(): SupabaseClient | null {
   if (_client) return _client;
 
+  if (
+    (process.env.VITEST || process.env.NODE_ENV === 'test') &&
+    process.env.ENABLE_SUPABASE_IN_TESTS !== 'true'
+  ) {
+    logger.debug('Supabase disabled for self-contained tests');
+    return null;
+  }
+
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
 

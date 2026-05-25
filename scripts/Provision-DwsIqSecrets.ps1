@@ -77,6 +77,10 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
+# Use the .cmd wrapper to bypass bundledpython permission issue on Windows.
+$GcloudCmd = 'C:\Program Files (x86)\Google\Cloud SDK\google-cloud-sdk\bin\gcloud.cmd'
+if (-not (Test-Path $GcloudCmd)) { $GcloudCmd = 'gcloud' }
+
 # Map ENV var names in the source file -> Secret Manager secret names.
 $SecretMap = [ordered]@{
     'STRIPE_SECRET_KEY'     = 'stripe-secret-key'
@@ -97,12 +101,12 @@ function Write-Warn2 { param($m) Write-Host "[WARN]  $m" -ForegroundColor Yellow
 function Write-Err   { param($m) Write-Host "[ERROR] $m" -ForegroundColor Red }
 
 function Assert-Gcloud {
-    if (-not (Get-Command gcloud -ErrorAction SilentlyContinue)) {
-        throw 'gcloud CLI not found on PATH. Install Google Cloud SDK and re-run.'
+    if (-not (Test-Path $GcloudCmd) -and -not (Get-Command gcloud -ErrorAction SilentlyContinue)) {
+        throw 'gcloud CLI not found. Install Google Cloud SDK and re-run.'
     }
-    $null = & gcloud projects describe $ProjectId --format='value(projectNumber)' 2>&1
+    $null = & $GcloudCmd projects describe $ProjectId --format='value(projectNumber)' 2>&1
     if ($LASTEXITCODE -ne 0) {
-        throw "Cannot access project '$ProjectId'. Run: gcloud auth login && gcloud config set project $ProjectId"
+        throw "Cannot access project '$ProjectId'. Run: $GcloudCmd auth login && $GcloudCmd config set project $ProjectId"
     }
 }
 
@@ -148,7 +152,7 @@ function Get-SecretsFromFile {
 
 function Test-SecretExists {
     param([string]$Name)
-    $null = & gcloud secrets describe $Name --project=$ProjectId 2>$null
+    $null = & $GcloudCmd secrets describe $Name --project=$ProjectId 2>$null
     return ($LASTEXITCODE -eq 0)
 }
 
@@ -165,13 +169,13 @@ function Submit-SecretValue {
         [System.IO.File]::WriteAllText($tempFile, $Value, $utf8NoBom)
 
         if (Test-SecretExists -Name $SecretName) {
-            & gcloud secrets versions add $SecretName `
+            & $GcloudCmd secrets versions add $SecretName `
                 --project=$ProjectId `
                 --data-file="$tempFile" 1>$null
             if ($LASTEXITCODE -ne 0) { throw "Failed to add version to $SecretName" }
             Write-Ok "Added new version to '$SecretName'"
         } else {
-            & gcloud secrets create $SecretName `
+            & $GcloudCmd secrets create $SecretName `
                 --project=$ProjectId `
                 --replication-policy='user-managed' `
                 --locations=$Region `
@@ -195,7 +199,7 @@ function Submit-SecretValue {
 function Grant-RuntimeAccess {
     param([string]$SecretName)
 
-    & gcloud secrets add-iam-policy-binding $SecretName `
+    & $GcloudCmd secrets add-iam-policy-binding $SecretName `
         --project=$ProjectId `
         --member="serviceAccount:$RuntimeServiceAccount" `
         --role='roles/secretmanager.secretAccessor' `

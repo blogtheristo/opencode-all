@@ -13,6 +13,9 @@ const logger = {
 
 vi.mock('../utils/logger.js', () => ({ default: logger }));
 
+const { brokerRouter } = await import('../broker/broker.routes.js');
+const { _resetRegistryCacheForTests } = await import('../broker/capability-tokens.js');
+
 function sha256(plain: string): string {
   return createHash('sha256').update(plain, 'utf8').digest('hex');
 }
@@ -20,14 +23,11 @@ function sha256(plain: string): string {
 const envSnapshot = { ...process.env };
 
 async function buildApp() {
-  // Import after env is set so capability-tokens picks up BROKER_AGENT_TOKENS.
-  const mod = await import('../broker/broker.routes.js');
-  const tokensMod = await import('../broker/capability-tokens.js');
-  tokensMod._resetRegistryCacheForTests();
+  _resetRegistryCacheForTests();
 
   const app = express();
   app.use(express.json());
-  app.use('/api/v1/broker', mod.brokerRouter);
+  app.use('/api/v1/broker', brokerRouter);
   return app;
 }
 
@@ -48,7 +48,6 @@ beforeEach(() => {
 
 afterEach(() => {
   vi.unstubAllGlobals();
-  vi.resetModules();
   process.env = { ...envSnapshot };
 });
 

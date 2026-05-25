@@ -8,7 +8,7 @@ Version: 1.0
 
 Sessions & Modifications:
 
-- Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/investor-labor-pricing-thesis-rWS2b | Date: 14.05.2026 | Changes: Initial creation — distribution math for Microsoft Azure MACC-burn and Salesforce AppExchange co-sell. Take-rate analysis, gross-up math, co-sell projection, channel-conflict avoidance. Sourced from docs/marketing/SKILLED-AGENTS-PRICE-LIST-2026.md §§4–6. Spine: labor-anchored pricing · regulation drives demand · MACC + AppExchange drive distribution.
+- Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/investor-labor-pricing-thesis-rWS2b | Date: 14.05.2026 | Changes: Initial creation — distribution math for Microsoft Azure MACC-burn and Salesforce AppExchange co-sell. Take-rate analysis, gross-up math, co-sell projection, channel-conflict avoidance. Sourced from docs/marketing/SKILLED-AGENTS-PRICE-LIST-2026.md §§5–7. Spine: labor-anchored pricing · regulation drives demand · MACC + AppExchange drive distribution.
 
 Session Links & References:
 
@@ -136,7 +136,7 @@ We list flat **per-agent-month** on AppExchange — never per-conversation as th
 
 ## 7. Companion Documents
 
-- `docs/marketing/SKILLED-AGENTS-PRICE-LIST-2026.md` §§4–6
+- `docs/marketing/SKILLED-AGENTS-PRICE-LIST-2026.md` §§5–7
 - `docs/investor/data-room-2026Q2/PRICING_MODEL.md`
 - `docs/investor/data-room-2026Q2/REGULATORY_TAILWIND.md`
 - `docs/investor/data-room-2026Q2/PROOF_POINTS_2026Q2.md`

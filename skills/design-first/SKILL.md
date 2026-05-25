@@ -1,5 +1,11 @@
 ---
 name: design-first
+triggers:
+  - design proposal
+  - 3+ files
+  - architectural decision
+  - present approaches
+  - design before implementation
 description: >
   Use when starting a feature that touches 3+ files or involves architectural
   decisions. Hard gate: present 2-3 design approaches and get user approval
@@ -14,10 +20,10 @@ description: >
 
 For any change touching 3+ files or involving architectural decisions:
 
-1. **Surface assumptions** — List what you're assuming about requirements
-2. **Present 2-3 approaches** — Each with tradeoffs (complexity, performance, maintainability)
-3. **Recommend one** — State why, including what you'd lose
-4. **Wait for approval** — Do NOT proceed until the user picks an approach
+1. **Surface assumptions** - List what you're assuming about requirements
+2. **Present 2-3 approaches** - Each with tradeoffs (complexity, performance, maintainability)
+3. **Recommend one** - State why, including what you'd lose
+4. **Wait for approval** - Do NOT proceed until the user picks an approach
 
 ## Quick Reference
 
@@ -25,7 +31,7 @@ For any change touching 3+ files or involving architectural decisions:
 DESIGN PROPOSAL: [feature name]
 
 ASSUMPTIONS:
-1. [assumption] — correct me if wrong
+1. [assumption] - correct me if wrong
 
 APPROACH A: [name]
 + [pro]
@@ -36,7 +42,7 @@ APPROACH B: [name]
 - [con]
 
 RECOMMENDATION: Approach [X] because [reason].
-→ Approve to proceed, or redirect.
+-> Approve to proceed, or redirect.
 ```
 
 ## When to Skip This Gate
@@ -64,7 +70,7 @@ A skipped gate is only safe if the change goes through the **PR + CI** path. Dir
 ## Common Mistakes
 
 - Presenting one approach disguised as a choice ("Option A is clearly better, but here's B...")
-- Designing in too much detail — keep it to tradeoffs, not implementation
+- Designing in too much detail - keep it to tradeoffs, not implementation
 - Skipping the gate because "I already know the right answer"
 - Starting implementation while "waiting" for approval
 

@@ -39,7 +39,15 @@ vi.mock('../agents/event-bus.js', () => ({
   eventBus: {
     getRecentEvents: vi
       .fn()
-      .mockReturnValue([{ type: 'agent.started', timestamp: '2026-04-15T06:00:00Z' }]),
+      .mockReturnValue([{
+        type: 'agent.started',
+        source: 'test',
+        payload: {},
+        priority: 'normal',
+        timestamp: '2026-04-15T06:00:00Z',
+        orgId: 'org-1',
+        sessionId: 'sess-1',
+      }]),
   },
 }));
 

@@ -4,23 +4,27 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.2
 
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/ai-pricing-labor-model-GeqbE | Date: 14.05.2026 | Changes: Initial creation — first labor-anchored price list for DWS Skilled Agents (per-outcome + per-agent-month units) and derived listings for Microsoft Agent 365 (Azure Marketplace) and Salesforce Agentforce (AppExchange). Companion to AI-AS-LABOR-PRICING-STRATEGY.md. Pilot/Blue prices; commercial Green ratification pending Dynamic Deployment Pricing Standard governance.
+- Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/lwm-price-estimate-study-IXS4l | Date: 23.05.2026 | Changes: Added §3 "Model Training" chapter covering the full product ladder: Train Model (TM-001) self-serve at €1,490 / €2,990 / €7,490, Bridge Track (EMT-001 invite-only) at €19,990, Enterprise Model Training (EMT-001 project) at €50K / €100K / €200K. Renumbered subsequent chapters (Recommended Bundles → §4, Microsoft Agent 365 → §5, Salesforce Agentforce → §6, Channel Comparison → §7, Governance Hooks → §8, Open Questions → §9, Companion Documents → §10). Updated companion references to link Store SKU pages.
+- Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/lwm-price-estimate-study-IXS4l | Date: 23.05.2026 | Changes: Added "Measurement plan" subsection to §3 Model Training. Flags that Train Model has zero historical conversion data and locks 60-day measurement metrics (cart starts, completed orders, tier mix, Bridge inbound, Aegis attach, time-to-completion, SLA invocations) before Y1 projections get scaled into paid marketing. Defers Firehorse mobile-UI surfacing decision until tier mix is measured.
 
 Session Links & References:
 
 - Claude Code (claude/ai-pricing-labor-model-GeqbE): https://github.com/blogtheristo/dws6/commits/claude/ai-pricing-labor-model-GeqbE
+- Claude Code (claude/lwm-price-estimate-study-IXS4l): https://github.com/blogtheristo/dws6/commits/claude/lwm-price-estimate-study-IXS4l
 - Companion: docs/marketing/AI-AS-LABOR-PRICING-STRATEGY.md
 - Governance: DWS_DYNAMIC_DEPLOYMENT_PRICING_STANDARD.md
-- View on GitHub: https://github.com/blogtheristo/dws6/blob/claude/ai-pricing-labor-model-GeqbE/docs/marketing/SKILLED-AGENTS-PRICE-LIST-2026.md
+- Store SKUs: Store/PRODUCT_TRAIN_MODEL.md, Store/PRODUCT_ENTERPRISE_MODEL_TRAINING.md
+- View on GitHub: https://github.com/blogtheristo/dws6/blob/main/docs/marketing/SKILLED-AGENTS-PRICE-LIST-2026.md
 
 Document Status:
 
 - Created: 14.05.2026
-- Last Modified: 14.05.2026
+- Last Modified: 23.05.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE (pricing as pilot/Blue until Green ratification)
@@ -82,7 +86,98 @@ Notes:
 
 ---
 
-## 3. Recommended Bundles (Headcount Equivalents)
+## 3. Model Training — Customer-Owned Fine-Tuned SLMs
+
+A three-rung product ladder that sells customer-owned fine-tuned Small Language Models. Distinct from the Skilled Agents above — these are **model artifacts the customer takes home**, not labor units we deliver as a service. Customer retains 100% IP of trained model weights.
+
+Currency: EUR ex-VAT. All tiers include EU data residency option (Aegis uplift), KYA model attestation, and a 30-day eval-regression SLA.
+
+| #   | SKU                            | Tier                       | Size       | Delivery        | Price (€) | Channel                              |
+| --- | ------------------------------ | -------------------------- | ---------- | --------------- | --------: | ------------------------------------ |
+| T1  | **Train Model — Compact**      | TM-001 self-serve          | 3B         | Overnight       |     1,490 | Stripe / Store (public)              |
+| T2  | **Train Model — Standard**     | TM-001 self-serve          | 9B         | Overnight       |     2,990 | Stripe / Store (public)              |
+| T3  | **Train Model — Pro**          | TM-001 self-serve          | 32B        | Overnight       |     7,490 | Stripe / Store (public)              |
+| T4  | **Bridge Track 70B**           | EMT-001 invite-only        | 70B        | ~3 business days|    19,990 | Sales-qualified (15-min call)        |
+| T5  | **EMT Starter**                | EMT-001 project            | 7B         | 2 weeks         |    50,000 | Sales + SOW                          |
+| T6  | **EMT Professional**           | EMT-001 project            | 30B–70B    | 4 weeks         |   100,000 | Sales + SOW                          |
+| T7  | **EMT Enterprise**             | EMT-001 project            | up to 405B | 8 weeks         |   200,000 | Sales + SOW                          |
+
+### Aegis sovereign uplift
+
+EU-residency / CLOUD-Act-free training and signed KYA chain-of-custody attestation.
+
+| SKU range                     | Aegis uplift (€) |
+| ----------------------------- | ---------------: |
+| TM-001 (Compact / Standard / Pro) |              990 |
+| EMT-001 Bridge Track              |            2,500 |
+| EMT-001 Starter / Pro / Enterprise|     5,000–12,000 |
+
+### Loaded BOM and margins
+
+| SKU                | Loaded BOM (€) | List price (€) | Gross margin |
+| ------------------ | -------------: | -------------: | -----------: |
+| TM-001 Compact     |        129–152 |          1,490 |        ~90 % |
+| TM-001 Standard    |        204–240 |          2,990 |        ~93 % |
+| TM-001 Pro         |        310–380 |          7,490 |        ~94 % |
+| Bridge Track 70B   |        845–1,000 |        19,990 |        ~95 % |
+| EMT Starter        |     ~15,000 (incl. 2-wk engineer) |    50,000 |        ~70 % |
+| EMT Professional   |     ~30,000 (incl. 4-wk engineer) |   100,000 |        ~70 % |
+| EMT Enterprise     |     ~60,000 (incl. 8-wk engineer + multi-node compute) |   200,000 |        ~70 % |
+
+Notes:
+- TM-001 loaded BOM = compute (Colab / Lambda / RunPod A100 or H100) + Claude API data generation + €100/h SLM engineer touch-time (1.0 / 1.5 / 2.0 h across tiers) + conversion (GGUF/MLX/NIM).
+- Bridge Track loaded BOM includes sales-engagement overhead (~€100) and 5h engineer time for the multi-day 70B run.
+- EMT Starter–Enterprise margins are lower because they include dataset construction, multi-week engineering, and 12-month support contracts (not just a model artifact).
+- Self-serve tiers (T1–T3) carry a 30-day eval-regression SLA. Bridge Track carries the same 30-day SLA. EMT-001 project tiers carry a 12-month support contract.
+
+### Listing channels for Model Training
+
+| Channel                       | TM-001 tiers | Bridge Track | EMT project tiers |
+| ----------------------------- | :----------: | :----------: | :---------------: |
+| Public Store (dws10.com)      |      ✅       |  ⚠️ teaser only  |       ✅           |
+| Stripe self-checkout          |      ✅       |      ❌       |       ❌           |
+| Microsoft Agent 365 / Marketplace | ❌ (model artifacts, not agents) | ❌  | ❌                |
+| Salesforce Agentforce         | ❌ (same — not an agent) | ❌  | ❌                |
+| Sales-qualified inbound       |      ❌       |      ✅       |       ✅           |
+
+**Why Model Training does not list on Agent 365 / Agentforce:** these marketplaces transact **agents as labor**, not **model artifacts as IP**. Listing a fine-tuned 70B model on Azure Marketplace would mis-set buyer expectations and force pricing into a per-seat or per-call mental model that doesn't match the workload. Train Model and EMT-001 stay on dws10.com / direct sales.
+
+### Ladder transitions (when a customer moves up)
+
+| Trigger                                                       | From → To                                |
+| ------------------------------------------------------------- | ---------------------------------------- |
+| Dataset grew past 2M examples                                 | TM-001 Pro → Bridge Track                |
+| Customer wants 70B specifically                               | TM-001 → Bridge Track                    |
+| Customer needs dataset construction from raw documents        | TM-001 / Bridge → EMT Starter            |
+| Customer needs custom architecture (non-Llama/Qwen base)      | Anything → EMT Professional+             |
+| Customer needs 12-month support contract                      | TM-001 / Bridge → EMT Starter+           |
+| Customer budget jumps from €15K–€25K to €50K+                 | Bridge Track → EMT Starter / Professional|
+
+Full product specs:
+- [Store/PRODUCT_TRAIN_MODEL.md](../../Store/PRODUCT_TRAIN_MODEL.md) — TM-001 self-serve (T1–T3)
+- [Store/PRODUCT_ENTERPRISE_MODEL_TRAINING.md](../../Store/PRODUCT_ENTERPRISE_MODEL_TRAINING.md) — EMT-001 Bridge Track + Starter / Pro / Enterprise (T4–T7)
+
+### Measurement plan (pre-launch — read before scaling marketing spend)
+
+Train Model has **zero historical conversion data** — TM-001 is a brand-new SKU. The Y1 projection (50 customers, ~€170K revenue, mix 10 Compact / 30 Standard / 10 Pro) is anchored on price benchmarks (OpenAI fine-tune, Hugging Face AutoTrain, Together AI) and one proxy signal (78% acceptance on the production "compliance strategist" upsell rule per `docs/GTM_MACHINE_PHASE_2_SUMMARY.md:218`). It is **not** anchored on measured Train Model demand.
+
+For the first **60 days post-launch**, track:
+
+| Metric                            | Source                                        | Decision it informs                                |
+| --------------------------------- | --------------------------------------------- | -------------------------------------------------- |
+| Cart starts (TM-001 page → Stripe)| `dws10.com/admin/analytics/funnel.html`       | Top-of-funnel: is the SKU page converting visitors?|
+| Completed orders                  | Stripe + Supabase                             | Y1 projection sanity check (target ≥ 4/month avg)  |
+| Tier mix (Compact / Standard / Pro split) | Stripe line items                     | Pricing-anchor validity; informs Firehorse surfacing decision (heavy Standard/Pro → desktop buyers → defer mobile) |
+| Bridge Track inbound qualifications | sales CRM (qualifying-call dispositions)    | Validate teaser-tile pull; confirm or kill the gated-tile pattern |
+| Aegis sovereign uplift attach rate| Stripe + order metadata                       | Sovereign-tier demand signal; informs Aegis pricing |
+| Time-to-completion (order → artifact delivery) | order timestamps                | Unattended-loop reliability proof (gate for SLA promise) |
+| 30-day eval-regression SLA invocations | Support tickets                          | Quality signal; informs add-on pricing and Pro tier scope |
+
+**Re-anchor before scaling.** After 60 days, re-fit the Y1 projection against measured data. If tier mix, conversion rate, or unattended reliability are materially off, the price-list §3 numbers, the Store SKU pages, and the BOM tables get a revision pass *before* paid marketing or new ICP outbound begins.
+
+---
+
+## 4. Recommended Bundles (Headcount Equivalents)
 
 Sold as a **stand-in team**, not a feature pack. Marketed by the FTE count it replaces.
 
@@ -99,7 +194,7 @@ A `Full Skilled Workforce` at €199,990/yr stands in for 6–8 EU FTEs whose lo
 
 ---
 
-## 4. Microsoft Agent 365 — Listing Strategy & Pricing
+## 5. Microsoft Agent 365 — Listing Strategy & Pricing
 
 ### What we're listing into
 
@@ -145,7 +240,7 @@ Take rate (Azure Marketplace, transactable SaaS / agent SKUs, 2025–2026): **3%
 
 ---
 
-## 5. Salesforce Agentforce — Listing Strategy & Pricing
+## 6. Salesforce Agentforce — Listing Strategy & Pricing
 
 ### What we're listing into
 
@@ -189,7 +284,7 @@ Take rate (AppExchange managed package / agent SKUs, 2025–2026): **15%** stand
 
 ---
 
-## 6. Channel Comparison At-A-Glance
+## 7. Channel Comparison At-A-Glance
 
 | Dimension                       | Direct (DWS)               | Microsoft Agent 365 / Azure Marketplace | Salesforce Agentforce / AppExchange |
 |---------------------------------|----------------------------|------------------------------------------|--------------------------------------|
@@ -207,7 +302,7 @@ Strategy: **direct stays the master price list; both marketplaces are uplifted j
 
 ---
 
-## 7. Governance Hooks
+## 8. Governance Hooks
 
 - **Blue/Green status**: Treat all marketplace-listed agents as **Blue** until the corresponding Green is signed off under `DWS_DYNAMIC_DEPLOYMENT_PRICING_STANDARD.md`. The price-list version field must move with each change (priceVersion ≥ 1.13 baseline).
 - **Single source of truth**: `dws10.com/config/products.json` mirrored to `landing-pages/dws10-com/config/products.json` in the same commit (per CLAUDE.md Source-of-Truth Rule).
@@ -218,7 +313,7 @@ Strategy: **direct stays the master price list; both marketplaces are uplifted j
 
 ---
 
-## 8. Open Questions (Carry Into Next Sprint)
+## 9. Open Questions (Carry Into Next Sprint)
 
 1. **Compliance agent split**: list as one agent priced for the largest regulatory unit (CSRD), or three SKUs (CSRD / CBAM / EU AI Act)? Recommendation: one SKU, three outcome dimensions metered separately.
 2. **Industry workflow agents (Mars, Helios, Vulcan, Talos, Gaia, Ceres, Neptune, Prometheus, BESS)** — price as **vertical Themis bundles** at €3,499–4,999/mo, or as a separate "Industry Workforce" tier? Pending alignment with `DWS_PRODUCT_STANDARD.md`.
@@ -228,9 +323,13 @@ Strategy: **direct stays the master price list; both marketplaces are uplifted j
 
 ---
 
-## 9. Companion Documents
+## 10. Companion Documents
 
 - `docs/marketing/AI-AS-LABOR-PRICING-STRATEGY.md` — the positioning thesis behind these numbers.
 - `DWS_DYNAMIC_DEPLOYMENT_PRICING_STANDARD.md` — Blue/Green governance for every price below.
 - `DWS_IQ_6_SALES_MANIFESTO_Q1_2026.md` — the named-account target list this pricing is aimed at.
 - `dws10.com/config/products.json` — the single source of truth once these prices are ratified.
+- `Store/PRODUCT_TRAIN_MODEL.md` — full TM-001 SKU spec (Compact / Standard / Pro, agent surface, qualification scripts).
+- `Store/PRODUCT_ENTERPRISE_MODEL_TRAINING.md` — full EMT-001 SKU spec (Bridge Track + Starter / Professional / Enterprise project tiers).
+- `docs/field-notes/2026-05-23-lwm-price-estimate-colab-vs-nvidia-cloud.md` — loaded BOM derivation (compute + €100/h SLM engineer line) for the Model Training chapter prices.
+- `docs/field-notes/2026-05-23-train-model-product-three-tier-enterprise-pricing.md` — initial productization study (3-tier rationale).
