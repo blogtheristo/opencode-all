@@ -1,12 +1,6 @@
 ---
 name: promote-proposal
-description: >
-  Walk a clawdbot proposal (.claude/clawdbot/proposals/*.md) through HIL-gated
-  promotion: identify target paths, ask per-change approval, apply, register
-  in skills guide if applicable, mark proposal PROMOTED. Closes the dream
-  cycle without requiring the human to run the same five steps by hand each
-  time. Use when: "promote proposal", "apply curate", "ship the proposal",
-  "promote dream output", "promote curation", "promote skill candidate".
+description: "Walk a clawdbot proposal (.claude/clawdbot/proposals/*.md) through HIL-gated promotion: identify targets, approve per-change, apply, register, mark PROMOTED."
 argument-hint: "<proposal-file-path> | --next (pick newest unpromoted)"
 allowed-tools: [Read, Edit, Write, Bash]
 ---

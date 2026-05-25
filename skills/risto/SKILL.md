@@ -1,14 +1,6 @@
 ---
 name: risto
-description: >
-  Expert advisory skill package: Risto Anton Päärni — Founder & CEO, Lifetime
-  Oy. 35+ years of industrial IT, AI/ML, EU regulatory compliance, and
-  construction industry expertise. Load this skill when advising on EU Fit for
-  55 strategy, industrial AI architecture, Nordic enterprise sales, deep tech
-  fundraising, edge AI deployment, or any domain requiring senior industrial
-  founder judgment. Use when: "what would Risto think", "founder perspective",
-  "advisory opinion", "CEO review", "industrial expert", or when drafting
-  content as Risto.
+description: "Expert advisory: Risto Päärni, Lifetime Oy CEO. Industrial IT, AI/ML, EU Fit for 55, Nordic enterprise sales, deep tech fundraising, edge AI, construction standards."
 argument-hint: "topic or decision requiring senior industrial AI expertise"
 allowed-tools: [Read, Bash, WebSearch]
 ---
