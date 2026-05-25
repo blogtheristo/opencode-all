@@ -1,8 +1,8 @@
 name: AGENTS.md Freshness Check
 
 on:
-  schedule:
-    - cron: '0 6 * * 1'  # Monday 06:00 UTC
+  # Schedule REMOVED 2026-05-25 (#1384) — moved to DGX Spark cron
+  # Was: cron '0 6 * * 1' (Monday 06:00 UTC)
   workflow_dispatch: {}
 
 permissions:

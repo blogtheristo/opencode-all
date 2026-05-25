@@ -13,8 +13,8 @@
 name: Weekly Housekeeping Audit
 
 on:
-  schedule:
-    - cron: '0 3 * * 0'  # Weekly on Sunday at 03:00 UTC
+  # Schedule REMOVED 2026-05-25 (#1384) — DGX Spark is primary (scripts/weekly/housekeeping-audit.sh)
+  # Was: cron '0 3 * * 0' (Sunday at 03:00 UTC)
   workflow_dispatch:
 
 permissions:

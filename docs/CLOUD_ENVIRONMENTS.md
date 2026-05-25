@@ -8,6 +8,7 @@ Version: 2.2
 
 Sessions & Modifications:
 
+- Version: 2.3 | Tool: Claude Code (Sonnet 4.6) | Session: claude/fix-config-dependencies-7npjf | Date: 24.05.2026 | Changes: Added Section 3.2.1 "Deployment Tier Choice: GCP Primary vs Scaleway Sovereign" — documents the two-tier deployment decision logic, activation triggers for Scaleway, and the intentionally dormant `deploy-scaleway_OLD.yml` CI/CD workflow (preserved for Tier 2 sovereignty customers, not dead infra)
 - Version: 2.2 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Documented current Google Cloud account/project inventory for `risto.paarni2024@lifetime.fi` (active + not-current projects and org), and added staging deployment project-alignment note clarifying that CI/CD must target `dws6run6` (not `dws6-backend`) to avoid Artifact Registry IAM failures
 - Version: 2.1 | Tool: Claude Code (Opus 4.7) | Session: claude/b2b-payment-stack-DNdkW | Date: 25.04.2026 | Changes: Section 4.5 — added "Scaling note" subsection. Records that the current single-tenant deployment pattern (one Cloud Run service, one trigger, one Stripe endpoint, one shared secret inventory) is correct for the internal Lifetime Oy billing use case shipped today, and lists the re-evaluation triggers (>100 tenants, first per-tenant Stripe account, first non-EU residency, first non-CLOUD-Act jurisdiction) that would force a rework. Includes a single-tenant→multi-tenant dimension table for future reference; explicit instruction to fork the section rather than mutate it when re-evaluating, so historical pattern is preserved. Note, not a task
 - Version: 2.0 | Tool: Claude Code (Opus 4.7) | Session: claude/b2b-payment-stack-DNdkW | Date: 25.04.2026 | Changes: Section 4.5 — added STRIPE_WEBHOOK_SECRET to required secrets table and canonical deploy command; new "Public ingress" subsection covering the two-layer block (Workspace org policy `iam.allowedPolicyMemberDomains` + Cloud Run private-by-default IAM) with the exact override + binding commands; new "Stripe webhook wiring" table pinning service URL, mounted route, signing secret, Stripe destination name (`charming-serenity`), 7 subscribed event types; new "Smoke-test recipes" with three single-curl tests proving liveness, raw-body chain, and full HMAC chain; new "Pitfalls discovered & captured" subsection logging six lessons learned: express.json consumes raw stream, Compute-SA default since 2024, tsconfig excludes vs runtime stubs, Node 22 ESM `.js` requirement, `/webhooks/stripe` path, `timingSafeEqual` length-mismatch behaviour. Major version bump to 2.0 reflects that 4.5 is now a complete deployment standard, not a partial pattern note
@@ -213,13 +214,43 @@ The following inventory reflects the currently visible projects/org context when
 | Layer    | Provider                 | Region                  | Purpose                                                       |
 | -------- | ------------------------ | ----------------------- | ------------------------------------------------------------- |
 | Compute  | Google Cloud Run         | europe-north1 (Finland) | Backend API, agents — **active (onboarding phase)**           |
-| Compute  | Scaleway Serverless      | fr-par (France)         | Customer Tier 1 & 2 deployments — **available, not yet used** |
+| Compute  | Scaleway Serverless      | fr-par (France)         | Customer Tier 2 sovereignty deployments — **dormant, activate on first sovereignty customer** |
+| Training | Scaleway H100 GPU        | fr-par (France)         | LWM 1 / LWM 2 training — **planned, not yet scheduled** |
 | Database | Supabase                 | EU (Frankfurt/Helsinki) | PostgreSQL, auth, realtime                                    |
 | Secrets  | Google Secret Manager    | europe-north1           | API keys, credentials ✅ Enabled                              |
 | Images   | Google Artifact Registry | europe-north1           | Container registry                                            |
 | Training | Google Compute (A3 mega) | europe-north1           | On-demand H100 GPU                                            |
 
 > **Phase note (2026-04-28):** Google Cloud Run is the active backend during the pre-customer / onboarding phase (no per-idle cost). Scaleway Serverless becomes the deployment target for customer Tier 1 & 2 environments once the first paying customer or investor pilot starts — its EU residency (fr-par) and sovereign positioning are the deciding factors.
+
+### 3.2.1 Deployment Tier Choice: GCP Primary vs Scaleway Sovereign
+
+Two deployment paths exist. The choice is customer-driven, not a migration — both run in parallel once Tier 2 customers onboard.
+
+| Tier | Provider | Region | Activated when | CI/CD workflow |
+|---|---|---|---|---|
+| **Tier 1 — Default EU** | Google Cloud Run | europe-north1 (Finland) | Always (current) | `deploy-cloudrun.yml`, `deploy-staging.yml` |
+| **Tier 2 — Sovereign EU** | Scaleway Serverless Containers | fr-par (France) | Customer explicitly requests sovereignty / non-CLOUD Act jurisdiction | `deploy-scaleway_OLD.yml` (dormant — see below) |
+| **Training (LWM)** | Scaleway H100 GPU | fr-par (France) | LWM 1 / LWM 2 training runs | Manual / to be automated |
+
+**Scaleway account:** org `78e26603-c820-4617-b0d2-f8589eb7693b` (Lifetime Oy), project `dws-backend`, region `fr-par`. Login via Google OAuth (admin6 Chrome profile). Full setup: `docs/field-notes/scaleway-infrastructure-setup.md`.
+
+#### CI/CD workflow: `deploy-scaleway_OLD.yml`
+
+The `_OLD` suffix is **misleading** — this is intentionally dormant infrastructure, not abandoned. The workflow is preserved and ready to activate. It was filed as `_OLD` to suppress it from the default CI matrix while GCP is the sole active backend.
+
+**Activation steps when a Tier 2 customer onboards:**
+
+1. Rename `deploy-scaleway_OLD.yml` → `deploy-scaleway.yml` (removes it from the suppression pattern).
+2. Verify Scaleway container namespace and env vars are current (see `scaleway-infrastructure-setup.md`).
+3. Update the workflow's branch trigger and `PROJECT_ID` / namespace ID if they have drifted.
+4. Wire the Stripe webhook to the Scaleway endpoint `captivating-splendor` (ID `we_1TPfyGAK2DZTbwRFTuzNhaqT`) for that tenant.
+
+**Do not delete this workflow.** It is the only CI path for Scaleway deployments and encodes the container build + push steps for `fr-par`.
+
+#### LWM training on Scaleway H100
+
+Scaleway GPU (H100) is the candidate for LWM 1 and LWM 2 training runs due to EU residency and competitive H100 pricing vs GCP A3. Current GCP A3 (H100 burst) in europe-north1 is the active training path; Scaleway H100 is the planned alternative when training volume justifies a dedicated EU-sovereign GPU node. CI/CD automation for training runs is not yet wired — add to `scripts/on-deploy/` or a dedicated `train-lwm.yml` workflow when the first training run is scheduled.
 
 **Enabled Google Cloud APIs:**
 

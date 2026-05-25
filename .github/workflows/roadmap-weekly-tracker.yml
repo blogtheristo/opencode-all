@@ -1,8 +1,8 @@
 name: DWS7 Roadmap Weekly Tracker
 
 on:
-  schedule:
-    - cron: '0 8 * * 1'  # Every Monday at 08:00 UTC
+  # Schedule REMOVED 2026-05-25 (#1384) — moved to DGX Spark (scripts/weekly/roadmap-tracker.sh)
+  # Was: cron '0 8 * * 1' (Monday 08:00 UTC)
   workflow_dispatch:      # Allow manual trigger
 
 jobs:

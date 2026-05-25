@@ -1,9 +1,8 @@
 name: Enhanced Security Audit
 
 on:
-  schedule:
-    # Run weekly on Mondays at 2 AM UTC
-    - cron: '0 2 * * 1'
+  # Schedule REMOVED 2026-05-25 (#1384) — DGX Spark cron-runner mirrors scheduled runs
+  # Was: cron '0 2 * * 1' (Monday 02:00 UTC)
   workflow_dispatch:
   push:
     branches: [ main ]
