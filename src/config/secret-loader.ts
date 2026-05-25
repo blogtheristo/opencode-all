@@ -152,12 +152,34 @@ async function getGcpAccessToken(): Promise<string | null> {
     const { execFile } = await import('child_process');
     const { promisify } = await import('util');
     const execFileAsync = promisify(execFile);
-    const { stdout } = await execFileAsync('gcloud', [
-      'auth',
-      'application-default',
-      'print-access-token',
-    ]);
-    return stdout.trim() || null;
+    const gcloudOverride = process.env.GCLOUD_BIN?.trim();
+    const gcloudCandidates = [
+      ...(gcloudOverride ? [gcloudOverride] : []),
+      ...(process.platform === 'win32'
+        ? [
+            'gcloud.cmd',
+            'gcloud',
+            'C:\\Program Files\\Google\\Cloud SDK\\google-cloud-sdk\\bin\\gcloud.cmd',
+            'C:\\Program Files (x86)\\Google\\Cloud SDK\\google-cloud-sdk\\bin\\gcloud.cmd',
+          ]
+        : ['gcloud']),
+    ].filter((candidate, index, candidates) => candidate && candidates.indexOf(candidate) === index);
+
+    for (const gcloudBin of gcloudCandidates) {
+      try {
+        const { stdout } = await execFileAsync(gcloudBin, [
+          'auth', 'application-default', 'print-access-token',
+        ]);
+        const token = stdout.trim();
+        if (token) {
+          return token;
+        }
+      } catch {
+        // Try next candidate.
+      }
+    }
+
+    return null;
   } catch {
     return null;
   }
