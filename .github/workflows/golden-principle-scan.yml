@@ -1,8 +1,8 @@
 name: Golden Principle Scan
 
 on:
-  schedule:
-    - cron: '30 6 * * 1'  # Monday 06:30 UTC
+  # Schedule REMOVED 2026-05-25 (#1384) — DGX Spark cron-runner mirrors this job
+  # Was: cron '30 6 * * 1' (Monday 06:30 UTC)
   workflow_dispatch: {}
 
 permissions:
