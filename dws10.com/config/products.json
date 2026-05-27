@@ -229,51 +229,19 @@
       "buyPage": 1,
       "buyPageOrder": 7
     },
-    "expert-services": {
-      "id": "expert-services",
-      "gtin": null,
-      "mpn": "EXP-SVC-2026",
-      "name": "Workshop 3 Days - Expert Advisory & Implementation _OLD",
-      "price": 4500,
-      "currency": "EUR",
-      "type": "one-time",
-      "description": "Three days that save your team three months. Intensive hands-on workshop covering compliance report design, workflow automation, and strategic roadmap for Fit for 55, CSRD, and EU AI Act. Leave with working implementations, not just slide decks.",
-      "features": [
-        "Hands-on compliance workshop",
-        "Workflow automation training",
-        "Working implementations in 3 days"
-      ],
-      "priceNote": "3-day workshop",
-      "revolutLink": "https://checkout.revolut.com/pay/897acfa9-630f-4e0c-be02-71058bd45e2e",
-      "paypalPlanId": null,
-      "image": "/static/images/Risto_Malta.png",
-      "detailsUrl": "../products/expert-services.html",
-      "featured": false,
-      "google": {
-        "productCategory": "Business & Industrial > Business Services",
-        "condition": "new",
-        "availability": "in_stock",
-        "brand": "Lifetime",
-        "targetCountry": "FI",
-        "contentLanguage": "en"
-      },
-      "storeCategory": "advisory",
-      "version": "1.0",
-      "productType": "archived"
-    },
     "consulting-hourly": {
       "id": "consulting-hourly",
       "gtin": null,
       "mpn": "CONSULT-HR-2026",
-      "name": "Senior Specialist – Hourly Consulting",
+      "name": "Senior Compliance Specialist — Retainer + Outcomes",
       "price": 250,
       "currency": "EUR",
       "type": "hourly",
-      "description": "Expert compliance guidance without a long-term commitment. Book by the hour for Fit for 55, CSRD, EU AI Act, or governance challenges across 16 captain hats covering 25+ EU regulated industries. Most clients start with a 4-hour assessment.",
+      "description": "Compliance expertise without long-term lock-in. Retainer model with hours mapped to captain-hat outcomes (CSRD report, EU AI Act gap, NIS2 audit) across 16 captain hats covering 25+ EU regulated industries. €250/h backstop; default to outcome-priced packages because that's what regulators audit.",
       "features": [
-        "Expert compliance guidance",
-        "16 captain hats covering 25+ EU industries",
-        "Flexible hourly booking"
+        "Outcomes mapped to 16 captain hats / 25+ EU industries",
+        "Retainer + outcome packages; €250/h backstop",
+        "Fit for 55, CSRD, EU AI Act, NIS2 specialisation"
       ],
       "priceNote": "Per hour, VAT excl.",
       "revolutLink": "https://checkout.revolut.com/pay/106a84fe-2956-4619-ac66-b4e89b5d59f3",
@@ -294,37 +262,6 @@
       "buyPage": 1,
       "buyPageOrder": 26
     },
-    "LIFETIME-EXP-001": {
-      "id": "LIFETIME-EXP-001",
-      "gtin": null,
-      "mpn": "EXP-ADV-2026",
-      "name": "Expert Advisory & Implementation _OLD",
-      "price": 3000,
-      "currency": "EUR",
-      "type": "monthly",
-      "description": "Your dedicated compliance strategist. Monthly retainer for ongoing report design, workflow optimization, and board-level advisory on Fit for 55, CSRD, and EU AI Act. Clients typically reduce compliance costs by 40% within the first quarter.",
-      "features": [
-        "Dedicated compliance strategist",
-        "40% cost reduction typical",
-        "Board-level advisory included"
-      ],
-      "priceNote": "Retainer €3,600 | 3x8 hours",
-      "revolutLink": "https://checkout.revolut.com/pay/21589576-b397-474c-bfb8-4719723155fd",
-      "paypalPlanId": null,
-      "image": "/static/images/Risto_Malta.png",
-      "detailsUrl": "../products/expert-advisory.html",
-      "featured": false,
-      "google": {
-        "productCategory": "Business & Industrial > Business Services",
-        "condition": "new",
-        "availability": "in_stock",
-        "brand": "Lifetime",
-        "targetCountry": "FI",
-        "contentLanguage": "en"
-      },
-      "storeCategory": "advisory",
-      "productType": "archived"
-    },
     "consulting-fit55": {
       "id": "consulting-fit55",
       "gtin": null,
@@ -344,7 +281,7 @@
       "paypalPlanId": null,
       "image": "/static/images/Risto_Malta.png",
       "detailsUrl": "../products/consulting-fit55.html",
-      "featured": false,
+      "featured": true,
       "google": {
         "productCategory": "Business & Industrial > Business Services",
         "condition": "new",
@@ -355,21 +292,21 @@
       },
       "storeCategory": "advisory",
       "buyPage": 1,
-      "buyPageOrder": 24
+      "buyPageOrder": 3
     },
     "aws-consultancy": {
       "id": "aws-consultancy",
       "gtin": null,
       "mpn": "AWS-CONSULT-2026",
-      "name": "AI Engineering & Cloud Solutions Consultancy",
+      "name": "EU-Sovereign AI Engineering & Cloud Consultancy",
       "price": 3750,
       "currency": "EUR",
       "type": "one-time",
-      "description": "25 hours of senior cloud architect time to assess, plan, and implement your AI and cloud infrastructure. Multi-cloud expertise across AWS, Azure, GCP. Includes a complimentary 4-hour strategy workshop to identify quick wins and avoid costly mistakes.",
+      "description": "EU-sovereign AI engineering — 25 hours of senior architect time deploying Claude / Mistral / Llama on Scaleway, OVH, or owned DGX Spark. ZDR contracts, NIS2-aligned network design, and CLOUD Act exposure assessment included. The Anthropic-aligned US services firms can't ship this; we can. Multi-cloud across AWS, Azure, GCP for hybrid sovereignty workloads.",
       "features": [
-        "Multi-cloud AWS, Azure & GCP",
-        "25 hours senior architect time",
-        "Free 4-hour strategy workshop"
+        "EU-sovereign deployment (Scaleway, OVH, owned DGX Spark)",
+        "ZDR contracts + CLOUD Act exposure assessment",
+        "25h senior architect + 4h strategy workshop"
       ],
       "priceNote": "25 hours, valid 12 months",
       "revolutLink": null,
@@ -393,15 +330,15 @@
       "id": "conversational-agent",
       "gtin": null,
       "mpn": "CONV-AGENT-2026",
-      "name": "Conversational Agent Solution",
+      "name": "EU-Hosted Conversational Agent",
       "price": 3500,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Deploy AI agents where your team already works — WhatsApp, Teams, Zoom, or a secure webhook. Custom conversational agents for enterprise workflows with your choice of LLM (Claude, GPT, Groq, or self-hosted for data sovereignty). Live in 25 hours.",
+      "description": "Deploy AI agents on Teams, WhatsApp, Zoom, or secure webhook with EU-sovereign hosting. GDPR + EU AI Act Article 50 (transparency) baked in. Customer choice of LLM — Claude, Mistral, Groq, or self-hosted on DGX Spark — so you control where the prompt lands. Live in 25 hours.",
       "features": [
-        "WhatsApp, Teams, Zoom & secure webhooks",
-        "Custom LLM choice for sovereignty",
-        "Live in 25 hours"
+        "EU-hosted, GDPR + EU AI Act Art. 50 compliant",
+        "Customer-choice LLM (Claude / Mistral / Groq / self-hosted)",
+        "Teams, WhatsApp, Zoom, secure webhook — live in 25h"
       ],
       "priceNote": "25 hours standard implementation",
       "revolutLink": null,
@@ -459,15 +396,15 @@
       "id": "ai-agent-engineering",
       "gtin": null,
       "mpn": "AI-AGENT-2026",
-      "name": "AI & Agent Engineering",
+      "name": "AI & Agent Engineering — Outcome-Backed Hourly",
       "price": 200,
       "currency": "EUR",
       "type": "hourly",
-      "description": "Hire a senior AI engineer by the hour — no recruitment overhead. Available as AI Product Manager, Solutions Architect, or ML Engineer for Azure AI Foundry, Google AI Studio, or custom agentic AI projects. Skip the 3-month hiring cycle.",
+      "description": "Senior AI engineer on demand — but billed against captain-hat outcomes, not consultant hours. €200/h backstop; we prefer the outcome-priced SKUs (€49 site safety scan, €499 LCA report, €999 CSRD gap) because you only pay when the artefact ships. Skip the 3-month hiring cycle and the T&M lock-in.",
       "features": [
-        "Senior AI engineer on demand",
-        "Azure AI, Google AI & Claude",
-        "Skip 3-month hiring cycle"
+        "Senior AI engineer (Claude Code, Codex, Azure AI)",
+        "Outcome-priced default; €200/h backstop on request",
+        "No T&M lock-in — pay per shipped artefact"
       ],
       "priceNote": "Per hour",
       "revolutLink": null,
@@ -492,15 +429,15 @@
       "id": "lean-project",
       "gtin": null,
       "mpn": "FH-LEAN-2026",
-      "name": "AI Project Accelerator",
+      "name": "EU AI Project Accelerator (Fixed Price)",
       "price": 4960,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Ship your next project in half the time. Lean methodology powered by AI tools — includes planning workshop, backlog setup, Kanban workflows, and roadmap. Teams using this approach see 2x delivery speed within the first sprint.",
+      "description": "Fixed-price AI project delivery for EU teams who don't want a Fractional-style T&M engagement. Sovereign deployment, captain-hat-aligned outcomes, Kanban + roadmap included. Lean AI methodology — 2x delivery speed from sprint 1, with the artefacts mapped to Fit for 55 / CSRD / EU AI Act obligations from day one.",
       "features": [
-        "Lean AI-powered methodology",
-        "2x delivery speed from sprint 1",
-        "Kanban + roadmap included"
+        "Fixed price — no T&M surprise on month 3",
+        "EU-sovereign deployment + captain-hat outcomes",
+        "2x delivery speed from sprint 1, regulator-aligned artefacts"
       ],
       "priceNote": "Project setup",
       "revolutLink": null,
@@ -524,15 +461,15 @@
       "id": "ai-consultant-day",
       "gtin": null,
       "mpn": "AI-DAY-2026",
-      "name": "AI Consultant Day",
+      "name": "Captain Day — One-Day AI Outcome",
       "price": 1200,
       "currency": "EUR",
       "type": "one-time",
-      "description": "One day to unblock your AI strategy. Senior consultant on-site or remote for strategy, prototyping, and hands-on implementation. Covers Claude, GPT, Gemini Pro, Copilot, and Azure AI Studio. Most clients book 2–3 days for a full sprint.",
+      "description": "One day, one captain-hat outcome shipped. Senior consultant on-site or remote — frame your AI strategy against the 16-captain-hat operating model, prototype with Claude / GPT / Gemini / Copilot, and leave with a working artefact (compliance gap report, agent prototype, or sovereignty assessment). Outcome-first: if we can't ship in a day, you don't pay full rate.",
       "features": [
-        "Strategy, prototyping & implementation",
-        "Claude, GPT, Gemini Pro & Copilot",
-        "On-site or remote available"
+        "One day → one shipped captain-hat artefact",
+        "Claude, GPT, Gemini, Copilot — on-site or remote",
+        "Outcome-priced; reduced rate if not shipped same day"
       ],
       "priceNote": "Per day, VAT excl.",
       "revolutLink": null,
@@ -604,7 +541,7 @@
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
       "detailsUrl": "mailto:sales@lifetime.fi",
-      "featured": false,
+      "featured": true,
       "google": {
         "productCategory": "Business & Industrial > Business Services",
         "condition": "new",
@@ -614,8 +551,8 @@
         "contentLanguage": "fi"
       },
       "storeCategory": "advisory",
-      "buyPage": 2,
-      "buyPageOrder": 4
+      "buyPage": 1,
+      "buyPageOrder": 5
     },
     "firehorse-flow": {
       "id": "firehorse-flow",
@@ -878,15 +815,15 @@
       "id": "cloud-ready-teams",
       "gtin": null,
       "mpn": "CRT-2026",
-      "name": "On-Demand AI & Cloud Engineers",
+      "name": "EU On-Demand AI & Cloud Engineers (Sovereign)",
       "price": 950,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Need expert developers this week, not next quarter? Pre-vetted cloud and AI professionals ready for immediate deployment. Skip the 3-month recruitment cycle and start building today.",
+      "description": "EU-resident, pre-vetted AI and cloud engineers — no CLOUD Act exposure, no US payroll, no 3-month recruitment cycle. Sovereign by construction: the engineer, the keyboard, and the data stay in the EU. Skip the recruitment cycle and start building this week.",
       "features": [
-        "Pre-vetted AI & Cloud engineers",
-        "Immediate team deployment",
-        "Skip 3-month recruitment cycle"
+        "EU-resident engineers — zero CLOUD Act exposure",
+        "Pre-vetted AI & cloud talent, deployed in days",
+        "Sovereign by construction — engineer + data both in EU"
       ],
       "priceNote": "Team setup",
       "revolutLink": null,
@@ -942,15 +879,15 @@
       "id": "ai-consulting-agentic",
       "gtin": null,
       "mpn": "AI-CONSULT-2026",
-      "name": "AI Consulting – Agentic Software Development",
+      "name": "Agentic Software Development for EU Teams",
       "price": 2500,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Your competitors are shipping 10x faster with AI agents. We assess your codebase, run AGENTS.md workshops, restructure for agentic development, and set up quality governance — from practitioners building with Claude Code and Codex daily. 88% of enterprises are increasing agentic AI budgets in 2026.",
+      "description": "Anthropic's Skills paradigm + Claude Code + Codex, deployed inside EU-sovereign perimeter. We assess your codebase, run AGENTS.md workshops, restructure for agentic development, and set up quality governance — without your IP leaving the jurisdiction. The Anthropic-backed US services firms can ship the workflow; only we can ship it without data egress to a US-controlled cloud.",
       "features": [
-        "Agentic development assessment",
-        "AGENTS.md workshops & restructuring",
-        "Quality governance setup"
+        "Skills paradigm + Claude Code + Codex (EU-sovereign)",
+        "AGENTS.md workshops, agentic restructure, quality gates",
+        "No IP egress — code and prompts stay in EU"
       ],
       "priceNote": "Assessment from €2,500 | Retainer 4x8h = €4,800",
       "revolutLink": null,
@@ -1297,7 +1234,7 @@
       },
       "storeCategory": "ai-cloud",
       "buyPage": 1,
-      "buyPageOrder": 22
+      "buyPageOrder": 10
     },
     "DWS-US-STARTER": {
       "id": "DWS-US-STARTER",
@@ -3973,7 +3910,7 @@
       "priceNote": "Y1 €39,990 · Y2+ €29,990/yr — engagement + 12-month CMP-T2",
       "image": "/static/images/Risto_Malta.png",
       "detailsUrl": "../products/skilled-agents.html",
-      "featured": false,
+      "featured": true,
       "storeCategory": "advisory",
       "brand": "Lifetime",
       "version": "1.0",
@@ -3984,7 +3921,9 @@
         "brand": "Lifetime",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "buyPage": 1,
+      "buyPageOrder": 6
     },
     "LAND-HSE": {
       "id": "LAND-HSE",
@@ -4068,7 +4007,7 @@
       "priceNote": "Y1 €89,990 · Y2+ €69,990/yr — engagement + 12-month ESG-T3",
       "image": "/static/images/Risto_Malta.png",
       "detailsUrl": "../products/skilled-agents.html",
-      "featured": false,
+      "featured": true,
       "storeCategory": "advisory",
       "brand": "Lifetime",
       "version": "1.0",
@@ -4079,7 +4018,9 @@
         "brand": "Lifetime",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "buyPage": 1,
+      "buyPageOrder": 7
     },
     "LAND-LCA": {
       "id": "LAND-LCA",
@@ -4163,7 +4104,7 @@
       "priceNote": "Y1 €69,990 · Y2+ €54,990/yr — engagement + 12-month SOV-T3",
       "image": "/static/images/Risto_Malta.png",
       "detailsUrl": "../products/skilled-agents.html",
-      "featured": false,
+      "featured": true,
       "storeCategory": "advisory",
       "brand": "Lifetime",
       "version": "1.0",
@@ -4174,7 +4115,9 @@
         "brand": "Lifetime",
         "targetCountry": "FI",
         "contentLanguage": "en"
-      }
+      },
+      "buyPage": 1,
+      "buyPageOrder": 9
     },
     "LAND-OPS": {
       "id": "LAND-OPS",
@@ -4509,6 +4452,70 @@
         "targetCountry": "FI",
         "contentLanguage": "en"
       }
+    },
+    "AIS-EU-SOV-OC": {
+      "id": "AIS-EU-SOV-OC",
+      "gtin": null,
+      "mpn": "AIS-EU-SOV-2026",
+      "name": "EU-Sovereign AI Migration — Per Workload",
+      "price": 4990,
+      "currency": "EUR",
+      "type": "metered",
+      "description": "Move one production AI workload off a US-controlled LLM stack onto EU-sovereign Claude / Mistral / DGX Spark — fixed price per workload. Includes ZDR contract review, GDPR Article 44–49 documentation, NIS2 control mapping, and EU AI Act Article 13/50 transparency artefacts. The Anthropic-aligned US services firms cannot ship this outcome — sovereignty is structural, not a feature flag.",
+      "features": [
+        "Fixed price per workload migrated — no T&M",
+        "ZDR + GDPR Art. 44–49 + NIS2 + EU AI Act artefacts",
+        "Auditable sovereign artefact at delivery"
+      ],
+      "priceNote": "Per workload migrated",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/dws_sovereign_db.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": true,
+      "google": {
+        "productCategory": "Business & Industrial > Business Services",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "advisory",
+      "buyPage": 2,
+      "buyPageOrder": 1
+    },
+    "AIS-OUTCOME-PILOT": {
+      "id": "AIS-OUTCOME-PILOT",
+      "gtin": null,
+      "mpn": "AIS-OUTCOME-2026",
+      "name": "Outcome-Priced Applied-AI Pilot (6 weeks)",
+      "price": 9990,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Six-week fixed-price applied-AI pilot — refunded if the named KPI does not move. Pick one captain-hat outcome (CSRD report cycle time, site-safety incident rate, lead-to-quote latency, LCA report turnaround), we ship the agent, you ship the KPI. Built specifically for buyers tired of T&M decks from generic 'deploy Claude' services firms.",
+      "features": [
+        "6 weeks, fixed price, single named KPI",
+        "Refund if KPI does not move — outcome-guaranteed",
+        "One captain-hat outcome shipped end-to-end"
+      ],
+      "priceNote": "6 weeks fixed; refundable on KPI miss",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/Risto_Malta.png",
+      "detailsUrl": "../products/skilled-agents.html",
+      "featured": true,
+      "google": {
+        "productCategory": "Business & Industrial > Business Services",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "advisory",
+      "buyPage": 2,
+      "buyPageOrder": 2
     }
   },
   "settings": {
