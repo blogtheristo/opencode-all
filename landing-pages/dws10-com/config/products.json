@@ -684,22 +684,23 @@
     "professional-web-pages": {
       "id": "professional-web-pages",
       "gtin": null,
-      "mpn": "WEB-PAGES-2026",
-      "name": "Professional Web Pages",
-      "price": 799,
+      "mpn": "ATK-APU-PK-2026",
+      "name": "Atk-apu pk-yritykselle",
+      "price": 750,
       "currency": "EUR",
-      "type": "one-time",
-      "description": "A professional web presence in days, not months. Responsive pages built with React, Blazor, WordPress, or Squarespace — your choice. AI chatbot and e-commerce add-ons available when you are ready to scale.",
+      "type": "package",
+      "description": "Pk-yrityksen IT-tuki yhdellä numerolla. Tuntipankki 10 h hintaan 75 €/h + alv, käytetään 6 kk sisällä. Sisältää työasema- ja sähköpostituen, tietoturvan perusteet, varmuuskopiot, kuljetus- ja toimialakohtaisen IT-tuen, laskutuskytkennät, AI-avusteisen toimiston sekä kotisivut tarpeen mukaan. Vain suomenkielinen palvelu.",
       "features": [
-        "React, Blazor or WordPress",
-        "AI chatbot add-on available",
-        "Professional web presence fast"
+        "Tuntipankki 10 h × 75 €/h, voimassa 6 kk",
+        "Työasema-, sähköposti- ja tietoturvatuki",
+        "Kuljetusalan IT, laskutus, AI-toimisto, kotisivut",
+        "Etätuki sisältyy, vain suomenkielinen palvelu"
       ],
-      "priceNote": "Starting price",
+      "priceNote": "Tuntipankki 10 h, alv 0 % (75 €/h + alv)",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "mailto:sales@lifetime.fi",
+      "detailsUrl": "../products/professional-web-pages.html",
       "featured": false,
       "google": {
         "productCategory": "Business & Industrial > Business Services",
@@ -709,7 +710,7 @@
         "targetCountry": "FI",
         "contentLanguage": "fi"
       },
-      "storeCategory": "digital",
+      "storeCategory": "advisory",
       "buyPage": 2,
       "buyPageOrder": 6
     },
