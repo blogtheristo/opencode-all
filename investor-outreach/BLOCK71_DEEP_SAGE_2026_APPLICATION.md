@@ -8,6 +8,7 @@ Version: 1.0
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code | Session: claude/block71-deep-sage-2026-Trqr5 | Date: 26.05.2026 | Changes: Switched applying entity from Lifetime Oy (Finland) to DWS OÜ (Estonia) per founder direction. Added Group Structure section (§0.1) clarifying DWS OÜ as Estonian trading entity + Lifetime Oy as Finnish operating/IP entity. Reframed sovereignty narrative to "EU-sovereign (Estonia + Finland), 100% EU/EEA-owned". Group-traction presentation of metrics. Placeholders inserted for OÜ registry code, VAT, address pending founder fill-in.
 - Version: 1.0 | Tool: Claude Code | Session: claude/block71-deep-sage-2026-Trqr5 | Date: 26.05.2026 | Changes: Initial draft — Deep SAGE 2026 application (NUS Enterprise × TIS Inc. × BLOCK71). 12-week Fractional CXO programme, S$500K funding access, Seed to Pre-Series A. Built on canonical DWS IQ materials (INVESTOR_MEMO v4.3, SHORT_INTRO v2.0, EIC_STEP1_APPLICATION v1.0, investor-pitch-deck v1.1, V3Thesis_EN v3.30.50)
 
 Document Status:
@@ -48,12 +49,13 @@ Source Materials:
 | Cohort               | 12-week Fractional CXO accelerator                               |
 | Funding access       | S$500,000                                                        |
 | Stage                | Seed to Pre-Series A                                             |
-| Company              | Lifetime Oy                                                      |
-| Trading name         | DWS IQ                                                           |
-| Business ID (Y-tunnus) | 0772407-9                                                      |
-| VAT ID               | FI07724079                                                       |
-| Country of incorporation | Finland                                                      |
-| Registered address   | Laidunmaanraitti 2 A 25, 02330 Espoo, Finland                    |
+| Applying entity      | **DWS OÜ** (Estonia)                                             |
+| Trading name         | DWS IQ Climate Intelligence Services and Solutions               |
+| Estonian registry code | [DWS OÜ REGISTRY CODE — TO FILL]                               |
+| VAT ID               | [DWS OÜ VAT NUMBER — TO FILL]                                    |
+| Country of incorporation | Estonia                                                      |
+| Registered address   | [DWS OÜ ESTONIAN ADDRESS — TO FILL]                              |
+| Group operating entity | Lifetime Oy (Finland, Y-tunnus 0772407-9) — IP, current customers, EU partnerships |
 | Sector               | Climate Tech / EU & Asia Compliance Infrastructure / Agentic AI  |
 | Founder & CEO        | Risto Anton Päärni                                               |
 | Contact email        | risto.paarni@lifetime.fi                                         |
@@ -66,9 +68,20 @@ Source Materials:
 
 ---
 
+## 0.1 Group Structure (Disclosure)
+
+We apply as **DWS OÜ (Estonia)** — our trading and international expansion entity — within a two-company EU/EEA group:
+
+- **DWS OÜ (Estonia)** — applying entity for Deep SAGE 2026. Holds the international expansion vehicle, will host the Singapore Pte. Ltd. subsidiary spun up from the programme, and is the contracting counterparty for Asia commercial activity.
+- **Lifetime Oy (Finland, Y-tunnus 0772407-9)** — operating entity. Houses the founder, the IP, the current paying customers (Uber FI, Bolt FI, Kela), the academic partnerships (Metropolia, LUT), and the EU regulatory work to date.
+
+Both entities are 100% EU/EEA-owned, founder-controlled, and aligned under a single product strategy (DWS IQ Climate Intelligence Services and Solutions). The traction figures presented below are **group figures** reflecting work delivered across both entities. No outside capital sits in either entity today.
+
+---
+
 ## 1. One-Sentence Description (for "What does your startup do?")
 
-Lifetime Oy builds **DWS IQ — the carbon balance sheet**: double-entry bookkeeping for CO₂ across 20 regulated industries, so every tonne is tracked like every euro — from CBAM imports through ETS surrender to CSRD disclosure.
+**DWS IQ Climate Intelligence Services and Solutions** is the carbon balance sheet — double-entry bookkeeping for CO₂ across 20 regulated industries, so every tonne is tracked like every euro: from CBAM imports through ETS surrender to CSRD disclosure.
 
 ---
 
@@ -239,7 +252,7 @@ The S$500K plugs into the active €650K SAFE bridge to Series A. Indicative all
 | Risk                                                     | Mitigation                                                                                        |
 | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
 | Regulatory timing slippage (EU Omnibus, Asia rulemaking) | Targets did not change post-Omnibus, only paperwork. Ledger architecture is regulator-agnostic.   |
-| Singapore subsidiary fragments EU sovereignty story      | Singapore Pte. Ltd. is a trading & GTM entity; IP and customer data remain in Lifetime Oy (Helsinki). |
+| Group structure (DWS OÜ + Lifetime Oy + planned SG Pte. Ltd.) raises complexity flags | Transparent disclosure (§0.1). Estonia = trading/expansion; Finland = IP, founder, customers; Singapore = Asia commercial vehicle. All 100% EU/EEA-owned, founder-controlled. No outside capital today. |
 | Competitor (Watershed/Persefoni) enters carbon-ledger space | Our 3 moats (ledger + edge AI + payment-agnostic) take 3–5 years each to replicate. Network effect compounds with each verified customer. |
 | Founder bandwidth across EU + Asia                       | Fractional CXOs from Deep SAGE explicitly solve this; senior technical hire Q3 2026.              |
 | Asian carbon-pricing regimes diverge from EU model       | Ledger is rule-pack driven; new regimes are content additions, not architectural changes.         |
@@ -290,7 +303,9 @@ The S$500K plugs into the active €650K SAFE bridge to Series A. Indicative all
 - [ ] Trim Executive Summary to the form character limit (likely 500–1,000 characters).
 - [ ] Upload pitch video (2 min) — confirm length cap on form.
 - [ ] Attach pitch deck PDF (export from `investor-outreach/investor-pitch-deck.md`).
-- [ ] Confirm registration jurisdiction question — answer "Finland (Lifetime Oy, Y-tunnus 0772407-9), intending Singapore subsidiary upon admission".
+- [ ] Fill in DWS OÜ Estonian registry code, VAT, and registered address (currently placeholders in §Application Metadata).
+- [ ] Confirm registration jurisdiction question — answer "Estonia (DWS OÜ, applying entity) within a Finnish-Estonian EU/EEA group with Lifetime Oy (Finland, Y-tunnus 0772407-9) as operating entity. Intending Singapore Pte. Ltd. subsidiary upon admission".
+- [ ] Confirm whether Block71 needs evidence of both DWS OÜ and Lifetime Oy (registry extracts, group org chart).
 - [ ] Confirm reply-to / contact email — use `risto.paarni@lifetime.fi` per Lifetime Oy legal identity rule.
 - [ ] Reply to Steve Leong (steveleonghw@nus.edu.sg) thanking for the key visual and confirming we are applying.
 - [ ] Risto sign-off + legal review of Singapore subsidiary structure implications.
