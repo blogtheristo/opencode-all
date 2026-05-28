@@ -51,6 +51,14 @@ Single source of truth for the three DWS product tiers, their target customers, 
 
 Each tier is sold to a customer whose regulatory exposure determines what infrastructure they can legally use. The same agent stack is deployed differently per tier — same brain, different jurisdiction.
 
+**Updated 28.05.2026 — three-pillar refinement (v1.3).** The DWS6 product segmentation (Aegis / Sovereign Infra / Connect) is the EU-origin enterprise's *operational expression* of the universal three-pillar (Data / Technology / Operational) × three-jurisdiction (EU / US / Singapore) sovereignty model. The pillar model is canonical in `docs/PHD_FIREHORSE_EN.md` §14.23 and explained for general audiences in `docs/field-notes/2026-05-28-three-pillars-sovereignty-global.md` and the blog post `onelifetime.world/posts/sovereignty-field-note-2-three-pillars.html`. The vendor-tier model (T1/T2/T3 — `DWS_STANDARDS_LIBRARY.md` §3.6) operates *inside each pillar*, not above it.
+
+- **Aegis** = J1 (EU)-emphasis SKU. All three pillars at full EU-sovereign (T1 vendor class). R-Sac²-ready surface for the post-quantum migration (NIST FIPS 203 / 204 / 205, 2030–2035 cutover horizon).
+- **Sovereign Infra** = J1 (EU) baseline. Data pillar primary. Tech + Op pillars at EU operational sovereignty (T2 vendor class).
+- **Connect** = J2 (US) / J3 (Singapore) market-access SKU. Tech + Op pillars under non-EU jurisdiction. Data pillar deliberately light.
+
+KYA-track mapping per pillar: Data → SIB-track, Technology → CSB-track, Operational → EAB-track, ASB-track binding the identity spine. Procurement gates speak the four-track vocabulary instead of marketing language.
+
 ---
 
 ## Tier Matrix

@@ -49,8 +49,9 @@ This file does not define facts. It is a directory. Sibling to `DWS_STANDARDS_LI
 | 13 | Deployment lanes | `DWS_DEPLOYMENT_STANDARD.md` | — | Per-Surface deploy ontology, forward-only migration |
 | 14 | Truth registry meta | `DWS_TRUTH_STANDARD.md` (this file) | — | The registry itself |
 | 15 | Enterprise role taxonomy | `DWS_ROLES_REGISTRY.md` | — | The 25 canonical roles + 5 buying-journey stages. Source for every standard's Roles chapter and every per-customer outreach matrix. |
+| 16 | Three-pillar sovereignty model (Data / Technology / Operational) | `docs/PHD_FIREHORSE_EN.md` §14.23 | `docs/field-notes/2026-05-28-three-pillars-sovereignty-global.md` (popular-language mirror); blog: `onelifetime.world/posts/sovereignty-field-note-2-three-pillars.html` | Universal three-pillar × three-jurisdiction (EU / US / Singapore) sovereignty taxonomy with KYA four-track mapping (Data→SIB, Technology→CSB, Operational→EAB, ASB binding identity) and the post-quantum cryptographic overlay (HNDL, NIST FIPS 203/204/205, CNSA 2.0, 2030–2035 cutover). Authoritative source for sovereignty pillar definitions, the pillar × jurisdiction matrix, and the relationship to vendor-tier model (Row 4) and DWS6 product tiers in `DWS_DEPLOYMENT_STANDARD.md` lines 165–172. Field-Note exception (see "Excluded on purpose" below): Sovereignty Field Note #2 is the popular-language mirror, not the canonical source; PHD §14.23 is canonical. |
 
-**Excluded on purpose:** thesis files (academic, not operational), field notes (historical, not authoritative).
+**Excluded on purpose:** thesis files in general are academic (not operational), and most field notes are historical (not authoritative). **Row 16 exception:** the popular-language mirror of the three-pillar sovereignty model lives at `docs/field-notes/2026-05-28-three-pillars-sovereignty-global.md` because the field-note format reaches a different audience than the academic PhD chapter; the PhD chapter remains canonical and the field-note is a derivative explainer.
 
 ## 3. Conflict Resolution Rule
 

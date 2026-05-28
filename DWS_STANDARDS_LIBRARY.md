@@ -138,6 +138,8 @@ Standards fall into five categories:
 
 **Enforcement.** `/sovereignty-assess` scores against this table. A vendor marked Tier 2 must never be sold into a Tier 1 RFP. Full rationale and partner framing: `onelifetime.world/posts/redhat-sovereign-move-three-tiers.html`.
 
+**See also (added v3.61, 2026-05-28):** the universal three-pillar sovereignty model (Data / Technology / Operational) × three-jurisdiction emphasis profile (EU / US / Singapore) is canonical in `docs/PHD_FIREHORSE_EN.md` §14.23 and registered in `DWS_TRUTH_STANDARD.md` Row 16. The pillar model and the vendor-tier model in this section operate at different layers: pillars describe *what kind of sovereignty* (data, technology, operational); vendor tiers describe *how sovereign the vendor is* (T1/T2/T3). A complete procurement coordinate is therefore (Pillar, Tier, Jurisdiction). Field-Note explainer at `onelifetime.world/posts/sovereignty-field-note-2-three-pillars.html`.
+
 ---
 
 ## 4. Standards per Enterprise Integration
