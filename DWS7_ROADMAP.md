@@ -1,16 +1,30 @@
 # DWS7 ROADMAP — From Pilot to 16 Paying Industrial Customers
 
 > **Document Standard:** DWS Document Standard v2.0
-> **Version:** 1.6.0
+> **Version:** 1.7.0
 > **Status:** Living Document (auto-tracked weekly)
 > **Created:** 2026-02-12
-> **Updated:** 2026-05-23 — Added Phase 4.6 Situation Room — Strategic Command Surface (PRs 177A–177D): product-surface scaffold, LWM V2 NIM container, Control Room ↔ Situation Room federation, KYA TC-3 access control. Sits next to §4.5 eIDAS 2.0 & Trust Services (added separately via #1376). Decision record: `docs/field-notes/2026-05-15-nvfp4-pretraining-for-control-room-lwm.md` (V2 timing pin) and `docs/field-notes/2026-05-23-lwm-price-estimate-colab-vs-nvidia-cloud.md` (two-budget split). Previously: 2026-04-16 — Added Phase 6.4 Multi-Jurisdiction Infrastructure (PRs 248–251): jurisdiction router, UAE/G42 integration, ASEA scaffold, 4-jurisdiction sovereignty score engine. Decision record: docs/field-notes/2026-04-16-jurisdiction-expansion-dws7.md
+> **Updated:** 2026-05-31 — CEO reshape (Cortex AI-native framing): rewrote Executive Summary around the "Cortex Orchestrator + AI Actions layer for EU industrial carbon" thesis (DWS owns layer 5 — signed regulatory filings — while horizontals commoditize layers 1–4); added Cortex-shift framing to Phase 2.6; pulled EUTL transaction-verified Scope 3 forward from DWS 8 (new PR 093I, was 8-041 single-entity slice); Firehorse agents re-chartered as ledger-native (see `AI_AGENT_GUIDELINES.md` §2 LedgerNativeAgentOutput contract). Phase 2 56→57 PRs, total 261→262. Previously: 2026-05-23 — Added Phase 4.6 Situation Room — Strategic Command Surface (PRs 177A–177D): product-surface scaffold, LWM V2 NIM container, Control Room ↔ Situation Room federation, KYA TC-3 access control. Sits next to §4.5 eIDAS 2.0 & Trust Services (added separately via #1376). Decision record: `docs/field-notes/2026-05-15-nvfp4-pretraining-for-control-room-lwm.md` (V2 timing pin) and `docs/field-notes/2026-05-23-lwm-price-estimate-colab-vs-nvidia-cloud.md` (two-budget split). Previously: 2026-04-16 — Added Phase 6.4 Multi-Jurisdiction Infrastructure (PRs 248–251): jurisdiction router, UAE/G42 integration, ASEA scaffold, 4-jurisdiction sovereignty score engine. Decision record: docs/field-notes/2026-04-16-jurisdiction-expansion-dws7.md
 > **Timeline:** Q1 2026 → Q4 2027 (22 months)
 > **Target:** DWS IQ 7 — Production-grade, 16 industrial customers, investors signed, profitable
 
 ---
 
 ## Executive Summary
+
+**Positioning (the one sentence):** DWS IQ 7 is the **Cortex Orchestrator + AI Actions layer for EU industrial carbon** — the only platform that turns an LLM answer into a _signed, sovereign regulatory filing_.
+
+The industry is converging on one stack: Data → Unified Platform → Semantic/Vector → Frontier LLM → Orchestrator → AI Actions. Snowflake Cortex, Databricks Mosaic, and Palantir AIP commoditize layers 1–4 across 2026–2027. DWS owns **layer 5**: the carbon balance sheet, the iXBRL signature, and the EU AI Act Article 12 lineage attached to every entry. Old BI ended at a dashboard; AI-native Cortex ends at an answer; **DWS ends at a _filed_ CSRD report, a _settled_ CBAM declaration, and a _posted_ journal entry in the customer's ERP** — on hardware in the customer's building, with no data leaving the EU. Cortex generates text; DWS posts journal entries.
+
+| Cortex Layer          | DWS equivalent                                         | Defensibility vs a horizontal Cortex deployment        |
+| --------------------- | ------------------------------------------------------ | ------------------------------------------------------ |
+| Unified Data Platform | 18-source carbon data mesh (EUTL, ENTSO-E, EFRAG XBRL, PRODCOM) | HIGH — no curated EU regulatory corpus off the shelf   |
+| Semantic / Vector     | pgvector + ESRS/CBAM/ETS ontology (82 disclosures)     | MEDIUM — replicable, but the ontology is the asset      |
+| Frontier LLMs         | Groq + Nemotron 3 Super on Acer GN100                  | LOW on raw intelligence, HIGH on sovereign local inference |
+| Orchestrator          | Brain–Memory–Body–Hands + 15 ledger-native Firehorse agents | MEDIUM — same shape, domain-specialized output contract |
+| AI Actions / Outcomes | Signed iXBRL filing, ledger entry, ERP GL writeback    | HIGH — Cortex stops at the answer; DWS finishes the action |
+
+**Proof targets (Q4 2027 GA):** 16 paying industrial customers (steel, cement, chemicals, construction, energy), €72K MRR, ISO 27001 certified, ledger-backed CSRD/CBAM artifacts demonstrable end-to-end.
 
 DWS IQ 6 is a pilot-phase climate intelligence platform with strong foundations: Express/TypeScript backend, React 19 dashboard, **15 AI agents**, MCP orchestration (6 servers), ERP connectors, 3 landing page sites, **38 CI/CD workflows**, and **52 database migrations**. The gap between "pilot" and "production platform with 16 paying customers and growing profits" requires disciplined execution across **265 planned pull requests** organized in 6 phases.
 
@@ -70,7 +84,7 @@ Physical and cloud infrastructure already in place entering Phase 1. These are n
 | Phase | Period            | Theme                                        | PRs | Milestone                                                                     |
 | ----- | ----------------- | -------------------------------------------- | --- | ----------------------------------------------------------------------------- |
 | **1** | Feb–Apr 2026      | **Launch & Stabilize**                       | 45  | V1.0 production launch, first 3 paying customers                              |
-| **2** | May–Jul 2026      | **Compliance Engine + Carbon Balance Sheet** | 56  | Full Fit-for-55 coverage, EU AI Act compliance, debit-credit ledger           |
+| **2** | May–Jul 2026      | **Compliance Engine + Carbon Balance Sheet** | 57  | Full Fit-for-55 coverage, EU AI Act compliance, debit-credit ledger, EUTL-verified Scope 3 |
 | **3** | Aug–Oct 2026      | **Scale & Harden**                           | 48  | 8 customers, ISO 27001 initiated, SOC 2 prep, Aegis K8s inference infra       |
 | **4** | Nov 2026–Jan 2027 | **Intelligence Layer**                       | 40  | Agentic AI workflows, IoT pipeline live, **Situation Room ships (LWM V2)**    |
 | **5** | Feb–May 2027      | **Market Expansion**                         | 44  | 16 customers, supplier portal, partner ecosystem, open-source agent framework |
@@ -167,7 +181,7 @@ The codebase has ~~3~~ 17 test files. Coverage gate still missing — this remai
 
 ---
 
-## Phase 2: Compliance Engine (May–Jul 2026) — 56 PRs
+## Phase 2: Compliance Engine (May–Jul 2026) — 57 PRs
 
 ### 2.1 EU ETS Module (PRs 046–057)
 
@@ -242,7 +256,9 @@ The codebase has ~~3~~ 17 test files. Coverage gate still missing — this remai
 | 092 | Industry-specific compliance templates (batch 2: aluminum, fertilizers, hydrogen) | P1       | Next 3 CBAM-covered industries                                   |
 | 093 | Regulatory readiness score per customer                                           | P1       | Weighted score across all applicable regulations                 |
 
-### 2.6 Carbon Balance Sheet — Debit-Credit Compliance Ledger (PRs 093A–093H)
+### 2.6 Carbon Balance Sheet — Debit-Credit Compliance Ledger (PRs 093A–093I)
+
+**Cortex-shift framing:** This subsection is DWS's "AI Actions" layer (see Executive Summary). A horizontal Cortex/Mosaic/AIP deployment can generate a carbon dashboard from a Snowflake notebook by Q3 2026; what it cannot do is post a signed, source-traced journal entry that reconciles ETS + CBAM + CSRD into one auditable balance. The ledger is the line item neither competitor can replicate without rebuilding their agent layer. It must ship in DWS7 Phase 2 — 2028 (DWS 8) is too late.
 
 **Why now (not DWS 8):** The debit-credit ledger is the Series A story. Investors fund infrastructure, not features. A persistent carbon balance sheet that unifies ETS + CBAM + CSRD into one auditable ledger is the moat — and it must be demonstrable before fundraising.
 
@@ -260,6 +276,7 @@ The codebase has ~~3~~ 17 test files. Coverage gate still missing — this remai
 | 093F | Carbon balance dashboard (CFO view)               | P1       | Balance sheet view: total carbon liabilities (debits) vs carbon assets (credits, free allocation, offsets). Net carbon position. Trend over time. Drill down by regulation, scope, entity. This is the investor demo screen                                                                                                         |
 | 093G | ERP GL sync (carbon → financial ledger)           | P1       | Push carbon ledger entries to SAP/IFS/Dynamics general ledger as line items. Carbon costs appear in the financial P&L alongside material costs. Bi-directional: ERP purchase orders generate CBAM debit entries automatically. Builds on PR 088 (compliance status API) and PRs 129–137 (ERP connectors)                            |
 | 093H | XBRL/iXBRL export from ledger                     | P1       | Export carbon balance sheet to ESRS-compliant XBRL for regulatory filing. Machine-readable CSRD reports. Extends PR 077 (XBRL tagging) with full ledger-backed data. EFRAG taxonomy auto-mapped from chart of carbon accounts                                                                                                       |
+| 093I | EUTL transaction-verified Scope 3 factors         | P0       | Pulled forward from DWS 8 (was 8-041, single-entity slice). Replace CBAM Reg. 2023/1773 default emission factors with actual verified emissions from the EUTL installation record when the supplier is identifiable. Moves activity-based estimates (±15%) toward transaction-verified accuracy (±3%). The cross-customer network-effect version (one customer's verified data improving another's ledger) remains in DWS 8 (8-041). This is the sales wedge: "your CBAM number is traced to EUTL installation DE-123456, not a sector average"  |
 
 **What this enables for fundraising:**
 
@@ -710,9 +727,9 @@ dws status | jq .agents                 # Pipe JSON out
 | Open-Source Agent Framework | 6       | 5       |
 | Mobile & i18n               | 9       | 5       |
 | Investor & Financial        | 9       | 6       |
-| Carbon Balance Sheet        | 8       | 2       |
+| Carbon Balance Sheet        | 9       | 2       |
 | Advanced Features           | 13      | 6       |
-| **Total**                   | **261** |         |
+| **Total**                   | **262** |         |
 
 ---
 
