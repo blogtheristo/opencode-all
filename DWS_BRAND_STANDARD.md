@@ -1,13 +1,14 @@
-# DWS Gamma Brand Standard v3.1
+# DWS Gamma Brand Standard v3.2
 
 ---
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.1
+Version: 3.2
 
 Sessions & Modifications:
 
+- Version: 3.2 | Tool: Claude Code | Session: claude/ethics-principle-footer-SvTGJ | Date: 31.05.2026 | Changes: Added §6 Ethics Principle footer band to ironclad-footer.js (v1.3 on dws10.com / onelifetime.world / lifetime.fi; v1.2 on dws6.com) — standing band above the legal/copyright bar reading "We value ethics in everything we do — DWS products augment people, never replacing junior talent or the human-in-command." Codifies the human-in-command principle as a permanent footer fixture across all sites; `.ironclad-footer-principle` CSS spec; updated Footer Bars table.
 - Version: 3.1 | Tool: Claude Code (Opus 4.7) | Session: claude/dws-compliance-sales-rz5He | Date: 18.05.2026 | Changes: Added §22 DWS Master Tagline — Intelligence Amplifier (EN+FI), companion product-truth sentence, `.hero .tagline` CSS spec, pairing rules with System of Action Operator + Three-Layer National Strategy + Boardy buyer-facing headline. Applied tagline to sector page heroes (/construction, /manufacturing, /logistics, /energy) and /sovereign-cbam-disclosure/.
 - Version: 2.9 | Tool: Claude Code (Sonnet 4.6) | Session: claude/data-centre-factory-docs-eav19 | Date: 10.05.2026 | Changes: Added §22 System of Action Operator — canonical investor and homepage positioning sentences (FI+EN), derived from Google Cloud Agentic Data Cloud framework and tietotehdas field research
 - Version: 2.8 | Tool: Claude Code (Sonnet 4.6) | Session: claude/add-booking-multilingual-hMx7m | Date: 28.04.2026 | Changes: Added §5.1 Ironclad Sync Rule — dws10.com is single source of truth for ironclad-nav.js + ironclad-footer.js across all sites; sync script scripts/on-deploy/sync-ironclad-nav.sh; domain-aware logo (LifetimeOy.png on lifetime.fi, OLW logo on onelifetime.world); Legal Hub simplified to direct link (no flyout); Agentic Commerce added; booking CTA /book/; investment-safety rewritten to gold standard.
@@ -432,12 +433,12 @@ The script auto-injects a complete `<header>` element at the start of `<body>`:
 
 ---
 
-## 6. Iron Clad Footer v1.0 (Single Source of Truth)
+## 6. Iron Clad Footer v1.3 (Single Source of Truth)
 
 **CRITICAL: Only ONE footer exists for all dws10.com pages.**
 
 **File:** `shared-assets/footer/ironclad-footer.js`
-**Version:** v1.0
+**Version:** v1.3 (dws10.com / onelifetime.world / lifetime.fi); v1.2 (dws6.com)
 
 **Usage:** Add to any page (before `</body>`):
 
@@ -464,8 +465,33 @@ The script auto-injects a `<footer class="ironclad-footer">` at the end of `<bod
 | Bar           | Content                                                                                                          |
 | ------------- | ---------------------------------------------------------------------------------------------------------------- |
 | **Payments**  | Revolut Business (blue), PayPal Business (navy), SEPA EUR (green), Bank Transfer                                 |
+| **Ethics Principle** (v1.3) | "We value ethics in everything we do — DWS products augment people, never replacing junior talent or the human-in-command." |
 | **Legal**     | Website Terms, Privacy Policy, Return Policy, Data Handling, Data Security, Investment Safety, Regulatory Notice |
 | **Copyright** | © 2025–2026 Lifetime Oy · VAT FI07724079 · Address · GDPR · DSA · NIS2 · EU AI Act                               |
+
+### Ethics Principle Band (v1.3)
+
+A standing, non-negotiable values statement rendered as a centered full-width band **directly above the legal/copyright bar** on every page. It states the human-in-command principle: DWS ecosystem products are built to **augment** people — never to reduce junior workforce opportunities, and never to automate away the human-in-command; every decision stays aligned with the human-in-command principle.
+
+**Copy (single source — do not paraphrase per page):**
+
+> We value ethics in everything we do — DWS products augment people, never replacing junior talent or the human-in-command.
+
+**Markup** — inserted before `<div class="ironclad-footer-bottom">`:
+
+```html
+<div class="ironclad-footer-principle">
+    We value ethics in everything we do &mdash; DWS products augment people, never replacing junior talent or the human-in-command.
+</div>
+```
+
+**CSS:**
+
+```css
+.ironclad-footer-principle { max-width: 1200px; margin: 0 auto; padding: 20px 20px 0; text-align: center; font-size: 0.8rem; line-height: 1.5; color: #8fbc8f; font-weight: 600; letter-spacing: 0.02em; }
+```
+
+Uses the same muted Nordic-green accent (`#8fbc8f`) as the "Built in Finland" badge so it reads as a brand values statement, not a link. Edit it in `dws10.com/shared-assets/footer/ironclad-footer.js` only, then run the Ironclad Sync Rule (§5.1).
 
 ### Design Specs
 
