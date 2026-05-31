@@ -1,10 +1,10 @@
 # DWS8 ROADMAP — Feynman-Era Agentic Platform
 
 > **Document Standard:** DWS Document Standard v2.0
-> **Version:** 2.0.0
+> **Version:** 2.1.0
 > **Status:** Living Document
 > **Created:** 2026-03-16
-> **Updated:** 2026-03-24 — v2.0: Added carbon balance sheet thesis, debit-credit ledger architecture, 18-source data mesh, cross-vertical intelligence layer, enterprise data sovereignty add-ons
+> **Updated:** 2026-05-31 — v2.1: CEO reshape lockstep with DWS 7. Scope-split PR 8-041 — the single-entity EUTL-verified Scope 3 slice moves forward to DWS 7 Phase 2.6 (new PR 093I); 8-041 now scopes only the cross-customer network effect (needs multi-customer critical mass, Phase 2B). Previously: 2026-03-24 — v2.0: Added carbon balance sheet thesis, debit-credit ledger architecture, 18-source data mesh, cross-vertical intelligence layer, enterprise data sovereignty add-ons
 > **Timeline:** Q1 2028 → Q4 2029 (24 months)
 > **Target:** DWS IQ 8 — Carbon balance sheet infrastructure for industrial Europe
 
@@ -14,6 +14,7 @@
 Version: 1.0
 
 Sessions & Modifications:
+  - Version: 2.1 | Tool: Claude Code (Opus 4.8) | Session: claude/ceo-review-dws-firehorse-1kWuP | Date: 31.05.2026 | Changes: v2.1 — CEO reshape lockstep with DWS 7. Scope-split PR 8-041: single-entity EUTL-verified Scope 3 slice moved forward to DWS 7 Phase 2.6 (PR 093I); 8-041 retains only the cross-customer network effect
   - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/add-debit-credit-compliance-FevOa | Date: 24.03.2026 | Changes: v2.0 — Carbon balance sheet thesis, debit-credit ledger as core architecture, 18-source data mesh, cross-vertical intelligence, enterprise data sovereignty add-ons, Qantic BESS integration context
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/nvidia-gtc-2026-notes-cYO48 | Date: 16.03.2026 | Changes: Initial creation — DWS 8 roadmap based on NVIDIA GTC 2026 Feynman architecture announcements, post-DWS 7 planning horizon
 
@@ -23,7 +24,7 @@ Session Links & References:
 
 Document Status:
   - Created: 16.03.2026
-  - Last Modified: 16.03.2026
+  - Last Modified: 31.05.2026
   - Language: English
   - Publication Status: ACTIVE
 
@@ -222,7 +223,7 @@ This phase runs in parallel with DWS 7 Phase 6 (GA release).
 | PR | Title | Priority | Description |
 |----|-------|----------|-------------|
 | 8-040 | Supply chain carbon flow graph | P0 | Track carbon from extraction → manufacturing → construction → disposal. Graph DB (or pgvector adjacency) linking supplier ledger entries to buyer ledger entries. One company's output (credit) becomes another's input (debit) |
-| 8-041 | Verified supplier emission factors | P0 | Replace CBAM Reg. 2023/1773 defaults with actual verified emissions from EUTL when supplier is on the platform. Customer A's verified data improves customer B's accuracy. This is the network effect |
+| 8-041 | Verified supplier emission factors (cross-customer network effect) | P0 | **Scope split:** the single-entity slice (use a supplier's own EUTL installation record instead of Reg. 2023/1773 defaults) ships earlier in DWS 7 Phase 2.6 as PR 093I. What remains here is the **network effect**: when customer A's verified EUTL data becomes the actual emission factor for customer B's CBAM calculation, both ledgers get more accurate. Requires multi-customer ledger critical mass (Phase 2B), which is why it stays in DWS 8 |
 | 8-042 | Enterprise data connectors (Bloomberg, Refinitiv, Ecoinvent) | P1 | "Data Sovereignty Add-ons" — customer brings their own license, DWS provides connector. Env var activation (`BLOOMBERG_API_KEY`). Ingest existing feeds, don't replace data providers |
 | 8-043 | Cross-vertical benchmarking dashboard | P1 | CFO sees how their ETS exposure compares across industries. Steel vs cement vs chemicals on the same carbon balance sheet. Powered by Eurostat NACE + EEA + CDP data |
 | 8-044 | Intercompany carbon elimination | P1 | When two subsidiaries of the same group trade, eliminate intercompany carbon the same way financial accounting eliminates intercompany revenue. Prevents double-counting in consolidated reports |
