@@ -263,6 +263,20 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 
 **Output:** Sovereignty score, risk matrix, remediation recommendations.
 
+### 5.3a /sovereignty-pillars-assess
+
+**When to use:** Scoring a customer architecture against the universal three-pillar (Data / Technology / Operational) × three-jurisdiction (EU / US / SG) sovereignty model from Sovereignty Field Note #2.
+
+**What it does:** Returns a `(SIB, CSB, EAB)` triple per jurisdiction (nine cells), an overall DWS product tier recommendation (Aegis / Sovereign Infra / Connect), post-quantum readiness, and a Rightful Oy R-Sac² referral flag. Extends `/sovereignty-assess` from database-only to enterprise-architecture scope.
+
+**Trigger phrases:** "pillars assess", "score sovereignty", "SIB CSB EAB", "three-pillar score", "sovereignty triple", "score this architecture"
+
+**CLI:** `dws sovereignty-pillars-assess <input.json>` or `node scripts/sovereignty-pillars-assess.cjs <input.json>`
+
+**Fixtures:** `fixtures/sovereignty-pillars/{eu-aegis,us-sovereign-cloud,sg-neutrality}.json`
+
+**Canonical reference:** `docs/field-notes/2026-05-28-three-pillars-sovereignty-global.md`, `DWS_TRUTH_STANDARD.md` Row 16.
+
 ### 5.4 /site-safety
 
 **When to use:** Assessing construction site safety conditions.

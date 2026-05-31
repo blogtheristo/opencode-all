@@ -91,6 +91,8 @@ Observed cost/performance numbers from vendor write-ups in April 2026:
 
 Following the DWS **Aegis / Sovereign Infra / Connect** product tiers already documented in `docs/PRODUCT_TIERS.md`, observability and compliance tooling maps the same way. Sovereignty is the segmentation axis — same stack, different vendors per tier.
 
+> *Frame note (2026-05-28).* This three-tier product segmentation is the EU-origin enterprise's operational expression of the universal three-pillar (Data / Technology / Operational) × three-jurisdiction (EU / US / Singapore) sovereignty model. See Sovereignty Field Note #2 (`https://onelifetime.world/posts/sovereignty-field-note-2-three-pillars.html`) for the taxonomy and `DWS_TRUTH_STANDARD.md` Row 16 for the canonical reference.
+
 ### Tier 1 — Aegis (Full Sovereign)
 
 Zero CLOUD Act exposure. No US-incorporated vendor anywhere in the compliance data path.

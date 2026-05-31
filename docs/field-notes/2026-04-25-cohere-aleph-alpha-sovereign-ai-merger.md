@@ -54,6 +54,8 @@ Our segmentation axis (per `docs/PRODUCT_TIERS.md`) is **sovereignty posture, no
 
 **Key finding:** Connect-tier customers benefit immediately; Sovereign Infra and Aegis customers benefit once the per-tier sovereignty review clears. No DWS SKU changes. The graduation pattern is identical to Shufti — one named partner, one capability, three different DPA outcomes.
 
+> *Frame note (2026-05-28).* This three-tier product segmentation is the EU-origin enterprise's operational expression of the universal three-pillar (Data / Technology / Operational) × three-jurisdiction (EU / US / Singapore) sovereignty model. See Sovereignty Field Note #2 (`https://onelifetime.world/posts/sovereignty-field-note-2-three-pillars.html`) for the taxonomy and `DWS_TRUTH_STANDARD.md` Row 16 for the canonical reference.
+
 ## 3. Aegis Readiness Score
 
 | Dimension                                       | Status      | Note                                                                                                                                                                                                                                                                                                                                                         |
