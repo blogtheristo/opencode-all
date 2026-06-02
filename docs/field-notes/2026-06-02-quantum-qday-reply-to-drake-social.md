@@ -33,7 +33,7 @@ Thank you @drakefjustin — sober, exemplary work. ~1,200 logical qubits → sec
 > **Public** cut — safe to post under the brand. Internal-only material removed:
 > no PR IDs, no non-public q-day intel, no DWS9 naming, no asset-at-risk ($) figure.
 > Route through `DWS_BRAND_STANDARD.md` before posting.
-> **Handles:** @GoogleQuantumAI · @Cloudflare · @ethereumfndn
+> **Handles:** @GoogleQuantumAI · @Cloudflare · @ethereumfndn · @NIST (FIPS 203/204/205) · @enisa_eu (EU Agency for Cybersecurity)
 
 ## LinkedIn — long form
 
@@ -45,7 +45,7 @@ This year's quantum results moved fast: Shor-on-elliptic-curve got ~20× cheaper
 
 What that means for the sovereign carbon-balance-sheet platform:
 - A full cryptographic inventory of every signature and key we hold
-- NIST-standard post-quantum primitives (FIPS 203 / 204 / 205) as the baseline
+- @NIST-standard post-quantum primitives (FIPS 203 / 204 / 205) as the baseline — sovereign-grade for @enisa_eu's EU
 - Hash-based audit signing for tamper-proof compliance trails
 - Harvest-now-decrypt-later cleanup on long-lived sovereign data
 
@@ -53,12 +53,12 @@ Sovereignty without crypto-agility is sovereignty with an expiry date. We're rem
 
 👉 Read the field note. *Turning 2050 goals into 2026 insights.*
 
-#PostQuantum #Sovereignty #QDay #DWSIQ8
+#PostQuantum #Sovereignty #QDay #DWSIQ8 #ENISA #NIS2
 
 ## X — short form
 
 Q-day is a planning problem, not a panic.
 
-**DWS IQ 8** holds the line at **2029** — same as @GoogleQuantumAI @Cloudflare @ethereumfndn. NIST FIPS 203/204/205, hash-based audit signing, HNDL cleanup. Sovereignty without crypto-agility has an expiry date. We're removing it. 🔐
+**DWS IQ 8** holds the line at **2029** — same as @GoogleQuantumAI @Cloudflare @ethereumfndn. @NIST FIPS 203/204/205, hash-based audit signing, HNDL cleanup — sovereign-grade for @enisa_eu's EU. Crypto-agility, or an expiry date. We're removing it. 🔐
 
 #PostQuantum #QDay #DWSIQ8
