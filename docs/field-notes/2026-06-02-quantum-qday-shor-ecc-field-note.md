@@ -117,7 +117,6 @@ Neither Google nor Oratomic stated **q-day implications** — no timelines. Drak
 | **50% chance of q-day by 2032** | Justin Drake's personal estimate (incl. claimed non-public info) — **NOT a DWS figure** |
 | **10% by 2030** | Justin Drake's personal estimate — **NOT a DWS figure** |
 | **2035** | US-government (NSA→NIST / CNSA 2.0) deadline for retiring quantum-vulnerable crypto; source argues it will be pulled forward |
-
 > **DWS position (canonical-fact discipline, per `DWS_TRUTH_STANDARD.md`):** DWS does **not** publish a specific q-day date or probability as a canonical fact. These are third-party estimates. What DWS treats as actionable is the **direction**: multiple independent 2026 signals compress the timeline and converge on the **2030–2035** window already named in Field Note #2. The defensible customer-facing migration target remains **2029**.
 
 ## §4. Post-quantum migration — the constructive half
