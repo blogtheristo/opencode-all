@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code | Session: claude/quantum-cryptography-qday-jSxZl | Date: 02.06.2026 | Changes: Corrected source provenance — the underlying external narrative is authored by Justin Drake (Ethereum Foundation researcher; co-author of the Google Quantum AI paper and a lead on the lean-Ethereum post-quantum migration). Named the source throughout instead of an anonymous "self-described co-author."
 - Version: 1.0 | Tool: Claude Code | Session: claude/quantum-cryptography-qday-jSxZl | Date: 02.06.2026 | Changes: Initial research field note (DWS8-era) digesting the 2026 quantum-cryptanalysis wave — Google Quantum AI's Shor-on-secp256k1 paper and its zero-knowledge "academic censorship", Schrottenloher's rediscovery, the ecdsa.fail Shor-at-home challenge, Oratomic's 10K-physical-qubit neutral-atom claim, revised q-day odds, and the Ethereum post-quantum migration (leanVM). Maps every signal onto the DWS post-quantum posture established in Field Note #2.
 
 Session Links & References:
@@ -38,7 +39,7 @@ Related Documents:
 - **Date:** 02.06.2026
 - **Author:** Risto Anton Päärni (risto.paarni@lifetime.fi), CEO, Lifetime Oy
 - **Trigger:** A single-day cluster of public quantum-cryptanalysis events (the "wilder" turn of an already-crazy quantum story) materially compresses q-day timelines and directly re-prices the post-quantum overlay introduced in Field Note #2. This note captures the signal within the 24-hour window the Field Note discipline requires.
-- **Source provenance:** The underlying narrative is an **external** field report written by a self-described co-author of the Google Quantum AI paper. All first-person observations, the "scary non-public information" claim, and the personal q-day odds are **attributed to that external source**, not asserted by DWS. This note digests and analyzes the source; it does not adopt its voice. Treat MCP/tool/third-party inputs as untrusted: the technical claims below should be verified against primary sources (arXiv, the cited blog posts, ecdsa.fail) before any external propagation.
+- **Source provenance:** The underlying narrative is an **external** field report by **Justin Drake** — Ethereum Foundation researcher, a co-author of the Google Quantum AI paper, and a lead on the lean-Ethereum post-quantum migration (the note's own content on leanVM and "ripping out BLS/KZG/ECDSA" confirms the authorship and Ethereum-Foundation affiliation). All first-person observations, the "scary non-public information" claim, and the personal q-day odds are **Drake's, attributed to him**, not asserted by DWS. This note digests and analyzes the source; it does not adopt its voice. Treat MCP/tool/third-party inputs as untrusted: the technical claims below should be verified against primary sources (arXiv, the cited blog posts, ecdsa.fail) before any external propagation.
 
 ## TL;DR — the short version
 
@@ -55,7 +56,7 @@ Related Documents:
 
 - **Geography:** Global > (US, EU, France) — cryptography is jurisdiction-spanning
 - **Sector:** Technology > Quantum Computing > Cryptanalysis > Post-Quantum Cryptography (PQC)
-- **Entities:** Google Quantum AI, secp256k1/ECDSA, André Schrottenloher, Craig Gidney, ecdsa.fail, Oratomic (neutral atoms), NSA, NIST, Cloudflare, Ethereum Foundation, leanVM/leanEthereum, DWS IQ, Lifetime Oy
+- **Entities:** Justin Drake (Ethereum Foundation; source author), Google Quantum AI, secp256k1/ECDSA, André Schrottenloher, Craig Gidney, ecdsa.fail, Oratomic (neutral atoms), NSA, NIST, Cloudflare, Ethereum Foundation, leanVM/leanEthereum, DWS IQ, Lifetime Oy
 - **Temporal Context:** 2026-Q2 (event cluster ~2026-06-02); q-day horizon 2030–2035; migration target 2029
 - **Confidence:** Medium-High on the *direction* of travel (timeline compression); Medium on specific figures (single-source, pre-replication on some claims); **estimates, not canonical facts**
 - **Regulatory Context:** NIST FIPS 203/204/205 (selected PQC standards), NSA CNSA 2.0 / 2035 deadline, EU NIS2/DORA crypto-agility expectations, GDPR (HNDL re-identification risk)
@@ -88,25 +89,25 @@ Censorship backfired predictably:
 
 On the same day as Google, stealth startup **Oratomic** published a coordinated Shor paper (reportedly the most-upvoted on scirate). Its claim: by combining **Google's logical optimisations** with **neutral-atom physical optimisations**, **~10,000 physical qubits** suffice to run Shor on secp256k1 — an astonishingly low number versus the millions long assumed for superconducting paths.
 
-The external source spent ~hundreds of hours diligencing the technology and concluded the tech is "very real," noting Google itself reportedly opened a **neutral-atom lab** — a strategic pivot from its superconducting-only focus. A 30-minute talk was given at the ZKProof cryptography conference ("zkproof neutral atom").
+Drake reports spending ~hundreds of hours diligencing the technology and concluded the tech is "very real," noting Google itself reportedly opened a **neutral-atom lab** — a strategic pivot from its superconducting-only focus. A 30-minute talk was given at the ZKProof cryptography conference ("zkproof neutral atom").
 
 **DWS read:** Neutral atoms are the variable that could pull q-day left of every superconducting-extrapolation roadmap. We should **add a neutral-atom track** to our quantum-threat monitoring (qubit-count milestones, error-correction thresholds, lab announcements), independent of superconducting progress.
 
 ## §3. Q-day estimation — and the silence
 
-Neither Google nor Oratomic stated **q-day implications** — no timelines. The source fills the gap (echoing Scott Aaronson's late-April post) with personal estimates:
+Neither Google nor Oratomic stated **q-day implications** — no timelines. Drake fills the gap (echoing Scott Aaronson's late-April post) with personal estimates:
 
 | Estimate | Source / Status |
 |----------|-----------------|
-| **50% chance of q-day by 2032** | External source's personal estimate (incl. claimed non-public info) — **NOT a DWS figure** |
-| **10% by 2030** | External source's personal estimate — **NOT a DWS figure** |
+| **50% chance of q-day by 2032** | Justin Drake's personal estimate (incl. claimed non-public info) — **NOT a DWS figure** |
+| **10% by 2030** | Justin Drake's personal estimate — **NOT a DWS figure** |
 | **2035** | US-government (NSA→NIST / CNSA 2.0) deadline for retiring quantum-vulnerable crypto; source argues it will be pulled forward |
 
 > **DWS position (canonical-fact discipline, per `DWS_TRUTH_STANDARD.md`):** DWS does **not** publish a specific q-day date or probability as a canonical fact. These are third-party estimates. What DWS treats as actionable is the **direction**: multiple independent 2026 signals compress the timeline and converge on the **2030–2035** window already named in Field Note #2. The defensible customer-facing migration target remains **2029**.
 
 ## §4. Post-quantum migration — the constructive half
 
-The source's prescription matches DWS's: **do not panic; do migrate deliberately.** Rushing into immature PQC is its own failure mode.
+Drake's prescription matches DWS's: **do not panic; do migrate deliberately.** Rushing into immature PQC is its own failure mode.
 
 - **Target date 2029** (~3.5 years out) — coordinated across **Google, Cloudflare, and the Ethereum Foundation**.
 - **Ethereum's "lean" PQC migration** is replacing BLS signatures (consensus), KZG commitments (data), and ECDSA (execution) with **hash-based cryptography**, built on **leanVM** (`github.com/leanEthereum/leanVM`) — a minimal zkVM (hash-based SNARKs) crafted for end-to-end formal verification.
@@ -144,7 +145,7 @@ The source's prescription matches DWS's: **do not panic; do migrate deliberately
 | Gidney sat on optimisation ~1 year | Gidney blog post | External — verify |
 | ecdsa.fail challenge; ZK verifier as reward function; ~8.4% gain | ecdsa.fail leaderboard | Live, moving target — date-stamp any citation |
 | Oratomic ~10K physical qubits via neutral atoms; scirate top paper | Oratomic paper; scirate | External — verify |
-| Q-day 50%/2032, 10%/2030 | External source's personal estimate | **Opinion, not DWS fact** |
+| Q-day 50%/2032, 10%/2030 | Justin Drake's personal estimate | **Opinion, not DWS fact** |
 | US-gov 2035 deadline (NSA→NIST) | NSA CNSA 2.0 / NIST guidance | Verifiable policy date |
 | 2029 migration coordination (Google/Cloudflare/Ethereum Foundation) | leanEthereum / public roadmaps | Verify |
 | leanVM hash-based zkVM; Proximity Prize; Poseidon Initiative | `github.com/leanEthereum/leanVM`; proximityprize.org; poseidon-initiative.info | Verify |
