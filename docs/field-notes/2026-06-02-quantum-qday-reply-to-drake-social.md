@@ -62,3 +62,14 @@ Q-day is a planning problem, not a panic.
 **DWS IQ 8** holds the line at **2029** — same as @GoogleQuantumAI @Cloudflare @ethereumfndn. @NIST FIPS 203/204/205, hash-based audit signing, HNDL cleanup — sovereign-grade for @enisa_eu's EU. Crypto-agility, or an expiry date. We're removing it. 🔐
 
 #PostQuantum #QDay #DWSIQ8
+
+---
+
+# Social Reply Draft — to Thomas Coratger (PQ validator key registry)
+
+> Re: ethresear.ch thread 25040 "Exploring the Design Space for a Post-Quantum
+> Public Key Registry for Ethereum Validators." Handle **@tcoratger** — confirm before posting.
+
+Thank you @tcoratger — this is the kind of *concrete* first step the q-day conversation needs. leanXMSS validator keys at ~52 MiB extra state is a very reasonable price, and registering under multiple hashes (Poseidon1 / BLAKE3 / SHA-3) is exactly right: agility baked in, not bolted on.
+
+Quietly inspiring our own crypto-agility work. Kiitos. 🙏
