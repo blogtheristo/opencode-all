@@ -2,8 +2,7 @@
 
 > Companion social copy for `docs/field-notes/2026-06-02-quantum-qday-shor-ecc-field-note.md`.
 > Draft only — **not** for any public-site folder (`dws10.com/`, `onelifetime.world/`, etc.).
-> Route through `DWS_BRAND_STANDARD.md` before posting. Numbers verified in Field Note #3 §1.4.
-
+> Route through `DWS_BRAND_STANDARD.md` before posting. Figures are source-mapped in Field Note #3 §1.4 (verify against primary sources before public use).
 **Handles:** @drakefjustin · @GoogleQuantumAI · @Cloudflare · @ethereumfndn
 
 ---
