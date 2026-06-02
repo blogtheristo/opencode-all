@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code | Session: claude/quantum-cryptography-qday-jSxZl | Date: 02.06.2026 | Changes: Pinned the concrete primary-source video for the neutral-atom claim — Drake's ZKProof talk "Justin Drake on Neutral Atoms, Quantum Cryptanalysis, Google 2029, with ZKProof.org cryptographers" (youtu.be/XEGK0Ot1m-A) — replacing the generic "search zkproof neutral atom" pointer.
 - Version: 1.2 | Tool: Claude Code | Session: claude/quantum-cryptography-qday-jSxZl | Date: 02.06.2026 | Changes: Caught additional verified detail from Justin Drake's X thread (corroborated across Decrypt, The Block, CryptoTimes, Protos, Quantum Insider): hard resource estimates (~1,200 logical qubits / <90M Toffoli, or 1,450 / 70M; ~20× cut vs prior), attack time "in minutes" on a superconducting machine, the narrower "10% by 2032 recovers a secp256k1 ECDSA key from an exposed BTC public key" claim, the ~6.7M BTC / >$462B exposed-public-key exposure figure, and Google's own cryptocurrency whitepaper as a primary source. Added §1.4 (resource estimates) and the exposed-key risk line.
 - Version: 1.1 | Tool: Claude Code | Session: claude/quantum-cryptography-qday-jSxZl | Date: 02.06.2026 | Changes: Corrected source provenance — the underlying external narrative is authored by Justin Drake (Ethereum Foundation researcher; co-author of the Google Quantum AI paper and a lead on the lean-Ethereum post-quantum migration). Named the source throughout instead of an anonymous "self-described co-author."
 - Version: 1.0 | Tool: Claude Code | Session: claude/quantum-cryptography-qday-jSxZl | Date: 02.06.2026 | Changes: Initial research field note (DWS8-era) digesting the 2026 quantum-cryptanalysis wave — Google Quantum AI's Shor-on-secp256k1 paper and its zero-knowledge "academic censorship", Schrottenloher's rediscovery, the ecdsa.fail Shor-at-home challenge, Oratomic's 10K-physical-qubit neutral-atom claim, revised q-day odds, and the Ethereum post-quantum migration (leanVM). Maps every signal onto the DWS post-quantum posture established in Field Note #2.
@@ -101,7 +102,7 @@ Press coverage of Drake's thread, cross-checked against Google's own cryptocurre
 
 On the same day as Google, stealth startup **Oratomic** published a coordinated Shor paper (reportedly the most-upvoted on scirate). Its claim: by combining **Google's logical optimisations** with **neutral-atom physical optimisations**, **~10,000 physical qubits** suffice to run Shor on secp256k1 — an astonishingly low number versus the millions long assumed for superconducting paths.
 
-Drake reports spending ~hundreds of hours diligencing the technology and concluded the tech is "very real," noting Google itself reportedly opened a **neutral-atom lab** — a strategic pivot from its superconducting-only focus. A 30-minute talk was given at the ZKProof cryptography conference ("zkproof neutral atom").
+Drake reports spending ~hundreds of hours diligencing the technology and concluded the tech is "very real," noting Google itself reportedly opened a **neutral-atom lab** — a strategic pivot from its superconducting-only focus. Drake's ~30-minute ZKProof talk lays this out: **"Justin Drake on Neutral Atoms, Quantum Cryptanalysis, Google 2029, with ZKProof.org cryptographers"** (YouTube `XEGK0Ot1m-A` — https://youtu.be/XEGK0Ot1m-A).
 
 **DWS read:** Neutral atoms are the variable that could pull q-day left of every superconducting-extrapolation roadmap. We should **add a neutral-atom track** to our quantum-threat monitoring (qubit-count milestones, error-correction thresholds, lab announcements), independent of superconducting progress.
 
