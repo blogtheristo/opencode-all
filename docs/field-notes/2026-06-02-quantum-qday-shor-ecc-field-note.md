@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.4
 
 Sessions & Modifications:
 
+- Version: 1.4 | Tool: Claude Code | Session: claude/quantum-cryptography-qday-jSxZl | Date: 02.06.2026 | Changes: Added new source — Ethereum Research thread 25040 "Exploring the Design Space for a Post-Quantum Public Key Registry for Ethereum Validators" (Coratger, Wambsgans, Ladislaus, Thiery, Drake): leanXMSS hash-based validator keys (52-byte Merkle root + 20-byte param; ~52 MiB consensus-state growth for ~1M validators), and multi-hash registration (Poseidon1/BLAKE3/SHA-3) as crypto-agility — the first concrete Ethereum PQC migration step and direct validation of the DWS9 multi-hash thesis. Added to §4 + appendix.
 - Version: 1.3 | Tool: Claude Code | Session: claude/quantum-cryptography-qday-jSxZl | Date: 02.06.2026 | Changes: Pinned the concrete primary-source video for the neutral-atom claim — Drake's ZKProof talk "Justin Drake on Neutral Atoms, Quantum Cryptanalysis, Google 2029, with ZKProof.org cryptographers" (youtu.be/XEGK0Ot1m-A) — replacing the generic "search zkproof neutral atom" pointer.
 - Version: 1.2 | Tool: Claude Code | Session: claude/quantum-cryptography-qday-jSxZl | Date: 02.06.2026 | Changes: Caught additional verified detail from Justin Drake's X thread (corroborated across Decrypt, The Block, CryptoTimes, Protos, Quantum Insider): hard resource estimates (~1,200 logical qubits / <90M Toffoli, or 1,450 / 70M; ~20× cut vs prior), attack time "in minutes" on a superconducting machine, the narrower "10% by 2032 recovers a secp256k1 ECDSA key from an exposed BTC public key" claim, the ~6.7M BTC / >$462B exposed-public-key exposure figure, and Google's own cryptocurrency whitepaper as a primary source. Added §1.4 (resource estimates) and the exposed-key risk line.
 - Version: 1.1 | Tool: Claude Code | Session: claude/quantum-cryptography-qday-jSxZl | Date: 02.06.2026 | Changes: Corrected source provenance — the underlying external narrative is authored by Justin Drake (Ethereum Foundation researcher; co-author of the Google Quantum AI paper and a lead on the lean-Ethereum post-quantum migration). Named the source throughout instead of an anonymous "self-described co-author."
@@ -125,6 +126,7 @@ Drake's prescription matches DWS's: **do not panic; do migrate deliberately.** R
 - **Target date 2029** (~3.5 years out) — coordinated across **Google, Cloudflare, and the Ethereum Foundation**.
 - **Ethereum's "lean" PQC migration** is replacing BLS signatures (consensus), KZG commitments (data), and ECDSA (execution) with **hash-based cryptography**, built on **leanVM** (`github.com/leanEthereum/leanVM`) — a minimal zkVM (hash-based SNARKs) crafted for end-to-end formal verification.
 - **Two $1M open prizes** signal where the hard problems sit: the **Proximity Prize** (coding-theory conjecture / better hash-based SNARKs) and the **Poseidon Initiative** ($1M to break the SNARK-friendly Poseidon hash).
+- **First concrete migration step (June 2026):** an Ethereum Research post, *"Exploring the Design Space for a Post-Quantum Public Key Registry for Ethereum Validators"* (Coratger, Wambsgans, Ladislaus, Thiery, **Drake**), proposes replacing BLS12-381 validator keys with **leanXMSS** (hash-based XMSS). Each key becomes a **52-byte Merkle root + 20-byte public parameter** (vs today's 48-byte BLS key) — registering ~1M validators expands consensus state by ~**52 MiB**. Critically, it treats the **hash function as open design space**: with Poseidon2 under cryptanalytic pressure, the authors weigh **registering validators under multiple hash functions up front (Poseidon1, BLAKE3, SHA-3)** to preserve agility. **This is crypto-agility implemented as a registry — direct validation of the DWS9 "multi-hash / swap-under-load" thesis.**
 
 **Why this matters to DWS:** Hash-based + formally-verified-zkVM is exactly the "crypto-agility with conservative primitives" posture our sovereignty thesis demands. It is strong external validation of the Field Note #2 claim that *"sovereignty without crypto-agility is sovereignty with an expiry date."*
 
@@ -164,5 +166,6 @@ Drake's prescription matches DWS's: **do not panic; do migrate deliberately.** R
 | US-gov 2035 deadline (NSA→NIST) | NSA CNSA 2.0 / NIST guidance | Verifiable policy date |
 | 2029 migration coordination (Google/Cloudflare/Ethereum Foundation) | leanEthereum / public roadmaps | Verify |
 | leanVM hash-based zkVM; Proximity Prize; Poseidon Initiative | `github.com/leanEthereum/leanVM`; proximityprize.org; poseidon-initiative.info | Verify |
+| PQ validator key registry; leanXMSS; 52-byte Merkle root + 20-byte param; ~52 MiB state; multi-hash agility (Poseidon1/BLAKE3/SHA-3) | ethresear.ch thread 25040 (Coratger, Wambsgans, Ladislaus, Thiery, Drake); The Defiant coverage | Primary source available — verify author spellings + figures |
 
 *End of Field Note #3.*
