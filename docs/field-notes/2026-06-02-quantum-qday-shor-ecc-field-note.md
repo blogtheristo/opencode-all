@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code | Session: claude/quantum-cryptography-qday-jSxZl | Date: 02.06.2026 | Changes: Caught additional verified detail from Justin Drake's X thread (corroborated across Decrypt, The Block, CryptoTimes, Protos, Quantum Insider): hard resource estimates (~1,200 logical qubits / <90M Toffoli, or 1,450 / 70M; ~20× cut vs prior), attack time "in minutes" on a superconducting machine, the narrower "10% by 2032 recovers a secp256k1 ECDSA key from an exposed BTC public key" claim, the ~6.7M BTC / >$462B exposed-public-key exposure figure, and Google's own cryptocurrency whitepaper as a primary source. Added §1.4 (resource estimates) and the exposed-key risk line.
 - Version: 1.1 | Tool: Claude Code | Session: claude/quantum-cryptography-qday-jSxZl | Date: 02.06.2026 | Changes: Corrected source provenance — the underlying external narrative is authored by Justin Drake (Ethereum Foundation researcher; co-author of the Google Quantum AI paper and a lead on the lean-Ethereum post-quantum migration). Named the source throughout instead of an anonymous "self-described co-author."
 - Version: 1.0 | Tool: Claude Code | Session: claude/quantum-cryptography-qday-jSxZl | Date: 02.06.2026 | Changes: Initial research field note (DWS8-era) digesting the 2026 quantum-cryptanalysis wave — Google Quantum AI's Shor-on-secp256k1 paper and its zero-knowledge "academic censorship", Schrottenloher's rediscovery, the ecdsa.fail Shor-at-home challenge, Oratomic's 10K-physical-qubit neutral-atom claim, revised q-day odds, and the Ethereum post-quantum migration (leanVM). Maps every signal onto the DWS post-quantum posture established in Field Note #2.
 
@@ -85,6 +86,17 @@ Censorship backfired predictably:
 
 **Verification flag:** Schrottenloher's paper, Gidney's blog, and the ecdsa.fail leaderboard are the primary sources. The 8.4% figure is a moving target — cite as "as of early June 2026" and re-check before any external use.
 
+### 1.4 The resource estimate — what "cheaper" means in numbers
+
+Press coverage of Drake's thread, cross-checked against Google's own cryptocurrency whitepaper, puts concrete numbers on the break:
+
+- **~1,200 logical qubits and under 90M Toffoli gates** — or an alternative profile of **~1,450 logical qubits and ~70M Toffoli gates** — to solve the 256-bit elliptic-curve discrete-log on secp256k1.
+- A **~20× cut** in prior logical-qubit estimates.
+- **Attack time "in minutes"** on a superconducting machine (once the qubits exist).
+- **Exposure framing:** Drake's narrower, more conservative claim is **"at least a 10% chance that by 2032 a quantum computer recovers a secp256k1 ECDSA private key from an exposed public key."** Coverage estimates **~6.7M BTC (>$462B at quote-time)** sit in addresses with exposed public keys and are therefore in scope of this specific risk.
+
+**Note the two-tier estimate.** Drake's general q-day odds (§3, 50%/2032 · 10%/2030) and this narrower **10%/2032 "actual secp256k1 key recovery from an exposed pubkey"** figure are *different statements at different specificity* — the narrower one is the more directly falsifiable, asset-at-risk number. Keep them distinct when citing.
+
 ## §2. Neutral atoms and the q-day curve
 
 On the same day as Google, stealth startup **Oratomic** published a coordinated Shor paper (reportedly the most-upvoted on scirate). Its claim: by combining **Google's logical optimisations** with **neutral-atom physical optimisations**, **~10,000 physical qubits** suffice to run Shor on secp256k1 — an astonishingly low number versus the millions long assumed for superconducting paths.
@@ -141,6 +153,8 @@ Drake's prescription matches DWS's: **do not panic; do migrate deliberately.** R
 | Claim | Where to verify | Status |
 |-------|-----------------|--------|
 | ~10× Shor-on-ECC improvement; secp256k1 illustration; ZK censorship; US-gov engagement | Google Quantum AI paper + blog (publicly dated ~31 March) | External, single-narrative — verify |
+| Resource estimate ~1,200 logical qubits / <90M Toffoli (or 1,450 / 70M); ~20× cut; minutes on superconducting | Google cryptocurrency whitepaper (quantumai.google); Decrypt/The Block/CryptoTimes/Quantum Insider coverage of Drake thread | Corroborated across ≥3 secondary sources — verify against the whitepaper PDF |
+| 10% by 2032 recovers secp256k1 ECDSA key from exposed pubkey; ~6.7M BTC / >$462B exposed | Drake X thread; Protos / CryptoTimes coverage | Drake estimate — **opinion + market-priced figure, verify** |
 | Rediscovery of main optimisation | Schrottenloher, *Optimized Point Addition Circuits for ECDL*, arXiv | Primary source available — verify |
 | Gidney sat on optimisation ~1 year | Gidney blog post | External — verify |
 | ecdsa.fail challenge; ZK verifier as reward function; ~8.4% gain | ecdsa.fail leaderboard | Live, moving target — date-stamp any citation |
