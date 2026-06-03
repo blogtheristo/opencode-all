@@ -471,7 +471,7 @@ The script auto-injects a `<footer class="ironclad-footer">` at the end of `<bod
 
 ### Ethics Principle Band (v1.3)
 
-A standing, non-negotiable values statement rendered as a centered full-width band **directly above the legal/copyright bar** on every page. It states the human-in-command principle: DWS ecosystem products are built to **augment** people — never to reduce junior workforce opportunities, and never to automate away the human-in-command; every decision stays aligned with the human-in-command principle.
+A standing, non-negotiable values statement rendered as a centered full-width band **directly above the legal/copyright bar** on every page that loads the Iron Clad footer (i.e. all pages except those in *Pages Excluded from Footer* above — `checkout/`, `dashboard/`, `assistant/`). It states the human-in-command principle: DWS ecosystem products are built to **augment** people — never to reduce junior workforce opportunities, and never to automate away the human-in-command; every decision stays aligned with the human-in-command principle.
 
 **Copy (single source — do not paraphrase per page):**
 
@@ -491,7 +491,9 @@ A standing, non-negotiable values statement rendered as a centered full-width ba
 .ironclad-footer-principle { max-width: 1200px; margin: 0 auto; padding: 20px 20px 0; text-align: center; font-size: 0.8rem; line-height: 1.5; color: #8fbc8f; font-weight: 600; letter-spacing: 0.02em; }
 ```
 
-Uses the same muted Nordic-green accent (`#8fbc8f`) as the "Built in Finland" badge so it reads as a brand values statement, not a link. Edit it in `dws10.com/shared-assets/footer/ironclad-footer.js` only, then run the Ironclad Sync Rule (§5.1).
+Uses the same muted Nordic-green accent (`#8fbc8f`) as the "Built in Finland" badge so it reads as a brand values statement, not a link.
+
+**Editing:** For dws10.com / onelifetime.world / lifetime.fi, edit `dws10.com/shared-assets/footer/ironclad-footer.js` only, then run the Ironclad Sync Rule (§5.1) to propagate to the other two sites (root + landing-pages mirrors). **dws6.com has an independent footer** that the sync script does **not** cover — update `dws6.com/shared-assets/footer/ironclad-footer.js` and its `landing-pages/dws6-com/` mirror separately (Dual Folder Sync rule) whenever this copy or CSS changes.
 
 ### Design Specs
 
