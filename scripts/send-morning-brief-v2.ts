@@ -255,26 +255,50 @@ async function buildPipelineDashboard(): Promise<string> {
 
   // Part A: Outreach thread buckets (reply-token system preserved)
   try {
-    const { plainText, buckets } = await generateDailyDigest();
+    const { buckets } = await generateDailyDigest();
+    const researchBacklog = buckets.research_backlog?.length ?? 0;
     const totalThreads =
       buckets.overdue.length +
       buckets.today.length +
       buckets.waiting.length +
       buckets.active_deals.length +
-      buckets.upcoming.length;
+      buckets.upcoming.length +
+      researchBacklog;
 
-    section += `  Threads: ${totalThreads} total | ${buckets.overdue.length} overdue | ${buckets.today.length} today | ${buckets.active_deals.length} active deals\n\n`;
+    section += `  Threads: ${totalThreads} total | ${buckets.overdue.length} overdue | ${buckets.today.length} today | ${buckets.active_deals.length} active deals | ${researchBacklog} research backlog\n\n`;
 
-    // Show overdue first (most actionable)
+    // Render straight from buckets (was: regex-grepping the digest plainText, which broke
+    // when a new bucket was added before OVERDUE).
+    const formatRow = (t: {
+      token: string;
+      pipeline: string;
+      name: string;
+      org: string | null;
+      status: string;
+      next_action: string | null;
+    }) => {
+      const tag = t.pipeline.slice(0, 4).toUpperCase();
+      const org = t.org ? ` (${t.org})` : '';
+      const action = t.next_action || `Follow up with ${t.name}`;
+      return `  T:${t.token} [${tag}] ${t.name}${org} — ${t.status.replace(/_/g, ' ')} → ${action}`;
+    };
+
+    // Research backlog first — uncontacted leads need research, not nudges.
+    if (researchBacklog > 0) {
+      section += `  RESEARCH BACKLOG (${researchBacklog}):\n`;
+      for (const t of buckets.research_backlog.slice(0, 10)) {
+        section += `  ${formatRow(t)}\n`;
+      }
+      if (researchBacklog > 10) {
+        section += `  ... +${researchBacklog - 10} more\n`;
+      }
+      section += '\n';
+    }
+
     if (buckets.overdue.length > 0) {
-      section += `  OVERDUE:\n`;
-      // Extract from plainText — the bucket formatting is in the digest template
-      const overdueLines = plainText
-        .split('\n')
-        .filter((l: string) => l.includes('OVERDUE') || l.startsWith('  T:'))
-        .slice(0, 10);
-      for (const line of overdueLines) {
-        section += `  ${line}\n`;
+      section += `  OVERDUE (${buckets.overdue.length}):\n`;
+      for (const t of buckets.overdue.slice(0, 10)) {
+        section += `  ${formatRow(t)}\n`;
       }
       if (buckets.overdue.length > 10) {
         section += `  ... +${buckets.overdue.length - 10} more\n`;
@@ -282,15 +306,13 @@ async function buildPipelineDashboard(): Promise<string> {
       section += '\n';
     }
 
-    // Show today's items
     if (buckets.today.length > 0) {
-      section += `  TODAY:\n`;
-      const todayLines = plainText
-        .split('\n')
-        .filter((l: string) => l.startsWith('  T:'))
-        .slice(buckets.overdue.length, buckets.overdue.length + Math.min(buckets.today.length, 10));
-      for (const line of todayLines) {
-        section += `  ${line}\n`;
+      section += `  TODAY (${buckets.today.length}):\n`;
+      for (const t of buckets.today.slice(0, 10)) {
+        section += `  ${formatRow(t)}\n`;
+      }
+      if (buckets.today.length > 10) {
+        section += `  ... +${buckets.today.length - 10} more\n`;
       }
       section += '\n';
     }
