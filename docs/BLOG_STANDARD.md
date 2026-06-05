@@ -123,6 +123,7 @@ Chronological order. Update this table when adding/removing posts.
 | 18  | `eu-policy-backed-capital-bankable-sovereignty.html` | The Strike Price State — Five Things Europe Just Made Official                       | 7 May 2026  |
 | 19  | `fire-brigades-drone-defense-units.html`             | Fire Brigades as Drone Defence Units — Three Reasons to Build the Network Now (EN/FI/SV) | 15 May 2026 |
 | 20  | `moat-is-not-the-model.html`                         | The Moat Is Not the Model — NVIDIA Makes It Possible, EU-Sovereign Deployment Makes It Defensible | 17 May 2026 |
+| 21  | `point-it-at-the-ontology.html`                      | Don't Point the LLM at the Data — Point It at the Ontology (5 industries)             | 5 Jun 2026  |
 
 ---
 
