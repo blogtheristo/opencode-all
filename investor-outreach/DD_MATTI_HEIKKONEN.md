@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Due Diligence Note — Matti Heikkonen (investor assessment)
-Version: 1.0
+Version: 1.1
 Date: 2026-06-07
 Author: Claude Opus 4.8 + Human Review
 Branch: claude/fervent-lovelace-fdc2O
@@ -11,6 +11,7 @@ Privacy: INTERNAL — contains a personal email; do not publish or include in ou
 
 AGENT HISTORY:
 - v1.0 (2026-06-07): Identity locked via founder-supplied LinkedIn contact card (mheikkonen, website pinja.com, personal Gmail, connection since 2017). Verdict PASS: no current VC role; personal capital committed to Pinja and not appreciating -> no deployable liquid capital for this round. Finnish Defence House confirmed as a SEPARATE entity, not Matti's vehicle.
+- v1.1 (2026-06-07): Added track-record detail — Director of Ohjelmistoyrittäjät ry (Finnish Software Entrepreneurs); association still active on LinkedIn.
 -->
 
 # Due Diligence Note — Matti Heikkonen
@@ -29,7 +30,7 @@ Matti Heikkonen is **not a live investor target for the Dual Use / RaaS seed rou
 | Company (website on card) | `pinja.com` (Pinja Group — industrial software / digitalisation) |
 | Primary contact | `matti.heikkonen@gmail.com` (personal) |
 | Relationship | 1st-degree connection since **Aug 2017** (warm) |
-| Track record | CEO Pinja / Benemen / Questback / Identia; board at Qt Group; WithSecure / F-Secure board (cyber, dual-use-adjacent); ex-Chairman Ohjelmistoyrittäjät ry |
+| Track record | CEO Pinja / Benemen / Questback / Identia; board at Qt Group; WithSecure / F-Secure board (cyber, dual-use-adjacent); **Director of Ohjelmistoyrittäjät ry** (Finnish Software Entrepreneurs — the association still exists and is active on LinkedIn) |
 
 This is the Pinja operator-investor — **not** the unrelated Finanssivalvonta banking supervisor of the same name.
 
