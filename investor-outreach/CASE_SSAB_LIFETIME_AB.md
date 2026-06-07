@@ -1,6 +1,6 @@
 <!-- VERSION AND AGENT HISTORY
 Document: Case Study (Illustrative Target) — Lifetime AB business written in SSAB case
-Version: 1.0
+Version: 1.1
 Date: 2026-06-03
 Author: Claude Opus 4.8 + Human Review
 Branch: claude/fervent-lovelace-fdc2O
@@ -11,6 +11,7 @@ Language: EN
 
 AGENT HISTORY:
 - v1.0 (2026-06-03): Initial draft. Illustrative TARGET case (no existing contract claimed) showing how the Lifetime AB business — Lifetime Fleet + DWS IQ + Dual Use RaaS — maps onto SSAB, the largest Nordic steel producer. Anchored to SSAB's real ETS/CBAM/CSRD exposure and fossil-free-steel transition. Created as supporting attachment for the Matti Heikkonen Dual Use pitch.
+- v1.1 (2026-06-03): Added section 6 — Outokumpu (Helsinki HQ / Tornio works) as a related illustrative target on the Lifetime Oy (Finland) leg, giving a two-country SSAB(SE)+Outokumpu(FI) anchor matching the Lifetime Group structure.
 -->
 
 # Case Study (Illustrative Target) — Lifetime AB business written in SSAB case
@@ -48,6 +49,16 @@ SSAB is not only a steel producer — it is a **critical-materials supplier** wh
 2. **Zero-emission logistics:** Lifetime Fleet operates that lane with nollutsläpp vehicles; DWS IQ quantifies the saving vs. baseline.
 3. **Scale + RaaS:** extend to yard automation (robotics) and additional lanes; expand the sovereign-data footprint.
 4. **Dual Use crossover:** package the resilient fleet + sovereign-data capability for security-of-supply / defence logistics (Försvarsmakten, Försörjningsberedskapscentralen / Huoltovarmuuskeskus).
+
+## 6. Related target — Outokumpu
+
+The same playbook applies to **Outokumpu**, the global leader in stainless steel, headquartered in Helsinki with its main works at **Tornio** (the largest integrated stainless mill in Europe). Outokumpu mirrors the SSAB profile from the **Lifetime Oy (Finland)** side of the group:
+
+- **Same regulatory load:** ETS Phase 4, CBAM, and CSRD apply to stainless production; Outokumpu already markets low-carbon stainless (Circle Green), so verifiable, auditable carbon data is a live commercial differentiator — exactly what DWS IQ produces.
+- **Same critical-materials / Dual Use thesis:** stainless and the ferrochrome supply chain (Kemi mine) are security-of-supply assets, reinforcing the same defence/resilience crossover argument.
+- **Geographic fit:** anchors the Finnish leg (Lifetime Oy, Uusimaa + national Traficom operator licence) the way SSAB anchors the Swedish leg (Lifetime AB, Stockholm corridor + Transportstyrelsen).
+
+Together, **SSAB (SE) + Outokumpu (FI)** give the pitch a two-country, two-producer anchor that matches the Lifetime Group structure — one heavy-industry decarbonisation + sovereign-data case per jurisdiction. Both remain illustrative target cases, not claimed engagements.
 
 ---
 
