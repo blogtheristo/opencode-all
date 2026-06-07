@@ -47,3 +47,5 @@ Med vänliga hälsningar,
 Founder — Lifetime Oy / Lifetime AB / Lifetime OÜ
 
 **Avsändare:** `risto.paarni@lifetime.fi` (Amazon SES SMTP). Aldrig Resend, aldrig `noreply@`.
+
+**Bilaga (exempelcase):** `CASE_SSAB_LIFETIME_AB.md` — ett illustrativt målcase som visar hur Lifetime AB:s verksamhet (Lifetime Fleet + DWS IQ + Dual Use RaaS) passar SSAB, Nordens största stålproducent (ETS/CBAM/CSRD-exponering + försörjningsberedskap).
