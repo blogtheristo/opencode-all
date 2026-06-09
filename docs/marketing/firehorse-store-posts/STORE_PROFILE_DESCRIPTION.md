@@ -8,18 +8,20 @@ pitch and keywords.
 
 > Refreshed to the **2026** offering — sovereignty-led (NIS2 · EU AI Act · CSRD ·
 > Sovereign Database · sovereign edge · Lifetime Fleet · VIP AI Services). Replaces the
-> 2025 "Fit for 55 → Board Packs / 8 industries" framing. Industry count = 25 (canonical
-> per DWS_TRUTH_STANDARD.md / INDUSTRIES.md).
+> 2025 "Fit for 55 → Board Packs / 8 industries" framing.
+> **Drift check:** `industries.json` v2.0 is canonical and correct (`industriesServedTotal:
+> 25`; 16 captain hats is a separate framework metric). Copy uses the exact approved
+> display phrase **"25 EU-regulated industries"** per `industries.json.approvedDisplayPhrases`.
 
 ---
 
 ## Description (copy-paste)
 
-Lifetime Firehorse™Store — EU-sovereign AI for European industry. We help companies meet NIS2, the EU AI Act, CSRD and Fit for 55 with the DWS IQ 6 "Industrial Brain" platform and Firehorse agents that turn complex SAP/ERP data into audit-ready reports in weeks — secure, private-cloud, with zero CLOUD Act exposure across 25 regulated EU industries.
+Lifetime Firehorse™Store — Europe's sovereign AI, ready to deploy. Meet NIS2, the EU AI Act, CSRD and Fit for 55 head-on: the DWS IQ 6 "Industrial Brain" and Firehorse agents turn SAP/ERP chaos into audit-ready reports in weeks — secure, private-cloud, with zero CLOUD Act exposure across 25 EU-regulated industries.
 
-From the Sovereign Database for PostgreSQL to on-prem Control Room and Situation Room edge nodes (NVIDIA DGX Spark, Jetson Orin), your data and inference stay local and in Europe. Lifetime Fleet adds the robotic "hands" — robots, drones, and vehicles — and Lifetime VIP AI Services pairs premium Uber Comfort and Uber Priority transport with a remote AI Control Room in one membership.
+This is AI that stays in Europe and acts in the real world. Run it on the Sovereign Database for PostgreSQL, or on your own Control Room and Situation Room edge nodes (NVIDIA DGX Spark · Jetson Orin) — your data never leaves the building. Then meet Lifetime Fleet, the robotic "hands" of the platform — robots, drones, vehicles — and Lifetime VIP AI Services, where first-class Uber Comfort and Uber Priority transport arrives with a remote AI Control Room in one membership.
 
-DWS IQ, Firehorse automation, sovereign edge hardware, and Lifetime Consulting advisory — all in one store. Based in Helsinki, serving the EU. Sovereign by Design. Global by Choice.
+Platform, agents, sovereign edge, and expert consulting — one store, one partner. Helsinki-built, EU-wide. Sovereign by Design. Global by Choice.
 
 ---
 
@@ -27,4 +29,4 @@ DWS IQ, Firehorse automation, sovereign edge hardware, and Lifetime Consulting a
 
 | Field | Chars | Under 1500? |
 |-------|------:|:-----------:|
-| Description | 920 | ✅ |
+| Description | 940 | ✅ |
