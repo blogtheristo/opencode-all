@@ -1,24 +1,25 @@
-# Lifetime Firehorse™Store — Business Profile Description
+# Lifetime Firehorse™Store — Business Profile / Search Hero Description
 
-**Field:** Google Business Profile → "From the business" description
-**Limit:** 1,500 characters (single description). Store content language: EN.
+**Field:** Google Business Profile description — the **hero/snippet text shown after a
+Google search**. Google truncates the opening, so the first ~150 characters carry the
+pitch and keywords.
+**Limit:** up to 1,500 characters (single description). Content language: EN.
 **Markets:** FI · SE · NO · DK · DE
 
-> One description reflecting the current offering: climate reporting (DWS IQ +
-> Firehorse) **plus** Lifetime Fleet edge robotics (NVIDIA Connect — DGX Spark +
-> Jetson Orin) and Lifetime VIP AI Services. Cleaned the duplicated "ensure
-> compliance" and the "Fleet hands are based Robotics, Drones, Cars" / "DWS IQ
-> Platform" wording from the live version.
+> Refreshed to the **2026** offering — sovereignty-led (NIS2 · EU AI Act · CSRD ·
+> Sovereign Database · sovereign edge · Lifetime Fleet · VIP AI Services). Replaces the
+> 2025 "Fit for 55 → Board Packs / 8 industries" framing. Industry count = 25 (canonical
+> per DWS_TRUTH_STANDARD.md / INDUSTRIES.md).
 
 ---
 
 ## Description (copy-paste)
 
-Lifetime Firehorse™Store helps European industrial companies automate their Fit for 55 and CSRD climate reporting. Our DWS IQ "Industrial Brain" platform and Firehorse automation tools turn complex SAP/ERP data into audit-ready Board Packs in weeks — replacing manual spreadsheet work with secure, private-cloud, EU-sovereign AI. We specialise across 25 regulated EU industries, including logistics, construction, and manufacturing, delivering compliance you can defend in an audit.
+Lifetime Firehorse™Store — EU-sovereign AI for European industry. We help companies meet NIS2, the EU AI Act, CSRD and Fit for 55 with the DWS IQ 6 "Industrial Brain" platform and Firehorse agents that turn complex SAP/ERP data into audit-ready reports in weeks — secure, private-cloud, with zero CLOUD Act exposure across 25 regulated EU industries.
 
-Beyond reporting, Lifetime Fleet is the physical "hands" of the platform — robots, drones, and vehicles that act in the real world. With NVIDIA Connect edge services on DGX Spark and Jetson Orin, inference stays local and EU-sovereign for mobile AI and robotics — no cloud round-trip, no CLOUD Act exposure. Lifetime VIP AI Services adds a concierge tier: first-class Uber Comfort and Uber Priority transport combined with managed edge-device services — premium mobility and a remote AI Control Room in one membership.
+From the Sovereign Database for PostgreSQL to on-prem Control Room and Situation Room edge nodes (NVIDIA DGX Spark, Jetson Orin), your data and inference stay local and in Europe. Lifetime Fleet adds the robotic "hands" — robots, drones, and vehicles — and Lifetime VIP AI Services pairs premium Uber Comfort and Uber Priority transport with a remote AI Control Room in one membership.
 
-Firehorse Solutions and the DWS IQ Platform are available directly in the store, and Lifetime Consulting complements them with specialised consulting and advisory. Based in Helsinki, serving the EU. Sovereign by Design. Global by Choice.
+DWS IQ, Firehorse automation, sovereign edge hardware, and Lifetime Consulting advisory — all in one store. Based in Helsinki, serving the EU. Sovereign by Design. Global by Choice.
 
 ---
 
@@ -26,4 +27,4 @@ Firehorse Solutions and the DWS IQ Platform are available directly in the store,
 
 | Field | Chars | Under 1500? |
 |-------|------:|:-----------:|
-| Description | 1241 | ✅ |
+| Description | 920 | ✅ |
