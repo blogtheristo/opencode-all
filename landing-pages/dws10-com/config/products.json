@@ -3225,7 +3225,7 @@
       ],
       "replaces": {
         "role": "Construction PM and planner",
-        "fteCount": 2.0,
+        "fteCount": 2,
         "fullyLoadedAnnualCostEUR": 180000
       },
       "nextUpsellSku": "WF-T4",
@@ -3362,7 +3362,7 @@
       ],
       "replaces": {
         "role": "Multi-disciplinary FTE team",
-        "fteCount": 7.0,
+        "fteCount": 7,
         "fullyLoadedAnnualCostEUR": 700000
       },
       "nextUpsellSku": null,
@@ -4086,7 +4086,7 @@
       ],
       "replaces": {
         "role": "Compliance + DPO",
-        "fteCount": 1.0,
+        "fteCount": 1,
         "fullyLoadedAnnualCostEUR": 90000
       },
       "nextUpsellSku": "SOV-T3",
@@ -4516,6 +4516,40 @@
       "storeCategory": "advisory",
       "buyPage": 2,
       "buyPageOrder": 2
+    },
+    "FLEET-VIP-001": {
+      "id": "FLEET-VIP-001",
+      "gtin": null,
+      "mpn": "LF-FLEET-VIP-2026",
+      "name": "Lifetime Fleet VIP Comfort Services",
+      "price": 2990,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Premium mobility and edge robotics, on call. First-class Uber Comfort and Uber Priority transport for your team and guests, plus NVIDIA Connect edge device services for robotics solutions — managed end-to-end by Lifetime Fleet, the physical “hands” of the DWS IQ platform. Inference stays local and EU-sovereign at the edge (NVIDIA Jetson Orin · Grace Blackwell). One annual fee, billed once. Finnish / EU B2B (VAT 0% reverse charge).",
+      "features": [
+        "First-class Uber Comfort & Uber Priority transport — booked and managed for you",
+        "NVIDIA Connect edge device services for robotics solutions (Jetson Orin · Grace Blackwell)",
+        "EU-sovereign by design — local inference, your data stays in Europe",
+        "One-time annual VIP fee — ≈ 2 months free vs monthly"
+      ],
+      "priceNote": "€2,990/year — VIP membership (one-time annual fee) · Finnish / EU B2B (VAT 0% reverse charge)",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/lifetime-fleet/LifetimeFleetCare.png",
+      "detailsUrl": "../lifetime-fleet/",
+      "featured": true,
+      "google": {
+        "productCategory": "Business & Industrial > Business Services",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime Fleet",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "advisory",
+      "version": "1.0",
+      "buyPage": 1,
+      "buyPageOrder": 28
     }
   },
   "settings": {
@@ -4561,7 +4595,7 @@
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-05-17T23:00:00Z",
+  "lastUpdated": "2026-06-09T00:00:00Z",
   "priceVersion": "1.20",
   "priceList": {
     "version": "1.20",

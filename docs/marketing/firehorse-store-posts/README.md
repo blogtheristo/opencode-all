@@ -40,3 +40,4 @@ image, and publish. This repo holds the source copy and history.
 | Week | Theme | Featured | Status |
 |------|-------|----------|--------|
 | 2026-W24 | EU AI Act / AI literacy | EU AI Act Literacy Training (€499) | ✅ Ready |
+| 2026-W24b | Lifetime Fleet · edge robotics | Uber Comfort/Priority + NVIDIA Connect | ✅ Ready |
