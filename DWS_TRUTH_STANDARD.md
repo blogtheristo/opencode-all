@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.4
 
 Sessions & Modifications:
+  - Version: 1.4 | Tool: Claude Code (Opus 4.8) | Session: claude/truth-claims-lint | Date: 09.06.2026 | Changes: Built the §5 CI lint (`scripts/lint-truth-claims.mjs`), the §7 `/truth-check` slash command, and the §8 PR-time GitHub Actions gate (`.github/workflows/lint-truth-claims.yml`, non-blocking). Flipped `industries.json` `lintingPolicy.ciGateImplemented` → true (both mirrors). Updated §5/§7/§8 status from "not built" to "built". Registered `/truth-check` in `docs/DWS_SKILLS_GUIDE.md`.
   - Version: 1.3 | Tool: Claude Code (Opus 4.8) | Session: claude/weekly-firehorse-posts-mrtcbw | Date: 09.06.2026 | Changes: Registered the canonical store profile / search-hero description (`docs/marketing/firehorse-store-posts/STORE_PROFILE_DESCRIPTION.md`) as §2 row 17. Logged two drift incidents (§6): the 2025 "8 industries" lead in the live Google search-hero (→ "25 EU-regulated industries"), and the 16-captain-hats vs 25-industries confusion (confirmed `industries.json` v2.0 canonical, `industriesServedTotal: 25`, no JSON drift).
   - Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/exa-openclaw-integration-YnDpO | Date: 25.05.2026 | Changes: Pilot — added Skill, Workflow, and Roles & Responsibilities chapters using the new optional template that other standards may adopt. Registered DWS_ROLES_REGISTRY.md as §2 row 15.
   - Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/exa-openclaw-integration-YnDpO | Date: 25.05.2026 | Changes: Slimmed to a thin meta-registry (~60 lines body). Removed verbose founding-incident prose, CI lint discussion, relationship explanations. The registry table is the file. Founding incident moved to a single-line reference.
@@ -66,9 +67,9 @@ If two files disagree on a fact, the canonical file from §2 wins. Downstream co
 3. If creating a structured mirror, set `sourceOfTruth: false`, `structuredMirror: true`, `humanReadableSource: "<relative path>"`, and populate `approvedDisplayPhrases` / `deprecatedDisplayPhrases` for the future CI lint.
 4. Add to `CLAUDE.md` Required Standards list if reading is mandatory before edits.
 
-## 5. CI Lint (recommended, not built)
+## 5. CI Lint (built — 2026-06-09)
 
-`scripts/lint-truth-claims.{ts,ps1}` — iterates every structured mirror; rejects deprecated phrases, warns on ambiguous ones, passes approved ones. Scopes to public-layer copy only (public-site folders, investor/sales outreach, CEO/founder/press docs). Skips internal docs and audit-trail metadata.
+`scripts/lint-truth-claims.mjs` — iterates every structured mirror; rejects deprecated phrases (FAIL), warns on ambiguous ones used without a disambiguator (WARN), passes approved ones. Scopes to public-layer copy; canonical mirrors and registry docs are excluded (they hold the phrases as data). Modes: `--check "<claim>"`, `<path...>`, `--changed --base <ref>`; flags `--json` / `--strict` / `--no-fail`. Exit 1 on FAIL. Surfaced as the `/truth-check` slash command and the `lint-truth-claims` GitHub Actions workflow.
 
 ## 6. Drift Log
 
@@ -89,7 +90,7 @@ The skill that operationalizes this standard ad-hoc. Recommended, not yet built.
 - **`/truth check <claim>`** — parse a public-copy claim, infer the domain, load the relevant mirror's `approvedDisplayPhrases` / `deprecatedDisplayPhrases` / `ambiguousDisplayPhrasesNeedingContext`, return PASS / WARN / FAIL with the canonical phrasing on mismatch.
 - **`/truth scan [<path>]`** — walk public-layer files (per §5 scope), report any deprecated phrases. No edits, findings only.
 
-**Status:** not yet built. Recommended next step. Slots into the existing skill family (`/kya`, `/compliance-check`, `/sovereignty-assess`, `/gh-to-mcp`). Registration in `docs/DWS_SKILLS_GUIDE.md` follows build.
+**Status:** built 2026-06-09 as `/truth-check` (`.claude/commands/truth-check.md`, backed by `scripts/lint-truth-claims.mjs`). `/truth-check <claim>`, `/truth-check <path…>`, and `/truth-check --changed` all work; `/truth lookup` and `/truth scan` are covered by the same script's path/JSON modes. Slots into the existing skill family (`/kya`, `/compliance-check`, `/sovereignty-assess`, `/gh-to-mcp`). Registered in `docs/DWS_SKILLS_GUIDE.md`.
 
 ---
 
@@ -102,7 +103,7 @@ The CI/automation gate that enforces this standard automatically. Recommended, n
   - **Nightly:** scans full public layer; opens an issue if drift detected.
   - **On-deploy:** runs as deploy-gate per `DWS_DEPLOYMENT_STANDARD.md` §4 — fails the deploy if build output contains deprecated phrases.
 
-**Status:** not yet built. Same script logic across all three triggers (~200 lines TS or PowerShell + ~30 lines of GitHub Actions YAML). Tracked as follow-up to `industries.json` v2.0.
+**Status:** PR-time gate built 2026-06-09 (`.github/workflows/lint-truth-claims.yml`) — runs `lint-truth-claims.mjs --changed` on every PR touching `.md` / `.html` / `.txt`, posts findings to the job summary, **non-blocking** for now (`continue-on-error`); flip to blocking after it stabilizes. Nightly full-scan and on-deploy gate are the remaining follow-ups.
 
 ---
 
