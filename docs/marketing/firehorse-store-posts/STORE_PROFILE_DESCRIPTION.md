@@ -1,32 +1,29 @@
 # Lifetime Firehorse™Store — Business Profile Description
 
 **Field:** Google Business Profile → "From the business" description
-**Limit:** Google caps this field at **750 characters** (the post-update field is ~1,500).
-Both drafts below are kept under 750 so they paste cleanly.
-**Markets:** FI · SE · NO · DK · DE · Languages: FI + EN
+**Limit:** 1,500 characters (single description). Store content language: EN.
+**Markets:** FI · SE · NO · DK · DE
 
-> Reflects current offering: climate reporting (DWS IQ + Firehorse) **plus** Lifetime
-> Fleet edge robotics (NVIDIA Connect — DGX Spark + Jetson Orin) and Lifetime VIP AI
-> Services. Cleaned the duplicated "ensure compliance" and the "Fleet hands are based
-> Robotics, Drones, Cars" / "DWS IQ Platform" wording.
-
----
-
-## 🇬🇧 English
-
-Lifetime Firehorse™Store helps European industrial companies automate Fit for 55 and CSRD climate reporting. Our DWS IQ "Industrial Brain" platform and Firehorse tools turn complex SAP/ERP data into audit-ready Board Packs in weeks — secure, private-cloud, EU-sovereign AI across 8 industries including logistics, construction, and manufacturing. Lifetime Fleet adds the robotic "hands" — robots, drones, and vehicles — with NVIDIA Connect edge services (DGX Spark, Jetson Orin) for mobile AI and robotics, plus Lifetime VIP AI Services for premium mobility. Lifetime Consulting completes it with specialised advisory. Based in Helsinki, serving the EU.
+> One description reflecting the current offering: climate reporting (DWS IQ +
+> Firehorse) **plus** Lifetime Fleet edge robotics (NVIDIA Connect — DGX Spark +
+> Jetson Orin) and Lifetime VIP AI Services. Cleaned the duplicated "ensure
+> compliance" and the "Fleet hands are based Robotics, Drones, Cars" / "DWS IQ
+> Platform" wording from the live version.
 
 ---
 
-## 🇫🇮 Suomi
+## Description (copy-paste)
 
-Tutustu Lifetime Firehorse™Storeen. Autamme eurooppalaisia teollisuusyrityksiä automatisoimaan Fit for 55- ja CSRD-ilmastoraportoinnin. DWS IQ "Industrial Brain" -alusta ja Firehorse-työkalut muuttavat SAP/ERP-datan auditointivalmiiksi Board Pack -raporteiksi viikoissa — turvallista, yksityisen pilven EU-suvereenia tekoälyä kahdeksalla toimialalla, mm. logistiikka, rakentaminen ja valmistava teollisuus. Lifetime Fleet tuo robotiikan "kädet" — robotit, dronet ja ajoneuvot — sekä NVIDIA Connect edge-palvelut (DGX Spark, Jetson Orin) mobiilitekoälyyn ja robotiikkaan, ja Lifetime VIP AI Services ensiluokkaiseen liikkuvuuteen. Lifetime Consulting täydentää kokonaisuuden asiantuntijapalveluilla. Kotipaikka Helsinki, palvelemme EU:ta.
+Lifetime Firehorse™Store helps European industrial companies automate their Fit for 55 and CSRD climate reporting. Our DWS IQ "Industrial Brain" platform and Firehorse automation tools turn complex SAP/ERP data into audit-ready Board Packs in weeks — replacing manual spreadsheet work with secure, private-cloud, EU-sovereign AI. We specialise across 8 regulated industries, including logistics, construction, and manufacturing, delivering compliance you can defend in an audit.
+
+Beyond reporting, Lifetime Fleet is the physical "hands" of the platform — robots, drones, and vehicles that act in the real world. With NVIDIA Connect edge services on DGX Spark and Jetson Orin, inference stays local and EU-sovereign for mobile AI and robotics — no cloud round-trip, no CLOUD Act exposure. Lifetime VIP AI Services adds a concierge tier: first-class Uber Comfort and Uber Priority transport combined with managed edge-device services — premium mobility and a remote AI Control Room in one membership.
+
+Firehorse Solutions and the DWS IQ Platform are available directly in the store, and Lifetime Consulting complements them with specialised consulting and advisory. Based in Helsinki, serving the EU. Sovereign by Design. Global by Choice.
 
 ---
 
-## Char counts (auto-checked)
+## Char count (auto-checked)
 
-| Lang | Chars | Under 750? |
-|------|------:|:----------:|
-| EN | 653 | ✅ |
-| FI | 737 | ✅ |
+| Field | Chars | Under 1500? |
+|-------|------:|:-----------:|
+| Description | 1237 | ✅ |
