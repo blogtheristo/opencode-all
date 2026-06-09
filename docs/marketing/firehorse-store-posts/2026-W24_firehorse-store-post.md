@@ -1,6 +1,6 @@
 # Firehorse Store — Weekly Post · 2026-W24
 
-**Channel:** Google Business Profile / Google Merchant ("Lifetime Firehorse Store")
+**Channel:** Google Business Profile / Google Merchant ("Lifetime Firehorse™Store")
 **Publish date:** 2026-06-09 (Mon, ISO week 24)
 **Post type:** What's New (weekly update)
 **Markets:** FI · SE · NO · DK · DE

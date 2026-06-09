@@ -1,6 +1,6 @@
 # Firehorse Store — Weekly Posts
 
-Weekly customer-facing updates for the **Lifetime Firehorse Store** on Google
+Weekly customer-facing updates for the **Lifetime Firehorse™Store** on Google
 Business Profile / Google Merchant Center. Posting little and often keeps the
 store active in Search/Maps and reaches customers between purchases — sharing
 news, new products, and special events at regular intervals.

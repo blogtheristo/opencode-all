@@ -1,6 +1,6 @@
 # Firehorse Store — Weekly Post · YYYY-Www
 
-**Channel:** Google Business Profile / Google Merchant ("Lifetime Firehorse Store")
+**Channel:** Google Business Profile / Google Merchant ("Lifetime Firehorse™Store")
 **Publish date:** YYYY-MM-DD (Mon, ISO week NN)
 **Post type:** What's New (weekly update)
 **Markets:** FI · SE · NO · DK · DE

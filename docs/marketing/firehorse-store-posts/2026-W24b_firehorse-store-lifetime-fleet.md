@@ -1,6 +1,6 @@
 # Firehorse Store — Weekly Post · 2026-W24b
 
-**Channel:** Google Business Profile / Google Merchant ("Lifetime Firehorse Store")
+**Channel:** Google Business Profile / Google Merchant ("Lifetime Firehorse™Store")
 **Publish date:** 2026-06-09 (ISO week 24 — mid-week update)
 **Post type:** What's New (Lifetime Fleet update)
 **Markets:** FI · SE · NO · DK · DE
@@ -17,9 +17,9 @@
 
 Tiesitkö että voit saada ensiluokkaisia Lifetime Fleet -kuljetuspalveluja mm. **Uber Comfort** ja **Uber Priority** sekä **NVIDIA Connect** edge-laitepalveluja mobiilirobotiikan ratkaisuihin meiltä — **Lifetime VIP Services**?
 
-Lifetime Fleet on alustamme fyysinen "kädet" — robotit, dronet ja ajoneuvot, jotka liikuttavat asioita oikeassa maailmassa. NVIDIA Connect tuo tekoälyn laskennan laitteen reunalle (Jetson Orin · Grace Blackwell), jolloin inferenssi pysyy paikallisesti ja EU-suvereenisti.
+NVIDIA Connect tuo tekoälyn laskennan laitteen reunalle: **DGX Spark**- ja **Jetson Orin** -tuotteemme (Orin Nano · NX · AGX · IGX) pitävät inferenssin paikallisena ja EU-suvereenina mobiilirobotiikkaan.
 
-Jaamme päivityksiä ja erikoistapahtumia viikoittain. Tutustu Fleetiin 👇
+Jaamme päivityksiä viikoittain. Tutustu Fleetiin 👇
 
 🔗 Lue lisää: dws10.com/lifetime-fleet
 
@@ -31,11 +31,11 @@ Jaamme päivityksiä ja erikoistapahtumia viikoittain. Tutustu Fleetiin 👇
 
 **Lifetime VIP Services — premium rides and edge device services**
 
-Did you know you can get first-class Lifetime Fleet transport services — incl. **Uber Comfort** and **Uber Priority** — plus **NVIDIA Connect** edge device services for mobile robotics solutions, right here? Meet **Lifetime VIP Services**.
+Did you know you can get first-class Lifetime Fleet transport services — incl. **Uber Comfort** and **Uber Priority** — plus **NVIDIA Connect** edge device services for mobile robotics, right here? Meet **Lifetime VIP Services**.
 
-Lifetime Fleet is the physical "hands" of our platform — robots, drones, and vehicles moving things in the real world. NVIDIA Connect puts AI compute at the edge (Jetson Orin · Grace Blackwell), so inference stays local and EU-sovereign.
+NVIDIA Connect puts AI compute at the edge: our **DGX Spark** and **Jetson Orin** products (Orin Nano · NX · AGX · IGX) keep inference local and EU-sovereign for mobile robotics.
 
-We share updates and special events every week. Explore the Fleet 👇
+We share updates every week. Explore the Fleet 👇
 
 🔗 Learn more: dws10.com/lifetime-fleet
 
@@ -50,6 +50,8 @@ We share updates and special events every week. Explore the Fleet 👇
 | Week | 2026-W24b |
 | Featured | **Lifetime VIP Services** — Uber Comfort/Priority transport + NVIDIA Connect edge services for mobile robotics |
 | Store product | `FLEET-VIP-001` — Lifetime Fleet VIP Comfort Services (€2,990/year) · `dws10.com/config/products.json` |
+| Linked edge products | `LF-DGX-SPARK` DGX Spark (€5,994) · `LF-JETSON-NANO/-NX/-AGX` Jetson Orin (€764–€2,694) · `LF-IGX-ORIN` IGX Orin (€11,990) |
+| Field fit | FI post ≈ 630 chars · EN ≈ 590 — both well under Google's ~1,500-char update field limit |
 | Theme | Physical execution layer · edge robotics |
 | CTA | Learn more → https://dws10.com/lifetime-fleet/ |
 | Source | X/tweet copy supplied by owner (2026-06-09) |
