@@ -14,7 +14,7 @@
 
 ## Description (copy-paste)
 
-Lifetime Firehorse™Store helps European industrial companies automate their Fit for 55 and CSRD climate reporting. Our DWS IQ "Industrial Brain" platform and Firehorse automation tools turn complex SAP/ERP data into audit-ready Board Packs in weeks — replacing manual spreadsheet work with secure, private-cloud, EU-sovereign AI. We specialise across 8 regulated industries, including logistics, construction, and manufacturing, delivering compliance you can defend in an audit.
+Lifetime Firehorse™Store helps European industrial companies automate their Fit for 55 and CSRD climate reporting. Our DWS IQ "Industrial Brain" platform and Firehorse automation tools turn complex SAP/ERP data into audit-ready Board Packs in weeks — replacing manual spreadsheet work with secure, private-cloud, EU-sovereign AI. We specialise across 25 regulated EU industries, including logistics, construction, and manufacturing, delivering compliance you can defend in an audit.
 
 Beyond reporting, Lifetime Fleet is the physical "hands" of the platform — robots, drones, and vehicles that act in the real world. With NVIDIA Connect edge services on DGX Spark and Jetson Orin, inference stays local and EU-sovereign for mobile AI and robotics — no cloud round-trip, no CLOUD Act exposure. Lifetime VIP AI Services adds a concierge tier: first-class Uber Comfort and Uber Priority transport combined with managed edge-device services — premium mobility and a remote AI Control Room in one membership.
 
@@ -26,4 +26,4 @@ Firehorse Solutions and the DWS IQ Platform are available directly in the store,
 
 | Field | Chars | Under 1500? |
 |-------|------:|:-----------:|
-| Description | 1237 | ✅ |
+| Description | 1241 | ✅ |
