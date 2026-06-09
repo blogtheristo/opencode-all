@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code (Opus 4.8) | Session: claude/weekly-firehorse-posts-mrtcbw | Date: 09.06.2026 | Changes: Added §2.6 flagship scenario "Fix the Forte line in Tornio" — VIP ride + DWS IQ Tornio Control Room (remote command en route) + dispatched robot, collapsing time-to-control from an 8-hour drive to minutes.
 - Version: 1.1 | Tool: Claude Code (Opus 4.8) | Session: claude/weekly-firehorse-posts-mrtcbw | Date: 09.06.2026 | Changes: Renamed product/SKU to **Lifetime VIP AI Services** (FLEET-VIP-001) to match the published store post and creative; updated title and body references.
 - Version: 1.0 | Tool: Claude Code (Opus 4.8) | Session: claude/weekly-firehorse-posts-mrtcbw | Date: 09.06.2026 | Changes: Initial creation — use case and business case for the Lifetime VIP AI Services product (FLEET-VIP-001, €2,990/year). Pairs premium Uber Comfort/Priority transport with NVIDIA Connect edge-device services (DGX Spark + Jetson Orin) for mobile robotics. Companion to the 2026-W24b Firehorse™Store post.
 
@@ -96,6 +97,35 @@ hosts frequent on-site investor, partner, and auditor visits.
   deployment (Aegis, Climate Intelligence) to lift the white-glove experience.
 - **VPK / field operations:** managed edge brain + priority transport for time-critical
   site response where cloud round-trips aren't acceptable.
+
+### 2.6 Flagship scenario — "Fix the Forte line in Tornio"
+
+> *Illustrative scenario. Names a real location and process type to show the motion;
+> not a statement of any specific customer engagement.*
+
+A process needs fixing on the **Forte line in Tornio** — 730 km and ~8 hours north of
+Helsinki. With **Lifetime VIP AI Services**, the response doesn't wait for someone to
+arrive:
+
+1. **You hop in.** A Lifetime Fleet VIP ride (Uber Comfort / Priority) picks up the
+   expert in Helsinki and starts the 8-hour drive north.
+2. **The Control Room comes with you.** En route, the device connects to the **DWS IQ
+   Tornio Control Room** (NVIDIA Connect on DGX Spark + Orin). The line is **fully under
+   your control from the back seat** — local, EU-sovereign inference, no cloud round-trip.
+3. **The robot is already there.** Lifetime Fleet dispatches a **robot to the site** —
+   the physical "hands" — so eyes, sensors, and actuation are on the Forte line before
+   the car arrives.
+4. **You negotiate the fix.** The expert manages the line remotely and **negotiates with
+   the plant manager** to execute the fix — diagnosing, directing the robot, and aligning
+   on the change while still 8 hours out.
+5. **Arrive already in control.** By the time the VIP ride reaches Tornio, the situation
+   is contained — you walk in to confirm, not to start.
+
+**Why it only works as one product:** the ride buys the *hours*, the Control Room buys
+the *command*, and the robot buys the *hands*. Sold separately, the expert arrives 8
+hours after the problem; sold as one VIP membership, the expert is in control from
+kilometre zero. This is the value the bundle captures — **time-to-control collapses from
+8 hours to minutes**.
 
 ---
 
