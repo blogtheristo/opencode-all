@@ -49,7 +49,7 @@ We share updates every week. Explore the Fleet 👇
 |-------|-------|
 | Week | 2026-W24b |
 | Featured | **Lifetime VIP AI Services** — Uber Comfort/Priority transport + NVIDIA Connect edge services for mobile AI & robotics mobility |
-| Store product | `FLEET-VIP-001` — Lifetime Fleet VIP Comfort Services (€2,990/year) · `dws10.com/config/products.json` |
+| Store product | `FLEET-VIP-001` — Lifetime VIP AI Services (€2,990/year) · `dws10.com/config/products.json` |
 | Linked edge products | `LF-DGX-SPARK` DGX Spark (€5,994) · `LF-JETSON-NANO/-NX/-AGX` Jetson Orin (€764–€2,694) · `LF-IGX-ORIN` IGX Orin (€11,990) |
 | Field fit | FI post ≈ 630 chars · EN ≈ 590 — both well under Google's ~1,500-char update field limit |
 | Theme | Physical execution layer · edge robotics |

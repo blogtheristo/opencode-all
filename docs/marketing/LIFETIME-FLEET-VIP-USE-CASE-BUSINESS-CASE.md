@@ -1,14 +1,15 @@
-# Lifetime Fleet VIP Services — Use Case & Business Case
+# Lifetime VIP AI Services — Use Case & Business Case
 
 ***
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
-- Version: 1.0 | Tool: Claude Code (Opus 4.8) | Session: claude/weekly-firehorse-posts-mrtcbw | Date: 09.06.2026 | Changes: Initial creation — use case and business case for the Lifetime Fleet VIP Services product (FLEET-VIP-001, €2,990/year). Pairs premium Uber Comfort/Priority transport with NVIDIA Connect edge-device services (DGX Spark + Jetson Orin) for mobile robotics. Companion to the 2026-W24b Firehorse™Store post.
+- Version: 1.1 | Tool: Claude Code (Opus 4.8) | Session: claude/weekly-firehorse-posts-mrtcbw | Date: 09.06.2026 | Changes: Renamed product/SKU to **Lifetime VIP AI Services** (FLEET-VIP-001) to match the published store post and creative; updated title and body references.
+- Version: 1.0 | Tool: Claude Code (Opus 4.8) | Session: claude/weekly-firehorse-posts-mrtcbw | Date: 09.06.2026 | Changes: Initial creation — use case and business case for the Lifetime VIP AI Services product (FLEET-VIP-001, €2,990/year). Pairs premium Uber Comfort/Priority transport with NVIDIA Connect edge-device services (DGX Spark + Jetson Orin) for mobile robotics. Companion to the 2026-W24b Firehorse™Store post.
 
 Session Links & References:
 
@@ -30,7 +31,7 @@ Document Status:
 
 ## 1. Product in One Line
 
-**Lifetime Fleet VIP Services** is a €2,990/year membership that pairs **first-class
+**Lifetime VIP AI Services** is a €2,990/year membership that pairs **first-class
 mobility** (Uber Comfort / Uber Priority, booked and managed for you) with a
 **managed NVIDIA Connect edge-device service relationship** (DGX Spark + Jetson
 Orin) for mobile-robotics deployments — the physical "hands" of the DWS IQ
@@ -64,7 +65,7 @@ hosts frequent on-site investor, partner, and auditor visits.
   when a key investor lands at Helsinki-Vantaa for a demo.
 - Two unmanaged cost lines, two vendors, zero accountability.
 
-### 2.3 The flow (with Lifetime Fleet VIP Services)
+### 2.3 The flow (with Lifetime VIP AI Services)
 
 1. Customer buys **VIP Services** in the Firehorse™Store and attaches a **DGX Spark**
    (command brain) plus one or more **Jetson Orin** sensor nodes for the robots/drones.
