@@ -1,5 +1,8 @@
 # Lifetime Firehorse™Store — Business Profile / Search Hero Description
 
+> **Canonical registry — single source of truth.** Registered in `DWS_TRUTH_STANDARD.md` §2 row 17.
+> Derived copy: reconciles against Row 1 (industries → "25 EU-regulated industries") and Row 2 (products).
+
 **Field:** Google Business Profile description — the **hero/snippet text shown after a
 Google search**. Google truncates the opening, so the first ~150 characters carry the
 pitch and keywords.

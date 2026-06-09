@@ -3,9 +3,10 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
+  - Version: 1.3 | Tool: Claude Code (Opus 4.8) | Session: claude/weekly-firehorse-posts-mrtcbw | Date: 09.06.2026 | Changes: Registered the canonical store profile / search-hero description (`docs/marketing/firehorse-store-posts/STORE_PROFILE_DESCRIPTION.md`) as §2 row 17. Logged two drift incidents (§6): the 2025 "8 industries" lead in the live Google search-hero (→ "25 EU-regulated industries"), and the 16-captain-hats vs 25-industries confusion (confirmed `industries.json` v2.0 canonical, `industriesServedTotal: 25`, no JSON drift).
   - Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/exa-openclaw-integration-YnDpO | Date: 25.05.2026 | Changes: Pilot — added Skill, Workflow, and Roles & Responsibilities chapters using the new optional template that other standards may adopt. Registered DWS_ROLES_REGISTRY.md as §2 row 15.
   - Version: 1.1 | Tool: Claude Code (Opus 4.7) | Session: claude/exa-openclaw-integration-YnDpO | Date: 25.05.2026 | Changes: Slimmed to a thin meta-registry (~60 lines body). Removed verbose founding-incident prose, CI lint discussion, relationship explanations. The registry table is the file. Founding incident moved to a single-line reference.
   - Version: 1.0 | Tool: Claude Code (Opus 4.7) | Session: claude/exa-openclaw-integration-YnDpO | Date: 25.05.2026 | Changes: Initial creation. Triggered by the "16 EU industries" propagation incident — wrong number lived in 58 files because no master index of source-of-truth files existed.
@@ -49,6 +50,7 @@ This file does not define facts. It is a directory. Sibling to `DWS_STANDARDS_LI
 | 13 | Deployment lanes | `DWS_DEPLOYMENT_STANDARD.md` | — | Per-Surface deploy ontology, forward-only migration |
 | 14 | Truth registry meta | `DWS_TRUTH_STANDARD.md` (this file) | — | The registry itself |
 | 15 | Enterprise role taxonomy | `DWS_ROLES_REGISTRY.md` | — | The 25 canonical roles + 5 buying-journey stages. Source for every standard's Roles chapter and every per-customer outreach matrix. |
+| 17 | Store profile / search-hero copy | `docs/marketing/firehorse-store-posts/STORE_PROFILE_DESCRIPTION.md` | — | Google Business Profile "from the business" description (the post-search hero snippet). **Derived copy, not a fact source** — reconciles against Row 1 (industry count → "25 EU-regulated industries") and Row 2 (product names/prices). Registered so the GBP description has one canonical draft instead of drifting per edit. |
 | 16 | Three-pillar sovereignty model (Data / Technology / Operational) | `docs/PHD_FIREHORSE_EN.md` §14.23 | `docs/field-notes/2026-05-28-three-pillars-sovereignty-global.md` (popular-language mirror); blog: `onelifetime.world/posts/sovereignty-field-note-2-three-pillars.html` | Universal three-pillar × three-jurisdiction (EU / US / Singapore) sovereignty taxonomy with KYA four-track mapping (Data→SIB, Technology→CSB, Operational→EAB, ASB binding identity) and the post-quantum cryptographic overlay (HNDL, NIST FIPS 203/204/205, CNSA 2.0, 2030–2035 cutover). Authoritative source for sovereignty pillar definitions, the pillar × jurisdiction matrix, and the relationship to vendor-tier model (Row 4) and DWS6 product tiers in `DWS_DEPLOYMENT_STANDARD.md` lines 165–172. Field-Note exception (see "Excluded on purpose" below): Sovereignty Field Note #2 is the popular-language mirror, not the canonical source; PHD §14.23 is canonical. |
 
 **Excluded on purpose:** thesis files in general are academic (not operational), and most field notes are historical (not authoritative). **Row 16 exception:** the popular-language mirror of the three-pillar sovereignty model lives at `docs/field-notes/2026-05-28-three-pillars-sovereignty-global.md` because the field-note format reaches a different audience than the academic PhD chapter; the PhD chapter remains canonical and the field-note is a derivative explainer.
@@ -74,6 +76,8 @@ If two files disagree on a fact, the canonical file from §2 wins. Downstream co
 |---|---|---|---|
 | 2026-05-25 | Industries | "16 EU industries" in 58 files; actual is 25 | Commits `d4abb4d`, `0b07140`, `3b489e1`, `16ccd68` |
 | 2026-05-25 | Enterprise roles | 25 roles lived only in one outreach letter; no canonical registry | Created `DWS_ROLES_REGISTRY.md`, registered as §2 row 15 |
+| 2026-06-09 | Industries (store copy) | Live Google search-hero led with 2025 "8 industries" (a Tier-1 subset), plus repeated "ensure compliance" and "Fleet hands are based Robotics, Drones, Cars" wording | Refreshed store description to the approved phrase "25 EU-regulated industries"; registered the canonical draft as §2 row 17 (branch `claude/weekly-firehorse-posts-mrtcbw`) |
+| 2026-06-09 | Industries (count semantics) | "16 vs 25" confusion — 16 was misread as the industry count | Confirmed `industries.json` v2.0 canonical: `industriesServedTotal: 25`; 16 = captain *hats* (framework metric), not industries. No JSON drift |
 
 ---
 
