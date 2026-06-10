@@ -1,14 +1,15 @@
 # DWS Legal Standard
 
 VERSION AND AGENT HISTORY
-Version: 1.1
-Date: 2026-04-08
-Author: Claude Code (claude/audit-shufti-dpa-artifacts-HFEGx)
+Version: 1.2
+Date: 2026-06-10
+Author: Claude Code (claude/susanna-hypponen-card-tnq9cl)
 Owner: Lifetime Oy
 Status: Active
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code | Session: claude/susanna-hypponen-card-tnq9cl | Date: 10.06.2026 | Changes: Legal Hub §3 reframed around Data Protection Management (tietosuojajohtaminen) as a managed, risk-based discipline; DPO line backed by external data-protection/AI-governance advisory bench; ISO/IEC 42001 (AI Management System) added to the certifications roadmap; Digia Hub partner trust signal added to §12 contact ecosystem
 - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/audit-shufti-dpa-artifacts-HFEGx | Date: 08.04.2026 | Changes: Updated Shufti Pro key facts with Companies House verification (PR #768), added DPA signatory Stephen Ullman, updated sub-processor status to addendum-ready, resolved open issue #6, added TeleSign/Twilio risk notes, added open issues #8-10 (ML training prohibition, Art. 9 basis, TeleSign noyb)
 - Version: 1.0 | Tool: Claude Code | Session: claude/review-shufti-dpa-QYsiV | Date: 01.04.2026 | Changes: Initial DWS Legal Standard
 
