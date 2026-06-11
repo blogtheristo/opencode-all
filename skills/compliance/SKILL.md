@@ -1,11 +1,6 @@
 ---
 name: compliance
-description: >
-  EU regulatory compliance scoring for Fit for 55, ETS, CBAM, CSRD, and EU AI
-  Act. Produces scored gap lists, cost estimates, deadline urgency, and
-  remediation roadmaps. Use when: "compliance check", "am I compliant", "CSRD
-  status", "ETS obligations", "CBAM reporting", "Fit for 55", "regulatory gap",
-  "compliance score", "carbon cost estimate".
+description: "EU regulatory compliance scoring: Fit for 55, ETS, CBAM, CSRD, AI Act. Produces gap lists, cost estimates, deadline urgency, remediation roadmaps."
 argument-hint: "industry, regulations, annual emissions (tCO2e), import value (EUR)"
 allowed-tools: [Bash, WebSearch]
 ---

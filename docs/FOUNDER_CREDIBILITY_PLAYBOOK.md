@@ -56,13 +56,13 @@ Supersedes:
 
 ### The Block (4 sentences — use everywhere)
 
-> **Risto Paarni** is the founder and CEO of Lifetime Oy, where he builds DWS IQ 6 — an AI platform that automates Fit for 55 climate compliance across 16 EU industries. He holds an M.Sc. in Industrial Management and has spent 35 years in industrial IT, from factory floors to cloud architecture — and still commits code daily. Lifetime's edge AI deployment on NVIDIA Jetson cuts inference costs by EUR 333,000/year versus cloud-only competitors, running the full platform on EUR 15-50/month infrastructure. The company's Fleet division already generates EUR 7-14k MRR, with two pilot contracts signed at EUR 29,950 each for Q1 2026.
+> **Risto Paarni** is the founder and CEO of Lifetime Oy, where he builds DWS IQ 6 — an AI platform that automates Fit for 55 climate compliance across **16 captain hats covering 25+ EU industries**. He holds an M.Sc. in Industrial Management and has spent 35 years in industrial IT, from factory floors to cloud architecture — and still commits code daily. Lifetime's edge AI deployment on NVIDIA Jetson cuts inference costs by EUR 333,000/year versus cloud-only competitors, running the full platform on EUR 15-50/month infrastructure. The company's Fleet division already generates EUR 7-14k MRR, with two pilot contracts signed at EUR 29,950 each for Q1 2026.
 
 ### Why These 4 Sentences
 
 | Sentence | What it proves |
 |----------|---------------|
-| 1 — What he builds | Domain credibility. "16 EU industries" + "Fit for 55" = specific, not vague. |
+| 1 — What he builds | Domain credibility. "16 captain hats covering 25+ EU industries" + "Fit for 55" = specific, not vague. |
 | 2 — Technical credibility | MSc + 35 years + writes code. The "founder who ships" signal. |
 | 3 — Edge AI economics | EUR 333k is the hook. Concrete, differentiated, verifiable. |
 | 4 — Traction proof | Revenue today, not revenue someday. MRR + signed contracts. |
@@ -70,11 +70,11 @@ Supersedes:
 ### Variations
 
 **Short (2 sentences — Twitter/X bio, email signature):**
-> Founder & CEO, Lifetime Oy. Building DWS IQ 6 — edge AI for EU climate compliance across 16 industries. EUR 333k/year cheaper than cloud. Already generating revenue.
+> Founder & CEO, Lifetime Oy. Building DWS IQ 6 — edge AI for EU climate compliance across **16 captain hats covering 25+ EU industries**. EUR 333k/year cheaper than cloud. Already generating revenue.
 
 **Deck slide:**
 - M.Sc. Industrial Management | 35 years industrial IT | Writes code daily
-- DWS IQ 6: Fit for 55 compliance automation for 16 EU industries
+- DWS IQ 6: Fit for 55 compliance automation across **16 captain hats covering 25+ EU industries**
 - Edge AI on NVIDIA Jetson: EUR 333k/year cost advantage
 - Fleet MRR: EUR 7-14k | Q1 2026 pilots: EUR 59,900 signed
 - Raising EUR 500k: 8 Platinum Industry Captain seats (EUR 50k) — first tranche, best terms
@@ -101,7 +101,7 @@ That's the feeling Risto Paarni wants his investors to have. Not "I backed a com
 
 Paarni spent 35 years in industrial IT. Factory floors in Finland. ERP migrations across Scandinavia. Cloud architecture for manufacturers who still ran systems built in the 1990s. He holds an M.Sc. in Industrial Management — the degree that sits at the intersection of engineering and business, the exact boundary where compliance problems live.
 
-Two years ago he looked at the EU's Fit for 55 package — ETS, CBAM, CSRD, EPBD, and a dozen more regulations hitting 16 industries simultaneously — and saw what no one was building: a single platform that treats every regulation as a data contract, maps them to one system, and automates compliance end-to-end.
+Two years ago he looked at the EU's Fit for 55 package — ETS, CBAM, CSRD, EPBD, and a dozen more regulations hitting 25+ industries simultaneously — and saw what no one was building: a single platform that treats every regulation as a data contract, maps them to one system, and automates compliance end-to-end.
 
 Every regulation tells you what to measure. CBAM tells you what to report at the border. CSRD tells you how to disclose. They're not separate problems. They're 15,000 rules in one system. And systems are what engineers build.
 
@@ -124,7 +124,7 @@ That's the origin story. Not a pivot from fintech. Not a Stanford MBA chasing a 
 
 ### The compliance tsunami
 
-The EU's Fit for 55 package is the most ambitious climate regulation in history. It covers 16 industries and spans regulations that are arriving on a compressed timeline:
+The EU's Fit for 55 package is the most ambitious climate regulation in history. It covers 25+ industries and spans regulations that are arriving on a compressed timeline:
 
 | Regulation | What it demands | Deadline |
 |------------|----------------|----------|
@@ -147,11 +147,11 @@ Spreadsheets. Consultants. Manual data entry. Time to produce a compliance repor
 - General-purpose ESG dashboards don't handle regulation-specific logic
 - Consulting firms don't scale — they sell hours, not automation
 - Cloud-only platforms can't serve air-gapped factories or mid-ocean vessels
-- No existing platform covers all 16 industries with one regulatory stack
+- No existing platform covers all 25+ industries with one regulatory stack
 
 ### The gap DWS IQ 6 fills
 
-One platform. 16 industries. Every Fit for 55 regulation. Edge-deployed. Revenue-generating today.
+One platform. **16 captain hats. 25+ EU industries.** Every Fit for 55 regulation. Edge-deployed. Revenue-generating today.
 
 ---
 
@@ -202,7 +202,7 @@ Construction sites don't have reliable internet. Factories have air-gapped OT ne
 
 ### What DWS IQ 6 actually is
 
-A multi-agent AI platform that automates climate compliance across 16 EU industries. Four layers:
+A multi-agent AI platform that automates climate compliance across **16 captain hats covering 25+ EU industries**. Four layers:
 
 **Brain — Multi-Agent Orchestration**
 Coordinates real-time decision-making across compliance domains. Built on Google Cloud Run with Groq LPU acceleration. Processes regulatory signals, emissions data, and supply chain inputs simultaneously.
@@ -216,11 +216,13 @@ Operational layer: report generation, workflow automation, document management, 
 **Hands — Lifetime Fleet**
 Physical execution: vehicles, IoT devices, and drones that extend the platform into the real world. Already operational, generating EUR 7-14k MRR through Uber, Taksi Helsinki, and Kela National Care transportation.
 
-### The 16 industries
+### The 16 captain hats (covering 25+ industries)
 
-**Tier 1 — Critical emissions:** Power/heat generation, iron/steel, cement/lime, chemicals, aviation, maritime shipping, road transport/logistics, construction/buildings.
+The platform serves 25+ EU regulated industries. The captain framework clusters them into **16 captain hats** — each hat covers one or more related industries with shared regulatory exposure.
 
-**Tier 2 — Important emissions:** Agriculture, waste management, aluminium, pulp/paper, petroleum refining, food/beverage, glass/ceramics, mining.
+**Tier 1 — Critical emissions (8 hats):** Power/heat generation, iron/steel, cement/lime, chemicals, aviation, maritime shipping, road transport/logistics, construction/buildings.
+
+**Tier 2 — Important emissions (8 hats):** Agriculture, waste management, aluminium, pulp/paper, petroleum refining, food/beverage, glass/ceramics, mining.
 
 ### Construction beachhead
 
@@ -305,7 +307,7 @@ Industrial customers in power generation, chemicals, and maritime handle critica
 
 ### The concept
 
-DWS IQ 6 covers 16 EU industries. Each industry gets one Platinum Captain and one Deputy. Business angels don't just invest in a company — they become the captain of a specific industry vertical. They bring domain knowledge, not just capital.
+DWS IQ 6 covers 25+ EU industries, clustered into 16 captain hats. Each hat gets one Platinum Captain and one Deputy. Business angels don't just invest in a company — they become the captain of an industry cluster (some hats cover one vertical, others combine related verticals with shared regulatory exposure). They bring domain knowledge, not just capital.
 
 **Tagline:** *Become Captain of your industry.*
 
@@ -327,7 +329,7 @@ This flips the value prop: the Captain isn't just investing — they're shaping 
 **Second tranche (opens after first tranche closes):**
 Remaining 8 Platinum seats + additional Deputy seats. Higher valuation. Early Captains lock in the best terms.
 
-**The 16 industries — tranche allocation:**
+**The 16 captain hats (covering 25+ industries) — tranche allocation:**
 
 | # | Industry | Platinum (EUR 50k) | Tranche |
 |---|----------|-------------------|---------|
@@ -387,13 +389,13 @@ Two tracks. Never cross the streams.
 |-------|----------|---------------|-----------------|
 | **Platinum Captain** | Business Angels (senior) | "Become THE Captain of your industry" | Status, ownership, domain identity |
 | **Deputy Captain** | Business Angels (emerging) | "Rising star — learn the ropes, build toward Platinum" | Aspiration, access, growth path |
-| **Vineyard Owner** | VCs | "16 verticals, one platform — plant once, harvest across every industry" | Repeatable process, compounding moat, EUR 1.2M capacity |
+| **Vineyard Owner** | VCs | "16 captain hats, 25+ verticals, one platform — plant once, harvest across every industry" | Repeatable process, compounding moat, EUR 1.2M capacity |
 
 **Captain language** goes in: LinkedIn posts, BA DMs, angel investor conversations.
 **Vineyard Owner language** goes in: VC decks, institutional pitches, fund-level conversations.
 
 **Vineyard Owner pitch update:**
-> We're raising EUR 500k via SAFE notes — 8 Platinum Industry Captain seats at EUR 50k each, plus Deputy seats at EUR 25k. First tranche at EUR 3.8M cap. Each Captain owns one of 16 EU regulated verticals and shapes the product for their industry. This isn't a generic angel round — it's a structured crew with domain accountability, engagement duties, and a second tranche at higher valuation for latecomers. The platform already generates EUR 7-14k MRR, has EUR 59,900 in signed pilots, and runs on EUR 15-50/month infrastructure. The regulatory wave (CBAM, CSRD, ETS2, EPBD) guarantees demand through 2030. One platform, 16 harvests.
+> We're raising EUR 500k via SAFE notes — 8 Platinum Industry Captain seats at EUR 50k each, plus Deputy seats at EUR 25k. First tranche at EUR 3.8M cap. Each Captain owns one of 16 captain hats (each hat clusters one or more of the 25+ EU regulated verticals) and shapes the product for that cluster. This isn't a generic angel round — it's a structured crew with domain accountability, engagement duties, and a second tranche at higher valuation for latecomers. The platform already generates EUR 7-14k MRR, has EUR 59,900 in signed pilots, and runs on EUR 15-50/month infrastructure. The regulatory wave (CBAM, CSRD, ETS2, EPBD) guarantees demand through 2030. One platform, 16 harvests.
 
 ### The LinkedIn post (ready to publish)
 
@@ -409,7 +411,7 @@ Two tracks. Never cross the streams.
 
 There's a line in Forrest Gump that's stuck with me for years. Bubba doesn't sell Forrest on the economics of shrimping. He makes him feel like he belongs on that boat. He gives him a role, a purpose, and a deck to stand on.
 
-That's what I'm building. Not a shrimp boat. A climate intelligence platform that covers 16 EU industries. And I'm looking for 16 Platinum Industry Captains — one per vertical.
+That's what I'm building. Not a shrimp boat. A climate intelligence platform organized into **16 captain hats covering 25+ EU industries**. And I'm looking for 16 Platinum Industry Captains — one per captain hat, with each hat covering one or more clustered verticals.
 
 **Here's the story.**
 
@@ -419,7 +421,7 @@ Two years ago I looked at the EU's Fit for 55 package — ETS, CBAM, CSRD, EPBD,
 
 So I built it.
 
-**DWS IQ 6** is an AI platform that automates climate compliance across 16 EU industries. Not a dashboard. Not a consulting slide deck with a login screen. A real platform that thinks, remembers, and deploys.
+**DWS IQ 6** is an AI platform that automates climate compliance across **16 captain hats covering 25+ EU industries**. Not a dashboard. Not a consulting slide deck with a login screen. A real platform that thinks, remembers, and deploys.
 
 The part that matters to an engineer:
 - We run edge AI on NVIDIA Jetson devices. Inference under 100ms.
@@ -430,7 +432,7 @@ The part that matters to an engineer:
 
 **Here's where the captains come in.**
 
-16 industries. Two tiers. One of each per vertical.
+25+ industries clustered into 16 captain hats. Two tiers — Platinum and Deputy. One of each per hat.
 
 Power. Steel. Cement. Chemicals. Aviation. Maritime. Transport. Construction. Agriculture. Waste. Aluminium. Pulp & Paper. Petroleum. Food & Beverage. Glass. Mining.
 
@@ -448,17 +450,17 @@ The compliance wave is not coming. It's here. And we built the boat.
 
 **Which industry is yours?**
 
-DM me or comment below. 16 verticals. Platinum or Deputy. When a seat is taken, it's gone.
+DM me or comment below. **16 captain hats covering 25+ verticals.** Platinum or Deputy. When a seat is taken, it's gone.
 
 ---
 
 ### DM templates (for Terhi and BA outreach)
 
 **Platinum Captain DM (primary — use this):**
-> Hi [Name], I'm Risto, founder of Lifetime Group (Helsinki). We built DWS IQ 6, the leading Fit for 55 "Situation Room" for EU industrial portfolios. I'm opening 8 Platinum Industry Captain seats in our EUR 500k SAFE at EUR 3.8M cap. Each Captain owns one of 16 EU regulated verticals: bring your industry to the platform and mold it to support your business. You get founding login access to the World Model + Situation Room Reports for your vertical, quarterly briefings with me, and priority routing for 1 design partner/pilot intro. Early Captains lock in the best terms before we open the second tranche at a higher valuation. Open to a 20 min chat this week?
+> Hi [Name], I'm Risto, founder of Lifetime Group (Helsinki). We built DWS IQ 6, the leading Fit for 55 "Situation Room" for EU industrial portfolios. I'm opening 8 Platinum Industry Captain seats in our EUR 500k SAFE at EUR 3.8M cap. Each Captain owns one of 16 captain hats — each hat clusters one or more of the 25+ EU regulated verticals — and you bring your industry to the platform and mold it to support your business. You get founding login access to the World Model + Situation Room Reports for your vertical, quarterly briefings with me, and priority routing for 1 design partner/pilot intro. Early Captains lock in the best terms before we open the second tranche at a higher valuation. Open to a 20 min chat this week?
 
 **Deputy Captain DM:**
-> Hey [Name] — I'm building a climate AI platform across 16 EU industries and looking for a Deputy Captain for [INDUSTRY]. Thought of you because [specific reason — their emerging expertise/ambition].
+> Hey [Name] — I'm building a climate AI platform across 25+ EU industries and looking for a Deputy Captain for [INDUSTRY]. Thought of you because [specific reason — their emerging expertise/ambition].
 >
 > Quick version: DWS IQ 6 automates Fit for 55 compliance. Edge AI on NVIDIA Jetson — EUR 333k/year cheaper than cloud. Already generating EUR 7-14k MRR.
 >
@@ -499,7 +501,7 @@ Hi [journalist name],
 
 I'm writing because I think you'd find this cost story interesting.
 
-A Finnish company called Lifetime Oy runs a climate compliance AI platform across 16 EU industries. Their infrastructure cost is EUR 15-50 per month. That's the full production platform, not a demo.
+A Finnish company called Lifetime Oy runs a climate compliance AI platform across 25+ EU industries. Their infrastructure cost is EUR 15-50 per month. That's the full production platform, not a demo.
 
 The economics: they deploy NVIDIA Jetson Orin Nano devices at the edge — construction sites, factories, maritime vessels — instead of routing inference through cloud APIs. The result:
 
@@ -511,7 +513,7 @@ The economics: they deploy NVIDIA Jetson Orin Nano devices at the edge — const
 
 The founder, Risto Paarni (M.Sc. Industrial Management, 35 years in industrial IT), argues that cloud-dependent AI platforms fundamentally don't work for heavy industry — construction sites don't have reliable internet, factories have air-gapped networks, ships operate mid-ocean.
 
-The company is already generating EUR 7-14k MRR from its Fleet division and has signed EUR 59,900 in Q1 2026 pilot contracts. They're raising EUR 500k via SAFE at a EUR 3.8M valuation — structured as 16 Platinum Industry Captains (EUR 50k each) and 16 Deputy Captains (EUR 25k each), one per regulated industry.
+The company is already generating EUR 7-14k MRR from its Fleet division and has signed EUR 59,900 in Q1 2026 pilot contracts. They're raising EUR 500k via SAFE at a EUR 3.8M valuation — structured as 16 Platinum Industry Captains (EUR 50k each) and 16 Deputy Captains (EUR 25k each), one of each per captain hat (each hat clusters related industries from the 25+ regulated verticals served by the platform).
 
 Happy to connect you with Risto for a 20-minute call. He's technical — he'll talk architecture, not marketing.
 
@@ -547,7 +549,7 @@ Dark-themed, one fact per slide, DWS brand.
 | **2 — Problem** | "Current tools: spreadsheets, consultants, manual data entry. Time to compliance report: 3-6 weeks." |
 | **3 — Solution** | "DWS IQ 6 + Firehorse V2: automated compliance in hours, not weeks. Edge AI on NVIDIA Jetson. Works on-site. No cloud dependency." |
 | **4 — Numbers** | "EUR 333k/year cloud cost savings. EUR 15-50/month total infrastructure. 100ms inference latency." |
-| **5 — Traction** | "EUR 7-14k MRR (Fleet division). EUR 59,900 in Q1 2026 pilot contracts. 16 EU industries covered." |
+| **5 — Traction** | "EUR 7-14k MRR (Fleet division). EUR 59,900 in Q1 2026 pilot contracts. 25+ EU industries covered." |
 | **6 — CTA** | "Become Captain of your industry. 8 Platinum seats open. EUR 50k. Best terms before second tranche. DM @ristopaarni" |
 
 ### B. Executive fact sheet

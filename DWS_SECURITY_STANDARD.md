@@ -1,8 +1,8 @@
 ---
 title: DWS Security Standard
-version: 2.4
+version: 2.5
 created: 2026-02-07
-last_modified: 2026-05-20
+last_modified: 2026-05-24
 author: Lifetime Oy Security Team
 language: en
 languages_available: [en]
@@ -19,10 +19,11 @@ toc-depth: 3
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.4
+Version: 2.5
 
 Sessions & Modifications:
 
+- Version: 2.5 | Tool: Claude Code (claude-opus-4-7) | Session: claude/bumblebee-dgx-observability-mzV5U | Date: 24.05.2026 | Changes: Added Section 13.5 (Supply-Chain Inventory — Bumblebee on DGX Spark) documenting the new `bumblebee-collector` container in `infrastructure/dgx-spark/`, OTel metric contract surfaced on the existing Aspire Dashboard (`bumblebee.packages.total`, `bumblebee.exposures.{total,by_severity}`, `bumblebee.scan.{duration_ms,last_success_timestamp}`), pinned upstream SHA in `bumblebee.version`, daily/weekly scan cadence via supercronic, read-only `/host` mount with dropped capabilities, and exposure-catalog handling as untrusted input per §13.
 - Version: 2.4 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: pr-1368-review | Date: 20.05.2026 | Changes: Corrected PR #1368 integration status and versioning; enabled TypeScript redirect sanitization in the Express stack and CSRF enforcement on auth/payment routes; added Vitest coverage for the TypeScript security ports; switched MCP tool classification to fail closed for unknown tools; updated testing and pentest references to the TypeScript paths.
 - Version: 2.3 | Tool: GitHub Copilot (Gemini 2.0 Flash) | Session: claude/mvp-missing-features-pS9La | Date: 20.05.2026 | Changes: Ported legacy November 2025 security components from Python/Flask to TypeScript/Express (Modern CSRF, Redirect Validation, MCP DCR, Tool Colors, Image Prompt Injection); archived legacy Python components as _OLD.py.
 - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/connect-kya-dws-cli-0MMIB | Date: 10.04.2026 | Changes: Added Section 18.6 (KYA Control Surfaces — CLI, HTTP, Webhook) documenting the `dws kya status` / `dws kya snap` CLI paths, timing-safe `ADMIN_API_KEY` auth pattern, mandatory forensic dumps, accepted reason codes, and cross-reference to `/kya` slash command; renumbered NIS2 compliance statement to 18.7 and updated it to mention operator CLI path
@@ -47,7 +48,7 @@ Session Links & References:
 Document Status:
 
 - Created: 07.02.2026
-- Last Modified: 20.05.2026
+- Last Modified: 24.05.2026
 - Language: English
 - Languages Available: EN
 - Publication Status: ACTIVE
@@ -864,6 +865,35 @@ await exec(`command "${userInput}"`);
 // REQUIRED:
 await execFile("command", [userInput]);
 ```
+
+### 13.5 Supply-Chain Inventory (Bumblebee on DGX Spark)
+
+**When a supply-chain advisory drops, we must answer in seconds whether the DGX Spark host has the compromised version installed.** This control deploys Perplexity's **Bumblebee** (Apache 2.0, Go static binary, https://github.com/perplexityai/bumblebee) as a read-only inventory scanner inside the DGX Spark docker-compose stack.
+
+**Where it runs.** `infrastructure/dgx-spark/bumblebee/` builds the scanner from a pinned upstream commit (recorded in `bumblebee.version`) and runs it as the `bumblebee-collector` container alongside the existing Aspire Dashboard. The host filesystem is mounted **read-only** at `/host`; the container drops all Linux capabilities and runs `read_only: true` with `no-new-privileges`.
+
+**Cadence.** `supercronic` inside the container runs:
+
+- `project` profile daily at 04:00 UTC (focused scan of project lockfiles)
+- `deep` profile weekly on Sunday 05:00 UTC (whole-host inventory)
+- Ad-hoc: `docker exec bumblebee-collector /app/run-scan.sh deep`
+
+**Observability surface.** The collector parses Bumblebee's NDJSON output and emits OTel metrics + structured logs to the existing `aspire-dashboard:18888` OTLP/HTTP endpoint — the same pipeline already used by `dws-backend` and `dws-cron` (protocol `http/protobuf`, post-v1.2.0). No new dashboard service. Metrics published:
+
+| Metric                                       | Type      | Purpose                                       |
+| -------------------------------------------- | --------- | --------------------------------------------- |
+| `bumblebee.packages.total`                   | gauge     | Inventoried package count                     |
+| `bumblebee.packages.by_ecosystem`            | gauge     | Breakdown by npm / pypi / go / gem / mcp / ext |
+| `bumblebee.exposures.total`                  | gauge     | Catalog matches in the latest scan            |
+| `bumblebee.exposures.by_severity`            | gauge     | Per-severity counts                           |
+| `bumblebee.scan.duration_ms`                 | histogram | Wall time of each scan                        |
+| `bumblebee.scan.last_success_timestamp`      | gauge     | Staleness alarm for cron failures             |
+
+Per-finding `bumblebee.exposure` events are also logged as structured JSON so the Aspire **Structured Logs** view surfaces the advisory ID, ecosystem, package name, and version of each match.
+
+**Exposure catalog.** `infrastructure/dgx-spark/bumblebee/catalog.json` is the canonical source of known-compromised package versions. Updates go through PR review — Bumblebee's outputs and any catalog input from third-party feeds are treated as **untrusted external content** per §13.
+
+**Caveat (inherited, not introduced).** Aspire Dashboard runs in `Unsecured` auth mode on `:18888`. Exposure data is sensitive; access to the DGX Spark observability port is governed by the existing host-network posture and must not be widened.
 
 ---
 

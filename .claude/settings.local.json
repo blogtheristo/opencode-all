@@ -8,7 +8,10 @@
       "WebFetch(domain:webframp.com)",
       "Bash(git add *)",
       "mcp__Claude_Preview__preview_start",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "mcp__1e8270db-2d87-40b5-921d-0db542f5c720__create_event",
+      "mcp__1e8270db-2d87-40b5-921d-0db542f5c720__update_event",
+      "mcp__2044ea13-4688-47fb-aac6-01788ed5fee0__generate"
     ]
   }
 }

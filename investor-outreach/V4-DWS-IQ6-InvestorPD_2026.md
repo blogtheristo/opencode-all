@@ -242,7 +242,7 @@
 **Timeline**: 24-30 months for proper implementation
 **Why Impossible**: US competitors must choose: (a) spend 27-59% of typical seed round on compliance, or (b) accept exclusion from EU government contracts and the 450M-consumer Single Market
 **Fortress Value**: We absorbed this cost bootstrapping to €7k MRR. EU leaders now frame compliance as the gateway to Europe's superpower — our existing compliance = privileged market access
-**Single Market Leverage**: 450M consumers × 16 EU industries × harmonized regulation = one compliance investment serves all 27 member states
+**Single Market Leverage**: 450M consumers × 25+ EU industries × harmonized regulation = one compliance investment serves all 27 member states
 
 #### 2. Government Validation (Healthcare Agency serving 4.2M citizens)
 **Barrier**: 24-month procurement cycle for government reference

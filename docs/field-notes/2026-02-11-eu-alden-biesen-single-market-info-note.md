@@ -68,7 +68,7 @@ The Alden Biesen retreat validates DWS IQ 6's core positioning:
 
 ### Market Opportunity
 
-- **450M consumers** × 16 EU industries = massive addressable market for climate compliance
+- **450M consumers** × 25+ EU industries = massive addressable market for climate compliance
 - EU competitiveness push = increased public procurement for EU-native solutions
 - Autonomy agenda = enterprises mandated to reduce non-EU technology dependency
 - Single Market harmonization = one compliance framework serves all 27 member states

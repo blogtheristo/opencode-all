@@ -17,7 +17,7 @@ This thesis documents the design and implementation of a multi-agent AI architec
 
 ### 1.1 Problem Statement
 
-EU climate regulations (Fit for 55, CSRD, ETS, CBAM) require enterprises across 16 industries to calculate, report, and reduce carbon emissions. Current solutions are siloed — each organization runs its own compliance tools without the ability to collaborate across supply chains, partners, or regulatory bodies at the agent level.
+EU climate regulations (Fit for 55, CSRD, ETS, CBAM) require enterprises across 25+ industries to calculate, report, and reduce carbon emissions. Current solutions are siloed — each organization runs its own compliance tools without the ability to collaborate across supply chains, partners, or regulatory bodies at the agent level.
 
 ### 1.2 Research Question
 

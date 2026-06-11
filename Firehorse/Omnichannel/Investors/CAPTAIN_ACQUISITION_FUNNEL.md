@@ -401,7 +401,7 @@ LinkedIn is the primary channel for Stage 1 (DM) and Stage 2 (webinar invite).
 - 1 LinkedIn post per week referencing the Captain program (not selling — sharing industry insights)
 
 **Profile optimization:**
-- Headline references Fit for 55 + 16 industries
+- Headline references Fit for 55 + 16 captain hats (covering 25+ industries)
 - Featured section links to `dws10.com/captain/`
 - Activity: regular posts about EU regulation deadlines, industry compliance news
 

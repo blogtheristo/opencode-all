@@ -1,15 +1,6 @@
 ---
 name: firehorse-report
-description: >
-  Generates a Firehorse Skillful Report. One parameterized skill, four KINDs:
-  annual (CSRD/ESRS Annual Sustainability Report), board-pack (executive
-  climate compliance summary), carbon (EN 15978 carbon footprint per
-  building/project), compliance (EU ETS/CBAM/CSRD/AI Act compliance summary).
-  Use when: "annual report", "sustainability report", "ESRS report", "board
-  pack", "board report", "executive compliance briefing", "carbon footprint
-  report", "embodied carbon", "EN 15978", "EPBD compliance", "LCA report",
-  "compliance report", "regulatory status report", "ETS CBAM CSRD summary",
-  "audit-ready compliance", "compliance gap report".
+description: "Generates a Firehorse Skillful Report. KIND=annual|board-pack|carbon|compliance — CSRD/ESRS annual, executive climate briefing, EN 15978 embodied carbon, ETS/CBAM/AI-Act gap."
 argument-hint: "KIND=<annual|board-pack|carbon|compliance> COMPANY=<name> PERIOD=<period> [extra context]"
 allowed-tools: [Bash, Read]
 parameters:

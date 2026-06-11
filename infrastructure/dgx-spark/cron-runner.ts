@@ -69,6 +69,15 @@ const jobs: CronJob[] = [
     enabled: true,
   },
   {
+    // Runs 30 min before the morning brief so the brief sees the post-park state.
+    // Parks threads with maxed-out nudges or next_action_date older than 30d.
+    name: 'park-stale-threads',
+    schedule: '30 3 * * 1-6',
+    workflow: 'park-stale-threads.yml',
+    command: 'npx tsx scripts/daily/park-stale-threads.ts',
+    enabled: true,
+  },
+  {
     name: 'morning-brief-v2',
     schedule: '0 4 * * 1-6',
     workflow: 'morning-briefing.yml',

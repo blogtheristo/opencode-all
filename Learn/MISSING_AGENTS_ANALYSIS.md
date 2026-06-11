@@ -119,7 +119,7 @@ All six are Tier 1 (read-only analysis). None perform mutations, send communicat
 
 **What:** Monitors EUR-Lex, Finlex, industry standards (EN 15978, EN 15804, EN 13001) for regulatory changes. Generates customer impact assessments.
 
-**Why needed:** EU regulatory environment changes frequently. Fit for 55, CSRD, ETS Phase 4, CBAM all have evolving requirements. Manual monitoring is unsustainable across 16 industries.
+**Why needed:** EU regulatory environment changes frequently. Fit for 55, CSRD, ETS Phase 4, CBAM all have evolving requirements. Manual monitoring is unsustainable across 25+ industries.
 
 **Cognitive pattern:** Chain-of-Thought (linear document processing)
 

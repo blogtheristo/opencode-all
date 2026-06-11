@@ -34,7 +34,7 @@ Document Status:
 **RISTO PAARNI**
 *Building Europe's Industrial Climate Brain — One Regulation at a Time*
 
-**Subheading:** The Finnish founder turning the EU's toughest climate mandates into an AI-powered competitive advantage for 16 industries
+**Subheading:** The Finnish founder turning the EU's toughest climate mandates into an AI-powered competitive advantage organized around **16 captain hats covering 25+ EU industries**
 
 ---
 
@@ -249,7 +249,7 @@ Lifetime Oy's immediate roadmap includes:
 - **NVIDIA Inception Program** participation, leveraging Jetson and Omniverse for next-generation Physical AI capabilities
 - **Expansion** of the Firehorse product suite with new industry-specific modules
 
-Paarni's ambition is to make DWS IQ 6 the de facto standard for Fit for 55 compliance automation across European industry. The addressable market — 16 industries, thousands of companies, billions in compliance spending — is enormous. The regulatory tailwind is undeniable. And the competition, largely consisting of general-purpose ESG dashboards and manual consulting firms, has not yet built the kind of integrated, edge-deployed, multi-agent AI platform that Lifetime has been engineering.
+Paarni's ambition is to make DWS IQ 6 the de facto standard for Fit for 55 compliance automation across European industry. The addressable market — 25+ industries, thousands of companies, billions in compliance spending — is enormous. The regulatory tailwind is undeniable. And the competition, largely consisting of general-purpose ESG dashboards and manual consulting firms, has not yet built the kind of integrated, edge-deployed, multi-agent AI platform that Lifetime has been engineering.
 
 "We're not building a better spreadsheet," Paarni says. "We're building the operating system for industrial climate compliance. The regulations are written. The deadlines are set. The only question is who builds the infrastructure to meet them. That's us."
 
@@ -284,7 +284,7 @@ The following high-resolution images are recommended for the 10-page feature:
 
 1. **Cover Photo:** Professional headshot of Risto Paarni — clean background, Nordic aesthetic
 2. **Page 3:** Architecture diagram of Brain-Memory-Body-Hands ecosystem
-3. **Page 4:** Map visualization of 16 EU industries with regulatory overlay
+3. **Page 4:** Map visualization of 25+ EU industries with regulatory overlay
 4. **Page 5:** NVIDIA Jetson Orin Nano edge device — close-up in industrial setting
 5. **Page 6:** DWS IQ 6 dashboard screenshot showing compliance metrics
 6. **Page 7:** Construction site deployment — Firehorse V2 in operational context
@@ -316,4 +316,4 @@ The following high-resolution images are recommended for the 10-page feature:
 - EU-first positioning (regulatory tailwind)
 - Physical AI capability (beyond software)
 - Edge deployment (industrial reality, not cloud fantasy)
-- 16-industry coverage (platform, not point solution)
+- 25+-industry coverage (platform, not point solution)

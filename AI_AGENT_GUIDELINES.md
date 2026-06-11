@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Opus 4.8) | Session: claude/ceo-review-dws-firehorse-1kWuP | Date: 31.05.2026 | Changes: Added Ledger-Native Output Contract (Firehorse 7) to §2 — operational agents must emit signed journalEntries + lineage (EU AI Act Art. 12) and optional regulatoryArtifact; defined sales-side exemption allowlist and CI contract gate. Implements DWS7 CEO reshape (layer-5 / AI Actions positioning)
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/deepwiki-agent-extraction-aS6Ub | Date: 11.02.2026 | Changes: Initial creation - consolidates distributed agent standards into single reference
 
 Session Links & References:
@@ -17,7 +18,7 @@ Session Links & References:
 Document Status:
 
 - Created: 11.02.2026
-- Last Modified: 11.02.2026
+- Last Modified: 31.05.2026
 - Language: English
 - Languages Available: EN
 - Publication Status: ACTIVE
@@ -165,6 +166,32 @@ this.register(new YourAgent());
 | `reasoning`       | string   | Yes      | Human-readable explanation of logic |
 | `recommendations` | string[] | Yes      | Actionable next steps               |
 | `metadata`        | object   | Yes      | Timing, model info, token usage     |
+
+### Ledger-Native Output Contract (Firehorse 7)
+
+DWS's differentiation is **layer 5 (AI Actions)** of the AI-native stack — see `DWS7_ROADMAP.md` Executive Summary. A horizontal Cortex/Mosaic/AIP deployment stops at an LLM answer; a Firehorse agent must finish the regulatory action by emitting a **signed journal entry** and, where applicable, a **regulatory artifact**. This is the one structural property a horizontal deployment cannot replicate without rebuilding its agent layer.
+
+By DWS 7 GA, every **operational** agent (i.e. one whose output affects a customer's carbon position) must conform to:
+
+```ts
+interface LedgerNativeAgentOutput extends AgentResponse {
+  journalEntries: CarbonLedgerEntry[];     // 0..n signed debit/credit entries (Phase 2.6 ledger, PRs 093A–093I)
+  regulatoryArtifact?: {                    // iXBRL fragment, CBAM row, ETS record, ESRS-E1 disclosure
+    type: "iXBRL" | "CBAM" | "ETS" | "ESRS-E1" | "TAXONOMY";
+    payload: string;
+    schemaVersion: string;
+  };
+  lineage: {                                // EU AI Act Article 12 — see DWS_SECURITY_STANDARD.md
+    sources: DataSourceRef[];               // e.g. EUTL installation DE-123456, ENTSO-E
+    reasoning: string;                      // model trace / prompt chain
+    signedBy: SovereigntyLayerSignature;    // Full Sovereignty layer signature over the entry
+  };
+}
+```
+
+**Exemption allowlist.** Sales/marketing-side agents do **not** touch the carbon ledger and are explicitly exempt: `competitor-surveillance`, `seo-audit`, `lead-feedback`, `customer-sat`. All other production agents (e.g. `compliance`, `material-oracle`, `bess`, `cbam`, `sitesense`, `schedule-genius`, `construction`, `logistics`, `quality-gate`, `viability`, `emissions-data-analyst`) must conform. The allowlist is the single source of truth — adding an agent to it requires an explicit owner sign-off in review, not a silent default.
+
+**CI gate.** A contract test (`src/agents/__tests__/ledger-contract.spec.ts`) asserts that every non-exempt registered agent returns `journalEntries` and `lineage`. New agents fail CI until they either conform or are added to the exemption allowlist with justification. See §8 Testing Requirements.
 
 ### Graceful Degradation
 

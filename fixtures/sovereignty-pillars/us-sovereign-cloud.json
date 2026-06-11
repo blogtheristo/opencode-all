@@ -1,0 +1,30 @@
+{
+  "_fixture": "US-origin enterprise selling into EU and SG, engineering sovereign-cloud offerings. Expected tier: Connect. Expected quantum_readiness: roadmap.",
+  "customer_origin": "US",
+  "markets": ["US", "EU"],
+  "data_layer": {
+    "db_vendor": "aws-rds",
+    "residency": "US",
+    "encryption_at_rest": true,
+    "encryption_in_transit": true,
+    "key_custody": "cloud-kms",
+    "third_country_access_path": "possible"
+  },
+  "compute_layer": {
+    "primary_cloud": "aws",
+    "residency": "US",
+    "on_prem_fraction": 0.05,
+    "gpu_substrate": "nvidia-h100",
+    "portability_index": 55
+  },
+  "identity_layer": {
+    "idv_provider": "persona",
+    "idp": "okta",
+    "mfa": "totp"
+  },
+  "pqc_posture": {
+    "algorithms_in_use": ["FIPS-204", "ECC-P256"],
+    "migration_plan_status": "drafted",
+    "rsac2_stage": 1
+  }
+}

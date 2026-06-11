@@ -8,6 +8,7 @@ Session: claude/connect-kya-dws-cli-0MMIB
 Tool: Claude Code CLI
 Status: Published
 
+- Version: 1.11 | Agent: Claude Code (Opus 4.8) | Date: 09.06.2026 | Session: claude/truth-claims-lint | Changes: Added `/truth-check` slash command (section 7.3) — lints public copy against the canonical truth registry (`scripts/lint-truth-claims.mjs`; FAIL on deprecated phrases, WARN on ambiguous-without-context, approved allow-list). Bumped count from 35 to 36 (33 slash + 3 discipline). Added Quick Reference row. Operationalises `DWS_TRUTH_STANDARD.md` §5/§7/§8.
 - Version: 1.10 | Agent: Claude Code (Opus 4.7) | Date: 22.05.2026 | Session: claude/audit-dws-firehorse-fDKB5 | Changes: Post-merge reconciliation against main — folded in `/clawdbot` (section 3.7), `/promote-proposal` (3.8), `/dream-on` (3.9), and `/gcr-skill` (6.1b) introduced in `1abd4eaa docs: migrate Cloud Run deploy auth to GitHub OIDC`. Bumped count from 31 to 35 (32 slash + 3 discipline). Added Quick Reference rows for the four new skills. No content lost on either side.
 - Version: 1.9 | Agent: Claude Code (Opus 4.7) | Date: 12.05.2026 | Session: claude/audit-dws-firehorse-fDKB5 | Changes: Added `/learn` slash command (section 3.6) — closes the learning loop by diarizing mediocre retro / CI / audit-log outcomes and emitting read-only skill-edit plans to `docs/learning-loops/`. Bumped count from 30 to 31 (28 slash + 3 discipline). Added Quick Reference row. Linked from `CLAUDE.md` Skill Codification Rule.
 - Version: 1.8 | Agent: Claude Code (Opus 4.7) | Date: 12.05.2026 | Session: claude/audit-dws-firehorse-fDKB5 | Changes: Applied "thin harness, fat skills" doctrine (Garry Tan, May 2026). Collapsed `plan-ceo-review` + `plan-eng-review` into parameterized `/plan-review ROLE=<ceo|eng>` (section 3.1, renumbered 3.2–3.5); collapsed 4 `firehorse-report-{annual,board-pack,carbon,compliance}` discipline skills into one parameterized `firehorse-report KIND=<annual|board-pack|carbon|compliance>` (`skills/firehorse-report/SKILL.md`); old files renamed to `_OLD` per CLAUDE.md rule 6. Total: 31 → 30 (27 slash + 3 discipline). Added section 13 "Skill Codification Doctrine".
@@ -22,7 +23,7 @@ Status: Published
 
 ## 1. Overview
 
-DWS IQ 6 provides **35 skills** for AI coding agents — 32 slash commands in `.claude/commands/` and 3 composable discipline skills in `skills/`. This guide explains every skill: what it does, when to use it, and how skills connect into workflows.
+DWS IQ 6 provides **36 skills** for AI coding agents — 33 slash commands in `.claude/commands/` and 3 composable discipline skills in `skills/`. This guide explains every skill: what it does, when to use it, and how skills connect into workflows.
 
 **Skill shape:** Skills are parameterized procedures (method calls), not domain-specific scripts. The same `SKILL.md` is invoked with different arguments (ROLE, KIND, TARGET) to produce different capabilities. See section 13 for the Skill Codification Doctrine.
 
@@ -263,6 +264,20 @@ The recommended development flow chains 6 skills in order. Based on Garry Tan's 
 
 **Output:** Sovereignty score, risk matrix, remediation recommendations.
 
+### 5.3a /sovereignty-pillars-assess
+
+**When to use:** Scoring a customer architecture against the universal three-pillar (Data / Technology / Operational) × three-jurisdiction (EU / US / SG) sovereignty model from Sovereignty Field Note #2.
+
+**What it does:** Returns a `(SIB, CSB, EAB)` triple per jurisdiction (nine cells), an overall DWS product tier recommendation (Aegis / Sovereign Infra / Connect), post-quantum readiness, and a Rightful Oy R-Sac² referral flag. Extends `/sovereignty-assess` from database-only to enterprise-architecture scope.
+
+**Trigger phrases:** "pillars assess", "score sovereignty", "SIB CSB EAB", "three-pillar score", "sovereignty triple", "score this architecture"
+
+**CLI:** `dws sovereignty-pillars-assess <input.json>` or `node scripts/sovereignty-pillars-assess.cjs <input.json>`
+
+**Fixtures:** `fixtures/sovereignty-pillars/{eu-aegis,us-sovereign-cloud,sg-neutrality}.json`
+
+**Canonical reference:** `docs/field-notes/2026-05-28-three-pillars-sovereignty-global.md`, `DWS_TRUTH_STANDARD.md` Row 16.
+
 ### 5.4 /site-safety
 
 **When to use:** Assessing construction site safety conditions.
@@ -420,6 +435,25 @@ See `docs/KYA_BYO_LIFECYCLE.md` and `onelifetime.world/posts/kya-standard-v1.htm
 **Security:** KB is NOT cleared for PII. Follow `docs/DWS_DATA_STANDARD.md` for retention and classification of `kb/raw/` and `kb/wiki/` content.
 
 See `src/agents/kb.agent.ts` for the agent implementation and tool handlers.
+
+### 7.3 /truth-check
+
+**When to use:** Writing or reviewing public-facing copy (store, landing pages, investor/sales, press, decks) that asserts a DWS "fact" — an industry count, captain-hat count, product price/name, KYA tier. Catches drift like "16 EU industries" before it propagates.
+
+**What it does:** Runs `scripts/lint-truth-claims.mjs` against the canonical structured mirrors (e.g. `dws10.com/config/industries.json`). FAILs on `deprecatedDisplayPhrases`, WARNs on `ambiguousDisplayPhrasesNeedingContext` used without a disambiguator, and reads `approvedDisplayPhrases` as the allow-list, suggesting the correct wording on each hit. Operationalises `DWS_TRUTH_STANDARD.md` §5/§7.
+
+**Modes:** `/truth-check "<claim>"` (inline), `/truth-check <path…>` (files/dirs), `/truth-check --changed` (PR diff). Add `--json` for structured output.
+
+**Trigger phrases:** "truth check", "is this claim canonical", "check industry count", "truth lookup", "truth scan", "does this match the registry"
+
+**Workflow rules:**
+
+- Allow-list / deny-list live in the structured mirrors — add phrases to `approvedDisplayPhrases` / `deprecatedDisplayPhrases`, never hard-code them in the skill.
+- Per `DWS_TRUTH_STANDARD.md` §3, fix the drifting *copy*, never the canonical source.
+- Canonical mirrors and registry docs are excluded from scanning (they hold the phrases as data).
+- Same script runs in CI as `.github/workflows/lint-truth-claims.yml` (PR-diff, non-blocking initially).
+
+See `scripts/lint-truth-claims.mjs` and `DWS_TRUTH_STANDARD.md` §5/§7/§8.
 
 ## 8. Code Quality & Internationalisation
 
@@ -595,6 +629,7 @@ Badges (section pill, skill chips, KYA badge, Standards & Interop strip) are can
 | Fix dual-folder API drift      | /fix-dual-folder-api-connectivity | Operations |
 | Check agent trust / kill chain | /kya                              | Safety     |
 | Compile wiki / ask KB          | /kb                               | Knowledge  |
+| Check a claim vs truth registry | /truth-check                     | Safety     |
 | Code feels bloated             | /simplify                         | Quality    |
 | Add/audit language bar         | /multilingual                     | i18n       |
 | About to claim "done"          | verification-gate                 | Discipline |

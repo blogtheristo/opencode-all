@@ -61,7 +61,7 @@ These sit above the original 20 moats. When agent frameworks become free and mod
 - EU ETS benchmarks, CBAM defaults, ESRS registry (82 disclosures), emission factors — codified in `src/compliance/`
 - ICEYE SAR imagery via Argus — proprietary orbital intelligence
 - Customer compliance data accumulates over time — every customer makes scoring better for the next
-- 16-industry regulatory knowledge base — years of domain encoding
+- 25+-industry regulatory knowledge base — years of domain encoding
 
 **Moat strength:** Compounds over time. Each customer adds data. Each regulatory cycle deepens the dataset. Competitors start from zero.
 
@@ -69,7 +69,7 @@ These sit above the original 20 moats. When agent frameworks become free and mod
 **Why defensible:** Anyone can build an agent. Knowing *which* outcome the customer will pay for — and how to measure it — takes years of discovery.
 
 **DWS position:**
-- 16 industries mapped with specific regulatory pain points
+- 25+ industries mapped with specific regulatory pain points
 - CXO call scripts with real objection patterns from live sales
 - MPO (Minimal Productive Outcome) defined per agent:
   - Compliance: one scored CSRD gap analysis

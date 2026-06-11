@@ -295,7 +295,7 @@ Deployed per industry vertical with 3-phase rollout:
 | 2 | Advisor | 60 days | Recommend, flag risks | Required |
 | 3 | Autonomous | Ongoing | Execute, send emails, create tasks | Exception only |
 
-**Planned verticals:** Construction, Manufacturing, Energy (16 EU industries total).
+**Planned verticals:** Construction, Manufacturing, Energy (25+ EU industries total).
 
 ---
 

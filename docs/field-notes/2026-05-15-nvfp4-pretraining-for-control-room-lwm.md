@@ -232,13 +232,13 @@ The repo currently disagrees with itself on how many EU-regulated industries the
 A repo-wide reconciliation pass to bring every other doc to **25**. Files known to need editing:
 
 - `README.md` (3 occurrences of "20 industries" / "20 industry verticals")
-- `DWS7_ROADMAP.md` (5+ occurrences of "16 industries" / "16 industrial customers" — separate concept; review whether customer count should follow registry)
+- `DWS7_ROADMAP.md` (5+ occurrences of "25+ industries" / "16 industrial customers" — separate concept; review whether customer count should follow registry)
 - `DWS8_ROADMAP.md` (3 occurrences of "20 industries")
 - `Store/PRODUCT_AEGIS.md` (5 occurrences of "21 industries" — Aegis SKU description)
 - `Learn/PHD_FIREHORSE_EN.md` (mixed 16 + 20 within same doc — needs careful pass since PhD-thesis scope rule applies)
 - `Learn/V3Thesis_EN.html` + `docs/metropolia/master-thesis/en/V3Thesis_EN.md` + FI mirror (thesis-rule: all 4 files together per CLAUDE.md)
 - `INVESTOR_EMAIL_TEMPLATES.md` (3 occurrences of "20 industries", incl. Industry Captain seat description)
-- `ONTOLOGY.md` (2 occurrences of "16 industries")
+- `ONTOLOGY.md` (2 occurrences of "25+ industries")
 - `CHANGELOG.md` (historical note "16 to 20 industries" — leave as-is for audit trail)
 - `Firehorse/Omnichannel/Investors/*.md` (CAPTAIN_ACQUISITION_FUNNEL, INDEX, OUTREACH_WORKFLOW)
 - `dws10.com/index.html` line 1436 / 1442: "21 industry applications" / "Body: 21 industry-specific applications"

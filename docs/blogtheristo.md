@@ -8,7 +8,7 @@ Version: 1.2
 Sessions & Modifications:
   - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Initial creation — public digital identity profile consolidating GitHub, LinkedIn, CEO profile, and platform credentials into one DWS-standard reference document.
   - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Stripped investor-facing content (SAFE terms, valuation cap, revenue numbers, seat structure, deep tech funding timeline). This is a public GitHub profile — shop window, not term sheet.
-  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Developer-audience pass — shortened bio to 3 lines, cut 16-industry list, replaced investor validation with technical credibility, merged GitHub activity into credibility section.
+  - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/ceo-magazine-profile-EDmiH | Date: 16.02.2026 | Changes: Developer-audience pass — shortened bio to 3 lines, cut 25+-industry list, replaced investor validation with technical credibility, merged GitHub activity into credibility section.
 
 Session Links & References:
   - Claude Code (claude/ceo-magazine-profile-EDmiH): https://github.com/blogtheristo/dws6/commits/claude/ceo-magazine-profile-EDmiH

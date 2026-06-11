@@ -46,3 +46,44 @@ Input: $ARGUMENTS
 - Keep ownership and billing under `admin@dws6.com`.
 - Never commit key JSON files; store only in GitHub secrets or secret manager.
 
+## gcloud Syntax (CMD, not PowerShell)
+
+`gcloud` is a CMD-based tool. All `gcloud` examples MUST use CMD syntax — single-line OR caret (`^`) continuation, never backtick (`` ` ``). PowerShell-first (CLAUDE.md Rule 10) still applies for `.ps1` scripts and other Windows commands; the CMD rule is specific to `gcloud`.
+
+### Single-line (always safe)
+
+```cmd
+gcloud run deploy dws-iq-backend --image=europe-north1-docker.pkg.dev/dws-iq-60/dws/api:latest --region=europe-north1 --allow-unauthenticated
+```
+
+### Multi-line (CMD with caret continuation)
+
+```cmd
+gcloud run deploy dws-iq-backend ^
+  --image=europe-north1-docker.pkg.dev/dws-iq-60/dws/api:latest ^
+  --region=europe-north1 ^
+  --allow-unauthenticated
+```
+
+### Wrong — backtick is PowerShell, breaks gcloud
+
+```powershell
+# DO NOT do this — gcloud parses backticks as literal characters
+gcloud run deploy dws-iq-backend `
+  --image=europe-north1-docker.pkg.dev/dws-iq-60/dws/api:latest `
+  --region=europe-north1
+```
+
+### Mixed flows (PowerShell script + gcloud)
+
+When a flow mixes `.ps1` and `gcloud`, invoke the `.ps1` via PowerShell from CMD rather than switching shells mid-flow:
+
+```cmd
+powershell -ExecutionPolicy Bypass -File .\script.ps1
+gcloud run deploy dws-iq-backend ^
+  --image=europe-north1-docker.pkg.dev/dws-iq-60/dws/api:latest ^
+  --region=europe-north1
+```
+
+This keeps the parent shell as CMD so all `gcloud` invocations parse correctly, while still letting you reuse existing `.ps1` automation.
+

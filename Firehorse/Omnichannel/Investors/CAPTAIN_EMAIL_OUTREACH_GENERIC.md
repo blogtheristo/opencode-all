@@ -6,7 +6,7 @@
 Version: 1.0
 
 Sessions & Modifications:
-  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-sales-call-script-xg1zO | Date: 21.03.2026 | Changes: Initial creation — generic email outreach templates for 16 EU industries, mirrors CAPTAIN_LINKEDIN_DM_GENERIC.md structure, includes follow-up sequence and API integration
+  - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/improve-sales-call-script-xg1zO | Date: 21.03.2026 | Changes: Initial creation — generic email outreach templates for 25+ EU industries, mirrors CAPTAIN_LINKEDIN_DM_GENERIC.md structure, includes follow-up sequence and API integration
 
 Session Links & References:
   - Claude Code (claude/improve-sales-call-script-xg1zO): https://github.com/blogtheristo/dws6/commits/claude/improve-sales-call-script-xg1zO
@@ -26,7 +26,7 @@ Document Status:
 | **Version** | 1.0 |
 | **Date** | 2026-03-21 |
 | **Funnel Stage** | Stage 1 — First Touch (Email) |
-| **Target** | CDOs, CTOs, CSOs, sustainability leads in 16 EU regulated industries |
+| **Target** | CDOs, CTOs, CSOs, sustainability leads in 25+ EU regulated industries |
 | **Channels** | Email (cold outreach) |
 | **Companion** | `CAPTAIN_LINKEDIN_DM_GENERIC.md` (LinkedIn versions) |
 

@@ -169,7 +169,7 @@ That is terroir. The untranslatable advantage of place, time, and accumulated kn
 
 DWS IQ 6 has terroir:
 
-- **The soil:** 16 EU industries under Fit for 55 regulation. Not a trend. A mandate.
+- **The soil:** 25+ EU industries under Fit for 55 regulation. Not a trend. A mandate.
 - **The vines:** 6 paying customers, 100% retention, €7k MRR. Roots, not projections.
 - **The hillside:** Finland. EU data sovereignty. GAIA-X. The world's happiest country, because it builds systems that work.
 - **The winemaker:** A founder who spent years in industrial construction before writing a single line of code.
@@ -196,7 +196,7 @@ For investor conversations (15-20 min format):
 > DWS IQ 6 has terroir. Let me explain why."
 
 **2. The Soil — Regulatory Mandate (3 min)**
-> "Fit for 55 is not a trend. It is EU law. 16 industries. 50,000+ companies. CSRD mandatory reporting starting 2025. EPBD zero-emission building deadlines in 2027 and 2030. Carbon Border Adjustment in force.
+> "Fit for 55 is not a trend. It is EU law. 25+ industries. 50,000+ companies. CSRD mandatory reporting starting 2025. EPBD zero-emission building deadlines in 2027 and 2030. Carbon Border Adjustment in force.
 >
 > These companies must measure, report, and optimize emissions — or face penalties. Most of them cannot. Their building management systems respond in 2-5 minutes. Regulations move in days. Energy markets move in hours.
 >
@@ -239,7 +239,7 @@ For investor conversations (15-20 min format):
 | Business Angels (€15-50k) | "Be the first to plant in this soil" | 3-4x return at Series A, government customer validation |
 | Nordic Climate Funds | "The terroir is Finnish: EU sovereign, GAIA-X ready, Fit for 55 native" | EU data residency, regulatory moat |
 | Institutional (€100-500k) | "The climate for this vintage is legislative, not cyclical" | CSRD mandate = non-optional market, 100% retention |
-| Impact Investors | "The vineyard feeds the village" | 16 EU industries decarbonized, construction sector transformation |
+| Impact Investors | "The vineyard feeds the village" | 25+ EU industries decarbonized, construction sector transformation |
 
 ***
 

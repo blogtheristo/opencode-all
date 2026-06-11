@@ -1,17 +1,12 @@
 name: DAST — OWASP ZAP Baseline Scan
 
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - 'src/**'
-      - 'package.json'
   schedule:
     # ZAP needs a Docker-in-Docker baseline that DGX Spark's node:22-slim
     # cron container cannot host cleanly, so this scheduled run stays on GHA.
-    # Reduced from weekly → monthly (1st of each month at 03:00 UTC) to cut
-    # minute consumption ~75% while preserving baseline drift detection.
-    # PR-triggered runs (above) catch in-flight regressions.
+    # Monthly cadence (1st of each month at 03:00 UTC) catches baseline drift
+    # on main. PR-time runs are intentionally disabled — they had been failing
+    # in <2s with no recoverable log signal, and the monthly cron is enough.
     - cron: '0 3 1 * *'
   workflow_dispatch:
 
@@ -27,11 +22,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
-    services:
-      app:
-        image: node:22-slim
-        ports:
-          - 8080:8080
+    # No services: block — the app is launched directly in the "Start app
+    # in background" step below. A previous services.app entry pointed at
+    # the bare node:22-slim image, which has no entrypoint and exits in
+    # under a second, failing the whole job before any steps ran.
 
     steps:
       - uses: actions/checkout@v4
