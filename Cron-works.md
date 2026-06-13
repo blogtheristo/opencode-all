@@ -165,21 +165,55 @@ These workflows had their `schedule:` removed. They remain available for manual 
 **After this change:** ~500 min/month = ~$4.00
 **Savings:** ~$14/month (78%)
 
-## Claude Code Routines — Tier 3 Automated Cloud Backup
+## Claude Desktop Scheduled Tasks — Tier 2 Automated Local Backup
 
-Claude Code Routines run on Anthropic-managed cloud infrastructure. They work even when
-DGX Spark is down AND the laptop is off. Configure at [claude.ai/code/routines](https://claude.ai/code/routines)
-or via `/schedule` in the CLI.
+Claude Desktop Scheduled Tasks run on the local Windows machine while the Claude Desktop
+app is open. They persist across restarts and check DGX health before acting.
+Manage via `Settings → Scheduled Tasks` or the `mcp__scheduled-tasks` tools.
 
 ### Architecture
 
 ```
 Tier 1: DGX Spark cron (primary, free, 24/7 ARM64 hardware)
    ↓ heartbeat fails
-Tier 2: Claude Routines (automated cloud backup, subscription usage)
-   ↓ routine disabled / plan limit
+Tier 2: Claude Desktop Tasks (local backup, HIL warning + first-aid boot)
+   ↓ app closed / laptop off
 Tier 3: GHA workflow_dispatch (manual failover, $0.008/min)
 ```
+
+### Tier 2 Failover Protocol (all 5 tasks follow this)
+
+Each Desktop Task runs the same 5-step protocol:
+
+1. **Heartbeat check** — `curl http://192.168.101.113:9999/health`. If healthy → skip.
+2. **HIL warning email** — Sends `[DWS ALERT]` email to `risto.paarni2024@lifetime.fi` via `sendEmail()` (Proton SMTP). Includes timestamp, affected job name, and SSH/dashboard links.
+3. **First-aid boot** — SSH to `admin100@192.168.101.113`, runs `docker compose -f infrastructure/dgx-spark/docker-compose.yml restart`. Waits 30s, re-checks heartbeat.
+4. **Local fallback** — If first-aid fails, runs the backup script locally.
+5. **Report** — Prints summary of DGX status, first-aid result, and backup outcome.
+
+### Active Desktop Scheduled Tasks (Critical Jobs Only)
+
+| Task ID | Schedule (Helsinki) | DGX Script | Why Critical |
+|---|---|---|---|
+| `backup-db` | Daily 06:33 | `scripts/daily/db-backup.sh` | Data loss risk if gaps > 48h |
+| `backup-ted-pipeline` | Daily 09:33 | `scripts/daily/ted-pipeline.sh` | Hard tender deadlines |
+| `backup-morning-briefing` | Daily 07:33 | `scripts/daily/morning-emails.sh` | Operator situational awareness |
+| `backup-security-audit` | Sun 07:33 | `scripts/weekly/security-audit.sh` | Compliance: max 14-day gap |
+| `backup-construction-leads` | Mon-Sat 06:33 | `scripts/daily/construction-leads.sh` | Leads go stale in 24-48h |
+
+### First Run Recommendation
+
+Run each task once manually (`Run now`) to pre-approve tool permissions (Bash, file access).
+Future scheduled runs will reuse the granted permissions without prompting.
+
+## Claude Code Routines — Tier 3 Cloud Backup (Optional)
+
+Claude Code Routines run on Anthropic-managed cloud infrastructure. They work even when
+DGX Spark is down AND the laptop is off. Configure at [claude.ai/code/routines](https://claude.ai/code/routines)
+or via `/schedule` in the CLI.
+
+These are optional — Tier 2 Desktop Tasks handle most failover scenarios.
+Routines add coverage for when the laptop is also off.
 
 ### How Routines Integrate
 
