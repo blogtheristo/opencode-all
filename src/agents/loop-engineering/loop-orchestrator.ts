@@ -44,11 +44,16 @@ export class LoopOrchestrator {
     const { config } = this;
     const stateFilePath = config.stateFilePath;
 
-    // Resolve or create state
+    // Resolve or create state.
+    // We only adopt an existing file when it represents an in-flight run
+    // ('running'). A terminal file (done / budget-exhausted / error) is left
+    // untouched and a fresh state is created — we never overwrite completed
+    // history or inherit a finished run's spend.
     let state: LoopStateFile;
     const existing = config.resumeIfExists ? readState(stateFilePath) : null;
+    const resuming = existing !== null && existing.status === 'running';
 
-    if (existing && existing.status === 'running') {
+    if (existing && resuming) {
       logger.info('Loop resuming from existing state', {
         loopId: existing.id,
         cycles: existing.cycles.length,
@@ -78,9 +83,11 @@ export class LoopOrchestrator {
       eurCap: config.budget.eurCap,
     });
 
-    // Restore budget state if resuming
-    if (existing) {
-      budget.charge(existing.totalTokensIn, 0);
+    // Restore prior spend ONLY when actually resuming a running loop.
+    // Both input AND output tokens are restored — output is the expensive
+    // dimension, so dropping it would let a resumed loop blow past eurCap.
+    if (resuming) {
+      budget.charge(state.totalTokensIn, state.totalTokensOut);
     }
 
     setStatus(state, 'running');

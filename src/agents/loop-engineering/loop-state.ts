@@ -105,17 +105,24 @@ function serialize(state: LoopStateFile): string {
     '',
     ...cyclesMd,
     '',
-    `<!-- machine-readable JSON state below -->`,
-    `<!--JSON:${JSON.stringify(state)}-->`,
+    `<!-- machine-readable state below (base64-encoded JSON — safe for arbitrary Maker output, including '-->') -->`,
+    `<!--JSON-B64:${Buffer.from(JSON.stringify(state), 'utf-8').toString('base64')}-->`,
   ].join('\n');
 }
 
-/** Extract the JSON blob embedded in the MD file. */
+/**
+ * Extract the state blob embedded in the MD file.
+ *
+ * The blob is base64-encoded JSON. Base64's alphabet ([A-Za-z0-9+/=]) cannot
+ * contain '-->', so the closing delimiter is unambiguous even when a cycle's
+ * Maker output contains HTML/JSX/C-style comment tokens.
+ */
 function deserialize(content: string): LoopStateFile | null {
-  const match = content.match(/<!--JSON:(.+?)-->/s);
+  const match = content.match(/<!--JSON-B64:([A-Za-z0-9+/=]+)-->/);
   if (!match) return null;
   try {
-    return JSON.parse(match[1]) as LoopStateFile;
+    const json = Buffer.from(match[1], 'base64').toString('utf-8');
+    return JSON.parse(json) as LoopStateFile;
   } catch {
     return null;
   }
