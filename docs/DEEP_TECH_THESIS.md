@@ -99,7 +99,7 @@ DWS IQ 6 uses Claude (Anthropic), Google Gemini, and Groq as inference engines. 
 
 | Pillar | What it defends | Time to replicate |
 |--------|----------------|-------------------|
-| **Lifetime World Model** | Proprietary regulatory intelligence across 15,000+ documents and 16 industries | 3-5 years (requires domain expertise + iterative platform development) |
+| **Lifetime World Model** | Proprietary regulatory intelligence across 15,000+ documents and 25+ industries | 3-5 years (requires domain expertise + iterative platform development) |
 | **Edge deployment** | Hardware+software integration at industrial sites where cloud can't reach | 2-3 years (requires architecture redesign + embedded engineering + field testing) |
 | **Orchestration architecture** | Model-agnostic compliance engine that survives LLM provider changes | 1-2 years (requires regulatory logic, not just API wrappers) |
 

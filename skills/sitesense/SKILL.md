@@ -1,10 +1,6 @@
 ---
 name: sitesense
-description: >
-  Construction site safety assessment scoring 0–100 with EN 13001 crane
-  warnings, weather risk, and worker safety metrics. Use when: "safety score",
-  "is it safe to work", "site conditions", "crane operation", "weather risk",
-  "construction safety", "site assessment".
+description: "Construction site safety assessment scoring 0–100. EN 13001 crane warnings, weather risk, worker safety metrics."
 argument-hint: "location or siteId, date, activity type"
 allowed-tools: [Bash, WebSearch, WebFetch]
 ---

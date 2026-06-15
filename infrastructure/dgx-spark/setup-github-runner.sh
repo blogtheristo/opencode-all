@@ -97,16 +97,59 @@ UNIT
 
 loginctl enable-linger admin100 2>/dev/null || true
 
+# Install runner-health companion service (HTTP health probe on :9800)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+HEALTH_SCRIPT="${SCRIPT_DIR}/runner-health.sh"
+
+if [ -f "$HEALTH_SCRIPT" ]; then
+  log "Installing runner-health companion service..."
+
+  if ! command -v nc &>/dev/null; then
+    warn "netcat (nc) not found — installing ncat..."
+    sudo apt-get install -y ncat 2>/dev/null || warn "Could not install ncat — runner-health may not work"
+  fi
+
+  cp "$HEALTH_SCRIPT" "$RUNNER_DIR/runner-health.sh"
+  chmod +x "$RUNNER_DIR/runner-health.sh"
+
+  cat > ~/.config/systemd/user/runner-health.service << 'UNIT'
+[Unit]
+Description=GitHub Actions Runner Health Probe (DGX Spark)
+After=github-runner.service
+BindsTo=github-runner.service
+
+[Service]
+Type=simple
+WorkingDirectory=/home/admin100/actions-runner
+ExecStart=/home/admin100/actions-runner/runner-health.sh
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target
+UNIT
+else
+  warn "runner-health.sh not found at ${HEALTH_SCRIPT} — skipping health probe"
+fi
+
 systemctl --user daemon-reload
 systemctl --user enable github-runner.service
 systemctl --user start github-runner.service
 
+# Start health probe if installed
+if [ -f ~/.config/systemd/user/runner-health.service ]; then
+  systemctl --user enable runner-health.service
+  systemctl --user start runner-health.service
+fi
+
 sleep 2
 systemctl --user status github-runner.service --no-pager || true
+systemctl --user status runner-health.service --no-pager 2>/dev/null || true
 
 log ""
 log "=== Runner Setup Complete ==="
 log "Name:   $RUNNER_NAME"
 log "Labels: $LABELS"
 log "Status: systemctl --user status github-runner.service"
+log "Health: systemctl --user status runner-health.service"
 log "Logs:   journalctl --user -u github-runner -f"

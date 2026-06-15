@@ -1,12 +1,6 @@
 ---
 name: clawdbot
-description: >
-  Internal session janitor — mines Claude Code transcripts in
-  ~/.claude/projects/-home-user-dws6/ for unfinished work, generates per-session
-  continuation plans, and resumes them only after explicit human approval. Use when:
-  "clawdbot", "session janitor", "resume past session", "what did I leave unfinished",
-  "scan old sessions", "queue follow-up work", "continue where we left off",
-  "mine transcripts", "session backlog".
+description: "Session janitor. Mines ~/.claude/projects transcripts for unfinished work, builds per-session continuation plans, resumes only after HIL approval."
 argument-hint: "scan | list | status | next | dismiss <id> | done <id>"
 allowed-tools: [Bash, Read, Edit, Write]
 ---

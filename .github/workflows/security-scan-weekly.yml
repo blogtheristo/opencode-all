@@ -1,8 +1,8 @@
 name: Weekly Security Scan - ZenFree
 
 on:
-  schedule:
-    - cron: '0 21 * * 0'  # Every Sunday at 21:00 UTC (9 PM)
+  # Schedule REMOVED 2026-05-25 (#1384) — moved to DGX Spark (scripts/weekly/security-scan.sh)
+  # Was: cron '0 21 * * 0' (Sunday 21:00 UTC)
   workflow_dispatch:  # Allow manual trigger
 
 jobs:

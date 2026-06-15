@@ -112,7 +112,7 @@ Moving from pilots to scalable deployment of AI-driven solutions:
 | DWS6 Component | Apply AI Relevance |
 |----------------|-------------------|
 | **Lifetime Fleet** (Hands) | IoT/Robots for physical execution - directly addresses human-robot collaboration |
-| **Manufacturing Solutions** | One of DWS6's 16 EU industries - digital twins and AI automation applicable |
+| **Manufacturing Solutions** | One of DWS6's 25+ EU industries - digital twins and AI automation applicable |
 | **NVIDIA Jetson Orin Nano** | Edge AI for robotics - aligns with physical AI deployment |
 | **MCP (Model Context Protocol)** | Agent coordination for multi-robot systems |
 | **Temporal.io** | Workflow orchestration for robotic process automation |

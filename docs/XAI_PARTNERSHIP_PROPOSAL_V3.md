@@ -77,7 +77,7 @@ DWS IQ 6 is a **live, revenue-generating product.**
 
 It serves as the **Brain** for industrial sites across the EU:
 - 100% local inference on customer-owned hardware
-- 6 AI agents, MCP orchestration, 16-industry compliance coverage
+- 6 AI agents, MCP orchestration, 25+-industry compliance coverage
 - 60+ public landing pages, 15 CI/CD workflows
 - The only "Last Mile" solution that predicts EU Fit for 55 compliance while maintaining total data sovereignty
 
@@ -217,7 +217,7 @@ Zero code rewrite. Zero downtime. Full audit log created automatically. All 27 E
 
 **What DWS IQ provides:**
 - Pre-built EU regulatory compliance layer (Fit for 55, ETS, CBAM, CSRD, EU AI Act)
-- 16-industry vertical coverage already operational
+- 25+-industry vertical coverage already operational
 - 4-partner hardware stack live (Acer + NVIDIA + Siemens + ABB)
 - Finnish sovereign trust anchor (NATO member, EU founding digital trust zone)
 - Iceye SAR integration (Finnish all-weather satellite data — EU unique situational awareness)
@@ -354,7 +354,7 @@ The DWS IQ Hands layer is robot-hardware-agnostic at the control layer. Optimus 
 | KUKA industrial arms | Open | KUKA KRL + ROS2 |
 | Custom (ROS2-compatible) | Open | Any ROS2 platform |
 
-Being Optimus in the DWS IQ ecosystem means being the **default recommendation** for all 16 industries and all 27 EU countries. Every Captain's Bridge sold is a potential Optimus deployment.
+Being Optimus in the DWS IQ ecosystem means being the **default recommendation** for all 25+ industries and all 27 EU countries. Every Captain's Bridge sold is a potential Optimus deployment.
 
 ---
 

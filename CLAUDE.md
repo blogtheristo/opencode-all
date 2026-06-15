@@ -8,7 +8,12 @@ Ship reliable outcomes fast, but never past security, compliance, or source-of-t
 
 ## Resolver — Standards Documents
 
-Before editing, match the task against this table and load the matching standard. The table is the active routing layer — not a passive bibliography. Load every standard whose trigger fires; if multiple fire, load all matched.
+**Always load first** (meta-standards consulted before any task):
+
+- `DWS_TRUTH_STANDARD.md` — Meta-registry of every internal canonical file. When asserting any DWS fact externally (industry count, product price, captain framework, KYA scoring, etc.), consult this to find the canonical source before propagating the claim.
+- `DWS_ROLES_REGISTRY.md` — Canonical 25-role enterprise taxonomy + 5 buying-journey stages. Source for every standard's optional Roles chapter and every per-customer outreach matrix. Reference roles by R-ID (R01–R25).
+
+**Task-specific routing.** Before editing, match the task against this table and load the matching standard. The table is the active routing layer — not a passive bibliography. Load every standard whose trigger fires; if multiple fire, load all matched.
 
 | If the task touches…                                                                                                                           | Load                              |
 | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
@@ -21,6 +26,8 @@ Before editing, match the task against this table and load the matching standard
 | blog post on `onelifetime.world/blog/`, `dws10.com/blog/`, editorial cadence, LSJ                                                              | `docs/BLOG_STANDARD.md`           |
 | BaseAgent class, new agent in `src/agents/`, autonomy tier, cost budget, agent execution logging, bacterial-code extraction                    | `AI_AGENT_GUIDELINES.md`          |
 | agent topology, signal dependencies (READY / COMPLETE / ERROR / BLOCKED), agent-XX numbering, what unlocks what                                | `AGENTS.md`                       |
+| asserting an industry count, product price, captain hat, KYA tier, role name, or any other "canonical fact"                                    | `DWS_TRUTH_STANDARD.md` → routes to the canonical file for that domain |
+| sales outreach `INTRO_*.md` / `LETTER_*.md` per-customer files, role-by-stage wedge matrix, enterprise funnel stage                            | `DWS_ROLES_REGISTRY.md`           |
 | "which standard governs X?" / index lookup / standards catalogue                                                                               | `DWS_STANDARDS_LIBRARY.md`        |
 
 **Multi-match is normal.** A task that adds a new agent that touches user input + ships a blog post fires four triggers and must load four standards. Do not pick the "most relevant" one — load all matched.
@@ -41,6 +48,7 @@ If the user says **"Use DWS standard"**, apply all relevant standards and update
 8. Validate user input (Zod/validators), use parameterized DB queries, and keep RLS/security posture intact.
 9. Keep edits scoped; do not do unrelated refactors.
 10. Use PowerShell-first command examples on Windows (`.ps1`, `.\script.ps1`).
+11. **`gcloud` is a CMD-based tool, not PowerShell.** All `gcloud` examples MUST use CMD syntax — single-line OR caret (`^`) continuation, never backtick (`` ` ``). PowerShell-first (Rule 10) still applies for `.ps1` scripts and other Windows commands; the CMD rule is specific to `gcloud`. When a flow mixes `.ps1` and `gcloud`, invoke the `.ps1` via `powershell -ExecutionPolicy Bypass -File .\script.ps1` from CMD rather than switching shells mid-flow. See `/gcr-skill`.
 
 ## Source-of-Truth Rules
 

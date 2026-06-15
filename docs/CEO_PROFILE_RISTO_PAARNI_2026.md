@@ -41,7 +41,7 @@ There's a line in Forrest Gump that most people remember for the wrong reason. B
 
 Risto Paarni has spent 35 years in industrial IT. Factory floors in Finland. ERP migrations across Scandinavia. Cloud architecture for manufacturers still running systems from the 1990s. He holds an M.Sc. in Industrial Management — the degree that sits at the intersection of engineering and business, exactly where compliance problems live.
 
-Two years ago he looked at the EU's Fit for 55 package — ETS, CBAM, CSRD, EPBD, and a dozen more regulations hitting 16 industries simultaneously — and saw what no one was building: a single platform that treats every regulation as a data contract, maps them into one system, and automates compliance end-to-end.
+Two years ago he looked at the EU's Fit for 55 package — ETS, CBAM, CSRD, EPBD, and a dozen more regulations hitting 25+ industries simultaneously — and saw what no one was building: a single platform that treats every regulation as a data contract, maps them into one system, and automates compliance end-to-end.
 
 Every regulation tells you what to measure. CBAM tells you what to report at the border. CSRD tells you how to disclose. They aren't separate problems. They're 15,000 rules in one system. And systems are what engineers build.
 
@@ -71,7 +71,7 @@ Not through adversity alone — through intuition, innovation, and the plain joy
 
 The evidence is public. More than 500 pull requests on GitHub — a living codebase, not a slide deck. Three InvestEU listings verifiable on the European Commission's portal.
 
-The DWS IQ platform and the onelifetime.world community exist for a single reason: to fight the climate crisis with the best available technology in each of 16 industries.
+The DWS IQ platform and the onelifetime.world community exist for a single reason: to fight the climate crisis with the best available technology in each of 25+ industries.
 
 When a business angel asks, "Why this founder?" — the answer is the energy behind the work. Seven years of learning, building, and shipping because the problem matters and the craft is worth mastering. A platform validated three times by the European Commission. Revenue from day one through the Fleet division. And a Captain's intuition: Paarni sees where the technology is heading, and he takes genuine pleasure in arriving there first.
 
@@ -84,7 +84,7 @@ A founder with that track record does not walk away at a down round.
 
 ## Page 2 — The Problem: 15,000 Rules, Zero Tools
 
-The EU's Fit for 55 package is the most ambitious climate regulation in history. It covers 16 industries and spans regulations arriving on a compressed timeline:
+The EU's Fit for 55 package is the most ambitious climate regulation in history. It covers 25+ industries and spans regulations arriving on a compressed timeline:
 
 | Regulation | What it demands | Deadline |
 |------------|----------------|----------|
@@ -105,7 +105,7 @@ Why existing tools fail:
 - General-purpose ESG dashboards don't handle regulation-specific logic
 - Consulting firms sell hours, not automation — they don't scale
 - Cloud-only platforms can't serve air-gapped factories or mid-ocean vessels
-- No existing platform covers all 16 industries under one regulatory stack
+- No existing platform covers all 25+ industries under one regulatory stack
 
 The gap is real, the deadline is fixed, and the penalty for non-compliance is market exclusion.
 
@@ -155,7 +155,7 @@ This is what it means when a CEO still writes code. Not a founder who reviews pu
 
 ## Page 4 — The Platform
 
-DWS IQ 6 is a multi-agent AI platform that automates climate compliance across 16 EU industries. The short version: DWS IQ 6 is the orchestration platform. The Lifetime World Model is the proprietary intelligence layer. Together they turn commodity AI into a deep tech compliance engine that runs where cloud can't reach.
+DWS IQ 6 is a multi-agent AI platform that automates climate compliance across **16 captain hats covering 25+ EU industries**. The short version: DWS IQ 6 is the orchestration platform. The Lifetime World Model is the proprietary intelligence layer. Together they turn commodity AI into a deep tech compliance engine that runs where cloud can't reach.
 
 It operates in four layers:
 
@@ -274,7 +274,7 @@ Industrial customers in power generation, chemicals, and maritime handle critica
 
 ## Page 8 — Become Captain of Your Industry
 
-DWS IQ 6 covers 16 EU industries. Paarni is raising EUR 500,000 by offering 8 Platinum Industry Captain seats in the first tranche. The remaining 8 Platinum seats and all Deputy seats open in a second tranche at a higher valuation.
+DWS IQ 6 is organized into **16 captain hats covering 25+ EU industries**. Paarni is raising EUR 500,000 by offering 8 Platinum Industry Captain seats in the first tranche. The remaining 8 Platinum seats and all Deputy seats open in a second tranche at a higher valuation.
 
 **The tagline:** *Become Captain of your industry.*
 

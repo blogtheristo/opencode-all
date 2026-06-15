@@ -31,7 +31,7 @@ DWS7 exploits **4 gaps no competitor fills:**
 
 | Gap | Opportunity | Competitors Missing It |
 |-----|-------------|----------------------|
-| **Unified Fit-for-55 platform** | Single platform for ETS + CBAM + CSRD + ESR across 16 industries | Everyone specializes in one regulation |
+| **Unified Fit-for-55 platform** | Single platform for ETS + CBAM + CSRD + ESR across 25+ industries | Everyone specializes in one regulation |
 | **IoT-to-compliance pipeline** | Sensor data → verified regulatory filings, no manual steps | Schneider does IoT, Persefoni does reporting — nobody bridges them |
 | **Agentic AI compliance** | Multi-agent autonomous compliance checking + report generation | CO2 AI and Schneider are exploring; nobody has shipped it |
 | **Sovereign on-premise AI** | Compliance workloads that cannot leave the customer's premises — local inference on dedicated hardware, EU data residency guaranteed by physics not policy | Every SaaS competitor routes data through US cloud APIs; nobody ships on-premise AI inference as a standard offering |
@@ -172,7 +172,7 @@ The codebase has 3 test files (390 lines). This is the #1 risk for production.
 | 051 | ETS MRV report generator (monitoring plan format) | P0 | Auto-generate Monitoring, Reporting, Verification documents |
 | 052 | ETS verification workflow | P1 | Status tracking: draft → submitted → verified → approved |
 | 053 | ETS compliance calendar with deadline alerts | P1 | Key dates: Mar 31 report, Apr 30 surrender, Sep 30 verification |
-| 054 | ETS sector benchmarks (cement, steel, chemicals) | P1 | Pre-loaded benchmark values for 16 industries |
+| 054 | ETS sector benchmarks (cement, steel, chemicals) | P1 | Pre-loaded benchmark values for 25+ industries |
 | 055 | ETS allowance trading decision support | P2 | Buy/sell recommendation based on position and price forecast |
 | 056 | ETS historical emissions dashboard | P1 | Year-over-year trend visualization, target vs actual |
 | 057 | ETS export to national registry XML format | P1 | Generate submission-ready XML for EU Transaction Log |

@@ -667,7 +667,7 @@ ABB Ability Platform                    DWS7
 | API exploration | Q3 2026 | ABB Ability API access, data format mapping |
 | Pilot connector | Q4 2026 | Energy Manager → DWS7 data pipeline (1 customer site) |
 | Production | Q1 2027 | Multi-site deployment, ABB Marketplace listing |
-| Scale | Q2 2027+ | Cross-sell to ABB installed base across 16 verticals |
+| Scale | Q2 2027+ | Cross-sell to ABB installed base across 25+ verticals |
 
 **Market Opportunity:** ABB's 105,000+ industrial customers in Europe represent the largest addressable market for DWS7's IoT-to-compliance pipeline. Steel, cement, and chemicals verticals overlap directly with EU ETS Phase 4 regulated installations.
 

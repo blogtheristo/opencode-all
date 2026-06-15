@@ -1,9 +1,8 @@
 name: Monthly Security Scan - ZenFree
 
 on:
-  schedule:
-    # Runs at 02:30 UTC on the 1st of each month (monthly — local pre-push hook handles day-to-day)
-    - cron: '30 2 1 * *'
+  # Schedule REMOVED 2026-05-25 (#1384) — moved to DGX Spark (scripts/weekly/security-audit.sh)
+  # Was: cron '30 2 1 * *' (1st of month at 02:30 UTC)
   workflow_dispatch:
 
 jobs:

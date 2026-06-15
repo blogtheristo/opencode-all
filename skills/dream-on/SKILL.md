@@ -1,20 +1,7 @@
 ---
 name: dream-on
 status: EXPERIMENTAL — Claude-internal workflow, not yet cross-surface verified
-description: >
-  EXPERIMENTAL Claude-Code-internal workflow. Walks the offline-reflection
-  loop (scan past sessions, pick next unpromoted dream artifact, build a
-  plan, plan-mode HIL approval, then auto-execute under /goal). Currently
-  verified ONLY in the Claude Code sandbox; the bin/ shell wrappers
-  (bin/dream-on, dream-on.ps1, dream-on.cmd) have NOT been smoke-tested
-  on the HIL's Windows 11 / PowerShell environment, and the feature has
-  no implementation on Claude Desktop or Claude Mobile. Per CLAUDE.md
-  § "Cross-Surface Verification Rule" this skill is NOT a shipped
-  capability — do not call it "the Firehorse Dreaming umbrella" or any
-  brand-level name in user-facing copy. Use when: "dream on", "keep
-  dreaming", "continue dreaming", "auto-dream", "run the dream loop",
-  "next dream pass" — but only inside a Claude CLI session, knowing
-  this is an internal automation pattern, not a productized feature.
+description: "EXPERIMENTAL Claude-Code internal: offline-reflection loop — scan past sessions, pick unpromoted dream artifact, plan, HIL-approve, /goal execute. CLI-only, not productized. See body for cross-surface caveats."
 argument-hint: "[optional topic or proposal path]"
 allowed-tools: [Read, Edit, Write, Bash, ExitPlanMode]
 ---

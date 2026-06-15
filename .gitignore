@@ -133,6 +133,7 @@ investor-outreach/ready_to_send*/
 scripts/investor-contacts.local.json
 
 # --- REPO ARTIFACTS (directory listings, temp files accidentally committed) ---
+artifacts/
 diret
 mcp.json
 pr-description.md

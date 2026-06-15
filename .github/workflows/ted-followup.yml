@@ -3,8 +3,8 @@
 name: TED Follow-up
 
 on:
-  schedule:
-    - cron: '30 7 * * *'
+  # Schedule REMOVED 2026-05-25 (#1384) — DGX Spark is primary (scripts/daily/ted-followup.sh)
+  # Was: cron '30 7 * * *' (daily at 07:30 UTC)
   workflow_dispatch:
 
 jobs:

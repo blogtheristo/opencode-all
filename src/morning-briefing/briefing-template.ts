@@ -282,7 +282,20 @@ function renderSendActionButton(
   return `<a href="${url}" style="display:inline-block;padding:4px 10px;margin:2px 3px 2px 0;background:${color};color:#000;text-decoration:none;font-weight:600;border-radius:4px;font-size:10px;letter-spacing:0.3px;">${esc(label)}</a>`;
 }
 
-function renderSendList(sendList: SendListItem[], baseUrl: string, adminKey: string): string {
+function renderReplyMailto(
+  label: string,
+  color: string,
+  token: string,
+  command: string,
+  replyTo: string,
+): string {
+  const subject = `Re: [T:${token}] ${command}`;
+  const body = `T:${token} ${command}\n\n--\nSent via Morning Briefing reply link.`;
+  const url = `mailto:${encodeURIComponent(replyTo)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  return `<a href="${url}" style="display:inline-block;padding:4px 10px;margin:2px 3px 2px 0;background:${color};color:#fff;text-decoration:none;font-weight:600;border-radius:4px;font-size:10px;letter-spacing:0.3px;">${esc(label)}</a>`;
+}
+
+function renderSendList(sendList: SendListItem[], baseUrl: string, adminKey: string, replyTo: string): string {
   if (sendList.length === 0) {
     return `
       <tr><td style="padding: 16px 20px;">
@@ -341,6 +354,16 @@ function renderSendList(sendList: SendListItem[], baseUrl: string, adminKey: str
           buttons = btnPartner + btnSales;
         } else {
           buttons = btnInvestor + btnSales + btnPartner;
+        }
+
+        // Reply-by-mailto status actions — one click → mail client opens with
+        // pre-filled "T:xxx park" body. User hits Send. Parser flips status,
+        // entry disappears from tomorrow's brief. No copy-paste of codes.
+        if (replyTo) {
+          buttons +=
+            ' &nbsp; ' +
+            renderReplyMailto('Park', '#6b7280', item.thread_token, 'park', replyTo) +
+            renderReplyMailto('Pass', '#7c2d12', item.thread_token, 'pass', replyTo);
         }
       }
 
@@ -768,6 +791,88 @@ function renderHilTodosPlainText(data: HilTodosData): string {
 // MAIN TEMPLATES
 // ============================================================================
 
+// ============================================================================
+// SALES BRIEF — slim weekday brief, fires from MorningBriefingScheduler
+// ============================================================================
+
+/**
+ * Build the Sales Brief HTML email — outreach + send list + leads + inquiries.
+ * Skips the CEO-strategy sections (3 changes / bets / risk / momentum / metrics)
+ * so the operator can scan the actionable pipeline in under a minute.
+ */
+export function buildSalesBriefHtml(data: CockpitData, baseUrl?: string): string {
+  const apiBaseUrl = baseUrl || process.env.BACKEND_URL || 'https://localhost:8080';
+  const adminKey = process.env.ADMIN_API_KEY || '';
+  const replyTo = process.env.OUTREACH_REPLY_TO_EMAIL || process.env.EMAIL_FROM || '';
+
+  return `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin: 0; padding: 0; background-color: #0a0a0a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 520px; margin: 0 auto; background-color: #111;">
+    <tr>
+      <td style="padding: 20px; background: linear-gradient(135deg, #111 0%, #1a2e1a 100%); border-bottom: 2px solid #00d4aa;">
+        <h1 style="margin: 0; font-size: 16px; color: #00d4aa; letter-spacing: -0.3px;">Sales Brief</h1>
+        <p style="margin: 4px 0 0; font-size: 12px; color: #666;">${esc(data.dateFormatted)}</p>
+      </td>
+    </tr>
+
+    ${renderOutreachSummaryHtml(data.outreachSummary)}
+    ${renderCaptainInquiriesHtml(data.captainInquiries)}
+    ${renderConstructionLeadsHtml(data.constructionLeads)}
+
+    <tr><td style="padding: 0 20px;"><hr style="border: none; border-top: 2px solid #222; margin: 0;"></td></tr>
+
+    ${renderSendList(data.sendList, apiBaseUrl, adminKey, replyTo)}
+
+    <tr>
+      <td style="padding: 12px 20px; text-align: center;">
+        <p style="margin: 0; font-size: 10px; color: #333;">DWS IQ 6 — Sales Brief</p>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+}
+
+/**
+ * Plain-text fallback for the Sales Brief.
+ */
+export function buildSalesBriefPlainText(data: CockpitData): string {
+  const lines: string[] = [];
+
+  lines.push(`SALES BRIEF — ${data.dateFormatted}`);
+  lines.push('='.repeat(50));
+  lines.push('');
+
+  lines.push(renderOutreachSummaryPlainText(data.outreachSummary));
+  lines.push('');
+  lines.push(renderCaptainInquiriesPlainText(data.captainInquiries));
+  lines.push('');
+  lines.push(renderConstructionLeadsPlainText(data.constructionLeads));
+  lines.push('');
+
+  lines.push(`SEND LIST (${data.sendList.length})`);
+  lines.push('-'.repeat(50));
+  if (data.sendList.length === 0) {
+    lines.push('Pipeline quiet. Source new contacts today.');
+  } else {
+    for (const item of data.sendList) {
+      const org = item.org ? ` (${item.org})` : '';
+      lines.push(`  [${item.pipeline}] ${item.name}${org}`);
+      lines.push(`    -> ${item.action}`);
+      if (item.thread_token) {
+        lines.push(`    Reply "T:${item.thread_token} park" to drop from tomorrow's brief.`);
+      }
+    }
+  }
+  lines.push('');
+  lines.push('--');
+  lines.push('DWS IQ 6 — Sales Brief');
+
+  return lines.join('\n');
+}
+
 /**
  * Build the CEO Cockpit HTML email.
  * @param data Cockpit data
@@ -776,6 +881,7 @@ function renderHilTodosPlainText(data: HilTodosData): string {
 export function buildCockpitHtml(data: CockpitData, baseUrl?: string): string {
   const apiBaseUrl = baseUrl || process.env.BACKEND_URL || 'https://localhost:8080';
   const adminKey = process.env.ADMIN_API_KEY || '';
+  const replyTo = process.env.OUTREACH_REPLY_TO_EMAIL || process.env.EMAIL_FROM || '';
 
   return `<!DOCTYPE html>
 <html>
@@ -805,7 +911,7 @@ export function buildCockpitHtml(data: CockpitData, baseUrl?: string): string {
     <!-- Divider -->
     <tr><td style="padding: 0 20px;"><hr style="border: none; border-top: 2px solid #222; margin: 0;"></td></tr>
 
-    ${renderSendList(data.sendList, apiBaseUrl, adminKey)}
+    ${renderSendList(data.sendList, apiBaseUrl, adminKey, replyTo)}
 
     <!-- Footer -->
     <tr>

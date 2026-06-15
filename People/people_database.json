@@ -34,7 +34,11 @@
         "Product Strategy",
         "Enterprise Sales"
       ],
-      "languages": ["Finnish", "English", "Swedish"],
+      "languages": [
+        "Finnish",
+        "English",
+        "Swedish"
+      ],
       "certifications": []
     },
     "relationship": {
@@ -54,7 +58,10 @@
         "active",
         "vip"
       ],
-      "products": ["firehorse", "dws-iq"],
+      "products": [
+        "firehorse",
+        "dws-iq"
+      ],
       "interests": [
         "Carbon reporting and sustainability",
         "Construction digitalization",
@@ -125,7 +132,14 @@
         "Fit for 55 Compliance",
         "Natural Language Processing"
       ],
-      "languages": ["English", "Finnish", "Swedish", "Norwegian", "Danish", "German"],
+      "languages": [
+        "English",
+        "Finnish",
+        "Swedish",
+        "Norwegian",
+        "Danish",
+        "German"
+      ],
       "certifications": []
     },
     "relationship": {
@@ -145,7 +159,10 @@
         "active",
         "no-dpa"
       ],
-      "products": ["firehorse", "dws-iq"],
+      "products": [
+        "firehorse",
+        "dws-iq"
+      ],
       "interests": [
         "Portfolio risk assessment",
         "Fit for 55 compliance monitoring",
@@ -608,7 +625,12 @@
         "Multi-Jurisdiction Compliance",
         "EU Regulatory Frameworks"
       ],
-      "languages": ["Norwegian", "Danish", "English", "Swedish"],
+      "languages": [
+        "Norwegian",
+        "Danish",
+        "English",
+        "Swedish"
+      ],
       "certifications": []
     },
     "relationship": {
@@ -633,7 +655,10 @@
         "linkedin-first-view",
         "sales-pipeline"
       ],
-      "products": ["dws-iq", "firehorse"],
+      "products": [
+        "dws-iq",
+        "firehorse"
+      ],
       "interests": [
         "CSRD-ESRS multi-jurisdiction reporting",
         "EU Taxonomy CapEx/OpEx alignment",
@@ -659,6 +684,105 @@
     "metadata": {
       "created_at": "2026-04-02T07:00:00Z",
       "updated_at": "2026-04-06T12:00:00Z",
+      "created_by": "risto-001",
+      "updated_by": "claude-code"
+    }
+  },
+  {
+    "id": "susanna-hypponen-001",
+    "type": "partner",
+    "status": "prospect",
+    "personal": {
+      "first_name": "Susanna",
+      "last_name": "Hyppönen",
+      "full_name": "Susanna Hyppönen",
+      "title": "AI Governance & Data Protection Professional · Author",
+      "email": "",
+      "phone": "",
+      "linkedin": "https://www.linkedin.com/in/susannaph",
+      "photo_url": ""
+    },
+    "organization": {
+      "company": "Independent / Alma Insights (author)",
+      "department": "Data Protection & AI Governance",
+      "role": "AI Governance & Data Protection Professional, DPO, Author",
+      "location": {
+        "city": "",
+        "country": "Finland",
+        "region": "Nordic"
+      }
+    },
+    "professional": {
+      "education": "",
+      "expertise": [
+        "AI Governance",
+        "Data Protection & GDPR",
+        "EU AI Act",
+        "CSRD",
+        "DPIAs",
+        "Risk & Compliance",
+        "Policy & Process Development",
+        "Change & Project Management",
+        "Service Design & Lean",
+        "ISO/IEC 42001 (AI Management System)",
+        "ISO/IEC 27001:2022",
+        "ISO 9001:2015",
+        "QEHS"
+      ],
+      "languages": [
+        "Finnish",
+        "English"
+      ],
+      "certifications": []
+    },
+    "relationship": {
+      "tags": [
+        "partner",
+        "advisor",
+        "consultant",
+        "prospect",
+        "data-protection",
+        "tietosuojajohtaminen",
+        "ai-governance",
+        "gdpr",
+        "eu-ai-act",
+        "iso-42001",
+        "iso-27001",
+        "dpia",
+        "dpo",
+        "csrd",
+        "author",
+        "nordic",
+        "compliance-hub",
+        "legal-hub"
+      ],
+      "products": [
+        "dws-iq"
+      ],
+      "interests": [
+        "Data protection management (tietosuojajohtaminen)",
+        "AI Management Systems (ISO 42001)",
+        "AI risk management & governance",
+        "GDPR / DPIA practice",
+        "EU AI Act readiness"
+      ],
+      "engagement_level": "low",
+      "last_contact": "2026-06-10",
+      "outreach_status": "first-contact",
+      "outreach_channel": "Business card",
+      "next_action": "Connect on LinkedIn (in/susannaph). Reference Tietosuojajohtaminen (Alma Insights, 2026) and the ISO 42001 / EU AI Act overlap with DWS AI governance + KYA. Do not explain GDPR/AI Act — she authored the field.",
+      "notes": "AI Governance & Data Protection professional with a business background; experience as consultant, privacy manager, and DPO across controllers and processors. Currently focused on AI Management Systems, AI governance capabilities, and AI risk management. Co-author of 'Tietosuojajohtaminen' (Data Protection Management), Alma Insights 2026, ISBN 978-952-14-5353-3, hardcover 432pp, with Miia Kataja and Titta Penttilä — https://kirjakauppa.almainsights.fi/sivu/tuote/tietosuojajohtaminen/5537565 . DWS FIT: maps directly onto the DWS IQ compliance/sovereignty stack — ISO 42001 AIMS underpins DWS AI governance + KYA; GDPR aligns with EU-sovereign data posture; CSRD/DPIA overlap regulatory-radar & compliance agent. Engagement angle: advisory / thought-leadership on data protection management + potential channel referral. Possible Digia Hub channel overlap (Lifetime Oy is a Digia Hub partner company). INTERNAL ONLY — do not name on public Legal/Compliance Hub pages until a relationship is established. Captured from business card 2026-06-10."
+    },
+    "business": {
+      "contract_value": 0,
+      "contract_start": null,
+      "contract_end": null,
+      "payment_terms": "",
+      "projects": []
+    },
+    "metadata": {
+      "created_at": "2026-06-10T00:00:00Z",
+      "updated_at": "2026-06-10T00:00:00Z",
       "created_by": "risto-001",
       "updated_by": "claude-code"
     }

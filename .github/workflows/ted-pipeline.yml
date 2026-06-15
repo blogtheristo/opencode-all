@@ -7,8 +7,8 @@
 name: TED Pipeline
 
 on:
-  schedule:
-    - cron: '0 6 * * *'
+  # Schedule REMOVED 2026-05-25 (#1384) — DGX Spark is primary (scripts/daily/ted-pipeline.sh)
+  # Was: cron '0 6 * * *' (daily at 06:00 UTC)
   workflow_dispatch:
     inputs:
       fetch_only:

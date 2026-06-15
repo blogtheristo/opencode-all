@@ -3,9 +3,11 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 1.6
 
 Sessions & Modifications:
+  - Version: 1.6 | Tool: Claude Code (Opus 4.7) | Session: claude/lwm-price-estimate-study-IXS4l | Date: 23.05.2026 | Changes: Pinned V2 / Situation Room timing to **DWS IQ 7 Phase 4 (Nov 2026 – Jan 2027)** per DWS7_ROADMAP.md. Earlier "DWS IQ 7" wording risked being read as "DWS IQ 7 GA = Q4 2027" — a 10-month overstatement of the customer-facing wait. Phase 4 is the actual Intelligence Layer milestone that ships V2. Also surfaces the IQ 8 mismatch: DWS IQ 8 GA = Q3-Q4 2029, hardware-bound to NVIDIA Feynman silicon — not a viable "later" option for V2 / Situation Room without a 3-year delay.
+  - Version: 1.5 | Tool: Claude Code (Opus 4.7) | Session: claude/lwm-price-estimate-study-IXS4l | Date: 23.05.2026 | Changes: Appended "Training Economics Addendum (LWM2)" — separates the V1 per-industry fine-tune economics (now ~$10 USD on Colab Pro+ A100 80GB, an order of magnitude under the manual's €50–70 figure) from the V2 NVFP4 pretrain economics (still B100/B200/GB10 class, justifies DGX Cloud / Brev premium). Confirms the two-budget split: V1 fine-tunes go cheap-cloud, V2 omnimodal pretrain stays on Blackwell silicon.
   - Version: 1.4 | Tool: Claude Code (Opus 4.7) | Session: claude/industries-hub-worldmodel-lJrC6 | Date: 15.05.2026 | Changes: Promoted **`nvidia/Gemma-4-31B-IT-NVFP4`** to canonical spike model — first-party NVIDIA release with documented **99.7% accuracy retention on GPQA (75.46% vs 75.71%)**, ~16 GB on disk, attention kept in BF16 (matches arxiv:2509.25149 §3 selective-precision pattern), 256K context preserved. Kept drawais Qwen3 variants as recipe-contrast points. The three models now stake out three points on the quantization-recipe surface (skip-attention, quantize-everything, SpinQuant) for our 55B LWM PTQ decision.
   - Version: 1.3 | Tool: Claude Code (Opus 4.7) | Session: claude/industries-hub-worldmodel-lJrC6 | Date: 15.05.2026 | Changes: Added `drawais/Qwen3-32B-NVFP4` as the headline spike model (Apache-2.0, dense 32B, **W4A4**, ~17 GB on disk, fits a single 24 GB consumer GPU). 32B is the closest publicly available proxy for an LWM-class checkpoint on a control-room-class box. Kept the 8B variant as a laptop fallback and added a model-selection table.
   - Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/industries-hub-worldmodel-lJrC6 | Date: 15.05.2026 | Changes: Added "Easiest path to actually try NVFP4 inference today" subsection under V1 — 3-line vLLM + `drawais/Qwen3-8B-SpinQuant-NVFP4` recipe for a 15-minute spike, plus framing of what the spike does and does not validate. Also bumped "23 industry evals" → "25 industry evals" to align with the registry reconciliation.
@@ -165,7 +167,9 @@ That's it — no code changes, no recipe tuning, no quantization work of our own
 
 Owner for the spike: whoever's first to a GN-100 / Spark / 4090+ with an idle hour. Default model: **`nvidia/Gemma-4-31B-IT-NVFP4`** if the GPU is ≥24 GB, else `drawais/Qwen3-8B-SpinQuant-NVFP4`. Result: a one-page tok/s + memory + GPQA comparison appended to this note as Appendix B.
 
-### V2 Omnimodal / Video — November 2026 (DWS IQ 7)
+### V2 Omnimodal / Video — DWS IQ 7 Phase 4 (Nov 2026 – Jan 2027)
+
+> **Timing note (locked 23.05.2026):** V2 ships as part of **DWS IQ 7 Phase 4 "Intelligence Layer"** per `DWS7_ROADMAP.md` line 75. Not DWS IQ 7 GA (Q4 2027) and not DWS IQ 8 (Q3–Q4 2029). Phase 4 is the actual customer-facing milestone. See PRs 177A–177D in `DWS7_ROADMAP.md` for the Situation Room product-surface work that consumes this V2 model.
 
 **Design for NVFP4 from day one.** Video tokens are the killer use case:
 - Video at 8 FPS × 6 months on-site = **billions of vision tokens** per construction project
@@ -196,7 +200,7 @@ This is the alignment point with the **world-model V1→V2 roadmap** we just shi
 
 ## One-line thesis
 
-> NVFP4 is the format that makes a 100B-class on-prem world model fit in a single control-room chassis. The paper proves the recipe works at 12B / 10T tokens. We pre-commit to NVFP4 for LWM V2 (November 2026) and decide on an NVFP4 V1.1 inference path before June 12.
+> NVFP4 is the format that makes a 100B-class on-prem world model fit in a single control-room chassis. The paper proves the recipe works at 12B / 10T tokens. We pre-commit to NVFP4 for LWM V2 (**DWS IQ 7 Phase 4 — Nov 2026 / Jan 2027**) and decide on an NVFP4 V1.1 inference path before June 12.
 
 ---
 
@@ -228,13 +232,13 @@ The repo currently disagrees with itself on how many EU-regulated industries the
 A repo-wide reconciliation pass to bring every other doc to **25**. Files known to need editing:
 
 - `README.md` (3 occurrences of "20 industries" / "20 industry verticals")
-- `DWS7_ROADMAP.md` (5+ occurrences of "16 industries" / "16 industrial customers" — separate concept; review whether customer count should follow registry)
+- `DWS7_ROADMAP.md` (5+ occurrences of "25+ industries" / "16 industrial customers" — separate concept; review whether customer count should follow registry)
 - `DWS8_ROADMAP.md` (3 occurrences of "20 industries")
 - `Store/PRODUCT_AEGIS.md` (5 occurrences of "21 industries" — Aegis SKU description)
 - `Learn/PHD_FIREHORSE_EN.md` (mixed 16 + 20 within same doc — needs careful pass since PhD-thesis scope rule applies)
 - `Learn/V3Thesis_EN.html` + `docs/metropolia/master-thesis/en/V3Thesis_EN.md` + FI mirror (thesis-rule: all 4 files together per CLAUDE.md)
 - `INVESTOR_EMAIL_TEMPLATES.md` (3 occurrences of "20 industries", incl. Industry Captain seat description)
-- `ONTOLOGY.md` (2 occurrences of "16 industries")
+- `ONTOLOGY.md` (2 occurrences of "25+ industries")
 - `CHANGELOG.md` (historical note "16 to 20 industries" — leave as-is for audit trail)
 - `Firehorse/Omnichannel/Investors/*.md` (CAPTAIN_ACQUISITION_FUNNEL, INDEX, OUTREACH_WORKFLOW)
 - `dws10.com/index.html` line 1436 / 1442: "21 industry applications" / "Body: 21 industry-specific applications"
@@ -251,3 +255,58 @@ Both have moved from "watch list" to "in scope" in 2026:
 - **RFNBO** — RED III Delegated Acts (Article 27) on additionality, temporal and geographic correlation are binding from 2026; the Finnish hydrogen valleys (Joutseno, Kokkola, Inkoo) need certification infrastructure DWS IQ can provide.
 
 These are commitments, not aspirations. Industry models 24 (Data Centres) and 25 (RFNBO) enter the LWM V1 training set before June 12 2026 ship.
+
+---
+
+## Training Economics Addendum (LWM2 / V2 vs V1, 23.05.2026)
+
+This addendum separates the **per-industry fine-tune economics (V1, June 2026)** from the **omnimodal pretrain economics (V2, November 2026)**. The two budgets do not share a cost surface — V1 lives on cheap A100 cloud, V2 lives on Blackwell silicon — and conflating them was the largest budgeting error in the earlier roadmap drafts.
+
+Detail study: `docs/field-notes/2026-05-23-lwm-price-estimate-colab-vs-nvidia-cloud.md`.
+
+### LWM V1 per-industry fine-tune (one 9B model, one industry)
+
+Observed run on Colab Pro+, A100 80GB, 22–23 May 2026, end-to-end (train + eval + validation + GGUF/MLX conversion). The pattern: Codex + computer-use Chrome extension steps the notebook unattended overnight; SLM engineer touches the job at kickoff and at morning verification only.
+
+| Line item | Quantity | Rate | Cost |
+|---|---:|---:|---:|
+| GPU compute (A100 80GB, ~10.25 h) | one cycle | ~€9 (Colab) to €25 (Brev/CoreWeave) | **€9–€25** |
+| Claude API data generation | per industry | per training-manual | **€40–€60** |
+| **SLM engineer (€100/h)** — kickoff 0.5 h + morning verify 0.5 h + smoke test 0.5 h | **1.5 h** | **€100/h** | **€150** |
+| **Total per industry (cheap-cloud path)** | | | **€199–€235** |
+| **Total per industry (Lambda EU sovereign path)** | | | **€207–€243** |
+| **Total per industry (on-prem GN-100, electricity only)** | | | **€195–€220** (€5–8 electricity + €150 engineer + €40–60 API) |
+
+**Read:** with engineer time baked in, the *delta* between Colab and on-prem GN-100 collapses to ~€20/industry. Hardware amortization on the GN-100 is justified by sovereignty and operational autonomy, not by cost saving. The thing that actually saves money is **driving engineer touch-time down** — the Codex/computer-use unattended loop is the real cost lever, not the GPU price.
+
+25-industry V1 coverage rebenched:
+- Cheap-cloud path: **€4 975–€5 875**
+- Sovereign Lambda EU path: **€5 175–€6 075**
+- On-prem GN-100: **€4 875–€5 500** (ignoring sunk hardware)
+
+### LWM V2 NVFP4 pretrain (omnimodal, Nov 2026)
+
+V2 is a different animal. The §"V2 omnimodal" subsection above identifies it as the place to apply NVFP4 from day one. That means:
+
+| Line item | Quantity | Rate | Cost |
+|---|---:|---:|---:|
+| GPU compute — Blackwell tensor cores required (B100/B200/GB10) | NVFP4-native pretrain pass | not addressable on A100 cloud | **DGX Cloud / Brev tier only** |
+| GPU $/h benchmark (H100 PCIe ~$2.49; B200 ~$4–$6; DGX Cloud 8×H100 ~$36 999/mo ≈ $51/h cluster) | — | — | order-of-magnitude higher than V1 |
+| SLM engineer (€100/h) — attended ramp + checkpoint monitoring + recipe tuning | **40–80 h per pretrain run** | **€100/h** | **€4 000–€8 000** |
+| Data curation pipeline (video + audio + structured site state) | per pretrain | — | **€10 000+** (one-off) |
+| **Total per V2 pretrain attempt (order of magnitude)** | | | **€50 000–€150 000** |
+
+**Read:** V2 cannot ride the Colab path. NVFP4 needs Blackwell silicon, the dataset is omnimodal (video/audio explode the token budget), and the engineering loop is attended — checkpoints must be diffed, recipes tuned, collapse detection run. This is the workload where **NVIDIA DGX Cloud or Brev on B200 is correctly priced**; the per-engineer-hour line dominates compute by 10×, which inverts the V1 picture.
+
+### Two-budget split (lock this)
+
+| Budget bucket | Used for | Cost surface |
+|---|---|---|
+| **V1 fine-tune budget** | 25-industry per-vertical SLMs | €200/industry, ~€5K for 25 industries |
+| **V2 pretrain budget** | One NVFP4-native omnimodal model | €50K–€150K per pretrain attempt |
+
+Do not let V2 cost assumptions leak into V1 plans, and vice versa. They are not the same product.
+
+### What this changes in this lab note
+
+The model-selection table earlier in this note (Gemma-4-31B-IT-NVFP4 / Qwen3-32B-NVFP4 / Qwen3-8B-SpinQuant-NVFP4) is **V1 PTQ territory** — pick one and ship. The NVFP4 *pretraining* recipe from arxiv:2509.25149 is **V2 territory** — staff and budget accordingly.

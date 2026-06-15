@@ -111,6 +111,16 @@ const posts = [
     title: 'The Moat Is Not the Model — NVIDIA Makes It Possible, EU-Sovereign Deployment Makes It Defensible',
     date: '17 May 2026',
   },
+  {
+    file: 'sovereignty-field-note-2-three-pillars.html',
+    title: 'Sovereignty Field Note #2 — The Three Pillars Every Global Enterprise Needs',
+    date: '28 May 2026',
+  },
+  {
+    file: 'sovereignty-field-note-2-three-pillars.fi.html',
+    title: 'Suvereniteetin kenttämuistio #2 — Digitaalisen suvereniteetin kolme tasoa (FI)',
+    date: '28 May 2026',
+  },
 ];
 
 // Three featured products

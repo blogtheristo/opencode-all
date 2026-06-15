@@ -798,6 +798,90 @@ async function cmdSovereigntyAssess(inputJson: string, useStdin: boolean): Promi
   }
 }
 
+// ============ SOVEREIGNTY PILLARS ASSESSMENT ============
+
+async function cmdSovereigntyPillarsAssess(inputPath: string, useStdin: boolean): Promise<void> {
+  const { spawn } = await import('node:child_process');
+  const { existsSync } = await import('node:fs');
+  const { join, dirname } = await import('node:path');
+  const { fileURLToPath } = await import('node:url');
+
+  const __dirname = dirname(fileURLToPath(import.meta.url));
+  const scriptCandidates = [
+    join(__dirname, '..', '..', 'scripts', 'sovereignty-pillars-assess.cjs'),
+    join(process.cwd(), 'scripts', 'sovereignty-pillars-assess.cjs'),
+  ];
+  const scriptPath = scriptCandidates.find((p) => existsSync(p));
+
+  if (!scriptPath) {
+    error(
+      'sovereignty-pillars-assess scorer not found.',
+      'Expected scripts/sovereignty-pillars-assess.cjs in the repo root.',
+    );
+  }
+
+  if (!useStdin && !inputPath) {
+    error(
+      'No input specified.',
+      'dws sovereignty-pillars-assess <input.json>\n  echo \'{...}\' | dws sovereignty-pillars-assess --stdin',
+    );
+  }
+
+  const args = useStdin ? ['--stdin'] : [inputPath];
+  const child = spawn('node', [scriptPath, ...args], {
+    stdio: useStdin ? ['inherit', 'pipe', 'inherit'] : ['ignore', 'pipe', 'inherit'],
+  });
+
+  let out = '';
+  child.stdout.on('data', (chunk) => {
+    out += chunk.toString();
+  });
+
+  const code: number = await new Promise((resolve) => {
+    child.on('close', (c) => resolve(c ?? 1));
+  });
+
+  if (code !== 0) {
+    error(`sovereignty-pillars-assess exited with code ${code}`);
+  }
+
+  let parsed: Record<string, unknown>;
+  try {
+    parsed = JSON.parse(out);
+  } catch {
+    process.stdout.write(out);
+    return;
+  }
+
+  if (!JSON_MODE && process.stdout.isTTY) {
+    const scores = parsed.scores as Record<string, Record<string, number>>;
+    const tier = parsed.overall_tier_recommendation as string;
+    const readiness = parsed.quantum_readiness as string;
+    const refer = parsed.rsac2_referral_recommended as boolean;
+
+    console.log('');
+    console.log(fmt.bold('  Sovereignty Pillars Assessment'));
+    console.log('');
+    console.log(fmt.dim('  Pillar triple (SIB / CSB / EAB) per jurisdiction:'));
+    for (const j of ['EU', 'US', 'SG']) {
+      const s = scores[j];
+      console.log(`  ${j}   SIB ${String(s.SIB).padStart(3)}   CSB ${String(s.CSB).padStart(3)}   EAB ${String(s.EAB).padStart(3)}`);
+    }
+    console.log('');
+    const tierColor = tier === 'Aegis' ? fmt.green : tier === 'Sovereign Infra' ? fmt.cyan : fmt.yellow;
+    console.log(`  Tier            ${tierColor(tier)}`);
+    const readyColor =
+      readiness === 'ready' ? fmt.green : readiness === 'roadmap' ? fmt.yellow : fmt.red;
+    console.log(`  Quantum         ${readyColor(readiness)}`);
+    console.log(`  R-Sac referral  ${refer ? fmt.cyan('YES (Rightful Oy)') : fmt.dim('no')}`);
+    console.log('');
+    console.log(fmt.dim('  Next step: ') + (parsed.next_step_attestation as string));
+    console.log('');
+  } else {
+    output(parsed);
+  }
+}
+
 // ============ SCENARIO SHORTCUTS ============
 
 const SCENARIOS: Record<
@@ -1417,6 +1501,7 @@ WORKFLOWS:
 SOVEREIGNTY:
   dws sovereignty-assess --input '{...}'  Scan database for EU sovereignty compliance
   dws sovereignty-assess --stdin          Read config from stdin
+  dws sovereignty-pillars-assess <file>   Score architecture against three-pillar x three-jurisdiction model
 
 MCP:
   dws mcp tools                           List MCP tools
@@ -2027,6 +2112,10 @@ async function main(): Promise<void> {
         await cmdSovereigntyAssess(flags.input || '', flags.stdin === 'true');
         break;
 
+      case 'sovereignty-pillars-assess':
+        await cmdSovereigntyPillarsAssess(subcommand || positional[0] || '', flags.stdin === 'true');
+        break;
+
       case 'profile':
         await cmdProfile();
         break;
@@ -2092,6 +2181,7 @@ async function main(): Promise<void> {
           'init',
           'demo',
           'sovereignty-assess',
+          'sovereignty-pillars-assess',
           'profile',
           'notifications',
           'dashboard',

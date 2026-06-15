@@ -313,7 +313,7 @@ A = autoresearch improvement factor (capped, validated on industry proxy metrics
 
 ### 3.2 KYA Trust Score Ranges (v1.4 — with Financial Multiplier)
 
-| ATS Range | KYA Score | Permission Level                  | Financial Multiplier (16 industries) | Decision          |
+| ATS Range | KYA Score | Permission Level                  | Financial Multiplier (25+ industries) | Decision          |
 | --------- | --------- | --------------------------------- | ------------------------------------ | ----------------- |
 | >= 0.80   | >= 80     | Full sandbox + Autoresearch swarm | 1.8–3.2x OPEX savings/yr             | **GO + Monetize** |
 | 0.50–0.79 | 50–79     | Restricted + limited autoresearch | 1.3–2.0x                             | **GO** (limited)  |

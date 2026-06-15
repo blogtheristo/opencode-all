@@ -5,6 +5,7 @@
  * Usage: Add this script to any page:
  * <script src="/shared-assets/footer/ironclad-footer.js"></script>
  *
+ * v1.3 — 2026-05-31: Add ethics principle band (human-in-command).
  * v1.2 — 2026-04-06: Nordic Industrial rebrand — "Built in Finland" badge, IBM Plex Sans font
  * v1.1 — 2026-03-15: Add Firehorse Mobile Google Play badge
  * v1.0 — Initial release: 5-column links, payment methods, legal bar, locale buttons
@@ -17,13 +18,17 @@
   'use strict';
 
   const hostname = window.location.hostname;
-  const regulatoryNoticeHref =
-    hostname === 'dws10.com' || hostname === 'www.dws10.com'
-      ? '/regulatory-notice/'
-      : 'https://dws10.com/legal/';
+  const onDws10 = hostname === 'dws10.com' || hostname === 'www.dws10.com';
+  // Footer pages physically live on dws10.com. When this footer is embedded on
+  // lifetime.fi / onelifetime.world, root-relative paths would 404, so resolve
+  // them against dws10.com instead. On dws10.com itself contentBase is empty,
+  // leaving the existing same-origin links untouched.
+  const contentBase = onDws10 ? '' : 'https://dws10.com';
+  const regulatoryNoticeHref = onDws10 ? '/regulatory-notice/' : 'https://dws10.com/legal/';
+  const privacyPolicyHref = onDws10 ? '/privacy-policy/' : 'https://dws10.com/privacy-policy/';
 
   const footerCSS = `
-/* === DWS10.com Iron Clad Footer v1.2 === */
+/* === DWS10.com Iron Clad Footer v1.3 === */
 .ironclad-footer { background: #1e293b; border-top: 1px solid #334155; color: #94a3b8; font-size: 0.875rem; font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif; }
 .ironclad-footer-finland { max-width: 1200px; margin: 0 auto; padding: 16px 20px 0; display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: #8fbc8f; font-weight: 600; letter-spacing: 0.02em; }
 .ironclad-footer-finland svg { flex-shrink: 0; }
@@ -44,6 +49,7 @@
 .ironclad-footer-legal a { color: #64748b; font-size: 0.8rem; }
 .ironclad-footer-legal a:hover { color: #60a5fa; }
 .ironclad-footer-copyright { width: 100%; text-align: center; color: #64748b; font-size: 0.8rem; padding-top: 16px; margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.05); }
+.ironclad-footer-principle { max-width: 1200px; margin: 0 auto; padding: 20px 20px 0; text-align: center; font-size: 0.8rem; line-height: 1.5; color: #8fbc8f; font-weight: 600; letter-spacing: 0.02em; }
 .ironclad-footer-app { max-width: 1200px; margin: 0 auto; padding: 0 20px 24px; display: flex; align-items: center; gap: 16px; }
 .ironclad-footer-app-badge { display: inline-flex; align-items: center; gap: 10px; background: #000; border: 1px solid #475569; border-radius: 8px; padding: 8px 16px 8px 12px; color: #fff; text-decoration: none !important; transition: border-color 0.2s, background 0.2s; }
 .ironclad-footer-app-badge:hover { border-color: #60a5fa; background: #1a1a2e; color: #fff !important; }
@@ -73,53 +79,53 @@
     <div class="ironclad-footer-columns">
         <div class="ironclad-footer-col">
             <h4>Products</h4>
-            <a href="/buy/">Platform &amp; Products</a>
-            <a href="/buy/page2/">AI &amp; Cloud Consulting</a>
-            <a href="/buy/page3/">Expert Advisory &amp; Training</a>
-            <a href="/buy/page4/">Digital Services</a>
+            <a href="${contentBase}/buy/">Platform &amp; Products</a>
+            <a href="${contentBase}/buy/page2/">AI &amp; Cloud Consulting</a>
+            <a href="${contentBase}/buy/page3/">Expert Advisory &amp; Training</a>
+            <a href="${contentBase}/buy/page4/">Digital Services</a>
             <a href="mailto:offer@lifetime.fi">Enterprise Offers</a>
         </div>
         <div class="ironclad-footer-col">
             <h4>Dual Use Industries</h4>
-            <a href="/dual-use-industries/" style="color: #d4a843;">All Industries &amp; Aegis</a>
-            <a href="/construction/">Construction</a>
-            <a href="/energy/">Energy</a>
-            <a href="/manufacturing/">Manufacturing</a>
-            <a href="/real-estate/">Real Estate</a>
-            <a href="/logistics/">Logistics</a>
-            <a href="/healthcare/">Healthcare</a>
-            <a href="/financial-services/">Financial Services</a>
-            <a href="/public-sector/">Public Sector</a>
+            <a href="${contentBase}/dual-use-industries/" style="color: #d4a843;">All Industries &amp; Aegis</a>
+            <a href="${contentBase}/construction/">Construction</a>
+            <a href="${contentBase}/energy/">Energy</a>
+            <a href="${contentBase}/manufacturing/">Manufacturing</a>
+            <a href="${contentBase}/real-estate/">Real Estate</a>
+            <a href="${contentBase}/logistics/">Logistics</a>
+            <a href="${contentBase}/healthcare/">Healthcare</a>
+            <a href="${contentBase}/financial-services/">Financial Services</a>
+            <a href="${contentBase}/public-sector/">Public Sector</a>
         </div>
         <div class="ironclad-footer-col">
             <h4>Platform</h4>
             <a href="https://dws6.com/login">Login</a>
             <a href="https://dws6.com/dashboard/">Dashboard</a>
-            <a href="/products/dwsiq.html">DWS IQ 6</a>
-            <a href="/products/firehorse-reports.html">Firehorse Reports</a>
-            <a href="/products/firehorse-amplify.html">Firehorse Amplify</a>
-            <a href="/products/firehorse-omnichannel.html">Firehorse Omnichannel</a>
-            <a href="/architecture/">Architecture</a>
+            <a href="${contentBase}/products/dwsiq.html">DWS IQ 6</a>
+            <a href="${contentBase}/products/firehorse-reports.html">Firehorse Reports</a>
+            <a href="${contentBase}/products/firehorse-amplify.html">Firehorse Amplify</a>
+            <a href="${contentBase}/products/firehorse-omnichannel.html">Firehorse Omnichannel</a>
+            <a href="${contentBase}/architecture/">Architecture</a>
         </div>
         <div class="ironclad-footer-col">
             <h4>Compliance</h4>
-            <a href="/fit-for-55/">Fit for 55</a>
-            <a href="/csrd/">CSRD Reporting</a>
-            <a href="/compliance/">EU AI Act</a>
+            <a href="${contentBase}/fit-for-55/">Fit for 55</a>
+            <a href="${contentBase}/csrd/">CSRD Reporting</a>
+            <a href="${contentBase}/compliance/">EU AI Act</a>
             <a href="${regulatoryNoticeHref}">Regulatory Notice</a>
-            <a href="/dual-use/">Dual Use</a>
-            <a href="/calculator/">Carbon Calculator</a>
+            <a href="${contentBase}/dual-use/">Dual Use</a>
+            <a href="${contentBase}/calculator/">Carbon Calculator</a>
         </div>
         <div class="ironclad-footer-col">
             <h4>Help &amp; Company</h4>
-            <a href="/lifetime-consulting/">Lifetime Consulting</a>
-            <a href="/careers/">Careers</a>
-            <a href="/partners/">Partners</a>
-            <a href="/investor-relations/">Investor Relations</a>
+            <a href="${contentBase}/lifetime-consulting/">Lifetime Consulting</a>
+            <a href="${contentBase}/careers/">Careers</a>
+            <a href="${contentBase}/partners/">Partners</a>
+            <a href="${contentBase}/investor-relations/">Investor Relations</a>
             <a href="https://onelifetime.world">Community</a>
             <a href="mailto:support@lifetime.fi">Support</a>
             <a href="mailto:sales@lifetime.fi">Sales</a>
-            <a href="/legal/">Legal Hub</a>
+            <a href="${contentBase}/legal/">Legal Hub</a>
         </div>
     </div>
     <div class="ironclad-footer-payments">
@@ -143,14 +149,17 @@
             </div>
         </a>
     </div>
+    <div class="ironclad-footer-principle">
+        We value ethics in everything we do &mdash; DWS products augment people, never replacing junior talent or the human-in-command.
+    </div>
     <div class="ironclad-footer-bottom">
         <div class="ironclad-footer-legal">
-            <a href="/legal/">Legal Hub</a>
-            <a href="/privacy-policy/">Privacy Policy</a>
-            <a href="/return-policy/">Return Policy</a>
-            <a href="/data-handling-policy/">Data Handling</a>
-            <a href="/data-security-policy/">Data Security</a>
-            <a href="/investment-safety/">Investment Safety</a>
+            <a href="${contentBase}/legal/">Legal Hub</a>
+            <a href="${privacyPolicyHref}">Privacy Policy</a>
+            <a href="${contentBase}/return-policy/">Return Policy</a>
+            <a href="${contentBase}/data-handling-policy/">Data Handling</a>
+            <a href="${contentBase}/data-security-policy/">Data Security</a>
+            <a href="${contentBase}/investment-safety/">Investment Safety</a>
             <a href="${regulatoryNoticeHref}">Regulatory Notice</a>
         </div>
         <div class="ironclad-footer-copyright">

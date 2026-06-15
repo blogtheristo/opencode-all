@@ -6,10 +6,16 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.55
+Version: 3.61
 
 Sessions & Modifications:
 
+- Version: 3.61 | Tool: Claude Code (claude-opus-4-7) | Session: claude/sovereignty-field-note-2-R0Un5 | Date: 28.05.2026 | Changes: Lockstep version bump 3.60 → 3.61 across all 4 thesis files per CLAUDE.md thesis rule. Per the §1.4 master-vs-PhD scope rule, the v3.61 substantive content (the three-pillar × three-jurisdiction sovereignty taxonomy and the post-quantum cryptographic overlay) is market-signal / scientific framing and lives in PHD_FIREHORSE_EN.md §14.23 (Three-Pillar Sovereignty Taxonomy and Jurisdiction-Dependent Dynamics in Global Enterprises) and Key Contribution #28; the §1.2 PhD research questions have been restructured with Sovereignty as item #1 (the connecting research thread) and the §1.6 supervisor letter to Prof. Kari Smolander has been refreshed to v3.61. The implementation-side properties of the Firehorse Operations Model that compose with this taxonomy (DWS6's Aegis / Sovereign Infra / Connect product segmentation per `DWS_DEPLOYMENT_STANDARD.md` lines 165–172) are already documented in this master's thesis in the sovereignty segmentation discussions, and no new implementation sections are required. This commit adds a new closing section "Bibliography (Oxford)" listing the canonical sources referenced from this master's thesis, together with the chapter index showing which chapter cites which source (Oxford notes-bibliography style). Companion artefacts: docs/field-notes/2026-05-28-three-pillars-sovereignty-global.md (bilingual EN+FI field note), onelifetime.world/posts/sovereignty-field-note-2-three-pillars.html (EN canonical) + .fi.html (FI mirror) with landing-pages mirrors, docs/sales/2026-05-28-rightful-oy-partnership-proposal.md, and the Shufti partner letter refresh.
+- Version: 3.60 | Tool: Claude Code (claude-opus-4-7) | Session: claude/ai-services-audit-eY3rW | Date: 27.05.2026 | Changes: Lockstep version bump 3.59 → 3.60 across all 4 thesis files per CLAUDE.md thesis rule. No content change in this master's thesis file: the v3.60 substantive addition is a services-tier market signal (2026-05-04 formation of a $1.5B AI-native enterprise services firm — Anthropic $300M + Blackstone $300M + Hellman & Friedman $300M + Goldman Sachs $150M founding — targeting mid-sized businesses deploying Claude across core operations; 2026-05-21 acquisition of Fractional AI as the operational centrepiece, ending Fractional's 11-month OpenAI partnership) which per the master-vs-PhD scope rule §1.4 belongs in the PhD thesis only. See PHD_FIREHORSE_EN.md §14.22 (Model-Provider-Aligned Services Tier: The Anthropic / Blackstone / Hellman & Friedman / Goldman Sachs Vehicle and the Sovereign-Outcome Counter-Position) and Key Contribution #27 (Model-Provider-Aligned Services Tier and the Sovereign-Outcome Counter-Position) for the scientific framing, including the elevation of competitive positioning to a KYA conformance predicate testable via the existing four-track ASB / EAB / CSB / SIB vocabulary. The implementation-side properties of the Firehorse Operations Model that compose with this signal (catalogue repositioning of 8 Red-zone consultancy SKUs, two new outcome-priced SKUs AIS-EU-SOV-OC and AIS-OUTCOME-PILOT, retirement of two `_OLD` SKUs, promotion of six defensible regulatory / sovereignty SKUs to featured) are operationally codified in `scripts/ai_services_audit_apply.py` and applied to `dws10.com/config/products.json` plus the dual-folder mirror in the same commit set as part of normal product operations; they do not require new master's-thesis sections because the catalogue layer is a product-implementation artefact already covered by the existing operations-model framing. `Learn/` HTML regeneration required (not in this commit — needs Pandoc build).
+- Version: 3.59 | Tool: Claude Code (Opus 4.7) | Session: claude/unitree-robotics-story-Ggp7v | Date: 23.05.2026 | Changes: Lockstep version bump 3.58 → 3.59 across all 4 thesis files per CLAUDE.md thesis rule. No content change in this master's thesis file: the v3.59 substantive addition is a market signal (Unitree Robotics commercial profile — humanoids at $5,900 vs Boston Dynamics quadruped at $74,500, ~70% global quadruped market, 7,000+ humanoids deployed across 600+ industrial sites, only profitable humanoid manufacturer on Earth + the 200-hour 249,000-package autonomous warehouse run + PLA/Ukraine weaponisation footage and House China Committee letter + documented Go1/G1 security findings: default-credential remote tunnel, fleet-wide shared encryption key, Bluetooth self-propagation, mandatory 5-minute telemetry to PRC-reachable infrastructure on the G1) which per the master-vs-PhD scope rule §1.4 belongs in the PhD thesis only. See PHD_FIREHORSE_EN.md §14.21 (The Chinese Humanoid Signal: Vertical-Integration Moat, Embodied-AI Commercial Maturity, and the Security-vs-Sovereignty Tension) and Key Contribution #26 (The Vertical-Integration Moat and Substrate-Integrity Conformance in Embodied-AI Operating Models) for the scientific framing, including the new SIB-track (Substrate-Integrity Conformance) extending the KYA Standard to a four-track suite ASB / EAB / CSB / SIB and operationally specifying the §14.13 LWM Sequencing Strategy Phase 3 (physical AI) qualifying property. The implementation-side properties of the Firehorse Operations Model that compose with this signal (KYA-bound agent population, hardware-attested harness §14.12, LWM Sequencing Strategy §14.13, owned-substrate testbed) are already documented in their respective sections of this master's thesis and require no further additions — the signal validates the existing implementation discipline and adds a standards-layer extension (SIB-track) that belongs to the PhD scientific scope rather than master's product-implementation scope. `Learn/` HTML regeneration required (not in this commit — needs Pandoc build).
+- Version: 3.58 | Tool: Claude Code (Opus 4.7) | Session: claude/ai-pricing-enterprise-Cnzfu | Date: 21.05.2026 | Changes: Lockstep version bump 3.57 → 3.58 across all 4 thesis files per CLAUDE.md thesis rule. No content change in this master's thesis file: the v3.58 substantive addition is a demand-side market signal (Microsoft cancels internal Claude Code licenses on token-billing grounds despite ~$13B OpenAI stake + Anthropic-powering Azure capacity; Uber CTO memo — entire 2026 AI budget consumed in four months; US AI software prices +20–37% in H1 2026; GitHub flat-rate plans phased out for usage-based billing across Copilot/Codespaces/Actions) which per the master-vs-PhD scope rule §1.4 belongs in the PhD thesis only. See PHD_FIREHORSE_EN.md §14.20 (AI Pricing Capitulation: The Token-Based Billing Squeeze and the Operating-Cost Discipline of Owned-Compute Operations) and Key Contribution #25 (Demand-Side Capitulation and the Cost-Surface Stability Dimension of Agentic AI Conformity) for the scientific framing, including the new CSB-track (Cost-Surface Stability under deployment) extending EU AI Act Article 14 oversight from quality to affordability-stability variable. The implementation-side properties of the Firehorse Operations Model that are exposed to this signal (Spark NVFP4 owned compute §10.10.6.1, prompt caching architecture, OpenClaw on owned hardware, Proton mailbox-per-agent, multi-provider routing with task-aware model-selector) are already documented in their respective sections of this master's thesis and require no further additions — the signal validates the existing implementation discipline rather than triggering new product work. `Learn/` HTML regeneration required (not in this commit — needs Pandoc build).
+- Version: 3.57 | Tool: Claude Code (Opus 4.7) | Session: claude/multi-agent-ai-alignment-F2NIO | Date: 17.05.2026 | Changes: Lockstep version bump 3.56 → 3.57 across all 4 thesis files per CLAUDE.md thesis rule. No content change in this master's thesis file: the v3.57 substantive addition is a market/standardisation signal (Shapira et al. "Agents of Chaos" arXiv:2602.20021 + Emergence AI "Emergence World" world.emergence.ai → KYA Standard falsifiability locus) which per the master-vs-PhD scope rule §1.4 belongs in the PhD thesis only. See PHD_FIREHORSE_EN.md §14.19 (Multi-Agent Emergent Misalignment and Incentive Design as the Alignment Unit) and Key Contribution #24 for the scientific framing. `Learn/` HTML regeneration required (not in this commit — needs Pandoc build).
+- Version: 3.56 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Added §10.10.6.1 (Hardware Brain Update — May 2026) documenting the Spark Primary tier swap from `llama3.3:70b` to `nemotron-3-super` (~4.5× decode speedup, MoE 123.6B / 12.7B active, Mamba-2 + attention + Latent MoE, NVFP4-pretrained), the Fast tier upgrade from `qwen2.5-coder:32b` to `qwen3-coder:30b`, and the addition of OpenClaw as a first-class compose service for EU-sovereign no-egress agent workloads. Implementation artefacts cited: field note 2026-03-29 v1.6, DWS_DEPLOYMENT_STANDARD.md v1.4, docker-compose.yml, DWS7_ROADMAP.md PR 161 re-base. Market-signal rationale (compute scarcity, NVFP4 hardware moat) cross-referenced to PHD_FIREHORSE_EN §14.18 per the master-vs-PhD scope rule §1.4. All 4 thesis files bumped to v3.56 in lockstep per CLAUDE.md thesis rule. `Learn/` HTML regeneration required (not in this commit — needs Pandoc build).
 - Version: 3.55 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Version bump from 3.54 to 3.55 in lockstep across all 4 thesis files; fixed VERSION AND AGENT HISTORY closing delimiter to ***; regenerated Learn thesis HTML outputs at v3.55
 - Version: 3.54 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Added §1.4 Content Scope Rule — master's thesis is product/implementation-focused, excludes market intelligence and long-horizon roadmap; scope rule written into CLAUDE.md and mirrored in all 4 thesis files; PhD thesis differentiation formalized; version bump in lockstep per CLAUDE.md thesis rule
 - Version: 3.53 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Added agent accountability and observability layer as new Key Contribution: AgentLogger (structured JSONL + non-blocking Supabase agent_executions), AgentVersionRegistry for version rollback, drift-detector.ts daily confidence-drop reports, eval-runner.ts compliance dataset scoring — directly implements EU AI Act Articles 9 (risk management), 12 (logging), and 14 (human oversight) obligations as running production code; Baseten added as OpenAI-compatible LLM provider expanding multi-provider routing to Groq/Baseten/OpenAI with task-aware model-selector; /case-run skill registered (Themis v2.0 case-coordinate action — case-type→sub-agent mapping), Legora AOS competitive analysis documenting DWS Case entity roadmap P0 actions; Outokumpu CBAM partnership model as first industrial-buyer compliance cost quantification case; TokenSpeed inference engine field note (LightSeek MIT — TensorRT-LLM-class throughput, DGX Spark fit assessment); all 4 thesis files bumped in lockstep per CLAUDE.md thesis rule
@@ -46,7 +52,7 @@ Sessions & Modifications:
 - Version: 3.12 | Tool: Claude Code (Opus 4.6) | Session: claude/ai-agent-orchestration-t89Ig | Date: 24.02.2026 | Changes: [UNTRACKED DRIFT] CEO Automation Agent Suite: Captain Pre-Briefing, LinkedIn Post Scheduler, EU Regulation Monitor — 3 production agents with GitHub Actions cron
 - Version: 3.11 | Tool: Claude Code (Sonnet 4.6) | Session: claude/sandbox-agents-opensandbox-HatfC | Date: 01.03.2026 | Changes: Added Section 10.10 (Agent Foundry Stage 1.5 — OpenSandbox on Acer Veriton GN100); added EMPO² reference (arXiv:2602.23008 — hybrid on/off-policy RL for memory-augmented agents); updated NCC Sandbox stage annotation; added Key Contribution #9
 - Version: 3.10 | Tool: Claude Code (Opus 4.6) | Session: claude/modernize-dws7-77v2B | Date: 24.02.2026 | Changes: Added Section 10.9 DWS7 Agent Architecture Modernization — documents 6 critical fixes (agentic loops, tool use, multi-provider LLM, agent delegation, MCP server, event bus), Build for Agents principle (CLI, Claude Code Skills), agent-first product design philosophy
-- Version: 3.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition as enterprise learning layer (fine-tunes data/regulation, optimizes market value, ensures competitive advantage), added 16-industry cross-learning network effects analysis
+- Version: 3.9 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Enhanced LWM definition as enterprise learning layer (fine-tunes data/regulation, optimizes market value, ensures competitive advantage), added 25+-industry cross-learning network effects analysis
 - Version: 3.8 | Tool: Claude Code (Opus 4.6) | Session: claude/add-sdk-sandbox-isolation-Q0lzp | Date: 21.02.2026 | Changes: Added sections 10.6 Per-Industry Open LLM Selection (20 industries, 7 candidate models), 10.7 Enterprise BYOA Architecture (Bring Your Own Agent — NCC scenario, 24 agents, Langflow+React Flow+Temporal.io graphical workflow builder, contractor onboarding flow)
 - Version: 3.7 | Tool: Claude Code (Opus 4.6) | Session: HIL-PR-Automation | Date: 20.02.2026 | Changes: Added Appendix H — Automated PR Workflow (HIL Automation): dual-model AI review (Claude + Gemini), Copilot fix loop, auto-merge workflow, MCP Hub Gemini endpoint, Cloud Run dws6run6 deployment. Generated versioned HTML for Learn/
 - Version: 3.6 | Tool: Claude Code (Opus 4.6) | Session: e5wXD | Date: 20.02.2026 | Changes: Updated DWS standards, admin manuals with HIL automation references. Version header correction (3.4-3.5 were not tracked)
@@ -57,7 +63,7 @@ Sessions & Modifications:
 - Version: 3.1 | Tool: Claude Code (Opus 4.5) | Session: Karpathy-Principles | Date: 04.02.2026 | Changes: Added Appendix E - AI Agent Behavioral Guidelines (Karpathy Principles), EU AI Act compliance mapping, implementation outcome metrics
 - Version: 3.0 | Tool: Claude Code (Opus 4.5) | Session: DWS10-Store-Integration | Date: 28.01.2026 | Changes: Added DWS10.com e-commerce store findings, Google Merchant Center integration, Revolut Business payments, Audio chat evolution roadmap with Groq/Llama models, Industry carbon footprint calculator, EU compliance mapping
 - Version: 2.2 | Tool: Word (HIL) | Session: dws6.com Google Run | Date: 19.01.2026 | Changes: Google admin@dws6.com and project under Google. Established 19.1.2026. Google Workspace Standard adopted. DNS records changed from Proton to Google. Created project dws6run to serve Google Run processes.
-- Version: 2.1 | Tool: Cursor AI (Claude) | Session: 16-Industries | Date: 06.01.2026 | Changes: Added Fit for 55 16-industry analysis, AI usage disclosure, DWS10 use cases, expanded current state analysis
+- Version: 2.1 | Tool: Cursor AI (Claude) | Session: 16-Industries | Date: 06.01.2026 | Changes: Added Fit for 55 25+-industry analysis, AI usage disclosure, DWS10 use cases, expanded current state analysis
 - Version: 2.0 | Tool: Cursor AI (Claude) | Session: Thesis-Revision | Date: 05.01.2026 | Changes: Major revision - Added Solution Factory model, AgentFoundry documentation, Lifetime Scope Signals theory, SWOT analysis, research questions answers, complete theoretical framework
 - Version: 1.0 | Tool: GitHub Copilot | Session: 2025-12-30 | Date: 30.12.2025 | Changes: Applied DWS document standard, synchronized with Finnish version
 
@@ -606,7 +612,7 @@ The Omnibus package **does not change** the core Fit for 55 targets:
 | ------------------ | --------- | -------------- | ---------- | ---------- |
 | **Monthly cost**   | EUR 0-350 | EUR 1,400+     | EUR 4,000+ | EUR 2,000+ |
 | **Edge AI**        | Native    | No             | No         | Limited    |
-| **16 verticals**   | Planned   | No             | Yes        | Yes        |
+| **25+ verticals**   | Planned   | No             | Yes        | Yes        |
 | **EU compliant**   | Native    | Partial        | Partial    | Yes        |
 | **<100ms latency** | Edge      | No             | No         | Partial    |
 | **SME accessible** | Yes       | No             | No         | No         |
@@ -1180,7 +1186,7 @@ The Firehorse operating model with Claude Code achieved (updated v3.26):
 | --------------- | ----- | ------- | ------ | ----------------------------------------------------------------- |
 | EU AI Act       | 80%   | **92%** | +12%   | Article 12 logging implemented (Pantheon agents), SOUL.md pattern |
 | GDPR            | 95%   | **97%** | +2%    | Proton + Supabase RLS + europe-north1                             |
-| Fit for 55      | 90%   | **93%** | +3%    | 16-industry carbon calculator, product catalog                    |
+| Fit for 55      | 90%   | **93%** | +3%    | 25+-industry carbon calculator, product catalog                    |
 | NIS2            | 75%   | **85%** | +10%   | Security hardening (RC2-RC4), Snyk MCP, agent system hardening    |
 | CSRD            | 85%   | **88%** | +3%    | Reporting templates + compliance report export feature            |
 | **EU Data Act** | —     | **80%** | New    | DWS Data Standard, HTAP architecture                              |
@@ -1419,7 +1425,7 @@ The Firehorse operating model demonstrates that AI-assisted e-commerce managemen
 2. Integration patterns for Google Merchant Center and Revolut Business
 3. Roadmap for audio chat with carbon footprint calculator integration (4 phases)
 4. EU compliance mapping for industrial software products
-5. Product recommendation engine architecture for 16 EU industries
+5. Product recommendation engine architecture for 25+ EU industries
 6. Proton security products strategy for GDPR/NIS2 compliance
 
 ## 10.3 Contribution to Theory
@@ -1448,7 +1454,7 @@ The Omnibus package **strengthens** the Firehorse model's competitiveness: clima
 
 ## 10.6 Per-Industry Open LLM Selection
 
-A critical finding from the platform architecture work is that **no single open LLM is optimal across all 16 EU industries**. Each industry vertical has distinct domain language, regulatory context, and structured output requirements. The `AgentConfig.model` field is already per-agent, so each concrete agent can be configured with a different trained Lifetime World Model (LWM) + open LLM, with continuous benchmarking. The platform must evaluate and select the best open LLM per industry rather than defaulting to a single model (e.g., Llama 3.3 70B) for all verticals.
+A critical finding from the platform architecture work is that **no single open LLM is optimal across all 25+ EU industries**. Each industry vertical has distinct domain language, regulatory context, and structured output requirements. The `AgentConfig.model` field is already per-agent, so each concrete agent can be configured with a different trained Lifetime World Model (LWM) + open LLM, with continuous benchmarking. The platform must evaluate and select the best open LLM per industry rather than defaulting to a single model (e.g., Llama 3.3 70B) for all verticals.
 
 **Candidate open LLMs per industry domain:**
 
@@ -1468,7 +1474,7 @@ Each enterprise tenant can have their Lifetime World Model trained on their own 
 
 ### 10.6.1 Why 16 Industries Make DWS IQ Stronger
 
-From the customer's perspective, a platform covering 16 EU industries is not complexity — it is **the competitive advantage they are buying**. The 16-industry architecture creates compounding value that a single-industry platform cannot match:
+From the customer's perspective, a platform covering 25+ EU industries is not complexity — it is **the competitive advantage they are buying**. The 25+-industry architecture creates compounding value that a single-industry platform cannot match:
 
 1. **Cross-industry regulatory intelligence.** EU regulations like Fit for 55, CSRD, and CBAM affect multiple industries simultaneously. A construction company's Scope 3 emissions include steel (ETS), cement (CBAM), logistics (FuelEU), and energy (RED III). A single-industry tool sees one slice; DWS IQ sees the entire regulatory chain. The customer gets compliance intelligence that understands their full supply chain, not just their own vertical.
 
@@ -1484,7 +1490,7 @@ From the customer's perspective, a platform covering 16 EU industries is not com
 
 7. **Network effects compound over time.** Each new industry added to the platform makes every existing industry's LWM smarter. The 20th industry customer benefits from all 19 industries' accumulated intelligence. This creates a **moat**: a competitor starting with one industry must replicate years of cross-industry learning to match DWS IQ's accumulated intelligence.
 
-**The bottom line for the customer:** DWS IQ's 16-industry coverage means their compliance intelligence is not isolated — it is connected to the entire EU industrial ecosystem. They pay for one platform and receive intelligence that would require 16 separate tools to approximate.
+**The bottom line for the customer:** DWS IQ's 25+-industry coverage means their compliance intelligence is not isolated — it is connected to the entire EU industrial ecosystem. They pay for one platform and receive intelligence that would require 16 separate tools to approximate.
 
 ## 10.7 Enterprise BYOA Architecture: Bring Your Own Agent
 
@@ -1889,6 +1895,10 @@ Stage 1.5 demonstrates three thesis claims simultaneously:
 2. **Lifetime Fleet concept validation (Section 3.5):** The Acer Veriton GN100 is the first physical node in the Lifetime Fleet — EU-resident hardware running containerized AI workloads under full operator control, fulfilling the edge-AI theoretical model proposed in the thesis.
 
 3. **EMPO² memory architecture alignment:** The hybrid parametric/non-parametric memory architecture independently validated by EMPO² (arXiv:2602.23008) matches the DWS LWM design — providing academic grounding for an implementation choice made on engineering intuition.
+
+#### 10.10.6.1 Hardware Brain Update (May 2026)
+
+The Acer Veriton GN100 / DGX Spark Brain layer was re-pinned in May 2026 as a direct consequence of three engineering observations: (1) dense Llama 3.3 70B at Q4 ran at ~4.4 tok/s decode on the GB10 memory bus (273 GB/s) — too slow for interactive agent workloads, since each forward pass pushed all 70B parameters through the bus; (2) NVIDIA's Nemotron 3 Super (architecture `nemotron_h_moe`, 123.6B total / 12.7B active, 88-layer Mamba-2 + interleaved attention + Latent MoE, pretrained natively in NVFP4 across 25T tokens) runs at ~19.5 tok/s Q4_K_M on the same hardware — roughly 4.5× faster — because MoE moves only ~12B of weights per token; (3) the Nemotron 3 Super model exposes `thinking` and tool-calling capabilities natively, which the Brain-Memory-Body-Hands architecture (Section 4.3) requires for agent reasoning chains. The Primary tier was therefore swapped from `llama3.3:70b` to `nemotron-3-super`; the Fast tier was simultaneously upgraded from `qwen2.5-coder:32b` to `qwen3-coder:30b` (MoE 30B / 3.3B active) which doubles as the SyntheticDataAgent teacher model. **OpenClaw** was added as a first-class compose service on port 8090, its Brain wired to Nemotron 3 Super via Ollama and `OPENCLAW_ALLOW_EGRESS=false` enforced at the container level — establishing a no-egress local agent runtime alongside the existing Stage 1.5 OpenSandbox isolation layer. Implementation artefacts: `docs/field-notes/2026-03-29-dgx-spark-primary-runtime-setup.md` v1.6, `DWS_DEPLOYMENT_STANDARD.md` v1.4 (Surfaces table adds OpenClaw row), `infrastructure/dgx-spark/docker-compose.yml`, `DWS7_ROADMAP.md` PR 161 re-based to Nemotron 3 Super. The market-signal rationale (compute scarcity, NVFP4 hardware moat) is documented in `docs/PHD_FIREHORSE_EN.md` §14.18 per the master-vs-PhD scope rule.
 
 ### 10.10.7 Agent Memory Fact Extraction Pipeline (PR-254)
 
@@ -3247,3 +3257,69 @@ The taxonomy is not merely a naming convention; it documents a design principle.
 
 **License:** Proprietary - Lifetime Oy
 **Contact:** risto@lifetime.fi
+
+***
+
+## Bibliography (Oxford Notes-Bibliography Style) — v3.61
+
+Added in v3.61 (28.05.2026) to enumerate the canonical sources cited by the chapters of this master's thesis. Citation style is Oxford notes-bibliography: each footnote `[^N]` denotes one source; the chapter index that follows the list shows which chapter relies on which footnote. Chapters not listed in the index do not cite these sources.
+
+### Chapter-by-chapter reference index
+
+> **Referenced sources by chapter.** Chapters relying on one or more of the footnotes below are listed here so the reader can resolve every in-text reference without scanning the full document.
+
+| Chapter | Footnotes cited |
+|---------|-----------------|
+| Sovereignty segmentation discussion (Aegis / Sovereign Infra / Connect) | [^1], [^4], [^5], [^12], [^13], [^14], [^16] |
+| KYA Partner Ecosystem (Appendix H equivalent) and trust-stack chapter | [^2], [^8] |
+| Pilot / case-study chapter (Outokumpu Tier-1) | [^7] |
+| Domain compliance chapter (construction multi-jurisdiction) | [^9] |
+| Partnerships chapter (xAI etc.) | [^10], [^11] |
+| Quantum / cryptography chapter | [^16], [^17], [^18], [^19] |
+| Regulatory chapter (EU AI Act, eIDAS 2.0, EU Data Act) | [^20], [^21], [^22] |
+
+### Footnote bibliography
+
+[^1]: Päärni, R. A. (2026). *PHD_FIREHORSE_EN.md §14.23 — Three-Pillar Sovereignty Taxonomy and Jurisdiction-Dependent Dynamics in Global Enterprises.* Lifetime Oy / LUT University. Local repository path: `docs/PHD_FIREHORSE_EN.md`. Accessed 28 May 2026.
+
+[^2]: Päärni, R. A. (2026). *PHD_FIREHORSE_EN.md §14.21 — KYA Substrate-Integrity Conformance (SIB-track).* Lifetime Oy / LUT University. Local repository path: `docs/PHD_FIREHORSE_EN.md`. Accessed 28 May 2026.
+
+[^3]: Päärni, R. A. (2026). *PHD_FIREHORSE_EN.md §14.22 — Model-Provider-Aligned Services Tier and the Sovereign-Outcome Counter-Position.* Lifetime Oy / LUT University. Local repository path: `docs/PHD_FIREHORSE_EN.md`. Accessed 28 May 2026.
+
+[^4]: Päärni, R. A. (2026). *Field Note: EU Tech-Stack Sovereignty Positioning (Field Note #1).* Lifetime Oy. Local repository path: `docs/field-notes/2026-01-28-eu-tech-stack-sovereignty-positioning.md`. Dated 28 January 2026.
+
+[^5]: Päärni, R. A. (2026). *Sovereignty Field Note #2 — The Three Pillars Every Global Enterprise Needs.* Lifetime Oy. Local repository path: `docs/field-notes/2026-05-28-three-pillars-sovereignty-global.md`. Published HTML: <https://onelifetime.world/posts/sovereignty-field-note-2-three-pillars.html>. Dated 28 May 2026.
+
+[^6]: Päärni, R. A. (2026). *Field Note: Sovereign Cloud Providers — Aegis Partner Research.* Lifetime Oy. Local repository path: `docs/field-notes/2026-04-23-sovereign-cloud-providers-aegis-partner-research.md`. Dated 23 April 2026.
+
+[^7]: Päärni, R. A. (2026). *Field Note: Tier-1 Sovereignty Pilot for Outokumpu — robotics stack intel + DGX / Jetson T5000 sovereignty assessment.* Lifetime Oy. Local repository path: `docs/field-notes/2026-05-25-tier1-sovereignty-pilot-outokumpu-dgx-t5000.md`. Dated 25 May 2026.
+
+[^8]: Päärni, R. A. (2026). *Shufti KYA Whitepaper — IDV Provider Certification under the KYA Standard.* Lifetime Oy. Local repository path: `docs/field-notes/2026-03-17-shufti-kya-whitepaper.md`. Version 2.0 dated 13 April 2026.
+
+[^9]: Päärni, R. A. (2026). *Construction Compliance Multi-Jurisdiction Brief.* Lifetime Oy. Local repository path: `docs/briefs/construction-compliance-brief.md`. Dated 22 May 2026.
+
+[^10]: Päärni, R. A. (2026). *xAI Grok Partnership Proposal v1.0.* Lifetime Oy. Local repository path: `docs/2026-02-26-xai-grok-partnership-proposal.md`. Dated 26 February 2026.
+
+[^11]: Päärni, R. A. (2026). *xAI Optimus Partnership Proposal v2.0.* Lifetime Oy. Local repository path: `docs/sales/xAI-Optimus-Partnership-Proposal-v2.0.md`. Dated 22 May 2026.
+
+[^12]: Lifetime Oy. (2026). *DWS_DEPLOYMENT_STANDARD.md lines 165–172 — DWS IQ Connect / Sovereign Infra / Aegis product tier definitions.* Internal canonical standard. Local repository path: `DWS_DEPLOYMENT_STANDARD.md`. Accessed 28 May 2026.
+
+[^13]: Lifetime Oy. (2026). *DWS_SOVEREIGNTY_STANDARD.md v1.2 — CLOUD Act / FISA 702 / Schrems II framing.* Internal canonical standard. Local repository path: `DWS_SOVEREIGNTY_STANDARD.md`. Accessed 28 May 2026.
+
+[^14]: Lifetime Oy. (2026). *DWS_STANDARDS_LIBRARY.md §3.6 — Sovereignty Tier Map (vendor classification T1/T2/T3).* Internal canonical standard. Local repository path: `DWS_STANDARDS_LIBRARY.md`. Accessed 28 May 2026.
+
+[^15]: Lifetime Oy. (2026). *DWS_TRUTH_STANDARD.md — Canonical-fact registry.* Internal canonical standard. Local repository path: `DWS_TRUTH_STANDARD.md`. Accessed 28 May 2026.
+
+[^16]: Rightful Oy. (2026). *R-Sac² — Road to Post-Quantum Security.* Partner artefact received 28 May 2026 (infographic) and described at <https://www.rightful.fi/>. Five-stage methodology: Identify → Assess → Plan → Implement → Monitor. Accessed 28 May 2026.
+
+[^17]: National Institute of Standards and Technology (NIST). (2024). *FIPS 203 — Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM, Kyber).* U.S. Department of Commerce. <https://csrc.nist.gov/pubs/fips/203/final>.
+
+[^18]: National Institute of Standards and Technology (NIST). (2024). *FIPS 204 — Module-Lattice-Based Digital Signature (ML-DSA, Dilithium).* U.S. Department of Commerce. <https://csrc.nist.gov/pubs/fips/204/final>.
+
+[^19]: National Institute of Standards and Technology (NIST). (2024). *FIPS 205 — Stateless Hash-Based Digital Signature (SLH-DSA, SPHINCS+).* U.S. Department of Commerce. <https://csrc.nist.gov/pubs/fips/205/final>.
+
+[^20]: European Parliament and Council. (2024). *Regulation (EU) 2024/1689 of 13 June 2024 laying down harmonised rules on artificial intelligence (EU AI Act).* Articles 9, 12, 13, 14 cited.
+
+[^21]: European Parliament and Council. (2024). *Regulation (EU) 2024/1183 amending Regulation (EU) No 910/2014 as regards establishing the European Digital Identity Framework (eIDAS 2.0).*
+
+[^22]: European Parliament and Council. (2023). *Regulation (EU) 2023/2854 on harmonised rules on fair access to and use of data (EU Data Act).*

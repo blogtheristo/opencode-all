@@ -1,11 +1,6 @@
 ---
 name: material-oracle
-description: >
-  Embodied carbon calculation per EN 15978 lifecycle assessment (stages A1–D).
-  Computes kgCO2e per material, suggests lower-carbon alternatives, and
-  integrates with EC3 database for EPD data. Use when: "embodied carbon",
-  "carbon footprint", "kgCO2e", "lifecycle assessment", "LCA", "A1-A3
-  emissions", "material carbon", "procurement carbon", "construction materials".
+description: "Embodied carbon per EN 15978 (stages A1–D). kgCO2e per material, lower-carbon alternatives, EC3 EPD database integration."
 argument-hint: "list of materials with quantities and units"
 allowed-tools: [Bash, WebSearch, WebFetch]
 ---
