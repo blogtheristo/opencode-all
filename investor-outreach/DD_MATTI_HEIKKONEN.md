@@ -4,7 +4,7 @@ Version: 1.1
 Date: 2026-06-07
 Author: Claude Opus 4.8 + Human Review
 Branch: claude/fervent-lovelace-fdc2O
-Status: Final — Verdict: PASS (deprioritize)
+Status: ARCHIVED 2026-06-13 (record only) — Verdict: PASS (deprioritize)
 Story Lock: Dual Use / RaaS seed round — investor target triage
 Language: EN
 Privacy: INTERNAL — contains a personal email; do not publish or include in outward-facing copy.
@@ -16,6 +16,8 @@ AGENT HISTORY:
 
 # Due Diligence Note — Matti Heikkonen
 
+> **🗄 ARCHIVED — marked old 2026-06-13.** No longer a current investor target; retained for record only. Verdict stands (PASS, deprioritize). Part of the DD-artifact cleanup.
+
 > **INTERNAL.** Contains a personal email address. Do not publish or copy into outward-facing material.
 
 ## Verdict: PASS (deprioritize)
@@ -24,13 +26,13 @@ Matti Heikkonen is **not a live investor target for the Dual Use / RaaS seed rou
 
 ## Identity — locked ✅
 
-| Field | Value |
-| ----- | ----- |
-| LinkedIn | `linkedin.com/in/mheikkonen` |
-| Company (website on card) | `pinja.com` (Pinja Group — industrial software / digitalisation) |
-| Primary contact | `matti.heikkonen@gmail.com` (personal) |
-| Relationship | 1st-degree connection since **Aug 2017** (warm) |
-| Track record | CEO Pinja / Benemen / Questback / Identia; board at Qt Group; WithSecure / F-Secure board (cyber, dual-use-adjacent); **Director of Ohjelmistoyrittäjät ry** (Finnish Software Entrepreneurs — the association still exists and is active on LinkedIn) |
+| Field                     | Value                                                                                                                                                                                                                                                  |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| LinkedIn                  | `linkedin.com/in/mheikkonen`                                                                                                                                                                                                                           |
+| Company (website on card) | `pinja.com` (Pinja Group — industrial software / digitalisation)                                                                                                                                                                                       |
+| Primary contact           | `matti.heikkonen@gmail.com` (personal)                                                                                                                                                                                                                 |
+| Relationship              | 1st-degree connection since **Aug 2017** (warm)                                                                                                                                                                                                        |
+| Track record              | CEO Pinja / Benemen / Questback / Identia; board at Qt Group; WithSecure / F-Secure board (cyber, dual-use-adjacent); **Director of Ohjelmistoyrittäjät ry** (Finnish Software Entrepreneurs — the association still exists and is active on LinkedIn) |
 
 This is the Pinja operator-investor — **not** the unrelated Finanssivalvonta banking supervisor of the same name.
 
@@ -51,6 +53,7 @@ This is the Pinja operator-investor — **not** the unrelated Finanssivalvonta b
 - `CASE_SSAB_LIFETIME_AB.md` → keep (SSAB/Outokumpu case is reusable for other investors); detach from Matti as the addressee.
 
 ## If revisiting later — triggers
+
 - He takes a new GP/partner role at a fund, **or**
 - A Pinja liquidity event frees personal capital, **or**
 - He explicitly signals personal angel appetite for Dual Use.
