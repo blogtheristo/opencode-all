@@ -2,14 +2,15 @@
 
 ## Hybridi AI-edge-arkkitehtuuri ilmastoälykkäille teollisille alustoille
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.62
+Version: 3.63
 
 Sessions & Modifications:
 
+- Version: 3.63 | Tool: Claude Code (claude-fable-5) | Session: claude/token-human-capital-mjrbc7 | Date: 19.06.2026 | Changes: Lisätty §10.23 (Kolmen pääoman kertymismalli — token-pääoma, inhimillinen pääoma ja Control Room -pääoma DWS IQ 6 -toimintamallin kestävinä omaisuuserinä). Toteutuspuolen sisältö §1.4:n master-vs-PhD-skooppisäännön mukaisesti: dokumentoi 7 kuukauden HIL-vaiheen (loka 2025 – kesä 2026) tuotantoinsinöörointitapahtumana, mitatun token-pääomainventaarion (30+ taitoa, 150+ kenttämuistiota, 50-agentin foundry, artikla 12 -auditointipolku), Control Room -arkkitehtuurin käyttöönottona DWS IQ 6:ssa sekä HIL → HIC -operatiivisen siirtymän kesäkuun 2026 havainnon. Markkinasignaali ja tieteellinen kehystys (Nadella Build 2026, teoreettinen kolmen pääoman malli, kilpailueste-analyysi, KYA-standardin laajennus) asuvat PHD_FIREHORSE_FI.md §14.25:ssä ja Avainpanos #30:ssa. Kaikki 4 opinnäytetyötiedostoa nostettu v3.63:een lukitusti CLAUDE.md:n opinnäytetyösäännön mukaan. Liiteartefakti: docs/field-notes/2026-06-19-token-capital-human-capital-control-room-capital.md. `Learn/`-HTML-uudelleengenerointi tarvitaan (ei tässä committissa — vaatii Pandoc-buildin).
 - Version: 3.62 | Tool: Claude Code | Session: claude/ai-spending-coalition-china-b8d2c | Date: 07.06.2026 | Changes: Lukkokohtainen versionosto 3.61 → 3.62 kaikkien 4 opinnäytetyötiedoston yli CLAUDE.md:n opinnäytetyösäännön mukaan. §1.4 master-vs-PhD-skooppisäännön mukaisesti v3.62:n sisältölisäys (vuosi-vuodelta-tutkimus "halukkaiden koalition" — G7 + liittolaiskumppanit — tekoälymenoista verrattuna Kiinaan, skooppi = kaikki tekoälysijoittaminen) on markkinasignaali / tieteellinen kehystys ja sijaitsee PHD_FIREHORSE_FI.md §14.24:ssä (Tekoälymenojen epäsymmetria: G7-plus-kumppanit -koalition pääomaherruus, Kiinan pääomatehokkuuden vastatrajektori ja suvereeni-laskennan implikaatio) sekä Avainpanos #29:ssä. Tähän signaaliin ei kuulu toteutuspuolen sisältöä tähän maisterityöhön, joten tämä tiedosto saa pelkän lukkokohtaisen versionostomerkinnän eikä uusia osioita. PhD-osion ensisijaiset lähteet: Stanford HAI AI Index Report 2025 & 2026 (Economy-luvut); Pariisin AI Action Summit (helmi 2025); G7 2025 (Kanadan puheenjohtajuus) AI Adoption Roadmap.
 - Version: 3.61 | Tool: Claude Code (claude-opus-4-7) | Session: claude/sovereignty-field-note-2-R0Un5 | Date: 28.05.2026 | Changes: Lukkokohtainen versionosto 3.60 → 3.61 kaikkien 4 opinnäytetyötiedoston yli CLAUDE.md:n opinnäytetyösäännön mukaan. §1.4 master-vs-PhD-skooppisäännön mukaisesti v3.61:n sisältölisäys (kolmen pilarin × kolmen jurisdiktion suvereniteettitaksonomia sekä post-kvanttisalauksen overlay) on markkinasignaali / tieteellinen kehystys ja sijaitsee PHD_FIREHORSE_FI.md §14.23:ssa (Kolmen pilarin suvereniteettitaksonomia ja jurisdiktiokohtainen dynaamisuus globaaleissa yrityksissä) sekä Avainpanos #28:ssa; §1.2 PhD-tutkimuskysymykset on uudelleenrakennettu siten, että Suvereniteetti on kohta 1 (yhdistävä tutkimuslanka) ja §1.6 ohjaajakirje prof. Kari Smolanderille on päivitetty v3.61-versioon. Firehorse-toimintamallin toteutuspuolen ominaisuudet, jotka yhdistyvät tähän taksonomiaan (DWS6:n Aegis / Sovereign Infra / Connect -tuotesegmentointi `DWS_DEPLOYMENT_STANDARD.md` riveillä 165–172) ovat jo dokumentoituina tässä maisterityössä suvereniteettisegmentoinnin yhteydessä, eivätkä uudet toteutusosiot ole tarpeen. Tämä commit lisää uuden päättävän osion "Bibliografia (Oxford)", joka luettelee kanoniset lähteet, joihin tämä maisterityö viittaa, sekä lukukohtaisen indeksin osoittaen, mikä luku siteeraa mitäkin lähdettä (Oxford notes-bibliography -tyyli). Liiteartefaktit: docs/field-notes/2026-05-28-three-pillars-sovereignty-global.md (bilingual EN+FI field note), onelifetime.world/posts/sovereignty-field-note-2-three-pillars.html (EN canonical) + .fi.html (FI mirror) landing-pages-peileineen, docs/sales/2026-05-28-rightful-oy-partnership-proposal.md, sekä Shufti-kumppanikirjeen päivitys.
 - Version: 3.60 | Tool: Claude Code (claude-opus-4-7) | Session: claude/ai-services-audit-eY3rW | Date: 27.05.2026 | Changes: Lukkokohtainen versionosto 3.59 → 3.60 kaikkien 4 opinnäytetyötiedoston yli CLAUDE.md:n opinnäytetyösäännön mukaan. Ei sisältömuutosta tässä maisteritiedostossa: v3.60:n sisältölisäys on palvelutason markkinasignaali (2026-05-04 muodostettiin 1,5 mrd dollarin tekoälynatiivinen yrityspalveluyhtiö — Anthropic 300 M$ + Blackstone 300 M$ + Hellman & Friedman 300 M$ + Goldman Sachs 150 M$ perustaja — joka kohdistuu keskikokoisiin yrityksiin Clauden käyttöönotossa ydintoiminnoissa; 2026-05-21 hankittiin Fractional AI operatiiviseksi keskukseksi, päättäen Fractionalin 11 kuukauden OpenAI-kumppanuuden), joka master-vs-PhD-skooppisäännön §1.4 mukaan kuuluu vain väitöskirjaan. Katso PHD_FIREHORSE_FI.md §14.22 (Malli-toimittajaan kohdistettu palvelutaso: Anthropic / Blackstone / Hellman & Friedman / Goldman Sachs -järjestelmä ja suvereeni-tulosperusteinen vastapositio) ja Avainpanos #27 (Malli-toimittajaan kohdistettu palvelutaso ja suvereeni-tulosperusteinen vastapositio) tieteellistä kehystystä varten, mukaan lukien kilpailuasemoinnin nostaminen KYA-konformanssipredikaatiksi, joka on testattavissa olemassa olevan nelirataisen ASB / EAB / CSB / SIB -sanaston kautta. Firehorse-toimintamallin toteutuspuolen ominaisuudet, jotka yhdistyvät tähän signaaliin (katalogiuudelleenpositiointi 8:lle punaisen alueen konsultointi-SKU:lle, kaksi uutta tulosperusteista SKU:ta AIS-EU-SOV-OC ja AIS-OUTCOME-PILOT, kahden `_OLD`-SKU:n poisto, kuuden puolustettavan sääntely-/suvereniteetti-SKU:n nostaminen featured-tilaan) on koodattu operatiivisesti `scripts/ai_services_audit_apply.py`:ään ja sovellettu `dws10.com/config/products.json`:iin sekä dual-folder-peilauskohteeseen samassa commit-setissä osana normaalia tuote-operointia; ne eivät vaadi uusia maisteri-osioita, koska katalogikerros on tuote-toteutusartefakti, joka on jo katettu olemassa olevassa toimintamallin kehystyksessä. `Learn/`-HTML-uudelleengenerointi tarvitaan (ei tässä committissa — vaatii Pandoc-buildin).
@@ -17,7 +18,7 @@ Sessions & Modifications:
 - Version: 3.58 | Tool: Claude Code (Opus 4.7) | Session: claude/ai-pricing-enterprise-Cnzfu | Date: 21.05.2026 | Changes: Lukkokohtainen versionosto 3.57 → 3.58 kaikkien 4 opinnäytetyötiedoston yli CLAUDE.md:n opinnäytetyösäännön mukaan. Ei sisältömuutosta tässä maisteritiedostossa: v3.58:n sisältölisäys on kysyntäpuolen markkinasignaali (Microsoft peruu sisäiset Claude Code -lisenssit token-laskutuksen vuoksi ~13 mrd $ OpenAI-omistuksesta ja Anthropic-laskentaa pyörittävästä Azure-kapasiteetista huolimatta; Uberin CTO-muistio — koko vuoden 2026 tekoälybudjetti kulutettu neljässä kuukaudessa; Yhdysvaltain tekoälyohjelmistojen hinnat +20–37 % H1 2026:ssa; GitHubin kiinteähintaiset suunnitelmat poistetaan käyttöperusteisen laskutuksen hyväksi Copilot/Codespaces/Actions-tuotteissa), joka master-vs-PhD-skooppisäännön §1.4 mukaan kuuluu vain väitöskirjaan. Katso PHD_FIREHORSE_FI.md §14.20 (Tekoälyn hinnoittelukapitulaatio: token-pohjaisen laskutuksen puristus ja omistetun laskennan käyttökustannuskuri) ja Avainpanos #25 (Kysyntäpuolen kapitulaatio ja agenttisen tekoälyn konformanssin kustannuspinnan-vakauden ulottuvuus) tieteellistä kehystystä varten, mukaan lukien uusi CSB-rata (Cost-Surface Stability käyttöönotossa), joka laajentaa EU:n tekoälysäädöksen artiklan 14 valvonnan laadusta kohtuuhintaisuus-vakaus-muuttujaan. Firehorse-toimintamallin toteutuspuolen ominaisuudet, jotka altistuvat tälle signaalille (Spark NVFP4 omistettu laskenta §10.10.6.1, prompt-välimuistiarkkitehtuuri, OpenClaw omistetulla raudalla, Proton-postilaatikko-per-agentti, monituottajareititys tehtävätietoisella malli-valitsijalla) on jo dokumentoitu tämän maisteritutkielman omissa luvuissaan eivätkä vaadi lisäyksiä — signaali validoi olemassa olevan toteutuskurin sen sijaan, että käynnistäisi uuden tuotetyön. `Learn/`-HTML-uudelleengenerointi tarvitaan (ei tässä committissa — vaatii Pandoc-buildin).
 - Version: 3.57 | Tool: Claude Code (Opus 4.7) | Session: claude/multi-agent-ai-alignment-F2NIO | Date: 17.05.2026 | Changes: Lukkokohtainen versionosto 3.56 → 3.57 kaikkien 4 opinnäytetyötiedoston yli CLAUDE.md:n opinnäytetyösäännön mukaan. Ei sisältömuutosta tässä maisteritiedostossa: v3.57:n sisältölisäys on markkinasignaali ja standardointi-signaali (Shapira et al. "Agents of Chaos" arXiv:2602.20021 + Emergence AI "Emergence World" world.emergence.ai → KYA-standardi falsifioitavuuden ankkurina), joka master-vs-PhD-skooppisäännön §1.4 mukaan kuuluu vain väitöskirjaan. Katso PHD_FIREHORSE_FI.md §14.19 (Moniagenttisten järjestelmien emergentti väärinkohdistus ja kannustinten suunnittelu kohdistuksen yksikkönä) ja Avainpanos #24 tieteellistä kehystystä varten. `Learn/`-HTML-uudelleengenerointi tarvitaan (ei tässä committissa — vaatii Pandoc-buildin).
 - Version: 3.56 | Tool: Claude Code | Session: claude/compare-qwen-deepseek-E6Gly | Date: 16.05.2026 | Changes: Lisätty §10.10.6.1 (Laitteistollisen Brainin päivitys — toukokuu 2026), joka dokumentoi Spark Primary tierin vaihdon `llama3.3:70b`:stä `nemotron-3-super`:iin (~4,5× dekoodausnopeus, MoE 123,6B / 12,7B aktiivisia, Mamba-2 + attentio + Latent MoE, NVFP4-esikoulutettu), Fast tierin päivityksen `qwen2.5-coder:32b`:stä `qwen3-coder:30b`:hen, sekä OpenClawn lisäämisen ensiluokkaiseksi compose-palveluksi EU-suvereeneille no-egress agenttityökuormille. Toteutusartefaktit viitattu: kenttämuistio 2026-03-29 v1.6, DWS_DEPLOYMENT_STANDARD.md v1.4, docker-compose.yml, DWS7_ROADMAP.md PR 161 uudelleenperustus. Markkinasignaaliperustelu (laskentaniukkuus, NVFP4-laitteistovallihauta) viitattu PHD_FIREHORSE_FI §14.18:aan master-vs-PhD-skooppisäännön §1.4 mukaisesti. Kaikki 4 opinnäytetyötiedostoa nostettu v3.56:een lukitusti CLAUDE.md:n ohjeen mukaan. `Learn/`-HTML-uudelleengenerointi tarvitaan (ei tässä committissa — vaatii Pandoc-buildin).
-- Version: 3.55 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Versiopäivitys 3.54 -> 3.55 lukitussa 4 opinnäytetyötiedoston ketjussa; VERSION AND AGENT HISTORY -lohkon sulkeva erotin korjattu muotoon ***; Learn-kansion opinnäytetyön HTML-julkaisut generoitu v3.55-muotoon
+- Version: 3.55 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Versiopäivitys 3.54 -> 3.55 lukitussa 4 opinnäytetyötiedoston ketjussa; VERSION AND AGENT HISTORY -lohkon sulkeva erotin korjattu muotoon \*\*\*; Learn-kansion opinnäytetyön HTML-julkaisut generoitu v3.55-muotoon
 - Version: 3.54 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Lisätty §1.4 Sisältörajaus — maisteriopinnäytetyö on tuote/toteutuslähtöinen, ei sisällä markkinatietoa eikä pitkän aikavälin tiekarttaa; rajaus kirjattu CLAUDE.md:hen ja peilattu kaikkiin 4 opinnäytetyötiedostoon; väitöskirjan eriytyminen formalisoitu; versionosto rinnakkain CLAUDE.md:n ohjeen mukaan
 - Version: 3.53 | Tool: Claude Code (Sonnet 4.6) | Session: main | Date: 10.05.2026 | Changes: Lisätty agenttien vastuullisuus- ja havainnointitaso uutena avainpanoksena: AgentLogger (jäsennelty JSONL + ei-blokkaava Supabase agent_executions), AgentVersionRegistry rollback-tukea varten, drift-detector.ts päivittäisten luottamuspisteiden laskuraportteja varten, eval-runner.ts noudattamisaineistojen pisteytystä varten — toteuttaa suoraan EU:n tekoälysäädöksen artiklojen 9 (riskinhallinta), 12 (lokitus) ja 14 (ihmisvalvonta) vaatimukset tuotantokoodina; Baseten lisätty OpenAI-yhteensopivaksi LLM-tarjoajaksi laajentaen monituottajareititystä Groq/Baseten/OpenAI-vaihtoehtoihin tehtävätietoisella model-selector-valinnalla; /case-run-taito rekisteröity (Themis v2.0 case-coordinate-toiminto, Legora AOS -kilpailuanalyysi DWS Case -entiteetin tiekartalla); Outokumpu CBAM -kumppanuusmalli ensimmäisenä teollisuusostaajan vaatimustenmukaisuuskustannusten kvantifiointitapauksena; TokenSpeed-inferenssimoottori (LightSeek MIT, DGX Spark -sopivuusarvio); kaikki 4 opinnäytetyötiedostoa nostettu rinnakkain CLAUDE.md:n ohjeen mukaan
 - Version: 3.52 | Tool: Claude Code (Opus 4.7) | Session: claude/update-thesis-ontology-blog-3RGKG | Date: 29.04.2026 | Changes: Lisätty luku 1.6 "Ontologia — etymologia ja filosofinen tausta", joka linkittää opinnäytetyön ONTOLOGY.md v1.3 -dokumenttiin (kreikan ón + lógos, Aristoteles, skolastiikan 1600–1700-luvun systematisointi, nykyinen tietojenkäsittelytieteen merkitys). Yhdenmukaistaa terminologian DWS Ontology Standardin kanssa. Kaikki 4 opinnäytetyötiedostoa nostettu lukon mukaisesti CLAUDE.md:n ohjeen mukaan.
@@ -84,7 +85,7 @@ Document Status:
 - Languages Available: English, Suomi
 - Publication Status: DRAFT (V3.36 — KYA open source -standardipolku, NIST-tilanne, Artikkeli 1 tarkennus, julkaisuvaiheistus)
 
-***
+---
 
 **Opinnäytetyö**
 **Metropolia Ammattikorkeakoulu**
@@ -96,7 +97,7 @@ Document Status:
 **Päivämäärä:** 16.1.2026
 **InvestEU Portal:** Projekti Lifetime World, DWS IQ 6, Firehorse (INPO-20254383) jätetty julkaistavaksi InvestEU-portaaliin 25.12.2025 — InvestEU Portal Team, Euroopan komissio
 
-***
+---
 
 ## Tiivistelmä
 
@@ -3077,6 +3078,81 @@ Taksonomia ei ole pelkkä nimeämissopimus; se dokumentoi suunnitteluperiaatteen
 
 ---
 
+### 10.23 Kolmen pääoman kertymismalli: token-pääoma, inhimillinen pääoma ja Control Room -pääoma DWS IQ 6 -toimintamallin kestävinä omaisuuserinä
+
+#### 10.23.1 Konteksti ja motivaatio
+
+Lokakuusta 2025 noin toukokuuhun 2026 ulottunut seitsemän kuukautta muodosti DWS IQ 6 -toimintamallin intensiivisimmän HIL-vaiheen (Human-in-the-Loop). Kesäkuussa 2026 havaittiin operatiivinen vaihesiirtymä: järjestelmä saavutti operatiivisen kypsyystason, jossa operaattorin ensisijainen rooli siirtyi yksittäisten tuotosten tarkistamisesta tuotosten generointia ohjaavien arkkitehtuuristen politiikkojen asettamiseen ja ylläpitoon. Kuntosali palasi päivittäiseen aikatauluun.
+
+Tämä luku dokumentoi toteutuspuolen todistusaineiston sille, mitä tohtoriopinnäytetyö (§14.25) kehystää teoreettisesti kolmen pääoman kertymismallina: **token-pääoma**, **inhimillinen pääoma** ja **Control Room -pääoma**. Kaikki kolme kertyivät samanaikaisesti HIL-vaiheen aikana. Tämä luku kattaa toteutustiedot; markkinasignaali­kehystys (Satya Nadellan Build 2026 -sanasto) ja kilpailuanalyysi kuuluvat §14.25:een §1.4:n master-vs-PhD-skooppisäännön mukaisesti.
+
+#### 10.23.2 Token-pääoma — mitattu inventaario (kesäkuu 2026)
+
+Token-pääoma on uudelleenkäytettävä organisatorinen omaisuuserä, joka syntyy ylläpidetyn tekoälyavusteisen toiminnan sivutuotteena. Se ei ole kulutetut tokenit; se on kestävä tuotos, joka säilyy istuntorajojen yli ja tallentuu koodatussa muodossa.
+
+**Mitattu inventaario kesäkuussa 2026:**
+
+| Omaisuuserälaji           | Määrä  | Sijainti                          | Uudelleenkäyttömekanismi                     |
+| ------------------------- | ------ | --------------------------------- | -------------------------------------------- |
+| Taitotiedostot            | 30+    | `skills/<name>/SKILL.md`          | Slash-kutsuttavissa mistä tahansa istunnosta |
+| Kenttämuistiot            | 150+   | `docs/field-notes/`               | Haettavissa oleva institutionaalinen muisti  |
+| Agentikonfiguraatiot      | 50     | `src/agents/`                     | Foundry, artikla 12 -lokitus                 |
+| Standardidokumentit       | 10+    | Juuritason `DWS_*.md`             | Reititystaulukko CLAUDE.md:ssä               |
+| Validoidut koukut         | Useita | `.claude/hooks/`                  | Istunnonkäynnistys, pre-commit, audit        |
+| Cron/automaatiokirjaukset | Useita | `scripts/daily`, `scripts/weekly` | Ajastinrekisteröity, ajaa ilman valvontaa    |
+
+CLAUDE.md-sääntö "Kaksi kertaa pyytäminen = epäonnistuminen" operationalisoi kertymismekanismin: jokainen manuaalisesti suoritettu harkinta, joka sulkee taitosilmukan, poistaa kyseisen päätöksen pysyvästi operaattorin toistuvasta huomiosta.
+
+#### 10.23.3 Inhimillinen pääoma — HIL-vaihe koulutus­ohjelmana
+
+Seitsemän kuukauden HIL-vaihe toimi jälkikäteen tarkasteltuna intensiivisenä ja toimialakohtaisena koulutus­ohjelmana. Operaattoria ei korvattu; operaattorin asiantuntemusprofiili muuttui merkittävästi.
+
+**HIL-vaiheen aikana syventyneet kyvyt:**
+
+- **Agentituotosten hahmontunnistus** — vikasilahtia (hallusinaatiotyyppi, laajuuden ryömintä, standardireititysvirheet) tunnistetaan tuotoksen ensimmäisestä kappaleesta ilman koko lukemista
+- **Kehotteen kalibrointi-intuitio** — järjestelmäkehotteen alispesifikaatio diagnosoidaan tuotossignaalista, ei yritys-erehdys-iteraation kautta
+- **Arkkitehtuurinen harkinta delegoinnista** — todistusperusteiset kynnykset sille, mitkä agenttitoiminnot vaativat tarkistuksen ja mitkä voidaan luottaa ajettavaksi ilman valvontaa
+- **Vikamuotolukutaito** — toimialakohtainen tieto siitä, mitkä tehtävät kantavat mitäkin vikamuotoja, mahdollistaen kohdennetun tarkistuksen
+- **Taitotaksonomian sujuvuus** — kyky tunnistaa reaaliajassa, kun harkintatehtävä on toistuva ja tulisi koodata eikä toistaa
+
+Tämä asiantuntemus on hiljaista ja ruumiillistunutta. Sitä ei voi hankkia palkkaamalla henkilön, joka ei osallistunut HIL-vaiheeseen.
+
+#### 10.23.4 Control Room -pääoma — käyttöönotettu infrastruktuuri (kesäkuu 2026)
+
+DWS Control Room -arkkitehtuuri (määritelty `docs/Lyhenteet.md`:ssä ja `docs/Deputy-Agents-Architecture.md §9`:ssä) on hybridiarkkitehtuurin reunakerros:
+
+- **Control Room** — reunakerros, reaaliaikaiset havainnot, HIL-hyväksyntäportit, keskeytys/ohitus, artikla 12 -auditointipolku, tavoitelatenssi < 100 ms
+- **Situation Room** — pilvikerros, strateginen koostaminen, syvyysanalytiikka, ERP/BIM/IoT-integraatio, vaatimustenmukaisuusraportointi
+
+**Control Room -pääoma, joka kertyi HIL-vaiheen aikana:**
+
+| Omaisuuserä                        | Tila (kesäkuu 2026)      | Todisteet                                           |
+| ---------------------------------- | ------------------------ | --------------------------------------------------- |
+| Reunalaskentasolmut                | Käyttöönotettu           | Acer Veriton GN100, DGX Spark, NVIDIA Jetson -tasot |
+| Luokittelukynnykset                | Empiirisesti kalibroidut | Kenttämuistiot: 2026-03-01, 2026-03-13, 2026-03-29  |
+| HIL-hyväksyntäportin konfiguraatio | Testattu tuotannossa     | CLAUDE.md auto-mode -koukut, hook-auditointi­lokit  |
+| Artikla 12 -auditointipolku        | Täytetty                 | `article12-logger.ts`, `agent_executions` -taulukko |
+| Poikkeuskaavio                     | Dokumentoitu             | Kenttämuistiokokoelma, `.claude/hooks/README.md`    |
+| Monipalveluntarjoajareititys       | Validoitu                | Groq / Baseten / OpenAI / Scaleway / DGX Spark      |
+
+#### 10.23.5 HIL → HIC -siirtymä insinöörointivirstanpylväänä
+
+HIL → HIC -siirtymä ei ole tuotehallinnallinen päätös. Sillä on tarkat insinöörointiset edellytykset, jotka voidaan verifioida:
+
+1. **Token-pääomakynnys:** Taitokokoelma on riittävä siten, että useimmat toistuvat harkintatehtävät käsittelee taito ilman operaattorin väliintuloa.
+2. **Inhimillisen pääoman kynnys:** Operaattori tunnistaa vikasilahdot allekirjoitustasolla ennen koko tuotoksen tarkistamista.
+3. **Control Room -pääomakynnys:** Automatisoituun järjestelmään voidaan luottaa tuotantokuorman ylläpidossa työpäivän ajan ilman tuotoskohtaista tarkistusta.
+
+Kesäkuun 2026 havainto — kuntosalin palaaminen aikatauluun — on kaikkien kolmen kynnyksen samanaikaisen ylittymisen operatiivinen ilmenemä DWS IQ 6 -järjestelmän useimmilla osa-alueilla.
+
+**Edelleen HIL:ssä olevat alueet (kesäkuu 2026):** Tietoturva-asennon muutokset, supabase-migraatioiden kirjoittaminen sekä kaikki agentituotokset, jotka koskevat rahoituksellisia tai oikeudellisia kenttiä.
+
+#### 10.23.6 Tutkimuspanos
+
+**Avainpanos #32 — Kolmen pääoman kertymismalli: toteutustodisteet seitsemän kuukauden tuotanto-HIL-operaatioista:** DWS IQ 6:n tuotantotallenne (lokakuu 2025 – kesäkuu 2026) tarjoaa ensimmäisen empiirisen, monikuukautisen toteutustodistusaineiston §14.25:ssä kehitetylle teoreettiselle kolmen pääoman mallille. Token-pääomainventaario (30+ taitoa, 150+ kenttämuistiota, 50 agenttia artikla 12 -lokituksella), dokumentoitu inhimillisen pääoman syveneminen (hahmontunnistus, kehotteen kalibrointi-intuitio, arkkitehtuurinen harkinta, vikamuotolukutaito) ja Control Room -pääoma (kalibroidut kynnykset, validoidut HIL-portit, täytetty artikla 12 -auditointipolku, testattu monipalveluntarjoajareititys) muodostavat yhdessä mitattavan perusviivan sille, mitä tuotantoagenttinen toimintamalli kerryttää seitsemän kuukauden HIL-vaiheen aikana. Panos tarjoaa: (a) per-pääoma mitattavat indikaattorit, jotka operationalisoivat teoreettisen mallin; (b) HIL → HIC -siirtymän insinöörointimääritelmän toimialakohtaisilla edellytyksillä; (c) taitokokoelman agenttisen toimintamallin kypsyyden ensisijaisena KPI:nä. Tämä panos asemoituu toteutushorisonttiin (nykyinen tuoteskooppi) ja on empiirisesti perusteltu — kesäkuun 2026 siirtymätapahtuma on dokumentoitu operatiivinen havainto, ei ennakoitu virstanpylväs.
+
+---
+
 **Dokumentin tiedot:**
 
 **Otsikko:** Firehorse-tuotevalmistuksen toimintamalli: Hybridi AI-edge-arkkitehtuuri ilmastoälykkäille teollisille alustoille
@@ -3134,7 +3210,7 @@ Taksonomia ei ole pelkkä nimeämissopimus; se dokumentoi suunnitteluperiaatteen
 **Lisenssi:** Proprietary - Lifetime Oy
 **Yhteystieto:** risto@lifetime.fi
 
-***
+---
 
 ## Bibliografia (Oxford notes-bibliography -tyyli) — v3.61
 
@@ -3144,58 +3220,58 @@ Lisätty v3.61:ssä (28.05.2026) luetteloimaan tämän maisterityön luvuissa si
 
 > **Tässä luvussa viitatut lähteet.** Luvut, jotka tukeutuvat yhteen tai useampaan alla olevista alaviitteistä, on lueteltu täällä, jotta lukija voi ratkaista jokaisen tekstinsisäisen viitteen ilman koko dokumentin selausta.
 
-| Luku | Siteerattu alaviite |
-|------|----------------------|
+| Luku                                                                       | Siteerattu alaviite                          |
+| -------------------------------------------------------------------------- | -------------------------------------------- |
 | Suvereniteettisegmentoinnin keskustelu (Aegis / Sovereign Infra / Connect) | [^1], [^4], [^5], [^12], [^13], [^14], [^16] |
-| KYA-kumppaniekosysteemi (vrt. Liite H) ja luottamuspino-luku | [^2], [^8] |
-| Pilotti- ja tapaustutkimusluku (Outokumpu Tier-1) | [^7] |
-| Toimialakohtainen vaatimustenmukaisuusluku (rakentaminen, monijurisdiktio) | [^9] |
-| Kumppanuusluku (xAI ym.) | [^10], [^11] |
-| Kvantti- ja kryptografialuku | [^16], [^17], [^18], [^19] |
-| Sääntelyluku (EU AI Act, eIDAS 2.0, EU Data Act) | [^20], [^21], [^22] |
+| KYA-kumppaniekosysteemi (vrt. Liite H) ja luottamuspino-luku               | [^2], [^8]                                   |
+| Pilotti- ja tapaustutkimusluku (Outokumpu Tier-1)                          | [^7]                                         |
+| Toimialakohtainen vaatimustenmukaisuusluku (rakentaminen, monijurisdiktio) | [^9]                                         |
+| Kumppanuusluku (xAI ym.)                                                   | [^10], [^11]                                 |
+| Kvantti- ja kryptografialuku                                               | [^16], [^17], [^18], [^19]                   |
+| Sääntelyluku (EU AI Act, eIDAS 2.0, EU Data Act)                           | [^20], [^21], [^22]                          |
 
 ### Alaviite-bibliografia
 
-[^1]: Päärni, R. A. (2026). *PHD_FIREHORSE_FI.md §14.23 — Kolmen pilarin suvereniteettitaksonomia ja jurisdiktiokohtainen dynaamisuus globaaleissa yrityksissä.* Lifetime Oy / LUT-yliopisto. Paikallinen polku: `docs/PHD_FIREHORSE_FI.md`. Käyty 28.5.2026.
+[^1]: Päärni, R. A. (2026). _PHD_FIREHORSE_FI.md §14.23 — Kolmen pilarin suvereniteettitaksonomia ja jurisdiktiokohtainen dynaamisuus globaaleissa yrityksissä._ Lifetime Oy / LUT-yliopisto. Paikallinen polku: `docs/PHD_FIREHORSE_FI.md`. Käyty 28.5.2026.
 
-[^2]: Päärni, R. A. (2026). *PHD_FIREHORSE_FI.md §14.21 — KYA Substraatin eheyden konformanssi (SIB-rata).* Lifetime Oy / LUT-yliopisto. Paikallinen polku: `docs/PHD_FIREHORSE_FI.md`. Käyty 28.5.2026.
+[^2]: Päärni, R. A. (2026). _PHD_FIREHORSE_FI.md §14.21 — KYA Substraatin eheyden konformanssi (SIB-rata)._ Lifetime Oy / LUT-yliopisto. Paikallinen polku: `docs/PHD_FIREHORSE_FI.md`. Käyty 28.5.2026.
 
-[^3]: Päärni, R. A. (2026). *PHD_FIREHORSE_FI.md §14.22 — Malli-toimittajaan kohdistettu palvelutaso ja suvereeni-tulosperusteinen vastapositio.* Lifetime Oy / LUT-yliopisto. Paikallinen polku: `docs/PHD_FIREHORSE_FI.md`. Käyty 28.5.2026.
+[^3]: Päärni, R. A. (2026). _PHD_FIREHORSE_FI.md §14.22 — Malli-toimittajaan kohdistettu palvelutaso ja suvereeni-tulosperusteinen vastapositio._ Lifetime Oy / LUT-yliopisto. Paikallinen polku: `docs/PHD_FIREHORSE_FI.md`. Käyty 28.5.2026.
 
-[^4]: Päärni, R. A. (2026). *Kenttämuistio: EU-teknologiapinon suvereniteettiasemointi (Kenttämuistio #1).* Lifetime Oy. Paikallinen polku: `docs/field-notes/2026-01-28-eu-tech-stack-sovereignty-positioning.md`. Päivätty 28.1.2026.
+[^4]: Päärni, R. A. (2026). _Kenttämuistio: EU-teknologiapinon suvereniteettiasemointi (Kenttämuistio #1)._ Lifetime Oy. Paikallinen polku: `docs/field-notes/2026-01-28-eu-tech-stack-sovereignty-positioning.md`. Päivätty 28.1.2026.
 
-[^5]: Päärni, R. A. (2026). *Suvereniteetin kenttämuistio #2 — Digitaalisen suvereniteetin kolme tasoa.* Lifetime Oy. Paikallinen polku: `docs/field-notes/2026-05-28-three-pillars-sovereignty-global.md`. Julkaistu HTML: <https://onelifetime.world/posts/sovereignty-field-note-2-three-pillars.fi.html>. Päivätty 28.5.2026.
+[^5]: Päärni, R. A. (2026). _Suvereniteetin kenttämuistio #2 — Digitaalisen suvereniteetin kolme tasoa._ Lifetime Oy. Paikallinen polku: `docs/field-notes/2026-05-28-three-pillars-sovereignty-global.md`. Julkaistu HTML: <https://onelifetime.world/posts/sovereignty-field-note-2-three-pillars.fi.html>. Päivätty 28.5.2026.
 
-[^6]: Päärni, R. A. (2026). *Kenttämuistio: Suvereenit pilvitoimittajat — Aegis-kumppanitutkimus.* Lifetime Oy. Paikallinen polku: `docs/field-notes/2026-04-23-sovereign-cloud-providers-aegis-partner-research.md`. Päivätty 23.4.2026.
+[^6]: Päärni, R. A. (2026). _Kenttämuistio: Suvereenit pilvitoimittajat — Aegis-kumppanitutkimus._ Lifetime Oy. Paikallinen polku: `docs/field-notes/2026-04-23-sovereign-cloud-providers-aegis-partner-research.md`. Päivätty 23.4.2026.
 
-[^7]: Päärni, R. A. (2026). *Kenttämuistio: Tier-1-suvereniteettipilotti Outokumpulle — robotiikkapinon tiedustelu + DGX / Jetson T5000 -suvereniteettiarvio.* Lifetime Oy. Paikallinen polku: `docs/field-notes/2026-05-25-tier1-sovereignty-pilot-outokumpu-dgx-t5000.md`. Päivätty 25.5.2026.
+[^7]: Päärni, R. A. (2026). _Kenttämuistio: Tier-1-suvereniteettipilotti Outokumpulle — robotiikkapinon tiedustelu + DGX / Jetson T5000 -suvereniteettiarvio._ Lifetime Oy. Paikallinen polku: `docs/field-notes/2026-05-25-tier1-sovereignty-pilot-outokumpu-dgx-t5000.md`. Päivätty 25.5.2026.
 
-[^8]: Päärni, R. A. (2026). *Shufti KYA -whitepaper — IDV-tarjoajan sertifiointi KYA-standardin alla.* Lifetime Oy. Paikallinen polku: `docs/field-notes/2026-03-17-shufti-kya-whitepaper.md`. Versio 2.0, päivätty 13.4.2026.
+[^8]: Päärni, R. A. (2026). _Shufti KYA -whitepaper — IDV-tarjoajan sertifiointi KYA-standardin alla._ Lifetime Oy. Paikallinen polku: `docs/field-notes/2026-03-17-shufti-kya-whitepaper.md`. Versio 2.0, päivätty 13.4.2026.
 
-[^9]: Päärni, R. A. (2026). *Rakentamisen vaatimustenmukaisuus monijurisdiktiossa — brief.* Lifetime Oy. Paikallinen polku: `docs/briefs/construction-compliance-brief.md`. Päivätty 22.5.2026.
+[^9]: Päärni, R. A. (2026). _Rakentamisen vaatimustenmukaisuus monijurisdiktiossa — brief._ Lifetime Oy. Paikallinen polku: `docs/briefs/construction-compliance-brief.md`. Päivätty 22.5.2026.
 
-[^10]: Päärni, R. A. (2026). *xAI Grok -kumppanuusehdotus v1.0.* Lifetime Oy. Paikallinen polku: `docs/2026-02-26-xai-grok-partnership-proposal.md`. Päivätty 26.2.2026.
+[^10]: Päärni, R. A. (2026). _xAI Grok -kumppanuusehdotus v1.0._ Lifetime Oy. Paikallinen polku: `docs/2026-02-26-xai-grok-partnership-proposal.md`. Päivätty 26.2.2026.
 
-[^11]: Päärni, R. A. (2026). *xAI Optimus -kumppanuusehdotus v2.0.* Lifetime Oy. Paikallinen polku: `docs/sales/xAI-Optimus-Partnership-Proposal-v2.0.md`. Päivätty 22.5.2026.
+[^11]: Päärni, R. A. (2026). _xAI Optimus -kumppanuusehdotus v2.0._ Lifetime Oy. Paikallinen polku: `docs/sales/xAI-Optimus-Partnership-Proposal-v2.0.md`. Päivätty 22.5.2026.
 
-[^12]: Lifetime Oy. (2026). *DWS_DEPLOYMENT_STANDARD.md rivit 165–172 — DWS IQ Connect / Sovereign Infra / Aegis -tuotetasojen määritelmät.* Sisäinen kanoninen standardi. Paikallinen polku: `DWS_DEPLOYMENT_STANDARD.md`. Käyty 28.5.2026.
+[^12]: Lifetime Oy. (2026). _DWS_DEPLOYMENT_STANDARD.md rivit 165–172 — DWS IQ Connect / Sovereign Infra / Aegis -tuotetasojen määritelmät._ Sisäinen kanoninen standardi. Paikallinen polku: `DWS_DEPLOYMENT_STANDARD.md`. Käyty 28.5.2026.
 
-[^13]: Lifetime Oy. (2026). *DWS_SOVEREIGNTY_STANDARD.md v1.2 — CLOUD Act / FISA 702 / Schrems II -kehys.* Sisäinen kanoninen standardi. Paikallinen polku: `DWS_SOVEREIGNTY_STANDARD.md`. Käyty 28.5.2026.
+[^13]: Lifetime Oy. (2026). _DWS_SOVEREIGNTY_STANDARD.md v1.2 — CLOUD Act / FISA 702 / Schrems II -kehys._ Sisäinen kanoninen standardi. Paikallinen polku: `DWS_SOVEREIGNTY_STANDARD.md`. Käyty 28.5.2026.
 
-[^14]: Lifetime Oy. (2026). *DWS_STANDARDS_LIBRARY.md §3.6 — Suvereniteettitasokartta (toimittajaluokitus T1/T2/T3).* Sisäinen kanoninen standardi. Paikallinen polku: `DWS_STANDARDS_LIBRARY.md`. Käyty 28.5.2026.
+[^14]: Lifetime Oy. (2026). _DWS_STANDARDS_LIBRARY.md §3.6 — Suvereniteettitasokartta (toimittajaluokitus T1/T2/T3)._ Sisäinen kanoninen standardi. Paikallinen polku: `DWS_STANDARDS_LIBRARY.md`. Käyty 28.5.2026.
 
-[^15]: Lifetime Oy. (2026). *DWS_TRUTH_STANDARD.md — Kanonisten faktojen rekisteri.* Sisäinen kanoninen standardi. Paikallinen polku: `DWS_TRUTH_STANDARD.md`. Käyty 28.5.2026.
+[^15]: Lifetime Oy. (2026). _DWS_TRUTH_STANDARD.md — Kanonisten faktojen rekisteri._ Sisäinen kanoninen standardi. Paikallinen polku: `DWS_TRUTH_STANDARD.md`. Käyty 28.5.2026.
 
-[^16]: Rightful Oy. (2026). *R-Sac² — Road to Post-Quantum Security.* Kumppaniartefakti vastaanotettu 28.5.2026 (infografiikka) ja kuvattu osoitteessa <https://www.rightful.fi/>. Viisivaiheinen menetelmä: Tunnista → Arvioi → Suunnittele → Toteuta → Seuraa. Käyty 28.5.2026.
+[^16]: Rightful Oy. (2026). _R-Sac² — Road to Post-Quantum Security._ Kumppaniartefakti vastaanotettu 28.5.2026 (infografiikka) ja kuvattu osoitteessa <https://www.rightful.fi/>. Viisivaiheinen menetelmä: Tunnista → Arvioi → Suunnittele → Toteuta → Seuraa. Käyty 28.5.2026.
 
-[^17]: National Institute of Standards and Technology (NIST). (2024). *FIPS 203 — Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM, Kyber).* U.S. Department of Commerce. <https://csrc.nist.gov/pubs/fips/203/final>.
+[^17]: National Institute of Standards and Technology (NIST). (2024). _FIPS 203 — Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM, Kyber)._ U.S. Department of Commerce. <https://csrc.nist.gov/pubs/fips/203/final>.
 
-[^18]: National Institute of Standards and Technology (NIST). (2024). *FIPS 204 — Module-Lattice-Based Digital Signature (ML-DSA, Dilithium).* U.S. Department of Commerce. <https://csrc.nist.gov/pubs/fips/204/final>.
+[^18]: National Institute of Standards and Technology (NIST). (2024). _FIPS 204 — Module-Lattice-Based Digital Signature (ML-DSA, Dilithium)._ U.S. Department of Commerce. <https://csrc.nist.gov/pubs/fips/204/final>.
 
-[^19]: National Institute of Standards and Technology (NIST). (2024). *FIPS 205 — Stateless Hash-Based Digital Signature (SLH-DSA, SPHINCS+).* U.S. Department of Commerce. <https://csrc.nist.gov/pubs/fips/205/final>.
+[^19]: National Institute of Standards and Technology (NIST). (2024). _FIPS 205 — Stateless Hash-Based Digital Signature (SLH-DSA, SPHINCS+)._ U.S. Department of Commerce. <https://csrc.nist.gov/pubs/fips/205/final>.
 
-[^20]: Euroopan parlamentti ja neuvosto. (2024). *Asetus (EU) 2024/1689, 13. kesäkuuta 2024, jolla vahvistetaan yhdenmukaiset säännöt tekoälystä (EU:n tekoälysäädös).* Artiklat 9, 12, 13, 14 siteerattu.
+[^20]: Euroopan parlamentti ja neuvosto. (2024). _Asetus (EU) 2024/1689, 13. kesäkuuta 2024, jolla vahvistetaan yhdenmukaiset säännöt tekoälystä (EU:n tekoälysäädös)._ Artiklat 9, 12, 13, 14 siteerattu.
 
-[^21]: Euroopan parlamentti ja neuvosto. (2024). *Asetus (EU) 2024/1183, jolla muutetaan asetusta (EU) N:o 910/2014 EU:n digitaalisen identiteetin kehystä koskien (eIDAS 2.0).*
+[^21]: Euroopan parlamentti ja neuvosto. (2024). _Asetus (EU) 2024/1183, jolla muutetaan asetusta (EU) N:o 910/2014 EU:n digitaalisen identiteetin kehystä koskien (eIDAS 2.0)._
 
-[^22]: Euroopan parlamentti ja neuvosto. (2023). *Asetus (EU) 2023/2854 yhdenmukaisista säännöistä datan oikeudenmukaista saatavuutta ja käyttöä koskien (EU Data Act).*
+[^22]: Euroopan parlamentti ja neuvosto. (2023). _Asetus (EU) 2023/2854 yhdenmukaisista säännöistä datan oikeudenmukaista saatavuutta ja käyttöä koskien (EU Data Act)._
