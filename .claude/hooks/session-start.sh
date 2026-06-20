@@ -15,6 +15,11 @@ RED zone (BLOCKED — human required): APPLYING migrations (psql / supabase db p
 Budget: Check CLAUDE_AUTO_MODE_BUDGET env var (default: no limit)
 Audit: All YELLOW actions logged to .claude/hooks/audit/
 
+## Engineering Discipline — The 12 Rules (canonical: CLAUDE.md → "Engineering Discipline")
+
+Every agent operates by these. Full text + DWS bindings in CLAUDE.md.
+1 Think before coding (state assumptions, don't guess) · 2 Simplicity first (no speculative abstractions) · 3 Surgical changes (touch only what you must) · 4 Goal-driven (define success, loop until verified) · 5 Model only for judgment calls (not routing/retries/deterministic transforms) · 6 Token budgets per-task 4000 / per-session 30000 · 7 Surface conflicts, don't average them · 8 Read before you write (exports, callers, shared utils) · 9 Tests verify intent, not just behavior · 10 Checkpoint every significant step · 11 Match codebase conventions · 12 Fail loud (surface uncertainty, never hide skipped work)
+
 CONTEXT
 
 # Check if budget env var is set

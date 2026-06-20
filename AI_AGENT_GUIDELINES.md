@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code | Session: claude/karpathy-12-rules-u47rx1 | Date: 19.06.2026 | Changes: Added §0 "The 12 Engineering Discipline Rules" — restates the canonical 12 rules (home: CLAUDE.md) for every `src/agents/` BaseAgent, MCP tool, AgentFoundry, and dev-fleet agent, with agent-specific bindings. Ensures every agent has access to the rules per session directive.
 - Version: 1.1 | Tool: Claude Code (Opus 4.8) | Session: claude/ceo-review-dws-firehorse-1kWuP | Date: 31.05.2026 | Changes: Added Ledger-Native Output Contract (Firehorse 7) to §2 — operational agents must emit signed journalEntries + lineage (EU AI Act Art. 12) and optional regulatoryArtifact; defined sales-side exemption allowlist and CI contract gate. Implements DWS7 CEO reshape (layer-5 / AI Actions positioning)
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/deepwiki-agent-extraction-aS6Ub | Date: 11.02.2026 | Changes: Initial creation - consolidates distributed agent standards into single reference
 
@@ -18,7 +19,7 @@ Session Links & References:
 Document Status:
 
 - Created: 11.02.2026
-- Last Modified: 31.05.2026
+- Last Modified: 19.06.2026
 - Language: English
 - Languages Available: EN
 - Publication Status: ACTIVE
@@ -43,6 +44,7 @@ Related Documents:
 
 ## Table of Contents
 
+0. [The 12 Engineering Discipline Rules](#0-the-12-engineering-discipline-rules)
 1. [Purpose](#1-purpose)
 2. [Agent Code Standard](#2-agent-code-standard)
 3. [Naming Conventions](#3-naming-conventions)
@@ -53,6 +55,27 @@ Related Documents:
 8. [Testing Requirements](#8-testing-requirements)
 9. [Extraction Pattern: Bacterial Code](#9-extraction-pattern-bacterial-code)
 10. [Skill Codification: Asked Twice = Failure](#10-skill-codification-asked-twice--failure)
+
+---
+
+## 0. The 12 Engineering Discipline Rules
+
+**Canonical source:** [`CLAUDE.md`](CLAUDE.md) → "Engineering Discipline — The 12 Rules". This section restates them so **every agent** in scope (§1) operates by them. Do not edit the rules here — propose changes to CLAUDE.md, then mirror. At runtime, `.claude/hooks/session-start.sh` injects the same list into every Claude Code session.
+
+| #   | Rule                          | What it means for a DWS agent                                                                                              |
+| --- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Think before coding           | Emit assumptions in the agent's plan/reasoning before acting; never guess inputs or schema.                                |
+| 2   | Simplicity first              | No speculative abstractions in agent code; the smallest implementation that meets the response contract.                   |
+| 3   | Surgical changes              | An agent changes only the files its task names; no opportunistic refactors of adjacent agents/utilities.                   |
+| 4   | Goal-driven execution         | Every agent run has explicit success criteria; loop/HIL until verified, then stop (autonomy tiers, §7).                    |
+| 5   | Model only for judgment calls | Use the LLM for classification/drafting/summarization/extraction; routing, retries, status codes, transforms are code.     |
+| 6   | Token budgets are real        | Honor per-task (4000) / per-session (30000) budgets; cost tracking (§6) enforces this. Over budget → checkpoint, re-scope. |
+| 7   | Surface conflicts             | Conflicting configs/patterns/signals → flag and pick one; never silently average (mirrors prompt-injection caution, §5).   |
+| 8   | Read before you write         | Read exports/callers/shared utils (and existing agents) before adding code; reuse over duplicate.                          |
+| 9   | Tests verify intent           | Agent tests assert the response **means** the right thing, not just that a field exists (§8).                              |
+| 10  | Checkpoint each step          | Persist state / emit ledger entries per significant step; never stack work on an unverified prior step.                    |
+| 11  | Match conventions             | New agents follow BaseAgent pattern, naming conventions (§3), and the established test idiom (§8) — no silent forks.       |
+| 12  | Fail loud                     | Surface uncertainty, partial results, and skipped records in the response; never report success while hiding gaps.         |
 
 ---
 
@@ -175,16 +198,18 @@ By DWS 7 GA, every **operational** agent (i.e. one whose output affects a custom
 
 ```ts
 interface LedgerNativeAgentOutput extends AgentResponse {
-  journalEntries: CarbonLedgerEntry[];     // 0..n signed debit/credit entries (Phase 2.6 ledger, PRs 093A–093I)
-  regulatoryArtifact?: {                    // iXBRL fragment, CBAM row, ETS record, ESRS-E1 disclosure
+  journalEntries: CarbonLedgerEntry[]; // 0..n signed debit/credit entries (Phase 2.6 ledger, PRs 093A–093I)
+  regulatoryArtifact?: {
+    // iXBRL fragment, CBAM row, ETS record, ESRS-E1 disclosure
     type: "iXBRL" | "CBAM" | "ETS" | "ESRS-E1" | "TAXONOMY";
     payload: string;
     schemaVersion: string;
   };
-  lineage: {                                // EU AI Act Article 12 — see DWS_SECURITY_STANDARD.md
-    sources: DataSourceRef[];               // e.g. EUTL installation DE-123456, ENTSO-E
-    reasoning: string;                      // model trace / prompt chain
-    signedBy: SovereigntyLayerSignature;    // Full Sovereignty layer signature over the entry
+  lineage: {
+    // EU AI Act Article 12 — see DWS_SECURITY_STANDARD.md
+    sources: DataSourceRef[]; // e.g. EUTL installation DE-123456, ENTSO-E
+    reasoning: string; // model trace / prompt chain
+    signedBy: SovereigntyLayerSignature; // Full Sovereignty layer signature over the entry
   };
 }
 ```

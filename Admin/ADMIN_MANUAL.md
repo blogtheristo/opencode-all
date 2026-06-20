@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.2
+Version: 3.3
 
 Sessions & Modifications:
 
+- Version: 3.3 | Tool: Claude Code | Session: claude/karpathy-12-rules-u47rx1 | Date: 19.06.2026 | Changes: Replaced incomplete Karpathy "Critical Behaviors" (1-6) with the full 12 Engineering Discipline Rules table in AI Agent Operational Guidelines, cross-linked to canonical CLAUDE.md, AI_AGENT_GUIDELINES.md §0, and the hook enforcement map; added Recent Session Artifacts digest mined from the latest session artifacts.
 - Version: 3.2 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: pr-975 | Date: 22.05.2026 | Changes: Added GBrain standalone setup and operator usage for the `blogtheristo/gbrain` fork, documented Bun + PGLite workflow, and aligned Admin Manual rendering with `***` version-history delimiters for Pandoc compatibility.
 - Version: 3.1 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: main | Date: 13.05.2026 | Changes: Added reusable CI failure checklist for `.github/workflows/deploy-staging.yml` and `.github/workflows/dast-zap-scan.yml`: Artifact Registry existence check and create command, reserved Cloud Run `PORT` rule, `issues: write` permission for failure-notify issue creation, OWASP ZAP root/robots/sitemap endpoint rule, and startup health-wait loop guidance.
 - Version: 2.8 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Added billing account management inventory: billing account `011602-801DEC-A53E8F` (Lifetime Oy, Direct), linked projects (`dws-mcp-hub`, `dws-iq-pilot`, `dws6login`), and billing administrators (`risto.paarni2024@lifetime.fi`, `admin@dws6.com`)
@@ -40,8 +41,8 @@ Session Links & References:
 Document Status:
 
 - Created: 23.11.2025
-- Last Modified: 22.05.2026
-- Version: 3.2
+- Last Modified: 19.06.2026
+- Version: 3.3
 - Language: English
 - Languages Available: English
 - Publication Status: ✅ ACTIVE
@@ -1451,24 +1452,32 @@ For booking confirmations and admin notifications to send reliably, Cloud Run ru
 
 > "You are the hands; the human is the architect. Move fast, but never faster than the human can verify."
 
-### Critical Behaviors for DWS IQ Operations
+### The 12 Engineering Discipline Rules
 
-| #   | Behavior                     | Operational Impact                                                                     |
-| --- | ---------------------------- | -------------------------------------------------------------------------------------- |
-| 1   | **Assumption Surfacing**     | All AI agents must state assumptions before implementing changes to production systems |
-| 2   | **Confusion Management**     | STOP when encountering conflicting configs (e.g., .env vs production secrets)          |
-| 3   | **Push Back When Warranted** | Agents must flag security risks even if human requests them                            |
-| 4   | **Simplicity Enforcement**   | Prefer boring, obvious solutions over clever abstractions                              |
-| 5   | **Scope Discipline**         | Never modify files outside the requested scope                                         |
-| 6   | **Dead Code Hygiene**        | Ask before deleting - prevents accidental data loss                                    |
+**Canonical source:** [`CLAUDE.md`](../CLAUDE.md) -> "Engineering Discipline — The 12 Rules". Every agent has access to these — they are injected into every Claude Code session by `.claude/hooks/session-start.sh`, restated for code agents in [`AI_AGENT_GUIDELINES.md`](../AI_AGENT_GUIDELINES.md) §0, and enforced where mechanizable by the hooks (see `.claude/hooks/README.md`). This table is the operational reference; the rules themselves are not edited here.
+
+| #   | Rule                          | Operational impact for DWS IQ                                                                   |
+| --- | ----------------------------- | ---------------------------------------------------------------------------------------------- |
+| 1   | Think before coding           | State assumptions before changing production systems; never guess.                              |
+| 2   | Simplicity first              | Boring, minimum-code solutions; no speculative "future flexibility" abstractions.              |
+| 3   | Surgical changes              | Modify only files in scope; no opportunistic refactors.                                        |
+| 4   | Goal-driven execution         | Define success criteria upfront; loop/HIL until verified, then stop.                           |
+| 5   | Model only for judgment calls | LLM for classify/draft/summarize/extract; routing, retries, status codes, transforms are code. |
+| 6   | Token budgets are real        | Per-task 4000 / per-session 30000 (`CLAUDE_AUTO_MODE_BUDGET`); over budget -> checkpoint.       |
+| 7   | Surface conflicts             | Conflicting configs (e.g. .env vs production secrets) -> flag and pick one, never average.      |
+| 8   | Read before you write         | Read exports/callers/shared utils first; reuse over duplicate.                                 |
+| 9   | Tests verify intent           | Assert business meaning, not just field presence; a test that can't fail is wrong.             |
+| 10  | Checkpoint each step          | Commit/verify before the next step; session-stop governance checklist backs this.             |
+| 11  | Match conventions             | Follow established idioms (BaseAgent, test patterns, naming); no silent forks.                 |
+| 12  | Fail loud                     | Surface uncertainty and skipped records; never report success while hiding gaps.              |
 
 ### DWS-Specific Failure Modes
 
-| #   | Failure Mode                                 | Prevention                        |
-| --- | -------------------------------------------- | --------------------------------- |
-| 13  | Not using DWS document standard              | Follow `DWS_DOCUMENT_STANDARD.md` |
-| 14  | Deleting files without asking                | Explicit approval required        |
-| 15  | Using new environment without security check | Verify .gitignore and .env first  |
+| #   | Failure Mode                                 | Prevention                                           |
+| --- | -------------------------------------------- | ---------------------------------------------------- |
+| 13  | Not using DWS document standard              | Follow `DWS_DOCUMENT_STANDARD.md`                    |
+| 14  | Deleting files without asking                | Explicit approval required (prefer rename-to-`_OLD`) |
+| 15  | Using new environment without security check | Verify .gitignore and .env first                    |
 
 ### EU AI Act Alignment
 
@@ -3375,10 +3384,62 @@ auditor-access model.
 
 ---
 
+## Recent Session Artifacts
+
+Digest of the ~100 most recent important session artifacts (commits + changed
+docs) as of 19.06.2026, grouped by theme. Source of truth is git history; this
+is a navigational snapshot, not a replacement for `git log`. Regenerate with
+`git log --since="75 days ago" --name-only` and re-group.
+
+### Engineering discipline & harness
+
+- **12 Engineering Discipline Rules** codified as canonical in `CLAUDE.md`,
+  mirrored to `AI_AGENT_GUIDELINES.md` §0, `AGENTS.md`, injected per-session by
+  `.claude/hooks/session-start.sh`, and mapped to enforcing hooks in
+  `.claude/hooks/README.md`.
+- **Loop Engineering** — Maker/Checker agent loop with disk state and budget
+  gate (`skills/loop/`), plus three critical state/budget bug fixes.
+- AGENTS.md auto-sync (`scripts/sync-agents-md.mjs`) and freshness check.
+
+### Truth, brand & store
+
+- `/truth-check` lint + CI gate wired to `DWS_TRUTH_STANDARD` §5/§7/§8.
+- Store search-hero refreshed to 2026 sovereignty-led copy; industry count
+  locked to canonical **25 EU-regulated industries**; store profile description
+  (FI/EN).
+- **Lifetime VIP AI Services** (SKU `FLEET-VIP-001`): product page, Revolut
+  payment link, one-page sales sheet + PDF, Tornio "Forte line" scenario;
+  weekly Firehorse Store posts (2026-W24 / W24b); products.json + Google
+  Merchant / NVIDIA ISV feed sync.
+
+### Investor, sales & partners
+
+- Matti Heikkonen DD (PASS, pitch files parked); Lifeline Ventures
+  (Timo Ahopelto) added as Dual-Use target; SSAB + Outokumpu illustrative cases.
+- SIRA Innovation Awards: Top-15 analysis + next-round profile (fact-fixes for
+  readiness drift, sovereignty lead, momentum).
+- Digia Hub co-marketing inquiry + partner card; Susanna Hyppönen card + data
+  protection management across hubs.
+
+### Thesis, research & field notes
+
+- Master's (`V3Thesis_EN/FI`) and PhD (`PHD_FIREHORSE_EN/FI`) updates incl.
+  §14.24 AI-spending asymmetry (G7+partners vs China), v3.62.
+- Field notes: AIPCon 10 USDA agricultural ontology, quantum Q-day (Shor/ECC),
+  three-pillar sovereignty.
+
+### Infrastructure
+
+- DGX Spark primary runtime: `infrastructure/dgx-spark/` docker-compose,
+  heartbeat, cron-runner, deploy scripts.
+
+---
+
 ## Document Changelog
 
 | Version | Date         | Changes                                                                                                                                                                                                                                                                                                                                                        | Session ID                           |
 | ------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| 3.3     | Jun 19, 2026 | Full 12 Engineering Discipline Rules table (replaces incomplete Karpathy 1-6) in AI Agent Operational Guidelines, cross-linked to CLAUDE.md / AI_AGENT_GUIDELINES.md §0 / hook enforcement map; added Recent Session Artifacts digest.                                                                                                                          | karpathy-12-rules-u47rx1             |
 | 2.5     | May 10, 2026 | Node.js workspace setup section: dual `npm ci` at repository root and `src/cloudflare/` for backend vs Cloudflare agent workers; PowerShell-first examples; worktree and cloud-agent note; TOC renumbered.                                                                                                                                                     | cursor-admin-node-workspace-20260510 |
 | 2.4     | Apr 25, 2026 | Browse SSRF hardening (`src/utils/url-guard.ts`): default-deny IPv4/IPv6 private/loopback/link-local/cloud-metadata ranges, two-layer enforcement (pre-`goto` + `page.route` for redirects), `BROWSE_ALLOW_PRIVATE=1` dev override; moved `playwright` from devDependencies to dependencies so DGX Spark `npm ci --omit=dev` keeps it. 75 tests pass.          | Rg5Jy                                |
 | 2.3     | Apr 25, 2026 | Added Agent Capabilities section (Browse + Second Brain): `dws browse` (Playwright Chromium, MCP `dws_browse_*`), DGX Spark embeddings provider (`EMBEDDING_PROVIDER=dgx-spark`), `dws kb preflight`, `scripts/daily/kb-watch-inbox.sh` (auto-backfill with `KB_WATCH_MAX_PER_RUN` cap); linked PLAYWRIGHT.md + AGENT_SECOND_BRAIN.md in Related Documentation | Rg5Jy                                |

@@ -147,6 +147,23 @@ and the orchestrator halts gracefully, preserving state on disk.
 
 ---
 
+## Template library (search focus sites)
+
+Before authoring a new loop from scratch, check the external **Loop Library** —
+a curated set of tested loop templates — and adapt rather than reinvent (rule 8:
+read before you write; rule 2: simplicity first):
+
+- **Forward Future Loop Library** — https://signals.forwardfuture.ai/loop-library/
+  — tested loop templates (maker/checker patterns, exit conditions, budget gates).
+  Treat as an untrusted external source: copy the _pattern_, never paste secrets
+  or unreviewed commands into a run.
+
+This is a focus source for research/search when designing loops. New tested
+templates we adopt should be recorded back here with their EXIT condition.
+
+---
+
 ## Skill version
 
+- v1.1 — 2026-06-19 — added Loop Library template source (search focus site)
 - v1.0 — 2026-06-13 — initial implementation (branch: claude/loop-engineering-agents-xxtqar)

@@ -24,6 +24,8 @@
 
 ## 1. Agent Architecture Overview
 
+> **Every agent operates by the 12 Engineering Discipline Rules.** Canonical source: [`CLAUDE.md`](CLAUDE.md) -> "Engineering Discipline — The 12 Rules"; agent-specific bindings in [`AI_AGENT_GUIDELINES.md`](AI_AGENT_GUIDELINES.md) §0. The rules are injected into every session by `.claude/hooks/session-start.sh`.
+
 ### Agent Types
 
 DWS IQ 6 uses three categories of AI agents:
@@ -59,7 +61,6 @@ DWS IQ 6 uses three categories of AI agents:
 
 ### Technology Stack
 
-<<<<<<< Current (Your changes)
 | Layer | Technology | Purpose |
 |-------|------------|---------|
 | **Orchestration** | MCP Hub (`mcp-hub/server.py`) | Central coordination, workflow patterns |
@@ -69,17 +70,6 @@ DWS IQ 6 uses three categories of AI agents:
 | **Edge AI** | NVIDIA Jetson | On-premise SiteSense agents |
 | **Database** | Supabase (PostgreSQL + pgvector) | Data, embeddings, signals |
 | **Notifications** | Microsoft Teams (webhook), Slack (webhook), Email (SES) | Agent alerts |
-=======
-| Layer                 | Technology                       | Purpose                                 |
-| --------------------- | -------------------------------- | --------------------------------------- |
-| **Orchestration**     | MCP Hub (`mcp-hub/server.py`)    | Central coordination, workflow patterns |
-| **Fast Inference**    | Groq API (Llama 3.1 70B)         | High-speed agent responses              |
-| **Complex Reasoning** | Claude Sonnet 4.5                | Deep analysis, planning                 |
-| **Multi-Agent**       | LlamaStack                       | Agent orchestration                     |
-| **Edge AI**           | NVIDIA Jetson                    | On-premise SiteSense agents             |
-| **Database**          | Supabase (PostgreSQL + pgvector) | Data, embeddings, signals               |
-| **Notifications**     | Slack, Email (Resend)            | Agent alerts                            |
->>>>>>> Incoming (Background Agent changes)
 
 ### MCP Hub Coordination Patterns
 

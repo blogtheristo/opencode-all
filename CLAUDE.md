@@ -6,6 +6,25 @@ This file defines concise operating rules for AI agents working in the DWS6 repo
 
 Ship reliable outcomes fast, but never past security, compliance, or source-of-truth rules.
 
+## Engineering Discipline — The 12 Rules
+
+**Canonical source.** This is the single home for the 12 engineering-discipline rules. Every agent — Claude Code sessions, subagents, `src/agents/` BaseAgent classes, MCP tools, AgentFoundry, and dev-fleet agents — must have access to these and operate by them. They are surfaced at runtime by `.claude/hooks/session-start.sh`, restated for code agents in `AI_AGENT_GUIDELINES.md` (§0), referenced from `AGENTS.md`, and enforced where mechanizable by the hooks in `.claude/hooks/` (see `.claude/hooks/README.md`). Do not fork or paraphrase this list elsewhere — point back here.
+
+1. **Think before coding.** State assumptions explicitly; do not guess. The model cannot read your mind — surface what you are assuming before you act.
+2. **Simplicity first.** Minimum code, no speculative abstractions. Reject "for future flexibility" additions — they are next quarter's deletions. (Reinforces `/simplify`.)
+3. **Surgical changes.** Touch only what the task requires. Do not improve adjacent code; unrelated refactors blow up review scope. (Mirrors Non-Negotiable Rule 9.)
+4. **Goal-driven execution.** Define success criteria upfront and loop until verified. Without an explicit done-condition an agent either loops forever or stops too early. (Use `/goal`, the verification-gate.)
+5. **Use the model only for judgment calls** — classification, drafting, summarization, extraction. NOT routing, retries, status-code handling, or deterministic transforms. If code can answer, code answers.
+6. **Token budgets are not advisory.** Per-task 4000, per-session 30000 (`CLAUDE_AUTO_MODE_BUDGET`). Past these, agents re-suggest fixes already rejected. Stop, checkpoint, re-scope.
+7. **Surface conflicts, don't average them.** Two patterns in the codebase? Pick one and say why. Blending them swallows errors twice.
+8. **Read before you write.** Read exports, callers, and shared utilities first, so you reuse instead of duplicating an identical function you never opened.
+9. **Tests verify intent, not just behavior.** A test that cannot fail when business logic changes is wrong. All tests can pass while a function returns a constant — assert the intent.
+10. **Checkpoint every significant step.** Commit/verify before building the next step, so step 6 is never stacked on a broken step 4. (Backed by `/ship`, session-stop governance.)
+11. **Match the codebase conventions.** Class components stay class components; the established test pattern stays. Do not silently fork a new idiom.
+12. **Fail loud.** "Completed successfully" while silently skipping records is the worst class of bug. Surface uncertainty and partial results; never hide them. (Mirrors the hooks' block-don't-ask design.)
+
+**What compounds:** CLAUDE.md as institutional memory across sessions; eval-driven changes, not vibe-driven; checkpoints over speed; explicit conflicts over silent blending; discipline over the next framework; one repo, one rules file, no exceptions.
+
 ## Resolver — Standards Documents
 
 **Always load first** (meta-standards consulted before any task):
@@ -15,20 +34,20 @@ Ship reliable outcomes fast, but never past security, compliance, or source-of-t
 
 **Task-specific routing.** Before editing, match the task against this table and load the matching standard. The table is the active routing layer — not a passive bibliography. Load every standard whose trigger fires; if multiple fire, load all matched.
 
-| If the task touches…                                                                                                                           | Load                              |
-| ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
-| auth, RLS, secrets, JWT, API endpoints, user input validation, OWASP, KYA / sandbox / MicroVM, NIS2, GDPR, EU AI Act, prompt injection         | `DWS_SECURITY_STANDARD.md`        |
-| document header, `VERSION AND AGENT HISTORY` block, document version bump, language pair lockstep, `***` vs `---` delimiter, naming convention | `DWS_DOCUMENT_STANDARD.md`        |
-| brand identity, logo, color palette, copy tone, hero text, landing page voice, marketing surface, deprecated terminology                       | `DWS_BRAND_STANDARD.md`           |
-| market sizing, TAM / SAM / SOM, competitor analysis, investor narrative, customer segmentation                                                 | `DWS_MARKET_RESEARCH_STANDARD.md` |
-| site QA, image quality / format / weight, copy quality, dual-folder mirror checks, deploy-readiness checklist                                  | `SITE_QUALITY_STANDARDS.md`       |
-| adding / removing / renaming a slash command or `skills/<name>/SKILL.md`; updating discipline gates; skill manifest                            | `docs/DWS_SKILLS_GUIDE.md`        |
-| blog post on `onelifetime.world/blog/`, `dws10.com/blog/`, editorial cadence, LSJ                                                              | `docs/BLOG_STANDARD.md`           |
-| BaseAgent class, new agent in `src/agents/`, autonomy tier, cost budget, agent execution logging, bacterial-code extraction                    | `AI_AGENT_GUIDELINES.md`          |
-| agent topology, signal dependencies (READY / COMPLETE / ERROR / BLOCKED), agent-XX numbering, what unlocks what                                | `AGENTS.md`                       |
+| If the task touches…                                                                                                                           | Load                                                                   |
+| ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| auth, RLS, secrets, JWT, API endpoints, user input validation, OWASP, KYA / sandbox / MicroVM, NIS2, GDPR, EU AI Act, prompt injection         | `DWS_SECURITY_STANDARD.md`                                             |
+| document header, `VERSION AND AGENT HISTORY` block, document version bump, language pair lockstep, `***` vs `---` delimiter, naming convention | `DWS_DOCUMENT_STANDARD.md`                                             |
+| brand identity, logo, color palette, copy tone, hero text, landing page voice, marketing surface, deprecated terminology                       | `DWS_BRAND_STANDARD.md`                                                |
+| market sizing, TAM / SAM / SOM, competitor analysis, investor narrative, customer segmentation                                                 | `DWS_MARKET_RESEARCH_STANDARD.md`                                      |
+| site QA, image quality / format / weight, copy quality, dual-folder mirror checks, deploy-readiness checklist                                  | `SITE_QUALITY_STANDARDS.md`                                            |
+| adding / removing / renaming a slash command or `skills/<name>/SKILL.md`; updating discipline gates; skill manifest                            | `docs/DWS_SKILLS_GUIDE.md`                                             |
+| blog post on `onelifetime.world/blog/`, `dws10.com/blog/`, editorial cadence, LSJ                                                              | `docs/BLOG_STANDARD.md`                                                |
+| BaseAgent class, new agent in `src/agents/`, autonomy tier, cost budget, agent execution logging, bacterial-code extraction                    | `AI_AGENT_GUIDELINES.md`                                               |
+| agent topology, signal dependencies (READY / COMPLETE / ERROR / BLOCKED), agent-XX numbering, what unlocks what                                | `AGENTS.md`                                                            |
 | asserting an industry count, product price, captain hat, KYA tier, role name, or any other "canonical fact"                                    | `DWS_TRUTH_STANDARD.md` → routes to the canonical file for that domain |
-| sales outreach `INTRO_*.md` / `LETTER_*.md` per-customer files, role-by-stage wedge matrix, enterprise funnel stage                            | `DWS_ROLES_REGISTRY.md`           |
-| "which standard governs X?" / index lookup / standards catalogue                                                                               | `DWS_STANDARDS_LIBRARY.md`        |
+| sales outreach `INTRO_*.md` / `LETTER_*.md` per-customer files, role-by-stage wedge matrix, enterprise funnel stage                            | `DWS_ROLES_REGISTRY.md`                                                |
+| "which standard governs X?" / index lookup / standards catalogue                                                                               | `DWS_STANDARDS_LIBRARY.md`                                             |
 
 **Multi-match is normal.** A task that adds a new agent that touches user input + ships a blog post fires four triggers and must load four standards. Do not pick the "most relevant" one — load all matched.
 
