@@ -1,14 +1,15 @@
-# Field Note: Token Capital, Human Capital, Control Room Capital — Three Forms of Durable Value in the Agentic Era
+# Field Note: The Four Capital Classes — Prompt, People, Plant, Perception — Durable Value in the Agentic Era
 
 ---
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 2.0
 
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (claude-fable-5) | Session: claude/token-human-capital-mjrbc7 | Date: 19.06.2026 | Changes: Initial field note. Triggered by Satya Nadella's Build 2026 framing of token capital alongside human capital, and Risto Päärni's 7-month HIL-phase experience building the DWS IQ 6 ecosystem (Oct 2025 – Jun 2026 and continuing to 2029). Introduces the three-capital model — token capital, human capital, control room capital — and derives DWS-specific architectural and product implications.
+- Version: 2.0 | Tool: Claude Code (claude-opus-4-8) | Session: claude/capital-classes-audit-jgworp | Date: 20.06.2026 | Changes: Adopted the **4P Capital Classes** canon — Prompt (was Token), People (was Human), Plant (was Control Room, now the mobile two-room Control Room + Situation Room stack), and a new fourth class, **Perception Capital** (the governed world model + closed sense→decide→act loop fusing sensors, mobility, satellite, and robotics). Updated the system diagram and positioning table from three to four classes. Canonised in DWS_BRAND_STANDARD.md and the Ontology Series (`four-capital-classes.html`).
 
 Document Status:
 
@@ -60,15 +61,15 @@ What is notable about the framing:
 - It separates token capital (AI-side accumulation) from human capital (human-side accumulation) and identifies them as **co-accumulating** rather than substituting.
 - It names the transition: **human-in-the-loop (HIL) → human-in-control (HIC)**. This is not a demotion of the human. It is a promotion: the human moves from being a step in a workflow to being the sovereign of a system.
 
-This field note adds a third form: **Control Room Capital** — the durable infrastructure and operational sovereignty that the HIL phase physically and architecturally produces.
+This field note formalises **four** durable forms — the **4P Capital Classes**: **Prompt Capital** (was Token Capital), **People Capital** (was Human Capital), **Plant Capital** (the mobile two-room Control Room + Situation Room stack, was Control Room Capital), and a fourth class, **Perception Capital** — the governed world model and the closed sense→decide→act loop that the field stack produces. Throughout, each canonical 4P name keeps a parenthetical to its prior term for continuity.
 
 ---
 
-## 2. Token Capital
+## 2. Prompt Capital (formerly Token Capital)
 
 ### 2.1 Definition
 
-Token capital is the durable, reusable organisational asset produced by sustained AI-assisted operations. It is **not** the raw tokens consumed (those are costs). It is what accumulates as a result of those tokens being well-directed:
+Prompt Capital (Token Capital) is the durable, reusable organisational asset produced by sustained AI-assisted operations. It is **not** the raw tokens consumed (those are costs). It is what accumulates as a result of those tokens being well-directed:
 
 - Validated prompts and system prompt libraries
 - Working skill files (`skills/<name>/SKILL.md`) — parameterised judgment procedures
@@ -113,7 +114,7 @@ The distinction matters for strategy: token capital is what you own when you cou
 
 ---
 
-## 3. Human Capital
+## 3. People Capital (formerly Human Capital)
 
 ### 3.1 The Seven-Month HIL Phase
 
@@ -159,11 +160,11 @@ The gym is back in the schedule because the oversight has moved from the transac
 
 ---
 
-## 4. Control Room Capital
+## 4. Plant Capital (formerly Control Room Capital)
 
 ### 4.1 Definition
 
-Control Room Capital is the third form of durable value, and the one most specific to the DWS operating model. It is the accumulated **infrastructure and operational sovereignty** that the HIL phase produces as a physical and architectural byproduct.
+Plant Capital (Control Room Capital) is the third form of durable value, and the one most specific to the DWS operating model. It is the accumulated **infrastructure and operational sovereignty** that the HIL phase produces as a physical and architectural byproduct — the sovereign, deployable **two-room command stack**, fixed **or mobile**. Both the **Control Room** and the **Situation Room** can run at a site **or inside a Lifetime Fleet vehicle**.
 
 In the DWS architecture:
 
@@ -171,7 +172,7 @@ In the DWS architecture:
 
 > **Situation Room** — the cloud layer. Aggregates edge observations into a managed situational picture. Heavy analytics, model updates, ERP/BIM/IoT integration, compliance reporting (EU AI Act, NIS2, CSRD/ESRS).
 
-Control Room Capital is what accumulates as this architecture is operated, tested, hardened, and expanded:
+Plant Capital is what accumulates as this architecture is operated, tested, hardened, and expanded:
 
 - Deployed edge compute (NVIDIA Jetson, Acer Veriton GN100, DGX Spark)
 - Validated inference configurations for each edge node
@@ -193,28 +194,55 @@ After seven months of intensive HIL operation:
 - The audit trail is populated. Article 12 compliance is demonstrated, not asserted.
 - The failover has been tested. The claim "operates under limited connectivity" is evidence-backed.
 
-This is Control Room Capital. It is what you could sell to a second industrial customer without starting from zero. It is the enterprise asset that makes "DWS IQ at your facility" a credible offer rather than a pilot.
+This is Plant Capital. It is what you could sell to a second industrial customer without starting from zero. It is the enterprise asset that makes "DWS IQ at your facility" a credible offer rather than a pilot.
 
-### 4.3 The Three Capitals as a System
+## 4B. Perception Capital (new — the fourth class)
 
-The three capitals are not independent. They compound together:
+### 4B.1 Definition
+
+Perception Capital is the fourth and newest class — the one Plant Capital, as originally written, buried inside "infrastructure." Plant Capital is the _box and its sovereignty_; Perception Capital is the _signal and the actuation_.
+
+Perception Capital is the accumulating, **governed world model and the closed control loop**. The two-room stack does not only host inference — it **perceives** and it **acts**:
+
+- It fuses **sensors, mobility data, satellite data, and robotics** into one governed picture — the Lifetime World Model (`ONTOLOGY.md`).
+- It governs that picture by purpose and records lineage on every fact.
+- It closes the loop: **sense → decide → actuate**, under HIL/HIC — it "controls the process input," not just observes it.
+
+### 4B.2 Why It Is a Distinct Class
+
+A world model is not infrastructure and it is not a dataset:
+
+- It **compounds with use** — every governed observation makes the next decision better. This is a data-network effect the other three classes do not have.
+- It has a **physical-AI character** — it touches the real world through robotics and actuation, not just screens.
+- It is **non-purchasable** — a competitor can buy edge hardware (Plant) but cannot buy a year of your governed, lineage-logged observations.
+- It only counts when **sovereign** — a world model in a foreign jurisdiction is an exposure, not an asset.
+
+### 4B.3 The Four Capitals as a System
+
+The four capitals are not independent. They compound together:
 
 ```
-Token Capital
+Prompt Capital
    → codified skills reduce human attention per decision
-   → freed attention deepens Human Capital in adjacent domains
-   → Human Capital quality raises the ceiling of what can be safely delegated
-   → delegation expands the scope of Control Room operations
-   → expanded operations generate new token capital (eval data, HIL patterns)
+   → freed attention deepens People Capital in adjacent domains
+   → People Capital quality raises the ceiling of what can be safely delegated
+   → delegation expands the scope of Plant (Control + Situation Room) operations
+   → expanded operations generate new Prompt Capital (eval data, HIL patterns)
 
-Control Room Capital
-   → operational data populates eval datasets (token capital)
-   → edge HIL patterns sharpen operator judgment (human capital)
+Plant Capital
+   → operational data populates eval datasets (Prompt Capital)
+   → edge HIL patterns sharpen operator judgment (People Capital)
    → demonstrated sovereignty enables larger enterprise contracts
-   → larger contracts fund deeper infrastructure (more control room capital)
+   → larger contracts fund deeper infrastructure (more Plant Capital)
+
+Perception Capital
+   → fused, governed signal makes every decision better (compounds)
+   → richer world model raises the value of Prompt and People judgment
+   → the closed loop (sense→act) is what reframes the offer from software to world model
+   → deeper field operation deepens the world model (more Perception Capital)
 ```
 
-The system is self-reinforcing. The intensive HIL phase was not just cost — it was capital formation across all three dimensions simultaneously.
+The system is self-reinforcing. The intensive HIL phase was not just cost — it was capital formation across all four dimensions simultaneously.
 
 ---
 
@@ -230,17 +258,18 @@ Nadella naming token capital and human capital as co-accumulating is a market si
 
 ### 5.2 DWS Positioning Implications
 
-| Capital Form         | What DWS Has                                                     | What a New Entrant Has    |
-| -------------------- | ---------------------------------------------------------------- | ------------------------- |
-| Token Capital        | 150+ field notes, 30+ skills, 50-agent foundry, evaluated        | Blank `skills/` directory |
-| Human Capital        | 7 months of HIL-pattern recognition, calibrated judgment         | First draft intuitions    |
-| Control Room Capital | Deployed edge nodes, validated HIL gates, Article 12 audit trail | Vendor brochures          |
+| Capital Class (4P)           | What DWS Has                                                     | What a New Entrant Has    |
+| ---------------------------- | ---------------------------------------------------------------- | ------------------------- |
+| Prompt Capital (Token)       | 150+ field notes, 30+ skills, 50-agent foundry, evaluated        | Blank `skills/` directory |
+| People Capital (Human)       | 7 months of HIL-pattern recognition, calibrated judgment         | First draft intuitions    |
+| Plant Capital (Control Room) | Deployed two-room stack (site or vehicle), HIL gates, Article 12 | Vendor brochures          |
+| Perception Capital (new)     | Governed, lineage-logged world model + closed sense→act loop     | An empty graph            |
 
-The three-capital model is a competitive moat framing. DWS should name it explicitly in sales materials rather than hiding it behind technical architecture descriptions.
+The four-capital (4P) model is a competitive moat framing. DWS should name it explicitly in sales materials rather than hiding it behind technical architecture descriptions.
 
 ### 5.3 Product Implication: Capital-as-a-Service
 
-The natural next step after the HIL phase is not "do more HIL." It is to offer Control Room Capital as a service to industrial customers who cannot or should not endure their own seven-month HIL phase.
+The natural next step after the HIL phase is not "do more HIL." It is to offer Plant and Perception Capital as a service to industrial customers who cannot or should not endure their own seven-month HIL phase — the deployable two-room stack plus a calibrated, governed world model from day one.
 
 This means:
 
@@ -257,7 +286,7 @@ This is consistent with the emerging product direction in `docs/field-notes/2026
 
 ## 6. The HIL Phase as Competitive Barrier
 
-The most counterintuitive implication of the three-capital model: the seven months of intensity was not a cost to minimise. It was the barrier-formation event.
+The most counterintuitive implication of the four-capital (4P) model: the seven months of intensity was not a cost to minimise. It was the barrier-formation event.
 
 A competitor that enters the industrial AI market today faces the same HIL phase. They cannot skip it. The phase produces:
 
@@ -272,12 +301,12 @@ The DWS HIL phase ran October 2025 through approximately May 2026. The work cont
 
 ## 7. Key Insight
 
-The Nadella framing is correct and the DWS operating history confirms it. Token capital, human capital, and Control Room capital are co-accumulating. The HIL phase was not overhead — it was capital formation at all three levels simultaneously.
+The Nadella framing is correct and the DWS operating history confirms it. Prompt, People, Plant, and Perception Capital are co-accumulating. The HIL phase was not overhead — it was capital formation at all four levels simultaneously.
 
 The human is not removed. The human is elevated: from operator of every transaction to sovereign of the system that handles the transactions. The gym is back in the schedule because the architecture is mature enough to hold up the ceiling while the operator is not watching every beam.
 
 The work from October 2025 to 2029 is not a seven-year project with a seven-month rough patch at the start. It is a capital formation trajectory with the first wave of compound returns now becoming visible.
 
-**Token capital** makes the next task cheaper. **Human capital** makes the next judgment better. **Control room capital** makes the next industrial customer possible.
+**Prompt Capital** makes the next task cheaper. **People Capital** makes the next judgment better. **Plant Capital** makes the next industrial customer possible. **Perception Capital** makes the next decision smarter than the last.
 
 All three compound. That is the point Nadella made. That is what the DWS HIL phase built.

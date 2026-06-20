@@ -1,13 +1,14 @@
-# DWS Gamma Brand Standard v3.2
+# DWS Gamma Brand Standard v3.3
 
 ---
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.2
+Version: 3.3
 
 Sessions & Modifications:
 
+- Version: 3.3 | Tool: Claude Code (claude-opus-4-8) | Session: claude/capital-classes-audit-jgworp | Date: 20.06.2026 | Changes: Added §23 4P Capital Classes — canonical terminology for the four durable value classes an agentic operator accumulates: **Prompt Capital** (was Token), **People Capital** (was Human), **Plant Capital** (mobile two-room Control Room + Situation Room stack, was Control Room), and **Perception Capital** (governed world model + closed sense→decide→act loop). Pairs with the §22 "not a SaaS vendor, a System of Action operator" line. Deprecates the standalone "three-capital model" / "Token / Human / Control Room Capital" terms in new copy. Sourced from `docs/field-notes/2026-06-19-...md` (v2.0) and the Ontology Series (`four-capital-classes.html`, `software-vs-world-model.html`).
 - Version: 3.2 | Tool: Claude Code | Session: claude/ethics-principle-footer-SvTGJ | Date: 31.05.2026 | Changes: Added §6 Ethics Principle footer band to ironclad-footer.js (v1.3 on dws10.com / onelifetime.world / lifetime.fi; v1.2 on dws6.com) — standing band above the legal/copyright bar reading "We value ethics in everything we do — DWS products augment people, never replacing junior talent or the human-in-command." Codifies the human-in-command principle as a permanent footer fixture across all sites; `.ironclad-footer-principle` CSS spec; updated Footer Bars table.
 - Version: 3.1 | Tool: Claude Code (Opus 4.7) | Session: claude/dws-compliance-sales-rz5He | Date: 18.05.2026 | Changes: Added §22 DWS Master Tagline — Intelligence Amplifier (EN+FI), companion product-truth sentence, `.hero .tagline` CSS spec, pairing rules with System of Action Operator + Three-Layer National Strategy + Boardy buyer-facing headline. Applied tagline to sector page heroes (/construction, /manufacturing, /logistics, /energy) and /sovereign-cbam-disclosure/.
 - Version: 2.9 | Tool: Claude Code (Sonnet 4.6) | Session: claude/data-centre-factory-docs-eav19 | Date: 10.05.2026 | Changes: Added §22 System of Action Operator — canonical investor and homepage positioning sentences (FI+EN), derived from Google Cloud Agentic Data Cloud framework and tietotehdas field research
@@ -73,6 +74,7 @@ All AI agents (Claude Code, Cursor, Codex), VS Code, and human developers MUST f
 | 20  | Compliance Score Widget Standard         | Dashboard compliance ring (v10-react) |
 | 21  | CLI Rich Output Standard                 | CLI human-readable formatting         |
 | 22  | Product Pitch Lines                      | Canonical one-liners (EN/FI)          |
+| 23  | 4P Capital Classes                       | Canonical terminology (positioning)   |
 
 ---
 
@@ -462,16 +464,16 @@ The script auto-injects a `<footer class="ironclad-footer">` at the end of `<bod
 
 ### Footer Bars
 
-| Bar           | Content                                                                                                          |
-| ------------- | ---------------------------------------------------------------------------------------------------------------- |
-| **Payments**  | Revolut Business (blue), PayPal Business (navy), SEPA EUR (green), Bank Transfer                                 |
+| Bar                         | Content                                                                                                                     |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| **Payments**                | Revolut Business (blue), PayPal Business (navy), SEPA EUR (green), Bank Transfer                                            |
 | **Ethics Principle** (v1.3) | "We value ethics in everything we do — DWS products augment people, never replacing junior talent or the human-in-command." |
-| **Legal**     | Website Terms, Privacy Policy, Return Policy, Data Handling, Data Security, Investment Safety, Regulatory Notice |
-| **Copyright** | © 2025–2026 Lifetime Oy · VAT FI07724079 · Address · GDPR · DSA · NIS2 · EU AI Act                               |
+| **Legal**                   | Website Terms, Privacy Policy, Return Policy, Data Handling, Data Security, Investment Safety, Regulatory Notice            |
+| **Copyright**               | © 2025–2026 Lifetime Oy · VAT FI07724079 · Address · GDPR · DSA · NIS2 · EU AI Act                                          |
 
 ### Ethics Principle Band (v1.3)
 
-A standing, non-negotiable values statement rendered as a centered full-width band **directly above the legal/copyright bar** on every page that loads the Iron Clad footer (i.e. all pages except those in *Pages Excluded from Footer* above — `checkout/`, `dashboard/`, `assistant/`). It states the human-in-command principle: DWS ecosystem products are built to **augment** people — never to reduce junior workforce opportunities, and never to automate away the human-in-command; every decision stays aligned with the human-in-command principle.
+A standing, non-negotiable values statement rendered as a centered full-width band **directly above the legal/copyright bar** on every page that loads the Iron Clad footer (i.e. all pages except those in _Pages Excluded from Footer_ above — `checkout/`, `dashboard/`, `assistant/`). It states the human-in-command principle: DWS ecosystem products are built to **augment** people — never to reduce junior workforce opportunities, and never to automate away the human-in-command; every decision stays aligned with the human-in-command principle.
 
 **Copy (single source — do not paraphrase per page):**
 
@@ -481,14 +483,25 @@ A standing, non-negotiable values statement rendered as a centered full-width ba
 
 ```html
 <div class="ironclad-footer-principle">
-    We value ethics in everything we do &mdash; DWS products augment people, never replacing junior talent or the human-in-command.
+  We value ethics in everything we do &mdash; DWS products augment people, never replacing junior
+  talent or the human-in-command.
 </div>
 ```
 
 **CSS:**
 
 ```css
-.ironclad-footer-principle { max-width: 1200px; margin: 0 auto; padding: 20px 20px 0; text-align: center; font-size: 0.8rem; line-height: 1.5; color: #8fbc8f; font-weight: 600; letter-spacing: 0.02em; }
+.ironclad-footer-principle {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 20px 0;
+  text-align: center;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: #8fbc8f;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
 ```
 
 Uses the same muted Nordic-green accent (`#8fbc8f`) as the "Built in Finland" badge so it reads as a brand values statement, not a link.
@@ -1805,7 +1818,9 @@ The master umbrella tagline. Sits above every product-specific pitch line. Use a
 **Visual treatment (sector pages, hero):**
 
 ```html
-<p class="tagline">DWS Intelligence &middot; We amplify human intelligence in regulated industries.</p>
+<p class="tagline">
+  DWS Intelligence &middot; We amplify human intelligence in regulated industries.
+</p>
 ```
 
 ```css
@@ -1822,7 +1837,7 @@ The master umbrella tagline. Sits above every product-specific pitch line. Use a
 
 **Pairing rules:**
 
-- **With System of Action Operator (§22.x below):** the master tagline names *what we do* (amplify intelligence). System of Action Operator names *how we do it* (carry regulated work to completion with audit trail). Lead with the master tagline on first-touch, switch to System of Action Operator when the conversation goes operational.
+- **With System of Action Operator (§22.x below):** the master tagline names _what we do_ (amplify intelligence). System of Action Operator names _how we do it_ (carry regulated work to completion with audit trail). Lead with the master tagline on first-touch, switch to System of Action Operator when the conversation goes operational.
 - **With Three-Layer National Strategy (§22.x below):** the master tagline is global; Three-Layer is the Finnish-policy frame. Use master tagline outside Finland; pair both inside Finland or for EU-policy audiences.
 - **With Boardy buyer-line headline** (`DWS helps [company] sell more by removing compliance friction before the sale, using KYA-governed disclosure logic and sovereign NVIDIA infra to make regulated deals easier to close and the IP moat stronger`): master tagline is the product truth, Boardy line is the buyer-facing concretion. In a meeting, lead with whichever fits — buyer-facing meetings start with Boardy, strategic/board/investor meetings start with the master tagline.
 
@@ -1962,20 +1977,51 @@ Canonical framing derived from Finnish national data infrastructure strategy. Us
 
 ---
 
+## 23. 4P Capital Classes — Canonical Terminology
+
+The **4P Capital Classes** are the canonical way to name the four durable forms of value an
+agentic operator accumulates. Use these names in investor decks, sales materials, and editorial
+copy. They pair directly with the §22 line "DWS is not a SaaS vendor, but a System of Action
+operator" — the 4P model is _why_ that is true.
+
+| #   | Canonical name (4P)    | Was                  | One-line definition                                                                                     |
+| --- | ---------------------- | -------------------- | ------------------------------------------------------------------------------------------------------- |
+| 1   | **Prompt Capital**     | Token Capital        | The codified intelligence — validated prompts, skills, agent configs, eval datasets, automation.        |
+| 2   | **People Capital**     | Human Capital        | Calibrated operator judgment from the HIL phase; the human-in-the-loop → human-in-control promotion.    |
+| 3   | **Plant Capital**      | Control Room Capital | The sovereign, mobile two-room stack (Control Room + Situation Room) — at a site or in a fleet vehicle. |
+| 4   | **Perception Capital** | _new_                | The governed world model + closed sense→decide→act loop (sensors, mobility, satellite, robotics).       |
+
+**Mnemonic:** Prompt = the intelligence · People = the judgment · Plant = the place it runs (and moves) · Perception = the world it sees and changes.
+
+**Usage rules:**
+
+- Order is always **Prompt, People, Plant, Perception** (never reorder — the mnemonic depends on it).
+- On first mention in long-form copy, a parenthetical to the prior term is allowed for continuity (e.g. "Prompt Capital (formerly Token Capital)").
+- **Perception Capital** is the differentiator in valuation/investor copy — it is the only class with data-network effects and a physical-AI character. Lead with it when the audience is an investor.
+- Public copy may make the moat/valuation argument **qualitatively only** — never publish private round terms (SAFE cap, mid-case figures) on public sites.
+
+**Deprecated in new copy:** the standalone "three-capital model" and the bare names "Token Capital / Human Capital / Control Room Capital" as primary terms. Keep them only as parentheticals or in historical/version records.
+
+**Canonical sources:** `docs/field-notes/2026-06-19-token-capital-human-capital-control-room-capital.md` (v2.0); Ontology Series posts `onelifetime.world/posts/four-capital-classes.html` and `software-vs-world-model.html`; `ONTOLOGY.md` (Lifetime World Model).
+
+---
+
 ## Changelog
 
-| Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| ------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| ------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| v3.3    | 2026-06-20 | Added: §23 4P Capital Classes — canonical terminology (Prompt / People / Plant / Perception), usage rules, deprecation of the "three-capital model" naming, pairing with the §22 "System of Action operator, not SaaS" line. Sourced from the 4P field note (v2.0) and the Ontology Series posts.                                                                                                                                                                                                                                                    |
+| v3.2    | 2026-05-31 | Added: §6 Ethics Principle footer band to ironclad-footer.js — human-in-command principle as permanent footer fixture across all sites.                                                                                                                                                                                                                                                                                                                                                                                                              |
 | v3.1    | 2026-05-18 | Added: §22 DWS Master Tagline — Intelligence Amplifier (EN: "We amplify human intelligence in regulated industries." / FI: "Vahvistamme ihmisen älykkyyttä säännellyillä toimialoilla.") with companion product-truth sentence, visual hero treatment (`.hero .tagline` CSS), and pairing rules with System of Action Operator + Three-Layer National Strategy + Boardy buyer-facing headline. Applied tagline to sector page heroes (`/construction`, `/manufacturing`, `/logistics`, `/energy`) and to `/sovereign-cbam-disclosure/` pattern page. |
-| v3.0    | 2026-05-10 | Added: §22 Three-Layer National Strategy — investor short form ("Hyperscalerit rakentavat infrastruktuurin, Suomi omistaa datavarannon, ja DWS operoi älykkyyden"), homepage version with sovereignty hook ("päätösvalta säilyy täällä"), and long-form policy sentence — FI+EN, translation notes, usage pairing with System of Action Operator sentences                                                                                                                                          |
-| v2.9    | 2026-05-10 | Added: §22 System of Action Operator — canonical investor sentence ("Emme ole SaaS-toimittaja, vaan System of Action -operaattori, joka vie säädellyn työn hallitusti maaliin audit traililla") and homepage sentence ("DWS ei ole SaaS, vaan System of Action -operaattori eurooppalaiselle teollisuudelle, jossa compliance voi pysäyttää tai vapauttaa rahaa") — FI+EN, with translation notes and usage guidance                                                                                |
-| v2.8    | 2026-04-28 | Added: §5.1 Ironclad Sync Rule; booking CTA; investment-safety rewritten                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| v2.7    | 2026-04-07 | Added: Aegis Sovereign Identity (KYA Layer 1) pitch lines — EU-only biometric IDV messaging, sovereignty selling points for defense/NIS2 buyers, EN/FI bilingual. Based on Shufti DPA compliance resolution (all 5 points resolved, Option 1+3 accepted).                                                                                                                                                                                                                                           |
-| v2.6    | 2026-04-06 | Added: DWS IQ Platform (Series A) and Synthetic Nervous System (Technical) pitch lines to Section 22 — Arctic 15 investor positioning, EN/FI bilingual                                                                                                                                                                                                                                                                                                                                              |
-| v2.5    | 2026-04-01 | Added: Section 22 Product Pitch Lines — canonical EN/FI one-liners for DWS IQ Aegis, translation notes. Nordic Industrial rebrand — Section 2.1 Nordic Industrial Palette, IBM Plex Sans typography, EU language bar, 5-language homepage (FI/SV/DE/FR/EN), "Built in Finland" footer badge                                                                                                                                                                                                         |
-| v2.4    | 2026-03-08 | Added: Section 19 Onboarding Wizard Standard v1.0 — 4-step guided flow (Industry, Company, Data Sources, Regulations), mobile-first design, dark theme, progress bar, skip option. Section 20 Compliance Score Widget Standard v1.0 — SVG animated ring chart, regulation breakdown, trend indicator, color tiers, responsive layout. Section 21 CLI Rich Output Standard v1.0 — ANSI colors, tables, spinners, progress bars, `dws init` and `dws status` commands, dual-mode output (human/JSON). |
-| v2.2    | 2026-03-03 | Added: Section 18 Dashboard Profile Menu Standard v1.0 — ProfileMenu (desktop avatar + dropdown), HamburgerMenu (mobile slide-out), avatar initials algorithm, accessibility specs (ARIA roles, Escape key, backdrop), layout integration pattern                                                                                                                                                                                                                                                   |
-| v2.1    | 2026-03-02 | Added: Section 17 Climate IQ Pantheon Agent Brand Identity — naming convention, accent colors, card components, one-liner tone rules, footer for onelifetime.world                                                                                                                                                                                                                                                                                                                                  |
-| v2.0    | 2026-02-19 | Added: Iron Clad Nav v3.0, Iron Clad Footer v1.0, Hero Section, Typography, Logo Usage, SEO Meta Tags, A2A Agent Integration, Responsive Breakpoints, Accessibility, Page Template. Replaced: old hamburger-menu.js (Section 5) with ironclad-nav.js v3.0.                                                                                                                                                                                                                                          |
-| v1.1    | 2026-02-15 | Added: Store identity, product data sources, category taxonomy, hamburger menu, sovereignty badges                                                                                                                                                                                                                                                                                                                                                                                                  |
-| v1.0    | 2026-02-01 | Initial release: dark tokens, product cards, category nav                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| v3.0    | 2026-05-10 | Added: §22 Three-Layer National Strategy — investor short form ("Hyperscalerit rakentavat infrastruktuurin, Suomi omistaa datavarannon, ja DWS operoi älykkyyden"), homepage version with sovereignty hook ("päätösvalta säilyy täällä"), and long-form policy sentence — FI+EN, translation notes, usage pairing with System of Action Operator sentences                                                                                                                                                                                           |
+| v2.9    | 2026-05-10 | Added: §22 System of Action Operator — canonical investor sentence ("Emme ole SaaS-toimittaja, vaan System of Action -operaattori, joka vie säädellyn työn hallitusti maaliin audit traililla") and homepage sentence ("DWS ei ole SaaS, vaan System of Action -operaattori eurooppalaiselle teollisuudelle, jossa compliance voi pysäyttää tai vapauttaa rahaa") — FI+EN, with translation notes and usage guidance                                                                                                                                 |
+| v2.8    | 2026-04-28 | Added: §5.1 Ironclad Sync Rule; booking CTA; investment-safety rewritten                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| v2.7    | 2026-04-07 | Added: Aegis Sovereign Identity (KYA Layer 1) pitch lines — EU-only biometric IDV messaging, sovereignty selling points for defense/NIS2 buyers, EN/FI bilingual. Based on Shufti DPA compliance resolution (all 5 points resolved, Option 1+3 accepted).                                                                                                                                                                                                                                                                                            |
+| v2.6    | 2026-04-06 | Added: DWS IQ Platform (Series A) and Synthetic Nervous System (Technical) pitch lines to Section 22 — Arctic 15 investor positioning, EN/FI bilingual                                                                                                                                                                                                                                                                                                                                                                                               |
+| v2.5    | 2026-04-01 | Added: Section 22 Product Pitch Lines — canonical EN/FI one-liners for DWS IQ Aegis, translation notes. Nordic Industrial rebrand — Section 2.1 Nordic Industrial Palette, IBM Plex Sans typography, EU language bar, 5-language homepage (FI/SV/DE/FR/EN), "Built in Finland" footer badge                                                                                                                                                                                                                                                          |
+| v2.4    | 2026-03-08 | Added: Section 19 Onboarding Wizard Standard v1.0 — 4-step guided flow (Industry, Company, Data Sources, Regulations), mobile-first design, dark theme, progress bar, skip option. Section 20 Compliance Score Widget Standard v1.0 — SVG animated ring chart, regulation breakdown, trend indicator, color tiers, responsive layout. Section 21 CLI Rich Output Standard v1.0 — ANSI colors, tables, spinners, progress bars, `dws init` and `dws status` commands, dual-mode output (human/JSON).                                                  |
+| v2.2    | 2026-03-03 | Added: Section 18 Dashboard Profile Menu Standard v1.0 — ProfileMenu (desktop avatar + dropdown), HamburgerMenu (mobile slide-out), avatar initials algorithm, accessibility specs (ARIA roles, Escape key, backdrop), layout integration pattern                                                                                                                                                                                                                                                                                                    |
+| v2.1    | 2026-03-02 | Added: Section 17 Climate IQ Pantheon Agent Brand Identity — naming convention, accent colors, card components, one-liner tone rules, footer for onelifetime.world                                                                                                                                                                                                                                                                                                                                                                                   |
+| v2.0    | 2026-02-19 | Added: Iron Clad Nav v3.0, Iron Clad Footer v1.0, Hero Section, Typography, Logo Usage, SEO Meta Tags, A2A Agent Integration, Responsive Breakpoints, Accessibility, Page Template. Replaced: old hamburger-menu.js (Section 5) with ironclad-nav.js v3.0.                                                                                                                                                                                                                                                                                           |
+| v1.1    | 2026-02-15 | Added: Store identity, product data sources, category taxonomy, hamburger menu, sovereignty badges                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| v1.0    | 2026-02-01 | Initial release: dark tokens, product cards, category nav                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
