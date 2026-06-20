@@ -617,6 +617,6 @@ Root backend has `"lint": "echo \"No linter configured\""` — no real linter. D
 ---
 
 **Document Version:** 1.0  
-**Last Updated:** June 14, 2026  
+**Last Updated:** June 20, 2026  
 **Status:** Active  
 **Next Review:** January 10, 2026
