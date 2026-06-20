@@ -24,6 +24,8 @@
 
 ## 1. Agent Architecture Overview
 
+> **Every agent operates by the 12 Engineering Discipline Rules.** Canonical source: [`CLAUDE.md`](CLAUDE.md) -> "Engineering Discipline — The 12 Rules"; agent-specific bindings in [`AI_AGENT_GUIDELINES.md`](AI_AGENT_GUIDELINES.md) §0. The rules are injected into every session by `.claude/hooks/session-start.sh`.
+
 ### Agent Types
 
 DWS IQ 6 uses three categories of AI agents:
@@ -59,7 +61,6 @@ DWS IQ 6 uses three categories of AI agents:
 
 ### Technology Stack
 
-<<<<<<< Current (Your changes)
 | Layer | Technology | Purpose |
 |-------|------------|---------|
 | **Orchestration** | MCP Hub (`mcp-hub/server.py`) | Central coordination, workflow patterns |
@@ -69,17 +70,6 @@ DWS IQ 6 uses three categories of AI agents:
 | **Edge AI** | NVIDIA Jetson | On-premise SiteSense agents |
 | **Database** | Supabase (PostgreSQL + pgvector) | Data, embeddings, signals |
 | **Notifications** | Microsoft Teams (webhook), Slack (webhook), Email (SES) | Agent alerts |
-=======
-| Layer                 | Technology                       | Purpose                                 |
-| --------------------- | -------------------------------- | --------------------------------------- |
-| **Orchestration**     | MCP Hub (`mcp-hub/server.py`)    | Central coordination, workflow patterns |
-| **Fast Inference**    | Groq API (Llama 3.1 70B)         | High-speed agent responses              |
-| **Complex Reasoning** | Claude Sonnet 4.5                | Deep analysis, planning                 |
-| **Multi-Agent**       | LlamaStack                       | Agent orchestration                     |
-| **Edge AI**           | NVIDIA Jetson                    | On-premise SiteSense agents             |
-| **Database**          | Supabase (PostgreSQL + pgvector) | Data, embeddings, signals               |
-| **Notifications**     | Slack, Email (Resend)            | Agent alerts                            |
->>>>>>> Incoming (Background Agent changes)
 
 ### MCP Hub Coordination Patterns
 
@@ -361,6 +351,31 @@ approval: exception_only
 guardrails: ["max_emails", "approval_for_discounts"]
 ```
 
+### Proactive Agents — Observe → Act (Code Wiring)
+
+The deployment phases above are now enforced in the TypeScript agent runtime via
+`AgentConfig.autonomyPhase` (`silent_pilot` | `advisor` | `autonomous`, default
+`silent_pilot`). The "observe → act" loop is implemented by:
+
+| Concern | Module |
+| ------- | ------ |
+| What to watch + 2×2 "worth interrupting" gate | `src/agents/signal-catalogue.ts` |
+| Phase ladder + comparison | `src/agents/autonomy.ts` |
+| Nudge chokepoint (dedup, rate limit, escalation, delivery) | `src/agents/nudge.service.ts` |
+| Background observation cron + escalation sweep | `src/agents/signal-poller.ts` |
+| Confirm / Override / Dismiss / Investigate handling | `src/agents/nudge-response-handler.ts` |
+| `send_notification` agent tool (KYA phase-gated, BLUE) | `src/agents/tools.ts` |
+| Persisted nudge state | `supabase/migrations/069_agent_nudges.sql` |
+
+**Currently promoted to Phase 2 (advisor):** `sitesense`, `compliance`,
+`customer-sat`. All other agents remain `silent_pilot` and cannot send nudges.
+
+**Guardrails:** an agent below `advisor` is refused `send_notification` at the
+tool gate; nudges are deduplicated per `(orgId, signalKey, entityId)` while
+pending, rate-limited per agent (default 5/hour, 20/day, counted from the
+persisted table so limits hold across instances), and escalated after a 4h
+no-response window via the poller's restart-safe `escalate_at` sweep.
+
 ### Agent Configuration Structure
 
 ```yaml
@@ -592,6 +607,6 @@ Root backend has `"lint": "echo \"No linter configured\""` — no real linter. D
 ---
 
 **Document Version:** 1.0  
-**Last Updated:** June 9, 2026  
+**Last Updated:** June 20, 2026  
 **Status:** Active  
 **Next Review:** January 10, 2026

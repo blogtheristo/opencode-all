@@ -23,6 +23,21 @@
 
 **Removed (2026-04-14):** `auto-commit.sh` (silent commits caused hook regressions) · `require-tests-for-pr.sh` (duplicate of CI/CD gate)
 
+## 12 Rules — Hook Enforcement Map
+
+The 12 Engineering Discipline Rules (canonical: `CLAUDE.md`) are surfaced to every session by `session-start.sh` and mechanically enforced where possible:
+
+| Rule                          | Hook / mechanism                                                               |
+| ----------------------------- | ------------------------------------------------------------------------------ |
+| 3 Surgical changes            | `protect-files.sh` blocks edits to .env/.key/.pem/migrations/public `.md`      |
+| 6 Token budgets               | `session-start.sh` echoes `CLAUDE_AUTO_MODE_BUDGET`                            |
+| 10 Checkpoint each step       | `session-stop.sh` governance checklist (dual-folder sync, thesis, uncommitted) |
+| 11 Match conventions          | `validate-branch-name.py`; prettier + eslint PostToolUse auto-format           |
+| 12 Fail loud                  | All PreToolUse guards block (exit 2) with stderr — never silent-pass           |
+| (secrets / security baseline) | `secret-scan.sh`, `sql-safety-guard.sh`, `pretooluse-guard.sh`                 |
+
+Rules 1, 2, 4, 5, 7, 8, 9 are judgment-level — enforced by the session-start injection and review (`/review`, `/simplify`), not by a blocking hook.
+
 ## Exit Codes
 
 | Code | Meaning | Effect                         |

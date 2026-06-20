@@ -18,6 +18,7 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import logger from '../utils/logger.js';
 import { createLLMClient, createLLMClientForAgent, LLMClient } from './llm-client.js';
 import { executeTools, BUILTIN_TOOLS } from './tools.js';
+import { isPhaseAtLeast } from './autonomy.js';
 import type {
   AgentConfig,
   AgentContext,
@@ -123,6 +124,21 @@ export abstract class BaseAgent {
     if (loopConfig.allowDelegation) {
       allTools.push(BUILTIN_TOOLS.delegate_to_agent);
     }
+
+    // Proactive notification: offered only to agents at autonomy phase >= advisor.
+    // The handler re-checks this gate, but withholding the tool keeps silent-pilot
+    // agents from ever attempting an outbound nudge.
+    const autonomyPhase = this.config.autonomyPhase ?? 'silent_pilot';
+    if (isPhaseAtLeast(autonomyPhase, 'advisor')) {
+      allTools.push(BUILTIN_TOOLS.send_notification);
+    }
+
+    // Inject per-agent runtime policy so tool handlers can enforce phase + limits.
+    context.agentRuntime = {
+      name: this.config.name,
+      autonomyPhase,
+      notify: this.config.notify,
+    };
 
     // Include fetch if sandbox allows it
     if (context.sandbox?.allowedDomains?.length || !context.sandbox) {

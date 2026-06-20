@@ -52,6 +52,7 @@ export class MCPToolRegistry {
     permission_grant: ToolColor.BLUE,
     system_command: ToolColor.BLUE,
     emit_event: ToolColor.BLUE,
+    send_notification: ToolColor.BLUE,
     memory_store: ToolColor.BLUE,
     memory_forget: ToolColor.BLUE,
     memory_supersede: ToolColor.BLUE,

@@ -80,14 +80,16 @@
             logoAlt: 'DWS IQ Platform',
             title: 'DWS IQ Platform Version 6',
           };
-  const regulatoryNoticeHref =
-    hostname === 'dws10.com' || hostname === 'www.dws10.com'
-      ? `${basePath}regulatory-notice/`
-      : 'https://dws10.com/legal/';
-  const priceListHref =
-    hostname === 'dws10.com' || hostname === 'www.dws10.com'
-      ? `${basePath}price-list/`
-      : 'https://dws10.com/price-list/';
+  const onDws10 = hostname === 'dws10.com' || hostname === 'www.dws10.com';
+  // Content base for shared pages that physically live on dws10.com.
+  // On dws10.com → relative basePath. On lifetime.fi / onelifetime.world the nav
+  // is embedded but those pages don't exist there, so point at the real dws10.com
+  // page instead of a same-origin path that 404s.
+  const contentBase = onDws10 ? basePath : 'https://dws10.com/';
+  const regulatoryNoticeHref = onDws10
+    ? `${basePath}regulatory-notice/`
+    : 'https://dws10.com/legal/';
+  const priceListHref = onDws10 ? `${basePath}price-list/` : 'https://dws10.com/price-list/';
 
   // Navigation HTML (Gamma-aligned with hamburger support)
   const navHTML = `
@@ -113,35 +115,35 @@
                 <li class="ironclad-menu-item">
                     <a href="#" class="ironclad-link">Home ▾</a>
                     <ul class="ironclad-dropdown ironclad-dropdown-wide">
-                        <li><a href="${basePath}index.html" class="ironclad-primary">Main Page</a></li>
+                        <li><a href="${contentBase}index.html" class="ironclad-primary">Main Page</a></li>
                         <li class="ironclad-separator"></li>
-                        <li><a href="${basePath}fit-for-55/" class="ironclad-primary">Fit for 55</a></li>
-                        <li><a href="${basePath}csrd/" class="ironclad-primary">CSRD & ESG</a></li>
+                        <li><a href="${contentBase}fit-for-55/" class="ironclad-primary">Fit for 55</a></li>
+                        <li><a href="${contentBase}csrd/" class="ironclad-primary">CSRD & ESG</a></li>
                         <!-- Industries Hub — direct link (v3.6: hub page replaces flyout) -->
-                        <li><a href="${basePath}industries/" class="ironclad-primary">Industries Hub</a></li>
+                        <li><a href="${contentBase}industries/" class="ironclad-primary">Industries Hub</a></li>
                         <!-- Company flyout -->
                         <li class="ironclad-has-submenu">
                             <a href="#" class="ironclad-primary">Company ▸</a>
                             <ul class="ironclad-submenu">
-                                <li><a href="${basePath}careers/">Careers</a></li>
-                                <li><a href="${basePath}partners/">Partners</a></li>
-                                <li><a href="${basePath}captain/" style="color: #d4a843; font-weight: 600;">Industry Captains</a></li>
-                                <li><a href="${basePath}fleet-admiral/" style="color: #d4a843; font-weight: 600;">Fleet Admiral</a></li>
-                                <li><a href="${basePath}series-a/" style="color: #d4a843; font-weight: 600;">Series A</a></li>
-                                <li><a href="${basePath}investor-relations/">Investor Relations</a></li>
-                                <li><a href="${basePath}press-releases/">Press Releases</a></li>
+                                <li><a href="${contentBase}careers/">Careers</a></li>
+                                <li><a href="${contentBase}partners/">Partners</a></li>
+                                <li><a href="${contentBase}captain/" style="color: #d4a843; font-weight: 600;">Industry Captains</a></li>
+                                <li><a href="${contentBase}fleet-admiral/" style="color: #d4a843; font-weight: 600;">Fleet Admiral</a></li>
+                                <li><a href="${contentBase}series-a/" style="color: #d4a843; font-weight: 600;">Series A</a></li>
+                                <li><a href="${contentBase}investor-relations/">Investor Relations</a></li>
+                                <li><a href="${contentBase}press-releases/">Press Releases</a></li>
                                 <li class="ironclad-has-submenu">
-                                    <a href="${basePath}lifetime-fleet/" class="ironclad-primary">Lifetime Fleet ▸</a>
+                                    <a href="${contentBase}lifetime-fleet/" class="ironclad-primary">Lifetime Fleet ▸</a>
                                     <ul class="ironclad-submenu">
-                                        <li><a href="${basePath}lifetime-fleet/">Fleet Overview</a></li>
-                                        <li><a href="${basePath}lifetime-fleet/optimus-v3/">Optimus V3</a></li>
-                                        <li><a href="${basePath}lifetime-fleet/nvidia-isv/" class="ironclad-highlight">NVIDIA ISV Partner</a></li>
+                                        <li><a href="${contentBase}lifetime-fleet/">Fleet Overview</a></li>
+                                        <li><a href="${contentBase}lifetime-fleet/optimus-v3/">Optimus V3</a></li>
+                                        <li><a href="${contentBase}lifetime-fleet/nvidia-isv/" class="ironclad-highlight">NVIDIA ISV Partner</a></li>
                                     </ul>
                                 </li>
                             </ul>
                         </li>
                         <!-- Legal Hub — direct link (v3.4: simplified, no flyout) -->
-                        <li><a href="${basePath}legal/" class="ironclad-legal">Legal Hub</a></li>
+                        <li><a href="${contentBase}legal/" class="ironclad-legal">Legal Hub</a></li>
                     </ul>
                 </li>
 
@@ -150,60 +152,60 @@
                     <a href="#" class="ironclad-link">Solutions ▾</a>
                     <ul class="ironclad-dropdown">
                         <li class="ironclad-has-submenu">
-                            <a href="${basePath}fit-for-55/" class="ironclad-primary">Fit for 55 ▸</a>
+                            <a href="${contentBase}fit-for-55/" class="ironclad-primary">Fit for 55 ▸</a>
                             <ul class="ironclad-submenu">
-                                <li><a href="${basePath}construction/?solution=fit55">Construction</a></li>
-                                <li><a href="${basePath}logistics/?solution=fit55">Logistics</a></li>
-                                <li><a href="${basePath}manufacturing/?solution=fit55">Manufacturing</a></li>
-                                <li><a href="${basePath}energy/?solution=fit55">Energy</a></li>
-                                <li><a href="${basePath}healthcare/?solution=fit55">Healthcare</a></li>
-                                <li><a href="${basePath}real-estate/?solution=fit55">Real Estate</a></li>
-                                <li><a href="${basePath}lifetime-fleet/?solution=fit55">Fleet Management</a></li>
-                                <li><a href="${basePath}public-sector/?solution=fit55">Public Sector</a></li>
+                                <li><a href="${contentBase}construction/?solution=fit55">Construction</a></li>
+                                <li><a href="${contentBase}logistics/?solution=fit55">Logistics</a></li>
+                                <li><a href="${contentBase}manufacturing/?solution=fit55">Manufacturing</a></li>
+                                <li><a href="${contentBase}energy/?solution=fit55">Energy</a></li>
+                                <li><a href="${contentBase}healthcare/?solution=fit55">Healthcare</a></li>
+                                <li><a href="${contentBase}real-estate/?solution=fit55">Real Estate</a></li>
+                                <li><a href="${contentBase}lifetime-fleet/?solution=fit55">Fleet Management</a></li>
+                                <li><a href="${contentBase}public-sector/?solution=fit55">Public Sector</a></li>
                             </ul>
                         </li>
                         <li class="ironclad-has-submenu">
-                            <a href="${basePath}csrd/" class="ironclad-primary">CSRD & ESG ▸</a>
+                            <a href="${contentBase}csrd/" class="ironclad-primary">CSRD & ESG ▸</a>
                             <ul class="ironclad-submenu">
-                                <li><a href="${basePath}construction/?solution=csrd">Construction</a></li>
-                                <li><a href="${basePath}logistics/?solution=csrd">Logistics</a></li>
-                                <li><a href="${basePath}manufacturing/?solution=csrd">Manufacturing</a></li>
-                                <li><a href="${basePath}energy/?solution=csrd">Energy</a></li>
-                                <li><a href="${basePath}healthcare/?solution=csrd">Healthcare</a></li>
-                                <li><a href="${basePath}real-estate/?solution=csrd">Real Estate</a></li>
-                                <li><a href="${basePath}lifetime-fleet/?solution=csrd">Fleet Management</a></li>
-                                <li><a href="${basePath}public-sector/?solution=csrd">Public Sector</a></li>
+                                <li><a href="${contentBase}construction/?solution=csrd">Construction</a></li>
+                                <li><a href="${contentBase}logistics/?solution=csrd">Logistics</a></li>
+                                <li><a href="${contentBase}manufacturing/?solution=csrd">Manufacturing</a></li>
+                                <li><a href="${contentBase}energy/?solution=csrd">Energy</a></li>
+                                <li><a href="${contentBase}healthcare/?solution=csrd">Healthcare</a></li>
+                                <li><a href="${contentBase}real-estate/?solution=csrd">Real Estate</a></li>
+                                <li><a href="${contentBase}lifetime-fleet/?solution=csrd">Fleet Management</a></li>
+                                <li><a href="${contentBase}public-sector/?solution=csrd">Public Sector</a></li>
                             </ul>
                         </li>
                         <!-- Compliance Hub (v3.8: moved from Home ▾) -->
                         <li class="ironclad-has-submenu">
-                            <a href="${basePath}compliance/" class="ironclad-primary">Compliance Hub ▸</a>
+                            <a href="${contentBase}compliance/" class="ironclad-primary">Compliance Hub ▸</a>
                             <ul class="ironclad-submenu">
-                                <li><a href="${basePath}compliance/">Compliance Hub</a></li>
-                                <li><a href="${basePath}compliance/trust-center/">Trust Center</a></li>
-                                <li><a href="${basePath}dual-use/" style="color: #d4a843;">Dual-Use &amp; Defence (Aegis)</a></li>
+                                <li><a href="${contentBase}compliance/">Compliance Hub</a></li>
+                                <li><a href="${contentBase}compliance/trust-center/">Trust Center</a></li>
+                                <li><a href="${contentBase}dual-use/" style="color: #d4a843;">Dual-Use &amp; Defence (Aegis)</a></li>
                             </ul>
                         </li>
                         <li class="ironclad-separator"></li>
                         <li><a href="https://lifetime.fi/firehorse-production-engine/" style="color:#f97316;font-weight:700;">🔥 Firehorse Production Engine</a></li>
-                        <li><a href="${basePath}world-model/" style="color:#8b5cf6;font-weight:700;">🧠 Lifetime World Model V1</a></li>
+                        <li><a href="${contentBase}world-model/" style="color:#8b5cf6;font-weight:700;">🧠 Lifetime World Model V1</a></li>
                         <li class="ironclad-separator"></li>
                         <li class="ironclad-has-submenu">
-                            <a href="${basePath}enterprise-integrations/" class="ironclad-primary">Integrations ▸</a>
+                            <a href="${contentBase}enterprise-integrations/" class="ironclad-primary">Integrations ▸</a>
                             <ul class="ironclad-submenu">
-                                <li><a href="${basePath}enterprise-integrations/" class="ironclad-primary">All Enterprise Integrations</a></li>
+                                <li><a href="${contentBase}enterprise-integrations/" class="ironclad-primary">All Enterprise Integrations</a></li>
                                 <li class="ironclad-separator"></li>
-                                <li><a href="${basePath}enterprise-integrations/siemens/" class="ironclad-primary">Siemens — Building Automation</a></li>
-                                <li><a href="${basePath}enterprise-integrations/#erp">ERP (SAP, IFS, Dynamics, Monitor, Visma, Jeeves)</a></li>
-                                <li><a href="${basePath}enterprise-integrations/#industrial">Industrial Control (ABB, AspenTech)</a></li>
-                                <li><a href="${basePath}enterprise-integrations/#esg">ESG Platforms (Worldfavor, Position Green)</a></li>
+                                <li><a href="${contentBase}enterprise-integrations/siemens/" class="ironclad-primary">Siemens — Building Automation</a></li>
+                                <li><a href="${contentBase}enterprise-integrations/#erp">ERP (SAP, IFS, Dynamics, Monitor, Visma, Jeeves)</a></li>
+                                <li><a href="${contentBase}enterprise-integrations/#industrial">Industrial Control (ABB, AspenTech)</a></li>
+                                <li><a href="${contentBase}enterprise-integrations/#esg">ESG Platforms (Worldfavor, Position Green)</a></li>
                                 <li class="ironclad-separator"></li>
-                                <li><a href="${basePath}products/synthetic-data/" class="ironclad-primary">Synthetic Data Solutions</a></li>
+                                <li><a href="${contentBase}products/synthetic-data/" class="ironclad-primary">Synthetic Data Solutions</a></li>
                                 <li class="ironclad-separator"></li>
-                                <li><a href="${basePath}partners/">Partner Program</a></li>
-                                <li><a href="${basePath}aegis-partners/">Aegis Partners (Tier 1)</a></li>
-                                <li><a href="${basePath}sovereign-infra-partners/">Sovereign Infra Partners (Tier 2)</a></li>
-                                <li><a href="${basePath}connect-partners/">Connect Partners (Tier 3)</a></li>
+                                <li><a href="${contentBase}partners/">Partner Program</a></li>
+                                <li><a href="${contentBase}aegis-partners/">Aegis Partners (Tier 1)</a></li>
+                                <li><a href="${contentBase}sovereign-infra-partners/">Sovereign Infra Partners (Tier 2)</a></li>
+                                <li><a href="${contentBase}connect-partners/">Connect Partners (Tier 3)</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -222,28 +224,28 @@
                     <a href="#" class="ironclad-link">About ▾</a>
                     <ul class="ironclad-dropdown">
                         <li><a href="https://onelifetime.world" target="_blank">Lifetime World</a></li>
-                        <li><a href="${basePath}team/">Team</a></li>
-                        <li><a href="${basePath}careers/">Careers</a></li>
+                        <li><a href="${contentBase}team/">Team</a></li>
+                        <li><a href="${contentBase}careers/">Careers</a></li>
                         <li class="ironclad-has-submenu">
-                            <a href="${basePath}partners/" class="ironclad-primary">Partner Tiers ▸</a>
+                            <a href="${contentBase}partners/" class="ironclad-primary">Partner Tiers ▸</a>
                             <ul class="ironclad-submenu">
-                                <li><a href="${basePath}partners/" class="ironclad-primary">Partner Program</a></li>
-                                <li><a href="${basePath}aegis-partners/">Aegis Partners (Tier 1)</a></li>
-                                <li><a href="${basePath}sovereign-infra-partners/">Sovereign Infra Partners (Tier 2)</a></li>
-                                <li><a href="${basePath}connect-partners/">Connect Partners (Tier 3)</a></li>
+                                <li><a href="${contentBase}partners/" class="ironclad-primary">Partner Program</a></li>
+                                <li><a href="${contentBase}aegis-partners/">Aegis Partners (Tier 1)</a></li>
+                                <li><a href="${contentBase}sovereign-infra-partners/">Sovereign Infra Partners (Tier 2)</a></li>
+                                <li><a href="${contentBase}connect-partners/">Connect Partners (Tier 3)</a></li>
                             </ul>
                         </li>
-                        <li><a href="${basePath}book/" class="ironclad-highlight">📅 Book Meeting</a></li>
+                        <li><a href="${contentBase}book/" class="ironclad-highlight">📅 Book Meeting</a></li>
                         <li class="ironclad-separator"></li>
                         <!-- Investor section (Press Releases, Investor Relations, Series A, Investment Safety) -->
                         <li class="ironclad-has-submenu">
-                            <a href="${basePath}investor-relations/" class="ironclad-primary">Investor ▸</a>
+                            <a href="${contentBase}investor-relations/" class="ironclad-primary">Investor ▸</a>
                             <ul class="ironclad-submenu">
-                                <li><a href="${basePath}investor-relations/" class="ironclad-primary">Investor Relations</a></li>
-                                <li><a href="${basePath}press-releases/" class="ironclad-primary">Press Releases</a></li>
-                                <li><a href="${basePath}series-a/" style="color: #d4a843; font-weight: 600;">Series A</a></li>
-                                <li><a href="${basePath}fleet-admiral/" style="color: #ffd700; font-weight: 700;">⚓ Fleet Admiral</a></li>
-                                <li><a href="${basePath}captain/" style="color: #d4a843; font-weight: 600;">Industry Captain Seats</a></li>
+                                <li><a href="${contentBase}investor-relations/" class="ironclad-primary">Investor Relations</a></li>
+                                <li><a href="${contentBase}press-releases/" class="ironclad-primary">Press Releases</a></li>
+                                <li><a href="${contentBase}series-a/" style="color: #d4a843; font-weight: 600;">Series A</a></li>
+                                <li><a href="${contentBase}fleet-admiral/" style="color: #ffd700; font-weight: 700;">⚓ Fleet Admiral</a></li>
+                                <li><a href="${contentBase}captain/" style="color: #d4a843; font-weight: 600;">Industry Captain Seats</a></li>
                                 <li><a href="${regulatoryNoticeHref}">Regulatory Notice</a></li>
                             </ul>
                         </li>
@@ -252,13 +254,13 @@
                             <a href="#" class="ironclad-highlight">Lifetime Group ▸</a>
                             <ul class="ironclad-submenu">
                                 <li><a href="https://lifetime.fi/" class="ironclad-highlight">Lifetime Oy</a></li>
-                                <li><a href="${basePath}lifetime-consulting/" class="ironclad-highlight">Lifetime Consulting</a></li>
-                                <li><a href="${basePath}lifetime-studios/">Lifetime Studios</a></li>
-                                <li><a href="${basePath}roadmap/">DWS Roadmap</a></li>
+                                <li><a href="${contentBase}lifetime-consulting/" class="ironclad-highlight">Lifetime Consulting</a></li>
+                                <li><a href="${contentBase}lifetime-studios/">Lifetime Studios</a></li>
+                                <li><a href="${contentBase}roadmap/">DWS Roadmap</a></li>
                             </ul>
                         </li>
                         <!-- Legal Hub — direct link (v3.4: simplified, no flyout) -->
-                        <li><a href="${basePath}legal/" class="ironclad-legal">Legal Hub</a></li>
+                        <li><a href="${contentBase}legal/" class="ironclad-legal">Legal Hub</a></li>
                     </ul>
                 </li>
 
@@ -288,7 +290,7 @@
                     </a>
                 </li>
                 <li class="ironclad-menu-item ironclad-icon-item">
-                    <a href="${basePath}buy/" class="ironclad-store-link" title="Firehorse Store">
+                    <a href="${contentBase}buy/" class="ironclad-store-link" title="Firehorse Store">
                         <img src="${basePath}static/images/Firehorse_Store.jpg" alt="Firehorse Store" class="ironclad-store-image">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#334155" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="9" cy="21" r="1"></circle>
@@ -1115,21 +1117,21 @@
       }
       function normalizeUrl(u) {
         if (!u) return '';
-        return basePath + String(u).replace(/^(?:\.\.\/)+/, '');
+        return contentBase + String(u).replace(/^(?:\.\.\/)+/, '');
       }
       function renderFailure() {
         menu.innerHTML =
           '<li><a href="' +
-          basePath +
+          contentBase +
           'buy/" class="ironclad-primary">Buy / Store</a></li>' +
           '<li><a href="' +
-          basePath +
-          `${priceListHref}" class="ironclad-primary">View full Price List →</a></li>`;
+          priceListHref +
+          '" class="ironclad-primary">View full Price List →</a></li>';
         menu.dataset.productsMenu = 'fallback';
         attachMobileToggles(menu);
       }
 
-      fetch(basePath + 'config/products.json', { cache: 'no-store' })
+      fetch(contentBase + 'config/products.json', { cache: 'no-store' })
         .then(function (r) {
           if (!r.ok) throw new Error('HTTP ' + r.status);
           return r.json();
@@ -1162,7 +1164,7 @@
                   );
                 })
                 .map(function (p) {
-                  const href = normalizeUrl(p.detailsUrl) || basePath + 'buy/';
+                  const href = normalizeUrl(p.detailsUrl) || contentBase + 'buy/';
                   return (
                     '<li><a href="' + escHtml(href) + '">' + escHtml(p.name || p.id) + '</a></li>'
                   );
@@ -1187,10 +1189,10 @@
             html +
             '<li class="ironclad-separator"></li>' +
             '<li><a href="' +
-            basePath +
-            `${priceListHref}" class="ironclad-primary">View full Price List →</a></li>` +
+            priceListHref +
+            '" class="ironclad-primary">View full Price List →</a></li>' +
             '<li><a href="' +
-            basePath +
+            contentBase +
             'buy/">Buy / Store</a></li>';
           menu.dataset.productsMenu = 'loaded';
           attachMobileToggles(menu);
