@@ -1,9 +1,9 @@
 /**
- * DWS10.com Vertical Language Bar v1.1
- * Introduced-In: PR-TBD (restore-language-bar) / updated: claude/add-hardware-products-MY7X7
- * Code-Version: 1.1
- * Branch: claude/add-hardware-products-MY7X7
- * Date: 2026-05-17
+ * DWS10.com Vertical Language Bar v1.2
+ * Introduced-In: PR-TBD (restore-language-bar) / updated: claude/susanna-hypponen-card-tnq9cl
+ * Code-Version: 1.2
+ * Branch: claude/susanna-hypponen-card-tnq9cl
+ * Date: 2026-06-20
  * Owner: Lifetime Oy
  *
  * PAGE ELEMENT — not a menu/nav element.
@@ -17,6 +17,8 @@
  * Shares localStorage key 'dws-lang' with ironclad-nav.js.
  *
  * v1.1 — Added product version line (Control Room / Situation Room hardware bundles).
+ * v1.2 — Added compliance/legal hub contexts: per-language hero lines, context-aware
+ *        hrefs (/compliance/<lang>/, /legal/<lang>/), hardware version line hidden on hubs.
  */
 (function () {
   'use strict';
@@ -30,7 +32,8 @@
       home: 'Pohjoismainen teollisuus-AI. Rakennettu Suomessa, Pohjoismaille.',
       store: 'Suvereeneja AI-tuotteita eurooppalaisille yrityksille.',
       product: 'Kultainen br\u00e4ndistandardisi, teko\u00e4lyagentit ja tuotantokone.',
-      versions: 'Control Room (1\u00d7 GN100) 4\u00a0994\u00a0\u20ac \u00b7 Situation Room (2\u00d7 sillattu) 8\u00a0993\u00a0\u20ac',
+      versions:
+        'Control Room (1\u00d7 GN100) 4\u00a0994\u00a0\u20ac \u00b7 Situation Room (2\u00d7 sillattu) 8\u00a0993\u00a0\u20ac',
     },
     {
       code: 'sv',
@@ -40,7 +43,8 @@
       home: 'Nordisk industri-AI. Byggd i Finland, f\u00f6r Norden.',
       store: 'Suvern\u00e4na AI-produkter f\u00f6r europeiska f\u00f6retag.',
       product: 'Din guldstandard f\u00f6r varum\u00e4rke, AI-agenter och produktionsmotor.',
-      versions: 'Control Room (1\u00d7 GN100) 4 994 \u20ac \u00b7 Situation Room (2\u00d7 bryggad) 8 993 \u20ac',
+      versions:
+        'Control Room (1\u00d7 GN100) 4 994 \u20ac \u00b7 Situation Room (2\u00d7 bryggad) 8 993 \u20ac',
     },
     {
       code: 'de',
@@ -50,7 +54,8 @@
       home: 'Gestalte, wie Europas Industrial IQ Compliance-Schwungrad sich dreht.',
       store: 'Souver\u00e4ne KI-Produkte f\u00fcr europ\u00e4ische Unternehmen.',
       product: 'Ihr Goldstandard f\u00fcr Marke, KI-Agenten und Produktions-Engine.',
-      versions: 'Control Room (1\u00d7 GN100) 4.994 \u20ac \u00b7 Situation Room (2\u00d7 gebr\u00fcckt) 8.993 \u20ac',
+      versions:
+        'Control Room (1\u00d7 GN100) 4.994 \u20ac \u00b7 Situation Room (2\u00d7 gebr\u00fcckt) 8.993 \u20ac',
     },
     {
       code: 'fr',
@@ -60,7 +65,8 @@
       home: 'Fa\u00e7onnez la dynamique du volant d\u2019inertie Industrial IQ Compliance en Europe.',
       store: 'Produits IA souverains pour les entreprises europ\u00e9ennes.',
       product: 'Votre standard d\u2019or pour la marque, les agents IA et le moteur de production.',
-      versions: 'Control Room (1\u00d7 GN100) 4 994 \u20ac \u00b7 Situation Room (2\u00d7 pont\u00e9e) 8 993 \u20ac',
+      versions:
+        'Control Room (1\u00d7 GN100) 4 994 \u20ac \u00b7 Situation Room (2\u00d7 pont\u00e9e) 8 993 \u20ac',
     },
     {
       code: 'en',
@@ -73,6 +79,32 @@
       versions: 'Control Room (1× GN100) €4,994 · Situation Room (2× bridged) €8,993',
     },
   ];
+
+  // Hub-context hero lines (compliance / legal). Keyed by pageType then language code.
+  var HUB_HERO = {
+    compliance: {
+      fi: 'EU-sääntelyn compliance — johdettua, auditointivalmista, ISO 42001 -linjattua.',
+      sv: 'EU-regelefterlevnad — styrd, revisionsklar, ISO 42001-anpassad.',
+      de: 'EU-Regulierungs-Compliance — gesteuert, auditbereit, ISO-42001-konform.',
+      fr: 'Conformité réglementaire UE — pilotée, prête pour l’audit, alignée ISO 42001.',
+      en: 'EU regulatory compliance — managed, audit-ready, ISO 42001-aligned.',
+    },
+    legal: {
+      fi: 'Juridiikka ja tiedonhallinta — tietosuojajohtaminen, GDPR- ja EU AI Act -valmius.',
+      sv: 'Juridik och datastyrning — dataskyddsledning, redo för GDPR och EU:s AI-förordning.',
+      de: 'Recht & Daten-Governance — Datenschutzmanagement, bereit für DSGVO und EU-KI-Gesetz.',
+      fr: 'Juridique & gouvernance des données — gestion de la protection des données, prêt RGPD et règlement IA UE.',
+      en: 'Legal & data governance — data protection management, GDPR & EU AI Act ready.',
+    },
+  };
+
+  // Context-aware destination: hub pages route to /compliance/<lang>/ etc.; EN stays at root.
+  function rowHref(l) {
+    if (pageType === 'compliance')
+      return l.code === 'en' ? '/compliance/' : '/compliance/' + l.code + '/';
+    if (pageType === 'legal') return l.code === 'en' ? '/legal/' : '/legal/' + l.code + '/';
+    return l.href;
+  }
 
   // Compact strip for product cards — set up immediately so createProductCard() can use it
   window.dwsVlbCardHTML = function () {
@@ -114,6 +146,8 @@
   var pageType = 'home';
   if (path.indexOf('/buy') !== -1) pageType = 'store';
   else if (path.indexOf('/products/') !== -1) pageType = 'product';
+  else if (path.indexOf('/compliance') !== -1) pageType = 'compliance';
+  else if (path.indexOf('/legal') !== -1) pageType = 'legal';
 
   // Inject CSS once
   if (!document.getElementById('dws-vlb-style')) {
@@ -237,11 +271,14 @@
     el.setAttribute('role', 'navigation');
     el.setAttribute('aria-label', '5 European languages');
 
+    var hubHero = HUB_HERO[pageType];
+    var showVersions = !hubHero; // hide hardware-bundle line on compliance/legal hubs
     var rows = LANGS.map(function (l) {
       var isActive = l.code === currentLang;
       var tag = stays ? 'div' : 'a';
-      var hrefAttr = stays ? '' : ' href="' + l.href + '"';
+      var hrefAttr = stays ? '' : ' href="' + rowHref(l) + '"';
       var activeCls = isActive ? ' dws-vlb-active' : '';
+      var mainText = hubHero ? hubHero[l.code] || l[textKey] : l[textKey];
       return (
         '<' +
         tag +
@@ -256,8 +293,10 @@
         l.name +
         '</span>' +
         '<span class="dws-vlb-text">' +
-        '<span class="dws-vlb-text-main">' + l[textKey] + '</span>' +
-        '<span class="dws-vlb-versions">' + l.versions + '</span>' +
+        '<span class="dws-vlb-text-main">' +
+        mainText +
+        '</span>' +
+        (showVersions ? '<span class="dws-vlb-versions">' + l.versions + '</span>' : '') +
         '</span>' +
         '<span class="dws-vlb-flag">' +
         l.flag +
