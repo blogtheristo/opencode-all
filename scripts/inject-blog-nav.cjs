@@ -142,6 +142,11 @@ const posts = [
     title: 'Ontologia elää tiimin aivoissa',
     date: '20 Jun 2026',
   },
+  {
+    file: 'the-ontology-lives-in-the-team.html',
+    title: 'The Ontology Lives in the Team',
+    date: '20 Jun 2026',
+  },
 ];
 
 // Three featured products
