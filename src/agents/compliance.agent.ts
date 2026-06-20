@@ -131,6 +131,9 @@ export class ComplianceAgent extends BaseAgent {
       ],
       model: 'llama-3.3-70b-versatile',
       modelTier: 'standard',
+      // Proactive: Phase 2 (advisor) — deadline-driven, deterministic rules.
+      autonomyPhase: 'advisor',
+      notify: { channels: ['email', 'in_app'], maxPerHour: 5, maxPerDay: 20 },
     });
   }
 

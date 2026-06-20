@@ -64,6 +64,7 @@ import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
 import { constructionLeadsScheduler, fetchAndProcessLeads } from './construction-leads/index.js';
 import { memoryScheduler } from './agents/memory.scheduler.js';
+import { signalPoller } from './agents/signal-poller.js';
 import { apiVersionMiddleware } from './middleware/api-version.middleware.js';
 import { correlationId } from './middleware/correlation-id.js';
 import { errorHandler, notFoundHandler } from './middleware/error-handler.js';
@@ -678,6 +679,10 @@ const server = app.listen(PORT, () => {
   // Manual trigger available via POST /api/v1/admin/memory/maintenance
   memoryScheduler.start();
 
+  // Proactive observation: watch the signal catalogue and raise human nudges,
+  // plus sweep overdue nudges for escalation (restart-safe).
+  signalPoller.start();
+
   // Initialize email queue (Redis Streams)
   emailQueue
     .initialize()
@@ -721,6 +726,7 @@ process.on('SIGTERM', () => {
   constructionLeadsScheduler.stop();
   outreachScheduler.stop();
   memoryScheduler.stop();
+  signalPoller.stop();
   shutdownFirehorsePilot();
   Promise.all([emailQueue.shutdown(), shutdownOtel()]).finally(() => {
     server.close(() => {
@@ -735,6 +741,7 @@ process.on('SIGINT', () => {
   constructionLeadsScheduler.stop();
   outreachScheduler.stop();
   memoryScheduler.stop();
+  signalPoller.stop();
   shutdownFirehorsePilot();
   Promise.all([emailQueue.shutdown(), shutdownOtel()]).finally(() => {
     server.close(() => {

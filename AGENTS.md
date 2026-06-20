@@ -361,6 +361,31 @@ approval: exception_only
 guardrails: ["max_emails", "approval_for_discounts"]
 ```
 
+### Proactive Agents — Observe → Act (Code Wiring)
+
+The deployment phases above are now enforced in the TypeScript agent runtime via
+`AgentConfig.autonomyPhase` (`silent_pilot` | `advisor` | `autonomous`, default
+`silent_pilot`). The "observe → act" loop is implemented by:
+
+| Concern | Module |
+| ------- | ------ |
+| What to watch + 2×2 "worth interrupting" gate | `src/agents/signal-catalogue.ts` |
+| Phase ladder + comparison | `src/agents/autonomy.ts` |
+| Nudge chokepoint (dedup, rate limit, escalation, delivery) | `src/agents/nudge.service.ts` |
+| Background observation cron + escalation sweep | `src/agents/signal-poller.ts` |
+| Confirm / Override / Dismiss / Investigate handling | `src/agents/nudge-response-handler.ts` |
+| `send_notification` agent tool (KYA phase-gated, BLUE) | `src/agents/tools.ts` |
+| Persisted nudge state | `supabase/migrations/069_agent_nudges.sql` |
+
+**Currently promoted to Phase 2 (advisor):** `sitesense`, `compliance`,
+`customer-sat`. All other agents remain `silent_pilot` and cannot send nudges.
+
+**Guardrails:** an agent below `advisor` is refused `send_notification` at the
+tool gate; nudges are deduplicated per `(orgId, signalKey, entityId)` while
+pending, rate-limited per agent (default 5/hour, 20/day, counted from the
+persisted table so limits hold across instances), and escalated after a 4h
+no-response window via the poller's restart-safe `escalate_at` sweep.
+
 ### Agent Configuration Structure
 
 ```yaml
