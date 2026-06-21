@@ -124,10 +124,11 @@ Chronological order. Update this table when adding/removing posts.
 | 19  | `fire-brigades-drone-defense-units.html`             | Fire Brigades as Drone Defence Units — Three Reasons to Build the Network Now (EN/FI/SV)                                        | 15 May 2026 |
 | 20  | `moat-is-not-the-model.html`                         | The Moat Is Not the Model — NVIDIA Makes It Possible, EU-Sovereign Deployment Makes It Defensible                               | 17 May 2026 |
 | 21  | `point-it-at-the-ontology.html`                      | Don't Point the LLM at the Data — Point It at the Ontology (5 industries)                                                       | 5 Jun 2026  |
-| 22  | `four-capital-classes.html`                          | Prompt, People, Plant, Perception — The Four Capital Classes of the Agentic Era (Ontology Series)                               | 19 Jun 2026 |
-| 23  | `software-vs-world-model.html`                       | Software You Operate vs Intelligence That Operates — SaaS and the World Model (Ontology Series)                                 | 20 Jun 2026 |
-| 24  | `ontologia-tiimin-aivoissa.html`                     | Ontologia elää tiimin aivoissa — Kaukopää, tacit ontology, and the governed world model (FI, Ontology Series)                   | 20 Jun 2026 |
-| 25  | `the-ontology-lives-in-the-team.html`                | The Ontology Lives in the Team — Kaukopää case, three layers of industrial tacit knowledge, cynical wedge (EN, Ontology Series) | 20 Jun 2026 |
+| 22  | `your-model-cant-beat-your-noise-floor.html`         | Your Model Can't Beat Your Noise Floor — Evaluation, Clean Labels, the Shannon Bound (Ontology Series)                          | 15 Jun 2026 |
+| 23  | `four-capital-classes.html`                          | Prompt, People, Plant, Perception — The Four Capital Classes of the Agentic Era (Ontology Series)                               | 19 Jun 2026 |
+| 24  | `software-vs-world-model.html`                       | Software You Operate vs Intelligence That Operates — SaaS and the World Model (Ontology Series)                                 | 20 Jun 2026 |
+| 25  | `ontologia-tiimin-aivoissa.html`                     | Ontologia elää tiimin aivoissa — Kaukopää, tacit ontology, and the governed world model (FI, Ontology Series)                   | 20 Jun 2026 |
+| 26  | `the-ontology-lives-in-the-team.html`                | The Ontology Lives in the Team — Kaukopää case, three layers of industrial tacit knowledge, cynical wedge (EN, Ontology Series) | 20 Jun 2026 |
 
 ---
 
