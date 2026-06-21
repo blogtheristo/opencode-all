@@ -1,51 +1,50 @@
-# Next Session — Compliance Hub + Legal Hub: language bar, language versions, versioning, go-live
+# Next Session — Land hubs-multilingual + Cloud Run CI, then close out deploy identity
 
-**Branch:** `claude/susanna-hypponen-card-tnq9cl` (continue here)
+**Branch:** `claude/susanna-hypponen-card-tnq9cl` · **Open PR:** #1463 · **Merged earlier:** #1455
 
-**Status carried in from previous session**
+## What shipped (context)
 
-- Shipped (committed + pushed, **not yet merged to `main`, so not live online**):
-  - Compliance Hub v3.0 → **v3.1**: Data Protection Management (Tietosuojajohtaminen) capability tile + ISO/IEC 42001 (AI Management System) framework card + Digia Hub partner trust signal. (`dws10.com/compliance/index.html` + `landing-pages/dws10-com/...` mirror)
-  - Legal Hub: §3 reframed around data protection management, DPO line backed by external advisory bench, ISO/IEC 42001 roadmap row, Partner Ecosystem (Digia Hub) card. (`dws10.com/legal/index.html` + mirror)
-  - `DWS_LEGAL_STANDARD.md` → v1.2.
-  - People DB + cards: `People/people_database.json` (`susanna-hypponen-001`), `People/partners/consultants/susanna-hypponen.md`, `People/partners/technology/digia.md`, `People/partners/consulting/{digia-hub-consulting,DIGIA_HUB_YHTEISMARKKINOINTI,DIGIA_HUB_ASSIGNMENTS}.md`.
-- **Guardrail:** Susanna Hyppönen stays internal (prospect) — do NOT name her on public Legal/Compliance Hub pages.
+- **#1455 (merged → `main`):** Susanna Hyppönen card + Data Protection Management /
+  ISO 42001 / Digia signal across Compliance + Legal hubs; People DB + Digia consulting docs.
+- **#1463 (open):** hubs **5-language bar** (`vertical-lang-bar.js` v1.2 with `compliance`/`legal`
+  contexts), **FI/SV/DE/FR pages** at `dws10.com/{compliance,legal}/{fi,sv,de,fr}/` (+ mirrors,
+  11/11 identical), **versioning** (Compliance 3.2; Legal got its first VERSION block), **and**
+  the **Cloud Run deploy CI fix** (`deploy-cloudrun.yml`: valid YAML, `auth@v2` WIF,
+  graceful-skip gate) + `infrastructure/cloudrun/CI_DEPLOY_IDENTITY_RUNBOOK.md`.
+- **Confirmed:** `dws10.com` deploys via **Cloudflare Pages** (the `Cloudflare Pages: dws10-com`
+  check passes on #1463). Legal language pages carry an "authoritative version is English" note.
 
-**Online audit result:** the changes live only on the feature branch; `origin/main` (HEAD `7e067aa`) does not contain them, so `dws10.com` still serves the old hubs. Going live = merge branch → `main` (deploy).
+## 1. Merge & verify live (deploy = human go-ahead)
+
+- Confirm #1463 checks green (audit-chain, pr-security-check, Claude Auto-Fix were queued; truth-lint ✅), then **merge to `main`**.
+- Browser-verify (the live site 403s automated fetch): open `https://dws10.com/compliance/` and
+  `/legal/`, confirm the 5-language bar renders (language left · native hero centre · flag right)
+  and that Suomi/Svenska/Deutsch/Français route to `/<hub>/<lang>/` (no 404). Spot-check
+  `/compliance/fi/` and `/legal/de/`.
+
+## 2. Close out Cloud Run deploy identity (GCP IAM + secrets = human/RED)
+
+- Follow `infrastructure/cloudrun/CI_DEPLOY_IDENTITY_RUNBOOK.md` as `admin@dws6.com`: create/repair
+  `github-actions-deployer` SA, grant `roles/iam.serviceAccountTokenCreator` (token-minting gate),
+  configure WIF, set GitHub secrets `WIF_PROVIDER` + `WIF_SERVICE_ACCOUNT`.
+- **Decision first:** `deploy-cloudrun.yml` → `dws6run6` vs `deploy-staging.yml` → `dws-iq-60`.
+  Pick one admin-owned project; if consolidating, update `PROJECT_ID` and align the secret-name
+  pairs (`WIF_*` vs `GCP_*`).
+- Until secrets exist, the workflow now **skips green** (fix already in #1463).
+
+## 3. Optional polish (only if asked)
+
+- Focused language landings (current) vs fuller body translation — if fuller, translate key Legal §§
+  but keep the "English is authoritative" note.
+- Add the language bar to `/compliance/trust-center/`; consider `onelifetime.world` parity
+  (`olw-vertical-lang-bar.js`, FI/SV/EN).
+
+## Guardrails
+
+Dual-folder sync on every `dws10.com` edit · no `.md` in public-site folders · run
+`scripts/lint-truth-claims.mjs` on copy changes · Susanna stays internal (not named publicly) ·
+`gcloud` uses CMD syntax (caret `^`, never backtick).
 
 ---
 
-## Standards to load (CLAUDE.md routing)
-
-`multilingual` (`.claude/commands/multilingual.md`) · `dual-folder-sync` · `SITE_QUALITY_STANDARDS.md` · `DWS_BRAND_STANDARD.md` · `DWS_DOCUMENT_STANDARD.md` (VERSION blocks use `***`, never `---`) · `DWS_TRUTH_STANDARD.md` (run `/truth-check`).
-
-## 1. Language bar on both hubs (FI · SV · DE · FR · EN)
-
-- Add `<script src="/shared-assets/vertical-lang-bar.js"></script>` to `dws10.com/compliance/index.html` and `dws10.com/legal/index.html` (+ `landing-pages/dws10-com/` mirrors).
-- Extend `dws10.com/shared-assets/vertical-lang-bar.js`: today `pageType` only detects `home` / `store` / `product` (lines ~112-116). Add `compliance` and `legal` path detection and a per-language hero text for each context in `LANGS[]`. Mirror the JS file.
-- Bar is a PAGE element — never inside `ironclad-nav`. Rows: language name left, native hero centre, flag right.
-
-## 2. Language versions for both hubs
-
-- Create `dws10.com/compliance/{fi,sv,de,fr}/index.html` and `dws10.com/legal/{fi,sv,de,fr}/index.html` (EN stays canonical at root). Add `hreflang` alternates linking all five.
-- Translate the additions from last session: Data Protection Management / Tietosuojajohtaminen, ISO/IEC 42001 card, Digia Hub partner signal, Legal §3 + DPO + roadmap.
-- Mirror every page to `landing-pages/dws10-com/...` in the same commit.
-- Run multilingual **audit**: each language page H1 must match `LANGS[].<context>` in the bar JS.
-
-## 3. Versioning consistent with the price-list (`products.json`)
-
-- `dws10.com/config/products.json` uses a per-entry `"version"` string (e.g. "1.0", "1.2", "6"). Give **both hubs** a matching, consistent version marker:
-  - Legal Hub currently has **no** `VERSION AND AGENT HISTORY` block — add one (`***` delimiters) + a visible version badge like the Compliance Hub's `CI POWER V2 LIVE` badge.
-  - Bump Compliance Hub 3.1 → **3.2** for the language work.
-  - Keep both hub version stamps in lockstep with each other.
-
-## 4. Verify + go live
-
-- Dual-folder parity: `diff -q` source vs mirror for every changed page (must be identical).
-- Valid HTML; no `.md` in public-site folders; `/truth-check` clean (no "Certified" claims we don't hold).
-- Optional: `dws browse` the FI + DE pages to confirm the bar renders correctly.
-- Commit + push. Then **open PR `claude/susanna-hypponen-card-tnq9cl` → `main`** (requires human go-ahead — deploy is the RED zone) and confirm CI green. Merge is what makes everything live online.
-
----
-
-_Generated as a session handoff. Not a public-site file (lives in `docs/`)._
+_Session handoff. Lives in `docs/` (not a public-site file)._

@@ -30,22 +30,29 @@
       content="EU regulatory compliance hub powered by CI Power V2. Deterministic scoring, lifecycle assessment, multi-jurisdiction Nordic support."
     />
     <link rel="canonical" href="https://dws10.com/compliance/" />
+    <link rel="alternate" hreflang="en" href="https://dws10.com/compliance/" />
+    <link rel="alternate" hreflang="fi" href="https://dws10.com/compliance/fi/" />
+    <link rel="alternate" hreflang="sv" href="https://dws10.com/compliance/sv/" />
+    <link rel="alternate" hreflang="de" href="https://dws10.com/compliance/de/" />
+    <link rel="alternate" hreflang="fr" href="https://dws10.com/compliance/fr/" />
+    <link rel="alternate" hreflang="x-default" href="https://dws10.com/compliance/" />
     <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
 
     <!--
     VERSION AND AGENT HISTORY
 
-    Version: 3.1
+    Version: 3.2
 
     Sessions & Modifications:
       - Version: 1.0 | Tool: Cursor.ai | Session: CI-Power | Date: 03.01.2026 | Changes: Initial compliance dashboard
       - Version: 2.0 | Tool: Claude Code | Session: enhance-compliance-calculator | Date: 02.04.2026 | Changes: V2 engine showcase — EN 15978, regulatory timeline, multi-jurisdiction, EPBD/ETS2/Fit for 55
       - Version: 3.0 | Tool: Claude Code | Session: industries-hub-worldmodel-bfTIc | Date: 28.04.2026 | Changes: Rebranded to Compliance Hub — H1, title, meta, CTA updated; page moved to Solutions menu in nav
       - Version: 3.1 | Tool: Claude Code | Session: susanna-hypponen-card-tnq9cl | Date: 10.06.2026 | Changes: Added Data Protection Management (Tietosuojajohtaminen) capability + ISO/IEC 42001 AI Management System framework card; Digia Hub partner trust signal; meta keywords updated
+      - Version: 3.2 | Tool: Claude Code | Session: susanna-hypponen-card-tnq9cl | Date: 20.06.2026 | Changes: Added vertical language bar (FI/SV/DE/FR/EN) + hreflang alternates; FI/SV/DE/FR language landing pages under /compliance/<lang>/
 
     Document Status:
       - Created: 03.01.2026
-      - Last Modified: 10.06.2026
+      - Last Modified: 20.06.2026
       - Publication Status: Production
 
     Compliance:
@@ -663,9 +670,9 @@
             <div class="icon">&#x1F6E1;</div>
             <h3>Data Protection Management</h3>
             <p>
-              Tietosuojajohtaminen — GDPR as a managed, risk-based discipline, not a one-off
-              badge. DPIA-driven prioritisation, leadership commitment, and continuous
-              improvement aligned to ISO/IEC 42001 and ISO/IEC 27001.
+              Tietosuojajohtaminen — GDPR as a managed, risk-based discipline, not a one-off badge.
+              DPIA-driven prioritisation, leadership commitment, and continuous improvement aligned
+              to ISO/IEC 42001 and ISO/IEC 27001.
             </p>
             <span class="tag new">NEW</span>
           </div>
@@ -845,7 +852,10 @@
           </a>
           <a href="/compliance/certifications/" class="framework-card">
             <h3>ISO/IEC 42001</h3>
-            <p>AI Management System (AIMS) — governance, AI risk management, and continuous improvement.</p>
+            <p>
+              AI Management System (AIMS) — governance, AI risk management, and continuous
+              improvement.
+            </p>
             <span class="status-pill progress">Preparing</span>
           </a>
           <a href="/compliance/certifications/" class="framework-card">
@@ -872,6 +882,7 @@
       </div>
     </section>
 
+    <script src="/shared-assets/vertical-lang-bar.js"></script>
     <script src="/shared-assets/nav/ironclad-nav.js"></script>
     <script src="/shared-assets/footer/ironclad-footer.js"></script>
   </body>
