@@ -31,23 +31,28 @@ CREATE INDEX IF NOT EXISTS web_leads_created_at_idx ON web_leads (created_at DES
 CREATE INDEX IF NOT EXISTS web_leads_status_idx ON web_leads (status);
 
 -- RLS: insert-only for anon (public forms), full access for authenticated (admin).
+-- Idempotent replay-safe (DROP IF EXISTS) so it can be re-pasted into Supabase Studio.
 ALTER TABLE web_leads ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Anyone can submit a web lead" ON web_leads;
 CREATE POLICY "Anyone can submit a web lead"
     ON web_leads FOR INSERT
     TO anon
     WITH CHECK (true);
 
+DROP POLICY IF EXISTS "Authenticated users can read web leads" ON web_leads;
 CREATE POLICY "Authenticated users can read web leads"
     ON web_leads FOR SELECT
     TO authenticated
     USING (true);
 
+DROP POLICY IF EXISTS "Authenticated users can update web leads" ON web_leads;
 CREATE POLICY "Authenticated users can update web leads"
     ON web_leads FOR UPDATE
     TO authenticated
     USING (true);
 
+DROP POLICY IF EXISTS "Authenticated users can delete web leads" ON web_leads;
 CREATE POLICY "Authenticated users can delete web leads"
     ON web_leads FOR DELETE
     TO authenticated
