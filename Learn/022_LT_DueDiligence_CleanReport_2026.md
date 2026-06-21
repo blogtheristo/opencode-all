@@ -290,7 +290,8 @@ Provide, by section: **A** trade-register extract, articles, board minutes (incl
 > **Pre-term-sheet 1-pager:** the highest-priority open items below (cap table → SAFEs → IP) are tracked as an actionable one-page gate in `Learn/022b_LT_PreTermSheet_DiligenceChecklist_2026.md`.
 
 1. ✅ **Cap table — CLOSED** (100 % founder, no SAFEs signed, no options/convertibles). Action only on future SAFE issuance (§3).
-2. **Founder→company IP-assignment** (+ any contractor/partner IP, + AI-agent-output vesting) — no employees to cover (§6/§9). **← now the top item.** _Template ready for execution: `Legal/IP_ASSIGNMENT_FOUNDER_LIFETIME_OY_2026.md` (DRAFT — counsel review + signature pending)._
+2. **Founder→company IP-assignment** (+ any contractor/partner IP, + AI-agent-output vesting) — no employees to cover (§6/§9). **← now the top item.** _Templates ready for execution: `Legal/IP_ASSIGNMENT_FOUNDER_LIFETIME_OY_2026.md` (assignment) + `Legal/BOARD_MINUTES_IP_ASSIGNMENT_2026.md` (board approval). Both DRAFT — counsel review + signature pending._
+   - Sharing of NDA-gated docs is gated by `Legal/NDA_MUTUAL_LIFETIME_OY_2026.md` (mutual NDA template).
 3. **2023–2025 audited financials** + refreshed model (§4).
 4. **Patent status confirmation** — applicant, stage, territory (§6).
 5. **≥1 referenceable pilot customer** willing to speak to investors (§8).
@@ -313,9 +314,9 @@ Rationale:
 
 ---
 
-**Prepared by:** Risto Anton Päärni, CEO, Lifetime Oy — Date: ****\_\_\_\_****
+**Prepared by:** Risto Anton Päärni, CEO, Lifetime Oy — Date: \***\*\_\_\_\_\*\***
 
-**Reviewed (Management):** ****\_\_\_\_**** — Date: ****\_\_\_\_****
+**Reviewed (Management):** \***\*\_\_\_\_\*\*** — Date: \***\*\_\_\_\_\*\***
 
 ---
 
