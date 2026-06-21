@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aja kuljettajaksi — Uber, Bolt &amp; Kela-kuljetukset | Lifetime Oy</title>
+    <meta
+      name="description"
+      content="Haemme kuljettajia pääkaupunkiseudulle — Uber, Bolt ja Kela-korvattavat erityiskuljetukset. Joustavat vuorot, kilpailukykyinen korvaus ja täysi perehdytys. Koko- ja osa-aikaa sekä alanvaihtajille. Hae kuljettajaksi Lifetime Fleetiin."
+    />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Aja kuljettajaksi — Uber, Bolt &amp; Kela-kuljetukset" />
+    <meta
+      property="og:description"
+      content="Lifetime Fleet hakee kuljettajia pk-seudulle: Uber, Bolt ja Kela-erityiskuljetukset. Joustavat vuorot, perehdytys ja vakuutukset. Hae nyt."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://lifetime.fi/aja-kuljettajaksi/" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="og:site_name" content="Lifetime Oy" />
+    <link rel="canonical" href="https://lifetime.fi/aja-kuljettajaksi/" />
+    <link rel="icon" type="image/png" href="https://dws10.com/DWS_IQ2026.png" />
+    <style>
+      :root {
+        --bg-primary: #0f172a;
+        --bg-surface: rgba(30, 41, 59, 0.7);
+        --bg-card: rgba(30, 41, 59, 0.55);
+        --border-subtle: rgba(255, 255, 255, 0.1);
+        --text-primary: #e2e8f0;
+        --text-secondary: #94a3b8;
+        --text-accent: #60a5fa;
+        --color-gold: #b8860b;
+        --color-gold-light: #d4a843;
+        --color-success: #4ade80;
+        --color-orange: #f59e0b;
+        --radius-md: 8px;
+        --radius-lg: 12px;
+        --radius-xl: 16px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+        color: var(--text-primary);
+        background: var(--bg-primary);
+        min-height: 100vh;
+        line-height: 1.7;
+      }
+
+      .wrap {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 48px 24px 80px;
+      }
+
+      .breadcrumb {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        margin-bottom: 24px;
+      }
+
+      .breadcrumb a {
+        color: var(--text-accent);
+        text-decoration: none;
+      }
+
+      .badge-fi {
+        display: inline-block;
+        background: linear-gradient(135deg, var(--color-gold), var(--color-gold-light));
+        color: #1a1a2e;
+        padding: 6px 14px;
+        border-radius: 4px;
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        margin-bottom: 18px;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 5vw, 3.2rem);
+        line-height: 1.1;
+        letter-spacing: -1px;
+        margin-bottom: 14px;
+      }
+
+      h1 .accent {
+        background: linear-gradient(90deg, #fbbf24 0%, #f97316 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .lede {
+        font-size: 1.2rem;
+        color: var(--text-secondary);
+        margin-bottom: 36px;
+        max-width: 720px;
+      }
+
+      .price-hero {
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.85));
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-xl);
+        padding: 36px;
+        margin-bottom: 28px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 24px;
+        align-items: center;
+      }
+
+      @media (max-width: 700px) {
+        .price-hero {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .price-block .label {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+
+      .price-block .num {
+        font-size: clamp(2.6rem, 6vw, 3.6rem);
+        font-weight: 900;
+        color: var(--color-success);
+        line-height: 1;
+        letter-spacing: -1.5px;
+      }
+
+      .price-block .unit {
+        font-size: 1.05rem;
+        color: var(--text-primary);
+        margin-top: 8px;
+      }
+
+      .price-block .vat {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        margin-top: 6px;
+      }
+
+      .buy-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        color: white;
+        padding: 18px 32px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1.1rem;
+        box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        white-space: nowrap;
+      }
+
+      .buy-cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(37, 99, 235, 0.5);
+      }
+
+      .buy-cta .arrow {
+        font-size: 1.2rem;
+      }
+
+      .vat-callout {
+        background: rgba(245, 158, 11, 0.1);
+        border: 1px solid rgba(245, 158, 11, 0.3);
+        border-radius: var(--radius-md);
+        padding: 14px 18px;
+        margin-bottom: 40px;
+        font-size: 0.95rem;
+        color: var(--text-primary);
+      }
+
+      .vat-callout strong {
+        color: var(--color-orange);
+      }
+
+      .fleet-tag {
+        display: inline-block;
+        background: rgba(96, 165, 250, 0.12);
+        border: 1px solid rgba(96, 165, 250, 0.35);
+        color: var(--text-accent);
+        padding: 4px 12px;
+        border-radius: 999px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+      }
+
+      h2 {
+        font-size: 1.6rem;
+        margin: 48px 0 18px;
+        color: var(--text-primary);
+      }
+
+      h2 .underline {
+        display: inline-block;
+        background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.15));
+        padding: 0 6px;
+      }
+
+      .vehicles {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px 24px;
+        margin-bottom: 12px;
+      }
+
+      @media (max-width: 700px) {
+        .vehicles {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .vh {
+        background: var(--bg-card);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md);
+        padding: 16px 20px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .vh .ico {
+        flex: 0 0 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        color: white;
+      }
+
+      .vh .ico.c1 {
+        background: #10b981;
+      }
+      .vh .ico.c2 {
+        background: #f59e0b;
+      }
+      .vh .ico.c3 {
+        background: #ec4899;
+      }
+      .vh .ico.c4 {
+        background: #3b82f6;
+      }
+
+      .vh .ico.c5 {
+        background: #8b5cf6;
+      }
+
+      .vh .ico.c6 {
+        background: #14b8a6;
+      }
+
+      .vh .ico.c7 {
+        background: #ef4444;
+      }
+
+      .vh .lic {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+      }
+
+      .options-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 18px 0;
+        background: var(--bg-card);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+      }
+
+      .options-table th,
+      .options-table td {
+        padding: 14px 18px;
+        text-align: left;
+        border-bottom: 1px solid var(--border-subtle);
+      }
+
+      .options-table th {
+        color: var(--text-accent);
+        font-weight: 700;
+        background: rgba(15, 23, 42, 0.4);
+        font-size: 0.95rem;
+      }
+
+      .options-table td.num {
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+
+      .options-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .comparison {
+        background: var(--bg-card);
+        border-left: 4px solid var(--text-accent);
+        border-radius: var(--radius-md);
+        padding: 22px 26px;
+        margin: 22px 0;
+      }
+
+      .comparison strong {
+        color: var(--color-orange);
+      }
+
+      .cta-block {
+        background: linear-gradient(135deg, #1e3a8a, #0f172a);
+        border: 1px solid rgba(96, 165, 250, 0.3);
+        border-radius: var(--radius-xl);
+        padding: 36px;
+        margin: 48px 0 12px;
+        text-align: center;
+      }
+
+      .cta-block h3 {
+        font-size: 1.6rem;
+        margin-bottom: 10px;
+      }
+
+      .cta-block p {
+        color: var(--text-secondary);
+        margin-bottom: 22px;
+      }
+
+      .cta-row {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .cta-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: transparent;
+        color: var(--text-accent);
+        border: 1.5px solid var(--text-accent);
+        padding: 16px 28px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+      }
+
+      .cta-secondary:hover {
+        background: rgba(96, 165, 250, 0.1);
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+        margin-top: 36px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border-subtle);
+      }
+
+      @media (max-width: 700px) {
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .contact-grid .item .lab {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+
+      .contact-grid .item .val {
+        color: var(--text-primary);
+        font-weight: 600;
+      }
+
+      .small {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        margin-top: 18px;
+      }
+
+      ul.creds {
+        margin-left: 22px;
+        color: var(--text-primary);
+      }
+
+      ul.creds li {
+        margin-bottom: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+
+    <main class="wrap">
+      <div class="breadcrumb"><a href="/">Etusivu</a> &nbsp;›&nbsp; Aja kuljettajaksi</div>
+
+      <div class="fleet-tag">🚗 LIFETIME FLEET · KULJETTAJAREKRY</div>
+      <span class="badge-fi">🇫🇮 SUOMEKSI · ESPOO &amp; PK-SEUTU</span>
+
+      <h1>
+        Ryhdy kuljettajaksi.<br /><span class="accent"
+          >Aja Uberia, Boltia ja Kela-kuljetuksia.</span
+        >
+      </h1>
+      <p class="lede">
+        Haemme kuljettajia pääkaupunkiseudulle —
+        <strong>Uber, Bolt ja Kela-korvattavat erityiskuljetukset</strong>. Joustavat vuorot,
+        kilpailukykyinen korvaus ja täysi perehdytys. Työ sopii sekä koko- että osa-aikaiseen
+        tekemiseen ja alanvaihtajille — autamme tarvittavien korttien ja ammattipätevyyden kanssa
+        alkuun.
+      </p>
+
+      <div class="cta-block">
+        <h3>Hae kuljettajaksi — vastaus alle 24 h</h3>
+        <p>
+          Kerro lyhyesti taustasi, ajokorttiluokat ja milloin voit aloittaa. Käymme hakemukset läpi
+          ja sovimme haastattelun. Kaikkiin rooleihin ei vaadita aiempaa ammattikokemusta —
+          perehdytämme.
+        </p>
+        <div class="cta-row">
+          <a
+            href="mailto:risto.paarni@lifetime.fi?subject=Kuljettajahakemus%20%E2%80%93%20Lifetime%20Fleet"
+            class="buy-cta"
+          >
+            📧 Hae kuljettajaksi <span class="arrow">→</span>
+          </a>
+          <a href="#avoimet-roolit" class="cta-secondary"> 🚗 Katso avoimet roolit </a>
+        </div>
+      </div>
+
+      <h2 id="avoimet-roolit"><span class="underline">Avoimet roolit</span></h2>
+      <div class="vehicles">
+        <div class="vh">
+          <span class="ico c7">🚕</span>
+          <div>
+            <strong>Uber- &amp; Bolt-kuljettaja</strong><br />
+            <span class="lic">Ajokorttiluokka B · taksinkuljettajan ajolupa · pk-seutu</span>
+          </div>
+        </div>
+        <div class="vh">
+          <span class="ico c6">♿</span>
+          <div>
+            <strong>Kela-erityiskuljetukset</strong><br />
+            <span class="lic"
+              >Inva- ja vammaiskuljetukset, koulukyydit · erityisryhmä-ammattipätevyys</span
+            >
+          </div>
+        </div>
+        <div class="vh">
+          <span class="ico c1">🚖</span>
+          <div>
+            <strong>Taksi Helsinki -kuljettaja</strong><br />
+            <span class="lic">B · taksinkuljettajan ammattipätevyys eduksi</span>
+          </div>
+        </div>
+        <div class="vh">
+          <span class="ico c5">🚌</span>
+          <div>
+            <strong>Linja-auto · tilausajot</strong><br />
+            <span class="lic">Ajokorttiluokka D · reittiliikenne ja tilausajot</span>
+          </div>
+        </div>
+        <div class="vh">
+          <span class="ico c2">🚚</span>
+          <div>
+            <strong>Kuorma-auto · työmaaliikenne</strong><br />
+            <span class="lic">Ajokorttiluokka C · jakelu ja työmaa-ajot</span>
+          </div>
+        </div>
+        <div class="vh">
+          <span class="ico c3">🚐</span>
+          <div>
+            <strong>VIP-bussi · pikkubussi</strong><br />
+            <span class="lic">D1 · MB Sprinter 16–25 pax, esteettömät kuljetukset</span>
+          </div>
+        </div>
+      </div>
+
+      <h2><span class="underline">Mitä tarjoamme</span></h2>
+      <ul class="creds">
+        <li>
+          <strong>Joustavat vuorot:</strong> koko- tai osa-aika, viikonloput ja yövuorot
+          sovittavissa.
+        </li>
+        <li>
+          <strong>Täysi perehdytys:</strong> opastamme alustat (Uber, Bolt), Kela-kyytien käytännöt
+          ja kaluston.
+        </li>
+        <li>
+          <strong>Vakuutukset kuntoon:</strong> lakisääteinen tapaturmavakuutus ja vastuuvakuutus
+          työtehtävän ajalle — Lifetime Oy hoitaa.
+        </li>
+        <li>
+          <strong>Kilpailukykyinen korvaus:</strong> alan työehtosopimuksen mukainen palkkaus.
+        </li>
+        <li>
+          <strong>Tuki alkuun:</strong> autamme ammattipätevyyden (CAP), taksinkuljettajan ajoluvan
+          ja korttien kanssa.
+        </li>
+        <li>
+          <strong>Kalusto valmiina:</strong> ajat Lifetime Fleetin kalustolla — et tarvitse omaa
+          autoa.
+        </li>
+      </ul>
+
+      <h2><span class="underline">Mitä sinulta odotetaan</span></h2>
+      <ul class="creds">
+        <li>
+          <strong>Ajokortti:</strong> vähintään B-luokka; C, D1 tai D eduksi roolista riippuen.
+        </li>
+        <li>
+          <strong>Ammattipätevyys:</strong> taksinkuljettajan ajolupa tai CAP eduksi — autamme
+          hankkimaan.
+        </li>
+        <li><strong>Kielitaito:</strong> suomi ja/tai englanti asiakaspalvelutasolla.</li>
+        <li>
+          <strong>Asenne:</strong> luotettavuus, täsmällisyys ja asiakaslähtöisyys — erityisesti
+          Kela-erityisryhmien kanssa.
+        </li>
+        <li><strong>Soveltuvuus:</strong> soveltuvuus- ja taustatarkistus erityiskuljetuksiin.</li>
+      </ul>
+
+      <h2><span class="underline">Näin haet</span></h2>
+      <ol class="creds">
+        <li>Lähetä vapaamuotoinen hakemus ja ajokorttiluokat sähköpostilla.</li>
+        <li>Käymme hakemuksen läpi ja kutsumme haastatteluun — vastaus alle 24 h.</li>
+        <li>Perehdytys ja ensimmäiset vuorot sovitaan, kun soveltuvuus on varmistettu.</li>
+      </ol>
+
+      <div class="cta-block">
+        <h3>Valmis aloittamaan? Hae kuljettajaksi.</h3>
+        <p>
+          Lähetä hakemuksesi ja ajokorttiluokat — vastaamme alle 24 tunnissa ja sovimme
+          haastattelun. Kerro myös, mitkä roolit (Uber, Bolt, Kela-kuljetukset, linja-auto,
+          kuorma-auto) kiinnostavat.
+        </p>
+        <div class="cta-row">
+          <a
+            href="mailto:risto.paarni@lifetime.fi?subject=Kuljettajahakemus%20%E2%80%93%20Lifetime%20Fleet"
+            class="buy-cta"
+          >
+            📧 Hae kuljettajaksi <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-grid">
+        <div class="item">
+          <div class="lab">Sähköposti</div>
+          <div class="val">risto.paarni@lifetime.fi</div>
+        </div>
+        <div class="item">
+          <div class="lab">Hakemukset</div>
+          <div class="val">
+            <a
+              href="mailto:risto.paarni@lifetime.fi"
+              style="color: var(--text-accent); text-decoration: none"
+              >risto.paarni@lifetime.fi</a
+            >
+          </div>
+        </div>
+        <div class="item">
+          <div class="lab">Sijainti</div>
+          <div class="val">Espoo · koko pk-seutu</div>
+        </div>
+      </div>
+
+      <p class="small">
+        Lifetime Oy · Y-tunnus 0772407-9 · ALV FI07724079 · Laidunmaanraitti 2 A 25, 02330 Espoo,
+        Suomi. Toiminta: GDPR, NIS2 ja EU AI Act -mukainen. Kuljettajat työskentelevät Suomen työ-
+        ja sosiaaliturvalainsäädännön sekä tieliikennelain (ajo- ja lepoaikasäädökset) mukaisesti.
+      </p>
+    </main>
+
+    <script src="/shared-assets/footer/ironclad-footer.js"></script>
+  </body>
+</html>
