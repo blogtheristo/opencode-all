@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 1.5
 
 Sessions & Modifications:
 
+- Version: 1.5 | Tool: Claude Code (claude-opus-4-8) | Session: claude/queued-followups-fi-artifacts-93kxqr | Date: 21.06.2026 | Changes: Registered FI parity post #23 (`your-model-cant-beat-your-noise-floor.fi.html`) — Finnish companion to the noise-floor post #22, with `hreflang` alternates both ways, vertical 5-language bar, ironclad footer, and product cards. Inserted chronologically (15 Jun 2026 slot, not Text of the Day) in §3 Post Registry and renumbered #24–#27; also registered in `blog/index.html` `latestPosts` and `scripts/inject-blog-nav.cjs` `posts`. Dual-folder synced to `landing-pages/onelifetime-world/`.
 - Version: 1.4 | Tool: Claude Code (Sonnet 4.6) | Session: claude/blog-polls-ads-features-spdD1 | Date: 07.05.2026 | Changes: Blog V2 — added §13 Reader Polls (lsj-poll.js, localStorage persistence, seed counts), §14 Ads & Sponsorship Slots (lsj-ads.js, lsj-ads-config.json, three slot types, rate card). Added advertise/index.html (media enquiries + sponsorship price list). Registered posts #18 (eu-policy-backed-capital-bankable-sovereignty). Updated ToC to include §13–14.
 - Version: 1.3 | Tool: Claude Code (Opus 4.7) | Session: claude/redhat-sovereignty-research-YGHtL | Date: 23.04.2026 | Changes: Added §12 Editor-in-Chief Voice (Seth Godin House Style) — house voice standard for all Lifetime Scope Journal posts. Codifies short paragraphs, verb-first sentences, partner-note sub-voice (gift → turn → honest limit), banned/kept words, and the pre-publish voice checklist. Reference exemplars: redhat-sovereign-move-three-tiers.html, mcp-apps-identity-spine.html, solid-layers-aiven-scaleway-kya.html, validated-mock-data-principle.html. Registered post #14 (redhat-sovereign-move-three-tiers).
 - Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-verification-setup-QKFtu | Date: 22.04.2026 | Changes: Added §3.1 Text of the Day Rule — latest blog post is automatically the Text of the Day on /blog/ index via hero card + paginated Latest Posts list (5 per page, Prev/Next). Registered posts #12 (solid-layers-aiven-scaleway-kya) and #13 (mcp-apps-identity-spine).
@@ -21,7 +22,7 @@ Session Links & References:
 Document Status:
 
 - Created: 28.03.2026
-- Last Modified: 28.03.2026
+- Last Modified: 21.06.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE
@@ -124,11 +125,12 @@ Chronological order. Update this table when adding/removing posts.
 | 19  | `fire-brigades-drone-defense-units.html`             | Fire Brigades as Drone Defence Units — Three Reasons to Build the Network Now (EN/FI/SV)                                        | 15 May 2026 |
 | 20  | `moat-is-not-the-model.html`                         | The Moat Is Not the Model — NVIDIA Makes It Possible, EU-Sovereign Deployment Makes It Defensible                               | 17 May 2026 |
 | 21  | `point-it-at-the-ontology.html`                      | Don't Point the LLM at the Data — Point It at the Ontology (5 industries)                                                       | 5 Jun 2026  |
-| 22  | `your-model-cant-beat-your-noise-floor.html`         | Your Model Can't Beat Your Noise Floor — Evaluation, Clean Labels, the Shannon Bound (Ontology Series)                          | 15 Jun 2026 |
-| 23  | `four-capital-classes.html`                          | Prompt, People, Plant, Perception — The Four Capital Classes of the Agentic Era (Ontology Series)                               | 19 Jun 2026 |
-| 24  | `software-vs-world-model.html`                       | Software You Operate vs Intelligence That Operates — SaaS and the World Model (Ontology Series)                                 | 20 Jun 2026 |
-| 25  | `ontologia-tiimin-aivoissa.html`                     | Ontologia elää tiimin aivoissa — Kaukopää, tacit ontology, and the governed world model (FI, Ontology Series)                   | 20 Jun 2026 |
-| 26  | `the-ontology-lives-in-the-team.html`                | The Ontology Lives in the Team — Kaukopää case, three layers of industrial tacit knowledge, cynical wedge (EN, Ontology Series) | 20 Jun 2026 |
+| 22  | `your-model-cant-beat-your-noise-floor.html`         | Your Model Can't Beat Your Noise Floor — Evaluation, Clean Labels, the Shannon Bound (EN, Ontology Series)                      | 15 Jun 2026 |
+| 23  | `your-model-cant-beat-your-noise-floor.fi.html`      | Mallisi ei voita kohinatasoasi — arviointi, puhtaat nimiöt, Shannon-raja (FI, Ontology Series)                                  | 15 Jun 2026 |
+| 24  | `four-capital-classes.html`                          | Prompt, People, Plant, Perception — The Four Capital Classes of the Agentic Era (Ontology Series)                               | 19 Jun 2026 |
+| 25  | `software-vs-world-model.html`                       | Software You Operate vs Intelligence That Operates — SaaS and the World Model (Ontology Series)                                 | 20 Jun 2026 |
+| 26  | `ontologia-tiimin-aivoissa.html`                     | Ontologia elää tiimin aivoissa — Kaukopää, tacit ontology, and the governed world model (FI, Ontology Series)                   | 20 Jun 2026 |
+| 27  | `the-ontology-lives-in-the-team.html`                | The Ontology Lives in the Team — Kaukopää case, three layers of industrial tacit knowledge, cynical wedge (EN, Ontology Series) | 20 Jun 2026 |
 
 ---
 

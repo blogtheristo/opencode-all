@@ -128,6 +128,16 @@ const posts = [
     date: '5 Jun 2026',
   },
   {
+    file: 'your-model-cant-beat-your-noise-floor.html',
+    title: "Your Model Can't Beat Your Noise Floor",
+    date: '15 Jun 2026',
+  },
+  {
+    file: 'your-model-cant-beat-your-noise-floor.fi.html',
+    title: 'Mallisi ei voita kohinatasoasi (FI)',
+    date: '15 Jun 2026',
+  },
+  {
     file: 'four-capital-classes.html',
     title: 'Prompt, People, Plant, Perception — The Four Capital Classes of the Agentic Era',
     date: '19 Jun 2026',

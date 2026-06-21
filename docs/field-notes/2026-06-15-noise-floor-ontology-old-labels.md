@@ -157,6 +157,6 @@ noise floor for everything learned on top of them.
 ---
 
 **Status:** ✅ Processed
-**Elevated to Core Artifact:** Pending (weekly review)
+**Elevated to Core Artifact:** ✅ `artifacts/AGRICULTURE/ART-2026-001-agriculture-food-data-governance-ontology.md` (2026-06-21)
 **Confidence:** High
 **Impact:** Strategic (information-theoretic grounding for the LWM ontology thesis)
