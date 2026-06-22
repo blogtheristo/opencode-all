@@ -29,6 +29,9 @@
 6. `f3d7298` — `web_leads` surfaced in the daily morning brief
    (`src/morning-briefing/data-collectors.ts` + `briefing-template.ts`).
 7. `7945f45` — FAQPage JSON-LD on the dws10.com homepage (AEO).
+8. `31aa549` — FAQPage JSON-LD rolled across homepage + csrd, compliance, construction,
+   energy, logistics, manufacturing via a re-runnable injector
+   (`scripts/on-deploy/inject-faq-jsonld.mjs`) driven by `dws10.com/config/faq.json`.
 
 **LIVE as of 2026-06-22:** migration 070 applied → end-to-end funnel is active:
 discoverable (SEO/AEO) → capture (newsletter + free-audit) → store (`web_leads`) →
@@ -38,39 +41,14 @@ daily sales brief.
 
 ## Queued work (priority order)
 
-### 1. Roll FAQPage JSON-LD onto top high-intent pages (IN PROGRESS — start here)
+### 1. FAQPage JSON-LD rollout — DONE (commit 31aa549)
 
-The homepage already has a hand-written FAQPage block. This is now the 2nd round of FAQ
-work, so **codify it** per the "asked twice = failure" rule instead of hand-editing each
-page:
-
-- Build `scripts/on-deploy/inject-faq-jsonld.mjs` — reads a curated data file, injects a
-  **marked** FAQPage `<script type="application/ld+json">` block (between
-  `<!-- FAQ-JSONLD:START -->` / `<!-- FAQ-JSONLD:END -->`) into each page's `<head>`,
-  idempotent, `--check` mode, writes root + `landing-pages/` mirror.
-- Put curated Q&A in `dws10.com/config/faq.json` keyed by page path (relative to
-  dws10.com). Migrate the homepage's existing manual block into this file and replace it
-  with a marked block (single source, no duplicate FAQPage).
-- Run it, validate each block parses as JSON, run `node scripts/lint-truth-claims.mjs`,
-  sync mirrors, commit.
-
-**Canonical phrasing (MUST use, truth-lint enforced):**
-"16 captain hats covering 25 EU-regulated industries", "25 EU-regulated industries",
-"16 captain hats". NEVER "16 industries" / "20 EU industries" (deprecated → FAIL).
-
-**Grounding already gathered for the target pages (use for accurate answers):**
-
-- `csrd/` — "Automate CSRD reporting with 82 ESRS disclosures mapped, AI-powered data
-  collection, audit-ready reports. EU-hosted. Operational in 30 days."
-- `compliance/` — "Compliance Hub — CI Power V2 engine: EN 15978 lifecycle assessment,
-  CSRD, EPBD, ETS2, CBAM, Fit for 55. Multi-jurisdiction Nordic support."
-- `construction/` — "Construction Solutions — Enterprise AI for EU climate compliance."
-- `energy/` — "Energy & Utilities — ETS, CBAM, renewable energy."
-- `logistics/` — "Logistics & Supply Chain — fleet emissions, transport compliance."
-- `manufacturing/` — "Manufacturing — emissions reporting, CSRD, factory compliance."
-
-After adding any new page, re-run `scripts/on-deploy/generate-discoverability.mjs` so it
-lands in sitemap.xml + llms.txt.
+Injector `scripts/on-deploy/inject-faq-jsonld.mjs` + curated `dws10.com/config/faq.json`
+now manage marked FAQPage blocks on homepage, csrd, compliance, construction, energy,
+logistics, manufacturing. To extend: add a page entry to `faq.json` (canonical phrasing
+only — "16 captain hats covering 25 EU-regulated industries"), re-run the injector, then
+`generate-discoverability.mjs`. Candidate next pages: real-estate, mining,
+financial-services, public-sector.
 
 ### 2. web_leads auto-acknowledgement email (RED-zone send — needs human approval)
 
