@@ -1,6 +1,6 @@
 ---
 name: kb
-description: LLM-maintained Knowledge Base — compile raw sources into a wiki, ask questions against the wiki, run deep research, ingest new files, or check health. Use when user says "kb compile", "kb ask", "kb research", "knowledge base", "compile wiki", "ingest source", "what does our wiki say about", "research question against KB", "kb status", or wants to add/query the dws6 kb/ folder.
+description: Use when compiling the DWS knowledge base, ingesting sources, asking wiki questions, or running KB research.
 ---
 
 Drive the DWS Knowledge Base agent via the DWS CLI. The KB is a Karpathy-style LLM-compiled wiki — no vector DB. Raw sources in `kb/raw/`, compiled output in `kb/wiki/`, ephemeral research in `kb/ephemeral/`.

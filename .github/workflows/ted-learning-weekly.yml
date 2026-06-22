@@ -31,7 +31,7 @@ jobs:
       - uses: actions/setup-node@v4
         if: steps.failover.outputs.dgx_alive != 'true'
         with:
-          node-version: '22'
+          node-version: '24'
           cache: npm
 
       - if: steps.failover.outputs.dgx_alive != 'true'
