@@ -1,13 +1,11 @@
-// Functional DOM verification of the growth-system capture points (jsdom).
-// Executes the real footer + free-audit JS, mocks fetch, asserts payloads.
-import fs from 'node:fs';
+/**
+ * Functional DOM tests for the growth-system lead-capture points.
+ * Executes the real footer + free-audit JS in jsdom, mocks fetch, and asserts
+ * validation, the web_leads payload, consent, and the GTM conversion event.
+ */
+import { readFileSync } from 'node:fs';
 import { JSDOM, VirtualConsole } from 'jsdom';
-
-let failures = 0;
-const ok = (c, m) => {
-  console.log(`  ${c ? '✓' : '✗'} ${m}`);
-  if (!c) failures++;
-};
+import { describe, expect, it } from 'vitest';
 
 function makeDom(html, url) {
   const vc = new VirtualConsole();
@@ -29,84 +27,80 @@ const dispatch = (win, el, type) =>
   el.dispatchEvent(new win.Event(type, { bubbles: true, cancelable: true }));
 const wait = () => new Promise((r) => setTimeout(r, 20));
 
-// ---- 1. Footer newsletter band ----
-console.log('Footer newsletter (ironclad-footer.js):');
-{
-  const js = fs.readFileSync('dws10.com/shared-assets/footer/ironclad-footer.js', 'utf8');
-  const { dom, calls } = makeDom(
-    '<!doctype html><html lang="en"><body></body></html>',
-    'https://dws10.com/',
-  );
-  const { window } = dom;
-  window.eval(js); // registers DOMContentLoaded listener
-  await wait(); // let jsdom fire DOMContentLoaded -> init() injects footer
+describe('footer newsletter capture (ironclad-footer.js)', () => {
+  async function setup() {
+    const js = readFileSync('dws10.com/shared-assets/footer/ironclad-footer.js', 'utf8');
+    const { dom, calls } = makeDom(
+      '<!doctype html><html lang="en"><body></body></html>',
+      'https://dws10.com/',
+    );
+    dom.window.eval(js); // registers DOMContentLoaded listener
+    await wait(); // let jsdom fire DOMContentLoaded -> init() injects footer
+    return { window: dom.window, calls };
+  }
 
-  const band = window.document.querySelector('.ironclad-footer-news');
-  ok(!!band, 'newsletter band injected into footer');
-  const form = window.document.getElementById('ironclad-news-form');
-  const input = form && form.querySelector('input[type=email]');
-  ok(!!input, 'email input present');
+  it('injects the newsletter band with an email field', async () => {
+    const { window } = await setup();
+    expect(window.document.querySelector('.ironclad-footer-news')).toBeTruthy();
+    expect(window.document.querySelector('#ironclad-news-form input[type=email]')).toBeTruthy();
+  });
 
-  // invalid email -> no fetch, error message
-  input.value = 'not-an-email';
-  await dispatch(window, form, 'submit');
-  await wait();
-  ok(calls.length === 0, 'invalid email blocked (no network call)');
-  ok(
-    window.document.getElementById('ironclad-news-msg').className.includes('err'),
-    'invalid email shows error',
-  );
+  it('blocks an invalid email without a network call', async () => {
+    const { window, calls } = await setup();
+    const form = window.document.getElementById('ironclad-news-form');
+    form.querySelector('input[type=email]').value = 'not-an-email';
+    await dispatch(window, form, 'submit');
+    await wait();
+    expect(calls).toHaveLength(0);
+    expect(window.document.getElementById('ironclad-news-msg').className).toContain('err');
+  });
 
-  // valid email -> fetch to web_leads with source newsletter
-  input.value = 'buyer@acme.eu';
-  await dispatch(window, form, 'submit');
-  await wait();
-  ok(calls.length === 1, 'valid email triggers one fetch');
-  const c = calls[0] || {};
-  ok(String(c.u).endsWith('/rest/v1/web_leads'), 'POSTs to /rest/v1/web_leads');
-  const body = c.opts && JSON.parse(c.opts.body);
-  ok(body && body.source === 'newsletter', 'payload source = newsletter');
-  ok(body && body.email === 'buyer@acme.eu', 'payload carries email');
-  ok(body && body.consent === true, 'payload records consent');
-  ok(
-    window.document.getElementById('ironclad-news-msg').className.includes('ok'),
-    'success message shown',
-  );
-}
+  it('posts a valid email to web_leads with source=newsletter and consent', async () => {
+    const { window, calls } = await setup();
+    const form = window.document.getElementById('ironclad-news-form');
+    form.querySelector('input[type=email]').value = 'buyer@acme.eu';
+    await dispatch(window, form, 'submit');
+    await wait();
+    expect(calls).toHaveLength(1);
+    expect(String(calls[0].u)).toMatch(/\/rest\/v1\/web_leads$/);
+    const body = JSON.parse(calls[0].opts.body);
+    expect(body.source).toBe('newsletter');
+    expect(body.email).toBe('buyer@acme.eu');
+    expect(body.consent).toBe(true);
+    expect(window.document.getElementById('ironclad-news-msg').className).toContain('ok');
+  });
+});
 
-// ---- 2. Free-audit page ----
-console.log('\nFree-audit page (/free-audit/index.html):');
-{
-  const html = fs.readFileSync('dws10.com/free-audit/index.html', 'utf8');
-  const { dom, calls } = makeDom(html, 'https://dws10.com/free-audit/');
-  const { window } = dom;
-  await wait(); // let inline scripts wire up
+describe('free-audit lead magnet (/free-audit/index.html)', () => {
+  function setup() {
+    const html = readFileSync('dws10.com/free-audit/index.html', 'utf8');
+    return makeDom(html, 'https://dws10.com/free-audit/');
+  }
 
-  const form = window.document.getElementById('fa-form');
-  ok(!!form, 'audit form present');
+  it('blocks an empty submission without a network call', async () => {
+    const { dom, calls } = setup();
+    await wait();
+    const form = dom.window.document.getElementById('fa-form');
+    await dispatch(dom.window, form, 'submit');
+    await wait();
+    expect(calls).toHaveLength(0);
+  });
 
-  // missing required fields -> blocked
-  await dispatch(window, form, 'submit');
-  await wait();
-  ok(calls.length === 0, 'empty form blocked (no network call)');
-
-  // fill valid -> fetch with source free_audit + industry
-  window.document.getElementById('fa-name').value = 'Jane Buyer';
-  window.document.getElementById('fa-email').value = 'jane@steelco.eu';
-  window.document.getElementById('fa-industry').value = 'Iron & Steel';
-  await dispatch(window, form, 'submit');
-  await wait();
-  ok(calls.length === 1, 'valid form triggers one fetch');
-  const c = calls[0] || {};
-  ok(String(c.u).endsWith('/rest/v1/web_leads'), 'POSTs to /rest/v1/web_leads');
-  const body = c.opts && JSON.parse(c.opts.body);
-  ok(body && body.source === 'free_audit', 'payload source = free_audit');
-  ok(body && body.industry === 'Iron & Steel', 'payload carries industry');
-  ok(
-    Array.isArray(window.dataLayer) && window.dataLayer.some((e) => e.event === 'lead_free_audit'),
-    'GTM lead_free_audit event pushed',
-  );
-}
-
-console.log(`\n${failures === 0 ? 'ALL CHECKS PASSED' : failures + ' CHECK(S) FAILED'}`);
-process.exit(failures === 0 ? 0 : 1);
+  it('posts a valid request to web_leads with source=free_audit and fires the GTM event', async () => {
+    const { dom, calls } = setup();
+    await wait();
+    const { window } = dom;
+    window.document.getElementById('fa-name').value = 'Jane Buyer';
+    window.document.getElementById('fa-email').value = 'jane@steelco.eu';
+    window.document.getElementById('fa-industry').value = 'Iron & Steel';
+    await dispatch(window, window.document.getElementById('fa-form'), 'submit');
+    await wait();
+    expect(calls).toHaveLength(1);
+    expect(String(calls[0].u)).toMatch(/\/rest\/v1\/web_leads$/);
+    const body = JSON.parse(calls[0].opts.body);
+    expect(body.source).toBe('free_audit');
+    expect(body.industry).toBe('Iron & Steel');
+    expect(Array.isArray(window.dataLayer)).toBe(true);
+    expect(window.dataLayer.some((e) => e.event === 'lead_free_audit')).toBe(true);
+  });
+});
