@@ -167,6 +167,16 @@ const posts = [
     title: 'The Four Learning Paradigms Behind a World Model',
     date: '23 Jun 2026',
   },
+  {
+    file: 'lifetime-world-model-three-piece-loop.fi.html',
+    title: 'Kolmiosainen silmukka valvomoille — Lifetime World Model V1 (FI)',
+    date: '23 Jun 2026',
+  },
+  {
+    file: 'four-learning-paradigms-world-model.fi.html',
+    title: 'Maailmanmallin neljä oppimisparadigmaa (FI)',
+    date: '23 Jun 2026',
+  },
 ];
 
 // Three featured products
