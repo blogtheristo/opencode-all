@@ -17,6 +17,8 @@
     />
     <meta name="author" content="Lifetime Oy" />
     <meta name="robots" content="index, follow" />
+    <!-- Vertical language bar switches the hero in-place across 5 EU languages (no redirect) -->
+    <meta name="dws-lang-stay" content="true" />
     <meta
       property="og:title"
       content="DWS IQ Aegis — Sovereign Industrial Intelligence for Dual-Use Manufacturing"
@@ -189,11 +191,15 @@
   </head>
   <body>
     <script src="/shared-assets/nav/ironclad-nav.js"></script>
+    <script src="/shared-assets/vertical-lang-bar.js" defer></script>
     <div class="container">
       <a href="../buy/" class="back-link">&larr; Back to Store</a>
 
       <h1>DWS IQ Aegis</h1>
-      <p style="color: #cbd5e1; font-size: 1.2rem; margin-top: -4px; font-weight: 600">
+      <p
+        id="aegisProdTagline"
+        style="color: #cbd5e1; font-size: 1.2rem; margin-top: -4px; font-weight: 600"
+      >
         Sovereign Industrial Intelligence Platform for Dual-Use Manufacturing
       </p>
 
@@ -203,7 +209,7 @@
         <span class="availability-badge">Architected for EDIP Alignment</span>
       </div>
 
-      <p>
+      <p id="aegisProdIntro">
         Aegis is a single-tenant sovereign AI platform engineered specifically for dual-use
         factories, heavy manufacturing, and critical raw material infrastructure. Deployed on
         dedicated Finnish infrastructure, Aegis continuously optimizes and secures the production
@@ -1206,5 +1212,54 @@
         </div>
       </div>
     </section>
+
+    <!-- Aegis minimum hero text in 5 EU languages; switches in-place with the vertical language bar -->
+    <script>
+      (function () {
+        var I18N = {
+          en: {
+            tagline: "Sovereign Industrial Intelligence Platform for Dual-Use Manufacturing",
+            intro:
+              "Aegis is a single-tenant sovereign AI platform engineered specifically for dual-use factories, heavy manufacturing, and critical raw-material infrastructure. Deployed on dedicated Finnish infrastructure, it continuously optimizes and secures the facilities that supply Europe’s defence sector — zero US cloud dependencies, zero CLOUD Act exposure.",
+          },
+          fi: {
+            tagline: "Suvereeni teollisen älyn alusta kaksikäyttöiseen valmistukseen",
+            intro:
+              "Aegis on yhden vuokralaisen suvereeni tekoälyalusta, joka on suunniteltu kaksikäyttöisille tehtaille, raskaalle teollisuudelle ja kriittisille raaka-ainelaitoksille. Omistetussa suomalaisessa infrastruktuurissa se optimoi ja turvaa jatkuvasti Euroopan puolustussektoria palvelevat laitokset — ei riippuvuutta yhdysvaltalaisesta pilvestä, nolla CLOUD Act -altistusta.",
+          },
+          sv: {
+            tagline: "Suverän plattform för industriell intelligens för dual-use-tillverkning",
+            intro:
+              "Aegis är en suverän AI-plattform för en kund, byggd för dual-use-fabriker, tung industri och kritiska råvaruanläggningar. På dedikerad finländsk infrastruktur optimerar och säkrar den löpande de anläggningar som försörjer Europas försvarssektor — inga amerikanska molnberoenden, noll CLOUD Act-exponering.",
+          },
+          de: {
+            tagline: "Souveräne Plattform für industrielle Intelligenz für die Dual-Use-Fertigung",
+            intro:
+              "Aegis ist eine souveräne KI-Plattform für einen einzelnen Mandanten, konzipiert für Dual-Use-Fabriken, Schwerindustrie und kritische Rohstoffanlagen. Auf dedizierter finnischer Infrastruktur optimiert und sichert sie laufend die Anlagen, die Europas Verteidigungssektor beliefern — keine US-Cloud-Abhängigkeiten, null CLOUD-Act-Risiko.",
+          },
+          fr: {
+            tagline:
+              "Plateforme souveraine d’intelligence industrielle pour la fabrication à double usage",
+            intro:
+              "Aegis est une plateforme d’IA souveraine mono-locataire, conçue pour les usines à double usage, l’industrie lourde et les installations de matières premières critiques. Sur une infrastructure finlandaise dédiée, elle optimise et sécurise en continu les sites qui approvisionnent le secteur de la défense européen — aucune dépendance au cloud américain, zéro exposition au CLOUD Act.",
+          },
+        };
+        function setText(id, value) {
+          var el = document.getElementById(id);
+          if (el) el.textContent = value;
+        }
+        function applyLang(code) {
+          var d = I18N[code] || I18N.en;
+          setText("aegisProdTagline", d.tagline);
+          setText("aegisProdIntro", d.intro);
+          document.documentElement.lang = code;
+        }
+        var stored = localStorage.getItem("dws-lang");
+        applyLang(stored && I18N[stored] ? stored : "en");
+        window.addEventListener("dws-lang-change", function (e) {
+          applyLang(e.detail && e.detail.lang);
+        });
+      })();
+    </script>
   </body>
 </html>
