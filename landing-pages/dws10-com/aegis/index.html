@@ -16,6 +16,8 @@
     />
     <meta name="author" content="Lifetime Oy" />
     <meta name="robots" content="index, follow" />
+    <!-- Vertical language bar switches the hero in-place across 5 EU languages (no redirect) -->
+    <meta name="dws-lang-stay" content="true" />
     <meta
       property="og:title"
       content="DWS IQ Aegis — Sovereign Industrial Intelligence for Dual-Use Manufacturing"
@@ -535,21 +537,26 @@
   </head>
   <body>
     <script src="/shared-assets/nav/ironclad-nav.js"></script>
+    <script src="/shared-assets/vertical-lang-bar.js" defer></script>
 
     <!-- Hero -->
     <section class="hero">
       <div class="hero-inner">
         <div class="sovereign-pill">
           <span class="sovereign-pill-dot"></span>
-          Part of the DWS IQ Industrial Intelligence Suite — Zero CLOUD Act Exposure
+          <span id="aegisHeroPill"
+            >Part of the DWS IQ Industrial Intelligence Suite — Zero CLOUD Act Exposure</span
+          >
         </div>
 
         <h1>
           <span class="hero-accent">Aegis</span><br />
-          Sovereign Industrial Intelligence for<br />Dual-Use Manufacturing
+          <span id="aegisHeroTitle"
+            >Sovereign Industrial Intelligence for Dual-Use Manufacturing</span
+          >
         </h1>
 
-        <p class="hero-sub">
+        <p class="hero-sub" id="aegisHeroSub">
           One sovereign platform that optimizes and secures dual-use factories, heavy industry, and
           critical raw material facilities — tracking carbon exposure, export control, and
           supply-chain resilience across 21 EU-regulated industries. Single-tenant. Finnish
@@ -1007,6 +1014,55 @@
         DWS IQ Aegis — page v1.0 (Industrial Intelligence) · 2026-06-23
       </p>
     </div>
+
+    <!-- Aegis minimum hero text in 5 EU languages; switches in-place with the vertical language bar -->
+    <script>
+      (function () {
+        var I18N = {
+          en: {
+            pill: "Part of the DWS IQ Industrial Intelligence Suite — Zero CLOUD Act Exposure",
+            title: "Sovereign Industrial Intelligence for Dual-Use Manufacturing",
+            sub: "One sovereign platform that optimizes and secures dual-use factories, heavy industry, and critical raw-material facilities across 21 EU-regulated industries. Single-tenant. Finnish infrastructure. Every agent decision court-defensible.",
+          },
+          fi: {
+            pill: "Osa DWS IQ Industrial Intelligence -kokonaisuutta — nolla CLOUD Act -altistusta",
+            title: "Suvereeni teollinen äly kaksikäyttöiseen valmistukseen",
+            sub: "Yksi suvereeni alusta, joka optimoi ja turvaa kaksikäyttöiset tehtaat, raskaan teollisuuden ja kriittiset raaka-ainelaitokset 21 EU:n säätelemällä toimialalla. Yksivuokralainen. Suomalainen infrastruktuuri. Jokaisen agentin päätös on oikeudessa puolustettavissa.",
+          },
+          sv: {
+            pill: "En del av DWS IQ Industrial Intelligence-sviten — noll CLOUD Act-exponering",
+            title: "Suverän industriell intelligens för dual-use-tillverkning",
+            sub: "En suverän plattform som optimerar och säkrar dual-use-fabriker, tung industri och kritiska råvaruanläggningar inom 21 EU-reglerade branscher. Enkundslösning. Finländsk infrastruktur. Varje agentbeslut är försvarbart i domstol.",
+          },
+          de: {
+            pill: "Teil der DWS IQ Industrial Intelligence Suite — null CLOUD-Act-Risiko",
+            title: "Souveräne industrielle Intelligenz für Dual-Use-Fertigung",
+            sub: "Eine souveräne Plattform, die Dual-Use-Fabriken, Schwerindustrie und kritische Rohstoffanlagen über 21 EU-regulierte Branchen hinweg optimiert und absichert. Single-Tenant. Finnische Infrastruktur. Jede Agentenentscheidung ist gerichtsfest.",
+          },
+          fr: {
+            pill: "Composant de la suite DWS IQ Industrial Intelligence — zéro exposition au CLOUD Act",
+            title: "Intelligence industrielle souveraine pour la fabrication à double usage",
+            sub: "Une plateforme souveraine qui optimise et sécurise les usines à double usage, l’industrie lourde et les installations de matières premières critiques dans 21 secteurs réglementés par l’UE. Mono-locataire. Infrastructure finlandaise. Chaque décision d’agent est défendable devant un tribunal.",
+          },
+        };
+        function setText(id, value) {
+          var el = document.getElementById(id);
+          if (el) el.textContent = value;
+        }
+        function applyLang(code) {
+          var d = I18N[code] || I18N.en;
+          setText("aegisHeroPill", d.pill);
+          setText("aegisHeroTitle", d.title);
+          setText("aegisHeroSub", d.sub);
+          document.documentElement.lang = code;
+        }
+        var stored = localStorage.getItem("dws-lang");
+        applyLang(stored && I18N[stored] ? stored : "en");
+        window.addEventListener("dws-lang-change", function (e) {
+          applyLang(e.detail && e.detail.lang);
+        });
+      })();
+    </script>
 
     <script src="/shared-assets/footer/ironclad-footer.js"></script>
   </body>
