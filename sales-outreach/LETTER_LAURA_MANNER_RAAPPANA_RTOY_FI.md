@@ -1,7 +1,7 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: LETTER_LAURA_MANNER_RAAPPANA_RTOY_FI.md
-Version: 3.0
+Version: 4.0
 Last-Updated: 2026-06-23
 Author: Risto Anton Päärni (Lifetime Oy)
 Agent: Claude Code
@@ -9,6 +9,9 @@ Purpose: Finnish-language reply to RTOY Defence Startup Fund decision.
          Addresses each noted gap (video, pitch deck, defence added value,
          product-vs-project focus) with concrete detail from the 26.3.2026
          application; reaffirms Riihimäki commitment; requests next round.
+         v4.0 adds verifiable post-application momentum (Nokia / Tommi Haapala
+         Aegis×Nokia×DEFINE discussions + NDA 14.4.2026; bilingual defence
+         playbook) per the sent-email timeline (mail search "Riihimaki").
 Introduced-In: branch claude/aegis-multilingual-pages-3clsx0
 Code-Version: 3.0
 Branch: claude/aegis-multilingual-pages-3clsx0
@@ -57,6 +60,14 @@ Selkeytämme painopisteen yksiselitteisesti: olemme **tuotelähtöinen** yhtiö.
 
 **4. Riihimäki-sitoumus (ennallaan ja vahva).**
 Sitoumus on edelleen täysi: siirrämme pääkonttorin Espoosta Riihimäelle ja perustajat muuttavat paikkakunnalle — täysi läsnäolo DEFINE-ekosysteemissä, ei sivutoimipiste.
+
+**5. Edistyminen hakemuksen jälkeen (konkreettista vetoa puolustusalalla).**
+Hakemuksen jättämisen jälkeen olemme edenneet juuri palautteenne osoittamaan suuntaan:
+
+- **Nokia — DWS IQ Aegis × Nokia × DEFINE -keskustelut** Tommi Haapalan (Senior Advisor, Nokia) kanssa; salassapitosopimus (NDA) voimassa 14.4.2026 alkaen. Jaoimme Nokialle räätälöidyn Aegis-esitteen. (Keskustelujen sisältö on luottamuksellinen, mutta vahvistamme mielellämme yhteistyön olemassaolon.)
+- **Aegis-esite ja kaksikielinen (FI/EN) puolustus-playbook** on tuotettu ja päivitetty — sama materiaali on nyt valmiina liitettäväksi täydennettyyn hakemukseen.
+
+Nämä osoittavat, että puolustusalan lisäarvo ei ole vain suunnitelma vaan etenevää, todennettavaa vetoa DEFINE-ekosysteemissä.
 
 Kehitämme kokonaisuutta palautteenne suuntaan. Voisimmeko sopia lyhyen puhelun (15–20 min) ennen seuraavaa kierrosta, jotta voin varmistaa että täydennetty hakemus osuu arvioinnin kannalta oikeisiin asioihin? Kertoisitteko samalla seuraavan hakukierroksen aikataulun.
 
