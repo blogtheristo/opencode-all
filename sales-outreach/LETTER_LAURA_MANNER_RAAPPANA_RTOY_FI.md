@@ -1,68 +1,86 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: LETTER_LAURA_MANNER_RAAPPANA_RTOY_FI.md
-Version: 2.0
+Version: 3.0
 Last-Updated: 2026-06-23
-Author: Risto Anton Paarni (Lifetime Oy)
+Author: Risto Anton Päärni (Lifetime Oy)
 Agent: Claude Code
-Purpose: Finnish-language reply to RTOY funding decision — thanks for
-         feedback, addresses the four noted gaps (video, pitch deck,
-         defence-sector added value, product-vs-project focus), signals
-         intent to resubmit on a future round.
+Purpose: Finnish-language reply to RTOY Defence Startup Fund decision.
+         Addresses each noted gap (video, pitch deck, defence added value,
+         product-vs-project focus) with concrete detail from the 26.3.2026
+         application; reaffirms Riihimäki commitment; requests next round.
 Introduced-In: branch claude/aegis-multilingual-pages-3clsx0
-Code-Version: 2.0
+Code-Version: 3.0
 Branch: claude/aegis-multilingual-pages-3clsx0
 Date: 2026-06-23
 Owner: risto.paarni@lifetime.fi
 Recipient: Laura Manner-Raappana, Yritysneuvoja / Business Advisor,
            Riihimäen Tilat ja Kehitys Oy (RTOY), laura.manner-raappana@riihimaki.fi
-Context: Vastaus RTOY:n rahoituspäätökseen (hylätty tällä kierroksella).
-         v1.0 oli virheellisesti osoitettu "Diana Riihimäki" — korjattu.
+Context: Vastaus Defence Startup Fund -päätökseen (hakemus jätetty 26.3.2026,
+         vastaanottaja Markus Rankka). Hylätty tällä kierroksella.
+         v1.0 oli virheellisesti osoitettu "Diana Riihimäki" — korjattu v2.0:ssa.
 -->
 
 # Vastaus: Laura Manner-Raappana (Riihimäen Tilat ja Kehitys Oy)
 
-**Aihe:** Kiitos palautteesta — täydennämme kokonaisuuden seuraavalle kierrokselle
+**Aihe:** Kiitos palautteesta — täydennämme hakemuksen seuraavalle kierrokselle
 
 ---
 
 Hei Laura,
 
-kiitos päätöksestä ja erityisesti rakentavasta palautteesta. Arvostan sitä, että käytitte aikaa hakemuksen läpikäyntiin ja erittelitte selkeästi, mikä kaipaa kirkastamista. Otamme palautteen vakavasti ja täydennämme kokonaisuuden ennen seuraavaa hakua.
-
-Vastaan lyhyesti kuhunkin nostamaanne kohtaan:
+kiitos Defence Startup Fund -päätöksestä ja erityisesti selkeästä, rakentavasta palautteesta. Arvostan tarkkaa erittelyä siitä, mikä jäi keskeneräiseksi. Otamme jokaisen kohdan vakavasti ja täydennämme kokonaisuuden ennen seuraavaa hakua. Vastaan alla kuhunkin nostamaanne kohtaan konkreettisesti.
 
 **1. Video ja pitch deck.**
-Nämä puuttuivat hakemuksesta, ja ymmärrän että ilman niitä suunnitelmaa, liiketoimintamallia ja kehityspolkua on vaikea hahmottaa. Toimitamme seuraavaan hakuun 2–3 minuutin esittelyvideon sekä tiiviin pitch deckin, joka kuvaa ongelman, ratkaisun, liiketoimintamallin, markkinan ja kehityspolun yhdellä punaisella langalla.
+Nämä puuttuivat, ja ymmärrän että ilman niitä suunnitelmaa, liiketoimintamallia ja kehityspolkua on vaikea arvioida. Toimitamme seuraavaan hakuun:
 
-**2. Puolustussektorin näkökulma ja lisäarvo.**
-Konkretisoimme tämän selvästi. Päätuotteemme **Aegis** on EU-suvereeni teollisen älyn alusta kaksikäyttöiseen valmistukseen: data pysyy suomalaisessa infrastruktuurissa, nolla CLOUD Act -altistusta, ja jokainen tekoälyagentin päätös on oikeudessa puolustettavissa (KYA-standardi + EU AI Act -artikla 12). Lisäarvo puolustusalalle on konkreettinen: komission EDIP-työohjelma (1,5 mrd €, hyväksytty 30.3.2026) edellyttää rahoituksen saajilta suvereenia compliance-infrastruktuuria, ja Aegis kattaa koko sääntelypinon (ETS, CBAM, CSRD, NIS2, EU AI Act, vientivalvonta) yhdessä ympäristössä. Olemme myös NATO DIANA -kiihdyttämön (VTT, Espoo) kannalta relevantti toimija. Avaamme seuraavassa hakemuksessa tämän mitattavin hyödyin ja referenssipolun kautta.
+- 2–3 minuutin esittelyvideon (ongelma → ratkaisu → tiimi → kehityspolku), ja
+- tiiviin pitch deckin (10–12 kalvoa): ongelma, DWS IQ Aegis + Lifetime Fleet IoT, kaksoiskäyttöperustelu, markkina (~4 000 puolustusurakoitsijaa ja ~15 000 kaksoiskäyttövalmistajaa EU:ssa), liiketoimintamalli ja tulorahoitus, tiekartta sekä rahoituksen käyttö (20 000 € + 20 000 € matching).
 
-**3. Tuoteportfolion fokus.**
-Selkeytämme painopisteen: olemme **tuotelähtöinen** yhtiö. Ydin on skaalautuva tuote (DWS IQ / Aegis -ohjelmisto sekä Control Room- ja Situation Room -laitepaketit). Mahdolliset projektipohjaiset toteutukset toimivat ainoastaan siltana ja referenssikanavana tuotteeseen, eivät itsetarkoituksena. Kuvaamme tämän jaon eksplisiittisesti seuraavassa hakemuksessa.
+**2. Puolustussektorin näkökulma ja erityinen lisäarvo.**
+Konkretisoimme tämän mitattaviksi käyttötapauksiksi. DWS IQ Aegis tuottaa auditoitavia tuloksia autonomisilla agenteilla — ei pelkkiä dashboardeja:
 
-Kehitämme kokonaisuutta eteenpäin palautteenne suuntaan. Voisimmeko sopia lyhyen puhelun ennen seuraavaa hakukierrosta, jotta voin varmistaa että täydennetty hakemus osuu arvioinnin kannalta oikeisiin asioihin? Kertoisitteko samalla seuraavan kierroksen aikataulun.
+- **ArgusAgent** — ICEYE SAR -satelliittidatan analyysi (tiedustelu, muutostunnistus, toimitusketjun näkyvyys), integraatio DEFINE-ohjelman kautta.
+- **SovereigntyMonitor** — CLOUD Act -altistumisen pisteytys ja NIS2-yhteensopivuus; vastaus siihen, miksi Palantir/C3.ai eivät ole EU-suvereeneja.
+- **Article12Logger** — EU AI Act -artikla 12:n mukainen auditointiketju jokaisesta AI-päätöksestä.
+- **KYA Engine** — agenttien hallintamallistandardi (trust scoring; sub-5 ms kill-switch per agentti, alle 50 ms koko laivastolle) — ainoa laatuaan markkinalla.
+- **ComplianceAgent + SiteSenseAgent** — kaksoiskäyttöasetus 2021/821 ja ilmastosääntely yhdestä järjestelmästä; puolustusrakentamisen ja -logistiikan turvallisuus.
+- **Lifetime Fleet IoT** — NVIDIA Jetson Orin Nano + Acer Veriton GN100 reunalaskentana kentällä: kenttäoperaatioiden tilannekuva, kaluston seuranta, huoltovarmuuslogistiikka.
 
-Kiitos vielä kannustuksesta — palaamme asiaan vahvemmalla kokonaisuudella.
+Erityinen lisäarvo puolustusalalle: ainoa EU-suvereeni alusta, joka kattaa sekä puolustussääntelyn (vientivalvonta) että ilmastosääntelyn (CSRD/CBAM/ETS) samasta ympäristöstä, suomalaisella hostingilla ja nollalla CLOUD Act -altistuksella. Riihimäen sijainti tukee suoraan yhteyksiä Panssariprikaatiin ja DEFINE-ekosysteemiin. Komission EDIP-työohjelma (1,5 mrd €) tekee tästä ajankohtaisen: rahoituksen saajat tarvitsevat juuri tällaista suvereenia compliance-infrastruktuuria.
+
+**3. Tuoteportfolion fokus (tuote vs. projekti).**
+Selkeytämme painopisteen yksiselitteisesti: olemme **tuotelähtöinen** yhtiö.
+
+- **Ydin (skaalautuva tuote):** DWS IQ Aegis -ohjelmisto ja Lifetime Fleet IoT -laitepaketit. Tähän kohdistuu kehitys ja haettava rahoitus.
+- **Projekti-/konsultointityö** toimii ainoastaan rahoittavana siltana ja referenssikanavana tuotteeseen — ei itsenäisenä painopisteenä. Nykyinen tulorahoitus (logistiikka-asiakkaat Kela, Uber, Bolt, Taksi Helsinki; MRR 7 000 €/kk, 100 % retentio) rahoittaa tuotekehitystä ja matching-osuuden. Esitämme tämän jaon seuraavassa hakemuksessa eksplisiittisellä kaaviolla.
+
+**4. Riihimäki-sitoumus (ennallaan ja vahva).**
+Sitoumus on edelleen täysi: siirrämme pääkonttorin Espoosta Riihimäelle ja perustajat muuttavat paikkakunnalle — täysi läsnäolo DEFINE-ekosysteemissä, ei sivutoimipiste.
+
+Kehitämme kokonaisuutta palautteenne suuntaan. Voisimmeko sopia lyhyen puhelun (15–20 min) ennen seuraavaa kierrosta, jotta voin varmistaa että täydennetty hakemus osuu arvioinnin kannalta oikeisiin asioihin? Kertoisitteko samalla seuraavan hakukierroksen aikataulun.
+
+Kiitos kannustuksesta — palaamme asiaan selvästi vahvemmalla kokonaisuudella.
 
 Parhain terveisin,
 Risto
 
 ---
 
-**Risto Anton Paarni**
-Toimitusjohtaja, Lifetime Oy
+**Risto Anton Päärni**
+Toimitusjohtaja ja perustaja, Lifetime Oy
 risto.paarni@lifetime.fi
-+358 40 031 9010
-Lifetime Oy · Y-tunnus 0772407-9 · Laidunmaanraitti 2 A 25, 02330 Espoo
++358 400 319 010
+Lifetime Oy · Y-tunnus 0772407-9 · Laidunmaanraitti 2 A 25, 02330 Espoo · https://dws10.com
 
 ---
 
 ## Muistio (ennen lähetystä)
 
-- [ ] Liitä esittelyvideo (2–3 min) ja pitch deck, kun ne ovat valmiit.
+- [ ] Liitä esittelyvideo (2–3 min) ja pitch deck (10–12 kalvoa), kun valmiit.
 - [ ] Vahvista seuraavan hakukierroksen aikataulu RTOY:lta.
-- [ ] Harkitse lyhyttä Aegis-yhteenvetoa (1 sivu) liitteeksi: EDIP + NATO DIANA + mitattava lisäarvo.
+- [ ] Harkitse 1-sivuista Aegis-yhteenvetoa liitteeksi: 6 agenttia + Lifetime Fleet IoT + EDIP/DEFINE + mitattava lisäarvo.
+- [ ] Tarkista nimimuoto: hakemuksessa "Risto Anton Päärni" (CLAUDE.md Legal Identity käyttää ASCII-muotoa "Paarni").
 
 ## Seuranta (jos ei vastausta 5 päivässä)
 
