@@ -1,6 +1,6 @@
 ---
 name: carbon-analysis
-description: Calculates embodied carbon footprint per EN 15978 lifecycle assessment (stages A1–D) using the Material Oracle agent. Use when user mentions "embodied carbon", "carbon footprint", "kgCO2e", "lifecycle assessment", "LCA", "A1-A3 emissions", "construction materials carbon", or provides a materials list with quantities.
+description: Use when calculating embodied carbon for a materials list or construction scope under EN 15978.
 ---
 
 Run a DWS IQ carbon footprint analysis using the Material Oracle agent.

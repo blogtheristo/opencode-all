@@ -1,6 +1,6 @@
 ---
 name: sovereignty-pillars-assess
-description: Scores an enterprise architecture against the three-pillar (Data / Technology / Operational) × three-jurisdiction (EU / US / SG) sovereignty model from Sovereignty Field Note #2. Returns a (SIB, CSB, EAB) triple per jurisdiction plus DWS product tier recommendation and post-quantum readiness flag. Use when user says "pillars assess", "score sovereignty", "SIB CSB EAB", "three-pillar score", "sovereignty triple", or supplies a customer architecture description.
+description: Use when scoring an architecture against the three-pillar sovereignty model across EU, US, and SG. Returns SIB/CSB/EAB triples, a DWS product-tier recommendation, and a post-quantum readiness flag.
 ---
 
 Score a customer architecture against the universal three-pillar sovereignty model.

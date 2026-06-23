@@ -151,6 +151,69 @@
             opacity: 0.9;
         }
 
+        /* The European Moat */
+        .moat {
+            background: linear-gradient(135deg, rgba(10, 36, 99, 0.55) 0%, rgba(15, 23, 42, 0.85) 100%);
+            border-top: 1px solid rgba(214, 40, 40, 0.25);
+            border-bottom: 1px solid rgba(214, 40, 40, 0.25);
+        }
+
+        .moat .section-title {
+            font-size: 2.5rem;
+            color: #f1f5f9;
+            text-align: center;
+            margin-bottom: 14px;
+        }
+
+        .moat .section-sub {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            text-align: center;
+            max-width: 760px;
+            margin: 0 auto 48px;
+        }
+
+        .moat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+        }
+
+        .moat-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(71, 85, 105, 0.4);
+            border-radius: 14px;
+            padding: 32px;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .moat-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(214, 40, 40, 0.5);
+        }
+
+        .moat-icon {
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+        }
+
+        .moat-card h3 {
+            font-size: 1.4rem;
+            color: #f1f5f9;
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
+        .moat-card p {
+            font-size: 1rem;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        .moat-card p strong {
+            color: #fca5a5;
+        }
+
         /* Sections */
         section {
             padding: 60px 0;
@@ -1323,6 +1386,32 @@
                     <div class="stat-label">V1.0 Launch 2026</div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- The European Moat -->
+    <section class="moat">
+        <div class="container">
+            <h2 class="section-title">The European Moat</h2>
+            <p class="section-sub">Global tech giants don't build for European industry. That's our advantage.</p>
+            <div class="moat-grid">
+                <div class="moat-card">
+                    <div class="moat-icon">🛡️</div>
+                    <h3>Data Sovereignty</h3>
+                    <p>Your data stays in Europe. Hetzner Helsinki + Google Cloud <code>europe-north1</code>. Zero CLOUD Act exposure — <strong>EU residency guaranteed by physics, not policy.</strong> Finnish jurisdiction protects your business, unlike AWS or Azure.</p>
+                </div>
+                <div class="moat-card">
+                    <div class="moat-icon">⚖️</div>
+                    <h3>Regulatory Understanding</h3>
+                    <p>EN 15978, CSRD, EPBD and CBAM aren't add-ons — they're the product core, the Synthetic Nervous System that turns regulation into revenue. IFS and Visma Business integrations ship ready. SAP needs consultants; we don't.</p>
+                </div>
+                <div class="moat-card">
+                    <div class="moat-icon">⚙️</div>
+                    <h3>Edge AI, No Per-Token Cost</h3>
+                    <p>Owned inference on Acer Veriton GN100 and DGX Spark in your facilities — under 100ms latency, runs offline, no cloud bill. <strong>While competitors' API prices climb, ours don't — we own the compute.</strong></p>
+                </div>
+            </div>
+            <p class="section-sub" style="margin: 44px auto 0; font-size: 1.05rem;">DWS is not SaaS — it's a <strong>System of Action operator</strong> for European industry. The same owned-compute discipline drives the &lt;100ms / €333,000-per-year edge economics behind the Control Room and DGX Spark tier.</p>
         </div>
     </section>
 

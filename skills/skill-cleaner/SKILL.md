@@ -1,6 +1,6 @@
 ---
 name: skill-cleaner
-description: "Audit DWS6 skills/*/SKILL.md: prompt-budget cost, long descriptions, trigger-phrase duplicates, status banners, dead skills."
+description: "Audit skill metadata in skills/*/SKILL.md and .claude/commands/*.md for prompt-budget cost, bloated descriptions, duplicate triggers, and status-banner waste."
 argument-hint: "[--apply <skill>] [--root <path>]"
 allowed-tools: [Bash, Read, Edit, Glob]
 ---
@@ -8,8 +8,8 @@ allowed-tools: [Bash, Read, Edit, Glob]
 # Skill Cleaner
 
 Trim skill prompt budget. The `description:` field is loaded into EVERY
-context; bodies only load on invoke. So bloat in description = permanent
-token tax across every session.
+context; bodies only load on invoke. So bloat in descriptions is a
+permanent token tax across every session.
 
 Adapted from Peter Steipete's `skill-cleaner` (agent-scripts).
 
@@ -18,19 +18,19 @@ Adapted from Peter Steipete's `skill-cleaner` (agent-scripts).
 1. Run the analyzer from repo root:
 
 ```bash
-node --experimental-strip-types skills/skill-cleaner/scripts/skill-cleaner.ts
+node --experimental-strip-types skills/skill-cleaner/scripts/skill-cleaner.ts --root skills --root .claude/commands
 ```
 
 Variants:
 
 ```bash
-node --experimental-strip-types skills/skill-cleaner/scripts/skill-cleaner.ts --context-tokens 272000 --budget-percent 2
-node --experimental-strip-types skills/skill-cleaner/scripts/skill-cleaner.ts --root skills --root .claude/commands
+node --experimental-strip-types skills/skill-cleaner/scripts/skill-cleaner.ts --context-tokens 272000 --budget-percent 2 --root skills --root .claude/commands
+node --experimental-strip-types skills/skill-cleaner/scripts/skill-cleaner.ts --root skills --root .claude/commands --exit-code
 ```
 
 2. Read the report in this order:
    - `Budget`: context window, 2% skills budget, current usage, headroom.
-   - `Offenders`: skills exceeding word/char/trigger thresholds.
+   - `Offenders`: skills or slash commands exceeding word/char/trigger thresholds.
    - `Anti-patterns`: status banners, prose, marketing copy, repeated triggers.
    - `Proposed rewrites`: tightened descriptions to paste back.
 
