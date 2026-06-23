@@ -1,5 +1,5 @@
 ---
-title: "DWS IQ Climate Intelligence"
+title: "DWS IQ Industrial Intelligence"
 price: "2999.00"
 currency: "EUR"
 sku: "DWS-CLIMATE-001"
@@ -14,15 +14,15 @@ priceNote: "€2,999/mo + €4,990 one-time setup"
 mpn: "DWS-CLIMATE-2026"
 ---
 
-# DWS IQ Climate Intelligence
+# DWS IQ Industrial Intelligence
 
-**The Agent Outcome Factory for EU Climate Compliance**
+**The climate-compliance module of the DWS IQ Industrial Intelligence suite**
 
 ## Product Overview
 
-DWS IQ Climate Intelligence is a purpose-built AI agent platform that automates EU climate compliance for industrial companies. Instead of hiring consultants or building spreadsheets, you deploy 8 specialized Skilled Agents that deliver audit-ready compliance outcomes — ETS allowance calculations, CBAM import obligations, CSRD disclosure reports, and continuous carbon accounting.
+DWS IQ Industrial Intelligence is a purpose-built AI agent platform that treats EU climate regulation as an operational constraint on the factory floor — the rules that govern an industrial plant's right to produce — rather than a standalone ESG reporting exercise. It is the climate-compliance module of the DWS IQ Industrial Intelligence suite, running the same sovereign engine as DWS IQ 6 and the Aegis dual-use tier. Instead of hiring consultants or building spreadsheets, you deploy 8 specialized Skilled Agents that deliver audit-ready compliance outcomes — ETS allowance calculations, CBAM import obligations, CSRD disclosure reports, and continuous carbon accounting.
 
-**Why agents, not dashboards:** Dashboards show you data. Agents deliver outcomes. Climate Intelligence agents observe your emissions data, think through regulatory requirements, and act by generating compliance documentation — autonomously.
+**Why agents, not dashboards:** Dashboards show you data. Agents deliver outcomes. These Skilled Agents observe your operational and emissions data, think through regulatory requirements, and act by generating compliance documentation — autonomously.
 
 ## Agents Included
 
@@ -106,7 +106,7 @@ SAP Sustainability Control Tower validates the market. DWS IQ Climate Intelligen
 
 **Priority channels — all connected ERPs:**
 
-1. **IFS Cloud Marketplace** — Nordic industrial installed base (Saab, Volvo, Konecranes)
+1. **IFS Cloud Marketplace** — reaching IFS's Nordic industrial installed base (IFS customers such as Saab, Volvo and Konecranes; named here as IFS reference accounts, not DWS deployments)
 2. **Visma** — Nordic SME/mid-market ERP footprint
 3. **SAP Store** — Firehorse product line, S/4HANA integration
 4. **Microsoft AppSource** — Dynamics 365 connector

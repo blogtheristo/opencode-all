@@ -1372,11 +1372,11 @@
       "id": "DWS-CLIMATE-001",
       "gtin": null,
       "mpn": "DWS-CLIMATE-2026",
-      "name": "DWS IQ Climate Intelligence",
+      "name": "DWS IQ Industrial Intelligence",
       "price": 2999,
       "currency": "EUR",
       "type": "monthly",
-      "description": "Deploy 8 Skilled Agents that deliver audit-ready EU climate compliance outcomes — ETS allowance calculations, CBAM import obligations, CSRD disclosure reports, and continuous carbon accounting. Agent-delivered outcomes, not dashboards. The Agent Outcome Factory for climate compliance.",
+      "description": "8 Skilled Agents that turn ETS, CBAM and CSRD obligations into deterministic factory-floor execution — the climate-compliance module of the DWS IQ Industrial Intelligence suite. Agent-delivered outcomes, not dashboards. EU-sovereign and audit-ready.",
       "features": [
         "8 specialized Skilled Agents for climate compliance",
         "ETS, CBAM, CSRD & Fit for 55 automation",
