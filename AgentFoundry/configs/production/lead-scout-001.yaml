@@ -186,15 +186,12 @@ agent:
     retention_days: 90
 
   monitoring:
-<<<<<<< Current (Your changes)
     # Optional: configure one or both (separate Incoming Webhook URLs)
     slack_webhook: "${SLACK_WEBHOOK_URL}"
     teams_webhook: "${TEAMS_WEBHOOK_URL}"
-=======
     primary_channel: "whatsapp"
     notify_webhook: "${NOTIFY_WEBHOOK_URL}"
     whatsapp_recipient: "${WHATSAPP_DEFAULT_RECIPIENT}"
->>>>>>> Incoming (Background Agent changes)
     alert_on_error: true
     alert_on_budget_threshold: true
     daily_summary: true
