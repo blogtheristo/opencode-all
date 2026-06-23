@@ -16,11 +16,11 @@ mpn: "DWS-AEGIS-2026"
 
 # DWS IQ Aegis
 
-**Dual-Use AI Platform for Defence & Sovereign Operations**
+**Sovereign Industrial Intelligence Platform for Dual-Use Manufacturing** — part of the DWS IQ Industrial Intelligence suite
 
 ## Product Overview
 
-DWS IQ Aegis is a standalone dual-use AI platform covering all 21 EU-regulated industries (including dual-use critical raw materials) for government agencies, military industry enterprises, and dual-use manufacturing supply chains. It packages sovereignty monitoring, orbital intelligence, agent governance, and EU AI Act compliance into a hardened platform — available exclusively on European cloud or enterprise private cloud.
+DWS IQ Aegis is the dual-use factory and critical-manufacturing layer of DWS IQ Industrial Intelligence — a standalone sovereign AI platform covering all 21 EU-regulated industries (including dual-use critical raw materials) for government agencies, military industry enterprises, and the dual-use manufacturing base that supplies Europe's defence sector. It optimizes and secures physical production facilities, not the tactical frontline. It packages sovereignty monitoring, orbital intelligence, agent governance, and EU AI Act compliance into a hardened platform — available exclusively on European cloud or enterprise private cloud.
 
 Named after Athena's shield — Aegis provides protection through intelligence, not just walls.
 
