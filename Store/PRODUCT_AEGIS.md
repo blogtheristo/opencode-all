@@ -28,21 +28,22 @@ Named after Athena's shield — Aegis provides protection through intelligence, 
 
 ## Agents Included
 
-| Agent | Capability | Domain |
-|-------|-----------|--------|
-| ArgusAgent | AI orbital target labeling via SAR satellite data | Intelligence, supply chain visibility |
-| SovereigntyMonitor | CLOUD Act exposure detection, EU data residency verification | Data sovereignty |
-| Article12Logger | EU AI Act audit trails for all AI decisions | Regulatory compliance |
-| KYA Engine | Know Your Agent — identity verification, isolation, kill authority | Agent governance |
-| ComplianceAgent | Dual-use export control + EU climate compliance | Regulatory |
-| CrossVerticalIntel | Supply chain signal propagation across 21 industries | Intelligence |
-| GaiaAgent | Cement, lime & earth materials — dual-use critical raw material risk | Industry |
-| VulcanAgent | Steel & metals — ETS Phase 4, CBAM carbon declarations | Industry |
-| SiteSenseAgent | Defence construction site safety & logistics | Field operations |
+| Agent              | Capability                                                           | Domain                                |
+| ------------------ | -------------------------------------------------------------------- | ------------------------------------- |
+| ArgusAgent         | AI orbital target labeling via SAR satellite data                    | Intelligence, supply chain visibility |
+| SovereigntyMonitor | CLOUD Act exposure detection, EU data residency verification         | Data sovereignty                      |
+| Article12Logger    | EU AI Act audit trails for all AI decisions                          | Regulatory compliance                 |
+| KYA Engine         | Know Your Agent — identity verification, isolation, kill authority   | Agent governance                      |
+| ComplianceAgent    | Dual-use export control + EU climate compliance                      | Regulatory                            |
+| CrossVerticalIntel | Supply chain signal propagation across 21 industries                 | Intelligence                          |
+| GaiaAgent          | Cement, lime & earth materials — dual-use critical raw material risk | Industry                              |
+| VulcanAgent        | Steel & metals — ETS Phase 4, CBAM carbon declarations               | Industry                              |
+| SiteSenseAgent     | Defence construction site safety & logistics                         | Field operations                      |
 
 ## Core Capabilities
 
 ### Orbital Intelligence (Argus)
+
 - SAR satellite data ingestion and AI labeling (compatible with providers such as ICEYE)
 - All-weather, day/night industrial target detection
 - 20 DWS industry classifications from orbit
@@ -50,6 +51,7 @@ Named after Athena's shield — Aegis provides protection through intelligence, 
 - Pipeline: AOI → SAR Catalog API → AI labeling → KYA governance → Article 12 audit trail
 
 ### Sovereignty Assessment
+
 - CLOUD Act exposure scoring (US vs. EU-sovereign providers)
 - Four sovereignty tiers: Sovereign / Compliant / Partial / Exposed
 - NIS2 alignment verification
@@ -57,6 +59,7 @@ Named after Athena's shield — Aegis provides protection through intelligence, 
 - Data residency audit trail
 
 ### Agent Governance (KYA — Know Your Agent)
+
 - Agent identity verification (Shufti partnership)
 - Firecracker MicroVM sandbox isolation
 - Kill authority — revoke any agent in real-time
@@ -64,6 +67,7 @@ Named after Athena's shield — Aegis provides protection through intelligence, 
 - Multi-agent control room for fleet oversight
 
 ### EU AI Act Article 12 Logging
+
 - Every AI decision logged with risk classification
 - Reasoning lineage preservation
 - Audit-ready documentation for regulators
@@ -88,12 +92,14 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 
 ## Competitive Positioning
 
-| Competitor | Gap we fill |
-|-----------|-------------|
-| Palantir AIP | US-based, CLOUD Act exposed. Not EU-sovereign. No EU AI Act compliance. |
-| Anduril Lattice | Hardware-focused. No compliance agents. US-only. |
-| C3.ai Defence | Dashboard platform, not agent outcomes. US-hosted. |
-| Big 4 defence consulting | Advisory only. No autonomous agents. No orbital intelligence. |
+> **Market signal (2026-06-23):** The U.S. Army established its NGC2 (Next Generation Command & Control) common data layer baseline — Palantir **Foundry** as the cloud data layer and Anduril **Lattice** as the tactical data layer. This validates the sovereign data-layer thesis at national scale; Europe has no equivalent baseline, and adopting the U.S. stack means inheriting CLOUD Act exposure and an EU AI Act compliance gap. Aegis is the EU-sovereign answer.
+
+| Competitor                                               | Gap we fill                                                                                     |
+| -------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Palantir AIP / Foundry (U.S. Army NGC2 cloud data layer) | US-based, CLOUD Act exposed. Not EU-sovereign. No EU AI Act Article 12 compliance.              |
+| Anduril Lattice (U.S. Army NGC2 tactical data layer)     | Hardware-focused, US-only. No compliance/governance agents (no KYA, no Article 12 audit trail). |
+| C3.ai Defence                                            | Dashboard platform, not agent outcomes. US-hosted.                                              |
+| Big 4 defence consulting                                 | Advisory only. No autonomous agents. No orbital intelligence.                                   |
 
 **Our edge:** EU-sovereign by design (Finnish hosting), agent governance (KYA — no other platform has this), SAR orbital intelligence (designed for integration with providers such as ICEYE), EU AI Act native (Article 12 built-in), dual compliance (defence + climate in one platform).
 
@@ -131,30 +137,30 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 
 ## Pricing
 
-| Tier | Onboarding + Integration | Monthly | Included |
-|------|--------------------------|---------|----------|
-| **Aegis Standard** | €59,990 | €999/mo | 18 agents, 21 industries, dedicated K8s cluster, Article 12 logging, KYA governance, standard support |
-| **Aegis Defence** | €89,990 | €1,999/mo | Standard + NVIDIA L40S GPU, ArgusAgent SAR, priority support (4h SLA), EDIP compliance reporting |
-| **Aegis Sovereign** | Custom | €4,999/mo | Defence + air-gapped / on-premises option, security clearance support, dedicated engineering team, custom SLA |
+| Tier                | Onboarding + Integration | Monthly   | Included                                                                                                      |
+| ------------------- | ------------------------ | --------- | ------------------------------------------------------------------------------------------------------------- |
+| **Aegis Standard**  | €59,990                  | €999/mo   | 18 agents, 21 industries, dedicated K8s cluster, Article 12 logging, KYA governance, standard support         |
+| **Aegis Defence**   | €89,990                  | €1,999/mo | Standard + NVIDIA L40S GPU, ArgusAgent SAR, priority support (4h SLA), EDIP compliance reporting              |
+| **Aegis Sovereign** | Custom                   | €4,999/mo | Defence + air-gapped / on-premises option, security clearance support, dedicated engineering team, custom SLA |
 
 Aegis is a standalone product — not part of the Captain investor programme. Software-only platform (no hardware bundled).
 
 ## Strategic Partnerships
 
-| Partner | Integration | Status |
-|---------|------------|--------|
-| ICEYE | SAR satellite data compatibility for Argus agent | Target integration (Espoo-based) |
-| Shufti | Agent identity verification for KYA | Partnership pending |
-| NVIDIA | Jetson Orin Nano edge deployment | ISV Partner (confirmed) |
-| VTT | Research collaboration, DIANA programme | Ecosystem partner |
+| Partner | Integration                                      | Status                           |
+| ------- | ------------------------------------------------ | -------------------------------- |
+| ICEYE   | SAR satellite data compatibility for Argus agent | Target integration (Espoo-based) |
+| Shufti  | Agent identity verification for KYA              | Partnership pending              |
+| NVIDIA  | Jetson Orin Nano edge deployment                 | ISV Partner (confirmed)          |
+| VTT     | Research collaboration, DIANA programme          | Ecosystem partner                |
 
 ## K8s AI Inference Roadmap
 
 > Source: KubeCon + CloudNativeCon Europe 2026 (Amsterdam). See `docs/field-notes/2026-03-30-kubecon-eu-2026-k8s-ai-inference.md`.
 
-| # | Item | DWS7 PR | Target | Description |
-|---|------|---------|--------|-------------|
-| 1 | Inference autoscaling | 137A | Q3 2026 | HPA + KEDA policies for Aegis agents. Scale 0→N in <30s based on inference queue depth. Defence bursty workloads (crisis response, satellite passes). |
-| 2 | Multi-model GPU sharing | 137B | Q3 2026 | MIG on L40S nodes — multiple agents per GPU with isolated VRAM. Target: per-customer GPU cost <€200/mo (from €376/mo). |
-| 3 | Model versioning CRDs | 137C | Q4 2026 | K8s Custom Resource Definitions for blue/green model deployments. Rollback <60s. Article 12 audit continuity on model changes. |
-| 4 | Edge-cloud inference split | 137D | Q1 2027 | Jetson Orin Nano (field/classified) + UpCloud K8s (cloud/cross-vertical). Routing by classification level and sovereignty constraints. |
+| #   | Item                       | DWS7 PR | Target  | Description                                                                                                                                           |
+| --- | -------------------------- | ------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Inference autoscaling      | 137A    | Q3 2026 | HPA + KEDA policies for Aegis agents. Scale 0→N in <30s based on inference queue depth. Defence bursty workloads (crisis response, satellite passes). |
+| 2   | Multi-model GPU sharing    | 137B    | Q3 2026 | MIG on L40S nodes — multiple agents per GPU with isolated VRAM. Target: per-customer GPU cost <€200/mo (from €376/mo).                                |
+| 3   | Model versioning CRDs      | 137C    | Q4 2026 | K8s Custom Resource Definitions for blue/green model deployments. Rollback <60s. Article 12 audit continuity on model changes.                        |
+| 4   | Edge-cloud inference split | 137D    | Q1 2027 | Jetson Orin Nano (field/classified) + UpCloud K8s (cloud/cross-vertical). Routing by classification level and sovereignty constraints.                |
