@@ -50,20 +50,28 @@ only — "16 captain hats covering 25 EU-regulated industries"), re-run the inje
 `generate-discoverability.mjs`. Candidate next pages: real-estate, mining,
 financial-services, public-sector.
 
-### 2. web_leads auto-acknowledgement email (RED-zone send — needs human approval)
+### 2. web_leads acknowledgement email — DONE (commit abd5899), needs enabling
 
-When a `web_leads` row is created, send a branded acknowledgement via **Amazon SES SMTP**
-(never Resend, never `noreply@`; sender e.g. `sales@lifetime.fi`). Reuse
-`src/services/email.service.ts` / `email-queue.service.ts`. Authoring is GREEN; the actual
-send path is RED-zone — gate behind human approval. Consider a Supabase trigger/webhook or
-a `scripts/hourly` poller over `web_leads?status=eq.new`.
+`scripts/hourly/web-leads-ack.ts` sends a one-time SES acknowledgement per lead.
+**DRY-RUN by default.** To go live (human, RED-zone): (a) apply
+`supabase/migrations/071_web_leads_ack.sql` (adds `ack_sent_at`), (b) set
+`WEB_LEADS_ACK_ENABLED=true` in the DGX Spark hourly-runner env. Verify with a dry-run
+first: `npx tsx scripts/hourly/web-leads-ack.ts` (logs would-send, sends nothing).
 
-### 3. Wire the jsdom test into CI
+### 3. Wire the jsdom test into CI — DONE (commit 25896f2)
 
-Add `tests/growth-capture-dom.test.mjs` to the npm test script / CI so the capture forms
-stay verified. jsdom is already a devDependency.
+`tests/growth-capture-dom.test.mjs` is now a vitest suite (runs under `npm test`);
+test-on-pr.yml path filters extended to tests/\*\* + the tested assets.
 
-### 4. Verify live capture end-to-end (quick win for whoever has access)
+### 4. Resend/SendGrid → SES — DONE (commit 38acbef)
+
+email.service.ts now routes through the SES utility; Resend/SendGrid providers removed
+(CLAUDE.md Rule 4). Note: `email.service.ts` had dual-provider Resend/SendGrid code — if
+any other module reintroduces a non-SES sender, route it through `src/utils/send-email.ts`.
+Legacy INBOUND webhook plumbing (`/webhooks/resend/inbound`, `verifyResendSignature`) left
+intact — it's inbound, not the banned outbound transport.
+
+### 5. Verify live capture end-to-end (quick win for whoever has access)
 
 Submit the footer newsletter + `/free-audit/` form on the live site (or after deploy) and
 confirm rows land in `web_leads`, then confirm the next morning brief shows the "Web Leads"
