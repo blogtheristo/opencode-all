@@ -1,10 +1,9 @@
 /**
  * Test script: Send 5 native-language Captain DM emails (SV, DE, FI, FR, EN)
- * Uses the production transport cascade: Amazon SES (SMTP) primary → Resend fallback.
+ * Uses the production transport: Amazon SES (SMTP).
  * All sent to risto@lifetime.fi for review before real outreach.
  *
  * Requires: SMTP_HOST + SMTP_USER + SMTP_PASS (SES primary)
- *           RESEND_API_KEY (fallback only)
  *
  * Usage: npx tsx scripts/test-native-language-emails.ts
  */
@@ -16,16 +15,14 @@ const FROM = process.env.EMAIL_FROM || 'risto@onelifetime.world';
 const TO = 'risto@lifetime.fi';
 
 const hasSmtp = !!process.env.SMTP_HOST;
-const hasResend = !!process.env.RESEND_API_KEY;
 
-if (!hasSmtp && !hasResend) {
+if (!hasSmtp) {
   console.error('ERROR: No email transport configured.');
   console.error('  Primary: SMTP_HOST, SMTP_USER, SMTP_PASS (Amazon SES)');
-  console.error('  Fallback: RESEND_API_KEY');
   process.exit(1);
 }
 
-console.log(`Transport: ${hasSmtp ? 'SES (SMTP) primary' : 'SES not configured'}${hasResend ? ' + Resend fallback' : ''}`);
+console.log(`Transport: ${hasSmtp ? 'Amazon SES (SMTP)' : 'SES not configured'}`);
 
 interface TestEmail {
   lang: string;
