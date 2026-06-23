@@ -94,12 +94,12 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 
 > **Market signal (2026-06-23):** The U.S. Army established its NGC2 (Next Generation Command & Control) common data layer baseline — Palantir **Foundry** as the cloud data layer and Anduril **Lattice** as the tactical data layer. This validates the sovereign data-layer thesis at national scale; Europe has no equivalent baseline, and adopting the U.S. stack means inheriting CLOUD Act exposure and an EU AI Act compliance gap. Aegis is the EU-sovereign answer.
 
-| Competitor                                               | Gap we fill                                                                                     |
-| -------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| Palantir AIP / Foundry (U.S. Army NGC2 cloud data layer) | US-based, CLOUD Act exposed. Not EU-sovereign. No EU AI Act Article 12 compliance.              |
-| Anduril Lattice (U.S. Army NGC2 tactical data layer)     | Hardware-focused, US-only. No compliance/governance agents (no KYA, no Article 12 audit trail). |
-| C3.ai Defence                                            | Dashboard platform, not agent outcomes. US-hosted.                                              |
-| Big 4 defence consulting                                 | Advisory only. No autonomous agents. No orbital intelligence.                                   |
+| Competitor                                               | Core capability (acknowledged)                                                     | The sovereign differentiator                                                                                                                     |
+| -------------------------------------------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Palantir AIP / Foundry (U.S. Army NGC2 cloud data layer) | Best-in-class data integration and operational analytics, with real EU operations. | US corporate parent → CLOUD Act reach regardless of EU hosting location. Aegis is 100% EU-owned and outside extraterritorial data requests.      |
+| Anduril Lattice (U.S. Army NGC2 tactical data layer)     | Excellent tactical hardware and perimeter-defence orchestration.                   | US-centric and hardware-led. Aegis is software-native for EU-regulated dual-use supply-chain compliance, with KYA governance + Article 12 audit. |
+| C3.ai                                                    | Strong predictive analytics and enterprise dashboarding.                           | Runs as an overlay on commercial US hyperscalers. Aegis executes deterministic multi-agent reasoning inside an isolated sovereign EU enclave.    |
+| Big 4 consulting                                         | Deep regulatory advisory capability.                                               | Advisory only. Aegis ships autonomous agents + orbital intelligence as the product, not a report.                                                |
 
 **Our edge:** EU-sovereign by design (Finnish hosting), agent governance (KYA — no other platform has this), SAR orbital intelligence (designed for integration with providers such as ICEYE), EU AI Act native (Article 12 built-in), dual compliance (defence + climate in one platform).
 
@@ -128,11 +128,11 @@ DWS IQ Aegis is designed for the Finnish Defence Tech Hub ecosystem:
 - **Database:** UpCloud Managed PostgreSQL + pgvector (HA, automated backups, Helsinki DC)
 - **Cache:** UpCloud Managed Valkey/Redis
 - **GPU:** NVIDIA L40S nodes available for local LLM inference
-- **SLA:** 99.999% (UpCloud infrastructure)
+- **SLA:** 99.9% application-availability target / 99.999% underlying infrastructure (UpCloud)
 - **Isolation:** Firecracker MicroVM per agent, no shared tenancy
 - **Compliance:** EU AI Act Article 12, NIS2, GDPR, CER Directive, EU CRM Act, dual-use export control (Reg. 2021/821)
 - **Hardware:** Software-only platform — no hardware bundled (NVIDIA/Acer DGX excluded)
-- **Certifications roadmap:** ISO 27001 (Q3 2026), SOC 2 Type II (Q4 2026)
+- **Certifications roadmap:** ISO 27001 (Lifetime Oy — targeting Q3 2026), SOC 2 Type II (targeting Q4 2026). Underlying UpCloud infrastructure is already ISO 27001 certified.
 - **Availability:** August 2026
 
 ## Pricing
