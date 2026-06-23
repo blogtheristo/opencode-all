@@ -133,7 +133,14 @@ investor-outreach/ready_to_send*/
 scripts/investor-contacts.local.json
 
 # --- REPO ARTIFACTS (directory listings, temp files accidentally committed) ---
-artifacts/
+# Ignore the artifacts/ tree (large binaries + PR/worktree snapshots) by default,
+# but TRACK Core Artifact knowledge files (ART-*.md) and category folders so the
+# §5 Artifact Framework is source-of-truth and version-controlled.
+artifacts/*
+!artifacts/README.md
+!artifacts/*/
+artifacts/*/*
+!artifacts/*/ART-*.md
 diret
 mcp.json
 pr-description.md

@@ -1,13 +1,14 @@
 # DWS IQ Platform - Admin Manual
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.3
+Version: 3.4
 
 Sessions & Modifications:
 
+- Version: 3.4 | Tool: Claude Code (Opus 4.6) | Session: claude/lwm-ontology-v1-500-enterprises | Date: 22.06.2026 | Changes: Added NVIDIA AI Workbench on DGX Spark section — enterprise sovereign training workflow, mode-switch architecture (training-mode.sh / production-mode.sh), QLoRA fine-tuning procedures, 4-stage sovereign training cascade reference, CR-1/CR-2 memory budget guidance
 - Version: 3.3 | Tool: Claude Code | Session: claude/karpathy-12-rules-u47rx1 | Date: 19.06.2026 | Changes: Replaced incomplete Karpathy "Critical Behaviors" (1-6) with the full 12 Engineering Discipline Rules table in AI Agent Operational Guidelines, cross-linked to canonical CLAUDE.md, AI_AGENT_GUIDELINES.md §0, and the hook enforcement map; added Recent Session Artifacts digest mined from the latest session artifacts.
 - Version: 3.2 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: pr-975 | Date: 22.05.2026 | Changes: Added GBrain standalone setup and operator usage for the `blogtheristo/gbrain` fork, documented Bun + PGLite workflow, and aligned Admin Manual rendering with `***` version-history delimiters for Pandoc compatibility.
 - Version: 3.1 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: main | Date: 13.05.2026 | Changes: Added reusable CI failure checklist for `.github/workflows/deploy-staging.yml` and `.github/workflows/dast-zap-scan.yml`: Artifact Registry existence check and create command, reserved Cloud Run `PORT` rule, `issues: write` permission for failure-notify issue creation, OWASP ZAP root/robots/sitemap endpoint rule, and startup health-wait loop guidance.
@@ -41,8 +42,8 @@ Session Links & References:
 Document Status:
 
 - Created: 23.11.2025
-- Last Modified: 19.06.2026
-- Version: 3.3
+- Last Modified: 22.06.2026
+- Version: 3.4
 - Language: English
 - Languages Available: English
 - Publication Status: ✅ ACTIVE
@@ -383,14 +384,14 @@ The workflow also now sets:
 
 Use this checklist whenever Cloud Run staging or OWASP ZAP fails in GitHub Actions. These checks are now the canonical triage flow for `.github/workflows/deploy-staging.yml` and `.github/workflows/dast-zap-scan.yml`.
 
-| Failure signature | Root cause | Required check | Fix |
-| --- | --- | --- | --- |
-| `Permission 'iam.serviceAccounts.getAccessToken' denied` | Workload Identity principal can authenticate but cannot mint access token for deployer service account | Confirm target service account has `roles/iam.serviceAccountTokenCreator` and repo principal has `roles/iam.workloadIdentityUser` | Re-apply the SA-level IAM bindings in the OIDC runbook above |
-| `Repository "dws-iq-repo" not found` during `Build Staging Image` | Artifact Registry repository does not exist in `dws-iq-60` | Run `gcloud artifacts repositories describe dws-iq-repo --location=europe-north1 --project=dws-iq-60` | Create it: `gcloud artifacts repositories create dws-iq-repo --repository-format=docker --location=europe-north1 --description="DWS IQ staging images"` |
-| Cloud Run deploy rejects `PORT` in `env_vars` | `PORT` is a reserved Cloud Run runtime variable | Inspect `.github/workflows/deploy-staging.yml` for `PORT=` under `env_vars` | Remove `PORT` from workflow-managed env vars; Cloud Run injects it automatically |
-| `Notify on Failure` cannot create issue (`Resource not accessible by integration`) | Workflow permissions omit issue-write scope | Inspect top-level `permissions:` block in `.github/workflows/deploy-staging.yml` | Add `issues: write` alongside `contents: read` and `id-token: write` |
-| OWASP ZAP baseline fails with `expected 200 / got 404` for `/`, `/robots.txt`, or `/sitemap.xml` | Baseline spider visits common public paths even when target is `/health` | Confirm app returns HTTP 200 for `/`, `/robots.txt`, and `/sitemap.xml` | Keep lightweight public handlers in `src/app.ts` for those three routes |
-| OWASP ZAP baseline fails intermittently before scan starts | App is not fully ready when ZAP begins | Check that workflow waits on `/health` with retries rather than a fixed sleep | Use a retry loop in `.github/workflows/dast-zap-scan.yml` before invoking ZAP |
+| Failure signature                                                                                | Root cause                                                                                             | Required check                                                                                                                    | Fix                                                                                                                                                     |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Permission 'iam.serviceAccounts.getAccessToken' denied`                                         | Workload Identity principal can authenticate but cannot mint access token for deployer service account | Confirm target service account has `roles/iam.serviceAccountTokenCreator` and repo principal has `roles/iam.workloadIdentityUser` | Re-apply the SA-level IAM bindings in the OIDC runbook above                                                                                            |
+| `Repository "dws-iq-repo" not found` during `Build Staging Image`                                | Artifact Registry repository does not exist in `dws-iq-60`                                             | Run `gcloud artifacts repositories describe dws-iq-repo --location=europe-north1 --project=dws-iq-60`                             | Create it: `gcloud artifacts repositories create dws-iq-repo --repository-format=docker --location=europe-north1 --description="DWS IQ staging images"` |
+| Cloud Run deploy rejects `PORT` in `env_vars`                                                    | `PORT` is a reserved Cloud Run runtime variable                                                        | Inspect `.github/workflows/deploy-staging.yml` for `PORT=` under `env_vars`                                                       | Remove `PORT` from workflow-managed env vars; Cloud Run injects it automatically                                                                        |
+| `Notify on Failure` cannot create issue (`Resource not accessible by integration`)               | Workflow permissions omit issue-write scope                                                            | Inspect top-level `permissions:` block in `.github/workflows/deploy-staging.yml`                                                  | Add `issues: write` alongside `contents: read` and `id-token: write`                                                                                    |
+| OWASP ZAP baseline fails with `expected 200 / got 404` for `/`, `/robots.txt`, or `/sitemap.xml` | Baseline spider visits common public paths even when target is `/health`                               | Confirm app returns HTTP 200 for `/`, `/robots.txt`, and `/sitemap.xml`                                                           | Keep lightweight public handlers in `src/app.ts` for those three routes                                                                                 |
+| OWASP ZAP baseline fails intermittently before scan starts                                       | App is not fully ready when ZAP begins                                                                 | Check that workflow waits on `/health` with retries rather than a fixed sleep                                                     | Use a retry loop in `.github/workflows/dast-zap-scan.yml` before invoking ZAP                                                                           |
 
 ### Current known-good workflow checks
 
@@ -799,15 +800,15 @@ DGX cron-runner (mirrors all 13 wrapped workflows)
 
 ### Components
 
-| Component | Location | Notes |
-| --- | --- | --- |
-| GitHub Actions variable | `DGX_SPARK_HEARTBEAT_URL` at https://github.com/blogtheristo/dws6/settings/variables/actions | Value: `https://heartbeat.dws6.com` (no trailing slash, no `/health` — action appends it) |
-| Reusable composite action | `.github/actions/dgx-failover-check/action.yml` | Outputs `dgx_alive` (true/false) and `dgx_status` (raw JSON or `down_<code>`) |
-| Cloudflare Tunnel | Name `dgx-heartbeat`, ID `b2d1d6e8-28e5-48e0-a2d5-3d5b702ead8b` | Managed locally via `/etc/cloudflared/config.yml` on the DGX box (not via dashboard) |
-| DNS record | `heartbeat.dws6.com` CNAME → `<tunnel-id>.cfargotunnel.com` | Proxied (orange cloud) — required for tunnels |
-| Tunnel ingress rule | `/etc/cloudflared/config.yml` on DGX | Routes `heartbeat.dws6.com` → `http://localhost:9999` |
-| Heartbeat service | `localhost:9999` on DGX Spark | `/health` returns HTTP 200 + `{"status":"healthy","timestamp":"..."}` |
-| Cron-runner | Separate concern — mirrors wrapped workflows on DGX | Wrap saves GHA minutes regardless; cron-runner ensures the work still runs |
+| Component                 | Location                                                                                     | Notes                                                                                     |
+| ------------------------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| GitHub Actions variable   | `DGX_SPARK_HEARTBEAT_URL` at https://github.com/blogtheristo/dws6/settings/variables/actions | Value: `https://heartbeat.dws6.com` (no trailing slash, no `/health` — action appends it) |
+| Reusable composite action | `.github/actions/dgx-failover-check/action.yml`                                              | Outputs `dgx_alive` (true/false) and `dgx_status` (raw JSON or `down_<code>`)             |
+| Cloudflare Tunnel         | Name `dgx-heartbeat`, ID `b2d1d6e8-28e5-48e0-a2d5-3d5b702ead8b`                              | Managed locally via `/etc/cloudflared/config.yml` on the DGX box (not via dashboard)      |
+| DNS record                | `heartbeat.dws6.com` CNAME → `<tunnel-id>.cfargotunnel.com`                                  | Proxied (orange cloud) — required for tunnels                                             |
+| Tunnel ingress rule       | `/etc/cloudflared/config.yml` on DGX                                                         | Routes `heartbeat.dws6.com` → `http://localhost:9999`                                     |
+| Heartbeat service         | `localhost:9999` on DGX Spark                                                                | `/health` returns HTTP 200 + `{"status":"healthy","timestamp":"..."}`                     |
+| Cron-runner               | Separate concern — mirrors wrapped workflows on DGX                                          | Wrap saves GHA minutes regardless; cron-runner ensures the work still runs                |
 
 ### Wrapped workflows (13)
 
@@ -842,7 +843,7 @@ jobs:
         if: steps.failover.outputs.dgx_alive != 'true'
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: "22"
 
       - name: Real work
         if: steps.failover.outputs.dgx_alive != 'true'
@@ -874,13 +875,13 @@ Monthly verification: https://github.com/blogtheristo/dws6/settings/billing/acti
 
 Read the **DGX Spark failover check** step log. The HTTP code printed in `DGX Spark is DOWN (HTTP <code>)` tells you which layer is broken:
 
-| HTTP code | Layer broken | Fix |
-| --- | --- | --- |
-| `000` / `000000` | DNS or TCP — runner couldn't connect at all | Check Cloudflare DNS for `heartbeat.dws6.com` CNAME (must be proxied / orange cloud). On DGX: `cloudflared tunnel list` should show 3–4 connections to nearby Cloudflare PoPs |
-| `404` | Tunnel up, but `/health` path not exposed | Check `/etc/cloudflared/config.yml` ingress rule matches the hostname being requested |
-| `502` | Tunnel up, origin service down | On DGX: `ss -tlnp \| grep :9999` (should show LISTEN); `curl http://localhost:9999/health` (should return 200 + JSON) |
-| `530` / `1033` | Cloudflare Tunnel daemon not connected to edge | On DGX: `sudo systemctl status cloudflared` — restart if needed |
-| `200` but workflow runs anyway | Variable misconfigured or empty | Verify `DGX_SPARK_HEARTBEAT_URL` is set under Variables (not Secrets), exact value `https://heartbeat.dws6.com`, no trailing slash |
+| HTTP code                      | Layer broken                                   | Fix                                                                                                                                                                           |
+| ------------------------------ | ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `000` / `000000`               | DNS or TCP — runner couldn't connect at all    | Check Cloudflare DNS for `heartbeat.dws6.com` CNAME (must be proxied / orange cloud). On DGX: `cloudflared tunnel list` should show 3–4 connections to nearby Cloudflare PoPs |
+| `404`                          | Tunnel up, but `/health` path not exposed      | Check `/etc/cloudflared/config.yml` ingress rule matches the hostname being requested                                                                                         |
+| `502`                          | Tunnel up, origin service down                 | On DGX: `ss -tlnp \| grep :9999` (should show LISTEN); `curl http://localhost:9999/health` (should return 200 + JSON)                                                         |
+| `530` / `1033`                 | Cloudflare Tunnel daemon not connected to edge | On DGX: `sudo systemctl status cloudflared` — restart if needed                                                                                                               |
+| `200` but workflow runs anyway | Variable misconfigured or empty                | Verify `DGX_SPARK_HEARTBEAT_URL` is set under Variables (not Secrets), exact value `https://heartbeat.dws6.com`, no trailing slash                                            |
 
 ### DGX-side operations
 
@@ -1277,10 +1278,10 @@ app.use(
 
 Billing account IAM was updated as follows:
 
-| Billing Account | Principal | Role |
-| --- | --- | --- |
+| Billing Account        | Principal                           | Role                  |
+| ---------------------- | ----------------------------------- | --------------------- |
 | `011602-801DEC-A53E8F` | `user:risto.paarni2024@lifetime.fi` | `roles/billing.admin` |
-| `011602-801DEC-A53E8F` | `user:admin@dws6.com` | `roles/billing.user` |
+| `011602-801DEC-A53E8F` | `user:admin@dws6.com`               | `roles/billing.user`  |
 
 Current status recorded during transfer:
 
@@ -1290,12 +1291,12 @@ Current status recorded during transfer:
 
 #### Billing account management inventory (2026-05-11)
 
-| Property | Value |
-| --- | --- |
-| Billing account ID | `011602-801DEC-A53E8F` |
-| Billing account display name | `Lifetime Oy Account` |
-| Organisation | `lifetime.fi` |
-| Account type | `Direct` |
+| Property                     | Value                  |
+| ---------------------------- | ---------------------- |
+| Billing account ID           | `011602-801DEC-A53E8F` |
+| Billing account display name | `Lifetime Oy Account`  |
+| Organisation                 | `lifetime.fi`          |
+| Account type                 | `Direct`               |
 
 **Projects linked to this billing account:**
 
@@ -1456,20 +1457,20 @@ For booking confirmations and admin notifications to send reliably, Cloud Run ru
 
 **Canonical source:** [`CLAUDE.md`](../CLAUDE.md) -> "Engineering Discipline — The 12 Rules". Every agent has access to these — they are injected into every Claude Code session by `.claude/hooks/session-start.sh`, restated for code agents in [`AI_AGENT_GUIDELINES.md`](../AI_AGENT_GUIDELINES.md) §0, and enforced where mechanizable by the hooks (see `.claude/hooks/README.md`). This table is the operational reference; the rules themselves are not edited here.
 
-| #   | Rule                          | Operational impact for DWS IQ                                                                   |
+| #   | Rule                          | Operational impact for DWS IQ                                                                  |
 | --- | ----------------------------- | ---------------------------------------------------------------------------------------------- |
-| 1   | Think before coding           | State assumptions before changing production systems; never guess.                              |
+| 1   | Think before coding           | State assumptions before changing production systems; never guess.                             |
 | 2   | Simplicity first              | Boring, minimum-code solutions; no speculative "future flexibility" abstractions.              |
 | 3   | Surgical changes              | Modify only files in scope; no opportunistic refactors.                                        |
 | 4   | Goal-driven execution         | Define success criteria upfront; loop/HIL until verified, then stop.                           |
 | 5   | Model only for judgment calls | LLM for classify/draft/summarize/extract; routing, retries, status codes, transforms are code. |
-| 6   | Token budgets are real        | Per-task 4000 / per-session 30000 (`CLAUDE_AUTO_MODE_BUDGET`); over budget -> checkpoint.       |
-| 7   | Surface conflicts             | Conflicting configs (e.g. .env vs production secrets) -> flag and pick one, never average.      |
+| 6   | Token budgets are real        | Per-task 4000 / per-session 30000 (`CLAUDE_AUTO_MODE_BUDGET`); over budget -> checkpoint.      |
+| 7   | Surface conflicts             | Conflicting configs (e.g. .env vs production secrets) -> flag and pick one, never average.     |
 | 8   | Read before you write         | Read exports/callers/shared utils first; reuse over duplicate.                                 |
 | 9   | Tests verify intent           | Assert business meaning, not just field presence; a test that can't fail is wrong.             |
-| 10  | Checkpoint each step          | Commit/verify before the next step; session-stop governance checklist backs this.             |
+| 10  | Checkpoint each step          | Commit/verify before the next step; session-stop governance checklist backs this.              |
 | 11  | Match conventions             | Follow established idioms (BaseAgent, test patterns, naming); no silent forks.                 |
-| 12  | Fail loud                     | Surface uncertainty and skipped records; never report success while hiding gaps.              |
+| 12  | Fail loud                     | Surface uncertainty and skipped records; never report success while hiding gaps.               |
 
 ### DWS-Specific Failure Modes
 
@@ -1477,7 +1478,7 @@ For booking confirmations and admin notifications to send reliably, Cloud Run ru
 | --- | -------------------------------------------- | ---------------------------------------------------- |
 | 13  | Not using DWS document standard              | Follow `DWS_DOCUMENT_STANDARD.md`                    |
 | 14  | Deleting files without asking                | Explicit approval required (prefer rename-to-`_OLD`) |
-| 15  | Using new environment without security check | Verify .gitignore and .env first                    |
+| 15  | Using new environment without security check | Verify .gitignore and .env first                     |
 
 ### EU AI Act Alignment
 
@@ -3439,7 +3440,7 @@ is a navigational snapshot, not a replacement for `git log`. Regenerate with
 
 | Version | Date         | Changes                                                                                                                                                                                                                                                                                                                                                        | Session ID                           |
 | ------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
-| 3.3     | Jun 19, 2026 | Full 12 Engineering Discipline Rules table (replaces incomplete Karpathy 1-6) in AI Agent Operational Guidelines, cross-linked to CLAUDE.md / AI_AGENT_GUIDELINES.md §0 / hook enforcement map; added Recent Session Artifacts digest.                                                                                                                          | karpathy-12-rules-u47rx1             |
+| 3.3     | Jun 19, 2026 | Full 12 Engineering Discipline Rules table (replaces incomplete Karpathy 1-6) in AI Agent Operational Guidelines, cross-linked to CLAUDE.md / AI_AGENT_GUIDELINES.md §0 / hook enforcement map; added Recent Session Artifacts digest.                                                                                                                         | karpathy-12-rules-u47rx1             |
 | 2.5     | May 10, 2026 | Node.js workspace setup section: dual `npm ci` at repository root and `src/cloudflare/` for backend vs Cloudflare agent workers; PowerShell-first examples; worktree and cloud-agent note; TOC renumbered.                                                                                                                                                     | cursor-admin-node-workspace-20260510 |
 | 2.4     | Apr 25, 2026 | Browse SSRF hardening (`src/utils/url-guard.ts`): default-deny IPv4/IPv6 private/loopback/link-local/cloud-metadata ranges, two-layer enforcement (pre-`goto` + `page.route` for redirects), `BROWSE_ALLOW_PRIVATE=1` dev override; moved `playwright` from devDependencies to dependencies so DGX Spark `npm ci --omit=dev` keeps it. 75 tests pass.          | Rg5Jy                                |
 | 2.3     | Apr 25, 2026 | Added Agent Capabilities section (Browse + Second Brain): `dws browse` (Playwright Chromium, MCP `dws_browse_*`), DGX Spark embeddings provider (`EMBEDDING_PROVIDER=dgx-spark`), `dws kb preflight`, `scripts/daily/kb-watch-inbox.sh` (auto-backfill with `KB_WATCH_MAX_PER_RUN` cap); linked PLAYWRIGHT.md + AGENT_SECOND_BRAIN.md in Related Documentation | Rg5Jy                                |

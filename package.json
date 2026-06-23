@@ -4,6 +4,9 @@
   "type": "module",
   "version": "1.0.0",
   "description": "DWS IQ Auth Backend (Express + TypeScript)",
+  "engines": {
+    "node": ">=24.17.0"
+  },
   "scripts": {
     "docker:build:carbon-api": "docker build -t dws6-carbon-api:latest ./mcp-servers/supabase",
     "docker:build:supabase-official-mcp": "docker build -t dws6-supabase-official-mcp:latest ./mcp-servers/supabase-official",
@@ -33,6 +36,9 @@
     "build": "tsc -p tsconfig.json",
     "sync:landing-pages": "node scripts/sync-landing-pages.js",
     "lint": "echo \"No linter configured\"",
+    "skills:check": "node scripts/skill-manifest-sync.mjs --check && node --experimental-strip-types skills/skill-cleaner/scripts/skill-cleaner.ts --root skills --root .claude/commands --exit-code",
+    "skills:sync-guide": "node scripts/skill-manifest-sync.mjs --write-guide",
+    "skills:sync-antigravity": "node scripts/skill-manifest-sync.mjs --antigravity",
     "validate:pricing": "tsx scripts/validate-pricing.ts",
     "test": "vitest",
     "test:ui": "vitest --ui"

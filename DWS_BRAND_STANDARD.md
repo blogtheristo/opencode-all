@@ -1,13 +1,14 @@
-# DWS Gamma Brand Standard v3.3
+# DWS Gamma Brand Standard v3.4
 
 ---
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.3
+Version: 3.4
 
 Sessions & Modifications:
 
+- Version: 3.4 | Tool: Claude Code (claude-opus-4-8) | Session: claude/queued-followups-fi-artifacts-93kxqr | Date: 21.06.2026 | Changes: Added §22 "Ontology One-Liners (Approved)" — two canonical EN/FI one-liners for the ontology / data-governance thesis: (1) the approved Variant B tweet "Point an LLM at hundreds of ungoverned databases and you get hallucination, insecurity, and no audit trail. The governed ontology is the product." and (2) the noise-floor line "A bigger model cannot lower the noise floor; only a governed ontology can." With translation notes (kohinataso, hallittu ontologia, audit trail untranslated) and canonical sources (AIPCon10/USDA + noise-floor field notes, ART-2026-001).
 - Version: 3.3 | Tool: Claude Code (claude-opus-4-8) | Session: claude/capital-classes-audit-jgworp | Date: 20.06.2026 | Changes: Added §23 4P Capital Classes — canonical terminology for the four durable value classes an agentic operator accumulates: **Prompt Capital** (was Token), **People Capital** (was Human), **Plant Capital** (mobile two-room Control Room + Situation Room stack, was Control Room), and **Perception Capital** (governed world model + closed sense→decide→act loop). Pairs with the §22 "not a SaaS vendor, a System of Action operator" line. Deprecates the standalone "three-capital model" / "Token / Human / Control Room Capital" terms in new copy. Sourced from `docs/field-notes/2026-06-19-...md` (v2.0) and the Ontology Series (`four-capital-classes.html`, `software-vs-world-model.html`).
 - Version: 3.2 | Tool: Claude Code | Session: claude/ethics-principle-footer-SvTGJ | Date: 31.05.2026 | Changes: Added §6 Ethics Principle footer band to ironclad-footer.js (v1.3 on dws10.com / onelifetime.world / lifetime.fi; v1.2 on dws6.com) — standing band above the legal/copyright bar reading "We value ethics in everything we do — DWS products augment people, never replacing junior talent or the human-in-command." Codifies the human-in-command principle as a permanent footer fixture across all sites; `.ironclad-footer-principle` CSS spec; updated Footer Bars table.
 - Version: 3.1 | Tool: Claude Code (Opus 4.7) | Session: claude/dws-compliance-sales-rz5He | Date: 18.05.2026 | Changes: Added §22 DWS Master Tagline — Intelligence Amplifier (EN+FI), companion product-truth sentence, `.hero .tagline` CSS spec, pairing rules with System of Action Operator + Three-Layer National Strategy + Boardy buyer-facing headline. Applied tagline to sector page heroes (/construction, /manufacturing, /logistics, /energy) and /sovereign-cbam-disclosure/.
@@ -31,7 +32,7 @@ Session Links & References:
 Document Status:
 
 - Created: 01.01.2026
-- Last Modified: 06.04.2026
+- Last Modified: 21.06.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE
@@ -1977,6 +1978,35 @@ Canonical framing derived from Finnish national data infrastructure strategy. Us
 
 ---
 
+### Ontology One-Liners (Approved)
+
+Approved canonical one-liners for the ontology / data-governance thesis. Use verbatim in tweets, social posts, sales decks, and editorial pull-quotes. Both language versions MUST be updated together.
+
+**1. Ungoverned-databases line (approved Variant B tweet).** The buyer-facing escalation: a raw LLM over ungoverned data is not merely useless — it is dangerous.
+
+**EN:** Point an LLM at hundreds of ungoverned databases and you get hallucination, insecurity, and no audit trail. The governed ontology is the product.
+
+**FI (kotimainen):** Osoita LLM sadoille hallitsemattomille tietokannoille, ja saat hallusinaatiota, tietoturva-aukkoja etkä mitään audit trailia. Hallittu ontologia on tuote.
+
+**2. Noise-floor line.** The information-theoretic version of "the ontology, not the model, is the product."
+
+**EN:** A bigger model cannot lower the noise floor; only a governed ontology can.
+
+**FI (kotimainen):** Isompi malli ei laske kohinatasoa; vain hallittu ontologia laskee.
+
+**Translation notes:**
+
+- "ungoverned databases" → "hallitsemattomat tietokannat" — preferred over "valvomattomat" (unmonitored); the point is governance, not surveillance
+- "audit trail" — keep untranslated in FI; universally understood in B2B compliance context (consistent with §22 System of Action Operator)
+- "noise floor" → "kohinataso" — established Finnish signal-processing term; do not translate as "melutaso" (acoustic noise)
+- "governed ontology" → "hallittu ontologia" — consistent with the FI noise-floor post and the 4P canon (§23)
+
+**Use in:** X/LinkedIn posts, sales outreach, investor decks (ontology slide), Lifetime Scope Journal pull-quotes. Canonical commentary: `onelifetime.world/posts/your-model-cant-beat-your-noise-floor.html` (EN) / `your-model-cant-beat-your-noise-floor.fi.html` (FI) and `point-it-at-the-ontology.html`.
+
+**Canonical sources:** `docs/field-notes/2026-06-05-aipcon10-usda-agricultural-ontology.md` (line 1), `docs/field-notes/2026-06-15-noise-floor-ontology-old-labels.md` (line 2), and `artifacts/AGRICULTURE/ART-2026-001-agriculture-food-data-governance-ontology.md`.
+
+---
+
 ## 23. 4P Capital Classes — Canonical Terminology
 
 The **4P Capital Classes** are the canonical way to name the four durable forms of value an
@@ -2010,6 +2040,7 @@ operator" — the 4P model is _why_ that is true.
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | ------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| v3.4    | 2026-06-21 | Added: §22 "Ontology One-Liners (Approved)" — two canonical EN/FI one-liners (the approved Variant B ungoverned-databases tweet and the noise-floor line "A bigger model cannot lower the noise floor; only a governed ontology can"), with translation notes and canonical sources (AIPCon10/USDA + noise-floor field notes, ART-2026-001).                                                                                                                                                                                                         |
 | v3.3    | 2026-06-20 | Added: §23 4P Capital Classes — canonical terminology (Prompt / People / Plant / Perception), usage rules, deprecation of the "three-capital model" naming, pairing with the §22 "System of Action operator, not SaaS" line. Sourced from the 4P field note (v2.0) and the Ontology Series posts.                                                                                                                                                                                                                                                    |
 | v3.2    | 2026-05-31 | Added: §6 Ethics Principle footer band to ironclad-footer.js — human-in-command principle as permanent footer fixture across all sites.                                                                                                                                                                                                                                                                                                                                                                                                              |
 | v3.1    | 2026-05-18 | Added: §22 DWS Master Tagline — Intelligence Amplifier (EN: "We amplify human intelligence in regulated industries." / FI: "Vahvistamme ihmisen älykkyyttä säännellyillä toimialoilla.") with companion product-truth sentence, visual hero treatment (`.hero .tagline` CSS), and pairing rules with System of Action Operator + Three-Layer National Strategy + Boardy buyer-facing headline. Applied tagline to sector page heroes (`/construction`, `/manufacturing`, `/logistics`, `/energy`) and to `/sovereign-cbam-disclosure/` pattern page. |

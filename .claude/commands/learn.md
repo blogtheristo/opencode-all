@@ -1,13 +1,6 @@
 ---
 name: learn
-description: >
-  Closes the learning loop. Reads recent retros, CI failures, hook audit logs,
-  and commit churn; diarizes the "OK but not great" outcomes; proposes
-  parameterized skill-file edits that would have prevented them. Read-only —
-  emits a review plan, never auto-writes skill files. Use when: "learn from
-  this week", "what should we codify", "skill update proposals", "retro to
-  rules", "feed retro into skills", "close the learning loop", "what rules
-  did we discover", "skill diff proposals".
+description: "Use when closing the learning loop after retros or CI churn. Reads recent mediocre outcomes and proposes read-only skill or ruleset edits that would have prevented them."
 argument-hint: "SCOPE=<last-day|last-week|last-feature|last-N|YYYY-MM-DD..YYYY-MM-DD> [TARGET=<skill-name|all>]"
 allowed-tools: [Bash, Read]
 parameters:

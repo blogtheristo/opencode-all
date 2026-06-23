@@ -28,7 +28,7 @@ RUN CGO_ENABLED=0 go build \
       ./cmd/bumblebee
 
 # ---- stage 2: runtime (Node for the OTel emitter + cron) -------------------
-FROM node:22-alpine
+FROM node:24-alpine
 
 # supercronic: cron daemon that runs as PID 1 in containers (no setuid, logs to stdout)
 ARG SUPERCRONIC_VERSION=v0.2.33

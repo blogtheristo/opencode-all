@@ -30,16 +30,16 @@ the product — the governed ontology over the model is the product.**
 
 ### 1. Raw LLM + ungoverned data = a dangerous system, not a useless one
 
-The escalation matters. The 2026-01 framing was "off-the-shelf LLMs *won't work*"
+The escalation matters. The 2026-01 framing was "off-the-shelf LLMs _won't work_"
 (a value/precision argument). The AIPCon 10 framing is stronger and domain-specific:
 for consequential national data, an LLM pointed at hundreds of disconnected,
 ungoverned databases is **dangerous** — it actively produces three failure modes:
 
-| Failure mode    | What it means for agricultural data                                       |
-| --------------- | ------------------------------------------------------------------------- |
+| Failure mode     | What it means for agricultural data                                      |
+| ---------------- | ------------------------------------------------------------------------ |
 | **Hallucinates** | Wrong yield, subsidy, or supply figures presented with false confidence  |
 | **Insecure**     | No access governance over sensitive farm, land, and supply-chain records |
-| **Unauditable**  | No lineage — you cannot prove *why* a decision was made or to whom        |
+| **Unauditable**  | No lineage — you cannot prove _why_ a decision was made or to whom       |
 
 These are exactly the three properties a regulator (or a food-security mandate)
 cannot tolerate.
@@ -81,13 +81,13 @@ The USDA story is a US national-data story. The EU equivalent is **not** one
 agency — it is the governed integration of fragmented, member-state agricultural
 data under EU mandates. DWS is structurally positioned for this:
 
-| USDA / national US framing            | DWS / EU equivalent                                                   |
-| ------------------------------------- | --------------------------------------------------------------------- |
-| One national agricultural data estate | 27 member-state estates → one ontology over the Single Market         |
-| Federal food-security mandate         | CAP, Farm to Fork, food-security resilience, EUDR (deforestation)     |
-| "Underpins national food supply"      | Sovereign EU food-chain intelligence, no CLOUD Act exposure           |
+| USDA / national US framing            | DWS / EU equivalent                                                        |
+| ------------------------------------- | -------------------------------------------------------------------------- |
+| One national agricultural data estate | 27 member-state estates → one ontology over the Single Market              |
+| Federal food-security mandate         | CAP, Farm to Fork, food-security resilience, EUDR (deforestation)          |
+| "Underpins national food supply"      | Sovereign EU food-chain intelligence, no CLOUD Act exposure                |
 | Auditable AI decisions                | EU AI Act Art. 12 logging + KYA decision lineage (built in, not bolted on) |
-| Sensitive farm records                | GDPR + data residency (Finland/Germany) + RLS by construction         |
+| Sensitive farm records                | GDPR + data residency (Finland/Germany) + RLS by construction              |
 
 ### Why DWS does not just copy the model — it has a sharper EU edge
 
@@ -127,20 +127,20 @@ THEREFORE DWS should:
 
 ## How We Can Use Ontologies (the answer, distilled)
 
-For the question that opened this note — *"How can we use ontologies?"* — the
+For the question that opened this note — _"How can we use ontologies?"_ — the
 USDA demonstration gives the cleanest operational answer DWS has seen:
 
 1. **As the integration layer** — one queryable model over hundreds of disconnected
    databases, so the LLM never touches raw, ungoverned sources directly.
 2. **As the security boundary** — purpose- and marking-based policies decide what
-   each agent/user may see or do, so the system is secure *by construction*.
+   each agent/user may see or do, so the system is secure _by construction_.
 3. **As the audit spine** — per-decision lineage + KYA, so every AI-assisted
    outcome is explainable and provable (EU AI Act Art. 12).
 4. **As the anti-hallucination contract** — the orchestration layer routes through
    validated artifacts first and falls back to a raw LLM only with citation and a
    knowledge-gap flag (`ONTOLOGY.md` §8).
 5. **As the reach multiplier** — done right, governance is what lets you ship to
-   *every* user safely, not a gate that limits you to a pilot.
+   _every_ user safely, not a gate that limits you to a pilot.
 
 Short version: **don't point the LLM at the data — point it at the ontology, and
 point the ontology at the data.**
@@ -206,12 +206,12 @@ point the ontology at the data.**
 > **"Pointing an LLM at hundreds of disconnected, ungoverned databases … is not
 > just useless — it's dangerous."**
 >
-> For consequential data, the governed Ontology *is* the product. DWS's EU edge is
+> For consequential data, the governed Ontology _is_ the product. DWS's EU edge is
 > the **sovereign, auditable** version of exactly what USDA demonstrated.
 
 ---
 
 **Status:** ✅ Processed
-**Elevated to Core Artifact:** Pending (weekly review)
+**Elevated to Core Artifact:** ✅ `artifacts/AGRICULTURE/ART-2026-001-agriculture-food-data-governance-ontology.md` (2026-06-21)
 **Confidence:** High (strategic thesis) / Medium (EU mandate specifics)
 **Impact:** Strategic (positions Agriculture/Food as a sovereign ontology vertical)

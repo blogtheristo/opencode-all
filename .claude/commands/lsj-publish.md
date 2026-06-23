@@ -2,7 +2,7 @@
 name: lsj-publish
 version: 1.2
 date: 2026-04-19
-description: Drafts the next issue of Lifetime Scope Monthly (the LinkedIn newsletter of Lifetime Scope Journal). Biweekly cadence — every 2 weeks (fortnightly). Picks the best blog entry of the fortnight from onelifetime.world/blog, builds 3 runner-up cards, drafts the Editor's Note and Agentic Lens block, produces a LinkedIn-ready copy-paste, and includes the About-LSJ intro with blog + YouTube links. Use when user says "lsj publish", "draft scope monthly", "best blog of the fortnight", "lifetime scope monthly", "linkedin newsletter draft", or "prepare LSJ issue".
+description: Use when drafting the next Lifetime Scope Monthly issue. Picks the best post of the fortnight, builds three runner-up cards, drafts the Editor's Note and Agentic Lens, and produces LinkedIn-ready newsletter copy.
 ---
 
 Draft the next issue of **Lifetime Scope Monthly** — the biweekly LinkedIn newsletter layer of Lifetime Scope Journal (LSJ).

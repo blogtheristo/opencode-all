@@ -158,8 +158,9 @@ Every production capability should be agent-accessible:
 - Structured JSON output
 - MCP exposure where applicable
 - Skill registration when it is a reusable capability
+- Manifest registration in `skills/manifest.json` with status, visibility, transport, and per-surface support flags
 
-If a reusable capability appears, propose turning it into a skill and register it in `docs/DWS_SKILLS_GUIDE.md` when approved.
+If a reusable capability appears, propose turning it into a skill, register it in `skills/manifest.json`, and sync `docs/DWS_SKILLS_GUIDE.md` when approved.
 
 ## Script Automation Rule
 

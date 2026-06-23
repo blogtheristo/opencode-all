@@ -2,11 +2,7 @@
 name: case-run
 version: 1.0
 date: 2026-05-08
-description: >
-  Invokes Themis as Case Coordinator on a caseId (or ad-hoc case description). Use when user
-  says "run case", "open a case", "coordinate agents on this", "case status", "assign agents to
-  case", "case coordinator", "Themis coordinate", "what agents should handle this", or provides a
-  case type like compliance, contract, ERP sync, or sales.
+description: "Use when a case spans multiple agents or domains and needs Themis to coordinate status, deadlines, and next steps."
 ---
 
 Invoke Themis as DWS Case Coordinator — dispatch specialist agents, retrieve case context, and
