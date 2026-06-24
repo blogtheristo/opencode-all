@@ -1,5 +1,5 @@
 ---
-title: "DWS IQ Industrial Intelligence"
+title: "DWS IQ Climate Intelligence"
 price: "2999.00"
 currency: "EUR"
 sku: "DWS-CLIMATE-001"
@@ -14,13 +14,13 @@ priceNote: "€2,999/mo + €4,990 one-time setup"
 mpn: "DWS-CLIMATE-2026"
 ---
 
-# DWS IQ Industrial Intelligence
+# DWS IQ Climate Intelligence
 
 **The climate-compliance module of the DWS IQ Industrial Intelligence suite**
 
 ## Product Overview
 
-DWS IQ Industrial Intelligence is a purpose-built AI agent platform that treats EU climate regulation as an operational constraint on the factory floor — the rules that govern an industrial plant's right to produce — rather than a standalone ESG reporting exercise. It is the climate-compliance module of the DWS IQ Industrial Intelligence suite, running the same sovereign engine as DWS IQ 6 and the Aegis dual-use tier. Instead of hiring consultants or building spreadsheets, you deploy 8 specialized Skilled Agents that deliver audit-ready compliance outcomes — ETS allowance calculations, CBAM import obligations, CSRD disclosure reports, and continuous carbon accounting.
+DWS IQ Climate Intelligence is a purpose-built AI agent platform that treats EU climate regulation as an operational constraint on the factory floor — the rules that govern an industrial plant's right to produce — rather than a standalone ESG reporting exercise. It is the climate-compliance module of the DWS IQ Industrial Intelligence suite, running the same sovereign base engine as DWS IQ 6 and the Aegis dual-use tier — each industry carries its own ontology and Lifetime World Model (LWM) base, fine-tuned per enterprise. Instead of hiring consultants or building spreadsheets, you deploy 8 specialized Skilled Agents that deliver audit-ready compliance outcomes — ETS allowance calculations, CBAM import obligations, CSRD disclosure reports, and continuous carbon accounting.
 
 **Why agents, not dashboards:** Dashboards show you data. Agents deliver outcomes. These Skilled Agents observe your operational and emissions data, think through regulatory requirements, and act by generating compliance documentation — autonomously.
 
