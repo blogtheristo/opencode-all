@@ -32,6 +32,22 @@ Recipient: Maria (Hintikka) Sederholm, VP Product Line Management &
 
 The business card / verbal brief said **"DWS IQ Argis Defence."** The canonical product is **DWS IQ Aegis Defence** — "Argis" is a transcription of _Aegis_ (Athena's shield). All copy below uses the canonical name. The orbital-intelligence agent inside the platform is separately named **ArgusAgent** (SAR satellite labelling) — that is the only place "Arg-" is correct. Source: `Store/PRODUCT_AEGIS.md`, `dws10.com/config/products.json` (id `DWS-AEGIS-001`).
 
+## Updated lead: carbon compliance (Maria's stated need)
+
+Maria said Kemira **"need carbon compliance especially."** That is now the spine of this motion — the dual-use/defence framing is a secondary hypothesis to test in scoping, not the lead, and it is the better-evidenced angle. A verified research pass (24 Jun 2026; full report + sources in `KEMIRA_AEGIS_BOARD_BUSINESS_CASE.html`) established:
+
+- **Org (verified):** since 1 Jan 2025 Kemira runs **three** business units — **Fiber Essentials** (EVP Antti Matula — Maria's unit), **Water Solutions** (EVP Tuija Pohjolainen-Hiltunen), **Packaging & Hygiene Solutions** (EVP Harri Eronen). CEO **Antti Salminen**. Strategy + sustainability combined under EVP **Linus Hildebrandt** (Strategy & Sustainability). _(Corrects my earlier two-unit assumption.)_
+- **Carbon targets (verified, SBTi):** Scope 1&2 **−51.23% by 2030** (2018 base); Scope 3 (purchased goods + transport) **−32.5% by 2033** (2021 base); **carbon-neutral Scope 1&2 by 2045**.
+- **CSRD (confirm):** **FY2024** was Kemira's first CSRD/ESRS sustainability statement — now under assurance.
+- **Scope 3 / PCF (confirm):** Kemira already runs a **Supplier PCF Reporting Guideline (April 2025)** — it collects product carbon footprints upstream and supplies them downstream. That bidirectional PCF flow is the concrete workflow Aegis automates with an Article 12 audit trail on sovereign Finnish infra.
+- **Not verified — confirm in scoping:** specific EU ETS Phase 4 installations, CBAM precursor exposure, absolute Scope tonnages, and any CER/NIS2/dual-use export-control obligations. Do **not** assert these to the board yet.
+
+## Second contact / co-door: Mikko Pohjala (VP Strategy)
+
+A second LinkedIn card was provided: **Mikko Pohjala — Vice President, Strategy at Kemira** (Helsinki, Aalto), a warm node (he appears among Maria's shared connections). He is the **strategy / board-narrative bridge**: group Strategy is broader than Maria's product-line strategy and connects up to EVP Strategy & Sustainability (Linus Hildebrandt) → CEO. Play it as a two-person coalition — **Maria** owns the line-level carbon pain and the commercial lever; **Mikko** carries the strategic framing into the board. Mikko opener:
+
+> Hei Mikko, Risto Päärni (Lifetime Oy, Espoo). Keskustelen Marian kanssa Fiber Essentialsin hiilijalanjälki-/CBAM-/CSRD-työn automatisoinnista suvereenilla, Suomessa ylläpidetyllä alustalla (DWS IQ Aegis) — Article 12 -auditoinnilla, ei US Cloud Act -altistusta. Koska strategia & sustainability ovat teillä saman katon alla, arvostaisin 20 min näkemystäsi siitä, miten tämä istuu Kemiran strategiseen tarinaan. Sopisiko?
+
 ## Who
 
 | Field            | Value                                                                                                                                                                                                                                                                                                                                     |

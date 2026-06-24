@@ -37,8 +37,9 @@ Funnel step: Step 2 → Step 3 hinge. Offer in Maria's hands; exit when she
 # Material Package (Finnish + English) — Maria Sederholm (Kemira)
 
 **To:** maria.sederholm@kemira.com _(or address Maria confirms on first reply)_
+**Cc (optional, after Maria nods):** Mikko Pohjala, VP Strategy — the strategy/board bridge
 **From:** risto.paarni@lifetime.fi
-**Subject:** _Tarjous / Offer: DWS IQ Aegis Defence — suvereeni tekoälyalusta Kemiran kaksikäyttö- ja kriittisen infrastruktuurin toimitusketjuille_
+**Subject:** _Tarjous / Offer: DWS IQ Aegis Defence — suvereeni, auditoitava tekoälyalusta Kemiran hiilijalanjälki-compliancelle (CBAM / CSRD / Scope 3)_
 
 Single email, bilingual. Finnish for Maria (matches her language); English directly below so she can forward to the Kemira board (board operating language = English) without translation work.
 
@@ -52,14 +53,13 @@ Kiitos verkostoitumisesta — tässä lupaamani tarjous **DWS IQ Aegis Defence**
 
 > **Nimitarkennus:** liikkeellä oli muoto "Argis Defence" — kanoninen tuotenimi on **Aegis Defence** (Athenen kilpi). "Argus" on alustan satelliittitiedusteluagentin (ArgusAgent, SAR) nimi — eri asia.
 
-### 1) Ongelma
+### 1) Ongelma — hiilijalanjälki-compliance kärjessä
 
-Kemiran vesi- ja kuitukemikaalit ovat kahden sääntelyn risteyksessä yhtä aikaa:
+Kemiralla on SBTi-validoidut hiilitavoitteet (Scope 1&2 **−51,23 % / 2030**, Scope 3 **−32,5 % / 2033**, hiilineutraali Scope 1&2 **2045**) ja FY2024:stä alkaen ensimmäinen **CSRD/ESRS**-kestävyysraportti varmennuksen alla. Käytännön työ — **CBAM**-laskelmat, asiakkaiden vaatimat tuotekohtaiset hiilijalanjäljet (PCF), **Scope 3** -datan keruu toimittajilta (teillä jo _Supplier PCF Guideline_, 4/2025) — kasvaa joka vuosi ja tehdään tällä hetkellä käsin, ilman yhtenäistä audit-jälkeä.
 
-- **Kriittinen infrastruktuuri:** vesikäsittely- ja prosessikemikaalit syöttävät vesilaitoksia ja teollisuuslaitoksia — **CER-direktiivin** ja **NIS2:n** piirissä. Näiden segmenttien asiakkaat edellyttävät yhä useammin toimittajalta todennettavaa, suvereenia datankäsittelyä.
-- **Kaksikäyttö:** erikois- ja kuitukemikaalit ovat osa Euroopan puolustus- ja kriittisten raaka-aineiden toimitusketjua — **vientivalvonta (asetus 2021/821)**, **CRM Act** ja **EDIP**-kelpoisuus tulevat kuvaan, ilmasto­pinon (**CBAM**, **ETS Phase 4**, **CSRD**) päälle.
+Tähän työhön käytettävä tekoäly pyörii tyypillisesti yhdysvaltalaisilla pilvialustoilla. Kemiralle se on **US Cloud Act -altistuspinta** prosessi- ja asiakasdataan sekä **EU:n tekoälyasetuksen aukko** juuri silloin, kun CSRD-varmennus edellyttää jäljitettävyyttä lähdedataan asti. Hiili-compliance-taakka, jonka jo kannatte, kääntyy myyntieduksi vasta suvereenilla, auditoitavalla alustalla.
 
-Tähän työhön käytettävä tekoäly pyörii tyypillisesti yhdysvaltalaisilla pilvialustoilla. Kriittisen infrastruktuurin ja kaksikäytön toimittajalle se on **US Cloud Act -altistuspinta** prosessi- ja asiakasdataan sekä **EU:n tekoälyasetuksen aukko**. Compliance-taakka, jonka jo kannatte, kääntyy myyntieduksi vasta suvereenilla alustalla.
+_(Toissijainen, varmistettava hypoteesi: osa erikois-/kuitukemikaaleista voi olla kriittisen infrastruktuurin (CER/NIS2) tai kaksikäytön piirissä — tämä lukitaan scoping-vaiheessa, ei väitetä etukäteen.)_
 
 ### 2) Hyöty (3 riviä)
 
@@ -129,14 +129,13 @@ Thank you for connecting — here is the promised offer for **DWS IQ Aegis Defen
 
 > **Name note:** the brief said "Argis Defence" — the canonical product name is **Aegis Defence** (Athena's shield). "Argus" is the name of the platform's satellite-intelligence agent (ArgusAgent, SAR) — a separate thing.
 
-### 1) The problem
+### 1) The problem — carbon compliance, first
 
-Kemira's water and fibre chemicals sit at two regulated intersections at once:
+Kemira has SBTi-validated carbon targets (Scope 1&2 **−51.23% / 2030**, Scope 3 **−32.5% / 2033**, carbon-neutral Scope 1&2 **2045**) and, from FY2024, its first **CSRD/ESRS** sustainability statement under assurance. The practical work — **CBAM** calculations, the per-product carbon footprints (PCFs) customers demand, **Scope 3** data collected from suppliers (you already run a _Supplier PCF Guideline_, April 2025) — grows every year and is today done manually, with no consistent audit trail.
 
-- **Critical infrastructure:** water-treatment and process chemicals feed utilities and industrial sites — inside the **CER Directive** and **NIS2** perimeter. Customers in these segments increasingly require suppliers to attest to sovereign, auditable data handling.
-- **Dual-use:** speciality and fibre chemicals are part of Europe's defence and critical-raw-material supply chain — bringing **export control (Reg. 2021/821)**, the **CRM Act**, and **EDIP** eligibility into scope, on top of the climate stack (**CBAM**, **ETS Phase 4**, **CSRD**).
+The AI used for this work typically runs on US hyperscalers. For Kemira that is a **US CLOUD Act exposure surface** over process and customer data, and an **EU AI Act gap** — precisely when CSRD assurance requires traceability to source data. The carbon-compliance burden you already carry turns into a sales advantage only on a sovereign, auditable stack.
 
-The AI used for this work typically runs on US hyperscalers. For a critical-infrastructure and dual-use supplier, that is a **US CLOUD Act exposure surface** over process and customer data, and an **EU AI Act gap**. The compliance burden you already carry turns into a sales advantage only on a sovereign stack.
+_(Secondary, to confirm: some speciality/fibre chemicals may sit in critical-infrastructure (CER/NIS2) or dual-use scope — locked in scoping, not asserted up front.)_
 
 ### 2) The benefit (3 lines)
 
