@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.0
+Version: 2.1
 
 Sessions & Modifications:
 
+- Version: 2.1 | Tool: Claude Code (Opus 4.8) | Session: claude/nvidia-halos-robotics-suqayg | Date: 24.06.2026 | Changes: Added Section 20 (Whitepaper Standard) — defines the outward-facing whitepaper document type: A4 portrait, Aegis logo top-right header, small-font version line at top, copyright + page-number footer, Sources line, Markdown/Learn-HTML source of truth with branded .docx + Google Docs export via scripts, and governance (truth-check, brand, Truth-Standard registration, lockstep versioning).
 - Version: 2.0 | Tool: Claude Code (Haiku 4.5) | Session: claude/sync-version-numbering-adEeB | Date: 28.04.2026 | Changes: Added Section 5.4 (Thesis Version Numbering Format — CRITICAL): documented decimal 0.01 increment rule for all 4 thesis files (V3Thesis_EN/FI + PHD_FIREHORSE_EN/FI), unified version track requirement, rationale for preventing version fork confusion, and implementation guidance; version bump to 2.0 reflects addition of new critical standard for thesis artifact governance
 - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Registered DWS_DATA_STANDARD.md in document ecosystem — new root-level standard for data storage governance, columnar/row policy, extension registry, EU regulatory compliance
 - Version: 1.8 | Tool: Codex (GPT-5.3) | Session: cursor/code-versioning-pr-rule | Date: 13.03.2026 | Changes: Added Code Versioning & PR Traceability Standard (§19), syntax-safe code version note templates, and .env schema versioning policy
@@ -114,7 +115,7 @@ Applies to:
 ```markdown
 # [Document Title]
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
@@ -2426,3 +2427,31 @@ Sessions & Modifications:
 | 1.1     | 15.01.2026 | Claude Code | QVvDX      | Added examples       |
 | 2.0     | 01.02.2026 | Manual      | N/A        | Complete restructure |
 ```
+
+---
+
+## 20. Whitepaper Standard
+
+Whitepapers are outward-facing, publishable documents (market/technical/regulatory) — distinct from internal Field Notes (§12) and Core Artifacts (§11). They carry external branding and a fixed page layout because they are handed to customers, investors, Notified Bodies, and press.
+
+### 20.1 Layout (mandatory)
+
+| Element          | Requirement                                                                                                                                                                        |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Page size**    | **A4** (210 × 297 mm), portrait. Margins ≈ 22 mm.                                                                                                                                  |
+| **Header**       | **Aegis logo in the top-right corner** (`dws10.com/static/images/firehorse-aegis-logo.png`), ~1.15 in wide.                                                                        |
+| **Version line** | Small font (~8 pt, grey) at the **very top** of page 1, above the title: `Whitepaper · Version X.Y · <date> · Lifetime Oy[ / <product>] · Classification: <Public\|Confidential>`. |
+| **Footer**       | Centered copyright + page number: `© <year> Lifetime Oy · Y-tunnus 0772407-9 · Laidunmaanraitti 2 A 25, 02330 Espoo, Finland · All rights reserved.` then `Page <n>`.              |
+| **Sources**      | A final _Sources_ line citing every external fact (regulatory CELEX, vendor announcements with dates).                                                                             |
+
+### 20.2 Source of truth & formats
+
+- Author the canonical whitepaper as **Markdown** (preferred for new) or **HTML in `Learn/`** (existing). Markdown follows this standard's header block (§2); the rendered/exported copy carries the §20.1 layout.
+- **Export to `.docx` (A4, branded) and Google Docs** via `scripts/` tooling — do not hand-format per export. Embed images as Base64 / packaged assets, not relative paths (cf. Downloadable HTML Rule in CLAUDE.md).
+- **Never publish whitepaper `.md` in public-site folders** (Non-Negotiable Rule 5); publish HTML/PDF/Doc, keep the `.md` in `docs/` or `Learn/` source.
+
+### 20.3 Governance
+
+- Truth-check before any external send (`/truth-check`); apply the Brand Standard for voice/visual.
+- Register substantive new whitepapers per the Truth Standard where they assert canonical positions (e.g. `docs/regulatory-radar/` briefs are registered in `DWS_TRUTH_STANDARD.md` §2).
+- Versioning is lockstep with the header block (§2) and the top version line (§20.1) — bump both together.
