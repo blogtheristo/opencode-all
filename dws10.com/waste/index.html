@@ -20,6 +20,10 @@
     <meta name="twitter:description" content="Waste Management Solutions — Enterprise AI for EU climate compliance. DWS IQ Platform by Lifetime Oy.">
     <link rel="canonical" href="https://dws10.com/waste/index.html">
     <link rel="icon" type="image/png" href="/DWS_IQ2026.png">
+    <!-- DWS Brand §8 — IBM Plex via Google Fonts (preconnect + crossorigin, no SRI per font-CDN pattern) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #1a365d;
@@ -27,6 +31,9 @@
             --accent: #e53e3e;
             --light: #f7fafc;
             --dark: #1a202c;
+            /* DWS gold brand tokens — on light surfaces use #b8860b for WCAG AA text-on-white */
+            --color-gold: #b8860b;
+            --color-gold-light: #d4a843;
         }
 
         * {
@@ -36,10 +43,14 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             line-height: 1.6;
             color: var(--dark);
             background: var(--light);
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'IBM Plex Sans Condensed', 'IBM Plex Sans', -apple-system, sans-serif;
         }
 
         .container {
@@ -85,8 +96,8 @@
 <body>
 <section class="hero">
         <div class="container">
-            <h2>Waste Management Solutions</h2>
-            <p>AI-driven solutions for waste management to reduce carbon footprint and optimize efficiency.</p>
+            <h2>Waste Management &amp; Circular Economy</h2>
+            <p>Industrial Intelligence for the EU circular-economy stack — Waste Framework Directive, EUDR due diligence, and CSRD ESRS E5 (resource use &amp; circular economy) reporting. Waste Management is one of the 25 EU-regulated industries on the DWS IQ Industrial Intelligence suite (core engine: DWS IQ 6; defence/dual-use tier: Aegis).</p>
         </div>
     </section>
 
@@ -121,6 +132,35 @@
                     <div style="font-size: 0.9rem; opacity: 0.8;">Powered by Llama 3.3 70B</div>
                     <div style="font-size: 0.8rem; opacity: 0.6; margin-top: 8px;">DWS IQ Platform</div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ontology + Illustrative Operational Trace Log -->
+    <section style="padding: 60px 0; background: #f0f4f8;">
+        <div class="container">
+            <h3 style="color: var(--primary);">The Circular-Economy Regulatory Frame</h3>
+            <p style="margin: 14px 0; max-width: 820px;">
+                Waste &amp; recycling operators sit at the intersection of the EU <strong>Waste Framework Directive</strong>,
+                the <strong>EU Deforestation Regulation (EUDR)</strong> for biomass-derived streams, and <strong>CSRD ESRS E5</strong>,
+                whose first-wave disclosures on resource use and circular economy began in <strong>2025</strong> (covering FY2024 large-undertaking reports).
+                DWS IQ 6 maps tonnage, diversion rates, and material-recovery telemetry to these obligations as auditable, deterministic outputs.
+            </p>
+            <div style="background: white; border: 1px solid #d6dee8; border-left: 4px solid var(--color-gold); border-radius: 0 10px 10px 0; padding: 24px 28px; margin-top: 24px;">
+                <div style="display: inline-block; background: rgba(184,134,11,0.12); color: var(--color-gold); padding: 4px 12px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px;">Operational Trace Log — Illustrative · Pre-GA · Anonymized</div>
+                <p style="font-size: 0.9rem; color: #475569; font-style: italic; margin-bottom: 14px;">
+                    Representative reconstruction from public EU data sources. Not a real customer, facility, or incident. No named operator is implied.
+                </p>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.92rem;">
+                    <tr style="background: rgba(184,134,11,0.08);">
+                        <th style="text-align: left; padding: 8px 12px; color: var(--primary);">Stage</th>
+                        <th style="text-align: left; padding: 8px 12px; color: var(--primary);">Trace</th>
+                    </tr>
+                    <tr><td style="padding: 8px 12px; border-bottom: 1px solid #e2e8f0;"><strong>1. Intake</strong></td><td style="padding: 8px 12px; border-bottom: 1px solid #e2e8f0;">Mixed municipal stream logged; SortBot vision classifies recyclate purity per fraction</td></tr>
+                    <tr><td style="padding: 8px 12px; border-bottom: 1px solid #e2e8f0;"><strong>2. Recovery</strong></td><td style="padding: 8px 12px; border-bottom: 1px solid #e2e8f0;">Diversion-from-landfill rate computed against Waste Framework Directive recovery targets</td></tr>
+                    <tr><td style="padding: 8px 12px; border-bottom: 1px solid #e2e8f0;"><strong>3. Disclosure</strong></td><td style="padding: 8px 12px; border-bottom: 1px solid #e2e8f0;">Material-flow metrics mapped to CSRD ESRS E5 datapoints; methane-capture credit reconciled</td></tr>
+                    <tr><td style="padding: 8px 12px;"><strong>4. Audit</strong></td><td style="padding: 8px 12px;">Every figure traced to a verifiable source — Article 12 reasoning lineage, zero-hallucination path</td></tr>
+                </table>
             </div>
         </div>
     </section>
@@ -290,6 +330,8 @@
         </div>
     </section>
 
+
+<p style="max-width: 1200px; margin: 0 auto; padding: 18px 20px 28px; color: #64748b; font-size: 0.72rem; letter-spacing: 0.04em; text-align: right;">Waste Management &amp; Circular Economy — page v1.1 · 2026-06-23</p>
 
 <script src="/shared-assets/a2a/a2a-section.js"></script>
 <script src="/shared-assets/nav/ironclad-nav.js"></script>
