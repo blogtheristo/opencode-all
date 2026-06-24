@@ -128,7 +128,9 @@ For standalone downloadable HTML documents (CV/profile/report style), embed imag
 
 ## Deliverable Handoff Rule
 
-Never tell the user to copy-paste content from rendered chat/canvas — rendered markdown has no copy button and wraps awkwardly. When handing over copyable content (whitepapers, letters, drafts, outreach copy, snippets), deliver it as a **file** (`SendUserFile`) or in a **fenced code block** (which has a copy button). Default to a file for long-form documents; use a fenced block for short snippets. Offer export (PDF, Google Docs, Gamma) where it fits the destination.
+Never tell the user to copy-paste content from rendered chat/canvas — rendered markdown has no copy button and wraps awkwardly. When handing over copyable content (whitepapers, letters, drafts, outreach copy, snippets), deliver it as a **file** (`SendUserFile`) or in a **fenced code block** (which has a copy button).
+
+**"Give copy" / "copy paste" / "give a copy-paste" means: output the full content inside a single fenced code block** — no preamble before the user has to scroll, the whole deliverable in one copyable block. This applies regardless of length (even long whitepapers). A file or export (PDF, Google Docs, Gamma) is an addition on request, never a substitute for the code block when copy is asked.
 
 ## Security Coding Rules
 
