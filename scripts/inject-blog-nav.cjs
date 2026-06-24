@@ -157,6 +157,26 @@ const posts = [
     title: 'The Ontology Lives in the Team',
     date: '20 Jun 2026',
   },
+  {
+    file: 'lifetime-world-model-three-piece-loop.html',
+    title: 'The Three-Piece Loop — Lifetime World Model V1 for Control Rooms',
+    date: '23 Jun 2026',
+  },
+  {
+    file: 'four-learning-paradigms-world-model.html',
+    title: 'The Four Learning Paradigms Behind a World Model',
+    date: '23 Jun 2026',
+  },
+  {
+    file: 'lifetime-world-model-three-piece-loop.fi.html',
+    title: 'Kolmiosainen silmukka valvomoille — Lifetime World Model V1 (FI)',
+    date: '23 Jun 2026',
+  },
+  {
+    file: 'four-learning-paradigms-world-model.fi.html',
+    title: 'Maailmanmallin neljä oppimisparadigmaa (FI)',
+    date: '23 Jun 2026',
+  },
 ];
 
 // Three featured products

@@ -4,10 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.5
+Version: 1.7
 
 Sessions & Modifications:
 
+- Version: 1.7 | Tool: Claude Code | Session: claude/dws-iq6-social-thread-17d8ie | Date: 23.06.2026 | Changes: Registered FI parity posts #30 (`lifetime-world-model-three-piece-loop.fi.html`) and #31 (`four-learning-paradigms-world-model.fi.html`) — Finnish companions to #28/#29, keeping EN/FI lockstep for public copy. Added `hreflang` alternates both ways across all four files (en/fi + sv/de/fr/x-default → EN fallback). Inserted in §3 registry, the `latestPosts` array in `blog/index.html` (chronological — EN #29 stays Text of the Day, not the FI posts), and the `posts` array in `scripts/inject-blog-nav.cjs`. Code samples kept in English inside `<pre class="code-block">`. Dual-folder synced to `landing-pages/onelifetime-world/`.
+- Version: 1.6 | Tool: Claude Code | Session: claude/dws-iq6-social-thread-17d8ie | Date: 23.06.2026 | Changes: Registered posts #28 (`lifetime-world-model-three-piece-loop.html`) and #29 (`four-learning-paradigms-world-model.html`) — the Lifetime World Model V1 launch pair (vision/architecture framing, third parties named as technology archetypes only, embedded reference code from `src/agents/world-model/`). Added both to §3 Post Registry, the `latestPosts` array in `blog/index.html` (Text of the Day → newest), and the `posts` array in `scripts/inject-blog-nav.cjs`. Dual-folder synced to `landing-pages/onelifetime-world/`.
 - Version: 1.5 | Tool: Claude Code (claude-opus-4-8) | Session: claude/queued-followups-fi-artifacts-93kxqr | Date: 21.06.2026 | Changes: Registered FI parity post #23 (`your-model-cant-beat-your-noise-floor.fi.html`) — Finnish companion to the noise-floor post #22, with `hreflang` alternates both ways, vertical 5-language bar, ironclad footer, and product cards. Inserted chronologically (15 Jun 2026 slot, not Text of the Day) in §3 Post Registry and renumbered #24–#27; also registered in `blog/index.html` `latestPosts` and `scripts/inject-blog-nav.cjs` `posts`. Dual-folder synced to `landing-pages/onelifetime-world/`.
 - Version: 1.4 | Tool: Claude Code (Sonnet 4.6) | Session: claude/blog-polls-ads-features-spdD1 | Date: 07.05.2026 | Changes: Blog V2 — added §13 Reader Polls (lsj-poll.js, localStorage persistence, seed counts), §14 Ads & Sponsorship Slots (lsj-ads.js, lsj-ads-config.json, three slot types, rate card). Added advertise/index.html (media enquiries + sponsorship price list). Registered posts #18 (eu-policy-backed-capital-bankable-sovereignty). Updated ToC to include §13–14.
 - Version: 1.3 | Tool: Claude Code (Opus 4.7) | Session: claude/redhat-sovereignty-research-YGHtL | Date: 23.04.2026 | Changes: Added §12 Editor-in-Chief Voice (Seth Godin House Style) — house voice standard for all Lifetime Scope Journal posts. Codifies short paragraphs, verb-first sentences, partner-note sub-voice (gift → turn → honest limit), banned/kept words, and the pre-publish voice checklist. Reference exemplars: redhat-sovereign-move-three-tiers.html, mcp-apps-identity-spine.html, solid-layers-aiven-scaleway-kya.html, validated-mock-data-principle.html. Registered post #14 (redhat-sovereign-move-three-tiers).
@@ -131,6 +133,10 @@ Chronological order. Update this table when adding/removing posts.
 | 25  | `software-vs-world-model.html`                       | Software You Operate vs Intelligence That Operates — SaaS and the World Model (Ontology Series)                                 | 20 Jun 2026 |
 | 26  | `ontologia-tiimin-aivoissa.html`                     | Ontologia elää tiimin aivoissa — Kaukopää, tacit ontology, and the governed world model (FI, Ontology Series)                   | 20 Jun 2026 |
 | 27  | `the-ontology-lives-in-the-team.html`                | The Ontology Lives in the Team — Kaukopää case, three layers of industrial tacit knowledge, cynical wedge (EN, Ontology Series) | 20 Jun 2026 |
+| 28  | `lifetime-world-model-three-piece-loop.html`         | The Three-Piece Loop — Lifetime World Model V1 for Control Rooms (EN, vision/architecture, with reference code)                 | 23 Jun 2026 |
+| 29  | `four-learning-paradigms-world-model.html`           | The Four Learning Paradigms Behind a World Model — RL, reward learning, supervised/generative, self-supervised (EN)             | 23 Jun 2026 |
+| 30  | `lifetime-world-model-three-piece-loop.fi.html`      | Kolmiosainen silmukka valvomoille — Lifetime World Model V1 (FI parity of #28)                                                  | 23 Jun 2026 |
+| 31  | `four-learning-paradigms-world-model.fi.html`        | Maailmanmallin neljä oppimisparadigmaa (FI parity of #29)                                                                       | 23 Jun 2026 |
 
 ---
 

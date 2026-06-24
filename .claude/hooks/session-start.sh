@@ -8,9 +8,9 @@ set -euo pipefail
 cat <<'CONTEXT'
 ## Auto-Mode Trust Boundary Active
 
-GREEN zone (full auto): Read, Edit, Write, lint, test, build, git on feature branches. Authoring DB migration FILES (supabase/migrations/*.sql) is GREEN — they are reviewable text artifacts.
+GREEN zone (full auto): Read, Edit, Write, lint, test, build, git on feature branches, and WEB/STATIC-SITE DEPLOYMENTS. Authoring DB migration FILES (supabase/migrations/*.sql) is GREEN — they are reviewable text artifacts. Web deploys are not gated: dws6.com / dws10.com / onelifetime.world / lifetime.fi auto-publish via Cloudflare Pages on merge to main (blue/green; rollback = promote previous deployment).
 YELLOW zone (auto + logged): MCP tools, agent skills, Docker, gh CLI, git push
-RED zone (BLOCKED — human required): APPLYING migrations (psql / supabase db push / supabase migration up), deploys, outbound email, thesis files, Store sync, secrets
+RED zone (BLOCKED — human required): APPLYING migrations (psql / supabase db push / supabase migration up), outbound email, thesis files, Store sync, secrets
 
 Budget: Check CLAUDE_AUTO_MODE_BUDGET env var (default: no limit)
 Audit: All YELLOW actions logged to .claude/hooks/audit/

@@ -62,6 +62,7 @@ import { PanaceaAgent } from './panacea.agent.js';
 import { AuditorAgent } from './auditor.agent.js';
 import { VisionOracleAgent } from './vision-oracle.agent.js';
 import { ChronosAgent } from './chronos.agent.js';
+import { WorldModelLoopAgent } from './world-model/world-model-loop.agent.js';
 import { registerBuiltinTools } from './tools.js';
 import { eventBus, registerDefaultEventHandlers } from './event-bus.js';
 import { withAgentSpan } from '../observability/tracing.js';
@@ -207,6 +208,7 @@ export class AgentRegistry {
     this.register(new MaterialOracleAgent());
     this.register(new CustomerSatAgent());
     this.register(new ViabilityAgent());
+    this.register(new WorldModelLoopAgent());
 
     // Extraction & research agents (from DeepWiki/awesome-llm-apps)
     this.register(new DeepWikiExtractorAgent());

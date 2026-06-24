@@ -1,9 +1,9 @@
 /**
- * DWS10.com Vertical Language Bar v1.2
- * Introduced-In: PR-TBD (restore-language-bar) / updated: claude/susanna-hypponen-card-tnq9cl
- * Code-Version: 1.2
- * Branch: claude/susanna-hypponen-card-tnq9cl
- * Date: 2026-06-20
+ * DWS10.com Vertical Language Bar v1.3
+ * Introduced-In: PR-TBD (restore-language-bar) / updated: claude/aegis-multilingual-pages-3clsx0
+ * Code-Version: 1.3
+ * Branch: claude/aegis-multilingual-pages-3clsx0
+ * Date: 2026-06-23
  * Owner: Lifetime Oy
  *
  * PAGE ELEMENT — not a menu/nav element.
@@ -19,6 +19,9 @@
  * v1.1 — Added product version line (Control Room / Situation Room hardware bundles).
  * v1.2 — Added compliance/legal hub contexts: per-language hero lines, context-aware
  *        hrefs (/compliance/<lang>/, /legal/<lang>/), hardware version line hidden on hubs.
+ * v1.3 — Added Aegis context: per-language minimum hero line for /aegis and
+ *        /products/aegis pages; hardware version line hidden; section fallback so the
+ *        bar injects on pages without a .container wrapper.
  */
 (function () {
   'use strict';
@@ -32,6 +35,8 @@
       home: 'Pohjoismainen teollisuus-AI. Rakennettu Suomessa, Pohjoismaille.',
       store: 'Suvereeneja AI-tuotteita eurooppalaisille yrityksille.',
       product: 'Kultainen br\u00e4ndistandardisi, teko\u00e4lyagentit ja tuotantokone.',
+      aegis:
+        'Suvereeni teollinen \u00e4ly kaksik\u00e4ytt\u00f6iseen valmistukseen \u2014 21 EU-toimialaa, nolla CLOUD Act -altistusta.',
       versions:
         'Control Room (1\u00d7 GN100) 4\u00a0994\u00a0\u20ac \u00b7 Situation Room (2\u00d7 sillattu) 8\u00a0993\u00a0\u20ac',
     },
@@ -43,6 +48,8 @@
       home: 'Nordisk industri-AI. Byggd i Finland, f\u00f6r Norden.',
       store: 'Suvern\u00e4na AI-produkter f\u00f6r europeiska f\u00f6retag.',
       product: 'Din guldstandard f\u00f6r varum\u00e4rke, AI-agenter och produktionsmotor.',
+      aegis:
+        'Suver\u00e4n industriell intelligens f\u00f6r dual-use-tillverkning \u2014 21 EU-branscher, noll CLOUD Act-exponering.',
       versions:
         'Control Room (1\u00d7 GN100) 4 994 \u20ac \u00b7 Situation Room (2\u00d7 bryggad) 8 993 \u20ac',
     },
@@ -54,6 +61,8 @@
       home: 'Gestalte, wie Europas Industrial IQ Compliance-Schwungrad sich dreht.',
       store: 'Souver\u00e4ne KI-Produkte f\u00fcr europ\u00e4ische Unternehmen.',
       product: 'Ihr Goldstandard f\u00fcr Marke, KI-Agenten und Produktions-Engine.',
+      aegis:
+        'Souver\u00e4ne industrielle Intelligenz f\u00fcr Dual-Use-Fertigung \u2014 21 EU-Branchen, null CLOUD-Act-Risiko.',
       versions:
         'Control Room (1\u00d7 GN100) 4.994 \u20ac \u00b7 Situation Room (2\u00d7 gebr\u00fcckt) 8.993 \u20ac',
     },
@@ -65,6 +74,8 @@
       home: 'Fa\u00e7onnez la dynamique du volant d\u2019inertie Industrial IQ Compliance en Europe.',
       store: 'Produits IA souverains pour les entreprises europ\u00e9ennes.',
       product: 'Votre standard d\u2019or pour la marque, les agents IA et le moteur de production.',
+      aegis:
+        'Intelligence industrielle souveraine pour la fabrication \u00e0 double usage \u2014 21 secteurs UE, z\u00e9ro exposition au CLOUD Act.',
       versions:
         'Control Room (1\u00d7 GN100) 4 994 \u20ac \u00b7 Situation Room (2\u00d7 pont\u00e9e) 8 993 \u20ac',
     },
@@ -76,6 +87,8 @@
       home: 'Nordic Industrial AI. Built in Finland, for the Nordics.',
       store: 'Sovereign AI products for European enterprises.',
       product: 'Your brand Gold Standards, AI agents and Firehorse production engine.',
+      aegis:
+        'Sovereign industrial intelligence for dual-use manufacturing — 21 EU industries, zero CLOUD Act exposure.',
       versions: 'Control Room (1× GN100) €4,994 · Situation Room (2× bridged) €8,993',
     },
   ];
@@ -144,7 +157,8 @@
   // Detect page type from path
   var path = window.location.pathname;
   var pageType = 'home';
-  if (path.indexOf('/buy') !== -1) pageType = 'store';
+  if (path.indexOf('/aegis') !== -1) pageType = 'aegis';
+  else if (path.indexOf('/buy') !== -1) pageType = 'store';
   else if (path.indexOf('/products/') !== -1) pageType = 'product';
   else if (path.indexOf('/compliance') !== -1) pageType = 'compliance';
   else if (path.indexOf('/legal') !== -1) pageType = 'legal';
@@ -272,7 +286,8 @@
     el.setAttribute('aria-label', '5 European languages');
 
     var hubHero = HUB_HERO[pageType];
-    var showVersions = !hubHero; // hide hardware-bundle line on compliance/legal hubs
+    // hide hardware-bundle line on compliance/legal hubs and on Aegis pages
+    var showVersions = !hubHero && pageType !== 'aegis';
     var rows = LANGS.map(function (l) {
       var isActive = l.code === currentLang;
       var tag = stays ? 'div' : 'a';
@@ -353,10 +368,16 @@
         return;
       }
     } else {
-      // Store and product pages: before the main .container
+      // Store, product and Aegis pages: before the main .container
       var container = document.querySelector('.container');
       if (container && container.parentNode) {
         container.parentNode.insertBefore(section, container);
+        return;
+      }
+      // Fallback for pages without a .container wrapper (e.g. Aegis intro): first section
+      var firstSec = document.querySelector('section');
+      if (firstSec && firstSec.parentNode) {
+        firstSec.parentNode.insertBefore(section, firstSec);
         return;
       }
     }
