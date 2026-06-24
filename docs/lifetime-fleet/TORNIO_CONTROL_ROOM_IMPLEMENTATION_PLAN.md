@@ -128,3 +128,17 @@ No custom websocket server (Supabase realtime suffices; revisit only for sub-sec
 - **Sovereignty tier:** confirm EU Supabase vs Aiven PG for the data plane (Tier-1 target).
 - **Relationship to the Forta pilot:** is this a new workstream or an extension of `PILOT_SHEET_OUTOKUMPU_FORTA.md`? (Affects commercial framing, not the build.)
 - **Substantial-modification gate:** required before any future actuating component or OTA to it.
+
+## 11. Edge hardware & sensing (supported vs auxiliary)
+
+**Certified / safety-relevant compute (the only place safety functions or actuation may run):** NVIDIA **IGX Thor / IGX Orin** mill-floor brain and the validated **Acer Veriton GN100** control brain. These carry the SIL-capable, certifiable path (Halos Anchor analogue).
+
+**Non-safety auxiliary (off the safety boundary — observe/show/prototype only):** Raspberry Pi / Jetson-Nano-class boards may serve as **telemetry relays, dashboard kiosks (the PWA), or bench prototyping nodes** feeding the read-and-propose Control Room. They **must never** run a safety function, compute a safety zone, or actuate — no SIL certification, no Safety Island, no CUDA/Holoscan. This matches the loop being non-actuating by construction (§4.1).
+
+**Sensing Tornio may feed the Control Room** (situational awareness / evidence — duplicated to the non-safety side; any sensor used for an actual safety function stays on the certified Halos path):
+
+- **On the ANYmal "Jokkeri" quadruped:** thermal/IR camera, gas sensors (CO, CO₂, O₂, combustibles, H₂S/SO₂), acoustic/ultrasonic leak & partial-discharge detection, lidar/depth, pose/odometry, battery/health.
+- **Fixed mill instrumentation:** IR pyrometers and thermal-imaging cameras (furnace/ladle/refractory hotspots), EAF electrode current & power (MW), the Outside-In infrastructure camera mesh, vibration/acoustic on motors, fans, pumps and the hot-strip mill, cooling-water flow/temperature, baghouse/dust differential pressure and particulate (PM), and stack/area gas grids (CO, SO₂, NOx).
+- **People & environment:** worker RTLS position tags, man-down / lone-worker and personal gas badges; ambient weather; grid carbon intensity.
+
+MVP ingests the **Jokkeri + weather/grid** subset first (§2); the rest are fast-follows as the OT/IT data path opens.

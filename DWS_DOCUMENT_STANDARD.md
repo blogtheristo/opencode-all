@@ -2455,6 +2455,7 @@ Whitepapers are outward-facing, publishable documents (market/technical/regulato
 
 ### 20.3 Governance
 
+- **Always confirm classification with the human author when a new whitepaper is written** (Confidential vs Public) — never default it silently. Classification governs distribution and hosting (see §20.2), so it is a human-in-the-loop decision per document.
 - Truth-check before any external send (`/truth-check`); apply the Brand Standard for voice/visual.
 - Register substantive new whitepapers per the Truth Standard where they assert canonical positions (e.g. `docs/regulatory-radar/` briefs are registered in `DWS_TRUTH_STANDARD.md` §2).
 - Versioning is lockstep with the header block (§2) and the top version line (§20.1) — bump both together.

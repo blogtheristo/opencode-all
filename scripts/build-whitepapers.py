@@ -119,7 +119,7 @@ def add_page_field(par, size_pt):
     rpr.append(OxmlElement('w:b')); r.append(rpr)
     t=OxmlElement('w:t'); t.text='1'; r.append(t); fld.append(r); par._p.append(fld)
 
-def style_doc(doc):
+def style_doc(doc, classification):
     n=doc.styles['Normal']; n.font.name='Calibri'; n.font.size=Pt(12)
     n.paragraph_format.line_spacing=1.15; n.paragraph_format.space_after=Pt(6)
     sec=doc.sections[0]; sec.orientation=WD_ORIENT.PORTRAIT
@@ -131,12 +131,12 @@ def style_doc(doc):
     fp=sec.footer.paragraphs[0]; fp.alignment=WD_ALIGN_PARAGRAPH.LEFT
     ts=fp.paragraph_format.tab_stops
     ts.add_tab_stop(Mm(83), WD_TAB_ALIGNMENT.CENTER); ts.add_tab_stop(Mm(166), WD_TAB_ALIGNMENT.RIGHT)
-    rc=fp.add_run(CLASSIFICATION); rc.font.size=Pt(7.5); rc.font.color.rgb=GREY; rc.bold=True
+    rc=fp.add_run(classification); rc.font.size=Pt(7.5); rc.font.color.rgb=GREY; rc.bold=True
     fp.add_run('\t'); rcp=fp.add_run(COPYRIGHT); rcp.font.size=Pt(7.5); rcp.font.color.rgb=GREY
     fp.add_run('\t'); add_page_field(fp, 13)
 
-def render(blocks, out, version):
-    doc=Document(); style_doc(doc)
+def render(blocks, out, version, classification):
+    doc=Document(); style_doc(doc, classification)
     vp=doc.add_paragraph(); rr=vp.add_run(version); rr.font.size=Pt(8); rr.font.color.rgb=RGBColor(0x80,0x80,0x80)
     for b in blocks:
         if b[0]=='h': doc.add_heading(b[2], level=min(b[1],4))
@@ -155,24 +155,28 @@ def render(blocks, out, version):
                             for run in para.runs: run.bold=True
     doc.save(out); return out
 
-VER = "Whitepaper · Version 1.0 · {date} · Lifetime Oy{org} · Classification: " + CLASSIFICATION
-# (source, kind, WPnum, slug, version-line)
+# Per-document config: (source, kind, WPnum, slug, version-line-template{cls}, classification)
 JOBS = [
-  ("Learn/sovereign-industrial-intelligence-whitepaper-v1.0.html","html",1,"Sovereign_Industrial_Intelligence", VER.format(date="2026", org="")),
-  ("Learn/KYA-IDV-CERT-Whitepaper-v1.0.html","html",2,"KYA_IDV_CERT", "Whitepaper · KYA-IDV-CERT · Version 1.0 · 2026 · Lifetime Oy · Classification: "+CLASSIFICATION),
-  ("Learn/2026-03-17-shufti-kya-whitepaper_v1.0.html","html",3,"Shufti_KYA", VER.format(date="2026-03-17", org="")),
-  ("docs/lifetime-fleet/WHITEPAPER_COMPLIANT_BY_CONSTRUCTION.md","md",4,"Compliant_by_Construction", VER.format(date="2026-06-24", org=" / DWS IQ 6")),
+  ("Learn/sovereign-industrial-intelligence-whitepaper-v1.0.html","html",1,"Sovereign_Industrial_Intelligence",
+   "Whitepaper · Version 1.0 · 2026 · Lifetime Oy · Classification: {cls}", "Confidential"),
+  ("Learn/KYA-IDV-CERT-Whitepaper-v1.0.html","html",2,"KYA_IDV_CERT",
+   "Whitepaper · KYA-IDV-CERT · Version 1.0 · 2026 · Lifetime Oy · Classification: {cls}", "Confidential"),
+  ("Learn/2026-03-17-shufti-kya-whitepaper_v1.0.html","html",3,"Shufti_KYA",
+   "Whitepaper · Version 1.0 · 2026-03-17 · Lifetime Oy · Classification: {cls}", "Confidential"),
+  ("docs/lifetime-fleet/WHITEPAPER_COMPLIANT_BY_CONSTRUCTION.md","md",4,"Compliant_by_Construction",
+   "Whitepaper · Version 1.0 · 2026-06-24 · Lifetime Oy / DWS IQ 6 · Classification: {cls}", "Public"),
 ]
 
 def main():
     os.makedirs(OUT, exist_ok=True)
-    for src,kind,num,slug,version in JOBS:
+    for src,kind,num,slug,vtmpl,classification in JOBS:
         path=os.path.join(REPO, src)
         blocks=parse_html(path) if kind=='html' else parse_markdown(path)
+        version=vtmpl.format(cls=classification)
         name=f"{VERSION_TAG}_WP{num}_{slug}_A4.docx"
         outp=os.path.join(OUT, name)
-        render(blocks, outp, version)
-        print(f"{name}: {len(blocks)} blocks, {os.path.getsize(outp)} bytes")
+        render(blocks, outp, version, classification)
+        print(f"{name}: {len(blocks)} blocks, {classification}, {os.path.getsize(outp)} bytes")
 
 if __name__ == "__main__":
     main()
