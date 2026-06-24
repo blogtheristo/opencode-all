@@ -2442,6 +2442,7 @@ Whitepapers are outward-facing, publishable documents (market/technical/regulato
 | **Header**       | **Aegis logo in the top-right corner** (`dws10.com/static/images/firehorse-aegis-logo.png`), ~1.15 in wide.                                                                        |
 | **Version line** | Small font (~8 pt, grey) at the **very top** of page 1, above the title: `Whitepaper · Version X.Y · <date> · Lifetime Oy[ / <product>] · Classification: <Public\|Confidential>`. |
 | **Footer**       | Centered copyright + page number: `© <year> Lifetime Oy · Y-tunnus 0772407-9 · Laidunmaanraitti 2 A 25, 02330 Espoo, Finland · All rights reserved.` then `Page <n>`.              |
+| **Body text**    | **Justified** (both edges aligned) for a polished chapter look. **12 pt base** font with ~1.15 line spacing — readable on mobile (iPhone). Headings left-aligned.                  |
 | **Sources**      | A final _Sources_ line citing every external fact (regulatory CELEX, vendor announcements with dates).                                                                             |
 
 ### 20.2 Source of truth & formats
