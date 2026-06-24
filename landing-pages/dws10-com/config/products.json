@@ -875,6 +875,134 @@
       "buyPage": 2,
       "buyPageOrder": 12
     },
+    "claude-code-coaching-3day": {
+      "id": "claude-code-coaching-3day",
+      "gtin": null,
+      "mpn": "CC-COACH-3DAY-2026",
+      "name": "Claude Code Coaching — Lecture + Workshop (3 Days)",
+      "price": 5900,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "The complete Claude Code Coaching programme: a 1-day foundations lecture plus a 2-day hands-on workshop. Your engineering team goes from AI-curious to shipping real changes through a governed plan → review → ship workflow — without your code or IP leaving the EU jurisdiction. EU AI Act Article 4 AI-literacy evidence included.",
+      "features": [
+        "1-day lecture + 2-day hands-on workshop",
+        "Ships a real change through governed review gates",
+        "EU-sovereign — your IP never leaves the jurisdiction"
+      ],
+      "priceNote": "3-day programme · lecture + workshop",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/Firehorse_Store.jpg",
+      "detailsUrl": "../products/claude-code-coaching.html",
+      "featured": true,
+      "google": {
+        "productCategory": "Business & Industrial > Business Services",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "advisory",
+      "buyPage": 2,
+      "buyPageOrder": 13
+    },
+    "claude-code-coaching-lecture": {
+      "id": "claude-code-coaching-lecture",
+      "gtin": null,
+      "mpn": "CC-COACH-LEC-2026",
+      "name": "Claude Code Coaching — 1-Day Lecture",
+      "price": 1900,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "A 1-day in-house lecture that gives leadership and engineers a shared vocabulary for agentic engineering with Claude Code: the 12 rules of engineering discipline, context engineering, MCP tools, and the GREEN/YELLOW/RED trust boundary. Establishes EU AI Act Article 4 AI literacy across the team.",
+      "features": [
+        "1-day in-house lecture (up to 12)",
+        "12 rules of disciplined agentic engineering",
+        "EU AI Act Article 4 literacy"
+      ],
+      "priceNote": "1-day in-house lecture",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/Firehorse_Store.jpg",
+      "detailsUrl": "../products/claude-code-coaching.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Business & Industrial > Business Services",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "advisory",
+      "buyPage": 2,
+      "buyPageOrder": 14
+    },
+    "claude-code-coaching-workshop": {
+      "id": "claude-code-coaching-workshop",
+      "gtin": null,
+      "mpn": "CC-COACH-WS-2026",
+      "name": "Claude Code Coaching — 2-Day Workshop",
+      "price": 4500,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "A 2-day hands-on workshop where your team makes Claude Code productive on your own repository: authoring CLAUDE.md project memory, building skills and slash commands, wiring MCP tools, and running the plan → qa → review → ship discipline gates. Each participant ships a real change in a capstone.",
+      "features": [
+        "2-day hands-on workshop (up to 10)",
+        "Built on your repo: CLAUDE.md, skills, MCP",
+        "Capstone: each participant ships a real change"
+      ],
+      "priceNote": "2-day hands-on workshop",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/Firehorse_Store.jpg",
+      "detailsUrl": "../products/claude-code-coaching.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Business & Industrial > Business Services",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "advisory",
+      "buyPage": 2,
+      "buyPageOrder": 15
+    },
+    "claude-code-coaching-project": {
+      "id": "claude-code-coaching-project",
+      "gtin": null,
+      "mpn": "CC-COACH-PROJ-2026",
+      "name": "Claude Code Coaching — Client Project Work",
+      "price": 7500,
+      "currency": "EUR",
+      "type": "one-time",
+      "description": "Optional embedded delivery: senior engineers apply Claude Code to a real backlog item end-to-end alongside your team — co-building skills and agents, setting up CI discipline gates, and transferring knowledge. EU-sovereign throughout. Scoped and quoted per engagement.",
+      "features": [
+        "2–6 week guided embed on a real backlog item",
+        "Co-build skills, agents and CI discipline gates",
+        "Outcome-priced — scoped per engagement"
+      ],
+      "priceNote": "From €7,500 · embedded project",
+      "revolutLink": null,
+      "paypalPlanId": null,
+      "image": "/static/images/Firehorse_Store.jpg",
+      "detailsUrl": "../products/claude-code-coaching.html",
+      "featured": false,
+      "google": {
+        "productCategory": "Business & Industrial > Business Services",
+        "condition": "new",
+        "availability": "in_stock",
+        "brand": "Lifetime",
+        "targetCountry": "FI",
+        "contentLanguage": "en"
+      },
+      "storeCategory": "advisory",
+      "buyPage": 2,
+      "buyPageOrder": 16
+    },
     "ai-consulting-agentic": {
       "id": "ai-consulting-agentic",
       "gtin": null,
