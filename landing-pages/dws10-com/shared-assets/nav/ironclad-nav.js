@@ -7,6 +7,7 @@
  * Usage: Add this script to any page:
  * <script src="/shared-assets/nav/ironclad-nav.js"></script>
  *
+ * v4.1 — About ▾: removed dead "Team" link (no /team/ page exists on any site → 404)
  * v4.0 — Solutions ▾: Firehorse Production Engine added above Lifetime World Model V1
  * v3.9 — About ▾: "Certified Partners" replaced with "Partner Tiers ▸" flyout (Partner Program, Aegis Tier 1, Sovereign Infra Tier 2, Connect Tier 3) — same 4 partner links as in Solutions ▾ ▸ Integrations ▸
  * v3.8 — Compliance renamed to "Compliance Hub"; moved from Home ▾ to Solutions ▾ (after CSRD, above Integrations)
@@ -224,7 +225,6 @@
                     <a href="#" class="ironclad-link">About ▾</a>
                     <ul class="ironclad-dropdown">
                         <li><a href="https://onelifetime.world" target="_blank">Lifetime World</a></li>
-                        <li><a href="${contentBase}team/">Team</a></li>
                         <li><a href="${contentBase}careers/">Careers</a></li>
                         <li class="ironclad-has-submenu">
                             <a href="${contentBase}partners/" class="ironclad-primary">Partner Tiers ▸</a>

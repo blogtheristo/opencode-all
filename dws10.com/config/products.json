@@ -1376,13 +1376,13 @@
       "price": 2999,
       "currency": "EUR",
       "type": "monthly",
-      "description": "Deploy 8 Skilled Agents that deliver audit-ready EU climate compliance outcomes — ETS allowance calculations, CBAM import obligations, CSRD disclosure reports, and continuous carbon accounting. Agent-delivered outcomes, not dashboards. The Agent Outcome Factory for climate compliance.",
+      "description": "8 Skilled Agents that turn ETS, CBAM and CSRD obligations into deterministic factory-floor execution — the climate-compliance module of the DWS IQ Industrial Intelligence suite. Agent-delivered outcomes, not dashboards. EU-sovereign and audit-ready.",
       "features": [
         "8 specialized Skilled Agents for climate compliance",
         "ETS, CBAM, CSRD & Fit for 55 automation",
         "Deterministic scoring with validated EU data sources"
       ],
-      "priceNote": "€2,999/mo + €4,990 one-time setup | Annual: 2 months free = €7,990",
+      "priceNote": "€2,999/mo + €4,990 one-time setup | Annual: 2 months free = €29,990",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/DWS_IQ2026.png",
