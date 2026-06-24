@@ -2448,7 +2448,9 @@ Whitepapers are outward-facing, publishable documents (market/technical/regulato
 ### 20.2 Source of truth & formats
 
 - Author the canonical whitepaper as **Markdown** (preferred for new) or **HTML in `Learn/`** (existing). Markdown follows this standard's header block (§2); the rendered/exported copy carries the §20.1 layout.
-- **Export to `.docx` (A4, branded) and Google Docs** via `scripts/` tooling — do not hand-format per export. Embed images as Base64 / packaged assets, not relative paths (cf. Downloadable HTML Rule in CLAUDE.md).
+- **Export to `.docx` (A4, branded) and Google Docs** via `scripts/build-whitepapers.py` (`npm run build:whitepapers`) — do not hand-format per export. Outputs land in `build/whitepapers/` (git-ignored); drag a `.docx` into Drive to get a Google Doc with formatting preserved. Embed images as packaged assets (`scripts/assets/aegis-logo.jpg`), not relative paths.
+- **Output naming:** `NN_WP<n>_<Slug>_A4.docx`, where `NN` is a zero-padded `VERSION_TAG` (env-overridable). The leading number makes the latest build sort together / be easy to find on Drive — bump `VERSION_TAG` per release.
+- **Classification:** `Confidential` = limited / intended-recipient distribution (sent to named persons), not wide audience; `Public` = freely distributable. The version-line and footer classification must match, and govern where the whitepaper may later be hosted (Confidential → password-gated page only).
 - **Never publish whitepaper `.md` in public-site folders** (Non-Negotiable Rule 5); publish HTML/PDF/Doc, keep the `.md` in `docs/` or `Learn/` source.
 
 ### 20.3 Governance
