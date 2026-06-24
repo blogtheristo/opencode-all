@@ -126,6 +126,10 @@ When editing thesis content, apply this split: implementation evidence → maste
 
 For standalone downloadable HTML documents (CV/profile/report style), embed images as Base64 data URLs instead of relative paths.
 
+## Deliverable Handoff Rule
+
+Never tell the user to copy-paste content from rendered chat/canvas — rendered markdown has no copy button and wraps awkwardly. When handing over copyable content (whitepapers, letters, drafts, outreach copy, snippets), deliver it as a **file** (`SendUserFile`) or in a **fenced code block** (which has a copy button). Default to a file for long-form documents; use a fenced block for short snippets. Offer export (PDF, Google Docs, Gamma) where it fits the destination.
+
 ## Security Coding Rules
 
 - No `exec()` with interpolated strings for shelling out; use safe argument-based execution.
