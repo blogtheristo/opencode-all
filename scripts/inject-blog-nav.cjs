@@ -177,6 +177,11 @@ const posts = [
     title: 'Maailmanmallin neljä oppimisparadigmaa (FI)',
     date: '23 Jun 2026',
   },
+  {
+    file: 'nvidia-vera-rubin-ai-factory.html',
+    title: 'NVIDIA Vera Rubin — The AI Factory Grows Up. The Sovereign Edge Is Still a Box.',
+    date: '24 Jun 2026',
+  },
 ];
 
 // Three featured products
