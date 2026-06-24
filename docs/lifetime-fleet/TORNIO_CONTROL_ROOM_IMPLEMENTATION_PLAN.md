@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Opus 4.8) | Session: claude/nvidia-halos-robotics-suqayg | Date: 23.06.2026 | Changes: Added the mutation-surface-isolation principle to §5.3 (Outside-In mesh) — layout change confined to a single versioned, Art-12-audited `meshZones` config while each asset's certified kernel stays frozen, keeping clear of an Annex I substantial-modification trigger; plus sensor-occlusion handling. Made `meshZones` a versioned config object in Phase 0 and §7 data model.
 - Version: 1.0 | Tool: Claude Code (Opus 4.8) | Session: claude/nvidia-halos-robotics-suqayg | Date: 23.06.2026 | Changes: Initial implementation plan for the Lifetime Fleet mobile Control Room at Outokumpu Tornio Works. Grounded in a four-area codebase survey (World Model loop, Lifetime Fleet/Control-Situation Rooms, Outokumpu/Tornio customer context, mobile/dashboard surfaces). Scope decisions locked with the user: first signal = ANYmal Jokkeri telemetry + weather/grid; edge target = GN100 control brain + IGX mill-floor brain; action scope = read-and-propose (no autonomous actuation). Adds the "Lifetime Compliance & Liability Isolation" pillar derived from the NVIDIA Halos fleet-lifecycle framing.
 
 Session Links & References:
@@ -84,14 +85,14 @@ The hard problem in a 5–10 year fleet lifecycle is not initial certification; 
 
 1. **OTA / substantial-modification boundary (Machinery Reg, 2027-01-20).** See §4.1 — the HIL/KYA boundary keeps the updatable AI layer outside the safety envelope.
 2. **Art-12 fleet telemetry with edge data-minimization.** Persist `StateVector` deltas + the triggering proposal/override — **not raw video** (anonymize at the IGX edge to coordinate vectors). Fits the Supabase 10-eps realtime ceiling and the Holoscan edge-filter model.
-3. **Outside-In spatial mesh for a heterogeneous fleet.** Layout changes (conveyors, forklift lanes, work cells) update an infrastructure camera mesh once; zone constraints broadcast to the **whole fleet regardless of asset type** (`quadruped | humanoid | vehicle | agv`) — no per-asset reflash. Modelled as a `site-mesh` signal source in the Tornio `SiteConfig`.
+3. **Outside-In spatial mesh + mutation-surface isolation (the compliance crux).** Layout changes (conveyors, forklift lanes, work cells) update an infrastructure camera mesh once; zone constraints broadcast to the **whole fleet regardless of asset type** (`quadruped | humanoid | vehicle | agv`) — no per-asset reflash. The regulatory payoff is **isolating the mutation surface**: change is confined to a single, **versioned, Art-12-audited mesh-config object**, while each asset's certified safety kernel stays frozen and simply executes "if mesh says Zone X restricted, do not enter." A layout edit is therefore an _infrastructure config change_, not a per-asset modification of the Safety-Related Parts of the Control System (SRP/CS) across N machines — keeping it clear of an Annex I "substantial modification" trigger and preserving the negative 6–12-month Notified-Body runway. (Our control room never actuates or pushes asset safety code, so we are aligned by construction; the commitment is that mesh-zone changes are the _single_ versioned locus of change.) The overhead mesh also resolves **sensor occlusion** the onboard sensors can't — proactive path routing around new pillars/ladles/equipment on the ferrochrome floor instead of defensive E-stops. Modelled as a versioned `site-mesh` config + signal source in the Tornio `SiteConfig`.
 4. **Lifetime liability + model drift + works-council/GDPR (PLD, 2026-12-09).** A continuous-drift-evidence dimension (the Halos SEF analogue) periodically evidences that fleet behaviour has not drifted past baseline — the "continuously signed evidence" wedge from the Halos brief. **Edge-anonymization (vectors, not video)** is a stated, provable property for the Outokumpu works council. Links to the `product-liability-directive` node in `regulatory-timeline.ts`.
 
 **Positioning:** Halos governs the robot's safety envelope; the DWS Lifetime Fleet Control Room is the **governance/evidence layer that proves the fleet stays compliant over its lifetime** (Art-12 trail, drift evidence, anonymization proof, sovereign data plane). Complementary, not overlapping.
 
 ## 6. Phases
 
-**Phase 0 — Site binding (foundation).** `src/control-room/sites/tornio.site.ts`: channels + per-site nominal bands (EAF power MW, melt-shop / ferrochrome furnace temp, AOD, scrap-yard, Jokkeri battery/pose/gas-thermal, weather, grid carbon intensity, `site-mesh` zones). Refactor `state-vector.ts` to load bands from a `SiteConfig` rather than the hardcoded generic set (keep defaults). Define `ControlRoomEvent` aligning the web-stub schema `{source,timestamp,severity,assetId,actionRequired,message}` with `StateVector`/`ActionProposal`. Define the heterogeneous `FleetAsset` type.
+**Phase 0 — Site binding (foundation).** `src/control-room/sites/tornio.site.ts`: channels + per-site nominal bands (EAF power MW, melt-shop / ferrochrome furnace temp, AOD, scrap-yard, Jokkeri battery/pose/gas-thermal, weather, grid carbon intensity) plus a **versioned `meshZones` config** (the single audited locus of layout change, per §5.3 — every edit carries a version + Art-12 record). Refactor `state-vector.ts` to load bands from a `SiteConfig` rather than the hardcoded generic set (keep defaults). Define `ControlRoomEvent` aligning the web-stub schema `{source,timestamp,severity,assetId,actionRequired,message}` with `StateVector`/`ActionProposal`. Define the heterogeneous `FleetAsset` type.
 
 **Phase 1 — Backend: loop behind a Control Room API.** `src/routes/control-room.routes.ts` (clone of `situation-room.routes.ts`): `POST /telemetry` (ingest → run loop with site config → persist state + proposals → Art-12 audit), `GET /state`, `GET /proposals`, `POST /proposals/:id/decision` (Accept/Override → `OperatorFeedback` → reward loop). Supabase migration **file** for `control_room_state / events / proposals / audit` + RLS by `control_room` role. (Authoring the `.sql` is GREEN; applying it is RED/human.)
 
@@ -105,7 +106,7 @@ The hard problem in a 5–10 year fleet lifecycle is not initial certification; 
 
 ## 7. Data model (net-new)
 
-- `SiteConfig` — `{ siteId, channels: { key, unit, nominalBand: [min,max] }[], meshZones }`.
+- `SiteConfig` — `{ siteId, channels: { key, unit, nominalBand: [min,max] }[], meshZones: { version, zones, updatedAt, updatedBy } }` (meshZones is versioned — the single audited locus of layout change, §5.3).
 - `FleetAsset` — `{ id, type: 'quadruped'|'humanoid'|'vehicle'|'agv', status, battery?, pose?, kyaTier }`.
 - `control_room_state` — latest StateVector per site (org_id, site_id, captured_at, signals, max_severity, anomalies).
 - `control_room_proposals` — open HIL proposals (rank_score, requires_human_approval, applied=false, rationale, decision).
