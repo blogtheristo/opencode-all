@@ -489,7 +489,7 @@ See `src/agents/kb.agent.ts` for the agent implementation and tool handlers.
 
 ### 7.3 /truth-check
 
-**When to use:** Writing or reviewing public-facing copy (store, landing pages, investor/sales, press, decks) that asserts a DWS "fact" — an industry count, captain-hat count, product price/name, KYA tier. Catches drift like "16 EU industries" before it propagates.
+**When to use:** Writing or reviewing public-facing copy (store, landing pages, investor/sales, press, decks) that asserts a DWS "fact" — an industry count, captain-hat count, product price/name, KYA tier. Catches an inflated EU-industry count before it propagates.
 
 **What it does:** Runs `scripts/lint-truth-claims.mjs` against the canonical structured mirrors (e.g. `dws10.com/config/industries.json`). FAILs on `deprecatedDisplayPhrases`, WARNs on `ambiguousDisplayPhrasesNeedingContext` used without a disambiguator, and reads `approvedDisplayPhrases` as the allow-list, suggesting the correct wording on each hit. Operationalises `DWS_TRUTH_STANDARD.md` §5/§7.
 
@@ -621,7 +621,7 @@ Every V2 agent ships with a YAML config in `AgentFoundry/configs/production/` th
 
 Badges (section pill, skill chips, KYA badge, Standards & Interop strip) are canonicalised in `kb/wiki/concepts/badges-library.md`. Propose new badges there first before placing them on a page.
 
-**Climate IQ industry agents (9)** — one per vertical, named after mythological figures:
+**Climate IQ industry agents (9)** — one for each covered industry, named after mythological figures:
 
 | Agent          | Industry                       | Source                                             | Config                                          |
 | -------------- | ------------------------------ | -------------------------------------------------- | ----------------------------------------------- |
