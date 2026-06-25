@@ -826,6 +826,7 @@ Legend: `✅` supported now · `⚠️` experimental/deferred path · `❌` unsu
 | `multilingual` | slash-command | active | internal | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | slash-command, local-tools | Repo-local slash command. Available in Claude Code CLI only. |
 | `ollama-spark` | slash-command | active | internal | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | slash-command, dgx-ssh | Requires DGX Spark connectivity from Claude Code CLI. |
 | `plan-review` | slash-command | active | internal | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | slash-command, local-tools | Repo-local slash command. Available in Claude Code CLI only. |
+| `product-page-polish` | skill-pack | active | internal | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | skill-pack, local-files | Repo-local skill pack loaded by Claude Code in this repository. |
 | `promote-proposal (command)` | slash-command | active | internal | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | slash-command, local-tools | Repo-local slash command. Available in Claude Code CLI only. |
 | `promote-proposal (pack)` | skill-pack | active | internal | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | skill-pack, local-files | Repo-local skill pack loaded by Claude Code in this repository. |
 | `qa` | slash-command | active | internal | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | slash-command, local-tools | Repo-local slash command. Available in Claude Code CLI only. |

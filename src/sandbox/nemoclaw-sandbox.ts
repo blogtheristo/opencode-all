@@ -1,13 +1,13 @@
 /**
- * Sandboxed OpenClaw Runner — KYA-Governed Firecracker MicroVM Isolation
+ * Sandboxed NemoClaw Runner — KYA-Governed Firecracker MicroVM Isolation
  *
- * Runs OpenClaw inside a KYA-governed sandbox to contain the MCP attack surface.
+ * Runs NemoClaw inside a KYA-governed sandbox to contain the MCP attack surface.
  * Uses Firecracker MicroVM specifications from KYA BYO Lifecycle.
  *
  * Defense in depth:
- *   1. OpenClaw runs INSIDE KYA sandbox (never outside governance boundary)
+ *   1. NemoClaw runs INSIDE KYA sandbox (never outside governance boundary)
  *   2. Community skills: BLOCKED (no auto-install)
- *   3. MCP tool responses: untrusted input (sanitized by openclaw-bridge.ts)
+ *   3. MCP tool responses: untrusted input (sanitized by nemoclaw-bridge.ts)
  *   4. Network egress: per-session whitelist at hypervisor level
  *   5. Filesystem: isolated per MicroVM
  *   6. All actions logged to Firehorse audit trail
@@ -156,7 +156,7 @@ function getTierCapabilities(tier: SandboxTier): {
 // SANDBOX MANAGER
 // ============================================================================
 
-export class OpenClawSandbox {
+export class NemoClawSandbox {
   private config: SandboxConfig;
   private state: SandboxState;
 
@@ -174,7 +174,7 @@ export class OpenClawSandbox {
   }
 
   /**
-   * Create a sandboxed OpenClaw runner with tier-appropriate restrictions.
+   * Create a sandboxed NemoClaw runner with tier-appropriate restrictions.
    */
   static create(params: {
     agentId: string;
@@ -182,7 +182,7 @@ export class OpenClawSandbox {
     atsScore: number;
     allowedMcpTools?: string[];
     logBasePath?: string;
-  }): OpenClawSandbox {
+  }): NemoClawSandbox {
     const tier = resolveTier(params.atsScore);
     const capabilities = getTierCapabilities(tier);
     const logBasePath = params.logBasePath ?? '/mnt/firehorse-dms/logs';
@@ -202,17 +202,15 @@ export class OpenClawSandbox {
         : [],
       allowedPaths: capabilities.allowFilesystem
         ? [
-          { path: '/data/agent-workspace', writable: tier === 'full_agency' },
-          { path: '/data/shared-models', writable: false },
-        ]
+            { path: '/data/agent-workspace', writable: tier === 'full_agency' },
+            { path: '/data/shared-models', writable: false },
+          ]
         : [],
-      allowedMcpTools: capabilities.allowMcpTools
-        ? (params.allowedMcpTools ?? [])
-        : [],
+      allowedMcpTools: capabilities.allowMcpTools ? (params.allowedMcpTools ?? []) : [],
       firehorseLogPath: `${logBasePath}/${dateDir}/${params.agentId}.jsonl`,
     };
 
-    logger.info('OpenClaw sandbox created', {
+    logger.info('NemoClaw sandbox created', {
       sandboxId: config.sandboxId,
       agentId: params.agentId,
       tier,
@@ -221,7 +219,7 @@ export class OpenClawSandbox {
       allowedTools: config.allowedMcpTools.length,
     });
 
-    return new OpenClawSandbox(config);
+    return new NemoClawSandbox(config);
   }
 
   /**
@@ -246,7 +244,7 @@ export class OpenClawSandbox {
 
     if (!this.config.allowedMcpTools.includes(toolName)) {
       this.state.deniedActions++;
-      logger.warn('OpenClaw sandbox: tool invocation denied', {
+      logger.warn('NemoClaw sandbox: tool invocation denied', {
         sandboxId: this.config.sandboxId,
         tool: toolName,
         tier: this.config.tier,
@@ -265,7 +263,7 @@ export class OpenClawSandbox {
     this.state.toolInvocations++;
     this.state.lastActiveAt = new Date().toISOString();
 
-    logger.debug('OpenClaw sandbox: tool invocation recorded', {
+    logger.debug('NemoClaw sandbox: tool invocation recorded', {
       sandboxId: this.config.sandboxId,
       tool: toolName,
       totalInvocations: this.state.toolInvocations,
@@ -285,7 +283,7 @@ export class OpenClawSandbox {
     const killLatencyMs = performance.now() - start;
     const slaMet = killLatencyMs < 5;
 
-    logger.warn('OpenClaw sandbox: KILL SWITCH TRIGGERED', {
+    logger.warn('NemoClaw sandbox: KILL SWITCH TRIGGERED', {
       sandboxId: this.config.sandboxId,
       agentId: this.config.agentId,
       reason,
@@ -300,7 +298,11 @@ export class OpenClawSandbox {
    * Update ATS score and potentially adjust tier.
    * Dynamic permission adjustment: <5 seconds.
    */
-  updateATS(newScore: number): { tierChanged: boolean; oldTier: SandboxTier; newTier: SandboxTier } {
+  updateATS(newScore: number): {
+    tierChanged: boolean;
+    oldTier: SandboxTier;
+    newTier: SandboxTier;
+  } {
     const oldTier = this.config.tier;
     const newTier = resolveTier(newScore);
     const oldATS = this.state.currentATS;
@@ -326,7 +328,7 @@ export class OpenClawSandbox {
         this.state.status = 'quarantined';
       }
 
-      logger.warn('OpenClaw sandbox: tier changed', {
+      logger.warn('NemoClaw sandbox: tier changed', {
         sandboxId: this.config.sandboxId,
         oldTier,
         newTier,
@@ -362,19 +364,24 @@ export class OpenClawSandbox {
         vcpu_count: this.config.cpuCores,
         mem_size_mib: this.config.memoryLimitMb,
       },
-      'network-interfaces': this.config.allowedEgressDomains.length > 0
-        ? [{
-          iface_id: 'eth0',
-          guest_mac: 'AA:FC:00:00:00:01',
-          host_dev_name: `tap-${this.config.sandboxId.slice(-8)}`,
-        }]
-        : [],
-      'drives': [{
-        drive_id: 'rootfs',
-        path_on_host: '/var/lib/firecracker/rootfs.ext4',
-        is_root_device: true,
-        is_read_only: this.config.tier !== 'full_agency',
-      }],
+      'network-interfaces':
+        this.config.allowedEgressDomains.length > 0
+          ? [
+              {
+                iface_id: 'eth0',
+                guest_mac: 'AA:FC:00:00:00:01',
+                host_dev_name: `tap-${this.config.sandboxId.slice(-8)}`,
+              },
+            ]
+          : [],
+      drives: [
+        {
+          drive_id: 'rootfs',
+          path_on_host: '/var/lib/firecracker/rootfs.ext4',
+          is_root_device: true,
+          is_read_only: this.config.tier !== 'full_agency',
+        },
+      ],
       metadata: {
         kya_session_id: this.config.kyaSessionId,
         agent_id: this.config.agentId,

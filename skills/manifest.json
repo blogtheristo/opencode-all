@@ -462,6 +462,13 @@
       "skillPackFile": "skills/material-oracle/SKILL.md"
     },
     {
+      "id": "product-page-polish",
+      "name": "product-page-polish",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/product-page-polish/SKILL.md"
+    },
+    {
       "id": "promote-proposal-pack",
       "name": "promote-proposal",
       "displayName": "promote-proposal (pack)",

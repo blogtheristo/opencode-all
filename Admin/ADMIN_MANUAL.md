@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.4
+Version: 3.5
 
 Sessions & Modifications:
 
+- Version: 3.5 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 25.06.2026 | Changes: Added "NemoClaw Agent Runtime (DGX Spark / sovereign edge)" section — one-runtime-per-room-profile model (Control Room / Situation Room / Mobile Command-Situation Room are config overlays, not separate builds), the per-box secret schema (`nemoclaw-ngc-key` pull-time, `nemoclaw-api-key` local runtime token; endpoint is config not a secret; external tool keys only if enabled), and operate/health/migration pointers. Cross-links DWS_DEPLOYMENT_STANDARD.md and the OpenClaw→NemoClaw migration plan.
 - Version: 3.4 | Tool: Claude Code (Opus 4.6) | Session: claude/lwm-ontology-v1-500-enterprises | Date: 22.06.2026 | Changes: Added NVIDIA AI Workbench on DGX Spark section — enterprise sovereign training workflow, mode-switch architecture (training-mode.sh / production-mode.sh), QLoRA fine-tuning procedures, 4-stage sovereign training cascade reference, CR-1/CR-2 memory budget guidance
 - Version: 3.3 | Tool: Claude Code | Session: claude/karpathy-12-rules-u47rx1 | Date: 19.06.2026 | Changes: Replaced incomplete Karpathy "Critical Behaviors" (1-6) with the full 12 Engineering Discipline Rules table in AI Agent Operational Guidelines, cross-linked to canonical CLAUDE.md, AI_AGENT_GUIDELINES.md §0, and the hook enforcement map; added Recent Session Artifacts digest mined from the latest session artifacts.
 - Version: 3.2 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: pr-975 | Date: 22.05.2026 | Changes: Added GBrain standalone setup and operator usage for the `blogtheristo/gbrain` fork, documented Bun + PGLite workflow, and aligned Admin Manual rendering with `***` version-history delimiters for Pandoc compatibility.
@@ -211,6 +212,43 @@ This section links the **full maintenance plan** in one place:
 
 - **Security maintenance**:
   - [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance) (audit status, fix history, monthly budget, roadmap)
+
+---
+
+## NemoClaw Agent Runtime (DGX Spark / sovereign edge)
+
+NemoClaw is NVIDIA's open agent blueprint — the **OpenShell** secure runtime + a choice of harness (**OpenClaw** or **Hermes**) + a model router + NVIDIA NeMo libraries — running as the local autonomous-agent surface on customer-owned hardware (DGX Spark / Acer Veriton GN100). OpenShell governs how each agent accesses files, networks and tools (policy-based security at every layer). It runs inside the KYA-governed sandbox; the DWS bridge (`src/mcp/nemoclaw-bridge.ts`) talks to it locally and logs every call to the Article-12 trail. Full canonical detail: `DWS_DEPLOYMENT_STANDARD.md` → "NemoClaw Runtime (per Surface)".
+
+### One runtime, per-room profile
+
+Do **not** stand up separate NemoClaw builds per room. The same runtime + bridge + sandbox + KYA governance deploys everywhere; only a config overlay differs:
+
+| Room                          | Hardware          | Model set                      | Egress             |
+| ----------------------------- | ----------------- | ------------------------------ | ------------------ |
+| Control Room                  | 1× GN100          | `nemotron-3-super` + fast path | Internal LAN only  |
+| Situation Room                | 2× bridged GN100  | + 405B-class bridged           | Air-gapped         |
+| Mobile Command-Situation Room | 1× GN100 / Jetson | Smallest viable set            | Intermittent / off |
+
+A new room is a **new profile, not a new build**. Per-room differences (model set, KYA ATS thresholds, `allowedSkills`, egress) are deployment config.
+
+### Secrets to provision (per box)
+
+NemoClaw is local-first and needs the fewest secrets. Set these in the secret manager / `.env` (never commit):
+
+| Secret                   | Required    | When      | Purpose                                                                                         |
+| ------------------------ | ----------- | --------- | ----------------------------------------------------------------------------------------------- |
+| `nemoclaw-ngc-key`       | Yes         | provision | NVIDIA NGC token to pull/license NIM microservices + Nemotron. Pull-time only.                  |
+| `nemoclaw-api-key`       | Recommended | runtime   | Local bearer token so only the KYA bridge can call the NemoClaw RPC endpoint. Generate per box. |
+| `NEMOCLAW_ENDPOINT`      | No (config) | runtime   | Internal URL — plain env var, **not** a secret. Default `http://127.0.0.1:3100`.                |
+| Exa / external tool keys | If enabled  | runtime   | Per-skill; **disabled** on air-gapped Situation Room / Mobile profiles.                         |
+
+Local inference needs **no per-call key** (sovereignty: no cloud round-trip, no token meter). Env knobs are documented in `src/middleware/env-validation.ts` (`NEMOCLAW_*`).
+
+### Operate
+
+- Deploy / health: `infrastructure/dgx-spark/` (`docker-compose.yml` service `nemoclaw`, `deploy.sh`, `heartbeat.ts` check `nemoclaw`). Health: `http://nemoclaw:8090/health` (LAN).
+- `NEMOCLAW_IMAGE` defaults to the upstream OpenClaw image; NemoClaw is NVIDIA's OpenShell-sandboxed distribution — point `NEMOCLAW_IMAGE` at the NVIDIA-published image once provisioned (migration Phase 3).
+- Migration status / runbook: `docs/migrations/2026-06-25-openclaw-to-nemoclaw.md`.
 
 ---
 
