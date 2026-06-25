@@ -53,9 +53,9 @@ Verified real (NVIDIA primary sources): github.com/NVIDIA/NemoClaw · nvidianews
 
 ### Phase 3 — Secrets + live infra (RED zone — human-gated cutover)
 
-- Secret store: add `nemoclaw-endpoint` / `nemoclaw-api-key`; keep `openclaw-*` until traffic confirmed on the new keys; then retire.
-- `infrastructure/dgx-spark/`: docker service `openclaw` → `nemoclaw` (`heartbeat.ts` `CHECK_OPENCLAW`/`http://openclaw:8090`, `deploy.sh` health check). Coordinated deploy: add new service alongside, cut health checks over, remove old. **Never** rename a live service blind.
-- Env: set `NEMOCLAW_*` in deploy env; remove `OPENCLAW_*` only after Phase 2 ships and cutover verified.
+- **Secret store — confirmed empty (owner, 25.06.2026): no `openclaw-*` secrets are provisioned.** The only references are _key-name declarations_ in `src/config/secret-loader.ts` (`OPENCLAW_ENDPOINT → 'openclaw-endpoint'`, `OPENCLAW_API_KEY → 'openclaw-api-key'`, `EXA_API_KEY_OPENCLAW → 'exa-api-key-openclaw'`) that load only if a value exists. With none set, `fromEnv()` falls back to `DEFAULT_BRIDGE_CONFIG`. **Therefore the secret-side cutover is a no-op** — nothing to preserve or retire. When a real NemoClaw runtime is wired, add `nemoclaw-endpoint` / `nemoclaw-api-key` keys (and rename the declaration `EXA_API_KEY_OPENCLAW`); no coordinated retirement needed.
+- `infrastructure/dgx-spark/`: docker service `openclaw` → `nemoclaw` (`heartbeat.ts` `CHECK_OPENCLAW`/`http://openclaw:8090`, `deploy.sh` health check). This is the **only real Phase-3 risk** — a named service in a live compose/deploy. Coordinated deploy: add new service alongside, cut health checks over, remove old. **Never** rename a live service blind.
+- Env: set `NEMOCLAW_*` in deploy env if/when a real runtime exists; `OPENCLAW_*` can be dropped freely since nothing depends on it today.
 
 ### Phase 4 — Current-state docs + cleanup
 
