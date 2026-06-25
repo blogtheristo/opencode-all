@@ -182,6 +182,11 @@ const posts = [
     title: 'NVIDIA Vera Rubin — The AI Factory Grows Up. The Sovereign Edge Is Still a Box.',
     date: '24 Jun 2026',
   },
+  {
+    file: 'eu-sovereign-ai-factories-35-supercomputers.html',
+    title: "Europe's AI Factory Came Home — 35 Supercomputers, and Why the Edge Still Needs a Box",
+    date: '25 Jun 2026',
+  },
 ];
 
 // Three featured products

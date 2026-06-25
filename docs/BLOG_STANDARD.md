@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.8
+Version: 1.9
 
 Sessions & Modifications:
 
+- Version: 1.9 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 25.06.2026 | Changes: Registered post #33 (`eu-sovereign-ai-factories-35-supercomputers.html`) — sovereignty field note on NVIDIA's June 2026 European AI-supercomputer buildout (35 systems / 23 countries / ~800 AI exaflops / EuroHPC AI Factories), framing the EU-sovereign upstream vs the customer-owned edge. Added to §3 registry, the `latestPosts` array in `blog/index.html` (new Text of the Day), and the `posts` array in `scripts/inject-blog-nav.cjs`. Ran the injector. Dual-folder synced to `landing-pages/onelifetime-world/`.
 - Version: 1.8 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 24.06.2026 | Changes: Registered post #32 (`nvidia-vera-rubin-ai-factory.html`) — NVIDIA partner note on Vera Rubin and the POD-scale AI factory, written to the §12.5 partner-note sub-voice (gift → turn → honest limit → short version). Added to §3 registry, the `latestPosts` array in `blog/index.html` (new Text of the Day), and the `posts` array in `scripts/inject-blog-nav.cjs`. Ran the injector for prev/next + share + product cards. Dual-folder synced to `landing-pages/onelifetime-world/`.
 - Version: 1.7 | Tool: Claude Code | Session: claude/dws-iq6-social-thread-17d8ie | Date: 23.06.2026 | Changes: Registered FI parity posts #30 (`lifetime-world-model-three-piece-loop.fi.html`) and #31 (`four-learning-paradigms-world-model.fi.html`) — Finnish companions to #28/#29, keeping EN/FI lockstep for public copy. Added `hreflang` alternates both ways across all four files (en/fi + sv/de/fr/x-default → EN fallback). Inserted in §3 registry, the `latestPosts` array in `blog/index.html` (chronological — EN #29 stays Text of the Day, not the FI posts), and the `posts` array in `scripts/inject-blog-nav.cjs`. Code samples kept in English inside `<pre class="code-block">`. Dual-folder synced to `landing-pages/onelifetime-world/`.
 - Version: 1.6 | Tool: Claude Code | Session: claude/dws-iq6-social-thread-17d8ie | Date: 23.06.2026 | Changes: Registered posts #28 (`lifetime-world-model-three-piece-loop.html`) and #29 (`four-learning-paradigms-world-model.html`) — the Lifetime World Model V1 launch pair (vision/architecture framing, third parties named as technology archetypes only, embedded reference code from `src/agents/world-model/`). Added both to §3 Post Registry, the `latestPosts` array in `blog/index.html` (Text of the Day → newest), and the `posts` array in `scripts/inject-blog-nav.cjs`. Dual-folder synced to `landing-pages/onelifetime-world/`.
@@ -139,6 +140,7 @@ Chronological order. Update this table when adding/removing posts.
 | 30  | `lifetime-world-model-three-piece-loop.fi.html`      | Kolmiosainen silmukka valvomoille — Lifetime World Model V1 (FI parity of #28)                                                  | 23 Jun 2026 |
 | 31  | `four-learning-paradigms-world-model.fi.html`        | Maailmanmallin neljä oppimisparadigmaa (FI parity of #29)                                                                       | 23 Jun 2026 |
 | 32  | `nvidia-vera-rubin-ai-factory.html`                  | NVIDIA Vera Rubin — The AI Factory Grows Up. The Sovereign Edge Is Still a Box. (EN, NVIDIA partner note)                       | 24 Jun 2026 |
+| 33  | `eu-sovereign-ai-factories-35-supercomputers.html`   | Europe's AI Factory Came Home — 35 Supercomputers, and Why the Edge Still Needs a Box (EN, sovereignty field note)              | 25 Jun 2026 |
 
 ---
 
