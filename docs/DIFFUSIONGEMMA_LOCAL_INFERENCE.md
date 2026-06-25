@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code | Session: claude/diffusiongemma-parallel-generation-r0w0y1 | Date: 25.06.2026 | Changes: Added §2.5 departmental sovereign multi-user serving (single DGX Spark serves 16–32 concurrent streams via MoE sparsity, ~18 tok/s each / ~300 tok/s aggregate); refined the high-concurrency anti-fit bullet to "hyperscale public multi-tenant only"; added a concurrent-serving throughput table. Corrects the v1.0 framing that treated DiffusionGemma as strictly single-user
 - Version: 1.0 | Tool: Claude Code | Session: claude/diffusiongemma-parallel-generation-r0w0y1 | Date: 25.06.2026 | Changes: Initial creation — fit/anti-fit guidance for the DiffusionGemma parallel-diffusion local-inference integration (src/agents/diffusiongemma.ts), the `standard`-tier model-catalog registration, and the `scripts/serve-diffusiongemma.sh` vLLM launcher
 
 Document Status:
@@ -29,12 +30,12 @@ with day-zero OpenAI-compatible serving in vLLM.
 
 Its engineering profile decides its business fit:
 
-| Property                                                         | Consequence for DWS                                                                                 |
-| ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| Low-latency **single-user** generation                           | Wins where one human waits on each response; loses on high-concurrency batch serving.               |
-| **Compute-bound** (full block through the transformer per step)  | Burns a GPU pass per request; does not amortize across a batch the way autoregressive serving does. |
-| **Local** on DGX Spark / RTX, €0 marginal cost, no per-token fee | EU data residency, no egress, predictable cost — the DWS sovereignty lane.                          |
-| **Generation, not tool-calling** (not claimed at launch)         | Best for synthesis/extraction/drafting; not for tool-driven orchestration.                          |
+| Property                                                         | Consequence for DWS                                                                                                                                                  |
+| ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Low-latency **single-user** generation                           | Wins where one human waits on each response (~150 tok/s single-stream on DGX Spark).                                                                                 |
+| **MoE sparsity** — 26B total, ~4B active/step (A4B)              | One Spark holds all experts in 128GB and serves **16–32 concurrent streams** (~18 tok/s each, ~300 tok/s aggregate). Scales to a team, not a hyperscale tenant base. |
+| **Local** on DGX Spark / RTX, €0 marginal cost, no per-token fee | EU data residency, no egress, predictable cost — the DWS sovereignty lane.                                                                                           |
+| **Generation, not tool-calling** (not claimed at launch)         | Best for synthesis/extraction/drafting; not for tool-driven orchestration.                                                                                           |
 
 ## 2. Best-fit business cases
 
@@ -60,15 +61,25 @@ exactly where the local-first routing pays off.
 DGX Spark deskside or RTX workstation at a site or customer premises — local
 agent loops with no connectivity dependency.
 
+**2.5 Departmental sovereign multi-user serving.**
+MoE sparsity (~4B active of 26B) lets a **single DGX Spark serve 16–32
+concurrent streams** at ~18 tok/s each (~300 tok/s aggregate). That is enough
+for a whole compliance or ops team to share one on-prem box — a sovereign
+alternative to per-seat cloud SaaS, at €0/call with no data egress. The trade
+is per-stream latency: concurrency suits **many light interactive users**, not
+a few heavy agentic loops (for which the single-stream ~150 tok/s mode fits
+better). Maps cleanly to a per-customer "one Spark per department" product tier.
+
 ## 3. Anti-fit — do **not** use here
 
 - **Tool-heavy orchestration** (atlas, athena, mercury — heavy tier). These
   require function calling. The catalog entry sets `supportsTools: false`, so
   these agents correctly fall through to a function-calling provider. Do not
   force DiffusionGemma into the orchestration path.
-- **High-concurrency multi-tenant cloud serving.** Compute-bound diffusion
-  inverts the economics above single-user; keep cloud autoregressive (Groq /
-  Anthropic) for the public multi-tenant API.
+- **Hyperscale public multi-tenant serving.** One Spark caps at ~16–32
+  concurrent streams — enough for a department (§2.5), not for thousands of
+  public tenants. Keep cloud autoregressive (Groq / Anthropic) for the
+  public-scale multi-tenant API.
 - **Routing / deterministic transforms.** CLAUDE.md Rule 5 — code answers, not
   a model.
 
@@ -104,13 +115,22 @@ To prefer it from a `lite`/`heavy` agent, pass `tierOverride: 'standard'`
 Serve locally with `scripts/serve-diffusiongemma.sh`, then point the app at the
 endpoint via `DIFFUSIONGEMMA_BASE_URL` (or the shared `VLLM_BASE_URL`).
 
-## 7. Reference throughput (single-user)
+## 7. Reference throughput
+
+Single-stream (one user waiting):
 
 | Hardware           | tokens/sec | Note                                                 |
 | ------------------ | ---------- | ---------------------------------------------------- |
 | NVIDIA DGX Spark   | 150        | GB10 Grace Blackwell, 128GB unified — deskside local |
 | NVIDIA H100        | 1,000      | single GPU, single-user (~4× autoregressive)         |
 | NVIDIA DGX Station | 2,000      | 748GB coherent memory — best-in-class local          |
+
+Concurrent serving on a single DGX Spark (Gemma 4 26B A4B MoE backbone):
+
+| Parallel streams | tok/s per stream | Aggregate tok/s | Note                                              |
+| ---------------- | ---------------- | --------------- | ------------------------------------------------- |
+| 16               | ~18              | ~300            | departmental sharing; ~2× single-stream aggregate |
+| up to 32         | lower per stream | —               | headroom from MoE sparsity (~4B active)           |
 
 ## 8. Related
 
