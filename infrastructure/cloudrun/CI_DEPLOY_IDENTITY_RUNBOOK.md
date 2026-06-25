@@ -38,6 +38,23 @@ Both deploy workflows now use the **same** identity (consolidated 2026-06):
 (`dws6run6` remains a separate project for the Gemini-review Cloud Run service — it is
 **not** the CI deploy-identity project.)
 
+### Confirm ownership before applying IAM (optional sanity check)
+
+`dws-iq-60` should be admin-owned with project number **`134875067432`** (the number embedded
+in `GCP_WORKLOAD_IDENTITY_PROVIDER`). Verify:
+
+```cmd
+REM Expect projectNumber 134875067432; owners should include admin@dws6.com (or the admin group):
+gcloud projects describe dws-iq-60 --format="value(projectId,projectNumber)"
+gcloud projects get-iam-policy dws-iq-60 --flatten="bindings[].members" --filter="bindings.role=roles/owner" --format="value(bindings.members)"
+
+REM For contrast (Gemini-review host, not CI identity):
+gcloud projects describe dws6run6 --format="value(projectId,projectNumber)"
+```
+
+If `dws-iq-60` is **not** admin-owned, stop and reconcile with `Admin/ADMIN_MANUAL.md` before
+proceeding.
+
 ## Steps (run as `admin@dws6.com`; `gcloud` is CMD syntax — caret `^`, never backtick)
 
 ```cmd
