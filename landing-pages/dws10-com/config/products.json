@@ -4519,8 +4519,8 @@
   "lastUpdated": "2026-06-09T00:00:00Z",
   "priceVersion": "1.20",
   "priceList": {
-    "version": "1.21",
-    "effectiveDate": "2026-06-22",
+    "version": "1.22",
+    "effectiveDate": "2026-06-25",
     "nextReviewDate": "2026-08-01",
     "policy": {
       "currency": "EUR",
@@ -4539,6 +4539,15 @@
     }
   },
   "priceHistory": [
+    {
+      "version": "1.22",
+      "date": "2026-06-25",
+      "author": "claude/code-coaching-curriculum-0g3bpp",
+      "changes": [
+        "Added Claude Code Coaching SKUs: claude-code-coaching-lecture (€1,900), -workshop (€4,500), -3day (€5,900, featured), -project (from €7,500, quoted). storeCategory 'advisory', buyPage 2.",
+        "Existing SKUs unchanged."
+      ]
+    },
     {
       "version": "1.21",
       "date": "2026-06-22",
