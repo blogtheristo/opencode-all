@@ -33,7 +33,7 @@ import { AtlasAgent } from './workflow/atlas/atlas.agent.js';
 import { AthenaAgent } from './workflow/athena/athena.agent.js';
 import { HephaestusAgent } from './workflow/hephaestus/hephaestus.agent.js';
 import { IrisAgent } from './workflow/iris/iris.agent.js';
-import { HermesAgent } from './workflow/hermes/hermes.agent.js';
+import { MercuryAgent } from './workflow/mercury/mercury.agent.js';
 import { ApolloAgent } from './workflow/apollo/apollo.agent.js';
 import { VulcanAgent } from './workflow/industry/vulcan.agent.js';
 import { HeliosAgent } from './workflow/industry/helios.agent.js';
@@ -238,7 +238,7 @@ export class AgentRegistry {
     this.register(new AthenaAgent()); // Compliance Intelligence — EU regulatory
     this.register(new HephaestusAgent()); // Field & Site Intelligence — construction
     this.register(new IrisAgent()); // Research & Market Intelligence
-    this.register(new HermesAgent()); // Logistics & Operations
+    this.register(new MercuryAgent()); // Logistics & Operations
     this.register(new ApolloAgent()); // Content & Outreach
 
     // Climate IQ Industry Specialists — Roman/Greek gods per sector

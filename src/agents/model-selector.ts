@@ -291,7 +291,7 @@ export const AGENT_TIER_MAP: Record<string, ModelTier> = {
   athena: 'heavy', // Compliance Intelligence — novel regulatory interpretation
   hephaestus: 'heavy', // Field & Site Intelligence — multi-source fusion
   iris: 'heavy', // Research & Market Intelligence — deep analysis
-  hermes: 'heavy', // Logistics & Operations — complex optimization
+  mercury: 'heavy', // Logistics & Operations — complex optimization
   apollo: 'heavy', // Content & Outreach — long-form generation
 };
 
