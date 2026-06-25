@@ -182,7 +182,7 @@ function sanitizeResponse(raw: unknown): Record<string, unknown> {
 // BRIDGE IMPLEMENTATION
 // ============================================================================
 
-export class OpenClawBridge {
+export class NemoClawBridge {
   private config: BridgeConfig;
   private registeredSkills: Map<string, OpenClawSkillManifest> = new Map();
 
@@ -196,12 +196,12 @@ export class OpenClawBridge {
    * This lets OpenClaw consume values populated by the startup secret loader
    * instead of relying on hardcoded runtime configuration.
    */
-  static fromEnv(config: Partial<BridgeConfig> = {}): OpenClawBridge {
+  static fromEnv(config: Partial<BridgeConfig> = {}): NemoClawBridge {
     // OpenClaw → NemoClaw migration (DWS Doc Standard / migration plan
     // docs/migrations/2026-06-25-openclaw-to-nemoclaw.md, Phase 1): prefer the
     // NEMOCLAW_* env vars (OpenShell-sandboxed runtime) and fall back to the
     // legacy OPENCLAW_* vars so existing deployments keep working unchanged.
-    return new OpenClawBridge({
+    return new NemoClawBridge({
       openclawEndpoint:
         process.env.NEMOCLAW_ENDPOINT ||
         process.env.OPENCLAW_ENDPOINT ||
@@ -409,3 +409,7 @@ export class OpenClawBridge {
     }
   }
 }
+
+// Back-compat alias (OpenClaw → NemoClaw migration, Phase 2;
+// docs/migrations/2026-06-25-openclaw-to-nemoclaw.md). Remove after Phase 3 cutover.
+export { NemoClawBridge as OpenClawBridge };

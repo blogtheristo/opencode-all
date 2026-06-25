@@ -7,7 +7,7 @@
  * Defense in depth:
  *   1. OpenClaw runs INSIDE KYA sandbox (never outside governance boundary)
  *   2. Community skills: BLOCKED (no auto-install)
- *   3. MCP tool responses: untrusted input (sanitized by openclaw-bridge.ts)
+ *   3. MCP tool responses: untrusted input (sanitized by nemoclaw-bridge.ts)
  *   4. Network egress: per-session whitelist at hypervisor level
  *   5. Filesystem: isolated per MicroVM
  *   6. All actions logged to Firehorse audit trail
@@ -156,7 +156,7 @@ function getTierCapabilities(tier: SandboxTier): {
 // SANDBOX MANAGER
 // ============================================================================
 
-export class OpenClawSandbox {
+export class NemoClawSandbox {
   private config: SandboxConfig;
   private state: SandboxState;
 
@@ -182,7 +182,7 @@ export class OpenClawSandbox {
     atsScore: number;
     allowedMcpTools?: string[];
     logBasePath?: string;
-  }): OpenClawSandbox {
+  }): NemoClawSandbox {
     const tier = resolveTier(params.atsScore);
     const capabilities = getTierCapabilities(tier);
     const logBasePath = params.logBasePath ?? '/mnt/firehorse-dms/logs';
@@ -202,13 +202,11 @@ export class OpenClawSandbox {
         : [],
       allowedPaths: capabilities.allowFilesystem
         ? [
-          { path: '/data/agent-workspace', writable: tier === 'full_agency' },
-          { path: '/data/shared-models', writable: false },
-        ]
+            { path: '/data/agent-workspace', writable: tier === 'full_agency' },
+            { path: '/data/shared-models', writable: false },
+          ]
         : [],
-      allowedMcpTools: capabilities.allowMcpTools
-        ? (params.allowedMcpTools ?? [])
-        : [],
+      allowedMcpTools: capabilities.allowMcpTools ? (params.allowedMcpTools ?? []) : [],
       firehorseLogPath: `${logBasePath}/${dateDir}/${params.agentId}.jsonl`,
     };
 
@@ -221,7 +219,7 @@ export class OpenClawSandbox {
       allowedTools: config.allowedMcpTools.length,
     });
 
-    return new OpenClawSandbox(config);
+    return new NemoClawSandbox(config);
   }
 
   /**
@@ -300,7 +298,11 @@ export class OpenClawSandbox {
    * Update ATS score and potentially adjust tier.
    * Dynamic permission adjustment: <5 seconds.
    */
-  updateATS(newScore: number): { tierChanged: boolean; oldTier: SandboxTier; newTier: SandboxTier } {
+  updateATS(newScore: number): {
+    tierChanged: boolean;
+    oldTier: SandboxTier;
+    newTier: SandboxTier;
+  } {
     const oldTier = this.config.tier;
     const newTier = resolveTier(newScore);
     const oldATS = this.state.currentATS;
@@ -362,19 +364,24 @@ export class OpenClawSandbox {
         vcpu_count: this.config.cpuCores,
         mem_size_mib: this.config.memoryLimitMb,
       },
-      'network-interfaces': this.config.allowedEgressDomains.length > 0
-        ? [{
-          iface_id: 'eth0',
-          guest_mac: 'AA:FC:00:00:00:01',
-          host_dev_name: `tap-${this.config.sandboxId.slice(-8)}`,
-        }]
-        : [],
-      'drives': [{
-        drive_id: 'rootfs',
-        path_on_host: '/var/lib/firecracker/rootfs.ext4',
-        is_root_device: true,
-        is_read_only: this.config.tier !== 'full_agency',
-      }],
+      'network-interfaces':
+        this.config.allowedEgressDomains.length > 0
+          ? [
+              {
+                iface_id: 'eth0',
+                guest_mac: 'AA:FC:00:00:00:01',
+                host_dev_name: `tap-${this.config.sandboxId.slice(-8)}`,
+              },
+            ]
+          : [],
+      drives: [
+        {
+          drive_id: 'rootfs',
+          path_on_host: '/var/lib/firecracker/rootfs.ext4',
+          is_root_device: true,
+          is_read_only: this.config.tier !== 'full_agency',
+        },
+      ],
       metadata: {
         kya_session_id: this.config.kyaSessionId,
         agent_id: this.config.agentId,
@@ -385,3 +392,7 @@ export class OpenClawSandbox {
     };
   }
 }
+
+// Back-compat alias (OpenClaw → NemoClaw migration, Phase 2;
+// docs/migrations/2026-06-25-openclaw-to-nemoclaw.md). Remove after Phase 3 cutover.
+export { NemoClawSandbox as OpenClawSandbox };

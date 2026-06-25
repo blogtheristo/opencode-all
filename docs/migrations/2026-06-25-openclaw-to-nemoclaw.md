@@ -12,7 +12,7 @@ Sessions & Modifications:
 
 ---
 
-**Status:** Phase 1 done · Phases 2–4 staged
+**Status:** Phases 1–2 done · Phases 3–4 staged
 **Owner:** Lifetime Oy / DWS IQ 6 Engineering
 
 ## Why
@@ -43,12 +43,13 @@ Verified real (NVIDIA primary sources): github.com/NVIDIA/NemoClaw · nvidianews
 - Add `NEMOCLAW_*` descriptors alongside `OPENCLAW_*` in `src/middleware/env-validation.ts` (optional vars) and key mappings in `src/config/secret-loader.ts` (`nemoclaw-endpoint`, `nemoclaw-api-key`).
 - No removals. No infra change.
 
-### Phase 2 — Source rename (gated on green build + tests)
+### Phase 2 — Source rename (DONE, verified)
 
-- Rename `src/sandbox/openclaw-sandbox.ts` → `nemoclaw-sandbox.ts`; class `OpenClawSandbox` → `NemoClawSandbox`.
-- Rename `src/mcp/openclaw-bridge.ts` → `nemoclaw-bridge.ts`; class `OpenClawBridge` → `NemoClawBridge` (keep a thin `OpenClawBridge` re-export alias for one release).
-- Update all imports, `src/__tests__/openclaw-bridge.test.ts`, comments.
-- **Gate:** `npm run build && npm test` green before merge. Do not land a partial rename.
+- Renamed `src/sandbox/openclaw-sandbox.ts` → `nemoclaw-sandbox.ts`; class `OpenClawSandbox` → `NemoClawSandbox` (+ `export { NemoClawSandbox as OpenClawSandbox }` back-compat alias).
+- Renamed `src/mcp/openclaw-bridge.ts` → `nemoclaw-bridge.ts`; class `OpenClawBridge` → `NemoClawBridge` (+ back-compat alias).
+- Renamed + updated `src/__tests__/openclaw-bridge.test.ts` → `nemoclaw-bridge.test.ts` (new path/class; legacy `OPENCLAW_*` env vars retained in the test to exercise the Phase-1 fallback).
+- **Verified:** `npm run build` (full `tsc`) green; `vitest run nemoclaw-bridge.test.ts` 2/2 green.
+- **Left intentionally:** the runtime audit-event-ID prefix `openclaw-bridge-…` (log consumers may key on it) and the `openclawEndpoint`/`openclawApiKey` `BridgeConfig` field names → Phase 4, to avoid breaking observability/config consumers.
 
 ### Phase 3 — Secrets + live infra (RED zone — human-gated cutover)
 

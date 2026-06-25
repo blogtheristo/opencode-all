@@ -31,7 +31,7 @@ afterEach(() => {
   process.env = { ...envSnapshot };
 });
 
-describe('OpenClawBridge.fromEnv', () => {
+describe('NemoClawBridge.fromEnv', () => {
   it('uses secret-loader-backed environment variables for runtime config and auth', async () => {
     process.env.OPENCLAW_ENDPOINT = 'https://openclaw.internal/rpc';
     process.env.OPENCLAW_API_KEY = 'secret-token';
@@ -47,8 +47,8 @@ describe('OpenClawBridge.fromEnv', () => {
 
     vi.stubGlobal('fetch', fetchMock);
 
-    const { OpenClawBridge } = await import('../mcp/openclaw-bridge.js');
-    const bridge = OpenClawBridge.fromEnv();
+    const { NemoClawBridge } = await import('../mcp/nemoclaw-bridge.js');
+    const bridge = NemoClawBridge.fromEnv();
 
     bridge.registerSkill({
       name: 'search-docs',
@@ -90,8 +90,8 @@ describe('OpenClawBridge.fromEnv', () => {
     process.env.OPENCLAW_TIMEOUT_MS = '0';
     process.env.OPENCLAW_MAX_RESPONSE_BYTES = 'NaN';
 
-    const { OpenClawBridge } = await import('../mcp/openclaw-bridge.js');
-    const bridge = OpenClawBridge.fromEnv();
+    const { NemoClawBridge } = await import('../mcp/nemoclaw-bridge.js');
+    const bridge = NemoClawBridge.fromEnv();
 
     bridge.registerSkill({
       name: 'alpha',
