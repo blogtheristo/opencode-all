@@ -136,11 +136,32 @@
         background: rgba(255, 209, 102, 0.22);
       }
       .hero {
-        background: linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+        background: linear-gradient(135deg, #0a2463 0%, #0e3080 40%, #071a4a 100%);
         border: 1px solid rgba(255, 209, 102, 0.18);
         border-radius: 12px;
         padding: 40px;
         margin-bottom: 36px;
+        display: flex;
+        gap: 32px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .hero-copy {
+        flex: 1 1 340px;
+      }
+      .hero-img {
+        flex: 0 0 240px;
+        max-width: 260px;
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 209, 102, 0.25);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+      }
+      @media (max-width: 720px) {
+        .hero-img {
+          margin: 0 auto;
+        }
       }
       .hero h1 {
         margin: 0 0 12px;
@@ -243,6 +264,77 @@
       .optional {
         border-color: rgba(255, 209, 102, 0.35);
       }
+      .statband {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1px;
+        background: rgba(255, 209, 102, 0.18);
+        border: 1px solid rgba(255, 209, 102, 0.18);
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 0 0 40px;
+      }
+      .stat {
+        background: linear-gradient(135deg, #0a2463 0%, #071a4a 100%);
+        padding: 24px 16px;
+        text-align: center;
+      }
+      .stat-value {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--gold);
+        line-height: 1.05;
+      }
+      .stat-label {
+        margin-top: 6px;
+        font-size: 0.78rem;
+        letter-spacing: 0.05em;
+        color: rgba(226, 232, 240, 0.75);
+        text-transform: uppercase;
+      }
+      h2 {
+        position: relative;
+        padding-left: 16px;
+      }
+      h2::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.1em;
+        bottom: 0.1em;
+        width: 5px;
+        border-radius: 3px;
+        background: linear-gradient(180deg, #ffd166 0%, #b8860b 100%);
+      }
+      .compare {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 1fr;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 0 0 40px;
+        font-size: 0.92rem;
+      }
+      .compare > div {
+        padding: 12px 14px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      }
+      .compare .ch {
+        font-weight: 700;
+        background: rgba(30, 41, 59, 0.7);
+      }
+      .compare .rowlabel {
+        color: rgba(226, 232, 240, 0.82);
+      }
+      .compare .us {
+        background: rgba(58, 90, 64, 0.22);
+        color: #bbf7d0;
+        font-weight: 600;
+      }
+      .compare .them {
+        background: rgba(30, 41, 59, 0.4);
+        color: rgba(226, 232, 240, 0.6);
+      }
       table.outline {
         width: 100%;
         border-collapse: collapse;
@@ -298,29 +390,90 @@
       <a href="../" class="back-link">← Takaisin kauppaan</a>
 
       <section class="hero">
-        <h1>Claude Code -valmennus</h1>
-        <p class="lede">
-          Vie insinööritiimisi AI-uteliaasta oikeita muutoksia toimittavaksi Claude Codella —
-          hallitun plan → review → ship -työnkulun kautta, niin kuin kurinalaiset tiimit oikeasti
-          työskentelevät. EU-suvereenia kaikkialla: koodisi ja immateriaalioikeutesi eivät poistu
-          lainkäyttöalueelta.
-        </p>
-        <div class="badges">
-          <span class="badge">EU-tietojen sijainti</span>
-          <span class="badge">CLOUD Act -vapaa</span>
-          <span class="badge">EU AI Act 4 artikla -valmis</span>
+        <div class="hero-copy">
+          <h1>Claude Code -valmennus</h1>
+          <p class="lede">
+            Vie insinööritiimisi AI-uteliaasta oikeita muutoksia toimittavaksi Claude Codella —
+            hallitun plan → review → ship -työnkulun kautta, niin kuin kurinalaiset tiimit oikeasti
+            työskentelevät. EU-suvereenia kaikkialla: koodisi ja immateriaalioikeutesi eivät poistu
+            lainkäyttöalueelta.
+          </p>
+          <div class="badges">
+            <span class="badge">EU-tietojen sijainti</span>
+            <span class="badge">CLOUD Act -vapaa</span>
+            <span class="badge">EU AI Act 4 artikla -valmis</span>
+          </div>
+          <p style="margin: 18px 0 0; color: rgba(226, 232, 240, 0.85); font-size: 0.95rem">
+            📅 Aloitus <strong>heinä–joulukuu 2026</strong>, perjantaisin.
+            <strong>Advanced-jatko-osa</strong> tulossa syksyllä.
+          </p>
+          <p style="margin: 6px 0 0; color: rgba(226, 232, 240, 0.7); font-size: 0.9rem">
+            💻 Suoritustapa: videoluokassa Teams-yhteydellä.
+          </p>
         </div>
-        <p style="margin: 18px 0 0; color: rgba(226, 232, 240, 0.85); font-size: 0.95rem">
-          📅 Aloitus <strong>heinä–joulukuu 2026</strong>, perjantaisin.
-        </p>
+        <img
+          class="hero-img"
+          src="../static/images/claude-code-coaching-hero-fi.png"
+          alt="Claude Code -valmennus — suvereeni agenttipohjainen valmennus yhdellä silmäyksellä"
+        />
       </section>
+
+      <div class="statband">
+        <div class="stat">
+          <div class="stat-value">1 + 2</div>
+          <div class="stat-label">Päivää · luento + työpaja</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">5</div>
+          <div class="stat-label">EU-kieltä</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">4 art.</div>
+          <div class="stat-label">EU AI Act -valmis</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">0</div>
+          <div class="stat-label">Datavuotoa</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">alv 0 %</div>
+          <div class="stat-label">Kaikki hinnat</div>
+        </div>
+      </div>
+
+      <h2>Suvereeniteetti on segmentointi</h2>
+      <p class="lede" style="font-size: 1rem">
+        Markkina jakautuu yhdellä akselilla. Tämä kurssi toteutetaan kokonaan EU-suvereenin
+        perimeterin sisällä.
+      </p>
+      <div class="compare">
+        <div class="ch"></div>
+        <div class="ch" style="color: #bbf7d0">EU-suvereeni — tämä kurssi</div>
+        <div class="ch">US-isännöidyt alustat</div>
+
+        <div class="rowlabel">Datan sijainti</div>
+        <div class="us">Vain EU</div>
+        <div class="them">US / globaali</div>
+
+        <div class="rowlabel">CLOUD Act -altistus</div>
+        <div class="us">Ei lainkaan</div>
+        <div class="them">Kyllä</div>
+
+        <div class="rowlabel">Koodisi &amp; IP</div>
+        <div class="us">Ei poistu lainkäyttöalueelta</div>
+        <div class="them">Poistuu lainkäyttöalueelta</div>
+
+        <div class="rowlabel">EU AI Act -linjaus</div>
+        <div class="us">Natiivi</div>
+        <div class="them">Jälkikäteen sovitettu</div>
+      </div>
 
       <h2>Kolme tapaa aloittaa</h2>
       <p class="vat-note">Kaikki hinnat alv 0 %.</p>
       <div class="components">
         <div class="card">
           <h3>1 päivän luento</h3>
-          <div class="fmt">Sisäinen · enintään 12 osallistujaa</div>
+          <div class="fmt">Videoluokka (Teams) · enintään 12 osallistujaa</div>
           <ul>
             <li>12 kurinalaisen agenttipohjaisen kehityksen sääntöä</li>
             <li>Kontekstin suunnittelu: CLAUDE.md, taidot, MCP-työkalut</li>
@@ -333,7 +486,7 @@
 
         <div class="card">
           <h3>2 päivän työpaja</h3>
-          <div class="fmt">Sisäinen · käytännönläheinen · enintään 10 osallistujaa</div>
+          <div class="fmt">Videoluokka (Teams) · käytännönläheinen · enintään 10 osallistujaa</div>
           <ul>
             <li>Laadi CLAUDE.md-projektimuisti repoosi</li>
             <li>Rakenna taidot, vinoviivakomennot ja kytke MCP-työkalut</li>
@@ -372,43 +525,82 @@
         </div>
       </div>
 
-      <h2>Esimerkkiprojekteja — rakenna omaa pääomaa</h2>
+      <h2>Mitä tiimisi rakentaa</h2>
       <p class="lede" style="font-size: 1rem">
-        Projektijakso ei laskuta tunteja — se rakentaa yrityksellesi
-        <strong>token-pääomavarallisuutta</strong>: koodia, agentteja ja palveluita, jotka jäävät
-        teille ja kerryttävät arvoa.
+        Valinnainen projektijakso ei laskuta tunteja — se jättää teille
+        <strong>IPR:n</strong>: oikeita, toimivia varoja, jotka yritys omistaa. Avoimia, standardeja
+        malleja — sellaisia joita tiimit julkaisevat GitHubissa joka päivä — rakennettuna teidän
+        liiketoiminnallenne, EU-suvereenisti.
       </p>
       <div class="components">
         <div class="card">
           <h3>Toimiva verkkokauppa &amp; tuotteistus</h3>
           <ul>
-            <li>JSON-pohjainen kauppa: yksi totuuden lähde hinnoittelulle</li>
-            <li>Google Merchant -syöte + monikieliset tuotesivut</li>
-            <li>Katalogista kassalle, omistuksessanne päästä päähän</li>
+            <li>Konfiguraatiopohjainen kauppa, yksi totuuden lähde hinnoittelulle</li>
+            <li>Tuotesyöte ja monikieliset tuotesivut</li>
+            <li>Katalogista kassalle — omistuksessanne päästä päähän</li>
           </ul>
         </div>
         <div class="card">
           <h3>Dynaamiset monikieliset verkkosivut</h3>
           <ul>
-            <li>Sivut renderöityvät suoraan datasta — ei kovakoodattua tekstiä tai hintoja</li>
-            <li>5 EU-kieltä, kaksoiskansio-turvallinen</li>
-            <li>Päivitä dataa, älä HTML:ää</li>
+            <li>Sivut renderöityvät datasta — päivitä koskematta HTML:ään</li>
+            <li>Useita EU-kieliä yhdestä lähteestä</li>
           </ul>
         </div>
         <div class="card">
           <h3>Yrityksen oma tekoälypalvelin</h3>
+          <div class="fmt">Teollisuusinsinööreille — ydinasiakasryhmällemme</div>
           <ul>
             <li>EU-suvereeni päättely omalla raudallanne — nolla datavuotoa</li>
-            <li>Sisäiset agentit ja mallit, ei token-kohtaista toimittajalukkoa</li>
+            <li>
+              Pyörii NVIDIAn edge-raudalla:
+              <a href="dgx-spark.html">DGX Spark</a>, <a href="igx-orin.html">IGX Orin</a>,
+              <a href="edge-node-gn100.html">Control Room GN100</a>
+            </li>
             <li>Tase-erä, ei tilausmaksu</li>
           </ul>
         </div>
         <div class="card">
-          <h3>Uudelleenkäytettävät agentit &amp; taidot</h3>
+          <h3>Sisäinen automaatio &amp; agentit</h3>
           <ul>
-            <li>Kodifioi toistuva työ kerran — "kysytty kahdesti = epäonnistuminen"</li>
-            <li>Jokainen taito on pysyvää pääomaa, joka jää tiimille</li>
-            <li>Compliance-automaatio &amp; CI-kuriportit mukana</li>
+            <li>Toistuva työ automatisoituna ja tiimin omistuksessa</li>
+            <li>Hallittu tarkistustyönkulku, joka pitää laadun korkealla</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>Edut toimialoittain</h2>
+      <div class="components">
+        <div class="card optional">
+          <h3>Finanssiala</h3>
+          <ul>
+            <li>EU AI Act 4 artiklan lukutaito + auditoitava mallihallinta (DORA-valmis)</li>
+            <li>plan → review → ship -jäljet näyttönä riski- ja auditointitarpeisiin</li>
+            <li>Suvereeni data — nolla CLOUD Act -altistusta asiakastiedoille</li>
+            <li>Agentit CSRD- / regulaatioraportointiin</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Valmistus &amp; teollisuus</h3>
+          <ul>
+            <li>Edge-tekoäly tehdaslattialle (NVIDIA IGX Orin / DGX Spark)</li>
+            <li>Ennakoivan kunnossapidon maailmanmallit; suvereeni IP</li>
+            <li>Rakennettu teollisuusinsinööreille — ydinasiakasryhmällemme</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Energia &amp; verkkoyhtiöt</h3>
+          <ul>
+            <li>Fit for 55 / CSRD -raportoinnin automaatio</li>
+            <li>Verkko- ja omaisuusontologiat; edge-päättely kohteissa</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Rakentaminen</h3>
+          <ul>
+            <li>Työmaaturvallisuus- ja hiili (EN 15978) -agentit</li>
+            <li>Liikkuva Control Room työmaalla</li>
           </ul>
         </div>
       </div>

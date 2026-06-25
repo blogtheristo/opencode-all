@@ -100,7 +100,7 @@ lyhyt tiimiretro, joka tuottaa standardointibacklogin.
 - Jäsennelty tiedonsiirto, jotta tiimi on itsenäinen lopussa
 - EU-suvereenia koko ajan; tulosperusteinen hinnoittelu ja toimeksiantokohtainen rajaus
 
-Projektijakso rakentaa **token-pääomavarallisuutta, jonka yritys omistaa**, ei konsultointitunteja.
+Projektijakso rakentaa **IPR-pääomaa, jonka yritys omistaa**, ei konsultointitunteja.
 Esimerkkiprojekteja: toimiva **verkkokauppa + tuotteistus** (JSON-pohjainen hinnoittelu, Google
 Merchant -syöte, monikieliset tuotesivut); **dynaamiset monikieliset verkkosivut**, jotka
 renderöityvät datasta; **yrityksen oma tekoälypalvelin** (EU-suvereeni päättely omalla raudalla,

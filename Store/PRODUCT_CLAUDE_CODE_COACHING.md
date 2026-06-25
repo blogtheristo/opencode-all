@@ -74,7 +74,7 @@ An optional embedded engagement: senior engineers apply Claude Code to a real ba
 end-to-end alongside your team — co-building skills and agents, setting up CI discipline gates, and
 transferring knowledge. Outcome-priced and scoped per engagement. EU-sovereign throughout.
 
-The project track doesn't bill hours — it builds **token capital assets your company owns**: code,
+The project track doesn't bill hours — it builds **IPR capital your company owns**: code,
 agents and services that stay with you and compound in value. Example projects:
 
 - **Working e-commerce & productization** — a JSON-driven store with one pricing source of truth, a

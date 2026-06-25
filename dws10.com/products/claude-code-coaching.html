@@ -134,11 +134,32 @@
         background: rgba(255, 209, 102, 0.22);
       }
       .hero {
-        background: linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+        background: linear-gradient(135deg, #0a2463 0%, #0e3080 40%, #071a4a 100%);
         border: 1px solid rgba(255, 209, 102, 0.18);
         border-radius: 12px;
         padding: 40px;
         margin-bottom: 36px;
+        display: flex;
+        gap: 32px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .hero-copy {
+        flex: 1 1 340px;
+      }
+      .hero-img {
+        flex: 0 0 240px;
+        max-width: 260px;
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 209, 102, 0.25);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+      }
+      @media (max-width: 720px) {
+        .hero-img {
+          margin: 0 auto;
+        }
       }
       .hero h1 {
         margin: 0 0 12px;
@@ -241,6 +262,48 @@
       .optional {
         border-color: rgba(255, 209, 102, 0.35);
       }
+      .statband {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1px;
+        background: rgba(255, 209, 102, 0.18);
+        border: 1px solid rgba(255, 209, 102, 0.18);
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 0 0 40px;
+      }
+      .stat {
+        background: linear-gradient(135deg, #0a2463 0%, #071a4a 100%);
+        padding: 24px 16px;
+        text-align: center;
+      }
+      .stat-value {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--gold);
+        line-height: 1.05;
+      }
+      .stat-label {
+        margin-top: 6px;
+        font-size: 0.78rem;
+        letter-spacing: 0.05em;
+        color: rgba(226, 232, 240, 0.75);
+        text-transform: uppercase;
+      }
+      h2 {
+        position: relative;
+        padding-left: 16px;
+      }
+      h2::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.1em;
+        bottom: 0.1em;
+        width: 5px;
+        border-radius: 3px;
+        background: linear-gradient(180deg, #ffd166 0%, #b8860b 100%);
+      }
       table.outline {
         width: 100%;
         border-collapse: collapse;
@@ -278,6 +341,35 @@
         color: rgba(226, 232, 240, 0.6);
         border-top: 1px solid #334155;
       }
+      .compare {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 1fr;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 0 0 40px;
+        font-size: 0.92rem;
+      }
+      .compare > div {
+        padding: 12px 14px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      }
+      .compare .ch {
+        font-weight: 700;
+        background: rgba(30, 41, 59, 0.7);
+      }
+      .compare .rowlabel {
+        color: rgba(226, 232, 240, 0.82);
+      }
+      .compare .us {
+        background: rgba(58, 90, 64, 0.22);
+        color: #bbf7d0;
+        font-weight: 600;
+      }
+      .compare .them {
+        background: rgba(30, 41, 59, 0.4);
+        color: rgba(226, 232, 240, 0.6);
+      }
     </style>
   </head>
   <body>
@@ -296,28 +388,89 @@
       <a href="../" class="back-link">← Back to Store</a>
 
       <section class="hero">
-        <h1>Claude Code Coaching</h1>
-        <p class="lede">
-          Get your engineering team from AI-curious to shipping real changes with Claude Code —
-          through a governed plan → review → ship workflow, the way disciplined teams actually work.
-          EU-sovereign throughout: your code and IP never leave the jurisdiction.
-        </p>
-        <div class="badges">
-          <span class="badge">EU Data Residency</span>
-          <span class="badge">CLOUD Act Free</span>
-          <span class="badge">EU AI Act Article 4 Ready</span>
+        <div class="hero-copy">
+          <h1>Claude Code Coaching</h1>
+          <p class="lede">
+            Get your engineering team from AI-curious to shipping real changes with Claude Code —
+            through a governed plan → review → ship workflow, the way disciplined teams actually
+            work. EU-sovereign throughout: your code and IP never leave the jurisdiction.
+          </p>
+          <div class="badges">
+            <span class="badge">EU Data Residency</span>
+            <span class="badge">CLOUD Act Free</span>
+            <span class="badge">EU AI Act Article 4 Ready</span>
+          </div>
+          <p style="margin: 18px 0 0; color: rgba(226, 232, 240, 0.85); font-size: 0.95rem">
+            📅 Cohorts run <strong>July–December 2026</strong>, on Fridays. An
+            <strong>Advanced follow-up</strong> launches this autumn.
+          </p>
+          <p style="margin: 6px 0 0; color: rgba(226, 232, 240, 0.7); font-size: 0.9rem">
+            💻 Delivered live in a video classroom over Microsoft Teams.
+          </p>
         </div>
-        <p style="margin: 18px 0 0; color: rgba(226, 232, 240, 0.85); font-size: 0.95rem">
-          📅 Cohorts run <strong>July–December 2026</strong>, on Fridays.
-        </p>
+        <img
+          class="hero-img"
+          src="../static/images/claude-code-coaching-hero.png"
+          alt="Claude Code Coaching — sovereign agentic engineering coaching, at a glance"
+        />
       </section>
+
+      <div class="statband">
+        <div class="stat">
+          <div class="stat-value">1 + 2</div>
+          <div class="stat-label">Days · lecture + workshop</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">5</div>
+          <div class="stat-label">EU languages</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">Art. 4</div>
+          <div class="stat-label">EU AI Act ready</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">0</div>
+          <div class="stat-label">CLOUD Act exposure</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">VAT 0%</div>
+          <div class="stat-label">All prices</div>
+        </div>
+      </div>
+
+      <h2>Sovereignty is the segmentation</h2>
+      <p class="lede" style="font-size: 1rem">
+        The market splits on one axis. This course is delivered entirely inside the EU-sovereign
+        perimeter.
+      </p>
+      <div class="compare">
+        <div class="ch"></div>
+        <div class="ch" style="color: #bbf7d0">EU-sovereign — this course</div>
+        <div class="ch">US-hosted platforms</div>
+
+        <div class="rowlabel">Data residency</div>
+        <div class="us">EU only</div>
+        <div class="them">US / global</div>
+
+        <div class="rowlabel">CLOUD Act exposure</div>
+        <div class="us">None</div>
+        <div class="them">Yes</div>
+
+        <div class="rowlabel">Your code &amp; IP</div>
+        <div class="us">Never leaves jurisdiction</div>
+        <div class="them">Leaves jurisdiction</div>
+
+        <div class="rowlabel">EU AI Act alignment</div>
+        <div class="us">Native</div>
+        <div class="them">Retrofitted</div>
+      </div>
 
       <h2>Three ways to engage</h2>
       <p class="vat-note">All prices VAT 0%.</p>
       <div class="components">
         <div class="card">
           <h3>1-Day Lecture</h3>
-          <div class="fmt">In-house · up to 12 participants</div>
+          <div class="fmt">Video classroom (Teams) · up to 12 participants</div>
           <ul>
             <li>The 12 rules of disciplined agentic engineering</li>
             <li>Context engineering: CLAUDE.md, skills, MCP tools</li>
@@ -330,7 +483,7 @@
 
         <div class="card">
           <h3>2-Day Workshop</h3>
-          <div class="fmt">In-house · hands-on · up to 10 participants</div>
+          <div class="fmt">Video classroom (Teams) · hands-on · up to 10 participants</div>
           <ul>
             <li>Author CLAUDE.md project memory for your repo</li>
             <li>Build skills, slash commands and wire MCP tools</li>
@@ -369,42 +522,81 @@
         </div>
       </div>
 
-      <h2>Example projects — build capital you own</h2>
+      <h2>What your team will build</h2>
       <p class="lede" style="font-size: 1rem">
-        The project track doesn't bill hours — it builds <strong>token capital assets</strong> your
-        company owns: code, agents and services that stay with you and compound in value.
+        The optional project track doesn't bill hours — it leaves you owning the
+        <strong>IPR</strong>: real, working assets your company keeps. Open, standard patterns — the
+        kind teams ship on GitHub every day — built for your business, EU-sovereign.
       </p>
       <div class="components">
         <div class="card">
           <h3>Working e-commerce &amp; productization</h3>
           <ul>
-            <li>A JSON-driven store with one pricing source of truth</li>
-            <li>Google Merchant feed + multilingual product pages</li>
-            <li>From catalogue to checkout, owned end-to-end</li>
+            <li>A configuration-driven store with one pricing source of truth</li>
+            <li>Product feed and multilingual product pages</li>
+            <li>From catalogue to checkout — owned end-to-end</li>
           </ul>
         </div>
         <div class="card">
           <h3>Dynamic multilingual websites</h3>
           <ul>
-            <li>Pages that render live from config — no hardcoded copy or prices</li>
-            <li>5 EU languages, dual-folder safe</li>
-            <li>Ship updates by editing data, not HTML</li>
+            <li>Pages that render live from data — ship updates without touching HTML</li>
+            <li>Multiple EU languages from one source</li>
           </ul>
         </div>
         <div class="card">
           <h3>Your own AI server</h3>
+          <div class="fmt">For industrial engineers — our core audience</div>
           <ul>
-            <li>EU-sovereign inference on your hardware — zero data egress</li>
-            <li>In-house agents and models, no per-token vendor lock-in</li>
+            <li>EU-sovereign inference on your own hardware — zero data egress</li>
+            <li>
+              Runs on NVIDIA edge hardware:
+              <a href="dgx-spark.html">DGX Spark</a>, <a href="igx-orin.html">IGX Orin</a>,
+              <a href="edge-node-gn100.html">Control Room GN100</a>
+            </li>
             <li>An asset on your balance sheet, not a subscription</li>
           </ul>
         </div>
         <div class="card">
-          <h3>Reusable agents &amp; skills</h3>
+          <h3>Internal automation &amp; agents</h3>
           <ul>
-            <li>Codify repeating work once — "asked twice = failure"</li>
-            <li>Each skill is durable capital your team keeps</li>
-            <li>Compliance automation &amp; CI discipline gates included</li>
+            <li>Repeating work automated and owned by your team</li>
+            <li>A governed review workflow that keeps quality high</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>Benefits by industry</h2>
+      <div class="components">
+        <div class="card optional">
+          <h3>Finance</h3>
+          <ul>
+            <li>EU AI Act Article 4 literacy + auditable model governance (DORA-ready)</li>
+            <li>Plan → review → ship trails as evidence for risk &amp; audit</li>
+            <li>Sovereign data — zero CLOUD Act exposure for customer information</li>
+            <li>Agents for CSRD / regulatory reporting</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Manufacturing &amp; industry</h3>
+          <ul>
+            <li>Edge AI on the factory floor (NVIDIA IGX Orin / DGX Spark)</li>
+            <li>Predictive-maintenance world models; sovereign IP</li>
+            <li>Built for industrial engineers — our core audience</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Energy &amp; utilities</h3>
+          <ul>
+            <li>Fit for 55 / CSRD reporting automation</li>
+            <li>Grid &amp; asset ontologies; edge inference at sites</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Construction</h3>
+          <ul>
+            <li>Site-safety and carbon (EN 15978) agents</li>
+            <li>A mobile Control Room on site</li>
           </ul>
         </div>
       </div>

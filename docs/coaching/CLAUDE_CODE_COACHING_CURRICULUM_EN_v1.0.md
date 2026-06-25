@@ -97,7 +97,7 @@ A 2–6 week guided engagement that turns the workshop habits into shipped outco
 - Structured knowledge transfer so the team is self-sufficient at the end
 - EU-sovereign throughout; outcome-priced and scoped per engagement
 
-The project track builds **token capital assets the company owns**, not consulting hours. Example
+The project track builds **IPR capital the company owns**, not consulting hours. Example
 projects: a working **e-commerce store + productization** (JSON-driven pricing, Google Merchant
 feed, multilingual product pages); **dynamic multilingual websites** that render from config;
 **the company's own AI server** (EU-sovereign inference on its own hardware, zero data egress); and
