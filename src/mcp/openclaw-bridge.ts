@@ -17,6 +17,11 @@
  */
 
 import logger from '../utils/logger.js';
+import {
+  CommandAuditLogger,
+  type CommandAuditSink,
+  type BridgeName,
+} from './command-audit-logger.js';
 
 // ============================================================================
 // TYPES
@@ -182,12 +187,37 @@ function sanitizeResponse(raw: unknown): Record<string, unknown> {
 // BRIDGE IMPLEMENTATION
 // ============================================================================
 
-export class OpenClawBridge {
-  private config: BridgeConfig;
-  private registeredSkills: Map<string, OpenClawSkillManifest> = new Map();
+export interface BridgeOptions {
+  /**
+   * EU AI Act Article 12 command-audit sink. When set, every invocation is
+   * recorded to the append-only command_audit_log BEFORE execution (fail-closed),
+   * and its result is recorded after. When absent, the bridge falls back to
+   * operational logging only (legacy behaviour).
+   */
+  auditSink?: CommandAuditSink;
+  /** Identifies which bridge wrote the audit event. */
+  bridgeName?: BridgeName;
+  /** Require the audit sink — construction throws if it is missing. */
+  requireAudit?: boolean;
+}
 
-  constructor(config: Partial<BridgeConfig> = {}) {
+export class OpenClawBridge {
+  protected config: BridgeConfig;
+  protected registeredSkills: Map<string, OpenClawSkillManifest> = new Map();
+  protected readonly auditSink?: CommandAuditSink;
+  protected readonly bridgeName: BridgeName;
+  protected readonly modelVersion: string | null = null;
+
+  constructor(config: Partial<BridgeConfig> = {}, options: BridgeOptions = {}) {
     this.config = { ...DEFAULT_BRIDGE_CONFIG, ...config };
+    this.bridgeName = options.bridgeName ?? 'openclaw';
+    this.auditSink = options.auditSink;
+
+    if (options.requireAudit && !this.auditSink) {
+      throw new Error(
+        `${this.bridgeName} bridge requires an Article 12 command-audit sink but none was provided`,
+      );
+    }
   }
 
   /**
@@ -196,8 +226,9 @@ export class OpenClawBridge {
    * This lets OpenClaw consume values populated by the startup secret loader
    * instead of relying on hardcoded runtime configuration.
    */
-  static fromEnv(config: Partial<BridgeConfig> = {}): OpenClawBridge {
-    return new OpenClawBridge({
+  /** Resolve runtime config from OPENCLAW_* env vars, with overrides. */
+  static resolveEnvConfig(config: Partial<BridgeConfig> = {}): BridgeConfig {
+    return {
       openclawEndpoint: process.env.OPENCLAW_ENDPOINT || DEFAULT_BRIDGE_CONFIG.openclawEndpoint,
       openclawApiKey: process.env.OPENCLAW_API_KEY || DEFAULT_BRIDGE_CONFIG.openclawApiKey,
       maxResponseBytes: parseIntegerEnv(
@@ -205,14 +236,21 @@ export class OpenClawBridge {
         DEFAULT_BRIDGE_CONFIG.maxResponseBytes,
         { min: 1 },
       ),
-      timeoutMs: parseIntegerEnv(
-        process.env.OPENCLAW_TIMEOUT_MS,
-        DEFAULT_BRIDGE_CONFIG.timeoutMs,
-        { min: 1 },
-      ),
+      timeoutMs: parseIntegerEnv(process.env.OPENCLAW_TIMEOUT_MS, DEFAULT_BRIDGE_CONFIG.timeoutMs, {
+        min: 1,
+      }),
       logBasePath: process.env.OPENCLAW_LOG_BASE_PATH || DEFAULT_BRIDGE_CONFIG.logBasePath,
       allowedSkills: parseOpenClawAllowedSkills(process.env.OPENCLAW_ALLOWED_SKILLS),
       ...config,
+    };
+  }
+
+  static fromEnv(config: Partial<BridgeConfig> = {}, options: BridgeOptions = {}): OpenClawBridge {
+    return new OpenClawBridge(OpenClawBridge.resolveEnvConfig(config), {
+      // Wire Article 12 command logging when Supabase creds are present.
+      // Stays null in unit tests (no DB env) — legacy operational-log behaviour.
+      auditSink: CommandAuditLogger.fromEnvOrNull() ?? undefined,
+      ...options,
     });
   }
 
@@ -228,7 +266,7 @@ export class OpenClawBridge {
       });
       throw new Error(
         `Skill "${manifest.name}" is not in the allowed skills whitelist. ` +
-        'Community skills are BLOCKED per DWS security policy.',
+          'Community skills are BLOCKED per DWS security policy.',
       );
     }
 
@@ -248,20 +286,55 @@ export class OpenClawBridge {
   }
 
   /**
+   * Record a denied invocation to the Article 12 ledger. Denials run no command,
+   * so a write failure here is surfaced loudly but does not change the outcome.
+   */
+  private async auditDenied(
+    request: BridgeRequest,
+    callerATS: number,
+    minimumATS: number | null,
+    deniedReason: string,
+  ): Promise<void> {
+    if (!this.auditSink) {
+      return;
+    }
+    try {
+      await this.auditSink.logInvocation({
+        bridge: this.bridgeName,
+        agentId: request.callerAgentId,
+        kyaSessionId: request.kyaSessionId,
+        skill: request.method,
+        params: request.params,
+        callerAts: callerATS,
+        minimumAts: minimumATS,
+        decision: 'denied',
+        deniedReason,
+        modelVersion: this.modelVersion,
+      });
+    } catch (err: unknown) {
+      logger.error('OpenClaw bridge: Article 12 denial log failed', {
+        skill: request.method,
+        caller: request.callerAgentId,
+        error: err instanceof Error ? err.message : 'Unknown error',
+      });
+    }
+  }
+
+  /**
    * Invoke an OpenClaw skill through the KYA-governed bridge.
    *
    * Flow:
    *   1. Validate skill is registered (whitelist check)
    *   2. Check caller ATS meets minimum requirement
-   *   3. Build JSON-RPC 2.0 request
-   *   4. Send to OpenClaw runtime (local endpoint)
+   *   3. Article 12 pre-flight log (fail-closed: blocks if the ledger is unwritable)
+   *   4. Build JSON-RPC 2.0 request + send to OpenClaw runtime
    *   5. Sanitize response (anti-prompt-injection)
-   *   6. Log to Firehorse audit trail
+   *   6. Log to Firehorse + Article 12 result event
    *   7. Return sanitized result
    */
   async invoke(request: BridgeRequest, callerATS: number): Promise<BridgeResponse> {
     const startTime = Date.now();
-    const auditEventId = `openclaw-bridge-${Date.now()}-${request.callerAgentId}`;
+    const auditEventId = `${this.bridgeName}-bridge-${Date.now()}-${request.callerAgentId}`;
 
     // 1. Validate skill is registered
     const skill = this.registeredSkills.get(request.method);
@@ -270,6 +343,7 @@ export class OpenClawBridge {
         skill: request.method,
         caller: request.callerAgentId,
       });
+      await this.auditDenied(request, callerATS, null, 'skill-not-registered');
       return {
         success: false,
         result: null,
@@ -287,6 +361,7 @@ export class OpenClawBridge {
         required: skill.minimumATS,
         caller: request.callerAgentId,
       });
+      await this.auditDenied(request, callerATS, skill.minimumATS, 'ats-below-minimum');
       return {
         success: false,
         result: null,
@@ -296,7 +371,39 @@ export class OpenClawBridge {
       };
     }
 
-    // 3. Build JSON-RPC 2.0 request
+    // 3. Article 12 pre-flight log — fail-closed. If the append-only ledger cannot
+    //    record that this command is about to run, the command does NOT run.
+    let traceId: string | null = null;
+    if (this.auditSink) {
+      try {
+        ({ traceId } = await this.auditSink.logInvocation({
+          bridge: this.bridgeName,
+          agentId: request.callerAgentId,
+          kyaSessionId: request.kyaSessionId,
+          skill: request.method,
+          params: request.params,
+          callerAts: callerATS,
+          minimumAts: skill.minimumATS,
+          decision: 'allowed',
+          modelVersion: this.modelVersion,
+        }));
+      } catch (err: unknown) {
+        logger.error('OpenClaw bridge: Article 12 pre-flight log failed — command blocked', {
+          skill: request.method,
+          caller: request.callerAgentId,
+          error: err instanceof Error ? err.message : 'Unknown error',
+        });
+        return {
+          success: false,
+          result: null,
+          error: 'Command blocked: EU AI Act Article 12 audit log is unavailable',
+          auditEventId,
+          durationMs: Date.now() - startTime,
+        };
+      }
+    }
+
+    // 4. Build JSON-RPC 2.0 request
     const rpcRequest = {
       jsonrpc: '2.0',
       id: auditEventId,
@@ -304,7 +411,7 @@ export class OpenClawBridge {
       params: request.params,
     };
 
-    // 4. Send to OpenClaw runtime
+    // 5. Send to OpenClaw runtime
     let timeout: ReturnType<typeof setTimeout> | undefined;
     try {
       const controller = new AbortController();
@@ -351,17 +458,30 @@ export class OpenClawBridge {
       }
 
       const sanitized = sanitizeResponse(parsed);
+      const durationMs = Date.now() - startTime;
 
-      // 6. Log to Firehorse
+      // 6. Log to Firehorse (operational) + Article 12 result event (compliance)
       logger.info('OpenClaw bridge invocation', {
         skill: request.method,
         caller: request.callerAgentId,
         kyaSession: request.kyaSessionId,
         callerATS,
         success: true,
-        durationMs: Date.now() - startTime,
+        durationMs,
         auditEventId,
       });
+
+      if (this.auditSink && traceId) {
+        await this.auditSink.logResult({
+          traceId,
+          bridge: this.bridgeName,
+          agentId: request.callerAgentId,
+          skill: request.method,
+          success: true,
+          output: sanitized,
+          durationMs,
+        });
+      }
 
       // 7. Return sanitized result
       return {
@@ -369,10 +489,11 @@ export class OpenClawBridge {
         result: sanitized,
         error: null,
         auditEventId,
-        durationMs: Date.now() - startTime,
+        durationMs,
       };
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Unknown error';
+      const durationMs = Date.now() - startTime;
       logger.error('OpenClaw bridge invocation failed', {
         skill: request.method,
         caller: request.callerAgentId,
@@ -380,12 +501,24 @@ export class OpenClawBridge {
         auditEventId,
       });
 
+      if (this.auditSink && traceId) {
+        await this.auditSink.logResult({
+          traceId,
+          bridge: this.bridgeName,
+          agentId: request.callerAgentId,
+          skill: request.method,
+          success: false,
+          errorText: message,
+          durationMs,
+        });
+      }
+
       return {
         success: false,
         result: null,
         error: message,
         auditEventId,
-        durationMs: Date.now() - startTime,
+        durationMs,
       };
     } finally {
       if (timeout) {
