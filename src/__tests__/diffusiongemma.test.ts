@@ -136,13 +136,39 @@ describe('diffusiongemma in the model catalog', () => {
     expect(selection.isLocal).toBe(true);
   });
 
-  it('is skipped when the agent requires tool calling', () => {
+  it('falls through to the local tool-calling Qwen when tools are required', () => {
     clearEnv();
     process.env.VLLM_BASE_URL = 'http://localhost:8000/v1';
     process.env.GROQ_API_KEY = 'groq-key';
 
+    // DiffusionGemma is tool-free, so a tool-requiring standard agent skips it
+    // and lands on the local tool-capable Qwen3.6 (€0) rather than cloud Groq.
     const selection = selectModel('material-oracle', { requiresTools: true });
     expect(selection.modelId).not.toBe(DIFFUSIONGEMMA_MODEL_ID);
-    expect(selection.modelId).toBe('llama-3.3-70b-versatile');
+    expect(selection.modelId).toBe('qwen3.6-35b-a3b');
+    expect(selection.isLocal).toBe(true);
+  });
+});
+
+describe('qwen3.6-35b-a3b local tool-calling model', () => {
+  it('is the local-first choice for a heavy-tier agent on vLLM', () => {
+    clearEnv();
+    process.env.VLLM_BASE_URL = 'http://localhost:8000/v1';
+
+    const selection = selectModel('atlas'); // heavy tier
+    expect(selection.modelId).toBe('qwen3.6-35b-a3b');
+    expect(selection.provider).toBe('vllm-local');
+    expect(selection.isLocal).toBe(true);
+  });
+
+  it('falls through to qwen2.5:32b on an Ollama-only heavy host', () => {
+    clearEnv();
+    process.env.OLLAMA_BASE_URL = 'http://localhost:11434/v1';
+
+    // No vLLM endpoint → the NVFP4 vllm-local entry is unavailable, so the
+    // older Ollama (GGUF) local takes over rather than jumping to cloud.
+    const selection = selectModel('atlas');
+    expect(selection.modelId).toBe('qwen2.5:32b');
+    expect(selection.provider).toBe('ollama-local');
   });
 });

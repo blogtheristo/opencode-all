@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code | Session: claude/diffusiongemma-parallel-generation-r0w0y1 | Date: 25.06.2026 | Changes: Added the local tool-calling companion qwen3.6-35b-a3b (Qwen3.6-35B-A3B NVFP4, vllm-local), registered local-first in standard + heavy tiers. Corrected the §3 "tool-heavy → cloud" anti-fit: tool-requiring agents now route to local Qwen at €0, not cloud. Added the §5 routing table and the NVFP4-vs-Ollama (GGUF) serving-stack distinction; new scripts/serve-qwen36.sh launcher
 - Version: 1.2 | Tool: Claude Code | Session: claude/diffusiongemma-parallel-generation-r0w0y1 | Date: 25.06.2026 | Changes: Documented the NVFP4 deployment quant (nvidia/Gemma-4-26B-A4B-NVFP4) as the mechanism behind the §2.5/§7 concurrency — ~14GB weights fit all experts + 16–32 KV caches in the Spark's 128GB. Flagged that the HF card was not reachable (env network policy blocks huggingface.co) so NVFP4 footprint figures are inferred, not card-verified
 - Version: 1.1 | Tool: Claude Code | Session: claude/diffusiongemma-parallel-generation-r0w0y1 | Date: 25.06.2026 | Changes: Added §2.5 departmental sovereign multi-user serving (single DGX Spark serves 16–32 concurrent streams via MoE sparsity, ~18 tok/s each / ~300 tok/s aggregate); refined the high-concurrency anti-fit bullet to "hyperscale public multi-tenant only"; added a concurrent-serving throughput table. Corrects the v1.0 framing that treated DiffusionGemma as strictly single-user
 - Version: 1.0 | Tool: Claude Code | Session: claude/diffusiongemma-parallel-generation-r0w0y1 | Date: 25.06.2026 | Changes: Initial creation — fit/anti-fit guidance for the DiffusionGemma parallel-diffusion local-inference integration (src/agents/diffusiongemma.ts), the `standard`-tier model-catalog registration, and the `scripts/serve-diffusiongemma.sh` vLLM launcher
@@ -82,9 +83,12 @@ better). Maps cleanly to a per-customer "one Spark per department" product tier.
 ## 3. Anti-fit — do **not** use here
 
 - **Tool-heavy orchestration** (atlas, athena, mercury — heavy tier). These
-  require function calling. The catalog entry sets `supportsTools: false`, so
-  these agents correctly fall through to a function-calling provider. Do not
-  force DiffusionGemma into the orchestration path.
+  require function calling. DiffusionGemma's catalog entry sets
+  `supportsTools: false`, so these agents correctly skip it. They no longer fall
+  through to _cloud_, though: the **local tool-calling counterpart
+  `qwen3.6-35b-a3b`** (Qwen3.6-35B-A3B, NVFP4, `vllm-local`) now picks them up at
+  €0 (§5). Do not force DiffusionGemma into the orchestration path — let Qwen
+  take it.
 - **Hyperscale public multi-tenant serving.** One Spark caps at ~16–32
   concurrent streams — enough for a department (§2.5), not for thousands of
   public tenants. Keep cloud autoregressive (Groq / Anthropic) for the
@@ -110,6 +114,21 @@ tier — see `src/__tests__/diffusiongemma.test.ts` for the verified behavior.
 
 To prefer it from a `lite`/`heavy` agent, pass `tierOverride: 'standard'`
 (without `requiresTools`) to `selectModel` / `createLLMClientForAgent`.
+
+**Companion model — `qwen3.6-35b-a3b` (local tool calling).** DiffusionGemma is
+generation-only; Qwen3.6-35B-A3B (NVFP4) is its tool-calling sibling and is
+registered local-first in both `standard` and `heavy` tiers. Net routing on a
+vLLM host:
+
+| Tier     | Plain generation (no tools)                   | Tool-requiring call          |
+| -------- | --------------------------------------------- | ---------------------------- |
+| standard | `diffusiongemma-26b` (diffusion, low latency) | `qwen3.6-35b-a3b` (€0 local) |
+| heavy    | `qwen3.6-35b-a3b`                             | `qwen3.6-35b-a3b`            |
+
+Both are NVFP4 / `vllm-local`; on an Ollama-only host (no `VLLM_BASE_URL`) the
+heavy tier falls back to `qwen2.5:32b`. Serve Qwen with
+`scripts/serve-qwen36.sh`. NVFP4 is a vLLM / TensorRT-LLM format and does **not**
+run on Ollama — see the Ollama-vs-vLLM split in this section's commit history.
 
 ## 6. Configuration
 
