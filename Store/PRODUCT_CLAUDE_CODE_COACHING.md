@@ -41,6 +41,9 @@ service.
 > Pricing is maintained in `dws10.com/config/products.json` (single source of truth). The figures
 > above are reproduced for the product sheet; the storefront renders live prices from that file.
 
+**All prices VAT 0 % (alv 0 %).** **Cohorts run July–December 2026, on Fridays** (aloitus
+heinä–joulukuu 2026, perjantaisin).
+
 ### 1-Day Lecture — "Claude Code Foundations for Sovereign Engineering Teams"
 
 A shared-vocabulary day for leadership and engineers:
@@ -70,6 +73,18 @@ development, and quality governance is in place.
 An optional embedded engagement: senior engineers apply Claude Code to a real backlog item
 end-to-end alongside your team — co-building skills and agents, setting up CI discipline gates, and
 transferring knowledge. Outcome-priced and scoped per engagement. EU-sovereign throughout.
+
+The project track doesn't bill hours — it builds **token capital assets your company owns**: code,
+agents and services that stay with you and compound in value. Example projects:
+
+- **Working e-commerce & productization** — a JSON-driven store with one pricing source of truth, a
+  Google Merchant feed, and multilingual product pages; catalogue to checkout, owned end-to-end.
+- **Dynamic multilingual websites** — pages that render live from config (no hardcoded copy or
+  prices), in 5 EU languages, dual-folder safe; ship updates by editing data, not HTML.
+- **Your own AI server** — EU-sovereign inference on your hardware with zero data egress; in-house
+  agents and models, no per-token vendor lock-in — an asset on your balance sheet, not a subscription.
+- **Reusable agents & skills** — repeating work codified once ("asked twice = failure"); each skill
+  is durable capital, with compliance automation and CI discipline gates included.
 
 ## Languages
 

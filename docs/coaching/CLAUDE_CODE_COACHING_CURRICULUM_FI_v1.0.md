@@ -100,6 +100,13 @@ lyhyt tiimiretro, joka tuottaa standardointibacklogin.
 - Jäsennelty tiedonsiirto, jotta tiimi on itsenäinen lopussa
 - EU-suvereenia koko ajan; tulosperusteinen hinnoittelu ja toimeksiantokohtainen rajaus
 
+Projektijakso rakentaa **token-pääomavarallisuutta, jonka yritys omistaa**, ei konsultointitunteja.
+Esimerkkiprojekteja: toimiva **verkkokauppa + tuotteistus** (JSON-pohjainen hinnoittelu, Google
+Merchant -syöte, monikieliset tuotesivut); **dynaamiset monikieliset verkkosivut**, jotka
+renderöityvät datasta; **yrityksen oma tekoälypalvelin** (EU-suvereeni päättely omalla raudalla,
+nolla datavuotoa); ja **uudelleenkäytettävät agentit & taidot** (compliance-automaatio,
+CI-kuriportit).
+
 **Valmiin määritelmä:** valittu backlog-kohde toimitetaan kuriportiston läpi; tiimi omistaa
 vähintään kolme uudelleenkäytettävää taitoa ja vihreän kuriporttiputken; lyhyt luovutusmuistio
 kirjaa mitä kodifioitiin ja mitä jää jäljelle.

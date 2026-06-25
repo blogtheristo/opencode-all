@@ -215,6 +215,31 @@
         font-weight: 600;
         margin-top: 2px;
       }
+      .cc-buy {
+        display: inline-block;
+        margin-top: 14px;
+        background: #2563eb;
+        color: #fff;
+        text-align: center;
+        padding: 10px 16px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.9rem;
+      }
+      .cc-buy:hover {
+        background: #1d4ed8;
+      }
+      .cc-buy.quote {
+        background: transparent;
+        border: 1px solid #2563eb;
+        color: #93c5fd;
+      }
+      .vat-note {
+        font-size: 0.85rem;
+        color: rgba(226, 232, 240, 0.6);
+        margin: 4px 0 18px;
+      }
       .optional {
         border-color: rgba(255, 209, 102, 0.35);
       }
@@ -285,9 +310,13 @@
           <span class="badge">CLOUD Act -vapaa</span>
           <span class="badge">EU AI Act 4 artikla -valmis</span>
         </div>
+        <p style="margin: 18px 0 0; color: rgba(226, 232, 240, 0.85); font-size: 0.95rem">
+          📅 Aloitus <strong>heinä–joulukuu 2026</strong>, perjantaisin.
+        </p>
       </section>
 
       <h2>Kolme tapaa aloittaa</h2>
+      <p class="vat-note">Kaikki hinnat alv 0 %.</p>
       <div class="components">
         <div class="card">
           <h3>1 päivän luento</h3>
@@ -299,6 +328,7 @@
             <li>Live plan → implement → review → ship -demo</li>
           </ul>
           <span class="cc-price" data-sku="claude-code-coaching-lecture"></span>
+          <a class="cc-buy" data-sku="claude-code-coaching-lecture"></a>
         </div>
 
         <div class="card">
@@ -311,6 +341,7 @@
             <li>Lopputyö: jokainen osallistuja toimittaa oikean muutoksen</li>
           </ul>
           <span class="cc-price" data-sku="claude-code-coaching-workshop"></span>
+          <a class="cc-buy" data-sku="claude-code-coaching-workshop"></a>
         </div>
 
         <div class="card optional">
@@ -322,6 +353,7 @@
             <li>Tiedonsiirto tiimillesi, EU-suvereenia kaikkialla</li>
           </ul>
           <span class="cc-price" data-sku="claude-code-coaching-project"></span>
+          <a class="cc-buy" data-sku="claude-code-coaching-project"></a>
         </div>
       </div>
 
@@ -336,6 +368,48 @@
             <li>EU AI Act 4 artiklan tekoälylukutaitonäyttö sisältyy</li>
           </ul>
           <span class="cc-price" data-sku="claude-code-coaching-3day"></span>
+          <a class="cc-buy" data-sku="claude-code-coaching-3day"></a>
+        </div>
+      </div>
+
+      <h2>Esimerkkiprojekteja — rakenna omaa pääomaa</h2>
+      <p class="lede" style="font-size: 1rem">
+        Projektijakso ei laskuta tunteja — se rakentaa yrityksellesi
+        <strong>token-pääomavarallisuutta</strong>: koodia, agentteja ja palveluita, jotka jäävät
+        teille ja kerryttävät arvoa.
+      </p>
+      <div class="components">
+        <div class="card">
+          <h3>Toimiva verkkokauppa &amp; tuotteistus</h3>
+          <ul>
+            <li>JSON-pohjainen kauppa: yksi totuuden lähde hinnoittelulle</li>
+            <li>Google Merchant -syöte + monikieliset tuotesivut</li>
+            <li>Katalogista kassalle, omistuksessanne päästä päähän</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Dynaamiset monikieliset verkkosivut</h3>
+          <ul>
+            <li>Sivut renderöityvät suoraan datasta — ei kovakoodattua tekstiä tai hintoja</li>
+            <li>5 EU-kieltä, kaksoiskansio-turvallinen</li>
+            <li>Päivitä dataa, älä HTML:ää</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Yrityksen oma tekoälypalvelin</h3>
+          <ul>
+            <li>EU-suvereeni päättely omalla raudallanne — nolla datavuotoa</li>
+            <li>Sisäiset agentit ja mallit, ei token-kohtaista toimittajalukkoa</li>
+            <li>Tase-erä, ei tilausmaksu</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Uudelleenkäytettävät agentit &amp; taidot</h3>
+          <ul>
+            <li>Kodifioi toistuva työ kerran — "kysytty kahdesti = epäonnistuminen"</li>
+            <li>Jokainen taito on pysyvää pääomaa, joka jää tiimille</li>
+            <li>Compliance-automaatio &amp; CI-kuriportit mukana</li>
+          </ul>
         </div>
       </div>
 
@@ -406,6 +480,12 @@
           "claude-code-coaching-3day": "3 päivän ohjelma · luento + työpaja",
           "claude-code-coaching-project": "upotettu projekti, tarjouksen mukaan",
         };
+        function mailtoFi(p) {
+          return (
+            "mailto:sales@lifetime.fi?subject=" +
+            encodeURIComponent("Claude Code -valmennus: " + (p.name || ""))
+          );
+        }
         fetch("../config/products.json")
           .then(function (r) {
             return r.json();
@@ -422,6 +502,22 @@
               note.className = "cc-pricenote";
               note.textContent = noteFi[sku] || p.priceNote || "";
               el.appendChild(note);
+            });
+            document.querySelectorAll(".cc-buy").forEach(function (btn) {
+              var sku = btn.getAttribute("data-sku");
+              var p = products[sku];
+              if (!p) return;
+              if (sku === "claude-code-coaching-project") {
+                btn.textContent = "Pyydä tarjous";
+                btn.className = "cc-buy quote";
+                btn.href = mailtoFi(p);
+              } else if (p.revolutLink) {
+                btn.textContent = "Maksa kortilla · alv 0 %";
+                btn.href = p.revolutLink;
+              } else {
+                btn.textContent = "Varaa";
+                btn.href = mailtoFi(p);
+              }
             });
           })
           .catch(function () {

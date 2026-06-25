@@ -213,6 +213,31 @@
         font-weight: 600;
         margin-top: 2px;
       }
+      .cc-buy {
+        display: inline-block;
+        margin-top: 14px;
+        background: #2563eb;
+        color: #fff;
+        text-align: center;
+        padding: 10px 16px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.9rem;
+      }
+      .cc-buy:hover {
+        background: #1d4ed8;
+      }
+      .cc-buy.quote {
+        background: transparent;
+        border: 1px solid #2563eb;
+        color: #93c5fd;
+      }
+      .vat-note {
+        font-size: 0.85rem;
+        color: rgba(226, 232, 240, 0.6);
+        margin: 4px 0 18px;
+      }
       .optional {
         border-color: rgba(255, 209, 102, 0.35);
       }
@@ -282,9 +307,13 @@
           <span class="badge">CLOUD Act Free</span>
           <span class="badge">EU AI Act Article 4 Ready</span>
         </div>
+        <p style="margin: 18px 0 0; color: rgba(226, 232, 240, 0.85); font-size: 0.95rem">
+          📅 Cohorts run <strong>July–December 2026</strong>, on Fridays.
+        </p>
       </section>
 
       <h2>Three ways to engage</h2>
+      <p class="vat-note">All prices VAT 0%.</p>
       <div class="components">
         <div class="card">
           <h3>1-Day Lecture</h3>
@@ -296,6 +325,7 @@
             <li>Live plan → implement → review → ship demo</li>
           </ul>
           <span class="cc-price" data-sku="claude-code-coaching-lecture"></span>
+          <a class="cc-buy" data-sku="claude-code-coaching-lecture"></a>
         </div>
 
         <div class="card">
@@ -308,6 +338,7 @@
             <li>Capstone: each participant ships a real change</li>
           </ul>
           <span class="cc-price" data-sku="claude-code-coaching-workshop"></span>
+          <a class="cc-buy" data-sku="claude-code-coaching-workshop"></a>
         </div>
 
         <div class="card optional">
@@ -319,6 +350,7 @@
             <li>Knowledge transfer to your team, EU-sovereign throughout</li>
           </ul>
           <span class="cc-price" data-sku="claude-code-coaching-project"></span>
+          <a class="cc-buy" data-sku="claude-code-coaching-project"></a>
         </div>
       </div>
 
@@ -333,6 +365,47 @@
             <li>EU AI Act Article 4 AI-literacy evidence included</li>
           </ul>
           <span class="cc-price" data-sku="claude-code-coaching-3day"></span>
+          <a class="cc-buy" data-sku="claude-code-coaching-3day"></a>
+        </div>
+      </div>
+
+      <h2>Example projects — build capital you own</h2>
+      <p class="lede" style="font-size: 1rem">
+        The project track doesn't bill hours — it builds <strong>token capital assets</strong> your
+        company owns: code, agents and services that stay with you and compound in value.
+      </p>
+      <div class="components">
+        <div class="card">
+          <h3>Working e-commerce &amp; productization</h3>
+          <ul>
+            <li>A JSON-driven store with one pricing source of truth</li>
+            <li>Google Merchant feed + multilingual product pages</li>
+            <li>From catalogue to checkout, owned end-to-end</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Dynamic multilingual websites</h3>
+          <ul>
+            <li>Pages that render live from config — no hardcoded copy or prices</li>
+            <li>5 EU languages, dual-folder safe</li>
+            <li>Ship updates by editing data, not HTML</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Your own AI server</h3>
+          <ul>
+            <li>EU-sovereign inference on your hardware — zero data egress</li>
+            <li>In-house agents and models, no per-token vendor lock-in</li>
+            <li>An asset on your balance sheet, not a subscription</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Reusable agents &amp; skills</h3>
+          <ul>
+            <li>Codify repeating work once — "asked twice = failure"</li>
+            <li>Each skill is durable capital your team keeps</li>
+            <li>Compliance automation &amp; CI discipline gates included</li>
+          </ul>
         </div>
       </div>
 
@@ -393,9 +466,17 @@
       <p style="margin-top: 20px">Copyright © 2026 Lifetime Oy. All Rights Reserved.</p>
     </footer>
 
-    <!-- Single pricing source: prices are read from config/products.json, never hardcoded. -->
+    <!-- Single pricing source: prices AND checkout links come from config/products.json,
+         never hardcoded. Payment buttons use each SKU's revolutLink when present; otherwise
+         they fall back to a booking/quote email. -->
     <script>
       (function () {
+        function mailto(p) {
+          return (
+            "mailto:sales@lifetime.fi?subject=" +
+            encodeURIComponent("Claude Code Coaching: " + (p.name || ""))
+          );
+        }
         fetch("../config/products.json")
           .then(function (r) {
             return r.json();
@@ -405,13 +486,28 @@
             document.querySelectorAll(".cc-price").forEach(function (el) {
               var p = products[el.getAttribute("data-sku")];
               if (!p) return;
-              var price = "€" + Number(p.price).toLocaleString("en-US");
-              el.textContent = price;
+              el.textContent = "€" + Number(p.price).toLocaleString("en-US");
               if (p.priceNote) {
                 var note = document.createElement("span");
                 note.className = "cc-pricenote";
                 note.textContent = p.priceNote;
                 el.appendChild(note);
+              }
+            });
+            document.querySelectorAll(".cc-buy").forEach(function (btn) {
+              var sku = btn.getAttribute("data-sku");
+              var p = products[sku];
+              if (!p) return;
+              if (sku === "claude-code-coaching-project") {
+                btn.textContent = "Request a quote";
+                btn.className = "cc-buy quote";
+                btn.href = mailto(p);
+              } else if (p.revolutLink) {
+                btn.textContent = "Pay by card · VAT 0%";
+                btn.href = p.revolutLink;
+              } else {
+                btn.textContent = "Book this";
+                btn.href = mailto(p);
               }
             });
           })
