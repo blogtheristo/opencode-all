@@ -40,6 +40,21 @@
       content="EU-sovereign coaching: 1-day lecture, 2-day workshop, optional embedded project work."
     />
     <link rel="canonical" href="https://dws10.com/products/claude-code-coaching.html" />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://dws10.com/products/claude-code-coaching.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="fi"
+      href="https://dws10.com/products/claude-code-coaching-fi.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://dws10.com/products/claude-code-coaching.html"
+    />
     <link rel="stylesheet" href="../static/css/style.css" />
     <style>
       :root {
@@ -100,6 +115,23 @@
         text-decoration: none;
         display: inline-block;
         margin-bottom: 20px;
+      }
+      .lang-toggle {
+        float: right;
+      }
+      .lang-toggle a {
+        display: inline-block;
+        background: rgba(255, 209, 102, 0.12);
+        border: 1px solid rgba(255, 209, 102, 0.4);
+        color: var(--gold);
+        font-weight: 700;
+        font-size: 0.85rem;
+        text-decoration: none;
+        padding: 6px 14px;
+        border-radius: 999px;
+      }
+      .lang-toggle a:hover {
+        background: rgba(255, 209, 102, 0.22);
       }
       .hero {
         background: linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
@@ -233,6 +265,9 @@
     </div>
 
     <div class="container">
+      <span class="lang-toggle"
+        ><a href="claude-code-coaching-fi.html" hreflang="fi" lang="fi">🇫🇮 Suomeksi</a></span
+      >
       <a href="../" class="back-link">← Back to Store</a>
 
       <section class="hero">
