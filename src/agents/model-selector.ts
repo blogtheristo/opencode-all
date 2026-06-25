@@ -152,6 +152,22 @@ export const MODEL_CATALOG: Record<ModelTier, TierConfig> = {
     temperature: 0.3,
     models: [
       {
+        // DiffusionGemma — parallel diffusion LM on the Gemma 4 26B MoE
+        // backbone (3.8B params active per step). Day-zero vLLM serving;
+        // low-latency single-user generation on DGX Spark / RTX. Local-first
+        // (€0/hr) for standard-tier synthesis/extraction. Tool calling is not
+        // claimed at launch, so supportsTools=false makes tool-requiring agents
+        // fall through to a function-calling provider (see diffusiongemma.ts).
+        id: 'diffusiongemma-26b',
+        provider: 'vllm-local',
+        diskGb: 14,
+        ramGb: 18,
+        costPer1MInput: 0,
+        costPer1MOutput: 0,
+        contextWindow: 32768,
+        supportsTools: false,
+      },
+      {
         id: 'llama-3.3-70b-versatile',
         provider: 'groq',
         diskGb: 0,
