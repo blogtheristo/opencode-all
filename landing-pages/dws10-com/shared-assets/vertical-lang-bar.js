@@ -22,6 +22,8 @@
  * v1.3 — Added Aegis context: per-language minimum hero line for /aegis and
  *        /products/aegis pages; hardware version line hidden; section fallback so the
  *        bar injects on pages without a .container wrapper.
+ * v1.4 — Added Claude Code Coaching context: per-language hero line for
+ *        /products/claude-code-coaching; hardware version line hidden.
  */
 (function () {
   'use strict';
@@ -37,6 +39,8 @@
       product: 'Kultainen br\u00e4ndistandardisi, teko\u00e4lyagentit ja tuotantokone.',
       aegis:
         'Suvereeni teollinen \u00e4ly kaksik\u00e4ytt\u00f6iseen valmistukseen \u2014 21 EU-toimialaa, nolla CLOUD Act -altistusta.',
+      coaching:
+        'Valmenna insin\u00f6\u00f6risi toimittamaan Claude Codella \u2014 kurinalaista agenttipohjaista ohjelmistokehityst\u00e4, EU-suvereenisti, EU AI Act 4 artiklan mukaisesti.',
       versions:
         'Control Room (1\u00d7 GN100) 4\u00a0994\u00a0\u20ac \u00b7 Situation Room (2\u00d7 sillattu) 8\u00a0993\u00a0\u20ac',
     },
@@ -50,6 +54,8 @@
       product: 'Din guldstandard f\u00f6r varum\u00e4rke, AI-agenter och produktionsmotor.',
       aegis:
         'Suver\u00e4n industriell intelligens f\u00f6r dual-use-tillverkning \u2014 21 EU-branscher, noll CLOUD Act-exponering.',
+      coaching:
+        'Coacha dina ingenj\u00f6rer att leverera med Claude Code \u2014 disciplinerad agentbaserad utveckling, EU-suver\u00e4n, redo f\u00f6r EU:s AI-f\u00f6rordning artikel 4.',
       versions:
         'Control Room (1\u00d7 GN100) 4 994 \u20ac \u00b7 Situation Room (2\u00d7 bryggad) 8 993 \u20ac',
     },
@@ -63,6 +69,8 @@
       product: 'Ihr Goldstandard f\u00fcr Marke, KI-Agenten und Produktions-Engine.',
       aegis:
         'Souver\u00e4ne industrielle Intelligenz f\u00fcr Dual-Use-Fertigung \u2014 21 EU-Branchen, null CLOUD-Act-Risiko.',
+      coaching:
+        'Coachen Sie Ihre Entwickler, mit Claude Code zu liefern \u2014 disziplinierte agentenbasierte Entwicklung, EU-souver\u00e4n, bereit f\u00fcr Artikel 4 der EU-KI-Verordnung.',
       versions:
         'Control Room (1\u00d7 GN100) 4.994 \u20ac \u00b7 Situation Room (2\u00d7 gebr\u00fcckt) 8.993 \u20ac',
     },
@@ -76,6 +84,8 @@
       product: 'Votre standard d\u2019or pour la marque, les agents IA et le moteur de production.',
       aegis:
         'Intelligence industrielle souveraine pour la fabrication \u00e0 double usage \u2014 21 secteurs UE, z\u00e9ro exposition au CLOUD Act.',
+      coaching:
+        'Formez vos ing\u00e9nieurs \u00e0 livrer avec Claude Code \u2014 ing\u00e9nierie agentique disciplin\u00e9e, souveraine UE, pr\u00eate pour l\u2019article 4 du r\u00e8glement IA de l\u2019UE.',
       versions:
         'Control Room (1\u00d7 GN100) 4 994 \u20ac \u00b7 Situation Room (2\u00d7 pont\u00e9e) 8 993 \u20ac',
     },
@@ -89,6 +99,8 @@
       product: 'Your brand Gold Standards, AI agents and Firehorse production engine.',
       aegis:
         'Sovereign industrial intelligence for dual-use manufacturing — 21 EU industries, zero CLOUD Act exposure.',
+      coaching:
+        'Coach your engineers to ship with Claude Code — disciplined agentic engineering, EU-sovereign, EU AI Act Article 4 ready.',
       versions: 'Control Room (1× GN100) €4,994 · Situation Room (2× bridged) €8,993',
     },
   ];
@@ -158,6 +170,7 @@
   var path = window.location.pathname;
   var pageType = 'home';
   if (path.indexOf('/aegis') !== -1) pageType = 'aegis';
+  else if (path.indexOf('/claude-code-coaching') !== -1) pageType = 'coaching';
   else if (path.indexOf('/buy') !== -1) pageType = 'store';
   else if (path.indexOf('/products/') !== -1) pageType = 'product';
   else if (path.indexOf('/compliance') !== -1) pageType = 'compliance';
@@ -286,8 +299,8 @@
     el.setAttribute('aria-label', '5 European languages');
 
     var hubHero = HUB_HERO[pageType];
-    // hide hardware-bundle line on compliance/legal hubs and on Aegis pages
-    var showVersions = !hubHero && pageType !== 'aegis';
+    // hide hardware-bundle line on compliance/legal hubs and on Aegis/coaching pages
+    var showVersions = !hubHero && pageType !== 'aegis' && pageType !== 'coaching';
     var rows = LANGS.map(function (l) {
       var isActive = l.code === currentLang;
       var tag = stays ? 'div' : 'a';

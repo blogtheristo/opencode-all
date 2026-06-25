@@ -1,13 +1,14 @@
 # DWS Skills & Commands Complete Guide
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.13
+Version: 1.14
 
 Sessions & Modifications:
 
+- Version: 1.14 | Agent: Claude Code | Date: 24.06.2026 | Session: claude/code-coaching-curriculum | Changes: Added `/coaching` slash command (section 6.8) — scaffolds a Claude Code Coaching engagement (agenda, pre-work, EU AI Act Article 4 literacy record) parameterized by CLIENT/FORMAT/LANG from the canonical curriculum in `docs/coaching/`. Bumped count from 36 to 37 slash commands (51 artifacts). Added Quick Reference row. Backs the Claude Code Coaching store product.
 - Version: 1.13 | Agent: GitHub Copilot CLI (GPT-5.4) | Date: 19.06.2026 | Session: copilot/skills-surface-manifest-6c0b226c | Changes: Added `skills/manifest.json` as the canonical skills registry, wired sync/verification tooling (`scripts/skill-manifest-sync.mjs`), introduced the generated surface compatibility matrix and Antigravity scope section, shortened bloated slash-command descriptions to fit prompt-budget limits, and aligned `/dream-on` with the repo's cross-surface verification rule.
 - Version: 1.12 | Agent: GitHub Copilot CLI (GPT-5.4) | Date: 19.06.2026 | Session: copilot/skills-guide-latest-6c0b226c | Changes: Reconciled the guide with the live repository inventory: updated active counts to 36 slash commands and 14 active skill directories, documented `/qa`, `/cron`, and `/designer`, expanded Quick Reference coverage, and clarified the current `skills/` structure (`RESOLVER.md`, active packs, and `_OLD` archives).
 
@@ -32,11 +33,11 @@ Document Status:
 - Languages Available: English
 - Publication Status: ACTIVE
 
-***
+---
 
 ## 1. Overview
 
-DWS IQ 6 currently exposes **50 live skill artifacts** for AI coding agents — **36 active slash command wrappers** in `.claude/commands/` and **14 active skill directories** in `skills/`. Of the `skills/` directories, **3** are auto-enforced discipline gates and **11** are specialist skill packs. `skills/RESOLVER.md` is the local dispatcher, and `*_OLD` entries preserve archived variants. This guide explains the operator-facing skills, the hard gates, and how the layers connect into workflows.
+DWS IQ 6 currently exposes **51 live skill artifacts** for AI coding agents — **37 active slash command wrappers** in `.claude/commands/` and **14 active skill directories** in `skills/`. Of the `skills/` directories, **3** are auto-enforced discipline gates and **11** are specialist skill packs. `skills/RESOLVER.md` is the local dispatcher, and `*_OLD` entries preserve archived variants. This guide explains the operator-facing skills, the hard gates, and how the layers connect into workflows.
 
 **Canonical registry:** `skills/manifest.json` is the machine-readable source of truth for skill status, visibility, transport, and surface support. Use `node scripts/skill-manifest-sync.mjs --check` to verify that this guide, `.claude/commands/`, `skills/`, and `.antigravity/agents/` stay aligned.
 
@@ -50,13 +51,13 @@ DWS IQ 6 currently exposes **50 live skill artifacts** for AI coding agents — 
 
 Counts below reflect the live repository state on **19.06.2026** and are reconciled against `skills/manifest.json`.
 
-| Type                   | Location                                                               | Invocation                           | Purpose                                      |
-| ---------------------- | ---------------------------------------------------------------------- | ------------------------------------ | -------------------------------------------- |
-| Slash commands         | `.claude/commands/*.md`                                                | `/skill-name` in Claude Code         | User-triggered workflows                     |
-| Discipline gates       | `skills/{verification-gate,design-first,dual-folder-sync}/SKILL.md`    | Auto-loaded by context               | Hard gates and process rules                 |
-| Specialist skill packs | `skills/*/SKILL.md`                                                    | Loaded by skill reference or context | Domain knowledge, orchestration, maintenance |
-| Resolver               | `skills/RESOLVER.md`                                                   | Internal dispatch                    | Maps triggers to the right `SKILL.md`        |
-| Archived variants      | `.claude/commands/*.OLD`, `skills/*_OLD/`                              | Historical only                      | Retained superseded skill definitions        |
+| Type                   | Location                                                            | Invocation                           | Purpose                                      |
+| ---------------------- | ------------------------------------------------------------------- | ------------------------------------ | -------------------------------------------- |
+| Slash commands         | `.claude/commands/*.md`                                             | `/skill-name` in Claude Code         | User-triggered workflows                     |
+| Discipline gates       | `skills/{verification-gate,design-first,dual-folder-sync}/SKILL.md` | Auto-loaded by context               | Hard gates and process rules                 |
+| Specialist skill packs | `skills/*/SKILL.md`                                                 | Loaded by skill reference or context | Domain knowledge, orchestration, maintenance |
+| Resolver               | `skills/RESOLVER.md`                                                | Internal dispatch                    | Maps triggers to the right `SKILL.md`        |
+| Archived variants      | `.claude/commands/*.OLD`, `skills/*_OLD/`                           | Historical only                      | Retained superseded skill definitions        |
 
 **Slash commands** are interactive — the user triggers them with `/command`. They produce structured output.
 
@@ -434,6 +435,16 @@ The recommended development flow chains 7 skills in order. Based on Garry Tan's 
 
 **Output:** Root cause summary + files changed + endpoint verification + DB verification delta + remaining infra follow-up (if DNS/routing outage).
 
+### 6.8 /coaching
+
+**When to use:** Preparing to deliver the **Claude Code Coaching** store product to a client — a 1-day lecture, 2-day workshop, 3-day bundle, or embedded project engagement.
+
+**What it does:** Turns the canonical curriculum (`docs/coaching/CLAUDE_CODE_COACHING_CURRICULUM_{EN,FI}_v1.0.md`) into a ready-to-deliver engagement — agenda, participant pre-work checklist, EU AI Act Article 4 literacy record, and logistics — parameterized by `CLIENT`, `FORMAT`, `LANG`, `REPO`, `PARTICIPANTS`. Prices are read from `dws10.com/config/products.json` (single source); participant caps are enforced (lecture ≤ 12, workshop ≤ 10).
+
+**Trigger phrases:** "coaching plan", "build the workshop agenda", "Article 4 literacy record", "Claude Code coaching for &lt;client&gt;", "prework checklist"
+
+**Output:** The requested artifact (agenda / prework / record / full plan) with logistics, applicable SKU + price, capstone definition-of-done, and EU-sovereign + truth-check guardrails. Optionally persisted under `docs/coaching/engagements/`.
+
 ## 7. Runtime Safety & Knowledge
 
 ### 7.1 /kya
@@ -478,7 +489,7 @@ See `src/agents/kb.agent.ts` for the agent implementation and tool handlers.
 
 ### 7.3 /truth-check
 
-**When to use:** Writing or reviewing public-facing copy (store, landing pages, investor/sales, press, decks) that asserts a DWS "fact" — an industry count, captain-hat count, product price/name, KYA tier. Catches drift like "16 EU industries" before it propagates.
+**When to use:** Writing or reviewing public-facing copy (store, landing pages, investor/sales, press, decks) that asserts a DWS "fact" — an industry count, captain-hat count, product price/name, KYA tier. Catches an inflated EU-industry count before it propagates.
 
 **What it does:** Runs `scripts/lint-truth-claims.mjs` against the canonical structured mirrors (e.g. `dws10.com/config/industries.json`). FAILs on `deprecatedDisplayPhrases`, WARNs on `ambiguousDisplayPhrasesNeedingContext` used without a disambiguator, and reads `approvedDisplayPhrases` as the allow-list, suggesting the correct wording on each hit. Operationalises `DWS_TRUTH_STANDARD.md` §5/§7.
 
@@ -489,7 +500,7 @@ See `src/agents/kb.agent.ts` for the agent implementation and tool handlers.
 **Workflow rules:**
 
 - Allow-list / deny-list live in the structured mirrors — add phrases to `approvedDisplayPhrases` / `deprecatedDisplayPhrases`, never hard-code them in the skill.
-- Per `DWS_TRUTH_STANDARD.md` §3, fix the drifting *copy*, never the canonical source.
+- Per `DWS_TRUTH_STANDARD.md` §3, fix the drifting _copy_, never the canonical source.
 - Canonical mirrors and registry docs are excluded from scanning (they hold the phrases as data).
 - Same script runs in CI as `.github/workflows/lint-truth-claims.yml` (PR-diff, non-blocking initially).
 
@@ -610,7 +621,7 @@ Every V2 agent ships with a YAML config in `AgentFoundry/configs/production/` th
 
 Badges (section pill, skill chips, KYA badge, Standards & Interop strip) are canonicalised in `kb/wiki/concepts/badges-library.md`. Propose new badges there first before placing them on a page.
 
-**Climate IQ industry agents (9)** — one per vertical, named after mythological figures:
+**Climate IQ industry agents (9)** — one for each covered industry, named after mythological figures:
 
 | Agent          | Industry                       | Source                                             | Config                                          |
 | -------------- | ------------------------------ | -------------------------------------------------- | ----------------------------------------------- |
@@ -647,48 +658,49 @@ Badges (section pill, skill chips, KYA badge, Standards & Interop strip) are can
 
 ## 10. Quick Reference — When to Use What
 
-| Situation                      | Skill                             | Type       |
-| ------------------------------ | --------------------------------- | ---------- |
-| Starting a new feature         | /plan-review ROLE=ceo             | gstack     |
-| Designing architecture         | /plan-review ROLE=eng             | gstack     |
-| Need acceptance checks before review | /qa                          | gstack     |
-| Code is written, needs review  | /review                           | gstack     |
-| Ready to merge                 | /ship                             | gstack     |
-| Need to verify UI              | /browse                           | gstack     |
-| End of week                    | /retro                            | gstack     |
-| Codify retro into skill edits  | /learn SCOPE=last-week            | gstack     |
-| Find unfinished past-session work | /clawdbot                      | Dreaming   |
-| Apply a clawdbot proposal      | /promote-proposal                 | Dreaming   |
-| Run Dreaming loop end-to-end   | /dream-on                         | Dreaming   |
-| Bootstrap GCP CI identity      | /gcr-skill                        | Operations |
-| Don't know which agent to use  | /discover-agents                  | Agent      |
-| Know the agent, want to run it | /agent-run                        | Agent      |
-| Coordinate agents on a case    | /case-run                         | Agent      |
-| Need multi-agent analysis      | /workflow                         | Agent      |
-| EU regulatory question         | /compliance-check                 | Compliance |
-| Upcoming EU regulation scoring | /regulatory-radar                 | Compliance |
-| Carbon footprint calculation   | /carbon-analysis                  | Compliance |
-| Database sovereignty check     | /sovereignty-assess               | Compliance |
-| Score sovereignty across all three pillars | /sovereignty-pillars-assess | Compliance |
-| Construction site assessment   | /site-safety                      | Compliance |
-| Check git branch state         | /flow-status                      | Operations |
-| Translate gh command to MCP    | /gh-to-mcp                        | Operations |
-| Audit scheduled work / cron    | /cron                             | Operations |
-| Send email notification        | /email                            | Operations |
-| Control edge devices           | /remote-control                   | Operations |
-| Add/triage investor intro      | /investor-outreach                | Operations |
-| Draft the next LSJ issue       | /lsj-publish                      | Operations |
-| Route to DGX Spark Ollama      | /ollama-spark                     | Operations |
-| Fix dual-folder API drift      | /fix-dual-folder-api-connectivity | Operations |
-| Check agent trust / kill chain | /kya                              | Safety     |
-| Compile wiki / ask KB          | /kb                               | Knowledge  |
-| Check a claim vs truth registry | /truth-check                     | Safety     |
-| Code feels bloated             | /simplify                         | Quality    |
-| Turn design intent into code   | /designer                         | Quality    |
-| Add/audit language bar         | /multilingual                     | i18n       |
-| About to claim "done"          | verification-gate                 | Discipline |
-| Big feature, many files        | design-first                      | Discipline |
-| Editing site root folders      | dual-folder-sync                  | Discipline |
+| Situation                                  | Skill                             | Type       |
+| ------------------------------------------ | --------------------------------- | ---------- |
+| Starting a new feature                     | /plan-review ROLE=ceo             | gstack     |
+| Designing architecture                     | /plan-review ROLE=eng             | gstack     |
+| Need acceptance checks before review       | /qa                               | gstack     |
+| Code is written, needs review              | /review                           | gstack     |
+| Ready to merge                             | /ship                             | gstack     |
+| Need to verify UI                          | /browse                           | gstack     |
+| End of week                                | /retro                            | gstack     |
+| Codify retro into skill edits              | /learn SCOPE=last-week            | gstack     |
+| Find unfinished past-session work          | /clawdbot                         | Dreaming   |
+| Apply a clawdbot proposal                  | /promote-proposal                 | Dreaming   |
+| Run Dreaming loop end-to-end               | /dream-on                         | Dreaming   |
+| Bootstrap GCP CI identity                  | /gcr-skill                        | Operations |
+| Don't know which agent to use              | /discover-agents                  | Agent      |
+| Know the agent, want to run it             | /agent-run                        | Agent      |
+| Coordinate agents on a case                | /case-run                         | Agent      |
+| Need multi-agent analysis                  | /workflow                         | Agent      |
+| EU regulatory question                     | /compliance-check                 | Compliance |
+| Upcoming EU regulation scoring             | /regulatory-radar                 | Compliance |
+| Carbon footprint calculation               | /carbon-analysis                  | Compliance |
+| Database sovereignty check                 | /sovereignty-assess               | Compliance |
+| Score sovereignty across all three pillars | /sovereignty-pillars-assess       | Compliance |
+| Construction site assessment               | /site-safety                      | Compliance |
+| Check git branch state                     | /flow-status                      | Operations |
+| Translate gh command to MCP                | /gh-to-mcp                        | Operations |
+| Audit scheduled work / cron                | /cron                             | Operations |
+| Send email notification                    | /email                            | Operations |
+| Control edge devices                       | /remote-control                   | Operations |
+| Add/triage investor intro                  | /investor-outreach                | Operations |
+| Draft the next LSJ issue                   | /lsj-publish                      | Operations |
+| Route to DGX Spark Ollama                  | /ollama-spark                     | Operations |
+| Fix dual-folder API drift                  | /fix-dual-folder-api-connectivity | Operations |
+| Deliver Claude Code Coaching engagement    | /coaching                         | Operations |
+| Check agent trust / kill chain             | /kya                              | Safety     |
+| Compile wiki / ask KB                      | /kb                               | Knowledge  |
+| Check a claim vs truth registry            | /truth-check                      | Safety     |
+| Code feels bloated                         | /simplify                         | Quality    |
+| Turn design intent into code               | /designer                         | Quality    |
+| Add/audit language bar                     | /multilingual                     | i18n       |
+| About to claim "done"                      | verification-gate                 | Discipline |
+| Big feature, many files                    | design-first                      | Discipline |
+| Editing site root folders                  | dual-folder-sync                  | Discipline |
 
 ## 11. Creating New Skills
 
@@ -777,7 +789,7 @@ Source of truth: `skills/manifest.json`. The matrix below is generated by `node 
 Legend: `✅` supported now · `⚠️` experimental/deferred path · `❌` unsupported on that surface.
 
 <!-- skills-surface-matrix:start -->
-<!-- generated: 2026-06-19 -->
+<!-- generated: 2026-06-24 -->
 
 | Skill | Kind | Status | Visibility | Win11 CLI | Desktop | Web | iOS | Android | Chromebook/Antigravity | Transport | Notes |
 | ----- | ---- | ------ | ---------- | --------- | ------- | --- | --- | ------- | ---------------------- | --------- | ----- |
@@ -787,6 +799,7 @@ Legend: `✅` supported now · `⚠️` experimental/deferred path · `❌` unsu
 | `case-run` | slash-command | active | internal | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | slash-command, local-tools | Repo-local slash command. Available in Claude Code CLI only. |
 | `clawdbot (command)` | slash-command | active | internal | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | slash-command, local-tools | Repo-local slash command. Available in Claude Code CLI only. |
 | `clawdbot (pack)` | skill-pack | active | internal | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | skill-pack, local-files | Repo-local skill pack loaded by Claude Code in this repository. |
+| `coaching` | slash-command | active | internal | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | slash-command, local-tools | Repo-local slash command. Available in Claude Code CLI only. |
 | `compliance` | skill-pack | active | internal | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | skill-pack, local-files | Repo-local skill pack loaded by Claude Code in this repository. |
 | `compliance-check` | slash-command | active | internal | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | slash-command, local-tools | Repo-local slash command. Available in Claude Code CLI only. |
 | `cron (command)` | slash-command | active | internal | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | slash-command, local-tools | Repo-local slash command. Available in Claude Code CLI only. |
