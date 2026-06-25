@@ -41,19 +41,9 @@ const envSchema: EnvVar[] = [
 
   { name: 'ADMIN_API_KEY', required: false, description: 'Admin endpoint auth key' },
 
-  // NemoClaw (OpenShell-sandboxed) runtime — preferred. Falls back to the legacy
-  // OPENCLAW_* vars below (OpenClaw → NemoClaw migration, Phase 1; see
-  // docs/migrations/2026-06-25-openclaw-to-nemoclaw.md).
-  {
-    name: 'NEMOCLAW_ENDPOINT',
-    required: false,
-    description: 'NemoClaw runtime endpoint (preferred over OPENCLAW_ENDPOINT)',
-  },
-  {
-    name: 'NEMOCLAW_API_KEY',
-    required: false,
-    description: 'NemoClaw runtime bearer token (preferred over OPENCLAW_API_KEY)',
-  },
+  // NemoClaw (OpenShell-sandboxed) runtime — see docs/migrations/2026-06-25-openclaw-to-nemoclaw.md.
+  { name: 'NEMOCLAW_ENDPOINT', required: false, description: 'NemoClaw runtime endpoint' },
+  { name: 'NEMOCLAW_API_KEY', required: false, description: 'NemoClaw runtime bearer token' },
   {
     name: 'NEMOCLAW_ALLOWED_SKILLS',
     required: false,
@@ -70,37 +60,6 @@ const envSchema: EnvVar[] = [
     description: 'NemoClaw response size cap in bytes',
   },
   { name: 'NEMOCLAW_LOG_BASE_PATH', required: false, description: 'NemoClaw audit log base path' },
-  // Legacy OpenClaw vars — retained for backward compatibility until Phase 3 cutover.
-  {
-    name: 'OPENCLAW_ENDPOINT',
-    required: false,
-    description: 'OpenClaw runtime endpoint (legacy; use NEMOCLAW_ENDPOINT)',
-  },
-  {
-    name: 'OPENCLAW_API_KEY',
-    required: false,
-    description: 'OpenClaw runtime bearer token (legacy; use NEMOCLAW_API_KEY)',
-  },
-  {
-    name: 'OPENCLAW_ALLOWED_SKILLS',
-    required: false,
-    description: 'Comma-separated OpenClaw skill whitelist (legacy)',
-  },
-  {
-    name: 'OPENCLAW_TIMEOUT_MS',
-    required: false,
-    description: 'OpenClaw invocation timeout in milliseconds (legacy)',
-  },
-  {
-    name: 'OPENCLAW_MAX_RESPONSE_BYTES',
-    required: false,
-    description: 'OpenClaw response size cap in bytes (legacy)',
-  },
-  {
-    name: 'OPENCLAW_LOG_BASE_PATH',
-    required: false,
-    description: 'OpenClaw audit log base path (legacy)',
-  },
 
   {
     name: 'VAULT_PROVIDER',

@@ -1,11 +1,11 @@
 /**
- * Sandboxed OpenClaw Runner — KYA-Governed Firecracker MicroVM Isolation
+ * Sandboxed NemoClaw Runner — KYA-Governed Firecracker MicroVM Isolation
  *
- * Runs OpenClaw inside a KYA-governed sandbox to contain the MCP attack surface.
+ * Runs NemoClaw inside a KYA-governed sandbox to contain the MCP attack surface.
  * Uses Firecracker MicroVM specifications from KYA BYO Lifecycle.
  *
  * Defense in depth:
- *   1. OpenClaw runs INSIDE KYA sandbox (never outside governance boundary)
+ *   1. NemoClaw runs INSIDE KYA sandbox (never outside governance boundary)
  *   2. Community skills: BLOCKED (no auto-install)
  *   3. MCP tool responses: untrusted input (sanitized by nemoclaw-bridge.ts)
  *   4. Network egress: per-session whitelist at hypervisor level
@@ -174,7 +174,7 @@ export class NemoClawSandbox {
   }
 
   /**
-   * Create a sandboxed OpenClaw runner with tier-appropriate restrictions.
+   * Create a sandboxed NemoClaw runner with tier-appropriate restrictions.
    */
   static create(params: {
     agentId: string;
@@ -210,7 +210,7 @@ export class NemoClawSandbox {
       firehorseLogPath: `${logBasePath}/${dateDir}/${params.agentId}.jsonl`,
     };
 
-    logger.info('OpenClaw sandbox created', {
+    logger.info('NemoClaw sandbox created', {
       sandboxId: config.sandboxId,
       agentId: params.agentId,
       tier,
@@ -244,7 +244,7 @@ export class NemoClawSandbox {
 
     if (!this.config.allowedMcpTools.includes(toolName)) {
       this.state.deniedActions++;
-      logger.warn('OpenClaw sandbox: tool invocation denied', {
+      logger.warn('NemoClaw sandbox: tool invocation denied', {
         sandboxId: this.config.sandboxId,
         tool: toolName,
         tier: this.config.tier,
@@ -263,7 +263,7 @@ export class NemoClawSandbox {
     this.state.toolInvocations++;
     this.state.lastActiveAt = new Date().toISOString();
 
-    logger.debug('OpenClaw sandbox: tool invocation recorded', {
+    logger.debug('NemoClaw sandbox: tool invocation recorded', {
       sandboxId: this.config.sandboxId,
       tool: toolName,
       totalInvocations: this.state.toolInvocations,
@@ -283,7 +283,7 @@ export class NemoClawSandbox {
     const killLatencyMs = performance.now() - start;
     const slaMet = killLatencyMs < 5;
 
-    logger.warn('OpenClaw sandbox: KILL SWITCH TRIGGERED', {
+    logger.warn('NemoClaw sandbox: KILL SWITCH TRIGGERED', {
       sandboxId: this.config.sandboxId,
       agentId: this.config.agentId,
       reason,
@@ -328,7 +328,7 @@ export class NemoClawSandbox {
         this.state.status = 'quarantined';
       }
 
-      logger.warn('OpenClaw sandbox: tier changed', {
+      logger.warn('NemoClaw sandbox: tier changed', {
         sandboxId: this.config.sandboxId,
         oldTier,
         newTier,
@@ -392,7 +392,3 @@ export class NemoClawSandbox {
     };
   }
 }
-
-// Back-compat alias (OpenClaw → NemoClaw migration, Phase 2;
-// docs/migrations/2026-06-25-openclaw-to-nemoclaw.md). Remove after Phase 3 cutover.
-export { NemoClawSandbox as OpenClawSandbox };
