@@ -1,4 +1,4 @@
--- Migration 070: Command Audit Log (EU AI Act Article 12 — command execution trail)
+-- Migration 071: Command Audit Log (EU AI Act Article 12 — command execution trail)
 --
 -- Records every command/skill invocation routed through the OpenClaw and NemoClaw
 -- bridges so that "what command ran, by whom, with what trust score, and what came
