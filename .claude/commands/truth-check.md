@@ -1,6 +1,6 @@
 ---
 name: truth-check
-description: Checks a claim, file, or the current diff against the DWS canonical truth registry — flags deprecated phrases (FAIL) and ambiguous ones used without context (WARN), and suggests the approved phrasing. Use when writing or reviewing public-facing copy (store, landing pages, investor/sales, press, decks) that asserts a DWS "fact" like an industry count, captain-hat count, product price/name, or KYA tier. Backed by scripts/lint-truth-claims.mjs and the approvedDisplayPhrases / deprecatedDisplayPhrases in each structured mirror (e.g. dws10.com/config/industries.json). See DWS_TRUTH_STANDARD.md §5/§7.
+description: Use when checking public-facing DWS claims against the canonical truth registry. Lints inline text, files, or changed content; FAILs deprecated phrases and WARNs on ambiguous wording without context.
 ---
 
 Check copy against the canonical truth registry (DWS_TRUTH_STANDARD.md §2 mirrors).

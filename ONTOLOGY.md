@@ -784,6 +784,13 @@ collision_detected:
 
 **Purpose:** Prevent the database from becoming a "graveyard" of outdated knowledge.
 
+**Rationale:** Active Pruning is the operational form of an information-theoretic
+constraint — stale, contradictory labels raise the **noise floor** (the Shannon bound of
+the data), and no larger model can drop below it. Continuously reviewing and reconciling
+old labels is what keeps that floor low. See
+`docs/field-notes/2026-06-15-noise-floor-ontology-old-labels.md` and the promoted Core
+Artifact `artifacts/AGRICULTURE/ART-2026-001-agriculture-food-data-governance-ontology.md`.
+
 **Mechanism:**
 
 ```python
@@ -1688,7 +1695,7 @@ The DWS Ontology Standard is positioned as a **European Ontology Standard** — 
 | Multi-tier agent memory                         | Working/episodic/semantic/proc.  | Artifact weights only | §13.6 — Q1 2027                            |
 | Embedded edge ontology                          | Native edge runtime              | Spec phase            | §13.7 — Q2 2027                            |
 | Operational system connectors (ERP/MES/WMS/IoT) | Hundreds of mature adapters      | Aspirational          | Pulls from §13.1; Q4 2026 first 3 adapters |
-| **Knowledge Catalog Runtime**                   | GC-KC (Google), Atlan, Collibra  | Fragmented (5 stores) | §15 — Q2–Q4 2026                          |
+| **Knowledge Catalog Runtime**                   | GC-KC (Google), Atlan, Collibra  | Fragmented (5 stores) | §15 — Q2–Q4 2026                           |
 
 ### Strategic posture
 

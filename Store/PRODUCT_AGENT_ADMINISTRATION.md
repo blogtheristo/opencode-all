@@ -33,6 +33,8 @@ Legal:
 
 ## Enterprise Management Console for AI Agent Fleets
 
+_Part of the DWS IQ Industrial Intelligence suite — the operations console for the agent fleet across the suite (DWS IQ 6 core, the Industrial Intelligence module, and the Aegis dual-use tier)._
+
 **Product Code:** AAP-001  
 **Version:** 1.0  
 **Release Date:** February 2026 (V1.0)  

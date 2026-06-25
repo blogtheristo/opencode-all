@@ -33,7 +33,7 @@ import { AtlasAgent } from './workflow/atlas/atlas.agent.js';
 import { AthenaAgent } from './workflow/athena/athena.agent.js';
 import { HephaestusAgent } from './workflow/hephaestus/hephaestus.agent.js';
 import { IrisAgent } from './workflow/iris/iris.agent.js';
-import { HermesAgent } from './workflow/hermes/hermes.agent.js';
+import { MercuryAgent } from './workflow/mercury/mercury.agent.js';
 import { ApolloAgent } from './workflow/apollo/apollo.agent.js';
 import { VulcanAgent } from './workflow/industry/vulcan.agent.js';
 import { HeliosAgent } from './workflow/industry/helios.agent.js';
@@ -62,6 +62,7 @@ import { PanaceaAgent } from './panacea.agent.js';
 import { AuditorAgent } from './auditor.agent.js';
 import { VisionOracleAgent } from './vision-oracle.agent.js';
 import { ChronosAgent } from './chronos.agent.js';
+import { WorldModelLoopAgent } from './world-model/world-model-loop.agent.js';
 import { registerBuiltinTools } from './tools.js';
 import { eventBus, registerDefaultEventHandlers } from './event-bus.js';
 import { withAgentSpan } from '../observability/tracing.js';
@@ -207,6 +208,7 @@ export class AgentRegistry {
     this.register(new MaterialOracleAgent());
     this.register(new CustomerSatAgent());
     this.register(new ViabilityAgent());
+    this.register(new WorldModelLoopAgent());
 
     // Extraction & research agents (from DeepWiki/awesome-llm-apps)
     this.register(new DeepWikiExtractorAgent());
@@ -236,7 +238,7 @@ export class AgentRegistry {
     this.register(new AthenaAgent()); // Compliance Intelligence — EU regulatory
     this.register(new HephaestusAgent()); // Field & Site Intelligence — construction
     this.register(new IrisAgent()); // Research & Market Intelligence
-    this.register(new HermesAgent()); // Logistics & Operations
+    this.register(new MercuryAgent()); // Logistics & Operations
     this.register(new ApolloAgent()); // Content & Outreach
 
     // Climate IQ Industry Specialists — Roman/Greek gods per sector

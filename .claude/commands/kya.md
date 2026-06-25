@@ -1,6 +1,6 @@
 ---
 name: kya
-description: Know Your Agent (KYA) runtime safety controls — check trust score for a session or trigger a TC-4 Leash Snap chain termination. Use when user says "kya status", "trust score", "leash snap", "terminate agent chain", "kill the agent", "kya snap", "revoke agent", "TC-4", or wants to check/terminate an autonomous agent session bound to a verified human identity.
+description: Use when checking a session trust score or triggering a TC-4 Leash Snap for a compromised agent chain.
 ---
 
 Execute KYA safety controls against a running agent session via the DWS CLI.

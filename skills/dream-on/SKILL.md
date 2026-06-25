@@ -1,7 +1,7 @@
 ---
 name: dream-on
 status: EXPERIMENTAL — Claude-internal workflow, not yet cross-surface verified
-description: "EXPERIMENTAL Claude-Code internal: offline-reflection loop — scan past sessions, pick unpromoted dream artifact, plan, HIL-approve, /goal execute. CLI-only, not productized. See body for cross-surface caveats."
+description: "Internal offline-reflection loop for queued clawdbot proposals. Claude Code only until cross-surface verification and mobile/web adapters exist."
 argument-hint: "[optional topic or proposal path]"
 allowed-tools: [Read, Edit, Write, Bash, ExitPlanMode]
 ---

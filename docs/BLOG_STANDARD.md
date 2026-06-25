@@ -4,10 +4,15 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 1.9
 
 Sessions & Modifications:
 
+- Version: 1.9 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 25.06.2026 | Changes: Registered post #33 (`eu-sovereign-ai-factories-35-supercomputers.html`) — sovereignty field note on NVIDIA's June 2026 European AI-supercomputer buildout (35 systems / 23 countries / ~800 AI exaflops / EuroHPC AI Factories), framing the EU-sovereign upstream vs the customer-owned edge. Added to §3 registry, the `latestPosts` array in `blog/index.html` (new Text of the Day), and the `posts` array in `scripts/inject-blog-nav.cjs`. Ran the injector. Dual-folder synced to `landing-pages/onelifetime-world/`.
+- Version: 1.8 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 24.06.2026 | Changes: Registered post #32 (`nvidia-vera-rubin-ai-factory.html`) — NVIDIA partner note on Vera Rubin and the POD-scale AI factory, written to the §12.5 partner-note sub-voice (gift → turn → honest limit → short version). Added to §3 registry, the `latestPosts` array in `blog/index.html` (new Text of the Day), and the `posts` array in `scripts/inject-blog-nav.cjs`. Ran the injector for prev/next + share + product cards. Dual-folder synced to `landing-pages/onelifetime-world/`.
+- Version: 1.7 | Tool: Claude Code | Session: claude/dws-iq6-social-thread-17d8ie | Date: 23.06.2026 | Changes: Registered FI parity posts #30 (`lifetime-world-model-three-piece-loop.fi.html`) and #31 (`four-learning-paradigms-world-model.fi.html`) — Finnish companions to #28/#29, keeping EN/FI lockstep for public copy. Added `hreflang` alternates both ways across all four files (en/fi + sv/de/fr/x-default → EN fallback). Inserted in §3 registry, the `latestPosts` array in `blog/index.html` (chronological — EN #29 stays Text of the Day, not the FI posts), and the `posts` array in `scripts/inject-blog-nav.cjs`. Code samples kept in English inside `<pre class="code-block">`. Dual-folder synced to `landing-pages/onelifetime-world/`.
+- Version: 1.6 | Tool: Claude Code | Session: claude/dws-iq6-social-thread-17d8ie | Date: 23.06.2026 | Changes: Registered posts #28 (`lifetime-world-model-three-piece-loop.html`) and #29 (`four-learning-paradigms-world-model.html`) — the Lifetime World Model V1 launch pair (vision/architecture framing, third parties named as technology archetypes only, embedded reference code from `src/agents/world-model/`). Added both to §3 Post Registry, the `latestPosts` array in `blog/index.html` (Text of the Day → newest), and the `posts` array in `scripts/inject-blog-nav.cjs`. Dual-folder synced to `landing-pages/onelifetime-world/`.
+- Version: 1.5 | Tool: Claude Code (claude-opus-4-8) | Session: claude/queued-followups-fi-artifacts-93kxqr | Date: 21.06.2026 | Changes: Registered FI parity post #23 (`your-model-cant-beat-your-noise-floor.fi.html`) — Finnish companion to the noise-floor post #22, with `hreflang` alternates both ways, vertical 5-language bar, ironclad footer, and product cards. Inserted chronologically (15 Jun 2026 slot, not Text of the Day) in §3 Post Registry and renumbered #24–#27; also registered in `blog/index.html` `latestPosts` and `scripts/inject-blog-nav.cjs` `posts`. Dual-folder synced to `landing-pages/onelifetime-world/`.
 - Version: 1.4 | Tool: Claude Code (Sonnet 4.6) | Session: claude/blog-polls-ads-features-spdD1 | Date: 07.05.2026 | Changes: Blog V2 — added §13 Reader Polls (lsj-poll.js, localStorage persistence, seed counts), §14 Ads & Sponsorship Slots (lsj-ads.js, lsj-ads-config.json, three slot types, rate card). Added advertise/index.html (media enquiries + sponsorship price list). Registered posts #18 (eu-policy-backed-capital-bankable-sovereignty). Updated ToC to include §13–14.
 - Version: 1.3 | Tool: Claude Code (Opus 4.7) | Session: claude/redhat-sovereignty-research-YGHtL | Date: 23.04.2026 | Changes: Added §12 Editor-in-Chief Voice (Seth Godin House Style) — house voice standard for all Lifetime Scope Journal posts. Codifies short paragraphs, verb-first sentences, partner-note sub-voice (gift → turn → honest limit), banned/kept words, and the pre-publish voice checklist. Reference exemplars: redhat-sovereign-move-three-tiers.html, mcp-apps-identity-spine.html, solid-layers-aiven-scaleway-kya.html, validated-mock-data-principle.html. Registered post #14 (redhat-sovereign-move-three-tiers).
 - Version: 1.2 | Tool: Claude Code (Opus 4.7) | Session: claude/kya-verification-setup-QKFtu | Date: 22.04.2026 | Changes: Added §3.1 Text of the Day Rule — latest blog post is automatically the Text of the Day on /blog/ index via hero card + paginated Latest Posts list (5 per page, Prev/Next). Registered posts #12 (solid-layers-aiven-scaleway-kya) and #13 (mcp-apps-identity-spine).
@@ -21,7 +26,7 @@ Session Links & References:
 Document Status:
 
 - Created: 28.03.2026
-- Last Modified: 28.03.2026
+- Last Modified: 21.06.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ACTIVE
@@ -101,29 +106,41 @@ The language bar (`shared-assets/lang-bar.js`, v1.1+) auto-injects all 5 buttons
 
 Chronological order. Update this table when adding/removing posts.
 
-| #   | File                                                 | Title                                                                                | Date        |
-| --- | ---------------------------------------------------- | ------------------------------------------------------------------------------------ | ----------- |
-| 1   | `business-case-logistics.html`                       | Business Case: The Intelligent Fleet Pilot                                           | Dec 2025    |
-| 2   | `kya-standard-v1.html`                               | Field Note: KYA Standard for Autonomous Control Rooms                                | Mar 2026    |
-| 3   | `eu-regulation-harness-engineering.html`             | EU Regulation Makes Better AI                                                        | 14 Mar 2026 |
-| 4   | `eu-ai-act-compliance-ready.html`                    | EU AI Act: Compliance Ready                                                          | 15 Mar 2026 |
-| 5   | `buyers-note-harness-engineering.html`               | Buyer's Note: Harness Engineering                                                    | 15 Mar 2026 |
-| 6   | `harness-engineering-investor-note.html`             | Investor Note: Harness Engineering                                                   | 15 Mar 2026 |
-| 7   | `nvidia-gtc-2026-dws-roadmap-impact.html`            | NVIDIA GTC 2026: Industrial AI Roadmaps                                              | 16 Mar 2026 |
-| 8   | `validated-mock-data-principle.html`                 | The Validated Mock Data Principle                                                    | 16 Mar 2026 |
-| 9   | `closing-the-bom-gap-cad-erp-sync.html`              | Closing the BOM Gap: CAD-ERP Sync                                                    | 26 Mar 2026 |
-| 10  | `liquidity-engine-captain-seats.html`                | The Liquidity Engine: Captain Seats                                                  | 28 Mar 2026 |
-| 11  | `core-resilience-hybrid-threats.html`                | CORE: The EU Model That Maps Every Hybrid Threat                                     | 16 Apr 2026 |
-| 12  | `solid-layers-aiven-scaleway-kya.html`               | Our Layers Are Solid — Aiven, Scaleway, KYA + Foundry                                | 22 Apr 2026 |
-| 13  | `mcp-apps-identity-spine.html`                       | MCP Apps Extends the Frontier — KYA Identity Spine                                   | 22 Apr 2026 |
-| 14  | `redhat-sovereign-move-three-tiers.html`             | Red Hat's EU Sovereign Move — and the Three Tiers                                    | 23 Apr 2026 |
-| 15  | `fpe-dark-mode-construction-wedge.html`              | FPE · The Construction Wedge — €14,999 to Reduce Weakest-Link Failure                | 27 Apr 2026 |
-| 16  | `dws-ontology-standard-v1.html`                      | DWS Ontology Standard v1.3 — Etymology, Philosophy, and the Decision-Centric Pillars | 29 Apr 2026 |
-| 17  | `baseten-inference-engineering-300m.html`            | Field Note: Baseten Raises $300M — Inference Engineering Is a Discipline Now         | 7 May 2026  |
-| 18  | `eu-policy-backed-capital-bankable-sovereignty.html` | The Strike Price State — Five Things Europe Just Made Official                       | 7 May 2026  |
-| 19  | `fire-brigades-drone-defense-units.html`             | Fire Brigades as Drone Defence Units — Three Reasons to Build the Network Now (EN/FI/SV) | 15 May 2026 |
-| 20  | `moat-is-not-the-model.html`                         | The Moat Is Not the Model — NVIDIA Makes It Possible, EU-Sovereign Deployment Makes It Defensible | 17 May 2026 |
-| 21  | `point-it-at-the-ontology.html`                      | Don't Point the LLM at the Data — Point It at the Ontology (5 industries)             | 5 Jun 2026  |
+| #   | File                                                 | Title                                                                                                                           | Date        |
+| --- | ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| 1   | `business-case-logistics.html`                       | Business Case: The Intelligent Fleet Pilot                                                                                      | Dec 2025    |
+| 2   | `kya-standard-v1.html`                               | Field Note: KYA Standard for Autonomous Control Rooms                                                                           | Mar 2026    |
+| 3   | `eu-regulation-harness-engineering.html`             | EU Regulation Makes Better AI                                                                                                   | 14 Mar 2026 |
+| 4   | `eu-ai-act-compliance-ready.html`                    | EU AI Act: Compliance Ready                                                                                                     | 15 Mar 2026 |
+| 5   | `buyers-note-harness-engineering.html`               | Buyer's Note: Harness Engineering                                                                                               | 15 Mar 2026 |
+| 6   | `harness-engineering-investor-note.html`             | Investor Note: Harness Engineering                                                                                              | 15 Mar 2026 |
+| 7   | `nvidia-gtc-2026-dws-roadmap-impact.html`            | NVIDIA GTC 2026: Industrial AI Roadmaps                                                                                         | 16 Mar 2026 |
+| 8   | `validated-mock-data-principle.html`                 | The Validated Mock Data Principle                                                                                               | 16 Mar 2026 |
+| 9   | `closing-the-bom-gap-cad-erp-sync.html`              | Closing the BOM Gap: CAD-ERP Sync                                                                                               | 26 Mar 2026 |
+| 10  | `liquidity-engine-captain-seats.html`                | The Liquidity Engine: Captain Seats                                                                                             | 28 Mar 2026 |
+| 11  | `core-resilience-hybrid-threats.html`                | CORE: The EU Model That Maps Every Hybrid Threat                                                                                | 16 Apr 2026 |
+| 12  | `solid-layers-aiven-scaleway-kya.html`               | Our Layers Are Solid — Aiven, Scaleway, KYA + Foundry                                                                           | 22 Apr 2026 |
+| 13  | `mcp-apps-identity-spine.html`                       | MCP Apps Extends the Frontier — KYA Identity Spine                                                                              | 22 Apr 2026 |
+| 14  | `redhat-sovereign-move-three-tiers.html`             | Red Hat's EU Sovereign Move — and the Three Tiers                                                                               | 23 Apr 2026 |
+| 15  | `fpe-dark-mode-construction-wedge.html`              | FPE · The Construction Wedge — €14,999 to Reduce Weakest-Link Failure                                                           | 27 Apr 2026 |
+| 16  | `dws-ontology-standard-v1.html`                      | DWS Ontology Standard v1.3 — Etymology, Philosophy, and the Decision-Centric Pillars                                            | 29 Apr 2026 |
+| 17  | `baseten-inference-engineering-300m.html`            | Field Note: Baseten Raises $300M — Inference Engineering Is a Discipline Now                                                    | 7 May 2026  |
+| 18  | `eu-policy-backed-capital-bankable-sovereignty.html` | The Strike Price State — Five Things Europe Just Made Official                                                                  | 7 May 2026  |
+| 19  | `fire-brigades-drone-defense-units.html`             | Fire Brigades as Drone Defence Units — Three Reasons to Build the Network Now (EN/FI/SV)                                        | 15 May 2026 |
+| 20  | `moat-is-not-the-model.html`                         | The Moat Is Not the Model — NVIDIA Makes It Possible, EU-Sovereign Deployment Makes It Defensible                               | 17 May 2026 |
+| 21  | `point-it-at-the-ontology.html`                      | Don't Point the LLM at the Data — Point It at the Ontology (5 industries)                                                       | 5 Jun 2026  |
+| 22  | `your-model-cant-beat-your-noise-floor.html`         | Your Model Can't Beat Your Noise Floor — Evaluation, Clean Labels, the Shannon Bound (EN, Ontology Series)                      | 15 Jun 2026 |
+| 23  | `your-model-cant-beat-your-noise-floor.fi.html`      | Mallisi ei voita kohinatasoasi — arviointi, puhtaat nimiöt, Shannon-raja (FI, Ontology Series)                                  | 15 Jun 2026 |
+| 24  | `four-capital-classes.html`                          | Prompt, People, Plant, Perception — The Four Capital Classes of the Agentic Era (Ontology Series)                               | 19 Jun 2026 |
+| 25  | `software-vs-world-model.html`                       | Software You Operate vs Intelligence That Operates — SaaS and the World Model (Ontology Series)                                 | 20 Jun 2026 |
+| 26  | `ontologia-tiimin-aivoissa.html`                     | Ontologia elää tiimin aivoissa — Kaukopää, tacit ontology, and the governed world model (FI, Ontology Series)                   | 20 Jun 2026 |
+| 27  | `the-ontology-lives-in-the-team.html`                | The Ontology Lives in the Team — Kaukopää case, three layers of industrial tacit knowledge, cynical wedge (EN, Ontology Series) | 20 Jun 2026 |
+| 28  | `lifetime-world-model-three-piece-loop.html`         | The Three-Piece Loop — Lifetime World Model V1 for Control Rooms (EN, vision/architecture, with reference code)                 | 23 Jun 2026 |
+| 29  | `four-learning-paradigms-world-model.html`           | The Four Learning Paradigms Behind a World Model — RL, reward learning, supervised/generative, self-supervised (EN)             | 23 Jun 2026 |
+| 30  | `lifetime-world-model-three-piece-loop.fi.html`      | Kolmiosainen silmukka valvomoille — Lifetime World Model V1 (FI parity of #28)                                                  | 23 Jun 2026 |
+| 31  | `four-learning-paradigms-world-model.fi.html`        | Maailmanmallin neljä oppimisparadigmaa (FI parity of #29)                                                                       | 23 Jun 2026 |
+| 32  | `nvidia-vera-rubin-ai-factory.html`                  | NVIDIA Vera Rubin — The AI Factory Grows Up. The Sovereign Edge Is Still a Box. (EN, NVIDIA partner note)                       | 24 Jun 2026 |
+| 33  | `eu-sovereign-ai-factories-35-supercomputers.html`   | Europe's AI Factory Came Home — 35 Supercomputers, and Why the Edge Still Needs a Box (EN, sovereignty field note)              | 25 Jun 2026 |
 
 ---
 

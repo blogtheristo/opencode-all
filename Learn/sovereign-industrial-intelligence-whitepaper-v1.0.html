@@ -1,0 +1,1070 @@
+<!doctype html>
+<!--
+  VERSION AND AGENT HISTORY
+  Document revision: v1.0
+  Last updated: 25.06.2026
+  - v1.0 | Claude Code | (initial) | 2026 | Initial publication — Sovereign Industrial Intelligence whitepaper. Provenance block added per DWS Document Standard §20; filename-versioned snapshot (do not delete prior versions).
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>European Sovereign Industrial Intelligence — Whitepaper v1.0 | Lifetime Oy</title>
+    <style>
+      :root {
+        --accent: #60a5fa;
+        --accent-green: #4ade80;
+        --accent-amber: #fbbf24;
+        --surface: #f8fafc;
+        --text: #1e293b;
+        --text-muted: #64748b;
+        --border: #e2e8f0;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        line-height: 1.7;
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 2rem;
+        color: var(--text);
+        background: #fff;
+      }
+      .version-banner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 12px 20px;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        font-size: 14px;
+      }
+      .version-banner .title {
+        font-weight: 600;
+      }
+      .version-banner .badge {
+        background: var(--accent);
+        color: #0f172a;
+        font-weight: 700;
+        padding: 4px 12px;
+        border-radius: 4px;
+        font-size: 13px;
+      }
+      .version-banner .meta {
+        text-align: right;
+        font-size: 12px;
+        opacity: 0.85;
+      }
+      .disclaimer {
+        background: #fefce8;
+        border: 1px solid #fde68a;
+        border-radius: 8px;
+        padding: 12px 16px;
+        font-size: 0.85rem;
+        color: #92400e;
+        margin-bottom: 2rem;
+      }
+      h1 {
+        font-size: 2.2rem;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.02em;
+      }
+      h1 span {
+        color: var(--accent);
+      }
+      .subtitle {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        margin-bottom: 2rem;
+        line-height: 1.6;
+      }
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.3em;
+        border-bottom: 1px solid var(--border);
+      }
+      h3 {
+        font-size: 1.15rem;
+        font-weight: 600;
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+      p {
+        margin-bottom: 1rem;
+      }
+      p + p {
+        margin-top: 0;
+      }
+      strong {
+        color: var(--text);
+      }
+      blockquote {
+        border-left: 4px solid var(--accent);
+        margin: 1.5rem 0;
+        padding: 1rem 1.5rem;
+        background: var(--surface);
+        border-radius: 0 8px 8px 0;
+        color: var(--text);
+        font-style: italic;
+      }
+      blockquote strong {
+        font-style: normal;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 1.5em 0;
+        font-size: 0.95rem;
+      }
+      th,
+      td {
+        border: 1px solid var(--border);
+        padding: 8px 14px;
+        text-align: left;
+      }
+      th {
+        background: var(--surface);
+        font-weight: 600;
+      }
+      ul,
+      ol {
+        margin: 0.5rem 0 1rem 1.5rem;
+      }
+      li {
+        margin-bottom: 0.3rem;
+      }
+      .highlight-box {
+        background: #0f172a;
+        color: #e2e8f0;
+        border-radius: 12px;
+        padding: 24px 28px;
+        margin: 2rem 0;
+      }
+      .highlight-box h3 {
+        color: var(--accent);
+        margin-top: 0;
+      }
+      .highlight-box strong {
+        color: var(--accent-green);
+      }
+      .tier-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin: 1.5rem 0;
+      }
+      .tier-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 20px;
+      }
+      .tier-card h4 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+        color: var(--text);
+      }
+      .tier-card .price {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--accent);
+        margin-bottom: 0.5rem;
+      }
+      .tier-card ul {
+        font-size: 0.85rem;
+        margin-left: 1rem;
+      }
+      .kpi-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin: 1.5rem 0;
+      }
+      .kpi-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+      }
+      .kpi-card .value {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--accent);
+      }
+      .kpi-card .label {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-top: 4px;
+      }
+      .cta-box {
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+        color: #e2e8f0;
+        border-radius: 12px;
+        padding: 36px;
+        text-align: center;
+        margin: 2.5rem 0;
+      }
+      .cta-box h2 {
+        color: #fff;
+        border: none;
+        margin-top: 0;
+      }
+      .cta-box p {
+        color: #94a3b8;
+      }
+      .cta-box a {
+        display: inline-block;
+        background: var(--accent);
+        color: #0f172a;
+        padding: 14px 28px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 700;
+        margin: 8px;
+      }
+      .cta-box a:hover {
+        opacity: 0.9;
+      }
+      .cta-box a.secondary {
+        background: transparent;
+        border: 2px solid var(--accent);
+        color: var(--accent);
+      }
+      .layer-table td:first-child {
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .footnote {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-top: 3rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border);
+      }
+      @media (max-width: 640px) {
+        body {
+          padding: 1rem;
+        }
+        h1 {
+          font-size: 1.6rem;
+        }
+        .tier-grid,
+        .kpi-row {
+          grid-template-columns: 1fr;
+        }
+        .version-banner {
+          flex-direction: column;
+          gap: 4px;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="version-banner">
+      <span class="title">European Sovereign Industrial Intelligence</span>
+      <span class="badge">Whitepaper v1.0</span>
+      <span class="meta"
+        >Lifetime Oy &middot; June 2026 &middot; Confidential — Distribution by Request</span
+      >
+    </div>
+
+    <h1>European Sovereign <span>Industrial Intelligence</span></h1>
+    <p class="subtitle">
+      How air-gapped physical AI transforms European heavy industry from regulatory compliance cost
+      centers into sovereign intelligence assets — with a reference architecture from the world's
+      largest stainless steel facility.
+    </p>
+
+    <div class="disclaimer">
+      <strong>Reference Architecture Notice:</strong> The Outokumpu Tornio reference architecture in
+      this whitepaper uses publicly available information from Outokumpu Oyj press releases,
+      sustainability reports, and partner announcements. It does not imply a commercial relationship
+      between Outokumpu Oyj and Lifetime Oy. All source links are cited in the footnotes.
+    </div>
+
+    <!-- 1. Executive Summary -->
+    <h2>1. Executive Summary</h2>
+
+    <p>
+      European heavy industry sits at a regulatory inflection point. By August 2026, the EU AI Act
+      (Articles 12 and 50), CSRD reasonable-assurance requirements, NIS2 critical-entity
+      obligations, and the Carbon Border Adjustment Mechanism (CBAM) create a convergent compliance
+      surface that no generic cloud AI platform can serve — because the data those regulations
+      govern cannot legally or strategically leave the enterprise network boundary.
+    </p>
+
+    <p>
+      This whitepaper introduces <strong>Sovereign Industrial Intelligence</strong> — a new category
+      of AI infrastructure purpose-built for European heavy industry. Unlike cloud-hosted AI that
+      exports operational DNA to foreign-jurisdiction servers, Sovereign Industrial Intelligence
+      trains and executes entirely on local NVIDIA hardware inside the customer's network perimeter.
+      The resulting model weights become a permanent, unreplicable corporate asset.
+    </p>
+
+    <p>
+      We demonstrate the architecture through a reference deployment at Europe's most demanding
+      industrial facility: the Outokumpu Tornio Stainless Steel Mill in Finnish Lapland — the
+      world's largest integrated stainless steel plant.
+    </p>
+
+    <!-- 2. The Problem -->
+    <h2>2. The Problem: Why Generic Cloud AI Fails European Heavy Industry</h2>
+
+    <h3>2.1 The Regulatory Convergence</h3>
+
+    <p>
+      For the first time, European industrial enterprises face simultaneous enforcement across four
+      regulatory frameworks that share a common requirement:
+      <strong>data sovereignty and audit traceability at the source</strong>.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Regulation</th>
+          <th>Enforcement</th>
+          <th>What It Demands</th>
+          <th>Why Cloud AI Fails</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>EU AI Act</strong><br />Art. 12 + Art. 50</td>
+          <td>August 2026</td>
+          <td>Automatic logging of every AI-mediated decision, auditable on demand</td>
+          <td>
+            Logs in a US-jurisdiction cloud are subject to CLOUD Act compelled disclosure — the
+            audit trail itself becomes a liability
+          </td>
+        </tr>
+        <tr>
+          <td><strong>CSRD</strong><br />Reasonable assurance</td>
+          <td>2025–2026 phased</td>
+          <td>Auditor-grade evidence chains for sustainability disclosures</td>
+          <td>
+            Generic LLMs hallucinate compliance data; no chain-of-custody from source measurement to
+            published figure
+          </td>
+        </tr>
+        <tr>
+          <td><strong>NIS2</strong></td>
+          <td>October 2024 (transposition)</td>
+          <td>Cybersecurity and incident reporting for critical-entity OT systems</td>
+          <td>
+            Cloud-dependent AI creates a network-boundary violation — OT telemetry crosses the air
+            gap
+          </td>
+        </tr>
+        <tr>
+          <td><strong>CBAM</strong></td>
+          <td>2026 (definitive phase)</td>
+          <td>Per-installation carbon intensity declarations with verified embedded emissions</td>
+          <td>
+            CBAM data contains proprietary process parameters that reveal competitive manufacturing
+            advantages
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>2.2 The Sovereignty Gap</h3>
+
+    <p>
+      The typical European large industrial enterprise in 2026 has chosen sovereignty-positive
+      vendors at the application layer (local system integrators, Nordic IT partners) but runs its
+      horizontal platform on <strong>US-jurisdiction hyperscale cloud</strong> — primarily Microsoft
+      Azure or AWS. This creates a structural gap:
+    </p>
+
+    <blockquote>
+      <strong>The applications are European. The data plane is American.</strong>
+      Every byte of operational telemetry that flows through the platform layer is exposed to US
+      CLOUD Act compelled disclosure — regardless of which Azure region hosts it.
+    </blockquote>
+
+    <p>
+      Microsoft France's June 2025 Senate testimony confirmed what sovereignty advocates had long
+      argued: a US-headquartered cloud provider cannot guarantee EU-data immunity from US legal
+      demands. For industrial enterprises handling CBAM declarations, AI audit logs, and
+      NIS2-critical OT telemetry, this is not a theoretical risk — it is a compliance gap waiting
+      for its first enforcement action.
+    </p>
+
+    <!-- 3. The Architecture -->
+    <h2>3. The Architecture: Operational DNA + Regulatory DNA</h2>
+
+    <p>
+      Sovereign Industrial Intelligence is built on a dual-helix architecture. Every industrial
+      enterprise generates two irreducible streams of intelligence:
+    </p>
+
+    <div class="highlight-box">
+      <h3>Operational DNA</h3>
+      <p>
+        The unique thermodynamic profiles, acoustic signatures, shift patterns, equipment behavior,
+        and process workflows that define how a specific site operates. This is the knowledge that
+        makes a 30-year plant engineer irreplaceable — and it lives nowhere except inside the
+        facility.
+      </p>
+      <h3>Regulatory DNA</h3>
+      <p>
+        The compliance obligations, reporting cadences, audit trail requirements, and disclosure
+        formats that the regulatory environment imposes on the operation. CSRD timelines, CBAM
+        calculation methodologies, EU AI Act logging schemas, NIS2 incident response protocols.
+      </p>
+      <p style="margin-bottom: 0">
+        <strong
+          >When you train a model that internalizes both helices simultaneously — on-site,
+          air-gapped — compliance becomes a native byproduct of operational awareness, not a
+          separate cost center.</strong
+        >
+      </p>
+    </div>
+
+    <h3>3.1 The 7-Layer Ontology</h3>
+
+    <p>
+      Each industry-specific model is built on a structured ontology that captures both Operational
+      and Regulatory DNA across seven layers:
+    </p>
+
+    <table class="layer-table">
+      <thead>
+        <tr>
+          <th>Layer</th>
+          <th>Name</th>
+          <th>Purpose</th>
+          <th>Helix</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Domain Concepts</td>
+          <td>Industry terminology, equipment types, process names</td>
+          <td>Operational</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Regulatory Terms</td>
+          <td>CSRD, EU ETS, CBAM, industry-specific directives</td>
+          <td>Regulatory</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Operational Vocabulary</td>
+          <td>Site-level language, shift patterns, KPIs</td>
+          <td>Operational</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Process Taxonomy</td>
+          <td>Manufacturing workflows, value chains, I/O mappings</td>
+          <td>Operational</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Compliance Requirements</td>
+          <td>Reporting obligations, audit trails, certifications</td>
+          <td>Regulatory</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Commercial Intelligence</td>
+          <td>Buying roles, pain points, sales wedge entry points</td>
+          <td>Commercial</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>Investor Positioning</td>
+          <td>TAM/SAM, regulatory tailwinds, investor wedge types</td>
+          <td>Strategic</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+      Layers 1–5 feed the sovereign fine-tuning cascade. Layers 6–7 feed the enterprise sales and
+      investor outreach engines. The ontology is built per industry — 25 industries covering
+      European heavy industry and regulated manufacturing — and then customized per-site during
+      deployment.
+    </p>
+
+    <h3>3.2 The Sovereign Training Cascade</h3>
+
+    <p>Training happens in five stages, each narrowing the model from general to site-specific:</p>
+
+    <ol>
+      <li>
+        <strong>Base model delivery</strong> — Open-weight foundation (Llama 3.1 8B/70B or
+        equivalent), delivered to customer hardware
+      </li>
+      <li>
+        <strong>Industry fine-tune</strong> — QLoRA on industry-specific ontology (~2,000 synthetic
+        training examples, ~€40–60 compute cost via API-generated curriculum)
+      </li>
+      <li>
+        <strong>Location fine-tune</strong> — Site layout, local regulations, climate zone, regional
+        supply chain
+      </li>
+      <li>
+        <strong>Factory fine-tune</strong> — Plant-specific ontology, machine specs, process
+        parameters, team knowledge
+      </li>
+      <li>
+        <strong>Continuous improvement</strong> — Field feedback from operations → next training
+        cycle
+      </li>
+    </ol>
+
+    <p>
+      <strong>Result:</strong> A per-customer, per-site unique model that no competitor can copy,
+      rent, or reverse-engineer — because they don't have access to the training data that shaped
+      it.
+    </p>
+
+    <!-- 4. Reference Architecture: Tornio -->
+    <h2>4. Reference Architecture: Outokumpu Tornio Stainless Steel Mill</h2>
+
+    <p>
+      To demonstrate what Sovereign Industrial Intelligence looks like in practice, we examine
+      Europe's most demanding industrial facility through publicly available information.
+    </p>
+
+    <h3>4.1 The Facility</h3>
+
+    <p>
+      Outokumpu's Tornio works in Finnish Lapland is the world's largest integrated stainless steel
+      production facility. It operates high-energy electric arc furnaces (EAFs) that process scrap
+      and raw materials into stainless steel coils. The site's unique challenges:
+    </p>
+
+    <ul>
+      <li>
+        <strong>EU ETS exposure</strong> — Steel is the most carbon-intensive industrial sector in
+        the EU Emissions Trading System
+      </li>
+      <li>
+        <strong>CBAM frontline</strong> — Every tonne of stainless steel sold across EU borders
+        requires verified embedded-emissions declarations
+      </li>
+      <li>
+        <strong>Operational complexity</strong> — EAF thermodynamic profiles, scrap composition
+        variability, energy management across Arctic conditions
+      </li>
+      <li>
+        <strong>IP sensitivity</strong> — Process parameters for proprietary steel grades (e.g., the
+        Forta product line) are trade secrets that determine competitive advantage
+      </li>
+    </ul>
+
+    <h3>4.2 The Existing Technology Stack (Public Sources)</h3>
+
+    <p>
+      Outokumpu has already made sovereignty-positive vendor choices at the application and
+      field-robotics layers:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Layer</th>
+          <th>Vendor</th>
+          <th>Sovereignty</th>
+          <th>Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Field robotics</strong></td>
+          <td>ANYbotics (Switzerland) — ANYmal "Jokkeri" at Tornio FeCr plant</td>
+          <td>EU/EFTA — Tier 1</td>
+          <td>ANYbotics press release, Sep 2023</td>
+        </tr>
+        <tr>
+          <td><strong>ML platform</strong></td>
+          <td>Solita (Finland) — digital innovation hub, systematic ML</td>
+          <td>Finland — Tier 1</td>
+          <td>Solita case study</td>
+        </tr>
+        <tr>
+          <td><strong>Surface defect AI</strong></td>
+          <td>Nortal (Estonia/Finland) — production AI for coil inspection</td>
+          <td>EU — Tier 1</td>
+          <td>Nortal case study</td>
+        </tr>
+        <tr>
+          <td><strong>IT services</strong></td>
+          <td>Tietoevry (Finland) — renewed April 2025</td>
+          <td>Finland — Tier 1</td>
+          <td>Tietoevry press release, Apr 2025</td>
+        </tr>
+        <tr>
+          <td><strong>Industrial platform</strong></td>
+          <td>Microsoft Azure — "high-digit" plant transformation</td>
+          <td>US — Tier 3 (CLOUD Act exposed)</td>
+          <td>Outokumpu digital transformation announcements</td>
+        </tr>
+        <tr>
+          <td><strong>Cloud transformation</strong></td>
+          <td>TCS (India) — multi-year hybrid cloud build</td>
+          <td>Tier 2 (India HQ, cloud destination determines effective tier)</td>
+          <td>TCS press release</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <blockquote>
+      <strong>The pattern is clear:</strong> The applications are European. The platform is
+      American. The sovereignty gap is the horizontal layer — exactly the layer where CBAM
+      declarations, AI audit logs, and NIS2-critical OT telemetry must flow.
+    </blockquote>
+
+    <h3>4.3 The Sovereign Industrial Intelligence Deployment</h3>
+
+    <p>
+      A Sovereign Industrial Intelligence deployment at a facility like Tornio would layer on top of
+      existing vendor relationships — not replace them. The architecture:
+    </p>
+
+    <div class="highlight-box">
+      <h3>Deployment Topology</h3>
+      <pre style="color: #94a3b8; font-size: 0.85rem; line-height: 1.6; margin: 0">
+Enterprise Network (sovereign boundary)
+│
+├── Control Room (per-site brain)
+│   └── NVIDIA DGX Spark — 1 PFLOPS FP4, 128 GB
+│       ├── Sovereign LWM trained on-site (Stages 1–4)
+│       ├── KYA-attested operator identity for every AI action
+│       ├── EU AI Act Article 12 automatic audit logging
+│       └── CBAM / CSRD disclosure pipeline
+│
+├── Mill-Floor Edge (per-zone)
+│   └── Jetson Edge Nodes — sensor fusion, real-time inference
+│       ├── EAF thermodynamic monitoring
+│       ├── ANYmal "Jokkeri" telemetry aggregation
+│       └── Acoustic signature analysis
+│
+└── Situation Room (regional aggregation)
+    └── 2× bridged DGX Spark — 2 PFLOPS, 256 GB
+        ├── Cross-site model federation
+        ├── Board-level regulatory dashboards
+        └── Investor-grade compliance reporting</pre
+      >
+    </div>
+
+    <p>
+      The critical design principle:
+      <strong
+        >every byte of operational telemetry stays inside the enterprise network boundary.</strong
+      >
+      The model trains where the data lives. The audit trail is immutable and sovereign. No cloud
+      dependency. No US jurisdiction exposure.
+    </p>
+
+    <h3>4.4 What Changes for the Steel Mill</h3>
+
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="value">&lt; 2 min</div>
+        <div class="label">CBAM disclosure cycle time<br />(from 18–42 days industry average)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="value">95%+</div>
+        <div class="label">IP-function coverage rate<br />(from &lt;10% ad-hoc review)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="value">240+ hrs</div>
+        <div class="label">Sales-engineering hours reclaimed per rep per year</div>
+      </div>
+    </div>
+
+    <p>
+      Compliance becomes a byproduct of operational awareness. A CBAM disclosure that previously
+      required 18–42 days of manual data gathering, IP review, and cross-departmental coordination
+      is generated in under two minutes — with full Article 12 audit logging, IP-function veto gate,
+      and cryptographic chain of custody from source measurement to published figure.
+    </p>
+
+    <!-- 5. The Sovereignty Guarantee -->
+    <h2>5. The Sovereignty Guarantee</h2>
+
+    <p>
+      We do not use the public cloud. We do not expose your operations to foreign jurisdictions. We
+      render the US CLOUD Act entirely irrelevant to your business.
+    </p>
+
+    <ul>
+      <li><strong>Air-gapped training and inference</strong> — zero cloud dependency</li>
+      <li><strong>Finnish jurisdiction only</strong> — no CLOUD Act, no FISA 702</li>
+      <li><strong>Per-site unique model</strong> — trained where the data lives</li>
+      <li>
+        <strong>100% model weight ownership</strong> — your intelligence is your permanent corporate
+        asset
+      </li>
+      <li><strong>EU AI Act Article 12 logging</strong> — built in, auditable on demand</li>
+      <li>
+        <strong>KYA-attested operator identity</strong> — cryptographic, human-bound, for every
+        AI-mediated action
+      </li>
+    </ul>
+
+    <h3>5.1 Three Sovereignty Tiers</h3>
+
+    <p>
+      Not every enterprise starts with an air-gapped deployment. The platform scales from
+      cloud-hosted evaluation to full on-premise sovereignty:
+    </p>
+
+    <div class="tier-grid">
+      <div class="tier-card">
+        <h4>DWS IQ 6</h4>
+        <div class="price">from €4,999/yr</div>
+        <p style="font-size: 0.85rem; color: var(--text-muted)">
+          Multi-tenant SaaS on EU sovereign infrastructure (Scaleway Paris). 18+ AI agents,
+          CSRD/CBAM automation, EU AI Act logging.
+        </p>
+        <ul>
+          <li>EU data residency</li>
+          <li>Shared infrastructure</li>
+          <li>Fastest time to value</li>
+        </ul>
+      </div>
+      <div class="tier-card">
+        <h4>DWS IQ Aegis</h4>
+        <div class="price">from €59,990</div>
+        <p style="font-size: 0.85rem; color: var(--text-muted)">
+          Single-tenant sovereign deployment on dedicated EU infrastructure (UpCloud Helsinki). Full
+          data isolation.
+        </p>
+        <ul>
+          <li>Dedicated infrastructure</li>
+          <li>Custom model training</li>
+          <li>NIS2 compliance ready</li>
+        </ul>
+      </div>
+      <div class="tier-card">
+        <h4>LWM On-Premise</h4>
+        <div class="price">Consultation</div>
+        <p style="font-size: 0.85rem; color: var(--text-muted)">
+          Air-gapped deployment on customer NVIDIA hardware. Full sovereign training cascade. You
+          own the model weights.
+        </p>
+        <ul>
+          <li>Zero cloud dependency</li>
+          <li>Air-gapped training</li>
+          <li>Model weight ownership</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 6. 25 Industries -->
+    <h2>6. The 25-Industry Sovereign Model Library</h2>
+
+    <p>
+      The Lifetime World Model V1 covers 25 European heavy industries and regulated manufacturing
+      sectors. Each industry gets a dedicated ontology and fine-tuned model:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Industry</th>
+          <th>Key Regulatory Exposure</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Steel &amp; Metallurgy</td>
+          <td>EU ETS, CBAM, NIS2</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Forestry, Pulp &amp; Paper</td>
+          <td>LULUCF, CSRD, FSC/PEFC</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Automotive &amp; Heavy Transport</td>
+          <td>Euro 7, ELV, Battery Regulation</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Aerospace &amp; Defence</td>
+          <td>EASA, CORSIA, dual-use export</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Chemical Processing</td>
+          <td>REACH, Seveso III, EU ETS</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Pharmaceutical &amp; Bio-Manufacturing</td>
+          <td>GMP, EMA, GDPR clinical</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>Maritime &amp; Shipbuilding</td>
+          <td>FuelEU Maritime, IMO MRV</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>Power Generation &amp; Nuclear</td>
+          <td>EU ETS, Taxonomy, IAEA</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>Renewable Energy Infrastructure</td>
+          <td>RED III, Taxonomy</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>Mining &amp; Mineral Extraction</td>
+          <td>CRM Act, EITI, CSRD</td>
+        </tr>
+        <tr>
+          <td>11</td>
+          <td>Industrial Automation &amp; Robotics</td>
+          <td>Machinery Regulation, EU AI Act</td>
+        </tr>
+        <tr>
+          <td>12</td>
+          <td>Construction &amp; Civil Infrastructure</td>
+          <td>EPBD, EN 15978, CSRD</td>
+        </tr>
+        <tr>
+          <td>13</td>
+          <td>Food &amp; Beverage Manufacturing</td>
+          <td>EU organic, BRCGS/IFS</td>
+        </tr>
+        <tr>
+          <td>14</td>
+          <td>Glass, Ceramics &amp; Building Materials</td>
+          <td>EU ETS, EPD, CPR</td>
+        </tr>
+        <tr>
+          <td>15</td>
+          <td>Electronics &amp; Semiconductor Fab</td>
+          <td>EU Chips Act, REACH</td>
+        </tr>
+        <tr>
+          <td>16</td>
+          <td>Oil &amp; Gas Refining</td>
+          <td>EU ETS, RED III, Methane Reg</td>
+        </tr>
+        <tr>
+          <td>17</td>
+          <td>Textiles &amp; Industrial Fabrics</td>
+          <td>ESPR, DPP, OEKO-TEX</td>
+        </tr>
+        <tr>
+          <td>18</td>
+          <td>Water Treatment &amp; Waste Management</td>
+          <td>UWWTD, Circular Economy</td>
+        </tr>
+        <tr>
+          <td>19</td>
+          <td>Agricultural Machinery</td>
+          <td>Machinery Regulation, CAP</td>
+        </tr>
+        <tr>
+          <td>20</td>
+          <td>Telecom Infrastructure</td>
+          <td>EECC, NIS2, 5G security</td>
+        </tr>
+        <tr>
+          <td>21</td>
+          <td>Medical Devices Manufacturing</td>
+          <td>MDR/IVDR, EUDAMED</td>
+        </tr>
+        <tr>
+          <td>22</td>
+          <td>High-Speed Rail &amp; Transport</td>
+          <td>ERA, TEN-T, ERTMS</td>
+        </tr>
+        <tr>
+          <td>23</td>
+          <td>Datacenter Infrastructure</td>
+          <td>EED Art.12, EU CoC</td>
+        </tr>
+        <tr>
+          <td>24</td>
+          <td>Battery &amp; Energy Storage</td>
+          <td>Battery Regulation, IPCEI</td>
+        </tr>
+        <tr>
+          <td>25</td>
+          <td>Marine &amp; Offshore Subsea</td>
+          <td>OSPAR, offshore wind</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+      Each industry model is built from a corpus of 200 European enterprises, creating an ontology
+      of 5,000 enterprises across the 25 sectors. The ontology captures domain-specific terminology,
+      regulatory obligations, operational workflows, and commercial intelligence — the building
+      blocks for industry-specific sovereign AI.
+    </p>
+
+    <!-- 7. This Is Not SaaS -->
+    <h2>7. This Is Not SaaS</h2>
+
+    <blockquote>
+      <strong>You cannot build an unassailable corporate moat on a subscription basis.</strong>
+    </blockquote>
+
+    <p>
+      SaaS platforms force you to export your proprietary operational DNA to external servers,
+      effectively subsidizing a generic model that will eventually be sold back to your rivals.
+      Every query you send to a cloud AI platform is a data point that trains a model your
+      competitor will also use.
+    </p>
+
+    <p>
+      Sovereign Industrial Intelligence is different.
+      <strong
+        >We don't rent you software. We deploy permanent cognitive infrastructure that you own
+        outright.</strong
+      >
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>Generic Cloud AI</th>
+          <th>Sovereign Industrial Intelligence</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Data residency</td>
+          <td>US/global cloud</td>
+          <td>Your network boundary</td>
+        </tr>
+        <tr>
+          <td>Model ownership</td>
+          <td>Vendor retains</td>
+          <td>You own 100% of weights</td>
+        </tr>
+        <tr>
+          <td>Training data</td>
+          <td>Commingled with other customers</td>
+          <td>Isolated, on your hardware</td>
+        </tr>
+        <tr>
+          <td>CLOUD Act exposure</td>
+          <td>Yes</td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Competitive moat</td>
+          <td>None — competitor gets same model</td>
+          <td>Permanent — your data shaped it</td>
+        </tr>
+        <tr>
+          <td>Asset after contract ends</td>
+          <td>Nothing</td>
+          <td>Trained model + hardware</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 8. Getting Started -->
+    <h2>8. The Pilot Path</h2>
+
+    <p>
+      Every Sovereign Industrial Intelligence deployment starts with a scoped pilot. The pilot is
+      designed to prove value on one product line or one facility before scaling.
+    </p>
+
+    <h3>Stage 1 — Scoping (1–2 weeks, free of charge)</h3>
+    <p>
+      Lock scope, select the product line or facility, audit source data systems, establish baseline
+      measurements. No commitment beyond scoping.
+    </p>
+
+    <h3>Stage 2 — Pilot Execution (8–10 weeks)</h3>
+    <p>
+      Build the sovereign pipeline, integrate KYA identity governance, run weekly delivery cycles
+      with IP-function review loop. Measure against three KPIs: disclosure cycle time, IP-function
+      coverage rate, and hours reclaimed.
+    </p>
+
+    <h3>Stage 3 — Measurement &amp; Decision (2 weeks)</h3>
+    <p>
+      Before/after analysis. Commercial conversion is at customer's sole discretion — pilot
+      completion creates no obligation.
+    </p>
+
+    <h3>The CAPEX Principle</h3>
+    <p>
+      All NVIDIA hardware purchased for the pilot
+      <strong>stays with the customer after the pilot ends</strong> — durable infrastructure asset
+      whether or not the pilot converts to commercial license. The majority of the pilot investment
+      (typically ~60%) is retained as customer-owned compute infrastructure.
+    </p>
+
+    <!-- CTA -->
+    <div class="cta-box">
+      <h2>Request a Sovereign Infrastructure Consultation</h2>
+      <p>
+        One conversation. We assess your operational topology, regulatory exposure, and deployment
+        timeline.
+      </p>
+      <a
+        href="https://wa.me/358400319010?text=I%20read%20the%20Sovereign%20Industrial%20Intelligence%20whitepaper%20and%20would%20like%20to%20discuss%20a%20pilot."
+        >Start a Conversation</a
+      >
+      <a
+        href="mailto:risto@lifetime.fi?subject=Sovereign%20Industrial%20Intelligence%20—%20Pilot%20Delivery%20Plan%20Request"
+        class="secondary"
+        >Request Pilot Delivery Plan</a
+      >
+    </div>
+
+    <!-- Footer -->
+    <div class="footnote">
+      <p>
+        <strong>Publisher:</strong> Lifetime Oy &middot; Laidunmaanraitti 2 A 25, 02330 Espoo,
+        Finland &middot; Business ID 0772407-9 &middot; VAT FI07724079
+      </p>
+      <p><strong>Contact:</strong> Risto Anton Päärni, CEO &middot; risto@lifetime.fi</p>
+      <p>
+        <strong>Classification:</strong> Distribution by request. Not for public redistribution
+        without written consent.
+      </p>
+      <p style="margin-top: 1rem"><strong>Public sources cited:</strong></p>
+      <ol style="font-size: 0.8rem; color: var(--text-muted)">
+        <li>Outokumpu × ANYbotics partnership — ANYbotics press release, September 2023</li>
+        <li>ANYmal "Jokkeri" deployment at Tornio — BSSA.org.uk</li>
+        <li>Outokumpu × TCS cloud-first transformation — TCS newsroom</li>
+        <li>Outokumpu × Solita digital innovation hub — Solita case study</li>
+        <li>Outokumpu × Nortal surface-defect detection AI — Nortal insights</li>
+        <li>Outokumpu × Tietoevry partnership renewal — Tietoevry newsroom, April 2025</li>
+        <li>Outokumpu "AI accelerates steel industry transformation" — outokumpu.com, 2024</li>
+        <li>NVIDIA "No Backdoors. No Kill Switches. No Spyware" — NVIDIA Blog</li>
+        <li>Microsoft France Senate testimony on CLOUD Act — public record, June 2025</li>
+        <li>SiPearl × Semidynamics EU-sovereign rack platform — DataCenter Dynamics</li>
+      </ol>
+      <p style="margin-top: 0.5rem">&copy; 2026 Lifetime Oy. All rights reserved.</p>
+    </div>
+  </body>
+</html>

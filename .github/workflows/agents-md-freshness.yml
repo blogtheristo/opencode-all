@@ -27,7 +27,7 @@ jobs:
         if: steps.failover.outputs.dgx_alive != 'true'
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
 
       - name: Run AGENTS.md freshness verification
         if: steps.failover.outputs.dgx_alive != 'true'

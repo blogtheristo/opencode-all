@@ -1,0 +1,520 @@
+<!doctype html>
+<!--
+  Lifetime World Model V1 — The Three-Piece Loop for Control Rooms
+  Code-Version: 1.0
+  Branch: claude/dws-iq6-social-thread-17d8ie
+  Date: 2026-06-23
+  Owner: Lifetime Oy
+  Status: vision / architecture (not shipped, not a partnership)
+  Related:
+    - docs/FIELD_NOTE_WORLD_MODEL_V1_LOOP_2026.md
+    - src/agents/world-model/world-model-loop.agent.ts
+    - onelifetime.world/posts/software-vs-world-model.html
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Three-Piece Loop — Lifetime World Model V1 for Control Rooms</title>
+    <meta
+      name="description"
+      content="A target architecture for control-room autonomy: perception anchors it, a simulator imagines the next step, and an agentic loop proposes the fix — behind a human gate. With the real reference code."
+    />
+    <meta name="author" content="Risto Anton Paarni" />
+    <meta name="date" content="2026-06-23" />
+    <meta
+      property="og:title"
+      content="The Three-Piece Loop — Lifetime World Model V1 for Control Rooms"
+    />
+    <meta
+      property="og:description"
+      content="Perception → imagination → action, closed by reward. A design concept made runnable for one control room — proposals only, never an auto-deploy."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      property="og:url"
+      content="https://onelifetime.world/posts/lifetime-world-model-three-piece-loop.html"
+    />
+    <meta property="og:site_name" content="Lifetime Scope Journal" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="article:published_time" content="2026-06-23" />
+    <meta property="article:author" content="Risto Anton Paarni" />
+    <meta property="article:section" content="Architecture" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="The Three-Piece Loop — Lifetime World Model V1" />
+    <meta
+      name="twitter:description"
+      content="Perception anchors, the simulator imagines, the agentic loop proposes the fix — behind a human gate. Target architecture, with the reference code."
+    />
+    <link
+      rel="canonical"
+      href="https://onelifetime.world/posts/lifetime-world-model-three-piece-loop.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://onelifetime.world/posts/lifetime-world-model-three-piece-loop.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="fi"
+      href="https://onelifetime.world/posts/lifetime-world-model-three-piece-loop.fi.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="sv"
+      href="https://onelifetime.world/posts/lifetime-world-model-three-piece-loop.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="de"
+      href="https://onelifetime.world/posts/lifetime-world-model-three-piece-loop.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="fr"
+      href="https://onelifetime.world/posts/lifetime-world-model-three-piece-loop.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://onelifetime.world/posts/lifetime-world-model-three-piece-loop.html"
+    />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/shared-assets/olw-vertical-lang-bar.js" defer></script>
+    <style>
+      .version-chip {
+        display: inline-block;
+        padding: 4px 12px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #60a5fa;
+        background: rgba(96, 165, 250, 0.08);
+        border: 1px solid rgba(96, 165, 250, 0.25);
+        border-radius: 9999px;
+      }
+      .news-box {
+        border-left: 4px solid #60a5fa;
+        background: rgba(96, 165, 250, 0.07);
+        border-radius: 0 8px 8px 0;
+        padding: 18px 22px;
+        margin: 24px 0;
+        color: #e2e8f0;
+      }
+      .gold-box {
+        border-left: 4px solid #d4a843;
+        background: rgba(212, 168, 67, 0.07);
+        border-radius: 0 8px 8px 0;
+        padding: 18px 22px;
+        margin: 28px 0;
+        color: #f1f5f9;
+      }
+      .gold-box h3 {
+        color: #d4a843;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .short-box {
+        border: 1px solid rgba(96, 165, 250, 0.3);
+        background: rgba(96, 165, 250, 0.06);
+        border-radius: 10px;
+        padding: 22px 26px;
+        margin: 34px 0;
+      }
+      .short-box h3 {
+        color: #60a5fa;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      .code-block {
+        background: #0b1220;
+        border: 1px solid rgba(6, 182, 212, 0.25);
+        border-radius: 10px;
+        padding: 18px 20px;
+        margin: 24px 0;
+        overflow-x: auto;
+        font-size: 0.82rem;
+        line-height: 1.55;
+        color: #cbd5e1;
+      }
+      .code-block code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        white-space: pre;
+        color: #cbd5e1;
+      }
+      .prose-light h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #f1f5f9;
+        margin-top: 40px;
+        margin-bottom: 14px;
+      }
+      .prose-light h3 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #e2e8f0;
+        margin-top: 26px;
+        margin-bottom: 10px;
+      }
+      .prose-light p {
+        font-size: 1.02rem;
+        line-height: 1.75;
+        color: #cbd5e1;
+        margin-bottom: 18px;
+      }
+      .prose-light ul {
+        margin-bottom: 20px;
+        list-style: disc;
+        padding-left: 22px;
+      }
+      .prose-light li {
+        color: #cbd5e1;
+        padding-left: 4px;
+        margin-bottom: 8px;
+      }
+      .prose-light strong {
+        color: #f1f5f9;
+      }
+      .prose-light a {
+        color: #60a5fa;
+      }
+      .prose-light a:hover {
+        text-decoration: underline;
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "The Three-Piece Loop — Lifetime World Model V1 for Control Rooms",
+        "description": "A target architecture for control-room autonomy: perception anchors it, a simulator imagines the next step, an agentic loop proposes the fix — behind a human gate.",
+        "author": {
+          "@type": "Person",
+          "name": "Risto Anton Paarni",
+          "url": "https://onelifetime.world"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Lifetime Oy",
+          "url": "https://dws10.com"
+        },
+        "datePublished": "2026-06-23",
+        "mainEntityOfPage": "https://onelifetime.world/posts/lifetime-world-model-three-piece-loop.html",
+        "articleSection": "Architecture",
+        "inLanguage": "en"
+      }
+    </script>
+  </head>
+  <body
+    class="font-sans antialiased flex flex-col min-h-screen"
+    style="
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #f1f5f9;
+    "
+  >
+    <script>
+      function toggleMobileMenu() {
+        var menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("hidden");
+      }
+    </script>
+
+    <nav
+      style="background: #1e293b; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)"
+      class="sticky top-0 z-50 border-b border-gray-700"
+    >
+      <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
+        <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5" aria-label="Menu">
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+        </button>
+        <a href="/" class="flex items-center">
+          <img
+            src="../OneLifetime+Logo.png"
+            alt="OneLifetime.World"
+            class="h-8 w-auto"
+            style="filter: brightness(1.1)"
+          />
+        </a>
+        <a
+          href="https://dws10.com/buy"
+          class="text-xs font-bold px-3 py-1 rounded"
+          style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a"
+          >Store</a
+        >
+      </div>
+      <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+        <a href="/blog/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Lifetime Scope Journal</a
+        >
+        <a href="/press/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Press</a
+        >
+        <a
+          href="https://dws10.com"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >DWS IQ Platform</a
+        >
+        <a
+          href="https://dws10.com/buy"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Store</a
+        >
+      </div>
+    </nav>
+
+    <main class="flex-1">
+      <article class="max-w-3xl mx-auto px-4 py-12 prose-light">
+        <header class="mb-8">
+          <span class="version-chip">Field Note &middot; Architecture</span>
+          <h1
+            class="mt-4 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight"
+            style="color: #f8fafc"
+          >
+            The three-piece loop for control rooms
+          </h1>
+          <p class="mt-4 text-base text-gray-400">
+            23 June 2026 &middot; Risto Anton Paarni &middot; Helsinki, Finland
+          </p>
+        </header>
+
+        <p>
+          A control room is mostly people watching screens, waiting for an alarm, then reaching for
+          a pre-written fix. The Lifetime World Model V1 is a design for the next shape of that
+          work: perceive, imagine the next move, propose the fix — and keep a human in command.
+        </p>
+
+        <div class="news-box">
+          This is a <strong>target architecture</strong>, not a shipped product and not a signed
+          partnership. The named systems below are technology archetypes we design toward, not
+          vendors we have integrated.
+        </div>
+
+        <p>Three roles, one loop. Each maps to a working part of the reference code.</p>
+
+        <h2>1 &middot; Perception — the anchor</h2>
+        <p>
+          Raw, multi-modal telemetry — temperature, vibration, wind, load — is normalized into one
+          governed snapshot we call the State Vector. The math is deterministic and lives in code,
+          so the snapshot is auditable rather than guessed. A Tesla-style end-to-end sensing stack
+          is the archetype here: signal first, fewer brittle hand-built pipelines.
+        </p>
+
+        <h2>2 &middot; Imagination — the sandbox</h2>
+        <p>
+          Before any move, a simulator projects what each candidate action would do to the State
+          Vector — the benefit it could relieve against the risk it would add. An NVIDIA
+          Cosmos-class world model is the archetype for a physics-aware version of this. The
+          reference ships a deterministic stand-in, and it is honest about being a stand-in.
+        </p>
+
+        <h2>3 &middot; Action — the loop engineer</h2>
+        <p>
+          When perception and simulation agree on an optimized path, an agentic layer — the Claude
+          Code archetype — drafts the change. In our reference it runs on the same
+          <code>BaseAgent</code> primitives the rest of the platform already uses. The top-ranked
+          action comes back as a <strong>proposal</strong>:
+        </p>
+
+        <pre
+          class="code-block"
+        ><code>// world-model-loop.agent.ts — the loop, deterministic and gated
+const stateVector = buildStateVector(telemetry, { anomalyThreshold });
+const rankedActions = this.rankCandidates(stateVector, candidates);
+const selectedProposal = this.buildProposal(rankedActions, candidates);
+// returns { stateVector, rankedActions, selectedProposal, rewardUpdates }</code></pre>
+
+        <p>
+          The proposal is never applied by the loop. A live mutation always carries a human gate,
+          and the <code>applied</code> field is typed <code>false</code> so a proposal can never be
+          mistaken for a deploy:
+        </p>
+
+        <pre class="code-block"><code>return {
+  action,
+  rankScore: top.rankScore,
+  requiresHumanApproval: true,
+  applied: false, // hard-typed — the loop proposes, a human commands
+  rationale,
+};</code></pre>
+
+        <div class="gold-box">
+          <h3>The honest part</h3>
+          <p class="mb-0" style="color: #f1f5f9">
+            "Pushes code to the live system" is the highest-risk sentence in this whole idea, so we
+            designed it out from the start. Live mutation stays behind a human / KYA gate.
+            Control-room automation in a physical environment is high-risk under the EU AI Act,
+            which means documentation, logging, and human oversight are part of the build — not a
+            later bolt-on. And no part of this is a Cosmos, Tesla, or Anthropic partnership; they
+            are reference points.
+          </p>
+        </div>
+
+        <h2>Closed by reward</h2>
+        <p>
+          The loop learns from the operator. When a human overrides a proposed action, that override
+          is recorded as a negative reward and the same action type ranks lower next time. It is a
+          transparent preference weight, not a black box — which is the only kind of learning you
+          can put in front of an auditor.
+        </p>
+
+        <div class="short-box">
+          <h3>The short version</h3>
+          <ul style="margin-bottom: 0">
+            <li>Perception anchors the loop in a governed, deterministic State Vector.</li>
+            <li>A simulator imagines each action's consequence before anything moves.</li>
+            <li>The agentic layer proposes the fix — <strong>never</strong> auto-applies it.</li>
+            <li>Operator overrides teach the loop, in the open.</li>
+            <li>Target architecture today. Honest about that.</li>
+          </ul>
+        </div>
+
+        <h2>Read next</h2>
+        <ul>
+          <li>
+            <a href="/posts/four-learning-paradigms-world-model.html"
+              >The Four Learning Paradigms Behind a World Model</a
+            >
+          </li>
+          <li>
+            <a href="/posts/software-vs-world-model.html"
+              >Software You Operate vs Intelligence That Operates</a
+            >
+          </li>
+          <li>
+            <a href="/posts/four-capital-classes.html"
+              >Prompt, People, Plant, Perception — The Four Capital Classes</a
+            >
+          </li>
+        </ul>
+
+        <hr class="my-10 border-gray-700" />
+
+        <p class="text-sm text-gray-500">
+          <em
+            >Risto Anton Paarni — CEO, Lifetime Oy &middot; Editor in Chief, Lifetime Scope
+            Journal.</em
+          >
+          Architecture catalogued in <code>docs/FIELD_NOTE_WORLD_MODEL_V1_LOOP_2026.md</code>;
+          reference code in <code>src/agents/world-model/</code>. This post is commentary on a
+          design concept and carries no financial terms or partnership claims.
+        </p>
+      </article>
+
+      <!-- Featured Products -->
+      <div class="max-w-3xl mx-auto px-4 pb-12">
+        <h3 class="text-lg font-bold mb-4" style="color: #d4a843">From the Store</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <a
+            href="https://dws10.com/products/dwsiq.html"
+            class="block rounded-lg p-4 text-center"
+            style="
+              background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+              border: 1px solid rgba(6, 182, 212, 0.2);
+              transition:
+                border-color 0.3s,
+                transform 0.2s;
+            "
+            onmouseover="
+              this.style.borderColor = 'rgba(6,182,212,0.5)';
+              this.style.transform = 'translateY(-2px)';
+            "
+            onmouseout="
+              this.style.borderColor = 'rgba(6,182,212,0.2)';
+              this.style.transform = 'none';
+            "
+          >
+            <span
+              class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2"
+              style="
+                background: rgba(212, 168, 67, 0.15);
+                color: #d4a843;
+                border: 1px solid rgba(212, 168, 67, 0.25);
+              "
+              >Flagship</span
+            >
+            <p class="text-sm font-semibold text-gray-200">DWS IQ Platform</p>
+            <p class="text-lg font-bold text-cyan-400 my-1">&euro;4,999</p>
+            <p class="text-xs text-gray-500">
+              The ontology + agent layer for EU compliance automation
+            </p>
+          </a>
+          <a
+            href="https://dws10.com/products/bundle.html"
+            class="block rounded-lg p-4 text-center"
+            style="
+              background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+              border: 1px solid rgba(6, 182, 212, 0.2);
+              transition:
+                border-color 0.3s,
+                transform 0.2s;
+            "
+            onmouseover="
+              this.style.borderColor = 'rgba(6,182,212,0.5)';
+              this.style.transform = 'translateY(-2px)';
+            "
+            onmouseout="
+              this.style.borderColor = 'rgba(6,182,212,0.2)';
+              this.style.transform = 'none';
+            "
+          >
+            <span
+              class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2"
+              style="
+                background: rgba(212, 168, 67, 0.15);
+                color: #d4a843;
+                border: 1px solid rgba(212, 168, 67, 0.25);
+              "
+              >Best Value</span
+            >
+            <p class="text-sm font-semibold text-gray-200">Climate Reporting Bundle</p>
+            <p class="text-lg font-bold text-cyan-400 my-1">&euro;6,500</p>
+            <p class="text-xs text-gray-500">DWS IQ + Firehorse Report + Workshop</p>
+          </a>
+          <a
+            href="https://dws10.com/products/firehorse-omnichannel.html"
+            class="block rounded-lg p-4 text-center"
+            style="
+              background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+              border: 1px solid rgba(6, 182, 212, 0.2);
+              transition:
+                border-color 0.3s,
+                transform 0.2s;
+            "
+            onmouseover="
+              this.style.borderColor = 'rgba(6,182,212,0.5)';
+              this.style.transform = 'translateY(-2px)';
+            "
+            onmouseout="
+              this.style.borderColor = 'rgba(6,182,212,0.2)';
+              this.style.transform = 'none';
+            "
+          >
+            <span
+              class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2"
+              style="
+                background: rgba(212, 168, 67, 0.15);
+                color: #d4a843;
+                border: 1px solid rgba(212, 168, 67, 0.25);
+              "
+              >Start Here</span
+            >
+            <p class="text-sm font-semibold text-gray-200">Firehorse Omnichannel</p>
+            <p class="text-lg font-bold text-cyan-400 my-1">&euro;499</p>
+            <p class="text-xs text-gray-500">AI marketing engine, Green Claims compliant</p>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <!-- Iron Clad Footer — self-injects before </body>, replacing any existing footer -->
+    <script src="/shared-assets/footer/ironclad-footer.js" defer></script>
+  </body>
+</html>

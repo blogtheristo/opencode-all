@@ -5,15 +5,16 @@
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 
-type Args = { contextTokens: number; budgetPct: number; roots: string[] };
+type Args = { contextTokens: number; budgetPct: number; roots: string[]; exitCode: boolean };
 
 function parseArgs(argv: string[]): Args {
-  const out: Args = { contextTokens: 272_000, budgetPct: 2, roots: [] };
+  const out: Args = { contextTokens: 272_000, budgetPct: 2, roots: [], exitCode: false };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === "--context-tokens") out.contextTokens = Number(argv[++i]);
     else if (a === "--budget-percent") out.budgetPct = Number(argv[++i]);
     else if (a === "--root") out.roots.push(argv[++i]);
+    else if (a === "--exit-code") out.exitCode = true;
   }
   if (out.roots.length === 0) out.roots = ["skills"];
   return out;
@@ -59,7 +60,7 @@ function parseFrontmatter(text: string): Record<string, string> {
 function countTriggers(desc: string): number {
   const m = desc.match(/Use when:?(.*)/i);
   if (!m) return 0;
-  const tail = m[1];
+  const tail = m[1].split(".")[0];
   const quoted = tail.match(/"[^"]+"/g);
   if (quoted) return quoted.length;
   return tail.split(/,|;/).filter((s) => s.trim().length > 2).length;
@@ -80,7 +81,24 @@ type Row = {
   desc: string;
 };
 
-function audit(root: string): Row[] {
+function buildRow(name: string, path: string, desc: string): Row {
+  const words = wordCount(desc);
+  const chars = desc.length;
+  const tokens = tokenCost(desc);
+  const triggers = countTriggers(desc);
+  const flags: string[] = [];
+  if (words > 60) flags.push("WORDS>60");
+  if (chars > 400) flags.push("CHARS>400");
+  if (tokens > 100) flags.push("TOKENS>100");
+  if (triggers > 6) flags.push(`TRIGGERS=${triggers}`);
+  if (/^\s*(EXPERIMENTAL|DEPRECATED)\b/i.test(desc) || /\b(NOT yet|CLI-only|not productized)\b/i.test(desc)) {
+    flags.push("STATUS-BANNER");
+  }
+  if (/Load this skill|This skill is|in order to|expertise packag/i.test(desc)) flags.push("PROSE");
+  return { name, path, words, chars, tokens, triggers, flags, desc };
+}
+
+function auditSkillDirs(root: string): Row[] {
   const rows: Row[] = [];
   let dirs: string[] = [];
   try {
@@ -107,20 +125,47 @@ function audit(root: string): Row[] {
     const fm = parseFrontmatter(text);
     const desc = fm.description ?? "";
     if (!desc) continue;
-    const words = wordCount(desc);
-    const chars = desc.length;
-    const tokens = tokenCost(desc);
-    const triggers = countTriggers(desc);
-    const flags: string[] = [];
-    if (words > 60) flags.push("WORDS>60");
-    if (chars > 400) flags.push("CHARS>400");
-    if (tokens > 100) flags.push("TOKENS>100");
-    if (triggers > 6) flags.push(`TRIGGERS=${triggers}`);
-    if (/EXPERIMENTAL|DEPRECATED|status:|version|NOT yet/i.test(desc)) flags.push("STATUS-BANNER");
-    if (/Load this skill|This skill is|in order to|expertise packag/i.test(desc)) flags.push("PROSE");
-    rows.push({ name: d, path: p, words, chars, tokens, triggers, flags, desc });
+    rows.push(buildRow(d, p, desc));
   }
   return rows;
+}
+
+function auditMarkdownFiles(root: string): Row[] {
+  const rows: Row[] = [];
+  let files: string[] = [];
+  try {
+    files = readdirSync(root);
+  } catch {
+    return rows;
+  }
+  for (const file of files) {
+    if (!file.endsWith(".md") || file.endsWith(".OLD")) continue;
+    const full = join(root, file);
+    let st;
+    try {
+      st = statSync(full);
+    } catch {
+      continue;
+    }
+    if (!st.isFile()) continue;
+    let text: string;
+    try {
+      text = readFileSync(full, "utf8");
+    } catch {
+      continue;
+    }
+    const fm = parseFrontmatter(text);
+    const desc = fm.description ?? "";
+    if (!desc) continue;
+    rows.push(buildRow(file.replace(/\.md$/i, ""), full, desc));
+  }
+  return rows;
+}
+
+function audit(root: string): Row[] {
+  const skillRows = auditSkillDirs(root);
+  if (skillRows.length > 0) return skillRows;
+  return auditMarkdownFiles(root);
 }
 
 const args = parseArgs(process.argv.slice(2));
@@ -152,4 +197,8 @@ if (offenders.length > 0) {
     console.log(r.desc.slice(0, 220) + (r.desc.length > 220 ? "…" : ""));
     console.log("```");
   }
+}
+
+if (args.exitCode && offenders.length > 0) {
+  process.exit(1);
 }

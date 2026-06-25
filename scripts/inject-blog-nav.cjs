@@ -108,7 +108,8 @@ const posts = [
   },
   {
     file: 'moat-is-not-the-model.html',
-    title: 'The Moat Is Not the Model — NVIDIA Makes It Possible, EU-Sovereign Deployment Makes It Defensible',
+    title:
+      'The Moat Is Not the Model — NVIDIA Makes It Possible, EU-Sovereign Deployment Makes It Defensible',
     date: '17 May 2026',
   },
   {
@@ -120,6 +121,71 @@ const posts = [
     file: 'sovereignty-field-note-2-three-pillars.fi.html',
     title: 'Suvereniteetin kenttämuistio #2 — Digitaalisen suvereniteetin kolme tasoa (FI)',
     date: '28 May 2026',
+  },
+  {
+    file: 'point-it-at-the-ontology.html',
+    title: "Don't Point the LLM at the Data — Point It at the Ontology",
+    date: '5 Jun 2026',
+  },
+  {
+    file: 'your-model-cant-beat-your-noise-floor.html',
+    title: "Your Model Can't Beat Your Noise Floor",
+    date: '15 Jun 2026',
+  },
+  {
+    file: 'your-model-cant-beat-your-noise-floor.fi.html',
+    title: 'Mallisi ei voita kohinatasoasi (FI)',
+    date: '15 Jun 2026',
+  },
+  {
+    file: 'four-capital-classes.html',
+    title: 'Prompt, People, Plant, Perception — The Four Capital Classes of the Agentic Era',
+    date: '19 Jun 2026',
+  },
+  {
+    file: 'software-vs-world-model.html',
+    title: 'Software You Operate vs Intelligence That Operates',
+    date: '20 Jun 2026',
+  },
+  {
+    file: 'ontologia-tiimin-aivoissa.html',
+    title: 'Ontologia elää tiimin aivoissa',
+    date: '20 Jun 2026',
+  },
+  {
+    file: 'the-ontology-lives-in-the-team.html',
+    title: 'The Ontology Lives in the Team',
+    date: '20 Jun 2026',
+  },
+  {
+    file: 'lifetime-world-model-three-piece-loop.html',
+    title: 'The Three-Piece Loop — Lifetime World Model V1 for Control Rooms',
+    date: '23 Jun 2026',
+  },
+  {
+    file: 'four-learning-paradigms-world-model.html',
+    title: 'The Four Learning Paradigms Behind a World Model',
+    date: '23 Jun 2026',
+  },
+  {
+    file: 'lifetime-world-model-three-piece-loop.fi.html',
+    title: 'Kolmiosainen silmukka valvomoille — Lifetime World Model V1 (FI)',
+    date: '23 Jun 2026',
+  },
+  {
+    file: 'four-learning-paradigms-world-model.fi.html',
+    title: 'Maailmanmallin neljä oppimisparadigmaa (FI)',
+    date: '23 Jun 2026',
+  },
+  {
+    file: 'nvidia-vera-rubin-ai-factory.html',
+    title: 'NVIDIA Vera Rubin — The AI Factory Grows Up. The Sovereign Edge Is Still a Box.',
+    date: '24 Jun 2026',
+  },
+  {
+    file: 'eu-sovereign-ai-factories-35-supercomputers.html',
+    title: "Europe's AI Factory Came Home — 35 Supercomputers, and Why the Edge Still Needs a Box",
+    date: '25 Jun 2026',
   },
 ];
 

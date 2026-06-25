@@ -582,6 +582,7 @@
   </head>
   <body>
     <script src="/shared-assets/nav/ironclad-nav.js"></script>
+    <script src="/shared-assets/vertical-lang-bar.js"></script>
 
     <!-- Hero -->
     <section class="hero">
@@ -597,12 +598,12 @@
 
         <div class="hero-stats">
           <div class="hero-stat">
-            <span class="hero-stat-value">20</span>
+            <span class="hero-stat-value">25</span>
             <span class="hero-stat-label">EU Industries</span>
           </div>
           <div class="hero-stat">
-            <span class="hero-stat-value">18+</span>
-            <span class="hero-stat-label">Industry Agents</span>
+            <span class="hero-stat-value">50</span>
+            <span class="hero-stat-label">Production Agents</span>
           </div>
           <div class="hero-stat">
             <span class="hero-stat-value">3</span>
@@ -642,7 +643,7 @@
           <h3>DWS IQ Aegis</h3>
           <p>
             Dual-use AI platform for government agencies, military industry, and defence
-            manufacturing. 20 EU industries. Sovereignty monitoring, orbital intelligence (ICEYE
+            manufacturing. 21 EU industries. Sovereignty monitoring, orbital intelligence (ICEYE
             SAR), KYA agent governance. EU-only. Software-only.
           </p>
           <a href="https://dws10.com/dual-use/" class="card-link">Learn more &rarr;</a>
@@ -673,16 +674,71 @@
 
     <hr class="section-divider" />
 
+    <!-- Agents · Loops · Workflows -->
+    <section class="section" id="agents-loops-workflows">
+      <div class="section-label">The AI-Native Stack</div>
+      <h2 class="section-title">Agents. Loops. Workflows.</h2>
+      <div class="section-body">
+        <p>
+          Three layers. All live. The foundation is 50 production Skilled Agents — each extending
+          BaseAgent, emitting a ledger-native output contract (audit trail, regulatory artifact,
+          lineage). On top: self-correcting Loops and multi-agent Workflows that chain them into
+          outcomes.
+        </p>
+      </div>
+
+      <div class="platform-grid">
+        <div class="platform-card">
+          <div class="card-label label-defence">Foundation</div>
+          <h3>Agents</h3>
+          <p>
+            50 production Skilled Agents, live. Orchestrators (Atlas, Athena, Apollo) coordinate
+            Industrial Specialist Agents per vertical. BaseAgent architecture. Ledger-native output
+            on every execution.
+          </p>
+        </div>
+
+        <div class="platform-card">
+          <div class="card-label label-climate">Shipped June 2026</div>
+          <h3>Loops</h3>
+          <p>
+            Maker&ndash;Checker cycles. Disk-persisted state, budget gate, safety gate, resumable. A
+            Skilled Agent proposes; a second validates; the loop continues until the outcome is
+            correct or the budget stops it.
+          </p>
+        </div>
+
+        <div class="platform-card">
+          <div class="card-label label-distribution">Orchestration</div>
+          <h3>Workflows</h3>
+          <p>
+            Multi-agent orchestration via the <code>/workflow</code> skill. Fan-out, sequential, and
+            reflection patterns. MCP Hub integration. Compliance assessments, Smart Factory
+            pipelines, and KYA governance chains &mdash; all live.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 32px; text-align: center">
+        <a href="/agents-loops-workflows/" class="btn-gold">Read the milestone update &rarr;</a>
+        &nbsp;&nbsp;
+        <a href="/agentit-silmukat-tyonkulut/" class="btn-outline">Lue suomeksi &rarr;</a>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
     <!-- Industry Agents -->
     <section class="section industry-agent-section">
       <div class="section-label">Industry Agents</div>
-      <h2 class="section-title">One god per industry. Twenty industries.</h2>
+      <h2 class="section-title">One Industrial Specialist Agent per industry.</h2>
       <div class="section-body">
         <p>
-          Industrial Specialist Agents are industry-specific AI agents &mdash; the specialists of
-          each vertical. Each one knows the regulations, emission factors, sector benchmarks, and
+          Industrial Specialist Agents are industry-specific Skilled Agents &mdash; the specialists
+          of each vertical. Each one knows the regulations, emission factors, sector benchmarks, and
           reporting requirements for its industry. They don't assist. They
-          <strong>deliver outcomes</strong>.
+          <strong>deliver outcomes</strong>. The platform serves 25 EU-regulated industries: 20 with
+          a dedicated Industrial Specialist Agent, and 5 served at platform level.
         </p>
       </div>
 
@@ -708,6 +764,28 @@
         <div class="industry-agent-chip">Petroleum Refining</div>
         <div class="industry-agent-chip">Glass &amp; Ceramics</div>
       </div>
+
+      <div style="margin-top: 20px">
+        <p
+          style="
+            font-size: 0.8rem;
+            color: var(--text-muted, rgba(226, 232, 240, 0.5));
+            margin-bottom: 8px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-weight: 600;
+          "
+        >
+          Platform-served (5) — no dedicated specialist agent
+        </p>
+        <div class="industry-agent-grid" style="opacity: 0.55">
+          <div class="industry-agent-chip">Manufacturing (cross-sector)</div>
+          <div class="industry-agent-chip">Healthcare</div>
+          <div class="industry-agent-chip">Financial Services</div>
+          <div class="industry-agent-chip">Public Sector</div>
+          <div class="industry-agent-chip">Data Centres</div>
+        </div>
+      </div>
     </section>
 
     <hr class="section-divider" />
@@ -718,8 +796,8 @@
       <h2 class="section-title">Brain &middot; Memory &middot; Body &middot; Hands</h2>
       <div class="section-body">
         <p>
-          Four layers. The Brain orchestrates 18+ Industry Agents. Memory holds the EU regulatory
-          model. Body delivers through Firehorse. Hands execute in the physical world.
+          Four layers. The Brain orchestrates 50 production Skilled Agents. Memory holds the EU
+          regulatory model. Body delivers through Firehorse. Hands execute in the physical world.
         </p>
       </div>
 
@@ -727,7 +805,9 @@
         <div class="arch-card">
           <h4>Brain</h4>
           <div class="arch-name">DWS IQ 6</div>
-          <p>Multi-agent orchestration via MCP. 18+ Industry Agents running concurrently.</p>
+          <p>
+            Multi-agent orchestration via MCP. 50 production Skilled Agents running concurrently.
+          </p>
         </div>
         <div class="arch-card">
           <h4>Memory</h4>
