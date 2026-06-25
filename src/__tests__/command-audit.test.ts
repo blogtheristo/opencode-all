@@ -64,7 +64,7 @@ describe('NemoClawBridge Article 12 command logging', () => {
 
     const { NemoClawBridge } = await import('../mcp/nemoclaw-bridge.js');
     const bridge = new NemoClawBridge(
-      { openclawEndpoint: 'http://127.0.0.1:3100', allowedSkills: ['search-docs'] },
+      { nemoclawEndpoint: 'http://127.0.0.1:3100', allowedSkills: ['search-docs'] },
       { auditSink: sink, modelVersion: 'nemotron-31b' },
     );
     bridge.registerSkill(SKILL);
@@ -101,7 +101,7 @@ describe('NemoClawBridge Article 12 command logging', () => {
 
     const { NemoClawBridge } = await import('../mcp/nemoclaw-bridge.js');
     const bridge = new NemoClawBridge(
-      { openclawEndpoint: 'http://127.0.0.1:3100', allowedSkills: ['search-docs'] },
+      { nemoclawEndpoint: 'http://127.0.0.1:3100', allowedSkills: ['search-docs'] },
       { auditSink: sink },
     );
     bridge.registerSkill(SKILL);
@@ -123,7 +123,7 @@ describe('NemoClawBridge Article 12 command logging', () => {
 
     const { NemoClawBridge } = await import('../mcp/nemoclaw-bridge.js');
     const bridge = new NemoClawBridge(
-      { openclawEndpoint: 'http://127.0.0.1:3100', allowedSkills: [] },
+      { nemoclawEndpoint: 'http://127.0.0.1:3100', allowedSkills: [] },
       { auditSink: sink },
     );
 
@@ -148,7 +148,7 @@ describe('NemoClawBridge Article 12 command logging', () => {
 
     const { NemoClawBridge } = await import('../mcp/nemoclaw-bridge.js');
     const bridge = new NemoClawBridge({
-      openclawEndpoint: 'http://127.0.0.1:3100',
+      nemoclawEndpoint: 'http://127.0.0.1:3100',
       allowedSkills: ['search-docs'],
     });
     bridge.registerSkill(SKILL);

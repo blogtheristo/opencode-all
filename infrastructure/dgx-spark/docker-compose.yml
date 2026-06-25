@@ -63,7 +63,13 @@ services:
       - backend-logs:/app/logs
       - backup-data:/app/backups
     healthcheck:
-      test: ["CMD", "node", "-e", "fetch('http://localhost:8080/health').then(r => r.ok ? process.exit(0) : process.exit(1)).catch(() => process.exit(1))"]
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://localhost:8080/health').then(r => r.ok ? process.exit(0) : process.exit(1)).catch(() => process.exit(1))",
+        ]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -149,7 +155,13 @@ services:
     volumes:
       - firehorse-reports:/app/reports
     healthcheck:
-      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8084/health')"]
+      test:
+        [
+          "CMD",
+          "python3",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://localhost:8084/health')",
+        ]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -177,14 +189,18 @@ services:
       retries: 5
 
   # ==========================================================================
-  # OpenClaw — Local autonomous agent runtime
+  # NemoClaw — Local autonomous agent runtime (OpenShell-sandboxed)
   # EU-sovereign agent surface: no network egress; Brain wired to Nemotron 3 Super
   # via Ollama on the host. See DWS_DEPLOYMENT_STANDARD.md and field note
-  # docs/field-notes/2026-03-29-dgx-spark-primary-runtime-setup.md §OpenClaw.
+  # docs/field-notes/2026-03-29-dgx-spark-primary-runtime-setup.md.
+  # NemoClaw is NVIDIA's open agent blueprint: the OpenShell secure runtime +
+  # a choice of harness (OpenClaw or Hermes) + model router + NeMo libraries.
+  # NEMOCLAW_IMAGE default pulls the OpenClaw harness image; repoint it at the
+  # NVIDIA-published NemoClaw image (OpenShell-governed) at migration Phase 3.
   # ==========================================================================
-  openclaw:
-    image: ${OPENCLAW_IMAGE:-ghcr.io/openclaw/openclaw:latest}
-    container_name: dws-openclaw
+  nemoclaw:
+    image: ${NEMOCLAW_IMAGE:-ghcr.io/openclaw/openclaw:latest}
+    container_name: dws-nemoclaw
     restart: unless-stopped
     ports:
       - "8090:8090"
@@ -193,15 +209,15 @@ services:
     environment:
       PORT: 8090
       OLLAMA_BASE_URL: http://host.docker.internal:11434
-      OPENCLAW_DEFAULT_MODEL: nemotron-3-super
-      OPENCLAW_FAST_MODEL: qwen3-coder:30b
+      NEMOCLAW_DEFAULT_MODEL: nemotron-3-super
+      NEMOCLAW_FAST_MODEL: qwen3-coder:30b
       # No egress by design — agent runtime stays inside the Spark LAN.
       # If a workload requires outbound calls, add the specific allow-list here
       # rather than opening egress wholesale.
-      OPENCLAW_ALLOW_EGRESS: "false"
+      NEMOCLAW_ALLOW_EGRESS: "false"
     volumes:
-      - openclaw-state:/app/state
-      - openclaw-logs:/app/logs
+      - nemoclaw-state:/app/state
+      - nemoclaw-logs:/app/logs
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://localhost:8090/health || exit 1"]
       interval: 30s
@@ -241,7 +257,7 @@ services:
       CHECK_CRON: http://dws-cron:8081/health
       CHECK_OLLAMA: http://host.docker.internal:11434/api/tags
       CHECK_REDIS: redis://redis:6379
-      CHECK_OPENCLAW: http://openclaw:8090/health
+      CHECK_NEMOCLAW: http://nemoclaw:8090/health
       CHECK_ASPIRE: http://aspire-dashboard:18888/health
       CHECK_RUNNER: http://host.docker.internal:9800/healthz
       CHECK_STATE_OBSERVER: http://state-observer:9801/health
@@ -391,8 +407,8 @@ volumes:
   redis-data:
   firehorse-reports:
   cron-state:
-  openclaw-state:
-  openclaw-logs:
+  nemoclaw-state:
+  nemoclaw-logs:
   state-snapshots:
 
 networks:

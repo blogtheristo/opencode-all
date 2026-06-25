@@ -1,5 +1,5 @@
 {
-  "$schema_comment": "Aiven MCP server registration for OpenClaw / Firehorse. Upstream: https://github.com/Aiven-Open/mcp-aiven",
+  "$schema_comment": "Aiven MCP server registration for NemoClaw / Firehorse. Upstream: https://github.com/Aiven-Open/mcp-aiven",
   "name": "aiven",
   "transport": "stdio",
   "command": "mcp-aiven",

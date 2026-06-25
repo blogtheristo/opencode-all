@@ -67,5 +67,5 @@
     "Godagent": "Skilled Agent",
     "god-agent": "Skilled Agent"
   },
-  "taxonomyNote": "Public taxonomy: Skilled Agents (orchestrators, brand tier) / Industrial Specialist Agents (per-industry spec tier) / Industry Agents (UI label tier). The 'god/gods' category label was deprecated 2026-04. Internal code identifiers (Atlas, Athena, Hephaestus, Iris, Hermes, Apollo, Vulcan, etc.) are proper agent names, not the deprecated category label, and are NOT renamed. Canonical taxonomy source: docs/Deputy-Agents-Architecture.md §1 Terminologia."
+  "taxonomyNote": "Public taxonomy: Skilled Agents (orchestrators, brand tier) / Industrial Specialist Agents (per-industry spec tier) / Industry Agents (UI label tier). The 'god/gods' category label was deprecated 2026-04. Internal code identifiers (Atlas, Athena, Hephaestus, Iris, Mercury, Apollo, Vulcan, etc.) are proper agent names, not the deprecated category label, and are NOT renamed. Canonical taxonomy source: docs/Deputy-Agents-Architecture.md §1 Terminologia."
 }

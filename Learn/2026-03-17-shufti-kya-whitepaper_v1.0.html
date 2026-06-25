@@ -1,82 +1,193 @@
-<!DOCTYPE html>
+<!doctype html>
+<!--
+  VERSION AND AGENT HISTORY
+  Document revision: v1.0
+  Last updated: 25.06.2026
+  - v1.0 | Claude Code | (initial) | 17.03.2026 | Initial publication — Shufti KYA whitepaper. Provenance block added per DWS Document Standard §20; filename-versioned snapshot (do not delete prior versions). Markdown source: docs/field-notes/2026-03-17-shufti-kya-whitepaper.md.
+-->
 <html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KYA Standard — IDV Provider Certification Requirements v1.0</title><style>
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 2rem; color: #24292f; background: #fff; }
-h1 { border-bottom: 1px solid #d0d7de; padding-bottom: .3em; }
-h2 { border-bottom: 1px solid #d0d7de; padding-bottom: .3em; }
-code { background: #f6f8fa; padding: 0.2em 0.4em; border-radius: 6px; font-size: 85%; }
-pre { background: #f6f8fa; padding: 16px; border-radius: 6px; overflow-x: auto; }
-pre code { background: none; padding: 0; }
-table { border-collapse: collapse; width: 100%; margin: 1em 0; }
-th, td { border: 1px solid #d0d7de; padding: 6px 13px; }
-th { background: #f6f8fa; }
-blockquote { border-left: 4px solid #d0d7de; margin: 0; padding: 0 1em; color: #57606a; }
-a { color: #0969da; }
-.version-banner { display: flex; justify-content: space-between; align-items: center; background: #1a1a2e; color: #e0e0e0; padding: 10px 20px; border-radius: 8px; margin-bottom: 1.5rem; font-size: 14px; }
-.version-banner .title { font-weight: 600; }
-.version-banner .badge { background: #f5c542; color: #1a1a2e; font-weight: 700; padding: 4px 12px; border-radius: 4px; font-size: 13px; }
-.version-banner .meta { text-align: right; font-size: 12px; opacity: 0.85; }
-</style></head>
-<body>
-<div class="version-banner">
-  <span class="title">KYA Standard — IDV Provider Certification</span>
-  <span class="badge">v1.0</span>
-  <span class="meta">Lifetime Oy · 15.03.2026 · Learn/ (private)</span>
-</div>
-<h1>KYA Standard — IDV Provider Certification Requirements</h1>
-<p><strong>Standard:</strong> KYA-IDV-CERT v1.0
-<strong>Date:</strong> March 2026
-<strong>Issuer:</strong> Lifetime Oy — DWS IQ 6 Platform
-<strong>Classification:</strong> IDV Provider Evaluation — for engineering and compliance teams
-<strong>Purpose:</strong> Technical and compliance requirements for IDV providers seeking KYA Certification. Providers that meet these requirements are eligible for &quot;KYA Certified&quot; designation and inclusion in the DWS IQ 6 identity layer across 20 EU-regulated industry verticals.</p>
-<hr>
-<h2>1. Background: AI Agent Identity Under EU AI Act</h2>
-<p>The EU AI Act (2026) mandates identity traceability for high-risk AI systems. Traditional IDV verifies humans at onboarding and stops. When a verified human deploys an autonomous AI agent — accessing databases, calling APIs, executing transactions across regulated industries — the identity chain must extend from the human through the agent, continuously.</p>
-<p><strong>KYA (Know Your Agent)</strong> is the DWS standard that governs this chain. It extends KYC/AML to autonomous AI agents operating inside enterprise sandboxes.</p>
-<h3>DWS IQ 6 Platform</h3>
-<p>DWS IQ 6 trains and runs autonomous agent swarms across <strong>20 EU-regulated industries</strong> — steel, cement, construction, healthcare, energy, chemicals, logistics, and more. Each industry model runs inside an isolated sandbox with hardware-attested boundaries.</p>
-<h3>KYA Certification</h3>
-<p>IDV providers that meet the requirements in this document are eligible for <strong>KYA Certified</strong> designation, which includes:</p>
-<table>
-<thead>
-<tr>
-<th>Benefit</th>
-<th>Detail</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>&quot;KYA Certified&quot; branding</strong></td>
-<td>Named as approved identity layer in DWS enterprise deployments</td>
-</tr>
-<tr>
-<td><strong>20 industry verticals</strong></td>
-<td>Access to healthcare, construction, energy, chemicals, steel, cement, logistics markets</td>
-</tr>
-<tr>
-<td><strong>Recurring verification volume</strong></td>
-<td>Onboarding + agent deployment + continuous monitoring per customer</td>
-</tr>
-<tr>
-<td><strong>EU AI Act compliance chain</strong></td>
-<td>IDV decisions logged in Firehorse audit trail — court-defensible by design</td>
-</tr>
-<tr>
-<td><strong>Market category ownership</strong></td>
-<td>Agent identity is a new category. No IDV vendor serves it today.</td>
-</tr>
-</tbody></table>
-<h3>Certification Process</h3>
-<ol>
-<li><strong>Technical evaluation</strong> — Provider demonstrates compliance with requirements in Sections 4–7</li>
-<li><strong>PoC integration</strong> — 4-week joint integration proving end-to-end signal flow (Section 8)</li>
-<li><strong>Compliance verification</strong> — EU data residency and GDPR controls confirmed (Section 7)</li>
-<li><strong>Commercial terms</strong> — Channel partnership agreement (Section 9)</li>
-<li><strong>KYA Certified designation</strong> — Provider listed as approved identity layer</li>
-</ol>
-<hr>
-<h2>2. KYA Framework — Five Identity Layers</h2>
-<pre><code>┌─────────────────────────────────────────────────────────────┐
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KYA Standard — IDV Provider Certification Requirements v1.0</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        line-height: 1.6;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 2rem;
+        color: #24292f;
+        background: #fff;
+      }
+      h1 {
+        border-bottom: 1px solid #d0d7de;
+        padding-bottom: 0.3em;
+      }
+      h2 {
+        border-bottom: 1px solid #d0d7de;
+        padding-bottom: 0.3em;
+      }
+      code {
+        background: #f6f8fa;
+        padding: 0.2em 0.4em;
+        border-radius: 6px;
+        font-size: 85%;
+      }
+      pre {
+        background: #f6f8fa;
+        padding: 16px;
+        border-radius: 6px;
+        overflow-x: auto;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 1em 0;
+      }
+      th,
+      td {
+        border: 1px solid #d0d7de;
+        padding: 6px 13px;
+      }
+      th {
+        background: #f6f8fa;
+      }
+      blockquote {
+        border-left: 4px solid #d0d7de;
+        margin: 0;
+        padding: 0 1em;
+        color: #57606a;
+      }
+      a {
+        color: #0969da;
+      }
+      .version-banner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #1a1a2e;
+        color: #e0e0e0;
+        padding: 10px 20px;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        font-size: 14px;
+      }
+      .version-banner .title {
+        font-weight: 600;
+      }
+      .version-banner .badge {
+        background: #f5c542;
+        color: #1a1a2e;
+        font-weight: 700;
+        padding: 4px 12px;
+        border-radius: 4px;
+        font-size: 13px;
+      }
+      .version-banner .meta {
+        text-align: right;
+        font-size: 12px;
+        opacity: 0.85;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="version-banner">
+      <span class="title">KYA Standard — IDV Provider Certification</span>
+      <span class="badge">v1.0</span>
+      <span class="meta">Lifetime Oy · 15.03.2026 · Learn/ (private)</span>
+    </div>
+    <h1>KYA Standard — IDV Provider Certification Requirements</h1>
+    <p>
+      <strong>Standard:</strong> KYA-IDV-CERT v1.0 <strong>Date:</strong> March 2026
+      <strong>Issuer:</strong> Lifetime Oy — DWS IQ 6 Platform <strong>Classification:</strong> IDV
+      Provider Evaluation — for engineering and compliance teams <strong>Purpose:</strong> Technical
+      and compliance requirements for IDV providers seeking KYA Certification. Providers that meet
+      these requirements are eligible for &quot;KYA Certified&quot; designation and inclusion in the
+      DWS IQ 6 identity layer across 20 EU-regulated industry verticals.
+    </p>
+    <hr />
+    <h2>1. Background: AI Agent Identity Under EU AI Act</h2>
+    <p>
+      The EU AI Act (2026) mandates identity traceability for high-risk AI systems. Traditional IDV
+      verifies humans at onboarding and stops. When a verified human deploys an autonomous AI agent
+      — accessing databases, calling APIs, executing transactions across regulated industries — the
+      identity chain must extend from the human through the agent, continuously.
+    </p>
+    <p>
+      <strong>KYA (Know Your Agent)</strong> is the DWS standard that governs this chain. It extends
+      KYC/AML to autonomous AI agents operating inside enterprise sandboxes.
+    </p>
+    <h3>DWS IQ 6 Platform</h3>
+    <p>
+      DWS IQ 6 trains and runs autonomous agent swarms across
+      <strong>20 EU-regulated industries</strong> — steel, cement, construction, healthcare, energy,
+      chemicals, logistics, and more. Each industry model runs inside an isolated sandbox with
+      hardware-attested boundaries.
+    </p>
+    <h3>KYA Certification</h3>
+    <p>
+      IDV providers that meet the requirements in this document are eligible for
+      <strong>KYA Certified</strong> designation, which includes:
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Benefit</th>
+          <th>Detail</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>&quot;KYA Certified&quot; branding</strong></td>
+          <td>Named as approved identity layer in DWS enterprise deployments</td>
+        </tr>
+        <tr>
+          <td><strong>20 industry verticals</strong></td>
+          <td>
+            Access to healthcare, construction, energy, chemicals, steel, cement, logistics markets
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Recurring verification volume</strong></td>
+          <td>Onboarding + agent deployment + continuous monitoring per customer</td>
+        </tr>
+        <tr>
+          <td><strong>EU AI Act compliance chain</strong></td>
+          <td>IDV decisions logged in Firehorse audit trail — court-defensible by design</td>
+        </tr>
+        <tr>
+          <td><strong>Market category ownership</strong></td>
+          <td>Agent identity is a new category. No IDV vendor serves it today.</td>
+        </tr>
+      </tbody>
+    </table>
+    <h3>Certification Process</h3>
+    <ol>
+      <li>
+        <strong>Technical evaluation</strong> — Provider demonstrates compliance with requirements
+        in Sections 4–7
+      </li>
+      <li>
+        <strong>PoC integration</strong> — 4-week joint integration proving end-to-end signal flow
+        (Section 8)
+      </li>
+      <li>
+        <strong>Compliance verification</strong> — EU data residency and GDPR controls confirmed
+        (Section 7)
+      </li>
+      <li><strong>Commercial terms</strong> — Channel partnership agreement (Section 9)</li>
+      <li>
+        <strong>KYA Certified designation</strong> — Provider listed as approved identity layer
+      </li>
+    </ol>
+    <hr />
+    <h2>2. KYA Framework — Five Identity Layers</h2>
+    <pre><code>┌─────────────────────────────────────────────────────────────┐
 │  KYA (Know Your Agent) — Identity Pyramid                    │
 │                                                             │
 │  ┌─────────────────────────────────────────────────────┐    │
@@ -97,10 +208,18 @@ a { color: #0969da; }
 │  └─────────────────────────────────────────────────────┘    │
 └─────────────────────────────────────────────────────────────┘
 </code></pre>
-<p><strong>The IDV partner powers 3 of 5 layers:</strong> L1 (human identity), L2 (org verification), and L5 (continuous risk). DWS handles L3 (capability manifests) and L4 (runtime scoring) internally.</p>
-<h3>KYA Maturity Ladder — Certification Tiers</h3>
-<p>No IDV vendor today covers all three layers natively. That&#39;s the point — KYA-IDV-CERT defines the maturity ladder, and providers certify at their current level while building toward full-stack coverage.</p>
-<pre><code>┌─────────────────────────────────────────────────────────────────┐
+    <p>
+      <strong>The IDV partner powers 3 of 5 layers:</strong> L1 (human identity), L2 (org
+      verification), and L5 (continuous risk). DWS handles L3 (capability manifests) and L4 (runtime
+      scoring) internally.
+    </p>
+    <h3>KYA Maturity Ladder — Certification Tiers</h3>
+    <p>
+      No IDV vendor today covers all three layers natively. That&#39;s the point — KYA-IDV-CERT
+      defines the maturity ladder, and providers certify at their current level while building
+      toward full-stack coverage.
+    </p>
+    <pre><code>┌─────────────────────────────────────────────────────────────────┐
 │  KYA-IDV-CERT Maturity Ladder                                    │
 │                                                                 │
 │  Tier 3: KYA FULL STACK (L1 + L2 + L5)          ┌──────────┐  │
@@ -126,10 +245,15 @@ a { color: #0969da; }
 │  advantage in AI agent identity market.           └──────────┘  │
 └─────────────────────────────────────────────────────────────────┘
 </code></pre>
-<p><strong>Strategic implication:</strong> Providers compete to climb the ladder. L5 is where the recurring revenue is — continuous monitoring per verified user per month. The provider that reaches Tier 3 first gets named as DWS&#39;s primary identity partner across 20 industry verticals.</p>
-<hr>
-<h2>3. Architecture — Where the IDV Provider Plugs In</h2>
-<pre><code>┌──────────────────────────────────────────────────────────────┐
+    <p>
+      <strong>Strategic implication:</strong> Providers compete to climb the ladder. L5 is where the
+      recurring revenue is — continuous monitoring per verified user per month. The provider that
+      reaches Tier 3 first gets named as DWS&#39;s primary identity partner across 20 industry
+      verticals.
+    </p>
+    <hr />
+    <h2>3. Architecture — Where the IDV Provider Plugs In</h2>
+    <pre><code>┌──────────────────────────────────────────────────────────────┐
 │  DWS IQ 6 Platform                                           │
 │                                                              │
 │  ┌──────────┐   ┌──────────────┐   ┌───────────────────┐    │
@@ -160,102 +284,131 @@ a { color: #0969da; }
 │  └────────────────────────────────────────────────────────┘  │
 └──────────────────────────────────────────────────────────────┘
 </code></pre>
-<p><strong>Integration is lightweight.</strong> DWS has already built the policy engine, trust score calculator, webhook handler, and sandbox permission gating. The IDV provider supplies:</p>
-<ol>
-<li><strong>REST API</strong> for onboarding IDV (document + face + liveness + AML)</li>
-<li><strong>KYB API</strong> for organization verification (BYO agent publishers)</li>
-<li><strong>Webhooks</strong> for continuous risk monitoring (ongoing AML/sanctions alerts)</li>
-</ol>
-<hr>
-<h2>4. What DWS Needs from the IDV Partner</h2>
-<h3>4.1 Onboarding IDV (Layer 1) — One-Time Per User</h3>
-<table>
-<thead>
-<tr>
-<th>Data Point</th>
-<th>Required Format</th>
-<th>Why</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>verification_status</code></td>
-<td><code>approved</code> / <code>declined</code> / <code>pending</code></td>
-<td>Gate: user cannot deploy agents until approved</td>
-</tr>
-<tr>
-<td><code>risk_score</code> or <code>risk_level</code></td>
-<td>Numeric 0–100 preferred, or categorical bands</td>
-<td>Input to KYA trust formula</td>
-</tr>
-<tr>
-<td><code>aml_screening.status</code></td>
-<td><code>approved</code> / <code>declined</code></td>
-<td>Hard gate: declined = account frozen</td>
-</tr>
-<tr>
-<td><code>aml_screening.matched_lists</code></td>
-<td>Array of list names</td>
-<td>EU AI Act Article 12 transparency log</td>
-</tr>
-<tr>
-<td><code>document_verification.status</code></td>
-<td><code>approved</code> / <code>declined</code></td>
-<td>Trust score weight</td>
-</tr>
-<tr>
-<td><code>face_verification.status</code></td>
-<td><code>approved</code> / <code>declined</code></td>
-<td>Trust score weight</td>
-</tr>
-<tr>
-<td><code>reference</code></td>
-<td>String (DWS session ID)</td>
-<td>Links result to user session</td>
-</tr>
-</tbody></table>
-<p><strong>Single flow preferred:</strong> Document + face + liveness + AML in one API call, not three.</p>
-<h3>4.2 Organization Verification (Layer 2) — KYB for BYO Agents</h3>
-<p>When a customer deploys a third-party agent, DWS verifies the agent&#39;s publisher organization:</p>
-<table>
-<thead>
-<tr>
-<th>Data Point</th>
-<th>Why</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Company registry validation</td>
-<td>Agent provenance — who published this agent?</td>
-</tr>
-<tr>
-<td>UBO (Ultimate Beneficial Owner) chain</td>
-<td>Know who controls the agent&#39;s parent organization</td>
-</tr>
-<tr>
-<td>Sanctions/PEP screening on directors</td>
-<td>Risk gating for sandbox permissions</td>
-</tr>
-<tr>
-<td>Country of incorporation</td>
-<td>EU data residency compliance</td>
-</tr>
-</tbody></table>
-<p><strong>Key question:</strong> How deep does automatic UBO resolution go? Multi-level holding structures are common for AI agent publishers.</p>
-<h3>4.3 Continuous Monitoring (Layer 5) — CRITICAL</h3>
-<p>This is the most valuable integration point — and the highest revenue generator.</p>
-<p><strong>The problem:</strong> A user passes KYC on Day 1. On Day 30, they appear on a sanctions list. Their agent is still running with full permissions. DWS needs a webhook <strong>the same day</strong> the risk profile changes.</p>
-<p><strong>What DWS needs:</strong></p>
-<ul>
-<li>Ongoing AML/sanctions/PEP monitoring after initial verification</li>
-<li>Webhook notification when a verified user&#39;s risk status changes</li>
-<li>Payload must include: event type, reference ID, screening status, matched list names</li>
-</ul>
-<p><strong>Revenue implication:</strong> Continuous monitoring = monthly recurring revenue per verified user, not one-time verification fees. This is where both DWS and the IDV partner make real money.</p>
-<hr>
-<h2>5. How DWS Processes IDV Signals — Shanghai Model</h2>
-<p>The KYA Policy Engine (already built) processes IDV signals and maps them to sandbox actions in &lt; 200ms:</p>
-<h3>5.1 Decision Tree</h3>
-<pre><code>IF aml_screening.status == &quot;declined&quot;
+    <p>
+      <strong>Integration is lightweight.</strong> DWS has already built the policy engine, trust
+      score calculator, webhook handler, and sandbox permission gating. The IDV provider supplies:
+    </p>
+    <ol>
+      <li><strong>REST API</strong> for onboarding IDV (document + face + liveness + AML)</li>
+      <li><strong>KYB API</strong> for organization verification (BYO agent publishers)</li>
+      <li>
+        <strong>Webhooks</strong> for continuous risk monitoring (ongoing AML/sanctions alerts)
+      </li>
+    </ol>
+    <hr />
+    <h2>4. What DWS Needs from the IDV Partner</h2>
+    <h3>4.1 Onboarding IDV (Layer 1) — One-Time Per User</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Data Point</th>
+          <th>Required Format</th>
+          <th>Why</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>verification_status</code></td>
+          <td><code>approved</code> / <code>declined</code> / <code>pending</code></td>
+          <td>Gate: user cannot deploy agents until approved</td>
+        </tr>
+        <tr>
+          <td><code>risk_score</code> or <code>risk_level</code></td>
+          <td>Numeric 0–100 preferred, or categorical bands</td>
+          <td>Input to KYA trust formula</td>
+        </tr>
+        <tr>
+          <td><code>aml_screening.status</code></td>
+          <td><code>approved</code> / <code>declined</code></td>
+          <td>Hard gate: declined = account frozen</td>
+        </tr>
+        <tr>
+          <td><code>aml_screening.matched_lists</code></td>
+          <td>Array of list names</td>
+          <td>EU AI Act Article 12 transparency log</td>
+        </tr>
+        <tr>
+          <td><code>document_verification.status</code></td>
+          <td><code>approved</code> / <code>declined</code></td>
+          <td>Trust score weight</td>
+        </tr>
+        <tr>
+          <td><code>face_verification.status</code></td>
+          <td><code>approved</code> / <code>declined</code></td>
+          <td>Trust score weight</td>
+        </tr>
+        <tr>
+          <td><code>reference</code></td>
+          <td>String (DWS session ID)</td>
+          <td>Links result to user session</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      <strong>Single flow preferred:</strong> Document + face + liveness + AML in one API call, not
+      three.
+    </p>
+    <h3>4.2 Organization Verification (Layer 2) — KYB for BYO Agents</h3>
+    <p>
+      When a customer deploys a third-party agent, DWS verifies the agent&#39;s publisher
+      organization:
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Data Point</th>
+          <th>Why</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Company registry validation</td>
+          <td>Agent provenance — who published this agent?</td>
+        </tr>
+        <tr>
+          <td>UBO (Ultimate Beneficial Owner) chain</td>
+          <td>Know who controls the agent&#39;s parent organization</td>
+        </tr>
+        <tr>
+          <td>Sanctions/PEP screening on directors</td>
+          <td>Risk gating for sandbox permissions</td>
+        </tr>
+        <tr>
+          <td>Country of incorporation</td>
+          <td>EU data residency compliance</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      <strong>Key question:</strong> How deep does automatic UBO resolution go? Multi-level holding
+      structures are common for AI agent publishers.
+    </p>
+    <h3>4.3 Continuous Monitoring (Layer 5) — CRITICAL</h3>
+    <p>This is the most valuable integration point — and the highest revenue generator.</p>
+    <p>
+      <strong>The problem:</strong> A user passes KYC on Day 1. On Day 30, they appear on a
+      sanctions list. Their agent is still running with full permissions. DWS needs a webhook
+      <strong>the same day</strong> the risk profile changes.
+    </p>
+    <p><strong>What DWS needs:</strong></p>
+    <ul>
+      <li>Ongoing AML/sanctions/PEP monitoring after initial verification</li>
+      <li>Webhook notification when a verified user&#39;s risk status changes</li>
+      <li>Payload must include: event type, reference ID, screening status, matched list names</li>
+    </ul>
+    <p>
+      <strong>Revenue implication:</strong> Continuous monitoring = monthly recurring revenue per
+      verified user, not one-time verification fees. This is where both DWS and the IDV partner make
+      real money.
+    </p>
+    <hr />
+    <h2>5. How DWS Processes IDV Signals — Shanghai Model</h2>
+    <p>
+      The KYA Policy Engine (already built) processes IDV signals and maps them to sandbox actions
+      in &lt; 200ms:
+    </p>
+    <h3>5.1 Decision Tree</h3>
+    <pre><code>IF aml_screening.status == &quot;declined&quot;
   → TERMINATE_CHAIN
   → Kill all running agents in this user&#39;s session
   → Forensic dump to Firehorse audit log
@@ -272,75 +425,82 @@ ELSE (aml_screening.status == &quot;approved&quot;)
   → KYA score +5
   → Extend session TTL
 </code></pre>
-<h3>5.2 IDV Signals → Sandbox Permissions</h3>
-<table>
-<thead>
-<tr>
-<th>IDV Signal</th>
-<th>KYA Score</th>
-<th>Sandbox Permission</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Verified, no AML flags</td>
-<td>90</td>
-<td><strong>Full</strong> — all tools, network, read-write</td>
-</tr>
-<tr>
-<td>Verified, minor risk flags</td>
-<td>70</td>
-<td><strong>Restricted</strong> — no egress, read-only FS</td>
-</tr>
-<tr>
-<td>AML screening declined</td>
-<td>0</td>
-<td><strong>Frozen</strong> — agent terminated, account locked</td>
-</tr>
-<tr>
-<td>Ongoing screening: risk changed</td>
-<td>35</td>
-<td><strong>Suspended</strong> — human review required</td>
-</tr>
-</tbody></table>
-<h3>5.3 Risk Score Mapping</h3>
-<p>If the IDV provider returns categorical bands instead of numeric scores, DWS maps them:</p>
-<table>
-<thead>
-<tr>
-<th>Provider Band</th>
-<th>DWS KYA Score</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Low risk</td>
-<td>90</td>
-</tr>
-<tr>
-<td>Medium risk</td>
-<td>70</td>
-</tr>
-<tr>
-<td>High risk</td>
-<td>30</td>
-</tr>
-<tr>
-<td>Prohibited</td>
-<td>0</td>
-</tr>
-</tbody></table>
-<p>Numeric sub-scores (AML confidence, document confidence, liveness confidence separately) are preferred — they allow DWS to weight identity signals differently per industry vertical.</p>
-<h3>5.4 Webhook Security</h3>
-<p>DWS validates every incoming webhook:</p>
-<ul>
-<li>HMAC-SHA256 signature verification (constant-time comparison)</li>
-<li>Rate limiting: 20 requests/minute per IP</li>
-<li>Input validation on all fields before policy engine processing</li>
-<li>Full audit trail (Firehorse) for EU AI Act compliance</li>
-</ul>
-<hr>
-<h2>6. Agent Trust Score (ATS) — The Complete Formula</h2>
-<p>The ATS combines sandbox telemetry with IDV signals:</p>
-<pre><code>ATS = max(0, 1.0 - V×0.25 - L - D×0.05)
+    <h3>5.2 IDV Signals → Sandbox Permissions</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>IDV Signal</th>
+          <th>KYA Score</th>
+          <th>Sandbox Permission</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Verified, no AML flags</td>
+          <td>90</td>
+          <td><strong>Full</strong> — all tools, network, read-write</td>
+        </tr>
+        <tr>
+          <td>Verified, minor risk flags</td>
+          <td>70</td>
+          <td><strong>Restricted</strong> — no egress, read-only FS</td>
+        </tr>
+        <tr>
+          <td>AML screening declined</td>
+          <td>0</td>
+          <td><strong>Frozen</strong> — agent terminated, account locked</td>
+        </tr>
+        <tr>
+          <td>Ongoing screening: risk changed</td>
+          <td>35</td>
+          <td><strong>Suspended</strong> — human review required</td>
+        </tr>
+      </tbody>
+    </table>
+    <h3>5.3 Risk Score Mapping</h3>
+    <p>If the IDV provider returns categorical bands instead of numeric scores, DWS maps them:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Provider Band</th>
+          <th>DWS KYA Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Low risk</td>
+          <td>90</td>
+        </tr>
+        <tr>
+          <td>Medium risk</td>
+          <td>70</td>
+        </tr>
+        <tr>
+          <td>High risk</td>
+          <td>30</td>
+        </tr>
+        <tr>
+          <td>Prohibited</td>
+          <td>0</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      Numeric sub-scores (AML confidence, document confidence, liveness confidence separately) are
+      preferred — they allow DWS to weight identity signals differently per industry vertical.
+    </p>
+    <h3>5.4 Webhook Security</h3>
+    <p>DWS validates every incoming webhook:</p>
+    <ul>
+      <li>HMAC-SHA256 signature verification (constant-time comparison)</li>
+      <li>Rate limiting: 20 requests/minute per IP</li>
+      <li>Input validation on all fields before policy engine processing</li>
+      <li>Full audit trail (Firehorse) for EU AI Act compliance</li>
+    </ul>
+    <hr />
+    <h2>6. Agent Trust Score (ATS) — The Complete Formula</h2>
+    <p>The ATS combines sandbox telemetry with IDV signals:</p>
+    <pre><code>ATS = max(0, 1.0 - V×0.25 - L - D×0.05)
 
 Where:
   V = KYA_VIOLATION count (policy breaches by the agent)
@@ -353,154 +513,175 @@ Mapped to KYA Score: ATS × 100 → 0–100 range
   &lt; 50  → Suspended (NO_GO)
   = 0   → Frozen (immediate termination)
 </code></pre>
-<p>The IDV provider&#39;s role is the <strong>identity anchor</strong>: the ATS starts from the IDV verification result and is then adjusted by runtime behavior. A user who fails IDV never gets an ATS — their agents never start.</p>
-<hr>
-<h2>7. Data Residency &amp; EU Compliance</h2>
-<h3>7.1 DWS Infrastructure — All EU</h3>
-<table>
-<thead>
-<tr>
-<th>Component</th>
-<th>Location</th>
-<th>Provider</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Database</td>
-<td><code>europe-north1</code> (Finland)</td>
-<td>Supabase (PostgreSQL)</td>
-</tr>
-<tr>
-<td>Backend API</td>
-<td><code>europe-north1</code></td>
-<td>Google Cloud Run</td>
-</tr>
-<tr>
-<td>Edge sandbox</td>
-<td>Helsinki, Finland</td>
-<td>Hardware (air-gapped)</td>
-</tr>
-<tr>
-<td>CDN</td>
-<td>Global (edge)</td>
-<td>Cloudflare Workers</td>
-</tr>
-<tr>
-<td>Audit logs</td>
-<td>EU-only</td>
-<td>Supabase + Firehorse</td>
-</tr>
-</tbody></table>
-<h3>7.2 Requirements for IDV Partner</h3>
-<table>
-<thead>
-<tr>
-<th>Requirement</th>
-<th>Detail</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>EU data processing</strong></td>
-<td>All PII must remain in EU/EEA. No transatlantic transfers.</td>
-</tr>
-<tr>
-<td><strong>GDPR</strong></td>
-<td>DWS is data controller. IDV partner is data processor. DPA required.</td>
-</tr>
-<tr>
-<td><strong>Data retention</strong></td>
-<td>Verification results stored in DWS. IDV partner should not retain PII beyond what&#39;s needed for ongoing monitoring.</td>
-</tr>
-<tr>
-<td><strong>NIS2 Directive</strong></td>
-<td>Webhook delivery reliability affects DWS&#39;s NIS2 reporting chain.</td>
-</tr>
-<tr>
-<td><strong>EU AI Act Article 12</strong></td>
-<td>All IDV decisions logged with reasoning. Matched sanctions lists stored in transparency log.</td>
-</tr>
-</tbody></table>
-<p><strong>Preferred:</strong> Dedicated EU SaaS instance or on-premise option. Contractual DPA addendum guaranteeing EU-only processing.</p>
-<hr>
-<h2>8. PoC Scope — 4 Weeks to Working Demo</h2>
-<h3>8.1 Success Criteria</h3>
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>Criterion</th>
-<th>Pass Condition</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>User completes IDV</td>
-<td>Verification result received via callback with status + risk data</td>
-</tr>
-<tr>
-<td>2</td>
-<td>KYA score calculated</td>
-<td>Score correctly maps to sandbox permission level</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Agent deployed with permissions</td>
-<td>Full/Restricted/Frozen matches verification outcome</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Risk change triggers webhook</td>
-<td>Provider sends webhook on simulated AML status change</td>
-</tr>
-<tr>
-<td>5</td>
-<td>Sandbox adjusts automatically</td>
-<td>Agent permissions tighten within 30 seconds of webhook</td>
-</tr>
-</tbody></table>
-<h3>8.2 Deliverables</h3>
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>Deliverable</th>
-<th>Owner</th>
-<th>Week</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>Sandbox/test API credentials</td>
-<td><strong>IDV Partner</strong></td>
-<td>1</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Webhook documentation (payload schema, retry policy)</td>
-<td><strong>IDV Partner</strong></td>
-<td>1</td>
-</tr>
-<tr>
-<td>3</td>
-<td>KYB API access for org verification</td>
-<td><strong>IDV Partner</strong></td>
-<td>2</td>
-</tr>
-<tr>
-<td>4</td>
-<td>IDV adapter integration (<code>src/integrations/idv/</code>)</td>
-<td><strong>DWS</strong></td>
-<td>2–3</td>
-</tr>
-<tr>
-<td>5</td>
-<td>End-to-end demo (onboard → deploy → flag → restrict)</td>
-<td><strong>Joint</strong></td>
-<td>4</td>
-</tr>
-</tbody></table>
-<h3>8.3 Demo Scenario</h3>
-<pre><code>Step 1: User registers on DWS IQ 6
+    <p>
+      The IDV provider&#39;s role is the <strong>identity anchor</strong>: the ATS starts from the
+      IDV verification result and is then adjusted by runtime behavior. A user who fails IDV never
+      gets an ATS — their agents never start.
+    </p>
+    <hr />
+    <h2>7. Data Residency &amp; EU Compliance</h2>
+    <h3>7.1 DWS Infrastructure — All EU</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Location</th>
+          <th>Provider</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Database</td>
+          <td><code>europe-north1</code> (Finland)</td>
+          <td>Supabase (PostgreSQL)</td>
+        </tr>
+        <tr>
+          <td>Backend API</td>
+          <td><code>europe-north1</code></td>
+          <td>Google Cloud Run</td>
+        </tr>
+        <tr>
+          <td>Edge sandbox</td>
+          <td>Helsinki, Finland</td>
+          <td>Hardware (air-gapped)</td>
+        </tr>
+        <tr>
+          <td>CDN</td>
+          <td>Global (edge)</td>
+          <td>Cloudflare Workers</td>
+        </tr>
+        <tr>
+          <td>Audit logs</td>
+          <td>EU-only</td>
+          <td>Supabase + Firehorse</td>
+        </tr>
+      </tbody>
+    </table>
+    <h3>7.2 Requirements for IDV Partner</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Requirement</th>
+          <th>Detail</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>EU data processing</strong></td>
+          <td>All PII must remain in EU/EEA. No transatlantic transfers.</td>
+        </tr>
+        <tr>
+          <td><strong>GDPR</strong></td>
+          <td>DWS is data controller. IDV partner is data processor. DPA required.</td>
+        </tr>
+        <tr>
+          <td><strong>Data retention</strong></td>
+          <td>
+            Verification results stored in DWS. IDV partner should not retain PII beyond what&#39;s
+            needed for ongoing monitoring.
+          </td>
+        </tr>
+        <tr>
+          <td><strong>NIS2 Directive</strong></td>
+          <td>Webhook delivery reliability affects DWS&#39;s NIS2 reporting chain.</td>
+        </tr>
+        <tr>
+          <td><strong>EU AI Act Article 12</strong></td>
+          <td>
+            All IDV decisions logged with reasoning. Matched sanctions lists stored in transparency
+            log.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      <strong>Preferred:</strong> Dedicated EU SaaS instance or on-premise option. Contractual DPA
+      addendum guaranteeing EU-only processing.
+    </p>
+    <hr />
+    <h2>8. PoC Scope — 4 Weeks to Working Demo</h2>
+    <h3>8.1 Success Criteria</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Criterion</th>
+          <th>Pass Condition</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>User completes IDV</td>
+          <td>Verification result received via callback with status + risk data</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>KYA score calculated</td>
+          <td>Score correctly maps to sandbox permission level</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Agent deployed with permissions</td>
+          <td>Full/Restricted/Frozen matches verification outcome</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Risk change triggers webhook</td>
+          <td>Provider sends webhook on simulated AML status change</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Sandbox adjusts automatically</td>
+          <td>Agent permissions tighten within 30 seconds of webhook</td>
+        </tr>
+      </tbody>
+    </table>
+    <h3>8.2 Deliverables</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Deliverable</th>
+          <th>Owner</th>
+          <th>Week</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Sandbox/test API credentials</td>
+          <td><strong>IDV Partner</strong></td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Webhook documentation (payload schema, retry policy)</td>
+          <td><strong>IDV Partner</strong></td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>KYB API access for org verification</td>
+          <td><strong>IDV Partner</strong></td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>IDV adapter integration (<code>src/integrations/idv/</code>)</td>
+          <td><strong>DWS</strong></td>
+          <td>2–3</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>End-to-end demo (onboard → deploy → flag → restrict)</td>
+          <td><strong>Joint</strong></td>
+          <td>4</td>
+        </tr>
+      </tbody>
+    </table>
+    <h3>8.3 Demo Scenario</h3>
+    <pre><code>Step 1: User registers on DWS IQ 6
         → Redirected to IDV verification journey
         → Document + face + liveness + AML check
         → Result: APPROVED, risk = low
@@ -523,411 +704,516 @@ Step 4: [Simulated] AML screening declines user
         → All agents killed, forensic dump created
         → Account frozen, KYA score = 0
 </code></pre>
-<hr>
-<h2>9. Commercial Terms — KYA Certification</h2>
-<p>KYA Certification is a commercial relationship between Lifetime Oy (DWS IQ 6 platform operator) and the IDV provider. It is not a standard vendor-customer arrangement.</p>
-<h3>9.1 What KYA Certification Includes</h3>
-<table>
-<thead>
-<tr>
-<th>Included</th>
-<th>Detail</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>&quot;KYA Certified&quot; designation</td>
-<td>Provider named as approved identity layer in DWS enterprise deployments</td>
-</tr>
-<tr>
-<td>Integration support</td>
-<td>DWS engineering builds and maintains the adapter (~200 LOC TypeScript)</td>
-</tr>
-<tr>
-<td>Firehorse audit integration</td>
-<td>IDV decisions included in EU AI Act Article 12 transparency logs</td>
-</tr>
-<tr>
-<td>Co-marketing rights</td>
-<td>Joint case study in AI governance / agent identity category</td>
-</tr>
-<tr>
-<td>Enterprise deal flow</td>
-<td>Every DWS enterprise customer = recurring IDV verification volume</td>
-</tr>
-</tbody></table>
-<h3>9.2 Three Revenue Streams</h3>
-<p>KYA Certification generates three distinct revenue streams from the maturity ladder itself:</p>
-<h4>Stream 1: Certification Assessment Fee (Per Tier)</h4>
-<p>Providers pay to be assessed at each tier. They pay again when they want to move up.</p>
-<table>
-<thead>
-<tr>
-<th>Tier</th>
-<th>Layers Assessed</th>
-<th>Assessment Fee</th>
-<th>What Provider Gets</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>Tier 1: KYA Foundation</strong></td>
-<td>L1 (Onboarding IDV)</td>
-<td><strong>€5,000</strong></td>
-<td>KYA Certified badge, DWS enterprise channel access, Firehorse audit integration</td>
-</tr>
-<tr>
-<td><strong>Tier 2: KYA Enterprise</strong></td>
-<td>L1 + L2 (+ KYB)</td>
-<td><strong>€10,000</strong></td>
-<td>All Tier 1 + org verification integration, BYO agent publisher screening</td>
-</tr>
-<tr>
-<td><strong>Tier 3: KYA Full Stack</strong></td>
-<td>L1 + L2 + L5</td>
-<td><strong>€25,000</strong></td>
-<td>All Tier 2 + primary identity partner designation, co-marketing, premium deal flow</td>
-</tr>
-</tbody></table>
-<p><strong>Upgrade fee:</strong> Provider certified at Tier 1 pays Tier 2 assessment fee (€10K) to move up — not the delta. Each tier is a full assessment against that tier&#39;s requirements.</p>
-<h4>Stream 2: Annual Recertification</h4>
-<p>Compliance doesn&#39;t stand still. NIS2/GDPR requirements evolve, EU AI Act delegated acts get published, sanctions lists change, and DWS adds industry verticals. A Tier 2 certification today needs re-audit in 12 months.</p>
-<table>
-<thead>
-<tr>
-<th>Tier</th>
-<th>Annual Recertification Fee</th>
-<th>Includes</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>Tier 1</strong></td>
-<td><strong>€3,000/year</strong></td>
-<td>Compliance re-audit, adapter compatibility check, updated Firehorse integration</td>
-</tr>
-<tr>
-<td><strong>Tier 2</strong></td>
-<td><strong>€5,000/year</strong></td>
-<td>All Tier 1 + KYB re-assessment, new industry vertical coverage review</td>
-</tr>
-<tr>
-<td><strong>Tier 3</strong></td>
-<td><strong>€12,000/year</strong></td>
-<td>All Tier 2 + L5 monitoring SLA review, webhook reliability audit, detection latency benchmarking</td>
-</tr>
-</tbody></table>
-<p><strong>Lapse policy:</strong> Certification expires if recertification is not completed within 60 days of anniversary. Provider loses &quot;KYA Certified&quot; designation and DWS enterprise channel access until re-certified.</p>
-<h4>Stream 3: L5 Ready Co-Development Consulting</h4>
-<p>No provider has native L5 (continuous AML monitoring with same-day webhook delivery) today. DWS defines the L5 standard AND is the only entity that can certify against it. This creates a consulting engagement:</p>
-<table>
-<thead>
-<tr>
-<th>Engagement</th>
-<th>Scope</th>
-<th>Fee</th>
-<th>Duration</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>L5 Readiness Assessment</strong></td>
-<td>Gap analysis: what the provider has vs. L5 requirements (webhook infra, detection latency, payload schema, SLA)</td>
-<td><strong>€8,000</strong></td>
-<td>2 weeks</td>
-</tr>
-<tr>
-<td><strong>L5 Co-Development Sprint</strong></td>
-<td>Joint engineering: DWS + provider build the L5 webhook pipeline to KYA spec. DWS provides the spec, test harness, and Firehorse integration. Provider builds the monitoring pipeline.</td>
-<td><strong>€25,000–40,000</strong></td>
-<td>6–10 weeks</td>
-</tr>
-<tr>
-<td><strong>L5 Certification</strong></td>
-<td>Full Tier 3 assessment after co-development completes</td>
-<td><strong>€25,000</strong> (Tier 3 fee)</td>
-<td>2 weeks</td>
-</tr>
-</tbody></table>
-<p><strong>Strategic lock-in:</strong> The provider that co-develops L5 with DWS has the inside track to Tier 3 certification. They helped build the spec — they know exactly what to deliver. This is the most defensible revenue stream: DWS owns the standard AND the certification authority.</p>
-<h4>Revenue Model Summary</h4>
-<table>
-<thead>
-<tr>
-<th>Stream</th>
-<th>Type</th>
-<th>Year 1 Revenue (per provider)</th>
-<th>Recurring?</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>Certification</strong></td>
-<td>Assessment fee</td>
-<td>€5K–25K (depends on tier)</td>
-<td>Per tier upgrade</td>
-</tr>
-<tr>
-<td><strong>Recertification</strong></td>
-<td>Annual</td>
-<td>€3K–12K/year</td>
-<td>Yes — mandatory</td>
-</tr>
-<tr>
-<td><strong>L5 Co-Development</strong></td>
-<td>Consulting</td>
-<td>€33K–65K (assessment + sprint + cert)</td>
-<td>One-time per provider</td>
-</tr>
-</tbody></table>
-<p><strong>Plus volume-based revenue:</strong></p>
-<h4>Primary Model: Wholesale Resale</h4>
-<p>DWS buys verifications wholesale from the certified IDV provider and resells as &quot;KYA Verification&quot; at platform pricing. DWS owns the customer relationship and controls the money flow.</p>
-<table>
-<thead>
-<tr>
-<th>Element</th>
-<th>Detail</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>Structure</strong></td>
-<td>IDV provider gives DWS a dedicated API key / sub-account at wholesale rate</td>
-</tr>
-<tr>
-<td><strong>Discount</strong></td>
-<td><strong>40–60% off</strong> provider&#39;s retail per-verification rate</td>
-</tr>
-<tr>
-<td><strong>Revenue flow</strong></td>
-<td>End customer → DWS → IDV provider (DWS invoices the customer, pays provider wholesale)</td>
-</tr>
-<tr>
-<td><strong>Tracking</strong></td>
-<td>All verifications through DWS API key are DWS-originated by definition — no audit rights needed</td>
-</tr>
-<tr>
-<td><strong>Enforcement</strong></td>
-<td>Fully enforceable — DWS controls the billing relationship and the API key</td>
-</tr>
-</tbody></table>
-<p><strong>Why wholesale resale is primary:</strong> Revenue share models (provider reports DWS-originated volume, DWS takes a cut) require audit rights, accurate provider reporting, and contractual enforcement mechanisms that are unrealistic with early-stage providers. Wholesale resale eliminates these problems — DWS sees every transaction because DWS routes every transaction.</p>
-<h4>Alternative Model: Revenue Share (Large Providers Only)</h4>
-<p>For established providers with mature reporting infrastructure (e.g., IN Groupe, Telia), a revenue share model may be appropriate as an alternative or complement:</p>
-<table>
-<thead>
-<tr>
-<th>Element</th>
-<th>Detail</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>Structure</strong></td>
-<td>DWS brings enterprise clients → provider gets verification volume → DWS takes share</td>
-</tr>
-<tr>
-<td><strong>Range</strong></td>
-<td><strong>15–25%</strong> of DWS-originated verification revenue</td>
-</tr>
-<tr>
-<td><strong>Revenue flow</strong></td>
-<td>End customer → IDV provider → DWS (provider invoices customer, pays DWS share)</td>
-</tr>
-<tr>
-<td><strong>Tracking</strong></td>
-<td>DWS session ID in <code>reference</code> field + quarterly reconciliation report</td>
-</tr>
-<tr>
-<td><strong>Enforcement</strong></td>
-<td>Requires contractual audit rights + provider reporting infrastructure</td>
-</tr>
-</tbody></table>
-<p><strong>When to use revenue share instead of wholesale:</strong> Only when the provider (a) has auditable reporting infrastructure, (b) has an established billing relationship with the end customer that would be disruptive to reroute through DWS, and (c) agrees to quarterly reconciliation with audit rights.</p>
-<p><strong>Typical structure:</strong> Certification fee (base) + annual recertification (recurring) + wholesale resale (volume). The certification fee funds the assessment. The recertification fee funds ongoing compliance. Wholesale resale captures volume upside while keeping enforcement simple.</p>
-<h3>9.3 Evaluation Criteria</h3>
-<p>DWS evaluates IDV providers on:</p>
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>Criterion</th>
-<th>Weight</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>EU/EEA-only data processing guarantee</td>
-<td><strong>Critical</strong></td>
-<td>Hard gate — no transatlantic PII transfers</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Onboarding IDV quality (L1)</td>
-<td><strong>Critical</strong></td>
-<td>Document + face + liveness + AML in single flow</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Webhook reliability and latency</td>
-<td>High</td>
-<td>Webhook infra required for all tiers</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Numeric risk scoring (not just pass/fail)</td>
-<td>High</td>
-<td>Enables per-industry weighting</td>
-</tr>
-<tr>
-<td>5</td>
-<td>KYB depth (UBO resolution) (L2)</td>
-<td>High</td>
-<td>Tier 2+ requirement</td>
-</tr>
-<tr>
-<td>6</td>
-<td>Continuous AML monitoring (L5)</td>
-<td><strong>Differentiator</strong></td>
-<td>No vendor has this natively today — first to deliver it owns Tier 3</td>
-</tr>
-<tr>
-<td>7</td>
-<td>Nordic market presence and regulatory knowledge</td>
-<td>Medium</td>
-<td>Preferred but not required</td>
-</tr>
-<tr>
-<td>8</td>
-<td>Willingness to co-develop L5</td>
-<td><strong>High</strong></td>
-<td>Co-development engagement = fastest path to Tier 3 + deepest integration</td>
-</tr>
-</tbody></table>
-<p><strong>Maturity-based certification.</strong> Providers are certified at their current tier (1, 2, or 3) and can upgrade as capabilities mature. DWS may certify multiple providers at different tiers, or certify different providers for different layers (e.g., one for L1+L2, another for L5 when the market matures). The first provider to achieve Tier 3 (full-stack L1+L2+L5) becomes the primary identity partner.</p>
-<hr>
-<h2>10. Technical Contact</h2>
-<table>
-<thead>
-<tr>
-<th>Role</th>
-<th>Name</th>
-<th>Contact</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Founder &amp; Architect</td>
-<td>Risto Paarni</td>
-<td><a href="mailto:risto@onelifetime.world">risto@onelifetime.world</a></td>
-</tr>
-<tr>
-<td>Platform</td>
-<td>DWS IQ 6</td>
-<td>dws10.com</td>
-</tr>
-<tr>
-<td>Company</td>
-<td>Lifetime Oy</td>
-<td>Helsinki, Finland</td>
-</tr>
-</tbody></table>
-<hr>
-<h2>Appendix A: Existing DWS Implementation</h2>
-<p>The following components are already built and awaiting IDV provider API connection:</p>
-<table>
-<thead>
-<tr>
-<th>Component</th>
-<th>Purpose</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>KYA Policy Engine (<code>src/identity/kya-engine.ts</code>)</td>
-<td>Shanghai Model — maps IDV signals to sandbox actions</td>
-<td>Implemented</td>
-</tr>
-<tr>
-<td>Agent Trust Score (<code>src/identity/ats-engine.ts</code>)</td>
-<td>0–100 scoring with permission level mapping</td>
-<td>Implemented</td>
-</tr>
-<tr>
-<td>Type System (<code>src/identity/types.ts</code>)</td>
-<td>CapabilityManifest, TelemetryEntry, ATSResult, FaultRecord</td>
-<td>Implemented</td>
-</tr>
-<tr>
-<td>Webhook Handler (<code>src/routes/kya-webhook.routes.ts</code>)</td>
-<td>HMAC-SHA256 validation, rate limiting, payload parsing</td>
-<td>Implemented</td>
-</tr>
-<tr>
-<td>Onboarding Routes (<code>src/routes/onboard.routes.ts</code>)</td>
-<td>User registration and IDV flow initiation</td>
-<td>Implemented</td>
-</tr>
-<tr>
-<td>Firehorse Audit Trail</td>
-<td>Forensic telemetry for EU AI Act Article 12 compliance</td>
-<td>Implemented</td>
-</tr>
-<tr>
-<td>Sandbox Permission Gating</td>
-<td>Full/Restricted/Suspended/Frozen enforcement</td>
-<td>Implemented</td>
-</tr>
-</tbody></table>
-<p><strong>Integration effort for IDV provider:</strong> Provide REST API + webhooks per requirements in Sections 4–5. DWS engineering writes and maintains the adapter (~200 lines of TypeScript). PoC timeline: 4 weeks to working demo.</p>
-<p><strong>Note:</strong> DWS maintains adapters for all KYA Certified providers. Switching between certified providers is a configuration change, not a rewrite.</p>
-<hr>
-<h2>Appendix B: Glossary</h2>
-<table>
-<thead>
-<tr>
-<th>Term</th>
-<th>Definition</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>KYA</strong></td>
-<td>Know Your Agent — DWS framework extending KYC/AML to autonomous AI agents</td>
-</tr>
-<tr>
-<td><strong>ATS</strong></td>
-<td>Agent Trust Score — real-time 0–100 score computed from sandbox telemetry + IDV signals</td>
-</tr>
-<tr>
-<td><strong>BYO</strong></td>
-<td>Bring Your Own — third-party agents deployed by customers into DWS sandboxes</td>
-</tr>
-<tr>
-<td><strong>Shanghai Model</strong></td>
-<td>DWS policy engine that maps identity signals to real-time sandbox actions</td>
-</tr>
-<tr>
-<td><strong>TC-4 Cascade</strong></td>
-<td>Chain termination protocol — kills all agents in a user&#39;s session</td>
-</tr>
-<tr>
-<td><strong>REVAL_LEASH</strong></td>
-<td>Sandbox tightening — removes network/write permissions without killing agents</td>
-</tr>
-<tr>
-<td><strong>Firehorse</strong></td>
-<td>DWS forensic telemetry suite (audit trails, EU AI Act Article 12 compliance)</td>
-</tr>
-<tr>
-<td><strong>MCP</strong></td>
-<td>Model Context Protocol — standard for AI agent tool discovery and execution</td>
-</tr>
-<tr>
-<td><strong>Control Room</strong></td>
-<td>DWS dashboard managing 20 industrial model sandboxes</td>
-</tr>
-<tr>
-<td><strong>Capability Manifest</strong></td>
-<td>Signed declaration of an agent&#39;s permitted tools, paths, and TTL</td>
-</tr>
-<tr>
-<td><strong>KYA Verified</strong></td>
-<td>Branding for agents that passed the full KYA identity pyramid (L1–L5)</td>
-</tr>
-</tbody></table>
-
-</body></html>
+    <hr />
+    <h2>9. Commercial Terms — KYA Certification</h2>
+    <p>
+      KYA Certification is a commercial relationship between Lifetime Oy (DWS IQ 6 platform
+      operator) and the IDV provider. It is not a standard vendor-customer arrangement.
+    </p>
+    <h3>9.1 What KYA Certification Includes</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Included</th>
+          <th>Detail</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>&quot;KYA Certified&quot; designation</td>
+          <td>Provider named as approved identity layer in DWS enterprise deployments</td>
+        </tr>
+        <tr>
+          <td>Integration support</td>
+          <td>DWS engineering builds and maintains the adapter (~200 LOC TypeScript)</td>
+        </tr>
+        <tr>
+          <td>Firehorse audit integration</td>
+          <td>IDV decisions included in EU AI Act Article 12 transparency logs</td>
+        </tr>
+        <tr>
+          <td>Co-marketing rights</td>
+          <td>Joint case study in AI governance / agent identity category</td>
+        </tr>
+        <tr>
+          <td>Enterprise deal flow</td>
+          <td>Every DWS enterprise customer = recurring IDV verification volume</td>
+        </tr>
+      </tbody>
+    </table>
+    <h3>9.2 Three Revenue Streams</h3>
+    <p>
+      KYA Certification generates three distinct revenue streams from the maturity ladder itself:
+    </p>
+    <h4>Stream 1: Certification Assessment Fee (Per Tier)</h4>
+    <p>Providers pay to be assessed at each tier. They pay again when they want to move up.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Tier</th>
+          <th>Layers Assessed</th>
+          <th>Assessment Fee</th>
+          <th>What Provider Gets</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Tier 1: KYA Foundation</strong></td>
+          <td>L1 (Onboarding IDV)</td>
+          <td><strong>€5,000</strong></td>
+          <td>KYA Certified badge, DWS enterprise channel access, Firehorse audit integration</td>
+        </tr>
+        <tr>
+          <td><strong>Tier 2: KYA Enterprise</strong></td>
+          <td>L1 + L2 (+ KYB)</td>
+          <td><strong>€10,000</strong></td>
+          <td>All Tier 1 + org verification integration, BYO agent publisher screening</td>
+        </tr>
+        <tr>
+          <td><strong>Tier 3: KYA Full Stack</strong></td>
+          <td>L1 + L2 + L5</td>
+          <td><strong>€25,000</strong></td>
+          <td>
+            All Tier 2 + primary identity partner designation, co-marketing, premium deal flow
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      <strong>Upgrade fee:</strong> Provider certified at Tier 1 pays Tier 2 assessment fee (€10K)
+      to move up — not the delta. Each tier is a full assessment against that tier&#39;s
+      requirements.
+    </p>
+    <h4>Stream 2: Annual Recertification</h4>
+    <p>
+      Compliance doesn&#39;t stand still. NIS2/GDPR requirements evolve, EU AI Act delegated acts
+      get published, sanctions lists change, and DWS adds industry verticals. A Tier 2 certification
+      today needs re-audit in 12 months.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Tier</th>
+          <th>Annual Recertification Fee</th>
+          <th>Includes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Tier 1</strong></td>
+          <td><strong>€3,000/year</strong></td>
+          <td>Compliance re-audit, adapter compatibility check, updated Firehorse integration</td>
+        </tr>
+        <tr>
+          <td><strong>Tier 2</strong></td>
+          <td><strong>€5,000/year</strong></td>
+          <td>All Tier 1 + KYB re-assessment, new industry vertical coverage review</td>
+        </tr>
+        <tr>
+          <td><strong>Tier 3</strong></td>
+          <td><strong>€12,000/year</strong></td>
+          <td>
+            All Tier 2 + L5 monitoring SLA review, webhook reliability audit, detection latency
+            benchmarking
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      <strong>Lapse policy:</strong> Certification expires if recertification is not completed
+      within 60 days of anniversary. Provider loses &quot;KYA Certified&quot; designation and DWS
+      enterprise channel access until re-certified.
+    </p>
+    <h4>Stream 3: L5 Ready Co-Development Consulting</h4>
+    <p>
+      No provider has native L5 (continuous AML monitoring with same-day webhook delivery) today.
+      DWS defines the L5 standard AND is the only entity that can certify against it. This creates a
+      consulting engagement:
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Engagement</th>
+          <th>Scope</th>
+          <th>Fee</th>
+          <th>Duration</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>L5 Readiness Assessment</strong></td>
+          <td>
+            Gap analysis: what the provider has vs. L5 requirements (webhook infra, detection
+            latency, payload schema, SLA)
+          </td>
+          <td><strong>€8,000</strong></td>
+          <td>2 weeks</td>
+        </tr>
+        <tr>
+          <td><strong>L5 Co-Development Sprint</strong></td>
+          <td>
+            Joint engineering: DWS + provider build the L5 webhook pipeline to KYA spec. DWS
+            provides the spec, test harness, and Firehorse integration. Provider builds the
+            monitoring pipeline.
+          </td>
+          <td><strong>€25,000–40,000</strong></td>
+          <td>6–10 weeks</td>
+        </tr>
+        <tr>
+          <td><strong>L5 Certification</strong></td>
+          <td>Full Tier 3 assessment after co-development completes</td>
+          <td><strong>€25,000</strong> (Tier 3 fee)</td>
+          <td>2 weeks</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      <strong>Strategic lock-in:</strong> The provider that co-develops L5 with DWS has the inside
+      track to Tier 3 certification. They helped build the spec — they know exactly what to deliver.
+      This is the most defensible revenue stream: DWS owns the standard AND the certification
+      authority.
+    </p>
+    <h4>Revenue Model Summary</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Stream</th>
+          <th>Type</th>
+          <th>Year 1 Revenue (per provider)</th>
+          <th>Recurring?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Certification</strong></td>
+          <td>Assessment fee</td>
+          <td>€5K–25K (depends on tier)</td>
+          <td>Per tier upgrade</td>
+        </tr>
+        <tr>
+          <td><strong>Recertification</strong></td>
+          <td>Annual</td>
+          <td>€3K–12K/year</td>
+          <td>Yes — mandatory</td>
+        </tr>
+        <tr>
+          <td><strong>L5 Co-Development</strong></td>
+          <td>Consulting</td>
+          <td>€33K–65K (assessment + sprint + cert)</td>
+          <td>One-time per provider</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>Plus volume-based revenue:</strong></p>
+    <h4>Primary Model: Wholesale Resale</h4>
+    <p>
+      DWS buys verifications wholesale from the certified IDV provider and resells as &quot;KYA
+      Verification&quot; at platform pricing. DWS owns the customer relationship and controls the
+      money flow.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Element</th>
+          <th>Detail</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Structure</strong></td>
+          <td>IDV provider gives DWS a dedicated API key / sub-account at wholesale rate</td>
+        </tr>
+        <tr>
+          <td><strong>Discount</strong></td>
+          <td><strong>40–60% off</strong> provider&#39;s retail per-verification rate</td>
+        </tr>
+        <tr>
+          <td><strong>Revenue flow</strong></td>
+          <td>
+            End customer → DWS → IDV provider (DWS invoices the customer, pays provider wholesale)
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Tracking</strong></td>
+          <td>
+            All verifications through DWS API key are DWS-originated by definition — no audit rights
+            needed
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Enforcement</strong></td>
+          <td>Fully enforceable — DWS controls the billing relationship and the API key</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      <strong>Why wholesale resale is primary:</strong> Revenue share models (provider reports
+      DWS-originated volume, DWS takes a cut) require audit rights, accurate provider reporting, and
+      contractual enforcement mechanisms that are unrealistic with early-stage providers. Wholesale
+      resale eliminates these problems — DWS sees every transaction because DWS routes every
+      transaction.
+    </p>
+    <h4>Alternative Model: Revenue Share (Large Providers Only)</h4>
+    <p>
+      For established providers with mature reporting infrastructure (e.g., IN Groupe, Telia), a
+      revenue share model may be appropriate as an alternative or complement:
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Element</th>
+          <th>Detail</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Structure</strong></td>
+          <td>
+            DWS brings enterprise clients → provider gets verification volume → DWS takes share
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Range</strong></td>
+          <td><strong>15–25%</strong> of DWS-originated verification revenue</td>
+        </tr>
+        <tr>
+          <td><strong>Revenue flow</strong></td>
+          <td>End customer → IDV provider → DWS (provider invoices customer, pays DWS share)</td>
+        </tr>
+        <tr>
+          <td><strong>Tracking</strong></td>
+          <td>DWS session ID in <code>reference</code> field + quarterly reconciliation report</td>
+        </tr>
+        <tr>
+          <td><strong>Enforcement</strong></td>
+          <td>Requires contractual audit rights + provider reporting infrastructure</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      <strong>When to use revenue share instead of wholesale:</strong> Only when the provider (a)
+      has auditable reporting infrastructure, (b) has an established billing relationship with the
+      end customer that would be disruptive to reroute through DWS, and (c) agrees to quarterly
+      reconciliation with audit rights.
+    </p>
+    <p>
+      <strong>Typical structure:</strong> Certification fee (base) + annual recertification
+      (recurring) + wholesale resale (volume). The certification fee funds the assessment. The
+      recertification fee funds ongoing compliance. Wholesale resale captures volume upside while
+      keeping enforcement simple.
+    </p>
+    <h3>9.3 Evaluation Criteria</h3>
+    <p>DWS evaluates IDV providers on:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Criterion</th>
+          <th>Weight</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>EU/EEA-only data processing guarantee</td>
+          <td><strong>Critical</strong></td>
+          <td>Hard gate — no transatlantic PII transfers</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Onboarding IDV quality (L1)</td>
+          <td><strong>Critical</strong></td>
+          <td>Document + face + liveness + AML in single flow</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Webhook reliability and latency</td>
+          <td>High</td>
+          <td>Webhook infra required for all tiers</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Numeric risk scoring (not just pass/fail)</td>
+          <td>High</td>
+          <td>Enables per-industry weighting</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>KYB depth (UBO resolution) (L2)</td>
+          <td>High</td>
+          <td>Tier 2+ requirement</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Continuous AML monitoring (L5)</td>
+          <td><strong>Differentiator</strong></td>
+          <td>No vendor has this natively today — first to deliver it owns Tier 3</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>Nordic market presence and regulatory knowledge</td>
+          <td>Medium</td>
+          <td>Preferred but not required</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>Willingness to co-develop L5</td>
+          <td><strong>High</strong></td>
+          <td>Co-development engagement = fastest path to Tier 3 + deepest integration</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      <strong>Maturity-based certification.</strong> Providers are certified at their current tier
+      (1, 2, or 3) and can upgrade as capabilities mature. DWS may certify multiple providers at
+      different tiers, or certify different providers for different layers (e.g., one for L1+L2,
+      another for L5 when the market matures). The first provider to achieve Tier 3 (full-stack
+      L1+L2+L5) becomes the primary identity partner.
+    </p>
+    <hr />
+    <h2>10. Technical Contact</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Role</th>
+          <th>Name</th>
+          <th>Contact</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Founder &amp; Architect</td>
+          <td>Risto Paarni</td>
+          <td><a href="mailto:risto@onelifetime.world">risto@onelifetime.world</a></td>
+        </tr>
+        <tr>
+          <td>Platform</td>
+          <td>DWS IQ 6</td>
+          <td>dws10.com</td>
+        </tr>
+        <tr>
+          <td>Company</td>
+          <td>Lifetime Oy</td>
+          <td>Helsinki, Finland</td>
+        </tr>
+      </tbody>
+    </table>
+    <hr />
+    <h2>Appendix A: Existing DWS Implementation</h2>
+    <p>The following components are already built and awaiting IDV provider API connection:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Purpose</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>KYA Policy Engine (<code>src/identity/kya-engine.ts</code>)</td>
+          <td>Shanghai Model — maps IDV signals to sandbox actions</td>
+          <td>Implemented</td>
+        </tr>
+        <tr>
+          <td>Agent Trust Score (<code>src/identity/ats-engine.ts</code>)</td>
+          <td>0–100 scoring with permission level mapping</td>
+          <td>Implemented</td>
+        </tr>
+        <tr>
+          <td>Type System (<code>src/identity/types.ts</code>)</td>
+          <td>CapabilityManifest, TelemetryEntry, ATSResult, FaultRecord</td>
+          <td>Implemented</td>
+        </tr>
+        <tr>
+          <td>Webhook Handler (<code>src/routes/kya-webhook.routes.ts</code>)</td>
+          <td>HMAC-SHA256 validation, rate limiting, payload parsing</td>
+          <td>Implemented</td>
+        </tr>
+        <tr>
+          <td>Onboarding Routes (<code>src/routes/onboard.routes.ts</code>)</td>
+          <td>User registration and IDV flow initiation</td>
+          <td>Implemented</td>
+        </tr>
+        <tr>
+          <td>Firehorse Audit Trail</td>
+          <td>Forensic telemetry for EU AI Act Article 12 compliance</td>
+          <td>Implemented</td>
+        </tr>
+        <tr>
+          <td>Sandbox Permission Gating</td>
+          <td>Full/Restricted/Suspended/Frozen enforcement</td>
+          <td>Implemented</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      <strong>Integration effort for IDV provider:</strong> Provide REST API + webhooks per
+      requirements in Sections 4–5. DWS engineering writes and maintains the adapter (~200 lines of
+      TypeScript). PoC timeline: 4 weeks to working demo.
+    </p>
+    <p>
+      <strong>Note:</strong> DWS maintains adapters for all KYA Certified providers. Switching
+      between certified providers is a configuration change, not a rewrite.
+    </p>
+    <hr />
+    <h2>Appendix B: Glossary</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Term</th>
+          <th>Definition</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>KYA</strong></td>
+          <td>Know Your Agent — DWS framework extending KYC/AML to autonomous AI agents</td>
+        </tr>
+        <tr>
+          <td><strong>ATS</strong></td>
+          <td>
+            Agent Trust Score — real-time 0–100 score computed from sandbox telemetry + IDV signals
+          </td>
+        </tr>
+        <tr>
+          <td><strong>BYO</strong></td>
+          <td>Bring Your Own — third-party agents deployed by customers into DWS sandboxes</td>
+        </tr>
+        <tr>
+          <td><strong>Shanghai Model</strong></td>
+          <td>DWS policy engine that maps identity signals to real-time sandbox actions</td>
+        </tr>
+        <tr>
+          <td><strong>TC-4 Cascade</strong></td>
+          <td>Chain termination protocol — kills all agents in a user&#39;s session</td>
+        </tr>
+        <tr>
+          <td><strong>REVAL_LEASH</strong></td>
+          <td>Sandbox tightening — removes network/write permissions without killing agents</td>
+        </tr>
+        <tr>
+          <td><strong>Firehorse</strong></td>
+          <td>DWS forensic telemetry suite (audit trails, EU AI Act Article 12 compliance)</td>
+        </tr>
+        <tr>
+          <td><strong>MCP</strong></td>
+          <td>Model Context Protocol — standard for AI agent tool discovery and execution</td>
+        </tr>
+        <tr>
+          <td><strong>Control Room</strong></td>
+          <td>DWS dashboard managing 20 industrial model sandboxes</td>
+        </tr>
+        <tr>
+          <td><strong>Capability Manifest</strong></td>
+          <td>Signed declaration of an agent&#39;s permitted tools, paths, and TTL</td>
+        </tr>
+        <tr>
+          <td><strong>KYA Verified</strong></td>
+          <td>Branding for agents that passed the full KYA identity pyramid (L1–L5)</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

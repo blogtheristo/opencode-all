@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.0
+Version: 2.1
 
 Sessions & Modifications:
 
+- Version: 2.1 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 25.06.2026 | Changes: Added §20 (Whitepaper Versioning) — codifies that customer-facing whitepapers carry a Document Revision (vX.Y) distinct from the subject standard/product version, a visible "Document revision · Last updated" line, a VERSION AND AGENT HISTORY provenance block (\*\*\*-delimited for markdown sources; HTML-comment form for public HTML where .md is forbidden per Non-Negotiable Rule 5), the patch/minor/major increment rule, Learn/ snapshot + dual-folder handling, and an HTML provenance template. Added §20 to the ToC. Triggered by the discovery that the live KYA whitepaper carried only the KYA Standard version and had no document-revision history, so a terminology/security edit (OpenClaw → NVIDIA NemoClaw) went out unrecorded.
 - Version: 2.0 | Tool: Claude Code (Haiku 4.5) | Session: claude/sync-version-numbering-adEeB | Date: 28.04.2026 | Changes: Added Section 5.4 (Thesis Version Numbering Format — CRITICAL): documented decimal 0.01 increment rule for all 4 thesis files (V3Thesis_EN/FI + PHD_FIREHORSE_EN/FI), unified version track requirement, rationale for preventing version fork confusion, and implementation guidance; version bump to 2.0 reflects addition of new critical standard for thesis artifact governance
 - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Registered DWS_DATA_STANDARD.md in document ecosystem — new root-level standard for data storage governance, columnar/row policy, extension registry, EU regulatory compliance
 - Version: 1.8 | Tool: Codex (GPT-5.3) | Session: cursor/code-versioning-pr-rule | Date: 13.03.2026 | Changes: Added Code Versioning & PR Traceability Standard (§19), syntax-safe code version note templates, and .env schema versioning policy
@@ -60,6 +61,7 @@ Document Status:
 17. [Web Content Index Check](#17-web-content-index-check) ⭐ NEW
 18. [Learn HTML Generation](#18-learn-html-generation) ⭐ NEW
 19. [Code Versioning & PR Traceability](#19-code-versioning--pr-traceability) ⭐ NEW
+20. [Whitepaper Versioning](#20-whitepaper-versioning) ⭐ NEW
 
 ---
 
@@ -114,7 +116,7 @@ Applies to:
 ```markdown
 # [Document Title]
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
@@ -2288,6 +2290,52 @@ Document Status:
 
 ```
 [CATEGORY]_[NAME]_[LANGUAGE]_v[VERSION].md
+```
+
+---
+
+## 20. Whitepaper Versioning
+
+Whitepapers are customer-facing technical documents (sovereignty, KYA, security, industrial intelligence). A serious enterprise reader treats an unversioned, silently-edited whitepaper as untrustworthy. Every whitepaper MUST carry a **document revision** and an auditable change history.
+
+### 20.1 Two versions are not the same thing
+
+A whitepaper references a **subject version** (the standard or product it describes — e.g. "KYA v1.5", "DWS IQ 6"). That is **not** the document revision. The whitepaper file carries its **own Document Revision (`vX.Y`)** that increments when the _document_ changes, independent of the subject.
+
+### 20.2 Required on every whitepaper
+
+1. **Visible revision line** near the title or in the footer:
+   `Document revision v1.1 · Last updated 25 Jun 2026`
+2. **VERSION AND AGENT HISTORY provenance block:**
+   - **Markdown-sourced** whitepapers: the standard `***`-delimited block per §2 / Appendix B.
+   - **HTML-only** whitepapers (public-site pages — `.md` is forbidden in public folders per CLAUDE.md Non-Negotiable Rule 5): embed the history as an `<!-- VERSION AND AGENT HISTORY ... -->` HTML comment immediately after `<head>`, plus the visible revision line in §20.2(1).
+
+### 20.3 Increment rule (per §5 table)
+
+| Bump            | When                                           |
+| --------------- | ---------------------------------------------- |
+| patch (1.0→1.1) | copy edit, factual correction, terminology fix |
+| minor (1.1→1.2) | new section / material content addition        |
+| major (→2.0)    | restructure or rewrite                         |
+
+A terminology/security correction (e.g. replacing a tool name) is a **patch** bump and MUST be recorded — silent edits are not permitted.
+
+### 20.4 Snapshots and dual-folder
+
+- Private `Learn/` snapshots are filename-versioned `<name>_vX.Y.html`; **never delete** old versions (per §18).
+- Public whitepaper revisions sync to the `landing-pages/` mirror in the **same commit** (CLAUDE.md dual-folder rule).
+- Live whitepapers are listed in §16 Document Index.
+
+### 20.5 HTML provenance template
+
+```html
+<!--
+  VERSION AND AGENT HISTORY
+  Document revision: v1.1
+  Last updated: 25.06.2026
+  - v1.1 | Claude Code | claude/<session> | 25.06.2026 | <change summary>
+  - v1.0 | <tool> | <session> | <date> | Initial publication
+-->
 ```
 
 ---
