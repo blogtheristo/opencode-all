@@ -193,9 +193,10 @@ services:
   # EU-sovereign agent surface: no network egress; Brain wired to Nemotron 3 Super
   # via Ollama on the host. See DWS_DEPLOYMENT_STANDARD.md and field note
   # docs/field-notes/2026-03-29-dgx-spark-primary-runtime-setup.md.
-  # NEMOCLAW_IMAGE default points at the upstream OpenClaw image; NemoClaw is
-  # NVIDIA's OpenShell-sandboxed distribution of it — set NEMOCLAW_IMAGE to the
-  # NVIDIA-published image once provisioned (migration Phase 3).
+  # NemoClaw is NVIDIA's open agent blueprint: the OpenShell secure runtime +
+  # a choice of harness (OpenClaw or Hermes) + model router + NeMo libraries.
+  # NEMOCLAW_IMAGE default pulls the OpenClaw harness image; repoint it at the
+  # NVIDIA-published NemoClaw image (OpenShell-governed) at migration Phase 3.
   # ==========================================================================
   nemoclaw:
     image: ${NEMOCLAW_IMAGE:-ghcr.io/openclaw/openclaw:latest}
