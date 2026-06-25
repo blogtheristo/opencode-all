@@ -54,7 +54,7 @@ afterEach(() => {
 describe('credential broker', () => {
   it('rejects requests without a bearer token', async () => {
     process.env.BROKER_AGENT_TOKENS = JSON.stringify({
-      openclaw: { tokenSha256: sha256('plain'), scopes: ['anthropic'] },
+      nemoclaw: { tokenSha256: sha256('plain'), scopes: ['anthropic'] },
     });
     const app = await buildApp();
 
@@ -65,7 +65,7 @@ describe('credential broker', () => {
 
   it('rejects requests with an unknown bearer token', async () => {
     process.env.BROKER_AGENT_TOKENS = JSON.stringify({
-      openclaw: { tokenSha256: sha256('correct'), scopes: ['anthropic'] },
+      nemoclaw: { tokenSha256: sha256('correct'), scopes: ['anthropic'] },
     });
     const app = await buildApp();
 
@@ -78,7 +78,7 @@ describe('credential broker', () => {
 
   it('denies scopes the agent does not have', async () => {
     process.env.BROKER_AGENT_TOKENS = JSON.stringify({
-      openclaw: { tokenSha256: sha256('plain'), scopes: ['telegram'] },
+      nemoclaw: { tokenSha256: sha256('plain'), scopes: ['telegram'] },
     });
     process.env.ANTHROPIC_API_KEY = 'sk-ant-real';
     const app = await buildApp();
@@ -93,7 +93,7 @@ describe('credential broker', () => {
 
   it('returns 503 when upstream credential is not in the vault', async () => {
     process.env.BROKER_AGENT_TOKENS = JSON.stringify({
-      openclaw: { tokenSha256: sha256('plain'), scopes: ['anthropic'] },
+      nemoclaw: { tokenSha256: sha256('plain'), scopes: ['anthropic'] },
     });
     const app = await buildApp();
 
@@ -107,7 +107,7 @@ describe('credential broker', () => {
 
   it('returns 404 for an unregistered provider', async () => {
     process.env.BROKER_AGENT_TOKENS = JSON.stringify({
-      openclaw: { tokenSha256: sha256('plain'), scopes: ['quasar'] },
+      nemoclaw: { tokenSha256: sha256('plain'), scopes: ['quasar'] },
     });
     const app = await buildApp();
 
@@ -121,7 +121,7 @@ describe('credential broker', () => {
 
   it('forwards to Anthropic with x-api-key and never exposes the credential to the agent', async () => {
     process.env.BROKER_AGENT_TOKENS = JSON.stringify({
-      openclaw: { tokenSha256: sha256('plain'), scopes: ['anthropic'] },
+      nemoclaw: { tokenSha256: sha256('plain'), scopes: ['anthropic'] },
     });
     process.env.ANTHROPIC_API_KEY = 'sk-ant-REAL-SECRET';
 
@@ -156,7 +156,7 @@ describe('credential broker', () => {
 
   it('forwards to OpenRouter with Authorization: Bearer <key>', async () => {
     process.env.BROKER_AGENT_TOKENS = JSON.stringify({
-      openclaw: { tokenSha256: sha256('plain'), scopes: ['openrouter'] },
+      nemoclaw: { tokenSha256: sha256('plain'), scopes: ['openrouter'] },
     });
     process.env.OPENROUTER_API_KEY = 'or-key-xyz';
 
@@ -201,7 +201,7 @@ describe('credential broker', () => {
 
   it('propagates upstream non-2xx status without retry', async () => {
     process.env.BROKER_AGENT_TOKENS = JSON.stringify({
-      openclaw: { tokenSha256: sha256('plain'), scopes: ['anthropic'] },
+      nemoclaw: { tokenSha256: sha256('plain'), scopes: ['anthropic'] },
     });
     process.env.ANTHROPIC_API_KEY = 'sk';
 
@@ -224,7 +224,7 @@ describe('credential broker', () => {
 
   it('returns 502 when upstream throws', async () => {
     process.env.BROKER_AGENT_TOKENS = JSON.stringify({
-      openclaw: { tokenSha256: sha256('plain'), scopes: ['anthropic'] },
+      nemoclaw: { tokenSha256: sha256('plain'), scopes: ['anthropic'] },
     });
     process.env.ANTHROPIC_API_KEY = 'sk';
 
@@ -246,7 +246,7 @@ describe('credential broker', () => {
 
   it('writes an audit log entry per call', async () => {
     process.env.BROKER_AGENT_TOKENS = JSON.stringify({
-      openclaw: { tokenSha256: sha256('plain'), scopes: ['anthropic'] },
+      nemoclaw: { tokenSha256: sha256('plain'), scopes: ['anthropic'] },
     });
     process.env.ANTHROPIC_API_KEY = 'sk';
 
@@ -264,11 +264,11 @@ describe('credential broker', () => {
     expect(logger.info).toHaveBeenCalledWith(
       expect.objectContaining({
         audit: 'broker',
-        agentId: 'openclaw',
+        agentId: 'nemoclaw',
         providerId: 'anthropic',
         status: 200,
       }),
-      expect.stringContaining('broker openclaw → anthropic'),
+      expect.stringContaining('broker nemoclaw → anthropic'),
     );
   });
 });

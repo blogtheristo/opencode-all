@@ -19,7 +19,11 @@ const envSchema: EnvVar[] = [
 
   { name: 'SUPABASE_URL', required: true, description: 'Supabase project URL' },
   { name: 'SUPABASE_SERVICE_KEY', required: true, description: 'Supabase service role key' },
-  { name: 'SUPABASE_ANON_KEY', required: false, description: 'Supabase anon key (for client auth)' },
+  {
+    name: 'SUPABASE_ANON_KEY',
+    required: false,
+    description: 'Supabase anon key (for client auth)',
+  },
 
   { name: 'JWT_SECRET', required: true, description: 'JWT signing secret' },
 
@@ -37,21 +41,58 @@ const envSchema: EnvVar[] = [
 
   { name: 'ADMIN_API_KEY', required: false, description: 'Admin endpoint auth key' },
 
-  { name: 'OPENCLAW_ENDPOINT', required: false, description: 'OpenClaw runtime endpoint' },
-  { name: 'OPENCLAW_API_KEY', required: false, description: 'OpenClaw runtime bearer token' },
-  { name: 'OPENCLAW_ALLOWED_SKILLS', required: false, description: 'Comma-separated OpenClaw skill whitelist' },
-  { name: 'OPENCLAW_TIMEOUT_MS', required: false, description: 'OpenClaw invocation timeout in milliseconds' },
-  { name: 'OPENCLAW_MAX_RESPONSE_BYTES', required: false, description: 'OpenClaw response size cap in bytes' },
-  { name: 'OPENCLAW_LOG_BASE_PATH', required: false, description: 'OpenClaw audit log base path' },
+  // NemoClaw (OpenShell-sandboxed) runtime — see docs/migrations/2026-06-25-openclaw-to-nemoclaw.md.
+  { name: 'NEMOCLAW_ENDPOINT', required: false, description: 'NemoClaw runtime endpoint' },
+  { name: 'NEMOCLAW_API_KEY', required: false, description: 'NemoClaw runtime bearer token' },
+  {
+    name: 'NEMOCLAW_ALLOWED_SKILLS',
+    required: false,
+    description: 'Comma-separated NemoClaw skill whitelist',
+  },
+  {
+    name: 'NEMOCLAW_TIMEOUT_MS',
+    required: false,
+    description: 'NemoClaw invocation timeout in milliseconds',
+  },
+  {
+    name: 'NEMOCLAW_MAX_RESPONSE_BYTES',
+    required: false,
+    description: 'NemoClaw response size cap in bytes',
+  },
+  { name: 'NEMOCLAW_LOG_BASE_PATH', required: false, description: 'NemoClaw audit log base path' },
 
-  { name: 'VAULT_PROVIDER', required: false, description: 'Vault provider: aiven (EU-sovereign) or gcp' },
-  { name: 'GCP_SECRET_LOADER', required: false, description: 'Legacy: GCP Secret Manager (use VAULT_PROVIDER=gcp instead)' },
+  {
+    name: 'VAULT_PROVIDER',
+    required: false,
+    description: 'Vault provider: aiven (EU-sovereign) or gcp',
+  },
+  {
+    name: 'GCP_SECRET_LOADER',
+    required: false,
+    description: 'Legacy: GCP Secret Manager (use VAULT_PROVIDER=gcp instead)',
+  },
   { name: 'GCP_PROJECT_ID', required: false, description: 'GCP project ID for Secret Manager' },
-  { name: 'AIVEN_DATABASE_URL', required: false, description: 'Aiven PostgreSQL connection URL for app_secrets table' },
-  { name: 'AIVEN_VAULT_KEY', required: false, description: 'Aiven AES-256 symmetric key for pgcrypto secret encryption' },
+  {
+    name: 'AIVEN_DATABASE_URL',
+    required: false,
+    description: 'Aiven PostgreSQL connection URL for app_secrets table',
+  },
+  {
+    name: 'AIVEN_VAULT_KEY',
+    required: false,
+    description: 'Aiven AES-256 symmetric key for pgcrypto secret encryption',
+  },
 
-  { name: 'BROKER_AGENT_TOKENS', required: false, description: 'JSON map of agent -> {tokenSha256, scopes} for broker auth' },
-  { name: 'BROKER_SIGNING_KEY', required: false, description: 'HMAC key for signing/verifying broker capability tokens' },
+  {
+    name: 'BROKER_AGENT_TOKENS',
+    required: false,
+    description: 'JSON map of agent -> {tokenSha256, scopes} for broker auth',
+  },
+  {
+    name: 'BROKER_SIGNING_KEY',
+    required: false,
+    description: 'HMAC key for signing/verifying broker capability tokens',
+  },
 ];
 
 export function validateEnv(): { valid: boolean; missing: string[]; warnings: string[] } {
@@ -75,7 +116,9 @@ export function validateEnv(): { valid: boolean; missing: string[]; warnings: st
     process.env.GOOGLE_GEMINI_API_KEY
   );
   if (!hasLlm) {
-    warnings.push('No LLM provider configured (GROQ_API_KEY, ANTHROPIC_API_KEY, or GOOGLE_GEMINI_API_KEY)');
+    warnings.push(
+      'No LLM provider configured (GROQ_API_KEY, ANTHROPIC_API_KEY, or GOOGLE_GEMINI_API_KEY)',
+    );
   }
 
   const smtpHost = process.env.SMTP_HOST?.trim();
@@ -83,7 +126,9 @@ export function validateEnv(): { valid: boolean; missing: string[]; warnings: st
   const smtpPass = process.env.SMTP_PASS?.trim();
   const smtpAvailable = Boolean(smtpHost && smtpUser && smtpPass);
   if (smtpHost && !smtpAvailable) {
-    warnings.push('SMTP configured partially — set SMTP_HOST + SMTP_USER + SMTP_PASS for SES transport');
+    warnings.push(
+      'SMTP configured partially — set SMTP_HOST + SMTP_USER + SMTP_PASS for SES transport',
+    );
   }
 
   if (missing.length > 0) {

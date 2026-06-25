@@ -1,8 +1,8 @@
 /**
- * Hermes — Logistics & Operations Intelligence Agent, Climate IQ
+ * Mercury — Logistics & Operations Intelligence Agent, Climate IQ
  *
  * Keeps the operational layer moving. Named for the god who crossed every
- * boundary and knew every route — Hermes optimizes supply chains, schedules,
+ * boundary and knew every route — Mercury optimizes supply chains, schedules,
  * and delivery milestones.
  *
  * Orchestrates logistics + quality-gate agents and flags when schedule risk
@@ -15,10 +15,10 @@
 import { BaseAgent } from '../../base.agent.js';
 import type { AgentContext, AgentResponse } from '../../types.js';
 
-export class HermesAgent extends BaseAgent {
+export class MercuryAgent extends BaseAgent {
   constructor() {
     super({
-      name: 'hermes',
+      name: 'mercury',
       description: 'Logistics & Operations Intelligence — supply chain optimization, schedule risk, and quality gate assessment for Climate IQ',
       capabilities: [
         'logistics-optimization',
@@ -102,7 +102,7 @@ export class HermesAgent extends BaseAgent {
       .filter((r) => r.result !== null);
 
     const llmResponse = await this.callLLM(
-      `You are Hermes, Logistics & Operations Intelligence for Climate IQ.
+      `You are Mercury, Logistics & Operations Intelligence for Climate IQ.
 
 Project: ${projectId}
 Operational data:
@@ -156,7 +156,7 @@ Return JSON: {
         schedule: successful.find((r) => r.label === 'schedule-genius')?.result?.result || null,
       },
       confidence: successful.length / Math.max(tasks.length, 1),
-      reasoning: `Hermes assessed ${successful.length} operational dimensions for project ${projectId}. Delivery forecast: ${synthesis.deliveryForecast}. Delay: ${synthesis.delayDays} days.`,
+      reasoning: `Mercury assessed ${successful.length} operational dimensions for project ${projectId}. Delivery forecast: ${synthesis.deliveryForecast}. Delay: ${synthesis.delayDays} days.`,
       recommendations: [
         ...(synthesis.alternatives as string[]),
         ...(synthesis.bottlenecks as string[]).map((b) => `Resolve bottleneck: ${b}`),
