@@ -28,6 +28,16 @@ function okFetch() {
   })) as unknown as typeof fetch;
 }
 
+const SKILL = {
+  name: 'search-docs',
+  description: 'Search internal docs',
+  inputSchema: {},
+  outputSchema: {},
+  requiresNetwork: false,
+  requiresFilesystem: false,
+  minimumATS: 10,
+};
+
 beforeEach(() => {
   logger.info.mockReset();
   logger.warn.mockReset();
@@ -40,32 +50,24 @@ afterEach(() => {
 });
 
 describe('digestOf', () => {
-  it('is deterministic and order-stable for objects', async () => {
+  it('is deterministic and distinguishes values', async () => {
     const { digestOf } = await import('../mcp/command-audit-logger.js');
     expect(digestOf({ a: 1, b: 2 })).toBe(digestOf({ a: 1, b: 2 }));
     expect(digestOf('x')).not.toBe(digestOf('y'));
   });
 });
 
-describe('OpenClawBridge Article 12 command logging', () => {
+describe('NemoClawBridge Article 12 command logging', () => {
   it('records an allowed invoke event and a result event on success', async () => {
     vi.stubGlobal('fetch', okFetch());
     const sink = makeFakeSink();
 
-    const { OpenClawBridge } = await import('../mcp/openclaw-bridge.js');
-    const bridge = new OpenClawBridge(
+    const { NemoClawBridge } = await import('../mcp/nemoclaw-bridge.js');
+    const bridge = new NemoClawBridge(
       { openclawEndpoint: 'http://127.0.0.1:3100', allowedSkills: ['search-docs'] },
-      { auditSink: sink },
+      { auditSink: sink, modelVersion: 'nemotron-31b' },
     );
-    bridge.registerSkill({
-      name: 'search-docs',
-      description: 'Search internal docs',
-      inputSchema: {},
-      outputSchema: {},
-      requiresNetwork: false,
-      requiresFilesystem: false,
-      minimumATS: 10,
-    });
+    bridge.registerSkill(SKILL);
 
     const result = await bridge.invoke(
       {
@@ -79,7 +81,12 @@ describe('OpenClawBridge Article 12 command logging', () => {
 
     expect(result.success).toBe(true);
     expect(sink.logInvocation).toHaveBeenCalledWith(
-      expect.objectContaining({ bridge: 'openclaw', skill: 'search-docs', decision: 'allowed' }),
+      expect.objectContaining({
+        bridge: 'nemoclaw',
+        skill: 'search-docs',
+        decision: 'allowed',
+        modelVersion: 'nemotron-31b',
+      }),
     );
     expect(sink.logResult).toHaveBeenCalledWith(
       expect.objectContaining({ traceId: 'trace-1', success: true, skill: 'search-docs' }),
@@ -92,20 +99,12 @@ describe('OpenClawBridge Article 12 command logging', () => {
     const sink = makeFakeSink();
     sink.logInvocation.mockRejectedValueOnce(new Error('ledger down'));
 
-    const { OpenClawBridge } = await import('../mcp/openclaw-bridge.js');
-    const bridge = new OpenClawBridge(
+    const { NemoClawBridge } = await import('../mcp/nemoclaw-bridge.js');
+    const bridge = new NemoClawBridge(
       { openclawEndpoint: 'http://127.0.0.1:3100', allowedSkills: ['search-docs'] },
       { auditSink: sink },
     );
-    bridge.registerSkill({
-      name: 'search-docs',
-      description: 'Search internal docs',
-      inputSchema: {},
-      outputSchema: {},
-      requiresNetwork: false,
-      requiresFilesystem: false,
-      minimumATS: 10,
-    });
+    bridge.registerSkill(SKILL);
 
     const result = await bridge.invoke(
       { method: 'search-docs', params: {}, callerAgentId: 'agent-1', kyaSessionId: 'kya-1' },
@@ -122,8 +121,8 @@ describe('OpenClawBridge Article 12 command logging', () => {
     vi.stubGlobal('fetch', okFetch());
     const sink = makeFakeSink();
 
-    const { OpenClawBridge } = await import('../mcp/openclaw-bridge.js');
-    const bridge = new OpenClawBridge(
+    const { NemoClawBridge } = await import('../mcp/nemoclaw-bridge.js');
+    const bridge = new NemoClawBridge(
       { openclawEndpoint: 'http://127.0.0.1:3100', allowedSkills: [] },
       { auditSink: sink },
     );
@@ -135,48 +134,31 @@ describe('OpenClawBridge Article 12 command logging', () => {
 
     expect(result.success).toBe(false);
     expect(sink.logInvocation).toHaveBeenCalledWith(
-      expect.objectContaining({ decision: 'denied', deniedReason: 'skill-not-registered' }),
-    );
-  });
-});
-
-describe('NemoClawBridge mandatory audit', () => {
-  it('throws when constructed without an audit sink', async () => {
-    const { NemoClawBridge } = await import('../mcp/nemoclaw-bridge.js');
-    // @ts-expect-error — deliberately omitting the required auditSink
-    expect(() => new NemoClawBridge({ allowedSkills: [] }, {})).toThrow(/requires an Article 12/i);
-  });
-
-  it('stamps bridge=nemoclaw and the model version on audit events', async () => {
-    vi.stubGlobal('fetch', okFetch());
-    const sink = makeFakeSink();
-
-    const { NemoClawBridge } = await import('../mcp/nemoclaw-bridge.js');
-    const bridge = new NemoClawBridge(
-      { openclawEndpoint: 'http://127.0.0.1:3100', allowedSkills: ['search-docs'] },
-      { auditSink: sink, modelVersion: 'nemotron-31b' },
-    );
-    bridge.registerSkill({
-      name: 'search-docs',
-      description: 'Search internal docs',
-      inputSchema: {},
-      outputSchema: {},
-      requiresNetwork: false,
-      requiresFilesystem: false,
-      minimumATS: 0,
-    });
-
-    await bridge.invoke(
-      { method: 'search-docs', params: {}, callerAgentId: 'agent-1', kyaSessionId: 'kya-1' },
-      50,
-    );
-
-    expect(sink.logInvocation).toHaveBeenCalledWith(
       expect.objectContaining({
         bridge: 'nemoclaw',
-        modelVersion: 'nemotron-31b',
-        decision: 'allowed',
+        decision: 'denied',
+        deniedReason: 'skill-not-registered',
       }),
     );
+  });
+
+  it('without an audit sink, runs normally (legacy operational-log behaviour)', async () => {
+    const fetchMock = okFetch();
+    vi.stubGlobal('fetch', fetchMock);
+
+    const { NemoClawBridge } = await import('../mcp/nemoclaw-bridge.js');
+    const bridge = new NemoClawBridge({
+      openclawEndpoint: 'http://127.0.0.1:3100',
+      allowedSkills: ['search-docs'],
+    });
+    bridge.registerSkill(SKILL);
+
+    const result = await bridge.invoke(
+      { method: 'search-docs', params: {}, callerAgentId: 'agent-1', kyaSessionId: 'kya-1' },
+      90,
+    );
+
+    expect(result.success).toBe(true);
+    expect(fetchMock).toHaveBeenCalled();
   });
 });
