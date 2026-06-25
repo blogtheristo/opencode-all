@@ -160,9 +160,12 @@ COMMENT ON COLUMN command_audit_log.event_hash IS
 
 ALTER TABLE command_audit_log ENABLE ROW LEVEL SECURITY;
 
+-- DROP guards make this migration safe to re-run (CREATE POLICY is not idempotent)
+DROP POLICY IF EXISTS "command_audit_insert_service" ON command_audit_log;
 CREATE POLICY "command_audit_insert_service" ON command_audit_log
   FOR INSERT TO service_role WITH CHECK (TRUE);
 
+DROP POLICY IF EXISTS "command_audit_select_authenticated" ON command_audit_log;
 CREATE POLICY "command_audit_select_authenticated" ON command_audit_log
   FOR SELECT TO authenticated USING (TRUE);
 
