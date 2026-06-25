@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code | Session: claude/diffusiongemma-parallel-generation-r0w0y1 | Date: 25.06.2026 | Changes: Documented the NVFP4 deployment quant (nvidia/Gemma-4-26B-A4B-NVFP4) as the mechanism behind the §2.5/§7 concurrency — ~14GB weights fit all experts + 16–32 KV caches in the Spark's 128GB. Flagged that the HF card was not reachable (env network policy blocks huggingface.co) so NVFP4 footprint figures are inferred, not card-verified
 - Version: 1.1 | Tool: Claude Code | Session: claude/diffusiongemma-parallel-generation-r0w0y1 | Date: 25.06.2026 | Changes: Added §2.5 departmental sovereign multi-user serving (single DGX Spark serves 16–32 concurrent streams via MoE sparsity, ~18 tok/s each / ~300 tok/s aggregate); refined the high-concurrency anti-fit bullet to "hyperscale public multi-tenant only"; added a concurrent-serving throughput table. Corrects the v1.0 framing that treated DiffusionGemma as strictly single-user
 - Version: 1.0 | Tool: Claude Code | Session: claude/diffusiongemma-parallel-generation-r0w0y1 | Date: 25.06.2026 | Changes: Initial creation — fit/anti-fit guidance for the DiffusionGemma parallel-diffusion local-inference integration (src/agents/diffusiongemma.ts), the `standard`-tier model-catalog registration, and the `scripts/serve-diffusiongemma.sh` vLLM launcher
 
@@ -27,6 +28,14 @@ DiffusionGemma (Google DeepMind) generates text by **denoising a whole block of
 tokens in parallel** (up to 256 per step) on the Gemma 4 26B mixture-of-experts
 backbone (3.8B parameters active per step). It is open-weights under Apache-2.0
 with day-zero OpenAI-compatible serving in vLLM.
+
+**Deployment quant — NVFP4.** The practical local build uses NVIDIA's NVFP4
+4-bit floating-point format (Blackwell: DGX Spark GB10 / RTX 50-series). NVFP4
+puts the 26B MoE weights at ~14GB (vs ~52GB at BF16), which is what lets all
+experts plus 16–32 concurrent KV caches fit in the Spark's 128GB unified memory
+— the enabler behind the concurrency figures in §2.5 and §7. The shared backbone
+ships as `nvidia/Gemma-4-26B-A4B-NVFP4` (autoregressive base); DiffusionGemma's
+NVFP4 build rides the same format and serves over the same `vllm-local` path.
 
 Its engineering profile decides its business fit:
 
@@ -138,3 +147,9 @@ Concurrent serving on a single DGX Spark (Gemma 4 26B A4B MoE backbone):
 - `src/agents/model-selector.ts` — catalog registration (`diffusiongemma-26b`)
 - `scripts/serve-diffusiongemma.sh` — vLLM serving launcher
 - `docs/CLOUD_ENVIRONMENTS.md` — EU sovereignty tiers and deployment context
+- `nvidia/Gemma-4-26B-A4B-NVFP4` (Hugging Face) — NVFP4 build of the shared MoE
+  backbone; the ~14GB footprint that enables the §2.5 concurrency. Note: the HF
+  card was not reachable from the build environment (network policy blocks
+  `huggingface.co`), so NVFP4 footprint figures here are inferred from the
+  format + parameter count, not read from the card — confirm against the card
+  before quoting exact file sizes externally.

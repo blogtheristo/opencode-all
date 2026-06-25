@@ -13,6 +13,10 @@
 # After it is up, point the app at it:
 #   export DIFFUSIONGEMMA_BASE_URL=http://localhost:8000/v1   # or VLLM_BASE_URL
 #
+# Quant: for Blackwell (DGX Spark GB10 / RTX 50-series) use an NVFP4 build —
+#   ~14GB weights leave room for 16–32 concurrent KV caches in 128GB unified
+#   memory. The shared MoE backbone ships as nvidia/Gemma-4-26B-A4B-NVFP4.
+#
 # Env:
 #   DIFFUSIONGEMMA_MODEL   HF / vLLM model tag (default: google/diffusiongemma-26b)
 #   VLLM_HOST              bind host        (default: 0.0.0.0)
