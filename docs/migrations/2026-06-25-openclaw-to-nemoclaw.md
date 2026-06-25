@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 25.06.2026 | Changes: Reconciled status — Phases 1, 2, and 4 (cleanup) DONE and build/test-verified; Phase 3 infra files DONE, only the live deploy + secret-loader (permission-gated) remain. Closed DWS-owned config/code refs in cli/src/cli.ts, scripts/on-deploy/firehorse-snap-benchmark.ts, mcp-hub/config/\*.json. Added a Human Action Items section (secret-loader diff, hook RED→GREEN, live deploy) and refined the done-condition.
 - Version: 1.0 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 25.06.2026 | Changes: Initial migration plan. Phase 1 (backward-compatible env aliases) implemented.
 
 ---
@@ -51,17 +52,32 @@ Verified real (NVIDIA primary sources): github.com/NVIDIA/NemoClaw · nvidianews
 - **Verified:** `npm run build` (full `tsc`) green; `vitest run nemoclaw-bridge.test.ts` 2/2 green.
 - **Left intentionally:** the runtime audit-event-ID prefix `openclaw-bridge-…` (log consumers may key on it) and the `openclawEndpoint`/`openclawApiKey` `BridgeConfig` field names → Phase 4, to avoid breaking observability/config consumers.
 
-### Phase 3 — Secrets + live infra (RED zone — human-gated cutover)
+### Phase 3 — Secrets + live infra (files DONE; live deploy + secret-loader are human-gated)
 
-- **Secret store — confirmed empty (owner, 25.06.2026): no `openclaw-*` secrets are provisioned.** The only references are _key-name declarations_ in `src/config/secret-loader.ts` (`OPENCLAW_ENDPOINT → 'openclaw-endpoint'`, `OPENCLAW_API_KEY → 'openclaw-api-key'`, `EXA_API_KEY_OPENCLAW → 'exa-api-key-openclaw'`) that load only if a value exists. With none set, `fromEnv()` falls back to `DEFAULT_BRIDGE_CONFIG`. **Therefore the secret-side cutover is a no-op** — nothing to preserve or retire. When a real NemoClaw runtime is wired, add `nemoclaw-endpoint` / `nemoclaw-api-key` keys (and rename the declaration `EXA_API_KEY_OPENCLAW`); no coordinated retirement needed.
-- `infrastructure/dgx-spark/`: docker service `openclaw` → `nemoclaw` (`heartbeat.ts` `CHECK_OPENCLAW`/`http://openclaw:8090`, `deploy.sh` health check). This is the **only real Phase-3 risk** — a named service in a live compose/deploy. Coordinated deploy: add new service alongside, cut health checks over, remove old. **Never** rename a live service blind.
-- Env: set `NEMOCLAW_*` in deploy env if/when a real runtime exists; `OPENCLAW_*` can be dropped freely since nothing depends on it today.
+- **Secret store — confirmed empty (owner, 25.06.2026): no `openclaw-*` secrets are provisioned.** With none set, `fromEnv()` falls back to `DEFAULT_BRIDGE_CONFIG`, so the secret-side cutover is a **no-op**.
+- **Infra files — DONE.** `infrastructure/dgx-spark/` identifiers renamed: compose service `openclaw`→`nemoclaw`, `dws-openclaw`→`dws-nemoclaw`, `NEMOCLAW_IMAGE`/`NEMOCLAW_*` env, volumes, `CHECK_NEMOCLAW`, `heartbeat.ts`, `deploy.sh`. `NEMOCLAW_IMAGE` still defaults to the upstream OpenClaw harness image (documented).
+- **Remaining (human):** the live **deploy cutover** (bring up the `nemoclaw` service, cut health checks over, retire old) and repointing `NEMOCLAW_IMAGE` at the NVIDIA-published image. See Human Action Items.
 
-### Phase 4 — Current-state docs + cleanup
+### Phase 4 — Cleanup (mostly DONE)
 
-- Update current-state runtime references in root standards / current docs to NemoClaw (leave history).
-- Remove the `OpenClawBridge` re-export alias and `OPENCLAW_*` fallback one release after Phase 3 cutover.
+- **DONE:** removed the `OpenClawBridge`/`OpenClawSandbox` re-export aliases; dropped the `OPENCLAW_*` env fallback; renamed `BridgeConfig` fields (`nemoclawEndpoint`/`nemoclawApiKey`), the audit-event-ID prefix, `NemoClawSkillManifest`, `parseNemoClawAllowedSkills`, log labels, broker agent-id fixtures, and DWS-owned config/code refs (`cli/src/cli.ts`, `scripts/on-deploy/firehorse-snap-benchmark.ts`, `mcp-hub/config/*.json`).
+- **Intentionally retained:** references to the external **OpenClaw framework / harness** (it is a valid NemoClaw harness — e.g. the `ghcr.io/openclaw/openclaw` image default and the `openclaw configure` harness CLI), comparison/research docs (`docs/compare-openclaw-autoresearch.md`, `docs/research/openclaw-nemoclaw-dws6-integration-research.md`), and all **historical records** (thesis version history, dated field notes, generated `Learn/` snapshots, `CHANGELOG.md`, `LOCKED_DECISIONS.md`, git branch names). Renaming these would falsify history or misstate the external project.
+
+## Human Action Items (gated; the agent cannot do these)
+
+1. **`src/config/secret-loader.ts`** (permission-gated to the agent) — rename the key-name declarations to match the runtime, which now reads `NEMOCLAW_*` only:
+   ```
+   - OPENCLAW_ENDPOINT: 'openclaw-endpoint',
+   - OPENCLAW_API_KEY: 'openclaw-api-key',
+   - EXA_API_KEY_OPENCLAW: 'exa-api-key-openclaw',
+   + NEMOCLAW_ENDPOINT: 'nemoclaw-endpoint',
+   + NEMOCLAW_API_KEY: 'nemoclaw-api-key',
+   + NEMOCLAW_NGC_KEY: 'nemoclaw-ngc-key',   // NIM/Nemotron pull token (see §NemoClaw secrets)
+   ```
+   No runtime impact today (no secrets provisioned), but keeps the loader consistent with `nemoclaw-bridge.ts`.
+2. **`.claude/hooks/session-start.sh`** — the RED→GREEN trust-boundary change for PhD market-signal edits (blocked by the self-modification guard). Apply the diff from the session notes.
+3. **Live DGX-Spark deploy** — cut the `nemoclaw` service over per Phase 3.
 
 ## Done-condition
 
-`grep -rin openclaw src/ infrastructure/` returns only intentional back-compat aliases (clearly commented), build + tests green, live infra healthy on `nemoclaw` service, no customer-facing `OpenClaw` references. Historical records remain untouched by design.
+`grep -rin openclaw src/ infrastructure/` returns only intentional external-harness references (the upstream image default + `openclaw configure` CLI) and migration-doc-path comments; build + tests green (✅ verified); live infra healthy on the `nemoclaw` service (pending deploy); no customer-facing `OpenClaw` product claims (✅ whitepaper fixed). Historical records remain untouched by design.
