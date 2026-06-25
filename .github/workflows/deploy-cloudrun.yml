@@ -21,14 +21,13 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  PROJECT_ID: dws-iq-60
+  PROJECT_ID: dws6run6
   REGION: europe-north1
   SERVICE_NAME: dws-iq-backend
   IMAGE_NAME: dws-iq-backend
   # Gracefully skip (instead of hard-failing the main pipeline) when WIF secrets
-  # are absent. Authoritative identity runbook: Admin/ADMIN_MANUAL.md (project
-  # dws-iq-60, SA github-actions-deployer@dws-iq-60). Secret names match deploy-staging.yml.
-  HAS_GCP_DEPLOY_AUTH: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER != '' && secrets.GCP_SERVICE_ACCOUNT != '' }}
+  # are absent. Setup: infrastructure/cloudrun/CI_DEPLOY_IDENTITY_RUNBOOK.md
+  HAS_GCP_DEPLOY_AUTH: ${{ secrets.WIF_PROVIDER != '' && secrets.WIF_SERVICE_ACCOUNT != '' }}
 
 jobs:
   deploy:
@@ -42,7 +41,7 @@ jobs:
       - name: Skip deploy when GCP WIF credentials are unavailable
         if: env.HAS_GCP_DEPLOY_AUTH != 'true'
         run: |
-          echo "GCP_WORKLOAD_IDENTITY_PROVIDER / GCP_SERVICE_ACCOUNT are not configured in this context."
+          echo "WIF_PROVIDER / WIF_SERVICE_ACCOUNT are not configured in this context."
           echo "Skipping Cloud Run deploy instead of failing the pipeline."
           {
             echo "## Cloud Run Deployment"
@@ -62,8 +61,8 @@ jobs:
         if: env.HAS_GCP_DEPLOY_AUTH == 'true'
         uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
           token_format: access_token
 
       - name: Set up Cloud SDK
