@@ -197,21 +197,36 @@ export class OpenClawBridge {
    * instead of relying on hardcoded runtime configuration.
    */
   static fromEnv(config: Partial<BridgeConfig> = {}): OpenClawBridge {
+    // OpenClaw → NemoClaw migration (DWS Doc Standard / migration plan
+    // docs/migrations/2026-06-25-openclaw-to-nemoclaw.md, Phase 1): prefer the
+    // NEMOCLAW_* env vars (OpenShell-sandboxed runtime) and fall back to the
+    // legacy OPENCLAW_* vars so existing deployments keep working unchanged.
     return new OpenClawBridge({
-      openclawEndpoint: process.env.OPENCLAW_ENDPOINT || DEFAULT_BRIDGE_CONFIG.openclawEndpoint,
-      openclawApiKey: process.env.OPENCLAW_API_KEY || DEFAULT_BRIDGE_CONFIG.openclawApiKey,
+      openclawEndpoint:
+        process.env.NEMOCLAW_ENDPOINT ||
+        process.env.OPENCLAW_ENDPOINT ||
+        DEFAULT_BRIDGE_CONFIG.openclawEndpoint,
+      openclawApiKey:
+        process.env.NEMOCLAW_API_KEY ||
+        process.env.OPENCLAW_API_KEY ||
+        DEFAULT_BRIDGE_CONFIG.openclawApiKey,
       maxResponseBytes: parseIntegerEnv(
-        process.env.OPENCLAW_MAX_RESPONSE_BYTES,
+        process.env.NEMOCLAW_MAX_RESPONSE_BYTES || process.env.OPENCLAW_MAX_RESPONSE_BYTES,
         DEFAULT_BRIDGE_CONFIG.maxResponseBytes,
         { min: 1 },
       ),
       timeoutMs: parseIntegerEnv(
-        process.env.OPENCLAW_TIMEOUT_MS,
+        process.env.NEMOCLAW_TIMEOUT_MS || process.env.OPENCLAW_TIMEOUT_MS,
         DEFAULT_BRIDGE_CONFIG.timeoutMs,
         { min: 1 },
       ),
-      logBasePath: process.env.OPENCLAW_LOG_BASE_PATH || DEFAULT_BRIDGE_CONFIG.logBasePath,
-      allowedSkills: parseOpenClawAllowedSkills(process.env.OPENCLAW_ALLOWED_SKILLS),
+      logBasePath:
+        process.env.NEMOCLAW_LOG_BASE_PATH ||
+        process.env.OPENCLAW_LOG_BASE_PATH ||
+        DEFAULT_BRIDGE_CONFIG.logBasePath,
+      allowedSkills: parseOpenClawAllowedSkills(
+        process.env.NEMOCLAW_ALLOWED_SKILLS || process.env.OPENCLAW_ALLOWED_SKILLS,
+      ),
       ...config,
     });
   }
@@ -228,7 +243,7 @@ export class OpenClawBridge {
       });
       throw new Error(
         `Skill "${manifest.name}" is not in the allowed skills whitelist. ` +
-        'Community skills are BLOCKED per DWS security policy.',
+          'Community skills are BLOCKED per DWS security policy.',
       );
     }
 
