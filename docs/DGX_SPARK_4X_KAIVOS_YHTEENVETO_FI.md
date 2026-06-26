@@ -1,13 +1,16 @@
 # 4× NVIDIA DGX Spark — Maanalainen tekoälyaivo autonomiseen kaivostoimintaan
 
+![4× DGX Spark "Maanalainen tekoälyaivo" -klusteri kaivostoimintaan — 512 GB yhtenäistä muistia, alle 1 kW teho, GLM-5.2 NVFP4 ja 1M tokenin konteksti, vLLM Tensor Parallel (TP=4); MTTR −45 %, ~24 000 $, 100 % paikallinen datasuvereniteetti](assets/images/dgx-spark-4x-sub-surface-ai-brain.png)
+
 ---
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code | Session: claude/dgx-spark-mining-case-gf1159 | Date: 26.06.2026 | Changes: Lisätty 4× setup -infografiikka (docs/assets/images/dgx-spark-4x-sub-surface-ai-brain.png) johtokuvaksi; varmennetut GLM-5.2-NVFP4-mallikortin tiedot päivitetty.
 - Version: 1.0 | Tool: Claude Code | Session: claude/dgx-spark-mining-case-gf1159 | Date: 26.06.2026 | Changes: Ensimmäinen versio — suomenkielinen yhden sivun tiivistys (one-pager) 4× DGX Spark -reunaklusterin liiketoimintatapauksesta kaivosympäristöön. Pohjautuu dokumenttiin DGX_SPARK_4X_MINING_BUSINESS_CASE.md.
 
 Session Links & References:

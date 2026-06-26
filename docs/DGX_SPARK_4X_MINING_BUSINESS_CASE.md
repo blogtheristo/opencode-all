@@ -1,13 +1,16 @@
 # 4× NVIDIA DGX Spark — Sub-Surface AI Brain for Autonomous Mining
 
+![4× DGX Spark "Sub-Surface AI Brain" cluster for autonomous mining — 512 GB unified memory, <1 kW power, GLM-5.2 NVFP4 with 1M-token context, vLLM Tensor Parallel (TP=4); MTTR −45%, ~$24,000 total, 100% on-prem data sovereignty](assets/images/dgx-spark-4x-sub-surface-ai-brain.png)
+
 ---
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
+- Version: 1.3 | Tool: Claude Code | Session: claude/dgx-spark-mining-case-gf1159 | Date: 26.06.2026 | Changes: Added the 4× setup infographic (docs/assets/images/dgx-spark-4x-sub-surface-ai-brain.png) as the lead visual.
 - Version: 1.2 | Tool: Claude Code | Session: claude/dgx-spark-mining-case-gf1159 | Date: 26.06.2026 | Changes: Folded in verified facts from the nvidia/GLM-5.2-NVFP4 model card overview — ZAI's GLM-5.2 MoE for reasoning + coding, sparse attention with IndexShare indexer, quantized with NVIDIA TensorRT Model Optimizer, licensed for commercial or non-commercial use. Narrowed the caveat to the three still-unverified numeric specs (param count, NVFP4 size, context length).
 - Version: 1.1 | Tool: Claude Code | Session: claude/dgx-spark-mining-case-gf1159 | Date: 26.06.2026 | Changes: Corrected the GLM-5.2 framing — NVIDIA publishes an official NVFP4 checkpoint (nvidia/GLM-5.2-NVFP4), so it is no longer a hypothetical/forward-looking model; cited the model-card URL in The Model and Assumptions. Noted that the live card could not be re-verified in-session (egress policy blocks huggingface.co) and specs should be confirmed at procurement.
 - Version: 1.0 | Tool: Claude Code | Session: claude/dgx-spark-mining-case-gf1159 | Date: 26.06.2026 | Changes: Initial creation — industrial business case for a 4× DGX Spark edge cluster running a frontier MoE model at the mining face, with ROI table, hardware/software stack, operational workflow, and an Assumptions & Caveats section flagging the forward-looking model target and the single-box memory limit.
