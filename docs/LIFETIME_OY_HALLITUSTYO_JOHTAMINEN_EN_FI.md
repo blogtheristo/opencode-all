@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code | Session: claude/hallitustyo-lifetime-johtaminen-jhyekf | Date: 25.06.2026 | Changes: Attributed the board-value thesis to its source — Petri Lehmuskoski (Founding Partner, Gorilla Capital) — in §1 (EN+FI), correcting an implied Lifetime/founder track-record claim. Added a "Current governance status" note clarifying the charter is the intended operating model (company is founder-led, sole director), not a representation that a multi-member board is seated — removes a data-room representation-mismatch risk.
 - Version: 1.0 | Tool: Claude Code | Session: claude/hallitustyo-lifetime-johtaminen-jhyekf | Date: 25.06.2026 | Changes: Initial creation — bilingual (EN/FI) board-work and leadership charter for Lifetime Oy. Codifies the "optimize the real endpoint, not the venture-scale playbook" principle: most Nordic tech exits are trade sales, growth is customer-funded, and value is created before the money runs out. Defines board purpose, the right-model principle, stage-appropriate governance, decision rights, meeting cadence, and leadership metrics.
 
 Session Links & References:
@@ -28,6 +29,8 @@ Document Status:
 > **Legal entity / Oikeushenkilö:** Lifetime Oy · Business ID 0772407-9 · VAT FI07724079 · Laidunmaanraitti 2 A 25, 02330 Espoo, Finland · CEO Risto Anton Paarni
 >
 > **Internal governance document.** This charter sets how the Lifetime Oy board works and leads. It is not legal advice and does not override the Finnish Limited Liability Companies Act (Osakeyhtiölaki) or the company's Articles of Association. Where this charter and the law or Articles conflict, the law and Articles prevail.
+>
+> **Current governance status.** Lifetime Oy is founder-led (Risto Anton Paarni, CEO and sole director). The board roles, decision rights, and cadence below define the **operating model the company applies and will formalize as the board is constituted** — they are not a representation that a multi-member board is currently seated.
 
 ---
 
@@ -37,7 +40,7 @@ Document Status:
 
 This charter answers one question: **does the board create value, or does it slow the company down?**
 
-The premise is uncomfortable but field-tested across 18+ years of Nordic startup investing and dozens of boards: most boards do not move the needle. Many slow learning. Some destroy value. The cause is rarely a lack of competence on the board — it is the **wrong operating model** applied to the wrong company at the wrong stage.
+This charter adapts to Lifetime Oy a board-value thesis articulated by **Petri Lehmuskoski** (Founding Partner, Gorilla Capital) — drawn from 18+ years of Nordic startup investing and dozens of boards. The premise is uncomfortable but field-tested: most boards do not move the needle. Many slow learning. Some destroy value. The cause is rarely a lack of competence on the board — it is the **wrong operating model** applied to the wrong company at the wrong stage.
 
 Lifetime Oy rejects the default venture-scale playbook as a universal template. Instead, the board steers toward the company's **actual probable endpoint**, and chooses governance intensity to match the company's **actual stage**.
 
@@ -45,7 +48,7 @@ Lifetime Oy rejects the default venture-scale playbook as a universal template. 
 
 Tämä ohjesääntö vastaa yhteen kysymykseen: **luoko hallitus arvoa vai hidastaako se yhtiötä?**
 
-Lähtökohta on epämukava mutta käytännössä koeteltu yli 18 vuoden pohjoismaisessa startup-sijoittamisessa ja kymmenissä hallituksissa: useimmat hallitukset eivät liikuta neulaa. Moni hidastaa oppimista. Osa tuhoaa arvoa. Syy ei yleensä ole osaamisen puute — se on **väärä toimintamalli**, jota sovelletaan väärään yhtiöön väärässä vaiheessa.
+Tämä ohjesääntö soveltaa Lifetime Oy:hyn hallitustyön arvoteesin, jonka on muotoillut **Petri Lehmuskoski** (Founding Partner, Gorilla Capital) — pohjautuen yli 18 vuoden pohjoismaiseen startup-sijoittamiseen ja kymmeniin hallituksiin. Lähtökohta on epämukava mutta käytännössä koeteltu: useimmat hallitukset eivät liikuta neulaa. Moni hidastaa oppimista. Osa tuhoaa arvoa. Syy ei yleensä ole osaamisen puute — se on **väärä toimintamalli**, jota sovelletaan väärään yhtiöön väärässä vaiheessa.
 
 Lifetime Oy hylkää oletusarvoisen venture-scale-pelikirjan yleispätevänä mallina. Sen sijaan hallitus ohjaa yhtiön **todennäköiseen todelliseen päätepisteeseen** ja valitsee hallinnon intensiteetin yhtiön **todellisen vaiheen** mukaan.
 
