@@ -314,6 +314,26 @@ export { eventBus } from './event-bus.js';
 export { BUILTIN_TOOLS, registerToolHandler } from './tools.js';
 export { createLLMClient, createLLMClientForAgent, LLMClient } from './llm-client.js';
 
+// Re-export DiffusionGemma parallel-diffusion local inference
+export {
+  createDiffusionGemmaClient,
+  resolveDiffusionGemmaConfig,
+  resolveDiffusionGemmaBaseUrl,
+  resolveDiffusionGemmaModel,
+  resolveDiffusionParams,
+  DIFFUSIONGEMMA_SPEC,
+  DIFFUSIONGEMMA_THROUGHPUT,
+  DIFFUSIONGEMMA_MODEL_ID,
+  DEFAULT_DIFFUSION_PARAMS,
+  MAX_BLOCK_TOKENS,
+} from './diffusiongemma.js';
+export type {
+  DiffusionGemmaSpec,
+  DiffusionDecodeParams,
+  DiffusionGemmaThroughput,
+  DiffusionGemmaClientOptions,
+} from './diffusiongemma.js';
+
 // Re-export model selector
 export {
   selectModel,
