@@ -106,6 +106,11 @@ CREATE OR REPLACE FUNCTION command_audit_log_chain()
   RETURNS TRIGGER
   LANGUAGE plpgsql
   SECURITY DEFINER
+  -- Fixed search_path hardens this SECURITY DEFINER function against
+  -- search-path hijacking. pg_catalog first (pins built-ins: digest/encode/
+  -- pg_advisory_xact_lock), then public (the table), then extensions (pgcrypto
+  -- if installed there on Supabase).
+  SET search_path = pg_catalog, public, extensions
 AS $$
 DECLARE
   last_hash TEXT;
@@ -114,7 +119,7 @@ BEGIN
   PERFORM pg_advisory_xact_lock(hashtext('command_audit_log_chain'));
 
   SELECT event_hash INTO last_hash
-  FROM command_audit_log
+  FROM public.command_audit_log
   ORDER BY created_at DESC, id DESC
   LIMIT 1;
 

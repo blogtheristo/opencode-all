@@ -18,8 +18,9 @@
  */
 
 import { createHash, randomUUID } from 'node:crypto';
-import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import { type SupabaseClient } from '@supabase/supabase-js';
 import { scrubObject, type PIIType } from '../agents/pii-scrubber.js';
+import { getSupabaseClient } from '../config/supabase.js';
 import logger from '../utils/logger.js';
 
 // ─── Types ──────────────────────────────────────────────────────────────────
@@ -75,10 +76,30 @@ export interface CommandAuditSink {
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-/** SHA-256 hex digest of any value. Used for input/output lineage. */
+/**
+ * Canonical serialization: object keys sorted recursively, and every value
+ * JSON-encoded (never bypassed) so types don't collide. Two semantically-equal
+ * inputs always produce the same string; `1` and `'1'` produce different ones.
+ */
+function canonicalize(value: unknown): string {
+  if (value === null || typeof value !== 'object') {
+    // JSON.stringify(undefined) === undefined → normalise to 'null'
+    return JSON.stringify(value) ?? 'null';
+  }
+  if (Array.isArray(value)) {
+    return `[${value.map(canonicalize).join(',')}]`;
+  }
+  const obj = value as Record<string, unknown>;
+  const body = Object.keys(obj)
+    .sort()
+    .map((k) => `${JSON.stringify(k)}:${canonicalize(obj[k])}`)
+    .join(',');
+  return `{${body}}`;
+}
+
+/** SHA-256 hex digest of any value (canonical, order- and type-stable). Used for lineage. */
 export function digestOf(value: unknown): string {
-  const str = typeof value === 'string' ? value : JSON.stringify(value ?? null);
-  return createHash('sha256').update(str).digest('hex');
+  return createHash('sha256').update(canonicalize(value)).digest('hex');
 }
 
 // ─── Supabase implementation ────────────────────────────────────────────────
@@ -87,36 +108,35 @@ export class CommandAuditLogger implements CommandAuditSink {
   private supabase: SupabaseClient;
 
   constructor(supabase?: SupabaseClient) {
-    if (supabase) {
-      this.supabase = supabase;
-      return;
-    }
-
-    const url = process.env.SUPABASE_URL;
-    const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-    if (!url || !key) {
+    // Reuse the shared service-role client so env-var resolution
+    // (SUPABASE_SERVICE_KEY || SUPABASE_SERVICE_ROLE_KEY) and the Vitest gating
+    // (disabled in tests unless ENABLE_SUPABASE_IN_TESTS=true) stay in one place.
+    const client = supabase ?? getSupabaseClient();
+    if (!client) {
       throw new Error(
-        'CommandAuditLogger: SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are required',
+        'CommandAuditLogger: Supabase service-role client unavailable ' +
+          '(set SUPABASE_URL + SUPABASE_SERVICE_KEY)',
       );
     }
-    this.supabase = createClient(url, key);
+    this.supabase = client;
   }
 
   /**
-   * Returns a logger only when Supabase credentials are configured, otherwise
-   * null. Lets the OpenClaw bridge wire Article 12 logging in production without
-   * forcing a database dependency on unit tests that never set the env.
+   * Returns a logger only when a Supabase service-role client is available,
+   * otherwise null. Lets the NemoClaw bridge wire Article 12 logging in
+   * production without forcing a DB dependency on unit tests (getSupabaseClient
+   * returns null under Vitest unless ENABLE_SUPABASE_IN_TESTS=true).
    */
   static fromEnvOrNull(): CommandAuditLogger | null {
-    if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-      return null;
-    }
-    return new CommandAuditLogger();
+    const client = getSupabaseClient();
+    return client ? new CommandAuditLogger(client) : null;
   }
 
   async logInvocation(entry: CommandInvocation): Promise<{ traceId: string }> {
     const traceId = randomUUID();
-    const { manifest } = scrubObject(entry.params);
+    // Digest the SCRUBBED params: matches the documented contract and avoids
+    // storing dictionary-attackable hashes of raw PII (e.g. emails).
+    const { scrubbed, manifest } = scrubObject(entry.params);
 
     const row = {
       event_type: 'command.invoke',
@@ -129,7 +149,7 @@ export class CommandAuditLogger implements CommandAuditSink {
       skill: entry.skill,
       caller_ats: entry.callerAts ?? null,
       minimum_ats: entry.minimumAts ?? null,
-      input_digest: digestOf(entry.params),
+      input_digest: digestOf(scrubbed),
       decision: entry.decision,
       denied_reason: entry.deniedReason ?? null,
       pii_types_found: manifest.typesFound as PIIType[],

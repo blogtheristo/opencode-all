@@ -55,6 +55,19 @@ describe('digestOf', () => {
     expect(digestOf({ a: 1, b: 2 })).toBe(digestOf({ a: 1, b: 2 }));
     expect(digestOf('x')).not.toBe(digestOf('y'));
   });
+
+  it('is independent of object key order', async () => {
+    const { digestOf } = await import('../mcp/command-audit-logger.js');
+    expect(digestOf({ a: 1, b: 2 })).toBe(digestOf({ b: 2, a: 1 }));
+    expect(digestOf({ a: { x: 1, y: 2 } })).toBe(digestOf({ a: { y: 2, x: 1 } }));
+  });
+
+  it('does not collide across types', async () => {
+    const { digestOf } = await import('../mcp/command-audit-logger.js');
+    expect(digestOf(1)).not.toBe(digestOf('1'));
+    expect(digestOf(true)).not.toBe(digestOf('true'));
+    expect(digestOf(null)).not.toBe(digestOf('null'));
+  });
 });
 
 describe('NemoClawBridge Article 12 command logging', () => {
