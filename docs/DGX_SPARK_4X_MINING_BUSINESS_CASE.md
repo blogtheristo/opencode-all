@@ -4,10 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.2
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code | Session: claude/dgx-spark-mining-case-gf1159 | Date: 26.06.2026 | Changes: Folded in verified facts from the nvidia/GLM-5.2-NVFP4 model card overview — ZAI's GLM-5.2 MoE for reasoning + coding, sparse attention with IndexShare indexer, quantized with NVIDIA TensorRT Model Optimizer, licensed for commercial or non-commercial use. Narrowed the caveat to the three still-unverified numeric specs (param count, NVFP4 size, context length).
+- Version: 1.1 | Tool: Claude Code | Session: claude/dgx-spark-mining-case-gf1159 | Date: 26.06.2026 | Changes: Corrected the GLM-5.2 framing — NVIDIA publishes an official NVFP4 checkpoint (nvidia/GLM-5.2-NVFP4), so it is no longer a hypothetical/forward-looking model; cited the model-card URL in The Model and Assumptions. Noted that the live card could not be re-verified in-session (egress policy blocks huggingface.co) and specs should be confirmed at procurement.
 - Version: 1.0 | Tool: Claude Code | Session: claude/dgx-spark-mining-case-gf1159 | Date: 26.06.2026 | Changes: Initial creation — industrial business case for a 4× DGX Spark edge cluster running a frontier MoE model at the mining face, with ROI table, hardware/software stack, operational workflow, and an Assumptions & Caveats section flagging the forward-looking model target and the single-box memory limit.
 
 Session Links & References:
@@ -51,7 +53,7 @@ Instead of building a hyper-expensive, dust-sensitive server room underground, t
 ### How the Technical Stack Integrates
 
 - **The Hardware.** Four DGX Spark units are networked on a single desk via a 200 Gbps Ethernet switch using their onboard ConnectX-7 NICs. This provides a localized pool of **512 GB of unified memory** drawing **under 1 kW** of power — easily sustained by local backup generators.
-- **The Model.** A frontier mixture-of-experts model (target: Zhipu **GLM-5.2, 753B MoE**) quantized to **NVFP4**. At 4 bits per parameter, the weights occupy ≈ **376.5 GB**, fitting across the 512 GB pool and leaving roughly **135 GB** for the **1M-token context window** and system tasks.
+- **The Model.** ZAI's (Zhipu) **GLM-5.2** — a Mixture-of-Experts (MoE) model for reasoning and coding that uses **sparse attention with an IndexShare indexer** to sustain long context — in NVIDIA's officially published **NVFP4** checkpoint ([`nvidia/GLM-5.2-NVFP4`](https://huggingface.co/nvidia/GLM-5.2-NVFP4), quantized with NVIDIA TensorRT Model Optimizer, **licensed for commercial or non-commercial use**). At a 753B parameter scale and 4 bits per parameter, the weights occupy ≈ **376.5 GB**, fitting across the 512 GB pool and leaving roughly **135 GB** for the **1M-token context window** and system tasks.
 - **The Inference Engine.** **vLLM** coordinates the cluster using Tensor Parallelism (TP = 4) over NCCL. (SGLang is a viable alternative.)
 
 > See the _Assumptions & Caveats_ section for why the 4× cluster — not a single box — is required, and why vLLM (not Ollama) is mandatory at this scale.
@@ -106,7 +108,7 @@ A single DGX Spark ships with **128 GB of coherent unified memory**, where the B
 This section makes the load-bearing assumptions explicit (Engineering Rule 1) and surfaces, rather than averages over, the trade-offs (Rule 7).
 
 1. **The single box cannot run the 753B model — the cluster is mandatory.** One DGX Spark maxes out at 128 GB unified memory; NVIDIA rates a single Spark for inference on models up to **~200B** at FP4. The 753B MoE weights alone (~376.5 GB at NVFP4) require pooling **4+** Sparks over NCCL, or graduating to data-center Blackwell (DGX B200 / GB200 NVL72). This is _why_ the case is 4× and not 1×.
-2. **GLM-5.2 (753B) is a forward-looking target, not a shipping dependency.** The architecture is model-agnostic. If the specific 753B model is unavailable or its license/quant differs at procurement time, the same cluster runs the best available open-weight MoE that fits the 512 GB pool. Validate the exact model, license, and NVFP4 checkpoint before purchase.
+2. **GLM-5.2 NVFP4 is a real, NVIDIA-published checkpoint.** NVIDIA publishes the NVFP4 quant at [`nvidia/GLM-5.2-NVFP4`](https://huggingface.co/nvidia/GLM-5.2-NVFP4) — ZAI's GLM-5.2 MoE (reasoning + coding, sparse attention with IndexShare indexer), quantized with NVIDIA TensorRT Model Optimizer and **licensed for commercial or non-commercial use**. The architecture, quantization, and license are confirmed from the model card. What is **not yet re-verified in this session** are the precise numeric specs — parameter count (assumed 753B), NVFP4 size on disk (≈376.5 GB), and supported context length (assumed 1M) — because the environment's egress policy blocks `huggingface.co`, so the card's numbers could not be fetched directly here. Confirm these three figures and the recommended runtime (vLLM/SGLang/TensorRT-LLM) against the card before purchase. The design is model-agnostic regardless: if specs differ, the same cluster runs the best open-weight MoE that fits the 512 GB pool.
 3. **KV-cache headroom is tight at 1M tokens.** The ~135 GB left after weights must cover the KV cache _and_ system overhead. Real 1M-token throughput depends on batch size, attention/KV-quantization, and TP overhead — benchmark on representative payloads before committing to the 1M-context claim in an SLA.
 4. **ROI inputs are operator-specific.** The 45% MTTR reduction and the "two hours of stoppage = payback" figure are illustrative. Plug in the site's actual cost-per-hour of stoppage and baseline MTTR to produce a defensible number.
 5. **Cluster networking is the integration risk.** Multi-Spark TP over 200 GbE / ConnectX-7 with NCCL is the part most likely to need tuning. De-risk with a bench proof-of-concept before the container goes underground.
