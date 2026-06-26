@@ -10,8 +10,8 @@
 - **Document ID:** 022 (continues Lifetime numbering: 019 = 2020 summary, 021a = 2021 v0.20)
 - **Supersedes / updates:** `021a_LT_DueDiligence_CleanReport` (v0.20, 20.08.2021) and the `019_..._2020_summary`
 - **Structure backbone:** Y Combinator _Series A Diligence Checklist_ (Aaron Harris & Jason Kwon) — https://www.ycombinator.com/library/3h-series-a-diligence-checklist
-- **Version:** 1.0
-- **Date:** 11.06.2026
+- **Version:** 1.1
+- **Date:** 11.06.2026 (updated 25.06.2026)
 - **Author:** Risto Anton Päärni (CEO, Lifetime Oy)
 - **Reviewed by:** Management Team
 - **Approved by:** **\_** (pending)
@@ -20,6 +20,7 @@
 - **Branch:** claude/tutki-lifetime-sales-69g53v
 - **Audience:** Auditors, private investors, VCs, SAFE-round counterparties (NDA required)
 - **Sessions & Modifications:**
+  - 1.1 (25.06.2026, Claude Code): Recorded **Gorilla Capital (Petri Lehmuskoski, Founding Partner)** as a prospective SAFE-round investor in §3 — prospect only: no term sheet, no instrument signed, not in the cap table. Management-provided; no other facts changed.
   - 1.0 (11.06.2026, Claude Code): Created the 2026 edition. Re-cast the 2021 DD report onto the YC Series A diligence-checklist structure and refreshed every section to the current company reality (DWS IQ 6 / sovereign-AI compliance platform). **Facts are sourced from canonical repo files or carried forward from the 2020/2021 DD documents; anything not independently verifiable is explicitly marked `TBA (management to confirm)` — no figures, customers, or cap-table entries were invented.**
 - **Document Status:** DRAFT — pending management approval and data-room population
 - **Sources of truth used:**
@@ -101,6 +102,8 @@ The company sells through an operational storefront (`dws10.com/buy`, 100+ SKUs 
 | Warrants / other convertibles      | ✅                       | None                                                                                                                                                                                                    |
 
 > ✅ **Diligence note (resolved 06/2026):** the cap table is **clean and simple** — 100 % founder-owned, no SAFEs signed, no options, no convertibles. The earlier "most material open item" flag is **closed**. The only remaining capital action is documenting future SAFE issuances _as and when_ executed.
+>
+> 🟡 **Fundraising note (06/2026):** the planned SAFE round has an identified **prospective investor — Gorilla Capital (Petri Lehmuskoski, Founding Partner; Gorilla Capital Fund III)**. **Prospect only:** no term sheet, no instrument signed, not in the cap table — recorded for completeness; creates no dilution, side letters, or investor rights until executed. Management-provided.
 
 ---
 
