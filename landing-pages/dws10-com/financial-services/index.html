@@ -39,17 +39,36 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <!-- Brand §2.1/§8 typography: IBM Plex Sans (body) + IBM Plex Sans Condensed (headings).
+         SRI is intentionally omitted on the Google Fonts stylesheet — that CSS is served
+         dynamically per user-agent and has no stable integrity hash; crossorigin is set. -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
 
     <!-- Gamma Enterprise Styles -->
     <link rel="stylesheet" href="../gamma/ultra-styles.css?v=11" />
 
     <style>
+      :root {
+        --color-gold: #b8860b;
+        --color-gold-light: #d4a843;
+      }
       body {
-        font-family: "Inter", sans-serif;
+        font-family: "IBM Plex Sans", "Inter", sans-serif;
         margin: 0;
         padding: 0;
         background: #f8fafc;
         color: #1e293b;
+      }
+      .hero h1,
+      .section h2 {
+        font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+      }
+      .hero {
+        border-top: 3px solid var(--color-gold-light);
       }
 
       .hero {
@@ -249,8 +268,11 @@
       <div class="badge"><span>💰</span> ESG Investing • Sustainable Finance • Crypto</div>
       <h1>Financial Services</h1>
       <p>
-        EU Taxonomy alignment, SFDR compliance, ESG portfolio analytics, and carbon tracking for
-        digital assets.
+        EU Taxonomy alignment, SFDR compliance, financed-emissions accounting, and carbon tracking
+        for digital assets. Delivered through the
+        <strong>DWS IQ Industrial Intelligence suite</strong> — core engine DWS IQ 6, dual-use tier
+        Aegis — with the <strong>ComplianceOracle Agent</strong>
+        scoring SFDR, EU&nbsp;Taxonomy, CRR3, and DORA exposure per counterparty.
       </p>
 
       <div class="stats-row">
@@ -313,10 +335,62 @@
           <h4>📅 Key Deadlines</h4>
           <ul>
             <li><strong>2024:</strong> CSRD reporting for large financial institutions</li>
-            <li><strong>2025:</strong> Full SFDR PAI reporting, expanded Taxonomy criteria</li>
+            <li>
+              <strong>2025:</strong> DORA (Digital Operational Resilience Act) applies from
+              17&nbsp;January&nbsp;2025 for financial entities; first wave of CSRD sustainability
+              statements for FY2024 filed under ESRS; full SFDR PAI reporting and expanded Taxonomy
+              criteria
+            </li>
             <li><strong>2026:</strong> CSRD for listed SMEs, full MiCA implementation</li>
           </ul>
         </div>
+      </div>
+
+      <!-- Illustrative Operational Trace Log -->
+      <div class="section" style="border-left: 4px solid var(--color-gold)">
+        <h2>Operational Trace Log (illustrative)</h2>
+        <p
+          style="
+            font-size: 0.85rem;
+            color: #92400e;
+            background: #fef3c7;
+            border: 1px solid #fbbf24;
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin-bottom: 18px;
+          "
+        >
+          ⚠ <strong>Illustrative / representative · pre-GA.</strong> Anonymized walkthrough of how
+          the ontology behaves. Not a real bank, customer, account, or consented deployment. No real
+          customer or transaction data is implied.
+        </p>
+        <p>
+          A representative Nordic asset manager (anonymized) connects portfolio holdings to DWS IQ
+          6. The trace below shows trigger → agents → regulatory outcome.
+        </p>
+        <ul>
+          <li>
+            <strong>Trigger:</strong> annual SFDR Article&nbsp;8 fund disclosure and PAI statement
+            due 2025.
+          </li>
+          <li>
+            <strong>ComplianceOracle Agent:</strong> computes financed emissions (PCAF) and EU
+            Taxonomy alignment per holding; produces PAI indicator tables.
+          </li>
+          <li>
+            <strong>Compliance Agent:</strong> runs an EU regulatory gap analysis across SFDR, CSRD,
+            EU Taxonomy, DORA, and MiCA; flags one ICT third-party concentration risk under DORA.
+          </li>
+          <li>
+            <strong>Sovereignty Monitor:</strong> confirms EU data residency with no CLOUD Act
+            surface on the data plane — required under DORA ICT third-party risk.
+          </li>
+          <li>
+            <strong>Outcome:</strong> a draft SFDR PAI statement and Taxonomy KPI set with signed,
+            Article&nbsp;12-logged decision records — <em>architected to satisfy</em> SFDR and DORA,
+            pending the institution's own assurance review.
+          </li>
+        </ul>
       </div>
 
       <!-- Crypto & Digital Assets -->
@@ -1418,6 +1492,19 @@
         </div>
       </div>
     </section>
+
+    <p
+      style="
+        text-align: right;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 12px 20px 24px;
+        font-size: 0.78rem;
+        color: #94a3b8;
+      "
+    >
+      Financial Services — page v1.1 · 2026-06-23
+    </p>
 
     <script src="/shared-assets/a2a/a2a-section.js"></script>
     <script src="/shared-assets/nav/ironclad-nav.js"></script>

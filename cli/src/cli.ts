@@ -1067,7 +1067,7 @@ async function cmdDemoSnap(iterations: number): Promise<void> {
   const latencies: number[] = [];
 
   for (let i = 0; i < ITERS; i++) {
-    // Mirror OpenClawSandbox: 4 violations drop ATS to 0.0, then kill
+    // Mirror NemoClawSandbox: 4 violations drop ATS to 0.0, then kill
     const state = { status: 'running', killSwitchTriggered: false };
     const start = performance.now();
     state.killSwitchTriggered = true;
@@ -1093,7 +1093,7 @@ async function cmdDemoSnap(iterations: number): Promise<void> {
   console.log(`  max   ${max.toFixed(3)}ms`);
   console.log(`  SLA (<${SLA_MS}ms)  ${slaMet ? fmt.green('PASSED ✓') : fmt.red('FAILED ✗')}`);
   console.log('');
-  console.log(fmt.dim('  Kill chain: OpenClaw sandbox (software layer)'));
+  console.log(fmt.dim('  Kill chain: NemoClaw sandbox (software layer)'));
   console.log(fmt.dim('  Firecracker VMM spec: < 125ms (AWS benchmark)'));
   console.log(fmt.dim('  Full benchmark logged to: logs/firehorse-snap-benchmark.jsonl'));
   console.log('');
