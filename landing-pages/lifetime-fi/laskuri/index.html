@@ -318,6 +318,16 @@
       .bar-momentum {
         background: var(--color-red);
       }
+      .bar-recruit {
+        background: #8b5cf6;
+      }
+      .bar-sprint-drag {
+        background: #f472b6;
+      }
+
+      .result-item.recruit-cost .result-value {
+        color: #8b5cf6;
+      }
 
       .breakdown-legend {
         display: flex;
@@ -527,11 +537,55 @@
       </div>
     </section>
 
+    <!-- Example scenarios -->
+    <div style="max-width: 1080px; margin: 0 auto 20px; padding: 0 24px">
+      <div
+        style="
+          font-size: 0.7rem;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          color: var(--color-gold);
+          font-weight: 600;
+          margin-bottom: 12px;
+        "
+      >
+        Esimerkki-keissit — klikkaa kokeillaksesi
+      </div>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap" id="scenarioChips">
+        <button class="model-btn" data-scenario="startup">
+          "Lead dev lähti — startup pysähtyi 2 kuukaudeksi"
+        </button>
+        <button class="model-btn" data-scenario="agency">
+          "Asiakas vaihtoi prioriteetit — 3 sprinttiä roskiin"
+        </button>
+        <button class="model-btn" data-scenario="enterprise">
+          "CTO irtisanoutui — 50 hengen tiimi ajelehtii"
+        </button>
+        <button class="model-btn" data-scenario="ai-team">
+          "Opus-konteksti katosi — viikon työ uusiksi"
+        </button>
+        <button class="model-btn" data-scenario="consulting">
+          "Konsultti vaihtui — hiljainen tieto meni mukana"
+        </button>
+      </div>
+    </div>
+
     <!-- Calculator -->
     <div class="calc-container">
       <!-- Inputs -->
       <div class="calc-panel">
         <div class="panel-title">Projektin parametrit</div>
+
+        <div class="input-group">
+          <label>Keskeytyksen tyyppi</label>
+          <div class="input-hint">
+            Avainhenkilön lähtö lisää rekrytointikustannuksen ja pidentää palautumisaikaa
+          </div>
+          <div class="model-selector">
+            <button class="type-btn active" data-type="sprint">Sprinttivaihto</button>
+            <button class="type-btn" data-type="departure">Avainhenkilön lähtö</button>
+          </div>
+        </div>
 
         <div class="input-group">
           <label>Tiimin koko (henkilöä)</label>
@@ -564,6 +618,13 @@
           <div class="input-hint">Claude Code, Copilot, API-kutsut yhteensä</div>
           <input type="range" id="tokenBudget" min="100" max="20000" value="2000" step="100" />
           <div class="value-display"><span id="tokenVal">2 000</span> €/kk</div>
+        </div>
+
+        <div class="input-group">
+          <label>Projektin vuosibudjetti (€)</label>
+          <div class="input-hint">Kokonaisbudjetti — henkilöstö, AI, infra, alihankinta</div>
+          <input type="range" id="yearlyBudget" min="0" max="5000000" value="500000" step="50000" />
+          <div class="value-display"><span id="budgetVal">500 000</span> €/v</div>
         </div>
 
         <div class="input-group">
@@ -600,10 +661,24 @@
           <div class="result-detail" id="momentumDetail"></div>
         </div>
 
+        <div class="result-item recruit-cost" id="recruitRow" style="display: none">
+          <div class="result-label">Rekrytointi &amp; perehdytys</div>
+          <div class="result-value" id="recruitCost">€0</div>
+          <div class="result-detail" id="recruitDetail"></div>
+        </div>
+
+        <div class="result-item" id="sprintDragRow" style="display: none">
+          <div class="result-label">Sprinttien haittavaikutus</div>
+          <div class="result-value" id="sprintDragCost" style="color: #f472b6">€0</div>
+          <div class="result-detail" id="sprintDragDetail"></div>
+        </div>
+
         <div class="breakdown-bar">
           <div class="bar-human" id="barHuman" style="width: 40%"></div>
           <div class="bar-token" id="barToken" style="width: 25%"></div>
           <div class="bar-momentum" id="barMomentum" style="width: 35%"></div>
+          <div class="bar-recruit" id="barRecruit" style="width: 0%"></div>
+          <div class="bar-sprint-drag" id="barSprintDrag" style="width: 0%"></div>
         </div>
         <div class="breakdown-legend">
           <div class="legend-item">
@@ -617,6 +692,14 @@
           <div class="legend-item">
             <div class="legend-dot" style="background: var(--color-red)"></div>
             Momentum
+          </div>
+          <div class="legend-item" id="recruitLegend" style="display: none">
+            <div class="legend-dot" style="background: #8b5cf6"></div>
+            Rekrytointi
+          </div>
+          <div class="legend-item" id="sprintDragLegend" style="display: none">
+            <div class="legend-dot" style="background: #f472b6"></div>
+            Sprinttihaitat
           </div>
         </div>
 
@@ -744,8 +827,10 @@
       const interruptions = $("interruptions");
       const downtime = $("downtime");
       const tokenBudget = $("tokenBudget");
+      const yearlyBudget = $("yearlyBudget");
 
       let selectedModelRate = 3;
+      let selectedType = "sprint";
 
       const fmt = (v) =>
         new Intl.NumberFormat("fi-FI", {
@@ -763,11 +848,54 @@
         30: { label: "Opus Max", inputCost: 30, outputCost: 150, wasteFactor: 3.2 },
       };
 
+      const TYPE_PROFILES = {
+        sprint: {
+          rampUpFactor: 2.5,
+          rampUpCap: 16,
+          velocityLoss: 0.35,
+          tokenWasteMultiplier: 1.0,
+          recruitmentMonths: 0,
+          downtimeMax: 14,
+          downtimeDefault: 3,
+          intDefault: 3,
+        },
+        departure: {
+          rampUpFactor: 5,
+          rampUpCap: 120,
+          velocityLoss: 0.6,
+          tokenWasteMultiplier: 2.5,
+          recruitmentMonths: 6,
+          sprintDragMonths: 4,
+          sprintDragPct: 0.25,
+          downtimeMax: 90,
+          downtimeDefault: 30,
+          intDefault: 1,
+        },
+      };
+
       document.querySelectorAll(".model-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
           document.querySelectorAll(".model-btn").forEach((b) => b.classList.remove("active"));
           btn.classList.add("active");
           selectedModelRate = Number(btn.dataset.rate);
+          calculate();
+        });
+      });
+
+      document.querySelectorAll(".type-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".type-btn").forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          selectedType = btn.dataset.type;
+          const profile = TYPE_PROFILES[selectedType];
+          downtime.max = profile.downtimeMax;
+          downtime.value = profile.downtimeDefault;
+          interruptions.value = profile.intDefault;
+          const isDeparture = selectedType === "departure";
+          $("recruitRow").style.display = isDeparture ? "block" : "none";
+          $("recruitLegend").style.display = isDeparture ? "flex" : "none";
+          $("sprintDragRow").style.display = isDeparture ? "block" : "none";
+          $("sprintDragLegend").style.display = isDeparture ? "flex" : "none";
           calculate();
         });
       });
@@ -778,26 +906,50 @@
         const intPerMonth = Number(interruptions.value);
         const downDays = Number(downtime.value);
         const tokenBudgetMonthly = Number(tokenBudget.value);
+        const budget = Number(yearlyBudget.value);
         const model = MODEL_MULTIPLIERS[selectedModelRate];
+        const profile = TYPE_PROFILES[selectedType];
 
         $("teamVal").textContent = team;
         $("rateVal").textContent = rate;
         $("intVal").textContent = intPerMonth;
         $("downVal").textContent = downDays;
         $("tokenVal").textContent = fmtNum(tokenBudgetMonthly);
+        $("budgetVal").textContent = fmtNum(budget);
 
-        const rampUpHoursPerPerson = Math.min(downDays * 2.5, 16);
+        const rampUpHoursPerPerson = Math.min(downDays * profile.rampUpFactor, profile.rampUpCap);
         const humanCostAnnual = team * rate * rampUpHoursPerPerson * intPerMonth * 12;
 
         const dailyTokenSpend = tokenBudgetMonthly / 22;
-        const tokenWastePerInterruption = dailyTokenSpend * downDays * (model.wasteFactor - 1);
+        const tokenWastePerInterruption =
+          dailyTokenSpend * downDays * (model.wasteFactor - 1) * profile.tokenWasteMultiplier;
         const tokenCostAnnual = tokenWastePerInterruption * intPerMonth * 12;
 
         const dailyProjectCost = team * rate * 8 + dailyTokenSpend;
-        const velocityLoss = 0.35;
-        const momentumCostAnnual = dailyProjectCost * velocityLoss * downDays * intPerMonth * 12;
+        const momentumCostAnnual =
+          dailyProjectCost * profile.velocityLoss * downDays * intPerMonth * 12;
 
-        const totalAnnual = humanCostAnnual + tokenCostAnnual + momentumCostAnnual;
+        const recruitCostAnnual =
+          profile.recruitmentMonths > 0
+            ? rate * 8 * 22 * profile.recruitmentMonths * intPerMonth * 12
+            : 0;
+
+        const sprintDragCostAnnual =
+          profile.sprintDragMonths > 0
+            ? dailyProjectCost *
+              profile.sprintDragPct *
+              22 *
+              profile.sprintDragMonths *
+              intPerMonth *
+              12
+            : 0;
+
+        const totalAnnual =
+          humanCostAnnual +
+          tokenCostAnnual +
+          momentumCostAnnual +
+          recruitCostAnnual +
+          sprintDragCostAnnual;
 
         $("humanCost").textContent = fmt(humanCostAnnual);
         $("humanDetail").textContent =
@@ -805,20 +957,37 @@
 
         $("tokenCost").textContent = fmt(tokenCostAnnual);
         $("tokenDetail").textContent =
-          `${model.label}: ${model.wasteFactor}× hukka-kerroin — cache miss + kontekstin uudelleenlataus`;
+          `${model.label}: ${(model.wasteFactor * profile.tokenWasteMultiplier).toFixed(1)}× hukka-kerroin — cache miss + kontekstin uudelleenlataus`;
 
         $("momentumCost").textContent = fmt(momentumCostAnnual);
         $("momentumDetail").textContent =
-          `${(velocityLoss * 100).toFixed(0)}% tehokkuuspudotus × ${downDays} pv palautumisaika`;
+          `${(profile.velocityLoss * 100).toFixed(0)}% tehokkuuspudotus × ${downDays} pv palautumisaika`;
 
-        const totalPct = humanCostAnnual + tokenCostAnnual + momentumCostAnnual || 1;
+        if (profile.recruitmentMonths > 0) {
+          $("recruitCost").textContent = fmt(recruitCostAnnual);
+          $("recruitDetail").textContent =
+            `${profile.recruitmentMonths} kk palkkakulua × ${intPerMonth} lähtöä/kk — rekrytointi, perehdytys, hiljaisen tiedon menetys`;
+        }
+
+        if (profile.sprintDragMonths > 0) {
+          $("sprintDragCost").textContent = fmt(sprintDragCostAnnual);
+          $("sprintDragDetail").textContent =
+            `${(profile.sprintDragPct * 100).toFixed(0)}% tehokkuuslasku × ${profile.sprintDragMonths} kk — tiimi kompensoi puuttuvaa osaamista, sprintit hidastuvat`;
+        }
+
+        const totalPct = totalAnnual || 1;
         $("barHuman").style.width = (humanCostAnnual / totalPct) * 100 + "%";
         $("barToken").style.width = (tokenCostAnnual / totalPct) * 100 + "%";
         $("barMomentum").style.width = (momentumCostAnnual / totalPct) * 100 + "%";
+        $("barRecruit").style.width = (recruitCostAnnual / totalPct) * 100 + "%";
+        $("barSprintDrag").style.width = (sprintDragCostAnnual / totalPct) * 100 + "%";
 
         $("totalCost").textContent = fmt(totalAnnual);
-        $("totalDetail").textContent =
-          `${fmt(totalAnnual / 12)}/kk — ${((totalAnnual / (team * rate * 8 * 22 * 12)) * 100).toFixed(1)}% projektin kokonaisbudjetista`;
+        const budgetPct =
+          budget > 0
+            ? `${((totalAnnual / budget) * 100).toFixed(1)}% vuosibudjetista (${fmt(budget)})`
+            : `${((totalAnnual / (team * rate * 8 * 22 * 12)) * 100).toFixed(1)}% laskennallisesta palkkakustannuksesta`;
+        $("totalDetail").textContent = `${fmt(totalAnnual / 12)}/kk — ${budgetPct}`;
 
         const baseSonnet = calculateForModel(
           team,
@@ -827,6 +996,7 @@
           downDays,
           tokenBudgetMonthly,
           MODEL_MULTIPLIERS[3],
+          profile,
         );
         const baseOpus = calculateForModel(
           team,
@@ -835,6 +1005,7 @@
           downDays,
           tokenBudgetMonthly,
           MODEL_MULTIPLIERS[15],
+          profile,
         );
         const baseOpusMax = calculateForModel(
           team,
@@ -843,6 +1014,7 @@
           downDays,
           tokenBudgetMonthly,
           MODEL_MULTIPLIERS[30],
+          profile,
         );
 
         $("compSonnet").textContent = fmt(baseSonnet.tokenCost) + "/v";
@@ -850,15 +1022,114 @@
         $("compOpusMax").textContent = fmt(baseOpusMax.tokenCost) + "/v";
       }
 
-      function calculateForModel(team, rate, intPerMonth, downDays, tokenBudgetMonthly, model) {
+      function calculateForModel(
+        team,
+        rate,
+        intPerMonth,
+        downDays,
+        tokenBudgetMonthly,
+        model,
+        profile,
+      ) {
         const dailyTokenSpend = tokenBudgetMonthly / 22;
-        const tokenWaste = dailyTokenSpend * downDays * (model.wasteFactor - 1);
+        const tokenWaste =
+          dailyTokenSpend * downDays * (model.wasteFactor - 1) * profile.tokenWasteMultiplier;
         const tokenCost = tokenWaste * intPerMonth * 12;
         return { tokenCost };
       }
 
-      [teamSize, hourlyRate, interruptions, downtime, tokenBudget].forEach((input) => {
-        input.addEventListener("input", calculate);
+      [teamSize, hourlyRate, interruptions, downtime, tokenBudget, yearlyBudget].forEach(
+        (input) => {
+          input.addEventListener("input", calculate);
+        },
+      );
+
+      const SCENARIOS = {
+        startup: {
+          type: "departure",
+          team: 8,
+          rate: 85,
+          interruptions: 1,
+          downtime: 45,
+          tokenBudget: 3000,
+          yearlyBudget: 800000,
+          modelRate: 15,
+        },
+        agency: {
+          type: "sprint",
+          team: 6,
+          rate: 90,
+          interruptions: 5,
+          downtime: 7,
+          tokenBudget: 2000,
+          yearlyBudget: 600000,
+          modelRate: 3,
+        },
+        enterprise: {
+          type: "departure",
+          team: 50,
+          rate: 75,
+          interruptions: 1,
+          downtime: 60,
+          tokenBudget: 15000,
+          yearlyBudget: 5000000,
+          modelRate: 15,
+        },
+        "ai-team": {
+          type: "sprint",
+          team: 4,
+          rate: 100,
+          interruptions: 8,
+          downtime: 5,
+          tokenBudget: 8000,
+          yearlyBudget: 1000000,
+          modelRate: 30,
+        },
+        consulting: {
+          type: "departure",
+          team: 3,
+          rate: 150,
+          interruptions: 1,
+          downtime: 30,
+          tokenBudget: 1500,
+          yearlyBudget: 500000,
+          modelRate: 3,
+        },
+      };
+
+      function applyScenario(key) {
+        const s = SCENARIOS[key];
+        if (!s) return;
+
+        selectedType = s.type;
+        document.querySelectorAll(".type-btn").forEach((b) => {
+          b.classList.toggle("active", b.dataset.type === s.type);
+        });
+        const profile = TYPE_PROFILES[s.type];
+        downtime.max = profile.downtimeMax;
+        const isDeparture = s.type === "departure";
+        $("recruitRow").style.display = isDeparture ? "block" : "none";
+        $("recruitLegend").style.display = isDeparture ? "flex" : "none";
+        $("sprintDragRow").style.display = isDeparture ? "block" : "none";
+        $("sprintDragLegend").style.display = isDeparture ? "flex" : "none";
+
+        teamSize.value = s.team;
+        hourlyRate.value = s.rate;
+        interruptions.value = s.interruptions;
+        downtime.value = s.downtime;
+        tokenBudget.value = s.tokenBudget;
+        yearlyBudget.value = s.yearlyBudget;
+
+        selectedModelRate = s.modelRate;
+        document.querySelectorAll(".model-btn").forEach((b) => {
+          b.classList.toggle("active", Number(b.dataset.rate) === s.modelRate);
+        });
+
+        calculate();
+      }
+
+      document.querySelectorAll("[data-scenario]").forEach((btn) => {
+        btn.addEventListener("click", () => applyScenario(btn.dataset.scenario));
       });
 
       calculate();

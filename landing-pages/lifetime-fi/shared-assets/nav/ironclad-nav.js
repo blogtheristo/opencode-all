@@ -184,6 +184,7 @@
                                 <li><a href="${contentBase}compliance/">Compliance Hub</a></li>
                                 <li><a href="${contentBase}compliance/trust-center/">Trust Center</a></li>
                                 <li><a href="${contentBase}dual-use/" style="color: #d4a843;">Dual-Use &amp; Defence (Aegis)</a></li>
+                                <li><a href="https://lifetime.fi/laskuri/">Keskeytyslaskuri</a></li>
                             </ul>
                         </li>
                         <li class="ironclad-separator"></li>
