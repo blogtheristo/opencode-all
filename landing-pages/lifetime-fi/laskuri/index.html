@@ -567,6 +567,13 @@
         </div>
 
         <div class="input-group">
+          <label>Projektin vuosibudjetti (€)</label>
+          <div class="input-hint">Kokonaisbudjetti — henkilöstö, AI, infra, alihankinta</div>
+          <input type="range" id="yearlyBudget" min="0" max="5000000" value="500000" step="50000" />
+          <div class="value-display"><span id="budgetVal">500 000</span> €/v</div>
+        </div>
+
+        <div class="input-group">
           <label>Pääasiallinen mallitaso</label>
           <div class="input-hint">Kalliimpi malli = suurempi hukka keskeytyksessä</div>
           <div class="model-selector">
@@ -744,6 +751,7 @@
       const interruptions = $("interruptions");
       const downtime = $("downtime");
       const tokenBudget = $("tokenBudget");
+      const yearlyBudget = $("yearlyBudget");
 
       let selectedModelRate = 3;
 
@@ -778,6 +786,7 @@
         const intPerMonth = Number(interruptions.value);
         const downDays = Number(downtime.value);
         const tokenBudgetMonthly = Number(tokenBudget.value);
+        const budget = Number(yearlyBudget.value);
         const model = MODEL_MULTIPLIERS[selectedModelRate];
 
         $("teamVal").textContent = team;
@@ -785,6 +794,7 @@
         $("intVal").textContent = intPerMonth;
         $("downVal").textContent = downDays;
         $("tokenVal").textContent = fmtNum(tokenBudgetMonthly);
+        $("budgetVal").textContent = fmtNum(budget);
 
         const rampUpHoursPerPerson = Math.min(downDays * 2.5, 16);
         const humanCostAnnual = team * rate * rampUpHoursPerPerson * intPerMonth * 12;
@@ -817,8 +827,11 @@
         $("barMomentum").style.width = (momentumCostAnnual / totalPct) * 100 + "%";
 
         $("totalCost").textContent = fmt(totalAnnual);
-        $("totalDetail").textContent =
-          `${fmt(totalAnnual / 12)}/kk — ${((totalAnnual / (team * rate * 8 * 22 * 12)) * 100).toFixed(1)}% projektin kokonaisbudjetista`;
+        const budgetPct =
+          budget > 0
+            ? `${((totalAnnual / budget) * 100).toFixed(1)}% vuosibudjetista (${fmt(budget)})`
+            : `${((totalAnnual / (team * rate * 8 * 22 * 12)) * 100).toFixed(1)}% laskennallisesta palkkakustannuksesta`;
+        $("totalDetail").textContent = `${fmt(totalAnnual / 12)}/kk — ${budgetPct}`;
 
         const baseSonnet = calculateForModel(
           team,
@@ -857,9 +870,11 @@
         return { tokenCost };
       }
 
-      [teamSize, hourlyRate, interruptions, downtime, tokenBudget].forEach((input) => {
-        input.addEventListener("input", calculate);
-      });
+      [teamSize, hourlyRate, interruptions, downtime, tokenBudget, yearlyBudget].forEach(
+        (input) => {
+          input.addEventListener("input", calculate);
+        },
+      );
 
       calculate();
     </script>
