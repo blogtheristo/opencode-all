@@ -27,6 +27,7 @@ const REPO = process.env.REPO_ROOT
   : path.resolve(__dirname, '../..');
 const LEARN = path.join(REPO, 'Learn');
 const COACH = path.join(REPO, 'Coach');
+const BIDS = path.join(REPO, 'bids');
 const LEARN_ARCHIVE = path.join(LEARN, 'Archive');
 
 const CSS = `
@@ -189,6 +190,7 @@ const summary = {
   external: [],
   coachRendered: [],
   coachArchived: [],
+  bidsRendered: [],
   learnRendered: [],
   learnArchived: [],
   errors: [],
@@ -278,6 +280,44 @@ if (fs.existsSync(COACH)) {
         href: outName,
       });
     }
+  }
+}
+
+// ── 2b. Bids: render each tender's documents → Learn HTML; collect attachments ─
+// Each bids/<REF>/ is a competitive tender response (distinct from Coach training
+// offers). Filenames are stable (no _vX.Y), so nothing is archived here — md is
+// rendered for easy viewing and non-md files (PDF etc.) are linked as attachments.
+const bidGroups = [];
+if (fs.existsSync(BIDS)) {
+  for (const ref of fs.readdirSync(BIDS).sort()) {
+    const refDir = path.join(BIDS, ref);
+    if (!fs.statSync(refDir).isDirectory() || ref.startsWith('_') || ref === 'Archive') continue;
+    const docs = [];
+    const attachments = [];
+    for (const n of fs.readdirSync(refDir).sort()) {
+      const abs = path.join(refDir, n);
+      if (!fs.statSync(abs).isFile()) continue;
+      if (n.endsWith('.md')) {
+        const md = fs.readFileSync(abs, 'utf8');
+        const outName = 'Bid_' + ref + '_' + n.replace(/\.md$/, '') + '.html';
+        fs.writeFileSync(
+          path.join(LEARN, outName),
+          mdToHtml(
+            md,
+            titleFromMd(md, n),
+            'fi',
+            extractVersion(md),
+            'Lifetime Oy · tarjous ' + ref,
+          ),
+        );
+        docs.push({ name: n.replace(/\.md$/, ''), href: outName });
+        summary.bidsRendered.push(outName);
+      } else {
+        // Attachment (PDF, pptx, …) — link relative to Learn/.
+        attachments.push({ name: n, href: '../bids/' + ref + '/' + n });
+      }
+    }
+    bidGroups.push({ ref, docs, attachments });
   }
 }
 
@@ -377,6 +417,34 @@ const coachRows = coachOffers.length
       .join('\n')
   : '<tr><td colspan="6">Ei Coach-tarjouksia.</td></tr>';
 
+const bidsSection = bidGroups.length
+  ? bidGroups
+      .map((g) => {
+        const docLinks = g.docs
+          .map((d) => '<a href="' + encodeURI(d.href) + '">' + escHtml(d.name) + '</a>')
+          .join(' · ');
+        const attLinks = g.attachments.length
+          ? '<br><strong>Liitteet:</strong> ' +
+            g.attachments
+              .map((a) => '<a href="' + encodeURI(a.href) + '">' + escHtml(a.name) + '</a>')
+              .join(' · ')
+          : '';
+        return (
+          '<li><strong>' +
+          escHtml(g.ref) +
+          '</strong> — ' +
+          g.docs.length +
+          ' dokumenttia, ' +
+          g.attachments.length +
+          ' liitettä<br>' +
+          docLinks +
+          attLinks +
+          '</li>'
+        );
+      })
+      .join('\n')
+  : '<li>Ei tarjouksia.</li>';
+
 const start = [
   '<!DOCTYPE html>',
   '<html lang="fi">',
@@ -400,6 +468,10 @@ const start = [
   '<table><thead><tr><th>Asiakas</th><th>Tuoteversio</th><th>Tuotetaso</th><th>Palvelutaso</th><th>Versio</th><th>Tila</th></tr></thead><tbody>',
   coachRows,
   '</tbody></table>',
+  '<h2>Tarjoukset (bids) — ' + bidGroups.length + ' kpl</h2>',
+  '<ul>',
+  bidsSection,
+  '</ul>',
   '<h2>Dokumentit (HTML) — ' + htmlDocs.length + ' kpl</h2>',
   '<ul class="col2">',
   htmlDocs.map(li).join('\n'),
@@ -439,6 +511,9 @@ console.log(
     summary.learnRendered.length +
     ' | Learn archived: ' +
     summary.learnArchived.length,
+);
+console.log(
+  '  Bids rendered     : ' + summary.bidsRendered.length + ' | bid groups: ' + bidGroups.length,
 );
 console.log('  Coach offers indexed: ' + coachOffers.length);
 console.log('  start.html docs: ' + htmlDocs.length + ' html, ' + mdDocs.length + ' md');
