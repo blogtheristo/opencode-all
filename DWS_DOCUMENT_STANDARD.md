@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.1
+Version: 2.2
 
 Sessions & Modifications:
 
+- Version: 2.2 | Tool: Claude Code | Session: claude/deepseek-v4-flash-hybrid-0niopt | Date: 27.06.2026 | Changes: Added File Lifecycle Suffixes subsection under §19 File Naming Template — codifies four named suffixes (\_DRAFT, \_DEPRECATED, \_RETIRED, \_ARCHIVE) to replace the ambiguous \_OLD convention. Renamed all ~72 \_OLD files in the repo to their correct suffix. Blog draft rule: \_DRAFT files require explicit approval before promotion. Dual-folder pairs must use the same suffix in the same commit.
 - Version: 2.1 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 25.06.2026 | Changes: Added §20 (Whitepaper Versioning) — codifies that customer-facing whitepapers carry a Document Revision (vX.Y) distinct from the subject standard/product version, a visible "Document revision · Last updated" line, a VERSION AND AGENT HISTORY provenance block (\*\*\*-delimited for markdown sources; HTML-comment form for public HTML where .md is forbidden per Non-Negotiable Rule 5), the patch/minor/major increment rule, Learn/ snapshot + dual-folder handling, and an HTML provenance template. Added §20 to the ToC. Triggered by the discovery that the live KYA whitepaper carried only the KYA Standard version and had no document-revision history, so a terminology/security edit (OpenClaw → NVIDIA NemoClaw) went out unrecorded.
 - Version: 2.0 | Tool: Claude Code (Haiku 4.5) | Session: claude/sync-version-numbering-adEeB | Date: 28.04.2026 | Changes: Added Section 5.4 (Thesis Version Numbering Format — CRITICAL): documented decimal 0.01 increment rule for all 4 thesis files (V3Thesis_EN/FI + PHD_FIREHORSE_EN/FI), unified version track requirement, rationale for preventing version fork confusion, and implementation guidance; version bump to 2.0 reflects addition of new critical standard for thesis artifact governance
 - Version: 1.9 | Tool: Claude Code (Opus 4.6) | Session: claude/plan-postgres-columnar-3bSn6 | Date: 12.03.2026 | Changes: Registered DWS_DATA_STANDARD.md in document ecosystem — new root-level standard for data storage governance, columnar/row policy, extension registry, EU regulatory compliance
@@ -2291,6 +2292,24 @@ Document Status:
 ```
 [CATEGORY]_[NAME]_[LANGUAGE]_v[VERSION].md
 ```
+
+### File Lifecycle Suffixes
+
+When a file is removed from active use, rename it with one of the following suffixes instead of deleting. Never use `_OLD` — use the suffix that communicates the file's actual status.
+
+| Suffix        | Meaning                                | When to use                                              | Examples                            |
+| ------------- | -------------------------------------- | -------------------------------------------------------- | ----------------------------------- |
+| `_DRAFT`      | Unpublished, awaiting approval         | Blog posts, proposals, content under review              | `deepseek-v4-flash_DRAFT.html`      |
+| `_DEPRECATED` | Replaced, will not return              | Code, scripts, configs, migrations, skills, hooks, infra | `grok-consent.routes_DEPRECATED.ts` |
+| `_RETIRED`    | Removed from production site           | HTML pages, product pages, store pages                   | `firehorse-automation_RETIRED.html` |
+| `_ARCHIVE`    | Historical snapshot kept for reference | Thesis versions, NDAs, field notes, legal docs           | `NDA_QANTIC_2026_ARCHIVE.md`        |
+
+**Rules:**
+
+1. `_DRAFT` files may be promoted to live by removing the suffix. All other suffixes are permanent.
+2. Blog drafts require explicit approval before promotion (CLAUDE.md blog draft rule).
+3. Dual-folder pairs (source + `landing-pages/`) must use the same suffix in the same commit.
+4. The `artifacts/` directory is exempt — it contains PR worktree snapshots that mirror the main tree.
 
 ---
 
