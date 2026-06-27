@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Osa-alue 1 — Agentti- ja tekoälyratkaisujen kehitys v2.0</title>
+<style>
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;max-width:1000px;margin:0 auto;padding:0 20px 40px;line-height:1.7;color:#1a1a2e;background:#fafafa}
+h1{color:#0f172a;border-bottom:3px solid #fbbf24;padding-bottom:10px}
+h2{color:#1e3a5f;border-bottom:1px solid #e2e8f0;padding-bottom:8px;margin-top:40px}
+h3{color:#334155}h4{color:#475569}
+code{background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:.9em}
+pre{background:#1e293b;color:#e2e8f0;padding:16px;border-radius:8px;overflow-x:auto}
+pre code{background:none;color:inherit}
+table{border-collapse:collapse;width:100%;margin:20px 0}
+th,td{border:1px solid #cbd5e1;padding:10px 14px;text-align:left}
+th{background:#1e3a5f;color:white}tr:nth-child(even){background:#f8fafc}
+blockquote{border-left:4px solid #fbbf24;margin:20px 0;padding:10px 20px;background:#fffbeb}
+a{color:#2563eb}strong{color:#0f172a}li{margin:4px 0}
+.dws-version-banner{background:#1e293b;color:#e2e8f0;padding:12px 20px;margin:0 -20px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.85rem}
+.dws-version-badge{background:#fbbf24;color:#0f172a;font-weight:700;padding:4px 12px;border-radius:20px;font-size:.9rem;letter-spacing:.04em}
+.dws-version-meta{color:#94a3b8;font-size:.8rem}
+.dws-version-title{color:#e2e8f0;font-weight:600}
+.col2{column-count:2;column-gap:32px}
+.col2 li{break-inside:avoid}
+.status-DRAFT{color:#b45309;font-weight:600}.status-ACTIVE{color:#15803d;font-weight:600}
+</style>
+</head>
+<body>
+<div class="dws-version-banner">
+  <span class="dws-version-title">Osa-alue 1 — Agentti- ja tekoälyratkaisujen kehitys</span>
+  <span class="dws-version-badge">v2.0</span>
+  <span class="dws-version-meta">Lifetime Oy · tarjous ORK160826</span>
+</div>
+<h1>Osa-alue 1 — Agentti- ja tekoälyratkaisujen kehitys</h1>
+<h2>Referenssilomake | ORK/1462/2026</h2>
+<hr />
+<p>VERSION AND AGENT HISTORY Version: 2.0 | 2026-06-27 | Claude Sonnet 4.6 | Päivitetty osa-aluekohtaisten vaatimusten mukaiseksi</p>
+<hr />
+<hr />
+<h2>Tarjoajan tiedot</h2>
+<p>Yritys: Lifetime Oy Y-tunnus: 0772407-9 Yhteyshenkilö: Risto Anton Päärni Sähköposti: risto.paarni@lifetime.fi</p>
+<hr />
+<h2>Vaatimuskartoitus — Osa-alue 1</h2>
+<table><thead><tr><th>Vaatimus</th><th>Referenssi</th><th>HTP</th></tr></thead><tbody><tr><td>LLM tuotannossa + RAG-ratkaisu, ≥20 htp</td><td>Referenssi 1 — DWS IQ 6 RAG-tuotantojärjestelmä</td><td>~300 htp</td></tr><tr><td>AWS-ympäristön tekoälyratkaisu, ≥20 htp</td><td>Referenssi 2 — AWS IoT Greengrass Edge AI</td><td>~30 htp</td></tr><tr><td>On-prem AI-agenttiratkaisu, ≥20 htp</td><td>Referenssi 3 — NVIDIA DGX Spark on-prem agenttituotanto</td><td>~40 htp</td></tr><tr><td>Tuotantokäyttöön viety agenttipohjainen ratkaisu, ≥20 htp</td><td>Referenssi 1 — DWS IQ 6 (sama projekti kattaa)</td><td>~300 htp</td></tr></tbody></table>
+<hr />
+<h2>Referenssi 1 — DWS IQ 6: LLM-tuotantojärjestelmä RAG-arkkitehtuurilla</h2>
+<strong>Kattaa vaatimukset:</strong> LLM tuotannossa + RAG-ratkaisu ≥20 htp; Tuotantokäyttöön viety agenttipohjainen ratkaisu ≥20 htp
+<strong>Asiakas / tilaaja:</strong> Lifetime Oy (tuotantokäyttö); loppuasiakkaat: pohjoismaiset teollisuusyritykset (energia, rakennus, logistiikka)
+<strong>Ajanjakso:</strong> 2023–2026 (jatkuva)
+<strong>Laajuus:</strong> n. 300 htp (Risto Päärni pääkehittäjä 100 %)
+<strong>Laskutettu asiakkaille:</strong> Q1/2026 pilottisopimukset 59 900 €; 6 maksavaa asiakasta, MRR 7 000 € (huhtikuu 2026)
+<strong>Kuvaus — RAG-ratkaisu tuotannossa:</strong>
+<p>15 000+ EU-sääntelydokumentin RAG-hakujärjestelmä on tuotantokäytössä. Kokonaisarkkitehtuuri:</p>
+<li><strong>RAG-pipeline:</strong> pgvector-semanttinen haku + metadata-suodatus → LLM-yhteenveto → lähdeviitteet; latenssi < 800 ms päästä päähän</li>
+<li><strong>Vektoritietokanta:</strong> Supabase PostgreSQL + pgvector; 16 toimialaontologiaa kontekstin mallintamiseen</li>
+<li><strong>LLM-integraatiot:</strong> Claude (Anthropic API, tool calling, streaming), Google Gemini, Groq LPU, LlamaStack, Ollama (paikalliset mallit)</li>
+<li><strong>Moniagentti-orkestrointi:</strong> 16+ TypeScript-agenttia, Model Context Protocol (MCP), deterministinen pisteytys, Zod-validointi</li>
+<li><strong>Tietoturva:</strong> EU AI Act Article 12 immutable audit trail tuotannossa, RLS, JWT, AES-256-GCM</li>
+<li><strong>Infra:</strong> Google Cloud Run, Cloudflare Workers, GitHub Actions CI/CD (15 työnkulkua), Docker</li>
+<strong>Referenssihenkilö:</strong> Risto Anton Päärni, risto.paarni@lifetime.fi
+<strong>Asiakasreferenssi:</strong> Saatavilla pyydettäessä (NDA-suojattu)
+<strong>Ulkopuolinen validointi:</strong> Euroopan komissio InvestEU-portaali ×3 (INPO-20254383); NVIDIA Inception Program; Microsoft Founders Hub L1–L4
+<hr />
+<h2>Referenssi 2 — AWS IoT Greengrass Edge AI -agenttijärjestelmä (on-prem + AWS)</h2>
+<strong>Kattaa vaatimukset:</strong> AWS-ympäristön tekoälyratkaisu ≥20 htp; On-prem AI-agenttiratkaisu ≥20 htp
+<strong>Asiakas / tilaaja:</strong> Lifetime Oy / NVIDIA Inception -ohjelma (hyväksytty kumppaniksi)
+<strong>Ajanjakso:</strong> 2024–2026
+<strong>Laajuus:</strong> n. 30 htp (Risto Päärni 100 %)
+<strong>Kuvaus — AWS + on-prem tekoälyagenttijärjestelmä:</strong>
+<p>Kehitetty off-grid tekoälypäättelyjärjestelmä suljettuihin verkkoihin, joka yhdistää AWS-orkestrointikerroksen ja paikallisen laitteistopäättelyn:</p>
+<li><strong>AWS IoT Greengrass v2:</strong> agentin elinkaarihallinta, OTA-päivitykset, pilvi-edge-synkronointi</li>
+<li><strong>Paikallinen inference:</strong> LlamaStack + Ollama NVIDIA Jetson Orin Nano -laitteistolla</li>
+<li><strong>Suorituskyky:</strong> < 100 ms latenssi ensimmäinen token, 7–15 W tehonkulutus</li>
+<li><strong>Käyttötapaus:</strong> turvallisuuskriittiset ympäristöt, suljetut teollisuusverkot, verkkoyhteydettömät käyttötilanteet</li>
+<li><strong>Agenttilogiikka:</strong> Python-pohjainen MCP-agentti, AWS Lambda -orkestraattori</li>
+<strong>Teknologia:</strong> AWS IoT Greengrass, Python, LlamaStack, Ollama, NVIDIA Jetson Orin Nano, MCP-protokolla, Docker
+<strong>Huomio:</strong> Tämä referenssi kattaa sekä AWS-ympäristön (Greengrass orkestraattori) että on-prem -ympäristön (Jetson Orin Nano paikallinen päättely) vaatimukset.
+<hr />
+<h2>Referenssi 3 — NVIDIA DGX Spark: on-prem agenttituotantoympäristö</h2>
+<strong>Kattaa vaatimukset:</strong> On-prem AI-agenttiratkaisu ≥20 htp
+<strong>Asiakas / tilaaja:</strong> Lifetime Oy (sisäinen tuotantoympäristö, 24/7-käyttö)
+<strong>Ajanjakso:</strong> 2025–2026 (jatkuva)
+<strong>Laajuus:</strong> n. 40 htp (asennus, konfigurointi, tuotantokäyttö, kehitys)
+<strong>Kuvaus — Täysin suvereenin on-prem AI-agenttituotantoympäristö:</strong>
+<p>NVIDIA DGX Spark toimii Lifetime Oy:n tuotantoympäristön primääripalvelimena täysin ilman pilviyhteyttä:</p>
+<li><strong>Laitteisto:</strong> NVIDIA DGX Spark, 128 GB yhtenäinen muisti, ~250 W</li>
+<li><strong>Tehtävä:</strong> Primääri cron-ajastinpalvelin 15 tuotantotyönkululle (24/7)</li>
+<li><strong>Mallit:</strong> Ollama + paikalliset LLM-mallit (Llama 3.3 70B, Qwen 2.5)</li>
+<li><strong>Failover:</strong> GitHub Actions aktivoituu automaattisesti vain DGX Sparkin vikatilanteessa</li>
+<li><strong>Agenttikehitys:</strong> Claude Code CLI päivittäisessä tuotantokäytössä kehitystyöhön</li>
+<li><strong>Tietosuoja:</strong> 100 % paikallinen — data ei poistu organisaation hallinnasta</li>
+<strong>Teknologia:</strong> NVIDIA DGX Spark, Ollama, Docker Compose, GitHub Actions, Ubuntu/DGX OS
+<hr />
+<h2>Avainasiantuntija: Risto Anton Päärni</h2>
+<table><thead><tr><th>Kenttä</th><th>Tieto</th></tr></thead><tbody><tr><td>Nimi</td><td>Risto Anton Päärni</td></tr><tr><td>Titteli</td><td>Toimitusjohtaja & Pää-arkkitehti, Lifetime Oy</td></tr><tr><td>Kokemusvuodet</td><td>35+ vuotta teollisuuden IT-järjestelmistä</td></tr><tr><td>Tekoälykokemus</td><td>3+ vuotta tuotantotason agenttijärjestelmistä (kirjoittaa koodia päivittäin)</td></tr><tr><td>Koulutus</td><td>YAMK, Smart Factory — Metropolia AMK (lopputyö jätetty 20.6.2026)</td></tr><tr><td>Kielet</td><td>Suomi (äidinkieli), englanti (C2), ruotsi (B2)</td></tr><tr><td>Sijainti</td><td>Espoo, Finland</td></tr><tr><td>Ohjelmat</td><td>NVIDIA Inception Program, Microsoft Founders Hub L1–L4</td></tr><tr><td>GitHub</td><td>1 500+ suljettua PR:ää dws6-repositoriossa (2024–2026)</td></tr></tbody></table>
+<h3>Tekninen osaaminen tähän osa-alueeseen</h3>
+<li>Moniagentti-orkestrointi: MCP-protokolla, TypeScript/Python, 16+ agentin tuotantojärjestelmä</li>
+<li>RAG-arkkitehtuuri: pgvector, semanttinen haku, < 800 ms latenssi, 15 000+ dokumenttia</li>
+<li>LLM-integraatiot: Claude API, Gemini, Groq, LlamaStack, Ollama</li>
+<li>AWS: IoT Greengrass, Lambda, edge-cloud-hybridiarkkitehtuuri</li>
+<li>On-prem: NVIDIA DGX Spark + Jetson Orin Nano, Ollama, suljetut verkot</li>
+<li>EU AI Act Article 12 lokitus, NIS2, GDPR tietoturva-arkkitehtuuri</li>
+</body>
+</html>
