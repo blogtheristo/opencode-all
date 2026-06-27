@@ -9,6 +9,12 @@ Status: DRAFT
 
 # Koulutustarjous — Nokia Defence
 
+> **Huom. — eri asiakirja kuin varsinainen tarjous.** Tämä on _Claude Code
+> -valmennuksen_ (koulutuksen) tarjous ja luotiin esimerkiksi versiointimallista.
+> Nokia Defencen **varsinainen palvelutarjous** (DWS IQ Aegis Defence -alusta ja
+> tekoälyn asiantuntijapalvelut) on kansiossa `bids/NOKIADEFENCE/`. Coach = koulutus,
+> bids/ = kilpailutus-/palvelutarjoukset.
+
 ---
 
 # VERSION AND AGENT HISTORY
