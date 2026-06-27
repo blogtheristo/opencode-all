@@ -391,6 +391,80 @@
       </div>
     </section>
 
+    <!-- Independent Solution Vendor Banner -->
+    <section style="padding: 40px 0 0">
+      <div class="container">
+        <div
+          style="
+            background: linear-gradient(
+              135deg,
+              rgba(96, 165, 250, 0.08),
+              rgba(167, 139, 250, 0.08)
+            );
+            border: 1px solid rgba(96, 165, 250, 0.25);
+            border-radius: 16px;
+            padding: 36px 32px;
+            text-align: center;
+          "
+        >
+          <div
+            style="
+              display: inline-block;
+              background: rgba(96, 165, 250, 0.15);
+              color: var(--text-accent);
+              padding: 5px 14px;
+              border-radius: 999px;
+              font-size: 0.8rem;
+              font-weight: 700;
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              margin-bottom: 14px;
+            "
+          >
+            Independent Solution Vendor
+          </div>
+          <h2
+            style="
+              font-size: clamp(1.4rem, 3vw, 2rem);
+              color: var(--text-primary);
+              margin-bottom: 12px;
+            "
+          >
+            Toolkit + LLM &rarr; World Model + Infrastructure
+          </h2>
+          <p
+            style="
+              color: var(--text-secondary);
+              max-width: 820px;
+              margin: 0 auto 24px;
+              line-height: 1.7;
+            "
+          >
+            DWS IQ is an independent solution vendor. Every industry vertical ships a curated
+            <strong style="color: var(--text-primary)">Toolkit</strong> (models, libraries,
+            pipelines from NVIDIA, Google DeepMind, and open-source communities) combined with the
+            best <strong style="color: var(--text-primary)">LLM</strong> for the domain, trained
+            into a <strong style="color: var(--text-primary)">Lifetime World Model</strong> with
+            industry-specific knowledge, and deployed on
+            <strong style="color: var(--text-primary)">Sovereign Infrastructure</strong>
+            (DGX Spark + DWS Rooms). We select the best tools for each domain, not the ones from a
+            single vendor. Whitepapers and product cards document every integration.
+          </p>
+          <img
+            src="isv-formula.png"
+            alt="Independent Solution Vendor formula: Toolkit + LLM → World Model + Infrastructure — 4 pillars showing best-of-breed models, frontier LLM reasoning, industry-specific Lifetime World Model, and sovereign DGX Spark + DWS Rooms infrastructure"
+            style="
+              max-width: 100%;
+              width: 960px;
+              border-radius: 12px;
+              margin: 8px auto 0;
+              display: block;
+            "
+          />
+        </div>
+      </div>
+    </section>
+
     <section class="industries">
       <div class="container">
         <div class="section-head">
@@ -491,13 +565,14 @@
           <div class="industry-card">
             <div class="industry-icon"><i class="fas fa-heartbeat"></i></div>
             <h3>Healthcare</h3>
-            <p class="regs">CSRD · GDPR · EHDS · MDR</p>
+            <p class="regs">CSRD · GDPR · EHDS · MDR · EU AI Act</p>
             <p class="blurb">
-              Hospital networks and MedTech — facility carbon, ESRS S1, and EHDS-aligned secondary
-              data use.
+              Hospital networks, MedTech, and life sciences — facility carbon, ESRS S1, EHDS-aligned
+              secondary data use, and NVIDIA BioNeMo-powered drug discovery and genomic analysis.
             </p>
             <div class="stack-line">
-              <strong>DWS IQ</strong> orchestrates a sovereign on-prem agent.
+              <strong>DWS IQ</strong> orchestrates a sovereign on-prem agent + NVIDIA BioNeMo Agent
+              Toolkit skills for virtual screening, genomics, and protein design.
               <strong>Firehorse</strong>
               produces CSRD packs and EHDS-ready governance dossiers.
             </div>
@@ -734,9 +809,10 @@
         text-align: right;
       "
     >
-      Industries Hub — page v1.1 · 2026-06-23
+      Industries Hub — page v1.3 · 2026-06-27 · Independent Solution Vendor banner + Toolkit pattern
     </p>
 
+    <script src="/shared-assets/vertical-lang-bar.js"></script>
     <script src="/shared-assets/footer/ironclad-footer.js"></script>
   </body>
 </html>
