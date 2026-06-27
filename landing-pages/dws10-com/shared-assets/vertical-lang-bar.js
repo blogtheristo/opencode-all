@@ -24,6 +24,8 @@
  *        bar injects on pages without a .container wrapper.
  * v1.4 — Added Claude Code Coaching context: per-language hero line for
  *        /products/claude-code-coaching; hardware version line hidden.
+ * v1.5 — Added healthcare and industries contexts: per-language hero lines for
+ *        /healthcare/ and /industries/ pages; hardware version line hidden.
  */
 (function () {
   'use strict';
@@ -121,6 +123,20 @@
       fr: 'Juridique & gouvernance des données — gestion de la protection des données, prêt RGPD et règlement IA UE.',
       en: 'Legal & data governance — data protection management, GDPR & EU AI Act ready.',
     },
+    healthcare: {
+      fi: 'Terveydenhuollon tekoäly — BioNeMo, MONAI, AlphaFold ja suvereeni infrastruktuuri EU-sairaaloille.',
+      sv: 'Sjukvårds-AI — BioNeMo, MONAI, AlphaFold och suverän infrastruktur för EU-sjukhus.',
+      de: 'Gesundheits-KI — BioNeMo, MONAI, AlphaFold und souveräne Infrastruktur für EU-Kliniken.',
+      fr: "IA santé — BioNeMo, MONAI, AlphaFold et infrastructure souveraine pour les hôpitaux de l'UE.",
+      en: 'Healthcare AI — BioNeMo, MONAI, AlphaFold & sovereign infrastructure for EU hospitals.',
+    },
+    industries: {
+      fi: '25 EU-säänneltyä toimialaa — Toolkit + LLM → Maailmamalli + Infrastruktuuri.',
+      sv: '25 EU-reglerade branscher — Toolkit + LLM → Världsmodell + Infrastruktur.',
+      de: '25 EU-regulierte Branchen — Toolkit + LLM → Weltmodell + Infrastruktur.',
+      fr: '25 secteurs réglementés UE — Toolkit + LLM → Modèle du monde + Infrastructure.',
+      en: '25 EU-regulated industries — Toolkit + LLM → World Model + Infrastructure.',
+    },
   };
 
   // Context-aware destination: hub pages route to /compliance/<lang>/ etc.; EN stays at root.
@@ -173,6 +189,8 @@
   else if (path.indexOf('/claude-code-coaching') !== -1) pageType = 'coaching';
   else if (path.indexOf('/buy') !== -1) pageType = 'store';
   else if (path.indexOf('/products/') !== -1) pageType = 'product';
+  else if (path.indexOf('/healthcare') !== -1) pageType = 'healthcare';
+  else if (path.indexOf('/industries') !== -1) pageType = 'industries';
   else if (path.indexOf('/compliance') !== -1) pageType = 'compliance';
   else if (path.indexOf('/legal') !== -1) pageType = 'legal';
 
