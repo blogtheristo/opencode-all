@@ -1,0 +1,868 @@
+<!doctype html>
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Keskeytyskustannuslaskuri 2.0 | Lifetime Oy</title>
+    <meta
+      name="description"
+      content="Laske projektin keskeytyksen todelliset kustannukset — mukaan lukien kohonneet token-pääomakulut (Opus/Sonnet). Lifetime Oy."
+    />
+    <meta name="author" content="Lifetime Oy" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Keskeytyskustannuslaskuri 2.0 | Lifetime Oy" />
+    <meta
+      property="og:description"
+      content="Projektin keskeytyksen todelliset kustannukset — token-pääomakulut, kontekstin uudelleenrakennus, vauhdin menetys."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://lifetime.fi/laskuri/" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="og:site_name" content="Lifetime Oy" />
+    <link rel="canonical" href="https://lifetime.fi/laskuri/" />
+    <link rel="icon" type="image/png" href="https://dws10.com/DWS_IQ2026.png" />
+    <style>
+      :root {
+        --bg-primary: #0f172a;
+        --bg-surface: rgba(30, 41, 59, 0.7);
+        --border-subtle: rgba(255, 255, 255, 0.1);
+        --text-primary: #e2e8f0;
+        --text-secondary: #94a3b8;
+        --color-gold: #b8860b;
+        --color-gold-light: #d4a843;
+        --color-red: #ef4444;
+        --color-red-glow: rgba(239, 68, 68, 0.15);
+        --color-amber: #f59e0b;
+        --color-emerald: #10b981;
+        --radius-md: 8px;
+        --radius-lg: 12px;
+        --radius-xl: 16px;
+        --radius-full: 9999px;
+        --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+        color: var(--text-primary);
+        background: var(--bg-primary);
+        min-height: 100vh;
+        line-height: 1.7;
+      }
+
+      .hero {
+        padding: 100px 24px 48px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(165deg, #0f172a 0%, #1a1a2e 40%, #0f172a 100%);
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(ellipse at 30% 60%, rgba(239, 68, 68, 0.06) 0%, transparent 60%),
+          radial-gradient(ellipse at 70% 40%, rgba(184, 134, 11, 0.06) 0%, transparent 50%);
+        pointer-events: none;
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 740px;
+        margin: 0 auto;
+      }
+
+      .hero-overline {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: var(--color-gold);
+        font-weight: 600;
+        margin-bottom: 16px;
+      }
+
+      .hero h1 {
+        font-size: clamp(2rem, 5vw, 3.2rem);
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 16px;
+        letter-spacing: -0.03em;
+      }
+
+      .hero-accent {
+        background: linear-gradient(135deg, var(--color-red) 0%, var(--color-amber) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .version-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 12px;
+        background: rgba(239, 68, 68, 0.12);
+        border: 1px solid rgba(239, 68, 68, 0.25);
+        border-radius: var(--radius-full);
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--color-red);
+        letter-spacing: 0.05em;
+        margin-bottom: 20px;
+      }
+
+      .hero-desc {
+        font-size: 1.05rem;
+        color: var(--text-secondary);
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.7;
+      }
+
+      /* Calculator layout */
+      .calc-container {
+        max-width: 1080px;
+        margin: -20px auto 80px;
+        padding: 0 24px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+
+      @media (max-width: 768px) {
+        .calc-container {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .calc-panel {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-xl);
+        padding: 32px;
+      }
+
+      .panel-title {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--color-gold);
+        font-weight: 600;
+        margin-bottom: 24px;
+      }
+
+      /* Input groups */
+      .input-group {
+        margin-bottom: 28px;
+      }
+
+      .input-group label {
+        display: block;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 8px;
+      }
+
+      .input-group .input-hint {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        margin-bottom: 8px;
+      }
+
+      input[type="range"] {
+        width: 100%;
+        height: 6px;
+        -webkit-appearance: none;
+        appearance: none;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 3px;
+        outline: none;
+        margin-bottom: 4px;
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--color-gold-light);
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(184, 134, 11, 0.4);
+      }
+
+      input[type="range"]::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--color-gold-light);
+        cursor: pointer;
+        border: none;
+        box-shadow: 0 2px 8px rgba(184, 134, 11, 0.4);
+      }
+
+      .value-display {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--color-gold-light);
+      }
+
+      /* Model selector */
+      .model-selector {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 8px;
+      }
+
+      .model-btn {
+        padding: 8px 14px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md);
+        color: var(--text-secondary);
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all var(--transition-base);
+      }
+
+      .model-btn:hover {
+        border-color: rgba(184, 134, 11, 0.3);
+        color: var(--text-primary);
+      }
+
+      .model-btn.active {
+        background: rgba(184, 134, 11, 0.12);
+        border-color: var(--color-gold);
+        color: var(--color-gold-light);
+      }
+
+      /* Results */
+      .result-item {
+        margin-bottom: 20px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .result-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--text-secondary);
+        margin-bottom: 4px;
+      }
+
+      .result-value {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      .result-detail {
+        font-size: 0.78rem;
+        color: var(--text-secondary);
+        margin-top: 4px;
+      }
+
+      .result-item.token-cost .result-value {
+        color: var(--color-amber);
+      }
+
+      .result-item.human-cost .result-value {
+        color: var(--color-gold-light);
+      }
+
+      .result-total {
+        background: var(--color-red-glow);
+        border: 1px solid rgba(239, 68, 68, 0.2);
+        border-left: 4px solid var(--color-red);
+        border-radius: var(--radius-md);
+        padding: 20px;
+        margin-top: 8px;
+      }
+
+      .result-total .result-label {
+        color: rgba(239, 68, 68, 0.7);
+      }
+
+      .result-total .result-value {
+        font-size: 2.2rem;
+        color: var(--color-red);
+      }
+
+      /* Breakdown bar */
+      .breakdown-bar {
+        display: flex;
+        height: 10px;
+        border-radius: 5px;
+        overflow: hidden;
+        margin: 20px 0 12px;
+      }
+
+      .bar-human {
+        background: var(--color-gold-light);
+      }
+      .bar-token {
+        background: var(--color-amber);
+      }
+      .bar-momentum {
+        background: var(--color-red);
+      }
+
+      .breakdown-legend {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+      }
+
+      .legend-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+
+      /* Comparison */
+      .comparison-section {
+        max-width: 1080px;
+        margin: 0 auto 80px;
+        padding: 0 24px;
+      }
+
+      .comparison-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+
+      @media (max-width: 768px) {
+        .comparison-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .comparison-card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+        padding: 24px;
+        text-align: center;
+      }
+
+      .comparison-card h4 {
+        font-size: 0.9rem;
+        color: var(--text-primary);
+        margin-bottom: 4px;
+      }
+
+      .comparison-card .comp-value {
+        font-size: 1.8rem;
+        font-weight: 800;
+        margin: 8px 0;
+      }
+
+      .comparison-card p {
+        font-size: 0.78rem;
+        color: var(--text-secondary);
+      }
+
+      .comp-sonnet {
+        color: var(--color-emerald);
+      }
+      .comp-opus {
+        color: var(--color-amber);
+      }
+      .comp-team {
+        color: var(--color-red);
+      }
+
+      /* Token rate card */
+      .rate-card-section {
+        max-width: 1080px;
+        margin: 0 auto 80px;
+        padding: 0 24px;
+      }
+
+      .rate-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 16px;
+      }
+
+      .rate-table th,
+      .rate-table td {
+        padding: 12px 16px;
+        text-align: left;
+        font-size: 0.85rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .rate-table th {
+        color: var(--text-secondary);
+        font-weight: 600;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+      }
+
+      .rate-table td {
+        color: var(--text-primary);
+      }
+
+      .rate-table tr.active-row {
+        background: rgba(184, 134, 11, 0.08);
+      }
+
+      .rate-highlight {
+        color: var(--color-amber);
+        font-weight: 700;
+      }
+
+      /* CTA */
+      .cta-section {
+        max-width: 700px;
+        margin: 0 auto 100px;
+        padding: 0 24px;
+        text-align: center;
+      }
+
+      .btn-gold {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 16px 36px;
+        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+        color: #0f172a;
+        font-size: 1rem;
+        font-weight: 700;
+        text-decoration: none;
+        border-radius: var(--radius-full);
+        box-shadow: 0 10px 30px rgba(184, 134, 11, 0.25);
+        transition: all var(--transition-base);
+      }
+
+      .btn-gold:hover {
+        box-shadow: 0 15px 40px rgba(184, 134, 11, 0.35);
+        transform: translateY(-2px);
+      }
+
+      .section-label {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        color: var(--color-gold);
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+
+      .section-title {
+        font-size: clamp(1.4rem, 3vw, 1.8rem);
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 16px;
+      }
+
+      /* Footer */
+      .corp-footer {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 24px 60px;
+      }
+
+      .footer-inner {
+        border-top: 1px solid var(--border-subtle);
+        padding-top: 32px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 24px;
+      }
+
+      .footer-inner p {
+        font-size: 0.75rem;
+        color: #475569;
+      }
+
+      .footer-inner a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 0.8rem;
+      }
+
+      .footer-inner a:hover {
+        color: var(--text-primary);
+      }
+    </style>
+    <script src="/shared-assets/nav/ironclad-nav.js" defer></script>
+  </head>
+  <body>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="version-badge">v2.0 &mdash; Token Capital</div>
+        <div class="hero-overline">Lifetime Oy &mdash; Laskuri</div>
+        <h1>Projektin <span class="hero-accent">keskeytyskustannukset</span></h1>
+        <p class="hero-desc">
+          Jokainen keskeytys maksaa enemmän kuin luulet. Versio 2.0 laskee mukaan kohonneet
+          token-pääomakulut &mdash; menetetty välimuisti, uudelleenrakennettava konteksti, ja
+          kalliin Opus-tason mallin hukattu kapasiteetti.
+        </p>
+      </div>
+    </section>
+
+    <!-- Calculator -->
+    <div class="calc-container">
+      <!-- Inputs -->
+      <div class="calc-panel">
+        <div class="panel-title">Projektin parametrit</div>
+
+        <div class="input-group">
+          <label>Tiimin koko (henkilöä)</label>
+          <input type="range" id="teamSize" min="1" max="50" value="5" />
+          <div class="value-display"><span id="teamVal">5</span> henkilöä</div>
+        </div>
+
+        <div class="input-group">
+          <label>Keskimääräinen tuntipalkka (€/h)</label>
+          <input type="range" id="hourlyRate" min="30" max="200" value="75" step="5" />
+          <div class="value-display"><span id="rateVal">75</span> €/h</div>
+        </div>
+
+        <div class="input-group">
+          <label>Keskeytyksiä kuukaudessa</label>
+          <div class="input-hint">Sprintin vaihto, prioriteettimuutos, odottamaton crunch</div>
+          <input type="range" id="interruptions" min="1" max="20" value="3" />
+          <div class="value-display"><span id="intVal">3</span> krt/kk</div>
+        </div>
+
+        <div class="input-group">
+          <label>Keskeytyksen kesto (päivää)</label>
+          <div class="input-hint">Keskimääräinen aika ennen kuin tiimi on täydessä vauhdissa</div>
+          <input type="range" id="downtime" min="1" max="14" value="3" />
+          <div class="value-display"><span id="downVal">3</span> päivää</div>
+        </div>
+
+        <div class="input-group">
+          <label>AI/Token-budjetti (€/kk)</label>
+          <div class="input-hint">Claude Code, Copilot, API-kutsut yhteensä</div>
+          <input type="range" id="tokenBudget" min="100" max="20000" value="2000" step="100" />
+          <div class="value-display"><span id="tokenVal">2 000</span> €/kk</div>
+        </div>
+
+        <div class="input-group">
+          <label>Pääasiallinen mallitaso</label>
+          <div class="input-hint">Kalliimpi malli = suurempi hukka keskeytyksessä</div>
+          <div class="model-selector">
+            <button class="model-btn" data-model="haiku" data-rate="1">Haiku</button>
+            <button class="model-btn active" data-model="sonnet" data-rate="3">Sonnet</button>
+            <button class="model-btn" data-model="opus" data-rate="15">Opus</button>
+            <button class="model-btn" data-model="opus-max" data-rate="30">Opus Max</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="calc-panel">
+        <div class="panel-title">Vuosikustannukset</div>
+
+        <div class="result-item human-cost">
+          <div class="result-label">Inhimillinen kontekstin uudelleenrakennus</div>
+          <div class="result-value" id="humanCost">€0</div>
+          <div class="result-detail" id="humanDetail"></div>
+        </div>
+
+        <div class="result-item token-cost">
+          <div class="result-label">Token-pääoman menetys (v2.0)</div>
+          <div class="result-value" id="tokenCost">€0</div>
+          <div class="result-detail" id="tokenDetail"></div>
+        </div>
+
+        <div class="result-item">
+          <div class="result-label">Vauhdin menetys (momentum loss)</div>
+          <div class="result-value" id="momentumCost">€0</div>
+          <div class="result-detail" id="momentumDetail"></div>
+        </div>
+
+        <div class="breakdown-bar">
+          <div class="bar-human" id="barHuman" style="width: 40%"></div>
+          <div class="bar-token" id="barToken" style="width: 25%"></div>
+          <div class="bar-momentum" id="barMomentum" style="width: 35%"></div>
+        </div>
+        <div class="breakdown-legend">
+          <div class="legend-item">
+            <div class="legend-dot" style="background: var(--color-gold-light)"></div>
+            Inhimillinen
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background: var(--color-amber)"></div>
+            Token-pääoma
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background: var(--color-red)"></div>
+            Momentum
+          </div>
+        </div>
+
+        <div class="result-total">
+          <div class="result-label">Kokonaiskustannus / vuosi</div>
+          <div class="result-value" id="totalCost">€0</div>
+          <div class="result-detail" id="totalDetail"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Model comparison -->
+    <div class="comparison-section">
+      <div class="section-label">Mallitason vertailu</div>
+      <div class="section-title">Mitä kalliimpi malli, sitä suurempi keskeytyksen hinta</div>
+      <div class="comparison-grid">
+        <div class="comparison-card">
+          <h4>Sonnet-taso</h4>
+          <div class="comp-value comp-sonnet" id="compSonnet">€0</div>
+          <p>~$3/MTok input, ~$15/MTok output<br />Perusmallin hukka</p>
+        </div>
+        <div class="comparison-card" style="border-color: var(--color-amber)">
+          <h4>Opus-taso</h4>
+          <div class="comp-value comp-opus" id="compOpus">€0</div>
+          <p>~$15/MTok input, ~$75/MTok output<br />5&times; kalliimpi per token</p>
+        </div>
+        <div class="comparison-card">
+          <h4>Opus + Extended Thinking</h4>
+          <div class="comp-value comp-team" id="compOpusMax">€0</div>
+          <p>~$30/MTok input, ~$150/MTok output<br />10&times; kalliimpi per token</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Token rate card -->
+    <div class="rate-card-section">
+      <div class="section-label">Token-hinnaston perusteet</div>
+      <div class="section-title">Miksi token-pääomakulu nousee keskeytyksessä?</div>
+      <div class="calc-panel" style="margin-top: 16px">
+        <table class="rate-table">
+          <thead>
+            <tr>
+              <th>Kustannuserä</th>
+              <th>Selite</th>
+              <th>Kerroin</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Välimuistin menetys</td>
+              <td>
+                Prompt cache (5 min TTL) vanhenee &mdash; kaikki konteksti lähetetään uudelleen
+                täyshintaan
+              </td>
+              <td class="rate-highlight">1.0&times;</td>
+            </tr>
+            <tr>
+              <td>Keskusteluhistorian uudelleenrakennus</td>
+              <td>
+                Agent-sessiot katkeaa &mdash; päätöshistoria, työmuisti ja viitetiedostot ladataan
+                uudelleen
+              </td>
+              <td class="rate-highlight">0.6&times;</td>
+            </tr>
+            <tr>
+              <td>Tuottamaton tutkimus</td>
+              <td>
+                Tiimi selvittää "missä oltiin" &mdash; AI-avusteinen koodin selaaminen ja
+                ongelmanmäärittely
+              </td>
+              <td class="rate-highlight">0.3&times;</td>
+            </tr>
+            <tr>
+              <td>Virhekierre (hallusinaatiot)</td>
+              <td>
+                Uusi konteksti ilman historiaa tuottaa enemmän vääriä ehdotuksia ja retry-syklejä
+              </td>
+              <td class="rate-highlight">0.2&times;</td>
+            </tr>
+            <tr style="border-top: 2px solid rgba(255, 255, 255, 0.1)">
+              <td><strong>Yhteensä: hukka per keskeytys</strong></td>
+              <td></td>
+              <td class="rate-highlight"><strong>2.1&times;</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <div class="section-label">Vähennä keskeytyskustannuksia</div>
+      <div class="section-title" style="margin-bottom: 24px">
+        DWS IQ:n Loop Engineering pitää kontekstin elossa
+      </div>
+      <p style="color: var(--text-secondary); margin-bottom: 32px; font-size: 0.95rem">
+        Maker&ndash;Checker-silmukat, levylle persistoitu tila, budjettirajoitin ja
+        turvallisuusportti. Keskeytys ei tuhoa kontekstia &mdash; loop jatkaa siitä mihin jäätiin.
+      </p>
+      <a href="https://lifetime.fi/agents-loops-workflows/" class="btn-gold"
+        >Agents &middot; Loops &middot; Workflows</a
+      >
+    </div>
+
+    <!-- Footer -->
+    <footer class="corp-footer">
+      <div class="footer-inner">
+        <div>
+          <p>&copy; 2026 Lifetime Oy &middot; Y-tunnus 0772407-9 &middot; VAT FI07724079</p>
+          <p>Laidunmaanraitti 2 A 25, 02330 Espoo, Finland</p>
+        </div>
+        <div>
+          <a href="https://lifetime.fi">lifetime.fi</a> &middot;
+          <a href="https://dws10.com">dws10.com</a> &middot;
+          <a href="https://onelifetime.world">onelifetime.world</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const $ = (id) => document.getElementById(id);
+
+      const teamSize = $("teamSize");
+      const hourlyRate = $("hourlyRate");
+      const interruptions = $("interruptions");
+      const downtime = $("downtime");
+      const tokenBudget = $("tokenBudget");
+
+      let selectedModelRate = 3;
+
+      const fmt = (v) =>
+        new Intl.NumberFormat("fi-FI", {
+          style: "currency",
+          currency: "EUR",
+          maximumFractionDigits: 0,
+        }).format(v);
+
+      const fmtNum = (v) => new Intl.NumberFormat("fi-FI").format(v);
+
+      const MODEL_MULTIPLIERS = {
+        1: { label: "Haiku", inputCost: 0.25, outputCost: 1.25, wasteFactor: 1.4 },
+        3: { label: "Sonnet", inputCost: 3, outputCost: 15, wasteFactor: 2.1 },
+        15: { label: "Opus", inputCost: 15, outputCost: 75, wasteFactor: 2.8 },
+        30: { label: "Opus Max", inputCost: 30, outputCost: 150, wasteFactor: 3.2 },
+      };
+
+      document.querySelectorAll(".model-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".model-btn").forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          selectedModelRate = Number(btn.dataset.rate);
+          calculate();
+        });
+      });
+
+      function calculate() {
+        const team = Number(teamSize.value);
+        const rate = Number(hourlyRate.value);
+        const intPerMonth = Number(interruptions.value);
+        const downDays = Number(downtime.value);
+        const tokenBudgetMonthly = Number(tokenBudget.value);
+        const model = MODEL_MULTIPLIERS[selectedModelRate];
+
+        $("teamVal").textContent = team;
+        $("rateVal").textContent = rate;
+        $("intVal").textContent = intPerMonth;
+        $("downVal").textContent = downDays;
+        $("tokenVal").textContent = fmtNum(tokenBudgetMonthly);
+
+        const rampUpHoursPerPerson = Math.min(downDays * 2.5, 16);
+        const humanCostAnnual = team * rate * rampUpHoursPerPerson * intPerMonth * 12;
+
+        const dailyTokenSpend = tokenBudgetMonthly / 22;
+        const tokenWastePerInterruption = dailyTokenSpend * downDays * (model.wasteFactor - 1);
+        const tokenCostAnnual = tokenWastePerInterruption * intPerMonth * 12;
+
+        const dailyProjectCost = team * rate * 8 + dailyTokenSpend;
+        const velocityLoss = 0.35;
+        const momentumCostAnnual = dailyProjectCost * velocityLoss * downDays * intPerMonth * 12;
+
+        const totalAnnual = humanCostAnnual + tokenCostAnnual + momentumCostAnnual;
+
+        $("humanCost").textContent = fmt(humanCostAnnual);
+        $("humanDetail").textContent =
+          `${team} hlö × ${rampUpHoursPerPerson.toFixed(1)} h ramp-up × ${intPerMonth} krt/kk × 12 kk`;
+
+        $("tokenCost").textContent = fmt(tokenCostAnnual);
+        $("tokenDetail").textContent =
+          `${model.label}: ${model.wasteFactor}× hukka-kerroin — cache miss + kontekstin uudelleenlataus`;
+
+        $("momentumCost").textContent = fmt(momentumCostAnnual);
+        $("momentumDetail").textContent =
+          `${(velocityLoss * 100).toFixed(0)}% tehokkuuspudotus × ${downDays} pv palautumisaika`;
+
+        const totalPct = humanCostAnnual + tokenCostAnnual + momentumCostAnnual || 1;
+        $("barHuman").style.width = (humanCostAnnual / totalPct) * 100 + "%";
+        $("barToken").style.width = (tokenCostAnnual / totalPct) * 100 + "%";
+        $("barMomentum").style.width = (momentumCostAnnual / totalPct) * 100 + "%";
+
+        $("totalCost").textContent = fmt(totalAnnual);
+        $("totalDetail").textContent =
+          `${fmt(totalAnnual / 12)}/kk — ${((totalAnnual / (team * rate * 8 * 22 * 12)) * 100).toFixed(1)}% projektin kokonaisbudjetista`;
+
+        const baseSonnet = calculateForModel(
+          team,
+          rate,
+          intPerMonth,
+          downDays,
+          tokenBudgetMonthly,
+          MODEL_MULTIPLIERS[3],
+        );
+        const baseOpus = calculateForModel(
+          team,
+          rate,
+          intPerMonth,
+          downDays,
+          tokenBudgetMonthly,
+          MODEL_MULTIPLIERS[15],
+        );
+        const baseOpusMax = calculateForModel(
+          team,
+          rate,
+          intPerMonth,
+          downDays,
+          tokenBudgetMonthly,
+          MODEL_MULTIPLIERS[30],
+        );
+
+        $("compSonnet").textContent = fmt(baseSonnet.tokenCost) + "/v";
+        $("compOpus").textContent = fmt(baseOpus.tokenCost) + "/v";
+        $("compOpusMax").textContent = fmt(baseOpusMax.tokenCost) + "/v";
+      }
+
+      function calculateForModel(team, rate, intPerMonth, downDays, tokenBudgetMonthly, model) {
+        const dailyTokenSpend = tokenBudgetMonthly / 22;
+        const tokenWaste = dailyTokenSpend * downDays * (model.wasteFactor - 1);
+        const tokenCost = tokenWaste * intPerMonth * 12;
+        return { tokenCost };
+      }
+
+      [teamSize, hourlyRate, interruptions, downtime, tokenBudget].forEach((input) => {
+        input.addEventListener("input", calculate);
+      });
+
+      calculate();
+    </script>
+    <script src="/shared-assets/footer/ironclad-footer.js" defer></script>
+  </body>
+</html>
