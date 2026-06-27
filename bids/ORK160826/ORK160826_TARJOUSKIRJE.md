@@ -1,0 +1,94 @@
+# Tarjouskirje
+
+## Tekoälyn asiantuntijapalvelut — ORK/1462/2026
+
+---
+
+VERSION AND AGENT HISTORY
+Version: 1.0 | 2026-06-27 | Claude Sonnet 4.6 | Luotu tarjouspyynnön pohjalta
+
+---
+
+---
+
+**Tilaaja:**
+Oikeusrekisterikeskus (ORK)
+Hämeenlinna
+
+**Viite:** ORK/1462/2026
+**Päiväys:** 27.6.2026
+**Tarjoaja:**
+
+Lifetime Oy
+Y-tunnus: 0772407-9
+Laidunmaanraitti 2 A 25, 02330 Espoo, Finland
+VAT: FI07724079
+Yhteyshenkilö: Risto Anton Päärni, toimitusjohtaja
+Sähköposti: risto.paarni@lifetime.fi
+
+---
+
+## Tarjouksen kohde
+
+Lifetime Oy tarjoaa tällä tarjouksella tekoälyn asiantuntijapalveluja kaikkiin kolmeen osa-alueeseen:
+
+- **Osa-alue 1:** Agentti- ja tekoälyratkaisujen kehitys
+- **Osa-alue 2:** Asiakasratkaisujen ja -prosessien kehityksen tuki
+- **Osa-alue 3:** Agenttipohjainen järjestelmäkehitys
+
+## Tarjoajan esittely
+
+Lifetime Oy on suomalainen tekoäly- ja ohjelmistoyritys, joka on rakentanut DWS IQ 6 -alustan — 16+ tekoälyagentin tuotantojärjestelmän — toimitusjohtaja Risto Anton Päärnin johdolla. Yrityksen ydinosaaminen kattaa täsmälleen Oikeusrekisterikeskuksen hankinnan kolme osa-aluetta:
+
+1. **Agenttijärjestelmät ja moniagentti-orkestrointi** — Model Context Protocol (MCP), TypeScript/Python-agentit, deterministinen pisteytys, tool calling
+2. **Asiakasprosessien digitalisaatio** — EU-sääntelyautomatisointi, tiedonhaku RAG-arkkitehtuurilla, prosessiautomaatio
+3. **Agenttipohjainen järjestelmäkehitys** — Tuotantotason agenttijärjestelmät Supabase/PostgreSQL + pgvector -pohjalla, Google Cloud Run, GitHub Actions CI/CD
+
+Yritys toimii **oikeusministeriön hallinnonalan kannalta relevanteilla** osaamis-alueilla:
+
+- EU AI Act Article 12 -vaatimusten mukainen lokitus tuotannossa
+- GDPR-yhteensopiva tietojenkäsittely ja arkkitehtuuri
+- NIS2-direktiivin mukainen tietoturva-arkkitehtuuri
+- Avoin lähdekoodi ja suvereenin EU-arkkitehtuurin periaatteet
+
+## Suvereenin toteutuksen tarjous — NVIDIA-laitteisto
+
+Lifetime Oy tarjoaa ORK:lle mahdollisuuden **täysin EU-suvereeniin AI-toteutukseen** NVIDIA DGX Spark -laitteistolla. Tämä tarkoittaa, että kaikki tekoälypäättely tapahtuu ORK:n omissa tiloissa — oikeushallinnon kriittinen data ei poistu organisaation hallinnasta eikä siirry US CLOUD Act -piirissä oleviin pilvipalveluihin.
+
+Tarjoamme kahta laitteistokokoonpanoa (kuvattu erillisessä liitteessä):
+
+**Control Room 1x** — yksittäisen viraston tai projektin suvereenin AI-kehitysympäristö
+
+- 1× NVIDIA DGX Spark, 128 GB yhtenäinen muisti, ~250 W, Llama 3.3 70B / Qwen 2.5 72B
+- Arviohinta laitteistoineen ja käyttöönottoineen: n. **5 400 – 5 900 €**
+
+**Situation Room** — hallinnonalan kattava frontier-AI-kapasiteetti
+
+- 4× NVIDIA DGX Spark klusteroituna, 512 GB muisti, 1 000 000 tokenin konteksti-ikkuna
+- Mahdollistaa koko lakikokoelman tai laajan asiakirja-arkiston analysoinnin yhdessä kyselyssä
+- Arviohinta laitteistoineen ja käyttöönottoineen: n. **25 000 – 29 000 €**
+
+Lifetime Oy käyttää DGX Spark -laitteistoa omassa tuotantoympäristössään 24/7 — käytännön kokemus asennuksesta, konfiguroinnista ja tuotantokäytöstä on olemassa.
+
+## Sitoumus
+
+Lifetime Oy sitoutuu:
+
+- Noudattamaan tilaajan työnjohtoa toimeksiannoissa
+- Toimittamaan palvelut suomen kielellä
+- Toimittamaan dokumentaation suomeksi
+- Noudattamaan julkishallinnon tietoturva- ja salassapitovaatimuksia
+- Ilmoittamaan mahdollisista esteellisyyksistä välittömästi
+
+## Tarjouksen voimassaolo
+
+Tarjous on voimassa 31.12.2026 saakka.
+
+---
+
+Kunnioittavasti,
+
+**Risto Anton Päärni**
+Toimitusjohtaja, Lifetime Oy
+risto.paarni@lifetime.fi
+Y-tunnus: 0772407-9

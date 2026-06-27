@@ -22,24 +22,43 @@ Repairs the GitHub Actions → Google Cloud Run deploy identity and fixes the
   hard-failing the `main` pipeline when WIF secrets are absent (matches
   `deploy-staging.yml`).
 
-## ⚠️ Decision required: which project?
+## Two projects — do NOT conflate them
 
-The two workflows target **different projects** — reconcile before configuring secrets:
+The two workflows deploy to **different projects on purpose**:
 
-| Workflow                                | `PROJECT_ID` | Service            | WIF secrets                                             |
-| --------------------------------------- | ------------ | ------------------ | ------------------------------------------------------- |
-| `deploy-cloudrun.yml` (prod, on `main`) | `dws6run6`   | `dws-iq-backend`   | `WIF_PROVIDER`, `WIF_SERVICE_ACCOUNT`                   |
-| `deploy-staging.yml` (on `claude/**`)   | `dws-iq-60`  | `dws6run6-staging` | `GCP_WORKLOAD_IDENTITY_PROVIDER`, `GCP_SERVICE_ACCOUNT` |
+| Workflow                                | Deploy target | Service            | Secrets                                                 | Notes                                                                                                                                                    |
+| --------------------------------------- | ------------- | ------------------ | ------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `deploy-cloudrun.yml` (prod, on `main`) | `dws6run6`    | `dws-iq-backend`   | `WIF_PROVIDER`, `WIF_SERVICE_ACCOUNT`                   | **Active B2B payment stack** (Stripe live webhooks) — `Admin/ADMIN_MANUAL.md` → "Google Cloud Run (Active – B2B Payment Stack)". **Keep on `dws6run6`.** |
+| `deploy-staging.yml` (on `claude/**`)   | `dws-iq-60`   | `dws6run6-staging` | `GCP_WORKLOAD_IDENTITY_PROVIDER`, `GCP_SERVICE_ACCOUNT` | Admin-owned CI identity project (proj# `134875067432`). Authoritative runbook: `Admin/ADMIN_MANUAL.md` v2.9.                                             |
 
-The `/gcr-skill` guardrail says keep CI under an **`admin@dws6.com`-owned project**
-(default `dws-iq-60`). If `dws6run6` is not that project, either point
-`deploy-cloudrun.yml` at `dws-iq-60` or confirm `dws6run6` is admin-owned. Set
-`PROJECT_ID` below accordingly.
+> ⚠️ Do **not** point `deploy-cloudrun.yml` at `dws-iq-60` — that would move the live payment
+> service to the wrong project. The two have independent WIF identities.
+
+To enable GitHub-Actions auto-deploy to `dws6run6` (today that prod service is also deployed
+manually per the Admin manual's dws6run6 section), set this workflow's `WIF_PROVIDER` /
+`WIF_SERVICE_ACCOUNT` to a deployer SA **in `dws6run6`**, or grant the `dws-iq-60` deployer SA
+cross-project `roles/run.admin` + `roles/artifactregistry.writer` on `dws6run6`. Until then the
+workflow skips green.
+
+### Confirm which project owns the live service
+
+```cmd
+REM Where the live B2B payment backend runs (expect a service URL):
+gcloud run services describe dws-iq-backend --region=europe-north1 --project=dws6run6 --format="value(status.url)"
+gcloud projects describe dws6run6 --format="value(projectId,projectNumber)"
+
+REM CI identity project (expect projectNumber 134875067432):
+gcloud projects describe dws-iq-60 --format="value(projectId,projectNumber)"
+```
+
+The steps below create/repair the **`dws-iq-60` CI identity** (used by staging; authoritative in
+`Admin/ADMIN_MANUAL.md`). For the `dws6run6` prod stack, see that manual's
+"Google Cloud Run (Active – B2B Payment Stack)" section.
 
 ## Steps (run as `admin@dws6.com`; `gcloud` is CMD syntax — caret `^`, never backtick)
 
 ```cmd
-set PROJECT_ID=dws6run6
+set PROJECT_ID=dws-iq-60
 set REGION=europe-north1
 set DEPLOYER=github-actions-deployer@%PROJECT_ID%.iam.gserviceaccount.com
 
@@ -87,17 +106,23 @@ gcloud artifacts repositories create dws-iq-repo --repository-format=docker --lo
 
 ## GitHub secrets to set (Settings → Secrets and variables → Actions)
 
-For `deploy-cloudrun.yml`:
+**`deploy-staging.yml`** (→ `dws-iq-60`, values per `Admin/ADMIN_MANUAL.md`):
 
-- `WIF_PROVIDER` = the provider resource name from the `describe` above
-  (`projects/<number>/locations/global/workloadIdentityPools/github-pool/providers/github-provider`)
-- `WIF_SERVICE_ACCOUNT` = `github-actions-deployer@<PROJECT_ID>.iam.gserviceaccount.com`
-- Runtime env secrets already referenced: `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`,
+- `GCP_WORKLOAD_IDENTITY_PROVIDER` =
+  `projects/134875067432/locations/global/workloadIdentityPools/github-pool/providers/github-provider`
+- `GCP_SERVICE_ACCOUNT` = `github-actions-deployer@dws-iq-60.iam.gserviceaccount.com`
+
+**`deploy-cloudrun.yml`** (→ `dws6run6`, active payment stack) uses its own pair:
+
+- `WIF_PROVIDER` = the `dws6run6` workload-identity provider resource name
+  (or, if you reuse the `dws-iq-60` SA cross-project, set this to the value above)
+- `WIF_SERVICE_ACCOUNT` = the deployer SA that has `run.admin` + `artifactregistry.writer`
+  on `dws6run6`
+- Runtime env secrets it references: `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`,
   `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`, `SMTP_*`, `EMAIL_FROM`, `BOOKING_ADMIN_EMAIL`.
 
-`deploy-staging.yml` uses `GCP_WORKLOAD_IDENTITY_PROVIDER` / `GCP_SERVICE_ACCOUNT`. If both
-workflows share one project + SA, set both name pairs to the same values (or align the
-secret names in a follow-up).
+In all cases the deployer SA needs `roles/iam.serviceAccountTokenCreator` and the repo
+principal needs `roles/iam.workloadIdentityUser` (the `getAccessToken` gate).
 
 ## Verify
 
