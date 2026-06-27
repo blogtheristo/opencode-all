@@ -520,6 +520,7 @@
         color: var(--text-primary);
       }
     </style>
+    <script src="/shared-assets/vertical-lang-bar.js"></script>
     <script src="/shared-assets/nav/ironclad-nav.js" defer></script>
   </head>
   <body>
@@ -527,12 +528,14 @@
     <section class="hero">
       <div class="hero-inner">
         <div class="version-badge">v2.0 &mdash; Token Capital</div>
-        <div class="hero-overline">Lifetime Oy &mdash; Laskuri</div>
-        <h1>Projektin <span class="hero-accent">keskeytyskustannukset</span></h1>
-        <p class="hero-desc">
-          Jokainen keskeytys maksaa enemmän kuin luulet. Versio 2.0 laskee mukaan kohonneet
-          token-pääomakulut &mdash; menetetty välimuisti, uudelleenrakennettava konteksti, ja
-          kalliin Opus-tason mallin hukattu kapasiteetti.
+        <div class="hero-overline" data-i18n="heroOverline">Lifetime Oy &mdash; Laskuri</div>
+        <h1 data-i18n="heroTitle">
+          Projektin <span class="hero-accent">keskeytyskustannukset</span>
+        </h1>
+        <p class="hero-desc" data-i18n="heroDesc">
+          Jokainen keskeytys maksaa enemm&auml;n kuin luulet. Versio 2.0 laskee mukaan kohonneet
+          token-p&auml;&auml;omakulut &mdash; menetetty v&auml;limuisti, uudelleenrakennettava
+          konteksti, ja kalliin Opus-tason mallin hukattu kapasiteetti.
         </p>
       </div>
     </section>
@@ -548,24 +551,34 @@
           font-weight: 600;
           margin-bottom: 12px;
         "
+        data-i18n="scenarioLabel"
       >
-        Esimerkki-keissit — klikkaa kokeillaksesi
+        Esimerkki-keissit &mdash; klikkaa kokeillaksesi
       </div>
       <div style="display: flex; gap: 8px; flex-wrap: wrap" id="scenarioChips">
-        <button class="model-btn" data-scenario="startup">
-          "Lead dev lähti — startup pysähtyi 2 kuukaudeksi"
+        <button class="model-btn" data-scenario="startup" data-i18n="scenStartup">
+          "Lead dev l&auml;hti &mdash; startup pys&auml;htyi 2 kuukaudeksi"
         </button>
-        <button class="model-btn" data-scenario="agency">
-          "Asiakas vaihtoi prioriteetit — 3 sprinttiä roskiin"
+        <button class="model-btn" data-scenario="agency" data-i18n="scenAgency">
+          "Asiakas vaihtoi prioriteetit &mdash; 3 sprintti&auml; roskiin"
         </button>
-        <button class="model-btn" data-scenario="enterprise">
-          "CTO irtisanoutui — 50 hengen tiimi ajelehtii"
+        <button class="model-btn" data-scenario="enterprise" data-i18n="scenEnterprise">
+          "CTO irtisanoutui &mdash; 50 hengen tiimi ajelehtii"
         </button>
-        <button class="model-btn" data-scenario="ai-team">
-          "Opus-konteksti katosi — viikon työ uusiksi"
+        <button class="model-btn" data-scenario="ai-team" data-i18n="scenAiTeam">
+          "Opus-konteksti katosi &mdash; viikon ty&ouml; uusiksi"
         </button>
-        <button class="model-btn" data-scenario="consulting">
-          "Konsultti vaihtui — hiljainen tieto meni mukana"
+        <button class="model-btn" data-scenario="consulting" data-i18n="scenConsulting">
+          "Konsultti vaihtui &mdash; hiljainen tieto meni mukana"
+        </button>
+        <button class="model-btn" data-scenario="production-line" data-i18n="scenProductionLine">
+          "Operaattori vaihtui vuorossa &mdash; tuotantolinja seisoi 4 h"
+        </button>
+        <button class="model-btn" data-scenario="cbam-reporting" data-i18n="scenCbamReporting">
+          "CBAM-data katosi p&auml;ivityksess&auml; &mdash; viikon raportointi uusiksi"
+        </button>
+        <button class="model-btn" data-scenario="chemical-batch" data-i18n="scenChemicalBatch">
+          "Er&auml;katko prosessikemikaalissa &mdash; 6 h seisokki, REACH-audit uusiksi"
         </button>
       </div>
     </div>
@@ -574,62 +587,86 @@
     <div class="calc-container">
       <!-- Inputs -->
       <div class="calc-panel">
-        <div class="panel-title">Projektin parametrit</div>
+        <div class="panel-title" data-i18n="panelParams">Projektin parametrit</div>
 
         <div class="input-group">
-          <label>Keskeytyksen tyyppi</label>
-          <div class="input-hint">
+          <label data-i18n="labelType">Keskeytyksen tyyppi</label>
+          <div class="input-hint" data-i18n="hintType">
             Avainhenkilön lähtö lisää rekrytointikustannuksen ja pidentää palautumisaikaa
           </div>
           <div class="model-selector">
-            <button class="type-btn active" data-type="sprint">Sprinttivaihto</button>
-            <button class="type-btn" data-type="departure">Avainhenkilön lähtö</button>
+            <button class="type-btn active" data-type="sprint" data-i18n="typeSprint">
+              Sprinttivaihto
+            </button>
+            <button class="type-btn" data-type="departure" data-i18n="typeDeparture">
+              Avainhenkilön lähtö
+            </button>
           </div>
         </div>
 
         <div class="input-group">
-          <label>Tiimin koko (henkilöä)</label>
+          <label data-i18n="labelTeamSize">Tiimin koko (henkilöä)</label>
           <input type="range" id="teamSize" min="1" max="50" value="5" />
-          <div class="value-display"><span id="teamVal">5</span> henkilöä</div>
+          <div class="value-display">
+            <span id="teamVal">5</span> <span data-i18n="unitPersons">henkilöä</span>
+          </div>
         </div>
 
         <div class="input-group">
-          <label>Keskimääräinen tuntipalkka (€/h)</label>
+          <label data-i18n="labelHourlyRate">Keskimääräinen tuntipalkka (€/h)</label>
           <input type="range" id="hourlyRate" min="30" max="200" value="75" step="5" />
           <div class="value-display"><span id="rateVal">75</span> €/h</div>
         </div>
 
         <div class="input-group">
-          <label>Keskeytyksiä kuukaudessa</label>
-          <div class="input-hint">Sprintin vaihto, prioriteettimuutos, odottamaton crunch</div>
+          <label data-i18n="labelInterruptions">Keskeytyksiä kuukaudessa</label>
+          <div class="input-hint" data-i18n="hintInterruptions">
+            Sprintin vaihto, prioriteettimuutos, odottamaton crunch
+          </div>
           <input type="range" id="interruptions" min="1" max="20" value="3" />
-          <div class="value-display"><span id="intVal">3</span> krt/kk</div>
+          <div class="value-display">
+            <span id="intVal">3</span> <span data-i18n="unitPerMonth">krt/kk</span>
+          </div>
         </div>
 
         <div class="input-group">
-          <label>Keskeytyksen kesto (päivää)</label>
-          <div class="input-hint">Keskimääräinen aika ennen kuin tiimi on täydessä vauhdissa</div>
+          <label data-i18n="labelDowntime">Keskeytyksen kesto (päivää)</label>
+          <div class="input-hint" data-i18n="hintDowntime">
+            Keskimääräinen aika ennen kuin tiimi on täydessä vauhdissa
+          </div>
           <input type="range" id="downtime" min="1" max="14" value="3" />
-          <div class="value-display"><span id="downVal">3</span> päivää</div>
+          <div class="value-display">
+            <span id="downVal">3</span> <span data-i18n="unitDays">päivää</span>
+          </div>
         </div>
 
         <div class="input-group">
-          <label>AI/Token-budjetti (€/kk)</label>
-          <div class="input-hint">Claude Code, Copilot, API-kutsut yhteensä</div>
+          <label data-i18n="labelTokenBudget">AI/Token-budjetti (€/kk)</label>
+          <div class="input-hint" data-i18n="hintTokenBudget">
+            Claude Code, Copilot, API-kutsut yhteensä
+          </div>
           <input type="range" id="tokenBudget" min="100" max="20000" value="2000" step="100" />
-          <div class="value-display"><span id="tokenVal">2 000</span> €/kk</div>
+          <div class="value-display">
+            <span id="tokenVal">2 000</span> <span data-i18n="unitPerMonthEur">€/kk</span>
+          </div>
         </div>
 
         <div class="input-group">
-          <label>Projektin vuosibudjetti (€)</label>
-          <div class="input-hint">Kokonaisbudjetti — henkilöstö, AI, infra, alihankinta</div>
+          <label data-i18n="labelYearlyBudget">Projektin vuosibudjetti (€)</label>
+          <div class="input-hint" data-i18n="hintYearlyBudget">
+            Kokonaisbudjetti — henkilöstö, AI, infra, alihankinta
+          </div>
           <input type="range" id="yearlyBudget" min="0" max="5000000" value="500000" step="50000" />
-          <div class="value-display"><span id="budgetVal">500 000</span> €/v</div>
+          <div class="value-display">
+            <span id="budgetVal">500 000</span> <span data-i18n="unitPerYear">€/v</span>
+          </div>
         </div>
 
         <div class="input-group">
-          <label>Pääasiallinen mallitaso</label>
-          <div class="input-hint">Kalliimpi malli = suurempi hukka keskeytyksessä</div>
+          <label data-i18n="labelModelTier">Pääasiallinen mallitaso</label>
+          <div class="input-hint" data-i18n="hintModelTier">
+            Kalliimpi malli = suurempi hukka keskeytyksessä
+          </div>
           <div class="model-selector">
             <button class="model-btn" data-model="haiku" data-rate="1">Haiku</button>
             <button class="model-btn active" data-model="sonnet" data-rate="3">Sonnet</button>
@@ -641,34 +678,42 @@
 
       <!-- Results -->
       <div class="calc-panel">
-        <div class="panel-title">Vuosikustannukset</div>
+        <div class="panel-title" data-i18n="panelResults">Vuosikustannukset</div>
 
         <div class="result-item human-cost">
-          <div class="result-label">Inhimillinen kontekstin uudelleenrakennus</div>
+          <div class="result-label" data-i18n="resultHumanLabel">
+            Inhimillinen kontekstin uudelleenrakennus
+          </div>
           <div class="result-value" id="humanCost">€0</div>
           <div class="result-detail" id="humanDetail"></div>
         </div>
 
         <div class="result-item token-cost">
-          <div class="result-label">Token-pääoman menetys (v2.0)</div>
+          <div class="result-label" data-i18n="resultTokenLabel">Token-pääoman menetys (v2.0)</div>
           <div class="result-value" id="tokenCost">€0</div>
           <div class="result-detail" id="tokenDetail"></div>
         </div>
 
         <div class="result-item">
-          <div class="result-label">Vauhdin menetys (momentum loss)</div>
+          <div class="result-label" data-i18n="resultMomentumLabel">
+            Vauhdin menetys (momentum loss)
+          </div>
           <div class="result-value" id="momentumCost">€0</div>
           <div class="result-detail" id="momentumDetail"></div>
         </div>
 
         <div class="result-item recruit-cost" id="recruitRow" style="display: none">
-          <div class="result-label">Rekrytointi &amp; perehdytys</div>
+          <div class="result-label" data-i18n="resultRecruitLabel">
+            Rekrytointi &amp; perehdytys
+          </div>
           <div class="result-value" id="recruitCost">€0</div>
           <div class="result-detail" id="recruitDetail"></div>
         </div>
 
         <div class="result-item" id="sprintDragRow" style="display: none">
-          <div class="result-label">Sprinttien haittavaikutus</div>
+          <div class="result-label" data-i18n="resultSprintDragLabel">
+            Sprinttien haittavaikutus
+          </div>
           <div class="result-value" id="sprintDragCost" style="color: #f472b6">€0</div>
           <div class="result-detail" id="sprintDragDetail"></div>
         </div>
@@ -683,28 +728,28 @@
         <div class="breakdown-legend">
           <div class="legend-item">
             <div class="legend-dot" style="background: var(--color-gold-light)"></div>
-            Inhimillinen
+            <span data-i18n="legendHuman">Inhimillinen</span>
           </div>
           <div class="legend-item">
             <div class="legend-dot" style="background: var(--color-amber)"></div>
-            Token-pääoma
+            <span data-i18n="legendToken">Token-pääoma</span>
           </div>
           <div class="legend-item">
             <div class="legend-dot" style="background: var(--color-red)"></div>
-            Momentum
+            <span data-i18n="legendMomentum">Momentum</span>
           </div>
           <div class="legend-item" id="recruitLegend" style="display: none">
             <div class="legend-dot" style="background: #8b5cf6"></div>
-            Rekrytointi
+            <span data-i18n="legendRecruit">Rekrytointi</span>
           </div>
           <div class="legend-item" id="sprintDragLegend" style="display: none">
             <div class="legend-dot" style="background: #f472b6"></div>
-            Sprinttihaitat
+            <span data-i18n="legendSprintDrag">Sprinttihaitat</span>
           </div>
         </div>
 
         <div class="result-total">
-          <div class="result-label">Kokonaiskustannus / vuosi</div>
+          <div class="result-label" data-i18n="resultTotalLabel">Kokonaiskustannus / vuosi</div>
           <div class="result-value" id="totalCost">€0</div>
           <div class="result-detail" id="totalDetail"></div>
         </div>
@@ -713,74 +758,82 @@
 
     <!-- Model comparison -->
     <div class="comparison-section">
-      <div class="section-label">Mallitason vertailu</div>
-      <div class="section-title">Mitä kalliimpi malli, sitä suurempi keskeytyksen hinta</div>
+      <div class="section-label" data-i18n="compSectionLabel">Mallitason vertailu</div>
+      <div class="section-title" data-i18n="compSectionTitle">
+        Mitä kalliimpi malli, sitä suurempi keskeytyksen hinta
+      </div>
       <div class="comparison-grid">
         <div class="comparison-card">
-          <h4>Sonnet-taso</h4>
+          <h4 data-i18n="compSonnetTitle">Sonnet-taso</h4>
           <div class="comp-value comp-sonnet" id="compSonnet">€0</div>
-          <p>~$3/MTok input, ~$15/MTok output<br />Perusmallin hukka</p>
+          <p data-i18n="compSonnetDesc">~$3/MTok input, ~$15/MTok output<br />Perusmallin hukka</p>
         </div>
         <div class="comparison-card" style="border-color: var(--color-amber)">
-          <h4>Opus-taso</h4>
+          <h4 data-i18n="compOpusTitle">Opus-taso</h4>
           <div class="comp-value comp-opus" id="compOpus">€0</div>
-          <p>~$15/MTok input, ~$75/MTok output<br />5&times; kalliimpi per token</p>
+          <p data-i18n="compOpusDesc">
+            ~$15/MTok input, ~$75/MTok output<br />5&times; kalliimpi per token
+          </p>
         </div>
         <div class="comparison-card">
-          <h4>Opus + Extended Thinking</h4>
+          <h4 data-i18n="compOpusMaxTitle">Opus + Extended Thinking</h4>
           <div class="comp-value comp-team" id="compOpusMax">€0</div>
-          <p>~$30/MTok input, ~$150/MTok output<br />10&times; kalliimpi per token</p>
+          <p data-i18n="compOpusMaxDesc">
+            ~$30/MTok input, ~$150/MTok output<br />10&times; kalliimpi per token
+          </p>
         </div>
       </div>
     </div>
 
     <!-- Token rate card -->
     <div class="rate-card-section">
-      <div class="section-label">Token-hinnaston perusteet</div>
-      <div class="section-title">Miksi token-pääomakulu nousee keskeytyksessä?</div>
+      <div class="section-label" data-i18n="rateSectionLabel">Token-hinnaston perusteet</div>
+      <div class="section-title" data-i18n="rateSectionTitle">
+        Miksi token-pääomakulu nousee keskeytyksessä?
+      </div>
       <div class="calc-panel" style="margin-top: 16px">
         <table class="rate-table">
           <thead>
             <tr>
-              <th>Kustannuserä</th>
-              <th>Selite</th>
-              <th>Kerroin</th>
+              <th data-i18n="rateThCost">Kustannuserä</th>
+              <th data-i18n="rateThExplanation">Selite</th>
+              <th data-i18n="rateThMultiplier">Kerroin</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Välimuistin menetys</td>
-              <td>
+              <td data-i18n="rateCacheLoss">Välimuistin menetys</td>
+              <td data-i18n="rateCacheLossDesc">
                 Prompt cache (5 min TTL) vanhenee &mdash; kaikki konteksti lähetetään uudelleen
                 täyshintaan
               </td>
               <td class="rate-highlight">1.0&times;</td>
             </tr>
             <tr>
-              <td>Keskusteluhistorian uudelleenrakennus</td>
-              <td>
+              <td data-i18n="rateHistoryRebuild">Keskusteluhistorian uudelleenrakennus</td>
+              <td data-i18n="rateHistoryRebuildDesc">
                 Agent-sessiot katkeaa &mdash; päätöshistoria, työmuisti ja viitetiedostot ladataan
                 uudelleen
               </td>
               <td class="rate-highlight">0.6&times;</td>
             </tr>
             <tr>
-              <td>Tuottamaton tutkimus</td>
-              <td>
+              <td data-i18n="rateUnproductiveResearch">Tuottamaton tutkimus</td>
+              <td data-i18n="rateUnproductiveResearchDesc">
                 Tiimi selvittää "missä oltiin" &mdash; AI-avusteinen koodin selaaminen ja
                 ongelmanmäärittely
               </td>
               <td class="rate-highlight">0.3&times;</td>
             </tr>
             <tr>
-              <td>Virhekierre (hallusinaatiot)</td>
-              <td>
+              <td data-i18n="rateHallucinations">Virhekierre (hallusinaatiot)</td>
+              <td data-i18n="rateHallucinationsDesc">
                 Uusi konteksti ilman historiaa tuottaa enemmän vääriä ehdotuksia ja retry-syklejä
               </td>
               <td class="rate-highlight">0.2&times;</td>
             </tr>
             <tr style="border-top: 2px solid rgba(255, 255, 255, 0.1)">
-              <td><strong>Yhteensä: hukka per keskeytys</strong></td>
+              <td data-i18n="rateTotalRow"><strong>Yhteensä: hukka per keskeytys</strong></td>
               <td></td>
               <td class="rate-highlight"><strong>2.1&times;</strong></td>
             </tr>
@@ -791,15 +844,18 @@
 
     <!-- CTA -->
     <div class="cta-section">
-      <div class="section-label">Vähennä keskeytyskustannuksia</div>
-      <div class="section-title" style="margin-bottom: 24px">
+      <div class="section-label" data-i18n="ctaLabel">Vähennä keskeytyskustannuksia</div>
+      <div class="section-title" style="margin-bottom: 24px" data-i18n="ctaTitle">
         DWS IQ:n Loop Engineering pitää kontekstin elossa
       </div>
-      <p style="color: var(--text-secondary); margin-bottom: 32px; font-size: 0.95rem">
+      <p
+        style="color: var(--text-secondary); margin-bottom: 32px; font-size: 0.95rem"
+        data-i18n="ctaDesc"
+      >
         Maker&ndash;Checker-silmukat, levylle persistoitu tila, budjettirajoitin ja
         turvallisuusportti. Keskeytys ei tuhoa kontekstia &mdash; loop jatkaa siitä mihin jäätiin.
       </p>
-      <a href="https://lifetime.fi/agents-loops-workflows/" class="btn-gold"
+      <a href="https://lifetime.fi/agents-loops-workflows/" class="btn-gold" data-i18n="ctaButton"
         >Agents &middot; Loops &middot; Workflows</a
       >
     </div>
@@ -822,6 +878,547 @@
     <script>
       const $ = (id) => document.getElementById(id);
 
+      /* ── I18N Translation System ───────────────────────────────── */
+      const I18N = {
+        fi: {
+          pageTitle: "Keskeytyskustannuslaskuri 2.0 | Lifetime Oy",
+          heroOverline: "Lifetime Oy &mdash; Laskuri",
+          heroTitle: 'Projektin <span class="hero-accent">keskeytyskustannukset</span>',
+          heroDesc:
+            "Jokainen keskeytys maksaa enemm&auml;n kuin luulet. Versio 2.0 laskee mukaan kohonneet token-p&auml;&auml;omakulut &mdash; menetetty v&auml;limuisti, uudelleenrakennettava konteksti, ja kalliin Opus-tason mallin hukattu kapasiteetti.",
+          scenarioLabel: "Esimerkki-keissit &mdash; klikkaa kokeillaksesi",
+          scenStartup:
+            "&ldquo;Lead dev l&auml;hti &mdash; startup pys&auml;htyi 2 kuukaudeksi&rdquo;",
+          scenAgency: "&ldquo;Asiakas vaihtoi prioriteetit &mdash; 3 sprintti&auml; roskiin&rdquo;",
+          scenEnterprise: "&ldquo;CTO irtisanoutui &mdash; 50 hengen tiimi ajelehtii&rdquo;",
+          scenAiTeam: "&ldquo;Opus-konteksti katosi &mdash; viikon ty&ouml; uusiksi&rdquo;",
+          scenConsulting: "&ldquo;Konsultti vaihtui &mdash; hiljainen tieto meni mukana&rdquo;",
+          scenProductionLine:
+            "&ldquo;Operaattori vaihtui vuorossa &mdash; tuotantolinja seisoi 4 h&rdquo;",
+          scenCbamReporting:
+            "&ldquo;CBAM-data katosi p&auml;ivityksess&auml; &mdash; viikon raportointi uusiksi&rdquo;",
+          scenChemicalBatch:
+            "&ldquo;Er&auml;katko prosessikemikaalissa &mdash; 6 h seisokki, REACH-audit uusiksi&rdquo;",
+          panelParams: "Projektin parametrit",
+          labelType: "Keskeytyksen tyyppi",
+          hintType: "Avainhenkilön lähtö lisää rekrytointikustannuksen ja pidentää palautumisaikaa",
+          typeSprint: "Sprinttivaihto",
+          typeDeparture: "Avainhenkilön lähtö",
+          labelTeamSize: "Tiimin koko (henkilöä)",
+          unitPersons: "henkilöä",
+          labelHourlyRate: "Keskimääräinen tuntipalkka (€/h)",
+          labelInterruptions: "Keskeytyksiä kuukaudessa",
+          hintInterruptions: "Sprintin vaihto, prioriteettimuutos, odottamaton crunch",
+          unitPerMonth: "krt/kk",
+          labelDowntime: "Keskeytyksen kesto (päivää)",
+          hintDowntime: "Keskimääräinen aika ennen kuin tiimi on täydessä vauhdissa",
+          unitDays: "päivää",
+          labelTokenBudget: "AI/Token-budjetti (€/kk)",
+          hintTokenBudget: "Claude Code, Copilot, API-kutsut yhteensä",
+          unitPerMonthEur: "€/kk",
+          labelYearlyBudget: "Projektin vuosibudjetti (€)",
+          hintYearlyBudget: "Kokonaisbudjetti &mdash; henkilöstö, AI, infra, alihankinta",
+          unitPerYear: "€/v",
+          labelModelTier: "Pääasiallinen mallitaso",
+          hintModelTier: "Kalliimpi malli = suurempi hukka keskeytyksessä",
+          panelResults: "Vuosikustannukset",
+          resultHumanLabel: "Inhimillinen kontekstin uudelleenrakennus",
+          resultTokenLabel: "Token-pääoman menetys (v2.0)",
+          resultMomentumLabel: "Vauhdin menetys (momentum loss)",
+          resultRecruitLabel: "Rekrytointi &amp; perehdytys",
+          resultSprintDragLabel: "Sprinttien haittavaikutus",
+          legendHuman: "Inhimillinen",
+          legendToken: "Token-pääoma",
+          legendMomentum: "Momentum",
+          legendRecruit: "Rekrytointi",
+          legendSprintDrag: "Sprinttihaitat",
+          resultTotalLabel: "Kokonaiskustannus / vuosi",
+          compSectionLabel: "Mallitason vertailu",
+          compSectionTitle: "Mitä kalliimpi malli, sitä suurempi keskeytyksen hinta",
+          compSonnetTitle: "Sonnet-taso",
+          compSonnetDesc: "~$3/MTok input, ~$15/MTok output<br />Perusmallin hukka",
+          compOpusTitle: "Opus-taso",
+          compOpusDesc: "~$15/MTok input, ~$75/MTok output<br />5&times; kalliimpi per token",
+          compOpusMaxTitle: "Opus + Extended Thinking",
+          compOpusMaxDesc: "~$30/MTok input, ~$150/MTok output<br />10&times; kalliimpi per token",
+          rateSectionLabel: "Token-hinnaston perusteet",
+          rateSectionTitle: "Miksi token-pääomakulu nousee keskeytyksessä?",
+          rateThCost: "Kustannuserä",
+          rateThExplanation: "Selite",
+          rateThMultiplier: "Kerroin",
+          rateCacheLoss: "Välimuistin menetys",
+          rateCacheLossDesc:
+            "Prompt cache (5 min TTL) vanhenee &mdash; kaikki konteksti lähetetään uudelleen täyshintaan",
+          rateHistoryRebuild: "Keskusteluhistorian uudelleenrakennus",
+          rateHistoryRebuildDesc:
+            "Agent-sessiot katkeaa &mdash; päätöshistoria, työmuisti ja viitetiedostot ladataan uudelleen",
+          rateUnproductiveResearch: "Tuottamaton tutkimus",
+          rateUnproductiveResearchDesc:
+            "Tiimi selvittää &ldquo;missä oltiin&rdquo; &mdash; AI-avusteinen koodin selaaminen ja ongelmanmäärittely",
+          rateHallucinations: "Virhekierre (hallusinaatiot)",
+          rateHallucinationsDesc:
+            "Uusi konteksti ilman historiaa tuottaa enemmän vääriä ehdotuksia ja retry-syklejä",
+          rateTotalRow: "<strong>Yhteensä: hukka per keskeytys</strong>",
+          ctaLabel: "Vähennä keskeytyskustannuksia",
+          ctaTitle: "DWS IQ:n Loop Engineering pitää kontekstin elossa",
+          ctaDesc:
+            "Maker&ndash;Checker-silmukat, levylle persistoitu tila, budjettirajoitin ja turvallisuusportti. Keskeytys ei tuhoa kontekstia &mdash; loop jatkaa siitä mihin jäätiin.",
+          ctaButton: "Agents &middot; Loops &middot; Workflows",
+          humanDetailTpl: (team, hours, int) =>
+            `${team} hlö × ${hours} h ramp-up × ${int} krt/kk × 12 kk`,
+          tokenDetailTpl: (label, factor) =>
+            `${label}: ${factor}× hukka-kerroin — cache miss + kontekstin uudelleenlataus`,
+          momentumDetailTpl: (pct, days) => `${pct}% tehokkuuspudotus × ${days} pv palautumisaika`,
+          recruitDetailTpl: (months, int) =>
+            `${months} kk palkkakulua × ${int} lähtöä/kk — rekrytointi, perehdytys, hiljaisen tiedon menetys`,
+          sprintDragDetailTpl: (pct, months) =>
+            `${pct}% tehokkuuslasku × ${months} kk — tiimi kompensoi puuttuvaa osaamista, sprintit hidastuvat`,
+          totalDetailTpl: (monthly, budgetPct) => `${monthly}/kk — ${budgetPct}`,
+          budgetPctTpl: (pct, budget) => `${pct}% vuosibudjetista (${budget})`,
+          salaryPctTpl: (pct) => `${pct}% laskennallisesta palkkakustannuksesta`,
+          compSuffix: "/v",
+        },
+        en: {
+          pageTitle: "Interruption Cost Calculator 2.0 | Lifetime Oy",
+          heroOverline: "Lifetime Oy &mdash; Calculator",
+          heroTitle: 'Project <span class="hero-accent">interruption costs</span>',
+          heroDesc:
+            "Every interruption costs more than you think. Version 2.0 factors in elevated token capital costs &mdash; lost cache, context that must be rebuilt, and wasted capacity of expensive Opus-tier models.",
+          scenarioLabel: "Example cases &mdash; click to try",
+          scenStartup: "&ldquo;Lead dev quit &mdash; startup stalled for 2 months&rdquo;",
+          scenAgency: "&ldquo;Client changed priorities &mdash; 3 sprints scrapped&rdquo;",
+          scenEnterprise: "&ldquo;CTO resigned &mdash; 50-person team adrift&rdquo;",
+          scenAiTeam: "&ldquo;Opus context lost &mdash; a week's work redone&rdquo;",
+          scenConsulting: "&ldquo;Consultant switched &mdash; tacit knowledge walked out&rdquo;",
+          scenProductionLine:
+            "&ldquo;Operator changed mid-shift &mdash; production line down 4 h&rdquo;",
+          scenCbamReporting:
+            "&ldquo;CBAM data lost in update &mdash; week of reporting redone&rdquo;",
+          scenChemicalBatch:
+            "&ldquo;Chemical batch failure &mdash; 6 h downtime, REACH audit redone&rdquo;",
+          panelParams: "Project parameters",
+          labelType: "Interruption type",
+          hintType: "Key person departure adds recruitment cost and extends recovery time",
+          typeSprint: "Sprint change",
+          typeDeparture: "Key person departure",
+          labelTeamSize: "Team size (people)",
+          unitPersons: "people",
+          labelHourlyRate: "Average hourly rate (€/h)",
+          labelInterruptions: "Interruptions per month",
+          hintInterruptions: "Sprint change, priority shift, unexpected crunch",
+          unitPerMonth: "/mo",
+          labelDowntime: "Interruption duration (days)",
+          hintDowntime: "Average time before the team is back at full speed",
+          unitDays: "days",
+          labelTokenBudget: "AI/Token budget (€/mo)",
+          hintTokenBudget: "Claude Code, Copilot, API calls combined",
+          unitPerMonthEur: "€/mo",
+          labelYearlyBudget: "Annual project budget (€)",
+          hintYearlyBudget: "Total budget &mdash; staff, AI, infra, subcontracting",
+          unitPerYear: "€/yr",
+          labelModelTier: "Primary model tier",
+          hintModelTier: "More expensive model = greater waste on interruption",
+          panelResults: "Annual costs",
+          resultHumanLabel: "Human context rebuild",
+          resultTokenLabel: "Token capital loss (v2.0)",
+          resultMomentumLabel: "Momentum loss",
+          resultRecruitLabel: "Recruitment &amp; onboarding",
+          resultSprintDragLabel: "Sprint drag effect",
+          legendHuman: "Human",
+          legendToken: "Token capital",
+          legendMomentum: "Momentum",
+          legendRecruit: "Recruitment",
+          legendSprintDrag: "Sprint drag",
+          resultTotalLabel: "Total cost / year",
+          compSectionLabel: "Model tier comparison",
+          compSectionTitle: "The more expensive the model, the higher the interruption price",
+          compSonnetTitle: "Sonnet tier",
+          compSonnetDesc: "~$3/MTok input, ~$15/MTok output<br />Base model waste",
+          compOpusTitle: "Opus tier",
+          compOpusDesc: "~$15/MTok input, ~$75/MTok output<br />5&times; more expensive per token",
+          compOpusMaxTitle: "Opus + Extended Thinking",
+          compOpusMaxDesc:
+            "~$30/MTok input, ~$150/MTok output<br />10&times; more expensive per token",
+          rateSectionLabel: "Token pricing fundamentals",
+          rateSectionTitle: "Why does token capital cost rise on interruption?",
+          rateThCost: "Cost item",
+          rateThExplanation: "Explanation",
+          rateThMultiplier: "Multiplier",
+          rateCacheLoss: "Cache loss",
+          rateCacheLossDesc:
+            "Prompt cache (5 min TTL) expires &mdash; all context resent at full price",
+          rateHistoryRebuild: "Conversation history rebuild",
+          rateHistoryRebuildDesc:
+            "Agent sessions break &mdash; decision history, working memory, and reference files reloaded",
+          rateUnproductiveResearch: "Unproductive research",
+          rateUnproductiveResearchDesc:
+            "Team figures out &ldquo;where we were&rdquo; &mdash; AI-assisted code browsing and problem scoping",
+          rateHallucinations: "Error spiral (hallucinations)",
+          rateHallucinationsDesc:
+            "New context without history produces more wrong suggestions and retry cycles",
+          rateTotalRow: "<strong>Total: waste per interruption</strong>",
+          ctaLabel: "Reduce interruption costs",
+          ctaTitle: "DWS IQ Loop Engineering keeps context alive",
+          ctaDesc:
+            "Maker&ndash;Checker loops, disk-persisted state, budget limiter, and safety gate. An interruption doesn't destroy context &mdash; the loop continues where it left off.",
+          ctaButton: "Agents &middot; Loops &middot; Workflows",
+          humanDetailTpl: (team, hours, int) =>
+            `${team} ppl × ${hours} h ramp-up × ${int}/mo × 12 mo`,
+          tokenDetailTpl: (label, factor) =>
+            `${label}: ${factor}× waste multiplier — cache miss + context reload`,
+          momentumDetailTpl: (pct, days) => `${pct}% efficiency drop × ${days} days recovery`,
+          recruitDetailTpl: (months, int) =>
+            `${months} mo salary cost × ${int} departures/mo — recruitment, onboarding, tacit knowledge loss`,
+          sprintDragDetailTpl: (pct, months) =>
+            `${pct}% efficiency drop × ${months} mo — team compensates for missing expertise, sprints slow down`,
+          totalDetailTpl: (monthly, budgetPct) => `${monthly}/mo — ${budgetPct}`,
+          budgetPctTpl: (pct, budget) => `${pct}% of annual budget (${budget})`,
+          salaryPctTpl: (pct) => `${pct}% of calculated salary cost`,
+          compSuffix: "/yr",
+        },
+        sv: {
+          pageTitle: "Avbrottskostnadskalkylator 2.0 | Lifetime Oy",
+          heroOverline: "Lifetime Oy &mdash; Kalkylator",
+          heroTitle: 'Projektets <span class="hero-accent">avbrottskostnader</span>',
+          heroDesc:
+            "Varje avbrott kostar mer &auml;n du tror. Version 2.0 r&auml;knar in f&ouml;rh&ouml;jda tokenkapitalkostnader &mdash; f&ouml;rlorad cache, kontext som m&aring;ste &aring;teruppbyggas och slösad kapacitet f&ouml;r dyra Opus-modeller.",
+          scenarioLabel: "Exempelfall &mdash; klicka f&ouml;r att testa",
+          scenStartup:
+            "&ldquo;Lead-utvecklaren slutade &mdash; startup stod still i 2 m&aring;nader&rdquo;",
+          scenAgency:
+            "&ldquo;Kunden &auml;ndrade prioriteringar &mdash; 3 sprintar i papperskorgen&rdquo;",
+          scenEnterprise: "&ldquo;CTO sa upp sig &mdash; 50 personers team driver utan kurs&rdquo;",
+          scenAiTeam: "&ldquo;Opus-kontexten borta &mdash; en veckas arbete g&ouml;rs om&rdquo;",
+          scenConsulting: "&ldquo;Konsulten byttes ut &mdash; tyst kunskap f&ouml;rsvann&rdquo;",
+          scenProductionLine:
+            "&ldquo;Operat&ouml;ren byttes mitt i skiftet &mdash; produktionslinjen stod 4 h&rdquo;",
+          scenCbamReporting:
+            "&ldquo;CBAM-data f&ouml;rlorades vid uppdatering &mdash; en veckas rapportering om&rdquo;",
+          scenChemicalBatch:
+            "&ldquo;Kemikaliebatchfel &mdash; 6 h stillestånd, REACH-revision om&rdquo;",
+          panelParams: "Projektparametrar",
+          labelType: "Avbrottstyp",
+          hintType:
+            "Nyckelpers avg&aring;ng l&auml;gger till rekryteringskostnad och f&ouml;rl&auml;nger &aring;terh&auml;mtningstiden",
+          typeSprint: "Sprintbyte",
+          typeDeparture: "Nyckelperson l&auml;mnar",
+          labelTeamSize: "Teamstorlek (personer)",
+          unitPersons: "personer",
+          labelHourlyRate: "Genomsnittlig timl&ouml;n (€/h)",
+          labelInterruptions: "Avbrott per m&aring;nad",
+          hintInterruptions: "Sprintbyte, prioritets&auml;ndring, ov&auml;ntad crunch",
+          unitPerMonth: "/m&aring;n",
+          labelDowntime: "Avbrottsl&auml;ngd (dagar)",
+          hintDowntime: "Genomsnittlig tid innan teamet &auml;r tillbaka i full fart",
+          unitDays: "dagar",
+          labelTokenBudget: "AI/Token-budget (€/m&aring;n)",
+          hintTokenBudget: "Claude Code, Copilot, API-anrop totalt",
+          unitPerMonthEur: "€/m&aring;n",
+          labelYearlyBudget: "&Aring;rlig projektbudget (€)",
+          hintYearlyBudget: "Totalbudget &mdash; personal, AI, infra, underentreprenad",
+          unitPerYear: "€/&aring;r",
+          labelModelTier: "Prim&auml;r modellniv&aring;",
+          hintModelTier: "Dyrare modell = st&ouml;rre sl&ouml;seri vid avbrott",
+          panelResults: "&Aring;rskostnader",
+          resultHumanLabel: "M&auml;nsklig kontext&aring;teruppbyggnad",
+          resultTokenLabel: "Tokenkapitalf&ouml;rlust (v2.0)",
+          resultMomentumLabel: "Momentumf&ouml;rlust",
+          resultRecruitLabel: "Rekrytering &amp; introduktion",
+          resultSprintDragLabel: "Sprintbromseffekt",
+          legendHuman: "M&auml;nsklig",
+          legendToken: "Tokenkapital",
+          legendMomentum: "Momentum",
+          legendRecruit: "Rekrytering",
+          legendSprintDrag: "Sprintbroms",
+          resultTotalLabel: "Totalkostnad / &aring;r",
+          compSectionLabel: "Modellniv&aring;j&auml;mf&ouml;relse",
+          compSectionTitle: "Ju dyrare modell, desto h&ouml;gre avbrottskostnad",
+          compSonnetTitle: "Sonnet-niv&aring;",
+          compSonnetDesc: "~$3/MTok input, ~$15/MTok output<br />Basmodellens sl&ouml;seri",
+          compOpusTitle: "Opus-niv&aring;",
+          compOpusDesc: "~$15/MTok input, ~$75/MTok output<br />5&times; dyrare per token",
+          compOpusMaxTitle: "Opus + Extended Thinking",
+          compOpusMaxDesc: "~$30/MTok input, ~$150/MTok output<br />10&times; dyrare per token",
+          rateSectionLabel: "Tokenpriss&auml;ttningens grunder",
+          rateSectionTitle: "Varf&ouml;r stiger tokenkapitalkostnaden vid avbrott?",
+          rateThCost: "Kostnadspost",
+          rateThExplanation: "F&ouml;rklaring",
+          rateThMultiplier: "Multiplikator",
+          rateCacheLoss: "Cachef&ouml;rlust",
+          rateCacheLossDesc:
+            "Prompt cache (5 min TTL) f&ouml;r&aring;ldras &mdash; all kontext skickas om till fullt pris",
+          rateHistoryRebuild: "&Aring;teruppbyggnad av konversationshistorik",
+          rateHistoryRebuildDesc:
+            "Agent-sessioner bryts &mdash; beslutshistorik, arbetsminne och referensfiler laddas om",
+          rateUnproductiveResearch: "Improduktiv forskning",
+          rateUnproductiveResearchDesc:
+            "Teamet tar reda p&aring; &ldquo;var vi var&rdquo; &mdash; AI-assisterad kodbrowsning och problemdefiniering",
+          rateHallucinations: "Felspiral (hallucinationer)",
+          rateHallucinationsDesc:
+            "Ny kontext utan historik producerar fler felaktiga f&ouml;rslag och retry-cykler",
+          rateTotalRow: "<strong>Totalt: sl&ouml;seri per avbrott</strong>",
+          ctaLabel: "Minska avbrottskostnader",
+          ctaTitle: "DWS IQ Loop Engineering h&aring;ller kontexten levande",
+          ctaDesc:
+            "Maker&ndash;Checker-loopar, diskpersisterat tillst&aring;nd, budgetbegr&auml;nsare och s&auml;kerhetsport. Ett avbrott f&ouml;rst&ouml;r inte kontexten &mdash; loopen forts&auml;tter d&auml;r den slutade.",
+          ctaButton: "Agents &middot; Loops &middot; Workflows",
+          humanDetailTpl: (team, hours, int) =>
+            `${team} pers × ${hours} h ramp-up × ${int}/mån × 12 mån`,
+          tokenDetailTpl: (label, factor) =>
+            `${label}: ${factor}× slöserimultiplikator — cache miss + kontextåterladdning`,
+          momentumDetailTpl: (pct, days) =>
+            `${pct}% effektivitetstapp × ${days} dagars återhämtning`,
+          recruitDetailTpl: (months, int) =>
+            `${months} mån lönekostnad × ${int} avgångar/mån — rekrytering, introduktion, tyst kunskapsförlust`,
+          sprintDragDetailTpl: (pct, months) =>
+            `${pct}% effektivitetsminskning × ${months} mån — teamet kompenserar för saknad kompetens, sprintar saktar ned`,
+          totalDetailTpl: (monthly, budgetPct) => `${monthly}/mån — ${budgetPct}`,
+          budgetPctTpl: (pct, budget) => `${pct}% av årsbudgeten (${budget})`,
+          salaryPctTpl: (pct) => `${pct}% av beräknad lönekostnad`,
+          compSuffix: "/år",
+        },
+        de: {
+          pageTitle: "Unterbrechungskostenrechner 2.0 | Lifetime Oy",
+          heroOverline: "Lifetime Oy &mdash; Rechner",
+          heroTitle: 'Projekt-<span class="hero-accent">Unterbrechungskosten</span>',
+          heroDesc:
+            "Jede Unterbrechung kostet mehr als Sie denken. Version 2.0 berechnet erh&ouml;hte Token-Kapitalkosten &mdash; verlorener Cache, Kontext der neu aufgebaut werden muss, und verschwendete Kapazit&auml;t teurer Opus-Modelle.",
+          scenarioLabel: "Beispielf&auml;lle &mdash; klicken zum Ausprobieren",
+          scenStartup: "&ldquo;Lead-Entwickler ging &mdash; Startup stand 2 Monate still&rdquo;",
+          scenAgency:
+            "&ldquo;Kunde &auml;nderte Priorit&auml;ten &mdash; 3 Sprints verworfen&rdquo;",
+          scenEnterprise: "&ldquo;CTO k&uuml;ndigte &mdash; 50-k&ouml;pfiges Team ohne Kurs&rdquo;",
+          scenAiTeam: "&ldquo;Opus-Kontext verloren &mdash; eine Woche Arbeit wiederholt&rdquo;",
+          scenConsulting: "&ldquo;Berater wechselte &mdash; implizites Wissen weg&rdquo;",
+          scenProductionLine:
+            "&ldquo;Bediener wechselte in der Schicht &mdash; Produktionslinie 4 h still&rdquo;",
+          scenCbamReporting:
+            "&ldquo;CBAM-Daten bei Update verloren &mdash; Wochenbericht wiederholt&rdquo;",
+          scenChemicalBatch:
+            "&ldquo;Chargenfehler bei Prozesschemikalie &mdash; 6 h Stillstand, REACH-Audit neu&rdquo;",
+          panelParams: "Projektparameter",
+          labelType: "Unterbrechungstyp",
+          hintType:
+            "Abgang einer Schl&uuml;sselperson erh&ouml;ht Rekrutierungskosten und verl&auml;ngert die Erholungszeit",
+          typeSprint: "Sprintwechsel",
+          typeDeparture: "Abgang Schl&uuml;sselperson",
+          labelTeamSize: "Teamgr&ouml;&szlig;e (Personen)",
+          unitPersons: "Personen",
+          labelHourlyRate: "Durchschnittlicher Stundenlohn (€/h)",
+          labelInterruptions: "Unterbrechungen pro Monat",
+          hintInterruptions: "Sprintwechsel, Priorit&auml;ts&auml;nderung, unerwarteter Crunch",
+          unitPerMonth: "/Monat",
+          labelDowntime: "Unterbrechungsdauer (Tage)",
+          hintDowntime: "Durchschnittliche Zeit bis das Team wieder voll produktiv ist",
+          unitDays: "Tage",
+          labelTokenBudget: "AI/Token-Budget (€/Monat)",
+          hintTokenBudget: "Claude Code, Copilot, API-Aufrufe gesamt",
+          unitPerMonthEur: "€/Monat",
+          labelYearlyBudget: "J&auml;hrliches Projektbudget (€)",
+          hintYearlyBudget: "Gesamtbudget &mdash; Personal, AI, Infrastruktur, Unterauftr&auml;ge",
+          unitPerYear: "€/Jahr",
+          labelModelTier: "Prim&auml;re Modellstufe",
+          hintModelTier: "Teureres Modell = gr&ouml;&szlig;ere Verschwendung bei Unterbrechung",
+          panelResults: "J&auml;hrliche Kosten",
+          resultHumanLabel: "Menschlicher Kontextwiederaufbau",
+          resultTokenLabel: "Token-Kapitalverlust (v2.0)",
+          resultMomentumLabel: "Momentum-Verlust",
+          resultRecruitLabel: "Rekrutierung &amp; Einarbeitung",
+          resultSprintDragLabel: "Sprint-Bremseffekt",
+          legendHuman: "Menschlich",
+          legendToken: "Token-Kapital",
+          legendMomentum: "Momentum",
+          legendRecruit: "Rekrutierung",
+          legendSprintDrag: "Sprint-Bremse",
+          resultTotalLabel: "Gesamtkosten / Jahr",
+          compSectionLabel: "Modellstufenvergleich",
+          compSectionTitle: "Je teurer das Modell, desto h&ouml;her der Unterbrechungspreis",
+          compSonnetTitle: "Sonnet-Stufe",
+          compSonnetDesc: "~$3/MTok Input, ~$15/MTok Output<br />Basismodell-Verschwendung",
+          compOpusTitle: "Opus-Stufe",
+          compOpusDesc: "~$15/MTok Input, ~$75/MTok Output<br />5&times; teurer pro Token",
+          compOpusMaxTitle: "Opus + Extended Thinking",
+          compOpusMaxDesc: "~$30/MTok Input, ~$150/MTok Output<br />10&times; teurer pro Token",
+          rateSectionLabel: "Token-Preisgrundlagen",
+          rateSectionTitle: "Warum steigen Token-Kapitalkosten bei Unterbrechung?",
+          rateThCost: "Kostenposition",
+          rateThExplanation: "Erkl&auml;rung",
+          rateThMultiplier: "Multiplikator",
+          rateCacheLoss: "Cache-Verlust",
+          rateCacheLossDesc:
+            "Prompt Cache (5 min TTL) veraltet &mdash; gesamter Kontext wird zum vollen Preis erneut gesendet",
+          rateHistoryRebuild: "Wiederaufbau der Gespr&auml;chshistorie",
+          rateHistoryRebuildDesc:
+            "Agent-Sitzungen brechen ab &mdash; Entscheidungshistorie, Arbeitsged&auml;chtnis und Referenzdateien werden neu geladen",
+          rateUnproductiveResearch: "Unproduktive Recherche",
+          rateUnproductiveResearchDesc:
+            "Team kl&auml;rt &ldquo;wo wir waren&rdquo; &mdash; KI-gest&uuml;tztes Code-Browsing und Problemdefinition",
+          rateHallucinations: "Fehlerspirale (Halluzinationen)",
+          rateHallucinationsDesc:
+            "Neuer Kontext ohne Historie erzeugt mehr falsche Vorschl&auml;ge und Retry-Zyklen",
+          rateTotalRow: "<strong>Gesamt: Verschwendung pro Unterbrechung</strong>",
+          ctaLabel: "Unterbrechungskosten senken",
+          ctaTitle: "DWS IQ Loop Engineering h&auml;lt den Kontext am Leben",
+          ctaDesc:
+            "Maker&ndash;Checker-Schleifen, festplattengespeicherter Zustand, Budgetbegrenzer und Sicherheits-Gate. Eine Unterbrechung zerst&ouml;rt den Kontext nicht &mdash; die Schleife setzt dort fort, wo sie aufgeh&ouml;rt hat.",
+          ctaButton: "Agents &middot; Loops &middot; Workflows",
+          humanDetailTpl: (team, hours, int) =>
+            `${team} Pers. × ${hours} h Ramp-up × ${int}/Monat × 12 Monate`,
+          tokenDetailTpl: (label, factor) =>
+            `${label}: ${factor}× Verschwendungsmultiplikator — Cache-Miss + Kontext-Neuladen`,
+          momentumDetailTpl: (pct, days) => `${pct}% Effizienzrückgang × ${days} Tage Erholung`,
+          recruitDetailTpl: (months, int) =>
+            `${months} Mon. Gehaltskosten × ${int} Abgänge/Mon. — Rekrutierung, Einarbeitung, impliziter Wissensverlust`,
+          sprintDragDetailTpl: (pct, months) =>
+            `${pct}% Effizienzrückgang × ${months} Mon. — Team kompensiert fehlende Expertise, Sprints verlangsamen sich`,
+          totalDetailTpl: (monthly, budgetPct) => `${monthly}/Mon. — ${budgetPct}`,
+          budgetPctTpl: (pct, budget) => `${pct}% des Jahresbudgets (${budget})`,
+          salaryPctTpl: (pct) => `${pct}% der berechneten Gehaltskosten`,
+          compSuffix: "/Jahr",
+        },
+        fr: {
+          pageTitle: "Calculateur de coûts d'interruption 2.0 | Lifetime Oy",
+          heroOverline: "Lifetime Oy &mdash; Calculateur",
+          heroTitle: 'Co&ucirc;ts d\'<span class="hero-accent">interruption de projet</span>',
+          heroDesc:
+            "Chaque interruption co&ucirc;te plus que vous ne le pensez. La version 2.0 int&egrave;gre les co&ucirc;ts &eacute;lev&eacute;s en capital-token &mdash; cache perdu, contexte &agrave; reconstruire et capacit&eacute; gaspill&eacute;e des mod&egrave;les Opus co&ucirc;teux.",
+          scenarioLabel: "Exemples &mdash; cliquez pour essayer",
+          scenStartup: "&ldquo;Lead dev parti &mdash; startup bloqu&eacute;e pendant 2 mois&rdquo;",
+          scenAgency:
+            "&ldquo;Client a chang&eacute; les priorit&eacute;s &mdash; 3 sprints perdus&rdquo;",
+          scenEnterprise:
+            "&ldquo;CTO a d&eacute;missionn&eacute; &mdash; &eacute;quipe de 50 &agrave; la d&eacute;rive&rdquo;",
+          scenAiTeam: "&ldquo;Contexte Opus perdu &mdash; une semaine de travail refaite&rdquo;",
+          scenConsulting: "&ldquo;Consultant remplac&eacute; &mdash; savoir tacite disparu&rdquo;",
+          scenProductionLine:
+            "&ldquo;Op&eacute;rateur chang&eacute; en cours de poste &mdash; ligne arr&ecirc;t&eacute;e 4 h&rdquo;",
+          scenCbamReporting:
+            "&ldquo;Donn&eacute;es CBAM perdues lors de la mise &agrave; jour &mdash; rapports d'une semaine refaits&rdquo;",
+          scenChemicalBatch:
+            "&ldquo;Erreur de lot chimique &mdash; 6 h d'arr&ecirc;t, audit REACH refait&rdquo;",
+          panelParams: "Param&egrave;tres du projet",
+          labelType: "Type d'interruption",
+          hintType:
+            "Le d&eacute;part d'une personne cl&eacute; ajoute un co&ucirc;t de recrutement et prolonge le temps de r&eacute;cup&eacute;ration",
+          typeSprint: "Changement de sprint",
+          typeDeparture: "D&eacute;part personne cl&eacute;",
+          labelTeamSize: "Taille de l'&eacute;quipe (personnes)",
+          unitPersons: "personnes",
+          labelHourlyRate: "Taux horaire moyen (€/h)",
+          labelInterruptions: "Interruptions par mois",
+          hintInterruptions:
+            "Changement de sprint, changement de priorit&eacute;, crunch inattendu",
+          unitPerMonth: "/mois",
+          labelDowntime: "Dur&eacute;e d'interruption (jours)",
+          hintDowntime: "Temps moyen avant que l'&eacute;quipe retrouve sa pleine vitesse",
+          unitDays: "jours",
+          labelTokenBudget: "Budget AI/Token (€/mois)",
+          hintTokenBudget: "Claude Code, Copilot, appels API au total",
+          unitPerMonthEur: "€/mois",
+          labelYearlyBudget: "Budget annuel du projet (€)",
+          hintYearlyBudget: "Budget total &mdash; personnel, IA, infra, sous-traitance",
+          unitPerYear: "€/an",
+          labelModelTier: "Niveau de mod&egrave;le principal",
+          hintModelTier:
+            "Mod&egrave;le plus cher = gaspillage plus important lors d'une interruption",
+          panelResults: "Co&ucirc;ts annuels",
+          resultHumanLabel: "Reconstruction du contexte humain",
+          resultTokenLabel: "Perte de capital-token (v2.0)",
+          resultMomentumLabel: "Perte de momentum",
+          resultRecruitLabel: "Recrutement &amp; int&eacute;gration",
+          resultSprintDragLabel: "Effet de freinage des sprints",
+          legendHuman: "Humain",
+          legendToken: "Capital-token",
+          legendMomentum: "Momentum",
+          legendRecruit: "Recrutement",
+          legendSprintDrag: "Freinage sprint",
+          resultTotalLabel: "Co&ucirc;t total / an",
+          compSectionLabel: "Comparaison des niveaux de mod&egrave;le",
+          compSectionTitle:
+            "Plus le mod&egrave;le est cher, plus le co&ucirc;t d'interruption est &eacute;lev&eacute;",
+          compSonnetTitle: "Niveau Sonnet",
+          compSonnetDesc:
+            "~$3/MTok entr&eacute;e, ~$15/MTok sortie<br />Gaspillage mod&egrave;le de base",
+          compOpusTitle: "Niveau Opus",
+          compOpusDesc:
+            "~$15/MTok entr&eacute;e, ~$75/MTok sortie<br />5&times; plus cher par token",
+          compOpusMaxTitle: "Opus + Extended Thinking",
+          compOpusMaxDesc:
+            "~$30/MTok entr&eacute;e, ~$150/MTok sortie<br />10&times; plus cher par token",
+          rateSectionLabel: "Fondamentaux de la tarification des tokens",
+          rateSectionTitle:
+            "Pourquoi le co&ucirc;t en capital-token augmente-t-il lors d'une interruption ?",
+          rateThCost: "Poste de co&ucirc;t",
+          rateThExplanation: "Explication",
+          rateThMultiplier: "Multiplicateur",
+          rateCacheLoss: "Perte de cache",
+          rateCacheLossDesc:
+            "Le prompt cache (TTL 5 min) expire &mdash; tout le contexte est renvoy&eacute; au plein tarif",
+          rateHistoryRebuild: "Reconstruction de l'historique",
+          rateHistoryRebuildDesc:
+            "Les sessions agent s'interrompent &mdash; historique de d&eacute;cisions, m&eacute;moire de travail et fichiers de r&eacute;f&eacute;rence recharg&eacute;s",
+          rateUnproductiveResearch: "Recherche improductive",
+          rateUnproductiveResearchDesc:
+            "L'&eacute;quipe d&eacute;termine &ldquo;o&ugrave; on en &eacute;tait&rdquo; &mdash; navigation de code assist&eacute;e par IA et d&eacute;finition du probl&egrave;me",
+          rateHallucinations: "Spirale d'erreurs (hallucinations)",
+          rateHallucinationsDesc:
+            "Un nouveau contexte sans historique produit plus de suggestions erron&eacute;es et de cycles de retry",
+          rateTotalRow: "<strong>Total : gaspillage par interruption</strong>",
+          ctaLabel: "R&eacute;duisez les co&ucirc;ts d'interruption",
+          ctaTitle: "Le Loop Engineering de DWS IQ maintient le contexte en vie",
+          ctaDesc:
+            "Boucles Maker&ndash;Checker, &eacute;tat persistant sur disque, limiteur de budget et porte de s&eacute;curit&eacute;. Une interruption ne d&eacute;truit pas le contexte &mdash; la boucle reprend l&agrave; o&ugrave; elle s'est arr&ecirc;t&eacute;e.",
+          ctaButton: "Agents &middot; Loops &middot; Workflows",
+          humanDetailTpl: (team, hours, int) =>
+            `${team} pers. × ${hours} h ramp-up × ${int}/mois × 12 mois`,
+          tokenDetailTpl: (label, factor) =>
+            `${label} : ${factor}× multiplicateur de gaspillage — cache miss + rechargement du contexte`,
+          momentumDetailTpl: (pct, days) =>
+            `${pct}% baisse d'efficacité × ${days} jours de récupération`,
+          recruitDetailTpl: (months, int) =>
+            `${months} mois de salaire × ${int} départs/mois — recrutement, intégration, perte de savoir tacite`,
+          sprintDragDetailTpl: (pct, months) =>
+            `${pct}% baisse d'efficacité × ${months} mois — l'équipe compense l'expertise manquante, les sprints ralentissent`,
+          totalDetailTpl: (monthly, budgetPct) => `${monthly}/mois — ${budgetPct}`,
+          budgetPctTpl: (pct, budget) => `${pct}% du budget annuel (${budget})`,
+          salaryPctTpl: (pct) => `${pct}% du coût salarial calculé`,
+          compSuffix: "/an",
+        },
+      };
+
+      const ALLOWED_LANGS = ["fi", "en", "sv", "de", "fr"];
+      let currentLang = "fi";
+
+      function setLang(lang) {
+        if (ALLOWED_LANGS.indexOf(lang) === -1) return;
+        currentLang = lang;
+        const t = I18N[lang];
+        if (!t) return;
+
+        // Update all data-i18n elements
+        document.querySelectorAll("[data-i18n]").forEach(function (el) {
+          var key = el.getAttribute("data-i18n");
+          if (t[key] !== undefined) {
+            el.innerHTML = t[key];
+          }
+        });
+
+        // Update document title and lang attribute
+        document.title = t.pageTitle;
+        document.documentElement.lang = lang;
+
+        // Re-run calculation to update dynamic strings
+        calculate();
+      }
+
+      // Listen for language change from vertical-lang-bar
+      window.addEventListener("dws-lang-change", function (e) {
+        if (e.detail && e.detail.lang) {
+          setLang(e.detail.lang);
+        }
+      });
+
+      /* ── Calculator Logic (unchanged) ──────────────────────────── */
       const teamSize = $("teamSize");
       const hourlyRate = $("hourlyRate");
       const interruptions = $("interruptions");
@@ -909,6 +1506,7 @@
         const budget = Number(yearlyBudget.value);
         const model = MODEL_MULTIPLIERS[selectedModelRate];
         const profile = TYPE_PROFILES[selectedType];
+        const t = I18N[currentLang];
 
         $("teamVal").textContent = team;
         $("rateVal").textContent = rate;
@@ -952,27 +1550,38 @@
           sprintDragCostAnnual;
 
         $("humanCost").textContent = fmt(humanCostAnnual);
-        $("humanDetail").textContent =
-          `${team} hlö × ${rampUpHoursPerPerson.toFixed(1)} h ramp-up × ${intPerMonth} krt/kk × 12 kk`;
+        $("humanDetail").textContent = t.humanDetailTpl(
+          team,
+          rampUpHoursPerPerson.toFixed(1),
+          intPerMonth,
+        );
 
         $("tokenCost").textContent = fmt(tokenCostAnnual);
-        $("tokenDetail").textContent =
-          `${model.label}: ${(model.wasteFactor * profile.tokenWasteMultiplier).toFixed(1)}× hukka-kerroin — cache miss + kontekstin uudelleenlataus`;
+        $("tokenDetail").textContent = t.tokenDetailTpl(
+          model.label,
+          (model.wasteFactor * profile.tokenWasteMultiplier).toFixed(1),
+        );
 
         $("momentumCost").textContent = fmt(momentumCostAnnual);
-        $("momentumDetail").textContent =
-          `${(profile.velocityLoss * 100).toFixed(0)}% tehokkuuspudotus × ${downDays} pv palautumisaika`;
+        $("momentumDetail").textContent = t.momentumDetailTpl(
+          (profile.velocityLoss * 100).toFixed(0),
+          downDays,
+        );
 
         if (profile.recruitmentMonths > 0) {
           $("recruitCost").textContent = fmt(recruitCostAnnual);
-          $("recruitDetail").textContent =
-            `${profile.recruitmentMonths} kk palkkakulua × ${intPerMonth} lähtöä/kk — rekrytointi, perehdytys, hiljaisen tiedon menetys`;
+          $("recruitDetail").textContent = t.recruitDetailTpl(
+            profile.recruitmentMonths,
+            intPerMonth,
+          );
         }
 
         if (profile.sprintDragMonths > 0) {
           $("sprintDragCost").textContent = fmt(sprintDragCostAnnual);
-          $("sprintDragDetail").textContent =
-            `${(profile.sprintDragPct * 100).toFixed(0)}% tehokkuuslasku × ${profile.sprintDragMonths} kk — tiimi kompensoi puuttuvaa osaamista, sprintit hidastuvat`;
+          $("sprintDragDetail").textContent = t.sprintDragDetailTpl(
+            (profile.sprintDragPct * 100).toFixed(0),
+            profile.sprintDragMonths,
+          );
         }
 
         const totalPct = totalAnnual || 1;
@@ -985,9 +1594,9 @@
         $("totalCost").textContent = fmt(totalAnnual);
         const budgetPct =
           budget > 0
-            ? `${((totalAnnual / budget) * 100).toFixed(1)}% vuosibudjetista (${fmt(budget)})`
-            : `${((totalAnnual / (team * rate * 8 * 22 * 12)) * 100).toFixed(1)}% laskennallisesta palkkakustannuksesta`;
-        $("totalDetail").textContent = `${fmt(totalAnnual / 12)}/kk — ${budgetPct}`;
+            ? t.budgetPctTpl(((totalAnnual / budget) * 100).toFixed(1), fmt(budget))
+            : t.salaryPctTpl(((totalAnnual / (team * rate * 8 * 22 * 12)) * 100).toFixed(1));
+        $("totalDetail").textContent = t.totalDetailTpl(fmt(totalAnnual / 12), budgetPct);
 
         const baseSonnet = calculateForModel(
           team,
@@ -1017,9 +1626,9 @@
           profile,
         );
 
-        $("compSonnet").textContent = fmt(baseSonnet.tokenCost) + "/v";
-        $("compOpus").textContent = fmt(baseOpus.tokenCost) + "/v";
-        $("compOpusMax").textContent = fmt(baseOpusMax.tokenCost) + "/v";
+        $("compSonnet").textContent = fmt(baseSonnet.tokenCost) + t.compSuffix;
+        $("compOpus").textContent = fmt(baseOpus.tokenCost) + t.compSuffix;
+        $("compOpusMax").textContent = fmt(baseOpusMax.tokenCost) + t.compSuffix;
       }
 
       function calculateForModel(
@@ -1095,6 +1704,36 @@
           yearlyBudget: 500000,
           modelRate: 3,
         },
+        "production-line": {
+          type: "sprint",
+          team: 12,
+          rate: 65,
+          interruptions: 4,
+          downtime: 1,
+          tokenBudget: 5000,
+          yearlyBudget: 3000000,
+          modelRate: 15,
+        },
+        "cbam-reporting": {
+          type: "sprint",
+          team: 5,
+          rate: 95,
+          interruptions: 2,
+          downtime: 7,
+          tokenBudget: 4000,
+          yearlyBudget: 1200000,
+          modelRate: 15,
+        },
+        "chemical-batch": {
+          type: "sprint",
+          team: 8,
+          rate: 85,
+          interruptions: 2,
+          downtime: 3,
+          tokenBudget: 6000,
+          yearlyBudget: 2500000,
+          modelRate: 15,
+        },
       };
 
       function applyScenario(key) {
@@ -1132,7 +1771,14 @@
         btn.addEventListener("click", () => applyScenario(btn.dataset.scenario));
       });
 
-      calculate();
+      // Initialize: read stored language, set UI, then calculate
+      (function initLang() {
+        var raw = localStorage.getItem("dws-lang");
+        if (raw && ALLOWED_LANGS.indexOf(raw) !== -1) {
+          currentLang = raw;
+        }
+        setLang(currentLang);
+      })();
     </script>
     <script src="/shared-assets/footer/ironclad-footer.js" defer></script>
   </body>
