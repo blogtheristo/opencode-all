@@ -9,11 +9,12 @@ Version: 1.0
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code | Session: code-coaching-curriculum | Commit: pending | Date: 24.06.2026 | Changes: Claude Code -valmennustuotteen (1 pv luento, 2 pv työpaja, valinnainen asiakasprojektityö) ensimmäinen opetussuunnitelma.
+- Version: 1.1 | Tool: Claude Code | Session: team-ethos-coaching | Commit: pending | Date: 27.06.2026 | Changes: Lisätty liite A — Team Ethos -tapaustutkimus (Mustafa Suleyman, Microsoft AI) ja kartoitus DWS:n 12 sääntöön; viitattu moduulista M2.
 
 Document Status:
 
 - Created: 24.06.2026
-- Last Modified: 24.06.2026
+- Last Modified: 27.06.2026
 - Language: Suomi
 - Languages Available: English, Suomi
 - Publication Status: DRAFT
@@ -48,14 +49,14 @@ paikallisesti; yksi edustava repositorio nimetään ennen työpajaa.
 Kesto noin 6 tuntia taukoineen. Tavoite: jokainen osallistuja jakaa saman mallin siitä, _miten_
 Claude Coden kanssa työskennellään, ja organisaatio saa 4 artiklan lukutaitonäytön.
 
-| Moduuli    | Aika   | Aihe                           | Oppimistulos                                                                                                                       |
-| ---------- | ------ | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
-| M1         | 45 min | Agenttisiirtymä                | Selittää mikä Claude Code on ja mihin CLI- / IDE- / web- / työpöytäpinnat sopivat työnkulussa                                      |
-| M2         | 75 min | 12 insinöörikurin sääntöä      | Soveltaa sääntöjä (ajattele ennen koodausta, kirurgiset muutokset, lue ennen kirjoitusta, epäonnistu äänekkäästi…) agenttisessioon |
-| M3         | 60 min | Kontekstin suunnittelu         | Kuvata miten `CLAUDE.md`-projektimuisti, taidot, vinoviivakomennot ja MCP-työkalut ohjaavat agenttia                               |
-| M4         | 60 min | Luottamus ja turvallisuus      | Luokitella toimet GREEN / YELLOW / RED -luottamusrajaan; selittää EU-suvereniteetti ja IP:n pysyminen alueella                     |
-| M5         | 60 min | Live-demo                      | Seurata täyttä plan → implement → review → ship -sykliä ja tunnistaa jokainen kuriportti                                           |
-| Yhteenveto | 30 min | Q&A ja käyttöönottosuunnitelma | Lähteä konkreettisen ensimmäisen viikon käyttöönottolistan kanssa                                                                  |
+| Moduuli    | Aika   | Aihe                           | Oppimistulos                                                                                                                                                                        |
+| ---------- | ------ | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| M1         | 45 min | Agenttisiirtymä                | Selittää mikä Claude Code on ja mihin CLI- / IDE- / web- / työpöytäpinnat sopivat työnkulussa                                                                                       |
+| M2         | 75 min | 12 insinöörikurin sääntöä      | Soveltaa sääntöjä (ajattele ennen koodausta, kirurgiset muutokset, lue ennen kirjoitusta, epäonnistu äänekkäästi…) agenttisessioon. Tapaustutkimus: liite A — Team Ethos (Suleyman) |
+| M3         | 60 min | Kontekstin suunnittelu         | Kuvata miten `CLAUDE.md`-projektimuisti, taidot, vinoviivakomennot ja MCP-työkalut ohjaavat agenttia                                                                                |
+| M4         | 60 min | Luottamus ja turvallisuus      | Luokitella toimet GREEN / YELLOW / RED -luottamusrajaan; selittää EU-suvereniteetti ja IP:n pysyminen alueella                                                                      |
+| M5         | 60 min | Live-demo                      | Seurata täyttä plan → implement → review → ship -sykliä ja tunnistaa jokainen kuriportti                                                                                            |
+| Yhteenveto | 30 min | Q&A ja käyttöönottosuunnitelma | Lähteä konkreettisen ensimmäisen viikon käyttöönottolistan kanssa                                                                                                                   |
 
 **Arviointi:** lyhyt skenaariotesti (luottamusrajan luokittelu + "mitä oletat vs. mitä kysyt").
 Suoritus kirjataan 4 artiklan lukutaitonäytöksi.
@@ -128,3 +129,69 @@ Tämä opetussuunnitelma pidetään lukkostiketissä englanninkielisen vastineen
 (`CLAUDE_CODE_COACHING_CURRICULUM_EN_v1.0.md`) kanssa. Kaikki muutokset toiseen on heijastettava
 toiseen samassa committissa. Tuotekuvauksessa viitattu hinnoittelu on vain tiedostossa
 `dws10.com/config/products.json`.
+
+---
+
+## Liite A — Tapaustutkimus: Team Ethos (Mustafa Suleyman, Microsoft AI)
+
+Käytetään **moduulissa M2** osoittamaan, miten alan johtajat päätyvät itsenäisesti samoihin
+kuriperiaatteisiin. Osallistujat vertaavat Suleymanin eetosta DWS:n 12 sääntöön ja tunnistavat,
+mitä periaatteita heidän tiiminsä jo noudattaa ja mitä pitäisi omaksua.
+
+### Periaatteet
+
+> Kaikki alla oleva kumpuaa yhdestä vakaumuksesta: kurinalaisesti, näyttöön perustuen ja
+> huolellisesti etenevä menetelmä korkoa-korolle-kasvaa nopeammin kuin sankarillinen ja
+> kaoottinen improvisaatio.
+
+1. **Tieteellinen kurinalaisuus ennen kaikkea.** Aseta hypoteesit, ablatoi perusteellisesti ja tee
+   dataan perustuvia päätöksiä.
+2. **Ajattele jatkuvasti yksinkertaisesti.** Yksinkertaiset menetelmät skaalautuvat parhaiten. Ei
+   reseptimuutoksia ilman syvällistä perustetta.
+3. **Tunne datasi.** Data on elinehto. Ei datamustalaatikoita. Jokainen on vastuussa jokaisesta
+   tokenista, jonka lisää malliin.
+4. **Tunne evalisi.** Ei tarinoita ilman lukuja. Tuotantoevalit ja sisäiset mittarit yli
+   akateemisten vertailuarvojen.
+5. **Älä juhli tuloksia ennenaikaisesti.** Ylläpidä tervettä skeptisyyttä. Tarkista
+   palkitsemishakkerointi. Älä koskaan valikoi tuloksia.
+6. **Dokumentoi kaikki aina.** Positiiviset ja negatiiviset tulokset ovat yhtä tärkeitä. Merkitse
+   jokainen kuvaaja ja akseli. Tiivistä hypoteesit ja johtopäätökset. Älä käytä jargonia.
+7. **Ole täsmällinen ja käytä neutraalia kieltä.** Kuvaile tilanteita tarkasti ilman tarpeetonta
+   tunne-energiaa.
+8. **Retrospektiivit ohjaavat kaikkea.** Kulttuuri- ja prosessivauhtipyörä on kriittinen
+   mäkikiipeämiskoneellemme. Ajamme jatkuvasti retroja iteroidaksemme ja parantaaksemme.
+9. **Olemme IC-ensimmäinen tiimi.** Johtaminen on palvelu, ei päämäärä. Olemme täällä
+   voimaannuttamassa, poistamassa esteitä ja kiihdyttämässä maailmanluokan IC-tiimiläistemme työtä.
+10. **Käyttäjäfokus.** Rakennamme mallimme loppukäyttäjille. Käyttäjäempatian kehittäminen alkaa
+    meistä. Pyrimme aina käyttämään omia mallejamme ensin, jotta voimme optimoida käyttäjillemme.
+11. **Ota vastuu toteutuksesta.** Raportoi ongelmat, toimita lokit debuggausta varten. Yritä ensin
+    korjata itse. Ja vie loppuun asti.
+
+_Lähde: Mustafa Suleyman, Microsoft AI:n toimitusjohtaja, kesäkuu 2025._
+
+### Kartoitus DWS:n 12 sääntöön
+
+| Suleymanin periaate              | DWS:n 12 sääntöä                                      | Valmennuskeskustelupiste                                                                        |
+| -------------------------------- | ----------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Tieteellinen kurinalaisuus       | 1 — Ajattele ennen koodausta                          | Molemmat vaativat eksplisiittisiä hypoteeseja ennen toimintaa                                   |
+| Ajattele yksinkertaisesti        | 2 — Yksinkertaisuus ensin                             | "Ei reseptimuutoksia ilman perustetta" = hylkää spekulatiiviset abstraktiot                     |
+| Tunne datasi                     | 8 — Lue ennen kirjoitusta                             | Ymmärrä materiaali (data/koodi) ennen muuttamista                                               |
+| Tunne evalisi                    | 9 — Testit todistavat tarkoituksen, ei vain toimintaa | Tuotantoevalit ylittävät turhamaisuusmittarit; testit, jotka eivät voi epäonnistua, ovat vääriä |
+| Älä juhli ennenaikaisesti        | 12 — Epäonnistu äänekkäästi                           | Terve skeptisyys estää hiljaisen onnistumisen rikkoutuneella pohjalla                           |
+| Dokumentoi kaikki                | 10 — Tarkistuspiste joka merkittävässä vaiheessa      | Dokumentaatio on tarkistuspiste; negatiiviset tulokset ovat yhtä arvokkaita kuin positiiviset   |
+| Täsmällinen, neutraali kieli     | 7 — Tuo ristiriidat esiin, älä keskiarvoista niitä    | Täsmällisyys estää virheitä piilottavan sekoittamisen                                           |
+| Retrospektiivit ohjaavat kaikkea | Oppimissilmukka (`/retro` → `/learn`)                 | Molemmat käsittelevät prosessivauhtipyörää korkoa-korolle-moottorina                            |
+| IC-ensimmäinen tiimi             | 5 — Malli vain harkintapäätöksiin                     | Voimaannuta työtä lähinnä olevat ihmiset (IC:t/agentit); johtaminen/orkestrointi on palvelua    |
+| Käyttäjäfokus                    | 4 — Tavoiteohjattu toteutus                           | Määritä onnistuminen käyttäjän näkökulmasta, ei rakentajan                                      |
+| Ota vastuu toteutuksesta         | 4 — Tavoiteohjattu toteutus                           | Vie loppuun asti; iteroi kunnes todennettu                                                      |
+
+### Harjoitus (15 min, osa M2:ta)
+
+1. Jokainen osallistuja valitsee Suleymanin periaatteen, jossa heidän tiiminsä on **vahvin**, ja
+   sen, joka eniten **pitäisi omaksua**.
+2. "Omaksuttavalle" periaatteelle kirjoitetaan yksi konkreettinen toimenpide, jonka he tekevät
+   ensimmäisellä Claude Code -viikollaan (esim. "lisään `/retro`-taidon repoomme" tai "vaadin
+   eval-lukuja jokaiseen PR-kuvaukseen").
+3. Jaetaan pareittain; jokainen pari raportoi parhaan toimenpiteensä ryhmälle.
+
+**Ajattelumme laatu määrittää malliemme — ja koodimme — laadun.**
