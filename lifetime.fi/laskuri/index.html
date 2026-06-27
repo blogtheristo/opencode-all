@@ -537,6 +537,39 @@
       </div>
     </section>
 
+    <!-- Example scenarios -->
+    <div style="max-width: 1080px; margin: 0 auto 20px; padding: 0 24px">
+      <div
+        style="
+          font-size: 0.7rem;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          color: var(--color-gold);
+          font-weight: 600;
+          margin-bottom: 12px;
+        "
+      >
+        Esimerkki-keissit — klikkaa kokeillaksesi
+      </div>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap" id="scenarioChips">
+        <button class="model-btn" data-scenario="startup">
+          "Lead dev lähti — startup pysähtyi 2 kuukaudeksi"
+        </button>
+        <button class="model-btn" data-scenario="agency">
+          "Asiakas vaihtoi prioriteetit — 3 sprinttiä roskiin"
+        </button>
+        <button class="model-btn" data-scenario="enterprise">
+          "CTO irtisanoutui — 50 hengen tiimi ajelehtii"
+        </button>
+        <button class="model-btn" data-scenario="ai-team">
+          "Opus-konteksti katosi — viikon työ uusiksi"
+        </button>
+        <button class="model-btn" data-scenario="consulting">
+          "Konsultti vaihtui — hiljainen tieto meni mukana"
+        </button>
+      </div>
+    </div>
+
     <!-- Calculator -->
     <div class="calc-container">
       <!-- Inputs -->
@@ -1010,6 +1043,94 @@
           input.addEventListener("input", calculate);
         },
       );
+
+      const SCENARIOS = {
+        startup: {
+          type: "departure",
+          team: 8,
+          rate: 85,
+          interruptions: 1,
+          downtime: 45,
+          tokenBudget: 3000,
+          yearlyBudget: 800000,
+          modelRate: 15,
+        },
+        agency: {
+          type: "sprint",
+          team: 6,
+          rate: 90,
+          interruptions: 5,
+          downtime: 7,
+          tokenBudget: 2000,
+          yearlyBudget: 600000,
+          modelRate: 3,
+        },
+        enterprise: {
+          type: "departure",
+          team: 50,
+          rate: 75,
+          interruptions: 1,
+          downtime: 60,
+          tokenBudget: 15000,
+          yearlyBudget: 5000000,
+          modelRate: 15,
+        },
+        "ai-team": {
+          type: "sprint",
+          team: 4,
+          rate: 100,
+          interruptions: 8,
+          downtime: 5,
+          tokenBudget: 8000,
+          yearlyBudget: 1000000,
+          modelRate: 30,
+        },
+        consulting: {
+          type: "departure",
+          team: 3,
+          rate: 150,
+          interruptions: 1,
+          downtime: 30,
+          tokenBudget: 1500,
+          yearlyBudget: 500000,
+          modelRate: 3,
+        },
+      };
+
+      function applyScenario(key) {
+        const s = SCENARIOS[key];
+        if (!s) return;
+
+        selectedType = s.type;
+        document.querySelectorAll(".type-btn").forEach((b) => {
+          b.classList.toggle("active", b.dataset.type === s.type);
+        });
+        const profile = TYPE_PROFILES[s.type];
+        downtime.max = profile.downtimeMax;
+        const isDeparture = s.type === "departure";
+        $("recruitRow").style.display = isDeparture ? "block" : "none";
+        $("recruitLegend").style.display = isDeparture ? "flex" : "none";
+        $("sprintDragRow").style.display = isDeparture ? "block" : "none";
+        $("sprintDragLegend").style.display = isDeparture ? "flex" : "none";
+
+        teamSize.value = s.team;
+        hourlyRate.value = s.rate;
+        interruptions.value = s.interruptions;
+        downtime.value = s.downtime;
+        tokenBudget.value = s.tokenBudget;
+        yearlyBudget.value = s.yearlyBudget;
+
+        selectedModelRate = s.modelRate;
+        document.querySelectorAll(".model-btn").forEach((b) => {
+          b.classList.toggle("active", Number(b.dataset.rate) === s.modelRate);
+        });
+
+        calculate();
+      }
+
+      document.querySelectorAll("[data-scenario]").forEach((btn) => {
+        btn.addEventListener("click", () => applyScenario(btn.dataset.scenario));
+      });
 
       calculate();
     </script>
