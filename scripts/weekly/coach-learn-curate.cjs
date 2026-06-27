@@ -206,6 +206,11 @@ const EXTERNAL = [
     out: 'ESITE_JULKISHALLINTO_FI.html',
     lang: 'fi',
   },
+  {
+    src: 'Coach/_reference/BID_EXCELLENCE_FI.md',
+    out: 'BID_EXCELLENCE_FI.html',
+    lang: 'fi',
+  },
 ];
 for (const f of EXTERNAL) {
   const srcAbs = path.join(REPO, f.src);
@@ -230,8 +235,7 @@ const coachOffers = [];
 if (fs.existsSync(COACH)) {
   for (const cust of fs.readdirSync(COACH)) {
     const custDir = path.join(COACH, cust);
-    if (!fs.statSync(custDir).isDirectory() || cust === '_templates' || cust === 'Archive')
-      continue;
+    if (!fs.statSync(custDir).isDirectory() || cust.startsWith('_') || cust === 'Archive') continue;
     const custArchive = path.join(custDir, 'Archive');
 
     const mdFiles = fs.readdirSync(custDir).filter((n) => n.endsWith('.md'));
