@@ -187,6 +187,11 @@ const posts = [
     title: "Europe's AI Factory Came Home — 35 Supercomputers, and Why the Edge Still Needs a Box",
     date: '25 Jun 2026',
   },
+  {
+    file: 'deepseek-v4-flash-hybrid-inference.html',
+    title: 'DeepSeek V4 Flash on Two GPUs — Hybrid Inference and the Owned-Box Reality',
+    date: '27 Jun 2026',
+  },
 ];
 
 // Three featured products
