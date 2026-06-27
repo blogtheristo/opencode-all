@@ -142,7 +142,6 @@ Chronological order. Update this table when adding/removing posts.
 | 31  | `four-learning-paradigms-world-model.fi.html`        | Maailmanmallin neljä oppimisparadigmaa (FI parity of #29)                                                                       | 23 Jun 2026 |
 | 32  | `nvidia-vera-rubin-ai-factory.html`                  | NVIDIA Vera Rubin — The AI Factory Grows Up. The Sovereign Edge Is Still a Box. (EN, NVIDIA partner note)                       | 24 Jun 2026 |
 | 33  | `eu-sovereign-ai-factories-35-supercomputers.html`   | Europe's AI Factory Came Home — 35 Supercomputers, and Why the Edge Still Needs a Box (EN, sovereignty field note)              | 25 Jun 2026 |
-| 34  | `deepseek-v4-flash-hybrid-inference.html`            | DeepSeek V4 Flash on Two GPUs — Hybrid Inference and the Owned-Box Reality (EN, community field note by Yannick Nick)           | 27 Jun 2026 |
 
 ---
 
