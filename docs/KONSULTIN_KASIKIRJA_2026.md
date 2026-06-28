@@ -204,29 +204,44 @@ Viisi työnkulkua:
 
 ### 25 EU-säänneltyä toimialaa (Fit for 55)
 
-DWS IQ 6 kattaa 25 toimialaa, joista jokainen on EU:n Fit for 55 -sääntelyn piirissä:
+DWS IQ 6 kattaa 25 toimialaa, joista jokainen on EU:n Fit for 55 -sääntelyn piirissä.
 
-**Kriittiset (Taso 1):** Energia, rauta ja teräs, sementti, kemianteollisuus, ilmailu, meriliikenne, maantiekuljetukset, rakentaminen
+**Kriittiset toimialat (Taso 1)**
 
-**Suomen kannalta keskeisimmät:**
+1. Energia
+2. Rauta ja teräs
+3. Sementti
+4. Kemianteollisuus
+5. Ilmailu
+6. Meriliikenne
+7. Maantiekuljetukset
+8. Rakentaminen
 
-| Toimiala         | Yrityksiä               | DWS-tuote             | Sääntely            |
-| ---------------- | ----------------------- | --------------------- | ------------------- |
-| Metallit/kaivos  | Outokumpu, Boliden      | Climate IQ + Aegis    | CBAM, CSRD          |
-| Kemianteollisuus | Kemira, Neste, Borealis | Climate IQ            | CBAM, CSRD, CER     |
-| Rakentaminen     | NCC, YIT, SRV, Peab     | Climate IQ            | CSRD, EPBD (2028)   |
-| Julkinen sektori | ORK, Kela, FDF          | Industrial IQ + Aegis | EU AI Act, NIS2     |
-| Paperi/metsä     | UPM, Stora Enso, Metsä  | Climate IQ            | CBAM, toimitusketju |
-| Energia          | Fortum, Helen           | Climate IQ            | ETS, CSRD           |
+**Suomen kannalta keskeisimmät**
 
-**Ruotsin kannalta keskeisimmät:**
+1. **Metallit ja kaivos** — Outokumpu, Boliden. DWS-tuote: Climate IQ + Aegis. Sääntely: CBAM, CSRD.
+2. **Kemianteollisuus** — Kemira, Neste, Borealis. DWS-tuote: Climate IQ. Sääntely: CBAM, CSRD, CER.
+3. **Rakentaminen** — NCC, YIT, SRV, Peab. DWS-tuote: Climate IQ. Sääntely: CSRD, EPBD (2028).
+4. **Julkinen sektori** — ORK, Kela, FDF. DWS-tuote: Industrial IQ + Aegis. Sääntely: EU AI Act, NIS2.
+5. **Paperi ja metsäteollisuus** — UPM, Stora Enso, Metsä Group. DWS-tuote: Climate IQ. Sääntely: CBAM, toimitusketju.
+6. **Energia** — Fortum, Helen. DWS-tuote: Climate IQ. Sääntely: ETS, CSRD.
 
-| Toimiala     | Yrityksiä                   | DWS-tuote          | Sääntely          |
-| ------------ | --------------------------- | ------------------ | ----------------- |
-| Teräs        | SSAB, H2 Green Steel        | Climate IQ + Aegis | CBAM, IP-suojaus  |
-| Kaivos       | Boliden (pääkonttori), LKAB | Climate IQ         | CBAM, CRM         |
-| Rakentaminen | NCC AB, Skanska AB, Peab    | Climate IQ         | CSRD Wave 2, EPBD |
-| Tekniikka    | ABB, Scania, Volvo          | Climate IQ         | ETS, CSRD         |
+**Ruotsin kannalta keskeisimmät**
+
+1. **Teräs** — SSAB, H2 Green Steel. DWS-tuote: Climate IQ + Aegis. Sääntely: CBAM, IP-suojaus.
+2. **Kaivos** — Boliden (pääkonttori), LKAB. DWS-tuote: Climate IQ. Sääntely: CBAM, CRM.
+3. **Rakentaminen** — NCC AB, Skanska AB, Peab. DWS-tuote: Climate IQ. Sääntely: CSRD Wave 2, EPBD.
+4. **Tekniikka** — ABB, Scania, Volvo. DWS-tuote: Climate IQ. Sääntely: ETS, CSRD.
+
+**Keski-Euroopan kannalta keskeisimmät**
+
+1. **Autoteollisuus (Saksa)** — Volkswagen, BMW, Mercedes-Benz, Continental. DWS-tuote: Climate IQ. Sääntely: CBAM, CSRD, toimitusketju (LkSG).
+2. **Kemianteollisuus (Saksa/Sveitsi)** — BASF, Bayer, Evonik, Clariant. DWS-tuote: Climate IQ + Aegis. Sääntely: CBAM, CSRD, CER, REACH.
+3. **Teräs ja metallit (Itävalta/Saksa)** — Voestalpine, ThyssenKrupp, Salzgitter. DWS-tuote: Climate IQ + Aegis. Sääntely: CBAM, ETS.
+4. **Sementti ja rakennusmateriaalit (Sveitsi/Saksa)** — Holcim, HeidelbergCement. DWS-tuote: Climate IQ. Sääntely: CBAM, ETS, CSRD.
+5. **Energia (Saksa/Itävalta)** — RWE, E.ON, Verbund. DWS-tuote: Climate IQ. Sääntely: ETS, CSRD, RED III.
+6. **Puolustus ja ilmailu (Saksa/Ranska)** — Rheinmetall, Airbus, Hensoldt. DWS-tuote: Aegis + Industrial IQ. Sääntely: NIS2, EU AI Act, kaksikäyttö (Reg. 2021/821).
+7. **Logistiikka ja kuljetus (Saksa/Alankomaat)** — Deutsche Post/DHL, Maersk, DB Cargo. DWS-tuote: Climate IQ. Sääntely: ETS (meriliikenne 2024), CSRD.
 
 ---
 
