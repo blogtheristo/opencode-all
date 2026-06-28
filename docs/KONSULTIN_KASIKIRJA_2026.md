@@ -100,7 +100,7 @@ Tämän konsultoinnin käsikirjan on laatinut Risto Anton Paarni, toimitusjohtaj
 
 Lifetime Oy on espoolainen teknologiayritys, joka kehittää ja toimittaa DWS IQ -alustaa — Euroopan teollisuuden compliance-kirjanpitojärjestelmää. Tuotamme suvereenia tekoälyä, joka automatisoi EU-säännösten noudattamisen 25 säännellyllä toimialalla.
 
-Olemme siirtyneet yleisestä IT-konsultoinnista (2019-2024) kohdennettuun AI-alustatuotteeseen (2025-2026). Konsultointi on yhä osa tarjontaamme, mutta se palvelee alustatuotteen käyttöönottoa — ei enää itsenäisenä liiketoimintana.
+Olemme siirtyneet yleisestä IT-konsultoinnista (2019-2024) kohdennettuun AI-alustatuotteeseen (2025-2026). Konsultointi on osa DWS-tuotteen projektitoimitusta ja on saatavissa asiakasprojekteihin.
 
 ### Avainluvut (Q2 2026)
 
