@@ -124,12 +124,12 @@ Olemme siirtyneet yleisestä IT-konsultoinnista (2019-2024) kohdennettuun AI-alu
 
 ### Yrityksen kehityskaari
 
-| Ajanjakso | Vaihe                 | Liiketoimintamalli                                                          |
-| --------- | --------------------- | --------------------------------------------------------------------------- |
-| 2019-2022 | IT-konsultointi       | Cloud Ready Teams, roolitettuja konsultointipalveluja, 72 roolia            |
-| 2023-2024 | Tuotteen rakentaminen | DWS IQ V1-V4, ensimmäiset asiakkaat (Kela, Uber), alusta rakennetaan        |
-| 2025-2026 | Alustatuote           | DWS IQ V5-V6, 58 agenttia, 25 toimialaa, Climate IQ + Industrial IQ + Aegis |
-| 2027+     | Skaalaus              | Pohjoismainen laajeneminen (Suomi + Ruotsi), Series A, €900K ARR tavoite    |
+| Ajanjakso | Vaihe                                                                          | Liiketoimintamalli                                                                                                                                     |
+| --------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 2019–     | IT-konsultointi                                                                | Cloud Ready Teams, 50+ kumppaniyrityksen verkosto, roolitetut IT-konsultointipalvelut, yhteensä 72 roolia joista on rakennettu nykyiset 88 kyvykkyyttä |
+| 2020–     | Tuotteiden rakentaminen, tällä hetkellä verkkokaupassa 100 tuotetta            | DWS IQ V1-V4 (2019–2023), ensimmäiset asiakkaat (Kela, Uber), DWS 5 alusta rakennetaan vetytalouden tarpeisiin, DWS IQ Climate Compliance              |
+| 2024–2026 | DWS IQ sekä DWS IQ Aegis alustatuotteet sekä Firehorse tuotelinja sekä Agentit | DWS IQ V5-V6, 50 agenttia, 25 toimialaa, Climate IQ + Industrial IQ + Aegis                                                                            |
+| 2027+     | Skaalaus                                                                       | Pohjoismainen laajeneminen (Suomi + Ruotsi), Series A, €900K ARR tavoite                                                                               |
 
 ---
 
