@@ -690,7 +690,7 @@ Seuraavassa tärkeimmät teknologia roadmapit joita konsultin tulee seurata:
 
 #### NVIDIA
 
-- **Q3 2026** — DGX Spark GA (128 GB, Grace Blackwell). Aegis Standard -laitteisto tuotantoon. €5 500 per yksikkö.
+- **Q3 2026** — DGX Spark GA (128 GB, Grace Blackwell). Aegis Standard -laitteisto tuotantoon. €5 994 per yksikkö.
 - **Q3 2026** — Jetson Orin Super (NX/AGX). Edge-inferenssin nopeuttaminen. <100ms → <50ms tavoite.
 - **Q4 2026** — NeMo Microservices 2.0. Train Model SaaS -tuotteen pohja. Räätälöity mallikoulutus.
 - **2027** — NVIDIA NIM (inference microservices). Mallien skaalautuva jakelu edge-laitteille.
@@ -718,7 +718,7 @@ Seuraavassa tärkeimmät teknologia roadmapit joita konsultin tulee seurata:
 #### DWS IQ -tuoteroadmap
 
 - **Q3 2026** — Aegis Defence GA. NVIDIA L40S -nodet, ArgusAgent SAR, EDIP-raportointi.
-- **Q3 2026** — Train Model SaaS (Compact / Standard / Pro). €1 490 / €2 990 / €7 490.
+- **Q3 2026** — Train Model SaaS (LWM Ontology Build) — Compact / Standard / Pro. €1 490 / €2 990 / €7 490.
 - **Q3 2026** — ISO 27001 sertifiointi. Käynnissä.
 - **Q4 2026** — SOC 2 Type II. Suunniteltu.
 - **Q4 2026** — IEC 62443 (OT-turvallisuus). Suunniteltu.
