@@ -122,9 +122,11 @@ DWS IQ 6 sells sovereign compliance automation to EU-regulated industries. The n
 
 **Defence workflows (Aegis Defence):**
 
-1. Drone detection + UAS classification + Article 12 delivery
-2. Dual-use export control screening (Reg. 2021/821)
-3. NIS2 24-hour incident reconstruction
+1. SAR orbital target detection + change detection (ICEYE ArgusAgent, 20 industry types, Art. 12 audited)
+2. Dual-use export control screening (Reg. 2021/821, Annex I–IV)
+3. EU regulatory 24h incident reconstruction (NIS2, EU AI Act Art. 12, GDPR Art. 33/34, CER, CRA)
+4. Sovereign climate compliance in dual-use industry (CBAM/CSRD/ETS in classified supply chains)
+5. Critical supply chain monitoring (Critical Raw Materials Act, EU Chips Act, sanctions tracking)
 
 ### Price
 

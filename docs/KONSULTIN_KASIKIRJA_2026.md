@@ -6,7 +6,7 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.4
 
 Sessions & Modifications:
 
@@ -14,6 +14,7 @@ Sessions & Modifications:
 - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Added Enterprise Model Engineer role (Lifetime World Model ontology building, Train Model SaaS, 5 000 enterprise ontology network). Updated role count from 7 to 8.
 - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Restored 2024 formulations — Alkusanat, mission climate text, values philosophy, scenario wisdom (Ritakallio/Vuori quotes, "Litet bättre", "Me emme seuraa trendejä"), listening philosophy, customer interaction wisdom. No 2024 content lost in rewrite.
 - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Reframed solopreneur as strength in SWOT (1 CEO + 58 AI agents = large-firm capacity at startup cost). Converted definition-style tables to lists for readability. Updated agent count from 50 to 58. Added branded HTML version. Updated version to 1.3.
+- Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Aegis Defence section rewritten: drone detection replaced with honest SAR orbital detection (ArgusAgent actual capabilities). Export control kept and strengthened. NIS2 expanded with EU AI Act Art. 12, GDPR Art. 33/34, CER directive, Cyber Resilience Act. Added workflow #4 sovereign climate compatibility in dual-use industry. Added workflow #5 critical supply chain monitoring (Critical Raw Materials Act, EU Chips Act). Total 5 workflows.
 
 Document Status:
 
@@ -184,11 +185,18 @@ DWS IQ 6 ei ole kolme hintatasoa. Se on kolme itsenäistä akselia:
 
 ### Puolustus- ja kaksikäyttö (Aegis Defence)
 
-Kolme valmista työnkulkua:
+Viisi työnkulkua:
 
-1. **Drone-tunnistus + UAS-luokittelu** — reaaliaikainen, Article 12 -auditoitu
-2. **Kaksikäyttötuotteiden vientivalvontaseulonta** — Reg. 2021/821, oikeudellisesti kestävä jälki
-3. **NIS2 24h -insidenttirekonstruktio** — automaattinen aikajana, ihminen silmukassa
+1. **Orbitaalinen kohdetunnistus + SAR-muutosdetektio** — ICEYE SAR -satelliittikuvien analyysi 20 teollisuustyypin tunnistuksella (ArgusAgent). Havaitsee rakennustyömaamuutokset, teollisuuslaitosten kapasiteettimuutokset ja logistiikkavirrat. EU AI Act Art. 12 -auditoitu, täysi jäljitettävyys.
+2. **Kaksikäyttötuotteiden vientivalvontaseulonta** — Reg. (EU) 2021/821, oikeudellisesti kestävä jälki. Automaattinen dual-use -luokittelu, loppukäyttäjäselvitys ja vientilupaprosessin tuki. Kattaa Annex I–IV -tuoteluokat.
+3. **EU-sääntelyn 24h -insidenttirekonstruktio** — automaattinen aikajana, ihminen silmukassa. Kattaa:
+   - **NIS2** (Dir. 2022/2555) — 24h ennakkoilmoitus, 72h täysi raportti CSIRT:ille
+   - **EU AI Act** (Reg. 2024/1689) Art. 12 — korkean riskin AI-järjestelmien lokitus ja jäljitettävyys
+   - **GDPR** (Reg. 2016/679) Art. 33/34 — 72h tietoturvaloukkausilmoitus valvontaviranomaiselle
+   - **CER-direktiivi** (Dir. 2022/2557) — kriittisten toimijoiden häiriönsietokyky ja insidenttiraportointi
+   - **Cyber Resilience Act** (Reg. 2024/2847) — digitaalisten tuotteiden kyberturvallisuusvaatimukset ja haavoittuvuusraportointi
+4. **Suvereeni ilmastoyhteensopivuus kaksikäyttöteollisuudessa** — CBAM-, CSRD- ja ETS-velvoitteiden automaattinen täsmäytys puolustus- ja kaksikäyttöteollisuuden erityisvaatimuksiin. Varmistaa, että päästölaskenta ja raportointivelvoitteet täyttyvät myös turvaluokitelluissa toimitusketjuissa ilman datavuotoja kolmansiin maihin.
+5. **Kriittisten tuotantoketjujen tarkkailu ja vahvistaminen** — jatkuva seuranta EU:n kriittisten raaka-aineiden asetuksen (Critical Raw Materials Act, Reg. 2024/1252) ja EU Chips Act -asetusten mukaisesti. Tunnistaa toimitusketjun pullonkaulat, maantieteelliset keskittymäriskit ja sanktiolistamuutokset. ArgusAgent-satelliittikuva vahvistaa tuotantolaitosten toiminnallisuuden fyysisellä tasolla.
 
 ---
 
