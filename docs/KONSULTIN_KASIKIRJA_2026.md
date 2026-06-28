@@ -820,6 +820,8 @@ DWS IQ 6 kattaa:
 
 ### Alihankkijaverkosto
 
+Lifetime Oy:n alihankkijaverkosto kattaa 50+ asiantuntijayritystä, kumppanuudet solmittu 2020–2022 ja ankkuroitu NVIDIA Connect -kumppanuuteen. Keskeisiä kumppaneita:
+
 - **9series** — Tekninen toimitus (DevOps, Full-stack)
 - **Cubet** — Tekninen toimitus (AI/ML, data engineering)
 - **Freelance CTO** — Arkkitehtuuri (strategiset päätökset)
@@ -852,6 +854,9 @@ DWS IQ 6 kattaa:
 ### Liite C: Sanasto
 
 - **DWS IQ** — Digital Workforce Studio Intelligence — AI-alusta
+- **LWM** — Lifetime World Model — asiakaskohtainen maailmanmalli/ontologia
+- **Control Room** — Lokaali valvomohuone (LWM + DWS-alusta paikallisella laitteistolla)
+- **Situation Room** — Suvereeni johtohuone (aggregoi valvomohuoneiden syötteet)
 - **Climate IQ** — CBAM/CSRD/ETS compliance-automaatio
 - **Industrial IQ** — Toimialarajat ylittävä signaalianalyysi
 - **Aegis** — Suvereeni infrastruktuuri (on-prem, ilmaraollinen)
