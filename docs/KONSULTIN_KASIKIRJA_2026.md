@@ -228,7 +228,7 @@ Viisi työnkulkua:
 
 Ontologia on jäsennelty tietämysrakenne, joka kuvaa käsitteet ja niiden väliset suhteet. DWS IQ:n kyvykkyysontologia kuvaa yrityksen koko osaamisen — ei luettelona, vaan verkkorakenteena jossa jokainen kyvykkyys tietää mistä luokasta se on, mihin muihin luokkiin se kytkeytyy ja miten se palvelee asiakasta.
 
-Ontologia on Lifetime World Model (LWM) -pohjainen. Konsultti kouluttaa asiakkaan LWM-ontologian NVIDIA AI Workbench -työkalulla asiakkaan DGX Spark -kokoonpanossa (Train Model SaaS) tai ottaa käyttöön lokaalin World Model -toteutuksen (Control Room / Situation Room). Näin kyvykkyysontologia laajenee kattamaan asiakkaan toimialan erityiskysymykset.
+Ontologia on Lifetime World Model (LWM) -pohjainen — eurooppalainen, asiakkaan hallinnassa pysyvä maailmanmalli. Konsultti rakentaa ja kouluttaa asiakkaan LWM-ontologian NVIDIA AI Workbench -työkalulla asiakkaan DGX Spark -kokoonpanossa (Train Model SaaS) ja vie sen lokaaliin World Model -toteutukseen (Control Room / Situation Room). Koska EU-sääntely, toimialatieto ja kyvykkyyskatalogi kehittyvät jatkuvasti, LWM-ontologia vaatii jatkuvaa ylläpitoa ja uudelleenkoulutusta — tämä on asiakkaan jatkuvan tilauksen (subscription) ydin ja konsultoinnin keskeinen tehtävä. Näin kyvykkyysontologia pysyy ajan tasalla ja laajenee kattamaan asiakkaan toimialan erityiskysymykset.
 
 DWS IQ:n kyvykkyysontologia jakautuu kymmeneen luokkaan (A–J) ja kattaa 88 kyvykkyyttä. Täydellinen luokkakuvaus, agenttiluettelo ja ontologiaperiaatteet ovat kappaleessa [§6 Kyvykkyysmalli 2026](#6-kyvykkyysmalli-2026--roolit-ovat-agentteja).
 
@@ -288,6 +288,8 @@ DWS IQ 6 kattaa 25 toimialaa, joista jokainen on EU:n Fit for 55 -sääntelyn pi
 ---
 
 ## 6. Kyvykkyysmalli 2026 — roolit ovat agentteja
+
+> **Kanoninen lause:** DWS:llä on **58 agenttia ja 88 kyvykkyyttä (roolia) 25 toimialalla.** Katalogi kasvaa jatkuvasti uusien sääntelyvaatimusten ja toimialojen myötä, joten luvut ovat suuntaa-antavia eivätkä pyri agenttikohtaiseen täsmäykseen. Alla oleva luettelo kuvaa kyvykkyysontologian rakenteen (luokat A–J); osa agenteista palvelee useaa luokkaa.
 
 ### Muutos: ihmisrooleista agenttikyvykkyyksiin
 
