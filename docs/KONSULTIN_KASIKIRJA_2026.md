@@ -419,6 +419,69 @@ Jokaisesta asiakaskontaktista tulee "arvio" — näkymätön mutta todellinen:
 | **Kill-auktoriteetti**          | <125ms terminointi, TPM 2.0 sinetöity todiste            | Reaaliaikainen AI-toimintojen hallinta                        |
 | **Luottamuspisteet**            | ATS 0.00-1.00, dynaaminen rajaus                         | Automaattinen kyvykkyyden rajoitus epäilyttävässä käytöksessä |
 
+### DWS Teknologian Roadmap — Tärkeimmät seurattavat
+
+Seuraavassa tärkeimmät teknologia roadmapit joita konsultin tulee seurata:
+
+#### NVIDIA
+
+| Ajankohta   | Tuote / Päivitys                       | Vaikutus DWS:lle                                               |
+| ----------- | -------------------------------------- | -------------------------------------------------------------- |
+| **Q3 2026** | DGX Spark GA (128 GB, Grace Blackwell) | Aegis Standard -laitteisto tuotantoon. €5 500 per yksikkö.     |
+| **Q3 2026** | Jetson Orin Super (NX/AGX)             | Edge-inferenssin nopeuttaminen. <100ms → <50ms tavoite.        |
+| **Q4 2026** | NeMo Microservices 2.0                 | Train Model SaaS -tuotteen pohja. Räätälöity mallikoulutus.    |
+| **2027**    | NVIDIA NIM (inference microservices)   | Mallien skaalautuva jakelu edge-laitteille.                    |
+| **2027**    | Vera Rubin -arkkitehtuuri (HPC)        | Seuraavan sukupolven GPU-laskenta. Aegis Sovereign valmistelu. |
+
+#### Microsoft
+
+| Ajankohta   | Tuote / Päivitys                    | Vaikutus DWS:lle                                           |
+| ----------- | ----------------------------------- | ---------------------------------------------------------- |
+| **Q3 2026** | Azure AI Foundry GA                 | Kilpailijan vertailupiste. DWS:n etu: suvereenisuus + KYA. |
+| **Q4 2026** | Microsoft 365 Copilot -laajennukset | Integraatiomahdollisuus: DWS-agentti M365-työnkuluissa.    |
+| **2027**    | Founders Hub L5 (jos saatavilla)    | Pilvikreditit + teknologiatuki.                            |
+
+#### Red Hat / IBM
+
+| Ajankohta   | Tuote / Päivitys      | Vaikutus DWS:lle                                                          |
+| ----------- | --------------------- | ------------------------------------------------------------------------- |
+| **Q3 2026** | OpenShift AI 2.x      | K8s-pohjainen AI-alusta. DWS Aegis vertailupiste.                         |
+| **Q4 2026** | InstructLab 2.0       | Avoin mallikoulutus. Vaihtoehto NVIDIA NeMo:lle.                          |
+| **2027**    | watsonx.governance GA | Kilpaileva AI-hallintakehys. DWS KYA:n etu: Firecracker + kill authority. |
+
+#### EU-sääntely (teknologiavaikutukset)
+
+| Ajankohta         | Sääntely                     | Teknologiavaikutus                                                                |
+| ----------------- | ---------------------------- | --------------------------------------------------------------------------------- |
+| **Elokuu 2026**   | EU AI Act Article 12 voimaan | Jokaisen AI-toiminnan auditoitava lokitus pakollinen. DWS: tuotannossa 03/2026.   |
+| **Tammikuu 2027** | ETS2 operatiivinen           | Per-reitti CO2 -laskenta. Uusi agentti: ETS2 Readiness Agent.                     |
+| **2028**          | EPBD voimaan                 | EN 15978 + EN 15804 embodied carbon -automaatio. Rakennussektorin agentit.        |
+| **2028**          | Cyber Resilience Act (CRA)   | Ohjelmistotuotteiden tietoturvavaatimukset. Vaikuttaa DWS-alustan sertifiointiin. |
+
+#### DWS IQ -tuoteroadmap
+
+| Ajankohta   | Milestone                                   | Status                                               |
+| ----------- | ------------------------------------------- | ---------------------------------------------------- |
+| **Q3 2026** | Aegis Defence GA                            | NVIDIA L40S -nodet, ArgusAgent SAR, EDIP-raportointi |
+| **Q3 2026** | Train Model SaaS (Compact / Standard / Pro) | €1 490 / €2 990 / €7 490                             |
+| **Q3 2026** | ISO 27001 sertifiointi                      | Käynnissä                                            |
+| **Q4 2026** | SOC 2 Type II                               | Suunniteltu                                          |
+| **Q4 2026** | IEC 62443 (OT-turvallisuus)                 | Suunniteltu                                          |
+| **Q4 2026** | LWM V1 (5 000 yrityksen ontologia)          | World Model -vallin syventäminen                     |
+| **Q1 2027** | ETS2 Readiness Agent                        | Maantiekuljetukset + rakennukset                     |
+| **Q1 2027** | Ruotsin markkinoiden aktivointi             | SSAB, NCC AB, Skanska AB                             |
+| **Q2 2027** | EPBD Embodied Carbon Agent                  | EN 15978 + EN 15804 automaatio                       |
+| **H2 2027** | Series A -valmistelu                        | Tavoite: €15M pre-money                              |
+
+#### Kilpailijat — seurattavat roadmapit
+
+| Kilpailija                    | Seuraa                                                 | Miksi                                                                         |
+| ----------------------------- | ------------------------------------------------------ | ----------------------------------------------------------------------------- |
+| **Normative** (Tukholma)      | Tuotejulkaisut, hinnoittelumuutokset, ERP-integraatiot | Päähkilpailija Pohjoismaissa. Ei vielä ERP-integraatioita — seuraa muuttuuko. |
+| **Sweep** (Pariisi)           | EU-laajentuminen, yritysasiakashankinta                | Jos Sweep tulee Pohjoismaihin vahvasti, aktivoi Ruotsin nopeammin.            |
+| **Persefoni** (Arizona)       | EU-tytäryhtiö, CLOUD Act -keskustelu                   | Jos Persefoni perustaa EU-entiteetin, suvereenisuusväite heikkenee. Seuraa.   |
+| **Watershed** (San Francisco) | Enterprise-hinnoittelu, AI-ominaisuudet                | Hintavertailu DWS:n eduksi. Seuraa muuttuuko.                                 |
+
 ---
 
 ## 11. EU-sääntelyympäristö
