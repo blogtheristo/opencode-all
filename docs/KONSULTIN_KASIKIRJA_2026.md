@@ -642,8 +642,8 @@ Jokaisesta asiakaskontaktista tulee "arvio" — näkymätön mutta todellinen:
 1. **Tarve herää** — Asiakas: sääntely pakottaa (CBAM, CSRD, ETS). DWS: signaaliseuranta tunnistaa tarpeen.
 2. **Ratkaisu-etsintä** (2–4 viikkoa) — Asiakas: vertailee vaihtoehtoja. DWS: sisältö — artikkelit, case-tutkimukset, LinkedIn.
 3. **Scoping** (1–2 viikkoa) — Asiakas: sopii ilmaiseen kartoitukseen. DWS: ilmainen scoping, arvioi oikea tuote.
-4. **Pilotti** (3 kuukautta) — Asiakas: allekirjoittaa pilotin (€4 950–24 000). DWS: Enterprise Navigator, 3 kk pilotti.
-5. **Vuosisopimus** (12 kuukautta) — Asiakas: sitoutuu vuosimaksuun. DWS: Climate IQ €29 990/v tai Enterprise Premium €8 950/v.
+4. **Pilotti** (3 kuukautta) — Asiakas: allekirjoittaa pilotin (Enterprise Navigator €4 999, alle €5K ostopäätösraja). DWS: 3 kk pilotti, ERP-liitin mukana.
+5. **Vuosisopimus** (12 kuukautta) — Asiakas: sitoutuu vuosimaksuun. DWS: Climate IQ ~€36K/v (€2 999/kk) + käyttöönotto €4 990, tai Enterprise Premium €8 950/v.
 6. **Laajentaminen** (käynnissä) — Asiakas: laajentaa lisäakseleille. DWS: Industrial IQ tai Aegis, jos tarve vahvistettu.
 
 ### Asiakaskontrollipisteet
