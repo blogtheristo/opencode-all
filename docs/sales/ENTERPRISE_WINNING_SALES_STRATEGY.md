@@ -86,14 +86,14 @@ DWS IQ 6 sells sovereign compliance automation to EU-regulated industries. The n
 
 ### Threats
 
-| Threat                             | Probability | Response                                                                                            |
-| ---------------------------------- | ----------- | --------------------------------------------------------------------------------------------------- |
-| **Normative (Stockholm)**          | High        | Swedish-based competitor. Counter: Nordic ERP connectors + sovereignty + Article 12                 |
-| **Sweep / Persefoni scaling EU**   | Medium      | US-origin. Counter: CLOUD Act exposure, no EU data residency, no Article 12                         |
-| **Enterprise sales cycle length**  | High        | Nordic procurement is slow (3-6 months). Counter: free scoping → pilot → annual                     |
-| **Regulatory delay**               | Low         | EU AI Act enforcement could slip. Counter: Article 12 already shipped — delay helps us prepare more |
-| **Key person risk**                | Medium      | Solo founder. Counter: contractor network, documented processes, product runs autonomously          |
-| **Price pressure from free tools** | Medium      | Greenly/Normative free tiers. Counter: free ≠ sovereign, free ≠ auditable, free ≠ Article 12        |
+| Threat                             | Probability | Response                                                                                                                |
+| ---------------------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------- |
+| **Normative (Stockholm)**          | High        | Swedish-based competitor. Counter: Nordic ERP connectors + sovereignty + Article 12                                     |
+| **Sweep / Persefoni scaling EU**   | Medium      | US-origin. Counter: CLOUD Act exposure, no EU data residency, no Article 12                                             |
+| **Enterprise sales cycle length**  | High        | Nordic procurement is slow (3-6 months). Counter: free scoping → pilot → annual                                         |
+| **Regulatory delay**               | Low         | EU AI Act enforcement could slip. Counter: Article 12 already shipped — delay helps us prepare more                     |
+| **Key person risk**                | Medium      | Small core team. Counter: established 50+ specialist network (2020–2022), documented processes, agents run autonomously |
+| **Price pressure from free tools** | Medium      | Greenly/Normative free tiers. Counter: free ≠ sovereign, free ≠ auditable, free ≠ Article 12                            |
 
 ---
 
