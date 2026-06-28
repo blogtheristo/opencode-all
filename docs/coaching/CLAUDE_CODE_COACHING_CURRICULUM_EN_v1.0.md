@@ -9,11 +9,12 @@ Version: 1.0
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code | Session: code-coaching-curriculum | Commit: pending | Date: 24.06.2026 | Changes: Initial curriculum for the Claude Code Coaching product (1-day lecture, 2-day workshop, optional client project work).
+- Version: 1.1 | Tool: Claude Code | Session: team-ethos-coaching | Commit: pending | Date: 27.06.2026 | Changes: Added Appendix A — Team Ethos case study (Mustafa Suleyman, Microsoft AI) with mapping to DWS 12 Rules; referenced from M2.
 
 Document Status:
 
 - Created: 24.06.2026
-- Last Modified: 24.06.2026
+- Last Modified: 27.06.2026
 - Language: English
 - Languages Available: English, Suomi
 - Publication Status: DRAFT
@@ -46,14 +47,14 @@ representative repository is nominated before the workshop.
 Duration ~6 hours including breaks. Goal: every attendee shares the same model of _how_ to work
 with Claude Code, and the organisation gains Article 4 literacy evidence.
 
-| Module | Time   | Topic                                  | Learning outcome                                                                                             |
-| ------ | ------ | -------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| M1     | 45 min | The agentic shift                      | Explain what Claude Code is and where the CLI / IDE / web / desktop surfaces fit a real workflow             |
-| M2     | 75 min | The 12 rules of engineering discipline | Apply the rules (think before coding, surgical changes, read before write, fail loud, …) to an agent session |
-| M3     | 60 min | Context engineering                    | Describe how `CLAUDE.md` project memory, skills, slash commands and MCP tools steer an agent                 |
-| M4     | 60 min | Trust & safety                         | Classify actions into the GREEN / YELLOW / RED trust boundary; explain EU sovereignty and IP non-egress      |
-| M5     | 60 min | Live demo                              | Observe a full plan → implement → review → ship cycle and identify each discipline gate                      |
-| Wrap   | 30 min | Q&A and adoption plan                  | Leave with a concrete first-week adoption checklist                                                          |
+| Module | Time   | Topic                                  | Learning outcome                                                                                                                                             |
+| ------ | ------ | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| M1     | 45 min | The agentic shift                      | Explain what Claude Code is and where the CLI / IDE / web / desktop surfaces fit a real workflow                                                             |
+| M2     | 75 min | The 12 rules of engineering discipline | Apply the rules (think before coding, surgical changes, read before write, fail loud, …) to an agent session. Case study: Appendix A — Team Ethos (Suleyman) |
+| M3     | 60 min | Context engineering                    | Describe how `CLAUDE.md` project memory, skills, slash commands and MCP tools steer an agent                                                                 |
+| M4     | 60 min | Trust & safety                         | Classify actions into the GREEN / YELLOW / RED trust boundary; explain EU sovereignty and IP non-egress                                                      |
+| M5     | 60 min | Live demo                              | Observe a full plan → implement → review → ship cycle and identify each discipline gate                                                                      |
+| Wrap   | 30 min | Q&A and adoption plan                  | Leave with a concrete first-week adoption checklist                                                                                                          |
 
 **Assessment:** short scenario quiz (trust-boundary classification + "what would you assume vs.
 ask"). Completion is recorded as Article 4 literacy evidence.
@@ -124,3 +125,68 @@ This curriculum is kept in lockstep with its Finnish counterpart
 (`CLAUDE_CODE_COACHING_CURRICULUM_FI_v1.0.md`). Any change to one must be reflected in the other in
 the same commit. Pricing referenced in the product sheet lives only in
 `dws10.com/config/products.json`.
+
+---
+
+## Appendix A — Case Study: Team Ethos (Mustafa Suleyman, Microsoft AI)
+
+Used in **Module M2** to show how industry leaders arrive at the same discipline principles
+independently. Participants compare Suleyman's ethos with the DWS 12 Rules and identify which
+principles their own team already follows vs. needs to adopt.
+
+### The principles
+
+> Everything below flows from one conviction: a disciplined, evidence-based, careful methodology
+> compounds faster than heroic and chaotic improvisation.
+
+1. **Scientific rigor above all else.** Set hypotheses, rigorously ablate, and make data-driven
+   decisions.
+2. **Constantly think simple.** Simple methods scale best. No recipe changes unless deeply
+   justified.
+3. **Know your data.** Data is our lifeblood. No data black boxes. Every person is responsible for
+   every token they add to the model.
+4. **Know your evals.** No narratives without numbers. Production evals and trust internal metrics,
+   over academic benchmarks.
+5. **Don't celebrate results prematurely.** Maintain healthy skepticism. Check for reward hacking.
+   Never cherry pick results.
+6. **Always document everything.** Positive and negative results are equally critical. Label every
+   plot and axes. Summarize hypotheses and conclusions. Don't use jargon.
+7. **Be precise and use neutral language.** Describe situations accurately without unnecessary
+   emotional charge.
+8. **Retrospectives drive everything.** The culture and process flywheel is critical to our hill
+   climbing machine. We constantly run retros to iterate and improve.
+9. **We're an IC-first team.** Management is a service, not the goal. We're here to empower,
+   unblock and accelerate the exceptional work of our world class ICs.
+10. **User focus.** We build our models for end users. Developing user empathy begins with us. We
+    always strive to use our own models first so we can hill climb for our users.
+11. **Take ownership for execution.** Report issues, provide logs for debugging. First try to fix
+    things yourself. And see it right through to completion.
+
+_Source: Mustafa Suleyman, CEO Microsoft AI, June 2025._
+
+### Mapping to the DWS 12 Rules
+
+| Suleyman principle              | DWS 12 Rule                                | Coaching discussion point                                                                |
+| ------------------------------- | ------------------------------------------ | ---------------------------------------------------------------------------------------- |
+| Scientific rigor                | 1 — Think before coding                    | Both demand explicit hypotheses before action                                            |
+| Constantly think simple         | 2 — Simplicity first                       | "No recipe changes unless deeply justified" = reject speculative abstractions            |
+| Know your data                  | 8 — Read before you write                  | Understand the material (data/code) before changing it                                   |
+| Know your evals                 | 9 — Tests verify intent, not just behavior | Production evals over vanity metrics; tests that can't fail are wrong                    |
+| Don't celebrate prematurely     | 12 — Fail loud                             | Healthy skepticism prevents silent success on broken foundations                         |
+| Document everything             | 10 — Checkpoint every significant step     | Documentation is a checkpoint; negative results are as valuable as positive ones         |
+| Precise, neutral language       | 7 — Surface conflicts, don't average them  | Precision prevents the blending that swallows errors                                     |
+| Retrospectives drive everything | Learning loop (`/retro` → `/learn`)        | Both treat the process flywheel as the compounding engine                                |
+| IC-first team                   | 5 — Model only for judgment calls          | Empower the people (ICs/agents) closest to the work; management/orchestration is service |
+| User focus                      | 4 — Goal-driven execution                  | Define success from the user's perspective, not the builder's                            |
+| Take ownership for execution    | 4 — Goal-driven execution                  | See it through to completion; loop until verified                                        |
+
+### Exercise (15 min, part of M2)
+
+1. Each participant picks the Suleyman principle their team is **strongest** at and the one they
+   most need to **adopt**.
+2. For the "adopt" principle, write one concrete action they will take in their first week with
+   Claude Code (e.g., "add a `/retro` skill to our repo" or "require eval numbers in every PR
+   description").
+3. Share in pairs; each pair reports their top action to the group.
+
+**The quality of our thinking determines the quality of our models — and our code.**

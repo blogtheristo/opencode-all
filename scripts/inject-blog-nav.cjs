@@ -187,6 +187,11 @@ const posts = [
     title: "Europe's AI Factory Came Home — 35 Supercomputers, and Why the Edge Still Needs a Box",
     date: '25 Jun 2026',
   },
+  {
+    file: 'industrial-intelligence-weekly-2026-06-28.html',
+    title: 'Industrial Intelligence Weekly — Five Signals from the Regulated Economy',
+    date: '28 Jun 2026',
+  },
 ];
 
 // Three featured products
