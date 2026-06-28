@@ -1,12 +1,19 @@
-# Konsultin käsikirja 2026
+# Konsultoinnin käsikirja 2026
 
-# Consultant Handbook 2026
+# Consultancy Excellence Handbook 2026
+
+> Tämä käsikirja noudattaa Britannian Management Consultancies Associationin (MCA) Consulting Excellence -toimintaohjeistuksen neljää pääperiaatetta:
+>
+> 1. **Eettinen toiminta ja vastuullisuus** — Korkeiden eettisten standardien ja lahjomattomuuden ylläpitäminen. Sitoutuminen avoimuuteen, monimuotoisuuteen, osallisuuteen ja kestävään kehitykseen.
+> 2. **Asiakaspalvelu ja lisäarvo** — Laadukkaiden palveluiden tuottaminen, jotka vastaavat asiakkaiden odotuksia ja tuottavat mitattavaa tulosta. Asiakassuhteiden rakentaminen läpinäkyvyyden ja nopean ongelmanratkaisun varaan.
+> 3. **Ammatillinen kehitys ja hyvinvointi** — Jatkuvien oppimismahdollisuuksien, koulutuksen ja urakehityksen tarjoaminen työntekijöille. Työhyvinvoinnista ja osaamisen kehittämisestä huolehtiminen osana yrityskulttuuria.
+> 4. **Kyvykkyyksien jatkuva kehittäminen** — Konsultin ja agenttikyvykkyyksien yhteistyö tuottaa tuloksia, joita kumpikaan yksin ei saavuttaisi. Oppimissilmukat varmistavat, että jokainen toimeksianto on parempi kuin edellinen.
 
 ---
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.6
+Version: 1.7
 
 Sessions & Modifications:
 
@@ -17,13 +24,14 @@ Sessions & Modifications:
 - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Aegis Defence section rewritten: drone detection replaced with honest SAR orbital detection (ArgusAgent actual capabilities). Export control kept and strengthened. NIS2 expanded with EU AI Act Art. 12, GDPR Art. 33/34, CER directive, Cyber Resilience Act. Added workflow #4 sovereign climate compatibility in dual-use industry. Added workflow #5 critical supply chain monitoring (Critical Raw Materials Act, EU Chips Act). Total 5 workflows.
 - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Section 5 rewritten: "Kyvykkyysmalli 2026 — roolit ovat agentteja". Old 72 human roles reframed as ~80 agent capabilities across 10 categories (A–J). Added 18 new capability agents (Data Engineer, Business Analyst, Change Management, etc.) to complement existing 62. Added three-pillar consulting model: (1) training to use agent capabilities, (2) workflow development, (3) disruption-free project continuity with Keskeytyslaskuri integration. Industries section: tables converted to numbered lists, Keski-Eurooppa market added (7 industries).
 - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/consultant-handbook-v1-6-622fep | Date: 28.06.2026 | Changes: Canonical source cross-check and conflict resolution. Fixed agent count 50→58 in 4 locations (Avainluvut, Kehityskaari, Skenaarioanalytiikka, 2026-lisäys). Fixed Toimialaontologiat 20→25 per INDUSTRIES.md. Fixed Enterprise Navigator pricing €4 950→€4 999 per products.json (DWS-IQ-006). Removed §4 duplicate content (10-class ontology list and principles already in §6), replaced with concise cross-reference preserving comparison table formulation per DWS_DOCUMENT_STANDARD §21.
+- Version: 1.7 | Tool: Claude Code (Opus 4.6) | Session: claude/consultant-handbook-v1-6-622fep | Date: 28.06.2026 | Changes: Renamed "Konsultin käsikirja" → "Konsultoinnin käsikirja" / "Consultancy Excellence Handbook" to reflect consultant + capability (agent/workflow/skills) paradigm. Updated Alkusanat: handbook purpose expanded to cover both consultants and agent capabilities. Replaced bullet list with comprehensive 12-point scope (capabilities, market signals, offers, procurement network, HIC project roles, agent reporting, privacy, project security, Legal Compliance, Project Compliance). Added MCA Consulting Excellence 4-principle framework reference. Previous version name retained in historical VERSION entries.
 
 Document Status:
 
 - Created: 28.06.2026
 - Last Modified: 28.06.2026
 - Language: Finnish / English (bilingual)
-- Previous version: Konsultin käsikirja 2024 v0.16 (Risto Anton Päärni, Salla Limetti)
+- Previous version: Konsultoinnin käsikirja 2024 v0.16 (Risto Anton Päärni, Salla Limetti)
 - Publication Status: DRAFT — review before distribution
 
 ---
@@ -50,23 +58,28 @@ Document Status:
 
 ## Alkusanat
 
-Uusien konsulttien perehdyttäminen Lifetime Oy:n noudattamaan Sovereign Compliance Intelligence -liiketoimintatapaan ja konsulttien päivittäisjohtamisen ja tekemisen toimintatapaan vaatii ammattimaista perehdytystä. Tämä konsultin käsikirja vastaa tärkeimpiin konsultin roolissa toimivien asiantuntijoiden työhaasteisiin käytännönläheisesti ja kiinnostavasti.
+Uusien konsulttien perehdyttäminen Lifetime Oy:n noudattamaan Sovereign Compliance Intelligence -liiketoimintatapaan ja konsulttien päivittäisjohtamisen ja tekemisen toimintatapaan vaatii ammattimaista perehdytystä. Tämä konsultoinnin käsikirja vastaa tärkeimpiin konsultin roolissa toimivien asiantuntijoiden ja agenttikyvykkyyksien työhaasteisiin käytännönläheisesti ja kiinnostavasti.
 
 Tavoitteena on luoda onnistunut ja hyvä työntekijäkokemus aina rekrytoinnista ja työsuhteen aloittamisesta työsuhteen päättämiseen ja seuraaviin askeliin asti.
 
-Tavoitteena konsultin käsikirjalle on, että uusille konsulteillemme kertyy heti toimintatavastamme konkreettinen käsitys jotta he pääsevät nopeasti ammattimaiselle tasolle ja kiinni rahaa tuottaviin asiakastoimeksiantoihin.
+Tavoitteena konsultoinnin käsikirjalle on, että uusille konsulteillemme sekä asiakaskyvykkyyksille (agent + workflow + skills) kertyy heti toimintatavastamme konkreettinen käsitys jotta he pääsevät nopeasti ammattimaiselle tasolle ja kiinni rahaa tuottaviin asiakastoimeksiantoihin.
 
 Käsikirja toimii apuna arjessa antaen toimintaohjeet mm.
 
 - uusien asiakkuuksien hankintaan,
-- tarjous- sekä kilpailutusvaiheen töihin,
-- hankkeiden ja projektien rooleissa toimimiseen,
-- konsultin työaika- ja raportointikäytäntöihin,
-- tietosuoja- sekä tietoturva-asioiden hoitokäytäntöihin,
-- GDPR Compliance -asioihin,
-- työsuhteen aloittaminen, sopimukset, tuntikirjaukset.
+- kyvykkyyksien tarjoamiseen ja kehittämiseen,
+- markkinasignaalien löytämiseen,
+- tarjousten laatimiseen,
+- hankintaverkoston hyödyntämiseen,
+- kilpailutusvaiheen jatkotöihin,
+- hankkeiden asetukseen ja HIC-projektirooleissa sekä kyvykkyyksien yhdistämiseen työnkulkuihin ja projektoinnin käytännön toimiin,
+- konsultin ja agenttien työaika- ja raportointikäytäntöihin,
+- tietosuojan ylläpitoon ja kehittämiseen,
+- projektin tietoturva-asioiden hoitoon,
+- Legal Compliance -asioihin mm. EU AI Act sekä GDPR Compliance,
+- Project Compliance -asioihin: kumppanisopimukset, työmääräin ja konsultin työsuhde.
 
-Tämän konsultin käsikirjan on laatinut Risto Anton Paarni, toimitusjohtaja, Lifetime Oy. Teosta päivitetään liiketoiminnan kehittyessä. Se on saatavilla verkkokaupastamme hintaan 29,95 eur.
+Tämän konsultoinnin käsikirjan on laatinut Risto Anton Paarni, toimitusjohtaja, Lifetime Oy. Teosta päivitetään liiketoiminnan kehittyessä. Se on saatavilla verkkokaupastamme hintaan 29,95 eur.
 
 > _The Best, Premium level Interface for Customer interaction is human-to-human. Therefore to meet corporate customers' demand for the best customer experience, we offer sovereign AI that augments — never replaces — the human consultant._
 
@@ -885,7 +898,7 @@ DWS IQ 6 kattaa:
 ---
 
 _"Katsomme suoraan silmiin. Litet bättre."_
-_— Konsultin käsikirja, 2019 & 2026_
+_— Konsultoinnin käsikirja, 2019 & 2026_
 
 ---
 
