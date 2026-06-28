@@ -177,7 +177,7 @@ DWS IQ 6 ei ole kolme hintatasoa. Se on kolme itsenäistä akselia:
 **Alustatuotteet:**
 
 - **[Enterprise Navigator](https://dws10.com/products/dwsiq.html)** (pilotti) — €4 999 kertamaksu. Kolmen kuukauden pilotti, ERP-liitin mukana. Alle €5K ostopäätösraja.
-- **[Climate IQ](https://dws10.com/products/climate-intelligence.html)** — €4 990 käyttöönotto + €2 999/kk (€29 990/v). CBAM-, CSRD-, ETS- ja PCF-raportoinnin automaatio.
+- **[Climate IQ](https://dws10.com/products/climate-intelligence.html)** — €4 990 käyttöönotto + €2 999/kk (€40 978/v sis. käyttöönotto). CBAM-, CSRD-, ETS- ja PCF-raportoinnin automaatio.
 - **[Industrial IQ (DWS IQ 6)](https://dws10.com/products/dwsiq.html)** — €4 999 kertamaksu. 58 agenttia, 25 toimialaa, toimialarajat ylittävä signaalianalyysi.
 - **Enterprise Premium** — €8 950/v. Laajennettu tuki ja konsultointipalvelu.
 - **Enterprise Nordic** — €25 950/v. Suomi + Ruotsi -kattavuus, monikielinen tuki.
