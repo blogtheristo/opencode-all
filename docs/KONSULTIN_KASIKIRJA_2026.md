@@ -6,7 +6,7 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.4
+Version: 1.5
 
 Sessions & Modifications:
 
@@ -15,6 +15,7 @@ Sessions & Modifications:
 - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Restored 2024 formulations — Alkusanat, mission climate text, values philosophy, scenario wisdom (Ritakallio/Vuori quotes, "Litet bättre", "Me emme seuraa trendejä"), listening philosophy, customer interaction wisdom. No 2024 content lost in rewrite.
 - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Reframed solopreneur as strength in SWOT (1 CEO + 58 AI agents = large-firm capacity at startup cost). Converted definition-style tables to lists for readability. Updated agent count from 50 to 58. Added branded HTML version. Updated version to 1.3.
 - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Aegis Defence section rewritten: drone detection replaced with honest SAR orbital detection (ArgusAgent actual capabilities). Export control kept and strengthened. NIS2 expanded with EU AI Act Art. 12, GDPR Art. 33/34, CER directive, Cyber Resilience Act. Added workflow #4 sovereign climate compatibility in dual-use industry. Added workflow #5 critical supply chain monitoring (Critical Raw Materials Act, EU Chips Act). Total 5 workflows.
+- Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Section 5 rewritten: "Kyvykkyysmalli 2026 — roolit ovat agentteja". Old 72 human roles reframed as ~80 agent capabilities across 10 categories (A–J). Added 18 new capability agents (Data Engineer, Business Analyst, Change Management, etc.) to complement existing 62. Added three-pillar consulting model: (1) training to use agent capabilities, (2) workflow development, (3) disruption-free project continuity with Keskeytyslaskuri integration. Industries section: tables converted to numbered lists, Keski-Eurooppa market added (7 industries).
 
 Document Status:
 
@@ -245,30 +246,172 @@ DWS IQ 6 kattaa 25 toimialaa, joista jokainen on EU:n Fit for 55 -sääntelyn pi
 
 ---
 
-## 5. Konsultin rooli 2026
+## 5. Kyvykkyysmalli 2026 — roolit ovat agentteja
 
-### Muutos 2024 → 2026
+### Muutos: ihmisrooleista agenttikyvykkyyksiin
 
-| 2024 (vanha malli)                                    | 2026 (uusi malli)                                                                                       |
-| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| 72 geneeristä roolia                                  | 8 kohdennettua roolia: AI-konsultti, compliance-asiantuntija, edge-insinööri, enterprise model engineer |
-| Cloud Ready Teams -tiimit                             | DWS IQ -alustan käyttöönottotiimi                                                                       |
-| Yleinen IT-konsultointi                               | Sääntely-automaatio + suvereeni AI                                                                      |
-| Myynnin veloitus €200/h                               | Tuoteperusteinen hinnoittelu + konsultointi scoping-vaiheessa                                           |
-| Monen päämiehen konsultointi (Oracle, SAP, Microsoft) | DWS IQ 6 -ekosysteemi + NVIDIA + Red Hat                                                                |
+| 2019–2022 (vanha malli)                               | 2026 (uusi malli)                                                                                   |
+| ----------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| 72 geneeristä ihmisroolia                             | Yli 80 agenttikyvykkyyttä — jokainen rooli on AI-agentti, ei työnimike (katalogi kasvaa jatkuvasti) |
+| Cloud Ready Teams -tiimit                             | DWS IQ -alustan kyvykkyyskatalogi                                                                   |
+| Yleinen IT-konsultointi                               | Sääntely-automaatio + suvereeni AI                                                                  |
+| Myynnin veloitus €200/h                               | Tuoteperusteinen hinnoittelu + kyvykkyydet tilattavissa välittömästi                                |
+| Monen päämiehen konsultointi (Oracle, SAP, Microsoft) | DWS IQ 6 -ekosysteemi + NVIDIA + Red Hat                                                            |
+| 6 kk rekrytointiaika uuteen osaamiseen                | Kyvykkyys käytettävissä välittömästi — ei rekrytointia, ei perehdytystä, ei irtisanomista           |
 
-### Konsultin roolit 2026
+**Miksi agenttikyvykkyydet, ei ihmisrooleja?**
 
-| Rooli                         | Kuvaus                                                                                                                                                                    | Milloin tarvitaan                      |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
-| **AI Scoping Consultant**     | Kartoittaa asiakkaan compliance-tarpeen. Suosittelee oikean DWS-tuotteen.                                                                                                 | Vapaa scoping-vaihe (1-2 viikkoa)      |
-| **DWS Deployment Engineer**   | Asentaa ja konfiguroi DWS IQ -alustan. ERP-integraatiot (SAP, IFS, Visma, Monitor, Jeeves).                                                                               | Pilottivaihe (3 kuukautta)             |
-| **Compliance Specialist**     | CBAM, CSRD, ETS, NIS2, CER -asiantuntija. Tuntee sääntelyn ja tietää miten DWS automatisoi sen.                                                                           | Kaikissa asiakasprojekteissa           |
-| **Edge AI Engineer**          | NVIDIA Jetson, DGX Spark -laitteiden käyttöönotto. Ilmaraolliset ja edge-ympäristöt.                                                                                      | Aegis-asiakkaat                        |
-| **Enterprise Model Engineer** | Lifetime World Model (LWM) -ontologioiden rakentaminen ja ylläpito. Asiakaskohtaisten mallien koulutus (Train Model SaaS). 5 000 yrityksen ontologiaverkon laajentaminen. | LWM V1 -käyttöönotto, Train Model SaaS |
-| **GenAI Solution Architect**  | Claude Code, Qwen, Llama -mallien konfigurointi. KYA-hallinta. Agent-arkkitehtuuri.                                                                                       | Suuret enterprise-asiakkaat            |
-| **DevOps Engineer**           | CI/CD, K8s, UpCloud Helsinki -infrastruktuuri. Tietoturva.                                                                                                                | Aegis Standard/Defence                 |
-| **Project Manager**           | Hankejohtaminen, JIRA, aikataulut, asiakasdokumentaatio.                                                                                                                  | Monen roolin projektit                 |
+DWS ei myy henkilöstöä. DWS myy kyvykkyyttä ja valmiutta muutokseen. Kun sääntely muuttuu, markkinat heiluvat tai toimitusketju katkeaa, asiakas tarvitsee kymmeniä kyvykkyyksiä välittömästi — ei 6 kuukauden rekrytointiprosessia. Keskeytyslaskuri (lifetime.fi/laskuri) osoittaa konkreettisesti, mitä kyvykkyyskatkos maksaa: kontekstin uudelleenrakentaminen, momentum-menetys, avainhenkilöriski. Agenttikyvykkyys eliminoi nämä kustannukset.
+
+Asiakas päättää itse, miten agentteja käytetään: ihmisen apuna, ihmisen rinnalla tai itsenäisesti. Emme ota kantaa työrooleihin tai henkilöstöpäätöksiin — tuomme kyvykkyyden.
+
+### Agenttikyvykkyyskatalogi (yli 80 kyvykkyyttä, kasvaa jatkuvasti)
+
+**A. Konsulttikyvykkyydet (8 agenttia)**
+
+1. **AI Scoping Consultant** — Kartoittaa compliance-tarpeen, suosittelee oikean DWS-tuotteen, arvioi ROI:n
+2. **DWS Deployment Engineer** — DWS IQ -alustan asennus ja konfigurointi, ERP-integraatiot (SAP, IFS, Visma, Monitor, Jeeves)
+3. **Compliance Specialist** — CBAM, CSRD, ETS, NIS2, CER, EU AI Act -asiantuntija, tuntee sääntelyn ja automaation
+4. **Edge AI Engineer** — NVIDIA Jetson, DGX Spark, Acer Veriton -käyttöönotto, ilmaraolliset ympäristöt, mallin optimointi
+5. **Enterprise Model Engineer** — Lifetime World Model (LWM) -ontologiat, asiakaskohtaisten mallien koulutus, 5 000 yrityksen ontologiaverkko
+6. **GenAI Solution Architect** — Claude Code, Qwen, Llama -mallien konfigurointi, KYA-hallinta, agenttiarkkitehtuuri
+7. **DevOps Engineer** — CI/CD, K8s, UpCloud Helsinki -infrastruktuuri, tietoturva, Prometheus/Grafana-seuranta
+8. **Project Manager** — Hankejohtaminen, JIRA-työnkulut, aikataulut, asiakasdokumentaatio
+
+**B. Sääntely- ja compliance-kyvykkyydet (8 agenttia)**
+
+9. **Compliance Agent** — EU-sääntelyn kokonaisarviointi (ETS, CBAM, CSRD, Fit for 55, EU AI Act), deterministinen pisteytys + LLM-analyysi
+10. **Compliance Researcher** — Sääntely-tutkimus, vaikutusarviointi, määräaikaseuranta, sanktioanalyysi
+11. **Emissions Data Analyst** — Päästödatan luonnollisen kielen kyselyt, scope-erittely, CSRD-olennaisuus, CBAM-arviointi
+12. **Auditor** — EU AI Act Article 12 -auditointijälki, SHA-256 -hajautusketjun verifiointi, XAI-raportointi
+13. **Cassandra (Ennusteanalytiikka)** — ETS/CBAM-hintaennusteet, Monte Carlo -skenaarioanalyysi, sääntelyriskisignaalit
+14. **Chronos (Aikatyönkulku)** — EU-compliance-määräaikakalenteri, kriittinen polku, Temporal.io-automaatio
+15. **Themis (Oikeudellinen äly)** — Sopimusarviointi, sääntelyaukkokartoitus, GDPR-peruste, EU AI Act -etiikka, 10 EU-asetuksen kattavuus
+16. **Sovereignty Monitor** — EU-datasuvereniteetti, CLOUD Act -altistus, salaus, RLS-politiikka, GDPR/NIS2-yhteensopivuus
+
+**C. Toimialakohtaiset kyvykkyydet (11 agenttia)**
+
+17. **Vulcan (Teräs)** — ETS Phase 4, CBAM-hiilisisältöilmoitukset, valokaariuuni vs. masuuni
+18. **Helios (Energia)** — Fit for 55 (42,5 % uusiutuva), ETS, EU-taksonomia, verkon päästökertoimet
+19. **Neptune (Meriliikenne)** — ETS-vaiheistus (40/70/100 % 2024–2026), FuelEU Maritime, MRV-raportointi
+20. **Ceres (Maatalous)** — CBAM-lannoitteet, N₂O (298× CO₂e), CSRD farm-to-gate Scope 3
+21. **Prometheus (Vety)** — RED III/RFNBO, vihreän vedyn sertifiointi, additionaalisuusarviointi
+22. **Mars (Rakentaminen)** — EPBD-nollapäästörakennukset 2028, EN 15978 koko elinkaaren hiili
+23. **Gaia (Sementti)** — Sementti- ja maanrakennusmateriaalien CBAM/ETS-compliance
+24. **BESS (Akkuvarastointi)** — Q-System-optimointi, EU-taksonomia 4.10, ETS-yhteiskäyttö
+25. **Talos (Alumiini)** — CBAM epäsuorat päästöt, verkon hiili-intensiteetti
+26. **Juno (Kemia/lääke)** — Kemianteollisuuden ja lääketeollisuuden CBAM/REACH-erityiskysymykset
+27. **Mercury Trade (Kauppa)** — CBAM-tuontianalytiikka, kauppapolitiikan vaikutusarviointi
+
+**D. Työnkulun orkestrointi (6 agenttia)**
+
+28. **Atlas (Esikuntapäällikkö)** — Moniagenttipyyntöjen reititys, synteesi, riskipriorisointi
+29. **Athena (Compliance Intelligence)** — EU-sääntelyn määräaikapohjainen arviointi, priorisointi
+30. **Hephaestus (Kenttä-äly)** — Työmaa-turvallisuus + materiaalihiili + aikatauluriski yhdistettynä
+31. **Mercury (Logistiikka)** — Toimitusketjun optimointi, aikatauluriski, laadunvarmistus
+32. **Iris (Tutkimus)** — Kilpailijaseuranta + sääntely-uutiset + SEO-analyysi
+33. **Apollo (Sisältö & myynti)** — Sisältöstrategia + SEO + myyntikampanjat sääntely-triggereihin
+
+**E. Kenttä- ja projektihallinnan kyvykkyydet (6 agenttia)**
+
+34. **SiteSense (Työmaaäly)** — Työmaan turvallisuuspisteytys, sää-riski, työntekijäturvallisuus EN 13001
+35. **Schedule Genius** — CPM-pohjainen aikatauluoptimointi, kriittinen polku, viivästysriski
+36. **Material Oracle** — EN 15978 elinkaaren hiilijalanjälki (A1–D), vaihtoehtoisten materiaalien suositukset
+37. **Construction Agent** — Rakennusprojektien orkestrointi: compliance, YTJ/ADR-varmistus, BIM-hiili
+38. **Logistics Agent** — Reitti-optimointi, kaluston compliance, ADR, KELA-kuljetukset, EN 16258 -päästöt
+39. **Quality Gate** — Käyttöönottovalmius: tietoturvaskannaus, testikattavuus, build-terveys
+
+**F. Myynti-, markkinointi- ja viestintäkyvykkyydet (7 agenttia)**
+
+40. **Sales Outreach** — B2B-prospektointi, yritystutkimus, kontaktien löytäminen, sähköpostin generointi
+41. **Keyword Intent (SEO)** — Hakukyselyjen luokittelu (TOFU/MOFU/BOFU), quick-win-avainsanat
+42. **Competitor Surveillance** — Kilpailijoiden viikoittainen seuranta: sisältömuutokset, hinnoittelu, takalinkit
+43. **Content Brief** — Sisältöbriiffit ja luonnokset avainsanadatasta, kilpailija-analyysistä, LWM-tiedosta
+44. **SEO Audit** — Core Web Vitals, schema-validointi, kanoninen-tagit, käyttöönottoportti
+45. **Lead Feedback** — CRM-won-datan analyysi, ostajakielen poiminta, avainsanaehdotukset SEO:lle
+46. **Designer** — Figma-to-code, kuvakaappaus-to-koodi, CSS-muutokset, komponenttien luonti
+
+**G. Tiedonhallinta- ja muistikyvykkyydet (6 agenttia)**
+
+47. **Mnemosyne (Pitkäkestomuisti)** — Istuntojen välinen konteksti, episodinen + semanttinen muisti, GDPR-unohdus
+48. **Minerva (Tiedonsiirto)** — XAI-selitykset, perehdytysmateriaalit, johdon käännökset, EU AI Act Art. 13
+49. **Knowledge Base (KB)** — Tietopankin ylläpito: raaka-aineista wiki-artikkeleiksi, indeksien hallinta
+50. **DeepWiki Extractor** — GitHub-repojen analyysi, riippuvuuskartoitus, koodin poiminta
+51. **Vision Oracle** — Kuvien analyysi: teollisuuskuvat, SAR-satelliittikuvat, laitetunnistus, dokumenttiskannaus
+52. **Synthetic Data** — CBAM-synteettisen datan generointi, LLM-validointi, stressitestaus, Red Team -data
+
+**H. Järjestelmäkyvykkyydet (5 agenttia)**
+
+53. **Daedalus (MCP Bridge)** — MCP-työkalujen dynaaminen löytäminen ja ketjutus, max 8 vaiheen ketjut
+54. **Agora (Kollektiivinen äly)** — Moniagenttikonsensus, rinnakkaisarviointi, päätösten synteesi
+55. **Panacea (Optimoija)** — Agenttien suorituskyvyn diagnoosi, prompt-optimointi, metriikoiden seuranta
+56. **World Model Loop** — LWM V1 -referenssisilmukka: havainto → simulointi → HIL-ehdotus → oppiminen
+57. **Argus (Orbitaalinen silmä)** — ICEYE SAR -satelliittikuvien analyysi, 20 teollisuustyypin tunnistus
+
+**I. Puolustus- ja turvallisuuskyvykkyydet (5 agenttia)**
+
+58. **Customer Sat** — Asiakasterveyden pisteytys, churn-ennuste, NPS-analyysi, sitouttamissuositukset
+59. **Viability** — Investointi-ROI, NPV, takaisinmaksuaika, EU ETS -hiilihyvitysten arvostus
+60. **Sovereignty Monitor** — EU-datasuvereniteetti, CLOUD Act -altistus, NIS2-yhteensopivuus
+61. **Auditor** — Auditointiketju, päätösten jäljitettävyys, hash-verifiointi
+62. **Argus Defence** — SAR-pohjainen kohdevalvonta puolustuskontekstissa
+
+**J. Muutoskyvykkyydet — uudet 2026+ (18 agenttia)**
+
+Nämä kyvykkyydet laajentavat DWS IQ:n vanhojen 72 konsulttiroolin kattavuuden täysimittaiseksi agenttikatalogiksi:
+
+63. **Data Engineer Agent** — ETL-putkistojen suunnittelu, datalaatu, skeemahallinta, tietovirtojen automatisointi
+64. **Business Analyst Agent** — Vaatimusten keräys, prosessikartoitus, sidosryhmäanalyysi, liiketoimintasääntöjen dokumentointi
+65. **Change Management Agent** — Organisaation muutosvalmius, adoptiostrategia, viestintäsuunnitelmat, disruptiotuki (vrt. Keskeytyslaskuri)
+66. **Training & Enablement Agent** — Oppimispolut, sertifikaattiseuranta, osaamisarviointi, perehdytysautomaatio
+67. **Integration Architect Agent** — API-suunnittelu, middleware, järjestelmäliitännät, ERP-yhdistäminen
+68. **Test Automation Agent** — QA-strategia, testikattavuus, regressiotestaus, CI/CD-integroitu laadunvarmistus
+69. **UX Research Agent** — Käyttäjäpolkujen kartoitus, käytettävyysanalyysi, esteettömyys, WCAG-yhteensopivuus
+70. **Process Automation Agent** — RPA, työnkulun automatisointi, pullonkaulojen tunnistus, Lean-analyysi
+71. **Database Architect Agent** — Skeemasuunnittelu, suorituskyvyn viritys, migraatiosuunnittelu, EU-datajurisdiktio
+72. **Network Security Agent** — Infrastruktuurin tietoturva, haavoittuvuusskannaus, NIS2-tekninen compliance
+73. **Cloud Migration Agent** — Työkuormien arviointi, migraatiosuunnittelu, kustannusoptimointi, suvereeni cloud
+74. **Financial Controller Agent** — Kustannusseuranta, budjettiiennusteet, laskujen verifiointi, compliance-kustannusraportointi
+75. **HR Systems Agent** — Työvoimasuunnittelu, osaamisaukkoanalyysi, perehdytysautomaatio, henkilöstöanalytiikka
+76. **Supply Chain Risk Agent** — Toimittajariskipisteytys, geopoliittinen seuranta, vaihtoehtoisten toimittajien löytäminen
+77. **Technical Writer Agent** — Dokumentaation generointi, API-dokumentit, käyttöohjeet, sääntelydokumentit
+78. **Service Desk Agent** — Insidenttitriage, ratkaisuseuranta, SLA-monitorointi, automaattinen eskalaatio
+79. **Contract Management Agent** — Sopimuselinkaari, uusimisseuranta, ehtojen poiminta, compliance-lausekkeet
+80. **Disruption Response Agent** — Keskeytyskustannusten laskenta (Keskeytyslaskuri-integraatio), häiriötilanteiden hallinta, liiketoiminnan jatkuvuussuunnittelu, muutosvalmiuden arviointi
+
+**Yhteenveto: kyvykkyyttä ilman irtisanomisia**
+
+DWS ei korvaa yrityksen henkilöstöä. DWS tuo kymmeniä agenttikyvykkyyksiä, jotka ovat käytettävissä välittömästi kun tarve syntyy — olipa kyseessä uusi EU-asetus, toimitusketjun häiriö tai markkinarakenteen muutos. Jokainen kyvykkyys on AI-agentti, joka toimii ihmisen rinnalla, ihmisen valvonnassa (human-in-the-loop). Asiakkaan omat työntekijät eivät katoa — he saavat digitaalisia kollegoja jotka poistavat rutiinityön ja vapauttavat ajattelun strategiseen työhön. Katalogi kasvaa jatkuvasti uusien sääntelyvaatimusten ja toimialojen myötä.
+
+### Konsultoinnin sisältö — kolme pilaria
+
+DWS-konsultointi rakentuu kolmelle pilarille. Yhdessä ne varmistavat, että asiakas saa täyden hyödyn agenttikyvykkyydestä:
+
+**Pilari 1: Koulutamme teidät hyödyntämään agenttikyvykkyyksiä**
+
+- Tiimisi oppii käyttämään oikeita agentteja oikeisiin tehtäviin
+- Räätälöity koulutuspolku rooleittain: compliance-tiimi saa eri koulutuksen kuin IT-tiimi
+- Käytännön harjoitukset oikealla datalla — ei teoriaa, vaan tuloksia ensimmäisestä päivästä
+- Claude Code Coaching -paketit (€1 900–€7 500) agenttikehityksen syventämiseen
+- Perehdytys EU AI Act Article 4 -lukutaitovaatimukseen (voimassa helmikuusta 2025)
+
+**Pilari 2: Autamme työnkulkujen kehittämisessä**
+
+- Kartoitamme nykyiset prosessit ja tunnistamme missä agenttikyvykkyydet tuovat suurimman hyödyn
+- Rakennamme asiakaskohtaiset työnkulut: mitkä agentit, missä järjestyksessä, kenen valvonnassa
+- Integraatio olemassa oleviin järjestelmiin (SAP, IFS, Visma, Monitor, Jeeves)
+- Lifetime World Model (LWM) -ontologian rakentaminen asiakkaan omasta datasta
+- Työnkulkujen iterointi: mittaamme tuloksia, optimoimme, skaalaamme
+
+**Pilari 3: Varmistamme että hanke etenee ilman keskeytyksiä**
+
+- Keskeytyslaskuri (lifetime.fi/laskuri) kvantifioi keskeytyskustannukset: kontekstin uudelleenrakentaminen, momentum-menetys, avainhenkilöriski
+- Proaktiivinen häiriönhallinta: kun sääntely muuttuu, toimitusketju katkeaa tai avainhenkilö vaihtuu, DWS:n agentit jatkavat työtä ilman katkosta
+- Muutosvalmiuden jatkuva arviointi: Disruption Response Agent seuraa riskisignaaleja ja varoittaa ennen kuin keskeytys tapahtuu
+- Human-in-the-loop -periaate: ihminen pysyy aina päätöksentekijänä, agentti hoitaa rutiinin
+- Hankkeen etenemisen seuranta: Project Manager Agent pitää aikataulut, JIRA-työnkulut ja dokumentaation ajan tasalla automaattisesti
+
+**Konsultoinnin tulos:** Asiakas ei ole riippuvainen yksittäisistä konsulteista tai heidän saatavuudestaan. Agenttikyvykkyydet ovat aina käytettävissä, aina ajan tasalla, aina valmiina. Keskeytyskustannus laskee, muutosvalmius nousee, compliance pysyy automaattisesti ajan tasalla.
 
 ### Konsultin päivittäinen toiminta
 
