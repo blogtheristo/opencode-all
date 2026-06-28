@@ -6,13 +6,14 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.3
 
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Initial creation — Konsultin käsikirja 2026 edition. Complete rewrite of the 2024 version (v0.16) to reflect Lifetime Oy's transformation from generic IT consulting to sovereign AI compliance platform. Retains Risto's strategic philosophy and practical consulting wisdom; modernizes product, technology, regulatory, and operational content.
 - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Added Enterprise Model Engineer role (Lifetime World Model ontology building, Train Model SaaS, 5 000 enterprise ontology network). Updated role count from 7 to 8.
 - Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Restored 2024 formulations — Alkusanat, mission climate text, values philosophy, scenario wisdom (Ritakallio/Vuori quotes, "Litet bättre", "Me emme seuraa trendejä"), listening philosophy, customer interaction wisdom. No 2024 content lost in rewrite.
+- Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Reframed solopreneur as strength in SWOT (1 CEO + 58 AI agents = large-firm capacity at startup cost). Converted definition-style tables to lists for readability. Updated agent count from 50 to 58. Added branded HTML version. Updated version to 1.3.
 
 Document Status:
 
@@ -100,11 +101,9 @@ Olemme siirtyneet yleisestä IT-konsultoinnista (2019-2024) kohdennettuun AI-alu
 
 ### Henkilöstö
 
-| Rooli               | Henkilö                        | Vastuualue                                                        |
-| ------------------- | ------------------------------ | ----------------------------------------------------------------- |
-| CEO, pääarkkitehti  | Risto Anton Paarni             | Strategia, tuotekehitys, avainasiakasmyynti, päivittäinen koodaus |
-| Freelance CTO       | Sopimuksella                   | Teknologia-arkkitehtuuri, infrastruktuuri                         |
-| Alihankkijaverkosto | Konsortio (9series, Cubet ym.) | Projektitoimitus, erikoisosaaminen                                |
+- **CEO, pääarkkitehti** — Risto Anton Paarni. Strategia, tuotekehitys, avainasiakasmyynti, päivittäinen koodaus.
+- **Freelance CTO** — Sopimuksella. Teknologia-arkkitehtuuri, infrastruktuuri.
+- **Alihankkijaverkosto** — Konsortio (9series, Cubet ym.). Projektitoimitus, erikoisosaaminen.
 
 ### Yrityksen kehityskaari
 
@@ -129,13 +128,11 @@ Olemme siirtymässä alustataloudesta datavetoiseen älytalouteen. Menestyjiä S
 
 Työ ilmastonmuutoksen estämiseksi älytalouden keinoin vaatii vahvaa eettistä perustaa. Lifetime Oy on aidosti eurooppalainen yritys. Arvomme ovat eurooppalaisia; suomalaisia. Elämme vahvasti mukana globaalissa maailmassa. Keskiössä on vahva ihmisyyden puolustaminen tekoälyä hyödyntäen.
 
-| Arvo                | Mitä se tarkoittaa käytännössä                                                                             |
-| ------------------- | ---------------------------------------------------------------------------------------------------------- |
-| **Suvereenius**     | Data pysyy EU:ssa. Nolla CLOUD Act -altistusta. Asiakkaan data ei koskaan poistu asiakkaan hallinnasta.    |
-| **Rehellisyys**     | Julkaistu hinnoittelu. Ei piilomaksuja. Ei lukitusta. "Jos se sopii, jatketaan. Jos ei, eroamme ystävinä." |
-| **Laatu**           | Jokainen AI-toiminta on auditoitavissa. Article 12 -lokitus tuotannossa. Ei sloppy output -tuotantoa.      |
-| **Hiljaisuus**      | Pohjoismainen myyntiperiaate: kuuntele ensin, myy vasta kun asiakas on valmis. Maksimissaan 2 kontaktia.   |
-| **Eurooppalaisuus** | Aidosti eurooppalainen yritys. Suomalaiset arvot. Kansainvälinen toimintaympäristö.                        |
+- **Suvereenius** — Data pysyy EU:ssa. Nolla CLOUD Act -altistusta. Asiakkaan data ei koskaan poistu asiakkaan hallinnasta.
+- **Rehellisyys** — Julkaistu hinnoittelu. Ei piilomaksuja. Ei lukitusta. "Jos se sopii, jatketaan. Jos ei, eroamme ystävinä."
+- **Laatu** — Jokainen AI-toiminta on auditoitavissa. Article 12 -lokitus tuotannossa. Ei sloppy output -tuotantoa.
+- **Hiljaisuus** — Pohjoismainen myyntiperiaate: kuuntele ensin, myy vasta kun asiakas on valmis. Maksimissaan 2 kontaktia.
+- **Eurooppalaisuus** — Aidosti eurooppalainen yritys. Suomalaiset arvot. Kansainvälinen toimintaympäristö.
 
 ### Tarkoitus (Purpose)
 
@@ -241,23 +238,19 @@ DWS IQ 6 kattaa 25 toimialaa, joista jokainen on EU:n Fit for 55 -sääntelyn pi
 
 ### Konsultin päivittäinen toiminta
 
-| Aika        | Aktiviteetti                                                          |
-| ----------- | --------------------------------------------------------------------- |
-| 08:00-08:30 | Aamubriiffi: signaaliseuranta (sääntelypäivitykset, asiakassignaalit) |
-| 08:30-12:00 | Asiakastyö: scoping, deployment, koulutus, tuki                       |
-| 12:00-13:00 | Lounas                                                                |
-| 13:00-16:00 | Asiakastyö jatkuu / sisäinen tuotekehitys                             |
-| 16:00-16:30 | Dokumentointi: tuntikirjaukset, tilanneraportti                       |
+- **08:00–08:30** — Aamubriiffi: signaaliseuranta (sääntelypäivitykset, asiakassignaalit)
+- **08:30–12:00** — Asiakastyö: scoping, deployment, koulutus, tuki
+- **12:00–13:00** — Lounas
+- **13:00–16:00** — Asiakastyö jatkuu / sisäinen tuotekehitys
+- **16:00–16:30** — Dokumentointi: tuntikirjaukset, tilanneraportti
 
 **Viikkorytmi:**
 
-| Päivä       | Painopiste                                                 |
-| ----------- | ---------------------------------------------------------- |
-| Maanantai   | Signaaliseuranta + asiakastyö                              |
-| Tiistai     | Asiakastyö + LinkedIn-yhteydet (signaaliperusteiset)       |
-| Keskiviikko | Asiakastyö + sisältötuotanto (1 artikkeli/case insight)    |
-| Torstai     | Asiakastyö + seurannat (vain Day 2 -vastaukset)            |
-| Perjantai   | Reflektio + valmistautuminen. **Ei myyntiä perjantaisin.** |
+- **Maanantai** — Signaaliseuranta + asiakastyö
+- **Tiistai** — Asiakastyö + LinkedIn-yhteydet (signaaliperusteiset)
+- **Keskiviikko** — Asiakastyö + sisältötuotanto (1 artikkeli/case insight)
+- **Torstai** — Asiakastyö + seurannat (vain Day 2 -vastaukset)
+- **Perjantai** — Reflektio + valmistautuminen. **Ei myyntiä perjantaisin.**
 
 ---
 
@@ -336,10 +329,10 @@ Me emme seuraa trendejä. Me luomme niitä. Keskeistä on älyllinen laajuus.
 - EU-suvereeni (nolla CLOUD Act), suomalainen infrastruktuuri
 - Hintaetu: Climate IQ €30K/v vs kilpailijat €50-200K/v
 - NVIDIA ISV Partner, Red Hat AI Partner
+- **Yksinyrittäjä + 58 AI-agenttia = kapasiteetti ilman kiinteitä kustannuksia.** Yksi päätöksentekijä eliminoi komiteaviiveen. 8 konsulttirooliagenttia peilaavat jokaista ihmisroolia (AI Scoping, Deployment Engineer, Compliance Specialist, Edge AI Engineer, Enterprise Model Engineer, GenAI Solution Architect, DevOps Engineer, Project Manager). 9 toimialaerikoistunutta agenttia + 6 orkestroijaa + 12 tiedusteluagenttia + 5 SEO-agenttia. Kilpailijat: Normative ~100 henkilöä, Sweep ~200 henkilöä, Persefoni ~300 henkilöä. DWS: 1 CEO + 58 agenttia, <€100/kk infrakulut. Kapasiteetti skaalautuu agentteja lisäämällä (minuutteja), ei rekrytoimalla (kuukausia).
 
 **Heikkoudet:**
 
-- Yksinyrittäjä + freelance CTO + alihankkijat
 - Ei puolustussektorin referenssiasiakasta (vielä)
 - ISO 27001 kesken (Q3 2026)
 
@@ -406,13 +399,11 @@ Kuuntelun vaikeus on myyntityön suurin haaste. Konsultin on kuunneltava jokaist
 
 Jokaisesta asiakaskontaktista tulee "arvio" — näkymätön mutta todellinen:
 
-| Tähti | Mitä se tarkoittaa    | Miten ansaitset sen                                                     |
-| ----- | --------------------- | ----------------------------------------------------------------------- |
-| 1     | He muistavat nimesi   | Ammattimainen ensikohtaaminen                                           |
-| 2     | He avaavat viestisi   | Signaaliperusteinen ajoitus — viestisi on relevantti                    |
-| 3     | He vastaavat          | Kysyit yhden hyvän kysymyksen pitchaamisen sijaan                       |
-| 4     | He ottavat tapaamisen | Sisältösi vastasi kysymykseen joka heillä jo oli                        |
-| 5     | He sanovat kyllä      | Poistit ahdistuksen, sovitit tahdin ja odotit kunnes he olivat valmiita |
+1. **He muistavat nimesi** — Ammattimainen ensikohtaaminen
+2. **He avaavat viestisi** — Signaaliperusteinen ajoitus — viestisi on relevantti
+3. **He vastaavat** — Kysyit yhden hyvän kysymyksen pitchaamisen sijaan
+4. **He ottavat tapaamisen** — Sisältösi vastasi kysymykseen joka heillä jo oli
+5. **He sanovat kyllä** — Poistit ahdistuksen, sovitit tahdin ja odotit kunnes he olivat valmiita
 
 ---
 
@@ -473,12 +464,10 @@ Jokaisesta asiakaskontaktista tulee "arvio" — näkymätön mutta todellinen:
 
 ### KYA — Know Your Agent (agenttihallinta)
 
-| Ominaisuus                      | Miten se toimii                                          | Miksi puolustus tarvitsee sitä                                |
-| ------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------- |
-| **Kryptografinen identiteetti** | Jokainen agentti-istunto sidottu varmennettuun henkilöön | Jäljitettävyys jokaiselle AI-päätökselle                      |
-| **MicroVM-eristys**             | Firecracker per agentti — oma kernel, <5MB overhead      | Nolla lateraalista liikettä agenttien välillä                 |
-| **Kill-auktoriteetti**          | <125ms terminointi, TPM 2.0 sinetöity todiste            | Reaaliaikainen AI-toimintojen hallinta                        |
-| **Luottamuspisteet**            | ATS 0.00-1.00, dynaaminen rajaus                         | Automaattinen kyvykkyyden rajoitus epäilyttävässä käytöksessä |
+- **Kryptografinen identiteetti** — Jokainen agentti-istunto sidottu varmennettuun henkilöön. Jäljitettävyys jokaiselle AI-päätökselle.
+- **MicroVM-eristys** — Firecracker per agentti — oma kernel, <5MB overhead. Nolla lateraalista liikettä agenttien välillä.
+- **Kill-auktoriteetti** — <125ms terminointi, TPM 2.0 sinetöity todiste. Reaaliaikainen AI-toimintojen hallinta.
+- **Luottamuspisteet** — ATS 0.00–1.00, dynaaminen rajaus. Automaattinen kyvykkyyden rajoitus epäilyttävässä käytöksessä.
 
 ### DWS Teknologian Roadmap — Tärkeimmät seurattavat
 
@@ -575,14 +564,12 @@ DWS IQ 6 kattaa:
 
 ### Periaatteet
 
-| Periaate                    | Käytäntö                                                             |
-| --------------------------- | -------------------------------------------------------------------- |
-| **Data ei poistu Suomesta** | UpCloud Helsinki, ei kolmannen maan palvelimia                       |
-| **CLOUD Act -vapaus**       | Ei amerikkalaisia pilvipalveluntarjoajia tuotantodatalle             |
-| **Article 12 -auditointi**  | Jokainen AI-toiminto hash-ketjutettu, muuttumaton, 7 vuoden retentio |
-| **GDPR by design**          | Tietosuoja sisäänrakennettu, ei jälkikäteen lisätty                  |
-| **KYA-hallinta**            | Jokainen agentti-istunto kryptografisesti sidottu henkilöön          |
-| **NIS2-valmius**            | 24h insidenttirekonstruktio, poikkeamailmoitusvalmiudet              |
+- **Data ei poistu Suomesta** — UpCloud Helsinki, ei kolmannen maan palvelimia
+- **CLOUD Act -vapaus** — Ei amerikkalaisia pilvipalveluntarjoajia tuotantodatalle
+- **Article 12 -auditointi** — Jokainen AI-toiminto hash-ketjutettu, muuttumaton, 7 vuoden retentio
+- **GDPR by design** — Tietosuoja sisäänrakennettu, ei jälkikäteen lisätty
+- **KYA-hallinta** — Jokainen agentti-istunto kryptografisesti sidottu henkilöön
+- **NIS2-valmius** — 24h insidenttirekonstruktio, poikkeamailmoitusvalmiudet
 
 ### Konsultin tietoturvavelvoitteet
 
@@ -594,13 +581,11 @@ DWS IQ 6 kattaa:
 
 ### Sertifioinnit ja roadmap
 
-| Sertifiointi                  | Status         | Päivämäärä          |
-| ----------------------------- | -------------- | ------------------- |
-| EU AI Act Article 12 -lokitus | TUOTANNOSSA    | Maaliskuu 2026      |
-| ISO 27001                     | Käynnissä      | Q3 2026             |
-| SOC 2 Type II                 | Suunniteltu    | Q4 2026             |
-| IEC 62443 (OT-turvallisuus)   | Suunniteltu    | Q4 2026             |
-| PiTuKri                       | Auditoitavissa | v1.1 (52 kriteeriä) |
+- **EU AI Act Article 12 -lokitus** — TUOTANNOSSA (maaliskuu 2026)
+- **ISO 27001** — Käynnissä (Q3 2026)
+- **SOC 2 Type II** — Suunniteltu (Q4 2026)
+- **IEC 62443 (OT-turvallisuus)** — Suunniteltu (Q4 2026)
+- **PiTuKri** — Auditoitavissa, v1.1 (52 kriteeriä)
 
 ---
 
@@ -608,13 +593,11 @@ DWS IQ 6 kattaa:
 
 ### Tuntikirjaus
 
-| Kohta                   | Käytäntö                                                         |
-| ----------------------- | ---------------------------------------------------------------- |
-| **Kirjausväline**       | JIRA / Google Sheets (asiakaskohtainen)                          |
-| **Kirjausfrekvenssi**   | Päivittäin, viimeistään seuraavana aamuna                        |
-| **Minimiresoluutio**    | 0.5h (30 min)                                                    |
-| **Ei-laskutettava työ** | Merkitään erikseen: sisäinen kehitys, koulutus, signaaliseuranta |
-| **Matkustusaika**       | Laskutetaan sopimuksen mukaan                                    |
+- **Kirjausväline** — JIRA / Google Sheets (asiakaskohtainen)
+- **Kirjausfrekvenssi** — Päivittäin, viimeistään seuraavana aamuna
+- **Minimiresoluutio** — 0.5h (30 min)
+- **Ei-laskutettava työ** — Merkitään erikseen: sisäinen kehitys, koulutus, signaaliseuranta
+- **Matkustusaika** — Laskutetaan sopimuksen mukaan
 
 ### Raportointi
 
@@ -628,21 +611,17 @@ DWS IQ 6 kattaa:
 
 ### Teknologiakumppanit
 
-| Kumppani                | Status                                   | Mitä se tarkoittaa               |
-| ----------------------- | ---------------------------------------- | -------------------------------- |
-| **NVIDIA**              | Connect ISV Partner (Inception Program)  | Laitteisto + AI-alusta validoitu |
-| **Microsoft**           | Founders Hub L1-L4                       | Teknologian käyttö validoitu     |
-| **Red Hat**             | AI Event Partner (Suomi, maaliskuu 2026) | Enterprise Linux -ekosysteemi    |
-| **European Commission** | InvestEU Portal x3 (INPO-20254383)       | EU-institutionaalinen tunnustus  |
+- **NVIDIA** — Connect ISV Partner (Inception Program). Laitteisto + AI-alusta validoitu.
+- **Microsoft** — Founders Hub L1–L4. Teknologian käyttö validoitu.
+- **Red Hat** — AI Event Partner (Suomi, maaliskuu 2026). Enterprise Linux -ekosysteemi.
+- **European Commission** — InvestEU Portal x3 (INPO-20254383). EU-institutionaalinen tunnustus.
 
 ### Alihankkijaverkosto
 
-| Kumppani                  | Rooli             | Kapasiteetti             |
-| ------------------------- | ----------------- | ------------------------ |
-| 9series                   | Tekninen toimitus | DevOps, Full-stack       |
-| Cubet                     | Tekninen toimitus | AI/ML, data engineering  |
-| Freelance CTO             | Arkkitehtuuri     | Strategiset päätökset    |
-| Metropolia/Aalto-verkosto | UI/UX, GenAI      | Harjoittelijat, tutkijat |
+- **9series** — Tekninen toimitus (DevOps, Full-stack)
+- **Cubet** — Tekninen toimitus (AI/ML, data engineering)
+- **Freelance CTO** — Arkkitehtuuri (strategiset päätökset)
+- **Metropolia/Aalto-verkosto** — UI/UX, GenAI (harjoittelijat, tutkijat)
 
 ---
 
@@ -674,22 +653,20 @@ DWS IQ 6 kattaa:
 
 ### Liite C: Sanasto
 
-| Termi               | Selitys                                            |
-| ------------------- | -------------------------------------------------- |
-| **DWS IQ**          | Digital Workforce Studio Intelligence — AI-alusta  |
-| **Climate IQ**      | CBAM/CSRD/ETS compliance-automaatio                |
-| **Industrial IQ**   | Toimialarajat ylittävä signaalianalyysi            |
-| **Aegis**           | Suvereeni infrastruktuuri (on-prem, ilmaraollinen) |
-| **KYA**             | Know Your Agent — agenttihallintakehys             |
-| **Article 12**      | EU AI Act:n auditointi-lokitus vaatimus            |
-| **CBAM**            | Carbon Border Adjustment Mechanism                 |
-| **CSRD**            | Corporate Sustainability Reporting Directive       |
-| **ETS/ETS2**        | Emissions Trading System (päästökauppa)            |
-| **NIS2**            | Network and Information Security Directive         |
-| **CER**             | Critical Entities Resilience Directive             |
-| **Signaalimyynti**  | Outreach vain todellisilla signaaleilla            |
-| **Buffet-periaate** | Julkaistu hinta, sama kaikille                     |
-| **Diagonal win**    | Jokaisen roolin voitto sytyttää toisen voiton      |
+- **DWS IQ** — Digital Workforce Studio Intelligence — AI-alusta
+- **Climate IQ** — CBAM/CSRD/ETS compliance-automaatio
+- **Industrial IQ** — Toimialarajat ylittävä signaalianalyysi
+- **Aegis** — Suvereeni infrastruktuuri (on-prem, ilmaraollinen)
+- **KYA** — Know Your Agent — agenttihallintakehys
+- **Article 12** — EU AI Act:n auditointi-lokitus vaatimus
+- **CBAM** — Carbon Border Adjustment Mechanism
+- **CSRD** — Corporate Sustainability Reporting Directive
+- **ETS/ETS2** — Emissions Trading System (päästökauppa)
+- **NIS2** — Network and Information Security Directive
+- **CER** — Critical Entities Resilience Directive
+- **Signaalimyynti** — Outreach vain todellisilla signaaleilla
+- **Buffet-periaate** — Julkaistu hinta, sama kaikille
+- **Diagonal win** — Jokaisen roolin voitto sytyttää toisen voiton
 
 ---
 

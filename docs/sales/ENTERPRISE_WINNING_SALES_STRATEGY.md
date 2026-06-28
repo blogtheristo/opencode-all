@@ -4,12 +4,13 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.2
 
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Initial creation — enterprise winning sales strategy for DWS IQ 6. SWOT, 4P, market trends, product roadmaps, market intelligence Finland & Sweden. 6-12 month horizon (July 2026 - June 2027). Separated from personal fleet strategy per Risto's directive.
 - Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Restored 2024 formulations — Foreword, mission/values philosophy, listening philosophy (5 stakeholder types), scenario wisdom (Risto 2019 quotes), "Litet bättre", "Me emme seuraa trendejä", customer interaction wisdom. Matches Konsultin käsikirja 2026 v1.2 formulation standard.
+- Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Added "Solopreneur + 58 AI agents" as SWOT strength. Reframed solo founder weakness as mitigated by autonomous agent fleet. Added branded HTML version with §0 "Why Industrial Intelligence Over 25 Industries Benefits Customers" — LWM base + enterprise training, sovereignty on everything, defence readiness, cross-industry early warning.
 
 Document Status:
 
@@ -42,30 +43,31 @@ DWS IQ 6 sells sovereign compliance automation to EU-regulated industries. The n
 
 ### Strengths
 
-| Strength                               | Evidence                                                                                       |
-| -------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| **EU AI Act Article 12 shipped**       | Production since March 2026 — 5 months before August enforcement. No competitor has this.      |
-| **25 EU-regulated industries covered** | 50 production agents, 15,000+ EU regulation documents indexed, 20 industry ontologies          |
-| **100% customer retention**            | 6 paying customers, zero churn. Kela, Uber Finland, Bolt, NCC + 2 undisclosed                  |
-| **EU sovereign (zero CLOUD Act)**      | Finnish infrastructure (UpCloud Helsinki). No US data exposure.                                |
-| **KYA agent governance**               | Cryptographic agent identity, Firecracker MicroVM isolation, <125ms kill authority — unique IP |
-| **Price advantage**                    | Climate IQ at €29,990/yr vs competitors at €50K-200K. Enterprise Navigator at €4,950 one-time. |
-| **Nordic ERP connectors**              | SAP, IFS, Visma, Monitor, Jeeves integration — no competitor covers Nordic ERP landscape       |
-| **Capital efficiency**                 | <€100/month burn (infra only). USD 125K cloud credits. €54K NVIDIA hardware secured.           |
-| **NVIDIA ISV Partnership**             | Connect program validated. Hardware pipeline secured for Aegis deployments.                    |
-| **Defence-grade architecture**         | Aegis tier: air-gapped, on-prem, DGX Spark. Ready for defence/CER/NIS2 deals.                  |
+| Strength                               | Evidence                                                                                                                                                                                                                                                                                               |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **EU AI Act Article 12 shipped**       | Production since March 2026 — 5 months before August enforcement. No competitor has this.                                                                                                                                                                                                              |
+| **25 EU-regulated industries covered** | 50 production agents, 15,000+ EU regulation documents indexed, 20 industry ontologies                                                                                                                                                                                                                  |
+| **100% customer retention**            | 6 paying customers, zero churn. Kela, Uber Finland, Bolt, NCC + 2 undisclosed                                                                                                                                                                                                                          |
+| **EU sovereign (zero CLOUD Act)**      | Finnish infrastructure (UpCloud Helsinki). No US data exposure.                                                                                                                                                                                                                                        |
+| **KYA agent governance**               | Cryptographic agent identity, Firecracker MicroVM isolation, <125ms kill authority — unique IP                                                                                                                                                                                                         |
+| **Price advantage**                    | Climate IQ at €29,990/yr vs competitors at €50K-200K. Enterprise Navigator at €4,950 one-time.                                                                                                                                                                                                         |
+| **Nordic ERP connectors**              | SAP, IFS, Visma, Monitor, Jeeves integration — no competitor covers Nordic ERP landscape                                                                                                                                                                                                               |
+| **Capital efficiency**                 | <€100/month burn (infra only). USD 125K cloud credits. €54K NVIDIA hardware secured.                                                                                                                                                                                                                   |
+| **NVIDIA ISV Partnership**             | Connect program validated. Hardware pipeline secured for Aegis deployments.                                                                                                                                                                                                                            |
+| **Defence-grade architecture**         | Aegis tier: air-gapped, on-prem, DGX Spark. Ready for defence/CER/NIS2 deals.                                                                                                                                                                                                                          |
+| **Solopreneur + 58 AI agents**         | 1 CEO + 58 specialized agents = large-firm capacity at startup cost. 8 consultant-role agents mirror every human role. Zero committee latency. Competitors: Normative ~100 staff, Sweep ~200, Persefoni ~300. DWS: <€100/mo infra. Capacity scales by deploying agents (minutes), not hiring (months). |
 
 ### Weaknesses
 
-| Weakness                          | Mitigation                                                                                                                         |
-| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| **Solo founder**                  | 1 person + freelance CTO + contractor network. Capacity limits deal velocity.                                                      |
-| **No defence reference customer** | Nokia Defence said no. Need one pilot win to unlock sector. Aegis GA (Aug 2026) removes "pre-production" objection.                |
-| **Material quality gap**          | Three losses (Nokia Defence, Diana, Arctic15) share root cause: materials don't match evaluation framework. Modules 1-4 now built. |
-| **No video demo**                 | Script ready (MODULE_1), not yet recorded. Blocks Diana resubmission.                                                              |
-| **Aegis pre-GA**                  | Defence tier launches August 2026. Until then, defence deals carry "not yet shipping" risk.                                        |
-| **Sweden not activated**          | Market intelligence complete, Siemens contact warm, but no Swedish customer yet.                                                   |
-| **ISO 27001 not yet certified**   | In progress Q3 2026. Enterprise buyers cite this as procurement checkbox.                                                          |
+| Weakness                          | Mitigation                                                                                                                                                |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Solo founder**                  | Reframed as strength — see Strengths. Residual risk: key-person absence. Mitigated: 58 agents run autonomously, documented processes, contractor network. |
+| **No defence reference customer** | Nokia Defence said no. Need one pilot win to unlock sector. Aegis GA (Aug 2026) removes "pre-production" objection.                                       |
+| **Material quality gap**          | Three losses (Nokia Defence, Diana, Arctic15) share root cause: materials don't match evaluation framework. Modules 1-4 now built.                        |
+| **No video demo**                 | Script ready (MODULE_1), not yet recorded. Blocks Diana resubmission.                                                                                     |
+| **Aegis pre-GA**                  | Defence tier launches August 2026. Until then, defence deals carry "not yet shipping" risk.                                                               |
+| **Sweden not activated**          | Market intelligence complete, Siemens contact warm, but no Swedish customer yet.                                                                          |
+| **ISO 27001 not yet certified**   | In progress Q3 2026. Enterprise buyers cite this as procurement checkbox.                                                                                 |
 
 ### Opportunities
 
