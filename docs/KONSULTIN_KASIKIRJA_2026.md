@@ -131,14 +131,18 @@ Työ ilmastonmuutoksen estämiseksi älytalouden keinoin vaatii vahvaa eettistä
 - **Suvereenius** — Data pysyy EU:ssa. Nolla CLOUD Act -altistusta. Asiakkaan data ei koskaan poistu asiakkaan hallinnasta.
 - **Rehellisyys** — Julkaistu hinnoittelu. Ei piilomaksuja. Ei lukitusta. "Jos se sopii, jatketaan. Jos ei, eroamme ystävinä."
 - **Laatu** — Jokainen AI-toiminta on auditoitavissa. Article 12 -lokitus tuotannossa. Ei sloppy output -tuotantoa.
-- **Hiljaisuus** — Pohjoismainen myyntiperiaate: kuuntele ensin, myy vasta kun asiakas on valmis. Maksimissaan 2 kontaktia.
+- **Resilienssi ja jatkuva parantaminen** — Opimme kuuntelemalla asiakkaita, markkinoita ja toisiamme. Jatkuva parantaminen on sisäänrakennettu toimintatapaamme — 58 agenttia, retrospektiivit ja oppimissilmukat varmistavat, että jokainen projekti on parempi kuin edellinen.
 - **Eurooppalaisuus** — Aidosti eurooppalainen yritys. Suomalaiset arvot. Kansainvälinen toimintaympäristö.
 
 ### Tarkoitus (Purpose)
 
 **2024:** "Smart Business First" — autamme asiakkaitamme löytämään digitalisaatiosta business-näkökulman.
 
-**2026:** "Sovereign Compliance Intelligence" — automatisoimme EU-sääntelynoudattamisen ja pidämme asiakkaan datan suvereenina. Jokaisella teollisuusyrityksellä on oikeus omaan dataansa, omiin tekoälyagentteihinsa ja auditoitavaan compliance-jälkeen.
+**2025:** "Climate Intelligence" — ilmastotiedustelu ja päästöraportoinnin automaatio EU-teollisuudelle.
+
+**2026:** "Climate Compliance Intelligence" — automatisoimme EU-sääntelynoudattamisen ja pidämme asiakkaan datan suvereenina. Jokaisella teollisuusyrityksellä on oikeus omaan dataansa, omiin tekoälyagentteihinsa ja auditoitavaan compliance-jälkeen.
+
+**2026 →:** "Industrial Intelligence" — fyysiseen tekoälyyn ja paikallisiin laitteisiin perustuva suvereeni teollisuusäly. NVIDIA Jetson edge-laitteilla, DGX Spark -palvelimilla ja UpCloud Helsinki -pilvillä rakennettu tiedustelukerros, jossa data ei koskaan poistu asiakkaan hallinnasta. 25 toimialan yli ulottuva ristiin-älykkyys mahdollistaa sen, mitä yksikään toimialasiilossa toimiva ratkaisu ei voi tarjota.
 
 ---
 
@@ -148,28 +152,35 @@ Työ ilmastonmuutoksen estämiseksi älytalouden keinoin vaatii vahvaa eettistä
 
 DWS IQ 6 ei ole kolme hintatasoa. Se on kolme itsenäistä akselia:
 
-| Akseli                            | Tuote         | Kysymys johon vastaa                                        | Kenelle                              |
-| --------------------------------- | ------------- | ----------------------------------------------------------- | ------------------------------------ |
-| **MITÄ** raportoida               | Climate IQ    | Mitä yrityksen on raportoitava? (CBAM, CSRD, ETS, PCF)      | Sustainability Manager, CFO          |
-| **MITEN** toimitusketju kytkeytyy | Industrial IQ | Miten sääntely vaikuttaa toimitusketjuun?                   | CTO, tuotekehitysjohtaja, operaatiot |
-| **MISSÄ** data sijaitsee          | Aegis         | Missä datani sijaitsee? (Suvereeni, on-prem, ilmaraollinen) | CISO, lakiasiat, puolustushankinta   |
+- **MITÄ raportoida → [Climate IQ](https://dws10.com/products/climate-intelligence.html)** — Mitä yrityksen on raportoitava? (CBAM, CSRD, ETS, PCF). Kenelle: Sustainability Manager, CFO.
+- **MITEN toimitusketju kytkeytyy → [Industrial IQ (DWS IQ 6)](https://dws10.com/products/dwsiq.html)** — Miten sääntely vaikuttaa toimitusketjuun? Kenelle: CTO, tuotekehitysjohtaja, operaatiot.
+- **MISSÄ data sijaitsee → [Aegis](https://dws10.com/products/aegis.html)** — Missä datani sijaitsee? (Suvereeni, on-prem, ilmaraollinen). Kenelle: CISO, lakiasiat, puolustushankinta.
 
 ### Tuotekatalogi ja hinnoittelu
 
-| Tuote                              | Käyttöönotto      | Kuukausimaksu | Vuosimaksu               |
-| ---------------------------------- | ----------------- | ------------- | ------------------------ |
-| **Enterprise Navigator** (pilotti) | €4 950 kertamaksu | —             | €4 950                   |
-| **Climate IQ**                     | €4 990            | €2 999/kk     | €29 990/v                |
-| **Industrial IQ (DWS IQ 6)**       | €4 999 kertamaksu | —             | €4 999                   |
-| **Enterprise Premium**             | —                 | —             | €8 950/v                 |
-| **Enterprise Nordic**              | —                 | —             | €25 950/v                |
-| **Aegis Standard**                 | €59 990           | €999/kk       | €71 978/v                |
-| **Aegis Defence**                  | €89 990           | €1 999/kk     | €113 978/v               |
-| **Aegis Sovereign**                | Räätälöity        | €4 999/kk     | Räätälöity               |
-| **Train Model SaaS**               | —                 | —             | €1 490 / €2 990 / €7 490 |
-| **Lifetime VIP AI Services**       | —                 | —             | €2 990/v                 |
+**Alustatuotteet:**
 
-**Hinnoittelu-periaate:** Julkaistu hinta. Sama hinta toimitusjohtajalle ja vastuullisuuspäällikölle. Ei neuvotteluteatteria. (Buffet-periaate.)
+- **[Enterprise Navigator](https://dws10.com/products/dwsiq.html)** (pilotti) — €4 950 kertamaksu. Kolmen kuukauden pilotti, ERP-liitin mukana. Alle €5K ostopäätösraja.
+- **[Climate IQ](https://dws10.com/products/climate-intelligence.html)** — €4 990 käyttöönotto + €2 999/kk (€29 990/v). CBAM-, CSRD-, ETS- ja PCF-raportoinnin automaatio.
+- **[Industrial IQ (DWS IQ 6)](https://dws10.com/products/dwsiq.html)** — €4 999 kertamaksu. 58 agenttia, 25 toimialaa, toimialarajat ylittävä signaalianalyysi.
+- **Enterprise Premium** — €8 950/v. Laajennettu tuki ja konsultointipalvelu.
+- **Enterprise Nordic** — €25 950/v. Suomi + Ruotsi -kattavuus, monikielinen tuki.
+
+**Suvereeni infrastruktuuri (Aegis):**
+
+- **[Aegis Standard](https://dws10.com/products/aegis.html)** — €59 990 käyttöönotto + €999/kk (€71 978/v). Suvereeni single-tenant K8s, UpCloud Helsinki, KYA-hallinta.
+- **[Aegis Defence](https://dws10.com/products/aegis.html)** — €89 990 käyttöönotto + €1 999/kk (€113 978/v). Ilmaraollinen, NVIDIA L40S GPU, ArgusAgent SAR, 4h SLA.
+- **Aegis Sovereign** — Räätälöity käyttöönotto + €4 999/kk. Täysin asiakaskohtainen suvereeni ympäristö.
+
+**Erikoistuotteet:**
+
+- **Train Model SaaS** — €1 490 (Compact) / €2 990 (Standard) / €7 490 (Pro). Asiakaskohtaisten ontologioiden koulutus LWM-pohjalla.
+- **[Lifetime VIP AI Services](https://dws10.com/products/lifetime-vip-ai-services.html)** — €2 990/v. Henkilökohtainen AI-palvelu avainhenkilöille.
+- **[Skilled Agents](https://dws10.com/products/skilled-agents.html)** — Yksittäiset AI-agentit (Compliance, SiteSense, Material Oracle, ym.) alkaen €599/v.
+- **[Claude Code Coaching](https://dws10.com/products/claude-code-coaching.html)** — €1 900–€7 500. AI-koodauksen koulutuspaketit yrityksille.
+- **[NVIDIA Edge -laitteet](https://dws10.com/products/dgx-spark.html)** — Jetson Orin Nano €764, DGX Spark €5 994, IGX Orin €11 990. Fyysinen tekoäly paikallisilla laitteilla.
+
+**Hinnoittelu-periaate:** Julkaistu hinta. Sama hinta toimitusjohtajalle ja vastuullisuuspäällikölle. Ei neuvotteluteatteria. (Buffet-periaate.) Koko tuotevalikoima: [dws10.com](https://dws10.com)
 
 ### Puolustus- ja kaksikäyttö (Aegis Defence)
 
