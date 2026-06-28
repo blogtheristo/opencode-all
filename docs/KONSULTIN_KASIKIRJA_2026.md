@@ -201,7 +201,49 @@ Viisi työnkulkua:
 
 ---
 
-## 4. Toimialat
+## 4. Kyvykkyysontologia — DWS IQ:n tietämysrakenne
+
+### Mikä on kyvykkyysontologia?
+
+Ontologia on jäsennelty tietämysrakenne, joka kuvaa käsitteet ja niiden väliset suhteet. DWS IQ:n kyvykkyysontologia kuvaa yrityksen koko osaamisen — ei luettelona, vaan verkkorakenteena jossa jokainen kyvykkyys tietää mistä luokasta se on, mihin muihin luokkiin se kytkeytyy ja miten se palvelee asiakasta.
+
+Ontologia on Lifetime World Model (LWM) -pohjainen. Kun asiakas kouluttaa oman LWM-ontologiansa (Train Model SaaS), kyvykkyysontologia laajenee automaattisesti kattamaan asiakkaan toimialan erityiskysymykset.
+
+### 10 kyvykkyysluokkaa
+
+DWS IQ:n kyvykkyysontologia jakautuu kymmeneen luokkaan. Jokainen luokka on tietämysverkossa solmu, joka yhdistyy muihin luokkiin agenttien välisen kommunikaation ja yhteisten datarakenteiden kautta.
+
+1. **Konsultointi** — Asiakasrajapinta, tarpeen tunnistaminen, käyttöönotto, hankejohtaminen. Ihminen + agentti rinnakkain.
+2. **Sääntely ja compliance** — EU-sääntelyn automaatio, auditointi, ennusteanalytiikka, oikeudellinen äly. 10 EU-asetuksen kattavuus.
+3. **Toimiala** — Sektorikohtainen syvä osaaminen: teräs, energia, kemia, merenkulku, maatalous, vety, rakentaminen, sementti, alumiini, akkuvarastointi, kauppa. Jokainen toimiala-agentti tuntee oman sektorinsa sääntelyn, päästölähteet ja raportointivelvoitteet.
+4. **Orkestrointi** — Moniagenttityönkulut: reititys, synteesi, priorisointi. Atlas (esikuntapäällikkö) ohjaa muita agentteja oikeaan järjestykseen.
+5. **Kenttä ja projekti** — Työmaan turvallisuus, aikatauluoptimointi, materiaalien hiilijalanjälki, rakennusprojektien compliance, logistiikka, laadunvarmistus. Fyysinen maailma.
+6. **Myynti ja viestintä** — B2B-prospektointi, SEO, kilpailijaseuranta, sisältöstrategia, design-to-code. Markkinasta asiakkaaksi.
+7. **Tiedonhallinta ja muisti** — Pitkäkestomuisti istuntojen välillä, selitettävyys (XAI), tietopankit, kuvantunnistus (SAR, teollisuuskuvat), synteettinen data. Tieto pysyy ja kasvaa.
+8. **Järjestelmä** — MCP-integraatiot, moniagenttikonsensus, suorituskyvyn optimointi, maailmanmalli. Alustan sisäinen älykkyys.
+9. **Puolustus ja turvallisuus** — EU-datasuvereniteetti, CLOUD Act -suojaus, auditointi, NIS2, turvallisuuspisteytys, SAR-valvonta. Luottamus ja suoja.
+10. **Muutos ja jatkuvuus** — Muutoshallinta, häiriötuki (Keskeytyslaskuri), koulutusautomaatio, prosessiautomaatio, toimitusketjuriski, sopimusten hallinta, liiketoiminnan jatkuvuus. Disruptioiden tuki.
+
+### Ontologian periaatteet
+
+- **Ei irrallisia listoja.** Jokainen uusi kyvykkyys kiinnittyy aina johonkin kymmenestä luokasta ja yhdistyy olemassa oleviin agentteihin.
+- **Ristiin-älykkyys.** Toimiala-agentti (esim. Vulcan/Teräs) kutsuu sääntely-agenttia (Compliance) ja kenttä-agenttia (SiteSense) samassa työnkulussa. Yksikään agentti ei toimi siilossa.
+- **Asiakaskohtainen laajentuminen.** Kun Train Model SaaS kouluttaa asiakkaan ontologian, ontologiaan syntyy uusia solmuja asiakkaan omasta datasta — ilman että perusrakenne muuttuu.
+- **Kasvaa jatkuvasti.** Uusi EU-asetus → uusi kyvykkyys → kiinnittyy ontologiaan automaattisesti. Ei tarvitse odottaa tuotepäivitystä.
+
+### Ontologia vs. perinteinen konsultointi
+
+| Perinteinen konsultointi                            | DWS-kyvykkyysontologia                                               |
+| --------------------------------------------------- | -------------------------------------------------------------------- |
+| Osaaminen asuu ihmisten päässä                      | Osaaminen on rakenteellista — ontologiassa, ei muistissa             |
+| Avainhenkilöriski: ihminen lähtee, osaaminen katoaa | Agentti ei lähde. Kyvykkyys on aina käytettävissä.                   |
+| Uusi toimiala = 6 kk rekrytointi                    | Uusi toimiala = ontologiasolmun lisäys, käytettävissä välittömästi   |
+| Sääntely muuttuu = uudelleenkoulutus                | Sääntely muuttuu = agentti päivittyy, työnkulku mukautuu             |
+| Tieto siiloutuu tiimeihin                           | Ristiin-älykkyys: jokainen agentti näkee kaikkien luokkien signaalit |
+
+---
+
+## 5. Toimialat
 
 ### 25 EU-säänneltyä toimialaa (Fit for 55)
 
@@ -246,7 +288,7 @@ DWS IQ 6 kattaa 25 toimialaa, joista jokainen on EU:n Fit for 55 -sääntelyn pi
 
 ---
 
-## 5. Kyvykkyysmalli 2026 — roolit ovat agentteja
+## 6. Kyvykkyysmalli 2026 — roolit ovat agentteja
 
 ### Muutos: ihmisrooleista agenttikyvykkyyksiin
 
@@ -408,13 +450,14 @@ DWS-konsultointi rakentuu kolmelle pilarille. Yhdessä ne varmistavat, että asi
 - Claude Code Coaching -paketit (€1 900–€7 500) agenttikehityksen syventämiseen
 - Perehdytys EU AI Act Article 4 -lukutaitovaatimukseen (voimassa helmikuusta 2025)
 
-**Pilari 2: Autamme työnkulkujen kehittämisessä**
+**Pilari 2: Autamme toimialakohtaisten älykkäiden compliance-työnkulkujen kehittämisessä ja tuotantoon viemisessä**
 
-- Kartoitamme nykyiset prosessit ja tunnistamme missä agenttikyvykkyydet tuovat suurimman hyödyn
-- Rakennamme asiakaskohtaiset työnkulut: mitkä agentit, missä järjestyksessä, kenen valvonnassa
+- Kartoitamme asiakkaan toimialan sääntely-ympäristön ja tunnistamme kriittiset compliance-työnkulut
+- Rakennamme toimialakohtaiset älykkäät työnkulut: oikeat agentit, oikea järjestys, oikea autonomiataso
+- Työnkulku tuotantoon: scoping → pilotti → validointi → tuotanto — ei jää prototyypiksi
 - Integraatio olemassa oleviin järjestelmiin (SAP, IFS, Visma, Monitor, Jeeves)
-- Lifetime World Model (LWM) -ontologian rakentaminen asiakkaan omasta datasta
-- Työnkulkujen iterointi: mittaamme tuloksia, optimoimme, skaalaamme
+- Lifetime World Model (LWM) -ontologian rakentaminen asiakkaan omasta toimialadata
+- Työnkulkujen jatkuva optimointi: mittaamme compliance-tuloksia, tunnistamme pullonkaulat, skaalaamme
 
 **Pilari 3: Varmistamme että hanke etenee ilman keskeytyksiä**
 
@@ -444,7 +487,7 @@ DWS-konsultointi rakentuu kolmelle pilarille. Yhdessä ne varmistavat, että asi
 
 ---
 
-## 6. Työsuhteen aloittaminen
+## 7. Työsuhteen aloittaminen
 
 ### Rekrytointiprosessi 2026
 
@@ -471,7 +514,7 @@ DWS-konsultointi rakentuu kolmelle pilarille. Yhdessä ne varmistavat, että asi
 
 ---
 
-## 7. Strategiaprosessi
+## 8. Strategiaprosessi
 
 ### Elävän strategian 7 askelta (päivitetty 2026)
 
@@ -541,7 +584,7 @@ Me emme seuraa trendejä. Me luomme niitä. Keskeistä on älyllinen laajuus.
 
 ---
 
-## 8. Myynti ja asiakastyö
+## 9. Myynti ja asiakastyö
 
 ### Kuuntelun tärkeys
 
@@ -597,7 +640,7 @@ Jokaisesta asiakaskontaktista tulee "arvio" — näkymätön mutta todellinen:
 
 ---
 
-## 9. Asiakkuuden elinkaari
+## 10. Asiakkuuden elinkaari
 
 ### Vuorovaikutus asiakkaan kanssa
 
@@ -636,7 +679,7 @@ Jokaisesta asiakaskontaktista tulee "arvio" — näkymätön mutta todellinen:
 
 ---
 
-## 10. Teknologiakartta
+## 11. Teknologiakartta
 
 ### Teknologiapino 2026
 
@@ -724,7 +767,7 @@ Seuraavassa tärkeimmät teknologia roadmapit joita konsultin tulee seurata:
 
 ---
 
-## 11. EU-sääntelyympäristö
+## 12. EU-sääntelyympäristö
 
 ### Pakollinen ostotilannekalenteri (Forced Purchase Timeline)
 
@@ -750,7 +793,7 @@ DWS IQ 6 kattaa:
 
 ---
 
-## 12. Tietosuoja ja tietoturva
+## 13. Tietosuoja ja tietoturva
 
 ### Periaatteet
 
@@ -779,7 +822,7 @@ DWS IQ 6 kattaa:
 
 ---
 
-## 13. Työajan hallinta
+## 14. Työajan hallinta
 
 ### Tuntikirjaus
 
@@ -797,7 +840,7 @@ DWS IQ 6 kattaa:
 
 ---
 
-## 14. Kumppanit
+## 15. Kumppanit
 
 ### Teknologiakumppanit
 
@@ -815,7 +858,7 @@ DWS IQ 6 kattaa:
 
 ---
 
-## 15. Liitteet
+## 16. Liitteet
 
 ### Liite A: Hankintakoodit (CPV)
 
