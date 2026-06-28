@@ -455,7 +455,7 @@ DWS-konsultointi rakentuu kolmelle pilarille. Yhdessä ne varmistavat, että asi
 - Rakennamme toimialakohtaiset älykkäät työnkulut: oikeat agentit, oikea järjestys, oikea autonomiataso
 - Työnkulku tuotantoon: scoping → pilotti → validointi → tuotanto — ei jää prototyypiksi
 - Integraatio olemassa oleviin järjestelmiin (SAP, IFS, Visma, Monitor, Jeeves)
-- Lifetime World Model (LWM) -ontologian rakentaminen asiakkaan omasta toimialadata
+- Lifetime World Model (LWM) -ontologian rakentaminen asiakkaan omasta toimialadatasta (Train Model SaaS) — ja sen jatkuva ylläpito kun sääntely muuttuu (osa tilausta)
 - Työnkulkujen jatkuva optimointi: mittaamme compliance-tuloksia, tunnistamme pullonkaulat, skaalaamme
 
 **Pilari 3: Varmistamme että hanke etenee ilman keskeytyksiä**
