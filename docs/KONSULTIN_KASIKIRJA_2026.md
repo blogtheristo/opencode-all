@@ -6,7 +6,7 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.5
+Version: 1.6
 
 Sessions & Modifications:
 
@@ -16,6 +16,7 @@ Sessions & Modifications:
 - Version: 1.3 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Reframed solopreneur as strength in SWOT (1 CEO + 58 AI agents = large-firm capacity at startup cost). Converted definition-style tables to lists for readability. Updated agent count from 50 to 58. Added branded HTML version. Updated version to 1.3.
 - Version: 1.4 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Aegis Defence section rewritten: drone detection replaced with honest SAR orbital detection (ArgusAgent actual capabilities). Export control kept and strengthened. NIS2 expanded with EU AI Act Art. 12, GDPR Art. 33/34, CER directive, Cyber Resilience Act. Added workflow #4 sovereign climate compatibility in dual-use industry. Added workflow #5 critical supply chain monitoring (Critical Raw Materials Act, EU Chips Act). Total 5 workflows.
 - Version: 1.5 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Section 5 rewritten: "Kyvykkyysmalli 2026 — roolit ovat agentteja". Old 72 human roles reframed as ~80 agent capabilities across 10 categories (A–J). Added 18 new capability agents (Data Engineer, Business Analyst, Change Management, etc.) to complement existing 62. Added three-pillar consulting model: (1) training to use agent capabilities, (2) workflow development, (3) disruption-free project continuity with Keskeytyslaskuri integration. Industries section: tables converted to numbered lists, Keski-Eurooppa market added (7 industries).
+- Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/consultant-handbook-v1-6-622fep | Date: 28.06.2026 | Changes: Canonical source cross-check and conflict resolution. Fixed agent count 50→58 in 4 locations (Avainluvut, Kehityskaari, Skenaarioanalytiikka, 2026-lisäys). Fixed Toimialaontologiat 20→25 per INDUSTRIES.md. Fixed Enterprise Navigator pricing €4 950→€4 999 per products.json (DWS-IQ-006). Removed §4 duplicate content (10-class ontology list and principles already in §6), replaced with concise cross-reference preserving comparison table formulation per DWS_DOCUMENT_STANDARD §21.
 
 Document Status:
 
@@ -92,9 +93,9 @@ Olemme siirtyneet yleisestä IT-konsultoinnista (2019-2024) kohdennettuun AI-alu
 
 | Mittari                               | Luku                          |
 | ------------------------------------- | ----------------------------- |
-| Tuotantoagentit                       | 50                            |
+| Tuotantoagentit                       | 58                            |
 | EU-säännösten asiakirjat indeksoituna | 15 000+                       |
-| Toimialaontologiat                    | 20 (21 kaksikäytön kanssa)    |
+| Toimialaontologiat                    | 25                            |
 | Maksavat asiakkaat                    | 6                             |
 | Asiakaspysyvyys                       | 100% (nolla churn)            |
 | MRR                                   | €7 000-14 000                 |
@@ -113,7 +114,7 @@ Olemme siirtyneet yleisestä IT-konsultoinnista (2019-2024) kohdennettuun AI-alu
 | --------- | --------------------- | --------------------------------------------------------------------------- |
 | 2019-2022 | IT-konsultointi       | Cloud Ready Teams, roolitettuja konsultointipalveluja, 72 roolia            |
 | 2023-2024 | Tuotteen rakentaminen | DWS IQ V1-V4, ensimmäiset asiakkaat (Kela, Uber), alusta rakennetaan        |
-| 2025-2026 | Alustatuote           | DWS IQ V5-V6, 50 agenttia, 25 toimialaa, Climate IQ + Industrial IQ + Aegis |
+| 2025-2026 | Alustatuote           | DWS IQ V5-V6, 58 agenttia, 25 toimialaa, Climate IQ + Industrial IQ + Aegis |
 | 2027+     | Skaalaus              | Pohjoismainen laajeneminen (Suomi + Ruotsi), Series A, €900K ARR tavoite    |
 
 ---
@@ -162,7 +163,7 @@ DWS IQ 6 ei ole kolme hintatasoa. Se on kolme itsenäistä akselia:
 
 **Alustatuotteet:**
 
-- **[Enterprise Navigator](https://dws10.com/products/dwsiq.html)** (pilotti) — €4 950 kertamaksu. Kolmen kuukauden pilotti, ERP-liitin mukana. Alle €5K ostopäätösraja.
+- **[Enterprise Navigator](https://dws10.com/products/dwsiq.html)** (pilotti) — €4 999 kertamaksu. Kolmen kuukauden pilotti, ERP-liitin mukana. Alle €5K ostopäätösraja.
 - **[Climate IQ](https://dws10.com/products/climate-intelligence.html)** — €4 990 käyttöönotto + €2 999/kk (€29 990/v). CBAM-, CSRD-, ETS- ja PCF-raportoinnin automaatio.
 - **[Industrial IQ (DWS IQ 6)](https://dws10.com/products/dwsiq.html)** — €4 999 kertamaksu. 58 agenttia, 25 toimialaa, toimialarajat ylittävä signaalianalyysi.
 - **Enterprise Premium** — €8 950/v. Laajennettu tuki ja konsultointipalvelu.
@@ -209,27 +210,7 @@ Ontologia on jäsennelty tietämysrakenne, joka kuvaa käsitteet ja niiden väli
 
 Ontologia on Lifetime World Model (LWM) -pohjainen. Kun asiakas kouluttaa oman LWM-ontologiansa (Train Model SaaS), kyvykkyysontologia laajenee automaattisesti kattamaan asiakkaan toimialan erityiskysymykset.
 
-### 10 kyvykkyysluokkaa
-
-DWS IQ:n kyvykkyysontologia jakautuu kymmeneen luokkaan. Jokainen luokka on tietämysverkossa solmu, joka yhdistyy muihin luokkiin agenttien välisen kommunikaation ja yhteisten datarakenteiden kautta.
-
-1. **Konsultointi** — Asiakasrajapinta, tarpeen tunnistaminen, käyttöönotto, hankejohtaminen. Ihminen + agentti rinnakkain.
-2. **Sääntely ja compliance** — EU-sääntelyn automaatio, auditointi, ennusteanalytiikka, oikeudellinen äly. 10 EU-asetuksen kattavuus.
-3. **Toimiala** — Sektorikohtainen syvä osaaminen: teräs, energia, kemia, merenkulku, maatalous, vety, rakentaminen, sementti, alumiini, akkuvarastointi, kauppa. Jokainen toimiala-agentti tuntee oman sektorinsa sääntelyn, päästölähteet ja raportointivelvoitteet.
-4. **Orkestrointi** — Moniagenttityönkulut: reititys, synteesi, priorisointi. Atlas (esikuntapäällikkö) ohjaa muita agentteja oikeaan järjestykseen.
-5. **Kenttä ja projekti** — Työmaan turvallisuus, aikatauluoptimointi, materiaalien hiilijalanjälki, rakennusprojektien compliance, logistiikka, laadunvarmistus. Fyysinen maailma.
-6. **Myynti ja viestintä** — B2B-prospektointi, SEO, kilpailijaseuranta, sisältöstrategia, design-to-code. Markkinasta asiakkaaksi.
-7. **Tiedonhallinta ja muisti** — Pitkäkestomuisti istuntojen välillä, selitettävyys (XAI), tietopankit, kuvantunnistus (SAR, teollisuuskuvat), synteettinen data. Tieto pysyy ja kasvaa.
-8. **Järjestelmä** — MCP-integraatiot, moniagenttikonsensus, suorituskyvyn optimointi, maailmanmalli. Alustan sisäinen älykkyys.
-9. **Puolustus ja turvallisuus** — EU-datasuvereniteetti, CLOUD Act -suojaus, auditointi, NIS2, turvallisuuspisteytys, SAR-valvonta. Luottamus ja suoja.
-10. **Muutos ja jatkuvuus** — Muutoshallinta, häiriötuki (Keskeytyslaskuri), koulutusautomaatio, prosessiautomaatio, toimitusketjuriski, sopimusten hallinta, liiketoiminnan jatkuvuus. Disruptioiden tuki.
-
-### Ontologian periaatteet
-
-- **Ei irrallisia listoja.** Jokainen uusi kyvykkyys kiinnittyy aina johonkin kymmenestä luokasta ja yhdistyy olemassa oleviin agentteihin.
-- **Ristiin-älykkyys.** Toimiala-agentti (esim. Vulcan/Teräs) kutsuu sääntely-agenttia (Compliance) ja kenttä-agenttia (SiteSense) samassa työnkulussa. Yksikään agentti ei toimi siilossa.
-- **Asiakaskohtainen laajentuminen.** Kun Train Model SaaS kouluttaa asiakkaan ontologian, ontologiaan syntyy uusia solmuja asiakkaan omasta datasta — ilman että perusrakenne muuttuu.
-- **Kasvaa jatkuvasti.** Uusi EU-asetus → uusi kyvykkyys → kiinnittyy ontologiaan automaattisesti. Ei tarvitse odottaa tuotepäivitystä.
+DWS IQ:n kyvykkyysontologia jakautuu kymmeneen luokkaan (A–J) ja kattaa yli 80 agenttikyvykkyyttä. Täydellinen luokkakuvaus, agenttiluettelo ja ontologiaperiaatteet ovat kappaleessa [§6 Kyvykkyysmalli 2026](#6-kyvykkyysmalli-2026--roolit-ovat-agentteja).
 
 ### Ontologia vs. perinteinen konsultointi
 
@@ -525,7 +506,7 @@ Riston alkuperäinen 7 askelen strategiaprosessi on edelleen voimassa, mutta kon
 | Askel                                | 2024                          | 2026                                                               |
 | ------------------------------------ | ----------------------------- | ------------------------------------------------------------------ |
 | 1. Jatkuva skenaarioiden luominen    | Manuaalinen, tiimipohjainen   | DWS IQ -agentit automatisoivat skenaariotiedon keräämisen          |
-| 2. Skenaarioanalytiikka              | Power Platform, Microsoft 365 | AI-analytiikka: 50 agenttia, 15 000+ sääntelyn asiakirjaa          |
+| 2. Skenaarioanalytiikka              | Power Platform, Microsoft 365 | AI-analytiikka: 58 agenttia, 15 000+ sääntelyn asiakirjaa          |
 | 3. Strategiset kokeilut              | Markkinatutkimus 7P           | Signal-based outreach, pilottimalli (scoping → pilot → annual)     |
 | 4. Strategian muokkaaminen (Shaping) | eCommerce-painotteinen        | Sääntely-ohjautuva: CBAM 2026, ETS2 2027, EPBD 2028                |
 | 5. Arviointikriteerien reflektointi  | Manuaalinen tarkkailu         | Automatisoitu: regulatory radar, kilpailija-analytiikka            |
@@ -539,7 +520,7 @@ Riston alkuperäinen 7 askelen strategiaprosessi on edelleen voimassa, mutta kon
 
 Tämän vuoksi ihmiset tekevät huonoja valintoja luomiensa skenaarioiden perusteella: he kuvittelevat, että epätodennäköinen asia toteutuu ja toimivat sen mukaisesti. Näin he tuhlaavat resursseja asioihin jotka tuskin toteutuvat. Lisäksi he menettävät mahdollisuuksia, koska kaikki aika ja resurssit, jotka he laittavat epätodennäköisen tavoitteluun, on pois todennäköisen tavoittelusta.
 
-**2026-lisäys:** DWS IQ:n 50 agenttia automatisoivat skenaarioanalytiikan niin, ettei konsultti arvaa todennäköisyyksiä — AI laskee ne 15 000 sääntelyn asiakirjan ja toimialaontologioiden pohjalta.
+**2026-lisäys:** DWS IQ:n 58 agenttia automatisoivat skenaarioanalytiikan niin, ettei konsultti arvaa todennäköisyyksiä — AI laskee ne 15 000 sääntelyn asiakirjan ja toimialaontologioiden pohjalta.
 
 > "Vaikka skenaariot usein syntyvät ihmisten ajattelusta, yksittäisen ihmisen tai ryhmän on mahdotonta ajatella useaa skenaariota syvällisesti samanaikaisesti, tunnistaa niistä jokaisen kriittiset oletukset ja seurata reaaliaikaisesti maailman kehittymistä."
 > — Ritakallio & Vuori, Elävä strategia
