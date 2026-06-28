@@ -200,6 +200,8 @@ DWS IQ 6 ei ole kolme hintatasoa. Se on kolme itsenäistä akselia:
 - **[Skilled Agents](https://dws10.com/products/skilled-agents.html)** — Yksittäiset AI-agentit (Compliance, SiteSense, Material Oracle, ym.) alkaen €599/v.
 - **[Claude Code Coaching](https://dws10.com/products/claude-code-coaching.html)** — €1 900–€7 500. AI-koodauksen koulutuspaketit yrityksille.
 - **[NVIDIA Edge -laitteet](https://dws10.com/products/dgx-spark.html)** — Jetson Orin Nano €764, DGX Spark €5 994, IGX Orin €11 990. Fyysinen tekoäly paikallisilla laitteilla.
+- **Firehorse Amplify** — €4 950. Sisältöstrategian ja markkinointikyvykkyyksien vahvistaminen.
+- **Firehorse Content Management** — €2 999. Sisällönhallinta ja julkaisualusta.
 
 **Hinnoittelu-periaate:** Julkaistu hinta. Sama hinta toimitusjohtajalle ja vastuullisuuspäällikölle. Ei neuvotteluteatteria. (Buffet-periaate.) Koko tuotevalikoima: [dws10.com](https://dws10.com)
 
