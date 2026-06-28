@@ -9,6 +9,7 @@ Version: 1.0
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Initial creation — enterprise winning sales strategy for DWS IQ 6. SWOT, 4P, market trends, product roadmaps, market intelligence Finland & Sweden. 6-12 month horizon (July 2026 - June 2027). Separated from personal fleet strategy per Risto's directive.
+- Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Restored 2024 formulations — Foreword, mission/values philosophy, listening philosophy (5 stakeholder types), scenario wisdom (Risto 2019 quotes), "Litet bättre", "Me emme seuraa trendejä", customer interaction wisdom. Matches Konsultin käsikirja 2026 v1.2 formulation standard.
 
 Document Status:
 
@@ -16,6 +17,16 @@ Document Status:
 - Last Modified: 28.06.2026
 - Language: English
 - Publication Status: ACTIVE (internal strategy)
+
+---
+
+## Foreword
+
+> _"The Best, Premium level Interface for Customer interaction is human-to-human. Therefore to meet corporate customers' demand for the best customer experience, we offer sovereign AI that augments — never replaces — the human consultant."_
+
+Työ ilmastonmuutoksen estämiseksi älytalouden keinoin vaatii vahvaa eettistä perustaa. Lifetime Oy on aidosti eurooppalainen yritys. Arvomme ovat eurooppalaisia; suomalaisia. Elämme vahvasti mukana globaalissa maailmassa. Keskiössä on vahva ihmisyyden puolustaminen tekoälyä hyödyntäen.
+
+Lifetime Oy:n missiona on olla mukana estämässä ilmastonmuutosta, eroosiota, sekä yhä pahenevaa kuivuutta. Automatisoimme eurooppalaisen teollisuuden compliance-taakan niin, että yritykset voivat keskittyä liiketoimintaansa sääntelyvelvoitteiden sijaan.
 
 ---
 
@@ -261,6 +272,30 @@ DWS IQ 6 sells sovereign compliance automation to EU-regulated industries. The n
 ---
 
 ## 5. Sales Methodology — Nordic Sales DNA
+
+### The Listening Philosophy
+
+Strategiatyö on jokaisen konsultin asialistalla päivittäin. Olet mukana päättymättömässä pelissä, jossa jokainen erä pelataan jatkuvasti muuttuvilla kentällisillä.
+
+> _"Ihminen on hyvä luomaan skenaarioita, mutta ei välttämättä arvioimaan niiden toteutumisen todennäköisyyksiä. Ihmisille on luontaista tarinamuotoinen ajattelu, jossa yksi asia johtaa toiseen. Tämä auttaa tunnistamaan ja keksimään, miten asiat voisivat mennä. Se ei kuitenkaan kerro, kuinka todennäköisesti asiat menevät niin."_
+> — Risto Paarni, 2019
+
+- **Asiakkaiden kuuntelu:** Minkä ongelman ratkaisemme? Miksi tämä on parempi tapa?
+- **Sidosryhmien kuuntelu:** Miten voimme olla yhteiskunnallisesti arvostettu?
+- **Ekosysteemien kuuntelu:** Mitä trendejä suosimme / vältämme?
+- **Kumppanien kuuntelu:** Mitä avauksia kilpailijat ja kumppanit tuovat markkinoille? Miksi?
+- **Naapurien kuuntelu:** Mitä muilla toimialoilla tehdään joka voi vaikuttaa meihin?
+
+> _"Kun kohde muuttuu, reitti pitää päivittää. Huomioi esteet. Muuta reittiä. Ole hereillä."_
+
+> _"'Köyhäile' ja anna alennusta asiakaskokemuksen ja myönteisen palautteen aikaansaamiseksi. Ole kärsivällinen. Ehdimme laskuttaa asiakasta seuraavalla kerralla kun tarve on tunnistettu."_
+
+Me emme seuraa trendejä. Me luomme niitä.
+
+> _"Tunnista kaikki pitkän aikavälin tavoitteet. Litet bättre."_
+
+> _"Ravistaudu irti vääristä tulevaisuuspoluista noudattamalla nuhteetonta elämäntapaa."_
+> _"Saavuta myönteinen tunnetila. Kirjoita kirje. Lisää luovuutta. Tähtäin vyön keskelle. Se on siinä."_
 
 ### Three Sales Metaphors
 

@@ -6,11 +6,13 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.2
 
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Initial creation — Konsultin käsikirja 2026 edition. Complete rewrite of the 2024 version (v0.16) to reflect Lifetime Oy's transformation from generic IT consulting to sovereign AI compliance platform. Retains Risto's strategic philosophy and practical consulting wisdom; modernizes product, technology, regulatory, and operational content.
+- Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Added Enterprise Model Engineer role (Lifetime World Model ontology building, Train Model SaaS, 5 000 enterprise ontology network). Updated role count from 7 to 8.
+- Version: 1.2 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Restored 2024 formulations — Alkusanat, mission climate text, values philosophy, scenario wisdom (Ritakallio/Vuori quotes, "Litet bättre", "Me emme seuraa trendejä"), listening philosophy, customer interaction wisdom. No 2024 content lost in rewrite.
 
 Document Status:
 
@@ -39,6 +41,30 @@ Document Status:
 13. [Työajan hallinta / Time Management](#13-työajan-hallinta)
 14. [Kumppanit / Partners](#14-kumppanit)
 15. [Liitteet / Appendices](#15-liitteet)
+
+---
+
+## Alkusanat
+
+Uusien konsulttien perehdyttäminen Lifetime Oy:n noudattamaan Sovereign Compliance Intelligence -liiketoimintatapaan ja konsulttien päivittäisjohtamisen ja tekemisen toimintatapaan vaatii ammattimaista perehdytystä. Tämä konsultin käsikirja vastaa tärkeimpiin konsultin roolissa toimivien asiantuntijoiden työhaasteisiin käytännönläheisesti ja kiinnostavasti.
+
+Tavoitteena on luoda onnistunut ja hyvä työntekijäkokemus aina rekrytoinnista ja työsuhteen aloittamisesta työsuhteen päättämiseen ja seuraaviin askeliin asti.
+
+Tavoitteena konsultin käsikirjalle on, että uusille konsulteillemme kertyy heti toimintatavastamme konkreettinen käsitys jotta he pääsevät nopeasti ammattimaiselle tasolle ja kiinni rahaa tuottaviin asiakastoimeksiantoihin.
+
+Käsikirja toimii apuna arjessa antaen toimintaohjeet mm.
+
+- uusien asiakkuuksien hankintaan,
+- tarjous- sekä kilpailutusvaiheen töihin,
+- hankkeiden ja projektien rooleissa toimimiseen,
+- konsultin työaika- ja raportointikäytäntöihin,
+- tietosuoja- sekä tietoturva-asioiden hoitokäytäntöihin,
+- GDPR Compliance -asioihin,
+- työsuhteen aloittaminen, sopimukset, tuntikirjaukset.
+
+Tämän konsultin käsikirjan on laatinut Risto Anton Paarni, toimitusjohtaja, Lifetime Oy. Teosta päivitetään liiketoiminnan kehittyessä. Se on saatavilla verkkokaupastamme hintaan 29,95 eur.
+
+> _The Best, Premium level Interface for Customer interaction is human-to-human. Therefore to meet corporate customers' demand for the best customer experience, we offer sovereign AI that augments — never replaces — the human consultant._
 
 ---
 
@@ -95,9 +121,13 @@ Olemme siirtyneet yleisestä IT-konsultoinnista (2019-2024) kohdennettuun AI-alu
 
 ### Missio
 
-Lifetime Oy:n missio on automatisoida eurooppalaisen teollisuuden compliance-taakka niin, että yritykset voivat keskittyä liiketoimintaansa sääntelyvelvoitteiden sijaan — turvallisesti, suvereenisti, EU-jurisdiktiossa.
+Lifetime Oy:n missiona on olla mukana estämässä ilmastonmuutosta, eroosiota, sekä yhä pahenevaa kuivuutta. Automatisoimme eurooppalaisen teollisuuden compliance-taakan niin, että yritykset voivat keskittyä liiketoimintaansa sääntelyvelvoitteiden sijaan — turvallisesti, suvereenisti, EU-jurisdiktiossa.
+
+Olemme siirtymässä alustataloudesta datavetoiseen älytalouteen. Menestyjiä Sovereign Compliance Intelligence -maailmassa tehdään nyt. Lifetime Oy:n osaaminen ja kontaktit tunnustetaan kansainvälisesti ja olemme haluttu projektitoimittaja useilla toimialoilla.
 
 ### Arvot
+
+Työ ilmastonmuutoksen estämiseksi älytalouden keinoin vaatii vahvaa eettistä perustaa. Lifetime Oy on aidosti eurooppalainen yritys. Arvomme ovat eurooppalaisia; suomalaisia. Elämme vahvasti mukana globaalissa maailmassa. Keskiössä on vahva ihmisyyden puolustaminen tekoälyä hyödyntäen.
 
 | Arvo                | Mitä se tarkoittaa käytännössä                                                                             |
 | ------------------- | ---------------------------------------------------------------------------------------------------------- |
@@ -188,25 +218,26 @@ DWS IQ 6 kattaa 25 toimialaa, joista jokainen on EU:n Fit for 55 -sääntelyn pi
 
 ### Muutos 2024 → 2026
 
-| 2024 (vanha malli)                                    | 2026 (uusi malli)                                                         |
-| ----------------------------------------------------- | ------------------------------------------------------------------------- |
-| 72 geneeristä roolia                                  | Kohdennetut roolit: AI-konsultti, compliance-asiantuntija, edge-insinööri |
-| Cloud Ready Teams -tiimit                             | DWS IQ -alustan käyttöönottotiimi                                         |
-| Yleinen IT-konsultointi                               | Sääntely-automaatio + suvereeni AI                                        |
-| Myynnin veloitus €200/h                               | Tuoteperusteinen hinnoittelu + konsultointi scoping-vaiheessa             |
-| Monen päämiehen konsultointi (Oracle, SAP, Microsoft) | DWS IQ 6 -ekosysteemi + NVIDIA + Red Hat                                  |
+| 2024 (vanha malli)                                    | 2026 (uusi malli)                                                                                       |
+| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| 72 geneeristä roolia                                  | 8 kohdennettua roolia: AI-konsultti, compliance-asiantuntija, edge-insinööri, enterprise model engineer |
+| Cloud Ready Teams -tiimit                             | DWS IQ -alustan käyttöönottotiimi                                                                       |
+| Yleinen IT-konsultointi                               | Sääntely-automaatio + suvereeni AI                                                                      |
+| Myynnin veloitus €200/h                               | Tuoteperusteinen hinnoittelu + konsultointi scoping-vaiheessa                                           |
+| Monen päämiehen konsultointi (Oracle, SAP, Microsoft) | DWS IQ 6 -ekosysteemi + NVIDIA + Red Hat                                                                |
 
 ### Konsultin roolit 2026
 
-| Rooli                        | Kuvaus                                                                                          | Milloin tarvitaan                 |
-| ---------------------------- | ----------------------------------------------------------------------------------------------- | --------------------------------- |
-| **AI Scoping Consultant**    | Kartoittaa asiakkaan compliance-tarpeen. Suosittelee oikean DWS-tuotteen.                       | Vapaa scoping-vaihe (1-2 viikkoa) |
-| **DWS Deployment Engineer**  | Asentaa ja konfiguroi DWS IQ -alustan. ERP-integraatiot (SAP, IFS, Visma, Monitor, Jeeves).     | Pilottivaihe (3 kuukautta)        |
-| **Compliance Specialist**    | CBAM, CSRD, ETS, NIS2, CER -asiantuntija. Tuntee sääntelyn ja tietää miten DWS automatisoi sen. | Kaikissa asiakasprojekteissa      |
-| **Edge AI Engineer**         | NVIDIA Jetson, DGX Spark -laitteiden käyttöönotto. Ilmaraolliset ja edge-ympäristöt.            | Aegis-asiakkaat                   |
-| **GenAI Solution Architect** | Claude Code, Qwen, Llama -mallien konfigurointi. KYA-hallinta. Agent-arkkitehtuuri.             | Suuret enterprise-asiakkaat       |
-| **DevOps Engineer**          | CI/CD, K8s, UpCloud Helsinki -infrastruktuuri. Tietoturva.                                      | Aegis Standard/Defence            |
-| **Project Manager**          | Hankejohtaminen, JIRA, aikataulut, asiakasdokumentaatio.                                        | Monen roolin projektit            |
+| Rooli                         | Kuvaus                                                                                                                                                                    | Milloin tarvitaan                      |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
+| **AI Scoping Consultant**     | Kartoittaa asiakkaan compliance-tarpeen. Suosittelee oikean DWS-tuotteen.                                                                                                 | Vapaa scoping-vaihe (1-2 viikkoa)      |
+| **DWS Deployment Engineer**   | Asentaa ja konfiguroi DWS IQ -alustan. ERP-integraatiot (SAP, IFS, Visma, Monitor, Jeeves).                                                                               | Pilottivaihe (3 kuukautta)             |
+| **Compliance Specialist**     | CBAM, CSRD, ETS, NIS2, CER -asiantuntija. Tuntee sääntelyn ja tietää miten DWS automatisoi sen.                                                                           | Kaikissa asiakasprojekteissa           |
+| **Edge AI Engineer**          | NVIDIA Jetson, DGX Spark -laitteiden käyttöönotto. Ilmaraolliset ja edge-ympäristöt.                                                                                      | Aegis-asiakkaat                        |
+| **Enterprise Model Engineer** | Lifetime World Model (LWM) -ontologioiden rakentaminen ja ylläpito. Asiakaskohtaisten mallien koulutus (Train Model SaaS). 5 000 yrityksen ontologiaverkon laajentaminen. | LWM V1 -käyttöönotto, Train Model SaaS |
+| **GenAI Solution Architect**  | Claude Code, Qwen, Llama -mallien konfigurointi. KYA-hallinta. Agent-arkkitehtuuri.                                                                                       | Suuret enterprise-asiakkaat            |
+| **DevOps Engineer**           | CI/CD, K8s, UpCloud Helsinki -infrastruktuuri. Tietoturva.                                                                                                                | Aegis Standard/Defence                 |
+| **Project Manager**           | Hankejohtaminen, JIRA, aikataulut, asiakasdokumentaatio.                                                                                                                  | Monen roolin projektit                 |
 
 ### Konsultin päivittäinen toiminta
 
@@ -261,6 +292,8 @@ DWS IQ 6 kattaa 25 toimialaa, joista jokainen on EU:n Fit for 55 -sääntelyn pi
 
 ### Elävän strategian 7 askelta (päivitetty 2026)
 
+Strategiatyö on jokaisen konsultin asialistalla päivittäin. Olet mukana päättymättömässä pelissä, jossa jokainen erä pelataan jatkuvasti muuttuvilla kentällisillä ja voitto tai tappio ratkaistaan insight-viisikon kyvykkyys ja johdon pelitilanne johtamistaidot markkinoilla punniten. Tämä asettaa konsulteillemme erityisiä ketteryys- ja taitovaatimuksia. Toimimme aidosti kansainvälisessä toimintaympäristössä 24/7.
+
 Riston alkuperäinen 7 askelen strategiaprosessi on edelleen voimassa, mutta konteksti on muuttunut:
 
 | Askel                                | 2024                          | 2026                                                               |
@@ -275,11 +308,24 @@ Riston alkuperäinen 7 askelen strategiaprosessi on edelleen voimassa, mutta kon
 
 ### Skenaariotyöskentely 2026
 
-Riston viisaus säilyy:
+> "Ihminen on hyvä luomaan skenaarioita, mutta ei välttämättä arvioimaan niiden toteutumisen todennäköisyyksiä. Ihmisille on luontaista tarinamuotoinen ajattelu, jossa yksi asia johtaa toiseen. Tämä auttaa tunnistamaan ja keksimään, miten asiat voisivat mennä. Se ei kuitenkaan kerro, kuinka todennäköisesti asiat menevät niin."
+> — Risto Paarni, 2019
 
-> "Ihminen on hyvä luomaan skenaarioita, mutta ei välttämättä arvioimaan niiden toteutumisen todennäköisyyksiä."
+Tämän vuoksi ihmiset tekevät huonoja valintoja luomiensa skenaarioiden perusteella: he kuvittelevat, että epätodennäköinen asia toteutuu ja toimivat sen mukaisesti. Näin he tuhlaavat resursseja asioihin jotka tuskin toteutuvat. Lisäksi he menettävät mahdollisuuksia, koska kaikki aika ja resurssit, jotka he laittavat epätodennäköisen tavoitteluun, on pois todennäköisen tavoittelusta.
 
 **2026-lisäys:** DWS IQ:n 50 agenttia automatisoivat skenaarioanalytiikan niin, ettei konsultti arvaa todennäköisyyksiä — AI laskee ne 15 000 sääntelyn asiakirjan ja toimialaontologioiden pohjalta.
+
+> "Vaikka skenaariot usein syntyvät ihmisten ajattelusta, yksittäisen ihmisen tai ryhmän on mahdotonta ajatella useaa skenaariota syvällisesti samanaikaisesti, tunnistaa niistä jokaisen kriittiset oletukset ja seurata reaaliaikaisesti maailman kehittymistä."
+> — Ritakallio & Vuori, Elävä strategia
+
+Skenaarioiden luominen on jatkuva prosessi. Kun kohde muuttuu, reitti pitää päivittää. Huomioi esteet. Muuta reittiä. Ole hereillä. Asiakas muuttaa kohdetta. Muuta reittiä luovasti. Huomioi asiakaskokemuksen sujuvuus ensiksi, toiseksi taloudellisuus. Mutta ennen kaikkea asiakaskokemus.
+
+> _"Tunnista kaikki pitkän aikavälin tavoitteet. Litet bättre."_
+
+Me emme seuraa trendejä. Me luomme niitä. Keskeistä on älyllinen laajuus.
+
+> _"Ravistaudu irti vääristä tulevaisuuspoluista noudattamalla nuhteetonta elämäntapaa."_
+> _"Saavuta myönteinen tunnetila. Kirjoita kirje. Lisää luovuutta. Tähtäin vyön keskelle. Se on siinä."_
 
 ### SWOT-analyysi (Q2 2026)
 
@@ -313,6 +359,16 @@ Riston viisaus säilyy:
 ---
 
 ## 8. Myynti ja asiakastyö
+
+### Kuuntelun tärkeys
+
+Kuuntelun vaikeus on myyntityön suurin haaste. Konsultin on kuunneltava jokaista sidosryhmää omalla tavallaan:
+
+- **Asiakkaiden kuuntelu:** Minkä ongelman ratkaisemme? Miksi tämä on parempi tapa?
+- **Sidosryhmien kuuntelu:** Miten voimme olla yhteiskunnallisesti arvostettu?
+- **Ekosysteemien kuuntelu:** Mitä trendejä suosimme / vältämme?
+- **Kumppanien kuuntelu:** Mitä avauksia kilpailijat ja kumppanit tuovat markkinoille? Miksi?
+- **Naapurien kuuntelu:** Mitä muilla toimialoilla tehdään joka voi vaikuttaa meihin tai meidän liiketoimintamahdollisuuksiin?
 
 ### Pohjoismainen myynti-DNA
 
@@ -361,6 +417,11 @@ Jokaisesta asiakaskontaktista tulee "arvio" — näkymätön mutta todellinen:
 ---
 
 ## 9. Asiakkuuden elinkaari
+
+### Vuorovaikutus asiakkaan kanssa
+
+> _"'Köyhäile' ja anna alennusta asiakaskokemuksen ja myönteisen palautteen aikaansaamiseksi. Ole kärsivällinen. Ehdimme laskuttaa asiakasta seuraavalla kerralla kun tarve on tunnistettu."_
+> — Konsultin käsikirja, 2019
 
 ### B2B-asiakasmatka (päivitetty 2026)
 
