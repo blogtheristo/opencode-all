@@ -122,7 +122,7 @@ Olemme siirtyneet yleisestä IT-konsultoinnista (2019-2024) kohdennettuun AI-alu
 - **CEO, pääarkkitehti** — Risto Anton Paarni. Strategia, tuotekehitys, avainasiakasmyynti, päivittäinen koodaus.
 - **Office Chief** — Lucille Santiago. Leads daily operations and Project Office.
 - **Freelance CTO** — Sopimuksella. Teknologia-arkkitehtuuri, infrastruktuuri.
-- **Alihankkijaverkosto** — Konsortio (9series, Cubet ym.). Projektitoimitus, erikoisosaaminen.
+- **Alihankkijaverkosto** — 50+ IT-asiantuntijayrityksen vakiintunut verkosto, kumppanuudet solmittu 2020–2022 (konsortiokumppanit mm. 9series, Cubet). Projektitoimitus, erikoisosaaminen DevOpsista AI/ML:ään.
 
 ### Yrityksen kehityskaari
 
@@ -556,7 +556,7 @@ Me emme seuraa trendejä. Me luomme niitä. Keskeistä on älyllinen laajuus.
 - EU-suvereeni (nolla CLOUD Act), suomalainen infrastruktuuri
 - Hintaetu: Climate IQ €30K/v vs kilpailijat €50-200K/v
 - NVIDIA ISV Partner, Red Hat AI Partner
-- **Yksinyrittäjä + 58 AI-agenttia = kapasiteetti ilman kiinteitä kustannuksia.** Yksi päätöksentekijä eliminoi komiteaviiveen. 8 konsulttirooliagenttia peilaavat jokaista ihmisroolia (AI Scoping, Deployment Engineer, Compliance Specialist, Edge AI Engineer, Enterprise Model Engineer, GenAI Solution Architect, DevOps Engineer, Project Manager). 9 toimialaerikoistunutta agenttia + 6 orkestroijaa + 12 tiedusteluagenttia + 5 SEO-agenttia. Kilpailijat: Normative ~100 henkilöä, Sweep ~200 henkilöä, Persefoni ~300 henkilöä. DWS: 1 CEO + 58 agenttia, <€100/kk infrakulut. Kapasiteetti skaalautuu agentteja lisäämällä (minuutteja), ei rekrytoimalla (kuukausia).
+- **Ketterä ydintiimi + vakiintunut kumppaniverkosto + 58 agenttia ja 88 kyvykkyyttä = suuren toimiston kapasiteetti ilman suuria kiinteitä kustannuksia.** Lifetime Oy:n ydintiimi (CEO Risto Anton Paarni + Office Chief Lucille Santiago) johtaa 58 agentin kyvykkyyttä yhdessä 50+ IT-asiantuntijayrityksen alihankintaverkoston kanssa. Verkosto on vakiintunut: kumppanuudet on solmittu 2020–2022 (mm. konsortiokumppanit 9series ja Cubet) ja se tuo todennetun projektitoimituskapasiteetin ja erikoisosaamisen DevOpsista AI/ML:ään ja täyden pinon kehitykseen. Kevyt päätöksenteko eliminoi komiteaviiveen. Kyvykkyydet kattavat konsultoinnin, sääntelyn, toimialaerikoistumisen, orkestroinnin ja tiedustelun 25 toimialalla. Kilpailijat: Normative ~100 henkilöä, Sweep ~200 henkilöä, Persefoni ~300 henkilöä. DWS: ketterä ydintiimi + 50+ kumppaniyrityksen verkosto + 58 agenttia, matalat kiinteät kustannukset. Kapasiteetti skaalautuu agentteja lisäämällä (minuutteja) ja verkostoa hyödyntämällä, ei raskaalla rekrytoinnilla.
 
 **Heikkoudet:**
 
@@ -574,7 +574,7 @@ Me emme seuraa trendejä. Me luomme niitä. Keskeistä on älyllinen laajuus.
 
 - Normative (Tukholma) — kilpailija Pohjoismaissa
 - Sweep/Persefoni EU-laajentuminen
-- Yrittäjäriski: avainhenkilön poissaolo
+- Avainhenkilöriski: pieni ydintiimi — mitigoituna vakiintuneella 50+ kumppaniverkostolla (solmittu 2020–2022) ja agenttikyvykkyyksillä
 
 ---
 
