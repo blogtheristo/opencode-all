@@ -779,7 +779,7 @@ DWS IQ 6 kattaa:
 2. **Tietoturva-perehdytys** suoritettu (ks. §7)
 3. **Ei henkilökohtaisia laitteita** asiakastyössä ilman hyväksyntää
 4. **Ei datan kopiointia** pilvitallennustiloihin ilman asiakkaan suostumusta
-5. **Tietoturvaloukkaukset** ilmoitetaan välittömästi: risto.paarni@lifetime.fi
+5. **Tietoturvaloukkaukset** ilmoitetaan välittömästi: security@lifetime.fi
 
 ### Sertifioinnit ja roadmap
 
