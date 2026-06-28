@@ -494,7 +494,7 @@ DWS-konsultointi rakentuu kolmelle pilarille. Yhdessä ne varmistavat, että asi
 1. **Ensikontakti** — Haastattelut: tekninen osaaminen, DWS-tuotetuntemus, kulttuurisopivuus. Dokumentit: Hakemus, CV.
 2. **NDA** — Molemminpuolinen salassapitosopimus. Dokumentit: NDA (Lifetime Oy standardi).
 3. **Asiakasrajapinnan CV** — Customer CV: konsultin roolit, osaamisalueet, referenssit. Dokumentit: Customer CV template.
-4. **Rooliselvitys** — Mihin konsulttirooleihin henkilö soveltuu (ks. §5 roolit). Dokumentit: Knowledge evaluation.
+4. **Rooliselvitys** — Mihin konsulttirooleihin henkilö soveltuu (ks. §6 kyvykkyysmalli). Dokumentit: Knowledge evaluation.
 5. **Hinnoittelu** — Esimiehen kanssa: veloitusperusteet asiakastöissä. Dokumentit: Hinnoittelupäätös.
 6. **Consultant Agreement** — Sopimuksen allekirjoitus. Dokumentit: Consultant Agreement.
 7. **Perehdytys** — DWS IQ 6 -tuotekoulutus, EU-sääntelyn perusteet, työkalut. Dokumentit: Perehdytysmateriaali.
@@ -776,7 +776,7 @@ DWS IQ 6 kattaa:
 ### Konsultin tietoturvavelvoitteet
 
 1. **NDA allekirjoitettu** ennen pääsyä asiakastietoon
-2. **Tietoturva-perehdytys** suoritettu (ks. §6)
+2. **Tietoturva-perehdytys** suoritettu (ks. §7)
 3. **Ei henkilökohtaisia laitteita** asiakastyössä ilman hyväksyntää
 4. **Ei datan kopiointia** pilvitallennustiloihin ilman asiakkaan suostumusta
 5. **Tietoturvaloukkaukset** ilmoitetaan välittömästi: risto.paarni@lifetime.fi
