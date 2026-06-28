@@ -717,6 +717,7 @@ Seuraavassa tärkeimmät teknologia roadmapit joita konsultin tulee seurata:
 - **Q1 2027** — Ruotsin markkinoiden aktivointi. SSAB, NCC AB, Skanska AB.
 - **Q2 2027** — EPBD Embodied Carbon Agent. EN 15978 + EN 15804 automaatio.
 - **H2 2027** — Series A -valmistelu. Tavoite: €15M pre-money.
+- **2027 →** — Agentic Commerce. Tutkimme siirtymistä transaktioperusteiseen agenttiveloitukseen, jossa asiakas maksaa kyvykkyydestä käytön mukaan — ei kiinteää alustamaksua. Tällä hetkellä (2026) kyvykkyydet kuuluvat alustatuotteen veloituksiin.
 
 #### Kilpailijat — seurattavat roadmapit
 
