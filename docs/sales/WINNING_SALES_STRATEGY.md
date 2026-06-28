@@ -231,5 +231,331 @@ WINNING SALES = VIP SERVICE + SIGNAL TIMING + SILENCE + DIAGONAL WINS
 
 ---
 
+## 11. Live Cases — Two Sales Motions, Two Playbooks
+
+The winning formula plays out differently depending on the deal type. Two active cases demonstrate the full range.
+
+### Case ORK — Oikeusrekisterikeskus (Formal Public Bid)
+
+**What it is:** ORK/1462/2026 — AI Expert Services for the Legal Register Centre (Ministry of Justice). Framework agreement, 2+1+1 years, three scope areas (agent development, customer solution support, agent-based systems development). Formal public procurement via Hilma.
+
+**Why it matters:** Government validation. ORK is a judicial authority — winning this is a stamp that Lifetime Oy can deliver sovereign AI to the most security-sensitive Finnish institutions. Same credibility signal as Kela, but in a different branch of government.
+
+**The challenge — many caveats:**
+
+| Caveat                     | What It Means                                              | How We Handle It                                                      |
+| -------------------------- | ---------------------------------------------------------- | --------------------------------------------------------------------- |
+| No volume guarantee        | Framework agreement — orders come on demand, not committed | Price to win on quality, not volume discount                          |
+| NDA + security clearance   | Finnish/EU citizens, background checks possible            | Contractor network must be pre-vetted                                 |
+| Formal evaluation criteria | Scored by quality points + price weighting                 | Every CV, reference, and capability claim must be documentable        |
+| Multi-area scope           | Must bid all three areas credibly                          | 10 distinct roles across three areas — need depth, not just Risto     |
+| Subcontractor disclosure   | Must declare all subs with roles, capacity, and NDA status | Alihankintalomake with Groups A (confirmed) and B (domestic pipeline) |
+
+**What we need — strong contractor network:**
+
+The bid is already filed. The battle now is operational readiness. ORK will order tasks from the framework — we must deliver within days, not recruit within weeks.
+
+| Priority | Role Gap                                                                | Where to Find                                                                            |
+| -------- | ----------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| 1        | GenAI Solution Architect (senior, Finnish-speaking)                     | Finnish AI community, university alumni, ex-consultancy                                  |
+| 2        | AI Consultant / Coach (Claude Code expertise)                           | Risto handles directly — core competency                                                 |
+| 3        | DevOps Engineer (GCP/Azure, CI/CD, Finnish security clearance eligible) | Confirmed subs (9series, Cubet) for technical delivery; Finnish senior for client-facing |
+| 4        | UI/UX Designer (GenAI UX)                                               | Domestic talent pool, Metropolia/Aalto network                                           |
+
+**Sales approach — The Buffet, not The Captain:**
+
+ORK is public sector. The Buffet Principle applies:
+
+- **Published price:** €540/day, same for all roles. No negotiation theater.
+- **Transparency:** Full subcontractor disclosure, sovereign hardware option (DGX Spark), EU-only data processing.
+- **No aggressive follow-up:** The bid is submitted. Wait for the evaluation. If they need clarification, respond within 24 hours. One follow-up max.
+- **Equality signal:** Same rate whether it is a GenAI Architect or a Software Developer. Same table, same price — ORK evaluators recognize Nordic values.
+
+**Winning formula for ORK:**
+
+```
+FORMAL BID WIN = CONTRACTOR DEPTH × REFERENCE STRENGTH × SILENCE AFTER SUBMISSION
+```
+
+---
+
+### Case Outokumpu — Personal Relationship with Ari Hirvonen
+
+**What it is:** 3-month pilot proposal — DWS IQ 6 CBAM/CSRD/Scope 3 compliance automation for Outokumpu Oyj's Forta product line. €24,000 pilot, sovereign NVIDIA infrastructure, KYA-governed disclosure logic. Contact: Ari Hirvonen, Patent IP Director.
+
+**Why it matters:** Outokumpu is the world's largest stainless steel producer. A pilot win here opens every steel company in Europe. The IP-angle wedge ("your CBAM disclosures are IP filings in disguise") is unique — no competitor has this approach.
+
+**The advantage — good personal contact:**
+
+Ari Hirvonen is the right door. The relationship is warm, the conversation has happened, the proposal is filed. This is a Captain sale, not a Buffet sale.
+
+| Relationship Asset   | Value                                                      | Next Action                                                                                      |
+| -------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| Personal trust       | Ari knows Risto, knows the product, understands the IP gap | Maintain — do not oversell. Let Ari champion internally.                                         |
+| IP wedge resonance   | "CBAM disclosures are IP filings in disguise" landed       | Reinforce with concrete examples — H2 Green Steel patent filings vs. Outokumpu CBAM publications |
+| Geographic proximity | Espoo ↔ Helsinki HQ = 15 min                               | Offer in-person demo at Outokumpu's convenience. No pressure.                                    |
+| Pilot structure      | €24k, 50% upfront, Forta-only scope                        | Risk is contained. Decision is small enough for Ari to champion without board escalation.        |
+
+**Sales approach — The Captain + Silence:**
+
+| Phase                                | Action                                                                                     | Principle                                         |
+| ------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------- |
+| **Done**                             | Proposal submitted, conversation had                                                       | —                                                 |
+| **Now**                              | Wait. Let Ari process internally.                                                          | Silence Principle — the customer is thinking      |
+| **If Ari reaches out**               | Respond within hours. Answer precisely. No padding.                                        | VIP Service — attention to detail                 |
+| **If 2 weeks pass**                  | One touchpoint: share a relevant CBAM regulatory update, not a "checking in" message       | Signal-Based Timing — give value, not pressure    |
+| **If Ari needs internal ammunition** | Provide the diagonal win matrix — each role at Outokumpu sees their own win                | Diagonal Wins — Ari becomes the internal advocate |
+| **Close**                            | "If that suits your timeline, we can start Phase 1 (free scoping) whenever you are ready." | The close that is not a close                     |
+
+**The diagonal — Ari's internal pitch to his colleagues:**
+
+When Ari walks into an internal meeting to champion DWS IQ, each stakeholder must hear their own win:
+
+| Stakeholder     | What Ari tells them                                                                                                       |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| **Head of R&D** | "Our low-carbon process IP does not leak through CBAM disclosures anymore. R&D → IP → disclosure becomes a closed loop."  |
+| **CSO**         | "You get pre-approved templates to fill instead of fights with Legal. CSRD reporting becomes a byproduct, not a project." |
+| **CIO**         | "One EU-sovereign stack replaces five point solutions. EU AI Act Article 12 audit log built in."                          |
+| **CRO / Sales** | "Regulated deals close faster. Compliance docs are ready before the customer asks."                                       |
+| **CEO**         | "The Circle Green premium is defended. The IP moat gets stronger. Board narrative on sovereignty is concrete."            |
+
+**Winning formula for Outokumpu:**
+
+```
+PERSONAL SALE WIN = TRUST × PATIENCE × DIAGONAL WINS × ZERO PRESSURE
+```
+
+---
+
+### Case Kemira — Promised Offer, Ongoing (What Gets Accepted?)
+
+**What it is:** DWS IQ Aegis Defence platform for carbon compliance automation — CBAM, CSRD, Scope 3 PCF reporting. Contact: Maria (Hintikka) Sederholm, VP Product Line Management & Strategy, Fiber Essentials. Second door: Mikko Pohjala, VP Strategy. Offer filed 27.6.2026. Recommended tier: Aegis Defence at €89,990 onboarding + €1,999/mo.
+
+**Why it matters:** Kemira is a Nasdaq-listed Finnish speciality chemicals company with SBTi-validated carbon targets and a live CSRD/ESRS sustainability statement under assurance. They already run a Supplier PCF Reporting Guideline (April 2025). This is a company that is actively building the exact workflow DWS automates. Winning here validates the platform for the entire chemicals sector.
+
+**The status — offer promised, conversation ongoing:**
+
+Maria said Kemira **"need carbon compliance especially."** The offer has been prepared and delivered. The question now: what kind of offer actually gets accepted?
+
+**What gets accepted — the Kemira acceptance formula:**
+
+| Acceptance Factor              | Why It Matters for Kemira                                                  | How the Offer Addresses It                                                                                      |
+| ------------------------------ | -------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| **Starts free**                | A €90k onboarding is a board decision. A free scoping is a Maria decision. | Phase 1 Scoping is free (1-2 weeks). Maria can say yes without escalation.                                      |
+| **Honest tier recommendation** | Overselling destroys trust. If Standard fits, say so.                      | Scoping determines Standard vs. Defence honestly — "not with sales arguments."                                  |
+| **Board-forwardable**          | Maria must forward this without translation work.                          | Tarjouskirje is in Finnish, structured in three parts (problem, solution, next step), with one win per role.    |
+| **Measurable pilot**           | Board won't approve without KPIs.                                          | Three KPIs defined: sovereign coverage %, compliance hours freed, tender win rate for sovereign-attested deals. |
+| **Same jurisdiction**          | Reduces procurement friction.                                              | Espoo-to-Helsinki. Same timezone, same legal framework, same language.                                          |
+| **No lock-in**                 | Nordic buyers reject commitment without evidence.                          | Pilot tied to GA (August 2026), commercialisation only after KPIs hit.                                          |
+
+**The real question — what makes Maria say yes internally:**
+
+Maria's job title is VP Product Line Management & **Strategy**. She does not buy tools — she buys strategic advantages. The offer that gets accepted is the one that lets her tell the board:
+
+> "This turns our carbon compliance cost into a sales differentiator. Sovereign attestation wins regulated tenders our competitors cannot win. And Phase 1 is free — we risk nothing to find out."
+
+**Sales approach — The Vineyard:**
+
+Kemira is neither a formal bid (Buffet) nor a quick pilot (Captain). It is a **Vineyard** sale — patient cultivation, the right soil, wait for the harvest.
+
+| Phase                             | Action                                                                    | Principle                                 |
+| --------------------------------- | ------------------------------------------------------------------------- | ----------------------------------------- |
+| **Done**                          | Offer delivered with full board package                                   | —                                         |
+| **Now**                           | Wait for Maria to process and socialise internally                        | Silence — she knows who to forward to     |
+| **If Maria asks questions**       | Answer fast, precisely, in Finnish                                        | VIP Service — attention to detail         |
+| **If Maria says "too expensive"** | Offer Standard tier (€59,990 + €999/mo) — do not negotiate Defence price  | The price is the price (Buffet Principle) |
+| **If Maria says "not now"**       | "The scoping is free and non-binding. Whenever the timing is right."      | The close that is not a close             |
+| **If Maria introduces Mikko**     | Good — the strategic bridge to the board is forming. Follow Maria's lead. | Diagonal Wins — two-person coalition      |
+
+**The diagonal — Maria's internal pitch:**
+
+| Stakeholder          | What Maria tells them                                                                              |
+| -------------------- | -------------------------------------------------------------------------------------------------- |
+| **CTO / R&D**        | "Process IP stays in Finland. No CLOUD Act. No US model training on our data."                     |
+| **CISO**             | "NIS2 + CER met cleanly. KYA kill authority. Article 12 audit built in."                           |
+| **CEO / CFO**        | "Revenue + cost + moat on one platform. Compliance spend we already carry becomes a sales weapon." |
+| **Mikko (Strategy)** | "This fits the Kemira strategy narrative: sovereign, Finnish, auditable, commercially leveraged."  |
+
+**Winning formula for Kemira:**
+
+```
+PROMISED OFFER WIN = FREE ENTRY + BOARD-READY PACKAGE + PATIENCE + HONEST TIER FIT
+```
+
+---
+
+### Case Nokia Defence — We Got No (Lessons)
+
+**What it is:** DWS IQ Aegis Defence platform + AI expert services for Nokia Defence. Contact: Tommi Haapala, Senior Advisor. NDA signed. Offer filed 27.6.2026.
+
+**What happened:** Materials were not good enough. We got no.
+
+**Why we lost — honest post-mortem:**
+
+| Weakness             | What Went Wrong                                                                                                             | Lesson                                                                                                                                            |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Material quality** | Defence-grade buyer expects defence-grade materials. Our bid may have looked like a startup pitch, not a mil-spec proposal. | Nokia Defence evaluates thousands of vendor proposals. The materials must look like they came from a company that already operates in this space. |
+| **Credibility gap**  | Lifetime Oy has no defence-sector delivery track record. Strong tech, but no reference customer in this segment.            | Without a defence reference, the materials must overcompensate with technical depth, compliance attestations, and architecture documentation.     |
+| **Product maturity** | Aegis Defence tier is pre-GA (August 2026). Nokia may have needed production-ready, not pilot-ready.                        | Defence procurement needs certainty. "GA in August" sounds like risk to a buyer who needs operational capability now.                             |
+| **Packaging**        | The offer may not have spoken Nokia Defence's language — STANAG, AQAP, ITAR-free, TEMPEST, DEFCON.                          | Defence vocabulary matters. Every sentence must signal domain fluency.                                                                            |
+
+**What Noah would say:** "Scripts only get you so far. The real shift happens when you understand what someone actually cares about." We may have pitched our technology instead of understanding Nokia Defence's actual procurement criteria.
+
+**Next actions — if the door reopens:**
+
+1. **Improve materials to defence grade.** Format, language, depth, compliance attestations.
+2. **Get a reference.** One defence-adjacent deployment (even a pilot with Finnish MoD, FDF, or a CER/NIS2-regulated critical infrastructure operator) changes the conversation completely.
+3. **Wait for GA.** When Aegis Defence is production-ready (August 2026), the "risk" objection disappears.
+4. **Maintain the NDA relationship.** Do not push. Tommi knows the product exists. If a need emerges, he will remember — but only if we did not annoy him on the way out.
+
+**Winning formula (for next time):**
+
+```
+DEFENCE SALE = DEFENCE-GRADE MATERIALS × REFERENCE CUSTOMER × PRODUCTION READINESS × DOMAIN VOCABULARY
+```
+
+---
+
+### Case Diana (Riihimäki NATO) — "Improve and Try Again"
+
+**What it is:** NATO Diana defence innovation programme application via Riihimäen Tilat ja Kehitys Oy (RTOY). Business advisor: Laura Manner-Raappana. Not a pure investor pitch — a defence innovation funding application with specific evaluation criteria.
+
+**What happened:** Application rejected. Laura's feedback was explicit and constructive:
+
+> "Hakemuksessa on nähtävissä kiinnostavia elementtejä sekä halua kehittää uutta, mutta arvioinnin kannalta kokonaisuus jäi tällä kertaa vielä keskeneräiseksi."
+
+Translation: Interesting elements and ambition visible, but the whole package was still incomplete for evaluation purposes.
+
+**The specific gaps Laura identified:**
+
+| Gap                            | What Was Missing                                                              | Impact                                                                   |
+| ------------------------------ | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| **Video**                      | No video submission                                                           | Evaluators could not see the product in action or hear the founder pitch |
+| **Pitch deck**                 | No pitch deck included                                                        | Business model, plan, and development path were not legible              |
+| **Defence sector specificity** | Defence perspective and added value for defence needed more concretisation    | Generic AI pitch, not a defence-specific solution story                  |
+| **Product portfolio focus**    | Unclear balance between product-driven development and project-based delivery | Evaluators could not tell if this is a product company or a consultancy  |
+
+**Why this is actually good news:**
+
+Laura explicitly said "kannustamme jatkokehittämään" — we encourage you to continue developing and clarify key messages for a future application. This is not a closed door. Every gap she named is fixable.
+
+**What "improve your materials" concretely means for Diana:**
+
+| Material Gap                    | What to Build                                                                                                                                               | Action                                                                                                 |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| **Video (2-3 min)**             | Product demo showing Aegis Defence in action — sovereign AI agents running compliance tasks on DGX Spark hardware                                           | Record a screencast: live agent run → structured output → Article 12 audit log. Finnish narration.     |
+| **Pitch deck**                  | 10-slide defence-focused deck: problem, solution, defence added value, product, traction, team, market, ask                                                 | Build in Gamma or clean PowerPoint. DWS Brand Standard. No walls of text.                              |
+| **Defence concretisation**      | Specific use cases: C2 decision support, logistics intelligence, satellite change detection (ArgusAgent SAR), NIS2/CER compliance for defence supply chains | Map DWS IQ capabilities to real Finnish Defence Forces / NATO use cases. Reference the NDA with Nokia. |
+| **Product vs. project clarity** | State it plainly: "DWS IQ Aegis is a product platform (SaaS/on-prem). Consulting is Phase 1 scoping only — the product runs autonomously after deployment." | One slide: product revenue model vs. consulting model. Show recurring revenue dominance.               |
+
+**Sales approach — The Vineyard, second vintage:**
+
+| Phase                        | Action                                                                                                  | Principle                                                   |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| **Done**                     | First application submitted, feedback received                                                          | —                                                           |
+| **Now**                      | Build video + pitch deck + defence-specific materials. Do not rush back.                                | Patience — "the vintage takes time"                         |
+| **When materials are ready** | One email to Laura: "Kiitos palautteesta. Olemme kehittäneet kokonaisuutta — tässä päivitetty hakemus." | Signal-Based Timing — the signal is readiness, not calendar |
+| **What to send**             | Video + deck + one-page defence value proposition                                                       | Short, evidence-dense, in Finnish                           |
+| **Follow-up**                | One. Then silence.                                                                                      | Silence Principle                                           |
+
+**What Noah would say:** "Figure out the real reason behind the decision, and connect that to what you're offering." Laura's real reason is not "bad application" — it is "I could not evaluate what I could not see." The video and deck solve the visibility problem. The defence concretisation solves the relevance problem.
+
+**Winning formula for Diana (round 2):**
+
+```
+DEFENCE FUNDING WIN = VIDEO + PITCH DECK + DEFENCE SPECIFICITY + PRODUCT CLARITY
+```
+
+---
+
+### Case Arctic15 — Top 15, Not the Winner
+
+**What it is:** Arctic Startup Innovation Awards (SIRA platform). DWS IQ 6 scored Top 15 of 100 startups across three indices: Investment Readiness, Future-Shaping Index, Innovation Trajectory Score. Did not make the final Top 4 Grand Finale.
+
+**What happened:** Top 15 is a real signal — credible and differentiated. The gap to Top 4 was not a credibility gap but a **legibility gap**. The substance exists; the presentation did not make it scannable for judges.
+
+**Post-mortem — index by index:**
+
+| Index                     | What We Showed (Weak)                                                    | What We Should Have Shown (Strong)                                                                                 | Why It Scores                          |
+| ------------------------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | -------------------------------------- |
+| **Investment Readiness**  | "€7-14k MRR (Fleet)" — a range, from the wrong division, with seats OPEN | One closed/named number: committed SAFE €, or named referenceable customer with quote                              | Closed > projected. Named > anonymous. |
+| **Future-Shaping**        | "€333k/year cheaper than cloud" — efficiency, not future-shaping         | "Sovereign EU compliance for 25 regulated industries / 15,000+ rules" — structural, not incremental                | Reshaping a market > saving money      |
+| **Innovation Trajectory** | "Multi-agent edge AI, <100ms" — static architecture fact                 | Daily shipping cadence + dated cert roadmap (Art.12 Q2, ISO 27001 Q3, SOC 2 Q4 2026) + 15,000-doc World Model moat | Slope + durable moat > snapshot        |
+
+**The pattern — same lesson as Nokia Defence and Diana:**
+
+All three losses point to the same root cause: **materials that don't match the audience's evaluation framework.**
+
+- Nokia Defence wanted defence-grade materials. We sent startup-grade.
+- Diana wanted video + pitch deck + defence specificity. We sent a text application.
+- Arctic15 wanted hard numbers on three specific indices. We sent soft ranges.
+
+**The fix is one fix:** build a modular material set that can be assembled per audience:
+
+| Module                  | Status                   | What to Build                                                                           |
+| ----------------------- | ------------------------ | --------------------------------------------------------------------------------------- |
+| **Hard traction page**  | Missing                  | One page: named customers, revenue, retention %, pipeline with conversion rates         |
+| **Video demo**          | Missing                  | 2-3 min product demo, professional quality                                              |
+| **Pitch deck**          | Needs upgrade            | 10 slides, Gamma/clean design, DWS Brand Standard                                       |
+| **Sovereignty story**   | Exists but buried        | Lead with sovereignty + 25 industries + 15,000 rules. Cost savings is footnote.         |
+| **Defence module**      | Weak                     | Separate 3-page insert: defence use cases, NATO relevance, NIS2/CER, on-prem deployment |
+| **Trajectory/momentum** | Exists but not presented | One-page: shipping cadence, cert roadmap, World Model corpus, version history           |
+
+**What Noah would say:** "My approach is simple. Figure out the real reason behind the decision, and connect that to what you're offering." At Arctic15, the judges evaluated on three axes. We presented on different axes. Same product, wrong frame.
+
+**Winning formula for Arctic15 (next round):**
+
+```
+COMPETITION WIN = RIGHT FRAME × HARD NUMBERS × LEGIBILITY × MOMENTUM EVIDENCE
+```
+
+---
+
+### The Six Cases — Pipeline Dashboard
+
+| Dimension           | ORK                      | Outokumpu                             | Kemira                                 | Nokia Defence                 | Diana (Riihimäki)                      | Arctic15                              |
+| ------------------- | ------------------------ | ------------------------------------- | -------------------------------------- | ----------------------------- | -------------------------------------- | ------------------------------------- |
+| **Status**          | BID FILED                | WAITING                               | ONGOING                                | LOST                          | IMPROVE & RETRY                        | IMPROVE & RETRY                       |
+| **Type**            | Public procurement       | Enterprise pilot                      | Enterprise platform                    | Defence platform              | Defence funding                        | Startup competition                   |
+| **Metaphor**        | Buffet                   | Captain                               | Vineyard                               | Captain (failed)              | Vineyard                               | Vineyard                              |
+| **Contact**         | Committee (anon)         | Ari Hirvonen                          | Maria Sederholm                        | Tommi Haapala                 | Laura Manner-Raappana                  | SIRA judges                           |
+| **Value**           | Framework (€1.7M ref)    | €24k pilot                            | €90k + €2k/mo                          | €90k+                         | Funding grant                          | Top 4 + visibility                    |
+| **Key challenge**   | Contractor depth         | Internal champion                     | Board-ready package                    | Material quality              | Missing video + deck                   | Legibility gap                        |
+| **What went right** | Strong technical bid     | Trust, warm contact                   | Carbon need stated                     | NDA signed                    | "Interesting elements"                 | Top 15 of 100                         |
+| **What went wrong** | — (pending)              | — (pending)                           | — (pending)                            | Materials not defence-grade   | No video, no deck, vague defence angle | Soft numbers, wrong frame             |
+| **Follow-up**       | Wait                     | Silence + 1 value-add                 | Silence, let Maria socialise           | Wait for GA + reference       | Build video + deck, reapply            | Fix 3 facts, resubmit                 |
+| **Noah's lesson**   | "Figuring out who's who" | "The real reason behind the decision" | "Connect that to what you're offering" | "Scripts only get you so far" | "Adjust your tone"                     | "Understand what someone cares about" |
+
+### The Pattern Across All Six
+
+**Three are pending** (ORK, Outokumpu, Kemira) — all require patience and silence.
+
+**Three gave feedback** (Nokia Defence, Diana, Arctic15) — all point to the same root cause:
+
+> **The substance is there. The packaging is not.**
+
+The fix is one fix. Build a modular material kit:
+
+| Module                         | Needed By                           | Status                                      |
+| ------------------------------ | ----------------------------------- | ------------------------------------------- |
+| **Video demo (2-3 min)**       | Diana, Arctic15, all future pitches | TO BUILD                                    |
+| **Pitch deck (10 slides)**     | Diana, Arctic15, investors          | TO BUILD                                    |
+| **Hard traction page**         | Arctic15, investors                 | TO BUILD                                    |
+| **Defence-specific insert**    | Diana, Nokia Defence (round 2)      | TO BUILD                                    |
+| **Sovereignty lead story**     | Arctic15, all investor materials    | EXISTS — needs to move to headline position |
+| **Trajectory/momentum page**   | Arctic15                            | EXISTS — needs assembly                     |
+| **Board-ready offer template** | Kemira, future enterprise           | EXISTS (Kemira tarjouskirje is the model)   |
+
+**Priority sequence:**
+
+1. **Video demo** — unblocks Diana resubmission AND Arctic15 AND every future pitch
+2. **Pitch deck** — unblocks Diana AND replaces weak investor materials everywhere
+3. **Hard traction page** — unblocks Arctic15 resubmission AND strengthens every investor conversation
+4. **Defence insert** — unblocks Diana AND enables Nokia Defence round 2 when Aegis hits GA
+
+All six cases prove the same Noah principle: **figure out what the evaluator actually evaluates, and present your substance in that frame.**
+
+---
+
 _"Nordic sales fail when they import Silicon Valley energy into Helsinki silence."_
 _— DWS Nordic Sales Strategy_
