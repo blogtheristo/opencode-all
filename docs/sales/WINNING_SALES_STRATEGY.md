@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Split into two separate strategy documents per Risto's directive. This file retained as the Noah framework + sales DNA reference. Operational strategies moved to LIFETIME_FLEET_PERSONAL_WINNING_SALES_STRATEGY.md (personal fleet) and ENTERPRISE_WINNING_SALES_STRATEGY.md (DWS IQ enterprise). Both include SWOT, 4P, market trends, product roadmaps, market intelligence Finland & Sweden, 6-12 month focus.
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Initial creation — winning sales strategy combining Noah's "why people say yes" framework with DWS IQ / Lifetime Oy's Nordic sales DNA. Integrates Captain Madonna Funnel, Buffet Principle, signaalimyynti, and the five-stage buying-journey taxonomy.
 
 Session Links & References:
@@ -20,6 +21,16 @@ Document Status:
 - Last Modified: 28.06.2026
 - Language: English
 - Publication Status: ACTIVE (internal sales tooling)
+
+---
+
+## Strategy Documents (Split 28.06.2026)
+
+This file contains the Noah framework, sales DNA principles, and six-case pipeline. For operational strategy with SWOT, 4P, market intelligence, and product roadmaps:
+
+1. **[Lifetime Fleet Personal Winning Sales Strategy](LIFETIME_FLEET_PERSONAL_WINNING_SALES_STRATEGY.md)** — Personal service sales (Uber, Kela, Taksi Helsinki, Bolt). VIP driving, silence principle, five-star framework. Finland + Sweden market trends. 6-12 month horizon.
+
+2. **[Enterprise Winning Sales Strategy](ENTERPRISE_WINNING_SALES_STRATEGY.md)** — DWS IQ 6 enterprise sales. Climate IQ, Industrial IQ, Aegis product tiers. Six-case pipeline. Finland + Sweden market intelligence. Regulatory forcing timeline. 6-12 month horizon.
 
 ---
 
