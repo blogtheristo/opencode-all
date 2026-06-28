@@ -8,9 +8,9 @@
       "price": 4999,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Stop risking fines and lost tenders. DWS IQ 6 deploys 18+ Skilled Agents with agentic loops (observe-think-act) to amplify Fit for 55, CSRD, and EPBD compliance across 16 captain hats covering 25+ EU industries — cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.",
+      "description": "Stop risking fines and lost tenders. DWS IQ 6 deploys 58+ Skilled Agents organised in 10 LWM ontology classes with agentic loops (observe-think-act) to amplify Fit for 55, CSRD, and EPBD compliance across 16 captain hats covering 25+ EU industries — cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.",
       "features": [
-        "18+ Skilled Agents with MCP protocol and CLI access",
+        "58+ Skilled Agents in 10 ontology classes with MCP protocol and CLI access",
         "Amplify Fit for 55, CSRD & EPBD reporting",
         "90% reduction in manual compliance hours"
       ],
@@ -237,10 +237,10 @@
       "price": 250,
       "currency": "EUR",
       "type": "hourly",
-      "description": "Compliance expertise without long-term lock-in. Retainer model with hours mapped to captain-hat outcomes (CSRD report, EU AI Act gap, NIS2 audit) across 16 captain hats covering 25+ EU regulated industries. €250/h backstop; default to outcome-priced packages because that's what regulators audit.",
+      "description": "Three-pillar consulting: (1) capability training on 80+ agent capabilities across 10 ontology classes, (2) industry-specific compliance workflow development and production deployment, (3) disruption-free project continuity with Keskeytyslaskuri integration. Retainer model with hours mapped to captain-hat outcomes across 25+ EU regulated industries. €250/h backstop; default to outcome-priced packages.",
       "features": [
-        "Outcomes mapped to 16 captain hats / 25+ EU industries",
-        "Retainer + outcome packages; €250/h backstop",
+        "Three-pillar model: train capabilities, develop workflows, ensure continuity",
+        "80+ agent capabilities across 10 LWM ontology classes",
         "Fit for 55, CSRD, EU AI Act, NIS2 specialisation"
       ],
       "priceNote": "Per hour, VAT excl.",
@@ -530,10 +530,10 @@
       "price": 499,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Your leadership team needs AI fluency — not just your engineers. EU AI Act Article 4 now requires AI literacy across your organization. In-house coaching with a free 3-hour workshop to assess readiness. Personal, team, or remote.",
+      "description": "Pillar 1: Capability Training. Your leadership team needs AI fluency — not just your engineers. EU AI Act Article 4 now requires AI literacy across your organization. Train your team on 80+ agent capabilities across 10 ontology classes. In-house coaching with a free 3-hour workshop to assess readiness. Personal, team, or remote.",
       "features": [
-        "EU AI Act Article 4 compliance",
-        "Personal or team coaching",
+        "EU AI Act Article 4 compliance — capability training",
+        "80+ agent capabilities across 10 ontology classes",
         "Free 3-hour readiness assessment"
       ],
       "priceNote": "Workshop + coaching",
@@ -819,10 +819,10 @@
       "price": 950,
       "currency": "EUR",
       "type": "one-time",
-      "description": "EU-resident, pre-vetted AI and cloud engineers — no CLOUD Act exposure, no US payroll, no 3-month recruitment cycle. Sovereign by construction: the engineer, the keyboard, and the data stay in the EU. Skip the recruitment cycle and start building this week.",
+      "description": "Pillar 3: Disruption-Free Project Continuity. EU-resident, pre-vetted AI and cloud engineers backed by 80+ agent capabilities — no CLOUD Act exposure, no recruitment cycle. Keskeytyslaskuri-validated: we quantify context-rebuilding cost, momentum loss, and key-person risk before they happen. Sovereign by construction.",
       "features": [
-        "EU-resident engineers — zero CLOUD Act exposure",
-        "Pre-vetted AI & cloud talent, deployed in days",
+        "Pillar 3: disruption-free continuity with Keskeytyslaskuri",
+        "80+ agent capabilities backing EU-resident engineers",
         "Sovereign by construction — engineer + data both in EU"
       ],
       "priceNote": "Team setup",
@@ -1011,10 +1011,10 @@
       "price": 2500,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Anthropic's Skills paradigm + Claude Code + Codex, deployed inside EU-sovereign perimeter. We assess your codebase, run AGENTS.md workshops, restructure for agentic development, and set up quality governance — without your IP leaving the jurisdiction. The Anthropic-backed US services firms can ship the workflow; only we can ship it without data egress to a US-controlled cloud.",
+      "description": "Pillar 2: Industry-Specific Compliance Workflow Development. Anthropic's Skills paradigm + Claude Code + Codex, deployed inside EU-sovereign perimeter. We develop and deploy industry-specific intelligent compliance workflows to production — from assessment through AGENTS.md workshops to quality governance — without your IP leaving the jurisdiction.",
       "features": [
+        "Pillar 2: develop industry-specific compliance workflows to production",
         "Skills paradigm + Claude Code + Codex (EU-sovereign)",
-        "AGENTS.md workshops, agentic restructure, quality gates",
         "No IP egress — code and prompts stay in EU"
       ],
       "priceNote": "Assessment from €2,500 | Retainer 4x8h = €4,800",

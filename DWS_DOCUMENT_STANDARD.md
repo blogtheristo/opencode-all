@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.2
+Version: 2.3
 
 Sessions & Modifications:
 
+- Version: 2.3 | Tool: Claude Code | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Added §21 (Document Formulation Preservation) — codifies the rule that document rewrites must never lose original formulation data (eloquent passages, quotes, philosophical text, mottos, cultural wisdom). Defines formulation categories, rewrite procedure (extract → catalog → rewrite → reintegrate → verify), DOCX export rules, and enforcement as Rule 12 violation. Added §21 to ToC.
 - Version: 2.2 | Tool: Claude Code | Session: claude/deepseek-v4-flash-hybrid-0niopt | Date: 27.06.2026 | Changes: Added File Lifecycle Suffixes subsection under §19 File Naming Template — codifies four named suffixes (\_DRAFT, \_DEPRECATED, \_RETIRED, \_ARCHIVE) to replace the ambiguous \_OLD convention. Renamed all ~72 \_OLD files in the repo to their correct suffix. Blog draft rule: \_DRAFT files require explicit approval before promotion. Dual-folder pairs must use the same suffix in the same commit.
 - Version: 2.1 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 25.06.2026 | Changes: Added §20 (Whitepaper Versioning) — codifies that customer-facing whitepapers carry a Document Revision (vX.Y) distinct from the subject standard/product version, a visible "Document revision · Last updated" line, a VERSION AND AGENT HISTORY provenance block (\*\*\*-delimited for markdown sources; HTML-comment form for public HTML where .md is forbidden per Non-Negotiable Rule 5), the patch/minor/major increment rule, Learn/ snapshot + dual-folder handling, and an HTML provenance template. Added §20 to the ToC. Triggered by the discovery that the live KYA whitepaper carried only the KYA Standard version and had no document-revision history, so a terminology/security edit (OpenClaw → NVIDIA NemoClaw) went out unrecorded.
 - Version: 2.0 | Tool: Claude Code (Haiku 4.5) | Session: claude/sync-version-numbering-adEeB | Date: 28.04.2026 | Changes: Added Section 5.4 (Thesis Version Numbering Format — CRITICAL): documented decimal 0.01 increment rule for all 4 thesis files (V3Thesis_EN/FI + PHD_FIREHORSE_EN/FI), unified version track requirement, rationale for preventing version fork confusion, and implementation guidance; version bump to 2.0 reflects addition of new critical standard for thesis artifact governance
@@ -63,6 +64,7 @@ Document Status:
 18. [Learn HTML Generation](#18-learn-html-generation) ⭐ NEW
 19. [Code Versioning & PR Traceability](#19-code-versioning--pr-traceability) ⭐ NEW
 20. [Whitepaper Versioning](#20-whitepaper-versioning) ⭐ NEW
+21. [Document Formulation Preservation](#21-document-formulation-preservation) ⭐ NEW
 
 ---
 
@@ -2243,6 +2245,57 @@ rg "Introduced-In:\\s*PR-699"
 # All files using env schema lineage
 rg "Env-Schema:\\s*env-v"
 ```
+
+---
+
+## 21. Document Formulation Preservation
+
+### 21.1 Rule / Sääntö
+
+**NEVER lose original document formulation data when rewriting, updating, or exporting documents.**
+
+When a document is restructured, rewritten, or version-bumped, the agent MUST preserve all eloquent formulations, philosophical passages, key quotes, cultural wisdom, mottos, and narrative voice from earlier versions. A rewrite that strips these passages is a destructive edit — equivalent to data loss.
+
+**Älä KOSKAAN kadota alkuperäistä dokumenttien muotoilutietoa päivittäessä, uudelleenkirjoittaessa tai viedessä dokumentteja.** Kauniit muotoilut, filosofiset kappaleet, lainaukset, kulttuurinen viisaus ja kerronnallinen ääni ovat yrityksen aineetonta pääomaa.
+
+### 21.2 What Counts as Formulation Data
+
+| Category                           | Examples                                                                      |
+| ---------------------------------- | ----------------------------------------------------------------------------- |
+| **Forewords & preambles**          | Founding philosophy, onboarding welcome text, mission narrative               |
+| **Quotes & mottos**                | CEO quotes, cultural proverbs, strategic slogans ("Litet bättre", "Köyhäile") |
+| **Philosophical passages**         | Values articulation, ethical reasoning, European identity statements          |
+| **Scenario wisdom**                | Strategic foresight passages, future scenario narratives, book references     |
+| **Listening & interaction wisdom** | Stakeholder engagement philosophy, customer interaction guidance              |
+| **Metaphors**                      | Game metaphors, journey metaphors, strategic framings ("päättymätön peli")    |
+| **Voice & tone**                   | The characteristic narrative voice of the document's author/era               |
+
+### 21.3 Procedure for Document Rewrites
+
+```
+1. EXTRACT:   Before rewriting, extract all formulation passages from the current version
+2. CATALOG:   List each passage with its location and category (quote, motto, philosophy, etc.)
+3. REWRITE:   Perform the structural/content rewrite
+4. REINTEGRATE: Place each extracted passage into the appropriate section of the new structure
+5. VERIFY:    Diff old vs new — confirm zero formulation data was dropped
+6. EXPORT:    When generating .docx / .pdf / .html, include all preserved formulations
+```
+
+### 21.4 DOCX Export Formulation Rules
+
+When generating `.docx` exports from markdown documents:
+
+- Preserve italic formatting for quotes and philosophical passages
+- Maintain bullet/number list structure for wisdom collections
+- Keep quote attributions (author, year, source) intact
+- Use proper heading hierarchy to frame formulation sections
+- Never summarize or paraphrase — preserve verbatim text
+
+### 21.5 Enforcement
+
+- Any agent rewrite that drops formulation data is a **Rule 12 violation** (Fail loud — never hide skipped work)
+- Version history MUST note "formulations preserved from vX.Y" when rewriting
+- If a passage cannot be placed in the new structure, append it to a "Heritage Passages" section — never delete it
 
 ---
 
