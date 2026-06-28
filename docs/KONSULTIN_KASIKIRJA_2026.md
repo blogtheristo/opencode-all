@@ -112,7 +112,7 @@ Olemme siirtyneet yleisestä IT-konsultoinnista (2019-2024) kohdennettuun AI-alu
 - **Maksavat asiakkaat:** 6
 - **Asiakaspysyvyys:** 100% (nolla churn)
 - **MRR:** €7 000–14 000
-- **Platform-versiot:** 6 (V1–V6)
+- **Tuotelinjat:** 3 (DWS IQ, Climate IQ, Aegis) — yhteensä 11 tuoteversiota (DWS IQ V1–V7 + Aegis Standard/Defence + Climate IQ + Industrial IQ)
 - **Verkkokaupan tuotteet:** 63
 - **EU AI Act Article 12:** Tuotannossa maaliskuusta 2026
 
