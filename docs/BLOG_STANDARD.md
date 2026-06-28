@@ -142,6 +142,7 @@ Chronological order. Update this table when adding/removing posts.
 | 31  | `four-learning-paradigms-world-model.fi.html`        | Maailmanmallin neljä oppimisparadigmaa (FI parity of #29)                                                                       | 23 Jun 2026 |
 | 32  | `nvidia-vera-rubin-ai-factory.html`                  | NVIDIA Vera Rubin — The AI Factory Grows Up. The Sovereign Edge Is Still a Box. (EN, NVIDIA partner note)                       | 24 Jun 2026 |
 | 33  | `eu-sovereign-ai-factories-35-supercomputers.html`   | Europe's AI Factory Came Home — 35 Supercomputers, and Why the Edge Still Needs a Box (EN, sovereignty field note)              | 25 Jun 2026 |
+| 34  | `industrial-intelligence-weekly-2026-06-28.html`     | Industrial Intelligence Weekly — Five Signals from the Regulated Economy (EN, market intelligence newsletter)                   | 28 Jun 2026 |
 
 ---
 
