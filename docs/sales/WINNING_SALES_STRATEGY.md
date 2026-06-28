@@ -231,7 +231,57 @@ WINNING SALES = VIP SERVICE + SIGNAL TIMING + SILENCE + DIAGONAL WINS
 
 ---
 
-## 11. Live Cases — Two Sales Motions, Two Playbooks
+## 11. Product Tier Clarity — Three Axes, Not Three Levels
+
+The DWS IQ product line is often confused as "cheap → medium → expensive." It is not. Each tier answers a different question:
+
+| Tier              | Question It Answers               | Buyer                                      | What They Get                                                                                                                                                                 |
+| ----------------- | --------------------------------- | ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Climate IQ**    | WHAT must I report?               | Sustainability manager, CFO                | CBAM calculations, CSRD data, ETS tracking, PCF reports. 8 specialised agents automate the compliance paperwork.                                                              |
+| **Industrial IQ** | HOW does my supply chain connect? | CTO, Head of R&D, Operations               | Cross-industry signal propagation across 21 industries. When steel prices move, construction costs update. When CBAM tightens, procurement re-routes. 50 agents, World Model. |
+| **Aegis**         | WHERE does my data live?          | CISO, General Counsel, Defence procurement | Sovereign infrastructure. Single-tenant Finnish K8s. On-prem option. Zero CLOUD Act. KYA agent governance. The same agents, but on infrastructure you control.                |
+
+**The axes are independent:**
+
+```
+WHAT (compliance scope)  →  Climate IQ
+HOW  (intelligence depth) →  Industrial IQ
+WHERE (data sovereignty)  →  Aegis
+```
+
+**A customer can need one, two, or all three:**
+
+| Customer             | WHAT                      | HOW                                    | WHERE                                         | Right Product                            |
+| -------------------- | ------------------------- | -------------------------------------- | --------------------------------------------- | ---------------------------------------- |
+| **Kemira**           | CBAM, CSRD, PCF reporting | Not yet — single industry              | Not yet — unless CER/dual-use confirmed       | **Climate IQ** (€30k/yr)                 |
+| **Outokumpu**        | CBAM disclosures          | Cross-industry IP leakage              | Yes — IP protection requires sovereignty      | **Climate IQ + Aegis Standard**          |
+| **Nokia Defence**    | NIS2, CER compliance      | Cross-industry supply chain            | Mandatory — defence data cannot leave Finland | **Aegis Defence**                        |
+| **ORK**              | EU AI Act compliance      | Agent orchestration for justice sector | Government data sovereignty                   | **Industrial IQ + sovereign deployment** |
+| **Construction SME** | CSRD, EN 15978            | Not needed                             | Not needed                                    | **Climate IQ** (€30k/yr)                 |
+| **Finnish MoD**      | NIS2, export control      | C2 intelligence, drone detection       | Air-gapped, on-premises                       | **Aegis Sovereign**                      |
+
+**Pricing reflects the axis, not a discount ladder:**
+
+| Product                  | Onboarding      | Monthly                   | What You're Paying For                                         |
+| ------------------------ | --------------- | ------------------------- | -------------------------------------------------------------- |
+| Climate IQ               | €4,990          | €2,999/mo (or €29,990/yr) | 8 compliance agents + EU regulatory corpus                     |
+| Industrial IQ (DWS IQ 6) | €4,999 one-time | —                         | 50 agents + World Model + full platform access                 |
+| Aegis Standard           | €59,990         | €999/mo                   | Sovereign infrastructure (single-tenant K8s, UpCloud Helsinki) |
+| Aegis Defence            | €89,990         | €1,999/mo                 | + NVIDIA L40S GPU + ArgusAgent SAR + 4h SLA                    |
+| Aegis Sovereign          | Custom          | €4,999/mo                 | + Air-gapped + security clearance + dedicated engineering      |
+
+**The sales conversation determines the axis:**
+
+1. "We need carbon compliance" → Climate IQ. Done.
+2. "We need to see how regulations affect our supply chain" → Industrial IQ.
+3. "Our data cannot leave Finland / EU" → Add Aegis to whichever product fits.
+4. "We are defence / dual-use / critical infrastructure" → Aegis Defence or Sovereign.
+
+**Rule: Never lead with Aegis unless the customer explicitly states a sovereignty or defence need.** Climate IQ is the volume product. Aegis is the upsell that earns itself during scoping — not the default pitch.
+
+---
+
+## 12. Live Cases — Six Sales Motions
 
 The winning formula plays out differently depending on the deal type. Two active cases demonstrate the full range.
 
@@ -329,7 +379,7 @@ PERSONAL SALE WIN = TRUST × PATIENCE × DIAGONAL WINS × ZERO PRESSURE
 
 ### Case Kemira — Promised Offer, Ongoing (What Gets Accepted?)
 
-**What it is:** DWS IQ Aegis Defence platform for carbon compliance automation — CBAM, CSRD, Scope 3 PCF reporting. Contact: Maria (Hintikka) Sederholm, VP Product Line Management & Strategy, Fiber Essentials. Second door: Mikko Pohjala, VP Strategy. Offer filed 27.6.2026. Recommended tier: Aegis Defence at €89,990 onboarding + €1,999/mo.
+**What it is:** DWS IQ Climate Intelligence for carbon compliance automation — CBAM, CSRD, Scope 3 PCF reporting. Contact: Maria (Hintikka) Sederholm, VP Product Line Management & Strategy, Fiber Essentials. Second door: Mikko Pohjala, VP Strategy. Offer filed 27.6.2026. Right-fit product: **Climate Intelligence at €29,990/year** (8 specialised agents, ETS/CBAM/CSRD). Aegis sovereignty tier is only justified if scoping confirms dual-use/CER exposure — do not lead with it.
 
 **Why it matters:** Kemira is a Nasdaq-listed Finnish speciality chemicals company with SBTi-validated carbon targets and a live CSRD/ESRS sustainability statement under assurance. They already run a Supplier PCF Reporting Guideline (April 2025). This is a company that is actively building the exact workflow DWS automates. Winning here validates the platform for the entire chemicals sector.
 
@@ -339,42 +389,52 @@ Maria said Kemira **"need carbon compliance especially."** The offer has been pr
 
 **What gets accepted — the Kemira acceptance formula:**
 
-| Acceptance Factor              | Why It Matters for Kemira                                                  | How the Offer Addresses It                                                                                      |
-| ------------------------------ | -------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| **Starts free**                | A €90k onboarding is a board decision. A free scoping is a Maria decision. | Phase 1 Scoping is free (1-2 weeks). Maria can say yes without escalation.                                      |
-| **Honest tier recommendation** | Overselling destroys trust. If Standard fits, say so.                      | Scoping determines Standard vs. Defence honestly — "not with sales arguments."                                  |
-| **Board-forwardable**          | Maria must forward this without translation work.                          | Tarjouskirje is in Finnish, structured in three parts (problem, solution, next step), with one win per role.    |
-| **Measurable pilot**           | Board won't approve without KPIs.                                          | Three KPIs defined: sovereign coverage %, compliance hours freed, tender win rate for sovereign-attested deals. |
-| **Same jurisdiction**          | Reduces procurement friction.                                              | Espoo-to-Helsinki. Same timezone, same legal framework, same language.                                          |
-| **No lock-in**                 | Nordic buyers reject commitment without evidence.                          | Pilot tied to GA (August 2026), commercialisation only after KPIs hit.                                          |
+| Acceptance Factor     | Why It Matters for Kemira                                                         | How the Offer Addresses It                                                              |
+| --------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| **Right product**     | Maria said "carbon compliance." That is Climate Intelligence, not Aegis.          | Lead with Climate IQ (€29,990/yr). Aegis only if scoping reveals dual-use/CER need.     |
+| **Affordable entry**  | €29,990/yr is a department decision. €90k is a board decision.                    | Climate IQ pricing keeps the approval within Maria's authority or one level up.         |
+| **Starts free**       | Even €30k needs justification. A free scoping is a Maria decision.                | Phase 1 Scoping is free (1-2 weeks). Maria can say yes without escalation.              |
+| **Board-forwardable** | Maria must forward this without translation work.                                 | Tarjouskirje in Finnish, three parts (problem, solution, next step), one win per role.  |
+| **Measurable pilot**  | Board won't approve without KPIs.                                                 | Three KPIs: CBAM processing hours freed, PCF turnaround time, CSRD data completeness %. |
+| **Same jurisdiction** | Reduces procurement friction.                                                     | Espoo-to-Helsinki. Same timezone, same legal framework, same language.                  |
+| **Upsell path clear** | If scoping reveals CER/NIS2/dual-use exposure, Aegis becomes justified naturally. | Scoping determines if sovereignty matters — "not with sales arguments."                 |
 
 **The real question — what makes Maria say yes internally:**
 
 Maria's job title is VP Product Line Management & **Strategy**. She does not buy tools — she buys strategic advantages. The offer that gets accepted is the one that lets her tell the board:
 
-> "This turns our carbon compliance cost into a sales differentiator. Sovereign attestation wins regulated tenders our competitors cannot win. And Phase 1 is free — we risk nothing to find out."
+> "This automates our CBAM calculations, PCF reporting, and CSRD data collection — the work we already do manually. Phase 1 is free. If scoping shows we need sovereign infrastructure too, we upgrade then."
+
+**When does Aegis become relevant?** Only if scoping reveals one of these:
+
+| Trigger                 | Evidence                                                   | Then Aegis is Justified                   |
+| ----------------------- | ---------------------------------------------------------- | ----------------------------------------- |
+| CER Directive scope     | Kemira supplies water utilities = critical infrastructure  | Aegis Standard (sovereign data handling)  |
+| Dual-use export control | Speciality chemicals in Reg. 2021/821 Annex I              | Aegis Defence (export screening agent)    |
+| Customer mandates       | Defence-adjacent customers demand sovereign AI attestation | Aegis Defence (attestation as sales tool) |
+| None of the above       | Carbon compliance is the whole need                        | Climate Intelligence is the right product |
 
 **Sales approach — The Vineyard:**
 
 Kemira is neither a formal bid (Buffet) nor a quick pilot (Captain). It is a **Vineyard** sale — patient cultivation, the right soil, wait for the harvest.
 
-| Phase                             | Action                                                                    | Principle                                 |
-| --------------------------------- | ------------------------------------------------------------------------- | ----------------------------------------- |
-| **Done**                          | Offer delivered with full board package                                   | —                                         |
-| **Now**                           | Wait for Maria to process and socialise internally                        | Silence — she knows who to forward to     |
-| **If Maria asks questions**       | Answer fast, precisely, in Finnish                                        | VIP Service — attention to detail         |
-| **If Maria says "too expensive"** | Offer Standard tier (€59,990 + €999/mo) — do not negotiate Defence price  | The price is the price (Buffet Principle) |
-| **If Maria says "not now"**       | "The scoping is free and non-binding. Whenever the timing is right."      | The close that is not a close             |
-| **If Maria introduces Mikko**     | Good — the strategic bridge to the board is forming. Follow Maria's lead. | Diagonal Wins — two-person coalition      |
+| Phase                             | Action                                                                              | Principle                                 |
+| --------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------- |
+| **Done**                          | Offer delivered with full board package                                             | —                                         |
+| **Now**                           | Wait for Maria to process and socialise internally                                  | Silence — she knows who to forward to     |
+| **If Maria asks questions**       | Answer fast, precisely, in Finnish                                                  | VIP Service — attention to detail         |
+| **If Maria says "too expensive"** | Climate IQ at €29,990/yr is already affordable. Confirm the price, do not discount. | The price is the price (Buffet Principle) |
+| **If Maria says "not now"**       | "The scoping is free and non-binding. Whenever the timing is right."                | The close that is not a close             |
+| **If Maria introduces Mikko**     | Good — the strategic bridge to the board is forming. Follow Maria's lead.           | Diagonal Wins — two-person coalition      |
 
 **The diagonal — Maria's internal pitch:**
 
-| Stakeholder          | What Maria tells them                                                                              |
-| -------------------- | -------------------------------------------------------------------------------------------------- |
-| **CTO / R&D**        | "Process IP stays in Finland. No CLOUD Act. No US model training on our data."                     |
-| **CISO**             | "NIS2 + CER met cleanly. KYA kill authority. Article 12 audit built in."                           |
-| **CEO / CFO**        | "Revenue + cost + moat on one platform. Compliance spend we already carry becomes a sales weapon." |
-| **Mikko (Strategy)** | "This fits the Kemira strategy narrative: sovereign, Finnish, auditable, commercially leveraged."  |
+| Stakeholder                          | What Maria tells them                                                                                    |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------------- |
+| **CTO / R&D**                        | "CBAM and PCF calculations automated with EU AI Act audit trail. No manual spreadsheets."                |
+| **Sustainability / EVP Hildebrandt** | "CSRD data completeness goes up. Assurance prep is structured, not ad hoc."                              |
+| **CEO / CFO**                        | "€30k/year replaces hundreds of compliance hours. SBTi tracking becomes automatic."                      |
+| **Mikko (Strategy)**                 | "Carbon compliance becomes a competitive advantage — faster PCF response to customers than competitors." |
 
 **Winning formula for Kemira:**
 
@@ -519,7 +579,7 @@ COMPETITION WIN = RIGHT FRAME × HARD NUMBERS × LEGIBILITY × MOMENTUM EVIDENCE
 | **Type**            | Public procurement       | Enterprise pilot                      | Enterprise platform                    | Defence platform              | Defence funding                        | Startup competition                   |
 | **Metaphor**        | Buffet                   | Captain                               | Vineyard                               | Captain (failed)              | Vineyard                               | Vineyard                              |
 | **Contact**         | Committee (anon)         | Ari Hirvonen                          | Maria Sederholm                        | Tommi Haapala                 | Laura Manner-Raappana                  | SIRA judges                           |
-| **Value**           | Framework (€1.7M ref)    | €24k pilot                            | €90k + €2k/mo                          | €90k+                         | Funding grant                          | Top 4 + visibility                    |
+| **Value**           | Framework (€1.7M ref)    | €24k pilot                            | €30k/yr (Climate IQ)                   | €90k+                         | Funding grant                          | Top 4 + visibility                    |
 | **Key challenge**   | Contractor depth         | Internal champion                     | Board-ready package                    | Material quality              | Missing video + deck                   | Legibility gap                        |
 | **What went right** | Strong technical bid     | Trust, warm contact                   | Carbon need stated                     | NDA signed                    | "Interesting elements"                 | Top 15 of 100                         |
 | **What went wrong** | — (pending)              | — (pending)                           | — (pending)                            | Materials not defence-grade   | No video, no deck, vague defence angle | Soft numbers, wrong frame             |
@@ -536,15 +596,15 @@ COMPETITION WIN = RIGHT FRAME × HARD NUMBERS × LEGIBILITY × MOMENTUM EVIDENCE
 
 The fix is one fix. Build a modular material kit:
 
-| Module                         | Needed By                           | Status                                      |
-| ------------------------------ | ----------------------------------- | ------------------------------------------- |
-| **Video demo (2-3 min)**       | Diana, Arctic15, all future pitches | TO BUILD                                    |
-| **Pitch deck (10 slides)**     | Diana, Arctic15, investors          | TO BUILD                                    |
-| **Hard traction page**         | Arctic15, investors                 | TO BUILD                                    |
-| **Defence-specific insert**    | Diana, Nokia Defence (round 2)      | TO BUILD                                    |
-| **Sovereignty lead story**     | Arctic15, all investor materials    | EXISTS — needs to move to headline position |
-| **Trajectory/momentum page**   | Arctic15                            | EXISTS — needs assembly                     |
-| **Board-ready offer template** | Kemira, future enterprise           | EXISTS (Kemira tarjouskirje is the model)   |
+| Module                         | Needed By                           | Status                                                    |
+| ------------------------------ | ----------------------------------- | --------------------------------------------------------- |
+| **Video demo (2-3 min)**       | Diana, Arctic15, all future pitches | BUILT — `MODULE_1_VIDEO_SCRIPT.md` (record with OBS/Loom) |
+| **Pitch deck (10 slides)**     | Diana, Arctic15, investors          | BUILT — `MODULE_2_PITCH_DECK.md` (produce in Gamma/PPT)   |
+| **Hard traction page**         | Arctic15, investors                 | BUILT — `MODULE_3_TRACTION_PAGE.md` (verify numbers)      |
+| **Defence-specific insert**    | Diana, Nokia Defence (round 2)      | BUILT — `MODULE_4_DEFENCE_INSERT.md` (3-page bolt-on)     |
+| **Sovereignty lead story**     | Arctic15, all investor materials    | EXISTS — needs to move to headline position               |
+| **Trajectory/momentum page**   | Arctic15                            | EXISTS — needs assembly                                   |
+| **Board-ready offer template** | Kemira, future enterprise           | EXISTS (Kemira tarjouskirje is the model)                 |
 
 **Priority sequence:**
 
