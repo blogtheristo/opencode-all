@@ -554,7 +554,7 @@ Me emme seuraa trendejä. Me luomme niitä. Keskeistä on älyllinen laajuus.
 - EU AI Act Article 12 tuotannossa (5 kk ennen voimaantuloa)
 - 100% asiakaspysyvyys, 6 maksavaa asiakasta
 - EU-suvereeni (nolla CLOUD Act), suomalainen infrastruktuuri
-- Hintaetu: Climate IQ €30K/v vs kilpailijat €50-200K/v
+- Hintaetu: Climate IQ ~€36K/v (€2 999/kk) vs kilpailijat €50–200K/v
 - NVIDIA ISV Partner, Red Hat AI Partner
 - **Ketterä ydintiimi + vakiintunut kumppaniverkosto + 58 agenttia ja 88 kyvykkyyttä = suuren toimiston kapasiteetti ilman suuria kiinteitä kustannuksia.** Lifetime Oy:n ydintiimi (CEO Risto Anton Paarni + Office Chief Lucille Santiago) johtaa 58 agentin kyvykkyyttä yhdessä 50+ asiantuntijayrityksen verkoston kanssa. Verkosto on vakiintunut: kumppanuudet on solmittu 2020–2022 (mm. konsortiokumppanit 9series ja Cubet) ja se tuo todennetun projektitoimituskapasiteetin ja erikoisosaamisen. Kumppanuudet on ankkuroitu NVIDIA Connect -kumppanuuteen. Kevyt päätöksenteko eliminoi komiteaviiveen. Kyvykkyydet kattavat konsultoinnin, sääntelyn, toimialaerikoistumisen, orkestroinnin ja tiedustelun 25 toimialalla. Kilpailijat: Normative ~100 henkilöä, Sweep ~200 henkilöä, Persefoni ~300 henkilöä. DWS: ketterä ydintiimi + 50+ kumppaniyrityksen verkosto + 58 agenttia, matalat kiinteät kustannukset. Kapasiteetti skaalautuu agentteja lisäämällä (minuutteja) ja verkostoa hyödyntämällä, ei raskaalla rekrytoinnilla.
 
