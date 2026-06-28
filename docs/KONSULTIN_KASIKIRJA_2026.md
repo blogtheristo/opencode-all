@@ -136,9 +136,9 @@ Olemme siirtyneet yleisestä IT-konsultoinnista (2019-2024) kohdennettuun AI-alu
 
 ### Missio
 
-Lifetime Oy:n missiona on olla mukana estämässä ilmastonmuutosta, eroosiota, sekä yhä pahenevaa kuivuutta. Automatisoimme eurooppalaisen teollisuuden compliance-taakan niin, että yritykset voivat keskittyä liiketoimintaansa sääntelyvelvoitteiden sijaan — turvallisesti, suvereenisti, EU-jurisdiktiossa.
+Lifetime Oy:n missiona on olla mukana estämässä ilmastonmuutosta, eroosiota sekä yhä pahenevaa kuivuutta — automatisoimalla teollisuuden ympäristövelvoitteet suvereenilla tekoälyllä. Automatisoimme eurooppalaisen teollisuuden compliance-taakan niin, että yritykset voivat keskittyä liiketoimintaansa sääntelyvelvoitteiden sijaan — turvallisesti, suvereenisti, EU-jurisdiktiossa.
 
-Olemme siirtymässä alustataloudesta datavetoiseen älytalouteen. Menestyjiä Sovereign Compliance Intelligence -maailmassa tehdään nyt. Lifetime Oy:n osaaminen ja kontaktit tunnustetaan kansainvälisesti ja olemme haluttu projektitoimittaja useilla toimialoilla.
+Olemme siirtyneet datavetoisesta analytiikasta suvereeniin tekoälyyn — compliance-älytalouteen, jossa jokainen päätös on auditoitavissa. Menestyjiä Sovereign Compliance Intelligence -maailmassa tehdään nyt. Lifetime Oy:n 58 agenttia ja 88 kyvykkyyttä palvelevat 25 EU-säänneltyä toimialaa — alustatuotteen veloituksella, ei tuntilaskutuksella.
 
 ### Arvot
 
