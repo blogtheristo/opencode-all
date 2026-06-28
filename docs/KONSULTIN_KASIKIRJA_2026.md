@@ -195,7 +195,7 @@ DWS IQ 6 ei ole kolme hintatasoa. Se on kolme itsenäistä akselia:
 
 **Erikoistuotteet:**
 
-- **Train Model SaaS** — €1 490 (Compact) / €2 990 (Standard) / €7 490 (Pro). Asiakaskohtaisten ontologioiden koulutus LWM-pohjalla.
+- **Train Model SaaS (LWM Ontology Build)** — €1 490 (Compact) / €2 990 (Standard) / €7 490 (Pro). Konsultin tekemä asiakaskohtaisen LWM-ontologian pystytys ja koulutus — ei pelkkä mallikoulutus vaan toimialaontologian rakentaminen.
 - **[Lifetime VIP AI Services](https://dws10.com/products/lifetime-vip-ai-services.html)** — €2 990/v. Henkilökohtainen AI-palvelu avainhenkilöille.
 - **[Skilled Agents](https://dws10.com/products/skilled-agents.html)** — Yksittäiset AI-agentit (Compliance, SiteSense, Material Oracle, ym.) alkaen €599/v.
 - **[Claude Code Coaching](https://dws10.com/products/claude-code-coaching.html)** — €1 900–€7 500. AI-koodauksen koulutuspaketit yrityksille.
