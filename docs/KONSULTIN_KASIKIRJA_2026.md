@@ -118,6 +118,7 @@ Olemme siirtyneet yleisestä IT-konsultoinnista (2019-2024) kohdennettuun AI-alu
 ### Henkilöstö
 
 - **CEO, pääarkkitehti** — Risto Anton Paarni. Strategia, tuotekehitys, avainasiakasmyynti, päivittäinen koodaus.
+- **Office Chief** — Lucille Santiago. Leads daily operations and Project Office.
 - **Freelance CTO** — Sopimuksella. Teknologia-arkkitehtuuri, infrastruktuuri.
 - **Alihankkijaverkosto** — Konsortio (9series, Cubet ym.). Projektitoimitus, erikoisosaaminen.
 
