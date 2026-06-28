@@ -265,9 +265,22 @@ DWS ei myy henkilöstöä. DWS myy kyvykkyyttä ja valmiutta muutokseen. Kun sä
 
 Asiakas päättää itse, miten agentteja käytetään: ihmisen apuna, ihmisen rinnalla tai itsenäisesti. Emme ota kantaa työrooleihin tai henkilöstöpäätöksiin — tuomme kyvykkyyden.
 
-### Agenttikyvykkyyskatalogi (yli 80 kyvykkyyttä, kasvaa jatkuvasti)
+### Agenttikyvykkyysontologia — 10 kyvykkyysluokkaa
 
-**A. Konsulttikyvykkyydet (8 agenttia)**
+Kyvykkyydet on järjestetty ontologiaksi, joka kuvaa DWS IQ:n koko osaamisen rakenteen. Ontologia on Lifetime World Model (LWM) -pohjainen: jokainen luokka on tietämysverkossa solmu, joka yhdistyy muihin luokkiin agenttien välisen kommunikaation kautta. Uudet kyvykkyydet liittyvät aina olemassa olevaan ontologiaan — ne eivät ole irrallisia listoja vaan rakenteellinen osa yrityksen kyvykkyyskarttaa.
+
+1. **Konsultointi** — Asiakasrajapinta, scoping, käyttöönotto
+2. **Sääntely ja compliance** — EU-sääntelyn automaatio, auditointi, ennusteet
+3. **Toimiala** — Sektorikohtainen syvä osaaminen (teräs, energia, kemia, merenkulku...)
+4. **Orkestrointi** — Moniagenttityönkulut, reititys, synteesi
+5. **Kenttä ja projekti** — Työmaat, aikataulut, materiaalit, laadunvarmistus
+6. **Myynti ja viestintä** — Prospektointi, SEO, kilpailijaseuranta, sisältö
+7. **Tiedonhallinta ja muisti** — Pitkäkestomuisti, selitettävyys, tietopankit, kuvantunnistus
+8. **Järjestelmä** — MCP-integraatiot, konsensus, optimointi, maailmanmalli
+9. **Puolustus ja turvallisuus** — Suvereniteetti, auditointi, turvallisuuspisteytys
+10. **Muutos ja jatkuvuus** — Muutoshallinta, häiriötuki, koulutus, prosessiautomaatio
+
+**A. Konsultointi (8 agenttia)**
 
 1. **AI Scoping Consultant** — Kartoittaa compliance-tarpeen, suosittelee oikean DWS-tuotteen, arvioi ROI:n
 2. **DWS Deployment Engineer** — DWS IQ -alustan asennus ja konfigurointi, ERP-integraatiot (SAP, IFS, Visma, Monitor, Jeeves)
@@ -278,7 +291,7 @@ Asiakas päättää itse, miten agentteja käytetään: ihmisen apuna, ihmisen r
 7. **DevOps Engineer** — CI/CD, K8s, UpCloud Helsinki -infrastruktuuri, tietoturva, Prometheus/Grafana-seuranta
 8. **Project Manager** — Hankejohtaminen, JIRA-työnkulut, aikataulut, asiakasdokumentaatio
 
-**B. Sääntely- ja compliance-kyvykkyydet (8 agenttia)**
+**B. Sääntely ja compliance (8 agenttia)**
 
 9. **Compliance Agent** — EU-sääntelyn kokonaisarviointi (ETS, CBAM, CSRD, Fit for 55, EU AI Act), deterministinen pisteytys + LLM-analyysi
 10. **Compliance Researcher** — Sääntely-tutkimus, vaikutusarviointi, määräaikaseuranta, sanktioanalyysi
@@ -289,7 +302,7 @@ Asiakas päättää itse, miten agentteja käytetään: ihmisen apuna, ihmisen r
 15. **Themis (Oikeudellinen äly)** — Sopimusarviointi, sääntelyaukkokartoitus, GDPR-peruste, EU AI Act -etiikka, 10 EU-asetuksen kattavuus
 16. **Sovereignty Monitor** — EU-datasuvereniteetti, CLOUD Act -altistus, salaus, RLS-politiikka, GDPR/NIS2-yhteensopivuus
 
-**C. Toimialakohtaiset kyvykkyydet (11 agenttia)**
+**C. Toimiala (11 agenttia)**
 
 17. **Vulcan (Teräs)** — ETS Phase 4, CBAM-hiilisisältöilmoitukset, valokaariuuni vs. masuuni
 18. **Helios (Energia)** — Fit for 55 (42,5 % uusiutuva), ETS, EU-taksonomia, verkon päästökertoimet
@@ -303,7 +316,7 @@ Asiakas päättää itse, miten agentteja käytetään: ihmisen apuna, ihmisen r
 26. **Juno (Kemia/lääke)** — Kemianteollisuuden ja lääketeollisuuden CBAM/REACH-erityiskysymykset
 27. **Mercury Trade (Kauppa)** — CBAM-tuontianalytiikka, kauppapolitiikan vaikutusarviointi
 
-**D. Työnkulun orkestrointi (6 agenttia)**
+**D. Orkestrointi (6 agenttia)**
 
 28. **Atlas (Esikuntapäällikkö)** — Moniagenttipyyntöjen reititys, synteesi, riskipriorisointi
 29. **Athena (Compliance Intelligence)** — EU-sääntelyn määräaikapohjainen arviointi, priorisointi
@@ -312,7 +325,7 @@ Asiakas päättää itse, miten agentteja käytetään: ihmisen apuna, ihmisen r
 32. **Iris (Tutkimus)** — Kilpailijaseuranta + sääntely-uutiset + SEO-analyysi
 33. **Apollo (Sisältö & myynti)** — Sisältöstrategia + SEO + myyntikampanjat sääntely-triggereihin
 
-**E. Kenttä- ja projektihallinnan kyvykkyydet (6 agenttia)**
+**E. Kenttä ja projekti (6 agenttia)**
 
 34. **SiteSense (Työmaaäly)** — Työmaan turvallisuuspisteytys, sää-riski, työntekijäturvallisuus EN 13001
 35. **Schedule Genius** — CPM-pohjainen aikatauluoptimointi, kriittinen polku, viivästysriski
@@ -321,7 +334,7 @@ Asiakas päättää itse, miten agentteja käytetään: ihmisen apuna, ihmisen r
 38. **Logistics Agent** — Reitti-optimointi, kaluston compliance, ADR, KELA-kuljetukset, EN 16258 -päästöt
 39. **Quality Gate** — Käyttöönottovalmius: tietoturvaskannaus, testikattavuus, build-terveys
 
-**F. Myynti-, markkinointi- ja viestintäkyvykkyydet (7 agenttia)**
+**F. Myynti ja viestintä (7 agenttia)**
 
 40. **Sales Outreach** — B2B-prospektointi, yritystutkimus, kontaktien löytäminen, sähköpostin generointi
 41. **Keyword Intent (SEO)** — Hakukyselyjen luokittelu (TOFU/MOFU/BOFU), quick-win-avainsanat
@@ -331,7 +344,7 @@ Asiakas päättää itse, miten agentteja käytetään: ihmisen apuna, ihmisen r
 45. **Lead Feedback** — CRM-won-datan analyysi, ostajakielen poiminta, avainsanaehdotukset SEO:lle
 46. **Designer** — Figma-to-code, kuvakaappaus-to-koodi, CSS-muutokset, komponenttien luonti
 
-**G. Tiedonhallinta- ja muistikyvykkyydet (6 agenttia)**
+**G. Tiedonhallinta ja muisti (6 agenttia)**
 
 47. **Mnemosyne (Pitkäkestomuisti)** — Istuntojen välinen konteksti, episodinen + semanttinen muisti, GDPR-unohdus
 48. **Minerva (Tiedonsiirto)** — XAI-selitykset, perehdytysmateriaalit, johdon käännökset, EU AI Act Art. 13
@@ -340,7 +353,7 @@ Asiakas päättää itse, miten agentteja käytetään: ihmisen apuna, ihmisen r
 51. **Vision Oracle** — Kuvien analyysi: teollisuuskuvat, SAR-satelliittikuvat, laitetunnistus, dokumenttiskannaus
 52. **Synthetic Data** — CBAM-synteettisen datan generointi, LLM-validointi, stressitestaus, Red Team -data
 
-**H. Järjestelmäkyvykkyydet (5 agenttia)**
+**H. Järjestelmä (5 agenttia)**
 
 53. **Daedalus (MCP Bridge)** — MCP-työkalujen dynaaminen löytäminen ja ketjutus, max 8 vaiheen ketjut
 54. **Agora (Kollektiivinen äly)** — Moniagenttikonsensus, rinnakkaisarviointi, päätösten synteesi
@@ -348,7 +361,7 @@ Asiakas päättää itse, miten agentteja käytetään: ihmisen apuna, ihmisen r
 56. **World Model Loop** — LWM V1 -referenssisilmukka: havainto → simulointi → HIL-ehdotus → oppiminen
 57. **Argus (Orbitaalinen silmä)** — ICEYE SAR -satelliittikuvien analyysi, 20 teollisuustyypin tunnistus
 
-**I. Puolustus- ja turvallisuuskyvykkyydet (5 agenttia)**
+**I. Puolustus ja turvallisuus (5 agenttia)**
 
 58. **Customer Sat** — Asiakasterveyden pisteytys, churn-ennuste, NPS-analyysi, sitouttamissuositukset
 59. **Viability** — Investointi-ROI, NPV, takaisinmaksuaika, EU ETS -hiilihyvitysten arvostus
@@ -356,9 +369,9 @@ Asiakas päättää itse, miten agentteja käytetään: ihmisen apuna, ihmisen r
 61. **Auditor** — Auditointiketju, päätösten jäljitettävyys, hash-verifiointi
 62. **Argus Defence** — SAR-pohjainen kohdevalvonta puolustuskontekstissa
 
-**J. Muutoskyvykkyydet — uudet 2026+ (18 agenttia)**
+**J. Muutos ja jatkuvuus (18 agenttia)**
 
-Nämä kyvykkyydet laajentavat DWS IQ:n vanhojen 72 konsulttiroolin kattavuuden täysimittaiseksi agenttikatalogiksi:
+Ontologian kymmenes luokka laajentaa DWS IQ:n vanhojen 72 konsulttiroolin kattavuuden täysimittaiseksi kyvykkyysontologiaksi:
 
 63. **Data Engineer Agent** — ETL-putkistojen suunnittelu, datalaatu, skeemahallinta, tietovirtojen automatisointi
 64. **Business Analyst Agent** — Vaatimusten keräys, prosessikartoitus, sidosryhmäanalyysi, liiketoimintasääntöjen dokumentointi
