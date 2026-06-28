@@ -99,7 +99,7 @@ Tämän konsultoinnin käsikirjan on laatinut Risto Anton Paarni, toimitusjohtaj
 
 ### Keitä olemme
 
-Lifetime Oy on espoolainen teknologiayritys, joka kehittää ja toimittaa DWS IQ -alustaa — Euroopan teollisuuden suvereenia compliance-älyalustaa sekä lokaaleja valvomohuoneita (Control Room) ja johtohuoneita (Situation Room). Tuotamme suvereenia tekoälyä, joka automatisoi EU-säännösten noudattamisen 25 säännellyllä toimialalla.
+Lifetime Oy on espoolainen teknologiayritys, joka kehittää ja toimittaa DWS IQ -alustaa — Euroopan teollisuuden suvereenia compliance-älyalustaa sekä lokaaleja valvomohuoneita (Control Room) ja johtohuoneita (Situation Room). Suvereniteetti syntyy paikallisesta laitteistosta ja lokaalista World Model -toteutuksesta. Tuotamme suvereenia tekoälyä, joka automatisoi EU-säännösten noudattamisen 25 säännellyllä toimialalla.
 
 Olemme siirtyneet yleisestä IT-konsultoinnista (2019-2024) kohdennettuun AI-alustatuotteeseen (2025-2026). Konsultointi on osa DWS-tuotteen projektitoimitusta ja on saatavissa asiakasprojekteihin.
 
@@ -187,6 +187,11 @@ DWS IQ 6 ei ole kolme hintatasoa. Se on kolme itsenäistä akselia:
 - **[Aegis Standard](https://dws10.com/products/aegis.html)** — €59 990 käyttöönotto + €999/kk (€71 978/v). Suvereeni single-tenant K8s, UpCloud Helsinki, KYA-hallinta.
 - **[Aegis Defence](https://dws10.com/products/aegis.html)** — €89 990 käyttöönotto + €1 999/kk (€113 978/v). Ilmaraollinen, NVIDIA L40S GPU, ArgusAgent SAR, 4h SLA.
 - **Aegis Sovereign** — Räätälöity käyttöönotto + €4 999/kk. Täysin asiakaskohtainen suvereeni ympäristö.
+
+**Lokaalit valvomotuotteet:**
+
+- **Valvomohuone (Control Room)** — Acer Veriton GN100, €5 294. Lokaali LWM Enterprise Model + DWS-alustatuote. Reaaliaikainen compliance-seuranta paikallisella ontologialla. Suvereniteetti syntyy paikallisesta laitteistosta ja lokaalista World Model -toteutuksesta — data ei poistu asiakkaan tiloista.
+- **Johtohuone (Situation Room)** — 2× Acer Veriton GN100, €10 093. Aggregoi syötteet lokaalien valvomohuoneiden LWM:istä ja yhdistää ne DWS IQ Situation Room -toiminnallisuuksiin: moniruutunäyttö, kriisitilannejohtaminen, päätöksentuki. Suvereeni — lokaali laitteisto ja lokaali World Model.
 
 **Erikoistuotteet:**
 
