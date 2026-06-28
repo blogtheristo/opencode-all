@@ -598,8 +598,8 @@ Kuuntelun vaikeus on myyntityön suurin haaste. Konsultin on kuunneltava jokaist
 ### Kolme myyntimetaforaa
 
 - **Buffet** (julkinen hankinta) — Formaali tarjouskilpailu, julkaistu hinta, täysi läpinäkyvyys. Esimerkki: ORK — sama hinta kaikille.
-- **Captain** (lämmin henkilökohtainen suhde) — CEO-to-CEO, luottamuspohjainen, pilotti ensin. Esimerkki: Outokumpu (Ari Hirvonen).
-- **Vineyard** (kärsivällinen viljely) — Board-ready materiaalit, ilmainen scoping, odota satoa. Esimerkki: Kemira (Maria Sederholm).
+- **Captain** (lämmin henkilökohtainen suhde) — CEO-to-CEO, luottamuspohjainen, pilotti ensin. Esimerkki: Outokumpu.
+- **Vineyard** (kärsivällinen viljely) — Board-ready materiaalit, ilmainen scoping, odota satoa. Esimerkki: Kemira.
 
 ### Myyntiperiaatteet
 
