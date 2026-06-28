@@ -63,6 +63,17 @@ import { AuditorAgent } from './auditor.agent.js';
 import { VisionOracleAgent } from './vision-oracle.agent.js';
 import { ChronosAgent } from './chronos.agent.js';
 import { WorldModelLoopAgent } from './world-model/world-model-loop.agent.js';
+// Consultant Role Agents — 8 roles from Konsultin käsikirja 2026
+import {
+  AIScopingConsultantAgent,
+  DWSDeploymentEngineerAgent,
+  ComplianceSpecialistAgent,
+  EdgeAIEngineerAgent,
+  EnterpriseModelEngineerAgent,
+  GenAISolutionArchitectAgent,
+  DevOpsEngineerAgent,
+  ProjectManagerAgent,
+} from './consultant/index.js';
 import { registerBuiltinTools } from './tools.js';
 import { eventBus, registerDefaultEventHandlers } from './event-bus.js';
 import { withAgentSpan } from '../observability/tracing.js';
@@ -280,6 +291,16 @@ export class AgentRegistry {
     this.register(new AuditorAgent()); // Audit trail + hash chain (EU AI Act Art. 12)
     this.register(new VisionOracleAgent()); // Vision language model — site photos, SAR imagery
     this.register(new ChronosAgent()); // Temporal workflow + EU compliance deadline engine
+
+    // Consultant Role Agents — 8 roles from Konsultin käsikirja 2026 (total 58)
+    this.register(new AIScopingConsultantAgent()); // Compliance-need assessment, product recommendation
+    this.register(new DWSDeploymentEngineerAgent()); // ERP integration (SAP, IFS, Visma, Monitor)
+    this.register(new ComplianceSpecialistAgent()); // CBAM, CSRD, ETS, NIS2, CER, EU AI Act
+    this.register(new EdgeAIEngineerAgent()); // NVIDIA Jetson/DGX Spark, air-gapped Aegis
+    this.register(new EnterpriseModelEngineerAgent()); // LWM ontology, Train Model SaaS
+    this.register(new GenAISolutionArchitectAgent()); // Claude Code, KYA, agent architecture
+    this.register(new DevOpsEngineerAgent()); // CI/CD, K8s, UpCloud Helsinki, security
+    this.register(new ProjectManagerAgent()); // JIRA, scheduling, customer documentation
 
     logger.info('Agent registry initialized', {
       agentCount: this.agents.size,
