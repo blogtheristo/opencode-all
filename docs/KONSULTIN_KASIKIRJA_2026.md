@@ -228,7 +228,7 @@ Viisi työnkulkua:
 
 Ontologia on jäsennelty tietämysrakenne, joka kuvaa käsitteet ja niiden väliset suhteet. DWS IQ:n kyvykkyysontologia kuvaa yrityksen koko osaamisen — ei luettelona, vaan verkkorakenteena jossa jokainen kyvykkyys tietää mistä luokasta se on, mihin muihin luokkiin se kytkeytyy ja miten se palvelee asiakasta.
 
-Ontologia on Lifetime World Model (LWM) -pohjainen. Kun asiakas kouluttaa oman LWM-ontologiansa (Train Model SaaS), kyvykkyysontologia laajenee automaattisesti kattamaan asiakkaan toimialan erityiskysymykset.
+Ontologia on Lifetime World Model (LWM) -pohjainen. Kun asiakas kouluttaa oman LWM-ontologiansa (Train Model SaaS) tai ottaa käyttöön lokaalin World Model -toteutuksen (Control Room / Situation Room), kyvykkyysontologia laajenee automaattisesti kattamaan asiakkaan toimialan erityiskysymykset.
 
 DWS IQ:n kyvykkyysontologia jakautuu kymmeneen luokkaan (A–J) ja kattaa 88 kyvykkyyttä. Täydellinen luokkakuvaus, agenttiluettelo ja ontologiaperiaatteet ovat kappaleessa [§6 Kyvykkyysmalli 2026](#6-kyvykkyysmalli-2026--roolit-ovat-agentteja).
 
