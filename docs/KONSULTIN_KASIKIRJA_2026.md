@@ -113,7 +113,7 @@ Olemme siirtyneet yleisestä IT-konsultoinnista (2019-2024) kohdennettuun AI-alu
 - **Asiakaspysyvyys:** 100% (nolla churn)
 - **MRR:** €7 000–14 000
 - **Platform-versiot:** 6 (V1–V6)
-- **Verkkokaupan tuotteet:** 100
+- **Verkkokaupan tuotteet:** 63
 - **EU AI Act Article 12:** Tuotannossa maaliskuusta 2026
 
 ### Henkilöstö
