@@ -30,6 +30,13 @@ AGENT HISTORY:
 - **70% graduation rate** — Breega actively supports to Series A; frame the Series-A path, not just the seed.
 - **$1M–$3M ticket** — bigger than the €650K floor → upsize-to-priced-seed conversation (like 42CAP).
 
+## Timely hook — the agent economy (his current public focus)
+
+As of 2026-Q2 he's **on stage at the GenAI London Warm-Up** on an **agent-economy panel** (with Nilson Kufus / Rebels and Akshat Goenka / Moonfire) — the question: _"what happens to a company once agents do the real work and execution stops being the constraint."_ He's launching the **London chapter of the Agent Economy Association**. This is the strongest, most current wedge:
+
+- **DWS is a production answer to his exact thesis** — in EU compliance, governed agents already produce the _signed, audit-ready filing_; execution has stopped being the constraint.
+- **Frame as governed OUTCOMES + accountability, not agent-count** (Pillar 2): the agent economy will need governance — KYA hardware-attested identity + Article 12/26 lineage + <125ms kill authority is exactly that layer. DWS is the "agents do the real work, _safely and accountably_" proof point his association is about.
+
 ## Drawbacks / Mitigations
 
 - **Sector-overlap caveat** — Breega's stated sectors (water, materials, fusion) don't explicitly list industrial AI compliance. **Mitigation:** (1) lead the **deep-tech bucket** (the technical moat), and (2) bridge via **materials**: CBAM covers iron/steel, cement, aluminium, fertilizers — DWS is the compliance layer for exactly those **materials** sectors (Outokumpu = steel). So it's deep-tech serving his materials adjacency, on his Nordic turf. Don't oversell direct sector fit; lead deep-tech + Nordic + materials bridge.
@@ -43,7 +50,7 @@ AGENT HISTORY:
 
 ## Draft LinkedIn DM (warm)
 
-Hi Jounghyun — [referrer] suggested we connect. DWS IQ 6 is deep-tech for EU industrial compliance: governed AI agent workflows + edge inference + a sovereign local world model, KYA hardware-attested, CIDM patent. We turn CBAM/CSRD obligations into audit-ready filings — including for materials (steel, cement, aluminium), e.g. our Outokumpu pilot. EU-sovereign, Finland-based, Nordic traction (6 customers, 100% retention). Worth a look?
+Hi Jounghyun — saw you're on the agent-economy panel at the GenAI London Warm-Up: what happens to a company once agents do the real work and execution stops being the constraint. That's the thing we've put into production. DWS IQ 6 runs governed agents that already produce the signed, audit-ready EU compliance filing (CBAM/CSRD) — execution is no longer the bottleneck — with KYA hardware-attested governance + Article 12 lineage as the accountability layer the agent economy will need. Deep-tech, EU-sovereign, Finland-based; materials-sector proof (Outokumpu steel pilot); 6 customers at 100% retention. Worth a look?
 
 ## Next Steps
 
