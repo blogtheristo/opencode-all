@@ -108,7 +108,7 @@ The numbers:
 - Target: EUR 900K ARR by end 2026
 - Platform: a fleet of skilled agents, 32 products, 25 EU-regulated industries
 
-Raising EUR 650K SAFE at EUR 3.8M cap. Captain seats at EUR 50K — fits your ticket range. The market is 49,000+ EU companies facing mandatory CSRD reporting. This is compliance infrastructure, not optional software.
+Raising EUR 650K SAFE at EUR 3.8M cap. Captain seats at EUR 50K — fits your ticket range. The market is fewer than 5,000 large EU companies (post-Omnibus, >1,000 employees) facing mandatory CSRD reporting. This is compliance infrastructure, not optional software.
 
 V1 launches at Arctic 15 in Helsinki on June 15. Investors who commit before Arctic 15 enter at seed valuation ahead of the first public sales data (available August 15).
 

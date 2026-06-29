@@ -62,7 +62,7 @@ Across EU, ASEAN, and US jurisdictions — in one platform.
 The carbon balance sheet: double-entry bookkeeping for CO₂,
 so every tonne is tracked like every euro.
 
-49,000+ EU companies face mandatory climate reporting.
+fewer than 5,000 large EU companies (post-Omnibus, >1,000 employees) face mandatory climate reporting.
 Every one of them needs an operational system.
 None of them want to buy another dashboard.
 
@@ -167,7 +167,7 @@ and a founder who has operated in construction, logistics, and infrastructure
 long enough to know exactly where the Excel sheets break.
 
 We are not building for the market that might exist.
-We are building for the 49,000 companies that must comply by law — today.
+We are building for the fewer than 5,000 large EU companies (post-Omnibus, >1,000 employees) companies that must comply by law — today.
 
 ---
 

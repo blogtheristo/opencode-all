@@ -12,6 +12,7 @@ VERSION AND AGENT HISTORY
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (claude-opus-4-8) | Date: 29.06.2026 | Changes: Corrected the CSRD figure in the Salim delta to post-Omnibus (fewer than 5,000 large filers) per DWS_TRUTH_STANDARD v2.5 §2C.
 - Version: 1.0 | Tool: Claude Code (claude-opus-4-8) | Date: 29.06.2026 | Changes: Per-investor tailored decks (Arthur, Wilke, Maciej, Salim, Malte) — shared spine + per-investor lead/emphasize/HIDE deltas + ask. Mandate walls enforced (Salim + Malte: hide Aegis/defense). Anchors per DWS_TRUTH_STANDARD v2.4.
 
 ---
@@ -80,7 +81,7 @@ Anchors (all decks): 19 moats + Layer 0 · 3 positioning pillars · 25 industrie
 **⚠️ HIDE Aegis / sovereign / dual-use / defense entirely — mandate fit is compliance SaaS with enterprise ROI.** Primary value: corporate pilot intros (500+ network).
 
 - **S1:** "Compliance SaaS with hard enterprise ROI — automate CBAM/CSRD/EPBD filing from your ERP."
-- **S2 Why now:** 49,000 EU companies must file; buy-or-get-fined; clear ROI (40h/mo saved, ~4 wks to audit-ready).
+- **S2 Why now:** fewer than 5,000 large EU companies (post-Omnibus, >1,000 employees) must file; buy-or-get-fined; clear ROI (40h/mo saved, ~4 wks to audit-ready).
 - **S3 Enterprise ROI:** cost-out + risk-out; ERP integration (SAP/IFS/Dynamics); measurable payback.
 - **S5 Horizontal fit:** one platform across 25 regulated industries; corporate-pilot ready.
 - **S6:** _(no Aegis slide)_ — replace with "Integration & enterprise readiness."

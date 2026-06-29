@@ -112,7 +112,7 @@ The numbers:
 - A fleet of skilled agents, 32 products, 25 EU-regulated industries
 - Nordics + DACH commercial pipe, German Messe push post-launch
 
-Market: 49,000+ EU companies facing mandatory CSRD reporting from 2026. This is compliance infrastructure, not optional software — customers have a legal deadline.
+Market: fewer than 5,000 large EU companies (post-Omnibus, >1,000 employees) facing mandatory CSRD reporting from 2026. This is compliance infrastructure, not optional software — customers have a legal deadline.
 
 Raising EUR 650K SAFE at EUR 3.8M cap. Captain seats at EUR 50K (€150K triple Captain). Fits Venista's ticket range cleanly.
 

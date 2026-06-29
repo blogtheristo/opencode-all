@@ -12,6 +12,7 @@ VERSION AND AGENT HISTORY
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (claude-opus-4-8) | Date: 29.06.2026 | Changes: Corrected CSRD scope to post-Omnibus (fewer than ~5,000 large filers, >1,000 emp + >€450M turnover; ~90% cut) — verified via Council/Accountancy Europe/PwC. Rebuilt TAM honestly: high-ACV mandatory anchor + value-chain/Scope-3 pull + CBAM/EPBD; still €1B+. Deprecated "49,000/50,000 must file". Per DWS_TRUTH_STANDARD v2.5 §2C.
 - Version: 1.0 | Tool: Claude Code (claude-opus-4-8) | Date: 29.06.2026 | Changes: Bottom-up TAM/SAM/SOM for DWS IQ 6 to clear 42CAP's "€1b+ recurring TAM at high margin / €500m+ valuation in 7-8yrs" gate. Assumptions flagged; figures needing primary-source verification marked [VERIFY].
 
 ---
@@ -43,7 +44,7 @@ Post-Omnibus, the mandatory CSRD base is **smaller but higher-ACV** (enterprise 
 | CBAM declarants                 | [VERIFY]                   | €10–20K               | additive       |
 | EPBD / asset owners + VSME      | (subset, overlap)          | —                     | additive       |
 
-**TAM ≈ €1B+ recurring** at ~95% gross margin — but the honest build is **"high-ACV mandatory anchor (~5,000 large filers) + the value-chain/Scope-3 pull + CBAM/EPBD,"** NOT "49,000 SMBs must file." The Omnibus narrowed the mandatory count and **raised per-customer value and urgency** (larger, more-regulated buyers).
+**TAM ≈ €1B+ recurring** at ~95% gross margin — but the honest build is **"high-ACV mandatory anchor (~5,000 large filers) + the value-chain/Scope-3 pull + CBAM/EPBD,"** NOT "tens of thousands of SMBs must file" (the deprecated pre-Omnibus framing). The Omnibus narrowed the mandatory count and **raised per-customer value and urgency** (larger, more-regulated buyers).
 
 ## 3. SAM (serviceable — our 25 EU-regulated industries, EU-27)
 
@@ -71,7 +72,7 @@ Post-Omnibus, the mandatory CSRD base is **smaller but higher-ACV** (enterprise 
 
 ## 7. To verify before external use
 
-- [ ] CSRD in-scope company count (post-Omnibus) — primary EU Commission source.
+- [x] CSRD in-scope count (post-Omnibus) — **fewer than ~5,000 large companies** (>1,000 emp, >€450M turnover), verified 2026-06-29 (Council / Accountancy Europe / PwC). Confirm the exact official headcount vs the EU impact assessment only if a precise number is quoted externally.
 - [ ] CBAM declarant count — EU CBAM registry / Commission.
 - [ ] Serviceable-with-ERP subset % — our own funnel + ERP-market data.
 - [ ] ARR multiple comp set — recent EU vertical-SaaS / RegTech comps.

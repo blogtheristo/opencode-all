@@ -130,7 +130,7 @@ Risto Päärni, Lifetime Oy. Following up on our network connection. Plug and Pl
 
 **The market:**
 
-49,000+ EU companies face mandatory CSRD reporting from 2026 — this is legal mandate, not optional software. Industrial is our launch vertical; financial services (banks, insurers, asset managers) is the natural adjacent vertical in 2027, which maps directly onto Plug and Play's fintech / insurtech mandate.
+fewer than 5,000 large EU companies (post-Omnibus, >1,000 employees) face mandatory CSRD reporting from 2026 — this is legal mandate, not optional software. Industrial is our launch vertical; financial services (banks, insurers, asset managers) is the natural adjacent vertical in 2027, which maps directly onto Plug and Play's fintech / insurtech mandate.
 
 **Traction:**
 

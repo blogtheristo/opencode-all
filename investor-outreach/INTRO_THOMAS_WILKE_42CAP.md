@@ -122,7 +122,7 @@ Thanks for the recent conversation. Sending the follow-up we discussed.
 - LTV: EUR 70K-120K/year per customer
 - Pilot EUR 4,950 converts to EUR 8,950/year
 - Target: EUR 900K ARR end 2026
-- Market: 49,000+ EU companies under mandatory CSRD reporting — legal deadline
+- Market: fewer than 5,000 large EU companies (post-Omnibus, >1,000 employees) under mandatory CSRD reporting — legal deadline
 
 **The DACH commercial plan:**
 

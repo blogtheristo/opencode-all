@@ -117,7 +117,7 @@ Risto Päärni, Lifetime Oy (Espoo, Finland). Reaching out because Hard2beat's B
 - LTV: EUR 70K-120K/year per customer
 - Pilot EUR 4,950 converts to EUR 8,950/year
 - Target: EUR 900K ARR end 2026
-- 49,000+ EU companies facing mandatory CSRD reporting — legal deadline, not a nice-to-have
+- fewer than 5,000 large EU companies (post-Omnibus, >1,000 employees) facing mandatory CSRD reporting — legal deadline, not a nice-to-have
 
 **The raise:**
 

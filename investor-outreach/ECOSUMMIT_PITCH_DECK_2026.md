@@ -49,7 +49,7 @@ Raising: EUR 650K SAFE · EUR 3.8M cap · 18% discount
 
 - **ETS Phase 4** — free allocation tightening 2026–2030. Every tonne surrendered costs real money.
 - **CBAM full implementation 2026** — steel, aluminium, cement, fertiliser, hydrogen, electricity. Default rates are wrong and expensive.
-- **CSRD wave 2025–2028** — 50,000 companies filing double-materiality reports. Scope 3 requires supplier emission data.
+- **CSRD wave 2025–2028** — fewer than 5,000 large companies (post-Omnibus, >1,000 employees) filing double-materiality reports. Scope 3 requires supplier emission data.
 - **EU Taxonomy** — alignment requires the same underlying carbon data as ETS, CBAM, and CSRD.
 
 **The problem:** Same carbon. Four regulatory touchpoints. Four separate compliance silos. No shared ledger.
@@ -161,7 +161,7 @@ NVIDIA Jetson inference at factory floors, construction sites, mid-ocean vessels
 
 - CBAM full implementation: 2026 (steel, aluminium, cement, fertiliser, hydrogen, electricity)
 - CSRD wave 1: 250 large companies filing 2025
-- CSRD wave 2: 50,000 companies filing 2026–2028
+- CSRD wave 2: fewer than 5,000 large companies (post-Omnibus, >1,000 employees) filing 2026–2028
 - ETS Phase 4 tightening: annual Linear Reduction Factor raised to 4.3% (2024–2027), 4.4% (2028–2030)
 
 **EU TAM: EUR 15–20B over 10 years**

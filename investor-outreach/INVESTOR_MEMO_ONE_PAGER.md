@@ -20,7 +20,7 @@ AGENT HISTORY:
 
 ## The Problem
 
-49,000+ EU companies face mandatory carbon reporting (CSRD, ETS, CBAM, Taxonomy). Current process: consultants, Excel, €500K+ per year, 40-80 hours/month manual work. No tool automatically pulls operational data from ERP systems and turns it into compliance reports.
+fewer than 5,000 large EU companies (post-Omnibus, >1,000 employees) face mandatory carbon reporting (CSRD, ETS, CBAM, Taxonomy). Current process: consultants, Excel, €500K+ per year, 40-80 hours/month manual work. No tool automatically pulls operational data from ERP systems and turns it into compliance reports.
 
 ## The Solution
 
@@ -41,7 +41,7 @@ AGENT HISTORY:
 
 ## Market
 
-- **CSRD:** 49,000+ EU companies, mandatory 2025+
+- **CSRD:** fewer than 5,000 large EU companies (post-Omnibus, >1,000 employees), mandatory 2025+
 - **Fit for 55:** Forces €10K–€50K compliance spend per project
 - **TAM:** EU compliance automation across 20 regulated verticals
 - **Comp:** Persefoni raised Series A at higher implied valuation with $1.8M ARR
