@@ -7,7 +7,7 @@ Yhteystiedot saatavilla pyynnöstä yksityisen kanavan kautta
 
 ## Yhteenveto
 
-Tekoäly- ja tietoturva-arkkitehti, jolla on yli 35 vuoden kokemus teollisuuden IT-järjestelmistä. Rakennut DWS IQ 6 -alustan — 16+ tekoälyagentin järjestelmän EU-sääntelyautomaatioon — toimitusjohtajana ja pää-arkkitehtina. Käytännön osaaminen NIS2-, GDPR-, EU AI Act- ja DORA/EBA-vaatimusten toteutuksesta tietoturva-arkkitehtuurin tasolla. Power Platform -kokemus prosessiautomaatiosta ja ERP-integraatioista. Kirjoittaa koodia päivittäin.
+Tekoäly- ja tietoturva-arkkitehti, jolla on yli 35 vuoden kokemus teollisuuden IT-järjestelmistä. Rakennut DWS IQ 6 -alustan — 58 agentin ja 88 kyvykkyyden järjestelmän EU-sääntelyautomaatioon 25 toimialalla — toimitusjohtajana ja pää-arkkitehtina. Periaate: tekoäly augmentoi, ei korvaa — kyvykkyydet ihmisen rinnalle (human-in-the-loop). Käytännön osaaminen NIS2-, GDPR-, EU AI Act- ja DORA/EBA-vaatimusten toteutuksesta tietoturva-arkkitehtuurin tasolla. Power Platform -kokemus prosessiautomaatiosta ja ERP-integraatioista. Kirjoittaa koodia päivittäin.
 
 ---
 
@@ -26,11 +26,11 @@ Tietoturvatestaus: penetraatiotestauksen suunnittelu, haavoittuvuusarvioinnit, s
 
 ## Tekoälyosaaminen
 
-Moniagentti-orkestrointi: 16+ TypeScript-agentin DWS IQ 6 -alusta, deterministinen pisteytys, Model Context Protocol (MCP)
+Moniagentti-orkestrointi: 58 agentin ja 88 kyvykkyyden DWS IQ 6 -alusta (25 toimialaa), deterministinen pisteytys, Model Context Protocol (MCP)
 LLM-integraatiot: Claude (Anthropic), Google Gemini, Groq LPU, LlamaStack, Ollama (paikalliset mallit)
 Agenttiorkestrointi: Temporal.io, MCP-palvelimet, tool calling, streaming, context management
 Edge AI: NVIDIA Jetson Orin Nano — off-grid inference, alle 100ms latenssi, 7–15W, AWS IoT Greengrass
-Lifetime World Model: 15 000+ EU-sääntelydokumentin tietokanta, pgvector-haku, 16 toimialaontologiaa
+Lifetime World Model: 15 000+ EU-sääntelydokumentin tietokanta, pgvector-haku, 25 toimialaontologiaa, lokaali World Model (Control Room / Situation Room)
 EU AI Act -compliance: Article 12 -lokitus tuotannossa, reasoning lineage, sovereignty audit -kirjanpitokehys
 RAG-arkkitehtuuri: vektorihaun ja LLM-generoinnin yhdistäminen sääntelydokumentaatioon
 Prompt engineering: deterministic scoring, structured output, Zod-validointi
@@ -61,7 +61,7 @@ API-arkkitehtuuri: RESTful, JSON-RPC 2.0, MCP-protokolla, JWT-autentikointi
 
 **Toimitusjohtaja & Pää-arkkitehti — Lifetime Oy, Espoo | 2018 – nykypäivä**
 
-Rakennut DWS IQ 6 -alustan alusta lähtien: moniagentti-AI-orkestrointi, EU-suvereeni arkkitehtuuri, 16 toimialan sääntelyautomaatio.
+Rakennut DWS IQ 6 -alustan alusta lähtien: moniagentti-AI-orkestrointi (58 agenttia, 88 kyvykkyyttä), EU-suvereeni arkkitehtuuri, 25 toimialan sääntelyautomaatio.
 Suunnitellut ja toteuttanut tietoturva-arkkitehtuurin NIS2, GDPR, EU AI Act Article 12 ja ISO 27001 -vaatimuksia vastaavaksi.
 Kehittänyt ERP-integraatiot SAP S/4HANA, IFS Cloud ja Dynamics 365 -ympäristöihin.
 Vastannut NVIDIA Inception -ohjelman ja Microsoft Founders Hub (L1–L4) -kumppanuuksista.
