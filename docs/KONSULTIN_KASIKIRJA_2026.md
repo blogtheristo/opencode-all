@@ -13,7 +13,7 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.72
+Version: 1.74
 
 Sessions & Modifications:
 
@@ -27,6 +27,8 @@ Sessions & Modifications:
 - Version: 1.7 | Tool: Claude Code (Opus 4.6) | Session: claude/consultant-handbook-v1-6-622fep | Date: 28.06.2026 | Changes: Renamed "Konsultin käsikirja" → "Konsultoinnin käsikirja" / "Consultancy Excellence Handbook" to reflect consultant + capability (agent/workflow/skills) paradigm. Updated Alkusanat: handbook purpose expanded to cover both consultants and agent capabilities. Replaced bullet list with comprehensive 12-point scope (capabilities, market signals, offers, procurement network, HIC project roles, agent reporting, privacy, project security, Legal Compliance, Project Compliance). Added MCA Consulting Excellence 4-principle framework reference. Previous version name retained in historical VERSION entries.
 - Version: 1.71 | Tool: Claude Code (Opus 4.6) | Session: claude/consultant-handbook-v1-6-622fep | Date: 28.06.2026 | Changes: Fixed Avainluvut agent count 50→58. Converted all remaining 12 markdown tables to list format (Asiakaskontrollipisteet, Nykyiset asiakkaat, Teknologiapino, NVIDIA/Microsoft/Red Hat/EU-sääntely/DWS IQ roadmapit, Kilpailijat, Pakollinen ostotilannekalenteri, Hankintakoodit CPV, Tärkeimmät tiedostot). Added Office Chief Lucille Santiago to Henkilöstö. Updated Yrityksen kehityskaari with 4-period timeline (2019–/2020–/2024–2026/2027+). Fixed §1 consulting role description. Full HIC-reviewed fact-check pass (§1–§16, each change confirmed by CEO): product count 100→63 per products.json; DWS IQ description reframed as sovereign compliance intelligence platform + Control Room/Situation Room with sovereignty from local hardware + local World Model; added Control Room (€5 294) / Situation Room (€10 093) / Firehorse products to §3; Climate IQ annual price corrected €29 990→€40 978 (setup + 12×€2 999); Train Model SaaS clarified as "LWM Ontology Build" (consultant builds LWM via NVIDIA AI Workbench on customer DGX Spark); §4 LWM sentence expanded to justify subscription (continuous ontology maintenance as regulation evolves); added Agentic Commerce 2027 (Stripe-based) to roadmap; §6 canonical phrase "58 agenttia ja 88 kyvykkyyttä (roolia) 25 toimialalla" (non-exact, catalog grows); removed solopreneur framing repo-wide (handbook + sales strategy .md/.html), replaced with lean core team (Paarni + Santiago) + established 50+ specialist network (2020–2022, NVIDIA Connect); regenerated out-of-sync TOC (15→16 sections); fixed broken cross-references; removed personal names from sales metaphors; aligned all Climate IQ/Enterprise Navigator/DGX Spark prices across §3/§8/§10/§11; security incident reports routed to security@lifetime.fi; §15 partner network aligned to 50+; added LWM/Control Room/Situation Room to glossary.
 - Version: 1.72 | Tool: Claude Code (Opus 4.8) | Session: claude/consultant-handbook-v1-6-622fep | Date: 28.06.2026 | Changes: Added §2 value "Ihmiskeskeisyys (eettinen tekoälypäätös)" — we do not aim to reduce customer headcount (leadership decides); we bring industrial operators new agent capabilities that lift productivity, alongside humans, not replacing them. AI augments, never replaces. Ethical differentiation vs. "AI employee replaces headcount" narratives. Regenerated branded HTML.
+- Version: 1.73 | Tool: Claude Code (Opus 4.8) | Session: claude/consultant-handbook-v1-6-622fep | Date: 28.06.2026 | Changes: Added §10 "Asiakkaan tarina ostopolun vaiheen mukaan" — maps the three sales metaphors (Buffet/Captain/Vineyard) to buying-journey stages with the ethical "augment not replace" angle woven into each customer story. Worked examples: ORK (Buffet, public tender), Outokumpu (Captain, pilot-first), Kemira (Vineyard). References /dialog customer-adaptation mode for offer reuse (ORK→Kemira).
+- Version: 1.74 | Tool: Claude Code (Opus 4.8) | Session: claude/consultant-handbook-v1-6-622fep | Date: 28.06.2026 | Changes: Added §6 "Kyvykkyydet tuotteen elinkaaressa" — maps agent capabilities, skills, workflows and learning (Gödel) loops to product lifecycle stages (Development / Deployment / Maintenance / Update & Grow) for both DWS IQ platform and the Firehorse product line. 72 IT roles re-cast as capabilities; roles stay with humans, agents make them faster (human-in-the-loop per §2 Ihmiskeskeisyys).
 
 Document Status:
 
@@ -471,6 +473,45 @@ DWS-konsultointi rakentuu kolmelle pilarille. Yhdessä ne varmistavat, että asi
 
 **Konsultoinnin tulos:** Asiakas ei ole riippuvainen yksittäisistä konsulteista tai heidän saatavuudestaan. Agenttikyvykkyydet ovat aina käytettävissä, aina ajan tasalla, aina valmiina. Keskeytyskustannus laskee, muutosvalmius nousee, compliance pysyy automaattisesti ajan tasalla.
 
+### Kyvykkyydet tuotteen elinkaaressa
+
+Vanhat 72 IT-roolia eivät kadonneet — ne on **uudelleenmuotoiltu agenttikyvykkyyksiksi, skilleiksi, työnkuluiksi ja oppimissilmukoiksi (Gödel-loops)**. Rooli säilyy ihmisellä; agentti tekee siitä nopeamman. Kyvykkyydet kohdennetaan tuotteen elinkaaren vaiheisiin — sekä DWS IQ -alustatuotteille että Firehorse-tuotelinjalle. (Arkkityypit mukailevat tuotekehityksen rooleja: prototypoija, rakentaja, siivoaja, kasvattaja, ylläpitäjä — eivät työnimikkeitä vaan kyvykkyyksiä, jotka ihminen + agentti hoitavat yhdessä.)
+
+**1. Kehitys (Development) — prototypoi & rakenna**
+
+- Agentit: GenAI Solution Architect, Data Engineer, Integration Architect, Test Automation, Designer, DeepWiki Extractor, Synthetic Data
+- Skillit: `/designer`, `/qa`, `/plan-review`
+- Oppimissilmukka: World Model Loop (havainto → simulointi → HIL-ehdotus → oppiminen)
+
+**2. Käyttöönotto (Deployment) — vie tuotantoon**
+
+- Agentit: DWS Deployment Engineer, Edge AI Engineer, DevOps Engineer, Enterprise Model Engineer (LWM-ontologian pystytys, Train Model SaaS), Cloud Migration, Quality Gate
+- Skillit: `/ship`, `/verify`, `/gcr-skill`, `/fix-dual-folder-api-connectivity`
+- Tulos: scoping → pilotti → validointi → tuotanto, ERP-integraatiot (SAP, IFS, Visma, Monitor, Jeeves)
+
+**3. Ylläpito (Maintenance) — pidä turvallisena, luotettavana, suvereenina**
+
+- Agentit: Network Security, Sovereignty Monitor, Auditor, Service Desk, Panacea (optimoija), Quality Gate
+- Skillit: `/sovereignty-assess`, `/kya`, `/cron`, `/compliance-check`, `/site-safety`
+- Oppimissilmukka: LWM-ontologian jatkuva uudelleenkoulutus sääntelyn muuttuessa (tilauksen ydin, §4) — Article 12 -auditointi pysyy ajan tasalla
+
+**4. Päivitys & kasvu (Update / Grow) — paranna ja skaalaa**
+
+- Agentit: Customer Sat, Lead Feedback, Cassandra (ennusteet), Competitor Surveillance, Change Management, Disruption Response
+- Skillit: `/retro`, `/learn`, `/simplify`, `/regulatory-radar`, `/truth-check`
+- Oppimissilmukka: `/learn` ajetaan `/retro`:n jälkeen — Gödel-silmukka, joka parantaa skillejä joka kierroksella (harness pysyy ohuena, kyvykkyydet paranevat)
+
+**Firehorse-tuotelinjan elinkaari (sisältö- ja myyntituotanto)**
+
+Firehorse on toistettava tuotetehdas: sisältö, markkinointi ja myynti tuotteistettuna prosessina (Firehorse Production Model). Sen elinkaari kulkee samojen vaiheiden läpi:
+
+- **Kehitys & tuotanto:** Apollo (sisältö & myynti), Content Brief, Keyword Intent (SEO), Synthetic Data — Firehorse Amplify (€4 950) vahvistaa sisältö- ja markkinointikyvykkyydet
+- **Julkaisu & hallinta:** Firehorse Content Management (€2 999), SEO Audit, Designer — luonti → hallinta → julkaisu
+- **Kasvu & optimointi:** Competitor Surveillance, Lead Feedback, Customer Sat — `/lsj-publish` (Lifetime Scope Monthly), `/investor-outreach`
+- Oppimissilmukka: jokainen kampanja syöttää tulokset takaisin tuotantomalliin — suljettu silmukka: rakenna tuote → myy tuote → asiakaspalaute → paranna tuote
+
+Jokaisessa vaiheessa pätee eettinen periaate: agentit nopeuttavat ihmisen työtä, eivät korvaa sitä (human-in-the-loop, §2 Ihmiskeskeisyys).
+
 ### Konsultin päivittäinen toiminta
 
 - **08:00–08:30** — Aamubriiffi: signaaliseuranta (sääntelypäivitykset, asiakassignaalit)
@@ -638,6 +679,16 @@ Jokaisesta asiakaskontaktista tulee "arvio" — näkymätön mutta todellinen:
 
 > _"'Köyhäile' ja anna alennusta asiakaskokemuksen ja myönteisen palautteen aikaansaamiseksi. Ole kärsivällinen. Ehdimme laskuttaa asiakasta seuraavalla kerralla kun tarve on tunnistettu."_
 > — Konsultin käsikirja, 2019
+
+### Asiakkaan tarina ostopolun vaiheen mukaan
+
+Jokainen asiakas on eri kohdassa ostopolkua, ja siksi sama tarjous ei sovi kaikille. Konsultin tärkein taito on tunnistaa, missä vaiheessa asiakas on, valita oikea myyntimetafora (§9) ja rakentaa **asiakkaan tarina** sen mukaan. Eettinen kärki — _kyvykkyydet ihmisen rinnalle, ei tilalle; tekoäly augmentoi, ei korvaa_ — kuuluu jokaiseen asiakastarinaan: kerromme, miten asiakas voitti agenttikyvykkyyksillä ilman irtisanomisia.
+
+- **Buffet — julkinen hankinta (esim. ORK).** Vaihe: muodollinen tarjouspyyntö / kilpailutus. Tarina rakentuu compliance-vaatimusten, julkaistun hinnan ja täyden läpinäkyvyyden ympärille. Tuotos: tarjouspyyntövastaus liitteineen (CPV-koodit §16, referenssit, hintaliite). Sama hinta kaikille — ei neuvotteluteatteria.
+- **Captain — lämmin CEO-suhde (esim. Outokumpu).** Vaihe: luottamuspohjainen, pilotti ensin. Tarina rakentuu yhteisen ongelman ja nopean pilottituloksen ympärille. Tuotos: CEO-to-CEO-keskustelu → ilmainen scoping → 3 kk pilotti (Enterprise Navigator €4 999). Tarina kertoo, miten asiakkaan tiimi sai uuden kyvykkyyden, ei vähemmän väkeä.
+- **Vineyard — kärsivällinen viljely (esim. Kemira).** Vaihe: pitkä kypsyttely, board-ready-materiaalit. Tarina rakentuu toimialasignaalien ja vertaisreferenssien ympärille. Tuotos: ilmainen scoping, johdolle valmis materiaali, odota satoa.
+
+**Saman tarjouksen sovittaminen toiselle asiakkaalle** (esim. ORK → Kemira) ei ole kopiointi vaan vaiheen ja metaforan vaihto: jokainen asiakaskohtainen tieto (toimiala, sääntelyjoukko, hintataso, ostopolun vaihe, yhteyshenkilön rooli) päivitetään erikseen. Käytä `/dialog`-skilliä (customer-adaptation mode), joka käy jokaisen muutoksen läpi vahvistettuna.
 
 ### B2B-asiakasmatka (päivitetty 2026)
 
