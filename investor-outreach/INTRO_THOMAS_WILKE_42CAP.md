@@ -83,7 +83,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 - **DACH commercial pipe as the hook** — Frame the Finnish base as the sovereign EU moat (data residency, no CLOUD Act) and the DACH Messe as the revenue engine. He invests in DACH because that's where the B2B buyers are; we're selling into DACH for the same reason.
 - **Operator-to-operator tone** — No VC-pitch throat-clearing. Open with moat, traction, timeline. He respects directness.
 - **Pre-decide the upsize** — Before the call, decide: are we open to a priced seed at €1M-€2M with Thomas leading? If yes, frame the SAFE as the anchor mechanism that converts. If no, cap the ask at SAFE participation.
-- **Address solo-founder in paragraph 1** — Same playbook as Maciej. One line acknowledgment + operator-counter in the same paragraph. Move on.
+- **Address the team in paragraph 1** — Same playbook as Maciej. One line on the two-person team + operator-counter in the same paragraph. Move on.
 - **Story A primary** (vertical AI for EU industrial compliance), Story B (Aegis dual-use) available if sovereignty/defense surfaces naturally
 - Use one-pager + full memo + architecture diagram on first touch
 - Do NOT mention Boardy in external communication
