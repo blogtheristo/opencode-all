@@ -93,10 +93,32 @@ does not. When the buyer's doctrine changes, the vendor whose architecture
 already matches it wins by default — not by winning a bake-off, but by being
 the only one shaped right.
 
-DWS analogue: **a fleet of cheap, coordinated AI agents** (the DWS IQ 6 agent
-roster) beats a single monolithic enterprise-software platform on the same
-"intelligent mass" logic — coverage and resilience through coordinated
-multiplicity, not through one expensive seat.
+**DWS analogue — and the limit of the analogy.** The transferable lesson is the
+_meta-move_: be the vendor whose architecture already fits the buyer's doctrine
+shift, instead of competing feature-for-feature on the incumbent's terms. The
+_mechanism_ does **not** transfer. "Intelligent mass" works in defense because
+the units are physical and attritable — drones get shot down, so thousands-of-
+cheap genuinely beats few-exquisite. Software agents don't get shot down and
+their marginal cost is ~zero, so "a fleet of cheap coordinated agents" is **not
+a moat** — it's a commodity race anyone can match in a weekend. Marketing on
+agent count is the enterprise-software equivalent of bragging about lines of
+code.
+
+So the doctrine shift for DWS's buyers is the **opposite** shape from mass — it
+is toward **accountable, sovereign outcomes**, where the scarce/hard thing wins:
+
+- **Outcome, not agent count** — buyers want the verdict (the CSRD filing, the
+  compliance decision, the underwriting answer), not a roster of agents. Agents
+  are plumbing; nobody pays to count plumbing.
+- **Accountability / lineage** — EU AI Act Article 12 reasoning lineage and
+  traceable decisions. This is hard, not cheap — which is exactly why it's a
+  moat.
+- **Sovereignty** — EU residency and EU control of the layer; structurally
+  unavailable to US-native players.
+
+DWS should be shaped like _that_ doctrine (accountable + sovereign outcome) and
+should never market on agent count — the one thing in this whole story that is
+actually cheap and undefendable.
 
 ### 2.3 Vertical integration at manufacturing scale (Arsenal-1)
 
@@ -133,13 +155,13 @@ single most incumbent-protected market on earth. If it works against Lockheed
 and Raytheon, the structural argument for DWS against legacy enterprise/industrial
 software is strengthened, not hypothetical.
 
-| Anduril (defense)                                          | DWS IQ 6 (EU regulated industry)                                |
-| ---------------------------------------------------------- | --------------------------------------------------------------- |
-| Lattice OS — sensor fusion + autonomy as the product       | DWS orchestration + ontology layer as the product               |
-| "Intelligent mass" — thousands of cheap autonomous systems | Fleet of cheap, coordinated AI agents vs. one monolith          |
-| Vertical integration (own software → own factory)          | Own the agents, skills, world model, and deployment surface     |
-| Software-first vs. hardware-first primes                   | Software/agent-first vs. consultancy + bespoke-build incumbents |
-| US-native expanding into EU (sovereignty tension)          | **EU-sovereign by construction** — the answer to that tension   |
+| Anduril (defense)                                            | DWS IQ 6 (EU regulated industry)                                                                                  |
+| ------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- |
+| Lattice OS — sensor fusion + autonomy as the product         | DWS orchestration + ontology layer as the product                                                                 |
+| "Intelligent mass" — thousands of cheap _attritable_ systems | Accountable, sovereign **outcomes** — never agent count (mass doesn't transfer; software units aren't attritable) |
+| Vertical integration (own software → own factory)            | Own the agents, skills, world model, and deployment surface                                                       |
+| Software-first vs. hardware-first primes                     | Software/agent-first vs. consultancy + bespoke-build incumbents                                                   |
+| US-native expanding into EU (sovereignty tension)            | **EU-sovereign by construction** — the answer to that tension                                                     |
 
 **The sharpest DWS wedge is the inverse of Anduril's weakness.** Anduril is the
 _American_ version of this architecture. EU defense, critical infrastructure,
