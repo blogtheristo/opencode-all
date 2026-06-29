@@ -4,9 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.4
+Version: 2.5
 
 Sessions & Modifications:
+
+- Version: 2.5 | Tool: Claude Code (claude-opus-4-8) | Session: claude/anduril-case-study-iridtj | Date: 29.06.2026 | Changes: Added §2B **Export Hygiene Rule** — investor/buyer-facing exports must contain ZERO tailoring meta (no "tailored for", no parenthetical strategy notes, no HIDE/emphasize flags). Clean copy lives in `investor-outreach/DECKS_SEND_READY.md` + `sales-outreach/PROCUREMENT_BRIEFS_TAILORED.md` base; strategy/emphasis logic lives ONLY in `investor-outreach/DECKS_TAILORED.md`. Triggered by a working-draft-with-margin-notes being sent to an investor (Wilke). Also verified the TAM build's CSRD/CBAM `[VERIFY]` figures against EU sources (see Drift Log).
 
 - Version: 2.4 | Tool: Claude Code (claude-opus-4-8) | Session: claude/anduril-case-study-iridtj | Date: 29.06.2026 | Changes: Corrected the technical-depth model in §2 row 23. **CTO/technical function = governed AI agent workflows under Risto (Human-In-Command)**, NOT a human CTO hire; **human engineering/ops capacity scales via partner Cubet Techno Labs (Kochi)** (named in the ORK/Outokumpu subcontractor bid). Deprecated "CTO hire funded by the raise" / "we are solo until CTO signs". Supersedes the v1.x Mikko-Honganmäki CTO-search premise in SOLO_FOUNDER_STATEMENT.md.
 - Version: 2.3 | Tool: Claude Code (claude-opus-4-8) | Session: claude/anduril-case-study-iridtj | Date: 29.06.2026 | Changes: Registered the **human team vs AI-agent personas** distinction (new §2 row 23) after a real human was mis-formatted as an AI agent. Canonical: Lifetime Oy/AB has **two humans** — Risto Anton Päärni (Founder/CEO) and **Lucille Santiago** (Office Chief / Chief Hospitality Officer; **Human-In-Command, HIC**; offered partnership in **Lifetime AB**; WhatsApp +358 40 3569643). Rocky, Marcus, Adrian are **AI agent personas, NOT humans**. Corrected `docs/HIL_Lucille.md`, `kb/raw/articles/team-member-lucille-cho.md`, and `docs/INVESTOR_HOOK_DECK.md` which had cast Lucille as an AI agent. Drift guard: never present a human as an agent or an agent as a human in any investor-facing material.
@@ -89,6 +91,22 @@ Three reasoning pillars sit **above the 19 moats the way Layer 0 does** — they
 
 **Drift guard:** a claim that fails any pillar is drift — surface and fix it, don't ship it. The pillars are the reasoning layer; the 19 moats (`docs/20-MOAT-FORTRESS.md` §"Canonical Moat List") are the evidence layer beneath them.
 
+## 2B. Export Hygiene Rule
+
+**Investor/buyer-facing exports contain ZERO tailoring meta.** No "tailored for", no parenthetical strategy notes ("lead here", "this is what he'll grade"), no HIDE/emphasize flags, no honesty-caveat-to-self. Those belong only in the internal strategy sheet.
+
+- **Clean (send-ready):** `investor-outreach/DECKS_SEND_READY.md` and the procurement base in `sales-outreach/PROCUREMENT_BRIEFS_TAILORED.md` — safe to paste verbatim.
+- **Internal (never sent):** `investor-outreach/DECKS_TAILORED.md` (per-investor emphasize/HIDE logic).
+- **Trigger:** a working draft with margin notes was once pasted to an investor (Wilke). Never paste from the internal sheet to a counterparty.
+
+## 2C. Regulatory-scope facts (CSRD / CBAM) — canonical
+
+External market claims about regulatory scope must use **current (post-Omnibus) figures**, sourced primary:
+
+- **CSRD (post-Omnibus I, final text adopted 16 Dec 2025; Council 24 Feb 2026):** mandatory scope = large undertakings **>1,000 employees AND >€450M net turnover**. ~90% of the original population falls out (~42,000 excluded) → **roughly fewer than 5,000 large EU companies** in scope; applies FY2027, first reports 2028. The _addressable_ population is larger via the **value-chain / Scope-3 pull** (large filers require supplier data) + voluntary VSME reporting.
+- **CBAM:** definitive period from 1 Jan 2026; ~50-tonne de-minimis threshold exempts most small importers while covering ~99% of emissions. Declarant count [VERIFY against EU CBAM registry].
+- **DEPRECATED (do not use):** "49,000 / 50,000 EU companies must file" — that is the **pre-Omnibus** figure and is now false. Lead with the threshold + "fewer than 5,000 large companies" + the value-chain pull.
+
 ## 3. Conflict Resolution Rule
 
 If two files disagree on a fact, the canonical file from §2 wins. Downstream copy (decks, press, sales, landing pages) is wrong and gets corrected — not the canonical source. Don't silently propagate either version; fix the drift in the same change that surfaces it.
@@ -117,6 +135,7 @@ If two files disagree on a fact, the canonical file from §2 wins. Downstream co
 | 2026-06-20 | Agent taxonomy (public copy)           | deprecated "god/gods"/"GodAgent" category label in public copy (user directive: "We do not use gods but Skilled Agents")                                                                                                                                                                                                                                                                                                    | `AGENT_ROSTER.json.deprecatedDisplayPhrases` now enforces word-boundary lint on "god/gods/GodAgent/one god per industry/pantheon gods"; approved term "Industrial Specialist Agent"                                                                                                                                                                         |
 | 2026-06-29 | Industries (platform vs Aegis)         | "20 EU-regulated industries" (deprecated) propagated across the Boardy founder-prep + investor-outreach; a blanket 20/21→25 pass then nearly blended the Aegis-tier scope into the platform claim                                                                                                                                                                                                                           | Corrected platform-wide claims to "25 EU-regulated industries" across investor-outreach + docs/sales; **preserved the distinct Aegis-tier "21 industries"** (canonical defence/dual-use scope per `industries.json`) by reverting the 3 Aegis docs; locked platform = 25 / Aegis = 21 in §VERSION history (v1.9). Branch `claude/anduril-case-study-iridtj` |
 | 2026-06-29 | Competitive moats (the "bigger drift") | The **21 moats** (canonical buyer/investor defensibility, found 2026-Q1) were never registered as a canonical fact, so messaging drifted into the AI-capability narrative (agent skills, workflows, Gödel-style learning loops) — engineering achievements, not what the buyer (Ari Hirvonen / Outokumpu: CBAM/CSRD/Scope 3) buys. Source doc also drifted (named `20-MOAT`, enumerates 20 + 4 Layer-0; one-pagers say 21). | Registered moats as §2 row 21 → `docs/20-MOAT-FORTRESS.md`; locked canonical = **21 moats across 4 tiers** with a drift guard against substituting the AI-capability story. Source-doc count reconciliation + rename flagged PENDING. Branch `claude/anduril-case-study-iridtj`                                                                             |
+| 2026-06-29 | Market sizing (CSRD scope)             | "49,000 / 50,000 EU companies must file" propagated across decks, Boardy prep, TAM, INTRO files — a **pre-Omnibus** figure now false. CSRD Omnibus I (final text 16 Dec 2025; Council 24 Feb 2026) cut scope ~90% to **>1,000 employees AND >€450M turnover** (~fewer than 5,000 large companies). Would have failed serious DD.                                                                                            | Registered §2C (regulatory-scope canonical); deprecated "49,000/50,000 must file"; new line = threshold + "fewer than 5,000 large EU companies" + value-chain/Scope-3 pull. Corrected `TAM_BUILD.md`; deck/INTRO sweep of the stale figure flagged. Verified via Consilium / Accountancy Europe / PwC. Branch `claude/anduril-case-study-iridtj`            |
 
 ---
 

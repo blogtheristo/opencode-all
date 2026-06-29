@@ -26,22 +26,24 @@ Purpose: a defensible answer to the VC gate "is this a €1b+ recurring market a
 
 EU regulatory reporting is mandatory and penalty-bearing — buy-or-get-fined, recurring every cycle:
 
-- **CSRD** — ~**49,000** EU companies in scope across waves [VERIFY: 49k is the widely-cited figure; confirm post-Omnibus scope changes].
-- **CBAM** — EU importers of iron/steel, cement, aluminium, fertilizers, electricity, hydrogen; ~**10,000+** declarants [VERIFY].
+- **CSRD (post-Omnibus I, final 16 Dec 2025 / Council 24 Feb 2026)** — mandatory scope = large undertakings **>1,000 employees AND >€450M turnover** → **fewer than ~5,000 large EU companies** (~90% of the original population fell out). Applies FY2027, first reports 2028. These are larger, more-regulated, higher-stakes filers.
+- **Value-chain / Scope-3 pull** — those large filers require emissions/compliance data from their suppliers → **tens of thousands** of upstream companies pulled into reporting in practice. This is the real addressable expansion, not the mandatory headcount.
+- **CBAM** — EU importers of iron/steel, cement, aluminium, fertilizers, electricity, hydrogen; definitive period from 1 Jan 2026, ~50t de-minimis (covers ~99% of emissions); declarant count [VERIFY against EU CBAM registry].
 - **EPBD** — large building portfolios / asset owners (operational-phase reporting).
 - **EU AI Act Art. 12/26** — deployers of high-risk AI needing logging/lineage (adjacent expansion).
 
-## 2. TAM (total addressable — EU mandatory compliance reporting software)
+## 2. TAM (total addressable — EU regulatory compliance reporting software)
 
-Bottom-up, CSRD as the anchor layer:
+Post-Omnibus, the mandatory CSRD base is **smaller but higher-ACV** (enterprise filers), and the **value-chain pull + CBAM/EPBD** carry the volume:
 
-| Driver              | Obligated base             | ACV assumption                                           | Annual TAM         |
-| ------------------- | -------------------------- | -------------------------------------------------------- | ------------------ |
-| CSRD reporting      | ~49,000 companies [VERIFY] | €20–36K (our €36K avg ACV, taken conservatively to €20K) | **€1.0B – €1.76B** |
-| CBAM declarants     | ~10,000+ [VERIFY]          | €10–20K                                                  | €0.1B – €0.2B      |
-| EPBD / asset owners | (subset, overlap)          | —                                                        | additive           |
+| Driver                          | Obligated base             | ACV assumption        | Annual TAM     |
+| ------------------------------- | -------------------------- | --------------------- | -------------- |
+| CSRD mandatory (large filers)   | ~5,000 [VERIFY]            | €50–100K (enterprise) | €0.25B – €0.5B |
+| Value-chain / Scope-3 suppliers | tens of thousands [VERIFY] | €10–36K               | €0.5B – €1.0B+ |
+| CBAM declarants                 | [VERIFY]                   | €10–20K               | additive       |
+| EPBD / asset owners + VSME      | (subset, overlap)          | —                     | additive       |
 
-**TAM ≈ €1.0B–1.8B recurring** at SaaS gross margins (we run ~95%). **Clears the €1b+ gate on the CSRD layer alone**, before CBAM/EPBD/AI-Act expansion.
+**TAM ≈ €1B+ recurring** at ~95% gross margin — but the honest build is **"high-ACV mandatory anchor (~5,000 large filers) + the value-chain/Scope-3 pull + CBAM/EPBD,"** NOT "49,000 SMBs must file." The Omnibus narrowed the mandatory count and **raised per-customer value and urgency** (larger, more-regulated buyers).
 
 ## 3. SAM (serviceable — our 25 EU-regulated industries, EU-27)
 
@@ -65,7 +67,7 @@ Bottom-up, CSRD as the anchor layer:
 
 ## 6. The one-line answer (for the meeting)
 
-> "CSRD alone puts ~49,000 EU companies under mandatory recurring filing. At a conservative €20K ACV that's a **€1B+ recurring market at 95% margins** — before CBAM, EPBD, and EU AI Act expansion. We capture it Nordic-first off proven references and ERP connectors; 3–5% of the serviceable market in 7–8 years is €25–50M ARR, a €500m+ company."
+> "Post-Omnibus, CSRD mandates the largest EU companies — fewer than 5,000 filers over 1,000 employees and €450M turnover — and pulls their entire value chains into Scope-3 reporting. That's a **€1B+ recurring compliance-software market at 95% margins**, with higher ACV and urgency than the old broad scope, before CBAM and EPBD. We capture it Nordic-first off proven references and ERP connectors; 3–5% of the serviceable market in 7–8 years is €25–50M ARR, a €500m+ company."
 
 ## 7. To verify before external use
 
