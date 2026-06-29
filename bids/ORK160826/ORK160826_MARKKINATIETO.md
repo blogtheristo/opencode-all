@@ -93,6 +93,17 @@ kanavaansa. Digia tekee "helpot projektit" omilla henkilöillään ja täydentä
 henkilöllä **erityisesti jos tällä on erityinen sertifiointi**. Emme nojaa Digia Hubiin; käytämme omaa
 ydintiimiä + omaa alihankkijaverkostoa (9series, Cubet).
 
+**Huomio lähdekriittisyydestä:** Digia Hub **ei halua muita konsortioita tarjoamaan** — Saritan viestit
+ovat heidän omaa markkinointiaan/inputtiaan, ei neutraalia neuvontaa. Hyödynnetään hintabenchmark
+(Gofore 58 €/t) ja "oma henkilöstö voittaa" -signaali, mutta ei anneta heidän kehyksensä ohjata
+strategiaamme.
+
+**Tarjouksemme erottavat tekijät (HIC-linjaus):** kilpailemme **kyvykkyydellä ja suvereenilla
+NVIDIA-laitteistolla**, emme halvimmalla volyymityövoimalla. (1) Agenttikyvykkyys (58/88/25) +
+suomalainen ydintiimi = pieni tiimi suuren toimiston teholla; (2) Suvereeni NVIDIA Control Room /
+Situation Room + KYA = oikeushallinnon datalle ratkaiseva, jota henkilöstötalot eivät tarjoa. Nämä
+johtavat tarjouskirjettä (ks. ORK160826_TARJOUSKIRJE "Erottavat tekijät").
+
 **Insight — erikoissertifiointi täydentäjänä.** Voittomalli on: oma suomalainen perustiimi + tarvittaessa
 yksi erikoissertifioitu täydentäjä. Tämä on meidän vahvuutemme, jos nostamme sen esiin: ydintiimin ja
 verkoston **sertifioinnit ja validoinnit** ovat juuri se "erityinen sertifiointi", jota arviointi arvostaa

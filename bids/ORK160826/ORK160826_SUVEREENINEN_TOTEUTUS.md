@@ -147,16 +147,26 @@ Jos hankinnan laajuus tai tulevat tarpeet edellyttävät suurempaa kapasiteettia
 
 ## Vertailu: On-prem vs. Pilvi
 
-| Kriteeri                      | NVIDIA DGX Spark (on-prem)         | Pilvipalvelu (US-toimittaja)          |
-| ----------------------------- | ---------------------------------- | ------------------------------------- |
-| **Tietosuoja**                | 100 % data pysyy ORK:ssa           | Data siirtyy palveluntarjoajalle      |
-| **CLOUD Act -riski**          | Ei riskiä                          | Yhdysvaltain laki voi koskea dataa    |
-| **EU AI Act Article 12**      | Täysin hallittu, immutable log     | Riippuu toimittajasta                 |
-| **NIS2-vaatimustenmukaisuus** | Arkkitehtuuri hallitaan sisäisesti | Toimittajan vastuulla                 |
-| **Jatkuvat kustannukset**     | Vain sähkö + ylläpito              | Kuukausiveloitus kasvaa käytön mukaan |
-| **Latenssi**                  | < 1 s (lähiverkko)                 | 100–500 ms (internet)                 |
-| **Käytettävyys**              | 100 % riippumaton nettiyhteydestä  | Riippuu palveluntarjoajan SLA:sta     |
-| **Skaalautuvuus**             | Lisäyksiköt modulaarisesti         | Skaalautuu, mutta kustannus kasvaa    |
+| Kriteeri                      | NVIDIA DGX Spark (on-prem)                  | Pilvipalvelu (US-toimittaja)               |
+| ----------------------------- | ------------------------------------------- | ------------------------------------------ |
+| **Tietosuoja**                | 100 % data pysyy ORK:ssa                    | Data siirtyy palveluntarjoajalle           |
+| **CLOUD Act -riski**          | Ei riskiä                                   | Yhdysvaltain laki voi koskea dataa         |
+| **EU AI Act Article 12**      | Täysin hallittu, immutable log              | Riippuu toimittajasta                      |
+| **NIS2-vaatimustenmukaisuus** | Arkkitehtuuri hallitaan sisäisesti          | Toimittajan vastuulla                      |
+| **Jatkuvat kustannukset**     | Vain sähkö + ylläpito                       | Kuukausiveloitus kasvaa käytön mukaan      |
+| **Latenssi**                  | < 1 s (lähiverkko)                          | 100–500 ms (internet)                      |
+| **Käytettävyys**              | 100 % riippumaton nettiyhteydestä           | Riippuu palveluntarjoajan SLA:sta          |
+| **Skaalautuvuus**             | Lisäyksiköt modulaarisesti                  | Skaalautuu, mutta kustannus kasvaa         |
+| **Token-kustannukset**        | Ei per-token-laskutusta; rajaton inferenssi | Per-token-veloitus, kasvaa volyymin mukaan |
+
+**Token-kustannussäästö.** Pilvipohjaiset LLM-API:t veloittavat per token — suuren volyymin
+oikeushallinnon käytössä lasku kasvaa nopeasti ja arvaamattomasti. Lokaali DGX Spark -päättely on
+**kiinteä kustannus**: kun laitteisto on paikoillaan, inferenssi on rajaton ilman token-laskua. Tämä
+tekee kustannuksesta ennustettavan ja budjetoitavan.
+
+**Leasing-vaihtoehto.** Laitteisto on tarvittaessa saatavissa **leasingina** (capex → opex). ORK:n ei
+tarvitse hankkia laitteistoa etukäteen; kuukausierä kattaa laitteiston ja käyttöönoton, ja token-säästö
+kompensoi leasingkustannusta suuren volyymin käytössä.
 
 ---
 
