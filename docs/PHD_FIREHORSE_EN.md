@@ -11,10 +11,10 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.73
-
+Version: 3.74
 Sessions & Modifications:
 
+- Version: 3.74 | Tool: Claude Code (claude-opus-4-8) | Session: claude/anduril-case-study-iridtj | Date: 29.06.2026 | Changes: Lockstep bump per CLAUDE.md thesis rule (master CSRD post-Omnibus correction). PhD-side CSRD figure references + Learn/ HTML regeneration PENDING. DWS_TRUTH_STANDARD v2.5 section 2C.
 - Version: 3.73 | Tool: Claude Code | Session: claude/article-research-phd-tvmskz | Date: 28.06.2026 | Changes: Merge resolution: integrates RQGM §14.33 (from this branch's v3.71) into main's v3.72 baseline. KC#39 (RQGM, this branch) renumbered to KC#40 to avoid collision with main's KC#39 (capability ontology, V3Thesis §10.24). Version set to 3.73. All 4 thesis files bumped in lockstep.
 - Version: 3.72 | Tool: Claude Code | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Lockstep version bump 3.71 → 3.72 across all 4 thesis files per CLAUDE.md thesis rule. The v3.72 substantive content (capability ontology — 10 LWM knowledge graph classes organising 80+ agent capabilities, three-pillar consulting GTM model, Aegis Defence honest capability correction, and lifetime.fi website deployment) is product-implementation content and per the §1.4 master-vs-PhD scope rule lives in V3Thesis_EN.md §10.24 and Key Contribution #39. No scientific-framing content belongs in this doctoral thesis for this implementation milestone, so this file receives a lockstep-only version-bump entry and no new sections. Companion artefact: `docs/KONSULTIN_KASIKIRJA_2026.md` v1.5 (Consultant Handbook 2026).
 - Version: 3.71 | Tool: Claude Code | Session: claude/keskeytyslaskuri-lifetime-missing-6uaxvu | Date: 27.06.2026 | Changes: Added §14.20.8 (The Interruption-Cost Layer: Context-Switch Economics in Multi-Agent Operations) — extends the CSB-track (§14.20.5) with a five-driver interruption cost model (human ramp-up, token waste, momentum loss, recruitment cost, sprint drag) derived from the Lifetime Oy Keskeytyslaskuri tool (lifetime.fi/laskuri/). Proposes CSB-I (Interruption) sub-track for deployer cost-surface attestation. Key finding: interruption cost is superlinear in model tier and sublinear in team size. Enterprise scenario benchmarks show interruption costs can exceed 30% of annual team budget. PhD scope per §1.3 (3–7 year horizon, market signal). Companion artefact: lifetime.fi/laskuri/ (5-language interactive calculator). All 4 thesis files bumped to v3.71 in lockstep per CLAUDE.md thesis rule.
