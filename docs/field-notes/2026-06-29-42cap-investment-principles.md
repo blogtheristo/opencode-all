@@ -70,7 +70,7 @@ Sessions & Modifications:
 
 ## 3. Bars we must clear (be honest, prepare answers)
 
-1. **€1b+ recurring TAM / €500m+ in 7–8 yrs.** This is their hard gate. We must show the math credibly: 25 EU-regulated industries × mandatory CSRD/CBAM/EPBD filing × recurring SaaS, at 95% margin. Prepare a defensible TAM build (≈49,000 CSRD-obligated EU companies × ACV) — not a hand-wave.
+1. **€1b+ recurring TAM / €500m+ in 7–8 yrs.** This is their hard gate. We must show the math credibly: 25 EU-regulated industries × mandatory CSRD/CBAM/EPBD filing × recurring SaaS, at 95% margin. Prepare a defensible TAM build — post-Omnibus, fewer than ~5,000 large CSRD filers (high ACV) + the value-chain/Scope-3 pull + CBAM/EPBD (see `TAM_BUILD.md`) — not a hand-wave, and not the stale "49,000" figure.
 2. **~18-month runway / sustainable round size.** €650K SAFE alone likely under-funds 18 months at their bar. This is _why_ the **upsize to a €1–2M priced seed with 42CAP leading** is the right ask — it satisfies their own "sustainable round size" principle. Lead with that, not the €650K floor.
 3. **Significant ownership stake.** They want a concise portfolio and a meaningful stake. At ~€3.8M cap a €1–2M lead implies ~20–35% — be ready for that dilution; it aligns with their model, not against it.
 4. **Product-first founder signal.** He evaluates the moat and the product himself, operator-to-operator. The architecture deep-dive must be ready.
