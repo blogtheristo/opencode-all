@@ -13,7 +13,7 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.75
+Version: 1.76
 
 Sessions & Modifications:
 
@@ -30,6 +30,7 @@ Sessions & Modifications:
 - Version: 1.73 | Tool: Claude Code (Opus 4.8) | Session: claude/consultant-handbook-v1-6-622fep | Date: 28.06.2026 | Changes: Added §10 "Asiakkaan tarina ostopolun vaiheen mukaan" — maps the three sales metaphors (Buffet/Captain/Vineyard) to buying-journey stages with the ethical "augment not replace" angle woven into each customer story. Worked examples: ORK (Buffet, public tender), Outokumpu (Captain, pilot-first), Kemira (Vineyard). References /dialog customer-adaptation mode for offer reuse (ORK→Kemira).
 - Version: 1.74 | Tool: Claude Code (Opus 4.8) | Session: claude/consultant-handbook-v1-6-622fep | Date: 28.06.2026 | Changes: Added §6 "Kyvykkyydet tuotteen elinkaaressa" — maps agent capabilities, skills, workflows and learning (Gödel) loops to product lifecycle stages (Development / Deployment / Maintenance / Update & Grow) for both DWS IQ platform and the Firehorse product line. 72 IT roles re-cast as capabilities; roles stay with humans, agents make them faster (human-in-the-loop per §2 Ihmiskeskeisyys).
 - Version: 1.75 | Tool: Claude Code (Opus 4.8) | Session: claude/consultant-handbook-v1-6-622fep | Date: 28.06.2026 | Changes: §6 lifecycle section — added explicit mapping of Boris Cherny's 5 product archetypes (Prototyper/Builder/Sweeper/Grower/Maintainer) to lifecycle stages (overlapping, not 1:1), plus "Kypsyysmiksaus" — the right archetype mix by maturity, applied both per DWS product (Aegis Defence pre-PMF 1+2+3; Climate IQ growing 2+3+4+5; DWS IQ 6 mature 3+4+5) and per industry (mature steel/energy/chemicals; growing construction/maritime; emerging defence/new ontology nodes).
+- Version: 1.76 | Tool: Claude Code (Opus 4.8) | Session: claude/consultant-handbook-v1-6-622fep | Date: 28.06.2026 | Changes: Added §3 "Kyvykkyyden hinnoittelumalli (hybridi)" — three complementary tiers: monthly subscription (enterprise default, procurement-friendly), low-entry monthly (self-serve, vs. €9/mo market tools like cogny.com/solo), token/agentic commerce (2027, Stripe/Zuora hybrid). Notes public procurement is always client-defined €/person-day. Regenerated HTML.
 
 Document Status:
 
@@ -210,6 +211,16 @@ DWS IQ 6 ei ole kolme hintatasoa. Se on kolme itsenäistä akselia:
 - **Firehorse Content Management** — €2 999. Sisällönhallinta ja julkaisualusta.
 
 **Hinnoittelu-periaate:** Julkaistu hinta. Sama hinta toimitusjohtajalle ja vastuullisuuspäällikölle. Ei neuvotteluteatteria. (Buffet-periaate.) Koko tuotevalikoima: [dws10.com](https://dws10.com)
+
+### Kyvykkyyden hinnoittelumalli (hybridi)
+
+Kyvykkyyttä hinnoitellaan kolmella tasolla asiakassegmentin ja ostotavan mukaan. Mallit täydentävät toisiaan — token-pohjaisuus ei korvaa kk-tilausta vaan avaa matalamman kynnyksen ja marketplace-segmentit:
+
+- **Kk-tilaus (enterprise-oletus)** — Ennustettava, budjettiystävällinen, julkishankintakelpoinen. Säännelty teollisuus ei halua vaihtelevia token-yllätyksiä budjettiin; kk-tilaus tukee myös LWM-ylläpidon perustelua (§4). Esim. Climate IQ €2 999/kk, Skilled Agents alkaen €599/v.
+- **Matalan kynnyksen kk-taso (self-serve)** — Yksittäinen kyvykkyys pienellä kuukausimaksulla aloituskynnyksen madaltamiseen (vrt. markkinoiden $9/kk-kasvutyökalut). Tuo SMB- ja kehittäjäsegmentit.
+- **Token / agentic commerce (2027 →)** — Transaktioperusteinen per-kyvykkyys-veloitus käytön mukaan; Stripe-rails, Zuora-tyyppinen hybridilaskutus (tilaus + käyttö). Ks. §11 Agentic Commerce -roadmap.
+
+Julkishankinnoissa (esim. puitesopimukset) hinnoittelu on aina tilaajan määräämä yksikkö (€/henkilötyöpäivä) — token-malli ei sovi näihin.
 
 ### Puolustus- ja kaksikäyttö (Aegis Defence)
 
