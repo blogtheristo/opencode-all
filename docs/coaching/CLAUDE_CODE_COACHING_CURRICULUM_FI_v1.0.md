@@ -4,12 +4,13 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.2
 
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code | Session: code-coaching-curriculum | Commit: pending | Date: 24.06.2026 | Changes: Claude Code -valmennustuotteen (1 pv luento, 2 pv työpaja, valinnainen asiakasprojektityö) ensimmäinen opetussuunnitelma.
 - Version: 1.1 | Tool: Claude Code | Session: team-ethos-coaching | Commit: pending | Date: 27.06.2026 | Changes: Lisätty liite A — Team Ethos -tapaustutkimus (Mustafa Suleyman, Microsoft AI) ja kartoitus DWS:n 12 sääntöön; viitattu moduulista M2.
+- Version: 1.2 | Tool: Claude Code (Opus 4.8) | Session: claude/consultant-handbook-v1-6-622fep | Commit: pending | Date: 28.06.2026 | Changes: Lisätty liite B — "Augment, not replace" -moduuli (eettinen AI + EU AI Act Art. 4/12/14 -lukutaito, roolit→kyvykkyydet-kehys, arkkityyppi×kypsyysmix, /dialog-työmenetelmä). Lähteinä käsikirja v1.75 §2/§6 ja whitepaper WP01. EN+FI lockstep.
 
 Document Status:
 
@@ -195,3 +196,37 @@ _Lähde: Mustafa Suleyman, Microsoft AI:n toimitusjohtaja, kesäkuu 2025._
 3. Jaetaan pareittain; jokainen pari raportoi parhaan toimenpiteensä ryhmälle.
 
 **Ajattelumme laatu määrittää malliemme — ja koodimme — laadun.**
+
+---
+
+## Liite B — Moduuli: Augment, not replace (eettinen AI + EU AI Act -lukutaito)
+
+**Milloin:** Komponentti 1 (luento) ja Komponentti 2, päivä 1. **Lähde:** whitepaper WP01 "Augment, Not Replace"; käsikirja §2 (Ihmiskeskeisyys), §6 (kyvykkyysmalli + elinkaari).
+
+### Kanta
+
+- **Kyvykkyys, ei headcount. Augmentoi, älä korvaa.** Emme pyri vähentämään asiakkaan työvoimaa; henkilöstöstä päättää johto. AI tuo uutta kyvykkyyttä, joka nostaa tuottavuutta ihmisen rinnalla, ei tilalle.
+- Tämä on sekä eettinen (ihmisarvo, human-in-the-loop) että strateginen (säännelty ostaja torjuu "korvaa tiimisi" -viestin; ostaa "moninkertaista tiimisi").
+
+### EU AI Act -lukutaito (mitä jokaisen valmennettavan insinöörin on tiedettävä)
+
+- **Artikla 4 — AI-lukutaito** (voimassa 02/2025): AI:ta käyttävät tiimit on koulutettava ymmärtämään se.
+- **Artikla 12 — lokitus:** jokainen korkean riskin AI-toiminto on auditoitavissa; hash-ketjutettu, muuttumaton.
+- **Artikla 14 — ihmisvalvonta:** ihminen pysyy päätöksentekijänä; agentti hoitaa rutiinin.
+
+### Roolit muuttuvat kyvykkyyksiksi (opetuskehys)
+
+- 72 IT-roolia → 88 kyvykkyyttä, skilliä, työnkulkua ja oppimissilmukkaa (Gödel-loops). Rooli säilyy ihmisellä; agentti tekee siitä nopeamman.
+- Tuotekehityksen arkkityypit (Prototyper / Builder / Sweeper / Grower / Maintainer) kartoittuvat elinkaaren vaiheisiin; oikea mix riippuu tuotteen ja toimialan kypsyydestä. Opeta osallistujat tunnistamaan vaihe ja painottamaan oikeat kyvykkyydet.
+
+### `/dialog`-työmenetelmä (käytännössä)
+
+- HIC-vahvistettu, rivi riviltä etenevä tapa päivittää dokumentti, tarjous tai liite: ehdota muutos, ihminen hyväksyy tai vastaehdottaa, sovella ja checkpoint. Erityisen hyödyllinen tarjouksen uudelleenkäytössä asiakkaalta toiselle (esim. ORK → Kemira). Näytä live M2:ssa.
+
+### Harjoitus (15 min)
+
+1. Jokainen kirjoittaa yhdellä lauseella, miten agentti **augmentoisi** (ei korvaisi) yhtä tehtävää omassa roolissaan.
+2. Kartoita tehtävä elinkaaren vaiheeseen (Kehitys / Käyttöönotto / Ylläpito / Päivitys) ja nimeä human-in-the-loop-tarkistuspiste.
+3. Jaa pareittain; raportoi yksi esimerkki per pari.
+
+**Toteutus voidaan jakaa koneiden kanssa. Visio, harkinta ja vastuu pysyvät ihmisellä.**

@@ -77,7 +77,7 @@ Kehitetty ja toimitettu Claude Code -valmennusohjelma, joka tuottaa asiakasorgan
 Toteutettu asiakaskohtainen konsultointiprosessi EU-sääntelyvaatimustenmukaisuuden automatisointiin:
 
 1. **Nykytila-analyysi:** asiakkaan prosessien kartoitus, manuaalisen työn osuuden mittaus, AI-hyödyntämismahdollisuuksien arviointi
-2. **Toimintamallin suunnittelu:** 16 toimialaontologiaan perustuva asiakaskontekstin mallinnus; AI-agentin vastuualueiden rajaus; inhimillisen valvonnan pisteet (Human-in-the-Loop)
+2. **Toimintamallin suunnittelu:** 25 toimialaontologiaan perustuva asiakaskontekstin mallinnus; AI-agentin vastuualueiden rajaus; inhimillisen valvonnan pisteet (Human-in-the-Loop)
 3. **Pilottitoteutus:** asiakaskohtainen EU-sääntelyanalyysiagentin räätälöinti; manuaalisen työn vähenemä 70–80 % raportoinnissa
 4. **Koulutus ja käyttöönotto:** loppukäyttäjäkoulutus, ohjeistus suomeksi, palautekierros
 5. **Jatkuva tuki:** kuukausittainen MRR-pohjainen tilausmalli (7 000 €/kk huhtikuussa 2026)

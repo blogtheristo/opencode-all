@@ -192,6 +192,13 @@
       "commandFile": ".claude/commands/designer.md"
     },
     {
+      "id": "dialog",
+      "name": "dialog",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/dialog.md"
+    },
+    {
       "id": "discover-agents",
       "name": "discover-agents",
       "kind": "slash-command",
