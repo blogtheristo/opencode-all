@@ -73,6 +73,26 @@ ORK saa kyvykkyydet koko elinkaaren ajaksi, ei vain kehitysvaiheeseen:
 - **Päivitys & kasvu** → Cassandra (ennusteet), Change Management, Disruption Response; LWM-ontologian
   jatkuva uudelleenkoulutus sääntelyn muuttuessa
 
+## Kehitystyön jatkuvuus — kyvykkyydet pitävät työn liikkeessä
+
+Kehitystyön suurin piilokustannus on **keskeytys**: kontekstin uudelleenrakentaminen, momentumin menetys
+ja avainhenkilöriski. DWS:n kyvykkyydet on suunniteltu pitämään kehitystyö liikkeessä — agentit eivät
+keskeydy, eivät unohda kontekstia eivätkä jää lomalle:
+
+- **Konteksti säilyy** — Mnemosyne (pitkäkestomuisti) pitää istuntojen välisen kontekstin tallessa;
+  kehitys jatkuu siitä mihin jäätiin, ei nollasta.
+- **Häiriöt ennakoidaan** — Disruption Response -kyvykkyys seuraa riskisignaaleja ja varoittaa ennen
+  kuin keskeytys tapahtuu; Project Manager -kyvykkyys pitää aikataulut ja työnkulut ajan tasalla.
+- **Suvereeni paikallinen toteutus poistaa pilviriippuvuuden** — inferenssi ORK:n omalla
+  NVIDIA-laitteistolla ei katkea pilvipalvelun käyttökatkoon, SLA-rajoitukseen eikä nettiyhteyden
+  pätkimiseen. Kehitys jatkuu myös suljetussa verkossa.
+- **Token-kulujen välttäminen poistaa kustannusperusteisen jarrutuksen** — pilvi-LLM:ien per-token-lasku
+  pakottaa usein rajoittamaan käyttöä budjetin vuoksi, mikä hidastaa kehitystä. Lokaali päättely on
+  kiinteä kustannus → rajaton inferenssi → kehitys ei jarrutu kustannussyistä.
+
+_Osa näistä jatkuvuuskyvykkyyksistä on aktiivisessa kehitysvaiheessa (varhainen versio); ne kypsyvät
+toimituskauden aikana ja ovat osa jatkuvaa kyvykkyyskerrosta._
+
 ## Mitä pysyvyys tarkoittaa ORK:lle
 
 - **Aina käytettävissä** — kyvykkyys ei lähde lomalle eikä irtisanoudu; ei avainhenkilöriskiä

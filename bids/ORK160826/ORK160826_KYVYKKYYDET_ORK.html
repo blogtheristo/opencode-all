@@ -88,6 +88,25 @@
     <li><strong>Päivitys &amp; kasvu</strong> → Cassandra (ennusteet), Change Management, Disruption Response; LWM-ontologian</li>
     </ul>
     <p>jatkuva uudelleenkoulutus sääntelyn muuttuessa</p>
+    <h2 id="kehitystyon-jatkuvuus-kyvykkyydet-pitavat-tyon-liikkeessa">Kehitystyön jatkuvuus — kyvykkyydet pitävät työn liikkeessä</h2>
+    <p>Kehitystyön suurin piilokustannus on <strong>keskeytys</strong>: kontekstin uudelleenrakentaminen, momentumin menetys ja avainhenkilöriski. DWS:n kyvykkyydet on suunniteltu pitämään kehitystyö liikkeessä — agentit eivät keskeydy, eivät unohda kontekstia eivätkä jää lomalle:</p>
+    <ul>
+    <li><strong>Konteksti säilyy</strong> — Mnemosyne (pitkäkestomuisti) pitää istuntojen välisen kontekstin tallessa;</li>
+    </ul>
+    <p>kehitys jatkuu siitä mihin jäätiin, ei nollasta.</p>
+    <ul>
+    <li><strong>Häiriöt ennakoidaan</strong> — Disruption Response -kyvykkyys seuraa riskisignaaleja ja varoittaa ennen</li>
+    </ul>
+    <p>kuin keskeytys tapahtuu; Project Manager -kyvykkyys pitää aikataulut ja työnkulut ajan tasalla.</p>
+    <ul>
+    <li><strong>Suvereeni paikallinen toteutus poistaa pilviriippuvuuden</strong> — inferenssi ORK:n omalla</li>
+    </ul>
+    <p>NVIDIA-laitteistolla ei katkea pilvipalvelun käyttökatkoon, SLA-rajoitukseen eikä nettiyhteyden pätkimiseen. Kehitys jatkuu myös suljetussa verkossa.</p>
+    <ul>
+    <li><strong>Token-kulujen välttäminen poistaa kustannusperusteisen jarrutuksen</strong> — pilvi-LLM:ien per-token-lasku</li>
+    </ul>
+    <p>pakottaa usein rajoittamaan käyttöä budjetin vuoksi, mikä hidastaa kehitystä. Lokaali päättely on kiinteä kustannus → rajaton inferenssi → kehitys ei jarrutu kustannussyistä.</p>
+    <p><em>Osa näistä jatkuvuuskyvykkyyksistä on aktiivisessa kehitysvaiheessa (varhainen versio); ne kypsyvät toimituskauden aikana ja ovat osa jatkuvaa kyvykkyyskerrosta.</em></p>
     <h2 id="mita-pysyvyys-tarkoittaa-orklle">Mitä pysyvyys tarkoittaa ORK:lle</h2>
     <ul>
     <li><strong>Aina käytettävissä</strong> — kyvykkyys ei lähde lomalle eikä irtisanoudu; ei avainhenkilöriskiä</li>

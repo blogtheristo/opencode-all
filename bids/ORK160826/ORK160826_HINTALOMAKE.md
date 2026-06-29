@@ -32,6 +32,7 @@ Version: 6.0 | 2026-06-28 | Claude Code (Opus 4.8) | Porrastettu Strategia S val
 - **Perustaso: 55,90 €/h × 7,5 = 419,25 €/htp**
 - **Korkean painon roolit (Osa-alue 3: AI Architect, DevOps): 52,00 €/h × 7,5 = 390,00 €/htp**
 - Sisältää Claude Code -koulutus ja coaching -palvelut (AI Consultant -roolin alla)
+- **Kustannusvarmuus:** hinta sisältää lokaalin suvereenin päättelyn — **ei erillisiä, arvaamattomia token- tai pilvikustannuksia ORK:lle.** Pilvi-LLM:iä käyttävät kilpailijat voivat siirtää token-kulut asiakkaalle; me emme. Inferenssi tapahtuu ORK:n omalla NVIDIA-laitteistolla kiinteällä kustannuksella.
 - Matkakustannukset eivät sisälly — sovitaan toimeksiantokohtaisesti
 
 ---
