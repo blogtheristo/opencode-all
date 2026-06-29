@@ -6,12 +6,16 @@
 
 VERSION AND AGENT HISTORY
 Version: 4.0 | 2026-06-27 | Claude Sonnet 4.6 | Vahvistettu 72 €/h = 540 €/htp kaikille rooleille
-Version: 5.0 | 2026-06-28 | Claude Code (Opus 4.8) | Hinta päivitetty kilpailukykyrajalle: 55,90 €/h = 419,25 €/htp. ALUSTAVA — odottaa John'in hintatietoa ennen lopullista vahvistusta.
+Version: 5.0 | 2026-06-28 | Claude Code (Opus 4.8) | Hinta päivitetty kilpailukykyrajalle: 55,90 €/h = 419,25 €/htp (tasahinta).
+Version: 6.0 | 2026-06-28 | Claude Code (Opus 4.8) | Porrastettu Strategia S valittu (HIC). Perustaso 55,90 €/h = 419,25 €/htp; korkeimmin painotetut Osa-alue 3 -roolit (AI Architect, DevOps) 52,00 €/h = 390,00 €/htp pisteoptimointia varten. ALUSTAVA — odottaa John'in hintatietoa.
 
 ---
 
-> **ALUSTAVA HINTA** — 55,90 €/h on asetettu kilpailukykyrajalle (markkinatieto €50–60/h,
-> ks. ORK160826_MARKKINATIETO). Lopullinen hinta vahvistetaan kun John'in hintatieto on saatu.
+> **ALUSTAVA HINTA — PORRASTETTU (Strategia S).** Hinta on asetettu kilpailukykyiseksi: Goforen
+> voittohinta viime kilpailutuksessa oli 58 €/t (ks. ORK160826_MARKKINATIETO). Perustaso 55,90 €/h on
+> tämän alapuolella; korkeimmin painotetut roolit 52,00 €/h painavat vertailuhinnan vielä alemmas.
+> Strategian perustelu: ORK160826_HINTALOMAKE_PORRASTETTU. Lopullinen hinta vahvistetaan John'in
+> hintatiedon jälkeen.
 
 ---
 
@@ -25,7 +29,8 @@ Version: 5.0 | 2026-06-28 | Claude Code (Opus 4.8) | Hinta päivitetty kilpailuk
 
 - Hinnat **ALV 0 %**
 - Yksikkö: **€/htp** (1 henkilötyöpäivä = 7,5 tuntia, per Liite 5 -ohje)
-- **55,90 €/h × 7,5 = 419,25 €/htp** — yhtenäinen hinta kaikille rooleille
+- **Perustaso: 55,90 €/h × 7,5 = 419,25 €/htp**
+- **Korkean painon roolit (Osa-alue 3: AI Architect, DevOps): 52,00 €/h × 7,5 = 390,00 €/htp**
 - Sisältää Claude Code -koulutus ja coaching -palvelut (AI Consultant -roolin alla)
 - Matkakustannukset eivät sisälly — sovitaan toimeksiantokohtaisesti
 
@@ -63,35 +68,39 @@ Claude Code -koulutus ja coaching laskutetaan **Tekoälykonsultti**-roolin alla.
 
 | Rooli (Liite 5 -lomakkeen mukainen nimi)                       | €/htp      | Vertailuhtp | Vertailukustannus |
 | -------------------------------------------------------------- | ---------- | ----------- | ----------------- |
-| Tekoälyratkaisujen arkkitehti (AI Architect)                   | **419,25** | 800         | 335 400,00 €      |
-| Infra ja CI/CD-asiantuntija (DevOps Engineer)                  | **419,25** | 800         | 335 400,00 €      |
+| Tekoälyratkaisujen arkkitehti (AI Architect)                   | **390,00** | 800         | 312 000,00 €      |
+| Infra ja CI/CD-asiantuntija (DevOps Engineer)                  | **390,00** | 800         | 312 000,00 €      |
 | Sovelluskehittäjä (Software Developer)                         | **419,25** | 400         | 167 700,00 €      |
 | Tekoälykäyttötapausten suunnittelu (UI/UX-designer / GenAI UX) | **419,25** | 400         | 167 700,00 €      |
 
-**Osa-alue 3 vertailuhinta: 1 006 200,00 €** _(laskennallinen, ei tilaustakuu)_
+**Osa-alue 3 vertailuhinta: 959 400,00 €** _(laskennallinen, ei tilaustakuu)_
 
 ---
 
 ## Yhteenveto — Vertailuhinta
 
-| Osa-alue   | €/htp  | Vertailuhinta (laskennallinen) |
-| ---------- | ------ | ------------------------------ |
-| Osa-alue 1 | 419,25 | 1 006 200,00 €                 |
-| Osa-alue 2 | 419,25 | 335 400,00 €                   |
-| Osa-alue 3 | 419,25 | 1 006 200,00 €                 |
-| **Kaikki** |        | **2 347 800,00 €**             |
+| Osa-alue   | €/htp           | Vertailuhinta (laskennallinen) |
+| ---------- | --------------- | ------------------------------ |
+| Osa-alue 1 | 419,25          | 1 006 200,00 €                 |
+| Osa-alue 2 | 419,25          | 335 400,00 €                   |
+| Osa-alue 3 | 390,00 / 419,25 | 959 400,00 €                   |
+| **Kaikki** |                 | **2 301 000,00 €**             |
 
 ---
 
 ## Toiminta Liite 5 .xlsx -tiedostossa
 
-Syötä **419,25** kaikkiin sinisellä merkittyihin E-sarakkeen soluihin:
+Syötä E-sarakkeen sinisellä merkittyihin soluihin:
 
 - **Osa-alue 1** rivit E16–E21 (6 roolia) → kaikki **419,25**
 - **Osa-alue 2** rivit E27–E28 (2 roolia) → kaikki **419,25**
-- **Osa-alue 3** rivit E34–E37 (4 roolia) → kaikki **419,25**
+- **Osa-alue 3** rivit E34–E37:
+  - **E34 (AI Architect)** → **390,00**
+  - **E35 (DevOps Engineer)** → **390,00**
+  - **E36 (Software Developer)** → **419,25**
+  - **E37 (UI/UX-designer)** → **419,25**
 
-Tallenna .xlsx ja lataa tarjouspalvelu.fi:hin **Liite 5** -kenttään. **Huom:** vahvista hinta John'in
+Tallenna .xlsx ja lataa tarjouspalvelu.fi:hin **Liite 5** -kenttään. **Huom:** vahvista hinnat John'in
 hintatiedon jälkeen ennen lataamista.
 
 ---

@@ -88,6 +88,14 @@ alihankkijat eivät täytä. **Vastauksemme:** suomalainen ydintiimi (Paarni + S
 ja arkaluontoisessa datassa + agenttikyvykkyys, joka tekee pienestä tiimistä suuren toimiston veroisen.
 Alihankkijaverkosto (EU/Intia) antaa kustannusjouston, muttei saa olla tarjouksen kasvot.
 
-**Avoin kysymys (HIC):** Sarita ilmoitti ensin "Digia Hub ei ole kiinnostunut yhteistyöstä", mutta
-kuvaa nyt Digia Hubin tarjonnan (sadat roolit FI/EU/Intia). Onko Digia Hub sittenkin käytettävissä
-sourcing-kanavana tähän tarjoukseen, vai pelkkä markkinakuvaus? Vahvista ennen kuin nojataan siihen.
+**Ratkaistu (HIC, 28.6.2026):** Digia Hub **ei ole** meidän sourcing-kanavamme — Sarita markkinoi omaa
+kanavaansa. Digia tekee "helpot projektit" omilla henkilöillään ja täydentää Digia Hubista yksittäisellä
+henkilöllä **erityisesti jos tällä on erityinen sertifiointi**. Emme nojaa Digia Hubiin; käytämme omaa
+ydintiimiä + omaa alihankkijaverkostoa (9series, Cubet).
+
+**Insight — erikoissertifiointi täydentäjänä.** Voittomalli on: oma suomalainen perustiimi + tarvittaessa
+yksi erikoissertifioitu täydentäjä. Tämä on meidän vahvuutemme, jos nostamme sen esiin: ydintiimin ja
+verkoston **sertifioinnit ja validoinnit** ovat juuri se "erityinen sertifiointi", jota arviointi arvostaa
+— mm. NVIDIA Connect ISV Partner, Microsoft Founders Hub L1–L4, EU AI Act Article 12 -tuotantototeutus,
+ISO 27001 (käynnissä), KYA-agenttihallinta. **Toimenpide:** varmista, että referenssilomakkeet ja CV:t
+korostavat näitä sertifiointeja erottautumistekijänä halpaa volyymityövoimaa vastaan.
