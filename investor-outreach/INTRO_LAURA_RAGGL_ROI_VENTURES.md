@@ -86,7 +86,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 Hi Laura — I've been following ROI Ventures' B2B SaaS portfolio, strong thesis.
 
-I'm building Lifetime Oy (Finland) — carbon balance sheet for EU companies. A fleet of skilled agents pulling from SAP/IFS/Dynamics, auto-generating compliance reports. EUR 7K MRR, 5 customers, 100% retention. Raising EUR 650K SAFE at EUR 3.8M cap, Captain seats at EUR 50K. V1 launches at Arctic 15 in Helsinki on June 15.
+I'm building Lifetime Oy (Finland) — carbon balance sheet for EU companies. A fleet of skilled agents pulling from SAP/IFS/Dynamics, auto-generating compliance reports. EUR 7K MRR, 6 customers, 100% retention. Raising EUR 650K SAFE at EUR 3.8M cap, Captain seats at EUR 50K. V1 launches at Arctic 15 in Helsinki on June 15.
 
 Happy to send our one-pager if this fits your thesis.
 

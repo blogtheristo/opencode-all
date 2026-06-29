@@ -735,7 +735,7 @@ Competitive Advantage:
 
 **PHASE 1**: Validated Compliance Business (Current)
 - MRR: €7,000
-- Customers: 5 paying (Uber, Bolt, Kela, 2 pilots converting)
+- Customers: 6 paying (Uber, Bolt, Kela, 2 pilots converting)
 - Product: Enterprise Navigator (3-month pilot)
 - Gross Margin: 75%+
 - Churn: 0%

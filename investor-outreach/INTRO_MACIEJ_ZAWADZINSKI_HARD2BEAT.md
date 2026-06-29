@@ -88,7 +88,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 Hi Maciej — respect what you built at Piwik PRO. Reaching out because Hard2beat's B2B DeepTech + defensible IP mandate is an exact match for what we're building.
 
-Lifetime Oy (Finland) — 21-agent B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports, EU AI Act compliant. EUR 7K MRR, 5 customers, 100% retention.
+Lifetime Oy (Finland) — 21-agent B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports, EU AI Act compliant. EUR 7K MRR, 6 customers, 100% retention.
 
 Raising EUR 650K SAFE at EUR 3.8M cap — fits your €250K-€750K range cleanly, open to you anchoring. V1 launches June 15. Solo founder (I know this is a flag for you) — 13 years regulated-industry operator, paying customers, advisors in place, CTO hire post-round. Send the memo?
 

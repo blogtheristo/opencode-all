@@ -81,7 +81,7 @@ Lead with:
 
 1. **Dual thesis** — "We sit at the intersection of decarbonization and defense: carbon balance sheet infrastructure that's also EU-sovereign AI for regulated industries"
 2. **Academic depth** — Metropolia thesis on industrial AI + LUT PhD track on compliance automation. This isn't a pivot-from-consulting story — it's deep domain research commercialized
-3. **TRL maturity** — a fleet of skilled agents in production, 5 customers, zero churn. Past the "does the tech work" phase
+3. **TRL maturity** — a fleet of skilled agents in production, 6 customers, zero churn. Past the "does the tech work" phase
 4. **Captain Seat** — €50K entry, named captain of an industry vertical. Quarterly briefings, priority routing, Situation Room access
 
 For Aegis angle specifically:

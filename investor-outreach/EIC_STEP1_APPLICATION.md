@@ -208,7 +208,7 @@ First EUR 50K of raise funds senior technical hire Q3 2026.
 
 _(500 characters max — current draft: ~350 characters)_
 
-**Current:** EUR 7K MRR (March 2026), 5 customers, 100% retention.
+**Current:** EUR 7K MRR (March 2026), 6 customers, 100% retention.
 
 **Active raise:** EUR 650K SAFE at EUR 3.8M valuation cap (20% discount).
 Bridge to Series A targeting EUR 15M+ pre-money, Q3–Q4 2026.

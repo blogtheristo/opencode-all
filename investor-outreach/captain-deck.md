@@ -72,7 +72,7 @@ As a **Captain**, you are the named leader of one of 20 EU-regulated industries 
 
 | #   | Industry                            | ETS/CBAM Exposure                   | Status                        |
 | --- | ----------------------------------- | ----------------------------------- | ----------------------------- |
-| 1   | Construction & Real Estate          | High (EPBD, ETS Phase IV)           | Validated — 5 customers       |
+| 1   | Construction & Real Estate          | High (EPBD, ETS Phase IV)           | Validated — 6 customers       |
 | 2   | Energy & Power Generation           | Critical (ETS, RED III)             | Validated — Qantic case study |
 | 3   | Steel & Metals                      | Critical (CBAM, ETS)                | Open                          |
 | 4   | Cement & Building Materials         | Critical (CBAM, ETS)                | Open                          |
@@ -199,7 +199,7 @@ Zero-cloud-egress agent execution on Acer Veriton GN100 (NVIDIA-powered) with Do
 
 Four-pillar distributed system: Brain (21-agent orchestration via DWS IQ 6), Memory (Lifetime World Model — EU regulations + 20 industry models), Body (Firehorse sales/report/automation/content suite), Hands (Lifetime Fleet robots/IoT, specification phase).
 
-**Why it matters:** Clean separation of concerns enables independent scaling. Brain gets smarter, Body ships faster, Memory deepens — each pillar improves without breaking the others. This is the architecture that scales from 5 to 500 customers.
+**Why it matters:** Clean separation of concerns enables independent scaling. Brain gets smarter, Body ships faster, Memory deepens — each pillar improves without breaking the others. This is the architecture that scales from 6 to 500 customers.
 
 ### 10. Firehorse Omnichannel (Sales Automation) — v3, March 2026
 
@@ -227,7 +227,7 @@ Model Context Protocol hub enabling autonomous multi-agent tool access via Cloud
 | -------------------------------- | ------------------------------------------------- |
 | **Your investment**              | EUR 50,000                                        |
 | **Valuation cap**                | EUR 3.8M                                          |
-| **Current MRR**                  | EUR 7K (5 customers, 100% retention)              |
+| **Current MRR**                  | EUR 7K (6 customers, 100% retention)              |
 | **Target ARR (2026)**            | EUR 900K (25 customers x EUR 36K avg)             |
 | **Series A target**              | EUR 15M+ pre-money (Q3-Q4 2026)                   |
 | **Implied multiple at Series A** | ~3-4x on paper                                    |

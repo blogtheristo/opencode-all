@@ -88,7 +88,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 Hi Ross — good talking recently. Quick follow-up on Vesna timing.
 
-Lifetime Oy (Finland) — 21-agent B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports. EUR 7K MRR, 5 customers, 100% retention. V1 launches at Arctic 15 (June 15), Messe Germany commercial push right after.
+Lifetime Oy (Finland) — 21-agent B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports. EUR 7K MRR, 6 customers, 100% retention. V1 launches at Arctic 15 (June 15), Messe Germany commercial push right after.
 
 Raising EUR 650K SAFE at EUR 3.8M cap. Your $100K-$500K range works cleanly — looking for 2-3 anchor commits pre-Arctic. Your 3-week cycle fits. Send the memo?
 

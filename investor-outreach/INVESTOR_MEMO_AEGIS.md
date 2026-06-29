@@ -223,7 +223,7 @@ No existing platform — Palantir, Anduril, C3.ai, or Big 4 consulting — provi
 | Infrastructure cost              | EUR 376/mo             |
 | **Infra gross margin**           | **62% (EUR 623/mo)**   |
 | Effective margin (amortized 5yr) | **81% (EUR 1,623/mo)** |
-| Breakeven                        | ~5 customers           |
+| Breakeven                        | ~6 customers           |
 
 Enterprise and government pricing on request.
 
@@ -323,7 +323,7 @@ The KYA Standard (v1.6) is why Aegis is not just another AI platform:
 - Early-stage company risk — seed stage, pre-Series A
 - Single founder dependency
 - Market adoption risk — enterprise sales cycles are long
-- Execution risk — scaling from 5 to 25 customers in 2026
+- Execution risk — scaling from 6 to 25 customers in 2026
 - Competition risk — well-funded US platforms may build EU-sovereign offerings
 - Regulatory risk — EU regulation timeline may shift
 - Technology risk — AI capabilities evolving rapidly

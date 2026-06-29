@@ -28,7 +28,7 @@ But once the building is operating? Once the factory is running? Once the fleet 
 
 ### What stage are you at?
 
-- **€7K MRR** (€84k ARR), five paying customers
+- **€7K MRR** (€84k ARR), six paying customers
 - **100% customer retention** — zero churn
 - **40+ hours/month saved** per customer vs. manual reporting
 - **Platform:** a fleet of skilled agents, 32 products, 4 cloud environments, 20 EU-regulated industries
@@ -142,7 +142,7 @@ Ambition: operations compliance across 20 EU-regulated industries.
 
 - **MRR:** €7K (March 2026)
 - **ARR:** €84k
-- **Customers:** 5 paying, 100% retention
+- **Customers:** 6 paying, 100% retention
 - **Pipeline:** 2 construction pilots converting
 - **Platform:** a fleet of skilled agents, 32 products, 4 cloud environments
 - **Industries:** 20 EU-regulated verticals
@@ -191,7 +191,7 @@ Ambition: operations compliance across 20 EU-regulated industries.
 
 | Introduction                                           | Why it converts                                                             | What I'd say                                                                                                                                                                 |
 | ------------------------------------------------------ | --------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Climate VC partner** (Pale Blue Dot, World Fund)     | Mandatory market, proven traction, seed round open.                         | "€7K MRR, 5 customers, 100% retention, 49,000 EU companies must file CSRD. We automate what everyone else does manually. Raising €650K SAFE, V1 launches Arctic 15 June 15." |
+| **Climate VC partner** (Pale Blue Dot, World Fund)     | Mandatory market, proven traction, seed round open.                         | "€7K MRR, 6 customers, 100% retention, 49,000 EU companies must file CSRD. We automate what everyone else does manually. Raising €650K SAFE, V1 launches Arctic 15 June 15." |
 | **SAP sustainability PM**                              | Enterprise market requires SAP. We have verifiably correct OData endpoints. | "We pull production orders and material data from S/4HANA and map it to CSRD evidence. Looking for SAP PartnerEdge or co-innovation."                                        |
 | **Big 4 sustainability lead (Nordics)**                | Channel to 100s of CSRD-obligated companies.                                | "Your clients need CSRD tooling. We automate ERP-to-report. You advise, we execute. Referral or reseller model."                                                             |
 | **Construction portfolio manager** (NCC, Skanska, YIT) | Construction operations compliance gap. They use IFS.                       | "You've done the design-phase LCA. Now you need ongoing operations compliance. We pull from IFS, import One Click LCA baselines, and auto-generate quarterly CSRD reports."  |
@@ -216,7 +216,7 @@ These numbers are the single source of truth. Boardy MUST use these — do not d
 | MRR                  | €7K                     | INVESTOR_MEMO.md v3.0                              |
 | Round total          | €650K                   | €500K Fleet Admiral + 8 × €50K Captain             |
 | Valuation cap        | €3.8M                   | SAFE terms                                         |
-| Customers            | 5 paying                | 100% retention                                     |
+| Customers            | 6 paying                | 100% retention                                     |
 | Industries           | 20                      | EU-regulated verticals                             |
 | Hours saved/customer | 40+ per month           | vs. manual reporting                               |
 | Products             | 32                      | dws10.com catalog                                  |
@@ -234,7 +234,7 @@ These numbers are the single source of truth. Boardy MUST use these — do not d
 
 **One-liner:** "DWS IQ 6 turns EU compliance obligations into audit-ready, court-defensible filings for 20 regulated industries — KYA-certified, EU-sovereign, D&O-insurable."
 
-**Traction:** €7K MRR, 5 customers, 100% retention, 40h/mo saved per customer.
+**Traction:** €7K MRR, 6 customers, 100% retention, 40h/mo saved per customer.
 
 **Platform:** a fleet of skilled agents, 32 products, 4 cloud environments, 20 industries.
 

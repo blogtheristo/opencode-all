@@ -97,7 +97,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 Hi Anthony — saw your open-source MCP work, congrats on the Volted exit.
 
-I'm Risto, founder of Lifetime Oy (Finland). We're shipping DWS IQ 6 — an 21-agent MCP-exposed B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports, EU AI Act audit trail. EUR 7K MRR, 5 customers, 100% retention. V1 launches at Arctic 15 on June 15.
+I'm Risto, founder of Lifetime Oy (Finland). We're shipping DWS IQ 6 — an 21-agent MCP-exposed B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports, EU AI Act audit trail. EUR 7K MRR, 6 customers, 100% retention. V1 launches at Arctic 15 on June 15.
 
 Not pitching you a CTO role — I know you're in angel mode. First ask is simple: would you take an angel ticket into our SAFE (EUR 3.8M cap, standard terms)? If yes and the architecture also pulls you in, we can open a separate conversation later about a contribution-milestone co-builder structure — but angel first, build second, no bundling. Warm intro mutual, happy to route that way. Send the memo + architecture diagram?
 

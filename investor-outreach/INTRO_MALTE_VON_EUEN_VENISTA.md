@@ -89,7 +89,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 Hi Malte — saw Venista Ventures' Nordics + data-driven software mandate. Direct fit for what we're building.
 
-Lifetime Oy (Finland) — regulatory compliance automation for EU industrial companies. A fleet of skilled agents pulling from SAP/IFS/Dynamics, auto-generating ETS/CBAM/CSRD reports. EUR 7K MRR, 5 customers, 100% retention. Raising EUR 650K SAFE at EUR 3.8M cap, Captain seats at EUR 50K. V1 launches at Arctic 15 (June 15).
+Lifetime Oy (Finland) — regulatory compliance automation for EU industrial companies. A fleet of skilled agents pulling from SAP/IFS/Dynamics, auto-generating ETS/CBAM/CSRD reports. EUR 7K MRR, 6 customers, 100% retention. Raising EUR 650K SAFE at EUR 3.8M cap, Captain seats at EUR 50K. V1 launches at Arctic 15 (June 15).
 
 Given your 4-14 day decision cycle, timing works — we're closing the round before Arctic 15. One-pager?
 

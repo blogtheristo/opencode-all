@@ -264,7 +264,7 @@ Every model generation brings a step-change in capability. When Opus 4.5 arrived
 - The regulatory data (validated EU ETS/CBAM/CSRD sources, not hallucinated numbers)
 - The cross-vertical intelligence (20 industries feeding one world model)
 - The academic validation (thesis + planned PhD)
-- The customer feedback loops (5 customers, 100% retention, real compliance data)
+- The customer feedback loops (6 customers, 100% retention, real compliance data)
 
 They have a blank prompt and a subscription. We have a factory.
 

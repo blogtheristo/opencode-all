@@ -93,7 +93,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 Hi Thomas — good talking recently. Quick follow-up on 42CAP timing.
 
-Lifetime Oy (Finland) — vertically integrated AI for EU industrial compliance. a fleet of skilled agents, SAP/IFS/Dynamics data moat, 20 regulated-industry ontology, EU AI Act compliant, sovereignty audit lineage. EUR 7K MRR, 5 customers, 100% retention. V1 launches at Arctic 15 June 15; DACH Messe commercial push right after.
+Lifetime Oy (Finland) — vertically integrated AI for EU industrial compliance. a fleet of skilled agents, SAP/IFS/Dynamics data moat, 20 regulated-industry ontology, EU AI Act compliant, sovereignty audit lineage. EUR 7K MRR, 6 customers, 100% retention. V1 launches at Arctic 15 June 15; DACH Messe commercial push right after.
 
 Raising EUR 650K SAFE at EUR 3.8M cap — open to upsizing to a priced seed if 42CAP leads. Your €1M-€3M ticket + DACH focus + 2-3 week process all align. Memo + architecture deck?
 

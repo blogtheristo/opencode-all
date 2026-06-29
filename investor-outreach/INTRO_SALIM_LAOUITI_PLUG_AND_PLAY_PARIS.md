@@ -108,7 +108,7 @@ Replace with:
 
 Hi Salim — hope things are good. Quick update on what we're building:
 
-Lifetime Oy (Finland) — horizontal AI for EU compliance. A fleet of skilled agents across 20 regulated industries, SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports. Replaces EUR 50K-100K/year consultant cost with EUR 8,950/year software. EUR 7K MRR, 5 customers, 100% retention.
+Lifetime Oy (Finland) — horizontal AI for EU compliance. A fleet of skilled agents across 20 regulated industries, SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports. Replaces EUR 50K-100K/year consultant cost with EUR 8,950/year software. EUR 7K MRR, 6 customers, 100% retention.
 
 Raising EUR 650K SAFE at EUR 3.8M cap. V1 launches at Arctic 15 June 15, Messe Germany commercial push right after. Real prize for Plug and Play: pilot intros from the 500+ corporate network — a DACH industrial pilot would accelerate us materially. Memo + 20 min call?
 

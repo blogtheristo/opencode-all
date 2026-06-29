@@ -65,7 +65,7 @@ Both tracks run in parallel — the one that closes first wins. If Mikko accepts
 
 We do NOT have a fractional CTO engaged. Budget does not currently support one and we will not pretend otherwise.
 
-We do NOT have 24/7 on-call technical redundancy today. Production incidents route to the founder. Current scale (5 customers) is manageable. **Messe scale-up (target 25 customers by Q4 2026) carries real reliability risk until CTO is in seat.** We name this risk explicitly because investors who have scaled B2B SaaS will see it whether we name it or not.
+We do NOT have 24/7 on-call technical redundancy today. Production incidents route to the founder. Current scale (6 customers) is manageable. **Messe scale-up (target 25 customers by Q4 2026) carries real reliability risk until CTO is in seat.** We name this risk explicitly because investors who have scaled B2B SaaS will see it whether we name it or not.
 
 ## The Path From Here
 

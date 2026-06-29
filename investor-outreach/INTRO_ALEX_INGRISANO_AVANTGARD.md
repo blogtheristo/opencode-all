@@ -84,7 +84,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 Hi Alex — good to speak recently. Quick follow-up: we are now 6 weeks from V1 launch at Arctic 15 (June 15) and the Messe Germany commercial push.
 
-Lifetime Oy — industrial AI compliance for EU construction/manufacturing. a fleet of skilled agents pulling from SAP/IFS/Dynamics, auto-generating ETS/CBAM/CSRD reports. EUR 7K MRR, 5 customers, 100% retention. Dual-use Aegis layer for defense/sovereignty.
+Lifetime Oy — industrial AI compliance for EU construction/manufacturing. a fleet of skilled agents pulling from SAP/IFS/Dynamics, auto-generating ETS/CBAM/CSRD reports. EUR 7K MRR, 6 customers, 100% retention. Dual-use Aegis layer for defense/sovereignty.
 
 Raising EUR 650K SAFE at EUR 3.8M cap, Captain seats at EUR 50K. Matches your industrial + dual-use mandate. One-pager?
 

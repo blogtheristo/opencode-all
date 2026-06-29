@@ -129,7 +129,7 @@ Hi Elena,
 
 Your panel at PE Insights was excellent — especially your point about [specific insight on GP-led structuring/valuation]. It crystallized something I've been thinking about.
 
-I'm Risto Päärni, CEO of Lifetime Oy (Helsinki). We build DWS IQ 6 — automated carbon balance sheet infrastructure for EU-regulated industrial companies. a fleet of deterministic skilled agents, 20 industry verticals, live with 5 customers at 100% retention.
+I'm Risto Päärni, CEO of Lifetime Oy (Helsinki). We build DWS IQ 6 — automated carbon balance sheet infrastructure for EU-regulated industrial companies. a fleet of deterministic skilled agents, 20 industry verticals, live with 6 customers at 100% retention.
 
 The connection to your work: mid-market GP-led portfolio companies face the same ETS/CBAM/CSRD mandates as large-caps, but without the compliance teams. We automate that at €36K/year — which is a rounding error in a value-creation budget but can materially de-risk the ESG story for LP reporting and exit positioning.
 
