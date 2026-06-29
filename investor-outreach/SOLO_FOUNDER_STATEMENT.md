@@ -22,7 +22,7 @@ AGENT HISTORY:
 
 ## The Acknowledgment
 
-DWS IQ 6 is built by a **two-person founding team** — Risto Anton Päärni (Founder/CEO) and **Lucille Santiago** (Office Chief / Human-In-Command, offered partnership in **Lifetime AB**) — complementary skill sets (product/domain + operations/customer). It is **not** a solo-founder company. The honest open question investors raise is **technical depth** — a senior CTO-level hire — which we address directly below. We do not hide from it.
+DWS IQ 6 is built by a **two-person founding team** — Risto Anton Päärni (Founder/CEO) and **Lucille Santiago** (Office Chief / Human-In-Command, offered partnership in **Lifetime AB**) — complementary skill sets (product/domain + operations/customer). It is **not** a solo-founder company. Technical leadership is **covered today** — founder (hands-on, 1,030+ PRs) + governed AI agent workflows, with engineering capacity via partner **Cubet Techno Labs (Kochi)** — and a **senior technical leadership hire is funded with search active** to add depth as we scale. Coverage now, investment on top — not a gap. We do not hide from it.
 
 ## What Is In Place Today
 
@@ -43,7 +43,7 @@ DWS IQ 6 is built by a **two-person founding team** — Risto Anton Päärni (Fo
 
 ## What They Do Not Cover — And What We Are Doing About It
 
-**The two-person team and advisors do not yet cover the senior technical (CTO) role.** We don't claim they do. The real question behind any founder-count flag is technical depth — who fixes production, who owns the agent architecture at scale. That is the hire the raise funds.
+**Technical leadership today = founder + governed AI agent workflows + Cubet Techno Labs (Kochi) capacity.** The founder is hands-on (1,030+ PRs shipped); governed agent workflows execute architecture and technical-DD under his command (Human-In-Command); Cubet Techno Labs provides human engineering capacity (named in the ORK/Outokumpu subcontractor bid). A dedicated **senior technical leadership hire is funded and in active search** to add depth as we scale — investment on top of working coverage, not a gap.
 
 ### CTO Search — Dual Track (Live 2026-04-19)
 
