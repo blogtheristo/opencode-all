@@ -135,7 +135,7 @@ cloud egress, no latency, no CLOUD Act exposure. Model-agnostic: Claude,
 Gemini, or any future frontier model can be swapped without rewriting
 the compliance logic, which lives in the Lifetime World Model.
 
-21 agents operational. 32 products shipped. 20 EU-regulated industries.
+A fleet of skilled agents operational. 32 products shipped. 20 EU-regulated industries.
 
 ---
 

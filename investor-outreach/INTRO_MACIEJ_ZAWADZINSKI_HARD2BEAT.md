@@ -14,7 +14,6 @@ AGENT HISTORY:
 
 # Investor Intro Note — Maciej Zawadzinski, Hard2beat VC
 
-
 ---
 
 ## Labor Thesis Opening (2026 Q2 Refresh) — Wedge: EU_INDUSTRIAL
@@ -25,9 +24,9 @@ AGENT HISTORY:
 
 **Email body — opening three paragraphs + ask:**
 
-Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts *doing the work itself*, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. *(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)* **DWS 365 Skilled Agents** (powered by the DWS IQ platform) sit on the labor side of that line.
+Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts _doing the work itself_, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. _(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)_ **DWS 365 Skilled Agents** (powered by the DWS IQ platform) sit on the labor side of that line.
 
-16 Skilled Agents are already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the human cost of producing that work, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
+A fleet of skilled agents are already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the human cost of producing that work, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
 
 The EU industrial base — Skanska, STRABAG, HOCHTIEF, PORR, NCC, Bilfinger and tier-1 peers — sits on a regulatory cliff (CSRD + CBAM + Fit-for-55) and a headcount cliff (ESG and compliance officers do not exist at the volume the regulation demands). Labor-priced Skilled Agents are the only stack that lands as a budget line a department head already owns. The spine in one line: **labor-anchored pricing, regulation drives demand, MACC + AppExchange drive distribution.** That is the line we lead with at the Messe round and in PE meetings this quarter.
 
@@ -43,19 +42,19 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 ## Target Profile
 
-| Field          | Value                                                                                    |
-| -------------- | ---------------------------------------------------------------------------------------- |
-| **Name**       | Maciej Zawadzinski                                                                       |
-| **Role**       | Partner, Hard2beat VC                                                                    |
-| **Fund**       | Hard2beat VC — pre-seed / seed DeepTech, pan-European                                    |
-| **Ticket**     | €250K – €750K                                                                            |
-| **Stage**      | Pre-seed / seed                                                                          |
-| **Focus**      | B2B enterprise software with defensible IP / technical moat                              |
-| **Background** | 3x exited founder — Piwik PRO scaled to €12M ARR                                         |
-| **Evaluates**  | Technical moats himself, operator-to-operator                                             |
-| **Location**   | Poland-focused, invests across Europe                                                    |
-| **Intro Type** | Cold — to be initiated                                                                   |
-| **LinkedIn**   | https://www.linkedin.com/in/ACoAAABA7YsBqpkrQWL40JOWUP--I3Fo4VVYfYc                      |
+| Field          | Value                                                               |
+| -------------- | ------------------------------------------------------------------- |
+| **Name**       | Maciej Zawadzinski                                                  |
+| **Role**       | Partner, Hard2beat VC                                               |
+| **Fund**       | Hard2beat VC — pre-seed / seed DeepTech, pan-European               |
+| **Ticket**     | €250K – €750K                                                       |
+| **Stage**      | Pre-seed / seed                                                     |
+| **Focus**      | B2B enterprise software with defensible IP / technical moat         |
+| **Background** | 3x exited founder — Piwik PRO scaled to €12M ARR                    |
+| **Evaluates**  | Technical moats himself, operator-to-operator                       |
+| **Location**   | Poland-focused, invests across Europe                               |
+| **Intro Type** | Cold — to be initiated                                              |
+| **LinkedIn**   | https://www.linkedin.com/in/ACoAAABA7YsBqpkrQWL40JOWUP--I3Fo4VVYfYc |
 
 ## Fit Assessment
 
@@ -75,7 +74,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 ## Strategy
 
-- **Lead with defensible IP / technical moat** — His filter is the moat. Open with 21 agents + MCP + EU AI Act compliance + sovereignty audit lineage + 20 regulated industries of domain ontology. These are not commodities.
+- **Lead with defensible IP / technical moat** — His filter is the moat. Open with skilled agents + MCP + EU AI Act compliance + sovereignty audit lineage + 20 regulated industries of domain ontology. These are not commodities.
 - **Operator-to-operator tone** — No fund-pitch language. No "massive TAM" throat-clearing. Numbers, architecture, next 6 months. He scaled Piwik PRO, he knows the difference between a slide and a product.
 - **Anchor check framing** — His €250K-€750K range means he can lead. Explicitly offer that seat.
 - **Address solo-founder in the opening** — Don't hide from his stated preference. Make it one line in paragraph 1, with the operator-track-record counter in the same paragraph. Move on.

@@ -90,7 +90,7 @@ Lifetime Oy · Y-tunnus 0772407-9 · Laidunmaanraitti 2 A 25, 02330 Espoo · htt
 
 - [ ] Liitä esittelyvideo (2–3 min) ja pitch deck (10–12 kalvoa), kun valmiit.
 - [ ] Vahvista seuraavan hakukierroksen aikataulu RTOY:lta.
-- [ ] Harkitse 1-sivuista Aegis-yhteenvetoa liitteeksi: 6 agenttia + Lifetime Fleet IoT + EDIP/DEFINE + mitattava lisäarvo.
+- [ ] Harkitse 1-sivuista Aegis-yhteenvetoa liitteeksi: taitavia agentteja + Lifetime Fleet IoT + EDIP/DEFINE + mitattava lisäarvo.
 - [ ] Tarkista nimimuoto: hakemuksessa "Risto Anton Päärni" (CLAUDE.md Legal Identity käyttää ASCII-muotoa "Paarni").
 
 ## Seuranta (jos ei vastausta 5 päivässä)

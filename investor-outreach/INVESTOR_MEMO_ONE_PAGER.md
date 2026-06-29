@@ -28,16 +28,16 @@ AGENT HISTORY:
 
 ## Traction
 
-| Metric           | Value                                 |
-| ---------------- | ------------------------------------- |
-| MRR              | €7K (April 2026)                      |
-| Paying Customers | 6                                     |
-| Retention        | 100% (zero churn)                     |
-| Customer LTV     | €70K–€120K/year                       |
-| Time Saved       | 40+ hours/month per customer          |
-| Platform         | 21 agents, 32 products, 20 industries |
-| CBAM Coverage    | ✅ All 6 Annex I sectors, 66 CN codes |
-| Fortress         | 21 moats across 4 tiers               |
+| Metric           | Value                                                 |
+| ---------------- | ----------------------------------------------------- |
+| MRR              | €7K (April 2026)                                      |
+| Paying Customers | 6                                                     |
+| Retention        | 100% (zero churn)                                     |
+| Customer LTV     | €70K–€120K/year                                       |
+| Time Saved       | 40+ hours/month per customer                          |
+| Platform         | a fleet of skilled agents, 32 products, 20 industries |
+| CBAM Coverage    | ✅ All 6 Annex I sectors, 66 CN codes                 |
+| Fortress         | 21 moats across 4 tiers                               |
 
 ## Market
 

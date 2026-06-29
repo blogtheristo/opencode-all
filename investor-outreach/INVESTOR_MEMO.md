@@ -6,7 +6,7 @@
 **Document Version:** 4.3
 **Last Updated:** April 20, 2026
 **Status:** Active Fundraising
-**Platform Status:** Public Cloud V1 — Production Ready (21 agents, 32 products, 5 cloud environments) | Private Cloud V1 — Production Ready (UpCloud Helsinki, Finnish sovereign K8s) | CBAM Annex I Coverage ✅ Complete (all 6 sectors, 66 CN codes, LD-2026-013)
+**Platform Status:** Public Cloud V1 — Production Ready (a fleet of skilled agents, 32 products, 5 cloud environments) | Private Cloud V1 — Production Ready (UpCloud Helsinki, Finnish sovereign K8s) | CBAM Annex I Coverage ✅ Complete (all 6 sectors, 66 CN codes, LD-2026-013)
 **Sovereignty Status:** EU-sovereign by design — EUDI Wallet (12/2026, law) + Digital Euro (~2029, ECB target)
 **Pricing Model:** Alpha-Share — 7.5% of verified efficiency gains (agent-native, outcome-based; aligned with Salesforce Headless 360 / Agentforce thesis)
 
@@ -39,6 +39,7 @@ Every EU company filing CSRD needs a carbon balance sheet. We build the ledger i
 Enterprise Navigator pilots at €4,950 convert to €8,950 annual contracts. 25 customers at average €36K ARR = €900K. The math: 5 current customers (€7K MRR) + 20 new logos from sales sprint and pipeline conversion.
 
 **Sales Timeline:**
+
 - March–June 14, 2026: Pipeline building, Navigator → Premium conversions
 - **June 15, 2026: V1 Launch at Arctic 15** (Helsinki — sales kickoff event)
 - June 15 – August 15, 2026: 100% sales sprint (2-month dedicated push)
@@ -90,13 +91,13 @@ Lifetime Oy will not repeat this pattern. **The lead investor (Fleet Admiral) mu
 
 Arctic 15 (Helsinki) is the V1 public launch event and the anchor date for the investor timeline:
 
-| Date | Milestone | Investor Relevance |
-|------|-----------|-------------------|
-| **Now – June 14** | Pipeline building, Navigator → Premium conversions | Pre-launch entry window |
-| **June 15, 2026** | V1 Launch at Arctic 15 | Sales kickoff — public market validation |
-| **June 15 – Aug 15** | 100% sales sprint | 2-month dedicated customer acquisition |
-| **August 15, 2026** | First sales cycle data | Hard data for Series A narrative |
-| **Q3–Q4 2026** | Series A process | €15M+ pre-money target |
+| Date                 | Milestone                                          | Investor Relevance                       |
+| -------------------- | -------------------------------------------------- | ---------------------------------------- |
+| **Now – June 14**    | Pipeline building, Navigator → Premium conversions | Pre-launch entry window                  |
+| **June 15, 2026**    | V1 Launch at Arctic 15                             | Sales kickoff — public market validation |
+| **June 15 – Aug 15** | 100% sales sprint                                  | 2-month dedicated customer acquisition   |
+| **August 15, 2026**  | First sales cycle data                             | Hard data for Series A narrative         |
+| **Q3–Q4 2026**       | Series A process                                   | €15M+ pre-money target                   |
 
 Investors who commit before Arctic 15 enter at seed valuation (€3.8M cap) ahead of the first public sales data.
 
@@ -401,18 +402,18 @@ Timeframe:                 ~2 years (2024→2026)
 - **Customer Retention:** 100% (zero churn demonstrates product-market fit)
 - **Customer LTV:** €70k–€120k projected annual value per logo (multi-site expansion after construction pilots)
 - **Time Savings:** 40+ hours/month saved per customer
-- **Platform Scale:** 21 agents, 32 products, 5 cloud environments, 20 industries
+- **Platform Scale:** a fleet of skilled agents, 32 products, 5 cloud environments, 20 industries
 - **Target Growth:** €900k ARR by end of 2026
 
 ### Current Customer Base
 
-| Customer | Vertical | Status | Annual Value |
-|----------|----------|--------|--------------|
-| Logistics Operator 1 | Logistics | Paid | €70,000 |
-| Logistics Operator 2 | Logistics | Paid | €60,000 |
-| Logistics Operator 3 | Healthcare | Paid | €90,000 |
-| Construction Co. A | Construction | Navigator | €80,000 (projected) |
-| Construction Co. B | Construction | Navigator | €80,000 (projected) |
+| Customer             | Vertical     | Status    | Annual Value        |
+| -------------------- | ------------ | --------- | ------------------- |
+| Logistics Operator 1 | Logistics    | Paid      | €70,000             |
+| Logistics Operator 2 | Logistics    | Paid      | €60,000             |
+| Logistics Operator 3 | Healthcare   | Paid      | €90,000             |
+| Construction Co. A   | Construction | Navigator | €80,000 (projected) |
+| Construction Co. B   | Construction | Navigator | €80,000 (projected) |
 
 ### Competitive Advantages
 
@@ -447,16 +448,16 @@ Timeframe:                 ~2 years (2024→2026)
 
 ### Q1 2026 Technical Progress
 
-| Milestone                       | Status           | Business Impact                    |
-| ------------------------------- | ---------------- | ---------------------------------- |
-| **Public Cloud Version V1**     | ✅ Complete      | Production-ready platform branding |
-| **Security Framework**          | ✅ 95% Compliant | GDPR, NIS2, EU Cybersecurity Act   |
-| **449 Code Quality Issues**     | ✅ Resolved      | Enterprise-grade codebase          |
-| **18 Security Vulnerabilities** | ✅ Fixed         | Zero critical/high issues          |
-| **Administration Portal**       | ✅ Live          | dws6.com — Admin access            |
-| **User Login Portal**           | ✅ Live          | dws6.com/login — Customer access   |
-| **18 AI Agents**                | ✅ Operational   | Full swarm across 20 industries    |
-| **32 Products**                 | ✅ Cataloged     | dws10.com store                    |
+| Milestone                       | Status           | Business Impact                                            |
+| ------------------------------- | ---------------- | ---------------------------------------------------------- |
+| **Public Cloud Version V1**     | ✅ Complete      | Production-ready platform branding                         |
+| **Security Framework**          | ✅ 95% Compliant | GDPR, NIS2, EU Cybersecurity Act                           |
+| **449 Code Quality Issues**     | ✅ Resolved      | Enterprise-grade codebase                                  |
+| **18 Security Vulnerabilities** | ✅ Fixed         | Zero critical/high issues                                  |
+| **Administration Portal**       | ✅ Live          | dws6.com — Admin access                                    |
+| **User Login Portal**           | ✅ Live          | dws6.com/login — Customer access                           |
+| **18 AI Agents**                | ✅ Operational   | Full swarm across 20 industries                            |
+| **32 Products**                 | ✅ Cataloged     | dws10.com store                                            |
 | **4 Cloud Environments**        | ✅ Running       | US, EU, Hetzner, Edge (+ Full Sovereignty planned Q2 2026) |
 
 **Platform URLs:**
@@ -583,16 +584,18 @@ Regulation is live. Customers have budget. Product works. We have traction. Arct
 ---
 
 **Document Control:**
+
 - Version: 4.3
 - Last Updated: April 20, 2026
 - Author: Risto Anton Päärni
 - Status: Active — Fundraising in Progress
 - Confidentiality: For Potential Investors Only
-- Platform Status: Public Cloud V1 + Private Cloud V1 — Production Ready (21 agents, 32 products, 5 cloud environments); CBAM Annex I ✅ Complete (6 sectors, 66 CN codes)
+- Platform Status: Public Cloud V1 + Private Cloud V1 — Production Ready (a fleet of skilled agents, 32 products, 5 cloud environments); CBAM Annex I ✅ Complete (6 sectors, 66 CN codes)
 - Sovereignty Status: EU-sovereign by design — EUDI Wallet (12/2026, law) + Digital Euro (~2029, ECB target)
 - Pricing Model: Alpha-Share (7.5% of verified efficiency gains, agent-native, outcome-based)
 - Paired Documents: V4.3 Pitch Deck (investor-outreach/V4.3-DWS-IQ6-InvestorPD_2026.md) — full 21-moat fortress breakdown
 
 **Revision History:**
+
 - v3.1 (March 21, 2026): EU Sovereign Infrastructure section (EUDI Wallet + Digital Euro thesis), rejected "almost sovereign" IDV vendors (Shufti, Veriff, Sumsub)
 - v4.3 (April 20, 2026): Aligned with V4.3 Pitch Deck — customer count 5→6, CBAM Annex I full coverage, Alpha-Share pricing model, DWS IQ 7 4-jurisdiction roadmap (G42 UAE), 21-moat/4-tier fortress reference, traction month refresh to April 2026

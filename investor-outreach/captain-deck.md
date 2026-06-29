@@ -175,7 +175,7 @@ Standalone dual-use AI platform for defence and sovereign operations. Orbital in
 
 Greek-Roman named multi-agent system: Atlas (router), Athena (compliance), Argus (orbital SAR), Hephaestus (field operations), Hermes (logistics), Iris (market intelligence), plus 8 more specialized agents working in concert.
 
-**Why it matters:** 14 agents that compound each other's output. One agent's finding in energy becomes another agent's input in construction. This is the cross-vertical intelligence flywheel — more agents deployed, more data, better optimization for everyone.
+**Why it matters:** skilled agents that compound each other's output. One agent's finding in energy becomes another agent's input in construction. This is the cross-vertical intelligence flywheel — more skilled agents deployed, more data, better optimization for everyone.
 
 ### 6. Cross-Vertical Intelligence Engine — v1.0, March 24, 2026
 

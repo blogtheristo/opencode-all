@@ -144,7 +144,7 @@ Ambition: operations compliance across 20 EU-regulated industries.
 - **ARR:** €84k
 - **Customers:** 5 paying, 100% retention
 - **Pipeline:** 2 construction pilots converting
-- **Platform:** 21 agents, 32 products, 5 cloud environments
+- **Platform:** a fleet of skilled agents, 32 products, 5 cloud environments
 - **Industries:** 20 EU-regulated verticals
 - **Round:** €650K SAFE at €3.8M cap (€500K Fleet Admiral + 8 × €50K Captain)
 - **Team:** Solo founder + AI-assisted development
@@ -211,22 +211,22 @@ Ambition: operations compliance across 20 EU-regulated industries.
 
 These numbers are the single source of truth. Boardy MUST use these — do not deviate.
 
-| Metric               | Value                   | Source                                 |
-| -------------------- | ----------------------- | -------------------------------------- |
-| MRR                  | €7K                     | INVESTOR_MEMO.md v3.0                  |
-| Round total          | €650K                   | €500K Fleet Admiral + 8 × €50K Captain |
-| Valuation cap        | €3.8M                   | SAFE terms                             |
-| Customers            | 5 paying                | 100% retention                         |
-| Industries           | 20                      | EU-regulated verticals                 |
-| Agents               | 18                      | Operational                            |
-| Products             | 32                      | dws10.com catalog                      |
+| Metric               | Value                   | Source                                             |
+| -------------------- | ----------------------- | -------------------------------------------------- |
+| MRR                  | €7K                     | INVESTOR_MEMO.md v3.0                              |
+| Round total          | €650K                   | €500K Fleet Admiral + 8 × €50K Captain             |
+| Valuation cap        | €3.8M                   | SAFE terms                                         |
+| Customers            | 5 paying                | 100% retention                                     |
+| Industries           | 20                      | EU-regulated verticals                             |
+| Agents               | 18                      | Operational                                        |
+| Products             | 32                      | dws10.com catalog                                  |
 | Cloud environments   | 4 + roadmap             | US, EU, Hetzner, Edge + Full Sovereignty (Q2 2026) |
-| V1 launch            | June 15, 2026           | Arctic 15, Helsinki                    |
-| Sales data available | August 15, 2026         | First cycle complete                   |
-| ARR target           | €900K                   | End of 2026                            |
-| Series A target      | €15M+ pre-money         | Q3–Q4 2026                             |
-| Contact email        | risto@onelifetime.world | Canonical                              |
-| Deputy Captain seats | Unlimited               | Price TBD                              |
+| V1 launch            | June 15, 2026           | Arctic 15, Helsinki                                |
+| Sales data available | August 15, 2026         | First cycle complete                               |
+| ARR target           | €900K                   | End of 2026                                        |
+| Series A target      | €15M+ pre-money         | Q3–Q4 2026                                         |
+| Contact email        | risto@onelifetime.world | Canonical                                          |
+| Deputy Captain seats | Unlimited               | Price TBD                                          |
 
 ---
 
@@ -236,7 +236,7 @@ These numbers are the single source of truth. Boardy MUST use these — do not d
 
 **Traction:** €7K MRR, 5 customers, 100% retention, 40h/mo saved per customer.
 
-**Platform:** 21 agents, 32 products, 5 cloud environments, 20 industries.
+**Platform:** a fleet of skilled agents, 32 products, 5 cloud environments, 20 industries.
 
 **Market:** 49,000 EU companies, mandatory CSRD filing, no automated ERP-to-report tool exists.
 
