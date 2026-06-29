@@ -45,9 +45,9 @@ Sähköposti: risto.paarni@lifetime.fi
 15 000+ EU-sääntelydokumentin RAG-hakujärjestelmä on tuotantokäytössä. Kokonaisarkkitehtuuri:
 
 - **RAG-pipeline:** pgvector-semanttinen haku + metadata-suodatus → LLM-yhteenveto → lähdeviitteet; latenssi < 800 ms päästä päähän
-- **Vektoritietokanta:** Supabase PostgreSQL + pgvector; 16 toimialaontologiaa kontekstin mallintamiseen
+- **Vektoritietokanta:** Supabase PostgreSQL + pgvector; 25 toimialaontologiaa kontekstin mallintamiseen
 - **LLM-integraatiot:** Claude (Anthropic API, tool calling, streaming), Google Gemini, Groq LPU, LlamaStack, Ollama (paikalliset mallit)
-- **Moniagentti-orkestrointi:** 16+ TypeScript-agenttia, Model Context Protocol (MCP), deterministinen pisteytys, Zod-validointi
+- **Moniagentti-orkestrointi:** 58 agenttia (88 kyvykkyyttä), Model Context Protocol (MCP), deterministinen pisteytys, Zod-validointi
 - **Tietoturva:** EU AI Act Article 12 immutable audit trail tuotannossa, RLS, JWT, AES-256-GCM
 - **Infra:** Google Cloud Run, Cloudflare Workers, GitHub Actions CI/CD (15 työnkulkua), Docker
 
@@ -120,7 +120,7 @@ NVIDIA DGX Spark toimii Lifetime Oy:n tuotantoympäristön primääripalvelimena
 
 ### Tekninen osaaminen tähän osa-alueeseen
 
-- Moniagentti-orkestrointi: MCP-protokolla, TypeScript/Python, 16+ agentin tuotantojärjestelmä
+- Moniagentti-orkestrointi: MCP-protokolla, TypeScript/Python, 58 agentin tuotantojärjestelmä
 - RAG-arkkitehtuuri: pgvector, semanttinen haku, < 800 ms latenssi, 15 000+ dokumenttia
 - LLM-integraatiot: Claude API, Gemini, Groq, LlamaStack, Ollama
 - AWS: IoT Greengrass, Lambda, edge-cloud-hybridiarkkitehtuuri
