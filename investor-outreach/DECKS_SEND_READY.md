@@ -105,3 +105,19 @@ Anchors (true in all): two-person team (Risto + Lucille Santiago, Office Chief, 
 10. Model: SaaS €3–10k/mo, expanding to ~€36K ACV; 95% gross margin; 100% retention to date.
 11. The ask: €650K SAFE at €3.8M cap (Captain seats €50K; €150K triple) — fits Venista's ticket cleanly. Built for a fast decision; we can move in days, not months.
 12. What we're still building: early revenue base — the moat is retention + regulatory lock-in, with mandatory-filing deadlines driving demand; senior technical hire in active search (covered today by founder + agent workflows + Cubet partner).
+
+---
+
+## RAPHAEL BUDDAY — Venture Stars (Munich)
+
+1. Sovereign industrial AI for EU compliance — governed agent workflows + edge inference that turn regulatory obligations into audit-ready, court-defensible filings, with defensible industrial moats.
+2. Why now: mandatory CBAM/CSRD/EPBD across industrial Europe — recurring, penalty-bearing demand. The industrial vertical that owns the ERP→filing path and runs sovereign + at the edge compounds a moat every cycle.
+3. Defensible industrial moats: regulatory lock-in (auditor acceptance + reporting-cycle switching) · Nordic/DACH ERP connectors (SAP/IFS/Dynamics/Visma/Monitor) · CIDM patent (filed Dec 2024) · proprietary per-industry Lifetime World Model. 19 moats across 4 tiers; €3M+ and 24–36 months to replicate.
+4. Edge / physical AI: NVIDIA Jetson, sub-100ms, 7–15W, offline-capable — real-time compliance scoring on the plant floor, not overnight batch. Hardware-software co-design.
+5. Sovereign by construction: EU-sovereign hosting (Finland), no CLOUD Act exposure, KYA hardware-attested agent governance, sovereign local Lifetime World Model.
+6. Commercial base: Finland is our sovereign hosting base; **DACH is our revenue base**, with Messe Germany as the commercial engine — direct fit with a Munich, DACH-focused fund.
+7. Traction: €7K MRR · 6 paying customers · 100% retention · audit-ready in ~4 weeks · 40 h/month saved per customer. References: Outokumpu, NCC.
+8. Team: two-person complementary team — Risto Päärni (Founder/CEO, 35 yrs industrial domain, 1,030+ PRs) + Lucille Santiago (Office Chief, partner-track Lifetime AB). Technical delivery on governed AI agent workflows + a Cubet Techno Labs engineering partner; senior technical leadership hire funded, search active. Advisors: Robertsson (ESG), Metropolia (academic).
+9. Model: SaaS €3–10k/mo, expanding to ~€36K ACV; 95% gross margin; 100% retention to date.
+10. The ask: €650K SAFE at €3.8M cap. Architecture deep-dive available up front — we welcome hands-on diligence. Finland = sovereign base, DACH = revenue base; the cross-border story is backed by named references and a DACH commercial engine.
+11. What we're still building: early revenue base (moat is retention + regulatory lock-in + the industrial IP stack); senior technical leadership hire in active search — covered today by founder + agent workflows + Cubet partner (an area where your hands-on portfolio support would be welcome).
