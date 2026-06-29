@@ -13,7 +13,7 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.71
+Version: 1.72
 
 Sessions & Modifications:
 
@@ -26,6 +26,7 @@ Sessions & Modifications:
 - Version: 1.6 | Tool: Claude Code (Opus 4.6) | Session: claude/consultant-handbook-v1-6-622fep | Date: 28.06.2026 | Changes: Canonical source cross-check and conflict resolution. Fixed agent count 50→58 in 4 locations (Avainluvut, Kehityskaari, Skenaarioanalytiikka, 2026-lisäys). Fixed Toimialaontologiat 20→25 per INDUSTRIES.md. Fixed Enterprise Navigator pricing €4 950→€4 999 per products.json (DWS-IQ-006). Removed §4 duplicate content (10-class ontology list and principles already in §6), replaced with concise cross-reference preserving comparison table formulation per DWS_DOCUMENT_STANDARD §21.
 - Version: 1.7 | Tool: Claude Code (Opus 4.6) | Session: claude/consultant-handbook-v1-6-622fep | Date: 28.06.2026 | Changes: Renamed "Konsultin käsikirja" → "Konsultoinnin käsikirja" / "Consultancy Excellence Handbook" to reflect consultant + capability (agent/workflow/skills) paradigm. Updated Alkusanat: handbook purpose expanded to cover both consultants and agent capabilities. Replaced bullet list with comprehensive 12-point scope (capabilities, market signals, offers, procurement network, HIC project roles, agent reporting, privacy, project security, Legal Compliance, Project Compliance). Added MCA Consulting Excellence 4-principle framework reference. Previous version name retained in historical VERSION entries.
 - Version: 1.71 | Tool: Claude Code (Opus 4.6) | Session: claude/consultant-handbook-v1-6-622fep | Date: 28.06.2026 | Changes: Fixed Avainluvut agent count 50→58. Converted all remaining 12 markdown tables to list format (Asiakaskontrollipisteet, Nykyiset asiakkaat, Teknologiapino, NVIDIA/Microsoft/Red Hat/EU-sääntely/DWS IQ roadmapit, Kilpailijat, Pakollinen ostotilannekalenteri, Hankintakoodit CPV, Tärkeimmät tiedostot). Added Office Chief Lucille Santiago to Henkilöstö. Updated Yrityksen kehityskaari with 4-period timeline (2019–/2020–/2024–2026/2027+). Fixed §1 consulting role description. Full HIC-reviewed fact-check pass (§1–§16, each change confirmed by CEO): product count 100→63 per products.json; DWS IQ description reframed as sovereign compliance intelligence platform + Control Room/Situation Room with sovereignty from local hardware + local World Model; added Control Room (€5 294) / Situation Room (€10 093) / Firehorse products to §3; Climate IQ annual price corrected €29 990→€40 978 (setup + 12×€2 999); Train Model SaaS clarified as "LWM Ontology Build" (consultant builds LWM via NVIDIA AI Workbench on customer DGX Spark); §4 LWM sentence expanded to justify subscription (continuous ontology maintenance as regulation evolves); added Agentic Commerce 2027 (Stripe-based) to roadmap; §6 canonical phrase "58 agenttia ja 88 kyvykkyyttä (roolia) 25 toimialalla" (non-exact, catalog grows); removed solopreneur framing repo-wide (handbook + sales strategy .md/.html), replaced with lean core team (Paarni + Santiago) + established 50+ specialist network (2020–2022, NVIDIA Connect); regenerated out-of-sync TOC (15→16 sections); fixed broken cross-references; removed personal names from sales metaphors; aligned all Climate IQ/Enterprise Navigator/DGX Spark prices across §3/§8/§10/§11; security incident reports routed to security@lifetime.fi; §15 partner network aligned to 50+; added LWM/Control Room/Situation Room to glossary.
+- Version: 1.72 | Tool: Claude Code (Opus 4.8) | Session: claude/consultant-handbook-v1-6-622fep | Date: 28.06.2026 | Changes: Added §2 value "Ihmiskeskeisyys (eettinen tekoälypäätös)" — we do not aim to reduce customer headcount (leadership decides); we bring industrial operators new agent capabilities that lift productivity, alongside humans, not replacing them. AI augments, never replaces. Ethical differentiation vs. "AI employee replaces headcount" narratives. Regenerated branded HTML.
 
 Document Status:
 
@@ -150,6 +151,7 @@ Työ ilmastonmuutoksen estämiseksi älytalouden keinoin vaatii vahvaa eettistä
 - **Laatu** — Jokainen AI-toiminta on auditoitavissa. Article 12 -lokitus tuotannossa. Ei sloppy output -tuotantoa.
 - **Resilienssi ja jatkuva parantaminen** — Opimme kuuntelemalla asiakkaita, markkinoita ja toisiamme. Jatkuva parantaminen on sisäänrakennettu toimintatapaamme — 58 agenttia, retrospektiivit ja oppimissilmukat varmistavat, että jokainen projekti on parempi kuin edellinen.
 - **Eurooppalaisuus** — Aidosti eurooppalainen yritys. Suomalaiset arvot. Kansainvälinen toimintaympäristö.
+- **Ihmiskeskeisyys (eettinen tekoälypäätös)** — Emme pyri vähentämään asiakkaan työntekijöitä; henkilöstöstä päättää johto. Tuomme teollisille toimijoille uusia kyvykkyyksiä, joita agenteillamme on, ja nostamme tuottavuutta — ihmisen rinnalle, ei tilalle. Tekoäly augmentoi, ei korvaa.
 
 ### Tarkoitus (Purpose)
 
