@@ -4,7 +4,7 @@ Version: 1.0
 Date: 2026-04-19
 Author: Claude Opus 4.7 + Human Review
 Branch: claude/investor-outreach-strategy-iwJxq
-Status: COLD — Not yet contacted; mandate fit strong but solo-founder is a flag
+Status: COLD — Not yet contacted; mandate fit strong; team flag addressed (two-person complementary team + governed agent workflows + Cubet partner + funded technical search)
 Story Lock: B2B DeepTech + Defensible IP + Technical Moat (operator-to-operator)
 Intro Type: Cold (to be initiated)
 
@@ -88,9 +88,9 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 Hi Maciej — respect what you built at Piwik PRO. Reaching out because Hard2beat's B2B DeepTech + defensible IP mandate is an exact match for what we're building.
 
-Lifetime Oy (Finland) — 21-agent B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports, EU AI Act compliant. EUR 7K MRR, 6 customers, 100% retention.
+Lifetime Oy (Finland) — B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports, EU AI Act compliant. EUR 7K MRR, 6 customers, 100% retention.
 
-Raising EUR 650K SAFE at EUR 3.8M cap — fits your €250K-€750K range cleanly, open to you anchoring. V1 launches June 15. Solo founder (I know this is a flag for you) — 13 years regulated-industry operator, paying customers, advisors in place, CTO hire post-round. Send the memo?
+Raising EUR 650K SAFE at EUR 3.8M cap — fits your €250K-€750K range cleanly, open to you anchoring. V1 launches June 15. Two-person team (me + Lucille Santiago, Office Chief / partner-track) — 13 years regulated-industry operator, paying customers, advisors in place; technical depth via governed agent workflows + a Cubet Techno Labs engineering partner, senior technical hire funded and searching. Send the memo?
 
 ## Draft Email (cold outreach)
 
@@ -100,7 +100,7 @@ Hi Maciej,
 
 Risto Päärni, Lifetime Oy (Espoo, Finland). Reaching out because Hard2beat's B2B enterprise software + defensible IP mandate is the tightest fit I've seen for what we're building — and because someone who scaled Piwik PRO to €12M ARR is the right operator to evaluate it.
 
-**Upfront on the flag:** I'm a solo founder. I know that's a preference gap for Hard2beat. My counter: 13 years operating in regulated industries, deep SAP/IFS/Dynamics domain expertise, 6 paying customers at 100% retention, named advisors, CTO hire planned post-round. The moat is the agent architecture and the regulatory-ontology work, both of which are in. Happy to be told the flag is still too big.
+**Upfront on the team:** We're a two-person team — me + Lucille Santiago (Office Chief / partner-track, Lifetime AB), complementary skill sets. On technical depth: governed AI agent workflows + a Cubet Techno Labs engineering partner cover it today, with a senior technical hire funded and in active search. 13 years operating in regulated industries, deep SAP/IFS/Dynamics domain expertise, 6 paying customers at 100% retention, named advisors. The moat is the agent architecture and the regulatory-ontology work, both of which are in. Happy to be told the flag is still too big.
 
 **The moat:**
 

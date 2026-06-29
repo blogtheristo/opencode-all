@@ -4,8 +4,8 @@ Version: 1.1
 Date: 2026-04-19
 Author: Claude Opus 4.7 + Human Review
 Branch: claude/investor-outreach-strategy-iwJxq
-Status: HOLD-ACTIVE-MONITOR — Solo-founder hard blocker; active reactivation catalyst in flight (Anthony Maurin)
-Story Lock: N/A — deferred pending co-founder / co-builder addition or policy change
+Status: READY-TO-REACTIVATE — two-person complementary team now (Risto + Lucille Santiago, Office Chief / partner-track, Lifetime AB) materially addresses the complementary-team blocker
+Story Lock: Two-person complementary team; technical depth via governed agent workflows + Cubet engineering partner + funded senior technical search
 Intro Type: Blocked (reactivation trigger armed)
 
 AGENT HISTORY:
@@ -41,9 +41,9 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 > The investor-specific context (Target Profile, Fit Assessment, Drawbacks / Mitigations, Strategy, Draft LinkedIn DM, Draft Email, Attachments, Next Steps) below this section is the prior INTRO content and remains canonical for fund-specific intel. The opening above replaces the **email opening only**; everything below stays.
 
-## Status: HOLD — DO NOT SEND (reactivation catalyst in flight)
+## Status: READY-TO-REACTIVATE (two-person complementary team)
 
-**Hard blocker:** Arthur explicitly prefers teams of 2-3 founders with complementary skill sets. DWS IQ 6 is raising as a solo founder. Do not burn the warm channel on a profile that fails his stated criteria.
+**Former hard blocker, now addressed:** Arthur prefers teams of 2-3 founders with complementary skill sets. DWS IQ 6 is now a **two-person team** — Risto (product/domain) + Lucille Santiago (Office Chief / partner-track in Lifetime AB, operations/customer) — complementary skill sets. Technical depth runs on governed agent workflows + a Cubet Techno Labs engineering partner, with a senior technical hire funded and in active search. This materially addresses his stated criteria; if he specifically wants a technical co-founder, lead with the agent-workflow + Cubet + funded-search model and let him weigh it.
 
 **Active catalyst (2026-04-19):** Anthony Maurin (Paris, ex-Volted.ai, MCP open-source builder) is in the pipeline as Track 3 CTO co-builder + angel. If he signs the co-builder structure, Arthur's blocker materially weakens and this file moves to ACTIVE inside 48 hours. See `INTRO_ANTHONY_MAURIN_CTO_COBUILDER.md`.
 

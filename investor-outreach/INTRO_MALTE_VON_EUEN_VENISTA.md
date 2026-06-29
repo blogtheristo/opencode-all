@@ -70,7 +70,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 - **Excludes defense tech** — HARD EXCLUSION. Aegis dual-use angle is a mandate wall. **Mitigation: do not mention Aegis, defense, dual-use, sovereignty, or military at all.** Lead with regulatory compliance automation, B2B SaaS, data integration. The defense layer is invisible for this conversation.
 - **Excludes generic climate tools** — "Generic climate" is the risk word. **Mitigation: position as regulatory compliance infrastructure, not a climate tool.** We automate ETS/CBAM/CSRD reporting — that's regulatory mandate compliance, not climate virtue signaling. Frame: "compliance infrastructure for companies that MUST report," not "help companies go green."
-- **Solo founder flag** — Mitigation: acknowledge it briefly, emphasize operator track record (13 years regulated industry, SAP/IFS domain expertise), named advisors, paying customers as validation. Don't hide it — he'll find out.
+- **Team / complementary-team preference** — We're now a two-person team (Risto + Lucille Santiago, Office Chief / partner-track, Lifetime AB) with complementary skill sets — addresses his preference. Emphasize operator track record (13 years regulated industry, SAP/IFS domain), technical depth via governed agent workflows + Cubet engineering partner (senior technical hire funded + searching), named advisors, paying customers.
 
 ## Strategy
 

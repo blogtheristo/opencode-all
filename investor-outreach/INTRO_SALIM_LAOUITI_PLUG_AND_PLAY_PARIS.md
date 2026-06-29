@@ -138,7 +138,7 @@ Risto Päärni, Lifetime Oy. Following up on our network connection. Plug and Pl
 - LTV: EUR 70K-120K/year per customer
 - Target: EUR 900K ARR end 2026
 
-**Solo-founder upfront:** I know the preference is for balanced teams. My counter: 13 years regulated-industry operator, 6 paying customers at 100% retention, advisors in place, CTO spec ready post-round.
+**On the team upfront:** Balanced two-person team — me (operator-founder) + Lucille Santiago (Office Chief / partner-track, Lifetime AB), complementary skill sets. Technical depth via governed AI agent workflows + a Cubet Techno Labs engineering partner, senior technical hire funded and searching. 13 years regulated-industry operator, 6 paying customers at 100% retention, advisors in place.
 
 **The ask — two channels:**
 

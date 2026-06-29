@@ -105,7 +105,7 @@ Hi Thomas,
 
 Thanks for the recent conversation. Sending the follow-up we discussed.
 
-**Solo-founder upfront:** I know it's a flag. My counter: operator-founder model, 13 years in regulated industries, 6 paying customers at 100% retention, advisors in place, CTO spec ready to execute post-round. Same pattern eCircle started with — domain operator, revenue-first, scale team on signal. Happy to discuss whether that clears the bar.
+**On the team upfront:** We're a two-person team — me (operator-founder, 13 years in regulated industries) + Lucille Santiago (Office Chief / partner-track, Lifetime AB), complementary skill sets. Technical depth runs today on governed AI agent workflows + a Cubet Techno Labs engineering partner, with a senior technical leadership hire funded and in active search. 6 paying customers at 100% retention, advisors in place. Same pattern eCircle started with — domain operator, revenue-first, scale team on signal. Happy to discuss whether that clears the bar.
 
 **The moat — vertically integrated AI:**
 
