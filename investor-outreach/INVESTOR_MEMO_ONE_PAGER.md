@@ -9,7 +9,7 @@ Source: Aligned with INVESTOR_MEMO.md v4.3 and V4.3-DWS-IQ6-InvestorPD_2026.md
 
 AGENT HISTORY:
 - v1.0 (2026-04-08): Created from INVESTOR_MEMO.md. Distilled 560 lines to one-pager format. Designed for LinkedIn DM attachments, first-touch emails, and quick-scan by connectors like Mercedes Bankston who process high volume. Numbers-forward, no fluff.
-- v4.3 (2026-04-20): Aligned with V4.3 Pitch Deck — added CBAM Annex I 6-sector coverage, Alpha-Share pricing (7.5% of verified gains), DWS IQ 7 4-jurisdiction roadmap, 21 moats across 4 tiers (canonical, replaces all "4 structural moats" framings), April 2026 traction month.
+- v4.3 (2026-04-20): Aligned with V4.3 Pitch Deck — added CBAM Annex I 6-sector coverage, Alpha-Share pricing (7.5% of verified gains), DWS IQ 7 4-jurisdiction roadmap, 19 moats across 4 tiers (canonical, replaces all "4 structural moats" framings), April 2026 traction month.
 -->
 
 # Lifetime Oy — Investor One-Pager
@@ -37,7 +37,7 @@ AGENT HISTORY:
 | Time Saved       | 40+ hours/month per customer                          |
 | Platform         | a fleet of skilled agents, 32 products, 25 industries |
 | CBAM Coverage    | ✅ All 6 Annex I sectors, 66 CN codes                 |
-| Fortress         | 21 moats across 4 tiers                               |
+| Fortress         | 19 moats across 4 tiers                               |
 
 ## Market
 
@@ -74,7 +74,7 @@ Enterprise Navigator pilots at €4,950 convert to €8,950/year. Target: 25 cus
 
 Product Development 40% | Sales & Marketing 35% | Operations 15% | Buffer 10%
 
-## Competitive Fortress — 21 Moats Across 4 Tiers
+## Competitive Fortress — 19 Moats Across 4 Tiers
 
 **€3–6M / 24–36 month entry barrier for competitors.** Full numbered breakdown in V4.3 Pitch Deck.
 

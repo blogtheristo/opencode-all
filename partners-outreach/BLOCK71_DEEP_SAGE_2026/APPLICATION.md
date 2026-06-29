@@ -116,7 +116,7 @@ Three validated innovations, each with an academic citation track:
 2. **6-layer harness engineering** — information architecture that lifted compliance accuracy from 52.8% → 66.5% without changing the underlying model. Same Metropolia thesis.
 3. **Payment-agnostic compliance recording** — first MiCA-aware industrial compliance ledger in Europe. Qivalis-ready before Qivalis ships.
 
-20-moat competitive fortress (€3–6M / 24–36 month entry barrier). Boardy.ai raised €11M — 16× our SAFE ask — and still cannot replicate Tier-1 moats (EU operations, Kela validation, NCC reference, InvestEU portal, edge stack).
+19-moat competitive fortress (€3–6M / 24–36 month entry barrier). Boardy.ai raised €11M — 16× our SAFE ask — and still cannot replicate Tier-1 moats (EU operations, Kela validation, NCC reference, InvestEU portal, edge stack).
 
 ---
 

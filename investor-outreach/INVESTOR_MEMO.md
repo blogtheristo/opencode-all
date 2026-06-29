@@ -32,7 +32,7 @@ Every EU company filing CSRD needs a carbon balance sheet. We build the ledger i
 - Industries served: 25 EU-regulated verticals
 - CBAM Annex I coverage: ✅ All 6 sectors (Steel, Aluminium, Cement, Fertilizers, Hydrogen, Electricity), 66 CN codes, one dedicated agent per sector (LD-2026-013, April 16, 2026)
 - Carbon balance sheet: Debit-credit ledger shipping in V1, persistent ledger in DWS 7 Phase 2 (Jul 2026)
-- Competitive Fortress: **21 moats across 4 tiers** (T1 Impossible / T2 Very Hard / T3 Moderate / T4 Operational) — €3-6M / 24-36 month entry barrier for competitors. Full breakdown in V4.3 Pitch Deck.
+- Competitive Fortress: **19 moats across 4 tiers** (T1 Impossible / T2 Very Hard / T3 Moderate / T4 Operational) — €3-6M / 24-36 month entry barrier for competitors. Full breakdown in V4.3 Pitch Deck.
 - DWS IQ 7 jurisdictions: EU + US live, UAE via G42 planned Q3 2027, ASEA placeholder
 
 **Sales Motion:**
@@ -593,9 +593,9 @@ Regulation is live. Customers have budget. Product works. We have traction. Arct
 - Platform Status: Public Cloud V1 + Private Cloud V1 — Production Ready (a fleet of skilled agents, 32 products, 5 cloud environments); CBAM Annex I ✅ Complete (6 sectors, 66 CN codes)
 - Sovereignty Status: EU-sovereign by design — EUDI Wallet (12/2026, law) + Digital Euro (~2029, ECB target)
 - Pricing Model: Alpha-Share (7.5% of verified efficiency gains, agent-native, outcome-based)
-- Paired Documents: V4.3 Pitch Deck (investor-outreach/V4.3-DWS-IQ6-InvestorPD_2026.md) — full 21-moat fortress breakdown
+- Paired Documents: V4.3 Pitch Deck (investor-outreach/V4.3-DWS-IQ6-InvestorPD_2026.md) — full 19-moat fortress breakdown
 
 **Revision History:**
 
 - v3.1 (March 21, 2026): EU Sovereign Infrastructure section (EUDI Wallet + Digital Euro thesis), rejected "almost sovereign" IDV vendors (Shufti, Veriff, Sumsub)
-- v4.3 (April 20, 2026): Aligned with V4.3 Pitch Deck — customer count 5→6, CBAM Annex I full coverage, Alpha-Share pricing model, DWS IQ 7 4-jurisdiction roadmap (G42 UAE), 21-moat/4-tier fortress reference, traction month refresh to April 2026
+- v4.3 (April 20, 2026): Aligned with V4.3 Pitch Deck — customer count 5→6, CBAM Annex I full coverage, Alpha-Share pricing model, DWS IQ 7 4-jurisdiction roadmap (G42 UAE), 19-moat/4-tier fortress reference, traction month refresh to April 2026
