@@ -16,7 +16,7 @@ DWS IQ 6 is the operations compliance layer that sits between ERP systems and EU
 
 The short version: connect your ERP, import your building assessments, get audit-ready compliance reports every quarter without manual work.
 
-The platform runs a fleet of skilled agents across 20 EU-regulated industries, governed by the KYA Standard — hardware-attested agent identity with court-defensible audit trails.
+The platform runs a fleet of skilled agents across 25 EU-regulated industries, governed by the KYA Standard — hardware-attested agent identity with court-defensible audit trails.
 
 ### How did you get here?
 
@@ -31,7 +31,7 @@ But once the building is operating? Once the factory is running? Once the fleet 
 - **€7K MRR** (€84k ARR), six paying customers
 - **100% customer retention** — zero churn
 - **40+ hours/month saved** per customer vs. manual reporting
-- **Platform:** a fleet of skilled agents, 32 products, 4 cloud environments, 20 EU-regulated industries
+- **Platform:** a fleet of skilled agents, 32 products, 4 cloud environments, 25 EU-regulated industries
 - **V1 Launch:** June 15, 2026 at Arctic 15 (Helsinki)
 - Seed stage — raising €650K SAFE at €3.8M cap
 
@@ -126,7 +126,7 @@ Our moats:
 ### Key go-to-market question: Which vertical first?
 
 Revenue today: 100% logistics/healthcare, 0% construction.
-Ambition: operations compliance across 20 EU-regulated industries.
+Ambition: operations compliance across 25 EU-regulated industries.
 
 **Brainstorming welcome on:**
 
@@ -145,7 +145,7 @@ Ambition: operations compliance across 20 EU-regulated industries.
 - **Customers:** 6 paying, 100% retention
 - **Pipeline:** 2 construction pilots converting
 - **Platform:** a fleet of skilled agents, 32 products, 4 cloud environments
-- **Industries:** 20 EU-regulated verticals
+- **Industries:** 25 EU-regulated verticals
 - **Round:** €650K SAFE at €3.8M cap (€500K Fleet Admiral + 8 × €50K Captain)
 - **Team:** Solo founder + AI-assisted development
 
@@ -236,7 +236,7 @@ These numbers are the single source of truth. Boardy MUST use these — do not d
 
 **Traction:** €7K MRR, 6 customers, 100% retention, 40h/mo saved per customer.
 
-**Platform:** a fleet of skilled agents, 32 products, 4 cloud environments, 20 industries.
+**Platform:** a fleet of skilled agents, 32 products, 4 cloud environments, 25 industries.
 
 **Market:** 49,000 EU companies, mandatory CSRD filing, no automated ERP-to-report tool exists.
 

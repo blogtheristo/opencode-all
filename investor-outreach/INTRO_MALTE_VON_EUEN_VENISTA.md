@@ -109,7 +109,7 @@ The numbers:
 - Customer LTV: EUR 70K-120K/year
 - Pilot EUR 4,950 converts to EUR 8,950/year
 - Target: EUR 900K ARR by end 2026
-- A fleet of skilled agents, 32 products, 20 EU-regulated industries
+- A fleet of skilled agents, 32 products, 25 EU-regulated industries
 - Nordics + DACH commercial pipe, German Messe push post-launch
 
 Market: 49,000+ EU companies facing mandatory CSRD reporting from 2026. This is compliance infrastructure, not optional software — customers have a legal deadline.

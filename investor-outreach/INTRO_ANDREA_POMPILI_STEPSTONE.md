@@ -131,7 +131,7 @@ Hi Andrea,
 
 Good meeting you at PE Insights yesterday. Your perspective on [specific point from panel] was sharp — especially regarding [specific insight].
 
-I'm Risto Päärni, CEO of Lifetime Oy (Helsinki). We build DWS IQ 6 — automated carbon balance sheet infrastructure using a fleet of deterministic skilled agents across 20 EU-regulated industries.
+I'm Risto Päärni, CEO of Lifetime Oy (Helsinki). We build DWS IQ 6 — automated carbon balance sheet infrastructure using a fleet of deterministic skilled agents across 25 EU-regulated industries.
 
 The secondaries application: screen any asset or portfolio for ETS, CBAM, and CSRD exposure with auditable, repeatable scores. No subjective ESG ratings — just regulatory fact-based compliance data that feeds directly into due diligence and LP reporting.
 

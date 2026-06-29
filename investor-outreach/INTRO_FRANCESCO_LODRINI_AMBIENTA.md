@@ -126,7 +126,7 @@ Why this is relevant to Ambienta Small Cap:
 
 Concrete ask: next live industrial target where sustainability DD is on the path. We run a parallel report alongside your team. You see the output, decide if it's faster and at least as defensible.
 
-Current state: a fleet of skilled agents live, 32 products, 20 EU-regulated industries, paying customers, 100% retention, 100% EU-sovereign (Finnish-owned, 0772407-9). V1 launches at Arctic 15 in Helsinki on June 15.
+Current state: a fleet of skilled agents live, 32 products, 25 EU-regulated industries, paying customers, 100% retention, 100% EU-sovereign (Finnish-owned, 0772407-9). V1 launches at Arctic 15 in Helsinki on June 15.
 
 One-pager (Ambienta-tailored) attached. Happy to jump on 20 minutes.
 

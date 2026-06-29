@@ -16,7 +16,7 @@
 
 **Lifetime builds the carbon balance sheet — double-entry bookkeeping for CO2, so every tonne is tracked like every euro.**
 
-Every EU company filing CSRD needs a carbon balance sheet. We build the ledger infrastructure that tracks carbon debits (ETS surrenders, CBAM imports, compliance costs) and carbon credits (free allocations, offsets, avoided emissions) across 20 industries. Same carbon, four regulatory touchpoints, one auditable ledger.
+Every EU company filing CSRD needs a carbon balance sheet. We build the ledger infrastructure that tracks carbon debits (ETS surrenders, CBAM imports, compliance costs) and carbon credits (free allocations, offsets, avoided emissions) across 25 industries. Same carbon, four regulatory touchpoints, one auditable ledger.
 
 ---
 
@@ -29,7 +29,7 @@ Every EU company filing CSRD needs a carbon balance sheet. We build the ledger i
 - Retention: 100% (zero churn)
 - Customer LTV: €70k–€120k projected annual value per logo (multi-site expansion after construction pilots)
 - Platform: a fleet of skilled agents, 32 products, 5 cloud environments
-- Industries served: 20 EU-regulated verticals
+- Industries served: 25 EU-regulated verticals
 - CBAM Annex I coverage: ✅ All 6 sectors (Steel, Aluminium, Cement, Fertilizers, Hydrogen, Electricity), 66 CN codes, one dedicated agent per sector (LD-2026-013, April 16, 2026)
 - Carbon balance sheet: Debit-credit ledger shipping in V1, persistent ledger in DWS 7 Phase 2 (Jul 2026)
 - Competitive Fortress: **21 moats across 4 tiers** (T1 Impossible / T2 Very Hard / T3 Moderate / T4 Operational) — €3-6M / 24-36 month entry barrier for competitors. Full breakdown in V4.3 Pitch Deck.
@@ -82,7 +82,7 @@ Lifetime Oy will not repeat this pattern. **The lead investor (Fleet Admiral) mu
 **Round math:** €200K (Fleet Admiral) + 9 × €50K (Captain Seats) = **€650K total**
 
 - **Fleet Admiral** — Strategic co-pilot. Full board observer rights, annual 1:1 strategy sessions, first right of refusal on all follow-on rounds.
-- **Captain** — Named captain covering a cluster of 20 EU-regulated industries, including dual-use (defence/sovereignty). Quarterly strategy briefings, priority pilot routing, founding Situation Room access, industry-specific intelligence.
+- **Captain** — Named captain covering a cluster of 25 EU-regulated industries, including dual-use (defence/sovereignty). Quarterly strategy briefings, priority pilot routing, founding Situation Room access, industry-specific intelligence.
 - **Deputy Captain** — Open tier, unlimited seats. €5,000. Quarterly briefings, upgrade path to Captain.
 
 ---
@@ -389,7 +389,7 @@ Timeframe:                 ~2 years (2024→2026)
 
 - **CSRD Mandatory Reporting:** Starting 2025, affects 50,000+ EU companies
 - **Fit for 55 / EPBD Mandates:** Hitting hard 2025–2028
-- **20 EU-Regulated Industries:** From construction to pharma — forced compliance spend
+- **25 EU-Regulated Industries:** From construction to pharma — forced compliance spend
 - **Regulatory Tailwind:** "Mandatory spend" SaaS with strong adoption drivers
 - **EU Green Deal:** Multi-year regulatory push for industrial decarbonization
 - **Pain Point:** €10k–€50k in fines per project, 40–80 hours manual work eliminated
@@ -402,7 +402,7 @@ Timeframe:                 ~2 years (2024→2026)
 - **Customer Retention:** 100% (zero churn demonstrates product-market fit)
 - **Customer LTV:** €70k–€120k projected annual value per logo (multi-site expansion after construction pilots)
 - **Time Savings:** 40+ hours/month saved per customer
-- **Platform Scale:** a fleet of skilled agents, 32 products, 5 cloud environments, 20 industries
+- **Platform Scale:** a fleet of skilled agents, 32 products, 5 cloud environments, 25 industries
 - **Target Growth:** €900k ARR by end of 2026
 
 ### Current Customer Base
@@ -456,7 +456,7 @@ Timeframe:                 ~2 years (2024→2026)
 | **18 Security Vulnerabilities** | ✅ Fixed         | Zero critical/high issues                                  |
 | **Administration Portal**       | ✅ Live          | dws6.com — Admin access                                    |
 | **User Login Portal**           | ✅ Live          | dws6.com/login — Customer access                           |
-| **Skilled Agents**                | ✅ Operational   | Full swarm across 20 industries                            |
+| **Skilled Agents**                | ✅ Operational   | Full swarm across 25 industries                            |
 | **32 Products**                 | ✅ Cataloged     | dws10.com store                                            |
 | **4 Cloud Environments**        | ✅ Running       | US, EU, Hetzner, Edge (+ Full Sovereignty planned Q2 2026) |
 

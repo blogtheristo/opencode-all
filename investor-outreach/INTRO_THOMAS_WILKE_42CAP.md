@@ -79,7 +79,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 ## Strategy
 
 - **This is the conversation we optimize the round around.** Thomas is the highest-signal match. If he leads, the round restructures around him. Plan that outcome before the call.
-- **Lead with vertical AI + data moat** — Not "AI agents for compliance" but "vertically integrated AI with a defensible ERP data moat across 20 EU-regulated industries." Use his language.
+- **Lead with vertical AI + data moat** — Not "AI agents for compliance" but "vertically integrated AI with a defensible ERP data moat across 25 EU-regulated industries." Use his language.
 - **DACH commercial pipe as the hook** — Frame the Finnish base as the sovereign EU moat (data residency, no CLOUD Act) and the DACH Messe as the revenue engine. He invests in DACH because that's where the B2B buyers are; we're selling into DACH for the same reason.
 - **Operator-to-operator tone** — No VC-pitch throat-clearing. Open with moat, traction, timeline. He respects directness.
 - **Pre-decide the upsize** — Before the call, decide: are we open to a priced seed at €1M-€2M with Thomas leading? If yes, frame the SAFE as the anchor mechanism that converts. If no, cap the ask at SAFE participation.
@@ -111,7 +111,7 @@ Thanks for the recent conversation. Sending the follow-up we discussed.
 
 - a fleet of skilled agents, MCP-exposed, deterministic scoring
 - ERP data moat: SAP S/4HANA, IFS Cloud, Dynamics 365 connectors (live)
-- 20 EU-regulated industries with encoded domain ontology
+- 25 EU-regulated industries with encoded domain ontology
 - EU AI Act compliant from v0 — not retrofitted
 - Sovereignty audit reasoning lineage — full regulator-ready audit trail
 - Sovereign deployment (Finland / Germany), no CLOUD Act exposure

@@ -108,7 +108,7 @@ Hi Philipp,
 
 Great speaking with you recently. Following up as discussed.
 
-We're building the carbon balance sheet — double-entry bookkeeping for CO2 across 20 EU-regulated industries. What makes us different: the same infrastructure serves both decarbonization compliance (CSRD, CBAM, ETS) and EU sovereign AI for critical infrastructure (our Aegis framework).
+We're building the carbon balance sheet — double-entry bookkeeping for CO2 across 25 EU-regulated industries. What makes us different: the same infrastructure serves both decarbonization compliance (CSRD, CBAM, ETS) and EU sovereign AI for critical infrastructure (our Aegis framework).
 
 Current state: a fleet of skilled agents in production, 6 paying customers (€7K MRR, zero churn), V1 launching at Arctic 15 in Helsinki on June 15. Raising €650K on a SAFE at €3.8M cap.
 

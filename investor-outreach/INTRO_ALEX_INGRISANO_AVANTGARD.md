@@ -104,7 +104,7 @@ The numbers:
 - LTV: EUR 70K-120K/year per customer
 - Pilot EUR 4,950 converts to EUR 8,950/year
 - Target: EUR 900K ARR by end 2026
-- a fleet of skilled agents, 32 products, 20 EU-regulated industries
+- a fleet of skilled agents, 32 products, 25 EU-regulated industries
 
 Raising EUR 650K SAFE at EUR 3.8M cap. Captain seats at EUR 50K — sized for syndication if you want to bring co-investors. V1 launches at Arctic 15 (Helsinki, June 15). The real commercial push is the German Messe after launch — where construction and manufacturing CFOs sign EUR 25K+ contracts.
 

@@ -114,7 +114,7 @@ DWS IQ 6 sells sovereign compliance automation to EU-regulated industries. The n
 | Product                      | What It Does                                                  | Agents | Key Differentiator                                |
 | ---------------------------- | ------------------------------------------------------------- | ------ | ------------------------------------------------- |
 | **Climate IQ**               | CBAM calculations, CSRD data, ETS tracking, PCF reports       | 8      | Automates the compliance paperwork                |
-| **Industrial IQ (DWS IQ 6)** | Cross-industry signal propagation, World Model, 21 industries | 50     | When steel prices move, construction costs update |
+| **Industrial IQ (DWS IQ 6)** | Cross-industry signal propagation, World Model, 25 industries | 50     | When steel prices move, construction costs update |
 | **Aegis Standard**           | Sovereign single-tenant K8s, UpCloud Helsinki, KYA governance | 18+    | Zero CLOUD Act, Article 12 built-in               |
 | **Aegis Defence**            | + NVIDIA L40S GPU, ArgusAgent SAR, 4h SLA, EDIP compliance    | All    | Air-gapped, on-prem, defence-grade                |
 | **Enterprise Navigator**     | 3-month pilot entry point, ERP connector included             | Full   | Under €5K threshold — impulse purchase            |

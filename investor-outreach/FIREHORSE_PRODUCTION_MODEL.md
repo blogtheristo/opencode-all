@@ -94,7 +94,7 @@ At this development phase of generative AI, no single model delivers perfect out
 
 ### Comparative Observations: Anthropic vs OpenAI
 
-From **15 months of daily production use** (January 2025 – March 2026), building 32 products across 20 EU-regulated industries:
+From **15 months of daily production use** (January 2025 – March 2026), building 32 products across 25 EU-regulated industries:
 
 **Where Anthropic Claude excels:**
 
@@ -138,7 +138,7 @@ The Firehorse Production Model produced a clear evolution arc, each stage buildi
 
 - a fleet of skilled agents orchestrated via Brain-Memory-Body-Hands architecture
 - Automated compliance scoring across CSRD, CBAM, ETS, EU AI Act
-- Solution Factory model validated — same agents serve 20 industries
+- Solution Factory model validated — same agents serve 25 industries
 - Carbon balance sheet (debit-credit ledger for CO2)
 
 ### Stage 3: Product Suite Expansion (Q1–Q2 2026)
@@ -194,7 +194,7 @@ _(Firehorse Product Manufacturing Operating Model: Hybrid AI-Edge Architecture f
 - AgentFoundry documentation methodology for AI agent governance
 - Lifetime Scope Signals theory for market-driven product iteration
 - Empirical evidence: harness engineering improved agent accuracy from 52.8% to 66.5%
-- Cross-vertical intelligence validation across 20 EU-regulated industries
+- Cross-vertical intelligence validation across 25 EU-regulated industries
 
 ### PhD Research — LUT University (2027, Planned)
 
@@ -217,7 +217,7 @@ _(Firehorse Product Manufacturing Operating Model: Hybrid AI-Edge Architecture f
 
 | Advantage                | Detail                                                                   |
 | ------------------------ | ------------------------------------------------------------------------ |
-| **Velocity**             | Solo founder ships 32 products across 20 industries in 15 months         |
+| **Velocity**             | Solo founder ships 32 products across 25 industries in 15 months         |
 | **Reproducibility**      | The model is codified, not intuition-dependent. Scales with team growth. |
 | **Academic credibility** | Peer-reviewed thesis (2026) + planned PhD (2027) creates IP moat         |
 | **AI-agnostic**          | Works with Claude, GPT, Gemini, Llama — not locked to any provider       |
@@ -245,7 +245,7 @@ Yes, anyone can prompt ChatGPT to generate code. Just like anyone can buy a CNC 
 
 Consider what Lifetime Oy built with Anthropic Claude Opus 4.5 and 4.6:
 
-- 32 shipped products across 20 EU-regulated industries
+- 32 shipped products across 25 EU-regulated industries
 - 18 operational AI agents with deterministic compliance scoring
 - A dual-use defence platform (Aegis) priced 13x below Palantir
 - A peer-reviewed production methodology (Metropolia thesis 2026)
@@ -262,7 +262,7 @@ Every model generation brings a step-change in capability. When Opus 4.5 arrived
 - The harness (500+ lines of codified production rules in CLAUDE.md)
 - The agent ecosystem (skilled agents with KYA governance)
 - The regulatory data (validated EU ETS/CBAM/CSRD sources, not hallucinated numbers)
-- The cross-vertical intelligence (20 industries feeding one world model)
+- The cross-vertical intelligence (25 industries feeding one world model)
 - The academic validation (thesis + planned PhD)
 - The customer feedback loops (6 customers, 100% retention, real compliance data)
 
@@ -297,7 +297,7 @@ Everything below is live in production code with TypeScript implementations, dat
 | **3**  | **Harness Engineering** (6-Layer L0-L6)      | Six-layer information architecture that constrains AI agent behavior. Raw model scored 52.8% on compliance tasks. Harness pushed it to 66.5% — without changing the model.                                                       | Proves the production model thesis: the system around the AI matters more than the AI itself. Published in Metropolia thesis. Transferable to any frontier model.                                                  |
 | **4**  | **DWS IQ Aegis** (Dual-Use Platform)         | Standalone dual-use AI platform for defence and sovereign operations. Orbital intelligence (ICEYE SAR), sovereignty monitoring, EU-only cloud. EUR 59,990 + EUR 999/mo.                                                          | 13x cheaper than Palantir's floor for Year 1. NATO DIANA eligible. Opens EUR 8B+ EU defence AI market from an EU-sovereign position.                                                                               |
 | **5**  | **Climate IQ Pantheon**       | Greek-Roman named multi-agent system: Atlas (router), Athena (compliance), Argus (orbital SAR), Hephaestus (field ops), Hermes (logistics), Iris (market intelligence) + 8 more.                                                 | Specialized skilled agents that compound each other's output. One agent's finding in energy becomes another agent's input in construction. This is the cross-vertical intelligence flywheel.                            |
-| **6**  | **Cross-Vertical Intelligence Engine**       | Signal propagation across 20 EU-regulated industries. BESS dispatch data improves grid emission calculations, which improve steel ETS exposure, which improves construction embodied carbon, which improves CSRD gap analysis.   | Network effect for compliance intelligence. Each new industry customer makes the platform smarter for all other industries. Competitors serve one vertical — we serve twenty from one world model.                 |
+| **6**  | **Cross-Vertical Intelligence Engine**       | Signal propagation across 25 EU-regulated industries. BESS dispatch data improves grid emission calculations, which improve steel ETS exposure, which improves construction embodied carbon, which improves CSRD gap analysis.   | Network effect for compliance intelligence. Each new industry customer makes the platform smarter for all other industries. Competitors serve one vertical — we serve twenty from one world model.                 |
 | **7**  | **EU AI Act Article 12 Logging**             | Append-only audit trail for every AI agent decision. Pre-flight (proof of data scrubbing before cloud egress) and post-flight (output reasoning lineage). 7-year tamper-evident retention.                                       | Legal requirement for all high-risk AI systems in the EU from August 2026. We shipped it in March 2026 — five months ahead of enforcement. First-mover compliance advantage.                                       |
 | **8**  | **Agent Foundry / OpenSandbox** (Edge AI)    | Zero-cloud-egress agent execution on Acer Veriton GN100 (NVIDIA-powered) with Docker isolation. Agents run on-premise — no data leaves the building.                                                                             | Defence and sovereign customers require on-premise AI. OpenSandbox makes DWS IQ deployable inside air-gapped environments — a hard requirement for Aegis customers.                                                |
 | **9**  | **Brain-Memory-Body-Hands Architecture**     | Four-pillar distributed system: Brain (21-agent orchestration), Memory (Lifetime World Model — EU regulations + industry models), Body (Firehorse sales/report/automation suite), Hands (Fleet robots/IoT, specification phase). | Clean separation of concerns enables independent scaling. Brain gets smarter, Body ships faster, Memory deepens — each pillar improves without breaking the others.                                                |

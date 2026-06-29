@@ -125,7 +125,7 @@ Why this is relevant to Ambienta:
 
 Concrete ask: one Ambienta industrial PortCo, 8-week pilot, source-cited CSRD report at the end. If the methodology holds up, we discuss a portfolio-wide standard.
 
-Current state: a fleet of skilled agents live, 32 products, 20 EU-regulated industries, paying customers, 100% retention, 100% EU-sovereign (Finnish-owned, 0772407-9). V1 launches at Arctic 15 in Helsinki on June 15.
+Current state: a fleet of skilled agents live, 32 products, 25 EU-regulated industries, paying customers, 100% retention, 100% EU-sovereign (Finnish-owned, 0772407-9). V1 launches at Arctic 15 in Helsinki on June 15.
 
 One-pager (Ambienta-tailored) attached. Happy to jump on 20 minutes if there's any overlap.
 

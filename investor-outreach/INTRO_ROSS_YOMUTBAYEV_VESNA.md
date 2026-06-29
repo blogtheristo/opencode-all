@@ -105,7 +105,7 @@ DWS IQ 6 is the carbon compliance platform for EU industrial companies. A fleet 
 Given your AI-DD engine work, the architecture is the fastest way in:
 
 - a fleet of skilled agents, MCP-exposed, JSON-RPC 2.0
-- 32 products across 20 EU-regulated industries
+- 32 products across 25 EU-regulated industries
 - ERP connectors: SAP S/4HANA, IFS Cloud, Dynamics 365
 - Sovereign deployment: EU data residency (Finland/Germany), no CLOUD Act
 - EU AI Act compliant from v0

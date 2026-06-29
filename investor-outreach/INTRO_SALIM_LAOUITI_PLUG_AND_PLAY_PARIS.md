@@ -60,7 +60,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 **Useful fit — but the real prize is pilot access, not the check.** Key alignment:
 
-1. **Horizontal AI + enterprise ROI** — DWS IQ 6 is horizontal across 20 EU-regulated industries with a measurable ROI (replaces EUR 50K-100K/year consultant cost with EUR 8,950/year software). Meets his stated filter.
+1. **Horizontal AI + enterprise ROI** — DWS IQ 6 is horizontal across 25 EU-regulated industries with a measurable ROI (replaces EUR 50K-100K/year consultant cost with EUR 8,950/year software). Meets his stated filter.
 2. **Compliance-aware platform** — His explicit interest. We are a compliance platform. Direct match.
 3. **Corporate pilot network** — 500+ enterprise partners. This is the real asset. A single pilot intro to a DACH industrial corporate is worth more than the SAFE check.
 4. **Ticket range is flexible** — $50K-$3M. We can accept small participation for strategic pilot access, or larger check if the fit deepens.
@@ -122,7 +122,7 @@ Risto Päärni, Lifetime Oy. Following up on our network connection. Plug and Pl
 
 **The product — horizontal AI for EU compliance:**
 
-- A fleet of skilled agents across 20 EU-regulated industries
+- A fleet of skilled agents across 25 EU-regulated industries
 - ERP connectors live for SAP S/4HANA, IFS Cloud, Dynamics 365
 - Auto-generates audit-ready ETS, CBAM, CSRD, EU Taxonomy reports
 - EU AI Act compliant from v0

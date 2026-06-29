@@ -82,7 +82,7 @@ Hi Anant,
 
 Risto Päärni, Lifetime Oy (Espoo, Finland). I've been following what you're building at Augmented Sense — edge AI sensors for industrial and defence environments is exactly the layer we need upstream.
 
-We built DWS IQ Aegis: a sovereign AI platform that turns operational data into compliance intelligence across 20 EU-regulated industries. A fleet of skilled agents governed by hardware-attested identity (KYA Standard), court-defensible audit trails, EU AI Act compliant. Single-tenant deployment — on-premise, air-gapped capable, zero CLOUD Act exposure.
+We built DWS IQ Aegis: a sovereign AI platform that turns operational data into compliance intelligence across 25 EU-regulated industries. A fleet of skilled agents governed by hardware-attested identity (KYA Standard), court-defensible audit trails, EU AI Act compliant. Single-tenant deployment — on-premise, air-gapped capable, zero CLOUD Act exposure.
 
 The dual-use angle is where I think we connect:
 

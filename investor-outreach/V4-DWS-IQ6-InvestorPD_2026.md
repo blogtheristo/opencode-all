@@ -456,7 +456,7 @@ DWS IQ 6 qualifies as **dual-use technology** (civilian + defence applications):
 
 **Valuation Multiplier**: 4-6× through strategic EU funding alignment (€3.8M → €15M+ in 18 months)
 
-### Go-to-Market Sequencing (20 EU-Regulated Verticals, Top 8 Priority)
+### Go-to-Market Sequencing (25 EU-Regulated Verticals, Top 8 Priority)
 
 | # | Vertical | Status | Avg Annual Value | Priority | TAM |
 |---|----------|--------|------------------|----------|-----|

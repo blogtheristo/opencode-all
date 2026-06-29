@@ -68,7 +68,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 LinkedIn InMail with:
 
-- DWS IQ intro (EU-sovereign, 20 industries, Agent 19)
+- DWS IQ intro (EU-sovereign, 25 industries, Agent 19)
 - NeMo DataDesigner integration (CBAM, CSRD, ETS synthetic data)
 - NVIDIA Connect ISV Partner status
 - Direct ask: Inception Program recommendation

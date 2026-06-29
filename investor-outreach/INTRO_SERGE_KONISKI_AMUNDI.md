@@ -86,7 +86,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 Lead with:
 
-1. **EU regulatory infrastructure** — "Amundi is the most EU-aligned asset manager in the world. We build the compliance infrastructure that makes that positioning defensible at the portfolio level — automated ETS, CBAM, CSRD scoring across 20 industries"
+1. **EU regulatory infrastructure** — "Amundi is the most EU-aligned asset manager in the world. We build the compliance infrastructure that makes that positioning defensible at the portfolio level — automated ETS, CBAM, CSRD scoring across 25 industries"
 2. **Engineering credibility** — "You have a CS engineering background — I think you'll appreciate our approach. A fleet of deterministic skilled agents with auditable scoring, not black-box ESG ratings. Every score traces back to regulatory source (EUR-Lex, EEA data)"
 3. **Energy sector angle** — "Your BofA Energy & Power experience — the energy transition is creating massive regulatory exposure for PE portfolio companies. We quantify that exposure automatically"
 4. **Secondaries valuation** — "Carbon compliance readiness is becoming a material factor in secondary pricing. A continuation fund around an ETS-exposed asset without automated compliance is underpriced risk"

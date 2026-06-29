@@ -82,7 +82,7 @@ Lead with:
 
 1. **TRL positioning** — "We're TRL 6-7: a fleet of skilled agents in production, 6 paying customers, V1 launching at Arctic 15 in June"
 2. **Hard tech angle** — Deterministic scoring engines, not wrapper AI. Industrial-grade compliance infrastructure
-3. **Climate + industrial** — Carbon balance sheet as double-entry bookkeeping for CO2 across 20 industries
+3. **Climate + industrial** — Carbon balance sheet as double-entry bookkeeping for CO2 across 25 industries
 4. **EU regulatory moat** — CSRD, CBAM, ETS, EU AI Act create mandatory compliance demand
 
 Avoid:
@@ -102,7 +102,7 @@ Hi Graeme,
 
 Great speaking with you recently. Following up as discussed.
 
-We're building the carbon balance sheet — double-entry bookkeeping for CO2, so every tonne is tracked like every euro. A fleet of skilled agents in production across 20 EU-regulated industries, with CSRD/CBAM/ETS compliance automation.
+We're building the carbon balance sheet — double-entry bookkeeping for CO2, so every tonne is tracked like every euro. A fleet of skilled agents in production across 25 EU-regulated industries, with CSRD/CBAM/ETS compliance automation.
 
 We're at TRL 6-7: validated technology with 6 paying customers (€7K MRR, zero churn), launching V1 publicly at Arctic 15 in Helsinki on June 15. Currently raising €650K on a SAFE at €3.8M cap to fund a 2-month sales sprint post-launch.
 

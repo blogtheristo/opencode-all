@@ -108,7 +108,7 @@ Risto Päärni, Lifetime Oy (Espoo, Finland). Reaching out because Hard2beat's B
 - ERP connectors: SAP S/4HANA, IFS Cloud, Dynamics 365 (live)
 - EU AI Act compliant from v0 — not retrofitted
 - Sovereignty audit reasoning lineage — full audit trail for regulators
-- 20 EU-regulated industries with encoded domain ontology
+- 25 EU-regulated industries with encoded domain ontology
 - Sovereign deployment (Finland/Germany), no CLOUD Act exposure
 
 **The numbers:**

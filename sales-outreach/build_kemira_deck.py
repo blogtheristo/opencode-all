@@ -260,7 +260,7 @@ title(s, "Three tiers — Defence promised", size=27)
 tag(s, Inches(6.0), Inches(0.95), "canonical", GOOD)
 cols = [("","Onboarding","Monthly","Included")]
 data = [
- ("Aegis Standard","€59,990","€999/mo","Skilled agents · 21 industries · K8s cluster · Article 12 · KYA", False),
+ ("Aegis Standard","€59,990","€999/mo","Skilled agents · 25 industries · K8s cluster · Article 12 · KYA", False),
  ("Aegis Defence  (promised)","€89,990","€1,999/mo","Standard + NVIDIA L40S GPU · ArgusAgent SAR · 4h SLA · EDIP reporting", True),
  ("Aegis Sovereign","Custom","€4,999/mo","Defence + air-gapped/on-prem · clearance support · dedicated team", False),
 ]

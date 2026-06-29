@@ -135,7 +135,7 @@ Why this is relevant to Ambienta:
 - **Portfolio value creation** — Industrial PortCos facing CSRD, CBAM, and ETS exposure get an automated compliance stack instead of consultant-heavy quarterly scrambles.
 - **LP reporting** — As LPs themselves come under CSRD, portfolio-level compliance data becomes a fundraising asset.
 
-Current state: a fleet of skilled agents live, 32 products, 20 EU-regulated industries, paying customers, 100% retention. V1 launches at Arctic 15 in Helsinki on June 15.
+Current state: a fleet of skilled agents live, 32 products, 25 EU-regulated industries, paying customers, 100% retention. V1 launches at Arctic 15 in Helsinki on June 15.
 
 If there's any overlap with how Ambienta is thinking about portfolio compliance tooling or DD workflow, I'd welcome a short call. Happy to send a one-pager first.
 

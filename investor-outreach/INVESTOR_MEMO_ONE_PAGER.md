@@ -35,7 +35,7 @@ AGENT HISTORY:
 | Retention        | 100% (zero churn)                                     |
 | Customer LTV     | €70K–€120K/year                                       |
 | Time Saved       | 40+ hours/month per customer                          |
-| Platform         | a fleet of skilled agents, 32 products, 20 industries |
+| Platform         | a fleet of skilled agents, 32 products, 25 industries |
 | CBAM Coverage    | ✅ All 6 Annex I sectors, 66 CN codes                 |
 | Fortress         | 21 moats across 4 tiers                               |
 

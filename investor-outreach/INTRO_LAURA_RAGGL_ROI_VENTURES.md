@@ -106,7 +106,7 @@ The numbers:
 - Customer LTV: EUR 70K–120K/year
 - Enterprise pilots at EUR 4,950 convert to EUR 8,950/year
 - Target: EUR 900K ARR by end 2026
-- Platform: a fleet of skilled agents, 32 products, 20 EU-regulated industries
+- Platform: a fleet of skilled agents, 32 products, 25 EU-regulated industries
 
 Raising EUR 650K SAFE at EUR 3.8M cap. Captain seats at EUR 50K — fits your ticket range. The market is 49,000+ EU companies facing mandatory CSRD reporting. This is compliance infrastructure, not optional software.
 

@@ -84,7 +84,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 Hi Aris — good talking recently. Quick update: V1 launches at Arctic 15 in 6 weeks (June 15), Messe Germany commercial push right after.
 
-Lifetime Oy — sovereign AI compliance for EU industrial/defense. A fleet of skilled agents, ETS/CBAM/CSRD auto-reports, plus Aegis dual-use module. EUR 7K MRR, 6 customers, 100% retention, 20 EU-regulated industries.
+Lifetime Oy — sovereign AI compliance for EU industrial/defense. A fleet of skilled agents, ETS/CBAM/CSRD auto-reports, plus Aegis dual-use module. EUR 7K MRR, 6 customers, 100% retention, 25 EU-regulated industries.
 
 Raising EUR 650K SAFE at EUR 3.8M cap — sized for a single anchor check in your €300K-€1M range. Fits your sovereign AI + dual-use + hardware-software thesis. Send the Aegis memo?
 
@@ -104,7 +104,7 @@ Traction:
 - LTV: EUR 70K-120K/year per customer
 - Pilot EUR 4,950 converts to EUR 8,950/year
 - Target: EUR 900K ARR by end 2026
-- A fleet of skilled agents, 32 products, 20 EU-regulated industries
+- A fleet of skilled agents, 32 products, 25 EU-regulated industries
 - V1 launches at Arctic 15 (Helsinki, June 15)
 
 Raising EUR 650K SAFE at EUR 3.8M cap. Your €300K-€1M ticket range anchors the round. Apeiron's sovereign AI + dual-use + integrated hardware-software thesis is the tightest fit I've seen for what we're building.

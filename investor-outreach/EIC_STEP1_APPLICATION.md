@@ -83,7 +83,7 @@ payment moves via Qivalis, SEPA, or any future rail. The compliance obligation
 exists at the transaction level, not the rail level.
 
 Current traction: EUR 7K MRR, 6 paying customers, 100% retention, a fleet of skilled agents
-operational across 20 EU-regulated industries. NVIDIA Connect ISV Partner.
+operational across 25 EU-regulated industries. NVIDIA Connect ISV Partner.
 Microsoft Founders Hub L1–L4. Three InvestEU Portal listings.
 
 ---
@@ -135,7 +135,7 @@ cloud egress, no latency, no CLOUD Act exposure. Model-agnostic: Claude,
 Gemini, or any future frontier model can be swapped without rewriting
 the compliance logic, which lives in the Lifetime World Model.
 
-A fleet of skilled agents operational. 32 products shipped. 20 EU-regulated industries.
+A fleet of skilled agents operational. 32 products shipped. 25 EU-regulated industries.
 
 ---
 

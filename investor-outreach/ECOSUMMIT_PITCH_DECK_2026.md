@@ -124,7 +124,7 @@ Live. Paying. Retaining.
 
 - **EUR 7K MRR** (March 2026) — 100% retention, zero churn
 - **6 paying customers** across industrial verticals
-- **20 EU-regulated industries** covered
+- **25 EU-regulated industries** covered
 - **a fleet of skilled agents** in production
 - **13 open data sources** baked in (EUTL, ENTSO-E, EFRAG, Eurostat, EMBER, EEA)
 - **3 InvestEU Portal listings** (INPO-20254383)
@@ -148,7 +148,7 @@ Three pillars. Each takes years to build. Together they are infrastructure.
 Avoid €millions in tariff exposure with real-time embedded carbon tariff automation (CBAM) + supply chain disclosure mapping (CSRD). Double-entry ledger with network effects. No competitor has this. 3–5 years to replicate.
 
 **Pillar 2 — Lifetime World Model**
-15,000+ EU regulatory documents indexed across 20 industries. Seven years and six platform versions to build. Not a fine-tuned GPT on PDFs — a regulatory intelligence graph that maps obligations across ETS, CBAM, CSRD, EPBD, and every Fit for 55 regulation simultaneously. 3–5 years to replicate.
+15,000+ EU regulatory documents indexed across 25 industries. Seven years and six platform versions to build. Not a fine-tuned GPT on PDFs — a regulatory intelligence graph that maps obligations across ETS, CBAM, CSRD, EPBD, and every Fit for 55 regulation simultaneously. 3–5 years to replicate.
 
 **Pillar 3 — Edge AI + Model-Agnostic Orchestration**
 NVIDIA Jetson inference at factory floors, construction sites, mid-ocean vessels — where cloud cannot reach. EUR 17K/year vs EUR 350K/year cloud. Swap any LLM tomorrow; the ledger still works. Built on Model Context Protocol (MCP). 2–3 years to replicate.
@@ -165,7 +165,7 @@ NVIDIA Jetson inference at factory floors, construction sites, mid-ocean vessels
 - ETS Phase 4 tightening: annual Linear Reduction Factor raised to 4.3% (2024–2027), 4.4% (2028–2030)
 
 **EU TAM: EUR 15–20B over 10 years**
-(Source: Lifetime market model — compliance automation across 20 industries)
+(Source: Lifetime market model — compliance automation across 25 industries)
 
 **Beachhead:** Nordic and DACH industrial companies (steel, construction, manufacturing) with active CBAM exposure and CSRD filing obligations. EUR 4,950 pilot → EUR 36K annual contract.
 

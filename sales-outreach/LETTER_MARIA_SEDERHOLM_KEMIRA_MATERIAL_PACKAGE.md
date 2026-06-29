@@ -158,7 +158,7 @@ _(Secondary, to confirm: some speciality/fibre chemicals may sit in critical-inf
 
 | Tier                           | Onboarding + integration | Monthly       | Included                                                                                               |
 | ------------------------------ | ------------------------ | ------------- | ------------------------------------------------------------------------------------------------------ |
-| Aegis Standard                 | €59,990                  | €999/mo       | Skilled agents, 21 industries, dedicated K8s cluster, Article 12 logging, KYA governance               |
+| Aegis Standard                 | €59,990                  | €999/mo       | Skilled agents, 25 industries, dedicated K8s cluster, Article 12 logging, KYA governance               |
 | **Aegis Defence** _(promised)_ | **€89,990**              | **€1,999/mo** | Standard + NVIDIA L40S GPU nodes, ArgusAgent SAR, priority support (4h SLA), EDIP compliance reporting |
 | Aegis Sovereign                | Custom                   | €4,999/mo     | Defence + air-gapped / on-prem, security-clearance support, dedicated engineering team                 |
 
