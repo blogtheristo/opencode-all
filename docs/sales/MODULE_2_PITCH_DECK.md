@@ -65,8 +65,8 @@ Double-entry bookkeeping for CO2. Same carbon, four regulatory touchpoints, one 
 
 Three axes — pick what you need:
 
-- **WHAT** to report → Climate IQ (8 agents, CBAM/CSRD/ETS)
-- **HOW** your supply chain connects → Industrial IQ (50 agents, 21 industries)
+- **WHAT** to report → Climate IQ (skilled-agent fleet, CBAM/CSRD/ETS)
+- **HOW** your supply chain connects → Industrial IQ (skilled-agent fleet, 21 industries)
 - **WHERE** your data lives → Aegis (sovereign, on-prem, defence-grade)
 
 _[Visual: Three-axis diagram with product names at each end]_

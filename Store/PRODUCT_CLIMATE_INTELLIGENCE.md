@@ -125,10 +125,10 @@ SAP Sustainability Control Tower validates the market. DWS IQ Climate Intelligen
 
 ## Pricing
 
-| Tier             | Price                    | Included                                                      |
-| ---------------- | ------------------------ | ------------------------------------------------------------- |
-| **Starter**      | €2,999/mo + €4,990 setup | 3 agents, 1 ERP connector, quarterly reports                  |
-| **Professional** | €4,999/mo + €7,990 setup | All 8 agents, unlimited ERP connectors, continuous monitoring |
-| **Enterprise**   | Custom                   | Dedicated instance, SLA, custom agents, on-premise option     |
+| Tier             | Price                    | Included                                                                  |
+| ---------------- | ------------------------ | ------------------------------------------------------------------------- |
+| **Starter**      | €2,999/mo + €4,990 setup | Skilled agents, 1 ERP connector, quarterly reports                        |
+| **Professional** | €4,999/mo + €7,990 setup | Full skilled-agent fleet, unlimited ERP connectors, continuous monitoring |
+| **Enterprise**   | Custom                   | Dedicated instance, SLA, custom agents, on-premise option                 |
 
 Annual commitment: 2 months free.

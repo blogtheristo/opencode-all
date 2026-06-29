@@ -246,11 +246,11 @@ WINNING SALES = VIP SERVICE + SIGNAL TIMING + SILENCE + DIAGONAL WINS
 
 The DWS IQ product line is often confused as "cheap → medium → expensive." It is not. Each tier answers a different question:
 
-| Tier              | Question It Answers               | Buyer                                      | What They Get                                                                                                                                                                 |
-| ----------------- | --------------------------------- | ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Climate IQ**    | WHAT must I report?               | Sustainability manager, CFO                | CBAM calculations, CSRD data, ETS tracking, PCF reports. 8 specialised agents automate the compliance paperwork.                                                              |
-| **Industrial IQ** | HOW does my supply chain connect? | CTO, Head of R&D, Operations               | Cross-industry signal propagation across 21 industries. When steel prices move, construction costs update. When CBAM tightens, procurement re-routes. 50 agents, World Model. |
-| **Aegis**         | WHERE does my data live?          | CISO, General Counsel, Defence procurement | Sovereign infrastructure. Single-tenant Finnish K8s. On-prem option. Zero CLOUD Act. KYA agent governance. The same agents, but on infrastructure you control.                |
+| Tier              | Question It Answers               | Buyer                                      | What They Get                                                                                                                                                                           |
+| ----------------- | --------------------------------- | ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Climate IQ**    | WHAT must I report?               | Sustainability manager, CFO                | CBAM calculations, CSRD data, ETS tracking, PCF reports. Specialised skilled agents automate the compliance paperwork.                                                                  |
+| **Industrial IQ** | HOW does my supply chain connect? | CTO, Head of R&D, Operations               | Cross-industry signal propagation across 21 industries. When steel prices move, construction costs update. When CBAM tightens, procurement re-routes. Skilled-agent fleet, World Model. |
+| **Aegis**         | WHERE does my data live?          | CISO, General Counsel, Defence procurement | Sovereign infrastructure. Single-tenant Finnish K8s. On-prem option. Zero CLOUD Act. KYA agent governance. The same agents, but on infrastructure you control.                          |
 
 **The axes are independent:**
 
@@ -275,8 +275,8 @@ WHERE (data sovereignty)  →  Aegis
 
 | Product                  | Onboarding      | Monthly                   | What You're Paying For                                         |
 | ------------------------ | --------------- | ------------------------- | -------------------------------------------------------------- |
-| Climate IQ               | €4,990          | €2,999/mo (or €29,990/yr) | 8 compliance agents + EU regulatory corpus                     |
-| Industrial IQ (DWS IQ 6) | €4,999 one-time | —                         | 50 agents + World Model + full platform access                 |
+| Climate IQ               | €4,990          | €2,999/mo (or €29,990/yr) | Compliance skilled agents + EU regulatory corpus               |
+| Industrial IQ (DWS IQ 6) | €4,999 one-time | —                         | Full skilled-agent fleet + World Model + full platform access  |
 | Aegis Standard           | €59,990         | €999/mo                   | Sovereign infrastructure (single-tenant K8s, UpCloud Helsinki) |
 | Aegis Defence            | €89,990         | €1,999/mo                 | + NVIDIA L40S GPU + ArgusAgent SAR + 4h SLA                    |
 | Aegis Sovereign          | Custom          | €4,999/mo                 | + Air-gapped + security clearance + dedicated engineering      |

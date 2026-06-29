@@ -59,15 +59,15 @@ DWS IQ 6 sells sovereign compliance automation to EU-regulated industries. The n
 
 ### Weaknesses
 
-| Weakness                          | Mitigation                                                                                                                                                |
-| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Solo founder**                  | Reframed as strength — see Strengths. Residual risk: key-person absence. Mitigated: 58 agents run autonomously, documented processes, contractor network. |
-| **No defence reference customer** | Nokia Defence said no. Need one pilot win to unlock sector. Aegis GA (Aug 2026) removes "pre-production" objection.                                       |
-| **Material quality gap**          | Three losses (Nokia Defence, Diana, Arctic15) share root cause: materials don't match evaluation framework. Modules 1-4 now built.                        |
-| **No video demo**                 | Script ready (MODULE_1), not yet recorded. Blocks Diana resubmission.                                                                                     |
-| **Aegis pre-GA**                  | Defence tier launches August 2026. Until then, defence deals carry "not yet shipping" risk.                                                               |
-| **Sweden not activated**          | Market intelligence complete, Siemens contact warm, but no Swedish customer yet.                                                                          |
-| **ISO 27001 not yet certified**   | In progress Q3 2026. Enterprise buyers cite this as procurement checkbox.                                                                                 |
+| Weakness                          | Mitigation                                                                                                                                                       |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Solo founder**                  | Reframed as strength — see Strengths. Residual risk: key-person absence. Mitigated: the agent fleet runs autonomously, documented processes, contractor network. |
+| **No defence reference customer** | Nokia Defence said no. Need one pilot win to unlock sector. Aegis GA (Aug 2026) removes "pre-production" objection.                                              |
+| **Material quality gap**          | Three losses (Nokia Defence, Diana, Arctic15) share root cause: materials don't match evaluation framework. Modules 1-4 now built.                               |
+| **No video demo**                 | Script ready (MODULE_1), not yet recorded. Blocks Diana resubmission.                                                                                            |
+| **Aegis pre-GA**                  | Defence tier launches August 2026. Until then, defence deals carry "not yet shipping" risk.                                                                      |
+| **Sweden not activated**          | Market intelligence complete, Siemens contact warm, but no Swedish customer yet.                                                                                 |
+| **ISO 27001 not yet certified**   | In progress Q3 2026. Enterprise buyers cite this as procurement checkbox.                                                                                        |
 
 ### Opportunities
 
