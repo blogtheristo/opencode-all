@@ -68,7 +68,7 @@ Lifetime Oy / DWS IQ is exactly the profile you've described:
 - Stage: Seed → Pre-Series A (SAFE round live; EIC Accelerator Step 1 submitted)
 - Sector: AI + Smart Cities (industrial compliance, edge AI on NVIDIA Jetson)
 - Geography: Helsinki HQ, expanding into ASEAN — Singapore is the natural ASEAN gateway for the CBAM-affected exporters we serve
-- Stack: 21 production AI agents, NVIDIA Connect ISV, Microsoft Founders Hub L4, €7K MRR with 100% retention across Tier-1 European logos (Uber Finland, Kela, NCC, Bolt)
+- Stack: Production agent fleet, NVIDIA Connect ISV, Microsoft Founders Hub L4, €7K MRR with 100% retention across Tier-1 European logos (Uber Finland, Kela, NCC, Bolt)
 - The fractional-CXO structure you've designed is the right shape for us — we cannot yet absorb a full-time CRO/COO, but we can absorb 12 weeks of senior senior expertise. And TIS Inc. as a Japanese-SI relationship is directly relevant to the manufacturers we want to reach.
 
 We'll submit the application before the 31 May deadline. If there's a founder call you'd recommend before submitting — or a sector lead you'd like me to brief — I'm happy to make that easy.
