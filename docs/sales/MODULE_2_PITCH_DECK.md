@@ -113,7 +113,7 @@ _[Visual: Comparison table with green checkmarks for DWS, red X for competitors]
 | Bolt Finland                         | ETS penalty exposure: €10K-50K to €0            |
 | NCC (Nordic construction, €5.5B rev) | Construction vertical reference                 |
 
-50 production agents. 15,000+ EU regulation documents indexed. 20 industry ontologies.
+A production skilled-agent fleet. 15,000+ EU regulation documents indexed. 20 industry ontologies.
 
 _[Visual: Customer logos + key metric per logo]_
 

@@ -390,7 +390,7 @@ PERSONAL SALE WIN = TRUST × PATIENCE × DIAGONAL WINS × ZERO PRESSURE
 
 ### Case Kemira — Promised Offer, Ongoing (What Gets Accepted?)
 
-**What it is:** DWS IQ Climate Intelligence for carbon compliance automation — CBAM, CSRD, Scope 3 PCF reporting. Contact: Maria (Hintikka) Sederholm, VP Product Line Management & Strategy, Fiber Essentials. Second door: Mikko Pohjala, VP Strategy. Offer filed 27.6.2026. Right-fit product: **Climate Intelligence at €29,990/year** (8 specialised agents, ETS/CBAM/CSRD). Aegis sovereignty tier is only justified if scoping confirms dual-use/CER exposure — do not lead with it.
+**What it is:** DWS IQ Climate Intelligence for carbon compliance automation — CBAM, CSRD, Scope 3 PCF reporting. Contact: Maria (Hintikka) Sederholm, VP Product Line Management & Strategy, Fiber Essentials. Second door: Mikko Pohjala, VP Strategy. Offer filed 27.6.2026. Right-fit product: **Climate Intelligence at €29,990/year** (skilled-agent fleet, ETS/CBAM/CSRD). Aegis sovereignty tier is only justified if scoping confirms dual-use/CER exposure — do not lead with it.
 
 **Why it matters:** Kemira is a Nasdaq-listed Finnish speciality chemicals company with SBTi-validated carbon targets and a live CSRD/ESRS sustainability statement under assurance. They already run a Supplier PCF Reporting Guideline (April 2025). This is a company that is actively building the exact workflow DWS automates. Winning here validates the platform for the entire chemicals sector.
 
