@@ -177,15 +177,15 @@ No existing platform — Palantir, Anduril, C3.ai, or Big 4 consulting — provi
 
 **Current Metrics (March 2026):**
 
-| Metric           | Value                                           |
-| ---------------- | ----------------------------------------------- |
-| MRR              | EUR 7K live run-rate                            |
-| Paying Customers | 5                                               |
-| Retention        | 100% (zero churn)                               |
-| Customer LTV     | EUR 70K–120K annual value per logo              |
+| Metric           | Value                                                        |
+| ---------------- | ------------------------------------------------------------ |
+| MRR              | EUR 7K live run-rate                                         |
+| Paying Customers | 5                                                            |
+| Retention        | 100% (zero churn)                                            |
+| Customer LTV     | EUR 70K–120K annual value per logo                           |
 | Platform         | a fleet of skilled agents, 32 products, 5 cloud environments |
-| Industries       | 21 EU-regulated verticals                       |
-| Time Savings     | 40+ hours/month saved per customer              |
+| Industries       | 21 EU-regulated verticals                                    |
+| Time Savings     | 40+ hours/month saved per customer                           |
 
 **Sales Timeline:**
 
@@ -321,7 +321,7 @@ The KYA Standard (v1.6) is why Aegis is not just another AI platform:
 ## Risk Factors
 
 - Early-stage company risk — seed stage, pre-Series A
-- Single founder dependency
+- Lean two-person team; senior technical (CTO) hire still pending (funded by the raise)
 - Market adoption risk — enterprise sales cycles are long
 - Execution risk — scaling from 6 to 25 customers in 2026
 - Competition risk — well-funded US platforms may build EU-sovereign offerings

@@ -205,7 +205,7 @@ Four-pillar distributed system: Brain (21-agent orchestration via DWS IQ 6), Mem
 
 Event-driven sales automation with deterministic 13-state lead machine (Cold_1_Sent, Cold_1_Opened, Engaged, MeetingBooked...). Email, LinkedIn, and phone channels orchestrated through one pipeline. Target: 30 new contacts/day, 1+ meeting/day.
 
-**Why it matters:** The production model produces products — Omnichannel sells them. Closed-loop: build product, sell product, get customer feedback, improve product. Solo founder selling at enterprise scale.
+**Why it matters:** The production model produces products — Omnichannel sells them. Closed-loop: build product, sell product, get customer feedback, improve product. A two-person team selling at enterprise scale.
 
 ### 11. Solution Factory Model — v1.1, March 2026
 

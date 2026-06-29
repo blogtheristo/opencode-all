@@ -147,7 +147,7 @@ Ambition: operations compliance across 25 EU-regulated industries.
 - **Platform:** a fleet of skilled agents, 32 products, 4 cloud environments
 - **Industries:** 25 EU-regulated verticals
 - **Round:** €650K SAFE at €3.8M cap (€500K Fleet Admiral + 8 × €50K Captain)
-- **Team:** Solo founder + AI-assisted development
+- **Team:** Two humans — Risto Päärni (Founder/CEO) + Lucille Santiago (Office Chief / HIC, partner-track Lifetime AB) — plus AI-assisted development; senior technical (CTO) hire funded by the raise
 
 ### Key dates:
 
@@ -169,7 +169,7 @@ Ambition: operations compliance across 25 EU-regulated industries.
 ### Founder context:
 
 - Based in Helsinki, Finland
-- Solo founder with 35+ years industrial management experience
+- Founder with 35+ years industrial management experience; two-person team with Lucille Santiago (Office Chief / HIC)
 - Building with AI-assisted development (Claude Code, parallel agents)
 - EU-first company: GDPR compliant, EU-hosted (Supabase EU, Google Cloud Finland)
 - Finnish company = AAA sovereign credit, strong IP protection, Nordic innovation ecosystem
