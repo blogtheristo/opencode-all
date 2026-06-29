@@ -129,7 +129,7 @@ Anchors (true in all): two-person team (Risto + Lucille Santiago, Office Chief, 
 
 1. Deep-tech for EU industrial compliance — governed AI agent workflows + edge inference + a sovereign local world model that turn regulatory obligations into audit-ready, court-defensible filings.
 2. Why now: post-Omnibus, the largest EU companies (>1,000 employees, >€450M turnover — fewer than 5,000 filers) face mandatory CBAM/CSRD and pull their value chains into Scope-3 reporting. Recurring, penalty-bearing demand.
-3. The deep-tech stack: KYA hardware-attested agent governance (<125ms kill authority) · CIDM patent (filed Dec 2024) · sovereign local Lifetime World Model (no foreign model API) · edge inference (NVIDIA Jetson, sub-100ms, 7–15W) · per-industry ontology. €3M+ and 24–36 months to replicate.
+3. The deep-tech core: a **sovereign local Lifetime World Model** — per-industry, fine-tuned, running with no foreign model API — is the hard-to-copy heart of the system. Supporting infrastructure: KYA hardware-attested agent governance (<125ms kill authority), the CIDM patent (filed Dec 2024), and edge inference (Jetson, sub-100ms, 7–15W). €3M+ and 24–36 months to replicate.
 4. Materials adjacency: CBAM covers iron/steel, cement, aluminium, fertilizers — DWS is the compliance layer for exactly those materials sectors (e.g. our Outokumpu steel pilot). Deep-tech serving heavy industry.
 5. What we sell: the governed outcome — audit-ready filings with Article 12 + 26 reasoning lineage — pulled from your ERP (SAP, IFS Cloud, Dynamics).
 6. Nordic traction: €7K MRR · 6 paying customers · 100% retention · audit-ready in ~4 weeks · 40 h/month saved per customer. References: Outokumpu, NCC.
@@ -137,4 +137,4 @@ Anchors (true in all): two-person team (Risto + Lucille Santiago, Office Chief, 
 8. Team: two-person team — Risto Päärni (Founder/CEO, 35 yrs industrial domain, encoded in product IP) + Lucille Santiago (Office Chief, partner-track Lifetime AB). Technical delivery on governed AI agent workflows + a Cubet Techno Labs engineering partner; senior technical leadership hire funded, search active. Advisors: Robertsson (ESG), Metropolia (academic).
 9. Model: SaaS €3–10k/mo, expanding to ~€36K ACV; 95% gross margin; 100% retention to date.
 10. The ask: €650K SAFE at €3.8M cap, with room to upsize to a priced seed. We'd welcome a partner with a strong seed→Series-A graduation track record to anchor the path. Architecture deep-dive available up front.
-11. What's next: deepen the deep-tech moat (more regulated verticals + CBAM/EPBD modules), convert the Nordic reference base into multi-site expansion, and build toward the Series-A milestones. Hands-on portfolio support welcome.
+11. What's next: deepen the deep-tech moat (more regulated verticals + CBAM/EPBD modules), convert the Nordic reference base into multi-site expansion, and build toward the Series-A milestones.
