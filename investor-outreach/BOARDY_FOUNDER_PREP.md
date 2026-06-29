@@ -16,7 +16,7 @@ DWS IQ 6 is the operations compliance layer that sits between ERP systems and EU
 
 The short version: connect your ERP, import your building assessments, get audit-ready compliance reports every quarter without manual work.
 
-The platform runs 21 AI agents across 20 EU-regulated industries, governed by the KYA Standard — hardware-attested agent identity with court-defensible audit trails.
+The platform runs a fleet of skilled agents across 20 EU-regulated industries, governed by the KYA Standard — hardware-attested agent identity with court-defensible audit trails.
 
 ### How did you get here?
 
@@ -31,7 +31,7 @@ But once the building is operating? Once the factory is running? Once the fleet 
 - **€7K MRR** (€84k ARR), five paying customers
 - **100% customer retention** — zero churn
 - **40+ hours/month saved** per customer vs. manual reporting
-- **Platform:** 21 AI agents, 32 products, 5 cloud environments, 20 EU-regulated industries
+- **Platform:** a fleet of skilled agents, 32 products, 5 cloud environments, 20 EU-regulated industries
 - **V1 Launch:** June 15, 2026 at Arctic 15 (Helsinki)
 - Seed stage — raising €650K SAFE at €3.8M cap
 

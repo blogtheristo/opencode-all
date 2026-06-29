@@ -171,7 +171,7 @@ Standalone dual-use AI platform for defence and sovereign operations. Orbital in
 
 **Why it matters:** 13x cheaper than Palantir's floor for Year 1 (EUR 59,990 vs EUR 920,000). NATO DIANA Accelerator eligible. Opens EUR 8B+ EU defence AI market from an EU-sovereign position.
 
-### 5. Climate IQ Pantheon (14 AI Agents) — v1.0, March 26, 2026
+### 5. Climate IQ Pantheon — v1.0, March 26, 2026
 
 Greek-Roman named multi-agent system: Atlas (router), Athena (compliance), Argus (orbital SAR), Hephaestus (field operations), Hermes (logistics), Iris (market intelligence), plus 8 more specialized agents working in concert.
 

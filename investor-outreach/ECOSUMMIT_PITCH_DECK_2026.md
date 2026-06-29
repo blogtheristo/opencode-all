@@ -96,7 +96,7 @@ The same tonne flows across ETS, CBAM, CSRD, and Taxonomy — four regulations, 
 - Siloed ETS registry reconciliation
 - Consultant-led Taxonomy alignment assessments
 
-**Delivery:** 21 AI agents. Real-time. Edge-deployable on NVIDIA Jetson at industrial sites where cloud cannot reach. EUR 17K/year vs EUR 350K/year cloud-only alternatives.
+**Delivery:** a fleet of skilled agents. Real-time. Edge-deployable on NVIDIA Jetson at industrial sites where cloud cannot reach. EUR 17K/year vs EUR 350K/year cloud-only alternatives.
 
 ---
 
@@ -125,7 +125,7 @@ Live. Paying. Retaining.
 - **EUR 7K MRR** (March 2026) — 100% retention, zero churn
 - **6 paying customers** across industrial verticals
 - **20 EU-regulated industries** covered
-- **21 AI agents** in production
+- **a fleet of skilled agents** in production
 - **13 open data sources** baked in (EUTL, ENTSO-E, EFRAG, Eurostat, EMBER, EEA)
 - **3 InvestEU Portal listings** (INPO-20254383)
 - **V1 public launch:** Arctic 15 Helsinki, June 15 2026
@@ -176,7 +176,7 @@ NVIDIA Jetson inference at factory floors, construction sites, mid-ocean vessels
 ## Slide 9 — Team
 
 **Risto Päärni — Founder / CEO**
-35 years in enterprise software and industrial ICT. M.Sc. Industrial Management. Built DWS IQ 6 solo — 1,030+ PRs, 21 AI agents, edge AI on NVIDIA Jetson, three InvestEU validations. Encodes 35 years of industrial domain knowledge into agents.
+35 years in enterprise software and industrial ICT. M.Sc. Industrial Management. Built DWS IQ 6 solo — 1,030+ PRs, a fleet of skilled agents, edge AI on NVIDIA Jetson, three InvestEU validations. Encodes 35 years of industrial domain knowledge into agents.
 
 **AI agents operating under Risto's editorial authority — this is the product in action:**
 

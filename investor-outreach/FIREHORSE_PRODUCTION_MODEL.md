@@ -44,7 +44,7 @@ Most solo founders iterate by instinct. We codified it. The Firehorse Production
 - Published as a Master's Thesis at Metropolia University of Applied Sciences (2026)
 - Planned continuation as a PhD-level scientific paper at LUT University (2027)
 - Powers the product evolution from a single CSRD report product to the DWS IQ Aegis dual-use platform
-- 32 products shipped, 21 AI agents operational, 5 cloud environments deployed
+- 32 products shipped, a fleet of skilled agents operational, 5 cloud environments deployed
 
 ---
 
@@ -136,7 +136,7 @@ The Firehorse Production Model produced a clear evolution arc, each stage buildi
 
 **DWS IQ 6 Platform** — EUR 4,999 + EUR 499/month
 
-- 21 AI agents orchestrated via Brain-Memory-Body-Hands architecture
+- a fleet of skilled agents orchestrated via Brain-Memory-Body-Hands architecture
 - Automated compliance scoring across CSRD, CBAM, ETS, EU AI Act
 - Solution Factory model validated — same agents serve 20 industries
 - Carbon balance sheet (debit-credit ledger for CO2)
@@ -296,7 +296,7 @@ Everything below is live in production code with TypeScript implementations, dat
 | **2**  | **Carbon Debit-Credit Ledger**               | Double-entry bookkeeping for CO2. Every tonne tracked like every euro — debits (ETS surrenders, CBAM imports) and credits (free allocations, offsets) in one auditable ledger.                                                   | First mover in carbon balance sheet infrastructure. Same carbon, four regulatory touchpoints (ETS, CBAM, CSRD, Taxonomy), one ledger. CFO-readable format — not an engineering dashboard.                          |
 | **3**  | **Harness Engineering** (6-Layer L0-L6)      | Six-layer information architecture that constrains AI agent behavior. Raw model scored 52.8% on compliance tasks. Harness pushed it to 66.5% — without changing the model.                                                       | Proves the production model thesis: the system around the AI matters more than the AI itself. Published in Metropolia thesis. Transferable to any frontier model.                                                  |
 | **4**  | **DWS IQ Aegis** (Dual-Use Platform)         | Standalone dual-use AI platform for defence and sovereign operations. Orbital intelligence (ICEYE SAR), sovereignty monitoring, EU-only cloud. EUR 59,990 + EUR 999/mo.                                                          | 13x cheaper than Palantir's floor for Year 1. NATO DIANA eligible. Opens EUR 8B+ EU defence AI market from an EU-sovereign position.                                                                               |
-| **5**  | **Climate IQ Pantheon** (14 AI Agents)       | Greek-Roman named multi-agent system: Atlas (router), Athena (compliance), Argus (orbital SAR), Hephaestus (field ops), Hermes (logistics), Iris (market intelligence) + 8 more.                                                 | 14 specialized agents that compound each other's output. One agent's finding in energy becomes another agent's input in construction. This is the cross-vertical intelligence flywheel.                            |
+| **5**  | **Climate IQ Pantheon**       | Greek-Roman named multi-agent system: Atlas (router), Athena (compliance), Argus (orbital SAR), Hephaestus (field ops), Hermes (logistics), Iris (market intelligence) + 8 more.                                                 | Specialized skilled agents that compound each other's output. One agent's finding in energy becomes another agent's input in construction. This is the cross-vertical intelligence flywheel.                            |
 | **6**  | **Cross-Vertical Intelligence Engine**       | Signal propagation across 20 EU-regulated industries. BESS dispatch data improves grid emission calculations, which improve steel ETS exposure, which improves construction embodied carbon, which improves CSRD gap analysis.   | Network effect for compliance intelligence. Each new industry customer makes the platform smarter for all other industries. Competitors serve one vertical — we serve twenty from one world model.                 |
 | **7**  | **EU AI Act Article 12 Logging**             | Append-only audit trail for every AI agent decision. Pre-flight (proof of data scrubbing before cloud egress) and post-flight (output reasoning lineage). 7-year tamper-evident retention.                                       | Legal requirement for all high-risk AI systems in the EU from August 2026. We shipped it in March 2026 — five months ahead of enforcement. First-mover compliance advantage.                                       |
 | **8**  | **Agent Foundry / OpenSandbox** (Edge AI)    | Zero-cloud-egress agent execution on Acer Veriton GN100 (NVIDIA-powered) with Docker isolation. Agents run on-premise — no data leaves the building.                                                                             | Defence and sovereign customers require on-premise AI. OpenSandbox makes DWS IQ deployable inside air-gapped environments — a hard requirement for Aegis customers.                                                |

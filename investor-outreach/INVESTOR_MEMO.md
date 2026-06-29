@@ -28,7 +28,7 @@ Every EU company filing CSRD needs a carbon balance sheet. We build the ledger i
 - Paying Customers: 6
 - Retention: 100% (zero churn)
 - Customer LTV: €70k–€120k projected annual value per logo (multi-site expansion after construction pilots)
-- Platform: 21 AI agents, 32 products, 5 cloud environments
+- Platform: a fleet of skilled agents, 32 products, 5 cloud environments
 - Industries served: 20 EU-regulated verticals
 - CBAM Annex I coverage: ✅ All 6 sectors (Steel, Aluminium, Cement, Fertilizers, Hydrogen, Electricity), 66 CN codes, one dedicated agent per sector (LD-2026-013, April 16, 2026)
 - Carbon balance sheet: Debit-credit ledger shipping in V1, persistent ledger in DWS 7 Phase 2 (Jul 2026)
@@ -456,7 +456,7 @@ Timeframe:                 ~2 years (2024→2026)
 | **18 Security Vulnerabilities** | ✅ Fixed         | Zero critical/high issues                                  |
 | **Administration Portal**       | ✅ Live          | dws6.com — Admin access                                    |
 | **User Login Portal**           | ✅ Live          | dws6.com/login — Customer access                           |
-| **18 AI Agents**                | ✅ Operational   | Full swarm across 20 industries                            |
+| **Skilled Agents**                | ✅ Operational   | Full swarm across 20 industries                            |
 | **32 Products**                 | ✅ Cataloged     | dws10.com store                                            |
 | **4 Cloud Environments**        | ✅ Running       | US, EU, Hetzner, Edge (+ Full Sovereignty planned Q2 2026) |
 

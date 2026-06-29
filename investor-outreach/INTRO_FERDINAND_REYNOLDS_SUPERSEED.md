@@ -83,7 +83,7 @@ Risto Päärni, CEO of Lifetime Oy (Espoo, Finland). [Human Name] suggested we c
 
 EU manufacturers that can't account for their carbon exposure are losing supply chain access. CBAM border adjustment means every importer must track embedded carbon from their suppliers — and the data infrastructure doesn't exist yet. We built it.
 
-We're building the carbon balance sheet — double-entry bookkeeping for CO2 across ETS, CBAM, CSRD, and EU Taxonomy. Every tonne tracked like every euro. 21 AI agents scoring compliance across 20 regulated industrial verticals — steel, cement, chemicals, aluminium, the sectors you invest in.
+We're building the carbon balance sheet — double-entry bookkeeping for CO2 across ETS, CBAM, CSRD, and EU Taxonomy. Every tonne tracked like every euro. A fleet of skilled agents scoring compliance across 20 regulated industrial verticals — steel, cement, chemicals, aluminium, the sectors you invest in.
 
 6 paying customers today (€7K MRR, 100% retention). The regulatory wave is creating forced adoption: Fit for 55, CBAM phase-in, CSRD mandatory reporting. This isn't optional software — it's supply chain compliance infrastructure.
 

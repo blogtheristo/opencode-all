@@ -98,7 +98,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 Hi Francesco,
 
-I'm Risto Päärni, founder of Lifetime Oy (Helsinki). We're building DWS IQ 6 — compliance automation for industrial companies under CSRD, ETS, CBAM, and EU Taxonomy. 21 AI agents that pull operational data from SAP / IFS / Dynamics and auto-generate audit-ready reports. Every score traces to EUR-Lex, EEA, or EU ETS benchmarks.
+I'm Risto Päärni, founder of Lifetime Oy (Helsinki). We're building DWS IQ 6 — compliance automation for industrial companies under CSRD, ETS, CBAM, and EU Taxonomy. A fleet of skilled agents that pull operational data from SAP / IFS / Dynamics and auto-generate audit-ready reports. Every score traces to EUR-Lex, EEA, or EU ETS benchmarks.
 
 Saw the €500M small-cap raise — congratulations. With the new fund in active deployment, I think there's a concrete angle on the DD side: compressing sustainability due diligence from ~6 weeks to ~2 weeks with a source-cited Article 9-grade report. Same deployment then becomes the PortCo's quarterly compliance stack post-close.
 
@@ -115,7 +115,7 @@ Hi Francesco,
 
 Risto Päärni, founder of Lifetime Oy (Espoo, Finland). I saw the €500M Ambienta Small Cap raise — congratulations. The reason I'm writing is that we built DWS IQ 6 to do exactly the workstream that becomes the bottleneck once you start deploying that capital: sustainability due diligence on industrial targets, then ongoing CSRD / CBAM / ETS reporting once a PortCo is in.
 
-DWS IQ 6 is EU compliance automation for industrial companies. 21 AI agents connect to SAP, IFS Cloud, and Dynamics 365, pull operational data, and auto-generate audit-ready reports across ETS, CBAM (all 6 Annex I sectors, 66 CN codes), CSRD, and EU Taxonomy. Every score traces back to the regulatory source (EUR-Lex, EEA data, EU ETS benchmarks). Hardware-attested agent governance under the KYA Standard provides EU AI Act Art. 12 + Art. 26 evidence.
+DWS IQ 6 is EU compliance automation for industrial companies. A fleet of skilled agents connect to SAP, IFS Cloud, and Dynamics 365, pull operational data, and auto-generate audit-ready reports across ETS, CBAM (all 6 Annex I sectors, 66 CN codes), CSRD, and EU Taxonomy. Every score traces back to the regulatory source (EUR-Lex, EEA data, EU ETS benchmarks). Hardware-attested agent governance under the KYA Standard provides EU AI Act Art. 12 + Art. 26 evidence.
 
 Why this is relevant to Ambienta Small Cap:
 

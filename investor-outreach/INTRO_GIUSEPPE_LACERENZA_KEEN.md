@@ -80,7 +80,7 @@ Hi Giuseppe,
 
 Risto Päärni, CEO of Lifetime Oy (Finland). [Human Name] suggested we connect — your work building a strategic technologies fund for European security maps directly to what we're shipping.
 
-The short version: EU industrial companies face four overlapping carbon regulations (ETS, CBAM, CSRD, Taxonomy) and have no unified infrastructure to manage them. We built the carbon balance sheet — double-entry bookkeeping for CO2, so every tonne is tracked like every euro. 21 AI agents, 20 regulated verticals, EU-sovereign architecture with zero US cloud dependency.
+The short version: EU industrial companies face four overlapping carbon regulations (ETS, CBAM, CSRD, Taxonomy) and have no unified infrastructure to manage them. We built the carbon balance sheet — double-entry bookkeeping for CO2, so every tonne is tracked like every euro. A fleet of skilled agents, 20 regulated verticals, EU-sovereign architecture with zero US cloud dependency.
 
 Why this is a dual-use story:
 

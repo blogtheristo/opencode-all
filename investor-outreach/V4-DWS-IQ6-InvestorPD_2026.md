@@ -193,7 +193,7 @@
 **Status**: LAUNCHING Q1 2025 (€500k Construction Heroes campaign)
 
 **Deliverables** (annual contract):
-✓ All 21 AI agents, ERP integrations, priority support
+✓ All a fleet of skilled agents, ERP integrations, priority support
 ✓ Sub-100ms real-time energy optimization
 ✓ Predictive maintenance (15,000-40,000 tCO₂e avoided annually)
 ✓ Fit for 55 compliance automation
@@ -675,7 +675,7 @@ Competitive Advantage:
 #### **Enterprise Premium** 🚀 ANNUAL SUBSCRIPTION
 
 **Annual Subscription**: from €8,950/year (€746/month)
-- All 21 AI agents, ERP integrations, priority support
+- All a fleet of skilled agents, ERP integrations, priority support
 - Sub-100ms real-time decisioning (energy optimization, predictive maintenance)
 - Multi-site orchestration
 - Priority support (4-hour SLA, dedicated customer success manager)

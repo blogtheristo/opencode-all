@@ -82,7 +82,7 @@ DWS IQ records every CBAM, CSRD, and ETS obligation regardless of whether the
 payment moves via Qivalis, SEPA, or any future rail. The compliance obligation
 exists at the transaction level, not the rail level.
 
-Current traction: EUR 7K MRR, 6 paying customers, 100% retention, 21 AI agents
+Current traction: EUR 7K MRR, 6 paying customers, 100% retention, a fleet of skilled agents
 operational across 20 EU-regulated industries. NVIDIA Connect ISV Partner.
 Microsoft Founders Hub L1–L4. Three InvestEU Portal listings.
 

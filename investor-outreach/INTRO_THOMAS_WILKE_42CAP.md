@@ -109,7 +109,7 @@ Thanks for the recent conversation. Sending the follow-up we discussed.
 
 **The moat — vertically integrated AI:**
 
-- 21 AI agents, MCP-exposed, deterministic scoring
+- a fleet of skilled agents, MCP-exposed, deterministic scoring
 - ERP data moat: SAP S/4HANA, IFS Cloud, Dynamics 365 connectors (live)
 - 20 EU-regulated industries with encoded domain ontology
 - EU AI Act compliant from v0 — not retrofitted

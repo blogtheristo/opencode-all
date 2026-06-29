@@ -24,7 +24,7 @@ AGENT HISTORY:
 
 ## The Solution
 
-**DWS IQ 6** — 21 AI agents that connect to SAP/IFS/Dynamics, import building assessments, and auto-generate audit-ready compliance reports every quarter. One carbon ledger, four regulatory touchpoints, full audit trail. EU AI Act compliant (KYA Standard: hardware-attested agent governance).
+**DWS IQ 6** — a fleet of skilled agents that connect to SAP/IFS/Dynamics, import building assessments, and auto-generate audit-ready compliance reports every quarter. One carbon ledger, four regulatory touchpoints, full audit trail. EU AI Act compliant (KYA Standard: hardware-attested agent governance).
 
 ## Traction
 

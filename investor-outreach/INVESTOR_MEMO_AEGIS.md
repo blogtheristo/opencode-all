@@ -183,7 +183,7 @@ No existing platform — Palantir, Anduril, C3.ai, or Big 4 consulting — provi
 | Paying Customers | 5                                               |
 | Retention        | 100% (zero churn)                               |
 | Customer LTV     | EUR 70K–120K annual value per logo              |
-| Platform         | 21 AI agents, 32 products, 5 cloud environments |
+| Platform         | a fleet of skilled agents, 32 products, 5 cloud environments |
 | Industries       | 21 EU-regulated verticals                       |
 | Time Savings     | 40+ hours/month saved per customer              |
 

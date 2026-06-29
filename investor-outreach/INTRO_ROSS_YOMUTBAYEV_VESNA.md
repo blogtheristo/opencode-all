@@ -100,7 +100,7 @@ Hi Ross,
 
 Thanks for the recent conversation. Sending the follow-up we discussed.
 
-DWS IQ 6 is the carbon compliance platform for EU industrial companies. 21 AI agents connect to SAP, IFS Cloud, Dynamics 365, pull operational data, and auto-generate audit-ready ETS / CBAM / CSRD / EU Taxonomy reports. Architecture: MCP-exposed agents, deterministic scoring, full audit trail, EU AI Act compliant, sovereignty audit reasoning lineage.
+DWS IQ 6 is the carbon compliance platform for EU industrial companies. A fleet of skilled agents connect to SAP, IFS Cloud, Dynamics 365, pull operational data, and auto-generate audit-ready ETS / CBAM / CSRD / EU Taxonomy reports. Architecture: MCP-exposed agents, deterministic scoring, full audit trail, EU AI Act compliant, sovereignty audit reasoning lineage.
 
 Given your AI-DD engine work, the architecture is the fastest way in:
 

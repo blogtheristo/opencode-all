@@ -104,7 +104,7 @@ Risto Päärni, Lifetime Oy (Espoo, Finland). Reaching out because Hard2beat's B
 
 **The moat:**
 
-- 21 AI agents, MCP-exposed (JSON-RPC 2.0), deterministic scoring
+- a fleet of skilled agents, MCP-exposed (JSON-RPC 2.0), deterministic scoring
 - ERP connectors: SAP S/4HANA, IFS Cloud, Dynamics 365 (live)
 - EU AI Act compliant from v0 — not retrofitted
 - Sovereignty audit reasoning lineage — full audit trail for regulators

@@ -82,7 +82,7 @@ Hi Christiaan,
 
 Risto Päärni, Lifetime Oy (Espoo, Finland). Good to reconnect after our recent conversation — it's clear we're building towards the same thesis from complementary angles.
 
-You're building the sovereign inference layer that sits next to control systems. We're building the sovereign intelligence layer that sits on top — compliance automation for EU-regulated industries. 21 AI agents tracking carbon across ETS, CBAM, CSRD, and Taxonomy. Every agent governed by our KYA Standard: hardware-attested identity, court-defensible audit trails, EU AI Act Article 12 compliant. 100% EU-hosted (Finland, Germany), zero US cloud dependency.
+You're building the sovereign inference layer that sits next to control systems. We're building the sovereign intelligence layer that sits on top — compliance automation for EU-regulated industries. A fleet of skilled agents tracking carbon across ETS, CBAM, CSRD, and Taxonomy. Every agent governed by our KYA Standard: hardware-attested identity, court-defensible audit trails, EU AI Act Article 12 compliant. 100% EU-hosted (Finland, Germany), zero US cloud dependency.
 
 Why I think there's something here beyond a good conversation:
 

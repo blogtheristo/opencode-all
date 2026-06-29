@@ -83,7 +83,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 Lead with:
 
 1. **Portfolio company value-creation** — "Your portfolio companies across DACH industrials face €X million in ETS/CBAM exposure. We automate that compliance — which directly affects your exit multiples and continuation fund valuations"
-2. **ESG due diligence automation** — "I read your piece on ESG screening in secondaries. We've built the tool that makes that screening deterministic — 21 AI agents scoring carbon compliance across 20 EU-regulated industries"
+2. **ESG due diligence automation** — "I read your piece on ESG screening in secondaries. We've built the tool that makes that screening deterministic — a fleet of skilled agents scoring carbon compliance across 20 EU-regulated industries"
 3. **Continuation fund angle** — "For single-asset continuation vehicles, carbon compliance readiness is becoming a material valuation factor. Our carbon balance sheet gives you auditable data for LP reporting"
 
 **Do NOT lead with:**
