@@ -13,7 +13,7 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.74
+Version: 1.75
 
 Sessions & Modifications:
 
@@ -29,6 +29,7 @@ Sessions & Modifications:
 - Version: 1.72 | Tool: Claude Code (Opus 4.8) | Session: claude/consultant-handbook-v1-6-622fep | Date: 28.06.2026 | Changes: Added §2 value "Ihmiskeskeisyys (eettinen tekoälypäätös)" — we do not aim to reduce customer headcount (leadership decides); we bring industrial operators new agent capabilities that lift productivity, alongside humans, not replacing them. AI augments, never replaces. Ethical differentiation vs. "AI employee replaces headcount" narratives. Regenerated branded HTML.
 - Version: 1.73 | Tool: Claude Code (Opus 4.8) | Session: claude/consultant-handbook-v1-6-622fep | Date: 28.06.2026 | Changes: Added §10 "Asiakkaan tarina ostopolun vaiheen mukaan" — maps the three sales metaphors (Buffet/Captain/Vineyard) to buying-journey stages with the ethical "augment not replace" angle woven into each customer story. Worked examples: ORK (Buffet, public tender), Outokumpu (Captain, pilot-first), Kemira (Vineyard). References /dialog customer-adaptation mode for offer reuse (ORK→Kemira).
 - Version: 1.74 | Tool: Claude Code (Opus 4.8) | Session: claude/consultant-handbook-v1-6-622fep | Date: 28.06.2026 | Changes: Added §6 "Kyvykkyydet tuotteen elinkaaressa" — maps agent capabilities, skills, workflows and learning (Gödel) loops to product lifecycle stages (Development / Deployment / Maintenance / Update & Grow) for both DWS IQ platform and the Firehorse product line. 72 IT roles re-cast as capabilities; roles stay with humans, agents make them faster (human-in-the-loop per §2 Ihmiskeskeisyys).
+- Version: 1.75 | Tool: Claude Code (Opus 4.8) | Session: claude/consultant-handbook-v1-6-622fep | Date: 28.06.2026 | Changes: §6 lifecycle section — added explicit mapping of Boris Cherny's 5 product archetypes (Prototyper/Builder/Sweeper/Grower/Maintainer) to lifecycle stages (overlapping, not 1:1), plus "Kypsyysmiksaus" — the right archetype mix by maturity, applied both per DWS product (Aegis Defence pre-PMF 1+2+3; Climate IQ growing 2+3+4+5; DWS IQ 6 mature 3+4+5) and per industry (mature steel/energy/chemicals; growing construction/maritime; emerging defence/new ontology nodes).
 
 Document Status:
 
@@ -475,7 +476,15 @@ DWS-konsultointi rakentuu kolmelle pilarille. Yhdessä ne varmistavat, että asi
 
 ### Kyvykkyydet tuotteen elinkaaressa
 
-Vanhat 72 IT-roolia eivät kadonneet — ne on **uudelleenmuotoiltu agenttikyvykkyyksiksi, skilleiksi, työnkuluiksi ja oppimissilmukoiksi (Gödel-loops)**. Rooli säilyy ihmisellä; agentti tekee siitä nopeamman. Kyvykkyydet kohdennetaan tuotteen elinkaaren vaiheisiin — sekä DWS IQ -alustatuotteille että Firehorse-tuotelinjalle. (Arkkityypit mukailevat tuotekehityksen rooleja: prototypoija, rakentaja, siivoaja, kasvattaja, ylläpitäjä — eivät työnimikkeitä vaan kyvykkyyksiä, jotka ihminen + agentti hoitavat yhdessä.)
+Vanhat 72 IT-roolia eivät kadonneet — ne on **uudelleenmuotoiltu agenttikyvykkyyksiksi, skilleiksi, työnkuluiksi ja oppimissilmukoiksi (Gödel-loops)**. Rooli säilyy ihmisellä; agentti tekee siitä nopeamman. Kyvykkyydet kohdennetaan tuotteen elinkaaren vaiheisiin — sekä DWS IQ -alustatuotteille että Firehorse-tuotelinjalle.
+
+Tuotekehityksen arkkityypit (Boris Cherny, Claude Code) eivät ole työnimikkeitä vaan kyvykkyyksiä, jotka ihminen + agentti hoitavat yhdessä. Ne kartoittuvat elinkaaren vaiheisiin **limittäin** — moni kyvykkyys kattaa kaksi vaihetta:
+
+- **Prototyper** → Kehitys
+- **Builder** → Kehitys + Käyttöönotto
+- **Sweeper** → Ylläpito + Päivitys (siivoaa, yksinkertaistaa, poistaa, optimoi)
+- **Grower** → Päivitys & kasvu (iteroi PMF:ää)
+- **Maintainer** → Ylläpito (turvallinen, luotettava, nopea skaalautuessa)
 
 **1. Kehitys (Development) — prototypoi & rakenna**
 
@@ -509,6 +518,28 @@ Firehorse on toistettava tuotetehdas: sisältö, markkinointi ja myynti tuotteis
 - **Julkaisu & hallinta:** Firehorse Content Management (€2 999), SEO Audit, Designer — luonti → hallinta → julkaisu
 - **Kasvu & optimointi:** Competitor Surveillance, Lead Feedback, Customer Sat — `/lsj-publish` (Lifetime Scope Monthly), `/investor-outreach`
 - Oppimissilmukka: jokainen kampanja syöttää tulokset takaisin tuotantomalliin — suljettu silmukka: rakenna tuote → myy tuote → asiakaspalaute → paranna tuote
+
+**Kypsyysmiksaus — oikea arkkityyppimix riippuu tuotteen ja toimialan kypsyydestä**
+
+Boriksen ydinhavainto: terve tiimi tarvitsee arkkityyppien sekoituksen, joka määräytyy tuotteen kypsyydestä. Tämä antaa konsultille käytännön työkalun — tunnista missä vaiheessa kohde on ja painota oikeita kyvykkyyksiä:
+
+- **Esi-PMF (uusi tuote/toimiala):** Prototyper + Builder + Sweeper (1+2+3)
+- **Kasvuvaihe (PMF löytynyt):** Builder + Sweeper + Grower + Maintainer (2+3+4+5)
+- **Kypsä (vahva PMF):** Sweeper + Grower + Maintainer + vähän Builderia (3+4+5+2)
+
+**DWS-tuotteittain:**
+
+- **Aegis Defence** (pre-GA, esi-PMF) → 1+2+3: prototypointi, rakentaminen, optimointi
+- **Climate IQ** (PMF, kasvaa) → 2+3+4+5: rakentaminen, kasvu ja ylläpito rinnakkain
+- **DWS IQ 6 -ydin** (kypsä) → 3+4+5: ylläpito, kasvu, jatkuva siivous
+
+**Toimialoittain** (sama logiikka — toimialan kypsyys DWS:n kanssa määrää painotuksen):
+
+- **Kypsät toimialat** (teräs, energia, kemia — CBAM/ETS vakiintunut) → Grower + Maintainer + Sweeper: iterointi, luotettavuus, optimointi
+- **Kasvavat toimialat** (rakentaminen, meriliikenne — EPBD 2028, FuelEU) → Builder + Grower: työnkulkujen rakentaminen ja PMF:n hiominen
+- **Nousevat toimialat** (puolustus/kaksikäyttö, sekä jokainen uusi ontologiasolmu) → Prototyper + Builder: kartoitus, ensimmäiset työnkulut, validointi
+
+Näin konsultti osaa kohdentaa agenttikyvykkyydet sekä tuotteen että toimialan kypsyyden mukaan — ei sama mix jokaiseen toimeksiantoon.
 
 Jokaisessa vaiheessa pätee eettinen periaate: agentit nopeuttavat ihmisen työtä, eivät korvaa sitä (human-in-the-loop, §2 Ihmiskeskeisyys).
 

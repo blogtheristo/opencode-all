@@ -71,7 +71,7 @@
   <body>
     <div class="dws-version-banner">
       <span class="dws-version-title">Konsultoinnin käsikirja 2026 — Consultancy Excellence Handbook</span>
-      <span class="dws-version-badge">v1.74</span>
+      <span class="dws-version-badge">v1.75</span>
       <span class="dws-version-meta">Lifetime Oy · Risto Anton Paarni · 28.06.2026</span>
     </div>
     <h1>Konsultoinnin käsikirja 2026</h1>
@@ -455,7 +455,15 @@
       </ul>
       <p><strong>Konsultoinnin tulos:</strong> Asiakas ei ole riippuvainen yksittäisistä konsulteista tai heidän saatavuudestaan. Agenttikyvykkyydet ovat aina käytettävissä, aina ajan tasalla, aina valmiina. Keskeytyskustannus laskee, muutosvalmius nousee, compliance pysyy automaattisesti ajan tasalla.</p>
       <h3 id="kyvykkyydet-tuotteen-elinkaaressa">Kyvykkyydet tuotteen elinkaaressa</h3>
-      <p>Vanhat 72 IT-roolia eivät kadonneet — ne on <strong>uudelleenmuotoiltu agenttikyvykkyyksiksi, skilleiksi, työnkuluiksi ja oppimissilmukoiksi (Gödel-loops)</strong>. Rooli säilyy ihmisellä; agentti tekee siitä nopeamman. Kyvykkyydet kohdennetaan tuotteen elinkaaren vaiheisiin — sekä DWS IQ -alustatuotteille että Firehorse-tuotelinjalle. (Arkkityypit mukailevat tuotekehityksen rooleja: prototypoija, rakentaja, siivoaja, kasvattaja, ylläpitäjä — eivät työnimikkeitä vaan kyvykkyyksiä, jotka ihminen + agentti hoitavat yhdessä.)</p>
+      <p>Vanhat 72 IT-roolia eivät kadonneet — ne on <strong>uudelleenmuotoiltu agenttikyvykkyyksiksi, skilleiksi, työnkuluiksi ja oppimissilmukoiksi (Gödel-loops)</strong>. Rooli säilyy ihmisellä; agentti tekee siitä nopeamman. Kyvykkyydet kohdennetaan tuotteen elinkaaren vaiheisiin — sekä DWS IQ -alustatuotteille että Firehorse-tuotelinjalle.</p>
+      <p>Tuotekehityksen arkkityypit (Boris Cherny, Claude Code) eivät ole työnimikkeitä vaan kyvykkyyksiä, jotka ihminen + agentti hoitavat yhdessä. Ne kartoittuvat elinkaaren vaiheisiin <strong>limittäin</strong> — moni kyvykkyys kattaa kaksi vaihetta:</p>
+      <ul>
+      <li><strong>Prototyper</strong> → Kehitys</li>
+      <li><strong>Builder</strong> → Kehitys + Käyttöönotto</li>
+      <li><strong>Sweeper</strong> → Ylläpito + Päivitys (siivoaa, yksinkertaistaa, poistaa, optimoi)</li>
+      <li><strong>Grower</strong> → Päivitys &amp; kasvu (iteroi PMF:ää)</li>
+      <li><strong>Maintainer</strong> → Ylläpito (turvallinen, luotettava, nopea skaalautuessa)</li>
+      </ul>
       <p><strong>1. Kehitys (Development) — prototypoi &amp; rakenna</strong></p>
       <ul>
       <li>Agentit: GenAI Solution Architect, Data Engineer, Integration Architect, Test Automation, Designer, DeepWiki Extractor, Synthetic Data</li>
@@ -488,6 +496,26 @@
       <li><strong>Kasvu &amp; optimointi:</strong> Competitor Surveillance, Lead Feedback, Customer Sat — <code>/lsj-publish</code> (Lifetime Scope Monthly), <code>/investor-outreach</code></li>
       <li>Oppimissilmukka: jokainen kampanja syöttää tulokset takaisin tuotantomalliin — suljettu silmukka: rakenna tuote → myy tuote → asiakaspalaute → paranna tuote</li>
       </ul>
+      <p><strong>Kypsyysmiksaus — oikea arkkityyppimix riippuu tuotteen ja toimialan kypsyydestä</strong></p>
+      <p>Boriksen ydinhavainto: terve tiimi tarvitsee arkkityyppien sekoituksen, joka määräytyy tuotteen kypsyydestä. Tämä antaa konsultille käytännön työkalun — tunnista missä vaiheessa kohde on ja painota oikeita kyvykkyyksiä:</p>
+      <ul>
+      <li><strong>Esi-PMF (uusi tuote/toimiala):</strong> Prototyper + Builder + Sweeper (1+2+3)</li>
+      <li><strong>Kasvuvaihe (PMF löytynyt):</strong> Builder + Sweeper + Grower + Maintainer (2+3+4+5)</li>
+      <li><strong>Kypsä (vahva PMF):</strong> Sweeper + Grower + Maintainer + vähän Builderia (3+4+5+2)</li>
+      </ul>
+      <p><strong>DWS-tuotteittain:</strong></p>
+      <ul>
+      <li><strong>Aegis Defence</strong> (pre-GA, esi-PMF) → 1+2+3: prototypointi, rakentaminen, optimointi</li>
+      <li><strong>Climate IQ</strong> (PMF, kasvaa) → 2+3+4+5: rakentaminen, kasvu ja ylläpito rinnakkain</li>
+      <li><strong>DWS IQ 6 -ydin</strong> (kypsä) → 3+4+5: ylläpito, kasvu, jatkuva siivous</li>
+      </ul>
+      <p><strong>Toimialoittain</strong> (sama logiikka — toimialan kypsyys DWS:n kanssa määrää painotuksen):</p>
+      <ul>
+      <li><strong>Kypsät toimialat</strong> (teräs, energia, kemia — CBAM/ETS vakiintunut) → Grower + Maintainer + Sweeper: iterointi, luotettavuus, optimointi</li>
+      <li><strong>Kasvavat toimialat</strong> (rakentaminen, meriliikenne — EPBD 2028, FuelEU) → Builder + Grower: työnkulkujen rakentaminen ja PMF:n hiominen</li>
+      <li><strong>Nousevat toimialat</strong> (puolustus/kaksikäyttö, sekä jokainen uusi ontologiasolmu) → Prototyper + Builder: kartoitus, ensimmäiset työnkulut, validointi</li>
+      </ul>
+      <p>Näin konsultti osaa kohdentaa agenttikyvykkyydet sekä tuotteen että toimialan kypsyyden mukaan — ei sama mix jokaiseen toimeksiantoon.</p>
       <p>Jokaisessa vaiheessa pätee eettinen periaate: agentit nopeuttavat ihmisen työtä, eivät korvaa sitä (human-in-the-loop, §2 Ihmiskeskeisyys).</p>
       <h3 id="konsultin-paivittainen-toiminta">Konsultin päivittäinen toiminta</h3>
       <ul>
