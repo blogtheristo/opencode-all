@@ -26,7 +26,7 @@ Document Status:
 
 ## Problem & product
 
-EU industrials face a compounding compliance wall — Fit for 55, CSRD, ETS, CBAM, EPBD, RED III, NIS2, EU AI Act — with manual reporting that is slow, error-prone, and fine-exposed. **DWS IQ 6** is a **sovereign-AI compliance platform**: **18+ Skilled Agents** (observe–think–act loops) across **16 captain hats** covering **25 EU-regulated industries**, cutting manual compliance hours while producing audit-ready output. **MCP-native, CLI-accessible, EU-hosted** (Google Cloud Run `europe-north1`); sovereign-edge options (NVIDIA Jetson, Acer Veriton GN100).
+EU industrials face a compounding compliance wall — Fit for 55, CSRD, ETS, CBAM, EPBD, RED III, NIS2, EU AI Act — with manual reporting that is slow, error-prone, and fine-exposed. **DWS IQ 6** is a **sovereign-AI compliance platform**: **a fleet of skilled agents** (observe–think–act loops) across **16 captain hats** covering **25 EU-regulated industries**, cutting manual compliance hours while producing audit-ready output. **MCP-native, CLI-accessible, EU-hosted** (Google Cloud Run `europe-north1`); sovereign-edge options (NVIDIA Jetson, Acer Veriton GN100).
 
 ## Why now
 

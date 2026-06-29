@@ -8,7 +8,7 @@
     <item>
         <g:id>DWS-IQ-006</g:id>
         <g:title>Lifetime DWS IQ Platform (Version 6)</g:title>
-        <g:description>Stop risking fines and lost tenders. DWS IQ 6 deploys 18+ Skilled Agents with agentic loops (observe-think-act) to amplify Fit for 55, CSRD, and EPBD compliance across 16 captain hats covering 25+ EU industries — cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.</g:description>
+        <g:description>Stop risking fines and lost tenders. DWS IQ 6 is the orchestration platform that turns Fit for 55, CSRD, and EPBD obligations into audit-ready compliance outcomes — coordinating a fleet of skilled agents across 10 LWM ontology classes and 16 captain hats covering 25+ EU industries, with agentic loops (observe-think-act) that cut 90% of manual compliance hours. MCP-native, CLI-accessible, EU-hosted.</g:description>
         <g:link>https://dws10.com/products/dwsiq.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
         <g:price>4999.00 EUR</g:price>
@@ -733,7 +733,7 @@
     <item>
         <g:id>DWS-CLIMATE-001</g:id>
         <g:title>DWS IQ Climate Intelligence</g:title>
-        <g:description>8 Skilled Agents that turn ETS, CBAM and CSRD obligations into deterministic factory-floor execution — the climate-compliance module of the DWS IQ Industrial Intelligence suite. Agent-delivered outcomes, not dashboards. EU-sovereign and audit-ready.</g:description>
+        <g:description>Turns ETS, CBAM and CSRD obligations into deterministic factory-floor execution — the climate-compliance module of the DWS IQ Industrial Intelligence suite. Agent-delivered outcomes, not dashboards. EU-sovereign and audit-ready.</g:description>
         <g:link>https://dws10.com/products/climate-intelligence.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
         <g:price>2999.00 EUR</g:price>
@@ -1517,7 +1517,7 @@
     <item>
         <g:id>WF-T4</g:id>
         <g:title>Full Skilled Workforce</g:title>
-        <g:description>All 16 Skilled Agents under Themis orchestration with premium SLA.</g:description>
+        <g:description>Full Themis orchestration across the complete skilled-agent fleet, with premium SLA.</g:description>
         <g:link>https://dws10.com/products/skilled-agents.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
         <g:price>19990.00 EUR</g:price>

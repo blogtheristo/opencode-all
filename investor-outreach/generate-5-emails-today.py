@@ -81,7 +81,7 @@ Best,
 
 €500K Seed for DWS IQ 6 (edge AI for Nordic construction carbon compliance).
 
-€7K MRR, 5 paying customers, path to profitability validated.
+€7K MRR, 6 paying customers, path to profitability validated.
 
 Call this week? {calendly_link}
 

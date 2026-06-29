@@ -8,9 +8,9 @@
       "price": 4999,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Stop risking fines and lost tenders. DWS IQ 6 deploys 58+ Skilled Agents organised in 10 LWM ontology classes with agentic loops (observe-think-act) to amplify Fit for 55, CSRD, and EPBD compliance across 16 captain hats covering 25+ EU industries — cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.",
+      "description": "Stop risking fines and lost tenders. DWS IQ 6 is the orchestration platform that turns Fit for 55, CSRD, and EPBD obligations into audit-ready compliance outcomes — coordinating a fleet of skilled agents across 10 LWM ontology classes and 16 captain hats covering 25+ EU industries, with agentic loops (observe-think-act) that cut 90% of manual compliance hours. MCP-native, CLI-accessible, EU-hosted.",
       "features": [
-        "58+ Skilled Agents in 10 ontology classes with MCP protocol and CLI access",
+        "Orchestrates a fleet of skilled agents across 10 LWM ontology classes, MCP-native with CLI access",
         "Amplify Fit for 55, CSRD & EPBD reporting",
         "90% reduction in manual compliance hours"
       ],
@@ -1504,9 +1504,9 @@
       "price": 2999,
       "currency": "EUR",
       "type": "monthly",
-      "description": "8 Skilled Agents that turn ETS, CBAM and CSRD obligations into deterministic factory-floor execution — the climate-compliance module of the DWS IQ Industrial Intelligence suite. Agent-delivered outcomes, not dashboards. EU-sovereign and audit-ready.",
+      "description": "Turns ETS, CBAM and CSRD obligations into deterministic factory-floor execution — the climate-compliance module of the DWS IQ Industrial Intelligence suite. Agent-delivered outcomes, not dashboards. EU-sovereign and audit-ready.",
       "features": [
-        "8 specialized Skilled Agents for climate compliance",
+        "Specialized skilled agents for climate compliance",
         "ETS, CBAM, CSRD & Fit for 55 automation",
         "Deterministic scoring with validated EU data sources"
       ],
@@ -3390,7 +3390,7 @@
       "nextUpsellSku": null,
       "deploymentColor": "blue",
       "priceVersion": "1.15",
-      "description": "All 16 Skilled Agents under Themis orchestration with premium SLA.",
+      "description": "Full Themis orchestration across the complete skilled-agent fleet, with premium SLA.",
       "features": [
         "Replaces Multi-disciplinary FTE team ≈ 7.0 FTE",
         "Tier T4 — Function/Workforce bundle",

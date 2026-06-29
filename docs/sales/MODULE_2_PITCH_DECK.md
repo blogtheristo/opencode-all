@@ -65,8 +65,8 @@ Double-entry bookkeeping for CO2. Same carbon, four regulatory touchpoints, one 
 
 Three axes — pick what you need:
 
-- **WHAT** to report → Climate IQ (8 agents, CBAM/CSRD/ETS)
-- **HOW** your supply chain connects → Industrial IQ (50 agents, 21 industries)
+- **WHAT** to report → Climate IQ (skilled-agent fleet, CBAM/CSRD/ETS)
+- **HOW** your supply chain connects → Industrial IQ (skilled-agent fleet, 25 industries)
 - **WHERE** your data lives → Aegis (sovereign, on-prem, defence-grade)
 
 _[Visual: Three-axis diagram with product names at each end]_
@@ -95,7 +95,7 @@ _[Visual: Terminal screenshot showing a real CBAM calculation with structured ou
 | Article 12 audit trail        | Shipped (March 2026)                    | Not available                 | Not available      |
 | Agent governance (KYA)        | Cryptographic identity + kill authority | None                          | Proprietary        |
 | Edge AI (<100ms, offline)     | NVIDIA Jetson                           | Cloud-only                    | Cloud-only         |
-| Per-industry ontology         | 21 EU-regulated industries              | Generic ESG                   | Defence-only       |
+| Per-industry ontology         | 25 EU-regulated industries              | Generic ESG                   | Defence-only       |
 | Price (annual)                | €30K (Climate IQ)                       | €50K-200K                     | €500K+             |
 
 _[Visual: Comparison table with green checkmarks for DWS, red X for competitors]_
@@ -113,7 +113,7 @@ _[Visual: Comparison table with green checkmarks for DWS, red X for competitors]
 | Bolt Finland                         | ETS penalty exposure: €10K-50K to €0            |
 | NCC (Nordic construction, €5.5B rev) | Construction vertical reference                 |
 
-50 production agents. 15,000+ EU regulation documents indexed. 20 industry ontologies.
+A production skilled-agent fleet. 15,000+ EU regulation documents indexed. 20 industry ontologies.
 
 _[Visual: Customer logos + key metric per logo]_
 

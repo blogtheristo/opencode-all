@@ -20,7 +20,7 @@ mpn: "DWS-CLIMATE-2026"
 
 ## Product Overview
 
-DWS IQ Climate Intelligence is a purpose-built AI agent platform that treats EU climate regulation as an operational constraint on the factory floor — the rules that govern an industrial plant's right to produce — rather than a standalone ESG reporting exercise. It is the climate-compliance module of the DWS IQ Industrial Intelligence suite, running the same sovereign base engine as DWS IQ 6 and the Aegis dual-use tier — each industry carries its own ontology and Lifetime World Model (LWM) base, fine-tuned per enterprise. Instead of hiring consultants or building spreadsheets, you deploy 8 specialized Skilled Agents that deliver audit-ready compliance outcomes — ETS allowance calculations, CBAM import obligations, CSRD disclosure reports, and continuous carbon accounting.
+DWS IQ Climate Intelligence is a purpose-built AI agent platform that treats EU climate regulation as an operational constraint on the factory floor — the rules that govern an industrial plant's right to produce — rather than a standalone ESG reporting exercise. It is the climate-compliance module of the DWS IQ Industrial Intelligence suite, running the same sovereign base engine as DWS IQ 6 and the Aegis dual-use tier — each industry carries its own ontology and Lifetime World Model (LWM) base, fine-tuned per enterprise. Instead of hiring consultants or building spreadsheets, you deploy a fleet of specialized Skilled Agents that deliver audit-ready compliance outcomes — ETS allowance calculations, CBAM import obligations, CSRD disclosure reports, and continuous carbon accounting.
 
 **Why agents, not dashboards:** Dashboards show you data. Agents deliver outcomes. These Skilled Agents observe your operational and emissions data, think through regulatory requirements, and act by generating compliance documentation — autonomously.
 
@@ -125,10 +125,10 @@ SAP Sustainability Control Tower validates the market. DWS IQ Climate Intelligen
 
 ## Pricing
 
-| Tier             | Price                    | Included                                                      |
-| ---------------- | ------------------------ | ------------------------------------------------------------- |
-| **Starter**      | €2,999/mo + €4,990 setup | 3 agents, 1 ERP connector, quarterly reports                  |
-| **Professional** | €4,999/mo + €7,990 setup | All 8 agents, unlimited ERP connectors, continuous monitoring |
-| **Enterprise**   | Custom                   | Dedicated instance, SLA, custom agents, on-premise option     |
+| Tier             | Price                    | Included                                                                  |
+| ---------------- | ------------------------ | ------------------------------------------------------------------------- |
+| **Starter**      | €2,999/mo + €4,990 setup | Skilled agents, 1 ERP connector, quarterly reports                        |
+| **Professional** | €4,999/mo + €7,990 setup | Full skilled-agent fleet, unlimited ERP connectors, continuous monitoring |
+| **Enterprise**   | Custom                   | Dedicated instance, SLA, custom agents, on-premise option                 |
 
 Annual commitment: 2 months free.

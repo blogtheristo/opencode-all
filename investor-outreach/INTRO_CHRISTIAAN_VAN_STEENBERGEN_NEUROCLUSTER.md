@@ -14,7 +14,6 @@ AGENT HISTORY:
 
 # Investor Intro Note — Christiaan van Steenbergen, NeuroCluster
 
-
 ---
 
 ## Labor Thesis Opening (2026 Q2 Refresh) — Wedge: SOVEREIGNTY
@@ -25,11 +24,11 @@ AGENT HISTORY:
 
 **Email body — opening three paragraphs + ask:**
 
-Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts *doing the work itself*, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. *(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)* **DWS 365 Skilled Agents** (powered by the DWS IQ platform) sit on the labor side of that line.
+Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts _doing the work itself_, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. _(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)_ **DWS 365 Skilled Agents** (powered by the DWS IQ platform) sit on the labor side of that line.
 
-16 Skilled Agents are already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the human cost of producing that work, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
+A fleet of skilled agents are already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the human cost of producing that work, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
 
-Sovereignty is a buying criterion in our customer base, not a marketing line. EU data residency by default (Finland / Germany), Sovereignty Monitor as one of the 16 Skilled Agents auditing CLOUD Act exposure, NIS2 readiness, RLS posture. For defense-adjacent and critical-infrastructure buyers, this collapses procurement objections that hyperscaler-only stacks cannot answer. The spine in one line: **labor-anchored pricing, regulation drives demand, MACC + AppExchange drive distribution.** That is the line we lead with at the Messe round and in PE meetings this quarter.
+Sovereignty is a buying criterion in our customer base, not a marketing line. EU data residency by default (Finland / Germany), Sovereignty Monitor as one of the skilled agents auditing CLOUD Act exposure, NIS2 readiness, RLS posture. For defense-adjacent and critical-infrastructure buyers, this collapses procurement objections that hyperscaler-only stacks cannot answer. The spine in one line: **labor-anchored pricing, regulation drives demand, MACC + AppExchange drive distribution.** That is the line we lead with at the Messe round and in PE meetings this quarter.
 
 **Ask + two slots + unsubscribe:**
 
@@ -83,7 +82,7 @@ Hi Christiaan,
 
 Risto Päärni, Lifetime Oy (Espoo, Finland). Good to reconnect after our recent conversation — it's clear we're building towards the same thesis from complementary angles.
 
-You're building the sovereign inference layer that sits next to control systems. We're building the sovereign intelligence layer that sits on top — compliance automation for EU-regulated industries. 21 AI agents tracking carbon across ETS, CBAM, CSRD, and Taxonomy. Every agent governed by our KYA Standard: hardware-attested identity, court-defensible audit trails, EU AI Act Article 12 compliant. 100% EU-hosted (Finland, Germany), zero US cloud dependency.
+You're building the sovereign inference layer that sits next to control systems. We're building the sovereign intelligence layer that sits on top — compliance automation for EU-regulated industries. A fleet of skilled agents tracking carbon across ETS, CBAM, CSRD, and Taxonomy. Every agent governed by our KYA Standard: hardware-attested identity, court-defensible audit trails, EU AI Act Article 12 compliant. 100% EU-hosted (Finland, Germany), zero US cloud dependency.
 
 Why I think there's something here beyond a good conversation:
 

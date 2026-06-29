@@ -14,7 +14,6 @@ AGENT HISTORY:
 
 # Investor Intro Note — Ferdinand Reynolds, SuperSeed Ventures
 
-
 ---
 
 ## Labor Thesis Opening (2026 Q2 Refresh) — Wedge: MARGIN
@@ -25,9 +24,9 @@ AGENT HISTORY:
 
 **Email body — opening three paragraphs + ask:**
 
-Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts *doing the work itself*, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. *(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)* **DWS 365 Skilled Agents** (powered by the DWS IQ platform) sit on the labor side of that line.
+Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts _doing the work itself_, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. _(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)_ **DWS 365 Skilled Agents** (powered by the DWS IQ platform) sit on the labor side of that line.
 
-16 Skilled Agents are already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the human cost of producing that work, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
+A fleet of skilled agents are already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the human cost of producing that work, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
 
 Gross margin sits above 80% at list and expands as inference cost falls — the price anchor is human labor, not compute, so the curve goes the right way as foundation models commoditize. Our comp set is vertical AI labor companies (Cognition, Sierra, Harvey, Decagon), not horizontal SaaS, and the unit economics tell that story without any heroic assumptions. The spine in one line: **labor-anchored pricing, regulation drives demand, MACC + AppExchange drive distribution.** That is the line we lead with at the Messe round and in PE meetings this quarter.
 
@@ -43,16 +42,16 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 ## Target Profile
 
-| Field | Value |
-|-------|-------|
-| **Name** | Ferdinand Reynolds |
-| **Role** | Principal, SuperSeed Ventures |
-| **Check Size** | £150K – £3M |
-| **Stage** | Pre-seed to Seed |
-| **Thesis** | Defence, manufacturing, and supply chain AI across Europe |
-| **Geography** | Europe (covers Nordics specifically) |
+| Field          | Value                                                      |
+| -------------- | ---------------------------------------------------------- |
+| **Name**       | Ferdinand Reynolds                                         |
+| **Role**       | Principal, SuperSeed Ventures                              |
+| **Check Size** | £150K – £3M                                                |
+| **Stage**      | Pre-seed to Seed                                           |
+| **Thesis**     | Defence, manufacturing, and supply chain AI across Europe  |
+| **Geography**  | Europe (covers Nordics specifically)                       |
 | **Intro Type** | Warm — human has recent conversation, warm intro available |
-| **LinkedIn** | linkedin.com/in/ACoAABguygYBoeU5bayx1hALGUUEUDEFzybuyC0 |
+| **LinkedIn**   | linkedin.com/in/ACoAABguygYBoeU5bayx1hALGUUEUDEFzybuyC0    |
 
 ## Fit Assessment
 
@@ -84,7 +83,7 @@ Risto Päärni, CEO of Lifetime Oy (Espoo, Finland). [Human Name] suggested we c
 
 EU manufacturers that can't account for their carbon exposure are losing supply chain access. CBAM border adjustment means every importer must track embedded carbon from their suppliers — and the data infrastructure doesn't exist yet. We built it.
 
-We're building the carbon balance sheet — double-entry bookkeeping for CO2 across ETS, CBAM, CSRD, and EU Taxonomy. Every tonne tracked like every euro. 21 AI agents scoring compliance across 20 regulated industrial verticals — steel, cement, chemicals, aluminium, the sectors you invest in.
+We're building the carbon balance sheet — double-entry bookkeeping for CO2 across ETS, CBAM, CSRD, and EU Taxonomy. Every tonne tracked like every euro. A fleet of skilled agents scoring compliance across 20 regulated industrial verticals — steel, cement, chemicals, aluminium, the sectors you invest in.
 
 6 paying customers today (€7K MRR, 100% retention). The regulatory wave is creating forced adoption: Fit for 55, CBAM phase-in, CSRD mandatory reporting. This isn't optional software — it's supply chain compliance infrastructure.
 
