@@ -94,10 +94,12 @@ commits under the gates in §5.
 
 ### WS-1 — Catalog & store copy (the lead change)
 
-- `dws10.com/config/products.json` — rewrite `DWS-IQ-006` `description` +
-  `features` to lead with the control plane and outcomes; demote agent count to
-  a capacity footnote ("powered by a growing fleet of skilled agents"), not the
-  hero claim.
+- `dws10.com/config/products.json` — rewrite the `description` + `features` of
+  **existing** entries to lead with the orchestration layer and outcomes, and
+  **remove the agent count entirely** (per the corrected point #2: never market
+  on agent count — not even as a footnote). Reframe agents as "a fleet of
+  skilled agents" (mechanism, no number). Done for `DWS-IQ-006`,
+  `DWS-CLIMATE-001`, and the T4 bundle on 2026-06-29.
 - **MUST** sync `landing-pages/dws10-com/config/products.json` in the same
   commit (CLAUDE.md Dual Folder Sync). Pricing is unchanged in this plan; if any
   price moves, both files move together.
@@ -119,14 +121,18 @@ commits under the gates in §5.
   multilingual bar (`skills/multilingual`) for FI/SV/DE/FR parity.
 - Reminder: never publish `.md` in public-site folders (Non-Negotiable Rule 5).
 
-### WS-4 — Outcome catalog (new merchandising primitive)
+### WS-4 — Outcome-led framing of the EXISTING catalog (no new SKUs)
 
-- Define the **outcomes** we sell (e.g. "CSRD report, audit-ready, EU-resident,
-  Article-12-traced"; "CBAM exposure assessment"; "Fit-for-55 gap analysis").
-- These become the SKUs the buyer recognizes; agents/skills are mapped _under_
-  each outcome as the delivery mechanism, not the line item.
-- Candidate home: extend `product-catalog/` (existing structure) rather than a
-  new top-level dir.
+- **Constraint (locked 2026-06-29):** do **not** invent new products or new
+  SKUs, and do **not** remove any agent or skill. This workstream is pure
+  re-framing of what already ships.
+- For each **existing** product, name the buyer-facing **outcome** it already
+  delivers (e.g. DWS IQ 6 → "audit-ready CSRD/EPBD/Fit-for-55 compliance";
+  DWS-CLIMATE-001 → "ETS/CBAM/CSRD factory-floor execution") and lead the copy
+  with that outcome. Agents/skills are described _under_ the outcome as the
+  delivery mechanism, never as the line item.
+- This is a copy/positioning change on existing `products.json` entries and
+  store pages — it adds no catalog rows and deletes no capability.
 
 ### WS-5 — Investor / sales narrative
 
@@ -142,7 +148,7 @@ commits under the gates in §5.
 1. **Phase 0 — agree the message (this doc).** Sign-off on §2 positioning.
 2. **Phase 1 — WS-1 + WS-2** (catalog + tier doc): the highest-leverage,
    lowest-risk change; internal + store surfaces.
-3. **Phase 2 — WS-4** (outcome catalog): introduces the new selling primitive.
+3. **Phase 2 — WS-4** (outcome-led framing of existing catalog; no new SKUs).
 4. **Phase 3 — WS-3 + WS-5** (public sites + investor/sales): external surfaces,
    only after copy is locked and truth-checked.
 
@@ -156,8 +162,8 @@ unreviewed Phase 1.
 - **`DWS_BRAND_STANDARD.md`** — all customer-facing copy (tone, deprecated terms;
   avoid deprecated "GodAgent" wording per Terminology Guardrail).
 - **`DWS_MARKET_RESEARCH_STANDARD.md`** — competitor/positioning claims.
-- **`/truth-check`** (`DWS_TRUTH_STANDARD.md`) — every external claim, including
-  the agent-capacity footnote and any outcome guarantees.
+- **`/truth-check`** (`DWS_TRUTH_STANDARD.md`) — every external claim and any
+  outcome guarantee.
 - **Dual Folder Sync** — `dws10.com/` ↔ `landing-pages/dws10-com/` in the same
   commit; pricing source remains `dws10.com/config/products.json`.
 - **Document Standard** — `***` history blocks for `docs/*` edits; YAML-only for
@@ -167,21 +173,26 @@ unreviewed Phase 1.
 
 ## 6. Success Criteria (done = verified)
 
-- [ ] No customer-facing surface uses agent count as the **lead** claim.
-- [ ] `DWS-IQ-006` catalog entry leads with control plane + outcome; agent count
-      demoted to a capacity footnote; both `products.json` files in sync.
+- [x] No customer-facing surface uses agent count as a claim at all
+      (removed from `DWS-IQ-006`, `DWS-CLIMATE-001`, T4 bundle; both
+      `products.json` files in sync — 2026-06-29).
+- [x] `DWS-IQ-006` catalog entry leads with orchestration platform + outcome.
 - [ ] `PRODUCT_TIERS.md` positions Themis as the product across all tiers.
-- [ ] At least 3 named **outcomes** defined as SKUs with agents mapped beneath.
+- [ ] Every existing product leads with its buyer-facing outcome; agents framed
+      as delivery mechanism beneath it (no new SKUs added).
 - [ ] Investor narrative references the Anduril structural proof.
 - [ ] All changed external copy passes `/truth-check` and brand review.
 
 ## 7. Explicit Non-Goals (what NOT to do)
 
-- Do **not** delete or rename agents/skills to "simplify the roster" — the drones
+- Do **not** invent new products or new SKUs. This repositioning re-frames the
+  **existing** catalog only; it adds no catalog rows. (Locked 2026-06-29.)
+- Do **not** delete, rename, or remove any agent or skill — not one. The drones
   stay; only the _merchandising_ changes. (Surgical change, Rule 3.)
 - Do **not** change pricing as part of this repositioning (separate decision).
-- Do **not** drop the "58+ agents" capacity fact entirely — it is true and useful
-  as supporting proof; it just stops being the headline.
+- Do **not** reintroduce an agent count anywhere in customer-facing copy — not
+  as a headline and not as a footnote. (Corrected point #2: never market on
+  agent count.)
 - Do **not** invent new outcome guarantees without truth-check backing.
 
 ## 8. Related
