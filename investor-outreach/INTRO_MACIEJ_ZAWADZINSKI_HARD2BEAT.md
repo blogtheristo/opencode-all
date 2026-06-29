@@ -69,7 +69,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 ## Drawbacks / Mitigations
 
-- **Solo-founder flag** — He explicitly prefers complementary co-founder teams. **Mitigation:** do not hide it. Lead email acknowledges it directly: operator track record (13 years regulated industry, SAP/IFS/Dynamics domain expertise), named advisors, 6 paying customers at 100% retention. Frame: "the moat is the domain knowledge and the agent architecture, and I have both; the hiring plan post-round adds a CTO."
+- **Team note** — He prefers complementary co-founder teams; we now have one (Risto + Lucille Santiago, Office Chief / partner-track, complementary skill sets). **Mitigation:** lead email states the two-person team directly: operator track record (13 years regulated industry, SAP/IFS/Dynamics domain expertise), named advisors, 6 paying customers at 100% retention. Frame: "the moat is the domain knowledge and the agent architecture; technical depth runs on governed agent workflows + a Cubet engineering partner, with a senior technical hire funded and searching."
 - **Poland focus** — Mitigation: he invests across Europe, Poland is home base not mandate boundary. No special framing needed. If asked, acknowledge directly.
 
 ## Strategy
@@ -77,7 +77,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 - **Lead with defensible IP / technical moat** — His filter is the moat. Open with skilled agents + MCP + EU AI Act compliance + sovereignty audit lineage + 20 regulated industries of domain ontology. These are not commodities.
 - **Operator-to-operator tone** — No fund-pitch language. No "massive TAM" throat-clearing. Numbers, architecture, next 6 months. He scaled Piwik PRO, he knows the difference between a slide and a product.
 - **Anchor check framing** — His €250K-€750K range means he can lead. Explicitly offer that seat.
-- **Address solo-founder in the opening** — Don't hide from his stated preference. Make it one line in paragraph 1, with the operator-track-record counter in the same paragraph. Move on.
+- **Address the team in the opening** — State the two-person complementary team in one line in paragraph 1, with the operator-track-record + agent-workflow/Cubet counter in the same paragraph. Move on.
 - **Post-Arctic 15 timing** — V1 launch (June 15) + Messe Germany commercial push. The €12M ARR operator will read this as "real commercial plan, not vaporware."
 - **Story A primary** (carbon compliance B2B SaaS), Story B (Aegis dual-use) only if defense angle surfaces naturally
 - Use one-pager + full memo on first touch
@@ -146,8 +146,8 @@ Business ID: 0772407-9 (Finland)
 
 ## Next Steps
 
-- [ ] Send cold email with solo-founder acknowledgment + moat-led opening
+- [ ] Send cold email with two-person-team framing + moat-led opening
 - [ ] If interest: schedule 30-min call, technical deep-dive second call
-- [ ] If solo-founder becomes the sticking point: offer to share CTO search spec + candidate pipeline
+- [ ] If technical-depth becomes the sticking point: share the governed-agent-workflow model + Cubet partner + senior-technical-search spec
 - [ ] If he declines: ask for 2-3 European DeepTech co-investor intros
 - [ ] If he leads: propose SAFE signature timeline aligned to his pace

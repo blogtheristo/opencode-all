@@ -71,7 +71,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 - **Fintech / Insurtech primary mandate** — This is the biggest filter. We are industrial compliance, not fintech. **Mitigation:** bridge the gap on the compliance angle. CSRD, EU AI Act, ETS, CBAM are regulatory frameworks that apply to ALL large EU enterprises, including banks and insurers. Frame: "we're a horizontal EU compliance platform — industrial is our launch vertical, financial services is a natural adjacent." Make the fintech mandate our Year 2 story.
 - **Tier 1 school pedigree preference** — Risto is Metropolia + operator track record, not INSEAD / HEC. **Mitigation:** lead with operator experience (13 years regulated industry, SAP/IFS/Dynamics domain expertise), paying customers (5, 100% retention), technical moat (a fleet of skilled agents, EU AI Act compliance stack). Don't try to win on pedigree — win on outcomes already delivered.
-- **Balanced co-founder teams preference** — Solo-founder flag. **Mitigation:** same playbook as Maciej and Thomas — address directly, lead with operator model + customers + advisors + CTO hire plan.
+- **Balanced co-founder teams preference** — Addressed: two-person complementary team (Risto + Lucille Santiago, Office Chief / partner-track, Lifetime AB). **Mitigation:** same playbook as Maciej and Thomas — lead with the two-person team + operator model + customers + advisors + technical via governed agent workflows + Cubet partner + funded senior search.
 - **Sovereign / dual-use / Aegis angle will NOT land here** — He's Fintech-oriented and Paris-based. Sovereignty is not his filter. **Mitigation: DO NOT mention Aegis, defense, dual-use, military, sovereign AI in this conversation.** Position exclusively as horizontal compliance SaaS with enterprise ROI.
 
 ## Strategy
@@ -80,7 +80,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 - **Secondary goal:** participation check in the $50K-$500K range (fits Captain / anchor tiers).
 - **Lead with horizontal AI + enterprise ROI** — use his exact thesis language in paragraph 1.
 - **Bridge to fintech / insurtech as Year 2 vertical** — "industrial first, financial services next." Makes his mandate a future-fit, not a mismatch.
-- **Address solo-founder + pedigree in one short paragraph** — do not belabor. Operator model + customers + advisors. Move on.
+- **Address team + pedigree in one short paragraph** — do not belabor. Two-person complementary team + operator model + customers + advisors. Move on.
 - **DO NOT SEND:** INVESTOR_MEMO_AEGIS.md, DEFENSE_SOVEREIGNTY_INVESTORS_2026.md, any dual-use language.
 - **Story A only** — carbon / compliance B2B SaaS framing. No Story B.
 - Use one-pager + full memo on first touch

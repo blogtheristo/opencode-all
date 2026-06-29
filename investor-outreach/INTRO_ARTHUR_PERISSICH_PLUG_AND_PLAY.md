@@ -57,7 +57,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 | **Focus**      | Dual-use / defense tech, physical AI, advanced manufacturing software layer |
 | **Stage**      | Pre-seed / seed B2B software                                                |
 | **Edge**       | Corporate pilot access across 500+ enterprise partners                      |
-| **Intro Type** | BLOCKED — solo-founder mismatch                                             |
+| **Intro Type** | READY — two-person complementary team addresses the mismatch                |
 | **LinkedIn**   | https://www.linkedin.com/in/ACoAAB6XXIwBMdCj56ABU9mat-qnGmO93P1v3IQ         |
 
 ## Why This Would Otherwise Be a Strong Fit
@@ -69,7 +69,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 ## Why We Are Not Sending
 
-- **Solo founder** — Arthur's stated criterion is 2-3 complementary founders. This is not a soft preference, it's a filter.
+- **Team** — Arthur's criterion is 2-3 complementary founders. Now a two-person complementary team (Risto + Lucille Santiago, partner-track Lifetime AB) — materially clears the filter; if he wants a technical co-founder specifically, present the agent-workflow + Cubet + funded-search model.
 - **Warm channel has ONE shot** — a rejection on founder-count grounds kills this contact for 12+ months.
 - **Better to wait for leverage** — either (a) a co-founder is added, (b) post-Messe traction data is strong enough that the founder-count rule is overridden, or (c) an inbound happens via a Plug and Play corporate partner.
 

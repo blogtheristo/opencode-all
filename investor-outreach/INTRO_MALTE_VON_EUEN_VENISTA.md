@@ -140,6 +140,6 @@ Business ID: 0772407-9 (Finland)
 
 - [ ] Send cold DM or email with B2B SaaS compliance-infrastructure framing
 - [ ] If interest: schedule 20-min call within 5 days (match his fast cycle)
-- [ ] If solo-founder question raised: lead with operator track record + paying customers
+- [ ] If team question raised: lead with two-person complementary team + operator track record + paying customers
 - [ ] If climate-tool concern raised: reframe as regulatory mandate compliance (legal deadline), not climate virtue
 - [ ] Ask for Western Europe co-investor intros from the Venista network

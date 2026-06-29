@@ -73,7 +73,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 ## Drawbacks / Mitigations
 
 - **DACH-focused, no specific Nordic mandate** — Finland is not his home turf. **Mitigation:** our commercial home turf IS DACH. V1 launches Arctic 15 for brand, Messe Germany is the sales engine. Frame: "Nordic-based company with DACH-first commercial strategy — we need a DACH lead investor, that's you." Turn the geography mismatch into a thesis-alignment story.
-- **Solo-founder flag** — Acknowledge directly. **Mitigation:** lead with the same pattern that worked for eCircle — operator-founder with domain expertise, scales the team on proven revenue. Paying customers (5, 100% retention) + operator track record (13 years regulated industry) + CTO hire spec post-round + named advisors. Thomas specifically bootstrapped eCircle; he knows solo-founder dynamics firsthand.
+- **Team note** — Two-person complementary team (Risto + Lucille Santiago, Office Chief / partner-track, Lifetime AB). **Mitigation:** lead with the same pattern that worked for eCircle — operator-founder with domain expertise, scales the team on proven revenue. Paying customers (6, 100% retention) + operator track record (13 years regulated industry) + technical depth via governed agent workflows + Cubet engineering partner + funded senior technical search + named advisors. Thomas specifically bootstrapped eCircle; he knows lean-team dynamics firsthand.
 - **Upsize conversation** — His €1M minimum check vs our €650K SAFE creates a gap. **Mitigation:** be prepared to upsize. Either (a) expand SAFE cap to accommodate his anchor + other anchors already in pipe, or (b) convert to a priced seed with him leading. Decide the stance BEFORE the call.
 
 ## Strategy
