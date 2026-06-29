@@ -75,7 +75,7 @@ Anchors (true in all): two-person team (Risto + Lucille Santiago, Office Chief, 
 ## SALIM LAOUITI — Plug & Play (Paris)
 
 1. Compliance SaaS with hard enterprise ROI — DWS IQ 6 auto-generates audit-ready CBAM/CSRD/EPBD filings straight from your ERP.
-2. Why now: 49,000 EU companies face mandatory CBAM/CSRD filing — buy-or-get-fined, not nice-to-have. A forced-demand market.
+2. Why now: post-Omnibus, the largest EU companies (>1,000 employees, >€450M turnover — fewer than 5,000 filers) face mandatory CBAM/CSRD, and pull their entire value chains into Scope-3 reporting — buy-or-get-fined, not nice-to-have. A forced-demand market.
 3. Enterprise ROI: ~40 hours/month of manual compliance removed · audit-ready in ~4 weeks · payback in the first reporting cycle. Cost-out + risk-out.
 4. What we sell: the governed outcome layer — audit-ready filings with full reasoning lineage — pulled from your existing systems. You sign off the filing; we own the pipeline.
 5. Horizontal fit: one platform across 25 EU-regulated industries. ERP-native: SAP, IFS Cloud, Dynamics, Visma, Monitor.

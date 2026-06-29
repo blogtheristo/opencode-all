@@ -50,7 +50,7 @@ But once the building is operating? Once the factory is running? Once the fleet 
 - EU regulatory compliance specialists
 - Angels with CFO/sustainability director background at industrials
 
-**Why now:** CSRD reporting deadlines are live. 49,000 EU companies face mandatory filing. This isn't a "nice-to-have" market — it's a "buy or get fined" market. V1 launches at Arctic 15 on June 15, 2026. Investors who commit before Arctic 15 enter at seed valuation (€3.8M cap) ahead of the first public sales data (available August 15, 2026).
+**Why now:** CSRD reporting deadlines are live. Post-Omnibus, fewer than 5,000 of the largest EU companies (>1,000 employees, >€450M turnover) face mandatory filing — and pull their value chains into Scope-3 reporting. This isn't a "nice-to-have" market — it's a "buy or get fined" market. V1 launches at Arctic 15 on June 15, 2026. Investors who commit before Arctic 15 enter at seed valuation (€3.8M cap) ahead of the first public sales data (available August 15, 2026).
 
 **Ask:** €650K SAFE — €500K Fleet Admiral + 8 × €50K Captain Seats. Path to €900k ARR by end of 2026.
 
@@ -189,12 +189,12 @@ Ambition: operations compliance across 25 EU-regulated industries.
 
 ### Tier 2 — Strategic, longer cycle:
 
-| Introduction                                           | Why it converts                                                             | What I'd say                                                                                                                                                                 |
-| ------------------------------------------------------ | --------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Climate VC partner** (Pale Blue Dot, World Fund)     | Mandatory market, proven traction, seed round open.                         | "€7K MRR, 6 customers, 100% retention, 49,000 EU companies must file CSRD. We automate what everyone else does manually. Raising €650K SAFE, V1 launches Arctic 15 June 15." |
-| **SAP sustainability PM**                              | Enterprise market requires SAP. We have verifiably correct OData endpoints. | "We pull production orders and material data from S/4HANA and map it to CSRD evidence. Looking for SAP PartnerEdge or co-innovation."                                        |
-| **Big 4 sustainability lead (Nordics)**                | Channel to 100s of CSRD-obligated companies.                                | "Your clients need CSRD tooling. We automate ERP-to-report. You advise, we execute. Referral or reseller model."                                                             |
-| **Construction portfolio manager** (NCC, Skanska, YIT) | Construction operations compliance gap. They use IFS.                       | "You've done the design-phase LCA. Now you need ongoing operations compliance. We pull from IFS, import One Click LCA baselines, and auto-generate quarterly CSRD reports."  |
+| Introduction                                           | Why it converts                                                             | What I'd say                                                                                                                                                                                                                                                 |
+| ------------------------------------------------------ | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Climate VC partner** (Pale Blue Dot, World Fund)     | Mandatory market, proven traction, seed round open.                         | "€7K MRR, 6 customers, 100% retention; post-Omnibus, fewer than 5,000 of the largest EU companies must file CSRD and pull their value chains into Scope 3. We automate what everyone else does manually. Raising €650K SAFE, V1 launches Arctic 15 June 15." |
+| **SAP sustainability PM**                              | Enterprise market requires SAP. We have verifiably correct OData endpoints. | "We pull production orders and material data from S/4HANA and map it to CSRD evidence. Looking for SAP PartnerEdge or co-innovation."                                                                                                                        |
+| **Big 4 sustainability lead (Nordics)**                | Channel to 100s of CSRD-obligated companies.                                | "Your clients need CSRD tooling. We automate ERP-to-report. You advise, we execute. Referral or reseller model."                                                                                                                                             |
+| **Construction portfolio manager** (NCC, Skanska, YIT) | Construction operations compliance gap. They use IFS.                       | "You've done the design-phase LCA. Now you need ongoing operations compliance. We pull from IFS, import One Click LCA baselines, and auto-generate quarterly CSRD reports."                                                                                  |
 
 ### Tier 3 — Ecosystem, long-term:
 
@@ -238,7 +238,7 @@ These numbers are the single source of truth. Boardy MUST use these — do not d
 
 **Platform:** a fleet of skilled agents, 32 products, 4 cloud environments, 25 industries.
 
-**Market:** 49,000 EU companies, mandatory CSRD filing, no automated ERP-to-report tool exists.
+**Market:** post-Omnibus, fewer than 5,000 of the largest EU companies under mandatory CSRD (+ their value chains via Scope 3), no automated ERP-to-report tool exists.
 
 **Moats:** KYA Standard (D&O safe harbor, 8–12% premium reduction), dual revenue model (SaaS + Enterprise World Alpha-Share), ERP connectors (no competitor has Nordic ERPs), compliance data flywheel (retention compounds with coverage).
 
