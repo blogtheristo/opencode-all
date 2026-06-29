@@ -86,3 +86,22 @@ Anchors (true in all): two-person team (Risto + Lucille Santiago, Office Chief, 
 10. Model: SaaS €3–10k/mo, expanding to ~€36K ACV; 95% gross margin; 100% retention.
 11. The ask: €650K SAFE at €3.8M cap. Plug & Play's corporate network is our fastest path to enterprise compliance pilots (€4,950 pilot → €8,950 annual → multi-site).
 12. What we're still building: early revenue base — the moat is retention + regulatory lock-in, with CSRD deadlines driving forced demand; senior technical hire in active search (covered today by founder + agent workflows + Cubet partner).
+
+---
+
+## MALTE VON EUEN — Venista Ventures
+
+> Mandate walls: **no defense, no "climate" framing.** This deck is pure regulatory-compliance infrastructure — Aegis/defense excluded entirely; never call it a climate tool.
+
+1. Regulatory compliance infrastructure for EU-regulated companies — data-driven and ERP-native. We automate mandatory reporting, end to end.
+2. Why now: CBAM, CSRD and EPBD are mandatory, audited, penalty-bearing regulatory filings. Compliance infrastructure for companies that MUST report — recurring, non-discretionary demand.
+3. Data-driven by design: an ERP-integrated data pipeline turns operational data into audit-ready filings, with deterministic scoring on validated EU regulatory data sources.
+4. What we sell: the governed outcome — audit-ready filings with full reasoning lineage — pulled straight from existing systems.
+5. Product: AI agents automate the reporting across 25 EU-regulated industries. ERP-native: SAP, IFS Cloud, Dynamics, Visma, Monitor. Nordic-first — direct fit with Venista's geography.
+6. Integration & data: per-tenant isolation, EU data residency, an immutable evidence ledger, fully portable. Enterprise-grade, no records lock-in.
+7. Traction: €7K MRR · 6 paying customers · 100% retention · audit-ready in ~4 weeks · 40 h/month saved per customer.
+8. Team: two-person complementary team — Risto Päärni (Founder/CEO, 35 yrs regulated-industry domain, SAP/IFS/Dynamics expertise) + Lucille Santiago (Office Chief, partner-track Lifetime AB). Technical delivery on governed AI agent workflows + a Cubet Techno Labs engineering partner; senior technical hire funded, search active. Advisors: Robertsson (ESG), Metropolia (academic).
+9. Moat: regulatory lock-in (auditor acceptance + reporting-cycle switching), Nordic ERP connectors no rival has, proprietary compliance data that compounds per customer. 19 moats across 4 tiers.
+10. Model: SaaS €3–10k/mo, expanding to ~€36K ACV; 95% gross margin; 100% retention to date.
+11. The ask: €650K SAFE at €3.8M cap (Captain seats €50K; €150K triple) — fits Venista's ticket cleanly. Built for a fast decision; we can move in days, not months.
+12. What we're still building: early revenue base — the moat is retention + regulatory lock-in, with mandatory-filing deadlines driving demand; senior technical hire in active search (covered today by founder + agent workflows + Cubet partner).
