@@ -38,7 +38,7 @@ Lifetime Oy tarjoaa tällä tarjouksella tekoälyn asiantuntijapalveluja kaikkii
 
 ## Tarjoajan esittely
 
-Lifetime Oy on suomalainen tekoäly- ja ohjelmistoyritys, joka on rakentanut DWS IQ 6 -alustan — 16+ tekoälyagentin tuotantojärjestelmän — toimitusjohtaja Risto Anton Päärnin johdolla. Yrityksen ydinosaaminen kattaa täsmälleen Oikeusrekisterikeskuksen hankinnan kolme osa-aluetta:
+Lifetime Oy on suomalainen tekoäly- ja ohjelmistoyritys, joka on rakentanut DWS IQ 6 -alustan — 58 agentin ja 88 kyvykkyyden tuotantojärjestelmän 25 toimialalle — toimitusjohtaja Risto Anton Päärnin johdolla. Suomalainen ydintiimi (CEO Risto Anton Paarni + Office Chief Lucille Santiago) vastaa työnjohdosta, asiakasrajapinnasta ja arkaluontoisen datan käsittelystä EU/Suomi-resursseilla. Emme kilpaile pelkällä henkilömäärällä vaan kyvykkyydellä: 58 agenttia tuottaa enemmän per henkilötyöpäivä kuin perinteinen konsulttiresurssi — todellinen hinta-laatu-etu, joka säilyttää ihmisen päätöksentekijänä (human-in-the-loop). Yrityksen ydinosaaminen kattaa täsmälleen Oikeusrekisterikeskuksen hankinnan kolme osa-aluetta:
 
 1. **Agenttijärjestelmät ja moniagentti-orkestrointi** — Model Context Protocol (MCP), TypeScript/Python-agentit, deterministinen pisteytys, tool calling
 2. **Asiakasprosessien digitalisaatio** — EU-sääntelyautomatisointi, tiedonhaku RAG-arkkitehtuurilla, prosessiautomaatio
