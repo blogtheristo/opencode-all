@@ -65,3 +65,29 @@ Kolme vaihtoehtoa hinnoittelulle (€/htp = €/h × 7,5):
 **Suositus: B (60 €/h / 450 €/htp)** — kilpailukykyinen hintarajan sisällä, säilyttää uskottavan
 kateprofiilin, ja yhdistettynä kyvykkyys + suvereniteetti -positiointiin antaa parhaan hinta-laatu-suhteen.
 Päätös on HIC:n; sovellan valitun numeron HINTALOMAKEeseen ja Liite 5:een.
+
+## Päivitys 2 — Gofore-benchmark (Sarita, 28.6.2026)
+
+Toinen markkinapalaute tarkentaa kuvaa:
+
+- **Voittohinta-benchmark: Gofore voitti viimeisimmän julkisen kilpailutuksen hinnalla 58 €/t**,
+  suomalaisilla äidinkielenään suomea puhuvilla kokeneilla tekijöillä — **omaa henkilökuntaa**.
+- Digia osallistuu julkisiin kilpailutuksiin ajoittain omalla henkilökunnalla (lähinnä tuntihinnan
+  vuoksi), "mutta ihan noin alas emme voi aina mennä".
+- **Intialaisten ja eurooppalaisten hinnat ovat selvästi alle 72 €/t** — kustannusetua/katevaraa on.
+- Digia Hub -verkostosta saa "kaikkia mahdollisia rooleja (luultavasti useita satoja) Suomesta,
+  Euroopasta ja Intiasta" — mahdollinen sourcing-kanava (ks. avoin kysymys alla).
+
+**Hintapäätöksen uudelleenarvio:** alustava **55,90 €/h on jo Goforen voittohinnan (58 €/t) alapuolella**
+— eli kilpailukykyinen hintapisteissä. Strategia S (porrastettu, 800-painon roolit 52 €/t) painaa
+vertailuhinnan vielä alemmas. **Hinta ei ole enää suurin riski; laatu/lokaalisuus on.**
+
+**Todellinen kilpailutekijä = oma suomalainen, suomenkielinen henkilöstö.** Gofore voitti tällä, ei
+pelkällä hinnalla. Tämä on kvalitatiivinen arviointikriteeri, jota halvat intialais-/eurooppalais-
+alihankkijat eivät täytä. **Vastauksemme:** suomalainen ydintiimi (Paarni + Santiago) asiakasrajapinnassa
+ja arkaluontoisessa datassa + agenttikyvykkyys, joka tekee pienestä tiimistä suuren toimiston veroisen.
+Alihankkijaverkosto (EU/Intia) antaa kustannusjouston, muttei saa olla tarjouksen kasvot.
+
+**Avoin kysymys (HIC):** Sarita ilmoitti ensin "Digia Hub ei ole kiinnostunut yhteistyöstä", mutta
+kuvaa nyt Digia Hubin tarjonnan (sadat roolit FI/EU/Intia). Onko Digia Hub sittenkin käytettävissä
+sourcing-kanavana tähän tarjoukseen, vai pelkkä markkinakuvaus? Vahvista ennen kuin nojataan siihen.
