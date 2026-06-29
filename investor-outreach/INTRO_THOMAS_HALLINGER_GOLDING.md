@@ -129,7 +129,7 @@ Hi Thomas,
 
 Great to hear your perspective on [specific panel point] at PE Insights yesterday. Your point about [specific insight] resonated — it's exactly the problem we're solving.
 
-I'm Risto Päärni, CEO of Lifetime Oy (Helsinki). We build DWS IQ 6 — a carbon balance sheet platform that automates ETS, CBAM, and CSRD compliance across 20 EU-regulated industries using 18 deterministic AI agents.
+I'm Risto Päärni, CEO of Lifetime Oy (Helsinki). We build DWS IQ 6 — a carbon balance sheet platform that automates ETS, CBAM, and CSRD compliance across 20 EU-regulated industries using a fleet of deterministic skilled agents.
 
 The secondaries angle that might interest you: portfolio companies with automated carbon compliance have measurably lower regulatory risk, which directly impacts valuation in continuation fund structures and LP reporting.
 
