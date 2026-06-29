@@ -4,12 +4,13 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.2
 
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code | Session: code-coaching-curriculum | Commit: pending | Date: 24.06.2026 | Changes: Initial curriculum for the Claude Code Coaching product (1-day lecture, 2-day workshop, optional client project work).
 - Version: 1.1 | Tool: Claude Code | Session: team-ethos-coaching | Commit: pending | Date: 27.06.2026 | Changes: Added Appendix A — Team Ethos case study (Mustafa Suleyman, Microsoft AI) with mapping to DWS 12 Rules; referenced from M2.
+- Version: 1.2 | Tool: Claude Code (Opus 4.8) | Session: claude/consultant-handbook-v1-6-622fep | Commit: pending | Date: 28.06.2026 | Changes: Added Appendix B — "Augment, not replace" module (ethical AI + EU AI Act Art. 4/12/14 literacy, roles→capabilities frame, archetype×maturity mix, /dialog working method). Sources handbook v1.75 §2/§6 and whitepaper WP01. EN+FI lockstep.
 
 Document Status:
 
@@ -190,3 +191,37 @@ _Source: Mustafa Suleyman, CEO Microsoft AI, June 2025._
 3. Share in pairs; each pair reports their top action to the group.
 
 **The quality of our thinking determines the quality of our models — and our code.**
+
+---
+
+## Appendix B — Module: Augment, not replace (ethical AI + EU AI Act literacy)
+
+**When:** Component 1 (lecture) and Component 2 Day 1. **Source:** whitepaper WP01 "Augment, Not Replace"; handbook §2 (Ihmiskeskeisyys), §6 (capability model + lifecycle).
+
+### The position
+
+- **Capability, not headcount. Augment, not replace.** We do not aim to reduce the customer's workforce; personnel decisions belong to leadership. AI brings new capability that lifts productivity alongside people, not in their place.
+- This is both ethical (human dignity, human-in-the-loop) and strategic (regulated buyers reject "replace your team"; they buy "multiply your team").
+
+### EU AI Act literacy (what every coached engineer must know)
+
+- **Article 4 — AI literacy** (in force Feb 2025): teams operating AI must be trained to understand it.
+- **Article 12 — logging:** every high-risk AI action is auditable; hash-chained, immutable.
+- **Article 14 — human oversight:** a human stays the decision-maker; the agent handles routine.
+
+### Roles become capabilities (teaching frame)
+
+- 72 IT roles → 88 capabilities, skills, workflows, learning (Gödel) loops. The role stays with the human; the agent makes it faster.
+- Product archetypes (Prototyper / Builder / Sweeper / Grower / Maintainer) map to lifecycle stages; the right mix depends on product and industry maturity. Teach participants to identify the stage and weight the right capabilities.
+
+### The `/dialog` working method (hands-on)
+
+- A HIC-confirmed, line-by-line way to update a document, offer, or attachment: propose each change, the human agrees or counters, apply and checkpoint. Especially useful for reusing an offer across customers (e.g. ORK → Kemira). Demonstrate live in M2.
+
+### Exercise (15 min)
+
+1. Each participant writes, in one sentence, how an agent would **augment** (not replace) one task in their own role.
+2. Map that task to a lifecycle stage (Development / Deployment / Maintenance / Update) and name the human-in-the-loop checkpoint.
+3. Share in pairs; report one example per pair.
+
+**Execution can be shared with machines. Vision, judgment, and accountability stay human.**

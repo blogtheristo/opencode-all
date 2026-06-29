@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Konsultin käsikirja 2026 — Lifetime Oy</title>
+    <title>Konsultoinnin käsikirja 2026 — Lifetime Oy</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -11,2052 +11,887 @@
       rel="stylesheet"
     />
     <style>
-      :root {
-        --navy: #0f172a;
-        --blue: #0066cc;
-        --gold: #fbbf24;
-        --slate-50: #f8fafc;
-        --slate-100: #f1f5f9;
-        --slate-200: #e2e8f0;
-        --slate-300: #cbd5e1;
-        --slate-600: #475569;
-        --slate-700: #334155;
-        --slate-800: #1e293b;
-        --white: #ffffff;
-        --green: #059669;
-        --red: #dc2626;
-      }
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
       body {
-        font-family:
-          "Inter",
-          -apple-system,
-          BlinkMacSystemFont,
-          sans-serif;
-        color: var(--slate-800);
-        line-height: 1.7;
-        background: var(--slate-50);
-        font-size: 15px;
-      }
-      .container {
-        max-width: 900px;
+        font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        max-width: 1000px;
         margin: 0 auto;
-        padding: 40px 32px;
-        background: var(--white);
-        min-height: 100vh;
-        box-shadow: 0 0 40px rgba(15, 23, 42, 0.06);
+        padding: 0 20px 60px;
+        line-height: 1.7;
+        color: #1a1a2e;
+        background: #fafafa;
       }
-      /* Header */
-      .doc-header {
-        text-align: center;
-        padding: 60px 20px 40px;
-        border-bottom: 3px solid var(--gold);
-        margin-bottom: 40px;
-      }
-      .doc-header .company {
-        font-size: 13px;
-        font-weight: 600;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-        color: var(--blue);
-        margin-bottom: 16px;
-      }
-      .doc-header h1 {
-        font-size: 36px;
-        font-weight: 800;
-        color: var(--navy);
-        margin-bottom: 8px;
-        line-height: 1.2;
-      }
-      .doc-header .subtitle {
-        font-size: 20px;
-        font-weight: 300;
-        color: var(--slate-600);
-        margin-bottom: 24px;
-      }
-      .doc-header .meta {
-        font-size: 12px;
-        color: var(--slate-600);
-        letter-spacing: 0.5px;
-      }
-      .doc-header .meta span {
-        display: inline-block;
-        margin: 0 12px;
-      }
-      .gold-bar {
-        width: 60px;
-        height: 4px;
-        background: var(--gold);
-        margin: 20px auto;
-        border-radius: 2px;
-      }
-      /* Headings */
-      h2 {
-        font-size: 24px;
-        font-weight: 700;
-        color: var(--navy);
-        margin: 48px 0 20px;
-        padding-bottom: 10px;
-        border-bottom: 2px solid var(--slate-200);
-      }
-      h2 .section-num {
-        color: var(--blue);
-        font-weight: 800;
-      }
-      h3 {
-        font-size: 18px;
-        font-weight: 600;
-        color: var(--navy);
-        margin: 32px 0 12px;
-      }
-      h4 {
-        font-size: 15px;
-        font-weight: 600;
-        color: var(--slate-700);
-        margin: 24px 0 8px;
-      }
-      p {
-        margin: 0 0 14px;
-      }
-      /* Blockquotes */
+      h1 { color: #0f172a; border-bottom: 3px solid #fbbf24; padding-bottom: 10px; }
+      h2 { color: #1e3a5f; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-top: 44px; }
+      h3 { color: #334155; margin-top: 28px; }
+      h4 { color: #475569; }
+      code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+      pre { background: #1e293b; color: #e2e8f0; padding: 16px; border-radius: 8px; overflow-x: auto; }
+      pre code { background: none; color: inherit; }
+      table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+      th, td { border: 1px solid #cbd5e1; padding: 10px 14px; text-align: left; }
+      th { background: #1e3a5f; color: white; }
+      tr:nth-child(even) { background: #f8fafc; }
       blockquote {
-        border-left: 4px solid var(--gold);
-        background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
-        padding: 16px 20px;
+        border-left: 4px solid #fbbf24;
         margin: 20px 0;
-        border-radius: 0 8px 8px 0;
-        font-style: italic;
-        color: var(--slate-700);
+        padding: 10px 20px;
+        background: #fffbeb;
+        color: #334155;
       }
-      blockquote p {
-        margin: 0;
+      a { color: #2563eb; }
+      strong { color: #0f172a; }
+      li { margin: 4px 0; }
+      hr { border: none; border-top: 1px solid #e2e8f0; margin: 32px 0; }
+      .dws-version-banner {
+        background: #1e293b;
+        color: #e2e8f0;
+        padding: 14px 24px;
+        margin: 0 -20px 36px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+        font-size: 0.85rem;
       }
-      blockquote cite,
-      blockquote .author {
-        display: block;
-        margin-top: 8px;
-        font-size: 13px;
-        font-weight: 500;
-        color: var(--slate-600);
-        font-style: normal;
-      }
-      /* Tables */
-      table {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
-        margin: 16px 0 24px;
-        font-size: 14px;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
-      }
-      thead th {
-        background: var(--navy);
-        color: var(--white);
-        font-weight: 600;
-        padding: 12px 16px;
-        text-align: left;
-        font-size: 13px;
-        letter-spacing: 0.3px;
-      }
-      tbody td {
-        padding: 10px 16px;
-        border-bottom: 1px solid var(--slate-200);
-        vertical-align: top;
-      }
-      tbody tr:nth-child(even) {
-        background: var(--slate-50);
-      }
-      tbody tr:hover {
-        background: #eef6ff;
-      }
-      tbody tr:last-child td {
-        border-bottom: none;
-      }
-      /* Lists */
-      ul,
-      ol {
-        margin: 8px 0 16px 24px;
-      }
-      li {
-        margin-bottom: 6px;
-      }
-      /* Links */
-      a {
-        color: var(--blue);
-        text-decoration: none;
-        font-weight: 500;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-      /* Strength highlight */
-      .strength-highlight {
-        background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
-        border-left: 4px solid var(--green);
-        padding: 16px 20px;
-        border-radius: 0 8px 8px 0;
-        margin: 16px 0;
-      }
-      .strength-highlight strong {
-        color: var(--green);
-      }
-      /* TOC */
-      .toc {
-        background: var(--slate-50);
-        border: 1px solid var(--slate-200);
-        border-radius: 12px;
-        padding: 24px 32px;
-        margin: 24px 0 40px;
-      }
-      .toc h3 {
-        margin: 0 0 12px;
-        font-size: 16px;
-        color: var(--blue);
-      }
-      .toc ol {
-        margin: 0;
-        padding-left: 20px;
-      }
-      .toc li {
-        margin-bottom: 4px;
-      }
-      /* Version block */
-      .version-block {
-        background: var(--slate-50);
-        border: 1px solid var(--slate-200);
-        border-radius: 8px;
-        padding: 16px 20px;
-        margin: 16px 0;
-        font-size: 13px;
-        color: var(--slate-600);
-      }
-      .version-block h4 {
-        color: var(--slate-700);
-        margin: 0 0 8px;
-      }
-      /* Footer */
-      .doc-footer {
-        text-align: center;
-        padding: 40px 20px 20px;
-        margin-top: 60px;
-        border-top: 3px solid var(--gold);
-        color: var(--slate-600);
-        font-size: 13px;
-      }
-      .doc-footer .motto {
-        font-style: italic;
-        font-size: 16px;
-        color: var(--navy);
-        margin-bottom: 12px;
-        font-weight: 500;
-      }
-      /* Badge */
-      .badge {
-        display: inline-block;
-        background: var(--navy);
-        color: var(--gold);
-        font-size: 11px;
+      .dws-version-badge {
+        background: #fbbf24;
+        color: #0f172a;
         font-weight: 700;
-        padding: 3px 10px;
-        border-radius: 4px;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
+        padding: 4px 14px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        letter-spacing: 0.04em;
       }
-      .badge-green {
-        background: #059669;
-        color: white;
-      }
-      .badge-blue {
-        background: var(--blue);
-        color: white;
-      }
-      /* Separator */
-      hr {
-        border: none;
-        border-top: 1px solid var(--slate-200);
-        margin: 32px 0;
-      }
-      /* Print */
-      @media print {
-        body {
-          background: white;
-        }
-        .container {
-          box-shadow: none;
-          padding: 20px;
-        }
-        table {
-          page-break-inside: avoid;
-        }
-        h2 {
-          page-break-after: avoid;
-        }
-      }
-      @media (max-width: 640px) {
-        .container {
-          padding: 20px 16px;
-        }
-        .doc-header h1 {
-          font-size: 26px;
-        }
-        table {
-          font-size: 12px;
-        }
-        thead th,
-        tbody td {
-          padding: 8px 10px;
-        }
-      }
+      .dws-version-meta { color: #94a3b8; font-size: 0.8rem; }
+      .dws-version-title { color: #e2e8f0; font-weight: 600; }
+      .doc-subtitle { color: #64748b; font-size: 1.05rem; margin: -4px 0 24px; font-weight: 500; }
     </style>
   </head>
   <body>
-    <div class="container">
-      <div class="doc-header">
-        <div class="company">Lifetime Oy</div>
-        <h1>Konsultin käsikirja 2026</h1>
-        <div class="subtitle">Consultant Handbook 2026</div>
-        <div class="gold-bar"></div>
-        <div class="meta">
-          <span>Versio 1.3</span>
-          <span>|</span>
-          <span>28.06.2026</span>
-          <span>|</span>
-          <span>Risto Anton Paarni</span>
-        </div>
-      </div>
-
-      <div class="version-block">
-        <h4>Dokumentin tila</h4>
-        <p>
-          Luotu: 28.06.2026 | Viimeksi muokattu: 28.06.2026 | Kieli: suomi/englanti (kaksikielinen)
-        </p>
-        <p>Edellinen versio: Konsultin käsikirja 2024 v0.16 (Risto Anton Päärni, Salla Limetti)</p>
-        <p>Status: <span class="badge">DRAFT</span></p>
-      </div>
-
-      <!-- TOC -->
-      <div class="toc">
-        <h3>Sisällysluettelo / Table of Contents</h3>
-        <ol>
-          <li><a href="#s1">Yrityksestämme / About Us</a></li>
-          <li><a href="#s2">Missio, arvot, tarkoitus / Mission, Values, Purpose</a></li>
-          <li><a href="#s3">Tuotteemme / Our Products</a></li>
-          <li><a href="#s4">Toimialat / Industries</a></li>
-          <li><a href="#s5">Konsultin rooli 2026 / The Consultant's Role in 2026</a></li>
-          <li><a href="#s6">Työsuhteen aloittaminen / Starting Employment</a></li>
-          <li><a href="#s7">Strategiaprosessi / Strategy Process</a></li>
-          <li><a href="#s8">Myynti ja asiakastyö / Sales and Customer Work</a></li>
-          <li><a href="#s9">Asiakkuuden elinkaari / Customer Lifecycle</a></li>
-          <li><a href="#s10">Teknologiakartta / Technology Map</a></li>
-          <li><a href="#s11">EU-sääntelyympäristö / EU Regulatory Environment</a></li>
-          <li><a href="#s12">Tietosuoja ja tietoturva / Data Protection and Security</a></li>
-          <li><a href="#s13">Työajan hallinta / Time Management</a></li>
-          <li><a href="#s14">Kumppanit / Partners</a></li>
-          <li><a href="#s15">Liitteet / Appendices</a></li>
-        </ol>
-      </div>
-
-      <!-- ALKUSANAT -->
-      <h2>Alkusanat</h2>
-
-      <p>
-        Uusien konsulttien perehdyttäminen Lifetime Oy:n noudattamaan Sovereign Compliance
-        Intelligence -liiketoimintatapaan ja konsulttien päivittäisjohtamisen ja tekemisen
-        toimintatapaan vaatii ammattimaista perehdytystä. Tämä konsultin käsikirja vastaa
-        tärkeimpiin konsultin roolissa toimivien asiantuntijoiden työhaasteisiin käytännönläheisesti
-        ja kiinnostavasti.
-      </p>
-
-      <p>
-        Tavoitteena on luoda onnistunut ja hyvä työntekijäkokemus aina rekrytoinnista ja työsuhteen
-        aloittamisesta työsuhteen päättämiseen ja seuraaviin askeliin asti.
-      </p>
-
-      <p>
-        Tavoitteena konsultin käsikirjalle on, että uusille konsulteillemme kertyy heti
-        toimintatavastamme konkreettinen käsitys jotta he pääsevät nopeasti ammattimaiselle tasolle
-        ja kiinni rahaa tuottaviin asiakastoimeksiantoihin.
-      </p>
-
+    <div class="dws-version-banner">
+      <span class="dws-version-title">Konsultoinnin käsikirja 2026 — Consultancy Excellence Handbook</span>
+      <span class="dws-version-badge">v1.76</span>
+      <span class="dws-version-meta">Lifetime Oy · Risto Anton Paarni · 28.06.2026</span>
+    </div>
+    <h1>Konsultoinnin käsikirja 2026</h1>
+    <div class="doc-subtitle">Consultancy Excellence Handbook 2026</div>
+    <h2 id="sisallysluettelo-table-of-contents">Sisällysluettelo / Table of Contents</h2>
+      <ol>
+      <li><a href="#1-yrityksestämme">Yrityksestämme / About Us</a></li>
+      <li><a href="#2-missio-arvot-tarkoitus">Missio, arvot, tarkoitus / Mission, Values, Purpose</a></li>
+      <li><a href="#3-tuotteemme">Tuotteemme / Our Products</a></li>
+      <li><a href="#4-kyvykkyysontologia--dws-iqn-tietämysrakenne">Kyvykkyysontologia / Capability Ontology</a></li>
+      <li><a href="#5-toimialat">Toimialat / Industries</a></li>
+      <li><a href="#6-kyvykkyysmalli-2026--roolit-ovat-agentteja">Kyvykkyysmalli 2026 / Capability Model 2026</a></li>
+      <li><a href="#7-työsuhteen-aloittaminen">Työsuhteen aloittaminen / Starting Employment</a></li>
+      <li><a href="#8-strategiaprosessi">Strategiaprosessi / Strategy Process</a></li>
+      <li><a href="#9-myynti-ja-asiakastyö">Myynti ja asiakastyö / Sales and Customer Work</a></li>
+      <li><a href="#10-asiakkuuden-elinkaari">Asiakkuuden elinkaari / Customer Lifecycle</a></li>
+      <li><a href="#11-teknologiakartta">Teknologiakartta / Technology Map</a></li>
+      <li><a href="#12-eu-sääntelyympäristö">EU-sääntelyympäristö / EU Regulatory Environment</a></li>
+      <li><a href="#13-tietosuoja-ja-tietoturva">Tietosuoja ja tietoturva / Data Protection and Security</a></li>
+      <li><a href="#14-työajan-hallinta">Työajan hallinta / Time Management</a></li>
+      <li><a href="#15-kumppanit">Kumppanit / Partners</a></li>
+      <li><a href="#16-liitteet">Liitteet / Appendices</a></li>
+      </ol>
+      <hr />
+      <h2 id="alkusanat">Alkusanat</h2>
+      <p>Uusien konsulttien perehdyttäminen Lifetime Oy:n noudattamaan Sovereign Compliance Intelligence -liiketoimintatapaan ja konsulttien päivittäisjohtamisen ja tekemisen toimintatapaan vaatii ammattimaista perehdytystä. Tämä konsultoinnin käsikirja vastaa tärkeimpiin konsultin roolissa toimivien asiantuntijoiden ja agenttikyvykkyyksien työhaasteisiin käytännönläheisesti ja kiinnostavasti.</p>
+      <p>Tavoitteena on luoda onnistunut ja hyvä työntekijäkokemus aina rekrytoinnista ja työsuhteen aloittamisesta työsuhteen päättämiseen ja seuraaviin askeliin asti.</p>
+      <p>Tavoitteena konsultoinnin käsikirjalle on, että uusille konsulteillemme sekä asiakaskyvykkyyksille (agent + workflow + skills) kertyy heti toimintatavastamme konkreettinen käsitys jotta he pääsevät nopeasti ammattimaiselle tasolle ja kiinni rahaa tuottaviin asiakastoimeksiantoihin.</p>
       <p>Käsikirja toimii apuna arjessa antaen toimintaohjeet mm.</p>
       <ul>
-        <li>uusien asiakkuuksien hankintaan,</li>
-        <li>tarjous- sekä kilpailutusvaiheen töihin,</li>
-        <li>hankkeiden ja projektien rooleissa toimimiseen,</li>
-        <li>konsultin työaika- ja raportointikäytäntöihin,</li>
-        <li>tietosuoja- sekä tietoturva-asioiden hoitokäytäntöihin,</li>
-        <li>GDPR Compliance -asioihin,</li>
-        <li>työsuhteen aloittaminen, sopimukset, tuntikirjaukset.</li>
+      <li>uusien asiakkuuksien hankintaan,</li>
+      <li>kyvykkyyksien tarjoamiseen ja kehittämiseen,</li>
+      <li>markkinasignaalien löytämiseen,</li>
+      <li>tarjousten laatimiseen,</li>
+      <li>hankintaverkoston hyödyntämiseen,</li>
+      <li>kilpailutusvaiheen jatkotöihin,</li>
+      <li>hankkeiden asetukseen ja HIC-projektirooleissa sekä kyvykkyyksien yhdistämiseen työnkulkuihin ja projektoinnin käytännön toimiin,</li>
+      <li>konsultin ja agenttien työaika- ja raportointikäytäntöihin,</li>
+      <li>tietosuojan ylläpitoon ja kehittämiseen,</li>
+      <li>projektin tietoturva-asioiden hoitoon,</li>
+      <li>Legal Compliance -asioihin mm. EU AI Act sekä GDPR Compliance,</li>
+      <li>Project Compliance -asioihin: kumppanisopimukset, työmääräin ja konsultin työsuhde.</li>
       </ul>
-
-      <p>
-        Tämän konsultin käsikirjan on laatinut Risto Anton Paarni, toimitusjohtaja, Lifetime Oy.
-        Teosta päivitetään liiketoiminnan kehittyessä. Se on saatavilla verkkokaupastamme hintaan
-        29,95 eur.
-      </p>
-
-      <blockquote>
-        <p>
-          The Best, Premium level Interface for Customer interaction is human-to-human. Therefore to
-          meet corporate customers' demand for the best customer experience, we offer sovereign AI
-          that augments — never replaces — the human consultant.
-        </p>
-      </blockquote>
-
+      <p>Tämän konsultoinnin käsikirjan on laatinut Risto Anton Paarni, toimitusjohtaja, Lifetime Oy. Teosta päivitetään liiketoiminnan kehittyessä. Se on saatavilla verkkokaupastamme hintaan 29,95 eur.</p>
+      <blockquote><em>The Best, Premium level Interface for Customer interaction is human-to-human. Therefore to meet corporate customers' demand for the best customer experience, we offer sovereign AI that augments — never replaces — the human consultant.</em></blockquote>
       <hr />
-
-      <!-- 1. YRITYKSESTÄMME -->
-      <h2 id="s1"><span class="section-num">1.</span> Yrityksestämme</h2>
-
-      <h3>Lifetime Oy — Sovereign AI for European Industry</h3>
-
-      <table>
-        <tbody>
-          <tr>
-            <td><strong>Y-tunnus</strong></td>
-            <td>0772407-9</td>
-          </tr>
-          <tr>
-            <td><strong>ALV-tunnus</strong></td>
-            <td>FI07724079</td>
-          </tr>
-          <tr>
-            <td><strong>Osoite</strong></td>
-            <td>Laidunmaanraitti 2 A 25, 02330 Espoo</td>
-          </tr>
-          <tr>
-            <td><strong>Toimitusjohtaja</strong></td>
-            <td>Risto Anton Paarni</td>
-          </tr>
-          <tr>
-            <td><strong>Sähköposti</strong></td>
-            <td>risto.paarni@lifetime.fi</td>
-          </tr>
-          <tr>
-            <td><strong>Verkkosivut</strong></td>
-            <td>dws10.com | dws6.com | onelifetime.world | lifetime.fi</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Keitä olemme</h3>
-
-      <p>
-        Lifetime Oy on espoolainen teknologiayritys, joka kehittää ja toimittaa DWS IQ -alustaa —
-        Euroopan teollisuuden compliance-kirjanpitojärjestelmää. Tuotamme suvereenia tekoälyä, joka
-        automatisoi EU-säännösten noudattamisen 25 säännellyllä toimialalla.
-      </p>
-
-      <p>
-        Olemme siirtyneet yleisestä IT-konsultoinnista (2019-2024) kohdennettuun
-        AI-alustatuotteeseen (2025-2026). Konsultointi on yhä osa tarjontaamme, mutta se palvelee
-        alustatuotteen käyttöönottoa — ei enää itsenäisenä liiketoimintana.
-      </p>
-
-      <h3>Avainluvut (Q2 2026)</h3>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Mittari</th>
-            <th>Luku</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Tuotantoagentit</td>
-            <td><strong>58</strong></td>
-          </tr>
-          <tr>
-            <td>EU-säännösten asiakirjat indeksoituna</td>
-            <td>15 000+</td>
-          </tr>
-          <tr>
-            <td>Toimialaontologiat</td>
-            <td>20 (21 kaksikäytön kanssa)</td>
-          </tr>
-          <tr>
-            <td>Maksavat asiakkaat</td>
-            <td>6</td>
-          </tr>
-          <tr>
-            <td>Asiakaspysyvyys</td>
-            <td><strong>100%</strong> (nolla churn)</td>
-          </tr>
-          <tr>
-            <td>MRR</td>
-            <td>€7 000–14 000</td>
-          </tr>
-          <tr>
-            <td>Platform-versiot</td>
-            <td>6 (V1–V6)</td>
-          </tr>
-          <tr>
-            <td>EU AI Act Article 12</td>
-            <td><span class="badge-green">Tuotannossa</span> maaliskuusta 2026</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Henkilöstö</h3>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Rooli</th>
-            <th>Henkilö</th>
-            <th>Vastuualue</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>CEO, pääarkkitehti</td>
-            <td>Risto Anton Paarni</td>
-            <td>Strategia, tuotekehitys, avainasiakasmyynti, päivittäinen koodaus</td>
-          </tr>
-          <tr>
-            <td>Freelance CTO</td>
-            <td>Sopimuksella</td>
-            <td>Teknologia-arkkitehtuuri, infrastruktuuri</td>
-          </tr>
-          <tr>
-            <td>Alihankkijaverkosto</td>
-            <td>Konsortio (9series, Cubet ym.)</td>
-            <td>Projektitoimitus, erikoisosaaminen</td>
-          </tr>
-          <tr>
-            <td><strong>58 AI-agenttia</strong></td>
-            <td>DWS IQ Agent Fleet</td>
-            <td>Compliance-automaatio, toimialaäly, konsulttiroolit, orkestrointi</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="strength-highlight">
-        <strong
-          >Yksinyrittäjä + 58 AI-agenttia = suuri konsulttitoimiston kapasiteetti
-          startup-kustannuksella.</strong
-        ><br />
-        8 konsulttirooliagenttia peilaavat jokaista ihmisroolia. 9 toimialaerikoistunutta agenttia +
-        6 orkestroijaa + 12 tiedusteluagenttia + 5 SEO-agenttia. Yksi päätöksentekijä eliminoi
-        komiteaviiveen. Kapasiteetti skaalautuu agentteja lisäämällä (minuutteja), ei rekrytoimalla
-        (kuukausia). Infrakulut &lt;€100/kk.
-      </div>
-
-      <h3>Yrityksen kehityskaari</h3>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Ajanjakso</th>
-            <th>Vaihe</th>
-            <th>Liiketoimintamalli</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>2019–2022</td>
-            <td>IT-konsultointi</td>
-            <td>Cloud Ready Teams, roolitettuja konsultointipalveluja, 72 roolia</td>
-          </tr>
-          <tr>
-            <td>2023–2024</td>
-            <td>Tuotteen rakentaminen</td>
-            <td>DWS IQ V1–V4, ensimmäiset asiakkaat (Kela, Uber), alusta rakennetaan</td>
-          </tr>
-          <tr>
-            <td>2025–2026</td>
-            <td>Alustatuote</td>
-            <td>DWS IQ V5–V6, 58 agenttia, 25 toimialaa, Climate IQ + Industrial IQ + Aegis</td>
-          </tr>
-          <tr>
-            <td>2027+</td>
-            <td>Skaalaus</td>
-            <td>Pohjoismainen laajeneminen (Suomi + Ruotsi), Series A, €900K ARR tavoite</td>
-          </tr>
-        </tbody>
-      </table>
-
+      <h2 id="1-yrityksestamme">1. Yrityksestämme</h2>
+      <h3 id="lifetime-oy-sovereign-ai-for-european-industry">Lifetime Oy — Sovereign AI for European Industry</h3>
+      <p><strong>Y-tunnus:</strong> 0772407-9 <strong>ALV-tunnus:</strong> FI07724079 <strong>Osoite:</strong> Laidunmaanraitti 2 A 25, 02330 Espoo <strong>Toimitusjohtaja:</strong> Risto Anton Paarni <strong>Sähköposti:</strong> risto.paarni@lifetime.fi <strong>Verkkosivut:</strong> dws10.com | dws6.com | onelifetime.world | lifetime.fi</p>
+      <h3 id="keita-olemme">Keitä olemme</h3>
+      <p>Lifetime Oy on espoolainen teknologiayritys, joka kehittää ja toimittaa DWS IQ -alustaa — Euroopan teollisuuden suvereenia compliance-älyalustaa sekä lokaaleja valvomohuoneita (Control Room) ja johtohuoneita (Situation Room). Suvereniteetti syntyy paikallisesta laitteistosta ja lokaalista World Model -toteutuksesta. Tuotamme suvereenia tekoälyä, joka automatisoi EU-säännösten noudattamisen 25 säännellyllä toimialalla.</p>
+      <p>Olemme siirtyneet yleisestä IT-konsultoinnista (2019-2024) kohdennettuun AI-alustatuotteeseen (2025-2026). Konsultointi on osa DWS-tuotteen projektitoimitusta ja on saatavissa asiakasprojekteihin.</p>
+      <h3 id="avainluvut-q2-2026">Avainluvut (Q2 2026)</h3>
+      <ul>
+      <li><strong>Tuotantoagentit:</strong> 58</li>
+      <li><strong>Kyvykkyydet (ontologia):</strong> 88</li>
+      <li><strong>EU-säännösten asiakirjat indeksoituna:</strong> 15 000+</li>
+      <li><strong>Toimialaontologiat:</strong> 25</li>
+      <li><strong>Maksavat asiakkaat:</strong> 6</li>
+      <li><strong>Asiakaspysyvyys:</strong> 100% (nolla churn)</li>
+      <li><strong>MRR:</strong> €7 000–14 000</li>
+      <li><strong>Alustaversiot:</strong> V1–V7 (variaatiot V6:sta alkaen: Climate IQ, Industrial IQ, Aegis Standard, Aegis Defence)</li>
+      <li><strong>Verkkokaupan tuotteet:</strong> 63</li>
+      <li><strong>EU AI Act Article 12:</strong> Tuotannossa maaliskuusta 2026</li>
+      </ul>
+      <h3 id="henkilosto">Henkilöstö</h3>
+      <ul>
+      <li><strong>CEO, pääarkkitehti</strong> — Risto Anton Paarni. Strategia, tuotekehitys, avainasiakasmyynti, päivittäinen koodaus.</li>
+      <li><strong>Office Chief</strong> — Lucille Santiago. Leads daily operations and Project Office.</li>
+      <li><strong>Freelance CTO</strong> — Sopimuksella. Teknologia-arkkitehtuuri, infrastruktuuri.</li>
+      <li><strong>Alihankkijaverkosto</strong> — 50+ asiantuntijayrityksen vakiintunut verkosto, kumppanuudet solmittu 2020–2022 (konsortiokumppanit mm. 9series, Cubet). Projektitoimitus ja erikoisosaaminen, ankkuroitu NVIDIA Connect -kumppanuuteen.</li>
+      </ul>
+      <h3 id="yrityksen-kehityskaari">Yrityksen kehityskaari</h3>
+      <ul>
+      <li><strong>2019–</strong> IT-konsultointi — Cloud Ready Teams, 50+ kumppaniyrityksen verkosto, roolitetut IT-konsultointipalvelut, yhteensä 72 roolia joista on rakennettu nykyiset 88 kyvykkyyttä</li>
+      <li><strong>2020–</strong> Tuotteiden rakentaminen, tällä hetkellä verkkokaupassa 63 tuotetta — DWS IQ V1-V4 (2019–2023), ensimmäiset asiakkaat (Kela, Uber), DWS 5 alusta rakennetaan vetytalouden tarpeisiin, DWS IQ Climate Compliance</li>
+      <li><strong>2024–2026</strong> DWS IQ sekä DWS IQ Aegis alustatuotteet sekä Firehorse tuotelinja sekä Agentit — DWS IQ V5-V6, 58 agenttia, 25 toimialaa, Climate IQ + Industrial IQ + Aegis</li>
+      <li><strong>2027+</strong> Skaalaus — Pohjoismainen laajeneminen (Suomi + Ruotsi), Series A, €900K ARR tavoite</li>
+      </ul>
       <hr />
-
-      <!-- 2. MISSIO, ARVOT, TARKOITUS -->
-      <h2 id="s2"><span class="section-num">2.</span> Missio, arvot, tarkoitus</h2>
-
-      <h3>Missio</h3>
-
-      <p>
-        Lifetime Oy:n missiona on olla mukana estämässä ilmastonmuutosta, eroosiota, sekä yhä
-        pahenevaa kuivuutta. Automatisoimme eurooppalaisen teollisuuden compliance-taakan niin, että
-        yritykset voivat keskittyä liiketoimintaansa sääntelyvelvoitteiden sijaan — turvallisesti,
-        suvereenisti, EU-jurisdiktiossa.
-      </p>
-
-      <p>
-        Olemme siirtymässä alustataloudesta datavetoiseen älytalouteen. Menestyjiä Sovereign
-        Compliance Intelligence -maailmassa tehdään nyt. Lifetime Oy:n osaaminen ja kontaktit
-        tunnustetaan kansainvälisesti ja olemme haluttu projektitoimittaja useilla toimialoilla.
-      </p>
-
-      <h3>Arvot</h3>
-
-      <p>
-        Työ ilmastonmuutoksen estämiseksi älytalouden keinoin vaatii vahvaa eettistä perustaa.
-        Lifetime Oy on aidosti eurooppalainen yritys. Arvomme ovat eurooppalaisia; suomalaisia.
-        Elämme vahvasti mukana globaalissa maailmassa. Keskiössä on vahva ihmisyyden puolustaminen
-        tekoälyä hyödyntäen.
-      </p>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Arvo</th>
-            <th>Mitä se tarkoittaa käytännössä</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Suvereenius</strong></td>
-            <td>
-              Data pysyy EU:ssa. Nolla CLOUD Act -altistusta. Asiakkaan data ei koskaan poistu
-              asiakkaan hallinnasta.
-            </td>
-          </tr>
-          <tr>
-            <td><strong>Rehellisyys</strong></td>
-            <td>
-              Julkaistu hinnoittelu. Ei piilomaksuja. Ei lukitusta. "Jos se sopii, jatketaan. Jos
-              ei, eroamme ystävinä."
-            </td>
-          </tr>
-          <tr>
-            <td><strong>Laatu</strong></td>
-            <td>
-              Jokainen AI-toiminta on auditoitavissa. Article 12 -lokitus tuotannossa. Ei sloppy
-              output -tuotantoa.
-            </td>
-          </tr>
-          <tr>
-            <td><strong>Hiljaisuus</strong></td>
-            <td>
-              Pohjoismainen myyntiperiaate: kuuntele ensin, myy vasta kun asiakas on valmis.
-              Maksimissaan 2 kontaktia.
-            </td>
-          </tr>
-          <tr>
-            <td><strong>Eurooppalaisuus</strong></td>
-            <td>
-              Aidosti eurooppalainen yritys. Suomalaiset arvot. Kansainvälinen toimintaympäristö.
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Tarkoitus (Purpose)</h3>
-
-      <p>
-        <strong>2024:</strong> "Smart Business First" — autamme asiakkaitamme löytämään
-        digitalisaatiosta business-näkökulman.
-      </p>
-
-      <p>
-        <strong>2026:</strong> "Sovereign Compliance Intelligence" — automatisoimme
-        EU-sääntelynoudattamisen ja pidämme asiakkaan datan suvereenina. Jokaisella
-        teollisuusyrityksellä on oikeus omaan dataansa, omiin tekoälyagentteihinsa ja auditoitavaan
-        compliance-jälkeen.
-      </p>
-
+      <h2 id="2-missio-arvot-tarkoitus">2. Missio, arvot, tarkoitus</h2>
+      <h3 id="missio">Missio</h3>
+      <p>Lifetime Oy:n missiona on olla mukana estämässä ilmastonmuutosta, eroosiota sekä yhä pahenevaa kuivuutta — automatisoimalla teollisuuden ympäristövelvoitteet suvereenilla tekoälyllä. Automatisoimme eurooppalaisen teollisuuden compliance-taakan niin, että yritykset voivat keskittyä liiketoimintaansa sääntelyvelvoitteiden sijaan — turvallisesti, suvereenisti, EU-jurisdiktiossa.</p>
+      <p>Olemme siirtyneet datavetoisesta analytiikasta suvereeniin tekoälyyn — compliance-älytalouteen, jossa jokainen päätös on auditoitavissa. Menestyjiä Sovereign Compliance Intelligence -maailmassa tehdään nyt. Lifetime Oy:n 58 agenttia ja 88 kyvykkyyttä palvelevat 25 EU-säänneltyä toimialaa — alustatuotteen veloituksella, ei tuntilaskutuksella.</p>
+      <h3 id="arvot">Arvot</h3>
+      <p>Työ ilmastonmuutoksen estämiseksi älytalouden keinoin vaatii vahvaa eettistä perustaa. Lifetime Oy on aidosti eurooppalainen yritys. Arvomme ovat eurooppalaisia; suomalaisia. Elämme vahvasti mukana globaalissa maailmassa. Keskiössä on vahva ihmisyyden puolustaminen tekoälyä hyödyntäen.</p>
+      <ul>
+      <li><strong>Suvereenius</strong> — Data pysyy EU:ssa. Nolla CLOUD Act -altistusta. Asiakkaan data ei koskaan poistu asiakkaan hallinnasta.</li>
+      <li><strong>Rehellisyys</strong> — Julkaistu hinnoittelu. Ei piilomaksuja. Ei lukitusta. "Jos se sopii, jatketaan. Jos ei, eroamme ystävinä."</li>
+      <li><strong>Laatu</strong> — Jokainen AI-toiminta on auditoitavissa. Article 12 -lokitus tuotannossa. Ei sloppy output -tuotantoa.</li>
+      <li><strong>Resilienssi ja jatkuva parantaminen</strong> — Opimme kuuntelemalla asiakkaita, markkinoita ja toisiamme. Jatkuva parantaminen on sisäänrakennettu toimintatapaamme — 58 agenttia, retrospektiivit ja oppimissilmukat varmistavat, että jokainen projekti on parempi kuin edellinen.</li>
+      <li><strong>Eurooppalaisuus</strong> — Aidosti eurooppalainen yritys. Suomalaiset arvot. Kansainvälinen toimintaympäristö.</li>
+      <li><strong>Ihmiskeskeisyys (eettinen tekoälypäätös)</strong> — Emme pyri vähentämään asiakkaan työntekijöitä; henkilöstöstä päättää johto. Tuomme teollisille toimijoille uusia kyvykkyyksiä, joita agenteillamme on, ja nostamme tuottavuutta — ihmisen rinnalle, ei tilalle. Tekoäly augmentoi, ei korvaa.</li>
+      </ul>
+      <h3 id="tarkoitus-purpose">Tarkoitus (Purpose)</h3>
+      <p><strong>2024:</strong> "Smart Business First" — autamme asiakkaitamme löytämään digitalisaatiosta business-näkökulman.</p>
+      <p><strong>2025:</strong> "Climate Intelligence" — ilmastotiedustelu ja päästöraportoinnin automaatio EU-teollisuudelle.</p>
+      <p><strong>2026:</strong> "Climate Compliance Intelligence" — automatisoimme EU-sääntelynoudattamisen ja pidämme asiakkaan datan suvereenina. Jokaisella teollisuusyrityksellä on oikeus omaan dataansa, omiin tekoälyagentteihinsa ja auditoitavaan compliance-jälkeen.</p>
+      <p><strong>2026 →:</strong> "Industrial Intelligence" — fyysiseen tekoälyyn ja paikallisiin laitteisiin perustuva suvereeni teollisuusäly. NVIDIA Jetson edge-laitteilla, DGX Spark -palvelimilla ja UpCloud Helsinki -pilvillä rakennettu tiedustelukerros, jossa data ei koskaan poistu asiakkaan hallinnasta. 25 toimialan yli ulottuva ristiin-älykkyys mahdollistaa sen, mitä yksikään toimialasiilossa toimiva ratkaisu ei voi tarjota.</p>
       <hr />
-
-      <!-- 3. TUOTTEEMME -->
-      <h2 id="s3"><span class="section-num">3.</span> Tuotteemme</h2>
-
-      <h3>DWS IQ 6 — Kolmiakselimalli</h3>
-
+      <h2 id="3-tuotteemme">3. Tuotteemme</h2>
+      <h3 id="dws-iq-6-kolmiakselimalli">DWS IQ 6 — Kolmiakselimalli</h3>
       <p>DWS IQ 6 ei ole kolme hintatasoa. Se on kolme itsenäistä akselia:</p>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Akseli</th>
-            <th>Tuote</th>
-            <th>Kysymys johon vastaa</th>
-            <th>Kenelle</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>MITÄ</strong> raportoida</td>
-            <td>Climate IQ</td>
-            <td>Mitä yrityksen on raportoitava? (CBAM, CSRD, ETS, PCF)</td>
-            <td>Sustainability Manager, CFO</td>
-          </tr>
-          <tr>
-            <td><strong>MITEN</strong> toimitusketju kytkeytyy</td>
-            <td>Industrial IQ</td>
-            <td>Miten sääntely vaikuttaa toimitusketjuun?</td>
-            <td>CTO, tuotekehitysjohtaja, operaatiot</td>
-          </tr>
-          <tr>
-            <td><strong>MISSÄ</strong> data sijaitsee</td>
-            <td>Aegis</td>
-            <td>Missä datani sijaitsee? (Suvereeni, on-prem, ilmaraollinen)</td>
-            <td>CISO, lakiasiat, puolustushankinta</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Tuotekatalogi ja hinnoittelu</h3>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Tuote</th>
-            <th>Käyttöönotto</th>
-            <th>Kuukausimaksu</th>
-            <th>Vuosimaksu</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Enterprise Navigator</strong> (pilotti)</td>
-            <td>€4 950 kertamaksu</td>
-            <td>—</td>
-            <td>€4 950</td>
-          </tr>
-          <tr>
-            <td><strong>Climate IQ</strong></td>
-            <td>€4 990</td>
-            <td>€2 999/kk</td>
-            <td>€29 990/v</td>
-          </tr>
-          <tr>
-            <td><strong>Industrial IQ (DWS IQ 6)</strong></td>
-            <td>€4 999 kertamaksu</td>
-            <td>—</td>
-            <td>€4 999</td>
-          </tr>
-          <tr>
-            <td><strong>Enterprise Premium</strong></td>
-            <td>—</td>
-            <td>—</td>
-            <td>€8 950/v</td>
-          </tr>
-          <tr>
-            <td><strong>Enterprise Nordic</strong></td>
-            <td>—</td>
-            <td>—</td>
-            <td>€25 950/v</td>
-          </tr>
-          <tr>
-            <td><strong>Aegis Standard</strong></td>
-            <td>€59 990</td>
-            <td>€999/kk</td>
-            <td>€71 978/v</td>
-          </tr>
-          <tr>
-            <td><strong>Aegis Defence</strong></td>
-            <td>€89 990</td>
-            <td>€1 999/kk</td>
-            <td>€113 978/v</td>
-          </tr>
-          <tr>
-            <td><strong>Aegis Sovereign</strong></td>
-            <td>Räätälöity</td>
-            <td>€4 999/kk</td>
-            <td>Räätälöity</td>
-          </tr>
-          <tr>
-            <td><strong>Train Model SaaS</strong></td>
-            <td>—</td>
-            <td>—</td>
-            <td>€1 490 / €2 990 / €7 490</td>
-          </tr>
-          <tr>
-            <td><strong>Lifetime VIP AI Services</strong></td>
-            <td>—</td>
-            <td>—</td>
-            <td>€2 990/v</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <p>
-        <strong>Hinnoittelu-periaate:</strong> Julkaistu hinta. Sama hinta toimitusjohtajalle ja
-        vastuullisuuspäällikölle. Ei neuvotteluteatteria. (Buffet-periaate.)
-      </p>
-
-      <h3>Puolustus- ja kaksikäyttö (Aegis Defence)</h3>
-
+      <ul>
+      <li><strong>MITÄ raportoida → <a href="https://dws10.com/products/climate-intelligence.html">Climate IQ</a></strong> — Mitä yrityksen on raportoitava? (CBAM, CSRD, ETS, PCF). Kenelle: Sustainability Manager, CFO.</li>
+      <li><strong>MITEN toimitusketju kytkeytyy → <a href="https://dws10.com/products/dwsiq.html">Industrial IQ (DWS IQ 6)</a></strong> — Miten sääntely vaikuttaa toimitusketjuun? Kenelle: CTO, tuotekehitysjohtaja, operaatiot.</li>
+      <li><strong>MISSÄ data sijaitsee → <a href="https://dws10.com/products/aegis.html">Aegis</a></strong> — Missä datani sijaitsee? (Suvereeni, on-prem, ilmaraollinen). Kenelle: CISO, lakiasiat, puolustushankinta.</li>
+      </ul>
+      <h3 id="tuotekatalogi-ja-hinnoittelu">Tuotekatalogi ja hinnoittelu</h3>
+      <p><strong>Alustatuotteet:</strong></p>
+      <ul>
+      <li><strong><a href="https://dws10.com/products/dwsiq.html">Enterprise Navigator</a></strong> (pilotti) — €4 999 kertamaksu. Kolmen kuukauden pilotti, ERP-liitin mukana. Alle €5K ostopäätösraja.</li>
+      <li><strong><a href="https://dws10.com/products/climate-intelligence.html">Climate IQ</a></strong> — €4 990 käyttöönotto + €2 999/kk (€40 978/v sis. käyttöönotto). CBAM-, CSRD-, ETS- ja PCF-raportoinnin automaatio.</li>
+      <li><strong><a href="https://dws10.com/products/dwsiq.html">Industrial IQ (DWS IQ 6)</a></strong> — €4 999 kertamaksu. 58 agenttia, 25 toimialaa, toimialarajat ylittävä signaalianalyysi.</li>
+      <li><strong>Enterprise Premium</strong> — €8 950/v. Laajennettu tuki ja konsultointipalvelu.</li>
+      <li><strong>Enterprise Nordic</strong> — €25 950/v. Suomi + Ruotsi -kattavuus, monikielinen tuki.</li>
+      </ul>
+      <p><strong>Suvereeni infrastruktuuri (Aegis):</strong></p>
+      <ul>
+      <li><strong><a href="https://dws10.com/products/aegis.html">Aegis Standard</a></strong> — €59 990 käyttöönotto + €999/kk (€71 978/v). Suvereeni single-tenant K8s, UpCloud Helsinki, KYA-hallinta.</li>
+      <li><strong><a href="https://dws10.com/products/aegis.html">Aegis Defence</a></strong> — €89 990 käyttöönotto + €1 999/kk (€113 978/v). Ilmaraollinen, NVIDIA L40S GPU, ArgusAgent SAR, 4h SLA.</li>
+      <li><strong>Aegis Sovereign</strong> — Räätälöity käyttöönotto + €4 999/kk. Täysin asiakaskohtainen suvereeni ympäristö.</li>
+      </ul>
+      <p><strong>Lokaalit valvomotuotteet:</strong></p>
+      <ul>
+      <li><strong>Valvomohuone (Control Room)</strong> — Acer Veriton GN100, €5 294. Lokaali LWM Enterprise Model + DWS-alustatuote. Reaaliaikainen compliance-seuranta paikallisella ontologialla. Suvereniteetti syntyy paikallisesta laitteistosta ja lokaalista World Model -toteutuksesta — data ei poistu asiakkaan tiloista.</li>
+      <li><strong>Johtohuone (Situation Room)</strong> — 2× Acer Veriton GN100, €10 093. Aggregoi syötteet lokaalien valvomohuoneiden LWM:istä ja yhdistää ne DWS IQ Situation Room -toiminnallisuuksiin: moniruutunäyttö, kriisitilannejohtaminen, päätöksentuki. Suvereeni — lokaali laitteisto ja lokaali World Model.</li>
+      </ul>
+      <p><strong>Erikoistuotteet:</strong></p>
+      <ul>
+      <li><strong>Train Model SaaS (LWM Ontology Build)</strong> — €1 490 (Compact) / €2 990 (Standard) / €7 490 (Pro). Konsultin tekemä asiakaskohtaisen LWM-ontologian pystytys ja koulutus — ei pelkkä mallikoulutus vaan toimialaontologian rakentaminen.</li>
+      <li><strong><a href="https://dws10.com/products/lifetime-vip-ai-services.html">Lifetime VIP AI Services</a></strong> — €2 990/v. Henkilökohtainen AI-palvelu avainhenkilöille.</li>
+      <li><strong><a href="https://dws10.com/products/skilled-agents.html">Skilled Agents</a></strong> — Yksittäiset AI-agentit (Compliance, SiteSense, Material Oracle, ym.) alkaen €599/v.</li>
+      <li><strong><a href="https://dws10.com/products/claude-code-coaching.html">Claude Code Coaching</a></strong> — €1 900–€7 500. AI-koodauksen koulutuspaketit yrityksille.</li>
+      <li><strong><a href="https://dws10.com/products/dgx-spark.html">NVIDIA Edge -laitteet</a></strong> — Jetson Orin Nano €764, DGX Spark €5 994, IGX Orin €11 990. Fyysinen tekoäly paikallisilla laitteilla.</li>
+      <li><strong>Firehorse Amplify</strong> — €4 950. Sisältöstrategian ja markkinointikyvykkyyksien vahvistaminen.</li>
+      <li><strong>Firehorse Content Management</strong> — €2 999. Sisällönhallinta ja julkaisualusta.</li>
+      </ul>
+      <p><strong>Hinnoittelu-periaate:</strong> Julkaistu hinta. Sama hinta toimitusjohtajalle ja vastuullisuuspäällikölle. Ei neuvotteluteatteria. (Buffet-periaate.) Koko tuotevalikoima: <a href="https://dws10.com">dws10.com</a></p>
+      <h3 id="kyvykkyyden-hinnoittelumalli-hybridi">Kyvykkyyden hinnoittelumalli (hybridi)</h3>
+      <p>Kyvykkyyttä hinnoitellaan kolmella tasolla asiakassegmentin ja ostotavan mukaan. Mallit täydentävät toisiaan — token-pohjaisuus ei korvaa kk-tilausta vaan avaa matalamman kynnyksen ja marketplace-segmentit:</p>
+      <ul>
+      <li><strong>Kk-tilaus (enterprise-oletus)</strong> — Ennustettava, budjettiystävällinen, julkishankintakelpoinen. Säännelty teollisuus ei halua vaihtelevia token-yllätyksiä budjettiin; kk-tilaus tukee myös LWM-ylläpidon perustelua (§4). Esim. Climate IQ €2 999/kk, Skilled Agents alkaen €599/v.</li>
+      <li><strong>Matalan kynnyksen kk-taso (self-serve)</strong> — Yksittäinen kyvykkyys pienellä kuukausimaksulla aloituskynnyksen madaltamiseen (vrt. markkinoiden $9/kk-kasvutyökalut). Tuo SMB- ja kehittäjäsegmentit.</li>
+      <li><strong>Token / agentic commerce (2027 →)</strong> — Transaktioperusteinen per-kyvykkyys-veloitus käytön mukaan; Stripe-rails, Zuora-tyyppinen hybridilaskutus (tilaus + käyttö). Ks. §11 Agentic Commerce -roadmap.</li>
+      </ul>
+      <p>Julkishankinnoissa (esim. puitesopimukset) hinnoittelu on aina tilaajan määräämä yksikkö (€/henkilötyöpäivä) — token-malli ei sovi näihin.</p>
+      <h3 id="puolustus--ja-kaksikaytto-aegis-defence">Puolustus- ja kaksikäyttö (Aegis Defence)</h3>
       <p>Viisi työnkulkua:</p>
       <ol>
-        <li>
-          <strong>Orbitaalinen kohdetunnistus + SAR-muutosdetektio</strong> — ICEYE SAR
-          -satelliittikuvien analyysi 20 teollisuustyypin tunnistuksella (ArgusAgent). Havaitsee
-          rakennustyömaamuutokset, teollisuuslaitosten kapasiteettimuutokset ja logistiikkavirrat.
-          EU AI Act Art. 12 -auditoitu, täysi jäljitettävyys.
-        </li>
-        <li>
-          <strong>Kaksikäyttötuotteiden vientivalvontaseulonta</strong> — Reg. (EU) 2021/821,
-          oikeudellisesti kestävä jälki. Automaattinen dual-use -luokittelu, loppukäyttäjäselvitys
-          ja vientilupaprosessin tuki. Kattaa Annex I–IV -tuoteluokat.
-        </li>
-        <li>
-          <strong>EU-sääntelyn 24h -insidenttirekonstruktio</strong> — automaattinen aikajana,
-          ihminen silmukassa:
-          <ul>
-            <li>
-              <strong>NIS2</strong> (Dir. 2022/2555) — 24h ennakkoilmoitus, 72h täysi raportti
-              CSIRT:ille
-            </li>
-            <li>
-              <strong>EU AI Act</strong> (Reg. 2024/1689) Art. 12 — korkean riskin AI-järjestelmien
-              lokitus ja jäljitettävyys
-            </li>
-            <li>
-              <strong>GDPR</strong> (Reg. 2016/679) Art. 33/34 — 72h tietoturvaloukkausilmoitus
-              valvontaviranomaiselle
-            </li>
-            <li>
-              <strong>CER-direktiivi</strong> (Dir. 2022/2557) — kriittisten toimijoiden
-              häiriönsietokyky ja insidenttiraportointi
-            </li>
-            <li>
-              <strong>Cyber Resilience Act</strong> (Reg. 2024/2847) — digitaalisten tuotteiden
-              kyberturvallisuusvaatimukset ja haavoittuvuusraportointi
-            </li>
-          </ul>
-        </li>
-        <li>
-          <strong>Suvereeni ilmastoyhteensopivuus kaksikäyttöteollisuudessa</strong> — CBAM-, CSRD-
-          ja ETS-velvoitteiden automaattinen täsmäytys puolustus- ja kaksikäyttöteollisuuden
-          erityisvaatimuksiin. Varmistaa, että päästölaskenta ja raportointivelvoitteet täyttyvät
-          myös turvaluokitelluissa toimitusketjuissa ilman datavuotoja kolmansiin maihin.
-        </li>
-        <li>
-          <strong>Kriittisten tuotantoketjujen tarkkailu ja vahvistaminen</strong> — jatkuva
-          seuranta EU:n kriittisten raaka-aineiden asetuksen (Critical Raw Materials Act, Reg.
-          2024/1252) ja EU Chips Act -asetusten mukaisesti. Tunnistaa toimitusketjun pullonkaulat,
-          maantieteelliset keskittymäriskit ja sanktiolistamuutokset. ArgusAgent-satelliittikuva
-          vahvistaa tuotantolaitosten toiminnallisuuden fyysisellä tasolla.
-        </li>
+      <li><strong>Orbitaalinen kohdetunnistus + SAR-muutosdetektio</strong> — ICEYE SAR -satelliittikuvien analyysi 20 teollisuustyypin tunnistuksella (ArgusAgent). Havaitsee rakennustyömaamuutokset, teollisuuslaitosten kapasiteettimuutokset ja logistiikkavirrat. EU AI Act Art. 12 -auditoitu, täysi jäljitettävyys.</li>
+      <li><strong>Kaksikäyttötuotteiden vientivalvontaseulonta</strong> — Reg. (EU) 2021/821, oikeudellisesti kestävä jälki. Automaattinen dual-use -luokittelu, loppukäyttäjäselvitys ja vientilupaprosessin tuki. Kattaa Annex I–IV -tuoteluokat.</li>
+      <li><strong>EU-sääntelyn 24h -insidenttirekonstruktio</strong> — automaattinen aikajana, ihminen silmukassa. Kattaa:</li>
       </ol>
-
+      <ul>
+      <li><strong>NIS2</strong> (Dir. 2022/2555) — 24h ennakkoilmoitus, 72h täysi raportti CSIRT:ille</li>
+      <li><strong>EU AI Act</strong> (Reg. 2024/1689) Art. 12 — korkean riskin AI-järjestelmien lokitus ja jäljitettävyys</li>
+      <li><strong>GDPR</strong> (Reg. 2016/679) Art. 33/34 — 72h tietoturvaloukkausilmoitus valvontaviranomaiselle</li>
+      <li><strong>CER-direktiivi</strong> (Dir. 2022/2557) — kriittisten toimijoiden häiriönsietokyky ja insidenttiraportointi</li>
+      <li><strong>Cyber Resilience Act</strong> (Reg. 2024/2847) — digitaalisten tuotteiden kyberturvallisuusvaatimukset ja haavoittuvuusraportointi</li>
+      </ul>
+      <ol>
+      <li><strong>Suvereeni ilmastoyhteensopivuus kaksikäyttöteollisuudessa</strong> — CBAM-, CSRD- ja ETS-velvoitteiden automaattinen täsmäytys puolustus- ja kaksikäyttöteollisuuden erityisvaatimuksiin. Varmistaa, että päästölaskenta ja raportointivelvoitteet täyttyvät myös turvaluokitelluissa toimitusketjuissa ilman datavuotoja kolmansiin maihin.</li>
+      <li><strong>Kriittisten tuotantoketjujen tarkkailu ja vahvistaminen</strong> — jatkuva seuranta EU:n kriittisten raaka-aineiden asetuksen (Critical Raw Materials Act, Reg. 2024/1252) ja EU Chips Act -asetusten mukaisesti. Tunnistaa toimitusketjun pullonkaulat, maantieteelliset keskittymäriskit ja sanktiolistamuutokset. ArgusAgent-satelliittikuva vahvistaa tuotantolaitosten toiminnallisuuden fyysisellä tasolla.</li>
+      </ol>
       <hr />
-
-      <!-- 4. TOIMIALAT -->
-      <h2 id="s4"><span class="section-num">4.</span> Toimialat</h2>
-
-      <h3>25 EU-säänneltyä toimialaa (Fit for 55)</h3>
-
+      <h2 id="4-kyvykkyysontologia-dws-iqn-tietamysrakenne">4. Kyvykkyysontologia — DWS IQ:n tietämysrakenne</h2>
+      <h3 id="mika-on-kyvykkyysontologia">Mikä on kyvykkyysontologia?</h3>
+      <p>Ontologia on jäsennelty tietämysrakenne, joka kuvaa käsitteet ja niiden väliset suhteet. DWS IQ:n kyvykkyysontologia kuvaa yrityksen koko osaamisen — ei luettelona, vaan verkkorakenteena jossa jokainen kyvykkyys tietää mistä luokasta se on, mihin muihin luokkiin se kytkeytyy ja miten se palvelee asiakasta.</p>
+      <p>Ontologia on Lifetime World Model (LWM) -pohjainen — eurooppalainen, asiakkaan hallinnassa pysyvä maailmanmalli. Konsultti rakentaa ja kouluttaa asiakkaan LWM-ontologian NVIDIA AI Workbench -työkalulla asiakkaan DGX Spark -kokoonpanossa (Train Model SaaS) ja vie sen lokaaliin World Model -toteutukseen (Control Room / Situation Room). Koska EU-sääntely, toimialatieto ja kyvykkyyskatalogi kehittyvät jatkuvasti, LWM-ontologia vaatii jatkuvaa ylläpitoa ja uudelleenkoulutusta — tämä on asiakkaan jatkuvan tilauksen (subscription) ydin ja konsultoinnin keskeinen tehtävä. Näin kyvykkyysontologia pysyy ajan tasalla ja laajenee kattamaan asiakkaan toimialan erityiskysymykset.</p>
+      <p>DWS IQ:n kyvykkyysontologia jakautuu kymmeneen luokkaan (A–J) ja kattaa 88 kyvykkyyttä. Täydellinen luokkakuvaus, agenttiluettelo ja ontologiaperiaatteet ovat kappaleessa <a href="#6-kyvykkyysmalli-2026--roolit-ovat-agentteja">§6 Kyvykkyysmalli 2026</a>.</p>
+      <h3 id="ontologia-vs-perinteinen-konsultointi">Ontologia vs. perinteinen konsultointi</h3>
+      <ul>
+      <li><strong>Osaaminen:</strong> Perinteisesti asuu ihmisten päässä → DWS: rakenteellista — ontologiassa, ei muistissa</li>
+      <li><strong>Avainhenkilöriski:</strong> Ihminen lähtee, osaaminen katoaa → DWS: Agentti ei lähde. Kyvykkyys on aina käytettävissä.</li>
+      <li><strong>Uusi toimiala:</strong> Perinteisesti 6 kk rekrytointi → DWS: ontologiasolmun lisäys, käytettävissä välittömästi</li>
+      <li><strong>Sääntely muuttuu:</strong> Perinteisesti uudelleenkoulutus → DWS: agentti päivittyy, työnkulku mukautuu</li>
+      <li><strong>Tiedon siiloutuminen:</strong> Perinteisesti tieto siiloutuu tiimeihin → DWS: ristiin-älykkyys, jokainen agentti näkee kaikkien luokkien signaalit</li>
+      </ul>
+      <hr />
+      <h2 id="5-toimialat">5. Toimialat</h2>
+      <h3 id="25-eu-saanneltya-toimialaa-fit-for-55">25 EU-säänneltyä toimialaa (Fit for 55)</h3>
       <p>DWS IQ 6 kattaa 25 toimialaa, joista jokainen on EU:n Fit for 55 -sääntelyn piirissä.</p>
-
-      <h4>Kriittiset toimialat (Taso 1)</h4>
+      <p><strong>Kriittiset toimialat (Taso 1)</strong></p>
       <ol>
-        <li>Energia</li>
-        <li>Rauta ja teräs</li>
-        <li>Sementti</li>
-        <li>Kemianteollisuus</li>
-        <li>Ilmailu</li>
-        <li>Meriliikenne</li>
-        <li>Maantiekuljetukset</li>
-        <li>Rakentaminen</li>
+      <li>Energia</li>
+      <li>Rauta ja teräs</li>
+      <li>Sementti</li>
+      <li>Kemianteollisuus</li>
+      <li>Ilmailu</li>
+      <li>Meriliikenne</li>
+      <li>Maantiekuljetukset</li>
+      <li>Rakentaminen</li>
       </ol>
-
-      <h4>Suomen kannalta keskeisimmät</h4>
+      <p><strong>Suomen kannalta keskeisimmät</strong></p>
       <ol>
-        <li>
-          <strong>Metallit ja kaivos</strong> — Outokumpu, Boliden. DWS-tuote: Climate IQ + Aegis.
-          Sääntely: CBAM, CSRD.
-        </li>
-        <li>
-          <strong>Kemianteollisuus</strong> — Kemira, Neste, Borealis. DWS-tuote: Climate IQ.
-          Sääntely: CBAM, CSRD, CER.
-        </li>
-        <li>
-          <strong>Rakentaminen</strong> — NCC, YIT, SRV, Peab. DWS-tuote: Climate IQ. Sääntely:
-          CSRD, EPBD (2028).
-        </li>
-        <li>
-          <strong>Julkinen sektori</strong> — ORK, Kela, FDF. DWS-tuote: Industrial IQ + Aegis.
-          Sääntely: EU AI Act, NIS2.
-        </li>
-        <li>
-          <strong>Paperi ja metsäteollisuus</strong> — UPM, Stora Enso, Metsä Group. DWS-tuote:
-          Climate IQ. Sääntely: CBAM, toimitusketju.
-        </li>
-        <li>
-          <strong>Energia</strong> — Fortum, Helen. DWS-tuote: Climate IQ. Sääntely: ETS, CSRD.
-        </li>
+      <li><strong>Metallit ja kaivos</strong> — Outokumpu, Boliden. DWS-tuote: Climate IQ + Aegis. Sääntely: CBAM, CSRD.</li>
+      <li><strong>Kemianteollisuus</strong> — Kemira, Neste, Borealis. DWS-tuote: Climate IQ. Sääntely: CBAM, CSRD, CER.</li>
+      <li><strong>Rakentaminen</strong> — NCC, YIT, SRV, Peab. DWS-tuote: Climate IQ. Sääntely: CSRD, EPBD (2028).</li>
+      <li><strong>Julkinen sektori</strong> — ORK, Kela, FDF. DWS-tuote: Industrial IQ + Aegis. Sääntely: EU AI Act, NIS2.</li>
+      <li><strong>Paperi ja metsäteollisuus</strong> — UPM, Stora Enso, Metsä Group. DWS-tuote: Climate IQ. Sääntely: CBAM, toimitusketju.</li>
+      <li><strong>Energia</strong> — Fortum, Helen. DWS-tuote: Climate IQ. Sääntely: ETS, CSRD.</li>
       </ol>
-
-      <h4>Ruotsin kannalta keskeisimmät</h4>
+      <p><strong>Ruotsin kannalta keskeisimmät</strong></p>
       <ol>
-        <li>
-          <strong>Teräs</strong> — SSAB, H2 Green Steel. DWS-tuote: Climate IQ + Aegis. Sääntely:
-          CBAM, IP-suojaus.
-        </li>
-        <li>
-          <strong>Kaivos</strong> — Boliden (pääkonttori), LKAB. DWS-tuote: Climate IQ. Sääntely:
-          CBAM, CRM.
-        </li>
-        <li>
-          <strong>Rakentaminen</strong> — NCC AB, Skanska AB, Peab. DWS-tuote: Climate IQ. Sääntely:
-          CSRD Wave 2, EPBD.
-        </li>
-        <li>
-          <strong>Tekniikka</strong> — ABB, Scania, Volvo. DWS-tuote: Climate IQ. Sääntely: ETS,
-          CSRD.
-        </li>
+      <li><strong>Teräs</strong> — SSAB, H2 Green Steel. DWS-tuote: Climate IQ + Aegis. Sääntely: CBAM, IP-suojaus.</li>
+      <li><strong>Kaivos</strong> — Boliden (pääkonttori), LKAB. DWS-tuote: Climate IQ. Sääntely: CBAM, CRM.</li>
+      <li><strong>Rakentaminen</strong> — NCC AB, Skanska AB, Peab. DWS-tuote: Climate IQ. Sääntely: CSRD Wave 2, EPBD.</li>
+      <li><strong>Tekniikka</strong> — ABB, Scania, Volvo. DWS-tuote: Climate IQ. Sääntely: ETS, CSRD.</li>
       </ol>
-
-      <h4>Keski-Euroopan kannalta keskeisimmät</h4>
+      <p><strong>Keski-Euroopan kannalta keskeisimmät</strong></p>
       <ol>
-        <li>
-          <strong>Autoteollisuus (Saksa)</strong> — Volkswagen, BMW, Mercedes-Benz, Continental.
-          DWS-tuote: Climate IQ. Sääntely: CBAM, CSRD, toimitusketju (LkSG).
-        </li>
-        <li>
-          <strong>Kemianteollisuus (Saksa/Sveitsi)</strong> — BASF, Bayer, Evonik, Clariant.
-          DWS-tuote: Climate IQ + Aegis. Sääntely: CBAM, CSRD, CER, REACH.
-        </li>
-        <li>
-          <strong>Teräs ja metallit (Itävalta/Saksa)</strong> — Voestalpine, ThyssenKrupp,
-          Salzgitter. DWS-tuote: Climate IQ + Aegis. Sääntely: CBAM, ETS.
-        </li>
-        <li>
-          <strong>Sementti ja rakennusmateriaalit (Sveitsi/Saksa)</strong> — Holcim,
-          HeidelbergCement. DWS-tuote: Climate IQ. Sääntely: CBAM, ETS, CSRD.
-        </li>
-        <li>
-          <strong>Energia (Saksa/Itävalta)</strong> — RWE, E.ON, Verbund. DWS-tuote: Climate IQ.
-          Sääntely: ETS, CSRD, RED III.
-        </li>
-        <li>
-          <strong>Puolustus ja ilmailu (Saksa/Ranska)</strong> — Rheinmetall, Airbus, Hensoldt.
-          DWS-tuote: Aegis + Industrial IQ. Sääntely: NIS2, EU AI Act, kaksikäyttö (Reg. 2021/821).
-        </li>
-        <li>
-          <strong>Logistiikka ja kuljetus (Saksa/Alankomaat)</strong> — Deutsche Post/DHL, Maersk,
-          DB Cargo. DWS-tuote: Climate IQ. Sääntely: ETS (meriliikenne 2024), CSRD.
-        </li>
+      <li><strong>Autoteollisuus (Saksa)</strong> — Volkswagen, BMW, Mercedes-Benz, Continental. DWS-tuote: Climate IQ. Sääntely: CBAM, CSRD, toimitusketju (LkSG).</li>
+      <li><strong>Kemianteollisuus (Saksa/Sveitsi)</strong> — BASF, Bayer, Evonik, Clariant. DWS-tuote: Climate IQ + Aegis. Sääntely: CBAM, CSRD, CER, REACH.</li>
+      <li><strong>Teräs ja metallit (Itävalta/Saksa)</strong> — Voestalpine, ThyssenKrupp, Salzgitter. DWS-tuote: Climate IQ + Aegis. Sääntely: CBAM, ETS.</li>
+      <li><strong>Sementti ja rakennusmateriaalit (Sveitsi/Saksa)</strong> — Holcim, HeidelbergCement. DWS-tuote: Climate IQ. Sääntely: CBAM, ETS, CSRD.</li>
+      <li><strong>Energia (Saksa/Itävalta)</strong> — RWE, E.ON, Verbund. DWS-tuote: Climate IQ. Sääntely: ETS, CSRD, RED III.</li>
+      <li><strong>Puolustus ja ilmailu (Saksa/Ranska)</strong> — Rheinmetall, Airbus, Hensoldt. DWS-tuote: Aegis + Industrial IQ. Sääntely: NIS2, EU AI Act, kaksikäyttö (Reg. 2021/821).</li>
+      <li><strong>Logistiikka ja kuljetus (Saksa/Alankomaat)</strong> — Deutsche Post/DHL, Maersk, DB Cargo. DWS-tuote: Climate IQ. Sääntely: ETS (meriliikenne 2024), CSRD.</li>
       </ol>
-
       <hr />
-
-      <!-- 5. KONSULTIN ROOLI 2026 -->
-      <h2 id="s5"><span class="section-num">5.</span> Konsultin rooli 2026</h2>
-
-      <h3>Muutos 2024 → 2026</h3>
-
-      <table>
-        <thead>
-          <tr>
-            <th>2024 (vanha malli)</th>
-            <th>2026 (uusi malli)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>72 geneeristä roolia</td>
-            <td>8 kohdennettua roolia + 58 AI-agenttia</td>
-          </tr>
-          <tr>
-            <td>Cloud Ready Teams -tiimit</td>
-            <td>DWS IQ -alustan käyttöönottotiimi</td>
-          </tr>
-          <tr>
-            <td>Yleinen IT-konsultointi</td>
-            <td>Sääntely-automaatio + suvereeni AI</td>
-          </tr>
-          <tr>
-            <td>Myynnin veloitus €200/h</td>
-            <td>Tuoteperusteinen hinnoittelu + konsultointi scoping-vaiheessa</td>
-          </tr>
-          <tr>
-            <td>Monen päämiehen konsultointi</td>
-            <td>DWS IQ 6 -ekosysteemi + NVIDIA + Red Hat</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Konsultin roolit 2026</h3>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Rooli</th>
-            <th>Kuvaus</th>
-            <th>Milloin tarvitaan</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>AI Scoping Consultant</strong></td>
-            <td>Kartoittaa asiakkaan compliance-tarpeen. Suosittelee oikean DWS-tuotteen.</td>
-            <td>Vapaa scoping-vaihe (1–2 viikkoa)</td>
-          </tr>
-          <tr>
-            <td><strong>DWS Deployment Engineer</strong></td>
-            <td>
-              Asentaa ja konfiguroi DWS IQ -alustan. ERP-integraatiot (SAP, IFS, Visma, Monitor,
-              Jeeves).
-            </td>
-            <td>Pilottivaihe (3 kuukautta)</td>
-          </tr>
-          <tr>
-            <td><strong>Compliance Specialist</strong></td>
-            <td>
-              CBAM, CSRD, ETS, NIS2, CER -asiantuntija. Tuntee sääntelyn ja tietää miten DWS
-              automatisoi sen.
-            </td>
-            <td>Kaikissa asiakasprojekteissa</td>
-          </tr>
-          <tr>
-            <td><strong>Edge AI Engineer</strong></td>
-            <td>
-              NVIDIA Jetson, DGX Spark -laitteiden käyttöönotto. Ilmaraolliset ja edge-ympäristöt.
-            </td>
-            <td>Aegis-asiakkaat</td>
-          </tr>
-          <tr>
-            <td><strong>Enterprise Model Engineer</strong></td>
-            <td>
-              LWM-ontologioiden rakentaminen ja ylläpito. Asiakaskohtaisten mallien koulutus (Train
-              Model SaaS).
-            </td>
-            <td>LWM V1 -käyttöönotto</td>
-          </tr>
-          <tr>
-            <td><strong>GenAI Solution Architect</strong></td>
-            <td>
-              Claude Code, Qwen, Llama -mallien konfigurointi. KYA-hallinta. Agent-arkkitehtuuri.
-            </td>
-            <td>Suuret enterprise-asiakkaat</td>
-          </tr>
-          <tr>
-            <td><strong>DevOps Engineer</strong></td>
-            <td>CI/CD, K8s, UpCloud Helsinki -infrastruktuuri. Tietoturva.</td>
-            <td>Aegis Standard/Defence</td>
-          </tr>
-          <tr>
-            <td><strong>Project Manager</strong></td>
-            <td>Hankejohtaminen, JIRA, aikataulut, asiakasdokumentaatio.</td>
-            <td>Monen roolin projektit</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="strength-highlight">
-        <strong>Jokainen konsulttirooli on myös AI-agentti.</strong> DWS IQ 6:n 58 agentin joukossa
-        on 8 konsulttirooliagenttia, jotka peilaavat jokaista ihmiskonsultin roolia. Ihminen ohjaa,
-        agentti moninkertaistaa kapasiteetin.
-      </div>
-
-      <h3>Konsultin päivittäinen toiminta</h3>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Aika</th>
-            <th>Aktiviteetti</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>08:00–08:30</td>
-            <td>Aamubriiffi: signaaliseuranta (sääntelypäivitykset, asiakassignaalit)</td>
-          </tr>
-          <tr>
-            <td>08:30–12:00</td>
-            <td>Asiakastyö: scoping, deployment, koulutus, tuki</td>
-          </tr>
-          <tr>
-            <td>12:00–13:00</td>
-            <td>Lounas</td>
-          </tr>
-          <tr>
-            <td>13:00–16:00</td>
-            <td>Asiakastyö jatkuu / sisäinen tuotekehitys</td>
-          </tr>
-          <tr>
-            <td>16:00–16:30</td>
-            <td>Dokumentointi: tuntikirjaukset, tilanneraportti</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Viikkorytmi</h3>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Päivä</th>
-            <th>Painopiste</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Maanantai</td>
-            <td>Signaaliseuranta + asiakastyö</td>
-          </tr>
-          <tr>
-            <td>Tiistai</td>
-            <td>Asiakastyö + LinkedIn-yhteydet (signaaliperusteiset)</td>
-          </tr>
-          <tr>
-            <td>Keskiviikko</td>
-            <td>Asiakastyö + sisältötuotanto (1 artikkeli/case insight)</td>
-          </tr>
-          <tr>
-            <td>Torstai</td>
-            <td>Asiakastyö + seurannat (vain Day 2 -vastaukset)</td>
-          </tr>
-          <tr>
-            <td>Perjantai</td>
-            <td>Reflektio + valmistautuminen. <strong>Ei myyntiä perjantaisin.</strong></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <hr />
-
-      <!-- 6. TYÖSUHTEEN ALOITTAMINEN -->
-      <h2 id="s6"><span class="section-num">6.</span> Työsuhteen aloittaminen</h2>
-
-      <h3>Rekrytointiprosessi 2026</h3>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Vaihe</th>
-            <th>Toimenpide</th>
-            <th>Dokumentit</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1. Ensikontakti</td>
-            <td>Haastattelut: tekninen osaaminen, DWS-tuotetuntemus, kulttuurisopivuus</td>
-            <td>Hakemus, CV</td>
-          </tr>
-          <tr>
-            <td>2. NDA</td>
-            <td>Molemminpuolinen salassapitosopimus</td>
-            <td>NDA (Lifetime Oy standardi)</td>
-          </tr>
-          <tr>
-            <td>3. Asiakasrajapinnan CV</td>
-            <td>Customer CV: roolit, osaamisalueet, referenssit</td>
-            <td>Customer CV template</td>
-          </tr>
-          <tr>
-            <td>4. Rooliselvitys</td>
-            <td>Mihin konsulttirooleihin henkilö soveltuu (ks. §5)</td>
-            <td>Knowledge evaluation</td>
-          </tr>
-          <tr>
-            <td>5. Hinnoittelu</td>
-            <td>Esimiehen kanssa: veloitusperusteet asiakastöissä</td>
-            <td>Hinnoittelupäätös</td>
-          </tr>
-          <tr>
-            <td>6. Consultant Agreement</td>
-            <td>Sopimuksen allekirjoitus</td>
-            <td>Consultant Agreement</td>
-          </tr>
-          <tr>
-            <td>7. Perehdytys</td>
-            <td>DWS IQ 6 -tuotekoulutus, EU-sääntelyn perusteet, työkalut</td>
-            <td>Perehdytysmateriaali</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Perehdytyksen sisältö</h3>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Aihe</th>
-            <th>Kesto</th>
-            <th>Sisältö</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>DWS IQ 6 -tuotekoulutus</td>
-            <td>2 päivää</td>
-            <td>Kolmiakselimalli, agentit, Article 12, KYA</td>
-          </tr>
-          <tr>
-            <td>EU-sääntelyn perusteet</td>
-            <td>1 päivä</td>
-            <td>CBAM, CSRD, ETS, NIS2, CER, EU AI Act</td>
-          </tr>
-          <tr>
-            <td>Teknologiakoulutus</td>
-            <td>2 päivää</td>
-            <td>NVIDIA-laitteisto, K8s, Claude Code, MCP</td>
-          </tr>
-          <tr>
-            <td>Myyntiprosessi</td>
-            <td>0.5 päivää</td>
-            <td>Hiljaisuusperiaate, signaaliperusteisuus, kolme metaforaa</td>
-          </tr>
-          <tr>
-            <td>Tietosuoja ja tietoturva</td>
-            <td>0.5 päivää</td>
-            <td>GDPR, KYA-hallinta, NIS2, tietoturvakäytännöt</td>
-          </tr>
-          <tr>
-            <td>Työkalut</td>
-            <td>0.5 päivää</td>
-            <td>JIRA, Google Workspace, DWS CLI, GitHub</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <hr />
-
-      <!-- 7. STRATEGIAPROSESSI -->
-      <h2 id="s7"><span class="section-num">7.</span> Strategiaprosessi</h2>
-
-      <h3>Elävän strategian 7 askelta (päivitetty 2026)</h3>
-
-      <p>
-        Strategiatyö on jokaisen konsultin asialistalla päivittäin. Olet mukana päättymättömässä
-        pelissä, jossa jokainen erä pelataan jatkuvasti muuttuvilla kentällisillä ja voitto tai
-        tappio ratkaistaan insight-viisikon kyvykkyys ja johdon pelitilanne johtamistaidot
-        markkinoilla punniten. Tämä asettaa konsulteillemme erityisiä ketteryys- ja
-        taitovaatimuksia. Toimimme aidosti kansainvälisessä toimintaympäristössä 24/7.
-      </p>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Askel</th>
-            <th>2024</th>
-            <th>2026</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1. Jatkuva skenaarioiden luominen</td>
-            <td>Manuaalinen, tiimipohjainen</td>
-            <td>DWS IQ -agentit automatisoivat skenaariotiedon keräämisen</td>
-          </tr>
-          <tr>
-            <td>2. Skenaarioanalytiikka</td>
-            <td>Power Platform, Microsoft 365</td>
-            <td>AI-analytiikka: 58 agenttia, 15 000+ sääntelyn asiakirjaa</td>
-          </tr>
-          <tr>
-            <td>3. Strategiset kokeilut</td>
-            <td>Markkinatutkimus 7P</td>
-            <td>Signal-based outreach, pilottimalli</td>
-          </tr>
-          <tr>
-            <td>4. Strategian muokkaaminen</td>
-            <td>eCommerce-painotteinen</td>
-            <td>Sääntely-ohjautuva: CBAM 2026, ETS2 2027, EPBD 2028</td>
-          </tr>
-          <tr>
-            <td>5. Arviointikriteerien reflektointi</td>
-            <td>Manuaalinen tarkkailu</td>
-            <td>Automatisoitu: regulatory radar, kilpailija-analytiikka</td>
-          </tr>
-          <tr>
-            <td>6. Sidosryhmien kuuntelu</td>
-            <td>Some</td>
-            <td>Diagonal win -malli</td>
-          </tr>
-          <tr>
-            <td>7. Elävän strategian jalkauttaminen</td>
-            <td>Workshopit, kanavat</td>
-            <td>Tuoteperusteiset roadmapit, kvartaalittaiset tarkistukset</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Skenaariotyöskentely 2026</h3>
-
-      <blockquote>
-        <p>
-          "Ihminen on hyvä luomaan skenaarioita, mutta ei välttämättä arvioimaan niiden toteutumisen
-          todennäköisyyksiä. Ihmisille on luontaista tarinamuotoinen ajattelu, jossa yksi asia
-          johtaa toiseen. Tämä auttaa tunnistamaan ja keksimään, miten asiat voisivat mennä. Se ei
-          kuitenkaan kerro, kuinka todennäköisesti asiat menevät niin."
-        </p>
-        <span class="author">— Risto Paarni, 2019</span>
-      </blockquote>
-
-      <p>
-        Tämän vuoksi ihmiset tekevät huonoja valintoja luomiensa skenaarioiden perusteella: he
-        kuvittelevat, että epätodennäköinen asia toteutuu ja toimivat sen mukaisesti. Näin he
-        tuhlaavat resursseja asioihin jotka tuskin toteutuvat.
-      </p>
-
-      <p>
-        <strong>2026-lisäys:</strong> DWS IQ:n 58 agenttia automatisoivat skenaarioanalytiikan niin,
-        ettei konsultti arvaa todennäköisyyksiä — AI laskee ne 15 000 sääntelyn asiakirjan ja
-        toimialaontologioiden pohjalta.
-      </p>
-
-      <blockquote>
-        <p>
-          "Vaikka skenaariot usein syntyvät ihmisten ajattelusta, yksittäisen ihmisen tai ryhmän on
-          mahdotonta ajatella useaa skenaariota syvällisesti samanaikaisesti, tunnistaa niistä
-          jokaisen kriittiset oletukset ja seurata reaaliaikaisesti maailman kehittymistä."
-        </p>
-        <span class="author">— Ritakallio &amp; Vuori, Elävä strategia</span>
-      </blockquote>
-
-      <p>
-        Skenaarioiden luominen on jatkuva prosessi. Kun kohde muuttuu, reitti pitää päivittää.
-        Huomioi esteet. Muuta reittiä. Ole hereillä. Asiakas muuttaa kohdetta. Muuta reittiä
-        luovasti.
-      </p>
-
-      <blockquote>
-        <p>"Tunnista kaikki pitkän aikavälin tavoitteet. Litet bättre."</p>
-      </blockquote>
-
-      <p>
-        <strong>Me emme seuraa trendejä. Me luomme niitä.</strong> Keskeistä on älyllinen laajuus.
-      </p>
-
-      <blockquote>
-        <p>"Ravistaudu irti vääristä tulevaisuuspoluista noudattamalla nuhteetonta elämäntapaa."</p>
-        <p>
-          "Saavuta myönteinen tunnetila. Kirjoita kirje. Lisää luovuutta. Tähtäin vyön keskelle. Se
-          on siinä."
-        </p>
-      </blockquote>
-
-      <h3>SWOT-analyysi (Q2 2026)</h3>
-
-      <h4>Vahvuudet</h4>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Vahvuus</th>
-            <th>Näyttö</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>EU AI Act Article 12 tuotannossa</strong></td>
-            <td>5 kuukautta ennen voimaantuloa. Yksikään kilpailija ei ole toimittanut tätä.</td>
-          </tr>
-          <tr>
-            <td><strong>100% asiakaspysyvyys</strong></td>
-            <td>6 maksavaa asiakasta, nolla churnia.</td>
-          </tr>
-          <tr>
-            <td><strong>EU-suvereeni</strong></td>
-            <td>Nolla CLOUD Act -altistusta. Suomalainen infrastruktuuri.</td>
-          </tr>
-          <tr>
-            <td><strong>Hintaetu</strong></td>
-            <td>Climate IQ €30K/v vs kilpailijat €50–200K/v.</td>
-          </tr>
-          <tr>
-            <td><strong>NVIDIA ISV + Red Hat AI Partner</strong></td>
-            <td>Validoitu laitteisto- ja ohjelmistokumppanuus.</td>
-          </tr>
-          <tr style="background: #ecfdf5">
-            <td><strong>Yksinyrittäjä + 58 AI-agenttia</strong></td>
-            <td>
-              Suuren konsulttitoimiston kapasiteetti startup-kustannuksella. 8
-              konsulttirooliagenttia peilaavat jokaista ihmisroolia. 9 toimialaerikoistujaa + 6
-              orkestroijaa + 12 tiedusteluagenttia. Kilpailijat: Normative ~100, Sweep ~200,
-              Persefoni ~300 henkilöä. DWS: 1 CEO + 58 agenttia, &lt;€100/kk infra. Kapasiteetti
-              skaalautuu minuuteissa, ei kuukausissa.
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h4>Heikkoudet</h4>
+      <h2 id="6-kyvykkyysmalli-2026-roolit-ovat-agentteja">6. Kyvykkyysmalli 2026 — roolit ovat agentteja</h2>
+      <blockquote><strong>Kanoninen lause:</strong> DWS:llä on <strong>58 agenttia ja 88 kyvykkyyttä (roolia) 25 toimialalla.</strong> Katalogi kasvaa jatkuvasti uusien sääntelyvaatimusten ja toimialojen myötä, joten luvut ovat suuntaa-antavia eivätkä pyri agenttikohtaiseen täsmäykseen. Alla oleva luettelo kuvaa kyvykkyysontologian rakenteen (luokat A–J); osa agenteista palvelee useaa luokkaa.</blockquote>
+      <h3 id="muutos-ihmisrooleista-agenttikyvykkyyksiin">Muutos: ihmisrooleista agenttikyvykkyyksiin</h3>
       <ul>
-        <li>Ei puolustussektorin referenssiasiakasta (vielä)</li>
-        <li>ISO 27001 kesken (Q3 2026)</li>
+      <li><strong>72 geneeristä ihmisroolia (2019–2022)</strong> → 88 kyvykkyyttä (2026) — jokainen rooli on AI-agentti, ei työnimike (katalogi kasvaa jatkuvasti)</li>
+      <li><strong>Cloud Ready Teams -tiimit</strong> → DWS IQ -alustan kyvykkyyskatalogi</li>
+      <li><strong>Yleinen IT-konsultointi</strong> → Sääntely-automaatio + suvereeni AI</li>
+      <li><strong>Myynnin veloitus €200/h</strong> → Tuoteperusteinen hinnoittelu + kyvykkyydet tilattavissa välittömästi</li>
+      <li><strong>Monen päämiehen konsultointi (Oracle, SAP, Microsoft)</strong> → DWS IQ 6 -ekosysteemi + NVIDIA + Red Hat</li>
+      <li><strong>6 kk rekrytointiaika uuteen osaamiseen</strong> → Kyvykkyys käytettävissä välittömästi — ei rekrytointia, ei perehdytystä, ei irtisanomista</li>
       </ul>
-
-      <h4>Mahdollisuudet</h4>
-      <ul>
-        <li><strong>CBAM-ilmoituskausi (Q3 2026)</strong> — pakollisia ostajia</li>
-        <li><strong>ETS2 (tammikuu 2027)</strong> — uusi vertikaalinen markkina</li>
-        <li><strong>Ruotsin markkinoiden aktivointi</strong> (SSAB, NCC AB, Skanska AB)</li>
-        <li><strong>Diana NATO -uudelleenhakemus</strong> Aegis Defence GA:n jälkeen</li>
-      </ul>
-
-      <h4>Uhat</h4>
-      <ul>
-        <li>Normative (Tukholma) — kilpailija Pohjoismaissa</li>
-        <li>Sweep/Persefoni EU-laajentuminen</li>
-        <li>
-          Yrittäjäriski: avainhenkilön poissaolo — mitigoitu: 58 agenttia toimivat autonomisesti
-        </li>
-      </ul>
-
-      <hr />
-
-      <!-- 8. MYYNTI JA ASIAKASTYÖ -->
-      <h2 id="s8"><span class="section-num">8.</span> Myynti ja asiakastyö</h2>
-
-      <h3>Kuuntelun tärkeys</h3>
-
-      <p>
-        Kuuntelun vaikeus on myyntityön suurin haaste. Konsultin on kuunneltava jokaista sidosryhmää
-        omalla tavallaan:
-      </p>
-
-      <ul>
-        <li>
-          <strong>Asiakkaiden kuuntelu:</strong> Minkä ongelman ratkaisemme? Miksi tämä on parempi
-          tapa?
-        </li>
-        <li>
-          <strong>Sidosryhmien kuuntelu:</strong> Miten voimme olla yhteiskunnallisesti arvostettu?
-        </li>
-        <li><strong>Ekosysteemien kuuntelu:</strong> Mitä trendejä suosimme / vältämme?</li>
-        <li>
-          <strong>Kumppanien kuuntelu:</strong> Mitä avauksia kilpailijat ja kumppanit tuovat
-          markkinoille? Miksi?
-        </li>
-        <li>
-          <strong>Naapurien kuuntelu:</strong> Mitä muilla toimialoilla tehdään joka voi vaikuttaa
-          meihin?
-        </li>
-      </ul>
-
-      <h3>Pohjoismainen myynti-DNA</h3>
-
-      <blockquote>
-        <p>"Sometimes silence is the best ask. Listen until the customer is ready to give yes."</p>
-        <span class="author">— Risto Paarni</span>
-      </blockquote>
-
-      <h3>Kolme myyntimetaforaa</h3>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Metafora</th>
-            <th>Kauppatyyppi</th>
-            <th>Milloin käytetään</th>
-            <th>Esimerkki</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Buffet</strong></td>
-            <td>Julkinen hankinta</td>
-            <td>Formaali tarjouskilpailu, julkaistu hinta, täysi läpinäkyvyys</td>
-            <td>ORK — sama hinta kaikille</td>
-          </tr>
-          <tr>
-            <td><strong>Captain</strong></td>
-            <td>Lämmin henkilökohtainen suhde</td>
-            <td>CEO-to-CEO, luottamuspohjainen, pilotti ensin</td>
-            <td>Outokumpu (Ari Hirvonen)</td>
-          </tr>
-          <tr>
-            <td><strong>Vineyard</strong></td>
-            <td>Kärsivällinen viljely</td>
-            <td>Board-ready materiaalit, ilmainen scoping, odota satoa</td>
-            <td>Kemira (Maria Sederholm)</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Myyntiperiaatteet</h3>
-
+      <p><strong>Miksi agenttikyvykkyydet, ei ihmisrooleja?</strong></p>
+      <p>DWS ei myy henkilöstöä. DWS myy kyvykkyyttä ja valmiutta muutokseen. Kun sääntely muuttuu, markkinat heiluvat tai toimitusketju katkeaa, asiakas tarvitsee kymmeniä kyvykkyyksiä välittömästi — ei 6 kuukauden rekrytointiprosessia. Keskeytyslaskuri (lifetime.fi/laskuri) osoittaa konkreettisesti, mitä kyvykkyyskatkos maksaa: kontekstin uudelleenrakentaminen, momentum-menetys, avainhenkilöriski. Agenttikyvykkyys eliminoi nämä kustannukset.</p>
+      <p>Asiakas päättää itse, miten agentteja käytetään: ihmisen apuna, ihmisen rinnalla tai itsenäisesti. Emme ota kantaa työrooleihin tai henkilöstöpäätöksiin — tuomme kyvykkyyden.</p>
+      <h3 id="agenttikyvykkyysontologia-10-kyvykkyysluokkaa">Agenttikyvykkyysontologia — 10 kyvykkyysluokkaa</h3>
+      <p>Kyvykkyydet on järjestetty ontologiaksi, joka kuvaa DWS IQ:n koko osaamisen rakenteen. Ontologia on Lifetime World Model (LWM) -pohjainen: jokainen luokka on tietämysverkossa solmu, joka yhdistyy muihin luokkiin agenttien välisen kommunikaation kautta. Uudet kyvykkyydet liittyvät aina olemassa olevaan ontologiaan — ne eivät ole irrallisia listoja vaan rakenteellinen osa yrityksen kyvykkyyskarttaa.</p>
       <ol>
-        <li>
-          <strong>Hiljaisuusperiaate:</strong> Maksimissaan 2 kontaktia. Sen jälkeen sisältö tekee
-          työn.
-        </li>
-        <li><strong>Signaaliperusteinen:</strong> Outreach vain kun on oikea signaali.</li>
-        <li>
-          <strong>Ei perjantaimyyntiä:</strong> Pohjoismaiset ostajat eivät tee perjantaipäätöksiä.
-        </li>
-        <li>
-          <strong>Diagonal win:</strong> Jokaisen roolin voitto sytyttää jonkun toisen voiton.
-        </li>
-        <li><strong>Julkaistu hinta:</strong> Buffet-periaate — sama hinta kaikille.</li>
-        <li>
-          <strong>Ei "disruption"-kieltä:</strong> Pohjoismainen vaatimattomuus. Todisteet ensin.
-        </li>
+      <li><strong>Konsultointi</strong> — Asiakasrajapinta, scoping, käyttöönotto</li>
+      <li><strong>Sääntely ja compliance</strong> — EU-sääntelyn automaatio, auditointi, ennusteet</li>
+      <li><strong>Toimiala</strong> — Sektorikohtainen syvä osaaminen (teräs, energia, kemia, merenkulku...)</li>
+      <li><strong>Orkestrointi</strong> — Moniagenttityönkulut, reititys, synteesi</li>
+      <li><strong>Kenttä ja projekti</strong> — Työmaat, aikataulut, materiaalit, laadunvarmistus</li>
+      <li><strong>Myynti ja viestintä</strong> — Prospektointi, SEO, kilpailijaseuranta, sisältö</li>
+      <li><strong>Tiedonhallinta ja muisti</strong> — Pitkäkestomuisti, selitettävyys, tietopankit, kuvantunnistus</li>
+      <li><strong>Järjestelmä</strong> — MCP-integraatiot, konsensus, optimointi, maailmanmalli</li>
+      <li><strong>Puolustus ja turvallisuus</strong> — Suvereniteetti, auditointi, turvallisuuspisteytys</li>
+      <li><strong>Muutos ja jatkuvuus</strong> — Muutoshallinta, häiriötuki, koulutus, prosessiautomaatio</li>
       </ol>
-
-      <h3>Viiden tähden kehys</h3>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Tähti</th>
-            <th>Mitä se tarkoittaa</th>
-            <th>Miten ansaitset sen</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>He muistavat nimesi</td>
-            <td>Ammattimainen ensikohtaaminen</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>He avaavat viestisi</td>
-            <td>Signaaliperusteinen ajoitus</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>He vastaavat</td>
-            <td>Kysyit yhden hyvän kysymyksen pitchaamisen sijaan</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>He ottavat tapaamisen</td>
-            <td>Sisältösi vastasi kysymykseen joka heillä jo oli</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>He sanovat kyllä</td>
-            <td>Poistit ahdistuksen, sovitit tahdin ja odotit</td>
-          </tr>
-        </tbody>
-      </table>
-
+      <p><strong>A. Konsultointi (8 agenttia)</strong></p>
+      <ol>
+      <li><strong>AI Scoping Consultant</strong> — Kartoittaa compliance-tarpeen, suosittelee oikean DWS-tuotteen, arvioi ROI:n</li>
+      <li><strong>DWS Deployment Engineer</strong> — DWS IQ -alustan asennus ja konfigurointi, ERP-integraatiot (SAP, IFS, Visma, Monitor, Jeeves)</li>
+      <li><strong>Compliance Specialist</strong> — CBAM, CSRD, ETS, NIS2, CER, EU AI Act -asiantuntija, tuntee sääntelyn ja automaation</li>
+      <li><strong>Edge AI Engineer</strong> — NVIDIA Jetson, DGX Spark, Acer Veriton -käyttöönotto, ilmaraolliset ympäristöt, mallin optimointi</li>
+      <li><strong>Enterprise Model Engineer</strong> — Lifetime World Model (LWM) -ontologiat, asiakaskohtaisten mallien koulutus, 5 000 yrityksen ontologiaverkko</li>
+      <li><strong>GenAI Solution Architect</strong> — Claude Code, Qwen, Llama -mallien konfigurointi, KYA-hallinta, agenttiarkkitehtuuri</li>
+      <li><strong>DevOps Engineer</strong> — CI/CD, K8s, UpCloud Helsinki -infrastruktuuri, tietoturva, Prometheus/Grafana-seuranta</li>
+      <li><strong>Project Manager</strong> — Hankejohtaminen, JIRA-työnkulut, aikataulut, asiakasdokumentaatio</li>
+      </ol>
+      <p><strong>B. Sääntely ja compliance (8 agenttia)</strong></p>
+      <ol>
+      <li><strong>Compliance Agent</strong> — EU-sääntelyn kokonaisarviointi (ETS, CBAM, CSRD, Fit for 55, EU AI Act), deterministinen pisteytys + LLM-analyysi</li>
+      <li><strong>Compliance Researcher</strong> — Sääntely-tutkimus, vaikutusarviointi, määräaikaseuranta, sanktioanalyysi</li>
+      <li><strong>Emissions Data Analyst</strong> — Päästödatan luonnollisen kielen kyselyt, scope-erittely, CSRD-olennaisuus, CBAM-arviointi</li>
+      <li><strong>Auditor</strong> — EU AI Act Article 12 -auditointijälki, SHA-256 -hajautusketjun verifiointi, XAI-raportointi</li>
+      <li><strong>Cassandra (Ennusteanalytiikka)</strong> — ETS/CBAM-hintaennusteet, Monte Carlo -skenaarioanalyysi, sääntelyriskisignaalit</li>
+      <li><strong>Chronos (Aikatyönkulku)</strong> — EU-compliance-määräaikakalenteri, kriittinen polku, Temporal.io-automaatio</li>
+      <li><strong>Themis (Oikeudellinen äly)</strong> — Sopimusarviointi, sääntelyaukkokartoitus, GDPR-peruste, EU AI Act -etiikka, 10 EU-asetuksen kattavuus</li>
+      <li><strong>Sovereignty Monitor</strong> — EU-datasuvereniteetti, CLOUD Act -altistus, salaus, RLS-politiikka, GDPR/NIS2-yhteensopivuus</li>
+      </ol>
+      <p><strong>C. Toimiala (11 agenttia)</strong></p>
+      <ol>
+      <li><strong>Vulcan (Teräs)</strong> — ETS Phase 4, CBAM-hiilisisältöilmoitukset, valokaariuuni vs. masuuni</li>
+      <li><strong>Helios (Energia)</strong> — Fit for 55 (42,5 % uusiutuva), ETS, EU-taksonomia, verkon päästökertoimet</li>
+      <li><strong>Neptune (Meriliikenne)</strong> — ETS-vaiheistus (40/70/100 % 2024–2026), FuelEU Maritime, MRV-raportointi</li>
+      <li><strong>Ceres (Maatalous)</strong> — CBAM-lannoitteet, N₂O (298× CO₂e), CSRD farm-to-gate Scope 3</li>
+      <li><strong>Prometheus (Vety)</strong> — RED III/RFNBO, vihreän vedyn sertifiointi, additionaalisuusarviointi</li>
+      <li><strong>Mars (Rakentaminen)</strong> — EPBD-nollapäästörakennukset 2028, EN 15978 koko elinkaaren hiili</li>
+      <li><strong>Gaia (Sementti)</strong> — Sementti- ja maanrakennusmateriaalien CBAM/ETS-compliance</li>
+      <li><strong>BESS (Akkuvarastointi)</strong> — Q-System-optimointi, EU-taksonomia 4.10, ETS-yhteiskäyttö</li>
+      <li><strong>Talos (Alumiini)</strong> — CBAM epäsuorat päästöt, verkon hiili-intensiteetti</li>
+      <li><strong>Juno (Kemia/lääke)</strong> — Kemianteollisuuden ja lääketeollisuuden CBAM/REACH-erityiskysymykset</li>
+      <li><strong>Mercury Trade (Kauppa)</strong> — CBAM-tuontianalytiikka, kauppapolitiikan vaikutusarviointi</li>
+      </ol>
+      <p><strong>D. Orkestrointi (6 agenttia)</strong></p>
+      <ol>
+      <li><strong>Atlas (Esikuntapäällikkö)</strong> — Moniagenttipyyntöjen reititys, synteesi, riskipriorisointi</li>
+      <li><strong>Athena (Compliance Intelligence)</strong> — EU-sääntelyn määräaikapohjainen arviointi, priorisointi</li>
+      <li><strong>Hephaestus (Kenttä-äly)</strong> — Työmaa-turvallisuus + materiaalihiili + aikatauluriski yhdistettynä</li>
+      <li><strong>Mercury (Logistiikka)</strong> — Toimitusketjun optimointi, aikatauluriski, laadunvarmistus</li>
+      <li><strong>Iris (Tutkimus)</strong> — Kilpailijaseuranta + sääntely-uutiset + SEO-analyysi</li>
+      <li><strong>Apollo (Sisältö &amp; myynti)</strong> — Sisältöstrategia + SEO + myyntikampanjat sääntely-triggereihin</li>
+      </ol>
+      <p><strong>E. Kenttä ja projekti (6 agenttia)</strong></p>
+      <ol>
+      <li><strong>SiteSense (Työmaaäly)</strong> — Työmaan turvallisuuspisteytys, sää-riski, työntekijäturvallisuus EN 13001</li>
+      <li><strong>Schedule Genius</strong> — CPM-pohjainen aikatauluoptimointi, kriittinen polku, viivästysriski</li>
+      <li><strong>Material Oracle</strong> — EN 15978 elinkaaren hiilijalanjälki (A1–D), vaihtoehtoisten materiaalien suositukset</li>
+      <li><strong>Construction Agent</strong> — Rakennusprojektien orkestrointi: compliance, YTJ/ADR-varmistus, BIM-hiili</li>
+      <li><strong>Logistics Agent</strong> — Reitti-optimointi, kaluston compliance, ADR, KELA-kuljetukset, EN 16258 -päästöt</li>
+      <li><strong>Quality Gate</strong> — Käyttöönottovalmius: tietoturvaskannaus, testikattavuus, build-terveys</li>
+      </ol>
+      <p><strong>F. Myynti ja viestintä (7 agenttia)</strong></p>
+      <ol>
+      <li><strong>Sales Outreach</strong> — B2B-prospektointi, yritystutkimus, kontaktien löytäminen, sähköpostin generointi</li>
+      <li><strong>Keyword Intent (SEO)</strong> — Hakukyselyjen luokittelu (TOFU/MOFU/BOFU), quick-win-avainsanat</li>
+      <li><strong>Competitor Surveillance</strong> — Kilpailijoiden viikoittainen seuranta: sisältömuutokset, hinnoittelu, takalinkit</li>
+      <li><strong>Content Brief</strong> — Sisältöbriiffit ja luonnokset avainsanadatasta, kilpailija-analyysistä, LWM-tiedosta</li>
+      <li><strong>SEO Audit</strong> — Core Web Vitals, schema-validointi, kanoninen-tagit, käyttöönottoportti</li>
+      <li><strong>Lead Feedback</strong> — CRM-won-datan analyysi, ostajakielen poiminta, avainsanaehdotukset SEO:lle</li>
+      <li><strong>Designer</strong> — Figma-to-code, kuvakaappaus-to-koodi, CSS-muutokset, komponenttien luonti</li>
+      </ol>
+      <p><strong>G. Tiedonhallinta ja muisti (6 agenttia)</strong></p>
+      <ol>
+      <li><strong>Mnemosyne (Pitkäkestomuisti)</strong> — Istuntojen välinen konteksti, episodinen + semanttinen muisti, GDPR-unohdus</li>
+      <li><strong>Minerva (Tiedonsiirto)</strong> — XAI-selitykset, perehdytysmateriaalit, johdon käännökset, EU AI Act Art. 13</li>
+      <li><strong>Knowledge Base (KB)</strong> — Tietopankin ylläpito: raaka-aineista wiki-artikkeleiksi, indeksien hallinta</li>
+      <li><strong>DeepWiki Extractor</strong> — GitHub-repojen analyysi, riippuvuuskartoitus, koodin poiminta</li>
+      <li><strong>Vision Oracle</strong> — Kuvien analyysi: teollisuuskuvat, SAR-satelliittikuvat, laitetunnistus, dokumenttiskannaus</li>
+      <li><strong>Synthetic Data</strong> — CBAM-synteettisen datan generointi, LLM-validointi, stressitestaus, Red Team -data</li>
+      </ol>
+      <p><strong>H. Järjestelmä (5 agenttia)</strong></p>
+      <ol>
+      <li><strong>Daedalus (MCP Bridge)</strong> — MCP-työkalujen dynaaminen löytäminen ja ketjutus, max 8 vaiheen ketjut</li>
+      <li><strong>Agora (Kollektiivinen äly)</strong> — Moniagenttikonsensus, rinnakkaisarviointi, päätösten synteesi</li>
+      <li><strong>Panacea (Optimoija)</strong> — Agenttien suorituskyvyn diagnoosi, prompt-optimointi, metriikoiden seuranta</li>
+      <li><strong>World Model Loop</strong> — LWM V1 -referenssisilmukka: havainto → simulointi → HIL-ehdotus → oppiminen</li>
+      <li><strong>Argus (Orbitaalinen silmä)</strong> — ICEYE SAR -satelliittikuvien analyysi, 20 teollisuustyypin tunnistus</li>
+      </ol>
+      <p><strong>I. Puolustus ja turvallisuus (5 agenttia)</strong></p>
+      <ol>
+      <li><strong>Customer Sat</strong> — Asiakasterveyden pisteytys, churn-ennuste, NPS-analyysi, sitouttamissuositukset</li>
+      <li><strong>Viability</strong> — Investointi-ROI, NPV, takaisinmaksuaika, EU ETS -hiilihyvitysten arvostus</li>
+      <li><strong>Sovereignty Monitor</strong> — EU-datasuvereniteetti, CLOUD Act -altistus, NIS2-yhteensopivuus</li>
+      <li><strong>Auditor</strong> — Auditointiketju, päätösten jäljitettävyys, hash-verifiointi</li>
+      <li><strong>Argus Defence</strong> — SAR-pohjainen kohdevalvonta puolustuskontekstissa</li>
+      </ol>
+      <p><strong>J. Muutos ja jatkuvuus (18 agenttia)</strong></p>
+      <p>Ontologian kymmenes luokka laajentaa DWS IQ:n vanhojen 72 konsulttiroolin kattavuuden täysimittaiseksi kyvykkyysontologiaksi:</p>
+      <ol>
+      <li><strong>Data Engineer Agent</strong> — ETL-putkistojen suunnittelu, datalaatu, skeemahallinta, tietovirtojen automatisointi</li>
+      <li><strong>Business Analyst Agent</strong> — Vaatimusten keräys, prosessikartoitus, sidosryhmäanalyysi, liiketoimintasääntöjen dokumentointi</li>
+      <li><strong>Change Management Agent</strong> — Organisaation muutosvalmius, adoptiostrategia, viestintäsuunnitelmat, disruptiotuki (vrt. Keskeytyslaskuri)</li>
+      <li><strong>Training &amp; Enablement Agent</strong> — Oppimispolut, sertifikaattiseuranta, osaamisarviointi, perehdytysautomaatio</li>
+      <li><strong>Integration Architect Agent</strong> — API-suunnittelu, middleware, järjestelmäliitännät, ERP-yhdistäminen</li>
+      <li><strong>Test Automation Agent</strong> — QA-strategia, testikattavuus, regressiotestaus, CI/CD-integroitu laadunvarmistus</li>
+      <li><strong>UX Research Agent</strong> — Käyttäjäpolkujen kartoitus, käytettävyysanalyysi, esteettömyys, WCAG-yhteensopivuus</li>
+      <li><strong>Process Automation Agent</strong> — RPA, työnkulun automatisointi, pullonkaulojen tunnistus, Lean-analyysi</li>
+      <li><strong>Database Architect Agent</strong> — Skeemasuunnittelu, suorituskyvyn viritys, migraatiosuunnittelu, EU-datajurisdiktio</li>
+      <li><strong>Network Security Agent</strong> — Infrastruktuurin tietoturva, haavoittuvuusskannaus, NIS2-tekninen compliance</li>
+      <li><strong>Cloud Migration Agent</strong> — Työkuormien arviointi, migraatiosuunnittelu, kustannusoptimointi, suvereeni cloud</li>
+      <li><strong>Financial Controller Agent</strong> — Kustannusseuranta, budjettiiennusteet, laskujen verifiointi, compliance-kustannusraportointi</li>
+      <li><strong>HR Systems Agent</strong> — Työvoimasuunnittelu, osaamisaukkoanalyysi, perehdytysautomaatio, henkilöstöanalytiikka</li>
+      <li><strong>Supply Chain Risk Agent</strong> — Toimittajariskipisteytys, geopoliittinen seuranta, vaihtoehtoisten toimittajien löytäminen</li>
+      <li><strong>Technical Writer Agent</strong> — Dokumentaation generointi, API-dokumentit, käyttöohjeet, sääntelydokumentit</li>
+      <li><strong>Service Desk Agent</strong> — Insidenttitriage, ratkaisuseuranta, SLA-monitorointi, automaattinen eskalaatio</li>
+      <li><strong>Contract Management Agent</strong> — Sopimuselinkaari, uusimisseuranta, ehtojen poiminta, compliance-lausekkeet</li>
+      <li><strong>Disruption Response Agent</strong> — Keskeytyskustannusten laskenta (Keskeytyslaskuri-integraatio), häiriötilanteiden hallinta, liiketoiminnan jatkuvuussuunnittelu, muutosvalmiuden arviointi</li>
+      </ol>
+      <p><strong>Yhteenveto: kyvykkyyttä ilman irtisanomisia</strong></p>
+      <p>DWS ei korvaa yrityksen henkilöstöä. DWS tuo kymmeniä agenttikyvykkyyksiä, jotka ovat käytettävissä välittömästi kun tarve syntyy — olipa kyseessä uusi EU-asetus, toimitusketjun häiriö tai markkinarakenteen muutos. Jokainen kyvykkyys on AI-agentti, joka toimii ihmisen rinnalla, ihmisen valvonnassa (human-in-the-loop). Asiakkaan omat työntekijät eivät katoa — he saavat digitaalisia kollegoja jotka poistavat rutiinityön ja vapauttavat ajattelun strategiseen työhön. Katalogi kasvaa jatkuvasti uusien sääntelyvaatimusten ja toimialojen myötä.</p>
+      <h3 id="konsultoinnin-sisalto-kolme-pilaria">Konsultoinnin sisältö — kolme pilaria</h3>
+      <p>DWS-konsultointi rakentuu kolmelle pilarille. Yhdessä ne varmistavat, että asiakas saa täyden hyödyn agenttikyvykkyydestä:</p>
+      <p><strong>Pilari 1: Koulutamme teidät hyödyntämään agenttikyvykkyyksiä</strong></p>
+      <ul>
+      <li>Tiimisi oppii käyttämään oikeita agentteja oikeisiin tehtäviin</li>
+      <li>Räätälöity koulutuspolku rooleittain: compliance-tiimi saa eri koulutuksen kuin IT-tiimi</li>
+      <li>Käytännön harjoitukset oikealla datalla — ei teoriaa, vaan tuloksia ensimmäisestä päivästä</li>
+      <li>Claude Code Coaching -paketit (€1 900–€7 500) agenttikehityksen syventämiseen</li>
+      <li>Perehdytys EU AI Act Article 4 -lukutaitovaatimukseen (voimassa helmikuusta 2025)</li>
+      </ul>
+      <p><strong>Pilari 2: Autamme toimialakohtaisten älykkäiden compliance-työnkulkujen kehittämisessä ja tuotantoon viemisessä</strong></p>
+      <ul>
+      <li>Kartoitamme asiakkaan toimialan sääntely-ympäristön ja tunnistamme kriittiset compliance-työnkulut</li>
+      <li>Rakennamme toimialakohtaiset älykkäät työnkulut: oikeat agentit, oikea järjestys, oikea autonomiataso</li>
+      <li>Työnkulku tuotantoon: scoping → pilotti → validointi → tuotanto — ei jää prototyypiksi</li>
+      <li>Integraatio olemassa oleviin järjestelmiin (SAP, IFS, Visma, Monitor, Jeeves)</li>
+      <li>Lifetime World Model (LWM) -ontologian rakentaminen asiakkaan omasta toimialadatasta (Train Model SaaS) — ja sen jatkuva ylläpito kun sääntely muuttuu (osa tilausta)</li>
+      <li>Työnkulkujen jatkuva optimointi: mittaamme compliance-tuloksia, tunnistamme pullonkaulat, skaalaamme</li>
+      </ul>
+      <p><strong>Pilari 3: Varmistamme että hanke etenee ilman keskeytyksiä</strong></p>
+      <ul>
+      <li>Keskeytyslaskuri (lifetime.fi/laskuri) kvantifioi keskeytyskustannukset: kontekstin uudelleenrakentaminen, momentum-menetys, avainhenkilöriski</li>
+      <li>Proaktiivinen häiriönhallinta: kun sääntely muuttuu, toimitusketju katkeaa tai avainhenkilö vaihtuu, DWS:n agentit jatkavat työtä ilman katkosta</li>
+      <li>Muutosvalmiuden jatkuva arviointi: Disruption Response Agent seuraa riskisignaaleja ja varoittaa ennen kuin keskeytys tapahtuu</li>
+      <li>Human-in-the-loop -periaate: ihminen pysyy aina päätöksentekijänä, agentti hoitaa rutiinin</li>
+      <li>Hankkeen etenemisen seuranta: Project Manager Agent pitää aikataulut, JIRA-työnkulut ja dokumentaation ajan tasalla automaattisesti</li>
+      </ul>
+      <p><strong>Konsultoinnin tulos:</strong> Asiakas ei ole riippuvainen yksittäisistä konsulteista tai heidän saatavuudestaan. Agenttikyvykkyydet ovat aina käytettävissä, aina ajan tasalla, aina valmiina. Keskeytyskustannus laskee, muutosvalmius nousee, compliance pysyy automaattisesti ajan tasalla.</p>
+      <h3 id="kyvykkyydet-tuotteen-elinkaaressa">Kyvykkyydet tuotteen elinkaaressa</h3>
+      <p>Vanhat 72 IT-roolia eivät kadonneet — ne on <strong>uudelleenmuotoiltu agenttikyvykkyyksiksi, skilleiksi, työnkuluiksi ja oppimissilmukoiksi (Gödel-loops)</strong>. Rooli säilyy ihmisellä; agentti tekee siitä nopeamman. Kyvykkyydet kohdennetaan tuotteen elinkaaren vaiheisiin — sekä DWS IQ -alustatuotteille että Firehorse-tuotelinjalle.</p>
+      <p>Tuotekehityksen arkkityypit (Boris Cherny, Claude Code) eivät ole työnimikkeitä vaan kyvykkyyksiä, jotka ihminen + agentti hoitavat yhdessä. Ne kartoittuvat elinkaaren vaiheisiin <strong>limittäin</strong> — moni kyvykkyys kattaa kaksi vaihetta:</p>
+      <ul>
+      <li><strong>Prototyper</strong> → Kehitys</li>
+      <li><strong>Builder</strong> → Kehitys + Käyttöönotto</li>
+      <li><strong>Sweeper</strong> → Ylläpito + Päivitys (siivoaa, yksinkertaistaa, poistaa, optimoi)</li>
+      <li><strong>Grower</strong> → Päivitys &amp; kasvu (iteroi PMF:ää)</li>
+      <li><strong>Maintainer</strong> → Ylläpito (turvallinen, luotettava, nopea skaalautuessa)</li>
+      </ul>
+      <p><strong>1. Kehitys (Development) — prototypoi &amp; rakenna</strong></p>
+      <ul>
+      <li>Agentit: GenAI Solution Architect, Data Engineer, Integration Architect, Test Automation, Designer, DeepWiki Extractor, Synthetic Data</li>
+      <li>Skillit: <code>/designer</code>, <code>/qa</code>, <code>/plan-review</code></li>
+      <li>Oppimissilmukka: World Model Loop (havainto → simulointi → HIL-ehdotus → oppiminen)</li>
+      </ul>
+      <p><strong>2. Käyttöönotto (Deployment) — vie tuotantoon</strong></p>
+      <ul>
+      <li>Agentit: DWS Deployment Engineer, Edge AI Engineer, DevOps Engineer, Enterprise Model Engineer (LWM-ontologian pystytys, Train Model SaaS), Cloud Migration, Quality Gate</li>
+      <li>Skillit: <code>/ship</code>, <code>/verify</code>, <code>/gcr-skill</code>, <code>/fix-dual-folder-api-connectivity</code></li>
+      <li>Tulos: scoping → pilotti → validointi → tuotanto, ERP-integraatiot (SAP, IFS, Visma, Monitor, Jeeves)</li>
+      </ul>
+      <p><strong>3. Ylläpito (Maintenance) — pidä turvallisena, luotettavana, suvereenina</strong></p>
+      <ul>
+      <li>Agentit: Network Security, Sovereignty Monitor, Auditor, Service Desk, Panacea (optimoija), Quality Gate</li>
+      <li>Skillit: <code>/sovereignty-assess</code>, <code>/kya</code>, <code>/cron</code>, <code>/compliance-check</code>, <code>/site-safety</code></li>
+      <li>Oppimissilmukka: LWM-ontologian jatkuva uudelleenkoulutus sääntelyn muuttuessa (tilauksen ydin, §4) — Article 12 -auditointi pysyy ajan tasalla</li>
+      </ul>
+      <p><strong>4. Päivitys &amp; kasvu (Update / Grow) — paranna ja skaalaa</strong></p>
+      <ul>
+      <li>Agentit: Customer Sat, Lead Feedback, Cassandra (ennusteet), Competitor Surveillance, Change Management, Disruption Response</li>
+      <li>Skillit: <code>/retro</code>, <code>/learn</code>, <code>/simplify</code>, <code>/regulatory-radar</code>, <code>/truth-check</code></li>
+      <li>Oppimissilmukka: <code>/learn</code> ajetaan <code>/retro</code>:n jälkeen — Gödel-silmukka, joka parantaa skillejä joka kierroksella (harness pysyy ohuena, kyvykkyydet paranevat)</li>
+      </ul>
+      <p><strong>Firehorse-tuotelinjan elinkaari (sisältö- ja myyntituotanto)</strong></p>
+      <p>Firehorse on toistettava tuotetehdas: sisältö, markkinointi ja myynti tuotteistettuna prosessina (Firehorse Production Model). Sen elinkaari kulkee samojen vaiheiden läpi:</p>
+      <ul>
+      <li><strong>Kehitys &amp; tuotanto:</strong> Apollo (sisältö &amp; myynti), Content Brief, Keyword Intent (SEO), Synthetic Data — Firehorse Amplify (€4 950) vahvistaa sisältö- ja markkinointikyvykkyydet</li>
+      <li><strong>Julkaisu &amp; hallinta:</strong> Firehorse Content Management (€2 999), SEO Audit, Designer — luonti → hallinta → julkaisu</li>
+      <li><strong>Kasvu &amp; optimointi:</strong> Competitor Surveillance, Lead Feedback, Customer Sat — <code>/lsj-publish</code> (Lifetime Scope Monthly), <code>/investor-outreach</code></li>
+      <li>Oppimissilmukka: jokainen kampanja syöttää tulokset takaisin tuotantomalliin — suljettu silmukka: rakenna tuote → myy tuote → asiakaspalaute → paranna tuote</li>
+      </ul>
+      <p><strong>Kypsyysmiksaus — oikea arkkityyppimix riippuu tuotteen ja toimialan kypsyydestä</strong></p>
+      <p>Boriksen ydinhavainto: terve tiimi tarvitsee arkkityyppien sekoituksen, joka määräytyy tuotteen kypsyydestä. Tämä antaa konsultille käytännön työkalun — tunnista missä vaiheessa kohde on ja painota oikeita kyvykkyyksiä:</p>
+      <ul>
+      <li><strong>Esi-PMF (uusi tuote/toimiala):</strong> Prototyper + Builder + Sweeper (1+2+3)</li>
+      <li><strong>Kasvuvaihe (PMF löytynyt):</strong> Builder + Sweeper + Grower + Maintainer (2+3+4+5)</li>
+      <li><strong>Kypsä (vahva PMF):</strong> Sweeper + Grower + Maintainer + vähän Builderia (3+4+5+2)</li>
+      </ul>
+      <p><strong>DWS-tuotteittain:</strong></p>
+      <ul>
+      <li><strong>Aegis Defence</strong> (pre-GA, esi-PMF) → 1+2+3: prototypointi, rakentaminen, optimointi</li>
+      <li><strong>Climate IQ</strong> (PMF, kasvaa) → 2+3+4+5: rakentaminen, kasvu ja ylläpito rinnakkain</li>
+      <li><strong>DWS IQ 6 -ydin</strong> (kypsä) → 3+4+5: ylläpito, kasvu, jatkuva siivous</li>
+      </ul>
+      <p><strong>Toimialoittain</strong> (sama logiikka — toimialan kypsyys DWS:n kanssa määrää painotuksen):</p>
+      <ul>
+      <li><strong>Kypsät toimialat</strong> (teräs, energia, kemia — CBAM/ETS vakiintunut) → Grower + Maintainer + Sweeper: iterointi, luotettavuus, optimointi</li>
+      <li><strong>Kasvavat toimialat</strong> (rakentaminen, meriliikenne — EPBD 2028, FuelEU) → Builder + Grower: työnkulkujen rakentaminen ja PMF:n hiominen</li>
+      <li><strong>Nousevat toimialat</strong> (puolustus/kaksikäyttö, sekä jokainen uusi ontologiasolmu) → Prototyper + Builder: kartoitus, ensimmäiset työnkulut, validointi</li>
+      </ul>
+      <p>Näin konsultti osaa kohdentaa agenttikyvykkyydet sekä tuotteen että toimialan kypsyyden mukaan — ei sama mix jokaiseen toimeksiantoon.</p>
+      <p>Jokaisessa vaiheessa pätee eettinen periaate: agentit nopeuttavat ihmisen työtä, eivät korvaa sitä (human-in-the-loop, §2 Ihmiskeskeisyys).</p>
+      <h3 id="konsultin-paivittainen-toiminta">Konsultin päivittäinen toiminta</h3>
+      <ul>
+      <li><strong>08:00–08:30</strong> — Aamubriiffi: signaaliseuranta (sääntelypäivitykset, asiakassignaalit)</li>
+      <li><strong>08:30–12:00</strong> — Asiakastyö: scoping, deployment, koulutus, tuki</li>
+      <li><strong>12:00–13:00</strong> — Lounas</li>
+      <li><strong>13:00–16:00</strong> — Asiakastyö jatkuu / sisäinen tuotekehitys</li>
+      <li><strong>16:00–16:30</strong> — Dokumentointi: tuntikirjaukset, tilanneraportti</li>
+      </ul>
+      <p><strong>Viikkorytmi:</strong></p>
+      <ul>
+      <li><strong>Maanantai</strong> — Signaaliseuranta + asiakastyö</li>
+      <li><strong>Tiistai</strong> — Asiakastyö + LinkedIn-yhteydet (signaaliperusteiset)</li>
+      <li><strong>Keskiviikko</strong> — Asiakastyö + sisältötuotanto (1 artikkeli/case insight)</li>
+      <li><strong>Torstai</strong> — Asiakastyö + seurannat (vain Day 2 -vastaukset)</li>
+      <li><strong>Perjantai</strong> — Reflektio + valmistautuminen. <strong>Ei myyntiä perjantaisin.</strong></li>
+      </ul>
       <hr />
-
-      <!-- 9. ASIAKKUUDEN ELINKAARI -->
-      <h2 id="s9"><span class="section-num">9.</span> Asiakkuuden elinkaari</h2>
-
-      <h3>Vuorovaikutus asiakkaan kanssa</h3>
-
-      <blockquote>
-        <p>
-          "'Köyhäile' ja anna alennusta asiakaskokemuksen ja myönteisen palautteen aikaansaamiseksi.
-          Ole kärsivällinen. Ehdimme laskuttaa asiakasta seuraavalla kerralla kun tarve on
-          tunnistettu."
-        </p>
-        <span class="author">— Konsultin käsikirja, 2019</span>
-      </blockquote>
-
-      <h3>B2B-asiakasmatka (päivitetty 2026)</h3>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Vaihe</th>
-            <th>Asiakkaan toiminta</th>
-            <th>DWS:n toiminta</th>
-            <th>Kesto</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>1. Tarve herää</strong></td>
-            <td>Sääntely pakottaa</td>
-            <td>Signaaliseuranta tunnistaa tarpeen</td>
-            <td>—</td>
-          </tr>
-          <tr>
-            <td><strong>2. Ratkaisu-etsintä</strong></td>
-            <td>Vertailee vaihtoehtoja</td>
-            <td>Sisältö: artikkelit, case-tutkimukset</td>
-            <td>2–4 viikkoa</td>
-          </tr>
-          <tr>
-            <td><strong>3. Scoping</strong></td>
-            <td>Sopii ilmaiseen kartoitukseen</td>
-            <td>Ilmainen scoping (1–2 viikkoa)</td>
-            <td>1–2 viikkoa</td>
-          </tr>
-          <tr>
-            <td><strong>4. Pilotti</strong></td>
-            <td>Allekirjoittaa pilotin</td>
-            <td>Enterprise Navigator, 3 kk pilotti</td>
-            <td>3 kuukautta</td>
-          </tr>
-          <tr>
-            <td><strong>5. Vuosisopimus</strong></td>
-            <td>Sitoutuu vuosimaksuun</td>
-            <td>Climate IQ tai Enterprise Premium</td>
-            <td>12 kuukautta</td>
-          </tr>
-          <tr>
-            <td><strong>6. Laajentaminen</strong></td>
-            <td>Laajentaa lisäakseleille</td>
-            <td>Industrial IQ tai Aegis</td>
-            <td>Käynnissä</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Nykyiset asiakkaat (Q2 2026)</h3>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Asiakas</th>
-            <th>Sektori</th>
-            <th>Tulos</th>
-            <th>Mittari</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Kela</strong></td>
-            <td>Julkinen terveydenhuolto</td>
-            <td>Auditointivalmiuden kiihdytys</td>
-            <td>6 kuukautta → 4 viikkoa</td>
-          </tr>
-          <tr>
-            <td><strong>Uber Finland</strong></td>
-            <td>Kuljetus / CSRD</td>
-            <td>Raportointiajan vähennys</td>
-            <td>60h/kk → 8h/kk (87%)</td>
-          </tr>
-          <tr>
-            <td><strong>Bolt Finland</strong></td>
-            <td>Kuljetus / ETS</td>
-            <td>Sakkoaltistuksen eliminointi</td>
-            <td>€10K–50K → €0</td>
-          </tr>
-          <tr>
-            <td><strong>NCC</strong></td>
-            <td>Rakentaminen (€5.5B)</td>
-            <td>Toimialareferenssi</td>
-            <td>Rakennussektorin validointi</td>
-          </tr>
-          <tr>
-            <td>+ 2 nimetöntä</td>
-            <td>Teollisuus</td>
-            <td>Tuotantokäyttö</td>
-            <td>100% pysyvyys</td>
-          </tr>
-        </tbody>
-      </table>
-
+      <h2 id="7-tyosuhteen-aloittaminen">7. Työsuhteen aloittaminen</h2>
+      <h3 id="rekrytointiprosessi-2026">Rekrytointiprosessi 2026</h3>
+      <ol>
+      <li><strong>Ensikontakti</strong> — Haastattelut: tekninen osaaminen, DWS-tuotetuntemus, kulttuurisopivuus. Dokumentit: Hakemus, CV.</li>
+      <li><strong>NDA</strong> — Molemminpuolinen salassapitosopimus. Dokumentit: NDA (Lifetime Oy standardi).</li>
+      <li><strong>Asiakasrajapinnan CV</strong> — Customer CV: konsultin roolit, osaamisalueet, referenssit. Dokumentit: Customer CV template.</li>
+      <li><strong>Rooliselvitys</strong> — Mihin konsulttirooleihin henkilö soveltuu (ks. §6 kyvykkyysmalli). Dokumentit: Knowledge evaluation.</li>
+      <li><strong>Hinnoittelu</strong> — Esimiehen kanssa: veloitusperusteet asiakastöissä. Dokumentit: Hinnoittelupäätös.</li>
+      <li><strong>Consultant Agreement</strong> — Sopimuksen allekirjoitus. Dokumentit: Consultant Agreement.</li>
+      <li><strong>Perehdytys</strong> — DWS IQ 6 -tuotekoulutus, EU-sääntelyn perusteet, työkalut. Dokumentit: Perehdytysmateriaali.</li>
+      </ol>
+      <h3 id="perehdytyksen-sisalto">Perehdytyksen sisältö</h3>
+      <ul>
+      <li><strong>DWS IQ 6 -tuotekoulutus</strong> (2 päivää) — Kolmiakselimalli, agentit, Article 12, KYA</li>
+      <li><strong>EU-sääntelyn perusteet</strong> (1 päivä) — CBAM, CSRD, ETS, NIS2, CER, EU AI Act</li>
+      <li><strong>Teknologiakoulutus</strong> (2 päivää) — NVIDIA-laitteisto, K8s, Claude Code, MCP</li>
+      <li><strong>Myyntiprosessi</strong> (0.5 päivää) — Hiljaisuusperiaate, signaaliperusteisuus, kolme metaforaa</li>
+      <li><strong>Tietosuoja ja tietoturva</strong> (0.5 päivää) — GDPR, KYA-hallinta, NIS2, tietoturvakäytännöt</li>
+      <li><strong>Työkalut</strong> (0.5 päivää) — JIRA, Google Workspace, DWS CLI, GitHub</li>
+      </ul>
       <hr />
-
-      <!-- 10. TEKNOLOGIAKARTTA -->
-      <h2 id="s10"><span class="section-num">10.</span> Teknologiakartta</h2>
-
-      <h3>Teknologiapino 2026</h3>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Kerros</th>
-            <th>Teknologia</th>
-            <th>Käyttö</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>AI-mallit</strong></td>
-            <td>Qwen 2.5 72B, Llama 3.1 70B, Claude, Whisper</td>
-            <td>Agenttien ydinmalleja</td>
-          </tr>
-          <tr>
-            <td><strong>Agent-hallinta</strong></td>
-            <td>KYA (Know Your Agent)</td>
-            <td>Kryptografinen identiteetti, Firecracker MicroVM, &lt;125ms kill</td>
-          </tr>
-          <tr>
-            <td><strong>Infrastruktuuri</strong></td>
-            <td>UpCloud Helsinki (K8s), NVIDIA DGX Spark</td>
-            <td>Suvereeni cloud + edge</td>
-          </tr>
-          <tr>
-            <td><strong>Edge</strong></td>
-            <td>NVIDIA Jetson Orin Nano/NX/AGX</td>
-            <td>&lt;100ms, offline, aurinkoenergia</td>
-          </tr>
-          <tr>
-            <td><strong>ERP-integraatiot</strong></td>
-            <td>SAP, IFS, Visma, Monitor, Jeeves</td>
-            <td>Pohjoismaisten ERP:ien yhdistäminen</td>
-          </tr>
-          <tr>
-            <td><strong>Frontend</strong></td>
-            <td>DWS CLI, Dashboard</td>
-            <td>Terminaali + web</td>
-          </tr>
-          <tr>
-            <td><strong>Sääntely-RAG</strong></td>
-            <td>15 000+ EU-asiakirjaa</td>
-            <td>CELEX-viittaus jokaiselle päätökselle</td>
-          </tr>
-          <tr>
-            <td><strong>Auditointi</strong></td>
-            <td>EU AI Act Article 12</td>
-            <td>Hash-ketjutettu, muuttumaton, 7 vuoden retentio</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>KYA — Know Your Agent</h3>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Ominaisuus</th>
-            <th>Miten se toimii</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Kryptografinen identiteetti</strong></td>
-            <td>Jokainen agentti-istunto sidottu varmennettuun henkilöön</td>
-          </tr>
-          <tr>
-            <td><strong>MicroVM-eristys</strong></td>
-            <td>Firecracker per agentti — oma kernel, &lt;5MB overhead</td>
-          </tr>
-          <tr>
-            <td><strong>Kill-auktoriteetti</strong></td>
-            <td>&lt;125ms terminointi, TPM 2.0 sinetöity todiste</td>
-          </tr>
-          <tr>
-            <td><strong>Luottamuspisteet</strong></td>
-            <td>ATS 0.00–1.00, dynaaminen rajaus</td>
-          </tr>
-        </tbody>
-      </table>
-
+      <h2 id="8-strategiaprosessi">8. Strategiaprosessi</h2>
+      <h3 id="elavan-strategian-7-askelta-paivitetty-2026">Elävän strategian 7 askelta (päivitetty 2026)</h3>
+      <p>Strategiatyö on jokaisen konsultin asialistalla päivittäin. Olet mukana päättymättömässä pelissä, jossa jokainen erä pelataan jatkuvasti muuttuvilla kentällisillä ja voitto tai tappio ratkaistaan insight-viisikon kyvykkyys ja johdon pelitilanne johtamistaidot markkinoilla punniten. Tämä asettaa konsulteillemme erityisiä ketteryys- ja taitovaatimuksia. Toimimme aidosti kansainvälisessä toimintaympäristössä 24/7.</p>
+      <p>Riston alkuperäinen 7 askelen strategiaprosessi on edelleen voimassa, mutta konteksti on muuttunut:</p>
+      <ol>
+      <li><strong>Jatkuva skenaarioiden luominen</strong> — 2024: manuaalinen, tiimipohjainen → 2026: DWS IQ -agentit automatisoivat skenaariotiedon keräämisen</li>
+      <li><strong>Skenaarioanalytiikka</strong> — 2024: Power Platform, Microsoft 365 → 2026: AI-analytiikka, 58 agenttia, 15 000+ sääntelyn asiakirjaa</li>
+      <li><strong>Strategiset kokeilut</strong> — 2024: markkinatutkimus 7P → 2026: signal-based outreach, pilottimalli (scoping → pilot → annual)</li>
+      <li><strong>Strategian muokkaaminen (Shaping)</strong> — 2024: eCommerce-painotteinen → 2026: sääntely-ohjautuva: CBAM 2026, ETS2 2027, EPBD 2028</li>
+      <li><strong>Arviointikriteerien reflektointi</strong> — 2024: manuaalinen tarkkailu → 2026: automatisoitu: regulatory radar, kilpailija-analytiikka</li>
+      <li><strong>Sidosryhmien kuuntelu</strong> — 2024: some → 2026: diagonal win -malli: jokaisen roolin voitto sytyttää toisen voiton</li>
+      <li><strong>Elävän strategian jalkauttaminen</strong> — 2024: workshopit, kanavat → 2026: tuoteperusteiset roadmapit, kvartaalittaiset tarkistukset</li>
+      </ol>
+      <h3 id="skenaariotyoskentely-2026">Skenaariotyöskentely 2026</h3>
+      <blockquote>"Ihminen on hyvä luomaan skenaarioita, mutta ei välttämättä arvioimaan niiden toteutumisen todennäköisyyksiä. Ihmisille on luontaista tarinamuotoinen ajattelu, jossa yksi asia johtaa toiseen. Tämä auttaa tunnistamaan ja keksimään, miten asiat voisivat mennä. Se ei kuitenkaan kerro, kuinka todennäköisesti asiat menevät niin."<br />— Risto Paarni, 2019</blockquote>
+      <p>Tämän vuoksi ihmiset tekevät huonoja valintoja luomiensa skenaarioiden perusteella: he kuvittelevat, että epätodennäköinen asia toteutuu ja toimivat sen mukaisesti. Näin he tuhlaavat resursseja asioihin jotka tuskin toteutuvat. Lisäksi he menettävät mahdollisuuksia, koska kaikki aika ja resurssit, jotka he laittavat epätodennäköisen tavoitteluun, on pois todennäköisen tavoittelusta.</p>
+      <p><strong>2026-lisäys:</strong> DWS IQ:n 58 agenttia automatisoivat skenaarioanalytiikan niin, ettei konsultti arvaa todennäköisyyksiä — AI laskee ne 15 000 sääntelyn asiakirjan ja toimialaontologioiden pohjalta.</p>
+      <blockquote>"Vaikka skenaariot usein syntyvät ihmisten ajattelusta, yksittäisen ihmisen tai ryhmän on mahdotonta ajatella useaa skenaariota syvällisesti samanaikaisesti, tunnistaa niistä jokaisen kriittiset oletukset ja seurata reaaliaikaisesti maailman kehittymistä."<br />— Ritakallio &amp; Vuori, Elävä strategia</blockquote>
+      <p>Skenaarioiden luominen on jatkuva prosessi. Kun kohde muuttuu, reitti pitää päivittää. Huomioi esteet. Muuta reittiä. Ole hereillä. Asiakas muuttaa kohdetta. Muuta reittiä luovasti. Huomioi asiakaskokemuksen sujuvuus ensiksi, toiseksi taloudellisuus. Mutta ennen kaikkea asiakaskokemus.</p>
+      <blockquote><em>"Tunnista kaikki pitkän aikavälin tavoitteet. Litet bättre."</em></blockquote>
+      <p>Me emme seuraa trendejä. Me luomme niitä. Keskeistä on älyllinen laajuus.</p>
+      <blockquote><em>"Ravistaudu irti vääristä tulevaisuuspoluista noudattamalla nuhteetonta elämäntapaa."</em><br /><em>"Saavuta myönteinen tunnetila. Kirjoita kirje. Lisää luovuutta. Tähtäin vyön keskelle. Se on siinä."</em></blockquote>
+      <h3 id="swot-analyysi-q2-2026">SWOT-analyysi (Q2 2026)</h3>
+      <p><strong>Vahvuudet:</strong></p>
+      <ul>
+      <li>EU AI Act Article 12 tuotannossa (5 kk ennen voimaantuloa)</li>
+      <li>100% asiakaspysyvyys, 6 maksavaa asiakasta</li>
+      <li>EU-suvereeni (nolla CLOUD Act), suomalainen infrastruktuuri</li>
+      <li>Hintaetu: Climate IQ ~€36K/v (€2 999/kk) vs kilpailijat €50–200K/v</li>
+      <li>NVIDIA ISV Partner, Red Hat AI Partner</li>
+      <li><strong>Ketterä ydintiimi + vakiintunut kumppaniverkosto + 58 agenttia ja 88 kyvykkyyttä = suuren toimiston kapasiteetti ilman suuria kiinteitä kustannuksia.</strong> Lifetime Oy:n ydintiimi (CEO Risto Anton Paarni + Office Chief Lucille Santiago) johtaa 58 agentin kyvykkyyttä yhdessä 50+ asiantuntijayrityksen verkoston kanssa. Verkosto on vakiintunut: kumppanuudet on solmittu 2020–2022 (mm. konsortiokumppanit 9series ja Cubet) ja se tuo todennetun projektitoimituskapasiteetin ja erikoisosaamisen. Kumppanuudet on ankkuroitu NVIDIA Connect -kumppanuuteen. Kevyt päätöksenteko eliminoi komiteaviiveen. Kyvykkyydet kattavat konsultoinnin, sääntelyn, toimialaerikoistumisen, orkestroinnin ja tiedustelun 25 toimialalla. Kilpailijat: Normative ~100 henkilöä, Sweep ~200 henkilöä, Persefoni ~300 henkilöä. DWS: ketterä ydintiimi + 50+ kumppaniyrityksen verkosto + 58 agenttia, matalat kiinteät kustannukset. Kapasiteetti skaalautuu agentteja lisäämällä (minuutteja) ja verkostoa hyödyntämällä, ei raskaalla rekrytoinnilla.</li>
+      </ul>
+      <p><strong>Heikkoudet:</strong></p>
+      <ul>
+      <li>Ei puolustussektorin referenssiasiakasta (vielä)</li>
+      <li>ISO 27001 kesken (Q3 2026)</li>
+      </ul>
+      <p><strong>Mahdollisuudet:</strong></p>
+      <ul>
+      <li>CBAM-ilmoituskausi (Q3 2026) — pakollisia ostajia</li>
+      <li>ETS2 (tammikuu 2027) — uusi vertikaalinen markkina</li>
+      <li>Ruotsin markkinoiden aktivointi (SSAB, NCC AB, Skanska AB)</li>
+      <li>Diana NATO -uudelleenhakemus Aegis Defence GA:n jälkeen</li>
+      </ul>
+      <p><strong>Uhat:</strong></p>
+      <ul>
+      <li>Normative (Tukholma) — kilpailija Pohjoismaissa</li>
+      <li>Sweep/Persefoni EU-laajentuminen</li>
+      <li>Avainhenkilöriski: pieni ydintiimi — mitigoituna vakiintuneella 50+ kumppaniverkostolla (solmittu 2020–2022) ja agenttikyvykkyyksillä</li>
+      </ul>
       <hr />
-
-      <!-- 11. EU-SÄÄNTELYYMPÄRISTÖ -->
-      <h2 id="s11"><span class="section-num">11.</span> EU-sääntelyympäristö</h2>
-
-      <h3>Pakollinen ostotilannekalenteri</h3>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Vuosi</th>
-            <th>Sääntely</th>
-            <th>Vaikutus</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>2026</strong></td>
-            <td>CBAM operatiivinen</td>
-            <td>Jokainen tuontilähetys vaatii hiilipäästöilmoituksen</td>
-          </tr>
-          <tr>
-            <td><strong>2026</strong></td>
-            <td>CSRD Wave 1 laajennus</td>
-            <td>Tuhansia uusia yrityksiä raportoinnin piiriin</td>
-          </tr>
-          <tr>
-            <td><strong>2026</strong></td>
-            <td>EU AI Act Article 12</td>
-            <td>AI-auditointijälki pakollinen (2. elokuuta)</td>
-          </tr>
-          <tr>
-            <td><strong>2027</strong></td>
-            <td>ETS2</td>
-            <td>Maantiekuljetukset + rakennusten lämmitys päästökauppaan</td>
-          </tr>
-          <tr>
-            <td><strong>2028</strong></td>
-            <td>EPBD</td>
-            <td>Embodied carbon -raportointi rakennuksille &gt;1 000 m²</td>
-          </tr>
-          <tr>
-            <td><strong>2030</strong></td>
-            <td>Fit for 55</td>
-            <td>55% päästövähennys tavoite</td>
-          </tr>
-        </tbody>
-      </table>
-
+      <h2 id="9-myynti-ja-asiakastyo">9. Myynti ja asiakastyö</h2>
+      <h3 id="kuuntelun-tarkeys">Kuuntelun tärkeys</h3>
+      <p>Kuuntelun vaikeus on myyntityön suurin haaste. Konsultin on kuunneltava jokaista sidosryhmää omalla tavallaan:</p>
+      <ul>
+      <li><strong>Asiakkaiden kuuntelu:</strong> Minkä ongelman ratkaisemme? Miksi tämä on parempi tapa?</li>
+      <li><strong>Sidosryhmien kuuntelu:</strong> Miten voimme olla yhteiskunnallisesti arvostettu?</li>
+      <li><strong>Ekosysteemien kuuntelu:</strong> Mitä trendejä suosimme / vältämme?</li>
+      <li><strong>Kumppanien kuuntelu:</strong> Mitä avauksia kilpailijat ja kumppanit tuovat markkinoille? Miksi?</li>
+      <li><strong>Naapurien kuuntelu:</strong> Mitä muilla toimialoilla tehdään joka voi vaikuttaa meihin tai meidän liiketoimintamahdollisuuksiin?</li>
+      </ul>
+      <h3 id="pohjoismainen-myynti-dna">Pohjoismainen myynti-DNA</h3>
+      <blockquote>"Sometimes silence is the best ask. Listen until the customer is ready to give yes."<br />— Risto Paarni</blockquote>
+      <h3 id="kolme-myyntimetaforaa">Kolme myyntimetaforaa</h3>
+      <ul>
+      <li><strong>Buffet</strong> (julkinen hankinta) — Formaali tarjouskilpailu, julkaistu hinta, täysi läpinäkyvyys. Esimerkki: ORK — sama hinta kaikille.</li>
+      <li><strong>Captain</strong> (lämmin henkilökohtainen suhde) — CEO-to-CEO, luottamuspohjainen, pilotti ensin. Esimerkki: Outokumpu.</li>
+      <li><strong>Vineyard</strong> (kärsivällinen viljely) — Board-ready materiaalit, ilmainen scoping, odota satoa. Esimerkki: Kemira.</li>
+      </ul>
+      <h3 id="myyntiperiaatteet">Myyntiperiaatteet</h3>
+      <ol>
+      <li><strong>Hiljaisuusperiaate:</strong> Maksimissaan 2 kontaktia. Sen jälkeen sisältö tekee työn.</li>
+      <li><strong>Signaaliperusteinen (signaalimyynti):</strong> Outreach vain kun on oikea signaali (sääntely, rekrytointi, tapahtuma, referenssi, julkinen haaste).</li>
+      <li><strong>Ei perjantaimyyntiä:</strong> Pohjoismaiset ostajat eivät tee perjantaipäätöksiä.</li>
+      <li><strong>Diagonal win:</strong> Jokaisen roolin voitto sytyttää jonkun toisen voiton.</li>
+      <li><strong>Julkaistu hinta:</strong> Buffet-periaate — sama hinta kaikille.</li>
+      <li><strong>Ei "disruption"-kieltä:</strong> Pohjoismainen vaatimattomuus. Todisteet ensin.</li>
+      </ol>
+      <h3 id="signaaliperusteiset-triggerit">Signaaliperusteiset triggerit</h3>
+      <ul>
+      <li><strong>Sääntely</strong> — Esim. CBAM-määräaika lähestyy → Outreach CBAM-altistuneille yrityksille 90 päivää ennen</li>
+      <li><strong>Rekrytointi</strong> — Esim. yritys rekrytoi "Sustainability Manageria" → "Olemme alusta, joka moninkertaistaa uuden rekryn tehon"</li>
+      <li><strong>Tapahtuma</strong> — Esim. prospekti puhuu FinnBuildissä → Osallistu, kuuntele, viittaa puheeseen yhteydenotossa</li>
+      <li><strong>Julkinen haaste</strong> — Esim. CSRD-auditoinnin löydös vuosikertomuksessa → "Kolme vertaisyritystä automatisoi saman löydöksen."</li>
+      <li><strong>Referenssi</strong> — Esim. nykyinen asiakas mainitsee vertaisyrityksen → Lämmin intro asiakkaan kautta</li>
+      </ul>
+      <h3 id="viiden-tahden-kehys">Viiden tähden kehys</h3>
+      <p>Jokaisesta asiakaskontaktista tulee "arvio" — näkymätön mutta todellinen:</p>
+      <ol>
+      <li><strong>He muistavat nimesi</strong> — Ammattimainen ensikohtaaminen</li>
+      <li><strong>He avaavat viestisi</strong> — Signaaliperusteinen ajoitus — viestisi on relevantti</li>
+      <li><strong>He vastaavat</strong> — Kysyit yhden hyvän kysymyksen pitchaamisen sijaan</li>
+      <li><strong>He ottavat tapaamisen</strong> — Sisältösi vastasi kysymykseen joka heillä jo oli</li>
+      <li><strong>He sanovat kyllä</strong> — Poistit ahdistuksen, sovitit tahdin ja odotit kunnes he olivat valmiita</li>
+      </ol>
       <hr />
-
-      <!-- 12. TIETOSUOJA -->
-      <h2 id="s12"><span class="section-num">12.</span> Tietosuoja ja tietoturva</h2>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Periaate</th>
-            <th>Käytäntö</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Data ei poistu Suomesta</strong></td>
-            <td>UpCloud Helsinki, ei kolmannen maan palvelimia</td>
-          </tr>
-          <tr>
-            <td><strong>CLOUD Act -vapaus</strong></td>
-            <td>Ei amerikkalaisia pilvipalveluntarjoajia tuotantodatalle</td>
-          </tr>
-          <tr>
-            <td><strong>Article 12 -auditointi</strong></td>
-            <td>Jokainen AI-toiminto hash-ketjutettu, muuttumaton, 7 vuoden retentio</td>
-          </tr>
-          <tr>
-            <td><strong>GDPR by design</strong></td>
-            <td>Tietosuoja sisäänrakennettu, ei jälkikäteen lisätty</td>
-          </tr>
-          <tr>
-            <td><strong>KYA-hallinta</strong></td>
-            <td>Jokainen agentti-istunto kryptografisesti sidottu henkilöön</td>
-          </tr>
-          <tr>
-            <td><strong>NIS2-valmius</strong></td>
-            <td>24h insidenttirekonstruktio, poikkeamailmoitusvalmiudet</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Sertifioinnit ja roadmap</h3>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Sertifiointi</th>
-            <th>Status</th>
-            <th>Päivämäärä</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>EU AI Act Article 12 -lokitus</td>
-            <td><span class="badge-green">TUOTANNOSSA</span></td>
-            <td>Maaliskuu 2026</td>
-          </tr>
-          <tr>
-            <td>ISO 27001</td>
-            <td><span class="badge-blue">Käynnissä</span></td>
-            <td>Q3 2026</td>
-          </tr>
-          <tr>
-            <td>SOC 2 Type II</td>
-            <td><span class="badge">Suunniteltu</span></td>
-            <td>Q4 2026</td>
-          </tr>
-          <tr>
-            <td>IEC 62443</td>
-            <td><span class="badge">Suunniteltu</span></td>
-            <td>Q4 2026</td>
-          </tr>
-          <tr>
-            <td>PiTuKri</td>
-            <td><span class="badge-blue">Auditoitavissa</span></td>
-            <td>v1.1 (52 kriteeriä)</td>
-          </tr>
-        </tbody>
-      </table>
-
+      <h2 id="10-asiakkuuden-elinkaari">10. Asiakkuuden elinkaari</h2>
+      <h3 id="vuorovaikutus-asiakkaan-kanssa">Vuorovaikutus asiakkaan kanssa</h3>
+      <blockquote><em>"'Köyhäile' ja anna alennusta asiakaskokemuksen ja myönteisen palautteen aikaansaamiseksi. Ole kärsivällinen. Ehdimme laskuttaa asiakasta seuraavalla kerralla kun tarve on tunnistettu."</em><br />— Konsultin käsikirja, 2019</blockquote>
+      <h3 id="asiakkaan-tarina-ostopolun-vaiheen-mukaan">Asiakkaan tarina ostopolun vaiheen mukaan</h3>
+      <p>Jokainen asiakas on eri kohdassa ostopolkua, ja siksi sama tarjous ei sovi kaikille. Konsultin tärkein taito on tunnistaa, missä vaiheessa asiakas on, valita oikea myyntimetafora (§9) ja rakentaa <strong>asiakkaan tarina</strong> sen mukaan. Eettinen kärki — <em>kyvykkyydet ihmisen rinnalle, ei tilalle; tekoäly augmentoi, ei korvaa</em> — kuuluu jokaiseen asiakastarinaan: kerromme, miten asiakas voitti agenttikyvykkyyksillä ilman irtisanomisia.</p>
+      <ul>
+      <li><strong>Buffet — julkinen hankinta (esim. ORK).</strong> Vaihe: muodollinen tarjouspyyntö / kilpailutus. Tarina rakentuu compliance-vaatimusten, julkaistun hinnan ja täyden läpinäkyvyyden ympärille. Tuotos: tarjouspyyntövastaus liitteineen (CPV-koodit §16, referenssit, hintaliite). Sama hinta kaikille — ei neuvotteluteatteria.</li>
+      <li><strong>Captain — lämmin CEO-suhde (esim. Outokumpu).</strong> Vaihe: luottamuspohjainen, pilotti ensin. Tarina rakentuu yhteisen ongelman ja nopean pilottituloksen ympärille. Tuotos: CEO-to-CEO-keskustelu → ilmainen scoping → 3 kk pilotti (Enterprise Navigator €4 999). Tarina kertoo, miten asiakkaan tiimi sai uuden kyvykkyyden, ei vähemmän väkeä.</li>
+      <li><strong>Vineyard — kärsivällinen viljely (esim. Kemira).</strong> Vaihe: pitkä kypsyttely, board-ready-materiaalit. Tarina rakentuu toimialasignaalien ja vertaisreferenssien ympärille. Tuotos: ilmainen scoping, johdolle valmis materiaali, odota satoa.</li>
+      </ul>
+      <p><strong>Saman tarjouksen sovittaminen toiselle asiakkaalle</strong> (esim. ORK → Kemira) ei ole kopiointi vaan vaiheen ja metaforan vaihto: jokainen asiakaskohtainen tieto (toimiala, sääntelyjoukko, hintataso, ostopolun vaihe, yhteyshenkilön rooli) päivitetään erikseen. Käytä <code>/dialog</code>-skilliä (customer-adaptation mode), joka käy jokaisen muutoksen läpi vahvistettuna.</p>
+      <h3 id="b2b-asiakasmatka-paivitetty-2026">B2B-asiakasmatka (päivitetty 2026)</h3>
+      <ol>
+      <li><strong>Tarve herää</strong> — Asiakas: sääntely pakottaa (CBAM, CSRD, ETS). DWS: signaaliseuranta tunnistaa tarpeen.</li>
+      <li><strong>Ratkaisu-etsintä</strong> (2–4 viikkoa) — Asiakas: vertailee vaihtoehtoja. DWS: sisältö — artikkelit, case-tutkimukset, LinkedIn.</li>
+      <li><strong>Scoping</strong> (1–2 viikkoa) — Asiakas: sopii ilmaiseen kartoitukseen. DWS: ilmainen scoping, arvioi oikea tuote.</li>
+      <li><strong>Pilotti</strong> (3 kuukautta) — Asiakas: allekirjoittaa pilotin (Enterprise Navigator €4 999, alle €5K ostopäätösraja). DWS: 3 kk pilotti, ERP-liitin mukana.</li>
+      <li><strong>Vuosisopimus</strong> (12 kuukautta) — Asiakas: sitoutuu vuosimaksuun. DWS: Climate IQ ~€36K/v (€2 999/kk) + käyttöönotto €4 990, tai Enterprise Premium €8 950/v.</li>
+      <li><strong>Laajentaminen</strong> (käynnissä) — Asiakas: laajentaa lisäakseleille. DWS: Industrial IQ tai Aegis, jos tarve vahvistettu.</li>
+      </ol>
+      <h3 id="asiakaskontrollipisteet">Asiakaskontrollipisteet</h3>
+      <ul>
+      <li><strong>30 päivää</strong> — Tuotteen käyttöaste: &gt;50% agenteista aktiivisessa käytössä</li>
+      <li><strong>90 päivää (pilotin loppu)</strong> — KPI-toteutuma: CBAM-prosessointiaika, CSRD-datan kattavuus</li>
+      <li><strong>180 päivää</strong> — Laajenemissignaali: Tarvitseeko asiakas Industrial IQ tai Aegis?</li>
+      <li><strong>365 päivää</strong> — Uudistaminen: 100% retention tavoite</li>
+      </ul>
+      <h3 id="nykyiset-asiakkaat-q2-2026">Nykyiset asiakkaat (Q2 2026)</h3>
+      <ul>
+      <li><strong>Kela</strong> — Julkinen terveydenhuolto. Auditointivalmiuden kiihdytys: 6 kuukautta → 4 viikkoa.</li>
+      <li><strong>Uber Finland</strong> — Kuljetus / CSRD. Raportointiajan vähennys: 60h/kk → 8h/kk (87%).</li>
+      <li><strong>Bolt Finland</strong> — Kuljetus / ETS. Sakkoaltistuksen eliminointi: €10K-50K → €0.</li>
+      <li><strong>NCC</strong> — Rakentaminen (€5.5B liikevaihto). Toimialareferenssi: rakennussektorin validointi.</li>
+      <li><strong>+ 2 nimetöntä</strong> — Teollisuus. Tuotantokäyttö: 100% pysyvyys.</li>
+      </ul>
       <hr />
-
-      <!-- 13. TYÖAJAN HALLINTA -->
-      <h2 id="s13"><span class="section-num">13.</span> Työajan hallinta</h2>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Kohta</th>
-            <th>Käytäntö</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Kirjausväline</strong></td>
-            <td>JIRA / Google Sheets (asiakaskohtainen)</td>
-          </tr>
-          <tr>
-            <td><strong>Kirjausfrekvenssi</strong></td>
-            <td>Päivittäin, viimeistään seuraavana aamuna</td>
-          </tr>
-          <tr>
-            <td><strong>Minimiresoluutio</strong></td>
-            <td>0.5h (30 min)</td>
-          </tr>
-          <tr>
-            <td><strong>Ei-laskutettava työ</strong></td>
-            <td>Merkitään erikseen: sisäinen kehitys, koulutus</td>
-          </tr>
-          <tr>
-            <td><strong>Matkustusaika</strong></td>
-            <td>Laskutetaan sopimuksen mukaan</td>
-          </tr>
-        </tbody>
-      </table>
-
+      <h2 id="11-teknologiakartta">11. Teknologiakartta</h2>
+      <h3 id="teknologiapino-2026">Teknologiapino 2026</h3>
+      <ul>
+      <li><strong>AI-mallit</strong> — Qwen 2.5 72B, Llama 3.1 70B, Claude, Whisper. Agenttien ydinmalleja.</li>
+      <li><strong>Agent-hallinta</strong> — KYA (Know Your Agent). Kryptografinen identiteetti, Firecracker MicroVM, &lt;125ms kill.</li>
+      <li><strong>Infrastruktuuri</strong> — UpCloud Helsinki (K8s), NVIDIA DGX Spark. Suvereeni cloud + edge.</li>
+      <li><strong>Edge</strong> — NVIDIA Jetson Orin Nano/NX/AGX. &lt;100ms, offline, aurinkoenergia.</li>
+      <li><strong>ERP-integraatiot</strong> — SAP, IFS, Visma, Monitor, Jeeves. Pohjoismaisten ERP-järjestelmien yhdistäminen.</li>
+      <li><strong>Frontend</strong> — DWS CLI, Dashboard. Terminaali + web-käyttöliittymä.</li>
+      <li><strong>DevOps</strong> — GitHub, CI/CD, Cloudflare Pages. Automaattinen käyttöönotto.</li>
+      <li><strong>Sääntely-RAG</strong> — 15 000+ EU-asiakirjaa. CELEX-viittaus jokaiselle päätökselle.</li>
+      <li><strong>Auditointi</strong> — EU AI Act Article 12. Hash-ketjutettu, muuttumaton, 7 vuoden retentio.</li>
+      </ul>
+      <h3 id="kya-know-your-agent-agenttihallinta">KYA — Know Your Agent (agenttihallinta)</h3>
+      <ul>
+      <li><strong>Kryptografinen identiteetti</strong> — Jokainen agentti-istunto sidottu varmennettuun henkilöön. Jäljitettävyys jokaiselle AI-päätökselle.</li>
+      <li><strong>MicroVM-eristys</strong> — Firecracker per agentti — oma kernel, &lt;5MB overhead. Nolla lateraalista liikettä agenttien välillä.</li>
+      <li><strong>Kill-auktoriteetti</strong> — &lt;125ms terminointi, TPM 2.0 sinetöity todiste. Reaaliaikainen AI-toimintojen hallinta.</li>
+      <li><strong>Luottamuspisteet</strong> — ATS 0.00–1.00, dynaaminen rajaus. Automaattinen kyvykkyyden rajoitus epäilyttävässä käytöksessä.</li>
+      </ul>
+      <h3 id="dws-teknologian-roadmap-tarkeimmat-seurattavat">DWS Teknologian Roadmap — Tärkeimmät seurattavat</h3>
+      <p>Seuraavassa tärkeimmät teknologia roadmapit joita konsultin tulee seurata:</p>
+      <h4 id="nvidia">NVIDIA</h4>
+      <ul>
+      <li><strong>Q3 2026</strong> — DGX Spark GA (128 GB, Grace Blackwell). Aegis Standard -laitteisto tuotantoon. €5 994 per yksikkö.</li>
+      <li><strong>Q3 2026</strong> — Jetson Orin Super (NX/AGX). Edge-inferenssin nopeuttaminen. &lt;100ms → &lt;50ms tavoite.</li>
+      <li><strong>Q4 2026</strong> — NeMo Microservices 2.0. Train Model SaaS -tuotteen pohja. Räätälöity mallikoulutus.</li>
+      <li><strong>2027</strong> — NVIDIA NIM (inference microservices). Mallien skaalautuva jakelu edge-laitteille.</li>
+      <li><strong>2027</strong> — Vera Rubin -arkkitehtuuri (HPC). Seuraavan sukupolven GPU-laskenta. Aegis Sovereign valmistelu.</li>
+      </ul>
+      <h4 id="microsoft">Microsoft</h4>
+      <ul>
+      <li><strong>Q3 2026</strong> — Azure AI Foundry GA. Kilpailijan vertailupiste. DWS:n etu: suvereenisuus + KYA.</li>
+      <li><strong>Q4 2026</strong> — Microsoft 365 Copilot -laajennukset. Integraatiomahdollisuus: DWS-agentti M365-työnkuluissa.</li>
+      <li><strong>2027</strong> — Founders Hub L5 (jos saatavilla). Pilvikreditit + teknologiatuki.</li>
+      </ul>
+      <h4 id="red-hat-ibm">Red Hat / IBM</h4>
+      <ul>
+      <li><strong>Q3 2026</strong> — OpenShift AI 2.x. K8s-pohjainen AI-alusta. DWS Aegis vertailupiste.</li>
+      <li><strong>Q4 2026</strong> — InstructLab 2.0. Avoin mallikoulutus. Vaihtoehto NVIDIA NeMo:lle.</li>
+      <li><strong>2027</strong> — watsonx.governance GA. Kilpaileva AI-hallintakehys. DWS KYA:n etu: Firecracker + kill authority.</li>
+      </ul>
+      <h4 id="eu-saantely-teknologiavaikutukset">EU-sääntely (teknologiavaikutukset)</h4>
+      <ul>
+      <li><strong>Elokuu 2026</strong> — EU AI Act Article 12 voimaan. Jokaisen AI-toiminnan auditoitava lokitus pakollinen. DWS: tuotannossa 03/2026.</li>
+      <li><strong>Tammikuu 2027</strong> — ETS2 operatiivinen. Per-reitti CO2 -laskenta. Uusi agentti: ETS2 Readiness Agent.</li>
+      <li><strong>2028</strong> — EPBD voimaan. EN 15978 + EN 15804 embodied carbon -automaatio. Rakennussektorin agentit.</li>
+      <li><strong>2028</strong> — Cyber Resilience Act (CRA). Ohjelmistotuotteiden tietoturvavaatimukset. Vaikuttaa DWS-alustan sertifiointiin.</li>
+      </ul>
+      <h4 id="dws-iq--tuoteroadmap">DWS IQ -tuoteroadmap</h4>
+      <ul>
+      <li><strong>Q3 2026</strong> — Aegis Defence GA. NVIDIA L40S -nodet, ArgusAgent SAR, EDIP-raportointi.</li>
+      <li><strong>Q3 2026</strong> — Train Model SaaS (LWM Ontology Build) — Compact / Standard / Pro. €1 490 / €2 990 / €7 490.</li>
+      <li><strong>Q3 2026</strong> — ISO 27001 sertifiointi. Käynnissä.</li>
+      <li><strong>Q4 2026</strong> — SOC 2 Type II. Suunniteltu.</li>
+      <li><strong>Q4 2026</strong> — IEC 62443 (OT-turvallisuus). Suunniteltu.</li>
+      <li><strong>Q4 2026</strong> — LWM V1 (5 000 yrityksen ontologia). World Model -vallin syventäminen.</li>
+      <li><strong>Q1 2027</strong> — ETS2 Readiness Agent. Maantiekuljetukset + rakennukset.</li>
+      <li><strong>Q1 2027</strong> — Ruotsin markkinoiden aktivointi. SSAB, NCC AB, Skanska AB.</li>
+      <li><strong>Q2 2027</strong> — EPBD Embodied Carbon Agent. EN 15978 + EN 15804 automaatio.</li>
+      <li><strong>H2 2027</strong> — Series A -valmistelu. Tavoite: €15M pre-money.</li>
+      <li><strong>2027 →</strong> — Agentic Commerce. Tutkimme siirtymistä transaktioperusteiseen agenttiveloitukseen, jossa asiakas maksaa kyvykkyydestä käytön mukaan — ei kiinteää alustamaksua. Tällä hetkellä (2026) kyvykkyydet kuuluvat alustatuotteen veloituksiin.</li>
+      </ul>
+      <h4 id="kilpailijat-seurattavat-roadmapit">Kilpailijat — seurattavat roadmapit</h4>
+      <ul>
+      <li><strong>Normative</strong> (Tukholma) — Seuraa: tuotejulkaisut, hinnoittelumuutokset, ERP-integraatiot. Pääkilpailija Pohjoismaissa. Ei vielä ERP-integraatioita — seuraa muuttuuko.</li>
+      <li><strong>Sweep</strong> (Pariisi) — Seuraa: EU-laajentuminen, yritysasiakashankinta. Jos Sweep tulee Pohjoismaihin vahvasti, aktivoi Ruotsin nopeammin.</li>
+      <li><strong>Persefoni</strong> (Arizona) — Seuraa: EU-tytäryhtiö, CLOUD Act -keskustelu. Jos Persefoni perustaa EU-entiteetin, suvereenisuusväite heikkenee.</li>
+      <li><strong>Watershed</strong> (San Francisco) — Seuraa: enterprise-hinnoittelu, AI-ominaisuudet. Hintavertailu DWS:n eduksi. Seuraa muuttuuko.</li>
+      </ul>
       <hr />
-
-      <!-- 14. KUMPPANIT -->
-      <h2 id="s14"><span class="section-num">14.</span> Kumppanit</h2>
-
-      <h3>Teknologiakumppanit</h3>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Kumppani</th>
-            <th>Status</th>
-            <th>Merkitys</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>NVIDIA</strong></td>
-            <td>Connect ISV Partner (Inception Program)</td>
-            <td>Laitteisto + AI-alusta validoitu</td>
-          </tr>
-          <tr>
-            <td><strong>Microsoft</strong></td>
-            <td>Founders Hub L1–L4</td>
-            <td>Teknologian käyttö validoitu</td>
-          </tr>
-          <tr>
-            <td><strong>Red Hat</strong></td>
-            <td>AI Event Partner (Suomi, 03/2026)</td>
-            <td>Enterprise Linux -ekosysteemi</td>
-          </tr>
-          <tr>
-            <td><strong>European Commission</strong></td>
-            <td>InvestEU Portal x3 (INPO-20254383)</td>
-            <td>EU-institutionaalinen tunnustus</td>
-          </tr>
-        </tbody>
-      </table>
-
+      <h2 id="12-eu-saantelyymparisto">12. EU-sääntelyympäristö</h2>
+      <h3 id="pakollinen-ostotilannekalenteri-forced-purchase-timeline">Pakollinen ostotilannekalenteri (Forced Purchase Timeline)</h3>
+      <ul>
+      <li><strong>2026</strong> — CBAM operatiivinen. Jokainen tuontilähetys vaatii hiilipäästöilmoituksen.</li>
+      <li><strong>2026</strong> — CSRD Wave 1 laajennus. Tuhansia uusia yrityksiä raportoinnin piiriin.</li>
+      <li><strong>2026</strong> — EU AI Act Article 12. AI-auditointijälki pakollinen (2. elokuuta).</li>
+      <li><strong>2027</strong> — ETS2. Maantiekuljetukset + rakennusten lämmitys päästökauppaan.</li>
+      <li><strong>2028</strong> — EPBD. Embodied carbon -raportointi rakennuksille &gt;1 000 m2.</li>
+      <li><strong>2030</strong> — Fit for 55. 55% päästövähennys tavoite.</li>
+      </ul>
+      <h3 id="compliance-kattavuus">Compliance-kattavuus</h3>
+      <p>DWS IQ 6 kattaa:</p>
+      <ul>
+      <li>EU AI Act Article 12 + 14 (lokitus + ihmisvalvonta)</li>
+      <li>NIS2-direktiivi (EU 2022/2555)</li>
+      <li>CER-direktiivi (EU 2022/2557)</li>
+      <li>GDPR Article 48 (ei kolmannen maan pakotettua tiedonluovutusta)</li>
+      <li>Asetus 2021/821 (kaksikäyttötuotteiden vientivalvonta)</li>
+      <li>PUTU-laki 1531/2011 (puolustus- ja turvallisuushankintoja koskeva laki)</li>
+      </ul>
       <hr />
-
-      <!-- 15. LIITTEET -->
-      <h2 id="s15"><span class="section-num">15.</span> Liitteet</h2>
-
-      <h3>Liite A: Hankintakoodit (CPV)</h3>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Koodi</th>
-            <th>Kuvaus</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>35710000-4</td>
-            <td>Johtamis-, valvonta- ja viestintäjärjestelmät</td>
-          </tr>
-          <tr>
-            <td>35720000-7</td>
-            <td>Tiedustelu, valvonta, maalitiedustelu</td>
-          </tr>
-          <tr>
-            <td>30210000-4</td>
-            <td>Tietokonelaitteet</td>
-          </tr>
-          <tr>
-            <td>48000000-8</td>
-            <td>Ohjelmistot ja IT-järjestelmät</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Liite C: Sanasto</h3>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Termi</th>
-            <th>Selitys</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>DWS IQ</strong></td>
-            <td>Digital Workforce Studio Intelligence — AI-alusta</td>
-          </tr>
-          <tr>
-            <td><strong>Climate IQ</strong></td>
-            <td>CBAM/CSRD/ETS compliance-automaatio</td>
-          </tr>
-          <tr>
-            <td><strong>Industrial IQ</strong></td>
-            <td>Toimialarajat ylittävä signaalianalyysi</td>
-          </tr>
-          <tr>
-            <td><strong>Aegis</strong></td>
-            <td>Suvereeni infrastruktuuri (on-prem, ilmaraollinen)</td>
-          </tr>
-          <tr>
-            <td><strong>KYA</strong></td>
-            <td>Know Your Agent — agenttihallintakehys</td>
-          </tr>
-          <tr>
-            <td><strong>Article 12</strong></td>
-            <td>EU AI Act:n auditointi-lokitus vaatimus</td>
-          </tr>
-          <tr>
-            <td><strong>CBAM</strong></td>
-            <td>Carbon Border Adjustment Mechanism</td>
-          </tr>
-          <tr>
-            <td><strong>CSRD</strong></td>
-            <td>Corporate Sustainability Reporting Directive</td>
-          </tr>
-          <tr>
-            <td><strong>ETS/ETS2</strong></td>
-            <td>Emissions Trading System (päästökauppa)</td>
-          </tr>
-          <tr>
-            <td><strong>NIS2</strong></td>
-            <td>Network and Information Security Directive</td>
-          </tr>
-          <tr>
-            <td><strong>CER</strong></td>
-            <td>Critical Entities Resilience Directive</td>
-          </tr>
-          <tr>
-            <td><strong>Signaalimyynti</strong></td>
-            <td>Outreach vain todellisilla signaaleilla</td>
-          </tr>
-          <tr>
-            <td><strong>Buffet-periaate</strong></td>
-            <td>Julkaistu hinta, sama kaikille</td>
-          </tr>
-          <tr>
-            <td><strong>Diagonal win</strong></td>
-            <td>Jokaisen roolin voitto sytyttää toisen voiton</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="doc-footer">
-        <div class="motto">"Katsomme suoraan silmiin. Litet bättre."</div>
-        <p>— Konsultin käsikirja, 2019 &amp; 2026</p>
-        <div class="gold-bar"></div>
-        <p>
-          <strong>Tekijänoikeudet:</strong> Risto Anton Paarni &copy; 2019–2026 Lifetime Oy.<br />
-          Kaikki oikeudet pidätetään.<br />
-          Saatavilla: dws10.com | Hinta: €29,95
-        </p>
-        <p style="margin-top: 16px; font-size: 11px; color: var(--slate-300)">
-          Edellinen versio: Konsultin käsikirja 2024 v0.16 (Risto Anton Päärni, Salla Limetti,
-          Manish Kumar CTO review)
-        </p>
-      </div>
-    </div>
+      <h2 id="13-tietosuoja-ja-tietoturva">13. Tietosuoja ja tietoturva</h2>
+      <h3 id="periaatteet">Periaatteet</h3>
+      <ul>
+      <li><strong>Data ei poistu Suomesta</strong> — UpCloud Helsinki, ei kolmannen maan palvelimia</li>
+      <li><strong>CLOUD Act -vapaus</strong> — Ei amerikkalaisia pilvipalveluntarjoajia tuotantodatalle</li>
+      <li><strong>Article 12 -auditointi</strong> — Jokainen AI-toiminto hash-ketjutettu, muuttumaton, 7 vuoden retentio</li>
+      <li><strong>GDPR by design</strong> — Tietosuoja sisäänrakennettu, ei jälkikäteen lisätty</li>
+      <li><strong>KYA-hallinta</strong> — Jokainen agentti-istunto kryptografisesti sidottu henkilöön</li>
+      <li><strong>NIS2-valmius</strong> — 24h insidenttirekonstruktio, poikkeamailmoitusvalmiudet</li>
+      </ul>
+      <h3 id="konsultin-tietoturvavelvoitteet">Konsultin tietoturvavelvoitteet</h3>
+      <ol>
+      <li><strong>NDA allekirjoitettu</strong> ennen pääsyä asiakastietoon</li>
+      <li><strong>Tietoturva-perehdytys</strong> suoritettu (ks. §7)</li>
+      <li><strong>Ei henkilökohtaisia laitteita</strong> asiakastyössä ilman hyväksyntää</li>
+      <li><strong>Ei datan kopiointia</strong> pilvitallennustiloihin ilman asiakkaan suostumusta</li>
+      <li><strong>Tietoturvaloukkaukset</strong> ilmoitetaan välittömästi: security@lifetime.fi</li>
+      </ol>
+      <h3 id="sertifioinnit-ja-roadmap">Sertifioinnit ja roadmap</h3>
+      <ul>
+      <li><strong>EU AI Act Article 12 -lokitus</strong> — TUOTANNOSSA (maaliskuu 2026)</li>
+      <li><strong>ISO 27001</strong> — Käynnissä (Q3 2026)</li>
+      <li><strong>SOC 2 Type II</strong> — Suunniteltu (Q4 2026)</li>
+      <li><strong>IEC 62443 (OT-turvallisuus)</strong> — Suunniteltu (Q4 2026)</li>
+      <li><strong>PiTuKri</strong> — Auditoitavissa, v1.1 (52 kriteeriä)</li>
+      </ul>
+      <hr />
+      <h2 id="14-tyoajan-hallinta">14. Työajan hallinta</h2>
+      <h3 id="tuntikirjaus">Tuntikirjaus</h3>
+      <ul>
+      <li><strong>Kirjausväline</strong> — JIRA / Google Sheets (asiakaskohtainen)</li>
+      <li><strong>Kirjausfrekvenssi</strong> — Päivittäin, viimeistään seuraavana aamuna</li>
+      <li><strong>Minimiresoluutio</strong> — 0.5h (30 min)</li>
+      <li><strong>Ei-laskutettava työ</strong> — Merkitään erikseen: sisäinen kehitys, koulutus, signaaliseuranta</li>
+      <li><strong>Matkustusaika</strong> — Laskutetaan sopimuksen mukaan</li>
+      </ul>
+      <h3 id="raportointi">Raportointi</h3>
+      <ul>
+      <li><strong>Viikkoraportti:</strong> perjantaisin, lyhyt tilannetiivistelmä esimiehelle</li>
+      <li><strong>Kuukausiraportti:</strong> tuntiyhteenveto, asiakaspalaute, seuraavan kuukauden fokus</li>
+      <li><strong>Kvartaaliraportti:</strong> KPI-toteutuma, asiakaspysyvyys, myyntiputki</li>
+      </ul>
+      <hr />
+      <h2 id="15-kumppanit">15. Kumppanit</h2>
+      <h3 id="teknologiakumppanit">Teknologiakumppanit</h3>
+      <ul>
+      <li><strong>NVIDIA</strong> — Connect ISV Partner (Inception Program). Laitteisto + AI-alusta validoitu.</li>
+      <li><strong>Microsoft</strong> — Founders Hub L1–L4. Teknologian käyttö validoitu.</li>
+      <li><strong>Red Hat</strong> — AI Event Partner (Suomi, maaliskuu 2026). Enterprise Linux -ekosysteemi.</li>
+      <li><strong>European Commission</strong> — InvestEU Portal x3 (INPO-20254383). EU-institutionaalinen tunnustus.</li>
+      </ul>
+      <h3 id="alihankkijaverkosto">Alihankkijaverkosto</h3>
+      <p>Lifetime Oy:n alihankkijaverkosto kattaa 50+ asiantuntijayritystä, kumppanuudet solmittu 2020–2022 ja ankkuroitu NVIDIA Connect -kumppanuuteen. Keskeisiä kumppaneita:</p>
+      <ul>
+      <li><strong>9series</strong> — Tekninen toimitus (DevOps, Full-stack)</li>
+      <li><strong>Cubet</strong> — Tekninen toimitus (AI/ML, data engineering)</li>
+      <li><strong>Freelance CTO</strong> — Arkkitehtuuri (strategiset päätökset)</li>
+      <li><strong>Metropolia/Aalto-verkosto</strong> — UI/UX, GenAI (harjoittelijat, tutkijat)</li>
+      </ul>
+      <hr />
+      <h2 id="16-liitteet">16. Liitteet</h2>
+      <h3 id="liite-a-hankintakoodit-cpv">Liite A: Hankintakoodit (CPV)</h3>
+      <ul>
+      <li><strong>35710000-4</strong> — Johtamis-, valvonta- ja viestintäjärjestelmät</li>
+      <li><strong>35720000-7</strong> — Tiedustelu, valvonta, maalitiedustelu</li>
+      <li><strong>30210000-4</strong> — Tietokonelaitteet</li>
+      <li><strong>48000000-8</strong> — Ohjelmistot ja IT-järjestelmät</li>
+      </ul>
+      <h3 id="liite-b-tarkeimmat-tiedostot-konsultille">Liite B: Tärkeimmät tiedostot konsultille</h3>
+      <ul>
+      <li><strong><code>docs/sales/ENTERPRISE_WINNING_SALES_STRATEGY.md</code></strong> — Enterprise-myyntistrategia SWOT, 4P, markkinatieto</li>
+      <li><strong><code>docs/sales/LIFETIME_FLEET_PERSONAL_WINNING_SALES_STRATEGY.md</code></strong> — Henkilökohtainen fleet-myyntistrategia</li>
+      <li><strong><code>docs/sales/MODULE_2_PITCH_DECK.md</code></strong> — 10-kalvon pitch deck -sisältö</li>
+      <li><strong><code>docs/sales/MODULE_3_TRACTION_PAGE.md</code></strong> — Hard traction -sivu</li>
+      <li><strong><code>docs/sales/MODULE_4_DEFENCE_INSERT.md</code></strong> — Puolustussektorin 3-sivuinen lisäke</li>
+      <li><strong><code>DWS_ROLES_REGISTRY.md</code></strong> — 25 roolin enterprise-taksonomia</li>
+      <li><strong><code>DWS_TRUTH_STANDARD.md</code></strong> — Kanonisten faktojen rekisteri</li>
+      <li><strong><code>AI_AGENT_GUIDELINES.md</code></strong> — Agenttien kehittämisen ohjeet</li>
+      <li><strong><code>Legal/KYA_STANDARD_v1.md</code></strong> — KYA-agenttihallintakehys</li>
+      <li><strong><code>INDUSTRIES.md</code></strong> — 25 toimialan kanoninen rekisteri</li>
+      </ul>
+      <h3 id="liite-c-sanasto">Liite C: Sanasto</h3>
+      <ul>
+      <li><strong>DWS IQ</strong> — Digital Workforce Studio Intelligence — AI-alusta</li>
+      <li><strong>LWM</strong> — Lifetime World Model — asiakaskohtainen maailmanmalli/ontologia</li>
+      <li><strong>Control Room</strong> — Lokaali valvomohuone (LWM + DWS-alusta paikallisella laitteistolla)</li>
+      <li><strong>Situation Room</strong> — Suvereeni johtohuone (aggregoi valvomohuoneiden syötteet)</li>
+      <li><strong>Climate IQ</strong> — CBAM/CSRD/ETS compliance-automaatio</li>
+      <li><strong>Industrial IQ</strong> — Toimialarajat ylittävä signaalianalyysi</li>
+      <li><strong>Aegis</strong> — Suvereeni infrastruktuuri (on-prem, ilmaraollinen)</li>
+      <li><strong>KYA</strong> — Know Your Agent — agenttihallintakehys</li>
+      <li><strong>Article 12</strong> — EU AI Act:n auditointi-lokitus vaatimus</li>
+      <li><strong>CBAM</strong> — Carbon Border Adjustment Mechanism</li>
+      <li><strong>CSRD</strong> — Corporate Sustainability Reporting Directive</li>
+      <li><strong>ETS/ETS2</strong> — Emissions Trading System (päästökauppa)</li>
+      <li><strong>NIS2</strong> — Network and Information Security Directive</li>
+      <li><strong>CER</strong> — Critical Entities Resilience Directive</li>
+      <li><strong>Signaalimyynti</strong> — Outreach vain todellisilla signaaleilla</li>
+      <li><strong>Buffet-periaate</strong> — Julkaistu hinta, sama kaikille</li>
+      <li><strong>Diagonal win</strong> — Jokaisen roolin voitto sytyttää toisen voiton</li>
+      </ul>
+      <hr />
+      <p><em>"Katsomme suoraan silmiin. Litet bättre."</em> <em>— Konsultoinnin käsikirja, 2019 &amp; 2026</em></p>
+      <hr />
+      <p><strong>Tekijänoikeudet:</strong> Risto Anton Paarni © 2019-2026 Lifetime Oy. Kaikki oikeudet pidätetään. Saatavilla: dws10.com | Hinta: €29,95</p>
+      <p><strong>Edellinen versio:</strong> Konsultin käsikirja 2024 v0.16 (Risto Anton Päärni, Salla Limetti, Manish Kumar CTO review)</p>
   </body>
 </html>

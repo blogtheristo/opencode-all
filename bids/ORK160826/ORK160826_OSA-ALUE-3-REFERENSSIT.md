@@ -51,7 +51,7 @@ DWS IQ 6 on kehitetty alusta loppuun käyttäen Claude Code CLI -kehitysympäris
 | Kehitysnopeus (MCP Hub käyttöönotto)         | +62 % verrattuna perinteiseen kehitykseen                  |
 | GitHub: suljettuja PR:iä dws6-repositoriossa | 1 500+ (2024–2026)                                         |
 | GitHub Actions -työnkulkuja                  | 15 (CI/CD, tietoturkatarkistukset, automaattiset deployit) |
-| Agentit tuotannossa                          | 16+ TypeScript-agenttia                                    |
+| Agentit tuotannossa                          | 58 agenttia (88 kyvykkyyttä)                                    |
 
 **MCP Hub -arkkitehtuurin rooli kehitysnopeudessa:**
 
@@ -63,7 +63,7 @@ DWS IQ 6 on kehitetty alusta loppuun käyttäen Claude Code CLI -kehitysympäris
 **Järjestelmän rakenne (tuotannossa):**
 
 - **Arkkitehtuuri:** Brain-Memory-Body-Hands -viitekehys (deterministinen agenttivastuujako)
-- **Agentit:** 16+ TypeScript-agenttia, kukin rajatulla vastuualueella
+- **Agentit:** 58 agenttia (88 kyvykkyyttä), kukin rajatulla vastuualueella
 - **Tietokanta:** Supabase PostgreSQL + pgvector (vektorimuisti)
 - **RAG:** 15 000+ EU-sääntelydokumenttia, semanttinen haku < 800 ms
 - **Tietoturva:** EU AI Act Article 12, RLS, JWT, AES-256-GCM, immutable audit trail

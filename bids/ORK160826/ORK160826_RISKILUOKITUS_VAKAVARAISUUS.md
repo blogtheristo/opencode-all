@@ -77,7 +77,7 @@ Vainu-datan perusteella **Asiakastieto-riskiluokitusta ei voida vahvistaa täst�
 
 Lifetime Oy on ollut **aktiivisessa tuotekehitysvaiheessa** koko tarkastelujakson ajan. Tilinpäätösluvut heijastavat tätä strategista valintaa, eivät liiketoiminnan heikkoutta.
 
-Yhtiö on investoinut määrätietoisesti DWS IQ 6 -alustan rakentamiseen — 16+ tekoälyagentin tuotantojärjestelmä, joka kattaa 20 toimialaa EU-sääntelyautomaatiossa. Tämä kehitystyö on tehty pitkälti yrittäjän omalla työpanoksella ilman ulkopuolista rahoitusta, minkä vuoksi:
+Yhtiö on investoinut määrätietoisesti DWS IQ 6 -alustan rakentamiseen — 58 agentin tuotantojärjestelmä, joka kattaa 25 toimialaa EU-sääntelyautomaatiossa. Tämä kehitystyö on tehty pitkälti yrittäjän omalla työpanoksella ilman ulkopuolista rahoitusta, minkä vuoksi:
 
 - **Omavaraisuusaste on negatiivinen** — kehityskulut kirjattu tuloslaskelmaan, ei aktivoitu taseeseen (konservatiivinen kirjanpitokäytäntö)
 - **Liikevaihto tilikaudella 7/2025 on €22 400** — tilikausi päättyi ennen Q1/2026 sopimuksia; luku ei edusta liiketoiminnan nykytilaa
