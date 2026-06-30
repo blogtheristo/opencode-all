@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.0
+Version: 2.1
 
 Sessions & Modifications:
 
+- Version: 2.1 | Tool: Claude Code | Session: claude/brexit-us-eu-interdependence-m6si45 | Date: 30.06.2026 | Changes: Registered post #35 (`brexit-interdependence-moat-us-eu.html`) — sovereignty essay arguing Brexit's sovereignty goal was partly right but its ~4–6% GDP operational cost was too high, so interdependence (not exit) is the moat for the US + EU. Written to §12 house voice; DWS connection kept implicit. Weaves three editorial angles: fork-the-stack vs own-the-governance-layer parallel, the economic (not political) coalition with Switzerland/Singapore/Nordics as winners, and the asymmetric-cost lesson (sovereignty without interdependence = negative ROI). Added to §3 registry, the `latestPosts` array in `blog/index.html` (new Text of the Day), and the `posts` array in `scripts/inject-blog-nav.cjs`. Ran the injector. Dual-folder synced to `landing-pages/onelifetime-world/`.
 - Version: 2.0 | Tool: Claude Code | Session: claude/deepseek-v4-flash-hybrid-0niopt | Date: 27.06.2026 | Changes: Registered post #34 (`deepseek-v4-flash-hybrid-inference.html`) — community field note by Yannick Nick (@keennay) on DeepSeek V4 Flash running at native FP4+FP8 precision on 2x RTX Pro 6000 + 256 GB DDR5 via KTransformers hybrid GPU/CPU inference. First community-authored post; author/editor attribution split in meta, JSON-LD, byline, and signature. Added to §3 registry, `latestPosts` array in `blog/index.html` (new Text of the Day), and `posts` array in `scripts/inject-blog-nav.cjs`. Ran injector. Dual-folder synced to `landing-pages/onelifetime-world/`. Field note companion: `docs/field-notes/2026-06-27-deepseek-v4-flash-hybrid-gpu-cpu-inference.md`.
 - Version: 1.9 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 25.06.2026 | Changes: Registered post #33 (`eu-sovereign-ai-factories-35-supercomputers.html`) — sovereignty field note on NVIDIA's June 2026 European AI-supercomputer buildout (35 systems / 23 countries / ~800 AI exaflops / EuroHPC AI Factories), framing the EU-sovereign upstream vs the customer-owned edge. Added to §3 registry, the `latestPosts` array in `blog/index.html` (new Text of the Day), and the `posts` array in `scripts/inject-blog-nav.cjs`. Ran the injector. Dual-folder synced to `landing-pages/onelifetime-world/`.
 - Version: 1.8 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 24.06.2026 | Changes: Registered post #32 (`nvidia-vera-rubin-ai-factory.html`) — NVIDIA partner note on Vera Rubin and the POD-scale AI factory, written to the §12.5 partner-note sub-voice (gift → turn → honest limit → short version). Added to §3 registry, the `latestPosts` array in `blog/index.html` (new Text of the Day), and the `posts` array in `scripts/inject-blog-nav.cjs`. Ran the injector for prev/next + share + product cards. Dual-folder synced to `landing-pages/onelifetime-world/`.
@@ -143,6 +144,7 @@ Chronological order. Update this table when adding/removing posts.
 | 32  | `nvidia-vera-rubin-ai-factory.html`                  | NVIDIA Vera Rubin — The AI Factory Grows Up. The Sovereign Edge Is Still a Box. (EN, NVIDIA partner note)                       | 24 Jun 2026 |
 | 33  | `eu-sovereign-ai-factories-35-supercomputers.html`   | Europe's AI Factory Came Home — 35 Supercomputers, and Why the Edge Still Needs a Box (EN, sovereignty field note)              | 25 Jun 2026 |
 | 34  | `industrial-intelligence-weekly-2026-06-28.html`     | Industrial Intelligence Weekly — Five Signals from the Regulated Economy (EN, market intelligence newsletter)                   | 28 Jun 2026 |
+| 35  | `brexit-interdependence-moat-us-eu.html`             | Sovereignty Is a Setting, Not a Switch — What the US and EU Can Learn from Brexit (EN, sovereignty essay)                       | 30 Jun 2026 |
 
 ---
 

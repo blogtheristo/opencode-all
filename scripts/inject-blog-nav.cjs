@@ -192,6 +192,11 @@ const posts = [
     title: 'Industrial Intelligence Weekly — Five Signals from the Regulated Economy',
     date: '28 Jun 2026',
   },
+  {
+    file: 'brexit-interdependence-moat-us-eu.html',
+    title: 'Sovereignty Is a Setting, Not a Switch — What the US and EU Can Learn from Brexit',
+    date: '30 Jun 2026',
+  },
 ];
 
 // Three featured products
