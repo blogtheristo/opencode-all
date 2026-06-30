@@ -111,7 +111,7 @@
 
 | Year | Regulation | Companies Affected | Market Impact |
 |------|-----------|-------------------|---------------|
-| **2025-2026** | **CSRD** (Corporate Sustainability Reporting) | 50,000+ EU enterprises | **€2B** compliance software |
+| **2025-2026** | **CSRD** (Corporate Sustainability Reporting) | Fewer than ~5,000 large EU enterprises (post-Omnibus) | **€2B** compliance software |
 | **2026-2028** | **Fit for 55** – Building renovation wave | Construction, logistics | **€5B** optimization platforms |
 | **2027-2030** | **EPBD** (Energy Performance Buildings) | All major renovations | **€8B** building passports |
 | **2027-2035** | **ETS expansion** (Emissions Trading) | Healthcare, manufacturing, agriculture | **€10B** carbon management |
@@ -1143,7 +1143,7 @@ Even in "everything goes wrong" scenario:
 **PILLAR 2: MANDATORY MARKET (Forced Purchases)**
 
 ✓ €150B EU Fit for 55 compliance costs (regulatory requirement)  
-✓ 50,000+ companies under CSRD mandate (2025-2026 deadline)  
+✓ Fewer than ~5,000 large companies under direct CSRD mandate (post-Omnibus)  
 ✓ Finland implements 6-12 months faster = first-mover advantage  
 ✓ Penalties: €10k-50k annually for non-compliance  
 
@@ -1429,7 +1429,7 @@ The 19-moat fortress is not just defensible—it's a **strategic asset** that cr
 
 **2025 Immediate Compliance Wave**:
 - **Q1**: Finland CSRD deadline (March 31) - 6 months ahead of EU
-- **Q2**: EU-wide CSRD deadline (June 30) - 50,000+ companies must comply
+- **Q2**: EU-wide CSRD deadline (June 30) - fewer than ~5,000 large companies must comply directly (post-Omnibus)
 - **Q3**: Fit for 55 building renovation mandates begin (€5B market opens)
 - **Q4**: ETS Phase IV allocation rules finalized (construction/logistics included)
 

@@ -54,7 +54,7 @@ Lifetime Oy builds **DWS IQ** — the compliance ledger for European industrial
 payments. Every tonne of CO2 tracked like every euro: double-entry bookkeeping
 for CBAM, CSRD, and ETS obligations, running where cloud cannot reach.
 
-50,000+ EU companies must file CBAM declarations and CSRD sustainability
+Fewer than ~5,000 large EU companies (post-Omnibus), with their value chains, must file CBAM declarations and CSRD sustainability
 reports by 2026–2028. The current state: disconnected spreadsheets, manual
 consultants, and compliance tools that require cloud connectivity at industrial
 sites where connectivity is absent. The cost of failure is not just a reporting
@@ -165,7 +165,7 @@ _(1000 characters max — current draft: ~700 characters)_
 
 **Total Addressable Market:**
 
-- 50,000+ EU companies with CSRD obligations (waves 1–3, 2024–2028)
+- Fewer than ~5,000 large EU companies with direct CSRD obligations post-Omnibus (plus value-chain reporters)
 - 4,000+ CBAM importers in steel, cement, aluminium, chemicals (2026 full enforcement)
 - EUR 150B+ European compliance software market (Gartner 2025)
 

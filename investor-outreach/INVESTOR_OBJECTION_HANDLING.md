@@ -40,7 +40,7 @@ Double-entry bookkeeping for CO2. Every compliance event produces a journal entr
 
 A steel mill's ETS surrender flows through to a construction company's CBAM import, becomes their CSRD Scope 3 disclosure, and determines their Taxonomy alignment. Same carbon, four regulatory touchpoints, one auditable ledger.
 
-50,000+ EU companies need this by 2028. We are shipping it now.
+Fewer than ~5,000 large EU companies file directly post-Omnibus, and their value chains need this by 2028. We are shipping it now.
 
 ### 2. "Why can't a Big 4 consultancy or SAP do this?"
 

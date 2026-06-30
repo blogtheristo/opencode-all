@@ -387,7 +387,7 @@ Timeframe:                 ~2 years (2024→2026)
 
 ### Market Opportunity
 
-- **CSRD Mandatory Reporting:** Starting 2025, affects 50,000+ EU companies
+- **CSRD Mandatory Reporting:** Post-Omnibus, directly binds fewer than ~5,000 large EU companies (plus value-chain reporters)
 - **Fit for 55 / EPBD Mandates:** Hitting hard 2025–2028
 - **25 EU-Regulated Industries:** From construction to pharma — forced compliance spend
 - **Regulatory Tailwind:** "Mandatory spend" SaaS with strong adoption drivers
