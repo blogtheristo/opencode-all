@@ -327,7 +327,7 @@ app.use('/api/v1/email', emailRoutes);
 app.use('/api/v1/booking', bookingRoutes);
 app.use('/api/v1/captain', captainRoutes);
 
-// Webhooks (Resend inbound email for digest replies)
+// Webhooks (inbound email for digest replies)
 app.use('/webhooks', webhookRoutes);
 
 // KYA Webhook Bridge (Shufti Pro → Policy Engine)

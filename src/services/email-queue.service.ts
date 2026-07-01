@@ -6,8 +6,8 @@
  * and automatic fallback to direct send when Redis is unavailable.
  *
  * Streams:
- *   email:outbox         — outbound: pending emails to deliver via Resend API
- *   email:inbox          — inbound: received emails from Resend webhooks + other sources
+ *   email:outbox         — outbound: pending emails to deliver via Amazon SES
+ *   email:inbox          — inbound: received emails from SES inbound webhooks + other sources
  *
  * Groups:
  *   email-workers        — consumer group for outbound delivery
@@ -18,8 +18,8 @@
  *   email:inbox-dlq      — failed inbound processing after max retries
  *
  * Architecture:
- *   Resend API ──► email:outbox ──► Redis Stream ──► Resend delivery
- *   Resend webhook ──► /webhooks/resend/inbound ──► email:inbox ──► processing
+ *   Amazon SES ──► email:outbox ──► Redis Stream ──► SES delivery
+ *   SES inbound ──► /webhooks/inbound ──► email:inbox ──► processing
  *   MCP agents / Firehorse ──────────────────────► email:inbox ──► processing
  *
  * Environment variables:
@@ -68,9 +68,9 @@ export interface InboundEmail {
   text: string;
   /** HTML body (optional) */
   html?: string;
-  /** Resend message ID or external reference */
+  /** provider message ID or external reference */
   messageId: string;
-  /** Source: resend-webhook, mcp-agent, firehorse, manual */
+  /** Source: inbound-webhook, mcp-agent, firehorse, manual */
   source: string;
   /** Raw payload for audit */
   rawPayload?: string;
@@ -128,7 +128,7 @@ class EmailQueueService {
   /**
    * Register a handler for inbound emails.
    * The handler receives parsed InboundEmail objects from the inbox stream.
-   * Typically wired to the same logic as the Resend webhook route.
+   * Typically wired to the same logic as the inbound webhook route.
    */
   onInbound(handler: InboundEmailHandler): void {
     this.inboundHandler = handler;
@@ -491,7 +491,7 @@ class EmailQueueService {
 
   /**
    * Push an inbound email to the inbox stream for async processing.
-   * Called from Resend webhook route, MCP agents, or Firehorse automation.
+   * Called from the inbound webhook route, MCP agents, or Firehorse automation.
    * Falls back to direct handler invocation if Redis is unavailable.
    */
   async enqueueInbound(email: InboundEmail): Promise<string> {

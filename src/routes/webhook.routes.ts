@@ -83,7 +83,9 @@ async function sendConfirmationEmail(to: string, subject: string, body: string):
     });
 
     if (!result.ok) {
-      logger.warn('Confirmation email failed', { error: result.error || 'Unknown SES SMTP failure' });
+      logger.warn('Confirmation email failed', {
+        error: result.error || 'Unknown SES SMTP failure',
+      });
       return;
     }
 
@@ -206,7 +208,9 @@ const handleInboundWebhook = async (req: Request, res: Response): Promise<void> 
 
   // 4. Parse command from first non-quoted line (fallback: subject line)
   const bodyParse = parseReplyText(textBody);
-  const subjectParse = bodyParse.command ? { command: null, error: null } : parseSubjectCommand(subject);
+  const subjectParse = bodyParse.command
+    ? { command: null, error: null }
+    : parseSubjectCommand(subject);
   const command = bodyParse.command || subjectParse.command;
   const parseError = bodyParse.error || subjectParse.error;
   const parseSource = bodyParse.command ? 'body' : subjectParse.command ? 'subject' : 'none';
@@ -338,11 +342,8 @@ const handleInboundWebhook = async (req: Request, res: Response): Promise<void> 
   }
 };
 
-// Primary inbound endpoint
+// Primary inbound endpoint (Amazon SES inbound → SNS/HTTPS)
 router.post('/inbound', handleInboundWebhook);
-
-// Backward-compatible alias — intentionally routes to same handler
-router.post('/resend/inbound', handleInboundWebhook);
 
 // ============================================================================
 // HELPERS

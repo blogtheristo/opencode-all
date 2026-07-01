@@ -7,7 +7,7 @@
  *   Day 7: Check-in + feature highlights
  *
  * Uses the existing sendEmail utility (src/utils/send-email.ts) which routes
- * through Amazon SES (primary) with Resend as fallback.
+ * through Amazon SES (SMTP).
  * Sequence state tracked in Supabase onboarding_email_sequences table.
  */
 
@@ -151,7 +151,7 @@ export interface OnboardingEmailResult {
 
 /**
  * Send Day 0 welcome email immediately after onboarding completes.
- * Routes through Amazon SES (primary) with Resend as fallback.
+ * Routes through Amazon SES (SMTP).
  */
 export async function sendWelcomeSequenceEmail(
   config: OnboardingSequenceConfig,
@@ -184,7 +184,7 @@ export async function sendWelcomeSequenceEmail(
 
 /**
  * Send Day 3 "run your first assessment" nudge.
- * Routes through Amazon SES (primary) with Resend as fallback.
+ * Routes through Amazon SES (SMTP).
  */
 export async function sendDay3NudgeEmail(
   config: OnboardingSequenceConfig,
@@ -217,7 +217,7 @@ export async function sendDay3NudgeEmail(
 
 /**
  * Send Day 7 check-in with feature highlights.
- * Routes through Amazon SES (primary) with Resend as fallback.
+ * Routes through Amazon SES (SMTP).
  */
 export async function sendDay7CheckinEmail(
   config: OnboardingSequenceConfig,

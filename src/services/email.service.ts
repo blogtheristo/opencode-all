@@ -1,25 +1,25 @@
 /**
  * DWS IQ 6 - Email Service
  *
- * Production-ready email delivery service with dual-provider support:
- *   - Primary: Resend API
- *   - Fallback: SendGrid API
+ * Amazon SES (SMTP) ONLY. Resend and SendGrid are permanently banned
+ * (see CLAUDE.md Email Rules — SES is the sole transport). All sends route
+ * through src/utils/send-email.ts (nodemailer → Amazon SES eu-north-1).
  *
  * Features:
- *   - Automatic failover from Resend to SendGrid
+ *   - SES-only delivery via the shared sendEmail() util
  *   - Structured logging via project logger
  *   - Supabase email_logs persistence (when configured)
  *   - HTML templates for all transactional email types
  *
  * Environment variables:
- *   RESEND_API_KEY   - Resend API key (primary provider)
- *   SENDGRID_API_KEY - SendGrid API key (fallback provider)
+ *   SMTP_HOST / SMTP_USER / SMTP_PASS / SMTP_SECURE - Amazon SES SMTP creds
  *   EMAIL_FROM       - Sender address (default: risto@onelifetime.world)
  *   SUPABASE_URL     - Supabase project URL (for email logging)
  *   SUPABASE_SERVICE_KEY - Supabase service role key (for email logging)
  */
 
 import logger from '../utils/logger.js';
+import { sendEmail as sendEmailViaSes } from '../utils/send-email.js';
 import {
   welcomeTemplate,
   passwordResetTemplate,
@@ -63,21 +63,17 @@ interface EmailLogEntry {
 
 class EmailService {
   private readonly fromAddress: string;
-  private readonly resendApiKey: string | undefined;
-  private readonly sendgridApiKey: string | undefined;
   private readonly supabaseUrl: string | undefined;
   private readonly supabaseServiceKey: string | undefined;
 
   constructor() {
     this.fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
-    this.resendApiKey = process.env.RESEND_API_KEY;
-    this.sendgridApiKey = process.env.SENDGRID_API_KEY;
     this.supabaseUrl = process.env.SUPABASE_URL;
     this.supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
 
-    if (!this.resendApiKey && !this.sendgridApiKey) {
+    if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
       logger.warn(
-        'No email provider configured. Set RESEND_API_KEY or SENDGRID_API_KEY. Emails will be logged but not delivered.',
+        'Amazon SES SMTP not configured. Set SMTP_HOST/SMTP_USER/SMTP_PASS. Emails will be logged but not delivered.',
       );
     }
   }
@@ -196,12 +192,12 @@ class EmailService {
   }
 
   // ----------------------------------------------------------
-  // CORE SEND LOGIC (PRIVATE)
+  // CORE SEND LOGIC (PRIVATE) — Amazon SES only
   // ----------------------------------------------------------
 
   /**
-   * Send an email through Resend (primary) with SendGrid fallback.
-   * Logs every attempt to Supabase when configured.
+   * Send an email through Amazon SES (via src/utils/send-email.ts).
+   * Logs every attempt to Supabase email_logs when configured.
    */
   private async sendEmail(options: EmailOptions): Promise<void> {
     const { to, subject, html, templateType, metadata } = options;
@@ -210,96 +206,36 @@ class EmailService {
       templateType: templateType || 'custom',
     });
 
-    // Attempt primary provider (Resend)
-    if (this.resendApiKey) {
-      try {
-        await this.sendViaResend(to, subject, html);
-        logger.info('Email sent via Resend', {
-          templateType: templateType || 'custom',
-          transport: 'resend',
-        });
-        await this.logEmail({
-          to_email: to,
-          from_email: this.fromAddress,
-          subject,
-          template_type: templateType || null,
-          status: 'sent',
-          sent_at: new Date().toISOString(),
-          error: null,
-          metadata: metadata || null,
-        });
-        return;
-      } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : 'Unknown Resend error';
-        logger.warn('Resend send failed, attempting SendGrid fallback', {
-          error: errorMessage,
-        });
-      }
-    }
+    const result = await sendEmailViaSes({
+      from: this.fromAddress,
+      to,
+      subject,
+      html,
+      source: 'platform',
+      templateType: templateType || undefined,
+      metadata,
+    });
 
-    // Attempt fallback provider (SendGrid)
-    if (this.sendgridApiKey) {
-      try {
-        await this.sendViaSendGrid(to, subject, html);
-        logger.info('Email sent via SendGrid (fallback)', {
-          templateType: templateType || 'custom',
-          transport: 'sendgrid',
-        });
-        await this.logEmail({
-          to_email: to,
-          from_email: this.fromAddress,
-          subject,
-          template_type: templateType || null,
-          status: 'sent',
-          sent_at: new Date().toISOString(),
-          error: null,
-          metadata: metadata || null,
-        });
-        return;
-      } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : 'Unknown SendGrid error';
-        logger.error('SendGrid send failed', { error: errorMessage });
-
-        // Log the failure
-        await this.logEmail({
-          to_email: to,
-          from_email: this.fromAddress,
-          subject,
-          template_type: templateType || null,
-          status: 'failed',
-          sent_at: null,
-          error: errorMessage,
-          metadata: metadata || null,
-        });
-
-        throw new Error(`Email delivery failed through all providers: ${errorMessage}`);
-      }
-    }
-
-    // No provider available - log only
-    if (!this.resendApiKey && !this.sendgridApiKey) {
-      logger.warn('No email provider configured - email not delivered', {
-        to,
-        subject,
+    if (result.ok) {
+      logger.info('Email sent via SES', {
+        templateType: templateType || 'custom',
+        transport: result.transport || 'ses',
       });
       await this.logEmail({
         to_email: to,
         from_email: this.fromAddress,
         subject,
         template_type: templateType || null,
-        status: 'failed',
-        sent_at: null,
-        error: 'No email provider configured',
+        status: 'sent',
+        sent_at: new Date().toISOString(),
+        error: null,
         metadata: metadata || null,
       });
       return;
     }
 
-    // Resend was configured but failed and SendGrid is not configured
-    logger.error('Primary provider failed and no fallback configured', {
-      to,
-      subject,
-    });
+    const errorMessage = result.error || 'SES send failed';
+    logger.error('SES send failed', { error: errorMessage });
     await this.logEmail({
       to_email: to,
       from_email: this.fromAddress,
@@ -307,65 +243,10 @@ class EmailService {
       template_type: templateType || null,
       status: 'failed',
       sent_at: null,
-      error: 'Primary provider failed; no fallback configured',
+      error: errorMessage,
       metadata: metadata || null,
     });
-    throw new Error('Email delivery failed: primary provider failed and no fallback configured');
-  }
-
-  // ----------------------------------------------------------
-  // PROVIDER IMPLEMENTATIONS
-  // ----------------------------------------------------------
-
-  /**
-   * Send email via Resend REST API.
-   * @see https://resend.com/docs/api-reference/emails/send-email
-   */
-  private async sendViaResend(to: string, subject: string, html: string): Promise<void> {
-    const response = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.resendApiKey}`,
-      },
-      body: JSON.stringify({
-        from: this.fromAddress,
-        to: [to],
-        subject,
-        html,
-      }),
-    });
-
-    if (!response.ok) {
-      const errorBody = await response.text();
-      throw new Error(`Resend API error (${response.status}): ${errorBody}`);
-    }
-  }
-
-  /**
-   * Send email via SendGrid v3 Mail Send API.
-   * @see https://docs.sendgrid.com/api-reference/mail-send/mail-send
-   */
-  private async sendViaSendGrid(to: string, subject: string, html: string): Promise<void> {
-    const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.sendgridApiKey}`,
-      },
-      body: JSON.stringify({
-        personalizations: [{ to: [{ email: to }] }],
-        from: { email: this.fromAddress },
-        subject,
-        content: [{ type: 'text/html', value: html }],
-      }),
-    });
-
-    // SendGrid returns 202 on success
-    if (!response.ok && response.status !== 202) {
-      const errorBody = await response.text();
-      throw new Error(`SendGrid API error (${response.status}): ${errorBody}`);
-    }
+    throw new Error(`Email delivery failed via Amazon SES: ${errorMessage}`);
   }
 
   // ----------------------------------------------------------

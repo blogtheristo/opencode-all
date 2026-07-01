@@ -22,13 +22,14 @@ export { outreachScheduler } from './scheduler.js';
 export { generateDailyDigest, sendDailyDigestEmail } from './daily-digest.js';
 export { generateProspectEmail } from './prospect-email-templates.js';
 export type { EmailType, ProspectContext } from './prospect-email-templates.js';
-export { CADENCE, NUDGE_TEMPLATES, getNudgeTemplate, getNextNudgeInterval, isMaxedOut } from './cadence.js';
 export {
-  parseReplyText,
-  generateThreadToken,
-  verifyResendSignature,
-  isAuthorizedSender,
-} from './reply-parser.js';
+  CADENCE,
+  NUDGE_TEMPLATES,
+  getNudgeTemplate,
+  getNextNudgeInterval,
+  isMaxedOut,
+} from './cadence.js';
+export { parseReplyText, generateThreadToken, isAuthorizedSender } from './reply-parser.js';
 export type { UpdateCommand, ParseResult, ApplyResult } from './reply-parser.js';
 export type {
   Organization,

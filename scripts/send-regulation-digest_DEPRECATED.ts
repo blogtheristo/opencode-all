@@ -8,8 +8,8 @@
  * Usage:
  *   npx tsx scripts/send-regulation-digest.ts
  *
- * Email: risto@onelifetime.world (Amazon SES primary, Resend fallback)
- * Required: SMTP_* (SES) or RESEND_API_KEY
+ * Email: risto@onelifetime.world (Amazon SES)
+ * Required: SMTP_* (Amazon SES)
  * Optional: REGULATION_DIGEST_EMAIL, EMAIL_FROM, SKIP_TIME_CHECK
  */
 
@@ -47,7 +47,7 @@ async function main(): Promise<void> {
 
   const recipient = process.env.REGULATION_DIGEST_EMAIL || process.env.OUTREACH_DIGEST_EMAIL || 'risto@lifetime.fi';
   const fromAddress = process.env.EMAIL_FROM || 'risto@onelifetime.world';
-  const hasTransport = !!(process.env.SMTP_HOST || process.env.RESEND_API_KEY);
+  const hasTransport = !!process.env.SMTP_HOST;
 
   // Step 1: Fetch regulatory news
   console.log('Fetching regulatory news from EU sources...');
@@ -69,12 +69,12 @@ async function main(): Promise<void> {
   const text = buildRegulationDigestPlainText(digest);
 
   if (!hasTransport) {
-    console.log('\n--- No SMTP or RESEND_API_KEY, printing to console ---\n');
+    console.log('\n--- No SMTP (Amazon SES), printing to console ---\n');
     console.log(text);
     return;
   }
 
-  // Step 3: Send (SMTP/SES primary, Resend fallback)
+  // Step 3: Send via Amazon SES (SMTP)
   const dateStr = new Date().toLocaleDateString('en-GB', {
     weekday: 'short',
     month: 'short',

@@ -6,7 +6,7 @@
  *   2. Sales Outreach — product pitch to CSRD-obligated companies
  *   3. Partnership — peer/integration conversation
  *
- * Each returns { subject, html, text } ready for Resend.
+ * Each returns { subject, html, text } ready for Amazon SES.
  * Templates use prospect data from v_outreach_enriched.
  */
 
