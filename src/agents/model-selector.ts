@@ -270,7 +270,7 @@ export const MODEL_CATALOG: Record<ModelTier, TierConfig> = {
         supportsTools: true,
       },
       {
-        id: 'claude-sonnet-4-20250514',
+        id: 'claude-sonnet-5',
         provider: 'anthropic',
         diskGb: 0,
         ramGb: 0,

@@ -82,7 +82,7 @@ export class ThemisAgent extends BaseAgent {
         'legal-risk-scoring',
         'bias-detection',
       ],
-      model: 'claude-sonnet-4-6',
+      model: 'claude-sonnet-5',
       modelTier: 'heavy',
     });
     this.soulPrompt = `You are Themis, the Case Coordinator and legal intelligence agent for DWS IQ.

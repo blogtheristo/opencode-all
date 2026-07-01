@@ -275,7 +275,7 @@ export class DesignerAgent extends BaseAgent {
         'accessibility-check',
         'responsive-design',
       ],
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-sonnet-5',
     });
 
     // Designer-friendly SOUL prompt

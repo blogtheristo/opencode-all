@@ -301,7 +301,7 @@ export class ArgusAgent extends BaseAgent {
         'change-detection',
         'geospatial-intelligence',
       ],
-      model: 'claude-sonnet-4-20250514', // Vision-capable model for SAR analysis
+      model: 'claude-sonnet-5', // Vision-capable model for SAR analysis
       modelTier: 'lite',
     });
   }

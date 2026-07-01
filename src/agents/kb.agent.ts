@@ -339,7 +339,7 @@ export class KBAgent extends BaseAgent {
       name: 'kb',
       description: 'LLM-maintained Knowledge Base — compiles raw sources into a markdown wiki with auto-maintained indexes. Supports compile, ask, research, and lint operations.',
       capabilities: ['knowledge-base', 'wiki', 'research', 'compile', 'lint', 'q&a'],
-      model: 'claude-sonnet-4-6',
+      model: 'claude-sonnet-5',
       loop: {
         maxIterations: 15,
         allowDelegation: true,
