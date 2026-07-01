@@ -25,7 +25,7 @@ published to public-site folders (CLAUDE.md Non-Negotiable Rule 5).
 | WP04 | The Forced Purchase Timeline — EU regulation as a buying calendar                        | §11–§12            | CFO / Sustainability        | CBAM 2026 → ETS2 2027 → EPBD 2028 → Fit for 55 2030                                   | 2           |
 | WP05 | Sovereign defence & dual-use intelligence with Aegis                                     | §3                 | Defence / CISO              | Air-gapped, SAR, export control, EU AI Act Art. 12                                    | 3           |
 | WP06 | Living strategy 2026 — scenario analytics without guessing probabilities                 | §8                 | Strategic leadership        | Risto's 7-step method + AI probability calculation                                    | 3           |
-| WP07 | Capabilities across the product lifecycle — Prototyper to Maintainer, human + agent      | §6 lifecycle       | Product / eng leaders       | Boris Cherny archetypes × DWS maturity mix                                            | 2           |
+| WP07 | Capabilities across the product lifecycle — Prototyper to Maintainer, human + agent      | §6 lifecycle       | Product / eng leaders       | Boris Cherny archetypes × DWS maturity mix                                            | **done**    |
 | WP08 | KYA — Know Your Agent: cryptographic agent governance under the EU AI Act                | §11 + §13          | Security / compliance       | **EXISTS — extend/refresh, don't duplicate** (see Existing whitepapers)               | —           |
 | WP09 | The customer story by buying stage — Buffet, Captain, Vineyard                           | §9–§10             | Sales enablement (internal) | Stage-matched offers; ORK / Outokumpu / Kemira                                        | 3           |
 | WP10 | Cross-industry intelligence — why a 25-industry ontology beats single-vertical tools     | §5 + Industrial IQ | Industrial buyers           | **OVERLAPS existing Sovereign Industrial Intelligence WP — refresh, don't duplicate** | —           |
@@ -47,8 +47,9 @@ Canonical inventory is the manifest in `scripts/bundle-whitepapers-for-llm.cjs`.
 ## Status
 
 - WP01 — DRAFT (this batch)
+- WP07 — DRAFT (this batch)
 - WP08, WP10 — superseded by existing whitepapers above; refresh in place rather than authoring new
-- WP02–WP07, WP09, WP11, WP12 — proposed, awaiting prioritization per HIC
+- WP02–WP06, WP09, WP11, WP12 — proposed, awaiting prioritization per HIC
 
 ## Conventions
 
