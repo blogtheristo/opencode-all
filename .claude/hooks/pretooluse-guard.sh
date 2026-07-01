@@ -152,6 +152,43 @@ case "$FIRST_TOKEN" in
     ;;
 esac
 
+# ── SECRET-FILE READ GUARD ───────────────────────────────────────────────────
+# The settings.json `deny` list blocks the Read TOOL on .env / *secret* /
+# *credentials*, but Bash readers (cat, grep, head, env, printenv, …) bypass it
+# entirely and pull secrets straight into model context. Close that half here,
+# BEFORE the fast-allow safe list below. Read-safe env templates are allowed.
+#
+# .env.example / .sample / .template / .dist and *.md are explicitly permitted.
+_reads_secret_file() {
+  c="$1"
+  # Allow read-safe templates first
+  printf '%s' "$c" | grep -qiE '\.env\.(example|sample|template|dist)\b' && return 1
+  # .env and .env.<anything-else> (.env.local, .env.production, …)
+  printf '%s' "$c" | grep -qE '(^|[[:space:]"=/'\''])\.env([[:space:]"'\'']|$)' && return 0
+  printf '%s' "$c" | grep -qE '\.env\.[A-Za-z0-9_.-]+' && return 0
+  # Key / cert material and credential files
+  printf '%s' "$c" | grep -qiE '\.(pem|key|p12|pfx)([^A-Za-z0-9]|$)' && return 0
+  printf '%s' "$c" | grep -qiE '(^|[/[:space:]])(id_rsa|id_ed25519|id_dsa)([^A-Za-z0-9]|$)' && return 0
+  printf '%s' "$c" | grep -qiE '(secret|credential|service-account)[A-Za-z0-9_.-]*\.(json|ya?ml|txt|env|conf)' && return 0
+  return 1
+}
+
+case "$FIRST_TOKEN" in
+  cat|head|tail|less|more|nl|tac|xxd|od|strings|hexdump|base64|grep|egrep|fgrep|awk|sed|cut|sort|uniq|tr|dd)
+    if _reads_secret_file "$COMMAND"; then
+      block "Reading a secret file via '$FIRST_TOKEN' is not allowed. Secrets live in env vars; do not pull them into context."
+    fi
+    ;;
+  env|printenv)
+    # Bare `env` / `printenv` dump every secret in the environment. The legitimate
+    # `VAR=value cmd` form starts with an assignment, not the bare binary, so it is
+    # unaffected. `printenv NAME` of a secret-looking var is also blocked.
+    if printf '%s' "$COMMAND" | grep -qiE '^(env|printenv)([[:space:]]+(-[a-z0-9]+|[A-Z_]*(KEY|SECRET|TOKEN|PASS|PASSWORD|PASSPHRASE|CREDENTIAL)[A-Z_]*))*[[:space:]]*($|[|>])'; then
+      block "Bare environment dump ('$FIRST_TOKEN') is not allowed — it exposes every secret. Reference a specific non-secret var instead."
+    fi
+    ;;
+esac
+
 # ── SAFE COMMANDS: allow immediately, skip all deny checks ────────────────────
 # These commands may contain arbitrary string content (commit messages,
 # inline scripts) that would false-positive on deny patterns.
