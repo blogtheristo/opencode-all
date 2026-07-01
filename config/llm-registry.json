@@ -1,0 +1,95 @@
+{
+  "_purpose": "Canonical registry of which LLMs DWS subscription products should run on. The weekly task scripts/weekly/llm-currency-check.sh lints src/agents/* against this file and flags drift (deprecated/suspended models still in use, and candidates not yet adopted). Updating 'what is current' is a data edit here — not a code change. See docs/LLM_UPDATE_TASK.md for the full explanation and procedure.",
+  "version": "1.0.0",
+  "updated": "2026-07-01",
+  "statuses": {
+    "current": "Approved and in active use.",
+    "candidate": "Newly available — evaluate for adoption (not yet a hard requirement).",
+    "deprecated": "Still callable but scheduled for removal — migrate to 'replacement'.",
+    "suspended": "Temporarily unavailable (provider/export-control) — must NOT be a hard dependency; needs a fallback.",
+    "retired": "No longer available — calls will error."
+  },
+  "models": [
+    {
+      "id": "claude-sonnet-5",
+      "provider": "anthropic",
+      "tier": "heavy",
+      "status": "current",
+      "notes": "GA 2026-06-30. Intro pricing $2/$10 per MTok through 2026-08-31, then $3/$15. Recommended HEAVY-tier default; replaces claude-sonnet-4-* dated snapshots."
+    },
+    {
+      "id": "claude-opus-4-8",
+      "provider": "anthropic",
+      "tier": "heavy",
+      "status": "current",
+      "notes": "Most capable Opus-tier; board-level synthesis / hardest regulatory analysis."
+    },
+    {
+      "id": "claude-haiku-4-5",
+      "provider": "anthropic",
+      "tier": "standard",
+      "status": "current",
+      "notes": "Canonical ID is claude-haiku-4-5 (repo comments say 'claude-haiku-4.5' — cosmetic, the API ID has no dot)."
+    },
+    {
+      "id": "claude-sonnet-4-20250514",
+      "provider": "anthropic",
+      "tier": "heavy",
+      "status": "deprecated",
+      "replacement": "claude-sonnet-5",
+      "notes": "Dated Sonnet 4 snapshot pinned in model-selector.ts HEAVY tier. Deprecated and on the retirement track — migrate to claude-sonnet-5."
+    },
+    {
+      "id": "claude-sonnet-4-6",
+      "provider": "anthropic",
+      "status": "deprecated",
+      "replacement": "claude-sonnet-5",
+      "notes": "Superseded by Sonnet 5 (referenced by kb.agent.ts and others)."
+    },
+    {
+      "id": "claude-sonnet-4-5",
+      "provider": "anthropic",
+      "status": "deprecated",
+      "replacement": "claude-sonnet-5"
+    },
+    {
+      "id": "claude-fable-5",
+      "provider": "anthropic",
+      "status": "suspended",
+      "notes": "Offline since 2026-06-12 under a US export-control directive suspending foreign-national access. No announced return date. Must NOT be a hard dependency for any subscription product — route to a claude-opus-4-8 fallback until it returns."
+    },
+    {
+      "id": "qwen3.6-35b-a3b",
+      "provider": "vllm-local",
+      "tier": "standard",
+      "status": "current",
+      "notes": "nvidia/Qwen3.6-35B-A3B-NVFP4, ~18GB, Blackwell/DGX Spark via vLLM/TensorRT-LLM, tool-calling. Local standard-tier tool path."
+    },
+    {
+      "id": "qwen3.6-27b-nvfp4",
+      "provider": "vllm-local",
+      "tier": "standard",
+      "status": "candidate",
+      "notes": "New 2026-07 NVIDIA NVFP4 quant of Alibaba Qwen3.6-27B (coding-focused). ~4x memory reduction vs FP16 on Blackwell (DGX Spark, RTX PRO 6000); strong vLLM throughput with MTP speculative decoding. Evaluate as a local coding/standard-tier option."
+    },
+    { "id": "qwen3.2-32b", "provider": "ollama-local", "tier": "heavy", "status": "current" },
+    {
+      "id": "diffusiongemma-26b",
+      "provider": "vllm-local",
+      "tier": "standard",
+      "status": "current",
+      "notes": "Gemma 4 26B MoE parallel-diffusion LM, NVFP4 ~14GB on Blackwell. No tool use — tool-requiring agents fall through to qwen3.6-35b-a3b."
+    },
+    {
+      "id": "llama-3.3-70b-versatile",
+      "provider": "groq",
+      "tier": "standard",
+      "status": "current"
+    },
+    { "id": "llama-3.3-8b-instant", "provider": "groq", "tier": "lite", "status": "current" },
+    { "id": "qwen2.5:7b", "provider": "ollama-local", "tier": "lite", "status": "current" },
+    { "id": "qwen2.5-7b", "provider": "vllm-local", "tier": "lite", "status": "current" },
+    { "id": "gemini-2.5-flash-lite", "provider": "google", "tier": "lite", "status": "current" },
+    { "id": "gemini-3-pro", "provider": "google", "tier": "heavy", "status": "current" }
+  ]
+}
