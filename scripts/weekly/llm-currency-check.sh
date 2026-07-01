@@ -131,5 +131,20 @@ if (suggestions.length > 0) {
 NODE
 
   echo "[llm-currency] summary written: ${SUMMARY}"
+
+  # Deliver the report by email (Amazon SES only — never Resend). This is what
+  # makes a report actually arrive; without it the task is log-only. Non-fatal:
+  # a send failure is logged loudly but does not fail the scan.
+  if command -v npx >/dev/null 2>&1; then
+    echo "[llm-currency] sending report to ${EMAIL_RECIPIENT:-risto@onelifetime.world} via SES..."
+    if npx --yes tsx "${ROOT}/scripts/send-model-currency-report.ts"; then
+      echo "[llm-currency] report email sent"
+    else
+      echo "[llm-currency] WARN: report email NOT sent (see error above; check SMTP_* SES creds on this host)"
+    fi
+  else
+    echo "[llm-currency] WARN: npx not on PATH; report not emailed (summary JSON still written)"
+  fi
+
   echo "[$(date -u +%FT%TZ)] llm-currency-check end"
 } | tee -a "${LOG}"
