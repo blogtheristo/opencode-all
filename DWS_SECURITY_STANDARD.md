@@ -1,8 +1,8 @@
 ---
 title: DWS Security Standard
-version: 2.5
+version: 2.6
 created: 2026-02-07
-last_modified: 2026-05-24
+last_modified: 2026-06-21
 author: Lifetime Oy Security Team
 language: en
 languages_available: [en]
@@ -19,13 +19,14 @@ toc-depth: 3
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.5
+Version: 2.6
 
 Sessions & Modifications:
 
+- Version: 2.6 | Tool: Claude Code | Session: claude/ai-codebase-security-audit-BgY2H | Date: 21.06.2026 | Changes: Added Secret Egress Control to Layer 3 (Data Protection) — closes the write-side exfiltration gap. New shared pattern engine `.claude/hooks/secret-patterns.sh` consumed by three hooks: read-bypass guard in `pretooluse-guard.sh` (blocks Bash `cat`/`grep`/`env`/`printenv`/`base64` of `.env*`/`*.pem`/`*.key`/`*secret*`, which previously bypassed `Read`-tool deny rules), input scan in `secret-scan.sh` (now also catches bare JWTs, DSNs with embedded creds, Bearer tokens, DB passwords, OAuth client secrets; placeholders allowlisted), and new output scan `secret-output-scan.sh` (PostToolUse/Bash, warns on secrets surfaced in command output). Added matching Secret Egress Rules to CLAUDE.md and defence-in-depth `deny` entries to `.claude/settings.json`.
 - Version: 2.5 | Tool: Claude Code (claude-opus-4-7) | Session: claude/bumblebee-dgx-observability-mzV5U | Date: 24.05.2026 | Changes: Added Section 13.5 (Supply-Chain Inventory — Bumblebee on DGX Spark) documenting the new `bumblebee-collector` container in `infrastructure/dgx-spark/`, OTel metric contract surfaced on the existing Aspire Dashboard (`bumblebee.packages.total`, `bumblebee.exposures.{total,by_severity}`, `bumblebee.scan.{duration_ms,last_success_timestamp}`), pinned upstream SHA in `bumblebee.version`, daily/weekly scan cadence via supercronic, read-only `/host` mount with dropped capabilities, and exposure-catalog handling as untrusted input per §13.
 - Version: 2.4 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: pr-1368-review | Date: 20.05.2026 | Changes: Corrected PR #1368 integration status and versioning; enabled TypeScript redirect sanitization in the Express stack and CSRF enforcement on auth/payment routes; added Vitest coverage for the TypeScript security ports; switched MCP tool classification to fail closed for unknown tools; updated testing and pentest references to the TypeScript paths.
-- Version: 2.3 | Tool: GitHub Copilot (Gemini 2.0 Flash) | Session: claude/mvp-missing-features-pS9La | Date: 20.05.2026 | Changes: Ported legacy November 2025 security components from Python/Flask to TypeScript/Express (Modern CSRF, Redirect Validation, MCP DCR, Tool Colors, Image Prompt Injection); archived legacy Python components as _OLD.py.
+- Version: 2.3 | Tool: GitHub Copilot (Gemini 2.0 Flash) | Session: claude/mvp-missing-features-pS9La | Date: 20.05.2026 | Changes: Ported legacy November 2025 security components from Python/Flask to TypeScript/Express (Modern CSRF, Redirect Validation, MCP DCR, Tool Colors, Image Prompt Injection); archived legacy Python components as \_OLD.py.
 - Version: 2.2 | Tool: Claude Code (Opus 4.6) | Session: claude/connect-kya-dws-cli-0MMIB | Date: 10.04.2026 | Changes: Added Section 18.6 (KYA Control Surfaces — CLI, HTTP, Webhook) documenting the `dws kya status` / `dws kya snap` CLI paths, timing-safe `ADMIN_API_KEY` auth pattern, mandatory forensic dumps, accepted reason codes, and cross-reference to `/kya` slash command; renumbered NIS2 compliance statement to 18.7 and updated it to mention operator CLI path
 - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/audit-shufti-dpa-artifacts-HFEGx | Date: 08.04.2026 | Changes: Updated Section 18.5 with Shufti Pro sub-processor risk assessment (TeleSign noyb complaint, Twilio security incidents, Cloudflare/IPStack risks) from PR #768 DPA clause audit; added ML training prohibition control to IDV partner controls table
 - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/dws-iq-synthetic-nervous-9TtAB | Date: 06.04.2026 | Changes: Added Section 19 (Synthetic Data & Model Fine-Tuning Security) — synthetic data generation controls, model provenance, inference isolation, drift monitoring, adversarial integrity, NIS2 compliance statement for NVIDIA NeMo DataDesigner integration
@@ -48,7 +49,7 @@ Session Links & References:
 Document Status:
 
 - Created: 07.02.2026
-- Last Modified: 24.05.2026
+- Last Modified: 21.06.2026
 - Language: English
 - Languages Available: EN
 - Publication Status: ACTIVE
@@ -272,28 +273,55 @@ The AI Safety Report 2026 recommends **defence-in-depth** — layering multiple 
 
 **Purpose:** Prevent cross-domain attacks and privilege escalation through tool separation.
 
-| Control                          | Implementation                                                                     | Status |
-| -------------------------------- | ---------------------------------------------------------------------------------- | ------ |
-| RED/BLUE tool separation         | MCP Colors classification library with fail-closed handling for unknown tools (src/mcp/security/tool-colors.ts) | Active |
-| Tool approval workflow           | MCP tool access requires authorization                                             | Active |
-| Protected configuration          | Immutable config with restricted write access                                      | Active |
-| Cross-agent privilege prevention | ProtectedConfiguration class (src/config/)                                         | Active |
-| Dynamic Client Registration      | RFC 7591 compliant MCP registration utility for MCP integrations (src/mcp/oauth-handler.ts) | Integration-ready |
+| Control                          | Implementation                                                                                                  | Status            |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------- | ----------------- |
+| RED/BLUE tool separation         | MCP Colors classification library with fail-closed handling for unknown tools (src/mcp/security/tool-colors.ts) | Active            |
+| Tool approval workflow           | MCP tool access requires authorization                                                                          | Active            |
+| Protected configuration          | Immutable config with restricted write access                                                                   | Active            |
+| Cross-agent privilege prevention | ProtectedConfiguration class (src/config/)                                                                      | Active            |
+| Dynamic Client Registration      | RFC 7591 compliant MCP registration utility for MCP integrations (src/mcp/oauth-handler.ts)                     | Integration-ready |
 
 ### Layer 3: Data Protection
 
 **Purpose:** Prevent data exfiltration, injection, and unauthorized access.
 
-| Control                          | Implementation                                                                   | Status |
-| -------------------------------- | -------------------------------------------------------------------------------- | ------ |
-| Domain validation                | Domain Validator prevents data exfiltration to unauthorized domains              | Active |
-| File access control              | Protected system files from agent modification                                   | Active |
-| CSRF protection                  | Modern Sec-Fetch-Site based CSRF on `/api/v1/auth` and `/api/v1/payments` (src/middleware/csrf-protection.ts) | Active |
-| Redirect validation              | Open redirect prevention applied to Express query handling (src/middleware/redirect-validator.ts) | Active |
-| SQL injection prevention         | Secure Query Builder (parameterized queries)                                     | Active |
-| Image prompt injection detection | Detects hidden instructions in images (src/mcp/security/image-sanitizer.ts)      | Integration-ready |
-| Encryption at rest               | AES-256-GCM with customer-managed keys (BYOK/CMEK)                               | Active |
-| Encryption in transit            | TLS 1.3, mTLS for service-to-service                                             | Active |
+| Control                          | Implementation                                                                                                                                                                                             | Status            |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
+| Domain validation                | Domain Validator prevents data exfiltration to unauthorized domains                                                                                                                                        | Active            |
+| File access control              | Protected system files from agent modification                                                                                                                                                             | Active            |
+| CSRF protection                  | Modern Sec-Fetch-Site based CSRF on `/api/v1/auth` and `/api/v1/payments` (src/middleware/csrf-protection.ts)                                                                                              | Active            |
+| Redirect validation              | Open redirect prevention applied to Express query handling (src/middleware/redirect-validator.ts)                                                                                                          | Active            |
+| SQL injection prevention         | Secure Query Builder (parameterized queries)                                                                                                                                                               | Active            |
+| Image prompt injection detection | Detects hidden instructions in images (src/mcp/security/image-sanitizer.ts)                                                                                                                                | Integration-ready |
+| Encryption at rest               | AES-256-GCM with customer-managed keys (BYOK/CMEK)                                                                                                                                                         | Active            |
+| Encryption in transit            | TLS 1.3, mTLS for service-to-service                                                                                                                                                                       | Active            |
+| Secret read-bypass guard         | Bash readers (`cat`/`grep`/`env`/`printenv`/`base64`…) of `.env*`, `*.pem`, `*.key`, `*secret*` blocked at `.claude/hooks/pretooluse-guard.sh` (closes the gap where Bash bypasses `Read`-tool deny rules) | Active            |
+| Secret-write input scan          | `Write`/`Edit`/`Bash` input scanned for secrets before execution (`.claude/hooks/secret-scan.sh`)                                                                                                          | Active            |
+| Secret-output egress scan        | `Bash` command **output** scanned post-execution; agent warned not to persist surfaced secrets (`.claude/hooks/secret-output-scan.sh`)                                                                     | Active            |
+
+#### Secret Egress Control (read + write sides)
+
+Read-tool deny rules (`Read(.env)`, `Read(**/*secret*)`) cover only the read half
+of the threat, and per the Adversa AI disclosure the `settings.json` `deny` list
+can be silently bypassed (e.g. the ~50-subcommand parser cap). The high-severity
+vector in AI-assisted codebases is the agent **writing a secret into a place
+nobody checks** — a committed file, a PR/issue body, a log, or an MCP call. DWS
+closes both halves with a shared pattern engine (`.claude/hooks/secret-patterns.sh`)
+consumed by three hooks:
+
+1. **Read-bypass guard** (PreToolUse/Bash, blocking) — denies Bash reads of secret
+   material so it never enters model context. `.env.example`/`.sample`/`.template`
+   remain readable.
+2. **Input scan** (PreToolUse/Bash+Write+Edit, blocking) — blocks writing a secret
+   into any file or command. Covers provider keys, bare JWTs, DSNs with embedded
+   credentials, `Bearer` tokens, DB passwords, and OAuth client secrets;
+   placeholder values (`your-…`, `user:pass@host`) are allowlisted.
+3. **Output scan** (PostToolUse/Bash, advisory) — scans command output and warns
+   the agent not to persist any secret that surfaced at runtime.
+
+The prompt-layer counterpart lives in `CLAUDE.md` → Security Coding Rules → _Secret
+Egress Rules_. Hooks are the enforcement layer; `settings.json` `deny` is
+defence-in-depth only.
 
 ### Layer 4: Human Oversight (Firehorse Human-in-the-Loop)
 
@@ -880,14 +908,14 @@ await execFile("command", [userInput]);
 
 **Observability surface.** The collector parses Bumblebee's NDJSON output and emits OTel metrics + structured logs to the existing `aspire-dashboard:18888` OTLP/HTTP endpoint — the same pipeline already used by `dws-backend` and `dws-cron` (protocol `http/protobuf`, post-v1.2.0). No new dashboard service. Metrics published:
 
-| Metric                                       | Type      | Purpose                                       |
-| -------------------------------------------- | --------- | --------------------------------------------- |
-| `bumblebee.packages.total`                   | gauge     | Inventoried package count                     |
-| `bumblebee.packages.by_ecosystem`            | gauge     | Breakdown by npm / pypi / go / gem / mcp / ext |
-| `bumblebee.exposures.total`                  | gauge     | Catalog matches in the latest scan            |
-| `bumblebee.exposures.by_severity`            | gauge     | Per-severity counts                           |
-| `bumblebee.scan.duration_ms`                 | histogram | Wall time of each scan                        |
-| `bumblebee.scan.last_success_timestamp`      | gauge     | Staleness alarm for cron failures             |
+| Metric                                  | Type      | Purpose                                        |
+| --------------------------------------- | --------- | ---------------------------------------------- |
+| `bumblebee.packages.total`              | gauge     | Inventoried package count                      |
+| `bumblebee.packages.by_ecosystem`       | gauge     | Breakdown by npm / pypi / go / gem / mcp / ext |
+| `bumblebee.exposures.total`             | gauge     | Catalog matches in the latest scan             |
+| `bumblebee.exposures.by_severity`       | gauge     | Per-severity counts                            |
+| `bumblebee.scan.duration_ms`            | histogram | Wall time of each scan                         |
+| `bumblebee.scan.last_success_timestamp` | gauge     | Staleness alarm for cron failures              |
 
 Per-finding `bumblebee.exposure` events are also logged as structured JSON so the Aspire **Structured Logs** view surfaces the advisory ID, ecosystem, package name, and version of each match.
 
