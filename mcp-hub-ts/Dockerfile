@@ -1,6 +1,6 @@
 # DWS MCP Hub — Cloud Run (TypeScript)
 
-FROM node:22-bookworm-slim AS build
+FROM node:24-bookworm-slim AS build
 WORKDIR /app
 
 COPY package.json package-lock.json ./
@@ -12,7 +12,7 @@ COPY config ./config
 
 RUN npm run build
 
-FROM node:22-bookworm-slim
+FROM node:24-bookworm-slim
 WORKDIR /app
 ENV NODE_ENV=production \
     PORT=8080

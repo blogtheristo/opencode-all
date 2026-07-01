@@ -14,7 +14,6 @@ AGENT HISTORY:
 
 # Investor Intro Note — Ross Yomutbayev, Vesna Capital
 
-
 ---
 
 ## Labor Thesis Opening (2026 Q2 Refresh) — Wedge: MARGIN
@@ -25,9 +24,9 @@ AGENT HISTORY:
 
 **Email body — opening three paragraphs + ask:**
 
-Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts *doing the work itself*, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. *(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)* **DWS 365 Skilled Agents** (powered by the DWS IQ platform) sit on the labor side of that line.
+Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts _doing the work itself_, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. _(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)_ **DWS 365 Skilled Agents** (powered by the DWS IQ platform) sit on the labor side of that line.
 
-16 Skilled Agents are already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the human cost of producing that work, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
+A fleet of skilled agents are already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the human cost of producing that work, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
 
 Gross margin sits above 80% at list and expands as inference cost falls — the price anchor is human labor, not compute, so the curve goes the right way as foundation models commoditize. Our comp set is vertical AI labor companies (Cognition, Sierra, Harvey, Decagon), not horizontal SaaS, and the unit economics tell that story without any heroic assumptions. The spine in one line: **labor-anchored pricing, regulation drives demand, MACC + AppExchange drive distribution.** That is the line we lead with at the Messe round and in PE meetings this quarter.
 
@@ -43,19 +42,19 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 ## Target Profile
 
-| Field          | Value                                                                                    |
-| -------------- | ---------------------------------------------------------------------------------------- |
-| **Name**       | Ross Yomutbayev                                                                          |
+| Field          | Value                                                                                     |
+| -------------- | ----------------------------------------------------------------------------------------- |
+| **Name**       | Ross Yomutbayev                                                                           |
 | **Role**       | Partner, Vesna Capital                                                                    |
-| **Fund**       | Vesna Capital — pre-seed / seed, CEE + Nordic                                            |
-| **Ticket**     | $100K – $500K                                                                            |
-| **Stage**      | Pre-seed / seed                                                                          |
-| **Focus**      | CEE and Nordic founders, high-velocity deal execution                                    |
-| **Decision**   | 3-week commit timeline, no fluff                                                         |
+| **Fund**       | Vesna Capital — pre-seed / seed, CEE + Nordic                                             |
+| **Ticket**     | $100K – $500K                                                                             |
+| **Stage**      | Pre-seed / seed                                                                           |
+| **Focus**      | CEE and Nordic founders, high-velocity deal execution                                     |
+| **Decision**   | 3-week commit timeline, no fluff                                                          |
 | **Edge**       | Building his own AI-driven due diligence engine — understands AI architectures first-hand |
-| **Location**   | Lviv, Ukraine                                                                            |
-| **Intro Type** | Warm — Risto spoke with him recently                                                     |
-| **LinkedIn**   | https://www.linkedin.com/in/ACoAAB88Gc0BIlsr5o5fdrOvObjPaC8H3O8ezRo                      |
+| **Location**   | Lviv, Ukraine                                                                             |
+| **Intro Type** | Warm — Risto spoke with him recently                                                      |
+| **LinkedIn**   | https://www.linkedin.com/in/ACoAAB88Gc0BIlsr5o5fdrOvObjPaC8H3O8ezRo                       |
 
 ## Fit Assessment
 
@@ -76,7 +75,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 ## Strategy
 
-- **Lead with the architecture** — He's building an AI-DD engine. Open with DWS IQ 6's agent architecture (21 agents, MCP, ERP connectors, scoring). His filter is technical moat — satisfy it up front.
+- **Lead with the architecture** — He's building an AI-DD engine. Open with DWS IQ 6's agent architecture (skilled agents, MCP, ERP connectors, scoring). His filter is technical moat — satisfy it up front.
 - **Match his velocity** — 3-week timeline. Propose a concrete path: intro call this week, technical deep-dive next week, term sheet / SAFE signature by week 3. Align the round close to his cadence, not the other way around.
 - **Frame as anchor participation, not lead** — $200K-$300K as a decisive chunk. Leaves room for others, gives him conviction without over-committing.
 - **Ask for CEE + Nordic co-investor intros** — Even if he passes, his Nordic deal flow network is valuable.
@@ -89,7 +88,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 Hi Ross — good talking recently. Quick follow-up on Vesna timing.
 
-Lifetime Oy (Finland) — 21-agent B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports. EUR 7K MRR, 5 customers, 100% retention. V1 launches at Arctic 15 (June 15), Messe Germany commercial push right after.
+Lifetime Oy (Finland) — 21-agent B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports. EUR 7K MRR, 6 customers, 100% retention. V1 launches at Arctic 15 (June 15), Messe Germany commercial push right after.
 
 Raising EUR 650K SAFE at EUR 3.8M cap. Your $100K-$500K range works cleanly — looking for 2-3 anchor commits pre-Arctic. Your 3-week cycle fits. Send the memo?
 
@@ -101,12 +100,12 @@ Hi Ross,
 
 Thanks for the recent conversation. Sending the follow-up we discussed.
 
-DWS IQ 6 is the carbon compliance platform for EU industrial companies. 21 AI agents connect to SAP, IFS Cloud, Dynamics 365, pull operational data, and auto-generate audit-ready ETS / CBAM / CSRD / EU Taxonomy reports. Architecture: MCP-exposed agents, deterministic scoring, full audit trail, EU AI Act compliant, sovereignty audit reasoning lineage.
+DWS IQ 6 is the carbon compliance platform for EU industrial companies. A fleet of skilled agents connect to SAP, IFS Cloud, Dynamics 365, pull operational data, and auto-generate audit-ready ETS / CBAM / CSRD / EU Taxonomy reports. Architecture: MCP-exposed agents, deterministic scoring, full audit trail, EU AI Act compliant, sovereignty audit reasoning lineage.
 
 Given your AI-DD engine work, the architecture is the fastest way in:
 
-- 21 agents, MCP-exposed, JSON-RPC 2.0
-- 32 products across 20 EU-regulated industries
+- a fleet of skilled agents, MCP-exposed, JSON-RPC 2.0
+- 32 products across 25 EU-regulated industries
 - ERP connectors: SAP S/4HANA, IFS Cloud, Dynamics 365
 - Sovereign deployment: EU data residency (Finland/Germany), no CLOUD Act
 - EU AI Act compliant from v0

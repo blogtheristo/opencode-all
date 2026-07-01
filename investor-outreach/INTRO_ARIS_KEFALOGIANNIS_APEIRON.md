@@ -14,7 +14,6 @@ AGENT HISTORY:
 
 # Investor Intro Note — Aris Kefalogiannis, Apeiron Venture Capital
 
-
 ---
 
 ## Labor Thesis Opening (2026 Q2 Refresh) — Wedge: DEFENSE
@@ -25,9 +24,9 @@ AGENT HISTORY:
 
 **Email body — opening three paragraphs + ask:**
 
-Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts *doing the work itself*, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. *(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)* **DWS 365 Skilled Agents** (powered by the DWS IQ platform) sit on the labor side of that line.
+Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts _doing the work itself_, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. _(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)_ **DWS 365 Skilled Agents** (powered by the DWS IQ platform) sit on the labor side of that line.
 
-16 Skilled Agents are already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the human cost of producing that work, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
+A fleet of skilled agents is already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the human cost of producing that work, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
 
 DWS 365 Skilled Agents + the Aegis module are built for dual-use sovereignty — EU residency, no CLOUD Act surface on the data plane, KYA runtime trust (TC-0…TC-4) with leash-snap chain termination. Skilled Agents producing signed artifacts make the stack auditable under defense and critical-infrastructure procurement gates that conventional cloud agents fail. The spine in one line: **labor-anchored pricing, regulation drives demand, MACC + AppExchange drive distribution.** That is the line we lead with at the Messe round and in PE meetings this quarter.
 
@@ -43,17 +42,17 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 ## Target Profile
 
-| Field          | Value                                                                                    |
-| -------------- | ---------------------------------------------------------------------------------------- |
-| **Name**       | Aris Kefalogiannis                                                                       |
-| **Role**       | Partner, Apeiron Venture Capital                                                         |
-| **Fund**       | Apeiron VC — €25M fund, €20M+ dry powder                                                 |
-| **Ticket**     | €300K – €1M initial checks                                                                |
-| **Stage**      | Pre-seed / seed, traction-stage preferred                                                |
-| **Focus**      | Cybersecurity, defense tech, integrated hardware-software                                |
-| **Posture**    | Aggressively deploying — actively looking for traction-stage teams                       |
-| **Intro Type** | Warm — Risto spoke with him recently                                                     |
-| **LinkedIn**   | https://www.linkedin.com/in/ACoAACKap-YBI9u9dpcPsx1keKvO_qeJ0ygTbJY                      |
+| Field          | Value                                                               |
+| -------------- | ------------------------------------------------------------------- |
+| **Name**       | Aris Kefalogiannis                                                  |
+| **Role**       | Partner, Apeiron Venture Capital                                    |
+| **Fund**       | Apeiron VC — €25M fund, €20M+ dry powder                            |
+| **Ticket**     | €300K – €1M initial checks                                          |
+| **Stage**      | Pre-seed / seed, traction-stage preferred                           |
+| **Focus**      | Cybersecurity, defense tech, integrated hardware-software           |
+| **Posture**    | Aggressively deploying — actively looking for traction-stage teams  |
+| **Intro Type** | Warm — Risto spoke with him recently                                |
+| **LinkedIn**   | https://www.linkedin.com/in/ACoAACKap-YBI9u9dpcPsx1keKvO_qeJ0ygTbJY |
 
 ## Fit Assessment
 
@@ -85,7 +84,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 Hi Aris — good talking recently. Quick update: V1 launches at Arctic 15 in 6 weeks (June 15), Messe Germany commercial push right after.
 
-Lifetime Oy — sovereign AI compliance for EU industrial/defense. 21 agents, ETS/CBAM/CSRD auto-reports, plus Aegis dual-use module. EUR 7K MRR, 5 customers, 100% retention, 20 EU-regulated industries.
+Lifetime Oy — sovereign AI compliance for EU industrial/defense. A fleet of skilled agents, ETS/CBAM/CSRD auto-reports, plus Aegis dual-use module. EUR 7K MRR, 6 customers, 100% retention, 25 EU-regulated industries.
 
 Raising EUR 650K SAFE at EUR 3.8M cap — sized for a single anchor check in your €300K-€1M range. Fits your sovereign AI + dual-use + hardware-software thesis. Send the Aegis memo?
 
@@ -97,7 +96,7 @@ Hi Aris,
 
 Thanks for the recent conversation. Following up with what we discussed.
 
-DWS IQ 6 is the sovereign AI compliance platform for EU industrial and defense companies — 21 AI agents connecting to SAP, IFS Cloud, Dynamics 365, auto-generating audit-ready ETS / CBAM / CSRD / EU Taxonomy reports. Aegis module layers dual-use defense/sovereignty controls on the same infrastructure. Full EU data residency (Finland/Germany), no CLOUD Act exposure, EU AI Act compliant.
+DWS IQ 6 is the sovereign AI compliance platform for EU industrial and defense companies — a fleet of skilled agents connecting to SAP, IFS Cloud, Dynamics 365, auto-generating audit-ready ETS / CBAM / CSRD / EU Taxonomy reports. Aegis module layers dual-use defense/sovereignty controls on the same infrastructure. Full EU data residency (Finland/Germany), no CLOUD Act exposure, EU AI Act compliant.
 
 Traction:
 
@@ -105,7 +104,7 @@ Traction:
 - LTV: EUR 70K-120K/year per customer
 - Pilot EUR 4,950 converts to EUR 8,950/year
 - Target: EUR 900K ARR by end 2026
-- 21 AI agents, 32 products, 20 EU-regulated industries
+- A fleet of skilled agents, 32 products, 25 EU-regulated industries
 - V1 launches at Arctic 15 (Helsinki, June 15)
 
 Raising EUR 650K SAFE at EUR 3.8M cap. Your €300K-€1M ticket range anchors the round. Apeiron's sovereign AI + dual-use + integrated hardware-software thesis is the tightest fit I've seen for what we're building.

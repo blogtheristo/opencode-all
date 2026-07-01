@@ -4,11 +4,11 @@
     <title>Lifetime Firehorse Store — Sovereign AI Products &amp; Services</title>
     <link>https://dws10.com/buy/</link>
     <description>Sovereign AI products and services for enterprises and SMEs. EU-hosted, CLOUD Act free. Climate compliance, industrial AI, and expert advisory by Lifetime Oy.</description>
-    <lastBuildDate>2026-05-23T06:33:23.472Z</lastBuildDate>
+    <lastBuildDate>2026-06-24T20:24:47.394Z</lastBuildDate>
     <item>
         <g:id>DWS-IQ-006</g:id>
         <g:title>Lifetime DWS IQ Platform (Version 6)</g:title>
-        <g:description>Stop risking fines and lost tenders. DWS IQ 6 deploys 18+ Skilled Agents with agentic loops (observe-think-act) to amplify Fit for 55, CSRD, and EPBD compliance across 20 EU industries — cutting 90% of manual compliance hours while producing audit-ready documentation. MCP-native, CLI-accessible, EU-hosted.</g:description>
+        <g:description>Stop risking fines and lost tenders. DWS IQ 6 is the orchestration platform that turns Fit for 55, CSRD, and EPBD obligations into audit-ready compliance outcomes — coordinating a fleet of skilled agents across 10 LWM ontology classes and 16 captain hats covering 25+ EU industries, with agentic loops (observe-think-act) that cut 90% of manual compliance hours. MCP-native, CLI-accessible, EU-hosted.</g:description>
         <g:link>https://dws10.com/products/dwsiq.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
         <g:price>4999.00 EUR</g:price>
@@ -127,26 +127,9 @@
         <g:content_language>en</g:content_language>
     </item>
     <item>
-        <g:id>expert-services</g:id>
-        <g:title>Workshop 3 Days - Expert Advisory &amp; Implementation _OLD</g:title>
-        <g:description>Three days that save your team three months. Intensive hands-on workshop covering compliance report design, workflow automation, and strategic roadmap for Fit for 55, CSRD, and EU AI Act. Leave with working implementations, not just slide decks.</g:description>
-        <g:link>https://dws10.com/products/expert-services.html</g:link>
-        <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
-        <g:price>4500.00 EUR</g:price>
-        <g:availability>in_stock</g:availability>
-        <g:condition>new</g:condition>
-        <g:brand>Lifetime</g:brand>
-        <g:mpn>EXP-SVC-2026</g:mpn>
-        <g:identifier_exists>false</g:identifier_exists>
-        <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
-        <g:custom_label_0>advisory</g:custom_label_0>
-        <g:target_country>FI</g:target_country>
-        <g:content_language>en</g:content_language>
-    </item>
-    <item>
         <g:id>consulting-hourly</g:id>
-        <g:title>Senior Specialist – Hourly Consulting</g:title>
-        <g:description>Expert compliance guidance without a long-term commitment. Book by the hour for Fit for 55, CSRD, EU AI Act, or governance challenges across all 16 regulated EU industries. Most clients start with a 4-hour assessment.</g:description>
+        <g:title>Senior Compliance Specialist — Retainer + Outcomes</g:title>
+        <g:description>Compliance expertise without long-term lock-in. Retainer model with hours mapped to captain-hat outcomes (CSRD report, EU AI Act gap, NIS2 audit) across 16 captain hats covering 25+ EU regulated industries. €250/h backstop; default to outcome-priced packages because that&apos;s what regulators audit.</g:description>
         <g:link>https://dws10.com/products/consulting.html</g:link>
         <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
         <g:price>250.00 EUR</g:price>
@@ -154,23 +137,6 @@
         <g:condition>new</g:condition>
         <g:brand>Lifetime</g:brand>
         <g:mpn>CONSULT-HR-2026</g:mpn>
-        <g:identifier_exists>false</g:identifier_exists>
-        <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
-        <g:custom_label_0>advisory</g:custom_label_0>
-        <g:target_country>FI</g:target_country>
-        <g:content_language>en</g:content_language>
-    </item>
-    <item>
-        <g:id>LIFETIME-EXP-001</g:id>
-        <g:title>Expert Advisory &amp; Implementation _OLD</g:title>
-        <g:description>Your dedicated compliance strategist. Monthly retainer for ongoing report design, workflow optimization, and board-level advisory on Fit for 55, CSRD, and EU AI Act. Clients typically reduce compliance costs by 40% within the first quarter.</g:description>
-        <g:link>https://dws10.com/products/expert-advisory.html</g:link>
-        <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
-        <g:price>3000.00 EUR</g:price>
-        <g:availability>in_stock</g:availability>
-        <g:condition>new</g:condition>
-        <g:brand>Lifetime</g:brand>
-        <g:mpn>EXP-ADV-2026</g:mpn>
         <g:identifier_exists>false</g:identifier_exists>
         <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
         <g:custom_label_0>advisory</g:custom_label_0>
@@ -191,13 +157,14 @@
         <g:identifier_exists>false</g:identifier_exists>
         <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
         <g:custom_label_0>advisory</g:custom_label_0>
+        <g:custom_label_1>featured</g:custom_label_1>
         <g:target_country>FI</g:target_country>
         <g:content_language>en</g:content_language>
     </item>
     <item>
         <g:id>aws-consultancy</g:id>
-        <g:title>AI Engineering &amp; Cloud Solutions Consultancy</g:title>
-        <g:description>25 hours of senior cloud architect time to assess, plan, and implement your AI and cloud infrastructure. Multi-cloud expertise across AWS, Azure, GCP. Includes a complimentary 4-hour strategy workshop to identify quick wins and avoid costly mistakes.</g:description>
+        <g:title>EU-Sovereign AI Engineering &amp; Cloud Consultancy</g:title>
+        <g:description>EU-sovereign AI engineering — 25 hours of senior architect time deploying Claude / Mistral / Llama on Scaleway, OVH, or owned DGX Spark. ZDR contracts, NIS2-aligned network design, and CLOUD Act exposure assessment included. The Anthropic-aligned US services firms can&apos;t ship this; we can. Multi-cloud across AWS, Azure, GCP for hybrid sovereignty workloads.</g:description>
         <g:link>https://dws10.com/buy/page2/</g:link>
         <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
         <g:price>3750.00 EUR</g:price>
@@ -213,8 +180,8 @@
     </item>
     <item>
         <g:id>conversational-agent</g:id>
-        <g:title>Conversational Agent Solution</g:title>
-        <g:description>Deploy AI agents where your team already works — WhatsApp, Teams, Zoom, or a secure webhook. Custom conversational agents for enterprise workflows with your choice of LLM (Claude, GPT, Groq, or self-hosted for data sovereignty). Live in 25 hours.</g:description>
+        <g:title>EU-Hosted Conversational Agent</g:title>
+        <g:description>Deploy AI agents on Teams, WhatsApp, Zoom, or secure webhook with EU-sovereign hosting. GDPR + EU AI Act Article 50 (transparency) baked in. Customer choice of LLM — Claude, Mistral, Groq, or self-hosted on DGX Spark — so you control where the prompt lands. Live in 25 hours.</g:description>
         <g:link>https://dws10.com/buy/page2/</g:link>
         <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
         <g:price>3500.00 EUR</g:price>
@@ -247,8 +214,8 @@
     </item>
     <item>
         <g:id>ai-agent-engineering</g:id>
-        <g:title>AI &amp; Agent Engineering</g:title>
-        <g:description>Hire a senior AI engineer by the hour — no recruitment overhead. Available as AI Product Manager, Solutions Architect, or ML Engineer for Azure AI Foundry, Google AI Studio, or custom agentic AI projects. Skip the 3-month hiring cycle.</g:description>
+        <g:title>AI &amp; Agent Engineering — Outcome-Backed Hourly</g:title>
+        <g:description>Senior AI engineer on demand — but billed against captain-hat outcomes, not consultant hours. €200/h backstop; we prefer the outcome-priced SKUs (€49 site safety scan, €499 LCA report, €999 CSRD gap) because you only pay when the artefact ships. Skip the 3-month hiring cycle and the T&amp;M lock-in.</g:description>
         <g:link>https://dws10.com/buy/page2/</g:link>
         <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
         <g:price>200.00 EUR</g:price>
@@ -264,8 +231,8 @@
     </item>
     <item>
         <g:id>lean-project</g:id>
-        <g:title>AI Project Accelerator</g:title>
-        <g:description>Ship your next project in half the time. Lean methodology powered by AI tools — includes planning workshop, backlog setup, Kanban workflows, and roadmap. Teams using this approach see 2x delivery speed within the first sprint.</g:description>
+        <g:title>EU AI Project Accelerator (Fixed Price)</g:title>
+        <g:description>Fixed-price AI project delivery for EU teams who don&apos;t want a Fractional-style T&amp;M engagement. Sovereign deployment, captain-hat-aligned outcomes, Kanban + roadmap included. Lean AI methodology — 2x delivery speed from sprint 1, with the artefacts mapped to Fit for 55 / CSRD / EU AI Act obligations from day one.</g:description>
         <g:link>https://dws10.com/buy/page3/</g:link>
         <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
         <g:price>4960.00 EUR</g:price>
@@ -281,8 +248,8 @@
     </item>
     <item>
         <g:id>ai-consultant-day</g:id>
-        <g:title>AI Consultant Day</g:title>
-        <g:description>One day to unblock your AI strategy. Senior consultant on-site or remote for strategy, prototyping, and hands-on implementation. Covers Claude, GPT, Gemini Pro, Copilot, and Azure AI Studio. Most clients book 2–3 days for a full sprint.</g:description>
+        <g:title>Captain Day — One-Day AI Outcome</g:title>
+        <g:description>One day, one captain-hat outcome shipped. Senior consultant on-site or remote — frame your AI strategy against the 16-captain-hat operating model, prototype with Claude / GPT / Gemini / Copilot, and leave with a working artefact (compliance gap report, agent prototype, or sovereignty assessment). Outcome-first: if we can&apos;t ship in a day, you don&apos;t pay full rate.</g:description>
         <g:link>https://dws10.com/buy/page2/</g:link>
         <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
         <g:price>1200.00 EUR</g:price>
@@ -327,6 +294,7 @@
         <g:identifier_exists>false</g:identifier_exists>
         <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
         <g:custom_label_0>advisory</g:custom_label_0>
+        <g:custom_label_1>featured</g:custom_label_1>
         <g:target_country>FI</g:target_country>
         <g:content_language>fi</g:content_language>
     </item>
@@ -366,18 +334,18 @@
     </item>
     <item>
         <g:id>professional-web-pages</g:id>
-        <g:title>Professional Web Pages</g:title>
-        <g:description>A professional web presence in days, not months. Responsive pages built with React, Blazor, WordPress, or Squarespace — your choice. AI chatbot and e-commerce add-ons available when you are ready to scale.</g:description>
-        <g:link>https://dws10.com/buy/page4/</g:link>
+        <g:title>Atk-apu pk-yritykselle</g:title>
+        <g:description>Pk-yrityksen IT-tuki yhdellä numerolla. Tuntipankki 10 h hintaan 75 €/h + alv, käytetään 6 kk sisällä. Sisältää työasema- ja sähköpostituen, tietoturvan perusteet, varmuuskopiot, kuljetus- ja toimialakohtaisen IT-tuen, laskutuskytkennät, AI-avusteisen toimiston sekä kotisivut tarpeen mukaan. Vain suomenkielinen palvelu.</g:description>
+        <g:link>https://dws10.com/products/professional-web-pages.html</g:link>
         <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-        <g:price>799.00 EUR</g:price>
+        <g:price>750.00 EUR</g:price>
         <g:availability>in_stock</g:availability>
         <g:condition>new</g:condition>
         <g:brand>Lifetime</g:brand>
-        <g:mpn>WEB-PAGES-2026</g:mpn>
+        <g:mpn>ATK-APU-PK-2026</g:mpn>
         <g:identifier_exists>false</g:identifier_exists>
         <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
-        <g:custom_label_0>digital</g:custom_label_0>
+        <g:custom_label_0>advisory</g:custom_label_0>
         <g:target_country>FI</g:target_country>
         <g:content_language>fi</g:content_language>
     </item>
@@ -468,8 +436,8 @@
     </item>
     <item>
         <g:id>cloud-ready-teams</g:id>
-        <g:title>On-Demand AI &amp; Cloud Engineers</g:title>
-        <g:description>Need expert developers this week, not next quarter? Pre-vetted cloud and AI professionals ready for immediate deployment. Skip the 3-month recruitment cycle and start building today.</g:description>
+        <g:title>EU On-Demand AI &amp; Cloud Engineers (Sovereign)</g:title>
+        <g:description>EU-resident, pre-vetted AI and cloud engineers — no CLOUD Act exposure, no US payroll, no 3-month recruitment cycle. Sovereign by construction: the engineer, the keyboard, and the data stay in the EU. Skip the recruitment cycle and start building this week.</g:description>
         <g:link>https://dws10.com/buy/page4/</g:link>
         <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
         <g:price>950.00 EUR</g:price>
@@ -502,8 +470,8 @@
     </item>
     <item>
         <g:id>ai-consulting-agentic</g:id>
-        <g:title>AI Consulting – Agentic Software Development</g:title>
-        <g:description>Your competitors are shipping 10x faster with AI agents. We assess your codebase, run AGENTS.md workshops, restructure for agentic development, and set up quality governance — from practitioners building with Claude Code and Codex daily. 88% of enterprises are increasing agentic AI budgets in 2026.</g:description>
+        <g:title>Agentic Software Development for EU Teams</g:title>
+        <g:description>Anthropic&apos;s Skills paradigm + Claude Code + Codex, deployed inside EU-sovereign perimeter. We assess your codebase, run AGENTS.md workshops, restructure for agentic development, and set up quality governance — without your IP leaving the jurisdiction. The Anthropic-backed US services firms can ship the workflow; only we can ship it without data egress to a US-controlled cloud.</g:description>
         <g:link>https://dws10.com/products/ai-consulting.html</g:link>
         <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
         <g:price>2500.00 EUR</g:price>
@@ -765,7 +733,7 @@
     <item>
         <g:id>DWS-CLIMATE-001</g:id>
         <g:title>DWS IQ Climate Intelligence</g:title>
-        <g:description>Deploy 8 Skilled Agents that deliver audit-ready EU climate compliance outcomes — ETS allowance calculations, CBAM import obligations, CSRD disclosure reports, and continuous carbon accounting. Agent-delivered outcomes, not dashboards. The Agent Outcome Factory for climate compliance.</g:description>
+        <g:description>Turns ETS, CBAM and CSRD obligations into deterministic factory-floor execution — the climate-compliance module of the DWS IQ Industrial Intelligence suite. Agent-delivered outcomes, not dashboards. EU-sovereign and audit-ready.</g:description>
         <g:link>https://dws10.com/products/climate-intelligence.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
         <g:price>2999.00 EUR</g:price>
@@ -1549,7 +1517,7 @@
     <item>
         <g:id>WF-T4</g:id>
         <g:title>Full Skilled Workforce</g:title>
-        <g:description>All 16 Skilled Agents under Themis orchestration with premium SLA.</g:description>
+        <g:description>Full Themis orchestration across the complete skilled-agent fleet, with premium SLA.</g:description>
         <g:link>https://dws10.com/products/skilled-agents.html</g:link>
         <g:image_link>https://dws10.com/DWS_IQ2026.png</g:image_link>
         <g:price>19990.00 EUR</g:price>
@@ -1747,6 +1715,7 @@
         <g:identifier_exists>false</g:identifier_exists>
         <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
         <g:custom_label_0>advisory</g:custom_label_0>
+        <g:custom_label_1>featured</g:custom_label_1>
         <g:target_country>FI</g:target_country>
         <g:content_language>en</g:content_language>
     </item>
@@ -1781,6 +1750,7 @@
         <g:identifier_exists>false</g:identifier_exists>
         <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
         <g:custom_label_0>advisory</g:custom_label_0>
+        <g:custom_label_1>featured</g:custom_label_1>
         <g:target_country>FI</g:target_country>
         <g:content_language>en</g:content_language>
     </item>
@@ -1815,6 +1785,7 @@
         <g:identifier_exists>false</g:identifier_exists>
         <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
         <g:custom_label_0>advisory</g:custom_label_0>
+        <g:custom_label_1>featured</g:custom_label_1>
         <g:target_country>FI</g:target_country>
         <g:content_language>en</g:content_language>
     </item>
@@ -1934,6 +1905,60 @@
         <g:identifier_exists>false</g:identifier_exists>
         <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
         <g:custom_label_0>platform</g:custom_label_0>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>AIS-EU-SOV-OC</g:id>
+        <g:title>EU-Sovereign AI Migration — Per Workload</g:title>
+        <g:description>Move one production AI workload off a US-controlled LLM stack onto EU-sovereign Claude / Mistral / DGX Spark — fixed price per workload. Includes ZDR contract review, GDPR Article 44–49 documentation, NIS2 control mapping, and EU AI Act Article 13/50 transparency artefacts. The Anthropic-aligned US services firms cannot ship this outcome — sovereignty is structural, not a feature flag.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/static/images/dws_sovereign_db.png</g:image_link>
+        <g:price>4990.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Lifetime</g:brand>
+        <g:mpn>AIS-EU-SOV-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+        <g:custom_label_0>advisory</g:custom_label_0>
+        <g:custom_label_1>featured</g:custom_label_1>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>AIS-OUTCOME-PILOT</g:id>
+        <g:title>Outcome-Priced Applied-AI Pilot (6 weeks)</g:title>
+        <g:description>Six-week fixed-price applied-AI pilot — refunded if the named KPI does not move. Pick one captain-hat outcome (CSRD report cycle time, site-safety incident rate, lead-to-quote latency, LCA report turnaround), we ship the agent, you ship the KPI. Built specifically for buyers tired of T&amp;M decks from generic &apos;deploy Claude&apos; services firms.</g:description>
+        <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+        <g:image_link>https://dws10.com/static/images/Risto_Malta.png</g:image_link>
+        <g:price>9990.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Lifetime</g:brand>
+        <g:mpn>AIS-OUTCOME-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+        <g:custom_label_0>advisory</g:custom_label_0>
+        <g:custom_label_1>featured</g:custom_label_1>
+        <g:target_country>FI</g:target_country>
+        <g:content_language>en</g:content_language>
+    </item>
+    <item>
+        <g:id>FLEET-VIP-001</g:id>
+        <g:title>Lifetime VIP AI Services</g:title>
+        <g:description>Premium mobility and edge robotics, on call. First-class Uber Comfort and Uber Priority transport for your team and guests, plus NVIDIA Connect edge device services for robotics solutions — managed end-to-end by Lifetime Fleet, the physical “hands” of the DWS IQ platform. Inference stays local and EU-sovereign at the edge (NVIDIA Jetson Orin · Grace Blackwell). One annual fee, billed once. Finnish / EU B2B (VAT 0% reverse charge).</g:description>
+        <g:link>https://dws10.com/products/lifetime-vip-ai-services.html</g:link>
+        <g:image_link>https://dws10.com/static/images/lifetime-fleet/LifetimeFleetCare.png</g:image_link>
+        <g:price>2990.00 EUR</g:price>
+        <g:availability>in_stock</g:availability>
+        <g:condition>new</g:condition>
+        <g:brand>Lifetime Fleet</g:brand>
+        <g:mpn>LF-FLEET-VIP-2026</g:mpn>
+        <g:identifier_exists>false</g:identifier_exists>
+        <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
+        <g:custom_label_0>advisory</g:custom_label_0>
+        <g:custom_label_1>featured</g:custom_label_1>
         <g:target_country>FI</g:target_country>
         <g:content_language>en</g:content_language>
     </item>

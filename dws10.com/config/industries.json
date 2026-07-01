@@ -312,8 +312,8 @@
   ],
   "lintingPolicy": {
     "ciGateRecommended": true,
-    "ciGateImplemented": false,
-    "ciGateNote": "Recommended next step: add scripts/lint-industry-claims.{ts,ps1} that (a) fails CI when public-facing .md or .html files use a phrase from deprecatedDisplayPhrases, (b) warns when ambiguousDisplayPhrasesNeedingContext appear without a nearby disambiguating word (e.g. 'Aegis', 'defence'), (c) reads approvedDisplayPhrases as the allow-list. Same precedent as DWS_PRODUCT_STANDARD.md + dws10.com/config/products.json single-source-of-truth pattern."
+    "ciGateImplemented": true,
+    "ciGateNote": "Implemented 2026-06-09 as scripts/lint-truth-claims.mjs (generic across all structured mirrors, per DWS_TRUTH_STANDARD.md §5) + /truth-check slash command + .github/workflows/lint-truth-claims.yml (PR-diff scan, non-blocking initially). (a) FAILs on deprecatedDisplayPhrases, (b) WARNs on ambiguousDisplayPhrasesNeedingContext used without a disambiguator, (c) reads approvedDisplayPhrases as the allow-list. Same single-source-of-truth precedent as DWS_PRODUCT_STANDARD.md + products.json."
   },
   "history": [
     {

@@ -1,6 +1,6 @@
 ---
 name: gh-to-mcp
-description: Translates a GitHub CLI (gh) command into the equivalent GitHub MCP tool call for Claude Code. Use when user pastes a `gh` command, asks "what's the MCP equivalent", "how do I do X via MCP", "gh vs MCP", "is gh 2.X compatible with MCP", or mentions gh CLI inside a Claude Code session where gh is not installed. Also clarifies that gh CLI and GitHub MCP are independently versioned and do NOT track each other.
+description: Use when translating a gh CLI command to the equivalent GitHub MCP tool call, or when clarifying that gh CLI and GitHub MCP are independently versioned.
 ---
 
 Translate a `gh` command to the equivalent `mcp__github__*` tool call.

@@ -157,7 +157,7 @@
 
 **Nordic Market (Finland, Sweden, Norway, Denmark)**
 
-- 150,000 companies affected by CSRD/Fit for 55/EPBD
+- 1fewer than 5,000 large companies (post-Omnibus, >1,000 employees) affected by CSRD/Fit for 55/EPBD
 - Average contract value: €6,500 setup + €1,999/year = €2,500/year blended
 - **Nordic TAM: €375M annual recurring**
 - With multi-vertical expansion: **€2.68B over 10 years**

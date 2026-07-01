@@ -79,6 +79,8 @@ Providers that meet these tests as of April 2026:
 
 **Tier continuity pattern.** This table exists so we don't invent new terminology for each partner category. The same Aegis/Sovereign Infra/Connect tiers apply to observability (see companion field note `2026-04-23-eu-ai-act-compliance-layer-research.md` §5), identity verification (Shufti vs. iDenfy vs. EUDI Wallet), data platforms (Aiven vs. Supabase), and LLM inference (NVIDIA GN-100 edge vs. Groq vs. Mistral vs. Anthropic). Every partner category has a natural 3-tier mapping.
 
+> *Frame note (2026-05-28).* This three-tier product segmentation is the EU-origin enterprise's operational expression of the universal three-pillar (Data / Technology / Operational) × three-jurisdiction (EU / US / Singapore) sovereignty model. See Sovereignty Field Note #2 (`https://onelifetime.world/posts/sovereignty-field-note-2-three-pillars.html`) for the taxonomy and `DWS_TRUTH_STANDARD.md` Row 16 for the canonical reference.
+
 ---
 
 ## 3. What Aiven Actually Is (and Isn't)

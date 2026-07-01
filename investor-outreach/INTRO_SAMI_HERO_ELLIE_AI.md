@@ -14,7 +14,6 @@ AGENT HISTORY:
 
 # Investor Intro Note — Sami Hero, Ellie.ai / True Global Ventures
 
-
 ---
 
 ## Labor Thesis Opening (2026 Q2 Refresh) — Wedge: MARGIN
@@ -25,9 +24,9 @@ AGENT HISTORY:
 
 **Email body — opening three paragraphs + ask:**
 
-Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts *doing the work itself*, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. *(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)* **DWS 365 Skilled Agents** (powered by the DWS IQ platform) sit on the labor side of that line.
+Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts _doing the work itself_, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. _(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)_ **DWS 365 Skilled Agents** (powered by the DWS IQ platform) sit on the labor side of that line.
 
-16 Skilled Agents are already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the human cost of producing that work, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
+A fleet of skilled agents is already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the human cost of producing that work, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
 
 Gross margin sits above 80% at list and expands as inference cost falls — the price anchor is human labor, not compute, so the curve goes the right way as foundation models commoditize. Our comp set is vertical AI labor companies (Cognition, Sierra, Harvey, Decagon), not horizontal SaaS, and the unit economics tell that story without any heroic assumptions. The spine in one line: **labor-anchored pricing, regulation drives demand, MACC + AppExchange drive distribution.** That is the line we lead with at the Messe round and in PE meetings this quarter.
 
@@ -86,13 +85,13 @@ Risto Päärni, Lifetime Oy (Espoo). I think there's a natural connection betwee
 
 You built the governance layer for enterprise data — helping companies like AXA, Allianz, and Siemens know what data they have, where it lives, and whether it's compliant. We built the governance layer for enterprise carbon — the same question, different regulatory axis. What's your carbon exposure? Where does it sit across ETS, CBAM, CSRD, and Taxonomy? Is it audit-ready?
 
-The product is DWS IQ 6: 21 AI agents that pull operational data from ERP systems (SAP S/4HANA, IFS Cloud, Dynamics 365), integrate with LCA tools, and auto-generate compliance reports every quarter. Every agent governed by hardware-attested identity (KYA Standard), court-defensible audit trails, EU AI Act compliant. 100% EU-hosted.
+The product is DWS IQ 6: a fleet of skilled agents that pull operational data from ERP systems (SAP S/4HANA, IFS Cloud, Dynamics 365), integrate with LCA tools, and auto-generate compliance reports every quarter. Every agent governed by hardware-attested identity (KYA Standard), court-defensible audit trails, EU AI Act compliant. 100% EU-hosted.
 
 Why I think you'll find this interesting:
 
 - **Same enterprise buyers.** The companies buying Ellie.ai for data governance are the same companies that need carbon governance under CSRD. AXA, Allianz, Siemens — they all face mandatory sustainability reporting. Compliance teams buying data governance tools today will buy carbon governance tools tomorrow.
 - **SAP ecosystem.** Your SAP VP background will appreciate this — we integrate directly with S/4HANA to pull operational data. The goal is the same as Ellie.ai's: make compliance automatic, not manual.
-- **True Global Ventures angle.** I know you're also looking at AI opportunities as GP in Residence. We're raising €650K SAFE at €3.8M cap. 21 AI agents, €7K MRR, 6 paying customers, 100% retention. V1 launches at Arctic 15 in Helsinki on June 15.
+- **True Global Ventures angle.** I know you're also looking at AI opportunities as GP in Residence. We're raising €650K SAFE at €3.8M cap. A fleet of skilled agents, €7K MRR, 6 paying customers, 100% retention. V1 launches at Arctic 15 in Helsinki on June 15.
 
 I'd love to meet face-to-face — Helsinki or Tampere, whichever works for you. Whether this becomes an investment conversation, an enterprise partnership discussion, or both, I think the overlap is worth 45 minutes over coffee.
 

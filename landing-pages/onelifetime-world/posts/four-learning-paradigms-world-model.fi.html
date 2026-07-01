@@ -1,0 +1,518 @@
+<!doctype html>
+<!--
+  Maailmanmallin neljä oppimisparadigmaa (FI)
+  Code-Version: 1.0
+  Branch: claude/dws-iq6-social-thread-17d8ie
+  Date: 2026-06-23
+  Owner: Lifetime Oy
+  Status: visio / arkkitehtuuri (ei julkaistu tuote, ei kumppanuus)
+  EN-vastine: onelifetime.world/posts/four-learning-paradigms-world-model.html
+-->
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maailmanmallin neljä oppimisparadigmaa — Lifetime Scope Journal</title>
+    <meta
+      name="description"
+      content="Valvomon maailmanmalli on neljä oppimisparadigmaa eri tehtävissä: vahvistusoppiminen, palkkio-oppiminen, ohjattu/generatiivinen ja itseohjattu. Näin ne kytkeytyvät — mukana referenssikoodi operaattorin ohituksista oppimiseen."
+    />
+    <meta name="author" content="Risto Anton Paarni" />
+    <meta name="date" content="2026-06-23" />
+    <meta property="og:title" content="Maailmanmallin neljä oppimisparadigmaa" />
+    <meta
+      property="og:description"
+      content="Generatiiviset mallit rakentavat simulaattorin, palkkio-oppiminen hienosäätää sitä, vahvistusoppiminen vie agentin sisään. Neljä paradigmaa, yksi silmukka."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="fi_FI" />
+    <meta
+      property="og:url"
+      content="https://onelifetime.world/posts/four-learning-paradigms-world-model.fi.html"
+    />
+    <meta property="og:site_name" content="Lifetime Scope Journal" />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="article:published_time" content="2026-06-23" />
+    <meta property="article:author" content="Risto Anton Paarni" />
+    <meta property="article:section" content="Kenttämuistio" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Maailmanmallin neljä oppimisparadigmaa" />
+    <meta
+      name="twitter:description"
+      content="Vahvistus-, palkkio-, ohjattu/generatiivinen ja itseohjattu oppiminen — mitä kukin tekee valvomon maailmanmallin sisällä."
+    />
+    <link
+      rel="canonical"
+      href="https://onelifetime.world/posts/four-learning-paradigms-world-model.fi.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://onelifetime.world/posts/four-learning-paradigms-world-model.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="fi"
+      href="https://onelifetime.world/posts/four-learning-paradigms-world-model.fi.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="sv"
+      href="https://onelifetime.world/posts/four-learning-paradigms-world-model.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="de"
+      href="https://onelifetime.world/posts/four-learning-paradigms-world-model.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="fr"
+      href="https://onelifetime.world/posts/four-learning-paradigms-world-model.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://onelifetime.world/posts/four-learning-paradigms-world-model.html"
+    />
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/shared-assets/olw-vertical-lang-bar.js" defer></script>
+    <style>
+      .version-chip {
+        display: inline-block;
+        padding: 4px 12px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #60a5fa;
+        background: rgba(96, 165, 250, 0.08);
+        border: 1px solid rgba(96, 165, 250, 0.25);
+        border-radius: 9999px;
+      }
+      .news-box {
+        border-left: 4px solid #60a5fa;
+        background: rgba(96, 165, 250, 0.07);
+        border-radius: 0 8px 8px 0;
+        padding: 18px 22px;
+        margin: 24px 0;
+        color: #e2e8f0;
+      }
+      .gold-box {
+        border-left: 4px solid #d4a843;
+        background: rgba(212, 168, 67, 0.07);
+        border-radius: 0 8px 8px 0;
+        padding: 18px 22px;
+        margin: 28px 0;
+        color: #f1f5f9;
+      }
+      .gold-box h3 {
+        color: #d4a843;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .short-box {
+        border: 1px solid rgba(96, 165, 250, 0.3);
+        background: rgba(96, 165, 250, 0.06);
+        border-radius: 10px;
+        padding: 22px 26px;
+        margin: 34px 0;
+      }
+      .short-box h3 {
+        color: #60a5fa;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      .code-block {
+        background: #0b1220;
+        border: 1px solid rgba(6, 182, 212, 0.25);
+        border-radius: 10px;
+        padding: 18px 20px;
+        margin: 24px 0;
+        overflow-x: auto;
+        font-size: 0.82rem;
+        line-height: 1.55;
+        color: #cbd5e1;
+      }
+      .code-block code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        color: #cbd5e1;
+      }
+      .prose-light h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #f1f5f9;
+        margin-top: 40px;
+        margin-bottom: 14px;
+      }
+      .prose-light p {
+        font-size: 1.02rem;
+        line-height: 1.75;
+        color: #cbd5e1;
+        margin-bottom: 18px;
+      }
+      .prose-light ul {
+        margin-bottom: 20px;
+        list-style: disc;
+        padding-left: 22px;
+      }
+      .prose-light li {
+        color: #cbd5e1;
+        padding-left: 4px;
+        margin-bottom: 8px;
+      }
+      .prose-light strong {
+        color: #f1f5f9;
+      }
+      .prose-light a {
+        color: #60a5fa;
+      }
+      .prose-light a:hover {
+        text-decoration: underline;
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Maailmanmallin neljä oppimisparadigmaa",
+        "description": "Vahvistus-, palkkio-, ohjattu/generatiivinen ja itseohjattu oppiminen — mitä kukin tekee valvomon maailmanmallin sisällä.",
+        "author": {
+          "@type": "Person",
+          "name": "Risto Anton Paarni",
+          "url": "https://onelifetime.world"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Lifetime Oy",
+          "url": "https://dws10.com"
+        },
+        "datePublished": "2026-06-23",
+        "mainEntityOfPage": "https://onelifetime.world/posts/four-learning-paradigms-world-model.fi.html",
+        "articleSection": "Kenttämuistio",
+        "inLanguage": "fi"
+      }
+    </script>
+  </head>
+  <body
+    class="font-sans antialiased flex flex-col min-h-screen"
+    style="
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #f1f5f9;
+    "
+  >
+    <script>
+      function toggleMobileMenu() {
+        var menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("hidden");
+      }
+    </script>
+
+    <nav
+      style="background: #1e293b; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)"
+      class="sticky top-0 z-50 border-b border-gray-700"
+    >
+      <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
+        <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5" aria-label="Valikko">
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+        </button>
+        <a href="/" class="flex items-center">
+          <img
+            src="../OneLifetime+Logo.png"
+            alt="OneLifetime.World"
+            class="h-8 w-auto"
+            style="filter: brightness(1.1)"
+          />
+        </a>
+        <a
+          href="https://dws10.com/buy"
+          class="text-xs font-bold px-3 py-1 rounded"
+          style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #0f172a"
+          >Kauppa</a
+        >
+      </div>
+      <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+        <a href="/blog/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Lifetime Scope Journal</a
+        >
+        <a href="/press/" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Media</a
+        >
+        <a
+          href="https://dws10.com"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >DWS IQ -alusta</a
+        >
+        <a
+          href="https://dws10.com/buy"
+          target="_blank"
+          class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Kauppa</a
+        >
+      </div>
+    </nav>
+
+    <main class="flex-1">
+      <article class="max-w-3xl mx-auto px-4 py-12 prose-light">
+        <header class="mb-8">
+          <span class="version-chip">Kenttämuistio &middot; Maailmanmallit</span>
+          <h1
+            class="mt-4 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight"
+            style="color: #f8fafc"
+          >
+            Maailmanmallin neljä oppimisparadigmaa
+          </h1>
+          <p class="mt-4 text-base text-gray-400">
+            23. kesäkuuta 2026 &middot; Risto Anton Paarni &middot; Helsinki, Suomi
+          </p>
+        </header>
+
+        <p>
+          Pari kirjoitukselle
+          <a href="/posts/lifetime-world-model-three-piece-loop.fi.html"
+            >kolmiosaisesta silmukasta</a
+          >. Valvomon maailmanmalli ei ole yksi malli. Se on neljä oppimisparadigmaa, kukin eri
+          tehtävässä.
+        </p>
+
+        <div class="news-box">
+          Generatiiviset mallit <strong>rakentavat</strong> simulaattorin. Palkkio-oppiminen
+          <strong>hienosäätää</strong> sitä. Vahvistusoppiminen <strong>vie</strong> agentin sen
+          sisään. Itseohjattu oppiminen <strong>tiivistää</strong> raakasignaalin, jotta kolme muuta
+          voivat toimia.
+        </div>
+
+        <h2>1 &middot; Vahvistusoppiminen — päätöksenteko</h2>
+        <p>
+          Agentti havaitsee <strong>tilan</strong>, tekee <strong>toiminnon</strong>, saa
+          <strong>palkkion</strong> ja uuden tilan, ja päivittää <strong>politiikkaansa</strong>
+          maksimoidakseen pitkän aikavälin palkkion. Maailmanmallissa agentti kohtelee simulaattoria
+          hiekkalaatikkona: se ajaa monta kuviteltua koetta hallitakseen ohjaustehtävän ennen kuin
+          koskee oikeaan järjestelmään.
+        </p>
+
+        <h2>2 &middot; Palkkio-oppiminen — ”hyvän” määrittely</h2>
+        <p>
+          Täydellisen palkkioyhtälön käsin kirjoittaminen fyysiselle maailmalle on vaikeaa. Joten
+          järjestelmä rakentaa palkkionsa operaattorin käyttäytymisestä: asiantuntijan
+          demonstraatiosta tai vertailusta (”suunnitelma A on turvallisempi kuin B”).
+          Referenssisilmukassamme signaali on yksinkertaisin rehellinen — operaattorin ohitus. Ohita
+          toiminto, ja sen tyypin paino laskee, avoimesti:
+        </p>
+
+        <pre class="code-block"><code>// reward-store.ts — ohitus on negatiivinen palkkio
+if (feedback.verdict === "override") {
+  after = Math.max(WEIGHT_FLOOR, before * (1 - this.learningRate));
+} else {
+  // hyväksyntä nostaa painon takaisin kohti arvoa 1
+  after = before + (DEFAULT_WEIGHT - before) * this.learningRate;
+}</code></pre>
+
+        <p>
+          Lopullinen järjestys on <code>simScore &times; weight</code>, joten silmukka siirtyy
+          mitattavasti kohti sitä, minkä operaattorit hyväksyvät, ja pois siitä, minkä he hylkäävät
+          — syklien yli, jotka voi lukea lokista.
+        </p>
+
+        <h2>3 &middot; Ohjattu &amp; generatiivinen — maailmamoottori</h2>
+        <p>
+          Generatiiviset mallit (diffuusio, autoregressiiviset transformerit) oppivat ympäristön
+          säännöt parillisesta datasta: kun annetaan kehysten historia (X) ja toiminto (A), ennusta
+          seuraava tila (Y). Tuo koulutettu moottori on simulaattori, jossa vahvistusagentti
+          harjoittelee.
+        </p>
+
+        <h2>4 &middot; Itseohjattu — tiivistys</h2>
+        <p>
+          Ennen mitään päätöstä raakasyötteet — pikselit, tiheät anturigrafit — tiivistetään
+          latentiksi esitykseksi. Itseohjatut konenäkö- ja graafienkooderit oppivat tuon rakenteen
+          ilman ihmisen merkitsemiä nimiöitä, ennustamalla osan datasta, jonka ne piilottivat
+          itseltään.
+        </p>
+
+        <div class="gold-box">
+          <h3>Rehellinen osa</h3>
+          <p class="mb-0" style="color: #f1f5f9">
+            Referenssisilmukka toimittaa paradigman 2 — palkkio-oppimisen ohituksista — oikeana,
+            tarkastettavana koodina. Generatiivinen simulaattori (paradigma 3) on deterministinen
+            sijainen, ei koulutettu fysiikkamalli, ja sanomme sen suoraan. Läpinäkyvän
+            preferenssipainon kutsuminen ”oppimiseksi” on rehellistä juuri tällä tasolla, ei
+            korkeammalla. Tuo pidättyväisyys on koko pointti.
+          </p>
+        </div>
+
+        <h2>Miten ne kytkeytyvät</h2>
+        <ul>
+          <li>Generatiiviset / ohjatut mallit <strong>rakentavat</strong> simulaattorin.</li>
+          <li>
+            Palkkio-oppiminen <strong>hienosäätää</strong> sitä pitäen siirtymät ihmisen ja fysiikan
+            rajoissa.
+          </li>
+          <li>
+            Vahvistusoppiminen <strong>vie</strong> agentin etsimään turvallisinta, tehokkainta
+            politiikkaa.
+          </li>
+          <li>
+            Itseohjattu oppiminen <strong>syöttää</strong> kaikkia kolmea tiiviillä näkymällä
+            todellisuuteen.
+          </li>
+        </ul>
+
+        <div class="short-box">
+          <h3>Lyhyt versio</h3>
+          <ul style="margin-bottom: 0">
+            <li>Neljä paradigmaa, yksi silmukka: rakenna, hienosäädä, vie sisään, tiivistä.</li>
+            <li>Valvomossa merkittävin palkkiosignaali on operaattorin ohitus.</li>
+            <li>
+              Referenssimme tekee tuosta signaalista oikeaa koodia; muu on nimetty, ei teeskennelty.
+            </li>
+            <li>Havainto → mielikuvitus → toiminta, palkkion sulkemana.</li>
+          </ul>
+        </div>
+
+        <h2>Lue seuraavaksi</h2>
+        <ul>
+          <li>
+            <a href="/posts/lifetime-world-model-three-piece-loop.fi.html"
+              >Kolmiosainen silmukka — Lifetime World Model V1</a
+            >
+          </li>
+          <li>
+            <a href="/posts/ontologia-tiimin-aivoissa.html">Ontologia elää tiimin aivoissa</a>
+          </li>
+          <li>
+            <a href="/posts/your-model-cant-beat-your-noise-floor.fi.html"
+              >Mallisi ei voita kohinatasoasi</a
+            >
+          </li>
+        </ul>
+
+        <hr class="my-10 border-gray-700" />
+
+        <p class="text-sm text-gray-500">
+          <em
+            >Risto Anton Paarni — toimitusjohtaja, Lifetime Oy &middot; päätoimittaja, Lifetime
+            Scope Journal.</em
+          >
+          Referenssikoodi: <code>src/agents/world-model/reward-store.ts</code>; arkkitehtuuri:
+          <code>docs/FIELD_NOTE_WORLD_MODEL_V1_LOOP_2026.md</code>. Kommentaari suunnitelmasta; ei
+          taloudellisia ehtoja tai kumppanuusväitteitä.
+        </p>
+      </article>
+
+      <!-- Featured Products -->
+      <div class="max-w-3xl mx-auto px-4 pb-12">
+        <h3 class="text-lg font-bold mb-4" style="color: #d4a843">Kaupasta</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <a
+            href="https://dws10.com/products/dwsiq.html"
+            class="block rounded-lg p-4 text-center"
+            style="
+              background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+              border: 1px solid rgba(6, 182, 212, 0.2);
+              transition:
+                border-color 0.3s,
+                transform 0.2s;
+            "
+            onmouseover="
+              this.style.borderColor = 'rgba(6,182,212,0.5)';
+              this.style.transform = 'translateY(-2px)';
+            "
+            onmouseout="
+              this.style.borderColor = 'rgba(6,182,212,0.2)';
+              this.style.transform = 'none';
+            "
+          >
+            <span
+              class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2"
+              style="
+                background: rgba(212, 168, 67, 0.15);
+                color: #d4a843;
+                border: 1px solid rgba(212, 168, 67, 0.25);
+              "
+              >Lippulaiva</span
+            >
+            <p class="text-sm font-semibold text-gray-200">DWS IQ -alusta</p>
+            <p class="text-lg font-bold text-cyan-400 my-1">&euro;4,999</p>
+            <p class="text-xs text-gray-500">
+              Ontologia- ja agenttikerros EU-vaatimustenmukaisuuden automatisointiin
+            </p>
+          </a>
+          <a
+            href="https://dws10.com/products/bundle.html"
+            class="block rounded-lg p-4 text-center"
+            style="
+              background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+              border: 1px solid rgba(6, 182, 212, 0.2);
+              transition:
+                border-color 0.3s,
+                transform 0.2s;
+            "
+            onmouseover="
+              this.style.borderColor = 'rgba(6,182,212,0.5)';
+              this.style.transform = 'translateY(-2px)';
+            "
+            onmouseout="
+              this.style.borderColor = 'rgba(6,182,212,0.2)';
+              this.style.transform = 'none';
+            "
+          >
+            <span
+              class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2"
+              style="
+                background: rgba(212, 168, 67, 0.15);
+                color: #d4a843;
+                border: 1px solid rgba(212, 168, 67, 0.25);
+              "
+              >Paras arvo</span
+            >
+            <p class="text-sm font-semibold text-gray-200">Ilmastoraportointipaketti</p>
+            <p class="text-lg font-bold text-cyan-400 my-1">&euro;6,500</p>
+            <p class="text-xs text-gray-500">DWS IQ + Firehorse-raportti + työpaja</p>
+          </a>
+          <a
+            href="https://dws10.com/products/firehorse-omnichannel.html"
+            class="block rounded-lg p-4 text-center"
+            style="
+              background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+              border: 1px solid rgba(6, 182, 212, 0.2);
+              transition:
+                border-color 0.3s,
+                transform 0.2s;
+            "
+            onmouseover="
+              this.style.borderColor = 'rgba(6,182,212,0.5)';
+              this.style.transform = 'translateY(-2px)';
+            "
+            onmouseout="
+              this.style.borderColor = 'rgba(6,182,212,0.2)';
+              this.style.transform = 'none';
+            "
+          >
+            <span
+              class="inline-block px-2 py-0.5 text-[10px] font-bold rounded mb-2"
+              style="
+                background: rgba(212, 168, 67, 0.15);
+                color: #d4a843;
+                border: 1px solid rgba(212, 168, 67, 0.25);
+              "
+              >Aloita tästä</span
+            >
+            <p class="text-sm font-semibold text-gray-200">Firehorse Omnichannel</p>
+            <p class="text-lg font-bold text-cyan-400 my-1">&euro;499</p>
+            <p class="text-xs text-gray-500">
+              Tekoälypohjainen markkinointimoottori, Green Claims -yhteensopiva
+            </p>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <!-- Iron Clad Footer — self-injects before </body>, replacing any existing footer -->
+    <script src="/shared-assets/footer/ironclad-footer.js" defer></script>
+  </body>
+</html>

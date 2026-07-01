@@ -37,6 +37,7 @@ This rule was learned from the Sentris Capital rejection (2026-04-01). See `docs
 | Olof Faxander (Gungnir Capital) | Contacted | Climate memo (wrong) | **FOLLOW-UP: resend with Aegis memo** |
 | Olof Hernell (Investor AB) | Contacted | Climate memo (wrong) | **FOLLOW-UP: resend with Aegis memo** |
 | Keen Venture Partners (Giuseppe) | In pipeline | Not yet | Send Aegis memo |
+| Lifeline Ventures (Timo Ahopelto) | INTRO drafted | Not yet | Send Aegis memo + SSAB case (INTRO_TIMO_AHOPELTO_LIFELINE.md) |
 | Join Capital (Jan Borgstadt) | Not contacted | Not yet | Send Aegis memo |
 | Vsquared Ventures | Not contacted | Not yet | Send Aegis memo |
 | NATO Innovation Fund | Not contacted | Not yet | Send Aegis memo |
@@ -83,6 +84,7 @@ This rule was learned from the Sentris Capital rejection (2026-04-01). See `docs
 - Pre-seed/seed, growing into later stages with Fund VI
 - LinkedIn (Timo Ahopelto): linkedin.com/in/timoahopelto/
 - Website: lifelineventures.com
+- **INTRO drafted:** `INTRO_TIMO_AHOPELTO_LIFELINE.md` (2026-06-07) — next Dual Use target after Matti Heikkonen deprioritized (DD PASS). Lifetime Group autonomous-mobility/robotics RaaS, defence-first.
 
 ### 3. FiBAN DEFSEC Event — Riihimaki
 - 600+ angel investors, EUR 450M invested across 1,900 startups

@@ -29,6 +29,37 @@ export interface AgentContext {
   toolSafety?: ToolSafetyState;
   /** Sandbox isolation settings (optional — applied when SANDBOX_STAGE is set) */
   sandbox?: SandboxContext;
+  /**
+   * Per-agent runtime policy injected by BaseAgent.runLoop so tool handlers
+   * (e.g. send_notification) can authoritatively enforce the autonomy phase
+   * gate and notification rate limits, independent of which tools were offered.
+   */
+  agentRuntime?: AgentRuntimeContext;
+}
+
+/**
+ * Autonomy phase (KYA tier). Gates proactive action tools.
+ * - silent_pilot: observe only, no outbound action
+ * - advisor: may send proactive nudges (requires human confirm/override)
+ * - autonomous: may act within guardrails, exception-only approval
+ */
+export type AutonomyPhase = 'silent_pilot' | 'advisor' | 'autonomous';
+
+/** Proactive notification config — applied when autonomyPhase >= advisor */
+export interface NotifyConfig {
+  /** Delivery channels for proactive nudges */
+  channels: Array<'email' | 'teams' | 'slack' | 'in_app'>;
+  /** Max nudges this agent may send per rolling hour (default 5) */
+  maxPerHour: number;
+  /** Max nudges this agent may send per rolling day (default 20) */
+  maxPerDay: number;
+}
+
+/** Runtime policy attached to AgentContext for tool-level enforcement */
+export interface AgentRuntimeContext {
+  name: string;
+  autonomyPhase: AutonomyPhase;
+  notify?: NotifyConfig;
 }
 
 /** Tracks session taint from prior RED tool calls */
@@ -107,6 +138,13 @@ export interface AgentConfig {
   tools?: ToolDefinition[];
   /** Agentic loop configuration (DWS7: observe-think-act) */
   loop?: AgentLoopConfig;
+  /**
+   * Autonomy phase (KYA tier). Defaults to 'silent_pilot' when unset.
+   * Agents below 'advisor' cannot send proactive notifications.
+   */
+  autonomyPhase?: AutonomyPhase;
+  /** Proactive notification config (only honored when autonomyPhase >= advisor) */
+  notify?: NotifyConfig;
 }
 
 // ============ TOOL USE / FUNCTION CALLING (DWS7) ============

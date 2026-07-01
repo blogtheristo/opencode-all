@@ -82,8 +82,8 @@ DWS IQ records every CBAM, CSRD, and ETS obligation regardless of whether the
 payment moves via Qivalis, SEPA, or any future rail. The compliance obligation
 exists at the transaction level, not the rail level.
 
-Current traction: EUR 7K MRR, 6 paying customers, 100% retention, 21 AI agents
-operational across 20 EU-regulated industries. NVIDIA Connect ISV Partner.
+Current traction: EUR 7K MRR, 6 paying customers, 100% retention, a fleet of skilled agents
+operational across 25 EU-regulated industries. NVIDIA Connect ISV Partner.
 Microsoft Founders Hub L1–L4. Three InvestEU Portal listings.
 
 ---
@@ -135,7 +135,7 @@ cloud egress, no latency, no CLOUD Act exposure. Model-agnostic: Claude,
 Gemini, or any future frontier model can be swapped without rewriting
 the compliance logic, which lives in the Lifetime World Model.
 
-21 agents operational. 32 products shipped. 20 EU-regulated industries.
+A fleet of skilled agents operational. 32 products shipped. 25 EU-regulated industries.
 
 ---
 
@@ -208,7 +208,7 @@ First EUR 50K of raise funds senior technical hire Q3 2026.
 
 _(500 characters max — current draft: ~350 characters)_
 
-**Current:** EUR 7K MRR (March 2026), 5 customers, 100% retention.
+**Current:** EUR 7K MRR (March 2026), 6 customers, 100% retention.
 
 **Active raise:** EUR 650K SAFE at EUR 3.8M valuation cap (20% discount).
 Bridge to Series A targeting EUR 15M+ pre-money, Q3–Q4 2026.

@@ -509,6 +509,59 @@ export const BUILTIN_TOOLS: Record<string, ToolDefinition> = {
     },
   },
 
+  /** Send a proactive nudge to a human stakeholder */
+  send_notification: {
+    name: 'send_notification',
+    description:
+      'Send a proactive nudge to a human stakeholder when you observe something worth interrupting them about. Requires the agent to be at autonomy phase "advisor" or higher. Keep the body to one sentence of context plus one recommended action. Always offer override options so the human stays in control.',
+    parameters: {
+      type: 'object',
+      properties: {
+        signal_key: {
+          type: 'string',
+          description: 'Stable signal key from the catalogue (e.g. "site_safety_low", "emissions_budget_breach"). Used for deduplication.',
+        },
+        entity_id: {
+          type: 'string',
+          description: 'The thing the signal is about (siteId, customerId, projectId). Used for deduplication so the same breach is not nudged twice.',
+        },
+        recipient_role: {
+          type: 'string',
+          description: 'Role to notify (R-ID or role name from DWS_ROLES_REGISTRY, e.g. "Site Manager", "CFO / ESG Lead")',
+        },
+        subject: {
+          type: 'string',
+          description: 'Short nudge headline',
+        },
+        body: {
+          type: 'string',
+          description: 'One sentence of context + recommended action (max 280 chars)',
+        },
+        channel: {
+          type: 'array',
+          items: { type: 'string', enum: ['email', 'teams', 'slack', 'in_app'] },
+          description: 'Delivery channels (default: agent notify config)',
+        },
+        action_options: {
+          type: 'array',
+          items: { type: 'string' },
+          description: 'Response buttons. Threshold breaches use ["Confirm","Override","More detail"]; anomalies use ["View Analysis","Dismiss"].',
+        },
+        urgency: {
+          type: 'string',
+          enum: ['high', 'low'],
+          description: 'Urgency for the worth-interrupting gate (default: high)',
+        },
+        confidence: {
+          type: 'string',
+          enum: ['high', 'low'],
+          description: 'Confidence for the worth-interrupting gate (default: high)',
+        },
+      },
+      required: ['recipient_role', 'subject', 'body'],
+    },
+  },
+
   /** Emit an event to the event bus */
   emit_event: {
     name: 'emit_event',
@@ -649,6 +702,48 @@ export function registerBuiltinTools(): void {
     });
 
     return { emitted: true, eventType };
+  });
+
+  // Proactive notification handler (KYA phase-gated, dedup + rate-limited)
+  registerToolHandler('send_notification', async (args, context) => {
+    const { nudgeService } = await import('./nudge.service.js');
+    const { isPhaseAtLeast } = await import('./autonomy.js');
+    const { getSignal, evaluateGate, CONFIRM_OVERRIDE_ACTIONS } = await import('./signal-catalogue.js');
+
+    const runtime = context.agentRuntime;
+    // KYA gate: enforced here regardless of which tools were offered to the model.
+    if (!runtime || !isPhaseAtLeast(runtime.autonomyPhase, 'advisor')) {
+      return {
+        error: 'send_notification blocked: agent autonomy phase is below "advisor" (KYA gate)',
+        blocked: true,
+      };
+    }
+
+    const signalKey = (args.signal_key as string) || 'agent_adhoc';
+    const catalogue = getSignal(signalKey);
+    const confidence = (args.confidence as 'high' | 'low') || catalogue?.confidence || 'high';
+    const urgency = (args.urgency as 'high' | 'low') || catalogue?.urgency || 'high';
+    const channels = (args.channel as Array<'email' | 'teams' | 'slack' | 'in_app'>)
+      || runtime.notify?.channels
+      || catalogue?.channels
+      || ['in_app'];
+
+    const result = await nudgeService.createNudge({
+      orgId: context.orgId,
+      agentName: runtime.name,
+      signalKey,
+      entityId: (args.entity_id as string) || context.projectId,
+      recipientRole: args.recipient_role as string,
+      tier: catalogue?.tier ?? 'threshold',
+      gateDecision: evaluateGate(confidence, urgency),
+      channels,
+      subject: args.subject as string,
+      body: args.body as string,
+      actionOptions: (args.action_options as string[]) || catalogue?.actionOptions || CONFIRM_OVERRIDE_ACTIONS,
+      notify: runtime.notify,
+    });
+
+    return result;
   });
 
   // Memory store handler
@@ -797,6 +892,6 @@ export function registerBuiltinTools(): void {
   });
 
   logger.info('Built-in tool handlers registered', {
-    tools: ['query_database', 'fetch_external', 'emit_event', 'memory_store', 'memory_recall', 'memory_forget', 'memory_supersede', 'extract_facts', 'delegate_to_agent', 'kb_*'],
+    tools: ['query_database', 'fetch_external', 'emit_event', 'send_notification', 'memory_store', 'memory_recall', 'memory_forget', 'memory_supersede', 'extract_facts', 'delegate_to_agent', 'kb_*'],
   });
 }

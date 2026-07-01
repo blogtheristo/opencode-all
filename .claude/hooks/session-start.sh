@@ -8,12 +8,17 @@ set -euo pipefail
 cat <<'CONTEXT'
 ## Auto-Mode Trust Boundary Active
 
-GREEN zone (full auto): Read, Edit, Write, lint, test, build, git on feature branches. Authoring DB migration FILES (supabase/migrations/*.sql) is GREEN — they are reviewable text artifacts.
+GREEN zone (full auto): Read, Edit, Write, lint, test, build, git on feature branches, and WEB/STATIC-SITE DEPLOYMENTS. Authoring DB migration FILES (supabase/migrations/*.sql) is GREEN — they are reviewable text artifacts. Web deploys are not gated: dws6.com / dws10.com / onelifetime.world / lifetime.fi auto-publish via Cloudflare Pages on merge to main (blue/green; rollback = promote previous deployment).
 YELLOW zone (auto + logged): MCP tools, agent skills, Docker, gh CLI, git push
-RED zone (BLOCKED — human required): APPLYING migrations (psql / supabase db push / supabase migration up), deploys, outbound email, thesis files, Store sync, secrets
+RED zone (BLOCKED — human required): APPLYING migrations (psql / supabase db push / supabase migration up), outbound email, thesis files, Store sync, secrets
 
 Budget: Check CLAUDE_AUTO_MODE_BUDGET env var (default: no limit)
 Audit: All YELLOW actions logged to .claude/hooks/audit/
+
+## Engineering Discipline — The 12 Rules (canonical: CLAUDE.md → "Engineering Discipline")
+
+Every agent operates by these. Full text + DWS bindings in CLAUDE.md.
+1 Think before coding (state assumptions, don't guess) · 2 Simplicity first (no speculative abstractions) · 3 Surgical changes (touch only what you must) · 4 Goal-driven (define success, loop until verified) · 5 Model only for judgment calls (not routing/retries/deterministic transforms) · 6 Token budgets per-task 4000 / per-session 30000 · 7 Surface conflicts, don't average them · 8 Read before you write (exports, callers, shared utils) · 9 Tests verify intent, not just behavior · 10 Checkpoint every significant step · 11 Match codebase conventions · 12 Fail loud (surface uncertainty, never hide skipped work)
 
 CONTEXT
 

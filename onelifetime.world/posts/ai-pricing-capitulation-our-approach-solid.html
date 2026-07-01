@@ -1,436 +1,819 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The AI Subsidy Era Just Ended — and Our Approach Is on the Right Side of It - OneLifetime.World</title>
-    <meta name="description" content="Microsoft canceled internal Claude Code licenses. Uber burned its entire 2026 AI budget in four months. American AI software prices are up 20–37%. Token-based billing has crossed the enterprise budgeting threshold. Why DWS IQ 6's owned-compute discipline is structurally on the other side of this signal.">
-    <meta property="og:title" content="The AI Subsidy Era Just Ended — and Our Approach Is on the Right Side of It">
-    <meta property="og:description" content="Token-based billing has crossed the enterprise budgeting threshold. Why DWS IQ 6's owned-compute discipline lands as the natural hedge.">
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://onelifetime.world/posts/ai-pricing-capitulation-our-approach-solid.html">
-    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png">
-    <meta property="og:site_name" content="OneLifetime.World">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="The AI Subsidy Era Just Ended — and Our Approach Is on the Right Side of It">
-    <meta name="twitter:description" content="Microsoft, Uber, GitHub: three week-21 confirmations that the cost-decay assumption no longer holds. DWS IQ 6 runs on owned EU-sovereign compute by design.">
-    <meta name="author" content="Risto Anton Paarni">
-    <meta name="date" content="2026-05-21">
-    <meta name="keywords" content="AI pricing, token-based billing, Claude Code, Microsoft, Uber, GitHub, owned compute, EU sovereign, DWS IQ 6, enterprise AI budget, frontier labs, IPO, EU AI Act Article 14, KYA Standard, CSB-track">
-    <link rel="canonical" href="https://onelifetime.world/posts/ai-pricing-capitulation-our-approach-solid.html">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      The AI Subsidy Era Just Ended — and Our Approach Is on the Right Side of It -
+      OneLifetime.World
+    </title>
+    <meta
+      name="description"
+      content="Microsoft canceled internal Claude Code licenses. Uber burned its entire 2026 AI budget in four months. American AI software prices are up 20–37%. Token-based billing has crossed the enterprise budgeting threshold. Why DWS IQ 6's owned-compute discipline is structurally on the other side of this signal."
+    />
+    <meta
+      property="og:title"
+      content="The AI Subsidy Era Just Ended — and Our Approach Is on the Right Side of It"
+    />
+    <meta
+      property="og:description"
+      content="Token-based billing has crossed the enterprise budgeting threshold. Why DWS IQ 6's owned-compute discipline lands as the natural hedge."
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://onelifetime.world/posts/ai-pricing-capitulation-our-approach-solid.html"
+    />
+    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
+    <meta property="og:site_name" content="OneLifetime.World" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="The AI Subsidy Era Just Ended — and Our Approach Is on the Right Side of It"
+    />
+    <meta
+      name="twitter:description"
+      content="Microsoft, Uber, GitHub: three week-21 confirmations that the cost-decay assumption no longer holds. DWS IQ 6 runs on owned EU-sovereign compute by design."
+    />
+    <meta name="author" content="Risto Anton Paarni" />
+    <meta name="date" content="2026-05-21" />
+    <meta
+      name="keywords"
+      content="AI pricing, token-based billing, Claude Code, Microsoft, Uber, GitHub, owned compute, EU sovereign, DWS IQ 6, enterprise AI budget, frontier labs, IPO, EU AI Act Article 14, KYA Standard, CSB-track"
+    />
+    <link
+      rel="canonical"
+      href="https://onelifetime.world/posts/ai-pricing-capitulation-our-approach-solid.html"
+    />
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "The AI Subsidy Era Just Ended — and Our Approach Is on the Right Side of It",
         "author": {
-            "@type": "Person",
-            "name": "Risto Anton Paarni",
-            "jobTitle": "CEO",
-            "worksFor": { "@type": "Organization", "name": "Lifetime Oy" }
+          "@type": "Person",
+          "name": "Risto Anton Paarni",
+          "jobTitle": "CEO",
+          "worksFor": { "@type": "Organization", "name": "Lifetime Oy" }
         },
         "publisher": {
-            "@type": "Organization",
-            "name": "Lifetime Oy",
-            "url": "https://onelifetime.world"
+          "@type": "Organization",
+          "name": "Lifetime Oy",
+          "url": "https://onelifetime.world"
         },
         "datePublished": "2026-05-21",
         "dateModified": "2026-05-21",
         "description": "Token-based billing has crossed the enterprise budgeting threshold. DWS IQ 6 runs on owned EU-sovereign compute by design.",
-        "keywords": ["AI pricing", "token-based billing", "owned compute", "EU sovereign", "DWS IQ 6", "enterprise AI budget", "CSB-track"],
+        "keywords": [
+          "AI pricing",
+          "token-based billing",
+          "owned compute",
+          "EU sovereign",
+          "DWS IQ 6",
+          "enterprise AI budget",
+          "CSB-track"
+        ],
         "about": [
-            { "@type": "Thing", "name": "AI Pricing" },
-            { "@type": "Thing", "name": "Token-Based Billing" },
-            { "@type": "Thing", "name": "Owned Compute" },
-            { "@type": "Thing", "name": "EU-Sovereign Inference" }
+          { "@type": "Thing", "name": "AI Pricing" },
+          { "@type": "Thing", "name": "Token-Based Billing" },
+          { "@type": "Thing", "name": "Owned Compute" },
+          { "@type": "Thing", "name": "EU-Sovereign Inference" }
         ],
         "mainEntityOfPage": "https://onelifetime.world/posts/ai-pricing-capitulation-our-approach-solid.html"
-    }
+      }
     </script>
-    <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="stylesheet" href="../ultra/ultra-styles.css">
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <link rel="stylesheet" href="../ultra/ultra-styles.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .group:hover .group-hover\:block { display: block !important; }
-        #desktopNav { display: none !important; }
-        .hero-glow { text-shadow: 0 0 40px rgba(245, 158, 11, 0.3), 0 0 80px rgba(245, 158, 11, 0.1); }
-        .signal-card {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
-            border: 1px solid rgba(245, 158, 11, 0.2);
-            transition: border-color 0.3s ease, transform 0.3s ease;
-        }
-        .signal-card:hover { border-color: rgba(245, 158, 11, 0.5); transform: translateY(-2px); }
-        blockquote {
-            border-left: 3px solid #f59e0b;
-            padding-left: 1rem;
-            margin: 1.5rem 0;
-            font-style: italic;
-            color: #94a3b8;
-        }
-        .read-also-card {
-            background: rgba(30, 41, 59, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: border-color 0.3s ease, transform 0.3s ease;
-        }
-        .read-also-card:hover { border-color: rgba(245, 158, 11, 0.4); transform: translateY(-2px); }
-        .ontology-tag {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 0.65rem;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-        }
-        .compare-table th, .compare-table td {
-            border: 1px solid rgba(148, 163, 184, 0.2);
-            padding: 0.6rem 0.9rem;
-            text-align: left;
-            font-size: 0.85rem;
-        }
-        .compare-table th { background: rgba(30, 41, 59, 0.9); color: #f59e0b; font-weight: 600; }
-        .compare-table td { color: #cbd5e1; }
-        .compare-table td:first-child { color: #94a3b8; }
+      .group:hover .group-hover\:block {
+        display: block !important;
+      }
+      #desktopNav {
+        display: none !important;
+      }
+      .hero-glow {
+        text-shadow:
+          0 0 40px rgba(245, 158, 11, 0.3),
+          0 0 80px rgba(245, 158, 11, 0.1);
+      }
+      .signal-card {
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+        border: 1px solid rgba(245, 158, 11, 0.2);
+        transition:
+          border-color 0.3s ease,
+          transform 0.3s ease;
+      }
+      .signal-card:hover {
+        border-color: rgba(245, 158, 11, 0.5);
+        transform: translateY(-2px);
+      }
+      blockquote {
+        border-left: 3px solid #f59e0b;
+        padding-left: 1rem;
+        margin: 1.5rem 0;
+        font-style: italic;
+        color: #94a3b8;
+      }
+      .read-also-card {
+        background: rgba(30, 41, 59, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition:
+          border-color 0.3s ease,
+          transform 0.3s ease;
+      }
+      .read-also-card:hover {
+        border-color: rgba(245, 158, 11, 0.4);
+        transform: translateY(-2px);
+      }
+      .ontology-tag {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+      }
+      .compare-table th,
+      .compare-table td {
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        padding: 0.6rem 0.9rem;
+        text-align: left;
+        font-size: 0.85rem;
+      }
+      .compare-table th {
+        background: rgba(30, 41, 59, 0.9);
+        color: #f59e0b;
+        font-weight: 600;
+      }
+      .compare-table td {
+        color: #cbd5e1;
+      }
+      .compare-table td:first-child {
+        color: #94a3b8;
+      }
     </style>
-</head>
-<body class="font-sans antialiased flex flex-col min-h-screen" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%); color: #f1f5f9;">
+  </head>
+  <body
+    class="font-sans antialiased flex flex-col min-h-screen"
+    style="
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #f1f5f9;
+    "
+  >
     <script>
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
-        }
+      function toggleMobileMenu() {
+        const menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("hidden");
+      }
     </script>
 
-    <nav style="background: #1e293b; box-shadow: 0 1px 3px rgba(0,0,0,0.3);" class="sticky top-0 z-50 border-b border-gray-700">
-        <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
-            <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5">
-                <span class="w-6 h-0.5 bg-gray-400 block"></span>
-                <span class="w-6 h-0.5 bg-gray-400 block"></span>
-                <span class="w-6 h-0.5 bg-gray-400 block"></span>
-            </button>
-            <a href="/" class="flex items-center">
-                <img src="../OneLifetime+Logo.png" alt="OneLifetime.World" class="h-8 w-auto" style="filter: brightness(1.1);">
-            </a>
-            <a href="https://dws10.com" target="_blank" class="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-2 py-1 rounded text-xs font-bold">
-                DWS10
-            </a>
-        </div>
+    <nav
+      style="background: #1e293b; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)"
+      class="sticky top-0 z-50 border-b border-gray-700"
+    >
+      <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto w-full">
+        <button onclick="toggleMobileMenu()" class="flex flex-col gap-1.5">
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+          <span class="w-6 h-0.5 bg-gray-400 block"></span>
+        </button>
+        <a href="/" class="flex items-center">
+          <img
+            src="../OneLifetime+Logo.png"
+            alt="OneLifetime.World"
+            class="h-8 w-auto"
+            style="filter: brightness(1.1)"
+          />
+        </a>
+        <a
+          href="https://dws10.com"
+          target="_blank"
+          class="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-2 py-1 rounded text-xs font-bold"
+        >
+          DWS10
+        </a>
+      </div>
 
-        <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
-            <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">Solutions</a>
-            <div class="pl-4 space-y-1 text-xs text-gray-400">
-                <a href="https://lifetime.fi/" target="_blank" class="block py-1 hover:text-amber-400">Auditointi</a>
-                <a href="https://dws10.com" target="_blank" class="block py-1 hover:text-amber-400">DWS IQ 6</a>
-                <a href="#" class="block py-1 hover:text-amber-400">Lifetime Fleet</a>
-            </div>
-            <a href="/blog/" class="block px-3 py-2 text-sm text-amber-400 hover:bg-gray-700 rounded font-semibold">Blog</a>
-            <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">About Us</a>
-            <div class="pl-4 space-y-1 text-xs text-gray-400">
-                <a href="/blog/" class="block py-1 hover:text-amber-400">Lifetime Scope Journal</a>
-                <a href="/Partners/" class="block py-1 hover:text-amber-400">Partner Consortium</a>
-                <a href="/pledge/" class="block py-1 hover:text-amber-400">Sustainability Pledge</a>
-            </div>
-            <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded">Store</a>
-            <div class="pl-4 space-y-1 text-xs text-gray-400">
-                <a href="https://dws10.com/buy" target="_blank" class="block py-1 hover:text-amber-400">DWS IQ Store</a>
-            </div>
+      <div id="mobileMenu" class="hidden bg-slate-800 border-t border-gray-700 px-4 py-3 space-y-2">
+        <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Solutions</a
+        >
+        <div class="pl-4 space-y-1 text-xs text-gray-400">
+          <a href="https://lifetime.fi/" target="_blank" class="block py-1 hover:text-amber-400"
+            >Auditointi</a
+          >
+          <a href="https://dws10.com" target="_blank" class="block py-1 hover:text-amber-400"
+            >DWS IQ 6</a
+          >
+          <a href="#" class="block py-1 hover:text-amber-400">Lifetime Fleet</a>
         </div>
+        <a
+          href="/blog/"
+          class="block px-3 py-2 text-sm text-amber-400 hover:bg-gray-700 rounded font-semibold"
+          >Blog</a
+        >
+        <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >About Us</a
+        >
+        <div class="pl-4 space-y-1 text-xs text-gray-400">
+          <a href="/blog/" class="block py-1 hover:text-amber-400">Lifetime Scope Journal</a>
+          <a href="/Partners/" class="block py-1 hover:text-amber-400">Partner Consortium</a>
+          <a href="/pledge/" class="block py-1 hover:text-amber-400">Sustainability Pledge</a>
+        </div>
+        <a href="#" class="block px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 rounded"
+          >Store</a
+        >
+        <div class="pl-4 space-y-1 text-xs text-gray-400">
+          <a href="https://dws10.com/buy" target="_blank" class="block py-1 hover:text-amber-400"
+            >DWS IQ Store</a
+          >
+        </div>
+      </div>
     </nav>
 
     <main class="flex-grow">
-        <!-- Hero -->
-        <section class="py-16 px-4">
-            <div class="max-w-3xl mx-auto text-center">
-                <p class="text-amber-400 text-sm font-mono mb-2">MARKET SIGNAL &middot; WEEK 21</p>
-                <p class="text-gray-500 text-sm mb-6">21 May 2026 &middot; Lifetime Scope Journal</p>
-                <h1 class="text-3xl md:text-4xl font-bold mb-6 hero-glow">
-                    The AI Subsidy Era Just Ended<br>&mdash; and Our Approach Is on the Right Side of It
-                </h1>
-                <p class="text-lg text-gray-400 max-w-2xl mx-auto">
-                    Microsoft cancelled internal Claude Code licences. Uber burned its entire 2026 AI budget in four months. American AI software prices are up 20&ndash;37%. Three independent confirmations of the same thing: token-based billing has crossed the enterprise budgeting threshold.
-                </p>
+      <!-- Hero -->
+      <section class="py-16 px-4">
+        <div class="max-w-3xl mx-auto text-center">
+          <p class="text-amber-400 text-sm font-mono mb-2">MARKET SIGNAL &middot; WEEK 21</p>
+          <p class="text-gray-500 text-sm mb-6">21 May 2026 &middot; Lifetime Scope Journal</p>
+          <h1 class="text-3xl md:text-4xl font-bold mb-6 hero-glow">
+            The AI Subsidy Era Just Ended<br />&mdash; and Our Approach Is on the Right Side of It
+          </h1>
+          <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+            Microsoft cancelled internal Claude Code licences. Uber burned its entire 2026 AI budget
+            in four months. American AI software prices are up 20&ndash;37%. Three independent
+            confirmations of the same thing: token-based billing has crossed the enterprise
+            budgeting threshold.
+          </p>
+        </div>
+      </section>
+
+      <!-- The Three Signals -->
+      <section class="pb-12 px-4">
+        <article class="max-w-3xl mx-auto">
+          <h2 class="text-2xl font-bold text-white mb-6">
+            Three Revealed-Preference Events in One Week
+          </h2>
+
+          <div class="space-y-4 mt-6">
+            <div class="signal-card rounded-xl p-5">
+              <div class="flex items-start gap-4">
+                <div
+                  class="flex-shrink-0 w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400 font-bold text-sm"
+                >
+                  1
+                </div>
+                <div>
+                  <h3 class="text-white font-semibold mb-2">
+                    Microsoft cancelled internal Claude Code licences this week.
+                  </h3>
+                  <p class="text-gray-400 text-sm leading-relaxed">
+                    Token-based billing made the cost untenable &mdash; even for the company that
+                    committed about <strong class="text-white">$13 billion to OpenAI</strong> and
+                    runs the Azure capacity powering most of Anthropic's compute. If the bill is too
+                    high for Microsoft, it is too high for everyone below Microsoft on the demand
+                    curve. This is a price-discovery event for the whole enterprise market, not a
+                    vendor-relationship event.
+                  </p>
+                </div>
+              </div>
             </div>
-        </section>
 
-        <!-- The Three Signals -->
-        <section class="pb-12 px-4">
-            <article class="max-w-3xl mx-auto">
-
-                <h2 class="text-2xl font-bold text-white mb-6">Three Revealed-Preference Events in One Week</h2>
-
-                <div class="space-y-4 mt-6">
-                    <div class="signal-card rounded-xl p-5">
-                        <div class="flex items-start gap-4">
-                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400 font-bold text-sm">1</div>
-                            <div>
-                                <h3 class="text-white font-semibold mb-2">Microsoft cancelled internal Claude Code licences this week.</h3>
-                                <p class="text-gray-400 text-sm leading-relaxed">
-                                    Token-based billing made the cost untenable &mdash; even for the company that committed about <strong class="text-white">$13 billion to OpenAI</strong> and runs the Azure capacity powering most of Anthropic's compute. If the bill is too high for Microsoft, it is too high for everyone below Microsoft on the demand curve. This is a price-discovery event for the whole enterprise market, not a vendor-relationship event.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="signal-card rounded-xl p-5">
-                        <div class="flex items-start gap-4">
-                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400 font-bold text-sm">2</div>
-                            <div>
-                                <h3 class="text-white font-semibold mb-2">Uber's CTO sent an internal memo: entire 2026 AI budget consumed in four months.</h3>
-                                <p class="text-gray-400 text-sm leading-relaxed">
-                                    Four months means the annualised run-rate is roughly <strong class="text-white">three times</strong> the planned spend. The budget had been set on the assumption that effective AI costs would keep falling, not rise. This is the first publicly-leaked CFO-side confirmation that enterprise budgeting models built on the 2023&ndash;2025 cost-decay assumption no longer hold.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="signal-card rounded-xl p-5">
-                        <div class="flex items-start gap-4">
-                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400 font-bold text-sm">3</div>
-                            <div>
-                                <h3 class="text-white font-semibold mb-2">American AI software prices +20&ndash;37%; GitHub drops flat-rate plans.</h3>
-                                <p class="text-gray-400 text-sm leading-relaxed">
-                                    GitHub &mdash; owned by Microsoft &mdash; is phasing out flat-rate plans in favour of usage-based metering across Copilot, Codespaces, and Actions. Microsoft is migrating its <em>own customers</em> onto usage-based billing while simultaneously refusing to absorb usage-based billing from a competitor. The pricing-model convergence on metering is now industry-wide.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+            <div class="signal-card rounded-xl p-5">
+              <div class="flex items-start gap-4">
+                <div
+                  class="flex-shrink-0 w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400 font-bold text-sm"
+                >
+                  2
                 </div>
-
-                <h2 class="text-2xl font-bold text-white mt-12">The Take</h2>
-
-                <div class="space-y-6 text-gray-300 leading-relaxed mt-4">
-                    <p>
-                        Anthropic, OpenAI, and Google all raised effective prices in the last six months. Not by raising sticker rates &mdash; by raising per-token consumption through longer context windows, reasoning-mode token expansion, and tool-use overhead. The sticker-price stability hid the per-task cost growth. Uber's four-month budget overrun is the first visible point on that curve crossing the enterprise budgeting threshold.
-                    </p>
-
-                    <p>
-                        Two outcomes look likely from here. Either <strong class="text-white">enterprises scale back AI usage to fit budgets</strong>, which slows the revenue ramp the labs need to justify their valuations ahead of expected 2026&ndash;2027 IPOs. Or <strong class="text-white">the labs cut prices and absorb the losses</strong>, which makes the unit economics worse at exactly the wrong moment. Both paths land in the same place: the numbers stop working, and somebody takes the writedown.
-                    </p>
-
-                    <blockquote>
-                        Token-based pricing is forcing every enterprise customer to confront the actual cost of running these models at scale. The number turns out to be far higher than the flat-rate experiments suggested.
-                    </blockquote>
-
-                    <h2 class="text-2xl font-bold text-white mt-10">Why Our Approach Is Solid</h2>
-
-                    <p>
-                        DWS IQ 6 was designed under a different hypothesis: that compute would become scarce, sovereignty would become bankable, and the per-token meter would become the operating-cost surface enterprise CFOs could no longer accept. We built the platform on owned EU-sovereign compute &mdash; not because we predicted week 21 of 2026, but because the architecture made sense on its own terms. The market just walked into it.
-                    </p>
-
-                    <h2 class="text-2xl font-bold text-white mt-10">The NVIDIA-Models Moat Beneath the Envelope</h2>
-
-                    <p>
-                        The reason we can quote a flat annual envelope is that the inference layer underneath it does not run on someone else's token meter. It runs on NVIDIA hardware that we own, with model weights that the open-source community produced at <strong class="text-white">NVFP4-native</strong> precision at 500B scale.
-                    </p>
-
-                    <div class="overflow-x-auto mt-4 mb-6">
-                        <table class="compare-table w-full" style="border-collapse: collapse;">
-                            <thead>
-                                <tr>
-                                    <th style="width: 24%;">Layer</th>
-                                    <th>What runs there</th>
-                                    <th style="width: 30%;">Why it is a moat</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>Hardware</td><td>Owned NVIDIA DGX Spark, EU-located, deterministic monthly cost</td><td>Hardware tick, not token tick &mdash; cost cannot drift on us</td></tr>
-                                <tr><td>Brain (Primary)</td><td><strong class="text-white">Nemotron 3 Super</strong> &mdash; 123.6B MoE / 12.7B active, Mamba-2 + attention + Latent MoE, <strong class="text-amber-400">NVFP4-pretrained at 500B scale</strong></td><td>~4.5&times; decode speedup vs Llama 70B baseline; native NVFP4 means no quantisation tax</td></tr>
-                                <tr><td>Brain (Fast)</td><td><strong class="text-white">Qwen3-Coder 30B</strong> on the same Spark fabric</td><td>Code/tool tasks served locally; no remote billing on tool-use overhead</td></tr>
-                                <tr><td>Runtime</td><td>OpenClaw on owned compute &mdash; agent shell, file I/O, mailbox, browser, all in MicroVM</td><td>Tool calls do not invoke external APIs; per-action cost is zero at the meter</td></tr>
-                                <tr><td>Memory</td><td>Prompt caching architecture against the owned cache</td><td>Long-context (regulatory documents, audit logs) paid once, refreshed locally</td></tr>
-                                <tr><td>Fallback</td><td>Multi-provider routing &mdash; Groq, Baseten, Anthropic, OpenAI &mdash; task-aware model-selector</td><td>If a frontier price moves the wrong way, we route around it; we are never locked to one curve</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <p>
-                        This is the &sect;14.18 supply-side companion to the &sect;14.20 demand-side signal: compute scarcity made owned EU-sovereign Spark the right hardware bet; the NVFP4 pretraining at 500B scale made Nemotron 3 Super the right model bet on that hardware; the demand-side capitulation made the resulting fixed-cost envelope the right commercial bet. Three independent moats stacked. Competitors running on Anthropic or OpenAI passthrough do not have the hardware layer, do not have the NVFP4-native model layer, and therefore cannot quote an envelope that holds when the upstream meter moves.
-                    </p>
-
-                    <blockquote>
-                        We did not switch off the frontier labs. We routed past them. The frontier-lab API is one tool in our hands; the runtime is ours.
-                    </blockquote>
-
-                    <p>
-                        The asymmetry is structural, not tactical:
-                    </p>
-
-                    <div class="overflow-x-auto mt-4 mb-6">
-                        <table class="compare-table w-full" style="border-collapse: collapse;">
-                            <thead>
-                                <tr>
-                                    <th style="width: 38%;">Demand-side pressure</th>
-                                    <th>DWS IQ 6 (owned compute)</th>
-                                    <th>Per-token competitor</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>Inference cost</td><td>Fixed amortised hardware tick (Spark NVFP4, Nemotron 3 Super, Qwen3-Coder)</td><td>Token meter, vendor-controlled growth</td></tr>
-                                <tr><td>Long-context workloads</td><td>Prompt cache on owned hardware &mdash; repeated context paid once</td><td>Re-billed every call</td></tr>
-                                <tr><td>Tool-use overhead</td><td>OpenClaw runtime on owned hardware &mdash; no remote billing</td><td>Each tool call invokes the meter</td></tr>
-                                <tr><td>Agent identity (mailboxes, channels)</td><td>Proton mailbox-per-agent, flat-rate plan</td><td>Per-message AI cost</td></tr>
-                                <tr><td>Effective price drift</td><td>Multi-provider routing &mdash; Groq / Baseten / Anthropic / OpenAI alternated by economics</td><td>Locked to one vendor's pricing curve</td></tr>
-                                <tr><td>Adding more agents</td><td>Amortised hardware-tick growth</td><td>Multiplied token consumption</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <p>
-                        For procurement conversations, this means we can quote an <strong class="text-amber-400">annual envelope</strong> anchored on hardware-amortised inference cost &mdash; not a per-task quote anchored on speculative token consumption. Competitors running on Anthropic or OpenAI passthrough cannot replicate this without taking the per-token gap directly onto their own income statement.
-                    </p>
-
-                    <h2 class="text-2xl font-bold text-white mt-10">The Compliance Angle: Cost-Surface Stability</h2>
-
-                    <p>
-                        The EU AI Act Article 14 requires human oversight to remain <em>effective</em> throughout deployment. But if a deployer's AI budget collapses mid-year and oversight is cut to fit the residual envelope, the system is no longer running in the configuration on which conformity was assessed. The cost-surface of an AI deployment is now a conformity-stability variable that Article 14 does not currently capture.
-                    </p>
-
-                    <p>
-                        We are adding this as a third conformance track to the KYA Standard candidate alongside the existing two: ASB-track (operational safety, OWASP Top 10 for Agentic Applications) and EAB-track (decision quality, EAC1&ndash;EAC13). The new <strong class="text-amber-400">CSB-track</strong> (Cost-Surface Stability) extends Article 14 oversight from a <em>quality</em> variable to an <em>affordability-stability</em> variable. It is productionisable on owned-compute inference. It is not productionisable on metered-API inference.
-                    </p>
-
-                    <blockquote>
-                        ASB governs what agents do. EAB governs how agents choose. CSB governs what running the agents costs the deployer over the conformity-assessed period.
-                    </blockquote>
-
-                    <h2 class="text-2xl font-bold text-white mt-10">What Buyers Should Ask</h2>
-
-                    <div class="space-y-4 mt-6">
-                        <div class="signal-card rounded-xl p-5">
-                            <div class="flex items-start gap-4">
-                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400 font-bold text-sm">1</div>
-                                <div>
-                                    <h3 class="text-white font-semibold mb-1">Can you quote me an annual envelope I can take to my CFO?</h3>
-                                    <p class="text-gray-400 text-sm">Owned-compute vendors answer with a number. Per-token vendors answer with a forecast that depends on vendor-side pricing changes they don't control.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="signal-card rounded-xl p-5">
-                            <div class="flex items-start gap-4">
-                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400 font-bold text-sm">2</div>
-                                <div>
-                                    <h3 class="text-white font-semibold mb-1">If your upstream provider raises per-token prices 30% in six months, what happens to my contract?</h3>
-                                    <p class="text-gray-400 text-sm">Ask in writing. If the answer is "we pass it through," you are absorbing the next round of the pricing capitulation. If the answer is "we run on owned compute," you are not.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="signal-card rounded-xl p-5">
-                            <div class="flex items-start gap-4">
-                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400 font-bold text-sm">3</div>
-                                <div>
-                                    <h3 class="text-white font-semibold mb-1">If my budget collapses mid-year, does your platform still meet Article 14 oversight?</h3>
-                                    <p class="text-gray-400 text-sm">Cost-surface stability is the silent assumption inside EU AI Act conformity. Cut the budget, cut the oversight, lose conformity. CSB-track makes this auditable; owned-compute makes it real.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <h2 class="text-2xl font-bold text-white mt-12">Match the Solution to a Product</h2>
-
-                    <p class="mb-4">
-                        Three configurations, all priced as a one-time deployment, all running on owned NVIDIA Spark inference with NVFP4-native Nemotron 3 Super and Qwen3-Coder 30B underneath. No per-token meter on the inference, the mailbox, the tool-use, or the prompt cache:
-                    </p>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 mb-6">
-                        <a href="https://dws10.com/products/dwsiq.html" class="signal-card rounded-xl p-5 block no-underline text-left">
-                            <p class="text-amber-400 text-xs font-mono uppercase tracking-wider mb-2">Platform &middot; DWS-IQ-006</p>
-                            <h3 class="text-white font-bold text-lg mb-2">DWS IQ Platform v6</h3>
-                            <p class="text-2xl font-bold text-amber-400 mb-2">&euro;4,999<span class="text-xs text-gray-500 font-normal"> &middot; one-time</span></p>
-                            <p class="text-gray-400 text-sm mb-3">18+ Skilled Agents with agentic loops across 20 EU industries. MCP-native, CLI-accessible, EU-hosted on owned Spark compute. Cuts 90% of manual compliance hours.</p>
-                            <p class="text-gray-500 text-xs">Right for: teams that want the whole platform on a flat envelope.</p>
-                        </a>
-
-                        <a href="https://dws10.com/products/bundle.html" class="signal-card rounded-xl p-5 block no-underline text-left">
-                            <p class="text-amber-400 text-xs font-mono uppercase tracking-wider mb-2">Bundle &middot; LIFETIME-BUNDLE-2026</p>
-                            <h3 class="text-white font-bold text-lg mb-2">Climate Reporting Starter Bundle</h3>
-                            <p class="text-2xl font-bold text-amber-400 mb-2">&euro;6,500<span class="text-xs text-gray-500 font-normal"> &middot; one-time</span></p>
-                            <p class="text-gray-400 text-sm mb-3">DWS IQ Base Platform + Firehorse Report Module + Kickoff Workshop. Built for the first CSRD reporting deadline. Operational in 30 days on owned EU-sovereign compute.</p>
-                            <p class="text-gray-500 text-xs">Right for: first-time CSRD filers who want zero-to-compliant in a month.</p>
-                        </a>
-
-                        <a href="https://dws10.com/products/firehorse-amplify.html" class="signal-card rounded-xl p-5 block no-underline text-left">
-                            <p class="text-amber-400 text-xs font-mono uppercase tracking-wider mb-2">Automation &middot; FH-AUTO-001</p>
-                            <h3 class="text-white font-bold text-lg mb-2">Firehorse Amplify</h3>
-                            <p class="text-2xl font-bold text-amber-400 mb-2">&euro;4,950<span class="text-xs text-gray-500 font-normal"> &middot; per project</span></p>
-                            <p class="text-gray-400 text-sm mb-3">Event-driven compliance workflows for Fit for 55, CSRD, and EPBD 2028. Captures ESG data directly from source systems with a complete audit trail &mdash; on the same owned-compute fabric.</p>
-                            <p class="text-gray-500 text-xs">Right for: teams that want the data pipeline locked before scaling the platform.</p>
-                        </a>
-                    </div>
-
-                    <div class="mt-8 text-center">
-                        <a href="https://dws10.com/buy" class="inline-block bg-gradient-to-r from-amber-500 to-orange-600 text-white px-8 py-3 rounded-lg font-bold text-sm hover:from-amber-400 hover:to-orange-500 transition-all">
-                            See All DWS IQ 6 Products
-                        </a>
-                        <p class="text-gray-500 text-xs mt-3">Annual envelope from &euro;4,999 &middot; Owned NVIDIA Spark + NVFP4-native Nemotron 3 Super &middot; No per-token meter</p>
-                    </div>
-
+                <div>
+                  <h3 class="text-white font-semibold mb-2">
+                    Uber's CTO sent an internal memo: entire 2026 AI budget consumed in four months.
+                  </h3>
+                  <p class="text-gray-400 text-sm leading-relaxed">
+                    Four months means the annualised run-rate is roughly
+                    <strong class="text-white">three times</strong> the planned spend. The budget
+                    had been set on the assumption that effective AI costs would keep falling, not
+                    rise. This is the first publicly-leaked CFO-side confirmation that enterprise
+                    budgeting models built on the 2023&ndash;2025 cost-decay assumption no longer
+                    hold.
+                  </p>
                 </div>
+              </div>
+            </div>
 
-                <!-- Source reference -->
-                <div class="mt-12 pt-8 border-t border-gray-700">
-                    <p class="text-sm text-gray-500">
-                        <strong class="text-gray-400">Author:</strong> Risto Anton Paarni, CEO, Lifetime Oy
-                    </p>
-                    <p class="text-sm text-gray-500 mt-1">
-                        <strong class="text-gray-400">Published:</strong> 21 May 2026, Helsinki
-                    </p>
-                    <p class="text-sm text-gray-500 mt-1">
-                        <strong class="text-gray-400">Scientific framing:</strong> PHD_FIREHORSE_EN.md &sect;14.20 (AI Pricing Capitulation), Key Contribution #25 (Demand-Side Capitulation and the Cost-Surface Stability Dimension of Agentic AI Conformity).
-                    </p>
+            <div class="signal-card rounded-xl p-5">
+              <div class="flex items-start gap-4">
+                <div
+                  class="flex-shrink-0 w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400 font-bold text-sm"
+                >
+                  3
                 </div>
-
-                <!-- Read Also -->
-                <div class="mt-12 pt-8 border-t border-gray-700">
-                    <h3 class="text-lg font-bold text-white mb-6">Read Also</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-
-                        <a href="/posts/moat-is-not-the-model.html" class="read-also-card rounded-xl p-5 block no-underline">
-                            <p class="text-amber-400 text-xs font-mono uppercase tracking-wider mb-2">Market Signal</p>
-                            <h4 class="text-white font-semibold text-sm mb-2">The Moat Is Not the Model &mdash; NVIDIA Makes It Possible, EU-Sovereign Deployment Makes It Defensible</h4>
-                            <p class="text-gray-500 text-xs mb-3">Supply-side companion to this piece. Compute scarcity and the NVFP4 hardware moat behind owned EU-sovereign inference.</p>
-                            <div class="flex flex-wrap gap-1">
-                                <span class="ontology-tag bg-amber-500/10 text-amber-400 border border-amber-500/20">Compute Scarcity</span>
-                                <span class="ontology-tag bg-blue-500/10 text-blue-400 border border-blue-500/20">EU Sovereign</span>
-                            </div>
-                        </a>
-
-                        <a href="/posts/baseten-inference-engineering-300m.html" class="read-also-card rounded-xl p-5 block no-underline">
-                            <p class="text-amber-400 text-xs font-mono uppercase tracking-wider mb-2">Field Note</p>
-                            <h4 class="text-white font-semibold text-sm mb-2">Baseten Raises $300M &mdash; Inference Engineering Is a Discipline Now</h4>
-                            <p class="text-gray-500 text-xs mb-3">Why the inference layer is now a category. The cost structure beneath every token-pricing decision.</p>
-                            <div class="flex flex-wrap gap-1">
-                                <span class="ontology-tag bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Inference</span>
-                                <span class="ontology-tag bg-purple-500/10 text-purple-400 border border-purple-500/20">Unit Economics</span>
-                            </div>
-                        </a>
-
-                        <a href="/posts/buyers-note-harness-engineering.html" class="read-also-card rounded-xl p-5 block no-underline">
-                            <p class="text-amber-400 text-xs font-mono uppercase tracking-wider mb-2">Buyer's Note</p>
-                            <h4 class="text-white font-semibold text-sm mb-2">What You Should Know About Harness Engineering</h4>
-                            <p class="text-gray-500 text-xs mb-3">The earlier buyer's-note framing. Read together with this piece to understand both the capability and the cost-durability dimensions of the procurement decision.</p>
-                            <div class="flex flex-wrap gap-1">
-                                <span class="ontology-tag bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Harness Engineering</span>
-                                <span class="ontology-tag bg-green-500/10 text-green-400 border border-green-500/20">EU AI Act</span>
-                            </div>
-                        </a>
-
-                    </div>
+                <div>
+                  <h3 class="text-white font-semibold mb-2">
+                    American AI software prices +20&ndash;37%; GitHub drops flat-rate plans.
+                  </h3>
+                  <p class="text-gray-400 text-sm leading-relaxed">
+                    GitHub &mdash; owned by Microsoft &mdash; is phasing out flat-rate plans in
+                    favour of usage-based metering across Copilot, Codespaces, and Actions.
+                    Microsoft is migrating its <em>own customers</em> onto usage-based billing while
+                    simultaneously refusing to absorb usage-based billing from a competitor. The
+                    pricing-model convergence on metering is now industry-wide.
+                  </p>
                 </div>
+              </div>
+            </div>
+          </div>
 
-            </article>
-        </section>
+          <h2 class="text-2xl font-bold text-white mt-12">The Take</h2>
+
+          <div class="space-y-6 text-gray-300 leading-relaxed mt-4">
+            <p>
+              Anthropic, OpenAI, and Google all raised effective prices in the last six months. Not
+              by raising sticker rates &mdash; by raising per-token consumption through longer
+              context windows, reasoning-mode token expansion, and tool-use overhead. The
+              sticker-price stability hid the per-task cost growth. Uber's four-month budget overrun
+              is the first visible point on that curve crossing the enterprise budgeting threshold.
+            </p>
+
+            <p>
+              Two outcomes look likely from here. Either
+              <strong class="text-white">enterprises scale back AI usage to fit budgets</strong>,
+              which slows the revenue ramp the labs need to justify their valuations ahead of
+              expected 2026&ndash;2027 IPOs. Or
+              <strong class="text-white">the labs cut prices and absorb the losses</strong>, which
+              makes the unit economics worse at exactly the wrong moment. Both paths land in the
+              same place: the numbers stop working, and somebody takes the writedown.
+            </p>
+
+            <blockquote>
+              Token-based pricing is forcing every enterprise customer to confront the actual cost
+              of running these models at scale. The number turns out to be far higher than the
+              flat-rate experiments suggested.
+            </blockquote>
+
+            <h2 class="text-2xl font-bold text-white mt-10">Why Our Approach Is Solid</h2>
+
+            <p>
+              DWS IQ 6 was designed under a different hypothesis: that compute would become scarce,
+              sovereignty would become bankable, and the per-token meter would become the
+              operating-cost surface enterprise CFOs could no longer accept. We built the platform
+              on owned EU-sovereign compute &mdash; not because we predicted week 21 of 2026, but
+              because the architecture made sense on its own terms. The market just walked into it.
+            </p>
+
+            <h2 class="text-2xl font-bold text-white mt-10">
+              The NVIDIA-Models Moat Beneath the Envelope
+            </h2>
+
+            <p>
+              The reason we can quote a flat annual envelope is that the inference layer underneath
+              it does not run on someone else's token meter. It runs on NVIDIA hardware that we own,
+              with model weights that the open-source community produced at
+              <strong class="text-white">NVFP4-native</strong> precision at 500B scale.
+            </p>
+
+            <div class="overflow-x-auto mt-4 mb-6">
+              <table class="compare-table w-full" style="border-collapse: collapse">
+                <thead>
+                  <tr>
+                    <th style="width: 24%">Layer</th>
+                    <th>What runs there</th>
+                    <th style="width: 30%">Why it is a moat</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Hardware</td>
+                    <td>Owned NVIDIA DGX Spark, EU-located, deterministic monthly cost</td>
+                    <td>Hardware tick, not token tick &mdash; cost cannot drift on us</td>
+                  </tr>
+                  <tr>
+                    <td>Brain (Primary)</td>
+                    <td>
+                      <strong class="text-white">Nemotron 3 Super</strong> &mdash; 123.6B MoE /
+                      12.7B active, Mamba-2 + attention + Latent MoE,
+                      <strong class="text-amber-400">NVFP4-pretrained at 500B scale</strong>
+                    </td>
+                    <td>
+                      ~4.5&times; decode speedup vs Llama 70B baseline; native NVFP4 means no
+                      quantisation tax
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Brain (Fast)</td>
+                    <td>
+                      <strong class="text-white">Qwen3-Coder 30B</strong> on the same Spark fabric
+                    </td>
+                    <td>Code/tool tasks served locally; no remote billing on tool-use overhead</td>
+                  </tr>
+                  <tr>
+                    <td>Runtime</td>
+                    <td>
+                      OpenClaw on owned compute &mdash; agent shell, file I/O, mailbox, browser, all
+                      in MicroVM
+                    </td>
+                    <td>
+                      Tool calls do not invoke external APIs; per-action cost is zero at the meter
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Memory</td>
+                    <td>Prompt caching architecture against the owned cache</td>
+                    <td>
+                      Long-context (regulatory documents, audit logs) paid once, refreshed locally
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Fallback</td>
+                    <td>
+                      Multi-provider routing &mdash; Groq, Baseten, Anthropic, OpenAI &mdash;
+                      task-aware model-selector
+                    </td>
+                    <td>
+                      If a frontier price moves the wrong way, we route around it; we are never
+                      locked to one curve
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              This is the &sect;14.18 supply-side companion to the &sect;14.20 demand-side signal:
+              compute scarcity made owned EU-sovereign Spark the right hardware bet; the NVFP4
+              pretraining at 500B scale made Nemotron 3 Super the right model bet on that hardware;
+              the demand-side capitulation made the resulting fixed-cost envelope the right
+              commercial bet. Three independent moats stacked. Competitors running on Anthropic or
+              OpenAI passthrough do not have the hardware layer, do not have the NVFP4-native model
+              layer, and therefore cannot quote an envelope that holds when the upstream meter
+              moves.
+            </p>
+
+            <blockquote>
+              We did not switch off the frontier labs. We routed past them. The frontier-lab API is
+              one tool in our hands; the runtime is ours.
+            </blockquote>
+
+            <p>The asymmetry is structural, not tactical:</p>
+
+            <div class="overflow-x-auto mt-4 mb-6">
+              <table class="compare-table w-full" style="border-collapse: collapse">
+                <thead>
+                  <tr>
+                    <th style="width: 38%">Demand-side pressure</th>
+                    <th>DWS IQ 6 (owned compute)</th>
+                    <th>Per-token competitor</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Inference cost</td>
+                    <td>
+                      Fixed amortised hardware tick (Spark NVFP4, Nemotron 3 Super, Qwen3-Coder)
+                    </td>
+                    <td>Token meter, vendor-controlled growth</td>
+                  </tr>
+                  <tr>
+                    <td>Long-context workloads</td>
+                    <td>Prompt cache on owned hardware &mdash; repeated context paid once</td>
+                    <td>Re-billed every call</td>
+                  </tr>
+                  <tr>
+                    <td>Tool-use overhead</td>
+                    <td>OpenClaw runtime on owned hardware &mdash; no remote billing</td>
+                    <td>Each tool call invokes the meter</td>
+                  </tr>
+                  <tr>
+                    <td>Agent identity (mailboxes, channels)</td>
+                    <td>Proton mailbox-per-agent, flat-rate plan</td>
+                    <td>Per-message AI cost</td>
+                  </tr>
+                  <tr>
+                    <td>Effective price drift</td>
+                    <td>
+                      Multi-provider routing &mdash; Groq / Baseten / Anthropic / OpenAI alternated
+                      by economics
+                    </td>
+                    <td>Locked to one vendor's pricing curve</td>
+                  </tr>
+                  <tr>
+                    <td>Adding more agents</td>
+                    <td>Amortised hardware-tick growth</td>
+                    <td>Multiplied token consumption</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              For procurement conversations, this means we can quote an
+              <strong class="text-amber-400">annual envelope</strong> anchored on hardware-amortised
+              inference cost &mdash; not a per-task quote anchored on speculative token consumption.
+              Competitors running on Anthropic or OpenAI passthrough cannot replicate this without
+              taking the per-token gap directly onto their own income statement.
+            </p>
+
+            <h2 class="text-2xl font-bold text-white mt-10">
+              The Compliance Angle: Cost-Surface Stability
+            </h2>
+
+            <p>
+              The EU AI Act Article 14 requires human oversight to remain
+              <em>effective</em> throughout deployment. But if a deployer's AI budget collapses
+              mid-year and oversight is cut to fit the residual envelope, the system is no longer
+              running in the configuration on which conformity was assessed. The cost-surface of an
+              AI deployment is now a conformity-stability variable that Article 14 does not
+              currently capture.
+            </p>
+
+            <p>
+              We are adding this as a third conformance track to the KYA Standard candidate
+              alongside the existing two: ASB-track (operational safety, OWASP Top 10 for Agentic
+              Applications) and EAB-track (decision quality, EAC1&ndash;EAC13). The new
+              <strong class="text-amber-400">CSB-track</strong> (Cost-Surface Stability) extends
+              Article 14 oversight from a <em>quality</em> variable to an
+              <em>affordability-stability</em> variable. It is productionisable on owned-compute
+              inference. It is not productionisable on metered-API inference.
+            </p>
+
+            <blockquote>
+              ASB governs what agents do. EAB governs how agents choose. CSB governs what running
+              the agents costs the deployer over the conformity-assessed period.
+            </blockquote>
+
+            <h2 class="text-2xl font-bold text-white mt-10">What Buyers Should Ask</h2>
+
+            <div class="space-y-4 mt-6">
+              <div class="signal-card rounded-xl p-5">
+                <div class="flex items-start gap-4">
+                  <div
+                    class="flex-shrink-0 w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400 font-bold text-sm"
+                  >
+                    1
+                  </div>
+                  <div>
+                    <h3 class="text-white font-semibold mb-1">
+                      Can you quote me an annual envelope I can take to my CFO?
+                    </h3>
+                    <p class="text-gray-400 text-sm">
+                      Owned-compute vendors answer with a number. Per-token vendors answer with a
+                      forecast that depends on vendor-side pricing changes they don't control.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="signal-card rounded-xl p-5">
+                <div class="flex items-start gap-4">
+                  <div
+                    class="flex-shrink-0 w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400 font-bold text-sm"
+                  >
+                    2
+                  </div>
+                  <div>
+                    <h3 class="text-white font-semibold mb-1">
+                      If your upstream provider raises per-token prices 30% in six months, what
+                      happens to my contract?
+                    </h3>
+                    <p class="text-gray-400 text-sm">
+                      Ask in writing. If the answer is "we pass it through," you are absorbing the
+                      next round of the pricing capitulation. If the answer is "we run on owned
+                      compute," you are not.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="signal-card rounded-xl p-5">
+                <div class="flex items-start gap-4">
+                  <div
+                    class="flex-shrink-0 w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400 font-bold text-sm"
+                  >
+                    3
+                  </div>
+                  <div>
+                    <h3 class="text-white font-semibold mb-1">
+                      If my budget collapses mid-year, does your platform still meet Article 14
+                      oversight?
+                    </h3>
+                    <p class="text-gray-400 text-sm">
+                      Cost-surface stability is the silent assumption inside EU AI Act conformity.
+                      Cut the budget, cut the oversight, lose conformity. CSB-track makes this
+                      auditable; owned-compute makes it real.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h2 class="text-2xl font-bold text-white mt-12">Match the Solution to a Product</h2>
+
+            <p class="mb-4">
+              Three configurations, all priced as a one-time deployment, all running on owned NVIDIA
+              Spark inference with NVFP4-native Nemotron 3 Super and Qwen3-Coder 30B underneath. No
+              per-token meter on the inference, the mailbox, the tool-use, or the prompt cache:
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 mb-6">
+              <a
+                href="https://dws10.com/products/dwsiq.html"
+                class="signal-card rounded-xl p-5 block no-underline text-left"
+              >
+                <p class="text-amber-400 text-xs font-mono uppercase tracking-wider mb-2">
+                  Platform &middot; DWS-IQ-006
+                </p>
+                <h3 class="text-white font-bold text-lg mb-2">DWS IQ Platform v6</h3>
+                <p class="text-2xl font-bold text-amber-400 mb-2">
+                  &euro;4,999<span class="text-xs text-gray-500 font-normal">
+                    &middot; one-time</span
+                  >
+                </p>
+                <p class="text-gray-400 text-sm mb-3">
+                  A fleet of skilled agents with agentic loops across 25 EU-regulated industries.
+                  MCP-native, CLI-accessible, EU-hosted on owned Spark compute. Cuts 90% of manual
+                  compliance hours.
+                </p>
+                <p class="text-gray-500 text-xs">
+                  Right for: teams that want the whole platform on a flat envelope.
+                </p>
+              </a>
+
+              <a
+                href="https://dws10.com/products/bundle.html"
+                class="signal-card rounded-xl p-5 block no-underline text-left"
+              >
+                <p class="text-amber-400 text-xs font-mono uppercase tracking-wider mb-2">
+                  Bundle &middot; LIFETIME-BUNDLE-2026
+                </p>
+                <h3 class="text-white font-bold text-lg mb-2">Climate Reporting Starter Bundle</h3>
+                <p class="text-2xl font-bold text-amber-400 mb-2">
+                  &euro;6,500<span class="text-xs text-gray-500 font-normal">
+                    &middot; one-time</span
+                  >
+                </p>
+                <p class="text-gray-400 text-sm mb-3">
+                  DWS IQ Base Platform + Firehorse Report Module + Kickoff Workshop. Built for the
+                  first CSRD reporting deadline. Operational in 30 days on owned EU-sovereign
+                  compute.
+                </p>
+                <p class="text-gray-500 text-xs">
+                  Right for: first-time CSRD filers who want zero-to-compliant in a month.
+                </p>
+              </a>
+
+              <a
+                href="https://dws10.com/products/firehorse-amplify.html"
+                class="signal-card rounded-xl p-5 block no-underline text-left"
+              >
+                <p class="text-amber-400 text-xs font-mono uppercase tracking-wider mb-2">
+                  Automation &middot; FH-AUTO-001
+                </p>
+                <h3 class="text-white font-bold text-lg mb-2">Firehorse Amplify</h3>
+                <p class="text-2xl font-bold text-amber-400 mb-2">
+                  &euro;4,950<span class="text-xs text-gray-500 font-normal">
+                    &middot; per project</span
+                  >
+                </p>
+                <p class="text-gray-400 text-sm mb-3">
+                  Event-driven compliance workflows for Fit for 55, CSRD, and EPBD 2028. Captures
+                  ESG data directly from source systems with a complete audit trail &mdash; on the
+                  same owned-compute fabric.
+                </p>
+                <p class="text-gray-500 text-xs">
+                  Right for: teams that want the data pipeline locked before scaling the platform.
+                </p>
+              </a>
+            </div>
+
+            <div class="mt-8 text-center">
+              <a
+                href="https://dws10.com/buy"
+                class="inline-block bg-gradient-to-r from-amber-500 to-orange-600 text-white px-8 py-3 rounded-lg font-bold text-sm hover:from-amber-400 hover:to-orange-500 transition-all"
+              >
+                See All DWS IQ 6 Products
+              </a>
+              <p class="text-gray-500 text-xs mt-3">
+                Annual envelope from &euro;4,999 &middot; Owned NVIDIA Spark + NVFP4-native Nemotron
+                3 Super &middot; No per-token meter
+              </p>
+            </div>
+          </div>
+
+          <!-- Source reference -->
+          <div class="mt-12 pt-8 border-t border-gray-700">
+            <p class="text-sm text-gray-500">
+              <strong class="text-gray-400">Author:</strong> Risto Anton Paarni, CEO, Lifetime Oy
+            </p>
+            <p class="text-sm text-gray-500 mt-1">
+              <strong class="text-gray-400">Published:</strong> 21 May 2026, Helsinki
+            </p>
+            <p class="text-sm text-gray-500 mt-1">
+              <strong class="text-gray-400">Scientific framing:</strong> PHD_FIREHORSE_EN.md
+              &sect;14.20 (AI Pricing Capitulation), Key Contribution #25 (Demand-Side Capitulation
+              and the Cost-Surface Stability Dimension of Agentic AI Conformity).
+            </p>
+          </div>
+
+          <!-- Read Also -->
+          <div class="mt-12 pt-8 border-t border-gray-700">
+            <h3 class="text-lg font-bold text-white mb-6">Read Also</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <a
+                href="/posts/moat-is-not-the-model.html"
+                class="read-also-card rounded-xl p-5 block no-underline"
+              >
+                <p class="text-amber-400 text-xs font-mono uppercase tracking-wider mb-2">
+                  Market Signal
+                </p>
+                <h4 class="text-white font-semibold text-sm mb-2">
+                  The Moat Is Not the Model &mdash; NVIDIA Makes It Possible, EU-Sovereign
+                  Deployment Makes It Defensible
+                </h4>
+                <p class="text-gray-500 text-xs mb-3">
+                  Supply-side companion to this piece. Compute scarcity and the NVFP4 hardware moat
+                  behind owned EU-sovereign inference.
+                </p>
+                <div class="flex flex-wrap gap-1">
+                  <span
+                    class="ontology-tag bg-amber-500/10 text-amber-400 border border-amber-500/20"
+                    >Compute Scarcity</span
+                  >
+                  <span class="ontology-tag bg-blue-500/10 text-blue-400 border border-blue-500/20"
+                    >EU Sovereign</span
+                  >
+                </div>
+              </a>
+
+              <a
+                href="/posts/baseten-inference-engineering-300m.html"
+                class="read-also-card rounded-xl p-5 block no-underline"
+              >
+                <p class="text-amber-400 text-xs font-mono uppercase tracking-wider mb-2">
+                  Field Note
+                </p>
+                <h4 class="text-white font-semibold text-sm mb-2">
+                  Baseten Raises $300M &mdash; Inference Engineering Is a Discipline Now
+                </h4>
+                <p class="text-gray-500 text-xs mb-3">
+                  Why the inference layer is now a category. The cost structure beneath every
+                  token-pricing decision.
+                </p>
+                <div class="flex flex-wrap gap-1">
+                  <span class="ontology-tag bg-cyan-500/10 text-cyan-400 border border-cyan-500/20"
+                    >Inference</span
+                  >
+                  <span
+                    class="ontology-tag bg-purple-500/10 text-purple-400 border border-purple-500/20"
+                    >Unit Economics</span
+                  >
+                </div>
+              </a>
+
+              <a
+                href="/posts/buyers-note-harness-engineering.html"
+                class="read-also-card rounded-xl p-5 block no-underline"
+              >
+                <p class="text-amber-400 text-xs font-mono uppercase tracking-wider mb-2">
+                  Buyer's Note
+                </p>
+                <h4 class="text-white font-semibold text-sm mb-2">
+                  What You Should Know About Harness Engineering
+                </h4>
+                <p class="text-gray-500 text-xs mb-3">
+                  The earlier buyer's-note framing. Read together with this piece to understand both
+                  the capability and the cost-durability dimensions of the procurement decision.
+                </p>
+                <div class="flex flex-wrap gap-1">
+                  <span class="ontology-tag bg-cyan-500/10 text-cyan-400 border border-cyan-500/20"
+                    >Harness Engineering</span
+                  >
+                  <span
+                    class="ontology-tag bg-green-500/10 text-green-400 border border-green-500/20"
+                    >EU AI Act</span
+                  >
+                </div>
+              </a>
+            </div>
+          </div>
+        </article>
+      </section>
     </main>
 
     <footer class="border-t border-gray-700 py-8 px-4 mt-12">
-        <div class="max-w-7xl mx-auto text-center text-sm text-gray-500">
-            <p>&copy; 2026 Lifetime Oy &middot; Laidunmaanraitti 2 A 25, 02330 Espoo, Finland &middot; Y-tunnus 0772407-9</p>
-            <p class="mt-2">
-                <a href="/blog/" class="hover:text-amber-400">Lifetime Scope Journal</a> &middot;
-                <a href="https://dws10.com" class="hover:text-amber-400">DWS IQ 6</a> &middot;
-                <a href="https://lifetime.fi" class="hover:text-amber-400">Lifetime.fi</a>
-            </p>
-        </div>
+      <div class="max-w-7xl mx-auto text-center text-sm text-gray-500">
+        <p>
+          &copy; 2026 Lifetime Oy &middot; Laidunmaanraitti 2 A 25, 02330 Espoo, Finland &middot;
+          Y-tunnus 0772407-9
+        </p>
+        <p class="mt-2">
+          <a href="/blog/" class="hover:text-amber-400">Lifetime Scope Journal</a> &middot;
+          <a href="https://dws10.com" class="hover:text-amber-400">DWS IQ 6</a> &middot;
+          <a href="https://lifetime.fi" class="hover:text-amber-400">Lifetime.fi</a>
+        </p>
+      </div>
     </footer>
-</body>
+  </body>
 </html>

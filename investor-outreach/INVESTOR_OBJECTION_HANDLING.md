@@ -46,7 +46,7 @@ A steel mill's ETS surrender flows through to a construction company's CBAM impo
 
 Big 4 sells hours. We sell infrastructure. Their output is a PDF report once a year. Ours is a live ledger that updates when regulations change.
 
-SAP has ERP data but no regulatory intelligence graph. We index 15,000+ EU regulatory documents across 20 industries and map obligations across ETS, CBAM, CSRD, EPBD, and Taxonomy simultaneously.
+SAP has ERP data but no regulatory intelligence graph. We index 15,000+ EU regulatory documents across 25 industries and map obligations across ETS, CBAM, CSRD, EPBD, and Taxonomy simultaneously.
 
 Seven years and six platform versions to build. 3-5 years to replicate.
 
@@ -79,7 +79,7 @@ Three pillars. Each takes years to build. Together they are a moat.
 
 **Pillar 1: Carbon balance sheet with network effects.** No competitor has cross-customer carbon flow. One customer's verified emissions improve another's CBAM factor. That is a network effect. 3-5 years to replicate.
 
-**Pillar 2: Regulatory intelligence graph.** 15,000+ EU documents, 20 industries, 21 AI agents. Not a fine-tuned GPT on PDFs. A structured knowledge graph built over 7 years across 6 platform versions. 3-5 years to replicate.
+**Pillar 2: Regulatory intelligence graph.** 15,000+ EU documents, 25 industries, a fleet of skilled agents. Not a fine-tuned GPT on PDFs. A structured knowledge graph built over 7 years across 6 platform versions. 3-5 years to replicate.
 
 **Pillar 3: Edge deployment + model-agnostic orchestration.** AI inference on-premise at EUR 17K/year. Swap any LLM — the intelligence lives in the knowledge graph and the ledger, not the model provider. Built on Model Context Protocol (MCP). 2-3 years to replicate.
 

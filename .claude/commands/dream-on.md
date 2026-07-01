@@ -1,7 +1,7 @@
 ---
 name: dream-on
 allowed-tools: Read, Edit, Write, Bash(node:*), Bash(git:*), ExitPlanMode
-description: One-trigger entry to the Firehorse Dreaming loop. Picks the next unpromoted dream artifact, enters plan mode for atomic HIL approval, then runs auto-mode + /goal until the work is done.
+description: Internal dreaming loop for queued clawdbot proposals. Claude Code CLI only until cross-surface verification and mobile/web adapters exist.
 argument-hint: "[proposal-path | topic | --next]"
 ---
 

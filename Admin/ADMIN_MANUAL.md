@@ -1,13 +1,19 @@
 # DWS IQ Platform - Admin Manual
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.2
+Version: 3.8
 
 Sessions & Modifications:
 
+- Version: 3.8 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: Added "Ontology-schema implementation — retention is now a node property" subsection recording the `ONTOLOGY.md` v1.5 schema change (Data Lifecycle & Retention Ontology, §6): every LWM ontology node ingesting live data now declares node_owner/raw_tier/summary_tier/audit_tier/rollup_tier/aggregation_review at design time. Documents the operator action (reject node definitions missing the retention block) and the full cross-reference chain from ONTOLOGY.md through the field note, this Admin Manual, the handbook, and the public product pages.
+- Version: 3.7 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: Added "National reference: VM 2026:27 recommendation audit" subsection under Customer Sensor Data Retention — maps Table 16 (§4.4.3) risk-management measure categories from the Finnish Ministry of Finance guide (VM 2026:27) to the four-layer retention model (content-modification → Layer 2/4, user-management → RLS/Layer 3, distribution-control → Situation Room, aggregation-effect mitigation → §4.4.2), plus the guide's Stage 5 documentation-disclosure warning applied to this checklist itself. Source archived at `docs/regulatory-radar/sources/2026-VM-2026-27-kriittinen-infrastruktuuri-avoin-tieto.md`.
+- Version: 3.6 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: Added "Customer Sensor Data Retention — Control Room / Situation Room" section — operator-facing summary of the four-layer retention model (72h raw / 13mo ontologised / 7yr Article 12 audit trail / 24mo Situation Room rollup), ontology-node ownership and quarterly access-review responsibilities, and a compliance checklist. Canonical source: `docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md`.
+- Version: 3.5 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 25.06.2026 | Changes: Added "NemoClaw Agent Runtime (DGX Spark / sovereign edge)" section — one-runtime-per-room-profile model (Control Room / Situation Room / Mobile Command-Situation Room are config overlays, not separate builds), the per-box secret schema (`nemoclaw-ngc-key` pull-time, `nemoclaw-api-key` local runtime token; endpoint is config not a secret; external tool keys only if enabled), and operate/health/migration pointers. Cross-links DWS_DEPLOYMENT_STANDARD.md and the OpenClaw→NemoClaw migration plan.
+- Version: 3.4 | Tool: Claude Code (Opus 4.6) | Session: claude/lwm-ontology-v1-500-enterprises | Date: 22.06.2026 | Changes: Added NVIDIA AI Workbench on DGX Spark section — enterprise sovereign training workflow, mode-switch architecture (training-mode.sh / production-mode.sh), QLoRA fine-tuning procedures, 4-stage sovereign training cascade reference, CR-1/CR-2 memory budget guidance
+- Version: 3.3 | Tool: Claude Code | Session: claude/karpathy-12-rules-u47rx1 | Date: 19.06.2026 | Changes: Replaced incomplete Karpathy "Critical Behaviors" (1-6) with the full 12 Engineering Discipline Rules table in AI Agent Operational Guidelines, cross-linked to canonical CLAUDE.md, AI_AGENT_GUIDELINES.md §0, and the hook enforcement map; added Recent Session Artifacts digest mined from the latest session artifacts.
 - Version: 3.2 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: pr-975 | Date: 22.05.2026 | Changes: Added GBrain standalone setup and operator usage for the `blogtheristo/gbrain` fork, documented Bun + PGLite workflow, and aligned Admin Manual rendering with `***` version-history delimiters for Pandoc compatibility.
 - Version: 3.1 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: main | Date: 13.05.2026 | Changes: Added reusable CI failure checklist for `.github/workflows/deploy-staging.yml` and `.github/workflows/dast-zap-scan.yml`: Artifact Registry existence check and create command, reserved Cloud Run `PORT` rule, `issues: write` permission for failure-notify issue creation, OWASP ZAP root/robots/sitemap endpoint rule, and startup health-wait loop guidance.
 - Version: 2.8 | Tool: GitHub Copilot CLI (GPT-5.3-Codex) | Session: main | Date: 11.05.2026 | Changes: Added billing account management inventory: billing account `011602-801DEC-A53E8F` (Lifetime Oy, Direct), linked projects (`dws-mcp-hub`, `dws-iq-pilot`, `dws6login`), and billing administrators (`risto.paarni2024@lifetime.fi`, `admin@dws6.com`)
@@ -40,8 +46,8 @@ Session Links & References:
 Document Status:
 
 - Created: 23.11.2025
-- Last Modified: 22.05.2026
-- Version: 3.2
+- Last Modified: 22.06.2026
+- Version: 3.4
 - Language: English
 - Languages Available: English
 - Publication Status: ✅ ACTIVE
@@ -209,6 +215,43 @@ This section links the **full maintenance plan** in one place:
 
 - **Security maintenance**:
   - [Bug Tracking & Security Maintenance](#bug-tracking--security-maintenance) (audit status, fix history, monthly budget, roadmap)
+
+---
+
+## NemoClaw Agent Runtime (DGX Spark / sovereign edge)
+
+NemoClaw is NVIDIA's open agent blueprint — the **OpenShell** secure runtime + a choice of harness (**OpenClaw** or **Hermes**) + a model router + NVIDIA NeMo libraries — running as the local autonomous-agent surface on customer-owned hardware (DGX Spark / Acer Veriton GN100). OpenShell governs how each agent accesses files, networks and tools (policy-based security at every layer). It runs inside the KYA-governed sandbox; the DWS bridge (`src/mcp/nemoclaw-bridge.ts`) talks to it locally and logs every call to the Article-12 trail. Full canonical detail: `DWS_DEPLOYMENT_STANDARD.md` → "NemoClaw Runtime (per Surface)".
+
+### One runtime, per-room profile
+
+Do **not** stand up separate NemoClaw builds per room. The same runtime + bridge + sandbox + KYA governance deploys everywhere; only a config overlay differs:
+
+| Room                          | Hardware          | Model set                      | Egress             |
+| ----------------------------- | ----------------- | ------------------------------ | ------------------ |
+| Control Room                  | 1× GN100          | `nemotron-3-super` + fast path | Internal LAN only  |
+| Situation Room                | 2× bridged GN100  | + 405B-class bridged           | Air-gapped         |
+| Mobile Command-Situation Room | 1× GN100 / Jetson | Smallest viable set            | Intermittent / off |
+
+A new room is a **new profile, not a new build**. Per-room differences (model set, KYA ATS thresholds, `allowedSkills`, egress) are deployment config.
+
+### Secrets to provision (per box)
+
+NemoClaw is local-first and needs the fewest secrets. Set these in the secret manager / `.env` (never commit):
+
+| Secret                   | Required    | When      | Purpose                                                                                         |
+| ------------------------ | ----------- | --------- | ----------------------------------------------------------------------------------------------- |
+| `nemoclaw-ngc-key`       | Yes         | provision | NVIDIA NGC token to pull/license NIM microservices + Nemotron. Pull-time only.                  |
+| `nemoclaw-api-key`       | Recommended | runtime   | Local bearer token so only the KYA bridge can call the NemoClaw RPC endpoint. Generate per box. |
+| `NEMOCLAW_ENDPOINT`      | No (config) | runtime   | Internal URL — plain env var, **not** a secret. Default `http://127.0.0.1:3100`.                |
+| Exa / external tool keys | If enabled  | runtime   | Per-skill; **disabled** on air-gapped Situation Room / Mobile profiles.                         |
+
+Local inference needs **no per-call key** (sovereignty: no cloud round-trip, no token meter). Env knobs are documented in `src/middleware/env-validation.ts` (`NEMOCLAW_*`).
+
+### Operate
+
+- Deploy / health: `infrastructure/dgx-spark/` (`docker-compose.yml` service `nemoclaw`, `deploy.sh`, `heartbeat.ts` check `nemoclaw`). Health: `http://nemoclaw:8090/health` (LAN).
+- `NEMOCLAW_IMAGE` defaults to the upstream OpenClaw image; NemoClaw is NVIDIA's OpenShell-sandboxed distribution — point `NEMOCLAW_IMAGE` at the NVIDIA-published image once provisioned (migration Phase 3).
+- Migration status / runbook: `docs/migrations/2026-06-25-openclaw-to-nemoclaw.md`.
 
 ---
 
@@ -382,14 +425,14 @@ The workflow also now sets:
 
 Use this checklist whenever Cloud Run staging or OWASP ZAP fails in GitHub Actions. These checks are now the canonical triage flow for `.github/workflows/deploy-staging.yml` and `.github/workflows/dast-zap-scan.yml`.
 
-| Failure signature | Root cause | Required check | Fix |
-| --- | --- | --- | --- |
-| `Permission 'iam.serviceAccounts.getAccessToken' denied` | Workload Identity principal can authenticate but cannot mint access token for deployer service account | Confirm target service account has `roles/iam.serviceAccountTokenCreator` and repo principal has `roles/iam.workloadIdentityUser` | Re-apply the SA-level IAM bindings in the OIDC runbook above |
-| `Repository "dws-iq-repo" not found` during `Build Staging Image` | Artifact Registry repository does not exist in `dws-iq-60` | Run `gcloud artifacts repositories describe dws-iq-repo --location=europe-north1 --project=dws-iq-60` | Create it: `gcloud artifacts repositories create dws-iq-repo --repository-format=docker --location=europe-north1 --description="DWS IQ staging images"` |
-| Cloud Run deploy rejects `PORT` in `env_vars` | `PORT` is a reserved Cloud Run runtime variable | Inspect `.github/workflows/deploy-staging.yml` for `PORT=` under `env_vars` | Remove `PORT` from workflow-managed env vars; Cloud Run injects it automatically |
-| `Notify on Failure` cannot create issue (`Resource not accessible by integration`) | Workflow permissions omit issue-write scope | Inspect top-level `permissions:` block in `.github/workflows/deploy-staging.yml` | Add `issues: write` alongside `contents: read` and `id-token: write` |
-| OWASP ZAP baseline fails with `expected 200 / got 404` for `/`, `/robots.txt`, or `/sitemap.xml` | Baseline spider visits common public paths even when target is `/health` | Confirm app returns HTTP 200 for `/`, `/robots.txt`, and `/sitemap.xml` | Keep lightweight public handlers in `src/app.ts` for those three routes |
-| OWASP ZAP baseline fails intermittently before scan starts | App is not fully ready when ZAP begins | Check that workflow waits on `/health` with retries rather than a fixed sleep | Use a retry loop in `.github/workflows/dast-zap-scan.yml` before invoking ZAP |
+| Failure signature                                                                                | Root cause                                                                                             | Required check                                                                                                                    | Fix                                                                                                                                                     |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Permission 'iam.serviceAccounts.getAccessToken' denied`                                         | Workload Identity principal can authenticate but cannot mint access token for deployer service account | Confirm target service account has `roles/iam.serviceAccountTokenCreator` and repo principal has `roles/iam.workloadIdentityUser` | Re-apply the SA-level IAM bindings in the OIDC runbook above                                                                                            |
+| `Repository "dws-iq-repo" not found` during `Build Staging Image`                                | Artifact Registry repository does not exist in `dws-iq-60`                                             | Run `gcloud artifacts repositories describe dws-iq-repo --location=europe-north1 --project=dws-iq-60`                             | Create it: `gcloud artifacts repositories create dws-iq-repo --repository-format=docker --location=europe-north1 --description="DWS IQ staging images"` |
+| Cloud Run deploy rejects `PORT` in `env_vars`                                                    | `PORT` is a reserved Cloud Run runtime variable                                                        | Inspect `.github/workflows/deploy-staging.yml` for `PORT=` under `env_vars`                                                       | Remove `PORT` from workflow-managed env vars; Cloud Run injects it automatically                                                                        |
+| `Notify on Failure` cannot create issue (`Resource not accessible by integration`)               | Workflow permissions omit issue-write scope                                                            | Inspect top-level `permissions:` block in `.github/workflows/deploy-staging.yml`                                                  | Add `issues: write` alongside `contents: read` and `id-token: write`                                                                                    |
+| OWASP ZAP baseline fails with `expected 200 / got 404` for `/`, `/robots.txt`, or `/sitemap.xml` | Baseline spider visits common public paths even when target is `/health`                               | Confirm app returns HTTP 200 for `/`, `/robots.txt`, and `/sitemap.xml`                                                           | Keep lightweight public handlers in `src/app.ts` for those three routes                                                                                 |
+| OWASP ZAP baseline fails intermittently before scan starts                                       | App is not fully ready when ZAP begins                                                                 | Check that workflow waits on `/health` with retries rather than a fixed sleep                                                     | Use a retry loop in `.github/workflows/dast-zap-scan.yml` before invoking ZAP                                                                           |
 
 ### Current known-good workflow checks
 
@@ -798,15 +841,15 @@ DGX cron-runner (mirrors all 13 wrapped workflows)
 
 ### Components
 
-| Component | Location | Notes |
-| --- | --- | --- |
-| GitHub Actions variable | `DGX_SPARK_HEARTBEAT_URL` at https://github.com/blogtheristo/dws6/settings/variables/actions | Value: `https://heartbeat.dws6.com` (no trailing slash, no `/health` — action appends it) |
-| Reusable composite action | `.github/actions/dgx-failover-check/action.yml` | Outputs `dgx_alive` (true/false) and `dgx_status` (raw JSON or `down_<code>`) |
-| Cloudflare Tunnel | Name `dgx-heartbeat`, ID `b2d1d6e8-28e5-48e0-a2d5-3d5b702ead8b` | Managed locally via `/etc/cloudflared/config.yml` on the DGX box (not via dashboard) |
-| DNS record | `heartbeat.dws6.com` CNAME → `<tunnel-id>.cfargotunnel.com` | Proxied (orange cloud) — required for tunnels |
-| Tunnel ingress rule | `/etc/cloudflared/config.yml` on DGX | Routes `heartbeat.dws6.com` → `http://localhost:9999` |
-| Heartbeat service | `localhost:9999` on DGX Spark | `/health` returns HTTP 200 + `{"status":"healthy","timestamp":"..."}` |
-| Cron-runner | Separate concern — mirrors wrapped workflows on DGX | Wrap saves GHA minutes regardless; cron-runner ensures the work still runs |
+| Component                 | Location                                                                                     | Notes                                                                                     |
+| ------------------------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| GitHub Actions variable   | `DGX_SPARK_HEARTBEAT_URL` at https://github.com/blogtheristo/dws6/settings/variables/actions | Value: `https://heartbeat.dws6.com` (no trailing slash, no `/health` — action appends it) |
+| Reusable composite action | `.github/actions/dgx-failover-check/action.yml`                                              | Outputs `dgx_alive` (true/false) and `dgx_status` (raw JSON or `down_<code>`)             |
+| Cloudflare Tunnel         | Name `dgx-heartbeat`, ID `b2d1d6e8-28e5-48e0-a2d5-3d5b702ead8b`                              | Managed locally via `/etc/cloudflared/config.yml` on the DGX box (not via dashboard)      |
+| DNS record                | `heartbeat.dws6.com` CNAME → `<tunnel-id>.cfargotunnel.com`                                  | Proxied (orange cloud) — required for tunnels                                             |
+| Tunnel ingress rule       | `/etc/cloudflared/config.yml` on DGX                                                         | Routes `heartbeat.dws6.com` → `http://localhost:9999`                                     |
+| Heartbeat service         | `localhost:9999` on DGX Spark                                                                | `/health` returns HTTP 200 + `{"status":"healthy","timestamp":"..."}`                     |
+| Cron-runner               | Separate concern — mirrors wrapped workflows on DGX                                          | Wrap saves GHA minutes regardless; cron-runner ensures the work still runs                |
 
 ### Wrapped workflows (13)
 
@@ -841,7 +884,7 @@ jobs:
         if: steps.failover.outputs.dgx_alive != 'true'
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: "22"
 
       - name: Real work
         if: steps.failover.outputs.dgx_alive != 'true'
@@ -873,13 +916,13 @@ Monthly verification: https://github.com/blogtheristo/dws6/settings/billing/acti
 
 Read the **DGX Spark failover check** step log. The HTTP code printed in `DGX Spark is DOWN (HTTP <code>)` tells you which layer is broken:
 
-| HTTP code | Layer broken | Fix |
-| --- | --- | --- |
-| `000` / `000000` | DNS or TCP — runner couldn't connect at all | Check Cloudflare DNS for `heartbeat.dws6.com` CNAME (must be proxied / orange cloud). On DGX: `cloudflared tunnel list` should show 3–4 connections to nearby Cloudflare PoPs |
-| `404` | Tunnel up, but `/health` path not exposed | Check `/etc/cloudflared/config.yml` ingress rule matches the hostname being requested |
-| `502` | Tunnel up, origin service down | On DGX: `ss -tlnp \| grep :9999` (should show LISTEN); `curl http://localhost:9999/health` (should return 200 + JSON) |
-| `530` / `1033` | Cloudflare Tunnel daemon not connected to edge | On DGX: `sudo systemctl status cloudflared` — restart if needed |
-| `200` but workflow runs anyway | Variable misconfigured or empty | Verify `DGX_SPARK_HEARTBEAT_URL` is set under Variables (not Secrets), exact value `https://heartbeat.dws6.com`, no trailing slash |
+| HTTP code                      | Layer broken                                   | Fix                                                                                                                                                                           |
+| ------------------------------ | ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `000` / `000000`               | DNS or TCP — runner couldn't connect at all    | Check Cloudflare DNS for `heartbeat.dws6.com` CNAME (must be proxied / orange cloud). On DGX: `cloudflared tunnel list` should show 3–4 connections to nearby Cloudflare PoPs |
+| `404`                          | Tunnel up, but `/health` path not exposed      | Check `/etc/cloudflared/config.yml` ingress rule matches the hostname being requested                                                                                         |
+| `502`                          | Tunnel up, origin service down                 | On DGX: `ss -tlnp \| grep :9999` (should show LISTEN); `curl http://localhost:9999/health` (should return 200 + JSON)                                                         |
+| `530` / `1033`                 | Cloudflare Tunnel daemon not connected to edge | On DGX: `sudo systemctl status cloudflared` — restart if needed                                                                                                               |
+| `200` but workflow runs anyway | Variable misconfigured or empty                | Verify `DGX_SPARK_HEARTBEAT_URL` is set under Variables (not Secrets), exact value `https://heartbeat.dws6.com`, no trailing slash                                            |
 
 ### DGX-side operations
 
@@ -1276,10 +1319,10 @@ app.use(
 
 Billing account IAM was updated as follows:
 
-| Billing Account | Principal | Role |
-| --- | --- | --- |
+| Billing Account        | Principal                           | Role                  |
+| ---------------------- | ----------------------------------- | --------------------- |
 | `011602-801DEC-A53E8F` | `user:risto.paarni2024@lifetime.fi` | `roles/billing.admin` |
-| `011602-801DEC-A53E8F` | `user:admin@dws6.com` | `roles/billing.user` |
+| `011602-801DEC-A53E8F` | `user:admin@dws6.com`               | `roles/billing.user`  |
 
 Current status recorded during transfer:
 
@@ -1289,12 +1332,12 @@ Current status recorded during transfer:
 
 #### Billing account management inventory (2026-05-11)
 
-| Property | Value |
-| --- | --- |
-| Billing account ID | `011602-801DEC-A53E8F` |
-| Billing account display name | `Lifetime Oy Account` |
-| Organisation | `lifetime.fi` |
-| Account type | `Direct` |
+| Property                     | Value                  |
+| ---------------------------- | ---------------------- |
+| Billing account ID           | `011602-801DEC-A53E8F` |
+| Billing account display name | `Lifetime Oy Account`  |
+| Organisation                 | `lifetime.fi`          |
+| Account type                 | `Direct`               |
 
 **Projects linked to this billing account:**
 
@@ -1451,24 +1494,32 @@ For booking confirmations and admin notifications to send reliably, Cloud Run ru
 
 > "You are the hands; the human is the architect. Move fast, but never faster than the human can verify."
 
-### Critical Behaviors for DWS IQ Operations
+### The 12 Engineering Discipline Rules
 
-| #   | Behavior                     | Operational Impact                                                                     |
-| --- | ---------------------------- | -------------------------------------------------------------------------------------- |
-| 1   | **Assumption Surfacing**     | All AI agents must state assumptions before implementing changes to production systems |
-| 2   | **Confusion Management**     | STOP when encountering conflicting configs (e.g., .env vs production secrets)          |
-| 3   | **Push Back When Warranted** | Agents must flag security risks even if human requests them                            |
-| 4   | **Simplicity Enforcement**   | Prefer boring, obvious solutions over clever abstractions                              |
-| 5   | **Scope Discipline**         | Never modify files outside the requested scope                                         |
-| 6   | **Dead Code Hygiene**        | Ask before deleting - prevents accidental data loss                                    |
+**Canonical source:** [`CLAUDE.md`](../CLAUDE.md) -> "Engineering Discipline — The 12 Rules". Every agent has access to these — they are injected into every Claude Code session by `.claude/hooks/session-start.sh`, restated for code agents in [`AI_AGENT_GUIDELINES.md`](../AI_AGENT_GUIDELINES.md) §0, and enforced where mechanizable by the hooks (see `.claude/hooks/README.md`). This table is the operational reference; the rules themselves are not edited here.
+
+| #   | Rule                          | Operational impact for DWS IQ                                                                  |
+| --- | ----------------------------- | ---------------------------------------------------------------------------------------------- |
+| 1   | Think before coding           | State assumptions before changing production systems; never guess.                             |
+| 2   | Simplicity first              | Boring, minimum-code solutions; no speculative "future flexibility" abstractions.              |
+| 3   | Surgical changes              | Modify only files in scope; no opportunistic refactors.                                        |
+| 4   | Goal-driven execution         | Define success criteria upfront; loop/HIL until verified, then stop.                           |
+| 5   | Model only for judgment calls | LLM for classify/draft/summarize/extract; routing, retries, status codes, transforms are code. |
+| 6   | Token budgets are real        | Per-task 4000 / per-session 30000 (`CLAUDE_AUTO_MODE_BUDGET`); over budget -> checkpoint.      |
+| 7   | Surface conflicts             | Conflicting configs (e.g. .env vs production secrets) -> flag and pick one, never average.     |
+| 8   | Read before you write         | Read exports/callers/shared utils first; reuse over duplicate.                                 |
+| 9   | Tests verify intent           | Assert business meaning, not just field presence; a test that can't fail is wrong.             |
+| 10  | Checkpoint each step          | Commit/verify before the next step; session-stop governance checklist backs this.              |
+| 11  | Match conventions             | Follow established idioms (BaseAgent, test patterns, naming); no silent forks.                 |
+| 12  | Fail loud                     | Surface uncertainty and skipped records; never report success while hiding gaps.               |
 
 ### DWS-Specific Failure Modes
 
-| #   | Failure Mode                                 | Prevention                        |
-| --- | -------------------------------------------- | --------------------------------- |
-| 13  | Not using DWS document standard              | Follow `DWS_DOCUMENT_STANDARD.md` |
-| 14  | Deleting files without asking                | Explicit approval required        |
-| 15  | Using new environment without security check | Verify .gitignore and .env first  |
+| #   | Failure Mode                                 | Prevention                                           |
+| --- | -------------------------------------------- | ---------------------------------------------------- |
+| 13  | Not using DWS document standard              | Follow `DWS_DOCUMENT_STANDARD.md`                    |
+| 14  | Deleting files without asking                | Explicit approval required (prefer rename-to-`_OLD`) |
+| 15  | Using new environment without security check | Verify .gitignore and .env first                     |
 
 ### EU AI Act Alignment
 
@@ -2972,6 +3023,96 @@ To ensure automatic protection, use these naming conventions:
 
 ---
 
+## Customer Sensor Data Retention — Control Room / Situation Room
+
+### Overview
+
+Control Room and Situation Room ingest continuous customer sensor data (production-line telemetry, emissions sensors, cameras, IoT). Without an explicit, automated retention schedule, this data accumulates in the same way the unstructured-data problem does at every audited customer — undated, unowned, over-permissioned. The canonical policy is `docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md`; this section is the operator-facing summary.
+
+### Four-layer retention model (default)
+
+| Layer                          | Content                                                  | Retention                 | Where                         |
+| ------------------------------ | -------------------------------------------------------- | ------------------------- | ----------------------------- |
+| 1 — Raw sensor stream (hot)    | Unprocessed signal (temperature, emissions, camera, IoT) | 72 hours                  | Control Room local NVMe only  |
+| 2 — Ontologised summary (warm) | LWM-structured events, no raw signal                     | 13 months                 | Control Room                  |
+| 3 — Compliance audit trail     | EU AI Act Article 12 log, hash-chained, immutable        | 7 years                   | Control Room, SIEM-exportable |
+| 4 — Situation Room rollup      | Site-level aggregate only, never raw                     | 24 months, rolling window | Situation Room                |
+
+Layer 1 is never forwarded to Situation Room. Layer 4 never contains individualised data.
+
+### Operator responsibilities
+
+- **Do not extend Layer 1 retention** without a documented, customer-approved processing basis — the default is deliberately stricter than production-optimisation would prefer (GDPR Art. 5(1)(c) minimisation).
+- **Ontology-node ownership** is assigned per customer during onboarding (Pillar 2 scoping) — one named owner per LWM ontology class, never shared ownership.
+- **Access review** is quarterly, tracked alongside the Situation Room review cycle — not a one-time onboarding decision left stale for years.
+- **Dual-use / classified customer data** (Aegis Defence, ArgusAgent SAR) follows the customer's own classification schedule; DWS enforces only the 7-year Layer 3 audit-trail minimum, never a retention ceiling.
+- **Customer-facing copy** of this policy lives on the product pages (`dws10.com/products/edge-node-gn100.html`, `dws10.com/products/situation-room.html`) and must stay in lockstep with this section and the field note — update all three in the same commit.
+
+### Compliance Checklist (Control Room / Situation Room)
+
+- [ ] Layer 1 auto-purge timer active on every deployed Control Room box (no manual cleanup step)
+- [ ] Ontology-node owner named per customer at go-live
+- [ ] RLS access tiers match the four layers (operational vs. compliance vs. consultant)
+- [ ] Quarterly access review scheduled in the customer's Situation Room cadence
+- [ ] Product pages, handbook §3, and this section reference the same field note version
+
+### National reference: VM 2026:27 recommendation audit
+
+Source: Ministry of Finance (Finland), "Kriittinen infrastruktuuri ja avoin tieto — Opas turvallisuuslähtöiseen tiedonhallintaan," VM 2026:27, 17.6.2026 (ISBN PDF 978-952-367-188-1). Full guide archived at `docs/regulatory-radar/sources/2026-VM-2026-27-kriittinen-infrastruktuuri-avoin-tieto.md`. Not legally binding, but the first comprehensive national framework naming the **aggregation effect** (kasautumisvaikutus) as a core assessment criterion — every measure below (Table 16, §4.4.3 of the guide) has a direct equivalent already implemented or plannable in the four-layer retention model above.
+
+**Content-modification measures (maps to Layer 2/4 — ontologised summary, Situation Room rollup):**
+
+```
+Häivyttäminen suurempaan tietomassaan — Kun riski liittyy yksittäisen kohteen tunnistamiseen.
+Karsiminen — Kun riskit liittyvät tiettyihin yksityiskohtiin, meta-, attribuutti-, ominaisuustietoihin, ajantasaisuuteen tai maantieteelliseen tarkkuuteen.
+Tiedon keräämisen lopettaminen tai tiedon poistaminen — Kun tiedolle ei ole riittävää käyttötarvetta ja sen tuottaminen synnyttää jatkuvan riskin.
+Anonymisointi — Kun riski liittyy henkilön tunnistettavuuteen, eikä henkilötietoja ole tarpeen säilyttää.
+Pseudonymisointi — Kun riski liittyy suoraan henkilön tunnistettavuuteen, mutta tietoa on edelleen tarpeen käyttää hallitusti.
+```
+
+**User-management measures (maps to RLS + Layer 3 audit trail):**
+
+```
+Pääsyn rajaaminen need to know -periaatteella — Kun tieto on hyödyllistä rajatulle käyttäjäjoukolle, mutta ei avoimeen jakoon.
+Lokitus ja monitorointi — Kun halutaan havaita poikkeavaa käyttöä, massalatauksia tai väärinkäyttöä.
+API-avainten käyttö — Kun tietoa jaetaan rajapinnan kautta ja käyttöä halutaan rajata tietylle käyttäjäjoukolle.
+```
+
+**Distribution-control measures (maps to Situation Room — never receives raw data, only aggregates):**
+
+```
+Katselupalvelu latauspalvelun tai rajapinnan sijaan — Kun hyöty syntyy tarkastelusta, mutta massalataus lisäisi riskiä.
+Lataus- tai kyselymäärien rajaaminen — Kun riski liittyy massapoimintaan tai automaattiseen keruuseen.
+```
+
+**Aggregation-effect mitigation (§4.4.2 of the guide — the core principle behind the whole retention model):**
+
+```
+Kasautumista voidaan pienentää vähentämällä kertyvän tiedon määrää tai laatua.
+Kasautumisen vähentäminen voidaan toteuttaa rajaamalla viranomaisiin kertyvä tieto vain ehdottomasti tarvittaviin.
+Kasautumisen aiheuttamaa riskiä voidaan pienentää lisäämällä järjestelmien tietoturvatasoa sekä vähentämällä tiedon käsittelijöiden määrää, tiedon jakelukanavia ja -tapoja.
+```
+
+**Documentation requirement (Stage 5, §4.5 of the guide) — applies to this checklist itself:**
+
+```
+Dokumentoinnissa voi kuvata esimerkiksi arvioinnin kohteena olleen tiedon tai tietoaineiston, sovellettavat säädökset, tunnistetut hyödyt ja riskit, valitut riskienhallintatoimenpiteet, niiden perustelut sekä se, miten toimenpiteiden vaikutuksia seurataan.
+Dokumentoinnissa on hyvä huomioida, että riskienhallintatoimenpiteiden kuvaaminen julkisessa asiakirjassa voi itsessään paljastaa haavoittuvuuksia tai muodostaa muun riskin.
+```
+
+**Operator note on the last quote:** the public product pages (`edge-node-gn100.html`, `situation-room.html`) only publish the top-level layer model and default durations — never customer-specific measures, named ontology-node owners, or implementation detail. If a future customer engagement documents element-level redactions or per-customer measures, that detail stays in this Admin Manual / the customer's own scoping file, never on the public site.
+
+### Ontology-schema implementation — retention is now a node property
+
+`ONTOLOGY.md` §6 (v1.5) was updated to add a **Data Lifecycle & Retention Ontology (HOW LONG)** subsection. Every LWM ontology node that ingests live operational data must now declare, at design time, its own `node_owner`, `raw_tier`, `summary_tier`, `audit_tier`, `rollup_tier`, and `aggregation_review` cadence — the same five fields the Control Room / Situation Room four-layer model already implements. This closes the gap between the retention policy above (product-specific) and the ontology schema (platform-wide): retention is now a declared property of every node, not an implicit default inherited from the platform.
+
+- **What changed:** `ONTOLOGY.md` §6, between Spatial and Causal Ontology — see the "Data Lifecycle & Retention Ontology" YAML block.
+- **Why:** closes the aggregation-effect gap named in VM 2026:27 §4.4.2 — without a per-node retention declaration, new ontology nodes default to "keep forever," recreating the unstructured-data problem this whole retention effort exists to prevent.
+- **Operator action:** when defining a new ontology node (new industry vertical, new sensor class, new customer-specific extension), the retention YAML block is a required design-time field, not an optional add-on. Reject node definitions that omit it.
+- **Cross-reference chain (keep in lockstep):** `ONTOLOGY.md` §6 → `docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md` → this Admin Manual section → `docs/KONSULTIN_KASIKIRJA_2026.md` §3 → public product pages.
+
+---
+
 ## Emergency Procedures
 
 ### Rollback Deployment
@@ -3375,10 +3516,62 @@ auditor-access model.
 
 ---
 
+## Recent Session Artifacts
+
+Digest of the ~100 most recent important session artifacts (commits + changed
+docs) as of 19.06.2026, grouped by theme. Source of truth is git history; this
+is a navigational snapshot, not a replacement for `git log`. Regenerate with
+`git log --since="75 days ago" --name-only` and re-group.
+
+### Engineering discipline & harness
+
+- **12 Engineering Discipline Rules** codified as canonical in `CLAUDE.md`,
+  mirrored to `AI_AGENT_GUIDELINES.md` §0, `AGENTS.md`, injected per-session by
+  `.claude/hooks/session-start.sh`, and mapped to enforcing hooks in
+  `.claude/hooks/README.md`.
+- **Loop Engineering** — Maker/Checker agent loop with disk state and budget
+  gate (`skills/loop/`), plus three critical state/budget bug fixes.
+- AGENTS.md auto-sync (`scripts/sync-agents-md.mjs`) and freshness check.
+
+### Truth, brand & store
+
+- `/truth-check` lint + CI gate wired to `DWS_TRUTH_STANDARD` §5/§7/§8.
+- Store search-hero refreshed to 2026 sovereignty-led copy; industry count
+  locked to canonical **25 EU-regulated industries**; store profile description
+  (FI/EN).
+- **Lifetime VIP AI Services** (SKU `FLEET-VIP-001`): product page, Revolut
+  payment link, one-page sales sheet + PDF, Tornio "Forte line" scenario;
+  weekly Firehorse Store posts (2026-W24 / W24b); products.json + Google
+  Merchant / NVIDIA ISV feed sync.
+
+### Investor, sales & partners
+
+- Matti Heikkonen DD (PASS, pitch files parked); Lifeline Ventures
+  (Timo Ahopelto) added as Dual-Use target; SSAB + Outokumpu illustrative cases.
+- SIRA Innovation Awards: Top-15 analysis + next-round profile (fact-fixes for
+  readiness drift, sovereignty lead, momentum).
+- Digia Hub co-marketing inquiry + partner card; Susanna Hyppönen card + data
+  protection management across hubs.
+
+### Thesis, research & field notes
+
+- Master's (`V3Thesis_EN/FI`) and PhD (`PHD_FIREHORSE_EN/FI`) updates incl.
+  §14.24 AI-spending asymmetry (G7+partners vs China), v3.62.
+- Field notes: AIPCon 10 USDA agricultural ontology, quantum Q-day (Shor/ECC),
+  three-pillar sovereignty.
+
+### Infrastructure
+
+- DGX Spark primary runtime: `infrastructure/dgx-spark/` docker-compose,
+  heartbeat, cron-runner, deploy scripts.
+
+---
+
 ## Document Changelog
 
 | Version | Date         | Changes                                                                                                                                                                                                                                                                                                                                                        | Session ID                           |
 | ------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| 3.3     | Jun 19, 2026 | Full 12 Engineering Discipline Rules table (replaces incomplete Karpathy 1-6) in AI Agent Operational Guidelines, cross-linked to CLAUDE.md / AI_AGENT_GUIDELINES.md §0 / hook enforcement map; added Recent Session Artifacts digest.                                                                                                                         | karpathy-12-rules-u47rx1             |
 | 2.5     | May 10, 2026 | Node.js workspace setup section: dual `npm ci` at repository root and `src/cloudflare/` for backend vs Cloudflare agent workers; PowerShell-first examples; worktree and cloud-agent note; TOC renumbered.                                                                                                                                                     | cursor-admin-node-workspace-20260510 |
 | 2.4     | Apr 25, 2026 | Browse SSRF hardening (`src/utils/url-guard.ts`): default-deny IPv4/IPv6 private/loopback/link-local/cloud-metadata ranges, two-layer enforcement (pre-`goto` + `page.route` for redirects), `BROWSE_ALLOW_PRIVATE=1` dev override; moved `playwright` from devDependencies to dependencies so DGX Spark `npm ci --omit=dev` keeps it. 75 tests pass.          | Rg5Jy                                |
 | 2.3     | Apr 25, 2026 | Added Agent Capabilities section (Browse + Second Brain): `dws browse` (Playwright Chromium, MCP `dws_browse_*`), DGX Spark embeddings provider (`EMBEDDING_PROVIDER=dgx-spark`), `dws kb preflight`, `scripts/daily/kb-watch-inbox.sh` (auto-backfill with `KB_WATCH_MAX_PER_RUN` cap); linked PLAYWRIGHT.md + AGENT_SECOND_BRAIN.md in Related Documentation | Rg5Jy                                |

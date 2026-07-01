@@ -9,7 +9,7 @@
 
 ## First Lines (Paragraph 1)
 
-I'm Risto Anton, Founder of Lifetime Oy. We build the carbon balance sheet — double-entry bookkeeping for CO2 across 20 EU-regulated industries. Every tonne tracked like every euro, from ETS surrender through CBAM import to CSRD disclosure.
+I'm Risto Anton, Founder of Lifetime Oy. We build the carbon balance sheet — double-entry bookkeeping for CO2 across 25 EU-regulated industries. Every tonne tracked like every euro, from ETS surrender through CBAM import to CSRD disclosure.
 
 ---
 
@@ -31,14 +31,14 @@ We're at €7K/month MRR with 100% retention on 6 paying customers. DWS IQ 7 shi
 ### Customization Tips:
 
 **For Angel Investors:**
-> I'm Risto Anton, Founder of Lifetime Oy. We build the carbon balance sheet — double-entry bookkeeping for CO2 across 20 EU-regulated industries. Every tonne tracked like every euro, from ETS surrender through CBAM import to CSRD disclosure.
+> I'm Risto Anton, Founder of Lifetime Oy. We build the carbon balance sheet — double-entry bookkeeping for CO2 across 25 EU-regulated industries. Every tonne tracked like every euro, from ETS surrender through CBAM import to CSRD disclosure.
 >
 > €7K/month MRR, 100% retention, 6 paying customers. Raising €650K SAFE at €3.8M cap (bridge to Series A 2026). The carbon balance sheet ships July 2026. Would love to share our traction if you're interested in climate tech infrastructure.
 
 **For VC Firms:**
-> I'm Risto Anton, Founder of Lifetime Oy. We build carbon balance sheet infrastructure for industrial Europe — double-entry bookkeeping for CO2 across 20 EU-regulated industries. 50,000+ EU companies need a carbon ledger by 2028.
+> I'm Risto Anton, Founder of Lifetime Oy. We build carbon balance sheet infrastructure for industrial Europe — double-entry bookkeeping for CO2 across 25 EU-regulated industries. 50,000+ EU companies need a carbon ledger by 2028.
 >
-> €7K MRR, 100% retention, 6 paying customers, 21 AI agents. Raising €650K SAFE at €3.8M cap (bridge to Series A). The persistent carbon ledger ships July 2026. Happy to share our deck and the cross-vertical data thesis if this fits your portfolio.
+> €7K MRR, 100% retention, 6 paying customers, a fleet of skilled agents. Raising €650K SAFE at €3.8M cap (bridge to Series A). The persistent carbon ledger ships July 2026. Happy to share our deck and the cross-vertical data thesis if this fits your portfolio.
 
 **For ESG/CSRD Consulting Partners:**
 > I'm Risto Anton, Founder of Lifetime Oy. We build the carbon balance sheet — automated double-entry bookkeeping that unifies ETS, CBAM, and CSRD into one auditable ledger. Debits and credits, not spreadsheets.
@@ -135,7 +135,7 @@ Regulation is live. Customers have budget. Product works. We have traction. This
 ## Quick Copy-Paste (Plain Text)
 
 ```
-I'm Risto Anton, Founder of Lifetime Oy. We build the carbon balance sheet — double-entry bookkeeping for CO2 across 20 EU-regulated industries. Every tonne tracked like every euro, from ETS surrender through CBAM import to CSRD disclosure.
+I'm Risto Anton, Founder of Lifetime Oy. We build the carbon balance sheet — double-entry bookkeeping for CO2 across 25 EU-regulated industries. Every tonne tracked like every euro, from ETS surrender through CBAM import to CSRD disclosure.
 
 EUR 7K/month MRR with 100% retention on 6 paying customers. DWS IQ 7 ships the persistent carbon ledger July 2026. Raising EUR 650K SAFE at EUR 3.8M cap (bridge to Series A). 50,000+ EU companies need a carbon balance sheet by 2028. We're building the infrastructure.
 ```
