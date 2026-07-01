@@ -12,22 +12,30 @@ Input: $ARGUMENTS (customer profile as JSON — or describe in natural language 
 ## Steps
 
 1. Parse the input — if natural language, convert to the Regulatory Radar expected format.
-2. **Execution status:** the dedicated `regulatory-radar` CLI agent is **not yet available**, so do **not** run `dws run regulatory-radar` or `cd cli && npx tsx src/cli.ts run regulatory-radar --input '<json>'` yet.
-3. **Current workaround:** use `/compliance-check` with the same customer profile and ask for an upcoming-regulations / regulatory-pipeline review. This provides the currently available alternative until the `regulatory-radar` agent is wired into the CLI.
-4. **Expected behavior once implemented:** the agent will scan these sources (in priority order):
-   - **EUR-Lex** — pending Delegated Acts, Implementing Regulations, Directives (CELEX search filtered by customer's active regulation frameworks)
-   - **DG ENER / DG CLIMA / DG GROW** — consultation pages, work programme entries, feedback periods
-   - **Commission work programme** — annual published schedule of upcoming Acts
-   - **EFRAG** — ESRS exposure drafts and sector standards
-   - **CINEA** — Innovation Fund auction schedules (hydrogen, industrial decarbonisation)
-   - **National scheme registries** — Energimyndigheten (SE), SEAI (IE), Germanwatch (DE) for member-state overlays
-5. The review should score each pipeline item per the customer profile:
-   - **Applicability:** does it hit this customer? (industry, size threshold, jurisdiction)
-   - **Urgency:** months until in-force / first reporting deadline
-   - **Effort:** estimated gap-to-compliance (low/medium/high)
-   - **Risk:** penalty exposure + reputational exposure if missed
-6. The expected output is a signed, Article-12-auditable radar report sorted by urgency × risk, with citation to the regulatory source (EUR-Lex CELEX, DG URL, Commission work-programme entry).
-7. If any item scores urgency ≤6 months AND risk = high, flag it as ALERT.
+2. **Execution status (live, scoped):** run against the already-active regulations
+   (`fit-for-55`, `ets`, `cbam`, `csrd`, `eu-ai-act`) via the existing compliance
+   agent: `cd cli && npx tsx src/cli.ts run compliance --input '<json>'` with
+   `regulations` set to all five, regardless of the customer's stated
+   `activeFrameworks` — the point is to surface what's coming, not just what
+   they've already registered for.
+3. From the response, take `result.deadlines` (already sorted by urgency
+   bucket: `overdue` / `urgent` ≤90d / `approaching` ≤365d / `comfortable`) and
+   `result.industryRiskFactor`. Filter to `lookAheadMonths` from the input.
+   Flag any item with `urgency` in `overdue` or `urgent` (≤90 days) as **ALERT**;
+   treat `approaching` (≤365 days) as a watch item.
+4. **Scope note:** this covers deadline-urgency scoring for the five regulations
+   already wired into `compliance.agent.ts`. It does **not** yet do live
+   EUR-Lex / DG ENER / EFRAG / CINEA pipeline scanning for _new, not-yet-known_
+   instruments — that ingestion layer (§ Data freshness below) is still
+   unbuilt. If the ask is "is there a Delegated Act about to drop that we don't
+   already track," say so explicitly rather than presenting this as exhaustive.
+5. **Datacentre-compliance vertical:** the EED-specific radar feature described
+   in PRD v0.2 (24-KPI submission tracking, `docs/DWS7_DATACENTRE_COMPLIANCE_PRD_v0.md`)
+   remains gated behind Gate 1 (3 signed design-partner letters, target 1 Oct 2026) — this general wrapper does not unblock that vertical-specific build.
+6. The output is a radar-style report sorted by urgency, citing the deadline
+   source (`compliance.agent.ts` regulation deadline table) — not yet a signed
+   Article-12 PDF; that packaging can reuse the Firehorse Report Engine when
+   there's demand for it.
 
 ## Expected input format
 
@@ -90,6 +98,11 @@ Input: $ARGUMENTS (customer profile as JSON — or describe in natural language 
 
 ## Data freshness
 
+- The five tracked regulation deadlines (`fit-for-55`, `ets`, `cbam`, `csrd`,
+  `eu-ai-act`) live as hardcoded dates in `compliance.agent.ts`
+  (`REGULATION_DEADLINES`) — accurate as of each date's last manual update in
+  that file, not auto-refreshed. Check the file's own history if a deadline
+  looks stale.
 - EUR-Lex snapshot: **planned** daily refresh via `scripts/daily/eur-lex-sync.ts` once the regulatory-radar ingestion jobs are implemented
 - DG consultation pages: **planned** weekly refresh via `scripts/weekly/dg-consultations-sync.ts` once the consultation crawler is implemented
 - EFRAG / CINEA: **planned** event-driven refresh on Commission press releases
@@ -97,8 +110,8 @@ Input: $ARGUMENTS (customer profile as JSON — or describe in natural language 
 
 ## Agent lineage
 
-- **Brain:** `regulatory-radar` agent (new — to be built after `/datacentre-compliance` PRD Gate 1 passes)
-- **Memory:** extends Lifetime World Model with regulatory-pipeline ontology (EUR-Lex CELEX + in-force dates + customer-impact rules)
-- **Body:** signed radar PDF via Firehorse Report Engine
-- **Hands:** EUR-Lex daily scrape + DG consultation weekly scrape
-- **MCP tool:** `regulatory-radar` exposed at `/mcp tools/list`
+- **Brain:** thin wrapper over the existing `compliance` agent (`compliance.agent.ts`) — no new agent process; a dedicated `regulatory-radar` agent with live EUR-Lex ingestion remains future work
+- **Memory:** currently just `compliance.agent.ts`'s `REGULATION_DEADLINES` table; the Lifetime World Model regulatory-pipeline ontology (EUR-Lex CELEX + in-force dates + customer-impact rules) is still future work
+- **Body:** plain JSON/markdown response today; signed radar PDF via Firehorse Report Engine remains future work
+- **Hands:** none yet — EUR-Lex daily scrape + DG consultation weekly scrape are still unbuilt
+- **MCP tool:** not yet exposed at `/mcp tools/list`
