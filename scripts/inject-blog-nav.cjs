@@ -202,6 +202,11 @@ const posts = [
     title: 'Suvereniteetti on säädin, ei kytkin — mitä USA ja EU voivat oppia brexitistä (FI)',
     date: '30 Jun 2026',
   },
+  {
+    file: 'tiedon-vanheneminen-sensoridata-retention.html',
+    title: 'Tiedon vanheneminen — sensoridatan tallennusstrategia (FI, field note)',
+    date: '1 Jul 2026',
+  },
 ];
 
 // Three featured products

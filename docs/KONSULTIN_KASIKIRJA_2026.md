@@ -31,11 +31,13 @@ Sessions & Modifications:
 - Version: 1.74 | Tool: Claude Code (Opus 4.8) | Session: claude/consultant-handbook-v1-6-622fep | Date: 28.06.2026 | Changes: Added §6 "Kyvykkyydet tuotteen elinkaaressa" — maps agent capabilities, skills, workflows and learning (Gödel) loops to product lifecycle stages (Development / Deployment / Maintenance / Update & Grow) for both DWS IQ platform and the Firehorse product line. 72 IT roles re-cast as capabilities; roles stay with humans, agents make them faster (human-in-the-loop per §2 Ihmiskeskeisyys).
 - Version: 1.75 | Tool: Claude Code (Opus 4.8) | Session: claude/consultant-handbook-v1-6-622fep | Date: 28.06.2026 | Changes: §6 lifecycle section — added explicit mapping of Boris Cherny's 5 product archetypes (Prototyper/Builder/Sweeper/Grower/Maintainer) to lifecycle stages (overlapping, not 1:1), plus "Kypsyysmiksaus" — the right archetype mix by maturity, applied both per DWS product (Aegis Defence pre-PMF 1+2+3; Climate IQ growing 2+3+4+5; DWS IQ 6 mature 3+4+5) and per industry (mature steel/energy/chemicals; growing construction/maritime; emerging defence/new ontology nodes).
 - Version: 1.76 | Tool: Claude Code (Opus 4.8) | Session: claude/consultant-handbook-v1-6-622fep | Date: 28.06.2026 | Changes: Added §3 "Kyvykkyyden hinnoittelumalli (hybridi)" — three complementary tiers: monthly subscription (enterprise default, procurement-friendly), low-entry monthly (self-serve, vs. €9/mo market tools like cogny.com/solo), token/agentic commerce (2027, Stripe/Zuora hybrid). Notes public procurement is always client-defined €/person-day. Regenerated HTML.
+- Version: 1.77 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: §1 "Keitä olemme" — lisätty konsultoinnin ja koulutuksen kolme erikoistumisaluetta (Claude Code, NVIDIA ja suvereeni laskenta, suvereeni tietojenkäsittely) sekä eksplisiittinen maininta EU:n teollisuusasiakkaista pääkohderyhmänä.
+- Version: 1.78 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: §3 Control Room/Situation Room -tuotekuvaukseen lisätty "Tiedon tallennusstrategia" -kappale (neljä kerrosta: raaka sensorivirta 72h, ontologisoitu tiivistelmä 13kk, Article 12 -audit 7v, Situation Room -koonti 24kk) viittauksella `docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md`. Sama retention-malli lisätty Admin Manual -dokumenttiin ja asiakkaan admin-materiaaleihin (edge-node-gn100.html, situation-room.html tuotesivut).
 
 Document Status:
 
 - Created: 28.06.2026
-- Last Modified: 28.06.2026
+- Last Modified: 01.07.2026
 - Language: Finnish / English (bilingual)
 - Previous version: Konsultoinnin käsikirja 2024 v0.16 (Risto Anton Päärni, Salla Limetti)
 - Publication Status: DRAFT — review before distribution
@@ -107,7 +109,15 @@ Tämän konsultoinnin käsikirjan on laatinut Risto Anton Paarni, toimitusjohtaj
 
 Lifetime Oy on espoolainen teknologiayritys, joka kehittää ja toimittaa DWS IQ -alustaa — Euroopan teollisuuden suvereenia compliance-älyalustaa sekä lokaaleja valvomohuoneita (Control Room) ja johtohuoneita (Situation Room). Suvereniteetti syntyy paikallisesta laitteistosta ja lokaalista World Model -toteutuksesta. Tuotamme suvereenia tekoälyä, joka automatisoi EU-säännösten noudattamisen 25 säännellyllä toimialalla.
 
-Olemme siirtyneet yleisestä IT-konsultoinnista (2019-2024) kohdennettuun AI-alustatuotteeseen (2025-2026). Konsultointi on osa DWS-tuotteen projektitoimitusta ja on saatavissa asiakasprojekteihin.
+Olemme siirtyneet yleisestä IT-konsultoinnista (2019-2024) kohdennettuun AI-alustatuotteeseen (2025-2026). Konsultointi on osa DWS-tuotteen projektitoimitusta ja on saatavissa asiakasprojekteihin. **Pääkohderyhmämme on EU:n säännelty teollisuus** — energia, teräs, kemianteollisuus, rakentaminen, puolustus ja muut 25 Fit for 55 -toimialaa.
+
+### Konsultoinnin ja koulutuksen kolme erikoistumisaluetta
+
+Consulting- ja koulutustoiminnassamme on kolme teknistä painopistettä, jotka tukevat teollisuusasiakkaita suvereeniuden ja AI-kyvykkyyksien rakentamisessa:
+
+- **Claude Code -konsultointi ja -koulutus** — Autamme teollisuustiimejä ottamaan Claude Coden hallitusti käyttöön kurinalaisessa insinöörityöprosessissa (plan → review → ship). Koulutustuotteet: 1 päivän luento, 2 päivän työpaja ja 2–6 viikon upotettu asiakasprojektityö. EU AI Act Art. 4 -lukutaito sisältyy jokaiseen pakettiin. EU-suvereenia koko ajan — asiakkaan koodi ja IPR eivät poistu lainkäyttöalueelta.
+- **NVIDIA-konsultointi ja suvereeni laskenta** — Suunnittelemme ja käyttöönotamme NVIDIA-pohjaisen laskentainfrastruktuurin (DGX Spark, Jetson Orin, IGX Orin) EU-teollisuusasiakkaille. Lokaali päättelykyky, nolla datavuotoa, teollisuuskelpoinen reunalaskenta. Konsultti rakentaa asiakaskohtaisen Lifetime World Model -ontologian NVIDIA AI Workbench -työkalulla asiakkaan omassa DGX Spark -laitteessa (Train Model SaaS). NVIDIA Connect -kumppanuus.
+- **Suvereeni tietojenkäsittely** — Rakennamme asiakkaan hallinnassa pysyvät AI-ympäristöt: lokaalit Control Room- ja Situation Room -valvomot, UpCloud Helsinki -pilvi, NVIDIA-laitteisto, Lifetime World Model -ontologia. EU-jurisdiktio, CLOUD Act -vapaa, EU AI Act Art. 12 -auditoitu. Sopii erityisesti kriittiselle infrastruktuurille, kaksikäyttöteollisuudelle ja dataherkkyyttä vaativille toimialoille.
 
 ### Avainluvut (Q2 2026)
 
@@ -199,6 +209,8 @@ DWS IQ 6 ei ole kolme hintatasoa. Se on kolme itsenäistä akselia:
 
 - **Valvomohuone (Control Room)** — Acer Veriton GN100, €5 294. Lokaali LWM Enterprise Model + DWS-alustatuote. Reaaliaikainen compliance-seuranta paikallisella ontologialla. Suvereniteetti syntyy paikallisesta laitteistosta ja lokaalista World Model -toteutuksesta — data ei poistu asiakkaan tiloista.
 - **Johtohuone (Situation Room)** — 2× Acer Veriton GN100, €10 093. Aggregoi syötteet lokaalien valvomohuoneiden LWM:istä ja yhdistää ne DWS IQ Situation Room -toiminnallisuuksiin: moniruutunäyttö, kriisitilannejohtaminen, päätöksentuki. Suvereeni — lokaali laitteisto ja lokaali World Model.
+
+**Tiedon tallennusstrategia (Control Room / Situation Room):** neljä kerrosta oletusarvoisena — raaka sensorivirta 72 h (paikallislevy), ontologisoitu tiivistelmä 13 kk, Article 12 -audit-jälki 7 v (muuttumaton), Situation Room -koonti 24 kk liukuvana ikkunana. Ontologiasolmun omistajuus ja pääsyoikeudet nimetään käyttöönotossa (Pillar 2 -scoping) ja tarkistetaan neljännesvuosittain. Koko malli ja GDPR-peruste: `docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md`.
 
 **Erikoistuotteet:**
 

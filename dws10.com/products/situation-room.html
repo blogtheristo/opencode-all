@@ -1896,6 +1896,47 @@
 
       <hr />
 
+      <h2>Data retention — for your administrator</h2>
+      <p style="font-size: 0.92rem; color: var(--color-gray-500)">
+        Situation Room never receives raw sensor data — only ontologised, site-level summaries from
+        each connected Control Room. Your administrator owns the retention schedule per ontology
+        class and reviews access rights quarterly.
+      </p>
+      <table class="spec-table">
+        <thead>
+          <tr>
+            <th>Layer</th>
+            <th>Content</th>
+            <th>Default retention</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Control Room feed (in)</td>
+            <td>Ontologised summaries only — no raw sensor stream, no unprocessed footage</td>
+            <td>Governed at the source Control Room (72h raw / 13mo summary)</td>
+          </tr>
+          <tr>
+            <td>Compliance audit trail</td>
+            <td>EU AI Act Article 12 log — hash-chained, immutable, replicated on both nodes</td>
+            <td>7 years</td>
+          </tr>
+          <tr>
+            <td>Situation Room rollup</td>
+            <td>Multi-site executive summary — aggregate only, never individualised</td>
+            <td>24 months, rolling window</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size: 0.9rem; opacity: 0.8">
+        Full policy detail:
+        <a href="https://onelifetime.world/posts/tiedon-vanheneminen-sensoridata-retention.html"
+          >Field Note — Tiedon vanheneminen</a
+        >.
+      </p>
+
+      <hr />
+
       <h2>When you need more compute</h2>
       <p style="font-size: 0.92rem; color: var(--color-gray-500)">
         The Situation Room is already a cluster. Scaling it up does not mean jumping to a
