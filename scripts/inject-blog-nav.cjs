@@ -192,6 +192,11 @@ const posts = [
     title: 'Industrial Intelligence Weekly — Five Signals from the Regulated Economy',
     date: '28 Jun 2026',
   },
+  {
+    file: 'tiedon-vanheneminen-sensoridata-retention.html',
+    title: 'Tiedon vanheneminen — sensoridatan tallennusstrategia (FI, field note)',
+    date: '1 Jul 2026',
+  },
 ];
 
 // Three featured products
