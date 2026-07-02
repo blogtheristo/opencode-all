@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
+- Version: 1.2 | Tool: Claude Code | Session: claude/supabase-audit-aiven-td3x8r | Date: 02.07.2026 | Changes: Wired the ERP integration module (all 6 connectors incl. Dynamics 365) into `src/app.ts`. Un-excluded `src/integrations/erp/**/*` from `tsconfig.json`, fixed the ~80 pino logger call-order errors + 47 missing `.js` ESM extensions + an `export *` name collision + a handful of real type errors that were the actual reason the module was excluded — validated with `npm install`, a clean `npm run build`, and a live `dist/app.js` boot (server starts, `GET /api/v1/erp/registry` returns real data, clean shutdown). One pre-existing functional gap surfaced and left flagged rather than guessed at: `scheduler.ts`'s machine-data/OEE sync jobs fetch data but never pass it to the sync call.
 - Version: 1.1 | Tool: Claude Code | Session: claude/supabase-audit-aiven-td3x8r | Date: 02.07.2026 | Changes: Applied migration 073 to the live `dws6` Supabase project (`kpucuwwfhuwurdxyjjtz`) via the Supabase MCP connector — `erp_integrations`/`erp_webhook_events`/`erp_sync_operations` now exist live, RLS enabled, no advisory findings. Founder resolved the Aiven sovereignty Open Question: approved Aiven-managed PostgreSQL on `google-europe-north1` as the dws6.com (DWS IQ 6) DB layer, recorded in `DWS_SECURITY_STANDARD.md` §17.5 as an explicit exception with residual risk noted, not a "None" CLOUD Act rating.
 - Version: 1.0 | Tool: Claude Code | Session: claude/supabase-audit-aiven-td3x8r | Date: 02.07.2026 | Changes: Full Supabase audit (new Dynamics 365 connector, migration completeness, backup posture, doc currency) + Aiven deployment plan, with sovereignty conflict flagged as an open decision.
 
@@ -31,7 +32,7 @@ Full audit requested: new ERP connector, SQL migration completeness, backup post
 Two gaps found and their disposition:
 
 - **Missing schema (fixed and applied).** `src/integrations/erp/service.ts` reads/writes `erp_integrations`, `erp_webhook_events`, `erp_sync_operations` — no migration created them. Added `supabase/migrations/073_erp_integration_tables.sql` (RLS on all three, service-role bypass + org-member read policy, matches the `api_keys`/`organization_members` pattern from migrations 007/043). **Applied 2026-07-02** to the live `dws6` project (`kpucuwwfhuwurdxyjjtz`) via `mcp__Supabase__apply_migration` at the user's explicit request; verified live with `list_tables` (all three exist, RLS enabled) and `get_advisors` (zero findings referencing the new tables).
-- **Not wired into the running app (not fixed — root cause is bigger than routing).** `src/app.ts` never imports `erpRoutes`/`initializeERPIntegrations()`. The reason is not an oversight in `app.ts`: **`tsconfig.json` excludes `src/integrations/**/_`from the TypeScript build entirely** (line 32), alongside`src/firehorse/**`, `src/mcp/**`, `src/investor-reports/**`, and `src/config/**`. `app.ts`already has an explicit "STUBS FOR MODULES EXCLUDED FROM BUILD" block for the first three — importing an excluded module directly would crash the production container with`ERR_MODULE_NOT_FOUND`on`node dist/app.js`(Dockerfile:`tsc -p tsconfig.json`→`dist/`, no other copy step). This session has no `node_modules`installed, so I could not run a full`npm run build`to validate un-excluding`src/integrations/erp/**` and wiring the router. **Next step for whoever picks this up:** `npm install`, carve `src/integrations/erp/**/_`out of the tsconfig exclude (keep`docusign`/`ec3`/`esg`/`iceye`/`trade`excluded unless separately validated), confirm`npm run build`is green, then add the import +`app.use('/api/v1/erp', erpRoutes)`+`initializeERPIntegrations()`/`shutdownERPIntegrations()`calls following the`bimRoutes`/`hilRoutes`pattern already in`app.ts`.
+- **Wired into the running app (fixed 2026-07-02).** `tsconfig.json` excluded `src/integrations/**/*` from the build entirely (line 32) — not an oversight, but because the erp module didn't actually compile. With `npm install` run and `src/integrations/erp/**/*` carved out of the exclude (siblings `docusign`/`ec3`/`esg`/`iceye`/`trade` left excluded, not separately validated), the real errors were: ~80 pino logger calls using `(msg, obj)` instead of pino's `(obj, msg)` convention, 47 intra-module relative imports missing the `.js` extension Node's ESM loader requires at runtime (tsc's `bundler` resolution doesn't catch this — a live `dist/app.js` boot did), an `export *` collision between two separate company→ERP mapping implementations, an axios interceptor type mismatch, and a string-literal-vs-string-enum type mismatch. All fixed; `npm run build` is clean and a live boot confirms `GET /api/v1/erp/registry` serves real data end-to-end. Full detail in the commit message (`c0fa879`). One pre-existing gap left flagged, not silently fixed: `scheduler.ts`'s machine-data/OEE sync jobs fetch pending records but never pass them into the sync call — needs someone who knows the `machine_telemetry` table shape to complete the mapping.
 
 ### 2. Migration completeness
 
@@ -86,7 +87,7 @@ New finding this session: **Aiven does not offer Hetzner as a deployable cloud p
 
 ### What's NOT part of this plan
 
-Wiring the ERP module into the live app (§1) is unrelated to the Aiven question — flagged separately, needs its own build-validation pass.
+Wiring the ERP module into the live app was unrelated to the Aiven question — see §1, done 2026-07-02.
 
 ---
 
