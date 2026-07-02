@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code | Session: claude/supabase-audit-aiven-td3x8r | Date: 02.07.2026 | Changes: Applied migration 073 to the live `dws6` Supabase project (`kpucuwwfhuwurdxyjjtz`) via the Supabase MCP connector — `erp_integrations`/`erp_webhook_events`/`erp_sync_operations` now exist live, RLS enabled, no advisory findings. Founder resolved the Aiven sovereignty Open Question: approved Aiven-managed PostgreSQL on `google-europe-north1` as the dws6.com (DWS IQ 6) DB layer, recorded in `DWS_SECURITY_STANDARD.md` §17.5 as an explicit exception with residual risk noted, not a "None" CLOUD Act rating.
 - Version: 1.0 | Tool: Claude Code | Session: claude/supabase-audit-aiven-td3x8r | Date: 02.07.2026 | Changes: Full Supabase audit (new Dynamics 365 connector, migration completeness, backup posture, doc currency) + Aiven deployment plan, with sovereignty conflict flagged as an open decision.
 
 Document Status:
@@ -29,7 +30,7 @@ Full audit requested: new ERP connector, SQL migration completeness, backup post
 
 Two gaps found and their disposition:
 
-- **Missing schema (fixed).** `src/integrations/erp/service.ts` reads/writes `erp_integrations`, `erp_webhook_events`, `erp_sync_operations` — no migration created them. Added `supabase/migrations/073_erp_integration_tables.sql` (RLS on all three, service-role bypass + org-member read policy, matches the `api_keys`/`organization_members` pattern from migrations 007/043). **Not applied** — migration application is a RED-zone action requiring a human to run `supabase db push` or apply via MCP.
+- **Missing schema (fixed and applied).** `src/integrations/erp/service.ts` reads/writes `erp_integrations`, `erp_webhook_events`, `erp_sync_operations` — no migration created them. Added `supabase/migrations/073_erp_integration_tables.sql` (RLS on all three, service-role bypass + org-member read policy, matches the `api_keys`/`organization_members` pattern from migrations 007/043). **Applied 2026-07-02** to the live `dws6` project (`kpucuwwfhuwurdxyjjtz`) via `mcp__Supabase__apply_migration` at the user's explicit request; verified live with `list_tables` (all three exist, RLS enabled) and `get_advisors` (zero findings referencing the new tables).
 - **Not wired into the running app (not fixed — root cause is bigger than routing).** `src/app.ts` never imports `erpRoutes`/`initializeERPIntegrations()`. The reason is not an oversight in `app.ts`: **`tsconfig.json` excludes `src/integrations/**/_`from the TypeScript build entirely** (line 32), alongside`src/firehorse/**`, `src/mcp/**`, `src/investor-reports/**`, and `src/config/**`. `app.ts`already has an explicit "STUBS FOR MODULES EXCLUDED FROM BUILD" block for the first three — importing an excluded module directly would crash the production container with`ERR_MODULE_NOT_FOUND`on`node dist/app.js`(Dockerfile:`tsc -p tsconfig.json`→`dist/`, no other copy step). This session has no `node_modules`installed, so I could not run a full`npm run build`to validate un-excluding`src/integrations/erp/**` and wiring the router. **Next step for whoever picks this up:** `npm install`, carve `src/integrations/erp/**/_`out of the tsconfig exclude (keep`docusign`/`ec3`/`esg`/`iceye`/`trade`excluded unless separately validated), confirm`npm run build`is green, then add the import +`app.use('/api/v1/erp', erpRoutes)`+`initializeERPIntegrations()`/`shutdownERPIntegrations()`calls following the`bimRoutes`/`hilRoutes`pattern already in`app.ts`.
 
 ### 2. Migration completeness
@@ -56,9 +57,13 @@ Not fixed (needs a decision, not a doc edit) — see §5.
 
 ## 5. Aiven Deployment Plan
 
-**Status: blocked on one open sovereignty question. Everything else below is ready to execute once that's resolved.**
+**Status: sovereignty question resolved 2026-07-02 (founder decision). Plan below is now unblocked for Stages 1–3; Stage 4 (production cutover) remains its own future PR.**
 
-### The conflict
+### Resolution
+
+Founder decision: approve Aiven-managed PostgreSQL on `google-europe-north1` as the dws6.com (DWS IQ 6) database layer. Recorded in `DWS_SECURITY_STANDARD.md` §17.5 as an **explicit sovereignty exception**, not a "None" CLOUD Act rating — the residual risk (Aiven's US-VC ownership, and GCP being elsewhere classified "Transitional"/migrate-away for DWS compute) is documented there, not hidden. No script changes were required: `scripts/aiven-vault-bootstrap.sh` and `mcp-hub/config/aiven-mcp.json` already defaulted to `google-europe-north1`.
+
+### The conflict (as it stood before resolution)
 
 `DWS_SECURITY_STANDARD.md` §17.5 (dated 2026-03-26, marked "PERMANENT SECURITY RULE") lists Aiven as a **"Yellow flag"** — Finnish company, US-VC-backed, "unclear" CLOUD Act exposure — approved only when its "DB layer runs on Hetzner infra." Two other repo artifacts disagree and predate or ignore that rule:
 
@@ -69,10 +74,7 @@ New finding this session: **Aiven does not offer Hetzner as a deployable cloud p
 
 ### Plan, staged so it's usable regardless of which way that question resolves
 
-**Stage 0 — Resolve the sovereignty question (blocking, human decision).** Pick one:
-a. Accept Aiven-managed EU regions (e.g. `google-europe-north1`) as sufficiently sovereign; reclassify the §17.5 row.
-b. Drop Aiven as the managed layer; self-host PostgreSQL on Hetzner VMs directly (loses Aiven's managed-service convenience, keeps the Hetzner guarantee literally).
-c. Confirm Aiven BYOC-on-Hetzner is real and documented, and use that.
+**Stage 0 — Resolve the sovereignty question. DONE (2026-07-02).** Founder chose: accept Aiven-managed `google-europe-north1` as sufficiently sovereign for the dws6.com DB layer, recorded as an explicit exception in §17.5.
 
 **Stage 1 — Provisioning (already scripted, just needs the target confirmed).** `scripts/aiven-vault-bootstrap.sh` creates the Aiven PostgreSQL service (`avn service create`) and vault; update its `AIVEN_CLOUD` default once Stage 0 lands. `docs/field-notes/2026-03-10-v1-aiven-plan-decision.md`'s Developer ($5/mo dev) + Startup ($75/mo prod) plan sizing is still reasonable and doesn't need to change.
 
