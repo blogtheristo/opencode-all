@@ -4,7 +4,7 @@
 
 VERSION AND AGENT HISTORY
 
-- Version: 1.2
+- Version: 1.3
 - Status: ACTIVE
 - Classification: INTERNAL
 - Document type: Field Note / Competitive Intelligence
@@ -18,6 +18,7 @@ Sessions & Modifications:
 - Version: 1.0 | Tool: Claude Code (claude-sonnet-5) | Date: 02.07.2026 | Changes: Initial field note — Palantir CEO Alex Karp's televised critique of per-token frontier-model pricing as IP extraction; mapped to the DWS 4P Capital Classes model and DWS's non-extractive, EU-sovereign positioning.
 - Version: 1.1 | Tool: Claude Code (claude-sonnet-5) | Date: 02.07.2026 | Changes: Added §5 External Publication Record — @blogtheristo tweeted the §2.2 structural-argument paraphrase tagging @DWS10_com and @PalantirTech; status updated to Published externally.
 - Version: 1.2 | Tool: Claude Code (claude-sonnet-5) | Date: 02.07.2026 | Changes: Added §6 The Counterpoint (via `/dialog`, HIC-confirmed §6.1–§6.6, all agreed) — elite-usage-as-quality-moat claim from @blogtheristo, reconciled with the §1–2 Karp extraction critique, DWS "Premium Agents" positioning response.
+- Version: 1.3 | Tool: Claude Code (claude-sonnet-5) | Date: 02.07.2026 | Changes: Web-search verification pass — confirmed Karp quote via CNBC primary source + 4 corroborating outlets (upgraded confidence MEDIUM→HIGH); confirmed §6 distillation mechanism via Anthropic's public DeepSeek/Moonshot/MiniMax and Alibaba/Qwen accusations. Added §7 Sources & Verification. Flagged the "exposed Altman/Amodei" viral-framing as unverified commentary, distinct from the sourced quote.
 
 Document Status:
 
@@ -38,15 +39,15 @@ Related Documents:
 
 ## The Quote
 
-Alex Karp, in a televised interview, on frontier-lab token pricing (as reported / paraphrased in a circulating clip):
+Alex Karp, on CNBC's _Squawk Box_, 01.07.2026 — announcing the expanded Palantir-Nvidia partnership (Nemotron models into Palantir's Sovereign AI platform) and, in the same appearance, criticizing OpenAI's and Anthropic's token-based pricing:
 
 > **"Every single enterprise in this country, these people are LIVID. They are paying for tokens that create no value. These people are stealing the weights and alpha of my business."**
 >
-> **"If it was so valuable, let's say I can make you $1 billion tomorrow. Wouldn't I say I'll make you $1 billion and I want 30 percent? Why are they charging for tokens if it's so valuable?"**
+> **"If it was so valuable, and I can make you a billion dollars, wouldn't I say I'll make you a billion dollars and I want 30%? Why are they charging for tokens if it's so valuable?"**
 >
-> **"A wealth tax that does not help the poor. It just punishes."**
+> **"These people are stealing the weights and alpha of my business, and they're creating a wealth tax that does not help the poor. It just punishes."**
 
-> ⚠️ These lines are drawn from a circulating clip/paraphrase, not a primary transcript sourced and verified here. Treat as **MEDIUM confidence** on exact wording, **HIGH confidence** on the strategic argument (it is consistent with Karp's public positioning elsewhere — cf. the earlier ontology-layer field note). Run `/truth-check` before any DWS-external quotation of Karp derived from this note, per `DWS_TRUTH_STANDARD.md`.
+> ✅ **Verified 02.07.2026.** Confirmed via CNBC's own report of the interview plus independent coverage (SiliconANGLE, Yahoo Finance, 24/7 Wall St, Mediaite) — see §7 Sources & Verification. Confidence upgraded from MEDIUM to **HIGH** on both wording and strategic argument. The original framing in this note ("circulating clip/paraphrase") is superseded; kept below for the audit trail only.
 
 ## Ontology Tags
 
@@ -54,7 +55,7 @@ Alex Karp, in a televised interview, on frontier-lab token pricing (as reported 
 - **Sector:** Enterprise AI > Frontier model pricing > Competitive intelligence
 - **Entities:** Alex Karp (Palantir), Sam Altman (OpenAI), Dario Amodei (Anthropic), Fortune 500 enterprise buyers, Lifetime Oy / DWS IQ 6
 - **Temporal Context:** 2026-Q3, ongoing frontier-lab pricing/value debate
-- **Confidence:** MEDIUM (exact quote wording) / HIGH (structural argument)
+- **Confidence:** HIGH (exact quote wording, verified) / HIGH (structural argument)
 
 ---
 
@@ -94,11 +95,11 @@ DWS does not need to invent a counter-argument to Karp — it needs to state, ex
 Two things this field note should **not** do:
 
 - **Do not repeat the $1B/30% framing as a DWS pricing model** without a deliberate pricing decision — it is Karp's rhetorical device against frontier labs charging _him_ for base models, not a proposal DWS should adopt uncritically for its own customer contracts. Outcome/equity-based pricing has its own risks (attribution disputes, cash-flow timing for a smaller vendor) that a larger, profitable incumbent can absorb more easily than DWS can today.
-- **Do not use the quote externally** (blog, sales deck, investor material) until wording is confirmed against a primary source per `DWS_TRUTH_STANDARD.md`. This note is for internal positioning use.
+- **Wording is now verified** (see §7 Sources & Verification) — direct external quotation of Karp is permitted with attribution to CNBC's 01.07.2026 _Squawk Box_ interview. Still run `/truth-check` before publishing DWS-external copy that pairs the quote with a DWS claim, per `DWS_TRUTH_STANDARD.md`.
 
 ## 3. Product / Positioning Implication
 
-- Sales/positioning language may reference the **structural argument** (token billing without customer-owned capital formation is extractive) without directly attributing the exact phrasing to Karp externally, until sourced.
+- Sales/positioning language may now reference the **structural argument** and directly attribute the quote to Karp externally (source verified — see §7); still avoid pairing it with an unreviewed DWS pricing claim per §2.3.
 - Reinforces that DWS pricing should keep leaning toward **capital-transfer and outcome framing** (per §5.3 of the Prompt Capital field note) rather than raw per-token resale — DWS is not reselling frontier tokens; it is selling the ontology/orchestration layer and the capital the customer keeps.
 - Add to sales-hook pattern (cf. Anduril field note §"Signal-based sales hooks"): a prospect anxious about a US frontier vendor's data-retention/training terms is a live sovereignty-thesis lead.
 
@@ -133,8 +134,19 @@ DWS's structural answer is therefore not to avoid frontier models but to sit on 
 
 > **"Best companies using the best models keep that model's quality ahead of open-source copies. DWS's Premium Agents ride that quality edge — while the sovereignty layer keeps the customer's own alpha from being part of the signal given away."**
 
+> ✅ **Verified 02.07.2026.** The "open-source copies which also learn from you" half of this claim is independently corroborated: Anthropic has publicly accused DeepSeek, Moonshot, and MiniMax (Feb 2026) and Alibaba's Qwen lab (Jun 2026) of running large-scale adversarial distillation campaigns against Claude — millions of fraudulent-account exchanges specifically targeting software-engineering and agentic-reasoning outputs. This confirms the mechanism (open-source labs training on frontier-model outputs) is real and actively contested, not speculative. See §7.
+
 ---
 
-**Status:** ✅ Processed → 🟢 Published externally (see §5)
-**Confidence:** MEDIUM (exact quote wording) / HIGH (strategic read)
-**Impact:** Strategic (sharpens DWS non-extractive, EU-sovereign pricing/positioning narrative; now in public circulation)
+## 7. Sources & Verification
+
+- Karp quote (§0/"The Quote"): CNBC, ["Palantir's Karp bashes OpenAI, Anthropic token model: 'Something has gone completely wrong'"](https://www.cnbc.com/2026/07/01/palantir-karp-open-ai-anthropic-tokens.html), 01.07.2026 — primary source, Squawk Box interview.
+- Corroborating coverage: [SiliconANGLE](https://siliconangle.com/2026/07/01/palantir-ceo-alex-karp-doesnt-hold-back-interview-rails-ai-industry/), [Yahoo Finance](https://finance.yahoo.com/technology/ai/articles/palantir-ceo-alex-karp-enterprises-175255513.html), [24/7 Wall St](https://247wallst.com/investing/2026/07/01/palantir-ceo-alex-karp-enterprises-are-livid-over-ai-models-that-steal-their-business-value/), [Mediaite](https://www.mediaite.com/media/tv/you-sound-pretty-angry-cnbc-anchor-left-stunned-as-palantir-ceo-blows-his-stack-during-wild-interview/).
+- Distillation corroboration (§6): CNBC, ["Anthropic accuses DeepSeek, Moonshot and MiniMax of distillation attacks on Claude"](https://www.cnbc.com/2026/02/24/anthropic-openai-china-firms-distillation-deepseek.html), 24.02.2026; NBC News, ["Chinese AI companies 'distilled' Claude to improve own models, Anthropic says"](https://www.nbcnews.com/world/asia/chinese-ai-companies-distilled-claude-improve-models-anthropic-says-rcna260386) (Alibaba/Qwen campaign, ~28.8M exchanges via ~25,000 fraudulent accounts, Apr–Jun 2026).
+- **Not independently verified here:** the specific claim that Karp's remarks were made "within two minutes" or constituted him "exposing" Altman/Amodei by name — that framing originates from a viral X paraphrase ([@Ric_RTP](https://x.com/Ric_RTP/status/2072403984304984202)), not the primary CNBC transcript. Treat the summarizing/viral framing as commentary, not sourced fact.
+
+---
+
+**Status:** ✅ Processed → 🟢 Published externally (see §5) → 🔵 Verified (see §7)
+**Confidence:** HIGH (quote wording, verified) / HIGH (strategic read) / HIGH (§6 distillation mechanism, corroborated)
+**Impact:** Strategic (sharpens DWS non-extractive, EU-sovereign pricing/positioning narrative; now in public circulation, source-verified)
