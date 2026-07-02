@@ -1,8 +1,8 @@
 ---
 title: DWS Security Standard
-version: 2.6
+version: 2.7
 created: 2026-02-07
-last_modified: 2026-06-21
+last_modified: 2026-07-02
 author: Lifetime Oy Security Team
 language: en
 languages_available: [en]
@@ -19,10 +19,11 @@ toc-depth: 3
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.6
+Version: 2.7
 
 Sessions & Modifications:
 
+- Version: 2.7 | Tool: Claude Code | Session: claude/supabase-audit-aiven-td3x8r | Date: 02.07.2026 | Changes: Supabase/Aiven audit — fixed broken §17.5 cross-reference ("AGENTS.md Section 20" does not exist, now points to docs/DEPLOYMENT_ARCHITECTURE_ENTERPRISE.md); flagged that Aiven does not offer Hetzner as a deployable region, so the existing "DB layer on Hetzner infra only" approval condition for Aiven is currently unsatisfiable by any script in the repo — added an Open Question pending a human sovereignty decision.
 - Version: 2.6 | Tool: Claude Code | Session: claude/ai-codebase-security-audit-BgY2H | Date: 21.06.2026 | Changes: Added Secret Egress Control to Layer 3 (Data Protection) — closes the write-side exfiltration gap. New shared pattern engine `.claude/hooks/secret-patterns.sh` consumed by three hooks: read-bypass guard in `pretooluse-guard.sh` (blocks Bash `cat`/`grep`/`env`/`printenv`/`base64` of `.env*`/`*.pem`/`*.key`/`*secret*`, which previously bypassed `Read`-tool deny rules), input scan in `secret-scan.sh` (now also catches bare JWTs, DSNs with embedded creds, Bearer tokens, DB passwords, OAuth client secrets; placeholders allowlisted), and new output scan `secret-output-scan.sh` (PostToolUse/Bash, warns on secrets surfaced in command output). Added matching Secret Egress Rules to CLAUDE.md and defence-in-depth `deny` entries to `.claude/settings.json`.
 - Version: 2.5 | Tool: Claude Code (claude-opus-4-7) | Session: claude/bumblebee-dgx-observability-mzV5U | Date: 24.05.2026 | Changes: Added Section 13.5 (Supply-Chain Inventory — Bumblebee on DGX Spark) documenting the new `bumblebee-collector` container in `infrastructure/dgx-spark/`, OTel metric contract surfaced on the existing Aspire Dashboard (`bumblebee.packages.total`, `bumblebee.exposures.{total,by_severity}`, `bumblebee.scan.{duration_ms,last_success_timestamp}`), pinned upstream SHA in `bumblebee.version`, daily/weekly scan cadence via supercronic, read-only `/host` mount with dropped capabilities, and exposure-catalog handling as untrusted input per §13.
 - Version: 2.4 | Tool: GitHub Copilot CLI (GPT-5.4) | Session: pr-1368-review | Date: 20.05.2026 | Changes: Corrected PR #1368 integration status and versioning; enabled TypeScript redirect sanitization in the Express stack and CSRF enforcement on auth/payment routes; added Vitest coverage for the TypeScript security ports; switched MCP tool classification to fail closed for unknown tools; updated testing and pentest references to the TypeScript paths.
@@ -1269,12 +1270,20 @@ All tools exposed via MCP `tools/list`:
 | **Approved (EU-sovereign)** | STACKIT (German, Schwarz) | None                     | Enterprise K8s (German market)                                                  |
 | **Transitional**            | Google Cloud Run          | Yes (US-owned)           | Dev + early production only. Migrate to DWS IQ 6 (Scaleway) or Aegis (UpCloud). |
 | **Banned**                  | AWS, Azure                | Yes (US-owned)           | Never use for DWS services                                                      |
-| **Yellow flag**             | Aiven (Finnish, US VC)    | Unclear (US investors)   | DB layer on Hetzner infra only                                                  |
+| **Yellow flag**             | Aiven (Finnish, US VC)    | Unclear (US investors)   | UNRESOLVED — see Open Question below                                            |
 | **Dead**                    | Nebula / Telia Cloud 9    | N/A (dissolved Oct 2023) | Not an option                                                                   |
 
-**Migration timeline:** See AGENTS.md Section 20 for phased migration plan.
+**Migration timeline:** See `docs/DEPLOYMENT_ARCHITECTURE_ENTERPRISE.md` for the phased migration plan. (Corrected 2026-07-02 — this previously pointed to "AGENTS.md Section 20," which does not exist; AGENTS.md tops out at Section 8.)
 
 **Enforcement:** New services MUST target EU-sovereign providers. Existing Google Cloud Run services migrate per the phased plan. Any new GCP service creation requires explicit sovereignty exception documented in PR.
+
+**Open Question — Aiven row (added 2026-07-02, supabase/aiven audit):** This table previously read "DB layer on Hetzner infra only" for Aiven, but Aiven does not offer Hetzner as a deployable cloud region — its supported infrastructure providers are AWS, Google Cloud, Azure, OVHcloud, Oracle Cloud, Exoscale, and UpCloud ([Aiven — Available cloud regions](https://aiven.io/docs/platform/reference/list_of_clouds)). Aiven's BYOC (Bring Your Own Cloud) tier could in principle run Aiven's control plane on Hetzner-owned hardware, but this is an unconfirmed enterprise feature, not something `scripts/aiven-vault-bootstrap.sh` or `mcp-hub/config/aiven-mcp.json` currently use — both default to `google-europe-north1`. As written, there is currently no way to run Aiven that satisfies this row literally. This needs a human decision (not a code fix) on one of:
+
+1. Accept Aiven's own EU regions (e.g. `google-europe-north1`) as sufficiently sovereign despite the "yellow flag," and reclassify the row accordingly, or
+2. Drop Aiven as the managed-DB layer and self-host PostgreSQL directly on Hetzner VMs instead, or
+3. Confirm and document Aiven BYOC-on-Hetzner as a real, available configuration before relying on it.
+
+Until resolved, `scripts/aiven-vault-bootstrap.sh` and `mcp-hub/config/aiven-mcp.json` (both defaulting to Aiven-managed Google Cloud regions) are **not** in verified compliance with this section.
 
 ---
 
