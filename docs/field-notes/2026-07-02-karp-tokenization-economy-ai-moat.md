@@ -4,7 +4,7 @@
 
 VERSION AND AGENT HISTORY
 
-- Version: 1.1
+- Version: 1.2
 - Status: ACTIVE
 - Classification: INTERNAL
 - Document type: Field Note / Competitive Intelligence
@@ -17,6 +17,7 @@ Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (claude-sonnet-5) | Date: 02.07.2026 | Changes: Initial field note — Palantir CEO Alex Karp's televised critique of per-token frontier-model pricing as IP extraction; mapped to the DWS 4P Capital Classes model and DWS's non-extractive, EU-sovereign positioning.
 - Version: 1.1 | Tool: Claude Code (claude-sonnet-5) | Date: 02.07.2026 | Changes: Added §5 External Publication Record — @blogtheristo tweeted the §2.2 structural-argument paraphrase tagging @DWS10_com and @PalantirTech; status updated to Published externally.
+- Version: 1.2 | Tool: Claude Code (claude-sonnet-5) | Date: 02.07.2026 | Changes: Added §6 The Counterpoint (via `/dialog`, HIC-confirmed §6.1–§6.6, all agreed) — elite-usage-as-quality-moat claim from @blogtheristo, reconciled with the §1–2 Karp extraction critique, DWS "Premium Agents" positioning response.
 
 Document Status:
 
@@ -117,6 +118,20 @@ Two things this field note should **not** do:
 - **Content used:** the §2.2 structural-argument paraphrase — "maps directly onto the existing 4P Capital Classes thesis (customer keeps Prompt/Plant/Perception capital, not just an invoice) and the EU-sovereignty positioning (no cross-customer retraining, Article 12 lineage, data residency) — DWS is structurally the answer to Karp's critique rather than needing to argue against it" — tagging @DWS10_com and @PalantirTech.
 - **Guardrail compliance:** consistent with §2.3 — this is the DWS structural-argument framing, not a direct quotation of Karp's original words; no unsourced Karp quote was published externally.
 - **Follow-up:** monitor the thread for any Palantir/Karp response; if engagement warrants a longer treatment, elevate this field note toward a Core Artifact per the field-note lifecycle (`docs/field-notes/README.md`).
+
+---
+
+## 6. The Counterpoint — Elite Usage as a Quality Moat, and DWS's Premium Agent Response
+
+> @blogtheristo, X/Twitter, follow-up to this note: "When the Best companies and their engineer use the Best Models @AnthropicAI it learns from us but then in return the quality stays on Top against open-source copies which also learn from you. Keep building Premium Agents!"
+
+This is not a contradiction of §1–2. It is the other half of the same mechanism: elite usage — best companies, best engineers — generates the highest-quality signal a frontier lab receives, and that signal is what keeps the frontier model's quality ahead of open-source models that distill or copy its outputs.
+
+Both effects run concurrently: the enterprise-specific extraction risk Karp names (§1) is real at the level of one customer's workflows, while the aggregate elite-usage feedback loop (§6) is what sustains frontier-model quality for every user of that model, including the open-source copies trying to keep pace.
+
+DWS's structural answer is therefore not to avoid frontier models but to sit on top of the best available model while keeping the sovereignty guardrails of §2.2 in place — capturing the state-of-the-art quality benefit through Premium Agents, without becoming the raw workflow signal that leaks a specific customer's alpha.
+
+> **"Best companies using the best models keep that model's quality ahead of open-source copies. DWS's Premium Agents ride that quality edge — while the sovereignty layer keeps the customer's own alpha from being part of the signal given away."**
 
 ---
 
