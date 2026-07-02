@@ -4,7 +4,7 @@
 
 VERSION AND AGENT HISTORY
 
-- Version: 1.0
+- Version: 1.1
 - Status: ACTIVE
 - Classification: INTERNAL
 - Document type: Field Note / Competitive Intelligence
@@ -16,6 +16,7 @@ VERSION AND AGENT HISTORY
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (claude-sonnet-5) | Date: 02.07.2026 | Changes: Initial field note — Palantir CEO Alex Karp's televised critique of per-token frontier-model pricing as IP extraction; mapped to the DWS 4P Capital Classes model and DWS's non-extractive, EU-sovereign positioning.
+- Version: 1.1 | Tool: Claude Code (claude-sonnet-5) | Date: 02.07.2026 | Changes: Added §5 External Publication Record — @blogtheristo tweeted the §2.2 structural-argument paraphrase tagging @DWS10_com and @PalantirTech; status updated to Published externally.
 
 Document Status:
 
@@ -110,6 +111,15 @@ Two things this field note should **not** do:
 
 ---
 
-**Status:** ✅ Processed
+## 5. External Publication Record
+
+- **Channel:** X/Twitter, @blogtheristo (Risto Anton), 02.07.2026
+- **Content used:** the §2.2 structural-argument paraphrase — "maps directly onto the existing 4P Capital Classes thesis (customer keeps Prompt/Plant/Perception capital, not just an invoice) and the EU-sovereignty positioning (no cross-customer retraining, Article 12 lineage, data residency) — DWS is structurally the answer to Karp's critique rather than needing to argue against it" — tagging @DWS10_com and @PalantirTech.
+- **Guardrail compliance:** consistent with §2.3 — this is the DWS structural-argument framing, not a direct quotation of Karp's original words; no unsourced Karp quote was published externally.
+- **Follow-up:** monitor the thread for any Palantir/Karp response; if engagement warrants a longer treatment, elevate this field note toward a Core Artifact per the field-note lifecycle (`docs/field-notes/README.md`).
+
+---
+
+**Status:** ✅ Processed → 🟢 Published externally (see §5)
 **Confidence:** MEDIUM (exact quote wording) / HIGH (strategic read)
-**Impact:** Strategic (sharpens DWS non-extractive, EU-sovereign pricing/positioning narrative)
+**Impact:** Strategic (sharpens DWS non-extractive, EU-sovereign pricing/positioning narrative; now in public circulation)
