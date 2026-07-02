@@ -4,7 +4,7 @@
 
 VERSION AND AGENT HISTORY
 
-- Version: 1.6
+- Version: 1.7
 - Status: ACTIVE
 - Classification: INTERNAL
 - Document type: Field Note / Competitive Intelligence
@@ -22,6 +22,7 @@ Sessions & Modifications:
 - Version: 1.4 | Tool: Claude Code (claude-sonnet-5) | Date: 02.07.2026 | Changes: Added §8 The Application Layer Is the Trust Layer (via `/dialog`, HIC-confirmed §8.1–§8.6, all agreed) — new Karp quote from the same 01.07.2026 interview ("that application layer is our ontology"), sourced via @amitisinvesting; ties trust-as-architecture and forward-deployed-engineering framing back to the 21.01.2026 ontology field note and the DWS Article 12 / HIL-phase capital-formation thesis.
 - Version: 1.5 | Tool: Claude Code (claude-sonnet-5) | Date: 02.07.2026 | Changes: Added §9 The Figma Precedent (via `/dialog`, HIC-confirmed §9.1–§9.9, all agreed) — verified Karp "means of production" quote (same interview); dated, sourced Anthropic/Figma Claude Design incident (Krieger board resignation, stock drop, Dylan Field "not consistently candid"); confirmed Claude Science/Security/Legal as real products; Dario Amodei "dangerous" open-source quote with commercial-interest caveat. §9.1 applies the precedent as a live architectural risk to DWS's own Claude-dependent Premium Agent strategy, not just competitor commentary.
 - Version: 1.6 | Tool: Claude Code (claude-sonnet-5) | Date: 02.07.2026 | Changes: Corrected §9.1 per Risto — DWS is not single-sourced to Claude. Production tooling already spans Claude, GitHub Copilot (OpenAI models), and self-hosted Ollama on DGX Spark (NVIDIA/open models). Reframed §9.1 from "gap to close" to "existing posture verified correct by the Figma precedent."
+- Version: 1.7 | Tool: Claude Code (claude-sonnet-5) | Date: 02.07.2026 | Changes: Added Google Gemini as a fourth confirmed model-layer relationship per Risto — verified live in `src/agents/model-selector.ts`'s tier-based router (Gemini 2.5 Flash-Lite/Flash, Gemini 3 Pro across low/mid/high tiers).
 
 Document Status:
 
@@ -182,14 +183,14 @@ Karp's "means of production" framing crystallizes §1-2 and §8 into one sentenc
 
 ### 9.1 This is a live risk category to weigh — and DWS's actual posture is already multi-sourced, not single-vendor
 
-**Correction (Risto, 02.07.2026):** DWS is not single-sourced to Claude. Production tooling already spans three model layers: Claude (Anthropic), GitHub Copilot (OpenAI models), and self-hosted Ollama on DGX Spark (NVIDIA/open models — cf. the `ollama-spark` skill, used specifically "when Anthropic/Groq limits hit or the prompt must stay in EU," and the `2026-07-02-nemotron-twotower-ontology-stage1-throughput.md` field note's Stage 1 use of a self-hosted, EU-resident model). The Figma precedent still stands as the reason model-layer optionality matters — but as a **verification that DWS's existing posture is the right one**, not as a gap DWS needs to close. §6's "Premium Agents ride Claude's quality edge" describes one product surface's current default, not the org's only model dependency.
+**Correction (Risto, 02.07.2026):** DWS is not single-sourced to Claude. Production tooling already spans four model layers: Claude (Anthropic), GitHub Copilot (OpenAI models), self-hosted Ollama on DGX Spark (NVIDIA/open models — cf. the `ollama-spark` skill, used specifically "when Anthropic/Groq limits hit or the prompt must stay in EU," and the `2026-07-02-nemotron-twotower-ontology-stage1-throughput.md` field note's Stage 1 use of a self-hosted, EU-resident model), and Google Gemini (confirmed live in `src/agents/model-selector.ts`'s tier-based router — Gemini 2.5 Flash-Lite/Flash and Gemini 3 Pro are wired options across the low/mid/high reasoning tiers alongside Claude, Llama, and Qwen). The Figma precedent still stands as the reason model-layer optionality matters — but as a **verification that DWS's existing posture is the right one**, not as a gap DWS needs to close. §6's "Premium Agents ride Claude's quality edge" describes one product surface's current default, not the org's only model dependency.
 
 The Figma precedent is the concrete version of the abstract risk §2.2's sovereignty table already names: a deep, trusted, board-adjacent relationship with a frontier lab did not protect Figma from the lab entering its category with three days' notice. DWS's mitigations are the same ones §2.2 already lists — EU-sovereign deployment, no cross-customer retraining exposure, owning the ontology/orchestration layer rather than being a thin wrapper — plus, concretely, the multi-model posture above: no single frontier lab's roadmap decision can unilaterally strand a DWS product surface the way Claude Design stranded Figma's.
 
-> **"Figma had a board seat and two months' collaboration. Anthropic still moved into its category with three days' notice. The lesson generalizes to anyone building a premium layer on top of a frontier model: proximity and trust are not control. DWS's answer isn't hypothetical — Claude, OpenAI (via Copilot), and self-hosted open models on owned NVIDIA hardware are already three separate model-layer relationships, none of which can unilaterally strand a DWS product the way Claude Design stranded Figma."**
+> **"Figma had a board seat and two months' collaboration. Anthropic still moved into its category with three days' notice. The lesson generalizes to anyone building a premium layer on top of a frontier model: proximity and trust are not control. DWS's answer isn't hypothetical — Claude, OpenAI (via Copilot), Google Gemini, and self-hosted open models on owned NVIDIA hardware are already four separate model-layer relationships, none of which can unilaterally strand a DWS product the way Claude Design stranded Figma."**
 
 ---
 
 **Status:** ✅ Processed → 🟢 Published externally (see §5) → 🔵 Verified (see §7)
 **Confidence:** HIGH (quote wording, verified) / HIGH (strategic read) / HIGH (§6 distillation mechanism, corroborated) / HIGH+MEDIUM (§8, split per-line) / HIGH (§9, verified)
-**Impact:** Strategic (sharpens DWS non-extractive, EU-sovereign pricing/positioning narrative; now in public circulation, source-verified; §9.1 confirms DWS's existing multi-model posture — Claude, OpenAI/Copilot, self-hosted Ollama on NVIDIA — already answers the Figma-precedent risk)
+**Impact:** Strategic (sharpens DWS non-extractive, EU-sovereign pricing/positioning narrative; now in public circulation, source-verified; §9.1 confirms DWS's existing multi-model posture — Claude, OpenAI/Copilot, Google Gemini, self-hosted Ollama on NVIDIA — already answers the Figma-precedent risk)
