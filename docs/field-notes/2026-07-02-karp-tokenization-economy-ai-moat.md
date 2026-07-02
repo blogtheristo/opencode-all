@@ -4,7 +4,7 @@
 
 VERSION AND AGENT HISTORY
 
-- Version: 1.4
+- Version: 1.5
 - Status: ACTIVE
 - Classification: INTERNAL
 - Document type: Field Note / Competitive Intelligence
@@ -20,6 +20,7 @@ Sessions & Modifications:
 - Version: 1.2 | Tool: Claude Code (claude-sonnet-5) | Date: 02.07.2026 | Changes: Added §6 The Counterpoint (via `/dialog`, HIC-confirmed §6.1–§6.6, all agreed) — elite-usage-as-quality-moat claim from @blogtheristo, reconciled with the §1–2 Karp extraction critique, DWS "Premium Agents" positioning response.
 - Version: 1.3 | Tool: Claude Code (claude-sonnet-5) | Date: 02.07.2026 | Changes: Web-search verification pass — confirmed Karp quote via CNBC primary source + 4 corroborating outlets (upgraded confidence MEDIUM→HIGH); confirmed §6 distillation mechanism via Anthropic's public DeepSeek/Moonshot/MiniMax and Alibaba/Qwen accusations. Added §7 Sources & Verification. Flagged the "exposed Altman/Amodei" viral-framing as unverified commentary, distinct from the sourced quote.
 - Version: 1.4 | Tool: Claude Code (claude-sonnet-5) | Date: 02.07.2026 | Changes: Added §8 The Application Layer Is the Trust Layer (via `/dialog`, HIC-confirmed §8.1–§8.6, all agreed) — new Karp quote from the same 01.07.2026 interview ("that application layer is our ontology"), sourced via @amitisinvesting; ties trust-as-architecture and forward-deployed-engineering framing back to the 21.01.2026 ontology field note and the DWS Article 12 / HIL-phase capital-formation thesis.
+- Version: 1.5 | Tool: Claude Code (claude-sonnet-5) | Date: 02.07.2026 | Changes: Added §9 The Figma Precedent (via `/dialog`, HIC-confirmed §9.1–§9.9, all agreed) — verified Karp "means of production" quote (same interview); dated, sourced Anthropic/Figma Claude Design incident (Krieger board resignation, stock drop, Dylan Field "not consistently candid"); confirmed Claude Science/Security/Legal as real products; Dario Amodei "dangerous" open-source quote with commercial-interest caveat. §9.1 applies the precedent as a live architectural risk to DWS's own Claude-dependent Premium Agent strategy, not just competitor commentary.
 
 Document Status:
 
@@ -164,6 +165,28 @@ It also reframes the forward-deployed-engineering point from the shared @amitisi
 
 ---
 
+## 9. The Figma Precedent — Verified Evidence for the Extraction Mechanism
+
+> Alex Karp, same 01.07.2026 CNBC interview: "What aligns me with Nvidia, and I think is what the technical customers want, is control over their compute, their models, their data stack, and their alpha. They want to know they own the means of production, it's not being transferred to someone else." He added that companies "are not interested in some fake deploy co that somehow is deploying tokens that transfers the alpha to a third party."
+
+> ✅ HIGH confidence — same verified interview as §The Quote, sourced via @PalantirTech's own account of the interview.
+
+The concrete case: Anthropic's CPO, Mike Krieger, resigned from Figma's board on 14.04.2026. Three days later, on 17.04.2026, Anthropic launched Claude Design — a prompt-to-prototype tool competing directly with Figma's core product. Figma's stock fell 6-7.7% same day (~$1.2B market cap). An investor called for an independent board investigation into whether Anthropic used Figma's confidential information ahead of the launch. Figma CEO Dylan Field: Anthropic "were not consistently candid in their communications."
+
+This is not an isolated incident in the pattern sense, though each instance needs its own scrutiny before being cited as equivalent: Anthropic has also launched Claude Science (research/drug-discovery tooling), Claude Security (vulnerability scanning), and Claude Legal (law-firm workflow plug-ins) — each entering a category previously served by companies building on top of Claude. Confirmed as real, shipped products, not exaggeration; whether each launch involved a Figma-style trust breach is not verified here and should not be assumed.
+
+Dario Amodei has separately argued open-source models approaching Claude's capability are "dangerous" — a safety claim that may be genuinely held and also happens to describe the exact competitive threat to Anthropic's own API business. Both can be true at once; the alignment between the safety argument and the commercial interest is a relevant data point, not proof the argument is made in bad faith.
+
+Karp's "means of production" framing crystallizes §1-2 and §8 into one sentence: real enterprise AI safety is not trusting a lab's roadmap, it is retaining the ability to choose, at the model layer, who sees your alpha. Figma had a board seat, a joint feature launch two months prior ("Code to Canvas"), and three days' notice — and still could not see it coming. Contractual and relationship proximity did not substitute for structural control.
+
+### 9.1 This is a live risk to DWS, not only to Anthropic's other partners
+
+DWS's own §6 "Premium Agents" strategy sits on top of Claude. The Figma precedent is the concrete version of the abstract risk §2.2's sovereignty table already names: a deep, trusted, board-adjacent relationship with a frontier lab did not protect Figma from the lab entering its category with three days' notice. DWS's mitigations are the same ones §2.2 already lists — EU-sovereign deployment, no cross-customer retraining exposure, owning the ontology/orchestration layer rather than being a thin wrapper — but this section is the reminder that those mitigations exist because the Figma outcome is a demonstrated failure mode, not a hypothetical one. Model-layer optionality (not being single-sourced to one frontier lab for a category DWS might want to own) is worth treating as an explicit architectural requirement, not an assumption.
+
+> **"Figma had a board seat and two months' collaboration. Anthropic still moved into its category with three days' notice. The lesson isn't just for Anthropic's customers — it's for anyone, DWS included, building a premium layer on top of a frontier model: proximity and trust are not control. Only structural independence — owning the data, the ontology, and enough model-layer optionality to walk — is."**
+
+---
+
 **Status:** ✅ Processed → 🟢 Published externally (see §5) → 🔵 Verified (see §7)
-**Confidence:** HIGH (quote wording, verified) / HIGH (strategic read) / HIGH (§6 distillation mechanism, corroborated) / HIGH+MEDIUM (§8, split per-line)
-**Impact:** Strategic (sharpens DWS non-extractive, EU-sovereign pricing/positioning narrative; now in public circulation, source-verified)
+**Confidence:** HIGH (quote wording, verified) / HIGH (strategic read) / HIGH (§6 distillation mechanism, corroborated) / HIGH+MEDIUM (§8, split per-line) / HIGH (§9, verified)
+**Impact:** Strategic (sharpens DWS non-extractive, EU-sovereign pricing/positioning narrative; now in public circulation, source-verified; §9.1 elevates this from competitor commentary to DWS's own architectural risk register)
