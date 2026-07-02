@@ -4,7 +4,7 @@
 
 VERSION AND AGENT HISTORY
 
-- Version: 1.0
+- Version: 1.1
 - Status: ACTIVE
 - Classification: INTERNAL
 - Document type: Decision Memo
@@ -16,6 +16,7 @@ VERSION AND AGENT HISTORY
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (claude-sonnet-5) | Date: 02.07.2026 | Changes: Initial memo. Supersedes `docs/plans/2026-07-02-ontology-bundled-repositioning.md` (which paused standalone ontology productization). Risto's call: standalone ontology is the DWS-vs-Palantir differentiator; rebrand as "Firehorse Ontology" and design the cross-Firehorse upsell chain.
+- Version: 1.1 | Tool: Claude Code (claude-sonnet-5) | Date: 02.07.2026 | Changes: Added §4 (why the moat holds vs. a public Palantir-Nvidia partnership — 4 structural reasons) and §5 (investor moat vs. customer moat comparison table, with the "sticky via compounding value, not lock-in" reconciliation). Resolved Risto's Aegis-ontology flag: confirmed via research agent that Aegis has no separate ontology (shares the LWM base per `DWS_TRUTH_STANDARD.md` line 73); added a naming-disambiguation note for `FH-ONT-SOVEREIGN` vs. "Aegis Sovereign."
 
 Related Documents:
 
@@ -105,19 +106,43 @@ ENTERPRISE / SOVEREIGN (T4)
 
 **The core sales logic:** Ontology is not another rung on the ladder competing for the same budget line — it's a **horizontal upgrade** that increases the value (and defensibility) of every vertical product a customer already has, and increases switching cost the more of the Firehorse suite it's attached to. This is the inverse of Palantir's funnel direction: Palantir sells ontology _first_, mandatorily, then the platform. DWS can sell any single cheap Firehorse point-tool first, prove value, and let the ontology cross-sell arrive once the customer has a governance/audit need — which, per §1's confirmed CLAUDE.md context (EU AI Act, CSRD, NIS2 all in scope for this org), most enterprise Firehorse customers eventually will.
 
-## 4. What this memo does NOT do yet
+## 4. Vs. Palantir-Nvidia specifically: why the moat holds
+
+Palantir's public pitch (Squawk Box, 01.07.2026 — control over compute/models/data stack/alpha, "own the means of production") is now close to DWS's own pitch. The live question is not "how do we beat OpenAI/Anthropic's token model" — Palantir already fights that fight publicly, for free. It is **why a Palantir-Nvidia partnership doesn't out-compete DWS at the same game**. Four structural reasons:
+
+1. **Jurisdiction, not just deployment.** Palantir and Nvidia are both US-domiciled. A "sovereign" Palantir deployment is still operated by a US company — CLOUD Act reaches the parent entity, not just the server location. Lifetime Oy is an EU (Finnish) legal entity. Palantir cannot fix this by partnering with Nvidia, because the partner is also American — it stacks the same jurisdiction twice, it doesn't add an EU sovereignty answer.
+2. **Bundled-bespoke vs. templatized-reusable.** Palantir builds ontology per customer — expensive, slow, high-touch (cf. the 21.01.2026 field note). Firehorse Ontology (§2-3) is the templatized 25-industry version sold as a standalone, lower-friction SKU, reaching the mid-market tier Palantir's cost structure and sales motion don't economically serve. Palantir wins Fortune 500 and defense; it does not chase a €2,990/yr single-vertical SKU.
+3. **4P Capital is time, not capital.** A partnership announcement is a press release. The HIL-phase capital formation (Prompt/People/Plant/Perception, `2026-06-19` field note) accumulated since October 2025 cannot be bought or partnered into existence — a competitor entering today, Palantir included, starts the operator-judgment and calibrated-threshold clock at zero, regardless of balance sheet.
+4. **The Figma precedent cuts both ways.** Palantir is currently making the "we protect you from vendor extraction" argument credibly — but its own Nvidia dependency demonstrates that everyone in this stack sits inside someone else's compute/model layer; nobody has zero dependency. DWS's claim isn't "we have no dependency" — it's narrower and more defensible: DWS's dependency sits behind an EU-sovereign, ontology-owning layer the customer's data never has to cross, which is a claim Palantir (US parent, US partner) cannot structurally match for an EU buyer.
+
+## 5. Investor moat vs. customer moat — same architecture, different audience, one real tension to reconcile
+
+The moat reads differently depending on who's evaluating it, and the two readings are in tension unless stated carefully.
+
+|                                | **Customer-facing moat**                                                                                      | **Investor-facing moat**                                                                                                                                                                                                                         |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **The pitch**                  | "You retain control — own your data, your ontology, your alpha, buy standalone, walk if you want to" (§1, §4) | "High switching cost, expanding NRR — once Ontology is installed under multiple Firehorse products, the account is sticky" (§3's compounding tier)                                                                                               |
+| **What makes it defensible**   | Article 12 lineage is auditable independent of DWS's word; no cross-customer retraining; EU jurisdiction      | 4P Capital compounds with use (Perception Capital especially); regulatory tailwind (EU AI Act/CSRD/NIS2) is a structural, non-copyable demand driver; large templatized TAM (25 industries × thousands of EU enterprises) Palantir doesn't chase |
+| **Time horizon**               | Immediate — "can I trust this vendor with this specific engagement"                                           | Multi-year — "does this compound into a durable, hard-to-replicate asset"                                                                                                                                                                        |
+| **Failure mode if overstated** | Sounds like every other AI vendor's trust-washing (Karp's own critique, §1-2, applied to DWS)                 | Sounds like classic vendor lock-in (Karp's critique again, applied to DWS from the other direction)                                                                                                                                              |
+
+**The reconciliation:** the two pitches only contradict each other if "sticky" means "can't leave." It doesn't have to. DWS's stickiness comes from the customer's _own_ accumulated capital — their ontology gets richer, their lineage log deepens, their Control Room calibration improves with use — not from technical lock-in that prevents departure. That is a real distinction, not a rhetorical one: a customer on `FH-ONT-IND` who wants to export their industry ontology and leave can, structurally, because it was never welded into a platform they can't extract from (§1's whole argument). They don't leave because the compounding asset is _theirs_ and _valuable_, not because they're trapped. Investors should underwrite that as durable NRR expansion (usage-based, compounding-value retention); customers should hear it as optionality preserved. Both are true of the same architecture — the memo's job is to never let the investor deck's "switching cost" language leak into customer-facing copy, and never let the customer deck's "you can always leave" language get read by an investor as "no retention mechanism." State each to its audience; do not blend them into one pitch (Rule 7).
+
+**Aegis note (Risto's flag, resolved):** Aegis has no separate ontology — confirmed via `DWS_TRUTH_STANDARD.md` line 73 (canonical): Aegis runs the same shared LWM/ontology base as every other DWS IQ product; it is the sovereign deployment/governance tier, not a competing knowledge model. The only actionable item is a naming disambiguation: `FH-ONT-SOVEREIGN` (§2, on-prem ontology asset) and "Aegis Sovereign" (the dual-use/defence deployment tier) both use "sovereign" for adjacent-but-different things. Positioning line for later: _Aegis is the platform + agents + governance that runs on-prem; Firehorse Ontology is the knowledge asset Aegis, like every other DWS IQ product, consumes._
+
+## 6. What this memo does NOT do yet
 
 - Does not edit `products.json`, the landing-pages mirror, or any `dws10.com/products/*.html` page.
 - Does not add the rebranded SKUs to `DWS_PRODUCT_STANDARD.md` §2.1 yet (recommended next step, closes the pre-existing canonical/mirror gap the predecessor memo flagged — now resolvable in one pass since the rebrand gives ontology a documented home in the standard).
 - Does not verify whether `LWM-*`/`LF-*` IDs have live customers before renaming (§2 caveat).
 - Does not update the retired `upsell-map.md` — that page was deliberately taken out of public routing for exposing internal packaging logic; this chain should be **added to internal sales-enablement material only** (e.g. a Firehorse-specific section in the internal upsell doc), not republished publicly.
 
-## 5. Recommended next step
+## 7. Recommended next step
 
-Execute the rename + `DWS_PRODUCT_STANDARD.md` update as a single, scoped follow-up commit on this branch (low risk — feature branch, no deploy until merge), once Risto confirms the SKU ID list in §2. Positioning copy (sales-facing "why Firehorse Ontology beats Palantir's bundle" language) is a separate follow-up once the rename lands.
+Execute the rename + `DWS_PRODUCT_STANDARD.md` update as a single, scoped follow-up commit on this branch (low risk — feature branch, no deploy until merge), once Risto confirms the SKU ID list in §2. Positioning copy (sales-facing "why Firehorse Ontology beats Palantir's bundle" language, §4-5's investor/customer split) is a separate follow-up once the rename lands.
 
 ---
 
-**Status:** ✅ Decided (positioning + upsell architecture) — 🟡 Open (§2 rename execution, §4 items pending go-ahead)
-**Confidence:** HIGH (reconciles cleanly with already-verified §8 Karp argument; Firehorse family/SKU-convention facts confirmed via direct file read, not inferred)
-**Impact:** Strategic (turns Ontology from an orphaned SKU set into the connective layer of the entire Firehorse product family, with an explicit Palantir differentiator)
+**Status:** ✅ Decided (positioning + upsell architecture + Palantir-Nvidia moat argument + investor/customer moat split) — 🟡 Open (§2 rename execution, §6 items pending go-ahead)
+**Confidence:** HIGH (reconciles cleanly with already-verified §8-9 Karp arguments; Firehorse family/SKU-convention and Aegis facts confirmed via direct file read, not inferred)
+**Impact:** Strategic (turns Ontology from an orphaned SKU set into the connective layer of the entire Firehorse product family, with an explicit Palantir-Nvidia differentiator and a reconciled investor/customer moat narrative)
