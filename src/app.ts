@@ -55,6 +55,11 @@ import gtmEventsRoutes from './routes/gtm-events.routes.js';
 import emailWebhookRoutes from './routes/email-webhook.routes.js';
 import analyticsRoutes from './routes/analytics.routes.js';
 import erpTrackingRoutes from './routes/erp-tracking.routes.js';
+import {
+  erpRoutes,
+  initializeERPIntegrations,
+  shutdownERPIntegrations,
+} from './integrations/erp/index.js';
 import roleTrackingRoutes from './routes/role-tracking.routes.js';
 import gapsRoutes from './routes/gaps.routes.js';
 import agentsRoutes from './routes/agents.routes.js';
@@ -110,8 +115,7 @@ if (!envResult.valid && process.env.NODE_ENV === 'production') {
 
 const app: Express = express();
 app.disable('x-powered-by');
-const PORT =
-  process.env.PORT || (process.env.NODE_ENV === 'production' ? '8080' : '3001');
+const PORT = process.env.PORT || (process.env.NODE_ENV === 'production' ? '8080' : '3001');
 
 // ES Module path helpers
 const __filename = fileURLToPath(import.meta.url);
@@ -415,6 +419,9 @@ app.use('/api/bim', bimRoutes);
 // HIL (Human-in-the-Loop) one-click task completion from morning briefing email
 app.use('/api/hil', hilRoutes);
 
+// ERP Integrations (Monitor/IFS/Dynamics365/SAP/Visma/Jeeves connectors)
+app.use('/api/v1/erp', erpRoutes);
+
 // Situation Room (pipeline reports for dashboard)
 app.use('/api/situation-room', situationRoomRoutes);
 
@@ -683,6 +690,10 @@ const server = app.listen(PORT, () => {
   // plus sweep overdue nudges for escalation (restart-safe).
   signalPoller.start();
 
+  // ERP integrations (Monitor/IFS/Dynamics365/SAP/Visma/Jeeves). Scheduler
+  // itself only starts when ERP_SCHEDULER_ENABLED=true (checked internally).
+  initializeERPIntegrations();
+
   // Initialize email queue (Redis Streams)
   emailQueue
     .initialize()
@@ -727,6 +738,7 @@ process.on('SIGTERM', () => {
   outreachScheduler.stop();
   memoryScheduler.stop();
   signalPoller.stop();
+  shutdownERPIntegrations();
   shutdownFirehorsePilot();
   Promise.all([emailQueue.shutdown(), shutdownOtel()]).finally(() => {
     server.close(() => {
@@ -742,6 +754,7 @@ process.on('SIGINT', () => {
   outreachScheduler.stop();
   memoryScheduler.stop();
   signalPoller.stop();
+  shutdownERPIntegrations();
   shutdownFirehorsePilot();
   Promise.all([emailQueue.shutdown(), shutdownOtel()]).finally(() => {
     server.close(() => {

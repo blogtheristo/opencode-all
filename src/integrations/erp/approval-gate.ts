@@ -14,7 +14,7 @@
 
 import pino from 'pino';
 import { EventEmitter } from 'events';
-import { ERPProvider, EntityType, SyncOperation, SyncResult } from './types';
+import { ERPProvider, EntityType, SyncResult } from './types.js';
 import emailService from '../../services/email.service.js';
 
 const logger = pino({ name: 'erp-approval-gate' });
@@ -148,7 +148,7 @@ export class ApprovalGateManager extends EventEmitter {
 
     // Auto-approve low-risk operations
     if (this.config.autoApproveRiskLevels.includes(riskLevel)) {
-      logger.info(`Auto-approving ${riskLevel} risk operation`, { requestId: request.id });
+      logger.info({ requestId: request.id }, `Auto-approving ${riskLevel} risk operation`);
       return this.approve(request.id, 'system-auto-approval');
     }
 
@@ -158,12 +158,15 @@ export class ApprovalGateManager extends EventEmitter {
     // Send notifications
     await this.sendApprovalNotifications(request);
 
-    logger.info('Approval requested', {
-      requestId: request.id,
-      provider,
-      entityType,
-      riskLevel,
-    });
+    logger.info(
+      {
+        requestId: request.id,
+        provider,
+        entityType,
+        riskLevel,
+      },
+      'Approval requested',
+    );
 
     return request;
   }
@@ -193,11 +196,14 @@ export class ApprovalGateManager extends EventEmitter {
 
     this.emit('approval:approved', request);
 
-    logger.info('Approval granted', {
-      requestId,
-      approvedBy,
-      riskLevel: request.riskLevel,
-    });
+    logger.info(
+      {
+        requestId,
+        approvedBy,
+        riskLevel: request.riskLevel,
+      },
+      'Approval granted',
+    );
 
     return request;
   }
@@ -223,11 +229,14 @@ export class ApprovalGateManager extends EventEmitter {
 
     this.emit('approval:rejected', request);
 
-    logger.info('Approval rejected', {
-      requestId,
-      rejectedBy,
-      reason,
-    });
+    logger.info(
+      {
+        requestId,
+        rejectedBy,
+        reason,
+      },
+      'Approval rejected',
+    );
 
     return request;
   }
@@ -358,15 +367,15 @@ export class ApprovalGateManager extends EventEmitter {
     }
 
     if (this.config.notificationChannels.includes('webhook')) {
-      logger.info('Webhook approval notification (not yet connected)', { requestId: request.id });
+      logger.info({ requestId: request.id }, 'Webhook approval notification (not yet connected)');
     }
 
     if (this.config.notificationChannels.includes('teams')) {
-      logger.info('Teams approval notification (not yet connected)', { requestId: request.id });
+      logger.info({ requestId: request.id }, 'Teams approval notification (not yet connected)');
     }
 
     if (this.config.notificationChannels.includes('mcp')) {
-      logger.info('MCP approval notification', { requestId: request.id });
+      logger.info({ requestId: request.id }, 'MCP approval notification');
     }
   }
 
