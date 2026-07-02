@@ -4,8 +4,8 @@
 
 VERSION AND AGENT HISTORY
 
-- Version: 1.0
-- Status: ACTIVE
+- Version: 1.1
+- Status: SUPERSEDED — see `docs/plans/2026-07-02-firehorse-ontology-upsell-chain.md`
 - Classification: INTERNAL
 - Document type: Decision Memo
 - Author: Claude Code (claude-sonnet-5) + risto.paarni2024@lifetime.fi
@@ -16,6 +16,7 @@ VERSION AND AGENT HISTORY
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Claude Code (claude-sonnet-5) | Date: 02.07.2026 | Changes: Initial decision memo. Triggered by §8 of `2026-07-02-karp-tokenization-economy-ai-moat.md` (Karp: "critical infrastructure does not run these models without an application layer... they're buying it because they have to be made safe") and Risto's read that standalone ontology-as-SKU is currently too heavy a claim to keep active, with the option to reopen later.
+- Version: 1.1 | Tool: Claude Code (claude-sonnet-5) | Date: 02.07.2026 | Changes: SUPERSEDED same day. Risto's follow-up call: a separate ontology product line is in fact the DWS-vs-Palantir differentiator, not a liability — rebrand it as "Firehorse Ontology" inside the existing Firehorse product family and design a cross-Firehorse upsell chain. See the successor memo for the reasoning that reconciles this with §8's trust argument.
 
 Related Documents:
 
