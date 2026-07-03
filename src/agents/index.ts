@@ -63,6 +63,9 @@ import { AuditorAgent } from './auditor.agent.js';
 import { VisionOracleAgent } from './vision-oracle.agent.js';
 import { ChronosAgent } from './chronos.agent.js';
 import { WorldModelLoopAgent } from './world-model/world-model-loop.agent.js';
+// Internal Security Governance Agents (2026-07-03, sanasto/security audit follow-up)
+import { AegisAgent } from './aegis.agent.js';
+import { VestaAgent } from './vesta.agent.js';
 // Consultant Role Agents — 8 roles from Konsultin käsikirja 2026
 import {
   AIScopingConsultantAgent,
@@ -292,7 +295,11 @@ export class AgentRegistry {
     this.register(new VisionOracleAgent()); // Vision language model — site photos, SAR imagery
     this.register(new ChronosAgent()); // Temporal workflow + EU compliance deadline engine
 
-    // Consultant Role Agents — 8 roles from Konsultin käsikirja 2026 (total 58)
+    // Internal Security Governance Agents (2026-07-03, sanasto/security audit follow-up)
+    this.register(new AegisAgent()); // Vulnerability & patch SLA triage
+    this.register(new VestaAgent()); // Business-critical systems registry
+
+    // Consultant Role Agents — 8 roles from Konsultin käsikirja 2026 (total 60)
     this.register(new AIScopingConsultantAgent()); // Compliance-need assessment, product recommendation
     this.register(new DWSDeploymentEngineerAgent()); // ERP integration (SAP, IFS, Visma, Monitor)
     this.register(new ComplianceSpecialistAgent()); // CBAM, CSRD, ETS, NIS2, CER, EU AI Act
