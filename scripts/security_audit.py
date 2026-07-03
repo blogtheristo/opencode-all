@@ -20,6 +20,13 @@ from datetime import datetime
 def run_security_audit():
     """Run comprehensive security audit"""
 
+    print(
+        "WARNING: security_audit.py is a hardcoded placeholder — every score and "
+        "finding below is a fixed literal, not computed from this repository. Do not "
+        "file this as a real audit result. See module docstring.",
+        file=sys.stderr,
+    )
+
     print("# Monthly Security Audit Report")
     print(f"\nGenerated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')}")
     print("\n## Executive Summary\n")
