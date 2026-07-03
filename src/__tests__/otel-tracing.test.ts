@@ -85,8 +85,10 @@ describe('tracing helpers', () => {
     expect(wf).toBeDefined();
     expect(step1).toBeDefined();
     expect(step2).toBeDefined();
-    expect(step1!.parentSpanId).toBe(wf!.spanContext().spanId);
-    expect(step2!.parentSpanId).toBe(wf!.spanContext().spanId);
+    // @opentelemetry/sdk-trace v2: ReadableSpan.parentSpanId was replaced by
+    // parentSpanContext?.spanId (see @opentelemetry/sdk-trace's ReadableSpan.d.ts).
+    expect(step1!.parentSpanContext?.spanId).toBe(wf!.spanContext().spanId);
+    expect(step2!.parentSpanContext?.spanId).toBe(wf!.spanContext().spanId);
     expect(wf!.attributes['dws.workflow.step_count']).toBe(2);
   });
 
