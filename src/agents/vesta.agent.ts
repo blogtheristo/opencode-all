@@ -61,6 +61,15 @@ const REGISTRY: SystemEntry[] = [
     lastReviewed: '2026-07-03',
   },
   {
+    name: 'Cloudflare Worker dws-revolut-checkout',
+    criticality: 'critical',
+    impactIfDisrupted:
+      'Revolut side of the hybrid Revolut+Stripe payment flow. Verified live via the ' +
+      'Cloudflare Developer Platform connector 2026-07-03 — only Worker on the account.',
+    owner: 'Engineering',
+    lastReviewed: '2026-07-03',
+  },
+  {
     name: 'Stripe (payments)',
     criticality: 'critical',
     impactIfDisrupted: 'Revenue path. Webhook failures silently drop billing events.',
