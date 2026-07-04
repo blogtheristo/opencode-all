@@ -715,38 +715,6 @@
       "buyPage": 2,
       "buyPageOrder": 8
     },
-    "agentti-sanasto": {
-      "id": "agentti-sanasto",
-      "gtin": null,
-      "mpn": "AGENT-GLOSSARY-2026",
-      "name": "Agentti Sanasto Englanti-Suomi",
-      "price": 0.99,
-      "currency": "EUR",
-      "type": "one-time",
-      "description": "Master AI agent terminology in Finnish. Comprehensive English-to-Finnish glossary covering all key agentic AI concepts with detailed explanations. Essential reference for Finnish tech teams working with international AI tools.",
-      "features": [
-        "English-Finnish AI terminology",
-        "Comprehensive agent concepts",
-        "Essential for Finnish tech teams"
-      ],
-      "priceNote": "1-year license",
-      "revolutLink": null,
-      "paypalPlanId": null,
-      "image": "/static/images/Firehorse_Store.jpg",
-      "detailsUrl": "mailto:sales@lifetime.fi",
-      "featured": false,
-      "google": {
-        "productCategory": "Software > Business & Productivity Software",
-        "condition": "new",
-        "availability": "in_stock",
-        "brand": "Lifetime",
-        "targetCountry": "FI",
-        "contentLanguage": "fi"
-      },
-      "storeCategory": "digital",
-      "buyPage": 2,
-      "buyPageOrder": 13
-    },
     "devops-lead": {
       "id": "devops-lead",
       "gtin": null,

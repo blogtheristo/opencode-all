@@ -4,7 +4,7 @@
  * Automated scheduling for ERP synchronization tasks
  */
 
-import cron from 'node-cron';
+import cron, { type ScheduledTask } from 'node-cron';
 import pino from 'pino';
 import { ERPIntegrationService } from './service.js';
 import { ERPProvider } from './types.js';
@@ -14,7 +14,7 @@ const logger = pino({ name: 'erp-scheduler' });
 
 export class ERPScheduler {
   private service: ERPIntegrationService;
-  private jobs: Map<string, cron.ScheduledTask> = new Map();
+  private jobs: Map<string, ScheduledTask> = new Map();
   private enabled: boolean;
 
   constructor(service: ERPIntegrationService) {
@@ -102,25 +102,22 @@ export class ERPScheduler {
    * Schedule a cron job
    */
   private scheduleJob(name: string, cronExpression: string, handler: () => Promise<void>): void {
-    const job = cron.schedule(
-      cronExpression,
-      async () => {
-        try {
-          logger.info(`Running scheduled job: ${name}`);
-          const startTime = Date.now();
+    // node-cron v4 removed the `scheduled` option — schedule() no longer supports
+    // creating a task without starting it. Kept the explicit start() call below to
+    // preserve the original "create, then start" intent even though it's now a no-op.
+    const job = cron.schedule(cronExpression, async () => {
+      try {
+        logger.info(`Running scheduled job: ${name}`);
+        const startTime = Date.now();
 
-          await handler();
+        await handler();
 
-          const duration = Date.now() - startTime;
-          logger.info({ durationMs: duration }, `Completed job: ${name}`);
-        } catch (error) {
-          logger.error({ error }, `Job failed: ${name}`);
-        }
-      },
-      {
-        scheduled: false, // Don't start immediately
-      },
-    );
+        const duration = Date.now() - startTime;
+        logger.info({ durationMs: duration }, `Completed job: ${name}`);
+      } catch (error) {
+        logger.error({ error }, `Job failed: ${name}`);
+      }
+    });
 
     job.start();
     this.jobs.set(name, job);

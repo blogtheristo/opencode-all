@@ -24,7 +24,7 @@
 import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
 import { AsyncHooksContextManager } from '@opentelemetry/context-async-hooks';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
-import { Resource } from '@opentelemetry/resources';
+import { resourceFromAttributes } from '@opentelemetry/resources';
 import { BatchSpanProcessor, NodeTracerProvider } from '@opentelemetry/sdk-trace-node';
 import {
   ATTR_SERVICE_NAME,
@@ -73,10 +73,9 @@ export function initOtel(): boolean {
 
   const serviceName = process.env.OTEL_SERVICE_NAME || DEFAULT_SERVICE_NAME;
   const serviceVersion = process.env.OTEL_SERVICE_VERSION || DEFAULT_SERVICE_VERSION;
-  const deploymentEnv =
-    process.env.DEPLOYMENT_ENV || process.env.NODE_ENV || 'development';
+  const deploymentEnv = process.env.DEPLOYMENT_ENV || process.env.NODE_ENV || 'development';
 
-  const resource = new Resource({
+  const resource = resourceFromAttributes({
     [ATTR_SERVICE_NAME]: serviceName,
     [ATTR_SERVICE_VERSION]: serviceVersion,
     [ATTR_SERVICE_NAMESPACE]: SERVICE_NAMESPACE,

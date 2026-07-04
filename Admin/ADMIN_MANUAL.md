@@ -173,13 +173,16 @@ All admin manuals across the DWS6 repository, organized by domain.
 
 ### Security
 
-| Manual                     | Location                                                                                             | Language | Description                                 |
-| -------------------------- | ---------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------- |
-| **Security Manuals Index** | [`Admin/Security/ADMIN_MANUALS_INDEX.md`](Security/ADMIN_MANUALS_INDEX.md)                           | EN       | Index of all security documentation         |
-| **Domain Validator**       | [`Admin/Security/ADMIN_MANUAL_DOMAIN_VALIDATOR.md`](Security/ADMIN_MANUAL_DOMAIN_VALIDATOR.md)       | EN       | Domain validation and DNS security          |
-| **Security Monitoring**    | [`Admin/Security/ADMIN_MANUAL_SECURITY_MONITORING.md`](Security/ADMIN_MANUAL_SECURITY_MONITORING.md) | EN       | Security monitoring and alerting            |
-| **Security Testing**       | [`Admin/Security/ADMIN_MANUAL_SECURITY_TESTING.md`](Security/ADMIN_MANUAL_SECURITY_TESTING.md)       | EN       | Penetration testing, vulnerability scanning |
-| **Security Audit Report**  | [`Admin/SECURITY_AUDIT_REPORT.md`](SECURITY_AUDIT_REPORT.md)                                         | EN       | Latest security audit findings              |
+| Manual                         | Location                                                                                             | Language | Description                                                                                |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------ |
+| **Security Manuals Index**     | [`Admin/Security/ADMIN_MANUALS_INDEX.md`](Security/ADMIN_MANUALS_INDEX.md)                           | EN       | Index of all security documentation                                                        |
+| **Domain Validator**           | [`Admin/Security/ADMIN_MANUAL_DOMAIN_VALIDATOR.md`](Security/ADMIN_MANUAL_DOMAIN_VALIDATOR.md)       | EN       | Domain validation and DNS security                                                         |
+| **Security Monitoring**        | [`Admin/Security/ADMIN_MANUAL_SECURITY_MONITORING.md`](Security/ADMIN_MANUAL_SECURITY_MONITORING.md) | EN       | Security monitoring and alerting                                                           |
+| **Security Testing**           | [`Admin/Security/ADMIN_MANUAL_SECURITY_TESTING.md`](Security/ADMIN_MANUAL_SECURITY_TESTING.md)       | EN       | Penetration testing, vulnerability scanning                                                |
+| **Security Audit Report**      | [`Admin/SECURITY_AUDIT_REPORT.md`](SECURITY_AUDIT_REPORT.md)                                         | EN       | Latest security audit findings                                                             |
+| **Business-Critical Systems**  | [`docs/BUSINESS_CRITICAL_SYSTEMS.md`](../docs/BUSINESS_CRITICAL_SYSTEMS.md)                          | EN       | Systems/services inventory with criticality tiers, kept in lockstep with the `Vesta` agent |
+| **Security Roles & Guidance**  | [`docs/SECURITY_ROLES_AND_GUIDANCE.md`](../docs/SECURITY_ROLES_AND_GUIDANCE.md)                      | EN       | Internal security roles, `Aegis`/`Vesta` agent bindings, operational guidance              |
+| **Security Training Skeleton** | [`docs/SECURITY_TRAINING_PROGRAM_SKELETON.md`](../docs/SECURITY_TRAINING_PROGRAM_SKELETON.md)        | EN       | Internal staff training program framework (not yet delivered — see doc for status)         |
 
 ### Products & Architecture
 

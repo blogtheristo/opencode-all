@@ -384,23 +384,6 @@
         <g:content_language>fi</g:content_language>
     </item>
     <item>
-        <g:id>agentti-sanasto</g:id>
-        <g:title>Agentti Sanasto Englanti-Suomi</g:title>
-        <g:description>Master AI agent terminology in Finnish. Comprehensive English-to-Finnish glossary covering all key agentic AI concepts with detailed explanations. Essential reference for Finnish tech teams working with international AI tools.</g:description>
-        <g:link>https://dws10.com/buy/page4/</g:link>
-        <g:image_link>https://dws10.com/static/images/Firehorse_Store.jpg</g:image_link>
-        <g:price>0.99 EUR</g:price>
-        <g:availability>in_stock</g:availability>
-        <g:condition>new</g:condition>
-        <g:brand>Lifetime</g:brand>
-        <g:mpn>AGENT-GLOSSARY-2026</g:mpn>
-        <g:identifier_exists>false</g:identifier_exists>
-        <g:google_product_category>Software &gt; Business &amp; Productivity Software</g:google_product_category>
-        <g:custom_label_0>digital</g:custom_label_0>
-        <g:target_country>FI</g:target_country>
-        <g:content_language>fi</g:content_language>
-    </item>
-    <item>
         <g:id>devops-lead</g:id>
         <g:title>Assessment</g:title>
         <g:description>Find out if your factory floor is AI-ready in 2 weeks. Complete manufacturing intelligence assessment with workflow scoring, ROI projection, automated deployment, performance dashboard, and 30-day monitoring. Clear go/no-go for your next investment.</g:description>
