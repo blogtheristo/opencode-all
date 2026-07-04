@@ -51,8 +51,8 @@ mobile-dashboard/
 - **Framework**: React Native / Expo
 - **Language**: TypeScript
 - **State Management**: Redux Toolkit / Context API
-- **UI Components**: NativeBase / React Native Paper
-- **Data Fetching**: Axios / React Query
+- **UI Components**: React Native Paper (standardized 2026-07-03 — matches Firehorse/mobile-app; NativeBase dropped as unmaintained)
+- **Data Fetching**: Axios / TanStack Query
 - **Testing**: Jest / Detox
 - **CI/CD**: GitHub Actions
 

@@ -350,13 +350,13 @@ mobile-dashboard/
 
 | Layer | Technology | Version |
 |-------|-----------|---------|
-| Framework | React Native | 0.72 |
-| Platform | Expo | 49.0 |
+| Framework | React Native | 0.86 |
+| Platform | Expo | SDK 57 |
 | Language | TypeScript | 5.1 |
-| Navigation | React Navigation | 6.5 |
-| State | Redux Toolkit | 1.9.5 |
-| UI Components | NativeBase | 3.4 |
-| Data Fetching | React Query | 3.39 |
+| Navigation | React Navigation | 7.x |
+| State | Redux Toolkit | 2.x |
+| UI Components | React Native Paper | 5.15 |
+| Data Fetching | TanStack Query | 5.x |
 | Testing | Jest | 29.5 |
 
 ### Backend (Integration)

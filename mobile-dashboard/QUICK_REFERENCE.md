@@ -138,13 +138,13 @@ npm run build:web       # Build for web
 
 | Layer | Technology | Version |
 |-------|-----------|---------|
-| **Framework** | React Native | 0.72 |
-| **Platform** | Expo | 49.0 |
+| **Framework** | React Native | 0.86 |
+| **Platform** | Expo | SDK 57 |
 | **Language** | TypeScript | 5.1 |
-| **State** | Redux Toolkit | 1.9.5 |
-| **Data** | React Query | 3.39 |
-| **Navigation** | React Navigation | 6.5 |
-| **UI** | NativeBase | 3.4.28 |
+| **State** | Redux Toolkit | 2.x |
+| **Data** | TanStack Query | 5.x |
+| **Navigation** | React Navigation | 7.x |
+| **UI** | React Native Paper | 5.15 |
 | **Testing** | Jest | 29.5 |
 
 ---
