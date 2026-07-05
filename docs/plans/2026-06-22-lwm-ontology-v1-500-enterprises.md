@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.1
+Version: 2.2
 
 Sessions & Modifications:
 
+- Version: 2.2 | Tool: Claude Code (claude-sonnet-5) | Session: claude/palantir-us-open-source-models-tsexbg | Date: 05.07.2026 | Changes: Stage 1 engine switched from Qwen3-Coder 30B (Alibaba, Chinese-origin) to Nemotron-TwoTower 30B-A3B (NVIDIA, U.S.-origin) per founder direction, following the Palantir/NVIDIA U.S. open-weight positioning (see `docs/field-notes/2026-07-05-nemotron-twotower-stage1-production-switch.md`). Updated §3 diagram, §3.1 engine spec, §3.4 economics (projected). Added §11.4 validation gate — throughput/VRAM/extraction-quality figures are NVIDIA's own aggregate benchmarks, not yet measured on this task; first post-switch industry run is the validation, with Qwen3-Coder documented as fallback.
 - Version: 2.1 | Tool: Claude Code (Opus 4.6) | Session: claude/lwm-ontology-v1-500-enterprises | Date: 22.06.2026 | Changes: Added Layer 6 (Commercial Intelligence) and Layer 7 (Investor Positioning) to ontology structure. Maps to DWS_ROLES_REGISTRY.md R01-R25 buying-journey stages. Ontology now feeds sales outreach (/investor-outreach, /sales skills) and investor materials directly.
 - Version: 2.0 | Tool: Claude Code (Opus 4.6) | Session: claude/lwm-ontology-v1-500-enterprises | Date: 22.06.2026 | Changes: Scale from 500 → 5,000 enterprises (200/industry). Revised 25-industry taxonomy (manufacturing/engineering focused). 3-stage pipeline (AI Workbench → Claude API → Sovereign training). Added LWM vs RAG vs KG comparison. Added LF-ONTOLOGY-25 and LF-TRAIN-IND SKUs.
 - Version: 1.0 | Tool: Claude Code (Opus 4.6) | Session: claude/lwm-ontology-v1-500-enterprises | Date: 22.06.2026 | Changes: Initial creation — 25-industry enterprise research plan, 500-enterprise target list methodology, deployment cadence (1/day × 500 days), remote update architecture, ontology data schema
@@ -15,7 +16,7 @@ Sessions & Modifications:
 Document Status:
 
 - Created: 22.06.2026
-- Last Modified: 22.06.2026
+- Last Modified: 05.07.2026
 - Language: English
 - Publication Status: DRAFT
 - Document Type: Research & Deployment Plan
@@ -209,7 +210,7 @@ The pipeline processes 5,000 enterprises into 25 sovereign industry ontologies u
 │                                                                     │
 │  Stage 1: LOCAL PREPROCESSING              DGX Spark / AI Workbench│
 │  ┌─────────────────────────────────────┐                           │
-│  │ Qwen3-Coder 30B (18GB VRAM)        │                           │
+│  │ Nemotron-TwoTower 30B-A3B (NVIDIA) │                           │
 │  │ • Ingest: annual reports, CSRD,     │                           │
 │  │   patents, equipment catalogs       │                           │
 │  │ • Semantic filtering: extract       │                           │
@@ -245,7 +246,14 @@ The pipeline processes 5,000 enterprises into 25 sovereign industry ontologies u
 
 ### 3.1 Stage 1: AI Workbench Local Preprocessing
 
-**Engine:** Qwen3-Coder 30B running on DGX Spark via AI Workbench (~18GB VRAM)
+**Engine:** Nemotron-TwoTower 30B-A3B (NVIDIA, diffusion LM adapted from Nemotron-3-Nano-30B-A3B) running on DGX Spark via AI Workbench — replaces Qwen3-Coder 30B as of 05.07.2026.
+
+**Why the switch:**
+
+- **Throughput:** NVIDIA's own benchmark reports 2.42× faster generation at 98.7% aggregate benchmark quality vs. the AR backbone it's adapted from.
+- **Model-weight provenance:** Nemotron is a U.S.-origin (NVIDIA) open-weight model, replacing a Chinese-origin (Alibaba) model on the pipeline's single most confidentiality-sensitive stage — the one that exists specifically because it must never send enterprise data to a third party. This aligns DWS's sovereignty posture with model provenance, not only data residency, echoing Palantir's public U.S.-open-weight positioning (cf. `docs/field-notes/2026-07-05-nemotron-twotower-stage1-production-switch.md`).
+
+**Not yet independently validated on this task.** The throughput and quality figures above are NVIDIA's own aggregate benchmarks, not a measurement on enterprise-document semantic filtering/entity extraction. The first production industry run after this switch serves as the validation — see §11.4. Qwen3-Coder 30B remains a documented fallback if VRAM or extraction quality don't hold up (see `docs/Ollama.md`, `scripts/daily/check-ollama-models.sh`).
 
 **Input per enterprise:**
 
@@ -264,7 +272,9 @@ The pipeline processes 5,000 enterprises into 25 sovereign industry ontologies u
 
 **Why local:** The raw documents may contain confidential information (patent details, process IP). Local preprocessing means no enterprise data leaves the DGX Spark during the extraction phase.
 
-**Throughput:** ~25 enterprises/hour at 30B model speed on GB10
+**Throughput:** ~60 enterprises/hour projected (2.42× the prior ~25/hour Qwen3-Coder baseline) — unconfirmed until the first production run measures it directly, per §11.4.
+
+**VRAM:** Unconfirmed on GB10. Nemotron-TwoTower ships ~60B total parameters across two towers (~3B active per tower per token) vs. Qwen3-Coder's single dense 30B (~18GB). Feasibility must be confirmed on first run; fall back to Qwen3-Coder for that batch if it doesn't fit, and record the fallback in the industry's provenance note (§11.4).
 
 ### 3.2 Stage 2: Claude API JSON-LD Ontology Synthesis
 
@@ -306,14 +316,14 @@ The pipeline processes 5,000 enterprises into 25 sovereign industry ontologies u
 
 ### 3.4 Pipeline Economics Per Industry
 
-| Cost Component          | Per Industry (200 enterprises)                          |
-| ----------------------- | ------------------------------------------------------- |
-| Stage 1 local compute   | ~8 hours DGX Spark time (free, owned hardware)          |
-| Stage 2 Claude API      | ~€40-80 (Opus/Sonnet mix)                               |
-| Stage 3 QLoRA compute   | ~4 hours DGX Spark time (free, owned hardware)          |
-| Research labor          | ~40 hours (enterprise identification + data collection) |
-| **Total per industry**  | **~€60-100 API + ~52 hours**                            |
-| **Total 25 industries** | **~€1,500-2,500 API + ~1,300 hours**                    |
+| Cost Component          | Per Industry (200 enterprises)                                                                                                 |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| Stage 1 local compute   | ~3.3 hours DGX Spark time projected (2.42× throughput; unconfirmed — see §11.4); ~8 hours if fallback to Qwen3-Coder is needed |
+| Stage 2 Claude API      | ~€40-80 (Opus/Sonnet mix)                                                                                                      |
+| Stage 3 QLoRA compute   | ~4 hours DGX Spark time (free, owned hardware)                                                                                 |
+| Research labor          | ~40 hours (enterprise identification + data collection)                                                                        |
+| **Total per industry**  | **~€60-100 API + ~47 hours projected (~52 hours if fallback)**                                                                 |
+| **Total 25 industries** | **~€1,500-2,500 API + ~1,175 hours projected (~1,300 hours if fallback)**                                                      |
 
 ---
 
@@ -844,6 +854,13 @@ Both SKUs added to `dws10.com/config/products.json` + dual-folder mirror.
 - [ ] Update policy YAML schema validated
 - [ ] Rollback tested: intentionally deploy bad update, verify auto-rollback
 - [ ] Fleet dashboard prototype showing 5+ node status
+
+### 11.4 Stage 1 Engine Switch Validation (Nemotron-TwoTower, added v2.2)
+
+- [ ] VRAM fit confirmed for Nemotron-TwoTower 30B-A3B on GB10 (DGX Spark) — if it doesn't fit, fall back to Qwen3-Coder for that run
+- [ ] First post-switch industry's term-candidate JSON diffed against the last Qwen3-Coder-processed industry; no material extraction-quality regression before that industry's ontology ships to any customer
+- [ ] Measured Stage 1 throughput recorded and compared against the projected 2.42× figure
+- [ ] Each industry ontology file records which Stage 1 engine (and version) processed it, so per-customer model provenance is documented, not implicit — cf. `docs/field-notes/2026-07-05-nemotron-twotower-stage1-production-switch.md`
 
 ---
 

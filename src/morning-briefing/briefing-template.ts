@@ -12,7 +12,17 @@
  *   6. Send List (separate from main content — manual outreach queue)
  */
 
-import type { CaptainInquiriesData, CockpitData, ConstructionLeadsData, HilTodosData, LearnArtifactsData, OutreachSummaryData, SendListItem, WorkflowData } from './data-collectors.js';
+import type {
+  CaptainInquiriesData,
+  CockpitData,
+  ConstructionLeadsData,
+  HilTodosData,
+  LearnArtifactsData,
+  OutreachSummaryData,
+  SendListItem,
+  WebLeadsData,
+  WorkflowData,
+} from './data-collectors.js';
 
 // ============================================================================
 // HELPERS
@@ -295,7 +305,12 @@ function renderReplyMailto(
   return `<a href="${url}" style="display:inline-block;padding:4px 10px;margin:2px 3px 2px 0;background:${color};color:#fff;text-decoration:none;font-weight:600;border-radius:4px;font-size:10px;letter-spacing:0.3px;">${esc(label)}</a>`;
 }
 
-function renderSendList(sendList: SendListItem[], baseUrl: string, adminKey: string, replyTo: string): string {
+function renderSendList(
+  sendList: SendListItem[],
+  baseUrl: string,
+  adminKey: string,
+  replyTo: string,
+): string {
   if (sendList.length === 0) {
     return `
       <tr><td style="padding: 16px 20px;">
@@ -648,6 +663,90 @@ function renderCaptainInquiriesHtml(data: CaptainInquiriesData): string {
 }
 
 // ============================================================================
+// WEB LEADS SECTION (inbound newsletter / free-audit / contact)
+// ============================================================================
+
+const WEB_LEAD_SOURCE_COLORS: Record<string, string> = {
+  free_audit: '#4ade80',
+  newsletter: '#60a5fa',
+  contact: '#d4a843',
+};
+
+function renderWebLeadsHtml(data: WebLeadsData): string {
+  if (data.newCount === 0) return '';
+
+  const rows = data.leads
+    .map((lead) => {
+      const color = WEB_LEAD_SOURCE_COLORS[lead.source] || '#888';
+      const label = lead.source.replace('_', ' ').toUpperCase();
+      const time = new Date(lead.created_at).toLocaleString('en-GB', {
+        day: 'numeric',
+        month: 'short',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'Europe/Helsinki',
+      });
+      const who = lead.name || lead.email;
+      const ctx = [lead.company, lead.industry]
+        .filter((x): x is string => Boolean(x))
+        .map(esc)
+        .join(' · ');
+      const ctxLine = ctx ? `<span style="color: #555;"> — ${ctx}</span>` : '';
+      const msgLine = lead.message
+        ? `<div style="font-size: 11px; color: #666; margin-top: 2px; font-style: italic;">"${esc(lead.message.length > 120 ? lead.message.slice(0, 117) + '...' : lead.message)}"</div>`
+        : '';
+
+      return `<div style="padding: 8px 0; border-bottom: 1px solid #1a1a1a;">
+        <div style="font-size: 13px; color: #e0e0e0;">
+          <span style="color: ${color}; font-size: 10px; font-weight: 600;">[${label}]</span>
+          <strong>${esc(who)}</strong>${ctxLine}
+        </div>
+        <div style="font-size: 11px; color: #888; margin-top: 2px;">
+          <a href="mailto:${esc(lead.email)}" style="color: #60a5fa; text-decoration: none;">${esc(lead.email)}</a>
+          &nbsp;|&nbsp; ${time}
+        </div>
+        ${msgLine}
+      </div>`;
+    })
+    .join('');
+
+  return `
+    <tr><td style="padding: 16px 20px; border-bottom: 1px solid #1a1a1a;">
+      <h3 style="margin: 0 0 10px; font-size: 12px; color: #4ade80; text-transform: uppercase; letter-spacing: 1.5px;">Web Leads (${data.newCount} new)</h3>
+      ${rows}
+      <p style="margin: 8px 0 0; font-size: 11px; color: #555;">Inbound from the public sites — qualify and add to the outreach pipeline</p>
+    </td></tr>`;
+}
+
+function renderWebLeadsPlainText(data: WebLeadsData): string {
+  if (data.newCount === 0) return '';
+
+  const lines: string[] = [];
+  lines.push(`WEB LEADS (${data.newCount} new)`);
+  for (const lead of data.leads) {
+    const label = lead.source.replace('_', ' ').toUpperCase();
+    const time = new Date(lead.created_at).toLocaleString('en-GB', {
+      day: 'numeric',
+      month: 'short',
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZone: 'Europe/Helsinki',
+    });
+    const who = lead.name || lead.email;
+    const ctx = [lead.company, lead.industry].filter(Boolean).join(' · ');
+    lines.push(`  [${label}] ${who}${ctx ? ' — ' + ctx : ''}`);
+    lines.push(`    Email: ${lead.email} | ${time}`);
+    if (lead.message) {
+      const msg = lead.message.length > 100 ? lead.message.slice(0, 97) + '...' : lead.message;
+      lines.push(`    "${msg}"`);
+    }
+  }
+  lines.push('  → Qualify and add to the outreach pipeline');
+  lines.push('');
+  return lines.join('\n');
+}
+
+// ============================================================================
 // LEARN ARTIFACTS SECTION
 // ============================================================================
 
@@ -819,6 +918,7 @@ export function buildSalesBriefHtml(data: CockpitData, baseUrl?: string): string
 
     ${renderOutreachSummaryHtml(data.outreachSummary)}
     ${renderCaptainInquiriesHtml(data.captainInquiries)}
+    ${renderWebLeadsHtml(data.webLeads)}
     ${renderConstructionLeadsHtml(data.constructionLeads)}
 
     <tr><td style="padding: 0 20px;"><hr style="border: none; border-top: 2px solid #222; margin: 0;"></td></tr>
@@ -848,6 +948,8 @@ export function buildSalesBriefPlainText(data: CockpitData): string {
   lines.push(renderOutreachSummaryPlainText(data.outreachSummary));
   lines.push('');
   lines.push(renderCaptainInquiriesPlainText(data.captainInquiries));
+  lines.push('');
+  lines.push(renderWebLeadsPlainText(data.webLeads));
   lines.push('');
   lines.push(renderConstructionLeadsPlainText(data.constructionLeads));
   lines.push('');
@@ -898,6 +1000,7 @@ export function buildCockpitHtml(data: CockpitData, baseUrl?: string): string {
 
     ${renderOutreachSummaryHtml(data.outreachSummary)}
     ${renderCaptainInquiriesHtml(data.captainInquiries)}
+    ${renderWebLeadsHtml(data.webLeads)}
     ${renderChanges(data)}
     ${renderBets(data.bets)}
     ${renderRisk(data)}
@@ -944,6 +1047,12 @@ export function buildCockpitPlainText(data: CockpitData): string {
   const captainText = renderCaptainInquiriesPlainText(data.captainInquiries);
   if (captainText) {
     lines.push(captainText);
+  }
+
+  // Web Leads (inbound from public sites)
+  const webLeadsText = renderWebLeadsPlainText(data.webLeads);
+  if (webLeadsText) {
+    lines.push(webLeadsText);
   }
 
   // 3 Changes

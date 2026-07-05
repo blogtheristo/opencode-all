@@ -157,7 +157,7 @@ NVIDIA Jetson inference at factory floors, construction sites, mid-ocean vessels
 
 ## Slide 8 — Market
 
-**50,000+ EU companies need a carbon balance sheet by 2028.**
+**Post-Omnibus, ~5,000 large EU filers and their value chains need a carbon balance sheet by 2028.**
 
 - CBAM full implementation: 2026 (steel, aluminium, cement, fertiliser, hydrogen, electricity)
 - CSRD wave 1: 250 large companies filing 2025

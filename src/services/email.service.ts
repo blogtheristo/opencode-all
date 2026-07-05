@@ -1,25 +1,25 @@
 /**
  * DWS IQ 6 - Email Service
  *
- * Amazon SES (SMTP) ONLY. Resend and SendGrid are permanently banned
- * (see CLAUDE.md Email Rules — SES is the sole transport). All sends route
- * through src/utils/send-email.ts (nodemailer → Amazon SES eu-north-1).
+ * Production email delivery. Transport is Amazon SES (SMTP) ONLY — per CLAUDE.md
+ * Non-Negotiable Rule 4 (never Resend/SendGrid) — via src/utils/send-email.ts,
+ * which also persists an audit trail to the Supabase email_queue.
  *
  * Features:
- *   - SES-only delivery via the shared sendEmail() util
+ *   - Amazon SES (SMTP) transport
  *   - Structured logging via project logger
  *   - Supabase email_logs persistence (when configured)
  *   - HTML templates for all transactional email types
  *
  * Environment variables:
- *   SMTP_HOST / SMTP_USER / SMTP_PASS / SMTP_SECURE - Amazon SES SMTP creds
+ *   SMTP_HOST / SMTP_PORT / SMTP_USER / SMTP_PASS - Amazon SES SMTP credentials
  *   EMAIL_FROM       - Sender address (default: risto@onelifetime.world)
  *   SUPABASE_URL     - Supabase project URL (for email logging)
  *   SUPABASE_SERVICE_KEY - Supabase service role key (for email logging)
  */
 
 import logger from '../utils/logger.js';
-import { sendEmail as sendEmailViaSes } from '../utils/send-email.js';
+import { sendEmail as sesSendEmail } from '../utils/send-email.js';
 import {
   welcomeTemplate,
   passwordResetTemplate,
@@ -73,7 +73,7 @@ class EmailService {
 
     if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
       logger.warn(
-        'Amazon SES SMTP not configured. Set SMTP_HOST/SMTP_USER/SMTP_PASS. Emails will be logged but not delivered.',
+        'No SES SMTP transport configured. Set SMTP_HOST/SMTP_USER/SMTP_PASS. Emails will be logged but not delivered.',
       );
     }
   }
@@ -192,27 +192,25 @@ class EmailService {
   }
 
   // ----------------------------------------------------------
-  // CORE SEND LOGIC (PRIVATE) — Amazon SES only
+  // CORE SEND LOGIC (PRIVATE)
   // ----------------------------------------------------------
 
   /**
-   * Send an email through Amazon SES (via src/utils/send-email.ts).
-   * Logs every attempt to Supabase email_logs when configured.
+   * Send an email through Amazon SES (SMTP). Logs every attempt to the
+   * Supabase email_logs table when configured.
    */
   private async sendEmail(options: EmailOptions): Promise<void> {
     const { to, subject, html, templateType, metadata } = options;
 
-    logger.info('Sending email', {
-      templateType: templateType || 'custom',
-    });
+    logger.info('Sending email', { templateType: templateType || 'custom' });
 
-    const result = await sendEmailViaSes({
+    const result = await sesSendEmail({
       from: this.fromAddress,
       to,
       subject,
       html,
       source: 'platform',
-      templateType: templateType || undefined,
+      templateType,
       metadata,
     });
 
@@ -234,8 +232,9 @@ class EmailService {
       return;
     }
 
-    const errorMessage = result.error || 'SES send failed';
-    logger.error('SES send failed', { error: errorMessage });
+    const errorMessage = result.error || 'Unknown SES error';
+    const notConfigured = /SMTP transport unavailable/i.test(errorMessage);
+
     await this.logEmail({
       to_email: to,
       from_email: this.fromAddress,
@@ -246,7 +245,15 @@ class EmailService {
       error: errorMessage,
       metadata: metadata || null,
     });
-    throw new Error(`Email delivery failed via Amazon SES: ${errorMessage}`);
+
+    if (notConfigured) {
+      // No transport configured (e.g. local/dev) — log only, do not throw.
+      logger.warn('No SES transport configured - email not delivered', { to, subject });
+      return;
+    }
+
+    logger.error('SES send failed', { error: errorMessage });
+    throw new Error(`Email delivery failed: ${errorMessage}`);
   }
 
   // ----------------------------------------------------------

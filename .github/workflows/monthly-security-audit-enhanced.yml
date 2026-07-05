@@ -1,9 +1,16 @@
 name: Monthly Security Audit - Enhanced with Correlation
 
 on:
-  # Schedule REMOVED 2026-05-25 (#1384) — moved to DGX Spark (scripts/weekly/security-audit.sh covers monthly too)
+  # Schedule REMOVED 2026-05-25 (#1384) — comment originally claimed
+  # scripts/weekly/security-audit.sh "covers monthly too". It doesn't, and shouldn't:
+  # this workflow's compliance score comes from scripts/security_audit.py, which is a
+  # hardcoded placeholder (always prints "Overall Score: 85/100" — see its own
+  # docstring), not a real audit. This workflow was creating monthly GitHub issues
+  # with a fabricated score before its schedule was removed. Do not re-enable the
+  # schedule or build a DGX equivalent until security_audit.py computes a real score
+  # (verified 2026-07-03: no currently-open issue is presenting the fake score).
   # Was: cron '0 0 1 * *' (1st of month at 00:00 UTC)
-  workflow_dispatch:  # Allow manual triggering
+  workflow_dispatch:  # Allow manual triggering — kept for now, but produces fake data
 
 jobs:
   enhanced-security-audit:

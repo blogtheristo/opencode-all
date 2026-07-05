@@ -1,6 +1,6 @@
 /**
  * Test script: Send 5 native-language Captain DM emails (SV, DE, FI, FR, EN)
- * Uses the production transport cascade: Amazon SES (SMTP).
+ * Uses the production transport: Amazon SES (SMTP).
  * All sent to risto@lifetime.fi for review before real outreach.
  *
  * Requires: SMTP_HOST + SMTP_USER + SMTP_PASS (SES primary)
@@ -22,7 +22,7 @@ if (!hasSmtp) {
   process.exit(1);
 }
 
-console.log(`Transport: ${hasSmtp ? 'SES (SMTP)' : 'SES not configured'}`);
+console.log(`Transport: ${hasSmtp ? 'Amazon SES (SMTP)' : 'SES not configured'}`);
 
 interface TestEmail {
   lang: string;

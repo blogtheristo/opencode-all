@@ -6,6 +6,7 @@
 
 VERSION AND AGENT HISTORY
 Version: 1.0 | 2026-06-27 | Claude Sonnet 4.6 | Luotu tarjouspyynnön pohjalta
+Version: 1.1 | 2026-07-02 | Claude Code | Lisätty "Resursointimalli" -osio: selittää miten agenttikyvykkyys (DWS IQ 6), Risto Anton Päärnin 1 htp ja NDA:lla vahvistettu intialainen alihankinta (9series Solutions, Cubet Techno Labs — ks. ORK160826_ALIHANKINTALOMAKE.md) yhdistyvät Liite 5:n kiinteään roolihinnastoon ilman erillistä agentti-htp-riviä.
 
 ---
 
@@ -196,6 +197,20 @@ Lifetime Oy käyttää **NVIDIA DGX Spark** -laitteistoa omassa tuotantoympäris
 - GitHub Actions -varmennus (failover) aktivoituu vain, jos DGX Spark ei vastaa
 - Ollama-integraatio: paikalliset mallit kehittäjätyöhön ilman cloud-kustannuksia
 - Käytännön kokemus: asennus, konfigurointi, Docker Compose, tuotantokäyttö
+
+---
+
+## Resursointimalli — miten agenttikyvykkyys, ihmistyö ja alihankinta yhdistyvät hintaan
+
+**Periaate: agentteja ei laskuteta erillisenä htp-rivinä.** Liite 5 -hintalomakkeen roolirakenne (ks. `ORK160826_HINTALOMAKE.md`) on tilaajan kiinteä pohja — jokaiselle nimetylle roolille (Tekoälyratkaisujen arkkitehti, AI Engineer, Data Engineer, DevOps Engineer jne.) on yksi €/htp-hinta riippumatta siitä, kuka roolin sisällä työn tekee. DWS IQ 6 -alustan 58 agenttia ja 88 kyvykkyyttä eivät ole oma laskutettava rivinsä — ne ovat syy siihen, että yksi Risto Anton Päärnin henkilötyöpäivä tuottaa saman lopputuloksen kuin perinteisesti isompi tiimi tarvitsisi (vrt. Konsultin käsikirja: "1 CEO + 58 AI agenttia = suuren toimiston kapasiteetti startup-kustannuksella").
+
+Käytännön resursointi jakautuu kolmeen kerrokseen, jotka kaikki laskutetaan saman Liite 5 -roolihinnaston kautta:
+
+1. **1 htp — Risto Anton Päärni** (nimetty asiantuntija, ks. `CV/CV_Risto_Paarni_161.md` / ORK-CV). Laskutetaan roolin mukaan (esim. "Tekoälyratkaisujen arkkitehti" 419,25 €/htp tai Osa-alue 3:n "AI Architect" 390,00 €/htp). DWS IQ -agentit toimivat hänen työkalunaan (tutkimus, laadunvarmistus, dokumentaatio, ajastettu seuranta) — nostavat läpimenoa, eivät ole erillinen kustannusrivi.
+2. **Agenttikyvykkyys (DWS IQ 6)** — kuvataan tässä liitteessä ja CV:n kyvykkyysliitteessä metodologiana / toimitusmallina, ei resurssina. Sisältyy Risto Anton Päärnin htp-hintaan kiinteänä osana suvereenia toteutustapaa (ks. "Suvereenin AI-toteutuksen periaate" yllä).
+3. **1–3 htp Intiasta** — jo ilmoitettu ja NDA:lla vahvistettu alihankinta (ks. `ORK160826_ALIHANKINTALOMAKE.md`, Ryhmä A: **9series Solutions** (Ahmedabad, roolit Software Developer / DevOps Engineer) ja **Cubet Techno Labs** (Kochi, roolit AI Engineer / Software Developer), kumpikin arviolta 10–20 % sopimuksen arvosta). Laskutetaan samasta Liite 5 -roolihinnastosta kuin Risto — hankintalain mukaan alihankkijan käyttö ei muuta roolihintaa, vain sitä kuka roolin toteuttaa. Kapasiteettia käytetään, kun toimeksiannon volyymi ylittää yhden hengen htp-kapasiteetin, ei jatkuvana oletuksena.
+
+**Miksi ei toisin:** tekoälyagenttien esittäminen omana tiiminjäsenenä/htp-rivinä hinta- tai resursointilomakkeella olisi sekä hankintalain vastaista (Liite 5 vaatii nimettyjä, pätevyystiedot omaavia luonnollisia henkilöitä rooleihin — ei ohjelmistoa) että ristiriidassa DWS:n oman eettisen periaatteen kanssa ("tekoäly augmentoi, ei korvaa" — ks. Konsultin käsikirja §2 Ihmiskeskeisyys). Agenttikapasiteetti on kilpailuetu laadussa ja läpimenossa, ei erillinen laskutuskohde.
 
 ---
 

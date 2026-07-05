@@ -192,6 +192,21 @@ const posts = [
     title: 'Industrial Intelligence Weekly — Five Signals from the Regulated Economy',
     date: '28 Jun 2026',
   },
+  {
+    file: 'brexit-interdependence-moat-us-eu.html',
+    title: 'Sovereignty Is a Setting, Not a Switch — What the US and EU Can Learn from Brexit',
+    date: '30 Jun 2026',
+  },
+  {
+    file: 'brexit-interdependence-moat-us-eu.fi.html',
+    title: 'Suvereniteetti on säädin, ei kytkin — mitä USA ja EU voivat oppia brexitistä (FI)',
+    date: '30 Jun 2026',
+  },
+  {
+    file: 'tiedon-vanheneminen-sensoridata-retention.html',
+    title: 'Tiedon vanheneminen — sensoridatan tallennusstrategia (FI, field note)',
+    date: '1 Jul 2026',
+  },
 ];
 
 // Three featured products

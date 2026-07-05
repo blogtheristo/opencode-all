@@ -4,17 +4,17 @@
  * Automated scheduling for ERP synchronization tasks
  */
 
-import cron from 'node-cron';
+import cron, { type ScheduledTask } from 'node-cron';
 import pino from 'pino';
-import { ERPIntegrationService } from './service';
-import { ERPProvider, EntityType } from './types';
+import { ERPIntegrationService } from './service.js';
+import { ERPProvider } from './types.js';
 import { getSupabaseClient } from '../../config/supabase.js';
 
 const logger = pino({ name: 'erp-scheduler' });
 
 export class ERPScheduler {
   private service: ERPIntegrationService;
-  private jobs: Map<string, cron.ScheduledTask> = new Map();
+  private jobs: Map<string, ScheduledTask> = new Map();
   private enabled: boolean;
 
   constructor(service: ERPIntegrationService) {
@@ -34,40 +34,24 @@ export class ERPScheduler {
     logger.info('Starting ERP scheduler');
 
     // Production orders sync - every 6 hours
-    this.scheduleJob(
-      'production-orders-sync',
-      '0 */6 * * *',
-      async () => {
-        await this.syncProductionOrdersForAll();
-      }
-    );
+    this.scheduleJob('production-orders-sync', '0 */6 * * *', async () => {
+      await this.syncProductionOrdersForAll();
+    });
 
     // Machine data sync - every hour
-    this.scheduleJob(
-      'machine-data-sync',
-      '0 * * * *',
-      async () => {
-        await this.syncMachineDataForAll();
-      }
-    );
+    this.scheduleJob('machine-data-sync', '0 * * * *', async () => {
+      await this.syncMachineDataForAll();
+    });
 
     // OEE metrics sync - every 4 hours
-    this.scheduleJob(
-      'oee-metrics-sync',
-      '0 */4 * * *',
-      async () => {
-        await this.syncOEEMetricsForAll();
-      }
-    );
+    this.scheduleJob('oee-metrics-sync', '0 */4 * * *', async () => {
+      await this.syncOEEMetricsForAll();
+    });
 
     // Maintenance events sync - daily at 02:00
-    this.scheduleJob(
-      'maintenance-sync',
-      '0 2 * * *',
-      async () => {
-        await this.syncMaintenanceForAll();
-      }
-    );
+    this.scheduleJob('maintenance-sync', '0 2 * * *', async () => {
+      await this.syncMaintenanceForAll();
+    });
 
     logger.info(`ERP scheduler started with ${this.jobs.size} jobs`);
   }
@@ -118,36 +102,35 @@ export class ERPScheduler {
    * Schedule a cron job
    */
   private scheduleJob(name: string, cronExpression: string, handler: () => Promise<void>): void {
-    const job = cron.schedule(
-      cronExpression,
-      async () => {
-        try {
-          logger.info(`Running scheduled job: ${name}`);
-          const startTime = Date.now();
+    // node-cron v4 removed the `scheduled` option — schedule() no longer supports
+    // creating a task without starting it. Kept the explicit start() call below to
+    // preserve the original "create, then start" intent even though it's now a no-op.
+    const job = cron.schedule(cronExpression, async () => {
+      try {
+        logger.info(`Running scheduled job: ${name}`);
+        const startTime = Date.now();
 
-          await handler();
+        await handler();
 
-          const duration = Date.now() - startTime;
-          logger.info(`Completed job: ${name}`, { durationMs: duration });
-        } catch (error) {
-          logger.error(`Job failed: ${name}`, { error });
-        }
-      },
-      {
-        scheduled: false // Don't start immediately
+        const duration = Date.now() - startTime;
+        logger.info({ durationMs: duration }, `Completed job: ${name}`);
+      } catch (error) {
+        logger.error({ error }, `Job failed: ${name}`);
       }
-    );
+    });
 
     job.start();
     this.jobs.set(name, job);
 
-    logger.info(`Scheduled job: ${name}`, { cronExpression });
+    logger.info({ cronExpression }, `Scheduled job: ${name}`);
   }
 
   /**
    * Fetch active ERP integrations from Supabase.
    */
-  private async getActiveIntegrations(): Promise<Array<{ organizationId: string; provider: ERPProvider }>> {
+  private async getActiveIntegrations(): Promise<
+    Array<{ organizationId: string; provider: ERPProvider }>
+  > {
     const client = getSupabaseClient();
     if (!client) {
       logger.debug('Supabase not configured, no active integrations');
@@ -161,7 +144,7 @@ export class ERPScheduler {
         .eq('status', 'active');
 
       if (error) {
-        logger.error('Failed to fetch active integrations', { error: error.message });
+        logger.error({ error: error.message }, 'Failed to fetch active integrations');
         return [];
       }
 
@@ -170,7 +153,7 @@ export class ERPScheduler {
         provider: row.provider as ERPProvider,
       }));
     } catch (err) {
-      logger.error('Error querying integrations', { error: (err as Error).message });
+      logger.error({ error: (err as Error).message }, 'Error querying integrations');
       return [];
     }
   }
@@ -189,21 +172,27 @@ export class ERPScheduler {
         const result = await this.service.syncProductionOrders(
           integration.organizationId,
           integration.provider,
-          since
+          since,
         );
 
-        logger.info('Production orders synced', {
-          organizationId: integration.organizationId,
-          provider: integration.provider,
-          processed: result.processedRecords,
-          failed: result.failedRecords
-        });
+        logger.info(
+          {
+            organizationId: integration.organizationId,
+            provider: integration.provider,
+            processed: result.processedRecords,
+            failed: result.failedRecords,
+          },
+          'Production orders synced',
+        );
       } catch (error) {
-        logger.error('Failed to sync production orders', {
-          organizationId: integration.organizationId,
-          provider: integration.provider,
-          error
-        });
+        logger.error(
+          {
+            organizationId: integration.organizationId,
+            provider: integration.provider,
+            error,
+          },
+          'Failed to sync production orders',
+        );
       }
     }
   }
@@ -226,7 +215,7 @@ export class ERPScheduler {
       .limit(100);
 
     if (error) {
-      logger.error('Failed to fetch pending machine data', { error: error.message });
+      logger.error({ error: error.message }, 'Failed to fetch pending machine data');
       return;
     }
 
@@ -240,15 +229,18 @@ export class ERPScheduler {
     const integrations = await this.getActiveIntegrations();
     for (const integration of integrations) {
       try {
-        await this.service.syncMachineData(
-          integration.organizationId,
-          integration.provider,
-        );
+        // TODO: map machineData rows (machine_telemetry, filtered by sync_status)
+        // to this integration's organization before syncing — currently a no-op
+        // pass-through pending that mapping (pre-existing gap, not introduced here).
+        await this.service.syncMachineData(integration.organizationId, integration.provider, []);
       } catch (err) {
-        logger.error('Machine data sync failed', {
-          organizationId: integration.organizationId,
-          error: (err as Error).message,
-        });
+        logger.error(
+          {
+            organizationId: integration.organizationId,
+            error: (err as Error).message,
+          },
+          'Machine data sync failed',
+        );
       }
     }
   }
@@ -261,19 +253,24 @@ export class ERPScheduler {
 
     for (const integration of integrations) {
       try {
-        await this.service.syncOEEMetrics(
-          integration.organizationId,
-          integration.provider,
+        // TODO: source pending OEE metrics per integration before syncing —
+        // currently a no-op pass-through (pre-existing gap, not introduced here).
+        await this.service.syncOEEMetrics(integration.organizationId, integration.provider, []);
+        logger.info(
+          {
+            organizationId: integration.organizationId,
+            provider: integration.provider,
+          },
+          'OEE metrics synced',
         );
-        logger.info('OEE metrics synced', {
-          organizationId: integration.organizationId,
-          provider: integration.provider,
-        });
       } catch (err) {
-        logger.error('OEE metrics sync failed', {
-          organizationId: integration.organizationId,
-          error: (err as Error).message,
-        });
+        logger.error(
+          {
+            organizationId: integration.organizationId,
+            error: (err as Error).message,
+          },
+          'OEE metrics sync failed',
+        );
       }
     }
 
@@ -292,25 +289,31 @@ export class ERPScheduler {
         await this.service.syncMaintenanceEvents(
           integration.organizationId,
           integration.provider,
-          'from_erp'
+          'from_erp',
         );
 
         await this.service.syncMaintenanceEvents(
           integration.organizationId,
           integration.provider,
-          'to_erp'
+          'to_erp',
         );
 
-        logger.info('Maintenance events synced', {
-          organizationId: integration.organizationId,
-          provider: integration.provider
-        });
+        logger.info(
+          {
+            organizationId: integration.organizationId,
+            provider: integration.provider,
+          },
+          'Maintenance events synced',
+        );
       } catch (error) {
-        logger.error('Failed to sync maintenance events', {
-          organizationId: integration.organizationId,
-          provider: integration.provider,
-          error
-        });
+        logger.error(
+          {
+            organizationId: integration.organizationId,
+            provider: integration.provider,
+            error,
+          },
+          'Failed to sync maintenance events',
+        );
       }
     }
   }
@@ -319,9 +322,9 @@ export class ERPScheduler {
    * Get job status
    */
   getStatus(): Array<{ name: string; running: boolean }> {
-    return Array.from(this.jobs.entries()).map(([name, job]) => ({
+    return Array.from(this.jobs.entries()).map(([name]) => ({
       name,
-      running: true // node-cron doesn't expose running status directly
+      running: true, // node-cron doesn't expose running status directly
     }));
   }
 }

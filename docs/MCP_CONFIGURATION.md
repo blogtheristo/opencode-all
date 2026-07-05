@@ -376,6 +376,21 @@ Use `Cloud Run` when you are actively deploying or debugging GCP-hosted services
 - Do not rely on the old `mcp/cloud-run-mcp` package name in repository docs.
 - In this repo, Cloud Run is mostly relevant for hosted MCP gateway deployment and legacy transition work.
 
+### 5.5 Cloudflare Developer Platform
+
+**Status:** live as a built-in Claude Code connector (confirmed 2026-07-03) — no `.mcp.json` entry needed.
+
+**Why it matters here**
+
+`dws6.com`, `dws10.com`, `onelifetime.world`, and `lifetime.fi` all deploy to Cloudflare Pages, and `dws10.com`'s hybrid Revolut+Stripe payment flow runs a Cloudflare Worker (`dws-revolut-checkout`). Before this connector went live, Cloudflare's actual account state (Workers, KV, R2, D1, Hyperdrive) was only inferable from `wrangler.toml` and deploy workflow files — never queried directly. Live-querying it once (2026-07-03) already found one Worker, `dws-revolut-checkout`, that wasn't in `docs/BUSINESS_CRITICAL_SYSTEMS.md` — added there and to the `Vesta` agent's registry in the same session.
+
+**Current guidance**
+
+- Use it for read-only discovery (`workers_list`, `kv_namespaces_list`, `r2_buckets_list`, `d1_databases_list`, `hyperdrive_configs_list`, `workers_get_worker_code`) to verify the live account state against what's documented in `docs/BUSINESS_CRITICAL_SYSTEMS.md`.
+- Treat any create/delete/edit tool (`*_create`, `*_delete`, `hyperdrive_config_edit`) as requiring the same confirm-before-acting discipline as any other production-infrastructure change — these are not read-only.
+- As of 2026-07-03: 1 Worker (`dws-revolut-checkout`), 0 KV namespaces, 0 D1 databases, 0 Hyperdrive configs, R2 not enabled on the account (dashboard-gated, not an MCP permission issue).
+- Re-run the discovery tools whenever `docs/BUSINESS_CRITICAL_SYSTEMS.md`'s Cloudflare rows are reviewed (see that document's Review cadence section) instead of re-inferring from config files.
+
 ### 5.4 Docker Desktop note
 
 If you are on Docker Desktop `4.43+`, the easiest path is to add these servers through the MCP Toolkit / catalog UI and then let Docker Desktop generate the config for you.

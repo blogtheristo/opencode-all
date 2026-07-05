@@ -7,15 +7,16 @@ Yhteystiedot saatavilla pyynnöstä yksityisen kanavan kautta
 
 # VERSION AND AGENT HISTORY
 
-Version: 160
+Version: 161
 
 Sessions & Modifications:
 
+- Version: 161 | Tool: Claude Code | Session: claude/risto-cv-lifetime-world-uiqxxo | Date: 02.07.2026 | Changes: Lisätty Lifetime World (onelifetime.world) -hankekuvaus: missio (ilmastonmuutoksen, eroosion ja kuivuuden torjunta), pilvinatiivi tekoäly + pelillistetyt haasteet + vaikutusseuranta + Coal Certificates / Lifetime World Coin, energialähteiden monipuolistaminen ja energiaturvallisuus, DWS + H2AIQ Solutions hajautetun energiantuotannon yhteisönä, YK SDG -prioriteetit, Microsoft for Startups Founders Hub Level 4 (USD 153 000) -teknologiapino ja sijoittajakumppanihaku. Tiedosto 160→161.
 - Version: 160 | Tool: Claude Code (Opus 4.8) | Session: claude/consultant-handbook-v1-6-622fep | Date: 28.06.2026 | Changes: Yhtenäistetty DWS IQ v1.75 kanonisiin lukuihin (58 agenttia / 88 kyvykkyyttä / 25 toimialaa). Päivitetty asiaosaaminen: lokaali suvereeni World Model (Control Room / Situation Room, NVIDIA DGX Spark), kyvykkyysmalli (roolit→kyvykkyydet/skillit/työnkulut/Gödel-silmukat), EU AI Act Art. 4/12/14, NVIDIA Connect ISV -kumppanuus, Firehorse-tuotelinja, whitepaper-tuotanto. Liitetty DWS-dokumenttiversiointi. Tiedosto 155→160.
 
 Document Status:
 
-- Last Modified: 28.06.2026
+- Last Modified: 02.07.2026
 - Language: Finnish
 - Publication Status: DRAFT
 - Document Type: Consultant CV
@@ -96,6 +97,18 @@ Teollisuuden IT-järjestelmien suunnittelu, käyttöönotto ja tietoturva yli 28
 ERP-migraatiot ja -integraatiot pohjoismaisille valmistusyrityksille (SAP, IFS, Dynamics).
 ICT-infrastruktuuri, tietoturvasuunnittelu ja riskienhallinta energia-, rakennus- ja logistiikkasektorilla.
 Prosessinparannustyö (Industrial Management -viitekehys) vuodesta 2007 lähtien.
+
+---
+
+## Lifetime World — onelifetime.world
+
+Lifetime World on hanke, jonka missiona on torjua ilmastonmuutosta, eroosiota ja kuivuutta. Lifetime World hyödyntää pilvinatiiveja tekoälyteknologioita kannustaakseen kestävään elämäntapaan ja antaakseen yksilöille keinot kääntää ilmastokriisin vaikutukset parannukseksi — pelillistettyjen haasteiden, vaikutusseurannan (impact tracking) sekä Coal Certificates -sopimusten ja Lifetime World Coinin avulla. Lifetime World tavoittelee energialähteiden monipuolistamista korkean energiaturvallisuuden saavuttamiseksi (lähdemaa, kauppareitti, energialähde).
+
+Lifetime Worldin deep tech -ratkaisut tarvitsevat vahvaa pitkäjänteistä sijoittajatukea. DWS ja sen H2AIQ Solutions -ratkaisut Lifetime Worldissa muodostavat hajautetun energiantuotannon yhteisön kansalaisille ja pk-yrityksille — ratkaisun EU:n ja edelleen globaaliin energiaturvallisuushaasteeseen.
+
+Lifetime World on verkottunut globaali yhteisö, jossa YK:n kestävän kehityksen tavoitteet (SDG) ovat korkealle arvostettuja ja priorisoituja. Se tarjoaa yhden yhteisön ja DWS-alustan kansainväliselle energiayhteistyölle sekä paikallisesta globaaliin ulottuville hinnoittelusuhteille. #lifetimeworld #DWSPlatform #H2AIQSolutions #EnergySecurity #IEA
+
+Hankkeesta: Lifetime World on hyväksytty eurooppalainen full-stack-hanke Microsoft for Startups Founders Hubissa (Level 4, USD 153 000). Kytketyt teknologiat: Azure AI services, Microsoft Entra ID -identiteetinhallinta, useat API-rajapinnat, Azure Container Apps, AKS-työkuormat (Oqtane), Azure Blockchain, Microsoft Fabric, Microsoft Azuren strategiset pilvipalvelut, Microsoft Power Platform, Microsoft Dynamics 365, Microsoft Visual Studio Enterprise / Code (Aspire .NET), Google Cloud Run, Dataverse, Lifetime Studios GitHub Enterprise. Haemme parhaillaan sijoittajakumppania hankkeelle.
 
 ---
 

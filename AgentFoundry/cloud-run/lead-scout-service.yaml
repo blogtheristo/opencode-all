@@ -67,15 +67,12 @@ spec:
             - secretRef:
                 name: clearbit-api-key
             - secretRef:
-<<<<<<< Current (Your changes)
                 name: slack-webhook
             - secretRef:
                 name: teams-webhook
-=======
                 name: notify-webhook
             - secretRef:
                 name: whatsapp-alerting
->>>>>>> Incoming (Background Agent changes)
 
           # Health checks
           livenessProbe:
