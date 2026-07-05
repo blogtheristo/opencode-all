@@ -15,7 +15,6 @@ AGENT HISTORY:
 
 # Investor Intro Note — Laura Raggl, ROI Ventures
 
-
 ---
 
 ## Labor Thesis Opening (2026 Q2 Refresh) — Wedge: MARGIN
@@ -26,9 +25,9 @@ AGENT HISTORY:
 
 **Email body — opening three paragraphs + ask:**
 
-Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts *doing the work itself*, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. *(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)* **DWS 365 Skilled Agents** (powered by the DWS IQ platform) sit on the labor side of that line.
+Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts _doing the work itself_, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. _(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)_ **DWS 365 Skilled Agents** (powered by the DWS IQ platform) sit on the labor side of that line.
 
-16 Skilled Agents are already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the human cost of producing that work, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
+A fleet of skilled agents is already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the human cost of producing that work, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
 
 Gross margin sits above 80% at list and expands as inference cost falls — the price anchor is human labor, not compute, so the curve goes the right way as foundation models commoditize. Our comp set is vertical AI labor companies (Cognition, Sierra, Harvey, Decagon), not horizontal SaaS, and the unit economics tell that story without any heroic assumptions. The spine in one line: **labor-anchored pricing, regulation drives demand, MACC + AppExchange drive distribution.** That is the line we lead with at the Messe round and in PE meetings this quarter.
 
@@ -87,7 +86,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 Hi Laura — I've been following ROI Ventures' B2B SaaS portfolio, strong thesis.
 
-I'm building Lifetime Oy (Finland) — carbon balance sheet for EU companies. 21 AI agents pulling from SAP/IFS/Dynamics, auto-generating compliance reports. EUR 7K MRR, 5 customers, 100% retention. Raising EUR 650K SAFE at EUR 3.8M cap, Captain seats at EUR 50K. V1 launches at Arctic 15 in Helsinki on June 15.
+I'm building Lifetime Oy (Finland) — carbon balance sheet for EU companies. A fleet of skilled agents pulling from SAP/IFS/Dynamics, auto-generating compliance reports. EUR 7K MRR, 6 customers, 100% retention. Raising EUR 650K SAFE at EUR 3.8M cap, Captain seats at EUR 50K. V1 launches at Arctic 15 in Helsinki on June 15.
 
 Happy to send our one-pager if this fits your thesis.
 
@@ -99,7 +98,7 @@ Hi Laura,
 
 Risto Päärni, Lifetime Oy (Espoo, Finland). I'm reaching out because ROI Ventures' B2B SaaS thesis aligns directly with what we're building.
 
-DWS IQ 6 is the carbon balance sheet for EU companies — 21 AI agents that connect to SAP, IFS Cloud, and Dynamics 365, pull operational data, and auto-generate audit-ready compliance reports every quarter. One ledger covering ETS, CBAM, CSRD, and EU Taxonomy. Full audit trail, EU AI Act compliant.
+DWS IQ 6 is the carbon balance sheet for EU companies — a fleet of skilled agents that connect to SAP, IFS Cloud, and Dynamics 365, pull operational data, and auto-generate audit-ready compliance reports every quarter. One ledger covering ETS, CBAM, CSRD, and EU Taxonomy. Full audit trail, EU AI Act compliant.
 
 The numbers:
 
@@ -107,9 +106,9 @@ The numbers:
 - Customer LTV: EUR 70K–120K/year
 - Enterprise pilots at EUR 4,950 convert to EUR 8,950/year
 - Target: EUR 900K ARR by end 2026
-- Platform: 21 AI agents, 32 products, 20 EU-regulated industries
+- Platform: a fleet of skilled agents, 32 products, 25 EU-regulated industries
 
-Raising EUR 650K SAFE at EUR 3.8M cap. Captain seats at EUR 50K — fits your ticket range. The market is 49,000+ EU companies facing mandatory CSRD reporting. This is compliance infrastructure, not optional software.
+Raising EUR 650K SAFE at EUR 3.8M cap. Captain seats at EUR 50K — fits your ticket range. The market is fewer than 5,000 large EU companies (post-Omnibus, >1,000 employees) facing mandatory CSRD reporting. This is compliance infrastructure, not optional software.
 
 V1 launches at Arctic 15 in Helsinki on June 15. Investors who commit before Arctic 15 enter at seed valuation ahead of the first public sales data (available August 15).
 

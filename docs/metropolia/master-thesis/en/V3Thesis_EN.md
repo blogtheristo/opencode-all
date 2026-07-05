@@ -6,10 +6,21 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.65
-
+Version: 3.76
 Sessions & Modifications:
 
+- Version: 3.76 | Tool: Claude Code | Session: claude/physical-ai-first-person-3mmu70 | Date: 05.07.2026 | Changes: Lockstep version bump 3.75 → 3.76 across all 4 thesis files per CLAUDE.md thesis rule. The v3.76 substantive content (Jensen Huang's "digital robot" framing of agentic AI and his identification of first-person data — against the world's overwhelmingly third-person video corpus — as the hardest problem in physical AI; the re-identification of the LWM Phase-3 gating input as first-person operational data rather than compute or alignment; the element-for-element mapping of Huang's five-element physical-AI stack — data engine / simulator / reward / runtime / computer — onto the Brain–Memory–Body–Hands architecture; the specification of Perception Capital's production mechanism; and a sovereign, consent-governed, EU-resident first-person-data-provenance predicate extending the four-track KYA suite) is a market signal / scientific framing and per the §1.4 master-vs-PhD scope rule lives in PHD_FIREHORSE_EN.md §14.35 (The First-Person Data Bottleneck) and Key Contribution #42. Section/version/KC numbers advanced from the original v3.71/§14.33/#39 draft to v3.76/§14.35/#42 to avoid collision with main's already-landed §14.33/§14.34 and KC #39–#41. No implementation has shipped for this signal (thesis/strategy-first decision), so this file receives a lockstep-only version-bump entry and no new sections. `Learn/` HTML regenerated at v3.76 via scripts/gen-thesis-html.cjs. Primary source: Jensen Huang (NVIDIA), public remarks on agentic and physical AI, 2026.
+- Version: 3.75 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: Lockstep version bump only. Substantive content (Finnish Ministry of Finance security-oriented information management guide, VM 2026:27, mapped to DWS's Control Room/Situation Room retention model) is regulatory-pipeline/market-signal framing per §1.4 master-vs-PhD scope rule, so it lives in `docs/PHD_FIREHORSE_EN.md` §14.34 and Key Contribution #41. No implementation content added here.
+- Version: 3.74 | Tool: Claude Code (claude-opus-4-8) | Session: claude/anduril-case-study-iridtj | Date: 29.06.2026 | Changes: CSRD scope refined to the FINAL post-Omnibus figure (Council 24.02.2026): "After Omnibus" = fewer than ~5,000 large companies (>1,000 employees AND >450M EUR turnover), replacing the interim ~10,000; flat "50,000+ by 2028" market-timing claims corrected to post-Omnibus reality + Scope-3 value-chain pull. Lockstep across all 4 thesis files per CLAUDE.md thesis rule; DWS_TRUTH_STANDARD v2.5 section 2C. Learn/ HTML regeneration (Pandoc) + PhD-side figure references PENDING.
+- Version: 3.73 | Tool: Claude Code | Session: claude/article-research-phd-tvmskz | Date: 28.06.2026 | Changes: Merge conflict resolution: merged branch claude/article-research-phd-tvmskz (v3.71 RQGM §14.33) with origin/main (v3.71 interruption-cost §14.20.8 + v3.72 capability-ontology V3Thesis §10.24). KC#39 numbering collision resolved: main used KC#39 for capability ontology (V3Thesis §10.24), this branch used KC#39 for RQGM (PHD §14.33) → RQGM renumbered to KC#40. All 4 thesis files bumped to v3.73 in lockstep.
+- Version: 3.72 | Tool: Claude Code | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Added §10.24 (Capability Ontology and Three-Pillar Consulting GTM — from agent taxonomy to enterprise delivery). Implementation evidence: 10 LWM-based knowledge graph classes organising 80+ agent capabilities (62 existing + 18 new), three-pillar consulting model (capability training, industry-specific compliance workflow development, disruption-free project continuity with Keskeytyslaskuri integration), Aegis Defence honest capability correction (SAR orbital detection only — no drone detection), and lifetime.fi website deployment with three-pillar consulting section. Companion artefact: `docs/KONSULTIN_KASIKIRJA_2026.md` v1.5 (Consultant Handbook 2026). Key Contribution #39. All 4 thesis files bumped to v3.72 in lockstep per CLAUDE.md thesis rule.
+- Version: 3.71 | Tool: Claude Code | Session: claude/article-research-phd-tvmskz | Date: 27.06.2026 | Changes: Lockstep version bump 3.70 → 3.71 across all 4 thesis files per CLAUDE.md thesis rule. The v3.71 substantive content (the Red Queen Gödel Machine signal — RQGM, Iacob et al., arXiv:2606.26294v1, 24.06.2026, Cambridge / NVIDIA / Flower Labs / MBZUAI / Inria — an evolutionary framework for recursive self-improvement under non-stationary utilities via controlled utility evolution; names the conformance-temporal gap where fixed evaluators degrade as agents improve, empirically 1.91× over-acceptance; extends the KYA four-track suite with epoch subscripts requiring evaluator re-validation; derives an Article 12 evaluator-calibration requirement; identifies Flower Labs federated learning as sovereignty-preserving transport for co-evolutionary improvement) is a market-signal / scientific-framing contribution and per the §1.4 master-vs-PhD scope rule lives in PHD_FIREHORSE_EN.md §14.33 and Key Contribution #40. No implementation has shipped; this file receives a lockstep-only version-bump entry. Companion artefact: docs/field-notes/2026-06-27-red-queen-godel-machine-rqgm.md.
+- Version: 3.71 | Tool: Claude Code | Session: claude/keskeytyslaskuri-lifetime-missing-6uaxvu | Date: 27.06.2026 | Changes: Lockstep version bump 3.70 → 3.71 across all 4 thesis files per CLAUDE.md thesis rule. The v3.71 substantive content (interruption-cost economics as a five-driver model extending the CSB-track with a CSB-I sub-track, derived from the Keskeytyslaskuri tool at lifetime.fi/laskuri/) is a market-signal/cost-analysis contribution and per the §1.4 master-vs-PhD scope rule lives in PHD_FIREHORSE_EN.md §14.20.8. No implementation-side content belongs in this master's thesis for this signal, so this file receives a lockstep-only version-bump entry and no new sections.
+- Version: 3.70 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 25.06.2026 | Changes: Lockstep version bump 3.69 → 3.70 across all 4 thesis files per CLAUDE.md thesis rule. The v3.70 substantive content (the regulated-industry autonomous-engineer category — composing the 51 Firehorse Skilled Agents + workflow orchestrators + the KYA bridge into NemoClaw long-running agents under OpenShell, with the KYA/Article-12/EU-sovereign envelope as the defensible remainder) is a strategy/market-signal contribution and per the §1.4 master-vs-PhD scope rule lives in PHD_FIREHORSE_EN.md §14.32 and Key Contribution #38. No implementation has shipped (thesis/strategy-first decision); this file receives a lockstep-only version-bump entry. `Learn/` HTML regenerated at v3.70 via scripts/gen-thesis-html.cjs.
+- Version: 3.69 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 25.06.2026 | Changes: Lockstep version bump 3.68 → 3.69 across all 4 thesis files per CLAUDE.md thesis rule. The v3.69 substantive content (NVIDIA's June-2026 EuroHPC EU AI-Factory buildout as the public EU-sovereign training upstream, and NVIDIA's open agent security stack — NeMo Agent Toolkit, OpenShell kernel-sandbox runtime, NemoClaw, Hermes/Nous Research — as a vendor-backed reference runtime for the KYA ASB/SIB tracks) is a market signal and per the §1.4 master-vs-PhD scope rule lives in PHD_FIREHORSE_EN.md §14.31 and Key Contribution #37. The one implementation-side consequence — migrating the agent runtime from bare OpenClaw to the OpenShell-sandboxed NemoClaw distribution on security grounds — is tracked as a scoped engineering migration, not a new master's-thesis section, so this file receives a lockstep-only version-bump entry. `Learn/` HTML regenerated at v3.69 via scripts/gen-thesis-html.cjs.
+- Version: 3.68 | Tool: Claude Code | Session: claude/aegis-multilingual-pages-3clsx0 | Date: 23.06.2026 | Changes: Lockstep version bump 3.67 → 3.68 across all 4 thesis files per CLAUDE.md thesis rule. The v3.68 substantive content (EU multilingual terminology as the canonical conformance layer for sovereign regulatory claims — the Regulation (EU) 2021/821 dual-use term across the official EU languages; the international-short-form-vs-national-official register decision; and sovereign-defence-market positioning relative to the Finnish defence-tech ecosystem — Nokia, Patria, VTT, NATO DIANA Espoo, EDIP 2026–2027) is a market/regulatory-positioning signal and per the §1.4 master-vs-PhD scope rule lives in PHD_FIREHORSE_EN.md §14.30 (The EU-Multilingual Sovereignty Surface) and Key Contribution #36. The implementation-side artefact — the Aegis intro page (/aegis) and product page (/products/aegis) rendered in five EU languages (FI/SV/DE/FR/EN) via the vertical language bar (vertical-lang-bar.js v1.3) with in-place dws-lang-stay switching and dual-folder mirror sync on dws10.com — is a thin web GTM-surface change already covered by the existing operations-model framing and requires no new master's-thesis section. `Learn/` HTML regenerated at v3.68 via scripts/gen-thesis-html.cjs.
+- Version: 3.67 | Tool: Claude Code | Session: claude/thesis-v3.64-lockstep-kqtal1 | Date: 21.06.2026 | Changes: Lockstep version bump 3.66 → 3.67 across all 4 thesis files per CLAUDE.md thesis rule. The v3.67 substantive content (the VTV 10/2026 supreme-audit signal on Finnish public-sector AI readiness) is a market/regulatory signal and per the §1.4 master-vs-PhD scope rule lives in PHD_FIREHORSE_EN.md §14.29 (The Finnish Public-Sector AI-Adoption Audit Signal) and Key Contribution #35. No implementation-side content belongs in this master's thesis for this signal, so this file receives a lockstep-only version-bump entry and no new sections. `Learn/` HTML regenerated at v3.67 via scripts/gen-thesis-html.cjs.
+- Version: 3.66 | Tool: Claude Code | Session: claude/thesis-v3.64-lockstep-kqtal1 | Date: 21.06.2026 | Changes: Added §5.2.1 (Milestone: Agents → Loops → Workflows, June 2026) — implementation evidence for the three-layer AI-native stack: 50 production Skilled Agents (BaseAgent + ledger-native output contract per Firehorse 7), the Maker–Checker Loop Engineering primitive (PR #1447, commit d34876a, shipped 2026-06-08; disk-persisted state / budget gate / safety gate / resumable), and live multi-agent Workflows (MCP Hub fan-out/sequential/reflection); summary table included. Provenance: deferred content from branch claude/lifetime-agents-loops-workflows-t3448v (commit abe8409, "v3.64 lockstep"), held back from PR #1465; rebuilt against current main and renumbered v3.64→v3.66 because main had independently consumed v3.63/v3.64. The scientific/operating-model framing (3–7 year horizon, EU AI Act Articles 12/14/15 properties, structural-sequencing thesis) lives in PHD_FIREHORSE_EN/FI §14.28 and Key Contribution #34 per the §1.4 master-vs-PhD scope rule. All 4 thesis files bumped to v3.66 in lockstep.
 - Version: 3.65 | Tool: Claude Code (claude-opus-4-8) | Session: claude/modest-keller-dGHtw | Date: 22.06.2026 | Changes: Lockstep version bump 3.64 → 3.65 across all 4 thesis files per CLAUDE.md thesis rule. No content change in this master's thesis file: the v3.65 substantive addition is a demand-side market signal (Simon Willison's 29.05.2026 round-up confirming enterprise customers pay the listed per-token API price as of April 2026, newest frontier models raising price, Anthropic's reported ~$1.25B/month SpaceX Colossus inference spend, and Opus-4.8 honesty/abstention gains) which per the master-vs-PhD scope rule §1.4 belongs in the PhD thesis only. See PHD_FIREHORSE_EN.md §14.20.7 (Week-22 Confirmation: The April-2026 Full-Price Inflection and the Verification-Cost Corollary) for the scientific framing, including the verification-cost refinement to the CSB-track (cost-surface stability governed by both inbound token price and outbound verification cost). The implementation-side properties of the Firehorse Operations Model exposed to this signal (Spark owned compute §10.10.6.1, prompt caching, OpenClaw on owned hardware) are already documented in this master's thesis and require no new sections — the signal validates the existing implementation discipline. Companion artefact: docs/field-notes/2026-06-01-simon-willison-pmf-api-cost-edge-moat.md; customer-facing surfacing on dws10.com homepage ("The European Moat") and buy page ("No Per-Token Cost"), both mirrored to landing-pages/dws10-com/. `Learn/` HTML regeneration required (not in this commit — needs Pandoc build).
 - Version: 3.64 | Tool: Claude Code (claude-sonnet-4-6) | Session: claude/capital-classes-audit-jgworp | Date: 20.06.2026 | Changes: Added §10.23.7 (Mapping the Four Capital Classes to the Architecture) — maps the 4P canon (Prompt, People, Plant, Perception) to the DWS IQ 6 Brain-Memory-Body-Hands architecture with a component mapping table and cross-references; introduces the GTM land-and-expand pattern as the implementation-level consequence of Perception Capital's accumulation mechanism; Key Contribution #33. Lockstep version bump 3.63 → 3.64 per CLAUDE.md thesis rule; PhD §14.26/§14.27 (theory + Kaukopää case) in PHD_FIREHORSE_EN/FI.md are the scientific framing (PhD scope per §1.4). Companion artefacts: docs/field-notes/2026-06-19-token-capital-human-capital-control-room-capital.md (v2.0), DWS_BRAND_STANDARD.md §23. `Learn/` HTML regeneration required (not in this commit — needs Pandoc build).
 - Version: 3.63 | Tool: Claude Code (claude-fable-5) | Session: claude/token-human-capital-mjrbc7 | Date: 19.06.2026 | Changes: Added §10.23 (Three-Capital Accumulation Model — Token Capital, Human Capital, Control Room Capital as Durable Assets of the DWS IQ 6 Operating Model). Implementation-side content per the §1.4 master-vs-PhD scope rule: documents the 7-month HIL phase (Oct 2025 – Jun 2026) as a production engineering event, the measured token capital inventory (30+ skills, 150+ field notes, 50-agent foundry, Article 12 audit trail), the Control Room architecture as deployed in DWS IQ 6, and the HIL → HIC operational transition observable from June 2026. The market-signal and scientific framing (Nadella Build 2026, theoretical three-capital model, competitive barrier analysis, KYA Standard extension) lives in PHD_FIREHORSE_EN.md §14.25 and Key Contribution #30. All 4 thesis files bumped to v3.63 in lockstep per CLAUDE.md thesis rule. Companion artefact: docs/field-notes/2026-06-19-token-capital-human-capital-control-room-capital.md. `Learn/` HTML regeneration required (not in this commit — needs Pandoc build).
@@ -575,13 +586,13 @@ The European Commission adopted the Omnibus simplification package on 26.2.2025,
 
 **Key changes to CSRD reporting:**
 
-| Change                | Before                    | After Omnibus                           |
-| --------------------- | ------------------------- | --------------------------------------- |
-| **CSRD scope**        | ~50,000 companies         | ~10,000 companies (>1,000 employees)    |
-| **SME obligations**   | Mandatory                 | Voluntary standard (EFRAG SME)          |
-| **Assurance level**   | "Limited" -> "Reasonable" | Stays at "Limited"                      |
-| **Timeline**          | 2026-2027                 | +2 year postponement ("stop the clock") |
-| **Estimated savings** | -                         | EUR 4.4 billion/year                    |
+| Change                | Before                    | After Omnibus                                                      |
+| --------------------- | ------------------------- | ------------------------------------------------------------------ |
+| **CSRD scope**        | ~50,000 companies         | fewer than ~5,000 companies (>1,000 employees AND >€450M turnover) |
+| **SME obligations**   | Mandatory                 | Voluntary standard (EFRAG SME)                                     |
+| **Assurance level**   | "Limited" -> "Reasonable" | Stays at "Limited"                                                 |
+| **Timeline**          | 2026-2027                 | +2 year postponement ("stop the clock")                            |
+| **Estimated savings** | -                         | EUR 4.4 billion/year                                               |
 
 **Critical observation: Climate targets remain unchanged**
 
@@ -902,6 +913,22 @@ The 10-agent development fleet is coordinated using the Lifetime Scope Signals p
 **Phase 2 (Core Backend):** Agent-02: Firehorse Apps, Agent-04: AI Agents, Agent-09: Email System
 
 **Phase 3 (Frontend):** Agent-03: Customer Dashboard, Agent-05: Mobile Dashboard
+
+### 5.2.1 Milestone: Agents → Loops → Workflows (June 2026)
+
+By 2026-06-20, the initial 10-agent development fleet has scaled to a 50-agent production system, completing all three layers of the AI-native stack:
+
+**Layer 1 — Agents (Foundation).** All 50 production Skilled Agents registered in `src/agents/index.ts` extend the `BaseAgent` abstract class and emit a standardised ledger-native output contract per Firehorse 7: `journalEntries` (audit trail), `regulatoryArtifact` (compliance evidence), and `lineage` (execution provenance). The three-tier agent taxonomy (§14.17 of the companion PhD thesis) structures the fleet: six orchestrators (Atlas, Athena, Hephaestus, Iris, Hermes, Apollo) coordinate 20 Industrial Specialist Agents — one per EU-regulated industry vertical — plus horizontal expansion agents covering compliance, quality assurance, SEO, research, and intelligence gathering.
+
+**Layer 2 — Loops (Maker–Checker cycle).** Loop Engineering shipped 2026-06-08 (PR #1447, commit d34876a). The Maker–Checker cycle in `src/agents/loop-engineering/` introduces self-correction as a first-class runtime primitive: a Maker agent proposes a compliance outcome; a Checker agent validates it against the same ledger-native output contract; the loop continues until the outcome passes or the budget gate terminates it. The implementation includes disk-persisted state (crash-tolerant across multi-hour document lifecycles), a configurable budget gate, a safety gate, and full resumability. This satisfies EU AI Act Article 12 (audit logging), Article 14 (human oversight via mandatory stop conditions), and Article 15 (robustness via persistence and resumability) at the primitive level.
+
+**Layer 3 — Workflows (Multi-agent orchestration).** Multi-agent orchestration via the `/workflow` skill and `src/agents/workflow/` orchestrators is live. The MCP Hub supports three composition patterns: fan-out (parallel agents resolving independent sub-tasks simultaneously), sequential (ordered chain where each agent receives the prior agent's ledger-native output), and reflection (output fed back for revision). All three patterns are in production use for CSRD, CBAM, and EU AI Act compliance assessments.
+
+| Layer     | Component                                                         | Status | Shipped    |
+| --------- | ----------------------------------------------------------------- | ------ | ---------- |
+| Agents    | 50 production Skilled Agents (BaseAgent + ledger-native contract) | Live   | 2026-06-20 |
+| Loops     | Maker–Checker cycle (PR #1447)                                    | Live   | 2026-06-08 |
+| Workflows | MCP Hub fan-out/sequential/reflection                             | Live   | 2026-06-20 |
 
 ## 5.3 Customer Onboarding
 
@@ -2896,7 +2923,7 @@ The DWS connector architecture follows the ERP integration patterns established 
 
 4. **Community validation:** Emission factor databases change annually. Open source connectors enable community-driven maintenance — when the EEA publishes updated GHG inventory data, any contributor can submit a PR updating the factor feed, and the change is reviewed in the open.
 
-The connector layer transforms the carbon balance sheet from a single-company tool into a **multi-tenant compliance network**. Each connector is a standardized adapter (input schema → journal entry) that plugs into the ledger's append-only ingestion API. The open source model ensures that the 50,000+ EU companies requiring CSRD compliance by 2028 can adopt the infrastructure without vendor dependency.
+The connector layer transforms the carbon balance sheet from a single-company tool into a **multi-tenant compliance network**. Each connector is a standardized adapter (input schema → journal entry) that plugs into the ledger's append-only ingestion API. The open source model ensures that the largest EU companies requiring CSRD compliance (fewer than ~5,000 post-Omnibus, >1,000 employees and >€450M turnover) — and the far larger population of suppliers pulled in via Scope-3 value-chain reporting — can adopt the infrastructure without vendor dependency.
 
 #### 10.17.6 Research Contribution
 
@@ -2906,7 +2933,7 @@ This concluding section contributes three findings:
 
 2. **Cross-vertical intelligence thesis:** A multi-industry carbon ledger produces emergent intelligence that single-vertical tools cannot replicate. A steel mill's ETS surrender correlates with a construction sector CSRD disclosure from the same supply chain. This correlation is only visible when both industries share one ledger format — validating the platform architecture described throughout this thesis.
 
-3. **Funding infrastructure, not features:** The carbon balance sheet represents the transition from "compliance reporting tool" to "compliance infrastructure" — the same distinction as between a spreadsheet and an ERP system. This architectural choice has strategic implications for enterprise stickiness (switching cost equivalent to changing your financial ledger), market timing (50,000+ EU companies need this by 2028), and network effects (more industries on the ledger = more accurate cross-regulation data).
+3. **Funding infrastructure, not features:** The carbon balance sheet represents the transition from "compliance reporting tool" to "compliance infrastructure" — the same distinction as between a spreadsheet and an ERP system. This architectural choice has strategic implications for enterprise stickiness (switching cost equivalent to changing your financial ledger), market timing (fewer than ~5,000 large EU companies mandated post-Omnibus, plus their value chains via Scope 3), and network effects (more industries on the ledger = more accurate cross-regulation data).
 
 The Firehorse Product Manufacturing Operating Model, documented across the preceding 16 sections, provided the engineering foundation — harness architecture, multi-agent orchestration, edge deployment, and regulatory intelligence — required to build this carbon balance sheet infrastructure. The conclusion is that the platform's competitive moat is not any single agent or regulation module, but the ledger that connects them all.
 
@@ -3314,6 +3341,75 @@ The three-capital model, grounded in seven months of production HIL operations, 
 
 ---
 
+### 10.24 Capability Ontology and Three-Pillar Consulting GTM — From Agent Taxonomy to Enterprise Delivery
+
+#### 10.24.1 Motivation
+
+By June 2026, the DWS IQ 6 agent population had grown to 58+ registered agents across multiple subsystems, with 18 additional capability areas identified during enterprise consulting engagement preparation. The flat agent inventory — while functionally complete — lacked a taxonomic structure that enterprise customers could navigate. Two product engineering challenges emerged simultaneously:
+
+1. **Ontological.** The 10 capability categories that had organically formed around agent clusters were not merely a grouping convenience — they mapped to the LWM knowledge graph classes. Exposing this structure explicitly would allow customers to reason about coverage gaps.
+
+2. **Political.** Enterprise customers had historically employed 72+ human consulting roles (Cloud Ready Teams, 2024 edition). Framing the 80+ agent capabilities as "replacements for roles" would trigger job-loss anxieties and procurement resistance. The engineering challenge was to present capability without threatening identity.
+
+#### 10.24.2 Capability Ontology — 10 LWM Knowledge Graph Classes
+
+The 80+ agent capabilities were organised into 10 ontology classes derived from the Lifetime World Model's knowledge graph structure:
+
+| #   | Ontology Class (FI) | Ontology Class (EN) | Example Capabilities                                       |
+| --- | ------------------- | ------------------- | ---------------------------------------------------------- |
+| A   | Konsultointi        | Consulting          | Business Analyst, Change Management, Training & Enablement |
+| B   | Sääntely            | Regulation          | ComplianceAgent, EU AI Act Monitor, CBAM Calculator        |
+| C   | Toimiala            | Industry            | ArgusAgent (SAR), Energy Compliance, Construction Safety   |
+| D   | Orkestrointi        | Orchestration       | Zeus Orchestrator, Workflow Engine, Integration Architect  |
+| E   | Kenttä              | Field Operations    | Fleet Manager, IoT Edge Controller, Process Automation     |
+| F   | Myynti              | Sales               | LeadAgent, CRM Pipeline, Contract Management               |
+| G   | Tiedonhallinta      | Data Management     | Data Engineer, Database Architect, Technical Writer        |
+| H   | Järjestelmä         | System              | DevOps Agent, Test Automation, Cloud Migration             |
+| I   | Puolustus           | Defence             | Aegis Platform, Network Security, Supply Chain Risk        |
+| J   | Muutos              | Transformation      | Disruption Response, HR Systems, Service Desk              |
+
+The ontology is not a flat list but a knowledge graph: each class has directed edges to the classes it depends on (e.g., Regulation → Data Management for evidence pipelines; Industry → Orchestration for multi-agent workflows). This graph structure is the same LWM topology that the Perception Capital (§10.23.7) accumulates — the ontology is the Perception Capital's schema.
+
+#### 10.24.3 Capability-Not-Role Framing
+
+The 62 existing agents plus 18 newly identified capability areas were explicitly framed as _capabilities_, not job titles. The operating principle: "DWS ei korvaa yrityksen henkilöstöä. DWS tuo kyvykkyyttä" (DWS does not replace the customer's staff. DWS brings capability). This framing decision has three engineering consequences:
+
+1. **Procurement path.** Capability procurement does not trigger workforce consultation obligations under Finnish co-determination law (YT-laki).
+2. **Adoption pattern.** A capability augments an existing role holder rather than displacing them — the GTM land-and-expand pattern (§10.23.7) applies at the individual contributor level.
+3. **Catalogue structure.** The capability catalogue grows continuously rather than being versioned as a fixed headcount.
+
+#### 10.24.4 Three-Pillar Consulting Model
+
+The capability ontology required a delivery framework. The consulting engagement model crystallised into three pillars:
+
+1. **Pillar 1 — Capability Training.** Train the customer's team to use the 80+ agent capabilities within their existing workflows.
+2. **Pillar 2 — Industry-Specific Compliance Workflow Development.** Develop and deploy industry-specific intelligent compliance workflows to production. This pillar operationalises the LWM Sequencing Strategy (§10.18) at the customer level.
+3. **Pillar 3 — Disruption-Free Project Continuity.** Ensure the project proceeds without interruptions, using the Keskeytyslaskuri (interruption cost calculator at lifetime.fi/laskuri/) to quantify context-rebuilding cost, momentum loss, and key-person risk.
+
+The three pillars map directly to the 4P capital model (§10.23.7): Pillar 1 builds People Capital, Pillar 2 builds Prompt + Perception Capital, Pillar 3 protects Plant Capital continuity.
+
+#### 10.24.5 Aegis Defence Capability Correction
+
+During handbook preparation, investigation of ArgusAgent's actual capabilities revealed that the previously claimed "drone detection" was not implemented. The honest capability profile is SAR (Synthetic Aperture Radar) orbital target detection via ICEYE partnership — change detection on satellite imagery, not real-time airborne surveillance. The Aegis Defence section was rewritten across all sales and consulting documents with 5 verified workflows:
+
+1. SAR orbital target detection + change detection
+2. NIS2 + CER + Cyber Resilience Act compliance monitoring
+3. Export control compliance (EU Regulation 2021/821 dual-use)
+4. Sovereign climate compatibility assessment for dual-use industries
+5. Critical supply chain monitoring (Critical Raw Materials Act, EU Chips Act)
+
+This correction demonstrates the Rule 12 engineering discipline ("Fail loud") applied to product marketing.
+
+#### 10.24.6 Implementation Evidence — lifetime.fi Website Deployment
+
+The three-pillar consulting model was deployed to the lifetime.fi production website, replacing the previous generic consulting services section. The implementation uses the existing `.industry-agent-chip` CSS component library to render the 10 ontology classes as interactive chips, with three platform cards (gold/green/blue top borders) presenting each pillar. The deployment was dual-folder mirrored (lifetime.fi/ → landing-pages/lifetime-fi/) per DWS operational standard.
+
+#### 10.24.7 Research Contribution
+
+**Key Contribution #39 — Capability Ontology and Three-Pillar Consulting GTM:** The 10-class LWM-derived ontology organises 80+ agent capabilities into a knowledge graph structure that is simultaneously the product taxonomy, the GTM catalogue, and the Perception Capital schema. The three-pillar delivery model (train → develop → protect) maps to the 4P capital accumulation pathway (People → Prompt+Perception → Plant), providing the first implementation-level answer to how an agentic platform's consulting arm should be structured for regulated-industry customers. The "capability-not-role" framing resolves the political tension between agent capability marketing and enterprise workforce sensitivities — a design pattern applicable to any B2B agentic platform selling into industries with co-determination obligations. Companion artefact: `docs/KONSULTIN_KASIKIRJA_2026.md` v1.5 (Consultant Handbook 2026, bilingual FI/EN).
+
+---
+
 **Document Information:**
 
 **Title:** Firehorse Product Manufacturing Operating Model: Hybrid AI-Edge Architecture for Climate-Intelligent Industrial Platforms
@@ -3322,9 +3418,9 @@ The three-capital model, grounded in seven months of production HIL operations, 
 **Program:** Smart Factory, Master's Degree (YAMK)
 **Supervisor:** Jarno Varteva (with Erkki Räsänen)
 **Company:** Lifetime Oy (Firehorse brand)
-**Status:** DRAFT - V3.37 (DWS Skilled Taxonomy across Agents, Workflows, and Jurisdictions; "GodAgent" deprecated)
-**Version:** 3.37
-**Last Modified:** 22.04.2026
+**Status:** DRAFT - V3.72 (Capability Ontology and Three-Pillar Consulting GTM; Consultant Handbook 2026 as companion artefact)
+**Version:** 3.72
+**Last Modified:** 28.06.2026
 **V1.0 Release Target:** 23 February 2026
 
 **Languages:** English, Suomi
@@ -3368,6 +3464,10 @@ The three-capital model, grounded in seven months of production HIL operations, 
 28. Founder→Team Transition as Platform Feature — SOLO_FOUNDER_STATEMENT v1.2 + Anthony Maurin CTO co-builder sequencing + `/investor-outreach` skill (10+ INTRO notes drafted) make investor outreach a reproducible DWS IQ workflow rather than tacit founder knowledge; validates the platform's own solution-factory claim
 29. KYA Agentic AI Foundation Targeting with Dual-Use Expansion — KYA is elevated toward a general foundational standard for agent trust/governance; DWS 7 is framed as the empirical environment unifying hydrogen-economy continuity (DWS 5 -> DWS 7), sovereignty segmentation (Aegis/Sovereign Infra/Connect), Nokia Defence dual-use track, and Siemens/NVIDIA Connect collaboration anchors
 30. KYA Open-Source Standard Path with Article 1 Lock — explicit standardization route added (Agentic AI Foundation / Linux Foundation), NIST path status recorded (not submitted), and 2026-2029 publication phasing integrated with EIC Step 1 communication assets
+31. Three-Tier Skilled Taxonomy — brand / specification / UI taxonomy (Skilled / Industrial Specialist / Industry) as design pattern for EU-regulated agent platforms; monotone `Skilled <Axis>` pattern across agents, workflows, jurisdictions
+32. Three-Capital Accumulation Model — Implementation evidence from 7-month HIL phase: token capital (30+ skills, 150+ field notes, 50-agent foundry), human capital (pattern recognition, calibration), Control Room capital (thresholds, Article 12 audit); defines HIL → HIC transition
+33. Four-Capital (4P) Architecture Mapping — Prompt, People, Plant, Perception mapped to DWS IQ 6 Brain-Memory-Body-Hands; GTM land-and-expand pattern from Perception Capital accumulation
+34. Capability Ontology and Three-Pillar Consulting GTM — 10 LWM knowledge graph classes organising 80+ agent capabilities; three-pillar delivery model (train → develop → protect) mapping to 4P capital pathway; "capability-not-role" framing for B2B agentic platforms; companion artefact: `docs/KONSULTIN_KASIKIRJA_2026.md` v1.5
 
 **License:** Proprietary - Lifetime Oy
 **Contact:** risto@lifetime.fi

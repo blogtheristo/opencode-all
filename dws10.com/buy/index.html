@@ -332,6 +332,17 @@
         color: #94a3b8;
         margin-bottom: 12px;
       }
+      .product-pricing-link {
+        display: inline-block;
+        margin-bottom: 12px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #60a5fa;
+        text-decoration: none;
+      }
+      .product-pricing-link:hover {
+        text-decoration: underline;
+      }
 
       /* Sales-first card additions: pain hook, proof chip, page tease */
       .pain-hook {
@@ -1821,17 +1832,19 @@
           "</h2>" +
           proofHTML +
           painHTML +
-          '<div class="product-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">' +
+          // Price is intentionally NOT shown on the card (enterprise products lead with
+          // value, not price); machine-readable Offer schema is retained for SEO/Merchant,
+          // and the visible price lives on the product details page.
+          '<div class="product-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer" hidden>' +
           '<meta itemprop="price" content="' +
           esc(product.price) +
           '"><meta itemprop="priceCurrency" content="' +
           esc(product.currency || "EUR") +
-          '">' +
-          formatEuro(product.price) +
+          '"><link itemprop="availability" href="https://schema.org/InStock">' +
           "</div>" +
-          '<div class="product-price-note">' +
-          esc(product.priceNote || "") +
-          "</div>" +
+          '<a class="product-pricing-link" href="' +
+          esc(detailsUrl) +
+          '">Pricing &amp; details &rarr;</a>' +
           featuresHTML +
           '<p class="product-excerpt" itemprop="description">' +
           esc(product.description) +

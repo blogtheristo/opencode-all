@@ -157,6 +157,56 @@ const posts = [
     title: 'The Ontology Lives in the Team',
     date: '20 Jun 2026',
   },
+  {
+    file: 'lifetime-world-model-three-piece-loop.html',
+    title: 'The Three-Piece Loop — Lifetime World Model V1 for Control Rooms',
+    date: '23 Jun 2026',
+  },
+  {
+    file: 'four-learning-paradigms-world-model.html',
+    title: 'The Four Learning Paradigms Behind a World Model',
+    date: '23 Jun 2026',
+  },
+  {
+    file: 'lifetime-world-model-three-piece-loop.fi.html',
+    title: 'Kolmiosainen silmukka valvomoille — Lifetime World Model V1 (FI)',
+    date: '23 Jun 2026',
+  },
+  {
+    file: 'four-learning-paradigms-world-model.fi.html',
+    title: 'Maailmanmallin neljä oppimisparadigmaa (FI)',
+    date: '23 Jun 2026',
+  },
+  {
+    file: 'nvidia-vera-rubin-ai-factory.html',
+    title: 'NVIDIA Vera Rubin — The AI Factory Grows Up. The Sovereign Edge Is Still a Box.',
+    date: '24 Jun 2026',
+  },
+  {
+    file: 'eu-sovereign-ai-factories-35-supercomputers.html',
+    title: "Europe's AI Factory Came Home — 35 Supercomputers, and Why the Edge Still Needs a Box",
+    date: '25 Jun 2026',
+  },
+  {
+    file: 'industrial-intelligence-weekly-2026-06-28.html',
+    title: 'Industrial Intelligence Weekly — Five Signals from the Regulated Economy',
+    date: '28 Jun 2026',
+  },
+  {
+    file: 'brexit-interdependence-moat-us-eu.html',
+    title: 'Sovereignty Is a Setting, Not a Switch — What the US and EU Can Learn from Brexit',
+    date: '30 Jun 2026',
+  },
+  {
+    file: 'brexit-interdependence-moat-us-eu.fi.html',
+    title: 'Suvereniteetti on säädin, ei kytkin — mitä USA ja EU voivat oppia brexitistä (FI)',
+    date: '30 Jun 2026',
+  },
+  {
+    file: 'tiedon-vanheneminen-sensoridata-retention.html',
+    title: 'Tiedon vanheneminen — sensoridatan tallennusstrategia (FI, field note)',
+    date: '1 Jul 2026',
+  },
 ];
 
 // Three featured products

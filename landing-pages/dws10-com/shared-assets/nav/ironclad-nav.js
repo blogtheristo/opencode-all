@@ -7,6 +7,8 @@
  * Usage: Add this script to any page:
  * <script src="/shared-assets/nav/ironclad-nav.js"></script>
  *
+ * v4.2 — Solutions ▾: Industry Stack flyout (Industries Hub, DGX Spark, Situation Room, Control Room)
+ * v4.1 — About ▾: removed dead "Team" link (no /team/ page exists on any site → 404)
  * v4.0 — Solutions ▾: Firehorse Production Engine added above Lifetime World Model V1
  * v3.9 — About ▾: "Certified Partners" replaced with "Partner Tiers ▸" flyout (Partner Program, Aegis Tier 1, Sovereign Infra Tier 2, Connect Tier 3) — same 4 partner links as in Solutions ▾ ▸ Integrations ▸
  * v3.8 — Compliance renamed to "Compliance Hub"; moved from Home ▾ to Solutions ▾ (after CSRD, above Integrations)
@@ -191,6 +193,17 @@
                         <li><a href="${contentBase}world-model/" style="color:#8b5cf6;font-weight:700;">🧠 Lifetime World Model V1</a></li>
                         <li class="ironclad-separator"></li>
                         <li class="ironclad-has-submenu">
+                            <a href="${contentBase}industries/" class="ironclad-primary">Industry Stack ▸</a>
+                            <ul class="ironclad-submenu">
+                                <li><a href="${contentBase}industries/" class="ironclad-primary">Industries Hub (25)</a></li>
+                                <li class="ironclad-separator"></li>
+                                <li style="padding:6px 20px;color:#64748b;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">Toolkit + LLM → World Model + Infrastructure</li>
+                                <li><a href="${contentBase}products/dgx-spark.html">DGX Spark (On-Prem)</a></li>
+                                <li><a href="${contentBase}products/situation-room.html">Situation Room</a></li>
+                                <li><a href="${contentBase}products/edge-node-gn100.html">Control Room (GN100)</a></li>
+                            </ul>
+                        </li>
+                        <li class="ironclad-has-submenu">
                             <a href="${contentBase}enterprise-integrations/" class="ironclad-primary">Integrations ▸</a>
                             <ul class="ironclad-submenu">
                                 <li><a href="${contentBase}enterprise-integrations/" class="ironclad-primary">All Enterprise Integrations</a></li>
@@ -224,7 +237,6 @@
                     <a href="#" class="ironclad-link">About ▾</a>
                     <ul class="ironclad-dropdown">
                         <li><a href="https://onelifetime.world" target="_blank">Lifetime World</a></li>
-                        <li><a href="${contentBase}team/">Team</a></li>
                         <li><a href="${contentBase}careers/">Careers</a></li>
                         <li class="ironclad-has-submenu">
                             <a href="${contentBase}partners/" class="ironclad-primary">Partner Tiers ▸</a>
@@ -1287,6 +1299,6 @@
     // Language bar is a PAGE ELEMENT, not a nav/menu element.
     // Include /shared-assets/vertical-lang-bar.js directly on each page that needs it.
 
-    console.log('Iron Clad / Gamma Navigation v3.9 loaded (About ▾ → Partner Tiers ▸ flyout)');
+    console.log('Iron Clad / Gamma Navigation v4.2 loaded (Solutions ▾ → Industry Stack flyout)');
   });
 })();

@@ -5,18 +5,23 @@
  * Provides common functionality for authentication, rate limiting, error handling, and logging.
  */
 
-import axios, { type AxiosError, type AxiosInstance, type AxiosRequestConfig } from 'axios';
+import axios, {
+  type AxiosError,
+  type AxiosInstance,
+  type AxiosRequestConfig,
+  type InternalAxiosRequestConfig,
+} from 'axios';
 import pino from 'pino';
 import {
   type EntityType,
-  ERPApiResponse,
   type ERPConnectionConfig,
   type ERPProvider,
   type SyncError,
   type SyncOperation,
   type SyncResult,
+  SyncDirection,
   SyncStatus,
-} from './types';
+} from './types.js';
 
 export abstract class BaseERPConnector {
   protected provider: ERPProvider;
@@ -101,11 +106,12 @@ export abstract class BaseERPConnector {
   /**
    * Add authentication headers to requests
    */
-  protected async addAuthHeaders(config: AxiosRequestConfig): Promise<AxiosRequestConfig> {
+  protected async addAuthHeaders(
+    config: InternalAxiosRequestConfig,
+  ): Promise<InternalAxiosRequestConfig> {
     // Default implementation - override in subclasses for specific auth methods
     if (this.config.apiKey) {
-      config.headers = config.headers || {};
-      config.headers['Authorization'] = `Bearer ${this.config.apiKey}`;
+      config.headers.set('Authorization', `Bearer ${this.config.apiKey}`);
     }
     return config;
   }
@@ -149,12 +155,15 @@ export abstract class BaseERPConnector {
     const status = error.response?.status;
     const data = error.response?.data as any;
 
-    this.logger.error('API error occurred', {
-      provider: this.provider,
-      status,
-      message: error.message,
-      data,
-    });
+    this.logger.error(
+      {
+        provider: this.provider,
+        status,
+        message: error.message,
+        data,
+      },
+      'API error occurred',
+    );
 
     // Handle specific error codes
     if (status === 401 || status === 403) {
@@ -233,7 +242,7 @@ export abstract class BaseERPConnector {
       id: this.generateId(),
       organizationId,
       provider: this.provider,
-      direction,
+      direction: direction as SyncDirection,
       entityType,
       status: SyncStatus.IN_PROGRESS,
       startedAt: new Date(),
@@ -306,7 +315,7 @@ export abstract class BaseERPConnector {
           `Processed batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(records.length / batchSize)}`,
         );
       } catch (error) {
-        this.logger.error(`Batch processing failed for batch starting at index ${i}`, { error });
+        this.logger.error({ error }, `Batch processing failed for batch starting at index ${i}`);
         errors.push(error as Error);
       }
     }
@@ -331,7 +340,7 @@ export abstract class BaseERPConnector {
         lastError = error as Error;
         if (attempt < maxRetries) {
           const delay = initialDelayMs * Math.pow(2, attempt);
-          this.logger.warn(`Attempt ${attempt + 1} failed, retrying in ${delay}ms`, { error });
+          this.logger.warn({ error }, `Attempt ${attempt + 1} failed, retrying in ${delay}ms`);
           await this.sleep(delay);
         }
       }
@@ -371,17 +380,20 @@ export abstract class BaseERPConnector {
    * Log sync operation status
    */
   protected logSyncStatus(operation: SyncOperation): void {
-    this.logger.info('Sync operation status', {
-      provider: this.provider,
-      operationId: operation.id,
-      entityType: operation.entityType,
-      status: operation.status,
-      processed: operation.recordsProcessed,
-      failed: operation.recordsFailed,
-      duration: operation.completedAt
-        ? operation.completedAt.getTime() - operation.startedAt.getTime()
-        : undefined,
-    });
+    this.logger.info(
+      {
+        provider: this.provider,
+        operationId: operation.id,
+        entityType: operation.entityType,
+        status: operation.status,
+        processed: operation.recordsProcessed,
+        failed: operation.recordsFailed,
+        duration: operation.completedAt
+          ? operation.completedAt.getTime() - operation.startedAt.getTime()
+          : undefined,
+      },
+      'Sync operation status',
+    );
   }
 
   /**

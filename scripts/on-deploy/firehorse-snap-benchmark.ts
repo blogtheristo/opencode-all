@@ -3,7 +3,7 @@
  * Firehorse Snap Benchmark — Kill Latency Measurement
  *
  * Runs on every deploy on the Helsinki Veriton GN100 (auto-discovered by day-runner.sh).
- * Measures the end-to-end OpenClaw sandbox kill chain: ATS violation → trust score
+ * Measures the end-to-end NemoClaw sandbox kill chain: ATS violation → trust score
  * drop below 0.50 → triggerKillSwitch() → logged result.
  *
  * Output: logs/firehorse-snap-benchmark.jsonl (append-only)
@@ -25,7 +25,7 @@ const LOG_FILE = join(LOG_DIR, 'firehorse-snap-benchmark.jsonl');
 const ITERATIONS = 10;
 const SLA_TARGET_MS = 5;
 
-// ── Minimal sandbox state (mirrors OpenClawSandbox internals) ──────────────
+// ── Minimal sandbox state (mirrors NemoClawSandbox internals) ──────────────
 
 interface SandboxState {
   status: 'running' | 'killed';
@@ -41,7 +41,7 @@ function applyViolation(state: SandboxState): SandboxState {
 }
 
 /**
- * Mirrors OpenClawSandbox.triggerKillSwitch() exactly.
+ * Mirrors NemoClawSandbox.triggerKillSwitch() exactly.
  * Returns kill latency in milliseconds.
  */
 function triggerKillSwitch(state: SandboxState): { killLatencyMs: number; slaMet: boolean } {
@@ -114,7 +114,7 @@ function main() {
     hardware: 'Acer Veriton GN100',
     hostname: hostname(),
     location: 'Helsinki, Finland',
-    kill_chain: 'software-layer (OpenClaw sandbox)',
+    kill_chain: 'software-layer (NemoClaw sandbox)',
     firecracker_spec_ms: 125,
     firecracker_spec_source: 'AWS Firecracker MicroVM benchmark',
     iterations: ITERATIONS,

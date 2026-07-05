@@ -34,6 +34,8 @@ Legal:
 
 ## Self-Serve SLM Fine-Tuning — Three Sizes, Fixed Price, Overnight Delivery
 
+_Part of the DWS IQ Industrial Intelligence suite — the self-serve entry tier for owning the sovereign, fine-tuned models that power Industrial Intelligence deployments._
+
 **Product Code:** TM-001
 **Version:** 1.0
 **Availability:** Q3 2026 (after 5-run unattended reliability proof)
@@ -58,12 +60,12 @@ Unlike Enterprise Model Training (EMT-001), Train Model is **self-serve** and **
 
 ### Target Customers
 
-| Segment                       | Typical Use Case                                                         | Tier            |
-| ----------------------------- | ------------------------------------------------------------------------ | --------------- |
-| **SMB / department lead**     | Narrow-task assistant (e.g. classify support tickets, draft compliance copy) | Compact 3B      |
-| **Mid-market vertical owner** | Industry-specific assistant, RAG backbone, internal compliance helper    | Standard 9B     |
-| **Enterprise team**           | Flagship internal model, multi-turn reasoning, agentic workloads         | Pro 32B         |
-| **Regulated enterprise**      | Custom architecture + dataset construction + 12-month support contract   | → **EMT-001**   |
+| Segment                       | Typical Use Case                                                             | Tier          |
+| ----------------------------- | ---------------------------------------------------------------------------- | ------------- |
+| **SMB / department lead**     | Narrow-task assistant (e.g. classify support tickets, draft compliance copy) | Compact 3B    |
+| **Mid-market vertical owner** | Industry-specific assistant, RAG backbone, internal compliance helper        | Standard 9B   |
+| **Enterprise team**           | Flagship internal model, multi-turn reasoning, agentic workloads             | Pro 32B       |
+| **Regulated enterprise**      | Custom architecture + dataset construction + 12-month support contract       | → **EMT-001** |
 
 ---
 
@@ -83,27 +85,27 @@ Unlike Enterprise Model Training (EMT-001), Train Model is **self-serve** and **
 
 ### Standard — 9B parameters — **€2,990**
 
-| Aspect              | Details                                                                 |
-| ------------------- | ----------------------------------------------------------------------- |
-| **Base Model**      | Llama 3.1 8B / Mistral 9B / Qwen3 8B (customer choice)                  |
-| **Training Method** | QLoRA + Split-LoRA (Unsloth Triton kernels)                             |
-| **Training Data**   | Up to 2M examples                                                       |
-| **Wall Clock**      | ~10 hours (one overnight cycle)                                         |
-| **Hardware**        | A100 80GB cloud, single GPU                                             |
-| **Deployment Fit**  | Single consumer GPU (24 GB VRAM, Q4 GGUF), Apple M-series (32 GB+, MLX) |
+| Aspect              | Details                                                                             |
+| ------------------- | ----------------------------------------------------------------------------------- |
+| **Base Model**      | Llama 3.1 8B / Mistral 9B / Qwen3 8B (customer choice)                              |
+| **Training Method** | QLoRA + Split-LoRA (Unsloth Triton kernels)                                         |
+| **Training Data**   | Up to 2M examples                                                                   |
+| **Wall Clock**      | ~10 hours (one overnight cycle)                                                     |
+| **Hardware**        | A100 80GB cloud, single GPU                                                         |
+| **Deployment Fit**  | Single consumer GPU (24 GB VRAM, Q4 GGUF), Apple M-series (32 GB+, MLX)             |
 | **Deliverables**    | safetensors + GGUF (Q4/Q8) + MLX (4/8-bit) + NIM container + eval report + registry |
 
 ### Pro — 32B parameters — **€7,490**
 
-| Aspect              | Details                                                              |
-| ------------------- | -------------------------------------------------------------------- |
-| **Base Model**      | Qwen3 32B / Gemma 2 27B (customer choice — 2 supported architectures) |
-| **Training Method** | QLoRA + Split-LoRA (Unsloth Triton kernels)                          |
-| **Training Data**   | Up to 2M examples                                                    |
-| **Wall Clock**      | ~10–14 hours (single overnight cycle)                                |
-| **Hardware**        | H100 80GB cloud (Lambda / Brev), single GPU                          |
-| **Deployment Fit**  | Single H100 / Acer Veriton GN-100 (NVFP4) / Mac Studio M3 Ultra (MLX) |
-| **Deliverables**    | safetensors + GGUF (Q4/Q8) + MLX (4/8-bit) + eval report + registry  |
+| Aspect              | Details                                                                                  |
+| ------------------- | ---------------------------------------------------------------------------------------- |
+| **Base Model**      | Qwen3 32B / Gemma 2 27B (customer choice — 2 supported architectures)                    |
+| **Training Method** | QLoRA + Split-LoRA (Unsloth Triton kernels)                                              |
+| **Training Data**   | Up to 2M examples                                                                        |
+| **Wall Clock**      | ~10–14 hours (single overnight cycle)                                                    |
+| **Hardware**        | H100 80GB cloud (Lambda / Brev), single GPU                                              |
+| **Deployment Fit**  | Single H100 / Acer Veriton GN-100 (NVFP4) / Mac Studio M3 Ultra (MLX)                    |
+| **Deliverables**    | safetensors + GGUF (Q4/Q8) + MLX (4/8-bit) + eval report + registry                      |
 | **Add-ons** (paid)  | NVIDIA NIM container (+€490) · NVFP4 PTQ for Blackwell (+€990 — bundled in Aegis uplift) |
 
 **Why Pro tightened from 36h to overnight (v1.1 change):** the original 36h / 3-night Pro broke the self-serve "wake up to a model" promise that Compact + Standard deliver. Datasets larger than 2M examples or workloads that genuinely need NVFP4 PTQ in the default deliverable now belong in the **Bridge Track** (see below). Pro stays a clean overnight SKU.
@@ -114,18 +116,18 @@ Unlike Enterprise Model Training (EMT-001), Train Model is **self-serve** and **
 
 > ⚡ **Not self-checkout.** This tier is gated by an inbound qualification call. We'll route you here from any inbound that asks for 70B and has a JSONL dataset ready.
 
-| Aspect              | Details                                                                  |
-| ------------------- | ------------------------------------------------------------------------ |
-| **Base Model**      | Llama 3.1 70B / Qwen3 70B-class (customer choice, Apache-2.0 / Llama license) |
-| **Training Method** | QLoRA + Split-LoRA on H100 80GB cloud                                    |
-| **Training Data**   | Customer-supplied dataset (JSONL, no construction included)              |
-| **Wall Clock**      | ~3 business days                                                         |
-| **Hardware**        | H100 80GB cloud (Lambda / NVIDIA Brev), or 2× A100 80GB                  |
-| **Deployment Fit**  | Acer Veriton GN-100 (NVFP4) · DGX Spark · Mac Studio M3 Ultra (MLX)      |
-| **Support**         | 30-day model SLA (eval-regression guarantee). Not a 12-month contract.   |
+| Aspect              | Details                                                                                      |
+| ------------------- | -------------------------------------------------------------------------------------------- |
+| **Base Model**      | Llama 3.1 70B / Qwen3 70B-class (customer choice, Apache-2.0 / Llama license)                |
+| **Training Method** | QLoRA + Split-LoRA on H100 80GB cloud                                                        |
+| **Training Data**   | Customer-supplied dataset (JSONL, no construction included)                                  |
+| **Wall Clock**      | ~3 business days                                                                             |
+| **Hardware**        | H100 80GB cloud (Lambda / NVIDIA Brev), or 2× A100 80GB                                      |
+| **Deployment Fit**  | Acer Veriton GN-100 (NVFP4) · DGX Spark · Mac Studio M3 Ultra (MLX)                          |
+| **Support**         | 30-day model SLA (eval-regression guarantee). Not a 12-month contract.                       |
 | **Architecture**    | Standard Llama/Qwen 70B class only. Custom architectures route to EMT-001 full project tier. |
-| **Pricing**         | **Price on request** — invite-only, indicative €19,990                   |
-| **How to access**   | [Contact Sales](#order-process) — qualification call required            |
+| **Pricing**         | **Price on request** — invite-only, indicative €19,990                                       |
+| **How to access**   | [Contact Sales](#order-process) — qualification call required                                |
 
 **Why this is invite-only:** the 70B fine-tune workload is operationally heavier than overnight Pro and benefits from a 15-minute scoping call to confirm dataset shape, base model choice, and target deployment surface. Publishing 70B as Stripe-checkout would either underspec the engagement or overspec the page — neither serves the customer.
 
@@ -148,14 +150,14 @@ Every Train Model order ships the same artifact set so customers can self-serve 
 
 ## What's NOT Included (Sold Separately)
 
-| Excluded                                  | Where to find it                              |
-| ----------------------------------------- | --------------------------------------------- |
-| Dataset construction from scratch         | → Enterprise Model Training (EMT-001)         |
-| Hosting / inference infrastructure        | → DWS IQ Inference / Cloud Run                |
-| Continuous re-training subscription       | → Train Model — Subscription (Q4 2026)        |
-| Sovereign deployment (CLOUD-Act-free)     | → Aegis Sovereign Uplift (+€990, see below)   |
-| Custom architecture (non-Llama/Qwen/Mistral)| → Enterprise Model Training (EMT-001)        |
-| 12-month support contract                 | → Enterprise Model Training (EMT-001)         |
+| Excluded                                     | Where to find it                            |
+| -------------------------------------------- | ------------------------------------------- |
+| Dataset construction from scratch            | → Enterprise Model Training (EMT-001)       |
+| Hosting / inference infrastructure           | → DWS IQ Inference / Cloud Run              |
+| Continuous re-training subscription          | → Train Model — Subscription (Q4 2026)      |
+| Sovereign deployment (CLOUD-Act-free)        | → Aegis Sovereign Uplift (+€990, see below) |
+| Custom architecture (non-Llama/Qwen/Mistral) | → Enterprise Model Training (EMT-001)       |
+| 12-month support contract                    | → Enterprise Model Training (EMT-001)       |
 
 ---
 
@@ -243,11 +245,11 @@ If all four green-light → Bridge Track at €19,990 quoted on the call.
 
 ## Sales Math (Y1 Targets)
 
-| Annual volume                 | Compact      | Standard      | Pro            | Revenue         | Loaded BOM    | Gross profit    |
-| ----------------------------- | -----------: | ------------: | -------------: | --------------: | ------------: | --------------: |
-| 20 customers (5 / 12 / 3)     | 5 × €1,490   | 12 × €2,990   | 3 × €7,490     | **€65,800**     | €4,270        | **€61,530**     |
-| 50 customers (10 / 30 / 10)   | 10 × €1,490  | 30 × €2,990   | 10 × €7,490    | **€179,300**    | €11,200       | **€168,100**    |
-| 100 customers (20 / 60 / 20)  | 20 × €1,490  | 60 × €2,990   | 20 × €7,490    | **€358,600**    | €22,400       | **€336,200**    |
+| Annual volume                |     Compact |    Standard |         Pro |      Revenue | Loaded BOM | Gross profit |
+| ---------------------------- | ----------: | ----------: | ----------: | -----------: | ---------: | -----------: |
+| 20 customers (5 / 12 / 3)    |  5 × €1,490 | 12 × €2,990 |  3 × €7,490 |  **€65,800** |     €4,270 |  **€61,530** |
+| 50 customers (10 / 30 / 10)  | 10 × €1,490 | 30 × €2,990 | 10 × €7,490 | **€179,300** |    €11,200 | **€168,100** |
+| 100 customers (20 / 60 / 20) | 20 × €1,490 | 60 × €2,990 | 20 × €7,490 | **€358,600** |    €22,400 | **€336,200** |
 
 50 customers/year (~1 Standard SKU per business week) is the credible Y1 target given the existing 25-industry LWM registry and the DWS IQ customer pipeline.
 
@@ -257,10 +259,10 @@ If all four green-light → Bridge Track at €19,990 quoted on the call.
 
 ### Supported Base Models (May 2026)
 
-| Tier     | Supported                                                                     |
-| -------- | ----------------------------------------------------------------------------- |
-| Compact  | Llama 3.2 3B, Qwen3 3B, Phi-3.5 mini (3.8B), Gemma 2 2B                        |
-| Standard | Llama 3.1 8B, Mistral 9B, Qwen3 8B, Gemma 2 9B                                 |
+| Tier     | Supported                                                                       |
+| -------- | ------------------------------------------------------------------------------- |
+| Compact  | Llama 3.2 3B, Qwen3 3B, Phi-3.5 mini (3.8B), Gemma 2 2B                         |
+| Standard | Llama 3.1 8B, Mistral 9B, Qwen3 8B, Gemma 2 9B                                  |
 | Pro      | Qwen3 32B, Gemma 2 27B (32B class only — 70B routes to Bridge Track in EMT-001) |
 
 ### Training Stack
@@ -349,14 +351,14 @@ Status polling: `dws train-model status <order_id>`.
 
 ## Roadmap
 
-| Quarter   | Capability                                                                                  |
-| --------- | ------------------------------------------------------------------------------------------- |
-| Q2 2026   | 5-run unattended reliability proof (gate to Q3 launch)                                      |
-| Q3 2026   | Public launch — Compact + Standard + Pro tiers (all overnight delivery)                     |
-| Q3 2026   | NVFP4 PTQ paid add-on (+€990) for Blackwell deployments                                     |
-| Q4 2026   | Train Model — Subscription (monthly re-train cadence, separate SKU)                         |
-| Q4 2026   | Bridge Track (70B, invite-only) inside EMT-001 — see PRODUCT_ENTERPRISE_MODEL_TRAINING.md   |
-| Q1 2027   | LWM2 omnimodal tier (video + audio data) — pricing TBD, will sit at Bridge Track or above   |
+| Quarter | Capability                                                                                |
+| ------- | ----------------------------------------------------------------------------------------- |
+| Q2 2026 | 5-run unattended reliability proof (gate to Q3 launch)                                    |
+| Q3 2026 | Public launch — Compact + Standard + Pro tiers (all overnight delivery)                   |
+| Q3 2026 | NVFP4 PTQ paid add-on (+€990) for Blackwell deployments                                   |
+| Q4 2026 | Train Model — Subscription (monthly re-train cadence, separate SKU)                       |
+| Q4 2026 | Bridge Track (70B, invite-only) inside EMT-001 — see PRODUCT_ENTERPRISE_MODEL_TRAINING.md |
+| Q1 2027 | LWM2 omnimodal tier (video + audio data) — pricing TBD, will sit at Bridge Track or above |
 
 ---
 

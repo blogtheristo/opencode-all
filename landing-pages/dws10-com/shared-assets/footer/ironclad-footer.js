@@ -5,6 +5,7 @@
  * Usage: Add this script to any page:
  * <script src="/shared-assets/footer/ironclad-footer.js"></script>
  *
+ * v1.5 — 2026-06-27: Industries column renamed; Industries Hub (25) link added; Healthcare promoted
  * v1.4 — 2026-06-21: Add newsletter capture band (writes to Supabase web_leads).
  * v1.3 — 2026-05-31: Add ethics principle band (human-in-command).
  * v1.2 — 2026-04-06: Nordic Industrial rebrand — "Built in Finland" badge, IBM Plex Sans font
@@ -120,16 +121,17 @@
             <a href="mailto:offer@lifetime.fi">Enterprise Offers</a>
         </div>
         <div class="ironclad-footer-col">
-            <h4>Dual Use Industries</h4>
-            <a href="${contentBase}/dual-use-industries/" style="color: #d4a843;">All Industries &amp; Aegis</a>
+            <h4>Industries</h4>
+            <a href="${contentBase}/industries/" style="color: #60a5fa; font-weight: 600;">Industries Hub (25)</a>
             <a href="${contentBase}/construction/">Construction</a>
             <a href="${contentBase}/energy/">Energy</a>
             <a href="${contentBase}/manufacturing/">Manufacturing</a>
-            <a href="${contentBase}/real-estate/">Real Estate</a>
-            <a href="${contentBase}/logistics/">Logistics</a>
             <a href="${contentBase}/healthcare/">Healthcare</a>
+            <a href="${contentBase}/logistics/">Logistics</a>
+            <a href="${contentBase}/real-estate/">Real Estate</a>
             <a href="${contentBase}/financial-services/">Financial Services</a>
             <a href="${contentBase}/public-sector/">Public Sector</a>
+            <a href="${contentBase}/dual-use-industries/" style="color: #d4a843;">Dual Use &amp; Aegis</a>
         </div>
         <div class="ironclad-footer-col">
             <h4>Platform</h4>

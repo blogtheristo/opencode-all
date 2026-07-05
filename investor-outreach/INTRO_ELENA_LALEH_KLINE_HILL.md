@@ -12,7 +12,6 @@ AGENT HISTORY:
 
 # Investor Intro Note — Elena Laleh, Kline Hill Partners
 
-
 ---
 
 ## Labor Thesis Opening (2026 Q2 Refresh) — Wedge: MARGIN
@@ -23,9 +22,9 @@ AGENT HISTORY:
 
 **Email body — opening three paragraphs + ask:**
 
-Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts *doing the work itself*, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. *(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)* **DWS 365 Skilled Agents** (powered by the DWS IQ platform) sit on the labor side of that line.
+Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts _doing the work itself_, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. _(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)_ **DWS 365 Skilled Agents** (powered by the DWS IQ platform) sit on the labor side of that line.
 
-16 Skilled Agents are already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the human cost of producing that work, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
+A fleet of skilled agents are already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the human cost of producing that work, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
 
 Gross margin sits above 80% at list and expands as inference cost falls — the price anchor is human labor, not compute, so the curve goes the right way as foundation models commoditize. Our comp set is vertical AI labor companies (Cognition, Sierra, Harvey, Decagon), not horizontal SaaS, and the unit economics tell that story without any heroic assumptions. The spine in one line: **labor-anchored pricing, regulation drives demand, MACC + AppExchange drive distribution.** That is the line we lead with at the Messe round and in PE meetings this quarter.
 
@@ -41,20 +40,20 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 ## Target Profile
 
-| Field | Value |
-|-------|-------|
-| **Name** | Elena Laleh |
-| **Role** | Managing Director — Kline Hill Partners (Zurich office) |
-| **Background** | 7 years at Partners Group (secondaries team — GP-led, LP, co-investments, primaries). Ex-Credit Suisse (NY, investment banking). Founding member of PG Diversity & Inclusion Committee |
-| **AUM (Firm)** | $5.4B+ (Kline Hill Partners) |
-| **Check Size** | Institutional — KHP focuses on small-deal secondaries space |
-| **Stage** | GP-led secondaries, continuation funds, small-deal space |
-| **Thesis** | GP-led origination and structuring, small-to-mid market secondaries |
-| **Location** | Zurich, Switzerland |
-| **Intro Type** | Cold — conference outreach at PE Insights Switzerland (June 18, 2026, Marriott Zurich) |
-| **LinkedIn** | linkedin.com/in/elena-laleh-8967a976/ |
-| **Conference Panel** | "Single-Asset Deals, Continuation Funds & Beyond: Secondaries Redefined" |
-| **Education** | BS International Business (Northeastern), BS International Management (ESB Reutlingen) |
+| Field                | Value                                                                                                                                                                                  |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Name**             | Elena Laleh                                                                                                                                                                            |
+| **Role**             | Managing Director — Kline Hill Partners (Zurich office)                                                                                                                                |
+| **Background**       | 7 years at Partners Group (secondaries team — GP-led, LP, co-investments, primaries). Ex-Credit Suisse (NY, investment banking). Founding member of PG Diversity & Inclusion Committee |
+| **AUM (Firm)**       | $5.4B+ (Kline Hill Partners)                                                                                                                                                           |
+| **Check Size**       | Institutional — KHP focuses on small-deal secondaries space                                                                                                                            |
+| **Stage**            | GP-led secondaries, continuation funds, small-deal space                                                                                                                               |
+| **Thesis**           | GP-led origination and structuring, small-to-mid market secondaries                                                                                                                    |
+| **Location**         | Zurich, Switzerland                                                                                                                                                                    |
+| **Intro Type**       | Cold — conference outreach at PE Insights Switzerland (June 18, 2026, Marriott Zurich)                                                                                                 |
+| **LinkedIn**         | linkedin.com/in/elena-laleh-8967a976/                                                                                                                                                  |
+| **Conference Panel** | "Single-Asset Deals, Continuation Funds & Beyond: Secondaries Redefined"                                                                                                               |
+| **Education**        | BS International Business (Northeastern), BS International Management (ESB Reutlingen)                                                                                                 |
 
 ## Status: RESEARCH — Qualify at Conference
 
@@ -65,6 +64,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 **Strong strategic fit — KHP's small-deal secondaries focus aligns well with DWS IQ's mid-market sweet spot.**
 
 **What aligns:**
+
 - **GP-led / continuation fund specialist** — Elena's core expertise is exactly where carbon compliance creates the most valuation impact. When GPs roll assets into continuation vehicles, the ESG due diligence on those single assets is deeper than portfolio deals. DWS IQ automates that ESG/carbon layer
 - **Small-deal focus** — KHP's edge is the small-deal space ($5-50M transactions). These are mid-market industrial companies — exactly DWS IQ's target customer profile (€36K avg contract). The portfolio companies KHP backs are the ones who can't afford Big 4 consultants for CSRD compliance
 - **Zurich-based, Europe-focused** — EU regulatory expertise is directly relevant. She covers European GP-leds, which means EU-regulated portfolio companies
@@ -72,6 +72,7 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 - **Bicontinental team** — KHP has US + European presence. She leads the Europe side, which is where EU compliance mandates bite
 
 **What requires careful framing:**
+
 - **Institutional investor** — KHP does fund-level secondaries, not seed-stage direct investments. The pitch is portfolio value-creation, not "invest in our startup"
 - **Small-deal expertise could be an advantage** — Unlike mega-fund secondaries buyers, KHP's small deals mean their portfolio companies actually need tools like DWS IQ (they can't build in-house compliance teams)
 - **D&I background** — She founded Partners Group's D&I committee. Sustainability/ESG is likely genuine conviction, not performative. This is a plus for the carbon balance sheet pitch
@@ -81,13 +82,15 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 ## Positioning Notes
 
 Lead with:
+
 1. **Small-deal GP-led angle** — "Your mid-market GP-led portfolio companies face CSRD/ETS/CBAM obligations but can't afford Big 4 compliance consultants. We automate that at €36K/year per company — 10x cheaper than manual compliance"
 2. **Continuation fund valuation** — "When you're structuring a continuation vehicle around a single asset, carbon compliance readiness directly affects the LP pitch. Our carbon balance sheet gives you auditable ESG data for LP reporting"
 3. **Portfolio-wide deployment** — "What if every new GP-led deal KHP closes included automated carbon compliance as part of the value-creation plan? We're already live with 5 industrial customers, zero churn"
 
 **Do NOT lead with:**
+
 - Investment ask (she's a fund manager, not an angel)
-- Technical details (21 agents, MCP, etc.)
+- Technical details (skilled agents, MCP, etc.)
 - Seed-stage metrics in isolation
 
 ## Conference Approach Plan
@@ -96,15 +99,18 @@ Lead with:
 **Panel:** "Single-Asset Deals, Continuation Funds & Beyond: Secondaries Redefined"
 
 **Pre-event:**
+
 - [ ] Connect on LinkedIn — reference GP-led secondaries + ESG
 - [ ] Research recent KHP deals for specific talking points
 
 **At event:**
+
 - [ ] Attend her panel — listen for specific pain points around valuation, ESG, or GP reporting
 - [ ] Approach after panel: "Your point about [X] in GP-led deals — we've built the tool that solves that. Quick coffee?"
 - [ ] Focus on listening. She's a Partners Group alum with deep market knowledge — learn from her first
 
 **Post-event:**
+
 - [ ] Follow-up email within 24h
 - [ ] Offer: free compliance assessment on one KHP portfolio company
 - [ ] Zurich-based: offer in-person meeting at KHP office (Risto can travel)
@@ -123,7 +129,7 @@ Hi Elena,
 
 Your panel at PE Insights was excellent — especially your point about [specific insight on GP-led structuring/valuation]. It crystallized something I've been thinking about.
 
-I'm Risto Päärni, CEO of Lifetime Oy (Helsinki). We build DWS IQ 6 — automated carbon balance sheet infrastructure for EU-regulated industrial companies. 18 deterministic AI agents, 20 industry verticals, live with 5 customers at 100% retention.
+I'm Risto Päärni, CEO of Lifetime Oy (Helsinki). We build DWS IQ 6 — automated carbon balance sheet infrastructure for EU-regulated industrial companies. a fleet of deterministic skilled agents, 20 industry verticals, live with 6 customers at 100% retention.
 
 The connection to your work: mid-market GP-led portfolio companies face the same ETS/CBAM/CSRD mandates as large-caps, but without the compliance teams. We automate that at €36K/year — which is a rounding error in a value-creation budget but can materially de-risk the ESG story for LP reporting and exit positioning.
 

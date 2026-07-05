@@ -26,7 +26,7 @@ AGENT HISTORY:
 
 Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts _doing the work itself_, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. _(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)_ **DWS 365 Skilled Agents** (powered by DWS IQ) sit on the labor side of that line.
 
-16 Skilled Agents are already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the **human cost of producing that work**, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
+A fleet of skilled agents are already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the **human cost of producing that work**, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
 
 DWS 365 Skilled Agents (on DWS IQ) + Aegis is built for dual-use sovereignty — EU residency, no CLOUD Act surface on the data plane, KYA runtime trust (TC-0…TC-4) with leash-snap chain termination. Skilled Agents producing signed artifacts make the stack auditable under defense and critical-infrastructure procurement gates that conventional cloud agents fail. As an NVIDIA ISV running heavy edge workloads, Nexetic sits at exactly the intersection where sovereign AI compute and compliance-signed outputs are the next product layer — not a feature, a new revenue line. The spine in one line: **labor-anchored pricing, regulation drives demand, MACC + AppExchange drive distribution.** That is the line we lead with at the Messe round and in PE meetings this quarter.
 
@@ -116,7 +116,7 @@ Lähetän lupaamani linkin lyhyenä englanninkielisenä tiivistelmänä, koska o
 
 ---
 
-As I mentioned, we're building the sovereign AI labor stack for industrial compliance — 16 Skilled Agents already producing the signed EN 15978 LCA report, CSRD/CBAM gap analysis, EU AI Act conformity pack. Pricing anchored to human consultant day-rate (not compute), >80% gross margin, expanding as inference costs fall.
+As I mentioned, we're building the sovereign AI labor stack for industrial compliance — a fleet of skilled agents already producing the signed EN 15978 LCA report, CSRD/CBAM gap analysis, EU AI Act conformity pack. Pricing anchored to human consultant day-rate (not compute), >80% gross margin, expanding as inference costs fall.
 
 **Why Nexetic's NVIDIA ISV position is the angle:**
 

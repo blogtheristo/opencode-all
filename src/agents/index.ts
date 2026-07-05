@@ -33,7 +33,7 @@ import { AtlasAgent } from './workflow/atlas/atlas.agent.js';
 import { AthenaAgent } from './workflow/athena/athena.agent.js';
 import { HephaestusAgent } from './workflow/hephaestus/hephaestus.agent.js';
 import { IrisAgent } from './workflow/iris/iris.agent.js';
-import { HermesAgent } from './workflow/hermes/hermes.agent.js';
+import { MercuryAgent } from './workflow/mercury/mercury.agent.js';
 import { ApolloAgent } from './workflow/apollo/apollo.agent.js';
 import { VulcanAgent } from './workflow/industry/vulcan.agent.js';
 import { HeliosAgent } from './workflow/industry/helios.agent.js';
@@ -62,6 +62,21 @@ import { PanaceaAgent } from './panacea.agent.js';
 import { AuditorAgent } from './auditor.agent.js';
 import { VisionOracleAgent } from './vision-oracle.agent.js';
 import { ChronosAgent } from './chronos.agent.js';
+import { WorldModelLoopAgent } from './world-model/world-model-loop.agent.js';
+// Internal Security Governance Agents (2026-07-03, sanasto/security audit follow-up)
+import { AegisAgent } from './aegis.agent.js';
+import { VestaAgent } from './vesta.agent.js';
+// Consultant Role Agents — 8 roles from Konsultin käsikirja 2026
+import {
+  AIScopingConsultantAgent,
+  DWSDeploymentEngineerAgent,
+  ComplianceSpecialistAgent,
+  EdgeAIEngineerAgent,
+  EnterpriseModelEngineerAgent,
+  GenAISolutionArchitectAgent,
+  DevOpsEngineerAgent,
+  ProjectManagerAgent,
+} from './consultant/index.js';
 import { registerBuiltinTools } from './tools.js';
 import { eventBus, registerDefaultEventHandlers } from './event-bus.js';
 import { withAgentSpan } from '../observability/tracing.js';
@@ -207,6 +222,7 @@ export class AgentRegistry {
     this.register(new MaterialOracleAgent());
     this.register(new CustomerSatAgent());
     this.register(new ViabilityAgent());
+    this.register(new WorldModelLoopAgent());
 
     // Extraction & research agents (from DeepWiki/awesome-llm-apps)
     this.register(new DeepWikiExtractorAgent());
@@ -236,7 +252,7 @@ export class AgentRegistry {
     this.register(new AthenaAgent()); // Compliance Intelligence — EU regulatory
     this.register(new HephaestusAgent()); // Field & Site Intelligence — construction
     this.register(new IrisAgent()); // Research & Market Intelligence
-    this.register(new HermesAgent()); // Logistics & Operations
+    this.register(new MercuryAgent()); // Logistics & Operations
     this.register(new ApolloAgent()); // Content & Outreach
 
     // Climate IQ Industry Specialists — Roman/Greek gods per sector
@@ -279,6 +295,20 @@ export class AgentRegistry {
     this.register(new VisionOracleAgent()); // Vision language model — site photos, SAR imagery
     this.register(new ChronosAgent()); // Temporal workflow + EU compliance deadline engine
 
+    // Internal Security Governance Agents (2026-07-03, sanasto/security audit follow-up)
+    this.register(new AegisAgent()); // Vulnerability & patch SLA triage
+    this.register(new VestaAgent()); // Business-critical systems registry
+
+    // Consultant Role Agents — 8 roles from Konsultin käsikirja 2026 (total 60)
+    this.register(new AIScopingConsultantAgent()); // Compliance-need assessment, product recommendation
+    this.register(new DWSDeploymentEngineerAgent()); // ERP integration (SAP, IFS, Visma, Monitor)
+    this.register(new ComplianceSpecialistAgent()); // CBAM, CSRD, ETS, NIS2, CER, EU AI Act
+    this.register(new EdgeAIEngineerAgent()); // NVIDIA Jetson/DGX Spark, air-gapped Aegis
+    this.register(new EnterpriseModelEngineerAgent()); // LWM ontology, Train Model SaaS
+    this.register(new GenAISolutionArchitectAgent()); // Claude Code, KYA, agent architecture
+    this.register(new DevOpsEngineerAgent()); // CI/CD, K8s, UpCloud Helsinki, security
+    this.register(new ProjectManagerAgent()); // JIRA, scheduling, customer documentation
+
     logger.info('Agent registry initialized', {
       agentCount: this.agents.size,
       agents: Array.from(this.agents.keys()),
@@ -311,6 +341,26 @@ export { BaseAgent } from './base.agent.js';
 export { eventBus } from './event-bus.js';
 export { BUILTIN_TOOLS, registerToolHandler } from './tools.js';
 export { createLLMClient, createLLMClientForAgent, LLMClient } from './llm-client.js';
+
+// Re-export DiffusionGemma parallel-diffusion local inference
+export {
+  createDiffusionGemmaClient,
+  resolveDiffusionGemmaConfig,
+  resolveDiffusionGemmaBaseUrl,
+  resolveDiffusionGemmaModel,
+  resolveDiffusionParams,
+  DIFFUSIONGEMMA_SPEC,
+  DIFFUSIONGEMMA_THROUGHPUT,
+  DIFFUSIONGEMMA_MODEL_ID,
+  DEFAULT_DIFFUSION_PARAMS,
+  MAX_BLOCK_TOKENS,
+} from './diffusiongemma.js';
+export type {
+  DiffusionGemmaSpec,
+  DiffusionDecodeParams,
+  DiffusionGemmaThroughput,
+  DiffusionGemmaClientOptions,
+} from './diffusiongemma.js';
 
 // Re-export model selector
 export {

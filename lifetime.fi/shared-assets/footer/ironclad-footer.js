@@ -149,6 +149,7 @@
             <a href="${regulatoryNoticeHref}">Regulatory Notice</a>
             <a href="${contentBase}/dual-use/">Dual Use</a>
             <a href="${contentBase}/calculator/">Carbon Calculator</a>
+            <a href="https://lifetime.fi/laskuri/">Keskeytyslaskuri</a>
         </div>
         <div class="ironclad-footer-col">
             <h4>Help &amp; Company</h4>

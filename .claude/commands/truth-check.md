@@ -6,6 +6,7 @@ description: Use when checking public-facing DWS claims against the canonical tr
 Check copy against the canonical truth registry (DWS_TRUTH_STANDARD.md §2 mirrors).
 
 Usage:
+
 - `/truth-check <claim text>` — lint an inline claim
 - `/truth-check <path ...>` — lint files/dirs
 - `/truth-check --changed` — lint files changed vs `origin/main` (PR/local)
@@ -24,6 +25,11 @@ Input: $ARGUMENTS
    - **clean** = no drift.
 3. If FAILs exist and the source is editable copy (not a canonical mirror), fix the phrase in place using the approved wording, then re-run to confirm clean. Per DWS_TRUTH_STANDARD.md §3, never "fix" the canonical source to match drifting copy — correct the copy.
 4. Report PASS / WARN / FAIL with file:line and the canonical phrasing on each mismatch.
+
+## Sweep Rules (from `/learn` this-session, 2026-06-29)
+
+- **SWEEP COMPLETENESS:** When correcting a canonical fact, first enumerate EVERY occurrence across ALL surfaces in one pass — catalog (`products.json` + both mirrors), public sites (+ `landing-pages/` mirrors), `investor-outreach/` (incl. Boardy/founder call-prep docs), `sales-outreach/`, `docs/sales/`, and `Store/`. Build the full worklist BEFORE editing; after editing, re-grep and prove ZERO residuals before committing. Do not ship a "first pass" that leaves stragglers for a later "finish" commit.
+- **CONTEXT-AWARE REPLACE:** Before any blanket find-replace on a canonical number or term, check whether the SAME token has tier/context-specific canonical values (e.g. platform = 25 industries vs Aegis tier = 21). Replace per-context, never globally. Confirm against the structured mirror's approved / ambiguous-phrase rules. (Mirrors CLAUDE.md Rule 7 — surface conflicts, don't average.)
 
 ## Notes
 

@@ -28,7 +28,7 @@ Document Status:
 
 **Company:** Lifetime Oy (Y-tunnus: 0772407-9)
 **Round:** EUR 650K SAFE at EUR 3.8M cap
-**This document:** Captain Tier — EUR 50,000 | 8 seats (one per grouped industry tranche covering 20 EU-regulated verticals)
+**This document:** Captain Tier — EUR 50,000 | 8 seats (one per grouped industry tranche covering 25 EU-regulated verticals)
 **Date:** March 28, 2026
 
 ---
@@ -55,7 +55,7 @@ Each model generation makes us faster. Each competitor generation starts from ze
 
 ## Why Captain — EUR 50,000
 
-As a **Captain**, you are the named leader of one of 20 EU-regulated industries on the DWS IQ 6 platform. This is not a passive investment — it is a strategic position.
+As a **Captain**, you are the named leader of one of 25 EU-regulated industries on the DWS IQ 6 platform. This is not a passive investment — it is a strategic position.
 
 ### What You Get
 
@@ -65,14 +65,14 @@ As a **Captain**, you are the named leader of one of 20 EU-regulated industries 
 | **Quarterly Strategy Briefings**   | Direct access to founder + product roadmap                            |
 | **Priority Pilot Routing**         | First access to new enterprise pilots in your industry                |
 | **Founding Situation Room Access** | Real-time platform intelligence dashboard                             |
-| **Industry-Specific Intelligence** | Cross-vertical insights from 20 industries flowing into your vertical |
+| **Industry-Specific Intelligence** | Cross-vertical insights from 25 industries flowing into your vertical |
 | **Upgrade Path**                   | First right of refusal if Fleet Admiral seat opens                    |
 
-### Available Industry Seats (20 EU-Regulated Verticals)
+### Available Industry Seats (25 EU-Regulated Verticals)
 
 | #   | Industry                            | ETS/CBAM Exposure                   | Status                        |
 | --- | ----------------------------------- | ----------------------------------- | ----------------------------- |
-| 1   | Construction & Real Estate          | High (EPBD, ETS Phase IV)           | Validated — 5 customers       |
+| 1   | Construction & Real Estate          | High (EPBD, ETS Phase IV)           | Validated — 6 customers       |
 | 2   | Energy & Power Generation           | Critical (ETS, RED III)             | Validated — Qantic case study |
 | 3   | Steel & Metals                      | Critical (CBAM, ETS)                | Open                          |
 | 4   | Cement & Building Materials         | Critical (CBAM, ETS)                | Open                          |
@@ -171,15 +171,15 @@ Standalone dual-use AI platform for defence and sovereign operations. Orbital in
 
 **Why it matters:** 13x cheaper than Palantir's floor for Year 1 (EUR 59,990 vs EUR 920,000). NATO DIANA Accelerator eligible. Opens EUR 8B+ EU defence AI market from an EU-sovereign position.
 
-### 5. Climate IQ Pantheon (14 AI Agents) — v1.0, March 26, 2026
+### 5. Climate IQ Pantheon — v1.0, March 26, 2026
 
 Greek-Roman named multi-agent system: Atlas (router), Athena (compliance), Argus (orbital SAR), Hephaestus (field operations), Hermes (logistics), Iris (market intelligence), plus 8 more specialized agents working in concert.
 
-**Why it matters:** 14 agents that compound each other's output. One agent's finding in energy becomes another agent's input in construction. This is the cross-vertical intelligence flywheel — more agents deployed, more data, better optimization for everyone.
+**Why it matters:** skilled agents that compound each other's output. One agent's finding in energy becomes another agent's input in construction. This is the cross-vertical intelligence flywheel — more skilled agents deployed, more data, better optimization for everyone.
 
 ### 6. Cross-Vertical Intelligence Engine — v1.0, March 24, 2026
 
-Signal propagation across 20 EU-regulated industries. BESS dispatch data improves grid emission calculations, which improve steel ETS exposure, which improve construction embodied carbon, which improve CSRD gap analysis. 18 data sources, 20 industries, one ledger format.
+Signal propagation across 25 EU-regulated industries. BESS dispatch data improves grid emission calculations, which improve steel ETS exposure, which improve construction embodied carbon, which improve CSRD gap analysis. 18 data sources, 25 industries, one ledger format.
 
 **Why it matters:** Network effect for compliance intelligence. Each new industry customer makes the platform smarter for all other industries. Competitors serve one vertical — we serve twenty from one world model.
 
@@ -199,13 +199,13 @@ Zero-cloud-egress agent execution on Acer Veriton GN100 (NVIDIA-powered) with Do
 
 Four-pillar distributed system: Brain (21-agent orchestration via DWS IQ 6), Memory (Lifetime World Model — EU regulations + 20 industry models), Body (Firehorse sales/report/automation/content suite), Hands (Lifetime Fleet robots/IoT, specification phase).
 
-**Why it matters:** Clean separation of concerns enables independent scaling. Brain gets smarter, Body ships faster, Memory deepens — each pillar improves without breaking the others. This is the architecture that scales from 5 to 500 customers.
+**Why it matters:** Clean separation of concerns enables independent scaling. Brain gets smarter, Body ships faster, Memory deepens — each pillar improves without breaking the others. This is the architecture that scales from 6 to 500 customers.
 
 ### 10. Firehorse Omnichannel (Sales Automation) — v3, March 2026
 
 Event-driven sales automation with deterministic 13-state lead machine (Cold_1_Sent, Cold_1_Opened, Engaged, MeetingBooked...). Email, LinkedIn, and phone channels orchestrated through one pipeline. Target: 30 new contacts/day, 1+ meeting/day.
 
-**Why it matters:** The production model produces products — Omnichannel sells them. Closed-loop: build product, sell product, get customer feedback, improve product. Solo founder selling at enterprise scale.
+**Why it matters:** The production model produces products — Omnichannel sells them. Closed-loop: build product, sell product, get customer feedback, improve product. A two-person team selling at enterprise scale.
 
 ### 11. Solution Factory Model — v1.1, March 2026
 
@@ -227,11 +227,11 @@ Model Context Protocol hub enabling autonomous multi-agent tool access via Cloud
 | -------------------------------- | ------------------------------------------------- |
 | **Your investment**              | EUR 50,000                                        |
 | **Valuation cap**                | EUR 3.8M                                          |
-| **Current MRR**                  | EUR 7K (5 customers, 100% retention)              |
+| **Current MRR**                  | EUR 7K (6 customers, 100% retention)              |
 | **Target ARR (2026)**            | EUR 900K (25 customers x EUR 36K avg)             |
 | **Series A target**              | EUR 15M+ pre-money (Q3-Q4 2026)                   |
 | **Implied multiple at Series A** | ~3-4x on paper                                    |
-| **Products shipped**             | 32 (across 20 industries)                         |
+| **Products shipped**             | 32 (across 25 industries)                         |
 | **AI agents operational**        | 18                                                |
 | **Academic validation**          | Metropolia thesis (2026) + LUT PhD (2027 planned) |
 
@@ -250,7 +250,7 @@ Model Context Protocol hub enabling autonomous multi-agent tool access via Cloud
 
 ## The Factory Thesis — In One Paragraph
 
-Lifetime Oy built the Firehorse Production Model — a codified system for converting frontier AI model improvements into shipped enterprise products. It is published as a master's thesis at Metropolia University (2026) and will continue as PhD research at LUT (2027). This production model has already shipped 32 products, 12 verified breakthroughs, and a dual-use defence platform across 20 EU-regulated industries. The competitor starting today with ChatGPT is 15 months behind with a blank prompt. Each new AI model generation — Opus 4.7, GPT-6, Llama 4 — feeds the same factory and produces another wave of products. The investment question is not whether AI will improve. It will. The question is: who has the production system ready to capture that improvement? We do.
+Lifetime Oy built the Firehorse Production Model — a codified system for converting frontier AI model improvements into shipped enterprise products. It is published as a master's thesis at Metropolia University (2026) and will continue as PhD research at LUT (2027). This production model has already shipped 32 products, 12 verified breakthroughs, and a dual-use defence platform across 25 EU-regulated industries. The competitor starting today with ChatGPT is 15 months behind with a blank prompt. Each new AI model generation — Opus 4.7, GPT-6, Llama 4 — feeds the same factory and produces another wave of products. The investment question is not whether AI will improve. It will. The question is: who has the production system ready to capture that improvement? We do.
 
 ---
 

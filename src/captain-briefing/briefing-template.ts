@@ -161,7 +161,7 @@ export function buildCaptainBriefingHtml(data: CaptainBriefingData): string {
         { name: 'Atlas', emoji: '⚡', role: 'Chief of Staff', note: 'Synthesizing your morning intelligence right now.' },
         { name: 'Athena', emoji: '⚖️', role: 'Compliance', note: 'Watching your regulatory deadlines. She never blinks.' },
         { name: 'Iris', emoji: '🌈', role: 'Intel', note: 'Already read your competitor\'s changelog.' },
-        { name: 'Hermes', emoji: '🪶', role: 'Logistics', note: 'Found a faster route. You didn\'t ask. He did it anyway.' },
+        { name: 'Mercury', emoji: '🪶', role: 'Logistics', note: 'Found a faster route. You didn\'t ask. He did it anyway.' },
         { name: 'Apollo', emoji: '☀️', role: 'Outreach', note: 'Crafting the email that doesn\'t start with "I hope this finds you well."' },
         { name: 'Hephaestus', emoji: '🔨', role: 'Field Intel', note: 'Checked your site. Wind\'s fine. No cranes down today.' },
       ].map(a => `<tr>
@@ -294,7 +294,7 @@ export function buildCaptainBriefingPlainText(data: CaptainBriefingData): string
   lines.push('  ⚡ Atlas      Chief of Staff  — Synthesizing your morning intelligence.');
   lines.push('  ⚖️ Athena     Compliance      — Watching your regulatory deadlines. Never blinks.');
   lines.push('  🌈 Iris       Intel           — Already read your competitor\'s changelog.');
-  lines.push('  🪶 Hermes     Logistics       — Found a faster route. You didn\'t ask. He did it anyway.');
+  lines.push('  🪶 Mercury    Logistics       — Found a faster route. You didn\'t ask. He did it anyway.');
   lines.push('  ☀️ Apollo     Outreach        — Writing the email that doesn\'t open with "I hope..."');
   lines.push('  🔨 Hephaestus Field Intel     — Checked your site. Wind\'s fine. No cranes down.');
   lines.push('');

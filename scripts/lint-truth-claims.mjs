@@ -55,7 +55,7 @@ const SCAN_EXT = new Set([".md", ".html", ".htm", ".txt"]);
 
 // ---- 1. Load ruleset from structured mirrors -----------------------------
 function loadRules() {
-  const dirs = ["dws10.com/config", "landing-pages/dws10-com/config"];
+  const dirs = ["dws10.com/config", "landing-pages/dws10-com/config", "src/agents"];
   const deprecated = new Map(); // phrase(lc) -> {phrase, mirror, approved[]}
   const ambiguous = new Map();  // phrase(lc) -> {phrase, disambiguators[], mirror, ...}
   for (const d of dirs) {

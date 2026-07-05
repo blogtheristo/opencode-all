@@ -34,9 +34,23 @@
     <link rel="canonical" href="https://dws10.com/products/dws-iq-006.html" />
     <link rel="icon" type="image/png" href="/DWS_IQ2026.png" />
     <link rel="stylesheet" href="../static/css/style.css" />
+    <!-- Brand §2.1/§8 typography: IBM Plex Sans (body) + IBM Plex Sans Condensed (headings).
+         SRI is intentionally omitted on the Google Fonts stylesheet — that CSS is served
+         dynamically per user-agent and has no stable integrity hash; crossorigin is set. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
     <style>
+      :root {
+        --color-gold: #b8860b;
+        --color-gold-light: #d4a843;
+      }
       body {
-        font-family: system-ui, sans-serif;
+        font-family: "IBM Plex Sans", system-ui, sans-serif;
         background: #0f172a;
         color: #e2e8f0;
         line-height: 1.6;
@@ -52,15 +66,30 @@
         background: rgba(30, 41, 59, 0.5);
         padding: 40px;
         border-radius: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(212, 168, 67, 0.18);
+        border-top: 3px solid var(--color-gold-light);
         flex-grow: 1;
       }
+      .page-version {
+        color: #64748b;
+        font-size: 0.72rem;
+        letter-spacing: 0.04em;
+        margin-top: 28px;
+        text-align: right;
+      }
       h1 {
-        color: #60a5fa;
+        font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
+        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+        letter-spacing: -0.01em;
       }
       h2 {
-        color: #94a3b8;
-        border-bottom: 1px solid #334155;
+        font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
+        color: var(--color-gold-light);
+        border-bottom: 1px solid rgba(212, 168, 67, 0.3);
         padding-bottom: 8px;
         margin-top: 32px;
       }
@@ -72,16 +101,18 @@
       }
       a.buy-btn {
         display: inline-block;
-        background: #2563eb;
-        color: white;
+        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+        color: #0f172a;
         padding: 15px 30px;
         border-radius: 5px;
         text-decoration: none;
-        font-weight: bold;
+        font-weight: 800;
+        letter-spacing: 0.01em;
         margin-top: 20px;
+        box-shadow: 0 8px 24px rgba(184, 134, 11, 0.35);
       }
       a.buy-btn:hover {
-        background: #1d4ed8;
+        background: linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold) 100%);
       }
       a.back-link {
         color: #94a3b8;
@@ -97,12 +128,12 @@
       th {
         text-align: left;
         padding: 10px 12px;
-        background: rgba(30, 41, 59, 0.8);
-        color: #94a3b8;
+        background: rgba(184, 134, 11, 0.1);
+        color: var(--color-gold-light);
         font-size: 0.85rem;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        border-bottom: 1px solid #334155;
+        border-bottom: 1px solid rgba(212, 168, 67, 0.35);
       }
       td {
         padding: 10px 12px;
@@ -146,8 +177,9 @@
       <a href="../buy/" class="back-link">&larr; Back to Store</a>
 
       <h1>DWS IQ 6</h1>
-      <p style="color: #94a3b8; font-size: 1.1rem; margin-top: -8px">
-        EU Sovereign Industrial Intelligence Platform
+      <p style="color: #cbd5e1; font-size: 1.1rem; margin-top: -8px; font-weight: 600">
+        EU Sovereign Industrial Intelligence Platform — the core engine of the DWS IQ Industrial
+        Intelligence suite
       </p>
 
       <div class="price">&euro;4,999</div>
@@ -382,6 +414,7 @@
       </table>
 
       <a href="https://dws10.com/book" class="buy-btn">📅 Book Session</a>
+      <p class="page-version">DWS IQ 6 — page v1.1 · 2026-06-23</p>
     </div>
     <script src="/shared-assets/footer/ironclad-footer.js"></script>
     <script src="../shared-assets/nav/product-actions.js"></script>
@@ -498,6 +531,7 @@
           line-height: 1.3;
         }
         .eco-block .eco-product-card .eco-pc-price {
+          display: none;
           color: #76b900;
           font-weight: 800;
           font-size: 1.1rem;
@@ -666,7 +700,7 @@
         <div class="eco-product-grid">
           <a href="/products/dwsiq.html" class="eco-product-card">
             <span class="eco-pc-tag">Platform</span>
-            <div class="eco-pc-name">DWS IQ 6 — 18+ Skilled Agents</div>
+            <div class="eco-pc-name">DWS IQ 6 — Skilled Agents Fleet</div>
             <div class="eco-pc-price">€4,999</div>
             <div class="eco-pc-desc">
               Sovereign industrial intelligence for 25 EU-regulated industries. Operational DNA +

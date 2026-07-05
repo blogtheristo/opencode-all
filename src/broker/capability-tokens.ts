@@ -1,7 +1,7 @@
 /**
  * Capability tokens — per-agent auth for the credential broker.
  *
- * Each calling agent (OpenClaw, Hermes, …) is issued a plaintext bearer token
+ * Each calling agent (NemoClaw, Hermes, …) is issued a plaintext bearer token
  * out of band. The broker only stores a SHA-256 hash of the token plus the
  * list of provider scopes the agent is allowed to reach. Plaintext tokens are
  * never persisted server-side.
@@ -9,7 +9,7 @@
  * Registry source: process.env.BROKER_AGENT_TOKENS, a JSON map of the form
  *
  *   {
- *     "openclaw": { "tokenSha256": "<hex>", "scopes": ["anthropic","telegram"] },
+ *     "nemoclaw": { "tokenSha256": "<hex>", "scopes": ["anthropic","telegram"] },
  *     "hermes":   { "tokenSha256": "<hex>", "scopes": ["anthropic","gmail"] }
  *   }
  *

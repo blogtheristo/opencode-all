@@ -1,5 +1,5 @@
 {
-  "$schema_comment": "Exa MCP registration for OpenClaw / Firehorse. Canonical docs: https://docs.exa.ai/reference/exa-mcp",
+  "$schema_comment": "Exa MCP registration for NemoClaw / Firehorse. Canonical docs: https://docs.exa.ai/reference/exa-mcp",
   "name": "exa",
   "transport": "http",
   "url": "https://mcp.exa.ai/mcp",
@@ -9,7 +9,7 @@
     "oauth_note": "Browser-based sign-in to dashboard.exa.ai on first connection. No token in this file.",
     "fallback": "api_key",
     "api_key_env": "EXA_API_KEY",
-    "api_key_note": "Native OpenClaw web-search provider path: set EXA_API_KEY in env (preferred: Aiven vault) and run `openclaw configure --section web`."
+    "api_key_note": "Native NemoClaw web-search provider path: set EXA_API_KEY in env (preferred: Aiven vault) and run `openclaw configure --section web`."
   },
   "consumer_models": {
     "policy": "dgx_only",

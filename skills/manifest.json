@@ -1,7 +1,7 @@
 {
   "_comment": "Canonical DWS skill registry. Source of truth for surface support, transport, status, visibility, and Antigravity scope.",
   "version": "1.0",
-  "updated": "2026-06-19",
+  "updated": "2026-06-24",
   "antigravityScope": "Antigravity is limited to admin@dws6.com Google environment tweaks, not a general cross-surface skill runtime.",
   "surfaces": [
     { "id": "win11-claude-cli", "label": "Win11 Claude CLI" },
@@ -126,19 +126,115 @@
     }
   },
   "entries": [
-    { "id": "agent-run", "name": "agent-run", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/agent-run.md" },
-    { "id": "browse", "name": "browse", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/browse.md" },
-    { "id": "carbon-analysis", "name": "carbon-analysis", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/carbon-analysis.md" },
-    { "id": "case-run", "name": "case-run", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/case-run.md" },
-    { "id": "clawdbot-command", "name": "clawdbot", "displayName": "clawdbot (command)", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/clawdbot.md" },
-    { "id": "compliance-check", "name": "compliance-check", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/compliance-check.md" },
-    { "id": "cron-command", "name": "cron", "displayName": "cron (command)", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/cron.md" },
-    { "id": "designer", "name": "designer", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/designer.md" },
-    { "id": "discover-agents", "name": "discover-agents", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/discover-agents.md" },
-    { "id": "dream-on-command", "name": "dream-on", "displayName": "dream-on (command)", "kind": "slash-command", "profile": "slash-experimental", "commandFile": ".claude/commands/dream-on.md", "note": "Internal automation only. No Desktop/mobile/web runtime today." },
-    { "id": "email", "name": "email", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/email.md" },
-    { "id": "fix-dual-folder-api-connectivity", "name": "fix-dual-folder-api-connectivity", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/fix-dual-folder-api-connectivity.md" },
-    { "id": "flow-status", "name": "flow-status", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/flow-status.md" },
+    {
+      "id": "agent-run",
+      "name": "agent-run",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/agent-run.md"
+    },
+    {
+      "id": "browse",
+      "name": "browse",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/browse.md"
+    },
+    {
+      "id": "carbon-analysis",
+      "name": "carbon-analysis",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/carbon-analysis.md"
+    },
+    {
+      "id": "case-run",
+      "name": "case-run",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/case-run.md"
+    },
+    {
+      "id": "clawdbot-command",
+      "name": "clawdbot",
+      "displayName": "clawdbot (command)",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/clawdbot.md"
+    },
+    {
+      "id": "coaching",
+      "name": "coaching",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/coaching.md"
+    },
+    {
+      "id": "compliance-check",
+      "name": "compliance-check",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/compliance-check.md"
+    },
+    {
+      "id": "cron-command",
+      "name": "cron",
+      "displayName": "cron (command)",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/cron.md"
+    },
+    {
+      "id": "designer",
+      "name": "designer",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/designer.md"
+    },
+    {
+      "id": "dialog",
+      "name": "dialog",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/dialog.md"
+    },
+    {
+      "id": "discover-agents",
+      "name": "discover-agents",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/discover-agents.md"
+    },
+    {
+      "id": "dream-on-command",
+      "name": "dream-on",
+      "displayName": "dream-on (command)",
+      "kind": "slash-command",
+      "profile": "slash-experimental",
+      "commandFile": ".claude/commands/dream-on.md",
+      "note": "Internal automation only. No Desktop/mobile/web runtime today."
+    },
+    {
+      "id": "email",
+      "name": "email",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/email.md"
+    },
+    {
+      "id": "fix-dual-folder-api-connectivity",
+      "name": "fix-dual-folder-api-connectivity",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/fix-dual-folder-api-connectivity.md"
+    },
+    {
+      "id": "flow-status",
+      "name": "flow-status",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/flow-status.md"
+    },
     {
       "id": "gcr-skill",
       "name": "gcr-skill",
@@ -150,42 +246,271 @@
         "scope": "google-cloud-run-ci-identity"
       }
     },
-    { "id": "gh-to-mcp", "name": "gh-to-mcp", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/gh-to-mcp.md" },
-    { "id": "investor-outreach", "name": "investor-outreach", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/investor-outreach.md" },
-    { "id": "kb", "name": "kb", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/kb.md" },
-    { "id": "kya", "name": "kya", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/kya.md" },
-    { "id": "learn", "name": "learn", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/learn.md" },
-    { "id": "lsj-publish", "name": "lsj-publish", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/lsj-publish.md" },
-    { "id": "multilingual", "name": "multilingual", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/multilingual.md" },
-    { "id": "ollama-spark", "name": "ollama-spark", "kind": "slash-command", "profile": "slash-dgx", "commandFile": ".claude/commands/ollama-spark.md" },
-    { "id": "plan-review", "name": "plan-review", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/plan-review.md" },
-    { "id": "promote-proposal-command", "name": "promote-proposal", "displayName": "promote-proposal (command)", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/promote-proposal.md" },
-    { "id": "qa", "name": "qa", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/qa.md" },
-    { "id": "regulatory-radar", "name": "regulatory-radar", "kind": "slash-command", "profile": "slash-deferred", "commandFile": ".claude/commands/regulatory-radar.md" },
-    { "id": "remote-control", "name": "remote-control", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/remote-control.md" },
-    { "id": "retro", "name": "retro", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/retro.md" },
-    { "id": "review", "name": "review", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/review.md" },
-    { "id": "ship", "name": "ship", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/ship.md" },
-    { "id": "simplify", "name": "simplify", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/simplify.md" },
-    { "id": "site-safety", "name": "site-safety", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/site-safety.md" },
-    { "id": "sovereignty-assess", "name": "sovereignty-assess", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/sovereignty-assess.md" },
-    { "id": "sovereignty-pillars-assess", "name": "sovereignty-pillars-assess", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/sovereignty-pillars-assess.md" },
-    { "id": "truth-check", "name": "truth-check", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/truth-check.md" },
-    { "id": "workflow", "name": "workflow", "kind": "slash-command", "profile": "slash-cli", "commandFile": ".claude/commands/workflow.md" },
+    {
+      "id": "gh-to-mcp",
+      "name": "gh-to-mcp",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/gh-to-mcp.md"
+    },
+    {
+      "id": "investor-outreach",
+      "name": "investor-outreach",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/investor-outreach.md"
+    },
+    {
+      "id": "kb",
+      "name": "kb",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/kb.md"
+    },
+    {
+      "id": "kya",
+      "name": "kya",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/kya.md"
+    },
+    {
+      "id": "learn",
+      "name": "learn",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/learn.md"
+    },
+    {
+      "id": "lsj-publish",
+      "name": "lsj-publish",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/lsj-publish.md"
+    },
+    {
+      "id": "multilingual",
+      "name": "multilingual",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/multilingual.md"
+    },
+    {
+      "id": "ollama-spark",
+      "name": "ollama-spark",
+      "kind": "slash-command",
+      "profile": "slash-dgx",
+      "commandFile": ".claude/commands/ollama-spark.md"
+    },
+    {
+      "id": "plan-review",
+      "name": "plan-review",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/plan-review.md"
+    },
+    {
+      "id": "promote-proposal-command",
+      "name": "promote-proposal",
+      "displayName": "promote-proposal (command)",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/promote-proposal.md"
+    },
+    {
+      "id": "qa",
+      "name": "qa",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/qa.md"
+    },
+    {
+      "id": "regulatory-radar",
+      "name": "regulatory-radar",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/regulatory-radar.md",
+      "note": "Live as a thin wrapper over compliance.agent.ts (5 tracked deadlines: fit-for-55, ets, cbam, csrd, eu-ai-act). Live EUR-Lex/DG ENER/EFRAG/CINEA pipeline scanning still unbuilt. The datacentre-compliance-specific EED radar feature remains gated behind PRD Gate 1 (1 Oct 2026)."
+    },
+    {
+      "id": "remote-control",
+      "name": "remote-control",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/remote-control.md"
+    },
+    {
+      "id": "retro",
+      "name": "retro",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/retro.md"
+    },
+    {
+      "id": "review",
+      "name": "review",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/review.md"
+    },
+    {
+      "id": "ship",
+      "name": "ship",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/ship.md"
+    },
+    {
+      "id": "simplify",
+      "name": "simplify",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/simplify.md"
+    },
+    {
+      "id": "site-safety",
+      "name": "site-safety",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/site-safety.md"
+    },
+    {
+      "id": "sovereignty-assess",
+      "name": "sovereignty-assess",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/sovereignty-assess.md"
+    },
+    {
+      "id": "sovereignty-pillars-assess",
+      "name": "sovereignty-pillars-assess",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/sovereignty-pillars-assess.md"
+    },
+    {
+      "id": "truth-check",
+      "name": "truth-check",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/truth-check.md"
+    },
+    {
+      "id": "workflow",
+      "name": "workflow",
+      "kind": "slash-command",
+      "profile": "slash-cli",
+      "commandFile": ".claude/commands/workflow.md"
+    },
 
-    { "id": "clawdbot-pack", "name": "clawdbot", "displayName": "clawdbot (pack)", "kind": "skill-pack", "profile": "skill-pack-cli", "skillPackFile": "skills/clawdbot/SKILL.md" },
-    { "id": "compliance-pack", "name": "compliance", "kind": "skill-pack", "profile": "skill-pack-cli", "skillPackFile": "skills/compliance/SKILL.md" },
-    { "id": "cron-pack", "name": "cron", "displayName": "cron (pack)", "kind": "skill-pack", "profile": "skill-pack-cli", "skillPackFile": "skills/cron/SKILL.md" },
-    { "id": "design-first", "name": "design-first", "kind": "discipline-gate", "profile": "discipline-gate", "skillPackFile": "skills/design-first/SKILL.md" },
-    { "id": "dream-on-pack", "name": "dream-on", "displayName": "dream-on (pack)", "kind": "skill-pack", "profile": "skill-pack-experimental", "skillPackFile": "skills/dream-on/SKILL.md" },
-    { "id": "dual-folder-sync", "name": "dual-folder-sync", "kind": "discipline-gate", "profile": "discipline-gate", "skillPackFile": "skills/dual-folder-sync/SKILL.md" },
-    { "id": "firehorse-report", "name": "firehorse-report", "kind": "skill-pack", "profile": "skill-pack-cli", "skillPackFile": "skills/firehorse-report/SKILL.md" },
-    { "id": "loop", "name": "loop", "kind": "skill-pack", "profile": "skill-pack-cli", "skillPackFile": "skills/loop/SKILL.md" },
-    { "id": "material-oracle", "name": "material-oracle", "kind": "skill-pack", "profile": "skill-pack-cli", "skillPackFile": "skills/material-oracle/SKILL.md" },
-    { "id": "promote-proposal-pack", "name": "promote-proposal", "displayName": "promote-proposal (pack)", "kind": "skill-pack", "profile": "skill-pack-cli", "skillPackFile": "skills/promote-proposal/SKILL.md" },
-    { "id": "risto", "name": "risto", "kind": "skill-pack", "profile": "skill-pack-cli", "skillPackFile": "skills/risto/SKILL.md" },
-    { "id": "sitesense", "name": "sitesense", "kind": "skill-pack", "profile": "skill-pack-cli", "skillPackFile": "skills/sitesense/SKILL.md" },
-    { "id": "skill-cleaner", "name": "skill-cleaner", "kind": "skill-pack", "profile": "skill-pack-cli", "skillPackFile": "skills/skill-cleaner/SKILL.md" },
-    { "id": "verification-gate", "name": "verification-gate", "kind": "discipline-gate", "profile": "discipline-gate", "skillPackFile": "skills/verification-gate/SKILL.md" }
+    {
+      "id": "clawdbot-pack",
+      "name": "clawdbot",
+      "displayName": "clawdbot (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/clawdbot/SKILL.md"
+    },
+    {
+      "id": "compliance-pack",
+      "name": "compliance",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/compliance/SKILL.md"
+    },
+    {
+      "id": "cron-pack",
+      "name": "cron",
+      "displayName": "cron (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/cron/SKILL.md"
+    },
+    {
+      "id": "design-first",
+      "name": "design-first",
+      "kind": "discipline-gate",
+      "profile": "discipline-gate",
+      "skillPackFile": "skills/design-first/SKILL.md"
+    },
+    {
+      "id": "dream-on-pack",
+      "name": "dream-on",
+      "displayName": "dream-on (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-experimental",
+      "skillPackFile": "skills/dream-on/SKILL.md"
+    },
+    {
+      "id": "dual-folder-sync",
+      "name": "dual-folder-sync",
+      "kind": "discipline-gate",
+      "profile": "discipline-gate",
+      "skillPackFile": "skills/dual-folder-sync/SKILL.md"
+    },
+    {
+      "id": "firehorse-report",
+      "name": "firehorse-report",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/firehorse-report/SKILL.md"
+    },
+    {
+      "id": "loop",
+      "name": "loop",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/loop/SKILL.md"
+    },
+    {
+      "id": "material-oracle",
+      "name": "material-oracle",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/material-oracle/SKILL.md"
+    },
+    {
+      "id": "product-page-polish",
+      "name": "product-page-polish",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/product-page-polish/SKILL.md"
+    },
+    {
+      "id": "promote-proposal-pack",
+      "name": "promote-proposal",
+      "displayName": "promote-proposal (pack)",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/promote-proposal/SKILL.md"
+    },
+    {
+      "id": "risto",
+      "name": "risto",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/risto/SKILL.md"
+    },
+    {
+      "id": "sitesense",
+      "name": "sitesense",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/sitesense/SKILL.md"
+    },
+    {
+      "id": "skill-cleaner",
+      "name": "skill-cleaner",
+      "kind": "skill-pack",
+      "profile": "skill-pack-cli",
+      "skillPackFile": "skills/skill-cleaner/SKILL.md"
+    },
+    {
+      "id": "verification-gate",
+      "name": "verification-gate",
+      "kind": "discipline-gate",
+      "profile": "discipline-gate",
+      "skillPackFile": "skills/verification-gate/SKILL.md"
+    }
   ]
 }

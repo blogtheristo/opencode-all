@@ -1,0 +1,89 @@
+---
+
+VERSION AND AGENT HISTORY
+
+- Version: 1.0
+- Status: ACTIVE
+- Classification: INTERNAL (sales — buyer-facing once exported)
+- Document type: Enterprise procurement briefs (tailored)
+- Author: Claude Code (claude-opus-4-8) + risto.paarni2024@lifetime.fi
+- Date: 2026-06-29
+- Session: claude/anduril-case-study-iridtj
+
+Sessions & Modifications:
+
+- Version: 1.0 | Tool: Claude Code (claude-opus-4-8) | Date: 29.06.2026 | Changes: Buyer-facing procurement brief (de-risk-led, not product-led; Ari test on every slide) + 5 tailored front-sheets (Outokumpu, Kemira, Nokia, Defence, NCC). Single relevant pricing tier per buyer; vendor-viability reconciled (coverage + funded search, not gap). Anchors per DWS_TRUTH_STANDARD v2.4.
+
+---
+
+# Enterprise Procurement Briefs — Tailored
+
+**Rule:** lead with the buyer's _obligation_, not our product. Every line is risk removed or leverage gained (the Ari test). Show **one** relevant pricing tier per buyer — "other tiers available" — to speed sign-off.
+
+---
+
+## SHARED BASE (slides 2–9, common to all buyers)
+
+**S2 — Outcome we deliver:** audit-ready filings from YOUR ERP data · Article 12 + 26 reasoning lineage on every figure · ~40 h/month manual work removed · live in ~4 weeks · you own the output, we own the pipeline.
+
+**S3 — How it works (no rip-and-replace):** your ERP (SAP / IFS / Dynamics / Visma / Monitor) → DWS connectors → governed agents compute ETS/CBAM/CSRD → audit-ready report + immutable evidence ledger. Sits on top of your stack.
+
+**S4 — Why it's low-risk to buy:** EU-sovereign hosting, Finnish-owned (Lifetime Oy 0772407-9), **no CLOUD Act exposure** · KYA-governed agents (hardware-attested, court-defensible audit trail, <125 ms kill authority) · EU AI Act Art. 12/26 lineage, NIS2-aligned, GDPR-resident · per-tenant isolation, your data never trains a shared model · sovereign **local** Lifetime World Model (no foreign model API).
+
+**S5 — Proof:** 6 paying customers, 100% retention, audit-ready in ~4 weeks. References under NDA.
+
+**S6 — Implementation & support:** 4-week pilot on one scope · from you: read access to ERP + LCA inputs, one process owner · named EU-hours support, SLA in MSA · your data + reports portable, no records lock-in.
+
+**S8 — Vendor viability (head-on):** Two humans — Risto Päärni (Founder/CEO, 35 yrs industrial domain, 1,030+ PRs) + Lucille Santiago (Office Chief / HIC). **Technical leadership covered today** (founder + governed AI agent workflows); **human engineering capacity via partner Cubet Techno Labs, Kochi**; **senior technical leadership hire funded, search active** (investment, not gap). EU-sovereign infra with rollback/continuity; evidence ledger portable — you're never stranded. Finnish legal entity, transparent pricing.
+
+**S9 — Security & compliance annex:** EU AI Act Art. 12 + 26 · GDPR EU residency · NIS2-aligned · KYA hardware-attested governance · per-tenant isolation + RLS · no CLOUD Act · auditable reasoning lineage · data portability / exit clause.
+
+---
+
+## 1) OUTOKUMPU — stainless steel (Ari Hirvonen, Patent IP Director)
+
+- **S1 — Your obligation:** CBAM (steel = Annex I), CSRD, Scope 3, ETS — mandatory, audited, penalty-bearing. The hard part for Outokumpu: filing **without exposing trade secrets / IP** in the disclosure.
+- **Wedge:** trade-secret-safe, IP-governed disclosure — figures are auditable and court-defensible, the underlying IP stays under EU law on Finnish soil (no CLOUD Act). Speaks directly to the IP-vs-disclosure gap.
+- **S7 — Tier:** **Compliance Bridge (€10k/mo)** — full CBAM/CSRD/ETS for one product line. (Aegis sovereign tier only if scoping confirms dual-use/CER exposure.) Other tiers available.
+- **S10 — Next step:** the **€24k pilot** already on the table — CBAM/CSRD/Scope 3 for the **Forta** product line; success = one audit-ready filing your team validates. Cubet Techno Labs already named in the ORK subcontractor bid (Lots 1 & 3).
+- **Contact:** Ari Hirvonen (door #1); Heidi Peltonen (alt).
+
+## 2) KEMIRA — chemicals (Maria Sederholm, VP PLM & Strategy, Fiber Essentials)
+
+- **S1 — Your obligation:** CBAM, CSRD, and **Scope 3 product carbon footprint (PCF)** across chemical product lines — customer-driven PCF requests + mandatory reporting.
+- **Wedge:** ERP-to-PCF/CBAM/CSRD automation — eliminate manual data entry where compliance fines start; auditable trail for every figure.
+- **S7 — Tier:** **DWS IQ Climate Intelligence (€29,990/yr)** — ETS/CBAM/CSRD, the right-fit product already offered (filed 27.6.2026). Other tiers available; do **not** lead with Aegis unless dual-use/CER exposure is confirmed.
+- **S10 — Next step:** 4-week pilot on one CBAM/PCF stream (one product line); success = one audit-ready PCF/CBAM output validated.
+- **Contact:** Maria Sederholm; second door Mikko Pohjala (VP Strategy).
+
+## 3) NOKIA — telecom / network infrastructure
+
+- **S1 — Your obligation:** CSRD + **Scope 3 across a vast supplier base** (the dominant footprint for a network OEM), plus **EU AI Act** exposure (you ship AI/network products) and **NIS2** (critical-infrastructure supplier).
+- **Wedge:** governed, auditable Scope 3 supply-chain accounting + EU AI Act Art. 12/26 lineage on AI-touched processes — the same accountability layer Nokia must demonstrate to its own regulators and customers.
+- **S7 — Tier:** **Compliance Bridge (€10k/mo) → enterprise** — Scope 3 supply-chain + CSRD; multi-site/multi-module from there. Other tiers available.
+- **S10 — Next step:** scoped pilot on one business line's Scope 3 + CSRD; success = one audit-ready supplier-footprint report.
+- **Contact:** [confirm — sustainability / procurement lead].
+
+## 4) DEFENCE / DUAL-USE (sovereign buyer)
+
+- **S1 — Your obligation:** mandatory **sovereignty** (data + autonomy layer under national/EU control, no CLOUD Act), EU AI Act accountability, NIS2, and EDIP-aligned dual-use compliance.
+- **Wedge:** **sovereign by construction** — Finnish-owned, EU-resident, sovereign _local_ world model (no foreign model API), KYA hardware-attested governance with <125 ms kill authority, offline/edge capable. This is the seat US-native vendors structurally cannot take.
+- **S7 — Tier:** **DWS IQ Aegis** (single-tenant sovereign; Aegis Standard / Aegis Defence) — 21 Aegis-tier industries. Other tiers available.
+- **S10 — Next step:** sovereign design-partner engagement on one scope. **Honest:** defence is **design-partner stage** — zero defence reference customers yet; lead with the structural sovereignty wedge + EDIP timing, not traction.
+- **Contact:** [confirm — defence/dual-use procurement].
+
+## 5) NCC — construction (existing reference, €55B)
+
+- **S1 — Your obligation:** **EPBD** (building performance), CSRD, **embodied carbon (EN 15978)**, EU Taxonomy, and CBAM on steel/cement inputs.
+- **Wedge:** operations/asset-phase compliance on top of design-phase LCA (One Click LCA inputs accepted) — the "after the building is built" layer; native **IFS Cloud** connector (NCC's stack).
+- **S7 — Tier:** **Compliance Bridge (€10k/mo)** — CSRD + embodied-carbon + CBAM for a portfolio/site. Other tiers available.
+- **S10 — Next step:** NCC is already a reference — **deepen/expand**: scoped pilot on one portfolio's embodied-carbon + CSRD; success = one audit-ready building/portfolio filing.
+- **Contact:** [confirm — NCC sustainability / portfolio manager].
+
+---
+
+## Notes
+
+- Anchors match `DWS_TRUTH_STANDARD.md` v2.4: 25 industries (Aegis 21), two-human team + governed agents + Cubet partner + funded technical search, sovereignty by construction. Run `/truth-check` before any external export.
+- `[confirm]` = needs a real contact/fact before sending; do not invent.
+- Defence card stays honest about design-partner stage — never claim defence traction we don't have.

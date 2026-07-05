@@ -18,6 +18,26 @@ The skill is backed by **Playwright (Chromium, headless)** through the `dws brow
 
 **SSRF guard:** any URL pointing at a private / loopback / link-local / cloud-metadata address is rejected before the browser navigates (see `src/utils/url-guard.ts`). Both the user-supplied URL and any redirect target are checked. To browse `http://localhost` during local development, set `BROWSE_ALLOW_PRIVATE=1` in your env — never set this in production.
 
+## Backend-free fallback (any session) — `scripts/screenshot.mjs`
+
+When the `dws` CLI or backend MCP is **not running** (headless / remote / CI sessions), use the standalone renderer. It drives the pre-installed Chromium (`PLAYWRIGHT_BROWSERS_PATH`, e.g. `/opt/pw-browsers`) directly via Playwright — no backend needed — and mirrors the same SSRF contract (`BROWSE_ALLOW_PRIVATE=1` to allow private hosts; auto-allowed under `--serve`).
+
+```bash
+# Public URL → full-page PNG
+node scripts/screenshot.mjs https://dws10.com/products/aegis.html --out aegis.png
+
+# Local file under a folder, served on an ephemeral port (no manual server needed)
+node scripts/screenshot.mjs /products/claude-code-coaching-fi.html --serve dws10.com --out fi.png --scale 3
+
+# Tight, high-DPI crop of one element — stays sharp when zoomed
+node scripts/screenshot.mjs ./page.html --selector ".components" --out cards.png --scale 3
+
+# Also dump the literal rendered text (independent of image sharpness)
+node scripts/screenshot.mjs <url|path> --serve dws10.com --text .container
+```
+
+Key flags: `--out` · `--serve <dir>` · `--scale <n>` (raise for crisp zoom) · `--selector <css>` (crop) · `--no-full` · `--text [selector]` · `--width/--height/--wait`. Prints a JSON result `{ url, status, savedTo, scale, selector, chromium }`. Requires `playwright` (a declared dependency — run `npm install` once); falls back to `playwright-core`.
+
 ## Capabilities
 
 ### Fetch rendered HTML
@@ -59,7 +79,7 @@ Returns: `{ url, finalUrl, title, nodes: [{role, name, level?}, ...], durationMs
 dws health
 ```
 
-The browse commands need the DWS backend running so the MCP endpoint can serve them.
+The browse commands need the DWS backend running so the MCP endpoint can serve them. **If the backend is unreachable** (headless / remote / CI), skip straight to the backend-free fallback above (`node scripts/screenshot.mjs …`).
 
 ### 2. Run the right tool for the job
 

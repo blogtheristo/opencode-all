@@ -3,9 +3,13 @@
 **Version:** 1.0
 **Date:** 2026-02-12
 **Author:** Lifetime Oy - DWS IQ Engineering
-**Status:** Proposal for Review
+**Status:** SUPERSEDED — resolved differently than proposed, see note below
 
 ---
+
+> **Resolution note (added 02.07.2026, Claude Code claude-sonnet-5, session `claude/tokenization-economy-ai-moat-zwfrr8`):** This proposal sat as "AWAITING REVIEW" for ~5 months and was never formally approved as written. What actually shipped, by 19.06.2026, is narrower and more disciplined than the broad dws6.com-frontend-on-Cloud-Run + full `gemini-mcp` server this doc argues for: Antigravity is **operational today, scoped strictly to `admin@dws6.com` Google environment tweaks**, via exactly one skill (`gcr-skill`, Cloud Run CI identity bootstrap), running on a Chromebook Plus (`.antigravity/agents/gcr-skill.yaml`, `surface: chromebook-antigravity`). This is now governed policy, not an open question — see `skills/manifest.json` (`antigravityScope`) and `docs/DWS_SKILLS_GUIDE.md` §15 "Antigravity Scope": _"Antigravity is not the general DWS skill runtime... If a skill has no verified Antigravity path, keep it off that surface instead of mirroring it speculatively."_ The rest of this document (gemini-mcp implementation, dws6.com Cloud Run migration, Antigravity-vs-Cursor for general dev work) remains **unresolved and not superseded** — it just never got decided, and is a separate question from the admin-tweaks scope that did ship. Kept below for historical context per the document-formulation-preservation rule; do not treat its "Next Steps"/"Questions for Decision" sections as still-open without re-confirming against current Antigravity 2.0 capabilities (this doc predates the 19.05.2026 Antigravity 2.0 rebuild).
+>
+> **Second update (same date, Risto):** Cursor — listed below as the "Primary" dev IDE — is currently **on hold**. Treat every "Cursor (Primary)" reference in the architecture diagram and comparisons below (§"Proposed Setup," the risk/mitigation table) as describing the situation at the time of writing (12.02.2026), not the current toolchain. This document's own "Antigravity vs. Cursor" framing (§"Questions for Decision" Q3) is accordingly moot as posed — re-scope that question if/when the gemini-mcp/Cloud-Run items are picked back up.
 
 ## Executive Summary
 
@@ -21,6 +25,7 @@ This document proposes integrating **Google Antigravity IDE** with the existing 
 ### What We Have
 
 #### 1. Google Cloud Run Infrastructure ✅
+
 - **Backend API**: `dws-iq-backend` service deployed via `cloudbuild.yaml`
 - **Sales Agents**: Lead Scout + Outreach agents in `AgentFoundry/`
 - **Region**: europe-north1 (Finland) for EU data residency
@@ -28,11 +33,13 @@ This document proposes integrating **Google Antigravity IDE** with the existing 
 - **CI/CD**: Cloud Build with Artifact Registry
 
 #### 2. Development Tools ✅
+
 - **Primary IDE**: Cursor (currently in use)
 - **AI Coordination**: MCP Hub orchestrating multiple agents
 - **MCP Servers**: Only Supabase implemented (`mcp-servers/supabase/`)
 
 #### 3. Deployment Strategy ✅
+
 - **Root folders** (dws6.com/, dws10.com/) → Cloudflare Workers (testing)
 - **Landing-pages/** → Cloudflare Pages (production)
 - **Backend** → Google Cloud Run (production API)
@@ -40,6 +47,7 @@ This document proposes integrating **Google Antigravity IDE** with the existing 
 ### What's Missing ❌
 
 #### 1. gemini-mcp Server Not Implemented
+
 ```python
 # mcp-hub/server.py line 47
 MCP_SERVERS = {
@@ -50,16 +58,19 @@ MCP_SERVERS = {
 ```
 
 **Why it's not used:**
+
 - No actual server implementation in `mcp-servers/gemini/`
 - GOOGLE_AI_API_KEY exists in .env but no integration code
 - MCP Hub references it but can't connect
 
 #### 2. No Cloud Run Deployment for dws6.com Frontend
+
 - Backend has `cloudbuild.yaml` ✅
 - AgentFoundry has `AgentFoundry/cloudbuild.yaml` ✅
 - **dws6.com frontend has NO Cloud Run setup** ❌
 
 #### 3. Limited Use of Google AI Capabilities
+
 - Anthropic Claude (primary) ✅
 - Groq (fast inference) ✅
 - **Google Gemini (API key exists but unused)** ❌
@@ -72,22 +83,24 @@ MCP_SERVERS = {
 
 ### Key Capabilities
 
-| Feature | Description | Use Case for DWS |
-|---------|-------------|------------------|
-| **Agent-First Development** | AI agents autonomously plan, execute, and verify complex tasks | Automate Cloud Run deployments, refactor dws6.com structure |
-| **Dual Interface** | Editor View (like VS Code) + Manager View (orchestration dashboard) | Dev team uses Editor, HIL Director uses Manager for oversight |
-| **Planning Mode** | Generates task lists, walkthroughs before execution | Review deployment plans before pushing to production |
-| **Fast Mode** | Instant execution for simple changes | Quick fixes, config updates |
-| **Artifacts System** | Generates verifiable deliverables (screenshots, recordings, task lists) | Audit trail for EU compliance, deployment documentation |
-| **Multi-Model Support** | Gemini 3 Pro/Flash, Claude Sonnet 4.5, OpenAI models | Leverage Gemini for Google Cloud tasks, Claude for reasoning |
-| **Serverless Integration** | Native support for Cloud Run, Cloud Functions, GCP services | Direct deployment to europe-north1 Cloud Run |
+| Feature                     | Description                                                             | Use Case for DWS                                              |
+| --------------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------- |
+| **Agent-First Development** | AI agents autonomously plan, execute, and verify complex tasks          | Automate Cloud Run deployments, refactor dws6.com structure   |
+| **Dual Interface**          | Editor View (like VS Code) + Manager View (orchestration dashboard)     | Dev team uses Editor, HIL Director uses Manager for oversight |
+| **Planning Mode**           | Generates task lists, walkthroughs before execution                     | Review deployment plans before pushing to production          |
+| **Fast Mode**               | Instant execution for simple changes                                    | Quick fixes, config updates                                   |
+| **Artifacts System**        | Generates verifiable deliverables (screenshots, recordings, task lists) | Audit trail for EU compliance, deployment documentation       |
+| **Multi-Model Support**     | Gemini 3 Pro/Flash, Claude Sonnet 4.5, OpenAI models                    | Leverage Gemini for Google Cloud tasks, Claude for reasoning  |
+| **Serverless Integration**  | Native support for Cloud Run, Cloud Functions, GCP services             | Direct deployment to europe-north1 Cloud Run                  |
 
 ### Pricing
+
 - **Free** for individuals (public preview)
 - Generous rate limits on Gemini 3 Pro
 - Claude Sonnet 4.5 support included
 
 **Sources:**
+
 - [Google Antigravity Official](https://antigravity.google/)
 - [InfoWorld First Look](https://www.infoworld.com/article/4096113/a-first-look-at-googles-new-antigravity-ide.html)
 - [Codecademy Setup Guide](https://www.codecademy.com/article/how-to-set-up-and-use-google-antigravity)
@@ -137,6 +150,7 @@ MCP_SERVERS = {
 **Files to Create:**
 
 1. **`mcp-servers/gemini/server.py`**
+
 ```python
 """
 Gemini MCP Server for Google Cloud Run operations
@@ -211,6 +225,7 @@ async def generate_cloudbuild_yaml(project_path: str):
 ```
 
 2. **`mcp-servers/gemini/Dockerfile`**
+
 ```dockerfile
 FROM python:3.11-slim
 
@@ -224,6 +239,7 @@ CMD ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8768"]
 ```
 
 3. **Update `mcp-hub/server.py`** - Change line 47:
+
 ```python
 # Before
 "gemini": os.getenv("GEMINI_MCP_URL", "http://localhost:8768"),
@@ -233,6 +249,7 @@ CMD ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8768"]
 ```
 
 4. **Update `docker-compose.hybrid.yml`** - Add gemini service:
+
 ```yaml
 services:
   mcp-gemini:
@@ -246,6 +263,7 @@ services:
 ```
 
 **Test:**
+
 ```bash
 # Start gemini-mcp
 docker-compose -f docker-compose.hybrid.yml up -d mcp-gemini
@@ -265,6 +283,7 @@ curl http://localhost:8768/health
 **Steps:**
 
 1. **Download Antigravity**
+
 ```bash
 # Visit https://antigravity.google/ and download installer
 # Or use command line (macOS/Linux):
@@ -275,6 +294,7 @@ curl -fsSL https://antigravity.google/install.sh | bash
 ```
 
 2. **Configure Antigravity for DWS Project**
+
 ```bash
 # Open Antigravity
 antigravity
@@ -288,6 +308,7 @@ antigravity
 ```
 
 3. **Configure GCP Integration**
+
 ```bash
 # In Antigravity terminal:
 gcloud auth application-default login
@@ -302,6 +323,7 @@ gcloud run services list --region=europe-north1
 4. **Create Antigravity Agent Profile**
 
 Create `.antigravity/agents/cloud-run-deployer.yaml`:
+
 ```yaml
 name: "Cloud Run Deployer"
 description: "Deploys dws6.com to Google Cloud Run"
@@ -324,6 +346,7 @@ project_id: "dws-iq6-production"
 **Files to Create:**
 
 1. **`dws6.com/Dockerfile`**
+
 ```dockerfile
 # Multi-stage build for React dashboard
 FROM node:20-alpine AS builder
@@ -356,6 +379,7 @@ CMD ["nginx", "-g", "daemon off;"]
 ```
 
 2. **`dws6.com/nginx.conf`**
+
 ```nginx
 server {
     listen 8080;
@@ -383,56 +407,57 @@ server {
 ```
 
 3. **`dws6.com/cloudbuild.yaml`**
+
 ```yaml
 # Cloud Build for dws6.com frontend
 steps:
   # Build Docker image
-  - name: 'gcr.io/cloud-builders/docker'
-    id: 'build-frontend'
+  - name: "gcr.io/cloud-builders/docker"
+    id: "build-frontend"
     args:
-      - 'build'
-      - '-t'
-      - 'europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-iq/dws6-frontend:${SHORT_SHA}'
-      - '-t'
-      - 'europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-iq/dws6-frontend:latest'
-      - '-f'
-      - 'dws6.com/Dockerfile'
-      - '.'
-    timeout: '600s'
+      - "build"
+      - "-t"
+      - "europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-iq/dws6-frontend:${SHORT_SHA}"
+      - "-t"
+      - "europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-iq/dws6-frontend:latest"
+      - "-f"
+      - "dws6.com/Dockerfile"
+      - "."
+    timeout: "600s"
 
   # Push to Artifact Registry
-  - name: 'gcr.io/cloud-builders/docker'
-    id: 'push-frontend'
+  - name: "gcr.io/cloud-builders/docker"
+    id: "push-frontend"
     args:
-      - 'push'
-      - '--all-tags'
-      - 'europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-iq/dws6-frontend'
-    timeout: '300s'
+      - "push"
+      - "--all-tags"
+      - "europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-iq/dws6-frontend"
+    timeout: "300s"
 
   # Deploy to Cloud Run
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    id: 'deploy-frontend'
-    entrypoint: 'gcloud'
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    id: "deploy-frontend"
+    entrypoint: "gcloud"
     args:
-      - 'run'
-      - 'deploy'
-      - 'dws6-frontend'
-      - '--image=europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-iq/dws6-frontend:${SHORT_SHA}'
-      - '--region=europe-north1'
-      - '--platform=managed'
-      - '--allow-unauthenticated'
-      - '--min-instances=0'
-      - '--max-instances=10'
-      - '--memory=256Mi'
-      - '--cpu=1'
-      - '--port=8080'
-      - '--labels=app=dws6,environment=production'
+      - "run"
+      - "deploy"
+      - "dws6-frontend"
+      - "--image=europe-north1-docker.pkg.dev/${PROJECT_ID}/dws-iq/dws6-frontend:${SHORT_SHA}"
+      - "--region=europe-north1"
+      - "--platform=managed"
+      - "--allow-unauthenticated"
+      - "--min-instances=0"
+      - "--max-instances=10"
+      - "--memory=256Mi"
+      - "--cpu=1"
+      - "--port=8080"
+      - "--labels=app=dws6,environment=production"
 
 options:
-  machineType: 'E2_HIGHCPU_8'
+  machineType: "E2_HIGHCPU_8"
   logging: CLOUD_LOGGING_ONLY
 
-timeout: '1200s'
+timeout: "1200s"
 ```
 
 ---
@@ -444,6 +469,7 @@ timeout: '1200s'
 **Antigravity Tasks (Agent-Driven):**
 
 1. **Deploy Frontend to Cloud Run**
+
 ```
 # In Antigravity Manager View:
 1. Create new task: "Deploy dws6.com to Cloud Run"
@@ -460,6 +486,7 @@ timeout: '1200s'
 ```
 
 2. **Update Environment Variables**
+
 ```
 # Task: "Update Cloud Run service environment variables"
 # Agent will:
@@ -470,6 +497,7 @@ timeout: '1200s'
 ```
 
 3. **Monitor Service Health**
+
 ```
 # Task: "Check Cloud Run service health and logs"
 # Agent will:
@@ -484,6 +512,7 @@ timeout: '1200s'
 ## Recommended Workflow: Cursor + Antigravity
 
 ### When to Use Cursor ✅
+
 - Complex TypeScript/React development
 - Database schema migrations
 - Backend API development
@@ -491,6 +520,7 @@ timeout: '1200s'
 - Local testing
 
 ### When to Use Antigravity ✅
+
 - Google Cloud Run deployments
 - GCP infrastructure changes
 - Secret Manager updates
@@ -533,24 +563,27 @@ timeout: '1200s'
 ## Cost Analysis
 
 ### Current Setup (Cloudflare Only)
-| Service | Cost | Notes |
-|---------|------|-------|
-| **Cloudflare Workers** | $0-5/month | Testing only |
-| **Cloudflare Pages** | Free tier | Production landing pages |
-| **Google Cloud Run (backend)** | ~€10-20/month | dws-iq-backend API |
+
+| Service                        | Cost          | Notes                    |
+| ------------------------------ | ------------- | ------------------------ |
+| **Cloudflare Workers**         | $0-5/month    | Testing only             |
+| **Cloudflare Pages**           | Free tier     | Production landing pages |
+| **Google Cloud Run (backend)** | ~€10-20/month | dws-iq-backend API       |
 
 ### Proposed Setup (Add Cloud Run Frontend)
-| Service | Cost | Notes |
-|---------|------|-------|
-| **Cloudflare Workers** | $0-5/month | Keep for testing |
-| **Cloudflare Pages** | Free tier | Keep for landing pages |
-| **Cloud Run (backend)** | ~€10-20/month | Existing |
-| **Cloud Run (dws6.com frontend)** | ~€5-15/month | NEW: scales to zero, EU-hosted |
-| **Antigravity IDE** | FREE | Public preview |
-| **Gemini 3 API calls** | ~€2-5/month | Deployment automation only |
-| **TOTAL** | **€17-45/month** | +€7-15/month vs current |
+
+| Service                           | Cost             | Notes                          |
+| --------------------------------- | ---------------- | ------------------------------ |
+| **Cloudflare Workers**            | $0-5/month       | Keep for testing               |
+| **Cloudflare Pages**              | Free tier        | Keep for landing pages         |
+| **Cloud Run (backend)**           | ~€10-20/month    | Existing                       |
+| **Cloud Run (dws6.com frontend)** | ~€5-15/month     | NEW: scales to zero, EU-hosted |
+| **Antigravity IDE**               | FREE             | Public preview                 |
+| **Gemini 3 API calls**            | ~€2-5/month      | Deployment automation only     |
+| **TOTAL**                         | **€17-45/month** | +€7-15/month vs current        |
 
 **Benefit:**
+
 - EU data residency for frontend (GDPR)
 - Unified deployment pipeline (Cloud Build)
 - No Cloudflare Worker limitations
@@ -562,6 +595,7 @@ timeout: '1200s'
 ## Implementation Checklist
 
 ### Phase 1: gemini-mcp Server ⏱️ 3-5 hours
+
 - [ ] Create `mcp-servers/gemini/server.py`
 - [ ] Create `mcp-servers/gemini/Dockerfile`
 - [ ] Update `docker-compose.hybrid.yml`
@@ -570,6 +604,7 @@ timeout: '1200s'
 - [ ] Verify MCP Hub can connect
 
 ### Phase 2: Antigravity Setup ⏱️ 2-3 hours
+
 - [ ] Download and install Antigravity
 - [ ] Configure GCP authentication
 - [ ] Create Cloud Run Deployer agent profile
@@ -577,6 +612,7 @@ timeout: '1200s'
 - [ ] Install Google Cloud Run extension
 
 ### Phase 3: dws6.com Cloud Run Setup ⏱️ 5-8 hours
+
 - [ ] Create `dws6.com/Dockerfile`
 - [ ] Create `dws6.com/nginx.conf`
 - [ ] Create `dws6.com/cloudbuild.yaml`
@@ -587,6 +623,7 @@ timeout: '1200s'
 - [ ] Test production deployment
 
 ### Phase 4: Antigravity Workflows ⏱️ 2-4 hours
+
 - [ ] Create deployment task templates
 - [ ] Document Cursor vs Antigravity decision matrix
 - [ ] Train team on Antigravity Manager View
@@ -599,21 +636,25 @@ timeout: '1200s'
 ## Risks and Mitigation
 
 ### Risk 1: Antigravity Stability (Public Preview)
+
 - **Impact:** Potential bugs or breaking changes
 - **Mitigation:** Keep Cursor as primary IDE, use Antigravity only for Cloud tasks
 - **Fallback:** Manual gcloud commands documented
 
 ### Risk 2: gemini-mcp Integration Complexity
+
 - **Impact:** MCP Hub coordination issues
 - **Mitigation:** Implement comprehensive health checks, graceful degradation
 - **Fallback:** Direct Gemini API calls from Antigravity
 
 ### Risk 3: Cost Overruns
+
 - **Impact:** Cloud Run + Gemini API costs exceed budget
 - **Mitigation:** Set budget alerts, min-instances=0, monitor daily
 - **Fallback:** Scale back to Cloudflare Workers only
 
 ### Risk 4: Team Learning Curve
+
 - **Impact:** Developers unfamiliar with Antigravity
 - **Mitigation:** Start with HIL Director only, gradual rollout
 - **Fallback:** Cursor remains available for all tasks
@@ -623,16 +664,19 @@ timeout: '1200s'
 ## Next Steps
 
 ### Immediate (This Week)
+
 1. **Review this proposal** with engineering team
 2. **Decide:** Proceed with Phase 1 (gemini-mcp)?
 3. **Decide:** Install Antigravity for trial (Phase 2)?
 
 ### Short-term (Next 2 Weeks)
+
 4. **Implement** gemini-mcp server
 5. **Test** Antigravity with simple Cloud Run deployment
 6. **Evaluate** cost and developer experience
 
 ### Long-term (Next Month)
+
 7. **Deploy** dws6.com to Cloud Run (if evaluation positive)
 8. **Document** Cursor + Antigravity workflows
 9. **Train** team on new tooling
@@ -658,6 +702,7 @@ timeout: '1200s'
 ## References
 
 ### Google Antigravity Documentation
+
 - [Official Site](https://antigravity.google/)
 - [Getting Started Codelab](https://codelabs.developers.google.com/getting-started-google-antigravity)
 - [InfoWorld Review](https://www.infoworld.com/article/4096113/a-first-look-at-googles-new-antigravity-ide.html)
@@ -665,6 +710,7 @@ timeout: '1200s'
 - [Developer Blog Announcement](https://developers.googleblog.com/build-with-google-antigravity-our-new-agentic-development-platform/)
 
 ### Internal Documentation
+
 - [AgentFoundry/GOOGLE_CLOUD_RUN_SETUP.md](/home/user/dws6/AgentFoundry/GOOGLE_CLOUD_RUN_SETUP.md)
 - [CLAUDE.md](/home/user/dws6/CLAUDE.md)
 - [cloudbuild.yaml](/home/user/dws6/cloudbuild.yaml)

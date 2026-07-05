@@ -33,6 +33,8 @@ Legal:
 
 ## Enterprise AI Agent Framework
 
+_Part of the DWS IQ Industrial Intelligence suite — the framework for building the Skilled and Industrial Specialist Agents that run across the suite (DWS IQ 6 core, the Industrial Intelligence module, and the Aegis dual-use tier)._
+
 **Product Code:** LAF-001  
 **Version:** 1.0  
 **Release Date:** February 2026 (V1.0)  

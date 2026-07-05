@@ -35,6 +35,8 @@ Legal:
 
 ## Custom LLM Fine-Tuning for Industry-Specific AI Agents
 
+_Part of the DWS IQ Industrial Intelligence suite — the project tier for custom, sovereign industry models underpinning Industrial Intelligence deployments._
+
 **Product Code:** EMT-001  
 **Version:** 1.2  
 **Availability:** January 8, 2026 (Acer Node Setup) · Bridge Track Q4 2026  
@@ -89,20 +91,20 @@ The Bridge Track is **not a public Store tile**. It exists to catch the real 70B
 
 ### When to pick which
 
-| Customer signal                                               | Right SKU                          |
-| ------------------------------------------------------------- | ---------------------------------- |
-| "I have a dataset in JSONL — train me a model"                | → **Train Model (TM-001)**         |
-| "I have raw documents — build me a dataset and train a model" | → **Enterprise Model Training**    |
-| "Standard architecture is fine, 32B or smaller"               | → **Train Model (TM-001)**         |
-| "Standard architecture, 70B specifically"                     | → **Bridge Track** (invite-only)   |
-| "I need a custom architecture / 405B / non-Llama base"        | → **Enterprise Model Training**    |
-| "Buy once, no ongoing relationship"                           | → **Train Model (TM-001)**         |
-| "30-day eval-regression SLA is enough"                        | → **Bridge Track** (invite-only)   |
-| "12-month support contract required"                          | → **Enterprise Model Training**    |
-| "Budget €5K–€10K"                                             | → **Train Model (TM-001)**         |
-| "Budget €15K–€25K, want LWM-class size"                       | → **Bridge Track** (invite-only)   |
-| "Budget €50K+, full project scope"                            | → **Enterprise Model Training**    |
-| "Full ecosystem — model + APIs + agents + monitoring"         | → **Enterprise Model Training**    |
+| Customer signal                                               | Right SKU                        |
+| ------------------------------------------------------------- | -------------------------------- |
+| "I have a dataset in JSONL — train me a model"                | → **Train Model (TM-001)**       |
+| "I have raw documents — build me a dataset and train a model" | → **Enterprise Model Training**  |
+| "Standard architecture is fine, 32B or smaller"               | → **Train Model (TM-001)**       |
+| "Standard architecture, 70B specifically"                     | → **Bridge Track** (invite-only) |
+| "I need a custom architecture / 405B / non-Llama base"        | → **Enterprise Model Training**  |
+| "Buy once, no ongoing relationship"                           | → **Train Model (TM-001)**       |
+| "30-day eval-regression SLA is enough"                        | → **Bridge Track** (invite-only) |
+| "12-month support contract required"                          | → **Enterprise Model Training**  |
+| "Budget €5K–€10K"                                             | → **Train Model (TM-001)**       |
+| "Budget €15K–€25K, want LWM-class size"                       | → **Bridge Track** (invite-only) |
+| "Budget €50K+, full project scope"                            | → **Enterprise Model Training**  |
+| "Full ecosystem — model + APIs + agents + monitoring"         | → **Enterprise Model Training**  |
 
 A customer who outgrows Train Model graduates to Bridge Track if size is the only delta; to EMT-001 Starter or higher if scope, support, or architecture is the delta. The ladder prevents leakage to OpenAI on the entry end and protects project-tier engagement value on the enterprise end.
 
@@ -190,43 +192,43 @@ Custom knowledge injection for:
 
 > ⚡ **Not publicly listed for self-checkout.** Bridge Track is gated by a 15-minute inbound qualification call. Surfaced as a teaser tile on TM-001 ("Bridge Track 70B — Invite Only · price on request"). Customers reach this tier via [Contact Sales](PRODUCT_TRAIN_MODEL.md#inbound-qualification--bridge-track-70b-routing) or as a downsell from a Starter Package conversation.
 
-| Aspect              | Details                                                                  |
-| ------------------- | ------------------------------------------------------------------------ |
-| **Base Model**      | Llama 3.1 70B / Qwen3 70B-class (standard architectures only)            |
-| **Training Method** | QLoRA + Split-LoRA on H100 80GB cloud                                    |
-| **Training Data**   | Customer-supplied JSONL dataset (no construction — that's Starter+)      |
-| **Hardware**        | H100 80GB cloud (Lambda / NVIDIA Brev), or 2× A100 80GB                  |
-| **Duration**        | ~3 business days end-to-end (intake call → delivery)                     |
-| **Support**         | 30-day model SLA (eval-regression guarantee). NOT a 12-month contract.   |
-| **Architecture**    | Standard Llama/Qwen 70B only. Custom architectures → Starter+            |
+| Aspect              | Details                                                                                            |
+| ------------------- | -------------------------------------------------------------------------------------------------- |
+| **Base Model**      | Llama 3.1 70B / Qwen3 70B-class (standard architectures only)                                      |
+| **Training Method** | QLoRA + Split-LoRA on H100 80GB cloud                                                              |
+| **Training Data**   | Customer-supplied JSONL dataset (no construction — that's Starter+)                                |
+| **Hardware**        | H100 80GB cloud (Lambda / NVIDIA Brev), or 2× A100 80GB                                            |
+| **Duration**        | ~3 business days end-to-end (intake call → delivery)                                               |
+| **Support**         | 30-day model SLA (eval-regression guarantee). NOT a 12-month contract.                             |
+| **Architecture**    | Standard Llama/Qwen 70B only. Custom architectures → Starter+                                      |
 | **Deliverables**    | safetensors + GGUF (Q4/Q8) + MLX (4/8-bit) + NVFP4 PTQ for Blackwell + eval report + registry push |
 
 **Aegis uplift available** (+€990) for EU-residency / CLOUD-Act-free training.
 
 **Loaded BOM** (€100/h SLM engineer):
 
-| Line                                                         | Cost     |
-| ------------------------------------------------------------ | -------: |
-| GPU compute (H100 80GB, ~55h)                                | €140–225 |
-| Claude API data generation / curation                        | €80–150  |
-| SLM engineer (5h: scoping 1h + checkpoint monitoring 3×0.5h + final verify 1.5h + post-delivery 1h) | €500     |
-| Sales engagement overhead (15-min qualifying call + quote)   | €100     |
-| Conversion + NIM + NVFP4 PTQ                                 | €25      |
-| **Total loaded BOM**                                         | **€845–1,000** |
-| **List price**                                               | **€19,990** |
-| **Gross margin**                                             | ~95 %    |
+| Line                                                                                                |           Cost |
+| --------------------------------------------------------------------------------------------------- | -------------: |
+| GPU compute (H100 80GB, ~55h)                                                                       |       €140–225 |
+| Claude API data generation / curation                                                               |        €80–150 |
+| SLM engineer (5h: scoping 1h + checkpoint monitoring 3×0.5h + final verify 1.5h + post-delivery 1h) |           €500 |
+| Sales engagement overhead (15-min qualifying call + quote)                                          |           €100 |
+| Conversion + NIM + NVFP4 PTQ                                                                        |            €25 |
+| **Total loaded BOM**                                                                                | **€845–1,000** |
+| **List price**                                                                                      |    **€19,990** |
+| **Gross margin**                                                                                    |          ~95 % |
 
 #### When Bridge Track is the right answer
 
-| Customer signal                                              | Route                          |
-| ------------------------------------------------------------ | ------------------------------ |
-| "I have JSONL dataset, want 70B, standard architecture"      | → **Bridge Track**             |
-| "I have JSONL, want 32B or smaller"                          | → TM-001 Pro (self-serve)      |
-| "I have raw documents, need dataset construction"            | → Starter / Professional       |
-| "I need custom architecture (non-Llama/Qwen base)"           | → Professional / Enterprise    |
-| "I need 12-month support contract"                           | → Starter / Professional       |
-| "Budget is fixed at €15K–€25K, scope is everything else"     | → **Bridge Track**             |
-| "Budget is €50K+, full project scope welcome"                | → Starter / Professional       |
+| Customer signal                                          | Route                       |
+| -------------------------------------------------------- | --------------------------- |
+| "I have JSONL dataset, want 70B, standard architecture"  | → **Bridge Track**          |
+| "I have JSONL, want 32B or smaller"                      | → TM-001 Pro (self-serve)   |
+| "I have raw documents, need dataset construction"        | → Starter / Professional    |
+| "I need custom architecture (non-Llama/Qwen base)"       | → Professional / Enterprise |
+| "I need 12-month support contract"                       | → Starter / Professional    |
+| "Budget is fixed at €15K–€25K, scope is everything else" | → **Bridge Track**          |
+| "Budget is €50K+, full project scope welcome"            | → Starter / Professional    |
 
 #### Qualifying questions on the routing call (15 minutes)
 

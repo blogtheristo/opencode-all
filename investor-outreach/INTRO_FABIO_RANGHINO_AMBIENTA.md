@@ -14,7 +14,6 @@ AGENT HISTORY:
 
 # Investor Intro Note — Fabio Ranghino, Ambienta
 
-
 ---
 
 ## Labor Thesis Opening (2026 Q2 Refresh) — Wedge: REGULATION
@@ -25,9 +24,9 @@ AGENT HISTORY:
 
 **Email body — opening three paragraphs + ask:**
 
-Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts *doing the work itself*, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. *(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)* **DWS 365 Skilled Agents** (powered by the DWS IQ platform) sit on the labor side of that line.
+Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts _doing the work itself_, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. _(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)_ **DWS 365 Skilled Agents** (powered by the DWS IQ platform) sit on the labor side of that line.
 
-16 Skilled Agents are already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the human cost of producing that work, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
+A fleet of skilled agents is already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the human cost of producing that work, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
 
 EU regulation is now hiring. CSRD reporting waves 2026/27, CBAM closing the loop on imports, EU AI Act high-risk obligations live from Aug 2026, NIS2 fully operational — every regulation mandates a piece of work, not a tool. For a fund with a regulation-driven demand thesis, we are the workforce the regulator just created. The spine in one line: **labor-anchored pricing, regulation drives demand, MACC + AppExchange drive distribution.** That is the line we lead with at the Messe round and in PE meetings this quarter.
 
@@ -115,7 +114,7 @@ Hi Fabio,
 
 Risto Päärni, founder of Lifetime Oy (Espoo, Finland). I'm reaching out because the Sustainability & Strategy function at Ambienta — and the Lens publications coming out of it — sit very close to the standard we built DWS IQ 6 to.
 
-DWS IQ 6 is EU compliance automation for industrial companies. 21 AI agents connect to SAP, IFS Cloud, and Dynamics 365, pull operational data, and auto-generate audit-ready reports across ETS, CBAM (all 6 Annex I sectors, 66 CN codes), CSRD, and EU Taxonomy. Every score traces back to the regulatory source (EUR-Lex, EEA data, EU ETS benchmarks). Hardware-attested agent governance under the KYA Standard provides EU AI Act Art. 12 + Art. 26 evidence.
+DWS IQ 6 is EU compliance automation for industrial companies. A fleet of skilled agents connect to SAP, IFS Cloud, and Dynamics 365, pull operational data, and auto-generate audit-ready reports across ETS, CBAM (all 6 Annex I sectors, 66 CN codes), CSRD, and EU Taxonomy. Every score traces back to the regulatory source (EUR-Lex, EEA data, EU ETS benchmarks). Hardware-attested agent governance under the KYA Standard provides EU AI Act Art. 12 + Art. 26 evidence.
 
 Why this is relevant to Ambienta:
 
@@ -126,7 +125,7 @@ Why this is relevant to Ambienta:
 
 Concrete ask: one Ambienta industrial PortCo, 8-week pilot, source-cited CSRD report at the end. If the methodology holds up, we discuss a portfolio-wide standard.
 
-Current state: 21 agents live, 32 products, 20 EU-regulated industries, paying customers, 100% retention, 100% EU-sovereign (Finnish-owned, 0772407-9). V1 launches at Arctic 15 in Helsinki on June 15.
+Current state: a fleet of skilled agents live, 32 products, 25 EU-regulated industries, paying customers, 100% retention, 100% EU-sovereign (Finnish-owned, 0772407-9). V1 launches at Arctic 15 in Helsinki on June 15.
 
 One-pager (Ambienta-tailored) attached. Happy to jump on 20 minutes if there's any overlap.
 

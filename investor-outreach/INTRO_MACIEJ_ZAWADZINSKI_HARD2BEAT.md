@@ -4,7 +4,7 @@ Version: 1.0
 Date: 2026-04-19
 Author: Claude Opus 4.7 + Human Review
 Branch: claude/investor-outreach-strategy-iwJxq
-Status: COLD — Not yet contacted; mandate fit strong but solo-founder is a flag
+Status: COLD — Not yet contacted; mandate fit strong; team flag addressed (two-person complementary team + governed agent workflows + Cubet partner + funded technical search)
 Story Lock: B2B DeepTech + Defensible IP + Technical Moat (operator-to-operator)
 Intro Type: Cold (to be initiated)
 
@@ -13,7 +13,6 @@ AGENT HISTORY:
 -->
 
 # Investor Intro Note — Maciej Zawadzinski, Hard2beat VC
-
 
 ---
 
@@ -25,9 +24,9 @@ AGENT HISTORY:
 
 **Email body — opening three paragraphs + ask:**
 
-Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts *doing the work itself*, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. *(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)* **DWS 365 Skilled Agents** (powered by the DWS IQ platform) sit on the labor side of that line.
+Most founders, buyers, and investors still look at AI through a SaaS lens — copilots, seats, "X% faster." But when software stops helping humans do the work and starts _doing the work itself_, that is not a feature upgrade; it is a business-model shift, and the price ceiling stops being other software and starts being the loaded cost of a billable hour. _(Frame credit: conversation with @dhaber on what happens when software stops helping humans do the work and starts doing the work itself.)_ **DWS 365 Skilled Agents** (powered by the DWS IQ platform) sit on the labor side of that line.
 
-16 Skilled Agents are already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the human cost of producing that work, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
+A fleet of skilled agents are already producing the signed artifact — the EN 15978 LCA report, the CSRD / CBAM gap analysis, the site-safety assessment, the EU AI Act conformity pack, the Themis-coordinated multi-agent case. Pricing is anchored to the human cost of producing that work, not to inference cost: per-outcome (~10–20% of consultancy day-rate baseline) or per-agent-month (~15–30% of fully loaded FTE cost). The bundle replaces 6–8 EU FTE for €199,990/yr. Gross margin sits above 80% at list — as foundation models commoditize, the marginal cost falls and margin expands, because the anchor is labor, not compute.
 
 The EU industrial base — Skanska, STRABAG, HOCHTIEF, PORR, NCC, Bilfinger and tier-1 peers — sits on a regulatory cliff (CSRD + CBAM + Fit-for-55) and a headcount cliff (ESG and compliance officers do not exist at the volume the regulation demands). Labor-priced Skilled Agents are the only stack that lands as a budget line a department head already owns. The spine in one line: **labor-anchored pricing, regulation drives demand, MACC + AppExchange drive distribution.** That is the line we lead with at the Messe round and in PE meetings this quarter.
 
@@ -43,19 +42,19 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 ## Target Profile
 
-| Field          | Value                                                                                    |
-| -------------- | ---------------------------------------------------------------------------------------- |
-| **Name**       | Maciej Zawadzinski                                                                       |
-| **Role**       | Partner, Hard2beat VC                                                                    |
-| **Fund**       | Hard2beat VC — pre-seed / seed DeepTech, pan-European                                    |
-| **Ticket**     | €250K – €750K                                                                            |
-| **Stage**      | Pre-seed / seed                                                                          |
-| **Focus**      | B2B enterprise software with defensible IP / technical moat                              |
-| **Background** | 3x exited founder — Piwik PRO scaled to €12M ARR                                         |
-| **Evaluates**  | Technical moats himself, operator-to-operator                                             |
-| **Location**   | Poland-focused, invests across Europe                                                    |
-| **Intro Type** | Cold — to be initiated                                                                   |
-| **LinkedIn**   | https://www.linkedin.com/in/ACoAAABA7YsBqpkrQWL40JOWUP--I3Fo4VVYfYc                      |
+| Field          | Value                                                               |
+| -------------- | ------------------------------------------------------------------- |
+| **Name**       | Maciej Zawadzinski                                                  |
+| **Role**       | Partner, Hard2beat VC                                               |
+| **Fund**       | Hard2beat VC — pre-seed / seed DeepTech, pan-European               |
+| **Ticket**     | €250K – €750K                                                       |
+| **Stage**      | Pre-seed / seed                                                     |
+| **Focus**      | B2B enterprise software with defensible IP / technical moat         |
+| **Background** | 3x exited founder — Piwik PRO scaled to €12M ARR                    |
+| **Evaluates**  | Technical moats himself, operator-to-operator                       |
+| **Location**   | Poland-focused, invests across Europe                               |
+| **Intro Type** | Cold — to be initiated                                              |
+| **LinkedIn**   | https://www.linkedin.com/in/ACoAAABA7YsBqpkrQWL40JOWUP--I3Fo4VVYfYc |
 
 ## Fit Assessment
 
@@ -70,15 +69,15 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 ## Drawbacks / Mitigations
 
-- **Solo-founder flag** — He explicitly prefers complementary co-founder teams. **Mitigation:** do not hide it. Lead email acknowledges it directly: operator track record (13 years regulated industry, SAP/IFS/Dynamics domain expertise), named advisors, 6 paying customers at 100% retention. Frame: "the moat is the domain knowledge and the agent architecture, and I have both; the hiring plan post-round adds a CTO."
+- **Team note** — He prefers complementary co-founder teams; we now have one (Risto + Lucille Santiago, Office Chief / partner-track, complementary skill sets). **Mitigation:** lead email states the two-person team directly: operator track record (13 years regulated industry, SAP/IFS/Dynamics domain expertise), named advisors, 6 paying customers at 100% retention. Frame: "the moat is the domain knowledge and the agent architecture; technical depth runs on governed agent workflows + a Cubet engineering partner, with a senior technical hire funded and searching."
 - **Poland focus** — Mitigation: he invests across Europe, Poland is home base not mandate boundary. No special framing needed. If asked, acknowledge directly.
 
 ## Strategy
 
-- **Lead with defensible IP / technical moat** — His filter is the moat. Open with 21 agents + MCP + EU AI Act compliance + sovereignty audit lineage + 20 regulated industries of domain ontology. These are not commodities.
+- **Lead with defensible IP / technical moat** — His filter is the moat. Open with skilled agents + MCP + EU AI Act compliance + sovereignty audit lineage + 20 regulated industries of domain ontology. These are not commodities.
 - **Operator-to-operator tone** — No fund-pitch language. No "massive TAM" throat-clearing. Numbers, architecture, next 6 months. He scaled Piwik PRO, he knows the difference between a slide and a product.
 - **Anchor check framing** — His €250K-€750K range means he can lead. Explicitly offer that seat.
-- **Address solo-founder in the opening** — Don't hide from his stated preference. Make it one line in paragraph 1, with the operator-track-record counter in the same paragraph. Move on.
+- **Address the team in the opening** — State the two-person complementary team in one line in paragraph 1, with the operator-track-record + agent-workflow/Cubet counter in the same paragraph. Move on.
 - **Post-Arctic 15 timing** — V1 launch (June 15) + Messe Germany commercial push. The €12M ARR operator will read this as "real commercial plan, not vaporware."
 - **Story A primary** (carbon compliance B2B SaaS), Story B (Aegis dual-use) only if defense angle surfaces naturally
 - Use one-pager + full memo on first touch
@@ -89,9 +88,9 @@ We're raising a €650k SAFE at a €3.8M cap to ride the Messe Germany commerci
 
 Hi Maciej — respect what you built at Piwik PRO. Reaching out because Hard2beat's B2B DeepTech + defensible IP mandate is an exact match for what we're building.
 
-Lifetime Oy (Finland) — 21-agent B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports, EU AI Act compliant. EUR 7K MRR, 5 customers, 100% retention.
+Lifetime Oy (Finland) — B2B SaaS for EU industrial compliance. SAP/IFS/Dynamics connectors, auto-generated ETS/CBAM/CSRD reports, EU AI Act compliant. EUR 7K MRR, 6 customers, 100% retention.
 
-Raising EUR 650K SAFE at EUR 3.8M cap — fits your €250K-€750K range cleanly, open to you anchoring. V1 launches June 15. Solo founder (I know this is a flag for you) — 13 years regulated-industry operator, paying customers, advisors in place, CTO hire post-round. Send the memo?
+Raising EUR 650K SAFE at EUR 3.8M cap — fits your €250K-€750K range cleanly, open to you anchoring. V1 launches June 15. Two-person team (me + Lucille Santiago, Office Chief / partner-track) — 13 years regulated-industry operator, paying customers, advisors in place; technical depth via governed agent workflows + a Cubet Techno Labs engineering partner, senior technical hire funded and searching. Send the memo?
 
 ## Draft Email (cold outreach)
 
@@ -101,15 +100,15 @@ Hi Maciej,
 
 Risto Päärni, Lifetime Oy (Espoo, Finland). Reaching out because Hard2beat's B2B enterprise software + defensible IP mandate is the tightest fit I've seen for what we're building — and because someone who scaled Piwik PRO to €12M ARR is the right operator to evaluate it.
 
-**Upfront on the flag:** I'm a solo founder. I know that's a preference gap for Hard2beat. My counter: 13 years operating in regulated industries, deep SAP/IFS/Dynamics domain expertise, 6 paying customers at 100% retention, named advisors, CTO hire planned post-round. The moat is the agent architecture and the regulatory-ontology work, both of which are in. Happy to be told the flag is still too big.
+**Upfront on the team:** We're a two-person team — me + Lucille Santiago (Office Chief / partner-track, Lifetime AB), complementary skill sets. On technical depth: governed AI agent workflows + a Cubet Techno Labs engineering partner cover it today, with a senior technical hire funded and in active search. 13 years operating in regulated industries, deep SAP/IFS/Dynamics domain expertise, 6 paying customers at 100% retention, named advisors. The moat is the agent architecture and the regulatory-ontology work, both of which are in. Happy to be told the flag is still too big.
 
 **The moat:**
 
-- 21 AI agents, MCP-exposed (JSON-RPC 2.0), deterministic scoring
+- a fleet of skilled agents, MCP-exposed (JSON-RPC 2.0), deterministic scoring
 - ERP connectors: SAP S/4HANA, IFS Cloud, Dynamics 365 (live)
 - EU AI Act compliant from v0 — not retrofitted
 - Sovereignty audit reasoning lineage — full audit trail for regulators
-- 20 EU-regulated industries with encoded domain ontology
+- 25 EU-regulated industries with encoded domain ontology
 - Sovereign deployment (Finland/Germany), no CLOUD Act exposure
 
 **The numbers:**
@@ -118,7 +117,7 @@ Risto Päärni, Lifetime Oy (Espoo, Finland). Reaching out because Hard2beat's B
 - LTV: EUR 70K-120K/year per customer
 - Pilot EUR 4,950 converts to EUR 8,950/year
 - Target: EUR 900K ARR end 2026
-- 49,000+ EU companies facing mandatory CSRD reporting — legal deadline, not a nice-to-have
+- fewer than 5,000 large EU companies (post-Omnibus, >1,000 employees) facing mandatory CSRD reporting — legal deadline, not a nice-to-have
 
 **The raise:**
 
@@ -147,8 +146,8 @@ Business ID: 0772407-9 (Finland)
 
 ## Next Steps
 
-- [ ] Send cold email with solo-founder acknowledgment + moat-led opening
+- [ ] Send cold email with two-person-team framing + moat-led opening
 - [ ] If interest: schedule 30-min call, technical deep-dive second call
-- [ ] If solo-founder becomes the sticking point: offer to share CTO search spec + candidate pipeline
+- [ ] If technical-depth becomes the sticking point: share the governed-agent-workflow model + Cubet partner + senior-technical-search spec
 - [ ] If he declines: ask for 2-3 European DeepTech co-investor intros
 - [ ] If he leads: propose SAFE signature timeline aligned to his pace

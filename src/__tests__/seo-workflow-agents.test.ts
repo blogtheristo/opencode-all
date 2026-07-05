@@ -2,7 +2,7 @@
  * SEO & Workflow Agent Tests — Coverage for SEO pipeline and workflow orchestrators
  *
  * Tests: keyword-intent, seo-audit, competitor-surveillance, content-brief,
- * lead-feedback, atlas, athena, hephaestus, iris, hermes, apollo,
+ * lead-feedback, atlas, athena, hephaestus, iris, mercury, apollo,
  * and industry specialists (vulcan, helios, neptune, ceres, prometheus, mars, bess, gaia).
  *
  * Does NOT require LLM or Supabase.
@@ -332,12 +332,12 @@ describe('Iris Agent', () => {
   });
 });
 
-describe('Hermes Agent', () => {
+describe('Mercury Agent', () => {
   let agent: any;
 
   beforeEach(async () => {
-    const mod = await import('../agents/workflow/hermes/hermes.agent.js');
-    agent = new mod.HermesAgent();
+    const mod = await import('../agents/workflow/mercury/mercury.agent.js');
+    agent = new mod.MercuryAgent();
   });
 
   it('should execute with basic input', async () => {
@@ -345,7 +345,7 @@ describe('Hermes Agent', () => {
       query: 'Coordinate communication workflow',
     });
 
-    expect(result.agentName).toBe('hermes');
+    expect(result.agentName).toBe('mercury');
     expect(result.confidence).toBeGreaterThan(0);
   });
 });
