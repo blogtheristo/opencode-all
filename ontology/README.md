@@ -39,7 +39,7 @@ Layers 1-5 feed sovereign fine-tuning. Layers 6-7 feed sales-outreach and invest
 
 ## 3-Stage Pipeline
 
-1. **Local preprocessing** — Qwen3-Coder 30B on DGX Spark via AI Workbench extracts domain terms from enterprise documents
+1. **Local preprocessing** — Nemotron-TwoTower 30B-A3B (NVIDIA) on DGX Spark via AI Workbench extracts domain terms from enterprise documents (replaces Qwen3-Coder 30B as of 05.07.2026 — see `docs/field-notes/2026-07-05-nemotron-twotower-stage1-production-switch.md`; validation gate in the plan's §11.4)
 2. **Claude API synthesis** — JSON-LD ontology generation with OWL/RDF validation, cross-enterprise deduplication
 3. **Sovereign fine-tuning** — QLoRA on GB10 (NVFP4 quantization), ~2000 synthetic training examples per industry
 4. **Deploy** — Customer gets an LWM fine-tuned for their industry on Day 0
