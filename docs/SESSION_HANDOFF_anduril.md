@@ -21,13 +21,26 @@ Wilke (42CAP) · Maciej (Hard2beat) · Arthur (Plug&Play) · Salim (Plug&Play Pa
 
 ## PENDING (pick up here)
 
-1. **Learn/ HTML regeneration (Pandoc build)** — thesis MD sources (V3Thesis_EN/FI, PHD_FIREHORSE_EN/FI, all v3.74) are correct, but `Learn/*.html` outputs still show the old CSRD figure. Needs the Pandoc build step (can't run in-session).
-2. **Non-thesis stale-figure stragglers:** `docs/EXECUTIVE-SUMMARY-2026-TRENDS.md`, `docs/architecture/10-DELIVERY-LAUNCH.md`, and older Learn investor HTML still carry "49,000/50,000".
-3. **Other `products.json` leaks** flagged earlier: "80+ agent capabilities", "3/8 AI agents" on other products; `partners-outreach/BLOCK71` ("21 production AI agents").
-4. **Category 5 (LinkedIn/blogs)** agent-count sweep — was held.
-5. **Confirm before external use:** MRR/ARR vs 6 customers; Kemira €29,990 Climate Intelligence scope (offer filed 27.6); Nokia/Defence/NCC procurement contacts marked `[confirm]`.
-6. **Run `/truth-check`** on any copy before it goes external.
-7. **Apply the `/learn` plan** (`docs/learning-loops/2026-06-29-this-session.md`): 3 rules (sweep-completeness, context-aware-replace, register-or-it-drifts) — and consider flipping the truth-claims CI gate to blocking + adding a canonical-anchor digest to the session-start hook.
+### Done on `claude/anduril-session-handoff-u8tigx` (2026-06-29)
+
+- ✅ **Non-thesis straggler:** `docs/EXECUTIVE-SUMMARY-2026-TRENDS.md` CSRD figure → post-Omnibus "<5,000 large EU cos" (commit `4c48d50`). `docs/architecture/10-DELIVERY-LAUNCH.md` checked — **no** company-count CSRD claim (only € amounts; was a false positive).
+- ✅ **`products.json` leaks** (both dual-folder mirrors): "80+ agent capabilities" → "full agent-capability library"; tier counts "3/8/18 AI agents" → named capabilities (commit `511a052`).
+- ✅ **BLOCK71** "21 production AI agents" de-counted across 5 files; MRR/customer/industry figures left untouched pending confirmation (commit `5b389d6`).
+- ✅ **Category 5 (blogs):** `18+ AI agents for EU compliance automation` footer de-counted across 56 onelifetime.world posts + 2 in-body counts; both mirrors synced, CRLF preserved (commit `e2ea6a3`).
+- ✅ **`/truth-check --changed`:** 0 FAIL on all changes. 2 pre-existing WARNs noted below.
+- ✅ **`/learn` plan applied** (commit `2560e3b`): the 3 rules added to `.claude/commands/truth-check.md` (sweep-completeness, context-aware-replace) and `DWS_TRUTH_STANDARD.md` §3A (register-or-it-drifts). NB: the plan's `skills/truth-check/SKILL.md` path does not exist — real home is `.claude/commands/truth-check.md`.
+
+### Done (round 2, 2026-06-29)
+
+- ✅ **KYA header 21 → 25** (platform-wide) in `kya-standard-v1.html` both mirrors; lint now 0 warn (commit `ea20596`).
+- ✅ **CI gate flipped to blocking** — `.github/workflows/lint-truth-claims.yml` no longer `continue-on-error`; captures node exit via `PIPESTATUS` so the job summary still writes on failure. Diff-scoped (commit `f82c36c`).
+- ✅ **Investor SOURCE CSRD sweep** — deprecated "50,000 companies must file CSRD" fixed across 11 investor-outreach decks/memos + the alden-biesen field note, context-aware per §2C (direct → "<5,000 large EU cos post-Omnibus"; addressable/carbon-ledger → "~5,000 filers + their value chains") (commit `c7d35e7`). 0 fail / 0 warn.
+
+### Still open
+
+1. **Learn/ HTML rebuild (Pandoc — unavailable in-session).** The upstream `.md` SOURCES are now correct (thesis + investor decks + field note). `Learn/*.html` renders still show the old figure and only update via the Pandoc build. Thesis renders (`V3Thesis_*`, `PHD_FIREHORSE_*` current) are RED-zone regardless; versioned archives (v3.70/71/73) are correctly frozen — do **not** retro-edit them. **Optional interim:** hand-patch the 5 non-thesis investor renders (`Learn/{2026-02-11-eu-alden-biesen…, investor-pitch-deck, V4.1-…, V3-…, lifetime-fi-home_v1.0}.html`) before a rebuild — not done (a rebuild redoes it; some are versioned snapshots).
+2. **Owner review — two adjacent figures left intentionally:** (a) `ECOSUMMIT_PITCH_DECK_2026.md:48` "50,000+ EU companies … across four interlocking regulations" — multi-reg population, not the CSRD-direct figure; (b) "150,000 companies affected by CSRD/Fit for 55/EPBD" lines in `investor-pitch-deck.html`/`V3-…` renders — reads as value-chain/addressable, not direct filing. Both need a canonical call, not a blind swap.
+3. **Confirm before external use:** MRR/ARR vs 6 customers; Kemira €29,990 Climate Intelligence scope (offer filed 27.6, **internal — not sent**); Nokia/Defence/NCC procurement contacts marked `[confirm]`. BLOCK71's €7K-MRR / 6-customer figures still unverified. _(2026-06-29: user confirmed traction figures are internal-only; Kemira bid not sent.)_
 
 ## Style rules that bit us this session (don't repeat)
 

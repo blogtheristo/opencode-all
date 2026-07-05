@@ -92,7 +92,7 @@ Steve — thank you for opening this door. We submitted on the thirty-first of M
 | 6 paying Lifetime Fleet customers (Uber Finland, Kela, NCC, Bolt + 2 unnamed) | `partners-outreach/BLOCK71_DEEP_SAGE_2026/APPLICATION.md` |
 | NCC: €55B revenue, 12,000 subcontractors | `investor-outreach/DWS-IQ6-Investor-Pitch-Deck-2025-OPTIMIZED.html` |
 | Four product lines (DWS IQ / Firehorse / Lifetime Fleet / Situation Room) and pricing tiers | `dws10.com/config/products.json` |
-| 21 production AI agents across 20 regulated industries | `partners-outreach/BLOCK71_DEEP_SAGE_2026/APPLICATION.md` |
+| Production agent coverage across regulated industries | `partners-outreach/BLOCK71_DEEP_SAGE_2026/APPLICATION.md` |
 | NVIDIA Connect ISV, Microsoft Founders Hub L4, AI Stockholm Community | Multiple — APPLICATION.md, REPLY_STEVE_LEONG.md |
 
 ## Open offer to Steve

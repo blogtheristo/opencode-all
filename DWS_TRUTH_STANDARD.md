@@ -127,6 +127,10 @@ External market claims about regulatory scope must use **current (post-Omnibus) 
 
 If two files disagree on a fact, the canonical file from §2 wins. Downstream copy (decks, press, sales, landing pages) is wrong and gets corrected — not the canonical source. Don't silently propagate either version; fix the drift in the same change that surfaces it.
 
+## 3A. Register-or-it-drifts
+
+A number or claim repeated across 3+ customer/investor-facing docs **is** a canonical fact. Register it in §2 with a canonical source + structured mirror + deprecated phrasings — do not merely fix the instances. Unregistered facts drift (2026-06-29: agent count, industry count, moat count, customer count all corrected by hand; the competitive moats sat unregistered and drifted into an AI-capability narrative before being locked as §2 row 21). _Source: `/learn` this-session loop, 2026-06-29._
+
 ## 4. How to Register a New Canonical File
 
 1. Add a row to §2.

@@ -55,7 +55,7 @@
 
 | Year      | Regulation                                              | Impact                                                     |
 | --------- | ------------------------------------------------------- | ---------------------------------------------------------- |
-| 2024–2025 | **CSRD** (Corporate Sustainability Reporting Directive) | 50,000+ EU companies must report                           |
+| 2024–2025 | **CSRD** (Corporate Sustainability Reporting Directive) | Fewer than ~5,000 large EU companies must report directly (post-Omnibus)                           |
 | 2025–2026 | **Fit for 55** – Building renovation wave               | All major renovations require energy/climate documentation |
 | 2026–2030 | **EPBD** (Energy Performance of Buildings Directive)    | Mandatory building passports across EU                     |
 | 2027–2035 | **ETS expansion** (Emissions Trading System)            | Construction, logistics, healthcare included               |
@@ -164,7 +164,7 @@
 
 **EU Market (Expansion)**
 
-- 50,000+ companies under CSRD mandate
+- Fewer than ~5,000 large companies under direct CSRD mandate (post-Omnibus)
 - 500,000+ affected by Fit for 55 & EPBD
 - **EU TAM: €15–20B over 10 years**
 
