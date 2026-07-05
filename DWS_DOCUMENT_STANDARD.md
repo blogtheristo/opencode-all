@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 2.3
+Version: 2.4
 
 Sessions & Modifications:
 
+- Version: 2.4 | Tool: Claude Code | Session: claude/risto-cv-lifetime-world-uiqxxo | Date: 02.07.2026 | Changes: Added §20.6 (Customer-facing documents: version block goes at the END) — for documents delivered directly to a customer/evaluator (CVs, bid attachments, proposals, external price lists), the VERSION AND AGENT HISTORY block, Document Status, copyright, and company contact move to the last page instead of the first, so the external reader sees substantive content before internal provenance metadata. Does not apply to internal handbooks/standards/field notes. First applied to `bids/ORK160826/ORK_Risto_CV_FI_164.md` (v164→165).
 - Version: 2.3 | Tool: Claude Code | Session: claude/winning-sales-strategy-qb1boj | Date: 28.06.2026 | Changes: Added §21 (Document Formulation Preservation) — codifies the rule that document rewrites must never lose original formulation data (eloquent passages, quotes, philosophical text, mottos, cultural wisdom). Defines formulation categories, rewrite procedure (extract → catalog → rewrite → reintegrate → verify), DOCX export rules, and enforcement as Rule 12 violation. Added §21 to ToC.
 - Version: 2.2 | Tool: Claude Code | Session: claude/deepseek-v4-flash-hybrid-0niopt | Date: 27.06.2026 | Changes: Added File Lifecycle Suffixes subsection under §19 File Naming Template — codifies four named suffixes (\_DRAFT, \_DEPRECATED, \_RETIRED, \_ARCHIVE) to replace the ambiguous \_OLD convention. Renamed all ~72 \_OLD files in the repo to their correct suffix. Blog draft rule: \_DRAFT files require explicit approval before promotion. Dual-folder pairs must use the same suffix in the same commit.
 - Version: 2.1 | Tool: Claude Code | Session: claude/nvidia-vera-rubin-card-be8g7t | Date: 25.06.2026 | Changes: Added §20 (Whitepaper Versioning) — codifies that customer-facing whitepapers carry a Document Revision (vX.Y) distinct from the subject standard/product version, a visible "Document revision · Last updated" line, a VERSION AND AGENT HISTORY provenance block (\*\*\*-delimited for markdown sources; HTML-comment form for public HTML where .md is forbidden per Non-Negotiable Rule 5), the patch/minor/major increment rule, Learn/ snapshot + dual-folder handling, and an HTML provenance template. Added §20 to the ToC. Triggered by the discovery that the live KYA whitepaper carried only the KYA Standard version and had no document-revision history, so a terminology/security edit (OpenClaw → NVIDIA NemoClaw) went out unrecorded.
@@ -2409,6 +2410,46 @@ A terminology/security correction (e.g. replacing a tool name) is a **patch** bu
   - v1.0 | <tool> | <session> | <date> | Initial publication
 -->
 ```
+
+### 20.6 Customer-facing documents: version block goes at the END
+
+**Rule:** For documents that are delivered directly to a customer or external evaluator (consultant CVs, tender/bid attachments, proposals, price lists sent externally) — as opposed to internal or general-audience whitepapers — the full `VERSION AND AGENT HISTORY` block, `Document Status` block, copyright line, and company contact details (Lifetime Oy, Y-tunnus, address, email) go on the **last page**, not the first.
+
+**Rationale:** A customer or procurement evaluator opening the document should see the substantive content first (name, summary, offer, capability) — not an internal changelog with session IDs and tooling names. The internal provenance is still mandatory (§2 / §20.2), it just moves to the back, alongside the copyright and contact block that normally closes a professional document.
+
+**Applies to:** `bids/*/`, `sales-outreach/*.md`, `CV/*.md`, and any file whose immediate destination is an external reader. Does **not** apply to internal handbooks, standards, or `Learn/` field notes, where the version block stays at the top per §2 default.
+
+**Layout:**
+
+```
+# <Document Title>
+
+---
+
+<substantive content — CV, offer, whitepaper body, etc.>
+
+---
+
+# VERSION AND AGENT HISTORY
+
+Version: X
+
+Sessions & Modifications:
+- ...
+
+Document Status:
+- ...
+
+---
+
+*Copyright <year> – Tekijänoikeudet <author/company>.*
+
+**Lifetime Oy** | Y-tunnus: 0772407-9 | VAT: FI07724079
+<address>
+<contact email / phone>
+```
+
+First applied: `bids/ORK160826/ORK_Risto_CV_FI_164.md` → v165, moving the block from top to bottom.
 
 ---
 

@@ -13,7 +13,7 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.76
+Version: 1.79
 
 Sessions & Modifications:
 
@@ -33,11 +33,12 @@ Sessions & Modifications:
 - Version: 1.76 | Tool: Claude Code (Opus 4.8) | Session: claude/consultant-handbook-v1-6-622fep | Date: 28.06.2026 | Changes: Added §3 "Kyvykkyyden hinnoittelumalli (hybridi)" — three complementary tiers: monthly subscription (enterprise default, procurement-friendly), low-entry monthly (self-serve, vs. €9/mo market tools like cogny.com/solo), token/agentic commerce (2027, Stripe/Zuora hybrid). Notes public procurement is always client-defined €/person-day. Regenerated HTML.
 - Version: 1.77 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: §1 "Keitä olemme" — lisätty konsultoinnin ja koulutuksen kolme erikoistumisaluetta (Claude Code, NVIDIA ja suvereeni laskenta, suvereeni tietojenkäsittely) sekä eksplisiittinen maininta EU:n teollisuusasiakkaista pääkohderyhmänä.
 - Version: 1.78 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: §3 Control Room/Situation Room -tuotekuvaukseen lisätty "Tiedon tallennusstrategia" -kappale (neljä kerrosta: raaka sensorivirta 72h, ontologisoitu tiivistelmä 13kk, Article 12 -audit 7v, Situation Room -koonti 24kk) viittauksella `docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md`. Sama retention-malli lisätty Admin Manual -dokumenttiin ja asiakkaan admin-materiaaleihin (edge-node-gn100.html, situation-room.html tuotesivut).
+- Version: 1.79 | Tool: Claude Code | Session: claude/risto-cv-lifetime-world-uiqxxo | Date: 02.07.2026 | Changes: Added §6 "Verbeistä agenttikyvykkyyksiin — siltamalli" — canonical bridge table connecting the classic 248-verb transferable-skills taxonomy to named DWS agents, Claude Code skills, and workflows (analyzing→Compliance Researcher/`/compliance-check`; auditing→Auditor/`/qa`; leading→Atlas/`/workflow`; etc.). Physical-domain verbs (building, digging, driving, lifting...) deliberately retained as a forward-looking row tied to the Edge AI Engineer capability rather than dropped, since physical AI/robotics will make them relevant again. Model first applied in `bids/ORK160826/ORK_Risto_CV_FI_163.md` to replace a raw verb dump; now registered here as the canonical source. Also corrected the stale Version header (1.76 → 1.79; changelog had already reached 1.78).
 
 Document Status:
 
 - Created: 28.06.2026
-- Last Modified: 01.07.2026
+- Last Modified: 02.07.2026
 - Language: Finnish / English (bilingual)
 - Previous version: Konsultoinnin käsikirja 2024 v0.16 (Risto Anton Päärni, Salla Limetti)
 - Publication Status: DRAFT — review before distribution
@@ -465,6 +466,24 @@ Ontologian kymmenes luokka laajentaa DWS IQ:n vanhojen 72 konsulttiroolin kattav
 **Yhteenveto: kyvykkyyttä ilman irtisanomisia**
 
 DWS ei korvaa yrityksen henkilöstöä. DWS tuo kymmeniä agenttikyvykkyyksiä, jotka ovat käytettävissä välittömästi kun tarve syntyy — olipa kyseessä uusi EU-asetus, toimitusketjun häiriö tai markkinarakenteen muutos. Jokainen kyvykkyys on AI-agentti, joka toimii ihmisen rinnalla, ihmisen valvonnassa (human-in-the-loop). Asiakkaan omat työntekijät eivät katoa — he saavat digitaalisia kollegoja jotka poistavat rutiinityön ja vapauttavat ajattelun strategiseen työhön. Katalogi kasvaa jatkuvasti uusien sääntelyvaatimusten ja toimialojen myötä.
+
+### Verbeistä agenttikyvykkyyksiin — siltamalli
+
+Ura-alan klassinen "transferable skills" -verbilista (n. 248 geneeristä toimintaverbiä: achieving, administering, analyzing, auditing, coaching, negotiating...) on sama esi-agentti-kerros, jonka tämä luku muuntaa kyvykkyyksiksi: **72 geneeristä ihmisroolia (2019–2022) → 88 kyvykkyyttä (2026)**. Siltamalli tekee muunnoksen näkyväksi: verbiryppäät → nimetty DWS-agentti → ajettava Claude Code -skilli → työnkulku, jossa useampi agentti ketjuuntuu. Mallia käytetään konsulttien CV-materiaalissa (esim. `bids/ORK160826/ORK_Risto_CV_FI_163.md`) korvaamaan irrallinen verbilista rakenteellisella, tuotteistetulla esityksellä.
+
+| Verbiryppäät                                                                                            | Kyvykkyys / agentti                                                           | Claude Code -skilli                                      | Työnkulku                                                                                           |
+| :------------------------------------------------------------------------------------------------------ | :---------------------------------------------------------------------------- | :------------------------------------------------------- | :-------------------------------------------------------------------------------------------------- |
+| analyzing, investigating, researching, forecasting, evaluating, diagnosing                              | Compliance Researcher, Emissions Data Analyst, Cassandra (ennusteanalytiikka) | `/compliance-check`, `/regulatory-radar`, `/truth-check` | compliance-assessment (tutkimus → verifiointi → synteesi)                                           |
+| auditing, inspecting, verifying, troubleshooting, proofreading                                          | Auditor, Quality Gate, Test Automation Agent                                  | `/qa`, `/review`, `/security-review`, `/code-review`     | review-workflow (dimensiot → löydökset → adversariaalinen verifiointi)                              |
+| scheduling, planning, coordinating, budgeting, prioritizing                                             | Chronos (aikatyönkulku), Schedule Genius, Project Manager Agent               | `/cron`, `/flow-status`                                  | —                                                                                                   |
+| teaching, coaching, mentoring, training, instructing                                                    | Minerva (tiedonsiirto), Training & Enablement Agent                           | `/coaching`                                              | Pilari 1 (koulutamme teidät) — ks. alla                                                             |
+| leading, directing, overseeing, coordinating, synthesizing                                              | Atlas (esikuntapäällikkö)                                                     | `/workflow` (orkestroinnin meta-skilli)                  | kaikki moniagenttityönkulut                                                                         |
+| designing, creating, constructing, drawing, modeling, sketching                                         | Designer Agent                                                                | `/designer`                                              | product-page-polish                                                                                 |
+| selling, negotiating, persuading, promoting, recruiting                                                 | Sales Outreach, Apollo (sisältö & myynti), Lead Feedback                      | `/investor-outreach`                                     | —                                                                                                   |
+| recording, reporting, documenting, filing, logging                                                      | Technical Writer Agent, Auditor (EU AI Act Article 12 -lokitus)               | `/retro`, `/learn`                                       | —                                                                                                   |
+| building, constructing, digging, driving, lifting, painting, running, walking, sewing (fyysiset verbit) | _Ei vielä agenttikatalogissa — varattu fyysisen tekoälyn laajennukselle_      | —                                                        | Edge AI Engineer -kyvykkyys (NVIDIA Jetson / DGX Spark) on luonnollinen laajennuspiste robotiikkaan |
+
+**Miksi fyysiset verbit säilytetään eikä poisteta:** kun fyysinen tekoäly (robotiikka, embodied agents) yleistyy, osa niistä muuttuu jälleen relevantiksi kyvykkyydeksi olemassa olevan Edge AI -infrastruktuurin kautta. Rivi on tietoisesti varattu paikka, ei kuollut sisältö — sama periaate kuin 72 vanhan ihmisroolin säilyttämisessä agenttikyvykkyyksien taustalla: mikään aiempi osaamiskerros ei katoa, se odottaa uudelleenaktivointia kun teknologia tai markkina kypsyy.
 
 ### Konsultoinnin sisältö — kolme pilaria
 
